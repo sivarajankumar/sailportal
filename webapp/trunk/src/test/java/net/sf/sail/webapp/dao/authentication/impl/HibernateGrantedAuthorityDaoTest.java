@@ -14,7 +14,7 @@ import org.hibernate.SessionFactory;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HibernateGrantedAuthorityDaoTest extends

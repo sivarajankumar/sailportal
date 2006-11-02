@@ -13,7 +13,7 @@ import org.acegisecurity.GrantedAuthority;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * @see org.acegisecurity.GrantedAuthority
  */
 public interface MutableGrantedAuthority extends GrantedAuthority {

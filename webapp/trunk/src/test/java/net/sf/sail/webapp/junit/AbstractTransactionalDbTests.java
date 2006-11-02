@@ -11,7 +11,7 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public abstract class AbstractTransactionalDbTests extends

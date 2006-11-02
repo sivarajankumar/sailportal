@@ -19,7 +19,7 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 @Entity

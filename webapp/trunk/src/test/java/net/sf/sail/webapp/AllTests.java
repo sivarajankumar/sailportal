@@ -13,7 +13,7 @@ import junit.framework.TestSuite;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class AllTests {
