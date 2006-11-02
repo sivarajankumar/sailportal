@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<configExtensions>
+		<configExtension>xml</configExtension>
+	</configExtensions>
+	<configs>
+		<config>src/main/resources/applicationContext-hibernate.xml</config>
+		<config>src/main/resources/applicationContext-datasource.xml</config>
+	</configs>
+	<configSets>
+		<configSet>
+			<name>Hibernate</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/main/resources/applicationContext-datasource.xml</config>
+				<config>src/main/resources/applicationContext-hibernate.xml</config>
+			</configs>
+		</configSet>
+	</configSets>
+</beansProjectDescription>

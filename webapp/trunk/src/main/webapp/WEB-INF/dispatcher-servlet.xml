@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright University of Toronto 2006 (c) -->
+<!-- $Id: $ -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+  <!--
+    This bean sets up the Velocity environment for us based on a root path for templates.
+    Optionally, a properties file can be specified for more control over the Velocity
+    environment, but the defaults are pretty sane for file based template loading.
+  -->
+  <bean id="velocityConfig"
+    class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+    <property name="resourceLoaderPath">
+      <value>/WEB-INF/velocity/</value>
+    </property>
+    <property name="configLocation"
+      value="/WEB-INF/velocity/velocity.properties" />
+  </bean>
+
+  <!--
+    View resolvers can also be configured with ResourceBundles or XML files. If you need
+    different view resolving based on Locale, you have to use the resource bundle resolver.
+  -->
+  <bean id="viewResolver"
+    class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+    <property name="contentType" value="text/html; charset=UTF-8" />
+    <property name="cache" value="false" />
+    <property name="prefix" value="" />
+    <property name="suffix" value=".vm" />
+  </bean>
+
+</beans>
