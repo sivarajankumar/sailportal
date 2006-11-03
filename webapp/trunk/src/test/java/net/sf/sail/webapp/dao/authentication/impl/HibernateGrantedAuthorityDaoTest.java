@@ -14,7 +14,8 @@ import org.hibernate.SessionFactory;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateGrantedAuthorityDaoTest.java 7 2006-11-02 16:48:31Z
+ *          cynick $
  * 
  */
 public class HibernateGrantedAuthorityDaoTest extends
@@ -53,7 +54,7 @@ public class HibernateGrantedAuthorityDaoTest extends
     verifyDataStoreIsEmpty();
 
     // save the default granted authority object using dao
-    this.authorityDao.save(defaultGrantedAuthority);
+    this.authorityDao.save(this.defaultGrantedAuthority);
 
     // verify data store contains saved data using direct jdbc retrieval (not
     // dao)

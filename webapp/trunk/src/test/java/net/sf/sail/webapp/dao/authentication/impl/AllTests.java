@@ -18,6 +18,7 @@ public class AllTests {
     TestSuite suite = new TestSuite(
         "Test for net.sf.sail.webapp.dao.authentication.impl");
     //$JUnit-BEGIN$
+    suite.addTestSuite(HibernateUserDetailsDaoTest.class);
     suite.addTestSuite(HibernateGrantedAuthorityDaoTest.class);
     //$JUnit-END$
     return suite;

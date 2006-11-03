@@ -17,6 +17,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <value>
           net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority
         </value>
+        <value>
+          net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails
+        </value>
       </list>
     </property>
     <property name="configLocation">

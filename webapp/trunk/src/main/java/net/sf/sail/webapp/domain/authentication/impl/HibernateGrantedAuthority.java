@@ -49,38 +49,59 @@ public class HibernateGrantedAuthority implements MutableGrantedAuthority {
     return this.authority;
   }
 
-  /**
-   * @return the id
-   */
+  @SuppressWarnings("unused")
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  public Long getId() {
+  private Long getId() {
     return id;
   }
 
-  /**
-   * @param id
-   *          the id to set
-   */
-  public void setId(Long id) {
+  @SuppressWarnings("unused")
+  private void setId(Long id) {
     this.id = id;
   }
 
-  /**
-   * @return the version
-   */
+  @SuppressWarnings("unused")
   @Version
   @Column(name = "OPTLOCK")
-  public Integer getVersion() {
+  private Integer getVersion() {
     return version;
   }
 
-  /**
-   * @param version
-   *          the version to set
-   */
-  public void setVersion(Integer version) {
+  @SuppressWarnings("unused")
+  private void setVersion(Integer version) {
     this.version = version;
   }
 
+  /**
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int PRIME = 31;
+    int result = 1;
+    result = PRIME * result
+        + ((this.authority == null) ? 0 : this.authority.hashCode());
+    return result;
+  }
+
+  /**
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    final HibernateGrantedAuthority other = (HibernateGrantedAuthority) obj;
+    if (this.authority == null) {
+      if (other.authority != null)
+        return false;
+    } else if (!this.authority.equals(other.authority))
+      return false;
+    return true;
+  }
 }
