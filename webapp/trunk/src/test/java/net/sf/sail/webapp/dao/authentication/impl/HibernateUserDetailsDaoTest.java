@@ -12,6 +12,7 @@ import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.userdetails.UserDetails;
 import org.hibernate.SessionFactory;
 
 /**
@@ -155,6 +156,34 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
        defaultRolesList.remove(actualValue);
      }
 
+   }
+   
+   public void testRetrieve(){
+     this.verifyUserandJoinTablesAreEmpty();
+
+     this.userDetailsDao.save(this.defaultUserDetails);
+     // flush is required to cascade the join table for some reason
+     this.userDetailsDao.getHibernateTemplate().flush();
+
+     //get user details record from persistent store and confirm it is complete
+     UserDetails userDetails = this.userDetailsDao.retrieve(DEFAULT_USERNAME);
+     assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
+     assertEquals(this.DEFAULT_PASSWORD, userDetails.getPassword());
+     
+     List<String> defaultRolesList = new ArrayList<String>(3);
+     defaultRolesList.add(DEFAULT_ROLE_1);
+     defaultRolesList.add(DEFAULT_ROLE_2);
+     defaultRolesList.add(DEFAULT_ROLE_3);
+
+     GrantedAuthority[] grantedAuthorities = userDetails.getAuthorities();
+     for (int i = 0; i < grantedAuthorities.length; i++) {
+       String role = grantedAuthorities[i].getAuthority();
+       assertTrue(defaultRolesList.contains(role));    
+       defaultRolesList.remove(role);
+     }
+     
+     //choose random non-existent user name and try to retrieve
+     assertNull(this.userDetailsDao.retrieve("blah"));     
    }
 
   private void verifyUserandJoinTablesAreEmpty() {
