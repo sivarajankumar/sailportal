@@ -8,32 +8,26 @@ import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
- * Data Access Object (DAO) class that deals with a persistent store using
- * Hibernate. It is only meant for <code>HibernateGrantedAuthority</code>
- * objects.
+ * Class that implements the Data Access Object (DAO) interface using Hibernate.
+ * It is only meant for <code>HibernateGrantedAuthority</code> objects.
  * 
  * @author Cynick Young
  * 
  * @version $Id$
  * 
  */
-public class HibernateGrantedAuthorityDao extends HibernateDaoSupport {
+public class HibernateGrantedAuthorityDao extends HibernateDaoSupport implements
+    Dao<HibernateGrantedAuthority> {
 
   /**
-   * Saves the granted authority (role) to a persistent data store using
-   * Hibernate
-   * 
-   * @param grantedAuthority
+   * @see net.sf.sail.webapp.dao.authentication.impl.Dao#save(java.lang.Object)
    */
   public void save(HibernateGrantedAuthority grantedAuthority) {
     this.getHibernateTemplate().saveOrUpdate(grantedAuthority);
   }
 
   /**
-   * Deletes the granted authority (role) from a persistent data store using
-   * Hibernate
-   * 
-   * @param grantedAuthority
+   * @see net.sf.sail.webapp.dao.authentication.impl.Dao#delete(java.lang.Object)
    */
   public void delete(HibernateGrantedAuthority grantedAuthority) {
     this.getHibernateTemplate().delete(grantedAuthority);
