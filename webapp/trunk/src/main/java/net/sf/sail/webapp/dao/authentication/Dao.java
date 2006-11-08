@@ -1,7 +1,7 @@
 /**
  * Copyright University of Toronto 2006 (c)
  */
-package net.sf.sail.webapp.dao.authentication.impl;
+package net.sf.sail.webapp.dao.authentication;
 
 /**
  * Data Access Object (DAO) interface that defines operations for dealing with a
@@ -27,5 +27,4 @@ public interface Dao<T> {
    * @param object
    */
   public void delete(T object);
-
 }

@@ -128,63 +128,63 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     }
   }
 
-   public void testDelete() {
-     this.verifyUserandJoinTablesAreEmpty();
+  public void testDelete() {
+    this.verifyUserandJoinTablesAreEmpty();
 
-     this.userDetailsDao.save(this.defaultUserDetails);
-     // flush is required to cascade the join table for some reason
-     this.userDetailsDao.getHibernateTemplate().flush();
+    this.userDetailsDao.save(this.defaultUserDetails);
+    // flush is required to cascade the join table for some reason
+    this.userDetailsDao.getHibernateTemplate().flush();
 
-     this.userDetailsDao.delete(this.defaultUserDetails);
-     this.userDetailsDao.getHibernateTemplate().flush();
-     
-     this.verifyUserandJoinTablesAreEmpty();
-     
-     List actualList = this.retrieveRolesTableFromDb();
-     assertEquals(3, actualList.size());
-     
-     List<String> defaultRolesList = new ArrayList<String>(3);
-     defaultRolesList.add(DEFAULT_ROLE_1);
-     defaultRolesList.add(DEFAULT_ROLE_2);
-     defaultRolesList.add(DEFAULT_ROLE_3);
+    this.userDetailsDao.delete(this.defaultUserDetails);
+    this.userDetailsDao.getHibernateTemplate().flush();
 
-     for (int i = 0; i < actualList.size(); i++) {
-       Map actualRolesMap = (Map) actualList.get(i);
-       // * NOTE* the keys in the map are all in UPPERCASE!
-       String actualValue = (String) actualRolesMap.get("ROLE");
-       assertTrue(defaultRolesList.contains(actualValue));
-       defaultRolesList.remove(actualValue);
-     }
+    this.verifyUserandJoinTablesAreEmpty();
 
-   }
-   
-   public void testRetrieve(){
-     this.verifyUserandJoinTablesAreEmpty();
+    List actualList = this.retrieveRolesTableFromDb();
+    assertEquals(3, actualList.size());
 
-     this.userDetailsDao.save(this.defaultUserDetails);
-     // flush is required to cascade the join table for some reason
-     this.userDetailsDao.getHibernateTemplate().flush();
+    List<String> defaultRolesList = new ArrayList<String>(3);
+    defaultRolesList.add(DEFAULT_ROLE_1);
+    defaultRolesList.add(DEFAULT_ROLE_2);
+    defaultRolesList.add(DEFAULT_ROLE_3);
 
-     //get user details record from persistent store and confirm it is complete
-     UserDetails userDetails = this.userDetailsDao.retrieve(DEFAULT_USERNAME);
-     assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
-     assertEquals(this.DEFAULT_PASSWORD, userDetails.getPassword());
-     
-     List<String> defaultRolesList = new ArrayList<String>(3);
-     defaultRolesList.add(DEFAULT_ROLE_1);
-     defaultRolesList.add(DEFAULT_ROLE_2);
-     defaultRolesList.add(DEFAULT_ROLE_3);
+    for (int i = 0; i < actualList.size(); i++) {
+      Map actualRolesMap = (Map) actualList.get(i);
+      // * NOTE* the keys in the map are all in UPPERCASE!
+      String actualValue = (String) actualRolesMap.get("ROLE");
+      assertTrue(defaultRolesList.contains(actualValue));
+      defaultRolesList.remove(actualValue);
+    }
 
-     GrantedAuthority[] grantedAuthorities = userDetails.getAuthorities();
-     for (int i = 0; i < grantedAuthorities.length; i++) {
-       String role = grantedAuthorities[i].getAuthority();
-       assertTrue(defaultRolesList.contains(role));    
-       defaultRolesList.remove(role);
-     }
-     
-     //choose random non-existent user name and try to retrieve
-     assertNull(this.userDetailsDao.retrieve("blah"));     
-   }
+  }
+
+  public void testRetrieve() {
+    this.verifyUserandJoinTablesAreEmpty();
+
+    this.userDetailsDao.save(this.defaultUserDetails);
+    // flush is required to cascade the join table for some reason
+    this.userDetailsDao.getHibernateTemplate().flush();
+
+    // get user details record from persistent store and confirm it is complete
+    UserDetails userDetails = this.userDetailsDao.retrieve(DEFAULT_USERNAME);
+    assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
+    assertEquals(DEFAULT_PASSWORD, userDetails.getPassword());
+
+    List<String> defaultRolesList = new ArrayList<String>(3);
+    defaultRolesList.add(DEFAULT_ROLE_1);
+    defaultRolesList.add(DEFAULT_ROLE_2);
+    defaultRolesList.add(DEFAULT_ROLE_3);
+
+    GrantedAuthority[] grantedAuthorities = userDetails.getAuthorities();
+    for (int i = 0; i < grantedAuthorities.length; i++) {
+      String role = grantedAuthorities[i].getAuthority();
+      assertTrue(defaultRolesList.contains(role));
+      defaultRolesList.remove(role);
+    }
+
+    // choose random non-existent user name and try to retrieve
+    assertNull(this.userDetailsDao.retrieve("blah"));
+  }
 
   private void verifyUserandJoinTablesAreEmpty() {
     assertTrue(this.retrieveUserDetailsListFromDb().isEmpty());
@@ -202,7 +202,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     return this.jdbcTemplate.queryForList("select * from users;",
         (Object[]) null);
   }
-  
+
   private List retrieveRolesTableFromDb() {
     return this.jdbcTemplate.queryForList("select * from roles;",
         (Object[]) null);

@@ -21,7 +21,8 @@ public class AllTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("Test for net.sf.sail.webapp");
     // Add new package unit tests here
-    suite.addTest(net.sf.sail.webapp.dao.authentication.impl.AllTests
+    suite.addTest(net.sf.sail.webapp.dao.authentication.impl.AllTests.suite());
+    suite.addTest(net.sf.sail.webapp.service.authentication.impl.AllTests
         .suite());
     // End add new package unit tests here
     return suite;

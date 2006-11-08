@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -125,8 +124,7 @@ public class HibernateUserDetails implements MutableUserDetails {
     this.setGrantedAuthorities(new HashSet(Arrays.asList(authorities)));
   }
 
-  @ManyToMany(targetEntity = net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority.class, cascade = {
-      CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+  @ManyToMany(targetEntity = net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority.class)
   @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_fk") }, inverseJoinColumns = @JoinColumn(name = "role_fk"))
   private Set<HibernateGrantedAuthority> getGrantedAuthorities() {
     /* Used by Hibernate only for persistence */

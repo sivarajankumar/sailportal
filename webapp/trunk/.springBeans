@@ -6,6 +6,8 @@
 	<configs>
 		<config>src/main/resources/applicationContext-hibernate.xml</config>
 		<config>src/main/resources/applicationContext-datasource.xml</config>
+		<config>src/main/resources/applicationContext-security.xml</config>
+		<config>src/main/resources/applicationContext-declarativeTransaction.xml</config>
 	</configs>
 	<configSets>
 		<configSet>
@@ -13,8 +15,10 @@
 			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
 			<incomplete>false</incomplete>
 			<configs>
-				<config>src/main/resources/applicationContext-datasource.xml</config>
+				<config>src/main/resources/applicationContext-declarativeTransaction.xml</config>
 				<config>src/main/resources/applicationContext-hibernate.xml</config>
+				<config>src/main/resources/applicationContext-security.xml</config>
+				<config>src/main/resources/applicationContext-datasource.xml</config>
 			</configs>
 		</configSet>
 	</configSets>
