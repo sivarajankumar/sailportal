@@ -13,7 +13,6 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
-import org.hibernate.SessionFactory;
 
 /**
  * @author Cynick Young
@@ -51,20 +50,22 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    this.role1 = new HibernateGrantedAuthority();
-    this.role2 = new HibernateGrantedAuthority();
-    this.role3 = new HibernateGrantedAuthority();
+    this.role1 = (HibernateGrantedAuthority) this.springContext
+        .getBean("mutableGrantedAuthority");
+    this.role2 = (HibernateGrantedAuthority) this.springContext
+        .getBean("mutableGrantedAuthority");
+    this.role3 = (HibernateGrantedAuthority) this.springContext
+        .getBean("mutableGrantedAuthority");
     this.role1.setAuthority(DEFAULT_ROLE_1);
     this.role2.setAuthority(DEFAULT_ROLE_2);
     this.role3.setAuthority(DEFAULT_ROLE_3);
-    SessionFactory sessionFactory = (SessionFactory) this.springContext
-        .getBean("sessionFactory");
-    this.authorityDao = new HibernateGrantedAuthorityDao();
-    authorityDao.setSessionFactory(sessionFactory);
-    this.userDetailsDao = new HibernateUserDetailsDao();
-    this.userDetailsDao.setSessionFactory(sessionFactory);
+    this.authorityDao = (HibernateGrantedAuthorityDao) this.springContext
+        .getBean("grantedAuthorityDao");
+    this.userDetailsDao = (HibernateUserDetailsDao) this.springContext
+        .getBean("userDetailsDao");
 
-    this.defaultUserDetails = new HibernateUserDetails();
+    this.defaultUserDetails = (HibernateUserDetails) this.springContext
+        .getBean("mutableUserDetails");
     this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
     this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);
     this.defaultUserDetails.setAuthorities(new GrantedAuthority[] { this.role1,

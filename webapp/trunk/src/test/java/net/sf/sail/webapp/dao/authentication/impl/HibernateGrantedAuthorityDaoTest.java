@@ -9,8 +9,6 @@ import java.util.Map;
 import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
-import org.hibernate.SessionFactory;
-
 /**
  * @author Cynick Young
  * 
@@ -33,11 +31,11 @@ public class HibernateGrantedAuthorityDaoTest extends
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    this.defaultGrantedAuthority = new HibernateGrantedAuthority();
+    this.defaultGrantedAuthority = (HibernateGrantedAuthority) this.springContext
+        .getBean("mutableGrantedAuthority");
     this.defaultGrantedAuthority.setAuthority(DEFAULT_ROLE);
-    this.authorityDao = new HibernateGrantedAuthorityDao();
-    this.authorityDao.setSessionFactory((SessionFactory) this.springContext
-        .getBean("sessionFactory"));
+    this.authorityDao = (HibernateGrantedAuthorityDao) this.springContext
+        .getBean("grantedAuthorityDao");
   }
 
   /**

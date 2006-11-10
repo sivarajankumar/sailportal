@@ -3,7 +3,7 @@
  */
 package net.sf.sail.webapp.dao.authentication.impl;
 
-import net.sf.sail.webapp.dao.authentication.Dao;
+import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -14,21 +14,22 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateGrantedAuthorityDao.java 11 2006-11-08 19:22:53Z
+ *          cynick $
  * 
  */
 public class HibernateGrantedAuthorityDao extends HibernateDaoSupport implements
-    Dao<HibernateGrantedAuthority> {
+    SimpleDao<HibernateGrantedAuthority> {
 
   /**
-   * @see net.sf.sail.webapp.dao.authentication.Dao#save(java.lang.Object)
+   * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
    */
   public void save(HibernateGrantedAuthority grantedAuthority) {
     this.getHibernateTemplate().saveOrUpdate(grantedAuthority);
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.authentication.Dao#delete(java.lang.Object)
+   * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
    */
   public void delete(HibernateGrantedAuthority grantedAuthority) {
     this.getHibernateTemplate().delete(grantedAuthority);

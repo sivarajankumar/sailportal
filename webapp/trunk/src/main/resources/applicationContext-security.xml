@@ -21,7 +21,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     </property>
   </bean>
 
-  <bean id="gantedAuthorityDao"
+  <bean id="grantedAuthorityDao"
     class="net.sf.sail.webapp.dao.authentication.impl.HibernateGrantedAuthorityDao">
     <property name="sessionFactory">
       <ref bean="sessionFactory" />

@@ -10,8 +10,8 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
- * Class that implements the Data Access Object (DAO) interface using Hibernate.
- * It is only meant for <code>HibernateUserDetails</code> objects.
+ * Class that implements the <code>UserDetailsDao</code> interface using
+ * Hibernate. It is only meant for <code>HibernateUserDetails</code> objects.
  * 
  * @author Cynick Young
  * 
@@ -22,14 +22,14 @@ public class HibernateUserDetailsDao extends HibernateDaoSupport implements
     UserDetailsDao<HibernateUserDetails> {
 
   /**
-   * @see net.sf.sail.webapp.dao.authentication.Dao#save(java.lang.Object)
+   * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
    */
   public void save(HibernateUserDetails userDetails) {
     this.getHibernateTemplate().saveOrUpdate(userDetails);
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.authentication.Dao#delete(java.lang.Object)
+   * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
    */
   public void delete(HibernateUserDetails userDetails) {
     this.getHibernateTemplate().delete(userDetails);

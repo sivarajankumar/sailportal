@@ -3,6 +3,7 @@
  */
 package net.sf.sail.webapp.dao.authentication;
 
+import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -13,7 +14,8 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
  * @version $Id$
  * 
  */
-public interface UserDetailsDao<T extends MutableUserDetails> extends Dao<T> {
+public interface UserDetailsDao<T extends MutableUserDetails> extends
+    SimpleDao<T> {
 
   /**
    * Given a username, returns a <code>UserDetails</code> object from the

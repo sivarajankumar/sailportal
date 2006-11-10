@@ -1,18 +1,18 @@
 /**
  * Copyright University of Toronto 2006 (c)
  */
-package net.sf.sail.webapp.dao.authentication;
+package net.sf.sail.webapp.dao;
 
 /**
- * Data Access Object (DAO) interface that defines operations for dealing with a
- * persistent store.
+ * Data Access Object (DAO) interface that defines simple generic operations for
+ * dealing with a persistent store.
  * 
  * @author Cynick Young
  * 
  * @version $Id$
  * 
  */
-public interface Dao<T> {
+public interface SimpleDao<T> {
 
   /**
    * Saves the object to a persistent data store.
