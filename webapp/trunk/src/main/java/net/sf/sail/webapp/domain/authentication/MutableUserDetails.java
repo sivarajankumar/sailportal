@@ -17,6 +17,7 @@ import org.acegisecurity.userdetails.UserDetails;
  * @see org.acegisecurity.userdetails.UserDetails
  * 
  */
+//TODO validation of user information
 public interface MutableUserDetails extends UserDetails {
 
   /**
@@ -45,4 +46,19 @@ public interface MutableUserDetails extends UserDetails {
    * @param username
    */
   public void setUsername(String username);
+  
+  /**
+   * Sets the user's email address.
+   * 
+   * @param emailAddress
+   */
+  public void setEmailAddress(String emailAddress);
+  
+  /**
+   * Gets the user's email address.
+   * 
+   * @return emailAddress
+   */
+  public String getEmailAddress();
+	
 }

@@ -31,6 +31,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   private static final String DEFAULT_USERNAME = "me";
 
   private static final String DEFAULT_PASSWORD = "my secret";
+  
+  private static final String DEFAULT_EMAIL = "billy@bob.com";
 
   private HibernateGrantedAuthority role1;
 
@@ -68,6 +70,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
         .getBean("mutableUserDetails");
     this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
     this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);
+    this.defaultUserDetails.setEmailAddress(DEFAULT_EMAIL);
     this.defaultUserDetails.setAuthorities(new GrantedAuthority[] { this.role1,
         this.role2, this.role3 });
   }
@@ -123,6 +126,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
       assertEquals(DEFAULT_USERNAME, actualValue);
       actualValue = (String) actualUserDetailsMap.get("PASSWORD");
       assertEquals(DEFAULT_PASSWORD, actualValue);
+      actualValue = (String) actualUserDetailsMap.get("EMAIL_ADDRESS");
+      assertEquals(DEFAULT_EMAIL, actualValue);
       actualValue = (String) actualUserDetailsMap.get("ROLE");
       assertTrue(defaultRolesList.contains(actualValue));
       defaultRolesList.remove(actualValue);
@@ -167,9 +172,10 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     this.userDetailsDao.getHibernateTemplate().flush();
 
     // get user details record from persistent store and confirm it is complete
-    UserDetails userDetails = this.userDetailsDao.retrieve(DEFAULT_USERNAME);
+    HibernateUserDetails userDetails = this.userDetailsDao.retrieve(DEFAULT_USERNAME);
     assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
     assertEquals(DEFAULT_PASSWORD, userDetails.getPassword());
+    assertEquals(DEFAULT_EMAIL, userDetails.getEmailAddress());
 
     List<String> defaultRolesList = new ArrayList<String>(3);
     defaultRolesList.add(DEFAULT_ROLE_1);
