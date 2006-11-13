@@ -12,7 +12,6 @@ import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
 
 /**
  * @author Cynick Young
