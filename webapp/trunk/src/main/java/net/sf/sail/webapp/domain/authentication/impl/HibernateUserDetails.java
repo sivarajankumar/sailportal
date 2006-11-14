@@ -28,6 +28,7 @@ import org.acegisecurity.GrantedAuthority;
  * Hibernate persistence mechanism.
  * 
  * @author Cynick Young
+ * @author Laurel Williams
  * 
  * @version $Id$
  * 

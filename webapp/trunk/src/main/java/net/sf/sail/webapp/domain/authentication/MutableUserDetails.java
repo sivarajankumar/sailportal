@@ -12,6 +12,7 @@ import org.acegisecurity.userdetails.UserDetails;
  * represents user information.
  * 
  * @author Cynick Young
+ * @author Laurel Williams
  * 
  * @version $Id$
  * @see org.acegisecurity.userdetails.UserDetails

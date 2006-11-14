@@ -4,11 +4,11 @@
 package net.sf.sail.webapp.service.authentication;
 
 /**
+ *  A checked exception thrown when the user details username is set to null.
+ *  
  * @author Laurel Williams
  *
- * @version $Id: 
- *
- * A checked exception thrown when the user details username is set to null.
+ * @version $Id: $
  */
 public class NullUsernameException extends UserCreationException {
 

@@ -4,12 +4,11 @@
 package net.sf.sail.webapp.service.authentication;
 
 /**
- * @author Laurel Williams
- *
- * @version $Id: 
- *
  * A checked exception thrown when the user details password is set to null.
  * 
+ * @author Laurel Williams
+ *
+ * @version $Id: $
  */
 public class NullPasswordException extends UserCreationException {
 

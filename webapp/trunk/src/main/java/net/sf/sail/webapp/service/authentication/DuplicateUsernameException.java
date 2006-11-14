@@ -4,12 +4,13 @@
 package net.sf.sail.webapp.service.authentication;
 
 /**
- * @author Laurel Williams
- * 
- * @version $Id:
- * 
  * A checked exception thrown when the data store already contains a user
  * details object with the same username.
+ * 
+ * @author Laurel Williams
+ * 
+ * @version $Id: $
+ * 
  */
 public class DuplicateUsernameException extends UserCreationException {
 

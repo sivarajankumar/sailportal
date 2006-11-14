@@ -4,11 +4,11 @@
 package net.sf.sail.webapp.service.authentication;
 
 /**
+ * A checked exception class to act as a parent to all user creation exceptions
+ * 
  * @author Laurel Williams
  *
- * @version $Id: 
- *
- * An checked exception class to act as a parent to all user creation exceptions
+ * @version $Id: $
  */
 public class UserCreationException extends Exception {
 

@@ -17,7 +17,10 @@ import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.dao.DataAccessException;
 
 /**
+ * A class to provide services for MutableUserDetails objects.
+ * 
  * @author Cynick Young
+ * @author Laurel Willliams
  * 
  * @version $Id$
  * 

@@ -18,6 +18,7 @@ import org.acegisecurity.userdetails.UsernameNotFoundException;
 
 /**
  * @author Cynick Young
+ * @author Laurel Williams
  * 
  * @version $Id$
  * 

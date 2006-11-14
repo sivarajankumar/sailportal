@@ -15,6 +15,7 @@ import org.acegisecurity.GrantedAuthority;
 
 /**
  * @author Cynick Young
+ * @author Laurel Williams
  * 
  * @version $Id$
  * 
