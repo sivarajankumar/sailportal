@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 */
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
-		UserDetails userDetails = this.userDetailsDao.retrieve(username);
+		UserDetails userDetails = this.userDetailsDao.retrieveByUsername(username);
 		if (userDetails == null) {
 			throw new UsernameNotFoundException("Username: " + username
 					+ " not found.");
@@ -95,9 +95,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private MutableUserDetails validateAndCreateUserDetails(String username,
 			String password) throws UserCreationException {
 		// validate inputs
-		UserCreationException exception = this.isNoCreationErrors(username, password);
-		if (exception != null)
-			throw exception;
+		this.isNoCreationErrors(username, password);
 
 		// create user details with username and password
 		MutableUserDetails userDetails = new HibernateUserDetails();
@@ -119,20 +117,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 *         as a username already in data store. Returns null if no
 	 *         exceptions are found.
 	 */
-	private UserCreationException isNoCreationErrors(String username,
-			String password) {
+	private void isNoCreationErrors(String username,
+			String password) throws UserCreationException {
 		if (username == null)
-			return new NullUsernameException();
+			throw new NullUsernameException();
 		if (password == null)
-			return new NullPasswordException();
+			throw new NullPasswordException();
 
 		try {
 			@SuppressWarnings("unused")
 			UserDetails uniqueUserDetails = (MutableUserDetails) this
 					.loadUserByUsername(username);
 		} catch (UsernameNotFoundException unfe) {
-			return null;
+			return;
 		}
-		return new DuplicateUsernameException(username);
+		throw new DuplicateUsernameException(username);
 	}
 }

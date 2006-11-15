@@ -18,14 +18,14 @@ public interface UserDetailsDao<T extends MutableUserDetails> extends
     SimpleDao<T> {
 
   /**
-   * Given a username, returns a <code>UserDetails</code> object from the
+   * Given a username, returns a <code>MutableUserDetails</code> object from the
    * persistent store or null if no such username exists.
    * 
    * @param username
-   * @return <code>UserDetails</code> object or <code>null</code> if no such
+   * @return <code>MutableUserDetails</code> object or <code>null</code> if no such
    *         username exists.
    * @exception IncorrectResultSizeDataAccessException
    *              if more than one result object has been found.
    */
-  public T retrieve(String username);
+  public T retrieveByUsername(String username);
 }

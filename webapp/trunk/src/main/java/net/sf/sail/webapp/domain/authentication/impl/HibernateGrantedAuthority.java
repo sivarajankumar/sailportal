@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
@@ -26,12 +27,18 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 @Table(name = "roles")
 public class HibernateGrantedAuthority implements MutableGrantedAuthority {
 
+  @Transient
   private static final long serialVersionUID = 1L;
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Version
+  @Column(name = "OPTLOCK")
   private Integer version;
 
+  @Column(name = "role", unique = true, nullable = false)
   private String authority;
 
   /**
@@ -44,14 +51,11 @@ public class HibernateGrantedAuthority implements MutableGrantedAuthority {
   /**
    * @see org.acegisecurity.GrantedAuthority#getAuthority()
    */
-  @Column(name = "role", unique = true, nullable = false)
   public String getAuthority() {
     return this.authority;
   }
 
   @SuppressWarnings("unused")
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long getId() {
     return id;
   }
@@ -62,8 +66,6 @@ public class HibernateGrantedAuthority implements MutableGrantedAuthority {
   }
 
   @SuppressWarnings("unused")
-  @Version
-  @Column(name = "OPTLOCK")
   private Integer getVersion() {
     return version;
   }
@@ -100,7 +102,8 @@ public class HibernateGrantedAuthority implements MutableGrantedAuthority {
     if (this.authority == null) {
       if (other.authority != null)
         return false;
-    } else if (!this.authority.equals(other.authority))
+    }
+    else if (!this.authority.equals(other.authority))
       return false;
     return true;
   }

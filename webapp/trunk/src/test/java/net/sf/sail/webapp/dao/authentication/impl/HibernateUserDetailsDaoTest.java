@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
@@ -172,7 +173,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     this.userDetailsDao.getHibernateTemplate().flush();
 
     // get user details record from persistent store and confirm it is complete
-    HibernateUserDetails userDetails = this.userDetailsDao.retrieve(DEFAULT_USERNAME);
+    MutableUserDetails userDetails = this.userDetailsDao.retrieveByUsername(DEFAULT_USERNAME);
     assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
     assertEquals(DEFAULT_PASSWORD, userDetails.getPassword());
     assertEquals(DEFAULT_EMAIL, userDetails.getEmailAddress());
@@ -190,7 +191,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     }
 
     // choose random non-existent user name and try to retrieve
-    assertNull(this.userDetailsDao.retrieve("blah"));
+    assertNull(this.userDetailsDao.retrieveByUsername("blah"));
   }
 
   private void verifyUserandJoinTablesAreEmpty() {

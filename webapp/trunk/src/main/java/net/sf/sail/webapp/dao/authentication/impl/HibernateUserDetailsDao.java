@@ -4,6 +4,7 @@
 package net.sf.sail.webapp.dao.authentication.impl;
 
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
 
 import org.springframework.dao.support.DataAccessUtils;
@@ -11,7 +12,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * Class that implements the <code>UserDetailsDao</code> interface using
- * Hibernate. It is only meant for <code>HibernateUserDetails</code> objects.
+ * Hibernate.
  * 
  * @author Cynick Young
  * 
@@ -19,26 +20,26 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * 
  */
 public class HibernateUserDetailsDao extends HibernateDaoSupport implements
-    UserDetailsDao<HibernateUserDetails> {
+    UserDetailsDao<MutableUserDetails> {
 
   /**
    * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
    */
-  public void save(HibernateUserDetails userDetails) {
+  public void save(MutableUserDetails userDetails) {
     this.getHibernateTemplate().saveOrUpdate(userDetails);
   }
 
   /**
    * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
    */
-  public void delete(HibernateUserDetails userDetails) {
+  public void delete(MutableUserDetails userDetails) {
     this.getHibernateTemplate().delete(userDetails);
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#retrieve(java.lang.String)
+   * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#retrieveByUsername(java.lang.String)
    */
-  public HibernateUserDetails retrieve(String username) {
+  public MutableUserDetails retrieveByUsername(String username) {
     return (HibernateUserDetails) DataAccessUtils
         .uniqueResult(this
             .getHibernateTemplate()
