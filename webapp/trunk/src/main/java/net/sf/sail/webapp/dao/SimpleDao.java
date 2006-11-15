@@ -15,6 +15,14 @@ package net.sf.sail.webapp.dao;
 public interface SimpleDao<T> {
 
   /**
+   * Factory method to create an instance of a data object that works with this
+   * particular data access object (dao).
+   * 
+   * @return new instance of a data object
+   */
+  public T createDataObject();
+
+  /**
    * Saves the object to a persistent data store.
    * 
    * @param object

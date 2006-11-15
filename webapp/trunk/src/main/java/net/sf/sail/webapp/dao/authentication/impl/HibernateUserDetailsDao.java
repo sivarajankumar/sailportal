@@ -23,6 +23,13 @@ public class HibernateUserDetailsDao extends HibernateDaoSupport implements
     UserDetailsDao<MutableUserDetails> {
 
   /**
+   * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#createDataObject()
+   */
+  public MutableUserDetails createDataObject() {
+    return new HibernateUserDetails();
+  }
+
+  /**
    * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
    */
   public void save(MutableUserDetails userDetails) {
@@ -40,7 +47,7 @@ public class HibernateUserDetailsDao extends HibernateDaoSupport implements
    * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#retrieveByUsername(java.lang.String)
    */
   public MutableUserDetails retrieveByUsername(String username) {
-    return (HibernateUserDetails) DataAccessUtils
+    return (MutableUserDetails) DataAccessUtils
         .uniqueResult(this
             .getHibernateTemplate()
             .findByNamedParam(

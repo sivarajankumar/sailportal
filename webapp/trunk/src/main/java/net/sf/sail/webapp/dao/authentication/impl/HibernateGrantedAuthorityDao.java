@@ -5,6 +5,7 @@ package net.sf.sail.webapp.dao.authentication.impl;
 
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
+import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -19,6 +20,13 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public class HibernateGrantedAuthorityDao extends HibernateDaoSupport implements
     SimpleDao<MutableGrantedAuthority> {
+
+  /**
+   * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
+   */
+  public MutableGrantedAuthority createDataObject() {
+    return new HibernateGrantedAuthority();
+  }
 
   /**
    * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
