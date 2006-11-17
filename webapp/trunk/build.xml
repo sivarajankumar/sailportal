@@ -2,7 +2,7 @@
 <!-- Copyright (c) 2006 Encore Research Group, University of Toronto -->
 <!-- $Id$ -->
 
-<project name="sail-webapp" default="schema-export" basedir=".">
+<project name="sail-webapp" default="echo" basedir=".">
   <description>
       Build file for using Hibernate Tools for database schema generation
     </description>
@@ -17,7 +17,6 @@
     <path location="${M2_REPO}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" />
     <path location="${M2_REPO}/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar" />
     <path location="${M2_REPO}/freemarker/freemarker/2.3.4/freemarker-2.3.4.jar" />
-    <path location="${M2_REPO}/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar" />
     <path location="${M2_REPO}/org/acegisecurity/acegi-security/1.0.2/acegi-security-1.0.2.jar" />
     <path location="${M2_REPO}/commons-collections/commons-collections/2.1/commons-collections-2.1.jar" />
   </path>
@@ -32,9 +31,23 @@
       <classpath>
         <path location="${dir.build}/classes" />
       </classpath>
-      <annotationconfiguration configurationfile="${dir.src}/main/resources/hibernate.cfg.xml" propertyfile="${dir.src.db.hsqldb}/hibernate.properties" />
+      <annotationconfiguration configurationfile="${dir.src.resources}/hibernate.cfg.xml" propertyfile="${dir.src.resources}/hibernate.properties" />
       <hbm2ddl export="${schema.export.on}" drop="${schema.export.drop}" create="${schema.export.create}" outputfilename="${schema.export.filename}" />
     </hibernatetool>
   </target>
 
+  <!-- ================================= 
+          target: echo
+         ================================= -->
+  <target name="echo" description="Echo some useful usage information.">
+    <echo>
+      Before running the target "schema-export",
+      ensure that the proper classes and configurations are being used.
+      To do that, run "mvn clean compile".
+      This will build the production classes and configurations.
+      
+      To get a list of all available targets,
+      use "ant -projecthelp".
+    </echo>
+  </target>
 </project>
