@@ -13,15 +13,7 @@
     <property name="dataSource">
       <ref bean="dataSource" />
     </property>
-    <property name="configLocations">
-      <list>
-        <bean class="org.springframework.core.io.ClassPathResource">
-          <constructor-arg>
-            <value>hibernate.cfg.xml</value>
-          </constructor-arg>
-        </bean>
-      </list>
-    </property>
+    <property name="configLocation" value="classpath:hibernate.cfg.xml" />
   </bean>
 
   <bean id="transactionManager"
