@@ -26,12 +26,12 @@ package net.sf.sail.webapp.service.authentication;
  */
 public class NullPasswordException extends UserCreationException {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private static final String MESSAGE = "Password cannnot be null.";
+	private static final String MESSAGE = "Password cannnot be null.";
 
-  public String getMessage() {
-    return MESSAGE;
-  }
+	public String getMessage() {
+		return MESSAGE;
+	}
 
 }

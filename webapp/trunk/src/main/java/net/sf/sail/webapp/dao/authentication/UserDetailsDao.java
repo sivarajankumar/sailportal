@@ -29,13 +29,4 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 public interface UserDetailsDao<T extends MutableUserDetails> extends
     SimpleDao<T> {
 
-  /**
-   * Given a username, returns a <code>MutableUserDetails</code> object from
-   * the persistent store or null if no such username exists.
-   * 
-   * @param username
-   * @return <code>MutableUserDetails</code> object or <code>null</code> if
-   *         no such username exists.
-   */
-  public T retrieveByUsername(String username);
 }

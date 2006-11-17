@@ -17,10 +17,11 @@
  */
 package net.sf.sail.webapp.dao.authentication.impl;
 
-import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -33,26 +34,36 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * 
  */
 public class HibernateGrantedAuthorityDao extends HibernateDaoSupport implements
-    SimpleDao<MutableGrantedAuthority> {
+		GrantedAuthorityDao<MutableGrantedAuthority> {
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-   */
-  public MutableGrantedAuthority createDataObject() {
-    return new HibernateGrantedAuthority();
-  }
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
+	 */
+	public MutableGrantedAuthority createDataObject() {
+		return new HibernateGrantedAuthority();
+	}
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-   */
-  public void save(MutableGrantedAuthority grantedAuthority) {
-    this.getHibernateTemplate().saveOrUpdate(grantedAuthority);
-  }
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
+	 */
+	public void save(MutableGrantedAuthority grantedAuthority) {
+		this.getHibernateTemplate().saveOrUpdate(grantedAuthority);
+	}
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-   */
-  public void delete(MutableGrantedAuthority grantedAuthority) {
-    this.getHibernateTemplate().delete(grantedAuthority);
-  }
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
+	 */
+	public void delete(MutableGrantedAuthority grantedAuthority) {
+		this.getHibernateTemplate().delete(grantedAuthority);
+	}
+
+	public MutableGrantedAuthority retrieveByName(String authority) {
+		return (MutableGrantedAuthority) DataAccessUtils
+				.uniqueResult(this
+						.getHibernateTemplate()
+						.findByNamedParam(
+								"from HibernateGrantedAuthority as granted_authority where granted_authority.authority = :authority",
+								new String[] { "authority" },
+								new Object[] { authority }));
+	}
 }

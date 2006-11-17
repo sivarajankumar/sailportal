@@ -28,6 +28,9 @@
     <property name="userDetailsDao">
       <ref local="userDetailsDao" />
     </property>
+    <property name="grantedAuthorityDao">
+      <ref local="grantedAuthorityDao" />
+     </property>
   </bean>
 
   <bean id="userDetailsDao"

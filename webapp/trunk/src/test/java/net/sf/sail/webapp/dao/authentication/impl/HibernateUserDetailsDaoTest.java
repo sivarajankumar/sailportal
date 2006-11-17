@@ -187,8 +187,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     this.userDetailsDao.getHibernateTemplate().flush();
 
     // get user details record from persistent store and confirm it is complete
-    MutableUserDetails userDetails = this.userDetailsDao
-        .retrieveByUsername(DEFAULT_USERNAME);
+    MutableUserDetails userDetails = this.userDetailsDao.retrieveByName(DEFAULT_USERNAME);
+
     assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
     assertEquals(DEFAULT_PASSWORD, userDetails.getPassword());
     assertEquals(DEFAULT_EMAIL, userDetails.getEmailAddress());
@@ -206,7 +206,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     }
 
     // choose random non-existent user name and try to retrieve
-    assertNull(this.userDetailsDao.retrieveByUsername("blah"));
+    assertNull(this.userDetailsDao.retrieveByName("blah"));
   }
 
   private void verifyUserandJoinTablesAreEmpty() {

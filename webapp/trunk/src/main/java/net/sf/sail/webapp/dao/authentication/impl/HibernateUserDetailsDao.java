@@ -34,38 +34,40 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * 
  */
 public class HibernateUserDetailsDao extends HibernateDaoSupport implements
-    UserDetailsDao<MutableUserDetails> {
+		UserDetailsDao<MutableUserDetails> {
 
-  /**
-   * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#createDataObject()
-   */
-  public MutableUserDetails createDataObject() {
-    return new HibernateUserDetails();
-  }
+	/**
+	 * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#createDataObject()
+	 */
+	public MutableUserDetails createDataObject() {
+		return new HibernateUserDetails();
+	}
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-   */
-  public void save(MutableUserDetails userDetails) {
-    this.getHibernateTemplate().saveOrUpdate(userDetails);
-  }
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
+	 */
+	public void save(MutableUserDetails userDetails) {
+		this.getHibernateTemplate().saveOrUpdate(userDetails);
+	}
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-   */
-  public void delete(MutableUserDetails userDetails) {
-    this.getHibernateTemplate().delete(userDetails);
-  }
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
+	 */
+	public void delete(MutableUserDetails userDetails) {
+		this.getHibernateTemplate().delete(userDetails);
+	}
 
-  /**
-   * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#retrieveByUsername(java.lang.String)
-   */
-  public MutableUserDetails retrieveByUsername(String username) {
-    return (MutableUserDetails) DataAccessUtils
-        .uniqueResult(this
-            .getHibernateTemplate()
-            .findByNamedParam(
-                "from HibernateUserDetails as user_details where user_details.username = :username",
-                new String[] { "username" }, new Object[] { username }));
-  }
+	/**
+	 * Retrieve the user, by username.
+	 * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
+	 */
+	public MutableUserDetails retrieveByName(String username) {
+		return (MutableUserDetails) DataAccessUtils
+				.uniqueResult(this
+						.getHibernateTemplate()
+						.findByNamedParam(
+								"from HibernateUserDetails as user_details where user_details.username = :username",
+								new String[] { "username" },
+								new Object[] { username }));
+	}
 }
