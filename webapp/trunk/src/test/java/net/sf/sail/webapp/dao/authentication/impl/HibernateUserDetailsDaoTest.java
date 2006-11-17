@@ -179,7 +179,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
   }
 
-  public void testRetrieve() {
+  public void testRetrieveByUsername() {
     this.verifyUserandJoinTablesAreEmpty();
 
     this.userDetailsDao.save(this.defaultUserDetails);
