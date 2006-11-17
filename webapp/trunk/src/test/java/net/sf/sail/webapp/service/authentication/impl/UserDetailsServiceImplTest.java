@@ -1,6 +1,19 @@
 /**
- * Copyright Encore Research Group University of Toronto 2006 (c)
- * LGPL
+ * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 package net.sf.sail.webapp.service.authentication.impl;
 
@@ -25,100 +38,106 @@ import org.acegisecurity.userdetails.UsernameNotFoundException;
  */
 public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 
-	private static final String USERNAME = "user name";
-	
-	private static final String PASSWORD = "password";
+  private static final String USERNAME = "user name";
 
-	private HibernateUserDetails expectedUserDetails;
+  private static final String PASSWORD = "password";
 
-	private UserDetailsService userDetailsService;
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
-	 */
-	@Override
-	protected void onSetUpBeforeTransaction() throws Exception {
-		super.onSetUpBeforeTransaction();
-		this.expectedUserDetails = (HibernateUserDetails) this.springContext
-				.getBean("mutableUserDetails");
-		this.expectedUserDetails.setUsername(USERNAME);
-		this.expectedUserDetails.setPassword(PASSWORD);
-		this.userDetailsService = (UserDetailsService) this.springContext
-				.getBean("userDetailsService");
-	}
+  private HibernateUserDetails expectedUserDetails;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
-	 */
-	@Override
-	protected void onSetUpInTransaction() throws Exception {
-		super.onSetUpInTransaction();
-		HibernateUserDetailsDao userDetailsDao = (HibernateUserDetailsDao) this.springContext
-				.getBean("userDetailsDao");
-		userDetailsDao.save(this.expectedUserDetails);
-	}
+  private UserDetailsService userDetailsService;
 
-	public void testLoadUserByUsername() {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
+   */
+  @Override
+  protected void onSetUpBeforeTransaction() throws Exception {
+    super.onSetUpBeforeTransaction();
+    this.expectedUserDetails = (HibernateUserDetails) this.springContext
+        .getBean("mutableUserDetails");
+    this.expectedUserDetails.setUsername(USERNAME);
+    this.expectedUserDetails.setPassword(PASSWORD);
+    this.userDetailsService = (UserDetailsService) this.springContext
+        .getBean("userDetailsService");
+  }
 
-		final String unknownUser = "user not found";
-		try {
-			this.userDetailsService.loadUserByUsername(unknownUser);
-			fail("should have caught UsernameNotFoundException");
-		} catch (UsernameNotFoundException expected) {
-		}
-		UserDetails actual = this.userDetailsService
-				.loadUserByUsername(USERNAME);
-		assertEquals(expectedUserDetails, actual);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
+   */
+  @Override
+  protected void onSetUpInTransaction() throws Exception {
+    super.onSetUpInTransaction();
+    HibernateUserDetailsDao userDetailsDao = (HibernateUserDetailsDao) this.springContext
+        .getBean("userDetailsDao");
+    userDetailsDao.save(this.expectedUserDetails);
+  }
 
-	public void testCreateUserErrors() {
-		// create 2 users and attempt to save to DB
-		// second user should cause exception to be thown
-		try {
-			this.userDetailsService.createUser(USERNAME, PASSWORD);
-			this.userDetailsService.createUser(USERNAME, PASSWORD);
-			fail("DuplicateUsernameException expected and not caught.");
-		} catch (DuplicateUsernameException e) {
-		} catch (UserCreationException e) {
-			fail(e.getMessage());
-		}
+  public void testLoadUserByUsername() {
 
-		//try to save user with null username
-		try {
-			this.userDetailsService.createUser(null, PASSWORD);
-			fail("NullUsernameException expected and not caught.");
-		} catch (NullUsernameException e) {
-		} catch (UserCreationException e) {
-			fail(e.getMessage());
-		}
-		
-		//try to save user with null password
-		try {
-			this.userDetailsService.createUser(USERNAME, null);
-			fail("NullPasswordException expected and not caught");
-		} catch (NullPasswordException e) {
-		} catch (UserCreationException e) {
-			fail(e.getMessage());
-		}
+    final String unknownUser = "user not found";
+    try {
+      this.userDetailsService.loadUserByUsername(unknownUser);
+      fail("should have caught UsernameNotFoundException");
+    }
+    catch (UsernameNotFoundException expected) {
+    }
+    UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
+    assertEquals(expectedUserDetails, actual);
+  }
 
-	}
-	
-	public void testCreateUser() {
-		// create user (saves automatically)
-		try {
-			this.userDetailsService.createUser("whatever", PASSWORD);
-		} catch (Exception e) {
-			fail("Duplicate user name detected.");
-		}
-		
-		// retrieve user and compare
-		UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
-		assertEquals(expectedUserDetails, actual);
-	}
-	
-	
+  public void testCreateUserErrors() {
+    // create 2 users and attempt to save to DB
+    // second user should cause exception to be thown
+    try {
+      this.userDetailsService.createUser(USERNAME, PASSWORD);
+      this.userDetailsService.createUser(USERNAME, PASSWORD);
+      fail("DuplicateUsernameException expected and not caught.");
+    }
+    catch (DuplicateUsernameException e) {
+    }
+    catch (UserCreationException e) {
+      fail(e.getMessage());
+    }
+
+    // try to save user with null username
+    try {
+      this.userDetailsService.createUser(null, PASSWORD);
+      fail("NullUsernameException expected and not caught.");
+    }
+    catch (NullUsernameException e) {
+    }
+    catch (UserCreationException e) {
+      fail(e.getMessage());
+    }
+
+    // try to save user with null password
+    try {
+      this.userDetailsService.createUser(USERNAME, null);
+      fail("NullPasswordException expected and not caught");
+    }
+    catch (NullPasswordException e) {
+    }
+    catch (UserCreationException e) {
+      fail(e.getMessage());
+    }
+
+  }
+
+  public void testCreateUser() {
+    // create user (saves automatically)
+    try {
+      this.userDetailsService.createUser("whatever", PASSWORD);
+    }
+    catch (Exception e) {
+      fail("Duplicate user name detected.");
+    }
+
+    // retrieve user and compare
+    UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
+    assertEquals(expectedUserDetails, actual);
+  }
+
 }
