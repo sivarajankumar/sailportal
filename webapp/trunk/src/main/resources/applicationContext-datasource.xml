@@ -35,7 +35,7 @@
       <value>sa</value>
     </property>
     <property name="password">
-      <value />
+      <value></value>
     </property>
     <property name="defaultAutoCommit">
       <value>false</value>
