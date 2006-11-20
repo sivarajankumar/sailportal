@@ -28,6 +28,7 @@
     Optionally, a properties file can be specified for more control over the Velocity
     environment, but the defaults are pretty sane for file based template loading.
   -->
+<!--
   <bean id="velocityConfig"
     class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
     <property name="resourceLoaderPath">
@@ -36,6 +37,7 @@
     <property name="configLocation"
       value="/WEB-INF/velocity/velocity.properties" />
   </bean>
+-->
 
   <!--
     View resolvers can also be configured with ResourceBundles or XML files. If you need
