@@ -32,88 +32,93 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
  * 
  */
 public class HibernateGrantedAuthorityDaoTest extends
-		AbstractTransactionalDbTests {
+    AbstractTransactionalDbTests {
 
-	private static final String DEFAULT_ROLE = "default_role";
+  private static final String DEFAULT_ROLE = "default_role";
 
-	private HibernateGrantedAuthority defaultGrantedAuthority;
+  private HibernateGrantedAuthority defaultGrantedAuthority;
 
-	private HibernateGrantedAuthorityDao authorityDao;
+  private HibernateGrantedAuthorityDao authorityDao;
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
-	 */
-	@Override
-	protected void onSetUpBeforeTransaction() throws Exception {
-		super.onSetUpBeforeTransaction();
-		this.defaultGrantedAuthority = (HibernateGrantedAuthority) this.springContext
-				.getBean("mutableGrantedAuthority");
-		this.defaultGrantedAuthority.setAuthority(DEFAULT_ROLE);
-		this.authorityDao = (HibernateGrantedAuthorityDao) this.springContext
-				.getBean("grantedAuthorityDao");
-	}
+  /**
+   * @param authorityDao
+   *          the authorityDao to set
+   */
+  public void setAuthorityDao(HibernateGrantedAuthorityDao authorityDao) {
+    this.authorityDao = authorityDao;
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
-	 */
-	@Override
-	protected void onTearDownAfterTransaction() throws Exception {
-		super.onTearDownAfterTransaction();
-		this.defaultGrantedAuthority = null;
-		this.authorityDao = null;
-	}
+  /**
+   * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
+   */
+  @Override
+  protected void onSetUpBeforeTransaction() throws Exception {
+    super.onSetUpBeforeTransaction();
+    this.defaultGrantedAuthority = (HibernateGrantedAuthority) this.applicationContext
+        .getBean("mutableGrantedAuthority");
+    this.defaultGrantedAuthority.setAuthority(DEFAULT_ROLE);
+  }
 
-	public void testSave() {
-		verifyDataStoreIsEmpty();
+  /**
+   * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
+   */
+  @Override
+  protected void onTearDownAfterTransaction() throws Exception {
+    super.onTearDownAfterTransaction();
+    this.defaultGrantedAuthority = null;
+  }
 
-		// save the default granted authority object using dao
-		this.authorityDao.save(this.defaultGrantedAuthority);
+  public void testSave() {
+    verifyDataStoreIsEmpty();
 
-		// verify data store contains saved data using direct jdbc retrieval
-		// (not
-		// dao)
-		List actualList = retrieveGrantedAuthorityListFromDb();
-		assertEquals(1, actualList.size());
+    // save the default granted authority object using dao
+    this.authorityDao.save(this.defaultGrantedAuthority);
 
-		Map actualGrantedAuthorityMap = (Map) actualList.get(0);
-		// * NOTE* the keys in the map are all in UPPERCASE!
-		String actualRole = (String) actualGrantedAuthorityMap.get("ROLE");
-		assertEquals(DEFAULT_ROLE, actualRole);
-	}
+    // verify data store contains saved data using direct jdbc retrieval
+    // (not
+    // dao)
+    List actualList = retrieveGrantedAuthorityListFromDb();
+    assertEquals(1, actualList.size());
 
-	public void testDelete() {
-		verifyDataStoreIsEmpty();
+    Map actualGrantedAuthorityMap = (Map) actualList.get(0);
+    // * NOTE* the keys in the map are all in UPPERCASE!
+    String actualRole = (String) actualGrantedAuthorityMap.get("ROLE");
+    assertEquals(DEFAULT_ROLE, actualRole);
+  }
 
-		// save and delete the default granted authority object using dao
-		this.authorityDao.save(this.defaultGrantedAuthority);
-		this.authorityDao.delete(this.defaultGrantedAuthority);
+  public void testDelete() {
+    verifyDataStoreIsEmpty();
 
-		// * NOTE * must flush to test delete
-		// see http://forum.springframework.org/showthread.php?t=18263 for
-		// explanation
-		this.authorityDao.getHibernateTemplate().flush();
+    // save and delete the default granted authority object using dao
+    this.authorityDao.save(this.defaultGrantedAuthority);
+    this.authorityDao.delete(this.defaultGrantedAuthority);
 
-		verifyDataStoreIsEmpty();
-	}
+    // * NOTE * must flush to test delete
+    // see http://forum.springframework.org/showthread.php?t=18263 for
+    // explanation
+    this.authorityDao.getHibernateTemplate().flush();
 
-	public void testRetrieve() {
-		this.authorityDao.save(this.defaultGrantedAuthority);
+    verifyDataStoreIsEmpty();
+  }
 
-		MutableGrantedAuthority actualAuthority = this.authorityDao
-				.retrieveByName(DEFAULT_ROLE);
-		assertEquals(this.defaultGrantedAuthority, actualAuthority);
+  public void testRetrieve() {
+    this.authorityDao.save(this.defaultGrantedAuthority);
 
-		// choose random non-existent authority and try to retrieve
-		assertNull(this.authorityDao.retrieveByName("blah"));
+    MutableGrantedAuthority actualAuthority = this.authorityDao
+        .retrieveByName(DEFAULT_ROLE);
+    assertEquals(this.defaultGrantedAuthority, actualAuthority);
 
-	}
+    // choose random non-existent authority and try to retrieve
+    assertNull(this.authorityDao.retrieveByName("blah"));
 
-	private void verifyDataStoreIsEmpty() {
-		assertTrue(retrieveGrantedAuthorityListFromDb().isEmpty());
-	}
+  }
 
-	private List retrieveGrantedAuthorityListFromDb() {
-		return this.jdbcTemplate.queryForList("select * from roles;",
-				(Object[]) null);
-	}
+  private void verifyDataStoreIsEmpty() {
+    assertTrue(retrieveGrantedAuthorityListFromDb().isEmpty());
+  }
+
+  private List retrieveGrantedAuthorityListFromDb() {
+    return this.jdbcTemplate.queryForList("select * from roles;",
+        (Object[]) null);
+  }
 }

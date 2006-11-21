@@ -62,26 +62,38 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   private HibernateUserDetailsDao userDetailsDao;
 
   /**
+   * @param authorityDao
+   *          the authorityDao to set
+   */
+  public void setAuthorityDao(HibernateGrantedAuthorityDao authorityDao) {
+    this.authorityDao = authorityDao;
+  }
+
+  /**
+   * @param userDetailsDao
+   *          the userDetailsDao to set
+   */
+  public void setUserDetailsDao(HibernateUserDetailsDao userDetailsDao) {
+    this.userDetailsDao = userDetailsDao;
+  }
+
+  /**
    * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
    */
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    this.role1 = (HibernateGrantedAuthority) this.springContext
+    this.role1 = (HibernateGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
-    this.role2 = (HibernateGrantedAuthority) this.springContext
+    this.role2 = (HibernateGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
-    this.role3 = (HibernateGrantedAuthority) this.springContext
+    this.role3 = (HibernateGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
     this.role1.setAuthority(DEFAULT_ROLE_1);
     this.role2.setAuthority(DEFAULT_ROLE_2);
     this.role3.setAuthority(DEFAULT_ROLE_3);
-    this.authorityDao = (HibernateGrantedAuthorityDao) this.springContext
-        .getBean("grantedAuthorityDao");
-    this.userDetailsDao = (HibernateUserDetailsDao) this.springContext
-        .getBean("userDetailsDao");
 
-    this.defaultUserDetails = (HibernateUserDetails) this.springContext
+    this.defaultUserDetails = (HibernateUserDetails) this.applicationContext
         .getBean("mutableUserDetails");
     this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
     this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);
@@ -111,8 +123,6 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     this.role2 = null;
     this.role3 = null;
     this.defaultUserDetails = null;
-    this.authorityDao = null;
-    this.userDetailsDao = null;
   }
 
   public void testSave() {
@@ -187,7 +197,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     this.userDetailsDao.getHibernateTemplate().flush();
 
     // get user details record from persistent store and confirm it is complete
-    MutableUserDetails userDetails = this.userDetailsDao.retrieveByName(DEFAULT_USERNAME);
+    MutableUserDetails userDetails = this.userDetailsDao
+        .retrieveByName(DEFAULT_USERNAME);
 
     assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
     assertEquals(DEFAULT_PASSWORD, userDetails.getPassword());
