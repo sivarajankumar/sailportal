@@ -27,6 +27,7 @@ import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.userdetails.UserDetails;
 
 /**
  * @author Cynick Young
@@ -219,6 +220,12 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     // choose random non-existent user name and try to retrieve
     assertNull(this.userDetailsDao.retrieveByName("blah"));
   }
+  
+  public void testCreateDataObject() {
+	  UserDetails authority = this.userDetailsDao.createDataObject();
+	  assertTrue(authority instanceof MutableUserDetails);
+  }
+
 
   private void verifyUserandJoinTablesAreEmpty() {
     assertTrue(this.retrieveUserDetailsListFromDb().isEmpty());

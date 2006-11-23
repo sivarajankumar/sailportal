@@ -17,11 +17,10 @@
  */
 package net.sf.sail.webapp.service.authentication;
 
-import org.acegisecurity.GrantedAuthority;
-import org.springframework.dao.DataAccessException;
-
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+
+import org.acegisecurity.GrantedAuthority;
 
 /**
  * @author Cynick Young
@@ -32,20 +31,21 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 public interface UserDetailsService extends
 		org.acegisecurity.userdetails.UserDetailsService {
 
+	public static final String USER_ROLE = "USER";
+
+	public static final String ADMIN_ROLE = "ADMINISTRATOR";
+
 	/**
-	 * Given a unique, non-null username, and any non-null password, creates a
-	 * MutableUserDetails object. If username is not unique or username or
-	 * password are null, throws UserCreationException
+	 * Given a MutableUserDetails object with a unique, non-null username, and a
+	 * non-null password, inserts the object into the DB. If username is
+	 * not unique or username or password are null, throws UserCreationException.
 	 * 
-	 * @param username
-	 * @param password
-	 * @param email_address
-	 *            Can be null or a valid email address (no checking is done).
-	 * @throws UserCreationException
-	 *             If username is not unique or username or password are null.
+	 * @param userDetails A user object.
+	 * @return A reference to the MutableUserDetails object
+	 * @throws UserCreationException If username is not unique or username or password are null.
 	 */
-	public MutableUserDetails createUser(String username, String password,
-			String email_address) throws UserCreationException;
+	public MutableUserDetails createUser(MutableUserDetails userDetails)
+			throws UserCreationException;
 
 	/**
 	 * Given a string representing a role of a user, created a granted authority
@@ -68,6 +68,6 @@ public interface UserDetailsService extends
 	 *             If authority is not in data store.
 	 */
 	public GrantedAuthority loadAuthorityByName(String authority)
-			throws AuthorityNotFoundException, DataAccessException;
+			throws AuthorityNotFoundException;
 
 }

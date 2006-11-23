@@ -46,7 +46,7 @@ import org.springframework.dao.DataAccessException;
  * 
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
-
+	
 	private UserDetailsDao<MutableUserDetails> userDetailsDao;
 
 	private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
@@ -83,19 +83,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	/**
-	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#createUser(java.lang.String,
-	 *      java.lang.String, java.lang.String)
+	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
+	 * In addition, sets the user role to UserDetailsService.USER_ROLE
 	 */
-	public MutableUserDetails createUser(String username, String password,
-			String emailAddress) throws UserCreationException {
-		// validate inputs
-		this.checkUserCreationErrors(username, password);
+	public MutableUserDetails createUser(MutableUserDetails userDetails) throws UserCreationException {
+		this.checkUserCreationErrors(userDetails.getUsername(), userDetails.getPassword());
 
-		// create user details with username and password
-		MutableUserDetails userDetails = this.userDetailsDao.createDataObject();
-		userDetails.setUsername(username);
-		userDetails.setPassword(password);
-		userDetails.setEmailAddress(emailAddress);
+		GrantedAuthority authority = this.grantedAuthorityDao.retrieveByName(USER_ROLE);
+		userDetails.addAuthority(authority);
+		
 		this.userDetailsDao.save(userDetails);
 		return userDetails;
 	}
@@ -170,7 +166,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	/**
 	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#loadAuthorityByName(java.lang.String)
 	 */
-	public GrantedAuthority loadAuthorityByName(String authority) throws AuthorityNotFoundException, DataAccessException {
+	public GrantedAuthority loadAuthorityByName(String authority) throws AuthorityNotFoundException {
 		GrantedAuthority grantedAuthority = this.grantedAuthorityDao.retrieveByName(authority);
 		if (grantedAuthority == null) {
 			throw new AuthorityNotFoundException(authority);

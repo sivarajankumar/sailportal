@@ -20,6 +20,8 @@ package net.sf.sail.webapp.dao.authentication.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.acegisecurity.GrantedAuthority;
+
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
@@ -111,6 +113,11 @@ public class HibernateGrantedAuthorityDaoTest extends
     // choose random non-existent authority and try to retrieve
     assertNull(this.authorityDao.retrieveByName("blah"));
 
+  }
+  
+  public void testCreateDataObject() {
+	  GrantedAuthority authority = this.authorityDao.createDataObject();
+	  assertTrue(authority instanceof MutableGrantedAuthority);
   }
 
   private void verifyDataStoreIsEmpty() {
