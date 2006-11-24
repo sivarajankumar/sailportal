@@ -23,32 +23,66 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
-  <!--
-    This bean sets up the Velocity environment for us based on a root path for templates.
-    Optionally, a properties file can be specified for more control over the Velocity
-    environment, but the defaults are pretty sane for file based template loading.
-  -->
-<!--
-  <bean id="velocityConfig"
-    class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-    <property name="resourceLoaderPath">
-      <value>/WEB-INF/velocity/</value>
+  <!-- Specifies where theme properties are located -->
+  <bean id="themeSource"
+    class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+    <property name="basenamePrefix">
+      <value>themes/</value>
     </property>
-    <property name="configLocation"
-      value="/WEB-INF/velocity/velocity.properties" />
   </bean>
--->
 
-  <!--
-    View resolvers can also be configured with ResourceBundles or XML files. If you need
-    different view resolving based on Locale, you have to use the resource bundle resolver.
-  -->
+  <!-- Use a default fixed theme -->
+  <bean id="themeResolver"
+    class="org.springframework.web.servlet.theme.FixedThemeResolver">
+    <property name="defaultThemeName">
+      <value>default</value>
+    </property>
+  </bean>
+
+  <!-- Switch locales according to the user's browser -->
+  <bean id="localeResolver"
+    class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />
+
+  <!-- JSP with optional JSTL views -->
   <bean id="viewResolver"
-    class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-    <property name="contentType" value="text/html; charset=UTF-8" />
-    <property name="cache" value="false" />
-    <property name="prefix" value="" />
-    <property name="suffix" value=".vm" />
+    class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <property name="viewClass"
+      value="org.springframework.web.servlet.view.JstlView" />
+    <property name="prefix" value="/WEB-INF/jsp/" />
+    <property name="suffix" value=".jsp" />
+  </bean>
+
+  <!-- maps request URLs to Controller names -->
+  <bean
+    class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+    <property name="order" value="1" />
+  </bean>
+
+  <!-- maps request URLs to view file names -->
+  <bean id="urlFilenameViewController"
+    class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+
+  <!-- no 'id' required, HandlerMapping beans are automatically detected by the DispatcherServlet -->
+  <bean
+    class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="order" value="2"></property>
+    <property name="mappings">
+      <value>/index.html=urlFilenameViewController</value>
+    </property>
+  </bean>
+
+  <!-- this bean with the well known name generates view names for us -->
+  <bean id="viewNameTranslator"
+    class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator" />
+
+  <!-- Localizable messages -->
+  <bean id="messageSource"
+    class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basenames">
+      <list>
+        <value>messages/ui-html</value>
+      </list>
+    </property>
   </bean>
 
 </beans>

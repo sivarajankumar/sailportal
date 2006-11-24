@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
@@ -20,5 +20,22 @@
 
 <!-- $Id$ -->
 
-<!-- simply redirect to the main entry page of the web application -->
-<c:redirect url="./index.html" />
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+  type="text/css" />
+<title><spring:message code="application.title" /></title>
+</head>
+
+<body>
+
+<div id="logo"><img src="<spring:theme code="background"/>" /></div>
+
+<div id="banner">
+<h1><spring:message code="banner.heading" /></h1>
+</div>
+
+</body>
+</html>
