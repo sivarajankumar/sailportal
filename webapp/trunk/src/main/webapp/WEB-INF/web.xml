@@ -124,23 +124,6 @@
   </welcome-file-list>
 
 
-  <!-- Make available JSTL 1.1 -->
-  <jsp-config>
-    <taglib>
-      <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
-      <taglib-location>/WEB-INF/lib/standard-1.1.2.jar</taglib-location>
-    </taglib>
-    <taglib>
-      <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
-      <taglib-location>/WEB-INF/lib/standard-1.1.2.jar</taglib-location>
-    </taglib>
-    <taglib>
-      <taglib-uri>http://java.sun.com/jsp/jstl/x</taglib-uri>
-      <taglib-location>/WEB-INF/lib/standard-1.1.2.jar</taglib-location>
-    </taglib>
-  </jsp-config>
-
-
   <!--
     Make it distributable for load balancing purposes.
     That means HttpSessions are serialized.
