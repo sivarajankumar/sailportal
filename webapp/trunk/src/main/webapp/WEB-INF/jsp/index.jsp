@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<%@ taglib prefix="authz" uri="http://acegisecurity.org/authz"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -20,8 +20,7 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-        "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
@@ -35,6 +34,15 @@
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
+</div>
+
+<div id="columns">
+<div id="left">
+<h2><spring:message code="welcome" /> <authz:authentication
+  operation="username" /></h2>
+</div>
+
+<div id="right"></div>
 </div>
 
 </body>

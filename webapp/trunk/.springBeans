@@ -5,6 +5,7 @@
 	</configExtensions>
 	<configs>
 		<config>src/main/resources/applicationContext-hibernate.xml</config>
+		<config>src/main/resources/applicationContext-acegiSecurity.xml</config>
 		<config>src/main/resources/applicationContext-security.xml</config>
 		<config>src/main/resources/applicationContext-datasource.xml</config>
 	</configs>
@@ -17,6 +18,7 @@
 				<config>src/main/resources/applicationContext-hibernate.xml</config>
 				<config>src/main/resources/applicationContext-security.xml</config>
 				<config>src/main/resources/applicationContext-datasource.xml</config>
+				<config>src/main/resources/applicationContext-acegiSecurity.xml</config>
 			</configs>
 		</configSet>
 	</configSets>
