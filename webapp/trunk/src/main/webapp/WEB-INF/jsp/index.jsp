@@ -30,7 +30,7 @@
 
 <body>
 
-<div id="logo"><img src="<spring:theme code="background"/>" /></div>
+<div id="logo"><img src="<spring:theme code="logo"/>" /></div>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
