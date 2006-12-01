@@ -17,6 +17,10 @@
  *
  * $Id$
  */
+body {
+	background-color: pink;
+}
+
 div {
   background-color: pink;
   color: blue;

@@ -1,5 +1,4 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="authz" uri="http://acegisecurity.org/authz"%>
+<%@ include file="include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -30,7 +29,7 @@
 
 <body>
 
-<div id="logo"><img src="<spring:theme code="logo"/>" /></div>
+<%@ include file="header.jsp" %>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
@@ -38,12 +37,16 @@
 
 <div id="columns">
 <div id="left">
-<h2><spring:message code="welcome" /> <authz:authentication
-  operation="username" /></h2>
+<h2>
+	<spring:message code="welcome" /> 
+	<authz:authentication operation="username" />
+</h2>
 </div>
 
 <div id="right"></div>
 </div>
+
+<%@ include file="footer.jsp" %>
 
 </body>
 </html>
