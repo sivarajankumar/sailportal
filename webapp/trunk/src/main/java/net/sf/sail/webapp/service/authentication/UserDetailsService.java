@@ -31,9 +31,9 @@ import org.acegisecurity.GrantedAuthority;
 public interface UserDetailsService extends
 		org.acegisecurity.userdetails.UserDetailsService {
 
-	public static final String USER_ROLE = "USER";
+	public static final String USER_ROLE = "ROLE_USER";
 
-	public static final String ADMIN_ROLE = "ADMINISTRATOR";
+	public static final String ADMIN_ROLE = "ROLE_ADMINISTRATOR";
 
 	/**
 	 * Given a MutableUserDetails object with a unique, non-null username, and a
