@@ -83,7 +83,23 @@
   <!-- ================================= 
           target: create-db
          ================================= -->
-  <target name="create-db" description="Create a production database.">
+  <target name="create-db" depends="_set.properties.jdbc" description="Create a production database.">
+    <sql driver="${jdbc.driver}"
+         password="${jdbc.password}"
+         url="${settings.profiles.profile.properties.jdbc.url}"
+         userid="${jdbc.username}"
+         src="${dir.src.db.hsqldb}/${schema.export.filename}"
+         autocommit="false"
+         onerror="abort"
+         classpathref="lib.jdbc"
+    />
+  </target>
+
+
+  <!-- ================================= 
+          internal target
+         ================================= -->
+  <target name="_set.properties.jdbc">
     <xmlproperty file="${user.home}/.m2/settings.xml"
                  semanticAttributes="true"
     />
@@ -117,15 +133,6 @@ Follow the pattern used for the driver and username.
     </replaceregexp>
     <property file="${temp.properties}" />
     <delete file="${temp.properties}" />
-    <sql driver="${jdbc.driver}"
-         password="${jdbc.password}"
-         url="${settings.profiles.profile.properties.jdbc.url}"
-         userid="${jdbc.username}"
-         src="${dir.src.db.hsqldb}/${schema.export.filename}"
-         autocommit="false"
-         onerror="abort"
-         classpathref="lib.jdbc"
-    />
   </target>
 
 
