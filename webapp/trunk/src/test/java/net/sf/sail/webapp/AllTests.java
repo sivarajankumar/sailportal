@@ -38,6 +38,8 @@ public class AllTests {
     suite.addTest(net.sf.sail.webapp.dao.authentication.impl.AllTests.suite());
     suite.addTest(net.sf.sail.webapp.service.authentication.impl.AllTests
         .suite());
+    suite.addTest(net.sf.sail.webapp.controllers.AllTests.suite());
+    suite.addTest(net.sf.sail.webapp.controllers.AllTests.suite());
     // End add new package unit tests here
     return suite;
   }
