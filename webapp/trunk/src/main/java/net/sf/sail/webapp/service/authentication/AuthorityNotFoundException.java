@@ -17,10 +17,18 @@
  */
 package net.sf.sail.webapp.service.authentication;
 
+/**
+ * A checked exception thrown when an authority is requested from the data
+ * store, but an authority of that name does not exist.
+ * 
+ * @author Laurel Williams
+ * 
+ * @version $Id$
+ */
 public class AuthorityNotFoundException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String message;
 
 	public AuthorityNotFoundException(String authority) {
