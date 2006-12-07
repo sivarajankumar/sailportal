@@ -20,8 +20,8 @@ package net.sf.sail.webapp.service.authentication;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
- * A disposable class that is used to create default roles in the data
- * store and to create a default administrator account.
+ * A disposable class that is used to create default roles in the data store and
+ * to create a default administrator account.
  * 
  * @author Laurel Williams
  * 
@@ -43,22 +43,24 @@ public interface CreateDefaultUsers {
 	 * @throws AuthorityNotFoundException
 	 *             If the user or admin roles are not already loaded into the
 	 *             granted authority table in data store.
-	 * @throws UserCreationException
-	 *             If the user cannot be created (duplicate user name, null
-	 *             username or null password)
+	 * @throws DuplicateUsernameException
+	 *             If the username is a duplicate of one already in the data
+	 *             store.
+	 * 
 	 */
 	public MutableUserDetails createAdministrator(MutableUserDetails userDetails)
-			throws AuthorityNotFoundException, UserCreationException;
+			throws AuthorityNotFoundException, DuplicateUsernameException;
 
 	/**
 	 * Creates two default roles in the the data store authorities table. These
 	 * are UserDetailsService.USER_ROLE and UserDetailsService.ADMIN_ROLE
 	 * authorities. This method should be run before attempting to create users.
 	 * 
-	 * @throws AuthorityCreationException
-	 *             If the authority passed in is null or cannot be created for
-	 *             some reason.
+	 * @throws DuplicateAuthorityException
+	 *             If the authority is a duplicate of one already in the data
+	 *             store.
+	 * 
 	 */
 
-	public void createRoles() throws AuthorityCreationException;
+	public void createRoles() throws DuplicateAuthorityException;
 }

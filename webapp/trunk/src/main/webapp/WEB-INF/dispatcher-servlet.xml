@@ -63,12 +63,41 @@
   <bean id="urlFilenameViewController"
     class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
+    <bean id="userDetailsValidator" class="net.sf.sail.webapp.validators.UserDetailsValidator"/>
+
+    <bean id="signupController" class="net.sf.sail.webapp.controllers.SignupController">
+    	<property name="userDetailsService">
+    		<ref bean="userDetailsService" />
+    	</property>
+    	
+        <property name="commandName"><value>userdetails</value></property>
+        <property name="commandClass"><value>net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails</value></property>
+        <property name="validator"><ref bean="userDetailsValidator"/></property>
+        <property name="formView"><value>signup</value></property>
+        <property name="successView"><value>success.html</value></property>
+    </bean>
+    
+    <bean id="loginController" class="net.sf.sail.webapp.controllers.LoginController">
+    	<property name="userDetailsService">
+    		<ref bean="userDetailsService" />
+    	</property>
+    	
+        <property name="commandName"><value>userdetails</value></property>
+        <property name="commandClass"><value>net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails</value></property>
+        <property name="validator"><ref bean="userDetailsValidator"/></property>
+        <property name="formView"><value>signup</value></property>
+        <property name="successView"><value>success.html</value></property><!--create this page-->
+    </bean>
+    
   <!-- no 'id' required, HandlerMapping beans are automatically detected by the DispatcherServlet -->
   <bean
     class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
     <property name="order" value="2"></property>
     <property name="mappings">
-      <value>/index.html=urlFilenameViewController</value>
+      <value>
+      	/index.html=urlFilenameViewController
+      	/success.html=urlFilenameViewController
+      </value>
     </property>
   </bean>
 

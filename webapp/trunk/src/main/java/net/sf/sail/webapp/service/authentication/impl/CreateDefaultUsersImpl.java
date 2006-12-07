@@ -18,10 +18,10 @@
 package net.sf.sail.webapp.service.authentication.impl;
 
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.service.authentication.AuthorityCreationException;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.CreateDefaultUsers;
-import net.sf.sail.webapp.service.authentication.UserCreationException;
+import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
+import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
@@ -49,7 +49,7 @@ public class CreateDefaultUsersImpl implements CreateDefaultUsers {
 	 * @see net.sf.sail.webapp.service.authentication.CreateDefaultUsers#createAdministrator(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
 	 */
 	public MutableUserDetails createAdministrator(MutableUserDetails userDetails)
-			throws AuthorityNotFoundException, UserCreationException {
+			throws DuplicateUsernameException, AuthorityNotFoundException {
 		GrantedAuthority authority = userService
 				.loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
 		userDetails.addAuthority(authority);
@@ -59,7 +59,7 @@ public class CreateDefaultUsersImpl implements CreateDefaultUsers {
 	/**
 	 * @see net.sf.sail.webapp.service.authentication.CreateDefaultUsers#createRoles()
 	 */
-	public void createRoles() throws AuthorityCreationException {
+	public void createRoles() throws DuplicateAuthorityException {
 		this.userService.createGrantedAuthority(UserDetailsService.ADMIN_ROLE);
 		this.userService.createGrantedAuthority(UserDetailsService.USER_ROLE);
 	}

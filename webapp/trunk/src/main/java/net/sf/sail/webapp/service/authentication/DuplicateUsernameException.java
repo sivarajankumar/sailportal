@@ -26,18 +26,18 @@ package net.sf.sail.webapp.service.authentication;
  * @version $Id: $
  * 
  */
-public class DuplicateUsernameException extends UserCreationException {
+public class DuplicateUsernameException extends Exception {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private String message;
+	private String message;
 
-  public DuplicateUsernameException(String username) {
-    this.message = "Username:" + username + " already in use.";
-  }
+	public DuplicateUsernameException(String username) {
+		this.message = "Username:" + username + " already in use.";
+	}
 
-  public String getMessage() {
-    return this.message;
-  }
+	public String getMessage() {
+		return this.message;
+	}
 
 }

@@ -19,13 +19,13 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
-<html xml:lang="en" lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<html xml:lang="en" lang="en" >
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="signup.title" /></title>
 </head>
 
 <body>
@@ -38,19 +38,35 @@
 
 <div id="columns">
 <div id="left">
-<h2>
-	<spring:message code="welcome" /> 
-	<authz:authentication operation="username" />
-</h2>
+<h2><spring:message code="signup" /></h2>
 </div>
 
 <div id="right">
-	<a href="signup.html"> Sign up </a>
-</div>
+<form:form method="post" action="signup.html" commandName="userdetails">
 
-</div>
+<p>
+<label for="username"><spring:message code="signup.username" /></label>
+<form:input path="username" id="username" />
+<form:errors path="username" />
+</p>
 
+<p>
+<label for="password"><spring:message code="signup.password" /></label>
+<form:password path="password" id="password" />
+<form:errors path="password" />
+</p>
+<p>  
+      <input type="submit" value="Sign Up" />
+</p>
+   </form:form>
+</div>
+</div>
 <%@ include file="footer.jsp" %>
+
 
 </body>
 </html>
+
+
+
+

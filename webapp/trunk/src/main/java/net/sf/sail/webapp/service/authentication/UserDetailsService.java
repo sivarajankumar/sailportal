@@ -36,16 +36,17 @@ public interface UserDetailsService extends
 	public static final String ADMIN_ROLE = "ROLE_ADMINISTRATOR";
 
 	/**
-	 * Given a MutableUserDetails object with a unique, non-null username, and a
-	 * non-null password, inserts the object into the DB. If username is
-	 * not unique or username or password are null, throws UserCreationException.
+	 * Given a MutableUserDetails object with a unique inserts the object into
+	 * the DB. If username is not unique throws a DuplicateUsernameException.
 	 * 
-	 * @param userDetails A user object.
+	 * @param userDetails
+	 *            A user object.
 	 * @return A reference to the MutableUserDetails object
-	 * @throws UserCreationException If username is not unique or username or password are null.
+	 * @throws DuplicateUsernameException
+	 *             If username is not unique.
 	 */
 	public MutableUserDetails createUser(MutableUserDetails userDetails)
-			throws UserCreationException;
+			throws DuplicateUsernameException;
 
 	/**
 	 * Given a string representing a role of a user, created a granted authority
@@ -53,11 +54,12 @@ public interface UserDetailsService extends
 	 * 
 	 * @param authority
 	 * @return A MutableGrantedAuthority object
+	 * @throws DuplicateAuthorityException
 	 * @throws AuthorityCreationException
 	 *             If authority is not unique or null.
 	 */
 	public MutableGrantedAuthority createGrantedAuthority(String authority)
-			throws AuthorityCreationException;
+			throws DuplicateAuthorityException;
 
 	/**
 	 * Given an authority string, loads an authority from the data store.

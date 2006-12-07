@@ -1,3 +1,4 @@
+<%@ include file="include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -18,6 +19,35 @@
 
 <!-- $Id$ -->
 
-<div id="logo">
-	<img src="<spring:theme code="logo"/>" alt="SAIL logo containing two stylized sails and the word SAIL." />
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+  type="text/css" />
+<title><spring:message code="success.title" /></title>
+</head>
+
+<body>
+
+<%@ include file="header.jsp" %>
+
+<div id="banner">
+<h1><spring:message code="banner.heading" /></h1>
 </div>
+
+<div id="columns">
+<div id="left">
+<h2>
+	<spring:message code="success" /> 
+</h2>
+</div>
+
+<div id="right">
+</div>
+
+</div>
+
+<%@ include file="footer.jsp" %>
+
+</body>
+</html>

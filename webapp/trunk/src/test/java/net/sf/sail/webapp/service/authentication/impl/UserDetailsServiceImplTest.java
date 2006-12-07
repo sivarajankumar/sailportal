@@ -24,9 +24,6 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
-import net.sf.sail.webapp.service.authentication.NullAuthorityException;
-import net.sf.sail.webapp.service.authentication.NullPasswordException;
-import net.sf.sail.webapp.service.authentication.NullUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
@@ -111,7 +108,7 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 		assertEquals(expectedUserDetails, actual);
 	}
 
-	public void testCreateUserErrors() throws Exception {
+	public void testDuplicateUserErrors() throws Exception {
 		MutableUserDetails user = this.userDetailsDao.createDataObject();
 		user.setUsername(USERNAME2);
 		user.setPassword(PASSWORD);
@@ -124,23 +121,6 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 			this.userDetailsService.createUser(user);
 			fail("DuplicateUsernameException expected and not caught.");
 		} catch (DuplicateUsernameException e) {
-		}
-
-		// try to save user with null username
-		user.setUsername(null);
-		try {
-			this.userDetailsService.createUser(user);
-			fail("NullUsernameException expected and not caught.");
-		} catch (NullUsernameException e) {
-		}
-
-		// try to save user with null password
-		user.setUsername(USERNAME2);
-		user.setPassword(null);
-		try {
-			this.userDetailsService.createUser(user);
-			fail("NullPasswordException expected and not caught");
-		} catch (NullPasswordException e) {
 		}
 
 	}
@@ -188,7 +168,7 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 		assertEquals(expectedUser, actual);
 	}
 
-	public void testCreateAuthorityErrors() throws Exception {
+	public void testDuplicateAuthorityErrors() throws Exception {
 		// create 2 authorities and attempt to save to DB
 		// second authority should cause exception to be thown
 		this.userDetailsService.createGrantedAuthority(ROLE);
@@ -196,13 +176,6 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 			this.userDetailsService.createGrantedAuthority(ROLE);
 			fail("DuplicateAuthorityException expected and not caught.");
 		} catch (DuplicateAuthorityException e) {
-		}
-
-		// try to save user with null authority
-		try {
-			this.userDetailsService.createGrantedAuthority(null);
-			fail("NullAuthorityException expected and not caught.");
-		} catch (NullAuthorityException e) {
 		}
 
 	}
@@ -216,16 +189,11 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 		assertEquals(expectedGrantedAuthority, actual);
 	}
 
-	/**
-	 * @return
-	 */
+
 	public GrantedAuthorityDao<MutableGrantedAuthority> getAuthorityDao() {
 		return authorityDao;
 	}
 
-	/**
-	 * @param authorityDao
-	 */
 	public void setAuthorityDao(
 			GrantedAuthorityDao<MutableGrantedAuthority> authorityDao) {
 		this.authorityDao = authorityDao;
