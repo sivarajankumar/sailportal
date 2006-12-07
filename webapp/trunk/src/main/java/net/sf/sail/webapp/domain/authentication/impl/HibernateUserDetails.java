@@ -47,7 +47,6 @@ import org.acegisecurity.GrantedAuthority;
  * @version $Id$
  * 
  */
-// TODO Add validation for user information such as username not null, etc.
 @Entity
 @Table(name = "users")
 public class HibernateUserDetails implements MutableUserDetails {
