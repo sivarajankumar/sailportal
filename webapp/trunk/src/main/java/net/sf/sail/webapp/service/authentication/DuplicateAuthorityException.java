@@ -17,7 +17,15 @@
  */
 package net.sf.sail.webapp.service.authentication;
 
-public class DuplicateAuthorityException extends AuthorityCreationException {
+/**
+ * A checked exception thrown when the data store already contains an Authority
+ * object with the same username.
+ * 
+ * @author Laurel Williams
+ * 
+ * @version $Id$
+ */
+public class DuplicateAuthorityException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
