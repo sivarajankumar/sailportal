@@ -32,7 +32,6 @@ import org.acegisecurity.userdetails.UserDetails;
  * @see org.acegisecurity.userdetails.UserDetails
  * 
  */
-// TODO validation of user information
 public interface MutableUserDetails extends UserDetails {
 
 	/**
