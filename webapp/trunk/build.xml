@@ -157,7 +157,7 @@
           depends="_mvn.compile"
           description="Initialize a production database with user role and default administrator account."
   >
-    <java classname="net.sf.sail.webapp.service.authentication.impl.CreateDefaultUsersImpl"
+    <java classname="net.sf.sail.webapp.service.authentication.impl.CreateDefaultUsers"
           fork="true"
           newenvironment="true"
     >

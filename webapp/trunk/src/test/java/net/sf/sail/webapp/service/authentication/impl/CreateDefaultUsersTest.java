@@ -10,7 +10,7 @@ import org.acegisecurity.GrantedAuthority;
 
 public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
 
-  private CreateDefaultUsersImpl creator;
+  private CreateDefaultUsers creator;
 
   private MutableUserDetails expectedUserDetails;
 
@@ -57,7 +57,7 @@ public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    creator = new CreateDefaultUsersImpl();
+    creator = new CreateDefaultUsers();
     creator.setUserDetailsService(userService);
 
     expectedUserDetails = (MutableUserDetails) userDao.createDataObject();

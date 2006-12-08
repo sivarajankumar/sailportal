@@ -20,7 +20,6 @@ package net.sf.sail.webapp.service.authentication.impl;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
-import net.sf.sail.webapp.service.authentication.CreateDefaultUsers;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
@@ -35,10 +34,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * to create a default administrator account.
  * 
  * @author Laurel Williams
+ * @author Cynick Young
  * 
  * @version $Id$
  */
-public class CreateDefaultUsersImpl implements CreateDefaultUsers {
+public class CreateDefaultUsers {
 
   private static final String[] CONFIG_LOCATIONS = new String[] {
       "classpath:applicationContext-datasource.xml",
@@ -50,18 +50,23 @@ public class CreateDefaultUsersImpl implements CreateDefaultUsers {
   private UserDetailsDao<MutableUserDetails> userDetailsDao = null;
 
   /**
+   * Stand alone application that initializes the database with user and admin
+   * roles, as well as an administrator user account. Your chosen administrator
+   * username and password need to be passed as command line arguments.
+   * 
    * @param args
+   *          args[0] - the admin username. args[1] - the admin password.
    */
   public static void main(String[] args) throws Exception {
     if (args.length < 2) {
       System.out
-          .println("Usage: CreateDefaultUsersImpl <admin-username> <admin-password>");
+          .println("Usage: CreateDefaultUsers <admin-username> <admin-password>");
       System.exit(1);
     }
     AbstractXmlApplicationContext context = new ClassPathXmlApplicationContext(
         CONFIG_LOCATIONS);
     try {
-      CreateDefaultUsersImpl createDefaultUsers = new CreateDefaultUsersImpl();
+      CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
       createDefaultUsers.init(context);
       MutableUserDetails adminUser = createDefaultUsers.userDetailsDao
           .createDataObject();
