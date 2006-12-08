@@ -38,37 +38,41 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class SignupController extends SimpleFormController {
 
-	private UserDetailsService userDetailsService = null;
+  private UserDetailsService userDetailsService = null;
 
-	/**
-	 * On submission of the signup form, a user is created and saved to the data
-	 * store.
-	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java.lang.Object,
-	 *      org.springframework.validation.BindException)
-	 */
-	public ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
-		MutableUserDetails userDetails = (MutableUserDetails) command;
+  /**
+   * On submission of the signup form, a user is created and saved to the data
+   * store.
+   * 
+   * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+   *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+   *      org.springframework.validation.BindException)
+   */
+  @Override
+  protected ModelAndView onSubmit(HttpServletRequest request,
+      HttpServletResponse response, Object command, BindException errors)
+      throws Exception {
+    MutableUserDetails userDetails = (MutableUserDetails) command;
 
-		try {
-			userDetailsService.createUser(userDetails);
-		} catch (DuplicateUsernameException e) {
-			Object[] usernameArray = {userDetails.getUsername()};
-			errors.rejectValue("username", "error.duplicate-username", usernameArray, "Duplicate Username.");
-			return showForm(request, response, errors);
-		}
+    try {
+      userDetailsService.createUser(userDetails);
+    }
+    catch (DuplicateUsernameException e) {
+      Object[] usernameArray = { userDetails.getUsername() };
+      errors.rejectValue("username", "error.duplicate-username", usernameArray,
+          "Duplicate Username.");
+      return showForm(request, response, errors);
+    }
 
-		return new ModelAndView(new RedirectView(getSuccessView()));
-	}
+    return new ModelAndView(new RedirectView(getSuccessView()));
+  }
 
-	/**
-	 * Sets the userDetailsService object.
-	 * 
-	 * @param userDetailsService
-	 */
-	public void setUserDetailsService(UserDetailsService userDetailsService) {
-		this.userDetailsService = userDetailsService;
-	}
+  /**
+   * Sets the userDetailsService object.
+   * 
+   * @param userDetailsService
+   */
+  public void setUserDetailsService(UserDetailsService userDetailsService) {
+    this.userDetailsService = userDetailsService;
+  }
 }
