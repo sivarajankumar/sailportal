@@ -25,51 +25,102 @@
     </description>
   <property file="build.properties" />
 
-  <path id="lib.tools">
-    <path location="${M2_REPO}/org/hibernate/hibernate-tools/3.2.0.beta8/hibernate-tools-3.2.0.beta8.jar"
-    />
-    <path location="${M2_REPO}/org/hibernate/hibernate-annotations/3.2.0.ga/hibernate-annotations-3.2.0.ga.jar"
-    />
-    <path location="${M2_REPO}/org/hibernate/hibernate/3.2.0.ga/hibernate-3.2.0.ga.jar"
-    />
-    <path location="${M2_REPO}/commons-logging/commons-logging/1.1/commons-logging-1.1.jar"
-    />
-    <path location="${M2_REPO}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" />
-    <path location="${M2_REPO}/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar"
-    />
-    <path location="${M2_REPO}/freemarker/freemarker/2.3.4/freemarker-2.3.4.jar"
-    />
-    <path location="${M2_REPO}/org/acegisecurity/acegi-security/1.0.2/acegi-security-1.0.2.jar"
-    />
-    <path location="${M2_REPO}/commons-collections/commons-collections/2.1/commons-collections-2.1.jar"
-    />
-    <path location="${M2_REPO}/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar" />
-  </path>
-
   <path id="lib.jdbc">
     <path location="${M2_REPO}/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar" />
   </path>
 
+  <path id="lib.commons-logging">
+    <path location="${M2_REPO}/commons-logging/commons-logging/1.1/commons-logging-1.1.jar"
+    />
+  </path>
+
+  <path id="lib.commons-dbcp">
+    <path location="${M2_REPO}/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar"
+    />
+  </path>
+
+  <path id="lib.commons-pool">
+    <path location="${M2_REPO}/commons-pool/commons-pool/1.2/commons-pool-1.2.jar"
+    />
+  </path>
+
+  <path id="lib.commons-collections">
+    <path location="${M2_REPO}/commons-collections/commons-collections/2.1/commons-collections-2.1.jar"
+    />
+  </path>
+
+  <path id="lib.dom4j">
+    <path location="${M2_REPO}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" />
+  </path>
+
+  <path id="lib.acegi-security">
+    <path location="${M2_REPO}/org/acegisecurity/acegi-security/1.0.2/acegi-security-1.0.2.jar"
+    />
+  </path>
+
+  <path id="lib.hibernate">
+    <path location="${M2_REPO}/org/hibernate/hibernate/3.2.0.ga/hibernate-3.2.0.ga.jar"
+    />
+    <path location="${M2_REPO}/org/hibernate/hibernate-annotations/3.2.0.ga/hibernate-annotations-3.2.0.ga.jar"
+    />
+    <path location="${M2_REPO}/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar"
+    />
+    <path location="${M2_REPO}/antlr/antlr/2.7.6/antlr-2.7.6.jar" />
+  </path>
+
+  <path id="lib.hibernate-tools">
+    <path location="${M2_REPO}/org/hibernate/hibernate-tools/3.2.0.beta8/hibernate-tools-3.2.0.beta8.jar"
+    />
+    <path location="${M2_REPO}/freemarker/freemarker/2.3.4/freemarker-2.3.4.jar"
+    />
+    <path refid="lib.commons-logging" />
+    <path refid="lib.commons-collections" />
+    <path refid="lib.jdbc" />
+    <path refid="lib.acegi-security" />
+    <path refid="lib.hibernate" />
+    <path refid="lib.dom4j" />
+  </path>
+
+  <path id="lib.jta">
+    <path location="${M2_REPO}/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar" />
+  </path>
+
+  <path id="lib.spring">
+    <path location="${M2_REPO}/org/springframework/spring-context/2.0/spring-context-2.0.jar"
+    />
+    <path location="${M2_REPO}/org/springframework/spring-beans/2.0/spring-beans-2.0.jar"
+    />
+    <path location="${M2_REPO}/org/springframework/spring-core/2.0/spring-core-2.0.jar"
+    />
+    <path location="${M2_REPO}/org/springframework/spring/2.0/spring-2.0.jar" />
+  </path>
+
+  <path id="lib.cglib">
+    <path location="${M2_REPO}/cglib/cglib/2.1_3/cglib-2.1_3.jar" />
+    <path location="${M2_REPO}/asm/asm/1.5.3/asm-1.5.3.jar" />
+  </path>
+
   <path id="classes">
-    <path location="${dir.build}/classes" />
+    <path location="${dir.build.classes}" />
   </path>
 
   <taskdef name="hibernatetool"
            classname="org.hibernate.tool.ant.HibernateToolTask"
-           classpathref="lib.tools"
+           classpathref="lib.hibernate-tools"
   />
 
 
   <!-- ================================= 
-          target: schema-export
+          target: db.schema-export
          ================================= -->
-  <target name="schema-export"
-          description="Generate database schema and export it."
+  <target name="db.schema-export"
+          depends="_mvn.compile"
+          description="Generate the database schema from annotated persistent classes."
   >
     <hibernatetool destdir="${dir.src.db.hsqldb}">
       <classpath refid="classes" />
-      <annotationconfiguration configurationfile="${dir.src.resources}/hibernate.cfg.xml"
-                               propertyfile="${dir.src.resources}/hibernate.properties"
+      <annotationconfiguration configurationfile="${dir.build.classes}/hibernate.cfg.xml"
+                               propertyfile="${dir.build.classes}/hibernate.properties"
       />
       <hbm2ddl export="${schema.export.on}"
                drop="${schema.export.drop}"
@@ -81,13 +132,16 @@
 
 
   <!-- ================================= 
-          target: create-db
+          target: db.create
          ================================= -->
-  <target name="create-db" depends="_set.properties.jdbc" description="Create a production database.">
-    <sql driver="${jdbc.driver}"
-         password="${jdbc.password}"
+  <target name="db.create"
+          depends="_set.properties.jdbc"
+          description="Create a production database with table structure only.  No initial data inserted."
+  >
+    <sql driver="${settings.profiles.profile.properties.jdbc.driverClassName}"
          url="${settings.profiles.profile.properties.jdbc.url}"
-         userid="${jdbc.username}"
+         userid="${settings.profiles.profile.properties.jdbc.username}"
+         password="${jdbc.password}"
          src="${dir.src.db.hsqldb}/${schema.export.filename}"
          autocommit="false"
          onerror="abort"
@@ -97,42 +151,62 @@
 
 
   <!-- ================================= 
+          target: db.init
+         ================================= -->
+  <target name="db.init"
+          depends="_mvn.compile"
+          description="Initialize a production database with user role and default administrator account."
+  >
+    <java classname="net.sf.sail.webapp.service.authentication.impl.CreateDefaultUsersImpl"
+          fork="true"
+          newenvironment="true"
+    >
+      <arg value="${default.admin.username}" />
+      <arg value="${default.admin.password}" />
+      <classpath>
+        <path refid="lib.jdbc" />
+        <path refid="lib.commons-dbcp" />
+        <path refid="lib.commons-pool" />
+        <path refid="lib.commons-collections" />
+        <path refid="lib.commons-logging" />
+        <path refid="lib.hibernate" />
+        <path refid="lib.dom4j" />
+        <path refid="lib.spring" />
+        <path refid="lib.jta" />
+        <path refid="lib.cglib" />
+        <path refid="lib.acegi-security" />
+        <path refid="classes" />
+      </classpath>
+    </java>
+  </target>
+
+
+  <!-- ================================= 
+          internal target
+         ================================= -->
+  <target name="_mvn.compile">
+    <exec executable="mvn" failonerror="true" failifexecutionfails="true">
+      <arg value="clean" />
+      <arg value="test" />
+      <arg value="clean" />
+      <arg value="compile" />
+    </exec>
+  </target>
+
+
+  <!-- ================================= 
           internal target
          ================================= -->
   <target name="_set.properties.jdbc">
+    <!--
+For some reason, an empty string in the maven settings.xml file is discard from the XML parsed properties.
+The password is currently hard-coded in build.properties as an empty string for use with HSQLDB only!
+When switching to another database, the password needs to be set accordingly.
+The best way to set the password would be to extract it from settings.xml like the driverClassName, etc.
+    -->
     <xmlproperty file="${user.home}/.m2/settings.xml"
                  semanticAttributes="true"
     />
-    <xmlproperty file="${dir.src.resources}/applicationContext-datasource.xml"
-                 collapseAttributes="true"
-                 semanticAttributes="false"
-    />
-    <tempfile property="temp.properties"
-              destDir="target"
-              prefix="temp"
-              suffix=".properties"
-    />
-    <propertyfile file="${temp.properties}">
-      <entry key="jdbc.driver" value="${beans.bean.property.value}" />
-      <entry key="jdbc.username" value="${beans.bean.property.value}" />
-      <!--
-The password is currently hard-coded as an empty string for use with HSQLDB only!
-When switching to another database, the password needs to be set accordingly.
-The best way to set the password would be to extract it from the production configuration.
-Follow the pattern used for the driver and username.
-      -->
-      <entry key="jdbc.password" value="" />
-    </propertyfile>
-    <replaceregexp file="${temp.properties}" byline="false">
-      <regexp pattern="(jdbc\.driver=)([^,]*),(.*)" />
-      <substitution expression="\1\2" />
-    </replaceregexp>
-    <replaceregexp file="${temp.properties}" byline="false">
-      <regexp pattern="(jdbc\.username=)([^,]*),([^,]*),([^,]*)(.*)" />
-      <substitution expression="\1\4" />
-    </replaceregexp>
-    <property file="${temp.properties}" />
-    <delete file="${temp.properties}" />
   </target>
 
 
@@ -141,12 +215,6 @@ Follow the pattern used for the driver and username.
          ================================= -->
   <target name="echo" description="Echo some useful usage information.">
     <echo>
-      Before running the target "schema-export",
-      ensure that the proper classes and configurations are being used.
-      To do that, run "mvn clean compile".
-      This will build the production classes and configurations.
-      Otherwise, *TEST* configurations may be used to generate the schema!
-      
       To get a list of all available targets,
       use "ant -projecthelp".
     </echo>
