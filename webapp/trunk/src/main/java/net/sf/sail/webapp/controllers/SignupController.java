@@ -58,12 +58,10 @@ public class SignupController extends SimpleFormController {
       userDetailsService.createUser(userDetails);
     }
     catch (DuplicateUsernameException e) {
-      Object[] usernameArray = { userDetails.getUsername() };
-      errors.rejectValue("username", "error.duplicate-username", usernameArray,
-          "Duplicate Username.");
+      errors.rejectValue("username", "error.duplicate-username",
+          new Object[] { userDetails.getUsername() }, "Duplicate Username.");
       return showForm(request, response, errors);
     }
-
     return new ModelAndView(new RedirectView(getSuccessView()));
   }
 

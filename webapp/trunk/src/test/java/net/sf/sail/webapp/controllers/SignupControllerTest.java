@@ -39,6 +39,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * @author Laurel Williams
+ * @author Cynick Young
  * 
  * @version $Id$
  */
@@ -100,6 +101,8 @@ public class SignupControllerTest extends TestCase {
     modelAndView = signupController.onSubmit(request, response, userDetails,
         errors);
     assertEquals(FORM, modelAndView.getViewName());
+    assertEquals(1, errors.getErrorCount());
+    assertEquals(1, errors.getFieldErrorCount("username"));
     verify(mockUserDetailsService);
 
     // test submission of form where RuntimeException is thrown.
