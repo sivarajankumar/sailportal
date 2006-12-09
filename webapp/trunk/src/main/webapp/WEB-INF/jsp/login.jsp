@@ -25,7 +25,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="signup.title" /></title>
+<title><spring:message code="login.title" /></title>
 </head>
 
 <body>
@@ -38,35 +38,33 @@
 
 <div id="columns">
 <div id="left">
-<h2><spring:message code="signup" /></h2>
+<h2><spring:message code="login" /></h2>
 </div>
 
 <div id="right">
-<form:form method="post" action="signup.html" commandName="userdetails">
+
+<c:if test="${failed}"><p><spring:message code="login.failed" /></p></c:if>
+
+<form method="post" action="j_acegi_security_check">
 
 <p>
-<label for="username"><spring:message code="signup.username" /></label>
-<form:input path="username" id="username" />
-<form:errors path="username" />
+<label for="j_username"><spring:message code="login.username" /></label>
+<input type="text" name="j_username" id="j_username" />
 </p>
 
 <p>
-<label for="password"><spring:message code="signup.password" /></label>
-<form:password path="password" id="password" />
-<form:errors path="password" />
+<label for="j_password"><spring:message code="login.password" /></label>
+<input type="password" name="j_password" id="j_password" />
 </p>
+
 <p>  
-      <input type="submit" value="<spring:message code="signup.submit" />" />
+<input type="submit" value="<spring:message code="login.submit" />" />
 </p>
-   </form:form>
+</form>
+
 </div>
 </div>
 <%@ include file="footer.jsp" %>
 
-
 </body>
 </html>
-
-
-
-

@@ -68,23 +68,23 @@
       <property name="passwordEncoder">
       <ref local="passwordEncoder" />
       </property>
-    -->
-    <property name="saltSource">
+      <property name="saltSource">
       <ref local="systemSaltSource" />
-    </property>
+      </property>
+    -->
   </bean>
 
   <!--
     <bean id="passwordEncoder"
     class="org.acegisecurity.providers.encoding.PlaintextPasswordEncoder" />
-  -->
-
-  <bean id="systemSaltSource"
+    
+    <bean id="systemSaltSource"
     class="org.acegisecurity.providers.dao.salt.SystemWideSaltSource">
     <property name="systemWideSalt">
-      <value>secret</value>
+    <value>secret</value>
     </property>
-  </bean>
+    </bean>
+  -->
 
   <!-- Automatically receives AuthenticationEvent messages -->
   <bean id="loggerListener"
@@ -96,7 +96,7 @@
       <ref local="authenticationManager" />
     </property>
     <property name="authenticationFailureUrl">
-      <value>/login.jsp?failed=true</value>
+      <value>/login.html?failed=true</value>
     </property>
     <property name="alwaysUseDefaultTargetUrl">
       <value>false</value>
@@ -112,7 +112,7 @@
   <bean id="authenticationEntryPoint"
     class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
     <property name="loginFormUrl">
-      <value>/login.jsp</value>
+      <value>/login.html</value>
     </property>
   </bean>
 
