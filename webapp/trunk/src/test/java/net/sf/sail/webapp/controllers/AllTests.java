@@ -33,6 +33,7 @@ public class AllTests {
         "Test for net.sf.sail.webapp.service.authentication.impl");
     // $JUnit-BEGIN$
     suite.addTestSuite(SignupControllerTest.class);
+    suite.addTestSuite(LoginControllerTest.class);
     // $JUnit-END$
     return suite;
   }
