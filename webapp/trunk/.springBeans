@@ -7,12 +7,12 @@
 		<config>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config>
 		<config>src/main/resources/applicationContext-hibernate.xml</config>
 		<config>src/main/resources/applicationContext-acegiSecurity.xml</config>
-		<config>src/main/resources/applicationContext-datasource.xml</config>
 		<config>src/main/resources/applicationContext-security.xml</config>
+		<config>src/main/resources/applicationContext-datasource.xml</config>
 	</configs>
 	<configSets>
 		<configSet>
-			<name>Hibernate</name>
+			<name>Everything</name>
 			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
 			<incomplete>false</incomplete>
 			<configs>
@@ -20,6 +20,7 @@
 				<config>src/main/resources/applicationContext-security.xml</config>
 				<config>src/main/resources/applicationContext-datasource.xml</config>
 				<config>src/main/resources/applicationContext-acegiSecurity.xml</config>
+				<config>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config>
 			</configs>
 		</configSet>
 	</configSets>
