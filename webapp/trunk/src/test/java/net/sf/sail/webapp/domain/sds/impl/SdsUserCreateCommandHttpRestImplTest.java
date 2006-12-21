@@ -33,62 +33,72 @@ import org.easymock.EasyMock;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: SdsUserCreateCommandHttpRestImplTest.java 61 2006-12-21
+ *          17:49:35Z cynick $
  * 
  */
 public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 
-  private static final String BASE_URL = "base url";
+	private static final String BASE_URL = "base url";
 
-  private static final Integer PORTAL_ID = 12;
+	private static final Integer PORTAL_ID = 12;
 
-  private static final Integer EXPECTED_ID = 1;
+	private static final Integer EXPECTED_ID = 1;
 
-  private SdsUserCreateCommandHttpRestImpl command = null;
+	private static final String USER_NAME = "user";
 
-  private HttpRestTransport mockTransport = null;
+	private static final String PASSWORD = "pass";
+	
+	private static final String HEADER_LOCATION = "Location";
+	
+	private static final String PORTAL_URL = "http://rails.dev.concord.org/sds/";
+	
+	private static final String USER_DIRECTORY = "/user/";
 
-  /**
-   * @see junit.framework.TestCase#setUp()
-   */
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    command = new SdsUserCreateCommandHttpRestImpl();
-    mockTransport = createMock(HttpRestTransport.class);
-    command.setTransport(mockTransport);
-    command.setBaseUrl(BASE_URL);
-    command.setPortalId(PORTAL_ID);
-  }
+	private SdsUserCreateCommandHttpRestImpl command = null;
 
-  /**
-   * @see junit.framework.TestCase#tearDown()
-   */
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    command = null;
-    mockTransport = null;
-  }
+	private HttpRestTransport mockTransport = null;
 
-  public void testCreate() throws Exception {
-    MutableUserDetails userDetails = new HibernateUserDetails();
-    final String USER_NAME = "user";
-    final String PASSWORD = "pass";
-    userDetails.setUsername(USER_NAME);
-    userDetails.setFirstName(USER_NAME);
-    userDetails.setLastName(USER_NAME);
-    userDetails.setPassword(PASSWORD);
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		command = new SdsUserCreateCommandHttpRestImpl();
+		mockTransport = createMock(HttpRestTransport.class);
+		command.setTransport(mockTransport);
+		command.setBaseUrl(BASE_URL);
+		command.setPortalId(PORTAL_ID);
+	}
 
-    Map<String, String> responseMap = new HashMap<String, String>();
-    responseMap.put("Location", "http://rails.dev.concord.org/sds/" + PORTAL_ID
-        + "/user/" + EXPECTED_ID);
-    expect(mockTransport.post(command.generateRequest(userDetails))).andReturn(
-        responseMap);
-    EasyMock.replay(mockTransport);
-    assertEquals(EXPECTED_ID, command.execute());
-    EasyMock.verify(mockTransport);
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		command = null;
+		mockTransport = null;
+	}
 
-    // TODO failure returns a HTTP/1.1 400 Bad Request, what is a bad request?
-  }
+	public void testCreate() throws Exception {
+		MutableUserDetails userDetails = new HibernateUserDetails();
+		userDetails.setUsername(USER_NAME);
+		userDetails.setFirstName(USER_NAME);
+		userDetails.setLastName(USER_NAME);
+		userDetails.setPassword(PASSWORD);
+
+		Map<String, String> responseMap = new HashMap<String, String>();
+		responseMap.put(HEADER_LOCATION, PORTAL_URL
+				+ PORTAL_ID + USER_DIRECTORY + EXPECTED_ID);
+		expect(mockTransport.post(command.generateRequest(userDetails)))
+				.andReturn(responseMap);
+		EasyMock.replay(mockTransport);
+		assertEquals(EXPECTED_ID, command.execute());
+		EasyMock.verify(mockTransport);
+
+		// TODO failure returns a HTTP/1.1 400 Bad Request, what is a bad
+		// request?
+	}
 }
