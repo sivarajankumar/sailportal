@@ -79,6 +79,12 @@ public class HibernateUserDetails implements MutableUserDetails {
   @Column(name = "email_address", nullable = true)
   private String emailAddress = null;
 
+  @Column(name = "first_name", nullable = true)
+  private String firstName = null;
+
+  @Column(name = "last_name", nullable = true)
+  private String lastName = null;
+
   @Column(name = "account_not_expired", nullable = false)
   private Boolean accountNonExpired = Boolean.TRUE;
 
@@ -295,5 +301,33 @@ public class HibernateUserDetails implements MutableUserDetails {
     if (this.grantedAuthorities == null)
       this.grantedAuthorities = new HashSet<GrantedAuthority>();
     this.grantedAuthorities.add(authority);
+  }
+
+  /**
+   * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#getFirstName()
+   */
+  public String getFirstName() {
+    return this.firstName;
+  }
+
+  /**
+   * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#getLastName()
+   */
+  public String getLastName() {
+    return this.lastName;
+  }
+
+  /**
+   * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setFirstName(java.lang.String)
+   */
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  /**
+   * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setLastName(java.lang.String)
+   */
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 }

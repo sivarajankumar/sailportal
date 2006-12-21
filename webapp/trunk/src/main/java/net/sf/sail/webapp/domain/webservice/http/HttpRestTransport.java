@@ -15,26 +15,29 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.validators;
+package net.sf.sail.webapp.domain.webservice.http;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.util.Map;
+
+
 
 /**
- * @author Laurel Williams
+ * An HTTP REST facade.
+ * 
+ * @author Cynick Young
  * 
  * @version $Id$
  * 
  */
-public class AllTests {
+public interface HttpRestTransport {
 
-  public static Test suite() {
-    TestSuite suite = new TestSuite(
-        "Test for net.sf.sail.webapp.service.authentication.impl");
-    //$JUnit-BEGIN$
-    suite.addTestSuite(SignupValidatorTest.class);
-    //$JUnit-END$
-    return suite;
-  }
+  /**
+   * Performs the post operation given the data required for the post.
+   * 
+   * @param httpData
+   *          The data required for the post.
+   * @return A map of response headers.
+   */
+  public Map<String, String> post(HttpPostRequest httpData);
 
 }

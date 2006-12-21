@@ -15,26 +15,26 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.validators;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+package net.sf.sail.webapp.domain.webservice;
 
 /**
- * @author Laurel Williams
+ * Signals that a network transport error has occured on a request. Thrown by
+ * transport mechanisms when an unexpected response status is encountered.
+ * 
+ * @author Cynick Young
  * 
  * @version $Id$
  * 
  */
-public class AllTests {
+public class NetworkTransportException extends RuntimeException {
 
-  public static Test suite() {
-    TestSuite suite = new TestSuite(
-        "Test for net.sf.sail.webapp.service.authentication.impl");
-    //$JUnit-BEGIN$
-    suite.addTestSuite(SignupValidatorTest.class);
-    //$JUnit-END$
-    return suite;
+  private static final long serialVersionUID = 1L;
+
+  public NetworkTransportException(String message) {
+    super(message);
   }
 
+  public NetworkTransportException(int statusCode, String message) {
+    this(statusCode + " " + message);
+  }
 }

@@ -31,10 +31,10 @@ public class AllTests {
   public static Test suite() {
     TestSuite suite = new TestSuite(
         "Test for net.sf.sail.webapp.service.authentication.impl");
-    // $JUnit-BEGIN$
-    suite.addTestSuite(UserDetailsServiceImplTest.class);
+    //$JUnit-BEGIN$
     suite.addTestSuite(CreateDefaultUsersTest.class);
-    // $JUnit-END$
+    suite.addTestSuite(UserDetailsServiceImplTest.class);
+    //$JUnit-END$
     return suite;
   }
 
