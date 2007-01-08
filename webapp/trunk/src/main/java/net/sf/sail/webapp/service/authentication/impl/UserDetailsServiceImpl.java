@@ -90,6 +90,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		GrantedAuthority authority = this.grantedAuthorityDao
 				.retrieveByName(USER_ROLE);
 		userDetails.addAuthority(authority);
+		
+		//TODO do we add creation of SDS user here?
+		//TODO are there any concerns about transactions, roll-back, etc.
 
 		this.userDetailsDao.save(userDetails);
 		return userDetails;
