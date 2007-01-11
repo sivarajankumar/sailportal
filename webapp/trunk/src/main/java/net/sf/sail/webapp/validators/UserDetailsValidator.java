@@ -1,7 +1,7 @@
 package net.sf.sail.webapp.validators;
 
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -14,7 +14,7 @@ public class UserDetailsValidator implements Validator {
 	}
 
 	public boolean supports(Class clazz) {
-		return clazz.equals(HibernateUserDetails.class);
+		return clazz.equals(PersistentUserDetails.class);
 	}
 
 	public void validate(Object userDetailsIn, Errors errors) {

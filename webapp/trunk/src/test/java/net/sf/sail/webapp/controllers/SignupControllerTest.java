@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
@@ -68,7 +68,7 @@ public class SignupControllerTest extends TestCase {
     super.setUp();
     request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
-    userDetails = new HibernateUserDetails();
+    userDetails = new PersistentUserDetails();
     errors = new BindException(userDetails, "");
     mockUserDetailsService = createMock(UserDetailsService.class);
   }

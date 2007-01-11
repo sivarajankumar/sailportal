@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
-import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
@@ -50,13 +50,13 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
   private static final String DEFAULT_EMAIL = "billy@bob.com";
 
-  private HibernateGrantedAuthority role1;
+  private PersistentGrantedAuthority role1;
 
-  private HibernateGrantedAuthority role2;
+  private PersistentGrantedAuthority role2;
 
-  private HibernateGrantedAuthority role3;
+  private PersistentGrantedAuthority role3;
 
-  private HibernateUserDetails defaultUserDetails;
+  private PersistentUserDetails defaultUserDetails;
 
   private HibernateGrantedAuthorityDao authorityDao;
 
@@ -84,17 +84,17 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    this.role1 = (HibernateGrantedAuthority) this.applicationContext
+    this.role1 = (PersistentGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
-    this.role2 = (HibernateGrantedAuthority) this.applicationContext
+    this.role2 = (PersistentGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
-    this.role3 = (HibernateGrantedAuthority) this.applicationContext
+    this.role3 = (PersistentGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
     this.role1.setAuthority(DEFAULT_ROLE_1);
     this.role2.setAuthority(DEFAULT_ROLE_2);
     this.role3.setAuthority(DEFAULT_ROLE_3);
 
-    this.defaultUserDetails = (HibernateUserDetails) this.applicationContext
+    this.defaultUserDetails = (PersistentUserDetails) this.applicationContext
         .getBean("mutableUserDetails");
     this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
     this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);

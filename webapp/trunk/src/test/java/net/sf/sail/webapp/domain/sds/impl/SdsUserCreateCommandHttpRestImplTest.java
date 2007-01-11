@@ -26,7 +26,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
@@ -86,7 +86,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 	}
 
 	public void testCreate() throws Exception {
-		MutableUserDetails userDetails = new HibernateUserDetails();
+		MutableUserDetails userDetails = new PersistentUserDetails();
 		userDetails.setUsername(USER_NAME);
 		userDetails.setFirstName(USER_NAME);
 		userDetails.setLastName(USER_NAME);
@@ -106,7 +106,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 	}
 
 	public void testCreateException() throws Exception {
-		MutableUserDetails userDetails = new HibernateUserDetails();
+		MutableUserDetails userDetails = new PersistentUserDetails();
 		userDetails.setUsername(USER_NAME);
 		userDetails.setFirstName(USER_NAME);
 		userDetails.setLastName("");

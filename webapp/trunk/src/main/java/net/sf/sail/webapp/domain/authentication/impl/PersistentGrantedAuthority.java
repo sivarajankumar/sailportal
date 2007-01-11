@@ -29,8 +29,8 @@ import javax.persistence.Version;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 
 /**
- * Implementation class of <code>MutableGrantedAuthority</code> that uses the
- * Hibernate persistence mechanism.
+ * Implementation class of <code>MutableGrantedAuthority</code> that uses an
+ * EJB3 compliant object persistence mechanism.
  * 
  * @author Cynick Young
  * 
@@ -39,7 +39,7 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
  */
 @Entity
 @Table(name = "roles")
-public class HibernateGrantedAuthority implements MutableGrantedAuthority {
+public class PersistentGrantedAuthority implements MutableGrantedAuthority {
 
   @Transient
   private static final long serialVersionUID = 1L;
@@ -112,7 +112,7 @@ public class HibernateGrantedAuthority implements MutableGrantedAuthority {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    final HibernateGrantedAuthority other = (HibernateGrantedAuthority) obj;
+    final PersistentGrantedAuthority other = (PersistentGrantedAuthority) obj;
     if (this.authority == null) {
       if (other.authority != null)
         return false;

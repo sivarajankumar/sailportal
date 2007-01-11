@@ -19,7 +19,7 @@ package net.sf.sail.webapp.validators;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -42,7 +42,7 @@ public class SignupValidatorTest extends TestCase {
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		userDetails = new HibernateUserDetails();
+		userDetails = new PersistentUserDetails();
 		userDetails.setUsername(USERNAME);
 		userDetails.setPassword(PASSWORD);
 		errors = new BeanPropertyBindingResult(userDetails, "");

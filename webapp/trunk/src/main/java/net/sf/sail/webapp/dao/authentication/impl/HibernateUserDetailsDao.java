@@ -19,7 +19,7 @@ package net.sf.sail.webapp.dao.authentication.impl;
 
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -40,7 +40,7 @@ public class HibernateUserDetailsDao extends HibernateDaoSupport implements
 	 * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#createDataObject()
 	 */
 	public MutableUserDetails createDataObject() {
-		return new HibernateUserDetails();
+		return new PersistentUserDetails();
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class HibernateUserDetailsDao extends HibernateDaoSupport implements
 				.uniqueResult(this
 						.getHibernateTemplate()
 						.findByNamedParam(
-								"from HibernateUserDetails as user_details where user_details.username = :username",
+								"from PersistentUserDetails as user_details where user_details.username = :username",
 								new String[] { "username" },
 								new Object[] { username }));
 	}

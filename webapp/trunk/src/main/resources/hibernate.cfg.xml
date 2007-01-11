@@ -32,8 +32,8 @@
     <!-- Pretty print the SQL in the log and console. -->
     <property name="hibernate.format_sql">true</property>
     <mapping
-      class="net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority" />
+      class="net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority" />
     <mapping
-      class="net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails" />
+      class="net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails" />
   </session-factory>
 </hibernate-configuration>

@@ -23,7 +23,7 @@ import java.util.Map;
 import org.acegisecurity.GrantedAuthority;
 
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
-import net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
@@ -38,7 +38,7 @@ public class HibernateGrantedAuthorityDaoTest extends
 
   private static final String DEFAULT_ROLE = "default_role";
 
-  private HibernateGrantedAuthority defaultGrantedAuthority;
+  private PersistentGrantedAuthority defaultGrantedAuthority;
 
   private HibernateGrantedAuthorityDao authorityDao;
 
@@ -56,7 +56,7 @@ public class HibernateGrantedAuthorityDaoTest extends
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    this.defaultGrantedAuthority = (HibernateGrantedAuthority) this.applicationContext
+    this.defaultGrantedAuthority = (PersistentGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
     this.defaultGrantedAuthority.setAuthority(DEFAULT_ROLE);
   }

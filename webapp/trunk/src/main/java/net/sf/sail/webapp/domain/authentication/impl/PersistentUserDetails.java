@@ -39,8 +39,8 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import org.acegisecurity.GrantedAuthority;
 
 /**
- * Implementation class of <code>MutableUserDetails</code> that uses the
- * Hibernate persistence mechanism.
+ * Implementation class of <code>MutableUserDetails</code> that uses an EJB3
+ * compliant object persistence mechanism.
  * 
  * @author Cynick Young
  * @author Laurel Williams
@@ -50,7 +50,7 @@ import org.acegisecurity.GrantedAuthority;
  */
 @Entity
 @Table(name = "users")
-public class HibernateUserDetails implements MutableUserDetails {
+public class PersistentUserDetails implements MutableUserDetails {
 
   @Transient
   private static final long serialVersionUID = 1L;
@@ -63,10 +63,10 @@ public class HibernateUserDetails implements MutableUserDetails {
   @Column(name = "OPTLOCK")
   private Integer version = null;
 
-  // Hibernate annotations requires the use of a java <code>Collection</code>.
+  // EJB3 spec annotations require the use of a java <code>Collection</code>.
   // However, Acegi Security deals with an array. There are internal methods
   // to convert to and from the different data structures.
-  @ManyToMany(targetEntity = net.sf.sail.webapp.domain.authentication.impl.HibernateGrantedAuthority.class, fetch = FetchType.EAGER)
+  @ManyToMany(targetEntity = net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority.class, fetch = FetchType.EAGER)
   @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_fk") }, inverseJoinColumns = @JoinColumn(name = "role_fk"))
   private Set<GrantedAuthority> grantedAuthorities = null;
 
@@ -158,14 +158,14 @@ public class HibernateUserDetails implements MutableUserDetails {
   }
 
   private Set<GrantedAuthority> getGrantedAuthorities() {
-    /* Used by Hibernate only for persistence */
+    /* Used only for persistence */
     return this.grantedAuthorities;
   }
 
   @SuppressWarnings("unused")
   private synchronized void setGrantedAuthorities(
       Set<GrantedAuthority> grantedAuthorities) {
-    /* Used by Hibernate only for persistence */
+    /* Used only for persistence */
     this.grantedAuthorities = grantedAuthorities;
   }
 
@@ -270,7 +270,7 @@ public class HibernateUserDetails implements MutableUserDetails {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    final HibernateUserDetails other = (HibernateUserDetails) obj;
+    final PersistentUserDetails other = (PersistentUserDetails) obj;
     if (this.username == null) {
       if (other.username != null)
         return false;
