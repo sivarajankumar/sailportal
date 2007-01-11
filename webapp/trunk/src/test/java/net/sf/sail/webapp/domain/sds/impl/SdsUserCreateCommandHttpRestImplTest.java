@@ -19,6 +19,7 @@ package net.sf.sail.webapp.domain.sds.impl;
 
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.reset;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +27,8 @@ import java.util.Map;
 import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.HibernateUserDetails;
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.easymock.EasyMock;
@@ -48,11 +51,11 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 	private static final String USER_NAME = "user";
 
 	private static final String PASSWORD = "pass";
-	
+
 	private static final String HEADER_LOCATION = "Location";
-	
+
 	private static final String PORTAL_URL = "http://rails.dev.concord.org/sds/";
-	
+
 	private static final String USER_DIRECTORY = "/user/";
 
 	private SdsUserCreateCommandHttpRestImpl command = null;
@@ -90,8 +93,8 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 		userDetails.setPassword(PASSWORD);
 
 		Map<String, String> responseMap = new HashMap<String, String>();
-		responseMap.put(HEADER_LOCATION, PORTAL_URL
-				+ PORTAL_ID + USER_DIRECTORY + EXPECTED_ID);
+		responseMap.put(HEADER_LOCATION, PORTAL_URL + PORTAL_ID
+				+ USER_DIRECTORY + EXPECTED_ID);
 		expect(mockTransport.post(command.generateRequest(userDetails)))
 				.andReturn(responseMap);
 		EasyMock.replay(mockTransport);
@@ -100,5 +103,33 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 
 		// TODO failure returns a HTTP/1.1 400 Bad Request, what is a bad
 		// request?
+	}
+
+	public void testCreateException() throws Exception {
+		MutableUserDetails userDetails = new HibernateUserDetails();
+		userDetails.setUsername(USER_NAME);
+		userDetails.setFirstName(USER_NAME);
+		userDetails.setLastName("");
+		userDetails.setPassword(PASSWORD);
+
+		expect(mockTransport.post(command.generateRequest(userDetails)))
+				.andThrow(new BadRequestException("exception"));
+		EasyMock.replay(mockTransport);
+		try {
+			command.execute();
+			fail("Expected BadRequestException");
+		} catch (BadRequestException e) {
+		}
+
+		reset(mockTransport);
+		expect(mockTransport.post(command.generateRequest(userDetails)))
+				.andThrow(new NetworkTransportException("exception"));
+		EasyMock.replay(mockTransport);
+		try {
+			command.execute();
+			fail("Expected NetworkTransportException");
+		} catch (NetworkTransportException e) {
+		}
+
 	}
 }

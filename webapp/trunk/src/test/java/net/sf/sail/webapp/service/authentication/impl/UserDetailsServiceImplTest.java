@@ -125,6 +125,11 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 
 	}
 
+	/*
+	 * This test checks creation of a user within the portal, but ignores the creation 
+	 * of a user on the remote SDS. Tests for system integration are beyond the scope
+	 * of this testing mechanism.
+	 */
 	public void testCreateUserWithEmail() throws Exception {
 		MutableGrantedAuthority expectedAuthority = this.authorityDao.createDataObject();
 		expectedAuthority.setAuthority(UserDetailsService.USER_ROLE);
@@ -157,6 +162,11 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 
 	}
 
+	/*
+	 * This test checks creation of a user within the portal, but ignores the creation 
+	 * of a user on the remote SDS. Tests for system integration are beyond the scope
+	 * of this testing mechanism.
+	 */
 	public void testCreateUserBlankEmail() throws Exception {
 		MutableUserDetails user = this.userDetailsDao.createDataObject();
 		user.setUsername(USERNAME2);
