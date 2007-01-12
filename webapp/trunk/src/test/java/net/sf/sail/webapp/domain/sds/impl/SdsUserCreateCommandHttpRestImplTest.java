@@ -100,9 +100,6 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 		EasyMock.replay(mockTransport);
 		assertEquals(EXPECTED_ID, command.execute());
 		EasyMock.verify(mockTransport);
-
-		// TODO failure returns a HTTP/1.1 400 Bad Request, what is a bad
-		// request?
 	}
 
 	public void testCreateException() throws Exception {
@@ -130,6 +127,5 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 			fail("Expected NetworkTransportException");
 		} catch (NetworkTransportException e) {
 		}
-
 	}
 }
