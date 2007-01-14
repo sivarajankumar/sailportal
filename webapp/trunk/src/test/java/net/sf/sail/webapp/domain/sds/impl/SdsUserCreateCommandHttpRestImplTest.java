@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;

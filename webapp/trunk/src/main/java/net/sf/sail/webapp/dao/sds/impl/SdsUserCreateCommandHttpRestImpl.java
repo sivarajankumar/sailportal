@@ -15,14 +15,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.domain.sds.impl;
+package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.sds.SdsCommand;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.sds.SdsCommand;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
@@ -105,7 +105,7 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
   }
 
   /**
-   * @see net.sf.sail.webapp.domain.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
    */
   public HttpPostRequest generateRequest(MutableUserDetails userDetails) {
     String bodyData =  USER_CREATE_STRING_1 + userDetails.getFirstName()
@@ -122,7 +122,7 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
   }
 
   /**
-   * @see net.sf.sail.webapp.domain.sds.SdsCommand#execute()
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
    */
   public Integer execute() {
     if (this.postRequest == null) {
