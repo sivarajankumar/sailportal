@@ -56,6 +56,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
   public HttpRestTransportImpl() {
     // Must manually release the connection by calling releaseConnection() on
     // the method, otherwise there will be a resource leak.
+    // Refer to http://jakarta.apache.org/commons/httpclient/threading.html
     this.client = new HttpClient(new MultiThreadedHttpConnectionManager());
   }
 
