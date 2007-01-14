@@ -19,8 +19,6 @@ package net.sf.sail.webapp.domain.webservice.http;
 
 import java.util.Map;
 
-
-
 /**
  * An HTTP REST facade.
  * 
@@ -34,10 +32,10 @@ public interface HttpRestTransport {
   /**
    * Performs the post operation given the data required for the post.
    * 
-   * @param httpData
-   *          The data required for the post.
+   * @param httpPostRequestData
+   *          All the data required for the post request.
    * @return A map of response headers.
    */
-  public Map<String, String> post(HttpPostRequest httpData);
+  public Map<String, String> post(HttpPostRequest httpPostRequestData);
 
 }

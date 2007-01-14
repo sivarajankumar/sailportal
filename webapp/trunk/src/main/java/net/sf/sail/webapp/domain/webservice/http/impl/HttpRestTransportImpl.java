@@ -32,13 +32,14 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.springframework.util.StringUtils;
 
 /**
- * Http Transport specifically for the Sail Data Service. This implementation is
- * using the Jakarta Commons HttpClient package. See http://jakarta.apache.org/commons/httpclient/
+ * Thread-safe Http transport implementation which uses the Jakarta Commons
+ * HttpClient package. See http://jakarta.apache.org/commons/httpclient/
  * 
  * @author Cynick Young
  * 
@@ -47,29 +48,27 @@ import org.springframework.util.StringUtils;
  */
 public class HttpRestTransportImpl implements HttpRestTransport {
 
-  private HttpClient client = null;
+  private HttpClient client;
 
   /**
    * Constructs a newly allocated HttpRestTransportImpl object.
    */
   public HttpRestTransportImpl() {
-    this.client = new HttpClient();
+    // Must manually release the connection by calling releaseConnection() on
+    // the method, otherwise there will be a resource leak.
+    this.client = new HttpClient(new MultiThreadedHttpConnectionManager());
   }
 
   /**
    * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#post(net.sf.sail.webapp.domain.webservice.http.HttpPostRequest)
    */
-  public Map<String, String> post(HttpPostRequest httpData) {
-    Map<String, String> requestHeaders = httpData.getRequestHeaders();
-    Map<String, String> requestParameters = httpData.getRequestParameters();
-    String bodyData = httpData.getBodyData();
-    String url = httpData.getUrl();
-    Integer expectedStatusCode = httpData.getExpectedResponseStatusCode();
-
+  public Map<String, String> post(HttpPostRequest httpPostRequestData) {
     // Create a method instance.
-    PostMethod method = new PostMethod(url);
+    PostMethod method = new PostMethod(httpPostRequestData.getUrl());
 
     // set headers
+    Map<String, String> requestHeaders = httpPostRequestData
+        .getRequestHeaders();
     if (requestHeaders != null && !requestHeaders.isEmpty()) {
       Set<String> keys = requestHeaders.keySet();
       for (Iterator<String> i = keys.iterator(); i.hasNext();) {
@@ -79,11 +78,14 @@ public class HttpRestTransportImpl implements HttpRestTransport {
     }
 
     // set body data
+    String bodyData = httpPostRequestData.getBodyData();
     if (StringUtils.hasText(bodyData)) {
       method.setRequestEntity(new StringRequestEntity(bodyData));
     }
 
     // set parameters
+    Map<String, String> requestParameters = httpPostRequestData
+        .getRequestParameters();
     if (requestParameters != null && !requestParameters.isEmpty()) {
       Set<String> keys = requestParameters.keySet();
       for (Iterator<String> i = keys.iterator(); i.hasNext();) {
@@ -95,9 +97,9 @@ public class HttpRestTransportImpl implements HttpRestTransport {
     Map<String, String> responseHeaders = new HashMap<String, String>();
     try {
       // Execute the method.
-      int statusCode = client.executeMethod(method);
+      int statusCode = this.client.executeMethod(method);
 
-      if (statusCode != expectedStatusCode) {
+      if (statusCode != httpPostRequestData.getExpectedResponseStatusCode()) {
         if (statusCode == HttpStatus.SC_BAD_REQUEST) {
           throw new BadRequestException(method.getStatusText());
         }

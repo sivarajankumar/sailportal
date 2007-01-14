@@ -34,7 +34,8 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: SdsUserCreateCommandHttpRestImpl.java 69 2007-01-14 17:30:00Z
+ *          cynick $
  * 
  */
 public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
@@ -46,21 +47,21 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
   private Integer portalId;
 
   private HttpPostRequest postRequest;
-  
+
   private static final String SLASH = "/";
-  
+
   private static final String USER_DIRECTORY = "user";
-  
+
   private static final String USER_CREATE_STRING_1 = "<user><first-name>";
-  
+
   private static final String USER_CREATE_STRING_2 = "</first-name><last-name>";
-  
+
   private static final String USER_CREATE_STRING_3 = "</last-name><portal-username>";
-  
+
   private static final String USER_CREATE_STRING_4 = "</portal-username></user>";
-  
+
   private static final String HEADER_CONTENT_TYPE = "Content Type";
-  
+
   private static final String HEADER_CONTENT_APPLICATION_XML = "application/xml";
 
   /**
@@ -107,16 +108,17 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
   /**
    * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
    */
+  @SuppressWarnings("unchecked")
   public HttpPostRequest generateRequest(MutableUserDetails userDetails) {
-    String bodyData =  USER_CREATE_STRING_1 + userDetails.getFirstName()
+    String bodyData = USER_CREATE_STRING_1 + userDetails.getFirstName()
         + USER_CREATE_STRING_2 + userDetails.getLastName()
         + USER_CREATE_STRING_3 + userDetails.getUsername()
         + USER_CREATE_STRING_4;
 
     String url = this.baseUrl + this.portalId + SLASH + USER_DIRECTORY;
 
-    this.postRequest = new HttpPostRequest(REQUEST_HEADERS, null, bodyData,
-        url, HttpStatus.SC_CREATED);
+    this.postRequest = new HttpPostRequest(REQUEST_HEADERS,
+        Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
 
     return this.postRequest;
   }
@@ -131,7 +133,7 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
     }
     Map<String, String> responseHeaders = this.transport.post(this.postRequest);
     String locationHeader = responseHeaders.get("Location");
-    return new Integer(locationHeader
-        .substring(locationHeader.lastIndexOf(SLASH) + 1));
+    return new Integer(locationHeader.substring(locationHeader
+        .lastIndexOf(SLASH) + 1));
   }
 }

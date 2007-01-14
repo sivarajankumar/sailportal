@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.domain.webservice.http;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -41,7 +42,7 @@ public final class HttpPostRequest {
   private int expectedResponseStatusCode;
 
   /**
-   * Creates an HttpPostRequest object with all of the data required. 
+   * Creates an HttpPostRequest object with all of the data required.
    * 
    * @param requestHeaders
    *          is a map of HTTP request headers
@@ -58,8 +59,8 @@ public final class HttpPostRequest {
   public HttpPostRequest(final Map<String, String> requestHeaders,
       final Map<String, String> requestParameters, final String bodyData,
       final String url, final int expectedResponseStatusCode) {
-    this.requestHeaders = requestHeaders;
-    this.requestParameters = requestParameters;
+    this.requestHeaders = Collections.unmodifiableMap(requestHeaders);
+    this.requestParameters = Collections.unmodifiableMap(requestParameters);
     this.bodyData = bodyData;
     this.url = url;
     this.expectedResponseStatusCode = expectedResponseStatusCode;
