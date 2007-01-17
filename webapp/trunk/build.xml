@@ -100,6 +100,17 @@
     <path location="${M2_REPO}/asm/asm/1.5.3/asm-1.5.3.jar" />
   </path>
 
+  <path id="lib.commons-codec">
+    <path location="${M2_REPO}/commons-codec/commons-codec/1.2/commons-codec-1.2.jar"
+    />
+  </path>
+
+  <path id="lib.commons-httpclient">
+    <path location="${M2_REPO}/commons-httpclient/commons-httpclient/3.0.1/commons-httpclient-3.0.1.jar"
+    />
+    <path refid="lib.commons-codec" />
+  </path>
+
   <path id="classes">
     <path location="${dir.build.classes}" />
   </path>
@@ -169,6 +180,7 @@
         <path refid="lib.commons-pool" />
         <path refid="lib.commons-collections" />
         <path refid="lib.commons-logging" />
+        <path refid="lib.commons-httpclient" />
         <path refid="lib.hibernate" />
         <path refid="lib.dom4j" />
         <path refid="lib.spring" />
