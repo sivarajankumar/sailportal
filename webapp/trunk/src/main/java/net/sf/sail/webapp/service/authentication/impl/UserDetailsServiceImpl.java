@@ -19,8 +19,12 @@ package net.sf.sail.webapp.service.authentication.impl;
 
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
+import net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
@@ -59,7 +63,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	/**
 	 * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
 	 */
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
 		UserDetails userDetails = this.userDetailsDao.retrieveByName(username);
@@ -82,20 +86,47 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	/**
 	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
 	 */
-	@Transactional(rollbackFor={DuplicateUsernameException.class})
+	@Transactional(rollbackFor = { DuplicateUsernameException.class,
+			BadRequestException.class, NetworkTransportException.class })
 	public MutableUserDetails createUser(MutableUserDetails userDetails)
-			throws DuplicateUsernameException {
+			throws DuplicateUsernameException, BadRequestException,
+			NetworkTransportException {
+
 		this.checkUserCreationErrors(userDetails.getUsername());
 
-		GrantedAuthority authority = this.grantedAuthorityDao
-				.retrieveByName(USER_ROLE);
-		userDetails.addAuthority(authority);
-		
-		//TODO do we add creation of SDS user here?
-		//TODO are there any concerns about transactions, roll-back, etc.
+		//**hack: first name and last name required by SDS**//
+		userDetails.setFirstName(userDetails.getUsername());
+		userDetails.setLastName(userDetails.getUsername());
+		SdsUserCreateCommandHttpRestImpl command = prepareSDSUserCreateCommand(userDetails);
+		Integer SDSUserId = command.execute();
 
+		//TODO store the SDS user Id in local data store and save in user information
+		
+		assignRole(userDetails, USER_ROLE);
 		this.userDetailsDao.save(userDetails);
 		return userDetails;
+	}
+
+	private void assignRole(MutableUserDetails userDetails, String role) {
+		GrantedAuthority authority = this.grantedAuthorityDao
+				.retrieveByName(role);
+		userDetails.addAuthority(authority);
+	}
+
+	// TODO portal id and base url should not be hard coded
+	private SdsUserCreateCommandHttpRestImpl prepareSDSUserCreateCommand(
+			MutableUserDetails userDetails) {
+		SdsUserCreateCommandHttpRestImpl command = new SdsUserCreateCommandHttpRestImpl();
+		command.setTransport(new HttpRestTransportImpl());
+
+		// portal id must already be known in advance
+		// (1 is the SDS test portal)
+		command.setPortalId(1);
+
+		// http://rails.dev.concord.org/sds/
+		command.setBaseUrl("http://rails.dev.concord.org/sds/");
+		command.generateRequest(userDetails);
+		return command;
 	}
 
 	/**
@@ -123,7 +154,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	/**
 	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#createGrantedAuthority(java.lang.String)
 	 */
-	@Transactional(rollbackFor={DuplicateAuthorityException.class})
+	@Transactional(rollbackFor = { DuplicateAuthorityException.class })
 	public MutableGrantedAuthority createGrantedAuthority(String authority)
 			throws DuplicateAuthorityException {
 		this.checkNoAuthorityCreationErrors(authority);
@@ -161,7 +192,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	/**
 	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#loadAuthorityByName(java.lang.String)
 	 */
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public GrantedAuthority loadAuthorityByName(String authority)
 			throws AuthorityNotFoundException {
 		GrantedAuthority grantedAuthority = this.grantedAuthorityDao

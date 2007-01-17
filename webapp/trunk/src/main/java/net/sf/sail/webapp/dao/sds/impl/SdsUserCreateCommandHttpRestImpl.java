@@ -56,11 +56,9 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
 
   private static final String USER_CREATE_STRING_2 = "</first-name><last-name>";
 
-  private static final String USER_CREATE_STRING_3 = "</last-name><portal-username>";
+  private static final String USER_CREATE_STRING_3 = "</last-name></user>";
 
-  private static final String USER_CREATE_STRING_4 = "</portal-username></user>";
-
-  private static final String HEADER_CONTENT_TYPE = "Content Type";
+  private static final String HEADER_CONTENT_TYPE = "Content-Type";
 
   private static final String HEADER_CONTENT_APPLICATION_XML = "application/xml";
 
@@ -112,8 +110,7 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
   public HttpPostRequest generateRequest(MutableUserDetails userDetails) {
     String bodyData = USER_CREATE_STRING_1 + userDetails.getFirstName()
         + USER_CREATE_STRING_2 + userDetails.getLastName()
-        + USER_CREATE_STRING_3 + userDetails.getUsername()
-        + USER_CREATE_STRING_4;
+        + USER_CREATE_STRING_3;
 
     String url = this.baseUrl + this.portalId + SLASH + USER_DIRECTORY;
 
