@@ -19,6 +19,9 @@ package net.sf.sail.webapp.domain.webservice.http;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.regex.Pattern;
+
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
 
 /**
  * Immutable and thread-safe class to encapsulate data required for a post
@@ -55,10 +58,15 @@ public final class HttpPostRequest {
    * @param expectedResponseStatusCode
    *          is the HTTP status code that is expected to be returned by the
    *          server
+   * @throws BadRequestException
+   *           if the request headers contain any illegal characters either in
+   *           the request field name or the request field value
    */
   public HttpPostRequest(final Map<String, String> requestHeaders,
       final Map<String, String> requestParameters, final String bodyData,
-      final String url, final int expectedResponseStatusCode) {
+      final String url, final int expectedResponseStatusCode)
+      throws BadRequestException {
+    checkForLegalHeaders(requestHeaders);
     this.requestHeaders = Collections.unmodifiableMap(requestHeaders);
     this.requestParameters = Collections.unmodifiableMap(requestParameters);
     this.bodyData = bodyData;
@@ -71,6 +79,38 @@ public final class HttpPostRequest {
    * immutable.
    */
   private HttpPostRequest() {
+  }
+
+  /*
+   * Header field names can contain any character except <any US-ASCII control
+   * character (octets 0 - 31) and DEL (127)> (often referred to as CTL or
+   * CTRLs) or "(" | ")" | "<" | ">" | "@" | "," | ";" | ":" | "\" | <"> | "/" |
+   * "[" | "]" | "?" | "=" | "{" | "}" | SP | HT where SP = <US-ASCII SP, space
+   * (32)> and HT = <US-ASCII HT, horizontal-tab (9)> Headers must not be empty.
+   */
+  private static final Pattern ILLEGAL_HEADER_FIELD_NAME_PATTERN = Pattern
+      .compile("(.*[\\p{Cntrl}\t ()<>@,;:\\\"/\u001B\u001D?={}]+.*)+");
+
+  /*
+   * Header field values can contain any character except CTRLs
+   */
+  private static final Pattern ILLEGAL_HEADER_FIELD_VALUE_PATTERN = Pattern
+      .compile("(.*[\\p{Cntrl}]+.*)+");
+
+  private void checkForLegalHeaders(Map<String, String> requestHeaders)
+      throws BadRequestException {
+    for (String key : requestHeaders.keySet()) {
+      if ("".equals(key)
+          || ILLEGAL_HEADER_FIELD_NAME_PATTERN.matcher(key).matches()) {
+        throw new BadRequestException(
+            "Request header field-name contains illegal characters.");
+      }
+      if (ILLEGAL_HEADER_FIELD_VALUE_PATTERN.matcher(requestHeaders.get(key))
+          .matches()) {
+        throw new BadRequestException(
+            "Request header field-value contains illegal characters.");
+      }
+    }
   }
 
   /**
