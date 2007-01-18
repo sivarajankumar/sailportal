@@ -149,6 +149,31 @@
           depends="_set.properties.jdbc"
           description="Create a production database with table structure only.  No initial data inserted."
   >
+
+    <!-- determine the database directory and files and delete them first -->
+    <tempfile property="temp.file" prefix="temp" suffix=".properties" />
+    <propertyfile file="${temp.file}">
+      <entry key="db.directory"
+             value="${settings.profiles.profile.properties.jdbc.url}"
+      />
+      <entry key="db.prefix"
+             value="${settings.profiles.profile.properties.jdbc.url}"
+      />
+    </propertyfile>
+    <replaceregexp file="${temp.file}">
+      <regexp pattern="=jdbc\\:hsqldb\\:file\\:(.*)/(.*);shutdown\\=true" />
+      <substitution expression="=\1" />
+    </replaceregexp>
+    <replaceregexp file="${temp.file}">
+      <regexp pattern="=jdbc\\:hsqldb\\:file\\:.*/(.*);shutdown\\=true" />
+      <substitution expression="=\1" />
+    </replaceregexp>
+    <property file="${temp.file}" />
+    <delete>
+      <fileset dir="${db.directory}" includes="**/${db.prefix}*" />
+      <fileset file="${temp.file}" />
+    </delete>
+
     <sql driver="${settings.profiles.profile.properties.jdbc.driverClassName}"
          url="${settings.profiles.profile.properties.jdbc.url}"
          userid="${settings.profiles.profile.properties.jdbc.username}"
