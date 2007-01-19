@@ -41,6 +41,7 @@
       /WEB-INF/classes/applicationContext-datasource.xml
       /WEB-INF/classes/applicationContext-hibernate.xml
       /WEB-INF/classes/applicationContext-security.xml
+      /WEB-INF/classes/applicationContext-sds.xml
     </param-value>
   </context-param>
 

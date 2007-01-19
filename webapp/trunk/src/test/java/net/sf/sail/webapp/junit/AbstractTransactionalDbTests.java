@@ -32,7 +32,9 @@ public abstract class AbstractTransactionalDbTests extends
   private static final String[] CONFIG_LOCATIONS = new String[] {
       "classpath:applicationContext-security.xml",
       "classpath:applicationContext-hibernate.xml",
-      "classpath:applicationContext-datasource.xml" };
+      "classpath:applicationContext-datasource.xml",
+      "classpath:applicationContext-sds.xml"
+      };
 
   /**
    * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()

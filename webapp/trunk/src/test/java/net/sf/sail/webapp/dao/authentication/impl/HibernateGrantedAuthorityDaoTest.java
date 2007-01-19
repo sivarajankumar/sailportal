@@ -77,8 +77,7 @@ public class HibernateGrantedAuthorityDaoTest extends
     this.authorityDao.save(this.defaultGrantedAuthority);
 
     // verify data store contains saved data using direct jdbc retrieval
-    // (not
-    // dao)
+    // (not using dao)
     List actualList = retrieveGrantedAuthorityListFromDb();
     assertEquals(1, actualList.size());
 
