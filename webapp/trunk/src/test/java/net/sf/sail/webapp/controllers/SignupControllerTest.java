@@ -28,8 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
-import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -61,7 +61,7 @@ public class SignupControllerTest extends TestCase {
 
   BindException errors;
 
-  UserDetailsService mockUserDetailsService;
+  UserService mockUserService;
 
   @Override
   protected void setUp() throws Exception {
@@ -70,7 +70,7 @@ public class SignupControllerTest extends TestCase {
     response = new MockHttpServletResponse();
     userDetails = new PersistentUserDetails();
     errors = new BindException(userDetails, "");
-    mockUserDetailsService = createMock(UserDetailsService.class);
+    mockUserService = createMock(UserService.class);
   }
 
   public void testOnSubmit() throws Exception {
@@ -82,7 +82,7 @@ public class SignupControllerTest extends TestCase {
     request.addParameter("username", USERNAME);
     request.addParameter("password", PASSWORD);
     SignupController signupController = new SignupController();
-    signupController.setUserDetailsService(mockUserDetailsService);
+    signupController.setUserService(mockUserService);
     signupController.setSuccessView(SUCCESS);
     ModelAndView modelAndView = signupController.onSubmit(request, response,
         userDetails, errors);
@@ -93,24 +93,24 @@ public class SignupControllerTest extends TestCase {
     // result in DuplicateUsernameException being thrown.
     // should get back ModelAndView with original form returned with name of
     // Form View as set.
-    reset(mockUserDetailsService);
-    expect(mockUserDetailsService.createUser(userDetails)).andThrow(
+    reset(mockUserService);
+    expect(mockUserService.createUser(userDetails)).andThrow(
         new DuplicateUsernameException(userDetails.getUsername()));
-    replay(mockUserDetailsService);
+    replay(mockUserService);
     signupController.setFormView(FORM);
     modelAndView = signupController.onSubmit(request, response, userDetails,
         errors);
     assertEquals(FORM, modelAndView.getViewName());
     assertEquals(1, errors.getErrorCount());
     assertEquals(1, errors.getFieldErrorCount("username"));
-    verify(mockUserDetailsService);
+    verify(mockUserService);
 
     // test submission of form where RuntimeException is thrown.
     // should catch a RuntimeException
-    reset(mockUserDetailsService);
-    expect(mockUserDetailsService.createUser(userDetails)).andThrow(
+    reset(mockUserService);
+    expect(mockUserService.createUser(userDetails)).andThrow(
         new RuntimeException());
-    replay(mockUserDetailsService);
+    replay(mockUserService);
     signupController.setFormView(FORM);
     try {
       signupController.onSubmit(request, response, userDetails, errors);
@@ -118,7 +118,7 @@ public class SignupControllerTest extends TestCase {
     }
     catch (RuntimeException expected) {
     }
-    verify(mockUserDetailsService);
+    verify(mockUserService);
   }
 
   @Override
@@ -128,6 +128,6 @@ public class SignupControllerTest extends TestCase {
     response = null;
     userDetails = null;
     errors = null;
-    mockUserDetailsService = null;
+    mockUserService = null;
   }
 }

@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
-import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +38,7 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class SignupController extends SimpleFormController {
 
-  private UserDetailsService userDetailsService = null;
+  private UserService userService = null;
 
   /**
    * On submission of the signup form, a user is created and saved to the data
@@ -55,7 +55,7 @@ public class SignupController extends SimpleFormController {
     MutableUserDetails userDetails = (MutableUserDetails) command;
 
     try {
-      userDetailsService.createUser(userDetails);
+      userService.createUser(userDetails);
     }
     catch (DuplicateUsernameException e) {
       errors.rejectValue("username", "error.duplicate-username",
@@ -70,7 +70,7 @@ public class SignupController extends SimpleFormController {
    * 
    * @param userDetailsService
    */
-  public void setUserDetailsService(UserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
+  public void setUserService(UserService userService) {
+    this.userService = userService;
   }
 }

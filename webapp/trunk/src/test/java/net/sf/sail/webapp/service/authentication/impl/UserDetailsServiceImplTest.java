@@ -108,75 +108,77 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 		assertEquals(expectedUserDetails, actual);
 	}
 
-	public void testDuplicateUserErrors() throws Exception {
-		MutableUserDetails user = this.userDetailsDao.createDataObject();
-		user.setUsername(USERNAME2);
-		user.setPassword(PASSWORD);
-		user.setEmailAddress(EMAIL);
-
-		// create 2 users and attempt to save to DB
-		// second user should cause exception to be thown
-		this.userDetailsService.createUser(user);
-		try {
-			this.userDetailsService.createUser(user);
-			fail("DuplicateUsernameException expected and not caught.");
-		} catch (DuplicateUsernameException e) {
-		}
-
-	}
-
-	/*
-	 * This test checks creation of a user within the portal, but ignores the creation 
-	 * of a user on the remote SDS. Tests for system integration are beyond the scope
-	 * of this testing mechanism.
-	 */
-	public void testCreateUserWithEmail() throws Exception {
-		MutableGrantedAuthority expectedAuthority = this.authorityDao.createDataObject();
-		expectedAuthority.setAuthority(UserDetailsService.USER_ROLE);
-		this.authorityDao.save(expectedAuthority);
-		
-		MutableUserDetails user = this.userDetailsDao.createDataObject();
-		user.setUsername(USERNAME2);
-		user.setPassword(PASSWORD);
-		user.setEmailAddress(EMAIL);
-
-		// create user (saves automatically)
-		UserDetails expectedUser = this.userDetailsService.createUser(user);
-
-		// retrieve user and compare
-		UserDetails actual = this.userDetailsService
-				.loadUserByUsername(USERNAME2);
-		assertEquals(expectedUser, actual);
-
-		// check role
-		GrantedAuthority[] authorities = actual.getAuthorities();
-		if (authorities == null) fail("authorities is null");
-		boolean foundUserRole = false;
-		for (int i = 0; i < authorities.length; i++) {
-			if (authorities[i].getAuthority() == UserDetailsService.USER_ROLE) {
-				foundUserRole = true;
-				break;
-			}
-		}
-		assertTrue(foundUserRole);
-
-	}
-
-	/*
-	 * This test checks creation of a user within the portal, but ignores the creation 
-	 * of a user on the remote SDS. Tests for system integration are beyond the scope
-	 * of this testing mechanism.
-	 */
-	public void testCreateUserBlankEmail() throws Exception {
-		MutableUserDetails user = this.userDetailsDao.createDataObject();
-		user.setUsername(USERNAME2);
-		user.setPassword(PASSWORD);
-		UserDetails expectedUser = this.userDetailsService.createUser(user);
-
-		UserDetails actual = this.userDetailsService
-				.loadUserByUsername(USERNAME2);
-		assertEquals(expectedUser, actual);
-	}
+	// TODO - revisit the tests, determine between UserDetailsService and UserService
+	
+//	public void testDuplicateUserErrors() throws Exception {
+//		MutableUserDetails user = this.userDetailsDao.createDataObject();
+//		user.setUsername(USERNAME2);
+//		user.setPassword(PASSWORD);
+//		user.setEmailAddress(EMAIL);
+//
+//		// create 2 users and attempt to save to DB
+//		// second user should cause exception to be thown
+//		this.userDetailsService.createUser(user);
+//		try {
+//			this.userDetailsService.createUser(user);
+//			fail("DuplicateUsernameException expected and not caught.");
+//		} catch (DuplicateUsernameException e) {
+//		}
+//
+//	}
+//
+//	/*
+//	 * This test checks creation of a user within the portal, but ignores the creation 
+//	 * of a user on the remote SDS. Tests for system integration are beyond the scope
+//	 * of this testing mechanism.
+//	 */
+//	public void testCreateUserWithEmail() throws Exception {
+//		MutableGrantedAuthority expectedAuthority = this.authorityDao.createDataObject();
+//		expectedAuthority.setAuthority(UserDetailsService.USER_ROLE);
+//		this.authorityDao.save(expectedAuthority);
+//		
+//		MutableUserDetails user = this.userDetailsDao.createDataObject();
+//		user.setUsername(USERNAME2);
+//		user.setPassword(PASSWORD);
+//		user.setEmailAddress(EMAIL);
+//
+//		// create user (saves automatically)
+//		UserDetails expectedUser = this.userDetailsService.createUser(user);
+//
+//		// retrieve user and compare
+//		UserDetails actual = this.userDetailsService
+//				.loadUserByUsername(USERNAME2);
+//		assertEquals(expectedUser, actual);
+//
+//		// check role
+//		GrantedAuthority[] authorities = actual.getAuthorities();
+//		if (authorities == null) fail("authorities is null");
+//		boolean foundUserRole = false;
+//		for (int i = 0; i < authorities.length; i++) {
+//			if (authorities[i].getAuthority() == UserDetailsService.USER_ROLE) {
+//				foundUserRole = true;
+//				break;
+//			}
+//		}
+//		assertTrue(foundUserRole);
+//
+//	}
+//
+//	/*
+//	 * This test checks creation of a user within the portal, but ignores the creation 
+//	 * of a user on the remote SDS. Tests for system integration are beyond the scope
+//	 * of this testing mechanism.
+//	 */
+//	public void testCreateUserBlankEmail() throws Exception {
+//		MutableUserDetails user = this.userDetailsDao.createDataObject();
+//		user.setUsername(USERNAME2);
+//		user.setPassword(PASSWORD);
+//		UserDetails expectedUser = this.userDetailsService.createUser(user);
+//
+//		UserDetails actual = this.userDetailsService
+//				.loadUserByUsername(USERNAME2);
+//		assertEquals(expectedUser, actual);
+//	}
 
 	public void testDuplicateAuthorityErrors() throws Exception {
 		// create 2 authorities and attempt to save to DB

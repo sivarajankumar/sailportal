@@ -58,7 +58,7 @@ public class HibernateUserDetailsDao extends HibernateDaoSupport implements
 	}
 
 	/**
-	 * Retrieve the user, by username.
+	 * Retrieve the user, by username. Returns null if user is not found.
 	 * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
 	 */
 	public MutableUserDetails retrieveByName(String username) {
@@ -69,5 +69,12 @@ public class HibernateUserDetailsDao extends HibernateDaoSupport implements
 								"from PersistentUserDetails as user_details where user_details.username = :username",
 								new String[] { "username" },
 								new Object[] { username }));
+	}
+	
+	/**
+	 * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#hasUsername(java.lang.String)
+	 */
+	public boolean hasUsername(String username) {
+		return (this.retrieveByName(username) != null);
 	}
 }

@@ -4,71 +4,91 @@ import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.authentication.impl.HibernateUserDetailsDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
 
 public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
 
-  private CreateDefaultUsers creator;
+	private CreateDefaultUsers creator;
 
-  private MutableUserDetails expectedUserDetails;
+	private MutableUserDetails expectedUserDetails;
 
-  private UserDetailsService userService;
+	private UserDetailsService userDetailsService;
 
-  private UserDetailsDao<MutableUserDetails> userDao;
+	@SuppressWarnings("unused")
+	private UserService userService;
 
-  private static final String USERNAME = "Fred";
+	private UserDetailsDao<MutableUserDetails> userDao;
 
-  private static final String PASSWORD = "Dead";
+	private static final String USERNAME = "Fred";
 
-  public void setUserService(UserDetailsService userService) {
-    this.userService = userService;
-  }
+	private static final String PASSWORD = "Dead";
 
-  public void setUserDao(HibernateUserDetailsDao userDao) {
-    this.userDao = userDao;
-  }
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
-  public void testCreateRoles() throws Exception {
-    assertNotNull(userService
-        .loadAuthorityByName(UserDetailsService.ADMIN_ROLE));
-    assertNotNull(userService.loadAuthorityByName(UserDetailsService.USER_ROLE));
-  }
+	public void setUserDao(HibernateUserDetailsDao userDao) {
+		this.userDao = userDao;
+	}
 
-  public void testCreateAdministrator() throws Exception {
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
-    MutableUserDetails actualUserDetails = userDao.retrieveByName(USERNAME);
-    GrantedAuthority[] authorities = actualUserDetails.getAuthorities();
-    assertTrue(testIfHasRole(authorities, UserDetailsService.ADMIN_ROLE));
-    assertTrue(testIfHasRole(authorities, UserDetailsService.USER_ROLE));
-  }
+	public void testCreateRoles() throws Exception {
+		assertNotNull(userDetailsService
+				.loadAuthorityByName(UserDetailsService.ADMIN_ROLE));
+		assertNotNull(userDetailsService
+				.loadAuthorityByName(UserDetailsService.USER_ROLE));
+	}
 
-  private boolean testIfHasRole(GrantedAuthority[] authorities, String role) {
-    boolean isRole = false;
-    for (int i = 0; i < authorities.length; i++) {
-      String thisRole = authorities[i].getAuthority();
-      if (thisRole == role)
-        isRole = true;
-    }
-    return isRole;
-  }
+	public void testCreateAdministrator() throws Exception {
 
-  @Override
-  protected void onSetUpBeforeTransaction() throws Exception {
-    super.onSetUpBeforeTransaction();
-    creator = new CreateDefaultUsers();
-    creator.setUserDetailsService(userService);
+		MutableUserDetails actualUserDetails = userDao.retrieveByName(USERNAME);
+		GrantedAuthority[] authorities = actualUserDetails.getAuthorities();
+		assertTrue(testIfHasRole(authorities, UserDetailsService.ADMIN_ROLE));
+		assertTrue(testIfHasRole(authorities, UserDetailsService.USER_ROLE));
+	}
 
-    expectedUserDetails = (MutableUserDetails) userDao.createDataObject();
-    expectedUserDetails.setUsername(USERNAME);
-    expectedUserDetails.setPassword(PASSWORD);
-  }
+	private boolean testIfHasRole(GrantedAuthority[] authorities, String role) {
+		boolean isRole = false;
+		for (int i = 0; i < authorities.length; i++) {
+			String thisRole = authorities[i].getAuthority();
+			if (thisRole == role)
+				isRole = true;
+		}
+		return isRole;
+	}
 
-  @Override
-  protected void onSetUpInTransaction() throws Exception {
-    super.onSetUpInTransaction();
-    creator.createRoles();
-    creator.createAdministrator(expectedUserDetails);
-  }
+	@Override
+	protected void onSetUpBeforeTransaction() throws Exception {
+		super.onSetUpBeforeTransaction();
+		creator = new CreateDefaultUsers();
+		creator.setUserDetailsService(userDetailsService);
+		creator.setUserService(userService);
+
+		expectedUserDetails = (MutableUserDetails) userDao.createDataObject();
+		expectedUserDetails.setUsername(USERNAME);
+		expectedUserDetails.setPassword(PASSWORD);
+	}
+
+	@Override
+	protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		creator.createRoles();
+		creator.createAdministrator(expectedUserDetails);
+	}
+
+	/**
+	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
+	 */
+	@Override
+	protected void onTearDownAfterTransaction() throws Exception {
+		super.onTearDownAfterTransaction();
+		creator = null;
+		expectedUserDetails = null;
+	}
 }

@@ -81,32 +81,4 @@ public interface MutableUserDetails extends UserDetails {
    * @param authority
    */
   public void addAuthority(GrantedAuthority authority);
-
-  /**
-   * Sets the user's first name.
-   * 
-   * @param firstName
-   */
-  public void setFirstName(String firstName);
-
-  /**
-   * Gets the user's first name.
-   * 
-   * @return first name
-   */
-  public String getFirstName();
-
-  /**
-   * Sets the user's last name.
-   * 
-   * @param lastName
-   */
-  public void setLastName(String lastName);
-
-  /**
-   * Gets the user's lasst name.
-   * 
-   * @return last name
-   */
-  public String getLastName();
 }

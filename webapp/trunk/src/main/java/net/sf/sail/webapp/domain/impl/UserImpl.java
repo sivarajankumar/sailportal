@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * Copyright (c) 2007 Encore Research Group, University of Toronto
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,25 +15,42 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.authentication;
+package net.sf.sail.webapp.domain.impl;
 
-import net.sf.sail.webapp.dao.SimpleDao;
+import java.io.Serializable;
+
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 
 /**
- * @author Cynick Young
+ * @author Laurel Williams
  * 
  * @version $Id$
- * 
  */
-public interface UserDetailsDao<T extends MutableUserDetails> extends
-    SimpleDao<T> {
+public class UserImpl implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private SdsUser sdsUser = null;
+
+	private MutableUserDetails userDetails = null;
+
+// create sds user - via sds info.
+
 	
 	/**
-	 * Check if the username exists in the data store.
-	 * @param username
-	 * @return true if the data store contains a user with the corresponding username, false otherwise.
+	 * @return the userDetails
 	 */
-	public boolean hasUsername(String username);
+	public MutableUserDetails getUserDetails() {
+		return userDetails;
+	}
+
+	/**
+	 * @param userDetails
+	 *            the userDetails to set
+	 */
+	public void setUserDetails(MutableUserDetails userDetails) {
+		this.userDetails = userDetails;
+	}
 
 }

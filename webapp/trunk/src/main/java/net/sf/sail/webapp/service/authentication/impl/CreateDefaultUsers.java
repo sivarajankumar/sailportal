@@ -19,6 +19,7 @@ package net.sf.sail.webapp.service.authentication.impl;
 
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
@@ -40,111 +41,125 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class CreateDefaultUsers {
 
-  private static final String[] CONFIG_LOCATIONS = new String[] {
-      "classpath:applicationContext-datasource.xml",
-      "classpath:applicationContext-hibernate.xml",
-      "classpath:applicationContext-security.xml" };
+	private static final String[] CONFIG_LOCATIONS = new String[] {
+			"classpath:applicationContext-datasource.xml",
+			"classpath:applicationContext-hibernate.xml",
+			"classpath:applicationContext-security.xml",
+			"classpath:applicationContext-user.xml" };
 
-  private UserDetailsService userDetailsService = null;
+	private UserDetailsService userDetailsService = null;
 
-  private UserDetailsDao<MutableUserDetails> userDetailsDao = null;
+	private UserService userService = null;
 
-  /**
-   * Stand alone application that initializes the database with user and admin
-   * roles, as well as an administrator user account. Your chosen administrator
-   * username and password need to be passed as command line arguments.
-   * 
-   * @param args
-   *          args[0] - the admin username. args[1] - the admin password.
-   */
-  public static void main(String[] args) throws Exception {
-    if (args.length < 2) {
-      System.out
-          .println("Usage: CreateDefaultUsers <admin-username> <admin-password>");
-      System.exit(1);
-    }
-    AbstractXmlApplicationContext context = new ClassPathXmlApplicationContext(
-        CONFIG_LOCATIONS);
-    try {
-      CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
-      createDefaultUsers.init(context);
-      MutableUserDetails adminUser = createDefaultUsers.userDetailsDao
-          .createDataObject();
-      adminUser.setUsername(args[0]);
-      adminUser.setPassword(args[1]);
-      createDefaultUsers.createRoles();
-      createDefaultUsers.createAdministrator(adminUser);
-    }
-    finally {
-      context.close();
-    }
-    System.exit(0);
-  }
+	private UserDetailsDao<MutableUserDetails> userDetailsDao = null;
 
-  @SuppressWarnings("unchecked")
-  private void init(ApplicationContext context) {
-    this.setUserDetailsService((UserDetailsService) context
-        .getBean("userDetailsService"));
-    this.setUserDetailsDao((UserDetailsDao) context.getBean("userDetailsDao"));
-  }
+	/**
+	 * Stand alone application that initializes the database with user and admin
+	 * roles, as well as an administrator user account. Your chosen
+	 * administrator username and password need to be passed as command line
+	 * arguments.
+	 * 
+	 * @param args
+	 *            args[0] - the admin username. args[1] - the admin password.
+	 */
+	public static void main(String[] args) throws Exception {
+		if (args.length < 2) {
+			System.out
+					.println("Usage: CreateDefaultUsers <admin-username> <admin-password>");
+			System.exit(1);
+		}
+		AbstractXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				CONFIG_LOCATIONS);
+		try {
+			CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
+			createDefaultUsers.init(context);
+			MutableUserDetails adminUser = createDefaultUsers.userDetailsDao
+					.createDataObject();
+			adminUser.setUsername(args[0]);
+			adminUser.setPassword(args[1]);
+			createDefaultUsers.createRoles();
+			createDefaultUsers.createAdministrator(adminUser);
+		} finally {
+			context.close();
+		}
+		System.exit(0);
+	}
 
-  /**
-   * @param userDetailsDao
-   *          the userDetailsDao to set
-   */
-  public void setUserDetailsDao(
-      UserDetailsDao<MutableUserDetails> userDetailsDao) {
-    this.userDetailsDao = userDetailsDao;
-  }
+	@SuppressWarnings("unchecked")
+	private void init(ApplicationContext context) {
+		this.setUserDetailsService((UserDetailsService) context
+				.getBean("userDetailsService"));
+		this.setUserDetailsDao((UserDetailsDao) context
+				.getBean("userDetailsDao"));
+		this.setUserService((UserService) context.getBean("userService"));
+	}
 
-  /**
-   * Sets the UserDetailsService.
-   * 
-   * @param userDetailsService
-   */
-  public void setUserDetailsService(UserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
-  }
+	/**
+	 * @param userDetailsDao
+	 *            the userDetailsDao to set
+	 */
+	public void setUserDetailsDao(
+			UserDetailsDao<MutableUserDetails> userDetailsDao) {
+		this.userDetailsDao = userDetailsDao;
+	}
 
-  /**
-   * Given a MutableUserDetails object (with username and password set), creates
-   * a user with both UserDetailsService.USER_ROLE and
-   * UserDetailsService.ADMIN_ROLE authorities. These roles must be set already
-   * by using createRoles();
-   * 
-   * @param userDetails
-   *          A UserDetails object with the username and password set.
-   * @return A UserDetails object with username and password that were input and
-   *         with roles UserDetailsService.USER_ROLE and
-   *         UserDetailsService.ADMIN_ROLE authorities.
-   * @throws AuthorityNotFoundException
-   *           If the user or admin roles are not already loaded into the
-   *           granted authority table in data store.
-   * @throws UserCreationException
-   *           If the user cannot be created (duplicate user name, null username
-   *           or null password)
-   */
-  public MutableUserDetails createAdministrator(MutableUserDetails userDetails)
-      throws AuthorityNotFoundException, DuplicateUsernameException {
-    GrantedAuthority authority = userDetailsService
-        .loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
-    userDetails.addAuthority(authority);
-    return userDetailsService.createUser(userDetails);
-  }
+	/**
+	 * Sets the UserDetailsService.
+	 * 
+	 * @param userDetailsService
+	 */
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
-  /**
-   * Creates two default roles in the the data store authorities table. These
-   * are UserDetailsService.USER_ROLE and UserDetailsService.ADMIN_ROLE
-   * authorities. This method should be run before attempting to create users.
-   * 
-   * @throws AuthorityCreationException
-   *           If the authority passed in is null or cannot be created for some
-   *           reason.
-   */
-  public void createRoles() throws DuplicateAuthorityException {
-    this.userDetailsService
-        .createGrantedAuthority(UserDetailsService.ADMIN_ROLE);
-    this.userDetailsService
-        .createGrantedAuthority(UserDetailsService.USER_ROLE);
-  }
+	/**
+	 * Given a MutableUserDetails object (with username and password set),
+	 * creates a user with both UserDetailsService.USER_ROLE and
+	 * UserDetailsService.ADMIN_ROLE authorities. These roles must be set
+	 * already by using createRoles();
+	 * 
+	 * @param userDetails
+	 *            A UserDetails object with the username and password set.
+	 * @return A UserDetails object with username and password that were input
+	 *         and with roles UserDetailsService.USER_ROLE and
+	 *         UserDetailsService.ADMIN_ROLE authorities.
+	 * @throws AuthorityNotFoundException
+	 *             If the user or admin roles are not already loaded into the
+	 *             granted authority table in data store.
+	 * @throws UserCreationException
+	 *             If the user cannot be created (duplicate user name, null
+	 *             username or null password)
+	 */
+	public MutableUserDetails createAdministrator(MutableUserDetails userDetails)
+			throws AuthorityNotFoundException, DuplicateUsernameException {
+		GrantedAuthority authority = userDetailsService
+				.loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
+		userDetails.addAuthority(authority);
+		System.out.println("userService == null? " + userService == null);
+		return userService.createUser(userDetails);
+	}
+
+	/**
+	 * Creates two default roles in the the data store authorities table. These
+	 * are UserDetailsService.USER_ROLE and UserDetailsService.ADMIN_ROLE
+	 * authorities. This method should be run before attempting to create users.
+	 * 
+	 * @throws AuthorityCreationException
+	 *             If the authority passed in is null or cannot be created for
+	 *             some reason.
+	 */
+	public void createRoles() throws DuplicateAuthorityException {
+		this.userDetailsService
+				.createGrantedAuthority(UserDetailsService.ADMIN_ROLE);
+		this.userDetailsService
+				.createGrantedAuthority(UserDetailsService.USER_ROLE);
+	}
+
+	/**
+	 * @param userService
+	 *            the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 }

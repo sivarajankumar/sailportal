@@ -98,8 +98,8 @@
 
   <bean id="signupController"
     class="net.sf.sail.webapp.controllers.SignupController">
-    <property name="userDetailsService">
-      <ref bean="userDetailsService" />
+    <property name="userService">
+      <ref bean="userService" />
     </property>
     <property name="commandName">
       <value>userdetails</value>

@@ -49,6 +49,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   private static final String DEFAULT_PASSWORD = "my secret";
 
   private static final String DEFAULT_EMAIL = "billy@bob.com";
+  
+  private static final String USERNAME_NOT_IN_DB = "blah";
 
   private PersistentGrantedAuthority role1;
 
@@ -218,12 +220,19 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     }
 
     // choose random non-existent user name and try to retrieve
-    assertNull(this.userDetailsDao.retrieveByName("blah"));
+    assertNull(this.userDetailsDao.retrieveByName(USERNAME_NOT_IN_DB));
   }
   
   public void testCreateDataObject() {
 	  UserDetails authority = this.userDetailsDao.createDataObject();
 	  assertTrue(authority instanceof MutableUserDetails);
+  }
+  
+  public void testHasUsername() {
+	    this.userDetailsDao.save(this.defaultUserDetails);
+	    assertTrue(this.userDetailsDao.hasUsername(DEFAULT_USERNAME));
+	    
+	    assertFalse(this.userDetailsDao.hasUsername(USERNAME_NOT_IN_DB));
   }
 
 
@@ -235,12 +244,12 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   private List retrieveUserDetailsListFromDb() {
     return this.jdbcTemplate
         .queryForList(
-            "select * from users, users_roles, roles where users.id = users_roles.user_fk and roles.id = users_roles.role_fk;",
+            "select * from user_details, users_roles, roles where user_details.id = users_roles.user_fk and roles.id = users_roles.role_fk;",
             (Object[]) null);
   }
 
   private List retrieveUsersTableFromDb() {
-    return this.jdbcTemplate.queryForList("select * from users;",
+    return this.jdbcTemplate.queryForList("select * from user_details;",
         (Object[]) null);
   }
 

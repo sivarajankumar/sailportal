@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
 /**
@@ -36,12 +35,12 @@ public interface SdsCommand {
   /**
    * Puts together the request data and the user data required to execute the
    * commmand.
+ * @param firstName TODO
+ * @param lastName TODO
    * 
-   * @param userDetails
-   *          The user information required for the create commmand.
    * @return The HttpPostRequest constructed from the user details.
    */
-  public HttpPostRequest generateRequest(MutableUserDetails userDetails);
+  public HttpPostRequest generateRequest(String firstName, String lastName);
 
   /**
    * Executes the commmand based on data contructed via the generateRequest

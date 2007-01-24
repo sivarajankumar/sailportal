@@ -38,27 +38,6 @@ public interface UserDetailsService extends
 	public static final String ADMIN_ROLE = "ROLE_ADMINISTRATOR";
 
 	/**
-	 * Given a MutableUserDetails object with a unique name, creates a remote
-	 * SDS user and also inserts the object into the local db. If username is
-	 * not unique throws a DuplicateUsernameException.
-	 * 
-	 * @param userDetails
-	 *            A user object.
-	 * @return A reference to the MutableUserDetails object
-	 * @throws DuplicateUsernameException
-	 *             If username is not unique.
-	 * @throws BadRequestException
-	 *             If username is unacceptable according to SDS, ie. contains
-	 *             invalid characters.
-	 * @throws NetworkTransportException
-	 *             If an error occurs during network communications with SDS
-	 *             while creating a SDS user.
-	 */
-	public MutableUserDetails createUser(MutableUserDetails userDetails)
-			throws DuplicateUsernameException, BadRequestException,
-			NetworkTransportException;
-
-	/**
 	 * Given a string representing a role of a user, created a granted authority
 	 * record in the data store
 	 * 

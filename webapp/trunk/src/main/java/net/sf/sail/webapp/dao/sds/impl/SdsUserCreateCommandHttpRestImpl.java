@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.sail.webapp.dao.sds.SdsCommand;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
@@ -104,12 +103,12 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(String, String)
    */
   @SuppressWarnings("unchecked")
-  public HttpPostRequest generateRequest(MutableUserDetails userDetails) {
-    String bodyData = USER_CREATE_STRING_1 + userDetails.getFirstName()
-        + USER_CREATE_STRING_2 + userDetails.getLastName()
+  public HttpPostRequest generateRequest(String firstName, String lastName) {
+    String bodyData = USER_CREATE_STRING_1 + firstName
+        + USER_CREATE_STRING_2 + lastName
         + USER_CREATE_STRING_3;
 
     String url = this.baseUrl + this.portalId + SLASH + USER_DIRECTORY;
