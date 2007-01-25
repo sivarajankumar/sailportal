@@ -121,16 +121,17 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(SdsUser)
    */
-  public Integer execute() {
+  public SdsUser execute(SdsUser sdsUser) {
     if (this.postRequest == null) {
       throw new BadRequestException(
           "The request is null. Call generateRequest() method prior to execute().");
     }
     Map<String, String> responseHeaders = this.transport.post(this.postRequest);
     String locationHeader = responseHeaders.get("Location");
-    return new Integer(locationHeader.substring(locationHeader
-        .lastIndexOf(SLASH) + 1));
+    sdsUser.setUserid(new Integer(locationHeader.substring(locationHeader
+        .lastIndexOf(SLASH) + 1)));
+    return sdsUser;
   }
 }

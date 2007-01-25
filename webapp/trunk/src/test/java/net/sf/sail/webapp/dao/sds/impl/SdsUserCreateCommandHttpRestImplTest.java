@@ -46,6 +46,10 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   private static final Integer PORTAL_ID = new Integer(12);
 
   private static final Integer EXPECTED_ID = new Integer(1);
+  
+  private static final String EXPECTED_FIRST_NAME = "Blah";
+  
+  private static final String EXPECTED_LAST_NAME = "Last";
 
   private static final String HEADER_LOCATION = "Location";
 
@@ -58,6 +62,8 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   private HttpRestTransport mockTransport;
 
   private SdsUser sdsUser;
+  
+  private SdsUser expectedSdsUser;
 
   /**
    * @see junit.framework.TestCase#setUp()
@@ -68,6 +74,10 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     command = new SdsUserCreateCommandHttpRestImpl();
     mockTransport = createMock(HttpRestTransport.class);
     sdsUser = new SdsUser();
+    expectedSdsUser = new SdsUser();
+    expectedSdsUser.setFirstName(EXPECTED_FIRST_NAME);
+    expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
+    expectedSdsUser.setUserid(EXPECTED_ID);
     command.setTransport(mockTransport);
     command.setBaseUrl(BASE_URL);
     command.setPortalId(PORTAL_ID);
@@ -88,10 +98,12 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     Map<String, String> responseMap = new HashMap<String, String>();
     responseMap.put(HEADER_LOCATION, PORTAL_URL + PORTAL_ID + USER_DIRECTORY
         + EXPECTED_ID);
+    this.sdsUser.setFirstName(EXPECTED_FIRST_NAME);
+    this.sdsUser.setLastName(EXPECTED_LAST_NAME);
     expect(mockTransport.post(command.generateRequest(this.sdsUser)))
         .andReturn(responseMap);
     EasyMock.replay(mockTransport);
-    assertEquals(EXPECTED_ID, command.execute());
+    assertEquals(expectedSdsUser, command.execute(this.sdsUser));
     EasyMock.verify(mockTransport);
   }
 
@@ -100,7 +112,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
         new BadRequestException("exception"));
     EasyMock.replay(mockTransport);
     try {
-      command.execute();
+      command.execute(this.sdsUser);
       fail("Expected BadRequestException");
     }
     catch (BadRequestException e) {
@@ -111,7 +123,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
         new NetworkTransportException("exception"));
     EasyMock.replay(mockTransport);
     try {
-      command.execute();
+      command.execute(this.sdsUser);
       fail("Expected NetworkTransportException");
     }
     catch (NetworkTransportException e) {

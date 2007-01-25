@@ -32,128 +32,135 @@ import org.acegisecurity.userdetails.UserDetails;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
-  private static final String USERNAME = "another name";
+	private static final String USERNAME = "another name";
 
-  private static final String EMAIL = "billy@bob.com";
+	private static final String EMAIL = "billy@bob.com";
 
-  private static final String PASSWORD = "password";
+	private static final String PASSWORD = "password";
 
-  private UserDetailsDao<MutableUserDetails> userDetailsDao;
+	private UserDetailsDao<MutableUserDetails> userDetailsDao;
 
-  private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
+	private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
 
-  private UserDetailsService userDetailsService;
+	private UserDetailsService userDetailsService;
 
-  private UserService userService;
+	private UserService userService;
 
-  public void testDuplicateUserErrors() throws Exception {
-    MutableUserDetails user = this.userDetailsDao.createDataObject();
-    user.setUsername(USERNAME);
-    user.setPassword(PASSWORD);
-    user.setEmailAddress(EMAIL);
+	public void testDuplicateUserErrors() throws Exception {
+		MutableUserDetails user = this.userDetailsDao.createDataObject();
+		user.setUsername(USERNAME);
+		user.setPassword(PASSWORD);
+		user.setEmailAddress(EMAIL);
 
-    // create 2 users and attempt to save to DB
-    // second user should cause exception to be thown
-    this.userService.createUser(user);
-    try {
-      this.userService.createUser(user);
-      fail("DuplicateUsernameException expected and not caught.");
-    }
-    catch (DuplicateUsernameException e) {
-    }
+		// create 2 users and attempt to save to DB
+		// second user should cause exception to be thown
+		this.userService.createUser(user);
+		try {
+			this.userService.createUser(user);
+			fail("DuplicateUsernameException expected and not caught.");
+		} catch (DuplicateUsernameException e) {
+		}
 
-  }
+	}
 
-  /*
-   * This test checks creation of a user within the portal, but ignores the
-   * creation of a user on the remote SDS. Tests for system integration are
-   * beyond the scope of this testing mechanism.
-   */
-  public void testCreateUserWithEmail() throws Exception {
-    MutableGrantedAuthority expectedAuthority = this.authorityDao
-        .createDataObject();
-    expectedAuthority.setAuthority(UserDetailsService.USER_ROLE);
-    this.authorityDao.save(expectedAuthority);
+	/*
+	 * This test checks creation of a user within the portal, but ignores the
+	 * creation of a user on the remote SDS. Tests for system integration are
+	 * beyond the scope of this testing mechanism.
+	 */
+	public void testCreateUserWithEmail() throws Exception {
+		MutableGrantedAuthority expectedAuthority = this.authorityDao
+				.createDataObject();
+		expectedAuthority.setAuthority(UserDetailsService.USER_ROLE);
+		this.authorityDao.save(expectedAuthority);
 
-    MutableUserDetails user = this.userDetailsDao.createDataObject();
-    user.setUsername(USERNAME);
-    user.setPassword(PASSWORD);
-    user.setEmailAddress(EMAIL);
+		MutableUserDetails user = this.userDetailsDao.createDataObject();
+		user.setUsername(USERNAME);
+		user.setPassword(PASSWORD);
+		user.setEmailAddress(EMAIL);
 
-    // create user (saves automatically)
-    UserDetails expectedUser = this.userService.createUser(user);
+		// create user (saves automatically)
+		UserDetails expectedUser = this.userService.createUser(user);
 
-    // retrieve user and compare
-    UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
-    assertEquals(expectedUser, actual);
+		// retrieve user and compare
+		UserDetails actual = this.userDetailsService
+				.loadUserByUsername(USERNAME);
+		assertEquals(expectedUser, actual);
 
-    // check role
-    GrantedAuthority[] authorities = actual.getAuthorities();
-    if (authorities == null)
-      fail("authorities is null");
-    boolean foundUserRole = false;
-    for (int i = 0; i < authorities.length; i++) {
-      if (authorities[i].getAuthority() == UserDetailsService.USER_ROLE) {
-        foundUserRole = true;
-        break;
-      }
-    }
-    assertTrue(foundUserRole);
+		// check role
+		GrantedAuthority[] authorities = actual.getAuthorities();
+		if (authorities == null)
+			fail("authorities is null");
+		boolean foundUserRole = false;
+		for (int i = 0; i < authorities.length; i++) {
+			if (authorities[i].getAuthority() == UserDetailsService.USER_ROLE) {
+				foundUserRole = true;
+				break;
+			}
+		}
+		assertTrue(foundUserRole);
 
-  }
+		// added this end transaction to catch a transaction commit within a
+		// transaction rollback problem
+		this.userDetailsDao.delete(user);
+		this.setComplete();
+		this.endTransaction();
 
-  /*
-   * This test checks creation of a user within the portal, but ignores the
-   * creation of a user on the remote SDS. Tests for system integration are
-   * beyond the scope of this testing mechanism.
-   */
-  public void testCreateUserBlankEmail() throws Exception {
-    MutableUserDetails user = this.userDetailsDao.createDataObject();
-    user.setUsername(USERNAME);
-    user.setPassword(PASSWORD);
-    UserDetails expectedUser = this.userService.createUser(user);
+	}
 
-    UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
-    assertEquals(expectedUser, actual);
-  }
+	/*
+	 * This test checks creation of a user within the portal, but ignores the
+	 * creation of a user on the remote SDS. Tests for system integration are
+	 * beyond the scope of this testing mechanism.
+	 */
+	public void testCreateUserBlankEmail() throws Exception {
+		MutableUserDetails user = this.userDetailsDao.createDataObject();
+		user.setUsername(USERNAME);
+		user.setPassword(PASSWORD);
+		UserDetails expectedUser = this.userService.createUser(user);
 
-  /**
-   * @param authorityDao
-   *          the authorityDao to set
-   */
-  public void setAuthorityDao(
-      GrantedAuthorityDao<MutableGrantedAuthority> authorityDao) {
-    this.authorityDao = authorityDao;
-  }
+		UserDetails actual = this.userDetailsService
+				.loadUserByUsername(USERNAME);
+		assertEquals(expectedUser, actual);
+	}
 
-  /**
-   * @param userDetailsDao
-   *          the userDetailsDao to set
-   */
-  public void setUserDetailsDao(
-      UserDetailsDao<MutableUserDetails> userDetailsDao) {
-    this.userDetailsDao = userDetailsDao;
-  }
+	/**
+	 * @param authorityDao
+	 *            the authorityDao to set
+	 */
+	public void setAuthorityDao(
+			GrantedAuthorityDao<MutableGrantedAuthority> authorityDao) {
+		this.authorityDao = authorityDao;
+	}
 
-  /**
-   * @param userDetailsService
-   *          the userDetailsService to set
-   */
-  public void setUserDetailsService(UserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
-  }
+	/**
+	 * @param userDetailsDao
+	 *            the userDetailsDao to set
+	 */
+	public void setUserDetailsDao(
+			UserDetailsDao<MutableUserDetails> userDetailsDao) {
+		this.userDetailsDao = userDetailsDao;
+	}
 
-  /**
-   * @param userService
-   *          the userService to set
-   */
-  public void setUserService(UserService userService) {
-    this.userService = userService;
-  }
+	/**
+	 * @param userDetailsService
+	 *            the userDetailsService to set
+	 */
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
+
+	/**
+	 * @param userService
+	 *            the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 }

@@ -47,9 +47,9 @@ public interface SdsCommand {
   /**
    * Executes the commmand based on data contructed via the generateRequest
    * method.
+   * @param sdsUser the user data required.
    * 
-   * @return The integer returning the user id of the user in the Sail Data
-   *         Services.
+   * @return The modified user data.
    */
-  public Integer execute();
+  public SdsUser execute(SdsUser sdsUser);
 }
