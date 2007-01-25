@@ -29,28 +29,26 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
  */
 public class UserImpl implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private SdsUser sdsUser = null;
+  private SdsUser sdsUser;
 
-	private MutableUserDetails userDetails = null;
+  private MutableUserDetails userDetails;
 
-// create sds user - via sds info.
+  // create sds user - via sds info.
 
-	
-	/**
-	 * @return the userDetails
-	 */
-	public MutableUserDetails getUserDetails() {
-		return userDetails;
-	}
+  /**
+   * @return the userDetails
+   */
+  public MutableUserDetails getUserDetails() {
+    return userDetails;
+  }
 
-	/**
-	 * @param userDetails
-	 *            the userDetails to set
-	 */
-	public void setUserDetails(MutableUserDetails userDetails) {
-		this.userDetails = userDetails;
-	}
-
+  /**
+   * @param userDetails
+   *          the userDetails to set
+   */
+  public void setUserDetails(MutableUserDetails userDetails) {
+    this.userDetails = userDetails;
+  }
 }

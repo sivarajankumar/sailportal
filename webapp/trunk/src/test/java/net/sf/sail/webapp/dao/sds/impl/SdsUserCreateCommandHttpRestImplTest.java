@@ -25,8 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
@@ -42,90 +41,80 @@ import org.easymock.EasyMock;
  */
 public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 
-	private static final String BASE_URL = "base url";
+  private static final String BASE_URL = "base url";
 
-	private static final Integer PORTAL_ID = 12;
+  private static final Integer PORTAL_ID = new Integer(12);
 
-	private static final Integer EXPECTED_ID = 1;
+  private static final Integer EXPECTED_ID = new Integer(1);
 
-	private static final String USER_NAME = "user";
+  private static final String HEADER_LOCATION = "Location";
 
-	private static final String PASSWORD = "pass";
+  private static final String PORTAL_URL = "http://rails.dev.concord.org/sds/";
 
-	private static final String HEADER_LOCATION = "Location";
+  private static final String USER_DIRECTORY = "/user/";
 
-	private static final String PORTAL_URL = "http://rails.dev.concord.org/sds/";
+  private SdsUserCreateCommandHttpRestImpl command;
 
-	private static final String USER_DIRECTORY = "/user/";
+  private HttpRestTransport mockTransport;
 
-	private SdsUserCreateCommandHttpRestImpl command = null;
+  private SdsUser sdsUser;
 
-	private HttpRestTransport mockTransport = null;
+  /**
+   * @see junit.framework.TestCase#setUp()
+   */
+  @Override
+  protected void setUp() throws Exception {
+    super.setUp();
+    command = new SdsUserCreateCommandHttpRestImpl();
+    mockTransport = createMock(HttpRestTransport.class);
+    sdsUser = new SdsUser();
+    command.setTransport(mockTransport);
+    command.setBaseUrl(BASE_URL);
+    command.setPortalId(PORTAL_ID);
+  }
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		command = new SdsUserCreateCommandHttpRestImpl();
-		mockTransport = createMock(HttpRestTransport.class);
-		command.setTransport(mockTransport);
-		command.setBaseUrl(BASE_URL);
-		command.setPortalId(PORTAL_ID);
-	}
+  /**
+   * @see junit.framework.TestCase#tearDown()
+   */
+  @Override
+  protected void tearDown() throws Exception {
+    super.tearDown();
+    command = null;
+    mockTransport = null;
+    sdsUser = null;
+  }
 
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		command = null;
-		mockTransport = null;
-	}
+  public void testCreate() throws Exception {
+    Map<String, String> responseMap = new HashMap<String, String>();
+    responseMap.put(HEADER_LOCATION, PORTAL_URL + PORTAL_ID + USER_DIRECTORY
+        + EXPECTED_ID);
+    expect(mockTransport.post(command.generateRequest(this.sdsUser)))
+        .andReturn(responseMap);
+    EasyMock.replay(mockTransport);
+    assertEquals(EXPECTED_ID, command.execute());
+    EasyMock.verify(mockTransport);
+  }
 
-	public void testCreate() throws Exception {
-		MutableUserDetails userDetails = new PersistentUserDetails();
-		userDetails.setUsername(USER_NAME);
-		userDetails.setPassword(PASSWORD);
+  public void testCreateException() throws Exception {
+    expect(mockTransport.post(command.generateRequest(this.sdsUser))).andThrow(
+        new BadRequestException("exception"));
+    EasyMock.replay(mockTransport);
+    try {
+      command.execute();
+      fail("Expected BadRequestException");
+    }
+    catch (BadRequestException e) {
+    }
 
-		Map<String, String> responseMap = new HashMap<String, String>();
-		responseMap.put(HEADER_LOCATION, PORTAL_URL + PORTAL_ID
-				+ USER_DIRECTORY + EXPECTED_ID);
-		expect(
-				mockTransport.post(command
-						.generateRequest(USER_NAME, USER_NAME))).andReturn(
-				responseMap);
-		EasyMock.replay(mockTransport);
-		assertEquals(EXPECTED_ID, command.execute());
-		EasyMock.verify(mockTransport);
-	}
-
-	public void testCreateException() throws Exception {
-		MutableUserDetails userDetails = new PersistentUserDetails();
-		userDetails.setUsername(USER_NAME);
-		userDetails.setPassword(PASSWORD);
-
-		expect(mockTransport.post(command.generateRequest(USER_NAME, "")))
-				.andThrow(new BadRequestException("exception"));
-		EasyMock.replay(mockTransport);
-		try {
-			command.execute();
-			fail("Expected BadRequestException");
-		} catch (BadRequestException e) {
-		}
-
-		reset(mockTransport);
-		expect(
-				mockTransport.post(command
-						.generateRequest(USER_NAME, USER_NAME))).andThrow(
-				new NetworkTransportException("exception"));
-		EasyMock.replay(mockTransport);
-		try {
-			command.execute();
-			fail("Expected NetworkTransportException");
-		} catch (NetworkTransportException e) {
-		}
-	}
+    reset(mockTransport);
+    expect(mockTransport.post(command.generateRequest(this.sdsUser))).andThrow(
+        new NetworkTransportException("exception"));
+    EasyMock.replay(mockTransport);
+    try {
+      command.execute();
+      fail("Expected NetworkTransportException");
+    }
+    catch (NetworkTransportException e) {
+    }
+  }
 }

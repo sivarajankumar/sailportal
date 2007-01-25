@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
+import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
 /**
@@ -35,12 +36,13 @@ public interface SdsCommand {
   /**
    * Puts together the request data and the user data required to execute the
    * commmand.
- * @param firstName TODO
- * @param lastName TODO
+   * 
+   * @param sdsUser
+   *          represents the data required
    * 
    * @return The HttpPostRequest constructed from the user details.
    */
-  public HttpPostRequest generateRequest(String firstName, String lastName);
+  public HttpPostRequest generateRequest(SdsUser sdsUser);
 
   /**
    * Executes the commmand based on data contructed via the generateRequest

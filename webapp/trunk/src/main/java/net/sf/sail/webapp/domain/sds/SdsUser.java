@@ -30,148 +30,155 @@ import javax.persistence.Version;
 
 /**
  * @author Laurel Williams
- *
+ * 
  * @version $Id$
  */
 @Entity
 @Table(name = "sds_users")
 public class SdsUser implements Serializable {
-	
-	  @Transient
-	  private static final long serialVersionUID = 1L;
 
-	  @Id
-	  @GeneratedValue(strategy = GenerationType.AUTO)
-	  private Long id = null;
+  @Transient
+  private static final long serialVersionUID = 1L;
 
-	  @Version
-	  @Column(name = "OPTLOCK")
-	  private Integer version = null;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id = null;
 
-	  @Column(name = "userid", unique = true, nullable = false)
-	  private Integer userid = null;
+  @Version
+  @Column(name = "OPTLOCK")
+  private Integer version = null;
 
-	  @Column(name = "first_name", nullable = false)
-	  private String firstName = null;
+  @Column(name = "userid", unique = true, nullable = false)
+  private Integer userid = null;
 
-	  @Column(name = "last_name", nullable = false)
-	  private String lastName = null;
+  @Column(name = "first_name", nullable = false)
+  private String firstName = null;
 
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+  @Column(name = "last_name", nullable = false)
+  private String lastName = null;
 
-	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+  /**
+   * @return the firstName
+   */
+  public String getFirstName() {
+    return firstName;
+  }
 
-	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+  /**
+   * @param firstName
+   *          the firstName to set
+   */
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+  /**
+   * @return the lastName
+   */
+  public String getLastName() {
+    return lastName;
+  }
 
-	/**
-	 * @return the userid
-	 */
-	public Integer getUserid() {
-		return userid;
-	}
+  /**
+   * @param lastName
+   *          the lastName to set
+   */
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-	/**
-	 * @param userid the userid to set
-	 */
-	public void setUserid(Integer userid) {
-		this.userid = userid;
-	}
+  /**
+   * @return the userid
+   */
+  public Integer getUserid() {
+    return userid;
+  }
 
-	/**
-	 * @return the id
-	 */
-	@SuppressWarnings("unused")
-	private Long getId() {
-		return id;
-	}
+  /**
+   * @param userid
+   *          the userid to set
+   */
+  public void setUserid(Integer userid) {
+    this.userid = userid;
+  }
 
-	/**
-	 * @param id the id to set
-	 */
-	@SuppressWarnings("unused")
-	private void setId(Long id) {
-		this.id = id;
-	}
+  /**
+   * @return the id
+   */
+  @SuppressWarnings("unused")
+  private Long getId() {
+    return id;
+  }
 
-	/**
-	 * @return the version
-	 */
-	@SuppressWarnings("unused")
-	private Integer getVersion() {
-		return version;
-	}
+  /**
+   * @param id
+   *          the id to set
+   */
+  @SuppressWarnings("unused")
+  private void setId(Long id) {
+    this.id = id;
+  }
 
-	/**
-	 * @param version the version to set
-	 */
-	@SuppressWarnings("unused")
-	private void setVersion(Integer version) {
-		this.version = version;
-	}
+  /**
+   * @return the version
+   */
+  @SuppressWarnings("unused")
+  private Integer getVersion() {
+    return version;
+  }
 
-	/**
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int PRIME = 31;
-		int result = 1;
-		result = PRIME * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = PRIME * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = PRIME * result + ((userid == null) ? 0 : userid.hashCode());
-		return result;
-	}
+  /**
+   * @param version
+   *          the version to set
+   */
+  @SuppressWarnings("unused")
+  private void setVersion(Integer version) {
+    this.version = version;
+  }
 
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final SdsUser other = (SdsUser) obj;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (userid == null) {
-			if (other.userid != null)
-				return false;
-		} else if (!userid.equals(other.userid))
-			return false;
-		return true;
-	}
+  /**
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int PRIME = 31;
+    int result = 1;
+    result = PRIME * result + ((firstName == null) ? 0 : firstName.hashCode());
+    result = PRIME * result + ((lastName == null) ? 0 : lastName.hashCode());
+    result = PRIME * result + ((userid == null) ? 0 : userid.hashCode());
+    return result;
+  }
 
+  /**
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    final SdsUser other = (SdsUser) obj;
+    if (firstName == null) {
+      if (other.firstName != null)
+        return false;
+    }
+    else if (!firstName.equals(other.firstName))
+      return false;
+    if (lastName == null) {
+      if (other.lastName != null)
+        return false;
+    }
+    else if (!lastName.equals(other.lastName))
+      return false;
+    if (userid == null) {
+      if (other.userid != null)
+        return false;
+    }
+    else if (!userid.equals(other.userid))
+      return false;
+    return true;
+  }
 }

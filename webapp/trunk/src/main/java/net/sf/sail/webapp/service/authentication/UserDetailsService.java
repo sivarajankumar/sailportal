@@ -18,9 +18,6 @@
 package net.sf.sail.webapp.service.authentication;
 
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 
 import org.acegisecurity.GrantedAuthority;
 
@@ -31,34 +28,34 @@ import org.acegisecurity.GrantedAuthority;
  * 
  */
 public interface UserDetailsService extends
-		org.acegisecurity.userdetails.UserDetailsService {
+    org.acegisecurity.userdetails.UserDetailsService {
 
-	public static final String USER_ROLE = "ROLE_USER";
+  public static final String USER_ROLE = "ROLE_USER";
 
-	public static final String ADMIN_ROLE = "ROLE_ADMINISTRATOR";
+  public static final String ADMIN_ROLE = "ROLE_ADMINISTRATOR";
 
-	/**
-	 * Given a string representing a role of a user, created a granted authority
-	 * record in the data store
-	 * 
-	 * @param authority
-	 * @return A MutableGrantedAuthority object
-	 * @throws DuplicateAuthorityException
-	 * @throws AuthorityCreationException
-	 *             If authority is not unique or null.
-	 */
-	public MutableGrantedAuthority createGrantedAuthority(String authority)
-			throws DuplicateAuthorityException;
+  /**
+   * Given a string representing a role of a user, created a granted authority
+   * record in the data store
+   * 
+   * @param authority
+   * @return A MutableGrantedAuthority object
+   * @throws DuplicateAuthorityException
+   * @throws AuthorityCreationException
+   *           If authority is not unique or null.
+   */
+  public MutableGrantedAuthority createGrantedAuthority(String authority)
+      throws DuplicateAuthorityException;
 
-	/**
-	 * Given an authority string, loads an authority from the data store.
-	 * 
-	 * @param authority
-	 * @return A MutableGrantedAuthority object
-	 * @throws AuthorityNotFoundException
-	 *             If authority is not in data store.
-	 */
-	public GrantedAuthority loadAuthorityByName(String authority)
-			throws AuthorityNotFoundException;
+  /**
+   * Given an authority string, loads an authority from the data store.
+   * 
+   * @param authority
+   * @return A MutableGrantedAuthority object
+   * @throws AuthorityNotFoundException
+   *           If authority is not in data store.
+   */
+  public GrantedAuthority loadAuthorityByName(String authority)
+      throws AuthorityNotFoundException;
 
 }
