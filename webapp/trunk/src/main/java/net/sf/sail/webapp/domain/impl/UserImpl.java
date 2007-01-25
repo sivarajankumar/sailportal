@@ -42,6 +42,8 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 @Entity
 @Table(name = "users")
 public class UserImpl implements Serializable {
+  
+//  TODO create interface
 
   private static final long serialVersionUID = 1L;
 
