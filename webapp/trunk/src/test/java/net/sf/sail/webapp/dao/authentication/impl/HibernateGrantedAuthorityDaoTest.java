@@ -20,17 +20,16 @@ package net.sf.sail.webapp.dao.authentication.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.acegisecurity.GrantedAuthority;
-
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
+import org.acegisecurity.GrantedAuthority;
+
 /**
  * @author Cynick Young
  * 
- * @version $Id: HibernateGrantedAuthorityDaoTest.java 7 2006-11-02 16:48:31Z
- *          cynick $
+ * @version $Id$
  * 
  */
 public class HibernateGrantedAuthorityDaoTest extends
@@ -85,6 +84,8 @@ public class HibernateGrantedAuthorityDaoTest extends
     // * NOTE* the keys in the map are all in UPPERCASE!
     String actualRole = (String) actualGrantedAuthorityMap.get("ROLE");
     assertEquals(DEFAULT_ROLE, actualRole);
+
+    // TODO - test exception cases where not all required data is present
   }
 
   public void testDelete() {
@@ -113,10 +114,10 @@ public class HibernateGrantedAuthorityDaoTest extends
     assertNull(this.authorityDao.retrieveByName("blah"));
 
   }
-  
+
   public void testCreateDataObject() {
-	  GrantedAuthority authority = this.authorityDao.createDataObject();
-	  assertTrue(authority instanceof MutableGrantedAuthority);
+    GrantedAuthority authority = this.authorityDao.createDataObject();
+    assertTrue(authority instanceof MutableGrantedAuthority);
   }
 
   private void verifyDataStoreIsEmpty() {

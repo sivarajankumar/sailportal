@@ -160,6 +160,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
       assertTrue(defaultRolesList.contains(actualValue));
       defaultRolesList.remove(actualValue);
     }
+    
+    // TODO - test exception cases where not all required data is present
   }
 
   public void testDelete() {

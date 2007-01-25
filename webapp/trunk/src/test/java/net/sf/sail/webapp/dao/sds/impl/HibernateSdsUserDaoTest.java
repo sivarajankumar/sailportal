@@ -30,113 +30,116 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
  */
 public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
 
-	private SdsUser sdsUser = null;
+  private SdsUser sdsUser = null;
 
-	private HibernateSdsUserDao sdsUserDao = null;
+  private HibernateSdsUserDao sdsUserDao = null;
 
-	private final Integer DEFAULT_USER_ID = 0;
+  private final Integer DEFAULT_USER_ID = 0;
 
-	/**
-	 * @param sdsUserDao
-	 *            the sdsUserDao to set
-	 */
-	public void setSdsUserDao(HibernateSdsUserDao sdsUserDao) {
-		this.sdsUserDao = sdsUserDao;
-	}
+  /**
+   * @param sdsUserDao
+   *          the sdsUserDao to set
+   */
+  public void setSdsUserDao(HibernateSdsUserDao sdsUserDao) {
+    this.sdsUserDao = sdsUserDao;
+  }
 
-	/**
-	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpBeforeTransaction()
-	 */
-	@Override
-	protected void onSetUpBeforeTransaction() throws Exception {
-		super.onSetUpBeforeTransaction();
-		this.sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
-		this.sdsUser.setUserid(DEFAULT_USER_ID);
-		this.sdsUser.setFirstName("blah");
-		this.sdsUser.setLastName("blah");
-	}
+  /**
+   * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpBeforeTransaction()
+   */
+  @Override
+  protected void onSetUpBeforeTransaction() throws Exception {
+    super.onSetUpBeforeTransaction();
+    this.sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
+    this.sdsUser.setUserId(DEFAULT_USER_ID);
+    this.sdsUser.setFirstName("blah");
+    this.sdsUser.setLastName("blah");
+  }
 
-	/**
-	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
-	 */
-	@Override
-	protected void onSetUpInTransaction() throws Exception {
-		super.onSetUpInTransaction();
-	}
+  /**
+   * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
+   */
+  @Override
+  protected void onSetUpInTransaction() throws Exception {
+    super.onSetUpInTransaction();
+  }
 
-	/**
-	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
-	 */
-	@Override
-	protected void onTearDownAfterTransaction() throws Exception {
-		super.onTearDownAfterTransaction();
-		this.sdsUser = null;
-	}
+  /**
+   * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
+   */
+  @Override
+  protected void onTearDownAfterTransaction() throws Exception {
+    super.onTearDownAfterTransaction();
+    this.sdsUser = null;
+  }
 
-	/**
-	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownInTransaction()
-	 */
-	@Override
-	protected void onTearDownInTransaction() throws Exception {
-		super.onTearDownInTransaction();
-	}
+  /**
+   * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownInTransaction()
+   */
+  @Override
+  protected void onTearDownInTransaction() throws Exception {
+    super.onTearDownInTransaction();
+  }
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
-	 */
-	public void testDelete() {
-		verifyDataStoreIsEmpty();
+  /**
+   * Test method for
+   * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
+   */
+  public void testDelete() {
+    verifyDataStoreIsEmpty();
 
-		// save and delete the sdsuser object using dao
-		this.sdsUserDao.save(this.sdsUser);
-		this.sdsUserDao.delete(this.sdsUser);
+    // save and delete the sdsuser object using dao
+    this.sdsUserDao.save(this.sdsUser);
+    this.sdsUserDao.delete(this.sdsUser);
 
-		// * NOTE * must flush to test delete
-		// see http://forum.springframework.org/showthread.php?t=18263 for
-		// explanation
-		this.sdsUserDao.getHibernateTemplate().flush();
+    // * NOTE * must flush to test delete
+    // see http://forum.springframework.org/showthread.php?t=18263 for
+    // explanation
+    this.sdsUserDao.getHibernateTemplate().flush();
 
-		verifyDataStoreIsEmpty();
-	}
+    verifyDataStoreIsEmpty();
+  }
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#retrieveByName(java.lang.String)}.
-	 */
-	public void testRetrieveByName() {
-		try {
-			this.sdsUserDao.retrieveByName("blah");
-			fail("Expected exception");
-		} catch (UnsupportedOperationException e) {
-		}
-	}
+  /**
+   * Test method for
+   * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#retrieveByName(java.lang.String)}.
+   */
+  public void testRetrieveByName() {
+    try {
+      this.sdsUserDao.retrieveByName("blah");
+      fail("Expected exception");
+    }
+    catch (UnsupportedOperationException e) {
+    }
+  }
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
-	 */
-	public void testSave() {
-		verifyDataStoreIsEmpty();
-		// save using dao
-		this.sdsUserDao.save(this.sdsUser);
+  /**
+   * Test method for
+   * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
+   */
+  public void testSave() {
+    verifyDataStoreIsEmpty();
+    // save using dao
+    this.sdsUserDao.save(this.sdsUser);
 
-		// retrieve data without using dao
-		List actualList = this.retrieveSdsUserListFromDb();
-		assertEquals(1, actualList.size());
+    // retrieve data without using dao
+    List actualList = this.retrieveSdsUserListFromDb();
+    assertEquals(1, actualList.size());
 
-		Map actualSdsUserMap = (Map) actualList.get(0);
-		Integer sdsUserId = (Integer) actualSdsUserMap.get("USERID");
-		assertEquals(DEFAULT_USER_ID, sdsUserId);
-	}
+    Map actualSdsUserMap = (Map) actualList.get(0);
+    Integer sdsUserId = (Integer) actualSdsUserMap.get("USER_ID");
+    assertEquals(DEFAULT_USER_ID, sdsUserId);
 
-	private void verifyDataStoreIsEmpty() {
-		assertTrue(retrieveSdsUserListFromDb().isEmpty());
-	}
+    // TODO - test exception cases where not all required data is present
+  }
 
-	private List retrieveSdsUserListFromDb() {
-		return this.jdbcTemplate.queryForList("select * from sds_users;",
-				(Object[]) null);
-	}
+  private void verifyDataStoreIsEmpty() {
+    assertTrue(retrieveSdsUserListFromDb().isEmpty());
+  }
+
+  private List retrieveSdsUserListFromDb() {
+    return this.jdbcTemplate.queryForList("select * from sds_users;",
+        (Object[]) null);
+  }
 
 }

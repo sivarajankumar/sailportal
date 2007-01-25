@@ -1,47 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	* Copyright (c) 2007 Encore Research Group, University of Toronto
-	* 
-	* This library is free software; you can redistribute it and/or
-	* modify it under the terms of the GNU Lesser General Public
-	* License as published by the Free Software Foundation; either
-	* version 2.1 of the License, or (at your option) any later version.
-	*
-	* This library is distributed in the hope that it will be useful,
-	* but WITHOUT ANY WARRANTY; without even the implied warranty of
-	* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	* Lesser General Public License for more details.
-	*
-	* You should have received a copy of the GNU Lesser General Public
-	* License along with this library; if not, write to the Free Software
-	* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+  * Copyright (c) 2007 Encore Research Group, University of Toronto
+  * 
+  * This library is free software; you can redistribute it and/or
+  * modify it under the terms of the GNU Lesser General Public
+  * License as published by the Free Software Foundation; either
+  * version 2.1 of the License, or (at your option) any later version.
+  *
+  * This library is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  * Lesser General Public License for more details.
+  *
+  * You should have received a copy of the GNU Lesser General Public
+  * License along with this library; if not, write to the Free Software
+  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
 <!-- $Id$ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-	<bean id="sdsUserDao"
-		class="net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
+  <bean id="sdsUserDao"
+    class="net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory" />
+    </property>
+  </bean>
 
-	<bean id="sdsUser" scope="prototype" factory-bean="sdsUserDao"
-		factory-method="createDataObject" />
+  <bean id="sdsUser" scope="prototype" factory-bean="sdsUserDao"
+    factory-method="createDataObject" />
 
-	<bean id="userService"
-		class="net.sf.sail.webapp.service.impl.UserServiceImpl">
-		<property name="userDetailsDao">
-			<ref bean="userDetailsDao" />
-		</property>
-		<property name="grantedAuthorityDao">
-			<ref bean="grantedAuthorityDao" />
-		</property>
-	</bean>
+  <bean id="userDao" class="net.sf.sail.webapp.dao.impl.HibernateUserDao">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory" />
+    </property>
+  </bean>
+
+  <bean id="user" scope="prototype" factory-bean="userDao"
+    factory-method="createDataObject" />
+
+  <bean id="userService"
+    class="net.sf.sail.webapp.service.impl.UserServiceImpl">
+    <property name="userDetailsDao">
+      <ref bean="userDetailsDao" />
+    </property>
+    <property name="grantedAuthorityDao">
+      <ref bean="grantedAuthorityDao" />
+    </property>
+  </bean>
 
 </beans>

@@ -77,7 +77,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     expectedSdsUser = new SdsUser();
     expectedSdsUser.setFirstName(EXPECTED_FIRST_NAME);
     expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
-    expectedSdsUser.setUserid(EXPECTED_ID);
+    expectedSdsUser.setUserId(EXPECTED_ID);
     command.setTransport(mockTransport);
     command.setBaseUrl(BASE_URL);
     command.setPortalId(PORTAL_ID);

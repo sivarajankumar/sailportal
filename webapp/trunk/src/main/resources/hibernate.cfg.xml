@@ -37,6 +37,8 @@
       class="net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails" />
     <mapping
     	class="net.sf.sail.webapp.domain.sds.SdsUser" />
+    <mapping
+      class="net.sf.sail.webapp.domain.impl.UserImpl" />
     
   </session-factory>
 </hibernate-configuration>

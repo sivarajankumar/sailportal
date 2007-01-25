@@ -130,7 +130,7 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
     }
     Map<String, String> responseHeaders = this.transport.post(this.postRequest);
     String locationHeader = responseHeaders.get("Location");
-    sdsUser.setUserid(new Integer(locationHeader.substring(locationHeader
+    sdsUser.setUserId(new Integer(locationHeader.substring(locationHeader
         .lastIndexOf(SLASH) + 1)));
     return sdsUser;
   }

@@ -48,8 +48,8 @@ public class SdsUser implements Serializable {
   @Column(name = "OPTLOCK")
   private Integer version = null;
 
-  @Column(name = "userid", unique = true, nullable = false)
-  private Integer userid = null;
+  @Column(name = "user_id", unique = true, nullable = false)
+  private Integer userId = null;
 
   @Column(name = "first_name", nullable = false)
   private String firstName = null;
@@ -88,18 +88,18 @@ public class SdsUser implements Serializable {
   }
 
   /**
-   * @return the userid
+   * @return the userId
    */
-  public Integer getUserid() {
-    return userid;
+  public Integer getUserId() {
+    return userId;
   }
 
   /**
-   * @param userid
-   *          the userid to set
+   * @param userId
+   *          the userId to set
    */
-  public void setUserid(Integer userid) {
-    this.userid = userid;
+  public void setUserId(Integer userid) {
+    this.userId = userid;
   }
 
   /**
@@ -145,7 +145,7 @@ public class SdsUser implements Serializable {
     int result = 1;
     result = PRIME * result + ((firstName == null) ? 0 : firstName.hashCode());
     result = PRIME * result + ((lastName == null) ? 0 : lastName.hashCode());
-    result = PRIME * result + ((userid == null) ? 0 : userid.hashCode());
+    result = PRIME * result + ((userId == null) ? 0 : userId.hashCode());
     return result;
   }
 
@@ -173,11 +173,11 @@ public class SdsUser implements Serializable {
     }
     else if (!lastName.equals(other.lastName))
       return false;
-    if (userid == null) {
-      if (other.userid != null)
+    if (userId == null) {
+      if (other.userId != null)
         return false;
     }
-    else if (!userid.equals(other.userid))
+    else if (!userId.equals(other.userId))
       return false;
     return true;
   }
