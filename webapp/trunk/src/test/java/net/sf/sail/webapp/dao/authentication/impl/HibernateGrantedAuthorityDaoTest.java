@@ -117,7 +117,7 @@ public class HibernateGrantedAuthorityDaoTest extends
     // * NOTE * must flush to test delete
     // see http://forum.springframework.org/showthread.php?t=18263 for
     // explanation
-    this.authorityDao.getHibernateTemplate().flush();
+    this.flusher.flush();
 
     verifyDataStoreIsEmpty();
   }

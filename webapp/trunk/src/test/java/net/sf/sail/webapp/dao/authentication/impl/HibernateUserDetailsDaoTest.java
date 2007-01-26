@@ -133,7 +133,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
     this.userDetailsDao.save(this.defaultUserDetails);
     // flush is required to cascade the join table for some reason
-    this.userDetailsDao.getHibernateTemplate().flush();
+    this.flusher.flush();
+//    this.userDetailsDao.getHibernateTemplate().flush();
 
     // verify data store contains saved data using direct jdbc retrieval (not
     // dao)

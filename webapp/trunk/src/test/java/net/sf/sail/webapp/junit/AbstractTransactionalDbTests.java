@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.junit;
 
+import org.hibernate.SessionFactory;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
@@ -33,8 +34,20 @@ public abstract class AbstractTransactionalDbTests extends
       "classpath:applicationContext-security.xml",
       "classpath:applicationContext-hibernate.xml",
       "classpath:applicationContext-datasource.xml",
-      "classpath:applicationContext-user.xml"
-      };
+      "classpath:applicationContext-user.xml" };
+
+  protected HibernateFlusher flusher;
+
+  /**
+   * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpBeforeTransaction()
+   */
+  @Override
+  protected void onSetUpBeforeTransaction() throws Exception {
+    super.onSetUpBeforeTransaction();
+    this.flusher = new HibernateFlusher();
+    this.flusher.setSessionFactory((SessionFactory) this.applicationContext
+        .getBean("sessionFactory"));
+  }
 
   /**
    * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()
