@@ -21,13 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * @author Cynick Young
@@ -52,13 +52,13 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
   private static final String USERNAME_NOT_IN_DB = "blah";
 
-  private PersistentGrantedAuthority role1;
+  private MutableGrantedAuthority role1;
 
-  private PersistentGrantedAuthority role2;
+  private MutableGrantedAuthority role2;
 
-  private PersistentGrantedAuthority role3;
+  private MutableGrantedAuthority role3;
 
-  private PersistentUserDetails defaultUserDetails;
+  private MutableUserDetails defaultUserDetails;
 
   private HibernateGrantedAuthorityDao authorityDao;
 
@@ -86,17 +86,17 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    this.role1 = (PersistentGrantedAuthority) this.applicationContext
+    this.role1 = (MutableGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
-    this.role2 = (PersistentGrantedAuthority) this.applicationContext
+    this.role2 = (MutableGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
-    this.role3 = (PersistentGrantedAuthority) this.applicationContext
+    this.role3 = (MutableGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
     this.role1.setAuthority(DEFAULT_ROLE_1);
     this.role2.setAuthority(DEFAULT_ROLE_2);
     this.role3.setAuthority(DEFAULT_ROLE_3);
 
-    this.defaultUserDetails = (PersistentUserDetails) this.applicationContext
+    this.defaultUserDetails = (MutableUserDetails) this.applicationContext
         .getBean("mutableUserDetails");
     this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
     this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);
@@ -161,7 +161,45 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
       defaultRolesList.remove(actualValue);
     }
 
-    // TODO - test exception cases where not all required data is present
+    MutableUserDetails duplicateUserDetails = (MutableUserDetails) this.applicationContext
+        .getBean("mutableUserDetails");
+    duplicateUserDetails.setUsername(DEFAULT_USERNAME);
+    duplicateUserDetails.setPassword(DEFAULT_PASSWORD);
+    try {
+      this.userDetailsDao.save(duplicateUserDetails);
+      fail("expected DataIntegrityViolationException");
+    }
+    catch (DataIntegrityViolationException expected) {
+    }
+
+    MutableUserDetails emptyUserDetails = (MutableUserDetails) this.applicationContext
+        .getBean("mutableUserDetails");
+    try {
+      this.userDetailsDao.save(emptyUserDetails);
+      fail("expected DataIntegrityViolationException");
+    }
+    catch (DataIntegrityViolationException expected) {
+    }
+
+    MutableUserDetails partiallyEmptyUserDetails = (MutableUserDetails) this.applicationContext
+        .getBean("mutableUserDetails");
+    partiallyEmptyUserDetails.setUsername(DEFAULT_USERNAME);
+    try {
+      this.userDetailsDao.save(partiallyEmptyUserDetails);
+      fail("expected DataIntegrityViolationException");
+    }
+    catch (DataIntegrityViolationException expected) {
+    }
+
+    partiallyEmptyUserDetails = (MutableUserDetails) this.applicationContext
+        .getBean("mutableUserDetails");
+    partiallyEmptyUserDetails.setPassword(DEFAULT_PASSWORD);
+    try {
+      this.userDetailsDao.save(partiallyEmptyUserDetails);
+      fail("expected DataIntegrityViolationException");
+    }
+    catch (DataIntegrityViolationException expected) {
+    }
   }
 
   public void testDelete() {
@@ -169,10 +207,10 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
     this.userDetailsDao.save(this.defaultUserDetails);
     // flush is required to cascade the join table for some reason
-    this.userDetailsDao.getHibernateTemplate().flush();
+    this.flusher.flush();
 
     this.userDetailsDao.delete(this.defaultUserDetails);
-    this.userDetailsDao.getHibernateTemplate().flush();
+    this.flusher.flush();
 
     this.verifyUserandJoinTablesAreEmpty();
 
@@ -199,7 +237,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
     this.userDetailsDao.save(this.defaultUserDetails);
     // flush is required to cascade the join table for some reason
-    this.userDetailsDao.getHibernateTemplate().flush();
+    this.flusher.flush();
 
     // get user details record from persistent store and confirm it is complete
     MutableUserDetails userDetails = this.userDetailsDao
