@@ -160,7 +160,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 	 public void testRetrieve() {
 		 try {
 			 this.userDao.retrieveByName("name");
-			 fail ("UnsupportedOperationException expected")
+			 fail ("UnsupportedOperationException expected");
 		 }
 		 catch (UnsupportedOperationException expected){}
 		 
