@@ -157,17 +157,21 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		verifyDataStoreIsEmpty();
 	}
 
-	// public void testRetrieve() {
-	// this.userDao.save(this.defaultGrantedAuthority);
-	//
-	// MutableGrantedAuthority actualAuthority = this.userDao
-	// .retrieveByName(DEFAULT_ROLE);
-	// assertEquals(this.defaultGrantedAuthority, actualAuthority);
-	//
-	// // choose random non-existent authority and try to retrieve
-	// assertNull(this.userDao.retrieveByName("blah"));
-	//
-	// }
+	 public void testRetrieve() {
+		 try {
+			 this.userDao.retrieveByName("name");
+			 fail ("UnsupportedOperationException expected")
+		 }
+		 catch (UnsupportedOperationException expected){}
+		 
+//		this.userDao.save(this.defaultUser);
+//
+//		User actualUser = this.userDao.retrieveByName(DEFAULT_ROLE);
+//		assertEquals(this.defaultGrantedAuthority, actualAuthority);
+//
+//		// choose random non-existent authority and try to retrieve
+//		assertNull(this.userDao.retrieveByName("blah"));
+	}
 
 	public void testCreateDataObject() {
 		assertTrue(this.userDao.createDataObject() instanceof UserImpl);

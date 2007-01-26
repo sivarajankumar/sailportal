@@ -50,7 +50,6 @@ public class HibernateUserDao extends HibernateDaoSupport implements
    * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
    */
   public User retrieveByName(String name) {
-    // TODO Auto-generated method stub
     throw new UnsupportedOperationException();
   }
 
