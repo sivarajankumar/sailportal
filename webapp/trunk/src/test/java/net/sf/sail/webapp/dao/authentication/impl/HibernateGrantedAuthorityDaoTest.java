@@ -21,15 +21,16 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateGrantedAuthorityDaoTest.java 87 2007-01-25 19:46:04Z
+ *          cynick $
  * 
  */
 public class HibernateGrantedAuthorityDaoTest extends
@@ -37,7 +38,7 @@ public class HibernateGrantedAuthorityDaoTest extends
 
   private static final String DEFAULT_ROLE = "default_role";
 
-  private PersistentGrantedAuthority defaultGrantedAuthority;
+  private MutableGrantedAuthority defaultGrantedAuthority;
 
   private HibernateGrantedAuthorityDao authorityDao;
 
@@ -55,7 +56,7 @@ public class HibernateGrantedAuthorityDaoTest extends
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    this.defaultGrantedAuthority = (PersistentGrantedAuthority) this.applicationContext
+    this.defaultGrantedAuthority = (MutableGrantedAuthority) this.applicationContext
         .getBean("mutableGrantedAuthority");
     this.defaultGrantedAuthority.setAuthority(DEFAULT_ROLE);
   }
@@ -85,7 +86,25 @@ public class HibernateGrantedAuthorityDaoTest extends
     String actualRole = (String) actualGrantedAuthorityMap.get("ROLE");
     assertEquals(DEFAULT_ROLE, actualRole);
 
-    // TODO - test exception cases where not all required data is present
+    MutableGrantedAuthority emptyAuthority = (MutableGrantedAuthority) this.applicationContext
+        .getBean("mutableGrantedAuthority");
+    try {
+      this.authorityDao.save(emptyAuthority);
+      fail("DataIntegrityViolationException expected");
+    }
+    catch (DataIntegrityViolationException expected) {
+    }
+
+    MutableGrantedAuthority duplicateAuthority = (MutableGrantedAuthority) this.applicationContext
+        .getBean("mutableGrantedAuthority");
+    duplicateAuthority.setAuthority(DEFAULT_ROLE);
+    // TODO - look into changing to DuplicateAuthorityException instead
+    try {
+      this.authorityDao.save(duplicateAuthority);
+      fail("DataIntegrityViolationException expected");
+    }
+    catch (DataIntegrityViolationException expected) {
+    }
   }
 
   public void testDelete() {

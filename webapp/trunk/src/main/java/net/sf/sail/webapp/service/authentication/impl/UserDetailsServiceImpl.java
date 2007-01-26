@@ -106,6 +106,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private void checkNoAuthorityCreationErrors(String authority)
 			throws DuplicateAuthorityException {
 
+      // TODO - fix the use of loadAuthorityByName
 		try {
 			this.loadAuthorityByName(authority);
 		} catch (AuthorityNotFoundException e) {
