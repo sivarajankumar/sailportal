@@ -23,6 +23,8 @@ import java.util.Map;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
+import org.springframework.dao.DataIntegrityViolationException;
+
 /**
  * @author Laurel Williams
  * 
@@ -130,7 +132,26 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
     Integer sdsUserId = (Integer) actualSdsUserMap.get("USER_ID");
     assertEquals(DEFAULT_USER_ID, sdsUserId);
 
-    // TODO - test exception cases where not all required data is present
+    SdsUser duplicateSdsUser = (SdsUser) this.applicationContext
+        .getBean("sdsUser");
+    duplicateSdsUser.setFirstName(this.sdsUser.getFirstName());
+    duplicateSdsUser.setLastName(this.sdsUser.getLastName());
+    duplicateSdsUser.setUserId(this.sdsUser.getUserId());
+    try {
+      this.sdsUserDao.save(duplicateSdsUser);
+      fail("DataIntegrityViolationException expected");
+    }
+    catch (DataIntegrityViolationException expected) {
+    }
+
+    SdsUser emptySdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
+    try {
+      this.sdsUserDao.save(emptySdsUser);
+      fail("DataIntegrityViolationException expected");
+    }
+    catch (DataIntegrityViolationException expected) {
+    }
+    // TODO - look into changing to DuplicateAuthorityException instead
   }
 
   private void verifyDataStoreIsEmpty() {
@@ -141,5 +162,4 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
     return this.jdbcTemplate.queryForList("select * from sds_users;",
         (Object[]) null);
   }
-
 }
