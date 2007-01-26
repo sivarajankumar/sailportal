@@ -49,7 +49,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   private static final String DEFAULT_PASSWORD = "my secret";
 
   private static final String DEFAULT_EMAIL = "billy@bob.com";
-  
+
   private static final String USERNAME_NOT_IN_DB = "blah";
 
   private PersistentGrantedAuthority role1;
@@ -134,7 +134,6 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     this.userDetailsDao.save(this.defaultUserDetails);
     // flush is required to cascade the join table for some reason
     this.flusher.flush();
-//    this.userDetailsDao.getHibernateTemplate().flush();
 
     // verify data store contains saved data using direct jdbc retrieval (not
     // dao)
@@ -161,7 +160,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
       assertTrue(defaultRolesList.contains(actualValue));
       defaultRolesList.remove(actualValue);
     }
-    
+
     // TODO - test exception cases where not all required data is present
   }
 
@@ -225,19 +224,18 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     // choose random non-existent user name and try to retrieve
     assertNull(this.userDetailsDao.retrieveByName(USERNAME_NOT_IN_DB));
   }
-  
+
   public void testCreateDataObject() {
-	  UserDetails authority = this.userDetailsDao.createDataObject();
-	  assertTrue(authority instanceof MutableUserDetails);
-  }
-  
-  public void testHasUsername() {
-	    this.userDetailsDao.save(this.defaultUserDetails);
-	    assertTrue(this.userDetailsDao.hasUsername(DEFAULT_USERNAME));
-	    
-	    assertFalse(this.userDetailsDao.hasUsername(USERNAME_NOT_IN_DB));
+    UserDetails authority = this.userDetailsDao.createDataObject();
+    assertTrue(authority instanceof MutableUserDetails);
   }
 
+  public void testHasUsername() {
+    this.userDetailsDao.save(this.defaultUserDetails);
+    assertTrue(this.userDetailsDao.hasUsername(DEFAULT_USERNAME));
+
+    assertFalse(this.userDetailsDao.hasUsername(USERNAME_NOT_IN_DB));
+  }
 
   private void verifyUserandJoinTablesAreEmpty() {
     assertTrue(this.retrieveUserDetailsListFromDb().isEmpty());

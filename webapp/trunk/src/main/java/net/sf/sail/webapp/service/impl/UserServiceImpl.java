@@ -31,7 +31,6 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -44,8 +43,8 @@ public class UserServiceImpl implements UserService {
   private UserDetailsDao<MutableUserDetails> userDetailsDao;
 
   private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
-  
-/**
+
+  /**
    * @param grantedAuthorityDao
    *          the grantedAuthorityDao to set
    */

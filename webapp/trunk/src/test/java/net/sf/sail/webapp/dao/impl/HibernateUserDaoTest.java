@@ -148,7 +148,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
   // // * NOTE * must flush to test delete
   // // see http://forum.springframework.org/showthread.php?t=18263 for
   // // explanation
-  // this.userDao.getHibernateTemplate().flush();
+  // this.flusher.flush();
   //
   // verifyDataStoreIsEmpty();
   // }
