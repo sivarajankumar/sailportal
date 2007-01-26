@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao;
 
+import net.sf.sail.webapp.service.authentication.DuplicateException;
+
 /**
  * Data Access Object (DAO) interface that defines simple generic operations for
  * dealing with a persistent store.

@@ -100,7 +100,6 @@ public class HibernateGrantedAuthorityDaoTest extends
 		MutableGrantedAuthority duplicateAuthority = (MutableGrantedAuthority) this.applicationContext
 				.getBean("mutableGrantedAuthority");
 		duplicateAuthority.setAuthority(DEFAULT_ROLE);
-		// TODO - look into changing to DuplicateAuthorityException instead
 		try {
 			this.authorityDao.save(duplicateAuthority);
 			fail("DataIntegrityViolationException expected");
@@ -118,7 +117,7 @@ public class HibernateGrantedAuthorityDaoTest extends
 		// * NOTE * must flush to test delete
 		// see http://forum.springframework.org/showthread.php?t=18263 for
 		// explanation
-		this.flusher.flush();
+		this.toilet.flush();
 
 		verifyDataStoreIsEmpty();
 	}

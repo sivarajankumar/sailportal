@@ -26,6 +26,7 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
+import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -134,7 +135,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
     this.userDetailsDao.save(this.defaultUserDetails);
     // flush is required to cascade the join table for some reason
-    this.flusher.flush();
+    this.toilet.flush();
 
     // verify data store contains saved data using direct jdbc retrieval (not
     // dao)
@@ -168,7 +169,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     duplicateUserDetails.setPassword(DEFAULT_PASSWORD);
     try {
       this.userDetailsDao.save(duplicateUserDetails);
-      fail("expected DataIntegrityViolationException");
+      fail("DataIntegrityViolationException expected");
     }
     catch (DataIntegrityViolationException expected) {
     }
@@ -208,10 +209,10 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
     this.userDetailsDao.save(this.defaultUserDetails);
     // flush is required to cascade the join table for some reason
-    this.flusher.flush();
+    this.toilet.flush();
 
     this.userDetailsDao.delete(this.defaultUserDetails);
-    this.flusher.flush();
+    this.toilet.flush();
 
     this.verifyUserandJoinTablesAreEmpty();
 
@@ -238,7 +239,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
     this.userDetailsDao.save(this.defaultUserDetails);
     // flush is required to cascade the join table for some reason
-    this.flusher.flush();
+    this.toilet.flush();
 
     // get user details record from persistent store and confirm it is complete
     MutableUserDetails userDetails = this.userDetailsDao

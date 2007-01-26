@@ -142,21 +142,21 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		}
 	}
 
-	// public void testDelete() {
-	// verifyDataStoreIsEmpty();
-	//
-	// // save and delete the default granted authority object using dao
-	// this.userDao.save(this.defaultGrantedAuthority);
-	// this.userDao.delete(this.defaultGrantedAuthority);
-	//
-	// // * NOTE * must flush to test delete
-	// // see http://forum.springframework.org/showthread.php?t=18263 for
-	// // explanation
-	// this.flusher.flush();
-	//
-	// verifyDataStoreIsEmpty();
-	// }
-	//
+	public void testDelete() {
+		verifyDataStoreIsEmpty();
+
+		// save and delete the default granted authority object using dao
+		this.userDao.save(this.defaultUser);
+		this.userDao.delete(this.defaultUser);
+
+		// * NOTE * must flush to test delete
+		// see http://forum.springframework.org/showthread.php?t=18263 for
+		// explanation
+		this.toilet.flush();
+
+		verifyDataStoreIsEmpty();
+	}
+
 	// public void testRetrieve() {
 	// this.userDao.save(this.defaultGrantedAuthority);
 	//

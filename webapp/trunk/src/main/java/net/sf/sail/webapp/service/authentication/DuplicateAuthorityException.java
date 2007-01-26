@@ -25,7 +25,7 @@ package net.sf.sail.webapp.service.authentication;
  * 
  * @version $Id$
  */
-public class DuplicateAuthorityException extends Exception {
+public class DuplicateAuthorityException extends DuplicateException {
 
 	private static final long serialVersionUID = 1L;
 

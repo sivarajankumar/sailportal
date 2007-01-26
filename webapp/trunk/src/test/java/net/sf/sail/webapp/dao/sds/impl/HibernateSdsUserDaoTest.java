@@ -97,7 +97,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
     // * NOTE * must flush to test delete
     // see http://forum.springframework.org/showthread.php?t=18263 for
     // explanation
-    this.flusher.flush();
+    this.toilet.flush();
 
     verifyDataStoreIsEmpty();
   }
@@ -151,7 +151,6 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
     }
     catch (DataIntegrityViolationException expected) {
     }
-    // TODO - look into changing to Duplicate???Exception instead
   }
 
   private void verifyDataStoreIsEmpty() {

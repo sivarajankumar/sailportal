@@ -36,7 +36,7 @@ public abstract class AbstractTransactionalDbTests extends
       "classpath:applicationContext-datasource.xml",
       "classpath:applicationContext-user.xml" };
 
-  protected HibernateFlusher flusher;
+  protected HibernateFlusher toilet;
 
   /**
    * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpBeforeTransaction()
@@ -44,8 +44,8 @@ public abstract class AbstractTransactionalDbTests extends
   @Override
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
-    this.flusher = new HibernateFlusher();
-    this.flusher.setSessionFactory((SessionFactory) this.applicationContext
+    this.toilet = new HibernateFlusher();
+    this.toilet.setSessionFactory((SessionFactory) this.applicationContext
         .getBean("sessionFactory"));
   }
 

@@ -43,8 +43,7 @@ public class HibernateUserDao extends HibernateDaoSupport implements
    * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
    */
   public void delete(User user) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException();
+	 this.getHibernateTemplate().delete(user);
   }
 
   /**
