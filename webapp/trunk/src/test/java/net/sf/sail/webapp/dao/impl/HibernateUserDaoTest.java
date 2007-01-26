@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
@@ -104,8 +105,8 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
     assertEquals(1, actualList.size());
 
     Map actualUserMap = (Map) actualList.get(0);
-    assertEquals(USERNAME, actualUserMap.get("USERNAME"));
-    assertEquals(PASSWORD, actualUserMap.get("PASSWORD"));
+    assertEquals(USERNAME, actualUserMap.get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase()));
+    assertEquals(PASSWORD, actualUserMap.get(PersistentUserDetails.COLUMN_NAME_PASSWORD.toUpperCase()));
     assertEquals(FIRST_NAME, actualUserMap.get("FIRST_NAME"));
     assertEquals(LAST_NAME, actualUserMap.get("LAST_NAME"));
     assertEquals(SDS_USER_ID, actualUserMap.get("USER_ID"));

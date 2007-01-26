@@ -151,11 +151,11 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     for (int i = 0; i < actualList.size(); i++) {
       Map actualUserDetailsMap = (Map) actualList.get(i);
       // * NOTE* the keys in the map are all in UPPERCASE!
-      String actualValue = (String) actualUserDetailsMap.get("USERNAME");
+      String actualValue = (String) actualUserDetailsMap.get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase());
       assertEquals(DEFAULT_USERNAME, actualValue);
-      actualValue = (String) actualUserDetailsMap.get("PASSWORD");
+      actualValue = (String) actualUserDetailsMap.get(PersistentUserDetails.COLUMN_NAME_PASSWORD.toUpperCase());
       assertEquals(DEFAULT_PASSWORD, actualValue);
-      actualValue = (String) actualUserDetailsMap.get("EMAIL_ADDRESS");
+      actualValue = (String) actualUserDetailsMap.get(PersistentUserDetails.COLUMN_NAME_EMAIL_ADDRESS.toUpperCase());
       assertEquals(DEFAULT_EMAIL, actualValue);
       actualValue = (String) actualUserDetailsMap.get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
       assertTrue(defaultRolesList.contains(actualValue));

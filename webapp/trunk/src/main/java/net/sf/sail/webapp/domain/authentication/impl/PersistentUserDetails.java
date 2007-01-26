@@ -59,6 +59,13 @@ public class PersistentUserDetails implements MutableUserDetails {
   public static final String GRANTED_AUTHORITY_JOIN_TABLE_NAME = "users_roles";
 
   @Transient
+  public static final String COLUMN_NAME_USERNAME = "username";
+  @Transient
+  public static final String COLUMN_NAME_PASSWORD = "password";
+  @Transient
+  public static final String COLUMN_NAME_EMAIL_ADDRESS = "email_address";
+  
+  @Transient
   private static final long serialVersionUID = 1L;
 
   @Id
@@ -76,13 +83,13 @@ public class PersistentUserDetails implements MutableUserDetails {
   @JoinTable(name = PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = "user_fk") }, inverseJoinColumns = @JoinColumn(name = "role_fk"))
   private Set<GrantedAuthority> grantedAuthorities = null;
 
-  @Column(name = "password", nullable = false)
+  @Column(name = PersistentUserDetails.COLUMN_NAME_PASSWORD, nullable = false)
   private String password = null;
 
-  @Column(name = "username", unique = true, nullable = false)
+  @Column(name = PersistentUserDetails.COLUMN_NAME_USERNAME, unique = true, nullable = false)
   private String username = null;
 
-  @Column(name = "email_address", nullable = true)
+  @Column(name = PersistentUserDetails.COLUMN_NAME_EMAIL_ADDRESS, nullable = true)
   private String emailAddress = null;
 
   @Column(name = "account_not_expired", nullable = false)
