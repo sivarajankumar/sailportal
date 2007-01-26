@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.dao.impl;
 
 import net.sf.sail.webapp.dao.UserDao;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -25,23 +26,23 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HibernateUserDao extends HibernateDaoSupport implements
-    UserDao<UserImpl> {
+    UserDao<User> {
 
   /**
    * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
    */
-  public UserImpl createDataObject() {
+  public User createDataObject() {
     return new UserImpl();
   }
 
   /**
    * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
    */
-  public void delete(UserImpl user) {
+  public void delete(User user) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException();
   }
@@ -49,7 +50,7 @@ public class HibernateUserDao extends HibernateDaoSupport implements
   /**
    * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
    */
-  public UserImpl retrieveByName(String name) {
+  public User retrieveByName(String name) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException();
   }
@@ -57,7 +58,7 @@ public class HibernateUserDao extends HibernateDaoSupport implements
   /**
    * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
    */
-  public void save(UserImpl user) {
+  public void save(User user) {
     this.getHibernateTemplate().saveOrUpdate(user);
   }
 }

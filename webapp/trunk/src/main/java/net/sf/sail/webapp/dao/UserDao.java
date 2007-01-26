@@ -17,14 +17,14 @@
  */
 package net.sf.sail.webapp.dao;
 
-import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.domain.User;
 
 /**
  * @author Cynick Young
  *
- * @version $Id: $
+ * @version $Id$
  *
  */
-public interface UserDao<T extends UserImpl> extends SimpleDao<T> {
+public interface UserDao<T extends User> extends SimpleDao<T> {
 
 }

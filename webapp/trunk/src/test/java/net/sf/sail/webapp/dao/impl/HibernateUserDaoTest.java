@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.impl;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.UserImpl;
@@ -52,7 +53,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 
 	private SdsUser sdsUser;
 
-	private UserImpl defaultUser;
+	private User defaultUser;
 
 	/**
 	 * @param userDao
@@ -71,7 +72,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		this.userDetails = (MutableUserDetails) this.applicationContext
 				.getBean("mutableUserDetails");
 		this.sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
-		this.defaultUser = (UserImpl) this.applicationContext.getBean("user");
+		this.defaultUser = (User) this.applicationContext.getBean("user");
 
 		this.defaultUser.setUserDetails(this.userDetails);
 		this.defaultUser.setSdsUser(this.sdsUser);
@@ -116,14 +117,14 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		assertEquals(SDS_USER_ID, actualUserMap.get(SdsUser.COLUMN_NAME_USER_ID
 				.toUpperCase()));
 
-		UserImpl emptyUser = (UserImpl) this.applicationContext.getBean("user");
+		User emptyUser = (User) this.applicationContext.getBean("user");
 		try {
 			this.userDao.save(emptyUser);
 			fail("expected DataIntegrityViolationException");
 		} catch (DataIntegrityViolationException expected) {
 		}
 
-		UserImpl partiallyEmptyUser = (UserImpl) this.applicationContext
+		User partiallyEmptyUser = (User) this.applicationContext
 				.getBean("user");
 		partiallyEmptyUser.setUserDetails(this.userDetails);
 		try {
@@ -132,7 +133,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		} catch (DataIntegrityViolationException expected) {
 		}
 
-		partiallyEmptyUser = (UserImpl) this.applicationContext.getBean("user");
+		partiallyEmptyUser = (User) this.applicationContext.getBean("user");
 		partiallyEmptyUser.setSdsUser(this.sdsUser);
 		try {
 			this.userDao.save(partiallyEmptyUser);

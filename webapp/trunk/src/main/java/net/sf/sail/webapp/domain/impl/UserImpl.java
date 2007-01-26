@@ -31,6 +31,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.sds.SdsUser;
@@ -42,9 +43,7 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
  */
 @Entity
 @Table(name = UserImpl.DATA_STORE_NAME)
-public class UserImpl implements Serializable {
-
-	// TODO create interface
+public class UserImpl implements User {
 
 	@Transient
 	public static final String DATA_STORE_NAME = "users";
@@ -55,6 +54,7 @@ public class UserImpl implements Serializable {
 	@Transient
 	public static final String COLUMN_NAME_USER_DETAILS_FK = "user_details_fk";
 
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -74,15 +74,14 @@ public class UserImpl implements Serializable {
 	private MutableUserDetails userDetails;
 
 	/**
-	 * @return the userDetails
+	 * @see net.sf.sail.webapp.domain.User#getUserDetails()
 	 */
 	public MutableUserDetails getUserDetails() {
 		return userDetails;
 	}
 
 	/**
-	 * @param userDetails
-	 *            the userDetails to set
+	 * @see net.sf.sail.webapp.domain.User#setUserDetails(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
 	 */
 	public void setUserDetails(MutableUserDetails userDetails) {
 		this.userDetails = userDetails;
@@ -97,8 +96,7 @@ public class UserImpl implements Serializable {
 	}
 
 	/**
-	 * @param sdsUser
-	 *            the sdsUser to set
+	 * @see net.sf.sail.webapp.domain.User#setSdsUser(net.sf.sail.webapp.domain.sds.SdsUser)
 	 */
 	public void setSdsUser(SdsUser sdsUser) {
 		this.sdsUser = sdsUser;
