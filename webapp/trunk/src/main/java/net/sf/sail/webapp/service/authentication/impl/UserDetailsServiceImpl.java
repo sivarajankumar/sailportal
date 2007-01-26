@@ -107,13 +107,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private void checkNoAuthorityCreationErrors(String authority)
 			throws DuplicateAuthorityException {
 
-      // TODO - fix the use of loadAuthorityByName
-		try {
-			this.loadAuthorityByName(authority);
-		} catch (AuthorityNotFoundException e) {
-			return;
-		}
-		throw new DuplicateAuthorityException(authority);
+	    if (this.grantedAuthorityDao.hasRole(authority)){
+	    	throw new DuplicateAuthorityException(authority);
+	      }
 	}
 
 	/**

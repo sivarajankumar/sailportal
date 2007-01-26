@@ -34,116 +34,124 @@ import org.springframework.dao.DataIntegrityViolationException;
  * 
  */
 public class HibernateGrantedAuthorityDaoTest extends
-    AbstractTransactionalDbTests {
+		AbstractTransactionalDbTests {
 
-  private static final String DEFAULT_ROLE = "default_role";
+	private static final String DEFAULT_ROLE = "default_role";
 
-  private MutableGrantedAuthority defaultGrantedAuthority;
+	private static final String ROLE_NOT_IN_DB = "not in db";
 
-  private HibernateGrantedAuthorityDao authorityDao;
+	private MutableGrantedAuthority defaultGrantedAuthority;
 
-  /**
-   * @param authorityDao
-   *          the authorityDao to set
-   */
-  public void setAuthorityDao(HibernateGrantedAuthorityDao authorityDao) {
-    this.authorityDao = authorityDao;
-  }
+	private HibernateGrantedAuthorityDao authorityDao;
 
-  /**
-   * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
-   */
-  @Override
-  protected void onSetUpBeforeTransaction() throws Exception {
-    super.onSetUpBeforeTransaction();
-    this.defaultGrantedAuthority = (MutableGrantedAuthority) this.applicationContext
-        .getBean("mutableGrantedAuthority");
-    this.defaultGrantedAuthority.setAuthority(DEFAULT_ROLE);
-  }
+	/**
+	 * @param authorityDao
+	 *            the authorityDao to set
+	 */
+	public void setAuthorityDao(HibernateGrantedAuthorityDao authorityDao) {
+		this.authorityDao = authorityDao;
+	}
 
-  /**
-   * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
-   */
-  @Override
-  protected void onTearDownAfterTransaction() throws Exception {
-    super.onTearDownAfterTransaction();
-    this.defaultGrantedAuthority = null;
-  }
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
+	 */
+	@Override
+	protected void onSetUpBeforeTransaction() throws Exception {
+		super.onSetUpBeforeTransaction();
+		this.defaultGrantedAuthority = (MutableGrantedAuthority) this.applicationContext
+				.getBean("mutableGrantedAuthority");
+		this.defaultGrantedAuthority.setAuthority(DEFAULT_ROLE);
+	}
 
-  public void testSave() {
-    verifyDataStoreIsEmpty();
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
+	 */
+	@Override
+	protected void onTearDownAfterTransaction() throws Exception {
+		super.onTearDownAfterTransaction();
+		this.defaultGrantedAuthority = null;
+	}
 
-    // save the default granted authority object using dao
-    this.authorityDao.save(this.defaultGrantedAuthority);
+	public void testSave() {
+		verifyDataStoreIsEmpty();
 
-    // verify data store contains saved data using direct jdbc retrieval
-    // (not using dao)
-    List actualList = retrieveGrantedAuthorityListFromDb();
-    assertEquals(1, actualList.size());
+		// save the default granted authority object using dao
+		this.authorityDao.save(this.defaultGrantedAuthority);
 
-    Map actualGrantedAuthorityMap = (Map) actualList.get(0);
-    // * NOTE* the keys in the map are all in UPPERCASE!
-    String actualRole = (String) actualGrantedAuthorityMap.get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
-    assertEquals(DEFAULT_ROLE, actualRole);
+		// verify data store contains saved data using direct jdbc retrieval
+		// (not using dao)
+		List actualList = retrieveGrantedAuthorityListFromDb();
+		assertEquals(1, actualList.size());
 
-    MutableGrantedAuthority emptyAuthority = (MutableGrantedAuthority) this.applicationContext
-        .getBean("mutableGrantedAuthority");
-    try {
-      this.authorityDao.save(emptyAuthority);
-      fail("DataIntegrityViolationException expected");
-    }
-    catch (DataIntegrityViolationException expected) {
-    }
+		Map actualGrantedAuthorityMap = (Map) actualList.get(0);
+		// * NOTE* the keys in the map are all in UPPERCASE!
+		String actualRole = (String) actualGrantedAuthorityMap
+				.get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
+		assertEquals(DEFAULT_ROLE, actualRole);
 
-    MutableGrantedAuthority duplicateAuthority = (MutableGrantedAuthority) this.applicationContext
-        .getBean("mutableGrantedAuthority");
-    duplicateAuthority.setAuthority(DEFAULT_ROLE);
-    // TODO - look into changing to DuplicateAuthorityException instead
-    try {
-      this.authorityDao.save(duplicateAuthority);
-      fail("DataIntegrityViolationException expected");
-    }
-    catch (DataIntegrityViolationException expected) {
-    }
-  }
+		MutableGrantedAuthority emptyAuthority = (MutableGrantedAuthority) this.applicationContext
+				.getBean("mutableGrantedAuthority");
+		try {
+			this.authorityDao.save(emptyAuthority);
+			fail("DataIntegrityViolationException expected");
+		} catch (DataIntegrityViolationException expected) {
+		}
 
-  public void testDelete() {
-    verifyDataStoreIsEmpty();
+		MutableGrantedAuthority duplicateAuthority = (MutableGrantedAuthority) this.applicationContext
+				.getBean("mutableGrantedAuthority");
+		duplicateAuthority.setAuthority(DEFAULT_ROLE);
+		// TODO - look into changing to DuplicateAuthorityException instead
+		try {
+			this.authorityDao.save(duplicateAuthority);
+			fail("DataIntegrityViolationException expected");
+		} catch (DataIntegrityViolationException expected) {
+		}
+	}
 
-    // save and delete the default granted authority object using dao
-    this.authorityDao.save(this.defaultGrantedAuthority);
-    this.authorityDao.delete(this.defaultGrantedAuthority);
+	public void testDelete() {
+		verifyDataStoreIsEmpty();
 
-    // * NOTE * must flush to test delete
-    // see http://forum.springframework.org/showthread.php?t=18263 for
-    // explanation
-    this.flusher.flush();
+		// save and delete the default granted authority object using dao
+		this.authorityDao.save(this.defaultGrantedAuthority);
+		this.authorityDao.delete(this.defaultGrantedAuthority);
 
-    verifyDataStoreIsEmpty();
-  }
+		// * NOTE * must flush to test delete
+		// see http://forum.springframework.org/showthread.php?t=18263 for
+		// explanation
+		this.flusher.flush();
 
-  public void testRetrieve() {
-    this.authorityDao.save(this.defaultGrantedAuthority);
+		verifyDataStoreIsEmpty();
+	}
 
-    MutableGrantedAuthority actualAuthority = this.authorityDao
-        .retrieveByName(DEFAULT_ROLE);
-    assertEquals(this.defaultGrantedAuthority, actualAuthority);
+	public void testHasRole() {
+		this.authorityDao.save(this.defaultGrantedAuthority);
+		assertTrue(this.authorityDao.hasRole(DEFAULT_ROLE));
 
-    // choose random non-existent authority and try to retrieve
-    assertNull(this.authorityDao.retrieveByName("blah"));
+		assertFalse(this.authorityDao.hasRole(ROLE_NOT_IN_DB));
+	}
 
-  }
+	public void testRetrieve() {
+		this.authorityDao.save(this.defaultGrantedAuthority);
 
-  public void testCreateDataObject() {
-    assertTrue(this.authorityDao.createDataObject() instanceof MutableGrantedAuthority);
-  }
+		MutableGrantedAuthority actualAuthority = this.authorityDao
+				.retrieveByName(DEFAULT_ROLE);
+		assertEquals(this.defaultGrantedAuthority, actualAuthority);
 
-  private void verifyDataStoreIsEmpty() {
-    assertTrue(retrieveGrantedAuthorityListFromDb().isEmpty());
-  }
+		// choose random non-existent authority and try to retrieve
+		assertNull(this.authorityDao.retrieveByName("blah"));
 
-  private List retrieveGrantedAuthorityListFromDb() {
-    return this.jdbcTemplate.queryForList("SELECT * FROM "
-        + PersistentGrantedAuthority.DATA_STORE_NAME, (Object[]) null);
-  }
+	}
+
+	public void testCreateDataObject() {
+		assertTrue(this.authorityDao.createDataObject() instanceof MutableGrantedAuthority);
+	}
+
+	private void verifyDataStoreIsEmpty() {
+		assertTrue(retrieveGrantedAuthorityListFromDb().isEmpty());
+	}
+
+	private List retrieveGrantedAuthorityListFromDb() {
+		return this.jdbcTemplate.queryForList("SELECT * FROM "
+				+ PersistentGrantedAuthority.DATA_STORE_NAME, (Object[]) null);
+	}
 }

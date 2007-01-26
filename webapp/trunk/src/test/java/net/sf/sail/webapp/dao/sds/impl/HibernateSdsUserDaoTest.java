@@ -151,7 +151,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
     }
     catch (DataIntegrityViolationException expected) {
     }
-    // TODO - look into changing to DuplicateAuthorityException instead
+    // TODO - look into changing to Duplicate???Exception instead
   }
 
   private void verifyDataStoreIsEmpty() {

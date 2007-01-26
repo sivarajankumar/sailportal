@@ -57,6 +57,9 @@ public class HibernateGrantedAuthorityDao extends HibernateDaoSupport implements
 		this.getHibernateTemplate().delete(grantedAuthority);
 	}
 
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
+	 */
 	public MutableGrantedAuthority retrieveByName(String authority) {
 		return (MutableGrantedAuthority) DataAccessUtils
 				.uniqueResult(this
@@ -65,5 +68,12 @@ public class HibernateGrantedAuthorityDao extends HibernateDaoSupport implements
 								"from PersistentGrantedAuthority as granted_authority where granted_authority.authority = :authority",
 								new String[] { "authority" },
 								new Object[] { authority }));
+	}
+	
+	/**
+	 * @see net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao#hasRole(java.lang.String)
+	 */
+	public boolean hasRole(String authority) {
+		return (this.retrieveByName(authority) != null);
 	}
 }
