@@ -86,6 +86,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throws DuplicateAuthorityException {
 		this.checkNoAuthorityCreationErrors(authority);
 
+		//TODO look at this - should we be getting this from the bean???
 		MutableGrantedAuthority grantedAuthority = this.grantedAuthorityDao
 				.createDataObject();
 		grantedAuthority.setAuthority(authority);

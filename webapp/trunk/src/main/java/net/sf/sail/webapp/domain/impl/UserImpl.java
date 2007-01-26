@@ -28,6 +28,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -40,94 +41,100 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
  * @version $Id$
  */
 @Entity
-@Table(name = "users")
+@Table(name = UserImpl.DATA_STORE_NAME)
 public class UserImpl implements Serializable {
-  
-//  TODO create interface
 
-  private static final long serialVersionUID = 1L;
+	// TODO create interface
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id = null;
+	@Transient
+	public static final String DATA_STORE_NAME = "users";
 
-  @Version
-  @Column(name = "OPTLOCK")
-  private Integer version = null;
+	@Transient
+	public static final String COLUMN_NAME_SDS_USER_FK = "sds_user_fk";
 
-  // @Column(name = "sds_user", unique = true, nullable = false)
-  @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsUser.class)
-  @JoinColumn(name = "sds_user_fk", nullable = false, unique = true)
-  private SdsUser sdsUser;
+	@Transient
+	public static final String COLUMN_NAME_USER_DETAILS_FK = "user_details_fk";
 
-  // @Column(name = "user_details", unique = true, nullable = false)
-  @OneToOne(cascade = CascadeType.ALL, targetEntity = PersistentUserDetails.class)
-  // @PrimaryKeyJoinColumn
-  @JoinColumn(name = "user_details_fk", nullable = false, unique = true)
-  private MutableUserDetails userDetails;
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * @return the userDetails
-   */
-  public MutableUserDetails getUserDetails() {
-    return userDetails;
-  }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
 
-  /**
-   * @param userDetails
-   *          the userDetails to set
-   */
-  public void setUserDetails(MutableUserDetails userDetails) {
-    this.userDetails = userDetails;
-  }
+	@Version
+	@Column(name = "OPTLOCK")
+	private Integer version = null;
 
-  /**
-   * @return the sdsUser
-   */
-  @SuppressWarnings("unused")
-  private SdsUser getSdsUser() {
-    return sdsUser;
-  }
+	@OneToOne(cascade = CascadeType.ALL, targetEntity = SdsUser.class)
+	@JoinColumn(name = UserImpl.COLUMN_NAME_SDS_USER_FK, nullable = false, unique = true)
+	private SdsUser sdsUser;
 
-  /**
-   * @param sdsUser
-   *          the sdsUser to set
-   */
-  public void setSdsUser(SdsUser sdsUser) {
-    this.sdsUser = sdsUser;
-  }
+	@OneToOne(cascade = CascadeType.ALL, targetEntity = PersistentUserDetails.class)
+	@JoinColumn(name = UserImpl.COLUMN_NAME_USER_DETAILS_FK, nullable = false, unique = true)
+	private MutableUserDetails userDetails;
 
-  /**
-   * @return the id
-   */
-  @SuppressWarnings("unused")
-  private Long getId() {
-    return id;
-  }
+	/**
+	 * @return the userDetails
+	 */
+	public MutableUserDetails getUserDetails() {
+		return userDetails;
+	}
 
-  /**
-   * @param id
-   *          the id to set
-   */
-  @SuppressWarnings("unused")
-  private void setId(Long id) {
-    this.id = id;
-  }
+	/**
+	 * @param userDetails
+	 *            the userDetails to set
+	 */
+	public void setUserDetails(MutableUserDetails userDetails) {
+		this.userDetails = userDetails;
+	}
 
-  /**
-   * @return the version
-   */
-  @SuppressWarnings("unused")
-  private Integer getVersion() {
-    return version;
-  }
+	/**
+	 * @return the sdsUser
+	 */
+	@SuppressWarnings("unused")
+	private SdsUser getSdsUser() {
+		return sdsUser;
+	}
 
-  /**
-   * @param version
-   *          the version to set
-   */
-  @SuppressWarnings("unused")
-  private void setVersion(Integer version) {
-    this.version = version;
-  }
+	/**
+	 * @param sdsUser
+	 *            the sdsUser to set
+	 */
+	public void setSdsUser(SdsUser sdsUser) {
+		this.sdsUser = sdsUser;
+	}
+
+	/**
+	 * @return the id
+	 */
+	@SuppressWarnings("unused")
+	private Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	@SuppressWarnings("unused")
+	private void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the version
+	 */
+	@SuppressWarnings("unused")
+	private Integer getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version
+	 *            the version to set
+	 */
+	@SuppressWarnings("unused")
+	private void setVersion(Integer version) {
+		this.version = version;
+	}
 }
