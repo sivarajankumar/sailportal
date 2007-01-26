@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
-import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -135,8 +135,7 @@ public class HibernateGrantedAuthorityDaoTest extends
   }
 
   public void testCreateDataObject() {
-    GrantedAuthority authority = this.authorityDao.createDataObject();
-    assertTrue(authority instanceof MutableGrantedAuthority);
+    assertTrue(this.authorityDao.createDataObject() instanceof MutableGrantedAuthority);
   }
 
   private void verifyDataStoreIsEmpty() {
@@ -144,7 +143,7 @@ public class HibernateGrantedAuthorityDaoTest extends
   }
 
   private List retrieveGrantedAuthorityListFromDb() {
-    return this.jdbcTemplate.queryForList("select * from roles;",
-        (Object[]) null);
+    return this.jdbcTemplate.queryForList("SELECT * FROM "
+        + PersistentGrantedAuthority.DATA_STORE_NAME, (Object[]) null);
   }
 }

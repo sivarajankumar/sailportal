@@ -38,8 +38,11 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
  * 
  */
 @Entity
-@Table(name = "roles")
+@Table(name = PersistentGrantedAuthority.DATA_STORE_NAME)
 public class PersistentGrantedAuthority implements MutableGrantedAuthority {
+
+  @Transient
+  public static final String DATA_STORE_NAME = "roles";
 
   @Transient
   private static final long serialVersionUID = 1L;

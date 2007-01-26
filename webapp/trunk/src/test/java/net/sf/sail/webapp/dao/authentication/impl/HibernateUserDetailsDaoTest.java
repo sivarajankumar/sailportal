@@ -23,10 +23,11 @@ import java.util.Map;
 
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -264,8 +265,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   }
 
   public void testCreateDataObject() {
-    UserDetails authority = this.userDetailsDao.createDataObject();
-    assertTrue(authority instanceof MutableUserDetails);
+    assertTrue(this.userDetailsDao.createDataObject() instanceof MutableUserDetails);
   }
 
   public void testHasUsername() {
@@ -281,24 +281,30 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
   }
 
   private List retrieveUserDetailsListFromDb() {
-    return this.jdbcTemplate
-        .queryForList(
-            "select * from user_details, users_roles, roles where user_details.id = users_roles.user_fk and roles.id = users_roles.role_fk;",
-            (Object[]) null);
+    return this.jdbcTemplate.queryForList("SELECT * FROM "
+        + PersistentUserDetails.DATA_STORE_NAME + ", "
+        + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME + ", "
+        + PersistentGrantedAuthority.DATA_STORE_NAME + " WHERE "
+        + PersistentUserDetails.DATA_STORE_NAME + ".id = "
+        + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME
+        + ".user_fk AND " + PersistentGrantedAuthority.DATA_STORE_NAME
+        + ".id = " + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME
+        + ".role_fk;", (Object[]) null);
   }
 
   private List retrieveUsersTableFromDb() {
-    return this.jdbcTemplate.queryForList("select * from user_details;",
-        (Object[]) null);
+    return this.jdbcTemplate.queryForList("select * from "
+        + PersistentUserDetails.DATA_STORE_NAME, (Object[]) null);
   }
 
   private List retrieveRolesTableFromDb() {
-    return this.jdbcTemplate.queryForList("select * from roles;",
-        (Object[]) null);
+    return this.jdbcTemplate.queryForList("SELECT * FROM "
+        + PersistentGrantedAuthority.DATA_STORE_NAME, (Object[]) null);
   }
 
   private List retrieveUsersRolesTableFromDb() {
-    return this.jdbcTemplate.queryForList("select * from users_roles;",
+    return this.jdbcTemplate.queryForList("SELECT * FROM "
+        + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME,
         (Object[]) null);
   }
 }
