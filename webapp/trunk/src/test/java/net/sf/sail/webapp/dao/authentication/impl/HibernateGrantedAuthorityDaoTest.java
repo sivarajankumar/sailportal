@@ -83,7 +83,7 @@ public class HibernateGrantedAuthorityDaoTest extends
 
     Map actualGrantedAuthorityMap = (Map) actualList.get(0);
     // * NOTE* the keys in the map are all in UPPERCASE!
-    String actualRole = (String) actualGrantedAuthorityMap.get("ROLE");
+    String actualRole = (String) actualGrantedAuthorityMap.get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
     assertEquals(DEFAULT_ROLE, actualRole);
 
     MutableGrantedAuthority emptyAuthority = (MutableGrantedAuthority) this.applicationContext

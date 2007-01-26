@@ -43,6 +43,9 @@ public class PersistentGrantedAuthority implements MutableGrantedAuthority {
 
   @Transient
   public static final String DATA_STORE_NAME = "roles";
+  
+  @Transient
+  public static final String COLUMN_NAME_ROLE = "role";
 
   @Transient
   private static final long serialVersionUID = 1L;
@@ -55,7 +58,7 @@ public class PersistentGrantedAuthority implements MutableGrantedAuthority {
   @Column(name = "OPTLOCK")
   private Integer version;
 
-  @Column(name = "role", unique = true, nullable = false)
+  @Column(name = PersistentGrantedAuthority.COLUMN_NAME_ROLE, unique = true, nullable = false)
   private String authority;
 
   /**
