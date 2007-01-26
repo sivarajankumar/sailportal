@@ -129,7 +129,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
     assertEquals(1, actualList.size());
 
     Map actualSdsUserMap = (Map) actualList.get(0);
-    Integer sdsUserId = (Integer) actualSdsUserMap.get("USER_ID");
+    Integer sdsUserId = (Integer) actualSdsUserMap.get(SdsUser.COLUMN_NAME_USER_ID.toUpperCase());
     assertEquals(DEFAULT_USER_ID, sdsUserId);
 
     SdsUser duplicateSdsUser = (SdsUser) this.applicationContext
@@ -159,7 +159,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
   }
 
   private List retrieveSdsUserListFromDb() {
-    return this.jdbcTemplate.queryForList("select * from sds_users;",
+    return this.jdbcTemplate.queryForList("select * from " + SdsUser.DATA_STORE_NAME,
         (Object[]) null);
   }
 }

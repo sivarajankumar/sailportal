@@ -34,151 +34,162 @@ import javax.persistence.Version;
  * @version $Id$
  */
 @Entity
-@Table(name = "sds_users")
+@Table(name = SdsUser.DATA_STORE_NAME)
 public class SdsUser implements Serializable {
 
-  @Transient
-  private static final long serialVersionUID = 1L;
+	@Transient
+	public static final String DATA_STORE_NAME = "sds_users";
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id = null;
+	@Transient
+	public static final String COLUMN_NAME_USER_ID = "user_id";
 
-  @Version
-  @Column(name = "OPTLOCK")
-  private Integer version = null;
+	@Transient
+	public static final String COLUMN_NAME_FIRST_NAME = "first_name";
 
-  @Column(name = "user_id", unique = true, nullable = false)
-  private Integer userId = null;
+	@Transient
+	public static final String COLUMN_NAME_LAST_NAME = "last_name";
 
-  @Column(name = "first_name", nullable = false)
-  private String firstName = null;
+	@Transient
+	private static final long serialVersionUID = 1L;
 
-  @Column(name = "last_name", nullable = false)
-  private String lastName = null;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
 
-  /**
-   * @return the firstName
-   */
-  public String getFirstName() {
-    return firstName;
-  }
+	@Version
+	@Column(name = "OPTLOCK")
+	private Integer version = null;
 
-  /**
-   * @param firstName
-   *          the firstName to set
-   */
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+	@Column(name = SdsUser.COLUMN_NAME_USER_ID, unique = true, nullable = false)
+	private Integer userId = null;
 
-  /**
-   * @return the lastName
-   */
-  public String getLastName() {
-    return lastName;
-  }
+	@Column(name = SdsUser.COLUMN_NAME_FIRST_NAME, nullable = false)
+	private String firstName = null;
 
-  /**
-   * @param lastName
-   *          the lastName to set
-   */
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
+	@Column(name = SdsUser.COLUMN_NAME_LAST_NAME, nullable = false)
+	private String lastName = null;
 
-  /**
-   * @return the userId
-   */
-  public Integer getUserId() {
-    return userId;
-  }
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
 
-  /**
-   * @param userId
-   *          the userId to set
-   */
-  public void setUserId(Integer userid) {
-    this.userId = userid;
-  }
+	/**
+	 * @param firstName
+	 *            the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-  /**
-   * @return the id
-   */
-  @SuppressWarnings("unused")
-  private Long getId() {
-    return id;
-  }
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
 
-  /**
-   * @param id
-   *          the id to set
-   */
-  @SuppressWarnings("unused")
-  private void setId(Long id) {
-    this.id = id;
-  }
+	/**
+	 * @param lastName
+	 *            the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-  /**
-   * @return the version
-   */
-  @SuppressWarnings("unused")
-  private Integer getVersion() {
-    return version;
-  }
+	/**
+	 * @return the userId
+	 */
+	public Integer getUserId() {
+		return userId;
+	}
 
-  /**
-   * @param version
-   *          the version to set
-   */
-  @SuppressWarnings("unused")
-  private void setVersion(Integer version) {
-    this.version = version;
-  }
+	/**
+	 * @param userId
+	 *            the userId to set
+	 */
+	public void setUserId(Integer userid) {
+		this.userId = userid;
+	}
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    final int PRIME = 31;
-    int result = 1;
-    result = PRIME * result + ((firstName == null) ? 0 : firstName.hashCode());
-    result = PRIME * result + ((lastName == null) ? 0 : lastName.hashCode());
-    result = PRIME * result + ((userId == null) ? 0 : userId.hashCode());
-    return result;
-  }
+	/**
+	 * @return the id
+	 */
+	@SuppressWarnings("unused")
+	private Long getId() {
+		return id;
+	}
 
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    final SdsUser other = (SdsUser) obj;
-    if (firstName == null) {
-      if (other.firstName != null)
-        return false;
-    }
-    else if (!firstName.equals(other.firstName))
-      return false;
-    if (lastName == null) {
-      if (other.lastName != null)
-        return false;
-    }
-    else if (!lastName.equals(other.lastName))
-      return false;
-    if (userId == null) {
-      if (other.userId != null)
-        return false;
-    }
-    else if (!userId.equals(other.userId))
-      return false;
-    return true;
-  }
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	@SuppressWarnings("unused")
+	private void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the version
+	 */
+	@SuppressWarnings("unused")
+	private Integer getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version
+	 *            the version to set
+	 */
+	@SuppressWarnings("unused")
+	private void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int PRIME = 31;
+		int result = 1;
+		result = PRIME * result
+				+ ((firstName == null) ? 0 : firstName.hashCode());
+		result = PRIME * result
+				+ ((lastName == null) ? 0 : lastName.hashCode());
+		result = PRIME * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final SdsUser other = (SdsUser) obj;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
 }

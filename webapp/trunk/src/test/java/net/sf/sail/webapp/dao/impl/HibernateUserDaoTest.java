@@ -107,9 +107,9 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
     Map actualUserMap = (Map) actualList.get(0);
     assertEquals(USERNAME, actualUserMap.get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase()));
     assertEquals(PASSWORD, actualUserMap.get(PersistentUserDetails.COLUMN_NAME_PASSWORD.toUpperCase()));
-    assertEquals(FIRST_NAME, actualUserMap.get("FIRST_NAME"));
-    assertEquals(LAST_NAME, actualUserMap.get("LAST_NAME"));
-    assertEquals(SDS_USER_ID, actualUserMap.get("USER_ID"));
+    assertEquals(FIRST_NAME, actualUserMap.get(SdsUser.COLUMN_NAME_FIRST_NAME.toUpperCase()));
+    assertEquals(LAST_NAME, actualUserMap.get(SdsUser.COLUMN_NAME_LAST_NAME.toUpperCase()));
+    assertEquals(SDS_USER_ID, actualUserMap.get(SdsUser.COLUMN_NAME_USER_ID.toUpperCase()));
 
     UserImpl emptyUser = (UserImpl) this.applicationContext.getBean("user");
     try {
@@ -177,7 +177,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
   private List retrieveUserListFromDb() {
     return this.jdbcTemplate
         .queryForList(
-            "select * from users, user_details, sds_users where users.user_details_fk = user_details.id and users.sds_user_fk = sds_users.id;",
+            "select * from users, " + PersistentUserDetails.DATA_STORE_NAME + ", " + SdsUser.DATA_STORE_NAME + " where users.user_details_fk = "+ PersistentUserDetails.DATA_STORE_NAME + ".id and users.sds_user_fk = " + SdsUser.DATA_STORE_NAME + ".id;",
             (Object[]) null);
   }
 }
