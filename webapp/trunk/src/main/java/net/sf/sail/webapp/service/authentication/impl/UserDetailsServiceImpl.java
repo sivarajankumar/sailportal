@@ -28,6 +28,7 @@ import net.sf.sail.webapp.service.authentication.UserDetailsService;
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.springframework.context.ApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,13 +83,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#createGrantedAuthority(java.lang.String)
 	 */
 	@Transactional(rollbackFor = { DuplicateAuthorityException.class })
-	public MutableGrantedAuthority createGrantedAuthority(String authority)
+	public MutableGrantedAuthority createGrantedAuthority(ApplicationContext applicationContext, String authority)
 			throws DuplicateAuthorityException {
 		this.checkNoAuthorityCreationErrors(authority);
 
 		//TODO look at this - should we be getting this from the bean???
-		MutableGrantedAuthority grantedAuthority = this.grantedAuthorityDao
-				.createDataObject();
+		MutableGrantedAuthority grantedAuthority = (MutableGrantedAuthority) applicationContext
+		.getBean("mutableGrantedAuthority");
 		grantedAuthority.setAuthority(authority);
 		this.grantedAuthorityDao.save(grantedAuthority);
 		return grantedAuthority;

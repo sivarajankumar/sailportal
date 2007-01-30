@@ -20,6 +20,7 @@ package net.sf.sail.webapp.service.authentication;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 
 import org.acegisecurity.GrantedAuthority;
+import org.springframework.context.ApplicationContext;
 
 /**
  * @author Cynick Young
@@ -38,13 +39,15 @@ public interface UserDetailsService extends
    * Given a string representing a role of a user, created a granted authority
    * record in the data store
    * 
+   * @param applicationContext The spring application context that contains the beans
    * @param authority
    * @return A MutableGrantedAuthority object
    * @throws DuplicateAuthorityException
    * @throws AuthorityCreationException
    *           If authority is not unique or null.
    */
-  public MutableGrantedAuthority createGrantedAuthority(String authority)
+
+  public MutableGrantedAuthority createGrantedAuthority(ApplicationContext applicationContext, String authority)
       throws DuplicateAuthorityException;
 
   /**

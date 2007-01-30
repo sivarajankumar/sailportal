@@ -68,19 +68,19 @@ public class CreateDefaultUsers {
 					.println("Usage: CreateDefaultUsers <admin-username> <admin-password>");
 			System.exit(1);
 		}
-		AbstractXmlApplicationContext context = new ClassPathXmlApplicationContext(
+		AbstractXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				CONFIG_LOCATIONS);
 		try {
 			CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
-			createDefaultUsers.init(context);
+			createDefaultUsers.init(applicationContext);
 			MutableUserDetails adminUser = createDefaultUsers.userDetailsDao
 					.createDataObject();
 			adminUser.setUsername(args[0]);
 			adminUser.setPassword(args[1]);
-			createDefaultUsers.createRoles();
+			createDefaultUsers.createRoles(applicationContext);
 			createDefaultUsers.createAdministrator(adminUser);
 		} finally {
-			context.close();
+			applicationContext.close();
 		}
 		System.exit(0);
 	}
@@ -144,15 +144,19 @@ public class CreateDefaultUsers {
 	 * are UserDetailsService.USER_ROLE and UserDetailsService.ADMIN_ROLE
 	 * authorities. This method should be run before attempting to create users.
 	 * 
+	 * @param applicationContext The Spring application context that contains the beans.
 	 * @throws AuthorityCreationException
 	 *             If the authority passed in is null or cannot be created for
 	 *             some reason.
 	 */
-	public void createRoles() throws DuplicateAuthorityException {
+	/**
+	 * @throws DuplicateAuthorityException
+	 */
+	public void createRoles(ApplicationContext applicationContext) throws DuplicateAuthorityException {
 		this.userDetailsService
-				.createGrantedAuthority(UserDetailsService.ADMIN_ROLE);
+				.createGrantedAuthority(applicationContext, UserDetailsService.ADMIN_ROLE);
 		this.userDetailsService
-				.createGrantedAuthority(UserDetailsService.USER_ROLE);
+				.createGrantedAuthority(applicationContext, UserDetailsService.USER_ROLE);
 	}
 
 	/**

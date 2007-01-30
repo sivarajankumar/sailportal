@@ -78,7 +78,7 @@ public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
 	@Override
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
-		creator.createRoles();
+		creator.createRoles(this.applicationContext);
 		creator.createAdministrator(expectedUserDetails);
 	}
 

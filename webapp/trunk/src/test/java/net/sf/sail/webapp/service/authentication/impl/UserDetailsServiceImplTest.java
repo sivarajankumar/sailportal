@@ -115,9 +115,9 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
   public void testDuplicateAuthorityErrors() throws Exception {
     // create 2 authorities and attempt to save to DB
     // second authority should cause exception to be thown
-    this.userDetailsService.createGrantedAuthority(ROLE);
+    this.userDetailsService.createGrantedAuthority(this.applicationContext, ROLE);
     try {
-      this.userDetailsService.createGrantedAuthority(ROLE);
+      this.userDetailsService.createGrantedAuthority(this.applicationContext, ROLE);
       fail("DuplicateAuthorityException expected and not caught.");
     }
     catch (DuplicateAuthorityException e) {
@@ -127,7 +127,7 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 
   public void testCreateAuthority() throws Exception {
     GrantedAuthority expectedGrantedAuthority = this.userDetailsService
-        .createGrantedAuthority(ROLE);
+        .createGrantedAuthority(this.applicationContext, ROLE);
 
     GrantedAuthority actual = this.userDetailsService.loadAuthorityByName(ROLE);
     assertEquals(expectedGrantedAuthority, actual);
