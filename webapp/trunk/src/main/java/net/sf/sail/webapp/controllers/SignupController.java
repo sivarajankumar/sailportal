@@ -55,7 +55,7 @@ public class SignupController extends SimpleFormController {
     MutableUserDetails userDetails = (MutableUserDetails) command;
 
     try {
-      userService.createUser(userDetails);
+      userService.createUser(this.getApplicationContext(), userDetails);
     }
     catch (DuplicateUsernameException e) {
       errors.rejectValue("username", "error.duplicate-username",

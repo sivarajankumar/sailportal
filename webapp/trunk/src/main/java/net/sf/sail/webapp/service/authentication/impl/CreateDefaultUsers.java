@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.service.authentication.impl;
 
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
@@ -78,7 +79,7 @@ public class CreateDefaultUsers {
 			adminUser.setUsername(args[0]);
 			adminUser.setPassword(args[1]);
 			createDefaultUsers.createRoles(applicationContext);
-			createDefaultUsers.createAdministrator(adminUser);
+			createDefaultUsers.createAdministrator(applicationContext, adminUser);
 		} finally {
 			applicationContext.close();
 		}
@@ -118,9 +119,10 @@ public class CreateDefaultUsers {
 	 * UserDetailsService.ADMIN_ROLE authorities. These roles must be set
 	 * already by using createRoles();
 	 * 
+	 * @param applicationContext The Spring application context that contains the beans.
 	 * @param userDetails
 	 *            A UserDetails object with the username and password set.
-	 * @return A UserDetails object with username and password that were input
+	 * @return A User object with UserDetails set including username and password that were input
 	 *         and with roles UserDetailsService.USER_ROLE and
 	 *         UserDetailsService.ADMIN_ROLE authorities.
 	 * @throws AuthorityNotFoundException
@@ -130,13 +132,13 @@ public class CreateDefaultUsers {
 	 *             If the user cannot be created (duplicate user name, null
 	 *             username or null password)
 	 */
-	public MutableUserDetails createAdministrator(MutableUserDetails userDetails)
+	public User createAdministrator(ApplicationContext applicationContext, MutableUserDetails userDetails)
 			throws AuthorityNotFoundException, DuplicateUsernameException {
 		GrantedAuthority authority = userDetailsService
 				.loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
 		userDetails.addAuthority(authority);
 		System.out.println("userService == null? " + userService == null);
-		return userService.createUser(userDetails);
+		return userService.createUser(applicationContext, userDetails);
 	}
 
 	/**

@@ -17,8 +17,10 @@
  */
 package net.sf.sail.webapp.service.impl;
 
+import net.sf.sail.webapp.dao.UserDao;
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
@@ -46,6 +48,8 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
   private UserDetailsDao<MutableUserDetails> userDetailsDao;
 
   private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
+  
+  private UserDao<User> userDao;
 
   private UserDetailsService userDetailsService;
 
@@ -59,9 +63,9 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
     // create 2 users and attempt to save to DB
     // second user should cause exception to be thown
-    this.userService.createUser(user);
+    this.userService.createUser(this.applicationContext, user);
     try {
-      this.userService.createUser(user);
+      this.userService.createUser(this.applicationContext, user);
       fail("DuplicateUsernameException expected and not caught.");
     }
     catch (DuplicateUsernameException e) {
@@ -72,7 +76,8 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
   /*
    * This test checks creation of a user within the portal, but ignores the
    * creation of a user on the remote SDS. Tests for system integration are
-   * beyond the scope of this testing mechanism.
+   * beyond the scope of this testing mechanism. We are assuming the SdsUserId
+   * cannot be null, enforced by the data store constraint.
    */
   public void testCreateUserWithEmail() throws Exception {
     MutableGrantedAuthority expectedAuthority = this.authorityDao
@@ -80,17 +85,18 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     expectedAuthority.setAuthority(UserDetailsService.USER_ROLE);
     this.authorityDao.save(expectedAuthority);
 
-    MutableUserDetails user = this.userDetailsDao.createDataObject();
-    user.setUsername(USERNAME);
-    user.setPassword(PASSWORD);
-    user.setEmailAddress(EMAIL);
+    MutableUserDetails userDetails = this.userDetailsDao.createDataObject();
+    userDetails.setUsername(USERNAME);
+    userDetails.setPassword(PASSWORD);
+    userDetails.setEmailAddress(EMAIL);
 
     // create user (saves automatically)
-    UserDetails expectedUser = this.userService.createUser(user);
-
+    User expectedUser = this.userService.createUser(this.applicationContext, userDetails);
+    UserDetails expectedUserDetails = expectedUser.getUserDetails();
+    
     // retrieve user and compare
     UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
-    assertEquals(expectedUser, actual);
+    assertEquals(expectedUserDetails, actual);
 
     // check role
     GrantedAuthority[] authorities = actual.getAuthorities();
@@ -107,7 +113,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
     // added this end transaction to catch a transaction commit within a
     // transaction rollback problem
-    this.userDetailsDao.delete(user);
+    this.userDao.delete(expectedUser);
     this.authorityDao.delete(expectedAuthority);
     this.setComplete();
     this.endTransaction();
@@ -117,16 +123,18 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
   /*
    * This test checks creation of a user within the portal, but ignores the
    * creation of a user on the remote SDS. Tests for system integration are
-   * beyond the scope of this testing mechanism.
+   * beyond the scope of this testing mechanism. We are assuming the SdsUserId
+   * cannot be null, enforced by the data store constraint.
    */
   public void testCreateUserBlankEmail() throws Exception {
     MutableUserDetails user = this.userDetailsDao.createDataObject();
     user.setUsername(USERNAME);
     user.setPassword(PASSWORD);
-    UserDetails expectedUser = this.userService.createUser(user);
-
+    User expectedUser = this.userService.createUser(this.applicationContext, user);
+    
+    MutableUserDetails expectedUserDetails = expectedUser.getUserDetails();
     UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
-    assertEquals(expectedUser, actual);
+    assertEquals(expectedUserDetails, actual);
   }
 
   /**
@@ -162,5 +170,12 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
   public void setUserService(UserService userService) {
     this.userService = userService;
   }
+
+/**
+ * @param userDao the userDao to set
+ */
+public void setUserDao(UserDao<User> userDao) {
+	this.userDao = userDao;
+}
 
 }

@@ -51,6 +51,9 @@
     <property name="grantedAuthorityDao">
       <ref bean="grantedAuthorityDao" />
     </property>
+    <property name="userDao">
+    	<ref bean="userDao" />
+    </property>
   </bean>
 
 </beans>
