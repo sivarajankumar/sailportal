@@ -17,9 +17,7 @@
  */
 package net.sf.sail.webapp.domain.webservice.http;
 
-import java.util.Collections;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 
@@ -32,17 +30,9 @@ import net.sf.sail.webapp.domain.webservice.BadRequestException;
  * @version $Id$
  * 
  */
-public final class HttpPostRequest {
-
-  private Map<String, String> requestHeaders;
-
-  private Map<String, String> requestParameters;
+public final class HttpPostRequest extends AbstractHttpRequest {
 
   private String bodyData;
-
-  private String url;
-
-  private int expectedResponseStatusCode;
 
   /**
    * Creates an HttpPostRequest object with all of the data required.
@@ -66,12 +56,8 @@ public final class HttpPostRequest {
       final Map<String, String> requestParameters, final String bodyData,
       final String url, final int expectedResponseStatusCode)
       throws BadRequestException {
-    checkForLegalHeaders(requestHeaders);
-    this.requestHeaders = Collections.unmodifiableMap(requestHeaders);
-    this.requestParameters = Collections.unmodifiableMap(requestParameters);
+    super(requestHeaders, requestParameters, url, expectedResponseStatusCode);
     this.bodyData = bodyData;
-    this.url = url;
-    this.expectedResponseStatusCode = expectedResponseStatusCode;
   }
 
   /*
@@ -81,47 +67,6 @@ public final class HttpPostRequest {
   private HttpPostRequest() {
   }
 
-  /*
-   * Header field names can contain any character except <any US-ASCII control
-   * character (octets 0 - 31) and DEL (127)> (often referred to as CTL or
-   * CTRLs) or "(" | ")" | "<" | ">" | "@" | "," | ";" | ":" | "\" | <"> | "/" |
-   * "[" | "]" | "?" | "=" | "{" | "}" | SP | HT where SP = <US-ASCII SP, space
-   * (32)> and HT = <US-ASCII HT, horizontal-tab (9)> Headers must not be empty.
-   */
-  private static final Pattern ILLEGAL_HEADER_FIELD_NAME_PATTERN = Pattern
-      .compile("(.*[\\p{Cntrl}\t ()<>@,;:\\\"/\u001B\u001D?={}]+.*)+");
-
-  /*
-   * Header field values can contain any character except CTRLs
-   */
-  private static final Pattern ILLEGAL_HEADER_FIELD_VALUE_PATTERN = Pattern
-      .compile("(.*[\\p{Cntrl}]+.*)+");
-
-  private void checkForLegalHeaders(Map<String, String> requestHeaders)
-      throws BadRequestException {
-    for (String key : requestHeaders.keySet()) {
-      if ("".equals(key)
-          || ILLEGAL_HEADER_FIELD_NAME_PATTERN.matcher(key).matches()) {
-        throw new BadRequestException(
-            "Request header field-name contains illegal characters.");
-      }
-      if (ILLEGAL_HEADER_FIELD_VALUE_PATTERN.matcher(requestHeaders.get(key))
-          .matches()) {
-        throw new BadRequestException(
-            "Request header field-value contains illegal characters.");
-      }
-    }
-  }
-
-  /**
-   * Returns the expected response status code for this request.
-   * 
-   * @return the expectedResponseStatusCode
-   */
-  public int getExpectedResponseStatusCode() {
-    return expectedResponseStatusCode;
-  }
-
   /**
    * Returns the body data for this request.
    * 
@@ -129,32 +74,5 @@ public final class HttpPostRequest {
    */
   public String getBodyData() {
     return bodyData;
-  }
-
-  /**
-   * Returns the request headers for this request.
-   * 
-   * @return the requestHeaders
-   */
-  public Map<String, String> getRequestHeaders() {
-    return requestHeaders;
-  }
-
-  /**
-   * Returns the request parameters for this request.
-   * 
-   * @return the requestParameters
-   */
-  public Map<String, String> getRequestParameters() {
-    return requestParameters;
-  }
-
-  /**
-   * Returns the target URL for this request.
-   * 
-   * @return the url
-   */
-  public String getUrl() {
-    return url;
   }
 }

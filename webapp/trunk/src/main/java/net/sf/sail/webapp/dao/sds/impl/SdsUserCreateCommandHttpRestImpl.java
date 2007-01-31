@@ -24,6 +24,7 @@ import java.util.Map;
 import net.sf.sail.webapp.dao.sds.SdsCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
@@ -123,6 +124,7 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand<SdsUser> {
    * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(SdsUser)
    */
   public SdsUser execute(SdsUser sdsUser) {
+    
     if (this.postRequest == null) {
       throw new BadRequestException(
           "The request is null. Call generateRequest() method prior to execute().");
