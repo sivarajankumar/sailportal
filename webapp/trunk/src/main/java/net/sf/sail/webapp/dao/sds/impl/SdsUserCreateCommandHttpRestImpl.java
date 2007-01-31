@@ -25,7 +25,6 @@ import net.sf.sail.webapp.dao.sds.SdsCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -38,17 +37,9 @@ import org.apache.commons.httpclient.HttpStatus;
  *          cynick $
  * 
  */
-public class SdsUserCreateCommandHttpRestImpl implements SdsCommand<SdsUser, HttpPostRequest> {
-
-  private HttpRestTransport transport;
-
-  private String baseUrl;
-
-  private Integer portalId;
-
-  private HttpPostRequest postRequest;
-
-  private static final String SLASH = "/";
+public class SdsUserCreateCommandHttpRestImpl extends
+    AbstractSdsCommandHttpRest<HttpPostRequest> implements
+    SdsCommand<SdsUser, HttpPostRequest> {
 
   private static final String USER_DIRECTORY = "user";
 
@@ -60,42 +51,6 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand<SdsUser, Htt
 
   private static final String HEADER_CONTENT_TYPE = "Content-Type";
 
-  private static final String HEADER_CONTENT_APPLICATION_XML = "application/xml";
-
-  /**
-   * Sets the base url for the website providing the Sail Data Service (i.e.
-   * http://rails.dev.concord.org/sds/portal/)
-   * 
-   * @param baseUrl
-   *          the baseUrl to set
-   */
-  public void setBaseUrl(String baseUrl) {
-    this.baseUrl = baseUrl;
-  }
-
-  /**
-   * Sets the portal id assigned to the specific portal being accessed via the
-   * Sail Data Services. This is simply an integer that has been assigned by
-   * creating a new portal relationship (see
-   * http://www.telscenter.org/confluence/display/SAIL/REST+protocol+for+SAIL+Data+Services+(SDS))
-   * 
-   * @param portalId
-   *          the portalId to set
-   */
-  public void setPortalId(Integer portalId) {
-    this.portalId = portalId;
-  }
-
-  /**
-   * Sets the http REST transport mechanism for the create command.
-   * 
-   * @param transport
-   *          the transport to set
-   */
-  public void setTransport(HttpRestTransport transport) {
-    this.transport = transport;
-  }
-
   private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
       1);
   static {
@@ -104,7 +59,7 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand<SdsUser, Htt
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(SdsUser)
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
    */
   @SuppressWarnings("unchecked")
   public HttpPostRequest generateRequest(SdsUser sdsUser) {
@@ -113,22 +68,21 @@ public class SdsUserCreateCommandHttpRestImpl implements SdsCommand<SdsUser, Htt
 
     String url = this.baseUrl + this.portalId + SLASH + USER_DIRECTORY;
 
-    this.postRequest = new HttpPostRequest(REQUEST_HEADERS,
+    this.httpRequest = new HttpPostRequest(REQUEST_HEADERS,
         Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
 
-    return this.postRequest;
+    return this.httpRequest;
   }
 
   /**
    * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(SdsUser)
    */
   public SdsUser execute(SdsUser sdsUser) {
-    
-    if (this.postRequest == null) {
+    if (this.httpRequest == null) {
       throw new BadRequestException(
           "The request is null. Call generateRequest() method prior to execute().");
     }
-    Map<String, String> responseHeaders = this.transport.post(this.postRequest);
+    Map<String, String> responseHeaders = this.transport.post(this.httpRequest);
     String locationHeader = responseHeaders.get("Location");
     sdsUser.setSdsObjectId(new Integer(locationHeader.substring(locationHeader
         .lastIndexOf(SLASH) + 1)));

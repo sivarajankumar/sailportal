@@ -20,13 +20,14 @@ package net.sf.sail.webapp.service.impl;
 import net.sf.sail.webapp.dao.UserDao;
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
-import net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl;
+import net.sf.sail.webapp.dao.sds.SdsCommand;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
@@ -115,7 +116,7 @@ public class UserServiceImpl implements UserService {
     sdsUser.setFirstName(userDetails.getUsername());
     sdsUser.setLastName(userDetails.getUsername());
 
-    SdsUserCreateCommandHttpRestImpl command = (SdsUserCreateCommandHttpRestImpl) applicationContext
+    SdsCommand<SdsUser, HttpPostRequest> command = (SdsCommand<SdsUser, HttpPostRequest>) applicationContext
         .getBean("sdsUserCreateCommandHttpRest");
     command.generateRequest(sdsUser);
     sdsUser = command.execute(sdsUser);
