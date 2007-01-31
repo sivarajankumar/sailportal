@@ -31,7 +31,7 @@ import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
  * @version $Id$
  * 
  */
-public interface SdsCommand<T extends SdsObject> {
+public interface SdsCommand<T extends SdsObject, U extends AbstractHttpRequest> {
 
   /**
    * Puts together the request data and the sds object data required to execute
@@ -40,9 +40,9 @@ public interface SdsCommand<T extends SdsObject> {
    * @param sdsObject
    *          represents the data required
    * 
-   * @return The HttpPostRequest constructed from the sds object.
+   * @return The AbstractHttpRequest constructed from the sds object.
    */
-  public AbstractHttpRequest generateRequest(T sdsObject);
+  public U generateRequest(T sdsObject);
 
   /**
    * Executes the commmand based on data contructed via the generateRequest

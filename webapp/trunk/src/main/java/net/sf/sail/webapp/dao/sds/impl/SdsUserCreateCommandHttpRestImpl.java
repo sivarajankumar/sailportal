@@ -24,7 +24,6 @@ import java.util.Map;
 import net.sf.sail.webapp.dao.sds.SdsCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
@@ -39,7 +38,7 @@ import org.apache.commons.httpclient.HttpStatus;
  *          cynick $
  * 
  */
-public class SdsUserCreateCommandHttpRestImpl implements SdsCommand<SdsUser> {
+public class SdsUserCreateCommandHttpRestImpl implements SdsCommand<SdsUser, HttpPostRequest> {
 
   private HttpRestTransport transport;
 
