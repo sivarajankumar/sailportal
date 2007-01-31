@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
-import net.sf.sail.webapp.domain.sds.SdsUser;
+import net.sf.sail.webapp.domain.sds.SdsObject;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
 /**
@@ -31,25 +31,27 @@ import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
  * @version $Id$
  * 
  */
-public interface SdsCommand {
+public interface SdsCommand<T extends SdsObject> {
 
   /**
-   * Puts together the request data and the user data required to execute the
-   * commmand.
+   * Puts together the request data and the sds object data required to execute
+   * the commmand.
    * 
-   * @param sdsUser
+   * @param sdsObject
    *          represents the data required
    * 
-   * @return The HttpPostRequest constructed from the user details.
+   * @return The HttpPostRequest constructed from the sds object.
    */
-  public HttpPostRequest generateRequest(SdsUser sdsUser);
+  public HttpPostRequest generateRequest(T sdsObject);
 
   /**
    * Executes the commmand based on data contructed via the generateRequest
    * method.
-   * @param sdsUser the user data required.
    * 
-   * @return The modified user data.
+   * @param sdsObject
+   *          the sds data required.
+   * 
+   * @return The modified sds data.
    */
-  public SdsUser execute(SdsUser sdsUser);
+  public T execute(T sdsObject);
 }

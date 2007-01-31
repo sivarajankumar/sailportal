@@ -38,7 +38,7 @@ import org.apache.commons.httpclient.HttpStatus;
  *          cynick $
  * 
  */
-public class SdsUserCreateCommandHttpRestImpl implements SdsCommand {
+public class SdsUserCreateCommandHttpRestImpl implements SdsCommand<SdsUser> {
 
   private HttpRestTransport transport;
 
