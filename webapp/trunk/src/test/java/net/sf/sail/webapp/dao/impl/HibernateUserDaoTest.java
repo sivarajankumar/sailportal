@@ -80,7 +80,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		this.userDetails.setPassword(PASSWORD);
 		this.sdsUser.setFirstName(FIRST_NAME);
 		this.sdsUser.setLastName(LAST_NAME);
-		this.sdsUser.setUserId(SDS_USER_ID);
+		this.sdsUser.setSdsObjectId(SDS_USER_ID);
 	}
 
 	/**

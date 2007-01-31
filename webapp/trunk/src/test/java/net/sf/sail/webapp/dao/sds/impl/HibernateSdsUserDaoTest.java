@@ -53,7 +53,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
   protected void onSetUpBeforeTransaction() throws Exception {
     super.onSetUpBeforeTransaction();
     this.sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
-    this.sdsUser.setUserId(DEFAULT_USER_ID);
+    this.sdsUser.setSdsObjectId(DEFAULT_USER_ID);
     this.sdsUser.setFirstName("blah");
     this.sdsUser.setLastName("blah");
   }
@@ -129,14 +129,15 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
     assertEquals(1, actualList.size());
 
     Map actualSdsUserMap = (Map) actualList.get(0);
-    Integer sdsUserId = (Integer) actualSdsUserMap.get(SdsUser.COLUMN_NAME_USER_ID.toUpperCase());
+    Integer sdsUserId = (Integer) actualSdsUserMap
+        .get(SdsUser.COLUMN_NAME_USER_ID.toUpperCase());
     assertEquals(DEFAULT_USER_ID, sdsUserId);
 
     SdsUser duplicateSdsUser = (SdsUser) this.applicationContext
         .getBean("sdsUser");
     duplicateSdsUser.setFirstName(this.sdsUser.getFirstName());
     duplicateSdsUser.setLastName(this.sdsUser.getLastName());
-    duplicateSdsUser.setUserId(this.sdsUser.getUserId());
+    duplicateSdsUser.setSdsObjectId(this.sdsUser.getSdsObjectId());
     try {
       this.sdsUserDao.save(duplicateSdsUser);
       fail("DataIntegrityViolationException expected");
@@ -158,7 +159,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
   }
 
   private List retrieveSdsUserListFromDb() {
-    return this.jdbcTemplate.queryForList("select * from " + SdsUser.DATA_STORE_NAME,
-        (Object[]) null);
+    return this.jdbcTemplate.queryForList("select * from "
+        + SdsUser.DATA_STORE_NAME, (Object[]) null);
   }
 }

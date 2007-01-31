@@ -46,9 +46,9 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   private static final Integer PORTAL_ID = new Integer(12);
 
   private static final Integer EXPECTED_ID = new Integer(1);
-  
+
   private static final String EXPECTED_FIRST_NAME = "Blah";
-  
+
   private static final String EXPECTED_LAST_NAME = "Last";
 
   private static final String HEADER_LOCATION = "Location";
@@ -62,7 +62,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   private HttpRestTransport mockTransport;
 
   private SdsUser sdsUser;
-  
+
   private SdsUser expectedSdsUser;
 
   /**
@@ -77,7 +77,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     expectedSdsUser = new SdsUser();
     expectedSdsUser.setFirstName(EXPECTED_FIRST_NAME);
     expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
-    expectedSdsUser.setUserId(EXPECTED_ID);
+    expectedSdsUser.setSdsObjectId(EXPECTED_ID);
     command.setTransport(mockTransport);
     command.setBaseUrl(BASE_URL);
     command.setPortalId(PORTAL_ID);
