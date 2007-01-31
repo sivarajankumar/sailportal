@@ -48,7 +48,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
   private UserDetailsDao<MutableUserDetails> userDetailsDao;
 
   private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
-  
+
   private UserDao<User> userDao;
 
   private UserDetailsService userDetailsService;
@@ -91,9 +91,10 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     userDetails.setEmailAddress(EMAIL);
 
     // create user (saves automatically)
-    User expectedUser = this.userService.createUser(this.applicationContext, userDetails);
+    User expectedUser = this.userService.createUser(this.applicationContext,
+        userDetails);
     UserDetails expectedUserDetails = expectedUser.getUserDetails();
-    
+
     // retrieve user and compare
     UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
     assertEquals(expectedUserDetails, actual);
@@ -130,8 +131,9 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     MutableUserDetails user = this.userDetailsDao.createDataObject();
     user.setUsername(USERNAME);
     user.setPassword(PASSWORD);
-    User expectedUser = this.userService.createUser(this.applicationContext, user);
-    
+    User expectedUser = this.userService.createUser(this.applicationContext,
+        user);
+
     MutableUserDetails expectedUserDetails = expectedUser.getUserDetails();
     UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
     assertEquals(expectedUserDetails, actual);
@@ -171,11 +173,12 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     this.userService = userService;
   }
 
-/**
- * @param userDao the userDao to set
- */
-public void setUserDao(UserDao<User> userDao) {
-	this.userDao = userDao;
-}
+  /**
+   * @param userDao
+   *          the userDao to set
+   */
+  public void setUserDao(UserDao<User> userDao) {
+    this.userDao = userDao;
+  }
 
 }

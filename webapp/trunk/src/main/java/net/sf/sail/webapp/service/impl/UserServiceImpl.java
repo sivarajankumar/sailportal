@@ -27,7 +27,6 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
@@ -43,111 +42,104 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class UserServiceImpl implements UserService {
 
-	private UserDetailsDao<MutableUserDetails> userDetailsDao;
+  private UserDetailsDao<MutableUserDetails> userDetailsDao;
 
-	private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
+  private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
 
-	private UserDao<User> userDao;
+  private UserDao<User> userDao;
 
-	/**
-	 * @param userDao
-	 *            the userDao to set
-	 */
-	public void setUserDao(UserDao<User> userDao) {
-		this.userDao = userDao;
-	}
+  /**
+   * @param userDao
+   *          the userDao to set
+   */
+  public void setUserDao(UserDao<User> userDao) {
+    this.userDao = userDao;
+  }
 
-	/**
-	 * @param grantedAuthorityDao
-	 *            the grantedAuthorityDao to set
-	 */
-	public void setGrantedAuthorityDao(
-			GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
-		this.grantedAuthorityDao = grantedAuthorityDao;
-	}
+  /**
+   * @param grantedAuthorityDao
+   *          the grantedAuthorityDao to set
+   */
+  public void setGrantedAuthorityDao(
+      GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
+    this.grantedAuthorityDao = grantedAuthorityDao;
+  }
 
-	/**
-	 * @param userDetailsDao
-	 *            the userDetailsDao to set
-	 */
-	public void setUserDetailsDao(
-			UserDetailsDao<MutableUserDetails> userDetailsDao) {
-		this.userDetailsDao = userDetailsDao;
-	}
+  /**
+   * @param userDetailsDao
+   *          the userDetailsDao to set
+   */
+  public void setUserDetailsDao(
+      UserDetailsDao<MutableUserDetails> userDetailsDao) {
+    this.userDetailsDao = userDetailsDao;
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
-	 */
-	@Transactional(rollbackFor = { DuplicateUsernameException.class,
-			BadRequestException.class, NetworkTransportException.class })
-	public User createUser(ApplicationContext applicationContext,
-			MutableUserDetails userDetails) throws DuplicateUsernameException,
-			BadRequestException, NetworkTransportException {
+  /**
+   * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
+   */
+  @Transactional(rollbackFor = { DuplicateUsernameException.class,
+      BadRequestException.class, NetworkTransportException.class })
+  public User createUser(ApplicationContext applicationContext,
+      MutableUserDetails userDetails) throws DuplicateUsernameException,
+      BadRequestException, NetworkTransportException {
 
-		try {
-			this.checkUserCreationErrors(userDetails.getUsername());
+    try {
+      this.checkUserCreationErrors(userDetails.getUsername());
 
-			assignRole(userDetails, UserDetailsService.USER_ROLE);
+      this.assignRole(userDetails, UserDetailsService.USER_ROLE);
 
-			// **hack: first name and last name required by SDS**//
-			SdsUser sdsUser = new SdsUser();
-			sdsUser.setFirstName(userDetails.getUsername());
-			sdsUser.setLastName(userDetails.getUsername());
+      SdsUser sdsUser = this.requestNewSdsUser(applicationContext, userDetails);
 
-			SdsUserCreateCommandHttpRestImpl command = prepareSDSUserCreateCommand(sdsUser);
-			sdsUser = command.execute(sdsUser);
+      User user = (User) applicationContext.getBean("user");
+      user.setSdsUser(sdsUser);
+      user.setUserDetails(userDetails);
+      this.userDao.save(user);
 
-			User user = (User) applicationContext.getBean("user");
-			user.setSdsUser(sdsUser);
-			user.setUserDetails(userDetails);
-			this.userDao.save(user);
+      return user;
+    }
+    catch (BadRequestException e) {
+      throw e;
+    }
+    catch (DuplicateUsernameException e) {
+      throw e;
+    }
+    catch (NetworkTransportException e) {
+      throw e;
+    }
+  }
 
-			return user;
-		} catch (BadRequestException e) {
-			throw e;
-		} catch (DuplicateUsernameException e) {
-			throw e;
-		} catch (NetworkTransportException e) {
-			throw e;
-		}
-	}
+  private SdsUser requestNewSdsUser(ApplicationContext applicationContext,
+      MutableUserDetails userDetails) {
+    // **hack: first name and last name required by SDS**//
+    SdsUser sdsUser = (SdsUser) applicationContext.getBean("sdsUser");
+    sdsUser.setFirstName(userDetails.getUsername());
+    sdsUser.setLastName(userDetails.getUsername());
 
-	private void assignRole(MutableUserDetails userDetails, String role) {
-		GrantedAuthority authority = this.grantedAuthorityDao
-				.retrieveByName(role);
-		userDetails.addAuthority(authority);
-	}
+    SdsUserCreateCommandHttpRestImpl command = (SdsUserCreateCommandHttpRestImpl) applicationContext
+        .getBean("sdsUserCreateCommandHttpRest");
+    command.generateRequest(sdsUser);
+    sdsUser = command.execute(sdsUser);
+    return sdsUser;
+  }
 
-	/**
-	 * Validates user input checks that the data store does not already contain
-	 * a user with the same username
-	 * 
-	 * @param username
-	 *            The username to check for in the data store
-	 * @throws DuplicateUsernameException
-	 *             if the username is the same as a username already in data
-	 *             store.
-	 */
-	private void checkUserCreationErrors(String username)
-			throws DuplicateUsernameException {
-		if (this.userDetailsDao.hasUsername(username)) {
-			throw new DuplicateUsernameException(username);
-		}
-	}
+  private void assignRole(MutableUserDetails userDetails, String role) {
+    GrantedAuthority authority = this.grantedAuthorityDao.retrieveByName(role);
+    userDetails.addAuthority(authority);
+  }
 
-	// TODO portal id and base url should not be hard coded
-	private SdsUserCreateCommandHttpRestImpl prepareSDSUserCreateCommand(
-			SdsUser sdsUser) {
-		SdsUserCreateCommandHttpRestImpl command = new SdsUserCreateCommandHttpRestImpl();
-		command.setTransport(new HttpRestTransportImpl());
-
-		// portal id must already be known in advance
-		// (1 is the SDS test portal)
-		command.setPortalId(1);
-
-		// http://rails.dev.concord.org/sds/
-		command.setBaseUrl("http://rails.dev.concord.org/sds/");
-		command.generateRequest(sdsUser);
-		return command;
-	}
+  /**
+   * Validates user input checks that the data store does not already contain a
+   * user with the same username
+   * 
+   * @param username
+   *          The username to check for in the data store
+   * @throws DuplicateUsernameException
+   *           if the username is the same as a username already in data store.
+   */
+  private void checkUserCreationErrors(String username)
+      throws DuplicateUsernameException {
+    if (this.userDetailsDao.hasUsername(username)) {
+      throw new DuplicateUsernameException(username);
+    }
+  }
 }

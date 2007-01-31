@@ -34,6 +34,7 @@ public abstract class AbstractTransactionalDbTests extends
       "classpath:applicationContext-security.xml",
       "classpath:applicationContext-hibernate.xml",
       "classpath:applicationContext-datasource.xml",
+      "classpath:applicationContext-sds.xml",
       "classpath:applicationContext-user.xml" };
 
   protected HibernateFlusher toilet;

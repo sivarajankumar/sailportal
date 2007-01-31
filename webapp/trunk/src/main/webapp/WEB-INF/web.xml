@@ -40,6 +40,7 @@
       /WEB-INF/classes/applicationContext-acegiSecurity.xml
       /WEB-INF/classes/applicationContext-datasource.xml
       /WEB-INF/classes/applicationContext-hibernate.xml
+      /WEB-INF/classes/applicationContext-sds.xml
       /WEB-INF/classes/applicationContext-security.xml
       /WEB-INF/classes/applicationContext-user.xml
     </param-value>
