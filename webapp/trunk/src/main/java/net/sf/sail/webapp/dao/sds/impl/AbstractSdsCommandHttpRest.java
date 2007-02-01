@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import net.sf.sail.webapp.dao.sds.SdsCommand;
+import net.sf.sail.webapp.domain.sds.SdsObject;
 import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
@@ -28,19 +30,20 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
  * @version $Id: $
  * 
  */
-public class AbstractSdsCommandHttpRest<T extends AbstractHttpRequest> {
+public abstract class AbstractSdsCommandHttpRest<H extends AbstractHttpRequest, S extends SdsObject, O>
+    implements SdsCommand<S, O> {
+
+  protected static final String APPLICATION_XML = "application/xml";
 
   protected static final String SLASH = "/";
 
-  protected HttpRestTransport transport;
+  protected H httpRequest;
 
-  protected T httpRequest;
+  protected HttpRestTransport transport;
 
   protected String baseUrl;
 
   protected Integer portalId;
-
-  protected static final String HEADER_CONTENT_APPLICATION_XML = "application/xml";
 
   /**
    * Sets the base url for the website providing the Sail Data Service (i.e.
@@ -49,7 +52,7 @@ public class AbstractSdsCommandHttpRest<T extends AbstractHttpRequest> {
    * @param baseUrl
    *          the baseUrl to set
    */
-  public void setBaseUrl(String baseUrl) {
+  public void setBaseUrl(final String baseUrl) {
     this.baseUrl = baseUrl;
   }
 
@@ -62,7 +65,7 @@ public class AbstractSdsCommandHttpRest<T extends AbstractHttpRequest> {
    * @param portalId
    *          the portalId to set
    */
-  public void setPortalId(Integer portalId) {
+  public void setPortalId(final Integer portalId) {
     this.portalId = portalId;
   }
 
@@ -72,11 +75,7 @@ public class AbstractSdsCommandHttpRest<T extends AbstractHttpRequest> {
    * @param transport
    *          the transport to set
    */
-  public void setTransport(HttpRestTransport transport) {
+  public void setTransport(final HttpRestTransport transport) {
     this.transport = transport;
-  }
-
-  protected AbstractSdsCommandHttpRest() {
-    super();
   }
 }

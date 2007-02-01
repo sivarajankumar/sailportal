@@ -21,15 +21,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.sail.webapp.dao.sds.SdsCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
 import org.apache.commons.httpclient.HttpStatus;
 
 /**
- * The command which creates a user for the Sail Data Services (uses Http REST).
+ * The command which creates a user for the Sail Data Service (uses Http REST).
  * 
  * @author Cynick Young
  * 
@@ -38,23 +36,14 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  */
 public class SdsUserCreateCommandHttpRestImpl extends
-    AbstractSdsCommandHttpRest<HttpPostRequest> implements
-    SdsCommand<SdsUser, HttpPostRequest> {
-
-  private static final String USER_DIRECTORY = "user";
-
-  private static final String USER_CREATE_STRING_1 = "<user><first-name>";
-
-  private static final String USER_CREATE_STRING_2 = "</first-name><last-name>";
-
-  private static final String USER_CREATE_STRING_3 = "</last-name></user>";
+    AbstractSdsCommandHttpRest<HttpPostRequest, SdsUser, SdsUser> {
 
   private static final String HEADER_CONTENT_TYPE = "Content-Type";
 
   private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
       1);
   static {
-    REQUEST_HEADERS.put(HEADER_CONTENT_TYPE, HEADER_CONTENT_APPLICATION_XML);
+    REQUEST_HEADERS.put(HEADER_CONTENT_TYPE, APPLICATION_XML);
     REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
   }
 
@@ -62,11 +51,12 @@ public class SdsUserCreateCommandHttpRestImpl extends
    * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
    */
   @SuppressWarnings("unchecked")
-  public HttpPostRequest generateRequest(SdsUser sdsUser) {
-    String bodyData = USER_CREATE_STRING_1 + sdsUser.getFirstName()
-        + USER_CREATE_STRING_2 + sdsUser.getLastName() + USER_CREATE_STRING_3;
+  public HttpPostRequest generateRequest(final SdsUser sdsUser) {
+    final String bodyData = "<user><first-name>" + sdsUser.getFirstName()
+        + "</first-name><last-name>" + sdsUser.getLastName()
+        + "</last-name></user>";
 
-    String url = this.baseUrl + this.portalId + SLASH + USER_DIRECTORY;
+    final String url = this.baseUrl + this.portalId + SLASH + "user";
 
     this.httpRequest = new HttpPostRequest(REQUEST_HEADERS,
         Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
@@ -75,15 +65,13 @@ public class SdsUserCreateCommandHttpRestImpl extends
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(SdsUser)
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
    */
-  public SdsUser execute(SdsUser sdsUser) {
-    if (this.httpRequest == null) {
-      throw new BadRequestException(
-          "The request is null. Call generateRequest() method prior to execute().");
-    }
-    Map<String, String> responseHeaders = this.transport.post(this.httpRequest);
-    String locationHeader = responseHeaders.get("Location");
+  public SdsUser execute(final SdsUser sdsUser) {
+    assert (this.httpRequest != null);
+    final Map<String, String> responseHeaders = this.transport
+        .post(this.httpRequest);
+    final String locationHeader = responseHeaders.get("Location");
     sdsUser.setSdsObjectId(new Integer(locationHeader.substring(locationHeader
         .lastIndexOf(SLASH) + 1)));
     return sdsUser;

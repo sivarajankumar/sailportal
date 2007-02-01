@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.domain.webservice.http;
 
+import java.io.InputStream;
 import java.util.Map;
 
 /**
@@ -30,12 +31,21 @@ import java.util.Map;
 public interface HttpRestTransport {
 
   /**
-   * Performs the post operation given the data required for the post.
+   * Performs the POST operation given the data required for the post.
    * 
-   * @param httpPostRequestData
-   *          All the data required for the post request.
-   * @return A map of response headers.
+   * @param httpRequestData
+   *          All the data required for this post request.
+   * @return A <code>Map</code> of response headers where the key is the
+   *         header name and the value is the header value.
    */
-  public Map<String, String> post(HttpPostRequest httpPostRequestData);
+  public Map<String, String> post(HttpPostRequest httpRequestData);
 
+  /**
+   * Performs the GET operation given the data required for the get.
+   * 
+   * @param httpRequestData
+   *          All the data required for this get request.
+   * @return An <code>InputStream</code> containing the response body.
+   */
+  public InputStream get(HttpGetRequest httpRequestData);
 }

@@ -56,6 +56,7 @@ public final class HttpPostRequest extends AbstractHttpRequest {
       final Map<String, String> requestParameters, final String bodyData,
       final String url, final int expectedResponseStatusCode)
       throws BadRequestException {
+
     super(requestHeaders, requestParameters, url, expectedResponseStatusCode);
     this.bodyData = bodyData;
   }

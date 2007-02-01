@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.domain.webservice.http.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -25,16 +26,22 @@ import java.util.Set;
 
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
+import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.util.StringUtils;
 
 /**
@@ -47,6 +54,9 @@ import org.springframework.util.StringUtils;
  * 
  */
 public class HttpRestTransportImpl implements HttpRestTransport {
+
+  private static final Log logger = LogFactory
+      .getLog(HttpRestTransportImpl.class);
 
   private HttpClient client;
 
@@ -61,46 +71,114 @@ public class HttpRestTransportImpl implements HttpRestTransport {
   }
 
   /**
-   * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#post(net.sf.sail.webapp.domain.webservice.http.HttpPostRequest)
+   * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#get(net.sf.sail.webapp.domain.webservice.http.HttpGetRequest)
    */
-  public Map<String, String> post(HttpPostRequest httpPostRequestData) {
-    // Create a method instance.
-    PostMethod method = new PostMethod(httpPostRequestData.getUrl());
+  public InputStream get(final HttpGetRequest httpGetRequestData) {
+    // add parameters to URL
+    Map<String, String> requestParameters = httpGetRequestData
+        .getRequestParameters();
+    StringBuffer buffer = new StringBuffer(httpGetRequestData.getUrl());
+    if (requestParameters != null && !requestParameters.isEmpty()) {
+      buffer.append('?');
+      Set<String> keys = requestParameters.keySet();
+      for (String key : keys) {
+        buffer.append(key).append('=').append(requestParameters.get(key))
+            .append('&');
+      }
+      buffer.deleteCharAt(buffer.length() - 1);
+    }
 
-    // set headers
-    Map<String, String> requestHeaders = httpPostRequestData
+    GetMethod method = new GetMethod(buffer.toString());
+
+    this.setHeaders(httpGetRequestData, method);
+
+    try {
+      // Execute the method.
+      int statusCode = this.client.executeMethod(method);
+      if (logger.isInfoEnabled()) {
+        logger.info("GET: " + method.getURI());
+      }
+
+      if (statusCode != httpGetRequestData.getExpectedResponseStatusCode()) {
+        if (logger.isWarnEnabled()) {
+          logger.warn(statusCode + ": " + method.getStatusText());
+        }
+        if (statusCode == HttpStatus.SC_NOT_FOUND) {
+          throw new BadRequestException(method.getStatusText());
+        }
+        else {
+          throw new NetworkTransportException(statusCode, method
+              .getStatusText());
+        }
+      }
+      return method.getResponseBodyAsStream();
+    }
+    catch (HttpException e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
+      throw new NetworkTransportException(e.getMessage());
+    }
+    catch (IOException e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
+      throw new NetworkTransportException(e.getMessage());
+    }
+    finally {
+      method.releaseConnection();
+    }
+  }
+
+  private void setHeaders(final AbstractHttpRequest httpRequestData,
+      HttpMethodBase method) {
+    final Map<String, String> requestHeaders = httpRequestData
         .getRequestHeaders();
     if (requestHeaders != null && !requestHeaders.isEmpty()) {
       Set<String> keys = requestHeaders.keySet();
-      for (Iterator<String> i = keys.iterator(); i.hasNext();) {
-        String key = i.next();
+      for (String key : keys) {
         method.addRequestHeader(key, requestHeaders.get(key));
       }
     }
+  }
+
+  /**
+   * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#post(net.sf.sail.webapp.domain.webservice.http.HttpPostRequest)
+   */
+  public Map<String, String> post(final HttpPostRequest httpPostRequestData) {
+    final PostMethod method = new PostMethod(httpPostRequestData.getUrl());
+
+    this.setHeaders(httpPostRequestData, method);
 
     // set body data
-    String bodyData = httpPostRequestData.getBodyData();
+    final String bodyData = httpPostRequestData.getBodyData();
     if (StringUtils.hasText(bodyData)) {
       method.setRequestEntity(new StringRequestEntity(bodyData));
     }
 
     // set parameters
-    Map<String, String> requestParameters = httpPostRequestData
+    final Map<String, String> requestParameters = httpPostRequestData
         .getRequestParameters();
     if (requestParameters != null && !requestParameters.isEmpty()) {
-      Set<String> keys = requestParameters.keySet();
+      final Set<String> keys = requestParameters.keySet();
       for (Iterator<String> i = keys.iterator(); i.hasNext();) {
         String key = i.next();
         method.addParameter(key, requestParameters.get(key));
       }
     }
 
-    Map<String, String> responseHeaders = new HashMap<String, String>();
+    final Map<String, String> responseHeaders = new HashMap<String, String>();
     try {
       // Execute the method.
-      int statusCode = this.client.executeMethod(method);
+      final int statusCode = this.client.executeMethod(method);
+      if (logger.isInfoEnabled()) {
+        logger.info("POST: " + method.getURI());
+      }
 
       if (statusCode != httpPostRequestData.getExpectedResponseStatusCode()) {
+        if (logger.isWarnEnabled()) {
+          logger.warn(statusCode + ": " + method.getStatusText());
+        }
         if (statusCode == HttpStatus.SC_BAD_REQUEST) {
           throw new BadRequestException(method.getStatusText());
         }
@@ -109,19 +187,24 @@ public class HttpRestTransportImpl implements HttpRestTransport {
               .getStatusText());
         }
       }
-      Header[] headers = method.getResponseHeaders();
+      final Header[] headers = method.getResponseHeaders();
       for (int i = 0; i < headers.length; i++) {
         responseHeaders.put(headers[i].getName(), headers[i].getValue());
       }
     }
     catch (HttpException e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
       throw new NetworkTransportException(e.getMessage());
     }
     catch (IOException e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
       throw new NetworkTransportException(e.getMessage());
     }
     finally {
-      // Release the connection.
       method.releaseConnection();
     }
 

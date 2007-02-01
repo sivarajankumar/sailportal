@@ -60,18 +60,18 @@ public abstract class AbstractHttpRequest {
   protected AbstractHttpRequest(final Map<String, String> requestHeaders,
       final Map<String, String> requestParameters, final String url,
       final int expectedResponseStatusCode) throws BadRequestException {
+
     this.checkForLegalHeaders(requestHeaders);
     this.requestHeaders = Collections.unmodifiableMap(requestHeaders);
     this.requestParameters = Collections.unmodifiableMap(requestParameters);
     this.url = url;
     this.expectedResponseStatusCode = expectedResponseStatusCode;
   }
-  
-  
+
   /**
    * DO NOT USE THIS METHOD
    */
-  protected AbstractHttpRequest(){
+  protected AbstractHttpRequest() {
     throw new UnsupportedOperationException();
   }
 
@@ -117,7 +117,7 @@ public abstract class AbstractHttpRequest {
   private static final Pattern ILLEGAL_HEADER_FIELD_VALUE_PATTERN = Pattern
       .compile("(.*[\\p{Cntrl}]+.*)+");
 
-  protected void checkForLegalHeaders(Map<String, String> requestHeaders)
+  protected void checkForLegalHeaders(final Map<String, String> requestHeaders)
       throws BadRequestException {
     for (String key : requestHeaders.keySet()) {
       if ("".equals(key)
@@ -132,5 +132,4 @@ public abstract class AbstractHttpRequest {
       }
     }
   }
-
 }

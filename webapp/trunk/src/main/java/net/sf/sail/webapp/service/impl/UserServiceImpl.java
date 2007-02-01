@@ -27,7 +27,6 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
@@ -37,6 +36,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * Implementation class that uses daos to interact with the data store.
+ * 
  * @author Laurel Williams
  * 
  * @version $Id$
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService {
    * @param userDao
    *          the userDao to set
    */
-  public void setUserDao(UserDao<User> userDao) {
+  public void setUserDao(final UserDao<User> userDao) {
     this.userDao = userDao;
   }
 
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
    *          the grantedAuthorityDao to set
    */
   public void setGrantedAuthorityDao(
-      GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
+      final GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
     this.grantedAuthorityDao = grantedAuthorityDao;
   }
 
@@ -71,7 +72,7 @@ public class UserServiceImpl implements UserService {
    *          the userDetailsDao to set
    */
   public void setUserDetailsDao(
-      UserDetailsDao<MutableUserDetails> userDetailsDao) {
+      final UserDetailsDao<MutableUserDetails> userDetailsDao) {
     this.userDetailsDao = userDetailsDao;
   }
 
@@ -80,8 +81,8 @@ public class UserServiceImpl implements UserService {
    */
   @Transactional(rollbackFor = { DuplicateUsernameException.class,
       BadRequestException.class, NetworkTransportException.class })
-  public User createUser(ApplicationContext applicationContext,
-      MutableUserDetails userDetails) throws DuplicateUsernameException,
+  public User createUser(final ApplicationContext applicationContext,
+      final MutableUserDetails userDetails) throws DuplicateUsernameException,
       BadRequestException, NetworkTransportException {
 
     try {
@@ -109,6 +110,7 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private SdsUser requestNewSdsUser(ApplicationContext applicationContext,
       MutableUserDetails userDetails) {
     // **hack: first name and last name required by SDS**//
@@ -116,14 +118,14 @@ public class UserServiceImpl implements UserService {
     sdsUser.setFirstName(userDetails.getUsername());
     sdsUser.setLastName(userDetails.getUsername());
 
-    SdsCommand<SdsUser, HttpPostRequest> command = (SdsCommand<SdsUser, HttpPostRequest>) applicationContext
+    SdsCommand<SdsUser, SdsUser> command = (SdsCommand) applicationContext
         .getBean("sdsUserCreateCommandHttpRest");
     command.generateRequest(sdsUser);
-    sdsUser = command.execute(sdsUser);
-    return sdsUser;
+    return command.execute(sdsUser);
   }
 
-  private void assignRole(MutableUserDetails userDetails, String role) {
+  private void assignRole(final MutableUserDetails userDetails,
+      final String role) {
     GrantedAuthority authority = this.grantedAuthorityDao.retrieveByName(role);
     userDetails.addAuthority(authority);
   }
@@ -137,7 +139,7 @@ public class UserServiceImpl implements UserService {
    * @throws DuplicateUsernameException
    *           if the username is the same as a username already in data store.
    */
-  private void checkUserCreationErrors(String username)
+  private void checkUserCreationErrors(final String username)
       throws DuplicateUsernameException {
     if (this.userDetailsDao.hasUsername(username)) {
       throw new DuplicateUsernameException(username);

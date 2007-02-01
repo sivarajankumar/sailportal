@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.dao.authentication.impl;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +34,8 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author Cynick Young
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: HibernateUserDetailsDaoTest.java 103 2007-01-26 20:48:33Z
+ *          laurel $
  * 
  */
 public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
@@ -143,7 +144,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     List actualList = retrieveUserDetailsListFromDb();
     assertEquals(3, actualList.size());
 
-    List<String> defaultRolesList = new ArrayList<String>(3);
+    List<String> defaultRolesList = new LinkedList<String>();
     defaultRolesList.add(DEFAULT_ROLE_1);
     defaultRolesList.add(DEFAULT_ROLE_2);
     defaultRolesList.add(DEFAULT_ROLE_3);
@@ -151,13 +152,17 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     for (int i = 0; i < actualList.size(); i++) {
       Map actualUserDetailsMap = (Map) actualList.get(i);
       // * NOTE* the keys in the map are all in UPPERCASE!
-      String actualValue = (String) actualUserDetailsMap.get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase());
+      String actualValue = (String) actualUserDetailsMap
+          .get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase());
       assertEquals(DEFAULT_USERNAME, actualValue);
-      actualValue = (String) actualUserDetailsMap.get(PersistentUserDetails.COLUMN_NAME_PASSWORD.toUpperCase());
+      actualValue = (String) actualUserDetailsMap
+          .get(PersistentUserDetails.COLUMN_NAME_PASSWORD.toUpperCase());
       assertEquals(DEFAULT_PASSWORD, actualValue);
-      actualValue = (String) actualUserDetailsMap.get(PersistentUserDetails.COLUMN_NAME_EMAIL_ADDRESS.toUpperCase());
+      actualValue = (String) actualUserDetailsMap
+          .get(PersistentUserDetails.COLUMN_NAME_EMAIL_ADDRESS.toUpperCase());
       assertEquals(DEFAULT_EMAIL, actualValue);
-      actualValue = (String) actualUserDetailsMap.get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
+      actualValue = (String) actualUserDetailsMap
+          .get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
       assertTrue(defaultRolesList.contains(actualValue));
       defaultRolesList.remove(actualValue);
     }
@@ -218,7 +223,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     List actualList = this.retrieveRolesTableFromDb();
     assertEquals(3, actualList.size());
 
-    List<String> defaultRolesList = new ArrayList<String>(3);
+    List<String> defaultRolesList = new LinkedList<String>();
     defaultRolesList.add(DEFAULT_ROLE_1);
     defaultRolesList.add(DEFAULT_ROLE_2);
     defaultRolesList.add(DEFAULT_ROLE_3);
@@ -226,7 +231,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     for (int i = 0; i < actualList.size(); i++) {
       Map actualRolesMap = (Map) actualList.get(i);
       // * NOTE* the keys in the map are all in UPPERCASE!
-      String actualValue = (String) actualRolesMap.get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
+      String actualValue = (String) actualRolesMap
+          .get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
       assertTrue(defaultRolesList.contains(actualValue));
       defaultRolesList.remove(actualValue);
     }
@@ -248,7 +254,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     assertEquals(DEFAULT_PASSWORD, userDetails.getPassword());
     assertEquals(DEFAULT_EMAIL, userDetails.getEmailAddress());
 
-    List<String> defaultRolesList = new ArrayList<String>(3);
+    List<String> defaultRolesList = new LinkedList<String>();
     defaultRolesList.add(DEFAULT_ROLE_1);
     defaultRolesList.add(DEFAULT_ROLE_2);
     defaultRolesList.add(DEFAULT_ROLE_3);

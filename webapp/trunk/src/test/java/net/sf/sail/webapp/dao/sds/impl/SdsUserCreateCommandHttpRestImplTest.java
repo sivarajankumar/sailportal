@@ -93,11 +93,13 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     mockTransport = null;
     sdsUser = null;
   }
-  
+
   /**
-   * Not testing this since we would be essentially testing info that is hard coded. 
+   * Not testing this since we would be essentially testing info that is hard
+   * coded.
    */
-  public void testGenerateRequest(){}
+  public void testGenerateRequest() {
+  }
 
   public void testCreate() throws Exception {
     Map<String, String> responseMap = new HashMap<String, String>();
