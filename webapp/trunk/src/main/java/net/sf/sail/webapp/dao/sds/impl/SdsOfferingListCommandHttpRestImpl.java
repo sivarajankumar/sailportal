@@ -67,6 +67,7 @@ public class SdsOfferingListCommandHttpRestImpl extends
 
       List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
       for (Element offeringNode : nodeList) {
+        // TODO - use bean to get SdsOffering
         SdsOffering sdsOffering = new SdsOffering();
         sdsOffering.setName(offeringNode.getChild("name").getValue());
         sdsOffering.setCurnitId(new Integer(offeringNode.getChild("curnit-id")

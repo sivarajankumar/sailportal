@@ -28,7 +28,7 @@
     class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
   </bean>
 
-  <bean id="sdsUserCreateCommandHttpRest" scope="prototype"
+  <bean id="sdsUserCreateCommand" scope="prototype"
     class="net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl">
     <property name="transport">
       <ref local="httpRestTransport" />

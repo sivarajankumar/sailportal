@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
     sdsUser.setLastName(userDetails.getUsername());
 
     SdsCommand<SdsUser, SdsUser> command = (SdsCommand) applicationContext
-        .getBean("sdsUserCreateCommandHttpRest");
+        .getBean("sdsUserCreateCommand");
     command.generateRequest(sdsUser);
     return command.execute(sdsUser);
   }
