@@ -34,7 +34,7 @@ import org.easymock.EasyMock;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
@@ -99,6 +99,9 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     assertEquals(expectedSdsOfferingList.size(), actualList.size());
     assertEquals(expectedSdsOfferingList, actualList);
     EasyMock.verify(mockTransport);
+    
+    //TODO test exception cases
+    
   }
 
   /**
