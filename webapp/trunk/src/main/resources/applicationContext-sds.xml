@@ -33,8 +33,8 @@
     <property name="transport">
       <ref local="httpRestTransport" />
     </property>
-    <!-- portal id must already be known in advance (1 is the SDS test portal) -->
-    <property name="portalId" value="1" />
+    <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
+    <property name="portalId" value="4" />
     <!-- http://rails.dev.concord.org/sds/ -->
     <property name="baseUrl" value="http://rails.dev.concord.org/sds/" />
 
