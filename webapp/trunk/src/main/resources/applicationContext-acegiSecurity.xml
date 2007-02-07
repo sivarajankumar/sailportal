@@ -102,7 +102,7 @@
       <value>false</value>
     </property>
     <property name="defaultTargetUrl">
-      <value>/</value>
+      <value>/offeringslist.html</value>
     </property>
     <property name="filterProcessesUrl">
       <value>/j_acegi_security_check</value>
@@ -197,10 +197,7 @@
       <value>
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
         PATTERN_TYPE_APACHE_ANT
-        <!--
-          /secure/super/**=ROLE_SUPERVISOR
-          /secure/.* =ROLE_USER,ROLE_SUPERVISOR
-        -->
+        /offeringslist.html=ROLE_USER
       </value>
     </property>
   </bean>

@@ -88,6 +88,13 @@
 
   <!-- Custom controllers -->
   <bean
+    class="net.sf.sail.webapp.presentation.web.controllers.OfferingsListController">
+    <property name="viewname">
+      <value>offeringslist</value>
+    </property>
+  </bean>
+
+  <bean
     class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
     <property name="viewname">
       <value>login</value>
