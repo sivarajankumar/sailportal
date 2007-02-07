@@ -35,15 +35,16 @@ public class AllTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("Test for net.sf.sail.webapp");
     // Add new package unit tests here
-    suite.addTest(net.sf.sail.webapp.controllers.AllTests.suite());
     suite.addTest(net.sf.sail.webapp.dao.authentication.impl.AllTests.suite());
     suite.addTest(net.sf.sail.webapp.dao.impl.AllTests.suite());
     suite.addTest(net.sf.sail.webapp.dao.sds.impl.AllTests.suite());
     suite.addTest(net.sf.sail.webapp.domain.webservice.http.AllTests.suite());
+    suite.addTest(net.sf.sail.webapp.presentation.validators.AllTests.suite());
+    suite.addTest(net.sf.sail.webapp.presentation.web.controllers.AllTests
+        .suite());
     suite.addTest(net.sf.sail.webapp.service.authentication.impl.AllTests
         .suite());
     suite.addTest(net.sf.sail.webapp.service.impl.AllTests.suite());
-    suite.addTest(net.sf.sail.webapp.validators.AllTests.suite());
     // End add new package unit tests here
     return suite;
   }

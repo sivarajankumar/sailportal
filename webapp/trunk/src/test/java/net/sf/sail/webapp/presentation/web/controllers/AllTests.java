@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * Copyright (c) 2007 Encore Research Group, University of Toronto
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,25 +15,25 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.controllers;
+package net.sf.sail.webapp.presentation.web.controllers;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
- * @author Laurel Williams
- * 
- * @version $Id$
- * 
+ * @author Cynick Young
+ *
+ * @version $Id: $
+ *
  */
 public class AllTests {
 
   public static Test suite() {
     TestSuite suite = new TestSuite(
-        "Test for net.sf.sail.webapp.service.authentication.impl");
+        "Test for net.sf.sail.webapp.presentation.web.controllers");
     //$JUnit-BEGIN$
-    suite.addTestSuite(SignupControllerTest.class);
     suite.addTestSuite(LoginControllerTest.class);
+    suite.addTestSuite(SignupControllerTest.class);
     //$JUnit-END$
     return suite;
   }

@@ -87,17 +87,18 @@
   </bean>
 
   <!-- Custom controllers -->
-  <bean class="net.sf.sail.webapp.controllers.LoginController">
+  <bean
+    class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
     <property name="viewname">
       <value>login</value>
     </property>
   </bean>
 
   <bean id="userDetailsValidator"
-    class="net.sf.sail.webapp.validators.UserDetailsValidator" />
+    class="net.sf.sail.webapp.presentation.validators.UserDetailsValidator" />
 
   <bean id="signupController"
-    class="net.sf.sail.webapp.controllers.SignupController">
+    class="net.sf.sail.webapp.presentation.web.controllers.SignupController">
     <property name="userService">
       <ref bean="userService" />
     </property>

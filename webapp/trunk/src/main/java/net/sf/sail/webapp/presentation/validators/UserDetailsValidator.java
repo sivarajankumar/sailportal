@@ -1,4 +1,4 @@
-package net.sf.sail.webapp.validators;
+package net.sf.sail.webapp.presentation.validators;
 
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
