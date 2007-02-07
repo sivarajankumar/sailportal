@@ -20,6 +20,8 @@ package net.sf.sail.webapp.dao.sds;
 import net.sf.sail.webapp.domain.sds.SdsObject;
 import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 
+import org.springframework.context.ApplicationContext;
+
 /**
  * An SDS command as described in
  * http://www.telscenter.org/confluence/display/SAIL/REST+protocol+for+SAIL+Data+Services+(SDS).
@@ -53,5 +55,17 @@ public interface SdsCommand<S extends SdsObject, O> {
    * 
    * @return The data retrieved from sds.
    */
-  public O execute(S sdsObject);
+  public O execute(S sdsObject);  
+  
+  /**
+   * Executes the commmand based on data contructed via the generateRequest
+   * method.
+   * 
+   * @param applicationContext Spring Application Context containing the beans.
+   * @param sdsObject
+   *          the sds data required.
+   * 
+   * @return The data retrieved from sds.
+   */
+public O execute(ApplicationContext applicationContext, S sdsObject);
 }

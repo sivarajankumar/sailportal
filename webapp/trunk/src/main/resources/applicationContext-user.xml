@@ -55,5 +55,9 @@
     	<ref bean="userDao" />
     </property>
   </bean>
-
+  
+ <bean id="sdsOffering" scope="prototype"
+    class="net.sf.sail.webapp.domain.sds.SdsOffering">
+    </bean>
+ 
 </beans>

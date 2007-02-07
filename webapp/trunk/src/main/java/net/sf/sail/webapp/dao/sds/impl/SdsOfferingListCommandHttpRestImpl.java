@@ -36,6 +36,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
+import org.springframework.context.ApplicationContext;
 
 /**
  * The command which lists all the offerings from the Sail Data Service (uses
@@ -43,76 +44,85 @@ import org.jdom.xpath.XPath;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id: SdsOfferingListCommandHttpRestImpl.java 117 2007-02-01
+ *          19:59:19Z cynick $
  * 
  */
-public class SdsOfferingListCommandHttpRestImpl extends
-    AbstractSdsCommandHttpRest<HttpGetRequest, SdsOffering, List<SdsOffering>> {
+public class SdsOfferingListCommandHttpRestImpl
+		extends
+		AbstractSdsCommandHttpRest<HttpGetRequest, SdsOffering, List<SdsOffering>> {
 
-  private static final Log logger = LogFactory
-      .getLog(SdsOfferingListCommandHttpRestImpl.class);
+	private static final Log logger = LogFactory
+			.getLog(SdsOfferingListCommandHttpRestImpl.class);
 
-  /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
-   */
-  @SuppressWarnings("unchecked")
-  public List<SdsOffering> execute(final SdsOffering sdsObject) {
-    assert (this.httpRequest != null);
-    SAXBuilder builder = new SAXBuilder();
-    try {
-      InputStream responseStream = this.transport.get(this.httpRequest);
-      Document doc = builder.build(responseStream);
-      List<Element> nodeList = XPath.newInstance("/offerings/offering")
-          .selectNodes(doc);
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SdsOffering> execute(ApplicationContext applicationContext,
+			final SdsOffering sdsObject) {
+		assert (this.httpRequest != null);
+		SAXBuilder builder = new SAXBuilder();
+		try {
+			InputStream responseStream = this.transport.get(this.httpRequest);
+			Document doc = builder.build(responseStream);
+			List<Element> nodeList = XPath.newInstance("/offerings/offering")
+					.selectNodes(doc);
 
-      List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
-      for (Element offeringNode : nodeList) {
-        // TODO - use bean to get SdsOffering
-        SdsOffering sdsOffering = new SdsOffering();
-        sdsOffering.setName(offeringNode.getChild("name").getValue());
-        sdsOffering.setCurnitId(new Integer(offeringNode.getChild("curnit-id")
-            .getValue()));
-        sdsOffering.setJnlpId(new Integer(offeringNode.getChild("jnlp-id")
-            .getValue()));
-        sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild("id")
-            .getValue()));
-        sdsOfferingList.add(sdsOffering);
-      }
-      return sdsOfferingList;
-    }
-    catch (JDOMException e) {
-      if (logger.isErrorEnabled()) {
-        logger.error(e.getMessage(), e);
-      }
-      return Collections.EMPTY_LIST;
-    }
-    catch (IOException e) {
-      if (logger.isErrorEnabled()) {
-        logger.error(e.getMessage(), e);
-      }
-      return Collections.EMPTY_LIST;
-    }
-  }
+			List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
+			for (Element offeringNode : nodeList) {
 
-  private static final String HEADER_ACCEPT = "Accept";
+				SdsOffering sdsOffering = (SdsOffering) applicationContext
+						.getBean("sdsOffering");
+				sdsOffering.setName(offeringNode.getChild("name").getValue());
+				sdsOffering.setCurnitId(new Integer(offeringNode.getChild(
+						"curnit-id").getValue()));
+				sdsOffering.setJnlpId(new Integer(offeringNode.getChild(
+						"jnlp-id").getValue()));
+				sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild(
+						"id").getValue()));
+				sdsOfferingList.add(sdsOffering);
+			}
+			return sdsOfferingList;
+		} catch (JDOMException e) {
+			if (logger.isErrorEnabled()) {
+				logger.error(e.getMessage(), e);
+			}
+			return Collections.EMPTY_LIST;
+		} catch (IOException e) {
+			if (logger.isErrorEnabled()) {
+				logger.error(e.getMessage(), e);
+			}
+			return Collections.EMPTY_LIST;
+		}
+	}
 
-  private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
-      1);
-  static {
-    REQUEST_HEADERS.put(HEADER_ACCEPT, APPLICATION_XML);
-    REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
-  }
+	private static final String HEADER_ACCEPT = "Accept";
 
-  /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
-   */
-  @SuppressWarnings("unchecked")
-  public HttpGetRequest generateRequest(final SdsOffering sdsObject) {
-    final String url = this.baseUrl + this.portalId + SLASH + "offering";
+	private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
+			1);
+	static {
+		REQUEST_HEADERS.put(HEADER_ACCEPT, APPLICATION_XML);
+		REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
+	}
 
-    this.httpRequest = new HttpGetRequest(REQUEST_HEADERS,
-        Collections.EMPTY_MAP, url, HttpStatus.SC_OK);
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
+	 */
+	@SuppressWarnings("unchecked")
+	public HttpGetRequest generateRequest(final SdsOffering sdsObject) {
+		final String url = this.baseUrl + this.portalId + SLASH + "offering";
 
-    return this.httpRequest;
-  }
+		this.httpRequest = new HttpGetRequest(REQUEST_HEADERS,
+				Collections.EMPTY_MAP, url, HttpStatus.SC_OK);
+
+		return this.httpRequest;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
+	 */
+	public List<SdsOffering> execute(SdsOffering sdsObject) {
+		throw new UnsupportedOperationException();
+	}
 }

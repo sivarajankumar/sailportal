@@ -30,6 +30,7 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.easymock.EasyMock;
+import org.springframework.context.support.StaticApplicationContext;
 
 /**
  * @author Cynick Young
@@ -95,7 +96,9 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     expectedSdsOfferingList.add(createOffering(1, 1, 6, "Airbag Complete"));
     expectedSdsOfferingList.add(createOffering(2, 2, 6, "Air Bag Test"));
 
-    List<SdsOffering> actualList = command.execute(this.sdsOffering);
+    StaticApplicationContext applicationContext = new StaticApplicationContext();
+    applicationContext.registerPrototype("sdsOffering", SdsOffering.class);
+    List<SdsOffering> actualList = command.execute(applicationContext, this.sdsOffering);
     assertEquals(expectedSdsOfferingList.size(), actualList.size());
     assertEquals(expectedSdsOfferingList, actualList);
     EasyMock.verify(mockTransport);
