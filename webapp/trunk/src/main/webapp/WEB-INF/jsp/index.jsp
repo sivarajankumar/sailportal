@@ -45,7 +45,8 @@
 </div>
 
 <div id="right">
-	<a href="signup.html"> Sign up </a>
+	<a href="signup.html"><spring:message code="sign.up" /></a><br />
+	<a href="login.html"><spring:message code="log.in"/></a>
 </div>
 
 </div>

@@ -42,6 +42,7 @@
 </div>
 
 <div id="right">
+	<a href="signup.html"><spring:message code="sign.up" /></a><br />
 
 <c:if test="${failed}"><p><spring:message code="login.failed" /></p></c:if>
 
