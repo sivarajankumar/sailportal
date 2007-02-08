@@ -15,24 +15,26 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.offerings;
+package net.sf.sail.webapp.service.offerings.impl;
 
-import java.util.List;
-
-import net.sf.sail.webapp.domain.sds.SdsOffering;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
- * @author Laurel Williams
- * 
- * @version $Id$
+ * @author Cynick Young
+ *
+ * @version $Id: $
+ *
  */
-public interface OfferingsService {
+public class AllTests {
 
-  /**
-   * Gets a list of SDS offerings.
-   * 
-   * @return a list of SDS offerings.
-   */
-  public List<SdsOffering> getOfferingsList();
+  public static Test suite() {
+    TestSuite suite = new TestSuite(
+        "Test for net.sf.sail.webapp.service.offerings.impl");
+    //$JUnit-BEGIN$
+    suite.addTestSuite(OfferingsServiceImplTest.class);
+    //$JUnit-END$
+    return suite;
+  }
 
 }

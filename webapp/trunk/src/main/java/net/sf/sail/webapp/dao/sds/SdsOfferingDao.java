@@ -15,24 +15,21 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.offerings;
+package net.sf.sail.webapp.dao.sds;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
- * @author Laurel Williams
+ * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: $
+ * 
  */
-public interface OfferingsService {
+public interface SdsOfferingDao extends SimpleDao<SdsOffering> {
 
-  /**
-   * Gets a list of SDS offerings.
-   * 
-   * @return a list of SDS offerings.
-   */
-  public List<SdsOffering> getOfferingsList();
+  public List<SdsOffering> getList(SdsOffering sdsOffering);
 
 }

@@ -27,7 +27,6 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offerings.OfferingsService;
 
 import org.easymock.EasyMock;
-import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,74 +34,71 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: OfferingsListControllerTest.java 131 2007-02-08 16:55:57Z
+ *          laurel $
  */
 public class OfferingsListControllerTest extends TestCase {
 
-	private MockHttpServletRequest request;
+  private MockHttpServletRequest request;
 
-	private MockHttpServletResponse response;
-	
-	private OfferingsService mockOfferingsService;
-	
-	private StaticApplicationContext applicationContext;
-	
-	private List<SdsOffering> expectedSdsOfferingList;
+  private MockHttpServletResponse response;
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	protected void setUp() throws Exception {
-		super.setUp();
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
-		mockOfferingsService = EasyMock.createMock(OfferingsService.class);
-		this.applicationContext = new StaticApplicationContext();
-		applicationContext.registerPrototype("sdsOffering", SdsOffering.class);
-		expectedSdsOfferingList = new ArrayList<SdsOffering>();
-		SdsOffering offering = new SdsOffering();
-		offering.setCurnitId(1);
-		offering.setJnlpId(2);
-		offering.setName("test");
-		offering.setSdsObjectId(3);
-		expectedSdsOfferingList.add(offering);
-	}
+  private OfferingsService mockOfferingsService;
 
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		request = null;
-		response = null;
-		mockOfferingsService = null;
-		applicationContext = null;
-	}
+  private List<SdsOffering> expectedSdsOfferingList;
 
-	@SuppressWarnings("unchecked")
-	public void testHandleRequestInternal() throws Exception {
-		OfferingsListController offeringsListController = new OfferingsListController();
-		offeringsListController.setOfferingsService(mockOfferingsService);
-		offeringsListController.setApplicationContext(applicationContext);
-		
-		EasyMock.expect(mockOfferingsService.getOfferingsList(applicationContext)).andReturn(expectedSdsOfferingList);
-		EasyMock.replay(mockOfferingsService);
-		ModelAndView modelAndView = offeringsListController
-				.handleRequestInternal(request, response);
-		Map model = modelAndView.getModel();
-		List actualOfferingsList = (List) model.get("offeringslist");
-		assertEquals(expectedSdsOfferingList, actualOfferingsList);
-		EasyMock.verify(mockOfferingsService);
-		EasyMock.reset(mockOfferingsService);
-		
-		EasyMock.expect(mockOfferingsService.getOfferingsList(applicationContext)).andReturn(Collections.EMPTY_LIST);
-		EasyMock.replay(mockOfferingsService);
-		modelAndView = offeringsListController
-				.handleRequestInternal(request, response);
-		model = modelAndView.getModel();
-		assertTrue(((List) model.get("offeringslist")).isEmpty());
-		EasyMock.verify(mockOfferingsService);
-		EasyMock.reset(mockOfferingsService);		
-	}
+  /**
+   * @see junit.framework.TestCase#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+    request = new MockHttpServletRequest();
+    response = new MockHttpServletResponse();
+    mockOfferingsService = EasyMock.createMock(OfferingsService.class);
+    expectedSdsOfferingList = new ArrayList<SdsOffering>();
+    SdsOffering offering = new SdsOffering();
+    offering.setCurnitId(1);
+    offering.setJnlpId(2);
+    offering.setName("test");
+    offering.setSdsObjectId(3);
+    expectedSdsOfferingList.add(offering);
+  }
+
+  /**
+   * @see junit.framework.TestCase#tearDown()
+   */
+  protected void tearDown() throws Exception {
+    super.tearDown();
+    request = null;
+    response = null;
+    mockOfferingsService = null;
+  }
+
+  @SuppressWarnings("unchecked")
+  public void testHandleRequestInternal() throws Exception {
+    OfferingsListController offeringsListController = new OfferingsListController();
+    offeringsListController.setOfferingsService(mockOfferingsService);
+
+    EasyMock.expect(mockOfferingsService.getOfferingsList()).andReturn(
+        expectedSdsOfferingList);
+    EasyMock.replay(mockOfferingsService);
+    ModelAndView modelAndView = offeringsListController.handleRequestInternal(
+        request, response);
+    Map model = modelAndView.getModel();
+    List actualOfferingsList = (List) model.get("offeringslist");
+    assertEquals(expectedSdsOfferingList, actualOfferingsList);
+    EasyMock.verify(mockOfferingsService);
+    EasyMock.reset(mockOfferingsService);
+
+    EasyMock.expect(mockOfferingsService.getOfferingsList()).andReturn(
+        Collections.EMPTY_LIST);
+    EasyMock.replay(mockOfferingsService);
+    modelAndView = offeringsListController.handleRequestInternal(request,
+        response);
+    model = modelAndView.getModel();
+    assertTrue(((List) model.get("offeringslist")).isEmpty());
+    EasyMock.verify(mockOfferingsService);
+    EasyMock.reset(mockOfferingsService);
+  }
 
 }

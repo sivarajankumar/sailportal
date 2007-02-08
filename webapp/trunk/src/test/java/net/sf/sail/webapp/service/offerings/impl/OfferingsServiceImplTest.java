@@ -20,71 +20,63 @@ package net.sf.sail.webapp.service.offerings.impl;
 import static org.easymock.EasyMock.createMock;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import junit.framework.TestCase;
-import net.sf.sail.webapp.dao.sds.SdsCommand;
+import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
 import org.easymock.EasyMock;
-import org.springframework.context.support.StaticApplicationContext;
 
 /**
  * @author Laurel Williams
- *
+ * 
  * @version $Id$
  */
 public class OfferingsServiceImplTest extends TestCase {
-	
-	private SdsCommand<SdsOffering, List<SdsOffering>> mockSdsOfferingDao;
-	
-	private StaticApplicationContext applicationContext;
-	
-	private List<SdsOffering> expectedSdsOfferingList;
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@SuppressWarnings("unchecked")
-	protected void setUp() throws Exception {
-		super.setUp();
-		mockSdsOfferingDao = createMock(SdsCommand.class);
-		this.applicationContext = new StaticApplicationContext();
-		applicationContext.registerPrototype("sdsOffering", SdsOffering.class);
-		expectedSdsOfferingList = new ArrayList<SdsOffering>();
-		SdsOffering offering = new SdsOffering();
-		offering.setCurnitId(1);
-		offering.setJnlpId(2);
-		offering.setName("test");
-		offering.setSdsObjectId(3);
-		expectedSdsOfferingList.add(offering);
-	}
+  private SdsOfferingDao mockSdsOfferingDao;
 
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		mockSdsOfferingDao = null;
-		applicationContext = null;
-		expectedSdsOfferingList = null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public void testGetOfferingsList() throws Exception {
-		SdsOffering sdsOffering = (SdsOffering) this.applicationContext.getBean("sdsOffering");
-		EasyMock.expect(mockSdsOfferingDao.generateRequest(sdsOffering))
-				.andReturn(
-						new HttpGetRequest(Collections.EMPTY_MAP,
-								Collections.EMPTY_MAP, null, 0));
-		EasyMock.expect(mockSdsOfferingDao.execute(this.applicationContext, sdsOffering)).andReturn(expectedSdsOfferingList);
-		EasyMock.replay(mockSdsOfferingDao);
-		OfferingsServiceImpl offeringServiceImpl = new OfferingsServiceImpl();
-		offeringServiceImpl.setSdsOfferingDao(mockSdsOfferingDao);
-		List<SdsOffering> actualOfferingList = offeringServiceImpl.getOfferingsList(this.applicationContext);
-		assertEquals(expectedSdsOfferingList, actualOfferingList);
-	}
+  private List<SdsOffering> expectedSdsOfferingList;
 
+  private SdsOffering offering;
+
+  /**
+   * @see junit.framework.TestCase#setUp()
+   */
+  @SuppressWarnings("unchecked")
+  protected void setUp() throws Exception {
+    super.setUp();
+    mockSdsOfferingDao = createMock(SdsOfferingDao.class);
+    expectedSdsOfferingList = new ArrayList<SdsOffering>();
+    offering = new SdsOffering();
+    offering.setCurnitId(1);
+    offering.setJnlpId(2);
+    offering.setName("test");
+    offering.setSdsObjectId(3);
+    expectedSdsOfferingList.add(offering);
+  }
+
+  /**
+   * @see junit.framework.TestCase#tearDown()
+   */
+  protected void tearDown() throws Exception {
+    super.tearDown();
+    mockSdsOfferingDao = null;
+    expectedSdsOfferingList = null;
+  }
+
+  @SuppressWarnings("unchecked")
+  public void testGetOfferingsList() throws Exception {
+    EasyMock.expect(mockSdsOfferingDao.createDataObject()).andReturn(
+        this.offering);
+    EasyMock.expect(mockSdsOfferingDao.getList(this.offering)).andReturn(
+        expectedSdsOfferingList);
+    EasyMock.replay(mockSdsOfferingDao);
+    OfferingsServiceImpl offeringServiceImpl = new OfferingsServiceImpl();
+    offeringServiceImpl.setSdsOfferingDao(mockSdsOfferingDao);
+    assertEquals(expectedSdsOfferingList, offeringServiceImpl
+        .getOfferingsList());
+    EasyMock.verify(mockSdsOfferingDao);
+  }
 }

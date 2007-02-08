@@ -35,37 +35,37 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class OfferingsListController extends AbstractController {
 
-	private String viewname;
+  private String viewname;
 
-	private OfferingsService offeringsService;
+  private OfferingsService offeringsService;
 
-	/**
-	 * @param viewname
-	 *            the viewname to set
-	 */
-	public void setViewname(String viewname) {
-		this.viewname = viewname;
-	}
+  /**
+   * @param viewname
+   *          the viewname to set
+   */
+  public void setViewname(String viewname) {
+    this.viewname = viewname;
+  }
 
-	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	protected ModelAndView handleRequestInternal(
-			HttpServletRequest servletRequest,
-			HttpServletResponse servletResponse) throws Exception {
-		ModelMap model = new ModelMap();
-		model.put("offeringslist", this.offeringsService.getOfferingsList(this.getApplicationContext()));
-		return new ModelAndView(this.viewname, model);
-	}
+  /**
+   * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
+   *      javax.servlet.http.HttpServletResponse)
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  protected ModelAndView handleRequestInternal(
+      HttpServletRequest servletRequest, HttpServletResponse servletResponse)
+      throws Exception {
+    ModelMap model = new ModelMap();
+    model.put("offeringslist", this.offeringsService.getOfferingsList());
+    return new ModelAndView(this.viewname, model);
+  }
 
-	/**
-	 * @param offeringsService
-	 *            the offeringsService to set
-	 */
-	public void setOfferingsService(OfferingsService offeringsService) {
-		this.offeringsService = offeringsService;
-	}
+  /**
+   * @param offeringsService
+   *          the offeringsService to set
+   */
+  public void setOfferingsService(OfferingsService offeringsService) {
+    this.offeringsService = offeringsService;
+  }
 }

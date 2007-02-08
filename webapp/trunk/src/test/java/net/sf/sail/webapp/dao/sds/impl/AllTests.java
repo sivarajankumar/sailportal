@@ -9,6 +9,7 @@ public class AllTests {
     TestSuite suite = new TestSuite("Test for net.sf.sail.webapp.dao.sds.impl");
     //$JUnit-BEGIN$
     suite.addTestSuite(SdsOfferingListCommandHttpRestImplTest.class);
+    suite.addTestSuite(HttpRestSdsOfferingDaoTest.class);
     suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
     suite.addTestSuite(HibernateSdsUserDaoTest.class);
     //$JUnit-END$

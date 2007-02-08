@@ -54,4 +54,17 @@
     <property name="baseUrl" value="http://rails.dev.concord.org/sds/" />
   </bean>
 
+  <bean id="offeringsService"
+    class="net.sf.sail.webapp.service.offerings.impl.OfferingsServiceImpl">
+    <property name="sdsOfferingDao">
+      <ref local="sdsOfferingDao" />
+    </property>
+  </bean>
+
+  <bean id="sdsOfferingDao"
+    class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao">
+    <property name="sdsOfferingListCommand">
+      <ref local="sdsOfferingListCommand" />
+    </property>
+  </bean>
 </beans>

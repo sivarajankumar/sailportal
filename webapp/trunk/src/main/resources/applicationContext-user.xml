@@ -56,11 +56,4 @@
     </property>
   </bean>
 
-  <bean id="offeringsService"
-    class="net.sf.sail.webapp.service.offerings.impl.OfferingsServiceImpl">
-    <property name="sdsOfferingDao">
-      <ref bean="sdsOfferingListCommand" />
-    </property>
-  </bean>
-
 </beans>

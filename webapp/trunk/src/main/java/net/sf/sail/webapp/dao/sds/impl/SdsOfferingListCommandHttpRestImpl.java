@@ -36,7 +36,6 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
-import org.springframework.context.ApplicationContext;
 
 /**
  * The command which lists all the offerings from the Sail Data Service (uses
@@ -48,94 +47,86 @@ import org.springframework.context.ApplicationContext;
  *          19:59:19Z cynick $
  * 
  */
-public class SdsOfferingListCommandHttpRestImpl
-		extends
-		AbstractSdsCommandHttpRest<HttpGetRequest, SdsOffering, List<SdsOffering>> {
+public class SdsOfferingListCommandHttpRestImpl extends
+    AbstractSdsCommandHttpRest<HttpGetRequest, SdsOffering, List<SdsOffering>> {
 
-	private static final Log logger = LogFactory
-			.getLog(SdsOfferingListCommandHttpRestImpl.class);
+  private static final Log logger = LogFactory
+      .getLog(SdsOfferingListCommandHttpRestImpl.class);
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
-	 */
-	@SuppressWarnings("unchecked")
-	public List<SdsOffering> execute(ApplicationContext applicationContext,
-			final SdsOffering sdsObject) {
-		assert (this.httpRequest != null);
-		SAXBuilder builder = new SAXBuilder();
-		try {
-			InputStream responseStream = this.transport.get(this.httpRequest);
-			if (logger.isDebugEnabled()) {
-				logOfferingList(responseStream);
-			}
-			Document doc = builder.build(responseStream);
-			responseStream.close();
+  /**
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
+   */
+  @SuppressWarnings("unchecked")
+  public List<SdsOffering> execute(final SdsOffering sdsObject) {
+    assert (this.httpRequest != null);
+    SAXBuilder builder = new SAXBuilder();
+    try {
+      InputStream responseStream = this.transport.get(this.httpRequest);
+      if (logger.isDebugEnabled()) {
+        logOfferingList(responseStream);
+      }
+      Document doc = builder.build(responseStream);
+      responseStream.close();
 
-			List<Element> nodeList = XPath.newInstance("/offerings/offering")
-					.selectNodes(doc);
+      List<Element> nodeList = XPath.newInstance("/offerings/offering")
+          .selectNodes(doc);
 
-			List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
-			for (Element offeringNode : nodeList) {
+      List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
+      for (Element offeringNode : nodeList) {
+        // TODO - look at this and see if we should get it from dao
+        SdsOffering sdsOffering = new SdsOffering();
+        sdsOffering.setName(offeringNode.getChild("name").getValue());
+        sdsOffering.setCurnitId(new Integer(offeringNode.getChild("curnit-id")
+            .getValue()));
+        sdsOffering.setJnlpId(new Integer(offeringNode.getChild("jnlp-id")
+            .getValue()));
+        sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild("id")
+            .getValue()));
+        sdsOfferingList.add(sdsOffering);
+      }
+      return sdsOfferingList;
+    }
+    catch (JDOMException e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
+      return Collections.EMPTY_LIST;
+    }
+    catch (IOException e) {
+      if (logger.isErrorEnabled()) {
+        logger.error(e.getMessage(), e);
+      }
+      return Collections.EMPTY_LIST;
+    }
+  }
 
-				SdsOffering sdsOffering = (SdsOffering) applicationContext
-						.getBean("sdsOffering");
-				sdsOffering.setName(offeringNode.getChild("name").getValue());
-				sdsOffering.setCurnitId(new Integer(offeringNode.getChild(
-						"curnit-id").getValue()));
-				sdsOffering.setJnlpId(new Integer(offeringNode.getChild(
-						"jnlp-id").getValue()));
-				sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild(
-						"id").getValue()));
-				sdsOfferingList.add(sdsOffering);
-			}
-			return sdsOfferingList;
-		} catch (JDOMException e) {
-			if (logger.isErrorEnabled()) {
-				logger.error(e.getMessage(), e);
-			}
-			return Collections.EMPTY_LIST;
-		} catch (IOException e) {
-			if (logger.isErrorEnabled()) {
-				logger.error(e.getMessage(), e);
-			}
-			return Collections.EMPTY_LIST;
-		}
-	}
+  private static final String HEADER_ACCEPT = "Accept";
 
-	private static final String HEADER_ACCEPT = "Accept";
+  private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
+      1);
+  static {
+    REQUEST_HEADERS.put(HEADER_ACCEPT, APPLICATION_XML);
+    REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
+  }
 
-	private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
-			1);
-	static {
-		REQUEST_HEADERS.put(HEADER_ACCEPT, APPLICATION_XML);
-		REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
+   */
+  @SuppressWarnings("unchecked")
+  public HttpGetRequest generateRequest(final SdsOffering sdsObject) {
+    final String url = this.baseUrl + this.portalId + SLASH + "offering";
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
-	 */
-	@SuppressWarnings("unchecked")
-	public HttpGetRequest generateRequest(final SdsOffering sdsObject) {
-		final String url = this.baseUrl + this.portalId + SLASH + "offering";
+    this.httpRequest = new HttpGetRequest(REQUEST_HEADERS,
+        Collections.EMPTY_MAP, url, HttpStatus.SC_OK);
 
-		this.httpRequest = new HttpGetRequest(REQUEST_HEADERS,
-				Collections.EMPTY_MAP, url, HttpStatus.SC_OK);
+    return this.httpRequest;
+  }
 
-		return this.httpRequest;
-	}
-
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
-	 */
-	public List<SdsOffering> execute(SdsOffering sdsObject) {
-		throw new UnsupportedOperationException();
-	}
-
-	private void logOfferingList(InputStream responseStream) throws IOException {
-		byte[] responseBuffer = new byte[responseStream.available()];
-		responseStream.read(responseBuffer);
-		logger.debug(new String(responseBuffer));
-		responseStream.reset();
-	}
+  private void logOfferingList(InputStream responseStream) throws IOException {
+    byte[] responseBuffer = new byte[responseStream.available()];
+    responseStream.read(responseBuffer);
+    logger.debug(new String(responseBuffer));
+    responseStream.reset();
+  }
 
 }

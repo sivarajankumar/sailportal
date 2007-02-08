@@ -19,36 +19,32 @@ package net.sf.sail.webapp.service.offerings.impl;
 
 import java.util.List;
 
-import net.sf.sail.webapp.dao.sds.SdsCommand;
+import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offerings.OfferingsService;
 
-import org.springframework.context.ApplicationContext;
-
 /**
  * @author Laurel Williams
- *
+ * 
  * @version $Id$
  */
 public class OfferingsServiceImpl implements OfferingsService {
 
-	private SdsCommand<SdsOffering, List<SdsOffering>> sdsOfferingDao;
-	
-	/**
-	 * @see net.sf.sail.webapp.service.offerings.OfferingsService#getOfferingsList()
-	 */
-	public List<SdsOffering> getOfferingsList(ApplicationContext applicationContext) {
-		SdsOffering sdsOffering = (SdsOffering) applicationContext.getBean("sdsOffering");
-		sdsOfferingDao.generateRequest(sdsOffering);
-		return sdsOfferingDao.execute(applicationContext, sdsOffering);
-	}
-	
-	/**
-	 * @param setSdsOfferingDao the setSdsOfferingDao to set
-	 */
-	public void setSdsOfferingDao(
-			SdsCommand<SdsOffering, List<SdsOffering>> setSdsOfferingDao) {
-		this.sdsOfferingDao = setSdsOfferingDao;
-	}
+  private SdsOfferingDao sdsOfferingDao;
+
+  /**
+   * @param sdsOfferingDao
+   *          the sdsOfferingDao to set
+   */
+  public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao) {
+    this.sdsOfferingDao = sdsOfferingDao;
+  }
+
+  /**
+   * @see net.sf.sail.webapp.service.offerings.OfferingsService#getOfferingsList()
+   */
+  public List<SdsOffering> getOfferingsList() {
+    return sdsOfferingDao.getList(sdsOfferingDao.createDataObject());
+  }
 
 }
