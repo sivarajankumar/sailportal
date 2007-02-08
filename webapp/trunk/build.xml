@@ -45,7 +45,7 @@
   </path>
 
   <path id="lib.commons-collections">
-    <path location="${M2_REPO}/commons-collections/commons-collections/2.1/commons-collections-2.1.jar"
+    <path location="${M2_REPO}/commons-collections/commons-collections/3.2/commons-collections-3.2.jar"
     />
   </path>
 
@@ -86,13 +86,14 @@
   </path>
 
   <path id="lib.spring">
-    <path location="${M2_REPO}/org/springframework/spring-context/2.0.1/spring-context-2.0.1.jar"
+    <path location="${M2_REPO}/org/springframework/spring-context/2.0.2/spring-context-2.0.2.jar"
     />
-    <path location="${M2_REPO}/org/springframework/spring-beans/2.0.1/spring-beans-2.0.1.jar"
+    <path location="${M2_REPO}/org/springframework/spring-beans/2.0.2/spring-beans-2.0.2.jar"
     />
-    <path location="${M2_REPO}/org/springframework/spring-core/2.0.1/spring-core-2.0.1.jar"
+    <path location="${M2_REPO}/org/springframework/spring-core/2.0.2/spring-core-2.0.2.jar"
     />
-    <path location="${M2_REPO}/org/springframework/spring/2.0.1/spring-2.0.1.jar" />
+    <path location="${M2_REPO}/org/springframework/spring/2.0.2/spring-2.0.2.jar"
+    />
   </path>
 
   <path id="lib.cglib">
@@ -101,7 +102,7 @@
   </path>
 
   <path id="lib.commons-codec">
-    <path location="${M2_REPO}/commons-codec/commons-codec/1.2/commons-codec-1.2.jar"
+    <path location="${M2_REPO}/commons-codec/commons-codec/1.3/commons-codec-1.3.jar"
     />
   </path>
 
@@ -109,6 +110,10 @@
     <path location="${M2_REPO}/commons-httpclient/commons-httpclient/3.0.1/commons-httpclient-3.0.1.jar"
     />
     <path refid="lib.commons-codec" />
+  </path>
+
+  <path id="lib.jdom">
+    <path location="${M2_REPO}/jdom/jdom/1.0/jdom-1.0.jar" />
   </path>
 
   <path id="classes">
@@ -212,6 +217,7 @@
         <path refid="lib.jta" />
         <path refid="lib.cglib" />
         <path refid="lib.acegi-security" />
+        <path refid="lib.jdom" />
         <path refid="classes" />
       </classpath>
     </java>
