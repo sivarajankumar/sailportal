@@ -63,7 +63,7 @@ public class CreateDefaultUsers {
    * @param args
    *          args[0] - the admin username. args[1] - the admin password.
    */
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     if (args.length < 2) {
       System.out
           .println("Usage: CreateDefaultUsers <admin-username> <admin-password>");
@@ -80,11 +80,16 @@ public class CreateDefaultUsers {
       adminUser.setPassword(args[1]);
       createDefaultUsers.createRoles(applicationContext);
       createDefaultUsers.createAdministrator(applicationContext, adminUser);
+      System.exit(0);
+    }
+    catch (Exception all) {
+      System.err.println(all.getLocalizedMessage());
+      all.printStackTrace(System.err);
+      System.exit(2);
     }
     finally {
       applicationContext.close();
     }
-    System.exit(0);
   }
 
   @SuppressWarnings("unchecked")

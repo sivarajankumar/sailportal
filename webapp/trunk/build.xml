@@ -195,11 +195,12 @@
           target: db.init
          ================================= -->
   <target name="db.init"
-          depends="_mvn.compile"
+          depends="db.create, _mvn.compile"
           description="Initialize a production database with user role and default administrator account."
   >
     <java classname="net.sf.sail.webapp.service.authentication.impl.CreateDefaultUsers"
           fork="true"
+          failonerror="true"
           newenvironment="true"
     >
       <arg value="${default.admin.username}" />
