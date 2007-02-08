@@ -43,6 +43,9 @@
 </div>
 
 <div id="right">
+
+<display:table name="${offeringslist}" />
+
 </div>
 
 </div>

@@ -65,7 +65,12 @@ public class SdsOfferingListCommandHttpRestImpl
 		SAXBuilder builder = new SAXBuilder();
 		try {
 			InputStream responseStream = this.transport.get(this.httpRequest);
+			if (logger.isDebugEnabled()) {
+				logOfferingList(responseStream);
+			}
 			Document doc = builder.build(responseStream);
+			responseStream.close();
+
 			List<Element> nodeList = XPath.newInstance("/offerings/offering")
 					.selectNodes(doc);
 
@@ -125,4 +130,12 @@ public class SdsOfferingListCommandHttpRestImpl
 	public List<SdsOffering> execute(SdsOffering sdsObject) {
 		throw new UnsupportedOperationException();
 	}
+
+	private void logOfferingList(InputStream responseStream) throws IOException {
+		byte[] responseBuffer = new byte[responseStream.available()];
+		responseStream.read(responseBuffer);
+		logger.debug(new String(responseBuffer));
+		responseStream.reset();
+	}
+
 }

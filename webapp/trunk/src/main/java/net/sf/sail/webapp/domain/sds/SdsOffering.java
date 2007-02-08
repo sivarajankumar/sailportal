@@ -23,7 +23,7 @@ package net.sf.sail.webapp.domain.sds;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class SdsOffering implements SdsObject {
@@ -129,4 +129,11 @@ public class SdsOffering implements SdsObject {
       return false;
     return true;
   }
+
+/**
+ * @return the name
+ */
+public String getName() {
+	return name;
+}
 }

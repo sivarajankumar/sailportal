@@ -61,10 +61,6 @@
 		class="net.sf.sail.webapp.domain.sds.SdsOffering">
 	</bean>
 
-	<bean id="sdsOfferingListCommand"
-		class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingListCommandHttpRestImpl">
-	</bean>
-
 	<bean id="offeringsService"
 		class="net.sf.sail.webapp.service.offerings.impl.OfferingsServiceImpl">
 		<property name="sdsOfferingDao">

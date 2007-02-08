@@ -17,8 +17,11 @@
  */
 package net.sf.sail.webapp.presentation.web.controllers;
 
+// TODO create a logout button for this page
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.service.offerings.OfferingsService;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,30 +30,42 @@ import org.springframework.web.servlet.mvc.AbstractController;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class OfferingsListController extends AbstractController {
 
-  private String viewname;
+	private String viewname;
 
-  /**
-   * @param viewname
-   *          the viewname to set
-   */
-  public void setViewname(String viewname) {
-    this.viewname = viewname;
-  }
+	private OfferingsService offeringsService;
 
-  /**
-   * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
-   *      javax.servlet.http.HttpServletResponse)
-   */
-  @Override
-  protected ModelAndView handleRequestInternal(
-      HttpServletRequest servletRequest, HttpServletResponse servletResponse)
-      throws Exception {
-    ModelMap model = new ModelMap();
-    return new ModelAndView(this.viewname, model);
-  }
+	/**
+	 * @param viewname
+	 *            the viewname to set
+	 */
+	public void setViewname(String viewname) {
+		this.viewname = viewname;
+	}
+
+	/**
+	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	protected ModelAndView handleRequestInternal(
+			HttpServletRequest servletRequest,
+			HttpServletResponse servletResponse) throws Exception {
+		ModelMap model = new ModelMap();
+		model.put("offeringslist", this.offeringsService.getOfferingsList(this.getApplicationContext()));
+		return new ModelAndView(this.viewname, model);
+	}
+
+	/**
+	 * @param offeringsService
+	 *            the offeringsService to set
+	 */
+	public void setOfferingsService(OfferingsService offeringsService) {
+		this.offeringsService = offeringsService;
+	}
 }
