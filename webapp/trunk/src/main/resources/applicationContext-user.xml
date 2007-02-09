@@ -34,7 +34,8 @@
   <bean id="sdsUser" scope="prototype" factory-bean="sdsUserDao"
     factory-method="createDataObject" />
 
-  <bean id="userDao" class="net.sf.sail.webapp.dao.impl.HibernateUserDao">
+  <bean id="userDao"
+    class="net.sf.sail.webapp.dao.user.impl.HibernateUserDao">
     <property name="sessionFactory">
       <ref bean="sessionFactory" />
     </property>

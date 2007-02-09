@@ -25,8 +25,8 @@ import static org.easymock.EasyMock.verify;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.dao.UserDao;
-import net.sf.sail.webapp.dao.impl.HibernateUserDao;
+import net.sf.sail.webapp.dao.user.UserDao;
+import net.sf.sail.webapp.dao.user.impl.HibernateUserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
