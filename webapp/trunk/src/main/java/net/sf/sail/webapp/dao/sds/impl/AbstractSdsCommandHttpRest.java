@@ -41,34 +41,6 @@ public abstract class AbstractSdsCommandHttpRest<H extends AbstractHttpRequest, 
 
   protected HttpRestTransport transport;
 
-//  protected String baseUrl;
-
-//  protected Integer portalId;
-
-//  /**
-//   * Sets the base url for the website providing the Sail Data Service (i.e.
-//   * http://rails.dev.concord.org/sds/portal/)
-//   * 
-//   * @param baseUrl
-//   *          the baseUrl to set
-//   */
-//  public void setBaseUrl(final String baseUrl) {
-//    this.baseUrl = baseUrl;
-//  }
-
-//  /**
-//   * Sets the portal id assigned to the specific portal being accessed via the
-//   * Sail Data Services. This is simply an integer that has been assigned by
-//   * creating a new portal relationship (see
-//   * http://www.telscenter.org/confluence/display/SAIL/REST+protocol+for+SAIL+Data+Services+(SDS))
-//   * 
-//   * @param portalId
-//   *          the portalId to set
-//   */
-//  public void setPortalId(final Integer portalId) {
-//    this.portalId = portalId;
-//  }
-
   /**
    * Sets the http REST transport mechanism for the create command.
    * 
