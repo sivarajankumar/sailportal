@@ -28,12 +28,14 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
  */
 public interface UserDetailsDao<T extends MutableUserDetails> extends
     SimpleDao<T> {
-	
-	/**
-	 * Check if the username exists in the data store.
-	 * @param username
-	 * @return true if the data store contains a user with the corresponding username, false otherwise.
-	 */
-	public boolean hasUsername(String username);
+
+  /**
+   * Check if the username exists in the data store.
+   * 
+   * @param username
+   * @return true if the data store contains a user with the corresponding
+   *         username, false otherwise.
+   */
+  public boolean hasUsername(String username);
 
 }

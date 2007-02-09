@@ -18,11 +18,11 @@
 package net.sf.sail.webapp.dao.authentication.impl;
 
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * Class that implements the <code>UserDetailsDao</code> interface using
@@ -33,48 +33,35 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @version $Id$
  * 
  */
-public class HibernateUserDetailsDao extends HibernateDaoSupport implements
-		UserDetailsDao<MutableUserDetails> {
+public class HibernateUserDetailsDao extends
+    AbstractHibernateDao<MutableUserDetails> implements
+    UserDetailsDao<MutableUserDetails> {
 
-	/**
-	 * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#createDataObject()
-	 */
-	public MutableUserDetails createDataObject() {
-		return new PersistentUserDetails();
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#createDataObject()
+   */
+  public MutableUserDetails createDataObject() {
+    return new PersistentUserDetails();
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-	 */
-	public void save(MutableUserDetails userDetails) {
-		this.getHibernateTemplate().saveOrUpdate(userDetails);
-	}
+  /**
+   * Retrieve the user, by username. Returns null if user is not found.
+   * 
+   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#retrieveByName(java.lang.String)
+   */
+  public MutableUserDetails retrieveByName(String username) {
+    return (MutableUserDetails) DataAccessUtils
+        .uniqueResult(this
+            .getHibernateTemplate()
+            .findByNamedParam(
+                "from PersistentUserDetails as user_details where user_details.username = :username",
+                new String[] { "username" }, new Object[] { username }));
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-	 */
-	public void delete(MutableUserDetails userDetails) {
-		this.getHibernateTemplate().delete(userDetails);
-	}
-
-	/**
-	 * Retrieve the user, by username. Returns null if user is not found.
-	 * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
-	 */
-	public MutableUserDetails retrieveByName(String username) {
-		return (MutableUserDetails) DataAccessUtils
-				.uniqueResult(this
-						.getHibernateTemplate()
-						.findByNamedParam(
-								"from PersistentUserDetails as user_details where user_details.username = :username",
-								new String[] { "username" },
-								new Object[] { username }));
-	}
-	
-	/**
-	 * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#hasUsername(java.lang.String)
-	 */
-	public boolean hasUsername(String username) {
-		return (this.retrieveByName(username) != null);
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#hasUsername(java.lang.String)
+   */
+  public boolean hasUsername(String username) {
+    return (this.retrieveByName(username) != null);
+  }
 }

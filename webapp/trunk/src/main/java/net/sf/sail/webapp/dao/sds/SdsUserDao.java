@@ -22,7 +22,7 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 
 /**
  * @author Laurel Williams
- *
+ * 
  * @version $Id$
  */
 public interface SdsUserDao<T extends SdsUser> extends SimpleDao<T> {

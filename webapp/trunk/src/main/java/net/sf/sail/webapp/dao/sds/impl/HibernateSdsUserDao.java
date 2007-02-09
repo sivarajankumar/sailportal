@@ -17,45 +17,23 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.sds.SdsUserDao;
 import net.sf.sail.webapp.domain.sds.SdsUser;
-
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * @author Laurel Williams
  * 
  * @version $Id$
  */
-public class HibernateSdsUserDao extends HibernateDaoSupport implements
-		SdsUserDao<SdsUser> {
+public class HibernateSdsUserDao extends AbstractHibernateDao<SdsUser>
+    implements SdsUserDao<SdsUser> {
 
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-	 */
-	public SdsUser createDataObject() {
-		return new SdsUser();
-	}
-
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-	 */
-	public void delete(SdsUser sdsUser) {
-		this.getHibernateTemplate().delete(sdsUser);
-	}
-
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
-	 */
-	public SdsUser retrieveByName(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-	 */
-	public void save(SdsUser sdsUser) {
-		this.getHibernateTemplate().saveOrUpdate(sdsUser);
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#createDataObject()
+   */
+  public SdsUser createDataObject() {
+    return new SdsUser();
+  }
 
 }

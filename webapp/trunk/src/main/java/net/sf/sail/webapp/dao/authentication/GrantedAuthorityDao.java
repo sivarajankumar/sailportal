@@ -21,14 +21,16 @@ import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 
 public interface GrantedAuthorityDao<T extends MutableGrantedAuthority> extends
-		SimpleDao<T> {
+    SimpleDao<T> {
 
-	/**
-	 * Given a string representing a role, determines if this granted authority has this role.
-	 * 
-	 * @param authority The role string
-	 * @return True if the GrantedAuthority has this role, false otherwise.
-	 */
-	public boolean hasRole(String authority);
+  /**
+   * Given a string representing a role, determines if this granted authority
+   * has this role.
+   * 
+   * @param authority
+   *          The role string
+   * @return True if the GrantedAuthority has this role, false otherwise.
+   */
+  public boolean hasRole(String authority);
 
 }

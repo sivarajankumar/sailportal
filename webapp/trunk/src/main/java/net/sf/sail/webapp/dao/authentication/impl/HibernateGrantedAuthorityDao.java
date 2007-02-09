@@ -18,11 +18,11 @@
 package net.sf.sail.webapp.dao.authentication.impl;
 
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * Class that implements the Data Access Object (DAO) interface using Hibernate.
@@ -33,47 +33,33 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  *          cynick $
  * 
  */
-public class HibernateGrantedAuthorityDao extends HibernateDaoSupport implements
-		GrantedAuthorityDao<MutableGrantedAuthority> {
+public class HibernateGrantedAuthorityDao extends
+    AbstractHibernateDao<MutableGrantedAuthority> implements
+    GrantedAuthorityDao<MutableGrantedAuthority> {
 
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-	 */
-	public MutableGrantedAuthority createDataObject() {
-		return new PersistentGrantedAuthority();
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#createDataObject()
+   */
+  public MutableGrantedAuthority createDataObject() {
+    return new PersistentGrantedAuthority();
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-	 */
-	public void save(MutableGrantedAuthority grantedAuthority) {
-		this.getHibernateTemplate().saveOrUpdate(grantedAuthority);
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#retrieveByName(java.lang.String)
+   */
+  public MutableGrantedAuthority retrieveByName(String authority) {
+    return (MutableGrantedAuthority) DataAccessUtils
+        .uniqueResult(this
+            .getHibernateTemplate()
+            .findByNamedParam(
+                "from PersistentGrantedAuthority as granted_authority where granted_authority.authority = :authority",
+                new String[] { "authority" }, new Object[] { authority }));
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-	 */
-	public void delete(MutableGrantedAuthority grantedAuthority) {
-		this.getHibernateTemplate().delete(grantedAuthority);
-	}
-
-	/**
-	 * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
-	 */
-	public MutableGrantedAuthority retrieveByName(String authority) {
-		return (MutableGrantedAuthority) DataAccessUtils
-				.uniqueResult(this
-						.getHibernateTemplate()
-						.findByNamedParam(
-								"from PersistentGrantedAuthority as granted_authority where granted_authority.authority = :authority",
-								new String[] { "authority" },
-								new Object[] { authority }));
-	}
-	
-	/**
-	 * @see net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao#hasRole(java.lang.String)
-	 */
-	public boolean hasRole(String authority) {
-		return (this.retrieveByName(authority) != null);
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao#hasRole(java.lang.String)
+   */
+  public boolean hasRole(String authority) {
+    return (this.retrieveByName(authority) != null);
+  }
 }
