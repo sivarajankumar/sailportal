@@ -15,9 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.sds;
+package net.sf.sail.webapp.dao.user.impl;
 
-import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.dao.user.SdsUserDao;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 
 /**
@@ -25,6 +26,14 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
  * 
  * @version $Id$
  */
-public interface SdsUserDao<T extends SdsUser> extends SimpleDao<T> {
+public class HibernateSdsUserDao extends AbstractHibernateDao<SdsUser>
+    implements SdsUserDao<SdsUser> {
+
+  /**
+   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#createDataObject()
+   */
+  public SdsUser createDataObject() {
+    return new SdsUser();
+  }
 
 }

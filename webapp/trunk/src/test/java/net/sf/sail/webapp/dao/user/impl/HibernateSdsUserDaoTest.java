@@ -15,11 +15,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.sds.impl;
+package net.sf.sail.webapp.dao.user.impl;
 
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.user.impl.HibernateSdsUserDao;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
@@ -85,7 +86,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
 
   /**
    * Test method for
-   * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
+   * {@link net.sf.sail.webapp.dao.user.impl.HibernateSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
    */
   public void testDelete() {
     verifyDataStoreIsEmpty();
@@ -104,7 +105,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
 
   /**
    * Test method for
-   * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#retrieveByName(java.lang.String)}.
+   * {@link net.sf.sail.webapp.dao.user.impl.HibernateSdsUserDao#retrieveByName(java.lang.String)}.
    */
   public void testRetrieveByName() {
     try {
@@ -117,7 +118,7 @@ public class HibernateSdsUserDaoTest extends AbstractTransactionalDbTests {
 
   /**
    * Test method for
-   * {@link net.sf.sail.webapp.dao.sds.impl.HibernateSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
+   * {@link net.sf.sail.webapp.dao.user.impl.HibernateSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
    */
   public void testSave() {
     verifyDataStoreIsEmpty();

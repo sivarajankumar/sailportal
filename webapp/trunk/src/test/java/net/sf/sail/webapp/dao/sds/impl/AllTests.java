@@ -11,7 +11,6 @@ public class AllTests {
     suite.addTestSuite(SdsOfferingListCommandHttpRestImplTest.class);
     suite.addTestSuite(HttpRestSdsOfferingDaoTest.class);
     suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
-    suite.addTestSuite(HibernateSdsUserDaoTest.class);
     //$JUnit-END$
     return suite;
   }

@@ -32,6 +32,7 @@ public class AllTests {
     TestSuite suite = new TestSuite("Test for net.sf.sail.webapp.dao.user.impl");
     //$JUnit-BEGIN$
     suite.addTestSuite(HibernateUserDaoTest.class);
+    suite.addTestSuite(HibernateSdsUserDaoTest.class);
     //$JUnit-END$
     return suite;
   }
