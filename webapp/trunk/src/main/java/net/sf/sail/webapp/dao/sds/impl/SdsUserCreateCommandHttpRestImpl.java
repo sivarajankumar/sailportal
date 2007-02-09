@@ -25,7 +25,6 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.springframework.context.ApplicationContext;
 
 /**
  * The command which creates a user for the Sail Data Service (uses Http REST).
@@ -76,14 +75,5 @@ public class SdsUserCreateCommandHttpRestImpl extends
     sdsUser.setSdsObjectId(new Integer(locationHeader.substring(locationHeader
         .lastIndexOf(SLASH) + 1)));
     return sdsUser;
-  }
-
-  /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(org.springframework.context.ApplicationContext,
-   *      net.sf.sail.webapp.domain.sds.SdsObject)
-   */
-  public SdsUser execute(ApplicationContext applicationContext,
-      SdsUser sdsObject) {
-    throw new UnsupportedOperationException();
   }
 }
