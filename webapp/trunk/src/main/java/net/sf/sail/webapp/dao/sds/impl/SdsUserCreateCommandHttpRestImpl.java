@@ -37,52 +37,53 @@ import org.springframework.context.ApplicationContext;
  * 
  */
 public class SdsUserCreateCommandHttpRestImpl extends
-		AbstractSdsCommandHttpRest<HttpPostRequest, SdsUser, SdsUser> {
+    AbstractSdsCommandHttpRest<HttpPostRequest, SdsUser, SdsUser> {
 
-	private static final String HEADER_CONTENT_TYPE = "Content-Type";
+  private static final String HEADER_CONTENT_TYPE = "Content-Type";
 
-	private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
-			1);
-	static {
-		REQUEST_HEADERS.put(HEADER_CONTENT_TYPE, APPLICATION_XML);
-		REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
-	}
+  private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
+      1);
+  static {
+    REQUEST_HEADERS.put(HEADER_CONTENT_TYPE, APPLICATION_XML);
+    REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
-	 */
-	@SuppressWarnings("unchecked")
-	public HttpPostRequest generateRequest(final SdsUser sdsUser) {
-		final String bodyData = "<user><first-name>" + sdsUser.getFirstName()
-				+ "</first-name><last-name>" + sdsUser.getLastName()
-				+ "</last-name></user>";
+  /**
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
+   */
+  @SuppressWarnings("unchecked")
+  public HttpPostRequest generateRequest(final SdsUser sdsUser) {
+    final String bodyData = "<user><first-name>" + sdsUser.getFirstName()
+        + "</first-name><last-name>" + sdsUser.getLastName()
+        + "</last-name></user>";
 
-		final String url = this.baseUrl + this.portalId + SLASH + "user";
+    final String url = "user";
 
-		this.httpRequest = new HttpPostRequest(REQUEST_HEADERS,
-				Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
+    this.httpRequest = new HttpPostRequest(REQUEST_HEADERS,
+        Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
 
-		return this.httpRequest;
-	}
+    return this.httpRequest;
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
-	 */
-	public SdsUser execute(final SdsUser sdsUser) {
-		assert (this.httpRequest != null);
-		final Map<String, String> responseHeaders = this.transport
-				.post(this.httpRequest);
-		final String locationHeader = responseHeaders.get("Location");
-		sdsUser.setSdsObjectId(new Integer(locationHeader
-				.substring(locationHeader.lastIndexOf(SLASH) + 1)));
-		return sdsUser;
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
+   */
+  public SdsUser execute(final SdsUser sdsUser) {
+    assert (this.httpRequest != null);
+    final Map<String, String> responseHeaders = this.transport
+        .post(this.httpRequest);
+    final String locationHeader = responseHeaders.get("Location");
+    sdsUser.setSdsObjectId(new Integer(locationHeader.substring(locationHeader
+        .lastIndexOf(SLASH) + 1)));
+    return sdsUser;
+  }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(org.springframework.context.ApplicationContext, net.sf.sail.webapp.domain.sds.SdsObject)
-	 */
-	public SdsUser execute(ApplicationContext applicationContext,
-			SdsUser sdsObject) {
-		throw new UnsupportedOperationException();
-	}
+  /**
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(org.springframework.context.ApplicationContext,
+   *      net.sf.sail.webapp.domain.sds.SdsObject)
+   */
+  public SdsUser execute(ApplicationContext applicationContext,
+      SdsUser sdsObject) {
+    throw new UnsupportedOperationException();
+  }
 }

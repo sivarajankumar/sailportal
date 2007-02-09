@@ -26,6 +26,9 @@
 
   <bean id="httpRestTransport"
     class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
+    <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
+    <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
+    <property name="baseUrl" value="http://rails.dev.concord.org/sds/4/" />
   </bean>
 
   <bean id="sdsOffering" scope="prototype"
@@ -37,10 +40,6 @@
     <property name="transport">
       <ref local="httpRestTransport" />
     </property>
-    <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
-    <property name="portalId" value="4" />
-    <!-- http://rails.dev.concord.org/sds/ -->
-    <property name="baseUrl" value="http://rails.dev.concord.org/sds/" />
   </bean>
 
   <bean id="sdsOfferingListCommand" scope="prototype"
@@ -48,10 +47,6 @@
     <property name="transport">
       <ref local="httpRestTransport" />
     </property>
-    <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
-    <property name="portalId" value="4" />
-    <!-- http://rails.dev.concord.org/sds/ -->
-    <property name="baseUrl" value="http://rails.dev.concord.org/sds/" />
   </bean>
 
   <bean id="offeringsService"

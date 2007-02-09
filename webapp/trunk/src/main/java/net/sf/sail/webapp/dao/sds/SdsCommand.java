@@ -53,17 +53,5 @@ public interface SdsCommand<S extends SdsObject, O> {
    * 
    * @return The data retrieved from sds.
    */
-  public O execute(S sdsObject);  
-//  
-//  /**
-//   * Executes the commmand based on data contructed via the generateRequest
-//   * method.
-//   * 
-//   * @param applicationContext Spring Application Context containing the beans.
-//   * @param sdsObject
-//   *          the sds data required.
-//   * 
-//   * @return The data retrieved from sds.
-//   */
-//public O execute(ApplicationContext applicationContext, S sdsObject);
+  public O execute(S sdsObject);
 }

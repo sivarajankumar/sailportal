@@ -114,7 +114,7 @@ public class SdsOfferingListCommandHttpRestImpl extends
    */
   @SuppressWarnings("unchecked")
   public HttpGetRequest generateRequest(final SdsOffering sdsObject) {
-    final String url = this.baseUrl + this.portalId + SLASH + "offering";
+    final String url = "offering";
 
     this.httpRequest = new HttpGetRequest(REQUEST_HEADERS,
         Collections.EMPTY_MAP, url, HttpStatus.SC_OK);

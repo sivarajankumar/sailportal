@@ -19,7 +19,6 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.reset;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,10 +40,6 @@ import org.easymock.EasyMock;
  */
 public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 
-  private static final String BASE_URL = "base url";
-
-  private static final Integer PORTAL_ID = new Integer(12);
-
   private static final Integer EXPECTED_ID = new Integer(1);
 
   private static final String EXPECTED_FIRST_NAME = "Blah";
@@ -53,9 +48,9 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 
   private static final String HEADER_LOCATION = "Location";
 
-  private static final String PORTAL_URL = "http://rails.dev.concord.org/sds/";
+  private static final String PORTAL_URL = "portal url/";
 
-  private static final String USER_DIRECTORY = "/user/";
+  private static final String USER_DIRECTORY = "user/";
 
   private SdsUserCreateCommandHttpRestImpl command;
 
@@ -79,8 +74,6 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
     expectedSdsUser.setSdsObjectId(EXPECTED_ID);
     command.setTransport(mockTransport);
-    command.setBaseUrl(BASE_URL);
-    command.setPortalId(PORTAL_ID);
   }
 
   /**
@@ -103,8 +96,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 
   public void testCreate() throws Exception {
     Map<String, String> responseMap = new HashMap<String, String>();
-    responseMap.put(HEADER_LOCATION, PORTAL_URL + PORTAL_ID + USER_DIRECTORY
-        + EXPECTED_ID);
+    responseMap.put(HEADER_LOCATION, PORTAL_URL + USER_DIRECTORY + EXPECTED_ID);
     this.sdsUser.setFirstName(EXPECTED_FIRST_NAME);
     this.sdsUser.setLastName(EXPECTED_LAST_NAME);
     expect(mockTransport.post(command.generateRequest(this.sdsUser)))
@@ -115,8 +107,8 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   }
 
   public void testCreateException() throws Exception {
-    expect(mockTransport.post(command.generateRequest(this.sdsUser))).andThrow(
-        new BadRequestException("exception"));
+    EasyMock.expect(mockTransport.post(command.generateRequest(this.sdsUser)))
+        .andThrow(new BadRequestException("exception"));
     EasyMock.replay(mockTransport);
     try {
       command.execute(this.sdsUser);
@@ -124,10 +116,11 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     }
     catch (BadRequestException e) {
     }
+    EasyMock.verify(mockTransport);
 
-    reset(mockTransport);
-    expect(mockTransport.post(command.generateRequest(this.sdsUser))).andThrow(
-        new NetworkTransportException("exception"));
+    EasyMock.reset(mockTransport);
+    EasyMock.expect(mockTransport.post(command.generateRequest(this.sdsUser)))
+        .andThrow(new NetworkTransportException("exception"));
     EasyMock.replay(mockTransport);
     try {
       command.execute(this.sdsUser);
@@ -135,5 +128,6 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     }
     catch (NetworkTransportException e) {
     }
+    EasyMock.verify(mockTransport);
   }
 }

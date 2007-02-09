@@ -42,10 +42,6 @@ import org.easymock.EasyMock;
  */
 public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
 
-  private static final String BASE_URL = "base url";
-
-  private static final Integer PORTAL_ID = new Integer(12);
-
   private SdsOfferingListCommandHttpRestImpl command;
 
   private HttpRestTransport mockTransport;
@@ -62,8 +58,6 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     this.mockTransport = createMock(HttpRestTransport.class);
     this.sdsOffering = new SdsOffering();
     this.command.setTransport(mockTransport);
-    this.command.setBaseUrl(BASE_URL);
-    this.command.setPortalId(PORTAL_ID);
   }
 
   /**
@@ -128,6 +122,7 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     EasyMock.replay(mockTransport);
     actualList = command.execute(this.sdsOffering);
     assertTrue(actualList.isEmpty());
+    EasyMock.verify(mockTransport);
   }
 
   public void testExecuteBadStream() throws Exception {
@@ -139,6 +134,7 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     EasyMock.replay(mockTransport);
     List<SdsOffering> actualList = command.execute(this.sdsOffering);
     assertTrue(actualList.isEmpty());
+    EasyMock.verify(mockTransport);
   }
 
   public void testExecuteExceptions() throws Exception {
@@ -152,6 +148,7 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     }
     catch (BadRequestException e) {
     }
+    EasyMock.verify(mockTransport);
     EasyMock.reset(mockTransport);
 
     expect(mockTransport.get(command.generateRequest(this.sdsOffering)))
@@ -164,11 +161,9 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     }
     catch (NetworkTransportException e) {
     }
+    EasyMock.verify(mockTransport);
   }
 
-  /**
-   * @return
-   */
   private SdsOffering createOffering(int objectId, int curnitId, int jnlpId,
       String name) {
     SdsOffering offering = new SdsOffering();
