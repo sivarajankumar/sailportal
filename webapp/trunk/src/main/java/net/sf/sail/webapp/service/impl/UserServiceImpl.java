@@ -32,7 +32,6 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
-import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -91,9 +90,9 @@ public class UserServiceImpl implements UserService {
    */
   @Transactional(rollbackFor = { DuplicateUsernameException.class,
       BadRequestException.class, NetworkTransportException.class })
-  public User createUser(final ApplicationContext applicationContext,
-      final MutableUserDetails userDetails) throws DuplicateUsernameException,
-      BadRequestException, NetworkTransportException {
+  public User createUser(final MutableUserDetails userDetails)
+      throws DuplicateUsernameException, BadRequestException,
+      NetworkTransportException {
 
     try {
       this.checkUserCreationErrors(userDetails.getUsername());
@@ -105,7 +104,7 @@ public class UserServiceImpl implements UserService {
       sdsUser.setLastName(userDetails.getUsername());
       this.sdsUserDao.save(sdsUser);
 
-      User user = (User) applicationContext.getBean("user");
+      User user = this.userDao.createDataObject();
       user.setSdsUser(sdsUser);
       user.setUserDetails(userDetails);
       this.userDao.save(user);

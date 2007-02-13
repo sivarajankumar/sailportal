@@ -19,5 +19,5 @@
 <!-- $Id$ -->
 
 <div id="logo">
-	<img src="<spring:theme code="logo"/>" alt="SAIL logo containing two stylized sails and the word SAIL." />
+	<img src="<spring:theme code="logo"/>" alt="<spring:message code="sail.logo.alttext" />" />
 </div>

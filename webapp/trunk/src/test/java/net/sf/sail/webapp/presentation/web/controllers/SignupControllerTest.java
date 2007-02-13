@@ -30,7 +30,6 @@ import net.sf.sail.webapp.dao.user.impl.HibernateUserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
-import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
@@ -91,7 +90,7 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 		
 
 		User user = userDao.createDataObject();
-		expect(mockUserService.createUser(mockApplicationContext, userDetails)).andReturn(user);
+		expect(mockUserService.createUser(userDetails)).andReturn(user);
 		replay(mockUserService);
 
 		userDetails.setUsername(USERNAME);
@@ -113,7 +112,7 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 		// back ModelAndView with original form returned with name of Form View
 		// as set.
 		reset(mockUserService);
-		expect(mockUserService.createUser(mockApplicationContext, userDetails))
+		expect(mockUserService.createUser(userDetails))
 				.andThrow(
 						new DuplicateUsernameException(userDetails
 								.getUsername()));
@@ -131,7 +130,7 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 		// test submission of form where RuntimeException is thrown.
 		// should catch a RuntimeException
 		reset(mockUserService);
-		expect(mockUserService.createUser(mockApplicationContext, userDetails))
+		expect(mockUserService.createUser(userDetails))
 				.andThrow(new RuntimeException());
 		replay(mockUserService);
 		signupController.setFormView(FORM);

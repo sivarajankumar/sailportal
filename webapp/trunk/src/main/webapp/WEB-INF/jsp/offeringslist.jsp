@@ -1,4 +1,4 @@
-<%@ include file="include.jsp" %>
+<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -29,29 +29,28 @@
 
 <body>
 
-<%@ include file="header.jsp" %>
+<%@ include file="header.jsp"%>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
 </div>
 
 <div id="columns">
-<div id="left">
-	<%@ include file="logout.jsp" %>
-</div>
+<div id="left"><%@ include file="logout.jsp"%></div>
 
 <div id="right">
-<h2>
-	<spring:message code="success" />
-</h2>
+<h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
 
-<display:table name="${offeringslist}" />
+<display:table name="${offeringslist}" id="offering">
+  <display:column titleKey="curnit.numbering.heading">
+    <c:out value="${offering_rowNum}" />
+  </display:column>
+  <display:column property="name" titleKey="curnit.name.heading" />
+</display:table></div>
 
 </div>
 
-</div>
-
-<%@ include file="footer.jsp" %>
+<%@ include file="footer.jsp"%>
 
 </body>
 </html>

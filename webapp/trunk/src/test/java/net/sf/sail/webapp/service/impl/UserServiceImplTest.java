@@ -63,9 +63,9 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
     // create 2 users and attempt to save to DB
     // second user should cause exception to be thown
-    this.userService.createUser(this.applicationContext, user);
+    this.userService.createUser(user);
     try {
-      this.userService.createUser(this.applicationContext, user);
+      this.userService.createUser(user);
       fail("DuplicateUsernameException expected and not caught.");
     }
     catch (DuplicateUsernameException e) {
@@ -91,8 +91,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     userDetails.setEmailAddress(EMAIL);
 
     // create user (saves automatically)
-    User expectedUser = this.userService.createUser(this.applicationContext,
-        userDetails);
+    User expectedUser = this.userService.createUser(userDetails);
     UserDetails expectedUserDetails = expectedUser.getUserDetails();
 
     // retrieve user and compare
@@ -131,8 +130,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     MutableUserDetails user = this.userDetailsDao.createDataObject();
     user.setUsername(USERNAME);
     user.setPassword(PASSWORD);
-    User expectedUser = this.userService.createUser(this.applicationContext,
-        user);
+    User expectedUser = this.userService.createUser(user);
 
     MutableUserDetails expectedUserDetails = expectedUser.getUserDetails();
     UserDetails actual = this.userDetailsService.loadUserByUsername(USERNAME);
