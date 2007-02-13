@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.presentation.web.controllers;
 
-// TODO create a logout button for this page
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

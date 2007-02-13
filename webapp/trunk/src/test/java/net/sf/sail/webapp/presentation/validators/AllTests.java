@@ -32,7 +32,7 @@ public class AllTests {
     TestSuite suite = new TestSuite(
         "Test for net.sf.sail.webapp.presentation.validators");
     //$JUnit-BEGIN$
-    suite.addTestSuite(SignupValidatorTest.class);
+    suite.addTestSuite(UserDetailsValidatorTest.class);
     //$JUnit-END$
     return suite;
   }
