@@ -26,21 +26,8 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <title><spring:message code="login.title" /></title>
+<script type="text/javascript" src="./javascript/utils.js"></script>
 <script type="text/javascript">
-function addEvent(obj, eventType, fn){ 
- if (obj.addEventListener){ 
-   obj.addEventListener(eventType, fn, false); 
-   return true; 
- }
- else if (obj.attachEvent){ 
-   var r = obj.attachEvent("on"+eventType, fn); 
-   return r; 
- }
- else { 
-   return false; 
- } 
-}
-
 function onLoadHandler() {
   document.getElementById("j_username").focus();
 }

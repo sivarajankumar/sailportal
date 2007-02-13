@@ -1,4 +1,4 @@
-<%@ include file="include.jsp" %>
+<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -20,17 +20,25 @@
 <!-- $Id$ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
-<html xml:lang="en" lang="en" >
+<html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <title><spring:message code="signup.title" /></title>
+<script type="text/javascript" src="./javascript/utils.js"></script>
+<script type="text/javascript">
+function onLoadHandler() {
+  document.getElementById("username").focus();
+}
+
+addEvent(window, 'load', onLoadHandler);
+</script>
 </head>
 
 <body>
 
-<%@ include file="header.jsp" %>
+<%@ include file="header.jsp"%>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
@@ -41,27 +49,21 @@
 <h2><spring:message code="signup" /></h2>
 </div>
 
-<div id="right">
-<form:form method="post" action="signup.html" commandName="userdetails">
+<div id="right"><form:form method="post" action="signup.html"
+  commandName="userdetails">
 
-<p>
-<label for="username"><spring:message code="signup.username" /></label>
-<form:input path="username" id="username" />
-<form:errors path="username" />
-</p>
+  <p><label for="username"><spring:message code="signup.username" /></label>
+  <form:input path="username" id="username" /> <form:errors path="username" />
+  </p>
 
-<p>
-<label for="password"><spring:message code="signup.password" /></label>
-<form:password path="password" id="password" />
-<form:errors path="password" />
-</p>
-<p>  
-      <input type="submit" value="<spring:message code="signup.submit" />" />
-</p>
-   </form:form>
+  <p><label for="password"><spring:message code="signup.password" /></label>
+  <form:password path="password" id="password" /> <form:errors path="password" />
+  </p>
+  <p><input type="submit" value="<spring:message code="signup.submit" />" />
+  </p>
+</form:form></div>
 </div>
-</div>
-<%@ include file="footer.jsp" %>
+<%@ include file="footer.jsp"%>
 
 
 </body>
