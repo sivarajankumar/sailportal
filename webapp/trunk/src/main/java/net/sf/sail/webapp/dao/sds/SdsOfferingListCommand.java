@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * Copyright (c) 2007 Encore Research Group, University of Toronto
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,25 +15,25 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.user.impl;
+package net.sf.sail.webapp.dao.sds;
 
-import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
-import net.sf.sail.webapp.dao.user.SdsUserDao;
-import net.sf.sail.webapp.domain.sds.SdsUser;
+import java.util.List;
+
+import net.sf.sail.webapp.domain.sds.SdsOffering;
+import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
 /**
- * @author Laurel Williams
+ * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: $
+ * 
  */
-public class HibernateSdsUserDao extends AbstractHibernateDao<SdsUser>
-    implements SdsUserDao<SdsUser> {
+public interface SdsOfferingListCommand extends
+    SdsCommand<List<SdsOffering>, HttpGetRequest> {
 
   /**
-   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#createDataObject()
+   * @param sdsOfferingDao
+   *          the sdsOfferingDao to set
    */
-  public SdsUser createDataObject() {
-    return new SdsUser();
-  }
-
+  public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao);
 }

@@ -17,9 +17,6 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +24,7 @@ import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.easymock.EasyMock;
@@ -48,7 +46,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 
   private static final String HEADER_LOCATION = "Location";
 
-  private static final String PORTAL_URL = "portal url/";
+  private static final String PORTAL_URL = "http://portal/url/";
 
   private static final String USER_DIRECTORY = "user/";
 
@@ -56,7 +54,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
 
   private HttpRestTransport mockTransport;
 
-  private SdsUser sdsUser;
+  private HttpPostRequest httpRequest;
 
   private SdsUser expectedSdsUser;
 
@@ -66,14 +64,15 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
-    command = new SdsUserCreateCommandHttpRestImpl();
-    mockTransport = createMock(HttpRestTransport.class);
-    sdsUser = new SdsUser();
-    expectedSdsUser = new SdsUser();
-    expectedSdsUser.setFirstName(EXPECTED_FIRST_NAME);
-    expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
-    expectedSdsUser.setSdsObjectId(EXPECTED_ID);
-    command.setTransport(mockTransport);
+    this.command = new SdsUserCreateCommandHttpRestImpl();
+    this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
+    this.expectedSdsUser = new SdsUser();
+    this.expectedSdsUser.setFirstName(EXPECTED_FIRST_NAME);
+    this.expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
+    this.expectedSdsUser.setSdsObjectId(EXPECTED_ID);
+    this.command.setTransport(this.mockTransport);
+    this.command.setSdsUser(this.expectedSdsUser);
+    this.httpRequest = this.command.generateRequest();
   }
 
   /**
@@ -82,9 +81,10 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   @Override
   protected void tearDown() throws Exception {
     super.tearDown();
-    command = null;
-    mockTransport = null;
-    sdsUser = null;
+    this.command = null;
+    this.mockTransport = null;
+    this.expectedSdsUser = null;
+    this.httpRequest = null;
   }
 
   /**
@@ -97,37 +97,35 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   public void testCreate() throws Exception {
     Map<String, String> responseMap = new HashMap<String, String>();
     responseMap.put(HEADER_LOCATION, PORTAL_URL + USER_DIRECTORY + EXPECTED_ID);
-    this.sdsUser.setFirstName(EXPECTED_FIRST_NAME);
-    this.sdsUser.setLastName(EXPECTED_LAST_NAME);
-    expect(mockTransport.post(command.generateRequest(this.sdsUser)))
-        .andReturn(responseMap);
-    EasyMock.replay(mockTransport);
-    assertEquals(expectedSdsUser, command.execute(this.sdsUser));
-    EasyMock.verify(mockTransport);
+    EasyMock.expect(this.mockTransport.post(this.httpRequest)).andReturn(
+        responseMap);
+    EasyMock.replay(this.mockTransport);
+    assertEquals(this.expectedSdsUser, this.command.execute(this.httpRequest));
+    EasyMock.verify(this.mockTransport);
   }
 
   public void testCreateException() throws Exception {
-    EasyMock.expect(mockTransport.post(command.generateRequest(this.sdsUser)))
-        .andThrow(new BadRequestException("exception"));
-    EasyMock.replay(mockTransport);
+    EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
+        new BadRequestException("exception"));
+    EasyMock.replay(this.mockTransport);
     try {
-      command.execute(this.sdsUser);
+      this.command.execute(this.httpRequest);
       fail("Expected BadRequestException");
     }
     catch (BadRequestException e) {
     }
-    EasyMock.verify(mockTransport);
+    EasyMock.verify(this.mockTransport);
 
-    EasyMock.reset(mockTransport);
-    EasyMock.expect(mockTransport.post(command.generateRequest(this.sdsUser)))
-        .andThrow(new NetworkTransportException("exception"));
-    EasyMock.replay(mockTransport);
+    EasyMock.reset(this.mockTransport);
+    EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
+        new NetworkTransportException("exception"));
+    EasyMock.replay(this.mockTransport);
     try {
-      command.execute(this.sdsUser);
+      this.command.execute(this.httpRequest);
       fail("Expected NetworkTransportException");
     }
     catch (NetworkTransportException e) {
     }
-    EasyMock.verify(mockTransport);
+    EasyMock.verify(this.mockTransport);
   }
 }

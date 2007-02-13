@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
-import net.sf.sail.webapp.domain.sds.SdsObject;
 import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 
 /**
@@ -31,27 +30,21 @@ import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
  * @version $Id$
  * 
  */
-public interface SdsCommand<S extends SdsObject, O> {
+public interface SdsCommand<T, U extends AbstractHttpRequest> {
 
   /**
    * Puts together the request data and the sds object data required to execute
    * the commmand.
    * 
-   * @param sdsObject
-   *          represents the data required
-   * 
    * @return The AbstractHttpRequest constructed from the sds object.
    */
-  public AbstractHttpRequest generateRequest(S sdsObject);
+  public U generateRequest();
 
   /**
    * Executes the commmand based on data contructed via the generateRequest
    * method.
    * 
-   * @param sdsObject
-   *          the sds data required.
-   * 
    * @return The data retrieved from sds.
    */
-  public O execute(S sdsObject);
+  public T execute(U httpRequest);
 }

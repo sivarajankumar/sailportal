@@ -25,9 +25,9 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
   <bean id="sdsUserDao"
-    class="net.sf.sail.webapp.dao.user.impl.HibernateSdsUserDao">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory" />
+    class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao">
+    <property name="sdsUserCreateCommand">
+      <ref bean="sdsUserCreateCommand" />
     </property>
   </bean>
 
@@ -53,7 +53,10 @@
       <ref bean="grantedAuthorityDao" />
     </property>
     <property name="userDao">
-      <ref bean="userDao" />
+      <ref local="userDao" />
+    </property>
+    <property name="sdsUserDao">
+      <ref local="sdsUserDao" />
     </property>
   </bean>
 

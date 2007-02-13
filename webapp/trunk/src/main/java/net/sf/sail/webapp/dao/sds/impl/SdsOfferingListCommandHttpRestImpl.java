@@ -25,6 +25,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
+import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
@@ -39,7 +41,7 @@ import org.jdom.xpath.XPath;
 
 /**
  * The command which lists all the offerings from the Sail Data Service (uses
- * Http REST).
+ * Http REST). This class is thread-safe.
  * 
  * @author Cynick Young
  * 
@@ -47,21 +49,30 @@ import org.jdom.xpath.XPath;
  *          19:59:19Z cynick $
  * 
  */
-public class SdsOfferingListCommandHttpRestImpl extends
-    AbstractSdsCommandHttpRest<HttpGetRequest, SdsOffering, List<SdsOffering>> {
+public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
+    implements SdsOfferingListCommand {
 
   private static final Log logger = LogFactory
       .getLog(SdsOfferingListCommandHttpRestImpl.class);
 
+  private SdsOfferingDao sdsOfferingDao;
+
   /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
+   * @param sdsOfferingDao
+   *          the sdsOfferingDao to set
+   */
+  public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao) {
+    this.sdsOfferingDao = sdsOfferingDao;
+  }
+
+  /**
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
    */
   @SuppressWarnings("unchecked")
-  public List<SdsOffering> execute(final SdsOffering sdsObject) {
-    assert (this.httpRequest != null);
+  public List<SdsOffering> execute(HttpGetRequest httpRequest) {
     SAXBuilder builder = new SAXBuilder();
     try {
-      InputStream responseStream = this.transport.get(this.httpRequest);
+      InputStream responseStream = this.transport.get(httpRequest);
       if (logger.isDebugEnabled()) {
         logOfferingList(responseStream);
       }
@@ -73,8 +84,7 @@ public class SdsOfferingListCommandHttpRestImpl extends
 
       List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
       for (Element offeringNode : nodeList) {
-        // TODO - look at this and see if we should get it from dao
-        SdsOffering sdsOffering = new SdsOffering();
+        SdsOffering sdsOffering = this.sdsOfferingDao.createDataObject();
         sdsOffering.setName(offeringNode.getChild("name").getValue());
         sdsOffering.setCurnitId(new Integer(offeringNode.getChild("curnit-id")
             .getValue()));
@@ -102,24 +112,22 @@ public class SdsOfferingListCommandHttpRestImpl extends
 
   private static final String HEADER_ACCEPT = "Accept";
 
-  private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
-      1);
+  private static final Map<String, String> REQUEST_HEADERS;
   static {
-    REQUEST_HEADERS.put(HEADER_ACCEPT, APPLICATION_XML);
-    REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
+    Map<String, String> map = new HashMap<String, String>(1);
+    map.put(HEADER_ACCEPT, APPLICATION_XML);
+    REQUEST_HEADERS = Collections.unmodifiableMap(map);
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
    */
   @SuppressWarnings("unchecked")
-  public HttpGetRequest generateRequest(final SdsOffering sdsObject) {
+  public HttpGetRequest generateRequest() {
     final String url = "offering";
 
-    this.httpRequest = new HttpGetRequest(REQUEST_HEADERS,
-        Collections.EMPTY_MAP, url, HttpStatus.SC_OK);
-
-    return this.httpRequest;
+    return new HttpGetRequest(REQUEST_HEADERS, Collections.EMPTY_MAP, url,
+        HttpStatus.SC_OK);
   }
 
   private void logOfferingList(InputStream responseStream) throws IOException {
@@ -128,5 +136,4 @@ public class SdsOfferingListCommandHttpRestImpl extends
     logger.debug(new String(responseBuffer));
     responseStream.reset();
   }
-
 }

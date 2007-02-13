@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * Copyright (c) 2007 Encore Research Group, University of Toronto
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,16 +15,23 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.user;
+package net.sf.sail.webapp.dao.sds;
 
-import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.sds.SdsUser;
+import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
 /**
- * @author Laurel Williams
+ * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: $
+ * 
  */
-public interface SdsUserDao<T extends SdsUser> extends SimpleDao<T> {
+public interface SdsUserCreateCommand extends
+    SdsCommand<SdsUser, HttpPostRequest> {
 
+  /**
+   * @param sdsUser
+   *          the sdsUser to set
+   */
+  public void setSdsUser(SdsUser sdsUser);
 }

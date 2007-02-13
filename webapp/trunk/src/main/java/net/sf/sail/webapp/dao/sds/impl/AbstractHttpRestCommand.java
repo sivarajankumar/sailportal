@@ -17,27 +17,19 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import net.sf.sail.webapp.dao.sds.SdsCommand;
-import net.sf.sail.webapp.domain.sds.SdsObject;
-import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 /**
- * Abstract implementation that encapsulates an SDS command.
+ * Abstract implementation of an SDS command using HTTP REST.
  * 
  * @author Cynick Young
  * 
  * @version $Id: $
  * 
  */
-public abstract class AbstractSdsCommandHttpRest<H extends AbstractHttpRequest, S extends SdsObject, O>
-    implements SdsCommand<S, O> {
+public abstract class AbstractHttpRestCommand {
 
   protected static final String APPLICATION_XML = "application/xml";
-
-  protected static final String SLASH = "/";
-
-  protected H httpRequest;
 
   protected HttpRestTransport transport;
 

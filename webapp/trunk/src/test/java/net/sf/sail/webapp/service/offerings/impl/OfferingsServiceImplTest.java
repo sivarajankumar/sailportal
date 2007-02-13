@@ -19,7 +19,7 @@ package net.sf.sail.webapp.service.offerings.impl;
 
 import static org.easymock.EasyMock.createMock;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -39,7 +39,7 @@ public class OfferingsServiceImplTest extends TestCase {
 
   private List<SdsOffering> expectedSdsOfferingList;
 
-  private SdsOffering offering;
+  private OfferingsServiceImpl offeringServiceImpl;
 
   /**
    * @see junit.framework.TestCase#setUp()
@@ -47,14 +47,16 @@ public class OfferingsServiceImplTest extends TestCase {
   @SuppressWarnings("unchecked")
   protected void setUp() throws Exception {
     super.setUp();
-    mockSdsOfferingDao = createMock(SdsOfferingDao.class);
-    expectedSdsOfferingList = new ArrayList<SdsOffering>();
-    offering = new SdsOffering();
+    this.mockSdsOfferingDao = createMock(SdsOfferingDao.class);
+    this.offeringServiceImpl = new OfferingsServiceImpl();
+    this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
+    this.expectedSdsOfferingList = new LinkedList<SdsOffering>();
+    SdsOffering offering = new SdsOffering();
     offering.setCurnitId(1);
     offering.setJnlpId(2);
     offering.setName("test");
     offering.setSdsObjectId(3);
-    expectedSdsOfferingList.add(offering);
+    this.expectedSdsOfferingList.add(offering);
   }
 
   /**
@@ -62,19 +64,16 @@ public class OfferingsServiceImplTest extends TestCase {
    */
   protected void tearDown() throws Exception {
     super.tearDown();
-    mockSdsOfferingDao = null;
-    expectedSdsOfferingList = null;
+    this.offeringServiceImpl = null;
+    this.mockSdsOfferingDao = null;
+    this.expectedSdsOfferingList = null;
   }
 
   @SuppressWarnings("unchecked")
   public void testGetOfferingsList() throws Exception {
-    EasyMock.expect(mockSdsOfferingDao.createDataObject()).andReturn(
-        this.offering);
-    EasyMock.expect(mockSdsOfferingDao.getList(this.offering)).andReturn(
+    EasyMock.expect(mockSdsOfferingDao.getList()).andReturn(
         expectedSdsOfferingList);
     EasyMock.replay(mockSdsOfferingDao);
-    OfferingsServiceImpl offeringServiceImpl = new OfferingsServiceImpl();
-    offeringServiceImpl.setSdsOfferingDao(mockSdsOfferingDao);
     assertEquals(expectedSdsOfferingList, offeringServiceImpl
         .getOfferingsList());
     EasyMock.verify(mockSdsOfferingDao);

@@ -17,18 +17,17 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.easymock.EasyMock;
@@ -46,7 +45,9 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
 
   private HttpRestTransport mockTransport;
 
-  private SdsOffering sdsOffering;
+  private HttpGetRequest httpRequest;
+
+  private SdsOfferingDao sdsOfferingDao;
 
   /**
    * @see junit.framework.TestCase#setUp()
@@ -55,9 +56,11 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
   protected void setUp() throws Exception {
     super.setUp();
     this.command = new SdsOfferingListCommandHttpRestImpl();
-    this.mockTransport = createMock(HttpRestTransport.class);
-    this.sdsOffering = new SdsOffering();
-    this.command.setTransport(mockTransport);
+    this.sdsOfferingDao = new HttpRestSdsOfferingDao();
+    this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
+    this.command.setTransport(this.mockTransport);
+    this.command.setSdsOfferingDao(this.sdsOfferingDao);
+    this.httpRequest = this.command.generateRequest();
   }
 
   /**
@@ -68,7 +71,7 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     super.tearDown();
     this.command = null;
     this.mockTransport = null;
-    this.sdsOffering = null;
+    this.httpRequest = null;
   }
 
   /**
@@ -85,83 +88,83 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     assertEquals(responseString, new String(streamBytes));
     responseStream.reset();
 
-    expect(mockTransport.get(command.generateRequest(this.sdsOffering)))
-        .andReturn(responseStream);
-    EasyMock.replay(mockTransport);
+    EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+        responseStream);
+    EasyMock.replay(this.mockTransport);
     List<SdsOffering> expectedSdsOfferingList = new LinkedList<SdsOffering>();
     expectedSdsOfferingList.add(createOffering(1, 1, 6, "Airbag Complete"));
     expectedSdsOfferingList.add(createOffering(2, 2, 6, "Air Bag Test"));
 
-    List<SdsOffering> actualList = command.execute(this.sdsOffering);
+    List<SdsOffering> actualList = this.command.execute(this.httpRequest);
     assertEquals(expectedSdsOfferingList.size(), actualList.size());
     assertEquals(expectedSdsOfferingList, actualList);
-    EasyMock.verify(mockTransport);
+    EasyMock.verify(this.mockTransport);
   }
 
   public void testExecuteBadXML() throws Exception {
     InputStream responseStream = new ByteArrayInputStream(
         "<offerings></offerings>".getBytes());
-    expect(mockTransport.get(command.generateRequest(this.sdsOffering)))
-        .andReturn(responseStream);
-    EasyMock.replay(mockTransport);
-    List<SdsOffering> actualList = command.execute(this.sdsOffering);
+    EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+        responseStream);
+    EasyMock.replay(this.mockTransport);
+    List<SdsOffering> actualList = this.command.execute(this.httpRequest);
     assertTrue(actualList.isEmpty());
-    EasyMock.reset(mockTransport);
+    EasyMock.verify(this.mockTransport);
 
+    EasyMock.reset(this.mockTransport);
     responseStream = new ByteArrayInputStream("<fred></fred>".getBytes());
-    expect(mockTransport.get(command.generateRequest(this.sdsOffering)))
-        .andReturn(responseStream);
-    EasyMock.replay(mockTransport);
-    actualList = command.execute(this.sdsOffering);
+    EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+        responseStream);
+    EasyMock.replay(this.mockTransport);
+    actualList = this.command.execute(this.httpRequest);
     assertTrue(actualList.isEmpty());
-    EasyMock.reset(mockTransport);
+    EasyMock.verify(this.mockTransport);
 
+    EasyMock.reset(this.mockTransport);
     responseStream = new ByteArrayInputStream("<offerings>".getBytes());
-    expect(mockTransport.get(command.generateRequest(this.sdsOffering)))
-        .andReturn(responseStream);
-    EasyMock.replay(mockTransport);
-    actualList = command.execute(this.sdsOffering);
+    EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+        responseStream);
+    EasyMock.replay(this.mockTransport);
+    actualList = this.command.execute(this.httpRequest);
     assertTrue(actualList.isEmpty());
-    EasyMock.verify(mockTransport);
+    EasyMock.verify(this.mockTransport);
   }
 
   public void testExecuteBadStream() throws Exception {
     InputStream responseStream = new ByteArrayInputStream(
         "<offerings></offerings>".getBytes());
     responseStream.close(); // this would be the bad part
-    expect(mockTransport.get(command.generateRequest(this.sdsOffering)))
-        .andReturn(responseStream);
-    EasyMock.replay(mockTransport);
-    List<SdsOffering> actualList = command.execute(this.sdsOffering);
+    EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+        responseStream);
+    EasyMock.replay(this.mockTransport);
+    List<SdsOffering> actualList = this.command.execute(this.httpRequest);
     assertTrue(actualList.isEmpty());
-    EasyMock.verify(mockTransport);
+    EasyMock.verify(this.mockTransport);
   }
 
   public void testExecuteExceptions() throws Exception {
-    expect(mockTransport.get(command.generateRequest(this.sdsOffering)))
-        .andThrow(new BadRequestException("exception"));
-    EasyMock.replay(mockTransport);
-
+    EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
+        new BadRequestException("exception"));
+    EasyMock.replay(this.mockTransport);
     try {
-      command.execute(this.sdsOffering);
+      this.command.execute(this.httpRequest);
       fail("Expected BadRequestException");
     }
     catch (BadRequestException e) {
     }
-    EasyMock.verify(mockTransport);
-    EasyMock.reset(mockTransport);
+    EasyMock.verify(this.mockTransport);
 
-    expect(mockTransport.get(command.generateRequest(this.sdsOffering)))
-        .andThrow(new NetworkTransportException("exception"));
-    EasyMock.replay(mockTransport);
-
+    EasyMock.reset(this.mockTransport);
+    EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
+        new NetworkTransportException("exception"));
+    EasyMock.replay(this.mockTransport);
     try {
-      command.execute(this.sdsOffering);
+      this.command.execute(this.httpRequest);
       fail("Expected NetworkTransportException");
     }
     catch (NetworkTransportException e) {
     }
-    EasyMock.verify(mockTransport);
+    EasyMock.verify(this.mockTransport);
   }
 
   private SdsOffering createOffering(int objectId, int curnitId, int jnlpId,

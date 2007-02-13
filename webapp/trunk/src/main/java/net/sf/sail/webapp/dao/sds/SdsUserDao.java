@@ -17,10 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
-import java.util.List;
-
 import net.sf.sail.webapp.dao.SimpleDao;
-import net.sf.sail.webapp.domain.sds.SdsOffering;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 
 /**
  * @author Cynick Young
@@ -28,8 +26,6 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
  * @version $Id: $
  * 
  */
-public interface SdsOfferingDao extends SimpleDao<SdsOffering> {
-
-  public List<SdsOffering> getList();
+public interface SdsUserDao extends SimpleDao<SdsUser> {
 
 }

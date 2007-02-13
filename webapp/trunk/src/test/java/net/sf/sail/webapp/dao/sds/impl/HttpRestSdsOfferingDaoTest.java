@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import junit.framework.TestCase;
-import net.sf.sail.webapp.dao.sds.SdsCommand;
+import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
@@ -38,7 +38,7 @@ public class HttpRestSdsOfferingDaoTest extends TestCase {
 
   private HttpRestSdsOfferingDao sdsOfferingDao;
 
-  private SdsCommand<SdsOffering, List<SdsOffering>> mockCommand;
+  private SdsOfferingListCommand mockCommand;
 
   /**
    * @see junit.framework.TestCase#setUp()
@@ -47,8 +47,8 @@ public class HttpRestSdsOfferingDaoTest extends TestCase {
   protected void setUp() throws Exception {
     super.setUp();
     this.sdsOfferingDao = new HttpRestSdsOfferingDao();
-    this.mockCommand = EasyMock.createMock(SdsCommand.class);
-    this.sdsOfferingDao.setSdsOfferingListCommand(mockCommand);
+    this.mockCommand = EasyMock.createMock(SdsOfferingListCommand.class);
+    this.sdsOfferingDao.setSdsOfferingListCommand(this.mockCommand);
   }
 
   /**
@@ -57,6 +57,7 @@ public class HttpRestSdsOfferingDaoTest extends TestCase {
   protected void tearDown() throws Exception {
     super.tearDown();
     this.sdsOfferingDao = null;
+    this.mockCommand = null;
   }
 
   /**
@@ -65,10 +66,11 @@ public class HttpRestSdsOfferingDaoTest extends TestCase {
    */
   @SuppressWarnings("unchecked")
   public void testGetList() {
+    HttpGetRequest httpRequest = new HttpGetRequest(Collections.EMPTY_MAP,
+        Collections.EMPTY_MAP, "/some url/", 0);
+
     SdsOffering sdsOffering = this.sdsOfferingDao.createDataObject();
-    EasyMock.expect(this.mockCommand.generateRequest(sdsOffering)).andReturn(
-        new HttpGetRequest(Collections.EMPTY_MAP, Collections.EMPTY_MAP, null,
-            0));
+    EasyMock.expect(this.mockCommand.generateRequest()).andReturn(httpRequest);
     sdsOffering.setCurnitId(1);
     sdsOffering.setJnlpId(2);
     sdsOffering.setName("test");
@@ -77,11 +79,12 @@ public class HttpRestSdsOfferingDaoTest extends TestCase {
     List<SdsOffering> expectedSdsOfferingList = new ArrayList<SdsOffering>();
     expectedSdsOfferingList.add(sdsOffering);
 
-    EasyMock.expect(this.mockCommand.execute(sdsOffering)).andReturn(
+    EasyMock.expect(this.mockCommand.execute(httpRequest)).andReturn(
         expectedSdsOfferingList);
     EasyMock.replay(this.mockCommand);
 
-    assertEquals(expectedSdsOfferingList, this.sdsOfferingDao.getList(sdsOffering));
+    List<SdsOffering> actualList = this.sdsOfferingDao.getList();
+    assertEquals(expectedSdsOfferingList, actualList);
     EasyMock.verify(this.mockCommand);
   }
 

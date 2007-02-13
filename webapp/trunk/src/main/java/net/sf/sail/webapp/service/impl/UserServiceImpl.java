@@ -19,7 +19,7 @@ package net.sf.sail.webapp.service.impl;
 
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
-import net.sf.sail.webapp.dao.sds.SdsCommand;
+import net.sf.sail.webapp.dao.sds.SdsUserDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
@@ -48,7 +48,17 @@ public class UserServiceImpl implements UserService {
 
   private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
 
+  private SdsUserDao sdsUserDao;
+
   private UserDao<User> userDao;
+
+  /**
+   * @param sdsUserDao
+   *          the sdsUserDao to set
+   */
+  public void setSdsUserDao(SdsUserDao sdsUserDao) {
+    this.sdsUserDao = sdsUserDao;
+  }
 
   /**
    * @param userDao
@@ -90,7 +100,10 @@ public class UserServiceImpl implements UserService {
 
       this.assignRole(userDetails, UserDetailsService.USER_ROLE);
 
-      SdsUser sdsUser = this.requestNewSdsUser(applicationContext, userDetails);
+      SdsUser sdsUser = this.sdsUserDao.createDataObject();
+      sdsUser.setFirstName(userDetails.getUsername());
+      sdsUser.setLastName(userDetails.getUsername());
+      this.sdsUserDao.save(sdsUser);
 
       User user = (User) applicationContext.getBean("user");
       user.setSdsUser(sdsUser);
@@ -108,20 +121,6 @@ public class UserServiceImpl implements UserService {
     catch (NetworkTransportException e) {
       throw e;
     }
-  }
-
-  @SuppressWarnings("unchecked")
-  private SdsUser requestNewSdsUser(ApplicationContext applicationContext,
-      MutableUserDetails userDetails) {
-    // **hack: first name and last name required by SDS**//
-    SdsUser sdsUser = (SdsUser) applicationContext.getBean("sdsUser");
-    sdsUser.setFirstName(userDetails.getUsername());
-    sdsUser.setLastName(userDetails.getUsername());
-
-    SdsCommand<SdsUser, SdsUser> command = (SdsCommand) applicationContext
-        .getBean("sdsUserCreateCommand");
-    command.generateRequest(sdsUser);
-    return command.execute(sdsUser);
   }
 
   private void assignRole(final MutableUserDetails userDetails,

@@ -17,8 +17,8 @@
  */
 package net.sf.sail.webapp.presentation.web.controllers;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +39,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class OfferingsListControllerTest extends TestCase {
 
+  private OfferingsListController offeringsListController;
+
   private MockHttpServletRequest request;
 
   private MockHttpServletResponse response;
@@ -52,16 +54,18 @@ public class OfferingsListControllerTest extends TestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    request = new MockHttpServletRequest();
-    response = new MockHttpServletResponse();
-    mockOfferingsService = EasyMock.createMock(OfferingsService.class);
-    expectedSdsOfferingList = new ArrayList<SdsOffering>();
+    this.request = new MockHttpServletRequest();
+    this.response = new MockHttpServletResponse();
+    this.mockOfferingsService = EasyMock.createMock(OfferingsService.class);
+    this.expectedSdsOfferingList = new LinkedList<SdsOffering>();
     SdsOffering offering = new SdsOffering();
     offering.setCurnitId(1);
     offering.setJnlpId(2);
     offering.setName("test");
     offering.setSdsObjectId(3);
-    expectedSdsOfferingList.add(offering);
+    this.expectedSdsOfferingList.add(offering);
+    this.offeringsListController = new OfferingsListController();
+    this.offeringsListController.setOfferingsService(this.mockOfferingsService);
   }
 
   /**
@@ -69,16 +73,14 @@ public class OfferingsListControllerTest extends TestCase {
    */
   protected void tearDown() throws Exception {
     super.tearDown();
-    request = null;
-    response = null;
-    mockOfferingsService = null;
+    this.request = null;
+    this.response = null;
+    this.mockOfferingsService = null;
+    this.expectedSdsOfferingList = null;
   }
 
   @SuppressWarnings("unchecked")
   public void testHandleRequestInternal() throws Exception {
-    OfferingsListController offeringsListController = new OfferingsListController();
-    offeringsListController.setOfferingsService(mockOfferingsService);
-
     EasyMock.expect(mockOfferingsService.getOfferingsList()).andReturn(
         expectedSdsOfferingList);
     EasyMock.replay(mockOfferingsService);

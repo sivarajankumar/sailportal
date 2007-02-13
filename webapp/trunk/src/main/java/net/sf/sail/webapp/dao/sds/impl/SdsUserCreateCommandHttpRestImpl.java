@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.sds.SdsUserCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
@@ -28,6 +29,7 @@ import org.apache.commons.httpclient.HttpStatus;
 
 /**
  * The command which creates a user for the Sail Data Service (uses Http REST).
+ * This class is thread-safe.
  * 
  * @author Cynick Young
  * 
@@ -35,45 +37,60 @@ import org.apache.commons.httpclient.HttpStatus;
  *          cynick $
  * 
  */
-public class SdsUserCreateCommandHttpRestImpl extends
-    AbstractSdsCommandHttpRest<HttpPostRequest, SdsUser, SdsUser> {
+public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
+    implements SdsUserCreateCommand {
 
   private static final String HEADER_CONTENT_TYPE = "Content-Type";
 
-  private static Map<String, String> REQUEST_HEADERS = new HashMap<String, String>(
-      1);
+  private static final Map<String, String> REQUEST_HEADERS;
   static {
-    REQUEST_HEADERS.put(HEADER_CONTENT_TYPE, APPLICATION_XML);
-    REQUEST_HEADERS = Collections.unmodifiableMap(REQUEST_HEADERS);
+    Map<String, String> map = new HashMap<String, String>(1);
+    map.put(HEADER_CONTENT_TYPE, APPLICATION_XML);
+    REQUEST_HEADERS = Collections.unmodifiableMap(map);
+  }
+
+  private static final ThreadLocal<SdsUser> SDS_USER = new ThreadLocal<SdsUser>();
+
+  /**
+   * @see net.sf.sail.webapp.dao.sds.SdsUserCreateCommand#setSdsUser(net.sf.sail.webapp.domain.sds.SdsUser)
+   */
+  public void setSdsUser(SdsUser sdsUser) {
+    SDS_USER.set(sdsUser);
+  }
+
+  private SdsUser getSdsUser() {
+    return SDS_USER.get();
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest(net.sf.sail.webapp.domain.sds.SdsObject)
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
    */
   @SuppressWarnings("unchecked")
-  public HttpPostRequest generateRequest(final SdsUser sdsUser) {
+  public HttpPostRequest generateRequest() {
+    final SdsUser sdsUser = this.getSdsUser();
     final String bodyData = "<user><first-name>" + sdsUser.getFirstName()
         + "</first-name><last-name>" + sdsUser.getLastName()
         + "</last-name></user>";
 
     final String url = "user";
 
-    this.httpRequest = new HttpPostRequest(REQUEST_HEADERS,
-        Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
-
-    return this.httpRequest;
+    return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
+        bodyData, url, HttpStatus.SC_CREATED);
   }
 
   /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.sds.SdsObject)
+   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
    */
-  public SdsUser execute(final SdsUser sdsUser) {
-    assert (this.httpRequest != null);
+  public SdsUser execute(final HttpPostRequest httpRequest) {
     final Map<String, String> responseHeaders = this.transport
-        .post(this.httpRequest);
+        .post(httpRequest);
     final String locationHeader = responseHeaders.get("Location");
+    final SdsUser sdsUser = this.getSdsUser();
+    // clear the thread local reference to avoid resource leak since we're done
+    // executing
+    SDS_USER.set(null);
     sdsUser.setSdsObjectId(new Integer(locationHeader.substring(locationHeader
-        .lastIndexOf(SLASH) + 1)));
+        .lastIndexOf("/") + 1)));
     return sdsUser;
   }
 }
