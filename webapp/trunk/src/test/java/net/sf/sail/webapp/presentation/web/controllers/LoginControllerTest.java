@@ -17,14 +17,9 @@
  */
 package net.sf.sail.webapp.presentation.web.controllers;
 
-import java.util.Map;
-
-import junit.framework.TestCase;
-
-import net.sf.sail.webapp.presentation.web.controllers.LoginController;
-
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -32,13 +27,13 @@ import org.springframework.web.servlet.ModelAndView;
  * 
  * @version $Id$
  */
-public class LoginControllerTest extends TestCase {
+public class LoginControllerTest extends AbstractModelAndViewTests {
 
   private static final String TRUE = "true";
 
-   MockHttpServletRequest request;
+  MockHttpServletRequest request;
 
-   MockHttpServletResponse response;
+  MockHttpServletResponse response;
 
   @Override
   protected void setUp() throws Exception {
@@ -48,13 +43,14 @@ public class LoginControllerTest extends TestCase {
   }
 
   public void testHandleRequestInternal() throws Exception {
-	//if the login fails, a parameter "failed" is added to the model.
-	//in all other cases, acegi handles the request so the login controller will not be reached
+    // if the login fails, a parameter "failed" is added to the model.
+    // in all other cases, acegi handles the request so the login controller
+    // will not be reached
     request.addParameter("failed", TRUE);
     LoginController loginController = new LoginController();
-    ModelAndView modelAndView = loginController.handleRequestInternal(request, response);
-    Map model = modelAndView.getModel();
-    assertTrue((Boolean) model.get("failed"));
+    ModelAndView modelAndView = loginController.handleRequestInternal(request,
+        response);
+    assertModelAttributeValue(modelAndView, "failed", Boolean.TRUE);
   }
 
   @Override

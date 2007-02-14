@@ -99,9 +99,6 @@
 
   <bean
     class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
-    <property name="viewname">
-      <value>login</value>
-    </property>
   </bean>
 
   <bean id="userDetailsValidator"

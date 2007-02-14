@@ -20,7 +20,6 @@ package net.sf.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -33,16 +32,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class LoginController extends AbstractController {
 
-  private String viewname;
-
-  /**
-   * @param viewname
-   *          the viewname to set
-   */
-  public void setViewname(String viewname) {
-    this.viewname = viewname;
-  }
-
   /**
    * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
    *      javax.servlet.http.HttpServletResponse)
@@ -51,10 +40,10 @@ public class LoginController extends AbstractController {
   protected ModelAndView handleRequestInternal(HttpServletRequest request,
       HttpServletResponse response) throws Exception {
     String failed = request.getParameter("failed");
-    ModelMap model = new ModelMap();
+    ModelAndView modelAndView = new ModelAndView();
     if (StringUtils.hasText(failed)) {
-      model.addObject("failed", Boolean.TRUE);
+      modelAndView.addObject("failed", Boolean.TRUE);
     }
-    return new ModelAndView(this.viewname, model);
+    return modelAndView;
   }
 }
