@@ -89,9 +89,6 @@
   <!-- Custom controllers -->
   <bean
     class="net.sf.sail.webapp.presentation.web.controllers.OfferingsListController">
-    <property name="viewname">
-      <value>offeringslist</value>
-    </property>
     <property name="offeringsService">
       <ref bean="offeringsService" />
     </property>

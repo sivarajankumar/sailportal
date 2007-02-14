@@ -20,15 +20,14 @@ package net.sf.sail.webapp.presentation.web.controllers;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offerings.OfferingsService;
 
 import org.easymock.EasyMock;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -37,7 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @version $Id: OfferingsListControllerTest.java 131 2007-02-08 16:55:57Z
  *          laurel $
  */
-public class OfferingsListControllerTest extends TestCase {
+public class OfferingsListControllerTest extends AbstractModelAndViewTests {
 
   private OfferingsListController offeringsListController;
 
@@ -86,9 +85,8 @@ public class OfferingsListControllerTest extends TestCase {
     EasyMock.replay(mockOfferingsService);
     ModelAndView modelAndView = offeringsListController.handleRequestInternal(
         request, response);
-    Map model = modelAndView.getModel();
-    List actualOfferingsList = (List) model.get("offeringslist");
-    assertEquals(expectedSdsOfferingList, actualOfferingsList);
+    assertModelAttributeValue(modelAndView, "offeringslist",
+        expectedSdsOfferingList);
     EasyMock.verify(mockOfferingsService);
     EasyMock.reset(mockOfferingsService);
 
@@ -97,10 +95,9 @@ public class OfferingsListControllerTest extends TestCase {
     EasyMock.replay(mockOfferingsService);
     modelAndView = offeringsListController.handleRequestInternal(request,
         response);
-    model = modelAndView.getModel();
-    assertTrue(((List) model.get("offeringslist")).isEmpty());
+    assertModelAttributeValue(modelAndView, "offeringslist",
+        Collections.EMPTY_LIST);
     EasyMock.verify(mockOfferingsService);
     EasyMock.reset(mockOfferingsService);
   }
-
 }

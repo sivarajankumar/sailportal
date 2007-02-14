@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.service.offerings.OfferingsService;
 
-import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -34,17 +33,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class OfferingsListController extends AbstractController {
 
-  private String viewname;
-
   private OfferingsService offeringsService;
-
-  /**
-   * @param viewname
-   *          the viewname to set
-   */
-  public void setViewname(String viewname) {
-    this.viewname = viewname;
-  }
 
   /**
    * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -55,9 +44,10 @@ public class OfferingsListController extends AbstractController {
   protected ModelAndView handleRequestInternal(
       HttpServletRequest servletRequest, HttpServletResponse servletResponse)
       throws Exception {
-    ModelMap model = new ModelMap();
-    model.put("offeringslist", this.offeringsService.getOfferingsList());
-    return new ModelAndView(this.viewname, model);
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.addObject("offeringslist", this.offeringsService
+        .getOfferingsList());
+    return modelAndView;
   }
 
   /**
