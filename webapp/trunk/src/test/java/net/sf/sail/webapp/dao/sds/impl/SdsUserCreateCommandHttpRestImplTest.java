@@ -100,7 +100,10 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     EasyMock.expect(this.mockTransport.post(this.httpRequest)).andReturn(
         responseMap);
     EasyMock.replay(this.mockTransport);
-    assertEquals(this.expectedSdsUser, this.command.execute(this.httpRequest));
+    SdsUser actual = this.command.execute(this.httpRequest);
+    assertEquals(EXPECTED_FIRST_NAME, actual.getFirstName());
+    assertEquals(EXPECTED_LAST_NAME, actual.getLastName());
+    assertEquals(EXPECTED_ID, actual.getSdsObjectId());
     EasyMock.verify(this.mockTransport);
   }
 

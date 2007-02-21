@@ -157,10 +157,12 @@ public class SdsUser implements SdsObject {
   public int hashCode() {
     final int PRIME = 31;
     int result = 1;
-    result = PRIME * result + ((firstName == null) ? 0 : firstName.hashCode());
-    result = PRIME * result + ((lastName == null) ? 0 : lastName.hashCode());
     result = PRIME * result
-        + ((sdsObjectId == null) ? 0 : sdsObjectId.hashCode());
+        + ((this.firstName == null) ? 0 : this.firstName.hashCode());
+    result = PRIME * result
+        + ((this.lastName == null) ? 0 : this.lastName.hashCode());
+    result = PRIME * result
+        + ((this.sdsObjectId == null) ? 0 : this.sdsObjectId.hashCode());
     return result;
   }
 
@@ -176,23 +178,23 @@ public class SdsUser implements SdsObject {
     if (getClass() != obj.getClass())
       return false;
     final SdsUser other = (SdsUser) obj;
-    if (firstName == null) {
+    if (this.firstName == null) {
       if (other.firstName != null)
         return false;
     }
-    else if (!firstName.equals(other.firstName))
+    else if (!this.firstName.equals(other.firstName))
       return false;
-    if (lastName == null) {
+    if (this.lastName == null) {
       if (other.lastName != null)
         return false;
     }
-    else if (!lastName.equals(other.lastName))
+    else if (!this.lastName.equals(other.lastName))
       return false;
-    if (sdsObjectId == null) {
+    if (this.sdsObjectId == null) {
       if (other.sdsObjectId != null)
         return false;
     }
-    else if (!sdsObjectId.equals(other.sdsObjectId))
+    else if (!this.sdsObjectId.equals(other.sdsObjectId))
       return false;
     return true;
   }
