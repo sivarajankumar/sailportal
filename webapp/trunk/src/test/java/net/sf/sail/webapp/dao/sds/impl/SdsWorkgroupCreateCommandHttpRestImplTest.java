@@ -24,6 +24,8 @@ import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
@@ -32,7 +34,7 @@ import org.easymock.EasyMock;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class SdsWorkgroupCreateCommandHttpRestImplTest extends TestCase {
@@ -99,6 +101,27 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends TestCase {
   }
 
   public void testExecute_Exceptions() {
-    // TODO
+    EasyMock.expect(this.mockTransport.post(this.request)).andThrow(
+			new BadRequestException("exception"));
+	EasyMock.replay(this.mockTransport);
+	try {
+	  this.command.execute(this.request);
+	  fail("Expected BadRequestException");
+	}
+	catch (BadRequestException e) {
+	}
+	EasyMock.verify(this.mockTransport);
+
+	EasyMock.reset(this.mockTransport);
+	EasyMock.expect(this.mockTransport.post(this.request)).andThrow(
+		  new NetworkTransportException("exception"));
+	EasyMock.replay(this.mockTransport);
+	try {
+	  this.command.execute(this.request);
+	  fail("Expected NetworkTransportException");
+	}
+	catch (NetworkTransportException e) {
+	}
+	EasyMock.verify(this.mockTransport);
   }
 }
