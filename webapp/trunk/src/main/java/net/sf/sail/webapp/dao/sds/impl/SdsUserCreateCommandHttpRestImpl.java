@@ -28,7 +28,6 @@ import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import org.apache.commons.httpclient.HttpStatus;
 
 /**
- * The command which creates a user for the Sail Data Service (uses Http REST).
  * This class is thread-safe.
  * 
  * @author Cynick Young

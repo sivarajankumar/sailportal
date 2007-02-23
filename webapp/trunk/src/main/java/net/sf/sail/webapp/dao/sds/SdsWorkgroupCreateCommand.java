@@ -19,30 +19,23 @@ package net.sf.sail.webapp.dao.sds;
 
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 /**
+ * Interface defining the command to create a workgroup in the SDS.
+ * 
  * @author Cynick Young
  * 
  * @version $Id: $
  * 
  */
 public interface SdsWorkgroupCreateCommand extends
-    SdsCommand<SdsWorkgroup, HttpPostRequest> {
+        SdsCommand<SdsWorkgroup, HttpPostRequest> {
 
-  /**
-   * Set a new workgroup object that is used to create the SDS workgroup.
-   * 
-   * @param workgroup
-   *          to be created on the actual SDS
-   */
-  public void setWorkgroup(SdsWorkgroup workgroup);
-
-  /**
-   * Set a http transport to perform the work.
-   * 
-   * @param transport
-   *          to set
-   */
-  public void setTransport(HttpRestTransport transport);
+    /**
+     * Set a new workgroup object that is used to create the SDS workgroup.
+     * 
+     * @param workgroup
+     *            to be created on the actual SDS
+     */
+    public void setWorkgroup(SdsWorkgroup workgroup);
 }

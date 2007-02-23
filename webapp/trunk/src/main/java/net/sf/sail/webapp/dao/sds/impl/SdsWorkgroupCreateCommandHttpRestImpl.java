@@ -24,7 +24,6 @@ import java.util.Map;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -34,56 +33,56 @@ import org.apache.commons.httpclient.HttpStatus;
  * @version $Id: $
  * 
  */
-public class SdsWorkgroupCreateCommandHttpRestImpl implements
-    SdsWorkgroupCreateCommand {
+public class SdsWorkgroupCreateCommandHttpRestImpl extends
+        AbstractHttpRestCommand implements SdsWorkgroupCreateCommand {
 
-  private SdsWorkgroup workgroup;
+    private static final ThreadLocal<SdsWorkgroup> SDS_WORKGROUP = new ThreadLocal<SdsWorkgroup>();
 
-  private HttpRestTransport transport;
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand#setWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
+     */
+    public void setWorkgroup(SdsWorkgroup workgroup) {
+        SDS_WORKGROUP.set(workgroup);
+    }
 
-  /**
-   * @see net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand#setTransport(net.sf.sail.webapp.domain.webservice.http.HttpRestTransport)
-   */
-  public void setTransport(HttpRestTransport transport) {
-    this.transport = transport;
-  }
+    private SdsWorkgroup getWorkgroup() {
+        return SDS_WORKGROUP.get();
+    }
 
-  /**
-   * @see net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand#setWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
-   */
-  public void setWorkgroup(SdsWorkgroup workgroup) {
-    this.workgroup = workgroup;
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest)
+     */
+    public SdsWorkgroup execute(final HttpPostRequest httpRequest) {
+        final Map<String, String> responseHeaders = this.transport
+                .post(httpRequest);
+        final String locationHeader = responseHeaders.get("Location");
+        SdsWorkgroup workgroup = this.getWorkgroup();
+        workgroup.setSdsObjectId(new Integer(locationHeader
+                .substring(locationHeader.lastIndexOf("/") + 1)));
 
-  /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest)
-   */
-  public SdsWorkgroup execute(HttpPostRequest httpRequest) {
-    final Map<String, String> responseHeaders = this.transport
-        .post(httpRequest);
-    final String locationHeader = responseHeaders.get("Location");
-    this.workgroup.setSdsObjectId(new Integer(locationHeader
-        .substring(locationHeader.lastIndexOf("/") + 1)));
+        // release the thread local reference to the actual object to prevent
+        // resource leak problem
+        this.setWorkgroup(null);
+        return workgroup;
+    }
 
-    return this.workgroup;
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
+     */
+    @SuppressWarnings("unchecked")
+    public HttpPostRequest generateRequest() {
+        final Map<String, String> requestHeaders = new HashMap<String, String>(
+                1);
+        requestHeaders.put("Content-Type", APPLICATION_XML);
+        final SdsWorkgroup workgroup = this.getWorkgroup();
+        final String bodyData = "<SDS_WORKGROUP><name>" + workgroup.getName()
+                + "</name><offering-id>"
+                + workgroup.getSdsOffering().getSdsObjectId()
+                + "</offering-id></SDS_WORKGROUP>";
+        final String url = "workgroup";
+        HttpPostRequest request = new HttpPostRequest(requestHeaders,
+                Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
 
-  /**
-   * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
-   */
-  @SuppressWarnings("unchecked")
-  public HttpPostRequest generateRequest() {
-    Map<String, String> requestHeaders = new HashMap<String, String>(1);
-    requestHeaders.put("Content-Type", "application/xml");
-    String name = this.workgroup.getName();
-    String bodyData = "<workgroup><name>" + name + "</name><offering-id>"
-        + this.workgroup.getSdsOffering().getSdsObjectId()
-        + "</offering-id></workgroup>";
-    final String url = "workgroup";
-    HttpPostRequest request = new HttpPostRequest(requestHeaders,
-        Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
-
-    return request;
-  }
-
+        return request;
+    }
 }

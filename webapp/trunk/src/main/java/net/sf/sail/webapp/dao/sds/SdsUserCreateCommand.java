@@ -21,17 +21,19 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
 /**
+ * Interface for the command which creates a user for the Sail Data Service.
+ * 
  * @author Cynick Young
  * 
  * @version $Id: $
  * 
  */
 public interface SdsUserCreateCommand extends
-    SdsCommand<SdsUser, HttpPostRequest> {
+        SdsCommand<SdsUser, HttpPostRequest> {
 
-  /**
-   * @param sdsUser
-   *          the sdsUser to set
-   */
-  public void setSdsUser(SdsUser sdsUser);
+    /**
+     * @param sdsUser
+     *            the sdsUser to set
+     */
+    public void setSdsUser(SdsUser sdsUser);
 }

@@ -29,17 +29,17 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
  */
 public abstract class AbstractHttpRestCommand {
 
-  protected static final String APPLICATION_XML = "application/xml";
+    protected static final String APPLICATION_XML = "application/xml";
 
-  protected HttpRestTransport transport;
+    protected HttpRestTransport transport;
 
-  /**
-   * Sets the http REST transport mechanism for the create command.
-   * 
-   * @param transport
-   *          the transport to set
-   */
-  public void setTransport(final HttpRestTransport transport) {
-    this.transport = transport;
-  }
+    /**
+     * Sets the http REST transport mechanism for the create command.
+     * 
+     * @param transport
+     *            the transport to set
+     */
+    public void setTransport(final HttpRestTransport transport) {
+        this.transport = transport;
+    }
 }

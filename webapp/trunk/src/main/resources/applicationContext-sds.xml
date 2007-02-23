@@ -35,14 +35,21 @@
     class="net.sf.sail.webapp.domain.sds.SdsOffering">
   </bean>
 
-  <bean id="sdsUserCreateCommand" scope="prototype"
+  <bean id="sdsUserCreateCommand"
     class="net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl">
     <property name="transport">
       <ref local="httpRestTransport" />
     </property>
   </bean>
 
-  <bean id="sdsOfferingListCommand" scope="prototype"
+  <bean id="sdsWorkgroupCreateCommand"
+    class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupCreateCommandHttpRestImpl">
+    <property name="transport">
+      <ref local="httpRestTransport" />
+    </property>
+  </bean>
+
+  <bean id="sdsOfferingListCommand"
     class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingListCommandHttpRestImpl">
     <property name="transport">
       <ref local="httpRestTransport" />
