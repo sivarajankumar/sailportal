@@ -20,6 +20,9 @@ package net.sf.sail.webapp.domain.webservice.http;
 import java.io.InputStream;
 import java.util.Map;
 
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+
 /**
  * An HTTP REST facade.
  * 
@@ -30,22 +33,34 @@ import java.util.Map;
  */
 public interface HttpRestTransport {
 
-  /**
-   * Performs the POST operation given the data required for the post.
-   * 
-   * @param httpRequestData
-   *          All the data required for this post request.
-   * @return A <code>Map</code> of response headers where the key is the
-   *         header name and the value is the header value.
-   */
-  public Map<String, String> post(HttpPostRequest httpRequestData);
+    /**
+     * Performs the POST operation given the data required for the post.
+     * 
+     * @param httpRequestData
+     *            All the data required for this post request.
+     * @return A <code>Map</code> of response headers where the key is the
+     *         header name and the value is the header value.
+     * @throws BadRequestException
+     *             when the status response code is not the same as what is
+     *             expected but is a HTTP 400 Bad Request.
+     * @throws NetworkTransportException
+     *             for all other returned status codes and other network failure
+     *             conditions.
+     */
+    public Map<String, String> post(HttpPostRequest httpRequestData);
 
-  /**
-   * Performs the GET operation given the data required for the get.
-   * 
-   * @param httpRequestData
-   *          All the data required for this get request.
-   * @return An <code>InputStream</code> containing the response body.
-   */
-  public InputStream get(HttpGetRequest httpRequestData);
+    /**
+     * Performs the GET operation given the data required for the get.
+     * 
+     * @param httpRequestData
+     *            All the data required for this get request.
+     * @return An <code>InputStream</code> containing the response body.
+     * @throws BadRequestException
+     *             when the status response code is not the same as what is
+     *             expected but is a HTTP 400 Bad Request.
+     * @throws NetworkTransportException
+     *             for all other returned status codes and other network failure
+     *             conditions.
+     */
+    public InputStream get(HttpGetRequest httpRequestData);
 }

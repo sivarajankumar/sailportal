@@ -94,7 +94,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
   public void testGenerateRequest() {
   }
 
-  public void testCreate() throws Exception {
+  public void testExecute() throws Exception {
     Map<String, String> responseMap = new HashMap<String, String>();
     responseMap.put(HEADER_LOCATION, PORTAL_URL + USER_DIRECTORY + EXPECTED_ID);
     EasyMock.expect(this.mockTransport.post(this.httpRequest)).andReturn(
@@ -107,7 +107,7 @@ public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
     EasyMock.verify(this.mockTransport);
   }
 
-  public void testCreateException() throws Exception {
+  public void testExecute_Exception() throws Exception {
     EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
         new BadRequestException("exception"));
     EasyMock.replay(this.mockTransport);

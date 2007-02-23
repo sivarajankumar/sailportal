@@ -76,7 +76,7 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends TestCase {
     this.request = null;
   }
 
-  public void testExecute_Success() {
+  public void testExecute_Success() throws Exception {
     Map<String, String> responseMap = new HashMap<String, String>();
     responseMap.put(HEADER_LOCATION, PORTAL_URL + WORKGROUP_DIRECTORY + "/"
         + EXPECTED_ID);
@@ -100,7 +100,7 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends TestCase {
     EasyMock.verify(this.mockTransport);
   }
 
-  public void testExecute_Exceptions() {
+  public void testExecute_Exceptions() throws Exception {
     EasyMock.expect(this.mockTransport.post(this.request)).andThrow(
 			new BadRequestException("exception"));
 	EasyMock.replay(this.mockTransport);
