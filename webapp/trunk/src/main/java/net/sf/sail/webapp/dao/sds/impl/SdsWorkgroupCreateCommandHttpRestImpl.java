@@ -66,23 +66,25 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
         return workgroup;
     }
 
+    private static final Map<String, String> REQUEST_HEADERS;
+    static {
+        Map<String, String> map = new HashMap<String, String>(1);
+        map.put("Content-Type", APPLICATION_XML);
+        REQUEST_HEADERS = Collections.unmodifiableMap(map);
+    }
+
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
      */
     @SuppressWarnings("unchecked")
     public HttpPostRequest generateRequest() {
-        final Map<String, String> requestHeaders = new HashMap<String, String>(
-                1);
-        requestHeaders.put("Content-Type", APPLICATION_XML);
         final SdsWorkgroup workgroup = this.getWorkgroup();
         final String bodyData = "<SDS_WORKGROUP><name>" + workgroup.getName()
                 + "</name><offering-id>"
                 + workgroup.getSdsOffering().getSdsObjectId()
                 + "</offering-id></SDS_WORKGROUP>";
         final String url = "workgroup";
-        HttpPostRequest request = new HttpPostRequest(requestHeaders,
-                Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
-
-        return request;
+        return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
+                bodyData, url, HttpStatus.SC_CREATED);
     }
 }

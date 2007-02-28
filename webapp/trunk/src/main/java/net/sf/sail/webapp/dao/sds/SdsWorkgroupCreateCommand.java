@@ -30,12 +30,4 @@ import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
  */
 public interface SdsWorkgroupCreateCommand extends
         SdsCommand<SdsWorkgroup, HttpPostRequest> {
-
-    /**
-     * Set a new workgroup object that is used to create the SDS workgroup.
-     * 
-     * @param workgroup
-     *            to be created on the actual SDS
-     */
-    public void setWorkgroup(SdsWorkgroup workgroup);
 }
