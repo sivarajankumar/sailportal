@@ -18,20 +18,19 @@
 package net.sf.sail.webapp.junit;
 
 /**
- * @author Cynick Young
- *
- * @version $Id: $
- *
  * Provides a single access point for applicationContext configuration files.
  * 
+ * @author Cynick Young
+ * 
+ * @version $Id: $
+ * 
  */
-public interface SpringConfiguration {
+public final class SpringConfiguration {
 
     public static final String[] CONFIG_LOCATIONS = new String[] {
-        "classpath:applicationContext-security.xml",
-        "classpath:applicationContext-hibernate.xml",
-        "classpath:applicationContext-datasource.xml",
-        "classpath:applicationContext-sds.xml",
-        "classpath:applicationContext-user.xml" };
-
+            "classpath:applicationContext-datasource.xml",
+            "classpath:applicationContext-hibernate.xml",
+            "classpath:applicationContext-sds.xml",
+            "classpath:applicationContext-security.xml",
+            "classpath:applicationContext-user.xml" };
 }

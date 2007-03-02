@@ -50,10 +50,10 @@
     </bean>
 
     <bean id="sdsWorkgroupModifyCommand"
-    	class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupModifyCommandHttpRestImpl">
-    	<property name="transport">
-    		<ref local="httpRestTransport" />
-    	</property>
+        class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupModifyCommandHttpRestImpl">
+        <property name="transport">
+            <ref local="httpRestTransport" />
+        </property>
     </bean>
 
     <bean id="sdsOfferingListCommand"

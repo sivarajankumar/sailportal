@@ -17,16 +17,14 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import junit.framework.TestCase;
-import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.junit.AbstractSpringTests;
 
-import org.easymock.EasyMock;
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebConversation;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * @author Cynick Young
@@ -34,30 +32,48 @@ import org.easymock.EasyMock;
  * @version $Id: $
  * 
  */
-public class HttpRestSdsOfferingDaoTest extends TestCase {
+public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
 
     private HttpRestSdsOfferingDao sdsOfferingDao;
 
-    private SdsOfferingListCommand mockCommand;
+    private HttpRestTransport httpRestTransport;
+
+    private WebConversation webConversation;
 
     /**
-     * @see junit.framework.TestCase#setUp()
+     * @param sdsOfferingDao
+     *            the sdsOfferingDao to set
      */
-    @SuppressWarnings("unchecked")
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.sdsOfferingDao = new HttpRestSdsOfferingDao();
-        this.mockCommand = EasyMock.createMock(SdsOfferingListCommand.class);
-        this.sdsOfferingDao.setListCommand(this.mockCommand);
+    public void setSdsOfferingDao(HttpRestSdsOfferingDao sdsOfferingDao) {
+        this.sdsOfferingDao = sdsOfferingDao;
     }
 
     /**
-     * @see junit.framework.TestCase#tearDown()
+     * @param httpRestTransport
+     *            the httpRestTransport to set
      */
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
+        this.httpRestTransport = httpRestTransport;
+    }
+
+    /**
+     * @see org.springframework.test.AbstractSingleSpringContextTests#onSetUp()
+     */
+    @Override
+    protected void onSetUp() throws Exception {
+        super.onSetUp();
+        this.webConversation = new WebConversation();
+    }
+
+    /**
+     * @see org.springframework.test.AbstractSingleSpringContextTests#onTearDown()
+     */
+    @Override
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
         this.sdsOfferingDao = null;
-        this.mockCommand = null;
+        this.webConversation = null;
+        this.httpRestTransport = null;
     }
 
     /**
@@ -65,28 +81,19 @@ public class HttpRestSdsOfferingDaoTest extends TestCase {
      * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
      */
     @SuppressWarnings("unchecked")
-    public void testGetList() {
-        HttpGetRequest httpRequest = new HttpGetRequest(Collections.EMPTY_MAP,
-                Collections.EMPTY_MAP, "/some url/", 0);
-
-        SdsOffering sdsOffering = this.sdsOfferingDao.createDataObject();
-        EasyMock.expect(this.mockCommand.generateRequest()).andReturn(
-                httpRequest);
-        sdsOffering.setCurnitId(1);
-        sdsOffering.setJnlpId(2);
-        sdsOffering.setName("test");
-        sdsOffering.setSdsObjectId(3);
-
-        List<SdsOffering> expectedSdsOfferingList = new ArrayList<SdsOffering>();
-        expectedSdsOfferingList.add(sdsOffering);
-
-        EasyMock.expect(this.mockCommand.execute(httpRequest)).andReturn(
-                expectedSdsOfferingList);
-        EasyMock.replay(this.mockCommand);
-
-        List<SdsOffering> actualList = this.sdsOfferingDao.getList();
-        assertEquals(expectedSdsOfferingList, actualList);
-        EasyMock.verify(this.mockCommand);
+    public void testGetList() throws Exception {
+        WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
+                .getBaseUrl()
+                + "workgroup");
+        webRequest.setHeaderField("Accept", "application/xml");
+        WebResponse webResponse = this.webConversation.getResponse(webRequest);
+        // This integration test is only interested in the fact that the real
+        // SDS returns an XML document with workgroups as the root element. As
+        // we have no way to guarantee the data to be in a known state, the
+        // actual test to parse the returned document will be done in a separate
+        // unit test that will mock the response.
+        assertEquals("workgroups", webResponse.getDOM().getDocumentElement()
+                .getNodeName());
     }
 
     /**

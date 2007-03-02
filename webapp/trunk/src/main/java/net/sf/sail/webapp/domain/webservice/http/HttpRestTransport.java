@@ -63,4 +63,11 @@ public interface HttpRestTransport {
      *             conditions.
      */
     public InputStream get(HttpGetRequest httpRequestData);
+
+    /**
+     * Get the base url bound to this HTTP transport.
+     * 
+     * @return the baseUrl
+     */
+    public String getBaseUrl();
 }

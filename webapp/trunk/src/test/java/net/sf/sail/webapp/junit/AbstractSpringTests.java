@@ -17,24 +17,25 @@
  */
 package net.sf.sail.webapp.junit;
 
-import org.springframework.test.AbstractSingleSpringContextTests;
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 /**
+ * Allows testers to perform integration tests which require access to the
+ * Spring Beans.
+ * 
  * @author Cynick Young
- *
+ * 
  * @version $Id: $
  * 
- * Allows testers to perform integration tests which require access to the Spring Beans.
- *
  */
-public class AbstractSpringTests extends AbstractSingleSpringContextTests implements SpringConfiguration {
+public abstract class AbstractSpringTests extends
+        AbstractDependencyInjectionSpringContextTests {
 
     /**
      * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()
      */
     @Override
     protected String[] getConfigLocations() {
-        return CONFIG_LOCATIONS;
+        return SpringConfiguration.CONFIG_LOCATIONS;
     }
-
 }

@@ -25,31 +25,32 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
  * 
  * @version $Id: AbstractTransactionalDbTests.java 11 2006-11-08 19:22:53Z
  *          cynick $
- *          
- * Allows testers to perform data store integration tests. Provides transactions and access to the Spring Beans.
+ * 
+ * Allows testers to perform data store integration tests. Provides transactions
+ * and access to the Spring Beans.
  * 
  */
 public abstract class AbstractTransactionalDbTests extends
-    AbstractTransactionalDataSourceSpringContextTests implements SpringConfiguration {
+        AbstractTransactionalDataSourceSpringContextTests {
 
-  protected HibernateFlusher toilet;
+    protected HibernateFlusher toilet;
 
-  /**
-   * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpBeforeTransaction()
-   */
-  @Override
-  protected void onSetUpBeforeTransaction() throws Exception {
-    super.onSetUpBeforeTransaction();
-    this.toilet = new HibernateFlusher();
-    this.toilet.setSessionFactory((SessionFactory) this.applicationContext
-        .getBean("sessionFactory"));
-  }
+    /**
+     * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpBeforeTransaction()
+     */
+    @Override
+    protected void onSetUpBeforeTransaction() throws Exception {
+        super.onSetUpBeforeTransaction();
+        this.toilet = new HibernateFlusher();
+        this.toilet.setSessionFactory((SessionFactory) this.applicationContext
+                .getBean("sessionFactory"));
+    }
 
-  /**
-   * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()
-   */
-  @Override
-  protected String[] getConfigLocations() {
-    return CONFIG_LOCATIONS;
-  }
+    /**
+     * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()
+     */
+    @Override
+    protected String[] getConfigLocations() {
+        return SpringConfiguration.CONFIG_LOCATIONS;
+    }
 }
