@@ -31,13 +31,13 @@ import org.apache.commons.httpclient.HttpStatus;
 
 /**
  * @author Hiroki Terashima
- *
+ * 
  */
 public class SdsWorkgroupModifyCommandHttpRestImpl extends
-		AbstractHttpRestCommand implements SdsWorkgroupModifyCommand {
+        AbstractHttpRestCommand implements SdsWorkgroupModifyCommand {
 
     private static final ThreadLocal<SdsWorkgroup> SDS_WORKGROUP = new ThreadLocal<SdsWorkgroup>();
-    
+
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand#setWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
      */
@@ -48,21 +48,22 @@ public class SdsWorkgroupModifyCommandHttpRestImpl extends
     private SdsWorkgroup getWorkgroup() {
         return SDS_WORKGROUP.get();
     }
-	
+
     public SdsWorkgroup execute(final HttpPostRequest httpRequest) {
-    	final Map<String, String> responseHeaders = this.transport
-    	.post(httpRequest);
-    	final String locationHeader = responseHeaders.get("Location");
-    	SdsWorkgroup workgroup = this.getWorkgroup();
-    	int lastBackSlashIndex = locationHeader.lastIndexOf("/");
-    	int secondToLastBackSlashIndex = locationHeader.lastIndexOf("/", lastBackSlashIndex - 1);
-    	workgroup.setSdsObjectId(new Integer(locationHeader
-    			.substring(secondToLastBackSlashIndex + 1, lastBackSlashIndex)));
+        final Map<String, String> responseHeaders = this.transport
+                .post(httpRequest);
+        final String locationHeader = responseHeaders.get("Location");
+        SdsWorkgroup workgroup = this.getWorkgroup();
+        int lastBackSlashIndex = locationHeader.lastIndexOf("/");
+        int secondToLastBackSlashIndex = locationHeader.lastIndexOf("/",
+                lastBackSlashIndex - 1);
+        workgroup.setSdsObjectId(new Integer(locationHeader.substring(
+                secondToLastBackSlashIndex + 1, lastBackSlashIndex)));
 
         // release the thread local reference to the actual object to prevent
         // resource leak problem
-    	this.setWorkgroup(null);
-    	return workgroup;	
+        this.setWorkgroup(null);
+        return workgroup;
     }
 
     private static final Map<String, String> REQUEST_HEADERS;
@@ -71,20 +72,21 @@ public class SdsWorkgroupModifyCommandHttpRestImpl extends
         map.put("Content-Type", APPLICATION_XML);
         REQUEST_HEADERS = Collections.unmodifiableMap(map);
     }
-    
-	@SuppressWarnings("unchecked")
-	public HttpPostRequest generateRequest() {
+
+    @SuppressWarnings("unchecked")
+    public HttpPostRequest generateRequest() {
         final SdsWorkgroup workgroup = this.getWorkgroup();
         final Set<SdsUser> membersList = workgroup.getMembersList();
         String membersString = "";
         for (SdsUser member : membersList) {
-        	membersString += "<workgroup-membership><user-id>" + 
-        	    member.getSdsObjectId() + "</user-id></workgroup-membership>";
+            membersString += "<workgroup-membership><user-id>"
+                    + member.getSdsObjectId()
+                    + "</user-id></workgroup-membership>";
         }
-        final String bodyData = "<workgroup-memberships>" 
-                + membersString + "</workgroup-memberships>";
-        final String url = "workgroup";
+        final String bodyData = "<workgroup-memberships>" + membersString
+                + "</workgroup-memberships>";
+        final String url = "/workgroup";
         return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
-	}
+    }
 }

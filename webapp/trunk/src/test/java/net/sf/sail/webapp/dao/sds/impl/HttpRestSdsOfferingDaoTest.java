@@ -84,7 +84,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
     public void testGetList() throws Exception {
         WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
                 .getBaseUrl()
-                + "workgroup");
+                + "/workgroup");
         webRequest.setHeaderField("Accept", "application/xml");
         WebResponse webResponse = this.webConversation.getResponse(webRequest);
         // This integration test is only interested in the fact that the real

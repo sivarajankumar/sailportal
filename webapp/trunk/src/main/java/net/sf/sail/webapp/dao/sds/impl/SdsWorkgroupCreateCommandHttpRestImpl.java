@@ -83,7 +83,7 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
                 + "</name><offering-id>"
                 + workgroup.getSdsOffering().getSdsObjectId()
                 + "</offering-id></SDS_WORKGROUP>";
-        final String url = "workgroup";
+        final String url = "/workgroup";
         return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
