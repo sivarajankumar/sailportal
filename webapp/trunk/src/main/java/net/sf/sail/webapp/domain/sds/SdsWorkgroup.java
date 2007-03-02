@@ -17,10 +17,12 @@
  */
 package net.sf.sail.webapp.domain.sds;
 
+import java.util.Set;
+
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class SdsWorkgroup implements SdsObject {
@@ -32,6 +34,8 @@ public class SdsWorkgroup implements SdsObject {
   private String name;
 
   private SdsOffering sdsOffering;
+
+  private Set<SdsUser> membersList;
 
   /**
    * @return the name
@@ -75,6 +79,14 @@ public class SdsWorkgroup implements SdsObject {
    */
   public void setSdsOffering(SdsOffering sdsOffering) {
     this.sdsOffering = sdsOffering;
+  }
+
+  public void setMembership(Set<SdsUser> membersList) {
+	this.membersList = membersList;
+  }
+
+  public Set<SdsUser> getMembersList() {
+	return membersList;
   }
 
 }
