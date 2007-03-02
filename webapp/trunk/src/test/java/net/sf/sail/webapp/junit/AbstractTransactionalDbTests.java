@@ -25,17 +25,12 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
  * 
  * @version $Id: AbstractTransactionalDbTests.java 11 2006-11-08 19:22:53Z
  *          cynick $
+ *          
+ * Allows testers to perform data store integration tests. Provides transactions and access to the Spring Beans.
  * 
  */
 public abstract class AbstractTransactionalDbTests extends
-    AbstractTransactionalDataSourceSpringContextTests {
-
-  private static final String[] CONFIG_LOCATIONS = new String[] {
-      "classpath:applicationContext-security.xml",
-      "classpath:applicationContext-hibernate.xml",
-      "classpath:applicationContext-datasource.xml",
-      "classpath:applicationContext-sds.xml",
-      "classpath:applicationContext-user.xml" };
+    AbstractTransactionalDataSourceSpringContextTests implements SpringConfiguration {
 
   protected HibernateFlusher toilet;
 
