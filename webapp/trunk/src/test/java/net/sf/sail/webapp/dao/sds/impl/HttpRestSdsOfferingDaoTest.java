@@ -36,102 +36,88 @@ import org.easymock.EasyMock;
  */
 public class HttpRestSdsOfferingDaoTest extends TestCase {
 
-  private HttpRestSdsOfferingDao sdsOfferingDao;
+    private HttpRestSdsOfferingDao sdsOfferingDao;
 
-  private SdsOfferingListCommand mockCommand;
+    private SdsOfferingListCommand mockCommand;
 
-  /**
-   * @see junit.framework.TestCase#setUp()
-   */
-  @SuppressWarnings("unchecked")
-  protected void setUp() throws Exception {
-    super.setUp();
-    this.sdsOfferingDao = new HttpRestSdsOfferingDao();
-    this.mockCommand = EasyMock.createMock(SdsOfferingListCommand.class);
-    this.sdsOfferingDao.setSdsOfferingListCommand(this.mockCommand);
-  }
-
-  /**
-   * @see junit.framework.TestCase#tearDown()
-   */
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    this.sdsOfferingDao = null;
-    this.mockCommand = null;
-  }
-
-  /**
-   * Test method for
-   * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
-   */
-  @SuppressWarnings("unchecked")
-  public void testGetList() {
-    HttpGetRequest httpRequest = new HttpGetRequest(Collections.EMPTY_MAP,
-        Collections.EMPTY_MAP, "/some url/", 0);
-
-    SdsOffering sdsOffering = this.sdsOfferingDao.createDataObject();
-    EasyMock.expect(this.mockCommand.generateRequest()).andReturn(httpRequest);
-    sdsOffering.setCurnitId(1);
-    sdsOffering.setJnlpId(2);
-    sdsOffering.setName("test");
-    sdsOffering.setSdsObjectId(3);
-
-    List<SdsOffering> expectedSdsOfferingList = new ArrayList<SdsOffering>();
-    expectedSdsOfferingList.add(sdsOffering);
-
-    EasyMock.expect(this.mockCommand.execute(httpRequest)).andReturn(
-        expectedSdsOfferingList);
-    EasyMock.replay(this.mockCommand);
-
-    List<SdsOffering> actualList = this.sdsOfferingDao.getList();
-    assertEquals(expectedSdsOfferingList, actualList);
-    EasyMock.verify(this.mockCommand);
-  }
-
-  /**
-   * Test method for
-   * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#createDataObject()}.
-   */
-  public void testCreateDataObject() {
-    assertTrue(this.sdsOfferingDao.createDataObject() instanceof SdsOffering);
-  }
-
-  /**
-   * Test method for
-   * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#delete(net.sf.sail.webapp.domain.sds.SdsOffering)}.
-   */
-  public void testDelete() {
-    try {
-      this.sdsOfferingDao.delete(null);
-      fail("UnsupportedOperationException expected");
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
+    @SuppressWarnings("unchecked")
+    protected void setUp() throws Exception {
+        super.setUp();
+        this.sdsOfferingDao = new HttpRestSdsOfferingDao();
+        this.mockCommand = EasyMock.createMock(SdsOfferingListCommand.class);
+        this.sdsOfferingDao.setListCommand(this.mockCommand);
     }
-    catch (UnsupportedOperationException expected) {
-    }
-  }
 
-  /**
-   * Test method for
-   * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#retrieveByName(java.lang.String)}.
-   */
-  public void testRetrieveByName() {
-    try {
-      this.sdsOfferingDao.retrieveByName(null);
-      fail("UnsupportedOperationException expected");
+    /**
+     * @see junit.framework.TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        this.sdsOfferingDao = null;
+        this.mockCommand = null;
     }
-    catch (UnsupportedOperationException expected) {
-    }
-  }
 
-  /**
-   * Test method for
-   * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
-   */
-  public void testSave() {
-    try {
-      this.sdsOfferingDao.save(null);
-      fail("UnsupportedOperationException expected");
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
+     */
+    @SuppressWarnings("unchecked")
+    public void testGetList() {
+        HttpGetRequest httpRequest = new HttpGetRequest(Collections.EMPTY_MAP,
+                Collections.EMPTY_MAP, "/some url/", 0);
+
+        SdsOffering sdsOffering = this.sdsOfferingDao.createDataObject();
+        EasyMock.expect(this.mockCommand.generateRequest()).andReturn(
+                httpRequest);
+        sdsOffering.setCurnitId(1);
+        sdsOffering.setJnlpId(2);
+        sdsOffering.setName("test");
+        sdsOffering.setSdsObjectId(3);
+
+        List<SdsOffering> expectedSdsOfferingList = new ArrayList<SdsOffering>();
+        expectedSdsOfferingList.add(sdsOffering);
+
+        EasyMock.expect(this.mockCommand.execute(httpRequest)).andReturn(
+                expectedSdsOfferingList);
+        EasyMock.replay(this.mockCommand);
+
+        List<SdsOffering> actualList = this.sdsOfferingDao.getList();
+        assertEquals(expectedSdsOfferingList, actualList);
+        EasyMock.verify(this.mockCommand);
     }
-    catch (UnsupportedOperationException expected) {
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#createDataObject()}.
+     */
+    public void testCreateDataObject() {
+        assertTrue(this.sdsOfferingDao.createDataObject() instanceof SdsOffering);
     }
-  }
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#delete(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+     */
+    public void testDelete() {
+        try {
+            this.sdsOfferingDao.delete(null);
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+    }
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+     */
+    public void testSave() {
+        try {
+            this.sdsOfferingDao.save(null);
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+    }
 }

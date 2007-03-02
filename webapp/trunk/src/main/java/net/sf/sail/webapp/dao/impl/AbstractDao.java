@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * Copyright (c) 2007 Encore Research Group, University of Toronto
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,35 +15,31 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.authentication;
+package net.sf.sail.webapp.dao.impl;
 
 import net.sf.sail.webapp.dao.SimpleDao;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: $
  * 
  */
-public interface UserDetailsDao<T extends MutableUserDetails> extends
-        SimpleDao<T> {
+public abstract class AbstractDao<T> implements SimpleDao<T> {
 
     /**
-     * Check if the username exists in the data store.
-     * 
-     * @param username
-     * @return true if the data store contains a user with the corresponding
-     *         username, false otherwise.
+     * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
      */
-    public boolean hasUsername(String username);
+    public void delete(T object) {
+        // default behaviour for subclasses that do not override this method
+        throw new UnsupportedOperationException();
+    }
 
     /**
-     * Given an input string retrieve a corresponding record from data store.
-     * 
-     * @param name
-     *            A string representing the name of the data in the data store.
-     * @return A new instance of a data object.
+     * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
      */
-    public T retrieveByName(String name);
+    public void save(T object) {
+        // default behaviour for subclasses that do not override this method
+        throw new UnsupportedOperationException();
+    }
 }

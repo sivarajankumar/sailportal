@@ -19,6 +19,7 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -29,53 +30,31 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
  * @version $Id: $
  * 
  */
-public class HttpRestSdsOfferingDao implements SdsOfferingDao {
+public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
+        SdsOfferingDao {
 
-  private SdsOfferingListCommand sdsOfferingListCommand;
+    private SdsOfferingListCommand listCommand;
 
-  /**
-   * @param sdsOfferingListCommand
-   *          the sdsOfferingListCommand to set
-   */
-  public void setSdsOfferingListCommand(
-      SdsOfferingListCommand sdsOfferingListCommand) {
-    this.sdsOfferingListCommand = sdsOfferingListCommand;
-  }
+    /**
+     * @param listCommand
+     *            the listCommand to set
+     */
+    public void setListCommand(SdsOfferingListCommand listCommand) {
+        this.listCommand = listCommand;
+    }
 
-  /**
-   * @see net.sf.sail.webapp.dao.sds.SdsOfferingDao#getList()
-   */
-  @SuppressWarnings("unchecked")
-  public List<SdsOffering> getList() {
-    return this.sdsOfferingListCommand.execute(this.sdsOfferingListCommand
-        .generateRequest());
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsOfferingDao#getList()
+     */
+    @SuppressWarnings("unchecked")
+    public List<SdsOffering> getList() {
+        return this.listCommand.execute(this.listCommand.generateRequest());
+    }
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-   */
-  public SdsOffering createDataObject() {
-    return new SdsOffering();
-  }
-
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-   */
-  public void delete(SdsOffering object) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
-   */
-  public SdsOffering retrieveByName(String name) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-   */
-  public void save(SdsOffering object) {
-    throw new UnsupportedOperationException();
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
+     */
+    public SdsOffering createDataObject() {
+        return new SdsOffering();
+    }
 }

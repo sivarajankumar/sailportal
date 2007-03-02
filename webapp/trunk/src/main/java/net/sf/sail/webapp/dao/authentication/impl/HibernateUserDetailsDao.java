@@ -34,34 +34,35 @@ import org.springframework.dao.support.DataAccessUtils;
  * 
  */
 public class HibernateUserDetailsDao extends
-    AbstractHibernateDao<MutableUserDetails> implements
-    UserDetailsDao<MutableUserDetails> {
+        AbstractHibernateDao<MutableUserDetails> implements
+        UserDetailsDao<MutableUserDetails> {
 
-  /**
-   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#createDataObject()
-   */
-  public MutableUserDetails createDataObject() {
-    return new PersistentUserDetails();
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
+     */
+    public MutableUserDetails createDataObject() {
+        return new PersistentUserDetails();
+    }
 
-  /**
-   * Retrieve the user, by username. Returns null if user is not found.
-   * 
-   * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#retrieveByName(java.lang.String)
-   */
-  public MutableUserDetails retrieveByName(String username) {
-    return (MutableUserDetails) DataAccessUtils
-        .uniqueResult(this
-            .getHibernateTemplate()
-            .findByNamedParam(
-                "from PersistentUserDetails as user_details where user_details.username = :username",
-                new String[] { "username" }, new Object[] { username }));
-  }
+    /**
+     * Retrieve the user, by username. Returns null if user is not found.
+     * 
+     * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#retrieveByName(java.lang.String)
+     */
+    public MutableUserDetails retrieveByName(String username) {
+        return (MutableUserDetails) DataAccessUtils
+                .uniqueResult(this
+                        .getHibernateTemplate()
+                        .findByNamedParam(
+                                "from PersistentUserDetails as user_details where user_details.username = :username",
+                                new String[] { "username" },
+                                new Object[] { username }));
+    }
 
-  /**
-   * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#hasUsername(java.lang.String)
-   */
-  public boolean hasUsername(String username) {
-    return (this.retrieveByName(username) != null);
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#hasUsername(java.lang.String)
+     */
+    public boolean hasUsername(String username) {
+        return (this.retrieveByName(username) != null);
+    }
 }

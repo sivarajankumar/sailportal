@@ -28,35 +28,19 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * 
  */
 public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
-    implements SimpleDao<T> {
+        implements SimpleDao<T> {
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-   */
-  public T createDataObject() {
-    // default behaviour for subclasses that do not override this method
-    throw new UnsupportedOperationException();
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
+     */
+    public void delete(T object) {
+        this.getHibernateTemplate().delete(object);
+    }
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-   */
-  public void delete(T object) {
-    this.getHibernateTemplate().delete(object);
-  }
-
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-   */
-  public void save(T object) {
-    this.getHibernateTemplate().saveOrUpdate(object);
-  }
-
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
-   */
-  public T retrieveByName(String name) {
-    // default behaviour for subclasses that do not override this method
-    throw new UnsupportedOperationException();
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
+     */
+    public void save(T object) {
+        this.getHibernateTemplate().saveOrUpdate(object);
+    }
 }

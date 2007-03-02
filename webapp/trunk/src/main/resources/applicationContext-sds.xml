@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  * Copyright (c) 2007 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+    * Copyright (c) 2007 Encore Research Group, University of Toronto
+    * 
+    * This library is free software; you can redistribute it and/or
+    * modify it under the terms of the GNU Lesser General Public
+    * License as published by the Free Software Foundation; either
+    * version 2.1 of the License, or (at your option) any later version.
+    *
+    * This library is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    * Lesser General Public License for more details.
+    *
+    * You should have received a copy of the GNU Lesser General Public
+    * License along with this library; if not, write to the Free Software
+    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
 <!-- $Id$ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:util="http://www.springframework.org/schema/util"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-  <bean id="httpRestTransport"
-    class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
-    <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
-    <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
-    <property name="baseUrl" value="http://rails.dev.concord.org/sds/4/" />
-  </bean>
+    <bean id="httpRestTransport"
+        class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
+        <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
+        <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
+        <property name="baseUrl" value="http://rails.dev.concord.org/sds/4/" />
+    </bean>
 
-  <bean id="sdsOffering" scope="prototype"
-    class="net.sf.sail.webapp.domain.sds.SdsOffering">
-  </bean>
+    <bean id="sdsOffering" scope="prototype"
+        class="net.sf.sail.webapp.domain.sds.SdsOffering">
+    </bean>
 
-  <bean id="sdsUserCreateCommand"
-    class="net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl">
-    <property name="transport">
-      <ref local="httpRestTransport" />
-    </property>
-  </bean>
+    <bean id="sdsUserCreateCommand"
+        class="net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl">
+        <property name="transport">
+            <ref local="httpRestTransport" />
+        </property>
+    </bean>
 
-  <bean id="sdsWorkgroupCreateCommand"
-    class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupCreateCommandHttpRestImpl">
-    <property name="transport">
-      <ref local="httpRestTransport" />
-    </property>
-  </bean>
+    <bean id="sdsWorkgroupCreateCommand"
+        class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupCreateCommandHttpRestImpl">
+        <property name="transport">
+            <ref local="httpRestTransport" />
+        </property>
+    </bean>
 
-  <bean id="sdsOfferingListCommand"
-    class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingListCommandHttpRestImpl">
-    <property name="transport">
-      <ref local="httpRestTransport" />
-    </property>
-    <property name="sdsOfferingDao">
-      <ref local="sdsOfferingDao" />
-    </property>
-  </bean>
+    <bean id="sdsOfferingListCommand"
+        class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingListCommandHttpRestImpl">
+        <property name="transport">
+            <ref local="httpRestTransport" />
+        </property>
+        <property name="sdsOfferingDao">
+            <ref local="sdsOfferingDao" />
+        </property>
+    </bean>
 
-  <bean id="offeringsService"
-    class="net.sf.sail.webapp.service.offerings.impl.OfferingsServiceImpl">
-    <property name="sdsOfferingDao">
-      <ref local="sdsOfferingDao" />
-    </property>
-  </bean>
+    <bean id="offeringsService"
+        class="net.sf.sail.webapp.service.offerings.impl.OfferingsServiceImpl">
+        <property name="sdsOfferingDao">
+            <ref local="sdsOfferingDao" />
+        </property>
+    </bean>
 
-  <bean id="sdsOfferingDao"
-    class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao">
-    <property name="sdsOfferingListCommand">
-      <ref local="sdsOfferingListCommand" />
-    </property>
-  </bean>
+    <bean id="sdsOfferingDao"
+        class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao">
+        <property name="listCommand">
+            <ref local="sdsOfferingListCommand" />
+        </property>
+    </bean>
 </beans>

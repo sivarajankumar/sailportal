@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao;
 
-
 /**
  * Data Access Object (DAO) interface that defines simple generic operations for
  * dealing with a persistent store.
@@ -29,33 +28,25 @@ package net.sf.sail.webapp.dao;
  */
 public interface SimpleDao<T> {
 
-	/**
-	 * Factory method to create an instance of a data object that works with
-	 * this particular data access object (dao).
-	 * 
-	 * @return new instance of a data object
-	 */
-	public T createDataObject();
+    /**
+     * Factory method to create an instance of a data object that works with
+     * this particular data access object (dao).
+     * 
+     * @return new instance of a data object
+     */
+    public T createDataObject();
 
-	/**
-	 * Saves the object to a persistent data store.
-	 * 
-	 * @param object
-	 */
-	public void save(T object);
+    /**
+     * Saves the object to a persistent data store.
+     * 
+     * @param object
+     */
+    public void save(T object);
 
-	/**
-	 * Deletes the object from a persistent data store.
-	 * 
-	 * @param object
-	 */
-	public void delete(T object);
-
-	/**
-	 * Given an input string retrieve a corresponding record from data store.
-	 * 
-	 * @param name A string representing the name of the data in the data store.
-	 * @return A new instance of a data object.
-	 */
-	public T retrieveByName(String name);
+    /**
+     * Deletes the object from a persistent data store.
+     * 
+     * @param object
+     */
+    public void delete(T object);
 }

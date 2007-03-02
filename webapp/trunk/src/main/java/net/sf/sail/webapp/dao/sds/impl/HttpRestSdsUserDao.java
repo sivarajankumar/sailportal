@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsUserCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsUserDao;
 import net.sf.sail.webapp.domain.sds.SdsUser;
@@ -27,45 +28,33 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
  * @version $Id: $
  * 
  */
-public class HttpRestSdsUserDao implements SdsUserDao {
+public class HttpRestSdsUserDao extends AbstractDao<SdsUser> implements
+        SdsUserDao {
 
-  private SdsUserCreateCommand sdsUserCreateCommand;
+    private SdsUserCreateCommand createCommand;
 
-  /**
-   * @param sdsUserCreateCommand
-   *          the sdsUserCreateCommand to set
-   */
-  public void setSdsUserCreateCommand(SdsUserCreateCommand sdsUserCreateCommand) {
-    this.sdsUserCreateCommand = sdsUserCreateCommand;
-  }
+    /**
+     * @param createCommand
+     *            the createCommand to set
+     */
+    public void setCreateCommand(SdsUserCreateCommand createCommand) {
+        this.createCommand = createCommand;
+    }
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-   */
-  public SdsUser createDataObject() {
-    return new SdsUser();
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
+     */
+    public void save(SdsUser sdsUser) {
+        this.createCommand.setSdsUser(sdsUser);
+        this.createCommand.execute(this.createCommand.generateRequest());
+        // TODO - when update command for SDS is written, need to differentiate
+        // between create and update
+    }
 
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-   */
-  public void delete(SdsUser object) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#retrieveByName(java.lang.String)
-   */
-  public SdsUser retrieveByName(String name) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-   */
-  public void save(SdsUser sdsUser) {
-    this.sdsUserCreateCommand.setSdsUser(sdsUser);
-    this.sdsUserCreateCommand.execute(this.sdsUserCreateCommand
-        .generateRequest());
-  }
+    /**
+     * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
+     */
+    public SdsUser createDataObject() {
+        return new SdsUser();
+    }
 }
