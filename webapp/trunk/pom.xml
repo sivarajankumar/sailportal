@@ -99,7 +99,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
-            <version>3.2.1.ga</version>
+            <version>3.2.2.ga</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -175,6 +175,10 @@
     <build>
         <finalName>webapp</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
