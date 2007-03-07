@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.sail.webapp.dao.sds.SdsWorkgroupModifyCommand;
+import net.sf.sail.webapp.dao.sds.SdsWorkgroupMemberCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
@@ -30,11 +30,17 @@ import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import org.apache.commons.httpclient.HttpStatus;
 
 /**
+ * Implementation of <code>SdsWorkgroupMemberCreateCommand</code> which
+ * creates a membership list for a given workgroup in the Sail Data Service
+ * (uses Http REST). This class is thread-safe.
+ * 
  * @author Hiroki Terashima
  * 
+ * @version $Id: $
+ * 
  */
-public class SdsWorkgroupModifyCommandHttpRestImpl extends
-        AbstractHttpRestCommand implements SdsWorkgroupModifyCommand {
+public class SdsWorkgroupMemberCreateCommandHttpRestImpl extends
+        AbstractHttpRestCommand implements SdsWorkgroupMemberCreateCommand {
 
     private static final ThreadLocal<SdsWorkgroup> SDS_WORKGROUP = new ThreadLocal<SdsWorkgroup>();
 
@@ -49,16 +55,12 @@ public class SdsWorkgroupModifyCommandHttpRestImpl extends
         return SDS_WORKGROUP.get();
     }
 
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute(net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest)
+     */
     public SdsWorkgroup execute(final HttpPostRequest httpRequest) {
-        final Map<String, String> responseHeaders = this.transport
-                .post(httpRequest);
-        final String locationHeader = responseHeaders.get("Location");
+        this.transport.post(httpRequest);
         SdsWorkgroup workgroup = this.getWorkgroup();
-        int lastBackSlashIndex = locationHeader.lastIndexOf("/");
-        int secondToLastBackSlashIndex = locationHeader.lastIndexOf("/",
-                lastBackSlashIndex - 1);
-        workgroup.setSdsObjectId(new Integer(locationHeader.substring(
-                secondToLastBackSlashIndex + 1, lastBackSlashIndex)));
 
         // release the thread local reference to the actual object to prevent
         // resource leak problem
@@ -73,10 +75,13 @@ public class SdsWorkgroupModifyCommandHttpRestImpl extends
         REQUEST_HEADERS = Collections.unmodifiableMap(map);
     }
 
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
+     */
     @SuppressWarnings("unchecked")
     public HttpPostRequest generateRequest() {
         final SdsWorkgroup workgroup = this.getWorkgroup();
-        final Set<SdsUser> membersList = workgroup.getMembersList();
+        final Set<SdsUser> membersList = workgroup.getMembers();
         String membersString = "";
         for (SdsUser member : membersList) {
             membersString += "<workgroup-membership><user-id>"
@@ -85,7 +90,8 @@ public class SdsWorkgroupModifyCommandHttpRestImpl extends
         }
         final String bodyData = "<workgroup-memberships>" + membersString
                 + "</workgroup-memberships>";
-        final String url = "/workgroup";
+        final String url = "/workgroup/" + workgroup.getSdsObjectId()
+                + "/membership";
         return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }

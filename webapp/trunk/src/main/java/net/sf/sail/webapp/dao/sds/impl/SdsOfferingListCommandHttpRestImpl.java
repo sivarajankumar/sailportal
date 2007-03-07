@@ -40,8 +40,9 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 
 /**
- * The command which lists all the offerings from the Sail Data Service (uses
- * Http REST). This class is thread-safe.
+ * Implementation of <code>SdsOfferingListCommand</code> which lists all the
+ * offerings from the Sail Data Service (uses Http REST). This class is
+ * thread-safe.
  * 
  * @author Cynick Young
  * 

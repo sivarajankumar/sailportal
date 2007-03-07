@@ -28,7 +28,8 @@ import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import org.apache.commons.httpclient.HttpStatus;
 
 /**
- * This class is thread-safe.
+ * Implementation of <code>SdsUserCreateCommand</code> which creates a user in
+ * the Sail Data Service (uses Http REST). This class is thread-safe.
  * 
  * @author Cynick Young
  * 

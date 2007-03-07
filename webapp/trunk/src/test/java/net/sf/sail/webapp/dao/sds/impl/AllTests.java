@@ -12,7 +12,7 @@ public class AllTests {
         suite.addTestSuite(SdsOfferingListCommandHttpRestImplTest.class);
         suite.addTestSuite(HttpRestSdsOfferingDaoTest.class);
         suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
-        suite.addTestSuite(SdsWorkgroupModifyCommandHttpRestImplTest.class);
+        suite.addTestSuite(SdsWorkgroupMemberCreateCommandHttpRestImplTest.class);
         suite.addTestSuite(HttpRestSdsUserDaoTest.class);
         suite.addTestSuite(SdsWorkgroupCreateCommandHttpRestImplTest.class);
         //$JUnit-END$

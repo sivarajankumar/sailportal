@@ -49,8 +49,8 @@
         </property>
     </bean>
 
-    <bean id="sdsWorkgroupModifyCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupModifyCommandHttpRestImpl">
+    <bean id="sdsWorkgroupMemberCreateCommand"
+        class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupMemberCreateCommandHttpRestImpl">
         <property name="transport">
             <ref local="httpRestTransport" />
         </property>

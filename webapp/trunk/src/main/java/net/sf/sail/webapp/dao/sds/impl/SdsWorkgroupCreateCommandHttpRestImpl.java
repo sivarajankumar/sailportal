@@ -28,6 +28,10 @@ import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import org.apache.commons.httpclient.HttpStatus;
 
 /**
+ * Implementation of <code>SdsWorkgroupCreateCommand</code> which creates a
+ * workgroup in the Sail Data Service (uses Http REST). This class is
+ * thread-safe.
+ * 
  * @author Cynick Young
  * 
  * @version $Id: $
