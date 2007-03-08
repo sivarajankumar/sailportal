@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
-import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -30,6 +30,6 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
  */
 public interface SdsOfferingDao extends SimpleDao<SdsOffering> {
 
-  public List<SdsOffering> getList();
+    public Set<SdsOffering> getList();
 
 }

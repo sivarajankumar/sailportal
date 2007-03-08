@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
-import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
@@ -29,11 +29,11 @@ import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
  * 
  */
 public interface SdsOfferingListCommand extends
-    SdsCommand<List<SdsOffering>, HttpGetRequest> {
+        SdsCommand<Set<SdsOffering>, HttpGetRequest> {
 
-  /**
-   * @param sdsOfferingDao
-   *          the sdsOfferingDao to set
-   */
-  public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao);
+    /**
+     * @param sdsOfferingDao
+     *            the sdsOfferingDao to set
+     */
+    public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao);
 }

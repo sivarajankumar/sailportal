@@ -17,22 +17,22 @@
  */
 package net.sf.sail.webapp.service.offerings;
 
-import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id:OfferingsService.java 159 2007-03-02 22:42:21Z cynick $
  */
 public interface OfferingsService {
 
-  /**
-   * Gets a list of SDS offerings.
-   * 
-   * @return a list of SDS offerings.
-   */
-  public List<SdsOffering> getOfferingsList();
+    /**
+     * Gets a <code>Set</code> of SDS offerings.
+     * 
+     * @return a <code>Set</code> of SDS offerings.
+     */
+    public Set<SdsOffering> getOfferingsList();
 
 }

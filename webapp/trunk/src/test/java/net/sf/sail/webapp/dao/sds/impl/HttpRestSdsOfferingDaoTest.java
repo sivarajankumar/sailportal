@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.sds.impl;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
@@ -96,7 +97,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
         // equivalent.
         // *Note* there is a small chance that between the 2 retrievals, a new
         // offering may be inserted into the SDS and cause this test to break.
-        List<SdsOffering> actualList = this.sdsOfferingDao.getList();
+        Set<SdsOffering> actualSet = this.sdsOfferingDao.getList();
 
         WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
                 .getBaseUrl()
@@ -110,14 +111,14 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
 
         List<Element> nodeList = XPath.newInstance("/offerings/offering/id")
                 .selectNodes(doc);
-        assertEquals(nodeList.size(), actualList.size());
+        assertEquals(nodeList.size(), actualSet.size());
         List<Integer> offeringIdList = new ArrayList<Integer>(nodeList.size());
         for (Element element : nodeList) {
             offeringIdList.add(new Integer(element.getText()));
         }
 
-        assertEquals(offeringIdList.size(), actualList.size());
-        for (SdsOffering offering : actualList) {
+        assertEquals(offeringIdList.size(), actualSet.size());
+        for (SdsOffering offering : actualSet) {
             offeringIdList.contains(offering.getSdsObjectId());
         }
     }

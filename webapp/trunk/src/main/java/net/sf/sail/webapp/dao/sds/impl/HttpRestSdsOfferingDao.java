@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
@@ -47,7 +47,7 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
      * @see net.sf.sail.webapp.dao.sds.SdsOfferingDao#getList()
      */
     @SuppressWarnings("unchecked")
-    public List<SdsOffering> getList() {
+    public Set<SdsOffering> getList() {
         return this.listCommand.execute(this.listCommand.generateRequest());
     }
 

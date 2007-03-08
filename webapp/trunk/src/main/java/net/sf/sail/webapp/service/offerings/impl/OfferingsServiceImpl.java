@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.offerings.impl;
 
-import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -26,25 +26,25 @@ import net.sf.sail.webapp.service.offerings.OfferingsService;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id:OfferingsServiceImpl.java 159 2007-03-02 22:42:21Z cynick $
  */
 public class OfferingsServiceImpl implements OfferingsService {
 
-  private SdsOfferingDao sdsOfferingDao;
+    private SdsOfferingDao sdsOfferingDao;
 
-  /**
-   * @param sdsOfferingDao
-   *          the sdsOfferingDao to set
-   */
-  public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao) {
-    this.sdsOfferingDao = sdsOfferingDao;
-  }
+    /**
+     * @param sdsOfferingDao
+     *            the sdsOfferingDao to set
+     */
+    public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao) {
+        this.sdsOfferingDao = sdsOfferingDao;
+    }
 
-  /**
-   * @see net.sf.sail.webapp.service.offerings.OfferingsService#getOfferingsList()
-   */
-  public List<SdsOffering> getOfferingsList() {
-    return sdsOfferingDao.getList();
-  }
+    /**
+     * @see net.sf.sail.webapp.service.offerings.OfferingsService#getOfferingsList()
+     */
+    public Set<SdsOffering> getOfferingsList() {
+        return sdsOfferingDao.getList();
+    }
 
 }

@@ -19,8 +19,8 @@ package net.sf.sail.webapp.service.offerings.impl;
 
 import static org.easymock.EasyMock.createMock;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
@@ -31,51 +31,51 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id:OfferingsServiceImplTest.java 159 2007-03-02 22:42:21Z cynick $
  */
 public class OfferingsServiceImplTest extends TestCase {
 
-  private SdsOfferingDao mockSdsOfferingDao;
+    private SdsOfferingDao mockSdsOfferingDao;
 
-  private List<SdsOffering> expectedSdsOfferingList;
+    private Set<SdsOffering> expectedSdsOfferingSet;
 
-  private OfferingsServiceImpl offeringServiceImpl;
+    private OfferingsServiceImpl offeringServiceImpl;
 
-  /**
-   * @see junit.framework.TestCase#setUp()
-   */
-  @SuppressWarnings("unchecked")
-  protected void setUp() throws Exception {
-    super.setUp();
-    this.mockSdsOfferingDao = createMock(SdsOfferingDao.class);
-    this.offeringServiceImpl = new OfferingsServiceImpl();
-    this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
-    this.expectedSdsOfferingList = new LinkedList<SdsOffering>();
-    SdsOffering offering = new SdsOffering();
-    offering.setCurnitId(1);
-    offering.setJnlpId(2);
-    offering.setName("test");
-    offering.setSdsObjectId(3);
-    this.expectedSdsOfferingList.add(offering);
-  }
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
+    @SuppressWarnings("unchecked")
+    protected void setUp() throws Exception {
+        super.setUp();
+        this.mockSdsOfferingDao = createMock(SdsOfferingDao.class);
+        this.offeringServiceImpl = new OfferingsServiceImpl();
+        this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
+        this.expectedSdsOfferingSet = new HashSet<SdsOffering>();
+        SdsOffering offering = new SdsOffering();
+        offering.setCurnitId(1);
+        offering.setJnlpId(2);
+        offering.setName("test");
+        offering.setSdsObjectId(3);
+        this.expectedSdsOfferingSet.add(offering);
+    }
 
-  /**
-   * @see junit.framework.TestCase#tearDown()
-   */
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    this.offeringServiceImpl = null;
-    this.mockSdsOfferingDao = null;
-    this.expectedSdsOfferingList = null;
-  }
+    /**
+     * @see junit.framework.TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        this.offeringServiceImpl = null;
+        this.mockSdsOfferingDao = null;
+        this.expectedSdsOfferingSet = null;
+    }
 
-  @SuppressWarnings("unchecked")
-  public void testGetOfferingsList() throws Exception {
-    EasyMock.expect(mockSdsOfferingDao.getList()).andReturn(
-        expectedSdsOfferingList);
-    EasyMock.replay(mockSdsOfferingDao);
-    assertEquals(expectedSdsOfferingList, offeringServiceImpl
-        .getOfferingsList());
-    EasyMock.verify(mockSdsOfferingDao);
-  }
+    @SuppressWarnings("unchecked")
+    public void testGetOfferingsList() throws Exception {
+        EasyMock.expect(mockSdsOfferingDao.getList()).andReturn(
+                this.expectedSdsOfferingSet);
+        EasyMock.replay(mockSdsOfferingDao);
+        assertEquals(this.expectedSdsOfferingSet, offeringServiceImpl
+                .getOfferingsList());
+        EasyMock.verify(mockSdsOfferingDao);
+    }
 }

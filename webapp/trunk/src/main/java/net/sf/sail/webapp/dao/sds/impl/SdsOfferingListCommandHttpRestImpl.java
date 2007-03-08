@@ -21,9 +21,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
@@ -70,7 +71,7 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
      */
     @SuppressWarnings("unchecked")
-    public List<SdsOffering> execute(HttpGetRequest httpRequest) {
+    public Set<SdsOffering> execute(HttpGetRequest httpRequest) {
         SAXBuilder builder = new SAXBuilder();
         try {
             InputStream responseStream = this.transport.get(httpRequest);
@@ -83,7 +84,7 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
             List<Element> nodeList = XPath.newInstance("/offerings/offering")
                     .selectNodes(doc);
 
-            List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
+            Set<SdsOffering> sdsOfferingSet = new HashSet<SdsOffering>();
             for (Element offeringNode : nodeList) {
                 SdsOffering sdsOffering = this.sdsOfferingDao
                         .createDataObject();
@@ -94,19 +95,19 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
                         "jnlp-id").getValue()));
                 sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild(
                         "id").getValue()));
-                sdsOfferingList.add(sdsOffering);
+                sdsOfferingSet.add(sdsOffering);
             }
-            return sdsOfferingList;
+            return sdsOfferingSet;
         } catch (JDOMException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
             }
-            return Collections.EMPTY_LIST;
+            return Collections.EMPTY_SET;
         } catch (IOException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
             }
-            return Collections.EMPTY_LIST;
+            return Collections.EMPTY_SET;
         }
     }
 
