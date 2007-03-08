@@ -17,14 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.Collections;
-
-import junit.framework.TestCase;
-import net.sf.sail.webapp.dao.sds.SdsUserCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
-import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-
-import org.easymock.EasyMock;
+import net.sf.sail.webapp.junit.AbstractSpringTests;
 
 /**
  * @author Cynick Young
@@ -32,7 +26,7 @@ import org.easymock.EasyMock;
  * @version $Id: $
  * 
  */
-public class HttpRestSdsUserDaoTest extends TestCase {
+public class HttpRestSdsUserDaoTest extends AbstractSpringTests {
 
     private static final String EXPECTED_FIRST_NAME = "first";
 
@@ -40,30 +34,28 @@ public class HttpRestSdsUserDaoTest extends TestCase {
 
     private HttpRestSdsUserDao sdsUserDao;
 
-    private SdsUserCreateCommand mockCommand;
-
     private SdsUser sdsUser;
 
     /**
-     * @see junit.framework.TestCase#setUp()
+     * @param sdsUserDao
+     *            the sdsUserDao to set
      */
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.sdsUserDao = new HttpRestSdsUserDao();
+    public void setSdsUserDao(HttpRestSdsUserDao sdsUserDao) {
+        this.sdsUserDao = sdsUserDao;
+    }
+
+    @Override
+    protected void onSetUp() throws Exception {
+        super.onSetUp();
         this.sdsUser = this.sdsUserDao.createDataObject();
         this.sdsUser.setFirstName(EXPECTED_FIRST_NAME);
         this.sdsUser.setLastName(EXPECTED_LAST_NAME);
-        this.mockCommand = EasyMock.createMock(SdsUserCreateCommand.class);
-        this.sdsUserDao.setCreateCommand(this.mockCommand);
     }
 
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @Override
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
         this.sdsUserDao = null;
-        this.mockCommand = null;
         this.sdsUser = null;
     }
 
@@ -80,19 +72,10 @@ public class HttpRestSdsUserDaoTest extends TestCase {
      * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
      */
     @SuppressWarnings("unchecked")
-    public void testSave() {
-        final HttpPostRequest httpRequest = new HttpPostRequest(
-                Collections.EMPTY_MAP, Collections.EMPTY_MAP, "some body data",
-                "some url", 1);
-        this.mockCommand.setSdsUser(this.sdsUser);
-        EasyMock.expectLastCall();
-        EasyMock.expect(this.mockCommand.generateRequest()).andReturn(
-                httpRequest);
-        EasyMock.expect(this.mockCommand.execute(httpRequest)).andReturn(
-                this.sdsUser);
-        EasyMock.replay(this.mockCommand);
+    public void testSave_NewUser() {
+        assertNull(this.sdsUser.getSdsObjectId());
         this.sdsUserDao.save(this.sdsUser);
-        EasyMock.verify(this.mockCommand);
+        assertNotNull(this.sdsUser.getSdsObjectId());
     }
 
     /**

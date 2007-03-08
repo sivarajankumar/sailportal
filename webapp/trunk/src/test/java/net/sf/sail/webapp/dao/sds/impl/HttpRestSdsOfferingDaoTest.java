@@ -17,9 +17,18 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.junit.AbstractSpringTests;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+import org.jdom.xpath.XPath;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
@@ -82,18 +91,35 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
      */
     @SuppressWarnings("unchecked")
     public void testGetList() throws Exception {
+        // To test, we will retrieve the offering list through 2 methods, via
+        // DAO and httpunit. Compare the lists and make sure that they're
+        // equivalent.
+        // *Note* there is a small chance that between the 2 retrievals, a new
+        // offering may be inserted into the SDS and cause this test to break.
+        List<SdsOffering> actualList = this.sdsOfferingDao.getList();
+
         WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
                 .getBaseUrl()
-                + "/workgroup");
+                + "/offering");
         webRequest.setHeaderField("Accept", "application/xml");
         WebResponse webResponse = this.webConversation.getResponse(webRequest);
-        // This integration test is only interested in the fact that the real
-        // SDS returns an XML document with workgroups as the root element. As
-        // we have no way to guarantee the data to be in a known state, the
-        // actual test to parse the returned document will be done in a separate
-        // unit test that will mock the response.
-        assertEquals("workgroups", webResponse.getDOM().getDocumentElement()
-                .getNodeName());
+        SAXBuilder builder = new SAXBuilder();
+        InputStream responseStream = webResponse.getInputStream();
+        Document doc = builder.build(responseStream);
+        responseStream.close();
+
+        List<Element> nodeList = XPath.newInstance("/offerings/offering/id")
+                .selectNodes(doc);
+        assertEquals(nodeList.size(), actualList.size());
+        List<Integer> offeringIdList = new ArrayList<Integer>(nodeList.size());
+        for (Element element : nodeList) {
+            offeringIdList.add(new Integer(element.getText()));
+        }
+
+        assertEquals(offeringIdList.size(), actualList.size());
+        for (SdsOffering offering : actualList) {
+            offeringIdList.contains(offering.getSdsObjectId());
+        }
     }
 
     /**
