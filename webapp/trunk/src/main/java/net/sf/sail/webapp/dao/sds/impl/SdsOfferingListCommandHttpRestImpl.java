@@ -72,43 +72,36 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
      */
     @SuppressWarnings("unchecked")
     public Set<SdsOffering> execute(HttpGetRequest httpRequest) {
-        SAXBuilder builder = new SAXBuilder();
+        Document doc = convertXmlInputStreamToXmlDocument(this.transport
+                .get(httpRequest));
+        if (doc == null) {
+            return Collections.EMPTY_SET;
+        }
+
+        List<Element> nodeList;
         try {
-            InputStream responseStream = this.transport.get(httpRequest);
-            if (logger.isDebugEnabled()) {
-                logOfferingList(responseStream);
-            }
-            Document doc = builder.build(responseStream);
-            responseStream.close();
-
-            List<Element> nodeList = XPath.newInstance("/offerings/offering")
+            nodeList = XPath.newInstance("/offerings/offering")
                     .selectNodes(doc);
-
-            Set<SdsOffering> sdsOfferingSet = new HashSet<SdsOffering>();
-            for (Element offeringNode : nodeList) {
-                SdsOffering sdsOffering = this.sdsOfferingDao
-                        .createDataObject();
-                sdsOffering.setName(offeringNode.getChild("name").getValue());
-                sdsOffering.setCurnitId(new Integer(offeringNode.getChild(
-                        "curnit-id").getValue()));
-                sdsOffering.setJnlpId(new Integer(offeringNode.getChild(
-                        "jnlp-id").getValue()));
-                sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild(
-                        "id").getValue()));
-                sdsOfferingSet.add(sdsOffering);
-            }
-            return sdsOfferingSet;
         } catch (JDOMException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
             }
             return Collections.EMPTY_SET;
-        } catch (IOException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            return Collections.EMPTY_SET;
         }
+
+        Set<SdsOffering> sdsOfferingSet = new HashSet<SdsOffering>();
+        for (Element offeringNode : nodeList) {
+            SdsOffering sdsOffering = this.sdsOfferingDao.createDataObject();
+            sdsOffering.setName(offeringNode.getChild("name").getValue());
+            sdsOffering.setCurnitId(new Integer(offeringNode.getChild(
+                    "curnit-id").getValue()));
+            sdsOffering.setJnlpId(new Integer(offeringNode.getChild("jnlp-id")
+                    .getValue()));
+            sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild("id")
+                    .getValue()));
+            sdsOfferingSet.add(sdsOffering);
+        }
+        return sdsOfferingSet;
     }
 
     private static final String HEADER_ACCEPT = "Accept";
@@ -129,6 +122,34 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
 
         return new HttpGetRequest(REQUEST_HEADERS, Collections.EMPTY_MAP, url,
                 HttpStatus.SC_OK);
+    }
+
+    private Document convertXmlInputStreamToXmlDocument(InputStream inputStream) {
+        SAXBuilder builder = new SAXBuilder();
+        Document doc = null;
+        try {
+            if (logger.isDebugEnabled()) {
+                logOfferingList(inputStream);
+            }
+            doc = builder.build(inputStream);
+        } catch (JDOMException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+        } catch (IOException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                if (logger.isErrorEnabled()) {
+                    logger.error(e.getMessage(), e);
+                }
+            }
+        }
+        return doc;
     }
 
     private void logOfferingList(InputStream responseStream) throws IOException {

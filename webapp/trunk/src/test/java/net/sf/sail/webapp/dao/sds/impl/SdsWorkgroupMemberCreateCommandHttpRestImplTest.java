@@ -75,15 +75,16 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
         this.command = null;
     }
 
-    @SuppressWarnings("unchecked")
     public void testGenerateRequest_BodyDataWithThreeUsers() throws Exception {
-        addUsersToCommandWorkgroup();
+        addUserToCommandWorkgroup(SDS_USER_ID1);
+        addUserToCommandWorkgroup(SDS_USER_ID2);
+        addUserToCommandWorkgroup(SDS_USER_ID3);
         assertEquals(3, this.testWorkgroup.getMembers().size());
 
         HttpPostRequest request = this.command.generateRequest();
         List<Element> userNodeList = convertBodyDataToXMLNodes(request);
 
-        Set setOfExpectedIds = setUpExpectedUserIdSet();
+        Set<Integer> setOfExpectedIds = setUpExpectedUserIdSet();
 
         Set<SdsUser> sdsUserList = new HashSet<SdsUser>();
         for (Element memberNode : userNodeList) {
@@ -123,28 +124,26 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
     @SuppressWarnings("unchecked")
     private List<Element> convertBodyDataToXMLNodes(HttpPostRequest request)
             throws JDOMException, IOException {
-        InputStream requestStream = new ByteArrayInputStream(request
-                .getBodyData().getBytes());
-        SAXBuilder builder = new SAXBuilder();
-        Document doc = builder.build(requestStream);
-        requestStream.close();
+        Document doc = convertXMLStringToXMLDocument(request.getBodyData());
 
         return XPath.newInstance(
                 "/workgroup-memberships/workgroup-membership/user-id")
                 .selectNodes(doc);
     }
 
-    private void addUsersToCommandWorkgroup() {
+    private Document convertXMLStringToXMLDocument(String xmlString)
+            throws JDOMException, IOException {
+        InputStream requestStream = new ByteArrayInputStream(xmlString
+                .getBytes());
+        SAXBuilder builder = new SAXBuilder();
+        Document doc = builder.build(requestStream);
+        requestStream.close();
+        return doc;
+    }
+
+    private void addUserToCommandWorkgroup(Integer id) {
         SdsUser user = new SdsUser();
-        user.setSdsObjectId(SDS_USER_ID1);
         this.testWorkgroup.addMember(user);
-
-        SdsUser user2 = new SdsUser();
-        user2.setSdsObjectId(SDS_USER_ID2);
-        this.testWorkgroup.addMember(user2);
-
-        SdsUser user3 = new SdsUser();
-        user3.setSdsObjectId(SDS_USER_ID3);
-        this.testWorkgroup.addMember(user3);
+        user.setSdsObjectId(id);
     }
 }
