@@ -17,20 +17,13 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.io.InputStream;
-
 import net.sf.sail.webapp.domain.sds.SdsUser;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
-import net.sf.sail.webapp.junit.AbstractSpringTests;
+import net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebConversation;
-import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 /**
@@ -39,7 +32,7 @@ import com.meterware.httpunit.WebResponse;
  * @version $Id: $
  * 
  */
-public class HttpRestSdsUserDaoTest extends AbstractSpringTests {
+public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
 
     private static final String EXPECTED_FIRST_NAME = "first";
 
@@ -49,20 +42,12 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringTests {
 
     private SdsUser sdsUser;
 
-    private HttpRestTransport httpRestTransport;
-
-    private WebConversation webConversation;
-
-    public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-        this.httpRestTransport = httpRestTransport;
-    }
-
     public void setSdsUserDao(HttpRestSdsUserDao sdsUserDao) {
         this.sdsUserDao = sdsUserDao;
     }
 
     /**
-     * @see org.springframework.test.AbstractSingleSpringContextTests#onSetUp()
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
      */
     @Override
     protected void onSetUp() throws Exception {
@@ -70,19 +55,16 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringTests {
         this.sdsUser = this.sdsUserDao.createDataObject();
         this.sdsUser.setFirstName(EXPECTED_FIRST_NAME);
         this.sdsUser.setLastName(EXPECTED_LAST_NAME);
-        this.webConversation = new WebConversation();
     }
 
     /**
-     * @see org.springframework.test.AbstractSingleSpringContextTests#onTearDown()
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
      */
     @Override
     protected void onTearDown() throws Exception {
         super.onTearDown();
         this.sdsUserDao = null;
         this.sdsUser = null;
-        this.webConversation = null;
-        this.httpRestTransport = null;
     }
 
     /**
@@ -103,24 +85,21 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringTests {
         this.sdsUserDao.save(this.sdsUser);
         assertNotNull(this.sdsUser.getSdsObjectId());
 
-        // retrieve newly created user using httpunit and compare with sdsUser object
-        WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
-                .getBaseUrl()
-                + "/user/" + this.sdsUser.getSdsObjectId());
-        webRequest.setHeaderField("Accept", "application/xml");
-        WebResponse webResponse = this.webConversation.getResponse(webRequest);
+        // retrieve newly created user using httpunit and compare with sdsUser
+        // saved via DAO
+        WebResponse webResponse = makeHttpRestGetRequest("/user/"
+                + this.sdsUser.getSdsObjectId());
         assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-        SAXBuilder builder = new SAXBuilder();
-        InputStream responseStream = webResponse.getInputStream();
-        Document doc = builder.build(responseStream);
-        responseStream.close();
+        Document doc = createDocumentFromResponse(webResponse);
 
         Element rootElement = doc.getRootElement();
         SdsUser actualSdsUser = new SdsUser();
-        actualSdsUser.setFirstName(rootElement.getChild("first-name").getValue());
+        actualSdsUser.setFirstName(rootElement.getChild("first-name")
+                .getValue());
         actualSdsUser.setLastName(rootElement.getChild("last-name").getValue());
-        actualSdsUser.setSdsObjectId(new Integer(rootElement.getChild("id").getValue()));
+        actualSdsUser.setSdsObjectId(new Integer(rootElement.getChild("id")
+                .getValue()));
         assertEquals(this.sdsUser, actualSdsUser);
     }
 

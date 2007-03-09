@@ -17,24 +17,18 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
-import net.sf.sail.webapp.junit.AbstractSpringTests;
+import net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebConversation;
-import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 /**
@@ -43,40 +37,21 @@ import com.meterware.httpunit.WebResponse;
  * @version $Id: $
  * 
  */
-public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
+public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 
     private HttpRestSdsOfferingDao sdsOfferingDao;
-
-    private HttpRestTransport httpRestTransport;
-
-    private WebConversation webConversation;
 
     public void setSdsOfferingDao(HttpRestSdsOfferingDao sdsOfferingDao) {
         this.sdsOfferingDao = sdsOfferingDao;
     }
 
-    public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-        this.httpRestTransport = httpRestTransport;
-    }
-
     /**
-     * @see org.springframework.test.AbstractSingleSpringContextTests#onSetUp()
-     */
-    @Override
-    protected void onSetUp() throws Exception {
-        super.onSetUp();
-        this.webConversation = new WebConversation();
-    }
-
-    /**
-     * @see org.springframework.test.AbstractSingleSpringContextTests#onTearDown()
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
      */
     @Override
     protected void onTearDown() throws Exception {
         super.onTearDown();
         this.sdsOfferingDao = null;
-        this.webConversation = null;
-        this.httpRestTransport = null;
     }
 
     /**
@@ -92,17 +67,10 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
         // offering may be inserted into the SDS and cause this test to break.
         Set<SdsOffering> actualSet = this.sdsOfferingDao.getList();
 
-        WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
-                .getBaseUrl()
-                + "/offering");
-        webRequest.setHeaderField("Accept", "application/xml");
-        WebResponse webResponse = this.webConversation.getResponse(webRequest);
+        WebResponse webResponse = makeHttpRestGetRequest("/offering");
         assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-        SAXBuilder builder = new SAXBuilder();
-        InputStream responseStream = webResponse.getInputStream();
-        Document doc = builder.build(responseStream);
-        responseStream.close();
+        Document doc = createDocumentFromResponse(webResponse);
 
         List<Element> nodeList = XPath.newInstance("/offerings/offering/id")
                 .selectNodes(doc);
