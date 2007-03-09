@@ -26,6 +26,7 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.junit.AbstractSpringTests;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
@@ -50,18 +51,10 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
 
     private WebConversation webConversation;
 
-    /**
-     * @param sdsOfferingDao
-     *            the sdsOfferingDao to set
-     */
     public void setSdsOfferingDao(HttpRestSdsOfferingDao sdsOfferingDao) {
         this.sdsOfferingDao = sdsOfferingDao;
     }
 
-    /**
-     * @param httpRestTransport
-     *            the httpRestTransport to set
-     */
     public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
         this.httpRestTransport = httpRestTransport;
     }
@@ -104,6 +97,8 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringTests {
                 + "/offering");
         webRequest.setHeaderField("Accept", "application/xml");
         WebResponse webResponse = this.webConversation.getResponse(webRequest);
+        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
         SAXBuilder builder = new SAXBuilder();
         InputStream responseStream = webResponse.getInputStream();
         Document doc = builder.build(responseStream);
