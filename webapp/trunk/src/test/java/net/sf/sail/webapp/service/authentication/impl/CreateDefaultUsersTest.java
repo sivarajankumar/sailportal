@@ -11,84 +11,85 @@ import org.acegisecurity.GrantedAuthority;
 
 public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
 
-  private CreateDefaultUsers creator;
+    private CreateDefaultUsers creator;
 
-  private MutableUserDetails expectedUserDetails;
+    private MutableUserDetails expectedUserDetails;
 
-  private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
-  @SuppressWarnings("unused")
-  private UserService userService;
+    @SuppressWarnings("unused")
+    private UserService userService;
 
-  private UserDetailsDao<MutableUserDetails> userDao;
+    private UserDetailsDao<MutableUserDetails> userDao;
 
-  private static final String USERNAME = "Fred";
+    private static final String USERNAME = "Fred";
 
-  private static final String PASSWORD = "Dead";
+    private static final String PASSWORD = "Dead";
 
-  public void setUserDetailsService(UserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
-  }
-
-  public void setUserDao(HibernateUserDetailsDao userDao) {
-    this.userDao = userDao;
-  }
-
-  public void setUserService(UserService userService) {
-    this.userService = userService;
-  }
-
-  public void testCreateRoles() throws Exception {
-    assertNotNull(userDetailsService
-        .loadAuthorityByName(UserDetailsService.ADMIN_ROLE));
-    assertNotNull(userDetailsService
-        .loadAuthorityByName(UserDetailsService.USER_ROLE));
-  }
-
-  public void testCreateAdministrator() throws Exception {
-
-    MutableUserDetails actualUserDetails = userDao.retrieveByName(USERNAME);
-    GrantedAuthority[] authorities = actualUserDetails.getAuthorities();
-    assertTrue(testIfHasRole(authorities, UserDetailsService.ADMIN_ROLE));
-    assertTrue(testIfHasRole(authorities, UserDetailsService.USER_ROLE));
-  }
-
-  private boolean testIfHasRole(GrantedAuthority[] authorities, String role) {
-    boolean isRole = false;
-    for (int i = 0; i < authorities.length; i++) {
-      String thisRole = authorities[i].getAuthority();
-      if (thisRole == role)
-        isRole = true;
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
-    return isRole;
-  }
 
-  @Override
-  protected void onSetUpBeforeTransaction() throws Exception {
-    super.onSetUpBeforeTransaction();
-    creator = new CreateDefaultUsers();
-    creator.setUserDetailsService(userDetailsService);
-    creator.setUserService(userService);
+    public void setUserDao(HibernateUserDetailsDao userDao) {
+        this.userDao = userDao;
+    }
 
-    expectedUserDetails = (MutableUserDetails) userDao.createDataObject();
-    expectedUserDetails.setUsername(USERNAME);
-    expectedUserDetails.setPassword(PASSWORD);
-  }
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
-  @Override
-  protected void onSetUpInTransaction() throws Exception {
-    super.onSetUpInTransaction();
-    creator.createRoles(this.applicationContext);
-    creator.createAdministrator(expectedUserDetails);
-  }
+    public void testCreateRoles() throws Exception {
+        assertNotNull(userDetailsService
+                .loadAuthorityByName(UserDetailsService.ADMIN_ROLE));
+        assertNotNull(userDetailsService
+                .loadAuthorityByName(UserDetailsService.USER_ROLE));
+    }
 
-  /**
-   * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
-   */
-  @Override
-  protected void onTearDownAfterTransaction() throws Exception {
-    super.onTearDownAfterTransaction();
-    creator = null;
-    expectedUserDetails = null;
-  }
+    public void testCreateAdministrator() throws Exception {
+
+        MutableUserDetails actualUserDetails = userDao.retrieveByName(USERNAME);
+        GrantedAuthority[] authorities = actualUserDetails.getAuthorities();
+        assertTrue(testIfHasRole(authorities, UserDetailsService.ADMIN_ROLE));
+        assertTrue(testIfHasRole(authorities, UserDetailsService.USER_ROLE));
+    }
+
+    private boolean testIfHasRole(GrantedAuthority[] authorities, String role) {
+        boolean isRole = false;
+        for (int i = 0; i < authorities.length; i++) {
+            String thisRole = authorities[i].getAuthority();
+            if (thisRole == role)
+                isRole = true;
+        }
+        return isRole;
+    }
+
+    @Override
+    protected void onSetUpBeforeTransaction() throws Exception {
+        super.onSetUpBeforeTransaction();
+        creator = new CreateDefaultUsers();
+        creator.setUserDetailsService(userDetailsService);
+        creator.setUserService(userService);
+
+        expectedUserDetails = (MutableUserDetails) this.applicationContext
+                .getBean("mutableUserDetails");
+        expectedUserDetails.setUsername(USERNAME);
+        expectedUserDetails.setPassword(PASSWORD);
+    }
+
+    @Override
+    protected void onSetUpInTransaction() throws Exception {
+        super.onSetUpInTransaction();
+        creator.createRoles(this.applicationContext);
+        creator.createAdministrator(expectedUserDetails);
+    }
+
+    /**
+     * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
+     */
+    @Override
+    protected void onTearDownAfterTransaction() throws Exception {
+        super.onTearDownAfterTransaction();
+        creator = null;
+        expectedUserDetails = null;
+    }
 }

@@ -61,9 +61,6 @@
         <property name="transport">
             <ref local="httpRestTransport" />
         </property>
-        <property name="sdsOfferingDao">
-            <ref local="sdsOfferingDao" />
-        </property>
     </bean>
 
     <bean id="offeringsService"

@@ -157,10 +157,6 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
         verifyDataStoreIsEmpty();
     }
 
-    public void testCreateDataObject() {
-        assertTrue(this.userDao.createDataObject() instanceof UserImpl);
-    }
-
     private void verifyDataStoreIsEmpty() {
         assertTrue(retrieveUserListFromDb().isEmpty());
     }

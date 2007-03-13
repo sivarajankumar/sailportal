@@ -20,7 +20,6 @@ package net.sf.sail.webapp.dao.user.impl;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.impl.UserImpl;
 
 /**
  * @author Cynick Young
@@ -31,10 +30,4 @@ import net.sf.sail.webapp.domain.impl.UserImpl;
 public class HibernateUserDao extends AbstractHibernateDao<User> implements
         UserDao<User> {
 
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-     */
-    public User createDataObject() {
-        return new UserImpl();
-    }
 }

@@ -25,7 +25,7 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HttpRestSdsUserDao extends AbstractDao<SdsUser> implements
@@ -49,12 +49,5 @@ public class HttpRestSdsUserDao extends AbstractDao<SdsUser> implements
         this.createCommand.execute(this.createCommand.generateRequest());
         // TODO - when update command for SDS is written, need to differentiate
         // between create and update
-    }
-
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-     */
-    public SdsUser createDataObject() {
-        return new SdsUser();
     }
 }

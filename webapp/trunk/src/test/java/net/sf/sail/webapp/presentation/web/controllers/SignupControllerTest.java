@@ -25,11 +25,10 @@ import static org.easymock.EasyMock.verify;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.dao.user.UserDao;
-import net.sf.sail.webapp.dao.user.impl.HibernateUserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
@@ -68,8 +67,6 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 	BindException errors;
 
 	UserService mockUserService;
-	
-	private UserDao<User> userDao;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -80,16 +77,14 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 		errors = new BindException(userDetails, "");
 		mockUserService = createMock(UserService.class);
 		mockApplicationContext = createMock(ApplicationContext.class);
-		userDao = new HibernateUserDao();
 	}
 
 	public void testOnSubmit() throws Exception {
 		// test submission of form with correct username and password info.
 		// should get ModelAndView back containing view which is instance of
 		// RedirectView, with name of success view as URL.
-		
 
-		User user = userDao.createDataObject();
+		User user = new UserImpl();
 		expect(mockUserService.createUser(userDetails)).andReturn(user);
 		replay(mockUserService);
 
@@ -104,24 +99,22 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 				response, userDetails, errors);
 
 		assertTrue(modelAndView.getView() instanceof RedirectView);
-	    assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
-	    verify(mockUserService);
+		assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
+		verify(mockUserService);
 
 		// test submission of form with same username and password info which
 		// would result in DuplicateUsernameException being thrown. Should get
 		// back ModelAndView with original form returned with name of Form View
 		// as set.
 		reset(mockUserService);
-		expect(mockUserService.createUser(userDetails))
-				.andThrow(
-						new DuplicateUsernameException(userDetails
-								.getUsername()));
+		expect(mockUserService.createUser(userDetails)).andThrow(
+				new DuplicateUsernameException(userDetails.getUsername()));
 		replay(mockUserService);
-		
+
 		signupController.setFormView(FORM);
 		modelAndView = signupController.onSubmit(request, response,
 				userDetails, errors);
-		
+
 		assertViewName(modelAndView, FORM);
 		assertEquals(1, errors.getErrorCount());
 		assertEquals(1, errors.getFieldErrorCount("username"));
@@ -130,8 +123,8 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 		// test submission of form where RuntimeException is thrown.
 		// should catch a RuntimeException
 		reset(mockUserService);
-		expect(mockUserService.createUser(userDetails))
-				.andThrow(new RuntimeException());
+		expect(mockUserService.createUser(userDetails)).andThrow(
+				new RuntimeException());
 		replay(mockUserService);
 		signupController.setFormView(FORM);
 		try {

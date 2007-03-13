@@ -29,7 +29,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
@@ -52,7 +52,7 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
     @Override
     protected void onSetUp() throws Exception {
         super.onSetUp();
-        this.sdsUser = this.sdsUserDao.createDataObject();
+        this.sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
         this.sdsUser.setFirstName(EXPECTED_FIRST_NAME);
         this.sdsUser.setLastName(EXPECTED_LAST_NAME);
     }
@@ -65,14 +65,6 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
         super.onTearDown();
         this.sdsUserDao = null;
         this.sdsUser = null;
-    }
-
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#createDataObject()}.
-     */
-    public void testCreateDataObject() {
-        assertTrue(this.sdsUserDao.createDataObject() instanceof SdsUser);
     }
 
     /**

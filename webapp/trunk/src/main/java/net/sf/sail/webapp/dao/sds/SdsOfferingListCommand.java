@@ -25,15 +25,10 @@ import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public interface SdsOfferingListCommand extends
         SdsCommand<Set<SdsOffering>, HttpGetRequest> {
 
-    /**
-     * @param sdsOfferingDao
-     *            the sdsOfferingDao to set
-     */
-    public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao);
-}
+ }

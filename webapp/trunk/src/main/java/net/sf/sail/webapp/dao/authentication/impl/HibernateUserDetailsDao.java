@@ -20,7 +20,6 @@ package net.sf.sail.webapp.dao.authentication.impl;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.springframework.dao.support.DataAccessUtils;
 
@@ -36,13 +35,6 @@ import org.springframework.dao.support.DataAccessUtils;
 public class HibernateUserDetailsDao extends
         AbstractHibernateDao<MutableUserDetails> implements
         UserDetailsDao<MutableUserDetails> {
-
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-     */
-    public MutableUserDetails createDataObject() {
-        return new PersistentUserDetails();
-    }
 
     /**
      * Retrieve the user, by username. Returns null if user is not found.

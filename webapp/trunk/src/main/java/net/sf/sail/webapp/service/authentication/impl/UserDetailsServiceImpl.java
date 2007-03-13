@@ -43,86 +43,87 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	private UserDetailsDao<MutableUserDetails> userDetailsDao;
+    private UserDetailsDao<MutableUserDetails> userDetailsDao;
 
-	private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
+    private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
 
-	/**
-	 * @param grantedAuthorityDao
-	 *            The granted authority to set.
-	 */
-	public void setGrantedAuthorityDao(
-			GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
-		this.grantedAuthorityDao = grantedAuthorityDao;
-	}
+    /**
+     * @param grantedAuthorityDao
+     *            The granted authority to set.
+     */
+    public void setGrantedAuthorityDao(
+            GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
+        this.grantedAuthorityDao = grantedAuthorityDao;
+    }
 
-	/**
-	 * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
-	 */
-	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException, DataAccessException {
-		UserDetails userDetails = this.userDetailsDao.retrieveByName(username);
-		if (userDetails == null) {
-			throw new UsernameNotFoundException("Username: " + username
-					+ " not found.");
-		}
-		return userDetails;
-	}
+    /**
+     * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+     */
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException, DataAccessException {
+        UserDetails userDetails = this.userDetailsDao.retrieveByName(username);
+        if (userDetails == null) {
+            throw new UsernameNotFoundException("Username: " + username
+                    + " not found.");
+        }
+        return userDetails;
+    }
 
-	/**
-	 * @param userDetailsDao
-	 *            The userDetailsDao to set.
-	 */
-	public void setUserDetailsDao(
-			UserDetailsDao<MutableUserDetails> userDetailsDao) {
-		this.userDetailsDao = userDetailsDao;
-	}
+    /**
+     * @param userDetailsDao
+     *            The userDetailsDao to set.
+     */
+    public void setUserDetailsDao(
+            UserDetailsDao<MutableUserDetails> userDetailsDao) {
+        this.userDetailsDao = userDetailsDao;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#createGrantedAuthority(java.lang.String)
-	 */
-	@Transactional(rollbackFor = { DuplicateAuthorityException.class })
-	public MutableGrantedAuthority createGrantedAuthority(ApplicationContext applicationContext, String authority)
-			throws DuplicateAuthorityException {
-		this.checkNoAuthorityCreationErrors(authority);
+    /**
+     * @see net.sf.sail.webapp.service.authentication.UserDetailsService#createGrantedAuthority(java.lang.String)
+     */
+    @Transactional(rollbackFor = { DuplicateAuthorityException.class })
+    public MutableGrantedAuthority createGrantedAuthority(
+            ApplicationContext applicationContext, String authority)
+            throws DuplicateAuthorityException {
+        this.checkNoAuthorityCreationErrors(authority);
 
-		MutableGrantedAuthority grantedAuthority = (MutableGrantedAuthority) applicationContext
-		.getBean("mutableGrantedAuthority");
-		grantedAuthority.setAuthority(authority);
-		this.grantedAuthorityDao.save(grantedAuthority);
-		return grantedAuthority;
-	}
+        MutableGrantedAuthority grantedAuthority = (MutableGrantedAuthority) applicationContext
+                .getBean("mutableGrantedAuthority");
+        grantedAuthority.setAuthority(authority);
+        this.grantedAuthorityDao.save(grantedAuthority);
+        return grantedAuthority;
+    }
 
-	/**
-	 * Validates user input checks that the data store does not already contain
-	 * an authority with the same name
-	 * 
-	 * @param authority
-	 *            The authority to be checked for in the data store.
-	 * @throws DuplicateAuthorityException
-	 *             If the authority is the same as an authority already in data
-	 *             store.
-	 */
-	private void checkNoAuthorityCreationErrors(String authority)
-			throws DuplicateAuthorityException {
+    /**
+     * Validates user input checks that the data store does not already contain
+     * an authority with the same name
+     * 
+     * @param authority
+     *            The authority to be checked for in the data store.
+     * @throws DuplicateAuthorityException
+     *             If the authority is the same as an authority already in data
+     *             store.
+     */
+    private void checkNoAuthorityCreationErrors(String authority)
+            throws DuplicateAuthorityException {
 
-	    if (this.grantedAuthorityDao.hasRole(authority)){
-	    	throw new DuplicateAuthorityException(authority);
-	      }
-	}
+        if (this.grantedAuthorityDao.hasRole(authority)) {
+            throw new DuplicateAuthorityException(authority);
+        }
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.service.authentication.UserDetailsService#loadAuthorityByName(java.lang.String)
-	 */
-	@Transactional(readOnly = true)
-	public GrantedAuthority loadAuthorityByName(String authority)
-			throws AuthorityNotFoundException {
-		GrantedAuthority grantedAuthority = this.grantedAuthorityDao
-				.retrieveByName(authority);
-		if (grantedAuthority == null) {
-			throw new AuthorityNotFoundException(authority);
-		}
-		return grantedAuthority;
-	}
+    /**
+     * @see net.sf.sail.webapp.service.authentication.UserDetailsService#loadAuthorityByName(java.lang.String)
+     */
+    @Transactional(readOnly = true)
+    public GrantedAuthority loadAuthorityByName(String authority)
+            throws AuthorityNotFoundException {
+        GrantedAuthority grantedAuthority = this.grantedAuthorityDao
+                .retrieveByName(authority);
+        if (grantedAuthority == null) {
+            throw new AuthorityNotFoundException(authority);
+        }
+        return grantedAuthority;
+    }
 }

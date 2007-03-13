@@ -278,14 +278,6 @@ public class HibernateStudentUserDetailsDaoTest extends AbstractTransactionalDbT
 		assertNull(this.userDetailsDao.retrieveByName(USERNAME_NOT_IN_DB));
 	}
 	
-	/* Cynick will update createDataObject() method to be more adaptive of portal-environment
-	 * e.g. telsportal vs pasportal, to return right type
-	 * TODO buy hiroki starbucks frappuccino
-	public void testCreateDataObject() {
-		assertTrue(this.userDetailsDao.createDataObject() instanceof MutableUserDetails);
-	}
-	*/
-	
 	public void testHasUsername() {
 		this.userDetailsDao.save(this.defaultUserDetails);
 		assertTrue(this.userDetailsDao.hasUsername(DEFAULT_USERNAME));

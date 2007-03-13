@@ -27,7 +27,7 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
@@ -49,12 +49,5 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
     @SuppressWarnings("unchecked")
     public Set<SdsOffering> getList() {
         return this.listCommand.execute(this.listCommand.generateRequest());
-    }
-
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-     */
-    public SdsOffering createDataObject() {
-        return new SdsOffering();
     }
 }

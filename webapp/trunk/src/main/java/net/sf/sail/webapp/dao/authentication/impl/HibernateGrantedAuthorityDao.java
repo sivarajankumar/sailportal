@@ -20,7 +20,6 @@ package net.sf.sail.webapp.dao.authentication.impl;
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 
 import org.springframework.dao.support.DataAccessUtils;
 
@@ -37,14 +36,7 @@ import org.springframework.dao.support.DataAccessUtils;
 public class HibernateGrantedAuthorityDao extends
         AbstractHibernateDao<MutableGrantedAuthority> implements
         GrantedAuthorityDao<MutableGrantedAuthority> {
-
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#createDataObject()
-     */
-    public MutableGrantedAuthority createDataObject() {
-        return new PersistentGrantedAuthority();
-    }
-
+    
     /**
      * Retrieve the granted authority by name. Returns null if the specified
      * authority name is not found.

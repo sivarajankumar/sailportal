@@ -34,7 +34,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
@@ -84,14 +84,6 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
         for (SdsOffering offering : actualSet) {
             offeringIdList.contains(offering.getSdsObjectId());
         }
-    }
-
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#createDataObject()}.
-     */
-    public void testCreateDataObject() {
-        assertTrue(this.sdsOfferingDao.createDataObject() instanceof SdsOffering);
     }
 
     /**

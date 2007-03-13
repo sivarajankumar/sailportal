@@ -20,7 +20,6 @@ package net.sf.sail.webapp.presentation.validators;
 import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
-import net.sf.sail.webapp.presentation.validators.UserDetailsValidator;
 
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -33,159 +32,160 @@ import org.springframework.validation.Validator;
  */
 public class UserDetailsValidatorTest extends TestCase {
 
-  private MutableUserDetails userDetails;
+    private MutableUserDetails userDetails;
 
-  private Errors errors;
+    private Errors errors;
 
-  private static final String USERNAME = "NAME";
+    private static final String USERNAME = "NAME";
 
-  private static final String PASSWORD = "PASS";
+    private static final String PASSWORD = "PASS";
 
-  private static final String EMPTY = "";
+    private static final String EMPTY = "";
 
-  private static final String SPACES = "    ";
+    private static final String SPACES = "    ";
 
-  private static final String ILLEGAL1 = "<a>";
+    private static final String ILLEGAL1 = "<a>";
 
-  private static final String ILLEGAL2 = "'";
+    private static final String ILLEGAL2 = "'";
 
-  private static final String ILLEGAL3 = "\"";
+    private static final String ILLEGAL3 = "\"";
 
-  private static final String ILLEGAL4 = ";";
-  private static final String LONG = "abcdefghijhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String ILLEGAL4 = ";";
 
-  private Validator userDetailsValidator;
+    private static final String LONG = "abcdefghijhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  protected void setUp() throws Exception {
-    super.setUp();
-    userDetails = new PersistentUserDetails();
-    userDetails.setUsername(USERNAME);
-    userDetails.setPassword(PASSWORD);
-    errors = new BeanPropertyBindingResult(userDetails, "");
-    userDetailsValidator = new UserDetailsValidator();
-  }
+    private Validator userDetailsValidator;
 
-  public void testUsernameNullValidate() {
-    userDetails.setUsername(null);
+    protected void setUp() throws Exception {
+        super.setUp();
+        userDetails = new PersistentUserDetails();
+        userDetails.setUsername(USERNAME);
+        userDetails.setPassword(PASSWORD);
+        errors = new BeanPropertyBindingResult(userDetails, "");
+        userDetailsValidator = new UserDetailsValidator();
+    }
 
-    userDetailsValidator.validate(userDetails, errors);
+    public void testUsernameNullValidate() {
+        userDetails.setUsername(null);
 
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNotNull(errors.getFieldError("username"));
-    assertNull(errors.getFieldError("password"));
-  }
+        userDetailsValidator.validate(userDetails, errors);
 
-  public void testUsernameEmptyValidate() {
-    userDetails.setUsername(EMPTY);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("username"));
+        assertNull(errors.getFieldError("password"));
+    }
 
-    userDetailsValidator.validate(userDetails, errors);
+    public void testUsernameEmptyValidate() {
+        userDetails.setUsername(EMPTY);
 
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNotNull(errors.getFieldError("username"));
-    assertNull(errors.getFieldError("password"));
-  }
+        userDetailsValidator.validate(userDetails, errors);
 
-  public void testUsernameSpacesValidate() {
-    userDetails.setUsername(SPACES);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("username"));
+        assertNull(errors.getFieldError("password"));
+    }
 
-    userDetailsValidator.validate(userDetails, errors);
+    public void testUsernameSpacesValidate() {
+        userDetails.setUsername(SPACES);
 
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNotNull(errors.getFieldError("username"));
-    assertNull(errors.getFieldError("password"));
-  }
+        userDetailsValidator.validate(userDetails, errors);
 
-  public void testPasswordNullValidate() {
-    userDetails.setPassword(null);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("username"));
+        assertNull(errors.getFieldError("password"));
+    }
 
-    userDetailsValidator.validate(userDetails, errors);
+    public void testPasswordNullValidate() {
+        userDetails.setPassword(null);
 
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNull(errors.getFieldError("username"));
-    assertNotNull(errors.getFieldError("password"));
-  }
+        userDetailsValidator.validate(userDetails, errors);
 
-  public void testPasswordEmptyValidate() {
-    userDetails.setPassword(EMPTY);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNull(errors.getFieldError("username"));
+        assertNotNull(errors.getFieldError("password"));
+    }
 
-    userDetailsValidator.validate(userDetails, errors);
+    public void testPasswordEmptyValidate() {
+        userDetails.setPassword(EMPTY);
 
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNull(errors.getFieldError("username"));
-    assertNotNull(errors.getFieldError("password"));
-  }
+        userDetailsValidator.validate(userDetails, errors);
 
-  public void testPasswordSpacesValidate() {
-    userDetails.setPassword(SPACES);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNull(errors.getFieldError("username"));
+        assertNotNull(errors.getFieldError("password"));
+    }
 
-    userDetailsValidator.validate(userDetails, errors);
+    public void testPasswordSpacesValidate() {
+        userDetails.setPassword(SPACES);
 
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNull(errors.getFieldError("username"));
-    assertNotNull(errors.getFieldError("password"));
-  }
+        userDetailsValidator.validate(userDetails, errors);
 
-  public void testUsernameIllegalChars1Validate() {
-    userDetails.setUsername(ILLEGAL1);
-    userDetailsValidator.validate(userDetails, errors);
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNotNull(errors.getFieldError("username"));
-    assertNull(errors.getFieldError("password"));
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNull(errors.getFieldError("username"));
+        assertNotNull(errors.getFieldError("password"));
+    }
 
-  }
+    public void testUsernameIllegalChars1Validate() {
+        userDetails.setUsername(ILLEGAL1);
+        userDetailsValidator.validate(userDetails, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("username"));
+        assertNull(errors.getFieldError("password"));
 
-  public void testUsernameIllegalChars2Validate() {
-    userDetails.setUsername(ILLEGAL2);
-    userDetailsValidator.validate(userDetails, errors);
+    }
 
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNotNull(errors.getFieldError("username"));
-    assertNull(errors.getFieldError("password"));
+    public void testUsernameIllegalChars2Validate() {
+        userDetails.setUsername(ILLEGAL2);
+        userDetailsValidator.validate(userDetails, errors);
 
-  }
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("username"));
+        assertNull(errors.getFieldError("password"));
 
-  public void testUsernameIllegalChars3Validate() {
-    userDetails.setUsername(ILLEGAL3);
-    userDetailsValidator.validate(userDetails, errors);
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNotNull(errors.getFieldError("username"));
-    assertNull(errors.getFieldError("password"));
+    }
 
-  }
+    public void testUsernameIllegalChars3Validate() {
+        userDetails.setUsername(ILLEGAL3);
+        userDetailsValidator.validate(userDetails, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("username"));
+        assertNull(errors.getFieldError("password"));
 
-  public void testUsernameIllegalChars4Validate() {
-    userDetails.setUsername(ILLEGAL4);
-    userDetailsValidator.validate(userDetails, errors);
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNotNull(errors.getFieldError("username"));
-    assertNull(errors.getFieldError("password"));
-  }
-  
-  public void testUsernameLongValidate() {
-    assertTrue(LONG.length() > UserDetailsValidator.MAX_USERNAME_LENGTH);
-    userDetails.setUsername(LONG);
-    userDetailsValidator.validate(userDetails, errors);
-    assertTrue(errors.hasErrors());
-    assertEquals(1, errors.getErrorCount());
-    assertNotNull(errors.getFieldError("username"));
-    assertNull(errors.getFieldError("password"));
-    
-  }
+    }
 
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    userDetails = null;
-    errors = null;
-  }
+    public void testUsernameIllegalChars4Validate() {
+        userDetails.setUsername(ILLEGAL4);
+        userDetailsValidator.validate(userDetails, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("username"));
+        assertNull(errors.getFieldError("password"));
+    }
+
+    public void testUsernameLongValidate() {
+        assertTrue(LONG.length() > UserDetailsValidator.MAX_USERNAME_LENGTH);
+        userDetails.setUsername(LONG);
+        userDetailsValidator.validate(userDetails, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("username"));
+        assertNull(errors.getFieldError("password"));
+
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        userDetails = null;
+        errors = null;
+    }
 
 }

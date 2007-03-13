@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import junit.framework.TestCase;
-import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
@@ -47,8 +46,6 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
 
     private HttpGetRequest httpRequest;
 
-    private SdsOfferingDao sdsOfferingDao;
-
     /**
      * @see junit.framework.TestCase#setUp()
      */
@@ -56,10 +53,8 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         this.command = new SdsOfferingListCommandHttpRestImpl();
-        this.sdsOfferingDao = new HttpRestSdsOfferingDao();
         this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
         this.command.setTransport(this.mockTransport);
-        this.command.setSdsOfferingDao(this.sdsOfferingDao);
         this.httpRequest = this.command.generateRequest();
     }
 
