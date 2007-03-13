@@ -60,7 +60,6 @@ public class HibernateGrantedAuthorityDaoTest extends
         super.onSetUpBeforeTransaction();
         this.defaultGrantedAuthority = (MutableGrantedAuthority) this.applicationContext
                 .getBean("mutableGrantedAuthority");
-        ;
         this.defaultGrantedAuthority.setAuthority(DEFAULT_ROLE);
     }
 
