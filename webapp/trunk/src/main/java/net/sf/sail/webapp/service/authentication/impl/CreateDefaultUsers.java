@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.service.authentication.impl;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
@@ -137,19 +138,20 @@ public class CreateDefaultUsers {
      * 
      * @param applicationContext
      *            The Spring application context that contains the beans.
-     * @throws AuthorityCreationException
-     *             If the authority passed in is null or cannot be created for
-     *             some reason.
-     */
-    /**
      * @throws DuplicateAuthorityException
+     *             if authority to be created is not unique
      */
     public void createRoles(ApplicationContext applicationContext)
             throws DuplicateAuthorityException {
-        this.userDetailsService.createGrantedAuthority(applicationContext,
-                UserDetailsService.ADMIN_ROLE);
-        this.userDetailsService.createGrantedAuthority(applicationContext,
-                UserDetailsService.USER_ROLE);
+        MutableGrantedAuthority mutableGrantedAuthority = (MutableGrantedAuthority) applicationContext
+                .getBean("mutableGrantedAuthority");
+        mutableGrantedAuthority.setAuthority(UserDetailsService.ADMIN_ROLE);
+        this.userDetailsService.createGrantedAuthority(mutableGrantedAuthority);
+
+        mutableGrantedAuthority = (MutableGrantedAuthority) applicationContext
+                .getBean("mutableGrantedAuthority");
+        mutableGrantedAuthority.setAuthority(UserDetailsService.USER_ROLE);
+        this.userDetailsService.createGrantedAuthority(mutableGrantedAuthority);
     }
 
     /**

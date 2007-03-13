@@ -114,12 +114,16 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
 
     public void testDuplicateAuthorityErrors() throws Exception {
         // create 2 authorities and attempt to save to DB
-        // second authority should cause exception to be thown
-        this.userDetailsService.createGrantedAuthority(this.applicationContext,
-                ROLE);
+        // second authority should cause exception to be thrown
+        MutableGrantedAuthority authority1 = (MutableGrantedAuthority) this.applicationContext
+                .getBean("mutableGrantedAuthority");
+        authority1.setAuthority(ROLE);
+        this.userDetailsService.createGrantedAuthority(authority1);
         try {
-            this.userDetailsService.createGrantedAuthority(
-                    this.applicationContext, ROLE);
+            MutableGrantedAuthority authority2 = (MutableGrantedAuthority) this.applicationContext
+                    .getBean("mutableGrantedAuthority");
+            authority2.setAuthority(ROLE);
+            this.userDetailsService.createGrantedAuthority(authority2);
             fail("DuplicateAuthorityException expected and not caught.");
         } catch (DuplicateAuthorityException e) {
         }
@@ -127,12 +131,15 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
     }
 
     public void testCreateAuthority() throws Exception {
-        GrantedAuthority expectedGrantedAuthority = this.userDetailsService
-                .createGrantedAuthority(this.applicationContext, ROLE);
+        MutableGrantedAuthority mutableGrantedAuthority = (MutableGrantedAuthority) this.applicationContext
+                .getBean("mutableGrantedAuthority");
+        mutableGrantedAuthority.setAuthority(ROLE);
+        mutableGrantedAuthority = this.userDetailsService
+                .createGrantedAuthority(mutableGrantedAuthority);
 
         GrantedAuthority actual = this.userDetailsService
                 .loadAuthorityByName(ROLE);
-        assertEquals(expectedGrantedAuthority, actual);
+        assertEquals(mutableGrantedAuthority, actual);
     }
 
     public GrantedAuthorityDao<MutableGrantedAuthority> getAuthorityDao() {
