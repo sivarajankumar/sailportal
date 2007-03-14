@@ -23,6 +23,8 @@ import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offerings.OfferingsService;
 
+import org.springframework.beans.factory.annotation.Required;
+
 /**
  * @author Laurel Williams
  * 
@@ -36,6 +38,7 @@ public class OfferingsServiceImpl implements OfferingsService {
      * @param sdsOfferingDao
      *            the sdsOfferingDao to set
      */
+    @Required
     public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao) {
         this.sdsOfferingDao = sdsOfferingDao;
     }

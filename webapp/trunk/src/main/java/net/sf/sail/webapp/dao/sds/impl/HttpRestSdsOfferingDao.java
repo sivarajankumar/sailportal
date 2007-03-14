@@ -24,6 +24,8 @@ import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
+import org.springframework.beans.factory.annotation.Required;
+
 /**
  * @author Cynick Young
  * 
@@ -39,6 +41,7 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
      * @param listCommand
      *            the listCommand to set
      */
+    @Required
     public void setListCommand(SdsOfferingListCommand listCommand) {
         this.listCommand = listCommand;
     }

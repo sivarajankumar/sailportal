@@ -33,6 +33,7 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
 	 * @param sdsUserDao
 	 *            the sdsUserDao to set
 	 */
+	@Required
 	public void setSdsUserDao(SdsUserDao sdsUserDao) {
 		this.sdsUserDao = sdsUserDao;
 	}
@@ -64,6 +66,7 @@ public class UserServiceImpl implements UserService {
 	 * @param userDao
 	 *            the userDao to set
 	 */
+	@Required
 	public void setUserDao(final UserDao<User> userDao) {
 		this.userDao = userDao;
 	}
@@ -72,6 +75,7 @@ public class UserServiceImpl implements UserService {
 	 * @param grantedAuthorityDao
 	 *            the grantedAuthorityDao to set
 	 */
+	@Required
 	public void setGrantedAuthorityDao(
 			final GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
 		this.grantedAuthorityDao = grantedAuthorityDao;
@@ -81,6 +85,7 @@ public class UserServiceImpl implements UserService {
 	 * @param userDetailsDao
 	 *            the userDetailsDao to set
 	 */
+	@Required
 	public void setUserDetailsDao(
 			final UserDetailsDao<MutableUserDetails> userDetailsDao) {
 		this.userDetailsDao = userDetailsDao;

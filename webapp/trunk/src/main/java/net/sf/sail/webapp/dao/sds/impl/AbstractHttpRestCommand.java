@@ -19,12 +19,14 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
+import org.springframework.beans.factory.annotation.Required;
+
 /**
  * Abstract implementation of an SDS command using HTTP REST.
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public abstract class AbstractHttpRestCommand {
@@ -39,6 +41,7 @@ public abstract class AbstractHttpRestCommand {
      * @param transport
      *            the transport to set
      */
+    @Required
     public void setTransport(final HttpRestTransport transport) {
         this.transport = transport;
     }

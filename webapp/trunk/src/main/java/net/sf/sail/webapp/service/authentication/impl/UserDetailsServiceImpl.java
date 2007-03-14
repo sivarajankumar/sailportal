@@ -28,6 +28,7 @@ import net.sf.sail.webapp.service.authentication.UserDetailsService;
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +51,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @param grantedAuthorityDao
      *            The granted authority to set.
      */
+    @Required
     public void setGrantedAuthorityDao(
             GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
         this.grantedAuthorityDao = grantedAuthorityDao;
@@ -73,6 +75,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @param userDetailsDao
      *            The userDetailsDao to set.
      */
+    @Required
     public void setUserDetailsDao(
             UserDetailsDao<MutableUserDetails> userDetailsDao) {
         this.userDetailsDao = userDetailsDao;
