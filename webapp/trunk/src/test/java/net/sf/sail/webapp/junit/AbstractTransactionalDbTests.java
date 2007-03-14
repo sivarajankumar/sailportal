@@ -17,17 +17,19 @@
  */
 package net.sf.sail.webapp.junit;
 
+import net.sf.sail.webapp.SpringConfiguration;
+
 import org.hibernate.SessionFactory;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
+ * Allows testers to perform data store integration tests. Provides transactions
+ * and access to the Spring Beans.
+ * 
  * @author Cynick Young
  * 
  * @version $Id: AbstractTransactionalDbTests.java 11 2006-11-08 19:22:53Z
  *          cynick $
- * 
- * Allows testers to perform data store integration tests. Provides transactions
- * and access to the Spring Beans.
  * 
  */
 public abstract class AbstractTransactionalDbTests extends

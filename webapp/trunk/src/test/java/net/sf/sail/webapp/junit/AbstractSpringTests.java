@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.junit;
 
+import net.sf.sail.webapp.SpringConfiguration;
+
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 /**

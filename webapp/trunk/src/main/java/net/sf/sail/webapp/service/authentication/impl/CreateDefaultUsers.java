@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.service.authentication.impl;
 
+import net.sf.sail.webapp.SpringConfiguration;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -27,6 +28,7 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -41,14 +43,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id$
  */
 public class CreateDefaultUsers {
-
-    private static final String[] CONFIG_LOCATIONS = new String[] {
-            "classpath:applicationContext-datasource.xml",
-            "classpath:applicationContext-hibernate.xml",
-            "classpath:applicationContext-sds.xml",
-            "classpath:applicationContext-security.xml",
-            "classpath:applicationContext-spring.xml",
-            "classpath:applicationContext-user.xml" };
 
     private UserDetailsService userDetailsService = null;
 
@@ -70,7 +64,7 @@ public class CreateDefaultUsers {
             System.exit(1);
         }
         AbstractXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                CONFIG_LOCATIONS);
+                SpringConfiguration.CONFIG_LOCATIONS);
         try {
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
             createDefaultUsers.init(applicationContext);
@@ -101,6 +95,7 @@ public class CreateDefaultUsers {
      * 
      * @param userDetailsService
      */
+    @Required
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -159,6 +154,7 @@ public class CreateDefaultUsers {
      * @param userService
      *            the userService to set
      */
+    @Required
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
