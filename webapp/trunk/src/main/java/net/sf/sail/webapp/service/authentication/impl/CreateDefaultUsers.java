@@ -47,6 +47,7 @@ public class CreateDefaultUsers {
             "classpath:applicationContext-hibernate.xml",
             "classpath:applicationContext-sds.xml",
             "classpath:applicationContext-security.xml",
+            "classpath:applicationContext-spring.xml",
             "classpath:applicationContext-user.xml" };
 
     private UserDetailsService userDetailsService = null;

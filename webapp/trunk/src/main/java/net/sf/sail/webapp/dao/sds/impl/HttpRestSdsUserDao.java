@@ -22,6 +22,8 @@ import net.sf.sail.webapp.dao.sds.SdsUserCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsUserDao;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 
+import org.springframework.beans.factory.annotation.Required;
+
 /**
  * @author Cynick Young
  * 
@@ -37,6 +39,7 @@ public class HttpRestSdsUserDao extends AbstractDao<SdsUser> implements
      * @param createCommand
      *            the createCommand to set
      */
+    @Required
     public void setCreateCommand(SdsUserCreateCommand createCommand) {
         this.createCommand = createCommand;
     }

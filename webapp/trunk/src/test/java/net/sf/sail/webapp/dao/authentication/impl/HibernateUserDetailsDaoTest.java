@@ -138,8 +138,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
         this.toilet.flush();
 
         // verify data store contains saved data using direct jdbc retrieval
-        // (not
-        // dao)
+        // (not dao)
         assertEquals(1, retrieveUsersTableFromDb().size());
         assertEquals(3, retrieveUsersRolesTableFromDb().size());
         List actualList = retrieveUserDetailsListFromDb();
@@ -252,6 +251,8 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
         // complete
         MutableUserDetails userDetails = this.userDetailsDao
                 .retrieveByName(DEFAULT_USERNAME);
+        assertTrue(userDetails instanceof PersistentUserDetails);
+        assertTrue(PersistentUserDetails.class == userDetails.getClass());
 
         assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
         assertEquals(DEFAULT_PASSWORD, userDetails.getPassword());

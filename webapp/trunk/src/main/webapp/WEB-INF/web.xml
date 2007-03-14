@@ -1,133 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+    * Copyright (c) 2006 Encore Research Group, University of Toronto
+    * 
+    * This library is free software; you can redistribute it and/or
+    * modify it under the terms of the GNU Lesser General Public
+    * License as published by the Free Software Foundation; either
+    * version 2.1 of the License, or (at your option) any later version.
+    *
+    * This library is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    * Lesser General Public License for more details.
+    *
+    * You should have received a copy of the GNU Lesser General Public
+    * License along with this library; if not, write to the Free Software
+    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
 <!-- $Id$ -->
 
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-  version="2.4">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
 
 
-  <display-name>Sail Web application</display-name>
+    <display-name>Sail Web application</display-name>
 
 
-  <!-- Context Params -->
-  <context-param>
-    <param-name>log4jConfigLocation</param-name>
-    <param-value>/WEB-INF/classes/log4j.properties</param-value>
-  </context-param>
+    <!-- Context Params -->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/log4j.properties</param-value>
+    </context-param>
 
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
-      /WEB-INF/classes/applicationContext-acegiSecurity.xml
-      /WEB-INF/classes/applicationContext-datasource.xml
-      /WEB-INF/classes/applicationContext-hibernate.xml
-      /WEB-INF/classes/applicationContext-sds.xml
-      /WEB-INF/classes/applicationContext-security.xml
-      /WEB-INF/classes/applicationContext-user.xml
-    </param-value>
-  </context-param>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/classes/applicationContext-acegiSecurity.xml
+            /WEB-INF/classes/applicationContext-datasource.xml
+            /WEB-INF/classes/applicationContext-hibernate.xml
+            /WEB-INF/classes/applicationContext-sds.xml
+            /WEB-INF/classes/applicationContext-security.xml
+            /WEB-INF/classes/applicationContext-spring.xml
+            /WEB-INF/classes/applicationContext-user.xml
+        </param-value>
+    </context-param>
 
-  <context-param>
-    <param-name>defaultHtmlEscape</param-name>
-    <param-value>true</param-value>
-  </context-param>
-
-
-  <!--  Filters -->
-  <filter>
-    <filter-name>Acegi Filter Chain Proxy</filter-name>
-    <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
-    <init-param>
-      <param-name>targetClass</param-name>
-      <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
-    </init-param>
-  </filter>
+    <context-param>
+        <param-name>defaultHtmlEscape</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
 
-  <!--  Filter Mappings -->
-  <filter-mapping>
-    <filter-name>Acegi Filter Chain Proxy</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+    <!--  Filters -->
+    <filter>
+        <filter-name>Acegi Filter Chain Proxy</filter-name>
+        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+        <init-param>
+            <param-name>targetClass</param-name>
+            <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
+        </init-param>
+    </filter>
 
 
-  <!--  Listeners -->
-  <listener>
-    <listener-class>
-      org.springframework.web.util.Log4jConfigListener
-    </listener-class>
-  </listener>
-
-  <listener>
-    <listener-class>
-      org.springframework.web.context.ContextLoaderListener
-    </listener-class>
-  </listener>
-
-  <!--
-    The HttpSessionEventPublisher will publish
-    HttpSessionCreatedEvent and HttpSessionDestroyedEvent
-    to the WebApplicationContext
-  -->
-  <listener>
-    <listener-class>
-      org.acegisecurity.ui.session.HttpSessionEventPublisher
-    </listener-class>
-  </listener>
+    <!--  Filter Mappings -->
+    <filter-mapping>
+        <filter-name>Acegi Filter Chain Proxy</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 
-  <!-- Servlets -->
-  <!-- Using Spring's web MVC -->
-  <servlet>
-    <servlet-name>dispatcher</servlet-name>
-    <servlet-class>
-      org.springframework.web.servlet.DispatcherServlet
-    </servlet-class>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
+    <!--  Listeners -->
+    <listener>
+        <listener-class>
+            org.springframework.web.util.Log4jConfigListener
+        </listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <!--
+        The HttpSessionEventPublisher will publish
+        HttpSessionCreatedEvent and HttpSessionDestroyedEvent
+        to the WebApplicationContext
+    -->
+    <listener>
+        <listener-class>
+            org.acegisecurity.ui.session.HttpSessionEventPublisher
+        </listener-class>
+    </listener>
 
 
-  <!-- Servlet Mappings -->
-  <servlet-mapping>
-    <servlet-name>dispatcher</servlet-name>
-    <url-pattern>*.html</url-pattern>
-  </servlet-mapping>
+    <!-- Servlets -->
+    <!-- Using Spring's web MVC -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
 
-  <!-- List of filenames that are automatically resolved for directory requests -->
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+    <!-- Servlet Mappings -->
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
 
 
-  <!--
-    Make it distributable for load balancing purposes.
-    That means HttpSessions are serialized.
-    Objects going into the session better be serializable!
-  -->
-  <distributable />
+    <!-- List of filenames that are automatically resolved for directory requests -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+
+    <!--
+        Make it distributable for load balancing purposes.
+        That means HttpSessions are serialized.
+        Objects going into the session better be serializable!
+    -->
+    <distributable />
 
 </web-app>
