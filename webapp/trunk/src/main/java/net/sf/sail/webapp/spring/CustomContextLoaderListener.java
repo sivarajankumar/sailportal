@@ -15,23 +15,27 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp;
+package net.sf.sail.webapp.spring;
+
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.ContextLoaderListener;
 
 /**
- * Provides a single access point for applicationContext configuration files.
+ * Custom implementation for creating and returning our
+ * <code>CustomContextLoader</code>.
  * 
  * @author Cynick Young
  * 
  * @version $Id: $
  * 
  */
-public final class SpringConfiguration {
+public class CustomContextLoaderListener extends ContextLoaderListener {
 
-    public static final String[] CONFIG_LOCATIONS = new String[] {
-            "classpath:applicationContext-datasource.xml",
-            "classpath:applicationContext-hibernate.xml",
-            "classpath:applicationContext-sds.xml",
-            "classpath:applicationContext-security.xml",
-            "classpath:applicationContext-spring.xml",
-            "classpath:applicationContext-user.xml" };
+    /**
+     * @see org.springframework.web.context.ContextLoaderListener#createContextLoader()
+     */
+    @Override
+    protected ContextLoader createContextLoader() {
+        return new CustomContextLoader();
+    }
 }

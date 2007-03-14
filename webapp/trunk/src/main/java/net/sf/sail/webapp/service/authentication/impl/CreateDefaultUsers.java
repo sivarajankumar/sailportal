@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.service.authentication.impl;
 
-import net.sf.sail.webapp.SpringConfiguration;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -26,6 +25,7 @@ import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
+import net.sf.sail.webapp.spring.SpringConfiguration;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.beans.factory.annotation.Required;

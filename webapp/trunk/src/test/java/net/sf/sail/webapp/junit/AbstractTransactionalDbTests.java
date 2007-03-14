@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.junit;
 
-import net.sf.sail.webapp.SpringConfiguration;
+import net.sf.sail.webapp.spring.SpringConfiguration;
 
 import org.hibernate.SessionFactory;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;

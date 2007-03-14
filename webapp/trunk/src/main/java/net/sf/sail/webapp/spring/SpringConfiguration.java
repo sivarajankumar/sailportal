@@ -15,29 +15,24 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.junit;
-
-import net.sf.sail.webapp.spring.SpringConfiguration;
-
-import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+package net.sf.sail.webapp.spring;
 
 /**
- * Allows testers to perform integration tests which require access to the
- * Spring Beans.
+ * Provides a single access point for applicationContext configuration files.
  * 
  * @author Cynick Young
  * 
  * @version $Id: $
  * 
  */
-public abstract class AbstractSpringTests extends
-        AbstractDependencyInjectionSpringContextTests {
+public final class SpringConfiguration {
 
-    /**
-     * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()
-     */
-    @Override
-    protected String[] getConfigLocations() {
-        return SpringConfiguration.CONFIG_LOCATIONS;
-    }
+    public static final String[] CONFIG_LOCATIONS = new String[] {
+            "classpath:applicationContext-acegiSecurity.xml",
+            "classpath:applicationContext-datasource.xml",
+            "classpath:applicationContext-hibernate.xml",
+            "classpath:applicationContext-sds.xml",
+            "classpath:applicationContext-security.xml",
+            "classpath:applicationContext-spring.xml",
+            "classpath:applicationContext-user.xml" };
 }
