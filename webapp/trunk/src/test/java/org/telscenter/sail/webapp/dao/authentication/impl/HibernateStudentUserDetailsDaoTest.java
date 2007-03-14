@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
@@ -22,6 +21,9 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
  * Test class for StudentUserDetails
+ * 
+ * TODO: decide if this is a test class for StudentUserDetails or TELS's MutableUserDetails
+ * right now, it's testing TELS's MutableUserDetails using StudentUserDetails 
  * 
  * @author Hiroki Terashima
  * 
@@ -44,8 +46,6 @@ public class HibernateStudentUserDetailsDaoTest extends AbstractTransactionalDbT
 	private static final String DEFAULT_FIRSTNAME = "Hiroki";
 
 	private static final String DEFAULT_LASTNAME = "Terashima";
-
-	private static final Gender DEFAULT_GENDER = Gender.MALE;
 
 	private static final String USERNAME_NOT_IN_DB = "blah";
 
@@ -102,7 +102,6 @@ public class HibernateStudentUserDetailsDaoTest extends AbstractTransactionalDbT
 				this.role2, this.role3 });
 		this.defaultUserDetails.setFirstname(DEFAULT_FIRSTNAME);
 		this.defaultUserDetails.setLastname(DEFAULT_LASTNAME);
-		this.defaultUserDetails.setGender(DEFAULT_GENDER);
 	}
 
 	/**
@@ -164,9 +163,6 @@ public class HibernateStudentUserDetailsDaoTest extends AbstractTransactionalDbT
 			actualValue = (String) actualUserDetailsMap
 			    .get(StudentUserDetails.COLUMN_NAME_LASTNAME.toUpperCase());
 			assertEquals(DEFAULT_LASTNAME , actualValue);
-			actualValue = (String) actualUserDetailsMap
-			    .get(StudentUserDetails.COLUMN_NAME_GENDER).toString();
-			assertEquals(DEFAULT_GENDER.ordinal(), Integer.parseInt(actualValue));
 			actualValue = (String) actualUserDetailsMap
 			    .get(PersistentGrantedAuthority.COLUMN_NAME_ROLE.toUpperCase());
 			assertTrue(defaultRolesList.contains(actualValue));
@@ -260,7 +256,6 @@ public class HibernateStudentUserDetailsDaoTest extends AbstractTransactionalDbT
 		assertEquals(DEFAULT_EMAIL, userDetails.getEmailAddress());
 		assertEquals(DEFAULT_FIRSTNAME, userDetails.getFirstname());
 		assertEquals(DEFAULT_LASTNAME, userDetails.getLastname());
-		assertEquals(DEFAULT_GENDER, userDetails.getGender());
 		
 		List<String> defaultRolesList = new LinkedList<String>();
 		defaultRolesList.add(DEFAULT_ROLE_1);

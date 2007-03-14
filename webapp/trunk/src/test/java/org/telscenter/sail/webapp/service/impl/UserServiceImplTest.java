@@ -5,7 +5,6 @@ package org.telscenter.sail.webapp.service.impl;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
-import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
@@ -37,8 +36,6 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
 	  private static final String LASTNAME = "Bob";
 
-	  private static final Gender GENDER = Gender.MALE;
-
 	  private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
 
 	  private UserDao<User> userDao;
@@ -55,7 +52,6 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		  user.setEmailAddress(EMAIL);
 		  user.setFirstname(FIRSTNAME);
 		  user.setLastname(LASTNAME);
-		  user.setGender(GENDER);
 		  
 		  // create 2 users and attempt to save to DB
 		  // second user should cause exception to be thrown
@@ -87,7 +83,6 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		  userDetails.setEmailAddress(EMAIL);
 		  userDetails.setFirstname(FIRSTNAME);
 		  userDetails.setLastname(LASTNAME);
-		  userDetails.setGender(GENDER);
 		  
 		  // create user (saves automatically)
 		  User expectedUser = this.userService.createUser(userDetails);
@@ -133,7 +128,6 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		  userDetails.setEmailAddress(EMAIL);
 		  userDetails.setFirstname(FIRSTNAME);
 		  userDetails.setLastname(LASTNAME);
-		  userDetails.setGender(GENDER);
 		  User expectedUser = this.userService.createUser(userDetails);
 		  
 		  MutableUserDetails expectedUserDetails = (MutableUserDetails) expectedUser.getUserDetails();

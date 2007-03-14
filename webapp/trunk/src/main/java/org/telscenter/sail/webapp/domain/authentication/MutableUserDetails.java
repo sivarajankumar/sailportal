@@ -21,7 +21,4 @@ public interface MutableUserDetails extends
 	
 	public void setLastname(String lastname);
 	
-	public Gender getGender();
-	
-	public void setGender(Gender gender);
 }
