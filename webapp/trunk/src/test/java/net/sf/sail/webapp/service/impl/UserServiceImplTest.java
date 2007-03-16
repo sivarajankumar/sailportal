@@ -60,7 +60,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         user.setEmailAddress(EMAIL);
 
         // create 2 users and attempt to save to DB
-        // second user should cause exception to be thown
+        // second user should cause exception to be thrown
         this.userService.createUser(user);
         try {
             this.userService.createUser(user);
