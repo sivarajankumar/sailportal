@@ -59,4 +59,8 @@
 	<bean id="studentUserDetails" scope="prototype"
 		class="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails">
 	</bean>
+	
+	<bean id="teacherUserDetails" scope="prototype"
+		class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails">
+	</bean>
 </beans>

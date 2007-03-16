@@ -41,5 +41,7 @@
       class="net.sf.sail.webapp.domain.impl.UserImpl" />
     <mapping
       class="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />    
+    <mapping
+      class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" /> 
   </session-factory>
 </hibernate-configuration>

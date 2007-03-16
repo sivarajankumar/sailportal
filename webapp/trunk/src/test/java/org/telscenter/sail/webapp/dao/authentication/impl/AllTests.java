@@ -19,6 +19,7 @@ public class AllTests {
 				"Test for org.telscenter.sail.webapp.dao.authentication.impl");
 		//$JUnit-BEGIN$
 		suite.addTestSuite(HibernateStudentUserDetailsDaoTest.class);
+		suite.addTestSuite(HibernateTeacherUserDetailsDaoTest.class);
 		//$JUnit-END$
 		return suite;
 	}
