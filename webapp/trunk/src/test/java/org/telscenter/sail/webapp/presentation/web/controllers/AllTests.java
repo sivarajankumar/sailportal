@@ -18,7 +18,7 @@ public class AllTests {
 		TestSuite suite = new TestSuite(
 				"Test for org.telscenter.sail.webapp.presentation.web.controllers");
 		//$JUnit-BEGIN
-		suite.addTestSuite(SignupControllerTest.class);
+		suite.addTestSuite(RegisterStudentControllerTest.class);
 		//$JUnit-END
 		return suite;
 	}
