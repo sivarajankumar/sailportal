@@ -3,6 +3,8 @@
  */
 package org.telscenter.sail.webapp.domain.authentication.impl;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -13,9 +15,13 @@ import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
+ * Implementation class of <code>MutableUserDetails</code> that uses an EJB3
+ * compliant object persistence mechanism.
+ * 
+ * UserDetails for a student in TELS Portal
+ * 
  * @author Hiroki Terashima
  * @version $Id: $
- *
  */
 @Entity
 @Table(name = StudentUserDetails.DATA_STORE_NAME)
@@ -36,9 +42,13 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	@Transient
 	public static final String COLUMN_NAME_GENDER = "gender";
 	
+	@Transient
+	public static final String COLUMN_NAME_BIRTHDAY = "birthday";
+	
 	private String firstname;
 	private String lastname;
 	private Gender gender;
+	private Date birthday;
 	
 	/**
 	 * @return the firstname
@@ -76,5 +86,18 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	/**
+	 * @return the birthday
+	 */
+	public Date getBirthday() {
+		return birthday;
+	}
+	/**
+	 * @param birthday the birthday to set
+	 */
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
 
 }
