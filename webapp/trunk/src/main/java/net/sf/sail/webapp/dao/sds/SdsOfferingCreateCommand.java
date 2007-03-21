@@ -17,23 +17,24 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
-import net.sf.sail.webapp.domain.sds.SdsJnlp;
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 
 /**
- * Interface for the command which creates a jnlp for the Sail Data Service.
+ * Interface for the command which creates an offering for the Sail Data
+ * Service.
  * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id:$
  * 
  */
-public interface SdsJnlpCreateCommand extends
-		SdsCommand<SdsJnlp, HttpPostRequest> {
+public interface SdsOfferingCreateCommand extends
+		SdsCommand<SdsOffering, HttpPostRequest> {
 
 	/**
-	 * @param sdsJnlp
-	 *            the sdsJnlp to set
+	 * @param SdsOffering
+	 *            the SdsOffering to set
 	 */
-	public void setSdsJnlp(SdsJnlp sdsJnlp);
+	public void setSdsOffering(SdsOffering sdsOffering);
 }

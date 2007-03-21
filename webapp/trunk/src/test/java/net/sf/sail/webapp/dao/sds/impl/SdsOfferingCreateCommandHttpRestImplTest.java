@@ -17,30 +17,29 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-
-import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import org.easymock.EasyMock;
 
 /**
  * @author Laurel Williams
  * 
- * @version $Id: SdsCurnitCreateCommandHttpRestImplTest.java 200 2007-03-21
- *          16:19:16Z cynick $
+ * @version $Id$
  * 
  */
-public class SdsCurnitCreateCommandHttpRestImplTest extends
-		AbstractSdsCreateCommandHttpRestImplTest {
+public class SdsOfferingCreateCommandHttpRestImplTest extends AbstractSdsCreateCommandHttpRestImplTest {
 
 	private static final String EXPECTED_NAME = "Blah";
 
-	private static final String EXPECTED_URL = "http://tels-develop.soe.berkeley.edu:8080/maven-jnlp//curnit-airbag.jar";
+	private static final Integer EXPECTED_CURNIT_ID = new Integer(5);
 
-	private static final String CURNIT_DIRECTORY = "curnit/";
+	private static final Integer EXPECTED_JNLP_ID = new Integer(5);
 
-	private SdsCurnit expectedSdsCurnit;
+	private static final String OFFERING_DIRECTORY = "offering/";
 
-	SdsCurnitCreateCommandHttpRestImpl command = null;
+	private SdsOfferingCreateCommandHttpRestImpl command = null;
+
+	private SdsOffering expectedSdsOffering;
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -48,15 +47,16 @@ public class SdsCurnitCreateCommandHttpRestImplTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.expectedSdsCurnit = new SdsCurnit();
-		this.expectedSdsCurnit.setName(EXPECTED_NAME);
-		this.expectedSdsCurnit.setUrl(EXPECTED_URL);
-		this.expectedSdsCurnit.setSdsObjectId(EXPECTED_ID);
+		this.expectedSdsOffering = new SdsOffering();
+		this.expectedSdsOffering.setCurnitId(EXPECTED_CURNIT_ID);
+		this.expectedSdsOffering.setJnlpId(EXPECTED_JNLP_ID);
+		this.expectedSdsOffering.setSdsObjectId(EXPECTED_ID);
+		this.expectedSdsOffering.setName(EXPECTED_NAME);
 
-		this.createCommand = new SdsCurnitCreateCommandHttpRestImpl();
-		command = ((SdsCurnitCreateCommandHttpRestImpl) (this.createCommand));
+		this.createCommand = new SdsOfferingCreateCommandHttpRestImpl();
+		command = ((SdsOfferingCreateCommandHttpRestImpl) (this.createCommand));
 		command.setTransport(this.mockTransport);
-		command.setSdsCurnit(this.expectedSdsCurnit);
+		command.setSdsOffering(this.expectedSdsOffering);
 		this.httpRequest = command.generateRequest();
 	}
 
@@ -66,13 +66,12 @@ public class SdsCurnitCreateCommandHttpRestImplTest extends
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
-		this.expectedSdsCurnit = null;
 		this.command = null;
+		this.expectedSdsOffering = null;
 	}
 
 	public void testExecute() throws Exception {
-		assertEquals(this.expectedSdsCurnit, (SdsCurnit) doExecuteTest(CURNIT_DIRECTORY));
+		assertEquals(this.expectedSdsOffering, (SdsOffering) doExecuteTest(OFFERING_DIRECTORY));
 		EasyMock.verify(this.mockTransport);
 	}
-
 }

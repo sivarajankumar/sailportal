@@ -133,4 +133,18 @@ public class SdsOffering implements SdsObject {
     public String getName() {
         return name;
     }
+
+	/**
+	 * @return the curnitId
+	 */
+	public Integer getCurnitId() {
+		return curnitId;
+	}
+
+	/**
+	 * @return the jnlpId
+	 */
+	public Integer getJnlpId() {
+		return jnlpId;
+	}
 }

@@ -17,16 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.easymock.EasyMock;
 
@@ -37,23 +29,15 @@ import org.easymock.EasyMock;
  *          19:19:37Z cynick $
  * 
  */
-public class SdsWorkgroupCreateCommandHttpRestImplTest extends TestCase {
+public class SdsWorkgroupCreateCommandHttpRestImplTest extends AbstractSdsCreateCommandHttpRestImplTest {
 
-    private static final String HEADER_LOCATION = "Location";
-
-    private static final String PORTAL_URL = "http://portal/url";
-
-    private static final String WORKGROUP_DIRECTORY = "/workgroup";
+    private static final String WORKGROUP_DIRECTORY = "workgroup/";
 
     private static final String SOME_NAME = "pineapples";
 
-    private static final Integer EXPECTED_ID = new Integer(12);
-
-    private SdsWorkgroupCreateCommandHttpRestImpl command;
-
-    private HttpRestTransport mockTransport;
-
-    private HttpPostRequest request;
+    private SdsWorkgroupCreateCommandHttpRestImpl command = null;
+    
+    private SdsWorkgroup expectedSdsWorkgroup;
 
     /**
      * @see junit.framework.TestCase#setUp()
@@ -61,9 +45,19 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        this.command = new SdsWorkgroupCreateCommandHttpRestImpl();
-        this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
-        this.command.setTransport(this.mockTransport);
+        
+        expectedSdsWorkgroup = new SdsWorkgroup();
+        expectedSdsWorkgroup.setName(SOME_NAME);
+        SdsOffering existingOffering = new SdsOffering();
+        Integer existingOfferingId = new Integer(42);
+        existingOffering.setSdsObjectId(existingOfferingId);
+        expectedSdsWorkgroup.setSdsOffering(existingOffering);
+ 
+        this.createCommand = new SdsWorkgroupCreateCommandHttpRestImpl();
+		command = ((SdsWorkgroupCreateCommandHttpRestImpl) (this.createCommand));
+		command.setTransport(this.mockTransport);
+		command.setWorkgroup(this.expectedSdsWorkgroup);
+		this.httpRequest = command.generateRequest();
     }
 
     /**
@@ -73,55 +67,61 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
         this.command = null;
-        this.request = null;
+        this.expectedSdsWorkgroup = null;
     }
-
-    public void testExecute_Success() throws Exception {
-        Map<String, String> responseMap = new HashMap<String, String>();
-        responseMap.put(HEADER_LOCATION, PORTAL_URL + WORKGROUP_DIRECTORY + "/"
-                + EXPECTED_ID);
-
-        SdsWorkgroup newWorkgroup = new SdsWorkgroup();
-        newWorkgroup.setName(SOME_NAME);
-        SdsOffering existingOffering = new SdsOffering();
-        Integer existingOfferingId = new Integer(42);
-        existingOffering.setSdsObjectId(existingOfferingId);
-        newWorkgroup.setSdsOffering(existingOffering);
-        this.command.setWorkgroup(newWorkgroup);
-
-        this.request = this.command.generateRequest();
-        EasyMock.expect(this.mockTransport.post(this.request)).andReturn(
-                responseMap);
-        EasyMock.replay(this.mockTransport);
-
-        SdsWorkgroup actual = this.command.execute(this.request);
-        assertEquals(EXPECTED_ID, actual.getSdsObjectId());
-
-        EasyMock.verify(this.mockTransport);
-    }
-
-    public void testExecute_Exceptions() throws Exception {
-        EasyMock.expect(this.mockTransport.post(this.request)).andThrow(
-                new BadRequestException("exception"));
-        EasyMock.replay(this.mockTransport);
-        try {
-            this.command.execute(this.request);
-            fail("Expected BadRequestException");
-        }
-        catch (BadRequestException e) {
-        }
-        EasyMock.verify(this.mockTransport);
-
-        EasyMock.reset(this.mockTransport);
-        EasyMock.expect(this.mockTransport.post(this.request)).andThrow(
-                new NetworkTransportException("exception"));
-        EasyMock.replay(this.mockTransport);
-        try {
-            this.command.execute(this.request);
-            fail("Expected NetworkTransportException");
-        }
-        catch (NetworkTransportException e) {
-        }
-        EasyMock.verify(this.mockTransport);
-    }
+    
+	public void testExecute() throws Exception {
+		assertEquals(this.expectedSdsWorkgroup, (SdsWorkgroup) doExecuteTest(WORKGROUP_DIRECTORY));
+		EasyMock.verify(this.mockTransport);
+	}
+//
+//
+//    public void testExecute_Success() throws Exception {
+//        Map<String, String> responseMap = new HashMap<String, String>();
+//        responseMap.put(HEADER_LOCATION, PORTAL_URL + WORKGROUP_DIRECTORY + "/"
+//                + EXPECTED_ID);
+//
+//        SdsWorkgroup newWorkgroup = new SdsWorkgroup();
+//        newWorkgroup.setName(SOME_NAME);
+//        SdsOffering existingOffering = new SdsOffering();
+//        Integer existingOfferingId = new Integer(42);
+//        existingOffering.setSdsObjectId(existingOfferingId);
+//        newWorkgroup.setSdsOffering(existingOffering);
+//        this.command.setWorkgroup(newWorkgroup);
+//
+//        this.request = this.command.generateRequest();
+//        EasyMock.expect(this.mockTransport.post(this.request)).andReturn(
+//                responseMap);
+//        EasyMock.replay(this.mockTransport);
+//
+//        SdsWorkgroup actual = this.command.execute(this.request);
+//        assertEquals(EXPECTED_ID, actual.getSdsObjectId());
+//
+//        EasyMock.verify(this.mockTransport);
+//    }
+//
+//    public void testExecute_Exceptions() throws Exception {
+//        EasyMock.expect(this.mockTransport.post(this.request)).andThrow(
+//                new BadRequestException("exception"));
+//        EasyMock.replay(this.mockTransport);
+//        try {
+//            this.command.execute(this.request);
+//            fail("Expected BadRequestException");
+//        }
+//        catch (BadRequestException e) {
+//        }
+//        EasyMock.verify(this.mockTransport);
+//
+//        EasyMock.reset(this.mockTransport);
+//        EasyMock.expect(this.mockTransport.post(this.request)).andThrow(
+//                new NetworkTransportException("exception"));
+//        EasyMock.replay(this.mockTransport);
+//        try {
+//            this.command.execute(this.request);
+//            fail("Expected NetworkTransportException");
+//        }
+//        catch (NetworkTransportException e) {
+//        }
+//        EasyMock.verify(this.mockTransport);
+//    }
 }

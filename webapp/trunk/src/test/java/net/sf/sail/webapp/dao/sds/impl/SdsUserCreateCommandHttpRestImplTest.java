@@ -17,15 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import junit.framework.TestCase;
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.sds.SdsUser;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.easymock.EasyMock;
 
@@ -36,99 +29,52 @@ import org.easymock.EasyMock;
  *          17:49:35Z cynick $
  * 
  */
-public class SdsUserCreateCommandHttpRestImplTest extends TestCase {
+public class SdsUserCreateCommandHttpRestImplTest extends
+		AbstractSdsCreateCommandHttpRestImplTest {
 
-  private static final Integer EXPECTED_ID = new Integer(1);
+	private static final Integer EXPECTED_ID = new Integer(1);
 
-  private static final String EXPECTED_FIRST_NAME = "Blah";
+	private static final String EXPECTED_FIRST_NAME = "Blah";
 
-  private static final String EXPECTED_LAST_NAME = "Last";
+	private static final String EXPECTED_LAST_NAME = "Last";
 
-  private static final String HEADER_LOCATION = "Location";
+	private static final String USER_DIRECTORY = "user/";
 
-  private static final String PORTAL_URL = "http://portal/url/";
+	private SdsUserCreateCommandHttpRestImpl command;
 
-  private static final String USER_DIRECTORY = "user/";
+	private SdsUser expectedSdsUser;
 
-  private SdsUserCreateCommandHttpRestImpl command;
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		this.expectedSdsUser = new SdsUser();
+		this.expectedSdsUser.setFirstName(EXPECTED_FIRST_NAME);
+		this.expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
+		this.expectedSdsUser.setSdsObjectId(EXPECTED_ID);
 
-  private HttpRestTransport mockTransport;
+		this.createCommand = new SdsUserCreateCommandHttpRestImpl();
+		command = ((SdsUserCreateCommandHttpRestImpl) (this.createCommand));
+		command.setTransport(this.mockTransport);
+		command.setSdsUser(this.expectedSdsUser);
+		this.httpRequest = command.generateRequest();
+	}
 
-  private HttpPostRequest httpRequest;
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		this.command = null;
+		this.expectedSdsUser = null;
+	}
 
-  private SdsUser expectedSdsUser;
-
-  /**
-   * @see junit.framework.TestCase#setUp()
-   */
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    this.command = new SdsUserCreateCommandHttpRestImpl();
-    this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
-    this.expectedSdsUser = new SdsUser();
-    this.expectedSdsUser.setFirstName(EXPECTED_FIRST_NAME);
-    this.expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
-    this.expectedSdsUser.setSdsObjectId(EXPECTED_ID);
-    this.command.setTransport(this.mockTransport);
-    this.command.setSdsUser(this.expectedSdsUser);
-    this.httpRequest = this.command.generateRequest();
-  }
-
-  /**
-   * @see junit.framework.TestCase#tearDown()
-   */
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    this.command = null;
-    this.mockTransport = null;
-    this.expectedSdsUser = null;
-    this.httpRequest = null;
-  }
-
-  /**
-   * Not testing this since we would be essentially testing info that is hard
-   * coded.
-   */
-  public void testGenerateRequest() {
-  }
-
-  public void testExecute() throws Exception {
-    Map<String, String> responseMap = new HashMap<String, String>();
-    responseMap.put(HEADER_LOCATION, PORTAL_URL + USER_DIRECTORY + EXPECTED_ID);
-    EasyMock.expect(this.mockTransport.post(this.httpRequest)).andReturn(
-        responseMap);
-    EasyMock.replay(this.mockTransport);
-    SdsUser actual = this.command.execute(this.httpRequest);
-    assertEquals(EXPECTED_FIRST_NAME, actual.getFirstName());
-    assertEquals(EXPECTED_LAST_NAME, actual.getLastName());
-    assertEquals(EXPECTED_ID, actual.getSdsObjectId());
-    EasyMock.verify(this.mockTransport);
-  }
-
-  public void testExecute_Exception() throws Exception {
-    EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
-        new BadRequestException("exception"));
-    EasyMock.replay(this.mockTransport);
-    try {
-      this.command.execute(this.httpRequest);
-      fail("Expected BadRequestException");
-    }
-    catch (BadRequestException e) {
-    }
-    EasyMock.verify(this.mockTransport);
-
-    EasyMock.reset(this.mockTransport);
-    EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
-        new NetworkTransportException("exception"));
-    EasyMock.replay(this.mockTransport);
-    try {
-      this.command.execute(this.httpRequest);
-      fail("Expected NetworkTransportException");
-    }
-    catch (NetworkTransportException e) {
-    }
-    EasyMock.verify(this.mockTransport);
-  }
+	public void testExecute() throws Exception {
+		assertEquals(this.expectedSdsUser,
+				(SdsUser) doExecuteTest(USER_DIRECTORY));
+		EasyMock.verify(this.mockTransport);
+	}
 }

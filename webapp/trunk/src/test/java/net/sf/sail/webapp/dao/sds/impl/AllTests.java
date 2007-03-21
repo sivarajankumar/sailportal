@@ -32,18 +32,19 @@ public class AllTests {
 		TestSuite suite = new TestSuite(
 				"Test for net.sf.sail.webapp.dao.sds.impl");
 		//$JUnit-BEGIN$
+		suite.addTestSuite(SdsJnlpCreateCommandHttpRestImplTest.class);
+		suite.addTestSuite(HttpRestSdsWorkgroupDaoTest.class);
+		suite.addTestSuite(HttpRestSdsUserDaoTest.class);
+		suite.addTestSuite(SdsOfferingCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsOfferingListCommandHttpRestImplTest.class);
 		suite.addTestSuite(HttpRestSdsOfferingDaoTest.class);
 		suite
 				.addTestSuite(SdsWorkgroupMemberCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(HttpRestSdsCurnitDaoTest.class);
-		suite.addTestSuite(SdsJnlpCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsWorkgroupDaoTest.class);
-		suite.addTestSuite(HttpRestSdsUserDaoTest.class);
+		suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
+		suite.addTestSuite(HttpRestSdsJnlpDaoTest.class);
 		suite.addTestSuite(SdsCurnitCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsWorkgroupCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsJnlpDaoTest.class);
 		//$JUnit-END$
 		return suite;
 	}
