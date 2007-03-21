@@ -23,7 +23,7 @@ package net.sf.sail.webapp.service.authentication;
  * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id:DuplicateAuthorityException.java 159 2007-03-02 22:42:21Z cynick $
  */
 public class DuplicateAuthorityException extends Exception {
 

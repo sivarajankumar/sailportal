@@ -23,7 +23,7 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id:UserDetailsDao.java 159 2007-03-02 22:42:21Z cynick $
  * 
  */
 public interface UserDetailsDao<T extends MutableUserDetails> extends

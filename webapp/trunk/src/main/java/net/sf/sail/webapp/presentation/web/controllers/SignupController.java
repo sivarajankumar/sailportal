@@ -34,7 +34,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id:SignupController.java 159 2007-03-02 22:42:21Z cynick $
  */
 public class SignupController extends SimpleFormController {
 

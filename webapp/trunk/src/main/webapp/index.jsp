@@ -18,7 +18,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id$ -->
+<!-- $Id:index.jsp 159 2007-03-02 22:42:21Z cynick $ -->
 
 <!-- simply redirect to the main entry page of the web application -->
 <c:redirect url="./index.html" />

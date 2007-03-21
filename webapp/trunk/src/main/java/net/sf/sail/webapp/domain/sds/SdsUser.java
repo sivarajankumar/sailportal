@@ -33,7 +33,7 @@ import javax.persistence.Version;
  * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id:SdsUser.java 159 2007-03-02 22:42:21Z cynick $
  */
 @Entity
 @Table(name = SdsUser.DATA_STORE_NAME)
