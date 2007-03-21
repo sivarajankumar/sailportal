@@ -25,7 +25,7 @@ import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
-import net.sf.sail.webapp.spring.SpringConfiguration;
+import net.sf.sail.webapp.spring.impl.SpringConfigurationImpl;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.beans.factory.annotation.Required;
@@ -64,7 +64,7 @@ public class CreateDefaultUsers {
             System.exit(1);
         }
         AbstractXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                SpringConfiguration.CONFIG_LOCATIONS);
+                SpringConfigurationImpl.getConfigLocationsStatically());
         try {
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
             createDefaultUsers.init(applicationContext);

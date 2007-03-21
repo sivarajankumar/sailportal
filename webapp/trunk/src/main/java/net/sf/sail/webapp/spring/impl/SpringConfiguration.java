@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.spring;
+package net.sf.sail.webapp.spring.impl;
 
 /**
  * Provides a single access point for applicationContext configuration files.
@@ -25,18 +25,15 @@ package net.sf.sail.webapp.spring;
  * @version $Id: $
  * 
  */
-public final class SpringConfiguration {
+public interface SpringConfiguration {
 
-    public static final String[] CONFIG_LOCATIONS = new String[] {
-            "classpath:configurations/applicationContexts/pas/acegiSecurity.xml",
-            "classpath:configurations/applicationContexts/pas/datasource.xml",
-            "classpath:configurations/applicationContexts/pas/hibernate.xml",
-            "classpath:configurations/applicationContexts/pas/sds.xml",
-            "classpath:configurations/applicationContexts/pas/security.xml",
-            "classpath:configurations/applicationContexts/pas/spring.xml",
-            "classpath:configurations/applicationContexts/pas/user.xml" };
-
-    public static String[] getConfigLocations() {
-        return CONFIG_LOCATIONS;
-    }
+    /**
+     * Get the list of applicationContext XML files used to instantiate the
+     * beans in a Spring container.
+     * 
+     * @return <code>String[]</code> such that each string in the array
+     *         defines the location of an applicationContext XML configuration
+     *         file used by the Spring container
+     */
+    public String[] getConfigLocations();
 }

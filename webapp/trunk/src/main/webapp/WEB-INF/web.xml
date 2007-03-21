@@ -39,6 +39,13 @@
         <param-value>true</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>contextConfigClass</param-name>
+        <param-value>
+            net.sf.sail.webapp.spring.impl.SpringConfigurationImpl
+        </param-value>
+    </context-param>
+
 
     <!--  Filters -->
     <filter>
@@ -67,7 +74,7 @@
 
     <listener>
         <listener-class>
-            net.sf.sail.webapp.spring.CustomContextLoaderListener
+            net.sf.sail.webapp.spring.impl.CustomContextLoaderListener
         </listener-class>
     </listener>
 

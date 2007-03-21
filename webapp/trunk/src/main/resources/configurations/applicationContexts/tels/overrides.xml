@@ -33,7 +33,9 @@
         <property name="configLocations">
             <list>
                 <value>classpath:configurations/hibernate/pas/hibernate.cfg.xml</value>
+                <value>classpath:configurations/hibernate/tels/hibernate-extensions.cfg.xml</value>
             </list>
         </property>
     </bean>
+
 </beans>

@@ -4,15 +4,29 @@
 		<configExtension>xml</configExtension>
 	</configExtensions>
 	<configs>
+		<config>src/main/resources/configurations/applicationContexts/pas/hibernate.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
 		<config>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/datasource.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/sds.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/acegiSecurity.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/spring.xml</config>
 	</configs>
 	<configSets>
 		<configSet>
 			<name>Everything</name>
-			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
 			<incomplete>false</incomplete>
 			<configs>
 				<config>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/acegiSecurity.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/datasource.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/hibernate.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/sds.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/spring.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
 			</configs>
 		</configSet>
 	</configSets>

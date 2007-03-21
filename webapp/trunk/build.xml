@@ -25,6 +25,11 @@
     </description>
     <property file="build.properties" />
 
+    <path id="lib.servlet-api">
+        <path location="${M2_REPO}/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar"
+        />
+    </path>
+
     <path id="lib.jdbc">
         <path location="${M2_REPO}/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar" />
     </path>
@@ -136,7 +141,7 @@
     >
         <hibernatetool destdir="${dir.src.db.hsqldb}">
             <classpath refid="classes" />
-            <annotationconfiguration configurationfile="${dir.build.classes}/hibernate.cfg.xml"
+            <annotationconfiguration configurationfile="${dir.build.classes}/configurations/hibernate/pas/hibernate.cfg.xml"
                                      propertyfile="${dir.build.classes}/hibernate.properties"
             />
             <hbm2ddl export="${schema.export.on}"
@@ -208,6 +213,7 @@
             <arg value="${default.admin.username}" />
             <arg value="${default.admin.password}" />
             <classpath>
+                <path refid="lib.servlet-api" />
                 <path refid="lib.jdbc" />
                 <path refid="lib.commons-dbcp" />
                 <path refid="lib.commons-pool" />
@@ -237,7 +243,7 @@
               failifexecutionfails="true"
         >
             <arg value="clean" />
-            <arg value="test" />
+            <!--            <arg value="test" /> -->
             <arg value="compile" />
         </exec>
         <!-- this should work in Windows but not yet tested -->
