@@ -17,43 +17,19 @@
     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id$ -->
+<!-- $Id:applicationContext-hibernate.xml 196 2007-03-21 15:43:53Z cynick $ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName">
-            <value>${jdbc.driverClassName}</value>
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource" />
         </property>
-        <property name="url">
-            <value>${jdbc.url}</value>
-        </property>
-        <property name="username">
-            <value>${jdbc.username}</value>
-        </property>
-        <property name="password">
-            <value>${jdbc.password}</value>
-        </property>
-        <property name="defaultAutoCommit">
-            <value>false</value>
-        </property>
-        <property name="initialSize">
-            <value>1</value>
-        </property>
-        <property name="maxActive">
-            <value>1</value>
-        </property>
+        <property name="configLocations"
+            value="classpath:configurations/hibernate/pas/hibernate.cfg.xml" />
     </bean>
-
-    <bean id="transactionManager"
-        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-    </bean>
-
 </beans>
