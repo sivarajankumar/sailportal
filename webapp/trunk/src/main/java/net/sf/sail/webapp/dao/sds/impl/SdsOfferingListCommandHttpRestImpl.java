@@ -20,16 +20,13 @@ package net.sf.sail.webapp.dao.sds.impl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.logging.Log;
@@ -94,14 +91,14 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
         return sdsOfferingSet;
     }
 
-    private static final String HEADER_ACCEPT = "Accept";
-
-    private static final Map<String, String> REQUEST_HEADERS;
-    static {
-        Map<String, String> map = new HashMap<String, String>(1);
-        map.put(HEADER_ACCEPT, HttpRestTransport.APPLICATION_XML);
-        REQUEST_HEADERS = Collections.unmodifiableMap(map);
-    }
+//    private static final String HEADER_ACCEPT = "Accept";
+//
+//    private static final Map<String, String> REQUEST_HEADERS;
+//    static {
+//        Map<String, String> map = new HashMap<String, String>(1);
+//        map.put(HEADER_ACCEPT, HttpRestTransport.APPLICATION_XML);
+//        REQUEST_HEADERS = Collections.unmodifiableMap(map);
+//    }
 
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
@@ -110,7 +107,7 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
     public HttpGetRequest generateRequest() {
         final String url = "/offering";
 
-        return new HttpGetRequest(REQUEST_HEADERS, Collections.EMPTY_MAP, url,
+        return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, Collections.EMPTY_MAP, url,
                 HttpStatus.SC_OK);
     }
 

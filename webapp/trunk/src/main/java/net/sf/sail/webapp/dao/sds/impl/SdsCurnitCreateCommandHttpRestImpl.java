@@ -18,13 +18,11 @@
 package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.sail.webapp.dao.sds.SdsCurnitCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -63,7 +61,7 @@ public class SdsCurnitCreateCommandHttpRestImpl extends AbstractHttpRestCommand
                 + "</name><url>" + sdsCurnit.getUrl()
                 + "</url></curnit>";
         final String url = "/curnit";
-        return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
+        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, Collections.EMPTY_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
 

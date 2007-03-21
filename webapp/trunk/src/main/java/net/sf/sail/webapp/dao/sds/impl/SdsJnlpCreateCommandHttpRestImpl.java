@@ -61,7 +61,7 @@ public class SdsJnlpCreateCommandHttpRestImpl extends AbstractHttpRestCommand
                 + "</name><url>" + sdsJnlp.getUrl()
                 + "</url></jnlp>";
         final String url = "/jnlp";
-        return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
+        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, Collections.EMPTY_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
 

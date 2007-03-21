@@ -18,13 +18,11 @@
 package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.sail.webapp.dao.sds.SdsUserCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -66,7 +64,7 @@ public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
 
         final String url = "/user";
 
-        return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
+        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, Collections.EMPTY_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
 

@@ -18,13 +18,11 @@
 package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -35,7 +33,7 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class SdsWorkgroupCreateCommandHttpRestImpl extends
@@ -71,13 +69,6 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
         return workgroup;
     }
 
-    private static final Map<String, String> REQUEST_HEADERS;
-    static {
-        Map<String, String> map = new HashMap<String, String>(1);
-        map.put("Content-Type", HttpRestTransport.APPLICATION_XML);
-        REQUEST_HEADERS = Collections.unmodifiableMap(map);
-    }
-
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
      */
@@ -89,7 +80,7 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
                 + workgroup.getSdsOffering().getSdsObjectId()
                 + "</offering-id></SDS_WORKGROUP>";
         final String url = "/workgroup";
-        return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
+        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, Collections.EMPTY_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
 }
