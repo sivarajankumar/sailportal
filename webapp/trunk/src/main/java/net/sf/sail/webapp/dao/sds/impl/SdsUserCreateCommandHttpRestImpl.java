@@ -41,15 +41,6 @@ import org.apache.commons.httpclient.HttpStatus;
 public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
         implements SdsUserCreateCommand {
 
-    private static final String HEADER_CONTENT_TYPE = "Content-Type";
-
-    private static final Map<String, String> REQUEST_HEADERS;
-    static {
-        Map<String, String> map = new HashMap<String, String>(1);
-        map.put(HEADER_CONTENT_TYPE, HttpRestTransport.APPLICATION_XML);
-        REQUEST_HEADERS = Collections.unmodifiableMap(map);
-    }
-
     private static final ThreadLocal<SdsUser> SDS_USER = new ThreadLocal<SdsUser>();
 
     /**

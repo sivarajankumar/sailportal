@@ -17,6 +17,10 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -31,16 +35,25 @@ import org.springframework.beans.factory.annotation.Required;
  */
 public abstract class AbstractHttpRestCommand {
 
-    protected HttpRestTransport transport;
+	protected static final String HEADER_CONTENT_TYPE = "Content-Type";
 
-    /**
-     * Sets the http REST transport mechanism for the create command.
-     * 
-     * @param transport
-     *            the transport to set
-     */
-    @Required
-    public void setTransport(final HttpRestTransport transport) {
-        this.transport = transport;
-    }
+	protected static final Map<String, String> REQUEST_HEADERS;
+	static {
+		Map<String, String> map = new HashMap<String, String>(1);
+		map.put(HEADER_CONTENT_TYPE, HttpRestTransport.APPLICATION_XML);
+		REQUEST_HEADERS = Collections.unmodifiableMap(map);
+	}
+
+	protected HttpRestTransport transport;
+
+	/**
+	 * Sets the http REST transport mechanism for the create command.
+	 * 
+	 * @param transport
+	 *            the transport to set
+	 */
+	@Required
+	public void setTransport(final HttpRestTransport transport) {
+		this.transport = transport;
+	}
 }

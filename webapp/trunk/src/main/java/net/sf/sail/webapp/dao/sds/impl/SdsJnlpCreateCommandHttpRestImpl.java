@@ -18,18 +18,16 @@
 package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.sail.webapp.dao.sds.SdsCurnitCreateCommand;
-import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.dao.sds.SdsJnlpCreateCommand;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 
 /**
- * Implementation of <code>SdsCurnitCreateCommand</code> which creates a user in
+ * Implementation of <code>SdsJnlpCreateCommand</code> which creates a user in
  * the Sail Data Service (uses Http REST). This class is thread-safe.
  * 
  * @author Laurel Williams
@@ -37,20 +35,20 @@ import org.apache.commons.httpclient.HttpStatus;
  * @version $Id$
  * 
  */
-public class SdsCurnitCreateCommandHttpRestImpl extends AbstractHttpRestCommand
-        implements SdsCurnitCreateCommand {
+public class SdsJnlpCreateCommandHttpRestImpl extends AbstractHttpRestCommand
+        implements SdsJnlpCreateCommand {
 
-    private static final ThreadLocal<SdsCurnit> SDS_CURNIT = new ThreadLocal<SdsCurnit>();
+    private static final ThreadLocal<SdsJnlp> SDS_JNLP = new ThreadLocal<SdsJnlp>();
 
-     /**
-     * @see net.sf.sail.webapp.dao.sds.SdsCurnitCreateCommand#setSdsCurnit(net.sf.sail.webapp.domain.sds.SdsCurnit)
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsJnlpCreateCommand#setSdsJnlp(net.sf.sail.webapp.domain.sds.SdsJnlp)
      */
-    public void setSdsCurnit(SdsCurnit sdsCurnit) {
-        SDS_CURNIT.set(sdsCurnit);
+    public void setSdsJnlp(SdsJnlp sdsJnlp) {
+    	SDS_JNLP.set(sdsJnlp);
     }
 
-    private SdsCurnit getSdsCurnit() {
-        return SDS_CURNIT.get();
+    private SdsJnlp getSdsJnlp() {
+        return SDS_JNLP.get();
     }
 
     /**
@@ -58,11 +56,11 @@ public class SdsCurnitCreateCommandHttpRestImpl extends AbstractHttpRestCommand
      */
     @SuppressWarnings("unchecked")
     public HttpPostRequest generateRequest() {
-        final SdsCurnit sdsCurnit = this.getSdsCurnit();
-        final String bodyData = "<curnit><name>" + sdsCurnit.getName()
-                + "</name><url>" + sdsCurnit.getUrl()
-                + "</url></curnit>";
-        final String url = "/curnit";
+        final SdsJnlp sdsJnlp = this.getSdsJnlp();
+        final String bodyData = "<jnlp><name>" + sdsJnlp.getName()
+                + "</name><url>" + sdsJnlp.getUrl()
+                + "</url></jnlp>";
+        final String url = "/jnlp";
         return new HttpPostRequest(REQUEST_HEADERS, Collections.EMPTY_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
@@ -70,15 +68,15 @@ public class SdsCurnitCreateCommandHttpRestImpl extends AbstractHttpRestCommand
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
      */
-    public SdsCurnit execute(final HttpPostRequest httpRequest) {
+    public SdsJnlp execute(final HttpPostRequest httpRequest) {
         final Map<String, String> responseHeaders = this.transport.post(httpRequest);
         final String locationHeader = responseHeaders.get("Location");
-        final SdsCurnit sdsCurnit = this.getSdsCurnit();
+        final SdsJnlp sdsJnlp = this.getSdsJnlp();
         // clear the thread local reference to avoid resource leak since we're
         // done executing
-        SDS_CURNIT.set(null);
-        sdsCurnit.setSdsObjectId(new Integer(locationHeader
+        SDS_JNLP.set(null);
+        sdsJnlp.setSdsObjectId(new Integer(locationHeader
                 .substring(locationHeader.lastIndexOf("/") + 1)));
-        return sdsCurnit;
+        return sdsJnlp;
     }
 }
