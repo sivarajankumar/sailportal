@@ -107,5 +107,22 @@
 
 	<bean id="sdsCurnit" class="net.sf.sail.webapp.domain.sds.SdsCurnit"
 		scope="prototype" />
+		
+	<bean id="sdsJnlpCreateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsJnlpCreateCommandHttpRestImpl">
+		<property name="transport">
+			<ref local="httpRestTransport" />
+		</property>
+	</bean>
+
+	<bean id="sdsJnlpDao"
+		class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsJnlpDao">
+		<property name="createCommand">
+			<ref local="sdsJnlpCreateCommand" />
+		</property>
+	</bean>
+
+	<bean id="sdsJnlp" class="net.sf.sail.webapp.domain.sds.SdsJnlp"
+		scope="prototype" />
   
 </beans>
