@@ -28,11 +28,11 @@ package net.sf.sail.webapp.spring;
 public final class SpringConfiguration {
 
     public static final String[] CONFIG_LOCATIONS = new String[] {
-            "classpath:applicationContext-acegiSecurity.xml",
-            "classpath:applicationContext-datasource.xml",
-            "classpath:applicationContext-hibernate.xml",
-            "classpath:applicationContext-sds.xml",
-            "classpath:applicationContext-security.xml",
-            "classpath:applicationContext-spring.xml",
-            "classpath:applicationContext-user.xml" };
+            "classpath:applicationContexts/pas/applicationContext-acegiSecurity.xml",
+            "classpath:applicationContexts/pas/applicationContext-datasource.xml",
+            "classpath:applicationContexts/pas/applicationContext-hibernate.xml",
+            "classpath:applicationContexts/pas/applicationContext-sds.xml",
+            "classpath:applicationContexts/pas/applicationContext-security.xml",
+            "classpath:applicationContexts/pas/applicationContext-spring.xml",
+            "classpath:applicationContexts/pas/applicationContext-user.xml" };
 }

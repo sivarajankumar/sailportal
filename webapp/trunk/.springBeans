@@ -5,12 +5,6 @@
 	</configExtensions>
 	<configs>
 		<config>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config>
-		<config>src/main/resources/applicationContext-hibernate.xml</config>
-		<config>src/main/resources/applicationContext-acegiSecurity.xml</config>
-		<config>src/main/resources/applicationContext-user.xml</config>
-		<config>src/main/resources/applicationContext-security.xml</config>
-		<config>src/main/resources/applicationContext-datasource.xml</config>
-		<config>src/main/resources/applicationContext-sds.xml</config>
 	</configs>
 	<configSets>
 		<configSet>
@@ -18,13 +12,7 @@
 			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
 			<incomplete>false</incomplete>
 			<configs>
-				<config>src/main/resources/applicationContext-hibernate.xml</config>
-				<config>src/main/resources/applicationContext-security.xml</config>
-				<config>src/main/resources/applicationContext-datasource.xml</config>
-				<config>src/main/resources/applicationContext-acegiSecurity.xml</config>
 				<config>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config>
-				<config>src/main/resources/applicationContext-user.xml</config>
-				<config>src/main/resources/applicationContext-sds.xml</config>
 			</configs>
 		</configSet>
 	</configSets>
