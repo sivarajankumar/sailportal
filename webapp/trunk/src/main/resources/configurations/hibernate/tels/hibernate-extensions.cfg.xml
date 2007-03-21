@@ -25,17 +25,9 @@
 
 <hibernate-configuration>
     <session-factory>
-        <!-- Force Hibernate to order SQL updates by the primary key value of the items being updated. This will result in fewer transaction deadlocks in highly concurrent systems. -->
-        <property name="hibernate.order_updates">true</property>
-        <!-- Enables autocommit for JDBC pooled connections (not recommended). -->
-        <property name="hibernate.connection.autocommit">false</property>
-        <!-- Pretty print the SQL in the log and console. -->
-        <property name="hibernate.format_sql">true</property>
         <mapping
-            class="net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority" />
+            class="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
         <mapping
-            class="net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails" />
-        <mapping class="net.sf.sail.webapp.domain.sds.SdsUser" />
-        <mapping class="net.sf.sail.webapp.domain.impl.UserImpl" />
+            class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
     </session-factory>
 </hibernate-configuration>
