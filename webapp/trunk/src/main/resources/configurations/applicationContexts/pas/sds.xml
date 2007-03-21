@@ -89,4 +89,23 @@
 
     <bean id="sdsWorkgroup" class="net.sf.sail.webapp.domain.sds.SdsWorkgroup"
         scope="prototype" />
+        
+              
+	<bean id="sdsCurnitCreateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitCreateCommandHttpRestImpl">
+		<property name="transport">
+			<ref local="httpRestTransport" />
+		</property>
+	</bean>
+
+	<bean id="sdsCurnitDao"
+		class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsCurnitDao">
+		<property name="createCommand">
+			<ref local="sdsCurnitCreateCommand" />
+		</property>
+	</bean>
+
+	<bean id="sdsCurnit" class="net.sf.sail.webapp.domain.sds.SdsCurnit"
+		scope="prototype" />
+  
 </beans>
