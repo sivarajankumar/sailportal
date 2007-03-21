@@ -23,6 +23,8 @@ import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
+ * Interface for DAO that supports <code>SdsOffering</code> objects.
+ * 
  * @author Cynick Young
  * 
  * @version $Id: $

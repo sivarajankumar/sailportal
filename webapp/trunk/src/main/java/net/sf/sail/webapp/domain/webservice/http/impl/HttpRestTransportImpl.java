@@ -35,14 +35,17 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
+import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.StringUtils;
 
 /**
@@ -56,7 +59,7 @@ import org.springframework.util.StringUtils;
  */
 public class HttpRestTransportImpl implements HttpRestTransport {
 
-    private static final Log logger = LogFactory
+    private static final Log LOGGER = LogFactory
             .getLog(HttpRestTransportImpl.class);
 
     private String baseUrl;
@@ -84,6 +87,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
      * @param baseUrl
      *            the baseUrl to set
      */
+    @Required
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
     }
@@ -112,49 +116,18 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         this.setHeaders(httpGetRequestData, method);
         try {
             // Execute the method.
+            logRequest(method);
             int statusCode = this.client.executeMethod(method);
-            if (logger.isInfoEnabled()) {
-                logger.info("GET: " + method.getURI());
-            }
-
-            if (statusCode != httpGetRequestData
-                    .getExpectedResponseStatusCode()) {
-                if (logger.isWarnEnabled()) {
-                    logger.warn(statusCode + ": " + method.getStatusText());
-                }
-                if (statusCode == HttpStatus.SC_NOT_FOUND) {
-                    throw new BadRequestException(method.getStatusText());
-                } else {
-                    throw new NetworkTransportException(statusCode, method
-                            .getStatusText());
-                }
-            }
+            verifyResponseStatus(httpGetRequestData, method, statusCode);
             return new ByteArrayInputStream(method.getResponseBody());
         } catch (HttpException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            throw new NetworkTransportException(e.getMessage());
+            logAndThrow(e);
         } catch (IOException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            throw new NetworkTransportException(e.getMessage());
+            logAndThrow(e);
         } finally {
             method.releaseConnection();
         }
-    }
-
-    private void setHeaders(final AbstractHttpRequest httpRequestData,
-            HttpMethodBase method) {
-        final Map<String, String> requestHeaders = httpRequestData
-                .getRequestHeaders();
-        if (requestHeaders != null && !requestHeaders.isEmpty()) {
-            Set<String> keys = requestHeaders.keySet();
-            for (String key : keys) {
-                method.addRequestHeader(key, requestHeaders.get(key));
-            }
-        }
+        return null;
     }
 
     /**
@@ -186,42 +159,64 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         final Map<String, String> responseHeaders = new HashMap<String, String>();
         try {
             // Execute the method.
+            logRequest(method);
             final int statusCode = this.client.executeMethod(method);
-            if (logger.isInfoEnabled()) {
-                logger.info("POST: " + method.getURI());
-            }
-
-            if (statusCode != httpPostRequestData
-                    .getExpectedResponseStatusCode()) {
-                if (logger.isWarnEnabled()) {
-                    logger.warn(statusCode + ": " + method.getStatusText());
-                }
-                if (statusCode == HttpStatus.SC_BAD_REQUEST) {
-                    throw new BadRequestException(method.getStatusText());
-                } else {
-                    throw new NetworkTransportException(statusCode, method
-                            .getStatusText());
-                }
-            }
+            verifyResponseStatus(httpPostRequestData, method, statusCode);
             final Header[] headers = method.getResponseHeaders();
             for (int i = 0; i < headers.length; i++) {
                 responseHeaders
                         .put(headers[i].getName(), headers[i].getValue());
             }
         } catch (HttpException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            throw new NetworkTransportException(e.getMessage());
+            logAndThrow(e);
         } catch (IOException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            throw new NetworkTransportException(e.getMessage());
+            logAndThrow(e);
         } finally {
             method.releaseConnection();
         }
 
         return responseHeaders;
+    }
+
+    private void logRequest(HttpMethod method) throws URIException {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info(method.getName() + ": " + method.getURI());
+        }
+    }
+
+    private void logAndThrow(Exception e) {
+        if (LOGGER.isErrorEnabled()) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        throw new NetworkTransportException(e.getMessage());
+    }
+
+    private void verifyResponseStatus(
+            final AbstractHttpRequest httpRequestData, HttpMethod method,
+            int statusCode) throws IOException {
+        if (statusCode != httpRequestData.getExpectedResponseStatusCode()) {
+            if (LOGGER.isWarnEnabled()) {
+                LOGGER.warn(statusCode + ": " + method.getStatusText());
+                LOGGER.warn("body: " + method.getResponseBodyAsString());
+            }
+            if (statusCode == HttpStatus.SC_NOT_FOUND) {
+                throw new BadRequestException(method.getStatusText());
+            } else {
+                throw new NetworkTransportException(statusCode, method
+                        .getStatusText());
+            }
+        }
+    }
+
+    private void setHeaders(final AbstractHttpRequest httpRequestData,
+            HttpMethodBase method) {
+        final Map<String, String> requestHeaders = httpRequestData
+                .getRequestHeaders();
+        if (requestHeaders != null && !requestHeaders.isEmpty()) {
+            Set<String> keys = requestHeaders.keySet();
+            for (String key : keys) {
+                method.addRequestHeader(key, requestHeaders.get(key));
+            }
+        }
     }
 }

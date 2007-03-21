@@ -28,14 +28,14 @@ import junit.framework.TestSuite;
  */
 public class AllTests {
 
-  public static Test suite() {
-    TestSuite suite = new TestSuite(
-        "Test for net.sf.sail.webapp.dao.authentication.impl");
-    //$JUnit-BEGIN$
-    suite.addTestSuite(HibernateUserDetailsDaoTest.class);
-    suite.addTestSuite(HibernateGrantedAuthorityDaoTest.class);
-    //$JUnit-END$
-    return suite;
-  }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(
+                "Test for net.sf.sail.webapp.dao.authentication.impl");
+        //$JUnit-BEGIN$
+        suite.addTestSuite(HibernateUserDetailsDaoTest.class);
+        suite.addTestSuite(HibernateGrantedAuthorityDaoTest.class);
+        //$JUnit-END$
+        return suite;
+    }
 
 }

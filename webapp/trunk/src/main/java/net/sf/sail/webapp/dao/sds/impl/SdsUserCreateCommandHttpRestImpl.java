@@ -24,6 +24,7 @@ import java.util.Map;
 import net.sf.sail.webapp.dao.sds.SdsUserCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -45,7 +46,7 @@ public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
     private static final Map<String, String> REQUEST_HEADERS;
     static {
         Map<String, String> map = new HashMap<String, String>(1);
-        map.put(HEADER_CONTENT_TYPE, APPLICATION_XML);
+        map.put(HEADER_CONTENT_TYPE, HttpRestTransport.APPLICATION_XML);
         REQUEST_HEADERS = Collections.unmodifiableMap(map);
     }
 
@@ -87,8 +88,7 @@ public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
         final String locationHeader = responseHeaders.get("Location");
         final SdsUser sdsUser = this.getSdsUser();
         // clear the thread local reference to avoid resource leak since we're
-        // done
-        // executing
+        // done executing
         SDS_USER.set(null);
         sdsUser.setSdsObjectId(new Integer(locationHeader
                 .substring(locationHeader.lastIndexOf("/") + 1)));

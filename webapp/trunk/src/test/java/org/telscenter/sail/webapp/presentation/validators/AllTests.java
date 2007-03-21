@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * Copyright (c) 2007 Encore Research Group, University of Toronto
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,25 +15,24 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.authentication.impl;
+package org.telscenter.sail.webapp.presentation.validators;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
  * @author Cynick Young
- * 
- * @version $Id:AllTests.java 159 2007-03-02 22:42:21Z cynick $
- * 
+ *
+ * @version $Id: $
+ *
  */
 public class AllTests {
 
     public static Test suite() {
         TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.service.authentication.impl");
+                "Test for org.telscenter.sail.webapp.presentation.validators");
         //$JUnit-BEGIN$
-        suite.addTestSuite(CreateDefaultUsersTest.class);
-        suite.addTestSuite(UserDetailsServiceImplTest.class);
+        suite.addTestSuite(StudentUserDetailsValidatorTest.class);
         //$JUnit-END$
         return suite;
     }

@@ -33,6 +33,8 @@ import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
  */
 public interface HttpRestTransport {
 
+    public static final String APPLICATION_XML = "application/xml";
+
     /**
      * Performs the POST operation given the data required for the post.
      * 

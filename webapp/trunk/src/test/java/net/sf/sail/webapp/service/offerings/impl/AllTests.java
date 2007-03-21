@@ -28,13 +28,13 @@ import junit.framework.TestSuite;
  */
 public class AllTests {
 
-  public static Test suite() {
-    TestSuite suite = new TestSuite(
-        "Test for net.sf.sail.webapp.service.offerings.impl");
-    //$JUnit-BEGIN$
-    suite.addTestSuite(OfferingsServiceImplTest.class);
-    //$JUnit-END$
-    return suite;
-  }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(
+                "Test for net.sf.sail.webapp.service.offerings.impl");
+        //$JUnit-BEGIN$
+        suite.addTestSuite(OfferingsServiceImplTest.class);
+        //$JUnit-END$
+        return suite;
+    }
 
 }

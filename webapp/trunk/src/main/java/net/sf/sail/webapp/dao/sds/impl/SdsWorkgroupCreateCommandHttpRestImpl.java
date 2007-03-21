@@ -24,6 +24,7 @@ import java.util.Map;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -73,7 +74,7 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
     private static final Map<String, String> REQUEST_HEADERS;
     static {
         Map<String, String> map = new HashMap<String, String>(1);
-        map.put("Content-Type", APPLICATION_XML);
+        map.put("Content-Type", HttpRestTransport.APPLICATION_XML);
         REQUEST_HEADERS = Collections.unmodifiableMap(map);
     }
 

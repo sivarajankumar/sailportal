@@ -31,8 +31,6 @@ import org.springframework.beans.factory.annotation.Required;
  */
 public abstract class AbstractHttpRestCommand {
 
-    protected static final String APPLICATION_XML = "application/xml";
-
     protected HttpRestTransport transport;
 
     /**

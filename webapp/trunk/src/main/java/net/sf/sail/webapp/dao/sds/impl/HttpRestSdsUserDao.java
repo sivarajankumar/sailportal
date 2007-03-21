@@ -25,6 +25,10 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 import org.springframework.beans.factory.annotation.Required;
 
 /**
+ * HTTP REST implementation of <code>SdsUserDao</code> interface supporting
+ * interactions with external SDS. This implementation uses finer command
+ * objects to execute.
+ * 
  * @author Cynick Young
  * 
  * @version $Id$
@@ -50,7 +54,7 @@ public class HttpRestSdsUserDao extends AbstractDao<SdsUser> implements
     public void save(SdsUser sdsUser) {
         this.createCommand.setSdsUser(sdsUser);
         this.createCommand.execute(this.createCommand.generateRequest());
-        // TODO - when update command for SDS is written, need to differentiate
-        // between create and update
+        // TODO CY - when update command for SDS is written, need to
+        // differentiate between create and update
     }
 }

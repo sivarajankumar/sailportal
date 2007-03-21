@@ -28,15 +28,15 @@ import junit.framework.TestSuite;
  */
 public class AllTests {
 
-  public static Test suite() {
-    TestSuite suite = new TestSuite(
-        "Test for net.sf.sail.webapp.presentation.web.controllers");
-    //$JUnit-BEGIN$
-    suite.addTestSuite(LoginControllerTest.class);
-    suite.addTestSuite(SignupControllerTest.class);
-    suite.addTestSuite(OfferingsListControllerTest.class);
-    //$JUnit-END$
-    return suite;
-  }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(
+                "Test for net.sf.sail.webapp.presentation.web.controllers");
+        //$JUnit-BEGIN$
+        suite.addTestSuite(LoginControllerTest.class);
+        suite.addTestSuite(SignupControllerTest.class);
+        suite.addTestSuite(OfferingsListControllerTest.class);
+        //$JUnit-END$
+        return suite;
+    }
 
 }

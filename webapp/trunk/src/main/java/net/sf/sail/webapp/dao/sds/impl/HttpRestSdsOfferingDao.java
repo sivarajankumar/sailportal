@@ -27,6 +27,10 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 import org.springframework.beans.factory.annotation.Required;
 
 /**
+ * HTTP REST implementation of <code>SdsOfferingDao</code> interface
+ * supporting interactions with external SDS. This implementation uses finer
+ * command objects to execute.
+ * 
  * @author Cynick Young
  * 
  * @version $Id$

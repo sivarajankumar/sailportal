@@ -17,18 +17,21 @@
  */
 package net.sf.sail.webapp.junit;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
@@ -40,6 +43,8 @@ import com.meterware.httpunit.WebResponse;
  * 
  */
 public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
+
+    private static final String DEFAULT_NAME = "d fault";
 
     protected HttpRestTransport httpRestTransport;
 
@@ -72,11 +77,16 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      */
     protected Document createDocumentFromResponse(WebResponse webResponse)
             throws IOException, JDOMException {
-        SAXBuilder builder = new SAXBuilder();
-        InputStream responseStream = webResponse.getInputStream();
-        Document doc = builder.build(responseStream);
-        responseStream.close();
-        return doc;
+        InputStream responseStream = null;
+        try {
+            SAXBuilder builder = new SAXBuilder();
+            responseStream = webResponse.getInputStream();
+            return builder.build(responseStream);
+        } finally {
+            if (responseStream != null) {
+                responseStream.close();
+            }
+        }
     }
 
     /**
@@ -93,7 +103,95 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
                 .getBaseUrl()
                 + urlRelativeToBaseUrl);
-        webRequest.setHeaderField("Accept", "application/xml");
+        webRequest.setHeaderField("Accept", HttpRestTransport.APPLICATION_XML);
         return this.webConversation.getResponse(webRequest);
+    }
+
+    /**
+     * Uses httpunit to go over the network to make a POST REST request.
+     * 
+     * @param urlRelativeToBaseUrl
+     * @param body
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws SAXException
+     */
+    protected WebResponse makeHttpRestPostRequest(String urlRelativeToBaseUrl,
+            String body) throws MalformedURLException, IOException,
+            SAXException {
+        InputStream bodyDataStream = new ByteArrayInputStream(body.getBytes());
+        WebRequest webRequest = new PostMethodWebRequest(this.httpRestTransport
+                .getBaseUrl()
+                + urlRelativeToBaseUrl, bodyDataStream,
+                HttpRestTransport.APPLICATION_XML);
+        return this.webConversation.getResponse(webRequest);
+    }
+
+    /**
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws SAXException
+     */
+    protected Integer createUserInSds() throws MalformedURLException,
+            IOException, SAXException {
+        WebResponse webResponse = this.makeHttpRestPostRequest("/user",
+                "<user><first-name>" + DEFAULT_NAME
+                        + "</first-name><last-name>" + DEFAULT_NAME
+                        + "</last-name></user>");
+        return this.extractNewlyCreatedId(webResponse);
+    }
+
+    /**
+     * @param sdsCurnitId
+     * @param sdsJnlpId
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws SAXException
+     */
+    protected Integer createOfferingInSds(Integer sdsCurnitId, Integer sdsJnlpId)
+            throws MalformedURLException, IOException, SAXException {
+        WebResponse webResponse = this.makeHttpRestPostRequest("/offering",
+                "<offering><name>" + DEFAULT_NAME + "</name><curnit-id>"
+                        + sdsCurnitId + "</curnit-id><jnlp-id>" + sdsJnlpId
+                        + "</jnlp-id></offering>");
+        return this.extractNewlyCreatedId(webResponse);
+    }
+
+    /**
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws SAXException
+     */
+    protected Integer createJnlpInSds() throws MalformedURLException,
+            IOException, SAXException {
+        WebResponse webResponse = this.makeHttpRestPostRequest("/jnlp",
+                "<jnlp><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_NAME
+                        + "</url></jnlp>");
+        return this.extractNewlyCreatedId(webResponse);
+    }
+
+    /**
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws SAXException
+     */
+    protected Integer createCurnitInSds() throws MalformedURLException,
+            IOException, SAXException {
+        WebResponse webResponse = this.makeHttpRestPostRequest("/curnit",
+                "<curnit><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_NAME
+                        + "</url></curnit>");
+        return this.extractNewlyCreatedId(webResponse);
+    }
+
+    private Integer extractNewlyCreatedId(WebResponse webResponse) {
+        assertEquals(HttpStatus.SC_CREATED, webResponse.getResponseCode());
+        String locationHeader = webResponse.getHeaderField("Location");
+        return new Integer(locationHeader.substring(locationHeader
+                .lastIndexOf("/") + 1));
     }
 }

@@ -33,13 +33,13 @@ import junit.framework.TestSuite;
  */
 public class AllTests {
 
-	public static Test suite() {
-		TestSuite suite = new TestSuite(
-				"Test for org.telscenter.sail.webapp.dao.authentication.impl");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(HibernateStudentUserDetailsDaoTest.class);
-		suite.addTestSuite(HibernateTeacherUserDetailsDaoTest.class);
-		//$JUnit-END$
-		return suite;
-	}
+    public static Test suite() {
+        TestSuite suite = new TestSuite(
+                "Test for org.telscenter.sail.webapp.dao.authentication.impl");
+        //$JUnit-BEGIN$
+        suite.addTestSuite(HibernateTeacherUserDetailsDaoTest.class);
+        suite.addTestSuite(HibernateStudentUserDetailsDaoTest.class);
+        //$JUnit-END$
+        return suite;
+    }
 }

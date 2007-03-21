@@ -28,7 +28,7 @@
         class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
         <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
         <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
-        <property name="baseUrl" value="http://rails.dev.concord.org/sds/4" />
+        <property name="baseUrl" value="http://saildataservice.concord.org/4" />
     </bean>
 
     <bean id="sdsOffering" scope="prototype"
@@ -76,4 +76,17 @@
             <ref local="sdsOfferingListCommand" />
         </property>
     </bean>
+
+    <bean id="sdsWorkgroupDao"
+        class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsWorkgroupDao">
+        <property name="createCommand">
+            <ref local="sdsWorkgroupCreateCommand" />
+        </property>
+        <property name="membershipCreateCommand">
+            <ref local="sdsWorkgroupMemberCreateCommand" />
+        </property>
+    </bean>
+
+    <bean id="sdsWorkgroup" class="net.sf.sail.webapp.domain.sds.SdsWorkgroup"
+        scope="prototype" />
 </beans>
