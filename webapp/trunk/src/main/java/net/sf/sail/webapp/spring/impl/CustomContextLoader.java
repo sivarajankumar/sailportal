@@ -21,6 +21,8 @@ import java.security.InvalidParameterException;
 
 import javax.servlet.ServletContext;
 
+import net.sf.sail.webapp.spring.SpringConfiguration;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;

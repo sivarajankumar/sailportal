@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.spring.impl;
 
+import net.sf.sail.webapp.spring.SpringConfiguration;
+
 /**
  * Implementation of <code>SpringConfiguration</code> specifically for the PAS
  * portal.
@@ -40,7 +42,7 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/applicationContexts/tels/overrides.xml" };
 
     /**
-     * @see net.sf.sail.webapp.spring.impl.SpringConfiguration#getConfigLocations()
+     * @see net.sf.sail.webapp.spring.SpringConfiguration#getConfigLocations()
      */
     public String[] getConfigLocations() {
         return CONFIG_LOCATIONS;
@@ -53,7 +55,7 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
      * @return <code>String[]</code> such that each string in the array
      *         defines the location of an applicationContext XML configuration
      *         file used by the Spring container
-     * @see net.sf.sail.webapp.spring.impl.SpringConfiguration#getConfigLocations()
+     * @see net.sf.sail.webapp.spring.SpringConfiguration#getConfigLocations()
      */
     public static String[] getConfigLocationsStatically() {
         return CONFIG_LOCATIONS;
