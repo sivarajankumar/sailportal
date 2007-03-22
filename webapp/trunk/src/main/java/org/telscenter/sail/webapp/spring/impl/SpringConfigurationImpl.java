@@ -15,13 +15,17 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.spring.impl;
+package org.telscenter.sail.webapp.spring.impl;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import net.sf.sail.webapp.spring.SpringConfiguration;
 
 /**
- * Implementation of <code>SpringConfiguration</code> specifically for the PAS
- * portal.
+ * Implementation of <code>SpringConfiguration</code> specifically for the
+ * TELS portal.
  * 
  * @author Cynick Young
  * 
@@ -30,14 +34,22 @@ import net.sf.sail.webapp.spring.SpringConfiguration;
  */
 public final class SpringConfigurationImpl implements SpringConfiguration {
 
-    private static final String[] CONFIG_LOCATIONS = new String[] {
-            "classpath:configurations/applicationContexts/pas/acegiSecurity.xml",
-            "classpath:configurations/applicationContexts/pas/datasource.xml",
-            "classpath:configurations/applicationContexts/pas/hibernate.xml",
-            "classpath:configurations/applicationContexts/pas/sds.xml",
-            "classpath:configurations/applicationContexts/pas/security.xml",
-            "classpath:configurations/applicationContexts/pas/spring.xml",
-            "classpath:configurations/applicationContexts/pas/user.xml" };
+    private static final String[] CONFIG_LOCATIONS;
+
+    static {
+        final List<String> configLocationsList = Collections
+                .list(Collections
+                        .enumeration(Arrays
+                                .asList(net.sf.sail.webapp.spring.impl.SpringConfigurationImpl
+                                        .getConfigLocationsStatically())));
+        configLocationsList
+                .add("configurations/applicationContexts/tels/extensions.xml");
+        // Keep the overrides as the last item to be added to the list to ensure
+        // that the overridden bean has indeed been defined.
+        configLocationsList
+                .add("configurations/applicationContexts/tels/overrides.xml");
+        CONFIG_LOCATIONS = configLocationsList.toArray(new String[0]);
+    }
 
     /**
      * @see net.sf.sail.webapp.spring.SpringConfiguration#getConfigLocations()

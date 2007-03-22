@@ -35,6 +35,8 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
 public abstract class AbstractTransactionalDbTests extends
         AbstractTransactionalDataSourceSpringContextTests {
 
+    private SessionFactory sessionFactory;
+
     protected HibernateFlusher toilet;
 
     /**
@@ -44,8 +46,7 @@ public abstract class AbstractTransactionalDbTests extends
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
         this.toilet = new HibernateFlusher();
-        this.toilet.setSessionFactory((SessionFactory) this.applicationContext
-                .getBean("sessionFactory"));
+        this.toilet.setSessionFactory(this.sessionFactory);
     }
 
     /**
@@ -54,5 +55,13 @@ public abstract class AbstractTransactionalDbTests extends
     @Override
     protected String[] getConfigLocations() {
         return SpringConfigurationImpl.getConfigLocationsStatically();
+    }
+
+    /**
+     * @param sessionFactory
+     *            the sessionFactory to set
+     */
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }
