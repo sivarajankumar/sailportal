@@ -88,6 +88,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
+//        TODO LW change these to use spring wiring
         this.role1 = (MutableGrantedAuthority) this.applicationContext
                 .getBean("mutableGrantedAuthority");
         this.role2 = (MutableGrantedAuthority) this.applicationContext

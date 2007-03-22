@@ -24,6 +24,8 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import org.easymock.EasyMock;
@@ -52,8 +54,13 @@ public class OfferingsServiceImplTest extends TestCase {
         this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
         this.expectedSdsOfferingSet = new HashSet<SdsOffering>();
         SdsOffering offering = new SdsOffering();
-        offering.setCurnitId(1);
-        offering.setJnlpId(2);
+        SdsCurnit curnit = new SdsCurnit();
+        curnit.setSdsObjectId(1);
+        offering.setCurnit(curnit);
+        
+        SdsJnlp jnlp = new SdsJnlp();
+        jnlp.setSdsObjectId(2);
+        offering.setJnlp(jnlp);
         offering.setName("test");
         offering.setSdsObjectId(3);
         this.expectedSdsOfferingSet.add(offering);

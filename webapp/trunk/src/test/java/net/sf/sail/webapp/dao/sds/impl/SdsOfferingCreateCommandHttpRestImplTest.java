@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import org.easymock.EasyMock;
@@ -24,10 +26,12 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: SdsOfferingCreateCommandHttpRestImplTest.java 206 2007-03-21
+ *          20:03:54Z laurel $
  * 
  */
-public class SdsOfferingCreateCommandHttpRestImplTest extends AbstractSdsCreateCommandHttpRestImplTest {
+public class SdsOfferingCreateCommandHttpRestImplTest extends
+		AbstractSdsCreateCommandHttpRestImplTest {
 
 	private static final String EXPECTED_NAME = "Blah";
 
@@ -41,6 +45,10 @@ public class SdsOfferingCreateCommandHttpRestImplTest extends AbstractSdsCreateC
 
 	private SdsOffering expectedSdsOffering;
 
+	private SdsCurnit expectedSdsCurnit;
+
+	private SdsJnlp expectedSdsJnlp;
+
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
@@ -48,8 +56,15 @@ public class SdsOfferingCreateCommandHttpRestImplTest extends AbstractSdsCreateC
 	protected void setUp() throws Exception {
 		super.setUp();
 		this.expectedSdsOffering = new SdsOffering();
-		this.expectedSdsOffering.setCurnitId(EXPECTED_CURNIT_ID);
-		this.expectedSdsOffering.setJnlpId(EXPECTED_JNLP_ID);
+
+		this.expectedSdsCurnit = new SdsCurnit();
+		this.expectedSdsCurnit.setSdsObjectId(EXPECTED_CURNIT_ID);
+		this.expectedSdsOffering.setCurnit(this.expectedSdsCurnit);
+
+		this.expectedSdsJnlp = new SdsJnlp();
+		this.expectedSdsJnlp.setSdsObjectId(EXPECTED_JNLP_ID);
+		this.expectedSdsOffering.setJnlp(this.expectedSdsJnlp);
+
 		this.expectedSdsOffering.setSdsObjectId(EXPECTED_ID);
 		this.expectedSdsOffering.setName(EXPECTED_NAME);
 
@@ -71,7 +86,8 @@ public class SdsOfferingCreateCommandHttpRestImplTest extends AbstractSdsCreateC
 	}
 
 	public void testExecute() throws Exception {
-		assertEquals(this.expectedSdsOffering, (SdsOffering) doExecuteTest(OFFERING_DIRECTORY));
+		assertEquals(this.expectedSdsOffering,
+				(SdsOffering) doExecuteTest(OFFERING_DIRECTORY));
 		EasyMock.verify(this.mockTransport);
 	}
 }

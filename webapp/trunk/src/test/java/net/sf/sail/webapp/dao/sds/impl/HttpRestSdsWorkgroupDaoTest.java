@@ -19,6 +19,8 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.List;
 
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
@@ -111,16 +113,19 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
 	 */
 	@SuppressWarnings("unchecked")
 	public void testSave_NewSdsWorkgroup() throws Exception {
+
 		// create curnit in SDS
-		Integer sdsCurnitId = createCurnitInSds();
-		this.sdsOffering.setCurnitId(sdsCurnitId);
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setSdsObjectId(createCurnitInSds());
+		this.sdsOffering.setCurnit(sdsCurnit);
 
 		// create jnlp in SDS
-		Integer sdsJnlpId = createJnlpInSds();
-		this.sdsOffering.setJnlpId(sdsJnlpId);
+		SdsJnlp sdsJnlp = new SdsJnlp();
+		sdsJnlp.setSdsObjectId(createJnlpInSds());
+		this.sdsOffering.setJnlp(sdsJnlp);
 
 		// create offering in SDS
-		Integer sdsOfferingId = createOfferingInSds(sdsCurnitId, sdsJnlpId);
+		Integer sdsOfferingId = createOfferingInSds(sdsCurnit.getSdsObjectId(), sdsJnlp.getSdsObjectId());
 		this.sdsOffering.setSdsObjectId(sdsOfferingId);
 
 		// create user in SDS

@@ -33,27 +33,11 @@ public class SdsOffering implements SdsObject {
 
     private String name;
 
-    private Integer curnitId;
-
+    private SdsCurnit curnit;
+    
+    private SdsJnlp jnlp;
+    
     private Integer sdsObjectId;
-
-    private Integer jnlpId;
-
-    /**
-     * @param curnitId
-     *            the curnitId to set
-     */
-    public void setCurnitId(Integer curnitId) {
-        this.curnitId = curnitId;
-    }
-
-    /**
-     * @param jnlpId
-     *            the jnlpId to set
-     */
-    public void setJnlpId(Integer jnlpId) {
-        this.jnlpId = jnlpId;
-    }
 
     /**
      * @param name
@@ -78,55 +62,53 @@ public class SdsOffering implements SdsObject {
     }
 
     /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result
-                + ((curnitId == null) ? 0 : curnitId.hashCode());
-        result = PRIME * result + ((jnlpId == null) ? 0 : jnlpId.hashCode());
-        result = PRIME * result + ((name == null) ? 0 : name.hashCode());
-        result = PRIME * result
-                + ((sdsObjectId == null) ? 0 : sdsObjectId.hashCode());
-        return result;
-    }
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int PRIME = 31;
+	    int result = 1;
+		result = PRIME * result + ((curnit == null) ? 0 : curnit.hashCode());
+		result = PRIME * result + ((jnlp == null) ? 0 : jnlp.hashCode());
+		result = PRIME * result + ((name == null) ? 0 : name.hashCode());
+		result = PRIME * result + ((sdsObjectId == null) ? 0 : sdsObjectId.hashCode());
+		return result;
+	}
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final SdsOffering other = (SdsOffering) obj;
-        if (curnitId == null) {
-            if (other.curnitId != null)
-                return false;
-        } else if (!curnitId.equals(other.curnitId))
-            return false;
-        if (jnlpId == null) {
-            if (other.jnlpId != null)
-                return false;
-        } else if (!jnlpId.equals(other.jnlpId))
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (sdsObjectId == null) {
-            if (other.sdsObjectId != null)
-                return false;
-        } else if (!sdsObjectId.equals(other.sdsObjectId))
-            return false;
-        return true;
-    }
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+	    if (obj == null)
+	        return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final SdsOffering other = (SdsOffering) obj;
+		if (curnit == null) {
+			if (other.curnit != null)
+				return false;
+		} else if (!curnit.equals(other.curnit))
+			return false;
+		if (jnlp == null) {
+			if (other.jnlp != null)
+				return false;
+		} else if (!jnlp.equals(other.jnlp))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (sdsObjectId == null) {
+			if (other.sdsObjectId != null)
+				return false;
+		} else if (!sdsObjectId.equals(other.sdsObjectId))
+			return false;
+		return true;
+	}
 
     /**
      * @return the name
@@ -136,16 +118,30 @@ public class SdsOffering implements SdsObject {
     }
 
 	/**
-	 * @return the curnitId
+	 * @return the curnit
 	 */
-	public Integer getCurnitId() {
-		return curnitId;
+	public SdsCurnit getCurnit() {
+		return curnit;
 	}
 
 	/**
-	 * @return the jnlpId
+	 * @param curnit the curnit to set
 	 */
-	public Integer getJnlpId() {
-		return jnlpId;
+	public void setCurnit(SdsCurnit curnit) {
+		this.curnit = curnit;
+	}
+
+	/**
+	 * @return the jnlp
+	 */
+	public SdsJnlp getJnlp() {
+		return jnlp;
+	}
+
+	/**
+	 * @param jnlp the jnlp to set
+	 */
+	public void setJnlp(SdsJnlp jnlp) {
+		this.jnlp = jnlp;
 	}
 }

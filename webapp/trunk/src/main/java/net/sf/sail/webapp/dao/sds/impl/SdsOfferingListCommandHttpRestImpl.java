@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
@@ -83,12 +85,19 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
         for (Element offeringNode : nodeList) {
             SdsOffering sdsOffering = new SdsOffering();
             sdsOffering.setName(offeringNode.getChild("name").getValue());
-            sdsOffering.setCurnitId(new Integer(offeringNode.getChild(
-                    "curnit-id").getValue()));
-            sdsOffering.setJnlpId(new Integer(offeringNode.getChild("jnlp-id")
-                    .getValue()));
             sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild("id")
                     .getValue()));
+                        
+            SdsCurnit sdsCurnit = new SdsCurnit(); //TODO LW get whole curnit from the SDS
+            sdsCurnit.setSdsObjectId(new Integer(offeringNode.getChild(
+                    "curnit-id").getValue()));
+            sdsOffering.setCurnit(sdsCurnit);
+            
+            SdsJnlp sdsJnlp = new SdsJnlp(); //TODO LW get whole jnlp from the SDS
+            sdsJnlp.setSdsObjectId(new Integer(offeringNode.getChild("jnlp-id")
+                    .getValue()));
+            sdsOffering.setJnlp(sdsJnlp);
+            
             sdsOfferingSet.add(sdsOffering);
         }
         return sdsOfferingSet;

@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests;
 
@@ -117,12 +119,14 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 		this.sdsOffering.setName(EXPECTED_NAME);
 
 		// create curnit in SDS
-		Integer sdsCurnitId = createCurnitInSds();
-		this.sdsOffering.setCurnitId(sdsCurnitId);
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setSdsObjectId(createCurnitInSds());
+		this.sdsOffering.setCurnit(sdsCurnit);
 
 		// create jnlp in SDS
-		Integer sdsJnlpId = createJnlpInSds();
-		this.sdsOffering.setJnlpId(sdsJnlpId);
+		SdsJnlp sdsJnlp = new SdsJnlp();
+		sdsJnlp.setSdsObjectId(createJnlpInSds());
+		this.sdsOffering.setJnlp(sdsJnlp);
 
 		assertNull(this.sdsOffering.getSdsObjectId());
 		this.sdsOfferingDao.save(this.sdsOffering);
@@ -139,22 +143,26 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 		Element rootElement = doc.getRootElement();
 		SdsOffering actualSdsOffering = new SdsOffering();
 		actualSdsOffering.setName(rootElement.getChild("name").getValue());
-		actualSdsOffering.setCurnitId(new Integer(rootElement.getChild(
-				"curnit-id").getValue()));
 		actualSdsOffering.setSdsObjectId(new Integer(rootElement.getChild("id")
 				.getValue()));
-		actualSdsOffering.setJnlpId(new Integer(rootElement.getChild("jnlp-id")
+
+		SdsCurnit actualSdsCurnit = new SdsCurnit();
+		actualSdsCurnit.setSdsObjectId(new Integer(rootElement.getChild(
+				"curnit-id").getValue()));
+		actualSdsOffering.setCurnit(actualSdsCurnit);
+		
+		SdsJnlp actualSdsJnlp = new SdsJnlp();
+		actualSdsJnlp.setSdsObjectId(new Integer(rootElement.getChild("jnlp-id")
 				.getValue()));
+		actualSdsOffering.setJnlp(actualSdsJnlp);
+		
 		assertEquals(this.sdsOffering.getName(), actualSdsOffering.getName());
 		assertEquals(this.sdsOffering.getSdsObjectId(), actualSdsOffering
 				.getSdsObjectId());
-		assertEquals(this.sdsOffering.getCurnitId(), actualSdsOffering
-				.getCurnitId());
-		assertEquals(this.sdsOffering.getJnlpId(), actualSdsOffering
-				.getJnlpId());
+		assertEquals(this.sdsOffering.getCurnit().getSdsObjectId(), actualSdsOffering.getCurnit().getSdsObjectId());
+		assertEquals(this.sdsOffering.getJnlp().getSdsObjectId(), actualSdsOffering.getJnlp().getSdsObjectId());
 		assertEquals(this.sdsOffering, actualSdsOffering);
 	}
-	
 
 	/**
 	 * Test method for
@@ -167,6 +175,5 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 		} catch (UnsupportedOperationException expected) {
 		}
 	}
-
 
 }

@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offerings.OfferingsService;
 
@@ -58,8 +60,15 @@ public class OfferingsListControllerTest extends AbstractModelAndViewTests {
         this.mockOfferingsService = EasyMock.createMock(OfferingsService.class);
         this.expectedSdsOfferingSet = new HashSet<SdsOffering>();
         SdsOffering offering = new SdsOffering();
-        offering.setCurnitId(1);
-        offering.setJnlpId(2);
+        
+        SdsCurnit curnit = new SdsCurnit();
+        curnit.setSdsObjectId(1);
+        offering.setCurnit(curnit);
+        
+        SdsJnlp jnlp = new SdsJnlp();
+        jnlp.setSdsObjectId(2);
+        offering.setJnlp(jnlp);
+        
         offering.setName("test");
         offering.setSdsObjectId(3);
         this.expectedSdsOfferingSet.add(offering);
