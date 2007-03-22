@@ -250,6 +250,7 @@
           internal target
          ================================= -->
     <target name="_mvn.compile" depends="_verify.version.ant">
+        <!-- this should work in Linux, Mac OS X, and other Unix-like OS -->
         <exec osfamily="Unix"
               executable="mvn"
               failonerror="true"
@@ -259,8 +260,8 @@
             <arg value="test" />
             <arg value="compile" />
         </exec>
-        <!-- this should work in Windows but not yet tested -->
-        <exec osfamily="Windows"
+        <!-- this should work for Microsoft Windows NT-based systems, including Windows 2000, XP and successors -->
+        <exec osfamily="Winnt"
               executable="cmd"
               failonerror="true"
               failifexecutionfails="true"
