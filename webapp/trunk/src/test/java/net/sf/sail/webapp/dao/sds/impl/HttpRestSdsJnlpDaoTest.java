@@ -42,8 +42,20 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 
 	private SdsJnlp sdsJnlp;
 
+	/**
+	 * @param sdsJnlpDao
+	 *            the sdsJnlpDao to set
+	 */
 	public void setSdsJnlpDao(HttpRestSdsJnlpDao sdsJnlpDao) {
 		this.sdsJnlpDao = sdsJnlpDao;
+	}
+
+	/**
+	 * @param sdsJnlp
+	 *            the sdsJnlp to set
+	 */
+	public void setSdsJnlp(SdsJnlp sdsJnlp) {
+		this.sdsJnlp = sdsJnlp;
 	}
 
 	/**
@@ -52,8 +64,6 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 	@Override
 	protected void onSetUp() throws Exception {
 		super.onSetUp();
-		this.sdsJnlp = (SdsJnlp) this.applicationContext
-				.getBean("sdsJnlp");
 		this.sdsJnlp.setName(EXPECTED_NAME);
 		this.sdsJnlp.setUrl(EXPECTED_URL);
 	}
@@ -70,10 +80,10 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 
 	/**
 	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsJnlpDao#save(net.sf.sail.webapp.domain.sds.SdsJnlp)}.
 	 */
 	@SuppressWarnings("unchecked")
-	public void testSave_NewUser() throws Exception {
+	public void testSave_NewJnlp() throws Exception {
 		assertNull(this.sdsJnlp.getSdsObjectId());
 		this.sdsJnlpDao.save(this.sdsJnlp);
 		assertNotNull(this.sdsJnlp.getSdsObjectId());
@@ -88,13 +98,13 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 
 		Element rootElement = doc.getRootElement();
 		SdsJnlp actualSdsJnlp = new SdsJnlp();
-		actualSdsJnlp.setName(rootElement.getChild("name")
-				.getValue());
+		actualSdsJnlp.setName(rootElement.getChild("name").getValue());
 		actualSdsJnlp.setUrl(rootElement.getChild("url").getValue());
 		actualSdsJnlp.setSdsObjectId(new Integer(rootElement.getChild("id")
 				.getValue()));
 		assertEquals(this.sdsJnlp.getName(), actualSdsJnlp.getName());
-		assertEquals(this.sdsJnlp.getSdsObjectId(), actualSdsJnlp.getSdsObjectId());
+		assertEquals(this.sdsJnlp.getSdsObjectId(), actualSdsJnlp
+				.getSdsObjectId());
 		assertEquals(this.sdsJnlp.getUrl(), actualSdsJnlp.getUrl());
 		assertEquals(this.sdsJnlp, actualSdsJnlp);
 	}

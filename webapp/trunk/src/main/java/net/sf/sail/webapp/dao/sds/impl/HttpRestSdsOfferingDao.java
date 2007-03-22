@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.sds.impl;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.impl.AbstractDao;
+import net.sf.sail.webapp.dao.sds.SdsOfferingCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -37,24 +38,46 @@ import org.springframework.beans.factory.annotation.Required;
  * 
  */
 public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
-        SdsOfferingDao {
+		SdsOfferingDao {
 
-    private SdsOfferingListCommand listCommand;
+	private SdsOfferingListCommand listCommand;
 
-    /**
-     * @param listCommand
-     *            the listCommand to set
-     */
-    @Required
-    public void setListCommand(SdsOfferingListCommand listCommand) {
-        this.listCommand = listCommand;
-    }
+	private SdsOfferingCreateCommand createCommand;
 
-    /**
-     * @see net.sf.sail.webapp.dao.sds.SdsOfferingDao#getList()
-     */
-    @SuppressWarnings("unchecked")
-    public Set<SdsOffering> getList() {
-        return this.listCommand.execute(this.listCommand.generateRequest());
-    }
+	/**
+	 * @param listCommand
+	 *            the listCommand to set
+	 */
+	@Required
+	public void setListCommand(SdsOfferingListCommand listCommand) {
+		this.listCommand = listCommand;
+	}
+
+
+	/**
+	 * @param createCommand
+	 *            the createCommand to set
+	 */
+	@Required
+	public void setCreateCommand(SdsOfferingCreateCommand createCommand) {
+		this.createCommand = createCommand;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsOfferingDao#getList()
+	 */
+	@SuppressWarnings("unchecked")
+	public Set<SdsOffering> getList() {
+		return this.listCommand.execute(this.listCommand.generateRequest());
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
+	 */
+	public void save(SdsOffering sdsOffering) {
+		this.createCommand.setSdsOffering(sdsOffering);
+		this.createCommand.execute(this.createCommand.generateRequest());
+		// TODO CY - when update command for SDS is written, need to
+		// differentiate between create and update
+	}
 }

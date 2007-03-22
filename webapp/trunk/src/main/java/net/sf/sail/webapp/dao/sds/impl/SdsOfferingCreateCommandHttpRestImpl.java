@@ -59,7 +59,7 @@ public class SdsOfferingCreateCommandHttpRestImpl extends
 		final SdsOffering sdsOffering = this.getSdsOffering();
 		final String bodyData = "<offering><name>" + sdsOffering.getName()
 				+ "</name><curnit-id>" + sdsOffering.getCurnitId()
-				+ "</url><jnlp-id>" + sdsOffering.getJnlpId()
+				+ "</curnit-id><jnlp-id>" + sdsOffering.getJnlpId()
 				+ "</jnlp-id></offering>";
 		final String url = "/offering";
 		return new HttpPostRequest(REQUEST_HEADERS_CONTENT,

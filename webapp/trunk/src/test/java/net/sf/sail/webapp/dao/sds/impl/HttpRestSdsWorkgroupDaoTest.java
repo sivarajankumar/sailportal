@@ -34,119 +34,149 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id: HttpRestSdsWorkgroupDaoTest.java 200 2007-03-21 16:19:16Z
+ *          cynick $
  * 
  */
 public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
 
-    private static final String DEFAULT_NAME = "d fault";
+	private static final String DEFAULT_NAME = "d fault";
 
-    private HttpRestSdsWorkgroupDao sdsWorkgroupDao;
+	private HttpRestSdsWorkgroupDao sdsWorkgroupDao;
 
-    private SdsWorkgroup sdsWorkgroup;
+	private SdsWorkgroup sdsWorkgroup;
 
-    private SdsOffering sdsOffering;
+	private SdsOffering sdsOffering;
 
-    private SdsUser sdsUser;
+	private SdsUser sdsUser;
 
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
-     */
-    @Override
-    protected void onSetUp() throws Exception {
-        super.onSetUp();
-        this.sdsWorkgroup.setName(DEFAULT_NAME);
-        this.sdsWorkgroup.setSdsOffering(this.sdsOffering);
-        this.sdsWorkgroup.addMember(this.sdsUser);
-    }
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
+	 */
+	@Override
+	protected void onSetUp() throws Exception {
+		super.onSetUp();
+		this.sdsWorkgroup.setName(DEFAULT_NAME);
+		this.sdsWorkgroup.setSdsOffering(this.sdsOffering);
+		this.sdsWorkgroup.addMember(this.sdsUser);
+	}
 
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
-     */
-    @Override
-    protected void onTearDown() throws Exception {
-        super.onTearDown();
-        this.sdsWorkgroup = null;
-        this.sdsOffering = null;
-        this.sdsUser = null;
-        this.sdsWorkgroupDao = null;
-    }
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
+	 */
+	@Override
+	protected void onTearDown() throws Exception {
+		super.onTearDown();
+		this.sdsWorkgroup = null;
+		this.sdsOffering = null;
+		this.sdsUser = null;
+		this.sdsWorkgroupDao = null;
+	}
 
-    public void setSdsWorkgroupDao(HttpRestSdsWorkgroupDao sdsWorkgroupDao) {
-        this.sdsWorkgroupDao = sdsWorkgroupDao;
-    }
+	/**
+	 * @param sdsWorkgroupDao
+	 *            the sdsWorkgroupDao to set
+	 */
+	public void setSdsWorkgroupDao(HttpRestSdsWorkgroupDao sdsWorkgroupDao) {
+		this.sdsWorkgroupDao = sdsWorkgroupDao;
+	}
 
-    public void setSdsOffering(SdsOffering sdsOffering) {
-        this.sdsOffering = sdsOffering;
-    }
+	/**
+	 * @param sdsOffering
+	 *            the SdsOffering to set
+	 */
+	public void setSdsOffering(SdsOffering sdsOffering) {
+		this.sdsOffering = sdsOffering;
+	}
 
-    public void setSdsUser(SdsUser sdsUser) {
-        this.sdsUser = sdsUser;
-    }
+	/**
+	 * @param sdsUser
+	 *            the SdsUser to set
+	 */
+	public void setSdsUser(SdsUser sdsUser) {
+		this.sdsUser = sdsUser;
+	}
 
-    public void setSdsWorkgroup(SdsWorkgroup sdsWorkgroup) {
-        this.sdsWorkgroup = sdsWorkgroup;
-    }
+	/**
+	 * @param sdsWorkgroup
+	 *            the SdsWorkgroup to set
+	 */
+	public void setSdsWorkgroup(SdsWorkgroup sdsWorkgroup) {
+		this.sdsWorkgroup = sdsWorkgroup;
+	}
 
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsWorkgroupDao#save(net.sf.sail.webapp.domain.sds.SdsWorkgroup)}.
-     */
-    @SuppressWarnings("unchecked")
-    public void testSave_NewSdsWorkgroup() throws Exception {
-        // create curnit in SDS
-        Integer sdsCurnitId = createCurnitInSds();
-        this.sdsOffering.setCurnitId(sdsCurnitId);
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsWorkgroupDao#save(net.sf.sail.webapp.domain.sds.SdsWorkgroup)}.
+	 */
+	@SuppressWarnings("unchecked")
+	public void testSave_NewSdsWorkgroup() throws Exception {
+		// create curnit in SDS
+		Integer sdsCurnitId = createCurnitInSds();
+		this.sdsOffering.setCurnitId(sdsCurnitId);
 
-        // create jnlp in SDS
-        Integer sdsJnlpId = createJnlpInSds();
-        this.sdsOffering.setJnlpId(sdsJnlpId);
+		// create jnlp in SDS
+		Integer sdsJnlpId = createJnlpInSds();
+		this.sdsOffering.setJnlpId(sdsJnlpId);
 
-        // create offering in SDS
-        Integer sdsOfferingId = createOfferingInSds(sdsCurnitId, sdsJnlpId);
-        this.sdsOffering.setSdsObjectId(sdsOfferingId);
+		// create offering in SDS
+		Integer sdsOfferingId = createOfferingInSds(sdsCurnitId, sdsJnlpId);
+		this.sdsOffering.setSdsObjectId(sdsOfferingId);
 
-        // create user in SDS
-        Integer sdsUserId = createUserInSds();
-        this.sdsUser.setSdsObjectId(sdsUserId);
+		// create user in SDS
+		Integer sdsUserId = createUserInSds();
+		this.sdsUser.setSdsObjectId(sdsUserId);
 
-        assertNull(this.sdsWorkgroup.getSdsObjectId());
-        this.sdsWorkgroupDao.save(this.sdsWorkgroup);
-        assertNotNull(this.sdsWorkgroup.getSdsObjectId());
+		assertNull(this.sdsWorkgroup.getSdsObjectId());
+		this.sdsWorkgroupDao.save(this.sdsWorkgroup);
+		assertNotNull(this.sdsWorkgroup.getSdsObjectId());
 
-        // retrieve newly created workgroup using httpunit and compare with
-        // sdsWorkgroup saved via DAO
-        WebResponse webResponse = makeHttpRestGetRequest("/workgroup/"
-                + this.sdsWorkgroup.getSdsObjectId());
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+		// retrieve newly created workgroup using httpunit and compare with
+		// sdsWorkgroup saved via DAO
+		WebResponse webResponse = makeHttpRestGetRequest("/workgroup/"
+				+ this.sdsWorkgroup.getSdsObjectId());
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-        System.out.println("response: " + webResponse.getText());
+		System.out.println("response: " + webResponse.getText());
 
-        Document doc = createDocumentFromResponse(webResponse);
+		Document doc = createDocumentFromResponse(webResponse);
 
-        Element rootElement = doc.getRootElement();
-        assertEquals(this.sdsWorkgroup.getSdsObjectId(), new Integer(
-                rootElement.getChild("id").getValue()));
-        assertEquals(this.sdsWorkgroup.getName(), rootElement.getChild("name")
-                .getValue());
-        assertEquals(this.sdsWorkgroup.getSdsOffering().getSdsObjectId(),
-                new Integer(rootElement.getChild("offering-id").getValue()));
+		Element rootElement = doc.getRootElement();
+		assertEquals(this.sdsWorkgroup.getSdsObjectId(), new Integer(
+				rootElement.getChild("id").getValue()));
+		assertEquals(this.sdsWorkgroup.getName(), rootElement.getChild("name")
+				.getValue());
+		assertEquals(this.sdsWorkgroup.getSdsOffering().getSdsObjectId(),
+				new Integer(rootElement.getChild("offering-id").getValue()));
 
-        // compare the members in the workgroup
-        webResponse = makeHttpRestGetRequest("/workgroup/"
-                + this.sdsWorkgroup.getSdsObjectId() + "/membership");
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+		// compare the members in the workgroup
+		webResponse = makeHttpRestGetRequest("/workgroup/"
+				+ this.sdsWorkgroup.getSdsObjectId() + "/membership");
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-        System.out.println("response: " + webResponse.getText());
+		System.out.println("response: " + webResponse.getText());
 
-        doc = createDocumentFromResponse(webResponse);
+		doc = createDocumentFromResponse(webResponse);
 
-        List<Element> nodeList;
-        nodeList = XPath.newInstance(
-                "/workgroup-memberships/workgroup-membership").selectNodes(doc);
+		List<Element> nodeList;
+		nodeList = XPath.newInstance(
+				"/workgroup-memberships/workgroup-membership").selectNodes(doc);
 
-        assertEquals(1, nodeList.size());
-        assertEquals(this.sdsUser.getSdsObjectId(), new Integer(nodeList.get(0)
-                .getChild("user-id").getValue()));
-    }
+		assertEquals(1, nodeList.size());
+		assertEquals(this.sdsUser.getSdsObjectId(), new Integer(nodeList.get(0)
+				.getChild("user-id").getValue()));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsWorkgroupDao#delete(net.sf.sail.webapp.domain.sds.SdsWorkgroup)}.
+	 */
+	public void testDelete() {
+		try {
+			this.sdsWorkgroupDao.delete(null);
+			fail("UnsupportedOperationException expected");
+		} catch (UnsupportedOperationException expected) {
+		}
+	}
+
 }

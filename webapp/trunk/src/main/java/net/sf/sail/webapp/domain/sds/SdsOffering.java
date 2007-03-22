@@ -28,6 +28,7 @@ package net.sf.sail.webapp.domain.sds;
  */
 public class SdsOffering implements SdsObject {
 
+//	TODO Laurel These should be sdsobjects not integer curnit id, jnlp id, etc.
     private static final long serialVersionUID = 1L;
 
     private String name;

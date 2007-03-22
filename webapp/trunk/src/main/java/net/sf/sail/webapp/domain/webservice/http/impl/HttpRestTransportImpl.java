@@ -116,7 +116,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         this.setHeaders(httpGetRequestData, method);
         try {
             // Execute the method.
-            logRequest(method);
+            logRequest(method, "");
             int statusCode = this.client.executeMethod(method);
             verifyResponseStatus(httpGetRequestData, method, statusCode);
             return new ByteArrayInputStream(method.getResponseBody());
@@ -159,7 +159,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         final Map<String, String> responseHeaders = new HashMap<String, String>();
         try {
             // Execute the method.
-            logRequest(method);
+            logRequest(method, bodyData);
             final int statusCode = this.client.executeMethod(method);
             verifyResponseStatus(httpPostRequestData, method, statusCode);
             final Header[] headers = method.getResponseHeaders();
@@ -178,9 +178,10 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         return responseHeaders;
     }
 
-    private void logRequest(HttpMethod method) throws URIException {
+    private void logRequest(HttpMethod method, String bodyData) throws URIException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info(method.getName() + ": " + method.getURI());
+            if (bodyData != "") LOGGER.info(method.getName() + ": " + bodyData);
         }
     }
 

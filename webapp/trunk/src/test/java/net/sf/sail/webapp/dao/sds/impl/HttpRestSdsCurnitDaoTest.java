@@ -42,8 +42,20 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
 	private SdsCurnit sdsCurnit;
 
+	/**
+	 * @param sdsCurnitDao
+	 *            the sdsCurnitDao to set
+	 */
 	public void setSdsCurnitDao(HttpRestSdsCurnitDao sdsCurnitDao) {
 		this.sdsCurnitDao = sdsCurnitDao;
+	}
+
+	/**
+	 * @param sdsCurnit
+	 *            the sdsCurnit to set
+	 */
+	public void setSdsCurnit(SdsCurnit sdsCurnit) {
+		this.sdsCurnit = sdsCurnit;
 	}
 
 	/**
@@ -52,8 +64,6 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 	@Override
 	protected void onSetUp() throws Exception {
 		super.onSetUp();
-		this.sdsCurnit = (SdsCurnit) this.applicationContext
-				.getBean("sdsCurnit");
 		this.sdsCurnit.setName(EXPECTED_NAME);
 		this.sdsCurnit.setUrl(EXPECTED_URL);
 	}
@@ -73,7 +83,7 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
 	 */
 	@SuppressWarnings("unchecked")
-	public void testSave_NewUser() throws Exception {
+	public void testSave_NewCurnit() throws Exception {
 		assertNull(this.sdsCurnit.getSdsObjectId());
 		this.sdsCurnitDao.save(this.sdsCurnit);
 		assertNotNull(this.sdsCurnit.getSdsObjectId());
@@ -88,8 +98,7 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
 		Element rootElement = doc.getRootElement();
 		SdsCurnit actualSdsCurnit = new SdsCurnit();
-		actualSdsCurnit.setName(rootElement.getChild("name")
-				.getValue());
+		actualSdsCurnit.setName(rootElement.getChild("name").getValue());
 		actualSdsCurnit.setUrl(rootElement.getChild("url").getValue());
 		actualSdsCurnit.setSdsObjectId(new Integer(rootElement.getChild("id")
 				.getValue()));

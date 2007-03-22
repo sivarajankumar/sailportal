@@ -74,7 +74,7 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends AbstractSdsCreate
 		assertEquals(this.expectedSdsWorkgroup, (SdsWorkgroup) doExecuteTest(WORKGROUP_DIRECTORY));
 		EasyMock.verify(this.mockTransport);
 	}
-//
+//TODO Laurel
 //
 //    public void testExecute_Success() throws Exception {
 //        Map<String, String> responseMap = new HashMap<String, String>();
