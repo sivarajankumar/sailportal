@@ -17,6 +17,8 @@
  */
 package org.telscenter.sail.webapp.junit;
 
+import net.sf.sail.webapp.spring.SpringConfiguration;
+
 import org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl;
 
 /**
@@ -28,11 +30,13 @@ import org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl;
 public abstract class AbstractSpringTests extends
         net.sf.sail.webapp.junit.AbstractSpringTests {
 
+    private static final SpringConfiguration SPRING_CONFIG = new SpringConfigurationImpl();
+
     /**
      * @see net.sf.sail.webapp.junit.AbstractSpringTests#getConfigLocations()
      */
     @Override
     protected String[] getConfigLocations() {
-        return SpringConfigurationImpl.getConfigLocationsStatically();
+        return SPRING_CONFIG.getConfigLocations();
     }
 }

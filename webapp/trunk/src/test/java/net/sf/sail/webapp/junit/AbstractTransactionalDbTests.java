@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.junit;
 
+import net.sf.sail.webapp.spring.SpringConfiguration;
 import net.sf.sail.webapp.spring.impl.SpringConfigurationImpl;
 
 import org.hibernate.SessionFactory;
@@ -34,6 +35,8 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
  */
 public abstract class AbstractTransactionalDbTests extends
         AbstractTransactionalDataSourceSpringContextTests {
+
+    private static final SpringConfiguration SPRING_CONFIG = new SpringConfigurationImpl();
 
     private SessionFactory sessionFactory;
 
@@ -54,7 +57,7 @@ public abstract class AbstractTransactionalDbTests extends
      */
     @Override
     protected String[] getConfigLocations() {
-        return SpringConfigurationImpl.getConfigLocationsStatically();
+        return SPRING_CONFIG.getConfigLocations();
     }
 
     /**

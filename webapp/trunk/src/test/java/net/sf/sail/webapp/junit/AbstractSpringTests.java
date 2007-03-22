@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.junit;
 
+import net.sf.sail.webapp.spring.SpringConfiguration;
 import net.sf.sail.webapp.spring.impl.SpringConfigurationImpl;
 
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
@@ -33,11 +34,13 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 public abstract class AbstractSpringTests extends
         AbstractDependencyInjectionSpringContextTests {
 
+    private static final SpringConfiguration SPRING_CONFIG = new SpringConfigurationImpl();
+
     /**
      * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()
      */
     @Override
     protected String[] getConfigLocations() {
-        return SpringConfigurationImpl.getConfigLocationsStatically();
+        return SPRING_CONFIG.getConfigLocations();
     }
 }

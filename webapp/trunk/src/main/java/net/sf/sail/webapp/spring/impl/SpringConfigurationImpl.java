@@ -45,17 +45,4 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
     public String[] getConfigLocations() {
         return CONFIG_LOCATIONS;
     }
-
-    /**
-     * Static method to get the config locations so an instance of this object
-     * doesn't have to be created.
-     * 
-     * @return <code>String[]</code> such that each string in the array
-     *         defines the location of an applicationContext XML configuration
-     *         file used by the Spring container
-     * @see net.sf.sail.webapp.spring.SpringConfiguration#getConfigLocations()
-     */
-    public static String[] getConfigLocationsStatically() {
-        return CONFIG_LOCATIONS;
-    }
 }

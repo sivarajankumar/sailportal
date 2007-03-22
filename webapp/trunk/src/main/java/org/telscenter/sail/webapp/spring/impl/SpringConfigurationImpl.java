@@ -37,11 +37,9 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
     private static final String[] CONFIG_LOCATIONS;
 
     static {
-        final List<String> configLocationsList = Collections
-                .list(Collections
-                        .enumeration(Arrays
-                                .asList(net.sf.sail.webapp.spring.impl.SpringConfigurationImpl
-                                        .getConfigLocationsStatically())));
+        final SpringConfiguration baseConfig = new net.sf.sail.webapp.spring.impl.SpringConfigurationImpl();
+        final List<String> configLocationsList = Collections.list(Collections
+                .enumeration(Arrays.asList(baseConfig.getConfigLocations())));
         configLocationsList
                 .add("configurations/applicationContexts/tels/extensions.xml");
         // Keep the overrides as the last item to be added to the list to ensure
@@ -55,19 +53,6 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
      * @see net.sf.sail.webapp.spring.SpringConfiguration#getConfigLocations()
      */
     public String[] getConfigLocations() {
-        return CONFIG_LOCATIONS;
-    }
-
-    /**
-     * Static method to get the config locations so an instance of this object
-     * doesn't have to be created.
-     * 
-     * @return <code>String[]</code> such that each string in the array
-     *         defines the location of an applicationContext XML configuration
-     *         file used by the Spring container
-     * @see net.sf.sail.webapp.spring.SpringConfiguration#getConfigLocations()
-     */
-    public static String[] getConfigLocationsStatically() {
         return CONFIG_LOCATIONS;
     }
 }
