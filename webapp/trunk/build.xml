@@ -236,14 +236,27 @@
     <!-- ================================= 
           internal target
          ================================= -->
-    <target name="_mvn.compile">
-        <exec os="Linux,Mac OS X"
+    <target name="_verify.version.ant">
+        <condition property="ant-is-at-least-version">
+            <antversion atleast="${ant.version.min}" />
+        </condition>
+        <fail unless="ant-is-at-least-version" status="1">
+            Ant needs to be at least version ${ant.version.min}+, please update your installation.
+        </fail>
+    </target>
+
+
+    <!-- ================================= 
+          internal target
+         ================================= -->
+    <target name="_mvn.compile" depends="_verify.version.ant">
+        <exec osfamily="Unix"
               executable="mvn"
               failonerror="true"
               failifexecutionfails="true"
         >
             <arg value="clean" />
-            <!--            <arg value="test" /> -->
+            <arg value="test" />
             <arg value="compile" />
         </exec>
         <!-- this should work in Windows but not yet tested -->
