@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.Collections;
 import java.util.Map;
 
 import net.sf.sail.webapp.dao.sds.SdsUserCreateCommand;
@@ -55,7 +54,6 @@ public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
      */
-    @SuppressWarnings("unchecked")
     public HttpPostRequest generateRequest() {
         final SdsUser sdsUser = this.getSdsUser();
         final String bodyData = "<user><first-name>" + sdsUser.getFirstName()
@@ -64,7 +62,7 @@ public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
 
         final String url = "/user";
 
-        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, Collections.EMPTY_MAP,
+        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
 

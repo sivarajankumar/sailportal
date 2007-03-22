@@ -35,34 +35,37 @@ import org.springframework.beans.factory.annotation.Required;
  */
 public abstract class AbstractHttpRestCommand {
 
-	private static final String HEADER_CONTENT_TYPE = "Content-Type";
+    private static final String HEADER_CONTENT_TYPE = "Content-Type";
 
-	private static final String HEADER_ACCEPT = "Accept";
+    private static final String HEADER_ACCEPT = "Accept";
 
-	protected static final Map<String, String> REQUEST_HEADERS_CONTENT;
-	static {
-		Map<String, String> map = new HashMap<String, String>(1);
-		map.put(HEADER_CONTENT_TYPE, HttpRestTransport.APPLICATION_XML);
-		REQUEST_HEADERS_CONTENT = Collections.unmodifiableMap(map);
-	}
+    protected static final Map<String, String> EMPTY_STRING_MAP = Collections
+            .emptyMap();
 
-	protected static final Map<String, String> REQUEST_HEADERS_ACCEPT;
-	static {
-		Map<String, String> map = new HashMap<String, String>(1);
-		map.put(HEADER_ACCEPT, HttpRestTransport.APPLICATION_XML);
-		REQUEST_HEADERS_ACCEPT = Collections.unmodifiableMap(map);
-	}
+    protected static final Map<String, String> REQUEST_HEADERS_CONTENT;
+    static {
+        Map<String, String> map = new HashMap<String, String>(1);
+        map.put(HEADER_CONTENT_TYPE, HttpRestTransport.APPLICATION_XML);
+        REQUEST_HEADERS_CONTENT = Collections.unmodifiableMap(map);
+    }
 
-	protected HttpRestTransport transport;
+    protected static final Map<String, String> REQUEST_HEADERS_ACCEPT;
+    static {
+        Map<String, String> map = new HashMap<String, String>(1);
+        map.put(HEADER_ACCEPT, HttpRestTransport.APPLICATION_XML);
+        REQUEST_HEADERS_ACCEPT = Collections.unmodifiableMap(map);
+    }
 
-	/**
-	 * Sets the http REST transport mechanism for the create command.
-	 * 
-	 * @param transport
-	 *            the transport to set
-	 */
-	@Required
-	public void setTransport(final HttpRestTransport transport) {
-		this.transport = transport;
-	}
+    protected HttpRestTransport transport;
+
+    /**
+     * Sets the http REST transport mechanism for the create command.
+     * 
+     * @param transport
+     *            the transport to set
+     */
+    @Required
+    public void setTransport(final HttpRestTransport transport) {
+        this.transport = transport;
+    }
 }

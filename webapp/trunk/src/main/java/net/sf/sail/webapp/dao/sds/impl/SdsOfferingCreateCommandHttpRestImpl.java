@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.Collections;
 import java.util.Map;
 
 import net.sf.sail.webapp.dao.sds.SdsOfferingCreateCommand;
@@ -32,53 +31,54 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: SdsOfferingCreateCommandHttpRestImpl.java 209 2007-03-22
+ *          13:38:23Z laurel $
  * 
  */
 public class SdsOfferingCreateCommandHttpRestImpl extends
-		AbstractHttpRestCommand implements SdsOfferingCreateCommand {
+        AbstractHttpRestCommand implements SdsOfferingCreateCommand {
 
-	private static final ThreadLocal<SdsOffering> SDS_OFFERING = new ThreadLocal<SdsOffering>();
+    private static final ThreadLocal<SdsOffering> SDS_OFFERING = new ThreadLocal<SdsOffering>();
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsJnlpCreateCommand#setSdsJnlp(net.sf.sail.webapp.domain.sds.SdsJnlp)
-	 */
-	public void setSdsOffering(SdsOffering sdsOffering) {
-		SDS_OFFERING.set(sdsOffering);
-	}
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsJnlpCreateCommand#setSdsJnlp(net.sf.sail.webapp.domain.sds.SdsJnlp)
+     */
+    public void setSdsOffering(SdsOffering sdsOffering) {
+        SDS_OFFERING.set(sdsOffering);
+    }
 
-	private SdsOffering getSdsOffering() {
-		return SDS_OFFERING.get();
-	}
+    private SdsOffering getSdsOffering() {
+        return SDS_OFFERING.get();
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
-	 */
-	@SuppressWarnings("unchecked")
-	public HttpPostRequest generateRequest() {
-		final SdsOffering sdsOffering = this.getSdsOffering();
-		final String bodyData = "<offering><name>" + sdsOffering.getName()
-				+ "</name><curnit-id>" + sdsOffering.getCurnitId()
-				+ "</curnit-id><jnlp-id>" + sdsOffering.getJnlpId()
-				+ "</jnlp-id></offering>";
-		final String url = "/offering";
-		return new HttpPostRequest(REQUEST_HEADERS_CONTENT,
-				Collections.EMPTY_MAP, bodyData, url, HttpStatus.SC_CREATED);
-	}
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
+     */
+    @SuppressWarnings("unchecked")
+    public HttpPostRequest generateRequest() {
+        final SdsOffering sdsOffering = this.getSdsOffering();
+        final String bodyData = "<offering><name>" + sdsOffering.getName()
+                + "</name><curnit-id>" + sdsOffering.getCurnitId()
+                + "</curnit-id><jnlp-id>" + sdsOffering.getJnlpId()
+                + "</jnlp-id></offering>";
+        final String url = "/offering";
+        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
+                bodyData, url, HttpStatus.SC_CREATED);
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
-	 */
-	public SdsOffering execute(final HttpPostRequest httpRequest) {
-		final Map<String, String> responseHeaders = this.transport
-				.post(httpRequest);
-		final String locationHeader = responseHeaders.get("Location");
-		final SdsOffering sdsOffering = this.getSdsOffering();
-		// clear the thread local reference to avoid resource leak since we're
-		// done executing
-		SDS_OFFERING.set(null);
-		sdsOffering.setSdsObjectId(new Integer(locationHeader
-				.substring(locationHeader.lastIndexOf("/") + 1)));
-		return sdsOffering;
-	}
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
+     */
+    public SdsOffering execute(final HttpPostRequest httpRequest) {
+        final Map<String, String> responseHeaders = this.transport
+                .post(httpRequest);
+        final String locationHeader = responseHeaders.get("Location");
+        final SdsOffering sdsOffering = this.getSdsOffering();
+        // clear the thread local reference to avoid resource leak since we're
+        // done executing
+        SDS_OFFERING.set(null);
+        sdsOffering.setSdsObjectId(new Integer(locationHeader
+                .substring(locationHeader.lastIndexOf("/") + 1)));
+        return sdsOffering;
+    }
 }

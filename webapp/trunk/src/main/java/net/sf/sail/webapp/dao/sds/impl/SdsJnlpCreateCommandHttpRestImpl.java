@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.Collections;
 import java.util.Map;
 
 import net.sf.sail.webapp.dao.sds.SdsJnlpCreateCommand;
@@ -32,7 +31,8 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: SdsJnlpCreateCommandHttpRestImpl.java 204 2007-03-21 17:39:14Z
+ *          laurel $
  * 
  */
 public class SdsJnlpCreateCommandHttpRestImpl extends AbstractHttpRestCommand
@@ -44,7 +44,7 @@ public class SdsJnlpCreateCommandHttpRestImpl extends AbstractHttpRestCommand
      * @see net.sf.sail.webapp.dao.sds.SdsJnlpCreateCommand#setSdsJnlp(net.sf.sail.webapp.domain.sds.SdsJnlp)
      */
     public void setSdsJnlp(SdsJnlp sdsJnlp) {
-    	SDS_JNLP.set(sdsJnlp);
+        SDS_JNLP.set(sdsJnlp);
     }
 
     private SdsJnlp getSdsJnlp() {
@@ -58,10 +58,9 @@ public class SdsJnlpCreateCommandHttpRestImpl extends AbstractHttpRestCommand
     public HttpPostRequest generateRequest() {
         final SdsJnlp sdsJnlp = this.getSdsJnlp();
         final String bodyData = "<jnlp><name>" + sdsJnlp.getName()
-                + "</name><url>" + sdsJnlp.getUrl()
-                + "</url></jnlp>";
+                + "</name><url>" + sdsJnlp.getUrl() + "</url></jnlp>";
         final String url = "/jnlp";
-        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, Collections.EMPTY_MAP,
+        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
 
@@ -69,7 +68,8 @@ public class SdsJnlpCreateCommandHttpRestImpl extends AbstractHttpRestCommand
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
      */
     public SdsJnlp execute(final HttpPostRequest httpRequest) {
-        final Map<String, String> responseHeaders = this.transport.post(httpRequest);
+        final Map<String, String> responseHeaders = this.transport
+                .post(httpRequest);
         final String locationHeader = responseHeaders.get("Location");
         final SdsJnlp sdsJnlp = this.getSdsJnlp();
         // clear the thread local reference to avoid resource leak since we're

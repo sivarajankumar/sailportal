@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.Collections;
 import java.util.Map;
 
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand;
@@ -33,7 +32,8 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: SdsWorkgroupCreateCommandHttpRestImpl.java 204 2007-03-21
+ *          17:39:14Z laurel $
  * 
  */
 public class SdsWorkgroupCreateCommandHttpRestImpl extends
@@ -72,7 +72,6 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
      */
-    @SuppressWarnings("unchecked")
     public HttpPostRequest generateRequest() {
         final SdsWorkgroup workgroup = this.getWorkgroup();
         final String bodyData = "<SDS_WORKGROUP><name>" + workgroup.getName()
@@ -80,7 +79,7 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
                 + workgroup.getSdsOffering().getSdsObjectId()
                 + "</offering-id></SDS_WORKGROUP>";
         final String url = "/workgroup";
-        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, Collections.EMPTY_MAP,
+        return new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);
     }
 }

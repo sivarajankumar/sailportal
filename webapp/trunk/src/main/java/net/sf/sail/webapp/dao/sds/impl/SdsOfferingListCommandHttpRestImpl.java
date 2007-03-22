@@ -54,6 +54,9 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
     private static final Log logger = LogFactory
             .getLog(SdsOfferingListCommandHttpRestImpl.class);
 
+    private static final Set<SdsOffering> EMPTY_SDSOFFERING_SET = Collections
+            .emptySet();
+
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
      */
@@ -62,7 +65,7 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
         Document doc = convertXmlInputStreamToXmlDocument(this.transport
                 .get(httpRequest));
         if (doc == null) {
-            return Collections.EMPTY_SET;
+            return EMPTY_SDSOFFERING_SET;
         }
 
         List<Element> nodeList;
@@ -73,7 +76,7 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
             }
-            return Collections.EMPTY_SET;
+            return EMPTY_SDSOFFERING_SET;
         }
 
         Set<SdsOffering> sdsOfferingSet = new HashSet<SdsOffering>();
@@ -91,24 +94,14 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
         return sdsOfferingSet;
     }
 
-//    private static final String HEADER_ACCEPT = "Accept";
-//
-//    private static final Map<String, String> REQUEST_HEADERS;
-//    static {
-//        Map<String, String> map = new HashMap<String, String>(1);
-//        map.put(HEADER_ACCEPT, HttpRestTransport.APPLICATION_XML);
-//        REQUEST_HEADERS = Collections.unmodifiableMap(map);
-//    }
-
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
      */
-    @SuppressWarnings("unchecked")
     public HttpGetRequest generateRequest() {
         final String url = "/offering";
 
-        return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, Collections.EMPTY_MAP, url,
-                HttpStatus.SC_OK);
+        return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
+                url, HttpStatus.SC_OK);
     }
 
     private Document convertXmlInputStreamToXmlDocument(InputStream inputStream) {

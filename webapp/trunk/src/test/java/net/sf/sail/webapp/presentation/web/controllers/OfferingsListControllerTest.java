@@ -79,7 +79,6 @@ public class OfferingsListControllerTest extends AbstractModelAndViewTests {
         this.expectedSdsOfferingSet = null;
     }
 
-    @SuppressWarnings("unchecked")
     public void testHandleRequestInternal() throws Exception {
         EasyMock.expect(mockOfferingsService.getOfferingsList()).andReturn(
                 this.expectedSdsOfferingSet);
@@ -91,13 +90,14 @@ public class OfferingsListControllerTest extends AbstractModelAndViewTests {
         EasyMock.verify(mockOfferingsService);
         EasyMock.reset(mockOfferingsService);
 
+        Set<SdsOffering> EMPTY_SDS_OFFERING_SET = Collections.emptySet();
         EasyMock.expect(mockOfferingsService.getOfferingsList()).andReturn(
-                Collections.EMPTY_SET);
+                EMPTY_SDS_OFFERING_SET);
         EasyMock.replay(mockOfferingsService);
         modelAndView = offeringsListController.handleRequestInternal(request,
                 response);
         assertModelAttributeValue(modelAndView, "offeringslist",
-                Collections.EMPTY_SET);
+                EMPTY_SDS_OFFERING_SET);
         EasyMock.verify(mockOfferingsService);
         EasyMock.reset(mockOfferingsService);
     }
