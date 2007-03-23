@@ -92,6 +92,13 @@
     <property name="offeringsService">
       <ref bean="offeringsService" />
     </property>
+  </bean> 
+  
+  <bean
+    class="net.sf.sail.webapp.presentation.web.controllers.CurnitListController">
+    <property name="curnitService">
+      <ref bean="curnitService" />
+    </property>
   </bean>
 
   <bean

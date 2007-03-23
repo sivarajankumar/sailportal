@@ -64,6 +64,11 @@
         class="net.sf.sail.webapp.service.offerings.impl.OfferingsServiceImpl">
         <property name="sdsOfferingDao" ref="sdsOfferingDao" />
     </bean>
+    
+    <bean id="curnitService"
+        class="net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl">
+        <property name="sdsCurnitDao" ref="sdsCurnitDao" />
+    </bean>
 
     <bean id="sdsOfferingDao"
         class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao">

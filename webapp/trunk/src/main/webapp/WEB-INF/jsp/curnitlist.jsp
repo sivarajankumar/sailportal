@@ -37,15 +37,15 @@
 
 <div id="columns">
 <div id="left"><%@ include file="logout.jsp"%>
-	<a href="curnitlist.html"><spring:message code="curnit.list" /></a><br />
+	<a href="offeringslist.html"><spring:message code="offerings.list" /></a><br />
 </div>
 
 <div id="right">
 <h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
 
-<display:table name="${offeringslist}" id="offering">
+<display:table name="${curnitlist}" id="curnit">
   <display:column titleKey="curnit.numbering.heading">
-    <c:out value="${offering_rowNum}" />
+    <c:out value="${curnit_rowNum}" />
   </display:column>
   <display:column property="name" titleKey="curnit.name.heading" />
 </display:table></div>
