@@ -76,13 +76,13 @@
     </path>
 
     <path id="lib.spring">
-        <path location="${M2_REPO}/org/springframework/spring-context/2.0.2/spring-context-2.0.2.jar"
+        <path location="${M2_REPO}/org/springframework/spring-context/2.0.3/spring-context-2.0.3.jar"
         />
-        <path location="${M2_REPO}/org/springframework/spring-beans/2.0.2/spring-beans-2.0.2.jar"
+        <path location="${M2_REPO}/org/springframework/spring-beans/2.0.3/spring-beans-2.0.3.jar"
         />
-        <path location="${M2_REPO}/org/springframework/spring-core/2.0.2/spring-core-2.0.2.jar"
+        <path location="${M2_REPO}/org/springframework/spring-core/2.0.3/spring-core-2.0.3.jar"
         />
-        <path location="${M2_REPO}/org/springframework/spring/2.0.2/spring-2.0.2.jar"
+        <path location="${M2_REPO}/org/springframework/spring/2.0.3/spring-2.0.3.jar"
         />
     </path>
 
