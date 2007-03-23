@@ -17,12 +17,17 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.xpath.XPath;
 
 import com.meterware.httpunit.WebResponse;
 
@@ -116,4 +121,37 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 		} catch (UnsupportedOperationException expected) {
 		}
 	}
+	
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
+	 */
+	@SuppressWarnings("unchecked")
+	public void testGetList() throws Exception {
+		// To test, we will retrieve the curnit list through 2 methods, via
+		// DAO and httpunit. Compare the lists and make sure that they're
+		// equivalent.
+		// *Note* there is a small chance that between the 2 retrievals, a new
+		// offering may be inserted into the SDS and cause this test to break.
+		Set<SdsCurnit> actualSet = this.sdsCurnitDao.getList();
+
+		WebResponse webResponse = makeHttpRestGetRequest("/curnit");
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
+		Document doc = createDocumentFromResponse(webResponse);
+
+		List<Element> nodeList = XPath.newInstance("/curnits/curnit/id")
+				.selectNodes(doc);
+		assertEquals(nodeList.size(), actualSet.size());
+		List<Integer> curnitIdList = new ArrayList<Integer>(nodeList.size());
+		for (Element element : nodeList) {
+			curnitIdList.add(new Integer(element.getText()));
+		}
+
+		assertEquals(curnitIdList.size(), actualSet.size());
+		for (SdsCurnit offering : actualSet) {
+			curnitIdList.contains(offering.getSdsObjectId());
+		}
+	}
+
 }

@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds;
 
+import java.util.Set;
+
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
@@ -29,5 +31,7 @@ import net.sf.sail.webapp.domain.sds.SdsCurnit;
  * 
  */
 public interface SdsCurnitDao extends SimpleDao<SdsCurnit> {
+
+    public Set<SdsCurnit> getList();
 
 }

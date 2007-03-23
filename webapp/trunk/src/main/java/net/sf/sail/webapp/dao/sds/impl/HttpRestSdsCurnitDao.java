@@ -17,9 +17,12 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.util.Set;
+
 import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
+import net.sf.sail.webapp.dao.sds.SdsCurnitListCommand;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -38,6 +41,8 @@ public class HttpRestSdsCurnitDao extends AbstractDao<SdsCurnit> implements
         SdsCurnitDao {
 
     private SdsCurnitCreateCommand createCommand;
+    
+    private SdsCurnitListCommand listCommand;
 
     /**
      * @param createCommand
@@ -47,6 +52,13 @@ public class HttpRestSdsCurnitDao extends AbstractDao<SdsCurnit> implements
     public void setCreateCommand(SdsCurnitCreateCommand createCommand) {
         this.createCommand = createCommand;
     }
+	/**
+	 * @param listCommand the listCommand to set
+	 */
+    @Required
+	public void setListCommand(SdsCurnitListCommand listCommand) {
+		this.listCommand = listCommand;
+	}
 
     /**
      * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
@@ -57,4 +69,13 @@ public class HttpRestSdsCurnitDao extends AbstractDao<SdsCurnit> implements
         // TODO CY - when update command for SDS is written, need to
         // differentiate between create and update
     }
+
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsCurnitDao#getList()
+	 */
+	public Set<SdsCurnit> getList() {
+		return this.listCommand.execute(this.listCommand.generateRequest());
+	}
+
+
 }
