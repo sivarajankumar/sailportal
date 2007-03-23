@@ -132,7 +132,7 @@
           target: db.schema-export
          ================================= -->
     <target name="db.schema-export"
-            depends="_mvn.compile"
+            depends="_mvn.compile, _input.portal.config"
             description="Generate the database schema from annotated persistent classes in the production code."
     >
         <java classname="net.sf.sail.webapp.DbSchemaExporter"
@@ -151,7 +151,7 @@
           target: db.create
          ================================= -->
     <target name="db.create"
-            depends="_set.properties.jdbc"
+            depends="_set.properties.jdbc, _input.portal.config"
             description="Create a production database with table structure only.  No initial data inserted."
     >
 
@@ -196,7 +196,7 @@
           target: db.init
          ================================= -->
     <target name="db.init"
-            depends="db.create, _mvn.compile"
+            depends="_mvn.compile, db.create"
             description="Initialize a production database with user role and default administrator account."
     >
         <java classname="net.sf.sail.webapp.service.authentication.impl.CreateDefaultUsers"
@@ -208,6 +208,20 @@
             <arg value="${default.admin.password}" />
             <classpath refid="runtime.classpath" />
         </java>
+    </target>
+
+
+    <!-- ================================= 
+          internal target
+         ================================= -->
+
+    <target name="_input.portal.config">
+        <input message="Portal configuration?"
+               validargs="pas,tels"
+               addproperty="portal.config"
+               defaultvalue="pas"
+        />
+        <property file="build-${portal.config}.properties" />
     </target>
 
 
