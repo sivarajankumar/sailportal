@@ -42,9 +42,6 @@
     <path id="lib.commons-dbcp">
         <path location="${M2_REPO}/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar"
         />
-    </path>
-
-    <path id="lib.commons-pool">
         <path location="${M2_REPO}/commons-pool/commons-pool/1.2/commons-pool-1.2.jar"
         />
     </path>
@@ -71,19 +68,6 @@
         <path location="${M2_REPO}/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar"
         />
         <path location="${M2_REPO}/antlr/antlr/2.7.6/antlr-2.7.6.jar" />
-    </path>
-
-    <path id="lib.hibernate-tools">
-        <path location="${M2_REPO}/org/hibernate/hibernate-tools/3.2.0.beta8/hibernate-tools-3.2.0.beta8.jar"
-        />
-        <path location="${M2_REPO}/freemarker/freemarker/2.3.4/freemarker-2.3.4.jar"
-        />
-        <path refid="lib.commons-logging" />
-        <path refid="lib.commons-collections" />
-        <path refid="lib.jdbc" />
-        <path refid="lib.acegi-security" />
-        <path refid="lib.hibernate" />
-        <path refid="lib.dom4j" />
     </path>
 
     <path id="lib.jta">
@@ -126,10 +110,22 @@
         <path location="${dir.build.classes}" />
     </path>
 
-    <taskdef name="hibernatetool"
-             classname="org.hibernate.tool.ant.HibernateToolTask"
-             classpathref="lib.hibernate-tools"
-    />
+    <path id="runtime.classpath">
+        <path refid="lib.servlet-api" />
+        <path refid="lib.jdbc" />
+        <path refid="lib.commons-dbcp" />
+        <path refid="lib.commons-collections" />
+        <path refid="lib.commons-logging" />
+        <path refid="lib.commons-httpclient" />
+        <path refid="lib.hibernate" />
+        <path refid="lib.dom4j" />
+        <path refid="lib.spring" />
+        <path refid="lib.jta" />
+        <path refid="lib.cglib" />
+        <path refid="lib.acegi-security" />
+        <path refid="lib.jdom" />
+        <path refid="classes" />
+    </path>
 
 
     <!-- ================================= 
@@ -137,19 +133,17 @@
          ================================= -->
     <target name="db.schema-export"
             depends="_mvn.compile"
-            description="Generate the database schema from annotated persistent classes."
+            description="Generate the database schema from annotated persistent classes in the production code."
     >
-        <hibernatetool destdir="${dir.src.db.hsqldb}">
-            <classpath refid="classes" />
-            <annotationconfiguration configurationfile="${dir.build.classes}/configurations/hibernate/pas/hibernate.cfg.xml"
-                                     propertyfile="${dir.build.classes}/hibernate.properties"
-            />
-            <hbm2ddl export="${schema.export.on}"
-                     drop="${schema.export.drop}"
-                     create="${schema.export.create}"
-                     outputfilename="${schema.export.filename}"
-            />
-        </hibernatetool>
+        <java classname="net.sf.sail.webapp.DbSchemaExporter"
+              fork="true"
+              failonerror="true"
+              newenvironment="true"
+        >
+            <arg value="${spring.configuration.classname}" />
+            <arg value="${dir.src.db.vendor}/${schema.export.filename}" />
+            <classpath refid="runtime.classpath" />
+        </java>
     </target>
 
 
@@ -190,7 +184,7 @@
              url="${settings.profiles.profile.properties.jdbc.url}"
              userid="${settings.profiles.profile.properties.jdbc.username}"
              password="${jdbc.password}"
-             src="${dir.src.db.hsqldb}/${schema.export.filename}"
+             src="${dir.src.db.vendor}/${schema.export.filename}"
              autocommit="false"
              onerror="abort"
              classpathref="lib.jdbc"
@@ -212,23 +206,7 @@
         >
             <arg value="${default.admin.username}" />
             <arg value="${default.admin.password}" />
-            <classpath>
-                <path refid="lib.servlet-api" />
-                <path refid="lib.jdbc" />
-                <path refid="lib.commons-dbcp" />
-                <path refid="lib.commons-pool" />
-                <path refid="lib.commons-collections" />
-                <path refid="lib.commons-logging" />
-                <path refid="lib.commons-httpclient" />
-                <path refid="lib.hibernate" />
-                <path refid="lib.dom4j" />
-                <path refid="lib.spring" />
-                <path refid="lib.jta" />
-                <path refid="lib.cglib" />
-                <path refid="lib.acegi-security" />
-                <path refid="lib.jdom" />
-                <path refid="classes" />
-            </classpath>
+            <classpath refid="runtime.classpath" />
         </java>
     </target>
 
@@ -300,4 +278,5 @@ The best way to set the password would be to extract it from settings.xml like t
       use "ant -projecthelp".
     </echo>
     </target>
+
 </project>

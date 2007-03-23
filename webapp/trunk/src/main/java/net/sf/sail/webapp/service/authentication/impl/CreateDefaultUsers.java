@@ -31,7 +31,7 @@ import net.sf.sail.webapp.spring.impl.SpringConfigurationImpl;
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.AbstractXmlApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -66,7 +66,7 @@ public class CreateDefaultUsers {
                     .println("Usage: CreateDefaultUsers <admin-username> <admin-password>");
             System.exit(1);
         }
-        AbstractXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+        ConfigurableApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 SPRING_CONFIG.getConfigLocations());
         try {
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();

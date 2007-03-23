@@ -26,26 +26,18 @@
 
     <bean id="userDetailsService"
         class="net.sf.sail.webapp.service.authentication.impl.UserDetailsServiceImpl">
-        <property name="userDetailsDao">
-            <ref local="userDetailsDao" />
-        </property>
-        <property name="grantedAuthorityDao">
-            <ref local="grantedAuthorityDao" />
-        </property>
+        <property name="userDetailsDao" ref="userDetailsDao" />
+        <property name="grantedAuthorityDao" ref="grantedAuthorityDao" />
     </bean>
 
     <bean id="userDetailsDao"
         class="net.sf.sail.webapp.dao.authentication.impl.HibernateUserDetailsDao">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <bean id="grantedAuthorityDao"
         class="net.sf.sail.webapp.dao.authentication.impl.HibernateGrantedAuthorityDao">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <bean id="mutableGrantedAuthority"

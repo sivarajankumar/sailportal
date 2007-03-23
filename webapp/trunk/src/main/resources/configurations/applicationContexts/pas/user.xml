@@ -26,9 +26,7 @@
 
     <bean id="sdsUserDao"
         class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao">
-        <property name="createCommand">
-            <ref bean="sdsUserCreateCommand" />
-        </property>
+        <property name="createCommand" ref="sdsUserCreateCommand" />
     </bean>
 
     <bean id="sdsUser" class="net.sf.sail.webapp.domain.sds.SdsUser"
@@ -36,9 +34,7 @@
 
     <bean id="userDao"
         class="net.sf.sail.webapp.dao.user.impl.HibernateUserDao">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <bean id="user" class="net.sf.sail.webapp.domain.impl.UserImpl"
@@ -46,18 +42,10 @@
 
     <bean id="userService"
         class="net.sf.sail.webapp.service.impl.UserServiceImpl">
-        <property name="userDetailsDao">
-            <ref bean="userDetailsDao" />
-        </property>
-        <property name="grantedAuthorityDao">
-            <ref bean="grantedAuthorityDao" />
-        </property>
-        <property name="userDao">
-            <ref local="userDao" />
-        </property>
-        <property name="sdsUserDao">
-            <ref local="sdsUserDao" />
-        </property>
+        <property name="userDetailsDao" ref="userDetailsDao" />
+        <property name="grantedAuthorityDao" ref="grantedAuthorityDao" />
+        <property name="userDao" ref="userDao" />
+        <property name="sdsUserDao" ref="sdsUserDao" />
     </bean>
 
 </beans>
