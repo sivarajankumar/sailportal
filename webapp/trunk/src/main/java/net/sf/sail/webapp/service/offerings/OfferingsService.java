@@ -28,11 +28,20 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
  */
 public interface OfferingsService {
 
-    /**
-     * Gets a <code>Set</code> of SDS offerings.
-     * 
-     * @return a <code>Set</code> of SDS offerings.
-     */
-    public Set<SdsOffering> getOfferingsList();
+	/**
+	 * Gets a <code>Set</code> of SDS offerings.
+	 * 
+	 * @return a <code>Set</code> of SDS offerings.
+	 */
+	public Set<SdsOffering> getOfferingsList();
+
+	/**
+	 * Creates a new <code>SdsOffering</code> on the SDS. A side effect is that
+	 * the offering id is set to the value that the SDS assigns to the new offering.
+	 * 
+	 * @param sdsOffering
+	 *            The offering you want to create (no offering id required).
+	 */
+	public void createOffering(SdsOffering sdsOffering);
 
 }

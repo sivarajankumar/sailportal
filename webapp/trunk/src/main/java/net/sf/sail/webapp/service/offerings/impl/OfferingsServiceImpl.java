@@ -50,4 +50,13 @@ public class OfferingsServiceImpl implements OfferingsService {
         return sdsOfferingDao.getList();
     }
 
+	/**
+	 * @see net.sf.sail.webapp.service.offerings.OfferingsService#createOffering(net.sf.sail.webapp.domain.sds.SdsOffering)
+	 */
+	public void createOffering(SdsOffering sdsOffering) {
+		sdsOfferingDao.save(sdsOffering);
+	}
+    
+    
+
 }

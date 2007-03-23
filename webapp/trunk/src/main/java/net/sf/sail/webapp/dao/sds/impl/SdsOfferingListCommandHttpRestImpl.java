@@ -80,12 +80,12 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
             sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild("id")
                     .getValue()));
                         
-            SdsCurnit sdsCurnit = new SdsCurnit(); //TODO LW get whole curnit from the SDS
+            SdsCurnit sdsCurnit = new SdsCurnit();
             sdsCurnit.setSdsObjectId(new Integer(offeringNode.getChild(
                     "curnit-id").getValue()));
             sdsOffering.setCurnit(sdsCurnit);
             
-            SdsJnlp sdsJnlp = new SdsJnlp(); //TODO LW get whole jnlp from the SDS
+            SdsJnlp sdsJnlp = new SdsJnlp(); 
             sdsJnlp.setSdsObjectId(new Integer(offeringNode.getChild("jnlp-id")
                     .getValue()));
             sdsOffering.setJnlp(sdsJnlp);

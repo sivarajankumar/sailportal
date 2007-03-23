@@ -37,52 +37,65 @@ import org.easymock.EasyMock;
  */
 public class OfferingsServiceImplTest extends TestCase {
 
-    private SdsOfferingDao mockSdsOfferingDao;
+	private SdsOfferingDao mockSdsOfferingDao;
 
-    private Set<SdsOffering> expectedSdsOfferingSet;
+	private SdsOffering sdsOffering;
 
-    private OfferingsServiceImpl offeringServiceImpl;
+	private OfferingsServiceImpl offeringServiceImpl;
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @SuppressWarnings("unchecked")
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.mockSdsOfferingDao = createMock(SdsOfferingDao.class);
-        this.offeringServiceImpl = new OfferingsServiceImpl();
-        this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
-        this.expectedSdsOfferingSet = new HashSet<SdsOffering>();
-        SdsOffering offering = new SdsOffering();
-        SdsCurnit curnit = new SdsCurnit();
-        curnit.setSdsObjectId(1);
-        offering.setCurnit(curnit);
-        
-        SdsJnlp jnlp = new SdsJnlp();
-        jnlp.setSdsObjectId(2);
-        offering.setJnlp(jnlp);
-        offering.setName("test");
-        offering.setSdsObjectId(3);
-        this.expectedSdsOfferingSet.add(offering);
-    }
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@SuppressWarnings("unchecked")
+	protected void setUp() throws Exception {
+		super.setUp();
+		this.mockSdsOfferingDao = createMock(SdsOfferingDao.class);
+		this.offeringServiceImpl = new OfferingsServiceImpl();
+		this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
 
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        this.offeringServiceImpl = null;
-        this.mockSdsOfferingDao = null;
-        this.expectedSdsOfferingSet = null;
-    }
+		this.sdsOffering = new SdsOffering();
+		sdsOffering.setSdsObjectId(3);
+		SdsCurnit curnit = new SdsCurnit();
+		curnit.setSdsObjectId(1);
+		sdsOffering.setCurnit(curnit);
 
-    @SuppressWarnings("unchecked")
-    public void testGetOfferingsList() throws Exception {
-        EasyMock.expect(mockSdsOfferingDao.getList()).andReturn(
-                this.expectedSdsOfferingSet);
-        EasyMock.replay(mockSdsOfferingDao);
-        assertEquals(this.expectedSdsOfferingSet, offeringServiceImpl
-                .getOfferingsList());
-        EasyMock.verify(mockSdsOfferingDao);
-    }
+		SdsJnlp jnlp = new SdsJnlp();
+		jnlp.setSdsObjectId(2);
+		sdsOffering.setJnlp(jnlp);
+		sdsOffering.setName("test");
+	}
+
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		this.offeringServiceImpl = null;
+		this.mockSdsOfferingDao = null;
+		this.sdsOffering = null;
+	}
+
+	public void testGetOfferingsList() throws Exception {
+		Set<SdsOffering> expectedSdsOfferingSet = new HashSet<SdsOffering>();
+		expectedSdsOfferingSet.add(this.sdsOffering);
+
+		EasyMock.expect(mockSdsOfferingDao.getList()).andReturn(
+				expectedSdsOfferingSet);
+		EasyMock.replay(mockSdsOfferingDao);
+		assertEquals(expectedSdsOfferingSet, offeringServiceImpl
+				.getOfferingsList());
+		EasyMock.verify(mockSdsOfferingDao);
+	}
+
+	// tests that the command is delegated to the DAO and that the DAO is called
+	// once
+	public void testCreateOffering() throws Exception {
+		mockSdsOfferingDao.save(this.sdsOffering);
+		EasyMock.expectLastCall();
+		EasyMock.replay(mockSdsOfferingDao);
+
+		offeringServiceImpl.createOffering(this.sdsOffering);
+
+		EasyMock.verify(mockSdsOfferingDao);
+	}
 }
