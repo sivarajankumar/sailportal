@@ -46,6 +46,7 @@ public class AllTests {
         .suite());
     suite.addTest(net.sf.sail.webapp.service.impl.AllTests.suite());
     suite.addTest(net.sf.sail.webapp.service.offerings.impl.AllTests.suite());
+    suite.addTest(net.sf.sail.webapp.service.curnit.impl.AllTests.suite());
     // End add new package unit tests here
     return suite;
   }
