@@ -22,14 +22,11 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 
-import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.easymock.EasyMock;
 
@@ -40,13 +37,9 @@ import org.easymock.EasyMock;
  *          15:15:16Z laurel $
  * 
  */
-public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
+public class SdsOfferingListCommandHttpRestImplTest extends AbstractSdsListCommandHttpRestImplTest {
 
 	private SdsOfferingListCommandHttpRestImpl command;
-
-	private HttpRestTransport mockTransport;
-
-	private HttpGetRequest httpRequest;
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -54,8 +47,8 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.command = new SdsOfferingListCommandHttpRestImpl();
-		this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
+		this.listCommand = new SdsOfferingListCommandHttpRestImpl();
+		command = ((SdsOfferingListCommandHttpRestImpl) (this.listCommand));
 		this.command.setTransport(this.mockTransport);
 		this.httpRequest = this.command.generateRequest();
 	}
@@ -67,27 +60,15 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 		this.command = null;
-		this.mockTransport = null;
-		this.httpRequest = null;
 	}
 
 	/**
 	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.SdsOfferingListCommandHttpRestImpl#execute(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+	 * {@link net.sf.sail.webapp.dao.sds.impl.SdsCurnitListCommandHttpRestImpl#execute(net.sf.sail.webapp.domain.sds.SdsOffering)}.
 	 */
 	public void testExecute() throws Exception {
 		final String responseString = "<offerings><offering><name>Airbag Complete</name><curnit-id>1</curnit-id><id>1</id><jnlp-id>6</jnlp-id></offering><offering><name>Air Bag Test</name><curnit-id>2</curnit-id><id>2</id><jnlp-id>6</jnlp-id></offering></offerings>";
-		final InputStream responseStream = new ByteArrayInputStream(
-				responseString.getBytes());
-
-		final byte[] streamBytes = new byte[responseString.length()];
-		assertEquals(responseString.length(), responseStream.read(streamBytes));
-		assertEquals(responseString, new String(streamBytes));
-		responseStream.reset();
-
-		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
-				responseStream);
-		EasyMock.replay(this.mockTransport);
+		setAndTestResponseStream(responseString);
 		Set<SdsOffering> expectedSdsOfferingList = new HashSet<SdsOffering>();
 		expectedSdsOfferingList.add(createOffering(1, 1, 6, "Airbag Complete"));
 		expectedSdsOfferingList.add(createOffering(2, 2, 6, "Air Bag Test"));
@@ -177,12 +158,5 @@ public class SdsOfferingListCommandHttpRestImplTest extends TestCase {
 		offering.setJnlp(jnlp);
 
 		return offering;
-	}
-
-	/**
-	 * Not testing this since we would be essentially testing info that is hard
-	 * coded.
-	 */
-	public void testGenerateRequest() {
 	}
 }

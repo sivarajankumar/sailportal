@@ -40,8 +40,9 @@ public class AllTests {
 		suite.addTestSuite(HttpRestSdsOfferingDaoTest.class);
 		suite
 				.addTestSuite(SdsWorkgroupMemberCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsCurnitDaoTest.class);
+		suite.addTestSuite(SdsCurnitListCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
+		suite.addTestSuite(HttpRestSdsCurnitDaoTest.class);
 		suite.addTestSuite(HttpRestSdsJnlpDaoTest.class);
 		suite.addTestSuite(SdsCurnitCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsWorkgroupCreateCommandHttpRestImplTest.class);

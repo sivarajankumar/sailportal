@@ -22,10 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
+import net.sf.sail.webapp.dao.sds.SdsCurnitListCommand;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
-import net.sf.sail.webapp.domain.sds.SdsJnlp;
-import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -35,74 +33,63 @@ import org.jdom.JDOMException;
 import org.jdom.xpath.XPath;
 
 /**
- * Implementation of <code>SdsOfferingListCommand</code> which lists all the
+ * Implementation of <code>SdsCurnitListCommand</code> which lists all the
  * offerings from the Sail Data Service (uses Http REST). This class is
  * thread-safe.
  * 
  * @author Cynick Young
  * 
- * @version $Id: SdsOfferingListCommandHttpRestImpl.java 117 2007-02-01
- *          19:59:19Z cynick $
+ * @version $Id$
  * 
  */
-public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
-        implements SdsOfferingListCommand {
+public class SdsCurnitListCommandHttpRestImpl extends AbstractHttpRestCommand
+        implements SdsCurnitListCommand {
 
-     private static final Set<SdsOffering> EMPTY_SDSOFFERING_SET = Collections
+    private static final Set<SdsCurnit> EMPTY_SDSCURNIT_SET = Collections
             .emptySet();
 
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
      */
     @SuppressWarnings("unchecked")
-    public Set<SdsOffering> execute(HttpGetRequest httpRequest) {
+    public Set<SdsCurnit> execute(HttpGetRequest httpRequest) {
         Document doc = convertXmlInputStreamToXmlDocument(this.transport
                 .get(httpRequest));
         if (doc == null) {
-            return EMPTY_SDSOFFERING_SET;
+            return EMPTY_SDSCURNIT_SET;
         }
 
         List<Element> nodeList;
         try {
-            nodeList = XPath.newInstance("/offerings/offering")
+            nodeList = XPath.newInstance("/curnits/curnit")
                     .selectNodes(doc);
         } catch (JDOMException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
             }
-            return EMPTY_SDSOFFERING_SET;
+            return EMPTY_SDSCURNIT_SET;
         }
 
-        Set<SdsOffering> sdsOfferingSet = new HashSet<SdsOffering>();
-        for (Element offeringNode : nodeList) {
-            SdsOffering sdsOffering = new SdsOffering();
-            sdsOffering.setName(offeringNode.getChild("name").getValue());
-            sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild("id")
+        Set<SdsCurnit> sdsCurnitSet = new HashSet<SdsCurnit>();
+        for (Element curnitNode : nodeList) {
+            SdsCurnit sdsCurnit = new SdsCurnit();
+            sdsCurnit.setName(curnitNode.getChild("name").getValue());
+            sdsCurnit.setSdsObjectId(new Integer(curnitNode.getChild("id")
                     .getValue()));
-                        
-            SdsCurnit sdsCurnit = new SdsCurnit(); //TODO LW get whole curnit from the SDS
-            sdsCurnit.setSdsObjectId(new Integer(offeringNode.getChild(
-                    "curnit-id").getValue()));
-            sdsOffering.setCurnit(sdsCurnit);
-            
-            SdsJnlp sdsJnlp = new SdsJnlp(); //TODO LW get whole jnlp from the SDS
-            sdsJnlp.setSdsObjectId(new Integer(offeringNode.getChild("jnlp-id")
-                    .getValue()));
-            sdsOffering.setJnlp(sdsJnlp);
-            
-            sdsOfferingSet.add(sdsOffering);
+            sdsCurnit.setUrl(curnitNode.getChild("url").getValue());
+
+            sdsCurnitSet.add(sdsCurnit);
         }
-        return sdsOfferingSet;
+        return sdsCurnitSet;
     }
 
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
      */
     public HttpGetRequest generateRequest() {
-        final String url = "/offering";
+        final String url = "/curnit";
 
         return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
                 url, HttpStatus.SC_OK);
     }
-
 }

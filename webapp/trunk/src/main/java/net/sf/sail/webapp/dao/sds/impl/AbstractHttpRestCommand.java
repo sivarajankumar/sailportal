@@ -17,12 +17,19 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jdom.Document;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Required;
 
 /**
@@ -50,6 +57,9 @@ public abstract class AbstractHttpRestCommand {
     }
 
     protected static final Map<String, String> REQUEST_HEADERS_ACCEPT;
+
+	protected static final Log logger = LogFactory
+	            .getLog(AbstractHttpRestCommand.class);
     static {
         Map<String, String> map = new HashMap<String, String>(1);
         map.put(HEADER_ACCEPT, HttpRestTransport.APPLICATION_XML);
@@ -68,4 +78,39 @@ public abstract class AbstractHttpRestCommand {
     public void setTransport(final HttpRestTransport transport) {
         this.transport = transport;
     }
+
+	protected Document convertXmlInputStreamToXmlDocument(InputStream inputStream) {
+	    SAXBuilder builder = new SAXBuilder();
+	    Document doc = null;
+	    try {
+	        if (logger.isDebugEnabled()) {
+	            logResponse(inputStream);
+	        }
+	        doc = builder.build(inputStream);
+	    } catch (JDOMException e) {
+	        if (logger.isErrorEnabled()) {
+	            logger.error(e.getMessage(), e);
+	        }
+	    } catch (IOException e) {
+	        if (logger.isErrorEnabled()) {
+	            logger.error(e.getMessage(), e);
+	        }
+	    } finally {
+	        try {
+	            inputStream.close();
+	        } catch (IOException e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	        }
+	    }
+	    return doc;
+	}
+
+	private void logResponse(InputStream responseStream) throws IOException {
+	    byte[] responseBuffer = new byte[responseStream.available()];
+	    responseStream.read(responseBuffer);
+	    logger.debug(new String(responseBuffer));
+	    responseStream.reset();
+	}
 }

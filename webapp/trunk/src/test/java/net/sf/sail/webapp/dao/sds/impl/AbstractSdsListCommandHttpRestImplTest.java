@@ -17,15 +17,15 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsCommand;
-import net.sf.sail.webapp.domain.sds.SdsObject;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
+import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.easymock.EasyMock;
@@ -35,17 +35,11 @@ import org.easymock.EasyMock;
  * 
  * @version $Id$
  */
-public abstract class AbstractSdsCreateCommandHttpRestImplTest extends TestCase {
-
-	static final String HEADER_LOCATION = "Location";
-
-	static final String PORTAL_URL = "http://portal/url/";
-
-	static final Integer EXPECTED_ID = new Integer(1);
+public abstract class AbstractSdsListCommandHttpRestImplTest extends TestCase {
 
 	protected HttpRestTransport mockTransport;
-	protected HttpPostRequest httpRequest;
-	protected SdsCommand createCommand;
+	protected HttpGetRequest httpRequest;
+	protected SdsCommand listCommand;
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -63,42 +57,56 @@ public abstract class AbstractSdsCreateCommandHttpRestImplTest extends TestCase 
 	protected void tearDown() throws Exception {
 		super.tearDown();
 		this.mockTransport = null;
-		this.createCommand = null;
+		this.listCommand = null;
 		this.httpRequest = null;
 	}
+
+	protected void setAndTestResponseStream(final String responseString)
+			throws IOException {
+		final InputStream responseStream = new ByteArrayInputStream(
+				responseString.getBytes());
+
+		final byte[] streamBytes = new byte[responseString.length()];
+		assertEquals(responseString.length(), responseStream.read(streamBytes));
+		assertEquals(responseString, new String(streamBytes));
+		responseStream.reset();
+
+		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+				responseStream);
+		EasyMock.replay(this.mockTransport);
+	}
+
 	@SuppressWarnings("unchecked")
-	public void testExecute_Exception() throws Exception {
-		EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
+	public void testExecuteExceptions() throws Exception {
+		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
 				new BadRequestException("exception"));
 		EasyMock.replay(this.mockTransport);
 		try {
-			this.createCommand.execute(this.httpRequest);
+			this.listCommand.execute(this.httpRequest);
 			fail("Expected BadRequestException");
 		} catch (BadRequestException e) {
 		}
 		EasyMock.verify(this.mockTransport);
 
 		EasyMock.reset(this.mockTransport);
-		EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
+		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
 				new NetworkTransportException("exception"));
 		EasyMock.replay(this.mockTransport);
 		try {
-			this.createCommand.execute(this.httpRequest);
+			this.listCommand.execute(this.httpRequest);
 			fail("Expected NetworkTransportException");
 		} catch (NetworkTransportException e) {
 		}
 		EasyMock.verify(this.mockTransport);
 	}
-
-	@SuppressWarnings("unchecked")
-	protected SdsObject doExecuteTest(String directory) {
-		Map<String, String> responseMap = new HashMap<String, String>();
-		responseMap.put(HEADER_LOCATION, PORTAL_URL + directory + EXPECTED_ID);
-		EasyMock.expect(this.mockTransport.post(this.httpRequest)).andReturn(
-				responseMap);
-		EasyMock.replay(this.mockTransport);
-		SdsObject actual = (SdsObject) this.createCommand.execute(this.httpRequest);
-		return actual;
-	}
 	
+
+	/**
+	 * Not testing this since we would be essentially testing info that is hard
+	 * coded.
+	 */
+	public void testGenerateRequest() {
+	}
+
+
 }
