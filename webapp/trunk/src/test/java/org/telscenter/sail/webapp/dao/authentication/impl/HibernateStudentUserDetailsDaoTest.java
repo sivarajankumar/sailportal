@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.dao.authentication.impl;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -34,20 +35,16 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
- * Test class for StudentUserDetails
- * 
- * TODO: decide if this is a test class for StudentUserDetails or TELS's
- * MutableUserDetails right now, it's testing TELS's MutableUserDetails using
- * StudentUserDetails
+ * Test class for HibernateUserDetailsDao using StudentUserDetails Domain Object
  * 
  * @author Hiroki Terashima
  * 
- * @version $Id: $
+ * @version $Id$
  */
 public class HibernateStudentUserDetailsDaoTest extends
         AbstractTransactionalDbTests {
@@ -70,13 +67,17 @@ public class HibernateStudentUserDetailsDaoTest extends
 
     private static final String USERNAME_NOT_IN_DB = "blah";
 
-    private MutableGrantedAuthority role1;
+	private static final Gender DEFAULT_GENDER = Gender.MALE;
+
+	private static final Date DEFAULT_BIRTHDAY = new Date(123456);
+
+	private MutableGrantedAuthority role1;
 
     private MutableGrantedAuthority role2;
 
     private MutableGrantedAuthority role3;
 
-    private MutableUserDetails defaultUserDetails;
+    private StudentUserDetails defaultUserDetails;
 
     private HibernateGrantedAuthorityDao authorityDao;
 
@@ -97,6 +98,38 @@ public class HibernateStudentUserDetailsDaoTest extends
     public void setUserDetailsDao(HibernateUserDetailsDao userDetailsDao) {
         this.userDetailsDao = userDetailsDao;
     }
+    
+	/**
+	 * @param defaultUserDetails
+	 *            the defaultUserDetails to set
+	 */
+	public void setDefaultUserDetails(StudentUserDetails defaultUserDetails) {
+		this.defaultUserDetails = defaultUserDetails;
+	}
+	
+	/**
+	 * @param role3
+	 *            the role3 to set
+	 */
+	public void setRole3(MutableGrantedAuthority role3) {
+		this.role3 = role3;
+	}
+
+	/**
+	 * @param role1
+	 *            the role1 to set
+	 */
+	public void setRole1(MutableGrantedAuthority role1) {
+		this.role1 = role1;
+	}
+
+	/**
+	 * @param role2
+	 *            the role2 to set
+	 */
+	public void setRole2(MutableGrantedAuthority role2) {
+		this.role2 = role2;
+	}
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -104,18 +137,11 @@ public class HibernateStudentUserDetailsDaoTest extends
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
-        this.role1 = (MutableGrantedAuthority) this.applicationContext
-                .getBean("mutableGrantedAuthority");
-        this.role2 = (MutableGrantedAuthority) this.applicationContext
-                .getBean("mutableGrantedAuthority");
-        this.role3 = (MutableGrantedAuthority) this.applicationContext
-                .getBean("mutableGrantedAuthority");
+
         this.role1.setAuthority(DEFAULT_ROLE_1);
         this.role2.setAuthority(DEFAULT_ROLE_2);
         this.role3.setAuthority(DEFAULT_ROLE_3);
-
-        this.defaultUserDetails = (org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails) this.applicationContext
-                .getBean("studentUserDetails");
+        
         this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
         this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);
         this.defaultUserDetails.setEmailAddress(DEFAULT_EMAIL);
@@ -123,6 +149,8 @@ public class HibernateStudentUserDetailsDaoTest extends
                 this.role1, this.role2, this.role3 });
         this.defaultUserDetails.setFirstname(DEFAULT_FIRSTNAME);
         this.defaultUserDetails.setLastname(DEFAULT_LASTNAME);
+        this.defaultUserDetails.setGender(DEFAULT_GENDER);
+        this.defaultUserDetails.setBirthday(DEFAULT_BIRTHDAY);
     }
 
     /**
@@ -188,6 +216,12 @@ public class HibernateStudentUserDetailsDaoTest extends
             actualValue = (String) actualUserDetailsMap
                     .get(StudentUserDetails.COLUMN_NAME_LASTNAME.toUpperCase());
             assertEquals(DEFAULT_LASTNAME, actualValue);
+            actualValue = String.valueOf(actualUserDetailsMap
+                    .get(StudentUserDetails.COLUMN_NAME_GENDER.toUpperCase()));
+            assertEquals(String.valueOf(DEFAULT_GENDER.ordinal()), actualValue);
+            long actualTime = ((java.sql.Timestamp) actualUserDetailsMap
+                    .get(StudentUserDetails.COLUMN_NAME_BIRTHDAY)).getTime();
+            assertEquals(DEFAULT_BIRTHDAY.getTime(), actualTime);
             actualValue = (String) actualUserDetailsMap
                     .get(PersistentGrantedAuthority.COLUMN_NAME_ROLE
                             .toUpperCase());
@@ -195,7 +229,7 @@ public class HibernateStudentUserDetailsDaoTest extends
             defaultRolesList.remove(actualValue);
         }
 
-        MutableUserDetails duplicateUserDetails = (MutableUserDetails) this.applicationContext
+        StudentUserDetails duplicateUserDetails = (StudentUserDetails) this.applicationContext
                 .getBean("studentUserDetails");
         duplicateUserDetails.setUsername(DEFAULT_USERNAME);
         duplicateUserDetails.setPassword(DEFAULT_PASSWORD);
@@ -205,7 +239,7 @@ public class HibernateStudentUserDetailsDaoTest extends
         } catch (DataIntegrityViolationException expected) {
         }
 
-        MutableUserDetails emptyUserDetails = (MutableUserDetails) this.applicationContext
+        StudentUserDetails emptyUserDetails = (StudentUserDetails) this.applicationContext
                 .getBean("studentUserDetails");
         try {
             this.userDetailsDao.save(emptyUserDetails);
@@ -213,7 +247,7 @@ public class HibernateStudentUserDetailsDaoTest extends
         } catch (DataIntegrityViolationException expected) {
         }
 
-        MutableUserDetails partiallyEmptyUserDetails = (MutableUserDetails) this.applicationContext
+        StudentUserDetails partiallyEmptyUserDetails = (StudentUserDetails) this.applicationContext
                 .getBean("studentUserDetails");
         partiallyEmptyUserDetails.setUsername(DEFAULT_USERNAME);
         try {
@@ -222,7 +256,7 @@ public class HibernateStudentUserDetailsDaoTest extends
         } catch (DataIntegrityViolationException expected) {
         }
 
-        partiallyEmptyUserDetails = (MutableUserDetails) this.applicationContext
+        partiallyEmptyUserDetails = (StudentUserDetails) this.applicationContext
                 .getBean("studentUserDetails");
         partiallyEmptyUserDetails.setPassword(DEFAULT_PASSWORD);
         try {
@@ -272,7 +306,7 @@ public class HibernateStudentUserDetailsDaoTest extends
 
         // get user details record from persistent store and confirm it is
         // complete
-        MutableUserDetails userDetails = (org.telscenter.sail.webapp.domain.authentication.MutableUserDetails) this.userDetailsDao
+        StudentUserDetails userDetails = (StudentUserDetails) this.userDetailsDao
                 .retrieveByName(DEFAULT_USERNAME);
 
         assertEquals(DEFAULT_USERNAME, userDetails.getUsername());

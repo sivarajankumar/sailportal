@@ -34,20 +34,16 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.TeacherAccountType;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
- * Test class for TeacherUserDetails
- * 
- * TODO: decide if this is a test class for TeacherUserDetails or TELS's
- * MutableUserDetails right now, it's testing TELS's MutableUserDetails using
- * TeacherUserDetails
+ * Test class for HibernateUserDetailsDao using StudentUserDetails Domain Object
  * 
  * @author Hiroki Terashima
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HibernateTeacherUserDetailsDaoTest extends
@@ -69,7 +65,21 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     private static final String DEFAULT_LASTNAME = "Terashima";
 
+    private static final TeacherAccountType DEFAULT_ACCOUNTTYPE = TeacherAccountType.COMMUNITYMEMBER;
+    
+    private static final String DEFAULT_CITY = "Huntington Beach";
+    
     private static final String USERNAME_NOT_IN_DB = "blah";
+
+	private static final String DEFAULT_STATE = "CA";
+
+    private static final String DEFAULT_COUNTRY = "U.S.A.";
+
+	private static final String[] DEFAULT_CURRICULUMSUBJECTS = {"Biology", "Chemistry"};
+
+	private static final String DEFAULT_SCHOOLLEVEL = "6-9";
+
+	private static final String DEFAULT_SCHOOLNAME = "Dwyer Middle School";
 
     private MutableGrantedAuthority role1;
 
@@ -77,7 +87,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     private MutableGrantedAuthority role3;
 
-    private MutableUserDetails defaultUserDetails;
+    private TeacherUserDetails defaultUserDetails;
 
     private HibernateGrantedAuthorityDao authorityDao;
 
@@ -98,6 +108,38 @@ public class HibernateTeacherUserDetailsDaoTest extends
     public void setUserDetailsDao(HibernateUserDetailsDao userDetailsDao) {
         this.userDetailsDao = userDetailsDao;
     }
+    
+	/**
+	 * @param defaultUserDetails
+	 *            the defaultUserDetails to set
+	 */
+	public void setDefaultUserDetails(TeacherUserDetails defaultUserDetails) {
+		this.defaultUserDetails = defaultUserDetails;
+	}
+	
+	/**
+	 * @param role3
+	 *            the role3 to set
+	 */
+	public void setRole3(MutableGrantedAuthority role3) {
+		this.role3 = role3;
+	}
+
+	/**
+	 * @param role1
+	 *            the role1 to set
+	 */
+	public void setRole1(MutableGrantedAuthority role1) {
+		this.role1 = role1;
+	}
+
+	/**
+	 * @param role2
+	 *            the role2 to set
+	 */
+	public void setRole2(MutableGrantedAuthority role2) {
+		this.role2 = role2;
+	}
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -105,18 +147,11 @@ public class HibernateTeacherUserDetailsDaoTest extends
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
-        this.role1 = (MutableGrantedAuthority) this.applicationContext
-                .getBean("mutableGrantedAuthority");
-        this.role2 = (MutableGrantedAuthority) this.applicationContext
-                .getBean("mutableGrantedAuthority");
-        this.role3 = (MutableGrantedAuthority) this.applicationContext
-                .getBean("mutableGrantedAuthority");
+
         this.role1.setAuthority(DEFAULT_ROLE_1);
         this.role2.setAuthority(DEFAULT_ROLE_2);
         this.role3.setAuthority(DEFAULT_ROLE_3);
 
-        this.defaultUserDetails = (org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails) this.applicationContext
-                .getBean("teacherUserDetails");
         this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
         this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);
         this.defaultUserDetails.setEmailAddress(DEFAULT_EMAIL);
@@ -124,6 +159,13 @@ public class HibernateTeacherUserDetailsDaoTest extends
                 this.role1, this.role2, this.role3 });
         this.defaultUserDetails.setFirstname(DEFAULT_FIRSTNAME);
         this.defaultUserDetails.setLastname(DEFAULT_LASTNAME);
+        this.defaultUserDetails.setAccounttype(DEFAULT_ACCOUNTTYPE);
+        this.defaultUserDetails.setCity(DEFAULT_CITY);
+        this.defaultUserDetails.setState(DEFAULT_STATE);
+        this.defaultUserDetails.setCountry(DEFAULT_COUNTRY);
+        this.defaultUserDetails.setCurriculumsubjects(DEFAULT_CURRICULUMSUBJECTS);
+        this.defaultUserDetails.setSchoollevel(DEFAULT_SCHOOLLEVEL);
+        this.defaultUserDetails.setSchoolname(DEFAULT_SCHOOLNAME);
     }
 
     /**
@@ -189,6 +231,27 @@ public class HibernateTeacherUserDetailsDaoTest extends
             actualValue = (String) actualUserDetailsMap
                     .get(TeacherUserDetails.COLUMN_NAME_LASTNAME.toUpperCase());
             assertEquals(DEFAULT_LASTNAME, actualValue);
+            actualValue = String.valueOf(actualUserDetailsMap
+                    .get(TeacherUserDetails.COLUMN_NAME_ACCOUNTTYPE.toUpperCase()));
+            assertEquals(String.valueOf(DEFAULT_ACCOUNTTYPE.ordinal()), actualValue);
+            actualValue = (String) actualUserDetailsMap
+                    .get(TeacherUserDetails.COLUMN_NAME_CITY.toUpperCase());
+            assertEquals(DEFAULT_CITY, actualValue);
+            actualValue = (String) actualUserDetailsMap
+                    .get(TeacherUserDetails.COLUMN_NAME_COUNTRY.toUpperCase());
+            assertEquals(DEFAULT_COUNTRY, actualValue);
+            actualValue = (String) actualUserDetailsMap
+                    .get(TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL.toUpperCase());
+            assertEquals(DEFAULT_SCHOOLLEVEL, actualValue);   
+            actualValue = (String) actualUserDetailsMap
+                    .get(TeacherUserDetails.COLUMN_NAME_SCHOOLNAME.toUpperCase());
+            assertEquals(DEFAULT_SCHOOLNAME, actualValue);
+            
+// TODO: varBinary (JDBC type) -> String [] (Java)           
+//            String[] actualStrings = (String[]) actualUserDetailsMap
+//                    .get(TeacherUserDetails.COLUMN_NAME_CURRICULUMSUBJECTS.toUpperCase());
+//            assertEquals(DEFAULT_CURRICULUMSUBJECTS, actualStrings);
+
             actualValue = (String) actualUserDetailsMap
                     .get(PersistentGrantedAuthority.COLUMN_NAME_ROLE
                             .toUpperCase());
@@ -196,7 +259,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
             defaultRolesList.remove(actualValue);
         }
 
-        MutableUserDetails duplicateUserDetails = (MutableUserDetails) this.applicationContext
+        TeacherUserDetails duplicateUserDetails = (TeacherUserDetails) this.applicationContext
                 .getBean("teacherUserDetails");
         duplicateUserDetails.setUsername(DEFAULT_USERNAME);
         duplicateUserDetails.setPassword(DEFAULT_PASSWORD);
@@ -206,7 +269,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
         } catch (DataIntegrityViolationException expected) {
         }
 
-        MutableUserDetails emptyUserDetails = (MutableUserDetails) this.applicationContext
+        TeacherUserDetails emptyUserDetails = (TeacherUserDetails) this.applicationContext
                 .getBean("teacherUserDetails");
         try {
             this.userDetailsDao.save(emptyUserDetails);
@@ -214,7 +277,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
         } catch (DataIntegrityViolationException expected) {
         }
 
-        MutableUserDetails partiallyEmptyUserDetails = (MutableUserDetails) this.applicationContext
+        TeacherUserDetails partiallyEmptyUserDetails = (TeacherUserDetails) this.applicationContext
                 .getBean("teacherUserDetails");
         partiallyEmptyUserDetails.setUsername(DEFAULT_USERNAME);
         try {
@@ -223,7 +286,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
         } catch (DataIntegrityViolationException expected) {
         }
 
-        partiallyEmptyUserDetails = (MutableUserDetails) this.applicationContext
+        partiallyEmptyUserDetails = (TeacherUserDetails) this.applicationContext
                 .getBean("teacherUserDetails");
         partiallyEmptyUserDetails.setPassword(DEFAULT_PASSWORD);
         try {
@@ -273,7 +336,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
         // get user details record from persistent store and confirm it is
         // complete
-        MutableUserDetails userDetails = (org.telscenter.sail.webapp.domain.authentication.MutableUserDetails) this.userDetailsDao
+        TeacherUserDetails userDetails = (TeacherUserDetails) this.userDetailsDao
                 .retrieveByName(DEFAULT_USERNAME);
 
         assertEquals(DEFAULT_USERNAME, userDetails.getUsername());
