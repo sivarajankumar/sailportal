@@ -20,22 +20,72 @@ package net.sf.sail.webapp.domain.sds;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
 /**
  * @author Cynick Young
  * 
  * @version $Id$
  * 
  */
+@Entity
+@Table(name =  SdsWorkgroup.DATA_STORE_NAME)
 public class SdsWorkgroup implements SdsObject {
 
+	@Transient
+	public static final String DATA_STORE_NAME = "sds_workgroups";
+
+	@Transient
+	public static final String COLUMN_NAME_WORKGROUP_ID  = "workgroup_id";
+	
+	@Transient
+	public static final String COLUMN_NAME_WORKGROUP_NAME = "name";
+
+	@Transient
+	public static final String COLUMN_NAME_SDS_OFFERING_FK = "sds_offering_fk";
+	
+	@Transient
+	public static final String SDS_USERS_JOIN_TABLE_NAME = "sds_workgroups_sds_users";
+	
+	@Transient
     private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
+	
+	@Version
+	@Column(name = "OPTLOCK")
+	private Integer version = null;
+	
+	@Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_ID, unique = true, nullable = false)
     private Integer sdsObjectId;
 
+	@Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME, nullable = false)
     private String name;
-
+	
+	@OneToOne(cascade = CascadeType.ALL, targetEntity = SdsOffering.class)
+	@JoinColumn(name = SdsWorkgroup.COLUMN_NAME_SDS_OFFERING_FK, nullable = false)
     private SdsOffering sdsOffering;
 
+	// EJB3 spec annotations require the use of a java <code>Collection</code>.
+	// However, Acegi Security deals with an array. There are internal methods
+	// to convert to and from the different data structures.
+	@ManyToMany(targetEntity = SdsUser.class, fetch = FetchType.EAGER)
+	@JoinTable(name = SdsWorkgroup.SDS_USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = "sds_workgroup_fk") }, inverseJoinColumns = @JoinColumn(name = "sds_user_fk"))
     private Set<SdsUser> members = new HashSet<SdsUser>();
 
     /**
@@ -107,6 +157,40 @@ public class SdsWorkgroup implements SdsObject {
         this.members.add(member);
     }
 
+    /**
+     * @return the id
+     */
+    @SuppressWarnings("unused")
+    private Long getId() {
+      return id;
+    }
+
+    /**
+     * @param id
+     *          the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+      this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+      return version;
+    }
+
+    /**
+     * @param version
+     *          the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+      this.version = version;
+    }
+    
     /**
      * @see java.lang.Object#hashCode()
      */
