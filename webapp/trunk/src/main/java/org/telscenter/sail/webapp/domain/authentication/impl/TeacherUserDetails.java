@@ -29,7 +29,6 @@ import javax.persistence.Transient;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
-import org.telscenter.sail.webapp.domain.authentication.TeacherAccountType;
 
 /**
  * Implementation class of <code>MutableUserDetails</code> that uses an EJB3
@@ -38,7 +37,7 @@ import org.telscenter.sail.webapp.domain.authentication.TeacherAccountType;
  * UserDetails for a teacher in TELS Portal
  * 
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 @Entity
 @Table(name = TeacherUserDetails.DATA_STORE_NAME)
@@ -55,9 +54,6 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 
 	@Transient
 	public static final String COLUMN_NAME_LASTNAME = "lastname";
-	
-	@Transient
-	public static final String COLUMN_NAME_ACCOUNTTYPE = "accounttype";
 	
 	@Transient
 	public static final String COLUMN_NAME_CITY = "city";
@@ -80,7 +76,6 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	
 	private String firstname;
 	private String lastname;
-	private TeacherAccountType accounttype;
 	private String city;
 	private String state;
 	private String country;
@@ -111,18 +106,6 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-	/**
-	 * @return the accounttype
-	 */
-	public TeacherAccountType getAccounttype() {
-		return accounttype;
-	}
-	/**
-	 * @param accounttype the accounttype to set
-	 */
-	public void setAccounttype(TeacherAccountType accounttype) {
-		this.accounttype = accounttype;
 	}
 	/**
 	 * @return the city

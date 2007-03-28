@@ -34,7 +34,6 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.telscenter.sail.webapp.domain.authentication.TeacherAccountType;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
@@ -65,8 +64,6 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     private static final String DEFAULT_LASTNAME = "Terashima";
 
-    private static final TeacherAccountType DEFAULT_ACCOUNTTYPE = TeacherAccountType.COMMUNITYMEMBER;
-    
     private static final String DEFAULT_CITY = "Huntington Beach";
     
     private static final String USERNAME_NOT_IN_DB = "blah";
@@ -159,7 +156,6 @@ public class HibernateTeacherUserDetailsDaoTest extends
                 this.role1, this.role2, this.role3 });
         this.defaultUserDetails.setFirstname(DEFAULT_FIRSTNAME);
         this.defaultUserDetails.setLastname(DEFAULT_LASTNAME);
-        this.defaultUserDetails.setAccounttype(DEFAULT_ACCOUNTTYPE);
         this.defaultUserDetails.setCity(DEFAULT_CITY);
         this.defaultUserDetails.setState(DEFAULT_STATE);
         this.defaultUserDetails.setCountry(DEFAULT_COUNTRY);
@@ -231,9 +227,6 @@ public class HibernateTeacherUserDetailsDaoTest extends
             actualValue = (String) actualUserDetailsMap
                     .get(TeacherUserDetails.COLUMN_NAME_LASTNAME.toUpperCase());
             assertEquals(DEFAULT_LASTNAME, actualValue);
-            actualValue = String.valueOf(actualUserDetailsMap
-                    .get(TeacherUserDetails.COLUMN_NAME_ACCOUNTTYPE.toUpperCase()));
-            assertEquals(String.valueOf(DEFAULT_ACCOUNTTYPE.ordinal()), actualValue);
             actualValue = (String) actualUserDetailsMap
                     .get(TeacherUserDetails.COLUMN_NAME_CITY.toUpperCase());
             assertEquals(DEFAULT_CITY, actualValue);
