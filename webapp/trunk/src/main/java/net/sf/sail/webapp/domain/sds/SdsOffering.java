@@ -17,6 +17,18 @@
  */
 package net.sf.sail.webapp.domain.sds;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
 /**
  * Represents an offering from the Sail Data Service (SDS). The object is not
  * persisted but is intended to be obtained on the fly.
@@ -26,16 +38,48 @@ package net.sf.sail.webapp.domain.sds;
  * @version $Id$
  * 
  */
+@Entity
+@Table(name = SdsOffering.DATA_STORE_NAME)
 public class SdsOffering implements SdsObject {
 
+	@Transient
+	public static final String DATA_STORE_NAME = "sds_offerings";
+	
+	@Transient
+	public static final String COLUMN_NAME_OFFERING_ID = "offering_id";
+	
+	@Transient
+	public static final String COLUMN_NAME_OFFERING_NAME = "name";
+
+	@Transient
+	private static final String COLUMN_NAME_SDS_CURNIT_FK = "sds_curnit_fk";
+	
+	@Transient
+	private static final String COLUMN_NAME_SDS_JNLP_FK = "sds_jnlp_fk";
+	
+	@Transient
     private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
+	
+	@Version
+	@Column(name = "OPTLOCK")
+	private Integer version = null;
+	
+	@Column(name = SdsOffering.COLUMN_NAME_OFFERING_NAME, nullable = false)
     private String name;
 
-    private SdsCurnit curnit;
+	@OneToOne(cascade = CascadeType.ALL, targetEntity = SdsCurnit.class)
+	@JoinColumn(name = SdsOffering.COLUMN_NAME_SDS_CURNIT_FK, nullable = false)
+	private SdsCurnit curnit;
     
+	@OneToOne(cascade = CascadeType.ALL, targetEntity = SdsJnlp.class)
+	@JoinColumn(name = SdsOffering.COLUMN_NAME_SDS_JNLP_FK, nullable = false)
     private SdsJnlp jnlp;
     
+    @Column(name = SdsOffering.COLUMN_NAME_OFFERING_ID, unique = true, nullable = false)
     private Integer sdsObjectId;
 
     /**
@@ -60,6 +104,75 @@ public class SdsOffering implements SdsObject {
         this.sdsObjectId = id;
     }
 
+    /**
+     * @return the id
+     */
+    @SuppressWarnings("unused")
+    private Long getId() {
+      return id;
+    }
+
+    /**
+     * @param id
+     *          the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+      this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+      return version;
+    }
+
+    /**
+     * @param version
+     *          the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+      this.version = version;
+    }
+    
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+	/**
+	 * @return the curnit
+	 */
+	public SdsCurnit getCurnit() {
+		return curnit;
+	}
+
+	/**
+	 * @param curnit the curnit to set
+	 */
+	public void setCurnit(SdsCurnit curnit) {
+		this.curnit = curnit;
+	}
+
+	/**
+	 * @return the jnlp
+	 */
+	public SdsJnlp getJnlp() {
+		return jnlp;
+	}
+
+	/**
+	 * @param jnlp the jnlp to set
+	 */
+	public void setJnlp(SdsJnlp jnlp) {
+		this.jnlp = jnlp;
+	}
+	
     /**
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -107,40 +220,5 @@ public class SdsOffering implements SdsObject {
 		} else if (!sdsObjectId.equals(other.sdsObjectId))
 			return false;
 		return true;
-	}
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-	/**
-	 * @return the curnit
-	 */
-	public SdsCurnit getCurnit() {
-		return curnit;
-	}
-
-	/**
-	 * @param curnit the curnit to set
-	 */
-	public void setCurnit(SdsCurnit curnit) {
-		this.curnit = curnit;
-	}
-
-	/**
-	 * @return the jnlp
-	 */
-	public SdsJnlp getJnlp() {
-		return jnlp;
-	}
-
-	/**
-	 * @param jnlp the jnlp to set
-	 */
-	public void setJnlp(SdsJnlp jnlp) {
-		this.jnlp = jnlp;
 	}
 }
