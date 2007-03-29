@@ -28,7 +28,8 @@ import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 
 /**
- * Workgroup domain object interface
+ * Workgroup is an aggregation of users that work on the same offering.
+ * It is made up of one or more users.
  *
  * @author Hiroki Terashima
  * @version $Id: $

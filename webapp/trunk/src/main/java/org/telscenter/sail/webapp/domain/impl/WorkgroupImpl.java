@@ -22,18 +22,25 @@
  */
 package org.telscenter.sail.webapp.domain.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 import org.telscenter.sail.webapp.domain.Workgroup;
@@ -53,6 +60,9 @@ public class WorkgroupImpl implements Workgroup {
 	public static final String COLUMN_NAME_SDS_WORKGROUP_FK = "sds_workgroup_fk";
 	
 	@Transient
+	public static final String USERS_JOIN_TABLE_NAME = "workgroups_users";
+	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -66,6 +76,13 @@ public class WorkgroupImpl implements Workgroup {
 	@OneToOne(cascade = CascadeType.ALL, targetEntity = SdsWorkgroup.class)
 	@JoinColumn(name = WorkgroupImpl.COLUMN_NAME_SDS_WORKGROUP_FK, nullable = false, unique = true)
 	private SdsWorkgroup sdsWorkgroup;
+	
+	// EJB3 spec annotations require the use of a java <code>Collection</code>.
+	// However, Acegi Security deals with an array. There are internal methods
+	// to convert to and from the different data structures.
+	@ManyToMany(targetEntity = User.class, fetch = FetchType.EAGER)
+	@JoinTable(name = WorkgroupImpl.USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = "workgroup_fk") }, inverseJoinColumns = @JoinColumn(name = "user_fk"))
+	private Set<User> members = new HashSet<User>();
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.Workgroup#setSdsWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
@@ -82,6 +99,20 @@ public class WorkgroupImpl implements Workgroup {
 		return sdsWorkgroup;
 	}
 	
+	/**
+	 * @return the members
+	 */
+	public Set<User> getMembers() {
+		return members;
+	}
+
+	/**
+	 * @param members the members to set
+	 */
+	public void setMembers(Set<User> members) {
+		this.members = members;
+	}
+
 	/**
 	 * @return the id
 	 */
