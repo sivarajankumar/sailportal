@@ -127,7 +127,7 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
         Document doc = convertXMLStringToXMLDocument(request.getBodyData());
 
         return XPath.newInstance(
-                "/workgroup-memberships/workgroup-membership/user-id")
+                "/workgroup-memberships/workgroup-membership/sail-user-id")
                 .selectNodes(doc);
     }
 

@@ -60,7 +60,7 @@ public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
                 + "</first-name><last-name>" + sdsUser.getLastName()
                 + "</last-name></user>";
 
-        final String url = "/user";
+        final String url = "/sail_user";
 
         return new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);

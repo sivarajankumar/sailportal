@@ -28,7 +28,8 @@
         class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
         <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
         <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
-        <property name="baseUrl" value="http://saildataservice.concord.org/4" />
+        <!-- http://saildataservice.concord.org/{portal-id}/ -->
+        <property name="baseUrl" value="http://rails.dev.concord.org/sds/4" />
     </bean>
 
     <bean id="sdsOffering" scope="prototype"
@@ -64,7 +65,7 @@
         class="net.sf.sail.webapp.service.offerings.impl.OfferingsServiceImpl">
         <property name="sdsOfferingDao" ref="sdsOfferingDao" />
     </bean>
-    
+
     <bean id="curnitService"
         class="net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl">
         <property name="sdsCurnitDao" ref="sdsCurnitDao" />
@@ -91,16 +92,16 @@
         <property name="transport" ref="httpRestTransport" />
     </bean>
 
-	<bean id="sdsCurnitDao"
-		class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsCurnitDao">
-		<property name="createCommand" ref="sdsCurnitCreateCommand" />
-		<property name="listCommand" ref="sdsCurnitListCommand" />
-	</bean>
-	
-	<bean id="sdsCurnitListCommand"
-		class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitListCommandHttpRestImpl">
-		<property name="transport" ref="httpRestTransport" />
-	</bean>
+    <bean id="sdsCurnitDao"
+        class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsCurnitDao">
+        <property name="createCommand" ref="sdsCurnitCreateCommand" />
+        <property name="listCommand" ref="sdsCurnitListCommand" />
+    </bean>
+
+    <bean id="sdsCurnitListCommand"
+        class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitListCommandHttpRestImpl">
+        <property name="transport" ref="httpRestTransport" />
+    </bean>
 
     <bean id="sdsCurnit" class="net.sf.sail.webapp.domain.sds.SdsCurnit"
         scope="prototype" />

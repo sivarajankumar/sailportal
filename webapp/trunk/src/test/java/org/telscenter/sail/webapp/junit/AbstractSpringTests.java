@@ -37,6 +37,6 @@ public abstract class AbstractSpringTests extends
      */
     @Override
     protected String[] getConfigLocations() {
-        return SPRING_CONFIG.getConfigLocations();
+        return SPRING_CONFIG.getRootApplicationContextConfigLocations();
     }
 }

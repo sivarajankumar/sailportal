@@ -57,7 +57,7 @@ public abstract class AbstractTransactionalDbTests extends
      */
     @Override
     protected String[] getConfigLocations() {
-        return SPRING_CONFIG.getConfigLocations();
+        return SPRING_CONFIG.getRootApplicationContextConfigLocations();
     }
 
     /**

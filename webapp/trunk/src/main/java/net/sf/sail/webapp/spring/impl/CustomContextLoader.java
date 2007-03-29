@@ -84,16 +84,11 @@ public class CustomContextLoader extends ContextLoader {
         String configClass = servletContext
                 .getInitParameter(CONFIG_CLASS_PARAM);
         if (configClass != null) {
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER
-                        .info("Initializing Spring container using config locations from: "
-                                + configClass);
-            }
             try {
                 SpringConfiguration springConfig = (SpringConfiguration) BeanUtils
                         .instantiateClass(Class.forName(configClass));
                 webApplicationContext.setConfigLocations(springConfig
-                        .getConfigLocations());
+                        .getRootApplicationContextConfigLocations());
             } catch (ClassNotFoundException e) {
                 if (LOGGER.isErrorEnabled()) {
                     LOGGER.error(CONFIG_CLASS_PARAM + " <" + configClass

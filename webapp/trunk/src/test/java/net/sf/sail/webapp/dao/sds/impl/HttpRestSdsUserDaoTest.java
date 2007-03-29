@@ -43,24 +43,24 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
     private SdsUser sdsUser;
 
     /**
-	 * @param sdsUserDao
-	 *            the sdsUserDao to set
-	 */
+     * @param sdsUserDao
+     *            the sdsUserDao to set
+     */
     public void setSdsUserDao(HttpRestSdsUserDao sdsUserDao) {
         this.sdsUserDao = sdsUserDao;
     }
 
-	/**
-	 * @param sdsUser
-	 *            the sdsUser to set
-	 */
-	public void setSdsUser(SdsUser sdsUser) {
-		this.sdsUser = sdsUser;
-	}
+    /**
+     * @param sdsUser
+     *            the sdsUser to set
+     */
+    public void setSdsUser(SdsUser sdsUser) {
+        this.sdsUser = sdsUser;
+    }
 
     /**
-	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
-	 */
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
+     */
     @Override
     protected void onSetUp() throws Exception {
         super.onSetUp();
@@ -69,8 +69,8 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
     }
 
     /**
-	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
-	 */
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
+     */
     @Override
     protected void onTearDown() throws Exception {
         super.onTearDown();
@@ -79,9 +79,9 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
     }
 
     /**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
-	 */
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
+     */
     @SuppressWarnings("unchecked")
     public void testSave_NewUser() throws Exception {
         assertNull(this.sdsUser.getSdsObjectId());
@@ -90,7 +90,7 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
 
         // retrieve newly created user using httpunit and compare with sdsUser
         // saved via DAO
-        WebResponse webResponse = makeHttpRestGetRequest("/user/"
+        WebResponse webResponse = makeHttpRestGetRequest("/sail_user/"
                 + this.sdsUser.getSdsObjectId());
         assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
@@ -107,9 +107,9 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
     }
 
     /**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
-	 */
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
+     */
     public void testDelete() {
         try {
             this.sdsUserDao.delete(this.sdsUser);

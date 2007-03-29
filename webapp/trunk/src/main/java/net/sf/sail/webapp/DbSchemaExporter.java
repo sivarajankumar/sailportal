@@ -70,7 +70,7 @@ public class DbSchemaExporter {
             SpringConfiguration springConfig = (SpringConfiguration) BeanUtils
                     .instantiateClass(Class.forName(springConfigClassname));
             applicationContext = new ClassPathXmlApplicationContext(
-                    springConfig.getConfigLocations());
+                    springConfig.getRootApplicationContextConfigLocations());
             Configuration hibernateConfig = ((LocalSessionFactoryBean) applicationContext
                     .getBean("&sessionFactory")).getConfiguration();
 

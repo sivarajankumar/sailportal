@@ -29,11 +29,21 @@ public interface SpringConfiguration {
 
     /**
      * Get the list of applicationContext XML files used to instantiate the
-     * beans in a Spring container.
+     * beans in the Spring container.
      * 
      * @return <code>String[]</code> such that each string in the array
      *         defines the location of an applicationContext XML configuration
      *         file used by the Spring container
      */
-    public String[] getConfigLocations();
+    public String[] getRootApplicationContextConfigLocations();
+
+    /**
+     * Get the list of XML files used to instantiate the beans within the
+     * DispatcherServlet context.
+     * 
+     * @return <code>String[]</code> such that each string in the array
+     *         defines the location of an XML configuration file used by the
+     *         DispatcherServlet context
+     */
+    public String[] getDispatcherServletContextConfigLocations();
 }

@@ -67,7 +67,7 @@ public class CreateDefaultUsers {
             System.exit(1);
         }
         ConfigurableApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                SPRING_CONFIG.getConfigLocations());
+                SPRING_CONFIG.getRootApplicationContextConfigLocations());
         try {
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
             createDefaultUsers.init(applicationContext);

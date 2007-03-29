@@ -74,9 +74,9 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImpl extends
         final Set<SdsUser> membersList = workgroup.getMembers();
         String membersString = "";
         for (SdsUser member : membersList) {
-            membersString += "<workgroup-membership><user-id>"
+            membersString += "<workgroup-membership><sail-user-id>"
                     + member.getSdsObjectId()
-                    + "</user-id></workgroup-membership>";
+                    + "</sail-user-id></workgroup-membership>";
         }
         final String bodyData = "<workgroup-memberships>" + membersString
                 + "</workgroup-memberships>";

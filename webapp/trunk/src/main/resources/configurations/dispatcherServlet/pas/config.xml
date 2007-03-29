@@ -24,11 +24,9 @@
     xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-    <!-- Specifies where theme properties are located -->
-    <bean id="themeSource"
-        class="org.springframework.ui.context.support.ResourceBundleThemeSource">
-        <property name="basenamePrefix" value="themes/" />
-    </bean>
+    <!-- Switch locales according to the user's browser -->
+    <bean id="localeResolver"
+        class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />
 
     <!-- Use a default fixed theme -->
     <bean id="themeResolver"
@@ -36,13 +34,18 @@
         <property name="defaultThemeName" value="default" />
     </bean>
 
-    <!-- Switch locales according to the user's browser -->
-    <bean id="localeResolver"
-        class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />
+    <!-- this bean with the well known name generates view names for us -->
+    <bean id="viewNameTranslator"
+        class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator" />
+
+    <!-- Specifies where theme properties are located -->
+    <bean id="themeSource"
+        class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+        <property name="basenamePrefix" value="themes/" />
+    </bean>
 
     <!-- JSP with optional JSTL views -->
-    <bean id="viewResolver"
-        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass"
             value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/jsp/" />
@@ -67,10 +70,6 @@
             <value>/index.html=urlFilenameViewController</value>
         </property>
     </bean>
-
-    <!-- this bean with the well known name generates view names for us -->
-    <bean id="viewNameTranslator"
-        class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator" />
 
     <!-- Localizable messages -->
     <bean id="messageSource"

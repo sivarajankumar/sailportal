@@ -95,13 +95,12 @@
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
+            net.sf.sail.webapp.spring.impl.CustomDispatcherServlet
         </servlet-class>
         <init-param>
-            <param-name>contextConfigLocation</param-name>
+            <param-name>contextConfigClass</param-name>
             <param-value>
-                classpath:configurations/dispatcherServlet/pas/config.xml,
-                classpath:configurations/dispatcherServlet/pas/controllers.xml
+                net.sf.sail.webapp.spring.impl.SpringConfigurationImpl
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>

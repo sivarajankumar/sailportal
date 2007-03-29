@@ -34,90 +34,90 @@ import com.meterware.httpunit.WebResponse;
  */
 public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 
-	private static final String EXPECTED_NAME = "name";
+    private static final String EXPECTED_NAME = "name";
 
-	private static final String EXPECTED_URL = "http://tels-develop.soe.berkeley.edu:8080/maven-jnlp//curnit-airbag.jar";
+    private static final String EXPECTED_URL = "http://www.google.com/";
 
-	private HttpRestSdsJnlpDao sdsJnlpDao;
+    private HttpRestSdsJnlpDao sdsJnlpDao;
 
-	private SdsJnlp sdsJnlp;
+    private SdsJnlp sdsJnlp;
 
-	/**
-	 * @param sdsJnlpDao
-	 *            the sdsJnlpDao to set
-	 */
-	public void setSdsJnlpDao(HttpRestSdsJnlpDao sdsJnlpDao) {
-		this.sdsJnlpDao = sdsJnlpDao;
-	}
+    /**
+     * @param sdsJnlpDao
+     *            the sdsJnlpDao to set
+     */
+    public void setSdsJnlpDao(HttpRestSdsJnlpDao sdsJnlpDao) {
+        this.sdsJnlpDao = sdsJnlpDao;
+    }
 
-	/**
-	 * @param sdsJnlp
-	 *            the sdsJnlp to set
-	 */
-	public void setSdsJnlp(SdsJnlp sdsJnlp) {
-		this.sdsJnlp = sdsJnlp;
-	}
+    /**
+     * @param sdsJnlp
+     *            the sdsJnlp to set
+     */
+    public void setSdsJnlp(SdsJnlp sdsJnlp) {
+        this.sdsJnlp = sdsJnlp;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
-	 */
-	@Override
-	protected void onSetUp() throws Exception {
-		super.onSetUp();
-		this.sdsJnlp.setName(EXPECTED_NAME);
-		this.sdsJnlp.setUrl(EXPECTED_URL);
-	}
+    /**
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
+     */
+    @Override
+    protected void onSetUp() throws Exception {
+        super.onSetUp();
+        this.sdsJnlp.setName(EXPECTED_NAME);
+        this.sdsJnlp.setUrl(EXPECTED_URL);
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
-	 */
-	@Override
-	protected void onTearDown() throws Exception {
-		super.onTearDown();
-		this.sdsJnlpDao = null;
-		this.sdsJnlp = null;
-	}
+    /**
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
+     */
+    @Override
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
+        this.sdsJnlpDao = null;
+        this.sdsJnlp = null;
+    }
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsJnlpDao#save(net.sf.sail.webapp.domain.sds.SdsJnlp)}.
-	 */
-	@SuppressWarnings("unchecked")
-	public void testSave_NewJnlp() throws Exception {
-		assertNull(this.sdsJnlp.getSdsObjectId());
-		this.sdsJnlpDao.save(this.sdsJnlp);
-		assertNotNull(this.sdsJnlp.getSdsObjectId());
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsJnlpDao#save(net.sf.sail.webapp.domain.sds.SdsJnlp)}.
+     */
+    @SuppressWarnings("unchecked")
+    public void testSave_NewJnlp() throws Exception {
+        assertNull(this.sdsJnlp.getSdsObjectId());
+        this.sdsJnlpDao.save(this.sdsJnlp);
+        assertNotNull(this.sdsJnlp.getSdsObjectId());
 
-		// retrieve newly created user using httpunit and compare with sdsUser
-		// saved via DAO
-		WebResponse webResponse = makeHttpRestGetRequest("/jnlp/"
-				+ this.sdsJnlp.getSdsObjectId());
-		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+        // retrieve newly created user using httpunit and compare with sdsUser
+        // saved via DAO
+        WebResponse webResponse = makeHttpRestGetRequest("/jnlp/"
+                + this.sdsJnlp.getSdsObjectId());
+        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-		Document doc = createDocumentFromResponse(webResponse);
+        Document doc = createDocumentFromResponse(webResponse);
 
-		Element rootElement = doc.getRootElement();
-		SdsJnlp actualSdsJnlp = new SdsJnlp();
-		actualSdsJnlp.setName(rootElement.getChild("name").getValue());
-		actualSdsJnlp.setUrl(rootElement.getChild("url").getValue());
-		actualSdsJnlp.setSdsObjectId(new Integer(rootElement.getChild("id")
-				.getValue()));
-		assertEquals(this.sdsJnlp.getName(), actualSdsJnlp.getName());
-		assertEquals(this.sdsJnlp.getSdsObjectId(), actualSdsJnlp
-				.getSdsObjectId());
-		assertEquals(this.sdsJnlp.getUrl(), actualSdsJnlp.getUrl());
-		assertEquals(this.sdsJnlp, actualSdsJnlp);
-	}
+        Element rootElement = doc.getRootElement();
+        SdsJnlp actualSdsJnlp = new SdsJnlp();
+        actualSdsJnlp.setName(rootElement.getChild("name").getValue());
+        actualSdsJnlp.setUrl(rootElement.getChild("url").getValue());
+        actualSdsJnlp.setSdsObjectId(new Integer(rootElement.getChild("id")
+                .getValue()));
+        assertEquals(this.sdsJnlp.getName(), actualSdsJnlp.getName());
+        assertEquals(this.sdsJnlp.getSdsObjectId(), actualSdsJnlp
+                .getSdsObjectId());
+        assertEquals(this.sdsJnlp.getUrl(), actualSdsJnlp.getUrl());
+        assertEquals(this.sdsJnlp, actualSdsJnlp);
+    }
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
-	 */
-	public void testDelete() {
-		try {
-			this.sdsJnlpDao.delete(this.sdsJnlp);
-			fail("UnsupportedOperationException expected");
-		} catch (UnsupportedOperationException expected) {
-		}
-	}
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
+     */
+    public void testDelete() {
+        try {
+            this.sdsJnlpDao.delete(this.sdsJnlp);
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+    }
 }

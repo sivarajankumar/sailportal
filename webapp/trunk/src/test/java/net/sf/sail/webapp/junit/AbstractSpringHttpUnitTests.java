@@ -39,12 +39,15 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: AbstractSpringHttpUnitTests.java 217 2007-03-22 19:46:34Z
+ *          laurel $
  * 
  */
 public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
     private static final String DEFAULT_NAME = "d fault";
+
+    private static final String DEFAULT_URL = "http://www.google.com/";
 
     protected HttpRestTransport httpRestTransport;
 
@@ -136,7 +139,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      */
     protected Integer createUserInSds() throws MalformedURLException,
             IOException, SAXException {
-        WebResponse webResponse = this.makeHttpRestPostRequest("/user",
+        WebResponse webResponse = this.makeHttpRestPostRequest("/sail_user",
                 "<user><first-name>" + DEFAULT_NAME
                         + "</first-name><last-name>" + DEFAULT_NAME
                         + "</last-name></user>");
@@ -169,7 +172,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
     protected Integer createJnlpInSds() throws MalformedURLException,
             IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/jnlp",
-                "<jnlp><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_NAME
+                "<jnlp><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_URL
                         + "</url></jnlp>");
         return this.extractNewlyCreatedId(webResponse);
     }
@@ -183,7 +186,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
     protected Integer createCurnitInSds() throws MalformedURLException,
             IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/curnit",
-                "<curnit><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_NAME
+                "<curnit><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_URL
                         + "</url></curnit>");
         return this.extractNewlyCreatedId(webResponse);
     }

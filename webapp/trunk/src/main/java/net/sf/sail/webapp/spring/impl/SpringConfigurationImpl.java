@@ -30,7 +30,7 @@ import net.sf.sail.webapp.spring.SpringConfiguration;
  */
 public final class SpringConfigurationImpl implements SpringConfiguration {
 
-    private static final String[] CONFIG_LOCATIONS = new String[] {
+    private static final String[] ROOT_APPLICATION_CONTEXT_CONFIG_LOCATIONS = new String[] {
             "classpath:configurations/applicationContexts/pas/acegiSecurity.xml",
             "classpath:configurations/applicationContexts/pas/datasource.xml",
             "classpath:configurations/applicationContexts/pas/hibernate.xml",
@@ -39,10 +39,21 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/applicationContexts/pas/spring.xml",
             "classpath:configurations/applicationContexts/pas/user.xml" };
 
+    private static final String[] DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
+            "classpath:configurations/dispatcherServlet/pas/config.xml",
+            "classpath:configurations/dispatcherServlet/pas/controllers.xml" };
+
     /**
-     * @see net.sf.sail.webapp.spring.SpringConfiguration#getConfigLocations()
+     * @see net.sf.sail.webapp.spring.SpringConfiguration#getRootApplicationContextConfigLocations()
      */
-    public String[] getConfigLocations() {
-        return CONFIG_LOCATIONS;
+    public String[] getRootApplicationContextConfigLocations() {
+        return ROOT_APPLICATION_CONTEXT_CONFIG_LOCATIONS;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.spring.SpringConfiguration#getDispatcherServletContextConfigLocations()
+     */
+    public String[] getDispatcherServletContextConfigLocations() {
+        return DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS;
     }
 }
