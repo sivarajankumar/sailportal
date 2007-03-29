@@ -40,6 +40,9 @@
                 <artifactId>maven-resources-plugin</artifactId>
             </plugin>
             <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.5</source>
@@ -54,9 +57,6 @@
                         <exclude>**/AllTests.java</exclude>
                     </excludes>
                 </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-report-plugin</artifactId>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
