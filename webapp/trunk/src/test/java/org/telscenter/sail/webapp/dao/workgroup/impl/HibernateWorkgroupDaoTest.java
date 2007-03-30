@@ -22,10 +22,14 @@
  */
 package org.telscenter.sail.webapp.dao.workgroup.impl;
 
+import java.util.List;
+
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 import org.telscenter.sail.webapp.domain.Workgroup;
+import org.telscenter.sail.webapp.domain.impl.OfferingImpl;
+import org.telscenter.sail.webapp.domain.impl.WorkgroupImpl;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
@@ -74,10 +78,34 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
 	}
 	
 	public void testSave() {
+		verifyDataStoreIsEmpty();
 		//this.workgroupDao.save(this.defaultWorkgroup);
 	}
 	
 	public void testDelete() {
+		verifyDataStoreIsEmpty();
 		this.workgroupDao.delete(this.defaultWorkgroup);
+	}
+	
+	private void verifyDataStoreIsEmpty() {
+		assertTrue(retrieveWorkgroupListFromDb().isEmpty());
+	}
+
+	private List retrieveWorkgroupListFromDb() {
+		return this.jdbcTemplate.queryForList(
+			"SELECT * FROM " +
+			WorkgroupImpl.DATA_STORE_NAME + ", " +
+			SdsWorkgroup.DATA_STORE_NAME + ", " +
+			OfferingImpl.DATA_STORE_NAME + ", " +
+			WorkgroupImpl.USERS_JOIN_TABLE_NAME + " WHERE " +
+			WorkgroupImpl.DATA_STORE_NAME + "." + 
+			WorkgroupImpl.COLUMN_NAME_SDS_WORKGROUP_FK + " = " +
+			SdsWorkgroup.DATA_STORE_NAME + ".id" + " AND " +
+			WorkgroupImpl.DATA_STORE_NAME + "." +
+			WorkgroupImpl.COLUMN_NAME_OFFERING_FK + " = " +
+			OfferingImpl.DATA_STORE_NAME + ".id" + " AND " +
+			WorkgroupImpl.DATA_STORE_NAME + ".id" + " = " +
+			WorkgroupImpl.USERS_JOIN_TABLE_NAME + "." +
+			WorkgroupImpl.WORKGROUPS_JOIN_COLUMN_NAME, (Object[]) null);
 	}
 }

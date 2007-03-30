@@ -62,10 +62,16 @@ public class WorkgroupImpl implements Workgroup {
 	public static final String COLUMN_NAME_SDS_WORKGROUP_FK = "sds_workgroup_fk";
 
 	@Transient
-	private static final String COLUMN_NAME_OFFERING_FK = "offering_fk";
+	public static final String COLUMN_NAME_OFFERING_FK = "offering_fk";
 	
 	@Transient
 	public static final String USERS_JOIN_TABLE_NAME = "workgroups_relates_to_users";
+	
+	@Transient
+	public static final String USERS_JOIN_COLUMN_NAME = "user_fk";
+
+	@Transient
+	public static final String WORKGROUPS_JOIN_COLUMN_NAME = "workgroup_fk";
 	
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -87,7 +93,7 @@ public class WorkgroupImpl implements Workgroup {
 	private Offering offering;
 	
 	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
-	@JoinTable(name = WorkgroupImpl.USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = "workgroup_fk") }, inverseJoinColumns = @JoinColumn(name = "user_fk"))
+	@JoinTable(name = WorkgroupImpl.USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME))
 	private Set<User> members = new HashSet<User>();
 	
 	/**
