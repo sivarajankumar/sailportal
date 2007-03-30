@@ -41,6 +41,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 import org.telscenter.sail.webapp.domain.Offering;
@@ -81,11 +82,11 @@ public class WorkgroupImpl implements Workgroup {
 	@JoinColumn(name = WorkgroupImpl.COLUMN_NAME_SDS_WORKGROUP_FK, nullable = false, unique = true)
 	private SdsWorkgroup sdsWorkgroup;
 	
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = Offering.class)
+	@OneToOne(cascade = CascadeType.ALL, targetEntity = OfferingImpl.class)
 	@JoinColumn(name = WorkgroupImpl.COLUMN_NAME_OFFERING_FK, nullable = false)
 	private Offering offering;
 	
-	@ManyToMany(targetEntity = User.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
 	@JoinTable(name = WorkgroupImpl.USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = "workgroup_fk") }, inverseJoinColumns = @JoinColumn(name = "user_fk"))
 	private Set<User> members = new HashSet<User>();
 	
