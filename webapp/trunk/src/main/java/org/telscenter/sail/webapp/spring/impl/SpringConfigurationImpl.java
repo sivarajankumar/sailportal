@@ -38,7 +38,9 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
 
     private static final String[] DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
             "classpath:configurations/dispatcherServlet/pas/config.xml",
-            "classpath:configurations/dispatcherServlet/pas/controllers.xml" };
+            "classpath:configurations/dispatcherServlet/tels/controllers.xml",
+            "classpath:configurations/dispatcherServlet/tels/extensions.xml",
+            "classpath:configurations/dispatcherServlet/tels/overrides.xml" };
 
     static {
         final SpringConfiguration baseConfig = new net.sf.sail.webapp.spring.impl.SpringConfigurationImpl();
@@ -46,11 +48,11 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
                 .enumeration(Arrays.asList(baseConfig
                         .getRootApplicationContextConfigLocations())));
         configLocationsList
-                .add("configurations/applicationContexts/tels/extensions.xml");
+                .add("classpath:configurations/applicationContexts/tels/extensions.xml");
         // Keep the overrides as the last item to be added to the list to ensure
         // that the overridden bean has indeed been defined.
         configLocationsList
-                .add("configurations/applicationContexts/tels/overrides.xml");
+                .add("classpath:configurations/applicationContexts/tels/overrides.xml");
         ROOT_APPLICATION_CONTEXT_CONFIG_LOCATIONS = configLocationsList
                 .toArray(new String[0]);
     }
