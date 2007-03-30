@@ -39,8 +39,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id: AbstractSpringHttpUnitTests.java 217 2007-03-22 19:46:34Z
- *          laurel $
+ * @version $Id$
  * 
  */
 public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {

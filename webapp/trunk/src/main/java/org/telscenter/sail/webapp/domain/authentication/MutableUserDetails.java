@@ -27,7 +27,7 @@ package org.telscenter.sail.webapp.domain.authentication;
  * 
  * @author Hiroki Terashima
  * 
- * @version $Id: $
+ * @version $Id$
  */
 public interface MutableUserDetails extends
 		net.sf.sail.webapp.domain.authentication.MutableUserDetails {

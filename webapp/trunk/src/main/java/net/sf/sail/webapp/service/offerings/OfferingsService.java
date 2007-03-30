@@ -24,7 +24,7 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 /**
  * @author Laurel Williams
  * 
- * @version $Id:OfferingsService.java 159 2007-03-02 22:42:21Z cynick $
+ * @version $Id$
  */
 public interface OfferingsService {
 

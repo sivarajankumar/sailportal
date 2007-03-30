@@ -36,8 +36,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id: HttpRestSdsWorkgroupDaoTest.java 200 2007-03-21 16:19:16Z
- *          cynick $
+ * @version $Id$
  * 
  */
 public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {

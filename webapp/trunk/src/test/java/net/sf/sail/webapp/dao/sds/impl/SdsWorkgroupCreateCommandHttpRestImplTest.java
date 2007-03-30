@@ -25,8 +25,7 @@ import org.easymock.EasyMock;
 /**
  * @author Cynick Young
  * 
- * @version $Id: SdsWorkgroupCreateCommandHttpRestImplTest.java 153 2007-02-23
- *          19:19:37Z cynick $
+ * @version $Id$
  * 
  */
 public class SdsWorkgroupCreateCommandHttpRestImplTest extends AbstractSdsCreateCommandHttpRestImplTest {

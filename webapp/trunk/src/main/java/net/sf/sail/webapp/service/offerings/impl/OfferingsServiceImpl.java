@@ -28,7 +28,7 @@ import org.springframework.beans.factory.annotation.Required;
 /**
  * @author Laurel Williams
  * 
- * @version $Id:OfferingsServiceImpl.java 159 2007-03-02 22:42:21Z cynick $
+ * @version $Id$
  */
 public class OfferingsServiceImpl implements OfferingsService {
 

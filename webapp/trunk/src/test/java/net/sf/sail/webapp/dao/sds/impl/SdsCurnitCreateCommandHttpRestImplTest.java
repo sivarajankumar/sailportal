@@ -25,8 +25,7 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id: SdsCurnitCreateCommandHttpRestImplTest.java 200 2007-03-21
- *          16:19:16Z cynick $
+ * @version $Id$
  * 
  */
 public class SdsCurnitCreateCommandHttpRestImplTest extends

@@ -22,7 +22,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public final class HibernateFlusher extends HibernateDaoSupport {

@@ -22,7 +22,7 @@ package net.sf.sail.webapp.spring;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public interface SpringConfiguration {

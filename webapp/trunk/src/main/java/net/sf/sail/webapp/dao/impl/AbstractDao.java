@@ -22,7 +22,7 @@ import net.sf.sail.webapp.dao.SimpleDao;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public abstract class AbstractDao<T> implements SimpleDao<T> {

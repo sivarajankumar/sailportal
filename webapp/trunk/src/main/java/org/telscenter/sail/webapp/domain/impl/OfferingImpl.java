@@ -42,7 +42,7 @@ import org.telscenter.sail.webapp.domain.Offering;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
  */
 @Entity
 @Table(name = OfferingImpl.DATA_STORE_NAME)

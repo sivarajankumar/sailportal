@@ -24,7 +24,7 @@ import org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public abstract class AbstractSpringTests extends

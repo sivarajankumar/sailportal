@@ -34,8 +34,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author Cynick Young
  * @author Laurel Williams
  * 
- * @version $Id: HibernateUserDetailsDaoTest.java 103 2007-01-26 20:48:33Z
- *          laurel $
+ * @version $Id$
  * 
  */
 public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {

@@ -11,7 +11,7 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public interface UserService {

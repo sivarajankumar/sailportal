@@ -34,7 +34,7 @@ import org.springframework.web.servlet.view.RedirectView;
  *
  * @author Hiroki Terashima
  *
- * @version $Id: $
+ * @version $Id$
  *
  */
 public class RegisterStudentController extends AbstractController {

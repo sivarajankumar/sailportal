@@ -26,7 +26,7 @@ import net.sf.sail.webapp.domain.webservice.BadRequestException;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HttpPostRequestTest extends TestCase {

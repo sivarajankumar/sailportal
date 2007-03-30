@@ -35,8 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @author Laurel Williams
  * 
- * @version $Id: OfferingsListControllerTest.java 131 2007-02-08 16:55:57Z
- *          laurel $
+ * @version $Id$
  */
 public class OfferingsListControllerTest extends AbstractModelAndViewTests {
 

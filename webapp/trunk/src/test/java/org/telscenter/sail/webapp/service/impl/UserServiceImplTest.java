@@ -40,7 +40,7 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
  * 
  * @author Hiroki Terashima
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class UserServiceImplTest extends AbstractTransactionalDbTests {

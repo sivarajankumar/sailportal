@@ -29,7 +29,7 @@ import net.sf.sail.webapp.spring.SpringConfiguration;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public final class SpringConfigurationImpl implements SpringConfiguration {

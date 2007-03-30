@@ -31,7 +31,7 @@ import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class DbSchemaExporter {

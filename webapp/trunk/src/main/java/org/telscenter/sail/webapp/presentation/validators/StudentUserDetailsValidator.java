@@ -35,7 +35,7 @@ import org.springframework.validation.Validator;
  *
  * @author Hiroki Terashima
  *
- * @version $Id: $
+ * @version $Id$
  *
  */
 public class StudentUserDetailsValidator extends UserDetailsValidator implements Validator {

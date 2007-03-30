@@ -1,6 +1,6 @@
 package net.sf.sail.webapp.mail;
 
-/*
+/**
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
@@ -21,6 +21,11 @@ package net.sf.sail.webapp.mail;
  * SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @author tony
+ * @version $Id$
  */
 public interface IMailFacade {
 

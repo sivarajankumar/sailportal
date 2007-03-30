@@ -28,7 +28,7 @@ import org.acegisecurity.userdetails.UserDetails;
  * @author Cynick Young
  * @author Laurel Williams
  * 
- * @version $Id:MutableUserDetails.java 159 2007-03-02 22:42:21Z cynick $
+ * @version $Id$
  * @see org.acegisecurity.userdetails.UserDetails
  * 
  */

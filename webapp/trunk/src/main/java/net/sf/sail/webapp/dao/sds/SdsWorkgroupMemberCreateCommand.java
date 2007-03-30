@@ -26,7 +26,7 @@ import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
  * 
  * @author hiroki
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public interface SdsWorkgroupMemberCreateCommand extends

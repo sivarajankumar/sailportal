@@ -23,7 +23,7 @@ package net.sf.sail.webapp.service.authentication;
  * 
  * @author Laurel Williams
  * 
- * @version $Id:AuthorityNotFoundException.java 159 2007-03-02 22:42:21Z cynick $
+ * @version $Id$
  */
 public class AuthorityNotFoundException extends Exception {
 

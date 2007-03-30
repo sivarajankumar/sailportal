@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @author Laurel Williams
  * 
- * @version $Id:LoginControllerTest.java 159 2007-03-02 22:42:21Z cynick $
+ * @version $Id$
  */
 public class LoginControllerTest extends AbstractModelAndViewTests {
 

@@ -41,8 +41,7 @@ import org.jdom.xpath.XPath;
  * 
  * @author Cynick Young
  * 
- * @version $Id: SdsOfferingListCommandHttpRestImpl.java 117 2007-02-01
- *          19:59:19Z cynick $
+ * @version $Id$
  * 
  */
 public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand

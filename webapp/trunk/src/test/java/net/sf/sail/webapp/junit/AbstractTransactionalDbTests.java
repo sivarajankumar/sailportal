@@ -29,8 +29,7 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
  * 
  * @author Cynick Young
  * 
- * @version $Id: AbstractTransactionalDbTests.java 11 2006-11-08 19:22:53Z
- *          cynick $
+ * @version $Id$
  * 
  */
 public abstract class AbstractTransactionalDbTests extends

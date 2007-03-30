@@ -31,7 +31,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class CustomDispatcherServlet extends DispatcherServlet {

@@ -26,8 +26,7 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id: SdsOfferingCreateCommandHttpRestImplTest.java 206 2007-03-21
- *          20:03:54Z laurel $
+ * @version $Id$
  * 
  */
 public class SdsOfferingCreateCommandHttpRestImplTest extends

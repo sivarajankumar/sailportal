@@ -24,7 +24,7 @@ import java.io.Serializable;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public interface SdsObject extends Serializable {

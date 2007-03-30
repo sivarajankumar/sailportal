@@ -33,8 +33,7 @@ import org.easymock.EasyMock;
 /**
  * @author Cynick Young
  * 
- * @version $Id: SdsOfferingListCommandHttpRestImplTest.java 121 2007-02-07
- *          15:15:16Z laurel $
+ * @version $Id$
  * 
  */
 public class SdsOfferingListCommandHttpRestImplTest extends AbstractSdsListCommandHttpRestImplTest {

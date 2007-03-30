@@ -33,7 +33,7 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id:OfferingsServiceImplTest.java 159 2007-03-02 22:42:21Z cynick $
+ * @version $Id$
  */
 public class OfferingsServiceImplTest extends TestCase {
 

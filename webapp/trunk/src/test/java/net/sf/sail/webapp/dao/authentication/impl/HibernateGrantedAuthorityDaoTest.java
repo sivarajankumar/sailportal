@@ -29,8 +29,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 /**
  * @author Cynick Young
  * 
- * @version $Id: HibernateGrantedAuthorityDaoTest.java 87 2007-01-25 19:46:04Z
- *          cynick $
+ * @version $Id$
  * 
  */
 public class HibernateGrantedAuthorityDaoTest extends

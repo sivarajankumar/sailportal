@@ -28,7 +28,7 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public abstract class AbstractSpringTests extends

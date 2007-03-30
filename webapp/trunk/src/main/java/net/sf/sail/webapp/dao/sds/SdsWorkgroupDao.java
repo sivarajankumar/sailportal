@@ -25,7 +25,7 @@ import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public interface SdsWorkgroupDao extends SimpleDao<SdsWorkgroup> {

@@ -31,8 +31,7 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Laurel Williams
  * 
- * @version $Id: SdsJnlpCreateCommandHttpRestImpl.java 204 2007-03-21 17:39:14Z
- *          laurel $
+ * @version $Id$
  * 
  */
 public class SdsJnlpCreateCommandHttpRestImpl extends AbstractHttpRestCommand

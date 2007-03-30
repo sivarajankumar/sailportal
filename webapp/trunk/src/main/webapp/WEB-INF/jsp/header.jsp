@@ -16,7 +16,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id:header.jsp 159 2007-03-02 22:42:21Z cynick $ -->
+<!-- $Id$ -->
 
 <div id="logo">
 	<img src="<spring:theme code="logo"/>" alt="<spring:message code="sail.logo.alttext" />" />

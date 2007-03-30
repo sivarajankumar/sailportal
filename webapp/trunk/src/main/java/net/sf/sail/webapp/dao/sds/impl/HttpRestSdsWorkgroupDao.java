@@ -32,7 +32,7 @@ import org.springframework.beans.factory.annotation.Required;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class HttpRestSdsWorkgroupDao extends AbstractDao<SdsWorkgroup>

@@ -32,7 +32,7 @@ import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
  * It is made up of one or more users.
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
  */
 public interface Workgroup extends Serializable {
 

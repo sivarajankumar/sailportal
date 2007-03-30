@@ -20,6 +20,15 @@ package net.sf.sail.webapp.dao.authentication;
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 
+/**
+ * Interface that extends <code>SimpleDao</code> used for
+ * <code>GrantedAuthority</code>.
+ * 
+ * @author Cynick Young
+ * 
+ * @version $Id$
+ * 
+ */
 public interface GrantedAuthorityDao<T extends MutableGrantedAuthority> extends
         SimpleDao<T> {
 

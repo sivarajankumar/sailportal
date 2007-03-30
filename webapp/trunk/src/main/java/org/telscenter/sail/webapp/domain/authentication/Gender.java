@@ -27,7 +27,7 @@ package org.telscenter.sail.webapp.domain.authentication;
  * 
  * @author Hiroki Terashima
  * 
- * @version $Id: $
+ * @version $Id$
  */
 public enum Gender {
 	MALE, FEMALE

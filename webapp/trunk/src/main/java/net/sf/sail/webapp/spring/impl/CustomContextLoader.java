@@ -40,7 +40,7 @@ import org.springframework.web.context.WebApplicationContext;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class CustomContextLoader extends ContextLoader {

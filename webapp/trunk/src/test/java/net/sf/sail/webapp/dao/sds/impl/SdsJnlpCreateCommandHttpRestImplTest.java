@@ -24,8 +24,7 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id: SdsJnlpCreateCommandHttpRestImplTest.java 202 2007-03-21
- *          17:04:30Z laurel $
+ * @version $Id$
  * 
  */
 public class SdsJnlpCreateCommandHttpRestImplTest extends

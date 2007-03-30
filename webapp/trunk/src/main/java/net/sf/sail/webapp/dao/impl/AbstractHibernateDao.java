@@ -24,7 +24,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 /**
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport

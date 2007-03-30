@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 /**
  * @author Cynick Young
  * 
- * @version $Id:LoginController.java 159 2007-03-02 22:42:21Z cynick $
+ * @version $Id$
  * 
  */
 public class LoginController extends AbstractController {

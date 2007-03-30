@@ -27,7 +27,7 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public interface SdsOfferingDao extends SimpleDao<SdsOffering> {

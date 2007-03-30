@@ -31,8 +31,7 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Laurel Williams
  * 
- * @version $Id: SdsOfferingCreateCommandHttpRestImpl.java 209 2007-03-22
- *          13:38:23Z laurel $
+ * @version $Id$
  * 
  */
 public class SdsOfferingCreateCommandHttpRestImpl extends

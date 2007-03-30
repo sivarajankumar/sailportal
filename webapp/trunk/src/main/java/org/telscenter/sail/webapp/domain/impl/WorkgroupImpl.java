@@ -49,7 +49,7 @@ import org.telscenter.sail.webapp.domain.Workgroup;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
  */
 @Entity
 @Table(name = WorkgroupImpl.DATA_STORE_NAME)

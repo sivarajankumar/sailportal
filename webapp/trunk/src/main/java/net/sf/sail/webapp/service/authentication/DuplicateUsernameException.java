@@ -23,7 +23,7 @@ package net.sf.sail.webapp.service.authentication;
  * 
  * @author Laurel Williams
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public class DuplicateUsernameException extends Exception {

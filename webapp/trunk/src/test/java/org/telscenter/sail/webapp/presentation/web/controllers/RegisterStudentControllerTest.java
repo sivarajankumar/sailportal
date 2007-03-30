@@ -36,7 +36,7 @@ import org.springframework.web.servlet.view.RedirectView;
 /**
  * @author Hiroki Terashima
  *
- * @version $Id: $
+ * @version $Id$
  */
 public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 

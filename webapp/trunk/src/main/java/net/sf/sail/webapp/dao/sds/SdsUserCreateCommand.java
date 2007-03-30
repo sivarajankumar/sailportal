@@ -25,7 +25,7 @@ import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
  * 
  * @author Cynick Young
  * 
- * @version $Id: $
+ * @version $Id$
  * 
  */
 public interface SdsUserCreateCommand extends

@@ -37,7 +37,7 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 /**
  * @author Laurel Williams
  * 
- * @version $Id:UserImpl.java 159 2007-03-02 22:42:21Z cynick $
+ * @version $Id$
  */
 @Entity
 @Table(name = UserImpl.DATA_STORE_NAME)

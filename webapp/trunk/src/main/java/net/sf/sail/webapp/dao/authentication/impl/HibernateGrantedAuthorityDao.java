@@ -29,8 +29,7 @@ import org.springframework.dao.support.DataAccessUtils;
  * 
  * @author Cynick Young
  * 
- * @version $Id: HibernateGrantedAuthorityDao.java 11 2006-11-08 19:22:53Z
- *          cynick $
+ * @version $Id$
  * 
  */
 public class HibernateGrantedAuthorityDao extends

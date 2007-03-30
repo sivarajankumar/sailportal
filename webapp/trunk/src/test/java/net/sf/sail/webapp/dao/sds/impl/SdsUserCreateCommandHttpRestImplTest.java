@@ -24,8 +24,7 @@ import org.easymock.EasyMock;
 /**
  * @author Cynick Young
  * 
- * @version $Id: SdsUserCreateCommandHttpRestImplTest.java 61 2006-12-21
- *          17:49:35Z cynick $
+ * @version $Id$
  * 
  */
 public class SdsUserCreateCommandHttpRestImplTest extends

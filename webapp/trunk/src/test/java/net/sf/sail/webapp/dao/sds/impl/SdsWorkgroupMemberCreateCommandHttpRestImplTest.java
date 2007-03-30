@@ -37,6 +37,7 @@ import org.jdom.xpath.XPath;
 
 /**
  * @author Hiroki Terashima
+ * @version $Id$
  * 
  */
 public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {

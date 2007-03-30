@@ -31,8 +31,7 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Cynick Young
  * 
- * @version $Id: SdsUserCreateCommandHttpRestImpl.java 69 2007-01-14 17:30:00Z
- *          cynick $
+ * @version $Id$
  * 
  */
 public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand

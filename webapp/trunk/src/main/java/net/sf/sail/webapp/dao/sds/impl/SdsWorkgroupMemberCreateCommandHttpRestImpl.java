@@ -33,8 +33,7 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Hiroki Terashima
  * 
- * @version $Id: SdsWorkgroupMemberCreateCommandHttpRestImpl.java 204 2007-03-21
- *          17:39:14Z laurel $
+ * @version $Id$
  * 
  */
 public class SdsWorkgroupMemberCreateCommandHttpRestImpl extends
