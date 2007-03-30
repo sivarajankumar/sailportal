@@ -52,266 +52,272 @@ import org.acegisecurity.GrantedAuthority;
  */
 @Entity
 @Table(name = PersistentUserDetails.DATA_STORE_NAME)
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class PersistentUserDetails implements MutableUserDetails {
 
-	@Transient
-	public static final String DATA_STORE_NAME = "user_details";
+    @Transient
+    public static final String DATA_STORE_NAME = "user_details";
 
-	@Transient
-	public static final String GRANTED_AUTHORITY_JOIN_TABLE_NAME = "users_roles";
+    @Transient
+    public static final String GRANTED_AUTHORITY_JOIN_TABLE_NAME = "user_details_related_to_roles";
 
-	@Transient
-	public static final String COLUMN_NAME_USERNAME = "username";
+    @Transient
+    public static final String USER_DETAILS_JOIN_COLUMN_NAME = "user_details_fk";
 
-	@Transient
-	public static final String COLUMN_NAME_PASSWORD = "password";
+    @Transient
+    public static final String GRANTED_AUTHORITY_JOIN_COLUMN_NAME = "granted_authorities_fk";
 
-	@Transient
-	public static final String COLUMN_NAME_EMAIL_ADDRESS = "email_address";
+    @Transient
+    public static final String COLUMN_NAME_USERNAME = "username";
 
-	@Transient
-	private static final long serialVersionUID = 1L;
+    @Transient
+    public static final String COLUMN_NAME_PASSWORD = "password";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id = null;
+    @Transient
+    public static final String COLUMN_NAME_EMAIL_ADDRESS = "email_address";
 
-	@Version
-	@Column(name = "OPTLOCK")
-	private Integer version = null;
+    @Transient
+    private static final long serialVersionUID = 1L;
 
-	// EJB3 spec annotations require the use of a java <code>Collection</code>.
-	// However, Acegi Security deals with an array. There are internal methods
-	// to convert to and from the different data structures.
-	@ManyToMany(targetEntity = net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority.class, fetch = FetchType.EAGER)
-	@JoinTable(name = PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = "user_fk") }, inverseJoinColumns = @JoinColumn(name = "role_fk"))
-	private Set<GrantedAuthority> grantedAuthorities = null;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
 
-	@Column(name = PersistentUserDetails.COLUMN_NAME_PASSWORD, nullable = false)
-	private String password = null;
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version = null;
 
-	@Column(name = PersistentUserDetails.COLUMN_NAME_USERNAME, unique = true, nullable = false)
-	private String username = null;
+    // EJB3 spec annotations require the use of a java <code>Collection</code>.
+    // However, Acegi Security deals with an array. There are internal methods
+    // to convert to and from the different data structures.
+    @ManyToMany(targetEntity = net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority.class, fetch = FetchType.EAGER)
+    @JoinTable(name = PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = USER_DETAILS_JOIN_COLUMN_NAME) }, inverseJoinColumns = @JoinColumn(name = GRANTED_AUTHORITY_JOIN_COLUMN_NAME))
+    private Set<GrantedAuthority> grantedAuthorities = null;
 
-	@Column(name = PersistentUserDetails.COLUMN_NAME_EMAIL_ADDRESS, nullable = true)
-	private String emailAddress = null;
+    @Column(name = PersistentUserDetails.COLUMN_NAME_PASSWORD, nullable = false)
+    private String password = null;
 
-	@Column(name = "account_not_expired", nullable = false)
-	private Boolean accountNonExpired = Boolean.TRUE;
+    @Column(name = PersistentUserDetails.COLUMN_NAME_USERNAME, unique = true, nullable = false)
+    private String username = null;
 
-	@Column(name = "account_not_locked", nullable = false)
-	private Boolean accountNonLocked = Boolean.TRUE;
+    @Column(name = PersistentUserDetails.COLUMN_NAME_EMAIL_ADDRESS, nullable = true)
+    private String emailAddress = null;
 
-	@Column(name = "credentials_not_expired", nullable = false)
-	private Boolean credentialsNonExpired = Boolean.TRUE;
+    @Column(name = "account_not_expired", nullable = false)
+    private Boolean accountNonExpired = Boolean.TRUE;
 
-	@Column(name = "enabled", nullable = false)
-	private Boolean enabled = Boolean.TRUE;
+    @Column(name = "account_not_locked", nullable = false)
+    private Boolean accountNonLocked = Boolean.TRUE;
 
-	@SuppressWarnings("unused")
-	private Long getId() {
-		return id;
-	}
+    @Column(name = "credentials_not_expired", nullable = false)
+    private Boolean credentialsNonExpired = Boolean.TRUE;
 
-	@SuppressWarnings("unused")
-	private void setId(Long id) {
-		this.id = id;
-	}
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled = Boolean.TRUE;
 
-	/**
-	 * @return the version
-	 */
-	@SuppressWarnings("unused")
-	private Integer getVersion() {
-		return version;
-	}
+    @SuppressWarnings("unused")
+    private Long getId() {
+        return id;
+    }
 
-	/**
-	 * @param version
-	 *            the version to set
-	 */
-	@SuppressWarnings("unused")
-	private void setVersion(Integer version) {
-		this.version = version;
-	}
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setPassword(java.lang.String)
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setUsername(java.lang.String)
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    /**
+     * @param version
+     *            the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
+    }
 
-	/**
-	 * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
-	 */
-	@Transient
-	public GrantedAuthority[] getAuthorities() {
-		// Used by Acegi Security. This implements the required method from
-		// Acegi Security. This implementation does not obtain the values
-		// directly
-		// from the data store.
-		return this.getGrantedAuthorities().toArray(new GrantedAuthority[0]);
-	}
+    /**
+     * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setPassword(java.lang.String)
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setAuthorities(org.acegisecurity.GrantedAuthority[])
-	 */
-	@SuppressWarnings("unchecked")
-	public synchronized void setAuthorities(GrantedAuthority[] authorities) {
-		this.setGrantedAuthorities(new HashSet(Arrays.asList(authorities)));
-	}
+    /**
+     * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setUsername(java.lang.String)
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	private Set<GrantedAuthority> getGrantedAuthorities() {
-		/* Used only for persistence */
-		return this.grantedAuthorities;
-	}
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
+     */
+    @Transient
+    public GrantedAuthority[] getAuthorities() {
+        // Used by Acegi Security. This implements the required method from
+        // Acegi Security. This implementation does not obtain the values
+        // directly
+        // from the data store.
+        return this.getGrantedAuthorities().toArray(new GrantedAuthority[0]);
+    }
 
-	@SuppressWarnings("unused")
-	private synchronized void setGrantedAuthorities(
-			Set<GrantedAuthority> grantedAuthorities) {
-		/* Used only for persistence */
-		this.grantedAuthorities = grantedAuthorities;
-	}
+    /**
+     * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setAuthorities(org.acegisecurity.GrantedAuthority[])
+     */
+    @SuppressWarnings("unchecked")
+    public synchronized void setAuthorities(GrantedAuthority[] authorities) {
+        this.setGrantedAuthorities(new HashSet(Arrays.asList(authorities)));
+    }
 
-	/**
-	 * @see org.acegisecurity.userdetails.UserDetails#getPassword()
-	 */
-	public String getPassword() {
-		return this.password;
-	}
+    private Set<GrantedAuthority> getGrantedAuthorities() {
+        /* Used only for persistence */
+        return this.grantedAuthorities;
+    }
 
-	/**
-	 * @see org.acegisecurity.userdetails.UserDetails#getUsername()
-	 */
-	public String getUsername() {
-		return this.username;
-	}
+    @SuppressWarnings("unused")
+    private synchronized void setGrantedAuthorities(
+            Set<GrantedAuthority> grantedAuthorities) {
+        /* Used only for persistence */
+        this.grantedAuthorities = grantedAuthorities;
+    }
 
-	/**
-	 * @see org.acegisecurity.userdetails.UserDetails#isAccountNonExpired()
-	 */
-	public boolean isAccountNonExpired() {
-		return this.accountNonExpired;
-	}
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#getPassword()
+     */
+    public String getPassword() {
+        return this.password;
+    }
 
-	/**
-	 * @see org.acegisecurity.userdetails.UserDetails#isAccountNonLocked()
-	 */
-	public boolean isAccountNonLocked() {
-		return this.accountNonLocked;
-	}
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#getUsername()
+     */
+    public String getUsername() {
+        return this.username;
+    }
 
-	/**
-	 * @see org.acegisecurity.userdetails.UserDetails#isCredentialsNonExpired()
-	 */
-	public boolean isCredentialsNonExpired() {
-		return this.credentialsNonExpired;
-	}
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isAccountNonExpired()
+     */
+    public boolean isAccountNonExpired() {
+        return this.accountNonExpired;
+    }
 
-	/**
-	 * @see org.acegisecurity.userdetails.UserDetails#isEnabled()
-	 */
-	public boolean isEnabled() {
-		return this.enabled;
-	}
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isAccountNonLocked()
+     */
+    public boolean isAccountNonLocked() {
+        return this.accountNonLocked;
+    }
 
-	/**
-	 * @param accountNonExpired
-	 *            the accountNonExpired to set
-	 */
-	@SuppressWarnings("unused")
-	private void setAccountNonExpired(Boolean accountNonExpired) {
-		this.accountNonExpired = accountNonExpired;
-	}
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isCredentialsNonExpired()
+     */
+    public boolean isCredentialsNonExpired() {
+        return this.credentialsNonExpired;
+    }
 
-	/**
-	 * @param accountNonLocked
-	 *            the accountNonLocked to set
-	 */
-	@SuppressWarnings("unused")
-	private void setAccountNonLocked(Boolean accountNonLocked) {
-		this.accountNonLocked = accountNonLocked;
-	}
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isEnabled()
+     */
+    public boolean isEnabled() {
+        return this.enabled;
+    }
 
-	/**
-	 * @param credentialsNonExpired
-	 *            the credentialsNonExpired to set
-	 */
-	@SuppressWarnings("unused")
-	private void setCredentialsNonExpired(Boolean credentialsNonExpired) {
-		this.credentialsNonExpired = credentialsNonExpired;
-	}
+    /**
+     * @param accountNonExpired
+     *            the accountNonExpired to set
+     */
+    @SuppressWarnings("unused")
+    private void setAccountNonExpired(Boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
 
-	/**
-	 * @param enabled
-	 *            the enabled to set
-	 */
-	@SuppressWarnings("unused")
-	private void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
+    /**
+     * @param accountNonLocked
+     *            the accountNonLocked to set
+     */
+    @SuppressWarnings("unused")
+    private void setAccountNonLocked(Boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
 
-	/**
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int PRIME = 31;
-		int result = 1;
-		result = PRIME * result
-				+ ((this.username == null) ? 0 : this.username.hashCode());
-		return result;
-	}
+    /**
+     * @param credentialsNonExpired
+     *            the credentialsNonExpired to set
+     */
+    @SuppressWarnings("unused")
+    private void setCredentialsNonExpired(Boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
 
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final PersistentUserDetails other = (PersistentUserDetails) obj;
-		if (this.username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!this.username.equals(other.username))
-			return false;
-		return true;
-	}
+    /**
+     * @param enabled
+     *            the enabled to set
+     */
+    @SuppressWarnings("unused")
+    private void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#getEmailAddress()
-	 */
-	public String getEmailAddress() {
-		return emailAddress;
-	}
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result
+                + ((this.username == null) ? 0 : this.username.hashCode());
+        return result;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setEmailAddress(java.lang.String)
-	 */
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final PersistentUserDetails other = (PersistentUserDetails) obj;
+        if (this.username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!this.username.equals(other.username))
+            return false;
+        return true;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#addAuthority(org.acegisecurity.GrantedAuthority)
-	 */
-	public synchronized void addAuthority(GrantedAuthority authority) {
-		if (this.grantedAuthorities == null)
-			this.grantedAuthorities = new HashSet<GrantedAuthority>();
-		this.grantedAuthorities.add(authority);
-	}
+    /**
+     * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#getEmailAddress()
+     */
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setEmailAddress(java.lang.String)
+     */
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#addAuthority(org.acegisecurity.GrantedAuthority)
+     */
+    public synchronized void addAuthority(GrantedAuthority authority) {
+        if (this.grantedAuthorities == null)
+            this.grantedAuthorities = new HashSet<GrantedAuthority>();
+        this.grantedAuthorities.add(authority);
+    }
 }

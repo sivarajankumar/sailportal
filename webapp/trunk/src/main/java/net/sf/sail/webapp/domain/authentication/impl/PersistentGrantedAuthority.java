@@ -41,90 +41,89 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 @Table(name = PersistentGrantedAuthority.DATA_STORE_NAME)
 public class PersistentGrantedAuthority implements MutableGrantedAuthority {
 
-  @Transient
-  public static final String DATA_STORE_NAME = "roles";
-  
-  @Transient
-  public static final String COLUMN_NAME_ROLE = "role";
+    @Transient
+    public static final String DATA_STORE_NAME = "granted_authorities";
 
-  @Transient
-  private static final long serialVersionUID = 1L;
+    @Transient
+    public static final String COLUMN_NAME_ROLE = "authority";
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+    @Transient
+    private static final long serialVersionUID = 1L;
 
-  @Version
-  @Column(name = "OPTLOCK")
-  private Integer version;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  @Column(name = PersistentGrantedAuthority.COLUMN_NAME_ROLE, unique = true, nullable = false)
-  private String authority;
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version;
 
-  /**
-   * @see net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority#setAuthority(java.lang.String)
-   */
-  public void setAuthority(String role) {
-    this.authority = role;
-  }
+    @Column(name = PersistentGrantedAuthority.COLUMN_NAME_ROLE, unique = true, nullable = false)
+    private String authority;
 
-  /**
-   * @see org.acegisecurity.GrantedAuthority#getAuthority()
-   */
-  public String getAuthority() {
-    return this.authority;
-  }
-
-  @SuppressWarnings("unused")
-  private Long getId() {
-    return id;
-  }
-
-  @SuppressWarnings("unused")
-  private void setId(Long id) {
-    this.id = id;
-  }
-
-  @SuppressWarnings("unused")
-  private Integer getVersion() {
-    return version;
-  }
-
-  @SuppressWarnings("unused")
-  private void setVersion(Integer version) {
-    this.version = version;
-  }
-
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    final int PRIME = 31;
-    int result = 1;
-    result = PRIME * result
-        + ((this.authority == null) ? 0 : this.authority.hashCode());
-    return result;
-  }
-
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    final PersistentGrantedAuthority other = (PersistentGrantedAuthority) obj;
-    if (this.authority == null) {
-      if (other.authority != null)
-        return false;
+    /**
+     * @see net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority#setAuthority(java.lang.String)
+     */
+    public void setAuthority(String role) {
+        this.authority = role;
     }
-    else if (!this.authority.equals(other.authority))
-      return false;
-    return true;
-  }
+
+    /**
+     * @see org.acegisecurity.GrantedAuthority#getAuthority()
+     */
+    public String getAuthority() {
+        return this.authority;
+    }
+
+    @SuppressWarnings("unused")
+    private Long getId() {
+        return id;
+    }
+
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
+
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result
+                + ((this.authority == null) ? 0 : this.authority.hashCode());
+        return result;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final PersistentGrantedAuthority other = (PersistentGrantedAuthority) obj;
+        if (this.authority == null) {
+            if (other.authority != null)
+                return false;
+        } else if (!this.authority.equals(other.authority))
+            return false;
+        return true;
+    }
 }

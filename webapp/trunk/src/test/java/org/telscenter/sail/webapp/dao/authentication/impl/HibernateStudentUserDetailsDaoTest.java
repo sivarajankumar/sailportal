@@ -44,7 +44,8 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
  * 
  * @author Hiroki Terashima
  * 
- * @version $Id$
+ * @version $Id: HibernateStudentUserDetailsDaoTest.java 230 2007-03-25
+ *          01:10:39Z hiroki $
  */
 public class HibernateStudentUserDetailsDaoTest extends
         AbstractTransactionalDbTests {
@@ -67,11 +68,11 @@ public class HibernateStudentUserDetailsDaoTest extends
 
     private static final String USERNAME_NOT_IN_DB = "blah";
 
-	private static final Gender DEFAULT_GENDER = Gender.MALE;
+    private static final Gender DEFAULT_GENDER = Gender.MALE;
 
-	private static final Date DEFAULT_BIRTHDAY = new Date(123456);
+    private static final Date DEFAULT_BIRTHDAY = new Date(123456);
 
-	private MutableGrantedAuthority role1;
+    private MutableGrantedAuthority role1;
 
     private MutableGrantedAuthority role2;
 
@@ -98,38 +99,38 @@ public class HibernateStudentUserDetailsDaoTest extends
     public void setUserDetailsDao(HibernateUserDetailsDao userDetailsDao) {
         this.userDetailsDao = userDetailsDao;
     }
-    
-	/**
-	 * @param defaultUserDetails
-	 *            the defaultUserDetails to set
-	 */
-	public void setDefaultUserDetails(StudentUserDetails defaultUserDetails) {
-		this.defaultUserDetails = defaultUserDetails;
-	}
-	
-	/**
-	 * @param role3
-	 *            the role3 to set
-	 */
-	public void setRole3(MutableGrantedAuthority role3) {
-		this.role3 = role3;
-	}
 
-	/**
-	 * @param role1
-	 *            the role1 to set
-	 */
-	public void setRole1(MutableGrantedAuthority role1) {
-		this.role1 = role1;
-	}
+    /**
+     * @param defaultUserDetails
+     *            the defaultUserDetails to set
+     */
+    public void setDefaultUserDetails(StudentUserDetails defaultUserDetails) {
+        this.defaultUserDetails = defaultUserDetails;
+    }
 
-	/**
-	 * @param role2
-	 *            the role2 to set
-	 */
-	public void setRole2(MutableGrantedAuthority role2) {
-		this.role2 = role2;
-	}
+    /**
+     * @param role3
+     *            the role3 to set
+     */
+    public void setRole3(MutableGrantedAuthority role3) {
+        this.role3 = role3;
+    }
+
+    /**
+     * @param role1
+     *            the role1 to set
+     */
+    public void setRole1(MutableGrantedAuthority role1) {
+        this.role1 = role1;
+    }
+
+    /**
+     * @param role2
+     *            the role2 to set
+     */
+    public void setRole2(MutableGrantedAuthority role2) {
+        this.role2 = role2;
+    }
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -141,7 +142,7 @@ public class HibernateStudentUserDetailsDaoTest extends
         this.role1.setAuthority(DEFAULT_ROLE_1);
         this.role2.setAuthority(DEFAULT_ROLE_2);
         this.role3.setAuthority(DEFAULT_ROLE_3);
-        
+
         this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
         this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);
         this.defaultUserDetails.setEmailAddress(DEFAULT_EMAIL);
@@ -351,11 +352,12 @@ public class HibernateStudentUserDetailsDaoTest extends
                 + PersistentUserDetails.DATA_STORE_NAME + ".id = "
                 + StudentUserDetails.DATA_STORE_NAME + ".id " + "AND "
                 + StudentUserDetails.DATA_STORE_NAME + ".id = "
-                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME
-                + ".user_fk " + "AND "
+                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME + "."
+                + PersistentUserDetails.USER_DETAILS_JOIN_COLUMN_NAME + " AND "
                 + PersistentGrantedAuthority.DATA_STORE_NAME + ".id = "
-                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME
-                + ".role_fk;", (Object[]) null);
+                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME + "."
+                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_COLUMN_NAME,
+                (Object[]) null);
     }
 
     private List retrieveUsersTableFromDb() {

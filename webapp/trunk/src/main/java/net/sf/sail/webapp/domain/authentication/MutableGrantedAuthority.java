@@ -32,10 +32,10 @@ import org.acegisecurity.GrantedAuthority;
  */
 public interface MutableGrantedAuthority extends GrantedAuthority {
 
-  /**
-   * Sets the name of the role of this authority.
-   * 
-   * @param role
-   */
-  public void setAuthority(String role);
+    /**
+     * Sets the name of the this authority.
+     * 
+     * @param authority
+     */
+    public void setAuthority(String authority);
 }

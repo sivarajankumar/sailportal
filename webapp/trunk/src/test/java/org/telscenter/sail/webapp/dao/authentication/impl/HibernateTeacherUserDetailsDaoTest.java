@@ -42,7 +42,8 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
  * 
  * @author Hiroki Terashima
  * 
- * @version $Id$
+ * @version $Id: HibernateTeacherUserDetailsDaoTest.java 232 2007-03-28
+ *          07:06:14Z hiroki $
  * 
  */
 public class HibernateTeacherUserDetailsDaoTest extends
@@ -65,18 +66,19 @@ public class HibernateTeacherUserDetailsDaoTest extends
     private static final String DEFAULT_LASTNAME = "Terashima";
 
     private static final String DEFAULT_CITY = "Huntington Beach";
-    
+
     private static final String USERNAME_NOT_IN_DB = "blah";
 
-	private static final String DEFAULT_STATE = "CA";
+    private static final String DEFAULT_STATE = "CA";
 
     private static final String DEFAULT_COUNTRY = "U.S.A.";
 
-	private static final String[] DEFAULT_CURRICULUMSUBJECTS = {"Biology", "Chemistry"};
+    private static final String[] DEFAULT_CURRICULUMSUBJECTS = { "Biology",
+            "Chemistry" };
 
-	private static final String DEFAULT_SCHOOLLEVEL = "6-9";
+    private static final String DEFAULT_SCHOOLLEVEL = "6-9";
 
-	private static final String DEFAULT_SCHOOLNAME = "Dwyer Middle School";
+    private static final String DEFAULT_SCHOOLNAME = "Dwyer Middle School";
 
     private MutableGrantedAuthority role1;
 
@@ -105,38 +107,38 @@ public class HibernateTeacherUserDetailsDaoTest extends
     public void setUserDetailsDao(HibernateUserDetailsDao userDetailsDao) {
         this.userDetailsDao = userDetailsDao;
     }
-    
-	/**
-	 * @param defaultUserDetails
-	 *            the defaultUserDetails to set
-	 */
-	public void setDefaultUserDetails(TeacherUserDetails defaultUserDetails) {
-		this.defaultUserDetails = defaultUserDetails;
-	}
-	
-	/**
-	 * @param role3
-	 *            the role3 to set
-	 */
-	public void setRole3(MutableGrantedAuthority role3) {
-		this.role3 = role3;
-	}
 
-	/**
-	 * @param role1
-	 *            the role1 to set
-	 */
-	public void setRole1(MutableGrantedAuthority role1) {
-		this.role1 = role1;
-	}
+    /**
+     * @param defaultUserDetails
+     *            the defaultUserDetails to set
+     */
+    public void setDefaultUserDetails(TeacherUserDetails defaultUserDetails) {
+        this.defaultUserDetails = defaultUserDetails;
+    }
 
-	/**
-	 * @param role2
-	 *            the role2 to set
-	 */
-	public void setRole2(MutableGrantedAuthority role2) {
-		this.role2 = role2;
-	}
+    /**
+     * @param role3
+     *            the role3 to set
+     */
+    public void setRole3(MutableGrantedAuthority role3) {
+        this.role3 = role3;
+    }
+
+    /**
+     * @param role1
+     *            the role1 to set
+     */
+    public void setRole1(MutableGrantedAuthority role1) {
+        this.role1 = role1;
+    }
+
+    /**
+     * @param role2
+     *            the role2 to set
+     */
+    public void setRole2(MutableGrantedAuthority role2) {
+        this.role2 = role2;
+    }
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -159,7 +161,8 @@ public class HibernateTeacherUserDetailsDaoTest extends
         this.defaultUserDetails.setCity(DEFAULT_CITY);
         this.defaultUserDetails.setState(DEFAULT_STATE);
         this.defaultUserDetails.setCountry(DEFAULT_COUNTRY);
-        this.defaultUserDetails.setCurriculumsubjects(DEFAULT_CURRICULUMSUBJECTS);
+        this.defaultUserDetails
+                .setCurriculumsubjects(DEFAULT_CURRICULUMSUBJECTS);
         this.defaultUserDetails.setSchoollevel(DEFAULT_SCHOOLLEVEL);
         this.defaultUserDetails.setSchoolname(DEFAULT_SCHOOLNAME);
     }
@@ -234,16 +237,18 @@ public class HibernateTeacherUserDetailsDaoTest extends
                     .get(TeacherUserDetails.COLUMN_NAME_COUNTRY.toUpperCase());
             assertEquals(DEFAULT_COUNTRY, actualValue);
             actualValue = (String) actualUserDetailsMap
-                    .get(TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL.toUpperCase());
-            assertEquals(DEFAULT_SCHOOLLEVEL, actualValue);   
+                    .get(TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL
+                            .toUpperCase());
+            assertEquals(DEFAULT_SCHOOLLEVEL, actualValue);
             actualValue = (String) actualUserDetailsMap
-                    .get(TeacherUserDetails.COLUMN_NAME_SCHOOLNAME.toUpperCase());
+                    .get(TeacherUserDetails.COLUMN_NAME_SCHOOLNAME
+                            .toUpperCase());
             assertEquals(DEFAULT_SCHOOLNAME, actualValue);
-            
-// TODO: varBinary (JDBC type) -> String [] (Java)           
-//            String[] actualStrings = (String[]) actualUserDetailsMap
-//                    .get(TeacherUserDetails.COLUMN_NAME_CURRICULUMSUBJECTS.toUpperCase());
-//            assertEquals(DEFAULT_CURRICULUMSUBJECTS, actualStrings);
+
+            // TODO: varBinary (JDBC type) -> String [] (Java)
+            // String[] actualStrings = (String[]) actualUserDetailsMap
+            // .get(TeacherUserDetails.COLUMN_NAME_CURRICULUMSUBJECTS.toUpperCase());
+            // assertEquals(DEFAULT_CURRICULUMSUBJECTS, actualStrings);
 
             actualValue = (String) actualUserDetailsMap
                     .get(PersistentGrantedAuthority.COLUMN_NAME_ROLE
@@ -374,11 +379,12 @@ public class HibernateTeacherUserDetailsDaoTest extends
                 + PersistentUserDetails.DATA_STORE_NAME + ".id = "
                 + TeacherUserDetails.DATA_STORE_NAME + ".id " + "AND "
                 + TeacherUserDetails.DATA_STORE_NAME + ".id = "
-                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME
-                + ".user_fk " + "AND "
+                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME + "."
+                + PersistentUserDetails.USER_DETAILS_JOIN_COLUMN_NAME + " AND "
                 + PersistentGrantedAuthority.DATA_STORE_NAME + ".id = "
-                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME
-                + ".role_fk;", (Object[]) null);
+                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME + "."
+                + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_COLUMN_NAME,
+                (Object[]) null);
     }
 
     private List retrieveUsersTableFromDb() {
