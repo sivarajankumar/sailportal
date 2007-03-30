@@ -50,7 +50,7 @@ addEvent(window, 'load', onLoadHandler);
 </div>
 
 <div id="right"><form:form method="post" action="signup.html"
-  commandName="userdetails">
+  commandName="userDetails">
 
   <p><label for="username"><spring:message code="signup.username" /></label>
   <form:input path="username" id="username" /> <form:errors path="username" />
