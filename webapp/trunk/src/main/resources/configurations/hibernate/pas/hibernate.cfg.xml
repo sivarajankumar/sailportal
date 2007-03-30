@@ -17,7 +17,7 @@
     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: $ -->
+<!-- $Id$ -->
 
 <!DOCTYPE hibernate-configuration PUBLIC
     "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
@@ -37,5 +37,9 @@
             class="net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails" />
         <mapping class="net.sf.sail.webapp.domain.sds.SdsUser" />
         <mapping class="net.sf.sail.webapp.domain.impl.UserImpl" />
+        <mapping class="net.sf.sail.webapp.domain.sds.SdsWorkgroup" />
+        <mapping class="net.sf.sail.webapp.domain.sds.SdsOffering" />
+        <mapping class="net.sf.sail.webapp.domain.sds.SdsJnlp" />
+        <mapping class="net.sf.sail.webapp.domain.sds.SdsCurnit" />
     </session-factory>
 </hibernate-configuration>

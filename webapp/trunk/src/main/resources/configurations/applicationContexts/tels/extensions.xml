@@ -17,7 +17,7 @@
     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: $ -->
+<!-- $Id$ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -31,5 +31,18 @@
     <bean id="teacherUserDetails" scope="prototype"
         class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails">
     </bean>
+
+    <bean id="workgroupDao"
+    	class="org.telscenter.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDao">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="workgroup"
+    	class="org.telscenter.sail.webapp.domain.impl.WorkgroupImpl"
+    	scope="prototype" />
+
+    <bean id="offering"
+    	class="org.telscenter.sail.webapp.domain.impl.OfferingImpl"
+    	scope="prototype" />
 
 </beans>

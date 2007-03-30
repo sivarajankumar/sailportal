@@ -29,6 +29,10 @@
             class="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
         <mapping
             class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
-	<mapping class="org.telscenter.sail.webapp.domain.impl.WorkgroupImpl" />
+
+    	<mapping class="org.telscenter.sail.webapp.domain.impl.WorkgroupImpl" /> 
+    	
+    	<mapping class="org.telscenter.sail.webapp.domain.impl.OfferingImpl" /> 
+
     </session-factory>
 </hibernate-configuration>
