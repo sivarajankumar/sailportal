@@ -18,7 +18,7 @@
 
 /**
  * @author Cynick Young
- * @version $Id: $
+ * @version $Id:styles.css 159 2007-03-02 22:42:21Z cynick $
  */
 
 function addEvent(obj, eventType, fn){ 
