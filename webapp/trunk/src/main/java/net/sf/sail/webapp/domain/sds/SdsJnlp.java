@@ -17,6 +17,15 @@
  */
 package net.sf.sail.webapp.domain.sds;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
 /**
  * Represents a jnlp from the Sail Data Service (SDS).
  * 
@@ -24,10 +33,24 @@ package net.sf.sail.webapp.domain.sds;
  * 
  * @version $Id$
  */
+@Entity
+@Table(name = SdsJnlp.DATA_STORE_NAME)
 public class SdsJnlp implements SdsObject {
 
+	@Transient
+	public static final String DATA_STORE_NAME = "sds_jnlps";
+	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
+
+	@Version
+	@Column(name = "OPTLOCK")
+	private Integer version = null;
+	
 	private Integer sdsObjectId = null;
 
 	private String name;
@@ -76,6 +99,40 @@ public class SdsJnlp implements SdsObject {
 	 */
 	public void setSdsObjectId(Integer id) {
 		this.sdsObjectId = id;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	@SuppressWarnings("unused")
+	private Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *          the id to set
+	 */
+	@SuppressWarnings("unused")
+	private void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the version
+	 */
+	@SuppressWarnings("unused")
+	private Integer getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version
+	 *          the version to set
+	 */
+	@SuppressWarnings("unused")
+	private void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	/**
