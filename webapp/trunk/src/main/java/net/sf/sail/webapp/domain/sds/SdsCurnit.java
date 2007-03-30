@@ -39,10 +39,19 @@ public class SdsCurnit implements SdsObject {
 
 	@Transient
 	public static final String DATA_STORE_NAME = "sds_curnits";
+
+	@Transient
+	private static final String COLUMN_NAME_CURNIT_ID = "curnit_id";
+
+	@Transient
+	private static final String COLUMN_NAME_CURNIT_NAME = "name";
 	
 	@Transient
+	private static final String COLUMN_NAME_CURNIT_URL = "url";
+
+	@Transient
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id = null;
@@ -51,10 +60,13 @@ public class SdsCurnit implements SdsObject {
 	@Column(name = "OPTLOCK")
 	private Integer version = null;
 
+	@Column(name = SdsCurnit.COLUMN_NAME_CURNIT_ID, unique = true, nullable = false)
 	private Integer sdsObjectId = null;
 
+	@Column(name = SdsCurnit.COLUMN_NAME_CURNIT_NAME, nullable = false)
 	private String name;
 
+	@Column(name = SdsCurnit.COLUMN_NAME_CURNIT_URL, nullable = false)
 	private String url;
 
 	/**

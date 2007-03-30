@@ -41,6 +41,15 @@ public class SdsJnlp implements SdsObject {
 	public static final String DATA_STORE_NAME = "sds_jnlps";
 	
 	@Transient
+	private static final String COLUMN_NAME_JNLP_ID = "jnlp_id";
+
+	@Transient
+	private static final String COLUMN_NAME_JNLP_NAME = "name";
+
+	@Transient
+	private static final String COLUMN_NAME_JNLP_URL = "url";
+
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -51,10 +60,13 @@ public class SdsJnlp implements SdsObject {
 	@Column(name = "OPTLOCK")
 	private Integer version = null;
 	
+	@Column(name = SdsJnlp.COLUMN_NAME_JNLP_ID, unique = true, nullable = false)
 	private Integer sdsObjectId = null;
 
+	@Column(name = SdsJnlp.COLUMN_NAME_JNLP_NAME, nullable = false)
 	private String name;
 
+	@Column(name = SdsJnlp.COLUMN_NAME_JNLP_URL, nullable = false)
 	private String url;
 
 	/**
