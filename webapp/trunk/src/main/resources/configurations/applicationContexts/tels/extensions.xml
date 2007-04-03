@@ -37,6 +37,11 @@
     	<property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <bean id="offeringDao"
+    	class="org.telscenter.sail.webapp.dao.offering.impl.HibernateOfferingDao">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
     <bean id="workgroup"
     	class="org.telscenter.sail.webapp.domain.impl.WorkgroupImpl"
     	scope="prototype" />
