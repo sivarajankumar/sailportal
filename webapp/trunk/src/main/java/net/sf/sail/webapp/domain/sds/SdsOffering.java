@@ -52,10 +52,10 @@ public class SdsOffering implements SdsObject {
 	public static final String COLUMN_NAME_OFFERING_NAME = "name";
 
 	@Transient
-	private static final String COLUMN_NAME_SDS_CURNIT_FK = "sds_curnit_fk";
+	public static final String COLUMN_NAME_SDS_CURNIT_FK = "sds_curnit_fk";
 	
 	@Transient
-	private static final String COLUMN_NAME_SDS_JNLP_FK = "sds_jnlp_fk";
+	public static final String COLUMN_NAME_SDS_JNLP_FK = "sds_jnlp_fk";
 	
 	@Transient
     private static final long serialVersionUID = 1L;
