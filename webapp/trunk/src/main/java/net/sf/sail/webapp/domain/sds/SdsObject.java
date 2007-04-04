@@ -29,15 +29,15 @@ import java.io.Serializable;
  */
 public interface SdsObject extends Serializable {
 
-  /**
-   * @param id
-   *          the SDS identifier for this object
-   */
-  public void setSdsObjectId(Integer id);
+    /**
+     * @param id
+     *            the SDS identifier for this object
+     */
+    public void setSdsObjectId(Integer id);
 
-  /**
-   * @return <code>Integer</code> that is the SDS identifier for this object
-   *         (i.e. primary key of offering ID).
-   */
-  public Integer getSdsObjectId();
+    /**
+     * @return <code>Integer</code> that is the SDS identifier for this object
+     *         (i.e. primary key of offering ID).
+     */
+    public Integer getSdsObjectId();
 }

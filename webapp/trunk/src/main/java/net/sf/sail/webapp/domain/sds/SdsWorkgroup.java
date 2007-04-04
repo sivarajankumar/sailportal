@@ -42,50 +42,53 @@ import javax.persistence.Version;
  * 
  */
 @Entity
-@Table(name =  SdsWorkgroup.DATA_STORE_NAME)
+@Table(name = SdsWorkgroup.DATA_STORE_NAME)
 public class SdsWorkgroup implements SdsObject {
 
-	@Transient
-	public static final String DATA_STORE_NAME = "sds_workgroups";
+    @Transient
+    public static final String DATA_STORE_NAME = "sds_workgroups";
 
-	@Transient
-	public static final String COLUMN_NAME_WORKGROUP_ID  = "workgroup_id";
-	
-	@Transient
-	public static final String COLUMN_NAME_WORKGROUP_NAME = "name";
+    @Transient
+    public static final String COLUMN_NAME_WORKGROUP_ID = "workgroup_id";
 
-	@Transient
-	public static final String COLUMN_NAME_SDS_OFFERING_FK = "sds_offering_fk";
-	
-	@Transient
-	public static final String SDS_USERS_JOIN_TABLE_NAME = "sds_workgroups_sds_users";
-	
-	@Transient
+    @Transient
+    public static final String COLUMN_NAME_WORKGROUP_NAME = "name";
+
+    @Transient
+    public static final String COLUMN_NAME_SDS_OFFERING_FK = "sds_offering_fk";
+
+    @Transient
+    public static final String SDS_USERS_JOIN_TABLE_NAME = "sds_workgroups_related_to_sds_users";
+
+    @Transient
+    public static final String SDS_WORKGROUP_JOIN_COLUMN_NAME = "sds_workgroup_fk";
+
+    @Transient
+    public static final String SDS_USER_JOIN_COLUMN_NAME = "sds_user_fk";
+
+    @Transient
     private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id = null;
-	
-	@Version
-	@Column(name = "OPTLOCK")
-	private Integer version = null;
-	
-	@Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_ID, unique = true, nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
+
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version = null;
+
+    @Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_ID, unique = true, nullable = false)
     private Integer sdsObjectId;
 
-	@Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME, nullable = false)
+    @Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME, nullable = false)
     private String name;
-	
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = SdsOffering.class)
-	@JoinColumn(name = SdsWorkgroup.COLUMN_NAME_SDS_OFFERING_FK, nullable = false)
+
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsOffering.class)
+    @JoinColumn(name = SdsWorkgroup.COLUMN_NAME_SDS_OFFERING_FK, nullable = false)
     private SdsOffering sdsOffering;
 
-	// EJB3 spec annotations require the use of a java <code>Collection</code>.
-	// However, Acegi Security deals with an array. There are internal methods
-	// to convert to and from the different data structures.
-	@ManyToMany(targetEntity = SdsUser.class, fetch = FetchType.EAGER)
-	@JoinTable(name = SdsWorkgroup.SDS_USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = "sds_workgroup_fk") }, inverseJoinColumns = @JoinColumn(name = "sds_user_fk"))
+    @ManyToMany(targetEntity = SdsUser.class, fetch = FetchType.EAGER)
+    @JoinTable(name = SdsWorkgroup.SDS_USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = SDS_WORKGROUP_JOIN_COLUMN_NAME) }, inverseJoinColumns = @JoinColumn(name = SDS_USER_JOIN_COLUMN_NAME))
     private Set<SdsUser> members = new HashSet<SdsUser>();
 
     /**
@@ -162,16 +165,16 @@ public class SdsWorkgroup implements SdsObject {
      */
     @SuppressWarnings("unused")
     private Long getId() {
-      return id;
+        return id;
     }
 
     /**
      * @param id
-     *          the id to set
+     *            the id to set
      */
     @SuppressWarnings("unused")
     private void setId(Long id) {
-      this.id = id;
+        this.id = id;
     }
 
     /**
@@ -179,18 +182,18 @@ public class SdsWorkgroup implements SdsObject {
      */
     @SuppressWarnings("unused")
     private Integer getVersion() {
-      return version;
+        return version;
     }
 
     /**
      * @param version
-     *          the version to set
+     *            the version to set
      */
     @SuppressWarnings("unused")
     private void setVersion(Integer version) {
-      this.version = version;
+        this.version = version;
     }
-    
+
     /**
      * @see java.lang.Object#hashCode()
      */

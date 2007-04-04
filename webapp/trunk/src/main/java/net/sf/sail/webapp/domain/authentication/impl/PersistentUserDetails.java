@@ -163,8 +163,7 @@ public class PersistentUserDetails implements MutableUserDetails {
     public GrantedAuthority[] getAuthorities() {
         // Used by Acegi Security. This implements the required method from
         // Acegi Security. This implementation does not obtain the values
-        // directly
-        // from the data store.
+        // directly from the data store.
         return this.getGrantedAuthorities().toArray(new GrantedAuthority[0]);
     }
 
