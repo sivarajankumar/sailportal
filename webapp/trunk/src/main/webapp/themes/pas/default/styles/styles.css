@@ -18,34 +18,34 @@
  * $Id$
  */
 body {
-  background-color: pink;
+    background-color: pink;
 }
 
 table {
-  border-width: 1px 1px 1px 1px;
-  border-spacing: 2px;
-  border-style: outset outset outset outset;
-  border-color: gray gray gray gray;
-  border-collapse: separate;
+    border-width: 1px 1px 1px 1px;
+    border-spacing: 2px;
+    border-style: outset outset outset outset;
+    border-color: gray gray gray gray;
+    border-collapse: separate;
 }
 
 table th {
-  border-width: 1px 1px 1px 1px;
-  padding: 1px 1px 1px 1px;
-  border-style: inset inset inset inset;
-  border-color: gray gray gray gray;
-  -moz-border-radius: 0px 0px 0px 0px;
+    border-width: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-style: inset inset inset inset;
+    border-color: gray gray gray gray;
+    -moz-border-radius: 0px 0px 0px 0px;
 }
 
 table td {
-  border-width: 1px 1px 1px 1px;
-  padding: 1px 1px 1px 1px;
-  border-style: inset inset inset inset;
-  border-color: gray gray gray gray;
-  -moz-border-radius: 0px 0px 0px 0px;
+    border-width: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-style: inset inset inset inset;
+    border-color: gray gray gray gray;
+    -moz-border-radius: 0px 0px 0px 0px;
 }
 
 div {
-  background-color: pink;
-  color: blue;
+    background-color: pink;
+    color: blue;
 }

@@ -41,7 +41,7 @@
     <!-- Specifies where theme properties are located -->
     <bean id="themeSource"
         class="org.springframework.ui.context.support.ResourceBundleThemeSource">
-        <property name="basenamePrefix" value="themes/" />
+        <property name="basenamePrefix" value="themes/pas/" />
     </bean>
 
     <!-- JSP with optional JSTL views -->
@@ -77,7 +77,7 @@
         class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
             <list>
-                <value>messages/ui-html</value>
+                <value>messages/pas/ui-html</value>
             </list>
         </property>
     </bean>

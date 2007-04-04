@@ -24,6 +24,12 @@
     xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
+    <!-- Specifies where theme properties are located -->
+    <bean id="themeSource"
+        class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+        <property name="basenamePrefix" value="themes/tels/" />
+    </bean>
+
     <!-- JSP with optional JSTL views -->
     <bean id="viewResolver"
         class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -31,6 +37,16 @@
             value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/jsp/tels/" />
         <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- Localizable messages -->
+    <bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages/tels/ui-html</value>
+            </list>
+        </property>
     </bean>
 
 </beans>
