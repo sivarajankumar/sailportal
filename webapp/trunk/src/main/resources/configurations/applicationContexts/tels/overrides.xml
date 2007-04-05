@@ -40,4 +40,25 @@
         </property>
     </bean>
 
+    <bean id="filterInvocationInterceptor"
+    	class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+    	<property name="authenticationManager"
+    		ref="authenticationManager" />
+    	<property name="accessDecisionManager"
+    		ref="accessDecisionManager" />
+    	<property name="objectDefinitionSource">
+    		<value>
+    			CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+    			PATTERN_TYPE_APACHE_ANT
+    			/index.html=ROLE_ANONYMOUS,ROLE_USER
+    			/index.jsp=ROLE_ANONYMOUS,ROLE_USER
+    			/login.html=ROLE_ANONYMOUS,ROLE_USER
+    			/signup.html=ROLE_ANONYMOUS,ROLE_USER
+    			/register*.html=ROLE_ANONYMOUS,ROLE_USER
+    			/test.html=ROLE_ANONYMOUS,ROLE_USER
+    			/*.html=ROLE_USER
+    		</value>
+    	</property>
+    </bean>
+
 </beans>
