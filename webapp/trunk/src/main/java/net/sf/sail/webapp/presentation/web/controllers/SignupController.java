@@ -38,7 +38,7 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class SignupController extends SimpleFormController {
 
-  private UserService userService = null;
+  protected UserService userService = null;
 
   /**
    * On submission of the signup form, a user is created and saved to the data
