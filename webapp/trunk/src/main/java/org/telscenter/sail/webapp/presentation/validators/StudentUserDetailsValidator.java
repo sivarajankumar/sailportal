@@ -50,6 +50,13 @@ public class StudentUserDetailsValidator extends UserDetailsValidator {
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 */
 	public void validate(Object userDetailsIn, Errors errors) {
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
+		"error.password-not-specified");
+		if (errors.getFieldErrorCount("password") > 0) {
+			return;
+		}
+
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstname",
 		"error.firstname-not-specified");
 
@@ -64,11 +71,6 @@ public class StudentUserDetailsValidator extends UserDetailsValidator {
 		"error.birthdate-not-specified");
 		 */
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
-		"error.password-not-specified");
-//		if (errors.getFieldErrorCount("username") > 0) {
-//			return;
-//		}
 		StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
 //		if (!StringUtils.isAlphanumeric(userDetails.getUsername())) {
 //			errors.rejectValue("username", "error.illegal-characters");
