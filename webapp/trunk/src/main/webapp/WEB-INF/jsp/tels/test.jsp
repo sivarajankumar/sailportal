@@ -1,4 +1,3 @@
-<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -19,40 +18,22 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
-<title><spring:message code="application.title" /></title>
+<title>Test</title>
 </head>
 
 <body>
 
-<%@ include file="header.jsp"%>
 
-<h1>Show and Tels</h1>
+<p>HI</p>
 
-<div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
-</div>
-
-<div id="columns">
-<div id="left">
-<h2><spring:message code="welcome" /> <authz:authentication
-    operation="username" /></h2>
-</div>
-
-<div id="right"><a href="signup.html"><spring:message code="sign.up" /></a><br />
-<a href="login.html"><spring:message code="log.in" /></a><br />
-<a href="test.html"><spring:message code="log.in" /></a><br />
-<a href="registerstudent.html"><spring:message code="register.student" /></a><br />
-<a href="registerteacher.html"><spring:message code="register.teacher" /></a><br /></div>
-
-</div>
-
-<%@ include file="footer.jsp"%>
 
 </body>
 </html>
+
+
+
+
