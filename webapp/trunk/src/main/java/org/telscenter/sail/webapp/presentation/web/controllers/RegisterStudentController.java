@@ -22,12 +22,23 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.authentication.Gender;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
+
+import net.sf.sail.webapp.presentation.web.controllers.SignupController;
+import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 /**
  * Student Signup controller for the TELS Portal
@@ -37,31 +48,100 @@ import org.springframework.web.servlet.view.RedirectView;
  * @version $Id$
  *
  */
-public class RegisterStudentController extends AbstractController {
+public class RegisterStudentController extends SignupController {
 
-	private String redirectView;
+	public RegisterStudentController() {
+		setValidateOnBinding(false);
+	}
 	
 	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * On submission of the signup form, a user is created and saved to the data
+	 * store.
+	 * 
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      org.springframework.validation.BindException)
 	 */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		return new ModelAndView(new RedirectView(getRedirectView()));
-	}
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+	throws Exception {
 
-	/**
-	 * @return the redirectView
-	 */
-	public String getRedirectView() {
-		return redirectView;
-	}
+		StudentAccountForm accountForm = (StudentAccountForm) command;
+		StudentUserDetails userDetails = accountForm.getUserDetails();
 
-	/**
-	 * @param redirectView the redirectView to set
-	 */
-	public void setRedirectView(String redirectView) {
-		this.redirectView = redirectView;
+		if (accountForm.isNewAccount()) {
+			String firstname        = userDetails.getFirstname();
+			String lastnameInitial  = userDetails.getLastname().substring(0, 1);
+
+			Date defaultBirthday = new Date();  
+			defaultBirthday.setMonth(6);              // TODO: use Calendar instead of java.util.Date
+			defaultBirthday.setDate(19);
+			userDetails.setBirthday(defaultBirthday); // TODO: don't hard-code this. get it from form
+			
+			Calendar birthday       = Calendar.getInstance();
+			birthday.setTime(userDetails.getBirthday());
+			int birthmonth          = birthday.get(Calendar.MONTH);
+			int birthdate           = birthday.get(Calendar.DATE);
+			int index               = 0;  // extra at end to ensure username uniqueness
+			String[] suffixes       = {"", "a", "b", "c", "d", "e", "f", "g", "h",
+					                  "i", "j", "k", "l", "m", "n", "o", "p"};
+
+			for (;;) {   // loop until a unique username can be found
+				userDetails.setUsername(
+						firstname + lastnameInitial +
+						birthmonth + birthdate + suffixes[index]);
+				try {
+					this.userService.createUser(userDetails);
+				}
+				catch (DuplicateUsernameException e) {
+					index++;
+					continue;
+				}
+				if (index >= suffixes.length) {
+					// if suffixes is depleted, show user an error message
+					errors.rejectValue("username", "error.unavailable-username",
+							new Object[] { userDetails.getUsername() }, "Duplicate Username.");
+					return showForm(request, response, errors);
+				}
+				break;
+			}
+		} else {
+			//userService.updateUser(userDetails);    // TODO: add updateUser() to UserService
+		}
+
+		return new ModelAndView(new RedirectView(getSuccessView()));
+	}
+	
+	@Override
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+		return new StudentAccountForm();
+	}
+	
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("genders", Gender.values());
+		return model;
+	}
+	
+	@Override
+	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
+	throws Exception {
+
+		StudentAccountForm accountForm = (StudentAccountForm) command;
+		StudentUserDetails userDetails = accountForm.getUserDetails();
+		errors.setNestedPath("userDetails");
+		getValidator().validate(userDetails, errors);
+		errors.setNestedPath("");
+
+		if (accountForm.isNewAccount()) {
+			if (userDetails.getPassword() == null || userDetails.getPassword().length() < 1 ||
+					!userDetails.getPassword().equals(accountForm.getRepeatedPassword())) {
+				errors.reject("error.passwords-mismatch",
+				"Passwords did not match or were not provided. Matching passwords are required.");
+			}
+		}
 	}
 
 }
