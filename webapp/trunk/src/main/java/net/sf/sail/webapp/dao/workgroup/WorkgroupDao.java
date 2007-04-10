@@ -20,18 +20,16 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.offering.impl;
+package net.sf.sail.webapp.dao.workgroup;
 
-import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.domain.Workgroup;
 
-import org.telscenter.sail.webapp.dao.offering.OfferingDao;
-import org.telscenter.sail.webapp.domain.Offering;
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class HibernateOfferingDao extends AbstractHibernateDao<Offering> implements
-		OfferingDao<Offering> {
+public interface WorkgroupDao<T extends Workgroup> extends SimpleDao<T> {
 
 }

@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.impl;
+package net.sf.sail.webapp.domain.impl;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,9 +36,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
-import org.telscenter.sail.webapp.domain.Offering;
 
 /**
  * @author Hiroki Terashima
@@ -78,7 +78,7 @@ public class OfferingImpl implements Offering {
     }
 
     /**
-     * @see org.telscenter.sail.webapp.domain.Offering#setSdsOffering(net.sf.sail.webapp.domain.sds.SdsOffering)
+     * @see net.sf.sail.webapp.domain.Offering#setSdsOffering(net.sf.sail.webapp.domain.sds.SdsOffering)
      */
     public void setSdsOffering(SdsOffering sdsOffering) {
         this.sdsOffering = sdsOffering;

@@ -20,16 +20,16 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.workgroup;
+package net.sf.sail.webapp.dao.offering;
 
 import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.domain.Offering;
 
-import org.telscenter.sail.webapp.domain.Workgroup;
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
  */
-public interface WorkgroupDao<T extends Workgroup> extends SimpleDao<T> {
+public interface OfferingDao<T extends Offering> extends SimpleDao<T> {
 
 }

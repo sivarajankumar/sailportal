@@ -20,23 +20,18 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.offering.impl;
+package net.sf.sail.webapp.dao.offering.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.dao.offering.OfferingDao;
+import net.sf.sail.webapp.domain.Offering;
+
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class AllTests {
+public class HibernateOfferingDao extends AbstractHibernateDao<Offering> implements
+		OfferingDao<Offering> {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for org.telscenter.sail.webapp.dao.offering.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(HibernateOfferingDaoTest.class);
-        //$JUnit-END$
-        return suite;
-    }
 }

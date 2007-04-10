@@ -20,18 +20,23 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.workgroup.impl;
+package net.sf.sail.webapp.dao.workgroup.impl;
 
-import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
-
-import org.telscenter.sail.webapp.dao.workgroup.WorkgroupDao;
-import org.telscenter.sail.webapp.domain.Workgroup;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class HibernateWorkgroupDao extends AbstractHibernateDao<Workgroup>
-        implements WorkgroupDao<Workgroup> {
+public class AllTests {
 
+    public static Test suite() {
+        TestSuite suite = new TestSuite(
+                "Test for org.telscenter.sail.webapp.dao.workgroup.impl");
+        //$JUnit-BEGIN$
+        suite.addTestSuite(HibernateWorkgroupDaoTest.class);
+        //$JUnit-END$
+        return suite;
+    }
 }

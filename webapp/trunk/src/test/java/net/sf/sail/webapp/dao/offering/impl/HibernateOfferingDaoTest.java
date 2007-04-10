@@ -20,19 +20,20 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.offering.impl;
+package net.sf.sail.webapp.dao.offering.impl;
 
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.offering.impl.HibernateOfferingDao;
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import org.hibernate.Session;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.telscenter.sail.webapp.domain.Offering;
-import org.telscenter.sail.webapp.domain.impl.OfferingImpl;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**

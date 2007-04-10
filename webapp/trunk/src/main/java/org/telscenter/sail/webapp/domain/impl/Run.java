@@ -37,12 +37,12 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
 
 /**
- * WISE "run" domain object
- *  A WISE run is an offering with more information, such as
- *  starttime, stoptime, creator, runcode
- *
+ * WISE "run" domain object A WISE run is an offering with more information,
+ * such as starttime, stoptime, creator, runcode
+ * 
  * @author Hiroki Terashima
  * @version $Id$
  */
@@ -50,132 +50,136 @@ import net.sf.sail.webapp.domain.User;
 @Table(name = Run.DATA_STORE_NAME)
 public class Run extends OfferingImpl {
 
-	@Transient
-	public static final String DATA_STORE_NAME = "runs";
+    @Transient
+    public static final String DATA_STORE_NAME = "runs";
 
-	@Transient
-	public static final String COLUMN_NAME_COLUMN_NAME_RUN_CREATOR_FK = "run_creator_fk";
+    @Transient
+    public static final String COLUMN_NAME_COLUMN_NAME_RUN_CREATOR_FK = "run_creator_fk";
 
-	@Transient
-	public static final String COLUMN_NAME_STARTTIME = "start_time";
-	
-	@Transient
-	public static final String COLUMN_NAME_ENDTIME = "end_time";	
+    @Transient
+    public static final String COLUMN_NAME_STARTTIME = "start_time";
 
-	@Transient
-	public static final String COLUMN_NAME_RUN_CODE = "run_code";	
-	
-	@Transient
-	public static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id = null;
-	
-	@Version
-	@Column(name = "OPTLOCK")
-	private Integer version = null;
+    @Transient
+    public static final String COLUMN_NAME_ENDTIME = "end_time";
 
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = User.class)
-	@JoinColumn(name = Run.COLUMN_NAME_COLUMN_NAME_RUN_CREATOR_FK, nullable = false)
-	private User creator;
-	
-	@Column(name = Run.COLUMN_NAME_STARTTIME, nullable = false)
-	private Date starttime;
+    @Transient
+    public static final String COLUMN_NAME_RUN_CODE = "run_code";
 
-	@Column(name = Run.COLUMN_NAME_ENDTIME, nullable = false)
-	private Date endtime;
+    @Transient
+    public static final long serialVersionUID = 1L;
 
-	@Column(name = Run.COLUMN_NAME_RUN_CODE, nullable = false, unique = true)
-	private String runcode;
-	
-	/**
-	 * @return the creator
-	 */
-	public User getCreator() {
-		return creator;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
 
-	/**
-	 * @param creator the creator to set
-	 */
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version = null;
 
-	/**
-	 * @return the endtime
-	 */
-	public Date getEndtime() {
-		return endtime;
-	}
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = User.class)
+    @JoinColumn(name = Run.COLUMN_NAME_COLUMN_NAME_RUN_CREATOR_FK, nullable = false)
+    private User creator;
 
-	/**
-	 * @param endtime the endtime to set
-	 */
-	public void setEndtime(Date endtime) {
-		this.endtime = endtime;
-	}
+    @Column(name = Run.COLUMN_NAME_STARTTIME, nullable = false)
+    private Date starttime;
 
-	/**
-	 * @return the starttime
-	 */
-	public Date getStarttime() {
-		return starttime;
-	}
+    @Column(name = Run.COLUMN_NAME_ENDTIME, nullable = false)
+    private Date endtime;
 
-	/**
-	 * @param starttime the starttime to set
-	 */
-	public void setStarttime(Date starttime) {
-		this.starttime = starttime;
-	}
+    @Column(name = Run.COLUMN_NAME_RUN_CODE, nullable = false, unique = true)
+    private String runcode;
 
-	/**
-	 * @return the runcode
-	 */
-	public String getRuncode() {
-		return runcode;
-	}
+    /**
+     * @return the creator
+     */
+    public User getCreator() {
+        return creator;
+    }
 
-	/**
-	 * @param runcode the runcode to set
-	 */
-	public void setRuncode(String runcode) {
-		this.runcode = runcode;
-	}
+    /**
+     * @param creator
+     *            the creator to set
+     */
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 
-	/**
-	 * @return the id
-	 */
-	@SuppressWarnings("unused")
-	private Long getId() {
-		return id;
-	}
+    /**
+     * @return the endtime
+     */
+    public Date getEndtime() {
+        return endtime;
+    }
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	@SuppressWarnings("unused")
-	private void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * @param endtime
+     *            the endtime to set
+     */
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+    }
 
-	/**
-	 * @return the version
-	 */
-	@SuppressWarnings("unused")
-	private Integer getVersion() {
-		return version;
-	}
+    /**
+     * @return the starttime
+     */
+    public Date getStarttime() {
+        return starttime;
+    }
 
-	/**
-	 * @param version
-	 *            the version to set
-	 */
-	@SuppressWarnings("unused")
-	private void setVersion(Integer version) {
-		this.version = version;
-	}
+    /**
+     * @param starttime
+     *            the starttime to set
+     */
+    public void setStarttime(Date starttime) {
+        this.starttime = starttime;
+    }
+
+    /**
+     * @return the runcode
+     */
+    public String getRuncode() {
+        return runcode;
+    }
+
+    /**
+     * @param runcode
+     *            the runcode to set
+     */
+    public void setRuncode(String runcode) {
+        this.runcode = runcode;
+    }
+
+    /**
+     * @return the id
+     */
+    @SuppressWarnings("unused")
+    private Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version
+     *            the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
+    }
 }

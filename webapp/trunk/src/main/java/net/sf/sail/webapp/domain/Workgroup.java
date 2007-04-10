@@ -20,32 +20,63 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain;
+package net.sf.sail.webapp.domain;
 
 import java.io.Serializable;
+import java.util.Set;
 
-import net.sf.sail.webapp.domain.sds.SdsOffering;
+import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 /**
- * Offering domain object interface
+ * Workgroup is an aggregation of users that work on the same offering. It is
+ * made up of one or more users.
  * 
  * @author Hiroki Terashima
  * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
  */
-public interface Offering extends Serializable {
+public interface Workgroup extends Serializable {
 
     /**
-     * Sets the SdsOffering object.
+     * Sets the SdsWorkgroup object.
      * 
-     * @param sdsOffering
-     *            the sdsOffering to set
+     * @param sdsWorkgroup
+     *            the sdsWorkgroup to set
      */
-    public void setSdsOffering(SdsOffering sdsOffering);
+    public void setSdsWorkgroup(SdsWorkgroup sdsWorkgroup);
 
     /**
-     * Gets the SdsOffering object.
+     * Gets the SdsWorkgroup object.
      * 
-     * @return SdsOffering
+     * @return SdsWorkgroup
      */
-    public SdsOffering getSdsOffering();
+    public SdsWorkgroup getSdsWorkgroup();
+
+    /**
+     * @return the members
+     */
+    public Set<User> getMembers();
+
+    /**
+     * @param members
+     *            the members to set
+     */
+    public void setMembers(Set<User> members);
+
+    /**
+     * @param member
+     *            the member to add
+     */
+    public void addMemeber(User member);
+
+    /**
+     * @return the offering
+     */
+    public Offering getOffering();
+
+    /**
+     * @param offering
+     *            the offering to set
+     */
+    public void setOffering(Offering offering);
+
 }

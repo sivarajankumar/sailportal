@@ -20,23 +20,32 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.workgroup.impl;
+package net.sf.sail.webapp.domain;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.io.Serializable;
+
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
+ * Offering domain object interface
+ * 
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
  */
-public class AllTests {
+public interface Offering extends Serializable {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for org.telscenter.sail.webapp.dao.workgroup.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(HibernateWorkgroupDaoTest.class);
-        //$JUnit-END$
-        return suite;
-    }
+    /**
+     * Sets the SdsOffering object.
+     * 
+     * @param sdsOffering
+     *            the sdsOffering to set
+     */
+    public void setSdsOffering(SdsOffering sdsOffering);
+
+    /**
+     * Gets the SdsOffering object.
+     * 
+     * @return SdsOffering
+     */
+    public SdsOffering getSdsOffering();
 }

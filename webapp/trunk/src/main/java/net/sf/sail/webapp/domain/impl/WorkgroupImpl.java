@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.impl;
+package net.sf.sail.webapp.domain.impl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,12 +40,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
-import org.telscenter.sail.webapp.domain.Offering;
-import org.telscenter.sail.webapp.domain.Workgroup;
 
 /**
  * @author Hiroki Terashima
@@ -97,49 +96,49 @@ public class WorkgroupImpl implements Workgroup {
     private Set<User> members = new HashSet<User>();
 
     /**
-     * @see org.telscenter.sail.webapp.domain.Workgroup#setSdsWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
+     * @see net.sf.sail.webapp.domain.Workgroup#setSdsWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
      */
     public void setSdsWorkgroup(SdsWorkgroup sdsWorkgroup) {
         this.sdsWorkgroup = sdsWorkgroup;
     }
 
     /**
-     * @see org.telscenter.sail.webapp.domain.Workgroup#getSdsWorkgroup()
+     * @see net.sf.sail.webapp.domain.Workgroup#getSdsWorkgroup()
      */
     public SdsWorkgroup getSdsWorkgroup() {
         return sdsWorkgroup;
     }
 
     /**
-     * @see org.telscenter.sail.webapp.domain.Workgroup#getMembers()
+     * @see net.sf.sail.webapp.domain.Workgroup#getMembers()
      */
     public Set<User> getMembers() {
         return members;
     }
 
     /**
-     * @see org.telscenter.sail.webapp.domain.Workgroup#addMemeber(net.sf.sail.webapp.domain.User)
+     * @see net.sf.sail.webapp.domain.Workgroup#addMemeber(net.sf.sail.webapp.domain.User)
      */
     public void addMemeber(User member) {
         this.members.add(member);
     }
 
     /**
-     * @see org.telscenter.sail.webapp.domain.Workgroup#setMembers(java.util.Set)
+     * @see net.sf.sail.webapp.domain.Workgroup#setMembers(java.util.Set)
      */
     public void setMembers(Set<User> members) {
         this.members = members;
     }
 
     /**
-     * @see org.telscenter.sail.webapp.domain.Workgroup#getOffering()
+     * @see net.sf.sail.webapp.domain.Workgroup#getOffering()
      */
     public Offering getOffering() {
         return offering;
     }
 
     /**
-     * @see org.telscenter.sail.webapp.domain.Workgroup#setOffering(org.telscenter.sail.webapp.domain.Offering)
+     * @see net.sf.sail.webapp.domain.Workgroup#setOffering(net.sf.sail.webapp.domain.Offering)
      */
     public void setOffering(Offering offering) {
         this.offering = offering;

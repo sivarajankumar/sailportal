@@ -119,4 +119,20 @@
     <bean id="sdsJnlp" class="net.sf.sail.webapp.domain.sds.SdsJnlp"
         scope="prototype" />
 
+    <bean id="workgroupDao"
+        class="net.sf.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="offeringDao"
+        class="net.sf.sail.webapp.dao.offering.impl.HibernateOfferingDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="workgroup" class="net.sf.sail.webapp.domain.impl.WorkgroupImpl"
+        scope="prototype" />
+
+    <bean id="offering" class="net.sf.sail.webapp.domain.impl.OfferingImpl"
+        scope="prototype" />
+
 </beans>
