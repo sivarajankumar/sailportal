@@ -25,9 +25,9 @@ package org.telscenter.sail.webapp.domain;
 import java.io.Serializable;
 
 /**
- * A Grouping is an aggregation of users.
- * A Grouping consists of zero or more users. 
- *
+ * A Grouping is an aggregation of users. A Grouping consists of zero or more
+ * users.
+ * 
  * @author Hiroki Terashima
  * @version $Id$
  */

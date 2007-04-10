@@ -31,4 +31,4 @@ import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 public interface SdsOfferingListCommand extends
         SdsCommand<Set<SdsOffering>, HttpGetRequest> {
 
- }
+}

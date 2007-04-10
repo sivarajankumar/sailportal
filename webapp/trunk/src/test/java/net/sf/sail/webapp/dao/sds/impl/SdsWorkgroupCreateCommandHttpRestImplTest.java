@@ -25,17 +25,21 @@ import org.easymock.EasyMock;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: SdsWorkgroupCreateCommandHttpRestImplTest.java 257 2007-03-30
+ *          14:59:02Z cynick $
  * 
  */
-public class SdsWorkgroupCreateCommandHttpRestImplTest extends AbstractSdsCreateCommandHttpRestImplTest {
+public class SdsWorkgroupCreateCommandHttpRestImplTest extends
+        AbstractSdsCreateCommandHttpRestImplTest {
+
+    private static final Long DEFAULT_ID = new Long(12);
 
     private static final String WORKGROUP_DIRECTORY = "workgroup/";
 
     private static final String SOME_NAME = "pineapples";
 
     private SdsWorkgroupCreateCommandHttpRestImpl command = null;
-    
+
     private SdsWorkgroup expectedSdsWorkgroup;
 
     /**
@@ -44,19 +48,20 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends AbstractSdsCreate
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         expectedSdsWorkgroup = new SdsWorkgroup();
         expectedSdsWorkgroup.setName(SOME_NAME);
         SdsOffering existingOffering = new SdsOffering();
         Integer existingOfferingId = new Integer(42);
+        existingOffering.setId(DEFAULT_ID);
         existingOffering.setSdsObjectId(existingOfferingId);
         expectedSdsWorkgroup.setSdsOffering(existingOffering);
- 
+
         this.createCommand = new SdsWorkgroupCreateCommandHttpRestImpl();
-		command = ((SdsWorkgroupCreateCommandHttpRestImpl) (this.createCommand));
-		command.setTransport(this.mockTransport);
-		command.setWorkgroup(this.expectedSdsWorkgroup);
-		this.httpRequest = command.generateRequest();
+        command = ((SdsWorkgroupCreateCommandHttpRestImpl) (this.createCommand));
+        command.setTransport(this.mockTransport);
+        command.setWorkgroup(this.expectedSdsWorkgroup);
+        this.httpRequest = command.generateRequest();
     }
 
     /**
@@ -68,10 +73,11 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends AbstractSdsCreate
         this.command = null;
         this.expectedSdsWorkgroup = null;
     }
-    
-	public void testExecute() throws Exception {
-		assertEquals(this.expectedSdsWorkgroup, (SdsWorkgroup) doExecuteTest(WORKGROUP_DIRECTORY));
-		EasyMock.verify(this.mockTransport);
-	}
+
+    public void testExecute() throws Exception {
+        assertEquals(this.expectedSdsWorkgroup,
+                (SdsWorkgroup) doExecuteTest(WORKGROUP_DIRECTORY));
+        EasyMock.verify(this.mockTransport);
+    }
 
 }

@@ -20,7 +20,6 @@ package net.sf.sail.webapp.domain.sds;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -83,12 +82,12 @@ public class SdsWorkgroup implements SdsObject {
     @Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME, nullable = false)
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsOffering.class)
+    @OneToOne(targetEntity = SdsOffering.class)
     @JoinColumn(name = SdsWorkgroup.COLUMN_NAME_SDS_OFFERING_FK, nullable = false)
     private SdsOffering sdsOffering;
 
-    @ManyToMany(targetEntity = SdsUser.class, fetch = FetchType.EAGER)
-    @JoinTable(name = SdsWorkgroup.SDS_USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = SDS_WORKGROUP_JOIN_COLUMN_NAME) }, inverseJoinColumns = @JoinColumn(name = SDS_USER_JOIN_COLUMN_NAME))
+    @ManyToMany(targetEntity = SdsUser.class, fetch = FetchType.LAZY)
+    @JoinTable(name = SdsWorkgroup.SDS_USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = SDS_WORKGROUP_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SDS_USER_JOIN_COLUMN_NAME, nullable = false))
     private Set<SdsUser> members = new HashSet<SdsUser>();
 
     /**
@@ -132,6 +131,9 @@ public class SdsWorkgroup implements SdsObject {
      *            the sdsOffering to set
      */
     public void setSdsOffering(SdsOffering sdsOffering) {
+        if (sdsOffering.getSdsObjectId() == null || sdsOffering.getId() == null) {
+            throw new IllegalArgumentException("SdsOffering is invalid");
+        }
         this.sdsOffering = sdsOffering;
     }
 

@@ -33,72 +33,77 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: AbstractSdsCreateCommandHttpRestImplTest.java 220 2007-03-23
+ *          15:11:02Z laurel $
  */
 public abstract class AbstractSdsCreateCommandHttpRestImplTest extends TestCase {
 
-	static final String HEADER_LOCATION = "Location";
+    static final String HEADER_LOCATION = "Location";
 
-	static final String PORTAL_URL = "http://portal/url/";
+    static final String PORTAL_URL = "http://portal/url/";
 
-	static final Integer EXPECTED_ID = new Integer(1);
+    static final Integer EXPECTED_ID = new Integer(1);
 
-	protected HttpRestTransport mockTransport;
-	protected HttpPostRequest httpRequest;
-	protected SdsCommand createCommand;
+    protected HttpRestTransport mockTransport;
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
-	}
+    protected HttpPostRequest httpRequest;
 
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		this.mockTransport = null;
-		this.createCommand = null;
-		this.httpRequest = null;
-	}
-	@SuppressWarnings("unchecked")
-	public void testExecute_Exception() throws Exception {
-		EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
-				new BadRequestException("exception"));
-		EasyMock.replay(this.mockTransport);
-		try {
-			this.createCommand.execute(this.httpRequest);
-			fail("Expected BadRequestException");
-		} catch (BadRequestException e) {
-		}
-		EasyMock.verify(this.mockTransport);
+    protected SdsCommand createCommand;
 
-		EasyMock.reset(this.mockTransport);
-		EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
-				new NetworkTransportException("exception"));
-		EasyMock.replay(this.mockTransport);
-		try {
-			this.createCommand.execute(this.httpRequest);
-			fail("Expected NetworkTransportException");
-		} catch (NetworkTransportException e) {
-		}
-		EasyMock.verify(this.mockTransport);
-	}
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
+    }
 
-	@SuppressWarnings("unchecked")
-	protected SdsObject doExecuteTest(String directory) {
-		Map<String, String> responseMap = new HashMap<String, String>();
-		responseMap.put(HEADER_LOCATION, PORTAL_URL + directory + EXPECTED_ID);
-		EasyMock.expect(this.mockTransport.post(this.httpRequest)).andReturn(
-				responseMap);
-		EasyMock.replay(this.mockTransport);
-		SdsObject actual = (SdsObject) this.createCommand.execute(this.httpRequest);
-		return actual;
-	}
-	
+    /**
+     * @see junit.framework.TestCase#tearDown()
+     */
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        this.mockTransport = null;
+        this.createCommand = null;
+        this.httpRequest = null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void testExecute_Exception() throws Exception {
+        EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
+                new BadRequestException("exception"));
+        EasyMock.replay(this.mockTransport);
+        try {
+            this.createCommand.execute(this.httpRequest);
+            fail("Expected BadRequestException");
+        } catch (BadRequestException e) {
+        }
+        EasyMock.verify(this.mockTransport);
+
+        EasyMock.reset(this.mockTransport);
+        EasyMock.expect(this.mockTransport.post(this.httpRequest)).andThrow(
+                new NetworkTransportException("exception"));
+        EasyMock.replay(this.mockTransport);
+        try {
+            this.createCommand.execute(this.httpRequest);
+            fail("Expected NetworkTransportException");
+        } catch (NetworkTransportException e) {
+        }
+        EasyMock.verify(this.mockTransport);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected SdsObject doExecuteTest(String directory) {
+        Map<String, String> responseMap = new HashMap<String, String>();
+        responseMap.put(HEADER_LOCATION, PORTAL_URL + directory + EXPECTED_ID);
+        EasyMock.expect(this.mockTransport.post(this.httpRequest)).andReturn(
+                responseMap);
+        EasyMock.replay(this.mockTransport);
+        SdsObject actual = (SdsObject) this.createCommand
+                .execute(this.httpRequest);
+        return actual;
+    }
+
 }

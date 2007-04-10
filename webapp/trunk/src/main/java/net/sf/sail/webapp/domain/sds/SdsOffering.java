@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.domain.sds;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -70,11 +69,11 @@ public class SdsOffering implements SdsObject {
     @Column(name = SdsOffering.COLUMN_NAME_OFFERING_NAME, nullable = false)
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsCurnit.class)
+    @OneToOne(targetEntity = SdsCurnit.class)
     @JoinColumn(name = SdsOffering.COLUMN_NAME_SDS_CURNIT_FK, nullable = false)
     private SdsCurnit curnit;
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsJnlp.class)
+    @OneToOne(targetEntity = SdsJnlp.class)
     @JoinColumn(name = SdsOffering.COLUMN_NAME_SDS_JNLP_FK, nullable = false)
     private SdsJnlp jnlp;
 
@@ -106,8 +105,7 @@ public class SdsOffering implements SdsObject {
     /**
      * @return the id
      */
-    @SuppressWarnings("unused")
-    private Long getId() {
+    Long getId() {
         return id;
     }
 
@@ -115,8 +113,7 @@ public class SdsOffering implements SdsObject {
      * @param id
      *            the id to set
      */
-    @SuppressWarnings("unused")
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -156,6 +153,9 @@ public class SdsOffering implements SdsObject {
      *            the curnit to set
      */
     public void setCurnit(SdsCurnit curnit) {
+        if (curnit.getSdsObjectId() == null || curnit.getId() == null) {
+            throw new IllegalArgumentException("SdsCurnit is invalid");
+        }
         this.curnit = curnit;
     }
 
@@ -171,6 +171,9 @@ public class SdsOffering implements SdsObject {
      *            the jnlp to set
      */
     public void setJnlp(SdsJnlp jnlp) {
+        if (jnlp.getSdsObjectId() == null || jnlp.getId() == null) {
+            throw new IllegalArgumentException("SdsJnlp is invalid");
+        }
         this.jnlp = jnlp;
     }
 

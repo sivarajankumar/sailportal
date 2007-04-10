@@ -55,121 +55,127 @@ import org.telscenter.sail.webapp.domain.Workgroup;
 @Table(name = WorkgroupImpl.DATA_STORE_NAME)
 public class WorkgroupImpl implements Workgroup {
 
-	@Transient
-	public static final String DATA_STORE_NAME = "workgroups";
+    @Transient
+    public static final String DATA_STORE_NAME = "workgroups";
 
-	@Transient
-	public static final String COLUMN_NAME_SDS_WORKGROUP_FK = "sds_workgroup_fk";
+    @Transient
+    public static final String COLUMN_NAME_SDS_WORKGROUP_FK = "sds_workgroup_fk";
 
-	@Transient
-	public static final String COLUMN_NAME_OFFERING_FK = "offering_fk";
-	
-	@Transient
-	public static final String USERS_JOIN_TABLE_NAME = "workgroups_relates_to_users";
-	
-	@Transient
-	public static final String USERS_JOIN_COLUMN_NAME = "user_fk";
+    @Transient
+    public static final String COLUMN_NAME_OFFERING_FK = "offering_fk";
 
-	@Transient
-	public static final String WORKGROUPS_JOIN_COLUMN_NAME = "workgroup_fk";
-	
-	@Transient
-	private static final long serialVersionUID = 1L;
+    @Transient
+    public static final String USERS_JOIN_TABLE_NAME = "workgroups_related_to_users";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id = null;
-	
-	@Version
-	@Column(name = "OPTLOCK")
-	private Integer version = null;
-	
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = SdsWorkgroup.class)
-	@JoinColumn(name = WorkgroupImpl.COLUMN_NAME_SDS_WORKGROUP_FK, nullable = false, unique = true)
-	private SdsWorkgroup sdsWorkgroup;
-	
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = OfferingImpl.class)
-	@JoinColumn(name = WorkgroupImpl.COLUMN_NAME_OFFERING_FK, nullable = false)
-	private Offering offering;
-	
-	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
-	@JoinTable(name = WorkgroupImpl.USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME))
-	private Set<User> members = new HashSet<User>();
-	
-	/**
-	 * @see org.telscenter.sail.webapp.domain.Workgroup#setSdsWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
-	 */
-	public void setSdsWorkgroup(SdsWorkgroup sdsWorkgroup) {
-		this.sdsWorkgroup = sdsWorkgroup;
-	}
-	
-	/**
-	 * @return the sdsWorkgroup
-	 */
-	@SuppressWarnings("unused")
-	private SdsWorkgroup getSdsWorkgroup() {
-		return sdsWorkgroup;
-	}
-	
-	/**
-	 * @return the members
-	 */
-	public Set<User> getMembers() {
-		return members;
-	}
+    @Transient
+    public static final String USERS_JOIN_COLUMN_NAME = "user_fk";
 
-	/**
-	 * @param members the members to set
-	 */
-	public void setMembers(Set<User> members) {
-		this.members = members;
-	}
+    @Transient
+    public static final String WORKGROUPS_JOIN_COLUMN_NAME = "workgroup_fk";
 
-	/**
-	 * @return the offering
-	 */
-	public Offering getOffering() {
-		return offering;
-	}
+    @Transient
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @param offering the offering to set
-	 */
-	public void setOffering(Offering offering) {
-		this.offering = offering;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
 
-	/**
-	 * @return the id
-	 */
-	@SuppressWarnings("unused")
-	private Long getId() {
-		return id;
-	}
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version = null;
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	@SuppressWarnings("unused")
-	private void setId(Long id) {
-		this.id = id;
-	}
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsWorkgroup.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = WorkgroupImpl.COLUMN_NAME_SDS_WORKGROUP_FK, nullable = false, unique = true)
+    private SdsWorkgroup sdsWorkgroup;
 
-	/**
-	 * @return the version
-	 */
-	@SuppressWarnings("unused")
-	private Integer getVersion() {
-		return version;
-	}
+    @OneToOne(targetEntity = OfferingImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = WorkgroupImpl.COLUMN_NAME_OFFERING_FK, nullable = false)
+    private Offering offering;
 
-	/**
-	 * @param version
-	 *            the version to set
-	 */
-	@SuppressWarnings("unused")
-	private void setVersion(Integer version) {
-		this.version = version;
-	}
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
+    @JoinTable(name = WorkgroupImpl.USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
+    private Set<User> members = new HashSet<User>();
+
+    /**
+     * @see org.telscenter.sail.webapp.domain.Workgroup#setSdsWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
+     */
+    public void setSdsWorkgroup(SdsWorkgroup sdsWorkgroup) {
+        this.sdsWorkgroup = sdsWorkgroup;
+    }
+
+    /**
+     * @see org.telscenter.sail.webapp.domain.Workgroup#getSdsWorkgroup()
+     */
+    public SdsWorkgroup getSdsWorkgroup() {
+        return sdsWorkgroup;
+    }
+
+    /**
+     * @see org.telscenter.sail.webapp.domain.Workgroup#getMembers()
+     */
+    public Set<User> getMembers() {
+        return members;
+    }
+
+    /**
+     * @see org.telscenter.sail.webapp.domain.Workgroup#addMemeber(net.sf.sail.webapp.domain.User)
+     */
+    public void addMemeber(User member) {
+        this.members.add(member);
+    }
+
+    /**
+     * @see org.telscenter.sail.webapp.domain.Workgroup#setMembers(java.util.Set)
+     */
+    public void setMembers(Set<User> members) {
+        this.members = members;
+    }
+
+    /**
+     * @see org.telscenter.sail.webapp.domain.Workgroup#getOffering()
+     */
+    public Offering getOffering() {
+        return offering;
+    }
+
+    /**
+     * @see org.telscenter.sail.webapp.domain.Workgroup#setOffering(org.telscenter.sail.webapp.domain.Offering)
+     */
+    public void setOffering(Offering offering) {
+        this.offering = offering;
+    }
+
+    /**
+     * @return the id
+     */
+    @SuppressWarnings("unused")
+    private Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version
+     *            the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
+    }
 }

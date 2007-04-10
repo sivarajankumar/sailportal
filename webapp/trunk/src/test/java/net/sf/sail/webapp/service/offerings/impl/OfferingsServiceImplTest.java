@@ -37,65 +37,69 @@ import org.easymock.EasyMock;
  */
 public class OfferingsServiceImplTest extends TestCase {
 
-	private SdsOfferingDao mockSdsOfferingDao;
+    private static final Long DEFAULT_ID = new Long(12);
 
-	private SdsOffering sdsOffering;
+    private SdsOfferingDao mockSdsOfferingDao;
 
-	private OfferingsServiceImpl offeringServiceImpl;
+    private SdsOffering sdsOffering;
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@SuppressWarnings("unchecked")
-	protected void setUp() throws Exception {
-		super.setUp();
-		this.mockSdsOfferingDao = createMock(SdsOfferingDao.class);
-		this.offeringServiceImpl = new OfferingsServiceImpl();
-		this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
+    private OfferingsServiceImpl offeringServiceImpl;
 
-		this.sdsOffering = new SdsOffering();
-		sdsOffering.setSdsObjectId(3);
-		SdsCurnit curnit = new SdsCurnit();
-		curnit.setSdsObjectId(1);
-		sdsOffering.setCurnit(curnit);
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
+    @SuppressWarnings("unchecked")
+    protected void setUp() throws Exception {
+        super.setUp();
+        this.mockSdsOfferingDao = createMock(SdsOfferingDao.class);
+        this.offeringServiceImpl = new OfferingsServiceImpl();
+        this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
 
-		SdsJnlp jnlp = new SdsJnlp();
-		jnlp.setSdsObjectId(2);
-		sdsOffering.setJnlp(jnlp);
-		sdsOffering.setName("test");
-	}
+        this.sdsOffering = new SdsOffering();
+        sdsOffering.setSdsObjectId(3);
+        SdsCurnit curnit = new SdsCurnit();
+        curnit.setId(DEFAULT_ID);
+        curnit.setSdsObjectId(1);
+        sdsOffering.setCurnit(curnit);
 
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		this.offeringServiceImpl = null;
-		this.mockSdsOfferingDao = null;
-		this.sdsOffering = null;
-	}
+        SdsJnlp jnlp = new SdsJnlp();
+        jnlp.setId(DEFAULT_ID);
+        jnlp.setSdsObjectId(2);
+        sdsOffering.setJnlp(jnlp);
+        sdsOffering.setName("test");
+    }
 
-	public void testGetOfferingsList() throws Exception {
-		Set<SdsOffering> expectedSdsOfferingSet = new HashSet<SdsOffering>();
-		expectedSdsOfferingSet.add(this.sdsOffering);
+    /**
+     * @see junit.framework.TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        this.offeringServiceImpl = null;
+        this.mockSdsOfferingDao = null;
+        this.sdsOffering = null;
+    }
 
-		EasyMock.expect(mockSdsOfferingDao.getList()).andReturn(
-				expectedSdsOfferingSet);
-		EasyMock.replay(mockSdsOfferingDao);
-		assertEquals(expectedSdsOfferingSet, offeringServiceImpl
-				.getOfferingsList());
-		EasyMock.verify(mockSdsOfferingDao);
-	}
+    public void testGetOfferingsList() throws Exception {
+        Set<SdsOffering> expectedSdsOfferingSet = new HashSet<SdsOffering>();
+        expectedSdsOfferingSet.add(this.sdsOffering);
 
-	// tests that the command is delegated to the DAO and that the DAO is called
-	// once
-	public void testCreateOffering() throws Exception {
-		mockSdsOfferingDao.save(this.sdsOffering);
-		EasyMock.expectLastCall();
-		EasyMock.replay(mockSdsOfferingDao);
+        EasyMock.expect(mockSdsOfferingDao.getList()).andReturn(
+                expectedSdsOfferingSet);
+        EasyMock.replay(mockSdsOfferingDao);
+        assertEquals(expectedSdsOfferingSet, offeringServiceImpl
+                .getOfferingsList());
+        EasyMock.verify(mockSdsOfferingDao);
+    }
 
-		offeringServiceImpl.createOffering(this.sdsOffering);
+    // tests that the command is delegated to the DAO and that the DAO is called
+    // once
+    public void testCreateOffering() throws Exception {
+        mockSdsOfferingDao.save(this.sdsOffering);
+        EasyMock.expectLastCall();
+        EasyMock.replay(mockSdsOfferingDao);
 
-		EasyMock.verify(mockSdsOfferingDao);
-	}
+        offeringServiceImpl.createOffering(this.sdsOffering);
+
+        EasyMock.verify(mockSdsOfferingDao);
+    }
 }

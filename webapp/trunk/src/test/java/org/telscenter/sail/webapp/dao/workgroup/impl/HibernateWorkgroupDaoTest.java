@@ -23,10 +23,19 @@
 package org.telscenter.sail.webapp.dao.workgroup.impl;
 
 import java.util.List;
+import java.util.Map;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
+import org.hibernate.Session;
+import org.telscenter.sail.webapp.domain.Offering;
 import org.telscenter.sail.webapp.domain.Workgroup;
 import org.telscenter.sail.webapp.domain.impl.OfferingImpl;
 import org.telscenter.sail.webapp.domain.impl.WorkgroupImpl;
@@ -34,78 +43,281 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
  * Test for HibernateWorkgroupDao
- *
+ * 
  * @author Hiroki Terashima
  * @version $Id$
  */
 public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
 
-    private static final Integer SDS_WORKGROUP_ID = new Integer(42);
+    private static final Integer SDS_ID = new Integer(42);
 
-	private static final String SDS_WORKGROUP_NAME = "the heros";
+    private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
 
-	private static final SdsOffering DEFAULT_SDS_OFFERING = new SdsOffering();
-	
-	private HibernateWorkgroupDao workgroupDao;
-	
-	private SdsWorkgroup sdsWorkgroup;
-	
-	private Workgroup defaultWorkgroup;
+    private static final SdsJnlp DEFAULT_SDS_JNLP = new SdsJnlp();
 
-	/**
-	 * @param workgroupDao
-	 *    the workgroupDao to set
-	 */
-	public void setWorkgroupDao(HibernateWorkgroupDao workgroupDao) {
-		this.workgroupDao = workgroupDao;
-	}
+    private static final String DEFAULT_NAME = "the heros";
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
-	 */
-	@Override
-	protected void onSetUpBeforeTransaction() throws Exception {
-		// TODO: HIROKI initialize necessary domain objects with necessary fields
-		super.onSetUpBeforeTransaction();
-		this.sdsWorkgroup = (SdsWorkgroup) this.applicationContext.getBean("sdsWorkgroup");
-		this.defaultWorkgroup = (Workgroup) this.applicationContext.getBean("workgroup");
-		
-		this.defaultWorkgroup.setSdsWorkgroup(this.sdsWorkgroup);
-		this.sdsWorkgroup.setSdsObjectId(SDS_WORKGROUP_ID);
-		this.sdsWorkgroup.setName(SDS_WORKGROUP_NAME);
-		this.sdsWorkgroup.setSdsOffering(DEFAULT_SDS_OFFERING);
+    private static final String DEFAULT_URL = "http://woohoo";
 
-	}
-	
-	public void testSave() {
-		verifyDataStoreIsEmpty();
-		//this.workgroupDao.save(this.defaultWorkgroup);
-	}
-	
-	public void testDelete() {
-		verifyDataStoreIsEmpty();
-		this.workgroupDao.delete(this.defaultWorkgroup);
-	}
-	
-	private void verifyDataStoreIsEmpty() {
-		assertTrue(retrieveWorkgroupListFromDb().isEmpty());
-	}
+    private HibernateWorkgroupDao workgroupDao;
 
-	private List retrieveWorkgroupListFromDb() {
-		return this.jdbcTemplate.queryForList(
-			"SELECT * FROM " +
-			WorkgroupImpl.DATA_STORE_NAME + ", " +
-			SdsWorkgroup.DATA_STORE_NAME + ", " +
-			OfferingImpl.DATA_STORE_NAME + ", " +
-			WorkgroupImpl.USERS_JOIN_TABLE_NAME + " WHERE " +
-			WorkgroupImpl.DATA_STORE_NAME + "." + 
-			WorkgroupImpl.COLUMN_NAME_SDS_WORKGROUP_FK + " = " +
-			SdsWorkgroup.DATA_STORE_NAME + ".id" + " AND " +
-			WorkgroupImpl.DATA_STORE_NAME + "." +
-			WorkgroupImpl.COLUMN_NAME_OFFERING_FK + " = " +
-			OfferingImpl.DATA_STORE_NAME + ".id" + " AND " +
-			WorkgroupImpl.DATA_STORE_NAME + ".id" + " = " +
-			WorkgroupImpl.USERS_JOIN_TABLE_NAME + "." +
-			WorkgroupImpl.WORKGROUPS_JOIN_COLUMN_NAME, (Object[]) null);
-	}
+    private SdsWorkgroup sdsWorkgroup;
+
+    private Workgroup defaultWorkgroup;
+
+    private SdsOffering defaultSdsOffering;
+
+    private Offering defaultOffering;
+
+    /**
+     * @param workgroupDao
+     *            the workgroupDao to set
+     */
+    public void setWorkgroupDao(HibernateWorkgroupDao workgroupDao) {
+        this.workgroupDao = workgroupDao;
+    }
+
+    /**
+     * @param defaultSdsOffering
+     *            the defaultSdsOffering to set
+     */
+    public void setDefaultSdsOffering(SdsOffering defaultSdsOffering) {
+        this.defaultSdsOffering = defaultSdsOffering;
+    }
+
+    /**
+     * @param defaultOffering
+     *            the defaultOffering to set
+     */
+    public void setDefaultOffering(Offering defaultOffering) {
+        this.defaultOffering = defaultOffering;
+    }
+
+    /**
+     * @param defaultWorkgroup
+     *            the defaultWorkgroup to set
+     */
+    public void setDefaultWorkgroup(Workgroup defaultWorkgroup) {
+        this.defaultWorkgroup = defaultWorkgroup;
+    }
+
+    /**
+     * @param sdsWorkgroup
+     *            the sdsWorkgroup to set
+     */
+    public void setSdsWorkgroup(SdsWorkgroup sdsWorkgroup) {
+        this.sdsWorkgroup = sdsWorkgroup;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
+     */
+    @Override
+    protected void onSetUpBeforeTransaction() throws Exception {
+        super.onSetUpBeforeTransaction();
+        DEFAULT_SDS_CURNIT.setName(DEFAULT_NAME);
+        DEFAULT_SDS_CURNIT.setUrl(DEFAULT_URL);
+        DEFAULT_SDS_CURNIT.setSdsObjectId(SDS_ID);
+
+        DEFAULT_SDS_JNLP.setName(DEFAULT_NAME);
+        DEFAULT_SDS_JNLP.setUrl(DEFAULT_URL);
+        DEFAULT_SDS_JNLP.setSdsObjectId(SDS_ID);
+
+        this.defaultSdsOffering.setName(DEFAULT_NAME);
+        this.defaultSdsOffering.setSdsObjectId(SDS_ID);
+
+        this.sdsWorkgroup.setSdsObjectId(SDS_ID);
+        this.sdsWorkgroup.setName(DEFAULT_NAME);
+        this.defaultWorkgroup.setSdsWorkgroup(this.sdsWorkgroup);
+    }
+
+    /**
+     * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
+     */
+    @Override
+    protected void onSetUpInTransaction() throws Exception {
+        super.onSetUpInTransaction();
+        // an offering needs to exist already before a workgroup can be created
+        Session session = this.sessionFactory.getCurrentSession();
+        session.save(DEFAULT_SDS_CURNIT); // save sds curnit
+        session.save(DEFAULT_SDS_JNLP); // save sds jnlp
+        this.defaultSdsOffering.setCurnit(DEFAULT_SDS_CURNIT);
+        this.defaultSdsOffering.setJnlp(DEFAULT_SDS_JNLP);
+        this.defaultOffering.setSdsOffering(this.defaultSdsOffering);
+        session.save(this.defaultOffering); // save offering
+        this.sdsWorkgroup.setSdsOffering(this.defaultSdsOffering);
+        this.defaultWorkgroup.setOffering(this.defaultOffering);
+    }
+
+    /**
+     * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
+     */
+    @Override
+    protected void onTearDownAfterTransaction() throws Exception {
+        super.onTearDownAfterTransaction();
+        this.defaultOffering = null;
+        this.defaultSdsOffering = null;
+        this.defaultWorkgroup = null;
+        this.sdsWorkgroup = null;
+        this.workgroupDao = null;
+    }
+
+    public void testSave_NoMembers() {
+        verifyDataStoreWorkgroupListIsEmpty();
+        // saving the workgroup should cascade to the sds workgroup object
+        this.workgroupDao.save(this.defaultWorkgroup);
+        List actualList = retrieveWorkgroupListFromDb();
+        assertEquals(1, actualList.size());
+        for (int i = 0; i < actualList.size(); i++) {
+            Map actualWorkgroupMap = (Map) actualList.get(i);
+            // * NOTE* the keys in the map are all in UPPERCASE!
+            String actualValue = (String) actualWorkgroupMap
+                    .get(SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME.toUpperCase());
+            assertEquals(DEFAULT_NAME, actualValue);
+        }
+    }
+
+    public void testSave_OneMember() {
+        verifyDataStoreWorkgroupListIsEmpty();
+        verifyDataStoreWorkgroupMembersListIsEmpty();
+
+        User user = (User) this.applicationContext.getBean("user");
+        SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
+        sdsUser.setFirstName(DEFAULT_NAME);
+        sdsUser.setLastName(DEFAULT_NAME);
+        sdsUser.setSdsObjectId(SDS_ID);
+        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
+                .getBean("mutableUserDetails");
+        final String USERNAME = "username";
+        final String PASSWORD = "password";
+        userDetails.setUsername(USERNAME);
+        userDetails.setPassword(PASSWORD);
+        user.setSdsUser(sdsUser);
+        user.setUserDetails(userDetails);
+        Session session = this.sessionFactory.getCurrentSession();
+        session.save(user);
+
+        this.defaultWorkgroup.addMemeber(user);
+        // saving the workgroup should cascade to the sds workgroup object
+        this.workgroupDao.save(this.defaultWorkgroup);
+        this.toilet.flush();
+        List actualList = retrieveWorkgroupListFromDb();
+        assertEquals(1, actualList.size());
+        for (int i = 0; i < actualList.size(); i++) {
+            Map actualWorkgroupMap = (Map) actualList.get(i);
+            // * NOTE* the keys in the map are all in UPPERCASE!
+            String actualValue = (String) actualWorkgroupMap
+                    .get(SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME.toUpperCase());
+            assertEquals(DEFAULT_NAME, actualValue);
+        }
+
+        actualList = retrieveWorkgroupMembersListFromDb();
+        assertEquals(1, actualList.size());
+    }
+
+    public void testDelete_NoMembers() {
+        verifyDataStoreWorkgroupListIsEmpty();
+        verifyDataStoreWorkgroupMembersListIsEmpty();
+
+        this.workgroupDao.save(this.defaultWorkgroup);
+        List actualList = retrieveWorkgroupListFromDb();
+        assertEquals(1, actualList.size());
+        verifyDataStoreWorkgroupMembersListIsEmpty();
+
+        this.workgroupDao.delete(this.defaultWorkgroup);
+        this.toilet.flush();
+        verifyDataStoreWorkgroupListIsEmpty();
+        verifyDataStoreWorkgroupMembersListIsEmpty();
+    }
+
+    public void testDelete_OneMember() {
+        verifyDataStoreWorkgroupListIsEmpty();
+        verifyDataStoreWorkgroupMembersListIsEmpty();
+
+        User user = createNewUser();
+        this.defaultWorkgroup.addMemeber(user);
+        this.workgroupDao.save(this.defaultWorkgroup);
+        this.toilet.flush();
+        List actualList = retrieveWorkgroupListFromDb();
+        assertEquals(1, actualList.size());
+        actualList = retrieveWorkgroupMembersListFromDb();
+        assertEquals(1, actualList.size());
+
+        this.workgroupDao.delete(this.defaultWorkgroup);
+        this.toilet.flush();
+        verifyDataStoreWorkgroupListIsEmpty();
+        verifyDataStoreWorkgroupMembersListIsEmpty();
+    }
+
+    private User createNewUser() {
+        User user = (User) this.applicationContext.getBean("user");
+        SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
+        sdsUser.setFirstName(DEFAULT_NAME);
+        sdsUser.setLastName(DEFAULT_NAME);
+        sdsUser.setSdsObjectId(SDS_ID);
+        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
+                .getBean("mutableUserDetails");
+        final String USERNAME = "username";
+        final String PASSWORD = "password";
+        userDetails.setUsername(USERNAME);
+        userDetails.setPassword(PASSWORD);
+        user.setSdsUser(sdsUser);
+        user.setUserDetails(userDetails);
+        Session session = this.sessionFactory.getCurrentSession();
+        session.save(user);
+        return user;
+    }
+
+    private void verifyDataStoreWorkgroupMembersListIsEmpty() {
+        assertTrue(retrieveWorkgroupMembersListFromDb().isEmpty());
+    }
+
+    private static final String RETRIEVE_WORKGROUP_MEMBERS_SQL = "SELECT * FROM "
+            + WorkgroupImpl.DATA_STORE_NAME
+            + ", "
+            + WorkgroupImpl.USERS_JOIN_TABLE_NAME
+            + ", "
+            + UserImpl.DATA_STORE_NAME
+            + " WHERE "
+            + WorkgroupImpl.DATA_STORE_NAME
+            + ".id = "
+            + WorkgroupImpl.USERS_JOIN_TABLE_NAME
+            + "."
+            + WorkgroupImpl.WORKGROUPS_JOIN_COLUMN_NAME
+            + " AND "
+            + WorkgroupImpl.USERS_JOIN_TABLE_NAME
+            + "."
+            + WorkgroupImpl.USERS_JOIN_COLUMN_NAME
+            + " = "
+            + UserImpl.DATA_STORE_NAME + ".id";
+
+    private List retrieveWorkgroupMembersListFromDb() {
+        return this.jdbcTemplate.queryForList(RETRIEVE_WORKGROUP_MEMBERS_SQL,
+                (Object[]) null);
+    }
+
+    private void verifyDataStoreWorkgroupListIsEmpty() {
+        assertTrue(retrieveWorkgroupListFromDb().isEmpty());
+    }
+
+    /*
+     * SELECT * FROM workgroups, sds_workgroups, offerings WHERE
+     * workgroups.sds_workgroup_fk = sds_workgroups.id AND
+     * workgroups.offering_fk = offerings.id
+     */
+    private static final String RETRIEVE_WORKGROUP_LIST_SQL = "SELECT * FROM "
+            + WorkgroupImpl.DATA_STORE_NAME + ", "
+            + SdsWorkgroup.DATA_STORE_NAME + ", "
+            + OfferingImpl.DATA_STORE_NAME + " WHERE "
+            + WorkgroupImpl.DATA_STORE_NAME + "."
+            + WorkgroupImpl.COLUMN_NAME_SDS_WORKGROUP_FK + " = "
+            + SdsWorkgroup.DATA_STORE_NAME + ".id" + " AND "
+            + WorkgroupImpl.DATA_STORE_NAME + "."
+            + WorkgroupImpl.COLUMN_NAME_OFFERING_FK + " = "
+            + OfferingImpl.DATA_STORE_NAME + ".id";
+
+    private List retrieveWorkgroupListFromDb() {
+        return this.jdbcTemplate.queryForList(RETRIEVE_WORKGROUP_LIST_SQL,
+                (Object[]) null);
+    }
 }

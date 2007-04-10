@@ -22,9 +22,9 @@
  */
 package org.telscenter.sail.webapp.dao.workgroup;
 
-import org.telscenter.sail.webapp.domain.Workgroup;
-
 import net.sf.sail.webapp.dao.SimpleDao;
+
+import org.telscenter.sail.webapp.domain.Workgroup;
 
 /**
  * @author Hiroki Terashima

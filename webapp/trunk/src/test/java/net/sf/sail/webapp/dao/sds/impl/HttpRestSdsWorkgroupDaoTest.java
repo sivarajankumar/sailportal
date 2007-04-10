@@ -36,12 +36,15 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HttpRestSdsWorkgroupDaoTest.java 257 2007-03-30 14:59:02Z
+ *          cynick $
  * 
  */
 public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
 
     private static final String DEFAULT_NAME = "d fault";
+
+    private static final Long DEFAULT_ID = new Long(12);
 
     private HttpRestSdsWorkgroupDao sdsWorkgroupDao;
 
@@ -50,17 +53,6 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
     private SdsOffering sdsOffering;
 
     private SdsUser sdsUser;
-
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
-     */
-    @Override
-    protected void onSetUp() throws Exception {
-        super.onSetUp();
-        this.sdsWorkgroup.setName(DEFAULT_NAME);
-        this.sdsWorkgroup.setSdsOffering(this.sdsOffering);
-        this.sdsWorkgroup.addMember(this.sdsUser);
-    }
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
@@ -112,21 +104,27 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
      */
     @SuppressWarnings("unchecked")
     public void testSave_NewSdsWorkgroup() throws Exception {
-
         // create curnit in SDS
         SdsCurnit sdsCurnit = new SdsCurnit();
+        sdsCurnit.setId(DEFAULT_ID);
         sdsCurnit.setSdsObjectId(createCurnitInSds());
         this.sdsOffering.setCurnit(sdsCurnit);
 
         // create jnlp in SDS
         SdsJnlp sdsJnlp = new SdsJnlp();
+        sdsJnlp.setId(DEFAULT_ID);
         sdsJnlp.setSdsObjectId(createJnlpInSds());
         this.sdsOffering.setJnlp(sdsJnlp);
 
         // create offering in SDS
         Integer sdsOfferingId = createOfferingInSds(sdsCurnit.getSdsObjectId(),
                 sdsJnlp.getSdsObjectId());
+        this.sdsOffering.setId(DEFAULT_ID);
         this.sdsOffering.setSdsObjectId(sdsOfferingId);
+
+        this.sdsWorkgroup.setName(DEFAULT_NAME);
+        this.sdsWorkgroup.setSdsOffering(this.sdsOffering);
+        this.sdsWorkgroup.addMember(this.sdsUser);
 
         // create user in SDS
         Integer sdsUserId = createUserInSds();
@@ -178,7 +176,7 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
      */
     public void testDelete() {
         try {
-            this.sdsWorkgroupDao.delete(null);
+            this.sdsWorkgroupDao.delete(this.sdsWorkgroup);
             fail("UnsupportedOperationException expected");
         } catch (UnsupportedOperationException expected) {
         }

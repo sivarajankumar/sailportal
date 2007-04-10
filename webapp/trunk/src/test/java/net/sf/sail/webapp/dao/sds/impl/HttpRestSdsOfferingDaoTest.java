@@ -41,139 +41,145 @@ import com.meterware.httpunit.WebResponse;
  */
 public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 
-	private static final String EXPECTED_NAME = "silly";
+    private static final Long DEFAULT_ID = new Long(12);
 
-	private HttpRestSdsOfferingDao sdsOfferingDao;
+    private static final String EXPECTED_NAME = "silly";
 
-	private SdsOffering sdsOffering;
+    private HttpRestSdsOfferingDao sdsOfferingDao;
 
-	public void setSdsOfferingDao(HttpRestSdsOfferingDao sdsOfferingDao) {
-		this.sdsOfferingDao = sdsOfferingDao;
-	}
+    private SdsOffering sdsOffering;
 
-	/**
-	 * @param sdsOffering
-	 *            the sdsOffering to set
-	 */
-	public void setSdsOffering(SdsOffering sdsOffering) {
-		this.sdsOffering = sdsOffering;
-	}
+    public void setSdsOfferingDao(HttpRestSdsOfferingDao sdsOfferingDao) {
+        this.sdsOfferingDao = sdsOfferingDao;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
-	 */
-	@Override
-	protected void onSetUp() throws Exception {
-		super.onSetUp();
-	}
+    /**
+     * @param sdsOffering
+     *            the sdsOffering to set
+     */
+    public void setSdsOffering(SdsOffering sdsOffering) {
+        this.sdsOffering = sdsOffering;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
-	 */
-	@Override
-	protected void onTearDown() throws Exception {
-		super.onTearDown();
-		this.sdsOfferingDao = null;
-		this.sdsOffering = null;
-	}
+    /**
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
+     */
+    @Override
+    protected void onSetUp() throws Exception {
+        super.onSetUp();
+    }
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
-	 */
-	@SuppressWarnings("unchecked")
-	public void testGetList() throws Exception {
-		// To test, we will retrieve the offering list through 2 methods, via
-		// DAO and httpunit. Compare the lists and make sure that they're
-		// equivalent.
-		// *Note* there is a small chance that between the 2 retrievals, a new
-		// offering may be inserted into the SDS and cause this test to break.
-		Set<SdsOffering> actualSet = this.sdsOfferingDao.getList();
+    /**
+     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
+     */
+    @Override
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
+        this.sdsOfferingDao = null;
+        this.sdsOffering = null;
+    }
 
-		WebResponse webResponse = makeHttpRestGetRequest("/offering");
-		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
+     */
+    @SuppressWarnings("unchecked")
+    public void testGetList() throws Exception {
+        // To test, we will retrieve the offering list through 2 methods, via
+        // DAO and httpunit. Compare the lists and make sure that they're
+        // equivalent.
+        // *Note* there is a small chance that between the 2 retrievals, a new
+        // offering may be inserted into the SDS and cause this test to break.
+        Set<SdsOffering> actualSet = this.sdsOfferingDao.getList();
 
-		Document doc = createDocumentFromResponse(webResponse);
+        WebResponse webResponse = makeHttpRestGetRequest("/offering");
+        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-		List<Element> nodeList = XPath.newInstance("/offerings/offering/id")
-				.selectNodes(doc);
-		assertEquals(nodeList.size(), actualSet.size());
-		List<Integer> offeringIdList = new ArrayList<Integer>(nodeList.size());
-		for (Element element : nodeList) {
-			offeringIdList.add(new Integer(element.getText()));
-		}
+        Document doc = createDocumentFromResponse(webResponse);
 
-		assertEquals(offeringIdList.size(), actualSet.size());
-		for (SdsOffering offering : actualSet) {
-			offeringIdList.contains(offering.getSdsObjectId());
-		}
-	}
+        List<Element> nodeList = XPath.newInstance("/offerings/offering/id")
+                .selectNodes(doc);
+        assertEquals(nodeList.size(), actualSet.size());
+        List<Integer> offeringIdList = new ArrayList<Integer>(nodeList.size());
+        for (Element element : nodeList) {
+            offeringIdList.add(new Integer(element.getText()));
+        }
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
-	 */
-	@SuppressWarnings("unchecked")
-	public void testSave_NewOffering() throws Exception {
+        assertEquals(offeringIdList.size(), actualSet.size());
+        for (SdsOffering offering : actualSet) {
+            offeringIdList.contains(offering.getSdsObjectId());
+        }
+    }
 
-		this.sdsOffering.setName(EXPECTED_NAME);
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+     */
+    @SuppressWarnings("unchecked")
+    public void testSave_NewOffering() throws Exception {
 
-		// create curnit in SDS
-		SdsCurnit sdsCurnit = new SdsCurnit();
-		sdsCurnit.setSdsObjectId(createCurnitInSds());
-		this.sdsOffering.setCurnit(sdsCurnit);
+        this.sdsOffering.setName(EXPECTED_NAME);
 
-		// create jnlp in SDS
-		SdsJnlp sdsJnlp = new SdsJnlp();
-		sdsJnlp.setSdsObjectId(createJnlpInSds());
-		this.sdsOffering.setJnlp(sdsJnlp);
+        // create curnit in SDS
+        SdsCurnit sdsCurnit = new SdsCurnit();
+        sdsCurnit.setId(DEFAULT_ID);
+        sdsCurnit.setSdsObjectId(createCurnitInSds());
+        this.sdsOffering.setCurnit(sdsCurnit);
 
-		assertNull(this.sdsOffering.getSdsObjectId());
-		this.sdsOfferingDao.save(this.sdsOffering);
-		assertNotNull(this.sdsOffering.getSdsObjectId());
+        // create jnlp in SDS
+        SdsJnlp sdsJnlp = new SdsJnlp();
+        sdsJnlp.setId(DEFAULT_ID);
+        sdsJnlp.setSdsObjectId(createJnlpInSds());
+        this.sdsOffering.setJnlp(sdsJnlp);
 
-		// retrieve newly created user using httpunit and compare with sdsUser
-		// saved via DAO
-		WebResponse webResponse = makeHttpRestGetRequest("/offering/"
-				+ this.sdsOffering.getSdsObjectId());
-		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+        assertNull(this.sdsOffering.getSdsObjectId());
+        this.sdsOfferingDao.save(this.sdsOffering);
+        assertNotNull(this.sdsOffering.getSdsObjectId());
 
-		Document doc = createDocumentFromResponse(webResponse);
+        // retrieve newly created user using httpunit and compare with sdsUser
+        // saved via DAO
+        WebResponse webResponse = makeHttpRestGetRequest("/offering/"
+                + this.sdsOffering.getSdsObjectId());
+        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-		Element rootElement = doc.getRootElement();
-		SdsOffering actualSdsOffering = new SdsOffering();
-		actualSdsOffering.setName(rootElement.getChild("name").getValue());
-		actualSdsOffering.setSdsObjectId(new Integer(rootElement.getChild("id")
-				.getValue()));
+        Document doc = createDocumentFromResponse(webResponse);
 
-		SdsCurnit actualSdsCurnit = new SdsCurnit();
-		actualSdsCurnit.setSdsObjectId(new Integer(rootElement.getChild(
-				"curnit-id").getValue()));
-		actualSdsOffering.setCurnit(actualSdsCurnit);
-		
-		SdsJnlp actualSdsJnlp = new SdsJnlp();
-		actualSdsJnlp.setSdsObjectId(new Integer(rootElement.getChild("jnlp-id")
-				.getValue()));
-		actualSdsOffering.setJnlp(actualSdsJnlp);
-		
-		assertEquals(this.sdsOffering.getName(), actualSdsOffering.getName());
-		assertEquals(this.sdsOffering.getSdsObjectId(), actualSdsOffering
-				.getSdsObjectId());
-		assertEquals(this.sdsOffering.getCurnit().getSdsObjectId(), actualSdsOffering.getCurnit().getSdsObjectId());
-		assertEquals(this.sdsOffering.getJnlp().getSdsObjectId(), actualSdsOffering.getJnlp().getSdsObjectId());
-		assertEquals(this.sdsOffering, actualSdsOffering);
-	}
+        Element rootElement = doc.getRootElement();
+        SdsOffering actualSdsOffering = new SdsOffering();
+        actualSdsOffering.setName(rootElement.getChild("name").getValue());
+        actualSdsOffering.setSdsObjectId(new Integer(rootElement.getChild("id")
+                .getValue()));
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#delete(net.sf.sail.webapp.domain.sds.SdsOffering)}.
-	 */
-	public void testDelete() {
-		try {
-			this.sdsOfferingDao.delete(null);
-			fail("UnsupportedOperationException expected");
-		} catch (UnsupportedOperationException expected) {
-		}
-	}
+        SdsCurnit actualSdsCurnit = new SdsCurnit();
+        actualSdsCurnit.setSdsObjectId(new Integer(rootElement.getChild(
+                "curnit-id").getValue()));
+        actualSdsOffering.setCurnit(actualSdsCurnit);
+
+        SdsJnlp actualSdsJnlp = new SdsJnlp();
+        actualSdsJnlp.setSdsObjectId(new Integer(rootElement
+                .getChild("jnlp-id").getValue()));
+        actualSdsOffering.setJnlp(actualSdsJnlp);
+
+        assertEquals(this.sdsOffering.getName(), actualSdsOffering.getName());
+        assertEquals(this.sdsOffering.getSdsObjectId(), actualSdsOffering
+                .getSdsObjectId());
+        assertEquals(this.sdsOffering.getCurnit().getSdsObjectId(),
+                actualSdsOffering.getCurnit().getSdsObjectId());
+        assertEquals(this.sdsOffering.getJnlp().getSdsObjectId(),
+                actualSdsOffering.getJnlp().getSdsObjectId());
+        assertEquals(this.sdsOffering, actualSdsOffering);
+    }
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#delete(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+     */
+    public void testDelete() {
+        try {
+            this.sdsOfferingDao.delete(null);
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+    }
 
 }

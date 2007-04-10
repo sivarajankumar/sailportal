@@ -28,17 +28,24 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
  * Offering domain object interface
- *
+ * 
  * @author Hiroki Terashima
  * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
  */
 public interface Offering extends Serializable {
 
-	/**
-	 * Sets the sdsOffering object.
-	 * 
-	 * @param sdsOffering
-	 *            the sdsOffering to set
-	 */
-	public abstract void setSdsOffering(SdsOffering sdsOffering);
+    /**
+     * Sets the SdsOffering object.
+     * 
+     * @param sdsOffering
+     *            the sdsOffering to set
+     */
+    public void setSdsOffering(SdsOffering sdsOffering);
+
+    /**
+     * Gets the SdsOffering object.
+     * 
+     * @return SdsOffering
+     */
+    public SdsOffering getSdsOffering();
 }

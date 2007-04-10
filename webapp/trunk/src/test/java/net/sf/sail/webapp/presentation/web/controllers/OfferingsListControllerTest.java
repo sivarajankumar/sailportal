@@ -35,9 +35,12 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: OfferingsListControllerTest.java 257 2007-03-30 14:59:02Z
+ *          cynick $
  */
 public class OfferingsListControllerTest extends AbstractModelAndViewTests {
+
+    private static final Long DEFAULT_ID = new Long(12);
 
     private OfferingsListController offeringsListController;
 
@@ -59,15 +62,17 @@ public class OfferingsListControllerTest extends AbstractModelAndViewTests {
         this.mockOfferingsService = EasyMock.createMock(OfferingsService.class);
         this.expectedSdsOfferingSet = new HashSet<SdsOffering>();
         SdsOffering offering = new SdsOffering();
-        
+
         SdsCurnit curnit = new SdsCurnit();
+        curnit.setId(DEFAULT_ID);
         curnit.setSdsObjectId(1);
         offering.setCurnit(curnit);
-        
+
         SdsJnlp jnlp = new SdsJnlp();
+        jnlp.setId(DEFAULT_ID);
         jnlp.setSdsObjectId(2);
         offering.setJnlp(jnlp);
-        
+
         offering.setName("test");
         offering.setSdsObjectId(3);
         this.expectedSdsOfferingSet.add(offering);

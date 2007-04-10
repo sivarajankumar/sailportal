@@ -116,8 +116,7 @@ public class SdsCurnit implements SdsObject {
     /**
      * @return the id
      */
-    @SuppressWarnings("unused")
-    private Long getId() {
+    Long getId() {
         return id;
     }
 
@@ -125,8 +124,7 @@ public class SdsCurnit implements SdsObject {
      * @param id
      *            the id to set
      */
-    @SuppressWarnings("unused")
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

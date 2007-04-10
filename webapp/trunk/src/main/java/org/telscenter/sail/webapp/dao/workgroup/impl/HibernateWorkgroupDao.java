@@ -32,6 +32,6 @@ import org.telscenter.sail.webapp.domain.Workgroup;
  * @version $Id$
  */
 public class HibernateWorkgroupDao extends AbstractHibernateDao<Workgroup>
-		implements WorkgroupDao<Workgroup> {
+        implements WorkgroupDao<Workgroup> {
 
 }

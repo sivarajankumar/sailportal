@@ -26,67 +26,72 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: SdsOfferingCreateCommandHttpRestImplTest.java 257 2007-03-30
+ *          14:59:02Z cynick $
  * 
  */
 public class SdsOfferingCreateCommandHttpRestImplTest extends
-		AbstractSdsCreateCommandHttpRestImplTest {
+        AbstractSdsCreateCommandHttpRestImplTest {
 
-	private static final String EXPECTED_NAME = "Blah";
+    private static final Long DEFAULT_ID = new Long(12);
 
-	private static final Integer EXPECTED_CURNIT_ID = new Integer(5);
+    private static final String EXPECTED_NAME = "Blah";
 
-	private static final Integer EXPECTED_JNLP_ID = new Integer(5);
+    private static final Integer EXPECTED_CURNIT_ID = new Integer(5);
 
-	private static final String OFFERING_DIRECTORY = "offering/";
+    private static final Integer EXPECTED_JNLP_ID = new Integer(5);
 
-	private SdsOfferingCreateCommandHttpRestImpl command = null;
+    private static final String OFFERING_DIRECTORY = "offering/";
 
-	private SdsOffering expectedSdsOffering;
+    private SdsOfferingCreateCommandHttpRestImpl command = null;
 
-	private SdsCurnit expectedSdsCurnit;
+    private SdsOffering expectedSdsOffering;
 
-	private SdsJnlp expectedSdsJnlp;
+    private SdsCurnit expectedSdsCurnit;
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		this.expectedSdsOffering = new SdsOffering();
+    private SdsJnlp expectedSdsJnlp;
 
-		this.expectedSdsCurnit = new SdsCurnit();
-		this.expectedSdsCurnit.setSdsObjectId(EXPECTED_CURNIT_ID);
-		this.expectedSdsOffering.setCurnit(this.expectedSdsCurnit);
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        this.expectedSdsOffering = new SdsOffering();
 
-		this.expectedSdsJnlp = new SdsJnlp();
-		this.expectedSdsJnlp.setSdsObjectId(EXPECTED_JNLP_ID);
-		this.expectedSdsOffering.setJnlp(this.expectedSdsJnlp);
+        this.expectedSdsCurnit = new SdsCurnit();
+        this.expectedSdsCurnit.setId(DEFAULT_ID);
+        this.expectedSdsCurnit.setSdsObjectId(EXPECTED_CURNIT_ID);
+        this.expectedSdsOffering.setCurnit(this.expectedSdsCurnit);
 
-		this.expectedSdsOffering.setSdsObjectId(EXPECTED_ID);
-		this.expectedSdsOffering.setName(EXPECTED_NAME);
+        this.expectedSdsJnlp = new SdsJnlp();
+        this.expectedSdsJnlp.setId(DEFAULT_ID);
+        this.expectedSdsJnlp.setSdsObjectId(EXPECTED_JNLP_ID);
+        this.expectedSdsOffering.setJnlp(this.expectedSdsJnlp);
 
-		this.createCommand = new SdsOfferingCreateCommandHttpRestImpl();
-		command = ((SdsOfferingCreateCommandHttpRestImpl) (this.createCommand));
-		command.setTransport(this.mockTransport);
-		command.setSdsOffering(this.expectedSdsOffering);
-		this.httpRequest = command.generateRequest();
-	}
+        this.expectedSdsOffering.setSdsObjectId(EXPECTED_ID);
+        this.expectedSdsOffering.setName(EXPECTED_NAME);
 
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		this.command = null;
-		this.expectedSdsOffering = null;
-	}
+        this.createCommand = new SdsOfferingCreateCommandHttpRestImpl();
+        command = ((SdsOfferingCreateCommandHttpRestImpl) (this.createCommand));
+        command.setTransport(this.mockTransport);
+        command.setSdsOffering(this.expectedSdsOffering);
+        this.httpRequest = command.generateRequest();
+    }
 
-	public void testExecute() throws Exception {
-		assertEquals(this.expectedSdsOffering,
-				(SdsOffering) doExecuteTest(OFFERING_DIRECTORY));
-		EasyMock.verify(this.mockTransport);
-	}
+    /**
+     * @see junit.framework.TestCase#tearDown()
+     */
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        this.command = null;
+        this.expectedSdsOffering = null;
+    }
+
+    public void testExecute() throws Exception {
+        assertEquals(this.expectedSdsOffering,
+                (SdsOffering) doExecuteTest(OFFERING_DIRECTORY));
+        EasyMock.verify(this.mockTransport);
+    }
 }

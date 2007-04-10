@@ -9,7 +9,9 @@ public class AllTests {
 		TestSuite suite = new TestSuite("Test for org.telscenter.sail.webapp");
 		//$JUnit-BEGIN$
 		   suite.addTest(org.telscenter.sail.webapp.dao.authentication.impl.AllTests.suite());
-                   suite.addTest(org.telscenter.sail.webapp.presentation.validators.AllTests.suite());
+           suite.addTest(org.telscenter.sail.webapp.dao.offering.impl.AllTests.suite());
+           suite.addTest(org.telscenter.sail.webapp.dao.workgroup.impl.AllTests.suite());
+           suite.addTest(org.telscenter.sail.webapp.presentation.validators.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.service.impl.AllTests.suite());
 		//$JUnit-END$

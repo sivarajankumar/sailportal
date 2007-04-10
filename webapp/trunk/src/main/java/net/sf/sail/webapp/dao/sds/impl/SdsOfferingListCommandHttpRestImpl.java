@@ -41,13 +41,14 @@ import org.jdom.xpath.XPath;
  * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: SdsOfferingListCommandHttpRestImpl.java 257 2007-03-30
+ *          14:59:02Z cynick $
  * 
  */
 public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
         implements SdsOfferingListCommand {
 
-     private static final Set<SdsOffering> EMPTY_SDSOFFERING_SET = Collections
+    private static final Set<SdsOffering> EMPTY_SDSOFFERING_SET = Collections
             .emptySet();
 
     /**
@@ -78,17 +79,17 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
             sdsOffering.setName(offeringNode.getChild("name").getValue());
             sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild("id")
                     .getValue()));
-                        
+
             SdsCurnit sdsCurnit = new SdsCurnit();
             sdsCurnit.setSdsObjectId(new Integer(offeringNode.getChild(
                     "curnit-id").getValue()));
             sdsOffering.setCurnit(sdsCurnit);
-            
-            SdsJnlp sdsJnlp = new SdsJnlp(); 
+
+            SdsJnlp sdsJnlp = new SdsJnlp();
             sdsJnlp.setSdsObjectId(new Integer(offeringNode.getChild("jnlp-id")
                     .getValue()));
             sdsOffering.setJnlp(sdsJnlp);
-            
+
             sdsOfferingSet.add(sdsOffering);
         }
         return sdsOfferingSet;

@@ -46,76 +46,75 @@ import org.telscenter.sail.webapp.domain.Offering;
  */
 @Entity
 @Table(name = OfferingImpl.DATA_STORE_NAME)
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class OfferingImpl implements Offering {
 
-	@Transient
-	public static final String DATA_STORE_NAME = "offerings";
+    @Transient
+    public static final String DATA_STORE_NAME = "offerings";
 
-	@Transient
-	public static final String COLUMN_NAME_SDS_OFFERING_FK = "sds_offering_fk";
-	
-	@Transient
-	private static final long serialVersionUID = 1L;
+    @Transient
+    public static final String COLUMN_NAME_SDS_OFFERING_FK = "sds_offering_fk";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id = null;
-	
-	@Version
-	@Column(name = "OPTLOCK")
-	private Integer version = null;
-	
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = SdsOffering.class)
-	@JoinColumn(name = OfferingImpl.COLUMN_NAME_SDS_OFFERING_FK, nullable = false, unique = true)
-	private SdsOffering sdsOffering;
+    @Transient
+    private static final long serialVersionUID = 1L;
 
-	
-	/**
-	 * @return the sdsOffering
-	 */
-	public SdsOffering getSdsOffering() {
-		return sdsOffering;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
 
-	/**
-	 * @see org.telscenter.sail.webapp.domain.Offering#setSdsOffering(net.sf.sail.webapp.domain.sds.SdsOffering)
-	 */
-	public void setSdsOffering(SdsOffering sdsOffering) {
-		this.sdsOffering = sdsOffering;
-	}
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version = null;
 
-	/**
-	 * @return the id
-	 */
-	@SuppressWarnings("unused")
-	private Long getId() {
-		return id;
-	}
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsOffering.class)
+    @JoinColumn(name = OfferingImpl.COLUMN_NAME_SDS_OFFERING_FK, nullable = false, unique = true)
+    private SdsOffering sdsOffering;
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	@SuppressWarnings("unused")
-	private void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * @return the sdsOffering
+     */
+    public SdsOffering getSdsOffering() {
+        return sdsOffering;
+    }
 
-	/**
-	 * @return the version
-	 */
-	@SuppressWarnings("unused")
-	private Integer getVersion() {
-		return version;
-	}
+    /**
+     * @see org.telscenter.sail.webapp.domain.Offering#setSdsOffering(net.sf.sail.webapp.domain.sds.SdsOffering)
+     */
+    public void setSdsOffering(SdsOffering sdsOffering) {
+        this.sdsOffering = sdsOffering;
+    }
 
-	/**
-	 * @param version
-	 *            the version to set
-	 */
-	@SuppressWarnings("unused")
-	private void setVersion(Integer version) {
-		this.version = version;
-	}
+    /**
+     * @return the id
+     */
+    @SuppressWarnings("unused")
+    private Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version
+     *            the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
+    }
 }

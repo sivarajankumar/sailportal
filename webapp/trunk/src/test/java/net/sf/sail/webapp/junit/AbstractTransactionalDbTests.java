@@ -29,7 +29,8 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
  * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: AbstractTransactionalDbTests.java 257 2007-03-30 14:59:02Z
+ *          cynick $
  * 
  */
 public abstract class AbstractTransactionalDbTests extends
@@ -37,7 +38,7 @@ public abstract class AbstractTransactionalDbTests extends
 
     private static final SpringConfiguration SPRING_CONFIG = new SpringConfigurationImpl();
 
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     protected HibernateFlusher toilet;
 

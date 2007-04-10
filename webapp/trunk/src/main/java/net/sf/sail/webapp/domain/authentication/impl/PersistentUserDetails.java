@@ -91,7 +91,7 @@ public class PersistentUserDetails implements MutableUserDetails {
     // However, Acegi Security deals with an array. There are internal methods
     // to convert to and from the different data structures.
     @ManyToMany(targetEntity = net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority.class, fetch = FetchType.EAGER)
-    @JoinTable(name = PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = USER_DETAILS_JOIN_COLUMN_NAME) }, inverseJoinColumns = @JoinColumn(name = GRANTED_AUTHORITY_JOIN_COLUMN_NAME))
+    @JoinTable(name = PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = USER_DETAILS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = GRANTED_AUTHORITY_JOIN_COLUMN_NAME, nullable = false))
     private Set<GrantedAuthority> grantedAuthorities = null;
 
     @Column(name = PersistentUserDetails.COLUMN_NAME_PASSWORD, nullable = false)
