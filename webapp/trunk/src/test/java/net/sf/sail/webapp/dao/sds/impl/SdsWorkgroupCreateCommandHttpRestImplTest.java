@@ -32,8 +32,6 @@ import org.easymock.EasyMock;
 public class SdsWorkgroupCreateCommandHttpRestImplTest extends
         AbstractSdsCreateCommandHttpRestImplTest {
 
-    private static final Long DEFAULT_ID = new Long(12);
-
     private static final String WORKGROUP_DIRECTORY = "workgroup/";
 
     private static final String SOME_NAME = "pineapples";
@@ -53,7 +51,6 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends
         expectedSdsWorkgroup.setName(SOME_NAME);
         SdsOffering existingOffering = new SdsOffering();
         Integer existingOfferingId = new Integer(42);
-        existingOffering.setId(DEFAULT_ID);
         existingOffering.setSdsObjectId(existingOfferingId);
         expectedSdsWorkgroup.setSdsOffering(existingOffering);
 

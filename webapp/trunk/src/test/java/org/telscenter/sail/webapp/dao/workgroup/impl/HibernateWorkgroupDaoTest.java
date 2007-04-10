@@ -35,6 +35,7 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 import org.hibernate.Session;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.telscenter.sail.webapp.domain.Offering;
 import org.telscenter.sail.webapp.domain.Workgroup;
 import org.telscenter.sail.webapp.domain.impl.OfferingImpl;
@@ -160,6 +161,25 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         this.defaultWorkgroup = null;
         this.sdsWorkgroup = null;
         this.workgroupDao = null;
+    }
+
+    public void testSave_NonExistentOffering() {
+        SdsOffering nonExistentSdsOffering = (SdsOffering) this.applicationContext
+                .getBean("sdsOffering");
+        nonExistentSdsOffering.setCurnit(DEFAULT_SDS_CURNIT);
+        nonExistentSdsOffering.setJnlp(DEFAULT_SDS_JNLP);
+        nonExistentSdsOffering.setName(DEFAULT_NAME);
+        nonExistentSdsOffering.setSdsObjectId(SDS_ID);
+
+        Offering nonExistentOffering = (Offering) this.applicationContext
+                .getBean("offering");
+        nonExistentOffering.setSdsOffering(nonExistentSdsOffering);
+        this.defaultWorkgroup.setOffering(nonExistentOffering);
+        try {
+            this.workgroupDao.save(this.defaultWorkgroup);
+            fail("DataIntegrityViolationException expected");
+        } catch (DataIntegrityViolationException expected) {
+        }
     }
 
     public void testSave_NoMembers() {

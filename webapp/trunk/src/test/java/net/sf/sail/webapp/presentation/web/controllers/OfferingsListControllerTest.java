@@ -40,8 +40,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class OfferingsListControllerTest extends AbstractModelAndViewTests {
 
-    private static final Long DEFAULT_ID = new Long(12);
-
     private OfferingsListController offeringsListController;
 
     private MockHttpServletRequest request;
@@ -64,12 +62,10 @@ public class OfferingsListControllerTest extends AbstractModelAndViewTests {
         SdsOffering offering = new SdsOffering();
 
         SdsCurnit curnit = new SdsCurnit();
-        curnit.setId(DEFAULT_ID);
         curnit.setSdsObjectId(1);
         offering.setCurnit(curnit);
 
         SdsJnlp jnlp = new SdsJnlp();
-        jnlp.setId(DEFAULT_ID);
         jnlp.setSdsObjectId(2);
         offering.setJnlp(jnlp);
 

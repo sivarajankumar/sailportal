@@ -131,9 +131,6 @@ public class SdsWorkgroup implements SdsObject {
      *            the sdsOffering to set
      */
     public void setSdsOffering(SdsOffering sdsOffering) {
-        if (sdsOffering.getSdsObjectId() == null || sdsOffering.getId() == null) {
-            throw new IllegalArgumentException("SdsOffering is invalid");
-        }
         this.sdsOffering = sdsOffering;
     }
 

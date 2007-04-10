@@ -105,7 +105,8 @@ public class SdsOffering implements SdsObject {
     /**
      * @return the id
      */
-    Long getId() {
+    @SuppressWarnings("unused")
+    private Long getId() {
         return id;
     }
 
@@ -113,7 +114,8 @@ public class SdsOffering implements SdsObject {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -153,9 +155,6 @@ public class SdsOffering implements SdsObject {
      *            the curnit to set
      */
     public void setCurnit(SdsCurnit curnit) {
-        if (curnit.getSdsObjectId() == null || curnit.getId() == null) {
-            throw new IllegalArgumentException("SdsCurnit is invalid");
-        }
         this.curnit = curnit;
     }
 
@@ -171,9 +170,6 @@ public class SdsOffering implements SdsObject {
      *            the jnlp to set
      */
     public void setJnlp(SdsJnlp jnlp) {
-        if (jnlp.getSdsObjectId() == null || jnlp.getId() == null) {
-            throw new IllegalArgumentException("SdsJnlp is invalid");
-        }
         this.jnlp = jnlp;
     }
 

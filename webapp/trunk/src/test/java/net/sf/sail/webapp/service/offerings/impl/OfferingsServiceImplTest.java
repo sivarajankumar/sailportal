@@ -37,8 +37,6 @@ import org.easymock.EasyMock;
  */
 public class OfferingsServiceImplTest extends TestCase {
 
-    private static final Long DEFAULT_ID = new Long(12);
-
     private SdsOfferingDao mockSdsOfferingDao;
 
     private SdsOffering sdsOffering;
@@ -58,12 +56,10 @@ public class OfferingsServiceImplTest extends TestCase {
         this.sdsOffering = new SdsOffering();
         sdsOffering.setSdsObjectId(3);
         SdsCurnit curnit = new SdsCurnit();
-        curnit.setId(DEFAULT_ID);
         curnit.setSdsObjectId(1);
         sdsOffering.setCurnit(curnit);
 
         SdsJnlp jnlp = new SdsJnlp();
-        jnlp.setId(DEFAULT_ID);
         jnlp.setSdsObjectId(2);
         sdsOffering.setJnlp(jnlp);
         sdsOffering.setName("test");

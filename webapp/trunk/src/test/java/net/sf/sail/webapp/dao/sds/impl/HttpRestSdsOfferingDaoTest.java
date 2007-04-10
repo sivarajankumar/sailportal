@@ -41,8 +41,6 @@ import com.meterware.httpunit.WebResponse;
  */
 public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 
-    private static final Long DEFAULT_ID = new Long(12);
-
     private static final String EXPECTED_NAME = "silly";
 
     private HttpRestSdsOfferingDao sdsOfferingDao;
@@ -117,18 +115,16 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
      */
     @SuppressWarnings("unchecked")
     public void testSave_NewOffering() throws Exception {
-
         this.sdsOffering.setName(EXPECTED_NAME);
 
         // create curnit in SDS
-        SdsCurnit sdsCurnit = new SdsCurnit();
-        sdsCurnit.setId(DEFAULT_ID);
+        SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
+                .getBean("sdsCurnit");
         sdsCurnit.setSdsObjectId(createCurnitInSds());
         this.sdsOffering.setCurnit(sdsCurnit);
 
         // create jnlp in SDS
-        SdsJnlp sdsJnlp = new SdsJnlp();
-        sdsJnlp.setId(DEFAULT_ID);
+        SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
         sdsJnlp.setSdsObjectId(createJnlpInSds());
         this.sdsOffering.setJnlp(sdsJnlp);
 

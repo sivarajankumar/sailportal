@@ -33,8 +33,6 @@ import org.easymock.EasyMock;
 public class SdsOfferingCreateCommandHttpRestImplTest extends
         AbstractSdsCreateCommandHttpRestImplTest {
 
-    private static final Long DEFAULT_ID = new Long(12);
-
     private static final String EXPECTED_NAME = "Blah";
 
     private static final Integer EXPECTED_CURNIT_ID = new Integer(5);
@@ -60,12 +58,10 @@ public class SdsOfferingCreateCommandHttpRestImplTest extends
         this.expectedSdsOffering = new SdsOffering();
 
         this.expectedSdsCurnit = new SdsCurnit();
-        this.expectedSdsCurnit.setId(DEFAULT_ID);
         this.expectedSdsCurnit.setSdsObjectId(EXPECTED_CURNIT_ID);
         this.expectedSdsOffering.setCurnit(this.expectedSdsCurnit);
 
         this.expectedSdsJnlp = new SdsJnlp();
-        this.expectedSdsJnlp.setId(DEFAULT_ID);
         this.expectedSdsJnlp.setSdsObjectId(EXPECTED_JNLP_ID);
         this.expectedSdsOffering.setJnlp(this.expectedSdsJnlp);
 

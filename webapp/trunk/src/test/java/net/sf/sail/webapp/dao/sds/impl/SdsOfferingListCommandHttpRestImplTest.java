@@ -40,8 +40,6 @@ import org.easymock.EasyMock;
 public class SdsOfferingListCommandHttpRestImplTest extends
         AbstractSdsListCommandHttpRestImplTest {
 
-    private static final Long DEFAULT_ID = new Long(12);
-
     private SdsOfferingListCommandHttpRestImpl command;
 
     /**
@@ -153,7 +151,6 @@ public class SdsOfferingListCommandHttpRestImplTest extends
         offering.setName(name);
 
         SdsCurnit curnit = new SdsCurnit();
-        curnit.setId(DEFAULT_ID);
         curnit.setSdsObjectId(curnitId);
         offering.setCurnit(curnit);
 

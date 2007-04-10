@@ -30,6 +30,7 @@ import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import org.hibernate.Session;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.telscenter.sail.webapp.domain.Offering;
 import org.telscenter.sail.webapp.domain.impl.OfferingImpl;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
@@ -124,6 +125,42 @@ public class HibernateOfferingDaoTest extends AbstractTransactionalDbTests {
 
         this.sdsOffering.setCurnit(DEFAULT_SDS_CURNIT);
         this.sdsOffering.setJnlp(DEFAULT_SDS_JNLP);
+    }
+
+    public void testSave_NonExistentCurnit() {
+        this.sdsOffering.setJnlp(DEFAULT_SDS_JNLP);
+
+        SdsCurnit nonExistentSdsCurnit = (SdsCurnit) this.applicationContext
+                .getBean("sdsCurnit");
+        nonExistentSdsCurnit.setName(DEFAULT_NAME);
+        nonExistentSdsCurnit.setSdsObjectId(SDS_ID);
+        nonExistentSdsCurnit.setUrl(DEFAULT_URL);
+        this.sdsOffering.setCurnit(nonExistentSdsCurnit);
+
+        this.defaultOffering.setSdsOffering(sdsOffering);
+        try {
+            this.offeringDao.save(this.defaultOffering);
+            fail("DataIntegrityViolationException expected");
+        } catch (DataIntegrityViolationException expected) {
+        }
+    }
+
+    public void testSave_NonExistentJnlp() {
+        this.sdsOffering.setCurnit(DEFAULT_SDS_CURNIT);
+
+        SdsJnlp nonExistentSdsJnlp = (SdsJnlp) this.applicationContext
+                .getBean("sdsJnlp");
+        nonExistentSdsJnlp.setName(DEFAULT_NAME);
+        nonExistentSdsJnlp.setSdsObjectId(SDS_ID);
+        nonExistentSdsJnlp.setUrl(DEFAULT_URL);
+        this.sdsOffering.setJnlp(nonExistentSdsJnlp);
+
+        this.defaultOffering.setSdsOffering(sdsOffering);
+        try {
+            this.offeringDao.save(this.defaultOffering);
+            fail("DataIntegrityViolationException expected");
+        } catch (DataIntegrityViolationException expected) {
+        }
     }
 
     public void testSave() {

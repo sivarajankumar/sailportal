@@ -116,7 +116,8 @@ public class SdsJnlp implements SdsObject {
     /**
      * @return the id
      */
-    Long getId() {
+    @SuppressWarnings("unused")
+    private Long getId() {
         return id;
     }
 
@@ -124,7 +125,8 @@ public class SdsJnlp implements SdsObject {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
         this.id = id;
     }
 
