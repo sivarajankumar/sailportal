@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,7 +31,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
@@ -142,6 +145,15 @@ public class RegisterStudentController extends SignupController {
 				"Passwords did not match or were not provided. Matching passwords are required.");
 			}
 		}
+	}
+	
+	@Override
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception
+	{
+	  //super.initBinder(request, binder);
+	  binder.registerCustomEditor(Date.class,
+	    new CustomDateEditor(new SimpleDateFormat("MM/dd"), false)
+	  );
 	}
 
 }

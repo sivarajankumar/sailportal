@@ -77,6 +77,9 @@ addEvent(window, 'load', onLoadHandler);
   <form:errors path="userDetails.gender" />
   </p>
   
+  <p><label for="birthday"><spring:message code="signup.birthday" /></label>
+  <form:input path="userDetails.birthday" id="birthday"/> <form:errors path="userDetails.birthday" />
+  </p>
 
   <p><label for="password"><spring:message code="signup.password" /></label>
   <form:password path="userDetails.password" id="password"/> <form:errors path="userDetails.password"/>
