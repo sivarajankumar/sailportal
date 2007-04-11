@@ -25,7 +25,6 @@ package net.sf.sail.webapp.dao.workgroup.impl;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -38,10 +37,10 @@ import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
+import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.hibernate.Session;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
  * Test for HibernateWorkgroupDao
