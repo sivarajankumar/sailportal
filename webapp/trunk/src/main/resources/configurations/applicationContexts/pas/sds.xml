@@ -135,4 +135,20 @@
     <bean id="offering" class="net.sf.sail.webapp.domain.impl.OfferingImpl"
         scope="prototype" />
 
+    <bean id="curnitDao"
+        class="net.sf.sail.webapp.dao.curnit.impl.HibernateCurnitDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="curnit" class="net.sf.sail.webapp.domain.impl.CurnitImpl"
+        scope="prototype" />
+
+    <bean id="jnlpDao"
+        class="net.sf.sail.webapp.dao.jnlp.impl.HibernateJnlpDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="jnlp" class="net.sf.sail.webapp.domain.impl.JnlpImpl"
+        scope="prototype" />
+
 </beans>

@@ -39,7 +39,6 @@ import javax.persistence.Version;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
-
 /**
  * @author Hiroki Terashima
  * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
@@ -67,7 +66,7 @@ public class OfferingImpl implements Offering {
     private Integer version = null;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsOffering.class)
-    @JoinColumn(name = OfferingImpl.COLUMN_NAME_SDS_OFFERING_FK, nullable = false, unique = true)
+    @JoinColumn(name = COLUMN_NAME_SDS_OFFERING_FK, nullable = false, unique = true)
     private SdsOffering sdsOffering;
 
     /**

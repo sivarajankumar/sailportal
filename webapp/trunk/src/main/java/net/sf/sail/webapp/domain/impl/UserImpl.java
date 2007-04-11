@@ -64,11 +64,11 @@ public class UserImpl implements User {
     private Integer version = null;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsUser.class)
-    @JoinColumn(name = UserImpl.COLUMN_NAME_SDS_USER_FK, nullable = false, unique = true)
+    @JoinColumn(name = COLUMN_NAME_SDS_USER_FK, nullable = false, unique = true)
     private SdsUser sdsUser;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = PersistentUserDetails.class)
-    @JoinColumn(name = UserImpl.COLUMN_NAME_USER_DETAILS_FK, nullable = false, unique = true)
+    @JoinColumn(name = COLUMN_NAME_USER_DETAILS_FK, nullable = false, unique = true)
     private MutableUserDetails userDetails;
 
     /**

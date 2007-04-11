@@ -41,13 +41,13 @@ public class SdsJnlp implements SdsObject {
     public static final String DATA_STORE_NAME = "sds_jnlps";
 
     @Transient
-    private static final String COLUMN_NAME_JNLP_ID = "jnlp_id";
+    public static final String COLUMN_NAME_JNLP_ID = "jnlp_id";
 
     @Transient
-    private static final String COLUMN_NAME_JNLP_NAME = "name";
+    public static final String COLUMN_NAME_JNLP_NAME = "name";
 
     @Transient
-    private static final String COLUMN_NAME_JNLP_URL = "url";
+    public static final String COLUMN_NAME_JNLP_URL = "url";
 
     @Transient
     private static final long serialVersionUID = 1L;

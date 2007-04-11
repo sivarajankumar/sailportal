@@ -45,7 +45,6 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
-
 /**
  * @author Hiroki Terashima
  * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
@@ -84,15 +83,15 @@ public class WorkgroupImpl implements Workgroup {
     private Integer version = null;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsWorkgroup.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = WorkgroupImpl.COLUMN_NAME_SDS_WORKGROUP_FK, nullable = false, unique = true)
+    @JoinColumn(name = COLUMN_NAME_SDS_WORKGROUP_FK, nullable = false, unique = true)
     private SdsWorkgroup sdsWorkgroup;
 
     @OneToOne(targetEntity = OfferingImpl.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = WorkgroupImpl.COLUMN_NAME_OFFERING_FK, nullable = false)
+    @JoinColumn(name = COLUMN_NAME_OFFERING_FK, nullable = false)
     private Offering offering;
 
     @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
-    @JoinTable(name = WorkgroupImpl.USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
+    @JoinTable(name = USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> members = new HashSet<User>();
 
     /**

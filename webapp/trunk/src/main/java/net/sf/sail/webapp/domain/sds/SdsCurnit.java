@@ -41,13 +41,13 @@ public class SdsCurnit implements SdsObject {
     public static final String DATA_STORE_NAME = "sds_curnits";
 
     @Transient
-    private static final String COLUMN_NAME_CURNIT_ID = "curnit_id";
+    public static final String COLUMN_NAME_CURNIT_ID = "curnit_id";
 
     @Transient
-    private static final String COLUMN_NAME_CURNIT_NAME = "name";
+    public static final String COLUMN_NAME_CURNIT_NAME = "name";
 
     @Transient
-    private static final String COLUMN_NAME_CURNIT_URL = "url";
+    public static final String COLUMN_NAME_CURNIT_URL = "url";
 
     @Transient
     private static final long serialVersionUID = 1L;

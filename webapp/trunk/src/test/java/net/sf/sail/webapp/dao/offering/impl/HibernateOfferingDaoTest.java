@@ -59,26 +59,14 @@ public class HibernateOfferingDaoTest extends AbstractTransactionalDbTests {
 
     private Offering defaultOffering;
 
-    /**
-     * @param offeringDao
-     *            the offeringDao to set
-     */
     public void setOfferingDao(HibernateOfferingDao offeringDao) {
         this.offeringDao = offeringDao;
     }
 
-    /**
-     * @param sdsOffering
-     *            the sdsOffering to set
-     */
     public void setSdsOffering(SdsOffering sdsOffering) {
         this.sdsOffering = sdsOffering;
     }
 
-    /**
-     * @param defaultOffering
-     *            the defaultOffering to set
-     */
     public void setDefaultOffering(Offering defaultOffering) {
         this.defaultOffering = defaultOffering;
     }
@@ -89,6 +77,7 @@ public class HibernateOfferingDaoTest extends AbstractTransactionalDbTests {
     @Override
     protected void onTearDownAfterTransaction() throws Exception {
         super.onTearDownAfterTransaction();
+        this.offeringDao = null;
         this.defaultOffering = null;
         this.sdsOffering = null;
     }
