@@ -32,22 +32,4 @@
         class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails">
     </bean>
 
-    <bean id="workgroupDao"
-    	class="org.telscenter.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDao">
-    	<property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-
-    <bean id="offeringDao"
-    	class="org.telscenter.sail.webapp.dao.offering.impl.HibernateOfferingDao">
-    	<property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-
-    <bean id="workgroup"
-    	class="org.telscenter.sail.webapp.domain.impl.WorkgroupImpl"
-    	scope="prototype" />
-
-    <bean id="offering"
-    	class="org.telscenter.sail.webapp.domain.impl.OfferingImpl"
-    	scope="prototype" />
-
 </beans>
