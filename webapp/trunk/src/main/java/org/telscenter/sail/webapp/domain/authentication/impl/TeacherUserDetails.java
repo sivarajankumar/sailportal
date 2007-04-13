@@ -179,4 +179,15 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	public void setState(String state) {
 		this.state = state;
 	}
+	/**
+	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getCoreUsername()
+	 */
+	public String getCoreUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String[] getUsernameSuffixes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

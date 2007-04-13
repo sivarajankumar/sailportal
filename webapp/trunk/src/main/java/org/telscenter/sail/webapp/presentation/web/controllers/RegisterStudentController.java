@@ -23,7 +23,6 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,40 +73,13 @@ public class RegisterStudentController extends SignupController {
 		StudentUserDetails userDetails = accountForm.getUserDetails();
 
 		if (accountForm.isNewAccount()) {
-			String firstname        = userDetails.getFirstname();
-			String lastnameInitial  = userDetails.getLastname().substring(0, 1);
-
-			Date defaultBirthday = new Date();  
-			defaultBirthday.setMonth(6);              // TODO: use Calendar instead of java.util.Date
-			defaultBirthday.setDate(19);
-			userDetails.setBirthday(defaultBirthday); // TODO: don't hard-code this. get it from form
-			
-			Calendar birthday       = Calendar.getInstance();
-			birthday.setTime(userDetails.getBirthday());
-			int birthmonth          = birthday.get(Calendar.MONTH);
-			int birthdate           = birthday.get(Calendar.DATE);
-			int index               = 0;  // extra at end to ensure username uniqueness
-			String[] suffixes       = {"", "a", "b", "c", "d", "e", "f", "g", "h",
-					                  "i", "j", "k", "l", "m", "n", "o", "p"};
-
-			for (;;) {   // loop until a unique username can be found
-				userDetails.setUsername(
-						firstname + lastnameInitial +
-						birthmonth + birthdate + suffixes[index]);
-				try {
-					this.userService.createUser(userDetails);
-				}
-				catch (DuplicateUsernameException e) {
-					index++;
-					continue;
-				}
-				if (index >= suffixes.length) {
-					// if suffixes is depleted, show user an error message
-					errors.rejectValue("username", "error.unavailable-username",
-							new Object[] { userDetails.getUsername() }, "Duplicate Username.");
-					return showForm(request, response, errors);
-				}
-				break;
+			try {
+				this.userService.createUser(userDetails);
+			}
+			catch (DuplicateUsernameException e) {
+				errors.rejectValue("username", "error.duplicate-username",
+						new Object[] { userDetails.getUsername() }, "Duplicate Username.");
+				return showForm(request, response, errors);
 			}
 		} else {
 			//userService.updateUser(userDetails);    // TODO: add updateUser() to UserService

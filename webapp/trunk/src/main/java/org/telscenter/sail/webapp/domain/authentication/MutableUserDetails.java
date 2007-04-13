@@ -40,4 +40,18 @@ public interface MutableUserDetails extends
 	
 	public void setLastname(String lastname);
 	
+	/**
+	 * @return this user's 'root' username.
+	 * This does not mean it will be the username, (eg if it's not unique)
+	 */
+	public String getCoreUsername();
+	
+	/**
+	 * In case username is not unique, append an item from the list of 
+	 * suffices.
+	 * 
+	 * @return array of suffices to add to end of username to make it unique
+	 */
+	public String[] getUsernameSuffixes();
+	
 }

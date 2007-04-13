@@ -66,10 +66,6 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 
 	private static final String LASTNAME = "Terashima";
 
-	private static final String USERNAME1 = "HirokiT619";
-
-	private static final String USERNAME2 = "HirokiT619a";
-
 	private static final Gender GENDER = Gender.MALE;
 	
 	private Date birthday = null;
@@ -130,26 +126,22 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 
 		assertTrue(modelAndView.getView() instanceof RedirectView);
 		assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
-		assertEquals(USERNAME1, studentUserDetails.getUsername());
 		verify(mockUserService);
 
 		// test submission of form with same firstname, lastname and birthday info which
-		// would result in a new unique name being created. This username should have the same
-		// username as before except with one additional "a" at the end. Should
-		// get ModelAndView back containing view which is instance of
-		// RedirectView, with name of success view as URL.
+		// would result in a duplicate username
 		reset(mockUserService);
 		expect(mockUserService.createUser(studentUserDetails)).andThrow(
 				new DuplicateUsernameException(studentUserDetails.getUsername()));
-		expect(mockUserService.createUser(studentUserDetails)).andReturn(user);
 		replay(mockUserService);
 
+		signupController.setFormView(FORM);
 		modelAndView = signupController.onSubmit(request, response,
 				studentAccountForm, errors);
 
-		assertTrue(modelAndView.getView() instanceof RedirectView);
-		assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
-		assertEquals(USERNAME2, studentUserDetails.getUsername());
+		assertViewName(modelAndView, FORM);
+		assertEquals(1, errors.getErrorCount());
+		assertEquals(1, errors.getFieldErrorCount("username"));
 		verify(mockUserService);
 
 		// test submission of form where RuntimeException is thrown.

@@ -27,7 +27,6 @@ import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.service.UserService;
-import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
@@ -44,8 +43,6 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
  * 
  */
 public class UserServiceImplTest extends AbstractTransactionalDbTests {
-
-    private static final String USERNAME = "Billy Bob";
 
     private static final String EMAIL = "billy@bob.com";
 
@@ -64,22 +61,27 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     private UserService userService;
 
     public void testDuplicateUserErrors() throws Exception {
-        MutableUserDetails user = (MutableUserDetails) this.applicationContext
+        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
                 .getBean("studentUserDetails");
-        user.setUsername(USERNAME);
-        user.setPassword(PASSWORD);
-        user.setEmailAddress(EMAIL);
-        user.setFirstname(FIRSTNAME);
-        user.setLastname(LASTNAME);
+        userDetails.setPassword(PASSWORD);
+        userDetails.setEmailAddress(EMAIL);
+        userDetails.setFirstname(FIRSTNAME);
+        userDetails.setLastname(LASTNAME);
 
         // create 2 users and attempt to save to DB
-        // second user should cause exception to be thrown
-        this.userService.createUser(user);
-        try {
-            this.userService.createUser(user);
-            fail("DuplicateUsernameException expected and not caught.");
-        } catch (DuplicateUsernameException e) {
-        }
+        // second user should create a new user with similar username but with an added "a"
+        this.userService.createUser(userDetails);
+
+        MutableUserDetails userDetails2 = (MutableUserDetails) this.applicationContext
+        .getBean("studentUserDetails");
+        userDetails2.setPassword(PASSWORD);
+        userDetails2.setEmailAddress(EMAIL);
+        userDetails2.setFirstname(FIRSTNAME);
+        userDetails2.setLastname(LASTNAME);
+        this.userService.createUser(userDetails2);
+
+        assertEquals(userDetails.getUsername() + userDetails.getUsernameSuffixes()[1],
+        		userDetails2.getUsername());
     }
 
     /*
@@ -96,7 +98,6 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
         MutableUserDetails userDetails = (MutableUserDetails) this
                 .getApplicationContext().getBean("studentUserDetails");
-        userDetails.setUsername(USERNAME);
         userDetails.setPassword(PASSWORD);
         userDetails.setEmailAddress(EMAIL);
         userDetails.setFirstname(FIRSTNAME);
@@ -108,7 +109,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
         // retrieve user and compare
         UserDetails actual = this.userDetailsService
-                .loadUserByUsername(USERNAME);
+                .loadUserByUsername(userDetails.getUsername());
         assertEquals(expectedUserDetails, actual);
 
         // check role
@@ -130,7 +131,6 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         this.authorityDao.delete(expectedAuthority);
         this.setComplete();
         this.endTransaction();
-
     }
 
     /*
@@ -142,7 +142,6 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     public void testCreateUserBlankEmail() throws Exception {
         MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
                 .getBean("studentUserDetails");
-        userDetails.setUsername(USERNAME);
         userDetails.setPassword(PASSWORD);
         userDetails.setEmailAddress(EMAIL);
         userDetails.setFirstname(FIRSTNAME);
@@ -152,7 +151,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         MutableUserDetails expectedUserDetails = (MutableUserDetails) expectedUser
                 .getUserDetails();
         UserDetails actual = this.userDetailsService
-                .loadUserByUsername(USERNAME);
+                .loadUserByUsername(userDetails.getUsername());
         assertEquals(expectedUserDetails, actual);
     }
 

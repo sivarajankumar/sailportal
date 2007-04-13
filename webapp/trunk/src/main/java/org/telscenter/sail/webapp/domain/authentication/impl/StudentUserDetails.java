@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.authentication.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -117,6 +118,30 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+	/**
+	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getCoreUsername()
+	 */
+	public String getCoreUsername() {
+		String firstname        = getFirstname();
+		String lastnameInitial  = getLastname().substring(0, 1);
 
+		Calendar birthday       = Calendar.getInstance();
+		birthday.set(0, 6, 19);		
+		//setBirthday(birthday.getTime());  // TODO: don't hard-code this. get it from form
+		
+		int birthmonth          = birthday.get(Calendar.MONTH);
+		int birthdate           = birthday.get(Calendar.DATE);
 
+		return firstname + lastnameInitial +
+   		       birthmonth + birthdate;
+	}
+	/**
+	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getUsernameSuffixes()
+	 */
+	public String[] getUsernameSuffixes() {
+		return new String[] {"", "a", "b", "c", "d", "e", "f", "g", "h",
+            "i", "j", "k", "l", "m", "n", "o", "p"};
+	}
+
+     
 }
