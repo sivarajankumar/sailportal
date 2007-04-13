@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.offerings.impl;
+package net.sf.sail.webapp.service.offering.impl;
 
 import java.util.Set;
 
@@ -25,7 +25,7 @@ import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.service.offerings.OfferingService;
+import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,14 +60,14 @@ public class OfferingServiceImpl implements OfferingService {
     }
 
     /**
-     * @see net.sf.sail.webapp.service.offerings.OfferingService#getOfferingsList()
+     * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingsList()
      */
     public Set<SdsOffering> getOfferingsList() {
         return sdsOfferingDao.getList();
     }
 
     /**
-     * @see net.sf.sail.webapp.service.offerings.OfferingService#createOffering(Offering)
+     * @see net.sf.sail.webapp.service.offering.OfferingService#createOffering(Offering)
      */
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })

@@ -15,30 +15,26 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.jnlp.impl;
+package net.sf.sail.webapp.service.jnlp.impl;
 
-import java.util.Iterator;
-
-import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
-import net.sf.sail.webapp.dao.jnlp.JnlpDao;
-import net.sf.sail.webapp.domain.Jnlp;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * @author Cynick Young
- * 
+ *
  * @version $Id$
- * 
+ *
  */
-public class HibernateJnlpDao extends AbstractHibernateDao<Jnlp> implements
-        JnlpDao<Jnlp> {
+public class AllTests {
 
-    private static final String ITERATE_QUERY = "from JnlpImpl";
-
-    /**
-     * @see net.sf.sail.webapp.dao.jnlp.JnlpDao#iterate()
-     */
-    @SuppressWarnings("unchecked")
-    public Iterator<Jnlp> iterate() {
-        return this.getHibernateTemplate().iterate(ITERATE_QUERY);
+    public static Test suite() {
+        TestSuite suite = new TestSuite(
+                "Test for net.sf.sail.webapp.service.jnlp.impl");
+        //$JUnit-BEGIN$
+        suite.addTestSuite(JnlpServiceImplTest.class);
+        //$JUnit-END$
+        return suite;
     }
+
 }

@@ -15,26 +15,36 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.offerings.impl;
+package net.sf.sail.webapp.service.offering;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.util.Set;
+
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
- * @author Cynick Young
- *
+ * @author Laurel Williams
+ * 
  * @version $Id$
- *
  */
-public class AllTests {
+public interface OfferingService {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.service.offerings.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(OfferingServiceImplTest.class);
-        //$JUnit-END$
-        return suite;
-    }
+    /**
+     * Gets a <code>Set</code> of SDS offerings.
+     * 
+     * @return a <code>Set</code> of SDS offerings.
+     */
+    public Set<SdsOffering> getOfferingsList();
+
+    /**
+     * Creates a new <code>SdsOffering</code> on the SDS as well as an
+     * <code>Offering</code> object in the local data store. A side effect is
+     * that the offering id is set to the value that the SDS assigns to the new
+     * offering.
+     * 
+     * @param offering
+     *            The offering you want to create (no offering id required).
+     */
+    public void createOffering(Offering offering);
 
 }

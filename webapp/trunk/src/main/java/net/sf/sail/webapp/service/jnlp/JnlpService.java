@@ -15,12 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.jnlp.impl;
+package net.sf.sail.webapp.service.jnlp;
 
 import java.util.Iterator;
 
-import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
-import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.domain.Jnlp;
 
 /**
@@ -29,16 +27,24 @@ import net.sf.sail.webapp.domain.Jnlp;
  * @version $Id$
  * 
  */
-public class HibernateJnlpDao extends AbstractHibernateDao<Jnlp> implements
-        JnlpDao<Jnlp> {
-
-    private static final String ITERATE_QUERY = "from JnlpImpl";
+public interface JnlpService {
 
     /**
-     * @see net.sf.sail.webapp.dao.jnlp.JnlpDao#iterate()
+     * Gets an <code>Interator</code> that allows traversal of jnlps
+     * available.
+     * 
+     * @return an <code>Iterator</code> of jnlps.
      */
-    @SuppressWarnings("unchecked")
-    public Iterator<Jnlp> iterate() {
-        return this.getHibernateTemplate().iterate(ITERATE_QUERY);
-    }
+    public Iterator<Jnlp> getJnlpIterator();
+
+    /**
+     * Creates a new <code>SdsJnlp</code> on the SDS as well as a
+     * <code>Jnlp</code> object in the local data store. A side effect is that
+     * the sdsObjectId is set to the value that the SDS assigns to the new jnlp.
+     * 
+     * @param jnlp
+     *            The jnlp you want to create (no jnlp id required).
+     */
+    public void createJnlp(Jnlp jnlp);
+
 }

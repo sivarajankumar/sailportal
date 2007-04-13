@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.offerings.impl;
+package net.sf.sail.webapp.service.offering.impl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +28,7 @@ import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
 import org.easymock.EasyMock;
 

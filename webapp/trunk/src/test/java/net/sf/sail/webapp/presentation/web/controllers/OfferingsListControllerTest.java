@@ -24,7 +24,7 @@ import java.util.Set;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.service.offerings.OfferingService;
+import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.easymock.EasyMock;
 import org.springframework.mock.web.MockHttpServletRequest;

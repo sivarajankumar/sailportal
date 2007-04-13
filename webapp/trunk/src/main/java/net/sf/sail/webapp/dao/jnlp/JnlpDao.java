@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.jnlp;
 
+import java.util.Iterator;
+
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.Jnlp;
 
@@ -28,4 +30,5 @@ import net.sf.sail.webapp.domain.Jnlp;
  */
 public interface JnlpDao<T extends Jnlp> extends SimpleDao<T> {
 
+    public Iterator<T> iterate();
 }

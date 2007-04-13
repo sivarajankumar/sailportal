@@ -62,7 +62,7 @@
     </bean>
 
     <bean id="offeringService"
-        class="net.sf.sail.webapp.service.offerings.impl.OfferingServiceImpl">
+        class="net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl">
         <property name="sdsOfferingDao" ref="sdsOfferingDao" />
         <property name="offeringDao" ref="offeringDao" />
     </bean>
@@ -153,4 +153,9 @@
     <bean id="jnlp" class="net.sf.sail.webapp.domain.impl.JnlpImpl"
         scope="prototype" />
 
+    <bean id="jnlpService"
+        class="net.sf.sail.webapp.service.jnlp.impl.JnlpServiceImpl">
+        <property name="sdsJnlpDao" ref="sdsJnlpDao" />
+        <property name="jnlpDao" ref="jnlpDao" />
+    </bean>
 </beans>
