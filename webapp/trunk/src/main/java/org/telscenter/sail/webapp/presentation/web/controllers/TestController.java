@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * TODO: Description of file
+ * TEST controller to see how to connect MVC
  *
  * @author Hiroki Terashima
  * @version $Id$
