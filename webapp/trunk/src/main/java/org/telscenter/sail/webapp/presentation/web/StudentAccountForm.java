@@ -27,7 +27,8 @@ import java.io.Serializable;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
 /**
- * TODO: Description of file
+ * StudentAccountForm encapsulates all of the data necessary to register/update 
+ * a student account
  *
  * @author Hiroki Terashima
  * @version $Id$
