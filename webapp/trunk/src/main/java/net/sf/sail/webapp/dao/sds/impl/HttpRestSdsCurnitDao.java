@@ -41,7 +41,7 @@ public class HttpRestSdsCurnitDao extends AbstractDao<SdsCurnit> implements
         SdsCurnitDao {
 
     private SdsCurnitCreateCommand createCommand;
-    
+
     private SdsCurnitListCommand listCommand;
 
     /**
@@ -52,13 +52,15 @@ public class HttpRestSdsCurnitDao extends AbstractDao<SdsCurnit> implements
     public void setCreateCommand(SdsCurnitCreateCommand createCommand) {
         this.createCommand = createCommand;
     }
-	/**
-	 * @param listCommand the listCommand to set
-	 */
+
+    /**
+     * @param listCommand
+     *            the listCommand to set
+     */
     @Required
-	public void setListCommand(SdsCurnitListCommand listCommand) {
-		this.listCommand = listCommand;
-	}
+    public void setListCommand(SdsCurnitListCommand listCommand) {
+        this.listCommand = listCommand;
+    }
 
     /**
      * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
@@ -70,12 +72,11 @@ public class HttpRestSdsCurnitDao extends AbstractDao<SdsCurnit> implements
         // differentiate between create and update
     }
 
-	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsCurnitDao#getList()
-	 */
-	public Set<SdsCurnit> getList() {
-		return this.listCommand.execute(this.listCommand.generateRequest());
-	}
-
+    /**
+     * @see net.sf.sail.webapp.dao.sds.SdsCurnitDao#getList()
+     */
+    public Set<SdsCurnit> getList() {
+        return this.listCommand.execute(this.listCommand.generateRequest());
+    }
 
 }

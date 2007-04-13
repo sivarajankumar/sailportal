@@ -19,10 +19,11 @@ package net.sf.sail.webapp.service.curnit;
 
 import java.util.Set;
 
+import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
 /**
- * A service for working with sdsCurnits
+ * A service for working with Curnits.
  * 
  * @author Laurel Williams
  * 
@@ -30,20 +31,22 @@ import net.sf.sail.webapp.domain.sds.SdsCurnit;
  */
 public interface CurnitService {
 
-	/**
-	 * Gets a <code>Set</code> of SDS curnits.
-	 * 
-	 * @return a <code>Set</code> of SDS curnits.
-	 */
-	public Set<SdsCurnit> getCurnitList();
+    /**
+     * Gets a <code>Set</code> of SDS curnits.
+     * 
+     * @return a <code>Set</code> of SDS curnits.
+     */
+    public Set<SdsCurnit> getCurnitList();
 
-	/**
-	 * Creates a new <code>SdsCurnit</code> on the SDS. A side effect is that
-	 * the sdsObjectId is set to the value that the SDS assigns to the new curnit.
-	 * 
-	 * @param sdsCurnit
-	 *            The curnit you want to create (no curnit id required).
-	 */
-	public void createCurnit(SdsCurnit sdsCurnit);
+    /**
+     * Creates a new <code>SdsCurnit</code> on the SDS as well as a
+     * <code>Curnit</code> object in the local data store. A side effect is
+     * that the sdsObjectId is set to the value that the SDS assigns to the new
+     * curnit.
+     * 
+     * @param curnit
+     *            The curnit you want to create (no curnit id required).
+     */
+    public void createCurnit(Curnit curnit);
 
 }

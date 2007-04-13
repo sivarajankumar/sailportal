@@ -17,14 +17,17 @@
  */
 package net.sf.sail.webapp.service.curnit.impl;
 
-import static org.easymock.EasyMock.createMock;
-
 import java.util.HashSet;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 
 import org.easymock.EasyMock;
 
@@ -35,59 +38,112 @@ import org.easymock.EasyMock;
  */
 public class CurnitServiceImplTest extends TestCase {
 
-	private SdsCurnitDao mockSdsCurnitDao;
+    private SdsCurnitDao mockSdsCurnitDao;
 
-	private SdsCurnit sdsCurnit;
+    private SdsCurnit sdsCurnit;
 
-	private CurnitServiceImpl curnitServiceImpl;
+    private CurnitDao mockCurnitDao;
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@SuppressWarnings("unchecked")
-	protected void setUp() throws Exception {
-		super.setUp();
-		this.mockSdsCurnitDao = createMock(SdsCurnitDao.class);
-		this.curnitServiceImpl = new CurnitServiceImpl();
-		this.curnitServiceImpl.setSdsCurnitDao(this.mockSdsCurnitDao);
+    private Curnit curnit;
 
-		this.sdsCurnit = new SdsCurnit();
-		sdsCurnit.setSdsObjectId(1);
-		sdsCurnit.setName("test");
-		sdsCurnit.setUrl("this is a url");
-	}
+    private CurnitServiceImpl curnitServiceImpl;
 
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		this.curnitServiceImpl = null;
-		this.mockSdsCurnitDao = null;
-		this.sdsCurnit = null;
-	}
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
+    @SuppressWarnings("unchecked")
+    protected void setUp() throws Exception {
+        super.setUp();
+        this.curnitServiceImpl = new CurnitServiceImpl();
 
-	public void testGetCurnitList() throws Exception {
-		Set<SdsCurnit> expectedSdsCurnitSet = new HashSet<SdsCurnit>();
-		expectedSdsCurnitSet.add(this.sdsCurnit);
+        this.mockSdsCurnitDao = EasyMock.createMock(SdsCurnitDao.class);
+        this.curnitServiceImpl.setSdsCurnitDao(this.mockSdsCurnitDao);
 
-		EasyMock.expect(mockSdsCurnitDao.getList()).andReturn(
-				expectedSdsCurnitSet);
-		EasyMock.replay(mockSdsCurnitDao);
-		assertEquals(expectedSdsCurnitSet, curnitServiceImpl
-				.getCurnitList());
-		EasyMock.verify(mockSdsCurnitDao);
-	}
+        this.mockCurnitDao = EasyMock.createMock(CurnitDao.class);
+        this.curnitServiceImpl.setCurnitDao(this.mockCurnitDao);
 
-	// tests that the command is delegated to the DAO and that the DAO is called
-	// once
-	public void testCreateCurnit() throws Exception {
-		mockSdsCurnitDao.save(this.sdsCurnit);
-		EasyMock.expectLastCall();
-		EasyMock.replay(mockSdsCurnitDao);
+        this.sdsCurnit = new SdsCurnit();
 
-		this.curnitServiceImpl.createCurnit(this.sdsCurnit);
+        this.curnit = new CurnitImpl();
+        this.curnit.setSdsCurnit(this.sdsCurnit);
+    }
 
-		EasyMock.verify(mockSdsCurnitDao);
-	}
+    /**
+     * @see junit.framework.TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        this.curnitServiceImpl = null;
+        this.mockSdsCurnitDao = null;
+        this.sdsCurnit = null;
+        this.mockCurnitDao = null;
+        this.curnit = null;
+    }
+
+    public void testGetCurnitList() throws Exception {
+        Set<SdsCurnit> expectedSdsCurnitSet = new HashSet<SdsCurnit>();
+        expectedSdsCurnitSet.add(this.sdsCurnit);
+
+        EasyMock.expect(mockSdsCurnitDao.getList()).andReturn(
+                expectedSdsCurnitSet);
+        EasyMock.replay(mockSdsCurnitDao);
+        assertEquals(expectedSdsCurnitSet, curnitServiceImpl.getCurnitList());
+        EasyMock.verify(mockSdsCurnitDao);
+    }
+
+    // tests that the command is delegated to the DAOs and that the DAOs are
+    // called once
+    @SuppressWarnings("unchecked")
+    public void testCreateCurnit() throws Exception {
+        this.mockSdsCurnitDao.save(this.sdsCurnit);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockSdsCurnitDao);
+
+        this.mockCurnitDao.save(this.curnit);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockCurnitDao);
+
+        this.curnitServiceImpl.createCurnit(this.curnit);
+
+        EasyMock.verify(this.mockSdsCurnitDao);
+        EasyMock.verify(this.mockCurnitDao);
+    }
+
+    public void testCreateCurnit_BadRequestException() throws Exception {
+        this.mockSdsCurnitDao.save(this.sdsCurnit);
+        EasyMock.expectLastCall().andThrow(
+                new BadRequestException("bad request"));
+        EasyMock.replay(this.mockSdsCurnitDao);
+
+        // expecting no calls to Dao.save()
+        EasyMock.replay(this.mockCurnitDao);
+
+        try {
+            this.curnitServiceImpl.createCurnit(this.curnit);
+            fail("BadRequestException expected");
+        } catch (BadRequestException expected) {
+        }
+
+        EasyMock.verify(this.mockSdsCurnitDao);
+        EasyMock.verify(this.mockCurnitDao);
+    }
+
+    public void testCreateCurnit_NetworkTransportException() throws Exception {
+        this.mockSdsCurnitDao.save(this.sdsCurnit);
+        EasyMock.expectLastCall().andThrow(
+                new NetworkTransportException("network transport exception"));
+        EasyMock.replay(this.mockSdsCurnitDao);
+
+        // expecting no calls to Dao.save()
+        EasyMock.replay(this.mockCurnitDao);
+
+        try {
+            this.curnitServiceImpl.createCurnit(this.curnit);
+            fail("NetworkTransportException expected");
+        } catch (NetworkTransportException expected) {
+        }
+
+        EasyMock.verify(this.mockSdsCurnitDao);
+        EasyMock.verify(this.mockCurnitDao);
+    }
 }

@@ -28,13 +28,17 @@ package net.sf.sail.webapp.domain.webservice;
  */
 public class NetworkTransportException extends RuntimeException {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public NetworkTransportException(String message) {
-    super(message);
-  }
+    public NetworkTransportException(String message) {
+        super(message);
+    }
 
-  public NetworkTransportException(int statusCode, String message) {
-    this(statusCode + " " + message);
-  }
+    public NetworkTransportException(int statusCode) {
+        this(String.valueOf(statusCode));
+    }
+
+    public NetworkTransportException(int statusCode, String message) {
+        this(statusCode + " " + message);
+    }
 }

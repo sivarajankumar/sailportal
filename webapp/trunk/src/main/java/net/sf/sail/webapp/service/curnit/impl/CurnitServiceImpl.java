@@ -19,11 +19,16 @@ package net.sf.sail.webapp.service.curnit.impl;
 
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
+import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Laurel Williams
@@ -32,29 +37,43 @@ import org.springframework.beans.factory.annotation.Required;
  */
 public class CurnitServiceImpl implements CurnitService {
 
-	private SdsCurnitDao sdsCurnitDao;
+    private SdsCurnitDao sdsCurnitDao;
 
-	/**
-	 * @param sdsCurnitDao
-	 *            the sdsCurnitDao to set
-	 */
-	@Required
-	public void setSdsCurnitDao(SdsCurnitDao sdsCurnitDao) {
-		this.sdsCurnitDao = sdsCurnitDao;
-	}
+    private CurnitDao<Curnit> curnitDao;
 
-	/**
-	 * @see net.sf.sail.webapp.service.curnit.CurnitService#createCurnit(net.sf.sail.webapp.domain.sds.SdsCurnit)
-	 */
-	public void createCurnit(SdsCurnit sdsCurnit) {
-		this.sdsCurnitDao.save(sdsCurnit);
-	}
+    /**
+     * @param curnitDao
+     *            the curnitDao to set
+     */
+    @Required
+    public void setCurnitDao(CurnitDao<Curnit> curnitDao) {
+        this.curnitDao = curnitDao;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.service.curnit.CurnitService#getCurnitList()
-	 */
-	public Set<SdsCurnit> getCurnitList() {
-		return this.sdsCurnitDao.getList();
-	}
+    /**
+     * @param sdsCurnitDao
+     *            the sdsCurnitDao to set
+     */
+    @Required
+    public void setSdsCurnitDao(SdsCurnitDao sdsCurnitDao) {
+        this.sdsCurnitDao = sdsCurnitDao;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.service.curnit.CurnitService#createCurnit(Curnit)
+     */
+    @Transactional(rollbackFor = { BadRequestException.class,
+            NetworkTransportException.class })
+    public void createCurnit(Curnit curnit) {
+        this.sdsCurnitDao.save(curnit.getSdsCurnit());
+        this.curnitDao.save(curnit);
+    }
+
+    /**
+     * @see net.sf.sail.webapp.service.curnit.CurnitService#getCurnitList()
+     */
+    public Set<SdsCurnit> getCurnitList() {
+        return this.sdsCurnitDao.getList();
+    }
 
 }

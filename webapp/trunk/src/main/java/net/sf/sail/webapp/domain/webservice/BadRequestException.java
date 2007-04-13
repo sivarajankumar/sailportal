@@ -28,13 +28,13 @@ package net.sf.sail.webapp.domain.webservice;
  */
 public class BadRequestException extends RuntimeException {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  /**
-   * @param message
-   *          is a string that should give an explanation of the error.
-   */
-  public BadRequestException(String message) {
-    super(message);
-  }
+    /**
+     * @param message
+     *            is a string that should give an explanation of the error.
+     */
+    public BadRequestException(String message) {
+        super(message);
+    }
 }

@@ -31,7 +31,8 @@ import org.apache.commons.httpclient.HttpStatus;
  * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: SdsCurnitCreateCommandHttpRestImpl.java 257 2007-03-30
+ *          14:59:02Z cynick $
  * 
  */
 public class SdsCurnitCreateCommandHttpRestImpl extends AbstractHttpRestCommand
