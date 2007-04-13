@@ -27,11 +27,7 @@ public class UserServiceImpl extends
 	public User createUser(final MutableUserDetails userDetails)
 			throws DuplicateUsernameException, BadRequestException,
 			NetworkTransportException {
-//		org.telscenter.sail.webapp.domain.authentication.MutableUserDetails details = 
-//			(org.telscenter.sail.webapp.domain.authentication.MutableUserDetails) userDetails;
-//		String coreUsername = details.getCoreUsername();
-//		details.setUsername("hi");
-//		return super.createUser(details);
+
 		org.telscenter.sail.webapp.domain.authentication.MutableUserDetails details = 
 			(org.telscenter.sail.webapp.domain.authentication.MutableUserDetails) userDetails;
 
