@@ -26,8 +26,8 @@
 
     <!-- Custom controllers -->
     <bean
-        class="net.sf.sail.webapp.presentation.web.controllers.OfferingsListController">
-        <property name="offeringsService" ref="offeringsService" />
+        class="net.sf.sail.webapp.presentation.web.controllers.OfferingListController">
+        <property name="offeringService" ref="offeringService" />
     </bean>
 
     <bean

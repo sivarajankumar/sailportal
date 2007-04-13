@@ -32,7 +32,7 @@ public class AllTests {
         TestSuite suite = new TestSuite(
                 "Test for net.sf.sail.webapp.service.offerings.impl");
         //$JUnit-BEGIN$
-        suite.addTestSuite(OfferingsServiceImplTest.class);
+        suite.addTestSuite(OfferingServiceImplTest.class);
         //$JUnit-END$
         return suite;
     }

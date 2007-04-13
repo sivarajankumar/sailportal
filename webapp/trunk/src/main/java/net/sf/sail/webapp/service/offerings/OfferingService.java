@@ -19,6 +19,7 @@ package net.sf.sail.webapp.service.offerings;
 
 import java.util.Set;
 
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
@@ -26,22 +27,24 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
  * 
  * @version $Id$
  */
-public interface OfferingsService {
+public interface OfferingService {
 
-	/**
-	 * Gets a <code>Set</code> of SDS offerings.
-	 * 
-	 * @return a <code>Set</code> of SDS offerings.
-	 */
-	public Set<SdsOffering> getOfferingsList();
+    /**
+     * Gets a <code>Set</code> of SDS offerings.
+     * 
+     * @return a <code>Set</code> of SDS offerings.
+     */
+    public Set<SdsOffering> getOfferingsList();
 
-	/**
-	 * Creates a new <code>SdsOffering</code> on the SDS. A side effect is that
-	 * the offering id is set to the value that the SDS assigns to the new offering.
-	 * 
-	 * @param sdsOffering
-	 *            The offering you want to create (no offering id required).
-	 */
-	public void createOffering(SdsOffering sdsOffering);
+    /**
+     * Creates a new <code>SdsOffering</code> on the SDS as well as an
+     * <code>Offering</code> object in the local data store. A side effect is
+     * that the offering id is set to the value that the SDS assigns to the new
+     * offering.
+     * 
+     * @param offering
+     *            The offering you want to create (no offering id required).
+     */
+    public void createOffering(Offering offering);
 
 }

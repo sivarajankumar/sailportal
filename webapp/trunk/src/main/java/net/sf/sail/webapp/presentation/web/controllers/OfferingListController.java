@@ -20,7 +20,7 @@ package net.sf.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.service.offerings.OfferingsService;
+import net.sf.sail.webapp.service.offerings.OfferingService;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -31,30 +31,30 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @version $Id$
  * 
  */
-public class OfferingsListController extends AbstractController {
+public class OfferingListController extends AbstractController {
 
-  private OfferingsService offeringsService;
+    private OfferingService offeringService;
 
-  /**
-   * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
-   *      javax.servlet.http.HttpServletResponse)
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  protected ModelAndView handleRequestInternal(
-      HttpServletRequest servletRequest, HttpServletResponse servletResponse)
-      throws Exception {
-    ModelAndView modelAndView = new ModelAndView();
-    modelAndView.addObject("offeringslist", this.offeringsService
-        .getOfferingsList());
-    return modelAndView;
-  }
+    /**
+     * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    protected ModelAndView handleRequestInternal(
+            HttpServletRequest servletRequest,
+            HttpServletResponse servletResponse) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("offeringslist", this.offeringService
+                .getOfferingsList());
+        return modelAndView;
+    }
 
-  /**
-   * @param offeringsService
-   *          the offeringsService to set
-   */
-  public void setOfferingsService(OfferingsService offeringsService) {
-    this.offeringsService = offeringsService;
-  }
+    /**
+     * @param offeringService
+     *            the offeringService to set
+     */
+    public void setOfferingsService(OfferingService offeringService) {
+        this.offeringService = offeringService;
+    }
 }

@@ -19,20 +19,36 @@ package net.sf.sail.webapp.service.offerings.impl;
 
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.service.offerings.OfferingsService;
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.offerings.OfferingService;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Laurel Williams
  * 
  * @version $Id$
  */
-public class OfferingsServiceImpl implements OfferingsService {
+public class OfferingServiceImpl implements OfferingService {
+
+    private OfferingDao<Offering> offeringDao;
 
     private SdsOfferingDao sdsOfferingDao;
+
+    /**
+     * @param offeringDao
+     *            the offeringDao to set
+     */
+    @Required
+    public void setOfferingDao(OfferingDao<Offering> offeringDao) {
+        this.offeringDao = offeringDao;
+    }
 
     /**
      * @param sdsOfferingDao
@@ -44,19 +60,19 @@ public class OfferingsServiceImpl implements OfferingsService {
     }
 
     /**
-     * @see net.sf.sail.webapp.service.offerings.OfferingsService#getOfferingsList()
+     * @see net.sf.sail.webapp.service.offerings.OfferingService#getOfferingsList()
      */
     public Set<SdsOffering> getOfferingsList() {
         return sdsOfferingDao.getList();
     }
 
-	/**
-	 * @see net.sf.sail.webapp.service.offerings.OfferingsService#createOffering(net.sf.sail.webapp.domain.sds.SdsOffering)
-	 */
-	public void createOffering(SdsOffering sdsOffering) {
-		sdsOfferingDao.save(sdsOffering);
-	}
-    
-    
-
+    /**
+     * @see net.sf.sail.webapp.service.offerings.OfferingService#createOffering(Offering)
+     */
+    @Transactional(rollbackFor = { BadRequestException.class,
+            NetworkTransportException.class })
+    public void createOffering(Offering offering) {
+        this.sdsOfferingDao.save(offering.getSdsOffering());
+        this.offeringDao.save(offering);
+    }
 }

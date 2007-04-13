@@ -61,9 +61,10 @@
         <property name="transport" ref="httpRestTransport" />
     </bean>
 
-    <bean id="offeringsService"
-        class="net.sf.sail.webapp.service.offerings.impl.OfferingsServiceImpl">
+    <bean id="offeringService"
+        class="net.sf.sail.webapp.service.offerings.impl.OfferingServiceImpl">
         <property name="sdsOfferingDao" ref="sdsOfferingDao" />
+        <property name="offeringDao" ref="offeringDao" />
     </bean>
 
     <bean id="curnitService"
