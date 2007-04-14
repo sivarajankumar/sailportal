@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.presentation.validators;
 
 import net.sf.sail.webapp.presentation.validators.UserDetailsValidator;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
@@ -39,6 +40,8 @@ import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
  */
 public class StudentUserDetailsValidator extends UserDetailsValidator {
 
+	public static final int MAX_PASSWORD_LENGTH = 20;
+
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
@@ -50,13 +53,26 @@ public class StudentUserDetailsValidator extends UserDetailsValidator {
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 */
 	public void validate(Object userDetailsIn, Errors errors) {
+		StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
 		"error.password-not-specified");
+		
 		if (errors.getFieldErrorCount("password") > 0) {
 			return;
 		}
 
+		if (userDetails.getPassword().length() > MAX_PASSWORD_LENGTH) {
+			errors.rejectValue("password", "error.password-too-long");
+			return;
+		}
+
+		if (!StringUtils.isAlphanumeric(userDetails.getPassword())) {
+			errors.rejectValue("password", "error.password-illegal-characters");
+			return;
+		}
+
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstname",
 		"error.firstname-not-specified");
 
@@ -65,16 +81,7 @@ public class StudentUserDetailsValidator extends UserDetailsValidator {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender",
 		"error.gender-not-specified");
-
-		/*
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthdate",
-		"error.birthdate-not-specified");
-		 */
 		
-		StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
-//		if (!StringUtils.isAlphanumeric(userDetails.getUsername())) {
-//			errors.rejectValue("username", "error.illegal-characters");
-//		}
 //		if (userDetails.getUsername().length() > MAX_USERNAME_LENGTH) {
 //			errors.rejectValue("username", "error.too-long");
 //		}

@@ -88,6 +88,10 @@ addEvent(window, 'load', onLoadHandler);
   <p><label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
   <form:password path="repeatedPassword" id="repeatedPassword"/> <form:errors path="repeatedPassword" />
   </p>
+
+  <p><label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
+  <form:input path="userDetails.emailAddress" id="emailAddress"/> <form:errors path="userDetails.emailAddress"/>
+  </p>
   
   <p><input type="submit" value="<spring:message code="signup.submit" />" />
   </p>

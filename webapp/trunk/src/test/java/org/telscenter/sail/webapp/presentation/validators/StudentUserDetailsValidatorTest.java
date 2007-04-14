@@ -22,21 +22,20 @@
  */
 package org.telscenter.sail.webapp.presentation.validators;
 
+import net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest;
+
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
-
-import junit.framework.TestCase;
-
 /**
  * @author Hiroki Terashima
  *
  * @version $Id$
  */
-public class StudentUserDetailsValidatorTest extends TestCase {
+public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
 	
 	private MutableUserDetails userDetails;
 
@@ -49,6 +48,8 @@ public class StudentUserDetailsValidatorTest extends TestCase {
     private static final String EMPTY = "";
 
     private static final String SPACES = "    ";
+
+	private static final String PASSWORD_TOO_LONG = "abcdefghijklmnopqrstuvwxyz";
 
     private Validator userDetailsValidator;
 
@@ -92,6 +93,27 @@ public class StudentUserDetailsValidatorTest extends TestCase {
         assertEquals(1, errors.getErrorCount());
         assertNull(errors.getFieldError("username"));
         assertNotNull(errors.getFieldError("password"));
+    }
+    
+    public void testPasswordTooLongValidate() {
+    	assertTrue(PASSWORD_TOO_LONG.length() > StudentUserDetailsValidator.MAX_PASSWORD_LENGTH);
+    	userDetails.setPassword(PASSWORD_TOO_LONG);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	assertTrue(errors.hasErrors());
+    	assertEquals(1, errors.getErrorCount());
+    	assertNull(errors.getFieldError("username"));
+    	assertNotNull(errors.getFieldError("password"));
+    }
+    
+    public void testPasswrdIllegalChars1Validate() {
+        userDetails.setPassword(ILLEGAL1);
+        userDetailsValidator.validate(userDetails, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNull(errors.getFieldError("username"));
+        assertNotNull(errors.getFieldError("password"));
+
     }
 
     protected void tearDown() throws Exception {

@@ -44,11 +44,11 @@ public class UserDetailsValidatorTest extends TestCase {
 
     private static final String SPACES = "    ";
 
-    private static final String ILLEGAL1 = "<a>";
+    protected static final String ILLEGAL1 = "<a>";
 
-    private static final String ILLEGAL2 = "'";
+    protected static final String ILLEGAL2 = "'";
 
-    private static final String ILLEGAL3 = "\"";
+    protected static final String ILLEGAL3 = "\"";
 
     private static final String ILLEGAL4 = ";";
 
