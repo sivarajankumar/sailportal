@@ -74,7 +74,7 @@ public class OfferingsListControllerTest extends AbstractModelAndViewTests {
         this.expectedSdsOfferingSet.add(offering);
         this.offeringListController = new OfferingListController();
         this.offeringListController
-                .setOfferingsService(this.mockOfferingsService);
+                .setOfferingService(this.mockOfferingsService);
     }
 
     /**

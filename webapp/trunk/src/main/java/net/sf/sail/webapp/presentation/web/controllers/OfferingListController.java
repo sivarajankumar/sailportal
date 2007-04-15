@@ -54,7 +54,7 @@ public class OfferingListController extends AbstractController {
      * @param offeringService
      *            the offeringService to set
      */
-    public void setOfferingsService(OfferingService offeringService) {
+    public void setOfferingService(OfferingService offeringService) {
         this.offeringService = offeringService;
     }
 }
