@@ -43,6 +43,8 @@ public class StudentAccountForm implements Serializable {
 
 	private String repeatedPassword;
 	
+	private String projectCode;
+	
 	public StudentAccountForm() {
 		studentUserDetails = new StudentUserDetails();
 		newAccount = true;
@@ -93,6 +95,20 @@ public class StudentAccountForm implements Serializable {
 	 */
 	public void setUserDetails(StudentUserDetails studentUserDetails) {
 		this.studentUserDetails = studentUserDetails;
+	}
+
+	/**
+	 * @return the projectCode
+	 */
+	public String getProjectCode() {
+		return projectCode;
+	}
+
+	/**
+	 * @param projectCode the projectCode to set
+	 */
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
 	}
 
 }

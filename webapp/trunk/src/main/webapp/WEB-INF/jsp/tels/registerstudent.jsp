@@ -92,6 +92,11 @@ addEvent(window, 'load', onLoadHandler);
   <p><label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
   <form:input path="userDetails.emailAddress" id="emailAddress"/> <form:errors path="userDetails.emailAddress"/>
   </p>
+
+  <p><label for="projectCode"><spring:message code="signup.project.code" /></label>
+  <form:input path="projectCode" id="projectCode"/> <form:errors path="projectCode" />
+  </p>
+
   
   <p><input type="submit" value="<spring:message code="signup.submit" />" />
   </p>

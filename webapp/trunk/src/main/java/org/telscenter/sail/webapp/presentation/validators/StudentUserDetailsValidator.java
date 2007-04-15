@@ -82,9 +82,6 @@ public class StudentUserDetailsValidator extends UserDetailsValidator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender",
 		"error.gender-not-specified");
 		
-//		if (userDetails.getUsername().length() > MAX_USERNAME_LENGTH) {
-//			errors.rejectValue("username", "error.too-long");
-//		}
 		if (errors.hasErrors())
 			userDetails.setPassword("");
 	}
