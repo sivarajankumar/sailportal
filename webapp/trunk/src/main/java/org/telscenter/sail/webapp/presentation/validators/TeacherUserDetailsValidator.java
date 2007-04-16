@@ -22,12 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.validators;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
-
-import net.sf.sail.webapp.presentation.validators.UserDetailsValidator;
 
 /**
  * @author Hiroki Terashima
@@ -35,11 +32,10 @@ import net.sf.sail.webapp.presentation.validators.UserDetailsValidator;
  */
 public class TeacherUserDetailsValidator extends UserDetailsValidator {
 
-	public static final int MAX_PASSWORD_LENGTH = 20;
-
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
+	@Override
 	public boolean supports(Class clazz) {
 		return TeacherUserDetails.class.isAssignableFrom(clazz);
 	}
@@ -47,32 +43,15 @@ public class TeacherUserDetailsValidator extends UserDetailsValidator {
 	/**
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 */
+	@Override
 	public void validate(Object userDetailsIn, Errors errors) {
+		super.validate(userDetailsIn, errors);
+		
+		if (errors.hasErrors())
+			return;
+		
 		TeacherUserDetails userDetails = (TeacherUserDetails) userDetailsIn;
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
-		"error.password-not-specified");
-		
-		if (errors.getFieldErrorCount("password") > 0) {
-			return;
-		}
-
-		if (userDetails.getPassword().length() > MAX_PASSWORD_LENGTH) {
-			errors.rejectValue("password", "error.password-too-long");
-			return;
-		}
-
-		if (!StringUtils.isAlphanumeric(userDetails.getPassword())) {
-			errors.rejectValue("password", "error.password-illegal-characters");
-			return;
-		}
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstname", 
-				"error.firstname-not-specified");
-
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastname", 
-				"error.lastname-not-specified");
-		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress", 
 				"error.email-not-specified");
 		

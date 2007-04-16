@@ -22,46 +22,53 @@
  */
 package org.telscenter.sail.webapp.presentation.validators;
 
-
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
- * Validator for the TELS Student User Details upon registering
+ * Validator for TELS UserDetails
  *
  * @author Hiroki Terashima
- *
- * @version $Id$
- *
+ * @version $Id: $
  */
-public class StudentUserDetailsValidator extends UserDetailsValidator {
+public class UserDetailsValidator extends
+		net.sf.sail.webapp.presentation.validators.UserDetailsValidator {
 
-	/**
-	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
-	 */
-	public boolean supports(Class clazz) {
-		return StudentUserDetails.class.isAssignableFrom(clazz);
-	}
+	protected static final int MAX_PASSWORD_LENGTH = 20;
 
 	/**
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 */
 	@Override
 	public void validate(Object userDetailsIn, Errors errors) {
-		super.validate(userDetailsIn, errors);
+		MutableUserDetails userDetails = (MutableUserDetails) userDetailsIn;
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
+		"error.password-not-specified");
 		
-		if (errors.hasErrors())
+		if (errors.getFieldErrorCount("password") > 0) {
 			return;
+		}
 
-		StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
+		if (userDetails.getPassword().length() > MAX_PASSWORD_LENGTH) {
+			errors.rejectValue("password", "error.password-too-long");
+			return;
+		}
 
+		if (!StringUtils.isAlphanumeric(userDetails.getPassword())) {
+			errors.rejectValue("password", "error.password-illegal-characters");
+			return;
+		}
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender",
-		"error.gender-not-specified");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstname", 
+				"error.firstname-not-specified");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastname", 
+				"error.lastname-not-specified");
 		
 		if (errors.hasErrors())
 			userDetails.setPassword("");
 	}
-
 }
