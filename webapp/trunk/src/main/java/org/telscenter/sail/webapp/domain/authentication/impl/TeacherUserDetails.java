@@ -183,11 +183,13 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getCoreUsername()
 	 */
 	public String getCoreUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return firstname + " " + lastname;
 	}
+	/**
+	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getUsernameSuffixes()
+	 */
 	public String[] getUsernameSuffixes() {
-		// TODO Auto-generated method stub
-		return null;
+		return new String[] {"", "a", "b", "c", "d", "e", "f", "g", "h",
+	            "i", "j", "k", "l", "m", "n", "o", "p"};
 	}
 }
