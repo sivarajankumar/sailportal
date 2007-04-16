@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.domain.authentication.impl;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -48,8 +49,6 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 public class StudentUserDetails extends PersistentUserDetails implements
 		MutableUserDetails {
 
-	private static final long serialVersionUID = 1L;
-
 	@Transient
 	public static final String DATA_STORE_NAME = "student_user_details";
 	
@@ -65,9 +64,20 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	@Transient
 	public static final String COLUMN_NAME_BIRTHDAY = "birthday";
 	
+
+    @Transient
+    private static final long serialVersionUID = 1L;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_FIRSTNAME, nullable = false)
 	private String firstname;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_LASTNAME, nullable = false)
 	private String lastname;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_GENDER, nullable = false)
 	private Gender gender;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_BIRTHDAY, nullable = false)
 	private Date birthday;
 	
 	/**
@@ -142,6 +152,4 @@ public class StudentUserDetails extends PersistentUserDetails implements
 		return new String[] {"", "a", "b", "c", "d", "e", "f", "g", "h",
             "i", "j", "k", "l", "m", "n", "o", "p"};
 	}
-
-     
 }

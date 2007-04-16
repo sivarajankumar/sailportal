@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.authentication.impl;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -44,8 +45,6 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 public class TeacherUserDetails extends PersistentUserDetails implements
 		MutableUserDetails {
 
-	private static final long serialVersionUID = 1L;
-	
 	@Transient
 	public static final String DATA_STORE_NAME = "teacher_user_details";
 
@@ -73,14 +72,32 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	@Transient
 	public static final String COLUMN_NAME_SCHOOLLEVEL = "schoollevel";
 
-	
+
+    @Transient
+    private static final long serialVersionUID = 1L;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_FIRSTNAME, nullable = false)
 	private String firstname;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_LASTNAME, nullable = false)
 	private String lastname;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_CITY, nullable = false)
 	private String city;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_STATE, nullable = false)
 	private String state;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_COUNTRY, nullable = false)
 	private String country;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_SCHOOLNAME, nullable = false)
 	private String schoolname;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_CURRICULUMSUBJECTS, nullable = false)
 	private String[] curriculumsubjects;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL, nullable = false)
 	private String schoollevel;
 	
 	/**

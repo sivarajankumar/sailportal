@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
@@ -31,7 +34,9 @@ import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
+import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
@@ -51,6 +56,10 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     private static final String FIRSTNAME = "Billy";
 
     private static final String LASTNAME = "Bob";
+    
+    private static final Gender GENDER = Gender.FEMALE;
+
+	private static final Date BIRTHDAY = Calendar.getInstance().getTime();
 
     private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
 
@@ -61,23 +70,28 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     private UserService userService;
 
     public void testDuplicateUserErrors() throws Exception {
-        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
+        StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
                 .getBean("studentUserDetails");
         userDetails.setPassword(PASSWORD);
         userDetails.setEmailAddress(EMAIL);
         userDetails.setFirstname(FIRSTNAME);
         userDetails.setLastname(LASTNAME);
+        userDetails.setGender(GENDER);
+        userDetails.setBirthday(BIRTHDAY);
 
         // create 2 users and attempt to save to DB
         // second user should create a new user with similar username but with an added "a"
         this.userService.createUser(userDetails);
 
-        MutableUserDetails userDetails2 = (MutableUserDetails) this.applicationContext
+        StudentUserDetails userDetails2 = (StudentUserDetails) this.applicationContext
         .getBean("studentUserDetails");
         userDetails2.setPassword(PASSWORD);
         userDetails2.setEmailAddress(EMAIL);
         userDetails2.setFirstname(FIRSTNAME);
         userDetails2.setLastname(LASTNAME);
+        userDetails2.setGender(GENDER);
+        userDetails2.setBirthday(BIRTHDAY);
+
         this.userService.createUser(userDetails2);
 
         assertEquals(userDetails.getUsername() + userDetails.getUsernameSuffixes()[1],
@@ -96,12 +110,14 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         expectedAuthority.setAuthority(UserDetailsService.USER_ROLE);
         this.authorityDao.save(expectedAuthority);
 
-        MutableUserDetails userDetails = (MutableUserDetails) this
-                .getApplicationContext().getBean("studentUserDetails");
+        StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
+               .getBean("studentUserDetails");
         userDetails.setPassword(PASSWORD);
         userDetails.setEmailAddress(EMAIL);
         userDetails.setFirstname(FIRSTNAME);
         userDetails.setLastname(LASTNAME);
+        userDetails.setGender(GENDER);
+        userDetails.setBirthday(BIRTHDAY);
 
         // create user (saves automatically)
         User expectedUser = this.userService.createUser(userDetails);
@@ -140,12 +156,15 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
      * cannot be null, enforced by the data store constraint. Email is null
      */
     public void testCreateUserBlankEmail() throws Exception {
-        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
-                .getBean("studentUserDetails");
-        userDetails.setPassword(PASSWORD);
-        userDetails.setEmailAddress(EMAIL);
-        userDetails.setFirstname(FIRSTNAME);
-        userDetails.setLastname(LASTNAME);
+    	StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
+    	       .getBean("studentUserDetails");
+    	userDetails.setPassword(PASSWORD);
+    	userDetails.setEmailAddress(EMAIL);
+    	userDetails.setFirstname(FIRSTNAME);
+    	userDetails.setLastname(LASTNAME);
+    	userDetails.setGender(GENDER);
+    	userDetails.setBirthday(BIRTHDAY);
+    	
         User expectedUser = this.userService.createUser(userDetails);
 
         MutableUserDetails expectedUserDetails = (MutableUserDetails) expectedUser
