@@ -38,7 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @version $Id: OfferingsListControllerTest.java 257 2007-03-30 14:59:02Z
  *          cynick $
  */
-public class OfferingsListControllerTest extends AbstractModelAndViewTests {
+public class OfferingListControllerTest extends AbstractModelAndViewTests {
 
     private OfferingListController offeringListController;
 

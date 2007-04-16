@@ -34,7 +34,7 @@ public class AllTests {
         //$JUnit-BEGIN$
         suite.addTestSuite(LoginControllerTest.class);
         suite.addTestSuite(SignupControllerTest.class);
-        suite.addTestSuite(OfferingsListControllerTest.class);
+        suite.addTestSuite(OfferingListControllerTest.class);
         //$JUnit-END$
         return suite;
     }
