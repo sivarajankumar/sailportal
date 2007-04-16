@@ -22,43 +22,68 @@
  */
 package org.telscenter.sail.webapp.presentation.web;
 
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import java.io.Serializable;
+
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
- * StudentAccountForm encapsulates all of the data necessary to register/update 
- * a student account
+ * The class encapsulates all of the data necessary to register/update 
+ * a TELS user account
  *
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id: $
  */
-public class StudentAccountForm extends UserAccountForm {
+public class UserAccountForm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	static final long serialVersionUID = 1L;
 	
-	private String projectCode;
+	MutableUserDetails userDetails;
 	
-	public StudentAccountForm() {
-		userDetails = new StudentUserDetails();
-		newAccount = true;
-	}
+	boolean newAccount;
+
+	private String repeatedPassword;
 	
-	public StudentAccountForm(StudentUserDetails studentUserDetails) {
-		userDetails = studentUserDetails;
-		newAccount = false;
+	/**
+	 * @return the newAccount
+	 */
+	public boolean isNewAccount() {
+		return newAccount;
 	}
 
 	/**
-	 * @return the projectCode
+	 * @param newAccount the newAccount to set
 	 */
-	public String getProjectCode() {
-		return projectCode;
+	public void setNewAccount(boolean newAccount) {
+		this.newAccount = newAccount;
 	}
 
 	/**
-	 * @param projectCode the projectCode to set
+	 * @return the repeatedPassword
 	 */
-	public void setProjectCode(String projectCode) {
-		this.projectCode = projectCode;
+	public String getRepeatedPassword() {
+		return repeatedPassword;
 	}
+
+	/**
+	 * @param repeatedPassword the repeatedPassword to set
+	 */
+	public void setRepeatedPassword(String repeatedPassword) {
+		this.repeatedPassword = repeatedPassword;
+	}
+
+	/**
+	 * @return the userDetails
+	 */
+	public MutableUserDetails getUserDetails() {
+		return userDetails;
+	}
+
+	/**
+	 * @param userDetails the userDetails to set
+	 */
+	public void setUserDetails(MutableUserDetails userDetails) {
+		this.userDetails = userDetails;
+	}
+
 
 }

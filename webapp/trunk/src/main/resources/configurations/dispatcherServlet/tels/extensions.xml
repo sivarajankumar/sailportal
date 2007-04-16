@@ -32,4 +32,13 @@
     	<property name="formView" value="registerstudent" />
     	<property name="successView" value="login.html" />
     </bean>
+    
+        <bean id="registerteacherController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterTeacherController">
+    	<property name="userService" ref="userService" />
+    	<property name="commandName" value="teacherAccountForm" />
+    	<property name="validator" ref="teacherUserDetailsValidator" />
+    	<property name="formView" value="registerteacher" />
+    	<property name="successView" value="login.html" />
+    </bean>
 </beans>

@@ -29,6 +29,9 @@
     <bean id="studentUserDetailsValidator"
         class="org.telscenter.sail.webapp.presentation.validators.StudentUserDetailsValidator" />
 
+    <bean id="teacherUserDetailsValidator"
+        class="org.telscenter.sail.webapp.presentation.validators.TeacherUserDetailsValidator" />
+
     <bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController">
 	</bean>

@@ -20,26 +20,45 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers;
+package org.telscenter.sail.webapp.presentation.web;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
+ * TeacherAccountForm contains all of the data necessary to register/update 
+ * a teacher account
+ * 
  * @author Hiroki Terashima
- *
- * @version $Id$
- *
+ * @version $Id: $
  */
-public class AllTests {
+public class TeacherAccountForm extends UserAccountForm {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for org.telscenter.sail.webapp.presentation.web.controllers");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(RegisterStudentControllerTest.class);
-        suite.addTestSuite(RegisterTeacherControllerTest.class);
-        //$JUnit-END$
-        return suite;
-    }
+	private static final long serialVersionUID = 1L;
+	
+	private boolean legalAcknowledged;
+
+	public TeacherAccountForm() {
+		userDetails = new TeacherUserDetails();
+		newAccount = true;
+	}
+	
+	public TeacherAccountForm(TeacherUserDetails teacherUserDetails) {
+		userDetails = teacherUserDetails;
+		newAccount = false;
+	}
+	
+	/**
+	 * @return the legalAcknowledged
+	 */
+	public boolean isLegalAcknowledged() {
+		return legalAcknowledged;
+	}
+
+	/**
+	 * @param legalAcknowledged the legalAcknowledged to set
+	 */
+	public void setLegalAcknowledged(boolean legalAcknowledged) {
+		this.legalAcknowledged = legalAcknowledged;
+	}
+
 }

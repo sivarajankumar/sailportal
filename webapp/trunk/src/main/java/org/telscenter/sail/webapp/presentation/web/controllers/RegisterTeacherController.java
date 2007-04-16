@@ -22,36 +22,33 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.authentication.Gender;
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 /**
- * Signup controller for TELS student user
+ * Signup controller for TELS teacher user
  *
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id: $
  */
-public class RegisterStudentController extends SignupController {
+public class RegisterTeacherController extends SignupController {
 
-	public RegisterStudentController() {
+	public RegisterTeacherController() {
 		setValidateOnBinding(false);
+	}
+	
+	@Override
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+		return new TeacherAccountForm();
 	}
 	
 	/**
@@ -67,8 +64,8 @@ public class RegisterStudentController extends SignupController {
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
 
-		StudentAccountForm accountForm = (StudentAccountForm) command;
-		StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
+		TeacherAccountForm accountForm = (TeacherAccountForm) command;
+		TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
 
 		if (accountForm.isNewAccount()) {
 			try {
@@ -87,23 +84,11 @@ public class RegisterStudentController extends SignupController {
 	}
 	
 	@Override
-	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		return new StudentAccountForm();
-	}
-	
-	@Override
-	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("genders", Gender.values());
-		return model;
-	}
-	
-	@Override
 	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
 	throws Exception {
 
-		StudentAccountForm accountForm = (StudentAccountForm) command;
-		StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
+		TeacherAccountForm accountForm = (TeacherAccountForm) command;
+		TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
 		errors.setNestedPath("userDetails");
 		getValidator().validate(userDetails, errors);
 		errors.setNestedPath("");
@@ -116,14 +101,4 @@ public class RegisterStudentController extends SignupController {
 			}
 		}
 	}
-	
-	@Override
-	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception
-	{
-	  //super.initBinder(request, binder);
-	  binder.registerCustomEditor(Date.class,
-	    new CustomDateEditor(new SimpleDateFormat("MM/dd"), false)
-	  );
-	}
-
 }
