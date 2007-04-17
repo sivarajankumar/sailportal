@@ -35,4 +35,8 @@
     <bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController">
 	</bean>
+
+    <bean
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController">
+    </bean>
 </beans>

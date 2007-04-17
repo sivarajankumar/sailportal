@@ -19,35 +19,36 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
-<html xml:lang="en" lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
-<title><spring:message code="application.title" /></title>
+  type="text/css" />
+<title><spring:message code="success.title" /></title>
 </head>
 
 <body>
 
 <%@ include file="header.jsp"%>
 
-<h1>Show and Tels</h1>
-
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
 </div>
 
 <div id="columns">
-<div id="left">
-<h2><spring:message code="welcome" /> <authz:authentication
-    operation="username" /></h2>
+<div id="left"><%@ include file="logout.jsp"%>
+	<a href="offeringslist.html"><spring:message code="offerings.list" /></a><br />
 </div>
 
 <div id="right">
-<a href="login.html"><spring:message code="log.in" /></a><br />
-<a href="registerstudent.html"><spring:message code="register.student" /></a><br />
-<a href="registerteacher.html"><spring:message code="register.teacher" /></a><br /></div>
+<h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
+
+<display:table name="${curnitlist}" id="curnit">
+  <display:column titleKey="curnit.numbering.heading">
+    <c:out value="${curnit_rowNum}" />
+  </display:column>
+  <display:column property="name" titleKey="curnit.name.heading" />
+</display:table></div>
 
 </div>
 

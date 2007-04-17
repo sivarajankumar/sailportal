@@ -39,17 +39,19 @@
 </div>
 
 <div id="columns">
-<div id="left">
+<div id="left"><%@ include file="logout.jsp"%>
 <h2><spring:message code="welcome" /> <authz:authentication
     operation="username" /></h2>
+    <a href="curnitlist.html"><spring:message code="curnit.list" /></a><br /><br /><br />
 </div>
 
 <div id="right">
-<a href="login.html"><spring:message code="log.in" /></a><br />
 <a href="registerstudent.html"><spring:message code="register.student" /></a><br />
 <a href="registerteacher.html"><spring:message code="register.teacher" /></a><br /></div>
 
 </div>
+
+
 
 <%@ include file="footer.jsp"%>
 
