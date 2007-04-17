@@ -25,7 +25,6 @@ package org.telscenter.sail.webapp.presentation.validators;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 import net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest;
@@ -37,7 +36,7 @@ import net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest;
  * @version $Id: $
  */
 public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
-	private MutableUserDetails userDetails;
+	private TeacherUserDetails userDetails;
 
     private Errors errors;
 
@@ -48,6 +47,20 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     private static final String FIRSTNAME = "firstname";
     
     private static final String LASTNAME = "lastname";
+    
+    private static final String EMAIL = "email@email.com";
+    
+    private static final String CITY = "Berkeley";
+    
+    private static final String STATE = "California";
+    
+    private static final String COUNTRY = "U.S.A.";
+
+    private static final String SCHOOLNAME = "U.C. Berkeley";
+
+	private static final String[] CURRICULUMSUBJECTS = {"Biology"};
+
+	private static final String SCHOOLLEVEL = "6";
 
     private static final String EMPTY = "";
 
@@ -64,8 +77,21 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
         userDetails.setPassword(PASSWORD);
         userDetails.setFirstname(FIRSTNAME);
         userDetails.setLastname(LASTNAME);
+        userDetails.setEmailAddress(EMAIL);
+        userDetails.setCity(CITY);
+        userDetails.setState(STATE);
+        userDetails.setCountry(COUNTRY);
+        userDetails.setSchoolname(SCHOOLNAME);
+        userDetails.setCurriculumsubjects(CURRICULUMSUBJECTS);
+        userDetails.setSchoollevel(SCHOOLLEVEL);
         errors = new BeanPropertyBindingResult(userDetails, "");
         userDetailsValidator = new TeacherUserDetailsValidator();
+    }
+    
+    public void testNoProblemValidate() {
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(!errors.hasErrors());
     }
 
     public void testPasswordNullValidate() {
@@ -156,6 +182,127 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     }
     */
     
+    public void testCityNullValidate() {
+    	userDetails.setCity(null);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("city"));
+    }
+    
+    public void testCityEmptyValidate() {
+    	userDetails.setCity(EMPTY);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("city"));    	
+    }
+    
+    public void testStateNullValidate() {
+    	userDetails.setState(null);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+    	assertNotNull(errors.getFieldError("state"));
+    }
+    
+    public void testStateEmptyValidate() {
+    	userDetails.setState(EMPTY);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("state"));    	
+    }
+    
+    public void testCityStateEmptyValidate() {
+    	userDetails.setCity(EMPTY);
+    	userDetails.setState(EMPTY);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(2, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("city"));
+    	assertNotNull(errors.getFieldError("state"));
+    }
+    
+    public void testCountryNullValidate() {
+    	userDetails.setCountry(null);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("country"));
+    }
+    
+    public void testCountryEmptyValidate() {
+    	userDetails.setCountry(EMPTY);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("country"));
+    }
+    
+    public void testSchoolnameNullValidate() {
+    	userDetails.setSchoolname(null);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("schoolname"));
+    }
+    
+    public void testSchoolnameEmptyValidate() {
+    	userDetails.setSchoolname(EMPTY);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("schoolname"));
+    }
+    
+    public void testCurriclumsubjectsNullValidate() {
+    	userDetails.setCurriculumsubjects(null);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("curriculumsubjects"));
+    }
+    
+    public void testSchoollevelNullValidate() {
+    	userDetails.setSchoollevel(null);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("schoollevel"));
+    }
+    
+    public void testSchoollevelEmptyValidate() {
+    	userDetails.setSchoollevel(EMPTY);
+    	
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    	assertNotNull(errors.getFieldError("schoollevel"));
+    }
+
     protected void tearDown() throws Exception {
         super.tearDown();
         userDetails = null;

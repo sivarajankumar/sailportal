@@ -55,6 +55,24 @@ public class TeacherUserDetailsValidator extends UserDetailsValidator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress", 
 				"error.email-not-specified");
 		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "city", 
+		        "error.city-not-specified");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", 
+                "error.state-not-specified");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country", 
+                "error.country-not-specified");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolname", 
+                "error.schoolname-not-specified");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "curriculumsubjects", 
+                "error.curriculumsubjects-not-specified");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoollevel", 
+                "error.schoollevel-not-specified");
+		
 		// TODO: CHECK FOR ILLEGAL EMAIL ADDRESS FORMAT
 		
 		if (errors.hasErrors())

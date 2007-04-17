@@ -27,7 +27,7 @@ import net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
 /**
@@ -37,7 +37,7 @@ import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
  */
 public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
 	
-	private MutableUserDetails userDetails;
+	private StudentUserDetails userDetails;
 
     private Errors errors;
 
@@ -45,9 +45,15 @@ public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
 
     private static final String PASSWORD = "PASS";
 
+    private static final String FIRSTNAME = "firstname";
+    
+    private static final String LASTNAME = "lastname";
+    
     private static final String EMPTY = "";
 
     private static final String SPACES = "    ";
+    
+    private static final Gender GENDER = Gender.FEMALE;
 
 	private static final String PASSWORD_TOO_LONG = "abcdefghijklmnopqrstuvwxyz";
 
@@ -58,10 +64,19 @@ public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
         userDetails = new StudentUserDetails();
         userDetails.setUsername(USERNAME);
         userDetails.setPassword(PASSWORD);
+        userDetails.setFirstname(FIRSTNAME);
+        userDetails.setLastname(LASTNAME);
+        userDetails.setGender(GENDER);
         errors = new BeanPropertyBindingResult(userDetails, "");
         userDetailsValidator = new StudentUserDetailsValidator();
     }
 
+    public void testNoProblemValidate() {
+    	userDetailsValidator.validate(userDetails, errors);
+    	
+    	assertTrue(!errors.hasErrors());
+    }
+    
     public void testPasswordNullValidate() {
         userDetails.setPassword(null);
 

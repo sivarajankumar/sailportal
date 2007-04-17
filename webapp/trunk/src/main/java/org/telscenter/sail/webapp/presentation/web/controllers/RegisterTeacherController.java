@@ -88,6 +88,12 @@ public class RegisterTeacherController extends SignupController {
 	throws Exception {
 
 		TeacherAccountForm accountForm = (TeacherAccountForm) command;
+		
+		if (!accountForm.isLegalAcknowledged()) {
+			errors.reject("error.legal-not-acknowledged", "You must agree to the terms of use");
+			return;
+		}
+		
 		TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
 		errors.setNestedPath("userDetails");
 		getValidator().validate(userDetails, errors);

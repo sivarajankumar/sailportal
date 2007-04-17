@@ -67,17 +67,48 @@ addEvent(window, 'load', onLoadHandler);
   <p><label for="lastname"><spring:message code="signup.lastname" /></label>
   <form:input path="userDetails.lastname" id="lastname"/> <form:errors path="userDetails.lastname" />
   </p>
+
+  <p><label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
+  <form:input path="userDetails.emailAddress" id="emailAddress"/> <form:errors path="userDetails.emailAddress"/>
+  </p>
+
+  <p><label for="city"><spring:message code="signup.city" /></label> 
+  <form:input path="userDetails.city" id="city" /> <form:errors path="userDetails.city" />
+  </p>
+
+  <p><label for="state"><spring:message code="signup.state" /></label> 
+  <form:input path="userDetails.state" id="state" /> <form:errors path="userDetails.state" />
+  </p>
+
+  <p><label for="country"><spring:message code="signup.country" /></label> 
+  <form:input path="userDetails.country" id="country" /> <form:errors path="userDetails.country" />
+  </p>
+
+  <p><label for="schoolname"><spring:message code="signup.schoolname" /></label> 
+  <form:input path="userDetails.schoolname" id="schoolname" /> <form:errors path="userDetails.schoolname" />
+  </p>
+
+  <p><label for="curriculumsubjects"><spring:message code="signup.curriculumsubjects" /></label> 
+  Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
+  Chemistry:  <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
+  Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" />
+  <form:errors path="userDetails.curriculumsubjects" />
+  </p>
+
+  <p><label for="schoollevel"><spring:message code="signup.schoollevel" /></label> 
+  <form:input path="userDetails.schoollevel" id="schoollevel" /> <form:errors path="userDetails.schoollevel" />
+  </p>
   
+  <p><label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label> 
+  <form:checkbox path="legalAcknowledged" id="legalAcknowledged" /> <form:errors path="legalAcknowledged" />
+  </p>
+
   <p><label for="password"><spring:message code="signup.password" /></label>
   <form:password path="userDetails.password" id="password"/> <form:errors path="userDetails.password"/>
   </p>
   
   <p><label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
   <form:password path="repeatedPassword" id="repeatedPassword"/> <form:errors path="repeatedPassword" />
-  </p>
-
-  <p><label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
-  <form:input path="userDetails.emailAddress" id="emailAddress"/> <form:errors path="userDetails.emailAddress"/>
   </p>
 
   <p><input type="submit" value="<spring:message code="signup.submit" />" />
