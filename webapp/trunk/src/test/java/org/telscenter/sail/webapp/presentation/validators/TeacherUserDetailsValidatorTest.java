@@ -23,11 +23,7 @@
 package org.telscenter.sail.webapp.presentation.validators;
 
 import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
-
-import net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest;
 
 /**
  * Test class for TeacherUserDetailsValidator
@@ -36,19 +32,8 @@ import net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest;
  * @version $Id: $
  */
 public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
+
 	private TeacherUserDetails userDetails;
-
-    private Errors errors;
-
-    private static final String USERNAME = "NAME";
-
-    private static final String PASSWORD = "PASS";
-    
-    private static final String FIRSTNAME = "firstname";
-    
-    private static final String LASTNAME = "lastname";
-    
-    private static final String EMAIL = "email@email.com";
     
     private static final String CITY = "Berkeley";
     
@@ -61,14 +46,6 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
 	private static final String[] CURRICULUMSUBJECTS = {"Biology"};
 
 	private static final String SCHOOLLEVEL = "6";
-
-    private static final String EMPTY = "";
-
-    private static final String SPACES = "    ";
-
-	private static final String PASSWORD_TOO_LONG = "abcdefghijklmnopqrstuvwxyz";
-
-    private Validator userDetailsValidator;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -89,64 +66,29 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     }
     
     public void testNoProblemValidate() {
-    	userDetailsValidator.validate(userDetails, errors);
-    	
-    	assertTrue(!errors.hasErrors());
+    	super.testNoProblemValidate(userDetails, errors);
     }
-
+    
     public void testPasswordNullValidate() {
-        userDetails.setPassword(null);
-
-        userDetailsValidator.validate(userDetails, errors);
-
-        assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-        assertNull(errors.getFieldError("username"));
-        assertNotNull(errors.getFieldError("password"));
+    	super.testPasswordNullValidate(userDetails, errors);
     }
 
     public void testPasswordEmptyValidate() {
-        userDetails.setPassword(EMPTY);
-
-        userDetailsValidator.validate(userDetails, errors);
-
-        assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-        assertNull(errors.getFieldError("username"));
-        assertNotNull(errors.getFieldError("password"));
+        super.testPasswordEmptyValidate(userDetails, errors);
     }
 
     public void testPasswordSpacesValidate() {
-        userDetails.setPassword(SPACES);
-
-        userDetailsValidator.validate(userDetails, errors);
-
-        assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-        assertNull(errors.getFieldError("username"));
-        assertNotNull(errors.getFieldError("password"));
+    	super.testPasswordSpacesValidate(userDetails, errors);
     }
     
     public void testPasswordTooLongValidate() {
-    	assertTrue(PASSWORD_TOO_LONG.length() > TeacherUserDetailsValidator.MAX_PASSWORD_LENGTH);
-    	userDetails.setPassword(PASSWORD_TOO_LONG);
-    	
-    	userDetailsValidator.validate(userDetails, errors);
-    	assertTrue(errors.hasErrors());
-    	assertEquals(1, errors.getErrorCount());
-    	assertNull(errors.getFieldError("username"));
-    	assertNotNull(errors.getFieldError("password"));
-    }
-    
-    public void testPasswrdIllegalChars1Validate() {
-        userDetails.setPassword(ILLEGAL1);
-        userDetailsValidator.validate(userDetails, errors);
-        assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-        assertNull(errors.getFieldError("username"));
-        assertNotNull(errors.getFieldError("password"));
+    	super.testPasswordSpacesValidate(userDetails, errors);
     }
 
+    public void testPasswrdIllegalChars1Validate() {
+    	super.testPasswrdIllegalChars1Validate(userDetails, errors);
+    }
+    
     public void testEmailEmptyValidate() {
         userDetails.setEmailAddress(EMPTY);
 
