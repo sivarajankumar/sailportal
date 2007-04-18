@@ -41,7 +41,10 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
     private static final String EXPECTED_NAME = "name";
 
-    private static final String EXPECTED_URL = "http://www.google.com/";
+    //Note that this url cannot be a fake one.
+    //It must return an appropriate jar in order to create the real one in the sds database
+    //Otherwise the test will fail
+    private static final String EXPECTED_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
 
     private HttpRestSdsCurnitDao sdsCurnitDao;
 

@@ -46,7 +46,10 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
     private static final String DEFAULT_NAME = "d fault";
 
-    private static final String DEFAULT_URL = "http://www.google.com/";
+    //Note that this url cannot be a fake one.
+    //It must return an appropriate jar in order to create the real one in the sds database
+    //Otherwise the test will fail
+    private static final String DEFAULT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
 
     protected HttpRestTransport httpRestTransport;
 
