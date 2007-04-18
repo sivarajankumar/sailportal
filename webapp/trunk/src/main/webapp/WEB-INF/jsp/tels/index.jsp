@@ -32,7 +32,7 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>Show and Tels</h1>
+<h1>TELS HOMEPAGE</h1>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
@@ -47,6 +47,7 @@
 <div id="right">
 <a href="login.html"><spring:message code="log.in" /></a><br />
 <a href="register.html"><spring:message code="joinwise" /></a><br />
+</div>
 </div>
 
 <%@ include file="footer.jsp"%>

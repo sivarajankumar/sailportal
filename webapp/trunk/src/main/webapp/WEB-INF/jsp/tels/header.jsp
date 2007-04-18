@@ -18,6 +18,6 @@
 
 <!-- $Id$ -->
 
-<div id="logo">
-	<img src="<spring:theme code="logo"/>" alt="<spring:message code="sail.logo.alttext" />" />
+<div id="banner">
+	<img src="<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
