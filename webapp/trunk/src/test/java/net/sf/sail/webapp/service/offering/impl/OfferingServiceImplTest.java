@@ -28,7 +28,6 @@ import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
 import org.easymock.EasyMock;
 
@@ -43,7 +42,7 @@ public class OfferingServiceImplTest extends TestCase {
 
     private SdsOffering sdsOffering;
 
-    private OfferingDao mockOfferingDao;
+    private OfferingDao<Offering> mockOfferingDao;
 
     private Offering offering;
 
@@ -66,15 +65,6 @@ public class OfferingServiceImplTest extends TestCase {
         this.sdsOffering = new SdsOffering();
         this.offering = new OfferingImpl();
         this.offering.setSdsOffering(this.sdsOffering);
-        // sdsOffering.setSdsObjectId(3);
-        // SdsCurnit curnit = new SdsCurnit();
-        // curnit.setSdsObjectId(1);
-        // sdsOffering.setCurnit(curnit);
-
-        // SdsJnlp jnlp = new SdsJnlp();
-        // jnlp.setSdsObjectId(2);
-        // sdsOffering.setJnlp(jnlp);
-        // sdsOffering.setName("test");
     }
 
     /**
@@ -103,7 +93,6 @@ public class OfferingServiceImplTest extends TestCase {
 
     // tests that the command is delegated to the DAOs and that the DAOs are
     // called once
-    @SuppressWarnings("unchecked")
     public void testCreateOffering() throws Exception {
         this.mockSdsOfferingDao.save(this.sdsOffering);
         EasyMock.expectLastCall();

@@ -43,7 +43,7 @@ public class JnlpServiceImplTest extends TestCase {
 
     private SdsJnlp sdsJnlp;
 
-    private JnlpDao mockJnlpDao;
+    private JnlpDao<Jnlp> mockJnlpDao;
 
     private Jnlp jnlp;
 
@@ -52,6 +52,7 @@ public class JnlpServiceImplTest extends TestCase {
     /**
      * @see junit.framework.TestCase#setUp()
      */
+    @Override
     @SuppressWarnings("unchecked")
     protected void setUp() throws Exception {
         super.setUp();
@@ -72,6 +73,7 @@ public class JnlpServiceImplTest extends TestCase {
     /**
      * @see junit.framework.TestCase#tearDown()
      */
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         this.jnlpServiceImpl = null;
@@ -84,7 +86,7 @@ public class JnlpServiceImplTest extends TestCase {
     public void testGetJnlpIterator() throws Exception {
         Set<Jnlp> jnlpSet = new HashSet<Jnlp>();
         jnlpSet.add(this.jnlp);
-        Iterator expectedJnlpIterator = jnlpSet.iterator();
+        Iterator<Jnlp> expectedJnlpIterator = jnlpSet.iterator();
 
         EasyMock.expect(this.mockJnlpDao.iterate()).andReturn(
                 expectedJnlpIterator);
@@ -95,7 +97,6 @@ public class JnlpServiceImplTest extends TestCase {
 
     // tests that the command is delegated to the DAOs and that the DAOs are
     // called once
-    @SuppressWarnings("unchecked")
     public void testCreateJnlp() throws Exception {
         this.mockSdsJnlpDao.save(this.sdsJnlp);
         EasyMock.expectLastCall();

@@ -42,7 +42,7 @@ public class CurnitServiceImplTest extends TestCase {
 
     private SdsCurnit sdsCurnit;
 
-    private CurnitDao mockCurnitDao;
+    private CurnitDao<Curnit> mockCurnitDao;
 
     private Curnit curnit;
 
@@ -93,7 +93,6 @@ public class CurnitServiceImplTest extends TestCase {
 
     // tests that the command is delegated to the DAOs and that the DAOs are
     // called once
-    @SuppressWarnings("unchecked")
     public void testCreateCurnit() throws Exception {
         this.mockSdsCurnitDao.save(this.sdsCurnit);
         EasyMock.expectLastCall();

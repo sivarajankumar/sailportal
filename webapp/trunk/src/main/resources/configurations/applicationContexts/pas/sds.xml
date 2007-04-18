@@ -158,4 +158,10 @@
         <property name="sdsJnlpDao" ref="sdsJnlpDao" />
         <property name="jnlpDao" ref="jnlpDao" />
     </bean>
+
+    <bean id="workgroupService"
+        class="net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl">
+        <property name="sdsWorkgroupDao" ref="sdsWorkgroupDao" />
+        <property name="workgroupDao" ref="workgroupDao" />
+    </bean>
 </beans>
