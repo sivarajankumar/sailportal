@@ -33,6 +33,7 @@ public class AllTests {
                 "Test for org.telscenter.sail.webapp.presentation.validators");
         //$JUnit-BEGIN$
         suite.addTestSuite(StudentUserDetailsValidatorTest.class);
+        suite.addTestSuite(UserDetailsValidatorTest.class);
         suite.addTestSuite(TeacherUserDetailsValidatorTest.class);
         //$JUnit-END$
         return suite;
