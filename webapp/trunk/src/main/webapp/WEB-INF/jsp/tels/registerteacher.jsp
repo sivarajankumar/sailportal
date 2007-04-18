@@ -58,61 +58,87 @@ addEvent(window, 'load', onLoadHandler);
 <h2><spring:message code="register.teacher" /></h2>
 </div>
 
-<div id="right"><form:form method="post" action="registerteacher.html" commandName="teacherAccountForm">
+<div id="right">
+<form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
+<table>
+  <tr>
+    <td><label for="firstname"><spring:message code="signup.firstname" /></label></td>
+    <td><form:input path="userDetails.firstname" id="firstname"/></td>
+    <td><form:errors path="userDetails.firstname" /></td>
+  </tr>
 
-  <p><label for="firstname"><spring:message code="signup.firstname" /></label>
-  <form:input path="userDetails.firstname" id="firstname"/> <form:errors path="userDetails.firstname" />
-  </p>
+  <tr>
+    <td><label for="lastname"><spring:message code="signup.lastname" /></label></td>
+    <td><form:input path="userDetails.lastname" id="lastname"/></td>
+    <td><form:errors path="userDetails.lastname" /></td>
+  </tr>
 
-  <p><label for="lastname"><spring:message code="signup.lastname" /></label>
-  <form:input path="userDetails.lastname" id="lastname"/> <form:errors path="userDetails.lastname" />
-  </p>
+  <tr>
+    <td><label for="emailAddress"><spring:message code="signup.emailAddress" /></label></td>
+    <td><form:input path="userDetails.emailAddress" id="emailAddress"/></td>
+    <td><form:errors path="userDetails.emailAddress"/></td>
+  </tr>
 
-  <p><label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
-  <form:input path="userDetails.emailAddress" id="emailAddress"/> <form:errors path="userDetails.emailAddress"/>
-  </p>
+  <tr>
+    <td><label for="city"><spring:message code="signup.city" /></label></td> 
+    <td><form:input path="userDetails.city" id="city" /></td>
+    <td><form:errors path="userDetails.city" /></td>
+  </tr>
 
-  <p><label for="city"><spring:message code="signup.city" /></label> 
-  <form:input path="userDetails.city" id="city" /> <form:errors path="userDetails.city" />
-  </p>
+  <tr>
+    <td><label for="state"><spring:message code="signup.state" /></label></td> 
+    <td><form:input path="userDetails.state" id="state" /></td>
+    <td><form:errors path="userDetails.state" /></td>
+  </tr>
 
-  <p><label for="state"><spring:message code="signup.state" /></label> 
-  <form:input path="userDetails.state" id="state" /> <form:errors path="userDetails.state" />
-  </p>
+  <tr>
+    <td><label for="country"><spring:message code="signup.country" /></label></td> 
+    <td><form:input path="userDetails.country" id="country" /></td>
+    <td><form:errors path="userDetails.country" /></td>
+  </tr>
 
-  <p><label for="country"><spring:message code="signup.country" /></label> 
-  <form:input path="userDetails.country" id="country" /> <form:errors path="userDetails.country" />
-  </p>
+  <tr>
+    <td><label for="schoolname"><spring:message code="signup.schoolname" /></label></td> 
+    <td><form:input path="userDetails.schoolname" id="schoolname" /></td>
+    <td><form:errors path="userDetails.schoolname" /></td>
+  </tr>
 
-  <p><label for="schoolname"><spring:message code="signup.schoolname" /></label> 
-  <form:input path="userDetails.schoolname" id="schoolname" /> <form:errors path="userDetails.schoolname" />
-  </p>
-
-  <p><label for="curriculumsubjects"><spring:message code="signup.curriculumsubjects" /></label> 
-  Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
+  <tr>
+    <td><label for="curriculumsubjects"><spring:message code="signup.curriculumsubjects" /></label></td> 
+  <td>Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
   Chemistry:  <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
-  Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" />
-  <form:errors path="userDetails.curriculumsubjects" />
-  </p>
+  Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" /></td>
+  <td><form:errors path="userDetails.curriculumsubjects" /></td>
+  </tr>
 
-  <p><label for="schoollevel"><spring:message code="signup.schoollevel" /></label> 
-  <form:input path="userDetails.schoollevel" id="schoollevel" /> <form:errors path="userDetails.schoollevel" />
-  </p>
+  <tr>
+    <td><label for="schoollevel"><spring:message code="signup.schoollevel" /></label></td> 
+    <td><form:input path="userDetails.schoollevel" id="schoollevel" /></td>
+    <td><form:errors path="userDetails.schoollevel" /></td>
+  </tr>
   
-  <p><label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label> 
-  <form:checkbox path="legalAcknowledged" id="legalAcknowledged" /> <form:errors path="legalAcknowledged" />
-  </p>
+  <tr>
+    <td><label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label></td>
+    <td><form:checkbox path="legalAcknowledged" id="legalAcknowledged" /></td>
+    <td><form:errors path="legalAcknowledged" /></td>
+  </tr>
 
-  <p><label for="password"><spring:message code="signup.password" /></label>
-  <form:password path="userDetails.password" id="password"/> <form:errors path="userDetails.password"/>
-  </p>
+  <tr>
+    <td><label for="password"><spring:message code="signup.password" /></label></td>
+    <td><form:password path="userDetails.password" id="password"/></td>
+    <td><form:errors path="userDetails.password"/></td>
+  </tr>
   
-  <p><label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
-  <form:password path="repeatedPassword" id="repeatedPassword"/> <form:errors path="repeatedPassword" />
-  </p>
+  <tr>
+    <td><label for="repeatedPassword"><spring:message code="signup.password.verify" /></label></td>
+    <td><form:password path="repeatedPassword" id="repeatedPassword"/></td>
+    <td><form:errors path="repeatedPassword" /></td>
+  </tr>
 
-  <p><input type="submit" value="<spring:message code="signup.submit" />" />
-  </p>
+  <tr>
+    <td><input type="submit" value="<spring:message code="signup.submit" />" /></td>
+  </tr>
+</table>
 </form:form></div>
 </div>
 <%@ include file="footer.jsp"%>
