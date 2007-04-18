@@ -17,12 +17,17 @@
  */
 package net.sf.sail.webapp.service.workgroup.impl;
 
+import java.util.Iterator;
+
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Cynick Young
@@ -57,9 +62,19 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createWorkgroup(net.sf.sail.webapp.domain.Workgroup)
      */
+    @Transactional(rollbackFor = { BadRequestException.class,
+            NetworkTransportException.class })
     public void createWorkgroup(Workgroup workgroup) {
         this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
         this.workgroupDao.save(workgroup);
+    }
+
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getWorkgroupIterator()
+     */
+    @Transactional(readOnly = true)
+    public Iterator<Workgroup> getWorkgroupIterator() {
+        return this.workgroupDao.iterate();
     }
 
 }

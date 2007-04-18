@@ -17,6 +17,10 @@
  */
 package net.sf.sail.webapp.service.workgroup.impl;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
@@ -78,6 +82,19 @@ public class WorkgroupServiceImplTest extends TestCase {
         this.sdsWorkgroup = null;
         this.mockWorkgroupDao = null;
         this.workgroup = null;
+    }
+
+    public void testGetJnlpIterator() throws Exception {
+        Set<Workgroup> workgroupSet = new HashSet<Workgroup>();
+        workgroupSet.add(this.workgroup);
+        Iterator<Workgroup> expectedJnlpIterator = workgroupSet.iterator();
+
+        EasyMock.expect(this.mockWorkgroupDao.iterate()).andReturn(
+                expectedJnlpIterator);
+        EasyMock.replay(this.mockWorkgroupDao);
+        assertEquals(expectedJnlpIterator, workgroupServiceImpl
+                .getWorkgroupIterator());
+        EasyMock.verify(this.mockWorkgroupDao);
     }
 
     // tests that the command is delegated to the DAOs and that the DAOs are

@@ -22,10 +22,11 @@
  */
 package net.sf.sail.webapp.dao.workgroup.impl;
 
+import java.util.Iterator;
+
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Workgroup;
-
 
 /**
  * @author Hiroki Terashima
@@ -34,4 +35,13 @@ import net.sf.sail.webapp.domain.Workgroup;
 public class HibernateWorkgroupDao extends AbstractHibernateDao<Workgroup>
         implements WorkgroupDao<Workgroup> {
 
+    private static final String ITERATE_QUERY = "from WorkgroupImpl";
+
+    /**
+     * @see net.sf.sail.webapp.dao.jnlp.JnlpDao#iterate()
+     */
+    @SuppressWarnings("unchecked")
+    public Iterator<Workgroup> iterate() {
+        return this.getHibernateTemplate().iterate(ITERATE_QUERY);
+    }
 }

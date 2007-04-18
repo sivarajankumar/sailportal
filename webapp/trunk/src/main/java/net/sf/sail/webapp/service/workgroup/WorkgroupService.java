@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.service.workgroup;
 
+import java.util.Iterator;
+
 import net.sf.sail.webapp.domain.Workgroup;
 
 /**
@@ -26,6 +28,14 @@ import net.sf.sail.webapp.domain.Workgroup;
  * 
  */
 public interface WorkgroupService {
+
+    /**
+     * Gets an <code>Interator</code> that allows traversal of workgroups
+     * available.
+     * 
+     * @return an <code>Iterator</code> of workgroups.
+     */
+    public Iterator<Workgroup> getWorkgroupIterator();
 
     /**
      * Creates a new <code>SdsWorkgroup</code> on the SDS as well as a
