@@ -26,9 +26,9 @@ import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 import net.sf.sail.webapp.spring.SpringConfiguration;
-import net.sf.sail.webapp.spring.impl.SpringConfigurationImpl;
 
 import org.acegisecurity.GrantedAuthority;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -45,8 +45,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class CreateDefaultUsers {
 
-    private static final SpringConfiguration SPRING_CONFIG = new SpringConfigurationImpl();
-
     private UserDetailsService userDetailsService = null;
 
     private UserService userService = null;
@@ -58,24 +56,31 @@ public class CreateDefaultUsers {
      * arguments.
      * 
      * @param args
-     *            args[0] - the admin username. args[1] - the admin password.
+     *            args[0] - spring-configuration-classname
+     *            args[1] - the admin username
+     *            args[2] - the admin password
      */
     public static void main(String[] args) {
-        if (args.length < 2) {
+        if (args.length < 3) {
             System.out
-                    .println("Usage: CreateDefaultUsers <admin-username> <admin-password>");
+                    .println("Usage: CreateDefaultUsers <spring-configuration-classname> <admin-username> <admin-password>");
             System.exit(1);
         }
-        ConfigurableApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                SPRING_CONFIG.getRootApplicationContextConfigLocations());
+        ConfigurableApplicationContext applicationContext = null;
         try {
+            SpringConfiguration springConfig = (SpringConfiguration) BeanUtils
+                    .instantiateClass(Class.forName(args[0]));
+            applicationContext = new ClassPathXmlApplicationContext(
+                    springConfig.getRootApplicationContextConfigLocations());
+
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
             createDefaultUsers.init(applicationContext);
+            createDefaultUsers.createRoles(applicationContext);
+
             MutableUserDetails adminUser = (MutableUserDetails) applicationContext
                     .getBean("mutableUserDetails");
-            adminUser.setUsername(args[0]);
-            adminUser.setPassword(args[1]);
-            createDefaultUsers.createRoles(applicationContext);
+            adminUser.setUsername(args[1]);
+            adminUser.setPassword(args[2]);
             createDefaultUsers.createAdministrator(adminUser);
         } catch (Exception all) {
             System.err.println(all.getLocalizedMessage());
@@ -91,16 +96,6 @@ public class CreateDefaultUsers {
         this.setUserDetailsService((UserDetailsService) context
                 .getBean("userDetailsService"));
         this.setUserService((UserService) context.getBean("userService"));
-    }
-
-    /**
-     * Sets the UserDetailsService.
-     * 
-     * @param userDetailsService
-     */
-    @Required
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
     }
 
     /**
@@ -124,10 +119,10 @@ public class CreateDefaultUsers {
      */
     public User createAdministrator(MutableUserDetails userDetails)
             throws AuthorityNotFoundException, DuplicateUsernameException {
-        GrantedAuthority authority = userDetailsService
+        GrantedAuthority authority = this.userDetailsService
                 .loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
         userDetails.addAuthority(authority);
-        return userService.createUser(userDetails);
+        return this.userService.createUser(userDetails);
     }
 
     /**
@@ -142,14 +137,26 @@ public class CreateDefaultUsers {
      */
     public void createRoles(ApplicationContext applicationContext)
             throws DuplicateAuthorityException {
+        createRole(applicationContext, UserDetailsService.USER_ROLE);
+        createRole(applicationContext, UserDetailsService.ADMIN_ROLE);
+    }
+
+    /**
+     * Creates a role in the the data store authorities table. A role needs to
+     * be created before attempting to create users.
+     * 
+     * @param applicationContext
+     *            The Spring application context that contains the beans.
+     * @param role
+     *            The name of the role to create.
+     * @throws DuplicateAuthorityException
+     *             if authority to be created is not unique
+     */
+    public void createRole(ApplicationContext applicationContext, String role)
+            throws DuplicateAuthorityException {
         MutableGrantedAuthority mutableGrantedAuthority = (MutableGrantedAuthority) applicationContext
                 .getBean("mutableGrantedAuthority");
-        mutableGrantedAuthority.setAuthority(UserDetailsService.ADMIN_ROLE);
-        this.userDetailsService.createGrantedAuthority(mutableGrantedAuthority);
-
-        mutableGrantedAuthority = (MutableGrantedAuthority) applicationContext
-                .getBean("mutableGrantedAuthority");
-        mutableGrantedAuthority.setAuthority(UserDetailsService.USER_ROLE);
+        mutableGrantedAuthority.setAuthority(role);
         this.userDetailsService.createGrantedAuthority(mutableGrantedAuthority);
     }
 
@@ -160,5 +167,15 @@ public class CreateDefaultUsers {
     @Required
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    /**
+     * Sets the UserDetailsService.
+     * 
+     * @param userDetailsService
+     */
+    @Required
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 }
