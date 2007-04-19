@@ -32,7 +32,6 @@ public class AllTests {
         TestSuite suite = new TestSuite(
                 "Test for net.sf.sail.webapp.service.authentication.impl");
         //$JUnit-BEGIN$
-        suite.addTestSuite(CreateDefaultUsersTest.class);
         suite.addTestSuite(UserDetailsServiceImplTest.class);
         //$JUnit-END$
         return suite;

@@ -1,5 +1,6 @@
-package net.sf.sail.webapp.service.authentication.impl;
+package net.sf.sail.webapp;
 
+import net.sf.sail.webapp.CreateDefaultUsers;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.authentication.impl.HibernateUserDetailsDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;

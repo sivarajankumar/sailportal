@@ -34,6 +34,10 @@ public class AllTests {
 
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for net.sf.sail.webapp");
+        //$JUnit-BEGIN$
+        suite.addTestSuite(CreateDefaultUsersTest.class);
+        //$JUnit-END$
+
         // Add new package unit tests here
         suite.addTest(net.sf.sail.webapp.dao.authentication.impl.AllTests
                 .suite());
