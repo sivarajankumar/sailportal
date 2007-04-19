@@ -89,7 +89,7 @@
         <property name="authenticationFailureUrl"
             value="/login.html?failed=true" />
         <property name="alwaysUseDefaultTargetUrl" value="false" />
-        <property name="defaultTargetUrl" value="/offeringslist.html" />
+        <property name="defaultTargetUrl" value="/offeringlist.html" />
         <property name="filterProcessesUrl" value="/j_acegi_security_check" />
     </bean>
 

@@ -89,7 +89,7 @@ public class OfferingServiceImplTest extends TestCase {
         EasyMock.expect(this.mockOfferingDao.iterate()).andReturn(
                 expectedOfferingIterator);
         EasyMock.replay(this.mockOfferingDao);
-        assertEquals(expectedOfferingIterator, offeringServiceImpl.getOfferingsIterator());
+        assertEquals(expectedOfferingIterator, offeringServiceImpl.getOfferingIterator());
         EasyMock.verify(this.mockOfferingDao);
     }
 

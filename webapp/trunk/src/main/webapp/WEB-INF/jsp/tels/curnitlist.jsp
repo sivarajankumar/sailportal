@@ -37,7 +37,7 @@
 
 <div id="columns">
 <div id="left"><%@ include file="logout.jsp"%>
-	<a href="offeringslist.html"><spring:message code="offerings.list" /></a><br />
+	<a href="offeringlist.html"><spring:message code="offerings.list" /></a><br />
 </div>
 
 <div id="right">

@@ -38,7 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @author Laurel Williams
  * 
- * @version $Id: OfferingsListControllerTest.java 257 2007-03-30 14:59:02Z
+ * @version $Id: OfferingListControllerTest.java 257 2007-03-30 14:59:02Z
  *          cynick $
  */
 public class OfferingListControllerTest extends AbstractModelAndViewTests {
@@ -98,7 +98,7 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
     }
 
     public void testHandleRequestInternal() throws Exception {
-        EasyMock.expect(mockOfferingsService.getOfferingsIterator()).andReturn(this.expectedOfferingIterator);
+        EasyMock.expect(mockOfferingsService.getOfferingIterator()).andReturn(this.expectedOfferingIterator);
         EasyMock.replay(mockOfferingsService);
         ModelAndView modelAndView = offeringListController
                 .handleRequestInternal(request, response);
@@ -109,7 +109,7 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
 
         Set<Offering> emptyOfferingSet = Collections.emptySet();
         Iterator<Offering> emptyOfferingSetIterator = emptyOfferingSet.iterator();
-        EasyMock.expect(mockOfferingsService.getOfferingsIterator()).andReturn(
+        EasyMock.expect(mockOfferingsService.getOfferingIterator()).andReturn(
         		emptyOfferingSetIterator);
         EasyMock.replay(mockOfferingsService);
         modelAndView = offeringListController.handleRequestInternal(request,

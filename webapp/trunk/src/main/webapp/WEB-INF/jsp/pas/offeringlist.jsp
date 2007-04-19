@@ -43,7 +43,7 @@
 <div id="right">
 <h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
 
-<display:table name="${offeringslist}" id="offering">
+<display:table name="${offering_iterator}" id="offering">
   <display:column titleKey="curnit.numbering.heading">
     <c:out value="${offering_rowNum}" />
   </display:column>

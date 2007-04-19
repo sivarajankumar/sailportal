@@ -29,9 +29,9 @@
   	</p>
   	
   	<p>
-    <a href="http://checker.atrc.utoronto.ca/servlet/Checkacc?file=referer&amp;guide=wcag-2-0-aaa&amp;lang=eng">
+    <!-- a href="http://checker.atrc.utoronto.ca/servlet/Checkacc?file=referer&amp;guide=wcag-2-0-aaa&amp;lang=eng">
     <img src="http://checker.atrc.utoronto.ca/iconAAA.png"
         alt="WCAG 2 Level 3, check it with ATRC Accessibility Checker" 
-        height="32" width="102" /></a>
+        height="32" width="102" /></a-->
   </p>
 </div>

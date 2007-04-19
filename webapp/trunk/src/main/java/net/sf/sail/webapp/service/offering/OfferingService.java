@@ -33,7 +33,7 @@ public interface OfferingService {
      * 
      * @return an offerings <code>Iterator</code> of offerings.
      */
-    public Iterator<Offering> getOfferingsIterator();
+    public Iterator<Offering> getOfferingIterator();
 
     /**
      * Creates a new <code>SdsOffering</code> on the SDS as well as an

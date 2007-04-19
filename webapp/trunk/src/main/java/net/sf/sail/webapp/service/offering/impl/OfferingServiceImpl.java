@@ -59,9 +59,9 @@ public class OfferingServiceImpl implements OfferingService {
     }
 
     /**
-     * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingsList()
+     * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
      */
-    public Iterator<Offering> getOfferingsIterator() {
+    public Iterator<Offering> getOfferingIterator() {
         return offeringDao.iterate();
     }
 
