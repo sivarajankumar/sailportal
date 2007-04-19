@@ -80,7 +80,7 @@ public class RegisterStudentController extends SignupController {
 				return showForm(request, response, errors);
 			}
 		} else {
-			//userService.updateUser(userDetails);    // TODO: add updateUser() to UserService
+			//userService.updateUser(userDetails);    // TODO HT: add updateUser() to UserService
 		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()));

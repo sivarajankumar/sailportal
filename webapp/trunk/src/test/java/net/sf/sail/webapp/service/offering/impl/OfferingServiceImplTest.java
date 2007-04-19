@@ -18,11 +18,13 @@
 package net.sf.sail.webapp.service.offering.impl;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
+import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -79,18 +81,19 @@ public class OfferingServiceImplTest extends TestCase {
         this.offering = null;
     }
 
-    public void testGetOfferingsList() throws Exception {
-        Set<SdsOffering> expectedSdsOfferingSet = new HashSet<SdsOffering>();
-        expectedSdsOfferingSet.add(this.sdsOffering);
+    public void testGetJnlpIterator() throws Exception {
+        Set<Offering> offeringSet = new HashSet<Offering>();
+        offeringSet.add(this.offering);
+        Iterator<Offering> expectedOfferingIterator = offeringSet.iterator();
 
-        EasyMock.expect(mockSdsOfferingDao.getList()).andReturn(
-                expectedSdsOfferingSet);
-        EasyMock.replay(mockSdsOfferingDao);
-        assertEquals(expectedSdsOfferingSet, offeringServiceImpl
-                .getOfferingsList());
-        EasyMock.verify(mockSdsOfferingDao);
+        EasyMock.expect(this.mockOfferingDao.iterate()).andReturn(
+                expectedOfferingIterator);
+        EasyMock.replay(this.mockOfferingDao);
+        assertEquals(expectedOfferingIterator, offeringServiceImpl.getOfferingsIterator());
+        EasyMock.verify(this.mockOfferingDao);
     }
 
+    
     // tests that the command is delegated to the DAOs and that the DAOs are
     // called once
     public void testCreateOffering() throws Exception {

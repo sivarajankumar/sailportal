@@ -19,8 +19,11 @@ package net.sf.sail.webapp.presentation.web.controllers;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -47,8 +50,9 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
     private MockHttpServletResponse response;
 
     private OfferingService mockOfferingsService;
-
-    private Set<SdsOffering> expectedSdsOfferingSet;
+   
+    private Iterator<Offering> expectedOfferingIterator;
+    
 
     /**
      * @see junit.framework.TestCase#setUp()
@@ -58,20 +62,25 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
         this.request = new MockHttpServletRequest();
         this.response = new MockHttpServletResponse();
         this.mockOfferingsService = EasyMock.createMock(OfferingService.class);
-        this.expectedSdsOfferingSet = new HashSet<SdsOffering>();
-        SdsOffering offering = new SdsOffering();
+        Set<Offering> offeringSet = new HashSet<Offering>();
+        SdsOffering sdsOffering = new SdsOffering();
 
         SdsCurnit curnit = new SdsCurnit();
         curnit.setSdsObjectId(1);
-        offering.setCurnit(curnit);
+        sdsOffering.setCurnit(curnit);
 
         SdsJnlp jnlp = new SdsJnlp();
         jnlp.setSdsObjectId(2);
-        offering.setJnlp(jnlp);
+        sdsOffering.setJnlp(jnlp);
 
-        offering.setName("test");
-        offering.setSdsObjectId(3);
-        this.expectedSdsOfferingSet.add(offering);
+        sdsOffering.setName("test");
+        sdsOffering.setSdsObjectId(3);
+        Offering offering = new OfferingImpl();
+        offering.setSdsOffering(sdsOffering);
+        
+        offeringSet.add(offering);
+        this.expectedOfferingIterator = offeringSet.iterator();
+        
         this.offeringListController = new OfferingListController();
         this.offeringListController
                 .setOfferingService(this.mockOfferingsService);
@@ -85,28 +94,28 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
         this.request = null;
         this.response = null;
         this.mockOfferingsService = null;
-        this.expectedSdsOfferingSet = null;
+        this.expectedOfferingIterator = null;
     }
 
     public void testHandleRequestInternal() throws Exception {
-        EasyMock.expect(mockOfferingsService.getOfferingsList()).andReturn(
-                this.expectedSdsOfferingSet);
+        EasyMock.expect(mockOfferingsService.getOfferingsIterator()).andReturn(this.expectedOfferingIterator);
         EasyMock.replay(mockOfferingsService);
         ModelAndView modelAndView = offeringListController
                 .handleRequestInternal(request, response);
-        assertModelAttributeValue(modelAndView, "offeringslist",
-                this.expectedSdsOfferingSet);
+        assertModelAttributeValue(modelAndView, OfferingListController.OFFERINGS_ITERATOR,
+                this.expectedOfferingIterator);
         EasyMock.verify(mockOfferingsService);
         EasyMock.reset(mockOfferingsService);
 
-        Set<SdsOffering> EMPTY_SDS_OFFERING_SET = Collections.emptySet();
-        EasyMock.expect(mockOfferingsService.getOfferingsList()).andReturn(
-                EMPTY_SDS_OFFERING_SET);
+        Set<Offering> emptyOfferingSet = Collections.emptySet();
+        Iterator<Offering> emptyOfferingSetIterator = emptyOfferingSet.iterator();
+        EasyMock.expect(mockOfferingsService.getOfferingsIterator()).andReturn(
+        		emptyOfferingSetIterator);
         EasyMock.replay(mockOfferingsService);
         modelAndView = offeringListController.handleRequestInternal(request,
                 response);
-        assertModelAttributeValue(modelAndView, "offeringslist",
-                EMPTY_SDS_OFFERING_SET);
+        assertModelAttributeValue(modelAndView, OfferingListController.OFFERINGS_ITERATOR,
+        		emptyOfferingSetIterator);
         EasyMock.verify(mockOfferingsService);
         EasyMock.reset(mockOfferingsService);
     }

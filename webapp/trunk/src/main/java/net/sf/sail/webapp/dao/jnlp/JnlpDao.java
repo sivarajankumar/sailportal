@@ -30,5 +30,10 @@ import net.sf.sail.webapp.domain.Jnlp;
  */
 public interface JnlpDao<T extends Jnlp> extends SimpleDao<T> {
 
+    /**
+     * Returns an iterator to a collection of JNLP's
+     * 
+     * @return a JNLP <code>Iterator</code>
+     */
     public Iterator<T> iterate();
 }

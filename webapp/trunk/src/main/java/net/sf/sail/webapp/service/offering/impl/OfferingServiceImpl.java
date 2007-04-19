@@ -17,12 +17,11 @@
  */
 package net.sf.sail.webapp.service.offering.impl;
 
-import java.util.Set;
+import java.util.Iterator;
 
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.offering.OfferingService;
@@ -62,8 +61,8 @@ public class OfferingServiceImpl implements OfferingService {
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingsList()
      */
-    public Set<SdsOffering> getOfferingsList() {
-        return sdsOfferingDao.getList();
+    public Iterator<Offering> getOfferingsIterator() {
+        return offeringDao.iterate();
     }
 
     /**

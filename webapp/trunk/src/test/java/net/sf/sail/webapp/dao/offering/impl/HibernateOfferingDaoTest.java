@@ -22,6 +22,7 @@
  */
 package net.sf.sail.webapp.dao.offering.impl;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -200,4 +201,17 @@ public class HibernateOfferingDaoTest extends AbstractTransactionalDbTests {
         return this.jdbcTemplate.queryForList(RETRIEVE_OFFERING_LIST_SQL,
                 (Object[]) null);
     }
+    
+    public void testIterate() {
+        verifyDataStoreIsEmpty();
+        this.offeringDao.save(this.defaultOffering);
+        List actualList = retrieveOfferingListFromDb();
+        assertEquals(1, actualList.size());
+
+        Iterator<Offering> actualIterator = this.offeringDao.iterate();
+        assertTrue(actualIterator.hasNext());
+        assertEquals(this.defaultOffering, actualIterator.next());
+        assertFalse(actualIterator.hasNext());
+    }
+
 }

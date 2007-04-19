@@ -17,10 +17,9 @@
  */
 package net.sf.sail.webapp.service.offering;
 
-import java.util.Set;
+import java.util.Iterator;
 
 import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
  * @author Laurel Williams
@@ -30,11 +29,11 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 public interface OfferingService {
 
     /**
-     * Gets a <code>Set</code> of SDS offerings.
+     * Gets an iterator to a collection of offerings.
      * 
-     * @return a <code>Set</code> of SDS offerings.
+     * @return an offerings <code>Iterator</code> of offerings.
      */
-    public Set<SdsOffering> getOfferingsList();
+    public Iterator<Offering> getOfferingsIterator();
 
     /**
      * Creates a new <code>SdsOffering</code> on the SDS as well as an

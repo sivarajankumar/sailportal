@@ -28,7 +28,7 @@ import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class TeacherUserDetailsValidator extends UserDetailsValidator {
 
@@ -73,7 +73,7 @@ public class TeacherUserDetailsValidator extends UserDetailsValidator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoollevel", 
                 "error.schoollevel-not-specified");
 		
-		// TODO: CHECK FOR ILLEGAL EMAIL ADDRESS FORMAT
+		// TODO HT: CHECK FOR ILLEGAL EMAIL ADDRESS FORMAT
 		
 		if (errors.hasErrors())
 			userDetails.setPassword("");

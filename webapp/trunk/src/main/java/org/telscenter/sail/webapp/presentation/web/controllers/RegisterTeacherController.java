@@ -38,7 +38,7 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
  * Signup controller for TELS teacher user
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class RegisterTeacherController extends SignupController {
 
@@ -77,7 +77,7 @@ public class RegisterTeacherController extends SignupController {
 				return showForm(request, response, errors);
 			}
 		} else {
-			//userService.updateUser(userDetails);    // TODO: add updateUser() to UserService
+			//userService.updateUser(userDetails);    // TODO HT: add updateUser() to UserService
 		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()));

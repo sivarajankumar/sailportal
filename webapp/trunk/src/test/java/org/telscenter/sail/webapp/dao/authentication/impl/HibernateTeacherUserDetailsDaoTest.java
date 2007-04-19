@@ -245,7 +245,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
                             .toUpperCase());
             assertEquals(DEFAULT_SCHOOLNAME, actualValue);
 
-            // TODO: varBinary (JDBC type) -> String [] (Java)
+            // TODO HT: varBinary (JDBC type) -> String [] (Java)
             // String[] actualStrings = (String[]) actualUserDetailsMap
             // .get(TeacherUserDetails.COLUMN_NAME_CURRICULUMSUBJECTS.toUpperCase());
             // assertEquals(DEFAULT_CURRICULUMSUBJECTS, actualStrings);

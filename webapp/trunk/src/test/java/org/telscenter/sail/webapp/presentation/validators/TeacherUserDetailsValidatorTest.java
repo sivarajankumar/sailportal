@@ -29,7 +29,7 @@ import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
  * Test class for TeacherUserDetailsValidator
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
 
@@ -109,7 +109,7 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
         assertNotNull(errors.getFieldError("emailAddress"));
     }
     
-    /* TODO: 
+    /* TODO HT: 
      * 1) Add email validation to TeacherUserDetailsValidator
      * 2) uncomment this code
     public void testEmailIllegalFormatValidate() {

@@ -137,7 +137,7 @@ public class StudentUserDetails extends PersistentUserDetails implements
 
 		Calendar birthday       = Calendar.getInstance();
 		birthday.set(0, 6, 19);		
-		//setBirthday(birthday.getTime());  // TODO: don't hard-code this. get it from form
+		//setBirthday(birthday.getTime());  // TODO HT: don't hard-code this. get it from form
 		
 		int birthmonth          = birthday.get(Calendar.MONTH);
 		int birthdate           = birthday.get(Calendar.DATE);
