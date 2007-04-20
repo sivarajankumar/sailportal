@@ -22,7 +22,7 @@
  */
 package net.sf.sail.webapp.dao.offering.impl;
 
-import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
@@ -33,16 +33,16 @@ import net.sf.sail.webapp.domain.Offering;
  * @version $Id$
  */
 public class HibernateOfferingDao extends AbstractHibernateDao<Offering>
-		implements OfferingDao<Offering> {
+        implements OfferingDao<Offering> {
 
-	private static final String ITERATE_QUERY = "from OfferingImpl";
+    private static final String ITERATE_QUERY = "from OfferingImpl";
 
-	/**
-	 * @see net.sf.sail.webapp.dao.offering.OfferingDao#iterate()
-	 */
-	@SuppressWarnings("unchecked")
-	public Iterator<Offering> iterate() {
-		return this.getHibernateTemplate().iterate(ITERATE_QUERY);
-	}
+    /**
+     * @see net.sf.sail.webapp.dao.offering.OfferingDao#getList()
+     */
+    @SuppressWarnings("unchecked")
+    public List<Offering> getList() {
+        return this.getHibernateTemplate().find(ITERATE_QUERY);
+    }
 
 }

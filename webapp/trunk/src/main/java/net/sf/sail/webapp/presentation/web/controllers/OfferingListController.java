@@ -34,8 +34,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class OfferingListController extends AbstractController {
 
     private OfferingService offeringService;
-    
-    public final static String OFFERINGS_ITERATOR = "offering_iterator";
+
+    public final static String OFFERING_LIST = "offering_list";
 
     /**
      * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -47,7 +47,8 @@ public class OfferingListController extends AbstractController {
             HttpServletRequest servletRequest,
             HttpServletResponse servletResponse) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(OFFERINGS_ITERATOR, this.offeringService.getOfferingIterator());
+        modelAndView.addObject(OFFERING_LIST, this.offeringService
+                .getOfferingList());
         return modelAndView;
     }
 

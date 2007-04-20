@@ -59,11 +59,11 @@ public class SdsOfferingCreateCommandHttpRestImplTest extends
 
         this.expectedSdsCurnit = new SdsCurnit();
         this.expectedSdsCurnit.setSdsObjectId(EXPECTED_CURNIT_ID);
-        this.expectedSdsOffering.setCurnit(this.expectedSdsCurnit);
+        this.expectedSdsOffering.setSdsCurnit(this.expectedSdsCurnit);
 
         this.expectedSdsJnlp = new SdsJnlp();
         this.expectedSdsJnlp.setSdsObjectId(EXPECTED_JNLP_ID);
-        this.expectedSdsOffering.setJnlp(this.expectedSdsJnlp);
+        this.expectedSdsOffering.setSdsJnlp(this.expectedSdsJnlp);
 
         this.expectedSdsOffering.setSdsObjectId(EXPECTED_ID);
         this.expectedSdsOffering.setName(EXPECTED_NAME);

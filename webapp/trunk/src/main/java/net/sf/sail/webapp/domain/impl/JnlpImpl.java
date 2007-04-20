@@ -96,4 +96,36 @@ public class JnlpImpl implements Jnlp {
     private void setVersion(Integer version) {
         this.version = version;
     }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result
+                + ((this.sdsJnlp == null) ? 0 : this.sdsJnlp.hashCode());
+        return result;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final JnlpImpl other = (JnlpImpl) obj;
+        if (this.sdsJnlp == null) {
+            if (other.sdsJnlp != null)
+                return false;
+        } else if (!this.sdsJnlp.equals(other.sdsJnlp))
+            return false;
+        return true;
+    }
 }

@@ -121,12 +121,12 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
         SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
                 .getBean("sdsCurnit");
         sdsCurnit.setSdsObjectId(createCurnitInSds());
-        this.sdsOffering.setCurnit(sdsCurnit);
+        this.sdsOffering.setSdsCurnit(sdsCurnit);
 
         // create jnlp in SDS
         SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
         sdsJnlp.setSdsObjectId(createJnlpInSds());
-        this.sdsOffering.setJnlp(sdsJnlp);
+        this.sdsOffering.setSdsJnlp(sdsJnlp);
 
         assertNull(this.sdsOffering.getSdsObjectId());
         this.sdsOfferingDao.save(this.sdsOffering);
@@ -149,20 +149,20 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
         SdsCurnit actualSdsCurnit = new SdsCurnit();
         actualSdsCurnit.setSdsObjectId(new Integer(rootElement.getChild(
                 "curnit-id").getValue()));
-        actualSdsOffering.setCurnit(actualSdsCurnit);
+        actualSdsOffering.setSdsCurnit(actualSdsCurnit);
 
         SdsJnlp actualSdsJnlp = new SdsJnlp();
         actualSdsJnlp.setSdsObjectId(new Integer(rootElement
                 .getChild("jnlp-id").getValue()));
-        actualSdsOffering.setJnlp(actualSdsJnlp);
+        actualSdsOffering.setSdsJnlp(actualSdsJnlp);
 
         assertEquals(this.sdsOffering.getName(), actualSdsOffering.getName());
         assertEquals(this.sdsOffering.getSdsObjectId(), actualSdsOffering
                 .getSdsObjectId());
-        assertEquals(this.sdsOffering.getCurnit().getSdsObjectId(),
-                actualSdsOffering.getCurnit().getSdsObjectId());
-        assertEquals(this.sdsOffering.getJnlp().getSdsObjectId(),
-                actualSdsOffering.getJnlp().getSdsObjectId());
+        assertEquals(this.sdsOffering.getSdsCurnit().getSdsObjectId(),
+                actualSdsOffering.getSdsCurnit().getSdsObjectId());
+        assertEquals(this.sdsOffering.getSdsJnlp().getSdsObjectId(),
+                actualSdsOffering.getSdsJnlp().getSdsObjectId());
         assertEquals(this.sdsOffering, actualSdsOffering);
     }
 

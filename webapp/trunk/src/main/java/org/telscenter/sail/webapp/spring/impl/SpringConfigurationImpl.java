@@ -38,7 +38,6 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
 
     private static final String[] DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
             "classpath:configurations/dispatcherServlet/pas/config.xml",
-            "classpath:configurations/dispatcherServlet/pas/controllers.xml",
             "classpath:configurations/dispatcherServlet/tels/controllers.xml",
             "classpath:configurations/dispatcherServlet/tels/extensions.xml",
             "classpath:configurations/dispatcherServlet/tels/overrides.xml" };

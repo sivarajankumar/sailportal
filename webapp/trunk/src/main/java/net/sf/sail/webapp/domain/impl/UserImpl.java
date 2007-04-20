@@ -133,4 +133,44 @@ public class UserImpl implements User {
     private void setVersion(Integer version) {
         this.version = version;
     }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result
+                + ((this.sdsUser == null) ? 0 : this.sdsUser.hashCode());
+        result = PRIME
+                * result
+                + ((this.userDetails == null) ? 0 : this.userDetails.hashCode());
+        return result;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final UserImpl other = (UserImpl) obj;
+        if (this.sdsUser == null) {
+            if (other.sdsUser != null)
+                return false;
+        } else if (!this.sdsUser.equals(other.sdsUser))
+            return false;
+        if (this.userDetails == null) {
+            if (other.userDetails != null)
+                return false;
+        } else if (!this.userDetails.equals(other.userDetails))
+            return false;
+        return true;
+    }
 }

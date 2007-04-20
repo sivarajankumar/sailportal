@@ -22,7 +22,6 @@
  */
 package net.sf.sail.webapp.dao.offering.impl;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -113,19 +112,19 @@ public class HibernateOfferingDaoTest extends AbstractTransactionalDbTests {
         session.save(DEFAULT_SDS_CURNIT); // save sds curnit
         session.save(DEFAULT_SDS_JNLP); // save sds jnlp
 
-        this.sdsOffering.setCurnit(DEFAULT_SDS_CURNIT);
-        this.sdsOffering.setJnlp(DEFAULT_SDS_JNLP);
+        this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
+        this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
     }
 
     public void testSave_NonExistentCurnit() {
-        this.sdsOffering.setJnlp(DEFAULT_SDS_JNLP);
+        this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
 
         SdsCurnit nonExistentSdsCurnit = (SdsCurnit) this.applicationContext
                 .getBean("sdsCurnit");
         nonExistentSdsCurnit.setName(DEFAULT_NAME);
         nonExistentSdsCurnit.setSdsObjectId(SDS_ID);
         nonExistentSdsCurnit.setUrl(DEFAULT_URL);
-        this.sdsOffering.setCurnit(nonExistentSdsCurnit);
+        this.sdsOffering.setSdsCurnit(nonExistentSdsCurnit);
 
         this.defaultOffering.setSdsOffering(sdsOffering);
         try {
@@ -136,14 +135,14 @@ public class HibernateOfferingDaoTest extends AbstractTransactionalDbTests {
     }
 
     public void testSave_NonExistentJnlp() {
-        this.sdsOffering.setCurnit(DEFAULT_SDS_CURNIT);
+        this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
 
         SdsJnlp nonExistentSdsJnlp = (SdsJnlp) this.applicationContext
                 .getBean("sdsJnlp");
         nonExistentSdsJnlp.setName(DEFAULT_NAME);
         nonExistentSdsJnlp.setSdsObjectId(SDS_ID);
         nonExistentSdsJnlp.setUrl(DEFAULT_URL);
-        this.sdsOffering.setJnlp(nonExistentSdsJnlp);
+        this.sdsOffering.setSdsJnlp(nonExistentSdsJnlp);
 
         this.defaultOffering.setSdsOffering(sdsOffering);
         try {
@@ -201,17 +200,16 @@ public class HibernateOfferingDaoTest extends AbstractTransactionalDbTests {
         return this.jdbcTemplate.queryForList(RETRIEVE_OFFERING_LIST_SQL,
                 (Object[]) null);
     }
-    
-    public void testIterate() {
+
+    public void testGetList() {
         verifyDataStoreIsEmpty();
         this.offeringDao.save(this.defaultOffering);
-        List actualList = retrieveOfferingListFromDb();
-        assertEquals(1, actualList.size());
+        List expectedList = retrieveOfferingListFromDb();
+        assertEquals(1, expectedList.size());
 
-        Iterator<Offering> actualIterator = this.offeringDao.iterate();
-        assertTrue(actualIterator.hasNext());
-        assertEquals(this.defaultOffering, actualIterator.next());
-        assertFalse(actualIterator.hasNext());
+        List<Offering> actualList = this.offeringDao.getList();
+        assertEquals(1, actualList.size());
+        assertEquals(this.defaultOffering, actualList.get(0));
     }
 
 }

@@ -143,8 +143,8 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         Session session = this.sessionFactory.getCurrentSession();
         session.save(DEFAULT_SDS_CURNIT); // save sds curnit
         session.save(DEFAULT_SDS_JNLP); // save sds jnlp
-        this.defaultSdsOffering.setCurnit(DEFAULT_SDS_CURNIT);
-        this.defaultSdsOffering.setJnlp(DEFAULT_SDS_JNLP);
+        this.defaultSdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
+        this.defaultSdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
         this.defaultOffering.setSdsOffering(this.defaultSdsOffering);
         session.save(this.defaultOffering); // save offering
         this.sdsWorkgroup.setSdsOffering(this.defaultSdsOffering);
@@ -167,8 +167,8 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
     public void testSave_NonExistentOffering() {
         SdsOffering nonExistentSdsOffering = (SdsOffering) this.applicationContext
                 .getBean("sdsOffering");
-        nonExistentSdsOffering.setCurnit(DEFAULT_SDS_CURNIT);
-        nonExistentSdsOffering.setJnlp(DEFAULT_SDS_JNLP);
+        nonExistentSdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
+        nonExistentSdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
         nonExistentSdsOffering.setName(DEFAULT_NAME);
         nonExistentSdsOffering.setSdsObjectId(SDS_ID);
 

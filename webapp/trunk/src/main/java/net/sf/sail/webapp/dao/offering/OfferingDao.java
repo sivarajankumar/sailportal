@@ -22,11 +22,10 @@
  */
 package net.sf.sail.webapp.dao.offering;
 
-import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.Offering;
-
 
 /**
  * @author Hiroki Terashima
@@ -35,9 +34,9 @@ import net.sf.sail.webapp.domain.Offering;
 public interface OfferingDao<T extends Offering> extends SimpleDao<T> {
 
     /**
-     * Returns an iterator to a collection of offerings
+     * Returns a list of offerings.
      * 
-     * @return a Offering <code>Iterator</code>
+     * @return an Offering <code>List</code>
      */
-	public Iterator<Offering> iterate();
+    public List<Offering> getList();
 }

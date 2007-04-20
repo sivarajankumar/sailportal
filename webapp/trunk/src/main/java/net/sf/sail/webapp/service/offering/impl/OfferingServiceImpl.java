@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.offering.impl;
 
-import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
@@ -61,8 +61,8 @@ public class OfferingServiceImpl implements OfferingService {
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
      */
-    public Iterator<Offering> getOfferingIterator() {
-        return offeringDao.iterate();
+    public List<Offering> getOfferingList() {
+        return offeringDao.getList();
     }
 
     /**

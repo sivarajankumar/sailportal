@@ -152,11 +152,11 @@ public class SdsOfferingListCommandHttpRestImplTest extends
 
         SdsCurnit curnit = new SdsCurnit();
         curnit.setSdsObjectId(curnitId);
-        offering.setCurnit(curnit);
+        offering.setSdsCurnit(curnit);
 
         SdsJnlp jnlp = new SdsJnlp();
         jnlp.setSdsObjectId(jnlpId);
-        offering.setJnlp(jnlp);
+        offering.setSdsJnlp(jnlp);
 
         return offering;
     }

@@ -176,4 +176,52 @@ public class WorkgroupImpl implements Workgroup {
     private void setVersion(Integer version) {
         this.version = version;
     }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result
+                + ((this.members == null) ? 0 : this.members.hashCode());
+        result = PRIME * result
+                + ((this.offering == null) ? 0 : this.offering.hashCode());
+        result = PRIME
+                * result
+                + ((this.sdsWorkgroup == null) ? 0 : this.sdsWorkgroup
+                        .hashCode());
+        return result;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final WorkgroupImpl other = (WorkgroupImpl) obj;
+        if (this.members == null) {
+            if (other.members != null)
+                return false;
+        } else if (!this.members.equals(other.members))
+            return false;
+        if (this.offering == null) {
+            if (other.offering != null)
+                return false;
+        } else if (!this.offering.equals(other.offering))
+            return false;
+        if (this.sdsWorkgroup == null) {
+            if (other.sdsWorkgroup != null)
+                return false;
+        } else if (!this.sdsWorkgroup.equals(other.sdsWorkgroup))
+            return false;
+        return true;
+    }
 }

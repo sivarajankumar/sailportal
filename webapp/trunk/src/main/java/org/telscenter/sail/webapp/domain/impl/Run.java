@@ -152,8 +152,7 @@ public class Run extends OfferingImpl {
     /**
      * @return the id
      */
-    @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

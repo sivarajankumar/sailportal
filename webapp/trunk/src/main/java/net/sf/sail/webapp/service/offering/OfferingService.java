@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.offering;
 
-import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.webapp.domain.Offering;
 
@@ -29,11 +29,11 @@ import net.sf.sail.webapp.domain.Offering;
 public interface OfferingService {
 
     /**
-     * Gets an iterator to a collection of offerings.
+     * Gets a list of offerings.
      * 
-     * @return an offerings <code>Iterator</code> of offerings.
+     * @return an offerings <code>List</code>.
      */
-    public Iterator<Offering> getOfferingIterator();
+    public List<Offering> getOfferingList();
 
     /**
      * Creates a new <code>SdsOffering</code> on the SDS as well as an

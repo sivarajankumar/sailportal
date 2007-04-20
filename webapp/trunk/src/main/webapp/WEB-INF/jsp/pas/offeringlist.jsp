@@ -43,12 +43,15 @@
 <div id="right">
 <h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
 
-<display:table name="${offering_iterator}" id="offering">
-  <display:column titleKey="curnit.numbering.heading">
-    <c:out value="${offering_rowNum}" />
-  </display:column>
-  <display:column property="name" titleKey="curnit.name.heading" />
-</display:table></div>
+<table border="1">
+  <thead><tr><th>Name</th></tr></thead>
+  <c:forEach var="offering" items="${offering_list}">
+  <tr>
+    <td><a href="<c:url value="/offering.html"><c:param name="offeringId" value="${offering.id}"/></c:url>"><c:out value="${offering.sdsOffering.name}" /></a></td>
+  </tr>
+  </c:forEach>
+</table>
+</div>
 
 </div>
 

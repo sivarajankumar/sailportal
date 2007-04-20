@@ -86,8 +86,7 @@ public class OfferingImpl implements Offering {
     /**
      * @return the id
      */
-    @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -115,5 +114,38 @@ public class OfferingImpl implements Offering {
     @SuppressWarnings("unused")
     private void setVersion(Integer version) {
         this.version = version;
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME
+                * result
+                + ((this.sdsOffering == null) ? 0 : this.sdsOffering.hashCode());
+        return result;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final OfferingImpl other = (OfferingImpl) obj;
+        if (this.sdsOffering == null) {
+            if (other.sdsOffering != null)
+                return false;
+        } else if (!this.sdsOffering.equals(other.sdsOffering))
+            return false;
+        return true;
     }
 }

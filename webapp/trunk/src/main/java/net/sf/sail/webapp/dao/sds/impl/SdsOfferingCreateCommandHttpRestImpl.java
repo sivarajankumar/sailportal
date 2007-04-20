@@ -57,8 +57,8 @@ public class SdsOfferingCreateCommandHttpRestImpl extends
     public HttpPostRequest generateRequest() {
         final SdsOffering sdsOffering = this.getSdsOffering();
         final String bodyData = "<offering><name>" + sdsOffering.getName()
-                + "</name><curnit-id>" + sdsOffering.getCurnit().getSdsObjectId()
-                + "</curnit-id><jnlp-id>" + sdsOffering.getJnlp().getSdsObjectId()
+                + "</name><curnit-id>" + sdsOffering.getSdsCurnit().getSdsObjectId()
+                + "</curnit-id><jnlp-id>" + sdsOffering.getSdsJnlp().getSdsObjectId()
                 + "</jnlp-id></offering>";
         final String url = "/offering";
         return new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,

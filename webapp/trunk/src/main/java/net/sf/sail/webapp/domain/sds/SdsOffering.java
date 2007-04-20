@@ -71,11 +71,11 @@ public class SdsOffering implements SdsObject {
 
     @OneToOne(targetEntity = SdsCurnit.class)
     @JoinColumn(name = SdsOffering.COLUMN_NAME_SDS_CURNIT_FK, nullable = false)
-    private SdsCurnit curnit;
+    private SdsCurnit sdsCurnit;
 
     @OneToOne(targetEntity = SdsJnlp.class)
     @JoinColumn(name = SdsOffering.COLUMN_NAME_SDS_JNLP_FK, nullable = false)
-    private SdsJnlp jnlp;
+    private SdsJnlp sdsJnlp;
 
     @Column(name = SdsOffering.COLUMN_NAME_OFFERING_ID, unique = true, nullable = false)
     private Integer sdsObjectId;
@@ -144,33 +144,33 @@ public class SdsOffering implements SdsObject {
     }
 
     /**
-     * @return the curnit
+     * @return the sdsCurnit
      */
-    public SdsCurnit getCurnit() {
-        return curnit;
+    public SdsCurnit getSdsCurnit() {
+        return sdsCurnit;
     }
 
     /**
-     * @param curnit
-     *            the curnit to set
+     * @param sdsCurnit
+     *            the sdsCurnit to set
      */
-    public void setCurnit(SdsCurnit curnit) {
-        this.curnit = curnit;
+    public void setSdsCurnit(SdsCurnit curnit) {
+        this.sdsCurnit = curnit;
     }
 
     /**
-     * @return the jnlp
+     * @return the sdsJnlp
      */
-    public SdsJnlp getJnlp() {
-        return jnlp;
+    public SdsJnlp getSdsJnlp() {
+        return sdsJnlp;
     }
 
     /**
-     * @param jnlp
-     *            the jnlp to set
+     * @param sdsJnlp
+     *            the sdsJnlp to set
      */
-    public void setJnlp(SdsJnlp jnlp) {
-        this.jnlp = jnlp;
+    public void setSdsJnlp(SdsJnlp jnlp) {
+        this.sdsJnlp = jnlp;
     }
 
     /**
@@ -180,8 +180,8 @@ public class SdsOffering implements SdsObject {
     public int hashCode() {
         final int PRIME = 31;
         int result = 1;
-        result = PRIME * result + ((curnit == null) ? 0 : curnit.hashCode());
-        result = PRIME * result + ((jnlp == null) ? 0 : jnlp.hashCode());
+        result = PRIME * result + ((sdsCurnit == null) ? 0 : sdsCurnit.hashCode());
+        result = PRIME * result + ((sdsJnlp == null) ? 0 : sdsJnlp.hashCode());
         result = PRIME * result + ((name == null) ? 0 : name.hashCode());
         result = PRIME * result
                 + ((sdsObjectId == null) ? 0 : sdsObjectId.hashCode());
@@ -200,15 +200,15 @@ public class SdsOffering implements SdsObject {
         if (getClass() != obj.getClass())
             return false;
         final SdsOffering other = (SdsOffering) obj;
-        if (curnit == null) {
-            if (other.curnit != null)
+        if (sdsCurnit == null) {
+            if (other.sdsCurnit != null)
                 return false;
-        } else if (!curnit.equals(other.curnit))
+        } else if (!sdsCurnit.equals(other.sdsCurnit))
             return false;
-        if (jnlp == null) {
-            if (other.jnlp != null)
+        if (sdsJnlp == null) {
+            if (other.sdsJnlp != null)
                 return false;
-        } else if (!jnlp.equals(other.jnlp))
+        } else if (!sdsJnlp.equals(other.sdsJnlp))
             return false;
         if (name == null) {
             if (other.name != null)

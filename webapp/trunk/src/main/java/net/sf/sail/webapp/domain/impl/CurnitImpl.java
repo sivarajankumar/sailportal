@@ -96,4 +96,36 @@ public class CurnitImpl implements Curnit {
     private void setVersion(Integer version) {
         this.version = version;
     }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result
+                + ((this.sdsCurnit == null) ? 0 : this.sdsCurnit.hashCode());
+        return result;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final CurnitImpl other = (CurnitImpl) obj;
+        if (this.sdsCurnit == null) {
+            if (other.sdsCurnit != null)
+                return false;
+        } else if (!this.sdsCurnit.equals(other.sdsCurnit))
+            return false;
+        return true;
+    }
 }
