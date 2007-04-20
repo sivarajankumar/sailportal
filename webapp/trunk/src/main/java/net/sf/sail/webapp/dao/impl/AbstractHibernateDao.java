@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.impl;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.SimpleDao;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -43,4 +45,20 @@ public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
     public void save(T object) {
         this.getHibernateTemplate().saveOrUpdate(object);
     }
+
+    /**
+     * @see net.sf.sail.webapp.dao.SimpleDao#getList()
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> getList() {
+        return this.getHibernateTemplate().find(this.getFindAllQuery());
+    }
+
+    /**
+     * Gets a string that will perform a query to retrieve all available objects
+     * from the persistent data store.
+     * 
+     * @return <code>String</code> query
+     */
+    protected abstract String getFindAllQuery();
 }

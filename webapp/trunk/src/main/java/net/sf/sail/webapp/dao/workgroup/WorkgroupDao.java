@@ -22,7 +22,7 @@
  */
 package net.sf.sail.webapp.dao.workgroup;
 
-import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -33,5 +33,10 @@ import net.sf.sail.webapp.domain.Workgroup;
  */
 public interface WorkgroupDao<T extends Workgroup> extends SimpleDao<T> {
 
-    public Iterator<T> iterate();
+    /**
+     * Gets a list of workgroups.
+     * 
+     * @return a <code>Workgroup</code> <code>List</code>
+     */
+    public List<T> getList();
 }

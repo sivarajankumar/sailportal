@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import java.util.Set;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitCreateCommand;
@@ -75,7 +75,7 @@ public class HttpRestSdsCurnitDao extends AbstractDao<SdsCurnit> implements
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCurnitDao#getList()
      */
-    public Set<SdsCurnit> getList() {
+    public List<SdsCurnit> getList() {
         return this.listCommand.execute(this.listCommand.generateRequest());
     }
 

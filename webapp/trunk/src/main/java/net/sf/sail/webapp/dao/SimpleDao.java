@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao;
 
+import java.util.List;
+
 /**
  * Data Access Object (DAO) interface that defines simple generic operations for
  * dealing with a persistent store.
@@ -41,4 +43,11 @@ public interface SimpleDao<T> {
      * @param object
      */
     public void delete(T object);
+
+    /**
+     * Gets a list of objects from a persistent data store.
+     * 
+     * @return <code>List</code> of objects
+     */
+    public List<T> getList();
 }

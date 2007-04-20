@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.curnit;
 
-import java.util.Set;
+import java.util.List;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
@@ -32,11 +32,11 @@ import net.sf.sail.webapp.domain.sds.SdsCurnit;
 public interface CurnitService {
 
     /**
-     * Gets a <code>Set</code> of SDS curnits.
+     * Gets a <code>List</code> of curnits.
      * 
-     * @return a <code>Set</code> of SDS curnits.
+     * @return a <code>List</code> of curnits.
      */
-    public Set<SdsCurnit> getCurnitList();
+    public List<SdsCurnit> getCurnitList();
 
     /**
      * Creates a new <code>SdsCurnit</code> on the SDS as well as a

@@ -22,8 +22,6 @@
  */
 package net.sf.sail.webapp.dao.offering;
 
-import java.util.List;
-
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.Offering;
 
@@ -33,10 +31,4 @@ import net.sf.sail.webapp.domain.Offering;
  */
 public interface OfferingDao<T extends Offering> extends SimpleDao<T> {
 
-    /**
-     * Returns a list of offerings.
-     * 
-     * @return an Offering <code>List</code>
-     */
-    public List<Offering> getList();
 }

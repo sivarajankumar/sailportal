@@ -19,8 +19,8 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
@@ -70,13 +70,13 @@ public class SdsOfferingListCommandHttpRestImplTest extends
     public void testExecute() throws Exception {
         final String responseString = "<offerings><offering><name>Airbag Complete</name><curnit-id>1</curnit-id><id>1</id><jnlp-id>6</jnlp-id></offering><offering><name>Air Bag Test</name><curnit-id>2</curnit-id><id>2</id><jnlp-id>6</jnlp-id></offering></offerings>";
         setAndTestResponseStream(responseString);
-        Set<SdsOffering> expectedSdsOfferingList = new HashSet<SdsOffering>();
-        expectedSdsOfferingList.add(createOffering(1, 1, 6, "Airbag Complete"));
-        expectedSdsOfferingList.add(createOffering(2, 2, 6, "Air Bag Test"));
+        List<SdsOffering> expectedList = new LinkedList<SdsOffering>();
+        expectedList.add(createOffering(1, 1, 6, "Airbag Complete"));
+        expectedList.add(createOffering(2, 2, 6, "Air Bag Test"));
 
-        Set<SdsOffering> actualList = this.command.execute(this.httpRequest);
-        assertEquals(expectedSdsOfferingList.size(), actualList.size());
-        assertEquals(expectedSdsOfferingList, actualList);
+        List<SdsOffering> actualList = this.command.execute(this.httpRequest);
+        assertEquals(expectedList.size(), actualList.size());
+        assertEquals(expectedList, actualList);
         EasyMock.verify(this.mockTransport);
     }
 
@@ -86,7 +86,7 @@ public class SdsOfferingListCommandHttpRestImplTest extends
         EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
                 responseStream);
         EasyMock.replay(this.mockTransport);
-        Set<SdsOffering> actualList = this.command.execute(this.httpRequest);
+        List<SdsOffering> actualList = this.command.execute(this.httpRequest);
         assertTrue(actualList.isEmpty());
         EasyMock.verify(this.mockTransport);
 
@@ -116,7 +116,7 @@ public class SdsOfferingListCommandHttpRestImplTest extends
         EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
                 responseStream);
         EasyMock.replay(this.mockTransport);
-        Set<SdsOffering> actualList = this.command.execute(this.httpRequest);
+        List<SdsOffering> actualList = this.command.execute(this.httpRequest);
         assertTrue(actualList.isEmpty());
         EasyMock.verify(this.mockTransport);
     }

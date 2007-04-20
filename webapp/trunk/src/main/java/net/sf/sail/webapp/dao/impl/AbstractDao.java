@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.impl;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.SimpleDao;
 
 /**
@@ -39,6 +41,14 @@ public abstract class AbstractDao<T> implements SimpleDao<T> {
      * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
      */
     public void save(T object) {
+        // default behaviour for subclasses that do not override this method
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @see net.sf.sail.webapp.dao.SimpleDao#getList()
+     */
+    public List<T> getList() {
         // default behaviour for subclasses that do not override this method
         throw new UnsupportedOperationException();
     }

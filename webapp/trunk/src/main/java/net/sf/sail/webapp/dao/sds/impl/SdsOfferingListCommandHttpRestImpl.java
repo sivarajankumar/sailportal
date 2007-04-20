@@ -18,9 +18,8 @@
 package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
@@ -48,18 +47,18 @@ import org.jdom.xpath.XPath;
 public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
         implements SdsOfferingListCommand {
 
-    private static final Set<SdsOffering> EMPTY_SDSOFFERING_SET = Collections
-            .emptySet();
+    private static final List<SdsOffering> EMPTY_SDSOFFERING_LIST = Collections
+            .emptyList();
 
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
      */
     @SuppressWarnings("unchecked")
-    public Set<SdsOffering> execute(HttpGetRequest httpRequest) {
+    public List<SdsOffering> execute(HttpGetRequest httpRequest) {
         Document doc = convertXmlInputStreamToXmlDocument(this.transport
                 .get(httpRequest));
         if (doc == null) {
-            return EMPTY_SDSOFFERING_SET;
+            return EMPTY_SDSOFFERING_LIST;
         }
 
         List<Element> nodeList;
@@ -70,10 +69,10 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
             }
-            return EMPTY_SDSOFFERING_SET;
+            return EMPTY_SDSOFFERING_LIST;
         }
 
-        Set<SdsOffering> sdsOfferingSet = new HashSet<SdsOffering>();
+        List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
         for (Element offeringNode : nodeList) {
             SdsOffering sdsOffering = new SdsOffering();
             sdsOffering.setName(offeringNode.getChild("name").getValue());
@@ -90,9 +89,9 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
                     .getValue()));
             sdsOffering.setSdsJnlp(sdsJnlp);
 
-            sdsOfferingSet.add(sdsOffering);
+            sdsOfferingList.add(sdsOffering);
         }
-        return sdsOfferingSet;
+        return sdsOfferingList;
     }
 
     /**

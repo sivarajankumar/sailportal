@@ -80,12 +80,12 @@ public class OfferingServiceImplTest extends TestCase {
     }
 
     public void testGetOfferingList() throws Exception {
-        List<Offering> offeringList = new LinkedList<Offering>();
-        offeringList.add(this.offering);
+        List<Offering> expectedList = new LinkedList<Offering>();
+        expectedList.add(this.offering);
 
-        EasyMock.expect(this.mockOfferingDao.getList()).andReturn(offeringList);
+        EasyMock.expect(this.mockOfferingDao.getList()).andReturn(expectedList);
         EasyMock.replay(this.mockOfferingDao);
-        assertEquals(offeringList, offeringServiceImpl.getOfferingList());
+        assertEquals(expectedList, offeringServiceImpl.getOfferingList());
         EasyMock.verify(this.mockOfferingDao);
     }
 

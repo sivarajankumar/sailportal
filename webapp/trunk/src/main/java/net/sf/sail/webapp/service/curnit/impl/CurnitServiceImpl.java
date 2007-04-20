@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.curnit.impl;
 
-import java.util.Set;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
@@ -72,7 +72,7 @@ public class CurnitServiceImpl implements CurnitService {
     /**
      * @see net.sf.sail.webapp.service.curnit.CurnitService#getCurnitList()
      */
-    public Set<SdsCurnit> getCurnitList() {
+    public List<SdsCurnit> getCurnitList() {
         return this.sdsCurnitDao.getList();
     }
 

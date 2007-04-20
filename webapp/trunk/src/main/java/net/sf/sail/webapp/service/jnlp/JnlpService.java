@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.jnlp;
 
-import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.webapp.domain.Jnlp;
 
@@ -30,12 +30,11 @@ import net.sf.sail.webapp.domain.Jnlp;
 public interface JnlpService {
 
     /**
-     * Gets an <code>Interator</code> that allows traversal of jnlps
-     * available.
+     * Gets a <code>List</code> that allows traversal of jnlps available.
      * 
-     * @return an <code>Iterator</code> of jnlps.
+     * @return a <code>List</code> of jnlps.
      */
-    public Iterator<Jnlp> getJnlpIterator();
+    public List<Jnlp> getJnlpList();
 
     /**
      * Creates a new <code>SdsJnlp</code> on the SDS as well as a

@@ -18,9 +18,8 @@
 package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import net.sf.sail.webapp.dao.sds.SdsCurnitListCommand;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
@@ -39,38 +38,38 @@ import org.jdom.xpath.XPath;
  * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: SdsCurnitListCommandHttpRestImpl.java 220 2007-03-23 15:11:02Z
+ *          laurel $
  * 
  */
 public class SdsCurnitListCommandHttpRestImpl extends AbstractHttpRestCommand
         implements SdsCurnitListCommand {
 
-    private static final Set<SdsCurnit> EMPTY_SDSCURNIT_SET = Collections
-            .emptySet();
+    private static final List<SdsCurnit> EMPTY_SDSCURNIT_LIST = Collections
+            .emptyList();
 
     /**
      * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
      */
     @SuppressWarnings("unchecked")
-    public Set<SdsCurnit> execute(HttpGetRequest httpRequest) {
+    public List<SdsCurnit> execute(HttpGetRequest httpRequest) {
         Document doc = convertXmlInputStreamToXmlDocument(this.transport
                 .get(httpRequest));
         if (doc == null) {
-            return EMPTY_SDSCURNIT_SET;
+            return EMPTY_SDSCURNIT_LIST;
         }
 
         List<Element> nodeList;
         try {
-            nodeList = XPath.newInstance("/curnits/curnit")
-                    .selectNodes(doc);
+            nodeList = XPath.newInstance("/curnits/curnit").selectNodes(doc);
         } catch (JDOMException e) {
             if (logger.isErrorEnabled()) {
                 logger.error(e.getMessage(), e);
             }
-            return EMPTY_SDSCURNIT_SET;
+            return EMPTY_SDSCURNIT_LIST;
         }
 
-        Set<SdsCurnit> sdsCurnitSet = new HashSet<SdsCurnit>();
+        List<SdsCurnit> sdsCurnitList = new LinkedList<SdsCurnit>();
         for (Element curnitNode : nodeList) {
             SdsCurnit sdsCurnit = new SdsCurnit();
             sdsCurnit.setName(curnitNode.getChild("name").getValue());
@@ -78,9 +77,9 @@ public class SdsCurnitListCommandHttpRestImpl extends AbstractHttpRestCommand
                     .getValue()));
             sdsCurnit.setUrl(curnitNode.getChild("url").getValue());
 
-            sdsCurnitSet.add(sdsCurnit);
+            sdsCurnitList.add(sdsCurnit);
         }
-        return sdsCurnitSet;
+        return sdsCurnitList;
     }
 
     /**

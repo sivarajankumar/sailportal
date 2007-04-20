@@ -22,7 +22,6 @@
  */
 package net.sf.sail.webapp.dao.workgroup.impl;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -273,13 +272,12 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
     public void testIterate() {
         verifyDataStoreWorkgroupListIsEmpty();
         this.workgroupDao.save(this.defaultWorkgroup);
-        List actualList = retrieveWorkgroupListFromDb();
-        assertEquals(1, actualList.size());
+        List expectedList = retrieveWorkgroupListFromDb();
+        assertEquals(1, expectedList.size());
 
-        Iterator<Workgroup> actualIterator = this.workgroupDao.iterate();
-        assertTrue(actualIterator.hasNext());
-        assertEquals(this.defaultWorkgroup, actualIterator.next());
-        assertFalse(actualIterator.hasNext());
+        List<Workgroup> actualList = this.workgroupDao.getList();
+        assertEquals(1, actualList.size());
+        assertEquals(this.defaultWorkgroup, actualList.get(0));
     }
 
     private User createNewUser() {

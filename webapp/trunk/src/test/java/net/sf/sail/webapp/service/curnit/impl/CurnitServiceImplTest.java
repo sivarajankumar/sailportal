@@ -17,8 +17,8 @@
  */
 package net.sf.sail.webapp.service.curnit.impl;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
@@ -81,13 +81,12 @@ public class CurnitServiceImplTest extends TestCase {
     }
 
     public void testGetCurnitList() throws Exception {
-        Set<SdsCurnit> expectedSdsCurnitSet = new HashSet<SdsCurnit>();
-        expectedSdsCurnitSet.add(this.sdsCurnit);
+        List<SdsCurnit> expectedList = new LinkedList<SdsCurnit>();
+        expectedList.add(this.sdsCurnit);
 
-        EasyMock.expect(mockSdsCurnitDao.getList()).andReturn(
-                expectedSdsCurnitSet);
+        EasyMock.expect(mockSdsCurnitDao.getList()).andReturn(expectedList);
         EasyMock.replay(mockSdsCurnitDao);
-        assertEquals(expectedSdsCurnitSet, curnitServiceImpl.getCurnitList());
+        assertEquals(expectedList, curnitServiceImpl.getCurnitList());
         EasyMock.verify(mockSdsCurnitDao);
     }
 

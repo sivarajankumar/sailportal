@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao.jnlp.impl;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -83,16 +82,15 @@ public class HibernateJnlpDaoTest extends AbstractTransactionalDbTests {
         this.defaultJnlp = null;
     }
 
-    public void testIterate() {
+    public void testGetList() {
         verifyDataStoreIsEmpty();
         this.jnlpDao.save(this.defaultJnlp);
-        List actualList = retrieveJnlpListFromDb();
-        assertEquals(1, actualList.size());
+        List expectedList = retrieveJnlpListFromDb();
+        assertEquals(1, expectedList.size());
 
-        Iterator<Jnlp> actualIterator = this.jnlpDao.iterate();
-        assertTrue(actualIterator.hasNext());
-        assertEquals(this.defaultJnlp, actualIterator.next());
-        assertFalse(actualIterator.hasNext());
+        List<Jnlp> actualList = this.jnlpDao.getList();
+        assertEquals(1, actualList.size());
+        assertEquals(this.defaultJnlp, actualList.get(0));
     }
 
     /**

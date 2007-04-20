@@ -29,13 +29,16 @@ import org.springframework.dao.support.DataAccessUtils;
  * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateGrantedAuthorityDao.java 257 2007-03-30 14:59:02Z
+ *          cynick $
  * 
  */
 public class HibernateGrantedAuthorityDao extends
         AbstractHibernateDao<MutableGrantedAuthority> implements
         GrantedAuthorityDao<MutableGrantedAuthority> {
-    
+
+    private static final String FIND_ALL_QUERY = "from PersistentGrantedAuthority";
+
     /**
      * Retrieve the granted authority by name. Returns null if the specified
      * authority name is not found.
@@ -57,5 +60,13 @@ public class HibernateGrantedAuthorityDao extends
      */
     public boolean hasRole(String authority) {
         return (this.retrieveByName(authority) != null);
+    }
+
+    /**
+     * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
+     */
+    @Override
+    protected String getFindAllQuery() {
+        return FIND_ALL_QUERY;
     }
 }

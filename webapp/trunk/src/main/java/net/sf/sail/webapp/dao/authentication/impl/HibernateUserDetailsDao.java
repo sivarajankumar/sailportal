@@ -36,6 +36,8 @@ public class HibernateUserDetailsDao extends
         AbstractHibernateDao<MutableUserDetails> implements
         UserDetailsDao<MutableUserDetails> {
 
+    private static final String FIND_ALL_QUERY = "from PersistentUserDetails";
+
     /**
      * Retrieve the user, by username. Returns null if user is not found.
      * 
@@ -56,5 +58,13 @@ public class HibernateUserDetailsDao extends
      */
     public boolean hasUsername(String username) {
         return (this.retrieveByName(username) != null);
+    }
+
+    /**
+     * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
+     */
+    @Override
+    protected String getFindAllQuery() {
+        return FIND_ALL_QUERY;
     }
 }

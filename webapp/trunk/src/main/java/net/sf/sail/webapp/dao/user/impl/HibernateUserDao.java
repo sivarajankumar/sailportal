@@ -30,4 +30,13 @@ import net.sf.sail.webapp.domain.User;
 public class HibernateUserDao extends AbstractHibernateDao<User> implements
         UserDao<User> {
 
+    private static final String FIND_ALL_QUERY = "from UserImpl";
+
+    /**
+     * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
+     */
+    @Override
+    protected String getFindAllQuery() {
+        return FIND_ALL_QUERY;
+    }
 }

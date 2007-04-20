@@ -17,9 +17,8 @@
  */
 package net.sf.sail.webapp.service.jnlp.impl;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
@@ -83,15 +82,13 @@ public class JnlpServiceImplTest extends TestCase {
         this.jnlp = null;
     }
 
-    public void testGetJnlpIterator() throws Exception {
-        Set<Jnlp> jnlpSet = new HashSet<Jnlp>();
-        jnlpSet.add(this.jnlp);
-        Iterator<Jnlp> expectedJnlpIterator = jnlpSet.iterator();
+    public void testGetJnlpList() throws Exception {
+        List<Jnlp> expectedList = new LinkedList<Jnlp>();
+        expectedList.add(this.jnlp);
 
-        EasyMock.expect(this.mockJnlpDao.iterate()).andReturn(
-                expectedJnlpIterator);
+        EasyMock.expect(this.mockJnlpDao.getList()).andReturn(expectedList);
         EasyMock.replay(this.mockJnlpDao);
-        assertEquals(expectedJnlpIterator, jnlpServiceImpl.getJnlpIterator());
+        assertEquals(expectedList, jnlpServiceImpl.getJnlpList());
         EasyMock.verify(this.mockJnlpDao);
     }
 

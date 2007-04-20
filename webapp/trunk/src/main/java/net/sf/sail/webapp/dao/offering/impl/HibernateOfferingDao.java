@@ -22,8 +22,6 @@
  */
 package net.sf.sail.webapp.dao.offering.impl;
 
-import java.util.List;
-
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.domain.Offering;
@@ -35,14 +33,13 @@ import net.sf.sail.webapp.domain.Offering;
 public class HibernateOfferingDao extends AbstractHibernateDao<Offering>
         implements OfferingDao<Offering> {
 
-    private static final String ITERATE_QUERY = "from OfferingImpl";
+    private static final String FIND_ALL_QUERY = "from OfferingImpl";
 
     /**
-     * @see net.sf.sail.webapp.dao.offering.OfferingDao#getList()
+     * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
      */
-    @SuppressWarnings("unchecked")
-    public List<Offering> getList() {
-        return this.getHibernateTemplate().find(ITERATE_QUERY);
+    @Override
+    protected String getFindAllQuery() {
+        return FIND_ALL_QUERY;
     }
-
 }

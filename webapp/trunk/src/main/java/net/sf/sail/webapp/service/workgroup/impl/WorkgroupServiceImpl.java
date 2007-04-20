@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.workgroup.impl;
 
-import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
@@ -73,8 +73,8 @@ public class WorkgroupServiceImpl implements WorkgroupService {
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getWorkgroupIterator()
      */
     @Transactional(readOnly = true)
-    public Iterator<Workgroup> getWorkgroupIterator() {
-        return this.workgroupDao.iterate();
+    public List<Workgroup> getWorkgroupList() {
+        return this.workgroupDao.getList();
     }
 
 }

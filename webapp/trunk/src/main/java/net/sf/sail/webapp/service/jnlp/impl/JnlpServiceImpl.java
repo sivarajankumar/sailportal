@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.jnlp.impl;
 
-import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.sds.SdsJnlpDao;
@@ -73,8 +73,8 @@ public class JnlpServiceImpl implements JnlpService {
      * @see net.sf.sail.webapp.service.jnlp.JnlpService#getJnlpIterator()
      */
     @Transactional(readOnly = true)
-    public Iterator<Jnlp> getJnlpIterator() {
-        return this.jnlpDao.iterate();
+    public List<Jnlp> getJnlpList() {
+        return this.jnlpDao.getList();
     }
 
 }

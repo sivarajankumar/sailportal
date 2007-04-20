@@ -19,7 +19,6 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
@@ -88,7 +87,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
         // equivalent.
         // *Note* there is a small chance that between the 2 retrievals, a new
         // offering may be inserted into the SDS and cause this test to break.
-        Set<SdsOffering> actualSet = this.sdsOfferingDao.getList();
+        List<SdsOffering> actualSet = this.sdsOfferingDao.getList();
 
         WebResponse webResponse = makeHttpRestGetRequest("/offering");
         assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());

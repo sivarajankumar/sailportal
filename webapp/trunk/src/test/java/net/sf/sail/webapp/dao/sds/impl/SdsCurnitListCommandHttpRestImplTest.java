@@ -19,8 +19,8 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
@@ -29,87 +29,96 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: SdsCurnitListCommandHttpRestImplTest.java 220 2007-03-23
+ *          15:11:02Z laurel $
  * 
  */
-public class SdsCurnitListCommandHttpRestImplTest extends AbstractSdsListCommandHttpRestImplTest {
+public class SdsCurnitListCommandHttpRestImplTest extends
+        AbstractSdsListCommandHttpRestImplTest {
 
-	SdsCurnitListCommandHttpRestImpl command;
+    SdsCurnitListCommandHttpRestImpl command;
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		this.listCommand =  new SdsCurnitListCommandHttpRestImpl();
-		this.command = (SdsCurnitListCommandHttpRestImpl) this.listCommand;
-		this.command.setTransport(this.mockTransport);
-		this.httpRequest = this.command.generateRequest();
-	}
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        this.listCommand = new SdsCurnitListCommandHttpRestImpl();
+        this.command = (SdsCurnitListCommandHttpRestImpl) this.listCommand;
+        this.command.setTransport(this.mockTransport);
+        this.httpRequest = this.command.generateRequest();
+    }
 
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		this.command = null;
-	}
+    /**
+     * @see junit.framework.TestCase#tearDown()
+     */
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        this.command = null;
+    }
 
-	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.SdsCurnitListCommandHttpRestImpl#execute(net.sf.sail.webapp.domain.sds.SdsOffering)}.
-	 */
-	public void testExecute() throws Exception {
-		final String responseString = "<curnits><curnit><name>Airbag test</name><portal-id type=\"integer\">1</portal-id><url>http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-airbag.jar</url><id type=\"integer\">3</id></curnit><curnit><name>Windbag test</name><portal-id type=\"integer\">1</portal-id><url>http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-windbag.jar</url><id type=\"integer\">2</id></curnit></curnits>";
-		setAndTestResponseStream(responseString);
-		Set<SdsCurnit> expectedSdsCurnitList = new HashSet<SdsCurnit>();
-		expectedSdsCurnitList.add(createCurnit(3, "http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-airbag.jar", "Airbag test"));
-		expectedSdsCurnitList.add(createCurnit(2, "http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-windbag.jar", "Windbag test"));
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.SdsCurnitListCommandHttpRestImpl#execute(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+     */
+    public void testExecute() throws Exception {
+        final String responseString = "<curnits><curnit><name>Airbag test</name><portal-id type=\"integer\">1</portal-id><url>http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-airbag.jar</url><id type=\"integer\">3</id></curnit><curnit><name>Windbag test</name><portal-id type=\"integer\">1</portal-id><url>http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-windbag.jar</url><id type=\"integer\">2</id></curnit></curnits>";
+        setAndTestResponseStream(responseString);
+        List<SdsCurnit> expectedList = new LinkedList<SdsCurnit>();
+        expectedList
+                .add(createCurnit(
+                        3,
+                        "http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-airbag.jar",
+                        "Airbag test"));
+        expectedList
+                .add(createCurnit(
+                        2,
+                        "http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-windbag.jar",
+                        "Windbag test"));
 
-		Set<SdsCurnit> actualList = this.command.execute(this.httpRequest);
-		assertEquals(expectedSdsCurnitList.size(), actualList.size());
-		assertEquals(expectedSdsCurnitList, actualList);
-		EasyMock.verify(this.mockTransport);
-	}
+        List<SdsCurnit> actualList = this.command.execute(this.httpRequest);
+        assertEquals(expectedList.size(), actualList.size());
+        assertEquals(expectedList, actualList);
+        EasyMock.verify(this.mockTransport);
+    }
 
-	public void testExecuteBadXML() throws Exception {
-		testBadXml("<curnits></curnits>");
-		testBadXml("<fred></fred>");
-		testBadXml("<curnits>");
-		testBadXml("");
-	}
+    public void testExecuteBadXML() throws Exception {
+        testBadXml("<curnits></curnits>");
+        testBadXml("<fred></fred>");
+        testBadXml("<curnits>");
+        testBadXml("");
+    }
 
-	private void testBadXml(String badXml) {
-		InputStream responseStream = new ByteArrayInputStream(
-				badXml.getBytes());
-		testResponse(responseStream);
-	}
+    private void testBadXml(String badXml) {
+        InputStream responseStream = new ByteArrayInputStream(badXml.getBytes());
+        testResponse(responseStream);
+    }
 
-	public void testExecuteBadStream() throws Exception {
-		InputStream responseStream = new ByteArrayInputStream(
-				"<curnits></curnits>".getBytes());
-		responseStream.close(); // this would be the bad part
-		testResponse(responseStream);
-	}
+    public void testExecuteBadStream() throws Exception {
+        InputStream responseStream = new ByteArrayInputStream(
+                "<curnits></curnits>".getBytes());
+        responseStream.close(); // this would be the bad part
+        testResponse(responseStream);
+    }
 
-	private void testResponse(InputStream responseStream) {
-		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
-				responseStream);
-		EasyMock.replay(this.mockTransport);
-		Set<SdsCurnit> actualList = this.command.execute(this.httpRequest);
-		assertTrue(actualList.isEmpty());
-		EasyMock.verify(this.mockTransport);
-		EasyMock.reset(this.mockTransport);
-	}
+    private void testResponse(InputStream responseStream) {
+        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+                responseStream);
+        EasyMock.replay(this.mockTransport);
+        List<SdsCurnit> actualList = this.command.execute(this.httpRequest);
+        assertTrue(actualList.isEmpty());
+        EasyMock.verify(this.mockTransport);
+        EasyMock.reset(this.mockTransport);
+    }
 
-	private SdsCurnit createCurnit(int objectId, String url, String name) {
-		SdsCurnit curnit = new SdsCurnit();
-		curnit.setSdsObjectId(objectId);
-		curnit.setName(name);
-		curnit.setUrl(url);
-		
-		return curnit;
-	}
+    private SdsCurnit createCurnit(int objectId, String url, String name) {
+        SdsCurnit curnit = new SdsCurnit();
+        curnit.setSdsObjectId(objectId);
+        curnit.setName(name);
+        curnit.setUrl(url);
+
+        return curnit;
+    }
 }

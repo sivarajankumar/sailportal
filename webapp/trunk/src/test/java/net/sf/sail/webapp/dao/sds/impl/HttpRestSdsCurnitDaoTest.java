@@ -19,7 +19,6 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests;
@@ -41,9 +40,10 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
     private static final String EXPECTED_NAME = "name";
 
-    //Note that this url cannot be a fake one.
-    //It must return an appropriate jar in order to create the real one in the sds database
-    //Otherwise the test will fail
+    // Note that this url cannot be a fake one.
+    // It must return an appropriate jar in order to create the real one in the
+    // sds database
+    // Otherwise the test will fail
     private static final String EXPECTED_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
 
     private HttpRestSdsCurnitDao sdsCurnitDao;
@@ -136,7 +136,7 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
         // equivalent.
         // *Note* there is a small chance that between the 2 retrievals, a new
         // offering may be inserted into the SDS and cause this test to break.
-        Set<SdsCurnit> actualSet = this.sdsCurnitDao.getList();
+        List<SdsCurnit> actualList = this.sdsCurnitDao.getList();
 
         WebResponse webResponse = makeHttpRestGetRequest("/curnit");
         assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
@@ -145,14 +145,14 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
         List<Element> nodeList = XPath.newInstance("/curnits/curnit/id")
                 .selectNodes(doc);
-        assertEquals(nodeList.size(), actualSet.size());
+        assertEquals(nodeList.size(), actualList.size());
         List<Integer> curnitIdList = new ArrayList<Integer>(nodeList.size());
         for (Element element : nodeList) {
             curnitIdList.add(new Integer(element.getText()));
         }
 
-        assertEquals(curnitIdList.size(), actualSet.size());
-        for (SdsCurnit offering : actualSet) {
+        assertEquals(curnitIdList.size(), actualList.size());
+        for (SdsCurnit offering : actualList) {
             curnitIdList.contains(offering.getSdsObjectId());
         }
     }

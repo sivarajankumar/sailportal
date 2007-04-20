@@ -17,9 +17,8 @@
  */
 package net.sf.sail.webapp.service.workgroup.impl;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
@@ -85,15 +84,13 @@ public class WorkgroupServiceImplTest extends TestCase {
     }
 
     public void testGetJnlpIterator() throws Exception {
-        Set<Workgroup> workgroupSet = new HashSet<Workgroup>();
-        workgroupSet.add(this.workgroup);
-        Iterator<Workgroup> expectedJnlpIterator = workgroupSet.iterator();
+        List<Workgroup> expectedList = new LinkedList<Workgroup>();
+        expectedList.add(this.workgroup);
 
-        EasyMock.expect(this.mockWorkgroupDao.iterate()).andReturn(
-                expectedJnlpIterator);
+        EasyMock.expect(this.mockWorkgroupDao.getList()).andReturn(
+                expectedList);
         EasyMock.replay(this.mockWorkgroupDao);
-        assertEquals(expectedJnlpIterator, workgroupServiceImpl
-                .getWorkgroupIterator());
+        assertEquals(expectedList, workgroupServiceImpl.getWorkgroupList());
         EasyMock.verify(this.mockWorkgroupDao);
     }
 
