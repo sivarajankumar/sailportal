@@ -62,8 +62,9 @@ public class CreateDefaultUsers {
      */
     public static void main(String[] args) {
         if (args.length < 3) {
-            System.out
-                    .println("Usage: CreateDefaultUsers <spring-configuration-classname> <admin-username> <admin-password>");
+            System.out.println("Usage: CreateDefaultUsers "
+                    + "<spring-configuration-classname> " + "<admin-username> "
+                    + "<admin-password>");
             System.exit(1);
         }
         ConfigurableApplicationContext applicationContext = null;
@@ -73,8 +74,8 @@ public class CreateDefaultUsers {
             applicationContext = new ClassPathXmlApplicationContext(
                     springConfig.getRootApplicationContextConfigLocations());
 
-            CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers();
-            createDefaultUsers.init(applicationContext);
+            CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers(
+                    applicationContext);
             createDefaultUsers.createRoles(applicationContext);
 
             MutableUserDetails adminUser = (MutableUserDetails) applicationContext
@@ -91,7 +92,13 @@ public class CreateDefaultUsers {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * @param applicationContext
+     */
+    public CreateDefaultUsers(ApplicationContext applicationContext) {
+        init(applicationContext);
+    }
+
     private void init(ApplicationContext context) {
         this.setUserDetailsService((UserDetailsService) context
                 .getBean("userDetailsService"));

@@ -210,6 +210,15 @@
             <arg value="${default.admin.password}" />
             <classpath refid="runtime.classpath" />
         </java>
+        <java classname="net.sf.sail.webapp.CreateDefaultOfferings"
+              fork="true"
+              failonerror="true"
+              newenvironment="true"
+        >
+            <arg value="${settings.profiles.profile.properties.context.config.class}"
+            />
+            <classpath refid="runtime.classpath" />
+        </java>
     </target>
 
 

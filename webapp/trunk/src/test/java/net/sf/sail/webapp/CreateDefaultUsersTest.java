@@ -1,6 +1,5 @@
 package net.sf.sail.webapp;
 
-import net.sf.sail.webapp.CreateDefaultUsers;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.authentication.impl.HibernateUserDetailsDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -67,7 +66,7 @@ public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
-        creator = new CreateDefaultUsers();
+        creator = new CreateDefaultUsers(this.applicationContext);
         creator.setUserDetailsService(userDetailsService);
         creator.setUserService(userService);
 
