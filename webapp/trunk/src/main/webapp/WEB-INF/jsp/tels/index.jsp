@@ -25,6 +25,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
+<script src="./javascript/tels/prototype.js" type="text/javascript" />
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript" />
 <title><spring:message code="application.title" /></title>
 </head>
 
@@ -41,10 +43,11 @@
 <div id="columns">
 <div id="left">
 <h2><spring:message code="welcome" /> <authz:authentication
-    operation="username" /></h2>
+    operation="username" /><authz:authentication
+    operation="firstname" /></h2>
 </div>
 
-<div id="right">
+<div id="right" onclick="new Effect.SwitchOff(this)">
 <a href="login.html"><spring:message code="log.in" /></a><br />
 <a href="register.html"><spring:message code="joinwise" /></a><br />
 </div>

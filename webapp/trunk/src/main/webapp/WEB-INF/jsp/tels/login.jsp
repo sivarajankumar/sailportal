@@ -54,16 +54,18 @@ addEvent(window, 'load', onLoadHandler);
 <c:if test="${failed}">
   <p><spring:message code="login.failed" /></p>
 </c:if>
+</div>
 
+<div id="upperright">
 <form id="login" method="post" action="j_acegi_security_check">
 
-<label for="j_username"><spring:message code="login.username" /></label>
-<input type="text" name="j_username" id="j_username" /><br />
+  <label for="j_username"><spring:message code="login.username" /></label>
+  <input type="text" name="j_username" id="j_username"  class="text" tabindex="1" /><br />
 
-<label for="j_password"><spring:message code="login.password" /></label>
-<input type="password" name="j_password" id="j_password" /><br />
+  <label for="j_password"><spring:message code="login.password" /></label>
+  <input type="password" name="j_password" id="j_password" class="text" tabindex="2" /><br />
 
-<input type="submit" value="<spring:message code="login.submit" />" />
+  <input type="submit" class="buttons" tabindex="3" value="<spring:message code="login.submit" />" />
 </form>
 
 </div>

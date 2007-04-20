@@ -41,7 +41,11 @@
 <div id="columns">
 <div id="left"><%@ include file="logout.jsp"%>
 <h2><spring:message code="welcome" /> <authz:authentication
-    operation="username" /></h2>
+    operation="username" /><authz:authentication
+    operation="firstname" /><authz:authentication
+    operation="lastname" /><authz:authentication
+    operation="emailAddress" /><authz:authentication
+    operation="gender" /></h2>
     <a href="curnitlist.html"><spring:message code="curnit.list" /></a><br /><br /><br />
 </div>
 

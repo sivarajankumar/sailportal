@@ -50,34 +50,41 @@ div {
     color: blue;
 }
 
+div#upperright {
+	margin-left: 1em;
+	margin-right: 1em;
+    width: 50em;
+    border: .2em solid #00FFCC;
+}
+
 form#login {
     background-color: #CCCCCC;
     color: #000000;
-    border: 1px solid #999999;
+    border: .2em solid #999999;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
+    font-size: 1em;
     text-align: right;
 }
 
 #login .text {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 3em;
-	width: 20em;
-	margin-right: 2em;
+	font-size: 1em;
+	width: 10em;
+	margin-right: 1em;
 }
 
 #login .buttons {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 2em;
+	font-size: 1em;
 	background-color: #333333;
 	color: #FFFFFF;
-	margin-right: 2em;
+	margin-right: 1em;
 }
 
 #register table {
 	background-color: #F9FBFD;
     color: #000000;
-    width: 440px;
-    border: 1px solid #D7E5F2;
+    width: 30em;
+    border: 0.1em solid #D7E5F2;
     border-collapse: collapse; 
 }
