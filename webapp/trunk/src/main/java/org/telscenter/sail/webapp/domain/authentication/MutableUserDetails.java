@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.authentication;
 
+import java.util.Date;
+
 /**
  * TELS Portal version of MutableUserDetails interface
  * 
@@ -39,6 +41,10 @@ public interface MutableUserDetails extends
 	public String getLastname();
 	
 	public void setLastname(String lastname);
+	
+	public Date getSignupdate();
+	
+	public void setSignupdate(Date signupdate);
 	
 	/**
 	 * @return this user's 'root' username.

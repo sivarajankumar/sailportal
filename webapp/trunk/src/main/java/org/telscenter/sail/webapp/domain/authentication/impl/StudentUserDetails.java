@@ -59,20 +59,25 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	public static final String COLUMN_NAME_LASTNAME = "lastname";
 
 	@Transient
+	private static final String COLUMN_NAME_SIGNUPDATE = "signupdate";
+
+	@Transient
 	public static final String COLUMN_NAME_GENDER = "gender";
 	
 	@Transient
 	public static final String COLUMN_NAME_BIRTHDAY = "birthday";
-	
 
     @Transient
     private static final long serialVersionUID = 1L;
-    
+
     @Column(name = StudentUserDetails.COLUMN_NAME_FIRSTNAME, nullable = false)
 	private String firstname;
     
     @Column(name = StudentUserDetails.COLUMN_NAME_LASTNAME, nullable = false)
 	private String lastname;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_SIGNUPDATE, nullable = false)
+    private Date signupdate;
     
     @Column(name = StudentUserDetails.COLUMN_NAME_GENDER, nullable = false)
 	private Gender gender;
@@ -115,6 +120,12 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+	public Date getSignupdate() {
+		return signupdate;
+	}
+	public void setSignupdate(Date signupdate) {
+		this.signupdate = signupdate;
 	}
 	/**
 	 * @return the birthday

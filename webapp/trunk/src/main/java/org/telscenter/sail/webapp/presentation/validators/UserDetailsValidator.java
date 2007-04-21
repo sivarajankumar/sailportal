@@ -62,6 +62,11 @@ public class UserDetailsValidator extends
 			return;
 		}
 		
+	    if (userDetails.getSignupdate() == null) {
+	    	errors.rejectValue("signupdate", "error.signupdate-not-specified");
+	    	return;
+	    }
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstname", 
 				"error.firstname-not-specified");
 

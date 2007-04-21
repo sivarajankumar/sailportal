@@ -57,6 +57,8 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
     private static final String LASTNAME = "Bob";
     
+    private static final Date SIGNUPDATE = Calendar.getInstance().getTime();
+    
     private static final Gender GENDER = Gender.FEMALE;
 
 	private static final Date BIRTHDAY = Calendar.getInstance().getTime();
@@ -76,6 +78,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         userDetails.setEmailAddress(EMAIL);
         userDetails.setFirstname(FIRSTNAME);
         userDetails.setLastname(LASTNAME);
+        userDetails.setSignupdate(SIGNUPDATE);
         userDetails.setGender(GENDER);
         userDetails.setBirthday(BIRTHDAY);
 
@@ -89,6 +92,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         userDetails2.setEmailAddress(EMAIL);
         userDetails2.setFirstname(FIRSTNAME);
         userDetails2.setLastname(LASTNAME);
+        userDetails2.setSignupdate(SIGNUPDATE);
         userDetails2.setGender(GENDER);
         userDetails2.setBirthday(BIRTHDAY);
 
@@ -116,6 +120,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         userDetails.setEmailAddress(EMAIL);
         userDetails.setFirstname(FIRSTNAME);
         userDetails.setLastname(LASTNAME);
+        userDetails.setSignupdate(SIGNUPDATE);
         userDetails.setGender(GENDER);
         userDetails.setBirthday(BIRTHDAY);
 
@@ -162,6 +167,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     	userDetails.setEmailAddress(EMAIL);
     	userDetails.setFirstname(FIRSTNAME);
     	userDetails.setLastname(LASTNAME);
+        userDetails.setSignupdate(SIGNUPDATE);
     	userDetails.setGender(GENDER);
     	userDetails.setBirthday(BIRTHDAY);
     	

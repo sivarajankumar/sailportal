@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.authentication.impl;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -53,6 +55,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 
 	@Transient
 	public static final String COLUMN_NAME_LASTNAME = "lastname";
+
+	@Transient
+	private static final String COLUMN_NAME_SIGNUPDATE = "signupdate";
 	
 	@Transient
 	public static final String COLUMN_NAME_CITY = "city";
@@ -81,6 +86,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
     
     @Column(name = TeacherUserDetails.COLUMN_NAME_LASTNAME, nullable = false)
 	private String lastname;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_SIGNUPDATE, nullable = false)
+    private Date signupdate;
     
     @Column(name = TeacherUserDetails.COLUMN_NAME_CITY, nullable = false)
 	private String city;
@@ -123,6 +131,18 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+	/**
+	 * @return the signupdate
+	 */
+	public Date getSignupdate() {
+		return signupdate;
+	}
+	/**
+	 * @param signupdate the signupdate to set
+	 */
+	public void setSignupdate(Date signupdate) {
+		this.signupdate = signupdate;
 	}
 	/**
 	 * @return the city

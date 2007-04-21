@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -95,6 +97,9 @@ public class RegisterTeacherController extends SignupController {
 		}
 		
 		TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
+		if (accountForm.isNewAccount()) {
+			userDetails.setSignupdate(Calendar.getInstance().getTime());
+		}
 		errors.setNestedPath("userDetails");
 		getValidator().validate(userDetails, errors);
 		errors.setNestedPath("");

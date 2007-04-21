@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.dao.authentication.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +66,8 @@ public class HibernateTeacherUserDetailsDaoTest extends
     private static final String DEFAULT_FIRSTNAME = "Hiroki";
 
     private static final String DEFAULT_LASTNAME = "Terashima";
+    
+    private static final Date DEFAULT_SIGNUPDATE = Calendar.getInstance().getTime();
 
     private static final String DEFAULT_CITY = "Huntington Beach";
 
@@ -158,6 +162,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
                 this.role1, this.role2, this.role3 });
         this.defaultUserDetails.setFirstname(DEFAULT_FIRSTNAME);
         this.defaultUserDetails.setLastname(DEFAULT_LASTNAME);
+        this.defaultUserDetails.setSignupdate(DEFAULT_SIGNUPDATE);
         this.defaultUserDetails.setCity(DEFAULT_CITY);
         this.defaultUserDetails.setState(DEFAULT_STATE);
         this.defaultUserDetails.setCountry(DEFAULT_COUNTRY);
@@ -289,6 +294,18 @@ public class HibernateTeacherUserDetailsDaoTest extends
         partiallyEmptyUserDetails.setPassword(DEFAULT_PASSWORD);
         try {
             this.userDetailsDao.save(partiallyEmptyUserDetails);
+            fail("expected DataIntegrityViolationException");
+        } catch (DataIntegrityViolationException expected) {
+        }
+    }
+    
+    public void testEmptySignupdate() {
+        verifyUserandJoinTablesAreEmpty();
+
+        this.defaultUserDetails.setSignupdate(null);
+
+        try {
+            this.userDetailsDao.save(this.defaultUserDetails);
             fail("expected DataIntegrityViolationException");
         } catch (DataIntegrityViolationException expected) {
         }

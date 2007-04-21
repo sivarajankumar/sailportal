@@ -54,6 +54,7 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
         userDetails.setPassword(PASSWORD);
         userDetails.setFirstname(FIRSTNAME);
         userDetails.setLastname(LASTNAME);
+        userDetails.setSignupdate(SIGNUPDATE);
         userDetails.setEmailAddress(EMAIL);
         userDetails.setCity(CITY);
         userDetails.setState(STATE);
@@ -85,8 +86,8 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     	super.testPasswordSpacesValidate(userDetails, errors);
     }
 
-    public void testPasswrdIllegalChars1Validate() {
-    	super.testPasswrdIllegalChars1Validate(userDetails, errors);
+    public void testPasswordIllegalChars1Validate() {
+    	super.testPasswordIllegalChars1Validate(userDetails, errors);
     }
     
     public void testEmailEmptyValidate() {

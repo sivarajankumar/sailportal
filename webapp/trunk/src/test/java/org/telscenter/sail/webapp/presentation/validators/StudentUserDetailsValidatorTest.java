@@ -45,6 +45,7 @@ public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
         userDetails.setFirstname(FIRSTNAME);
         userDetails.setLastname(LASTNAME);
         userDetails.setGender(GENDER);
+        userDetails.setSignupdate(SIGNUPDATE);
         errors = new BeanPropertyBindingResult(userDetails, "");
         userDetailsValidator = new StudentUserDetailsValidator();
     }
@@ -69,8 +70,12 @@ public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
     	super.testPasswordSpacesValidate(userDetails, errors);
     }
     
-    public void testPasswrdIllegalChars1Validate() {
-    	super.testPasswrdIllegalChars1Validate(userDetails, errors);
+    public void testPasswordIllegalChars1Validate() {
+    	super.testPasswordIllegalChars1Validate(userDetails, errors);
+    }
+    
+    public void testSignupdateNullValidate() {
+    	super.testSignupdateNullValidate(userDetails, errors);
     }
 
     protected void tearDown() throws Exception {

@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -104,6 +105,9 @@ public class RegisterStudentController extends SignupController {
 
 		StudentAccountForm accountForm = (StudentAccountForm) command;
 		StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
+		if (accountForm.isNewAccount()) {
+			userDetails.setSignupdate(Calendar.getInstance().getTime());
+		}
 		errors.setNestedPath("userDetails");
 		getValidator().validate(userDetails, errors);
 		errors.setNestedPath("");

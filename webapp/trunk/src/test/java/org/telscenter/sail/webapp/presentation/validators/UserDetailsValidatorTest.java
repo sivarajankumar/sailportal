@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.validators;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
@@ -42,6 +45,8 @@ public class UserDetailsValidatorTest extends
     protected static final String FIRSTNAME = "firstname";
     
     protected static final String LASTNAME = "lastname";
+    
+    protected static final Date SIGNUPDATE = Calendar.getInstance().getTime();
     
     protected static final String EMAIL = "email@email.com";
     
@@ -105,12 +110,21 @@ public class UserDetailsValidatorTest extends
     	assertNotNull(errors.getFieldError("password"));
     }
     
-    public void testPasswrdIllegalChars1Validate(MutableUserDetails userDetails, Errors errors) {
+    public void testPasswordIllegalChars1Validate(MutableUserDetails userDetails, Errors errors) {
         userDetails.setPassword(ILLEGAL1);
         userDetailsValidator.validate(userDetails, errors);
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
         assertNull(errors.getFieldError("username"));
         assertNotNull(errors.getFieldError("password"));
+    }
+    
+    public void testSignupdateNullValidate(MutableUserDetails userDetails, Errors errors) {
+        userDetails.setSignupdate(null);
+        userDetailsValidator.validate(userDetails, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        assertNull(errors.getFieldError("username"));
+        assertNotNull(errors.getFieldError("signupdate"));    	
     }
 }
