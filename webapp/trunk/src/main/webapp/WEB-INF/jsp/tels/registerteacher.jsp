@@ -25,15 +25,11 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="signup.title" /></title>
-<script type="text/javascript" src="./javascript/utils.js"></script>
-<script type="text/javascript">
-function onLoadHandler() {
-  document.getElementById("username").focus();
-}
 
-addEvent(window, 'load', onLoadHandler);
-</script>
+<script src="./javascript/tels/prototype.js" type="text/javascript" /></script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript" /></script>
+<title><spring:message code="signup.title" /></title>
+
 </head>
 
 <body>
@@ -80,9 +76,14 @@ addEvent(window, 'load', onLoadHandler);
   </tr>
 
   <tr>
-    <td><label for="city"><spring:message code="signup.city" /></label></td> 
-    <td><form:input path="userDetails.city" id="city" /></td>
-    <td><form:errors path="userDetails.city" /></td>
+    <td><label for="country"><spring:message code="signup.country" /></label></td> 
+    <td><form:input path="userDetails.country" id="country" />
+        <div id="autocomplete_choices" class="autocomplete" />
+        <script type="text/javascript">
+          new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar' }); 
+        </script>
+    </td>
+    <td><form:errors path="userDetails.country" /></td>
   </tr>
 
   <tr>
@@ -90,11 +91,11 @@ addEvent(window, 'load', onLoadHandler);
     <td><form:input path="userDetails.state" id="state" /></td>
     <td><form:errors path="userDetails.state" /></td>
   </tr>
-
+  
   <tr>
-    <td><label for="country"><spring:message code="signup.country" /></label></td> 
-    <td><form:input path="userDetails.country" id="country" /></td>
-    <td><form:errors path="userDetails.country" /></td>
+    <td><label for="city"><spring:message code="signup.city" /></label></td> 
+    <td><form:input path="userDetails.city" id="city" /></td>
+    <td><form:errors path="userDetails.city" /></td>
   </tr>
 
   <tr>
@@ -119,7 +120,7 @@ addEvent(window, 'load', onLoadHandler);
   
   <tr>
     <td><label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label></td>
-    <td><form:checkbox path="legalAcknowledged" id="legalAcknowledged" /></td>
+    <td><form:checkbox path="legalAcknowledged" id="legalAcknowledged" /> I agree to the terms of use.</td>
     <td><form:errors path="legalAcknowledged" /></td>
   </tr>
 

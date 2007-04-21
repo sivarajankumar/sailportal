@@ -36,7 +36,16 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController">
 	</bean>
 
-    <bean
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController">
-    </bean>
+    <bean id="teacherIndexController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController" />
+    
+    <bean id="registerController" 
+        class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterController" />
+
+    <bean id="countriesController" 
+        class="org.telscenter.sail.webapp.presentation.web.controllers.CountriesController" />
+
+    <bean id="helpController" 
+        class="org.telscenter.sail.webapp.presentation.web.controllers.HelpController" />
+    
 </beans>
