@@ -26,7 +26,7 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <title><spring:message code="signup.title" /></title>
-<script type="text/javascript" src="./javascript/utils.js"></script>
+<script type="text/javascript" src="./javascript/pas/utils.js"></script>
 <script type="text/javascript">
 function onLoadHandler() {
   document.getElementById("username").focus();
