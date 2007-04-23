@@ -94,6 +94,14 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
         this.defaultUser = null;
     }
 
+    public void testRetrieveByUserDetails() {
+        this.userDao.save(this.defaultUser);
+
+        User actual = this.userDao.retrieveByUserDetails(this.userDetails);
+        assertNotNull(actual);
+        assertEquals(this.defaultUser, actual);
+    }
+
     public void testSave() {
         verifyDataStoreIsEmpty();
 

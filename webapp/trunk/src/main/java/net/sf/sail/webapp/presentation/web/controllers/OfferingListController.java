@@ -20,6 +20,7 @@ package net.sf.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +36,9 @@ public class OfferingListController extends AbstractController {
 
     private OfferingService offeringService;
 
-    public final static String OFFERING_LIST = "offering_list";
+    final static String OFFERING_LIST_KEY = "offering_list";
+
+    final static String USER_KEY = "user";
 
     /**
      * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -47,7 +50,9 @@ public class OfferingListController extends AbstractController {
             HttpServletRequest servletRequest,
             HttpServletResponse servletResponse) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(OFFERING_LIST, this.offeringService
+        modelAndView.addObject(USER_KEY, servletRequest.getSession()
+                .getAttribute(User.CURRENT_USER_SESSION_KEY));
+        modelAndView.addObject(OFFERING_LIST_KEY, this.offeringService
                 .getOfferingList());
         return modelAndView;
     }

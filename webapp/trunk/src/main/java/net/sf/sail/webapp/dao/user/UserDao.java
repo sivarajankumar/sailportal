@@ -20,6 +20,8 @@ package net.sf.sail.webapp.dao.user;
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.User;
 
+import org.acegisecurity.userdetails.UserDetails;
+
 /**
  * @author Cynick Young
  * 
@@ -28,4 +30,14 @@ import net.sf.sail.webapp.domain.User;
  */
 public interface UserDao<T extends User> extends SimpleDao<T> {
 
+    /**
+     * Given a user details retrieve a corresponding user record from data
+     * store.
+     * 
+     * @param userDetails
+     *            A <code>UserDetails</code> associated with the User in the
+     *            data store.
+     * @return A new instance of a data object.
+     */
+    public T retrieveByUserDetails(UserDetails userDetails);
 }

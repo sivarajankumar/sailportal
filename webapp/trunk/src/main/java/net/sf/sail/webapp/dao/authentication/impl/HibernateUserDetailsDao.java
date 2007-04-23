@@ -49,8 +49,7 @@ public class HibernateUserDetailsDao extends
                         .getHibernateTemplate()
                         .findByNamedParam(
                                 "from PersistentUserDetails as user_details where user_details.username = :username",
-                                new String[] { "username" },
-                                new Object[] { username }));
+                                "username", username));
     }
 
     /**

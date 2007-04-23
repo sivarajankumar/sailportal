@@ -37,11 +37,10 @@
 
 <div id="columns">
 <div id="left"><%@ include file="logout.jsp"%>
-	<a href="curnitlist.html"><spring:message code="curnit.list" /></a><br />
 </div>
 
 <div id="right">
-<h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
+<h2><spring:message code="hello" /> <c:out value="${user.userDetails.username}" /></h2>
 
 <table border="1">
   <thead><tr><th>Name</th></tr></thead>

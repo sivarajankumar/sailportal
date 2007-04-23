@@ -22,6 +22,7 @@ import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
@@ -29,6 +30,7 @@ import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
+import org.easymock.EasyMock;
 
 /**
  * @author Cynick Young
@@ -51,6 +53,21 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     private UserDetailsService userDetailsService;
 
     private UserService userService;
+
+    @SuppressWarnings("unchecked")
+    public void testRetrieveUser() {
+        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
+                .getBean("mutableUserDetails");
+        UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);
+        EasyMock.expect(mockUserDao.retrieveByUserDetails(userDetails))
+                .andReturn(new UserImpl());
+        EasyMock.replay(mockUserDao);
+
+        UserServiceImpl userServiceImpl = new UserServiceImpl();
+        userServiceImpl.setUserDao(mockUserDao);
+        userServiceImpl.retrieveUser(userDetails);
+        EasyMock.verify(mockUserDao);
+    }
 
     public void testDuplicateUserErrors() throws Exception {
         MutableUserDetails user = (MutableUserDetails) this.applicationContext

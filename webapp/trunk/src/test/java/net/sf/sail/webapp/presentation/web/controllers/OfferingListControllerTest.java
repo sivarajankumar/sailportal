@@ -21,8 +21,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -31,6 +35,7 @@ import net.sf.sail.webapp.service.offering.OfferingService;
 import org.easymock.EasyMock;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -93,13 +98,20 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
     }
 
     public void testHandleRequestInternal() throws Exception {
+        HttpSession mockSession = new MockHttpSession();
+        User user = new UserImpl();
+        mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, user);
+        this.request.setSession(mockSession);
+
         EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
                 this.expectedOfferingList);
         EasyMock.replay(mockOfferingsService);
         ModelAndView modelAndView = offeringListController
                 .handleRequestInternal(request, response);
         assertModelAttributeValue(modelAndView,
-                OfferingListController.OFFERING_LIST, this.expectedOfferingList);
+                OfferingListController.OFFERING_LIST_KEY, this.expectedOfferingList);
+        assertModelAttributeValue(modelAndView, OfferingListController.USER_KEY,
+                user);
         EasyMock.verify(mockOfferingsService);
         EasyMock.reset(mockOfferingsService);
 
@@ -110,7 +122,7 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
         modelAndView = offeringListController.handleRequestInternal(request,
                 response);
         assertModelAttributeValue(modelAndView,
-                OfferingListController.OFFERING_LIST, emptyOfferingList);
+                OfferingListController.OFFERING_LIST_KEY, emptyOfferingList);
         EasyMock.verify(mockOfferingsService);
         EasyMock.reset(mockOfferingsService);
     }

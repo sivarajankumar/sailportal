@@ -21,6 +21,9 @@ import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 
+import org.acegisecurity.userdetails.UserDetails;
+import org.springframework.dao.support.DataAccessUtils;
+
 /**
  * @author Cynick Young
  * 
@@ -38,5 +41,17 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     @Override
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.dao.user.UserDao#retrieveByUserDetails(org.acegisecurity.userdetails.UserDetails)
+     */
+    public User retrieveByUserDetails(UserDetails userDetails) {
+        return (User) DataAccessUtils
+                .requiredUniqueResult(this
+                        .getHibernateTemplate()
+                        .findByNamedParam(
+                                "from UserImpl as user where user.userDetails = :userDetails",
+                                "userDetails", userDetails));
     }
 }

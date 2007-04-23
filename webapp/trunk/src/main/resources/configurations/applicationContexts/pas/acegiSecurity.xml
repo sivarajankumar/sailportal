@@ -84,7 +84,7 @@
         class="org.acegisecurity.event.authentication.LoggerListener" />
 
     <bean id="authenticationProcessingFilter"
-        class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
+        class="net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="authenticationFailureUrl"
             value="/login.html?failed=true" />

@@ -29,26 +29,29 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
  */
 public interface User extends Serializable {
 
-	/**
-	 * Gets the UserDetails object.
-	 * 
-	 * @return the userDetails
-	 */
-	public abstract MutableUserDetails getUserDetails();
+    public static final String CURRENT_USER_SESSION_KEY = "CURRENT_USER";
 
-	/**
-	 * Sets the UserDetails object
-	 * @param userDetails
-	 *            the userDetails to set
-	 */
-	public abstract void setUserDetails(MutableUserDetails userDetails);
+    /**
+     * Gets the UserDetails object.
+     * 
+     * @return the userDetails
+     */
+    public abstract MutableUserDetails getUserDetails();
 
-	/**
-	 * Sets the sdsUser object.
-	 * 
-	 * @param sdsUser
-	 *            the sdsUser to set
-	 */
-	public abstract void setSdsUser(SdsUser sdsUser);
+    /**
+     * Sets the UserDetails object
+     * 
+     * @param userDetails
+     *            the userDetails to set
+     */
+    public abstract void setUserDetails(MutableUserDetails userDetails);
+
+    /**
+     * Sets the sdsUser object.
+     * 
+     * @param sdsUser
+     *            the sdsUser to set
+     */
+    public abstract void setSdsUser(SdsUser sdsUser);
 
 }
