@@ -25,6 +25,8 @@ package net.sf.sail.webapp.dao.workgroup;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
 /**
@@ -38,5 +40,5 @@ public interface WorkgroupDao<T extends Workgroup> extends SimpleDao<T> {
      * 
      * @return a <code>Workgroup</code> <code>List</code>
      */
-    public List<T> getList();
+    public List<T> getList(Offering offering, User user);
 }

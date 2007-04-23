@@ -22,8 +22,12 @@
  */
 package net.sf.sail.webapp.dao.workgroup.impl;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
 /**
@@ -35,11 +39,25 @@ public class HibernateWorkgroupDao extends AbstractHibernateDao<Workgroup>
 
     private static final String FIND_ALL_QUERY = "from WorkgroupImpl";
 
+    private static final String FIND_BY_OFFERING_AND_USER_QUERY = "from WorkgroupImpl workgroup where workgroup.offering = :offering";
+
     /**
      * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
      */
     @Override
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.dao.workgroup.WorkgroupDao#getList(net.sf.sail.webapp.domain.Offering,
+     *      net.sf.sail.webapp.domain.User)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Workgroup> getList(Offering offering, User user) {
+        // TODO CY - make the query using user
+        return this.getHibernateTemplate().findByNamedParam(
+                FIND_BY_OFFERING_AND_USER_QUERY, new String[] { "offering" },
+                new Object[] { offering });
     }
 }
