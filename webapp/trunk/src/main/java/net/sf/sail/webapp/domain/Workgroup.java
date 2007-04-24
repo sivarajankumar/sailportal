@@ -66,7 +66,7 @@ public interface Workgroup extends Serializable {
      * @param member
      *            the member to add
      */
-    public void addMemeber(User member);
+    public void addMember(User member);
 
     /**
      * @return the offering

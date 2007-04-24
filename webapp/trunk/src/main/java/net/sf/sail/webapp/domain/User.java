@@ -31,6 +31,8 @@ public interface User extends Serializable {
 
     public static final String CURRENT_USER_SESSION_KEY = "CURRENT_USER";
 
+    public Long getId();
+
     /**
      * Gets the UserDetails object.
      * 
@@ -54,4 +56,10 @@ public interface User extends Serializable {
      */
     public abstract void setSdsUser(SdsUser sdsUser);
 
+    /**
+     * Gets the sdsUser object.
+     * 
+     * @return the sdsUser
+     */
+    public SdsUser getSdsUser();
 }

@@ -90,7 +90,7 @@ public class WorkgroupImpl implements Workgroup {
     @JoinColumn(name = COLUMN_NAME_OFFERING_FK, nullable = false)
     private Offering offering;
 
-    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> members = new HashSet<User>();
 
@@ -116,9 +116,9 @@ public class WorkgroupImpl implements Workgroup {
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.Workgroup#addMemeber(net.sf.sail.webapp.domain.User)
+     * @see net.sf.sail.webapp.domain.Workgroup#addMember(net.sf.sail.webapp.domain.User)
      */
-    public void addMemeber(User member) {
+    public void addMember(User member) {
         this.members.add(member);
     }
 

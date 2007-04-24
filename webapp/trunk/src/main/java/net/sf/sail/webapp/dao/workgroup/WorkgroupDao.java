@@ -40,5 +40,5 @@ public interface WorkgroupDao<T extends Workgroup> extends SimpleDao<T> {
      * 
      * @return a <code>Workgroup</code> <code>List</code>
      */
-    public List<T> getList(Offering offering, User user);
+    public List<T> getListByOfferingAndUser(Offering offering, User user);
 }

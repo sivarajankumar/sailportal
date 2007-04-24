@@ -271,54 +271,6 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         verifyDataStoreWorkgroupMembersListIsEmpty();
     }
 
-    public void testGetList_ByOfferingAndUser() {
-        // TODO CY - modify test to check proper user
-        verifyDataStoreWorkgroupListIsEmpty();
-        this.workgroupDao.save(this.defaultWorkgroup);
-
-        Session session = this.sessionFactory.getCurrentSession();
-
-        SdsOffering newSdsOffering = (SdsOffering) this.applicationContext
-                .getBean("sdsOffering");
-        newSdsOffering.setName(DEFAULT_NAME);
-        newSdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
-        newSdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
-        newSdsOffering.setSdsObjectId(111);
-        Offering newOffering = (Offering) this.applicationContext
-                .getBean("offering");
-        newOffering.setSdsOffering(newSdsOffering);
-
-        session.save(newOffering);
-
-        SdsWorkgroup newSdsWorkgroup = (SdsWorkgroup) this.applicationContext
-                .getBean("sdsWorkgroup");
-        newSdsWorkgroup.setName(DEFAULT_NAME);
-        newSdsWorkgroup.setSdsObjectId(112);
-        newSdsWorkgroup.setSdsOffering(newSdsOffering);
-        Workgroup newWorkgroup = (Workgroup) this.applicationContext
-                .getBean("workgroup");
-        newWorkgroup.setOffering(newOffering);
-        newWorkgroup.setSdsWorkgroup(newSdsWorkgroup);
-
-        User newUser = createNewUser(USERNAME, SDS_ID, session);
-        newWorkgroup.addMember(newUser);
-
-        this.workgroupDao.save(newWorkgroup);
-
-        List expectedList = retrieveWorkgroupListFromDb();
-        assertEquals(2, expectedList.size());
-
-        List<Workgroup> actualList = this.workgroupDao
-                .getListByOfferingAndUser(this.defaultOffering, newUser);
-        assertEquals(1, actualList.size());
-        assertEquals(this.defaultWorkgroup, actualList.get(0));
-
-        actualList = this.workgroupDao.getListByOfferingAndUser(newOffering,
-                null);
-        assertEquals(1, actualList.size());
-        assertEquals(newWorkgroup, actualList.get(0));
-    }
-
     public void testGetList() {
         verifyDataStoreWorkgroupListIsEmpty();
         this.workgroupDao.save(this.defaultWorkgroup);

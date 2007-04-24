@@ -34,6 +34,7 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
  */
 public interface Offering extends Serializable {
 
+    public Long getId();
     /**
      * Sets the SdsOffering object.
      * 

@@ -86,10 +86,9 @@ public class UserImpl implements User {
     }
 
     /**
-     * @return the sdsUser
+     * @see net.sf.sail.webapp.domain.User#getSdsUser()
      */
-    @SuppressWarnings("unused")
-    private SdsUser getSdsUser() {
+    public SdsUser getSdsUser() {
         return sdsUser;
     }
 
@@ -104,7 +103,7 @@ public class UserImpl implements User {
      * @return the id
      */
     @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

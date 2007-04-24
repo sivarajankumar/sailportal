@@ -36,6 +36,7 @@ public class AllTests {
                 "Test for net.sf.sail.webapp.dao.workgroup.impl");
         //$JUnit-BEGIN$
         suite.addTestSuite(HibernateWorkgroupDaoTest.class);
+        suite.addTestSuite(HibernateWorkgroupDaoAnotherTest.class);
         //$JUnit-END$
         return suite;
     }
