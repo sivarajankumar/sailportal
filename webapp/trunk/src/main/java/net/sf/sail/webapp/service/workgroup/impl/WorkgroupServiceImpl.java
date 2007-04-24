@@ -21,6 +21,8 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
@@ -77,4 +79,13 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         return this.workgroupDao.getList();
     }
 
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getWorkgroupListByOfferingAndUser(net.sf.sail.webapp.domain.Offering,
+     *      net.sf.sail.webapp.domain.User)
+     */
+    @Transactional(readOnly = true)
+    public List<Workgroup> getWorkgroupListByOfferingAndUser(Offering offering,
+            User user) {
+        return this.workgroupDao.getListByOfferingAndUser(offering, user);
+    }
 }

@@ -83,12 +83,25 @@ public class WorkgroupServiceImplTest extends TestCase {
         this.workgroup = null;
     }
 
-    public void testGetJnlpIterator() throws Exception {
+    public void testGetWorkgroupListByOfferingAndUser() {
         List<Workgroup> expectedList = new LinkedList<Workgroup>();
         expectedList.add(this.workgroup);
 
-        EasyMock.expect(this.mockWorkgroupDao.getList()).andReturn(
-                expectedList);
+        EasyMock.expect(
+                this.mockWorkgroupDao.getListByOfferingAndUser(null, null))
+                .andReturn(expectedList);
+        EasyMock.replay(this.mockWorkgroupDao);
+        assertEquals(expectedList, workgroupServiceImpl
+                .getWorkgroupListByOfferingAndUser(null, null));
+        EasyMock.verify(this.mockWorkgroupDao);
+    }
+
+    public void testGetWorkgroupList() throws Exception {
+        List<Workgroup> expectedList = new LinkedList<Workgroup>();
+        expectedList.add(this.workgroup);
+
+        EasyMock.expect(this.mockWorkgroupDao.getList())
+                .andReturn(expectedList);
         EasyMock.replay(this.mockWorkgroupDao);
         assertEquals(expectedList, workgroupServiceImpl.getWorkgroupList());
         EasyMock.verify(this.mockWorkgroupDao);

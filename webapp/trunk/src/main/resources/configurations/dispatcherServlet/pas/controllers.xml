@@ -28,6 +28,7 @@
     <bean
         class="net.sf.sail.webapp.presentation.web.controllers.OfferingListController">
         <property name="offeringService" ref="offeringService" />
+        <property name="workgroupService" ref="workgroupService" />
     </bean>
 
     <bean

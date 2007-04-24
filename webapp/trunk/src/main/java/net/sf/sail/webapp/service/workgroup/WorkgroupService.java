@@ -19,6 +19,8 @@ package net.sf.sail.webapp.service.workgroup;
 
 import java.util.List;
 
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
 /**
@@ -28,6 +30,19 @@ import net.sf.sail.webapp.domain.Workgroup;
  * 
  */
 public interface WorkgroupService {
+
+    /**
+     * Gets a <code>List</code> of workgroups for a given offering with the
+     * specified user as a member of that workgroup.
+     * 
+     * @param offering
+     *            for the workgroup
+     * @param user
+     *            that is a member of the workgroup
+     * @return
+     */
+    public List<Workgroup> getWorkgroupListByOfferingAndUser(Offering offering,
+            User user);
 
     /**
      * Gets a <code>List</code> of workgroups available.
