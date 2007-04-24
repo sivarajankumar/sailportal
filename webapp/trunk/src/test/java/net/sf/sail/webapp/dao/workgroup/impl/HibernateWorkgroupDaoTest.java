@@ -29,6 +29,7 @@ import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
@@ -49,6 +50,10 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @version $Id$
  */
 public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
+
+    private static final String USERNAME = "username";
+
+    private static final String PASSWORD = "password";
 
     private static final Integer SDS_ID = new Integer(42);
 
@@ -195,44 +200,40 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
                     .get(SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME.toUpperCase());
             assertEquals(DEFAULT_NAME, actualValue);
         }
+        verifyDataStoreWorkgroupMembersListIsEmpty();
     }
 
     public void testSave_OneMember() {
         verifyDataStoreWorkgroupListIsEmpty();
         verifyDataStoreWorkgroupMembersListIsEmpty();
 
-        User user = (User) this.applicationContext.getBean("user");
-        SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
-        sdsUser.setFirstName(DEFAULT_NAME);
-        sdsUser.setLastName(DEFAULT_NAME);
-        sdsUser.setSdsObjectId(SDS_ID);
-        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
-                .getBean("mutableUserDetails");
-        final String USERNAME = "username";
-        final String PASSWORD = "password";
-        userDetails.setUsername(USERNAME);
-        userDetails.setPassword(PASSWORD);
-        user.setSdsUser(sdsUser);
-        user.setUserDetails(userDetails);
-        Session session = this.sessionFactory.getCurrentSession();
-        session.save(user);
-
-        this.defaultWorkgroup.addMemeber(user);
+        User user = createNewUser(USERNAME, SDS_ID, this.sessionFactory
+                .getCurrentSession());
+        this.defaultWorkgroup.addMember(user);
         // saving the workgroup should cascade to the sds workgroup object
         this.workgroupDao.save(this.defaultWorkgroup);
         this.toilet.flush();
+
         List actualList = retrieveWorkgroupListFromDb();
         assertEquals(1, actualList.size());
         for (int i = 0; i < actualList.size(); i++) {
-            Map actualWorkgroupMap = (Map) actualList.get(i);
+            Map actualMap = (Map) actualList.get(i);
             // * NOTE* the keys in the map are all in UPPERCASE!
-            String actualValue = (String) actualWorkgroupMap
+            String actualValue = (String) actualMap
                     .get(SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME.toUpperCase());
             assertEquals(DEFAULT_NAME, actualValue);
         }
 
         actualList = retrieveWorkgroupMembersListFromDb();
         assertEquals(1, actualList.size());
+        for (int i = 0; i < actualList.size(); i++) {
+            Map actualMap = (Map) actualList.get(i);
+            // * NOTE* the keys in the map are all in UPPERCASE!
+            String actualValue = (String) actualMap
+                    .get(PersistentUserDetails.COLUMN_NAME_USERNAME
+                            .toUpperCase());
+            assertEquals(USERNAME, actualValue);
+        }
     }
 
     public void testDelete_NoMembers() {
@@ -254,8 +255,9 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         verifyDataStoreWorkgroupListIsEmpty();
         verifyDataStoreWorkgroupMembersListIsEmpty();
 
-        User user = createNewUser();
-        this.defaultWorkgroup.addMemeber(user);
+        User user = createNewUser(USERNAME, SDS_ID, this.sessionFactory
+                .getCurrentSession());
+        this.defaultWorkgroup.addMember(user);
         this.workgroupDao.save(this.defaultWorkgroup);
         this.toilet.flush();
         List actualList = retrieveWorkgroupListFromDb();
@@ -275,22 +277,6 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         this.workgroupDao.save(this.defaultWorkgroup);
 
         Session session = this.sessionFactory.getCurrentSession();
-
-        SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
-        sdsUser.setFirstName(DEFAULT_NAME);
-        sdsUser.setLastName(DEFAULT_NAME);
-        sdsUser.setSdsObjectId(110);
-
-        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
-                .getBean("mutableUserDetails");
-        userDetails.setUsername(DEFAULT_NAME);
-        userDetails.setPassword(DEFAULT_NAME);
-
-        User user = (User) this.applicationContext.getBean("user");
-        user.setSdsUser(sdsUser);
-        user.setUserDetails(userDetails);
-
-        session.save(user);
 
         SdsOffering newSdsOffering = (SdsOffering) this.applicationContext
                 .getBean("sdsOffering");
@@ -314,17 +300,21 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         newWorkgroup.setOffering(newOffering);
         newWorkgroup.setSdsWorkgroup(newSdsWorkgroup);
 
+        User newUser = createNewUser(USERNAME, SDS_ID, session);
+        newWorkgroup.addMember(newUser);
+
         this.workgroupDao.save(newWorkgroup);
 
         List expectedList = retrieveWorkgroupListFromDb();
         assertEquals(2, expectedList.size());
 
-        List<Workgroup> actualList = this.workgroupDao.getList(
-                this.defaultOffering, user);
+        List<Workgroup> actualList = this.workgroupDao
+                .getListByOfferingAndUser(this.defaultOffering, newUser);
         assertEquals(1, actualList.size());
         assertEquals(this.defaultWorkgroup, actualList.get(0));
 
-        actualList = this.workgroupDao.getList(newOffering, null);
+        actualList = this.workgroupDao.getListByOfferingAndUser(newOffering,
+                null);
         assertEquals(1, actualList.size());
         assertEquals(newWorkgroup, actualList.get(0));
     }
@@ -340,21 +330,18 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         assertEquals(this.defaultWorkgroup, actualList.get(0));
     }
 
-    private User createNewUser() {
+    private User createNewUser(String username, Integer sdsId, Session session) {
         User user = (User) this.applicationContext.getBean("user");
         SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
         sdsUser.setFirstName(DEFAULT_NAME);
         sdsUser.setLastName(DEFAULT_NAME);
-        sdsUser.setSdsObjectId(SDS_ID);
+        sdsUser.setSdsObjectId(sdsId);
         MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
                 .getBean("mutableUserDetails");
-        final String USERNAME = "username";
-        final String PASSWORD = "password";
-        userDetails.setUsername(USERNAME);
+        userDetails.setUsername(username);
         userDetails.setPassword(PASSWORD);
         user.setSdsUser(sdsUser);
         user.setUserDetails(userDetails);
-        Session session = this.sessionFactory.getCurrentSession();
         session.save(user);
         return user;
     }
@@ -363,12 +350,21 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         assertTrue(retrieveWorkgroupMembersListFromDb().isEmpty());
     }
 
+    /*
+     * SELECT * FROM workgroups, workgroups_related_to_users, users,
+     * user_details WHERE workgroups.id =
+     * workgroups_related_to_users.workgroup_fk AND
+     * workgroups_related_to_users.user_fk = users.id AND users.user_details_fk =
+     * user_details.id
+     */
     private static final String RETRIEVE_WORKGROUP_MEMBERS_SQL = "SELECT * FROM "
             + WorkgroupImpl.DATA_STORE_NAME
             + ", "
             + WorkgroupImpl.USERS_JOIN_TABLE_NAME
             + ", "
             + UserImpl.DATA_STORE_NAME
+            + ","
+            + PersistentUserDetails.DATA_STORE_NAME
             + " WHERE "
             + WorkgroupImpl.DATA_STORE_NAME
             + ".id = "
@@ -380,7 +376,14 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
             + "."
             + WorkgroupImpl.USERS_JOIN_COLUMN_NAME
             + " = "
-            + UserImpl.DATA_STORE_NAME + ".id";
+            + UserImpl.DATA_STORE_NAME
+            + ".id"
+            + " AND "
+            + UserImpl.DATA_STORE_NAME
+            + "."
+            + UserImpl.COLUMN_NAME_USER_DETAILS_FK
+            + " = "
+            + PersistentUserDetails.DATA_STORE_NAME + ".id";
 
     private List retrieveWorkgroupMembersListFromDb() {
         return this.jdbcTemplate.queryForList(RETRIEVE_WORKGROUP_MEMBERS_SQL,
