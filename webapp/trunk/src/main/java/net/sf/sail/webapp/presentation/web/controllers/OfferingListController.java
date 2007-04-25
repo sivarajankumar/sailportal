@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
@@ -45,6 +46,10 @@ public class OfferingListController extends AbstractController {
     private OfferingService offeringService;
 
     private WorkgroupService workgroupService;
+
+    private HttpRestTransport httpRestTransport;
+
+    protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
     protected final static String OFFERING_LIST_KEY = "offering_list";
 
@@ -79,6 +84,7 @@ public class OfferingListController extends AbstractController {
         modelAndView.addObject(USER_KEY, user);
         modelAndView.addObject(OFFERING_LIST_KEY, offeringList);
         modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
+        modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
         return modelAndView;
     }
 
@@ -98,5 +104,14 @@ public class OfferingListController extends AbstractController {
     @Required
     public void setOfferingService(OfferingService offeringService) {
         this.offeringService = offeringService;
+    }
+
+    /**
+     * @param httpRestTransport
+     *            the httpRestTransport to set
+     */
+    @Required
+    public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
+        this.httpRestTransport = httpRestTransport;
     }
 }

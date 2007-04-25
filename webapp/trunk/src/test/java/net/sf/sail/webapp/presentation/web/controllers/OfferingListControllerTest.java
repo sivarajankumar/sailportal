@@ -33,6 +33,7 @@ import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
@@ -51,6 +52,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class OfferingListControllerTest extends AbstractModelAndViewTests {
 
     private OfferingListController offeringListController;
+
+    private HttpRestTransport mockHttpTransport;
 
     private MockHttpServletRequest request;
 
@@ -96,11 +99,14 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
         this.expectedOfferingList = new LinkedList<Offering>();
         this.expectedOfferingList.add(offering);
 
+        this.mockHttpTransport = EasyMock.createMock(HttpRestTransport.class);
         this.offeringListController = new OfferingListController();
         this.offeringListController
                 .setOfferingService(this.mockOfferingsService);
         this.offeringListController
                 .setWorkgroupService(this.mockWorkgroupService);
+        this.offeringListController
+                .setHttpRestTransport(this.mockHttpTransport);
     }
 
     /**
@@ -146,6 +152,9 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
                 OfferingListController.WORKGROUP_MAP_KEY, expectedWorkgroupMap);
         assertModelAttributeValue(modelAndView,
                 OfferingListController.USER_KEY, this.user);
+        assertModelAttributeValue(modelAndView,
+                OfferingListController.HTTP_TRANSPORT_KEY,
+                this.mockHttpTransport);
         EasyMock.verify(this.mockOfferingsService);
         EasyMock.verify(this.mockWorkgroupService);
     }
@@ -167,6 +176,9 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
                 OfferingListController.WORKGROUP_MAP_KEY, emptyWorkgroupMap);
         assertModelAttributeValue(modelAndView,
                 OfferingListController.USER_KEY, this.user);
+        assertModelAttributeValue(modelAndView,
+                OfferingListController.HTTP_TRANSPORT_KEY,
+                this.mockHttpTransport);
         EasyMock.verify(this.mockOfferingsService);
         EasyMock.verify(this.mockWorkgroupService);
     }
