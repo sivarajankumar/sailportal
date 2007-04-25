@@ -50,12 +50,30 @@ div {
     color: blue;
 }
 
+p{
+    border-width: 1px 1px 1px 1px;
+    border-spacing: 2px;
+    border-style: outset outset outset outset;
+    border-color: gray gray gray gray;
+    border-collapse: separate;
+}
+
+p.text{
+    border-width: 1px 1px 1px 1px;
+    border-spacing: 2px;
+    border-style: outset outset outset outset;
+    border-color: gray gray gray gray;
+    border-collapse: separate;
+		
+}
+
 div#upperright {
 	margin-left: 1em;
 	margin-right: 1em;
     width: 50em;
     border: .2em solid #00FFCC;
 }
+
 
 form#login {
     background-color: #CCCCCC;
@@ -81,10 +99,41 @@ form#login {
 	margin-right: 1em;
 }
 
+
+div.autocomplete{
+	position: absolute;
+	width: 250px;	
+	background-color: white;
+	border: 1px solid #888;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.autocomplete ul{
+	list-style-type: none;	
+	margin: 0px;
+	padding: 0px;
+}
+	
+div.autocomplete ul li.selected {background-color: #ffb;}
+div.autocomplete ul li {
+	list-style-type: none;
+	display: block;
+	margin: 0px;
+	padding: 2px;
+	height: 32px;
+	cursor: pointer;
+}
+
 #register table {
 	background-color: #F9FBFD;
     color: #000000;
     width: 30em;
     border: 0.1em solid #D7E5F2;
     border-collapse: collapse; 
+}
+
+.submit input 
+{
+	margin-left: 4.5em;
 }
