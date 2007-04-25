@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.service.workgroup;
 
 import java.util.List;
+import java.util.Map;
 
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
@@ -30,6 +31,14 @@ import net.sf.sail.webapp.domain.Workgroup;
  * 
  */
 public interface WorkgroupService {
+
+    /**
+     * @param offeringWorkgroupMap
+     * @param user
+     * @return
+     */
+    public Map<Offering, List<Workgroup>> createPreviewWorkgroupForOfferingIfNecessary(
+            Map<Offering, List<Workgroup>> offeringWorkgroupMap, User user);
 
     /**
      * Gets a <code>List</code> of workgroups for a given offering with the

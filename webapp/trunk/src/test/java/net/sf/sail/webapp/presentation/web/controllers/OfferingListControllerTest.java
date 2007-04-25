@@ -113,7 +113,7 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
         this.mockOfferingsService = null;
     }
 
-    public void testHandleRequestInternal() throws Exception {
+    public void testHandleRequestInternal_WithOffering() throws Exception {
         EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
                 this.expectedOfferingList);
         Map<Offering, List<Workgroup>> expectedWorkgroupMap = new HashMap<Offering, List<Workgroup>>(
@@ -124,6 +124,11 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
         EasyMock.expect(
                 this.mockWorkgroupService.getWorkgroupListByOfferingAndUser(
                         offering, this.user)).andReturn(emptyWorkgroupList);
+        EasyMock.expect(
+                this.mockWorkgroupService
+                        .createPreviewWorkgroupForOfferingIfNecessary(
+                                expectedWorkgroupMap, this.user)).andReturn(
+                expectedWorkgroupMap);
         EasyMock.replay(this.mockOfferingsService);
         EasyMock.replay(this.mockWorkgroupService);
 
@@ -136,8 +141,8 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
                 OfferingListController.WORKGROUP_MAP_KEY, expectedWorkgroupMap);
         assertModelAttributeValue(modelAndView,
                 OfferingListController.USER_KEY, this.user);
-        EasyMock.verify(mockOfferingsService);
-        EasyMock.reset(mockOfferingsService);
+        EasyMock.verify(this.mockOfferingsService);
+        EasyMock.verify(this.mockWorkgroupService);
     }
 
     public void testHandleRequestInternal_NoOfferings() throws Exception {
@@ -146,7 +151,12 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
                 .emptyMap();
         EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
                 emptyOfferingList);
-        EasyMock.replay(mockOfferingsService);
+        EasyMock.expect(
+                this.mockWorkgroupService
+                        .createPreviewWorkgroupForOfferingIfNecessary(
+                                emptyWorkgroupMap, this.user)).andReturn(
+                emptyWorkgroupMap);
+        EasyMock.replay(this.mockOfferingsService);
         EasyMock.replay(this.mockWorkgroupService);
 
         ModelAndView modelAndView = offeringListController
@@ -157,7 +167,7 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
                 OfferingListController.WORKGROUP_MAP_KEY, emptyWorkgroupMap);
         assertModelAttributeValue(modelAndView,
                 OfferingListController.USER_KEY, this.user);
-        EasyMock.verify(mockOfferingsService);
+        EasyMock.verify(this.mockOfferingsService);
         EasyMock.verify(this.mockWorkgroupService);
     }
 }

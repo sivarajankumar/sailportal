@@ -57,7 +57,6 @@ public class OfferingListController extends AbstractController {
      * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)
      */
-    @SuppressWarnings("unchecked")
     @Override
     protected ModelAndView handleRequestInternal(
             HttpServletRequest servletRequest,
@@ -72,6 +71,9 @@ public class OfferingListController extends AbstractController {
             workgroupMap.put(offering, this.workgroupService
                     .getWorkgroupListByOfferingAndUser(offering, user));
         }
+        workgroupMap = this.workgroupService
+                .createPreviewWorkgroupForOfferingIfNecessary(workgroupMap,
+                        user);
         modelAndView.addObject(USER_KEY, user);
         modelAndView.addObject(OFFERING_LIST_KEY, offeringList);
         modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
