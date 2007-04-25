@@ -60,63 +60,62 @@ addEvent(window, 'load', onLoadHandler);
 
 <div id="right">
 <form:form method="post" action="registerstudent.html" commandName="studentAccountForm" id="register" >
-  <table>
-    <tr>
-      <td><label for="firstname"><spring:message code="signup.firstname" /></label></td>
-      <td><form:input path="userDetails.firstname" id="firstname"/></td>
-      <td><form:errors path="userDetails.firstname" /></td>
-    </tr>
-    <tr>
-      <td><label for="lastname"><spring:message code="signup.lastname" /></label></td>
-      <td><form:input path="userDetails.lastname" id="lastname"/></td>
-      <td><form:errors path="userDetails.lastname" /></td>
-    </tr>
+  <div><label for="firstname"><spring:message code="signup.firstname" /></label>
+      <form:input path="userDetails.firstname" id="firstname"/>
+      <form:errors path="userDetails.firstname" />
+  </div>
+    <div>
+      <label for="lastname"><spring:message code="signup.lastname" /></label>
+      <form:input path="userDetails.lastname" id="lastname"/>
+      <form:errors path="userDetails.lastname" />
+    </div>
 
-    <tr>
-      <td><label for="gender"><spring:message code="signup.gender" /></label></td>
-      <td>
+    <div>
+      <label for="gender"><spring:message code="signup.gender" /></label>
+      
         <form:select path="userDetails.gender" id="gender"> 
           <c:forEach items="${genders}" var="genderchoice">
             <form:option value="${genderchoice}"><spring:message code="genders.${genderchoice}" /></form:option>
           </c:forEach>
         </form:select>
-      </td>
-      <td><form:errors path="userDetails.gender" /></td>
-    </tr>
-    
-    <tr>
-      <td><label for="birthday"><spring:message code="signup.birthday" /></label></td>
-      <td><form:input path="userDetails.birthday" id="birthday"/></td>
-      <td><form:errors path="userDetails.birthday" /></td>
-    </tr>
+      
+      <form:errors path="userDetails.gender" />
+    </div>
 
-    <tr>
-      <td><label for="password"><spring:message code="signup.password" /></label></td>
-      <td><form:password path="userDetails.password" id="password"/></td>
-      <td><form:errors path="userDetails.password"/></td>
-    </tr>
+    <div>
+      <label for="birthday"><spring:message code="signup.birthday" /></label>
+      <form:input path="userDetails.birthday" id="birthday"/>
+      <form:errors path="userDetails.birthday" />
+    </div>
+
+    <div>
+      <label for="password"><spring:message code="signup.password" /></label>
+      <form:password path="userDetails.password" id="password"/>
+      <form:errors path="userDetails.password"/>
+    </div>
   
-    <tr>
-      <td><label for="repeatedPassword"><spring:message code="signup.password.verify" /></label></td>
-      <td><form:password path="repeatedPassword" id="repeatedPassword"/></td>
-      <td><form:errors path="repeatedPassword" /></td>
-    </tr>
+    <div>
+      <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
+      <form:password path="repeatedPassword" id="repeatedPassword"/>
+      <form:errors path="repeatedPassword" />
+    </div>
 
-    <tr>
-      <td><label for="emailAddress"><spring:message code="signup.emailAddress" /></label></td>
-      <td><form:input path="userDetails.emailAddress" id="emailAddress"/></td>
-      <td><form:errors path="userDetails.emailAddress"/></td>
-    </tr>
+    <div>
+      <label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
+      <form:input path="userDetails.emailAddress" id="emailAddress"/>
+      <form:errors path="userDetails.emailAddress"/>
+    </div>
 
-    <tr>
-      <td><label for="projectCode"><spring:message code="signup.project.code" /></label></td>
-      <td><form:input path="projectCode" id="projectCode"/></td>
-      <td><form:errors path="projectCode" /></td>
-    </tr>
+    <div>
+      <label for="projectCode"><spring:message code="signup.project.code" /></label>
+      <form:input path="projectCode" id="projectCode"/>
+      <form:errors path="projectCode" />
+    </div>
 
   
-    <tr><td><input type="submit" value="<spring:message code="signup.submit" />" /></td></tr>
-  </table>
+    <div><input type="submit" value="<spring:message code="signup.submit" />" /></div>
+
+
 </form:form></div>
 </div>
 <%@ include file="footer.jsp"%>
