@@ -116,19 +116,24 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
     public void testHandleRequestInternal_WithOffering() throws Exception {
         EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
                 this.expectedOfferingList);
-        Map<Offering, List<Workgroup>> expectedWorkgroupMap = new HashMap<Offering, List<Workgroup>>(
-                1);
         List<Workgroup> emptyWorkgroupList = Collections.emptyList();
         Offering offering = this.expectedOfferingList.get(0);
+        Map<Offering, List<Workgroup>> expectedWorkgroupMap = new HashMap<Offering, List<Workgroup>>(
+                1);
         expectedWorkgroupMap.put(offering, emptyWorkgroupList);
+
         EasyMock.expect(
                 this.mockWorkgroupService.getWorkgroupListByOfferingAndUser(
                         offering, this.user)).andReturn(emptyWorkgroupList);
-        EasyMock.expect(
-                this.mockWorkgroupService
-                        .createPreviewWorkgroupForOfferingIfNecessary(
-                                expectedWorkgroupMap, this.user)).andReturn(
-                expectedWorkgroupMap);
+        EasyMock
+                .expect(
+                        this.mockWorkgroupService
+                                .createPreviewWorkgroupForOfferingIfNecessary(
+                                        offering,
+                                        emptyWorkgroupList,
+                                        this.user,
+                                        OfferingListController.DEFAULT_PREVIEW_WORKGROUP_NAME))
+                .andReturn(emptyWorkgroupList);
         EasyMock.replay(this.mockOfferingsService);
         EasyMock.replay(this.mockWorkgroupService);
 
@@ -151,11 +156,6 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
                 .emptyMap();
         EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
                 emptyOfferingList);
-        EasyMock.expect(
-                this.mockWorkgroupService
-                        .createPreviewWorkgroupForOfferingIfNecessary(
-                                emptyWorkgroupMap, this.user)).andReturn(
-                emptyWorkgroupMap);
         EasyMock.replay(this.mockOfferingsService);
         EasyMock.replay(this.mockWorkgroupService);
 

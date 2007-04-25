@@ -61,7 +61,7 @@
         <c:otherwise>
           <ul>
             <c:forEach var="workgroup" items="${workgroup_map[offering]}">
-              <li>${workgroup.sdsWorkgroup.name}</li>
+              <li>${workgroup.sdsWorkgroup.name} (${workgroup.sdsWorkgroup.sdsObjectId})</li>
             </c:forEach>
           </ul>
         </c:otherwise>

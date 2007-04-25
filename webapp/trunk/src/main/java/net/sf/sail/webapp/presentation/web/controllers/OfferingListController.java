@@ -23,7 +23,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
@@ -53,6 +52,8 @@ public class OfferingListController extends AbstractController {
 
     protected final static String USER_KEY = "user";
 
+    static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
+
     /**
      * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)
@@ -61,19 +62,20 @@ public class OfferingListController extends AbstractController {
     protected ModelAndView handleRequestInternal(
             HttpServletRequest servletRequest,
             HttpServletResponse servletResponse) throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
-        HttpSession httpSession = servletRequest.getSession();
-        User user = (User) httpSession
-                .getAttribute(User.CURRENT_USER_SESSION_KEY);
+        User user = (User) servletRequest.getSession().getAttribute(
+                User.CURRENT_USER_SESSION_KEY);
         List<Offering> offeringList = this.offeringService.getOfferingList();
         Map<Offering, List<Workgroup>> workgroupMap = new HashMap<Offering, List<Workgroup>>();
         for (Offering offering : offeringList) {
-            workgroupMap.put(offering, this.workgroupService
-                    .getWorkgroupListByOfferingAndUser(offering, user));
+            List<Workgroup> workgroupList = this.workgroupService
+                    .getWorkgroupListByOfferingAndUser(offering, user);
+            workgroupList = this.workgroupService
+                    .createPreviewWorkgroupForOfferingIfNecessary(offering,
+                            workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
+            workgroupMap.put(offering, workgroupList);
         }
-        workgroupMap = this.workgroupService
-                .createPreviewWorkgroupForOfferingIfNecessary(workgroupMap,
-                        user);
+
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(USER_KEY, user);
         modelAndView.addObject(OFFERING_LIST_KEY, offeringList);
         modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);

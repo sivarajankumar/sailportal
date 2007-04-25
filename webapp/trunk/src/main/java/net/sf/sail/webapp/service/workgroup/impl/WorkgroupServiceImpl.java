@@ -18,8 +18,6 @@
 package net.sf.sail.webapp.service.workgroup.impl;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
@@ -93,35 +91,30 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         return this.workgroupDao.getListByOfferingAndUser(offering, user);
     }
 
-    private static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
-
     /**
-     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createPreviewWorkgroupForOfferingIfNecessary(java.util.Map,
-     *      net.sf.sail.webapp.domain.User)
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createPreviewWorkgroupForOfferingIfNecessary(net.sf.sail.webapp.domain.Offering,
+     *      java.util.List, net.sf.sail.webapp.domain.User)
      */
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
-    public Map<Offering, List<Workgroup>> createPreviewWorkgroupForOfferingIfNecessary(
-            Map<Offering, List<Workgroup>> offeringWorkgroupMap, User user) {
-        Set<Offering> keys = offeringWorkgroupMap.keySet();
-        for (Offering offering : keys) {
-            List<Workgroup> workgroupList = offeringWorkgroupMap.get(offering);
-            if (workgroupList.isEmpty()) {
-                SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
-                sdsWorkgroup.addMember(user.getSdsUser());
-                sdsWorkgroup.setName(DEFAULT_PREVIEW_WORKGROUP_NAME);
-                sdsWorkgroup.setSdsOffering(offering.getSdsOffering());
-                this.sdsWorkgroupDao.save(sdsWorkgroup);
+    public List<Workgroup> createPreviewWorkgroupForOfferingIfNecessary(
+            Offering offering, List<Workgroup> workgroupList, User user,
+            String previewWorkgroupName) {
+        if (workgroupList.isEmpty()) {
+            SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
+            sdsWorkgroup.addMember(user.getSdsUser());
+            sdsWorkgroup.setName(previewWorkgroupName);
+            sdsWorkgroup.setSdsOffering(offering.getSdsOffering());
+            this.sdsWorkgroupDao.save(sdsWorkgroup);
 
-                Workgroup workgroup = new WorkgroupImpl();
-                workgroup.addMember(user);
-                workgroup.setOffering(offering);
-                workgroup.setSdsWorkgroup(sdsWorkgroup);
-                this.workgroupDao.save(workgroup);
+            Workgroup workgroup = new WorkgroupImpl();
+            workgroup.addMember(user);
+            workgroup.setOffering(offering);
+            workgroup.setSdsWorkgroup(sdsWorkgroup);
+            this.workgroupDao.save(workgroup);
 
-                workgroupList.add(workgroup);
-            }
+            workgroupList.add(workgroup);
         }
-        return offeringWorkgroupMap;
+        return workgroupList;
     }
 }

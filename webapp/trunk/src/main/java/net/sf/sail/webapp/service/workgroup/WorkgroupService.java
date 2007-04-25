@@ -18,7 +18,6 @@
 package net.sf.sail.webapp.service.workgroup;
 
 import java.util.List;
-import java.util.Map;
 
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
@@ -33,12 +32,27 @@ import net.sf.sail.webapp.domain.Workgroup;
 public interface WorkgroupService {
 
     /**
-     * @param offeringWorkgroupMap
+     * Given a list of workgroups for a particular offering, if the list is
+     * empty (i.e. there are no workgroups), then create a default "preview"
+     * workgroup with just the user in it. If there exists workgroups already,
+     * then do nothing.
+     * 
+     * @param offering
+     *            the given offering associated with the workgroups
+     * @param workgroupList
+     *            <code>List</code> of workgroups belonging to the given
+     *            offering
      * @param user
+     *            the <code>User</code> that should be put into the preview
+     *            workgroup
+     * @param previewWorkgroupName
+     *            <code>String</code> that specifies the default preview
+     *            workgroup name
      * @return
      */
-    public Map<Offering, List<Workgroup>> createPreviewWorkgroupForOfferingIfNecessary(
-            Map<Offering, List<Workgroup>> offeringWorkgroupMap, User user);
+    public List<Workgroup> createPreviewWorkgroupForOfferingIfNecessary(
+            Offering offering, List<Workgroup> workgroupList, User user,
+            String previewWorkgroupName);
 
     /**
      * Gets a <code>List</code> of workgroups for a given offering with the

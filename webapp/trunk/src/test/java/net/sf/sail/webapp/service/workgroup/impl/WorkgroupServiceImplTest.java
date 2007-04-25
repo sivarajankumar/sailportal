@@ -17,10 +17,8 @@
  */
 package net.sf.sail.webapp.service.workgroup.impl;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
@@ -92,20 +90,16 @@ public class WorkgroupServiceImplTest extends TestCase {
     public void testCreatePreviewWorkgroupForOfferingIfNecessary_Necessary() {
         Offering expectedOffering = new OfferingImpl();
         User expectedUser = new UserImpl();
-        Map<Offering, List<Workgroup>> inputMap = new HashMap<Offering, List<Workgroup>>();
         List<Workgroup> inputList = new LinkedList<Workgroup>();
-        inputMap.put(expectedOffering, inputList);
 
         this.mockSdsWorkgroupDao.save(null);
         EasyMock.expectLastCall();
         this.mockWorkgroupDao.save(null);
         EasyMock.expectLastCall();
 
-        Map<Offering, List<Workgroup>> actualMap = this.workgroupServiceImpl
-                .createPreviewWorkgroupForOfferingIfNecessary(inputMap,
-                        expectedUser);
-        assertEquals(1, actualMap.size());
-        List<Workgroup> actualList = actualMap.get(expectedOffering);
+        List<Workgroup> actualList = this.workgroupServiceImpl
+                .createPreviewWorkgroupForOfferingIfNecessary(expectedOffering,
+                        inputList, expectedUser, null);
         assertEquals(1, actualList.size());
         Workgroup actualWorkgroup = actualList.get(0);
         assertEquals(expectedOffering, actualWorkgroup.getOffering());
@@ -114,19 +108,16 @@ public class WorkgroupServiceImplTest extends TestCase {
     }
 
     public void testCreatePreviewWorkgroupForOfferingIfNecessary_NotNecessary() {
-        Map<Offering, List<Workgroup>> expectedMap = new HashMap<Offering, List<Workgroup>>();
         List<Workgroup> expectedList = new LinkedList<Workgroup>();
         expectedList.add(this.workgroup);
         Offering expectedOffering = new OfferingImpl();
-        expectedMap.put(expectedOffering, expectedList);
 
         EasyMock.replay(this.mockSdsWorkgroupDao);
         EasyMock.replay(this.mockWorkgroupDao);
 
-        assertEquals(expectedMap,
-                this.workgroupServiceImpl
-                        .createPreviewWorkgroupForOfferingIfNecessary(
-                                expectedMap, null));
+        assertEquals(expectedList, this.workgroupServiceImpl
+                .createPreviewWorkgroupForOfferingIfNecessary(expectedOffering,
+                        expectedList, null, null));
         EasyMock.verify(this.mockSdsWorkgroupDao);
         EasyMock.verify(this.mockWorkgroupDao);
     }
