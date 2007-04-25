@@ -54,9 +54,102 @@
 <h2><spring:message code="register.teacher" /></h2>
 </div>
 
-<div id="right">
+
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
-<table>
+<div id="right">
+<div>
+<label for="firstname"><spring:message code="signup.firstname" /></label>
+    <form:input path="userDetails.firstname" id="firstname"/>
+    <form:errors path="userDetails.firstname" />
+ </div>   
+ 
+  <div>
+    <label for="lastname"><spring:message code="signup.lastname" /></label>
+    <form:input path="userDetails.lastname" id="lastname"/>
+    <form:errors path="userDetails.lastname" />
+  </div>
+ 
+  <div>
+    <label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
+    <form:input path="userDetails.emailAddress" id="emailAddress"/>
+    <form:errors path="userDetails.emailAddress"/>
+  </div>
+
+<div>
+    <label for="country"><spring:message code="signup.country" /></label> 
+    <form:input path="userDetails.country" id="country" />
+        <div id="autocomplete_choices" class="autocomplete" />
+		<script type="text/javascript">  
+	new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar'}); 	   		
+		</script>
+    <form:errors path="userDetails.country" />
+ </div>
+
+
+  <div>
+    <label for="state"><spring:message code="signup.state" /></label> 
+    <form:input path="userDetails.state" id="state" />
+    <form:errors path="userDetails.state" />
+  </div>
+
+  <div>
+    <label for="city"><spring:message code="signup.city" /></label> 
+    <form:input path="userDetails.city" id="city" />
+    <form:errors path="userDetails.city" />
+  </div>
+
+  <div>
+    <label for="schoolname"><spring:message code="signup.schoolname" /></label> 
+    <form:input path="userDetails.schoolname" id="schoolname" />
+    <form:errors path="userDetails.schoolname" />
+  </div>
+
+  <div>
+    <label for="curriculumsubjects"><spring:message code="signup.curriculumsubjects" /></label> 
+  Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
+  Chemistry:  <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
+  Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" />
+  <form:errors path="userDetails.curriculumsubjects" />
+  </div>
+
+  <div>
+    <label for="schoollevel"><spring:message code="signup.schoollevel" /></label> 
+    <form:input path="userDetails.schoollevel" id="schoollevel" />
+    <form:errors path="userDetails.schoollevel" />
+  </div>
+
+  <div>
+    <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>
+    <form:checkbox path="legalAcknowledged" id="legalAcknowledged" /> I agree to the terms of use.
+    <form:errors path="legalAcknowledged" />
+  </div>
+
+  <div>
+    <label for="password"><spring:message code="signup.password" /></label>
+    <form:password path="userDetails.password" id="password"/>
+    <form:errors path="userDetails.password"/>
+  </div>
+  
+  <div>
+    <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
+    <form:password path="repeatedPassword" id="repeatedPassword"/>
+    <form:errors path="repeatedPassword" />
+  </div>
+
+     <input type="submit" value="<spring:message code="signup.submit" />" />
+
+</form:form></div>
+
+
+</div>
+<%@ include file="footer.jsp"%>
+
+</body>
+</html>
+
+
+
+<!--<table>
   <tr>
     <td><label for="firstname"><spring:message code="signup.firstname" /></label></td>
     <td><form:input path="userDetails.firstname" id="firstname"/></td>
@@ -80,7 +173,7 @@
     <td><form:input path="userDetails.country" id="country" />
         <div id="autocomplete_choices" class="autocomplete" />
         <script type="text/javascript">
-          new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar' }); 
+          new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar'}); 
         </script>
     </td>
     <td><form:errors path="userDetails.country" /></td>
@@ -139,15 +232,9 @@
   <tr>
     <td><input type="submit" value="<spring:message code="signup.submit" />" /></td>
   </tr>
+
 </table>
-</form:form></div>
-</div>
-<%@ include file="footer.jsp"%>
 
-
-</body>
-</html>
-
-
+-->
 
 
