@@ -25,9 +25,9 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-
 <script src="./javascript/tels/prototype.js" type="text/javascript" /></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" /></script>
+
 <title><spring:message code="signup.title" /></title>
 
 </head>
@@ -136,105 +136,16 @@
     <form:errors path="repeatedPassword" />
   </div>
 
-     <input type="submit" value="<spring:message code="signup.submit" />" />
-
+     <input type="submit" value="<spring:message code="signup.submit" />" onclick="Effect.toggle('waiting', 'appear')" />
+        <div id="waiting" style="display: none">
+            <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" /></div>
+        </div>
 </form:form></div>
 
-
+<div>
+<a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
 </div>
 <%@ include file="footer.jsp"%>
 
 </body>
 </html>
-
-
-
-<!--<table>
-  <tr>
-    <td><label for="firstname"><spring:message code="signup.firstname" /></label></td>
-    <td><form:input path="userDetails.firstname" id="firstname"/></td>
-    <td><form:errors path="userDetails.firstname" /></td>
-  </tr>
-
-  <tr>
-    <td><label for="lastname"><spring:message code="signup.lastname" /></label></td>
-    <td><form:input path="userDetails.lastname" id="lastname"/></td>
-    <td><form:errors path="userDetails.lastname" /></td>
-  </tr>
-
-  <tr>
-    <td><label for="emailAddress"><spring:message code="signup.emailAddress" /></label></td>
-    <td><form:input path="userDetails.emailAddress" id="emailAddress"/></td>
-    <td><form:errors path="userDetails.emailAddress"/></td>
-  </tr>
-
-  <tr>
-    <td><label for="country"><spring:message code="signup.country" /></label></td> 
-    <td><form:input path="userDetails.country" id="country" />
-        <div id="autocomplete_choices" class="autocomplete" />
-        <script type="text/javascript">
-          new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar'}); 
-        </script>
-    </td>
-    <td><form:errors path="userDetails.country" /></td>
-  </tr>
-
-  <tr>
-    <td><label for="state"><spring:message code="signup.state" /></label></td> 
-    <td><form:input path="userDetails.state" id="state" /></td>
-    <td><form:errors path="userDetails.state" /></td>
-  </tr>
-  
-  <tr>
-    <td><label for="city"><spring:message code="signup.city" /></label></td> 
-    <td><form:input path="userDetails.city" id="city" /></td>
-    <td><form:errors path="userDetails.city" /></td>
-  </tr>
-
-  <tr>
-    <td><label for="schoolname"><spring:message code="signup.schoolname" /></label></td> 
-    <td><form:input path="userDetails.schoolname" id="schoolname" /></td>
-    <td><form:errors path="userDetails.schoolname" /></td>
-  </tr>
-
-  <tr>
-    <td><label for="curriculumsubjects"><spring:message code="signup.curriculumsubjects" /></label></td> 
-  <td>Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
-  Chemistry:  <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
-  Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" /></td>
-  <td><form:errors path="userDetails.curriculumsubjects" /></td>
-  </tr>
-
-  <tr>
-    <td><label for="schoollevel"><spring:message code="signup.schoollevel" /></label></td> 
-    <td><form:input path="userDetails.schoollevel" id="schoollevel" /></td>
-    <td><form:errors path="userDetails.schoollevel" /></td>
-  </tr>
-  
-  <tr>
-    <td><label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label></td>
-    <td><form:checkbox path="legalAcknowledged" id="legalAcknowledged" /> I agree to the terms of use.</td>
-    <td><form:errors path="legalAcknowledged" /></td>
-  </tr>
-
-  <tr>
-    <td><label for="password"><spring:message code="signup.password" /></label></td>
-    <td><form:password path="userDetails.password" id="password"/></td>
-    <td><form:errors path="userDetails.password"/></td>
-  </tr>
-  
-  <tr>
-    <td><label for="repeatedPassword"><spring:message code="signup.password.verify" /></label></td>
-    <td><form:password path="repeatedPassword" id="repeatedPassword"/></td>
-    <td><form:errors path="repeatedPassword" /></td>
-  </tr>
-
-  <tr>
-    <td><input type="submit" value="<spring:message code="signup.submit" />" /></td>
-  </tr>
-
-</table>
-
--->
-
-

@@ -47,6 +47,17 @@
             </list>
         </property>
     </bean>
+    
+        <bean id="authenticationProcessingFilter"
+        class="org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationFailureUrl"
+            value="/login.html?failed=true" />
+        <property name="alwaysUseDefaultTargetUrl" value="false" />
+        <property name="defaultTargetUrl" value="/teacherindex.html" />
+        <property name="filterProcessesUrl" value="/j_acegi_security_check" />
+    </bean>
+    
 
     <bean id="filterInvocationInterceptor"
     	class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
@@ -71,16 +82,6 @@
     	</property>
     </bean>
 
-    <bean id="authenticationProcessingFilter"
-    	class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
-    	<property name="authenticationManager"
-    		ref="authenticationManager" />
-    	<property name="authenticationFailureUrl"
-    		value="/login.html?failed=true" />
-    	<property name="alwaysUseDefaultTargetUrl" value="false" />
-    	<property name="defaultTargetUrl" value="/teacherindex.html" />
-    	<property name="filterProcessesUrl"
-    		value="/j_acegi_security_check" />
-    </bean>
-
+    
+<!--     	class="org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter">  -->    
 </beans>

@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -30,7 +30,7 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="../header.jsp"%>
 
 <h1>Show and Tels</h1>
 
@@ -39,7 +39,7 @@
 </div>
 
 <div id="columns">
-<div id="left"><%@ include file="logout.jsp"%>
+<div id="left"><%@ include file="../logout.jsp"%>
 <h2><spring:message code="welcome" /> 
     <authz:authentication operation="username" />
 </h2>
@@ -69,7 +69,7 @@
 </div>
 
 
-<%@ include file="footer.jsp"%>
+<%@ include file="../footer.jsp"%>
 
 </body>
 </html>

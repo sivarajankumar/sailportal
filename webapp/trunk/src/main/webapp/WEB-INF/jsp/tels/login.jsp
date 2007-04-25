@@ -1,3 +1,4 @@
+
 <%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
@@ -25,24 +26,19 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
+<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<style type="text/css" media="screen">
+  .inplaceeditor-saving {background: url(<spring:theme code="wait"/>) bottom right no-repeat; }
+</style>
 <title><spring:message code="login.title" /></title>
-<script type="text/javascript" src="./javascript/pas/utils.js"></script>
-<script type="text/javascript">
-function onLoadHandler() {
-  document.getElementById("j_username").focus();
-}
 
-addEvent(window, 'load', onLoadHandler);
-</script>
 </head>
 
 <body>
 
 <%@ include file="header.jsp"%>
 
-<div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
-</div>
 
 <div id="columns">
 <div id="left">
@@ -54,22 +50,27 @@ addEvent(window, 'load', onLoadHandler);
 <c:if test="${failed}">
   <p><spring:message code="login.failed" /></p>
 </c:if>
-</div>
 
-<div id="upperright">
 <form id="login" method="post" action="j_acegi_security_check">
 
-  <label for="j_username"><spring:message code="login.username" /></label>
-  <input type="text" name="j_username" id="j_username"  class="text" tabindex="1" /><br />
+  <p><label for="j_username"><spring:message code="login.username" /></label>
+  <input type="text" name="j_username" id="j_username"  class="text" tabindex="1" /></p>
 
-  <label for="j_password"><spring:message code="login.password" /></label>
-  <input type="password" name="j_password" id="j_password" class="text" tabindex="2" /><br />
+  <p><label for="j_password"><spring:message code="login.password" /></label>
+  <input type="password" name="j_password" id="j_password" class="text" tabindex="2" /></p>
 
-  <input type="submit" class="buttons" tabindex="3" value="<spring:message code="login.submit" />" />
+  <p>
+     <div id="waiting" style="display: none">
+       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
+     </div>
+     <input type="submit" class="buttons" tabindex="3" value="<spring:message code="login.submit" />" 
+      onclick="Effect.toggle('waiting', 'appear')" />
+  </p>
 </form>
+<a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
 
 </div>
-</div>
+
 <%@ include file="footer.jsp"%>
 
 </body>
