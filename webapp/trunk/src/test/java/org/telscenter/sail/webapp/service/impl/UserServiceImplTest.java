@@ -33,6 +33,8 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.providers.dao.SaltSource;
+import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.acegisecurity.userdetails.UserDetails;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
@@ -70,6 +72,10 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     private UserDetailsService userDetailsService;
 
     private UserService userService;
+    
+    private StudentUserDetails userDetailsCreate;
+    
+    private MutableGrantedAuthority expectedAuthorityCreate;
 
     public void testDuplicateUserErrors() throws Exception {
         StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
@@ -109,47 +115,25 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
      * cannot be null, enforced by the data store constraint.
      */
     public void testCreateUserWithEmail() throws Exception {
-        MutableGrantedAuthority expectedAuthority = (MutableGrantedAuthority) this.applicationContext
-                .getBean("mutableGrantedAuthority");
-        expectedAuthority.setAuthority(UserDetailsService.USER_ROLE);
-        this.authorityDao.save(expectedAuthority);
-
-        StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
-               .getBean("studentUserDetails");
-        userDetails.setPassword(PASSWORD);
-        userDetails.setEmailAddress(EMAIL);
-        userDetails.setFirstname(FIRSTNAME);
-        userDetails.setLastname(LASTNAME);
-        userDetails.setSignupdate(SIGNUPDATE);
-        userDetails.setGender(GENDER);
-        userDetails.setBirthday(BIRTHDAY);
-
+    	setupCreateTest();
+    	userDetailsCreate.setEmailAddress(EMAIL);
+        
         // create user (saves automatically)
-        User expectedUser = this.userService.createUser(userDetails);
+        User expectedUser = this.userService.createUser(userDetailsCreate);
         UserDetails expectedUserDetails = expectedUser.getUserDetails();
 
         // retrieve user and compare
         UserDetails actual = this.userDetailsService
-                .loadUserByUsername(userDetails.getUsername());
+                .loadUserByUsername(userDetailsCreate.getUsername());
         assertEquals(expectedUserDetails, actual);
 
-        // check role
-        GrantedAuthority[] authorities = actual.getAuthorities();
-        if (authorities == null)
-            fail("authorities is null");
-        boolean foundUserRole = false;
-        for (int i = 0; i < authorities.length; i++) {
-            if (authorities[i].getAuthority() == UserDetailsService.USER_ROLE) {
-                foundUserRole = true;
-                break;
-            }
-        }
-        assertTrue(foundUserRole);
+        checkPasswordEncoding(actual);
+        checkRole(actual);
 
         // added this end transaction to catch a transaction commit within a
-        // transactio rollback problem
+        // transaction rollback problem
         this.userDao.delete(expectedUser);
-        this.authorityDao.delete(expectedAuthority);
+        this.authorityDao.delete(expectedAuthorityCreate);
         this.setComplete();
         this.endTransaction();
     }
@@ -161,23 +145,26 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
      * cannot be null, enforced by the data store constraint. Email is null
      */
     public void testCreateUserBlankEmail() throws Exception {
-    	StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
-    	       .getBean("studentUserDetails");
-    	userDetails.setPassword(PASSWORD);
-    	userDetails.setEmailAddress(EMAIL);
-    	userDetails.setFirstname(FIRSTNAME);
-    	userDetails.setLastname(LASTNAME);
-        userDetails.setSignupdate(SIGNUPDATE);
-    	userDetails.setGender(GENDER);
-    	userDetails.setBirthday(BIRTHDAY);
+    	setupCreateTest();
     	
-        User expectedUser = this.userService.createUser(userDetails);
+        User expectedUser = this.userService.createUser(userDetailsCreate);
 
         MutableUserDetails expectedUserDetails = (MutableUserDetails) expectedUser
                 .getUserDetails();
         UserDetails actual = this.userDetailsService
-                .loadUserByUsername(userDetails.getUsername());
+                .loadUserByUsername(userDetailsCreate.getUsername());
         assertEquals(expectedUserDetails, actual);
+        
+        checkPasswordEncoding(actual);
+        checkRole(actual);
+
+        // added this end transaction to catch a transaction commit within a
+        // transaction rollback problem
+        this.userDao.delete(expectedUser);
+        this.authorityDao.delete(expectedAuthorityCreate);
+        this.setComplete();
+        this.endTransaction();
+
     }
 
     /**
@@ -212,5 +199,51 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     public void setUserDao(UserDao<User> userDao) {
         this.userDao = userDao;
     }
+    
+	private void setupCreateTest() {
+ 		expectedAuthorityCreate = (MutableGrantedAuthority) this.applicationContext
+				.getBean("mutableGrantedAuthority");
+		expectedAuthorityCreate.setAuthority(UserDetailsService.USER_ROLE);
+		this.authorityDao.save(expectedAuthorityCreate);
+
+		userDetailsCreate = (StudentUserDetails) this.applicationContext
+				.getBean("studentUserDetails");
+		userDetailsCreate.setPassword(PASSWORD);
+		userDetailsCreate.setFirstname(FIRSTNAME);
+		userDetailsCreate.setLastname(LASTNAME);
+		userDetailsCreate.setSignupdate(SIGNUPDATE);
+		userDetailsCreate.setGender(GENDER);
+		userDetailsCreate.setBirthday(BIRTHDAY);
+
+	}
+	
+	private void checkRole(UserDetails actual) {
+		// check role
+		GrantedAuthority[] authorities = actual.getAuthorities();
+		if (authorities == null)
+			fail("authorities is null");
+		boolean foundUserRole = false;
+		for (int i = 0; i < authorities.length; i++) {
+			if (authorities[i].getAuthority() == UserDetailsService.USER_ROLE) {
+				foundUserRole = true;
+				break;
+			}
+		}
+		assertTrue(foundUserRole);		
+	}
+	
+	private void checkPasswordEncoding(UserDetails actual) {
+		// check password encoding
+		assertFalse(PASSWORD.equals(actual.getPassword()));
+		PasswordEncoder passwordEncoder = (PasswordEncoder) this.applicationContext
+				.getBean("passwordEncoder");
+		SaltSource saltSource = (SaltSource) this.applicationContext
+				.getBean("systemSaltSource");
+		String encodedPassword = passwordEncoder.encodePassword(PASSWORD,
+				saltSource.getSalt(userDetailsCreate));
+		assertEquals(encodedPassword, actual.getPassword());
+	}
+
+
 
 }

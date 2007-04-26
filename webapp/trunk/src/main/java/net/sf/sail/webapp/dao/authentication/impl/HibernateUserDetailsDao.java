@@ -36,7 +36,7 @@ public class HibernateUserDetailsDao extends
         AbstractHibernateDao<MutableUserDetails> implements
         UserDetailsDao<MutableUserDetails> {
 
-    private static final String FIND_ALL_QUERY = "from PersistentUserDetails";
+	private static final String FIND_ALL_QUERY = "from PersistentUserDetails";
 
     /**
      * Retrieve the user, by username. Returns null if user is not found.

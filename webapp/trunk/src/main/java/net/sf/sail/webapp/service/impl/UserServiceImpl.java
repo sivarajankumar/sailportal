@@ -33,6 +33,8 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.providers.dao.SaltSource;
+import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.acegisecurity.userdetails.UserDetails;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +55,10 @@ public class UserServiceImpl implements UserService {
     private SdsUserDao sdsUserDao;
 
     private UserDao<User> userDao;
+    
+    private PasswordEncoder passwordEncoder;
+    
+    private SaltSource saltSource;
 
     /**
      * @param sdsUserDao
@@ -111,8 +117,8 @@ public class UserServiceImpl implements UserService {
 
         try {
             this.checkUserCreationErrors(userDetails.getUsername());
-
             this.assignRole(userDetails, UserDetailsService.USER_ROLE);
+            this.encodePassword(userDetails);
 
             SdsUser sdsUser = new SdsUser();
             sdsUser.setFirstName(userDetails.getUsername());
@@ -133,8 +139,12 @@ public class UserServiceImpl implements UserService {
             throw e;
         }
     }
+    
+    private void encodePassword(MutableUserDetails userDetails) {
+    		userDetails.setPassword(this.passwordEncoder.encodePassword(userDetails.getPassword(), this.saltSource.getSalt(userDetails)));		
+	}
 
-    private void assignRole(final MutableUserDetails userDetails,
+	private void assignRole(final MutableUserDetails userDetails,
             final String role) {
         GrantedAuthority authority = this.grantedAuthorityDao
                 .retrieveByName(role);
@@ -157,4 +167,18 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateUsernameException(username);
         }
     }
+
+	/**
+	 * @param passwordEncoder the passwordEncoder to set
+	 */
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	/**
+	 * @param saltSource the saltSource to set
+	 */
+	public void setSaltSource(SaltSource saltSource) {
+		this.saltSource = saltSource;
+	}
 }
