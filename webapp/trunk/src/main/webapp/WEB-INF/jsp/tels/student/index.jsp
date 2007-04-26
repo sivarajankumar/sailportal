@@ -32,7 +32,7 @@
 
 <%@ include file="../header.jsp"%>
 
-<h1>Teacher homepage</h1>
+<h1>Student homepage</h1>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
@@ -49,17 +49,6 @@
 <spring:message code="signup.firstname" /><authz:authentication operation="firstname" /><br />
 <spring:message code="signup.lastname" /><authz:authentication operation="lastname" /><br />
 <spring:message code="signup.emailAddress" /><authz:authentication operation="emailAddress" /><br />
-<spring:message code="signup.country" /><authz:authentication operation="country" /><br />
-<spring:message code="signup.state" /><authz:authentication operation="state" /><br />
-<spring:message code="signup.city" /><authz:authentication operation="city" /><br />
-<spring:message code="signup.schoolname" /><authz:authentication operation="schoolname" /><br />
-<spring:message code="signup.schoollevel" /><authz:authentication operation="schoollevel" /><br />
-<spring:message code="signup.curriculumsubjects" />
-  <c:forEach var="curriculumsubject" items="<authz:authentication operation='curriculumsubjects' />" >
-    <b>
-      <br /><c:out value="${curriculumsubject}"/>
-    </b>
-  </c:forEach><br />
 <spring:message code="signup.signupdate" /><authz:authentication operation="signupdate" /><br /><br />
 
 <div id="right">

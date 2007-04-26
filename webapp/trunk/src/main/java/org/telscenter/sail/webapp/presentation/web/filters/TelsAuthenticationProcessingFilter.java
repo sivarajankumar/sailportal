@@ -42,8 +42,8 @@ import net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFi
 public class TelsAuthenticationProcessingFilter extends
 		PasAuthenticationProcessingFilter {
 
-	private static final String STUDENT_DEFAULT_TARGET_PATH = "/registerstudent.html";
-	private static final String TEACHER_DEFAULT_TARGET_PATH = "/teacherindex.html";
+	private static final String STUDENT_DEFAULT_TARGET_PATH = "/student/index.html";
+	private static final String TEACHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
 
 	/**
 	 * @see org.acegisecurity.ui.AbstractProcessingFilter#successfulAuthentication(javax.servlet.http.HttpServletRequest,

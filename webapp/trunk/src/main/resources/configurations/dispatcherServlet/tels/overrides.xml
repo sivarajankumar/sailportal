@@ -55,7 +55,7 @@
     	<property name="mappings">
     		<value>
     		    /index.html=urlFilenameViewController
-    		    /teacher/index.html=teacherIndexController
+    		    /**/index.html=indexController
     		</value>
     	</property>
     </bean>

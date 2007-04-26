@@ -48,4 +48,7 @@
     <bean id="helpController" 
         class="org.telscenter.sail.webapp.presentation.web.controllers.HelpController" />
     
+    <bean id="indexController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
+    
 </beans>
