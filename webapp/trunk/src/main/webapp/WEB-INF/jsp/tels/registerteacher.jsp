@@ -25,8 +25,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<script src="./javascript/tels/prototype.js" type="text/javascript" /></script>
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript" /></script>
+<script src="./javascript/tels/prototype.js" type="text/javascript"></script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript"></script>
 
 <title><spring:message code="signup.title" /></title>
 
@@ -75,15 +75,15 @@
     <form:errors path="userDetails.emailAddress"/>
   </div>
 
-<div>
+  <div>
     <label for="country"><spring:message code="signup.country" /></label> 
     <form:input path="userDetails.country" id="country" />
-        <div id="autocomplete_choices" class="autocomplete" />
+        <div id="autocomplete_choices" class="autocomplete" ></div>
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar'}); 	   		
 		</script>
     <form:errors path="userDetails.country" />
- </div>
+  </div>
 
 
   <div>
@@ -140,7 +140,8 @@
         <div id="waiting" style="display: none">
             <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" /></div>
         </div>
-</form:form></div>
+</form:form>
+</div>
 
 <div>
 <a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>

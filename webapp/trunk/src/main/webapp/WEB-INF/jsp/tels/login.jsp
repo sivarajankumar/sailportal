@@ -59,18 +59,16 @@
   <p><label for="j_password"><spring:message code="login.password" /></label>
   <input type="password" name="j_password" id="j_password" class="text" tabindex="2" /></p>
 
-  <p>
      <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
-     <input type="submit" class="buttons" tabindex="3" value="<spring:message code="login.submit" />" 
-      onclick="Effect.toggle('waiting', 'appear')" />
-  </p>
+     <p><input type="submit" class="buttons" tabindex="3" value="<spring:message code="login.submit" />" 
+      onclick="Effect.toggle('waiting', 'appear')" /></p>
 </form>
 <a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
 
 </div>
-
+</div>
 <%@ include file="footer.jsp"%>
 
 </body>
