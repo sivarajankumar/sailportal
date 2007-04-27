@@ -47,7 +47,8 @@
     operation="firstname" /></h2>
 </div>
 
-<div id="right" onclick="new Effect.SwitchOff(this)">
+<div id="right">
+<%@ include file="logout.jsp"%>
 <a href="login.html"><spring:message code="log.in" /></a><br />
 <a href="register.html"><spring:message code="joinwise" /></a><br />
 </div>
