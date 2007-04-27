@@ -24,6 +24,7 @@ import net.sf.sail.webapp.dao.sds.SdsCurnitCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitListCommand;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.dao.sds.SdsCurnitUpdateCommand;
 
 import org.springframework.beans.factory.annotation.Required;
 
@@ -38,45 +39,59 @@ import org.springframework.beans.factory.annotation.Required;
  * 
  */
 public class HttpRestSdsCurnitDao extends AbstractDao<SdsCurnit> implements
-        SdsCurnitDao {
+		SdsCurnitDao {
 
-    private SdsCurnitCreateCommand createCommand;
+	private SdsCurnitCreateCommand createCommand;
 
-    private SdsCurnitListCommand listCommand;
+	private SdsCurnitListCommand listCommand;
 
-    /**
-     * @param createCommand
-     *            the createCommand to set
-     */
-    @Required
-    public void setCreateCommand(SdsCurnitCreateCommand createCommand) {
-        this.createCommand = createCommand;
-    }
+	private SdsCurnitUpdateCommand updateCommand;
 
-    /**
-     * @param listCommand
-     *            the listCommand to set
-     */
-    @Required
-    public void setListCommand(SdsCurnitListCommand listCommand) {
-        this.listCommand = listCommand;
-    }
+	/**
+	 * @param createCommand
+	 *            the createCommand to set
+	 */
+	@Required
+	public void setCreateCommand(SdsCurnitCreateCommand createCommand) {
+		this.createCommand = createCommand;
+	}
+	
+	/**
+	 * @param updateCommand
+	 *            the updateCommand to set
+	 */
+	@Required
+	public void setUpdateCommand(SdsCurnitUpdateCommand updateCommand) {
+		this.updateCommand = updateCommand;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
-     */
-    public void save(SdsCurnit sdsCurnit) {
-        this.createCommand.setSdsCurnit(sdsCurnit);
-        this.createCommand.execute(this.createCommand.generateRequest());
-        // TODO CY - when update command for SDS is written, need to
-        // differentiate between create and update
-    }
+	/**
+	 * @param listCommand
+	 *            the listCommand to set
+	 */
+	@Required
+	public void setListCommand(SdsCurnitListCommand listCommand) {
+		this.listCommand = listCommand;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.dao.sds.SdsCurnitDao#getList()
-     */
-    public List<SdsCurnit> getList() {
-        return this.listCommand.execute(this.listCommand.generateRequest());
-    }
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
+	 */
+	public void save(SdsCurnit sdsCurnit) {
+		if (sdsCurnit.getSdsObjectId() == null) {
+			this.createCommand.setSdsCurnit(sdsCurnit);
+			this.createCommand.execute(this.createCommand.generateRequest());
+		} else {
+			this.updateCommand.setSdsCurnit(sdsCurnit);
+			this.updateCommand.execute(this.updateCommand.generateRequest());
+		}
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsCurnitDao#getList()
+	 */
+	public List<SdsCurnit> getList() {
+		return this.listCommand.execute(this.listCommand.generateRequest());
+	}
 
 }

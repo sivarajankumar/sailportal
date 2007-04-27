@@ -38,112 +38,142 @@ import com.meterware.httpunit.WebResponse;
  */
 public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
-    private static final String EXPECTED_NAME = "name";
+	private static final String EXPECTED_NAME = "name";
 
-    // Note that this url cannot be a fake one.
-    // It must return an appropriate jar in order to create the real one in the
-    // sds database
-    // Otherwise the test will fail
-    private static final String EXPECTED_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
+	// Note that this url cannot be a fake one.
+	// It must return an appropriate jar in order to create the real one in the
+	// sds database
+	// Otherwise the test will fail
+	private static final String EXPECTED_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
 
-    private HttpRestSdsCurnitDao sdsCurnitDao;
+	private HttpRestSdsCurnitDao sdsCurnitDao;
 
-    private SdsCurnit sdsCurnit;
+	private SdsCurnit sdsCurnit;
 
-    /**
-     * @param sdsCurnitDao
-     *            the sdsCurnitDao to set
-     */
-    public void setSdsCurnitDao(HttpRestSdsCurnitDao sdsCurnitDao) {
-        this.sdsCurnitDao = sdsCurnitDao;
-    }
+	/**
+	 * @param sdsCurnitDao
+	 *            the sdsCurnitDao to set
+	 */
+	public void setSdsCurnitDao(HttpRestSdsCurnitDao sdsCurnitDao) {
+		this.sdsCurnitDao = sdsCurnitDao;
+	}
 
-    /**
-     * @param sdsCurnit
-     *            the sdsCurnit to set
-     */
-    public void setSdsCurnit(SdsCurnit sdsCurnit) {
-        this.sdsCurnit = sdsCurnit;
-    }
+	/**
+	 * @param sdsCurnit
+	 *            the sdsCurnit to set
+	 */
+	public void setSdsCurnit(SdsCurnit sdsCurnit) {
+		this.sdsCurnit = sdsCurnit;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
-     */
-    @Override
-    protected void onSetUp() throws Exception {
-        super.onSetUp();
-        this.sdsCurnit.setName(EXPECTED_NAME);
-        this.sdsCurnit.setUrl(EXPECTED_URL);
-    }
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
+	 */
+	@Override
+	protected void onSetUp() throws Exception {
+		super.onSetUp();
+		this.sdsCurnit.setName(EXPECTED_NAME);
+		this.sdsCurnit.setUrl(EXPECTED_URL);
+	}
 
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
-     */
-    @Override
-    protected void onTearDown() throws Exception {
-        super.onTearDown();
-        this.sdsCurnitDao = null;
-        this.sdsCurnit = null;
-    }
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onTearDown()
+	 */
+	@Override
+	protected void onTearDown() throws Exception {
+		super.onTearDown();
+		this.sdsCurnitDao = null;
+		this.sdsCurnit = null;
+	}
 
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
-     */
-    @SuppressWarnings("unchecked")
-    public void testSave_NewCurnit() throws Exception {
-        assertNull(this.sdsCurnit.getSdsObjectId());
-        this.sdsCurnitDao.save(this.sdsCurnit);
-        assertNotNull(this.sdsCurnit.getSdsObjectId());
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsCurnit)}.
+	 */
+	@SuppressWarnings("unchecked")
+	public void testSave_NewCurnit() throws Exception {
+		assertNull(this.sdsCurnit.getSdsObjectId());
+		this.sdsCurnitDao.save(this.sdsCurnit);
+		assertNotNull(this.sdsCurnit.getSdsObjectId());
 
-        // retrieve newly created user using httpunit and compare with sdsUser
-        // saved via DAO
-        SdsCurnit actualSdsCurnit = getCurnitInSds(this.sdsCurnit.getSdsObjectId());
-        assertEquals(this.sdsCurnit, actualSdsCurnit);
-    }
+		// retrieve newly created user using httpunit and compare with sdsUser
+		// saved via DAO
+		SdsCurnit actualSdsCurnit = getCurnitInSds(this.sdsCurnit
+				.getSdsObjectId());
+		assertEquals(this.sdsCurnit, actualSdsCurnit);
+	}
 
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
-     */
-    public void testDelete() {
-        try {
-            this.sdsCurnitDao.delete(this.sdsCurnit);
-            fail("UnsupportedOperationException expected");
-        } catch (UnsupportedOperationException expected) {
-        }
-    }
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsCurnit)}.
+	 */
+	public void testUpdateCurnit() throws Exception {
+		Integer sdsCurnitId = this.createCurnitInSds();
+		SdsCurnit actualSdsCurnit = this.getCurnitInSds(sdsCurnitId);
+		assertEquals(actualSdsCurnit.getSdsObjectId(), sdsCurnitId);
+		assertEquals(actualSdsCurnit.getName(), DEFAULT_NAME);
+		assertEquals(actualSdsCurnit.getUrl(), DEFAULT_URL);
 
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
-     */
-    @SuppressWarnings("unchecked")
-    public void testGetList() throws Exception {
-        // To test, we will retrieve the curnit list through 2 methods, via
-        // DAO and httpunit. Compare the lists and make sure that they're
-        // equivalent.
-        // *Note* there is a small chance that between the 2 retrievals, a new
-        // offering may be inserted into the SDS and cause this test to break.
-        List<SdsCurnit> actualList = this.sdsCurnitDao.getList();
+		SdsCurnit sdsCurnitToUpdate = (SdsCurnit) this.applicationContext
+				.getBean("sdsCurnit");
+		sdsCurnitToUpdate.setSdsObjectId(sdsCurnitId);
 
-        WebResponse webResponse = makeHttpRestGetRequest("/curnit");
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+		String updateName = "Updated";
+		String updateURL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24500.jar";
 
-        Document doc = createDocumentFromResponse(webResponse);
+		sdsCurnitToUpdate.setName(updateName);
+		sdsCurnitToUpdate.setUrl(updateURL);
+		this.sdsCurnitDao.save(sdsCurnitToUpdate);
+		SdsCurnit updatedSdsCurnit = this.getCurnitInSds(sdsCurnitId);
 
-        List<Element> nodeList = XPath.newInstance("/curnits/curnit/id")
-                .selectNodes(doc);
-        assertEquals(nodeList.size(), actualList.size());
-        List<Integer> curnitIdList = new ArrayList<Integer>(nodeList.size());
-        for (Element element : nodeList) {
-            curnitIdList.add(new Integer(element.getText()));
-        }
+		assertEquals(sdsCurnitId, updatedSdsCurnit.getSdsObjectId());
+		assertFalse(actualSdsCurnit.equals(updatedSdsCurnit));
+		assertEquals(updateName, updatedSdsCurnit.getName());
+		assertEquals(updateURL, updatedSdsCurnit.getUrl());
+	}
 
-        assertEquals(curnitIdList.size(), actualList.size());
-        for (SdsCurnit offering : actualList) {
-            curnitIdList.contains(offering.getSdsObjectId());
-        }
-    }
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsCurnit)}.
+	 */
+	public void testDelete() {
+		try {
+			this.sdsCurnitDao.delete(this.sdsCurnit);
+			fail("UnsupportedOperationException expected");
+		} catch (UnsupportedOperationException expected) {
+		}
+	}
+
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
+	 */
+	@SuppressWarnings("unchecked")
+	public void testGetList() throws Exception {
+		// To test, we will retrieve the curnit list through 2 methods, via
+		// DAO and httpunit. Compare the lists and make sure that they're
+		// equivalent.
+		// *Note* there is a small chance that between the 2 retrievals, a new
+		// offering may be inserted into the SDS and cause this test to break.
+		List<SdsCurnit> actualList = this.sdsCurnitDao.getList();
+
+		WebResponse webResponse = makeHttpRestGetRequest("/curnit");
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
+		Document doc = createDocumentFromResponse(webResponse);
+
+		List<Element> nodeList = XPath.newInstance("/curnits/curnit/id")
+				.selectNodes(doc);
+		assertEquals(nodeList.size(), actualList.size());
+		List<Integer> curnitIdList = new ArrayList<Integer>(nodeList.size());
+		for (Element element : nodeList) {
+			curnitIdList.add(new Integer(element.getText()));
+		}
+
+		assertEquals(curnitIdList.size(), actualList.size());
+		for (SdsCurnit offering : actualList) {
+			curnitIdList.contains(offering.getSdsObjectId());
+		}
+	}
 
 }

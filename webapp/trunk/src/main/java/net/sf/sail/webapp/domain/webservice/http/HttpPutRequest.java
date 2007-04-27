@@ -57,7 +57,8 @@ public final class HttpPutRequest extends AbstractHttpRequest {
 	public HttpPutRequest(final Map<String, String> requestHeaders,
 			final String bodyData, final String url,
 			final int expectedResponseStatusCode) throws BadRequestException {
-		super(requestHeaders, Collections.unmodifiableMap(EMPTY_STRING_MAP), url, expectedResponseStatusCode);
+		super(requestHeaders, EMPTY_STRING_MAP, url, expectedResponseStatusCode);
+		this.bodyData = bodyData;
 	}
 
 	/*

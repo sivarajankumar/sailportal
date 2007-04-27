@@ -93,11 +93,17 @@
         class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitCreateCommandHttpRestImpl">
         <property name="transport" ref="httpRestTransport" />
     </bean>
+  
+   <bean id="sdsCurnitUpdateCommand"
+        class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitUpdateCommandHttpRestImpl">
+        <property name="transport" ref="httpRestTransport" />
+    </bean>
 
     <bean id="sdsCurnitDao"
         class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsCurnitDao">
         <property name="createCommand" ref="sdsCurnitCreateCommand" />
         <property name="listCommand" ref="sdsCurnitListCommand" />
+        <property name="updateCommand" ref="sdsCurnitUpdateCommand" />
     </bean>
 
     <bean id="sdsCurnitListCommand"

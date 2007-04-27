@@ -46,12 +46,12 @@ import com.meterware.httpunit.WebResponse;
  */
 public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
-    private static final String DEFAULT_NAME = "d fault";
+    protected static final String DEFAULT_NAME = "d fault";
 
     //Note that this url cannot be a fake one.
     //It must return an appropriate jar in order to create the real one in the sds database
     //Otherwise the test will fail
-    private static final String DEFAULT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
+    protected static final String DEFAULT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
 
     protected HttpRestTransport httpRestTransport;
 
