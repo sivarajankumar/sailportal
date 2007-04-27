@@ -27,6 +27,51 @@
     <name>SAIL Web Application</name>
     <version>0.1.0-SNAPSHOT</version>
     <url>http://sail.sourceforge.net/</url>
+    <developers>
+        <developer>
+            <id>cynick</id>
+            <name>Cynick Young</name>
+            <email>cynick.young@utoronto.ca</email>
+            <url>http://www.utoronto.ca/</url>
+            <organization>University of Toronto</organization>
+            <organizationUrl>http://www.utoronto.ca</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
+    <scm>
+        <connection>
+            scm:svn:https://svn.encorewiki.org/svn/sail/webapp/
+        </connection>
+        <developerConnection>
+            scm:svn:https://svn.encorewiki.org/svn/sail/webapp/
+        </developerConnection>
+        <tag>HEAD</tag>
+        <url>https://svn.encorewiki.org/svn/sail/webapp/</url>
+    </scm>
+    <issueManagement>
+        <system>Jira</system>
+        <url>http://www.telscenter.org/jira/</url>
+    </issueManagement>
+    <ciManagement>
+        <system>continuum</system>
+        <url>http://portal-continuum.encorewiki.org/continuum/</url>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnSuccess>false</sendOnSuccess>
+                <sendOnWarning>false</sendOnWarning>
+                <configuration>
+                    <address>cynick.young@utoronto.ca</address>
+                </configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
     <build>
         <resources outputDirectory="${project.build.outputDirectory}">
             <resource>
