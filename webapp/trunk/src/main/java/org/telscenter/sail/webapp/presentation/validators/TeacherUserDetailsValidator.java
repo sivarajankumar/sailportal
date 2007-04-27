@@ -54,12 +54,6 @@ public class TeacherUserDetailsValidator extends UserDetailsValidator {
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress", 
 				"error.email-not-specified");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "city", 
-		        "error.city-not-specified");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", 
-                "error.state-not-specified");
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country", 
                 "error.country-not-specified");

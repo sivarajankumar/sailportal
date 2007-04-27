@@ -56,8 +56,8 @@
         OPTLOCK integer,
         name varchar(255) not null,
         offering_id integer not null,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id),
         unique (offering_id)
     )
@@ -103,8 +103,8 @@
         firstname varchar(255) not null,
         lastname varchar(255) not null,
         signupdate timestamp not null,
-        city varchar(255) not null,
-        state varchar(255) not null,
+        city varchar(255),
+        state varchar(255),
         country varchar(255) not null,
         schoolname varchar(255) not null,
         curriculumsubjects varbinary(255) not null,

@@ -87,7 +87,4 @@
 			</value>
 		</property>
 	</bean>
-
-
-	<!--     	class="org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter">  -->
 </beans>

@@ -130,9 +130,7 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     	
     	userDetailsValidator.validate(userDetails, errors);
     	
-    	assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-    	assertNotNull(errors.getFieldError("city"));
+    	assertTrue(!errors.hasErrors());
     }
     
     public void testCityEmptyValidate() {
@@ -140,9 +138,7 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     	
     	userDetailsValidator.validate(userDetails, errors);
     	
-    	assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-    	assertNotNull(errors.getFieldError("city"));    	
+    	assertTrue(!errors.hasErrors());   	
     }
     
     public void testStateNullValidate() {
@@ -150,8 +146,7 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     	
     	userDetailsValidator.validate(userDetails, errors);
     	
-    	assertTrue(errors.hasErrors());
-    	assertNotNull(errors.getFieldError("state"));
+    	assertTrue(!errors.hasErrors());
     }
     
     public void testStateEmptyValidate() {
@@ -159,9 +154,7 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     	
     	userDetailsValidator.validate(userDetails, errors);
     	
-    	assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-    	assertNotNull(errors.getFieldError("state"));    	
+    	assertTrue(!errors.hasErrors());   	
     }
     
     public void testCityStateEmptyValidate() {
@@ -170,10 +163,7 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     	
     	userDetailsValidator.validate(userDetails, errors);
     	
-    	assertTrue(errors.hasErrors());
-        assertEquals(2, errors.getErrorCount());
-    	assertNotNull(errors.getFieldError("city"));
-    	assertNotNull(errors.getFieldError("state"));
+    	assertTrue(!errors.hasErrors());
     }
     
     public void testCountryNullValidate() {

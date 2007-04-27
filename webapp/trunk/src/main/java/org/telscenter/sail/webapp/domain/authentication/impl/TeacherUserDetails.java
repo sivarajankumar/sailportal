@@ -90,10 +90,10 @@ public class TeacherUserDetails extends PersistentUserDetails implements
     @Column(name = TeacherUserDetails.COLUMN_NAME_SIGNUPDATE, nullable = false)
     private Date signupdate;
     
-    @Column(name = TeacherUserDetails.COLUMN_NAME_CITY, nullable = false)
+    @Column(name = TeacherUserDetails.COLUMN_NAME_CITY)
 	private String city;
     
-    @Column(name = TeacherUserDetails.COLUMN_NAME_STATE, nullable = false)
+    @Column(name = TeacherUserDetails.COLUMN_NAME_STATE)
 	private String state;
     
     @Column(name = TeacherUserDetails.COLUMN_NAME_COUNTRY, nullable = false)
