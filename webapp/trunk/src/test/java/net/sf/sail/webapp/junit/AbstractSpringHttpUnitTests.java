@@ -22,10 +22,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.SAXException;
@@ -146,6 +148,19 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
                         + "</first-name><last-name>" + DEFAULT_NAME
                         + "</last-name></user>");
         return this.extractNewlyCreatedId(webResponse);
+    }
+    
+    protected SdsCurnit getCurnitInSds(Integer sdsCurnitId) throws IOException, JDOMException, SAXException {
+    	WebResponse webResponse = this.makeHttpRestGetRequest("/curnit/" + sdsCurnitId);
+        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
+        Document doc = createDocumentFromResponse(webResponse);
+        SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext.getBean("sdsCurnit");
+        Element curnitElement = doc.getRootElement();
+        sdsCurnit.setName(curnitElement.getChild("name").getValue());
+        sdsCurnit.setUrl(curnitElement.getChild("url").getValue());
+        sdsCurnit.setSdsObjectId(new Integer(curnitElement.getChild("id").getValue()));
+        return sdsCurnit;
     }
 
     /**

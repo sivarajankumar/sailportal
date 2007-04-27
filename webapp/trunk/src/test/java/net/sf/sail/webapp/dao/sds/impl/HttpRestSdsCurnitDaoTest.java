@@ -98,18 +98,7 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
         // retrieve newly created user using httpunit and compare with sdsUser
         // saved via DAO
-        WebResponse webResponse = makeHttpRestGetRequest("/curnit/"
-                + this.sdsCurnit.getSdsObjectId());
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
-
-        Document doc = createDocumentFromResponse(webResponse);
-
-        Element rootElement = doc.getRootElement();
-        SdsCurnit actualSdsCurnit = new SdsCurnit();
-        actualSdsCurnit.setName(rootElement.getChild("name").getValue());
-        actualSdsCurnit.setUrl(rootElement.getChild("url").getValue());
-        actualSdsCurnit.setSdsObjectId(new Integer(rootElement.getChild("id")
-                .getValue()));
+        SdsCurnit actualSdsCurnit = getCurnitInSds(this.sdsCurnit.getSdsObjectId());
         assertEquals(this.sdsCurnit, actualSdsCurnit);
     }
 
