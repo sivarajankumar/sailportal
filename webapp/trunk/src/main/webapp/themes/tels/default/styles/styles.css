@@ -47,7 +47,21 @@ table td {
 
 div {
     background-color: white;
-    color: blue;
+    color: black;
+}
+
+div.formcontents{
+	text-align: center;
+    border-width: 1px 1px 1px 1px;
+    border-spacing: 2px;
+    border-style: outset outset outset outset;
+    border-color: gray gray gray gray;
+    border-collapse: separate;
+	
+}
+
+.center{
+	text-align:center;
 }
 
 p{

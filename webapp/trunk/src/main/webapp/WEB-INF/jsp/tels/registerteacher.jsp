@@ -25,8 +25,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<script src="./javascript/tels/prototype.js" type="text/javascript"></script>
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript"></script>
+<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="signup.title" /></title>
 
@@ -37,7 +37,7 @@
 <%@ include file="header.jsp"%>
 
 <div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
+<h1 class="center"><spring:message code="banner.heading" /></h1>
 </div>
 
 <!-- Support for Spring errors object -->
@@ -51,12 +51,12 @@
 
 <div id="columns">
 <div id="left">
-<h2><spring:message code="register.teacher" /></h2>
+<h2 class="center"><spring:message code="register.teacher" /></h2>
 </div>
 
 
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
-<div id="right">
+<div id="right" class="formcontents">
 <div>
 <label for="firstname"><spring:message code="signup.firstname" /></label>
     <form:input path="userDetails.firstname" id="firstname"/>
@@ -75,7 +75,7 @@
     <form:errors path="userDetails.emailAddress"/>
   </div>
 
-  <div>
+<div>
     <label for="country"><spring:message code="signup.country" /></label> 
     <form:input path="userDetails.country" id="country" />
         <div id="autocomplete_choices" class="autocomplete" ></div>
@@ -83,7 +83,7 @@
 	new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar'}); 	   		
 		</script>
     <form:errors path="userDetails.country" />
-  </div>
+ </div>
 
 
   <div>
@@ -140,8 +140,7 @@
         <div id="waiting" style="display: none">
             <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" /></div>
         </div>
-</form:form>
-</div>
+</form:form></div>
 
 <div>
 <a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
