@@ -33,43 +33,59 @@ import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
  */
 public interface HttpRestTransport {
 
-    public static final String APPLICATION_XML = "application/xml";
+	public static final String APPLICATION_XML = "application/xml";
 
-    /**
-     * Performs the POST operation given the data required for the post.
-     * 
-     * @param httpRequestData
-     *            All the data required for this post request.
-     * @return A <code>Map</code> of response headers where the key is the
-     *         header name and the value is the header value.
-     * @throws BadRequestException
-     *             when the status response code is not the same as what is
-     *             expected but is a HTTP 400 Bad Request.
-     * @throws NetworkTransportException
-     *             for all other returned status codes and other network failure
-     *             conditions.
-     */
-    public Map<String, String> post(HttpPostRequest httpRequestData);
+	/**
+	 * Performs the POST operation given the data required for the post.
+	 * 
+	 * @param httpRequestData
+	 *            All the data required for this post request.
+	 * @return A <code>Map</code> of response headers where the key is the
+	 *         header name and the value is the header value.
+	 * @throws BadRequestException
+	 *             when the status response code is not the same as what is
+	 *             expected but is a HTTP 400 Bad Request.
+	 * @throws NetworkTransportException
+	 *             for all other returned status codes and other network failure
+	 *             conditions.
+	 */
+	public Map<String, String> post(HttpPostRequest httpRequestData);
 
-    /**
-     * Performs the GET operation given the data required for the get.
-     * 
-     * @param httpRequestData
-     *            All the data required for this get request.
-     * @return An <code>InputStream</code> containing the response body.
-     * @throws BadRequestException
-     *             when the status response code is not the same as what is
-     *             expected but is a HTTP 400 Bad Request.
-     * @throws NetworkTransportException
-     *             for all other returned status codes and other network failure
-     *             conditions.
-     */
-    public InputStream get(HttpGetRequest httpRequestData);
+	/**
+	 * Performs the GET operation given the data required for the get.
+	 * 
+	 * @param httpRequestData
+	 *            All the data required for this get request.
+	 * @return An <code>InputStream</code> containing the response body.
+	 * @throws BadRequestException
+	 *             when the status response code is not the same as what is
+	 *             expected but is a HTTP 400 Bad Request.
+	 * @throws NetworkTransportException
+	 *             for all other returned status codes and other network failure
+	 *             conditions.
+	 */
+	public InputStream get(HttpGetRequest httpRequestData);
 
-    /**
-     * Get the base url bound to this HTTP transport.
-     * 
-     * @return the baseUrl
-     */
-    public String getBaseUrl();
+	/**
+	 * Performs the PUT operation given the data required for the put.
+	 * 
+	 * @param httpRequestData
+	 *            All the data required for this put request
+	 * @return A <code>Map</code> of response headers where the key is the
+	 *         header name and the value is the header value.
+	 * @throws BadRequestException
+	 *             when the status response code is not the same as what is
+	 *             expected but is a HTTP 400 Bad Request.
+	 * @throws NetworkTransportException
+	 *             for all other returned status codes and other network failure
+	 *             conditions.
+	 */
+	public Map<String, String> put(HttpPutRequest httpRequestData);
+
+	/**
+	 * Get the base url bound to this HTTP transport.
+	 * 
+	 * @return the baseUrl
+	 */
+	public String getBaseUrl();
 }

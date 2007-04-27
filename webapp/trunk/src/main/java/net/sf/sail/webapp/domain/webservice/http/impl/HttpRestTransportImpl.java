@@ -30,6 +30,7 @@ import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
+import net.sf.sail.webapp.domain.webservice.http.HttpPutRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.Header;
@@ -42,6 +43,7 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -178,6 +180,43 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         return responseHeaders;
     }
 
+	/**
+	 * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#put(net.sf.sail.webapp.domain.webservice.http.HttpPutRequest)
+	 */
+	public Map<String, String> put(final HttpPutRequest httpPutRequestData) {
+        final PutMethod method = new PutMethod(this.baseUrl
+                + httpPutRequestData.getUrl());
+
+        this.setHeaders(httpPutRequestData, method);
+
+        // set body data
+        final String bodyData = httpPutRequestData.getBodyData();
+        if (StringUtils.hasText(bodyData)) {
+            method.setRequestEntity(new StringRequestEntity(bodyData));
+        }
+
+        final Map<String, String> responseHeaders = new HashMap<String, String>();
+        try {
+            // Execute the method.
+            logRequest(method, bodyData);
+            final int statusCode = this.client.executeMethod(method);
+            verifyResponseStatus(httpPutRequestData, method, statusCode);
+            final Header[] headers = method.getResponseHeaders();
+            for (int i = 0; i < headers.length; i++) {
+                responseHeaders
+                        .put(headers[i].getName(), headers[i].getValue());
+            }
+        } catch (HttpException e) {
+            logAndThrow(e);
+        } catch (IOException e) {
+            logAndThrow(e);
+        } finally {
+            method.releaseConnection();
+        }
+
+        return responseHeaders;
+	}
+
     private void logRequest(HttpMethod method, String bodyData) throws URIException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info(method.getName() + ": " + method.getURI());
@@ -220,4 +259,5 @@ public class HttpRestTransportImpl implements HttpRestTransport {
             }
         }
     }
+
 }
