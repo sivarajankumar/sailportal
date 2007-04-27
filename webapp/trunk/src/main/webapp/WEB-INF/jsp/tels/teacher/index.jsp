@@ -23,20 +23,16 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
 <title><spring:message code="application.title" /></title>
 </head>
 
 <body>
 
-<%@ include file="../header.jsp"%>
+<%@ include file="header.jsp"%>
 
 <h1>Teacher homepage</h1>
-
-<div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
-</div>
 
 <div id="columns">
 <div id="left"><%@ include file="../logout.jsp"%>
