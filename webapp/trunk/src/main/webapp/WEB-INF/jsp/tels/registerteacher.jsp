@@ -60,19 +60,16 @@
 <div>
 <label for="firstname"><spring:message code="signup.firstname" /></label>
     <form:input path="userDetails.firstname" id="firstname"/>
-    <form:errors path="userDetails.firstname" />
- </div>   
+</div>   
  
   <div>
     <label for="lastname"><spring:message code="signup.lastname" /></label>
     <form:input path="userDetails.lastname" id="lastname"/>
-    <form:errors path="userDetails.lastname" />
   </div>
  
   <div>
     <label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
     <form:input path="userDetails.emailAddress" id="emailAddress"/>
-    <form:errors path="userDetails.emailAddress"/>
   </div>
 
 <div>
@@ -82,26 +79,22 @@
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar'}); 	   		
 		</script>
-    <form:errors path="userDetails.country" />
- </div>
+  </div>
 
 
   <div>
     <label for="state"><spring:message code="signup.state" /></label> 
     <form:input path="userDetails.state" id="state" />
-    <form:errors path="userDetails.state" />
   </div>
 
   <div>
     <label for="city"><spring:message code="signup.city" /></label> 
     <form:input path="userDetails.city" id="city" />
-    <form:errors path="userDetails.city" />
   </div>
 
   <div>
     <label for="schoolname"><spring:message code="signup.schoolname" /></label> 
     <form:input path="userDetails.schoolname" id="schoolname" />
-    <form:errors path="userDetails.schoolname" />
   </div>
 
   <div>
@@ -109,31 +102,26 @@
   Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
   Chemistry:  <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
   Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" />
-  <form:errors path="userDetails.curriculumsubjects" />
   </div>
 
   <div>
     <label for="schoollevel"><spring:message code="signup.schoollevel" /></label> 
     <form:input path="userDetails.schoollevel" id="schoollevel" />
-    <form:errors path="userDetails.schoollevel" />
   </div>
 
   <div>
     <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>
-    <form:checkbox path="legalAcknowledged" id="legalAcknowledged" /> I agree to the terms of use.
-    <form:errors path="legalAcknowledged" />
+    <form:checkbox path="legalAcknowledged" id="legalAcknowledged" />
   </div>
-
+  
   <div>
     <label for="password"><spring:message code="signup.password" /></label>
     <form:password path="userDetails.password" id="password"/>
-    <form:errors path="userDetails.password"/>
   </div>
   
   <div>
     <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
     <form:password path="repeatedPassword" id="repeatedPassword"/>
-    <form:errors path="repeatedPassword" />
   </div>
 
      <input type="submit" value="<spring:message code="signup.submit" />" onclick="Effect.toggle('waiting', 'appear')" />
