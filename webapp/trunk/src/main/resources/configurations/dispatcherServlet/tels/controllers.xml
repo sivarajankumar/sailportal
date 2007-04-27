@@ -45,6 +45,9 @@
     <bean id="countriesController" 
         class="org.telscenter.sail.webapp.presentation.web.controllers.CountriesController" />
 
+    <bean id="statesController" 
+        class="org.telscenter.sail.webapp.presentation.web.controllers.StatesController" />
+
     <bean id="helpController" 
         class="org.telscenter.sail.webapp.presentation.web.controllers.HelpController" />
     

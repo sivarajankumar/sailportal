@@ -80,6 +80,7 @@
 				/register*.html=ROLE_ANONYMOUS,ROLE_USER
 				/test.html=ROLE_ANONYMOUS,ROLE_USER
 				/countries.html=ROLE_ANONYMOUS,ROLE_USER
+				/states.html=ROLE_ANONYMOUS,ROLE_USER
 				/help.html=ROLE_ANONYMOUS,ROLE_USER 
 				/*.html=ROLE_USER
 				/**/*.html=ROLE_USER

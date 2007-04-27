@@ -75,9 +75,9 @@
 <div>
     <label for="country"><spring:message code="signup.country" /></label> 
     <form:input path="userDetails.country" id="country" />
-        <div id="autocomplete_choices" class="autocomplete" ></div>
+        <div id="autocomplete_choices_country" class="autocomplete" ></div>
 		<script type="text/javascript">  
-	new Ajax.Autocompleter('country', 'autocomplete_choices', 'countries.html', {paramName: 'sofar'}); 	   		
+	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
 		</script>
   </div>
 
@@ -85,6 +85,10 @@
   <div>
     <label for="state"><spring:message code="signup.state" /></label> 
     <form:input path="userDetails.state" id="state" />
+        <div id="autocomplete_choices_state" class="autocomplete" ></div>
+		<script type="text/javascript">  
+	new Ajax.Autocompleter('state', 'autocomplete_choices_state', 'states.html', {paramName: 'sofar'}); 	   		
+		</script>
   </div>
 
   <div>
