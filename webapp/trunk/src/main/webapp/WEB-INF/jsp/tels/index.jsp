@@ -25,8 +25,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
-<script src="./javascript/tels/prototype.js" type="text/javascript" />
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript" />
+<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 <title><spring:message code="application.title" /></title>
 </head>
 
@@ -43,8 +43,7 @@
 <div id="columns">
 <div id="left">
 <h2><spring:message code="welcome" /> <authz:authentication
-    operation="username" /><authz:authentication
-    operation="firstname" /></h2>
+    operation="username" /></h2>
 </div>
 
 <div id="right">
