@@ -105,7 +105,7 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
 	/**
 	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsCurnit)}.
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsCurnitDao#save(net.sf.sail.webapp.domain.sds.SdsCurnit)}.
 	 */
 	public void testUpdateCurnit() throws Exception {
 		Integer sdsCurnitId = this.createCurnitInSds();

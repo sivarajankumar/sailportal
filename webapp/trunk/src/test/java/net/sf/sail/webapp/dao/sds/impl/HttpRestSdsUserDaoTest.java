@@ -105,6 +105,34 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
                 .getValue()));
         assertEquals(this.sdsUser, actualSdsUser);
     }
+    
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
+	 */
+	public void testUpdateUser() throws Exception {
+		Integer sdsUserId = this.createUserInSds();
+		SdsUser actualSdsUser = this.getUserInSds(sdsUserId);
+		assertEquals(actualSdsUser.getSdsObjectId(), sdsUserId);
+		assertEquals(actualSdsUser.getFirstName(), DEFAULT_NAME);
+		assertEquals(actualSdsUser.getLastName(), DEFAULT_NAME);
+
+		SdsUser sdsUserToUpdate = (SdsUser) this.applicationContext
+				.getBean("sdsUser");
+		sdsUserToUpdate.setSdsObjectId(sdsUserId);
+
+		String updateName = "Updated";
+		sdsUserToUpdate.setFirstName(updateName);
+		sdsUserToUpdate.setLastName(updateName);
+		this.sdsUserDao.save(sdsUserToUpdate);
+		SdsUser updatedSdsUser = this.getUserInSds(sdsUserId);
+
+		assertEquals(sdsUserId, updatedSdsUser.getSdsObjectId());
+		assertFalse(actualSdsUser.equals(updatedSdsUser));
+		System.out.println(updatedSdsUser.getFirstName() + " " + updatedSdsUser.getLastName());
+		assertEquals(updateName, updatedSdsUser.getFirstName());
+		assertEquals(updateName, updatedSdsUser.getLastName());
+	}
 
     /**
      * Test method for

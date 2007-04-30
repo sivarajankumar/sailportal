@@ -27,6 +27,7 @@
     <bean id="sdsUserDao"
         class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao">
         <property name="createCommand" ref="sdsUserCreateCommand" />
+        <property name="updateCommand" ref="sdsUserUpdateCommand" />
     </bean>
 
     <bean id="sdsUser" class="net.sf.sail.webapp.domain.sds.SdsUser"

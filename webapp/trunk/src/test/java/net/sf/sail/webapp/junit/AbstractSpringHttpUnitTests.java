@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -136,7 +137,9 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
     }
 
     /**
-     * @return
+     * Uses HttpUnit to create an sds user.
+     * 
+     * @return The id of the newly created user.
      * @throws MalformedURLException
      * @throws IOException
      * @throws SAXException
@@ -150,6 +153,15 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         return this.extractNewlyCreatedId(webResponse);
     }
     
+    /**
+     * Uses HttpUnit functionality to retreive a singe sds curnit from the sds.
+     * 
+     * @param sdsCurnitId The id of the curnit you want to retrieve
+     * @return The SdsCurnit with name, url and id set
+     * @throws IOException
+     * @throws JDOMException
+     * @throws SAXException
+     */
     protected SdsCurnit getCurnitInSds(Integer sdsCurnitId) throws IOException, JDOMException, SAXException {
     	WebResponse webResponse = this.makeHttpRestGetRequest("/curnit/" + sdsCurnitId);
         assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
@@ -162,11 +174,36 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         sdsCurnit.setSdsObjectId(new Integer(curnitElement.getChild("id").getValue()));
         return sdsCurnit;
     }
+    
+    /**
+     * Uses HttpUnit functionality to retrieve a single user from the sds.
+     * 
+     * @param sdsUserId The id of the user you want to retrieve
+     * @return An SdsUser with firstname, lastname and id set.
+     * @throws IOException
+     * @throws JDOMException
+     * @throws SAXException
+     */
+    protected SdsUser getUserInSds(Integer sdsUserId) throws IOException, JDOMException, SAXException {
+    	WebResponse webResponse = this.makeHttpRestGetRequest("/sail_user/" + sdsUserId);
+        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
+        Document doc = createDocumentFromResponse(webResponse);
+        SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
+        Element curnitElement = doc.getRootElement();
+        sdsUser.setFirstName(curnitElement.getChild("first-name").getValue());
+        sdsUser.setLastName(curnitElement.getChild("last-name").getValue());
+        sdsUser.setSdsObjectId(new Integer(curnitElement.getChild("id").getValue()));
+        return sdsUser;
+    }
 
     /**
-     * @param sdsCurnitId
-     * @param sdsJnlpId
-     * @return
+     * Uses HttpUnit to create an offering in the sds.
+     * 
+     * @param sdsCurnitId The id of the curnit for this offering.
+     * @param sdsJnlpId The id of the JNLP for this offering
+     * @return The id of the offering created.
+     * 
      * @throws MalformedURLException
      * @throws IOException
      * @throws SAXException
@@ -181,7 +218,10 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
     }
 
     /**
-     * @return
+     * Creates a JNLP in the sds using HttpUnit
+     * 
+     * @return The id of the JNLP created.
+     * 
      * @throws MalformedURLException
      * @throws IOException
      * @throws SAXException
@@ -195,7 +235,9 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
     }
 
     /**
-     * @return
+     * Uses HttpUnit to create a single curnit in the sds using DEFAULT_NAME and DEFAULT URL.
+     * 
+     * @return The id of the curnit created.
      * @throws MalformedURLException
      * @throws IOException
      * @throws SAXException
@@ -208,6 +250,10 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         return this.extractNewlyCreatedId(webResponse);
     }
 
+    /**
+     * @param webResponse
+     * @return
+     */
     private Integer extractNewlyCreatedId(WebResponse webResponse) {
         assertEquals(HttpStatus.SC_CREATED, webResponse.getResponseCode());
         String locationHeader = webResponse.getHeaderField("Location");

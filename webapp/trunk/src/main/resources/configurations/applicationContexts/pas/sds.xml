@@ -40,6 +40,11 @@
         class="net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl">
         <property name="transport" ref="httpRestTransport" />
     </bean>
+    
+   <bean id="sdsUserUpdateCommand"
+        class="net.sf.sail.webapp.dao.sds.impl.SdsUserUpdateCommandHttpRestImpl">
+        <property name="transport" ref="httpRestTransport" />
+    </bean>
 
     <bean id="sdsWorkgroupCreateCommand"
         class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupCreateCommandHttpRestImpl">

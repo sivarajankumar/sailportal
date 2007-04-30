@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.sds.impl;
 import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsUserCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsUserDao;
+import net.sf.sail.webapp.dao.sds.SdsUserUpdateCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -35,26 +36,40 @@ import org.springframework.beans.factory.annotation.Required;
  * 
  */
 public class HttpRestSdsUserDao extends AbstractDao<SdsUser> implements
-        SdsUserDao {
+		SdsUserDao {
 
-    private SdsUserCreateCommand createCommand;
+	private SdsUserCreateCommand createCommand;
 
-    /**
-     * @param createCommand
-     *            the createCommand to set
-     */
-    @Required
-    public void setCreateCommand(SdsUserCreateCommand createCommand) {
-        this.createCommand = createCommand;
-    }
+	private SdsUserUpdateCommand updateCommand;
 
-    /**
-     * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
-     */
-    public void save(SdsUser sdsUser) {
-        this.createCommand.setSdsUser(sdsUser);
-        this.createCommand.execute(this.createCommand.generateRequest());
-        // TODO CY - when update command for SDS is written, need to
-        // differentiate between create and update
-    }
+	/**
+	 * @param updateCommand
+	 *            the updateCommand to set
+	 */
+	@Required
+	public void setUpdateCommand(SdsUserUpdateCommand updateCommand) {
+		this.updateCommand = updateCommand;
+	}
+
+	/**
+	 * @param createCommand
+	 *            the createCommand to set
+	 */
+	@Required
+	public void setCreateCommand(SdsUserCreateCommand createCommand) {
+		this.createCommand = createCommand;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
+	 */
+	public void save(SdsUser sdsUser) {
+		if (sdsUser.getSdsObjectId() == null) {
+			this.createCommand.setSdsUser(sdsUser);
+			this.createCommand.execute(this.createCommand.generateRequest());
+		} else {
+			this.updateCommand.setSdsUser(sdsUser);
+			this.updateCommand.execute(this.updateCommand.generateRequest());
+		}
+	}
 }
