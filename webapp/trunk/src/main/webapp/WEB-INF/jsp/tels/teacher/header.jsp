@@ -23,20 +23,28 @@
 -->
  
 <!-- $Id$ -->
-
-<div id="banner">
+<div class="welcome1">
 	<img src="../<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
-	<div><spring:message code="wise.banner.dashboard" /></div>
+</div>
+	<div class="center heading" ><spring:message code="wise.banner.dashboard" />
+	</div>
+	<div class="right pandaAlign">	<img src="../<spring:theme code="panda"/>" alt="<spring:message code="wise.banner.panda.alttext" />" />
+	</div>
+    <div>
+    <p class="userinfo">
+    Hi
 	<authz:authentication operation="username" />
-	<%@ include file="../logout.jsp"%>
-    <img src="../<spring:theme code="panda"/>" alt="<spring:message code="wise.banner.panda.alttext" />" />
+	</p>
+	<p class="userlogout"> <%@ include file="../logout.jsp"%> </p>
+	</div>
     <div id="navigation">
       <ul>
-        <li><a href="#"><spring:message code="banner.home" /></a></li>
-        <li><a href="#"><spring:message code="banner.projects" /></a></li>
-        <li><a href="#"><spring:message code="banner.management" /></a></li>
-        <li><a href="#"><spring:message code="banner.community" /></a></li>
-        <li><a href="#"><spring:message code="banner.help" /></a></li>
+        <li><a href="home.html"><spring:message code="banner.home" /></a></li>
+        <li><a href="projects.html"><spring:message code="banner.projects" /></a></li>
+        <li><a href="management.html"><spring:message code="banner.management" /></a></li>
+        <li><a href="community.html"><spring:message code="banner.community" /></a></li>
+        <li><a href="help.html"><spring:message code="banner.help" /></a></li>
       </ul>
     </div>
-</div>
+
+
