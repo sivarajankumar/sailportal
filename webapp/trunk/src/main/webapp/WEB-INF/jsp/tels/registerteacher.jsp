@@ -56,7 +56,8 @@
 
 
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
-<div id="right" class="formcontents">
+
+
 <div>
 <label for="firstname"><spring:message code="signup.firstname" /></label>
     <form:input path="userDetails.firstname" id="firstname"/>
@@ -66,7 +67,7 @@
     <label for="lastname"><spring:message code="signup.lastname" /></label>
     <form:input path="userDetails.lastname" id="lastname"/>
   </div>
- 
+
   <div>
     <label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
     <form:input path="userDetails.emailAddress" id="emailAddress"/>
@@ -80,7 +81,6 @@
 	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
 		</script>
   </div>
-
 
   <div>
     <label for="state"><spring:message code="signup.state" /></label> 
@@ -104,8 +104,9 @@
   <div>
     <label for="curriculumsubjects"><spring:message code="signup.curriculumsubjects" /></label> 
   Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
-  Chemistry:  <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
+  Chemistry: <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
   Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" />
+
   </div>
 
   <div>
@@ -115,7 +116,7 @@
 
   <div>
     <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>
-    <form:checkbox path="legalAcknowledged" id="legalAcknowledged" />
+    <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> I agree to the terms of use.
   </div>
   
   <div>
@@ -128,11 +129,17 @@
     <form:password path="repeatedPassword" id="repeatedPassword"/>
   </div>
 
-     <input type="submit" value="<spring:message code="signup.submit" />" onclick="Effect.toggle('waiting', 'appear')" />
+
+
+<input type="submit" value="<spring:message code="signup.submit" />"  onclick="Effect.toggle('waiting', 'appear')"/>
         <div id="waiting" style="display: none">
             <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" /></div>
         </div>
+        
+        
+        
 </form:form></div>
+
 
 <div>
 <a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
