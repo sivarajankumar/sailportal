@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
@@ -49,10 +50,12 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
     protected static final String DEFAULT_NAME = "d fault";
 
-    //Note that this url cannot be a fake one.
-    //It must return an appropriate jar in order to create the real one in the sds database
+    //Note that the curnit and jnlp urls cannot be fake.
+    //It must return an appropriate jar or jnlp in order to create the real one in the sds database
     //Otherwise the test will fail
-    protected static final String DEFAULT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
+    protected static final String DEFAULT_CURNIT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
+
+    protected static final String DEFAULT_JNLP_URL = "http://tels-develop.soe.berkeley.edu:8080/tels-jnlp/plr-everything-jdic-snapshot-20070125-0811.jnlp";
 
     protected HttpRestTransport httpRestTransport;
 
@@ -174,6 +177,29 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         sdsCurnit.setSdsObjectId(new Integer(curnitElement.getChild("id").getValue()));
         return sdsCurnit;
     }
+    /**
+     * Uses HttpUnit functionality to retreive a singe sds jnlp from the sds.
+     * 
+     * @param sdsJnlpId The id of the jnlp you want to retrieve
+     * @return The SdsJnlp with name, url and id set
+     * @throws IOException
+     * @throws JDOMException
+     * @throws SAXException
+     */
+    protected SdsJnlp getJnlpInSds(Integer sdsJnlpId) throws IOException, JDOMException, SAXException {
+    	WebResponse webResponse = this.makeHttpRestGetRequest("/jnlp/" + sdsJnlpId);
+        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+        System.out.println("LOOK HERE" + webResponse.toString());
+        System.out.println(webResponse.getText());
+
+        Document doc = createDocumentFromResponse(webResponse);
+        SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
+        Element jnlpElement = doc.getRootElement();
+        sdsJnlp.setName(jnlpElement.getChild("name").getValue());
+        sdsJnlp.setUrl(jnlpElement.getChild("url").getValue());
+        sdsJnlp.setSdsObjectId(new Integer(jnlpElement.getChild("id").getValue()));
+        return sdsJnlp;
+    }
     
     /**
      * Uses HttpUnit functionality to retrieve a single user from the sds.
@@ -190,10 +216,10 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
         Document doc = createDocumentFromResponse(webResponse);
         SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
-        Element curnitElement = doc.getRootElement();
-        sdsUser.setFirstName(curnitElement.getChild("first-name").getValue());
-        sdsUser.setLastName(curnitElement.getChild("last-name").getValue());
-        sdsUser.setSdsObjectId(new Integer(curnitElement.getChild("id").getValue()));
+        Element userElement = doc.getRootElement();
+        sdsUser.setFirstName(userElement.getChild("first-name").getValue());
+        sdsUser.setLastName(userElement.getChild("last-name").getValue());
+        sdsUser.setSdsObjectId(new Integer(userElement.getChild("id").getValue()));
         return sdsUser;
     }
 
@@ -229,7 +255,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
     protected Integer createJnlpInSds() throws MalformedURLException,
             IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/jnlp",
-                "<jnlp><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_URL
+                "<jnlp><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_JNLP_URL
                         + "</url></jnlp>");
         return this.extractNewlyCreatedId(webResponse);
     }
@@ -245,7 +271,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
     protected Integer createCurnitInSds() throws MalformedURLException,
             IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/curnit",
-                "<curnit><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_URL
+                "<curnit><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_CURNIT_URL
                         + "</url></curnit>");
         return this.extractNewlyCreatedId(webResponse);
     }

@@ -20,12 +20,6 @@ package net.sf.sail.webapp.dao.sds.impl;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests;
 
-import org.apache.commons.httpclient.HttpStatus;
-import org.jdom.Document;
-import org.jdom.Element;
-
-import com.meterware.httpunit.WebResponse;
-
 /**
  * @author Laurel Williams
  * 
@@ -36,7 +30,7 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 
     private static final String EXPECTED_NAME = "name";
 
-    private static final String EXPECTED_URL = "http://www.google.com/";
+    private static final String EXPECTED_URL = "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot-20070125-0811.jnlp";
 
     private HttpRestSdsJnlpDao sdsJnlpDao;
 
@@ -90,24 +84,43 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 
         // retrieve newly created user using httpunit and compare with sdsUser
         // saved via DAO
-        WebResponse webResponse = makeHttpRestGetRequest("/jnlp/"
-                + this.sdsJnlp.getSdsObjectId());
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
-
-        Document doc = createDocumentFromResponse(webResponse);
-
-        Element rootElement = doc.getRootElement();
-        SdsJnlp actualSdsJnlp = new SdsJnlp();
-        actualSdsJnlp.setName(rootElement.getChild("name").getValue());
-        actualSdsJnlp.setUrl(rootElement.getChild("url").getValue());
-        actualSdsJnlp.setSdsObjectId(new Integer(rootElement.getChild("id")
-                .getValue()));
+        SdsJnlp actualSdsJnlp = this.getJnlpInSds(this.sdsJnlp.getSdsObjectId());
+ 
         assertEquals(this.sdsJnlp.getName(), actualSdsJnlp.getName());
         assertEquals(this.sdsJnlp.getSdsObjectId(), actualSdsJnlp
                 .getSdsObjectId());
         assertEquals(this.sdsJnlp.getUrl(), actualSdsJnlp.getUrl());
         assertEquals(this.sdsJnlp, actualSdsJnlp);
     }
+
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsJnlpDao#save(net.sf.sail.webapp.domain.sds.SdsJnlp)}.
+	 */
+	public void testUpdateJnlp() throws Exception {
+		Integer sdsJnlpId = this.createJnlpInSds();
+		SdsJnlp actualSdsJnlp = this.getJnlpInSds(sdsJnlpId);
+		assertEquals(actualSdsJnlp.getSdsObjectId(), sdsJnlpId);
+		assertEquals(actualSdsJnlp.getName(), DEFAULT_NAME);
+		assertEquals(actualSdsJnlp.getUrl(), DEFAULT_JNLP_URL);
+
+		SdsJnlp sdsJnlpToUpdate = (SdsJnlp) this.applicationContext
+				.getBean("sdsJnlp");
+		sdsJnlpToUpdate.setSdsObjectId(sdsJnlpId);
+
+		String updateName = "Updated";
+		String updateURL = EXPECTED_URL;
+
+		sdsJnlpToUpdate.setName(updateName);
+		sdsJnlpToUpdate.setUrl(updateURL);
+		this.sdsJnlpDao.save(sdsJnlpToUpdate);
+		SdsJnlp updatedSdsJnlp = this.getJnlpInSds(sdsJnlpId);
+
+		assertEquals(sdsJnlpId, updatedSdsJnlp.getSdsObjectId());
+		assertFalse(actualSdsJnlp.equals(updatedSdsJnlp));
+		assertEquals(updateName, updatedSdsJnlp.getName());
+		assertEquals(updateURL, updatedSdsJnlp.getUrl());
+	}
 
     /**
      * Test method for

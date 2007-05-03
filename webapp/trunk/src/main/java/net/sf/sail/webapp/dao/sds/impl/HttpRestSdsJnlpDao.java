@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.sds.impl;
 import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsJnlpCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsJnlpDao;
+import net.sf.sail.webapp.dao.sds.SdsJnlpUpdateCommand;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -35,26 +36,40 @@ import org.springframework.beans.factory.annotation.Required;
  * 
  */
 public class HttpRestSdsJnlpDao extends AbstractDao<SdsJnlp> implements
-        SdsJnlpDao {
+		SdsJnlpDao {
 
-    private SdsJnlpCreateCommand createCommand;
+	private SdsJnlpCreateCommand createCommand;
+	
+	private SdsJnlpUpdateCommand updateCommand;
 
-    /**
-     * @param createCommand
-     *            the createCommand to set
-     */
-    @Required
-    public void setCreateCommand(SdsJnlpCreateCommand createCommand) {
-        this.createCommand = createCommand;
-    }
+	/**
+	 * @param createCommand
+	 *            the createCommand to set
+	 */
+	@Required
+	public void setCreateCommand(SdsJnlpCreateCommand createCommand) {
+		this.createCommand = createCommand;
+	}
+	
+	/**
+	 * @param updateCommand
+	 *            the updateCommand to set
+	 */
+	@Required
+	public void setUpdateCommand(SdsJnlpUpdateCommand updateCommand) {
+		this.updateCommand = updateCommand;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
-     */
-    public void save(SdsJnlp sdsJnlp) {
-        this.createCommand.setSdsJnlp(sdsJnlp);
-        this.createCommand.execute(this.createCommand.generateRequest());
-        // TODO CY - when update command for SDS is written, need to
-        // differentiate between create and update
-    }
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
+	 */
+	public void save(SdsJnlp sdsJnlp) {
+		if (sdsJnlp.getSdsObjectId() == null) {
+			this.createCommand.setSdsJnlp(sdsJnlp);
+			this.createCommand.execute(this.createCommand.generateRequest());
+		} else {
+			this.updateCommand.setSdsJnlp(sdsJnlp);
+			this.updateCommand.execute(this.updateCommand.generateRequest());
+		}
+	}
 }

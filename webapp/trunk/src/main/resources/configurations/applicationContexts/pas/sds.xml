@@ -1,178 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    * Copyright (c) 2007 Encore Research Group, University of Toronto
-    * 
-    * This library is free software; you can redistribute it and/or
-    * modify it under the terms of the GNU Lesser General Public
-    * License as published by the Free Software Foundation; either
-    * version 2.1 of the License, or (at your option) any later version.
-    *
-    * This library is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    * Lesser General Public License for more details.
-    *
-    * You should have received a copy of the GNU Lesser General Public
-    * License along with this library; if not, write to the Free Software
-    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+	* Copyright (c) 2007 Encore Research Group, University of Toronto
+	* 
+	* This library is free software; you can redistribute it and/or
+	* modify it under the terms of the GNU Lesser General Public
+	* License as published by the Free Software Foundation; either
+	* version 2.1 of the License, or (at your option) any later version.
+	*
+	* This library is distributed in the hope that it will be useful,
+	* but WITHOUT ANY WARRANTY; without even the implied warranty of
+	* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	* Lesser General Public License for more details.
+	*
+	* You should have received a copy of the GNU Lesser General Public
+	* License along with this library; if not, write to the Free Software
+	* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
 <!-- $Id$ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:util="http://www.springframework.org/schema/util"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-    <bean id="httpRestTransport"
-        class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
-        <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
-        <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
-        <!-- http://saildataservice.concord.org/{portal-id}/ -->
-        <property name="baseUrl" value="http://rails.dev.concord.org/sds/4" />
-    </bean>
+	<bean id="httpRestTransport"
+		class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
+		<!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
+		<!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
+		<!-- http://saildataservice.concord.org/{portal-id}/ -->
+		<property name="baseUrl"
+			value="http://rails.dev.concord.org/sds/4" />
+	</bean>
 
-    <bean id="sdsOffering" scope="prototype"
-        class="net.sf.sail.webapp.domain.sds.SdsOffering">
-    </bean>
+	<bean id="sdsOffering" scope="prototype"
+		class="net.sf.sail.webapp.domain.sds.SdsOffering">
+	</bean>
 
-    <bean id="sdsUserCreateCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
-    
-   <bean id="sdsUserUpdateCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsUserUpdateCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
+	<bean id="sdsUserCreateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsUserCreateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="sdsWorkgroupCreateCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupCreateCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
+	<bean id="sdsUserUpdateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsUserUpdateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="sdsWorkgroupMemberCreateCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupMemberCreateCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
+	<bean id="sdsWorkgroupCreateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupCreateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="sdsOfferingListCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingListCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
+	<bean id="sdsWorkgroupMemberCreateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupMemberCreateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="sdsOfferingCreateCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingCreateCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
+	<bean id="sdsOfferingListCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingListCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="offeringService"
-        class="net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl">
-        <property name="sdsOfferingDao" ref="sdsOfferingDao" />
-        <property name="offeringDao" ref="offeringDao" />
-    </bean>
+	<bean id="sdsOfferingCreateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingCreateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="curnitService"
-        class="net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl">
-        <property name="sdsCurnitDao" ref="sdsCurnitDao" />
-        <property name="curnitDao" ref="curnitDao" />
-    </bean>
+	<bean id="offeringService"
+		class="net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl">
+		<property name="sdsOfferingDao" ref="sdsOfferingDao" />
+		<property name="offeringDao" ref="offeringDao" />
+	</bean>
 
-    <bean id="sdsOfferingDao"
-        class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao">
-        <property name="listCommand" ref="sdsOfferingListCommand" />
-        <property name="createCommand" ref="sdsOfferingCreateCommand" />
-    </bean>
+	<bean id="curnitService"
+		class="net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl">
+		<property name="sdsCurnitDao" ref="sdsCurnitDao" />
+		<property name="curnitDao" ref="curnitDao" />
+	</bean>
 
-    <bean id="sdsWorkgroupDao"
-        class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsWorkgroupDao">
-        <property name="createCommand" ref="sdsWorkgroupCreateCommand" />
-        <property name="membershipCreateCommand"
-            ref="sdsWorkgroupMemberCreateCommand" />
-    </bean>
+	<bean id="sdsOfferingDao"
+		class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao">
+		<property name="listCommand" ref="sdsOfferingListCommand" />
+		<property name="createCommand" ref="sdsOfferingCreateCommand" />
+	</bean>
 
-    <bean id="sdsWorkgroup" class="net.sf.sail.webapp.domain.sds.SdsWorkgroup"
-        scope="prototype" />
+	<bean id="sdsWorkgroupDao"
+		class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsWorkgroupDao">
+		<property name="createCommand" ref="sdsWorkgroupCreateCommand" />
+		<property name="membershipCreateCommand"
+			ref="sdsWorkgroupMemberCreateCommand" />
+	</bean>
 
-    <bean id="sdsCurnitCreateCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitCreateCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
-  
-   <bean id="sdsCurnitUpdateCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitUpdateCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
+	<bean id="sdsWorkgroup"
+		class="net.sf.sail.webapp.domain.sds.SdsWorkgroup" scope="prototype" />
 
-    <bean id="sdsCurnitDao"
-        class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsCurnitDao">
-        <property name="createCommand" ref="sdsCurnitCreateCommand" />
-        <property name="listCommand" ref="sdsCurnitListCommand" />
-        <property name="updateCommand" ref="sdsCurnitUpdateCommand" />
-    </bean>
+	<bean id="sdsCurnitCreateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitCreateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="sdsCurnitListCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitListCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
+	<bean id="sdsCurnitUpdateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitUpdateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="sdsCurnit" class="net.sf.sail.webapp.domain.sds.SdsCurnit"
-        scope="prototype" />
+	<bean id="sdsCurnitDao"
+		class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsCurnitDao">
+		<property name="createCommand" ref="sdsCurnitCreateCommand" />
+		<property name="listCommand" ref="sdsCurnitListCommand" />
+		<property name="updateCommand" ref="sdsCurnitUpdateCommand" />
+	</bean>
 
-    <bean id="sdsJnlpCreateCommand"
-        class="net.sf.sail.webapp.dao.sds.impl.SdsJnlpCreateCommandHttpRestImpl">
-        <property name="transport" ref="httpRestTransport" />
-    </bean>
+	<bean id="sdsCurnitListCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsCurnitListCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="sdsJnlpDao"
-        class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsJnlpDao">
-        <property name="createCommand" ref="sdsJnlpCreateCommand" />
-    </bean>
+	<bean id="sdsCurnit" class="net.sf.sail.webapp.domain.sds.SdsCurnit"
+		scope="prototype" />
 
-    <bean id="sdsJnlp" class="net.sf.sail.webapp.domain.sds.SdsJnlp"
-        scope="prototype" />
+	<bean id="sdsJnlpCreateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsJnlpCreateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="workgroupDao"
-        class="net.sf.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDao">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+	<bean id="sdsJnlpUpdateCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsJnlpUpdateCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
-    <bean id="offeringDao"
-        class="net.sf.sail.webapp.dao.offering.impl.HibernateOfferingDao">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+	<bean id="sdsJnlpDao"
+		class="net.sf.sail.webapp.dao.sds.impl.HttpRestSdsJnlpDao">
+		<property name="createCommand" ref="sdsJnlpCreateCommand" />
+		<property name="updateCommand" ref="sdsJnlpUpdateCommand" />
+	</bean>
 
-    <bean id="workgroup" class="net.sf.sail.webapp.domain.impl.WorkgroupImpl"
-        scope="prototype" />
+	<bean id="sdsJnlp" class="net.sf.sail.webapp.domain.sds.SdsJnlp"
+		scope="prototype" />
 
-    <bean id="offering" class="net.sf.sail.webapp.domain.impl.OfferingImpl"
-        scope="prototype" />
+	<bean id="workgroupDao"
+		class="net.sf.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
-    <bean id="curnitDao"
-        class="net.sf.sail.webapp.dao.curnit.impl.HibernateCurnitDao">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+	<bean id="offeringDao"
+		class="net.sf.sail.webapp.dao.offering.impl.HibernateOfferingDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
-    <bean id="curnit" class="net.sf.sail.webapp.domain.impl.CurnitImpl"
-        scope="prototype" />
+	<bean id="workgroup"
+		class="net.sf.sail.webapp.domain.impl.WorkgroupImpl"
+		scope="prototype" />
 
-    <bean id="jnlpDao"
-        class="net.sf.sail.webapp.dao.jnlp.impl.HibernateJnlpDao">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+	<bean id="offering"
+		class="net.sf.sail.webapp.domain.impl.OfferingImpl" scope="prototype" />
 
-    <bean id="jnlp" class="net.sf.sail.webapp.domain.impl.JnlpImpl"
-        scope="prototype" />
+	<bean id="curnitDao"
+		class="net.sf.sail.webapp.dao.curnit.impl.HibernateCurnitDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
-    <bean id="jnlpService"
-        class="net.sf.sail.webapp.service.jnlp.impl.JnlpServiceImpl">
-        <property name="sdsJnlpDao" ref="sdsJnlpDao" />
-        <property name="jnlpDao" ref="jnlpDao" />
-    </bean>
+	<bean id="curnit" class="net.sf.sail.webapp.domain.impl.CurnitImpl"
+		scope="prototype" />
 
-    <bean id="workgroupService"
-        class="net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl">
-        <property name="sdsWorkgroupDao" ref="sdsWorkgroupDao" />
-        <property name="workgroupDao" ref="workgroupDao" />
-    </bean>
+	<bean id="jnlpDao"
+		class="net.sf.sail.webapp.dao.jnlp.impl.HibernateJnlpDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="jnlp" class="net.sf.sail.webapp.domain.impl.JnlpImpl"
+		scope="prototype" />
+
+	<bean id="jnlpService"
+		class="net.sf.sail.webapp.service.jnlp.impl.JnlpServiceImpl">
+		<property name="sdsJnlpDao" ref="sdsJnlpDao" />
+		<property name="jnlpDao" ref="jnlpDao" />
+	</bean>
+
+	<bean id="workgroupService"
+		class="net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl">
+		<property name="sdsWorkgroupDao" ref="sdsWorkgroupDao" />
+		<property name="workgroupDao" ref="workgroupDao" />
+	</bean>
 </beans>
