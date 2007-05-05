@@ -27,105 +27,117 @@
     type="text/css" href="./themes/tels/default/styles/styles.css"/>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="./javascript/tels/rotator.js" type="text/javascript" > </script>
+<script src="./javascript/tels/rotatorT.js" type="text/javascript" > </script>
+
 <title><spring:message code="application.title" /></title>
 </head>
 
-<body>
+<body class="bgcolorLightBlue">
 
-<%@ include file="header.jsp"%>
+<%@ include file= "header.jsp"%>
 
-<h1>TELS HOMEPAGE</h1>
+<!-- Support for Spring errors object -->
 
-<div class="welcome"> 
-<h1 class="headerPos"> WELCOME TO WISE </h1>
-<p class="parastyle"> 
-Harness the power of the Internet...wisely. WISE is a simple yet powerful learning environment where students examine key science curriculum within the context of real world science controversies. WISE projects complement your standards-based science curriculum with an engaging interactive approach that appeals to grade 5-12 student. Students explore information, write reflective notes, discuss theories, and organize their arguments...at school or working from home. Teachers can choose from a wide variety of projects, create their own custom projects, and grade student work online. Best of all, WISE is completely 
-free! 
+<div id="columns" class="bgcolorLightBlue">
+
+<div id="headRows">
+<ul class="intropos">
+<li class="heading2"><spring:message code="wise.welcome" /></li>
+<li class="heading2 positionAdj3"><spring:message code="wise.signIn" /></li>
+</ul>
+</div>
+
+<div id="verticalNavigation" class="bgcolorLightBlue">
+<p class="parastyle bgcolorLightBlue">
+<spring:message code="wise.about.desc" />
+
 </p>
 
-<ul class="blue">
-
-<li>
-<a href="http://wise.berkeley.edu/pages/intro/wiseFlashIntro.php">
-Overview Of WISE
-</a>
-</li>
-
-<li> Preview a Project </li>
-
-<li>
-<a href='http://www.telscenter.org/confluence/display/WPSD/WISE+FAQ'>
-Common Questions
-</a>
-</li>
-
-&nbsp;&nbsp;
-<li>
-<a href="http://wise.berkeley.edu/pages/joinBranch.php">
-Join WISE
-</a>
-</li>
-
+<ul class="intropos">
+<li><a href="#"><spring:message code="wise.overview" /></a></li>
+<li><a href="#"> <spring:message code="wise.preview" /></a> </li>
+<li><a href="#"> <spring:message code="wise.commonQs" /></a></li>
+<li><a href="register.html"><b><spring:message code="joinwise" /></b></a></li>
 </ul>
 
-</div>
+<form:form id="home" method="post" action="j_acegi_security_check">
+<ul class="loginpos">
 
-<div align="right">
-<h3> SIGN IN </h3>
-<p>
-<b>
-(Existing WISE Members) 
-</b>
-<label for="username"> USERNAME: </label> 
-<input type="text" id = "username"  value = "" />
-</p>
-<!--<label for="username"> USERNAME: </label> 
-<input type="text" id = "username"  value = "" />
-<label for="password"> PASSWORD: </label>
-<input type="password" id = "password" value = "" />
-<label for="male">Male</label>-->
-<label for="male" value="male">Male</label>
+<li>
+<label for="username" class="login">
+<spring:message code="login.username" />
+</label>
+<input type="text" width=20> </input>
+</li>
 
-Hi <br/>
-<label for="lname"><font color="#000000"> Last Name: </font></label>
+<li>
+<label for="password" class="login">
+<spring:message code="login.password" />
+</label>
+<input type="text" width=20> </input>
+</li>
+<li><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
+</ul>
 
-<input type="radio" name="sex" id="male" />
-<input type="radio" name="sex" id="female" />
+</form:form>
 
 </div>
 
+<div id="navigation" class="bgcolorLightBlue">
+<ul class="southHeading">
+<li class="heading4"><spring:message code="wise.inAction" /></li>
+<li class="heading4"><spring:message code="wise.testimonials" /></li>
+<li class="heading4"><spring:message code="wise.latestNews" /></li>
+</ul>
 
-
-
-
-
-<br></br>
-
-
-<div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
+<div class="inline bgcolorLightBlue">
+<img class="marginAdj1 widthAdj1 positionAdj1"  id=rotator name=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg">
+<img class="marginAdj1 widthAdj1 positionAdj2" id=rotatorT name=rotatorT src="./themes/tels/default/images/wiseInAction/dummyfile.jpg"> 
+<b class="marginAdj1 widthAdj1 positionAdj4"> news </b> 
 </div>
 
-<div id="columns">
-<div id="left">
-<h2><spring:message code="welcome" /> <authz:authentication
-    operation="username" /></h2>
+<div class="inline bgcolorLightBlue">
+<img class="dynamicImage marginAdj1" id="imgPos1" name="action_prev" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
+onMouseOver="this.style.cursor='pointer';" 
+onClick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
+onMouseDown="this.style.cursor='pointer';" 
+onMouseUp="this.style.cursor='pointer';"
+onMouseOut="this.style.cursor='default';" />
+
+<img class="dynamicImage marginAdj1" id="imgPos2" name="action_fwd" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
+onMouseOver="this.style.cursor='pointer';" 
+onClick="firstRClicked=setRClicked();oldCtr=counter;counter=proceedToNextImage(firstRClicked,counter);"
+onMouseDown="this.style.cursor='pointer';" 
+onMouseUp="this.style.cursor='pointer';"
+onMouseOut="this.style.cursor='default';" />
+
+<img class="dynamicImage marginAdj1" id="imgPos3"  name="test_prev" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif"
+onMouseOver="this.style.cursor='pointer';" 
+onClick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;counter_T=proceedToPreviousImage_T(firstLClicked_T,counter_T);"
+onMouseDown="this.style.cursor='pointer';" 
+onMouseUp="this.style.cursor='pointer';"
+onMouseOut="this.style.cursor='default';" />
+
+<img class="dynamicImage marginAdj1" id="imgPos4" name="test_fwd" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
+onMouseOver="this.style.cursor='pointer';" 
+onClick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;counter_T=proceedToNextImage_T(firstRClicked_T,counter_T);"
+onMouseDown="this.style.cursor='pointer';" 
+onMouseUp="this.style.cursor='pointer';"
+onMouseOut="this.style.cursor='default';" />
+
+
+
+
+
+
+
 </div>
 
-<div>
-<h2> Welcome to WISE </h2>
 </div>
 
 
-
-<div id="right">
-<%@ include file="logout.jsp"%>
-<a href="login.html"><spring:message code="log.in" /></a><br />
-<a href="register.html"><spring:message code="joinwise" /></a><br />
 </div>
-</div>
-
-<%@ include file="footer.jsp"%>
 
 </body>
 </html>
