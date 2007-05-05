@@ -59,16 +59,39 @@ text-align: right;
 margin-right: 0.5em;
 display: block;
 
-}	
+}
+
+label.login{
+	width:12em;
+	text-align:left;
+	margin-right:0.2em;
+	display:block;
+
+}
+
 
 .parastyle{
 line-height: 1.5em;
 margin: 0;
 padding:0;
-font-size:1em;
+font-size:0.9em;
 font-family:arial,sans-serif;
 color:black;
+width: 23em;
+text-align:justify;
 }
+
+.outerparastyle{
+	width:40em;	
+}
+
+.parastyle2{
+margin: 0;
+padding:0;
+width: 12em;
+text-align:justify;
+}
+
 
 .headerPos{
 position:relative;
@@ -87,6 +110,13 @@ form div.formcontents{
 	text-align:center;
 }
 
+.bgcolorBlue{
+    background-color:blue;	
+}
+
+.bgcolorLightBlue{
+	background-color:#AFDCEC;
+}
 
 div#upperright {
 	margin-left: 1em;
@@ -123,10 +153,11 @@ form#login {
 .blueColor {color:#0066CC}
 
 div.welcome{
+	display: inline;
 	position: absolute;
 	width: 550;
 	background-color: blue;
-	border: 3 solid black;
+	border: 6 solid black;
 	margin: 0;
 	padding: 0;	
 }
@@ -183,21 +214,192 @@ div.autocomplete ul li {
 
 #navigation ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
+    margin: 0em;
+    padding: 0em;
     padding-top: 0.1em;
+    position:relative;
+    top:-7em;
+}
+
+#navigation ul.southHeading{
+	position:relative;
+	top:0em;
+	margin:1.0em;
+	padding:0em;	
+	width:45em;
+}
+
+#navigation ul.southContents{
+	position:absolute;
+	top:10em;
+	left:4em;	
 }
 
 #navigation li {
     display: inline;
-    margin: 20;
+    margin: 1.8em;
     padding: 0;
 }
+
+#headRows{
+	font-size: 1.2em;
+}
+
+#headRows li{
+	display:inline;
+	margin: 0;
+	padding: 4em;
+}
+
+#headRows ul.intropos{
+	position:absolute;
+	left:-7.5em;
+	top:2em;
+	width: 45em;
+	margin:3em;
+}
+
+.marginAdj1{
+	margin: 1.2em;		
+}
+
+.marginAdj2{
+	margin: 1.3em;
+}
+
+.widthAdj1{
+	width: 12em;	
+}
+
+.positionAdj1{
+	position:absolute;
+	top:28em;
+	left:2em;
+}
+
+.positionAdj2{
+	position:absolute;
+	top:28em;
+	left:17em;
+}
+
+.positionAdj3{
+	position:relative;
+	left:3em;	
+	
+}
+
+.positionAdj4{
+	position:relative;
+	left:35em;	
+	
+	
+}
+
+#imgPos1{
+	position:absolute;
+	top:40em;	
+	left:5em;
+}
+
+#imgPos2{
+	position:absolute;
+	top:40em;	
+	left:7em;
+}
+
+#imgPos3{
+	position:absolute;
+	top:40em;	
+	left:20em;
+}
+
+#imgPos4{
+	position:absolute;
+	top:40em;	
+	left:22em;
+}
+
+
+
+.heading2{
+	font-size: 1.6em;
+	font-style:bold;
+	font-variant:small-caps;	
+}
+
+.heading4{
+	font-size: 1.4em;
+	font-style:bold;
+	font-variant:small-caps;
+	
+}
+
+#navigation li.vertical{
+	display: block;	
+}
+
+
+.dynamicImageAttrs{
+	width: 6em;
+	position:relative;
+	margin: 1em;
+	left:3em;	
+	
+}
+
+#verticalNavigation{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;	
+    position:relative;
+}
+
+#verticalNavigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-top: 0.1em;
+    text-align:center;
+}
+
+#verticalNavigation ul.intropos{
+	position:absolute;
+	left:19em;
+	top:0em;
+	width: 15em;
+	margin:1em;
+}
+
+#verticalNavigation ul.loginpos{
+	position:absolute;
+	left:30.5em;
+	top:0em;
+	width: 15em;
+	margin:0em;
+}
+
+#verticalNavigation li {
+    padding: 0;
+    margin: 2em;
+    line-height:1.3em;
+}
+
 
 #navigation a:link, #navigation a:visited{
 	padding: 3 10 2 10;
 	color: green;
-	background-color: pink;
+	background-color: grey;
+	text-decoration: none;
+	border-top: 1 solid black;
+	border-left: 1 solid black;
+	border-bottom: 1 solid grey;
+	border-right: 1 solid grey;	
+}
+
+#verticalNavigation a:link, #verticalNavigation a:visited{
+	padding: 3 10 2 10;
+	color: green;
+	background-color: grey;
 	text-decoration: none;
 	border-top: 1 solid black;
 	border-left: 1 solid black;
@@ -227,16 +429,10 @@ font-size: 1.6em;
 font-variant: small-caps;
 background-color: transparent;
 position:relative;
-top: -50;
+top: -1.7em;
 }
 
-.heading2{
-font-weight: bold;
-font-size: 1.2em;
-font-variant: small-caps;
-		
 	
-}	
 p.bgimage{
 	background-image: url('../panda.png');	
 	
@@ -245,33 +441,30 @@ p.bgimage{
 p.userinfo{
 	text-align:right;
 	position: relative;
-	top:-130;
-	left: -20;
+	top:-7.7em;
+	left: -2em;
 }
 
 p.userlogout{
 	text-align:right;
 	position: relative;
-	top: -140;
-	left:-30;
+	top: -8.7em;
+	left:-2em;
 }
 
 .pandaAlign{
 	position: relative;
-	top: -70;
+	top: -5em;
 	background-color: transparent;
 }
 
 
-form{
-align:center;
-}
 
 form  div
 {
 clear:left;
 width: 50%;
-padding: 5px;
+padding: 2px;
 position:center;
 }
 
@@ -280,9 +473,6 @@ text-align:center;
 margin-right: 0.5em;
 }
 
-form input{
- 
-}
 
 h5.heading{
   background-image: url(banner.jpg );
@@ -299,7 +489,12 @@ position: top right;
 vertical-align: text-top;
 }
 
+img.dynamicImage{
+cursor:pointer;	
+}	
+
 h5 span{
    
     float:left;
 }
+
