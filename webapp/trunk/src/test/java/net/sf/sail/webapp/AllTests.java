@@ -34,9 +34,9 @@ public class AllTests {
 
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for net.sf.sail.webapp");
-        //$JUnit-BEGIN$
+        // $JUnit-BEGIN$
         suite.addTestSuite(CreateDefaultUsersTest.class);
-        //$JUnit-END$
+        // $JUnit-END$
 
         // Add new package unit tests here
         suite.addTest(net.sf.sail.webapp.dao.authentication.impl.AllTests
@@ -47,6 +47,7 @@ public class AllTests {
         suite.addTest(net.sf.sail.webapp.dao.sds.impl.AllTests.suite());
         suite.addTest(net.sf.sail.webapp.dao.user.impl.AllTests.suite());
         suite.addTest(net.sf.sail.webapp.dao.workgroup.impl.AllTests.suite());
+        suite.addTest(net.sf.sail.webapp.domain.impl.AllTests.suite());
         suite.addTest(net.sf.sail.webapp.domain.webservice.http.AllTests
                 .suite());
         suite.addTest(net.sf.sail.webapp.presentation.validators.AllTests
