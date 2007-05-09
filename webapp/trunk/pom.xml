@@ -41,16 +41,28 @@
             </roles>
             <timezone>-5</timezone>
         </developer>
+        <developer>
+            <id>laurel</id>
+            <name>Laurel Williams</name>
+            <email>laurel.williams@utoronto.ca</email>
+            <url>http://www.utoronto.ca/</url>
+            <organization>University of Toronto</organization>
+            <organizationUrl>http://www.utoronto.ca</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
     </developers>
     <scm>
         <connection>
-            scm:svn:https://svn.encorewiki.org/svn/sail/webapp/
+            scm:svn:http://svn.encorewiki.org/svn/sail/webapp/trunk/
         </connection>
         <developerConnection>
-            scm:svn:https://svn.encorewiki.org/svn/sail/webapp/
+            scm:svn:https://svn.encorewiki.org/svn/sail/webapp/trunk/
         </developerConnection>
         <tag>HEAD</tag>
-        <url>https://svn.encorewiki.org/svn/sail/webapp/</url>
+        <url>http://svn.encorewiki.org/svn/sail/webapp/trunk/</url>
     </scm>
     <issueManagement>
         <system>Jira</system>
@@ -58,7 +70,7 @@
     </issueManagement>
     <ciManagement>
         <system>continuum</system>
-        <url>http://portal-continuum.encorewiki.org/continuum/</url>
+        <url>http://portal-continuum.encorewiki.org/</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
