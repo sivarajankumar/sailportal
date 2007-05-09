@@ -75,7 +75,7 @@
 <label for="password" class="login">
 <spring:message code="login.password" />
 </label>
-<input type="text" width="20" />
+<input type="password" width="20" />
 </li>
 <li><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
 </ul>
