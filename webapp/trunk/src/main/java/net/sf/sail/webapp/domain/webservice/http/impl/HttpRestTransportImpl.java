@@ -61,8 +61,7 @@ import org.springframework.util.StringUtils;
  */
 public class HttpRestTransportImpl implements HttpRestTransport {
 
-    private static final Log LOGGER = LogFactory
-            .getLog(HttpRestTransportImpl.class);
+    private Log logger;
 
     private String baseUrl;
 
@@ -76,6 +75,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         // on the method, otherwise there will be a resource leak. Refer to
         // http://jakarta.apache.org/commons/httpclient/threading.html
         this.client = new HttpClient(new MultiThreadedHttpConnectionManager());
+        this.logger = LogFactory.getLog(this.getClass());
     }
 
     /**
@@ -102,7 +102,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         Map<String, String> requestParameters = httpGetRequestData
                 .getRequestParameters();
         StringBuffer buffer = new StringBuffer(this.baseUrl);
-        buffer.append(httpGetRequestData.getUrl());
+        buffer.append(httpGetRequestData.getRelativeUrl());
         if (requestParameters != null && !requestParameters.isEmpty()) {
             buffer.append('?');
             Set<String> keys = requestParameters.keySet();
@@ -137,7 +137,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
      */
     public Map<String, String> post(final HttpPostRequest httpPostRequestData) {
         final PostMethod method = new PostMethod(this.baseUrl
-                + httpPostRequestData.getUrl());
+                + httpPostRequestData.getRelativeUrl());
 
         this.setHeaders(httpPostRequestData, method);
 
@@ -180,12 +180,12 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         return responseHeaders;
     }
 
-	/**
-	 * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#put(net.sf.sail.webapp.domain.webservice.http.HttpPutRequest)
-	 */
-	public Map<String, String> put(final HttpPutRequest httpPutRequestData) {
+    /**
+     * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#put(net.sf.sail.webapp.domain.webservice.http.HttpPutRequest)
+     */
+    public Map<String, String> put(final HttpPutRequest httpPutRequestData) {
         final PutMethod method = new PutMethod(this.baseUrl
-                + httpPutRequestData.getUrl());
+                + httpPutRequestData.getRelativeUrl());
 
         this.setHeaders(httpPutRequestData, method);
 
@@ -215,18 +215,20 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         }
 
         return responseHeaders;
-	}
+    }
 
-    private void logRequest(HttpMethod method, String bodyData) throws URIException {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info(method.getName() + ": " + method.getURI());
-            if (bodyData != "") LOGGER.info(method.getName() + ": " + bodyData);
+    private void logRequest(HttpMethod method, String bodyData)
+            throws URIException {
+        if (logger.isInfoEnabled()) {
+            logger.info(method.getName() + ": " + method.getURI());
+            if (bodyData != "")
+                logger.info(method.getName() + ": " + bodyData);
         }
     }
 
     private void logAndThrow(Exception e) {
-        if (LOGGER.isErrorEnabled()) {
-            LOGGER.error(e.getMessage(), e);
+        if (logger.isErrorEnabled()) {
+            logger.error(e.getMessage(), e);
         }
         throw new NetworkTransportException(e.getMessage());
     }
@@ -235,9 +237,9 @@ public class HttpRestTransportImpl implements HttpRestTransport {
             final AbstractHttpRequest httpRequestData, HttpMethod method,
             int statusCode) throws IOException {
         if (statusCode != httpRequestData.getExpectedResponseStatusCode()) {
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn(statusCode + ": " + method.getStatusText());
-                LOGGER.warn("body: " + method.getResponseBodyAsString());
+            if (logger.isWarnEnabled()) {
+                logger.warn(statusCode + ": " + method.getStatusText());
+                logger.warn("body: " + method.getResponseBodyAsString());
             }
             if (statusCode == HttpStatus.SC_NOT_FOUND) {
                 throw new BadRequestException(method.getStatusText());

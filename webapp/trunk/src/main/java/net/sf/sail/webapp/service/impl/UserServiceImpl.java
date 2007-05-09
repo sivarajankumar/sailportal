@@ -55,9 +55,9 @@ public class UserServiceImpl implements UserService {
     private SdsUserDao sdsUserDao;
 
     private UserDao<User> userDao;
-    
+
     private PasswordEncoder passwordEncoder;
-    
+
     private SaltSource saltSource;
 
     /**
@@ -139,12 +139,13 @@ public class UserServiceImpl implements UserService {
             throw e;
         }
     }
-    
-    private void encodePassword(MutableUserDetails userDetails) {
-    		userDetails.setPassword(this.passwordEncoder.encodePassword(userDetails.getPassword(), this.saltSource.getSalt(userDetails)));		
-	}
 
-	private void assignRole(final MutableUserDetails userDetails,
+    private void encodePassword(MutableUserDetails userDetails) {
+        userDetails.setPassword(this.passwordEncoder.encodePassword(userDetails
+                .getPassword(), this.saltSource.getSalt(userDetails)));
+    }
+
+    private void assignRole(final MutableUserDetails userDetails,
             final String role) {
         GrantedAuthority authority = this.grantedAuthorityDao
                 .retrieveByName(role);
@@ -168,17 +169,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-	/**
-	 * @param passwordEncoder the passwordEncoder to set
-	 */
-	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-		this.passwordEncoder = passwordEncoder;
-	}
+    /**
+     * @param passwordEncoder
+     *            the passwordEncoder to set
+     */
+    @Required
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
-	/**
-	 * @param saltSource the saltSource to set
-	 */
-	public void setSaltSource(SaltSource saltSource) {
-		this.saltSource = saltSource;
-	}
+    /**
+     * @param saltSource
+     *            the saltSource to set
+     */
+    @Required
+    public void setSaltSource(SaltSource saltSource) {
+        this.saltSource = saltSource;
+    }
 }
