@@ -37,7 +37,8 @@ import org.jdom.xpath.XPath;
 
 /**
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id: SdsWorkgroupMemberCreateCommandHttpRestImplTest.java 257
+ *          2007-03-30 14:59:02Z cynick $
  * 
  */
 public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
@@ -111,7 +112,7 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
                 + "/membership";
         HttpPostRequest request = this.command.generateRequest();
 
-        assertEquals(EXPECTED_URL, request.getUrl());
+        assertEquals(EXPECTED_URL, request.getRelativeUrl());
     }
 
     private Set<Integer> setUpExpectedUserIdSet() {
