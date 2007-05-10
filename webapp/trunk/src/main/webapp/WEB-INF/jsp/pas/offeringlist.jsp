@@ -52,7 +52,7 @@
   </thead>
   <c:forEach var="offering" items="${offering_list}">
   <tr>
-    <td><a href="<c:url value="/offering.html"><c:param name="offeringId" value="${offering.id}"/></c:url>">${offering.sdsOffering.name}</a></td>
+    <td>${offering.sdsOffering.name}</td>
     <td>
       <c:choose>
         <c:when test="${fn:length(workgroup_map[offering]) == 0}" >
