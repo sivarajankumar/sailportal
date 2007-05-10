@@ -76,10 +76,11 @@
                 <type>mail</type>
                 <sendOnError>true</sendOnError>
                 <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
                 <sendOnSuccess>false</sendOnSuccess>
-                <sendOnWarning>false</sendOnWarning>
                 <configuration>
                     <address>cynick.young@utoronto.ca</address>
+                    <address>laurel.williams@utoronto.ca</address>
                 </configuration>
             </notifier>
         </notifiers>
