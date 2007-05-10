@@ -80,6 +80,15 @@
                 <sendOnSuccess>false</sendOnSuccess>
                 <configuration>
                     <address>cynick.young@utoronto.ca</address>
+                </configuration>
+            </notifier>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>false</sendOnSuccess>
+                <configuration>
                     <address>laurel.williams@utoronto.ca</address>
                 </configuration>
             </notifier>
