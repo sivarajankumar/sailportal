@@ -53,8 +53,8 @@ public class SdsUserUpdateCommandHttpRestImplTest extends
         this.expectedSdsUser.setLastName(EXPECTED_LAST_NAME);
         this.expectedSdsUser.setSdsObjectId(EXPECTED_ID);
 
-        this.putCommand = new SdsUserUpdateCommandHttpRestImpl();
-        command = ((SdsUserUpdateCommandHttpRestImpl) (this.putCommand));
+        this.updateCommand = new SdsUserUpdateCommandHttpRestImpl();
+        command = ((SdsUserUpdateCommandHttpRestImpl) (this.updateCommand));
         command.setTransport(this.mockTransport);
         command.setSdsUser(this.expectedSdsUser);
         this.httpRequest = command.generateRequest();

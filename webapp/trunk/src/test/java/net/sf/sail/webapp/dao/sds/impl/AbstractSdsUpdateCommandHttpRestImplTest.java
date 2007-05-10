@@ -47,7 +47,7 @@ public abstract class AbstractSdsUpdateCommandHttpRestImplTest extends TestCase 
 
     protected HttpPutRequest httpRequest;
 
-    protected SdsCommand putCommand;
+    protected SdsCommand updateCommand;
 
     /**
      * @see junit.framework.TestCase#setUp()
@@ -65,7 +65,7 @@ public abstract class AbstractSdsUpdateCommandHttpRestImplTest extends TestCase 
     protected void tearDown() throws Exception {
         super.tearDown();
         this.mockTransport = null;
-        this.putCommand = null;
+        this.updateCommand = null;
         this.httpRequest = null;
     }
 
@@ -75,7 +75,7 @@ public abstract class AbstractSdsUpdateCommandHttpRestImplTest extends TestCase 
                 new BadRequestException("exception"));
         EasyMock.replay(this.mockTransport);
         try {
-            this.putCommand.execute(this.httpRequest);
+            this.updateCommand.execute(this.httpRequest);
             fail("Expected BadRequestException");
         } catch (BadRequestException e) {
         }
@@ -86,7 +86,7 @@ public abstract class AbstractSdsUpdateCommandHttpRestImplTest extends TestCase 
                 new NetworkTransportException("exception"));
         EasyMock.replay(this.mockTransport);
         try {
-            this.putCommand.execute(this.httpRequest);
+            this.updateCommand.execute(this.httpRequest);
             fail("Expected NetworkTransportException");
         } catch (NetworkTransportException e) {
         }
@@ -100,7 +100,7 @@ public abstract class AbstractSdsUpdateCommandHttpRestImplTest extends TestCase 
         EasyMock.expect(this.mockTransport.put(this.httpRequest)).andReturn(
                 responseMap);
         EasyMock.replay(this.mockTransport);
-        SdsObject actual = (SdsObject) this.putCommand
+        SdsObject actual = (SdsObject) this.updateCommand
                 .execute(this.httpRequest);
         return actual;
     }

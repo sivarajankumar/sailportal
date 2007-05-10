@@ -105,16 +105,16 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
         // create curnit in SDS
         SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
                 .getBean("sdsCurnit");
-        sdsCurnit.setSdsObjectId(createCurnitInSds());
+        sdsCurnit.setSdsObjectId(this.createCurnitInSds());
         this.sdsOffering.setSdsCurnit(sdsCurnit);
 
         // create jnlp in SDS
         SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
-        sdsJnlp.setSdsObjectId(createJnlpInSds());
+        sdsJnlp.setSdsObjectId(this.createJnlpInSds());
         this.sdsOffering.setSdsJnlp(sdsJnlp);
 
         // create offering in SDS
-        Integer sdsOfferingId = createOfferingInSds(sdsCurnit.getSdsObjectId(),
+        Integer sdsOfferingId = this.createOfferingInSds(sdsCurnit.getSdsObjectId(),
                 sdsJnlp.getSdsObjectId());
         this.sdsOffering.setSdsObjectId(sdsOfferingId);
 

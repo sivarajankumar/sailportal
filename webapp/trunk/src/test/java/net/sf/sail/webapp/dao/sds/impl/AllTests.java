@@ -32,6 +32,7 @@ public class AllTests {
 		TestSuite suite = new TestSuite(
 				"Test for net.sf.sail.webapp.dao.sds.impl");
 		//$JUnit-BEGIN$
+		suite.addTestSuite(SdsJnlpUpdateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsJnlpCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(HttpRestSdsWorkgroupDaoTest.class);
 		suite.addTestSuite(HttpRestSdsUserDaoTest.class);
@@ -45,10 +46,10 @@ public class AllTests {
 		suite.addTestSuite(HttpRestSdsCurnitDaoTest.class);
 		suite.addTestSuite(HttpRestSdsJnlpDaoTest.class);
 		suite.addTestSuite(SdsCurnitUpdateCommandHttpRestImplTest.class);
+		suite.addTestSuite(SdsUserUpdateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsCurnitCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsWorkgroupCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsUserUpdateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsJnlpUpdateCommandHttpRestImplTest.class);
+		suite.addTestSuite(SdsOfferingUpdateCommandHttpRestImplTest.class);
 		//$JUnit-END$
 		return suite;
 	}

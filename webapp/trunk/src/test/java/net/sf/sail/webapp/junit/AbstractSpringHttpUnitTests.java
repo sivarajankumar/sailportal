@@ -24,6 +24,7 @@ import java.net.MalformedURLException;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
@@ -177,6 +178,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         sdsCurnit.setSdsObjectId(new Integer(curnitElement.getChild("id").getValue()));
         return sdsCurnit;
     }
+    
     /**
      * Uses HttpUnit functionality to retreive a singe sds jnlp from the sds.
      * 
@@ -189,8 +191,6 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
     protected SdsJnlp getJnlpInSds(Integer sdsJnlpId) throws IOException, JDOMException, SAXException {
     	WebResponse webResponse = this.makeHttpRestGetRequest("/jnlp/" + sdsJnlpId);
         assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
-        System.out.println("LOOK HERE" + webResponse.toString());
-        System.out.println(webResponse.getText());
 
         Document doc = createDocumentFromResponse(webResponse);
         SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
@@ -199,6 +199,37 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         sdsJnlp.setUrl(jnlpElement.getChild("url").getValue());
         sdsJnlp.setSdsObjectId(new Integer(jnlpElement.getChild("id").getValue()));
         return sdsJnlp;
+    }
+    
+    /**
+     * Uses HttpUnit functionality to retrieve a single sds offering (including curnit and jnlp) from the sds.
+     * 
+     * @param sdsOfferingId The id of the offering you want to retrieve
+     * @return The SdsOffering with all parameters set.
+     * 
+     * @throws IOException
+     * @throws JDOMException
+     * @throws SAXException
+     */
+    protected SdsOffering getOfferngInSds(Integer sdsOfferingId) throws IOException, JDOMException, SAXException {
+    	WebResponse webResponse = this.makeHttpRestGetRequest("/offering/" + sdsOfferingId);
+        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
+        Document doc = createDocumentFromResponse(webResponse);
+        SdsOffering sdsOffering = (SdsOffering) this.applicationContext.getBean("sdsOffering");
+        Element offeringElement = doc.getRootElement();
+        sdsOffering.setName(offeringElement.getChild("name").getValue());
+        sdsOffering.setSdsObjectId(new Integer(offeringElement.getChild("id").getValue()));
+        
+        Integer sdsCurnitId = new Integer(offeringElement.getChild("curnit-id").getValue());
+        SdsCurnit sdsCurnit = this.getCurnitInSds(sdsCurnitId);
+        sdsOffering.setSdsCurnit(sdsCurnit);
+        
+        Integer sdsJnlpId = new Integer(offeringElement.getChild("jnlp-id").getValue());
+        SdsJnlp sdsJnlp = this.getJnlpInSds(sdsJnlpId);
+        sdsOffering.setSdsJnlp(sdsJnlp);
+        
+        return sdsOffering;
     }
     
     /**

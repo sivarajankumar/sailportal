@@ -23,6 +23,7 @@ import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
+import net.sf.sail.webapp.dao.sds.SdsOfferingUpdateCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -38,45 +39,59 @@ import org.springframework.beans.factory.annotation.Required;
  * 
  */
 public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
-        SdsOfferingDao {
+		SdsOfferingDao {
 
-    private SdsOfferingListCommand listCommand;
+	private SdsOfferingListCommand listCommand;
 
-    private SdsOfferingCreateCommand createCommand;
+	private SdsOfferingCreateCommand createCommand;
 
-    /**
-     * @param listCommand
-     *            the listCommand to set
-     */
-    @Required
-    public void setListCommand(SdsOfferingListCommand listCommand) {
-        this.listCommand = listCommand;
-    }
+	private SdsOfferingUpdateCommand updateCommand;
 
-    /**
-     * @param createCommand
-     *            the createCommand to set
-     */
-    @Required
-    public void setCreateCommand(SdsOfferingCreateCommand createCommand) {
-        this.createCommand = createCommand;
-    }
+	/**
+	 * @param listCommand
+	 *            the listCommand to set
+	 */
+	@Required
+	public void setListCommand(SdsOfferingListCommand listCommand) {
+		this.listCommand = listCommand;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.dao.sds.SdsOfferingDao#getList()
-     */
-    @SuppressWarnings("unchecked")
-    public List<SdsOffering> getList() {
-        return this.listCommand.execute(this.listCommand.generateRequest());
-    }
+	/**
+	 * @param createCommand
+	 *            the createCommand to set
+	 */
+	@Required
+	public void setCreateCommand(SdsOfferingCreateCommand createCommand) {
+		this.createCommand = createCommand;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
-     */
-    public void save(SdsOffering sdsOffering) {
-        this.createCommand.setSdsOffering(sdsOffering);
-        this.createCommand.execute(this.createCommand.generateRequest());
-        // TODO CY - when update command for SDS is written, need to
-        // differentiate between create and update
-    }
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsOfferingDao#getList()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SdsOffering> getList() {
+		return this.listCommand.execute(this.listCommand.generateRequest());
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
+	 */
+	public void save(SdsOffering sdsOffering) {
+		if (sdsOffering.getSdsObjectId() == null) {
+			this.createCommand.setSdsOffering(sdsOffering);
+			this.createCommand.execute(this.createCommand.generateRequest());
+		} else {
+			this.updateCommand.setSdsOffering(sdsOffering);
+			this.updateCommand.execute(this.updateCommand.generateRequest());
+		}
+	}
+
+	/**
+	 * @param updateCommand
+	 *            the updateCommand to set
+	 */
+	@Required
+	public void setUpdateCommand(SdsOfferingUpdateCommand updateCommand) {
+		this.updateCommand = updateCommand;
+	}
 }

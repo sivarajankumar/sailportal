@@ -108,6 +108,48 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
         }
     }
 
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+	 */
+	public void testUpdateOffering() throws Exception {
+        // create curnit in SDS
+        SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
+                .getBean("sdsCurnit");
+        sdsCurnit.setSdsObjectId(this.createCurnitInSds());
+        this.sdsOffering.setSdsCurnit(sdsCurnit);
+
+        // create jnlp in SDS
+        SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
+        sdsJnlp.setSdsObjectId(this.createJnlpInSds());
+        this.sdsOffering.setSdsJnlp(sdsJnlp);
+
+        // create offering in SDS
+        Integer sdsOfferingId = this.createOfferingInSds(sdsCurnit.getSdsObjectId(),
+                sdsJnlp.getSdsObjectId());
+        SdsOffering actualSdsOffering = this.getOfferngInSds(sdsOfferingId);
+ 		assertEquals(actualSdsOffering.getSdsObjectId(), sdsOfferingId);
+		assertEquals(actualSdsOffering.getName(), DEFAULT_NAME);
+		assertEquals(actualSdsOffering.getSdsCurnit().getSdsObjectId(), sdsCurnit.getSdsObjectId());
+		assertEquals(actualSdsOffering.getSdsJnlp().getSdsObjectId(), sdsJnlp.getSdsObjectId());
+
+		SdsOffering sdsOfferingToUpdate = (SdsOffering) this.applicationContext
+				.getBean("sdsOffering");
+		sdsOfferingToUpdate.setSdsObjectId(sdsOfferingId);
+		sdsOfferingToUpdate.setSdsCurnit(sdsCurnit);
+		sdsOfferingToUpdate.setSdsJnlp(sdsJnlp);
+		
+		String updateName = "Updated";
+		sdsOfferingToUpdate.setName(updateName);
+		
+		this.sdsOfferingDao.save(sdsOfferingToUpdate);
+		SdsOffering updatedSdsOffering = this.getOfferngInSds(sdsOfferingId);
+		
+		assertEquals(sdsOfferingId, updatedSdsOffering.getSdsObjectId());
+		assertFalse(actualSdsOffering.equals(updatedSdsOffering));
+		assertEquals(updateName, updatedSdsOffering.getName());
+	}
+
     /**
      * Test method for
      * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.

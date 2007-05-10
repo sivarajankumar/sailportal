@@ -53,8 +53,8 @@ public class SdsJnlpUpdateCommandHttpRestImplTest extends
 		this.expectedSdsJnlp.setUrl(EXPECTED_URL);
 		this.expectedSdsJnlp.setSdsObjectId(EXPECTED_ID);
 
-		this.putCommand = new SdsJnlpUpdateCommandHttpRestImpl();
-		command = ((SdsJnlpUpdateCommandHttpRestImpl) (this.putCommand));
+		this.updateCommand = new SdsJnlpUpdateCommandHttpRestImpl();
+		command = ((SdsJnlpUpdateCommandHttpRestImpl) (this.updateCommand));
 		this.command.setTransport(this.mockTransport);
 		this.command.setSdsJnlp(this.expectedSdsJnlp);
 		this.httpRequest = this.command.generateRequest();
