@@ -77,7 +77,7 @@
                 <sendOnError>true</sendOnError>
                 <sendOnFailure>true</sendOnFailure>
                 <sendOnWarning>true</sendOnWarning>
-                <sendOnSuccess>false</sendOnSuccess>
+                <sendOnSuccess>true</sendOnSuccess>
                 <configuration>
                     <address>cynick.young@utoronto.ca</address>
                 </configuration>
