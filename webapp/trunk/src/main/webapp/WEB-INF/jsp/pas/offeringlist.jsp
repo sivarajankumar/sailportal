@@ -41,33 +41,31 @@
 
 <div id="right">
 <h2><spring:message code="hello" /> ${user.userDetails.username}</h2>
-
+<spring:message code="offerings.list" />
 <table border="1">
   <thead>
     <tr>
       <th><spring:message code="offering.name.heading" /></th>
-      <th><spring:message code="offering.workgroup.heading" /></th>
       <th><spring:message code="offering.link.heading" /></th>
+      <th><spring:message code="offering.workgroup.heading" /></th>
     </tr>
   </thead>
   <c:forEach var="offering" items="${offering_list}">
   <tr>
     <td>${offering.sdsOffering.name}</td>
+    <td><a href = "" ><spring:message code="edit.curnit" /></a></td>
     <td>
       <c:choose>
         <c:when test="${fn:length(workgroup_map[offering]) == 0}" >
         <spring:message code="no.workgroups" />
         </c:when>
         <c:otherwise>
-          <ul>
             <c:forEach var="workgroup" items="${workgroup_map[offering]}">
-              <li><a href="${http_transport.baseUrl}/offering/${offering.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a></li>
+              <a href="${http_transport.baseUrl}/offering/${offering.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a><br />
             </c:forEach>
-          </ul>
         </c:otherwise>
       </c:choose>
     </td>
-    <td><spring:message code="create.workgroup.link" /></td>
    </tr>
   </c:forEach>
 </table>

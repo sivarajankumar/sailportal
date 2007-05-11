@@ -18,7 +18,7 @@
  * $Id$
  */
 body {
-    background-color: pink;
+    background-color: white;
 }
 
 table {
@@ -46,6 +46,6 @@ table td {
 }
 
 div {
-    background-color: pink;
+    background-color: white;
     color: blue;
 }
