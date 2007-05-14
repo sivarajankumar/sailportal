@@ -48,7 +48,7 @@
 </ul>
 </div>
 
-<div id="verticalNavigation" class="bgcolorLightBlue">
+<div id="verticalNavigation" class="border bgcolorLightBlue">
 <p class="parastyle bgcolorLightBlue">
 <spring:message code="wise.about.desc" />
 
@@ -92,9 +92,9 @@
 </ul>
 
 <div class="inline bgcolorLightBlue">
-<img class="marginAdj1 widthAdj1 positionAdj1"  id=rotator name=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg">
-<img class="marginAdj1 widthAdj1 positionAdj2" id=rotatorT name=rotatorT src="./themes/tels/default/images/wiseInAction/dummyfile.jpg"> 
-<b class="marginAdj1 widthAdj1 positionAdj4"> news </b> 
+<img class="marginAdj1 widthAdj1 positionAdj1 border"  id=rotator name=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg">
+<img class="marginAdj1 widthAdj1 positionAdj2 border" id=rotatorT name=rotatorT src="./themes/tels/default/images/wiseInAction/dummyfile.jpg"> 
+<b class="marginAdj1 widthAdj1 positionAdj4 border"> news </b> 
 </div>
 
 <div class="inline bgcolorLightBlue">
