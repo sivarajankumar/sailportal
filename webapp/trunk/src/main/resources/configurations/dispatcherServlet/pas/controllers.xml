@@ -41,6 +41,10 @@
         class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
     </bean>
 
+   <bean
+        class="net.sf.sail.webapp.presentation.web.controllers.AuthoringJnlpLauncherController">
+    </bean>
+
     <bean id="userDetailsValidator"
         class="net.sf.sail.webapp.presentation.validators.UserDetailsValidator" />
 
