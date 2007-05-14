@@ -18,6 +18,9 @@
 
 <!-- $Id$ -->
 
-<div id="logo">
-	<img src="<spring:theme code="logo"/>" alt="<spring:message code="sail.logo.alttext" />" />
+<div id="banner">
+<img width="158" height="85"
+	src="<spring:theme code="logo"/>"
+	alt="<spring:message code="sail.logo.alttext" />" />
+<spring:message code="banner.heading" />
 </div>
