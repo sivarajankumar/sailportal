@@ -66,7 +66,7 @@
 		class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingCreateCommandHttpRestImpl">
 		<property name="transport" ref="httpRestTransport" />
 	</bean>
-	
+
 	<bean id="sdsOfferingUpdateCommand"
 		class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingUpdateCommandHttpRestImpl">
 		<property name="transport" ref="httpRestTransport" />
@@ -76,6 +76,10 @@
 		class="net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl">
 		<property name="sdsOfferingDao" ref="sdsOfferingDao" />
 		<property name="offeringDao" ref="offeringDao" />
+	</bean>
+	
+	<bean id="authoringjnlpmodifier"
+		class="net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier">
 	</bean>
 
 	<bean id="curnitService"

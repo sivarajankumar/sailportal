@@ -86,7 +86,7 @@
 			ref="authenticationManager" />
 		<property name="authenticationFailureUrl"
 			value="/login.html?failed=true" />
-		<property name="alwaysUseDefaultTargetUrl" value="false" />
+		<property name="alwaysUseDefaultTargetUrl" value="true" />
 		<property name="defaultTargetUrl" value="/offeringlist.html" />
 		<property name="filterProcessesUrl"
 			value="/j_acegi_security_check" />
@@ -176,6 +176,7 @@
 				/index.jsp=ROLE_ANONYMOUS,ROLE_USER
 				/login.html=ROLE_ANONYMOUS,ROLE_USER
 				/signup.html=ROLE_ANONYMOUS,ROLE_USER
+				/authoringjnlplauncher.html=ROLE_USER
 				/*.html=ROLE_USER
 			</value>
 		</property>

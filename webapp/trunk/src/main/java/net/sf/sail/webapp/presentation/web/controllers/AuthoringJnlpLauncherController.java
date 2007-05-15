@@ -17,28 +17,98 @@
  */
 package net.sf.sail.webapp.presentation.web.controllers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
+
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  * @author Laurel Williams
- *
- * @version $Id$
+ * 
+ * @version $Id: AuthoringJnlpLauncherController.java 394 2007-05-14 16:14:10Z
+ *          laurel $
  */
 public class AuthoringJnlpLauncherController extends AbstractController {
 
+	private String jnlpFileName;
+	
+	private AuthoringJNLPModifier modifier;
+
+	private static final String JNLP_RELATIVE_PATH = "/library/jnlp/";
+	
+	public static final String JNLP_CONTENT_TYPE = "application/x-java-jnlp-file";
+	
+	private static final String CURNIT_URL_ATTRIBUTE = "curnit_url";
+	
+	private static final String jnlpOutputFileName = "authoringjnlplauncher";
+	
+
 	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
-		// TODO Auto-generated method stub
-		return modelAndView;
+		
+		String jnlpString = getJNLPAsString();
+		String curnitUrl = (String) request.getAttribute(CURNIT_URL_ATTRIBUTE);
+//		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl);
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader ("Expires", 0);
+		
+		String fileName = request.getServletPath();
+		fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
+		fileName = fileName.substring(0, fileName.indexOf(".")) + ".jnlp";
+		response.addHeader("Content-Disposition", "Inline; fileName=" + fileName);
+		
+		response.setContentType(JNLP_CONTENT_TYPE);
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(jnlpString);
+		return null;
+	}
+
+	private String getJNLPAsString() throws FileNotFoundException, IOException {
+		String jnlpFilePath = this.getServletContext().getRealPath(JNLP_RELATIVE_PATH + jnlpFileName);
+		BufferedReader jnlpReader = new BufferedReader(new FileReader(new File(jnlpFilePath)));
+		String line = jnlpReader.readLine();
+		String jnlpString = "";
+		while (line != null) {
+			jnlpString = jnlpString + line;
+			line = jnlpReader.readLine();
+		}
+		jnlpReader.close();
+		return jnlpString;
+	}
+
+	/**
+	 * @param jnlpFileName
+	 *            the jnlpFileName to set
+	 */
+	@Required
+	public void setJnlpFileName(String jnlpFileName) {
+		this.jnlpFileName = jnlpFileName;
+	}
+
+	/**
+	 * @param modifier the modifier to set
+	 */
+	@Required
+	public void setModifier(AuthoringJNLPModifier modifier) {
+		this.modifier = modifier;
 	}
 
 }

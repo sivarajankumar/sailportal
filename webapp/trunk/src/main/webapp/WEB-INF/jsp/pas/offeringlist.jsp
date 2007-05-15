@@ -49,7 +49,7 @@
   <c:forEach var="offering" items="${offering_list}">
   <tr>
     <td>${offering.sdsOffering.name}</td>
-    <td><a href="authoringjnlplauncher.html" ><spring:message code="edit.curnit" /></a></td>
+    <td><a href="authoringjnlplauncher.html"><spring:message code="edit.curnit" /></a></td>
     <td>
       <c:choose>
         <c:when test="${fn:length(workgroup_map[offering]) == 0}" >

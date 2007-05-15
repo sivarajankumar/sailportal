@@ -43,6 +43,8 @@
 
    <bean
         class="net.sf.sail.webapp.presentation.web.controllers.AuthoringJnlpLauncherController">
+        <property name="jnlpFileName" value="authoring-everything-snapshot.jnlp" />
+        <property name="modifier" ref="authoringjnlpmodifier" />
     </bean>
 
     <bean id="userDetailsValidator"
