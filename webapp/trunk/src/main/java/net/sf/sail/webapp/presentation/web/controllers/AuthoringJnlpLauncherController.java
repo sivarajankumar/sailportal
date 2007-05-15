@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,9 +49,7 @@ public class AuthoringJnlpLauncherController extends AbstractController {
 	public static final String JNLP_CONTENT_TYPE = "application/x-java-jnlp-file";
 	
 	private static final String CURNIT_URL_ATTRIBUTE = "curnit_url";
-	
-	private static final String jnlpOutputFileName = "authoringjnlplauncher";
-	
+		
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -63,8 +60,9 @@ public class AuthoringJnlpLauncherController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		
 		String jnlpString = getJNLPAsString();
-		String curnitUrl = (String) request.getAttribute(CURNIT_URL_ATTRIBUTE);
-//		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl);
+		String curnitUrl = (String) request.getParameter(CURNIT_URL_ATTRIBUTE);
+		System.out.println(curnitUrl);
+		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl);
 		
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
@@ -77,7 +75,7 @@ public class AuthoringJnlpLauncherController extends AbstractController {
 		
 		response.setContentType(JNLP_CONTENT_TYPE);
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().print(jnlpString);
+		response.getWriter().print(outputJNLPString);
 		return null;
 	}
 

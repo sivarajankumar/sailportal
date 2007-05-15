@@ -61,7 +61,7 @@ public class AuthoringJNLPModifier implements StringModifyService {
 				.getChild(APPLICATION_ELEMENT_NAME);
 		Element argumentElement = new Element(ARGUMENT_ELEMENT_NAME);
 		argumentElement.setText(curnitURL);
-
+		
 		applicationElement.addContent(argumentElement);
 		XMLOutputter outputter = new XMLOutputter();
 		String outputJNLP = outputter.outputString(doc);
