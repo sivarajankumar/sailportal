@@ -26,23 +26,12 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <title><spring:message code="signup.title" /></title>
-<script type="text/javascript" src="./javascript/utils.js"></script>
-<script type="text/javascript">
-function onLoadHandler() {
-  document.getElementById("username").focus();
-}
 
-addEvent(window, 'load', onLoadHandler);
-</script>
 </head>
 
 <body>
 
 <%@ include file="header.jsp"%>
-
-<div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
-</div>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="studentAccountForm.*">
@@ -55,7 +44,11 @@ addEvent(window, 'load', onLoadHandler);
 
 <div id="columns">
 <div id="left">
-<h2><spring:message code="register.student" /></h2>
+<h2><spring:message code="student.registration" /></h2>
+</div>
+
+<div>
+<h3><spring:message code="student.registration.instructions" /></h3>
 </div>
 
 <div id="right">
@@ -113,8 +106,7 @@ addEvent(window, 'load', onLoadHandler);
     </div>
 
   
-    <div><input type="submit" value="<spring:message code="signup.submit" />" /></div>
-
+    <div><input type="submit" value="<spring:message code="signup.save.information" />" /></div>
 
 </form:form></div>
 </div>
