@@ -77,6 +77,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	@Transient
 	public static final String COLUMN_NAME_SCHOOLLEVEL = "schoollevel";
 
+	@Transient
+	public static final String COLUMN_NAME_NUMBEROFLOGINS = "numberoflogins";
+	
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -107,6 +110,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
     
     @Column(name = TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL, nullable = false)
 	private String schoollevel;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_NUMBEROFLOGINS, nullable = false)
+    private Integer numberOfLogins;
 	
 	/**
 	 * @return the firstname
@@ -228,5 +234,13 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	public String[] getUsernameSuffixes() {
 		return new String[] {"", "a", "b", "c", "d", "e", "f", "g", "h",
 	            "i", "j", "k", "l", "m", "n", "o", "p"};
+	}
+	
+	public Integer getNumberOfLogins() {
+		return this.numberOfLogins;
+	}
+	
+	public void setNumberOfLogins(Integer numberOfLogins) {
+		this.numberOfLogins = numberOfLogins;
 	}
 }

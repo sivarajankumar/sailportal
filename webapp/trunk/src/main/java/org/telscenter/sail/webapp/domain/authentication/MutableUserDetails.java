@@ -60,4 +60,17 @@ public interface MutableUserDetails extends
 	 */
 	public String[] getUsernameSuffixes();
 	
+	/**
+	 * Returns the number of times the user has logined into the system
+	 * 
+	 * @return Integer of times
+	 */
+	public Integer getNumberOfLogins();
+	
+	/**
+	 * Sets the number of times the user has logined into the sytem
+	 * 
+	 * @param numberOfLogins 1 more time
+	 */
+	public void setNumberOfLogins(Integer numberOfLogins);
 }
