@@ -51,6 +51,8 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 public class HibernateStudentUserDetailsDaoTest extends
         AbstractTransactionalDbTests {
 
+	private static final Integer DEFAULT_NUMBEROFLOGINS = new Integer(3);
+	
     private static final String DEFAULT_ROLE_1 = "default_role_1";
 
     private static final String DEFAULT_ROLE_2 = "default_role_2";
@@ -156,6 +158,7 @@ public class HibernateStudentUserDetailsDaoTest extends
         this.defaultUserDetails.setSignupdate(DEFAULT_SIGNUPDATE);
         this.defaultUserDetails.setGender(DEFAULT_GENDER);
         this.defaultUserDetails.setBirthday(DEFAULT_BIRTHDAY);
+        this.defaultUserDetails.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
     }
 
     /**

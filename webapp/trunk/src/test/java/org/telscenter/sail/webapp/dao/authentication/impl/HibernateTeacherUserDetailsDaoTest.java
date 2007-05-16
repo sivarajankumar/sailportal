@@ -96,6 +96,8 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     private HibernateUserDetailsDao userDetailsDao;
 
+	private Integer DEFAULT_NUMBEROFLOGINS = new Integer(7);
+
     /**
      * @param authorityDao
      *            the authorityDao to set
@@ -170,6 +172,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
                 .setCurriculumsubjects(DEFAULT_CURRICULUMSUBJECTS);
         this.defaultUserDetails.setSchoollevel(DEFAULT_SCHOOLLEVEL);
         this.defaultUserDetails.setSchoolname(DEFAULT_SCHOOLNAME);
+        this.defaultUserDetails.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS );
     }
 
     /**
