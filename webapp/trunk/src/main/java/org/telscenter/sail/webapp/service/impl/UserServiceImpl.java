@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Hiroki Terashima
- * @version $$Id: $$
+ * @version $$Id$$
  */
 public class UserServiceImpl extends
 		net.sf.sail.webapp.service.impl.UserServiceImpl {
@@ -35,6 +35,7 @@ public class UserServiceImpl extends
 		String[] suffixes = details.getUsernameSuffixes(); // extra at end to ensure username uniqueness
 		int index = 0;  // index within suffixes array 
 		
+		details.setNumberOfLogins(0);
 		for (;;) {   // loop until a unique username can be found
 			try {
 				details.setUsername(coreUsername + suffixes[index]);

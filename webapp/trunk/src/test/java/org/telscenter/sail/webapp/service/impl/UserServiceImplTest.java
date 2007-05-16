@@ -77,6 +77,8 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
     
     private MutableGrantedAuthority expectedAuthorityCreate;
 
+	private Integer DEFAULT_NUMBEROFLOGINS = new Integer(9);
+
     public void testDuplicateUserErrors() throws Exception {
         StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
                 .getBean("studentUserDetails");
@@ -87,6 +89,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         userDetails.setSignupdate(SIGNUPDATE);
         userDetails.setGender(GENDER);
         userDetails.setBirthday(BIRTHDAY);
+        userDetails.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
 
         // create 2 users and attempt to save to DB
         // second user should create a new user with similar username but with an added "a"
@@ -101,6 +104,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
         userDetails2.setSignupdate(SIGNUPDATE);
         userDetails2.setGender(GENDER);
         userDetails2.setBirthday(BIRTHDAY);
+        userDetails2.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
 
         this.userService.createUser(userDetails2);
 
@@ -214,6 +218,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		userDetailsCreate.setSignupdate(SIGNUPDATE);
 		userDetailsCreate.setGender(GENDER);
 		userDetailsCreate.setBirthday(BIRTHDAY);
+		userDetailsCreate.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
 
 	}
 	
