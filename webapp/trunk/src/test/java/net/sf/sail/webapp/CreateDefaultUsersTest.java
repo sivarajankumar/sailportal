@@ -80,7 +80,9 @@ public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
     protected void onSetUpInTransaction() throws Exception {
         super.onSetUpInTransaction();
         creator.createRoles(this.applicationContext);
-        creator.createAdministrator(expectedUserDetails);
+        creator
+                .createAdministrator(this.applicationContext, USERNAME,
+                        PASSWORD);
     }
 
     /**

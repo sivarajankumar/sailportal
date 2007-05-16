@@ -199,18 +199,7 @@
             depends="_mvn.compile, db.create"
             description="Initialize a production database with user role and default administrator account."
     >
-        <java classname="net.sf.sail.webapp.CreateDefaultUsers"
-              fork="true"
-              failonerror="true"
-              newenvironment="true"
-        >
-            <arg value="${settings.profiles.profile.properties.context.config.class}"
-            />
-            <arg value="${default.admin.username}" />
-            <arg value="${default.admin.password}" />
-            <classpath refid="runtime.classpath" />
-        </java>
-        <java classname="net.sf.sail.webapp.CreateDefaultOfferings"
+        <java classname="net.sf.sail.webapp.Initializer"
               fork="true"
               failonerror="true"
               newenvironment="true"

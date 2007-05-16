@@ -32,13 +32,10 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 import net.sf.sail.webapp.service.offering.OfferingService;
-import net.sf.sail.webapp.spring.SpringConfiguration;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * A disposable class that is used to create default curnits, jnlp(s), and
@@ -79,44 +76,6 @@ public class CreateDefaultOfferings {
                         "PLR Everything JDIC snapshot 20070125-0811",
                         "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot-20070125-0811.jnlp");
         JNLPS = Collections.unmodifiableMap(hashmap);
-    }
-
-    /**
-     * Stand alone application that initializes the database as well as the
-     * external SDS with predefined curnits, jnlp(s), and offerings that are
-     * known to work.
-     * 
-     * @param args
-     *            args[0] - spring-configuration-classname
-     */
-    public static void main(String[] args) {
-        if (args.length < 1) {
-            System.out
-                    .println("Usage: CreateDefaultOfferings <spring-configuration-classname>");
-            System.exit(1);
-        }
-        ConfigurableApplicationContext applicationContext = null;
-        try {
-            SpringConfiguration springConfig = (SpringConfiguration) BeanUtils
-                    .instantiateClass(Class.forName(args[0]));
-            applicationContext = new ClassPathXmlApplicationContext(
-                    springConfig.getRootApplicationContextConfigLocations());
-
-            CreateDefaultOfferings createDefaultOfferings = new CreateDefaultOfferings(
-                    applicationContext);
-            Curnit[] curnits = createDefaultOfferings
-                    .createDefaultCurnits(applicationContext);
-            Jnlp[] jnlps = createDefaultOfferings
-                    .createDefaultJnlps(applicationContext);
-            createDefaultOfferings.createDefaultOfferings(applicationContext,
-                    curnits, jnlps);
-        } catch (Exception all) {
-            System.err.println(all.getLocalizedMessage());
-            all.printStackTrace(System.out);
-            System.exit(2);
-        } finally {
-            applicationContext.close();
-        }
     }
 
     public Offering[] createDefaultOfferings(

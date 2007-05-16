@@ -25,14 +25,10 @@ import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
-import net.sf.sail.webapp.spring.SpringConfiguration;
 
 import org.acegisecurity.GrantedAuthority;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * A disposable class that is used to create default roles in the data store and
@@ -48,49 +44,6 @@ public class CreateDefaultUsers {
     private UserDetailsService userDetailsService = null;
 
     private UserService userService = null;
-
-    /**
-     * Stand alone application that initializes the database with user and admin
-     * roles, as well as an administrator user account. Your chosen
-     * administrator username and password need to be passed as command line
-     * arguments.
-     * 
-     * @param args
-     *            args[0] - spring-configuration-classname
-     *            args[1] - the admin username
-     *            args[2] - the admin password
-     */
-    public static void main(String[] args) {
-        if (args.length < 3) {
-            System.out.println("Usage: CreateDefaultUsers "
-                    + "<spring-configuration-classname> " + "<admin-username> "
-                    + "<admin-password>");
-            System.exit(1);
-        }
-        ConfigurableApplicationContext applicationContext = null;
-        try {
-            SpringConfiguration springConfig = (SpringConfiguration) BeanUtils
-                    .instantiateClass(Class.forName(args[0]));
-            applicationContext = new ClassPathXmlApplicationContext(
-                    springConfig.getRootApplicationContextConfigLocations());
-
-            CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers(
-                    applicationContext);
-            createDefaultUsers.createRoles(applicationContext);
-
-            MutableUserDetails adminUser = (MutableUserDetails) applicationContext
-                    .getBean("mutableUserDetails");
-            adminUser.setUsername(args[1]);
-            adminUser.setPassword(args[2]);
-            createDefaultUsers.createAdministrator(adminUser);
-        } catch (Exception all) {
-            System.err.println(all.getLocalizedMessage());
-            all.printStackTrace(System.out);
-            System.exit(2);
-        } finally {
-            applicationContext.close();
-        }
-    }
 
     /**
      * @param applicationContext
@@ -111,8 +64,12 @@ public class CreateDefaultUsers {
      * UserDetailsService.ADMIN_ROLE authorities. These roles must be set
      * already by using createRoles();
      * 
-     * @param userDetails
-     *            A UserDetails object with the username and password set.
+     * @param applicationContext
+     *            The Spring application context that contains the beans.
+     * @param username
+     *            The username.
+     * @param password
+     *            The password.
      * @return A User object with UserDetails set including username and
      *         password that were input and with roles
      *         UserDetailsService.USER_ROLE and UserDetailsService.ADMIN_ROLE
@@ -124,8 +81,13 @@ public class CreateDefaultUsers {
      *             If the user cannot be created (duplicate user name, null
      *             username or null password)
      */
-    public User createAdministrator(MutableUserDetails userDetails)
+    public User createAdministrator(ApplicationContext applicationContext,
+            String username, String password)
             throws AuthorityNotFoundException, DuplicateUsernameException {
+        MutableUserDetails userDetails = (MutableUserDetails) applicationContext
+                .getBean("mutableUserDetails");
+        userDetails.setUsername(username);
+        userDetails.setPassword(password);
         GrantedAuthority authority = this.userDetailsService
                 .loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
         userDetails.addAuthority(authority);
@@ -148,18 +110,7 @@ public class CreateDefaultUsers {
         createRole(applicationContext, UserDetailsService.ADMIN_ROLE);
     }
 
-    /**
-     * Creates a role in the the data store authorities table. A role needs to
-     * be created before attempting to create users.
-     * 
-     * @param applicationContext
-     *            The Spring application context that contains the beans.
-     * @param role
-     *            The name of the role to create.
-     * @throws DuplicateAuthorityException
-     *             if authority to be created is not unique
-     */
-    public void createRole(ApplicationContext applicationContext, String role)
+    private void createRole(ApplicationContext applicationContext, String role)
             throws DuplicateAuthorityException {
         MutableGrantedAuthority mutableGrantedAuthority = (MutableGrantedAuthority) applicationContext
                 .getBean("mutableGrantedAuthority");
