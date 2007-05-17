@@ -24,7 +24,7 @@
 <head>
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="success.title" /></title>
+<title><spring:message code="application.title" /> <spring:message code="title.separator" /> <spring:message code="curnit.list" /></title>
 </head>
 
 <body>

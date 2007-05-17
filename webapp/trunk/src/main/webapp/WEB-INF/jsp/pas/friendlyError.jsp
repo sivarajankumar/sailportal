@@ -25,7 +25,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="application.title" /> <spring:message code="title.separator" /> <spring:message code="error.title" /></title>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
 </div>
 
 <div id="right">
-An error has occurred.
+<spring:message code="error.generic.message" />
 </div>
 
 </div>
