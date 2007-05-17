@@ -14,7 +14,7 @@
 		<j2se initial-heap-size="32m" max-heap-size="128m"
 			version="1.5+" />
 		<property name="maven.jnlp.version"
-			value="authoring-everything-snapshot-0.1.0-20070511.182952" />
+			value="authoring-everything-snapshot-0.1.0-20070516.154048" />
 		<jar href="org/concord/framework/framework.jar"
 			version="0.1.0-20070511.131402-50" />
 		<jar href="com/webrenderer/webrenderer-win/webrenderer-win.jar"
@@ -22,12 +22,10 @@
 		<jar href="javax/servlet/servlet-api/servlet-api.jar"
 			version="2.4" />
 		<jar href="ekit/ekit/ekit.jar" version="1.1" />
-		<jar href="org/telscenter/pas-otrunk/pas-otrunk.jar"
-			version="0.1.0-20070508.155218-228" />
 		<jar href="jgoodies/looks/looks.jar" version="1.3.1" />
+		<jar href="jgroups/jgroups-all/jgroups-all.jar" version="2.2.8" />
 		<jar href="org/telscenter/external/wizard/wizard/wizard.jar"
 			version="0.99" />
-		<jar href="jgroups/jgroups-all/jgroups-all.jar" version="2.2.8" />
 		<jar href="com/webrenderer/webrenderer-osx/webrenderer-osx.jar"
 			version="3.0" />
 		<jar href="org/concord/logging/logging.jar"
@@ -35,10 +33,10 @@
 		<jar
 			href="commons-collections/commons-collections/commons-collections.jar"
 			version="3.1" />
+		<jar href="org/concord/otrunk/otrunk.jar"
+			version="0.1.0-20070515.170304-134" />
 		<jar href="jsr223/script/script.jar" version="1.0ea" />
 		<jar href="hsqldb/hsqldb/hsqldb.jar" version="1.7.3.3" />
-		<jar href="org/concord/pedagogica/pedagogica.jar"
-			version="0.1.0-20070511.170024-37" />
 		<jar href="org/concord/external/vecmath/vecmath.jar"
 			version="2.0" />
 		<jar href="jgoodies/binding/binding.jar" version="1.0" />
@@ -54,24 +52,21 @@
 		<jar href="org/concord/data/data.jar"
 			version="0.1.0-20070429.035321-28" />
 		<jar href="vldocking/vldocking/vldocking.jar" version="2.0.5" />
+		<jar href="xstream/xstream/xstream.jar" version="1.1.2" />
 		<jar href="tablelayout/TableLayout/TableLayout.jar"
 			version="20020517" />
-		<jar href="xstream/xstream/xstream.jar" version="1.1.2" />
 		<jar href="org/concord/frameworkview/frameworkview.jar"
 			version="0.1.0-20070429.035628-18" />
-		<jar
-			href="org/telscenter/pas-learner-runtime/pas-learner-runtime.jar"
-			version="0.4.3-20070511.094853-483" />
-		<jar href="org/concord/database/database.jar"
-			version="0.1.0-20070429.035841-11" />
 		<jar href="org/concord/graphutil/graphutil.jar"
 			version="0.1.0-20070504.190013-52" />
-		<jar href="org/concord/assessment/assessment.jar"
-			version="0.1.0-20070429.040012-11" />
+		<jar href="org/concord/database/database.jar"
+			version="0.1.0-20070429.035841-11" />
 		<jar href="commons-lang/commons-lang/commons-lang.jar"
 			version="2.0" />
-		<jar href="javax/mail/mail/mail.jar" version="1.4" />
+		<jar href="org/concord/assessment/assessment.jar"
+			version="0.1.0-20070429.040012-11" />
 		<jar href="rhino/js/js.jar" version="1.6R2" />
+		<jar href="javax/mail/mail/mail.jar" version="1.4" />
 		<jar href="org/telscenter/pas-molecular/pas-molecular.jar"
 			version="0.1.0-20070417.190802-133" />
 		<jar href="org/telscenter/external/xito/dialog/dialog.jar"
@@ -79,40 +74,48 @@
 		<jar
 			href="swingx/swingworker/swingx-swingworker/swingx-swingworker.jar"
 			version="0.8.0" />
-		<jar href="org/concord/modeler/workbench/workbench.jar"
-			version="1.3.1-20070511.180044-495" />
+		<jar
+			href="org/telscenter/pas-author-runtime/pas-author-runtime.jar"
+			version="0.4.5-20070516.064421-277" />
 		<jar href="org/concord/graph/graph.jar"
 			version="0.1.0-20070429.035141-23" />
 		<jar href="concurrent/concurrent/concurrent.jar"
 			version="1.3.4" />
-		<jar href="org/concord/otrunk/otrunk.jar"
-			version="0.1.0-20070511.131325-133" />
+		<jar href="org/telscenter/pas-otrunk/pas-otrunk.jar"
+			version="0.1.0-20070516.030358-236" />
 		<jar
 			href="org/telscenter/external/net/java/javadesktop/myswing/myswing/myswing.jar"
 			version="1.0.1" />
-		<jar href="org/concord/multimedia/multimedia.jar"
-			version="0.1.0-20070429.040650-17" />
 		<jar href="org/telscenter/proprietary/licensing/licensing.jar"
 			main="true" version="0.1.4" />
+		<jar href="org/concord/pedagogica/pedagogica.jar"
+			version="0.1.0-20070516.151432-39" />
+		<jar href="org/concord/multimedia/multimedia.jar"
+			version="0.1.0-20070429.040650-17" />
+		<jar href="com/webrenderer/webrenderer/webrenderer.jar"
+			version="3.0" />
 		<jar
 			href="net/java/dev/xhtmlrenderer/cssparser-fs/cssparser-fs.jar"
 			version="0.9.4" />
 		<jar href="org/concord/math/math.jar"
 			version="0.1.0-20070429.040436-14" />
-		<jar href="com/webrenderer/webrenderer/webrenderer.jar"
-			version="3.0" />
 		<jar href="log4j/log4j/log4j.jar" version="1.2.8" />
 		<jar href="org/telscenter/external/lf2prod/lf2prod/lf2prod.jar"
 			version="6.11" />
+		<jar
+			href="org/telscenter/pas-learner-runtime/pas-learner-runtime.jar"
+			version="0.4.3-20070516.045748-491" />
 		<jar href="net/sf/sail/sail-core/sail-core.jar"
-			version="0.4.5-20070510.212537-261" />
+			version="0.4.5-20070514.014041-267" />
+		<jar href="swingx/swingx/swingx.jar" version="0.8.0" />
 		<jar
 			href="commons-beanutils/commons-beanutils/commons-beanutils.jar"
 			version="1.7.0" />
-		<jar href="swingx/swingx/swingx.jar" version="0.8.0" />
 		<jar href="org/concord/external/jep/jep.jar" version="1.0" />
 		<jar href="jug/jug/jug.jar" version="1.1.2" />
 		<jar href="jdom/jdom/jdom.jar" version="1.0" />
+		<jar href="org/telscenter/pas-browser-jdic/pas-browser-jdic.jar"
+			version="0.1.0-20070515.234201-265" />
 		<jar href="org/concord/jasmin/jasmin.jar"
 			version="0.1.0-20070429.035909-13" />
 		<jar href="org/concord/nlogo/netlogo/netlogo.jar"
@@ -130,8 +133,6 @@
 		<jar
 			href="swingx/databinding/swingx-databinding/swingx-databinding.jar"
 			version="0.8.0" />
-		<jar href="org/telscenter/pas-browser-jdic/pas-browser-jdic.jar"
-			version="0.1.0-20070509.125528-258" />
 		<jar href="org/concord/httpclient/httpclient.jar"
 			version="0.1.0-20070429.035812-12" />
 		<jar href="javax/help/javahelp/javahelp.jar" version="2.0.02" />
@@ -139,9 +140,6 @@
 			version="0.1.0-20070429.035459-9" />
 		<jar href="org/concord/collisions/collisions.jar"
 			version="0.1.0-20070429.040732-13" />
-		<jar
-			href="org/telscenter/pas-author-runtime/pas-author-runtime.jar"
-			version="0.4.5-20070507.225737-268" />
 		<jar href="org/concord/biologica/biologica.jar"
 			version="0.1.0-20070429.040053-9" />
 		<jar href="org/concord/datagraph/datagraph.jar"
@@ -149,11 +147,13 @@
 		<jar href="org/telscenter/external/com/lowagie/itext/itext.jar"
 			version="1.4.6" />
 		<jar href="jtidy/jtidy/jtidy.jar" version="4aug2000r7-dev" />
+		<jar href="org/concord/modeler/workbench/workbench.jar"
+			version="1.3.1-20070515.220039-506" />
 		<jar href="org/telscenter/pedraw/pedraw.jar"
-			version="1.3.0-20070510.230459-265" />
+			version="1.3.0-20070512.091535-268" />
+		<jar href="jmdns/jmdns/jmdns.jar" version="1.0rc2" />
 		<jar href="org/telscenter/sensemaker/sensemaker.jar"
 			version="1.3.3" />
-		<jar href="jmdns/jmdns/jmdns.jar" version="1.0rc2" />
 		<jar href="org/concord/security/security.jar"
 			version="0.1.0-20070429.035738-13" />
 		<jar href="xpp3/xpp3/xpp3.jar" version="1.1.3.4-RC8" />

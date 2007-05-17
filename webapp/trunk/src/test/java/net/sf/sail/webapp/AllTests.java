@@ -32,39 +32,40 @@ import junit.framework.TestSuite;
  */
 public class AllTests {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite("Test for net.sf.sail.webapp");
-        // $JUnit-BEGIN$
-        suite.addTestSuite(CreateDefaultUsersTest.class);
-        // $JUnit-END$
+	public static Test suite() {
+		TestSuite suite = new TestSuite("Test for net.sf.sail.webapp");
+		// $JUnit-BEGIN$
+		suite.addTestSuite(CreateDefaultUsersTest.class);
+		// $JUnit-END$
 
-        // Add new package unit tests here
-        suite.addTest(net.sf.sail.webapp.dao.authentication.impl.AllTests
-                .suite());
-        suite.addTest(net.sf.sail.webapp.dao.curnit.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.dao.jnlp.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.dao.offering.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.dao.sds.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.dao.user.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.dao.workgroup.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.domain.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.domain.webservice.http.AllTests
-                .suite());
-        suite.addTest(net.sf.sail.webapp.presentation.validators.AllTests
-                .suite());
-        suite.addTest(net.sf.sail.webapp.presentation.web.controllers.AllTests
-                .suite());
-        suite.addTest(net.sf.sail.webapp.service.authentication.impl.AllTests
-                .suite());
-        suite.addTest(net.sf.sail.webapp.service.curnit.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.service.impl.AllTests.suite());
-        suite.addTest(net.sf.sail.webapp.service.jnlp.impl.AllTests.suite());
-        suite
-                .addTest(net.sf.sail.webapp.service.offering.impl.AllTests
-                        .suite());
-        suite.addTest(net.sf.sail.webapp.service.workgroup.impl.AllTests
-                .suite());
-        // End add new package unit tests here
-        return suite;
-    }
+		// Add new package unit tests here
+		suite.addTest(net.sf.sail.webapp.dao.authentication.impl.AllTests
+				.suite());
+		suite.addTest(net.sf.sail.webapp.dao.curnit.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.dao.jnlp.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.dao.offering.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.dao.sds.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.dao.user.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.dao.workgroup.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.domain.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.domain.webservice.http.AllTests
+				.suite());
+		suite.addTest(net.sf.sail.webapp.presentation.validators.AllTests
+				.suite());
+		suite.addTest(net.sf.sail.webapp.presentation.web.controllers.AllTests
+				.suite());
+		suite.addTest(net.sf.sail.webapp.service.authentication.impl.AllTests
+				.suite());
+		suite.addTest(net.sf.sail.webapp.service.curnit.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.service.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.service.jnlp.impl.AllTests.suite());
+		suite
+				.addTest(net.sf.sail.webapp.service.offering.impl.AllTests
+						.suite());
+		suite.addTest(net.sf.sail.webapp.service.workgroup.impl.AllTests
+				.suite());
+		suite.addTest(net.sf.sail.webapp.service.file.impl.AllTests.suite());
+		// End add new package unit tests here
+		return suite;
+	}
 }

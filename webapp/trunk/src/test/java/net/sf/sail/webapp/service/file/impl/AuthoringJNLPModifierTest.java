@@ -37,7 +37,10 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	"<property name=\"maven.jnlp.version\" value=\"authoring-everything-snapshot-0.1.0-20070511.182952\" />" +
 	"<jar href=\"org/concord/framework/framework.jar\" version=\"0.1.0-20070511.131402-50\" />" +
 	"<jar href=\"com/webrenderer/webrenderer-win/webrenderer-win.jar\" version=\"3.0\" /> </resources>" +
-	"<application-desc main-class=\"org.telscenter.proprietary.TelsProprietaryLauncher\" /> </jnlp>";
+	"<resources os=\"Linux\"> " +
+	"<nativelib href=\"org/telscenter/java/dev/jdic-native/jdic-native-linux-nar.jar\" version=\"20060613\" /> " +
+	"<jar href=\"org/telscenter/java/dev/jdic/jdic-linux.jar\" version=\"20060613\" />" +
+	"</resources> <application-desc main-class=\"org.telscenter.proprietary.TelsProprietaryLauncher\" /> </jnlp>";
 
 	private static final String curnitURL = "test.jar";
 
@@ -48,9 +51,12 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	"<resources> <j2se initial-heap-size=\"32m\" max-heap-size=\"128m\" version=\"1.5+\" />" +
 	"<property name=\"maven.jnlp.version\" value=\"authoring-everything-snapshot-0.1.0-20070511.182952\" />" +
 	"<jar href=\"org/concord/framework/framework.jar\" version=\"0.1.0-20070511.131402-50\" />" +
-	"<jar href=\"com/webrenderer/webrenderer-win/webrenderer-win.jar\" version=\"3.0\" /> </resources>" +
-	"<application-desc main-class=\"org.telscenter.proprietary.TelsProprietaryLauncher\">" +
-	"<argument>" + curnitURL + "</argument></application-desc> </jnlp>";
+	"<jar href=\"com/webrenderer/webrenderer-win/webrenderer-win.jar\" version=\"3.0\" /> " +
+	"<property name=\"curnit_url\" value=\"test.jar\" /> </resources>" +
+	"<resources os=\"Linux\"> <nativelib href=\"org/telscenter/java/dev/jdic-native/jdic-native-linux-nar.jar\"" +
+	"version=\"20060613\" /> <jar href=\"org/telscenter/java/dev/jdic/jdic-linux.jar\" version=\"20060613\" />" +
+	"</resources> <application-desc main-class=\"org.telscenter.proprietary.TelsProprietaryLauncher\" /> </jnlp>";
+
 	
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -68,6 +74,7 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	
 	public void testmodifyJNLP() throws Exception {
 		AuthoringJNLPModifier modifier = new AuthoringJNLPModifier();
+		System.out.println(outputJnlp);
 		assertEquals(StringUtils.deleteWhitespace(outputJnlp), StringUtils.deleteWhitespace(modifier.modifyJnlp(inputJnlp, curnitURL)));
 	}
 

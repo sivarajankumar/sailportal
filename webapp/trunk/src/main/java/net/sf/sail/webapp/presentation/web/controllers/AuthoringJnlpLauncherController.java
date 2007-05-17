@@ -47,9 +47,7 @@ public class AuthoringJnlpLauncherController extends AbstractController {
 	private static final String JNLP_RELATIVE_PATH = "/library/jnlp/";
 	
 	public static final String JNLP_CONTENT_TYPE = "application/x-java-jnlp-file";
-	
-	private static final String CURNIT_URL_ATTRIBUTE = "curnit_url";
-		
+			
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -60,8 +58,7 @@ public class AuthoringJnlpLauncherController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		
 		String jnlpString = getJNLPAsString();
-		String curnitUrl = (String) request.getParameter(CURNIT_URL_ATTRIBUTE);
-		System.out.println(curnitUrl);
+		String curnitUrl = (String) request.getParameter(AuthoringJNLPModifier.CURNIT_URL_ATTRIBUTE);
 		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl);
 		
 		response.setHeader("Cache-Control", "no-cache");

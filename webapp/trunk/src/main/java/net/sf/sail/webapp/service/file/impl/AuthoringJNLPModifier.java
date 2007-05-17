@@ -20,6 +20,7 @@ package net.sf.sail.webapp.service.file.impl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import net.sf.sail.webapp.service.file.StringModifyService;
 
@@ -28,6 +29,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
+import org.jdom.xpath.XPath;
 
 /**
  * @author Laurel Williams
@@ -36,14 +38,14 @@ import org.jdom.output.XMLOutputter;
  */
 public class AuthoringJNLPModifier implements StringModifyService {
 
-	private static final String APPLICATION_ELEMENT_NAME = "application-desc";
-
-	private static final String ARGUMENT_ELEMENT_NAME = "argument";
-
+	private static final String PROPERTY_ELEMENT_NAME = "property";
+	private static final String NAME_ATTRIBUTE = "name";
+	private static final String VALUE_ATTRIBUTE = "value";
+	public static final String CURNIT_URL_ATTRIBUTE = "curnit_url";
 	/**
-	 * Takes a string representation of the authoring launcher JNLP and adds in
-	 * an argument to the application-desc element which represents the curntil
-	 * url.
+	 * Takes a string representation of the authoring launcher JNLP and adds a property element into
+	 * the resources element which sets a system property "curnit_url" to the curnit url which we want
+	 * to launch in the authoring tool.
 	 * 
 	 * @param inputJNLP The contents of a authoring launcher jnlp file as a string.
 	 * @param curnitURL The url for a curnit to be editted as a string
@@ -51,20 +53,25 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	public String modifyJnlp(String inputJNLP, String curnitURL)
 			throws JDOMException, IOException {
 		InputStream inputStream = new ByteArrayInputStream(inputJNLP.getBytes());
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(inputStream);
-		Element rootElement = doc.getRootElement();
-		Element applicationElement = rootElement
-				.getChild(APPLICATION_ELEMENT_NAME);
-		Element argumentElement = new Element(ARGUMENT_ELEMENT_NAME);
-		argumentElement.setText(curnitURL);
 		
-		applicationElement.addContent(argumentElement);
+		// gets the <resources> node with no "os" attribute -> there should only be one
+        List<Element> resourceNodeList = XPath.newInstance("/jnlp/resources[not(@os)]").selectNodes(doc);
+        Element resourceElement = resourceNodeList.get(0);
+
+		Element propertyElement = new Element(PROPERTY_ELEMENT_NAME);
+		propertyElement.setAttribute(NAME_ATTRIBUTE, CURNIT_URL_ATTRIBUTE);
+		propertyElement.setAttribute(VALUE_ATTRIBUTE, curnitURL);
+		resourceElement.addContent(propertyElement);
+		
 		XMLOutputter outputter = new XMLOutputter();
 		String outputJNLP = outputter.outputString(doc);
+		System.out.println(outputJNLP);
 		return outputJNLP;
 
 	}
