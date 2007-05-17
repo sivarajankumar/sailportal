@@ -74,7 +74,6 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	
 	public void testmodifyJNLP() throws Exception {
 		AuthoringJNLPModifier modifier = new AuthoringJNLPModifier();
-		System.out.println(outputJnlp);
 		assertEquals(StringUtils.deleteWhitespace(outputJnlp), StringUtils.deleteWhitespace(modifier.modifyJnlp(inputJnlp, curnitURL)));
 	}
 

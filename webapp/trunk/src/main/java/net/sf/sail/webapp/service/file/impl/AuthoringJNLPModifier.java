@@ -71,7 +71,6 @@ public class AuthoringJNLPModifier implements StringModifyService {
 		
 		XMLOutputter outputter = new XMLOutputter();
 		String outputJNLP = outputter.outputString(doc);
-		System.out.println(outputJNLP);
 		return outputJNLP;
 
 	}
