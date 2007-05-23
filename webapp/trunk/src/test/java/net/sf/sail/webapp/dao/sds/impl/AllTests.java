@@ -44,12 +44,13 @@ public class AllTests {
 		suite.addTestSuite(SdsCurnitListCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(HttpRestSdsCurnitDaoTest.class);
+		suite.addTestSuite(SdsOfferingUpdateCommandHttpRestImplTest.class);
 		suite.addTestSuite(HttpRestSdsJnlpDaoTest.class);
 		suite.addTestSuite(SdsCurnitUpdateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsUserUpdateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsCurnitCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsWorkgroupCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsOfferingUpdateCommandHttpRestImplTest.class);
+		suite.addTestSuite(SdsWorkgroupUpdateCommandHttpRestImplTest.class);
 		//$JUnit-END$
 		return suite;
 	}
