@@ -41,9 +41,9 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
     private static final ThreadLocal<SdsWorkgroup> SDS_WORKGROUP = new ThreadLocal<SdsWorkgroup>();
 
     /**
-     * @see net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand#setWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
+     * @see net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand#setSdsWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
      */
-    public void setWorkgroup(SdsWorkgroup workgroup) {
+    public void setSdsWorkgroup(SdsWorkgroup workgroup) {
         SDS_WORKGROUP.set(workgroup);
     }
 
@@ -64,7 +64,7 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
 
         // release the thread local reference to the actual object to prevent
         // resource leak problem
-        this.setWorkgroup(null);
+        this.setSdsWorkgroup(null);
         return workgroup;
     }
 
@@ -73,10 +73,10 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
      */
     public HttpPostRequest generateRequest() {
         final SdsWorkgroup workgroup = this.getWorkgroup();
-        final String bodyData = "<SDS_WORKGROUP><name>" + workgroup.getName()
+        final String bodyData = "<workgroup><name>" + workgroup.getName()
                 + "</name><offering-id>"
                 + workgroup.getSdsOffering().getSdsObjectId()
-                + "</offering-id></SDS_WORKGROUP>";
+                + "</offering-id></workgroup>";
         final String url = "/workgroup";
         return new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
                 bodyData, url, HttpStatus.SC_CREATED);

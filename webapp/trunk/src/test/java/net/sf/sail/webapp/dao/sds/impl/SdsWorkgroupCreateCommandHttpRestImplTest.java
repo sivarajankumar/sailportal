@@ -57,7 +57,7 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends
         this.createCommand = new SdsWorkgroupCreateCommandHttpRestImpl();
         command = ((SdsWorkgroupCreateCommandHttpRestImpl) (this.createCommand));
         command.setTransport(this.mockTransport);
-        command.setWorkgroup(this.expectedSdsWorkgroup);
+        command.setSdsWorkgroup(this.expectedSdsWorkgroup);
         this.httpRequest = command.generateRequest();
     }
 

@@ -35,5 +35,5 @@ public interface SdsWorkgroupCreateCommand extends
      * @param workgroup
      *            to set
      */
-    public void setWorkgroup(SdsWorkgroup workgroup);
+    public void setSdsWorkgroup(SdsWorkgroup workgroup);
 }

@@ -21,11 +21,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.sds.SdsUser;
+import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -33,6 +36,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.jdom.xpath.XPath;
 import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -44,277 +48,414 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: AbstractSpringHttpUnitTests.java 381 2007-05-10 18:38:04Z
+ *          laurel $
  * 
  */
 public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
-    protected static final String DEFAULT_NAME = "d fault";
+	protected static final String DEFAULT_NAME = "d fault";
 
-    //Note that the curnit and jnlp urls cannot be fake.
-    //It must return an appropriate jar or jnlp in order to create the real one in the sds database
-    //Otherwise the test will fail
-    protected static final String DEFAULT_CURNIT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
+	// Note that the curnit and jnlp urls cannot be fake.
+	// It must return an appropriate jar or jnlp in order to create the real one
+	// in the sds database
+	// Otherwise the test will fail
+	protected static final String DEFAULT_CURNIT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
 
-    protected static final String DEFAULT_JNLP_URL = "http://tels-develop.soe.berkeley.edu:8080/tels-jnlp/plr-everything-jdic-snapshot-20070125-0811.jnlp";
+	protected static final String DEFAULT_JNLP_URL = "http://tels-develop.soe.berkeley.edu:8080/tels-jnlp/plr-everything-jdic-snapshot-20070125-0811.jnlp";
 
-    protected HttpRestTransport httpRestTransport;
+	protected HttpRestTransport httpRestTransport;
 
-    protected WebConversation webConversation;
+	protected WebConversation webConversation;
 
-    public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-        this.httpRestTransport = httpRestTransport;
-    }
+	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
+		this.httpRestTransport = httpRestTransport;
+	}
 
-    @Override
-    protected void onSetUp() throws Exception {
-        super.onSetUp();
-        this.webConversation = new WebConversation();
-    }
+	@Override
+	protected void onSetUp() throws Exception {
+		super.onSetUp();
+		this.webConversation = new WebConversation();
+	}
 
-    @Override
-    protected void onTearDown() throws Exception {
-        super.onTearDown();
-        this.webConversation = null;
-        this.httpRestTransport = null;
-    }
+	@Override
+	protected void onTearDown() throws Exception {
+		super.onTearDown();
+		this.webConversation = null;
+		this.httpRestTransport = null;
+	}
 
-    /**
-     * Uses a parser to build a JDom document from the response stream.
-     * 
-     * @param webResponse
-     * @return the JDom document
-     * @throws IOException
-     * @throws JDOMException
-     */
-    protected Document createDocumentFromResponse(WebResponse webResponse)
-            throws IOException, JDOMException {
-        InputStream responseStream = null;
-        try {
-            SAXBuilder builder = new SAXBuilder();
-            responseStream = webResponse.getInputStream();
-            return builder.build(responseStream);
-        } finally {
-            if (responseStream != null) {
-                responseStream.close();
-            }
-        }
-    }
+	/**
+	 * Uses a parser to build a JDom document from the response stream.
+	 * 
+	 * @param webResponse
+	 * @return the JDom document
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	protected Document createDocumentFromResponse(WebResponse webResponse)
+			throws IOException, JDOMException {
+		InputStream responseStream = null;
+		try {
+			SAXBuilder builder = new SAXBuilder();
+			responseStream = webResponse.getInputStream();
+			return builder.build(responseStream);
+		} finally {
+			if (responseStream != null) {
+				responseStream.close();
+			}
+		}
+	}
 
-    /**
-     * Uses httpunit to go over the network to make a GET REST request.
-     * 
-     * @param urlRelativeToBaseUrl
-     * @return
-     * @throws MalformedURLException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected WebResponse makeHttpRestGetRequest(String urlRelativeToBaseUrl)
-            throws MalformedURLException, IOException, SAXException {
-        WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
-                .getBaseUrl()
-                + urlRelativeToBaseUrl);
-        webRequest.setHeaderField("Accept", HttpRestTransport.APPLICATION_XML);
-        return this.webConversation.getResponse(webRequest);
-    }
+	/**
+	 * Uses httpunit to go over the network to make a GET REST request.
+	 * 
+	 * @param urlRelativeToBaseUrl
+	 * @return
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected WebResponse makeHttpRestGetRequest(String urlRelativeToBaseUrl)
+			throws MalformedURLException, IOException, SAXException {
+		WebRequest webRequest = new GetMethodWebRequest(this.httpRestTransport
+				.getBaseUrl()
+				+ urlRelativeToBaseUrl);
+		webRequest.setHeaderField("Accept", HttpRestTransport.APPLICATION_XML);
+		return this.webConversation.getResponse(webRequest);
+	}
 
-    /**
-     * Uses httpunit to go over the network to make a POST REST request.
-     * 
-     * @param urlRelativeToBaseUrl
-     * @param body
-     * @return
-     * @throws MalformedURLException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected WebResponse makeHttpRestPostRequest(String urlRelativeToBaseUrl,
-            String body) throws MalformedURLException, IOException,
-            SAXException {
-        InputStream bodyDataStream = new ByteArrayInputStream(body.getBytes());
-        WebRequest webRequest = new PostMethodWebRequest(this.httpRestTransport
-                .getBaseUrl()
-                + urlRelativeToBaseUrl, bodyDataStream,
-                HttpRestTransport.APPLICATION_XML);
-        return this.webConversation.getResponse(webRequest);
-    }
+	/**
+	 * Uses httpunit to go over the network to make a POST REST request.
+	 * 
+	 * @param urlRelativeToBaseUrl
+	 * @param body
+	 * @return
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected WebResponse makeHttpRestPostRequest(String urlRelativeToBaseUrl,
+			String body) throws MalformedURLException, IOException,
+			SAXException {
+		InputStream bodyDataStream = new ByteArrayInputStream(body.getBytes());
+		WebRequest webRequest = new PostMethodWebRequest(this.httpRestTransport
+				.getBaseUrl()
+				+ urlRelativeToBaseUrl, bodyDataStream,
+				HttpRestTransport.APPLICATION_XML);
+		return this.webConversation.getResponse(webRequest);
+	}
 
-    /**
-     * Uses HttpUnit to create an sds user.
-     * 
-     * @return The id of the newly created user.
-     * @throws MalformedURLException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected Integer createUserInSds() throws MalformedURLException,
-            IOException, SAXException {
-        WebResponse webResponse = this.makeHttpRestPostRequest("/sail_user",
-                "<user><first-name>" + DEFAULT_NAME
-                        + "</first-name><last-name>" + DEFAULT_NAME
-                        + "</last-name></user>");
-        return this.extractNewlyCreatedId(webResponse);
-    }
-    
-    /**
-     * Uses HttpUnit functionality to retreive a singe sds curnit from the sds.
-     * 
-     * @param sdsCurnitId The id of the curnit you want to retrieve
-     * @return The SdsCurnit with name, url and id set
-     * @throws IOException
-     * @throws JDOMException
-     * @throws SAXException
-     */
-    protected SdsCurnit getCurnitInSds(Integer sdsCurnitId) throws IOException, JDOMException, SAXException {
-    	WebResponse webResponse = this.makeHttpRestGetRequest("/curnit/" + sdsCurnitId);
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+	/**
+	 * Uses HttpUnit to create an sds user.
+	 * 
+	 * @return The id of the newly created user.
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected Integer createUserInSds() throws MalformedURLException,
+			IOException, SAXException {
+		WebResponse webResponse = this.makeHttpRestPostRequest("/sail_user",
+				"<user><first-name>" + DEFAULT_NAME
+						+ "</first-name><last-name>" + DEFAULT_NAME
+						+ "</last-name></user>");
+		return this.extractNewlyCreatedId(webResponse);
+	}
 
-        Document doc = createDocumentFromResponse(webResponse);
-        SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext.getBean("sdsCurnit");
-        Element curnitElement = doc.getRootElement();
-        sdsCurnit.setName(curnitElement.getChild("name").getValue());
-        sdsCurnit.setUrl(curnitElement.getChild("url").getValue());
-        sdsCurnit.setSdsObjectId(new Integer(curnitElement.getChild("id").getValue()));
-        return sdsCurnit;
-    }
-    
-    /**
-     * Uses HttpUnit functionality to retreive a singe sds jnlp from the sds.
-     * 
-     * @param sdsJnlpId The id of the jnlp you want to retrieve
-     * @return The SdsJnlp with name, url and id set
-     * @throws IOException
-     * @throws JDOMException
-     * @throws SAXException
-     */
-    protected SdsJnlp getJnlpInSds(Integer sdsJnlpId) throws IOException, JDOMException, SAXException {
-    	WebResponse webResponse = this.makeHttpRestGetRequest("/jnlp/" + sdsJnlpId);
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+	/**
+	 * Uses HttpUnit functionality to retreive a singe sds curnit from the sds.
+	 * 
+	 * @param sdsCurnitId
+	 *            The id of the curnit you want to retrieve
+	 * @return The SdsCurnit with name, url and id set
+	 * @throws IOException
+	 * @throws JDOMException
+	 * @throws SAXException
+	 */
+	protected SdsCurnit getCurnitInSds(Integer sdsCurnitId) throws IOException,
+			JDOMException, SAXException {
+		WebResponse webResponse = this.makeHttpRestGetRequest("/curnit/"
+				+ sdsCurnitId);
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-        Document doc = createDocumentFromResponse(webResponse);
-        SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
-        Element jnlpElement = doc.getRootElement();
-        sdsJnlp.setName(jnlpElement.getChild("name").getValue());
-        sdsJnlp.setUrl(jnlpElement.getChild("url").getValue());
-        sdsJnlp.setSdsObjectId(new Integer(jnlpElement.getChild("id").getValue()));
-        return sdsJnlp;
-    }
-    
-    /**
-     * Uses HttpUnit functionality to retrieve a single sds offering (including curnit and jnlp) from the sds.
-     * 
-     * @param sdsOfferingId The id of the offering you want to retrieve
-     * @return The SdsOffering with all parameters set.
-     * 
-     * @throws IOException
-     * @throws JDOMException
-     * @throws SAXException
-     */
-    protected SdsOffering getOfferngInSds(Integer sdsOfferingId) throws IOException, JDOMException, SAXException {
-    	WebResponse webResponse = this.makeHttpRestGetRequest("/offering/" + sdsOfferingId);
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+		Document doc = createDocumentFromResponse(webResponse);
+		SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
+				.getBean("sdsCurnit");
+		Element curnitElement = doc.getRootElement();
+		sdsCurnit.setName(curnitElement.getChild("name").getValue());
+		sdsCurnit.setUrl(curnitElement.getChild("url").getValue());
+		sdsCurnit.setSdsObjectId(new Integer(curnitElement.getChild("id")
+				.getValue()));
+		return sdsCurnit;
+	}
 
-        Document doc = createDocumentFromResponse(webResponse);
-        SdsOffering sdsOffering = (SdsOffering) this.applicationContext.getBean("sdsOffering");
-        Element offeringElement = doc.getRootElement();
-        sdsOffering.setName(offeringElement.getChild("name").getValue());
-        sdsOffering.setSdsObjectId(new Integer(offeringElement.getChild("id").getValue()));
-        
-        Integer sdsCurnitId = new Integer(offeringElement.getChild("curnit-id").getValue());
-        SdsCurnit sdsCurnit = this.getCurnitInSds(sdsCurnitId);
-        sdsOffering.setSdsCurnit(sdsCurnit);
-        
-        Integer sdsJnlpId = new Integer(offeringElement.getChild("jnlp-id").getValue());
-        SdsJnlp sdsJnlp = this.getJnlpInSds(sdsJnlpId);
-        sdsOffering.setSdsJnlp(sdsJnlp);
-        
-        return sdsOffering;
-    }
-    
-    /**
-     * Uses HttpUnit functionality to retrieve a single user from the sds.
-     * 
-     * @param sdsUserId The id of the user you want to retrieve
-     * @return An SdsUser with firstname, lastname and id set.
-     * @throws IOException
-     * @throws JDOMException
-     * @throws SAXException
-     */
-    protected SdsUser getUserInSds(Integer sdsUserId) throws IOException, JDOMException, SAXException {
-    	WebResponse webResponse = this.makeHttpRestGetRequest("/sail_user/" + sdsUserId);
-        assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+	/**
+	 * Uses HttpUnit functionality to retreive a singe sds jnlp from the sds.
+	 * 
+	 * @param sdsJnlpId
+	 *            The id of the jnlp you want to retrieve
+	 * @return The SdsJnlp with name, url and id set
+	 * @throws IOException
+	 * @throws JDOMException
+	 * @throws SAXException
+	 */
+	protected SdsJnlp getJnlpInSds(Integer sdsJnlpId) throws IOException,
+			JDOMException, SAXException {
+		WebResponse webResponse = this.makeHttpRestGetRequest("/jnlp/"
+				+ sdsJnlpId);
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-        Document doc = createDocumentFromResponse(webResponse);
-        SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
-        Element userElement = doc.getRootElement();
-        sdsUser.setFirstName(userElement.getChild("first-name").getValue());
-        sdsUser.setLastName(userElement.getChild("last-name").getValue());
-        sdsUser.setSdsObjectId(new Integer(userElement.getChild("id").getValue()));
-        return sdsUser;
-    }
+		Document doc = createDocumentFromResponse(webResponse);
+		SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
+		Element jnlpElement = doc.getRootElement();
+		sdsJnlp.setName(jnlpElement.getChild("name").getValue());
+		sdsJnlp.setUrl(jnlpElement.getChild("url").getValue());
+		sdsJnlp.setSdsObjectId(new Integer(jnlpElement.getChild("id")
+				.getValue()));
+		return sdsJnlp;
+	}
 
-    /**
-     * Uses HttpUnit to create an offering in the sds.
-     * 
-     * @param sdsCurnitId The id of the curnit for this offering.
-     * @param sdsJnlpId The id of the JNLP for this offering
-     * @return The id of the offering created.
-     * 
-     * @throws MalformedURLException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected Integer createOfferingInSds(Integer sdsCurnitId, Integer sdsJnlpId)
-            throws MalformedURLException, IOException, SAXException {
-        WebResponse webResponse = this.makeHttpRestPostRequest("/offering",
-                "<offering><name>" + DEFAULT_NAME + "</name><curnit-id>"
-                        + sdsCurnitId + "</curnit-id><jnlp-id>" + sdsJnlpId
-                        + "</jnlp-id></offering>");
-        return this.extractNewlyCreatedId(webResponse);
-    }
+	/**
+	 * Uses HttpUnit functionality to retrieve a single sds offering (including
+	 * curnit and jnlp) from the sds.
+	 * 
+	 * @param sdsOfferingId
+	 *            The id of the offering you want to retrieve
+	 * @return The SdsOffering with all parameters set.
+	 * 
+	 * @throws IOException
+	 * @throws JDOMException
+	 * @throws SAXException
+	 */
+	protected SdsOffering getOfferngInSds(Integer sdsOfferingId)
+			throws IOException, JDOMException, SAXException {
+		WebResponse webResponse = this.makeHttpRestGetRequest("/offering/"
+				+ sdsOfferingId);
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
-    /**
-     * Creates a JNLP in the sds using HttpUnit
-     * 
-     * @return The id of the JNLP created.
-     * 
-     * @throws MalformedURLException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected Integer createJnlpInSds() throws MalformedURLException,
-            IOException, SAXException {
-        WebResponse webResponse = this.makeHttpRestPostRequest("/jnlp",
-                "<jnlp><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_JNLP_URL
-                        + "</url></jnlp>");
-        return this.extractNewlyCreatedId(webResponse);
-    }
+		Document doc = createDocumentFromResponse(webResponse);
+		SdsOffering sdsOffering = (SdsOffering) this.applicationContext
+				.getBean("sdsOffering");
+		Element offeringElement = doc.getRootElement();
+		sdsOffering.setName(offeringElement.getChild("name").getValue());
+		sdsOffering.setSdsObjectId(new Integer(offeringElement.getChild("id")
+				.getValue()));
 
-    /**
-     * Uses HttpUnit to create a single curnit in the sds using DEFAULT_NAME and DEFAULT URL.
-     * 
-     * @return The id of the curnit created.
-     * @throws MalformedURLException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected Integer createCurnitInSds() throws MalformedURLException,
-            IOException, SAXException {
-        WebResponse webResponse = this.makeHttpRestPostRequest("/curnit",
-                "<curnit><name>" + DEFAULT_NAME + "</name><url>" + DEFAULT_CURNIT_URL
-                        + "</url></curnit>");
-        return this.extractNewlyCreatedId(webResponse);
-    }
+		Integer sdsCurnitId = new Integer(offeringElement.getChild("curnit-id")
+				.getValue());
+		SdsCurnit sdsCurnit = this.getCurnitInSds(sdsCurnitId);
+		sdsOffering.setSdsCurnit(sdsCurnit);
 
-    /**
-     * @param webResponse
-     * @return
-     */
-    private Integer extractNewlyCreatedId(WebResponse webResponse) {
-        assertEquals(HttpStatus.SC_CREATED, webResponse.getResponseCode());
-        String locationHeader = webResponse.getHeaderField("Location");
-        return new Integer(locationHeader.substring(locationHeader
-                .lastIndexOf("/") + 1));
-    }
+		Integer sdsJnlpId = new Integer(offeringElement.getChild("jnlp-id")
+				.getValue());
+		SdsJnlp sdsJnlp = this.getJnlpInSds(sdsJnlpId);
+		sdsOffering.setSdsJnlp(sdsJnlp);
+
+		return sdsOffering;
+	}
+
+	/**
+	 * Uses HttpUnit functionality to retrieve a single sds workgroup from the
+	 * sds, including the offering and the members
+	 * 
+	 * @param sdsWorkgroupId
+	 *            The id of the workgroup you want to retrieve
+	 * @return The SdsWorkgroup with all parameters set.
+	 * 
+	 * @throws IOException
+	 * @throws JDOMException
+	 * @throws SAXException
+	 */
+	@SuppressWarnings("unchecked")
+	protected SdsWorkgroup getWorkgroupInSds(Integer sdsWorkgroupId)
+			throws IOException, JDOMException, SAXException {
+		String WORKGROUP_PATH = "/workgroup/" + sdsWorkgroupId;
+		WebResponse webResponse = this.makeHttpRestGetRequest(WORKGROUP_PATH);
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
+		Document doc = createDocumentFromResponse(webResponse);
+		SdsWorkgroup sdsWorkgroup = (SdsWorkgroup) this.applicationContext
+				.getBean("sdsWorkgroup");
+
+		Element workgroupElement = doc.getRootElement();
+		sdsWorkgroup.setName(workgroupElement.getChild("name").getValue());
+		sdsWorkgroup.setSdsObjectId(new Integer(workgroupElement.getChild("id")
+				.getValue()));
+
+		Integer sdsOfferingId = new Integer(workgroupElement.getChild(
+				"offering-id").getValue());
+		SdsOffering sdsOffering = this.getOfferngInSds(sdsOfferingId);
+		sdsWorkgroup.setSdsOffering(sdsOffering);
+
+		WebResponse membersWebResponse = this
+				.makeHttpRestGetRequest(WORKGROUP_PATH + "/membership");
+		assertEquals(HttpStatus.SC_OK, membersWebResponse.getResponseCode());
+		System.out.println("Look here:" + membersWebResponse.getText());
+		Document membersDoc = createDocumentFromResponse(membersWebResponse);
+		
+		List<Element> memberElements = XPath.newInstance(
+				"/workgroup-memberships/workgroup-membership/sail-user-id")
+				.selectNodes(membersDoc);
+
+		for (Element memberNode : memberElements) {
+			SdsUser sdsUser = this.getUserInSds(new Integer(memberNode
+					.getValue()));
+			sdsWorkgroup.addMember(sdsUser);
+		}
+
+		return sdsWorkgroup;
+	}
+
+	/**
+	 * Uses HttpUnit functionality to retrieve a single user from the sds.
+	 * 
+	 * @param sdsUserId
+	 *            The id of the user you want to retrieve
+	 * @return An SdsUser with firstname, lastname and id set.
+	 * @throws IOException
+	 * @throws JDOMException
+	 * @throws SAXException
+	 */
+	protected SdsUser getUserInSds(Integer sdsUserId) throws IOException,
+			JDOMException, SAXException {
+		WebResponse webResponse = this.makeHttpRestGetRequest("/sail_user/"
+				+ sdsUserId);
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
+		Document doc = createDocumentFromResponse(webResponse);
+		SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
+		Element userElement = doc.getRootElement();
+		sdsUser.setFirstName(userElement.getChild("first-name").getValue());
+		sdsUser.setLastName(userElement.getChild("last-name").getValue());
+		sdsUser.setSdsObjectId(new Integer(userElement.getChild("id")
+				.getValue()));
+		return sdsUser;
+	}
+
+	/**
+	 * Uses HttpUnit to create an offering in the sds.
+	 * 
+	 * @param sdsCurnitId
+	 *            The id of the curnit for this offering.
+	 * @param sdsJnlpId
+	 *            The id of the JNLP for this offering
+	 * @return The id of the offering created.
+	 * 
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected Integer createOfferingInSds(Integer sdsCurnitId, Integer sdsJnlpId)
+			throws MalformedURLException, IOException, SAXException {
+		WebResponse webResponse = this.makeHttpRestPostRequest("/offering",
+				"<offering><name>" + DEFAULT_NAME + "</name><curnit-id>"
+						+ sdsCurnitId + "</curnit-id><jnlp-id>" + sdsJnlpId
+						+ "</jnlp-id></offering>");
+		return this.extractNewlyCreatedId(webResponse);
+	}
+
+	/**
+	 * Uses HttpUnit to create a workgroup in the sds
+	 * 
+	 * @param sdsOfferingId
+	 *            the id of the offering related to this workgroup
+	 * @return the id of the workgroup created
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected Integer createWorkgroupInSds(Integer sdsOfferingId)
+			throws MalformedURLException, IOException, SAXException {
+		WebResponse webResponse = this.makeHttpRestPostRequest("/workgroup",
+				"<workgroup><name>" + DEFAULT_NAME + "</name><offering-id>"
+						+ sdsOfferingId + "</offering-id></workgroup>");
+		return this.extractNewlyCreatedId(webResponse);
+	}
+	
+
+	/**
+	 * Creates a list of members for a workgroup in the sds
+	 * @param sdsWorkgroupId
+	 * @param sdsUserIds
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected void createWorkgroupMembersInSds(Integer sdsWorkgroupId, Set<Integer> sdsUserIds)
+			throws MalformedURLException, IOException, SAXException {
+		String memberList = "<workgroup-memberships><workgroup-membership>";
+		for (Integer sdsUserId: sdsUserIds){
+			memberList += "<sail-user-id>" + sdsUserId + "</sail-user-id>";
+		}
+		memberList += "</workgroup-membership></workgroup-memberships>";
+		this.makeHttpRestPostRequest("/workgroup/" + sdsWorkgroupId + "/membership",
+				memberList);
+	}
+
+	/**
+	 * Creates a JNLP in the sds using HttpUnit
+	 * 
+	 * @return The id of the JNLP created.
+	 * 
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected Integer createJnlpInSds() throws MalformedURLException,
+			IOException, SAXException {
+		WebResponse webResponse = this.makeHttpRestPostRequest("/jnlp",
+				"<jnlp><name>" + DEFAULT_NAME + "</name><url>"
+						+ DEFAULT_JNLP_URL + "</url></jnlp>");
+		return this.extractNewlyCreatedId(webResponse);
+	}
+
+	/**
+	 * Uses HttpUnit to create a single curnit in the sds using DEFAULT_NAME and
+	 * DEFAULT URL.
+	 * 
+	 * @return The id of the curnit created.
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected Integer createCurnitInSds() throws MalformedURLException,
+			IOException, SAXException {
+		WebResponse webResponse = this.makeHttpRestPostRequest("/curnit",
+				"<curnit><name>" + DEFAULT_NAME + "</name><url>"
+						+ DEFAULT_CURNIT_URL + "</url></curnit>");
+		return this.extractNewlyCreatedId(webResponse);
+	}
+
+	/**
+	 * @param webResponse
+	 * @return
+	 */
+	private Integer extractNewlyCreatedId(WebResponse webResponse) {
+		assertEquals(HttpStatus.SC_CREATED, webResponse.getResponseCode());
+		String locationHeader = webResponse.getHeaderField("Location");
+		return new Integer(locationHeader.substring(locationHeader
+				.lastIndexOf("/") + 1));
+	}
+
+	protected Integer createWholeOffering() throws MalformedURLException,
+			IOException, SAXException, JDOMException {
+		SdsOffering sdsOffering = (SdsOffering) this.applicationContext
+				.getBean("sdsOffering");
+		// create curnit in SDS
+		SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
+				.getBean("sdsCurnit");
+		sdsCurnit.setSdsObjectId(this.createCurnitInSds());
+		sdsOffering.setSdsCurnit(sdsCurnit);
+
+		// create jnlp in SDS
+		SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
+		sdsJnlp.setSdsObjectId(this.createJnlpInSds());
+		sdsOffering.setSdsJnlp(sdsJnlp);
+
+		// create offering in SDS
+		return this.createOfferingInSds(sdsCurnit.getSdsObjectId(), sdsJnlp
+				.getSdsObjectId());
+	}
+
 }

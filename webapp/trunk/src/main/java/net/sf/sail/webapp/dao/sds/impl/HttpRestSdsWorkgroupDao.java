@@ -21,6 +21,7 @@ import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupMemberCreateCommand;
+import net.sf.sail.webapp.dao.sds.SdsWorkgroupUpdateCommand;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -36,43 +37,59 @@ import org.springframework.beans.factory.annotation.Required;
  * 
  */
 public class HttpRestSdsWorkgroupDao extends AbstractDao<SdsWorkgroup>
-        implements SdsWorkgroupDao {
+		implements SdsWorkgroupDao {
 
-    private SdsWorkgroupCreateCommand createCommand;
+	private SdsWorkgroupCreateCommand createCommand;
 
-    private SdsWorkgroupMemberCreateCommand membershipCreateCommand;
+	private SdsWorkgroupUpdateCommand updateCommand;
 
-    /**
-     * @param membershipCreateCommand
-     *            the membershipCreateCommand to set
-     */
-    @Required
-    public void setMembershipCreateCommand(
-            SdsWorkgroupMemberCreateCommand membershipCreateCommand) {
-        this.membershipCreateCommand = membershipCreateCommand;
-    }
+	private SdsWorkgroupMemberCreateCommand membershipCreateCommand;
 
-    /**
-     * @param createCommand
-     *            the createCommand to set
-     */
-    @Required
-    public void setCreateCommand(SdsWorkgroupCreateCommand createCommand) {
-        this.createCommand = createCommand;
-    }
+	/**
+	 * @param updateCommand
+	 *            the updateCommand to set
+	 */
+	@Required
+	public void setUpdateCommand(SdsWorkgroupUpdateCommand updateCommand) {
+		this.updateCommand = updateCommand;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-     */
-    public void save(SdsWorkgroup workgroup) {
-        this.createCommand.setWorkgroup(workgroup);
-        this.createCommand.execute(this.createCommand.generateRequest());
-        // after saving the workgroup, save the membership as well
-        this.membershipCreateCommand.setWorkgroup(workgroup);
-        this.membershipCreateCommand.execute(this.membershipCreateCommand
-                .generateRequest());
+	/**
+	 * @param membershipCreateCommand
+	 *            the membershipCreateCommand to set
+	 */
+	@Required
+	public void setMembershipCreateCommand(
+			SdsWorkgroupMemberCreateCommand membershipCreateCommand) {
+		this.membershipCreateCommand = membershipCreateCommand;
+	}
 
-        // TODO CY - when update command for SDS is written, need to
-        // differentiate between create and update
-    }
+	/**
+	 * @param createCommand
+	 *            the createCommand to set
+	 */
+	@Required
+	public void setCreateCommand(SdsWorkgroupCreateCommand createCommand) {
+		this.createCommand = createCommand;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
+	 */
+	public void save(SdsWorkgroup workgroup) {
+		if (workgroup.getSdsObjectId() == null) {
+			this.createCommand.setSdsWorkgroup(workgroup);
+			this.createCommand.execute(this.createCommand.generateRequest());
+		} else {
+			this.updateCommand.setSdsWorkgroup(workgroup);
+			this.updateCommand.execute(this.updateCommand.generateRequest());
+		}
+		if (!workgroup.getMembers().isEmpty()) {
+			// after saving or updating the workgroup, save the membership as
+			// well
+			this.membershipCreateCommand.setWorkgroup(workgroup);
+			this.membershipCreateCommand.execute(this.membershipCreateCommand
+					.generateRequest());
+		}
+	}
 }

@@ -64,11 +64,11 @@ public class SdsWorkgroupUpdateCommandHttpRestImpl extends
      */
     public HttpPutRequest generateRequest() {
         final SdsWorkgroup workgroup = this.getSdsWorkgroup();
-        final String bodyData = "<SDS_WORKGROUP><name>" + workgroup.getName()
+        final String bodyData = "<workgroup><name>" + workgroup.getName()
                 + "</name><offering-id>"
                 + workgroup.getSdsOffering().getSdsObjectId()
-                + "</offering-id></SDS_WORKGROUP>";
-        final String url = "/workgroup";
+                + "</offering-id></workgroup>";
+        final String url = "/workgroup/" + workgroup.getSdsObjectId();
         return new HttpPutRequest(REQUEST_HEADERS_CONTENT, bodyData, url, HttpStatus.SC_CREATED);
     }
 }

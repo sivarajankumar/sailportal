@@ -125,8 +125,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
         this.sdsOffering.setSdsJnlp(sdsJnlp);
 
         // create offering in SDS
-        Integer sdsOfferingId = this.createOfferingInSds(sdsCurnit.getSdsObjectId(),
-                sdsJnlp.getSdsObjectId());
+        Integer sdsOfferingId = this.createOfferingInSds(sdsCurnit.getSdsObjectId(), sdsJnlp.getSdsObjectId());
         SdsOffering actualSdsOffering = this.getOfferngInSds(sdsOfferingId);
  		assertEquals(actualSdsOffering.getSdsObjectId(), sdsOfferingId);
 		assertEquals(actualSdsOffering.getName(), DEFAULT_NAME);
