@@ -32,6 +32,8 @@
 
     <path id="lib.jdbc">
         <path location="${M2_REPO}/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar" />
+        <path location="${M2_REPO}/mysql/mysql-connector-java/5.0.5/mysql-connector-java-5.0.5.jar"
+        />
     </path>
 
     <path id="lib.commons-logging">
@@ -61,7 +63,7 @@
     </path>
 
     <path id="lib.hibernate">
-        <path location="${M2_REPO}/org/hibernate/hibernate/3.2.2.ga/hibernate-3.2.2.ga.jar"
+        <path location="${M2_REPO}/org/hibernate/hibernate/3.2.4.ga/hibernate-3.2.4.ga.jar"
         />
         <path location="${M2_REPO}/org/hibernate/hibernate-annotations/3.2.1.ga/hibernate-annotations-3.2.1.ga.jar"
         />
@@ -76,13 +78,13 @@
     </path>
 
     <path id="lib.spring">
-        <path location="${M2_REPO}/org/springframework/spring-context/2.0.3/spring-context-2.0.3.jar"
+        <path location="${M2_REPO}/org/springframework/spring-context/2.0.5/spring-context-2.0.5.jar"
         />
-        <path location="${M2_REPO}/org/springframework/spring-beans/2.0.3/spring-beans-2.0.3.jar"
+        <path location="${M2_REPO}/org/springframework/spring-beans/2.0.5/spring-beans-2.0.5.jar"
         />
-        <path location="${M2_REPO}/org/springframework/spring-core/2.0.3/spring-core-2.0.3.jar"
+        <path location="${M2_REPO}/org/springframework/spring-core/2.0.5/spring-core-2.0.5.jar"
         />
-        <path location="${M2_REPO}/org/springframework/spring/2.0.3/spring-2.0.3.jar"
+        <path location="${M2_REPO}/org/springframework/spring/2.0.5/spring-2.0.5.jar"
         />
     </path>
 
@@ -132,16 +134,19 @@
           target: db.schema-export
          ================================= -->
     <target name="db.schema-export"
-            depends="_mvn.compile, _input.portal.config"
+            depends="_set.properties.jdbc,_mvn.compile, _input.portal.config"
             description="Generate the database schema from annotated persistent classes in the production code."
     >
+        <mkdir dir="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}"
+        />
         <java classname="net.sf.sail.webapp.DbSchemaExporter"
               fork="true"
               failonerror="true"
               newenvironment="true"
         >
             <arg value="${spring.configuration.classname}" />
-            <arg value="${dir.src.db.vendor}/${schema.export.filename}" />
+            <arg value="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}/${schema.export.filename}"
+            />
             <classpath refid="runtime.classpath" />
         </java>
     </target>
@@ -175,7 +180,7 @@
             <substitution expression="=\1" />
         </replaceregexp>
         <property file="${temp.file}" />
-        <delete>
+        <delete quiet="true" includeemptydirs="true">
             <fileset dir="${db.directory}" includes="**/${db.prefix}*" />
             <fileset file="${temp.file}" />
         </delete>
@@ -183,8 +188,8 @@
         <sql driver="${settings.profiles.profile.properties.jdbc.driverClassName}"
              url="${settings.profiles.profile.properties.jdbc.url}"
              userid="${settings.profiles.profile.properties.jdbc.username}"
-             password="${jdbc.password}"
-             src="${dir.src.db.vendor}/${schema.export.filename}"
+             password="${settings.profiles.profile.properties.jdbc.password}"
+             src="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}/${schema.export.filename}"
              autocommit="false"
              onerror="abort"
              classpathref="lib.jdbc"
@@ -250,7 +255,7 @@
         >
             <arg value="clean" />
             <arg value="test" />
-            <arg value="compile" />
+            <arg value="resources:resources" />
         </exec>
         <!-- this should work for Microsoft Windows NT-based systems, including Windows 2000, XP and successors -->
         <exec osfamily="Winnt"
@@ -262,7 +267,7 @@
             <arg value="mvn.bat" />
             <arg value="clean" />
             <arg value="test" />
-            <arg value="compile" />
+            <arg value="resources:resources" />
         </exec>
     </target>
 

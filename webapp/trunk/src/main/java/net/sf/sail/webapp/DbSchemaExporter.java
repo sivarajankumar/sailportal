@@ -76,8 +76,8 @@ public class DbSchemaExporter {
 
             final boolean printScriptToConsole = false, exportScriptToDb = false, justDrop = false, justCreate = true;
             final SchemaExport schemaExport = new SchemaExport(hibernateConfig)
-                    .setFormat(true).setHaltOnError(true).setOutputFile(
-                            filename);
+                    .setDelimiter(";").setFormat(true).setHaltOnError(true)
+                    .setOutputFile(filename);
             schemaExport.execute(printScriptToConsole, exportScriptToDb,
                     justDrop, justCreate);
 
