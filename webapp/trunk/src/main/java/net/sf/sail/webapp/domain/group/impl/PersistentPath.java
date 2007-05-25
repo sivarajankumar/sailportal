@@ -15,10 +15,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.domain.impl;
+package net.sf.sail.webapp.domain.group.impl;
 
-import net.sf.sail.webapp.domain.IllegalPathException;
-import net.sf.sail.webapp.domain.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.group.IllegalPathException;
+import net.sf.sail.webapp.domain.group.Path;
 
 /**
  * @author Cynick Young
@@ -33,29 +37,48 @@ public class PersistentPath implements Path {
 
     private Path parent;
 
+    private List<User> owners = new ArrayList<User>();
+
     /**
-     * @see net.sf.sail.webapp.domain.Path#getName()
+     * @see net.sf.sail.webapp.domain.group.Path#addOwner(net.sf.sail.webapp.domain.User)
+     */
+    public void addOwner(User user) {
+        if (owners.contains(user)) {
+            return;
+        }
+        owners.add(user);
+    }
+
+    /**
+     * @see net.sf.sail.webapp.domain.group.Path#getOwners()
+     */
+    public List getOwners() {
+        return this.owners;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.domain.group.Path#getName()
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.Path#setName(java.lang.String)
+     * @see net.sf.sail.webapp.domain.group.Path#setName(java.lang.String)
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.Path#getParent()
+     * @see net.sf.sail.webapp.domain.group.Path#getParent()
      */
     public Path getParent() {
         return this.parent;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.Path#setParent(net.sf.sail.webapp.domain.Path)
+     * @see net.sf.sail.webapp.domain.group.Path#setParent(net.sf.sail.webapp.domain.group.Path)
      */
     public void setParent(Path path) {
         if (this.parent != null) {

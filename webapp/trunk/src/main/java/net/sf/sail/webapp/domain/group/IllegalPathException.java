@@ -15,26 +15,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.domain.impl;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+package net.sf.sail.webapp.domain.group;
 
 /**
  * @author Cynick Young
- *
+ * 
  * @version $Id$
- *
+ * 
  */
-public class AllTests {
+public class IllegalPathException extends RuntimeException {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.domain.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(PersistentPathTest.class);
-        //$JUnit-END$
-        return suite;
+    private static final long serialVersionUID = 1L;
+
+    public IllegalPathException(String message) {
+        super(message);
     }
-
 }

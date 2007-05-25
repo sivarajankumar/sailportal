@@ -47,7 +47,7 @@ public class AllTests {
 		suite.addTest(net.sf.sail.webapp.dao.sds.impl.AllTests.suite());
 		suite.addTest(net.sf.sail.webapp.dao.user.impl.AllTests.suite());
 		suite.addTest(net.sf.sail.webapp.dao.workgroup.impl.AllTests.suite());
-		suite.addTest(net.sf.sail.webapp.domain.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.domain.group.impl.AllTests.suite());
 		suite.addTest(net.sf.sail.webapp.domain.webservice.http.AllTests
 				.suite());
 		suite.addTest(net.sf.sail.webapp.presentation.validators.AllTests

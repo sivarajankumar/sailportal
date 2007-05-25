@@ -54,6 +54,7 @@ public interface Workgroup extends Serializable {
     /**
      * @return the members
      */
+    // TODO - maybe change this to a list instead of set for things like JSP
     public Set<User> getMembers();
 
     /**

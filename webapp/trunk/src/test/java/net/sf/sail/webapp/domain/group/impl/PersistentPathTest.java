@@ -15,11 +15,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.domain.impl;
+package net.sf.sail.webapp.domain.group.impl;
 
 import junit.framework.TestCase;
-import net.sf.sail.webapp.domain.IllegalPathException;
-import net.sf.sail.webapp.domain.Path;
+import net.sf.sail.webapp.domain.group.IllegalPathException;
+import net.sf.sail.webapp.domain.group.Path;
+import net.sf.sail.webapp.domain.group.impl.PersistentPath;
 
 /**
  * @author Cynick Young
@@ -59,7 +60,7 @@ public class PersistentPathTest extends TestCase {
 
     /**
      * Test method for
-     * {@link net.sf.sail.webapp.domain.impl.PersistentPath#toString()}.
+     * {@link net.sf.sail.webapp.domain.group.impl.PersistentPath#toString()}.
      */
     public void testToString() {
         Path path1 = new PersistentPath();
