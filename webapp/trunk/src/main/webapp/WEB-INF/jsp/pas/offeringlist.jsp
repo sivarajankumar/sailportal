@@ -37,7 +37,6 @@
 
 <div id="right">
 <h2><spring:message code="hello" /> ${user.userDetails.username}</h2>
-<spring:message code="offerings.list" />
 <table border="1">
   <thead>
     <tr>
