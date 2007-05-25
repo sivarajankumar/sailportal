@@ -19,4 +19,6 @@
 
 <!-- $Id$ -->
 
-	<a href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out" /></a><br />
+    <form action="<c:url value="/j_acegi_logout"/>" method="POST">
+      <input type="submit" value="<spring:message code="log.out" />"/>
+    </form><br />
