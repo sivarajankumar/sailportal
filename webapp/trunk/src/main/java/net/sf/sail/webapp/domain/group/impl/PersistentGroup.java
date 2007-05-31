@@ -17,21 +17,70 @@
  */
 package net.sf.sail.webapp.domain.group.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.Path;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
 /**
  * @author Cynick Young
  *
  * @version $Id$
  */
+@Entity
+@Table(name = PersistentGroup.DATA_STORE_NAME)
 public class PersistentGroup implements Group {
 
-    private List<User> members = new ArrayList<User>();
+	@Transient
+	public static final String DATA_STORE_NAME = "groups";
+	
+    @Transient
+    public static final String USERS_JOIN_TABLE_NAME = "groups_related_to_users";
+    
+    @Transient
+    public static final String COLUMN_NAME_PATH_FK = "path_fk";
+    
+    @Transient
+    public static final String USERS_JOIN_COLUMN_NAME = "user_fk";
+    
+    @Transient
+    public static final String GROUPS_JOIN_COLUMN_NAME = "group_fk";
+
+    @Transient
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
+    
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version = null;
+
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = GROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
+    private Set<User> members = new HashSet<User>();
+	
+    @OneToOne(targetEntity = PersistentPath.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = COLUMN_NAME_PATH_FK, nullable = false)
     private Path path;
     
     /**
@@ -47,7 +96,7 @@ public class PersistentGroup implements Group {
     /**
      * @see net.sf.sail.webapp.domain.group.Group#getMembers()
      */
-    public List<User> getMembers() {
+    public Set<User> getMembers() {
         return this.members;
     }
 
@@ -61,7 +110,7 @@ public class PersistentGroup implements Group {
     /**
      * @see net.sf.sail.webapp.domain.group.Group#setMembers(java.util.List)
      */
-    public void setMembers(List<User> members) {
+    public void setMembers(Set<User> members) {
         this.members = members;
     }
 
@@ -71,5 +120,77 @@ public class PersistentGroup implements Group {
     public void setPath(Path path) {
         this.path = path;
     }
+    
+    /**
+     * @return the id
+     */
+    @SuppressWarnings("unused")
+    private Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version
+     *            the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
+    }
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int PRIME = 31;
+		int result = 1;
+		result = PRIME * result + ((members == null) ? 0 : members.hashCode());
+		result = PRIME * result + ((path == null) ? 0 : path.hashCode());
+		return result;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final PersistentGroup other = (PersistentGroup) obj;
+		if (members == null) {
+			if (other.members != null)
+				return false;
+		} else if (!members.equals(other.members))
+			return false;
+		if (path == null) {
+			if (other.path != null)
+				return false;
+		} else if (!path.equals(other.path))
+			return false;
+		return true;
+	}
+
 
 }

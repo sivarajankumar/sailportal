@@ -17,44 +17,58 @@
  */
 package net.sf.sail.webapp.domain.group.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 
-import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.IllegalPathException;
 import net.sf.sail.webapp.domain.group.Path;
 
 /**
+ * TODO: add comments to describe this works
  * @author Cynick Young
  * 
  * @version $Id$
  * 
  */
+@Entity
+@Table(name = PersistentPath.DATA_STORE_NAME)
 public class PersistentPath implements Path {
-    private static final long serialVersionUID = 1L;
 
+    @Transient
+    public static final String DATA_STORE_NAME = "paths";
+    
+    @Transient
+    public static final String COLUMN_NAME_NAME = "name";
+    
+    @Transient
+    public static final String COLUMN_NAME_PARENT_FK = "parent_fk";
+
+	@Transient
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
+
+	@Version
+	@Column(name = "OPTLOCK")
+	private Integer version = null;
+    
+    @Column(name = PersistentPath.COLUMN_NAME_NAME, nullable = false)
     private String name;
-
+ 
+    @OneToOne(targetEntity = PersistentPath.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = COLUMN_NAME_PARENT_FK)
     private Path parent;
-
-    private List<User> owners = new ArrayList<User>();
-
-    /**
-     * @see net.sf.sail.webapp.domain.group.Path#addOwner(net.sf.sail.webapp.domain.User)
-     */
-    public void addOwner(User user) {
-        if (owners.contains(user)) {
-            return;
-        }
-        owners.add(user);
-    }
-
-    /**
-     * @see net.sf.sail.webapp.domain.group.Path#getOwners()
-     */
-    public List getOwners() {
-        return this.owners;
-    }
 
     /**
      * @see net.sf.sail.webapp.domain.group.Path#getName()
@@ -99,6 +113,40 @@ public class PersistentPath implements Path {
         return (this.parent == null) ? "/" + this.getName() : this.parent
                 .toString()
                 + "/" + this.getName();
+    }
+    
+    /**
+     * @return the id
+     */
+    @SuppressWarnings("unused")
+    private Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version
+     *            the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
     }
 
     /**

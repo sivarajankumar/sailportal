@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.domain.group;
 
-import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.User;
 
@@ -46,7 +46,7 @@ public interface Group {
      * @param members
      *            new <code>List</code> of members to set
      */
-    public void setMembers(List<User> members);
+    public void setMembers(Set<User> members);
 
     /**
      * Get the list of members of this group.
@@ -54,7 +54,7 @@ public interface Group {
      * @return <code>List</code> of <code>User</code> objects that belong to
      *         this group.
      */
-    public List<User> getMembers();
+    public Set<User> getMembers();
 
     /**
      * Set the path where this group exists in the hierarchy.

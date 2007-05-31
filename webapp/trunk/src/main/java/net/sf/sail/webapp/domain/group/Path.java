@@ -18,9 +18,6 @@
 package net.sf.sail.webapp.domain.group;
 
 import java.io.Serializable;
-import java.util.List;
-
-import net.sf.sail.webapp.domain.User;
 
 /**
  * An interface that defines the concept of a hierarchical path in a tree
@@ -65,18 +62,4 @@ public interface Path extends Serializable {
      * @return
      */
     public String getName();
-
-    /**
-     * Add the user who has permission to access this path.
-     * 
-     * @param user
-     */
-    public void addOwner(User user);
-
-    /**
-     * Get the list of users who have permission to access this path.
-     * 
-     * @return
-     */
-    public List getOwners();
 }
