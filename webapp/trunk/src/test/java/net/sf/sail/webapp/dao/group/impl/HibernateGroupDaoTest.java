@@ -25,29 +25,23 @@ package net.sf.sail.webapp.dao.group.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Session;
-
 import net.sf.sail.webapp.domain.group.Group;
-import net.sf.sail.webapp.domain.group.Path;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
-import net.sf.sail.webapp.domain.group.impl.PersistentPath;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
  * Test class for HibernateGroupDao
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	
-	private static final String DEFAULT_PATH_NAME = "Period 1";
+	private static final String DEFAULT_GROUP_NAME = "My Class";
 
 	private HibernateGroupDao groupDao;
 	
 	private Group defaultGroup;
-	
-	private Path defaultPath;
 	
 	/**
 	 * @param groupDao 
@@ -64,13 +58,6 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	public void setDefaultGroup(Group defaultGroup) {
 		this.defaultGroup = defaultGroup;
 	}
-	
-    /**
-	 * @param defaultPath the defaultPath to set
-	 */
-	public void setDefaultPath(Path defaultPath) {
-		this.defaultPath = defaultPath;
-	}
 
 	/**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -78,7 +65,7 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
     	super.onSetUpBeforeTransaction();
-
+    	this.defaultGroup.setName(DEFAULT_GROUP_NAME);
     }
 
     /**
@@ -87,14 +74,9 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
     @Override
     protected void onSetUpInTransaction() throws Exception {
         super.onSetUpInTransaction();
-        // a Path needs to exist already before a group can be created
-        Session session = this.sessionFactory.getCurrentSession();
-        this.defaultPath.setName(DEFAULT_PATH_NAME);
-        session.save(this.defaultPath);   // save path
-        this.defaultGroup.setPath(this.defaultPath);
     }
 
-	public void testSave_NoMembers() {
+	public void testSave_NoMembers_NoParent() {
 		verifyDataStoreGroupListIsEmpty();
 
 		this.groupDao.save(this.defaultGroup);
@@ -104,12 +86,18 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 			Map actualGroupMap = (Map) actualList.get(i);
 			// * NOTE * the keys in the map are all in UPPERCASE!
 			System.out.println("Map:" + actualGroupMap.toString());
-			String path_name_actual = (String) actualGroupMap
-			        .get(PersistentPath.COLUMN_NAME_NAME.toUpperCase());
-			assertEquals(DEFAULT_PATH_NAME, path_name_actual);
+			String group_name_actual = (String) actualGroupMap
+			        .get(PersistentGroup.COLUMN_NAME_NAME.toUpperCase());
+			assertEquals(DEFAULT_GROUP_NAME, group_name_actual);
 
 		}
 	}
+	
+//	public void testSave_NoMembers_Parent() {
+//		verifyDataStoreGroupListIsEmpty();
+//		
+//		
+//	}
 
 	
 	
@@ -124,16 +112,13 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	}
 	
 	/*
-	 * SELECT * FROM groups, paths WHERE
-	 * groups.path_fk = paths.id
+	 * SELECT * FROM groups WHERE groups.name = 'DEFAULT_GROUP_NAME'
 	 */
 	private static final String RETRIEVE_GROUP_LIST_SQL = "SELECT * FROM "
-		+ PersistentGroup.DATA_STORE_NAME + ", "
-		+ PersistentPath.DATA_STORE_NAME + " WHERE "
+		+ PersistentGroup.DATA_STORE_NAME + " WHERE "
 		+ PersistentGroup.DATA_STORE_NAME + "."
-		+ PersistentGroup.COLUMN_NAME_PATH_FK + " = "
-		+ PersistentPath.DATA_STORE_NAME + ".id";
-	
+		+ PersistentGroup.COLUMN_NAME_NAME + "= '" + DEFAULT_GROUP_NAME + "'";
+		
 	private List retrieveGroupListFromDb() {
 		return this.jdbcTemplate.queryForList(RETRIEVE_GROUP_LIST_SQL, 
 				(Object[]) null);

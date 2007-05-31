@@ -28,7 +28,8 @@ import net.sf.sail.webapp.domain.group.Group;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * 
+ * @version $Id$
  */
 public class HibernateGroupDao extends AbstractHibernateDao<Group> implements
         GroupDao<Group> {

@@ -29,18 +29,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
-import net.sf.sail.webapp.domain.group.Path;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
 /**
+ * This implementation of group
  * @author Cynick Young
  *
  * @version $Id$
@@ -54,10 +53,13 @@ public class PersistentGroup implements Group {
 	
     @Transient
     public static final String USERS_JOIN_TABLE_NAME = "groups_related_to_users";
+ 
+    @Transient
+    public static final String COLUMN_NAME_NAME = "name";
     
     @Transient
-    public static final String COLUMN_NAME_PATH_FK = "path_fk";
-    
+    public static final String COLUMN_NAME_PARENT_FK = "parent_fk";
+   
     @Transient
     public static final String USERS_JOIN_COLUMN_NAME = "user_fk";
     
@@ -79,9 +81,12 @@ public class PersistentGroup implements Group {
     @JoinTable(name = USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = GROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> members = new HashSet<User>();
 	
-    @OneToOne(targetEntity = PersistentPath.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = COLUMN_NAME_PATH_FK, nullable = false)
-    private Path path;
+    @Column(name = PersistentGroup.COLUMN_NAME_NAME, nullable = false)
+    private String name;
+ 
+    @ManyToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = COLUMN_NAME_PARENT_FK)
+    private Group parent;
     
     /**
      * @see net.sf.sail.webapp.domain.group.Group#addMember(net.sf.sail.webapp.domain.User)
@@ -101,26 +106,12 @@ public class PersistentGroup implements Group {
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.group.Group#getPath()
-     */
-    public Path getPath() {
-        return this.path;
-    }
-
-    /**
      * @see net.sf.sail.webapp.domain.group.Group#setMembers(java.util.List)
      */
     public void setMembers(Set<User> members) {
         this.members = members;
     }
-
-    /**
-     * @see net.sf.sail.webapp.domain.group.Group#setPath(net.sf.sail.webapp.domain.group.Path)
-     */
-    public void setPath(Path path) {
-        this.path = path;
-    }
-    
+   
     /**
      * @return the id
      */
@@ -156,40 +147,31 @@ public class PersistentGroup implements Group {
     }
 
 	/**
-	 * @see java.lang.Object#hashCode()
+	 * @see net.sf.sail.webapp.domain.group.Group#getName()
 	 */
-	@Override
-	public int hashCode() {
-		final int PRIME = 31;
-		int result = 1;
-		result = PRIME * result + ((members == null) ? 0 : members.hashCode());
-		result = PRIME * result + ((path == null) ? 0 : path.hashCode());
-		return result;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
+	 * @see net.sf.sail.webapp.domain.group.Group#setName(java.lang.String)
 	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final PersistentGroup other = (PersistentGroup) obj;
-		if (members == null) {
-			if (other.members != null)
-				return false;
-		} else if (!members.equals(other.members))
-			return false;
-		if (path == null) {
-			if (other.path != null)
-				return false;
-		} else if (!path.equals(other.path))
-			return false;
-		return true;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.domain.group.Group#getParent()
+	 */
+	public Group getParent() {
+		return parent;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.domain.group.Group#setParent(net.sf.sail.webapp.domain.group.Group)
+	 */
+	public void setParent(Group parent) {
+		this.parent = parent;
 	}
 
 
