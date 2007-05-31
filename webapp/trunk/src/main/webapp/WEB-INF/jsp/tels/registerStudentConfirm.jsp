@@ -42,11 +42,11 @@
 <div id="navigation" class="center">
 <ul>
 <li class="vertical"><spring:message code="login.username" />
-<input name="username" type="text" value=<authz:authentication operation="username" /> width="25"> </input>
+<input name="username" type="text" value="<authz:authentication operation="username" />" width="25"> </input>
 
 </li>
 <li class="vertical"><spring:message code="login.password" />
-<input name="password" type="password" value=<authz:authentication operation="password" /> width="25"> </input>
+<input name="password" type="password" value="<authz:authentication operation="password" />" width="25"> </input>
 </li>
 </ul>
 </div>
@@ -90,8 +90,3 @@
 
 </body>
 </html>
-
-
-
-
-
