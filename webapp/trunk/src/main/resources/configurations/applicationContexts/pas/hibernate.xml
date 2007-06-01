@@ -34,10 +34,6 @@
 	<bean id="group"
 		class="net.sf.sail.webapp.domain.group.impl.PersistentGroup"
 		scope="prototype" />
-		
-	<bean id="path"
-		class="net.sf.sail.webapp.domain.group.impl.PersistentPath"
-		scope="prototype" />
 	
 	<bean id="groupDao"
 	    class="net.sf.sail.webapp.dao.group.impl.HibernateGroupDao">

@@ -22,8 +22,11 @@
  */
 package net.sf.sail.webapp.dao.group.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
@@ -37,12 +40,16 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
  */
 public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	
-	private static final String DEFAULT_GROUP_NAME = "My Class";
+	private static final String ROOT_GROUP_NAME = "My Class";
 
 	private HibernateGroupDao groupDao;
 	
-	private Group defaultGroup;
+	private Group rootGroup;
 	
+	private Set<Group> intermediateGroups;
+	
+	private final String[] INTERMEDIATE_GROUP_NAMES = {"Period 1", "Period 2", "Period Sunflower"};
+			
 	/**
 	 * @param groupDao 
 	 *             the groupDao to set
@@ -52,11 +59,11 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	}
 
 	/**
-	 * @param defaultGroup 
-	 *              the defaultGroup to set
+	 * @param rootGroup 
+	 *              the rootGroup to set
 	 */
-	public void setDefaultGroup(Group defaultGroup) {
-		this.defaultGroup = defaultGroup;
+	public void setRootGroup(Group rootGroup) {
+		this.rootGroup = rootGroup;
 	}
 
 	/**
@@ -65,7 +72,14 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
     	super.onSetUpBeforeTransaction();
-    	this.defaultGroup.setName(DEFAULT_GROUP_NAME);
+    	this.rootGroup.setName(ROOT_GROUP_NAME);
+    	this.intermediateGroups = new HashSet<Group>();
+    	for (String group_name : INTERMEDIATE_GROUP_NAMES) {
+    		Group group = new PersistentGroup();
+    		group.setName(group_name);
+    		group.setParent(this.rootGroup);
+        	this.intermediateGroups.add(group);    		
+    	}
     }
 
     /**
@@ -76,10 +90,13 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
         super.onSetUpInTransaction();
     }
 
+    /**
+     * Test root Group node 
+     */
 	public void testSave_NoMembers_NoParent() {
 		verifyDataStoreGroupListIsEmpty();
 
-		this.groupDao.save(this.defaultGroup);
+		this.groupDao.save(this.rootGroup);
 		List actualList = retrieveGroupListFromDb();
 		assertEquals(1, actualList.size());
 		for (int i = 0; i < actualList.size(); i++) {
@@ -88,17 +105,43 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 			System.out.println("Map:" + actualGroupMap.toString());
 			String group_name_actual = (String) actualGroupMap
 			        .get(PersistentGroup.COLUMN_NAME_NAME.toUpperCase());
-			assertEquals(DEFAULT_GROUP_NAME, group_name_actual);
+			assertEquals(ROOT_GROUP_NAME, group_name_actual);
 
 		}
 	}
-	
-//	public void testSave_NoMembers_Parent() {
-//		verifyDataStoreGroupListIsEmpty();
-//		
-//		
-//	}
 
+	/**
+	 * Test intermediate Group node
+	 */
+	public void testSave_NoMembers_Parent() {
+		verifyDataStoreGroupListIsEmpty();
+
+		// allGroupNames contains names of all groups: root, intrmdte, leaf
+		List<String> allGroupNames = new ArrayList<String>();
+		allGroupNames.add(this.rootGroup.getName());
+		
+		this.groupDao.save(this.rootGroup);
+		for (Group group : this.intermediateGroups) {
+			allGroupNames.add(group.getName());
+			this.groupDao.save(group);
+		}
+
+		List actualList = retrieveGroupListFromDb();
+		assertEquals(INTERMEDIATE_GROUP_NAMES.length + 1, actualList.size());
+		for (int i = 0; i < actualList.size(); i++) {
+			Map actualGroupMap = (Map) actualList.get(i);
+			// * NOTE * the keys in the map are all in UPPERCASE!
+			String group_name_actual = (String) actualGroupMap
+			        .get(PersistentGroup.COLUMN_NAME_NAME.toUpperCase());
+			assertTrue(allGroupNames.contains(group_name_actual));
+			
+			List parentGroupList = 
+				getParentGroupGivenImmediateChildGroupName(group_name_actual);
+			if (group_name_actual != ROOT_GROUP_NAME) {
+				assertEquals(1, parentGroupList.size());
+			}
+		}
+	}
 	
 	
 	// TEST DELETE 
@@ -112,15 +155,32 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	}
 	
 	/*
-	 * SELECT * FROM groups WHERE groups.name = 'DEFAULT_GROUP_NAME'
+	 * SELECT * FROM groups
 	 */
 	private static final String RETRIEVE_GROUP_LIST_SQL = "SELECT * FROM "
-		+ PersistentGroup.DATA_STORE_NAME + " WHERE "
-		+ PersistentGroup.DATA_STORE_NAME + "."
-		+ PersistentGroup.COLUMN_NAME_NAME + "= '" + DEFAULT_GROUP_NAME + "'";
+		+ PersistentGroup.DATA_STORE_NAME;
+	
+	/*
+	 * SELECT * FROM groups g1 WHERE g1.id = 
+	 * SELECT g2.parent_fk FROM groups g2 WHERE g2.name = :childname
+	 */
+	private List getParentGroupGivenImmediateChildGroupName(String childName) {
+		String sqlQuery = 
+			RETRIEVE_GROUP_LIST_SQL + " g1 WHERE g1.id = "
+			 + "SELECT g2." + PersistentGroup.COLUMN_NAME_PARENT_FK
+		     + " FROM " + PersistentGroup.DATA_STORE_NAME + " g2 WHERE g2." 
+		     + PersistentGroup.COLUMN_NAME_NAME + " = '" + childName + "'";
 		
+		return retrieveGroupListFromDb(sqlQuery);
+	}
+			
 	private List retrieveGroupListFromDb() {
 		return this.jdbcTemplate.queryForList(RETRIEVE_GROUP_LIST_SQL, 
+				(Object[]) null);
+	}
+	
+	private List retrieveGroupListFromDb(String sqlQuery) {
+		return this.jdbcTemplate.queryForList(sqlQuery, 
 				(Object[]) null);
 	}
 
