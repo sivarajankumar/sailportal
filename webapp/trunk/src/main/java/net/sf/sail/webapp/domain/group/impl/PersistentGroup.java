@@ -20,6 +20,7 @@ package net.sf.sail.webapp.domain.group.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,10 +39,14 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
+import org.hibernate.annotations.Cascade;
+
+
 /**
  * This implementation of group
+ * 
  * @author Cynick Young
- *
+ * 
  * @version $Id$
  */
 @Entity
@@ -50,101 +55,102 @@ public class PersistentGroup implements Group {
 
 	@Transient
 	public static final String DATA_STORE_NAME = "groups";
-	
-    @Transient
-    public static final String USERS_JOIN_TABLE_NAME = "groups_related_to_users";
- 
-    @Transient
-    public static final String COLUMN_NAME_NAME = "name";
-    
-    @Transient
-    public static final String COLUMN_NAME_PARENT_FK = "parent_fk";
-   
-    @Transient
-    public static final String USERS_JOIN_COLUMN_NAME = "user_fk";
-    
-    @Transient
-    public static final String GROUPS_JOIN_COLUMN_NAME = "group_fk";
 
-    @Transient
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id = null;
-    
-    @Version
-    @Column(name = "OPTLOCK")
-    private Integer version = null;
+	@Transient
+	public static final String USERS_JOIN_TABLE_NAME = "groups_related_to_users";
 
-    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
-    @JoinTable(name = USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = GROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
-    private Set<User> members = new HashSet<User>();
-	
-    @Column(name = PersistentGroup.COLUMN_NAME_NAME, nullable = false)
-    private String name;
- 
-    @ManyToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = COLUMN_NAME_PARENT_FK)
-    private Group parent;
-    
-    /**
-     * @see net.sf.sail.webapp.domain.group.Group#addMember(net.sf.sail.webapp.domain.User)
-     */
-    public void addMember(User member) {
-        if (this.members.contains(member)) {
-            return;
-        }
-        this.members.add(member);
-    }
+	@Transient
+	public static final String COLUMN_NAME_NAME = "name";
 
-    /**
-     * @see net.sf.sail.webapp.domain.group.Group#getMembers()
-     */
-    public Set<User> getMembers() {
-        return this.members;
-    }
+	@Transient
+	public static final String COLUMN_NAME_PARENT_FK = "parent_fk";
 
-    /**
-     * @see net.sf.sail.webapp.domain.group.Group#setMembers(java.util.List)
-     */
-    public void setMembers(Set<User> members) {
-        this.members = members;
-    }
-   
-    /**
-     * @return the id
-     */
-    @SuppressWarnings("unused")
-    private Long getId() {
-        return id;
-    }
+	@Transient
+	public static final String USERS_JOIN_COLUMN_NAME = "user_fk";
 
-    /**
-     * @param id
-     *            the id to set
-     */
-    @SuppressWarnings("unused")
-    private void setId(Long id) {
-        this.id = id;
-    }
+	@Transient
+	public static final String GROUPS_JOIN_COLUMN_NAME = "group_fk";
 
-    /**
-     * @return the version
-     */
-    @SuppressWarnings("unused")
-    private Integer getVersion() {
-        return version;
-    }
+	@Transient
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @param version
-     *            the version to set
-     */
-    @SuppressWarnings("unused")
-    private void setVersion(Integer version) {
-        this.version = version;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
+
+	@Version
+	@Column(name = "OPTLOCK")
+	private Integer version = null;
+
+	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+	@JoinTable(name = USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = GROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
+	private Set<User> members = new HashSet<User>();
+
+	@Column(name = PersistentGroup.COLUMN_NAME_NAME, nullable = false)
+	private String name;
+
+	@ManyToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@JoinColumn(name = COLUMN_NAME_PARENT_FK)
+	private Group parent;
+
+	/**
+	 * @see net.sf.sail.webapp.domain.group.Group#addMember(net.sf.sail.webapp.domain.User)
+	 */
+	public void addMember(User member) {
+		if (this.members.contains(member)) {
+			return;
+		}
+		this.members.add(member);
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.domain.group.Group#getMembers()
+	 */
+	public Set<User> getMembers() {
+		return this.members;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.domain.group.Group#setMembers(java.util.List)
+	 */
+	public void setMembers(Set<User> members) {
+		this.members = members;
+	}
+
+	/**
+	 * @return the id
+	 */
+	@SuppressWarnings("unused")
+	private Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	@SuppressWarnings("unused")
+	private void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the version
+	 */
+	@SuppressWarnings("unused")
+	private Integer getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version
+	 *            the version to set
+	 */
+	@SuppressWarnings("unused")
+	private void setVersion(Integer version) {
+		this.version = version;
+	}
 
 	/**
 	 * @see net.sf.sail.webapp.domain.group.Group#getName()
@@ -173,6 +179,5 @@ public class PersistentGroup implements Group {
 	public void setParent(Group parent) {
 		this.parent = parent;
 	}
-
 
 }
