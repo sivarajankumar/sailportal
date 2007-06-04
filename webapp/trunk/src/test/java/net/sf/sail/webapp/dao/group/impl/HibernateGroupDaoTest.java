@@ -26,8 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
+
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
@@ -39,16 +44,34 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 
 	private static String ROOT_GROUP_NAME = "My Science Classes";
+	
+    private static final String USERNAME_1 = "Hiroki";
+
+    private static final Integer SDS_ID_1 = new Integer(42);
+
+    private static final String USERNAME_2 = "Cynick";
+
+    private static final Integer SDS_ID_2 = new Integer(15);
+
+    private static final String USERNAME_3 = "Laurel";
+
+    private static final Integer SDS_ID_3 = new Integer(24);
+
+    private static final String DEFAULT_NAME = "the heros";
+
+    private static final String PASSWORD = "password";
 
 	private HibernateGroupDao groupDao;
 
 	private Group rootGroup;
+	
+	private User user1, user2, user3;
 
-	private List<Group> intermediateGroups;
+	private List<Group> intermediateGroups, leafGroups;
 
 	private final String[] INTERMEDIATE_GROUP_NAMES = { "Period 1", "Period 2", "Another Group" };
 
-	private final String[] LEAF_GROUP_NAMES = { "" };
+	private final String[] LEAF_GROUP_NAMES = { "Group 1", "Group 2", "Group TeddyBear" };
 
 	/**
 	 * @param groupDao
@@ -80,6 +103,15 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 			group.setParent(this.rootGroup);
 			this.intermediateGroups.add(group);
 		}
+		
+		this.leafGroups = new ArrayList<Group>();
+		for (String group_name : LEAF_GROUP_NAMES) {
+			Group group = new PersistentGroup();
+			group.setName(group_name);
+			group.setParent(this.rootGroup);
+			this.leafGroups.add(group);
+		}
+		
 	}
 
 	/**
@@ -88,6 +120,12 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	@Override
 	protected void onSetUpInTransaction() throws Exception {
 		super.onSetUpInTransaction();
+		user1 = createNewUser(USERNAME_1, SDS_ID_1, this.sessionFactory
+                .getCurrentSession());
+		user2 = createNewUser(USERNAME_2, SDS_ID_2, this.sessionFactory
+                .getCurrentSession());
+		user3 = createNewUser(USERNAME_3, SDS_ID_3, this.sessionFactory
+                .getCurrentSession());
 	}
 
 	/**
@@ -149,11 +187,114 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 		checkRootGroupIsValid();
 		checkIntermediateGroupsAreValid(intermediateGroup1, intermediateGroup2, intermediateGroup3);
 		confirmNoMembersInAnyGroup();
-		
+	
+		// if you 
 		//retrieve each group and check - ensure root changes propagate
+	}
+	
+	/**
+	 * Test saving a leaf Group whose parent is a root Group
+	 */
+	public void testSave_Leaf_Group1() {
+		verifyDataStoreGroupListIsEmpty();
 		
+		Group leafGroup0 = leafGroups.get(0);
+		leafGroup0.addMember(user1);
+
+		this.groupDao.save(leafGroup0);
+		this.toilet.flush();    // need to flush the toilet to force group members to be saved.
+		List actualList = this.retrieveAllGroupsListFromDb();
+		assertEquals(2, actualList.size());
+		List actualGroupMembersList = retrieveGroupsWithMemberKeys();
+		assertEquals(1, actualGroupMembersList.size());
+		checkRootGroupIsValid();
+		
+		// add another member to the leaf Group node
+		leafGroup0.addMember(user2);
+		
+		this.groupDao.save(leafGroup0);
+		this.toilet.flush();  // need to flush the toilet to force group members to be saved.
+		actualList = this.retrieveAllGroupsListFromDb();
+		assertEquals(2, actualList.size());
+		actualGroupMembersList = retrieveGroupsWithMemberKeys();
+		assertEquals(2, actualGroupMembersList.size());
+		checkRootGroupIsValid();
 	}
 
+	/**
+	 * Test saving a leaf Group whose parent is an intermediate Group
+	 */
+	public void testSave_Leaf_Group2() {
+		verifyDataStoreGroupListIsEmpty();
+
+		// when a root node doesn't exist and you save an intermediate node, 
+		// the root node will be saved along with the intermediate node
+		Group intermediateGroup0 = intermediateGroups.get(0);
+		this.groupDao.save(intermediateGroup0);
+
+		List actualList = this.retrieveAllGroupsListFromDb();
+		assertEquals(2, actualList.size());
+		checkRootGroupIsValid();
+		checkIntermediateGroupsAreValid(intermediateGroup0);
+		confirmNoMembersInAnyGroup();
+		
+		// now create a leaf Group
+		Group leafGroup0 = leafGroups.get(0);
+		leafGroup0.setParent(intermediateGroup0);
+		leafGroup0.addMember(user1);
+
+		this.groupDao.save(leafGroup0);
+		this.toilet.flush();    // need to flush the toilet to force group members to be saved.
+		actualList = this.retrieveAllGroupsListFromDb();
+		assertEquals(3, actualList.size());
+		List actualGroupMembersList = retrieveGroupsWithMemberKeys();
+		assertEquals(1, actualGroupMembersList.size());
+		checkRootGroupIsValid();
+	}
+	
+	/**
+	 * Test having a user join more than one Group
+	 */
+	public void testUser_In_Many_Groups() {
+		verifyDataStoreGroupListIsEmpty();
+
+		Group leafGroup0 = leafGroups.get(0);
+		leafGroup0.addMember(user1);
+
+		this.groupDao.save(leafGroup0);
+		this.toilet.flush();    // need to flush the toilet to force group members to be saved.
+		List actualList = this.retrieveAllGroupsListFromDb();
+		assertEquals(2, actualList.size());
+		List actualGroupMembersList = retrieveGroupsWithMemberKeys();
+		assertEquals(1, actualGroupMembersList.size());
+		checkRootGroupIsValid();
+		
+		Group leafGroup1 = leafGroups.get(1);
+		leafGroup1.addMember(user1);
+		leafGroup1.addMember(user2);
+		
+		this.groupDao.save(leafGroup1);
+		this.toilet.flush();   // need to flush the toilet to force group members to be saved.
+		actualList = this.retrieveAllGroupsListFromDb();
+		assertEquals(3, actualList.size());
+		actualGroupMembersList = retrieveGroupsWithMemberKeys();
+		assertEquals(3, actualGroupMembersList.size());
+		checkRootGroupIsValid();
+		
+		Group leafGroup2 = leafGroups.get(2);
+		leafGroup2.addMember(user1);
+		leafGroup2.addMember(user3);
+		
+		this.groupDao.save(leafGroup2);
+		this.toilet.flush();   // need to flush the toilet to force group members to be saved.
+		actualList = this.retrieveAllGroupsListFromDb();
+		assertEquals(4, actualList.size());
+		actualGroupMembersList = retrieveGroupsWithMemberKeys();
+		assertEquals(5, actualGroupMembersList.size());
+		checkRootGroupIsValid();
+	}
+	
+	
 	private void checkIntermediateGroupsAreValid(Group... intermediateGroups) {
 		for (Group intermediateGroup : intermediateGroups) {
 			//retrieve intermediate group and check it
@@ -203,6 +344,22 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 		Map actualRootGroupMap = (Map) actualRootGroupList.get(0);
 		return (Long) actualRootGroupMap.get("ID");
 	}
+	
+    private User createNewUser(String username, Integer sdsId, Session session) {
+        User user = (User) this.applicationContext.getBean("user");
+        SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
+        sdsUser.setFirstName(DEFAULT_NAME);
+        sdsUser.setLastName(DEFAULT_NAME);
+        sdsUser.setSdsObjectId(sdsId);
+        MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
+                .getBean("mutableUserDetails");
+        userDetails.setUsername(username);
+        userDetails.setPassword(PASSWORD);
+        user.setSdsUser(sdsUser);
+        user.setUserDetails(userDetails);
+        session.save(user);
+        return user;
+    }
 
 	// // allGroupNames contains names of all groups: root, intrmdte, leaf
 	// List<String> allGroupNames = new ArrayList<String>();
@@ -335,9 +492,4 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 		return this.jdbcTemplate.queryForList(RETRIEVE_GROUP_LIST_MEMBERS_SQL,
 				(Object[]) null);
 	}
-
-	private List retrieveGroupListFromDb(String sqlQuery) {
-		return this.jdbcTemplate.queryForList(sqlQuery, (Object[]) null);
-	}
-
 }
