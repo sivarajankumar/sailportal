@@ -402,6 +402,10 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	 * groups_related_to_users.user_fk = users.id AND users.user_details_fk =
 	 * user_details.id
 	 */
+//        private static final String RETRIEVE_GROUP_LIST_MEMBERS_SQL = "SELECT * FROM groups, groups_related_to_users, users, user_details WHERE " +
+//         "groups.id = groups_related_to_users.group_fk AND " +
+//         "groups_related_to_users.user_fk = users.id AND users.user_details_fk = " +
+//         "user_details.id";
 	private static final String RETRIEVE_GROUP_LIST_MEMBERS_SQL = "SELECT * FROM "
 			+ PersistentGroup.DATA_STORE_NAME
 			+ ", "
@@ -423,7 +427,7 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 			+ "="
 			+ UserImpl.DATA_STORE_NAME
 			+ "."
-			+ UserImpl.COLUMN_NAME_USER_DETAILS_FK
+			+ "id"
 			+ " AND "
 			+ UserImpl.DATA_STORE_NAME
 			+ "."
