@@ -1,0 +1,90 @@
+/**
+ * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * by TELS, Graduate School of Education, University of California at Berkeley.
+ *
+ * This software is distributed under the GNU Lesser General Public License, v2.
+ *
+ * Permission is hereby granted, without written agreement and without license
+ * or royalty fees, to use, copy, modify, and distribute this software and its
+ * documentation for any purpose, provided that the above copyright notice and
+ * the following two paragraphs appear in all copies of this software.
+ *
+ * REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE. THE SOFTWAREAND ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED
+ * HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
+ * MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+ *
+ * IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+ * SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+ * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+ * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package net.sf.sail.webapp.service.group.impl;
+
+import org.springframework.beans.factory.annotation.Required;
+
+import net.sf.sail.webapp.dao.group.GroupDao;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.service.group.CyclicalGroupException;
+import net.sf.sail.webapp.service.group.GroupService;
+
+/**
+ * A class to provide services for Group objects.
+ *
+ * @author Hiroki Terashima
+ * @version $Id: $
+ */
+public class GroupServiceImpl implements GroupService {
+
+	private GroupDao<Group> groupDao;
+	
+	/**
+	 * @param groupDao the groupDao to set
+	 */
+	@Required
+	public void setGroupDao(GroupDao<Group> groupDao) {
+		this.groupDao = groupDao;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group, java.lang.String)
+	 */
+	public void changeGroupName(Group group, String newName) {
+		group.setName(newName);
+		this.groupDao.save(group);
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.group.GroupService#createGroup(java.lang.String)
+	 */
+	public Group createGroup(String name) {
+		Group group = new PersistentGroup();
+		group.setName(name);
+		this.groupDao.save(group);
+		return group;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.Group, java.lang.String)
+	 */
+	public Group createGroup(Group parent, String name)
+			throws CyclicalGroupException {
+		Group group = new PersistentGroup();
+		group.setName(name);
+		group.setParent(parent);
+		this.groupDao.save(group);
+		return group;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.group.GroupService#moveGroup(net.sf.sail.webapp.domain.group.Group, net.sf.sail.webapp.domain.group.Group)
+	 */
+	public void moveGroup(Group newParent, Group groupToBeMoved)
+			throws CyclicalGroupException {
+		// TODO Auto-generated method stub
+
+	}
+
+}
