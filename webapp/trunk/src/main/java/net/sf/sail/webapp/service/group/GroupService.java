@@ -22,6 +22,9 @@
  */
 package net.sf.sail.webapp.service.group;
 
+import java.util.Set;
+
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 
 /**
@@ -60,4 +63,13 @@ public interface GroupService {
 	 * @throws CyclicalGroupException when this action creates a cycle
 	 */
 	public void moveGroup(Group newParent, Group groupToBeMoved) throws CyclicalGroupException;
+	
+	/**
+	 * Adds members to an already-existing group
+	 * If a member already exists in the group, do not add again
+	 * 
+	 * @param group and existing <code>Group</code> that the members should be added to
+	 * @param membersToAdd <code>Set</code> of users to add to the group
+	 */
+	public void addMembers(Group group, Set<User> membersToAdd);
 }

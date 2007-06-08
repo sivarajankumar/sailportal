@@ -22,11 +22,18 @@
  */
 package net.sf.sail.webapp.service.group.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.easymock.EasyMock;
 
 import net.sf.sail.webapp.dao.group.GroupDao;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 import junit.framework.TestCase;
 
@@ -42,9 +49,17 @@ public class GroupServiceImplTest extends TestCase {
 	
 	private GroupServiceImpl groupServiceImpl;
 	
-	private static final String[] DEFAULT_GROUP_NAMES = 
+	private final String[] DEFAULT_GROUP_NAMES = 
 	   {"Period 1", "Period 2", "My Science Class"};
 	
+	private User user1, user2, user3;
+	
+	private final String USERNAME_1 = "Badger";
+
+	private final String USERNAME_2 = "Monkey";
+
+	private final String USERNAME_3 = "Duck";
+
     /**
      * @see junit.framework.TestCase#setUp()
      */
@@ -60,6 +75,20 @@ public class GroupServiceImplTest extends TestCase {
         this.group1 = new PersistentGroup();
         this.group2 = new PersistentGroup();
         this.group3 = new PersistentGroup();
+        this.user1 = new UserImpl();
+        this.user2 = new UserImpl();
+        this.user3 = new UserImpl();
+
+		MutableUserDetails userDetails1 = new PersistentUserDetails();
+		userDetails1.setUsername(USERNAME_1);
+        this.user1.setUserDetails(userDetails1);
+		MutableUserDetails userDetails2 = new PersistentUserDetails();
+		userDetails2.setUsername(USERNAME_2);
+        this.user2.setUserDetails(userDetails2);
+		MutableUserDetails userDetails3 = new PersistentUserDetails();
+		userDetails3.setUsername(USERNAME_3);
+        this.user3.setUserDetails(userDetails3);
+
     }
     
     /**
@@ -74,6 +103,9 @@ public class GroupServiceImplTest extends TestCase {
         this.group1 = null;
         this.group2 = null;
         this.group3 = null;
+        this.user1 = null;
+        this.user2 = null;
+        this.user3 = null;
     }
     
 	// Group 1 (root node)
@@ -239,4 +271,33 @@ public class GroupServiceImplTest extends TestCase {
 		}
     }
     
+    public void testAddMembers() {
+    	
+    	// first create a group
+    	createGroup1();
+    	
+    	// add two members to this group
+    	Set<User> members = new HashSet<User>();
+    	members.add(this.user1);
+    	members.add(this.user2);
+    	this.group1.setMembers(members);
+    	
+    	this.mockGroupDao.save(this.group1);
+    	EasyMock.expectLastCall();  
+    	EasyMock.replay(this.mockGroupDao);  
+    	
+    	this.groupServiceImpl.addMembers(this.group1, members);
+
+    	EasyMock.verify(this.mockGroupDao);
+    	EasyMock.reset(this.mockGroupDao);
+    	assertEquals(2, this.group1.getMembers().size());
+    	
+    	// now try adding 2 more members, only 1 of which is new
+    	Set<User> newMembers = new HashSet<User>();
+    	newMembers.add(this.user3);
+    	newMembers.add(this.user1);
+    	this.groupServiceImpl.addMembers(this.group1, newMembers);
+    	assertEquals(3, this.group1.getMembers().size());
+
+    }
 }

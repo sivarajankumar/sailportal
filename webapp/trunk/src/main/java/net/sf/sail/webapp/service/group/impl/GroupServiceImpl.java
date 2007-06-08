@@ -24,8 +24,10 @@ package net.sf.sail.webapp.service.group.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.group.GroupDao;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
@@ -92,6 +94,16 @@ public class GroupServiceImpl implements GroupService {
 					" when this group is moved.");
 		}
 		this.groupDao.save(groupToBeMoved);
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.group.GroupService#addMembers(net.sf.sail.webapp.domain.group.Group, java.util.Set)
+	 */
+	public void addMembers(Group group, Set<User> membersToAdd) {
+		for (User member : membersToAdd) {
+			group.addMember(member);
+		}
+		this.groupDao.save(group);
 	}
 
 	/**
