@@ -22,13 +22,16 @@
  */
 package net.sf.sail.webapp.service.group.impl;
 
-import org.springframework.beans.factory.annotation.Required;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 import net.sf.sail.webapp.service.group.GroupService;
+
+import org.springframework.beans.factory.annotation.Required;
 
 /**
  * A class to provide services for Group objects.
@@ -83,8 +86,37 @@ public class GroupServiceImpl implements GroupService {
 	 */
 	public void moveGroup(Group newParent, Group groupToBeMoved)
 			throws CyclicalGroupException {
-		// TODO Auto-generated method stub
-
+		groupToBeMoved.setParent(newParent);
+		if (cycleExists(groupToBeMoved)) {
+			throw new CyclicalGroupException("Cycle will be created" +
+					" when this group is moved.");
+		}
+		this.groupDao.save(groupToBeMoved);
 	}
 
+	/**
+	 * Checks to see if the given group contains a cycle
+	 * 
+	 * @param group <code>Group</code> group to be checked for cycles
+	 * @return boolean true iff the given group contains a cycle
+	 */
+	private boolean cycleExists(Group group) {
+		if (group.getParent().equals(group)) return true;
+		
+		// traverse up the parent until null (no cycle) or 
+		// until group is reached again (cycle)
+		List<Group> visitedSoFar = new ArrayList<Group>();
+		Group toCheck = group;
+		while ((toCheck = toCheck.getParent()) != null) {
+			if (visitedSoFar.contains(toCheck)) {
+				// use the equals() to check for equality
+				// don't use TreeSet&hashCode, or it will
+				// go into infinite loop
+				return true;
+			} else {
+				visitedSoFar.add(toCheck);
+			}
+		}
+		return false;
+	}
 }
