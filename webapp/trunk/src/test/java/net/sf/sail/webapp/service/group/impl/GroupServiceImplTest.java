@@ -216,10 +216,10 @@ public class GroupServiceImplTest extends TestCase {
 	public void testMoveGroup_NoCycle() {
 		// Start with two root nodes. Have the second root node's parent
 		// point to the first. This should not create a cycle
-		// A A
-		// => ^
-		// |
-		// B B
+		// A      A
+		//    =>  ^
+		//        |
+		// B      B
 		createGroup1(); // Root node A
 		createGroup2(); // Root node B
 
@@ -251,12 +251,12 @@ public class GroupServiceImplTest extends TestCase {
 		}
 
 		// Now test that CyclicalGroupException is thrown for this:
-		// A A
-		// ^ ^ \
-		// | => | |
-		// B B |
-		// ^ /
-		// |/
+		//         A            A
+        //         ^            ^  \
+		//         |    =>      |   |  
+		//         B            B   |
+		//                      ^  /
+		//                      |/
 		createGroup2(); // Root node A
 		createGroup3(); // intermediate node B
 		this.group3.setParent(this.group2);
@@ -265,6 +265,8 @@ public class GroupServiceImplTest extends TestCase {
 			fail("CyclicalException expected");
 		} catch (CyclicalGroupException e) {
 		}
+		// assert that group node A's parent didn't get changed
+		assertNull(this.group2.getParent());
 	}
 
 	public void testAddMembers() {

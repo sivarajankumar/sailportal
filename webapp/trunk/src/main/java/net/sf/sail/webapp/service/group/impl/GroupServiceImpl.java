@@ -87,8 +87,11 @@ public class GroupServiceImpl implements GroupService {
 	 */
 	public void moveGroup(Group newParent, Group groupToBeMoved)
 			throws CyclicalGroupException {
+		Group previousParent = groupToBeMoved.getParent();
 		groupToBeMoved.setParent(newParent);
 		if (cycleExists(groupToBeMoved)) {
+			// if cycle exists, reset groupToBeMoved's parent
+			groupToBeMoved.setParent(previousParent);
 			throw new CyclicalGroupException("Cycle will be created" +
 					" when this group is moved.");
 		}
