@@ -39,265 +39,261 @@ import junit.framework.TestCase;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class GroupServiceImplTest extends TestCase {
 
 	private GroupDao<Group> mockGroupDao;
-	
+
 	private Group group1, group2, group3;
-	
+
 	private GroupServiceImpl groupServiceImpl;
-	
-	private final String[] DEFAULT_GROUP_NAMES = 
-	   {"Period 1", "Period 2", "My Science Class"};
-	
+
+	private final String[] DEFAULT_GROUP_NAMES = { "Period 1", "Period 2",
+			"My Science Class" };
+
 	private User user1, user2, user3;
-	
+
 	private final String USERNAME_1 = "Badger";
 
 	private final String USERNAME_2 = "Monkey";
 
 	private final String USERNAME_3 = "Duck";
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.groupServiceImpl = new GroupServiceImpl();
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void setUp() throws Exception {
+		super.setUp();
+		this.groupServiceImpl = new GroupServiceImpl();
 
-        this.mockGroupDao = EasyMock.createMock(GroupDao.class);
-        this.groupServiceImpl.setGroupDao(this.mockGroupDao);
-        
-        this.group1 = new PersistentGroup();
-        this.group2 = new PersistentGroup();
-        this.group3 = new PersistentGroup();
-        this.user1 = new UserImpl();
-        this.user2 = new UserImpl();
-        this.user3 = new UserImpl();
+		this.mockGroupDao = EasyMock.createMock(GroupDao.class);
+		this.groupServiceImpl.setGroupDao(this.mockGroupDao);
+
+		this.group1 = new PersistentGroup();
+		this.group2 = new PersistentGroup();
+		this.group3 = new PersistentGroup();
+		this.user1 = new UserImpl();
+		this.user2 = new UserImpl();
+		this.user3 = new UserImpl();
 
 		MutableUserDetails userDetails1 = new PersistentUserDetails();
 		userDetails1.setUsername(USERNAME_1);
-        this.user1.setUserDetails(userDetails1);
+		this.user1.setUserDetails(userDetails1);
 		MutableUserDetails userDetails2 = new PersistentUserDetails();
 		userDetails2.setUsername(USERNAME_2);
-        this.user2.setUserDetails(userDetails2);
+		this.user2.setUserDetails(userDetails2);
 		MutableUserDetails userDetails3 = new PersistentUserDetails();
 		userDetails3.setUsername(USERNAME_3);
-        this.user3.setUserDetails(userDetails3);
+		this.user3.setUserDetails(userDetails3);
 
-    }
-    
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        this.groupServiceImpl = null;
-        this.mockGroupDao = null;
-        
-        this.group1 = null;
-        this.group2 = null;
-        this.group3 = null;
-        this.user1 = null;
-        this.user2 = null;
-        this.user3 = null;
-    }
-    
+	}
+
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		this.groupServiceImpl = null;
+		this.mockGroupDao = null;
+
+		this.group1 = null;
+		this.group2 = null;
+		this.group3 = null;
+		this.user1 = null;
+		this.user2 = null;
+		this.user3 = null;
+	}
+
 	// Group 1 (root node)
 	// name: DEFAULT_GROUP_NAMES[0]
-    // parent: none
-    // members: none
+	// parent: none
+	// members: none
 	private void createGroup1() {
 		this.group1.setName(DEFAULT_GROUP_NAMES[0]);
-    	this.mockGroupDao.save(this.group1);
-    	EasyMock.expectLastCall();
-    	EasyMock.replay(this.mockGroupDao);
-    	
-    	this.group1 = this.groupServiceImpl.createGroup(DEFAULT_GROUP_NAMES[0]);
-    	EasyMock.verify(this.mockGroupDao);
-    	EasyMock.reset(this.mockGroupDao);
-    	assertEquals(0, this.group1.getMembers().size());
-    	assertEquals(DEFAULT_GROUP_NAMES[0], this.group1.getName());
-    	assertNull(this.group1.getParent());
+		this.mockGroupDao.save(this.group1);
+		EasyMock.expectLastCall();
+		EasyMock.replay(this.mockGroupDao);
+
+		this.group1 = this.groupServiceImpl.createGroup(DEFAULT_GROUP_NAMES[0]);
+		EasyMock.verify(this.mockGroupDao);
+		EasyMock.reset(this.mockGroupDao);
+		assertEquals(0, this.group1.getMembers().size());
+		assertEquals(DEFAULT_GROUP_NAMES[0], this.group1.getName());
+		assertNull(this.group1.getParent());
 	}
-	
+
 	// Group 2 (root node)
 	// name: DEFAULT_GROUP_NAMES[0]
-    // parent: none
-    // members: none
+	// parent: none
+	// members: none
 	private void createGroup2() {
 		this.group2.setName(DEFAULT_GROUP_NAMES[0]);
-    	this.mockGroupDao.save(this.group2);
-    	EasyMock.expectLastCall();
-    	EasyMock.replay(this.mockGroupDao);
+		this.mockGroupDao.save(this.group2);
+		EasyMock.expectLastCall();
+		EasyMock.replay(this.mockGroupDao);
 
-    	this.group2 = this.groupServiceImpl.createGroup(DEFAULT_GROUP_NAMES[0]);
-    	EasyMock.verify(this.mockGroupDao);  
-    	EasyMock.reset(this.mockGroupDao);
-    	assertEquals(0, this.group2.getMembers().size());
-    	assertEquals(DEFAULT_GROUP_NAMES[0], this.group2.getName());
-    	assertNull(this.group2.getParent());
+		this.group2 = this.groupServiceImpl.createGroup(DEFAULT_GROUP_NAMES[0]);
+		EasyMock.verify(this.mockGroupDao);
+		EasyMock.reset(this.mockGroupDao);
+		assertEquals(0, this.group2.getMembers().size());
+		assertEquals(DEFAULT_GROUP_NAMES[0], this.group2.getName());
+		assertNull(this.group2.getParent());
 	}
-	
+
 	// Group 3 (intermediate node)
 	// name: DEFAULT_GROUP_NAMES[2]
-    // parent: group 1
-    // members: none
+	// parent: group 1
+	// members: none
 	private void createGroup3() {
 		this.group3.setName(DEFAULT_GROUP_NAMES[2]);
-    	this.group3.setParent(this.group1);
-    	this.mockGroupDao.save(this.group3);
-    	EasyMock.expectLastCall();
-    	EasyMock.replay(this.mockGroupDao);
-    	
-		try {
-			this.group3 = this.groupServiceImpl.createGroup(this.group1, DEFAULT_GROUP_NAMES[2]);
-			EasyMock.verify(this.mockGroupDao);
-	    	EasyMock.reset(this.mockGroupDao);
-		} catch (CyclicalGroupException e) {
-			fail("CyclicalGroupException NOT expected");
-		}
+		this.group3.setParent(this.group1);
+		this.mockGroupDao.save(this.group3);
+		EasyMock.expectLastCall();
+		EasyMock.replay(this.mockGroupDao);
+
+		this.group3 = this.groupServiceImpl.createGroup(this.group1,
+				DEFAULT_GROUP_NAMES[2]);
+		EasyMock.verify(this.mockGroupDao);
+		EasyMock.reset(this.mockGroupDao);
 		assertEquals(DEFAULT_GROUP_NAMES[2], this.group3.getName());
-    	assertEquals(0, this.group3.getMembers().size());
+		assertEquals(0, this.group3.getMembers().size());
 	}
-    
-    public void testCreateGroup() {
 
-    	// create group1    	
-    	createGroup1();    	
+	public void testCreateGroup() {
 
-    	// create another group with the same name
-    	createGroup2();
+		// create group1
+		createGroup1();
 
-    	assertEquals(this.group2.getName(), this.group1.getName());
+		// create another group with the same name
+		createGroup2();
 
-    }
+		assertEquals(this.group2.getName(), this.group1.getName());
 
-    public void testChangeGroupName() {
-    	
-    	// create group1
-    	createGroup1();
+	}
 
-    	// change group1's name
-    	this.group1.setName(DEFAULT_GROUP_NAMES[1]);
-    	this.mockGroupDao.save(this.group1);
-    	EasyMock.expectLastCall();
-    	EasyMock.replay(this.mockGroupDao);
-    	
-    	this.groupServiceImpl.changeGroupName(this.group1, DEFAULT_GROUP_NAMES[1]);
-    	EasyMock.verify(this.mockGroupDao);
-    	EasyMock.reset(this.mockGroupDao);
-    	assertEquals(DEFAULT_GROUP_NAMES[1], this.group1.getName());
-    }
+	public void testChangeGroupName() {
 
-    // test creating a sub group. Creating this new group
-    // will not create any cycle
-    public void testCreateSubGroup_NoCycle() {
-    	
-    	// create group1
-    	createGroup1();
-    	
-    	// create a new group whose parent is group1
-    	createGroup3();
-    	
+		// create group1
+		createGroup1();
+
+		// change group1's name
+		this.group1.setName(DEFAULT_GROUP_NAMES[1]);
+		this.mockGroupDao.save(this.group1);
+		EasyMock.expectLastCall();
+		EasyMock.replay(this.mockGroupDao);
+
+		this.groupServiceImpl.changeGroupName(this.group1,
+				DEFAULT_GROUP_NAMES[1]);
+		EasyMock.verify(this.mockGroupDao);
+		EasyMock.reset(this.mockGroupDao);
+		assertEquals(DEFAULT_GROUP_NAMES[1], this.group1.getName());
+	}
+
+	// test creating a sub group. Creating this new group
+	// will not create any cycle
+	public void testCreateSubGroup_NoCycle() {
+
+		// create group1
+		createGroup1();
+
+		// create a new group whose parent is group1
+		createGroup3();
+
 		assertEquals(this.group3.getParent(), this.group1);
-    }
+	}
 
-    
-    // test creating a sub group. Creating this new group
-    // will create a cycle
-    // However, right now, there is no way for this to happen
-    //  public void testCreateSubGroup_Cycle() {
-    //  }
-    
-    // test moving a group that won't result in cycles being created
-    public void testMoveGroup_NoCycle() {
-    	// Start with two root nodes. Have the second root node's parent
-    	// point to the first. This should not create a cycle
-    	//   A           A
-    	//         =>    ^
-    	//               |
-    	//   B           B
-    	createGroup1();     // Root node A
-    	createGroup2();     // Root node B
+	// test creating a sub group. Creating this new group
+	// will create a cycle
+	// However, right now, there is no way for this to happen
+	// public void testCreateSubGroup_Cycle() {
+	// }
 
-    	this.group2.setParent(this.group1);
-    	this.mockGroupDao.save(this.group2);
-        // since there is no cycle, expect group2 to be saved
-    	EasyMock.expectLastCall();  
-    	EasyMock.replay(this.mockGroupDao);
-    	
-    	try {
+	// test moving a group that won't result in cycles being created
+	public void testMoveGroup_NoCycle() {
+		// Start with two root nodes. Have the second root node's parent
+		// point to the first. This should not create a cycle
+		// A A
+		// => ^
+		// |
+		// B B
+		createGroup1(); // Root node A
+		createGroup2(); // Root node B
+
+		this.group2.setParent(this.group1);
+		this.mockGroupDao.save(this.group2);
+		// since there is no cycle, expect group2 to be saved
+		EasyMock.expectLastCall();
+		EasyMock.replay(this.mockGroupDao);
+
+		try {
 			this.groupServiceImpl.moveGroup(this.group1, this.group2);
 		} catch (CyclicalGroupException e) {
 			fail("CyclicalException NOT expected");
 		}
-    	EasyMock.verify(this.mockGroupDao);
-    	EasyMock.reset(this.mockGroupDao);
-    	assertEquals(this.group2.getParent(), this.group1);
-    }
-    
-    // test moving a group that results in a cycle being created
-    public void testMoveGroup_Cycle_1() {
-    	// test making a group's parent be itself. 
-    	// This should create a cycle.
-    	createGroup1();
-    	try {
+		EasyMock.verify(this.mockGroupDao);
+		EasyMock.reset(this.mockGroupDao);
+		assertEquals(this.group2.getParent(), this.group1);
+	}
+
+	// test moving a group that results in a cycle being created
+	public void testMoveGroup_Cycle_1() {
+		// test making a group's parent be itself.
+		// This should create a cycle.
+		createGroup1();
+		try {
 			this.groupServiceImpl.moveGroup(group1, group1);
 			fail("CyclicalException expected");
 		} catch (CyclicalGroupException e) {
 		}
-		
-		
+
 		// Now test that CyclicalGroupException is thrown for this:
-		//         A            A
-        //         ^            ^  \
-		//         |    =>      |   |  
-		//         B            B   |
-		//                      ^  /
-		//                      |/
-		createGroup2();   // Root node A
-		createGroup3();   // intermediate node B
+		// A A
+		// ^ ^ \
+		// | => | |
+		// B B |
+		// ^ /
+		// |/
+		createGroup2(); // Root node A
+		createGroup3(); // intermediate node B
 		this.group3.setParent(this.group2);
 		try {
 			this.groupServiceImpl.moveGroup(this.group3, this.group2);
 			fail("CyclicalException expected");
 		} catch (CyclicalGroupException e) {
 		}
-    }
-    
-    public void testAddMembers() {
-    	
-    	// first create a group
-    	createGroup1();
-    	
-    	// add two members to this group
-    	Set<User> members = new HashSet<User>();
-    	members.add(this.user1);
-    	members.add(this.user2);
-    	this.group1.setMembers(members);
-    	
-    	this.mockGroupDao.save(this.group1);
-    	EasyMock.expectLastCall();  
-    	EasyMock.replay(this.mockGroupDao);  
-    	
-    	this.groupServiceImpl.addMembers(this.group1, members);
+	}
 
-    	EasyMock.verify(this.mockGroupDao);
-    	EasyMock.reset(this.mockGroupDao);
-    	assertEquals(2, this.group1.getMembers().size());
-    	
-    	// now try adding 2 more members, only 1 of which is new
-    	Set<User> newMembers = new HashSet<User>();
-    	newMembers.add(this.user3);
-    	newMembers.add(this.user1);
-    	this.groupServiceImpl.addMembers(this.group1, newMembers);
-    	assertEquals(3, this.group1.getMembers().size());
+	public void testAddMembers() {
 
-    }
+		// first create a group
+		createGroup1();
+
+		// add two members to this group
+		Set<User> members = new HashSet<User>();
+		members.add(this.user1);
+		members.add(this.user2);
+		this.group1.setMembers(members);
+
+		this.mockGroupDao.save(this.group1);
+		EasyMock.expectLastCall();
+		EasyMock.replay(this.mockGroupDao);
+
+		this.groupServiceImpl.addMembers(this.group1, members);
+
+		EasyMock.verify(this.mockGroupDao);
+		EasyMock.reset(this.mockGroupDao);
+		assertEquals(2, this.group1.getMembers().size());
+
+		// now try adding 2 more members, only 1 of which is new
+		Set<User> newMembers = new HashSet<User>();
+		newMembers.add(this.user3);
+		newMembers.add(this.user1);
+		this.groupServiceImpl.addMembers(this.group1, newMembers);
+		assertEquals(3, this.group1.getMembers().size());
+
+	}
 }

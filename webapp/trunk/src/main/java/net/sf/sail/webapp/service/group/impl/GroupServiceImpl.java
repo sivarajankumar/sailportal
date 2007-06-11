@@ -39,7 +39,7 @@ import org.springframework.beans.factory.annotation.Required;
  * A class to provide services for Group objects.
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class GroupServiceImpl implements GroupService {
 
@@ -74,8 +74,7 @@ public class GroupServiceImpl implements GroupService {
 	/**
 	 * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.Group, java.lang.String)
 	 */
-	public Group createGroup(Group parent, String name)
-			throws CyclicalGroupException {
+	public Group createGroup(Group parent, String name) {
 		Group group = new PersistentGroup();
 		group.setName(name);
 		group.setParent(parent);

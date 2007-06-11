@@ -146,7 +146,14 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 
 		confirmNoMembersInAnyGroup();
 
-		// test update name
+		ROOT_GROUP_NAME = "new name";
+		this.rootGroup.setName(ROOT_GROUP_NAME);
+		this.groupDao.save(this.rootGroup);
+		this.toilet.flush();
+		
+		actualGroupList = retrieveAllGroupsListFromDb();
+		assertEquals(1, actualGroupList.size());
+		checkRootGroupIsValid();
 	}
 
 	/**
@@ -238,6 +245,7 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 		// the root node will be saved along with the intermediate node
 		Group intermediateGroup0 = intermediateGroups.get(0);
 		this.groupDao.save(intermediateGroup0);
+		this.toilet.flush();
 
 		List actualList = this.retrieveAllGroupsListFromDb();
 		assertEquals(2, actualList.size());
@@ -396,6 +404,30 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	private static final String RETRIEVE_ALL_GROUPS_SQL = "SELECT * FROM "
 			+ PersistentGroup.DATA_STORE_NAME;
 
+	private List retrieveAllGroupsListFromDb() {
+		return this.jdbcTemplate.queryForList(RETRIEVE_ALL_GROUPS_SQL,
+				(Object[]) null);
+	}
+
+	/*
+	 * SELECT * FROM groups [WHERE name = group_names[0] OR name =
+	 * group_names[1] OR ...]
+	 */
+	private List retrieveGroupsListGivenGroupName(String... group_names) {
+		String sqlQuery = RETRIEVE_ALL_GROUPS_SQL;
+
+		if (group_names.length != 0) {
+			sqlQuery += " WHERE ";
+			for (int i = 0; i < group_names.length; i++) {
+				sqlQuery += " name = '" + group_names[i] + "' ";
+				if (i < group_names.length - 1) {
+					sqlQuery += " OR ";
+				}
+			}
+		}
+		return this.jdbcTemplate.queryForList(sqlQuery, (Object[]) null);
+	}
+
 	/*
 	 * SELECT * FROM groups, groups_related_to_users, users, user_details WHERE
 	 * groups.id = groups_related_to_users.group_fk AND
@@ -435,31 +467,8 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 			+ "="
 			+ PersistentUserDetails.DATA_STORE_NAME + ".id";
 
-	private List retrieveAllGroupsListFromDb() {
-		return this.jdbcTemplate.queryForList(RETRIEVE_ALL_GROUPS_SQL,
-				(Object[]) null);
-	}
-
-	/*
-	 * SELECT * FROM groups [WHERE name = group_names[0] OR name =
-	 * group_names[1] OR ...]
-	 */
-	private List retrieveGroupsListGivenGroupName(String... group_names) {
-		String sqlQuery = RETRIEVE_ALL_GROUPS_SQL;
-
-		if (group_names.length != 0) {
-			sqlQuery += " WHERE ";
-			for (int i = 0; i < group_names.length; i++) {
-				sqlQuery += " name = '" + group_names[i] + "' ";
-				if (i < group_names.length - 1) {
-					sqlQuery += " OR ";
-				}
-			}
-		}
-		return this.jdbcTemplate.queryForList(sqlQuery, (Object[]) null);
-	}
-
 	private List retrieveGroupsWithMembers() {
+		System.out.println(RETRIEVE_GROUP_LIST_MEMBERS_SQL);
 		return this.jdbcTemplate.queryForList(RETRIEVE_GROUP_LIST_MEMBERS_SQL,
 				(Object[]) null);
 	}

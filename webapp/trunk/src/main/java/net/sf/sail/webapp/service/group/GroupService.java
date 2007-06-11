@@ -29,7 +29,7 @@ import net.sf.sail.webapp.domain.group.Group;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public interface GroupService {
 
@@ -45,9 +45,8 @@ public interface GroupService {
 	 *
 	 * @param parent <code>Group</code> parent of the new group
 	 * @param name <code>String</code> name of new group
-	 * @throws CyclicalGroupException when this action creates a cycle
 	 */
-	public Group createGroup(Group parent, String name) throws CyclicalGroupException;
+	public Group createGroup(Group parent, String name);
 
 	/**
 	 * Change an existing group name.
