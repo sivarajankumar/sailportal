@@ -68,14 +68,14 @@
 <label for="username" class="login">
 <spring:message code="login.username" />
 </label>
-<input type="text" width="20" />
+<input type="text" size="20" />
 </li>
 
 <li>
 <label for="password" class="login">
 <spring:message code="login.password" />
 </label>
-<input type="password" width="20" />
+<input type="password" size="20" />
 </li>
 <li><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
 </ul>
@@ -92,39 +92,39 @@
 </ul>
 
 <div class="inline bgcolorLightBlue">
-<img class="marginAdj1 widthAdj1 positionAdj1 border"  id=rotator name=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg">
-<img class="marginAdj1 widthAdj1 positionAdj2 border" id=rotatorT name=rotatorT src="./themes/tels/default/images/wiseInAction/dummyfile.jpg"> 
+<img class="marginAdj1 widthAdj1 positionAdj1 border"  id=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg" />
+<img class="marginAdj1 widthAdj1 positionAdj2 border" id=rotatorT src="./themes/tels/default/images/wiseInAction/dummyfile.jpg" /> 
 <b class="marginAdj1 widthAdj1 positionAdj4 border"> news </b> 
 </div>
 
 <div class="inline bgcolorLightBlue">
-<img class="dynamicImage marginAdj1" id="imgPos1" name="action_prev" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
-onMouseOver="this.style.cursor='pointer';" 
-onClick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
-onMouseDown="this.style.cursor='pointer';" 
-onMouseUp="this.style.cursor='pointer';"
-onMouseOut="this.style.cursor='default';" />
+<img class="dynamicImage marginAdj1" id="imgPos1" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
 
-<img class="dynamicImage marginAdj1" id="imgPos2" name="action_fwd" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
-onMouseOver="this.style.cursor='pointer';" 
-onClick="firstRClicked=setRClicked();oldCtr=counter;counter=proceedToNextImage(firstRClicked,counter);"
-onMouseDown="this.style.cursor='pointer';" 
-onMouseUp="this.style.cursor='pointer';"
-onMouseOut="this.style.cursor='default';" />
+<img class="dynamicImage marginAdj1" id="imgPos2" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstRClicked=setRClicked();oldCtr=counter;counter=proceedToNextImage(firstRClicked,counter);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
 
-<img class="dynamicImage marginAdj1" id="imgPos3"  name="test_prev" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif"
-onMouseOver="this.style.cursor='pointer';" 
-onClick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;counter_T=proceedToPreviousImage_T(firstLClicked_T,counter_T);"
-onMouseDown="this.style.cursor='pointer';" 
-onMouseUp="this.style.cursor='pointer';"
-onMouseOut="this.style.cursor='default';" />
+<img class="dynamicImage marginAdj1" id="imgPos3" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif"
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;counter_T=proceedToPreviousImage_T(firstLClicked_T,counter_T);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
 
-<img class="dynamicImage marginAdj1" id="imgPos4" name="test_fwd" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
-onMouseOver="this.style.cursor='pointer';" 
-onClick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;counter_T=proceedToNextImage_T(firstRClicked_T,counter_T);"
-onMouseDown="this.style.cursor='pointer';" 
-onMouseUp="this.style.cursor='pointer';"
-onMouseOut="this.style.cursor='default';" />
+<img class="dynamicImage marginAdj1" id="imgPos4" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;counter_T=proceedToNextImage_T(firstRClicked_T,counter_T);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
 
 
 
