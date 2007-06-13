@@ -40,6 +40,9 @@
     <bean
         class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
     </bean>
+    
+    <bean class="net.sf.sail.webapp.presentation.web.controllers.GroupmanagementController">
+    </bean>
 
    <bean
         class="net.sf.sail.webapp.presentation.web.controllers.AuthoringJnlpLauncherController">

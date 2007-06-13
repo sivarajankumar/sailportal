@@ -32,7 +32,9 @@
 <%@ include file="header.jsp"%>
 
 <div id="columns">
-<div id="left"><%@ include file="logout.jsp"%>
+<div id="left">
+<%@ include file="menu.jsp" %>
+<%@ include file="logout.jsp"%>
 </div>
 
 <div id="right">

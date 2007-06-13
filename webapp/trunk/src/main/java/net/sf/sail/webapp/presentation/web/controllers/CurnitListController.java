@@ -30,31 +30,34 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * 
  * @version $Id$
  * 
+ * This class is not currently used but is being left in place in case we need
+ * to get a list of curnits at a later time.
+ * 
  */
 public class CurnitListController extends AbstractController {
-    private CurnitService curnitService;
+	private CurnitService curnitService;
 
-    /**
-     * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse)
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected ModelAndView handleRequestInternal(
-            HttpServletRequest servletRequest,
-            HttpServletResponse servletResponse) throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView
-                .addObject("curnitlist", this.curnitService.getCurnitList());
-        return modelAndView;
-    }
+	/**
+	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	protected ModelAndView handleRequestInternal(
+			HttpServletRequest servletRequest,
+			HttpServletResponse servletResponse) throws Exception {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView
+				.addObject("curnitlist", this.curnitService.getCurnitList());
+		return modelAndView;
+	}
 
-    /**
-     * @param curnitService
-     *            the curnitService to set
-     */
-    public void setCurnitService(CurnitService curnitService) {
-        this.curnitService = curnitService;
-    }
+	/**
+	 * @param curnitService
+	 *            the curnitService to set
+	 */
+	public void setCurnitService(CurnitService curnitService) {
+		this.curnitService = curnitService;
+	}
 
 }

@@ -33,85 +33,85 @@ import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  * @author Cynick Young
  * 
  * @version $Id$
  * 
+ * Puts offering details into the model to be retrieved and displayed on
+ * offeringlist.jsp
+ * 
  */
-public class OfferingListController extends AbstractController {
+public class OfferingListController extends BasicInfoController {
 
-    private OfferingService offeringService;
+	private OfferingService offeringService;
 
-    private WorkgroupService workgroupService;
+	private WorkgroupService workgroupService;
 
-    private HttpRestTransport httpRestTransport;
+	private HttpRestTransport httpRestTransport;
 
-    protected final static String HTTP_TRANSPORT_KEY = "http_transport";
+	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
-    protected final static String OFFERING_LIST_KEY = "offering_list";
+	protected final static String OFFERING_LIST_KEY = "offering_list";
 
-    protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
+	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 
-    protected final static String USER_KEY = "user";
+	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
 
-    static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
+	/**
+	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	protected ModelAndView handleRequestInternal(
+			HttpServletRequest servletRequest,
+			HttpServletResponse servletResponse) throws Exception {
+		ModelAndView modelAndView = super.handleRequestInternal(servletRequest,
+				servletResponse);
 
-    /**
-     * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse)
-     */
-    @Override
-    protected ModelAndView handleRequestInternal(
-            HttpServletRequest servletRequest,
-            HttpServletResponse servletResponse) throws Exception {
-        User user = (User) servletRequest.getSession().getAttribute(
-                User.CURRENT_USER_SESSION_KEY);
-        List<Offering> offeringList = this.offeringService.getOfferingList();
-        Map<Offering, List<Workgroup>> workgroupMap = new HashMap<Offering, List<Workgroup>>();
-        for (Offering offering : offeringList) {
-            List<Workgroup> workgroupList = this.workgroupService
-                    .getWorkgroupListByOfferingAndUser(offering, user);
-            workgroupList = this.workgroupService
-                    .createPreviewWorkgroupForOfferingIfNecessary(offering,
-                            workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
-            workgroupMap.put(offering, workgroupList);
-        }
+		User user = (User) modelAndView.getModel().get(USER_KEY);
+		List<Offering> offeringList = this.offeringService.getOfferingList();
+		Map<Offering, List<Workgroup>> workgroupMap = new HashMap<Offering, List<Workgroup>>();
+		for (Offering offering : offeringList) {
+			List<Workgroup> workgroupList = this.workgroupService
+					.getWorkgroupListByOfferingAndUser(offering, user);
+			workgroupList = this.workgroupService
+					.createPreviewWorkgroupForOfferingIfNecessary(offering,
+							workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
+			workgroupMap.put(offering, workgroupList);
+		}
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(USER_KEY, user);
-        modelAndView.addObject(OFFERING_LIST_KEY, offeringList);
-        modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
-        modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
-        return modelAndView;
-    }
+		modelAndView.addObject(OFFERING_LIST_KEY, offeringList);
+		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
+		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
+		return modelAndView;
+	}
 
-    /**
-     * @param workgroupService
-     *            the workgroupService to set
-     */
-    @Required
-    public void setWorkgroupService(WorkgroupService workgroupService) {
-        this.workgroupService = workgroupService;
-    }
+	/**
+	 * @param workgroupService
+	 *            the workgroupService to set
+	 */
+	@Required
+	public void setWorkgroupService(WorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
+	}
 
-    /**
-     * @param offeringService
-     *            the offeringService to set
-     */
-    @Required
-    public void setOfferingService(OfferingService offeringService) {
-        this.offeringService = offeringService;
-    }
+	/**
+	 * @param offeringService
+	 *            the offeringService to set
+	 */
+	@Required
+	public void setOfferingService(OfferingService offeringService) {
+		this.offeringService = offeringService;
+	}
 
-    /**
-     * @param httpRestTransport
-     *            the httpRestTransport to set
-     */
-    @Required
-    public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-        this.httpRestTransport = httpRestTransport;
-    }
+	/**
+	 * @param httpRestTransport
+	 *            the httpRestTransport to set
+	 */
+	@Required
+	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
+		this.httpRestTransport = httpRestTransport;
+	}
 }
