@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class OfferingServiceImpl implements OfferingService {
 
-    private OfferingDao<Offering> offeringDao;
+    protected OfferingDao<Offering> offeringDao;
 
     private SdsOfferingDao sdsOfferingDao;
 

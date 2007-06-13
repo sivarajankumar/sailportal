@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.sail.webapp.dao.offering.impl.HibernateOfferingDao;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
@@ -42,7 +41,7 @@ import org.telscenter.sail.webapp.domain.impl.Run;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
- * Test class for HibernateOfferingDao using Run Domain Object
+ * Test class for HibernateRunDao
  *
  * @author Hiroki Terashima
  * @version $Id: $
@@ -67,11 +66,13 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
 	private final String DEFAULT_RUNCODE = "diamonds12345";
 
+	private final String RUNCODE_NOT_IN_DB = "diamonds54321";
+	
 	private SdsOffering sdsOffering;
 	
 	private Run defaultRun;
 	
-	private HibernateOfferingDao offeringDao;
+	private HibernateRunDao runDao;
 
 	/**
 	 * @param sdsOffering the sdsOffering to set
@@ -88,10 +89,10 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 	}
 
 	/**
-	 * @param offeringDao the offeringDao to set
+	 * @param runDao the runDao to set
 	 */
-	public void setOfferingDao(HibernateOfferingDao offeringDao) {
-		this.offeringDao = offeringDao;
+	public void setOfferingDao(HibernateRunDao runDao) {
+		this.runDao = runDao;
 	}
 	
     /**
@@ -156,7 +157,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
     public void testSave() {
     	verifyRunAndJoinTablesAreEmpty();
     	
-    	this.offeringDao.save(this.defaultRun);
+    	this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
         
@@ -178,7 +179,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         periods.add(DEFAULT_GROUP_2);
         this.defaultRun.setPeriods(periods);
 
-    	this.offeringDao.save(this.defaultRun);
+    	this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
 
@@ -205,7 +206,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         this.DEFAULT_ENDTIME = Calendar.getInstance().getTime();
         this.defaultRun.setEndtime(this.DEFAULT_ENDTIME);
         
-    	this.offeringDao.save(this.defaultRun);
+    	this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
         
@@ -214,6 +215,46 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         assertEquals(this.DEFAULT_ENDTIME,
         		runMap.get(Run.COLUMN_NAME_ENDTIME.toUpperCase()));
 
+    }
+    
+    // test the retrieveByRunCode() method of HiberateRunDao
+    public void testRetrieveByRunCode() {
+    	verifyRunAndJoinTablesAreEmpty();
+    	
+    	this.runDao.save(this.defaultRun);
+        // flush is required to cascade the join table for some reason
+        this.toilet.flush();
+        
+        // get Run record from persistent data store and confirm it is 
+        // complete
+        Run run = this.runDao
+              .retrieveByRunCode(DEFAULT_RUNCODE);
+        assertTrue(run instanceof Run);
+        assertTrue(Run.class == run.getClass());
+
+        assertEquals(DEFAULT_RUNCODE, run.getRuncode());
+        assertEquals(DEFAULT_STARTTIME, run.getStarttime());
+        assertEquals(this.sdsOffering, run.getSdsOffering());
+        
+        // choose random non-existent runcode and try to retrieve
+        assertNull(this.runDao.retrieveByRunCode(RUNCODE_NOT_IN_DB));
+        
+    }
+    
+    // test the hasRunCode() method of HibernateRunDao
+    public void testHasRunCode() {
+    	verifyRunAndJoinTablesAreEmpty();
+    	
+    	assertFalse(this.runDao.hasRuncode(DEFAULT_RUNCODE));
+    	assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
+
+    	this.runDao.save(this.defaultRun);
+        // flush is required to cascade the join table for some reason
+        this.toilet.flush();
+        
+    	assertTrue(this.runDao.hasRuncode(DEFAULT_RUNCODE));
+    	assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
+    	
     }
 
 	private void verifyRunAndJoinTablesAreEmpty() {
