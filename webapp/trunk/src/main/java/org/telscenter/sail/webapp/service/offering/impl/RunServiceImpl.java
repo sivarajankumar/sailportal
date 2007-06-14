@@ -82,7 +82,6 @@ public class RunServiceImpl extends OfferingServiceImpl {
     	}
     	
     	String word = RUNCODE_WORDS[rand.nextInt(RUNCODE_WORDS.length)];
-    	System.out.println(word + sb.toString());
     	run.setRuncode(word + sb.toString());
     }
     
@@ -92,7 +91,6 @@ public class RunServiceImpl extends OfferingServiceImpl {
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
 	public void createRun(Run run) {
-    	assert(run.getRuncode() == null) : "RunCode already assigned";
     	
     	assignNewRunCodeToRun(run);
     	while(true) {
