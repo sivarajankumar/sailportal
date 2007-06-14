@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * A Controller for TELS's countries page
+ * A Controller for TELS's help page
  *
  * @author Hiroki Terashima
  * @version $Id: $
