@@ -26,7 +26,7 @@ import java.util.Set;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.curnit.CurnitService;
@@ -106,14 +106,11 @@ public class CreateDefaultOfferings {
         Curnit[] curnits = new Curnit[keys.size()];
         int i = 0;
         for (Iterator<String> iterator = keys.iterator(); iterator.hasNext(); i++) {
-            Curnit curnit = (Curnit) applicationContext.getBean("curnit");
-            SdsCurnit sdsCurnit = (SdsCurnit) applicationContext
-                    .getBean("sdsCurnit");
-            curnit.setSdsCurnit(sdsCurnit);
+        	CurnitParameters curnitParameters = (CurnitParameters) applicationContext.getBean("curnitParameters");
             String name = iterator.next();
-            sdsCurnit.setName(name);
-            sdsCurnit.setUrl(CURNITS.get(name));
-            this.curnitService.createCurnit(curnit);
+        	curnitParameters.setName(name);
+        	curnitParameters.setUrl(CURNITS.get(name));
+        	Curnit curnit = this.curnitService.createCurnit(curnitParameters);
             curnits[i] = curnit;
         }
 

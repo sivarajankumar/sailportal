@@ -15,41 +15,48 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.curnit;
-
-import java.util.List;
-
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.domain.impl.CurnitParameters;
-import net.sf.sail.webapp.domain.sds.SdsCurnit;
+package net.sf.sail.webapp.domain.impl;
 
 /**
- * A service for working with Curnits.
- * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id$ 
+ * 
+ * Represents the parameters required to create a curnit.
  */
-public interface CurnitService {
+public class CurnitParameters {
+	private String name;
+
+	private String url;
 
 	/**
-	 * Gets a <code>List</code> of curnits.
-	 * 
-	 * @return a <code>List</code> of curnits.
+	 * @return the name
 	 */
-	public List<SdsCurnit> getCurnitList();
-
+	public String getName() {
+		return name;
+	}
 
 	/**
-	 * Creates a new <code>SdsCurnit</code> on the SDS as well as a
-	 * <code>Curnit</code> object in the local data store. A side effect is
-	 * that the sdsObjectId is set to the value that the SDS assigns to the new
-	 * curnit.
-	 * 
-	 * @param curnitParameters
-	 *            The curnit parameters (name and url)
-	 * @return the curnit
+	 * @param name
+	 *            the name to set
 	 */
-	public Curnit createCurnit(CurnitParameters curnitParameters);
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url
+	 *            the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 }

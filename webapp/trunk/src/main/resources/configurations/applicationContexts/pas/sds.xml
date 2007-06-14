@@ -179,6 +179,9 @@
 
 	<bean id="curnit" class="net.sf.sail.webapp.domain.impl.CurnitImpl"
 		scope="prototype" />
+		
+	<bean id="curnitParameters" class="net.sf.sail.webapp.domain.impl.CurnitParameters"
+		scope="prototype" />
 
 	<bean id="jnlpDao"
 		class="net.sf.sail.webapp.dao.jnlp.impl.HibernateJnlpDao">
