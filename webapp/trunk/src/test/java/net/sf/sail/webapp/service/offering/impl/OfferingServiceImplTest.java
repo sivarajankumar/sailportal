@@ -23,11 +23,15 @@ import java.util.List;
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.domain.impl.JnlpImpl;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
-import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 
 import org.easymock.EasyMock;
 
@@ -37,110 +41,81 @@ import org.easymock.EasyMock;
  * @version $Id$
  */
 public class OfferingServiceImplTest extends TestCase {
+	
+	private static final String CURNIT_NAME = "name";
+	
+	private static final String CURNIT_URL = "url";
+	
+	private static final String JNLP_NAME = "jname";
+	private static final String JNLP_URL = "jurl";
 
-    private SdsOfferingDao mockSdsOfferingDao;
+	private SdsOfferingDao mockSdsOfferingDao;
 
-    private SdsOffering sdsOffering;
+	private OfferingDao<Offering> mockOfferingDao;
 
-    private OfferingDao<Offering> mockOfferingDao;
+	private OfferingServiceImpl offeringServiceImpl;
 
-    private Offering offering;
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@SuppressWarnings("unchecked")
+	protected void setUp() throws Exception {
+		super.setUp();
+		this.offeringServiceImpl = new OfferingServiceImpl();
 
-    private OfferingServiceImpl offeringServiceImpl;
+		this.mockSdsOfferingDao = EasyMock.createMock(SdsOfferingDao.class);
+		this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @SuppressWarnings("unchecked")
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.offeringServiceImpl = new OfferingServiceImpl();
+		this.mockOfferingDao = EasyMock.createMock(OfferingDao.class);
+		this.offeringServiceImpl.setOfferingDao(this.mockOfferingDao);
+	}
 
-        this.mockSdsOfferingDao = EasyMock.createMock(SdsOfferingDao.class);
-        this.offeringServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		this.offeringServiceImpl = null;
+		this.mockSdsOfferingDao = null;
+		this.mockOfferingDao = null;
+	}
 
-        this.mockOfferingDao = EasyMock.createMock(OfferingDao.class);
-        this.offeringServiceImpl.setOfferingDao(this.mockOfferingDao);
+	public void testGetOfferingList() throws Exception {
+		List<Offering> expectedList = new LinkedList<Offering>();
+		expectedList.add(new OfferingImpl());
 
-        this.sdsOffering = new SdsOffering();
-        this.offering = new OfferingImpl();
-        this.offering.setSdsOffering(this.sdsOffering);
-    }
+		EasyMock.expect(this.mockOfferingDao.getList()).andReturn(expectedList);
+		EasyMock.replay(this.mockOfferingDao);
+		assertEquals(expectedList, offeringServiceImpl.getOfferingList());
+		EasyMock.verify(this.mockOfferingDao);
+	}
 
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        this.offeringServiceImpl = null;
-        this.mockSdsOfferingDao = null;
-        this.sdsOffering = null;
-        this.mockOfferingDao = null;
-        this.offering = null;
-    }
+	public void testCreateOffering() throws Exception {
+		OfferingParameters offeringParameters = new OfferingParameters();
 
-    public void testGetOfferingList() throws Exception {
-        List<Offering> expectedList = new LinkedList<Offering>();
-        expectedList.add(this.offering);
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setName(CURNIT_NAME);
+		sdsCurnit.setUrl(CURNIT_URL);
+		Curnit curnit = new CurnitImpl();
+		curnit.setSdsCurnit(sdsCurnit);
+		offeringParameters.setCurnit(curnit);
 
-        EasyMock.expect(this.mockOfferingDao.getList()).andReturn(expectedList);
-        EasyMock.replay(this.mockOfferingDao);
-        assertEquals(expectedList, offeringServiceImpl.getOfferingList());
-        EasyMock.verify(this.mockOfferingDao);
-    }
+		SdsJnlp sdsJnlp = new SdsJnlp();
+		sdsJnlp.setName(JNLP_NAME);
+		sdsJnlp.setUrl(JNLP_URL);
+		Jnlp jnlp = new JnlpImpl();
+		jnlp.setSdsJnlp(sdsJnlp);
+		offeringParameters.setJnlp(jnlp);
 
-    // tests that the command is delegated to the DAOs and that the DAOs are
-    // called once
-    public void testCreateOffering() throws Exception {
-        this.mockSdsOfferingDao.save(this.sdsOffering);
-        EasyMock.expectLastCall();
-        EasyMock.replay(this.mockSdsOfferingDao);
+		offeringParameters.setName(CURNIT_NAME);
 
-        this.mockOfferingDao.save(this.offering);
-        EasyMock.expectLastCall();
-        EasyMock.replay(this.mockOfferingDao);
+		Offering offering = offeringServiceImpl
+				.createOffering(offeringParameters);
 
-        offeringServiceImpl.createOffering(this.offering);
-
-        EasyMock.verify(this.mockSdsOfferingDao);
-        EasyMock.verify(this.mockOfferingDao);
-    }
-
-    public void testCreateOffering_BadRequestException() throws Exception {
-        this.mockSdsOfferingDao.save(this.sdsOffering);
-        EasyMock.expectLastCall().andThrow(
-                new BadRequestException("bad request"));
-        EasyMock.replay(this.mockSdsOfferingDao);
-
-        // expecting no calls to Dao.save()
-        EasyMock.replay(this.mockOfferingDao);
-
-        try {
-            this.offeringServiceImpl.createOffering(this.offering);
-            fail("BadRequestException expected");
-        } catch (BadRequestException expected) {
-        }
-
-        EasyMock.verify(this.mockSdsOfferingDao);
-        EasyMock.verify(this.mockOfferingDao);
-    }
-
-    public void testCreateOffering_NetworkTransportException() throws Exception {
-        this.mockSdsOfferingDao.save(this.sdsOffering);
-        EasyMock.expectLastCall().andThrow(
-                new NetworkTransportException("network transport exception"));
-        EasyMock.replay(this.mockSdsOfferingDao);
-
-        // expecting no calls to Dao.save()
-        EasyMock.replay(this.mockOfferingDao);
-
-        try {
-            this.offeringServiceImpl.createOffering(this.offering);
-            fail("NetworkTransportException expected");
-        } catch (NetworkTransportException expected) {
-        }
-
-        EasyMock.verify(this.mockSdsOfferingDao);
-        EasyMock.verify(this.mockOfferingDao);
-    }
+		assertEquals(CURNIT_NAME, offering.getSdsOffering().getSdsCurnit().getName());
+		assertEquals(CURNIT_URL, offering.getSdsOffering().getSdsCurnit().getUrl());
+		assertEquals(JNLP_NAME, offering.getSdsOffering().getSdsJnlp().getName());
+		assertEquals(JNLP_URL, offering.getSdsOffering().getSdsJnlp().getUrl());
+		assertEquals(CURNIT_NAME, offering.getSdsOffering().getName());
+	}
 }

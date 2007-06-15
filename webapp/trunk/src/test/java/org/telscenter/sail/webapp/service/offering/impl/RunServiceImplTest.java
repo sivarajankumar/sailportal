@@ -22,146 +22,145 @@
  */
 package org.telscenter.sail.webapp.service.offering.impl;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
+import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.domain.impl.JnlpImpl;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 
 import org.easymock.EasyMock;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.impl.Run;
-import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
+import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
 /**
  * Test class for RunServiceImpl class
- *
+ * 
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
-public class RunServiceImplTest extends AbstractTransactionalDbTests {
+public class RunServiceImplTest extends TestCase {
 
-    private SdsOfferingDao mockSdsOfferingDao;
+	private static final String CURNIT_NAME = "name";
 
-    private SdsOffering sdsOffering;
+	private static final String CURNIT_URL = "url";
 
-    private RunDao<Run> mockOfferingDao;
+	private static final String JNLP_NAME = "jname";
 
-    private Run run;
+	private static final String JNLP_URL = "jurl";
 
-    private RunServiceImpl runServiceImpl;
+	private static final Date TODAY = Calendar.getInstance().getTime();
 
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpInTransaction()
-     */
-    @SuppressWarnings("unchecked")
+	private static Set<Group> period = new HashSet<Group>();
+
+	static {
+		Group group = new PersistentGroup();
+		group.setName(CURNIT_NAME);
+		period.add(group);
+	}
+
+	private SdsOfferingDao mockSdsOfferingDao;
+
+	private RunDao<Run> mockRunDao;
+
+	private RunServiceImpl runServiceImpl;
+
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpInTransaction()
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
-    protected void onSetUpBeforeTransaction() throws Exception {
-        super.onSetUpBeforeTransaction();
-        
-        this.runServiceImpl = new RunServiceImpl();
+	protected void setUp() throws Exception {
+		super.setUp();
 
-        this.mockSdsOfferingDao = EasyMock.createMock(SdsOfferingDao.class);
-        this.runServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
+		this.runServiceImpl = new RunServiceImpl();
 
-        this.mockOfferingDao = EasyMock.createMock(RunDao.class);
-        this.runServiceImpl.setOfferingDao(this.mockOfferingDao);
+		this.mockSdsOfferingDao = EasyMock.createMock(SdsOfferingDao.class);
+		this.runServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
 
-        this.sdsOffering = new SdsOffering();
-        this.run = new Run();
-        this.run.setSdsOffering(this.sdsOffering);
-    }
+//		TODO ask cynick about this.
+		this.mockRunDao = EasyMock.createNiceMock(RunDao.class);
+		this.runServiceImpl.setOfferingDao(this.mockRunDao);
+	}
 
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
-     */
-    @Override
-    protected void onTearDownAfterTransaction() throws Exception {
-        super.onTearDownAfterTransaction();
-        this.runServiceImpl = null;
-        this.mockSdsOfferingDao = null;
-        this.sdsOffering = null;
-        this.mockOfferingDao = 	null;
-        this.run = null;
-    }
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		this.runServiceImpl = null;
+		this.mockSdsOfferingDao = null;
+		this.mockRunDao = null;
+	}
 
-    public void testGetRunList() throws Exception {
-        List<Offering> expectedList = new LinkedList<Offering>();
-        expectedList.add(this.run);
+	public void testGetRunList() throws Exception {
+		List<Offering> expectedList = new LinkedList<Offering>();
+		expectedList.add(new Run());
 
-        EasyMock.expect(this.mockOfferingDao.getList()).andReturn(expectedList);
-        EasyMock.replay(this.mockOfferingDao);
-        assertEquals(expectedList, runServiceImpl.getRunList());
-        EasyMock.verify(this.mockOfferingDao);
-    }
+		EasyMock.expect(this.mockRunDao.getList()).andReturn(expectedList);
+		EasyMock.replay(this.mockRunDao);
+		assertEquals(expectedList, runServiceImpl.getRunList());
+		EasyMock.verify(this.mockRunDao);
+	}
 
-    // tests that the command is delegated to the DAOs and that the DAOs are
-    // called once
-    public void testCreateRun() throws Exception {
-        this.mockSdsOfferingDao.save(this.sdsOffering);
-        EasyMock.expectLastCall();
-        EasyMock.replay(this.mockSdsOfferingDao);
+	public void testCreateRun() throws Exception {
 
-        this.mockOfferingDao.hasRuncode(EasyMock.isA(String.class));
-        EasyMock.expectLastCall().andReturn(false);
+		this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
+		EasyMock.expectLastCall().andReturn(false);
+		EasyMock.replay(this.mockRunDao);
 
-        this.mockOfferingDao.save(this.run);
-        EasyMock.expectLastCall();
-        EasyMock.replay(this.mockOfferingDao);
+		// TODO LAW figure out how to get this from the beans
+		RunParameters runParameters = new RunParameters();
 
-        runServiceImpl.createRun(this.run);
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setName(CURNIT_NAME);
+		sdsCurnit.setUrl(CURNIT_URL);
+		Curnit curnit = new CurnitImpl();
+		curnit.setSdsCurnit(sdsCurnit);
+		runParameters.setCurnit(curnit);
 
-        EasyMock.verify(this.mockSdsOfferingDao);
-        EasyMock.verify(this.mockOfferingDao);
-    }
+		SdsJnlp sdsJnlp = new SdsJnlp();
+		sdsJnlp.setName(JNLP_NAME);
+		sdsJnlp.setUrl(JNLP_URL);
+		Jnlp jnlp = new JnlpImpl();
+		jnlp.setSdsJnlp(sdsJnlp);
+		runParameters.setJnlp(jnlp);
 
-    public void testCreateRun_BadRequestException() throws Exception {
-        this.mockSdsOfferingDao.save(this.sdsOffering);
-        EasyMock.expectLastCall().andThrow(
-                new BadRequestException("bad request"));
-        EasyMock.replay(this.mockSdsOfferingDao);
+		runParameters.setName(CURNIT_NAME);
+		runParameters.setStarttime(TODAY);
+		runParameters.setPeriods(period);
 
-        this.mockOfferingDao.hasRuncode(EasyMock.isA(String.class));
-        EasyMock.expectLastCall().andReturn(false);
-        
-        // expecting no calls to Dao.save()
-        EasyMock.replay(this.mockOfferingDao);
+		assertNull(runParameters.getRuncode());
+		assertNull(runParameters.getEndtime());
+		Run run = runServiceImpl.createRun(runParameters);
+		assertNull(run.getEndtime());
+		assertNotNull(run.getRuncode());
+		assertTrue(run.getRuncode() instanceof String);
 
-        try {
-            this.runServiceImpl.createRun(this.run);
-            fail("BadRequestException expected");
-        } catch (BadRequestException expected) {
-        }
+		assertEquals(CURNIT_NAME, run.getSdsOffering().getSdsCurnit().getName());
+		assertEquals(CURNIT_URL, run.getSdsOffering().getSdsCurnit().getUrl());
+		assertEquals(JNLP_NAME, run.getSdsOffering().getSdsJnlp().getName());
+		assertEquals(JNLP_URL, run.getSdsOffering().getSdsJnlp().getUrl());
+		assertEquals(CURNIT_NAME, run.getSdsOffering().getName());
 
-        EasyMock.verify(this.mockSdsOfferingDao);
-        EasyMock.verify(this.mockOfferingDao);
-    }
+		assertEquals(period, run.getPeriods());
+		EasyMock.verify(this.mockRunDao);
+	}
 
-    public void testCreateRun_NetworkTransportException() throws Exception {
-        this.mockSdsOfferingDao.save(this.sdsOffering);
-        EasyMock.expectLastCall().andThrow(
-                new NetworkTransportException("network transport exception"));
-        EasyMock.replay(this.mockSdsOfferingDao);
-
-        this.mockOfferingDao.hasRuncode(EasyMock.isA(String.class));
-        EasyMock.expectLastCall().andReturn(false);
-        
-        // expecting no calls to Dao.save()
-        EasyMock.replay(this.mockOfferingDao);
-
-        try {
-            this.runServiceImpl.createRun(this.run);
-            fail("NetworkTransportException expected");
-        } catch (NetworkTransportException expected) {
-        }
-
-        EasyMock.verify(this.mockSdsOfferingDao);
-        EasyMock.verify(this.mockOfferingDao);
-    }
-    
-    // TODO: test when duplicate runcode is generated by the 
-    // runcode generator
+	// TODO HT: test when duplicate runcode is generated by the
+	// runcode generator
 }

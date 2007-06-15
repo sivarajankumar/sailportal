@@ -20,6 +20,7 @@ package net.sf.sail.webapp.service.offering;
 import java.util.List;
 
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.impl.OfferingParameters;
 
 /**
  * @author Laurel Williams
@@ -43,7 +44,8 @@ public interface OfferingService {
      * 
      * @param offering
      *            The offering you want to create (no offering id required).
+     * @return the offering created.
      */
-    public void createOffering(Offering offering);
+    public Offering createOffering(OfferingParameters offeringParameters);
 
 }

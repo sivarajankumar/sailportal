@@ -22,6 +22,9 @@ import java.util.List;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
+import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.offering.OfferingService;
@@ -38,7 +41,7 @@ public class OfferingServiceImpl implements OfferingService {
 
     protected OfferingDao<Offering> offeringDao;
 
-    private SdsOfferingDao sdsOfferingDao;
+    protected SdsOfferingDao sdsOfferingDao;
 
     /**
      * @param offeringDao
@@ -70,8 +73,16 @@ public class OfferingServiceImpl implements OfferingService {
      */
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
-    public void createOffering(Offering offering) {
-        this.sdsOfferingDao.save(offering.getSdsOffering());
+    public Offering createOffering(OfferingParameters offeringParameters) {
+    	SdsOffering sdsOffering = new SdsOffering();
+    	sdsOffering.setName(offeringParameters.getName());
+    	sdsOffering.setSdsCurnit(offeringParameters.getCurnit().getSdsCurnit());
+    	sdsOffering.setSdsJnlp(offeringParameters.getJnlp().getSdsJnlp());
+        this.sdsOfferingDao.save(sdsOffering);
+        
+        Offering offering = new OfferingImpl();
+        offering.setSdsOffering(sdsOffering);
         this.offeringDao.save(offering);
+        return offering;
     }
 }

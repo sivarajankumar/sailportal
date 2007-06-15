@@ -15,37 +15,64 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.jnlp;
+package net.sf.sail.webapp.domain.impl;
 
-import java.util.List;
-
+import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
-import net.sf.sail.webapp.domain.impl.JnlpParameters;
 
 /**
- * @author Cynick Young
- * 
+ * @author Laurel Williams
+ *
  * @version $Id$
- * 
  */
-public interface JnlpService {
+public class OfferingParameters {
+	private String name;
+	
+	private Jnlp jnlp;
+	
+	private Curnit curnit;
 
-    /**
-     * Gets a <code>List</code> that allows traversal of jnlps available.
-     * 
-     * @return a <code>List</code> of jnlps.
-     */
-    public List<Jnlp> getJnlpList();
+	/**
+	 * @return the curnit
+	 */
+	public Curnit getCurnit() {
+		return curnit;
+	}
 
-    /**
-     * Creates a new <code>SdsJnlp</code> on the SDS as well as a
-     * <code>Jnlp</code> object in the local data store. A side effect is that
-     * the sdsObjectId is set to the value that the SDS assigns to the new jnlp.
-     * 
-     * @param jnlpParameters
-     *            The name and url of the jnlp you want to create.
-     * @return the jnlp created
-     */
-    public Jnlp createJnlp(JnlpParameters jnlpParameters);
+	/**
+	 * @param curnit the curnit to set
+	 */
+	public void setCurnit(Curnit curnit) {
+		this.curnit = curnit;
+	}
+
+	/**
+	 * @return the jnlp
+	 */
+	public Jnlp getJnlp() {
+		return jnlp;
+	}
+
+	/**
+	 * @param jnlp the jnlp to set
+	 */
+	public void setJnlp(Jnlp jnlp) {
+		this.jnlp = jnlp;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }
