@@ -107,6 +107,9 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.retrieveByUserDetails(userDetails);
 	}
 
+	/**
+     * @see interface
+     */
 	public User updateUser(final User user)
 			throws BadRequestException, NetworkTransportException {
 

@@ -63,7 +63,21 @@ public interface UserService {
      *            that has valid authentication credentials
      * @return <code>User</code> associated with the given user details
      */
-    public User retrieveUser(UserDetails userDetails);
-
-	public User updateUser(User user);
+    public User retrieveUser(UserDetails userDetails) ;
+   
+ 
+    /**
+     * updates the user with new information
+     * 
+     * @param user
+     * 
+     * @return copy of the new user
+     * @throws BadRequestException 
+     * 				If username is unacceptable according to SDS, ie. contains
+     *             	invalid characters
+     * @throws NetworkTransportException 
+     * 				If an error occurs during network communications with SDS
+     *             	while creating a SDS user.
+     */
+	public User updateUser(User user) throws BadRequestException, NetworkTransportException ;
 }
