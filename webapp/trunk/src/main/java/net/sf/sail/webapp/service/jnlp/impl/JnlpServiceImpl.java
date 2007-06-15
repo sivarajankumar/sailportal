@@ -22,6 +22,9 @@ import java.util.List;
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.sds.SdsJnlpDao;
 import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.impl.JnlpImpl;
+import net.sf.sail.webapp.domain.impl.JnlpParameters;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
@@ -64,9 +67,17 @@ public class JnlpServiceImpl implements JnlpService {
      */
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
-    public void createJnlp(Jnlp jnlp) {
-        this.sdsJnlpDao.save(jnlp.getSdsJnlp());
+    public Jnlp createJnlp(JnlpParameters jnlpParameters) {
+		//TODO LAW get the sdsJnlp and JnlpImpl from bean
+    	SdsJnlp sdsJnlp = new SdsJnlp();
+    	sdsJnlp.setName(jnlpParameters.getName());
+    	sdsJnlp.setUrl(jnlpParameters.getUrl());
+        this.sdsJnlpDao.save(sdsJnlp);
+   	
+    	Jnlp jnlp = new JnlpImpl();
+    	jnlp.setSdsJnlp(sdsJnlp);
         this.jnlpDao.save(jnlp);
+        return jnlp;
     }
 
     /**

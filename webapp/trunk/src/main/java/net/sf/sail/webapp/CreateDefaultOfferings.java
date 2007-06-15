@@ -27,7 +27,7 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
-import net.sf.sail.webapp.domain.sds.SdsJnlp;
+import net.sf.sail.webapp.domain.impl.JnlpParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
@@ -105,13 +105,12 @@ public class CreateDefaultOfferings {
         Set<String> keys = CURNITS.keySet();
         Curnit[] curnits = new Curnit[keys.size()];
         int i = 0;
-        for (Iterator<String> iterator = keys.iterator(); iterator.hasNext(); i++) {
+        for (Iterator<String> curnitIterator = keys.iterator(); curnitIterator.hasNext(); i++) {
         	CurnitParameters curnitParameters = (CurnitParameters) applicationContext.getBean("curnitParameters");
-            String name = iterator.next();
+            String name = curnitIterator.next();
         	curnitParameters.setName(name);
         	curnitParameters.setUrl(CURNITS.get(name));
-        	Curnit curnit = this.curnitService.createCurnit(curnitParameters);
-            curnits[i] = curnit;
+        	curnits[i] = this.curnitService.createCurnit(curnitParameters);
         }
 
         return curnits;
@@ -121,15 +120,12 @@ public class CreateDefaultOfferings {
         Set<String> keys = JNLPS.keySet();
         Jnlp[] jnlps = new Jnlp[keys.size()];
         int i = 0;
-        for (Iterator<String> iterator = keys.iterator(); iterator.hasNext(); i++) {
-            Jnlp jnlp = (Jnlp) applicationContext.getBean("jnlp");
-            SdsJnlp sdsJnlp = (SdsJnlp) applicationContext.getBean("sdsJnlp");
-            jnlp.setSdsJnlp(sdsJnlp);
-            String name = iterator.next();
-            sdsJnlp.setName(name);
-            sdsJnlp.setUrl(JNLPS.get(name));
-            this.jnlpService.createJnlp(jnlp);
-            jnlps[i] = jnlp;
+        for (Iterator<String> jnlpIterator = keys.iterator(); jnlpIterator.hasNext(); i++) {
+            String name = jnlpIterator.next();
+        	JnlpParameters jnlpParameters = (JnlpParameters) applicationContext.getBean("jnlpParameters");
+        	jnlpParameters.setName(name);
+        	jnlpParameters.setUrl(JNLPS.get(name));
+        	jnlps[i] = this.jnlpService.createJnlp(jnlpParameters);
         }
         return jnlps;
     }

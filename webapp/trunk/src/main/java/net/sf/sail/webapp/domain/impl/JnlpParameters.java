@@ -15,36 +15,49 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.jnlp;
-
-import java.util.List;
-
-import net.sf.sail.webapp.domain.Jnlp;
-import net.sf.sail.webapp.domain.impl.JnlpParameters;
+package net.sf.sail.webapp.domain.impl;
 
 /**
- * @author Cynick Young
- * 
+ * @author Laurel Williams
+ *
  * @version $Id$
  * 
+ * Represents the parameters requred to create a jnlp.
+ * 
  */
-public interface JnlpService {
+public class JnlpParameters {
+	private String name;
 
-    /**
-     * Gets a <code>List</code> that allows traversal of jnlps available.
-     * 
-     * @return a <code>List</code> of jnlps.
-     */
-    public List<Jnlp> getJnlpList();
+	private String url;
 
-    /**
-     * Creates a new <code>SdsJnlp</code> on the SDS as well as a
-     * <code>Jnlp</code> object in the local data store. A side effect is that
-     * the sdsObjectId is set to the value that the SDS assigns to the new jnlp.
-     * 
-     * @param jnlpParameters
-     *            The name and url of the jnlp you want to create.
-     */
-    public Jnlp createJnlp(JnlpParameters jnlpParameters);
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url
+	 *            the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 }

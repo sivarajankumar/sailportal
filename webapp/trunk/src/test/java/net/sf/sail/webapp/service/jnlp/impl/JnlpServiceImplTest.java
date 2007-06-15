@@ -25,9 +25,8 @@ import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.sds.SdsJnlpDao;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.impl.JnlpImpl;
+import net.sf.sail.webapp.domain.impl.JnlpParameters;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 
 import org.easymock.EasyMock;
 
@@ -37,14 +36,14 @@ import org.easymock.EasyMock;
  * @version $Id$
  */
 public class JnlpServiceImplTest extends TestCase {
+	
+	private static final String JNLP_NAME= "jnlpname";
+	
+	private static final String JNLP_URL = "URL";
 
     private SdsJnlpDao mockSdsJnlpDao;
 
-    private SdsJnlp sdsJnlp;
-
-    private JnlpDao<Jnlp> mockJnlpDao;
-
-    private Jnlp jnlp;
+     private JnlpDao<Jnlp> mockJnlpDao;
 
     private JnlpServiceImpl jnlpServiceImpl;
 
@@ -62,11 +61,6 @@ public class JnlpServiceImplTest extends TestCase {
 
         this.mockJnlpDao = EasyMock.createMock(JnlpDao.class);
         this.jnlpServiceImpl.setJnlpDao(this.mockJnlpDao);
-
-        this.sdsJnlp = new SdsJnlp();
-
-        this.jnlp = new JnlpImpl();
-        this.jnlp.setSdsJnlp(this.sdsJnlp);
     }
 
     /**
@@ -77,14 +71,12 @@ public class JnlpServiceImplTest extends TestCase {
         super.tearDown();
         this.jnlpServiceImpl = null;
         this.mockSdsJnlpDao = null;
-        this.sdsJnlp = null;
         this.mockJnlpDao = null;
-        this.jnlp = null;
     }
 
     public void testGetJnlpList() throws Exception {
         List<Jnlp> expectedList = new LinkedList<Jnlp>();
-        expectedList.add(this.jnlp);
+        expectedList.add(new JnlpImpl());
 
         EasyMock.expect(this.mockJnlpDao.getList()).andReturn(expectedList);
         EasyMock.replay(this.mockJnlpDao);
@@ -92,58 +84,18 @@ public class JnlpServiceImplTest extends TestCase {
         EasyMock.verify(this.mockJnlpDao);
     }
 
-    // tests that the command is delegated to the DAOs and that the DAOs are
-    // called once
     public void testCreateJnlp() throws Exception {
-        this.mockSdsJnlpDao.save(this.sdsJnlp);
-        EasyMock.expectLastCall();
-        EasyMock.replay(this.mockSdsJnlpDao);
-
-        this.mockJnlpDao.save(this.jnlp);
-        EasyMock.expectLastCall();
-        EasyMock.replay(this.mockJnlpDao);
-
-        this.jnlpServiceImpl.createJnlp(this.jnlp);
-
-        EasyMock.verify(this.mockSdsJnlpDao);
-        EasyMock.verify(this.mockJnlpDao);
+    	//TODO LAW get JnlpParmeters from bean?
+    	JnlpParameters jnlpParameters = new JnlpParameters();
+    	jnlpParameters.setName(JNLP_NAME);
+    	jnlpParameters.setUrl(JNLP_URL);
+    	
+        Jnlp jnlp = this.jnlpServiceImpl.createJnlp(jnlpParameters);
+        SdsJnlp sdsJnlp = jnlp.getSdsJnlp();
+        assertEquals(JNLP_NAME, sdsJnlp.getName());
+        assertEquals(JNLP_URL, sdsJnlp.getUrl());
+        
     }
 
-    public void testCreateJnlp_BadRequestException() throws Exception {
-        this.mockSdsJnlpDao.save(this.sdsJnlp);
-        EasyMock.expectLastCall().andThrow(
-                new BadRequestException("bad request"));
-        EasyMock.replay(this.mockSdsJnlpDao);
-
-        // expecting no calls to Dao.save()
-        EasyMock.replay(this.mockJnlpDao);
-
-        try {
-            this.jnlpServiceImpl.createJnlp(this.jnlp);
-            fail("BadRequestException expected");
-        } catch (BadRequestException expected) {
-        }
-
-        EasyMock.verify(this.mockSdsJnlpDao);
-        EasyMock.verify(this.mockJnlpDao);
-    }
-
-    public void testCreateJnlp_NetworkTransportException() throws Exception {
-        this.mockSdsJnlpDao.save(this.sdsJnlp);
-        EasyMock.expectLastCall().andThrow(
-                new NetworkTransportException("network transport exception"));
-        EasyMock.replay(this.mockSdsJnlpDao);
-
-        // expecting no calls to Dao.save()
-        EasyMock.replay(this.mockJnlpDao);
-
-        try {
-            this.jnlpServiceImpl.createJnlp(this.jnlp);
-            fail("NetworkTransportException expected");
-        } catch (NetworkTransportException expected) {
-        }
-
-        EasyMock.verify(this.mockSdsJnlpDao);
-        EasyMock.verify(this.mockJnlpDao);
-    }
+ 
 }

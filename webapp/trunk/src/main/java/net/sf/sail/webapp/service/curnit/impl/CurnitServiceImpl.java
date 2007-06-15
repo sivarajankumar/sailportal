@@ -79,11 +79,10 @@ public class CurnitServiceImpl implements CurnitService {
 		SdsCurnit sdsCurnit = new SdsCurnit();
 		sdsCurnit.setName(curnitParameters.getName());
 		sdsCurnit.setUrl(curnitParameters.getUrl());
+	    this.sdsCurnitDao.save(sdsCurnit);  
 		
 		Curnit curnit = new CurnitImpl();
 		curnit.setSdsCurnit(sdsCurnit);
-		
-        this.sdsCurnitDao.save(curnit.getSdsCurnit());
         this.curnitDao.save(curnit);
         return curnit;
 	}
