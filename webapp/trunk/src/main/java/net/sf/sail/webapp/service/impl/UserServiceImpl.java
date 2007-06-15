@@ -31,6 +31,7 @@ import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
+import net.sf.sail.webapp.service.authentication.UserNotFoundException;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.providers.dao.SaltSource;
@@ -48,142 +49,163 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class UserServiceImpl implements UserService {
 
-    private UserDetailsDao<MutableUserDetails> userDetailsDao;
+	private UserDetailsDao<MutableUserDetails> userDetailsDao;
 
-    private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
+	private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
 
-    private SdsUserDao sdsUserDao;
+	private SdsUserDao sdsUserDao;
 
-    private UserDao<User> userDao;
+	private UserDao<User> userDao;
 
-    private PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
-    private SaltSource saltSource;
+	private SaltSource saltSource;
 
-    /**
-     * @param sdsUserDao
-     *            the sdsUserDao to set
-     */
-    @Required
-    public void setSdsUserDao(SdsUserDao sdsUserDao) {
-        this.sdsUserDao = sdsUserDao;
-    }
+	/**
+	 * @param sdsUserDao
+	 *            the sdsUserDao to set
+	 */
+	@Required
+	public void setSdsUserDao(SdsUserDao sdsUserDao) {
+		this.sdsUserDao = sdsUserDao;
+	}
 
-    /**
-     * @param userDao
-     *            the userDao to set
-     */
-    @Required
-    public void setUserDao(final UserDao<User> userDao) {
-        this.userDao = userDao;
-    }
+	/**
+	 * @param userDao
+	 *            the userDao to set
+	 */
+	@Required
+	public void setUserDao(final UserDao<User> userDao) {
+		this.userDao = userDao;
+	}
 
-    /**
-     * @param grantedAuthorityDao
-     *            the grantedAuthorityDao to set
-     */
-    @Required
-    public void setGrantedAuthorityDao(
-            final GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
-        this.grantedAuthorityDao = grantedAuthorityDao;
-    }
+	/**
+	 * @param grantedAuthorityDao
+	 *            the grantedAuthorityDao to set
+	 */
+	@Required
+	public void setGrantedAuthorityDao(
+			final GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao) {
+		this.grantedAuthorityDao = grantedAuthorityDao;
+	}
 
-    /**
-     * @param userDetailsDao
-     *            the userDetailsDao to set
-     */
-    @Required
-    public void setUserDetailsDao(
-            final UserDetailsDao<MutableUserDetails> userDetailsDao) {
-        this.userDetailsDao = userDetailsDao;
-    }
+	/**
+	 * @param userDetailsDao
+	 *            the userDetailsDao to set
+	 */
+	@Required
+	public void setUserDetailsDao(
+			final UserDetailsDao<MutableUserDetails> userDetailsDao) {
+		this.userDetailsDao = userDetailsDao;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.service.UserService#retrieveUser(org.acegisecurity.userdetails.UserDetails)
-     */
-    @Transactional(readOnly = true)
-    public User retrieveUser(UserDetails userDetails) {
-        return this.userDao.retrieveByUserDetails(userDetails);
-    }
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#retrieveUser(org.acegisecurity.userdetails.UserDetails)
+	 */
+	@Transactional(readOnly = true)
+	public User retrieveUser(UserDetails userDetails) {
+		return this.userDao.retrieveByUserDetails(userDetails);
+	}
 
-    /**
-     * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
-     */
-    @Transactional(rollbackFor = { DuplicateUsernameException.class,
-            BadRequestException.class, NetworkTransportException.class })
-    public User createUser(final MutableUserDetails userDetails)
-            throws DuplicateUsernameException, BadRequestException,
-            NetworkTransportException {
+	public User updateUser(final User user)
+			throws BadRequestException, NetworkTransportException {
 
-        try {
-            this.checkUserCreationErrors(userDetails.getUsername());
-            this.assignRole(userDetails, UserDetailsService.USER_ROLE);
-            this.encodePassword(userDetails);
+		try {
+			this.encodePassword(user.getUserDetails());
 
-            SdsUser sdsUser = new SdsUser();
-            sdsUser.setFirstName(userDetails.getUsername());
-            sdsUser.setLastName(userDetails.getUsername());
-            this.sdsUserDao.save(sdsUser);
+			
+			user.getSdsUser().setFirstName(user.getUserDetails().getUsername());
+			user.getSdsUser().setLastName(user.getUserDetails().getUsername());
+			
+			this.userDao.save(user);
 
-            User user = new UserImpl();
-            user.setSdsUser(sdsUser);
-            user.setUserDetails(userDetails);
-            this.userDao.save(user);
+			return user;
+		} catch (BadRequestException e) {
+			throw e;
+		} catch (NetworkTransportException e) {
+			throw e;
+		}
+	}
 
-            return user;
-        } catch (BadRequestException e) {
-            throw e;
-        } catch (DuplicateUsernameException e) {
-            throw e;
-        } catch (NetworkTransportException e) {
-            throw e;
-        }
-    }
 
-    private void encodePassword(MutableUserDetails userDetails) {
-        userDetails.setPassword(this.passwordEncoder.encodePassword(userDetails
-                .getPassword(), this.saltSource.getSalt(userDetails)));
-    }
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
+	 */
+	@Transactional(rollbackFor = { DuplicateUsernameException.class,
+			BadRequestException.class, NetworkTransportException.class })
+	public User createUser(final MutableUserDetails userDetails)
+			throws DuplicateUsernameException, BadRequestException,
+			NetworkTransportException {
 
-    private void assignRole(final MutableUserDetails userDetails,
-            final String role) {
-        GrantedAuthority authority = this.grantedAuthorityDao
-                .retrieveByName(role);
-        userDetails.addAuthority(authority);
-    }
+		try {
+			this.checkUserCreationErrors(userDetails.getUsername());
+			this.assignRole(userDetails, UserDetailsService.USER_ROLE);
+			this.encodePassword(userDetails);
 
-    /**
-     * Validates user input checks that the data store does not already contain
-     * a user with the same username
-     * 
-     * @param username
-     *            The username to check for in the data store
-     * @throws DuplicateUsernameException
-     *             if the username is the same as a username already in data
-     *             store.
-     */
-    private void checkUserCreationErrors(final String username)
-            throws DuplicateUsernameException {
-        if (this.userDetailsDao.hasUsername(username)) {
-            throw new DuplicateUsernameException(username);
-        }
-    }
+			SdsUser sdsUser = new SdsUser();
+			sdsUser.setFirstName(userDetails.getUsername());
+			sdsUser.setLastName(userDetails.getUsername());
+			this.sdsUserDao.save(sdsUser);
 
-    /**
-     * @param passwordEncoder
-     *            the passwordEncoder to set
-     */
-    @Required
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+			User user = new UserImpl();
+			user.setSdsUser(sdsUser);
+			user.setUserDetails(userDetails);
+			this.userDao.save(user);
 
-    /**
-     * @param saltSource
-     *            the saltSource to set
-     */
-    @Required
-    public void setSaltSource(SaltSource saltSource) {
-        this.saltSource = saltSource;
-    }
+			return user;
+		} catch (BadRequestException e) {
+			throw e;
+		} catch (DuplicateUsernameException e) {
+			throw e;
+		} catch (NetworkTransportException e) {
+			throw e;
+		}
+	}
+
+	protected void encodePassword(MutableUserDetails userDetails) {
+		userDetails.setPassword(this.passwordEncoder.encodePassword(userDetails
+				.getPassword(), this.saltSource.getSalt(userDetails)));
+	}
+
+	private void assignRole(final MutableUserDetails userDetails,
+			final String role) {
+		GrantedAuthority authority = this.grantedAuthorityDao
+				.retrieveByName(role);
+		userDetails.addAuthority(authority);
+	}
+
+	/**
+	 * Validates user input checks that the data store does not already contain
+	 * a user with the same username
+	 * 
+	 * @param username
+	 *            The username to check for in the data store
+	 * @throws DuplicateUsernameException
+	 *             if the username is the same as a username already in data
+	 *             store.
+	 */
+	private void checkUserCreationErrors(final String username)
+			throws DuplicateUsernameException {
+		if (this.userDetailsDao.hasUsername(username)) {
+			throw new DuplicateUsernameException(username);
+		}
+	}
+
+	/**
+	 * @param passwordEncoder
+	 *            the passwordEncoder to set
+	 */
+	@Required
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	/**
+	 * @param saltSource
+	 *            the saltSource to set
+	 */
+	@Required
+	public void setSaltSource(SaltSource saltSource) {
+		this.saltSource = saltSource;
+	}
 }

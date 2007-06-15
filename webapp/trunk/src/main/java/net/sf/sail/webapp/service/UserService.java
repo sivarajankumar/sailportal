@@ -64,4 +64,6 @@ public interface UserService {
      * @return <code>User</code> associated with the given user details
      */
     public User retrieveUser(UserDetails userDetails);
+
+	public User updateUser(User user);
 }

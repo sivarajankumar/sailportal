@@ -22,6 +22,7 @@ import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 import net.sf.sail.webapp.service.UserService;
@@ -33,6 +34,8 @@ import org.acegisecurity.providers.dao.SaltSource;
 import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.acegisecurity.userdetails.UserDetails;
 import org.easymock.EasyMock;
+import org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController;
+import org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherController;
 
 /**
  * @author Cynick Young
@@ -57,7 +60,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 	private UserService userService;
 
 	MutableGrantedAuthority expectedAuthorityCreate;
-	
+
 	MutableUserDetails userDetailsCreate;
 
 	@SuppressWarnings("unchecked")
@@ -73,6 +76,56 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		userServiceImpl.setUserDao(mockUserDao);
 		userServiceImpl.retrieveUser(userDetails);
 		EasyMock.verify(mockUserDao);
+	}
+
+	public void testUpdateUser() throws Exception {
+		setupCreateTest();
+
+		// create user (saves automatically)
+		User expectedUser = this.userService.createUser(userDetailsCreate);
+		UserDetails expectedUserDetails = expectedUser.getUserDetails();
+
+		// retrieve user and compare
+		UserDetails actual = this.userDetailsService
+				.loadUserByUsername(USERNAME);
+		assertEquals(expectedUserDetails, actual);
+
+		checkPasswordEncoding(actual);
+		checkRole(actual);
+
+		
+	
+		
+		PersistentUserDetails actualUserDetails = (PersistentUserDetails) actual;
+		
+		String newPassword = LostPasswordTeacherController.generateRandomPassword();
+		actualUserDetails.setPassword(newPassword);
+		
+		expectedUser.setUserDetails(actualUserDetails);
+		
+		User user = this.userService.updateUser(expectedUser);
+		
+		
+//		 retrieve user and compare
+		UserDetails updatedUser = this.userDetailsService
+				.loadUserByUsername(USERNAME);
+		
+		User retrievedUserDetails = this.userService.retrieveUser(expectedUser.getUserDetails());
+		
+	//	assertTrue(actual.getPassword().equals(PASSWORD));
+		assertEquals(updatedUser.getPassword(), retrievedUserDetails.getUserDetails().getPassword());
+		
+
+//		checkPasswordEncoding(actual);
+//		checkRole(actual);
+		
+//		 added this end transaction to catch a transaction commit within a
+		// transaction rollback problem
+		this.userDao.delete(expectedUser);
+		this.authorityDao.delete(expectedAuthorityCreate);
+		this.setComplete();
+		this.endTransaction();
+
 	}
 
 	public void testDuplicateUserErrors() throws Exception {
@@ -122,7 +175,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		UserDetails actual = this.userDetailsService
 				.loadUserByUsername(USERNAME);
 		assertEquals(expectedUserDetails, actual);
-		
+
 		checkPasswordEncoding(actual);
 		checkRole(actual);
 
@@ -133,7 +186,8 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		this.setComplete();
 		this.endTransaction();
 	}
-	
+
+
 	private void checkPasswordEncoding(UserDetails actual) {
 		// check password encoding
 		assertFalse(PASSWORD.equals(actual.getPassword()));
@@ -145,7 +199,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 				saltSource.getSalt(userDetailsCreate));
 		assertEquals(encodedPassword, actual.getPassword());
 	}
-	
+
 	private void checkRole(UserDetails actual) {
 		// check role
 		GrantedAuthority[] authorities = actual.getAuthorities();
@@ -158,7 +212,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 				break;
 			}
 		}
-		assertTrue(foundUserRole);		
+		assertTrue(foundUserRole);
 	}
 
 	/*
@@ -179,7 +233,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		UserDetails actual = this.userDetailsService
 				.loadUserByUsername(USERNAME);
 		assertEquals(expectedUserDetails, actual);
-		
+
 		checkPasswordEncoding(actual);
 		checkRole(actual);
 

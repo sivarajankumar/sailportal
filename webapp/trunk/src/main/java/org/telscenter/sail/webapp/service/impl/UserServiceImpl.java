@@ -8,6 +8,7 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
+import net.sf.sail.webapp.service.authentication.UserNotFoundException;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,5 +57,14 @@ public class UserServiceImpl extends
 			}
 		}
 	}
+	
+	public void checkUserUpdateErrors(MutableUserDetails userDetails) throws UserNotFoundException {
+		//check if the use does exist
+		User user = this.retrieveUser(userDetails);
+		if(user == null) {
+			throw new UserNotFoundException(userDetails.getUsername());
+		}// if
+	}
+
 	
 }
