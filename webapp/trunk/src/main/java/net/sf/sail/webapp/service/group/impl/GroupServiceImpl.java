@@ -64,6 +64,7 @@ public class GroupServiceImpl implements GroupService {
 	/**
 	 * @see net.sf.sail.webapp.service.group.GroupService#createGroup(java.lang.String)
 	 */
+//	TODO put transactional annotations on the methods in this service.
 	public Group createGroup(String name) {
 		Group group = new PersistentGroup();
 		group.setName(name);
