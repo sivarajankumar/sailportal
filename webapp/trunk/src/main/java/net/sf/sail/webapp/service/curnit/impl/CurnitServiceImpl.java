@@ -25,9 +25,12 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Laurel Williams
@@ -61,6 +64,7 @@ public class CurnitServiceImpl implements CurnitService {
     /**
      * @see net.sf.sail.webapp.service.curnit.CurnitService#getCurnitList()
      */
+    @Transactional(readOnly = true)
     public List<SdsCurnit> getCurnitList() {
         return this.sdsCurnitDao.getList();
     }
@@ -68,6 +72,8 @@ public class CurnitServiceImpl implements CurnitService {
 	/**
 	 * @see net.sf.sail.webapp.service.curnit.CurnitService#createCurnit(net.sf.sail.webapp.domain.impl.CurnitParameters)
 	 */
+    @Transactional(rollbackFor = { BadRequestException.class,
+            NetworkTransportException.class })
 	public Curnit createCurnit(CurnitParameters curnitParameters) {
 		//TODO LAW get the sdsCurnit and CurnitImpl from bean
 		SdsCurnit sdsCurnit = new SdsCurnit();
