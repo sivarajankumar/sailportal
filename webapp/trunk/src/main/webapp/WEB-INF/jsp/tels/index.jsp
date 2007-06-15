@@ -81,7 +81,9 @@
 </ul>
 
 </form:form>
-
+<li>
+lost your <a href="lostpasswordmain.html" >password</a>?
+</li>
 </div>
 
 <div id="navigation" class="bgcolorLightBlue">
