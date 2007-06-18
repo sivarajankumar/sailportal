@@ -38,13 +38,27 @@
 <div id="left">
 </div>
 
+<!-- Support for Spring errors object -->
+<spring:bind path="userDetails.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <b>
+      <br /><c:out value="${error}"/>
+    </b>
+  </c:forEach>
+</spring:bind>
+
+
 <div id="right">
 <form id="username" method="post" action="lostpasswordteacher.html" commandName="userDetails">
 
   <p><label for="send_username"><spring:message code="login.username" /></label>
   <input type="text" name="username" id="username"  class="text" tabindex="1" /></p>
 
-
+   <br>OR<br><br>
+   
+   <p><label for="send_usernamepassword"><spring:message code="lostpassword.teacher.email" /></label>
+  <input type="text" name="emailAddress" id="emailAddress"  class="text" tabindex="1" /></p>
+  
    <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
@@ -52,23 +66,10 @@
       onclick="Effect.toggle('waiting', 'appear')" /></p>
 
 </form>
-<form>
- <p><label for="send_usernamepassword"><spring:message code="lostpassword.teacher.email" /></label>
-  <input type="text" name="send_usernamepassword" id="send_usernamepassword"  class="text" tabindex="1" /></p>
-
-
-   <div id="waiting" style="display: none">
-       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
-     </div>
-     <p><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitusernamepassword" />" 
-      onclick="Effect.toggle('waiting', 'appear')" /></p>
-  
-    
-</form>
 
 </div>
-</div>
 
+<a href="http://localhost:8080/webapp">go home homey</a>
 
 </body>
 </html>

@@ -40,7 +40,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * Controller for lost password teacher
  * 
  * @author Anthony Perritano
- * @version $Id: $
+ * @version
  */
 public class LostPasswordTeacherController extends SimpleFormController {
 
@@ -61,15 +61,16 @@ public class LostPasswordTeacherController extends SimpleFormController {
 
 		try {
 
-			User user = userService.retrieveUser(userDetails);
+			if( userDetails.getUsername() != null ) {
 
-			if (user == null) {
-				errors.rejectValue("username", "error.duplicate-username",
-						new Object[] { userDetails.getUsername() },
-						"username not found try a different");
-				return showForm(request, response, errors);
-			} else {
-
+				User user = userService.retrieveUser(userDetails);
+				
+				if (user == null) {
+					errors.rejectValue("username", "error.duplicate-username",
+							new Object[] { userDetails.getUsername() },
+							"username not found try a different");
+					return showForm(request, response, errors);
+				}
 				// generate a new password
 				// set it on the userobject
 				user.getUserDetails().setPassword(generateRandomPassword());
@@ -78,7 +79,17 @@ public class LostPasswordTeacherController extends SimpleFormController {
 				// update the user in the db
 				// send an email
 
-			}
+			} else if( userDetails.getEmailAddress() != null ) {
+				
+				User user = userService.retrieveUser(userDetails);
+				
+				if (user == null) {
+					errors.rejectValue("username", "error.duplicate-username",
+							new Object[] { userDetails.getUsername() },
+							"username not found try a different");
+					return showForm(request, response, errors);
+				}
+			} 
 
 			// get the fields
 			// call user service getUserDetails
