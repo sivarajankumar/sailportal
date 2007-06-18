@@ -31,6 +31,12 @@
 
     <bean id="teacherUserDetailsValidator"
         class="org.telscenter.sail.webapp.presentation.validators.TeacherUserDetailsValidator" />
+        
+     <bean id="lostTeacherValidator"
+        class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" >
+        
+       </bean>   
+        
 
     <bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController">
@@ -56,15 +62,24 @@
     
     <bean id="lostPasswordMainController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController"/>
-
-    <bean id="lostPasswordTeacherController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherController">
-    	<property name="userService" ref="userService" />
-    	<property name="commandName" value="userDetails" />
-    	<property name="commandClass"
-    		value="net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails" />
+		
+	<bean id="lostPasswordTeacherController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherController">	
+		     <property name="userService" ref="userService" />
+        <property name="commandName" value="userDetails" />
+        <property name="commandClass"
+            value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
+       <property name="validator" ref="lostTeacherValidator" />
+       <property name="formView" value="lostpasswordteacher" />
+       <property name="successView" value="lostpasswordteacherresult.html" />
     </bean>
-  
-    <bean id="lostPasswordStudentController"
+	<bean id="lostPasswordStudentController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentController"/>	
+		
+	<bean id="findStudentPasswordController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentPasswordController"/>	
+	<bean id="findStudentUsernameController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentUsernameController"/>		
+			
+		
 </beans>
