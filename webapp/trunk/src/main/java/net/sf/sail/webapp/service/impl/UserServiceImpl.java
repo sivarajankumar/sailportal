@@ -31,7 +31,6 @@ import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
-import net.sf.sail.webapp.service.authentication.UserNotFoundException;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.providers.dao.SaltSource;

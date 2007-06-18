@@ -40,8 +40,8 @@
 
 <div id="right">
 are u a <a href="lostpasswordteacher.html"><spring:message code="lostpassword.teacher" /></a>?<br />
-<br>
-<br>
+<br />
+<br />
 are u a <a href="lostpasswordstudent.html"><spring:message code="lostpassword.student" /></a>?<br /></div>
 
 </div>

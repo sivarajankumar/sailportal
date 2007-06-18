@@ -56,17 +56,15 @@
     
     <bean id="lostPasswordMainController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController"/>
-		
-	<bean id="lostPasswordTeacherController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherController">	
-		     <property name="userService" ref="userService" />
-        <property name="commandName" value="userDetails" />
-        <property name="commandClass"
-            value="net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails" />
-       <!--   <property name="validator" ref="userDetailsValidator" />-->
-       <!--  <property name="formView" value="signup" />
-        <property name="successView" value="login.html" />-->
+
+    <bean id="lostPasswordTeacherController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherController">
+    	<property name="userService" ref="userService" />
+    	<property name="commandName" value="userDetails" />
+    	<property name="commandClass"
+    		value="net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails" />
     </bean>
-	<bean id="lostPasswordStudentController"
+  
+    <bean id="lostPasswordStudentController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentController"/>	
 </beans>

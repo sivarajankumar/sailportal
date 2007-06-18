@@ -87,9 +87,7 @@
 				/countries.html=ROLE_ANONYMOUS,ROLE_USER
 				/states.html=ROLE_ANONYMOUS,ROLE_USER
 				/help.html=ROLE_ANONYMOUS,ROLE_USER 
-				/lostpasswordmain.html=ROLE_ANONYMOUS,ROLE_USER 
-				/lostpasswordteacher.html=ROLE_ANONYMOUS,ROLE_USER 
-				/lostpasswordstudent.html=ROLE_ANONYMOUS,ROLE_USER 
+				/lostpassword*.html=ROLE_ANONYMOUS,ROLE_USER 
 				/*.html=ROLE_USER
 				/**/*.html=ROLE_USER
 			</value>

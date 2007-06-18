@@ -40,7 +40,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * Controller for lost password teacher
  * 
  * @author Anthony Perritano
- * @version
+ * @version $Id: $
  */
 public class LostPasswordTeacherController extends SimpleFormController {
 

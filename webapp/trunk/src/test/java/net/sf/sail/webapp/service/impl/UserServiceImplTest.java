@@ -34,7 +34,6 @@ import org.acegisecurity.providers.dao.SaltSource;
 import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.acegisecurity.userdetails.UserDetails;
 import org.easymock.EasyMock;
-import org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController;
 import org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherController;
 
 /**
@@ -92,9 +91,6 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
 		checkPasswordEncoding(actual);
 		checkRole(actual);
-
-		
-	
 		
 		PersistentUserDetails actualUserDetails = (PersistentUserDetails) actual;
 		
@@ -103,23 +99,16 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		
 		expectedUser.setUserDetails(actualUserDetails);
 		
-		User user = this.userService.updateUser(expectedUser);
+		this.userService.updateUser(expectedUser);
 		
-		
-//		 retrieve user and compare
+		// retrieve user and compare
 		UserDetails updatedUser = this.userDetailsService
 				.loadUserByUsername(USERNAME);
 		
 		User retrievedUserDetails = this.userService.retrieveUser(expectedUser.getUserDetails());
-		
-	//	assertTrue(actual.getPassword().equals(PASSWORD));
 		assertEquals(updatedUser.getPassword(), retrievedUserDetails.getUserDetails().getPassword());
 		
-
-//		checkPasswordEncoding(actual);
-//		checkRole(actual);
-		
-//		 added this end transaction to catch a transaction commit within a
+		// added this end transaction to catch a transaction commit within a
 		// transaction rollback problem
 		this.userDao.delete(expectedUser);
 		this.authorityDao.delete(expectedAuthorityCreate);
