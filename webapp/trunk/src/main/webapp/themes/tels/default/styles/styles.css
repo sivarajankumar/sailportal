@@ -18,9 +18,49 @@
  * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
  */
 
+.north0{
+	position:relative;
+	top:-4.1em;
+}
+
+.north_0{
+	position:relative;
+	top:-8.0em;
+}
+	
 .north{
 	position:relative;
 	top:-7em;
+}
+
+.north_1{
+	position:relative;
+	top:-20em;
+}
+
+.north_2{
+	position:relative;
+	top:-40em;
+}
+
+.north2{
+	position:relative;
+	top:-8.6em;
+}
+
+.north3{
+	position:relative;
+	top:-30em;
+}
+
+.north4{
+	position:relative;
+	top:-1.5em;
+}
+
+.north5{
+	position:relative;
+	top: -22.5em;
 }
 
 .south{
@@ -28,6 +68,26 @@
 	top:7em;
 }
 
+.south0{
+	position:relative;
+	top:2.1em;
+	}
+	
+.south2{
+	position:absolute;
+	top:7em;
+}
+
+.south_1{
+	position:relative;
+	top:5em;
+}
+
+.left1{
+	position:relative;
+	left:-4em;	
+}
+	
 .border{
 	color:black;
 	border-style:solid;
@@ -63,7 +123,7 @@
 	background-color:#AFDCEC;
 }
 
-
+.blackColor {color:#000000;}
 .blueColor {color:#0066CC}
 
 .welcome1{	
@@ -89,12 +149,31 @@
 	margin:-2em -10em 0em 40em;	
 }
 
+.widthAdj0{
+	width: 8em;
+}
+
+.widthAdj{
+	width:4em;
+}
+
 .widthAdj1{
-	width: 12em;	
+    width: 12em;   
 }
 
 .widthAdj2{
-	width:16em;
+    width:16em;
+}
+.widthAdj3{
+	width:33em;	
+}
+
+.widthAdj4{
+	width:48.5em;	
+}
+
+.heightAdj1{
+	height:17.5em;
 }
 
 .positionAdj1{
@@ -118,14 +197,73 @@
 .positionAdj4{
 	position:relative;
 	left:35em;	
-	
-	
 }
+
+.positionAdj5{
+	position:relative;
+	top:-17.8em;
+	left:34em;
+}
+
 
 .smallFont{
 	font-size:0.8em;
 }
 
+.bigFont1{
+	font-size: 1.2em;
+}
+
+#spacing{
+    margin: 0em;
+    padding: 0em 10em 0em 10em;
+    text-align:justify;
+    line-height:2em;
+}
+
+#left{
+	position:relative;
+	left:-2em;
+}
+
+#left1{
+	position:relative;
+	left:-0.5em;
+}
+.right1{
+	position:relative;
+	right:-13em;
+}
+
+.heading{
+	font-weight: bold;
+	color: yellow;
+	font-size: 1.6em; 
+	font-variant: small-caps; 
+	background-color: transparent;
+	position: relative;
+	top: -2.1em;
+}
+
+.inline{
+	display: inline;
+	}
+
+.widthPercentAdj1{
+	width: 20%;
+}
+
+.widthPercentAdj2{
+	width:10%;
+}
+
+.widthPercentAdjFull{
+	width:100%;
+}
+
+.bold{
+	font-weight: bold;
+}
 
 body {
     background-color: white;
@@ -141,18 +279,18 @@ display: block;
 }
 
 label.login{
-	width:12em;
+	width:3.5em;
 	text-align:left;
-	margin-right:0.2em;
+	margin:0em;
+	margin-right:0.63em;
 	display:block;
 
 }
 
 
 div {
-    background-color: white;
     color: black;
-    padding: 2;
+    padding: 0.05em;
 }
 
 
@@ -316,8 +454,17 @@ font-family:arial,sans-serif;
     margin: 0em;
     padding: 0em;
     padding-top: 0.1em;
+}
+
+#navigation ul.regular{
+    list-style: none;
+    margin: 0em;
+    padding: 0em;
+    padding-top: 0.1em;
     position:relative;
-    top:-7em;
+    top:-2em;
+    left:-1.4em;
+    text-align:center;
 }
 
 #navigation ul.southHeading{
@@ -336,7 +483,7 @@ font-family:arial,sans-serif;
 
 #navigation li {
     display: inline;
-    margin: 1.8em;
+    margin: 1.5em;
     padding: 0em;
 }
 
@@ -344,22 +491,23 @@ font-family:arial,sans-serif;
 	display: block;	
 }
 
-#navigation a:link, #navigation a:visited{
-	padding: .3em 1.0em .2em 1.0em;
-	color: green;
-	background-color: grey;
-	text-decoration: none;
-	border-top: 1 solid black;
-	border-left: 1 solid black;
-	border-bottom: 1 solid grey;
-	border-right: 1 solid grey;	
+#navigation li.smallMargin{
+	margin: 1.1em;
 }
 
-#navigation a:hover{
-	border-top: grey;
-	border-left: grey;
-	border-bottom: black;
-	border-right: black;	
+#navigation li.fontSizeSmall{
+	font-size:0.9em;
+}
+
+#navigation a:link, #navigation a:visited{
+    color: #1122BB;
+    background-color: transparent;
+	text-decoration:none;
+}
+
+#navigation li a:hover{
+	color: green;
+	background-color: #99AAFF;
 }
 
 #verticalNavigation{
@@ -385,18 +533,15 @@ font-family:arial,sans-serif;
 }
 
 
-#verticalNavigation ul.loginpos{
-	position:absolute;
-	left:30.5em;
-	top:0em;
-	width: 15em;
-	margin:0em;
+#verticalNavigation li {
+    padding: 0em;
+    margin: 1.3em;
+    line-height:1.3em;
 }
 
-#verticalNavigation li {
-    padding: 0;
-    margin: 2em;
-    line-height:1.3em;
+#verticalNavigation li.login{
+	margin: 0.5em;
+	line-height:1.3em;	
 }
 
 #verticalNavigation li.space1{
@@ -404,14 +549,14 @@ font-family:arial,sans-serif;
 }
 
 #verticalNavigation a:link, #verticalNavigation a:visited{
-	padding: 3 10 2 10;
+	padding: .3em 1.0em .2em 1.0em;
 	color: green;
 	background-color: grey;
 	text-decoration: none;
-	border-top: 1 solid black;
-	border-left: 1 solid black;
-	border-bottom: 1 solid grey;
-	border-right: 1 solid grey;	
+	border-top: .1em solid black;
+	border-left: .1em solid black;
+	border-bottom: .1em solid grey;
+	border-right: .1em solid grey;	
 }
 
 
@@ -524,5 +669,85 @@ cursor:pointer;
 h5 span{
    
     float:left;
+}
+
+ul.none{
+	list-style-type: none;
+}
+
+ul#tabnav{
+	list-style-type:none;
+	margin:0em;
+	padding:0em;
+	font-style: bold;
+	font-size: 1.247em;
+	font-family: verdana, arial, sans-serif;
+}
+
+ul#tabnav2 {
+	list-style-type:none;
+	width: 50em;
+   margin: 0em;
+   	padding-left:0em;
+	padding-bottom:0em;
+	font-style: bold;
+	font-size: 1.7em;
+	font-family: verdana, arial, sans-serif;
+}
+
+
+ul#tabnav li{
+	float:left;
+	height:1.2em;
+	color: green;
+	margin: 0em;
+	border: 0.02em;
+	border-style: solid;
+	border-color: black;
+}
+
+ul#tabnav2 li{
+	float:left;
+	height:1.2em;
+	color: green;
+	margin: 2.0em;
+	padding: 0em;
+	border: 0.02em;
+	border-style: solid;
+	border-color: black;
+}
+
+ul#tabnav a:link, ul#tabnav a:visited{
+	display: block;
+	background-color: transparent;
+	text-decoration: none;
+	}
+
+ul#tabnav a:hover{
+	background-color: #AA11FF;
+	color: #AAEECC;
+}
+
+ul#tabnav2 a:link, ul#tabnav2 a:visited{
+	display: block;
+	background-color: transparent;
+	text-decoration: none;
+	}
+
+ul#tabnav2 a:hover{
+	background-color: #AA11FF;
+	color: #AAEECC;
+}
+
+
+
+#content{
+ margin: -0.5em;
+ width:30em;
+height:23em;
+ padding: 0.2em 0.4em 0.2em 0.4em;
+  position:relative;
+  top:-4.2em; 
+  right:-1.0em;
 }
 
