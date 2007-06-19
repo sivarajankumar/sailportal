@@ -86,11 +86,12 @@
 				/test.html=ROLE_ANONYMOUS,ROLE_USER
 				/countries.html=ROLE_ANONYMOUS,ROLE_USER
 				/states.html=ROLE_ANONYMOUS,ROLE_USER
-				/help.html=ROLE_ANONYMOUS,ROLE_USER 
+				/help.html=ROLE_ANONYMOUS,ROLE_USER
+				/setup*.html=ROLE_USER
 				/lostpassword*.html=ROLE_ANONYMOUS,ROLE_USER 
 				/*.html=ROLE_USER
 				/**/*.html=ROLE_USER
 			</value>
-		</property>
+		</property> 
 	</bean>
 </beans>
