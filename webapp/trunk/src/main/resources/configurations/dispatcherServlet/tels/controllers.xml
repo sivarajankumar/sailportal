@@ -55,7 +55,28 @@
     
     <bean id="indexController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
-    
+
+	<bean id="setupRun1Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun1Controller" />
+
+	<bean id="setupRun2Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun2Controller" />
+
+	<bean id="setupRun3Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun3Controller" />
+
+	<bean id="setupRun4Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun4Controller" />
+
+	<bean id="setupRun5Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun5Controller" />
+
+	<bean id="setupRun6Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun6Controller" />
+
+	<bean id="setupRun7Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun7Controller" />
+		    
     <bean id="lostPasswordMainController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController"/>
 		
