@@ -40,4 +40,22 @@ public interface UserDao<T extends User> extends SimpleDao<T> {
      * @return A new instance of a data object.
      */
     public T retrieveByUserDetails(UserDetails userDetails);
+    
+    
+    /**
+     * Given a username retrieve a corresponding user record from data store
+     * 
+     * @param username the users username
+     * @return A new instance of a data object
+     */
+    public T retrieveByUsername(String username);
+    
+    /**
+     * Given a username retrieve a corresponding user record from data store.
+     * 
+     * @param emailAddress
+     * @return A new instance of a data object
+     */
+    public T retrieveByEmailAddress(String emailAddress);
+    
 }

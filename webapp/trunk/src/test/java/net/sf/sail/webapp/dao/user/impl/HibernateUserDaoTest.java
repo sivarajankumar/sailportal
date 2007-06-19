@@ -30,7 +30,7 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
- * @author Cynick Young
+ * @author Cynick Young		
  * 
  * @version $Id$
  * 
@@ -46,6 +46,8 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
     private static final String LAST_NAME = USERNAME;
 
     private static final Integer SDS_USER_ID = new Integer(42);
+
+	private static final String EMAILADDRESS = "bart.simpson@gmail.com";
 
     private HibernateUserDao userDao;
 
@@ -78,6 +80,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
         this.defaultUser.setSdsUser(this.sdsUser);
         this.userDetails.setUsername(USERNAME);
         this.userDetails.setPassword(PASSWORD);
+        this.userDetails.setEmailAddress(EMAILADDRESS);
         this.sdsUser.setFirstName(FIRST_NAME);
         this.sdsUser.setLastName(LAST_NAME);
         this.sdsUser.setSdsObjectId(SDS_USER_ID);
@@ -98,6 +101,22 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
         this.userDao.save(this.defaultUser);
 
         User actual = this.userDao.retrieveByUserDetails(this.userDetails);
+        assertNotNull(actual);
+        assertEquals(this.defaultUser, actual);
+    }
+    
+    public void testRetrieveByUsername() {
+        this.userDao.save(this.defaultUser);
+
+        User actual = this.userDao.retrieveByUsername(this.userDetails.getUsername());
+        assertNotNull(actual);
+        assertEquals(this.defaultUser, actual);
+    }
+    
+    public void testRetrieveByEmailAddress() {
+        this.userDao.save(this.defaultUser);
+
+        User actual = this.userDao.retrieveByEmailAddress(this.userDetails.getEmailAddress());
         assertNotNull(actual);
         assertEquals(this.defaultUser, actual);
     }

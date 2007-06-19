@@ -54,4 +54,29 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
                                 "from UserImpl as user where user.userDetails = :userDetails",
                                 "userDetails", userDetails));
     }
+
+    /**
+     * @see
+     */
+    public User retrieveByUsername(String username) {
+        return (User) DataAccessUtils
+                .requiredUniqueResult(this
+                        .getHibernateTemplate()
+                        .findByNamedParam(
+                                "from UserImpl as user where user.userDetails.username = :username",
+                                "username", username));
+    }
+    
+    /**
+     * @see
+     */
+    public User retrieveByEmailAddress(String emailAddress	) {
+        return (User) DataAccessUtils
+                .requiredUniqueResult(this
+                        .getHibernateTemplate()
+                        .findByNamedParam(
+                                "from UserImpl as user where user.userDetails.emailAddress = :emailAddress",
+                                "emailAddress", emailAddress));
+    }
+   
 }
