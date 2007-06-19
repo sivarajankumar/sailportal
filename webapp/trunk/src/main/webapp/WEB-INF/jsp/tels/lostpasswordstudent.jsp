@@ -38,14 +38,14 @@
 <div id="left">
 </div>
 
-what have you forgotten?
-<br>
-<br>
-<br>
+<spring:message code="lostpassword.what-have-you-forgotten" />
+<br />
+<br />
+<br />
 lost <a href="findstudentusername.html"><spring:message code="lostpassword.student.username" /></a>?<br />
-<br>
-<br>
-are u a <a href="findstudentpassword.html"><spring:message code="lostpassword.student.password" /></a>?<br /></div>
+<br />
+<br />
+<spring:message code="lostpassword.are-you-a" /><a href="findstudentpassword.html"><spring:message code="lostpassword.student.password" /></a>?<br /></div>
 
 </div>
 

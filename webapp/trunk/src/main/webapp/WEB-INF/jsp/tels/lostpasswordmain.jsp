@@ -32,18 +32,17 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>lost password</h1>
+<h1><spring:message code="lostpassword" /></h1>
 
 <div id="columns">
 <div id="left">
 </div>
 
 <div id="right">
-are u a <a href="lostpasswordteacher.html"><spring:message code="lostpassword.teacher" /></a>?<br />
+<spring:message code="lostpassword.are-you-a" /><a href="lostpasswordteacher.html"><spring:message code="lostpassword.teacher" /></a>?<br />
 <br />
 <br />
-are u a <a href="lostpasswordstudent.html"><spring:message code="lostpassword.student" /></a>?<br /></div>
-
+<spring:message code="lostpassword.are-you-a" /><a href="lostpasswordstudent.html"><spring:message code="lostpassword.student" /></a>?<br /></div>
 </div>
 
 
