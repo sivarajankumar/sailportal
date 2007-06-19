@@ -39,52 +39,106 @@
 
 <!-- Support for Spring errors object -->
 
-<div id="columns" class="bgcolorLightBlue">
+<div id="columns" class="bgcolorLightBlue border">
 
-<div id="headRows">
+<div id="headRows" class="bgcolorLightBlue">
 <ul class="intropos">
 <li class="heading2"><spring:message code="wise.welcome" /></li>
 <li class="heading2 positionAdj3"><spring:message code="wise.signIn" /></li>
 </ul>
 </div>
 
-<div id="verticalNavigation" class="border bgcolorLightBlue">
+<div id="verticalNavigation" class="widthAdj3 border bgcolorLightBlue">
+
 <p class="parastyle bgcolorLightBlue">
 <spring:message code="wise.about.desc" />
-
 </p>
-
 <ul class="intropos">
 <li><a href="#"><spring:message code="wise.overview" /></a></li>
 <li><a href="#"> <spring:message code="wise.preview" /></a> </li>
 <li><a href="#"> <spring:message code="wise.commonQs" /></a></li>
 <li><a href="register.html"><b><spring:message code="joinwise" /></b></a></li>
 </ul>
-
+</div>
+<div id="verticalNavigation" class="border bgColorLightBlue widthAdj2 positionAdj5 heightAdj1">
 <form:form id="home" method="post" action="j_acegi_security_check">
-<ul class="loginpos">
-
-<li>
+<ul class="bgcolorLightBlue south_1">
+<li class="login">
 <label for="username" class="login">
 <spring:message code="login.username" />
 </label>
 <input type="text" size="20" />
 </li>
 
-<li>
+<li class="login">
 <label for="password" class="login">
 <spring:message code="login.password" />
 </label>
 <input type="password" size="20" />
 </li>
-<li><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
+
+<li class="right"><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
 </ul>
 
 </form:form>
-
-Lost your <a href="lostpasswordmain.html" >password</a>?
-
 </div>
+ 
+<div class="bgcolorLightBlue north_1 border widthAdj4">
+<ul class="none">
+<li class="heading4"><spring:message code="wise.inAction" /></li>
+<li><img class="widthAdj1"  id=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg" /></li>
+<li><img class="dynamicImage marginAdj1" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+
+<img class="dynamicImage marginAdj1" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstRClicked=setRClicked();oldCtr=counter;counter=proceedToNextImage(firstRClicked,counter);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+</li>
+
+</ul>
+</div>
+
+<div class="bgcolorLightBlue border widthAdj4">
+<ul>
+<li class="heading4"><spring:message code="wise.testimonials" /></li>
+<li><img class="marginAdj1 widthAdj1 positionAdj2 border" id=rotatorT src="./themes/tels/default/images/wiseInAction/dummyfile.jpg" /> </li>
+
+
+</ul>
+</div>
+
+
+
+<!--  
+<div class="bgcolorLightBlue">
+<ul class="border">
+<li class="heading4 north_1 left1"><spring:message code="wise.inAction" /></li>
+<li><img class="left1 marginAdj1 widthAdj1 positionAdj1 border"  id=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg" /></li>
+<li><img class="dynamicImage marginAdj1" id="imgPos1" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+
+<img class="dynamicImage marginAdj1" id="imgPos2" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstRClicked=setRClicked();oldCtr=counter;counter=proceedToNextImage(firstRClicked,counter);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+</li>
+</ul>
+</div>
+
+
 
 <div id="navigation" class="bgcolorLightBlue">
 <ul class="southHeading">
@@ -137,6 +191,7 @@ onmouseout="this.style.cursor='default';" />
 </div>
 
 </div>
+-->
 
 
 </div>
