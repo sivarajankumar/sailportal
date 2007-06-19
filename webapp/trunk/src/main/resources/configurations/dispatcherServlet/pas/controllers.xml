@@ -40,13 +40,16 @@
     <bean
         class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
     </bean>
-    
-    <bean class="net.sf.sail.webapp.presentation.web.controllers.GroupmanagementController">
+
+    <bean
+        class="net.sf.sail.webapp.presentation.web.controllers.GroupmanagementController">
+        <property name="groupService" ref="groupService" />
     </bean>
 
-   <bean
+    <bean
         class="net.sf.sail.webapp.presentation.web.controllers.AuthoringJnlpLauncherController">
-        <property name="jnlpFileName" value="authoring-everything-snapshot.jnlp" />
+        <property name="jnlpFileName"
+            value="authoring-everything-snapshot.jnlp" />
         <property name="modifier" ref="authoringjnlpmodifier" />
     </bean>
 

@@ -37,101 +37,115 @@ import org.springframework.beans.factory.annotation.Required;
 
 /**
  * A class to provide services for Group objects.
- *
+ * 
  * @author Hiroki Terashima
  * @version $Id$
  */
 public class GroupServiceImpl implements GroupService {
 
-	private GroupDao<Group> groupDao;
-	
-	/**
-	 * @param groupDao the groupDao to set
-	 */
-	@Required
-	public void setGroupDao(GroupDao<Group> groupDao) {
-		this.groupDao = groupDao;
-	}
+    private GroupDao<Group> groupDao;
 
-	/**
-	 * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group, java.lang.String)
-	 */
-	public void changeGroupName(Group group, String newName) {
-		group.setName(newName);
-		this.groupDao.save(group);
-	}
+    /**
+     * @param groupDao
+     *            the groupDao to set
+     */
+    @Required
+    public void setGroupDao(GroupDao<Group> groupDao) {
+        this.groupDao = groupDao;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.service.group.GroupService#createGroup(java.lang.String)
-	 */
-//	TODO put transactional annotations on the methods in this service.
-	public Group createGroup(String name) {
-		Group group = new PersistentGroup();
-		group.setName(name);
-		this.groupDao.save(group);
-		return group;
-	}
+    /**
+     * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group,
+     *      java.lang.String)
+     */
+    public void changeGroupName(Group group, String newName) {
+        group.setName(newName);
+        this.groupDao.save(group);
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.Group, java.lang.String)
-	 */
-	public Group createGroup(Group parent, String name) {
-		Group group = new PersistentGroup();
-		group.setName(name);
-		group.setParent(parent);
-		this.groupDao.save(group);
-		return group;
-	}
+    /**
+     * @see net.sf.sail.webapp.service.group.GroupService#createGroup(java.lang.String)
+     */
+    // TODO put transactional annotations on the methods in this service.
+    public Group createGroup(String name) {
+        Group group = new PersistentGroup();
+        group.setName(name);
+        this.groupDao.save(group);
+        return group;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.service.group.GroupService#moveGroup(net.sf.sail.webapp.domain.group.Group, net.sf.sail.webapp.domain.group.Group)
-	 */
-	public void moveGroup(Group newParent, Group groupToBeMoved)
-			throws CyclicalGroupException {
-		Group previousParent = groupToBeMoved.getParent();
-		groupToBeMoved.setParent(newParent);
-		if (cycleExists(groupToBeMoved)) {
-			// if cycle exists, reset groupToBeMoved's parent
-			groupToBeMoved.setParent(previousParent);
-			throw new CyclicalGroupException("Cycle will be created" +
-					" when this group is moved.");
-		}
-		this.groupDao.save(groupToBeMoved);
-	}
+    /**
+     * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.Group,
+     *      java.lang.String)
+     */
+    public Group createGroup(Group parent, String name) {
+        Group group = new PersistentGroup();
+        group.setName(name);
+        group.setParent(parent);
+        this.groupDao.save(group);
+        return group;
+    }
 
-	/**
-	 * @see net.sf.sail.webapp.service.group.GroupService#addMembers(net.sf.sail.webapp.domain.group.Group, java.util.Set)
-	 */
-	public void addMembers(Group group, Set<User> membersToAdd) {
-		for (User member : membersToAdd) {
-			group.addMember(member);
-		}
-		this.groupDao.save(group);
-	}
+    /**
+     * @see net.sf.sail.webapp.service.group.GroupService#moveGroup(net.sf.sail.webapp.domain.group.Group,
+     *      net.sf.sail.webapp.domain.group.Group)
+     */
+    public void moveGroup(Group newParent, Group groupToBeMoved)
+            throws CyclicalGroupException {
+        Group previousParent = groupToBeMoved.getParent();
+        groupToBeMoved.setParent(newParent);
+        if (cycleExists(groupToBeMoved)) {
+            // if cycle exists, reset groupToBeMoved's parent
+            groupToBeMoved.setParent(previousParent);
+            throw new CyclicalGroupException("Cycle will be created"
+                    + " when this group is moved.");
+        }
+        this.groupDao.save(groupToBeMoved);
+    }
 
-	/**
-	 * Checks to see if the given group contains a cycle
-	 * 
-	 * @param group <code>Group</code> group to be checked for cycles
-	 * @return boolean true iff the given group contains a cycle
-	 */
-	private boolean cycleExists(Group group) {
-		if (group.getParent().equals(group)) return true;
-		
-		// traverse up the parent until null (no cycle) or 
-		// until group is reached again (cycle)
-		List<Group> visitedSoFar = new ArrayList<Group>();
-		Group toCheck = group;
-		while ((toCheck = toCheck.getParent()) != null) {
-			if (visitedSoFar.contains(toCheck)) {
-				// use the equals() to check for equality
-				// don't use TreeSet&hashCode, or it will
-				// go into infinite loop
-				return true;
-			} else {
-				visitedSoFar.add(toCheck);
-			}
-		}
-		return false;
-	}
+    /**
+     * @see net.sf.sail.webapp.service.group.GroupService#addMembers(net.sf.sail.webapp.domain.group.Group,
+     *      java.util.Set)
+     */
+    public void addMembers(Group group, Set<User> membersToAdd) {
+        for (User member : membersToAdd) {
+            group.addMember(member);
+        }
+        this.groupDao.save(group);
+    }
+
+    /**
+     * Checks to see if the given group contains a cycle
+     * 
+     * @param group
+     *            <code>Group</code> group to be checked for cycles
+     * @return boolean true iff the given group contains a cycle
+     */
+    private boolean cycleExists(Group group) {
+        if (group.getParent().equals(group))
+            return true;
+
+        // traverse up the parent until null (no cycle) or
+        // until group is reached again (cycle)
+        List<Group> visitedSoFar = new ArrayList<Group>();
+        Group toCheck = group;
+        while ((toCheck = toCheck.getParent()) != null) {
+            if (visitedSoFar.contains(toCheck)) {
+                // use the equals() to check for equality
+                // don't use TreeSet&hashCode, or it will
+                // go into infinite loop
+                return true;
+            } else {
+                visitedSoFar.add(toCheck);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.service.group.GroupService#getGroups()
+     */
+    public List<Group> getGroups() {
+        return this.groupDao.getList();
+    }
 }

@@ -32,59 +32,65 @@ import net.sf.sail.webapp.domain.User;
  */
 public interface Group {
 
-	/**
-	 * Add a single member to the group.
-	 * 
-	 * @param member
-	 *            single member to add
-	 */
-	public void addMember(User member);
+    /**
+     * Add a single member to the group.
+     * 
+     * @param member
+     *            single member to add
+     */
+    public void addMember(User member);
 
-	/**
-	 * Replace any existing list of members with the new list.
-	 * 
-	 * @param members
-	 *            new <code>List</code> of members to set
-	 */
-	public void setMembers(Set<User> members);
+    /**
+     * Replace any existing list of members with the new list.
+     * 
+     * @param members
+     *            new <code>List</code> of members to set
+     */
+    public void setMembers(Set<User> members);
 
-	/**
-	 * Get the list of members of this group.
-	 * 
-	 * @return <code>List</code> of <code>User</code> objects that belong to
-	 *         this group.
-	 */
-	public Set<User> getMembers();
+    /**
+     * Get the list of members of this group.
+     * 
+     * @return <code>List</code> of <code>User</code> objects that belong to
+     *         this group.
+     */
+    public Set<User> getMembers();
 
-	/**
-	 * Gets the name of this group.
-	 * 
-	 * @return the name of the current group
-	 */
-	public String getName();
+    /**
+     * Gets the name of this group.
+     * 
+     * @return the name of the current group
+     */
+    public String getName();
 
-	/**
-	 * Sets the name of this group.
-	 * 
-	 * @param name
-	 *            the name to set for this group.
-	 */
-	public void setName(String name);
+    /**
+     * Sets the name of this group.
+     * 
+     * @param name
+     *            the name to set for this group.
+     */
+    public void setName(String name);
 
-	/**
-	 * Gets the parent group for this group. If is the group at the top of the
-	 * group hierarchy, then null is returned.
-	 * 
-	 * @return the parent
-	 */
-	public Group getParent();
+    /**
+     * Gets the parent group for this group. If is the group at the top of the
+     * group hierarchy, then null is returned.
+     * 
+     * @return the parent
+     */
+    public Group getParent();
 
-	/**
-	 * Sets the parent group for this group.
-	 * 
-	 * @param parent
-	 *            the parent to set
-	 */
-	public void setParent(Group parent);
+    /**
+     * Sets the parent group for this group.
+     * 
+     * @param parent
+     *            the parent to set
+     */
+    public void setParent(Group parent);
 
+    /**
+     * Gets the id for this object.
+     * 
+     * @return the id
+     */
+    public Long getId();
 }

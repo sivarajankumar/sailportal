@@ -30,14 +30,4 @@
         <property name="configLocation"
             value="classpath:configurations/hibernate/pas/hibernate.cfg.xml" />
     </bean>
-    
-	<bean id="group"
-		class="net.sf.sail.webapp.domain.group.impl.PersistentGroup"
-		scope="prototype" />
-	
-	<bean id="groupDao"
-	    class="net.sf.sail.webapp.dao.group.impl.HibernateGroupDao">
-	    <property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-
 </beans>

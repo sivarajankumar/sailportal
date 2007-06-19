@@ -1,185 +1,408 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	* Copyright (c) 2006 Encore Research Group, University of Toronto
-	* 
-	* This library is free software; you can redistribute it and/or
-	* modify it under the terms of the GNU Lesser General Public
-	* License as published by the Free Software Foundation; either
-	* version 2.1 of the License, or (at your option) any later version.
-	*
-	* This library is distributed in the hope that it will be useful,
-	* but WITHOUT ANY WARRANTY; without even the implied warranty of
-	* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	* Lesser General Public License for more details.
-	*
-	* You should have received a copy of the GNU Lesser General Public
-	* License along with this library; if not, write to the Free Software
-	* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+    * Copyright (c) 2006 Encore Research Group, University of Toronto
+    * 
+    * This library is free software; you can redistribute it and/or
+    * modify it under the terms of the GNU Lesser General Public
+    * License as published by the Free Software Foundation; either
+    * version 2.1 of the License, or (at your option) any later version.
+    *
+    * This library is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    * Lesser General Public License for more details.
+    *
+    * You should have received a copy of the GNU Lesser General Public
+    * License along with this library; if not, write to the Free Software
+    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
 <!-- $Id$ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
 
-	<!-- ======================== FILTER CHAIN ======================= -->
+    <!-- ======================== FILTER CHAIN ======================= -->
 
-	<!--  if you wish to use channel security, add "channelProcessingFilter," in front
-		of "httpSessionContextIntegrationFilter" in the list below -->
-	<bean id="filterChainProxy"
-		class="org.acegisecurity.util.FilterChainProxy">
-		<property name="filterInvocationDefinitionSource">
-			<value>
-				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-				PATTERN_TYPE_APACHE_ANT
-				/**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
-			</value>
-			<!--
-				<value>
-				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-				PATTERN_TYPE_APACHE_ANT
-				/**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,basicProcessingFilter,rememberMeProcessingFilter,anonymousProcessingFilter,switchUserProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
-				</value>
-			-->
-		</property>
-	</bean>
-
-
-	<!-- ======================== AUTHENTICATION ======================= -->
-
-	<bean id="authenticationManager"
-		class="org.acegisecurity.providers.ProviderManager">
-		<property name="providers">
-			<list>
-				<ref local="daoAuthenticationProvider" />
-				<ref local="anonymousAuthenticationProvider" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="daoAuthenticationProvider"
-		class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-		<property name="userDetailsService" ref="userDetailsService" />
-		<property name="passwordEncoder" ref="passwordEncoder" />
-		<property name="saltSource" ref="systemSaltSource" />
-	</bean>
-
-	<bean id="passwordEncoder"
-		class="org.acegisecurity.providers.encoding.Md5PasswordEncoder">
-	</bean>
-
-	<bean id="systemSaltSource"
-		class="org.acegisecurity.providers.dao.salt.SystemWideSaltSource">
-		<property name="systemWideSalt" value="secret" />
-	</bean>
-
-	<!-- Automatically receives AuthenticationEvent messages -->
-	<bean id="loggerListener"
-		class="org.acegisecurity.event.authentication.LoggerListener" />
-
-	<bean id="authenticationProcessingFilter"
-		class="net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter">
-		<property name="authenticationManager"
-			ref="authenticationManager" />
-		<property name="authenticationFailureUrl"
-			value="/login.html?failed=true" />
-		<property name="alwaysUseDefaultTargetUrl" value="true" />
-		<property name="defaultTargetUrl" value="/offeringlist.html" />
-		<property name="filterProcessesUrl"
-			value="/j_acegi_security_check" />
-	</bean>
-
-	<bean id="authenticationEntryPoint"
-		class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
-		<property name="loginFormUrl" value="/login.html" />
-	</bean>
-
-	<bean id="anonymousProcessingFilter"
-		class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
-		<property name="key" value="fubar" />
-		<property name="userAttribute"
-			value="Anonymous User,ROLE_ANONYMOUS" />
-	</bean>
-
-	<bean id="anonymousAuthenticationProvider"
-		class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
-		<property name="key" value="fubar" />
-	</bean>
-
-	<!--
-		For HTTP Basic Authentication, we don't have access to HttpSession
-		for use under the event notification system.
-		<bean id="basicProcessingFilter"
-		class="org.acegisecurity.ui.basicauth.BasicProcessingFilter">
-		<property name="authenticationManager" ref="authenticationManager" />
-		<property name="authenticationEntryPoint" ref="basicAuthenticationEntryPoint" />
-		</bean>
-		
-		<bean id="basicAuthenticationEntryPoint"
-		class="org.acegisecurity.ui.basicauth.BasicProcessingFilterEntryPoint">
-		<property name="realmName" value="Name Of Your Realm"/>
-		</bean>
-	-->
-
-	<bean id="httpSessionContextIntegrationFilter"
-		class="org.acegisecurity.context.HttpSessionContextIntegrationFilter">
-		<property name="context"
-			value="org.acegisecurity.context.SecurityContextImpl" />
-	</bean>
-
-	<bean id="logoutFilter"
-		class="org.acegisecurity.ui.logout.LogoutFilter">
-		<constructor-arg value="/index.html" />
-		<constructor-arg>
-			<list>
-				<bean
-					class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler" />
-			</list>
-		</constructor-arg>
-	</bean>
+    <!--  if you wish to use channel security, add "channelProcessingFilter," in front
+        of "httpSessionContextIntegrationFilter" in the list below -->
+    <bean id="filterChainProxy"
+        class="org.acegisecurity.util.FilterChainProxy">
+        <property name="filterInvocationDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+            </value>
+            <!--
+                <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,basicProcessingFilter,rememberMeProcessingFilter,anonymousProcessingFilter,switchUserProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+                </value>
+            -->
+        </property>
+    </bean>
 
 
-	<!-- ===================== HTTP REQUEST SECURITY ==================== -->
+    <!-- ======================== AUTHENTICATION ======================= -->
 
-	<bean id="exceptionTranslationFilter"
-		class="org.acegisecurity.ui.ExceptionTranslationFilter">
-		<property name="authenticationEntryPoint"
-			ref="authenticationEntryPoint" />
-	</bean>
+    <bean id="authenticationManager"
+        class="org.acegisecurity.providers.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref local="daoAuthenticationProvider" />
+                <ref local="anonymousAuthenticationProvider" />
+            </list>
+        </property>
+    </bean>
 
-	<bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter" />
+    <bean id="daoAuthenticationProvider"
+        class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService" />
+        <property name="passwordEncoder" ref="passwordEncoder" />
+        <property name="saltSource" ref="systemSaltSource" />
+    </bean>
 
-	<bean id="accessDecisionManager"
-		class="org.acegisecurity.vote.ConsensusBased">
-		<property name="allowIfAllAbstainDecisions" value="false" />
-		<property name="decisionVoters">
-			<list>
-				<ref local="roleVoter" />
-			</list>
-		</property>
-	</bean>
+    <bean id="passwordEncoder"
+        class="org.acegisecurity.providers.encoding.Md5PasswordEncoder">
+    </bean>
 
-	<bean id="filterInvocationInterceptor"
-		class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
-		<property name="authenticationManager"
-			ref="authenticationManager" />
-		<property name="accessDecisionManager"
-			ref="accessDecisionManager" />
-		<property name="objectDefinitionSource">
-			<value>
-				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-				PATTERN_TYPE_APACHE_ANT
-				/index.html=ROLE_ANONYMOUS,ROLE_USER
-				/index.jsp=ROLE_ANONYMOUS,ROLE_USER
-				/login.html=ROLE_ANONYMOUS,ROLE_USER
-				/signup.html=ROLE_ANONYMOUS,ROLE_USER
-				/authoringjnlplauncher.html=ROLE_USER
-				/*.html=ROLE_USER
-			</value>
-		</property>
-	</bean>
+    <bean id="systemSaltSource"
+        class="org.acegisecurity.providers.dao.salt.SystemWideSaltSource">
+        <property name="systemWideSalt" value="secret" />
+    </bean>
+
+    <!-- Automatically receives AuthenticationEvent messages -->
+    <bean id="loggerListener"
+        class="org.acegisecurity.event.authentication.LoggerListener" />
+
+    <bean id="authenticationProcessingFilter"
+        class="net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationFailureUrl"
+            value="/login.html?failed=true" />
+        <property name="alwaysUseDefaultTargetUrl" value="true" />
+        <property name="defaultTargetUrl" value="/offeringlist.html" />
+        <property name="filterProcessesUrl" value="/j_acegi_security_check" />
+    </bean>
+
+    <bean id="authenticationEntryPoint"
+        class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+        <property name="loginFormUrl" value="/login.html" />
+    </bean>
+
+    <bean id="anonymousProcessingFilter"
+        class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+        <property name="key" value="fubar" />
+        <property name="userAttribute" value="Anonymous User,ROLE_ANONYMOUS" />
+    </bean>
+
+    <bean id="anonymousAuthenticationProvider"
+        class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+        <property name="key" value="fubar" />
+    </bean>
+
+    <!--
+        For HTTP Basic Authentication, we don't have access to HttpSession
+        for use under the event notification system.
+        <bean id="basicProcessingFilter"
+        class="org.acegisecurity.ui.basicauth.BasicProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationEntryPoint" ref="basicAuthenticationEntryPoint" />
+        </bean>
+        
+        <bean id="basicAuthenticationEntryPoint"
+        class="org.acegisecurity.ui.basicauth.BasicProcessingFilterEntryPoint">
+        <property name="realmName" value="Name Of Your Realm"/>
+        </bean>
+    -->
+
+    <bean id="httpSessionContextIntegrationFilter"
+        class="org.acegisecurity.context.HttpSessionContextIntegrationFilter">
+        <property name="context"
+            value="org.acegisecurity.context.SecurityContextImpl" />
+    </bean>
+
+    <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+        <constructor-arg value="/index.html" />
+        <constructor-arg>
+            <list>
+                <bean
+                    class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+
+    <!-- ===================== HTTP REQUEST SECURITY ==================== -->
+
+    <bean id="exceptionTranslationFilter"
+        class="org.acegisecurity.ui.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint"
+            ref="authenticationEntryPoint" />
+    </bean>
+
+    <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter" />
+
+    <bean id="accessDecisionManager"
+        class="org.acegisecurity.vote.ConsensusBased">
+        <property name="allowIfAllAbstainDecisions" value="false" />
+        <property name="decisionVoters">
+            <list>
+                <ref local="roleVoter" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- An access decision manager used by the business objects -->
+    <bean id="businessAccessDecisionManager"
+        class="org.acegisecurity.vote.ConsensusBased">
+        <property name="allowIfAllAbstainDecisions">
+            <value>false</value>
+        </property>
+        <property name="decisionVoters">
+            <list>
+                <ref local="roleVoter" />
+                <ref local="aclGroupReadVoter" />
+                <ref local="aclGroupDeleteVoter" />
+                <ref local="aclGroupAdminVoter" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="filterInvocationInterceptor"
+        class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        <property name="validateConfigAttributes" value="true" />
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager" ref="accessDecisionManager" />
+        <property name="objectDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /index.html=ROLE_ANONYMOUS,ROLE_USER
+                /index.jsp=ROLE_ANONYMOUS,ROLE_USER
+                /login.html=ROLE_ANONYMOUS,ROLE_USER
+                /signup.html=ROLE_ANONYMOUS,ROLE_USER
+                /*.html=ROLE_USER
+            </value>
+        </property>
+    </bean>
+
+    <!-- ~~~~~~~~~~~~~~~~~~ "BEFORE INVOCATION" AUTHORIZATION DEFINITIONS ~~~~~~~~~~~~~~~~ -->
+
+    <!-- ACL permission masks used by this application -->
+    <bean id="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION"
+        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField">
+            <value>
+                org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION
+            </value>
+        </property>
+    </bean>
+    <bean id="org.acegisecurity.acls.domain.BasePermission.READ"
+        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField">
+            <value>org.acegisecurity.acls.domain.BasePermission.READ</value>
+        </property>
+    </bean>
+    <bean id="org.acegisecurity.acls.domain.BasePermission.DELETE"
+        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField">
+            <value>org.acegisecurity.acls.domain.BasePermission.DELETE</value>
+        </property>
+    </bean>
+
+
+    <!-- An access decision voter that reads ACL_GROUP_READ configuration settings -->
+    <bean id="aclGroupReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>ACL_GROUP_READ</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.group.Group</value>
+        </property>
+    </bean>
+
+    <!-- An access decision voter that reads ACL_GROUP_DELETE configuration settings -->
+    <bean id="aclGroupDeleteVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>ACL_GROUP_DELETE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.group.Group</value>
+        </property>
+    </bean>
+
+    <!-- An access decision voter that reads ACL_GROUP_ADMIN configuration settings -->
+    <bean id="aclGroupAdminVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>ACL_GROUP_ADMIN</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.group.Group</value>
+        </property>
+    </bean>
+
+    <!-- ========= ACCESS CONTROL LIST LOOKUP MANAGER DEFINITIONS ========= -->
+
+    <bean id="aclCache"
+        class="org.acegisecurity.acls.jdbc.EhCacheBasedAclCache">
+        <constructor-arg>
+            <bean
+                class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+                <property name="cacheManager">
+                    <bean
+                        class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
+                </property>
+                <property name="cacheName">
+                    <value>aclCache</value>
+                </property>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="lookupStrategy"
+        class="org.acegisecurity.acls.jdbc.BasicLookupStrategy">
+        <constructor-arg ref="dataSource" />
+        <constructor-arg ref="aclCache" />
+        <constructor-arg ref="aclAuthorizationStrategy" />
+        <constructor-arg>
+            <bean class="org.acegisecurity.acls.domain.ConsoleAuditLogger" />
+        </constructor-arg>
+    </bean>
+
+    <bean id="aclAuthorizationStrategy"
+        class="org.acegisecurity.acls.domain.AclAuthorizationStrategyImpl">
+        <constructor-arg>
+            <list>
+                <bean class="org.acegisecurity.GrantedAuthorityImpl">
+                    <constructor-arg value="ROLE_ADMINISTRATOR" />
+                </bean>
+                <bean class="org.acegisecurity.GrantedAuthorityImpl">
+                    <constructor-arg value="ROLE_ADMINISTRATOR" />
+                </bean>
+                <bean class="org.acegisecurity.GrantedAuthorityImpl">
+                    <constructor-arg value="ROLE_ADMINISTRATOR" />
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="aclService"
+        class="org.acegisecurity.acls.jdbc.JdbcMutableAclService">
+        <constructor-arg ref="dataSource" />
+        <constructor-arg ref="lookupStrategy" />
+        <constructor-arg ref="aclCache" />
+    </bean>
+
+    <!-- ============== "AFTER INTERCEPTION" AUTHORIZATION DEFINITIONS =========== -->
+
+    <bean id="afterInvocationManager"
+        class="org.acegisecurity.afterinvocation.AfterInvocationProviderManager">
+        <property name="providers">
+            <list>
+                <ref local="afterAclRead" />
+                <ref local="afterAclCollectionRead" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- Processes AFTER_ACL_COLLECTION_READ configuration settings -->
+    <bean id="afterAclCollectionRead"
+        class="org.acegisecurity.afterinvocation.AclEntryAfterInvocationCollectionFilteringProvider">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- Processes AFTER_ACL_READ configuration settings -->
+    <bean id="afterAclRead"
+        class="org.acegisecurity.afterinvocation.AclEntryAfterInvocationProvider">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="groupServiceSecurity"
+        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager"
+            ref="businessAccessDecisionManager" />
+        <property name="afterInvocationManager" ref="afterInvocationManager" />
+        <property name="objectDefinitionSource">
+            <value>
+<!--             net.sf.sail.webapp.service.group.GroupService.getGroups=ROLE_USER,AFTER_ACL_COLLECTION_READ -->
+            </value>
+        </property>
+    </bean>
+
+    <bean id="groupService"
+        class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>net.sf.sail.webapp.service.group.GroupService</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref local="groupServiceSecurity" />
+                <idref local="groupServiceTarget" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="groupServiceTarget"
+        class="net.sf.sail.webapp.service.group.impl.GroupServiceImpl">
+        <property name="groupDao" ref="groupDao" />
+        <!-- property name="mutableAclService"><ref bean="aclService"/></property -->
+    </bean>
 
 </beans>

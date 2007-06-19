@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -35,29 +36,28 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * 
  */
 public class CurnitListController extends AbstractController {
-	private CurnitService curnitService;
+    private CurnitService curnitService;
 
-	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	protected ModelAndView handleRequestInternal(
-			HttpServletRequest servletRequest,
-			HttpServletResponse servletResponse) throws Exception {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView
-				.addObject("curnitlist", this.curnitService.getCurnitList());
-		return modelAndView;
-	}
+    /**
+     * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    protected ModelAndView handleRequestInternal(
+            HttpServletRequest servletRequest,
+            HttpServletResponse servletResponse) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView
+                .addObject("curnitlist", this.curnitService.getCurnitList());
+        return modelAndView;
+    }
 
-	/**
-	 * @param curnitService
-	 *            the curnitService to set
-	 */
-	public void setCurnitService(CurnitService curnitService) {
-		this.curnitService = curnitService;
-	}
-
+    /**
+     * @param curnitService
+     *            the curnitService to set
+     */
+    @Required
+    public void setCurnitService(CurnitService curnitService) {
+        this.curnitService = curnitService;
+    }
 }

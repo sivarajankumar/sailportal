@@ -38,8 +38,13 @@
 </div>
 
 <div id="right">
-<h2><spring:message code="hello" /> ${user.userDetails.username}</h2>
-test
+<h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
+<display:table name="${grouplist}" id="group">
+  <display:column titleKey="curnit.numbering.heading">
+    <c:out value="${group_rowNum}" />
+  </display:column>
+  <display:column property="name" titleKey="curnit.name.heading" />
+</display:table>
 </div>
 
 </div>

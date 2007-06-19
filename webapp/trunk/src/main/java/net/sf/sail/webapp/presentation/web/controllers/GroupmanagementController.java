@@ -20,6 +20,10 @@ package net.sf.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.service.group.GroupService;
+
+import org.acegisecurity.AccessDeniedException;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -31,12 +35,33 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class GroupmanagementController extends BasicInfoController {
 
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		ModelAndView modelAndView = super.handleRequestInternal(request, response);
-//		insert code here
-		return modelAndView;
-	}
+    private GroupService groupService;
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+        ModelAndView modelAndView = super.handleRequestInternal(request,
+                response);
+        // insert code here
+        try {
+            modelAndView.addObject("grouplist", this.groupService.getGroups());
+        } catch (AccessDeniedException ade) {
+            ade.printStackTrace();
+            throw ade;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return modelAndView;
+    }
+
+    /**
+     * @param groupService
+     *            the groupService to set
+     */
+    @Required
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
 }
