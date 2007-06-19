@@ -33,14 +33,10 @@
         class="org.telscenter.sail.webapp.presentation.validators.TeacherUserDetailsValidator" />
         
      <bean id="lostTeacherValidator"
-        class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" >
-        
-       </bean>   
-        
+        class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" />
 
     <bean
-		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController">
-	</bean>
+		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
 
     <bean id="teacherIndexController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController" />
@@ -73,13 +69,14 @@
        <property name="formView" value="lostpasswordteacher" />
        <property name="successView" value="lostpasswordteacherresult.html" />
     </bean>
+    
 	<bean id="lostPasswordStudentController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentController"/>	
 		
 	<bean id="findStudentPasswordController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentPasswordController"/>	
+
 	<bean id="findStudentUsernameController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentUsernameController"/>		
 			
-		
 </beans>
