@@ -41,9 +41,7 @@
 
 
 <div id="columns">
-<div id="left">
 <h2><spring:message code="login" /></h2>
-</div>
 
 <div id="right"><a href="signup.html"><spring:message code="sign.up" /></a><br />
 
