@@ -35,6 +35,7 @@ public class AllTests {
         suite.addTestSuite(StudentUserDetailsValidatorTest.class);
         suite.addTestSuite(UserDetailsValidatorTest.class);
         suite.addTestSuite(TeacherUserDetailsValidatorTest.class);
+        suite.addTestSuite(LostPasswordDetailsValidatorTest.class);
         //$JUnit-END$
         return suite;
     }
