@@ -24,11 +24,11 @@
  
 <!-- $Id$ -->
 <div class="welcome1">
-	<img src="../<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
+	<img src="<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
 	<div class="center heading" ><spring:message code="wise.banner.dashboard" />
 	</div>
-	<div class="right pandaAlign">	<img src="../<spring:theme code="panda"/>" alt="<spring:message code="wise.banner.panda.alttext" />" />
+	<div class="right pandaAlign">	<img src="<spring:theme code="panda"/>" alt="<spring:message code="wise.banner.panda.alttext" />" />
 	</div>
     <div>
     <p class="userinfo">
@@ -37,14 +37,5 @@
 	</p>
 	<p class="userlogout"> <%@ include file="../logout.jsp"%> </p>
 	</div>
-    <div id="navigation">
-      <ul>
-        <li><a href="home.html"><spring:message code="banner.home" /></a></li>
-        <li><a href="projects.html"><spring:message code="banner.projects" /></a></li>
-        <li><a href="management.html"><spring:message code="banner.management" /></a></li>
-        <li><a href="community.html"><spring:message code="banner.community" /></a></li>
-        <li><a href="help.html"><spring:message code="banner.help" /></a></li>
-      </ul>
-    </div>
 
 
