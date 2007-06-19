@@ -39,7 +39,7 @@
 <h4 class="center"><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="navigation" class="center">
+<div id="navigation" class="center north0">
 <ul>
 <li class="vertical"><spring:message code="login.username" />
 <input name="username" type="text" value="<authz:authentication operation="username" />" size="25" />

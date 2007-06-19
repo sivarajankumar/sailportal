@@ -39,10 +39,8 @@
 </div>
 
 <div id="columns">
-<div id="left">
 <h2><spring:message code="welcome" /> <authz:authentication
     operation="username" /></h2>
-</div>
 
 <div id="right">
 <a href="registerstudent.html"><spring:message code="register.student" /></a><br />

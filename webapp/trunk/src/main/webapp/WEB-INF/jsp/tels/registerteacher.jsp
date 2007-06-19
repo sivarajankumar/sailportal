@@ -50,10 +50,7 @@
 </spring:bind>
 
 <div id="columns">
-<div id="left">
 <h2 class="center"><spring:message code="register.teacher" /></h2>
-</div>
-
 
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
 
@@ -139,7 +136,6 @@
         
         
 </form:form></div>
-
 
 <div>
 <a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>

@@ -43,9 +43,7 @@
 </spring:bind>
 
 <div id="columns">
-<div id="left">
 <h2><spring:message code="student.registration" /></h2>
-</div>
 
 <div>
 <h3><spring:message code="student.registration.instructions" /></h3>
