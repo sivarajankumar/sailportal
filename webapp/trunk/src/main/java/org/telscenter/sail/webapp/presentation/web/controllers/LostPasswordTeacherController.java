@@ -28,13 +28,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
  * Controller for lost password teacher
@@ -63,19 +63,18 @@ public class LostPasswordTeacherController extends SimpleFormController {
 
 			if( userDetails.getUsername() != null ) {
 
-				User user = userService.retrieveUser(userDetails);
-				
+				User user = userService.retrieveUserByUsername(userDetails.getUsername());
+//				
 				if (user == null) {
-					errors.rejectValue("username", "error.duplicate-username",
-							new Object[] { userDetails.getUsername() },
-							"username not found try a different");
-					return showForm(request, response, errors);
+					ModelAndView modelAndView = new ModelAndView("lostpasswordteachererror");
+					modelAndView.addObject("username",  userDetails.getUsername());
+					return modelAndView;
 				}
-				// generate a new password
-				// set it on the userobject
-				user.getUserDetails().setPassword(generateRandomPassword());
-
-				userService.updateUser(user);
+//				// generate a new password
+//				// set it on the userobject
+//				user.getUserDetails().setPassword(generateRandomPassword());
+//
+//				userService.updateUser(user);
 				// update the user in the db
 				// send an email
 
@@ -94,6 +93,7 @@ public class LostPasswordTeacherController extends SimpleFormController {
 			// get the fields
 			// call user service getUserDetails
 		} catch (Exception e) {
+			e.printStackTrace();
 			errors.rejectValue("username", "error.duplicate-username",
 					new Object[] { userDetails.getUsername() },
 					"Duplicate Username.");
