@@ -90,9 +90,9 @@ if(form.manualCheckbox.checked==true){
 
 OR <br />
 
-<input type="checkbox" name="manualCheckbox" value="Manual" onClick="checkIfTextAreaEmpty(this.form)" /><spring:message code="classroom.manually-named-periods"/>
+<input type="checkbox" name="manualCheckbox" value="Manual" onclick="checkIfTextAreaEmpty(this.form)" /><spring:message code="classroom.manually-named-periods"/>
 
-<textarea name="manualPeriods" cols="100" rows="5" onClick="checkIfTextAreaEmpty(this.form)" onKeyPress="checkIfTextAreaEmpty(this.form)" /> 
+<textarea name="manualPeriods" cols="100" rows="5" onclick="checkIfTextAreaEmpty(this.form)" onkeypress="checkIfTextAreaEmpty(this.form)" ></textarea> 
 <br />
 <p class="center">
 <spring:message code="classroom.separate-periods" />
