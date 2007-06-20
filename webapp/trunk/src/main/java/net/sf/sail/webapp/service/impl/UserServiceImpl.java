@@ -105,6 +105,22 @@ public class UserServiceImpl implements UserService {
 	public User retrieveUser(UserDetails userDetails) {
 		return this.userDao.retrieveByUserDetails(userDetails);
 	}
+	
+	/**
+	 * @see 
+	 */
+	@Transactional(readOnly = true)
+	public User retrieveUserByEmailAddress(String emailAddress) {
+		return this.userDao.retrieveByEmailAddress(emailAddress);
+	}
+
+	/**
+	 * @see 
+	 */
+	@Transactional(readOnly = true)
+	public User retrieveUserByUsername(String username) {
+		return this.userDao.retrieveByUsername(username);
+	}
 
 	/**
      * @see interface
@@ -210,4 +226,6 @@ public class UserServiceImpl implements UserService {
 	public void setSaltSource(SaltSource saltSource) {
 		this.saltSource = saltSource;
 	}
+
+
 }

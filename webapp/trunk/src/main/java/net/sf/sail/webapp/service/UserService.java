@@ -64,7 +64,23 @@ public interface UserService {
      * @return <code>User</code> associated with the given user details
      */
     public User retrieveUser(UserDetails userDetails) ;
-   
+
+    
+    /**
+     * Retrieve user with the give username
+     * 
+     * @param username 
+     * @return <code>User</code> associated with the given username
+     */
+    public User retrieveUserByUsername(String username);
+    
+    /**
+     * Retrieve user witht he given emailAddress
+     * 
+     * @param emailAddress
+     * @return <code>User</code> associated with the given emailaddress
+     */
+    public User retrieveUserByEmailAddress(String emailAddress);
  
     /**
      * updates the user with new information
@@ -80,4 +96,5 @@ public interface UserService {
      *             	while creating a SDS user.
      */
 	public User updateUser(User user) throws BadRequestException, NetworkTransportException ;
+	
 }
