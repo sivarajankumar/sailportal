@@ -32,22 +32,14 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>Student lost password</h1>
+<h1>errror rororrorororo ${username}</h1>
 
 <div id="columns">
 <div id="left">
 </div>
 
-<spring:message code="lostpassword.what-have-you-forgotten" />
-<br />
-<br />
-<br />
-lost <a href="findstudentusername.html"><spring:message code="lostpassword.student.username" /></a>?<br />
-<br />
-<br />
-<spring:message code="lostpassword.are-you-a" /><a href="findstudentpassword.html"><spring:message code="lostpassword.student.password" /></a>?<br /></div>
-
-	<div></div>
+test error
+</div>
 
 
 
