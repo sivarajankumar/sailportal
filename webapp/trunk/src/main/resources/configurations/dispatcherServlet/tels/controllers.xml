@@ -99,5 +99,6 @@
 
 	<bean id="findStudentUsernameController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentUsernameController"/>		
-			
+		<bean id="lostPasswordTeacherErrorController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherErrorController"/>			
 </beans>
