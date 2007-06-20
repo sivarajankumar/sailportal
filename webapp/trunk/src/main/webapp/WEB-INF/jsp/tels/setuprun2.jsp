@@ -27,7 +27,8 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<title><spring:message code="teacher.setup-project-run" /></title>
+<title><spring:message code="teacher.setup-project-run-step-two" /></title>
+
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
@@ -46,24 +47,18 @@
 <li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
-</ul>
-
+</ul><br />
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-
 <h2 class="north0"><b><spring:message code="teacher.setup-project-run-step1" /></b></h2>
 <p class="bigFont1 north0"> <spring:message code="teacher.selected-projects-message" />
 <b><spring:message code="teacher.type-of-project" /></b> <spring:message code="teacher.project-run-classroom-message" /> </p>
 
 <p class="bigFont1 north0"> <spring:message code="teacher.correct-project" /> </p> 
 
-<form name="setUpProjectRun2" class="center north0">
-<input disabled type="button" value="Back" style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue">
+<form class="center north0">
+<input type="button" value="Back" style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue" />
 <a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> Cancel </a> 
 <a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> Next </a> 
 </form>
 </body>
 </html>
-
-
-
-

@@ -27,6 +27,29 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script type="text/javascript">
+function checkIfTextAreaEmpty (form) {
+if(form.manualCheckbox.checked==true){
+	form.manualPeriods.disabled=false;
+	for(i=0;i<form.options.length;i++){
+	   form.options[i].disabled=true;
+	}
+	
+}else{
+	form.manualPeriods.disabled=true;
+	for(i=0;i<form.options.length;i++){
+	   form.options[i].disabled=false;
+	}
+	
+}
+
+}
+
+
+// End -->
+</script>
+
+
 <title><spring:message code="teacher.setup-project-run-step-three" /></title>
 </head>
 <body>
@@ -46,37 +69,38 @@
 <li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
-</ul>
+</ul><br />  
 
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <h2 class="north0"><b> <spring:message code="teacher.setup-project-run-step3" /> </b></h2>
 <p class="bigFont1 north0"><spring:message code="teacher.select-classroom-periods" /></p>
+
 <div class="north0">
-<form name="myform">
-<input type="checkbox" name="option0" value="Period 0"> <spring:message code="classroom.period0" /><br />
-<input type="checkbox" name="option1" value="Period 1"> <spring:message code="classroom.period1" /><br />
-<input type="checkbox" name="option2" value="Period 2"> <spring:message code="classroom.period2" /><br />
-<input type="checkbox" name="option3" value="Period 3"> <spring:message code="classroom.period3" /><br />
-<input type="checkbox" name="option4" value="Period 4"> <spring:message code="classroom.period4" /><br />
-<input type="checkbox" name="option5" value="Period 5"> <spring:message code="classroom.period5" /><br />
-<input type="checkbox" name="option6" value="Period 6"> <spring:message code="classroom.period6" /><br />
-<input type="checkbox" name="option7" value="Period 7"> <spring:message code="classroom.period7" /><br />
-<input type="checkbox" name="option8" value="Period 8"> <spring:message code="classroom.period8" /><br />
-<input type="checkbox" name="option9" value="Period 9"> <spring:message code="classroom.period9" /><br />
-<input type="checkbox" name="option10" value="Period 10"> <spring:message code="classroom.period10" /><br />
+<form>
+<input type="checkbox" name="options" value="Period 1" /> <spring:message code="classroom.period1" /><br />
+<input type="checkbox" name="options" value="Period 2" /> <spring:message code="classroom.period2" /><br />
+<input type="checkbox" name="options" value="Period 3" /> <spring:message code="classroom.period3" /><br />
+<input type="checkbox" name="options" value="Period 4" /> <spring:message code="classroom.period4" /><br />
+<input type="checkbox" name="options" value="Period 5" /> <spring:message code="classroom.period5" /><br />
+<input type="checkbox" name="options" value="Period 6" /> <spring:message code="classroom.period6" /><br />
+<input type="checkbox" name="options" value="Period 7" /> <spring:message code="classroom.period7" /><br />
+<input type="checkbox" name="options" value="Period 8" /> <spring:message code="classroom.period8" /><br />
+<input type="checkbox" name="options" value="Period 9" /> <spring:message code="classroom.period9" /><br />
+<input type="checkbox" name="options" value="Period 10" /> <spring:message code="classroom.period10" /><br />
 
 OR <br />
 
-<input type="checkbox" name="option11" value="Manual"><spring:message code="classroom.manually-named-periods" />
+<input type="checkbox" name="manualCheckbox" value="Manual" onClick="checkIfTextAreaEmpty(this.form)" /><spring:message code="classroom.manually-named-periods"/>
 
-<textarea cols="100" rows="5"> </textarea>
-<br>
+<textarea name="manualPeriods" cols="100" rows="5" onClick="checkIfTextAreaEmpty(this.form)" onKeyPress="checkIfTextAreaEmpty(this.form)" /> 
+<br />
 <p class="center">
 <spring:message code="classroom.separate-periods" />
 </p>
 
 </form>
 </div>
+
 <div class="center north0">
 <a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> Back </a>
 <a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> Cancel </a> 

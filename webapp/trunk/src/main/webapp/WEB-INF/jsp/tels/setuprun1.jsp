@@ -31,7 +31,7 @@
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
-  
+
 <div id="navigation" class="center north2 widthAdj4">
 <ul class="bigFont1">
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
@@ -41,13 +41,14 @@
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
 </ul>
 </div>
-<ul id="tabnav" class="north_0 widthAdj4">
+<ul id="tabnav" class="north_0">
 <li> <a href="#"><spring:message code="teacher.overview" /></a></li>
 <li> <a href="#"><spring:message code="teacher.project-library" /></a></li>
 <li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul>
+<br />
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /> </h2>
 <p class="bigFont1 north0"> <spring:message code="teacher.setup-run-six-steps" /> </p>
 <h3 class="north0"> <spring:message code="teacher.tips-project-runs" /> </h3>
@@ -66,20 +67,6 @@
 <ul class="none bigFont1 north0">
 <li class="center"> <a href="setuprun2.html" style="text-decoration:none;" class="border bigFont1 bgColorLightBlue"> <spring:message code="teacher.setup-project-run-start" /> </a> </li>
 </ul>
-
-<!-- 
-
-
-
-<ul class="center none bigFont1">
-<li> <spring:message code="teacher.get-started" /> </li>
-<li><spring:message code="teacher.cancel-setup-steps" /></li>
-</ul>
-
-<ul class="none bigFont1">
-<li class="center"> <a href="setuprun2.html" style="text-decoration:none;" class="border bigFont1 bgColorLightBlue"> <spring:message code="teacher.setup-project-run-start" /> </a> </li>
-</ul>
--->
 
 <div>
 <a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>

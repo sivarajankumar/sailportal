@@ -27,7 +27,7 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<title><spring:message code="teacher.setup-project-run-step-four" /></title>
+<title><spring:message code="teacher.setup-project-run-step-five" /></title>
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
@@ -47,7 +47,7 @@
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul>
-
+<br />  
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <h2 class="north0"><b> <spring:message code="teacher.setup-project-run-step5" /></b></h2>
 <p class="bigFont1 north0"><spring:message code="teacher.recommend-preview-project" /></p>
