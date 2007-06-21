@@ -291,8 +291,16 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
      * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
      */ 
      public void testGetById() {
-    	 assertTrue(true);
-//    	fail();
+    	 this.verifyDataStoreWorkgroupListIsEmpty();
+    	 Workgroup expectedNullWorkgroup = this.workgroupDao.getById(new Long(3));
+    	 assertNull(expectedNullWorkgroup);
+    	 
+    	 this.workgroupDao.save(this.defaultWorkgroup);
+    	 List<Workgroup> actualList = this.workgroupDao.getList();
+    	 Workgroup actualWorkgroup = (Workgroup) actualList.get(0);
+    	 
+    	 Workgroup retrievedByIdWorkgroup = (Workgroup) this.workgroupDao.getById(actualWorkgroup.getId());
+    	 assertEquals(actualWorkgroup, retrievedByIdWorkgroup);
     }
 
 

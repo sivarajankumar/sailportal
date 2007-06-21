@@ -80,4 +80,9 @@ public interface Workgroup extends Serializable {
      */
     public void setOffering(Offering offering);
 
+	/**
+	 * @return the id
+	 */
+	public Long getId();
+
 }
