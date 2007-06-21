@@ -36,6 +36,7 @@ import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.impl.Run;
@@ -50,115 +51,117 @@ import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
  */
 public class RunServiceImpl extends OfferingServiceImpl {
 
-	private static final String[] RUNCODE_WORDS = { "Tiger", "Cheetah", "Fox",
-			"Owl", "Panda", "Jaguar", "Hawk", "Mole", "Falcon", "Orca",
-			"Eagle", "Dolphin", "Otter", "Elephant", "Zebra", "Flea", "Wolf",
-			"Dragon", "Kraken", "Cobra", "Ladybug", "Gecko", "Octopus",
-			"Koala", "Tortoise", "Wombat", "Shark", "Whale", "Emu", "Sloth",
-			"Slug", "Ant", "Mantis", "Bat", "Rhino", "Gator", "Monkey",
-			"Diamond", "Ruby", "Topaz", "Sapphire", "Emerald", "Amber",
-			"Garnet", "Moonstone", "Sunstone", "Opal", "Zircon", "Quartz" };
+    private static final String[] RUNCODE_WORDS = { "Tiger", "Cheetah", "Fox",
+            "Owl", "Panda", "Jaguar", "Hawk", "Mole", "Falcon", "Orca",
+            "Eagle", "Dolphin", "Otter", "Elephant", "Zebra", "Flea", "Wolf",
+            "Dragon", "Kraken", "Cobra", "Ladybug", "Gecko", "Octopus",
+            "Koala", "Tortoise", "Wombat", "Shark", "Whale", "Emu", "Sloth",
+            "Slug", "Ant", "Mantis", "Bat", "Rhino", "Gator", "Monkey",
+            "Diamond", "Ruby", "Topaz", "Sapphire", "Emerald", "Amber",
+            "Garnet", "Moonstone", "Sunstone", "Opal", "Zircon", "Quartz" };
 
-	private static final int MAX_RUNCODE_DIGIT = 10000;
-	
-	private GroupDao<Group> groupDao;
+    private static final int MAX_RUNCODE_DIGIT = 10000;
 
-	/**
-	 * @param groupDao the groupDao to set
-	 */
-	public void setGroupDao(GroupDao<Group> groupDao) {
-		this.groupDao = groupDao;
-	}
+    private GroupDao<Group> groupDao;
 
-	/**
-	 * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
-	 */
-	public List<Offering> getRunList() {
-		return super.getOfferingList();
-	}
+    /**
+     * @param groupDao
+     *            the groupDao to set
+     */
+    @Required
+    public void setGroupDao(GroupDao<Group> groupDao) {
+        this.groupDao = groupDao;
+    }
 
-	/**
-	 * Generate a random runcode
-	 * 
-	 * @return the randomly generated runcode.
-	 * 
-	 */
-	String generateRunCode() {
-		Random rand = new Random();
-		Integer digits = rand.nextInt(MAX_RUNCODE_DIGIT);
-		StringBuffer sb = new StringBuffer(digits.toString());
+    /**
+     * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
+     */
+    public List<Offering> getRunList() {
+        return super.getOfferingList();
+    }
 
-		int max_runcode_digit_length = Integer.toString(MAX_RUNCODE_DIGIT)
-				.length() - 1;
-		while (sb.length() < max_runcode_digit_length) {
-			sb.insert(0, "0");
-		}
+    /**
+     * Generate a random runcode
+     * 
+     * @return the randomly generated runcode.
+     * 
+     */
+    String generateRunCode() {
+        Random rand = new Random();
+        Integer digits = rand.nextInt(MAX_RUNCODE_DIGIT);
+        StringBuffer sb = new StringBuffer(digits.toString());
 
-		String word = RUNCODE_WORDS[rand.nextInt(RUNCODE_WORDS.length)];
-		String runCode = (word + sb.toString());
-		return runCode;
-	}
+        int max_runcode_digit_length = Integer.toString(MAX_RUNCODE_DIGIT)
+                .length() - 1;
+        while (sb.length() < max_runcode_digit_length) {
+            sb.insert(0, "0");
+        }
 
-	/**
-	 * Creates a run based on input parameters provided.
-	 * 
-	 * @param runParameters
-	 * @return The run created.
-	 * 
-	 */
-	@Transactional(rollbackFor = { BadRequestException.class,
-			NetworkTransportException.class })
-	public Run createRun(RunParameters runParameters) {
-		
-		Run run = new Run();
-		run.setEndtime(null);
-		run.setStarttime(Calendar.getInstance().getTime());
-		run.setRuncode(generateUniqueRunCode());
-		run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
-		
-		Set<Group> periods = new HashSet<Group>();
-		for (String periodName : runParameters.getPeriodNames()) {
-			Group group = new PersistentGroup();
-			group.setName(periodName);
-			this.groupDao.save(group);
-			periods.add(group);
-		}
-		run.setPeriods(periods);
-		
-		this.offeringDao.save(run);
-		return run;
-	}
+        String word = RUNCODE_WORDS[rand.nextInt(RUNCODE_WORDS.length)];
+        String runCode = (word + sb.toString());
+        return runCode;
+    }
 
-	private String generateUniqueRunCode() {
-		String tempRunCode = generateRunCode();
-		while (true) {
-			try {
-				checkForRunCodeError(tempRunCode);
-			} catch (DuplicateRunCodeException e) {
-				tempRunCode = generateRunCode();
-				continue;
-			}
-			break;
-		}
-		return tempRunCode;
-	}
+    /**
+     * Creates a run based on input parameters provided.
+     * 
+     * @param runParameters
+     * @return The run created.
+     * 
+     */
+    @Transactional(rollbackFor = { BadRequestException.class,
+            NetworkTransportException.class })
+    public Run createRun(RunParameters runParameters) {
 
-	/**
-	 * Checks if the given runcode is unique.
-	 * 
-	 * @param runCode
-	 *            A unique string.
-	 * 
-	 * @throws DuplicateRunCodeException
-	 *             if the run's runcde already exists in the data store
-	 */
-	@SuppressWarnings("unchecked")
-	private void checkForRunCodeError(String runCode)
-			throws DuplicateRunCodeException {
-		if (((RunDao) this.offeringDao).hasRuncode(runCode)) {
-			throw new DuplicateRunCodeException("Runcode " + runCode
-					+ " already exists.");
-		}
-	}
+        Run run = new Run();
+        run.setEndtime(null);
+        run.setStarttime(Calendar.getInstance().getTime());
+        run.setRuncode(generateUniqueRunCode());
+        run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
+
+        Set<Group> periods = new HashSet<Group>();
+        for (String periodName : runParameters.getPeriodNames()) {
+            Group group = new PersistentGroup();
+            group.setName(periodName);
+            this.groupDao.save(group);
+            periods.add(group);
+        }
+        run.setPeriods(periods);
+
+        this.offeringDao.save(run);
+        return run;
+    }
+
+    private String generateUniqueRunCode() {
+        String tempRunCode = generateRunCode();
+        while (true) {
+            try {
+                checkForRunCodeError(tempRunCode);
+            } catch (DuplicateRunCodeException e) {
+                tempRunCode = generateRunCode();
+                continue;
+            }
+            break;
+        }
+        return tempRunCode;
+    }
+
+    /**
+     * Checks if the given runcode is unique.
+     * 
+     * @param runCode
+     *            A unique string.
+     * 
+     * @throws DuplicateRunCodeException
+     *             if the run's runcde already exists in the data store
+     */
+    @SuppressWarnings("unchecked")
+    private void checkForRunCodeError(String runCode)
+            throws DuplicateRunCodeException {
+        if (((RunDao) this.offeringDao).hasRuncode(runCode)) {
+            throw new DuplicateRunCodeException("Runcode " + runCode
+                    + " already exists.");
+        }
+    }
 
 }

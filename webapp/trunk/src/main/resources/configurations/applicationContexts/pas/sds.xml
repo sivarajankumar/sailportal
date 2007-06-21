@@ -30,7 +30,7 @@
         <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
         <!-- http://saildataservice.concord.org/{portal-id}/ -->
         <!--
-        <property name="baseUrl" value="http://127.0.0.1:3000/1" />
+            <property name="baseUrl" value="http://127.0.0.1:3000/1" />
         -->
         <property name="baseUrl" value="http://rails.dev.concord.org/sds/4" />
     </bean>
@@ -83,6 +83,13 @@
         class="net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl">
         <property name="sdsOfferingDao" ref="sdsOfferingDao" />
         <property name="offeringDao" ref="offeringDao" />
+        <property name="curnitDao" ref="curnitDao" />
+        <property name="jnlpDao" ref="jnlpDao" />
+    </bean>
+
+    <bean id="groupDao"
+        class="net.sf.sail.webapp.dao.group.impl.HibernateGroupDao">
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <bean id="authoringjnlpmodifier"
