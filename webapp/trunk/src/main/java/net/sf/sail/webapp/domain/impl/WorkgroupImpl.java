@@ -76,7 +76,7 @@ public class WorkgroupImpl implements Workgroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id = null;
+	public Long id = null;
 
     @Version
     @Column(name = "OPTLOCK")
@@ -146,8 +146,7 @@ public class WorkgroupImpl implements Workgroup {
     /**
      * @return the id
      */
-    @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 
