@@ -40,10 +40,10 @@ import javax.persistence.Version;
 public class PersistentAclTargetObject {
 
     @Transient
-    public static final String DATA_STORE_NAME = "acl_target_object";
+    public static final String DATA_STORE_NAME = "acl_class";
 
     @Transient
-    public static final String COLUMN_NAME_CLASSNAME = "classname";
+    public static final String COLUMN_NAME_CLASSNAME = "class";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

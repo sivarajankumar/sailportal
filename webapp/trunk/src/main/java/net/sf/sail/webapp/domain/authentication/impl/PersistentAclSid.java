@@ -53,10 +53,10 @@ public class PersistentAclSid implements Sid {
     public static final String DATA_STORE_NAME = "acl_sid";
 
     @Transient
-    public static final String COLUMN_NAME_IS_PRINCIPAL = "is_principal";
+    public static final String COLUMN_NAME_IS_PRINCIPAL = "principal";
 
     @Transient
-    public static final String COLUMN_NAME_SID = "sid_name";
+    public static final String COLUMN_NAME_SID = "sid";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
