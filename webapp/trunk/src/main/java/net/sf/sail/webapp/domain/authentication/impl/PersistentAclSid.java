@@ -24,6 +24,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
 import org.acegisecurity.Authentication;
@@ -43,8 +44,10 @@ import org.acegisecurity.userdetails.UserDetails;
  * @see org.acegisecurity.acls.sid.Sid
  */
 @Entity
-@Table(name = PersistentSid.DATA_STORE_NAME)
-public class PersistentSid implements Sid {
+@Table(name = PersistentAclSid.DATA_STORE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = {
+        PersistentAclSid.COLUMN_NAME_SID,
+        PersistentAclSid.COLUMN_NAME_IS_PRINCIPAL }) })
+public class PersistentAclSid implements Sid {
 
     @Transient
     public static final String DATA_STORE_NAME = "acl_sid";
@@ -63,43 +66,45 @@ public class PersistentSid implements Sid {
     @Column(name = "OPTLOCK")
     private Integer version = null;
 
-    @Column(name = PersistentSid.COLUMN_NAME_IS_PRINCIPAL, nullable = false)
+    @Column(name = COLUMN_NAME_IS_PRINCIPAL, nullable = false)
     private Boolean isPrincipal;
 
-    @Column(name = PersistentSid.COLUMN_NAME_SID, unique = true, nullable = false)
+    @Column(name = COLUMN_NAME_SID, nullable = false)
     private String sidName;
 
     /**
-     * @return the isPrincipal
+     * Tests whether this instance of <code>Sid</code> was created as a
+     * principal.
+     * 
+     * @return <code>true</code> if this instance of <code>Sid</code> has
+     *         been created using a principal, <code>false</code> if this has
+     *         been created using a granted authority, and <code>null</code>
+     *         if this instance has not been initialized properly.
      */
-    public Boolean getIsPrincipal() {
+    public Boolean isPrincipal() {
+        return this.getIsPrincipal();
+    }
+
+    private Boolean getIsPrincipal() {
         return isPrincipal;
     }
 
-    /**
-     * @param isPrincipal
-     *            the isPrincipal to set
-     */
     private void setIsPrincipal(Boolean isPrincipal) {
         this.isPrincipal = isPrincipal;
     }
 
-    /**
-     * @return the sidName
-     */
     private String getSidName() {
         return sidName;
     }
 
-    /**
-     * @param sidName
-     *            the sidName to set
-     */
     private void setSidName(String sidName) {
         this.sidName = sidName;
     }
 
     /**
+     * Gets the <code>Sid</code> as a <code>String</code> if this instance
+     * has been created using a principal.
+     * 
      * @return the principal
      * @throws UnsupportedOperationException
      *             if this instance of Sid is not a principal
@@ -115,6 +120,13 @@ public class PersistentSid implements Sid {
                 "Unsupported method for this instance of Sid");
     }
 
+    /**
+     * Sets the <code>Sid</code> using an <code>Authentication</code>
+     * principal.
+     * 
+     * @param authentication
+     *            to set
+     */
     public void setPrincipal(Authentication authentication) {
         this.setIsPrincipal(Boolean.TRUE);
         if (authentication.getPrincipal() instanceof UserDetails) {
@@ -125,12 +137,21 @@ public class PersistentSid implements Sid {
         }
     }
 
+    /**
+     * Sets the <code>Sid</code> using a <code>GrantedAuthority</code>.
+     * 
+     * @param grantedAuthority
+     *            to set
+     */
     public void setGrantedAuthority(GrantedAuthority grantedAuthority) {
         this.setIsPrincipal(Boolean.FALSE);
         this.setSidName(grantedAuthority.getAuthority());
     }
 
     /**
+     * Gets the <code>Sid</code> as a <code>String</code> if this instance
+     * has been created using a granted authority.
+     * 
      * @return the granted authority
      * @throws UnsupportedOperationException
      *             if this instance of Sid is not a granted authority
@@ -147,35 +168,21 @@ public class PersistentSid implements Sid {
         }
     }
 
-    /**
-     * @return the id
-     */
     @SuppressWarnings("unused")
     private Long getId() {
         return id;
     }
 
-    /**
-     * @param id
-     *            the id to set
-     */
     @SuppressWarnings("unused")
     private void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * @return the version
-     */
     @SuppressWarnings("unused")
     private Integer getVersion() {
         return version;
     }
 
-    /**
-     * @param version
-     *            the version to set
-     */
     @SuppressWarnings("unused")
     private void setVersion(Integer version) {
         this.version = version;
@@ -205,7 +212,7 @@ public class PersistentSid implements Sid {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final PersistentSid other = (PersistentSid) obj;
+        final PersistentAclSid other = (PersistentAclSid) obj;
         if (isPrincipal == null) {
             if (other.isPrincipal != null)
                 return false;

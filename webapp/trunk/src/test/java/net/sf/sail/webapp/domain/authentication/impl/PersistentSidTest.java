@@ -25,7 +25,7 @@ import org.acegisecurity.userdetails.UserDetails;
 import org.easymock.EasyMock;
 
 /**
- * Unit test for domain object PersistentSid.
+ * Unit test for domain object PersistentAclSid.
  * 
  * @author Cynick Young
  * 
@@ -37,14 +37,14 @@ public class PersistentSidTest extends TestCase {
 
     private static final String ROLE = "some role";
 
-    private PersistentSid sid;
+    private PersistentAclSid sid;
 
     /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
-        this.sid = new PersistentSid();
+        this.sid = new PersistentAclSid();
     }
 
     /**
@@ -57,23 +57,23 @@ public class PersistentSidTest extends TestCase {
 
     /**
      * Test method for
-     * {@link net.sf.sail.webapp.domain.authentication.impl.PersistentSid#getIsPrincipal()}.
+     * {@link net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid#getIsPrincipal()}.
      */
     public void testGetIsPrincipal_Empty() {
-        assertNull(this.sid.getIsPrincipal());
+        assertNull(this.sid.isPrincipal());
     }
 
     /**
      * Test method for
-     * {@link net.sf.sail.webapp.domain.authentication.impl.PersistentSid#getIsPrincipal()}.
+     * {@link net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid#IsPrincipal()}.
      */
-    public void testGetIsPrincipal_Principal() {
+    public void testIsPrincipal_Principal() {
         // test when the principal is any implementation of a principal (usually
         // a string)
         Authentication authentication = setupPrincipalAsString(PRINCIPAL);
         this.sid.setPrincipal(authentication);
         EasyMock.verify(authentication);
-        assertTrue(this.sid.getIsPrincipal());
+        assertTrue(this.sid.isPrincipal());
 
         EasyMock.reset(authentication);
 
@@ -81,23 +81,23 @@ public class PersistentSidTest extends TestCase {
         authentication = setupPrincipalAsUserDetails(PRINCIPAL);
         this.sid.setPrincipal(authentication);
         EasyMock.verify(authentication);
-        assertTrue(this.sid.getIsPrincipal());
+        assertTrue(this.sid.isPrincipal());
     }
 
     /**
      * Test method for
-     * {@link net.sf.sail.webapp.domain.authentication.impl.PersistentSid#getIsPrincipal()}.
+     * {@link net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid#isPrincipal()}.
      */
     public void testGetIsPrincipal_GrantedAuthority() {
         GrantedAuthority grantedAuthority = setupGrantedAuthority(ROLE);
         this.sid.setGrantedAuthority(grantedAuthority);
         EasyMock.verify(grantedAuthority);
-        assertFalse(sid.getIsPrincipal());
+        assertFalse(sid.isPrincipal());
     }
 
     /**
      * Test method for
-     * {@link net.sf.sail.webapp.domain.authentication.impl.PersistentSid#getPrincipal()}.
+     * {@link net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid#getPrincipal()}.
      */
     public void testGetPrincipal_Empty() {
         try {
