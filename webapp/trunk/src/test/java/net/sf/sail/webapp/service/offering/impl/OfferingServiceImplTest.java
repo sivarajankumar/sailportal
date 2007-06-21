@@ -17,10 +17,13 @@
  */
 package net.sf.sail.webapp.service.offering.impl;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.curnit.CurnitDao;
+import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.Curnit;
@@ -52,8 +55,13 @@ public class OfferingServiceImplTest extends TestCase {
 	private SdsOfferingDao mockSdsOfferingDao;
 
 	private OfferingDao<Offering> mockOfferingDao;
+	
+	private CurnitDao<Curnit> mockCurnitDao;
+	private JnlpDao<Jnlp> mockJnlpDao;
 
 	private OfferingServiceImpl offeringServiceImpl;
+	
+	private static final Long CURNIT_ID = new Long(3);
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -68,6 +76,12 @@ public class OfferingServiceImplTest extends TestCase {
 
 		this.mockOfferingDao = EasyMock.createMock(OfferingDao.class);
 		this.offeringServiceImpl.setOfferingDao(this.mockOfferingDao);
+		
+		this.mockCurnitDao = EasyMock.createMock(CurnitDao.class);
+		this.offeringServiceImpl.setCurnitDao(this.mockCurnitDao);
+
+		this.mockJnlpDao = EasyMock.createMock(JnlpDao.class);
+		this.offeringServiceImpl.setJnlpDao(this.mockJnlpDao);
 	}
 
 	/**
@@ -78,6 +92,8 @@ public class OfferingServiceImplTest extends TestCase {
 		this.offeringServiceImpl = null;
 		this.mockSdsOfferingDao = null;
 		this.mockOfferingDao = null;
+		this.mockCurnitDao = null;
+		this.mockJnlpDao = null;
 	}
 
 	public void testGetOfferingList() throws Exception {
@@ -89,33 +105,40 @@ public class OfferingServiceImplTest extends TestCase {
 		assertEquals(expectedList, offeringServiceImpl.getOfferingList());
 		EasyMock.verify(this.mockOfferingDao);
 	}
-
+	
 	public void testCreateOffering() throws Exception {
-		OfferingParameters offeringParameters = new OfferingParameters();
-
-		SdsCurnit sdsCurnit = new SdsCurnit();
-		sdsCurnit.setName(CURNIT_NAME);
-		sdsCurnit.setUrl(CURNIT_URL);
-		Curnit curnit = new CurnitImpl();
-		curnit.setSdsCurnit(sdsCurnit);
-		offeringParameters.setCurnit(curnit);
-
+		//use beans
 		SdsJnlp sdsJnlp = new SdsJnlp();
 		sdsJnlp.setName(JNLP_NAME);
 		sdsJnlp.setUrl(JNLP_URL);
 		Jnlp jnlp = new JnlpImpl();
 		jnlp.setSdsJnlp(sdsJnlp);
-		offeringParameters.setJnlp(jnlp);
-
+		List<Jnlp> jnlpList = new ArrayList<Jnlp>();
+		jnlpList.add(jnlp);
+		EasyMock.expect(this.mockJnlpDao.getList()).andReturn(jnlpList);
+		EasyMock.replay(this.mockJnlpDao);
+		
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setName(CURNIT_NAME);
+		sdsCurnit.setUrl(CURNIT_URL);
+		Curnit curnit = new CurnitImpl();
+		curnit.setSdsCurnit(sdsCurnit);
+		EasyMock.expect(this.mockCurnitDao.getById(CURNIT_ID)).andReturn(curnit);
+		EasyMock.replay(this.mockCurnitDao);
+		
+		OfferingParameters offeringParameters = new OfferingParameters();
 		offeringParameters.setName(CURNIT_NAME);
+		offeringParameters.setCurnitId(CURNIT_ID);
 
 		Offering offering = offeringServiceImpl
 				.createOffering(offeringParameters);
-
+		
 		assertEquals(CURNIT_NAME, offering.getSdsOffering().getSdsCurnit().getName());
 		assertEquals(CURNIT_URL, offering.getSdsOffering().getSdsCurnit().getUrl());
 		assertEquals(JNLP_NAME, offering.getSdsOffering().getSdsJnlp().getName());
 		assertEquals(JNLP_URL, offering.getSdsOffering().getSdsJnlp().getUrl());
 		assertEquals(CURNIT_NAME, offering.getSdsOffering().getName());
+		
+		EasyMock.verify();
 	}
 }

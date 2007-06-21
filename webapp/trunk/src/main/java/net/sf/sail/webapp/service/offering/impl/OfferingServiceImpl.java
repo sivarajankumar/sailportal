@@ -19,8 +19,12 @@ package net.sf.sail.webapp.service.offering.impl;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.curnit.CurnitDao;
+import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
@@ -40,6 +44,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class OfferingServiceImpl implements OfferingService {
 
     protected OfferingDao<Offering> offeringDao;
+    protected CurnitDao<Curnit> curnitDao;
+    protected JnlpDao<Jnlp> jnlpDao;
 
     protected SdsOfferingDao sdsOfferingDao;
 
@@ -60,6 +66,14 @@ public class OfferingServiceImpl implements OfferingService {
     public void setSdsOfferingDao(SdsOfferingDao sdsOfferingDao) {
         this.sdsOfferingDao = sdsOfferingDao;
     }
+    
+	/**
+	 * @param curnitDao the curnitDao to set
+	 */
+	public void setCurnitDao(CurnitDao<Curnit> curnitDao) {
+		this.curnitDao = curnitDao;
+	}
+
 
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
@@ -74,15 +88,34 @@ public class OfferingServiceImpl implements OfferingService {
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
     public Offering createOffering(OfferingParameters offeringParameters) {
-    	SdsOffering sdsOffering = new SdsOffering();
-    	sdsOffering.setName(offeringParameters.getName());
-    	sdsOffering.setSdsCurnit(offeringParameters.getCurnit().getSdsCurnit());
-    	sdsOffering.setSdsJnlp(offeringParameters.getJnlp().getSdsJnlp());
-        this.sdsOfferingDao.save(sdsOffering);
-        
+    	//TODO LAW get from bean
+    	SdsOffering sdsOffering = generateSdsOfferingFromParameters(offeringParameters);
         Offering offering = new OfferingImpl();
         offering.setSdsOffering(sdsOffering);
         this.offeringDao.save(offering);
         return offering;
     }
+
+	protected SdsOffering generateSdsOfferingFromParameters(OfferingParameters offeringParameters) {
+		SdsOffering sdsOffering = new SdsOffering();
+    	sdsOffering.setName(offeringParameters.getName());
+       	Curnit curnit = this.curnitDao.getById(offeringParameters.getCurnitId());
+    	sdsOffering.setSdsCurnit(curnit.getSdsCurnit());    	
+
+    	//TODO LAW this will need to be rethought
+    	//this gets the "default jnlp" assuming there is only one jnlp for everything
+    	List<Jnlp> jnlpList = this.jnlpDao.getList();
+    	Jnlp jnlp = jnlpList.get(0);
+    	sdsOffering.setSdsJnlp(jnlp.getSdsJnlp());
+        this.sdsOfferingDao.save(sdsOffering);
+ 		return sdsOffering;
+	}
+
+	/**
+	 * @param jnlpDao the jnlpDao to set
+	 */
+	public void setJnlpDao(JnlpDao<Jnlp> jnlpDao) {
+		this.jnlpDao = jnlpDao;
+	}
+
 }

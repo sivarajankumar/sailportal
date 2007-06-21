@@ -28,6 +28,7 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.userdetails.UserDetails;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -306,7 +307,39 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
         assertFalse(this.userDetailsDao.hasUsername(USERNAME_NOT_IN_DB));
     }
+ 
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
+     */
+    public void testGetList() {
+    	verifyUserandJoinTablesAreEmpty();
+        this.userDetailsDao.save(this.defaultUserDetails);
+        List expectedList = this.retrieveUserDetailsListFromDb();
+        assertEquals(1, expectedList.size());
 
+        List<MutableUserDetails> actualList = this.userDetailsDao.getList();
+        assertEquals(1, actualList.size());
+        assertEquals(this.defaultUserDetails, actualList.get(0));
+      }
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+     */ 
+    public void testGetById() {
+    	verifyUserandJoinTablesAreEmpty();
+    	UserDetails expectedNullUserDetils = this.userDetailsDao.getById(new Long(3));
+    	assertNull(expectedNullUserDetils);
+    	
+    	this.userDetailsDao.save(this.defaultUserDetails);
+    	List<MutableUserDetails> actualList = this.userDetailsDao.getList();
+    	MutableUserDetails actualUserDetails = (MutableUserDetails) actualList.get(0);
+    	
+    	MutableUserDetails retrievedByIdUserDetails = (MutableUserDetails) this.userDetailsDao.getById(actualUserDetails.getId());
+    	assertEquals(actualUserDetails, retrievedByIdUserDetails);
+   }
+    
     private void verifyUserandJoinTablesAreEmpty() {
         assertTrue(this.retrieveUserDetailsListFromDb().isEmpty());
         assertTrue(this.retrieveUsersRolesTableFromDb().isEmpty());

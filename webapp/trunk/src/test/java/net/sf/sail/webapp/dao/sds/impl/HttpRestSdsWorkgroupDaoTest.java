@@ -214,6 +214,28 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
 		} catch (UnsupportedOperationException expected) {
 		}
 	}
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsWorkgroupDao#getList()}.
+	 */
+	public void testGetList() {
+		try {
+			this.sdsWorkgroupDao.getList();
+			fail("UnsupportedOperationException expected");
+		} catch (UnsupportedOperationException expected) {
+		}
+	}
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsWorkgroupDao#getById(java.lang.Long)}.
+	 */
+	public void testGetById() {
+		try {
+			this.sdsWorkgroupDao.getById(new Long(3));
+			fail("UnsupportedOperationException expected");
+		} catch (UnsupportedOperationException expected) {
+		}
+	}
 
 	/**
 	 * Test method for
@@ -305,5 +327,4 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
 		assertTrue(updatedSdsWorkgroup.getMembers().contains(newSdsUser));
 
 	}
-
 }

@@ -23,11 +23,15 @@
 package org.telscenter.sail.webapp.service.offering.impl;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
+import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.sds.SdsOffering;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
@@ -56,6 +60,15 @@ public class RunServiceImpl extends OfferingServiceImpl {
 			"Garnet", "Moonstone", "Sunstone", "Opal", "Zircon", "Quartz" };
 
 	private static final int MAX_RUNCODE_DIGIT = 10000;
+	
+	private GroupDao<Group> groupDao;
+
+	/**
+	 * @param groupDao the groupDao to set
+	 */
+	public void setGroupDao(GroupDao<Group> groupDao) {
+		this.groupDao = groupDao;
+	}
 
 	/**
 	 * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
@@ -96,7 +109,27 @@ public class RunServiceImpl extends OfferingServiceImpl {
 	@Transactional(rollbackFor = { BadRequestException.class,
 			NetworkTransportException.class })
 	public Run createRun(RunParameters runParameters) {
+		
+		Run run = new Run();
+		run.setEndtime(null);
+		run.setStarttime(Calendar.getInstance().getTime());
+		run.setRuncode(generateUniqueRunCode());
+		run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
+		
+		Set<Group> periods = new HashSet<Group>();
+		for (String periodName : runParameters.getPeriodNames()) {
+			Group group = new PersistentGroup();
+			group.setName(periodName);
+			this.groupDao.save(group);
+			periods.add(group);
+		}
+		run.setPeriods(periods);
+		
+		this.offeringDao.save(run);
+		return run;
+	}
 
+	private String generateUniqueRunCode() {
 		String tempRunCode = generateRunCode();
 		while (true) {
 			try {
@@ -107,23 +140,7 @@ public class RunServiceImpl extends OfferingServiceImpl {
 			}
 			break;
 		}
-		runParameters.setRuncode(tempRunCode);
-		runParameters.setStarttime(Calendar.getInstance().getTime());
-
-		SdsOffering sdsOffering = new SdsOffering();
-		sdsOffering.setName(runParameters.getName());
-		sdsOffering.setSdsCurnit(runParameters.getCurnit().getSdsCurnit());
-		sdsOffering.setSdsJnlp(runParameters.getJnlp().getSdsJnlp());
-		this.sdsOfferingDao.save(sdsOffering);
-
-		Run run = new Run();
-		run.setSdsOffering(sdsOffering);
-		run.setRuncode(runParameters.getRuncode());
-		run.setEndtime(runParameters.getEndtime());
-		run.setPeriods(runParameters.getPeriods());
-		run.setStarttime(runParameters.getStarttime());
-		this.offeringDao.save(run);
-		return run;
+		return tempRunCode;
 	}
 
 	/**

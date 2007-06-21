@@ -72,4 +72,5 @@ public class HttpRestSdsUserDao extends AbstractDao<SdsUser> implements
 			this.updateCommand.execute(this.updateCommand.generateRequest());
 		}
 	}
+
 }

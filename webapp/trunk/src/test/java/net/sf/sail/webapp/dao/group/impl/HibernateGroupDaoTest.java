@@ -150,7 +150,7 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 		this.rootGroup.setName(ROOT_GROUP_NAME);
 		this.groupDao.save(this.rootGroup);
 		this.toilet.flush();
-		
+
 		actualGroupList = retrieveAllGroupsListFromDb();
 		assertEquals(1, actualGroupList.size());
 		checkRootGroupIsValid();
@@ -265,8 +265,8 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 		assertEquals(3, actualList.size());
 		List actualGroupMembersList = retrieveGroupsWithMembers();
 		assertEquals(1, actualGroupMembersList.size());
-		
-		//confirm that the group that we retrieved is the group expected.
+
+		// confirm that the group that we retrieved is the group expected.
 		Map actualGroupMembersMap = (Map) actualGroupMembersList.get(0);
 		String actualUserName = (String) actualGroupMembersMap
 				.get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase());
@@ -386,9 +386,9 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 		return user;
 	}
 
-	// TEST DELETE
+	//TODO HT TEST DELETE
 
-	// TEST GETTING ALL STUDENTS UNDER PARTICULAR PATH...Not just for the parent
+	//TODO HT TEST GETTING ALL STUDENTS UNDER PARTICULAR PATH...Not just for the parent
 	// node
 	// but also for all of the children nodes...this means that the user needs
 	// to have
@@ -434,10 +434,6 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 	 * groups_related_to_users.user_fk = users.id AND users.user_details_fk =
 	 * user_details.id
 	 */
-//        private static final String RETRIEVE_GROUP_LIST_MEMBERS_SQL = "SELECT * FROM groups, groups_related_to_users, users, user_details WHERE " +
-//         "groups.id = groups_related_to_users.group_fk AND " +
-//         "groups_related_to_users.user_fk = users.id AND users.user_details_fk = " +
-//         "user_details.id";
 	private static final String RETRIEVE_GROUP_LIST_MEMBERS_SQL = "SELECT * FROM "
 			+ PersistentGroup.DATA_STORE_NAME
 			+ ", "
@@ -472,4 +468,44 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 		return this.jdbcTemplate.queryForList(RETRIEVE_GROUP_LIST_MEMBERS_SQL,
 				(Object[]) null);
 	}
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
+     */
+	public void testGetList() {
+		verifyDataStoreIsEmpty();
+		List<Group> expectedEmptyList = this.groupDao.getList();
+		assertTrue(expectedEmptyList.isEmpty());
+
+		this.groupDao.save(this.rootGroup);
+		List expectedList = retrieveAllGroupsListFromDb();
+		assertEquals(1, expectedList.size());
+
+		List<Group> actualList = this.groupDao.getList();
+		assertEquals(1, actualList.size());
+		assertEquals(this.rootGroup, actualList.get(0));
+	}
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+     */ 
+	public void testGetById() {
+    	verifyDataStoreIsEmpty();
+    	Group expectedNullGroup = this.groupDao.getById(new Long(3));
+    	assertNull(expectedNullGroup);
+    	
+    	this.groupDao.save(this.rootGroup);
+		List<Group> actualList = this.groupDao.getList();
+    	PersistentGroup actualGroup = (PersistentGroup) actualList.get(0);
+    	
+    	PersistentGroup retrievedByIdGroup = (PersistentGroup) this.groupDao.getById(actualGroup.getId());
+    	assertEquals(actualGroup, retrievedByIdGroup);
+	}
+
+	private void verifyDataStoreIsEmpty() {
+		assertTrue(this.retrieveAllGroupsListFromDb().isEmpty());
+	}
+
 }

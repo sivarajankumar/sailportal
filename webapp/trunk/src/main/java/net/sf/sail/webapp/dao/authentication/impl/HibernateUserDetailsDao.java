@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.authentication.impl;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.springframework.dao.support.DataAccessUtils;
 
@@ -66,4 +67,12 @@ public class HibernateUserDetailsDao extends
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
     }
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class getDataObjectClass() {
+		return PersistentUserDetails.class;
+	}
 }

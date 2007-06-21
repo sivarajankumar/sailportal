@@ -82,6 +82,10 @@ public class HibernateJnlpDaoTest extends AbstractTransactionalDbTests {
         this.defaultJnlp = null;
     }
 
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
+     */
     public void testGetList() {
         verifyDataStoreIsEmpty();
         this.jnlpDao.save(this.defaultJnlp);
@@ -91,6 +95,23 @@ public class HibernateJnlpDaoTest extends AbstractTransactionalDbTests {
         List<Jnlp> actualList = this.jnlpDao.getList();
         assertEquals(1, actualList.size());
         assertEquals(this.defaultJnlp, actualList.get(0));
+    }
+    
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+     */    
+    public void testGetById() {
+    	verifyDataStoreIsEmpty();
+    	Jnlp expectedNullJnlp = this.jnlpDao.getById(new Long(3));
+    	assertNull(expectedNullJnlp);
+    	
+    	this.jnlpDao.save(this.defaultJnlp);
+    	List<Jnlp> actualList = this.jnlpDao.getList();
+    	JnlpImpl actualJnlp = (JnlpImpl) actualList.get(0);
+    	
+    	JnlpImpl retrievedByIdJnlp = (JnlpImpl) this.jnlpDao.getById(actualJnlp.getId());
+    	assertEquals(actualJnlp, retrievedByIdJnlp);
     }
 
     /**

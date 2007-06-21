@@ -52,4 +52,12 @@ public abstract class AbstractDao<T> implements SimpleDao<T> {
         // default behaviour for subclasses that do not override this method
         throw new UnsupportedOperationException();
     }
+    
+    /**
+     * @see net.sf.sail.webapp.dao.SimpleDao#getById(java.lang.Integer)
+     */
+    public T getById(Long id) {
+        // default behaviour for subclasses that do not override this method
+        throw new UnsupportedOperationException();
+    }
 }

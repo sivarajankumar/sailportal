@@ -30,35 +30,51 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * 
  */
 public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
-        implements SimpleDao<T> {
+		implements SimpleDao<T> {
 
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
-     */
-    public void delete(T object) {
-        this.getHibernateTemplate().delete(object);
-    }
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#delete(java.lang.Object)
+	 */
+	public void delete(T object) {
+		this.getHibernateTemplate().delete(object);
+	}
 
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
-     */
-    public void save(T object) {
-        this.getHibernateTemplate().saveOrUpdate(object);
-    }
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#save(java.lang.Object)
+	 */
+	public void save(T object) {
+		this.getHibernateTemplate().saveOrUpdate(object);
+	}
 
-    /**
-     * @see net.sf.sail.webapp.dao.SimpleDao#getList()
-     */
-    @SuppressWarnings("unchecked")
-    public List<T> getList() {
-        return this.getHibernateTemplate().find(this.getFindAllQuery());
-    }
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#getList()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<T> getList() {
+		return this.getHibernateTemplate().find(this.getFindAllQuery());
+	}
 
-    /**
-     * Gets a string that will perform a query to retrieve all available objects
-     * from the persistent data store.
-     * 
-     * @return <code>String</code> query
-     */
-    protected abstract String getFindAllQuery();
+	/**
+	 * Gets a string that will perform a query to retrieve all available objects
+	 * from the persistent data store.
+	 * 
+	 * @return <code>String</code> query
+	 */
+	protected abstract String getFindAllQuery();
+
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#getById(java.lang.Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	public T getById(Long id) {
+		return (T) this.getHibernateTemplate().get(this.getDataObjectClass(), id);
+	}
+
+	/**
+	 * Gets the class of the persistent entity.
+	 * 
+	 * @return the Class
+	 */
+	protected abstract Class getDataObjectClass();
+
 }

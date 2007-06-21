@@ -92,4 +92,5 @@ public class HttpRestSdsWorkgroupDao extends AbstractDao<SdsWorkgroup>
 					.generateRequest());
 		}
 	}
+	
 }

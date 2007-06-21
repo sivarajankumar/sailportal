@@ -145,4 +145,27 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
         } catch (UnsupportedOperationException expected) {
         }
     }
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#getById(java.lang.Long)}.
+     */
+    public void testGetById() {
+        try {
+            this.sdsUserDao.getById(new Long(3));
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+    }
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#getList()}.
+     */
+    public void testGetList() {
+        try {
+            this.sdsUserDao.getList();
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+    }
+ 
 }

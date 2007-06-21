@@ -175,5 +175,17 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 			curnitIdList.contains(offering.getSdsObjectId());
 		}
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#getById(java.lang.Long)}.
+	 */
+	public void testGetById() {
+		try {
+			this.sdsCurnitDao.getById(new Long(3));
+			fail("UnsupportedOperationException expected");
+		} catch (UnsupportedOperationException expected) {
+		}
+	}
+	
 }

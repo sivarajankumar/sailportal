@@ -94,4 +94,5 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	public void setUpdateCommand(SdsOfferingUpdateCommand updateCommand) {
 		this.updateCommand = updateCommand;
 	}
+
 }

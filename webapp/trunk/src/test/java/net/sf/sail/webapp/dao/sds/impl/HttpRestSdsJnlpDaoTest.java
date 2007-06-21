@@ -122,7 +122,7 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 		assertEquals(updateURL, updatedSdsJnlp.getUrl());
 	}
 
-    /**
+	   /**
      * Test method for
      * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#delete(net.sf.sail.webapp.domain.sds.SdsUser)}.
      */
@@ -133,4 +133,27 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
         } catch (UnsupportedOperationException expected) {
         }
     }
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#getList()}.
+     */
+    public void testGetList() {
+        try {
+            this.sdsJnlpDao.getList();
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+    }
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#getById(java.lang.Long)}.
+     */
+    public void testGetById() {
+        try {
+            this.sdsJnlpDao.getById(new Long(3));
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+    }
+	
 }

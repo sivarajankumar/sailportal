@@ -77,8 +77,7 @@ public class JnlpImpl implements Jnlp {
         this.sdsJnlp = sdsJnlp;
     }
 
-    @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return this.id;
     }
 

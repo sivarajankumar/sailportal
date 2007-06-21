@@ -20,9 +20,11 @@ package net.sf.sail.webapp.dao.user.impl;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.acegisecurity.userdetails.UserDetails;
 import org.springframework.dao.support.DataAccessUtils;
+
 
 /**
  * @author Cynick Young
@@ -55,9 +57,18 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
                                 "userDetails", userDetails));
     }
 
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class getDataObjectClass() {
+		return UserImpl.class;
+	}
+
     /**
      * @see
      */
+//	TODO TP please comment
     public User retrieveByUsername(String username) {
         return (User) DataAccessUtils
                 .requiredUniqueResult(this
@@ -70,6 +81,7 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     /**
      * @see
      */
+//    TODO TP please comment
     public User retrieveByEmailAddress(String emailAddress	) {
         return (User) DataAccessUtils
                 .requiredUniqueResult(this

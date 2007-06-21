@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.jnlp.impl;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.impl.JnlpImpl;
 
 /**
  * @author Cynick Young
@@ -39,4 +40,12 @@ public class HibernateJnlpDao extends AbstractHibernateDao<Jnlp> implements
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
     }
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class getDataObjectClass() {
+		return JnlpImpl.class;
+	}
 }

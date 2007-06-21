@@ -26,10 +26,9 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
- * TODO: description of class
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class AllTests {
 

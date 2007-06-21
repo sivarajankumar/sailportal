@@ -50,4 +50,13 @@ public interface SimpleDao<T> {
      * @return <code>List</code> of objects
      */
     public List<T> getList();
+    
+    /**
+     * Retrieves a single object from persistent data store based on the primary key.
+     * 
+     * @param id The id of the object you are retrieving.
+     * 
+     * @return The object.
+     */
+    public T getById(Long id);
 }

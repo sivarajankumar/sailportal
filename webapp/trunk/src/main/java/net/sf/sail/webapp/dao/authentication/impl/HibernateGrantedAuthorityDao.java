@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.authentication.impl;
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 
 import org.springframework.dao.support.DataAccessUtils;
 
@@ -69,4 +70,12 @@ public class HibernateGrantedAuthorityDao extends
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
     }
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class getDataObjectClass() {
+		return PersistentGrantedAuthority.class;
+	}
 }

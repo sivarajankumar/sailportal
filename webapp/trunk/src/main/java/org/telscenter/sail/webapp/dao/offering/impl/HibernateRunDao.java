@@ -33,7 +33,7 @@ import net.sf.sail.webapp.domain.Offering;
  * DAO for WISE run, which extends offering
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class HibernateRunDao extends AbstractHibernateDao<Offering> 
         implements RunDao<Run> {
@@ -64,4 +64,12 @@ public class HibernateRunDao extends AbstractHibernateDao<Offering>
     public boolean hasRuncode(String runcode) {
     	return (this.retrieveByRunCode(runcode) != null);
     }
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class getDataObjectClass() {
+		return Run.class;
+	}
 }

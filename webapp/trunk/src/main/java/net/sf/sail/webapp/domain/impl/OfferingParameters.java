@@ -17,47 +17,33 @@
  */
 package net.sf.sail.webapp.domain.impl;
 
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.domain.Jnlp;
-
 /**
  * @author Laurel Williams
- *
+ * 
  * @version $Id$
+ * 
+ * Parameters that a user would probably need to supply in order to create an
+ * offering from the UI.
+ * 
  */
 public class OfferingParameters {
 	private String name;
-	
-	private Jnlp jnlp;
-	
-	private Curnit curnit;
+
+	private Long curnitId;
 
 	/**
-	 * @return the curnit
+	 * @return the curnitId
 	 */
-	public Curnit getCurnit() {
-		return curnit;
+	public Long getCurnitId() {
+		return curnitId;
 	}
 
 	/**
-	 * @param curnit the curnit to set
+	 * @param curnitId
+	 *            the curnitId to set
 	 */
-	public void setCurnit(Curnit curnit) {
-		this.curnit = curnit;
-	}
-
-	/**
-	 * @return the jnlp
-	 */
-	public Jnlp getJnlp() {
-		return jnlp;
-	}
-
-	/**
-	 * @param jnlp the jnlp to set
-	 */
-	public void setJnlp(Jnlp jnlp) {
-		this.jnlp = jnlp;
+	public void setCurnitId(Long curnitId) {
+		this.curnitId = curnitId;
 	}
 
 	/**

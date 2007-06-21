@@ -25,6 +25,7 @@ package net.sf.sail.webapp.dao.group.impl;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 
 /**
  * @author Hiroki Terashima
@@ -42,6 +43,14 @@ public class HibernateGroupDao extends AbstractHibernateDao<Group> implements
 	@Override
 	protected String getFindAllQuery() {
 		return FIND_ALL_QUERY;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class getDataObjectClass() {
+		return PersistentGroup.class;
 	}
 
 }

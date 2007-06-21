@@ -53,7 +53,7 @@ public class CurnitImpl implements Curnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id = null;
+	public Long id = null;
 
     @Version
     @Column(name = "OPTLOCK")
@@ -77,8 +77,10 @@ public class CurnitImpl implements Curnit {
         this.sdsCurnit = sdsCurnit;
     }
 
-    @SuppressWarnings("unused")
-    private Long getId() {
+    /**
+     * @see net.sf.sail.webapp.domain.Curnit#getId()
+     */
+    public Long getId() {
         return this.id;
     }
 

@@ -200,4 +200,37 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
                 + UserImpl.COLUMN_NAME_SDS_USER_FK + " = "
                 + SdsUser.DATA_STORE_NAME + ".id;", (Object[]) null);
     }
+    
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
+     */
+    public void testGetList() {
+        verifyDataStoreIsEmpty();
+        this.userDao.save(this.defaultUser);
+        List expectedList = this.retrieveUserListFromDb();
+        assertEquals(1, expectedList.size());
+
+        List<User> actualList = this.userDao.getList();
+        assertEquals(1, actualList.size());
+        assertEquals(this.defaultUser, actualList.get(0));
+   }
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+     */ 
+    public void testGetById() {
+       	verifyDataStoreIsEmpty();
+    	User expectedNullUser = this.userDao.getById(new Long(3));
+    	assertNull(expectedNullUser);
+    	
+    	this.userDao.save(this.defaultUser);
+    	List<User> actualList = this.userDao.getList();
+    	UserImpl actualUser = (UserImpl) actualList.get(0);
+    	
+    	UserImpl retrievedByIdUser = (UserImpl) this.userDao.getById(actualUser.getId());
+    	assertEquals(actualUser, retrievedByIdUser);
+     }
+
 }

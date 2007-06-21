@@ -41,4 +41,10 @@ public interface Curnit extends Serializable {
      *            the sdsCurnit to set
      */
     public void setSdsCurnit(SdsCurnit sdsCurnit);
+
+	/**
+	 * @return The id of the curnit in the persistent data store
+	 */
+	public Long getId();
+
 }

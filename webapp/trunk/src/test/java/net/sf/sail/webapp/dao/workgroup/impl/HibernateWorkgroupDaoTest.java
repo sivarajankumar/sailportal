@@ -271,6 +271,10 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         verifyDataStoreWorkgroupMembersListIsEmpty();
     }
 
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
+     */
     public void testGetList() {
         verifyDataStoreWorkgroupListIsEmpty();
         this.workgroupDao.save(this.defaultWorkgroup);
@@ -281,6 +285,15 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         assertEquals(1, actualList.size());
         assertEquals(this.defaultWorkgroup, actualList.get(0));
     }
+    
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+     */ 
+     public void testGetById() {
+    	fail();
+    }
+
 
     private User createNewUser(String username, Integer sdsId, Session session) {
         User user = (User) this.applicationContext.getBean("user");

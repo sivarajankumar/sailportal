@@ -75,8 +75,7 @@ public class PersistentGrantedAuthority implements MutableGrantedAuthority {
         return this.authority;
     }
 
-    @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

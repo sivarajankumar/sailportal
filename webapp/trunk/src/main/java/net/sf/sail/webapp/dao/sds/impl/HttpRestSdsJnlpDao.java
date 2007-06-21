@@ -72,4 +72,5 @@ public class HttpRestSdsJnlpDao extends AbstractDao<SdsJnlp> implements
 			this.updateCommand.execute(this.updateCommand.generateRequest());
 		}
 	}
+
 }

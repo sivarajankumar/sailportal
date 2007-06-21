@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.curnit.impl;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
 
 /**
  * @author Cynick Young
@@ -31,12 +32,16 @@ public class HibernateCurnitDao extends AbstractHibernateDao<Curnit> implements
         CurnitDao<Curnit> {
 
     private static final String FIND_ALL_QUERY = "from CurnitImpl";
-
+    
     /**
      * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
      */
     @Override
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
+    }
+    
+    protected Class getDataObjectClass() {
+    	return CurnitImpl.class;
     }
 }

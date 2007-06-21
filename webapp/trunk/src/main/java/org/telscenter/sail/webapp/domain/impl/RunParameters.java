@@ -17,11 +17,9 @@
  */
 package org.telscenter.sail.webapp.domain.impl;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 
 /**
@@ -31,68 +29,20 @@ import net.sf.sail.webapp.domain.impl.OfferingParameters;
  */
 public class RunParameters extends OfferingParameters {
 
-	   private Date starttime;
-
-	    private Date endtime;
-
-	    private String runcode;
-	    
-	    private Set<Group> periods = new HashSet<Group>();
+	    private Set<String> periodNames = new HashSet<String>();
 
 		/**
-		 * @return the endtime
+		 * @return the periodNames
 		 */
-		public Date getEndtime() {
-			return endtime;
+		public Set<String> getPeriodNames() {
+			return periodNames;
 		}
 
 		/**
-		 * @param endtime the endtime to set
+		 * @param periodNames the periodNames to set
 		 */
-		public void setEndtime(Date endtime) {
-			this.endtime = endtime;
-		}
-
-		/**
-		 * @return the periods
-		 */
-		public Set<Group> getPeriods() {
-			return periods;
-		}
-
-		/**
-		 * @param periods the periods to set
-		 */
-		public void setPeriods(Set<Group> periods) {
-			this.periods = periods;
-		}
-
-		/**
-		 * @return the runcode
-		 */
-		public String getRuncode() {
-			return runcode;
-		}
-
-		/**
-		 * @param runcode the runcode to set
-		 */
-		public void setRuncode(String runcode) {
-			this.runcode = runcode;
-		}
-
-		/**
-		 * @return the starttime
-		 */
-		public Date getStarttime() {
-			return starttime;
-		}
-
-		/**
-		 * @param starttime the starttime to set
-		 */
-		public void setStarttime(Date starttime) {
-			this.starttime = starttime;
+		public void setPeriodNames(Set<String> periodNames) {
+			this.periodNames = periodNames;
 		}
 
 }

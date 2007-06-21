@@ -26,13 +26,9 @@ import java.util.Set;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
-import net.sf.sail.webapp.domain.impl.JnlpImpl;
 import net.sf.sail.webapp.domain.impl.JnlpParameters;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
-import net.sf.sail.webapp.domain.sds.SdsCurnit;
-import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 import net.sf.sail.webapp.service.offering.OfferingService;
@@ -91,18 +87,7 @@ public class CreateDefaultOfferings {
 			for (int j = 0, jLength = jnlps.length; j < jLength; j++) {
 				OfferingParameters offeringParameters = (OfferingParameters) applicationContext
 						.getBean("offeringParameters");
-
-				SdsCurnit sdsCurnit = curnits[c].getSdsCurnit();
-				Curnit curnit = (CurnitImpl) applicationContext
-						.getBean("curnit");
-				curnit.setSdsCurnit(sdsCurnit);
-				offeringParameters.setCurnit(curnit);
-
-				SdsJnlp sdsJnlp = jnlps[j].getSdsJnlp();
-				Jnlp jnlp = (JnlpImpl) applicationContext.getBean("jnlp");
-				jnlp.setSdsJnlp(sdsJnlp);
-				offeringParameters.setJnlp(jnlp);
-
+				offeringParameters.setCurnitId(curnits[c].getId());
 				offeringParameters.setName(curnits[c].getSdsCurnit().getName());
 				offerings[offeringsIndex] = this.offeringService
 						.createOffering(offeringParameters);

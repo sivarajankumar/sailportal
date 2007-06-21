@@ -24,12 +24,14 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
+import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateGrantedAuthorityDaoTest.java 257 2007-03-30 14:59:02Z
+ *          cynick $
  * 
  */
 public class HibernateGrantedAuthorityDaoTest extends
@@ -155,6 +157,42 @@ public class HibernateGrantedAuthorityDaoTest extends
 	private List retrieveGrantedAuthorityListFromDb() {
 		return this.jdbcTemplate.queryForList("SELECT * FROM "
 				+ PersistentGrantedAuthority.DATA_STORE_NAME, (Object[]) null);
+	}
+
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
+     */
+	public void testGetList() {
+		verifyDataStoreIsEmpty();
+		List<MutableGrantedAuthority> expectedEmptyList = this.authorityDao
+				.getList();
+		assertTrue(expectedEmptyList.isEmpty());
+
+		this.authorityDao.save(this.defaultGrantedAuthority);
+		List expectedList = retrieveGrantedAuthorityListFromDb();
+		assertEquals(1, expectedList.size());
+
+		List<MutableGrantedAuthority> actualList = this.authorityDao.getList();
+		assertEquals(1, actualList.size());
+		assertEquals(this.defaultGrantedAuthority, actualList.get(0));
+	}
+	
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+     */ 
+	public void testGetById() {
+    	verifyDataStoreIsEmpty();
+    	GrantedAuthority expectedNullAuthority = this.authorityDao.getById(new Long(3));
+    	assertNull(expectedNullAuthority);
+    	
+    	this.authorityDao.save(this.defaultGrantedAuthority);
+    	List<MutableGrantedAuthority> actualList = this.authorityDao.getList();
+    	PersistentGrantedAuthority actualGrantedAuthority = (PersistentGrantedAuthority) actualList.get(0);
+    	
+    	PersistentGrantedAuthority retrievedByIdAuthority = (PersistentGrantedAuthority) this.authorityDao.getById(actualGrantedAuthority.getId());
+    	assertEquals(actualGrantedAuthority, retrievedByIdAuthority);
 	}
 
 }

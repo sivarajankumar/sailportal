@@ -71,4 +71,12 @@ public class HibernateWorkgroupDao extends AbstractHibernateDao<Workgroup>
         sqlQuery.setParameter("user_param", user.getId(), Hibernate.LONG);
         return sqlQuery.list();
     }
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class getDataObjectClass() {
+		return WorkgroupImpl.class;
+	}
 }

@@ -137,4 +137,39 @@ public class HibernateCurnitDaoTest extends AbstractTransactionalDbTests {
         return this.jdbcTemplate.queryForList(RETRIEVE_CURNIT_LIST_SQL,
                 (Object[]) null);
     }
+    
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
+     */
+    public void testGetList() throws Exception {
+        verifyDataStoreIsEmpty();
+        List<Curnit> expectedEmptyList = this.curnitDao.getList();
+        assertTrue(expectedEmptyList.isEmpty());
+        
+        this.curnitDao.save(this.defaultCurnit);
+        List expectedList = retrieveCurnitListFromDb();
+        assertEquals(1, expectedList.size());
+
+        List<Curnit> actualList = this.curnitDao.getList();
+        assertEquals(1, actualList.size());
+        assertEquals(this.defaultCurnit, actualList.get(0));
+    }
+    
+    /**
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+     */ 
+    public void testGetById() throws Exception {
+    	verifyDataStoreIsEmpty();
+    	Curnit expectedNullCurnit = this.curnitDao.getById(new Long(3));
+    	assertNull(expectedNullCurnit);
+    	
+    	this.curnitDao.save(this.defaultCurnit);
+    	List<Curnit> actualList = this.curnitDao.getList();
+    	Curnit actualCurnit = (Curnit) actualList.get(0);
+    	
+    	Curnit retrievedByIdCurnit = (Curnit) this.curnitDao.getById(actualCurnit.getId());
+    	assertEquals(actualCurnit, retrievedByIdCurnit);
+    }
 }

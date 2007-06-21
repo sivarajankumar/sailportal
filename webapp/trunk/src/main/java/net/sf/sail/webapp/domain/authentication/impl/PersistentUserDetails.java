@@ -115,8 +115,7 @@ public class PersistentUserDetails implements MutableUserDetails {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled = Boolean.TRUE;
 
-    @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

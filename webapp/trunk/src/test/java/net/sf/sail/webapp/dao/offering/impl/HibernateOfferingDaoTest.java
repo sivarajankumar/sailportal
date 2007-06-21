@@ -43,173 +43,197 @@ import org.springframework.dao.DataIntegrityViolationException;
  */
 public class HibernateOfferingDaoTest extends AbstractTransactionalDbTests {
 
-    private static final Integer SDS_ID = new Integer(7);
+	private static final Integer SDS_ID = new Integer(7);
 
-    private static final String DEFAULT_NAME = "Airbags";
+	private static final String DEFAULT_NAME = "Airbags";
 
-    private static final String DEFAULT_URL = "http://mrpotatoiscoolerthanwoody.com";
+	private static final String DEFAULT_URL = "http://mrpotatoiscoolerthanwoody.com";
 
-    private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
+	private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
 
-    private static final SdsJnlp DEFAULT_SDS_JNLP = new SdsJnlp();
+	private static final SdsJnlp DEFAULT_SDS_JNLP = new SdsJnlp();
 
-    private HibernateOfferingDao offeringDao;
+	private HibernateOfferingDao offeringDao;
 
-    private SdsOffering sdsOffering;
+	private SdsOffering sdsOffering;
 
-    private Offering defaultOffering;
+	private Offering defaultOffering;
 
-    public void setOfferingDao(HibernateOfferingDao offeringDao) {
-        this.offeringDao = offeringDao;
-    }
+	public void setOfferingDao(HibernateOfferingDao offeringDao) {
+		this.offeringDao = offeringDao;
+	}
 
-    public void setSdsOffering(SdsOffering sdsOffering) {
-        this.sdsOffering = sdsOffering;
-    }
+	public void setSdsOffering(SdsOffering sdsOffering) {
+		this.sdsOffering = sdsOffering;
+	}
 
-    public void setDefaultOffering(Offering defaultOffering) {
-        this.defaultOffering = defaultOffering;
-    }
+	public void setDefaultOffering(Offering defaultOffering) {
+		this.defaultOffering = defaultOffering;
+	}
+
+	/**
+	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
+	 */
+	@Override
+	protected void onTearDownAfterTransaction() throws Exception {
+		super.onTearDownAfterTransaction();
+		this.offeringDao = null;
+		this.defaultOffering = null;
+		this.sdsOffering = null;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
+	 */
+	@Override
+	protected void onSetUpBeforeTransaction() throws Exception {
+		super.onSetUpBeforeTransaction();
+		DEFAULT_SDS_CURNIT.setSdsObjectId(SDS_ID);
+		DEFAULT_SDS_CURNIT.setName(DEFAULT_NAME);
+		DEFAULT_SDS_CURNIT.setUrl(DEFAULT_URL);
+
+		DEFAULT_SDS_JNLP.setSdsObjectId(SDS_ID);
+		DEFAULT_SDS_JNLP.setName(DEFAULT_NAME);
+		DEFAULT_SDS_JNLP.setUrl(DEFAULT_URL);
+
+		this.sdsOffering.setSdsObjectId(SDS_ID);
+		this.sdsOffering.setName(DEFAULT_NAME);
+
+		this.defaultOffering.setSdsOffering(this.sdsOffering);
+	}
+
+	/**
+	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
+	 */
+	@Override
+	protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		Session session = this.sessionFactory.getCurrentSession();
+		session.save(DEFAULT_SDS_CURNIT); // save sds curnit
+		session.save(DEFAULT_SDS_JNLP); // save sds jnlp
+
+		this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
+		this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
+	}
+
+	public void testSave_NonExistentCurnit() {
+		this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
+
+		SdsCurnit nonExistentSdsCurnit = (SdsCurnit) this.applicationContext
+				.getBean("sdsCurnit");
+		nonExistentSdsCurnit.setName(DEFAULT_NAME);
+		nonExistentSdsCurnit.setSdsObjectId(SDS_ID);
+		nonExistentSdsCurnit.setUrl(DEFAULT_URL);
+		this.sdsOffering.setSdsCurnit(nonExistentSdsCurnit);
+
+		this.defaultOffering.setSdsOffering(sdsOffering);
+		try {
+			this.offeringDao.save(this.defaultOffering);
+			fail("DataIntegrityViolationException expected");
+		} catch (DataIntegrityViolationException expected) {
+		}
+	}
+
+	public void testSave_NonExistentJnlp() {
+		this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
+
+		SdsJnlp nonExistentSdsJnlp = (SdsJnlp) this.applicationContext
+				.getBean("sdsJnlp");
+		nonExistentSdsJnlp.setName(DEFAULT_NAME);
+		nonExistentSdsJnlp.setSdsObjectId(SDS_ID);
+		nonExistentSdsJnlp.setUrl(DEFAULT_URL);
+		this.sdsOffering.setSdsJnlp(nonExistentSdsJnlp);
+
+		this.defaultOffering.setSdsOffering(sdsOffering);
+		try {
+			this.offeringDao.save(this.defaultOffering);
+			fail("DataIntegrityViolationException expected");
+		} catch (DataIntegrityViolationException expected) {
+		}
+	}
+
+	public void testSave() {
+		verifyDataStoreIsEmpty();
+
+		// save the default offering object using dao
+		this.offeringDao.save(this.defaultOffering);
+
+		// verify data store contains saved data using direct jdbc retrieval
+		// (not using dao)
+		List actualList = retrieveOfferingListFromDb();
+		assertEquals(1, actualList.size());
+
+		Map actualOfferingMap = (Map) actualList.get(0);
+		assertEquals(SDS_ID, actualOfferingMap
+				.get(SdsOffering.COLUMN_NAME_OFFERING_ID.toUpperCase()));
+		assertEquals(DEFAULT_NAME, actualOfferingMap
+				.get(SdsOffering.COLUMN_NAME_OFFERING_NAME.toUpperCase()));
+	}
+
+	public void testDelete() {
+		verifyDataStoreIsEmpty();
+		// save the default offering object using dao
+		this.offeringDao.save(this.defaultOffering);
+		List actualList = retrieveOfferingListFromDb();
+		assertEquals(1, actualList.size());
+
+		this.offeringDao.delete(this.defaultOffering);
+		this.toilet.flush();
+		verifyDataStoreIsEmpty();
+	}
+
+	private void verifyDataStoreIsEmpty() {
+		assertTrue(retrieveOfferingListFromDb().isEmpty());
+	}
+
+	/*
+	 * SELECT * FROM offerings, sds_offerings WHERE offerings.sds_offering_fk =
+	 * sds_offerings.id
+	 */
+	private static final String RETRIEVE_OFFERING_LIST_SQL = "SELECT * FROM "
+			+ OfferingImpl.DATA_STORE_NAME + ", " + SdsOffering.DATA_STORE_NAME
+			+ " WHERE " + OfferingImpl.DATA_STORE_NAME + "."
+			+ OfferingImpl.COLUMN_NAME_SDS_OFFERING_FK + " = "
+			+ SdsOffering.DATA_STORE_NAME + ".id";
+
+	private List retrieveOfferingListFromDb() {
+		return this.jdbcTemplate.queryForList(RETRIEVE_OFFERING_LIST_SQL,
+				(Object[]) null);
+	}
 
     /**
-     * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
      */
-    @Override
-    protected void onTearDownAfterTransaction() throws Exception {
-        super.onTearDownAfterTransaction();
-        this.offeringDao = null;
-        this.defaultOffering = null;
-        this.sdsOffering = null;
-    }
+	public void testGetList() {
+		verifyDataStoreIsEmpty();
+		List expectedEmptyList = this.offeringDao.getList();
+		assertTrue(expectedEmptyList.isEmpty());
+
+		this.offeringDao.save(this.defaultOffering);
+		List expectedList = retrieveOfferingListFromDb();
+		assertEquals(1, expectedList.size());
+
+		List<Offering> actualList = this.offeringDao.getList();
+		assertEquals(1, actualList.size());
+		assertEquals(this.defaultOffering, actualList.get(0));
+	}
 
     /**
-     * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
-     */
-    @Override
-    protected void onSetUpBeforeTransaction() throws Exception {
-        super.onSetUpBeforeTransaction();
-        DEFAULT_SDS_CURNIT.setSdsObjectId(SDS_ID);
-        DEFAULT_SDS_CURNIT.setName(DEFAULT_NAME);
-        DEFAULT_SDS_CURNIT.setUrl(DEFAULT_URL);
-
-        DEFAULT_SDS_JNLP.setSdsObjectId(SDS_ID);
-        DEFAULT_SDS_JNLP.setName(DEFAULT_NAME);
-        DEFAULT_SDS_JNLP.setUrl(DEFAULT_URL);
-
-        this.sdsOffering.setSdsObjectId(SDS_ID);
-        this.sdsOffering.setName(DEFAULT_NAME);
-
-        this.defaultOffering.setSdsOffering(this.sdsOffering);
-    }
-
-    /**
-     * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
-     */
-    @Override
-    protected void onSetUpInTransaction() throws Exception {
-        super.onSetUpInTransaction();
-        Session session = this.sessionFactory.getCurrentSession();
-        session.save(DEFAULT_SDS_CURNIT); // save sds curnit
-        session.save(DEFAULT_SDS_JNLP); // save sds jnlp
-
-        this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
-        this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
-    }
-
-    public void testSave_NonExistentCurnit() {
-        this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
-
-        SdsCurnit nonExistentSdsCurnit = (SdsCurnit) this.applicationContext
-                .getBean("sdsCurnit");
-        nonExistentSdsCurnit.setName(DEFAULT_NAME);
-        nonExistentSdsCurnit.setSdsObjectId(SDS_ID);
-        nonExistentSdsCurnit.setUrl(DEFAULT_URL);
-        this.sdsOffering.setSdsCurnit(nonExistentSdsCurnit);
-
-        this.defaultOffering.setSdsOffering(sdsOffering);
-        try {
-            this.offeringDao.save(this.defaultOffering);
-            fail("DataIntegrityViolationException expected");
-        } catch (DataIntegrityViolationException expected) {
-        }
-    }
-
-    public void testSave_NonExistentJnlp() {
-        this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
-
-        SdsJnlp nonExistentSdsJnlp = (SdsJnlp) this.applicationContext
-                .getBean("sdsJnlp");
-        nonExistentSdsJnlp.setName(DEFAULT_NAME);
-        nonExistentSdsJnlp.setSdsObjectId(SDS_ID);
-        nonExistentSdsJnlp.setUrl(DEFAULT_URL);
-        this.sdsOffering.setSdsJnlp(nonExistentSdsJnlp);
-
-        this.defaultOffering.setSdsOffering(sdsOffering);
-        try {
-            this.offeringDao.save(this.defaultOffering);
-            fail("DataIntegrityViolationException expected");
-        } catch (DataIntegrityViolationException expected) {
-        }
-    }
-
-    public void testSave() {
-        verifyDataStoreIsEmpty();
-
-        // save the default offering object using dao
-        this.offeringDao.save(this.defaultOffering);
-
-        // verify data store contains saved data using direct jdbc retrieval
-        // (not using dao)
-        List actualList = retrieveOfferingListFromDb();
-        assertEquals(1, actualList.size());
-
-        Map actualOfferingMap = (Map) actualList.get(0);
-        assertEquals(SDS_ID, actualOfferingMap
-                .get(SdsOffering.COLUMN_NAME_OFFERING_ID.toUpperCase()));
-        assertEquals(DEFAULT_NAME, actualOfferingMap
-                .get(SdsOffering.COLUMN_NAME_OFFERING_NAME.toUpperCase()));
-    }
-
-    public void testDelete() {
-        verifyDataStoreIsEmpty();
-        // save the default offering object using dao
-        this.offeringDao.save(this.defaultOffering);
-        List actualList = retrieveOfferingListFromDb();
-        assertEquals(1, actualList.size());
-
-        this.offeringDao.delete(this.defaultOffering);
-        this.toilet.flush();
-        verifyDataStoreIsEmpty();
-    }
-
-    private void verifyDataStoreIsEmpty() {
-        assertTrue(retrieveOfferingListFromDb().isEmpty());
-    }
-
-    /*
-     * SELECT * FROM offerings, sds_offerings WHERE offerings.sds_offering_fk =
-     * sds_offerings.id
-     */
-    private static final String RETRIEVE_OFFERING_LIST_SQL = "SELECT * FROM "
-            + OfferingImpl.DATA_STORE_NAME + ", " + SdsOffering.DATA_STORE_NAME
-            + " WHERE " + OfferingImpl.DATA_STORE_NAME + "."
-            + OfferingImpl.COLUMN_NAME_SDS_OFFERING_FK + " = "
-            + SdsOffering.DATA_STORE_NAME + ".id";
-
-    private List retrieveOfferingListFromDb() {
-        return this.jdbcTemplate.queryForList(RETRIEVE_OFFERING_LIST_SQL,
-                (Object[]) null);
-    }
-
-    public void testGetList() {
-        verifyDataStoreIsEmpty();
-        this.offeringDao.save(this.defaultOffering);
-        List expectedList = retrieveOfferingListFromDb();
-        assertEquals(1, expectedList.size());
-
-        List<Offering> actualList = this.offeringDao.getList();
-        assertEquals(1, actualList.size());
-        assertEquals(this.defaultOffering, actualList.get(0));
-    }
+     * Test method for
+     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+     */ 
+	public void testGetById() {
+	   	verifyDataStoreIsEmpty();
+    	Offering expectedNullCurnit = this.offeringDao.getById(new Long(3));
+    	assertNull(expectedNullCurnit);
+    	
+    	this.offeringDao.save(this.defaultOffering);
+    	List<Offering> actualList = this.offeringDao.getList();
+    	OfferingImpl actualOffering = (OfferingImpl) actualList.get(0);
+    	
+    	OfferingImpl retrievedByIdOffering = (OfferingImpl) this.offeringDao.getById(actualOffering.getId());
+    	assertEquals(actualOffering, retrievedByIdOffering);
+  	}
 
 }

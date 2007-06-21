@@ -25,6 +25,7 @@ package net.sf.sail.webapp.dao.offering.impl;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
 
 /**
  * @author Hiroki Terashima
@@ -42,4 +43,14 @@ public class HibernateOfferingDao extends AbstractHibernateDao<Offering>
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
     }
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class getDataObjectClass() {
+		return OfferingImpl.class;
+	}
+    
+    
 }
