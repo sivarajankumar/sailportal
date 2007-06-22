@@ -28,209 +28,254 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
 /**
- * @author Cynick Young		
+ * @author Cynick Young
  * 
  * @version $Id$
  * 
  */
 public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 
-    private static final String USERNAME = "user name";
+	private static final String USERNAME = "user name";
 
-    private static final String PASSWORD = "password";
+	private static final String PASSWORD = "password";
 
-    private static final String FIRST_NAME = USERNAME;
+	private static final String ALTERNATE_USERNAME = "myname";
 
-    private static final String LAST_NAME = USERNAME;
+	private static final String FIRST_NAME = USERNAME;
 
-    private static final Integer SDS_USER_ID = new Integer(42);
+	private static final String LAST_NAME = USERNAME;
+
+	private static final Integer SDS_USER_ID = new Integer(42);
+
+	private static final Integer ALTERNATE_SDS_USER_ID = new Integer(3);
 
 	private static final String EMAILADDRESS = "bart.simpson@gmail.com";
 
-    private HibernateUserDao userDao;
+	private HibernateUserDao userDao;
 
-    private MutableUserDetails userDetails;
+	private MutableUserDetails userDetails;
 
-    private SdsUser sdsUser;
+	private SdsUser sdsUser;
 
-    private User defaultUser;
+	private User defaultUser;
 
-    /**
-     * @param userDao
-     *            the userDao to set
-     */
-    public void setUserDao(HibernateUserDao userDao) {
-        this.userDao = userDao;
-    }
+	/**
+	 * @param userDao
+	 *            the userDao to set
+	 */
+	public void setUserDao(HibernateUserDao userDao) {
+		this.userDao = userDao;
+	}
 
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
-     */
-    @Override
-    protected void onSetUpBeforeTransaction() throws Exception {
-        super.onSetUpBeforeTransaction();
-        this.userDetails = (MutableUserDetails) this.applicationContext
-                .getBean("mutableUserDetails");
-        this.sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
-        this.defaultUser = (User) this.applicationContext.getBean("user");
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
+	 */
+	@Override
+	protected void onSetUpBeforeTransaction() throws Exception {
+		super.onSetUpBeforeTransaction();
+		this.userDetails = (MutableUserDetails) this.applicationContext
+				.getBean("mutableUserDetails");
+		this.sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
+		this.defaultUser = (User) this.applicationContext.getBean("user");
 
-        this.defaultUser.setUserDetails(this.userDetails);
-        this.defaultUser.setSdsUser(this.sdsUser);
-        this.userDetails.setUsername(USERNAME);
-        this.userDetails.setPassword(PASSWORD);
-        this.userDetails.setEmailAddress(EMAILADDRESS);
-        this.sdsUser.setFirstName(FIRST_NAME);
-        this.sdsUser.setLastName(LAST_NAME);
-        this.sdsUser.setSdsObjectId(SDS_USER_ID);
-    }
+		this.defaultUser.setUserDetails(this.userDetails);
+		this.defaultUser.setSdsUser(this.sdsUser);
+		this.userDetails.setUsername(USERNAME);
+		this.userDetails.setPassword(PASSWORD);
+		this.userDetails.setEmailAddress(EMAILADDRESS);
+		this.sdsUser.setFirstName(FIRST_NAME);
+		this.sdsUser.setLastName(LAST_NAME);
+		this.sdsUser.setSdsObjectId(SDS_USER_ID);
+	}
 
-    /**
-     * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
-     */
-    @Override
-    protected void onTearDownAfterTransaction() throws Exception {
-        super.onTearDownAfterTransaction();
-        this.userDetails = null;
-        this.sdsUser = null;
-        this.defaultUser = null;
-    }
+	/**
+	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
+	 */
+	@Override
+	protected void onTearDownAfterTransaction() throws Exception {
+		super.onTearDownAfterTransaction();
+		this.userDetails = null;
+		this.sdsUser = null;
+		this.defaultUser = null;
+	}
 
-    public void testRetrieveByUserDetails() {
-        this.userDao.save(this.defaultUser);
+	public void testRetrieveByUserDetails() {
+		this.userDao.save(this.defaultUser);
 
-        User actual = this.userDao.retrieveByUserDetails(this.userDetails);
-        assertNotNull(actual);
-        assertEquals(this.defaultUser, actual);
-    }
-    
-    public void testRetrieveByUsername() {
-        this.userDao.save(this.defaultUser);
+		User actual = this.userDao.retrieveByUserDetails(this.userDetails);
+		assertNotNull(actual);
+		assertEquals(this.defaultUser, actual);
+	}
 
-        User actual = this.userDao.retrieveByUsername(this.userDetails.getUsername());
-        assertNotNull(actual);
-        assertEquals(this.defaultUser, actual);
-    }
-    
-    public void testRetrieveByEmailAddress() {
-        this.userDao.save(this.defaultUser);
+	public void testRetrieveByUsername() {
+		this.userDao.save(this.defaultUser);
 
-        User actual = this.userDao.retrieveByEmailAddress(this.userDetails.getEmailAddress());
-        assertNotNull(actual);
-        assertEquals(this.defaultUser, actual);
-    }
+		User actual = this.userDao.retrieveByUsername(this.userDetails
+				.getUsername());
+		assertNotNull(actual);
+		assertEquals(this.defaultUser, actual);
+	}
 
-    public void testSave() {
-        verifyDataStoreIsEmpty();
+	public void testRetrieveByEmailAddress() {
+		// what happens when there are no users with a given email address?
+		try {
+			@SuppressWarnings("unused")
+			User expectedProblem = this.userDao
+					.retrieveByEmailAddress(EMAILADDRESS);
+			fail("expected EmptyResultDataAccessException - no users with this email address");
+		} catch (EmptyResultDataAccessException e) {
+		}
 
-        // save the default user object using dao
-        this.userDao.save(this.defaultUser);
+		// check that single user saved in data store can be retrieved via email
+		// address
+		this.userDao.save(this.defaultUser);
+		User actual = this.userDao.retrieveByEmailAddress(this.userDetails
+				.getEmailAddress());
+		assertNotNull(actual);
+		assertEquals(this.defaultUser, actual);
 
-        // verify data store contains saved data using direct jdbc retrieval
-        // (not using dao)
-        List actualList = retrieveUserListFromDb();
-        assertEquals(1, actualList.size());
+		// what happens when another user is saved with the same email address
+		MutableUserDetails anotherUserDetails = (MutableUserDetails) this.applicationContext
+				.getBean("mutableUserDetails");
+		SdsUser anotherSdsUser = (SdsUser) this.applicationContext
+				.getBean("sdsUser");
+		User anotherUser = (User) this.applicationContext.getBean("user");
 
-        Map actualUserMap = (Map) actualList.get(0);
-        assertEquals(USERNAME, actualUserMap
-                .get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase()));
-        assertEquals(PASSWORD, actualUserMap
-                .get(PersistentUserDetails.COLUMN_NAME_PASSWORD.toUpperCase()));
-        assertEquals(FIRST_NAME, actualUserMap
-                .get(SdsUser.COLUMN_NAME_FIRST_NAME.toUpperCase()));
-        assertEquals(LAST_NAME, actualUserMap.get(SdsUser.COLUMN_NAME_LAST_NAME
-                .toUpperCase()));
-        assertEquals(SDS_USER_ID, actualUserMap.get(SdsUser.COLUMN_NAME_USER_ID
-                .toUpperCase()));
+		anotherUser.setUserDetails(anotherUserDetails);
+		anotherUser.setSdsUser(anotherSdsUser);
+		anotherUserDetails.setUsername(ALTERNATE_USERNAME);
+		anotherUserDetails.setPassword(PASSWORD);
+		anotherUserDetails.setEmailAddress(EMAILADDRESS);
+		anotherSdsUser.setFirstName(FIRST_NAME);
+		anotherSdsUser.setLastName(LAST_NAME);
+		anotherSdsUser.setSdsObjectId(ALTERNATE_SDS_USER_ID);
 
-        User emptyUser = (User) this.applicationContext.getBean("user");
-        try {
-            this.userDao.save(emptyUser);
-            fail("expected DataIntegrityViolationException");
-        } catch (DataIntegrityViolationException expected) {
-        }
+		this.userDao.save(anotherUser);
 
-        User partiallyEmptyUser = (User) this.applicationContext
-                .getBean("user");
-        partiallyEmptyUser.setUserDetails(this.userDetails);
-        try {
-            this.userDao.save(partiallyEmptyUser);
-            fail("expected DataIntegrityViolationException");
-        } catch (DataIntegrityViolationException expected) {
-        }
+		try {
+			@SuppressWarnings("unused")
+			User expectedMoreProblem = this.userDao
+					.retrieveByEmailAddress(this.userDetails.getEmailAddress());
+			fail("expected IncorrectResultSizeDataAccessException - more than one user with this email address");
+		} catch (IncorrectResultSizeDataAccessException e) {
+		}
+	}
 
-        partiallyEmptyUser = (User) this.applicationContext.getBean("user");
-        partiallyEmptyUser.setSdsUser(this.sdsUser);
-        try {
-            this.userDao.save(partiallyEmptyUser);
-            fail("expected DataIntegrityViolationException");
-        } catch (DataIntegrityViolationException expected) {
-        }
-    }
+	public void testSave() {
+		verifyDataStoreIsEmpty();
 
-    public void testDelete() {
-        verifyDataStoreIsEmpty();
+		// save the default user object using dao
+		this.userDao.save(this.defaultUser);
 
-        // save and delete the default granted authority object using dao
-        this.userDao.save(this.defaultUser);
-        this.userDao.delete(this.defaultUser);
+		// verify data store contains saved data using direct jdbc retrieval
+		// (not using dao)
+		List actualList = retrieveUserListFromDb();
+		assertEquals(1, actualList.size());
 
-        // * NOTE * must flush to test delete
-        // see http://forum.springframework.org/showthread.php?t=18263 for
-        // explanation
-        this.toilet.flush();
+		Map actualUserMap = (Map) actualList.get(0);
+		assertEquals(USERNAME, actualUserMap
+				.get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase()));
+		assertEquals(PASSWORD, actualUserMap
+				.get(PersistentUserDetails.COLUMN_NAME_PASSWORD.toUpperCase()));
+		assertEquals(FIRST_NAME, actualUserMap
+				.get(SdsUser.COLUMN_NAME_FIRST_NAME.toUpperCase()));
+		assertEquals(LAST_NAME, actualUserMap.get(SdsUser.COLUMN_NAME_LAST_NAME
+				.toUpperCase()));
+		assertEquals(SDS_USER_ID, actualUserMap.get(SdsUser.COLUMN_NAME_USER_ID
+				.toUpperCase()));
 
-        verifyDataStoreIsEmpty();
-    }
+		User emptyUser = (User) this.applicationContext.getBean("user");
+		try {
+			this.userDao.save(emptyUser);
+			fail("expected DataIntegrityViolationException");
+		} catch (DataIntegrityViolationException expected) {
+		}
 
-    private void verifyDataStoreIsEmpty() {
-        assertTrue(retrieveUserListFromDb().isEmpty());
-    }
+		User partiallyEmptyUser = (User) this.applicationContext
+				.getBean("user");
+		partiallyEmptyUser.setUserDetails(this.userDetails);
+		try {
+			this.userDao.save(partiallyEmptyUser);
+			fail("expected DataIntegrityViolationException");
+		} catch (DataIntegrityViolationException expected) {
+		}
 
-    private List retrieveUserListFromDb() {
-        return this.jdbcTemplate.queryForList("select * from "
-                + UserImpl.DATA_STORE_NAME + ", "
-                + PersistentUserDetails.DATA_STORE_NAME + ", "
-                + SdsUser.DATA_STORE_NAME + " where "
-                + UserImpl.DATA_STORE_NAME + "."
-                + UserImpl.COLUMN_NAME_USER_DETAILS_FK + " = "
-                + PersistentUserDetails.DATA_STORE_NAME + ".id and "
-                + UserImpl.DATA_STORE_NAME + "."
-                + UserImpl.COLUMN_NAME_SDS_USER_FK + " = "
-                + SdsUser.DATA_STORE_NAME + ".id;", (Object[]) null);
-    }
-    
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
-     */
-    public void testGetList() {
-        verifyDataStoreIsEmpty();
-        this.userDao.save(this.defaultUser);
-        List expectedList = this.retrieveUserListFromDb();
-        assertEquals(1, expectedList.size());
+		partiallyEmptyUser = (User) this.applicationContext.getBean("user");
+		partiallyEmptyUser.setSdsUser(this.sdsUser);
+		try {
+			this.userDao.save(partiallyEmptyUser);
+			fail("expected DataIntegrityViolationException");
+		} catch (DataIntegrityViolationException expected) {
+		}
+	}
 
-        List<User> actualList = this.userDao.getList();
-        assertEquals(1, actualList.size());
-        assertEquals(this.defaultUser, actualList.get(0));
-   }
+	public void testDelete() {
+		verifyDataStoreIsEmpty();
 
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
-     */ 
-    public void testGetById() {
-       	verifyDataStoreIsEmpty();
-    	User expectedNullUser = this.userDao.getById(new Long(3));
-    	assertNull(expectedNullUser);
-    	
-    	this.userDao.save(this.defaultUser);
-    	List<User> actualList = this.userDao.getList();
-    	UserImpl actualUser = (UserImpl) actualList.get(0);
-    	
-    	UserImpl retrievedByIdUser = (UserImpl) this.userDao.getById(actualUser.getId());
-    	assertEquals(actualUser, retrievedByIdUser);
-     }
+		// save and delete the default granted authority object using dao
+		this.userDao.save(this.defaultUser);
+		this.userDao.delete(this.defaultUser);
+
+		// * NOTE * must flush to test delete
+		// see http://forum.springframework.org/showthread.php?t=18263 for
+		// explanation
+		this.toilet.flush();
+
+		verifyDataStoreIsEmpty();
+	}
+
+	private void verifyDataStoreIsEmpty() {
+		assertTrue(retrieveUserListFromDb().isEmpty());
+	}
+
+	private List retrieveUserListFromDb() {
+		return this.jdbcTemplate.queryForList("select * from "
+				+ UserImpl.DATA_STORE_NAME + ", "
+				+ PersistentUserDetails.DATA_STORE_NAME + ", "
+				+ SdsUser.DATA_STORE_NAME + " where "
+				+ UserImpl.DATA_STORE_NAME + "."
+				+ UserImpl.COLUMN_NAME_USER_DETAILS_FK + " = "
+				+ PersistentUserDetails.DATA_STORE_NAME + ".id and "
+				+ UserImpl.DATA_STORE_NAME + "."
+				+ UserImpl.COLUMN_NAME_SDS_USER_FK + " = "
+				+ SdsUser.DATA_STORE_NAME + ".id;", (Object[]) null);
+	}
+
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
+	 */
+	public void testGetList() {
+		verifyDataStoreIsEmpty();
+		this.userDao.save(this.defaultUser);
+		List expectedList = this.retrieveUserListFromDb();
+		assertEquals(1, expectedList.size());
+
+		List<User> actualList = this.userDao.getList();
+		assertEquals(1, actualList.size());
+		assertEquals(this.defaultUser, actualList.get(0));
+	}
+
+	/**
+	 * Test method for
+	 * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
+	 */
+	public void testGetById() {
+		verifyDataStoreIsEmpty();
+		User expectedNullUser = this.userDao.getById(new Long(3));
+		assertNull(expectedNullUser);
+
+		this.userDao.save(this.defaultUser);
+		List<User> actualList = this.userDao.getList();
+		UserImpl actualUser = (UserImpl) actualList.get(0);
+
+		UserImpl retrievedByIdUser = (UserImpl) this.userDao.getById(actualUser
+				.getId());
+		assertEquals(actualUser, retrievedByIdUser);
+	}
 
 }
