@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.domain.authentication.impl;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,13 +39,16 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name = PersistentAclTargetObject.DATA_STORE_NAME)
-public class PersistentAclTargetObject {
+public class PersistentAclTargetObject implements Serializable {
 
     @Transient
-    public static final String DATA_STORE_NAME = "acl_class";
+    private static final long serialVersionUID = 1L;
 
     @Transient
-    public static final String COLUMN_NAME_CLASSNAME = "class";
+    static final String DATA_STORE_NAME = "acl_class";
+
+    @Transient
+    static final String COLUMN_NAME_CLASSNAME = "class";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

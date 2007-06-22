@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.domain.authentication.impl;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,16 +49,19 @@ import org.acegisecurity.userdetails.UserDetails;
 @Table(name = PersistentAclSid.DATA_STORE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = {
         PersistentAclSid.COLUMN_NAME_SID,
         PersistentAclSid.COLUMN_NAME_IS_PRINCIPAL }) })
-public class PersistentAclSid implements Sid {
+public class PersistentAclSid implements Sid, Serializable {
 
     @Transient
-    public static final String DATA_STORE_NAME = "acl_sid";
+    private static final long serialVersionUID = 1L;
 
     @Transient
-    public static final String COLUMN_NAME_IS_PRINCIPAL = "principal";
+    static final String DATA_STORE_NAME = "acl_sid";
 
     @Transient
-    public static final String COLUMN_NAME_SID = "sid";
+    static final String COLUMN_NAME_IS_PRINCIPAL = "principal";
+
+    @Transient
+    static final String COLUMN_NAME_SID = "sid";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
