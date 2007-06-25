@@ -58,8 +58,8 @@
 <li> <spring:message code="login.username-tip" /></li>
 </ul>
 </div>
-
-<div id="verticalNavigation" class="north center">
+<!--  
+<div id="navigation" class="north center">
 <ul>
 <li class="space1">
 <a href="registerstudent.html"> 
@@ -87,6 +87,6 @@
 </ul>
  
 </div>
-
+-->
 </body>
 </html>
