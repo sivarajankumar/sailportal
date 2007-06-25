@@ -68,6 +68,10 @@
 	top:0.5em;	
 }
 
+#north{
+	position:relative;
+	top:-29.5em;
+}
 .south{
 	position:relative;
 	top:7em;
@@ -279,6 +283,10 @@
 	right:-33.5em;
 }
 
+.right4{
+	position:relative;
+	right:-47em;
+}
 
 .heading{
 	font-weight: bold;
