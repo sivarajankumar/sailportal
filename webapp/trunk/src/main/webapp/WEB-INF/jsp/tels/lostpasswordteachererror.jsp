@@ -32,13 +32,15 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>errror rororrorororo ${username}</h1>
+<h1>${someValue} <spring:message code="lostpassword.teacher.error"/></h1>
 
 <div id="columns">
 <div id="left">
 </div>
 
-test error
+<a href="lostpasswordteachermain.html">go back</a>
+<a href="index.html">go home homey</a>
+<a href="">contact wise</a>
 </div>
 
 

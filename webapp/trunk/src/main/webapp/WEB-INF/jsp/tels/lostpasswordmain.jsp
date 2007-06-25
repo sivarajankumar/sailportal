@@ -39,10 +39,10 @@
 </div>
 
 <div id="right">
-<spring:message code="lostpassword.are-you-a" /><a href="lostpasswordteacher.html"><spring:message code="lostpassword.teacher" /></a>?<br />
+<spring:message code="lostpassword.are-you-a" /><a href="lostpasswordteachermain.html"><spring:message code="lostpassword.teacher" /></a>?<br />
 <br />
 <br />
-<spring:message code="lostpassword.are-you-a" /><a href="lostpasswordstudent.html"><spring:message code="lostpassword.student" /></a>?<br /></div>
+<spring:message code="lostpassword.are-you-a" /><a href="lostpasswordstudentmain.html"><spring:message code="lostpassword.student" /></a>?<br /></div>
 </div>
 
 

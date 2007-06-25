@@ -57,6 +57,7 @@
 <li><a href="#"><spring:message code="wise.overview" /></a></li>
 <li><a href="#"> <spring:message code="wise.preview" /></a> </li>
 <li><a href="#"> <spring:message code="wise.commonQs" /></a></li>
+<li><a href="lostpasswordmain.html"><spring:message code="wise.password" /></a></li>
 <li><a href="register.html"><b><spring:message code="joinwise" /></b></a></li>
 </ul>
 </div>
@@ -82,7 +83,7 @@
 
 </form:form>
 </div>
- 
+
 <div class="bgcolorLightBlue north_1 border widthAdj4">
 <ul class="none">
 <li class="heading4"><spring:message code="wise.inAction" /></li>
