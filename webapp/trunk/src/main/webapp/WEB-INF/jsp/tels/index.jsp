@@ -39,9 +39,9 @@
 
 <!-- Support for Spring errors object -->
 
-<div id="columns" class="bgcolorLightBlue border">
-
+<div id="outerDiv" >
 <div id="headRows" class="bgcolorLightBlue">
+
 <ul class="intropos">
 <li class="heading2"><spring:message code="wise.welcome" /></li>
 <li class="heading2 positionAdj3"><spring:message code="wise.signIn" /></li>
@@ -61,97 +61,26 @@
 <li><a href="register.html"><b><spring:message code="joinwise" /></b></a></li>
 </ul>
 </div>
-<div id="verticalNavigation" class="border bgColorLightBlue widthAdj2 positionAdj5 heightAdj1">
-<form:form id="home" method="post" action="j_acegi_security_check">
-<ul class="bgcolorLightBlue south_1">
-<li class="login">
-<label for="username" class="login">
-<spring:message code="login.username" />
-</label>
-<input type="text" size="20" />
-</li>
 
-<li class="login">
-<label for="password" class="login">
-<spring:message code="login.password" />
-</label>
-<input type="password" size="20" />
-</li>
-
-<li class="right"><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
+<div id="headRows" class="bgcolorLightBlue widthAdj4">
+<ul class="none north6">
+<li class="space"><spring:message code="wise.inAction" /></li>
+<li class="space"><spring:message code="wise.testimonials" /></li>
+<li class="space"><spring:message code="wise.latestNews" /></li>
 </ul>
-
-</form:form>
 </div>
 
-<div class="bgcolorLightBlue north_1 border widthAdj4">
+<div id="headRows" class="bgcolorLightBlue widthAdj4">
 <ul class="none">
-<li class="heading4"><spring:message code="wise.inAction" /></li>
-<li><img class="widthAdj1"  id=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg" /></li>
-<li><img class="dynamicImage marginAdj1" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
-onmouseover="this.style.cursor='pointer';" 
-onclick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" />
-
-<img class="dynamicImage marginAdj1" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
-onmouseover="this.style.cursor='pointer';" 
-onclick="firstRClicked=setRClicked();oldCtr=counter;counter=proceedToNextImage(firstRClicked,counter);"
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" />
-</li>
-
-</ul>
-</div>
-
-<div class="bgcolorLightBlue border widthAdj4">
-<ul>
-<li class="heading4"><spring:message code="wise.testimonials" /></li>
-<li><img class="marginAdj1 widthAdj1 positionAdj2 border" id=rotatorT src="./themes/tels/default/images/wiseInAction/dummyfile.jpg" /> </li>
-
-
-</ul>
-</div>
-
-
-
-<!--  
-<div class="bgcolorLightBlue">
-<ul class="border">
-<li class="heading4 north_1 left1"><spring:message code="wise.inAction" /></li>
-<li><img class="left1 marginAdj1 widthAdj1 positionAdj1 border"  id=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg" /></li>
-<li><img class="dynamicImage marginAdj1" id="imgPos1" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
-onmouseover="this.style.cursor='pointer';" 
-onclick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" />
-
-<img class="dynamicImage marginAdj1" id="imgPos2" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
-onmouseover="this.style.cursor='pointer';" 
-onclick="firstRClicked=setRClicked();oldCtr=counter;counter=proceedToNextImage(firstRClicked,counter);"
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" />
+<li id="imgPos5" class="space1"><img id="rotator" class="widthAdj1 border"  src="./themes/tels/default/images/wiseInAction/AirBag.jpg" /></li>
+<li id="imgPos6" class="space1"><img id="rotatorT" class="widthAdj1 border" src="./themes/tels/default/images/wiseInAction/dummyfile.jpg" />
+ </li>
+<li class="space1 widthAdj1" id="imgPos7">
+<textarea rows=15 cols=25>
+<spring:message code="wise.newsMessage" />
+</textarea>
 </li>
 </ul>
-</div>
-
-
-
-<div id="navigation" class="bgcolorLightBlue">
-<ul class="southHeading">
-<li class="heading4"><spring:message code="wise.inAction" /></li>
-<li class="heading4"><spring:message code="wise.testimonials" /></li>
-<li class="heading4"><spring:message code="wise.latestNews" /></li>
-</ul>
-
-<div class="inline bgcolorLightBlue">
-<img class="marginAdj1 widthAdj1 positionAdj1 border"  id=rotator src="./themes/tels/default/images/wiseInAction/AirBag.jpg" />
-<img class="marginAdj1 widthAdj1 positionAdj2 border" id=rotatorT src="./themes/tels/default/images/wiseInAction/dummyfile.jpg" /> 
-<b class="marginAdj1 widthAdj1 positionAdj4 border"> news </b> 
 </div>
 
 <div class="inline bgcolorLightBlue">
@@ -182,20 +111,32 @@ onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;counter_T=proceedToN
 onmousedown="this.style.cursor='pointer';" 
 onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" />
-
-
-
-
-
-
-
 </div>
 
-</div>
--->
+
+<form:form id="home" method="post" action="j_acegi_security_check">
+<ul id="verticalNavigation" class="none bgcolorLightBlue border north4 right3 widthAdj2">
+<li class="login">
+<label for="username" class="login">
+<spring:message code="login.username" />
+</label>
+<input type="text" size="20" />
+</li>
+<li class="login">
+<label for="password" class="login">
+<spring:message code="login.password" />
+</label>
+<input type="password" size="20" />
+</li>
+<li class="right"><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
+
+</ul>
+
+</form:form>
 
 
 </div>
 
 </body>
 </html>
+
