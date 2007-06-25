@@ -35,12 +35,12 @@
 
 .north_1{
 	position:relative;
-	top:-20em;
+	top:-16em;
 }
 
 .north_2{
 	position:relative;
-	top:-40em;
+	top:2em;
 }
 
 .north2{
@@ -50,17 +50,22 @@
 
 .north3{
 	position:relative;
-	top:-30em;
+	top:-42.5em;
 }
 
 .north4{
 	position:relative;
-	top:-1.5em;
+	top:-22.5em;
 }
 
 .north5{
 	position:relative;
-	top: -22.5em;
+	top: -18.5em;
+}
+
+.north6{
+	position:relative;
+	top:0.5em;	
 }
 
 .south{
@@ -123,14 +128,26 @@
 	background-color:#AFDCEC;
 }
 
+.bgColorYellow{
+	background-color:rgb(255,255,0);
+}
+
 .blackColor {color:#000000;}
 .blueColor {color:#0066CC}
+
+.borderBottom{
+	border-bottom:0em;
+}
 
 .welcome1{	
 	background-color: blue;
 	margin: 0em;
 	padding: 0em;
 	border: 0em 0em 0em 0em;
+}
+
+.padding1{
+	padding: 2em;
 }
 
 .marginAdj1{
@@ -149,6 +166,10 @@
 	margin:-2em -10em 0em 40em;	
 }
 
+.heightAdj1{
+	height:5em;	
+}
+
 .widthAdj0{
 	width: 8em;
 }
@@ -162,7 +183,7 @@
 }
 
 .widthAdj2{
-    width:16em;
+    width:15.5em;
 }
 .widthAdj3{
 	width:33em;	
@@ -172,8 +193,12 @@
 	width:48.5em;	
 }
 
+.widthAdj5{
+	width:18em;	
+}
+
 .heightAdj1{
-	height:17.5em;
+	height:19.5em;
 }
 
 .positionAdj1{
@@ -210,8 +235,16 @@
 	font-size:0.8em;
 }
 
+.medFont{
+	font-size:1.0em;
+}
+
 .bigFont1{
 	font-size: 1.2em;
+}
+
+.bigFont2{
+	font-size:2.0em;
 }
 
 #spacing{
@@ -230,10 +263,22 @@
 	position:relative;
 	left:-0.5em;
 }
+
 .right1{
 	position:relative;
-	right:-13em;
+	right:-10em;
 }
+
+.right2{
+	position:relative;
+	right:-12.5em;
+}
+
+.right3{
+	position:relative;
+	right:-33.5em;
+}
+
 
 .heading{
 	font-weight: bold;
@@ -265,10 +310,17 @@
 	font-weight: bold;
 }
 
+.specialPadding{
+	padding: 4em 0em 4em 0em;	
+}
+
 body {
     background-color: white;
 }
 
+a.none{
+  text-decoration:none;	
+}
 label{
 width: 8em;
 float: left;
@@ -279,10 +331,10 @@ display: block;
 }
 
 label.login{
-	width:3.5em;
+	width:4.45em;
 	text-align:left;
 	margin:0em;
-	margin-right:0.63em;
+	margin-right:0.83em;
 	display:block;
 
 }
@@ -510,6 +562,10 @@ font-family:arial,sans-serif;
 	background-color: #99AAFF;
 }
 
+#navigation li.space1{
+	line-height:2em;
+}
+
 #verticalNavigation{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.2em;	
@@ -536,12 +592,12 @@ font-family:arial,sans-serif;
 #verticalNavigation li {
     padding: 0em;
     margin: 1.3em;
-    line-height:1.3em;
+    line-height:1.9em;
 }
 
 #verticalNavigation li.login{
 	margin: 0.5em;
-	line-height:1.3em;	
+	line-height:1.5em;	
 }
 
 #verticalNavigation li.space1{
@@ -553,10 +609,6 @@ font-family:arial,sans-serif;
 	color: green;
 	background-color: grey;
 	text-decoration: none;
-	border-top: .1em solid black;
-	border-left: .1em solid black;
-	border-bottom: .1em solid grey;
-	border-right: .1em solid grey;	
 }
 
 
@@ -570,6 +622,22 @@ font-family:arial,sans-serif;
 	padding: 4em;
 }
 
+#headRows li.space{
+	display:inline;
+	margin:0em;
+	padding: 1.5em;	
+	font-size: 1.6em;
+	font-variant: small-caps;
+	background-color: transparent;
+}
+
+#headRows li.space1{
+	display:inline;
+	margin:-1em;
+	padding: 1em;	
+	background-color: transparent;
+}
+
 #headRows ul.intropos{
 	position:absolute;
 	left:-7.5em;
@@ -579,31 +647,65 @@ font-family:arial,sans-serif;
 }
 
 
-
 #imgPos1{
 	position:absolute;
-	top:40em;	
-	left:5em;
+	top:48em;	
+	left:8em;
 }
 
 #imgPos2{
 	position:absolute;
-	top:40em;	
-	left:7em;
+	top:48em;	
+	left:10em;
 }
 
 #imgPos3{
 	position:absolute;
-	top:40em;	
-	left:20em;
+	top:48em;	
+	left:28em;
 }
 
 #imgPos4{
 	position:absolute;
-	top:40em;	
-	left:22em;
+	top:48em;	
+	left:30em;
 }
 
+#imgPos5{
+	position:absolute;
+	top:28em;
+	left:4em;
+}
+
+#imgPos6{
+	position:absolute;
+	top:28em;
+	left:20em;
+}
+
+#imgPos7{
+	position:absolute;
+	top:28em;
+	left:35em;
+}
+
+.imgPos8{
+	position:absolute;
+	top:2em;
+	left:0em;
+}
+
+.imgPos9{
+	position:relative;
+	top:-16.6em;
+	left:17em;
+}
+
+.imgPos10{
+	position:relative;
+	top:-37.6em;
+	left:34em;
+}
 
 .heading{
 font-weight: bold;
@@ -637,7 +739,9 @@ top: -1.7em;
 }
 
 
-
+#outerDiv{
+	height:25em;
+}
 .pandaAlign{
 	position: relative;
 	top: -5em;
