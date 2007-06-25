@@ -37,7 +37,7 @@
 <h2 class="center"><spring:message code="register.new-account" /></h2>
 <h2 class="center"><spring:message code="register.type-of-account" /></h2>
 </div>
-<div id="navigation" class="center">
+<div id="navigation" class="center north">
 <ul>
 <li class="vertical"><spring:message code="register.create-student-account" />
 <a href="registerstudent.html"> <spring:message code="signup.studentAccount" /> </a>
@@ -49,8 +49,8 @@
 </div>
 
 <div id="spacing" class="north center border">
-<h4 align="left"> <spring:message code="register.which-account" /> </h4>
-<ul align="left">
+<h4 class="left"> <spring:message code="register.which-account" /> </h4>
+<ul class="left">
 <li> <spring:message code="register.student-account-desc" /></li>
 <li> <spring:message code="register.teacher-account-desc" /></li>
 </ul>
