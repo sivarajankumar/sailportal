@@ -57,7 +57,6 @@
 <li><a href="#"><spring:message code="wise.overview" /></a></li>
 <li><a href="#"> <spring:message code="wise.preview" /></a> </li>
 <li><a href="#"> <spring:message code="wise.commonQs" /></a></li>
-<li><a href="lostpasswordmain.html"><spring:message code="forgotten.username-or-password" /></a></li>
 <li><a href="register.html"><b><spring:message code="joinwise" /></b></a></li>
 </ul>
 </div>
@@ -129,9 +128,11 @@ onmouseout="this.style.cursor='default';" />
 <input type="password" size="20" />
 </li>
 <li class="right"><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
-
+<li></li>
 </ul>
-
+<a href="#" id="north" class="bgcolorLightBlue right4 widthAdj2">
+<spring:message code="forgotten.username-or-password" /> 
+</a>
 </form:form>
 
 
