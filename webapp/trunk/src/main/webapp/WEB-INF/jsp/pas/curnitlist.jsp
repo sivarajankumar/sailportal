@@ -32,13 +32,11 @@
 <%@ include file="header.jsp"%>
 
 <div id="columns">
-<div id="left"><%@ include file="logout.jsp"%>
-	<a href="offeringlist.html"><spring:message code="offerings.list" /></a><br />
+<div id="left">
+<%@ include file="menu.jsp" %>
 </div>
 
 <div id="right">
-<h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
-
 <display:table name="${curnitlist}" id="curnit">
   <display:column titleKey="curnit.numbering.heading">
     <c:out value="${curnit_rowNum}" />

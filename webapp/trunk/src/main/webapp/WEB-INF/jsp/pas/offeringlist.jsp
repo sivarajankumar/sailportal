@@ -34,11 +34,9 @@
 <div id="columns">
 <div id="left">
 <%@ include file="menu.jsp" %>
-<%@ include file="logout.jsp"%>
 </div>
 
 <div id="right">
-<h2><spring:message code="hello" /> ${user.userDetails.username}</h2>
 <table border="1">
   <thead>
     <tr>

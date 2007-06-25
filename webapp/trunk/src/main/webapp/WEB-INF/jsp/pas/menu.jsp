@@ -18,5 +18,12 @@
 -->
 
 <!-- $Id: -->
+<spring:message code="hello" /> <authz:authentication operation="username" />
+<ul>
+<li><a href="offeringlist.html"><spring:message code="offerings.list" /></a></li>
+<li><a href="groupmanagement.html"> <spring:message code="group.management" /></a></li>
+</ul>
+<form action="<c:url value="/j_acegi_logout"/>" method="POST">
+  <input type="submit" value="<spring:message code="log.out" />"/>
+ </form><br />
 
-    <a href="groupmanagement.html"> <spring:message code="group.management" /></a>
