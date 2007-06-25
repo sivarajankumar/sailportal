@@ -47,8 +47,7 @@
 <li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
-</ul>
-<br />
+</ul><br />
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /> </h2>
 <p class="bigFont1 north0"> <spring:message code="teacher.setup-run-six-steps" /> </p>
 <h3 class="north0"> <spring:message code="teacher.tips-project-runs" /> </h3>
