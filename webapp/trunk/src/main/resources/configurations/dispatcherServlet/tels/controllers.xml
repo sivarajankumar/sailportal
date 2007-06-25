@@ -101,4 +101,13 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentUsernameController"/>		
 		<bean id="lostPasswordTeacherErrorController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherErrorController"/>			
+
+	<bean id="enterProjectCodeController" 
+			class="org.telscenter.sail.webapp.presentation.web.controllers.EnterProjectCodeController"/>		
+	
+	<bean id="studentArchivedProjectsController"
+			class="org.telscenter.sail.webapp.presentation.web.controllers.StudentArchivedProjectsController" />
+
+	<bean id="teamSignInController"
+			class="org.telscenter.sail.webapp.presentation.web.controllers.TeamSignInController" />
 </beans>
