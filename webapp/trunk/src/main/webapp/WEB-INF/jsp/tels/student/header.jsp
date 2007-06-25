@@ -23,6 +23,18 @@
  
 <!-- $Id$ -->
 
-<div id="banner">
-	<img src="../<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
+<div id="banner" class="welcome1">
+	<img src="<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
+
+	<div class="center heading" ><spring:message code="wise.banner.student" />
+	</div>
+	<div class="right pandaAlign">	<img src="<spring:theme code="panda"/>" alt="<spring:message code="wise.banner.panda.alttext" />" />
+	</div>
+    <div>
+    <p class="userinfo">
+    Hi
+	<authz:authentication operation="username" />
+	</p>
+	<p class="userlogout"> <%@ include file="../logout.jsp"%> </p>
+	</div>
