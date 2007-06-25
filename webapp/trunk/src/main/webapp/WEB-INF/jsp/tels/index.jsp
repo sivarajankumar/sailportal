@@ -57,7 +57,7 @@
 <li><a href="#"><spring:message code="wise.overview" /></a></li>
 <li><a href="#"> <spring:message code="wise.preview" /></a> </li>
 <li><a href="#"> <spring:message code="wise.commonQs" /></a></li>
-<li><a href="lostpasswordmain.html"><spring:message code="wise.password" /></a></li>
+<li><a href="lostpasswordmain.html"><spring:message code="forgotten.username-or-password" /></a></li>
 <li><a href="register.html"><b><spring:message code="joinwise" /></b></a></li>
 </ul>
 </div>
