@@ -1,60 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    * Copyright (c) 2007 Encore Research Group, University of Toronto
-    * 
-    * This library is free software; you can redistribute it and/or
-    * modify it under the terms of the GNU Lesser General Public
-    * License as published by the Free Software Foundation; either
-    * version 2.1 of the License, or (at your option) any later version.
-    *
-    * This library is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    * Lesser General Public License for more details.
-    *
-    * You should have received a copy of the GNU Lesser General Public
-    * License along with this library; if not, write to the Free Software
-    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+	* Copyright (c) 2007 Encore Research Group, University of Toronto
+	* 
+	* This library is free software; you can redistribute it and/or
+	* modify it under the terms of the GNU Lesser General Public
+	* License as published by the Free Software Foundation; either
+	* version 2.1 of the License, or (at your option) any later version.
+	*
+	* This library is distributed in the hope that it will be useful,
+	* but WITHOUT ANY WARRANTY; without even the implied warranty of
+	* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	* Lesser General Public License for more details.
+	*
+	* You should have received a copy of the GNU Lesser General Public
+	* License along with this library; if not, write to the Free Software
+	* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
 <!-- $Id$ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:util="http://www.springframework.org/schema/util"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-    <!-- Custom controllers -->
+	<!-- Custom controllers -->
 
-    <bean id="studentUserDetailsValidator"
-        class="org.telscenter.sail.webapp.presentation.validators.StudentUserDetailsValidator" />
+	<bean id="studentUserDetailsValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.StudentUserDetailsValidator" />
 
-    <bean id="teacherUserDetailsValidator"
-        class="org.telscenter.sail.webapp.presentation.validators.TeacherUserDetailsValidator" />
-        
-     <bean id="lostTeacherValidator"
-        class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" />
+	<bean id="teacherUserDetailsValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.TeacherUserDetailsValidator" />
 
-    <bean
+	<bean id="lostTeacherValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" />
+		
+	<bean id="lostPasswordStudentUsernameValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentUsernameValidator" />
+	
+
+	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
 
-    <bean id="teacherIndexController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController" />
-    
-    <bean id="registerController" 
-        class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterController" />
+	<bean id="teacherIndexController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController" />
 
-    <bean id="countriesController" 
-        class="org.telscenter.sail.webapp.presentation.web.controllers.CountriesController" />
+	<bean id="registerController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterController" />
 
-    <bean id="statesController" 
-        class="org.telscenter.sail.webapp.presentation.web.controllers.StatesController" />
+	<bean id="countriesController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.CountriesController" />
 
-    <bean id="helpController" 
-        class="org.telscenter.sail.webapp.presentation.web.controllers.HelpController" />
-    
-    <bean id="indexController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
+	<bean id="statesController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.StatesController" />
+
+	<bean id="helpController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.HelpController" />
+
+	<bean id="indexController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
 
 	<bean id="setupRun1Controller"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun1Controller" />
@@ -76,24 +80,78 @@
 
 	<bean id="setupRun7Controller"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun7Controller" />
-		    
-    <bean id="lostPasswordMainController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController"/>
+
+	<bean id="lostPasswordMainController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController" />
+
+	<bean id="lostPasswordTeacherMainController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherMainController">
+		<property name="userService" ref="userService" />
+		<property name="commandName" value="userDetails" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
+		<property name="validator" ref="lostTeacherValidator" />
+		<property name="formView" value="lostpasswordteachermain" />
+		<property name="successView"
+			value="lostpasswordteacherresult" />
+	</bean>
+
+	<bean id="lostPasswordTeacherErrorController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherErrorController" />
+
+	<bean id="lostPasswordStudentMainController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentMainController" />
+
+	<bean id="lostPasswordStudentPasswordController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordController" />
 		
-	<bean id="lostPasswordTeacherController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherController">	
-		     <property name="userService" ref="userService" />
-        <property name="commandName" value="userDetails" />
-        <property name="commandClass"
-            value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
-       <property name="validator" ref="lostTeacherValidator" />
-       <property name="formView" value="lostpasswordteacher" />
-       <property name="successView" value="lostpasswordteacherresult.html" />
-    </bean>
-    
-	<bean id="lostPasswordStudentController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentController"/>	
+	<bean id="lostPasswordStudentUsernameController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentUsernameController" />	
 		
+	<bean id="lostPasswordTeacherResultController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherResultController" />	
+		
+		
+	<bean id="lostPasswordStudentProjectCodeController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentProjectCodeController">
+	
+		<property name="userService" ref="userService" />
+		
+		<property name="commandName" value="userDetails" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
+		<property name="validator" ref="lostTeacherValidator" />
+	
+		<property name="formView" value="lostpasswordstudentprojectcode" />
+		<property name="successView"
+			value="lostpasswordstudentprojectcoderesult.html" />
+	</bean>
+	
+	
+	<bean id="lostPasswordStudentPasswordReminder1Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordReminder1Controller">
+		<property name="userService" ref="userService" />
+		<property name="commandName" value="userDetails" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
+		<property name="validator" ref="lostPasswordStudentUsernameValidator" />
+		<property name="formView" value="lostpasswordstudentpasswordreminder1" />
+		<property name="successView"
+			value="lostpasswordstudentpasswordreminder2.html" />
+	</bean>
+	
+	<bean id="lostPasswordStudentPasswordReminder2Controller"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordReminder2Controller">
+		<property name="userService" ref="userService" />
+		<property name="commandName" value="userDetails" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
+		<property name="validator" ref="lostPasswordStudentUsernameValidator" />
+		<property name="formView" value="lostpasswordstudentpasswordreminder2" />
+		<property name="successView"
+			value="lostpasswordstudentpasswordreminder3.html" />
+	</bean>
+	
 	<bean id="findStudentPasswordController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentPasswordController"/>	
 
