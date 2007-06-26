@@ -29,12 +29,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * Controller for lost password teacher
+ * looks up the username for student lost password
  *
  * @author Anthony Perritano
  * @version
  */
-public class LostPasswordStudentController extends AbstractController {
+public class LostPasswordStudentUsernameController extends AbstractController {
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)

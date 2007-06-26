@@ -20,9 +20,8 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers;
 
-import java.util.Random;
+package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -37,17 +38,15 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
- * Controller for lost password teacher
- * 
+ * Step 1 of the student password reminder
+ *
  * @author Anthony Perritano
- * @version
+ * @version $Id: $
  */
-public class LostPasswordTeacherController extends SimpleFormController {
-
+public class LostPasswordStudentPasswordReminder1Controller  extends SimpleFormController{
 	protected UserService userService = null;
-
 	/**
-	 * gets the information by username or email
+	 * submits the page
 	 * 
 	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
@@ -57,51 +56,35 @@ public class LostPasswordTeacherController extends SimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
+		
 		MutableUserDetails userDetails = (MutableUserDetails) command;
 
+		String username = null;
 		try {
 
-			if( userDetails.getUsername() != null ) {
+			username = StringUtils.trimToNull(userDetails.getUsername());
+			if (username != null) {
 
-				User user = userService.retrieveUserByUsername(userDetails.getUsername());
-//				
-				if (user == null) {
-					ModelAndView modelAndView = new ModelAndView("lostpasswordteachererror");
-					modelAndView.addObject("username",  userDetails.getUsername());
-					return modelAndView;
-				}
-//				// generate a new password
-//				// set it on the userobject
-//				user.getUserDetails().setPassword(generateRandomPassword());
-//
-//				userService.updateUser(user);
-				// update the user in the db
-				// send an email
+				ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));
+				modelAndView.addObject("user", username);
+				return modelAndView;
+//				User user = userService.retrieveUserByUsername(userDetails
+//						.getUsername());
+			}// if
+		} catch (EmptyResultDataAccessException e) {
+				errors.rejectValue("username", "error.username-not-found",
+	                    new Object[] { userDetails.getUsername() },
+	                    "Username not found");
+	            return showForm(request, response, errors);
 
-			} else if( userDetails.getEmailAddress() != null ) {
-				
-				User user = userService.retrieveUser(userDetails);
-				
-				if (user == null) {
-					errors.rejectValue("username", "error.duplicate-username",
-							new Object[] { userDetails.getUsername() },
-							"username not found try a different");
-					return showForm(request, response, errors);
-				}
-			} 
-
-			// get the fields
-			// call user service getUserDetails
 		} catch (Exception e) {
 			e.printStackTrace();
-			errors.rejectValue("username", "error.duplicate-username",
-					new Object[] { userDetails.getUsername() },
-					"Duplicate Username.");
 			return showForm(request, response, errors);
-		}
+		}// try
+		
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
-
+	
 	/**
 	 * Sets the userDetailsService object.
 	 * 
@@ -110,14 +93,4 @@ public class LostPasswordTeacherController extends SimpleFormController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
-	public static String generateRandomPassword() {
-		Random rnd = new Random();
-		return Integer.toString( rnd.nextInt(), 27 );
-	}
-
-	public static void main(String[] args) {
-		System.out.println("New Password: " + generateRandomPassword());
-	}
-
 }

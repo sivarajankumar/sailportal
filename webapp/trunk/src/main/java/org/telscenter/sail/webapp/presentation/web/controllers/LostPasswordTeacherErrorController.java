@@ -29,6 +29,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+/**
+ * 
+ * displays error message for teacher lost password
+ *
+ * @author Anthony Perritano
+ * @version $Id: $
+ */
 public class LostPasswordTeacherErrorController extends AbstractController {
 	
 	/** 

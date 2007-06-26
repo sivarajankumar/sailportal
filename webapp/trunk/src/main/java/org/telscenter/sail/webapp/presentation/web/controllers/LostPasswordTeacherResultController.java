@@ -20,6 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,24 +30,17 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * Controller for lost password
+ * displays the result of the teacher username password
  *
  * @author Anthony Perritano
- * @version
+ * @version $Id$
  */
-public class FindStudentPasswordController extends AbstractController {
+public class LostPasswordTeacherResultController extends AbstractController {
 
-	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
-
-		ModelAndView modelAndView = new ModelAndView();
-
-        return modelAndView;
+		return new ModelAndView();
 	}
 
 }
