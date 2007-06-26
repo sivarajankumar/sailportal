@@ -50,7 +50,7 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
      */
     public User retrieveByUserDetails(UserDetails userDetails) {
         return (User) DataAccessUtils
-                .requiredUniqueResult(this
+                .uniqueResult(this
                         .getHibernateTemplate()
                         .findByNamedParam(
                                 "from UserImpl as user where user.userDetails = :userDetails",
