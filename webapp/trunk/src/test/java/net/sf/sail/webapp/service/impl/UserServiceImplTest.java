@@ -34,7 +34,7 @@ import org.acegisecurity.providers.dao.SaltSource;
 import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.acegisecurity.userdetails.UserDetails;
 import org.easymock.EasyMock;
-import org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherController;
+import org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherMainController;
 
 /**
  * @author Cynick Young
@@ -94,7 +94,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		
 		PersistentUserDetails actualUserDetails = (PersistentUserDetails) actual;
 		
-		String newPassword = LostPasswordTeacherController.generateRandomPassword();
+		String newPassword = LostPasswordTeacherMainController.generateRandomPassword();
 		actualUserDetails.setPassword(newPassword);
 		
 		expectedUser.setUserDetails(actualUserDetails);
