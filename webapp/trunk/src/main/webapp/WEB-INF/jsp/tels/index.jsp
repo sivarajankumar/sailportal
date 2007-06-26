@@ -130,7 +130,7 @@ onmouseout="this.style.cursor='default';" />
 <li class="right"><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
 <li></li>
 </ul>
-<a href="#" id="north" class="bgcolorLightBlue right4 widthAdj2">
+<a href="lostpasswordmain.html" id="north" class="bgcolorLightBlue right4 widthAdj2">
 <spring:message code="forgotten.username-or-password" /> 
 </a>
 </form:form>
