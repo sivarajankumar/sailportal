@@ -20,7 +20,6 @@ package net.sf.sail.webapp.presentation.web.controllers;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.reset;
 import static org.easymock.EasyMock.verify;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,8 +48,6 @@ import org.springframework.web.servlet.view.RedirectView;
 public class SignupControllerTest extends AbstractModelAndViewTests {
 
 	private static final String USERNAME = "User";
-
-	private static final String PASSWORD = "Pass";
 
 	private static final String SUCCESS = "WooHoo";
 
@@ -89,10 +86,7 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 		replay(mockUserService);
 
 		userDetails.setUsername(USERNAME);
-		request.addParameter("username", USERNAME);
-		request.addParameter("password", PASSWORD);
 		SignupController signupController = new SignupController();
-		signupController.setApplicationContext(mockApplicationContext);
 		signupController.setUserService(mockUserService);
 		signupController.setSuccessView(SUCCESS);
 		ModelAndView modelAndView = signupController.onSubmit(request,
@@ -101,32 +95,40 @@ public class SignupControllerTest extends AbstractModelAndViewTests {
 		assertTrue(modelAndView.getView() instanceof RedirectView);
 		assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
 		verify(mockUserService);
+	}
+	
+	public void testOnSubmitDuplicateUsernameException() throws Exception {
 
 		// test submission of form with same username and password info which
 		// would result in DuplicateUsernameException being thrown. Should get
 		// back ModelAndView with original form returned with name of Form View
 		// as set.
-		reset(mockUserService);
-		expect(mockUserService.createUser(userDetails)).andThrow(
+		expect(mockUserService.createUser(this.userDetails)).andThrow(
 				new DuplicateUsernameException(userDetails.getUsername()));
 		replay(mockUserService);
 
+		SignupController signupController = new SignupController();
+		signupController.setUserService(mockUserService);
 		signupController.setFormView(FORM);
-		modelAndView = signupController.onSubmit(request, response,
+		ModelAndView modelAndView = signupController.onSubmit(request, response,
 				userDetails, errors);
 
 		assertViewName(modelAndView, FORM);
 		assertEquals(1, errors.getErrorCount());
 		assertEquals(1, errors.getFieldErrorCount("username"));
 		verify(mockUserService);
+		
+	}
 
+	public void testOnSubmitRuntimeException() throws Exception {
 		// test submission of form where RuntimeException is thrown.
 		// should catch a RuntimeException
-		reset(mockUserService);
 		expect(mockUserService.createUser(userDetails)).andThrow(
 				new RuntimeException());
 		replay(mockUserService);
-		signupController.setFormView(FORM);
+		SignupController signupController = new SignupController();
+		signupController.setUserService(mockUserService);
+
 		try {
 			signupController.onSubmit(request, response, userDetails, errors);
 			fail("Expected RuntimeException but it never happened.");
