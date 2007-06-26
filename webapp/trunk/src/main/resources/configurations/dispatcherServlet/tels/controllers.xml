@@ -152,14 +152,7 @@
 			value="lostpasswordstudentpasswordreminder3.html" />
 	</bean>
 	
-	<bean id="findStudentPasswordController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentPasswordController"/>	
-
-	<bean id="findStudentUsernameController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.FindStudentUsernameController"/>		
-		<bean id="lostPasswordTeacherErrorController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherErrorController"/>			
-
+	
 	<bean id="enterProjectCodeController" 
 			class="org.telscenter.sail.webapp.presentation.web.controllers.EnterProjectCodeController"/>		
 	
