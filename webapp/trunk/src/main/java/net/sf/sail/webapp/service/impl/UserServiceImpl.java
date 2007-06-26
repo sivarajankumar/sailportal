@@ -99,15 +99,33 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * @param passwordEncoder
+	 *            the passwordEncoder to set
+	 */
+	@Required
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	/**
+	 * @param saltSource
+	 *            the saltSource to set
+	 */
+	@Required
+	public void setSaltSource(SaltSource saltSource) {
+		this.saltSource = saltSource;
+	}
+
+	/**
 	 * @see net.sf.sail.webapp.service.UserService#retrieveUser(org.acegisecurity.userdetails.UserDetails)
 	 */
 	@Transactional(readOnly = true)
 	public User retrieveUser(UserDetails userDetails) {
 		return this.userDao.retrieveByUserDetails(userDetails);
 	}
-	
+
 	/**
-	 * @see 
+	 * @see net.sf.sail.webapp.service.UserService#retrieveUserByEmailAddress(java.lang.String)
 	 */
 	@Transactional(readOnly = true)
 	public User retrieveUserByEmailAddress(String emailAddress) {
@@ -115,7 +133,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * @see 
+	 * @see net.sf.sail.webapp.service.UserService#retrieveUserByUsername(java.lang.String)
 	 */
 	@Transactional(readOnly = true)
 	public User retrieveUserByUsername(String username) {
@@ -123,18 +141,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-     * @see interface
-     */
-	public User updateUser(final User user)
-			throws BadRequestException, NetworkTransportException {
+	 * @see net.sf.sail.webapp.service.UserService#updateUser(net.sf.sail.webapp.domain.User)
+	 */
+	@Transactional(rollbackFor = { DuplicateUsernameException.class,
+			BadRequestException.class, NetworkTransportException.class })
+	// TODO LAW rewrite this - it doesn't save updates to SDS, or throw a
+	// DuplicateUsernameExeption
+	public User updateUser(final User user) throws BadRequestException,
+			NetworkTransportException {
 
 		try {
 			this.encodePassword(user.getUserDetails());
 
-			
 			user.getSdsUser().setFirstName(user.getUserDetails().getUsername());
 			user.getSdsUser().setLastName(user.getUserDetails().getUsername());
-			
+
 			this.userDao.save(user);
 
 			return user;
@@ -144,7 +165,6 @@ public class UserServiceImpl implements UserService {
 			throw e;
 		}
 	}
-
 
 	/**
 	 * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
@@ -155,29 +175,21 @@ public class UserServiceImpl implements UserService {
 			throws DuplicateUsernameException, BadRequestException,
 			NetworkTransportException {
 
-		try {
-			this.checkUserCreationErrors(userDetails.getUsername());
-			this.assignRole(userDetails, UserDetailsService.USER_ROLE);
-			this.encodePassword(userDetails);
+		this.checkUserErrors(userDetails.getUsername());
+		this.assignRole(userDetails, UserDetailsService.USER_ROLE);
+		this.encodePassword(userDetails);
 
-			SdsUser sdsUser = new SdsUser();
-			sdsUser.setFirstName(userDetails.getUsername());
-			sdsUser.setLastName(userDetails.getUsername());
-			this.sdsUserDao.save(sdsUser);
+		SdsUser sdsUser = new SdsUser();
+		sdsUser.setFirstName(userDetails.getUsername());
+		sdsUser.setLastName(userDetails.getUsername());
+		this.sdsUserDao.save(sdsUser);
 
-			User user = new UserImpl();
-			user.setSdsUser(sdsUser);
-			user.setUserDetails(userDetails);
-			this.userDao.save(user);
+		User user = new UserImpl();
+		user.setSdsUser(sdsUser);
+		user.setUserDetails(userDetails);
+		this.userDao.save(user);
 
-			return user;
-		} catch (BadRequestException e) {
-			throw e;
-		} catch (DuplicateUsernameException e) {
-			throw e;
-		} catch (NetworkTransportException e) {
-			throw e;
-		}
+		return user;
 	}
 
 	protected void encodePassword(MutableUserDetails userDetails) {
@@ -202,30 +214,10 @@ public class UserServiceImpl implements UserService {
 	 *             if the username is the same as a username already in data
 	 *             store.
 	 */
-	private void checkUserCreationErrors(final String username)
+	private void checkUserErrors(final String username)
 			throws DuplicateUsernameException {
 		if (this.userDetailsDao.hasUsername(username)) {
 			throw new DuplicateUsernameException(username);
 		}
 	}
-
-	/**
-	 * @param passwordEncoder
-	 *            the passwordEncoder to set
-	 */
-	@Required
-	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-		this.passwordEncoder = passwordEncoder;
-	}
-
-	/**
-	 * @param saltSource
-	 *            the saltSource to set
-	 */
-	@Required
-	public void setSaltSource(SaltSource saltSource) {
-		this.saltSource = saltSource;
-	}
-
-
 }

@@ -83,7 +83,7 @@ public interface UserService {
     public User retrieveUserByEmailAddress(String emailAddress);
  
     /**
-     * updates the user with new information
+     * Updates the user with new information
      * 
      * @param user
      * 
@@ -95,6 +95,7 @@ public interface UserService {
      * 				If an error occurs during network communications with SDS
      *             	while creating a SDS user.
      */
+    //TODO LAW rewrite implementation
 	public User updateUser(User user) throws BadRequestException, NetworkTransportException ;
 	
 }
