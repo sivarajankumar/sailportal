@@ -36,7 +36,11 @@
 
 <div id="columns">
 <div id="left">
+
+
+
 </div>
+<h1> heeeey --- </h1>${user}
 <form id="username" method="post" action="lostpasswordstudentpasswordreminder1.html" commandName="userDetails">
 
   <p><label for="send_username">question</label>

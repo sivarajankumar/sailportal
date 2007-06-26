@@ -1,4 +1,4 @@
-®<%@ include file="include.jsp"%>
+<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -17,9 +17,9 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
+<!-- $Id$ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -32,15 +32,14 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>teacher lost password</h1>
-
+<h1>the new password: ${newPassword}</h1>
 <div id="columns">
 <div id="left">
 </div>
 
-<div id="right">
-result
-
+<a href="lostpasswordteachermain.html">go back</a>
+<a href="index.html">go home homey</a>
+<a href="">contact wise</a>
 </div>
 
 

@@ -37,6 +37,14 @@
 <div id="columns">
 <div id="left">
 </div>
+<!-- Support for Spring errors object -->
+<spring:bind path="userDetails.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <b>
+      <br /><c:out value="${error}"/>
+    </b>
+  </c:forEach>
+</spring:bind>
 <form id="username" method="post" action="lostpasswordstudentpasswordreminder1.html" commandName="userDetails">
 
   <p><label for="send_username"><spring:message code="login.username" /></label>
