@@ -56,10 +56,9 @@
 
 
 <div class="center north0">
-<a href="setuprun5.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> Back </a>
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> Cancel </a> 
-<a href="setuprun7.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> Next </a> 
+<a href="setuprun5.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /></a>
+<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /> </a> 
+<a href="setuprun7.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> <spring:message code='navigate.next' /> </a> 
 </div>
 </body>
 </html>
-

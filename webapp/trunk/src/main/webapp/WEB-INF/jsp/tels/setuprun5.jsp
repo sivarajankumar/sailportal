@@ -46,17 +46,16 @@
 <li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
-</ul>
-<br />  
+</ul><br />  
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <h2 class="north0"><b> <spring:message code="teacher.setup-project-run-step4" /></b></h2>
 <p class="bigFont1 north0"><spring:message code="teacher.review-lesson-plan" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.skip-lesson-plan" /></p>
 <div class="center north0">
-<a href="setuprun4.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> Back </a>
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> Cancel </a> 
-<a href="setuprun6.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> Next </a> 
+<a href="setuprun4.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /> </a>
+<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /> </a> 
+<a href="setuprun6.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> <spring:message code='navigate.next' /> </a> 
 </div>
 </body>
 </html>

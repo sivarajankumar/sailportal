@@ -56,9 +56,9 @@
 <p class="bigFont1 north0"> <spring:message code="teacher.correct-project" /> </p> 
 
 <form class="center north0">
-<input type="button" value="Back" style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue" />
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> Cancel </a> 
-<a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> Next </a> 
+<input type="button" disabled value=<spring:message code='navigate.back' /> style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue" />
+<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"><spring:message code="navigate.cancel" /> </a> 
+<a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"><spring:message code="navigate.next" /> </a> 
 </form>
 </body>
 </html>

@@ -57,9 +57,9 @@
 
 <div class="center north0">
 <form>
-<a href="setuprun6.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> Back </a>
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> Cancel </a> 
-<input type="submit" style="text-decoration:none;font-size:1.5em;" class="bgColorLightBlue" value="Done" /> 
+<a href="setuprun6.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /></a>
+<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /> </a> 
+<input type="submit" style="text-decoration:none;font-size:1.5em;" class="bgColorLightBlue" value=<spring:message code='navigate.done' /> /> 
 </form>
 </div>
 
