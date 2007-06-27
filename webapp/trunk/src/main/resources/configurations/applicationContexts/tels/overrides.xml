@@ -90,6 +90,7 @@
                 /lostpassword*.html=ROLE_ANONYMOUS,ROLE_USER
                 /enter*.html=ROLE_ANONYMOUS,ROLE_USER
 				/student*.html=ROLE_ANONYMOUS,ROLE_USER
+				/teacher*.html=ROLE_ANONYMOUS,ROLE_USER
 				/team*.html=ROLE_ANONYMOUS,ROLE_USER
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
