@@ -21,7 +21,6 @@ import java.util.List;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
-import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
 /**
  * A service for working with Curnits.
@@ -37,7 +36,7 @@ public interface CurnitService {
 	 * 
 	 * @return a <code>List</code> of curnits.
 	 */
-	public List<SdsCurnit> getCurnitList();
+	public List<Curnit> getCurnitList();
 
 
 	/**

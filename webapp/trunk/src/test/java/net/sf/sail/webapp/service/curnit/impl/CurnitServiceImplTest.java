@@ -24,6 +24,7 @@ import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
@@ -71,13 +72,13 @@ public class CurnitServiceImplTest extends TestCase {
     }
 
     public void testGetCurnitList() throws Exception {
-        List<SdsCurnit> expectedList = new LinkedList<SdsCurnit>();
-        expectedList.add(new SdsCurnit());
+        List<Curnit> expectedList = new LinkedList<Curnit>();
+        expectedList.add(new CurnitImpl());
 
-        EasyMock.expect(mockSdsCurnitDao.getList()).andReturn(expectedList);
-        EasyMock.replay(mockSdsCurnitDao);
+        EasyMock.expect(mockCurnitDao.getList()).andReturn(expectedList);
+        EasyMock.replay(mockCurnitDao);
         assertEquals(expectedList, curnitServiceImpl.getCurnitList());
-        EasyMock.verify(mockSdsCurnitDao);
+        EasyMock.verify(mockCurnitDao);
     }
 
     public void testCreateCurnit() throws Exception {   
