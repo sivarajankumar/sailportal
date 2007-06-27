@@ -66,9 +66,8 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
 	}
 
     /**
-     * @see
+     * @see net.sf.sail.webapp.dao.user.UserDao#retrieveByUsername(java.lang.String)
      */
-//	TODO TP please comment
     public User retrieveByUsername(String username) {
         return (User) DataAccessUtils
                 .requiredUniqueResult(this
@@ -79,9 +78,10 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     }
     
     /**
-     * @see
+     * @see net.sf.sail.webapp.dao.user.UserDao#retrieveByEmailAddress(java.lang.String)
      */
-//    TODO TP please comment
+    //TODO - this should retrieve a list of users, not a single user.
+    //single user requirement to be restricted in the TELS version
     public User retrieveByEmailAddress(String emailAddress	) {
         return (User) DataAccessUtils
                 .requiredUniqueResult(this

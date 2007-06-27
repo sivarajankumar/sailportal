@@ -112,8 +112,17 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 	}
 
 	public void testRetrieveByUsername() {
+		//no username in data store
+		try {
+			@SuppressWarnings("unused")
+			User expectedProblem = this.userDao.retrieveByUsername("Not in data store");
+			fail("expected EmptyResultDataAccessException - no users with this username");
+		}
+		catch (EmptyResultDataAccessException e) {
+		}
+		
+		//single user in data store should be retrieved correctly
 		this.userDao.save(this.defaultUser);
-
 		User actual = this.userDao.retrieveByUsername(this.userDetails
 				.getUsername());
 		assertNotNull(actual);
