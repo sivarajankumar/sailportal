@@ -25,17 +25,18 @@ package net.sf.sail.webapp.service.group.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.easymock.EasyMock;
-
+import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
-import junit.framework.TestCase;
+
+import org.easymock.EasyMock;
 
 /**
  * @author Hiroki Terashima
@@ -118,7 +119,9 @@ public class GroupServiceImplTest extends TestCase {
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 
-		this.group1 = this.groupServiceImpl.createGroup(DEFAULT_GROUP_NAMES[0]);
+		GroupParameters groupParameters = new GroupParameters();
+		groupParameters.setName(DEFAULT_GROUP_NAMES[0]);
+		this.group1 = this.groupServiceImpl.createGroup(groupParameters);
 		EasyMock.verify(this.mockGroupDao);
 		EasyMock.reset(this.mockGroupDao);
 		assertEquals(0, this.group1.getMembers().size());
@@ -136,7 +139,9 @@ public class GroupServiceImplTest extends TestCase {
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 
-		this.group2 = this.groupServiceImpl.createGroup(DEFAULT_GROUP_NAMES[0]);
+		GroupParameters groupParameters = new GroupParameters();
+		groupParameters.setName(DEFAULT_GROUP_NAMES[0]);
+		this.group2 = this.groupServiceImpl.createGroup(groupParameters);
 		EasyMock.verify(this.mockGroupDao);
 		EasyMock.reset(this.mockGroupDao);
 		assertEquals(0, this.group2.getMembers().size());
@@ -151,12 +156,16 @@ public class GroupServiceImplTest extends TestCase {
 	private void createGroup3() {
 		this.group3.setName(DEFAULT_GROUP_NAMES[2]);
 		this.group3.setParent(this.group1);
+
+		EasyMock.expect(this.mockGroupDao.getById(new Long(3))).andReturn(this.group1);
 		this.mockGroupDao.save(this.group3);
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 
-		this.group3 = this.groupServiceImpl.createGroup(this.group1,
-				DEFAULT_GROUP_NAMES[2]);
+		GroupParameters groupParameters = new GroupParameters();
+		groupParameters.setName(DEFAULT_GROUP_NAMES[2]);
+		groupParameters.setParentId(new Long(3));
+		this.group3 = this.groupServiceImpl.createGroup(groupParameters);
 		EasyMock.verify(this.mockGroupDao);
 		EasyMock.reset(this.mockGroupDao);
 		assertEquals(DEFAULT_GROUP_NAMES[2], this.group3.getName());

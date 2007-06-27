@@ -27,67 +27,66 @@ import java.util.Set;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
+ * 
+ * Performs actions on groups which should be transactional.
  */
 public interface GroupService {
 
-    /**
-     * Create a new group with the given name.
-     * 
-     * @param name
-     *            <code>String</code> name of new group
-     */
-    public Group createGroup(String name);
+	/**
+	 * Given a <code>GroupParameters</code> object, create a group and save it
+	 * in the data store. If groupParameters contains a name and a null parent
+	 * id, then a root type group is created. If groupParameters has both a name
+	 * and a parent group id then an intermediate type group is created. If the
+	 * parent group id given is not in the data store then a root group type is
+	 * created.
+	 * 
+	 * @param groupParameters
+	 * 
+	 * @return The Group that was created
+	 */
+	public Group createGroup(GroupParameters groupParameters);
 
-    /**
-     * Create a new group with the given parent and given name
-     * 
-     * @param parent
-     *            <code>Group</code> parent of the new group
-     * @param name
-     *            <code>String</code> name of new group
-     */
-    public Group createGroup(Group parent, String name);
+	/**
+	 * Change an existing group name.
+	 * 
+	 * @param group
+	 *            an existing <code>Group</code> that should have its name
+	 *            changed
+	 * @param name
+	 *            <code>String</code> name of new group
+	 */
+	public void changeGroupName(Group group, String newName);
 
-    /**
-     * Change an existing group name.
-     * 
-     * @param group
-     *            an existing <code>Group</code> that should have its name
-     *            changed
-     * @param name
-     *            <code>String</code> name of new group
-     */
-    public void changeGroupName(Group group, String newName);
+	/**
+	 * Makes a group into a child of another group
+	 * 
+	 * @throws CyclicalGroupException
+	 *             when this action creates a cycle
+	 */
+	public void moveGroup(Group newParent, Group groupToBeMoved)
+			throws CyclicalGroupException;
 
-    /**
-     * Makes a group into a child of another group
-     * 
-     * @throws CyclicalGroupException
-     *             when this action creates a cycle
-     */
-    public void moveGroup(Group newParent, Group groupToBeMoved)
-            throws CyclicalGroupException;
+	/**
+	 * Adds members to an already-existing group If a member already exists in
+	 * the group, do not add again
+	 * 
+	 * @param group
+	 *            and existing <code>Group</code> that the members should be
+	 *            added to
+	 * @param membersToAdd
+	 *            <code>Set</code> of users to add to the group
+	 */
+	public void addMembers(Group group, Set<User> membersToAdd);
 
-    /**
-     * Adds members to an already-existing group If a member already exists in
-     * the group, do not add again
-     * 
-     * @param group
-     *            and existing <code>Group</code> that the members should be
-     *            added to
-     * @param membersToAdd
-     *            <code>Set</code> of users to add to the group
-     */
-    public void addMembers(Group group, Set<User> membersToAdd);
-
-    /**
-     * Gets all the groups available.
-     * 
-     * @return <code>List</code> of <code>Group</code>
-     */
-    public List<Group> getGroups();
+	/**
+	 * Gets all the groups available.
+	 * 
+	 * @return <code>List</code> of <code>Group</code>
+	 */
+	public List<Group> getGroups();
 }

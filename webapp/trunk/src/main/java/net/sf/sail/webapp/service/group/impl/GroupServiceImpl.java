@@ -29,11 +29,13 @@ import java.util.Set;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 import net.sf.sail.webapp.service.group.GroupService;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * A class to provide services for Group objects.
@@ -58,30 +60,24 @@ public class GroupServiceImpl implements GroupService {
      * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group,
      *      java.lang.String)
      */
+	@Transactional()
     public void changeGroupName(Group group, String newName) {
         group.setName(newName);
         this.groupDao.save(group);
     }
-
+   
     /**
-     * @see net.sf.sail.webapp.service.group.GroupService#createGroup(java.lang.String)
+     * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.impl.GroupParameters)
      */
-    // TODO HT put transactional annotations on the methods in this service.
-    public Group createGroup(String name) {
+	@Transactional()
+    public Group createGroup(GroupParameters groupParameters) {
         Group group = new PersistentGroup();
-        group.setName(name);
-        this.groupDao.save(group);
-        return group;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.Group,
-     *      java.lang.String)
-     */
-    public Group createGroup(Group parent, String name) {
-        Group group = new PersistentGroup();
-        group.setName(name);
-        group.setParent(parent);
+        group.setName(groupParameters.getName());
+        Long parentId = groupParameters.getParentId();
+        if (parentId != null) {
+            Group parentGroup = this.groupDao.getById(parentId);
+        	group.setParent(parentGroup);
+        }
         this.groupDao.save(group);
         return group;
     }
@@ -90,6 +86,7 @@ public class GroupServiceImpl implements GroupService {
      * @see net.sf.sail.webapp.service.group.GroupService#moveGroup(net.sf.sail.webapp.domain.group.Group,
      *      net.sf.sail.webapp.domain.group.Group)
      */
+	@Transactional()
     public void moveGroup(Group newParent, Group groupToBeMoved)
             throws CyclicalGroupException {
         Group previousParent = groupToBeMoved.getParent();
@@ -107,6 +104,7 @@ public class GroupServiceImpl implements GroupService {
      * @see net.sf.sail.webapp.service.group.GroupService#addMembers(net.sf.sail.webapp.domain.group.Group,
      *      java.util.Set)
      */
+	@Transactional()
     public void addMembers(Group group, Set<User> membersToAdd) {
         for (User member : membersToAdd) {
             group.addMember(member);
@@ -145,6 +143,7 @@ public class GroupServiceImpl implements GroupService {
     /**
      * @see net.sf.sail.webapp.service.group.GroupService#getGroups()
      */
+	@Transactional(readOnly = true)
     public List<Group> getGroups() {
         return this.groupDao.getList();
     }
