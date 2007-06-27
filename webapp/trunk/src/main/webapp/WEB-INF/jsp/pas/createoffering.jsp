@@ -19,12 +19,21 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<html xml:lang="en" lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="application.title" /> <spring:message code="title.separator" /> <spring:message code="curnit.list" /></title>
+<title><spring:message code="application.title" /> <spring:message code="title.separator" /> <spring:message code="createoffering.title" /></title>
+<script type="text/javascript" src="./javascript/pas/utils.js"></script>
+<script type="text/javascript">
+function onLoadHandler() {
+  document.getElementById("name").focus();
+}
+
+addEvent(window, 'load', onLoadHandler);
+</script>
 </head>
 
 <body>
@@ -33,31 +42,26 @@
 
 <div id="columns">
 <div id="left">
-<%@ include file="menu.jsp" %>
+<h2><spring:message code="signup" /></h2>
 </div>
 
-<table align="center" bgcolor="#008800" border="0" cellspacing="2" cellpadding="3">
-  <tr bgcolor="#CCCCCC"><td><b><spring:message code="curnit.name.heading" /></b></td></tr>
-<c:forEach var="curnit" items="${curnitlist}">
-  <tr bgcolor="#FFFF88">
-  <td><b><a href="<c:url value="createoffering.html"><c:param name="curnitId" value="${curnit.name}"/></c:url>">
-	  <font color="BLACK"><c:out value="${curnit.name}"/></font>
-  </a></b></td>
-  </tr>
-</c:forEach>
-</table>
+<div id="right"><form:form method="post" action="createoffering.html"
+  commandName="offeringParameters">
 
-<div id="right">
-<display:table name="${curnitlist}" id="curnit">
-  <display:column titleKey="curnit.numbering.heading">
-    <c:out value="${curnit_rowNum}" />
-  </display:column>
-  <display:column property="name" titleKey="curnit.name.heading" />
-</display:table></div>
+  <p><label for="name"><spring:message code="createoffering.name" /></label>
+  <form:input path="name" id="name" /> <form:errors path="name" />
+  </p>
 
+  <p><input type="submit" value="<spring:message code="createoffering.submit" />" />
+  </p>
+</form:form></div>
 </div>
-
 <%@ include file="footer.jsp"%>
+
 
 </body>
 </html>
+
+
+
+

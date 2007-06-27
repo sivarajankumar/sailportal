@@ -34,6 +34,7 @@ public class AllTests {
 		//$JUnit-BEGIN$
 		suite.addTestSuite(UserDetailsValidatorTest.class);
 		suite.addTestSuite(GroupParametersValidatorTest.class);
+		suite.addTestSuite(OfferingParametersValidatorTest.class);
 		//$JUnit-END$
 		return suite;
 	}

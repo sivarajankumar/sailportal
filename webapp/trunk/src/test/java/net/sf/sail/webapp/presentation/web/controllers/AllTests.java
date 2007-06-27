@@ -36,6 +36,7 @@ public class AllTests {
 		suite.addTestSuite(OfferingListControllerTest.class);
 		suite.addTestSuite(SignupControllerTest.class);
 		suite.addTestSuite(AddgroupControllerTest.class);
+        suite.addTestSuite(CreateOfferingControllerTest.class);
 		//$JUnit-END$
 		return suite;
 	}
