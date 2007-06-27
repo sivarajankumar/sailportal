@@ -40,7 +40,7 @@
 
 .north_2{
 	position:relative;
-	top:2em;
+	top:-1.5em;
 }
 
 .north2{
@@ -89,7 +89,7 @@
 
 .south_1{
 	position:relative;
-	top:5em;
+	top:1.5em;
 }
 
 .left1{
@@ -201,6 +201,10 @@
 	width:18em;	
 }
 
+.widthAdj6{
+	width:28em;	
+}
+
 .heightAdj1{
 	height:19.5em;
 }
@@ -266,6 +270,11 @@
 #left1{
 	position:relative;
 	left:-0.5em;
+}
+
+#right{
+	position:relative;
+	right:-17em;	
 }
 
 .right1{
@@ -600,7 +609,7 @@ font-family:arial,sans-serif;
 #verticalNavigation li {
     padding: 0em;
     margin: 1.3em;
-    line-height:1.9em;
+    line-height:1.2em;
 }
 
 #verticalNavigation li.login{
@@ -614,11 +623,17 @@ font-family:arial,sans-serif;
 
 #verticalNavigation a:link, #verticalNavigation a:visited{
 	padding: .3em 1.0em .2em 1.0em;
-	color: green;
-	background-color: grey;
+	color: black;
+	background-color: rgb(150,180,230);
 	text-decoration: none;
 }
 
+#verticalNavigation a:hover{
+	padding: .3em 1.0em .2em 1.0em;
+	color: black;
+	background-color: rgb(0,200,130);
+	text-decoration: none;
+}
 
 #headRows{
 	font-size: 1.2em;
