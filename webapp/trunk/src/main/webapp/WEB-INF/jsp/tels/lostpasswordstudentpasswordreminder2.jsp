@@ -32,31 +32,34 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>2</h1>
+<h2 class="center"><spring:message code="lostpassword.reminder" /></h2>
+<h1 class="center"><spring:message code="lostpassword.student" /></h1>
+<div id="right" class="widthAdj6">
+<h2><spring:message code="lostpassword.student.step2" /> </h2>
+<h2><spring:message code="hello" /> ${user}</h2>
 
-<div id="columns">
-<div id="left">
-
-
-
-</div>
-<h1> heeeey --- </h1>${user}
+<h2><spring:message code="lostpassword.student.step2.message" /></h2>
 <form id="username" method="post" action="lostpasswordstudentpasswordreminder1.html" commandName="userDetails">
 
-  <p><label for="send_username">question</label>
-  <input type="text" name="username" id="username"  class="text" tabindex="1" /></p>
+  <p><label for="send_username"><spring:message code="lostpassword.question" />
+  </label>
+ <spring:message code="lostpassword.student.step2.prompt" /> 
+ <label for="answer"><spring:message code="lostpassword.answer" /></label>
+  <input type="text" name="answer" id="answer"  class="text" tabindex="1" /></p>
 
    <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
-     <p><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
+     <p id="right"><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
       onclick="Effect.toggle('waiting', 'appear')" /></p>
 
 </form>
-
 </div>
 
-
-
+<div id="verticalNavigation">
+<ul>
+<li><a href="index.html"><spring:message code="wise.return-to-sign-in" /></a></li>
+</ul>
+</div>
 </body>
 </html>

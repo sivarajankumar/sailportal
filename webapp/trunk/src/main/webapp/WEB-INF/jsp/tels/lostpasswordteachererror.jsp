@@ -31,19 +31,23 @@
 <body>
 
 <%@ include file="header.jsp"%>
+<h2 class="center"><spring:message code="lost.username-or-password" /></h2>
+<h1 class="center"><spring:message code="lostpassword.teacher-or-researcher" /></h1>
 
-<h1>${someValue} <spring:message code="lostpassword.teacher.error"/></h1>
-
-<div id="columns">
-<div id="left">
+<div id="right" class="widthAdj6">
+<ul class="bigFont1">
+<li><spring:message code="lostpassword.teacher.username" />
+${someValue}<spring:message code="lostpassword.teacher.error" />
+</li>
+</ul>
 </div>
 
-<a href="lostpasswordteachermain.html">go back</a>
-<a href="index.html">go home homey</a>
-<a href="">contact wise</a>
+<div id="verticalNavigation">
+<ul>
+<li><a href="#"> <spring:message code="lostpassword.teacher.try-again" /></a></li>
+<li><a href="#"><spring:message code="lostpassword.teacher.contact-wise" /></a></li>
+</ul>
 </div>
-
-
 
 </body>
 </html>

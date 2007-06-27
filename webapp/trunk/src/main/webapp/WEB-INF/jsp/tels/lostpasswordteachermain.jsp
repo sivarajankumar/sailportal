@@ -32,11 +32,16 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>teacher lost password</h1>
-
-<div id="columns">
-<div id="left">
+<h2 class="center"><spring:message code="lost.username-or-password" /></h2>
+<h1 class="center"><spring:message code="lostpassword.teacher-or-researcher" /></h1>
+<div id="right" class="widthAdj6">
+<ul>
+<li><b><spring:message code="lostpassword.teacher.remember-username" /></b><br />
+<spring:message code="lostpassword.teacher.enter-username" />
+</li>
+</ul>
 </div>
+<div id="columns">
 
 <!-- Support for Spring errors object -->
 <spring:bind path="userDetails.*">
@@ -53,23 +58,29 @@
 
   <p><label for="send_username"><spring:message code="login.username" /></label>
   <input type="text" name="username" id="username"  class="text" tabindex="1" /></p>
-
-   <br>OR<br><br>
-   
+  <p id="right"><input type="submit" name="sendpassword" id="sendpassword" class="text" tabindex="2" value="<spring:message code="lostpassword.teacher.send-password" />" /></p>
+      
+<div class="widthAdj6">
+<ul>
+<li><b><spring:message code="forgotten.username-check" /></b><br />
+<spring:message code="lostpassword.teacher.enter-email-address" />
+</li>
+</ul>
+</div>
+  
    <p><label for="send_usernamepassword"><spring:message code="lostpassword.teacher.email" /></label>
   <input type="text" name="emailAddress" id="emailAddress"  class="text" tabindex="1" /></p>
   
    <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
-     <p><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
+     <p id="right"><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitusernamepassword" />" 
       onclick="Effect.toggle('waiting', 'appear')" /></p>
 
 </form>
 
 </div>
-
-<a href="index.html">go home homey</a>
+<p class="center"> <spring:message code="lostpassword.teacher-stuck" /> <a href="#"> <spring:message code="lostpassword.teacher.contact-wise" /></a></p>
 
 </body>
 </html>

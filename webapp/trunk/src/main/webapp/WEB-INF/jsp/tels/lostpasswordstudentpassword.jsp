@@ -31,18 +31,23 @@
 <body>
 
 <%@ include file="header.jsp"%>
-
-<h1>fp</h1>
-
-<div id="columns">
-<div id="left">
+<h2 class="center"><spring:message code="forgotten.password" /></h2>
+<h1 class="center"><spring:message code="lostpassword.student" /></h1>
+<div id="right" class="widthAdj6">
+<h4 class="bold"><spring:message code="forgotten.password-check" /></h4>
+<div class="border bigFont1">
+<ol>
+<li> <spring:message code="lostpassword.ask-teacher" /></li>
+<li> <spring:message code="lostpassword.create-new-password" />
+<a href="lostpasswordstudentpasswordreminder1.html"><spring:message code="lostpassword.reminder" /></a>
+<spring:message code="lostpassword.question" />
+</li>
+</ol>
 </div>
-1.) whatever<br><br>
-2.) <a href="lostpasswordstudentpasswordreminder1.html">here</a>
-
+<div id="verticalNavigation" class="center">
+<ul>
+<li><a href="index.html"><spring:message code="wise.return-to-sign-in" /></a></li>
+</ul>
 </div>
-
-
-
 </body>
 </html>

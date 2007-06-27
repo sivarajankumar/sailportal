@@ -32,11 +32,13 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>1</h1>
-
-<div id="columns">
-<div id="left">
-</div>
+<h2 class="center"><spring:message code="lostpassword.reminder" /></h2>
+<h1 class="center"><spring:message code="lostpassword.student" /></h1>
+<h2 class="right1">
+<spring:message code="lostpassword.student.step1" /> <br />
+<spring:message code="lostpassword.student.step1.message" />
+</h2>
+<div id="right">
 <!-- Support for Spring errors object -->
 <spring:bind path="userDetails.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -53,7 +55,7 @@
    <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
-     <p><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
+     <p id="right"><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
       onclick="Effect.toggle('waiting', 'appear')" /></p>
 
 </form>
@@ -61,6 +63,10 @@
 </div>
 
 
-
+<div id="verticalNavigation">
+<ul class="center">
+<li> <a href="index.html"> <spring:message code="wise.return-to-sign-in" /></a></li>
+</ul>
+</div>
 </body>
 </html>

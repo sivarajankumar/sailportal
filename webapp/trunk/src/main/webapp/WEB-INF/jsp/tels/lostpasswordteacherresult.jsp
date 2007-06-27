@@ -32,17 +32,23 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>the new password: ${newPassword}</h1>
-<div id="columns">
-<div id="left">
+<h2 class="center"><spring:message code="lost.username-or-password" /></h2>
+<h1 class="center"><spring:message code="lostpassword.teacher-or-researcher" /></h1>
+
+<div id="right" class="widthAdj6">
+<ul class="bigFont1 marginAdj1">
+<li><spring:message code="lostpassword.teacher.new-password" />
+<spring:message code="lostpassword.teacher.emailed" /></li>
+<li><spring:message code="lostpassword.teacher.issues" />
+<a href="#"><spring:message code="lostpassword.teacher.contact-wise" /></li>
+
+</ul>
+
+<div id="verticalNavigation">
+<ul>
+<li><a href="index.html"><spring:message code="wise.return-to-sign-in" /></a></li>
+</ul>
 </div>
-
-<a href="lostpasswordteachermain.html">go back</a>
-<a href="index.html">go home homey</a>
-<a href="">contact wise</a>
-</div>
-
-
 
 </body>
 </html>

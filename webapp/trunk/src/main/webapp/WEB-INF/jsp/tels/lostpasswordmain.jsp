@@ -32,20 +32,18 @@
 
 <%@ include file="header.jsp"%>
 
-<h1><spring:message code="lostpassword" /></h1>
+<h1 class="center"><spring:message code="wise.lost-username-or-password" /></h1>
+<h2 class="center"><spring:message code="wise.type-of-account" /></h2>
+<div id="verticalNavigation" class="center">
+<ul class="bigFont2 north_2">
+<li><a href="lostpasswordstudentmain.html"><spring:message code="signup.studentAccount" /></a></li> 
+<li><a href="lostpasswordteachermain.html"><spring:message code="signup.teacherAccount" /></a></li>
+</ul>
+<i class="north0"><spring:message code="lostpassword.select-a-choice" /></i>
 
-<div id="columns">
-<div id="left">
+<ul class="medFont">
+<li><a href="index.html"> <spring:message code="wise.return-to-sign-in" /></a></li>
+</ul>
 </div>
-
-<div id="right">
-<spring:message code="lostpassword.are-you-a" /><a href="lostpasswordteachermain.html"><spring:message code="lostpassword.teacher" /></a>?<br />
-<br />
-<br />
-<spring:message code="lostpassword.are-you-a" /><a href="lostpasswordstudentmain.html"><spring:message code="lostpassword.student" /></a>?<br /></div>
-</div>
-
-
-
 </body>
 </html>

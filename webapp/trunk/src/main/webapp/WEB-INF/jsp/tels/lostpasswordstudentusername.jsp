@@ -31,20 +31,26 @@
 <body>
 
 <%@ include file="header.jsp"%>
+<h2 class="center"><spring:message code="forgotten.username" /></h2>
+<h1 class="center"><spring:message code="lostpassword.student" /></h1>
+<div id="right" class="widthAdj6">
+<h4 class="bold"><spring:message code="forgotten.username-check" /></h4>
+<p><spring:message code="forgotten.username-hint" /></p>
+<p><spring:message code="forgotten.username-hint-example" /></p>
 
-<h1>find username</h1>
-
-<div id="columns">
-<div id="left">
-
-
+<p class="center"><spring:message code="forgotten.username-more" /></p>
+<div class="border">
+<ol>
+<li><spring:message code="forgotten.option1" /></li>
+<li><spring:message code="forgotten.lookup-project-code" /> 
+<a href="lostpasswordstudentprojectcode.html"><spring:message code="forgotten.lookup-project-code-click" /></a>
+</li>
+</ol>
 </div>
-
-1.) whatever<br><br>
-2.) <a href="lostpasswordstudentprojectcode.html">here</a>
+<div id="verticalNavigation">
+<ul class="center">
+<li><a href="index.html"><spring:message code="wise.return-to-sign-in" /></a></li>
+</ul>
 </div>
-
-<a href="index.html">go home homey</a>
-
 </body>
 </html>
