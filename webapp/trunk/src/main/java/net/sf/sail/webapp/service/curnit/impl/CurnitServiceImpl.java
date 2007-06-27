@@ -65,6 +65,7 @@ public class CurnitServiceImpl implements CurnitService {
      * @see net.sf.sail.webapp.service.curnit.CurnitService#getCurnitList()
      */
     @Transactional(readOnly = true)
+    //TODO fix this - should be returning curnit not sdscurnit
     public List<SdsCurnit> getCurnitList() {
         return this.sdsCurnitDao.getList();
     }
