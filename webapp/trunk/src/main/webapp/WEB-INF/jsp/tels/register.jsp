@@ -32,7 +32,7 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>Register A New Account</h1>
+<h1><spring:message code="register.new-account" /></h1>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
@@ -42,7 +42,7 @@
 <h2><spring:message code="welcome" /> <authz:authentication
     operation="username" /></h2>
 
-<div id="right">
+<div>
 <a href="registerstudent.html"><spring:message code="register.student" /></a><br />
 <a href="registerteacher.html"><spring:message code="register.teacher" /></a><br /></div>
 
