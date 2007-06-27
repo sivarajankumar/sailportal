@@ -80,5 +80,17 @@
 		<property name="formView" value="signup" />
 		<property name="successView" value="login.html" />
 	</bean>
+	
+	<bean id="offeringParametersValidator" 
+         class="net.sf.sail.webapp.presentation.validators.OfferingParametersValidator" />
+
+    <bean id="createOfferingController"
+    	class="net.sf.sail.webapp.presentation.web.controllers.CreateOfferingController">
+    	<property name="offeringService" ref="offeringService" />
+    	<property name="commandName" value="offeringParameters" />
+    	<property name="validator" ref="offeringParametersValidator" />
+    	<property name="formView" value="createoffering" />
+    	<property name="successView" value="offeringlist.html" />
+    </bean>
 
 </beans>
