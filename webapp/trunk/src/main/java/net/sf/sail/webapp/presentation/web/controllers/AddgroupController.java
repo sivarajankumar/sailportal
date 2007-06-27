@@ -50,6 +50,16 @@ public class AddgroupController extends SimpleFormController {
 	}
 
 	/**
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#showForm(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.validation.BindException)
+	 */
+	@Override
+	protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
+		ModelAndView modelAndView = super.showForm(request, response, bindException);
+        modelAndView.addObject("grouplist", this.groupService.getGroups());
+		return modelAndView;
+	}
+
+	/**
 	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
 	 *      org.springframework.validation.BindException)

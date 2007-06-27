@@ -37,7 +37,8 @@
 </div>
 
 <div id="right">
-<display:table name="${grouplist}" id="group">
+<display:table name="${grouplist}" id="group" defaultsort="1">
+  <display:column property="parent.name" titleKey="group.parent.heading" />
   <display:column property="name" titleKey="group.name.heading" />
 </display:table>
 
