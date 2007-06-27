@@ -38,10 +38,7 @@
 
 <div id="right">
 <display:table name="${grouplist}" id="group">
-  <display:column titleKey="curnit.numbering.heading">
-    <c:out value="${group_rowNum}" />
-  </display:column>
-  <display:column property="name" titleKey="curnit.name.heading" />
+  <display:column property="name" titleKey="group.name.heading" />
 </display:table>
 
 <a href="addgroup.html">Add a new group</a>
