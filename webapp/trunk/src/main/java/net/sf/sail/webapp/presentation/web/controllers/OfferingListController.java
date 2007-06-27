@@ -33,6 +33,7 @@ import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  * @author Cynick Young
@@ -43,7 +44,7 @@ import org.springframework.web.servlet.ModelAndView;
  * offeringlist.jsp
  * 
  */
-public class OfferingListController extends BasicInfoController {
+public class OfferingListController extends AbstractController {
 
 	private OfferingService offeringService;
 
@@ -67,10 +68,10 @@ public class OfferingListController extends BasicInfoController {
 	protected ModelAndView handleRequestInternal(
 			HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse) throws Exception {
-		ModelAndView modelAndView = super.handleRequestInternal(servletRequest,
-				servletResponse);
-
-		User user = (User) modelAndView.getModel().get(USER_KEY);
+    	ModelAndView modelAndView = new ModelAndView();
+    	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
+ 
+		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
 		List<Offering> offeringList = this.offeringService.getOfferingList();
 		Map<Offering, List<Workgroup>> workgroupMap = new HashMap<Offering, List<Workgroup>>();
 		for (Offering offering : offeringList) {

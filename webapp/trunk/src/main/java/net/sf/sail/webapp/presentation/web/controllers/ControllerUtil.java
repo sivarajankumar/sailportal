@@ -17,27 +17,28 @@
  */
 package net.sf.sail.webapp.presentation.web.controllers;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import javax.servlet.http.HttpServletRequest;
+
+import net.sf.sail.webapp.domain.User;
+
+import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author Cynick Young
+ * @author Laurel Williams
  *
  * @version $Id$
- *
+ * 
+ * A utility class for use by all controllers.
+ * 
  */
-public class AllTests {
+public class ControllerUtil {
 
-	public static Test suite() {
-		TestSuite suite = new TestSuite(
-				"Test for net.sf.sail.webapp.presentation.web.controllers");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(LoginControllerTest.class);
-		suite.addTestSuite(OfferingListControllerTest.class);
-		suite.addTestSuite(SignupControllerTest.class);
-		suite.addTestSuite(AddgroupControllerTest.class);
-		//$JUnit-END$
-		return suite;
+	protected final static String USER_KEY = "user";
+
+	public static void addUserToModelAndView(HttpServletRequest request,
+			ModelAndView modelAndView) {
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
+		modelAndView.addObject(USER_KEY, user);
 	}
-
 }

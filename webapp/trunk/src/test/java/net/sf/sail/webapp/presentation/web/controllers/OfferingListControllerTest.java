@@ -151,7 +151,7 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
         assertModelAttributeValue(modelAndView,
                 OfferingListController.WORKGROUP_MAP_KEY, expectedWorkgroupMap);
         assertModelAttributeValue(modelAndView,
-                OfferingListController.USER_KEY, this.user);
+                ControllerUtil.USER_KEY, this.user);
         assertModelAttributeValue(modelAndView,
                 OfferingListController.HTTP_TRANSPORT_KEY,
                 this.mockHttpTransport);
@@ -175,7 +175,7 @@ public class OfferingListControllerTest extends AbstractModelAndViewTests {
         assertModelAttributeValue(modelAndView,
                 OfferingListController.WORKGROUP_MAP_KEY, emptyWorkgroupMap);
         assertModelAttributeValue(modelAndView,
-                OfferingListController.USER_KEY, this.user);
+                ControllerUtil.USER_KEY, this.user);
         assertModelAttributeValue(modelAndView,
                 OfferingListController.HTTP_TRANSPORT_KEY,
                 this.mockHttpTransport);
