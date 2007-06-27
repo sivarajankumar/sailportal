@@ -32,6 +32,8 @@
         <!-- Pretty print the SQL in the log and console. -->
         <property name="hibernate.format_sql">true</property>
         <mapping
+            class="net.sf.sail.webapp.domain.authentication.impl.PersistentAclEntry" />
+        <mapping
             class="net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid" />
         <mapping
             class="net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObject" />

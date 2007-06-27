@@ -34,9 +34,14 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
 /**
+ * Represents the object identity of a Java object that will be authorized
+ * according to an access control list (ACL). This class is marked with EJB3
+ * annotations for persistence.
+ * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: PersistentAclTargetObjectIdentity.java 491 2007-06-22 02:33:59Z
+ *          cynick $
  */
 @Entity
 @Table(name = PersistentAclTargetObjectIdentity.DATA_STORE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = {
@@ -63,7 +68,7 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
     static final String COLUMN_NAME_OWNER_SID = "owner_sid";
 
     @Transient
-    static final String COLUMN_NAME_IS_INHERITING = "entries_inheriting";
+    static final String COLUMN_NAME_INHERITING = "entries_inheriting";
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = COLUMN_NAME_TARGET_OBJECT, nullable = false)
@@ -80,8 +85,8 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
     @JoinColumn(name = COLUMN_NAME_OWNER_SID)
     private PersistentAclSid ownerSid;
 
-    @Column(name = COLUMN_NAME_IS_INHERITING, nullable = false)
-    private Boolean isInheriting;
+    @Column(name = COLUMN_NAME_INHERITING, nullable = false)
+    private Boolean inheriting;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -156,18 +161,22 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
     }
 
     /**
-     * @return the isInheriting
+     * @return the inheriting
      */
-    public Boolean getIsInheriting() {
-        return isInheriting;
+    public Boolean isInheriting() {
+        return this.getInheriting();
+    }
+
+    private Boolean getInheriting() {
+        return this.inheriting;
     }
 
     /**
-     * @param isInheriting
-     *            the isInheriting to set
+     * @param inheriting
+     *            the inheriting to set
      */
-    public void setIsInheriting(Boolean isInheriting) {
-        this.isInheriting = isInheriting;
+    public void setInheriting(Boolean isInheriting) {
+        this.inheriting = isInheriting;
     }
 
     /**
@@ -213,9 +222,6 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
                 * result
                 + ((aclTargetObjectId == null) ? 0 : aclTargetObjectId
                         .hashCode());
-        result = PRIME * result
-                + ((ownerSid == null) ? 0 : ownerSid.hashCode());
-        result = PRIME * result + ((parent == null) ? 0 : parent.hashCode());
         return result;
     }
 
@@ -240,16 +246,6 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
             if (other.aclTargetObjectId != null)
                 return false;
         } else if (!aclTargetObjectId.equals(other.aclTargetObjectId))
-            return false;
-        if (ownerSid == null) {
-            if (other.ownerSid != null)
-                return false;
-        } else if (!ownerSid.equals(other.ownerSid))
-            return false;
-        if (parent == null) {
-            if (other.parent != null)
-                return false;
-        } else if (!parent.equals(other.parent))
             return false;
         return true;
     }
