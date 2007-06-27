@@ -76,7 +76,11 @@ public class HibernateStudentUserDetailsDaoTest extends
     private static final Gender DEFAULT_GENDER = Gender.MALE;
 
     private static final Date DEFAULT_BIRTHDAY = new Date(123456);
+    
+    private static final String DEFAULT_ACCOUNT_QUESTION = "what is your middle name";
 
+    private static final String DEFAULT_ACCOUNT_ANSWER = "john";
+    
     private MutableGrantedAuthority role1;
 
     private MutableGrantedAuthority role2;
@@ -159,6 +163,8 @@ public class HibernateStudentUserDetailsDaoTest extends
         this.defaultUserDetails.setGender(DEFAULT_GENDER);
         this.defaultUserDetails.setBirthday(DEFAULT_BIRTHDAY);
         this.defaultUserDetails.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
+        this.defaultUserDetails.setAccountQuestion(DEFAULT_ACCOUNT_QUESTION);
+        this.defaultUserDetails.setAccountAnswer(DEFAULT_ACCOUNT_ANSWER);
     }
 
     /**
@@ -235,6 +241,15 @@ public class HibernateStudentUserDetailsDaoTest extends
                             .toUpperCase());
             assertTrue(defaultRolesList.contains(actualValue));
             defaultRolesList.remove(actualValue);
+            actualValue = (String) actualUserDetailsMap
+                    .get(StudentUserDetails.COLUMN_NAME_ACCOUNTQUESTION
+                            .toUpperCase());
+            assertEquals(DEFAULT_ACCOUNT_QUESTION, actualValue);  
+            actualValue = (String) actualUserDetailsMap
+                    .get(StudentUserDetails.COLUMN_NAME_ACCOUNTANSWER
+                            .toUpperCase());
+            assertEquals(DEFAULT_ACCOUNT_ANSWER, actualValue);
+          
         }
 
         StudentUserDetails duplicateUserDetails = (StudentUserDetails) this.applicationContext
@@ -357,6 +372,8 @@ public class HibernateStudentUserDetailsDaoTest extends
         assertTrue(this.userDetailsDao.hasUsername(DEFAULT_USERNAME));
         assertFalse(this.userDetailsDao.hasUsername(USERNAME_NOT_IN_DB));
     }
+    
+
 
     private void verifyUserandJoinTablesAreEmpty() {
         assertTrue(this.retrieveUserDetailsListFromDb().isEmpty());

@@ -60,6 +60,13 @@ public class StudentUserDetailsValidator extends UserDetailsValidator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender",
 		"error.gender-not-specified");
 		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "accountQuestion",
+		"error.no-accountquestion");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "accountAnswer",
+		"error.no-accountanswer");
+		
+		
 		if (errors.hasErrors())
 			userDetails.setPassword("");
 	}

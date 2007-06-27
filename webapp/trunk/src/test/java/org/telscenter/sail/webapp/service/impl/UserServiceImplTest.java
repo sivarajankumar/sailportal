@@ -51,161 +51,171 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
  */
 public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
-    private static final String EMAIL = "billy@bob.com";
+	private static final String EMAIL = "billy@bob.com";
 
-    private static final String PASSWORD = "password";
+	private static final String PASSWORD = "password";
 
-    private static final String FIRSTNAME = "Billy";
+	private static final String FIRSTNAME = "Billy";
 
-    private static final String LASTNAME = "Bob";
-    
-    private static final Date SIGNUPDATE = Calendar.getInstance().getTime();
-    
-    private static final Gender GENDER = Gender.FEMALE;
+	private static final String LASTNAME = "Bob";
+
+	private static final Date SIGNUPDATE = Calendar.getInstance().getTime();
+
+	private static final Gender GENDER = Gender.FEMALE;
 
 	private static final Date BIRTHDAY = Calendar.getInstance().getTime();
 
-    private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
+	private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
 
-    private UserDao<User> userDao;
+	private UserDao<User> userDao;
 
-    private UserDetailsService userDetailsService;
+	private UserDetailsService userDetailsService;
 
-    private UserService userService;
-    
-    private StudentUserDetails userDetailsCreate;
-    
-    private MutableGrantedAuthority expectedAuthorityCreate;
+	private UserService userService;
+
+	private StudentUserDetails userDetailsCreate;
+
+	private MutableGrantedAuthority expectedAuthorityCreate;
 
 	private Integer DEFAULT_NUMBEROFLOGINS = new Integer(9);
+	
+	private static final String DEFAULT_ACCOUNT_QUESTION = "what is the name of your middle name?";
+	
+	private static final String DEFAULT_ACCOUNT_ANSWER = "John";
 
-    public void testDuplicateUserErrors() throws Exception {
-        StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
-                .getBean("studentUserDetails");
-        userDetails.setPassword(PASSWORD);
-        userDetails.setEmailAddress(EMAIL);
-        userDetails.setFirstname(FIRSTNAME);
-        userDetails.setLastname(LASTNAME);
-        userDetails.setSignupdate(SIGNUPDATE);
-        userDetails.setGender(GENDER);
-        userDetails.setBirthday(BIRTHDAY);
-        userDetails.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
+	public void testDuplicateUserErrors() throws Exception {
+		StudentUserDetails userDetails = (StudentUserDetails) this.applicationContext
+				.getBean("studentUserDetails");
+		userDetails.setPassword(PASSWORD);
+		userDetails.setEmailAddress(EMAIL);
+		userDetails.setFirstname(FIRSTNAME);
+		userDetails.setLastname(LASTNAME);
+		userDetails.setSignupdate(SIGNUPDATE);
+		userDetails.setGender(GENDER);
+		userDetails.setBirthday(BIRTHDAY);
+		userDetails.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
+		userDetails.setAccountQuestion(DEFAULT_ACCOUNT_QUESTION);
+		userDetails.setAccountAnswer(DEFAULT_ACCOUNT_ANSWER);
 
-        // create 2 users and attempt to save to DB
-        // second user should create a new user with similar username but with an added "a"
-        this.userService.createUser(userDetails);
+		// create 2 users and attempt to save to DB
+		// second user should create a new user with similar username but with
+		// an added "a"
+		this.userService.createUser(userDetails);
 
-        StudentUserDetails userDetails2 = (StudentUserDetails) this.applicationContext
-        .getBean("studentUserDetails");
-        userDetails2.setPassword(PASSWORD);
-        userDetails2.setEmailAddress(EMAIL);
-        userDetails2.setFirstname(FIRSTNAME);
-        userDetails2.setLastname(LASTNAME);
-        userDetails2.setSignupdate(SIGNUPDATE);
-        userDetails2.setGender(GENDER);
-        userDetails2.setBirthday(BIRTHDAY);
-        userDetails2.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
+		StudentUserDetails userDetails2 = (StudentUserDetails) this.applicationContext
+				.getBean("studentUserDetails");
+		userDetails2.setPassword(PASSWORD);
+		userDetails2.setEmailAddress(EMAIL);
+		userDetails2.setFirstname(FIRSTNAME);
+		userDetails2.setLastname(LASTNAME);
+		userDetails2.setSignupdate(SIGNUPDATE);
+		userDetails2.setGender(GENDER);
+		userDetails2.setBirthday(BIRTHDAY);
+		userDetails2.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
+		userDetails2.setAccountQuestion(DEFAULT_ACCOUNT_QUESTION);
+		userDetails2.setAccountAnswer(DEFAULT_ACCOUNT_ANSWER);
+		
+		this.userService.createUser(userDetails2);
 
-        this.userService.createUser(userDetails2);
+		assertEquals(userDetails.getUsername()
+				+ userDetails.getUsernameSuffixes()[1], userDetails2
+				.getUsername());
+	}
 
-        assertEquals(userDetails.getUsername() + userDetails.getUsernameSuffixes()[1],
-        		userDetails2.getUsername());
-    }
+	/*
+	 * This test checks creation of a user within the portal, but ignores the
+	 * creation of a user on the remote SDS. Tests for system integration are
+	 * beyond the scope of this testing mechanism. We are assuming the SdsUserId
+	 * cannot be null, enforced by the data store constraint.
+	 */
+	public void testCreateUserWithEmail() throws Exception {
+		setupCreateTest();
+		userDetailsCreate.setEmailAddress(EMAIL);
 
-    /*
-     * This test checks creation of a user within the portal, but ignores the
-     * creation of a user on the remote SDS. Tests for system integration are
-     * beyond the scope of this testing mechanism. We are assuming the SdsUserId
-     * cannot be null, enforced by the data store constraint.
-     */
-    public void testCreateUserWithEmail() throws Exception {
-    	setupCreateTest();
-    	userDetailsCreate.setEmailAddress(EMAIL);
-        
-        // create user (saves automatically)
-        User expectedUser = this.userService.createUser(userDetailsCreate);
-        UserDetails expectedUserDetails = expectedUser.getUserDetails();
+		// create user (saves automatically)
+		User expectedUser = this.userService.createUser(userDetailsCreate);
+		UserDetails expectedUserDetails = expectedUser.getUserDetails();
 
-        // retrieve user and compare
-        UserDetails actual = this.userDetailsService
-                .loadUserByUsername(userDetailsCreate.getUsername());
-        assertEquals(expectedUserDetails, actual);
+		// retrieve user and compare
+		UserDetails actual = this.userDetailsService
+				.loadUserByUsername(userDetailsCreate.getUsername());
+		assertEquals(expectedUserDetails, actual);
 
-        checkPasswordEncoding(actual);
-        checkRole(actual);
+		checkPasswordEncoding(actual);
+		checkRole(actual);
 
-        // added this end transaction to catch a transaction commit within a
-        // transaction rollback problem
-        this.userDao.delete(expectedUser);
-        this.authorityDao.delete(expectedAuthorityCreate);
-        this.setComplete();
-        this.endTransaction();
-    }
+		// added this end transaction to catch a transaction commit within a
+		// transaction rollback problem
+		this.userDao.delete(expectedUser);
+		this.authorityDao.delete(expectedAuthorityCreate);
+		this.setComplete();
+		this.endTransaction();
+	}
 
-    /*
-     * This test checks creation of a user within the portal, but ignores the
-     * creation of a user on the remote SDS. Tests for system integration are
-     * beyond the scope of this testing mechanism. We are assuming the SdsUserId
-     * cannot be null, enforced by the data store constraint. Email is null
-     */
-    public void testCreateUserBlankEmail() throws Exception {
-    	setupCreateTest();
-    	
-        User expectedUser = this.userService.createUser(userDetailsCreate);
+	/*
+	 * This test checks creation of a user within the portal, but ignores the
+	 * creation of a user on the remote SDS. Tests for system integration are
+	 * beyond the scope of this testing mechanism. We are assuming the SdsUserId
+	 * cannot be null, enforced by the data store constraint. Email is null
+	 */
+	public void testCreateUserBlankEmail() throws Exception {
+		setupCreateTest();
 
-        MutableUserDetails expectedUserDetails = (MutableUserDetails) expectedUser
-                .getUserDetails();
-        UserDetails actual = this.userDetailsService
-                .loadUserByUsername(userDetailsCreate.getUsername());
-        assertEquals(expectedUserDetails, actual);
-        
-        checkPasswordEncoding(actual);
-        checkRole(actual);
+		User expectedUser = this.userService.createUser(userDetailsCreate);
 
-        // added this end transaction to catch a transaction commit within a
-        // transaction rollback problem
-        this.userDao.delete(expectedUser);
-        this.authorityDao.delete(expectedAuthorityCreate);
-        this.setComplete();
-        this.endTransaction();
+		MutableUserDetails expectedUserDetails = (MutableUserDetails) expectedUser
+				.getUserDetails();
+		UserDetails actual = this.userDetailsService
+				.loadUserByUsername(userDetailsCreate.getUsername());
+		assertEquals(expectedUserDetails, actual);
 
-    }
+		checkPasswordEncoding(actual);
+		checkRole(actual);
 
-    /**
-     * @param authorityDao
-     *            the authorityDao to set
-     */
-    public void setAuthorityDao(
-            GrantedAuthorityDao<MutableGrantedAuthority> authorityDao) {
-        this.authorityDao = authorityDao;
-    }
+		// added this end transaction to catch a transaction commit within a
+		// transaction rollback problem
+		this.userDao.delete(expectedUser);
+		this.authorityDao.delete(expectedAuthorityCreate);
+		this.setComplete();
+		this.endTransaction();
 
-    /**
-     * @param userDetailsService
-     *            the userDetailsService to set
-     */
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+	}
 
-    /**
-     * @param userService
-     *            the userService to set
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+	/**
+	 * @param authorityDao
+	 *            the authorityDao to set
+	 */
+	public void setAuthorityDao(
+			GrantedAuthorityDao<MutableGrantedAuthority> authorityDao) {
+		this.authorityDao = authorityDao;
+	}
 
-    /**
-     * @param userDao
-     *            the userDao to set
-     */
-    public void setUserDao(UserDao<User> userDao) {
-        this.userDao = userDao;
-    }
-    
+	/**
+	 * @param userDetailsService
+	 *            the userDetailsService to set
+	 */
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
+
+	/**
+	 * @param userService
+	 *            the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	/**
+	 * @param userDao
+	 *            the userDao to set
+	 */
+	public void setUserDao(UserDao<User> userDao) {
+		this.userDao = userDao;
+	}
+
 	private void setupCreateTest() {
- 		expectedAuthorityCreate = (MutableGrantedAuthority) this.applicationContext
+		expectedAuthorityCreate = (MutableGrantedAuthority) this.applicationContext
 				.getBean("mutableGrantedAuthority");
 		expectedAuthorityCreate.setAuthority(UserDetailsService.USER_ROLE);
 		this.authorityDao.save(expectedAuthorityCreate);
@@ -219,9 +229,11 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		userDetailsCreate.setGender(GENDER);
 		userDetailsCreate.setBirthday(BIRTHDAY);
 		userDetailsCreate.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
+		userDetailsCreate.setAccountQuestion(DEFAULT_ACCOUNT_QUESTION);
+		userDetailsCreate.setAccountAnswer(DEFAULT_ACCOUNT_ANSWER);
 
 	}
-	
+
 	private void checkRole(UserDetails actual) {
 		// check role
 		GrantedAuthority[] authorities = actual.getAuthorities();
@@ -234,9 +246,9 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 				break;
 			}
 		}
-		assertTrue(foundUserRole);		
+		assertTrue(foundUserRole);
 	}
-	
+
 	private void checkPasswordEncoding(UserDetails actual) {
 		// check password encoding
 		assertFalse(PASSWORD.equals(actual.getPassword()));
@@ -248,7 +260,5 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 				saltSource.getSalt(userDetailsCreate));
 		assertEquals(encodedPassword, actual.getPassword());
 	}
-
-
 
 }

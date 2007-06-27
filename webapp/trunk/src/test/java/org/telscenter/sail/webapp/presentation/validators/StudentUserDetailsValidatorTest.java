@@ -36,7 +36,9 @@ public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
 	private StudentUserDetails userDetails;
 
     private static final Gender GENDER = Gender.FEMALE;
-
+    private static final String ACCOUNT_QUESTION = "what is the name of your middle name?";
+    private static final String ACCOUNT_ANSWER = "John";
+    
     protected void setUp() throws Exception {
         super.setUp();
         userDetails = new StudentUserDetails();
@@ -46,6 +48,8 @@ public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
         userDetails.setLastname(LASTNAME);
         userDetails.setGender(GENDER);
         userDetails.setSignupdate(SIGNUPDATE);
+        userDetails.setAccountQuestion(ACCOUNT_QUESTION);
+        userDetails.setAccountAnswer(ACCOUNT_ANSWER);
         errors = new BeanPropertyBindingResult(userDetails, "");
         userDetailsValidator = new StudentUserDetailsValidator();
     }
@@ -76,6 +80,24 @@ public class StudentUserDetailsValidatorTest extends UserDetailsValidatorTest {
     
     public void testSignupdateNullValidate() {
     	super.testSignupdateNullValidate(userDetails, errors);
+    }
+    
+    public void testAccountQuestionNullValidate() {
+    	 userDetails.setAccountQuestion(null);
+         userDetailsValidator.validate(userDetails, errors);
+         assertTrue(errors.hasErrors());
+         assertEquals(1, errors.getErrorCount());
+         assertNull(errors.getFieldError("username"));
+         assertNotNull(errors.getFieldError("accountQuestion"));    	
+    }
+    
+    public void testAccountAnswerNullValidate() {
+    	 userDetails.setAccountAnswer(null);
+         userDetailsValidator.validate(userDetails, errors);
+         assertTrue(errors.hasErrors());
+         assertEquals(1, errors.getErrorCount());
+         assertNull(errors.getFieldError("username"));
+         assertNotNull(errors.getFieldError("accountAnswer"));    
     }
 
     protected void tearDown() throws Exception {

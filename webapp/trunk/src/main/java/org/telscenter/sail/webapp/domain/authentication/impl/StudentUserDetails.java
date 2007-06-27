@@ -70,6 +70,12 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	@Transient
 	public static final String COLUMN_NAME_NUMBEROFLOGINS = "numberoflogins";
 	
+	@Transient
+	public static final String COLUMN_NAME_ACCOUNTQUESTION = "accountquestion";
+	
+	@Transient
+	public static final String COLUMN_NAME_ACCOUNTANSWER = "accountanswer";
+	
     @Transient
     private static final long serialVersionUID = 1L;
 
@@ -90,6 +96,12 @@ public class StudentUserDetails extends PersistentUserDetails implements
     
     @Column(name = StudentUserDetails.COLUMN_NAME_NUMBEROFLOGINS, nullable = false)
     private Integer numberOfLogins;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_ACCOUNTQUESTION, nullable = false)
+    private String accountQuestion;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_ACCOUNTANSWER, nullable = false)
+    private String accountAnswer;
 	
 	/**
 	 * @return the firstname
@@ -170,11 +182,41 @@ public class StudentUserDetails extends PersistentUserDetails implements
             "i", "j", "k", "l", "m", "n", "o", "p"};
 	}
 	
+	/**
+	 * the number of user logins
+	 */
 	public Integer getNumberOfLogins() {
 		return this.numberOfLogins;
 	}
 	
+	/**
+	 * sets the number of logins
+	 */
 	public void setNumberOfLogins(Integer numberOfLogins) {
 		this.numberOfLogins = numberOfLogins;
+	}
+	/**
+	 * @return the accountQuestion
+	 */
+	public String getAccountQuestion() {
+		return accountQuestion;
+	}
+	/**
+	 * @param accountQuestion the accountQuestion to set
+	 */
+	public void setAccountQuestion(String accountQuestion) {
+		this.accountQuestion = accountQuestion;
+	}
+	/**
+	 * @return the accountAnswer
+	 */
+	public String getAccountAnswer() {
+		return accountAnswer;
+	}
+	/**
+	 * @param accountAnswer the accountAnswer to set
+	 */
+	public void setAccountAnswer(String accountAnswer) {
+		this.accountAnswer = accountAnswer;
 	}
 }

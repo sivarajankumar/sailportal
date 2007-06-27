@@ -36,6 +36,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.AccountQuestion;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
@@ -96,6 +97,7 @@ public class RegisterStudentController extends SignupController {
 	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("genders", Gender.values());
+		model.put("accountQuestions",AccountQuestion.values());
 		return model;
 	}
 	

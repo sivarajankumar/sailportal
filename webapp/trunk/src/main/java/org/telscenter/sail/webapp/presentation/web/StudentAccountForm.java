@@ -36,6 +36,8 @@ public class StudentAccountForm extends UserAccountForm {
 	private static final long serialVersionUID = 1L;
 	
 	private String projectCode;
+	private String accountQuestion;
+	private String accountAnswer;
 	
 	public StudentAccountForm() {
 		userDetails = new StudentUserDetails();
@@ -59,6 +61,34 @@ public class StudentAccountForm extends UserAccountForm {
 	 */
 	public void setProjectCode(String projectCode) {
 		this.projectCode = projectCode;
+	}
+
+	/**
+	 * @return the accountQuestion
+	 */
+	public String getAccountQuestion() {
+		return accountQuestion;
+	}
+
+	/**
+	 * @param accountQuestion the accountQuestion to set
+	 */
+	public void setAccountQuestion(String accountQuestion) {
+		this.accountQuestion = accountQuestion;
+	}
+
+	/**
+	 * @return the accountAnswer
+	 */
+	public String getAccountAnswer() {
+		return accountAnswer;
+	}
+
+	/**
+	 * @param accoiuntAnswer the accountAnswer to set
+	 */
+	public void setAccountAnswer(String accountAnswer) {
+		this.accountAnswer = accountAnswer;
 	}
 
 }

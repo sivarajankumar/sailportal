@@ -96,14 +96,28 @@
       <form:input path="userDetails.emailAddress" id="emailAddress"/>
       <form:errors path="userDetails.emailAddress"/>
     </div>
-
+	<div>
+      <label for="accountQuestion"><spring:message code="signup.project.accountQuestion" /></label>
+      <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
+          <c:forEach items="${accountQuestions}" var="question">
+            <form:option value="${question}"><spring:message code="accountQuestions.${question}" /></form:option>
+          </c:forEach>
+        </form:select>
+      <form:errors path="userDetails.accountQuestion" />
+    </div>
+	
+	  <div>
+      <label for="accountAnswer"><spring:message code="signup.project.accountAnswer" /></label>
+      <form:input path="userDetails.accountAnswer" id="accountAnswer"/>
+      <form:errors path="userDetails.accountAnswer" />
+    </div>
     <div>
       <label for="projectCode"><spring:message code="signup.project.code" /></label>
       <form:input path="projectCode" id="projectCode"/>
       <form:errors path="projectCode" />
     </div>
 
-  
+     
     <div><input type="submit" value="<spring:message code="signup.save.information" />" /></div>
 
 </form:form></div>
