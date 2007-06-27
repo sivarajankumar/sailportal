@@ -40,20 +40,12 @@
   <tr bgcolor="#CCCCCC"><td><b><spring:message code="curnit.name.heading" /></b></td></tr>
 <c:forEach var="curnit" items="${curnitlist}">
   <tr bgcolor="#FFFF88">
-  <td><b><a href="<c:url value="createoffering.html"><c:param name="curnitId" value="${curnit.name}"/></c:url>">
-	  <font color="BLACK"><c:out value="${curnit.name}"/></font>
+  <td><b><a href="<c:url value="createoffering.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
+	  <font color="BLACK"><c:out value="${curnit.sdsCurnit.name}"/></font>
   </a></b></td>
   </tr>
 </c:forEach>
 </table>
-
-<div id="right">
-<display:table name="${curnitlist}" id="curnit">
-  <display:column titleKey="curnit.numbering.heading">
-    <c:out value="${curnit_rowNum}" />
-  </display:column>
-  <display:column property="name" titleKey="curnit.name.heading" />
-</display:table></div>
 
 </div>
 

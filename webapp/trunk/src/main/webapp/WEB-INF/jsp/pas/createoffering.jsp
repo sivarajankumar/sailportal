@@ -40,9 +40,14 @@ addEvent(window, 'load', onLoadHandler);
 
 <%@ include file="header.jsp"%>
 
+<c:forEach var="error" items="${status.errorMessages}">
+	<b> <br />
+	<c:out value="${error}" /> </b>
+</c:forEach>
+
 <div id="columns">
 <div id="left">
-<h2><spring:message code="signup" /></h2>
+<h2><spring:message code="createoffering.title" /></h2>
 </div>
 
 <div id="right"><form:form method="post" action="createoffering.html"
@@ -51,7 +56,10 @@ addEvent(window, 'load', onLoadHandler);
   <p><label for="name"><spring:message code="createoffering.name" /></label>
   <form:input path="name" id="name" /> <form:errors path="name" />
   </p>
-
+  <p>
+  <label for="curnitId"><spring:message code="createoffering.curnitId" /></label>
+  <input name="curnitId" id="curnitId" value=<%= request.getParameter("curnitId") %> /> <form:errors path="curnitId" />
+  </p>
   <p><input type="submit" value="<spring:message code="createoffering.submit" />" />
   </p>
 </form:form></div>

@@ -88,6 +88,8 @@
     	class="net.sf.sail.webapp.presentation.web.controllers.CreateOfferingController">
     	<property name="offeringService" ref="offeringService" />
     	<property name="commandName" value="offeringParameters" />
+    	<property name="commandClass"
+    	    value="net.sf.sail.webapp.domain.impl.OfferingParameters" />
     	<property name="validator" ref="offeringParametersValidator" />
     	<property name="formView" value="createoffering" />
     	<property name="successView" value="offeringlist.html" />
