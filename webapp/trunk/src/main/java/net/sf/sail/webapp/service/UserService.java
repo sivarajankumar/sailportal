@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.service;
 
+import java.util.List;
+
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
@@ -75,12 +77,12 @@ public interface UserService {
     public User retrieveUserByUsername(String username);
     
     /**
-     * Retrieve user witht he given emailAddress
+     * Retrieve users with the given emailAddress
      * 
      * @param emailAddress
-     * @return <code>User</code> associated with the given emailaddress
+     * @return <code>Users</code> associated with the given emailaddress
      */
-    public User retrieveUserByEmailAddress(String emailAddress);
+    public List<User> retrieveUserByEmailAddress(String emailAddress);
  
     /**
      * Updates the user with new information
