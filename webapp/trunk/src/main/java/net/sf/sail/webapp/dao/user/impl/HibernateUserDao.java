@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.user.impl;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
@@ -80,15 +82,12 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     /**
      * @see net.sf.sail.webapp.dao.user.UserDao#retrieveByEmailAddress(java.lang.String)
      */
-    //TODO - this should retrieve a list of users, not a single user.
-    //single user requirement to be restricted in the TELS version
-    public User retrieveByEmailAddress(String emailAddress	) {
-        return (User) DataAccessUtils
-                .requiredUniqueResult(this
-                        .getHibernateTemplate()
-                        .findByNamedParam(
-                                "from UserImpl as user where user.userDetails.emailAddress = :emailAddress",
-                                "emailAddress", emailAddress));
+    public List<User> retrieveByEmailAddress(String emailAddress) {
+        return this
+        .getHibernateTemplate()
+        .findByNamedParam(
+                "from UserImpl as user where user.userDetails.emailAddress = :emailAddress",
+                "emailAddress", emailAddress);
     }
    
 }
