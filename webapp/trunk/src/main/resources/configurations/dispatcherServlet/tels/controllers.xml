@@ -34,10 +34,14 @@
 
 	<bean id="lostTeacherValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" />
-		
+
 	<bean id="lostPasswordStudentUsernameValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentUsernameValidator" />
-	
+
+
+
+	<bean id="lostPasswordStudentAccountQuestionValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentAccountQuestionValidator" />
 
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
@@ -92,8 +96,7 @@
 			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
 		<property name="validator" ref="lostTeacherValidator" />
 		<property name="formView" value="lostpasswordteachermain" />
-		<property name="successView"
-			value="lostpasswordteacherresult" />
+		<property name="successView" value="lostpasswordteacherresult" />
 	</bean>
 
 	<bean id="lostPasswordTeacherErrorController"
@@ -104,61 +107,66 @@
 
 	<bean id="lostPasswordStudentPasswordController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordController" />
-		
+
 	<bean id="lostPasswordStudentUsernameController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentUsernameController" />	
-		
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentUsernameController" />
+
 	<bean id="lostPasswordTeacherResultController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherResultController" />	
-		
-		
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherResultController" />
+
+
 	<bean id="lostPasswordStudentProjectCodeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentProjectCodeController">
-	
+
 		<property name="userService" ref="userService" />
-		
+
 		<property name="commandName" value="userDetails" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
 		<property name="validator" ref="lostTeacherValidator" />
-	
-		<property name="formView" value="lostpasswordstudentprojectcode" />
+
+		<property name="formView"
+			value="lostpasswordstudentprojectcode" />
 		<property name="successView"
 			value="lostpasswordstudentprojectcoderesult.html" />
 	</bean>
-	
-	
+
+
 	<bean id="lostPasswordStudentPasswordReminder1Controller"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordReminder1Controller">
 		<property name="userService" ref="userService" />
 		<property name="commandName" value="userDetails" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
-		<property name="validator" ref="lostPasswordStudentUsernameValidator" />
-		<property name="formView" value="lostpasswordstudentpasswordreminder1" />
+		<property name="validator"
+			ref="lostPasswordStudentUsernameValidator" />
+		<property name="formView"
+			value="lostpasswordstudentpasswordreminder1" />
 		<property name="successView"
-			value="lostpasswordstudentpasswordreminder2.html" />
+			value="lostpasswordstudentpasswordreminder2" />
 	</bean>
-	
+
 	<bean id="lostPasswordStudentPasswordReminder2Controller"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordReminder2Controller">
 		<property name="userService" ref="userService" />
 		<property name="commandName" value="userDetails" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
-		<property name="validator" ref="lostPasswordStudentUsernameValidator" />
-		<property name="formView" value="lostpasswordstudentpasswordreminder2" />
+		<property name="validator"
+			ref="lostPasswordStudentAccountQuestionValidator" />
+		<property name="formView"
+			value="lostpasswordstudentpasswordreminder2" />
 		<property name="successView"
-			value="lostpasswordstudentpasswordreminder3.html" />
+			value="lostpasswordstudentpasswordreminder3" />
 	</bean>
-	
-	
-	<bean id="enterProjectCodeController" 
-			class="org.telscenter.sail.webapp.presentation.web.controllers.EnterProjectCodeController"/>		
-	
+
+
+	<bean id="enterProjectCodeController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.EnterProjectCodeController" />
+
 	<bean id="studentArchivedProjectsController"
-			class="org.telscenter.sail.webapp.presentation.web.controllers.StudentArchivedProjectsController" />
+		class="org.telscenter.sail.webapp.presentation.web.controllers.StudentArchivedProjectsController" />
 
 	<bean id="teamSignInController"
-			class="org.telscenter.sail.webapp.presentation.web.controllers.TeamSignInController" />
+		class="org.telscenter.sail.webapp.presentation.web.controllers.TeamSignInController" />
 </beans>
