@@ -23,9 +23,13 @@
 
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,6 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
 /**
  * Step 1 of the student password reminder
@@ -43,6 +48,8 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  * @version $Id: $
  */
 public class LostPasswordStudentPasswordReminder1Controller  extends SimpleFormController{
+	private static final String USERNAME = "username";
+	private static final String ACCOUNTQUESTION = "accountquestion";
 	protected UserService userService = null;
 	/**
 	 * submits the page
@@ -56,7 +63,7 @@ public class LostPasswordStudentPasswordReminder1Controller  extends SimpleFormC
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		
-		MutableUserDetails userDetails = (MutableUserDetails) command;
+		StudentUserDetails userDetails = (StudentUserDetails) command;
 
 		String username = null;
 		try {
@@ -64,14 +71,22 @@ public class LostPasswordStudentPasswordReminder1Controller  extends SimpleFormC
 			username = StringUtils.trimToNull(userDetails.getUsername());
 			if (username != null) {
 
-				ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));
-				modelAndView.addObject("user", username);
+				User user = userService.retrieveUserByUsername(userDetails
+						.getUsername());
+						
+	
+				String accountQuestion = ((StudentUserDetails) user.getUserDetails()).getAccountQuestion();
+				
+				Map model = new HashMap();
+			    model.put(USERNAME, username);
+			    model.put(ACCOUNTQUESTION, accountQuestion);
+			    
+				ModelAndView modelAndView = new ModelAndView(getSuccessView(),model);
 				return modelAndView;
-//				User user = userService.retrieveUserByUsername(userDetails
-//						.getUsername());
+				
 			}// if
 		} catch (EmptyResultDataAccessException e) {
-				errors.rejectValue("username", "error.username-not-found",
+				errors.rejectValue(USERNAME, "error.username-not-found",
 	                    new Object[] { userDetails.getUsername() },
 	                    "Username not found");
 	            return showForm(request, response, errors);
