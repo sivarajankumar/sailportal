@@ -98,11 +98,13 @@
     </div>
 	<div>
       <label for="accountQuestion"><spring:message code="signup.project.accountQuestion" /></label>
+      
       <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
-          <c:forEach items="${accountQuestions}" var="question">
-            <form:option value="${question}"><spring:message code="accountQuestions.${question}" /></form:option>
+          <c:forEach items="${accountQuestions}" var="questionchoice">
+            <form:option value="${questionchoice}"><spring:message code="accountQuestions.${questionchoice}" /></form:option>
           </c:forEach>
         </form:select>
+        
       <form:errors path="userDetails.accountQuestion" />
     </div>
 	
