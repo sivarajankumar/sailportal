@@ -29,27 +29,48 @@
     <url>http://sail.sourceforge.net/</url>
     <developers>
         <developer>
-            <id>cynick</id>
-            <name>Cynick Young</name>
-            <email>cynick.young@utoronto.ca</email>
-            <url>http://www.utoronto.ca/</url>
-            <organization>University of Toronto</organization>
-            <organizationUrl>http://www.utoronto.ca</organizationUrl>
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
-            <timezone>-5</timezone>
-        </developer>
-        <developer>
             <id>laurel</id>
             <name>Laurel Williams</name>
             <email>laurel.williams@utoronto.ca</email>
             <url>http://www.utoronto.ca/</url>
             <organization>University of Toronto</organization>
-            <organizationUrl>http://www.utoronto.ca</organizationUrl>
+            <organizationUrl>http://www.utoronto.ca/</organizationUrl>
             <roles>
                 <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>hiroki</id>
+            <name>Hiroki Terashima</name>
+            <email>hirochan@berkeley.edu</email>
+            <organization>TELS</organization>
+            <organizationUrl>http://www.telscenter.org/</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>tony</id>
+            <name>Anthony Perritano</name>
+            <email>aperritano@gmail.com</email>
+            <organization>TELS</organization>
+            <organizationUrl>http://www.telscenter.org/</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>cynick</id>
+            <name>Cynick Young</name>
+            <email>cynick.young@utoronto.ca</email>
+            <url>http://www.utoronto.ca/</url>
+            <organization>University of Toronto</organization>
+            <organizationUrl>http://www.utoronto.ca/</organizationUrl>
+            <roles>
+                <role>contributor</role>
             </roles>
             <timezone>-5</timezone>
         </developer>
@@ -79,7 +100,7 @@
                 <sendOnWarning>true</sendOnWarning>
                 <sendOnSuccess>true</sendOnSuccess>
                 <configuration>
-                    <address>cynick.young@utoronto.ca</address>
+                    <address>laurel.williams@utoronto.ca</address>
                 </configuration>
             </notifier>
             <notifier>
@@ -89,7 +110,27 @@
                 <sendOnWarning>true</sendOnWarning>
                 <sendOnSuccess>true</sendOnSuccess>
                 <configuration>
-                    <address>laurel.williams@utoronto.ca</address>
+                    <address>hirochan@berkeley.edu</address>
+                </configuration>
+            </notifier>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>aperritano@gmail.com</address>
+                </configuration>
+            </notifier>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>cynick.young@utoronto.ca</address>
                 </configuration>
             </notifier>
         </notifiers>
