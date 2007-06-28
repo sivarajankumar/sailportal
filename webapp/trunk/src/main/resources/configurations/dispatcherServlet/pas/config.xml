@@ -82,7 +82,8 @@
             </list>
         </property>
     </bean>
-
+<!--  TODO: uncomment me when ready for production. For debugging purposes, it's useful
+      to keep this commented out so the debug statements can be printed out.
     <bean id="exceptionResolver"
         class="net.sf.sail.webapp.spring.impl.PasSimpleMappingExceptionResolver">
         <property name="exceptionMappings">
@@ -95,4 +96,5 @@
             </props>
         </property>
     </bean>
+    -->
 </beans>
