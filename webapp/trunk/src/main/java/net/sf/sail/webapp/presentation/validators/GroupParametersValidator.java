@@ -60,5 +60,6 @@ public class GroupParametersValidator implements Validator {
 		if (groupParameters.getName().length() > MAX_GROUP_NAME_LENGTH) {
 			errors.rejectValue("name", "error.groupname.too-long");
 		}
+		// TODO: LAW group parent id must be positive
 	}
 }
