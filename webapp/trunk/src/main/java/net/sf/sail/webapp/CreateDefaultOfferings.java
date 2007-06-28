@@ -29,6 +29,7 @@ import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.impl.JnlpParameters;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 import net.sf.sail.webapp.service.offering.OfferingService;
@@ -48,129 +49,129 @@ import org.springframework.context.ConfigurableApplicationContext;
  */
 public class CreateDefaultOfferings {
 
-	private CurnitService curnitService;
+    private CurnitService curnitService;
 
-	private JnlpService jnlpService;
+    private JnlpService jnlpService;
 
-	private OfferingService offeringService;
+    private OfferingService offeringService;
 
-	private static final Map<String, String> CURNITS;
+    private static final Map<String, String> CURNITS;
 
-	private static final Map<String, String> JNLPS;
+    private static final Map<String, String> JNLPS;
 
-	static {
-		Map<String, String> hashmap = new HashMap<String, String>();
-		hashmap
-				.put(
-						"Two Kinds of Processes",
-						"http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar");
-		hashmap
-				.put(
-						"Direct and Emergent Processes for Engineering Science",
-						"http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24500.jar");
-		CURNITS = Collections.unmodifiableMap(hashmap);
+    static {
+        Map<String, String> hashmap = new HashMap<String, String>();
+        hashmap
+                .put(
+                        "Two Kinds of Processes",
+                        "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar");
+        hashmap
+                .put(
+                        "Direct and Emergent Processes for Engineering Science",
+                        "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24500.jar");
+        CURNITS = Collections.unmodifiableMap(hashmap);
 
-		hashmap = new HashMap<String, String>();
-		hashmap
-				.put(
-						"PLR Everything JDIC snapshot 20070125-0811",
-						"http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot-20070125-0811.jnlp");
-		JNLPS = Collections.unmodifiableMap(hashmap);
-	}
+        hashmap = new HashMap<String, String>();
+        hashmap
+                .put(
+                        "PLR Everything JDIC snapshot 20070125-0811",
+                        "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot-20070125-0811.jnlp");
+        JNLPS = Collections.unmodifiableMap(hashmap);
+    }
 
-	public Offering[] createDefaultOfferings(
-			ApplicationContext applicationContext, Curnit[] curnits,
-			Jnlp[] jnlps) {
-		Offering[] offerings = new Offering[curnits.length * jnlps.length];
-		int offeringsIndex = 0;
-		for (int c = 0, cLength = curnits.length; c < cLength; c++) {
-			for (int j = 0, jLength = jnlps.length; j < jLength; j++) {
-				OfferingParameters offeringParameters = (OfferingParameters) applicationContext
-						.getBean("offeringParameters");
-				offeringParameters.setCurnitId(curnits[c].getId());
-				offeringParameters.setName(curnits[c].getSdsCurnit().getName());
-				offerings[offeringsIndex] = this.offeringService
-						.createOffering(offeringParameters);
-				offeringsIndex++;
-			}
-		}
-		return offerings;
-	}
+    public Offering[] createDefaultOfferings(
+            ApplicationContext applicationContext, Curnit[] curnits,
+            Jnlp[] jnlps) throws CurnitNotFoundException {
+        Offering[] offerings = new Offering[curnits.length * jnlps.length];
+        int offeringsIndex = 0;
+        for (int c = 0, cLength = curnits.length; c < cLength; c++) {
+            for (int j = 0, jLength = jnlps.length; j < jLength; j++) {
+                OfferingParameters offeringParameters = (OfferingParameters) applicationContext
+                        .getBean("offeringParameters");
+                offeringParameters.setCurnitId(curnits[c].getId());
+                offeringParameters.setName(curnits[c].getSdsCurnit().getName());
+                offerings[offeringsIndex] = this.offeringService
+                        .createOffering(offeringParameters);
+                offeringsIndex++;
+            }
+        }
+        return offerings;
+    }
 
-	public Curnit[] createDefaultCurnits(ApplicationContext applicationContext) {
-		Set<String> keys = CURNITS.keySet();
-		Curnit[] curnits = new Curnit[keys.size()];
-		int i = 0;
-		for (Iterator<String> curnitIterator = keys.iterator(); curnitIterator
-				.hasNext(); i++) {
-			CurnitParameters curnitParameters = (CurnitParameters) applicationContext
-					.getBean("curnitParameters");
-			String name = curnitIterator.next();
-			curnitParameters.setName(name);
-			curnitParameters.setUrl(CURNITS.get(name));
-			curnits[i] = this.curnitService.createCurnit(curnitParameters);
-		}
+    public Curnit[] createDefaultCurnits(ApplicationContext applicationContext) {
+        Set<String> keys = CURNITS.keySet();
+        Curnit[] curnits = new Curnit[keys.size()];
+        int i = 0;
+        for (Iterator<String> curnitIterator = keys.iterator(); curnitIterator
+                .hasNext(); i++) {
+            CurnitParameters curnitParameters = (CurnitParameters) applicationContext
+                    .getBean("curnitParameters");
+            String name = curnitIterator.next();
+            curnitParameters.setName(name);
+            curnitParameters.setUrl(CURNITS.get(name));
+            curnits[i] = this.curnitService.createCurnit(curnitParameters);
+        }
 
-		return curnits;
-	}
+        return curnits;
+    }
 
-	public Jnlp[] createDefaultJnlps(ApplicationContext applicationContext) {
-		Set<String> keys = JNLPS.keySet();
-		Jnlp[] jnlps = new Jnlp[keys.size()];
-		int i = 0;
-		for (Iterator<String> jnlpIterator = keys.iterator(); jnlpIterator
-				.hasNext(); i++) {
-			String name = jnlpIterator.next();
-			JnlpParameters jnlpParameters = (JnlpParameters) applicationContext
-					.getBean("jnlpParameters");
-			jnlpParameters.setName(name);
-			jnlpParameters.setUrl(JNLPS.get(name));
-			jnlps[i] = this.jnlpService.createJnlp(jnlpParameters);
-		}
-		return jnlps;
-	}
+    public Jnlp[] createDefaultJnlps(ApplicationContext applicationContext) {
+        Set<String> keys = JNLPS.keySet();
+        Jnlp[] jnlps = new Jnlp[keys.size()];
+        int i = 0;
+        for (Iterator<String> jnlpIterator = keys.iterator(); jnlpIterator
+                .hasNext(); i++) {
+            String name = jnlpIterator.next();
+            JnlpParameters jnlpParameters = (JnlpParameters) applicationContext
+                    .getBean("jnlpParameters");
+            jnlpParameters.setName(name);
+            jnlpParameters.setUrl(JNLPS.get(name));
+            jnlps[i] = this.jnlpService.createJnlp(jnlpParameters);
+        }
+        return jnlps;
+    }
 
-	/**
-	 * @param applicationContext
-	 */
-	public CreateDefaultOfferings(
-			ConfigurableApplicationContext applicationContext) {
-		init(applicationContext);
-	}
+    /**
+     * @param applicationContext
+     */
+    public CreateDefaultOfferings(
+            ConfigurableApplicationContext applicationContext) {
+        init(applicationContext);
+    }
 
-	private void init(ApplicationContext applicationContext) {
-		this.setCurnitService((CurnitService) applicationContext
-				.getBean("curnitService"));
-		this.setJnlpService((JnlpService) applicationContext
-				.getBean("jnlpService"));
-		this.setOfferingService((OfferingService) applicationContext
-				.getBean("offeringService"));
-	}
+    private void init(ApplicationContext applicationContext) {
+        this.setCurnitService((CurnitService) applicationContext
+                .getBean("curnitService"));
+        this.setJnlpService((JnlpService) applicationContext
+                .getBean("jnlpService"));
+        this.setOfferingService((OfferingService) applicationContext
+                .getBean("offeringService"));
+    }
 
-	/**
-	 * @param curnitService
-	 *            the curnitService to set
-	 */
-	@Required
-	public void setCurnitService(CurnitService curnitService) {
-		this.curnitService = curnitService;
-	}
+    /**
+     * @param curnitService
+     *            the curnitService to set
+     */
+    @Required
+    public void setCurnitService(CurnitService curnitService) {
+        this.curnitService = curnitService;
+    }
 
-	/**
-	 * @param jnlpService
-	 *            the jnlpService to set
-	 */
-	@Required
-	public void setJnlpService(JnlpService jnlpService) {
-		this.jnlpService = jnlpService;
-	}
+    /**
+     * @param jnlpService
+     *            the jnlpService to set
+     */
+    @Required
+    public void setJnlpService(JnlpService jnlpService) {
+        this.jnlpService = jnlpService;
+    }
 
-	/**
-	 * @param offeringService
-	 *            the offeringService to set
-	 */
-	@Required
-	public void setOfferingService(OfferingService offeringService) {
-		this.offeringService = offeringService;
-	}
+    /**
+     * @param offeringService
+     *            the offeringService to set
+     */
+    @Required
+    public void setOfferingService(OfferingService offeringService) {
+        this.offeringService = offeringService;
+    }
 }
