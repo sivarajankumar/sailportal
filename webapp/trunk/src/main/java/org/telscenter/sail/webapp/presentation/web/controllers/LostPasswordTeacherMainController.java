@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -32,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.BindException;
@@ -90,8 +92,10 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 				return new ModelAndView(getSuccessView(), model);
 			} else if (emailAddress != null) {
 
-				User user = userService
-						.retrieveUserByEmailAddress(emailAddress);
+				List<User> users = userService
+				.retrieveUserByEmailAddress(emailAddress);
+		
+				User user = users.get(0);
 				
 				String generateRandomPassword = generateRandomPassword();
 				user.getUserDetails().setPassword(generateRandomPassword);
