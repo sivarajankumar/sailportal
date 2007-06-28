@@ -112,16 +112,16 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 	}
 
 	public void testRetrieveByUsername() {
-		//no username in data store
+		// no username in data store
 		try {
 			@SuppressWarnings("unused")
-			User expectedProblem = this.userDao.retrieveByUsername("Not in data store");
+			User expectedProblem = this.userDao
+					.retrieveByUsername("Not in data store");
 			fail("expected EmptyResultDataAccessException - no users with this username");
+		} catch (EmptyResultDataAccessException e) {
 		}
-		catch (EmptyResultDataAccessException e) {
-		}
-		
-		//single user in data store should be retrieved correctly
+
+		// single user in data store should be retrieved correctly
 		this.userDao.save(this.defaultUser);
 		User actual = this.userDao.retrieveByUsername(this.userDetails
 				.getUsername());
@@ -131,21 +131,16 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 
 	public void testRetrieveByEmailAddress() {
 		// what happens when there are no users with a given email address?
-		try {
-			@SuppressWarnings("unused")
-			User expectedProblem = this.userDao
-					.retrieveByEmailAddress(EMAILADDRESS);
-			fail("expected EmptyResultDataAccessException - no users with this email address");
-		} catch (EmptyResultDataAccessException e) {
-		}
-
+		List<User> actual = this.userDao.retrieveByEmailAddress(EMAILADDRESS);
+		assertEquals(0, actual.size());
+		
 		// check that single user saved in data store can be retrieved via email
 		// address
 		this.userDao.save(this.defaultUser);
-		User actual = this.userDao.retrieveByEmailAddress(this.userDetails
-				.getEmailAddress());
-		assertNotNull(actual);
-		assertEquals(this.defaultUser, actual);
+		actual = this.userDao
+				.retrieveByEmailAddress(this.userDetails.getEmailAddress());
+		assertNotNull(actual.get(0));
+		assertEquals(this.defaultUser, actual.get(0));
 
 		// what happens when another user is saved with the same email address
 		MutableUserDetails anotherUserDetails = (MutableUserDetails) this.applicationContext
@@ -165,13 +160,10 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 
 		this.userDao.save(anotherUser);
 
-		try {
-			@SuppressWarnings("unused")
-			User expectedMoreProblem = this.userDao
-					.retrieveByEmailAddress(this.userDetails.getEmailAddress());
-			fail("expected IncorrectResultSizeDataAccessException - more than one user with this email address");
-		} catch (IncorrectResultSizeDataAccessException e) {
-		}
+		actual = this.userDao
+				.retrieveByEmailAddress(this.userDetails.getEmailAddress());
+		assertNotNull(actual.get(0));
+		assertNotNull(actual.get(1));
 	}
 
 	public void testSave() {
