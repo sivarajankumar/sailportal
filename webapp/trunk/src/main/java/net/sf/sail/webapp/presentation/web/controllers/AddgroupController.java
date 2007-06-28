@@ -55,6 +55,7 @@ public class AddgroupController extends SimpleFormController {
 	@Override
 	protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
 		ModelAndView modelAndView = super.showForm(request, response, bindException);
+//		TODO would like to sort these by parent group
         modelAndView.addObject("grouplist", this.groupService.getGroups());
 		return modelAndView;
 	}

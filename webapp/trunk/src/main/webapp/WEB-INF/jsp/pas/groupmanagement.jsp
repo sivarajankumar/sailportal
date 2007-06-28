@@ -37,10 +37,28 @@
 </div>
 
 <div id="right">
-<display:table name="${grouplist}" id="group" defaultsort="1">
-  <display:column property="parent.name" titleKey="group.parent.heading" />
-  <display:column property="name" titleKey="group.name.heading" />
-</display:table>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th><spring:message code="group.parent.heading" /></th>
+      <th><spring:message code="group.name.heading" /></th>
+    </tr>
+  </thead>
+  <c:forEach var="group" items="${grouplist}">
+  <tr>
+ 	<c:choose>
+ 		<c:when test="${group.parent != null}" >
+ 		    <td>${group.parent.name}</td>
+    	</c:when>
+    	<c:otherwise>
+			<td>&nbsp;</td>
+		</c:otherwise>
+	</c:choose>
+      <td>${group.name}</td>
+   </tr>
+  </c:forEach>
+</table>
 
 <a href="addgroup.html">Add a new group</a>
 </div>

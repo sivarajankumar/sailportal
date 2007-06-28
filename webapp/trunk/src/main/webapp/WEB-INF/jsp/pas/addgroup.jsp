@@ -43,7 +43,8 @@
 <form:input path="name" id="group_name" /><form:errors path="name" />
 <label for="group_parent"><spring:message code="group.parent.label" /></label>
 <form:select path="parentId" id="group_parent">
-   <form:options items="${grouplist}" itemValue="id" itemLabel="name"/>
+	<form:option value="0" label="no parent" />
+	<form:options items="${grouplist}" itemValue="id" itemLabel="name"/>
 </form:select>
 <input type="submit" value="<spring:message code="group.add.submit.label" />"/>
 </form:form>
