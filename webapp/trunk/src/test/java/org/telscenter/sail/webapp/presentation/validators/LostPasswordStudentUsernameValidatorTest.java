@@ -28,7 +28,6 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
  * @author Anthony Perritano

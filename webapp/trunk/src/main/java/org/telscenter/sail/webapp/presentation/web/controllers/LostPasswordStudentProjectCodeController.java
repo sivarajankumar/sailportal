@@ -70,7 +70,7 @@ public class LostPasswordStudentProjectCodeController extends SimpleFormControll
 
 				User user = userService.retrieveUserByUsername(userDetails
 						.getUsername());
-				//				
+				//TODO TP 			
 
 				// // generate a new password
 				// // set it on the userobject
@@ -86,7 +86,7 @@ public class LostPasswordStudentProjectCodeController extends SimpleFormControll
 						.retrieveUserByEmailAddress(emailAddress);
 
 			}
-
+			//TODO TP
 			// get the fields
 			// call user service getUserDetails
 

@@ -25,7 +25,6 @@ package org.telscenter.sail.webapp.presentation.validators;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
  * validates the username of the student.

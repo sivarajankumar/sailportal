@@ -26,7 +26,6 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;

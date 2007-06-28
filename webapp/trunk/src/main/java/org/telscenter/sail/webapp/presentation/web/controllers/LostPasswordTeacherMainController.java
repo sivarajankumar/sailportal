@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.BindException;
@@ -86,7 +85,7 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 				
 				//send password in the email here
 				
-				Map model = new HashMap();
+				Map<String, String> model = new HashMap<String, String>();
 			    model.put(NEW_PASSWORD, generateRandomPassword);
 				return new ModelAndView(getSuccessView(), model);
 			} else if (emailAddress != null) {
@@ -101,7 +100,7 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 			
 				//send password in the email here
 				
-				Map model = new HashMap();
+				Map<String, String> model = new HashMap<String, String>();
 			    model.put(NEW_PASSWORD, generateRandomPassword);
 				return new ModelAndView(getSuccessView(), model);
 			}
