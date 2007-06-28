@@ -82,7 +82,7 @@ public class LostPasswordStudentProjectCodeController extends SimpleFormControll
 
 			} else if (emailAddress != null) {
 
-				User user = userService
+				List<User> users = userService
 						.retrieveUserByEmailAddress(emailAddress);
 
 			}
