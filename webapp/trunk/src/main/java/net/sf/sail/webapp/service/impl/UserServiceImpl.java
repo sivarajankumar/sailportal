@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.service.impl;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.sds.SdsUserDao;
@@ -125,14 +127,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * @see net.sf.sail.webapp.service.UserService#retrieveUserByEmailAddress(java.lang.String)
-	 */
-	@Transactional(readOnly = true)
-	public User retrieveUserByEmailAddress(String emailAddress) {
-		return this.userDao.retrieveByEmailAddress(emailAddress);
-	}
-
-	/**
 	 * @see net.sf.sail.webapp.service.UserService#retrieveUserByUsername(java.lang.String)
 	 */
 	@Transactional(readOnly = true)
@@ -140,6 +134,14 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.retrieveByUsername(username);
 	}
 
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#retrieveUserByEmailAddress(java.lang.String)
+	 */
+	@Transactional(readOnly = true)
+	public List<User> retrieveUserByEmailAddress(String emailAddress) {
+		return this.userDao.retrieveByEmailAddress(emailAddress);
+	}
+	
 	/**
 	 * @see net.sf.sail.webapp.service.UserService#updateUser(net.sf.sail.webapp.domain.User)
 	 */
