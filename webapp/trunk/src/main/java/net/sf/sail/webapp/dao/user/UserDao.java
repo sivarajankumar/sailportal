@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.user;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.User;
 
@@ -49,13 +51,13 @@ public interface UserDao<T extends User> extends SimpleDao<T> {
      * @return A new instance of a data object
      */
     public T retrieveByUsername(String username);
-    
+   
     /**
-     * Given a username retrieve a corresponding user record from data store.
+     * Given a username retrieve a corresponding user records from data store.
      * 
      * @param emailAddress
-     * @return A new instance of a data object
+     * @return  new instances of a data object
      */
-    public T retrieveByEmailAddress(String emailAddress);
+    public List<T> retrieveByEmailAddress(String emailAddress);
     
 }
