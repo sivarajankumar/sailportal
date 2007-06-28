@@ -26,6 +26,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
 /**
  * Step 1 of the student password reminder
@@ -56,12 +58,12 @@ public class LostPasswordStudentPasswordReminder2Controller  extends SimpleFormC
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		
-		MutableUserDetails userDetails = (MutableUserDetails) command;
+		StudentUserDetails userDetails = (StudentUserDetails) command;
 
 		String username = null;
 		try {
 
-			username = StringUtils.trimToNull(userDetails.getUsername());
+			username = StringUtils.trimToNull(userDetails.getAccountAnswer());
 			if (username != null) {
 
 				ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));
