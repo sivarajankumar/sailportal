@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.springframework.validation.BindException;
@@ -46,6 +47,7 @@ public class CreateOfferingController extends SimpleFormController {
     /**
      * On submission of the createoffering form, an offering is created and saved to the data
      * store.
+     * @throws Exception 
      * 
      * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse, java.lang.Object,
@@ -53,14 +55,21 @@ public class CreateOfferingController extends SimpleFormController {
      */
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request,
-            HttpServletResponse response, Object command, BindException errors)
+            HttpServletResponse response, Object command, BindException errors) 
             throws Exception {
     	OfferingParameters offeringParameters = (OfferingParameters) command;
 
     	// TODO: LAW or HT: shouldn't createOffering throw exception?
-    	// e.g. BadRequestException or NetworkTransportException?
-    	this.offeringService.createOffering(offeringParameters);
-    	
+    	// e.g. CurnitNotFoundException and JNLPNotFoundException
+    	// answer: yes
+    	try {
+			this.offeringService.createOffering(offeringParameters);
+		} catch (CurnitNotFoundException e) {
+			errors.rejectValue("curnitId", "error.curnit-not_found",
+					new Object[] { offeringParameters.getCurnitId() }, 
+					"Curnit Not Found.");
+			return showForm(request, response, errors);
+		}
     	return new ModelAndView(new RedirectView(getSuccessView()));
     }
     

@@ -21,6 +21,7 @@ import java.util.List;
 
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 
 /**
  * @author Laurel Williams
@@ -46,6 +47,7 @@ public interface OfferingService {
      *            The offering you want to create (no offering id required).
      * @return the offering created.
      */
-    public Offering createOffering(OfferingParameters offeringParameters);
+    public Offering createOffering(OfferingParameters offeringParameters) throws
+       CurnitNotFoundException;
 
 }

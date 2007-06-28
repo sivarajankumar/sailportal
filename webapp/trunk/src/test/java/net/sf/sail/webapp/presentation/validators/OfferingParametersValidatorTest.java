@@ -39,9 +39,15 @@ public class OfferingParametersValidatorTest extends TestCase {
 	
 	private Errors errors;
 	
-	private static final String OFFERING_NAME = "Airbags Offering Spring 2006";
+	private static final String LEGAL_OFFERING_NAME = "Airbags Offering Spring 2006";
 
-	private static final Long CURNIT_ID = new Long(5);
+	private static final String ILLEGAL_OFFERING_NAME = "Airbags Offering 4/4/2006";
+	
+    private static final String LONG_OFFERING_NAME = "abcdefghijhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+	private static final Long LEGAL_CURNIT_ID = new Long(5);
+
+	private static final Long ILLEGAL_CURNIT_ID = new Long(-1);
 
 	private static final String EMPTY = "";
 	
@@ -51,10 +57,20 @@ public class OfferingParametersValidatorTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		offeringParameters = new OfferingParameters();
-		offeringParameters.setName(OFFERING_NAME);
-		offeringParameters.setCurnitId(CURNIT_ID);
+		offeringParameters.setName(LEGAL_OFFERING_NAME);
+		offeringParameters.setCurnitId(LEGAL_CURNIT_ID);
 		errors = new BeanPropertyBindingResult(offeringParameters, "");
 		offeringParametersValidator = new OfferingParametersValidator();
+	}
+	
+	public void testAllLegal() {
+		offeringParametersValidator.validate(offeringParameters, errors);
+		
+		assertFalse(errors.hasErrors());
+		assertEquals(0, errors.getErrorCount());
+		assertNull(errors.getFieldError("name"));
+		assertNull(errors.getFieldError("curnitId"));
+
 	}
 	
 	public void testOfferingnameNullValidate() {
@@ -97,6 +113,38 @@ public class OfferingParametersValidatorTest extends TestCase {
 		assertTrue(errors.hasErrors());
 		assertEquals(2, errors.getErrorCount());
 		assertNotNull(errors.getFieldError("name"));
+		assertNotNull(errors.getFieldError("curnitId"));
+	}
+	
+	public void testOfferingnameNotAlphaNumeric() {
+		offeringParameters.setName(ILLEGAL_OFFERING_NAME);
+		
+		offeringParametersValidator.validate(offeringParameters, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("name"));
+		assertNull(errors.getFieldError("curnitId"));
+	}
+	
+	public void testOfferingnameTooLong() {
+		offeringParameters.setName(LONG_OFFERING_NAME);
+		
+		offeringParametersValidator.validate(offeringParameters, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("name"));
+		assertNull(errors.getFieldError("curnitId"));	
+	}
+	
+	public void testCurnitIdTooSmall() {
+		offeringParameters.setCurnitId(ILLEGAL_CURNIT_ID);
+		offeringParametersValidator.validate(offeringParameters, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNull(errors.getFieldError("name"));
 		assertNotNull(errors.getFieldError("curnitId"));
 	}
 	

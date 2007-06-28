@@ -24,6 +24,7 @@ package net.sf.sail.webapp.presentation.validators;
 
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -37,6 +38,8 @@ import org.springframework.validation.Validator;
  */
 public class OfferingParametersValidator implements Validator {
 
+	protected static final int MAX_OFFERINGNAME_LENGTH = 50;
+	
 	public boolean supports(Class clazz) {
 		return OfferingParameters.class.isAssignableFrom(clazz);
 	}
@@ -48,9 +51,28 @@ public class OfferingParametersValidator implements Validator {
 	    
 	    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "curnitId",
 	    		"error.offeringcurnitid-not-specified");
+	    
+	    if (errors.hasErrors()) {
+	    	return;
+	    }
 
-	    // TODO: LAW & HT
-	    // what are other restrictions that we should check for here?
+	    OfferingParameters offeringParameters = 
+	    	(OfferingParameters) offeringParametersIn;
+	    
+	    if (!StringUtils.isAlphanumericSpace(offeringParameters.getName())) {
+	    	errors.rejectValue("name", "error.offeringname-illegal-characters");
+	    	return;
+	    }
+	    
+	    if (offeringParameters.getName().length() > MAX_OFFERINGNAME_LENGTH) {
+	    	errors.rejectValue("name", "error.offeringname-too-long");
+	    	return;
+	    }
+	    
+	    if (offeringParameters.getCurnitId() < 1) {
+	    	errors.rejectValue("curnitId", "error.offeringcurnitid-too-small");
+	    	return;
+	    }
 	}
 
 }

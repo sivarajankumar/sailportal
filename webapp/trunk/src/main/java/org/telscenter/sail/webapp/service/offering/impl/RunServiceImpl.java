@@ -34,6 +34,7 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -107,11 +108,12 @@ public class RunServiceImpl extends OfferingServiceImpl {
      * 
      * @param runParameters
      * @return The run created.
+     * @throws CurnitNotFoundException 
      * 
      */
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
-    public Run createRun(RunParameters runParameters) {
+    public Run createRun(RunParameters runParameters) throws CurnitNotFoundException {
 
         Run run = new Run();
         run.setEndtime(null);

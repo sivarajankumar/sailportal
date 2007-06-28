@@ -31,6 +31,7 @@ import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -97,9 +98,13 @@ public class OfferingServiceImpl implements OfferingService {
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#createOffering(Offering)
      */
+    // TODO:HT add to transactional: curnitnotfoundexception
+    // TODO: LAW add to transactional: jnlpnotfoundexception
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
-    public Offering createOffering(OfferingParameters offeringParameters) {
+    public Offering createOffering(OfferingParameters offeringParameters) throws 
+       CurnitNotFoundException {
+    	// TODO add throws declaration to this method and the interface
         // TODO LAW get from bean
         SdsOffering sdsOffering = generateSdsOfferingFromParameters(offeringParameters);
         Offering offering = new OfferingImpl();
@@ -109,16 +114,21 @@ public class OfferingServiceImpl implements OfferingService {
     }
 
     protected SdsOffering generateSdsOfferingFromParameters(
-            OfferingParameters offeringParameters) {
+            OfferingParameters offeringParameters) throws
+            CurnitNotFoundException {
         SdsOffering sdsOffering = new SdsOffering();
         sdsOffering.setName(offeringParameters.getName());
         Curnit curnit = this.curnitDao
                 .getById(offeringParameters.getCurnitId());
+        if (curnit == null) {
+        	throw new CurnitNotFoundException(offeringParameters.getCurnitId() + " was not found");
+        }
         sdsOffering.setSdsCurnit(curnit.getSdsCurnit());
 
         // TODO LAW this will need to be rethought
         // this gets the "default jnlp" assuming there is only one jnlp for
         // everything
+        // TODO LAW throw JNLPNotFoundException
         List<Jnlp> jnlpList = this.jnlpDao.getList();
         Jnlp jnlp = jnlpList.get(0);
         sdsOffering.setSdsJnlp(jnlp.getSdsJnlp());

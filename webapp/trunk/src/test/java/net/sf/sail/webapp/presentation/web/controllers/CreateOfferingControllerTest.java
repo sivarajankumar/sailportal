@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
 import static org.easymock.EasyMock.createMock;
@@ -53,6 +54,8 @@ public class CreateOfferingControllerTest extends AbstractModelAndViewTests {
 	private static final Long CURNIT_ID = new Long(5);
 	
 	private static final String SUCCESS = "WooHoo";
+
+	private static final String FORM = "Form view";
 
 	ApplicationContext mockApplicationContext;
 
@@ -100,7 +103,31 @@ public class CreateOfferingControllerTest extends AbstractModelAndViewTests {
 		assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
 		verify(mockOfferingService);
 	}
+	
+	public void testOnSubmitCurnitNotFoundException() throws Exception {
+		// test submission of form with offeringParameter.curnitId
+		// that does not exist in the data store.  Should get ModelAndView
+		// back with original form returned with name of Form View as set.
+		expect(mockOfferingService.createOffering(this.offeringParameters))
+		    .andThrow(new CurnitNotFoundException(offeringParameters.getCurnitId().toString()));
+		replay(mockOfferingService);
+		
+		CreateOfferingController createOfferingController = new CreateOfferingController();
+		createOfferingController.setApplicationContext(mockApplicationContext);
+		createOfferingController.setOfferingService(mockOfferingService);
+		createOfferingController.setFormView(FORM);
 
+		ModelAndView modelAndView = createOfferingController.onSubmit(request, 
+				response, offeringParameters, errors);
+		
+		assertViewName(modelAndView, FORM);
+		assertEquals(1, errors.getErrorCount());
+		assertEquals(1, errors.getFieldErrorCount("curnitId"));
+		verify(mockOfferingService);
+	}
+	
+	// TODO LAW test RuntimeException that gets thrown (JNLPNotFoundException)
+	
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
