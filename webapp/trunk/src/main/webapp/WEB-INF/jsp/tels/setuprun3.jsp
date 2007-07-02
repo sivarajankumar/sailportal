@@ -27,7 +27,31 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<title><spring:message code="teacher.setup-project-run-step-two" /></title>
+<script type="text/javascript">
+function checkIfTextAreaEmpty (form) {
+if(form.manualCheckbox.checked==true){
+	form.manualPeriods.disabled=false;
+	for(i=0;i<form.options.length;i++){
+	   form.options[i].disabled=true;
+	   form.options[i].checked=false;
+	}
+	
+}else{
+	form.manualPeriods.disabled=true;
+	for(i=0;i<form.options.length;i++){
+	   form.options[i].disabled=false;
+	}
+	
+}
+
+}
+
+
+// End -->
+</script>
+
+
+<title><spring:message code="teacher.setup-project-run-step-three" /></title>
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
@@ -46,19 +70,46 @@
 <li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
-</ul>
-<br />  
-<h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2 class="north0"><b><spring:message code="teacher.setup-project-run-step2" /></b></h2>
+</ul><br />  
 
-<p class="bigFont1 north0"><spring:message code="teacher.currently-active-project-runs" /></p>
-<p class="bigFont1 north0"><spring:message code="teacher.archiving-a-project-run" /></p>
-<p class="bigFont1 north0"><spring:message code="teacher.end-or-cont-project-runs" /></p>
+<h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2 class="north0"><b> <spring:message code="teacher.setup-project-run-step3" /> </b></h2>
+<p class="bigFont1 north0"><spring:message code="teacher.select-classroom-periods" /></p>
+
+<div class="north0">
+<form method="post" class="center north0">
+<input type="checkbox" name="options" value="Period 1" /> <spring:message code="classroom.period1" /><br />
+<input type="checkbox" name="options" value="Period 2" /> <spring:message code="classroom.period2" /><br />
+<input type="checkbox" name="options" value="Period 3" /> <spring:message code="classroom.period3" /><br />
+<input type="checkbox" name="options" value="Period 4" /> <spring:message code="classroom.period4" /><br />
+<input type="checkbox" name="options" value="Period 5" /> <spring:message code="classroom.period5" /><br />
+<input type="checkbox" name="options" value="Period 6" /> <spring:message code="classroom.period6" /><br />
+<input type="checkbox" name="options" value="Period 7" /> <spring:message code="classroom.period7" /><br />
+<input type="checkbox" name="options" value="Period 8" /> <spring:message code="classroom.period8" /><br />
+<input type="checkbox" name="options" value="Period 9" /> <spring:message code="classroom.period9" /><br />
+<input type="checkbox" name="options" value="Period 10" /> <spring:message code="classroom.period10" /><br />
+
+OR <br />
+
+<input type="checkbox" name="manualCheckbox" value="Manual" onclick="checkIfTextAreaEmpty(this.form)" /><spring:message code="classroom.manually-named-periods"/>
+
+<textarea name="manualPeriods" cols="100" rows="5" onclick="checkIfTextAreaEmpty(this.form)" onkeypress="checkIfTextAreaEmpty(this.form)" ></textarea> 
+<br />
+<p class="center">
+<spring:message code="classroom.separate-periods" />
+</p>
+
+<input type="submit" name="_target1" value="<spring:message code="navigate.back" />">
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
+<input type="submit" name="_target3" value="<spring:message code="navigate.next" />">
+
+</form>
+</div>
 
 <div class="center north0">
-<a href="setuprun2.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /></a>
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /></a> 
-<a href="setuprun4.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> <spring:message code='navigate.next' /> </a> 
+<a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /> </a>
+<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /> </a> 
+<a href="setuprun5.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"><spring:message code='navigate.next' /> </a> 
 </div>
 
 </body>

@@ -27,11 +27,11 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<title><spring:message code="teacher.setup-project-run" /></title>
+<title><spring:message code="teacher.setup-project-run-step-one" /></title>
+
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
-
 <div id="navigation" class="center north2 widthAdj4">
 <ul class="bigFont1">
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
@@ -41,36 +41,29 @@
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
 </ul>
 </div>
-<ul id="tabnav" class="north_0">
+<ul id="tabnav" class="north_0 widthAdj4">
 <li> <a href="#"><spring:message code="teacher.overview" /></a></li>
 <li> <a href="#"><spring:message code="teacher.project-library" /></a></li>
 <li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />
-<h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /> </h2>
-<p class="bigFont1 north0"> <spring:message code="teacher.setup-run-six-steps" /> </p>
-<h3 class="north0"> <spring:message code="teacher.tips-project-runs" /> </h3>
-<ol class="bigFont1 north0">
-<li> <spring:message code="teacher.remember" /> <b> <spring:message code="wise.preview-the-project" /> </b> <spring:message code="teacher.preview-project-message" /> </li>
-<li> <spring:message code="teacher.review" /> <b> <spring:message code="teacher.lesson-plans" /></b> <spring:message code="teacher.lesson-plans-cont" /></li>
-<li> <spring:message code="teacher.lesson-plans-more-info" /> <b><spring:message code="wise.guide-to-running" /></b>
-<spring:message code="teacher.lesson-plans-cont" /> </li>
-</ol>
+<h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2 class="north0"><b><spring:message code="teacher.setup-project-run-step1" /></b></h2>
+<p class="bigFont1 north0"> <spring:message code="teacher.selected-projects-message" />
+<b><spring:message code="teacher.type-of-project" /></b> <spring:message code="teacher.project-run-classroom-message" /> </p>
 
-<ul class="center none bigFont1 north0">
-<li> <spring:message code="teacher.get-started" /> </li>
-<li><spring:message code="teacher.cancel-setup-steps" /></li>
-</ul>
+<p class="bigFont1 north0"> <spring:message code="teacher.correct-project" /> </p> 
 
-<ul class="none bigFont1 north0">
-<li class="center"> <a href="setuprun2.html" style="text-decoration:none;" class="border bigFont1 bgColorLightBlue"> <spring:message code="teacher.setup-project-run-start" /> </a> </li>
-</ul>
-
-<div>
-<a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
-</div>
-<%@ include file="footer.jsp"%>
-
+<form method="post" class="center north0">
+<!--  
+<input type="button" disabled value=<spring:message code='navigate.back' /> style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue" />
+<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"><spring:message code="navigate.cancel" /> </a> 
+<a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"><spring:message code="navigate.next" /> </a> 
+-->
+<input type="submit" name="_target0" disabled value="<spring:message code="navigate.back" />" >
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
+<input type="submit" name="_target1" value="<spring:message code="navigate.next" />">
+</form>
 </body>
 </html>

@@ -17,7 +17,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: setupRun1.jsp 357 2007-05-03 00:49:48Z archana $ -->
+<!-- $Id: setupRun3.jsp 357 2007-05-03 00:49:48Z archana $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
@@ -28,7 +28,6 @@
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 <title><spring:message code="teacher.setup-project-run-step-two" /></title>
-
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
@@ -47,18 +46,28 @@
 <li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
-</ul><br />
+</ul>
+<br />  
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2 class="north0"><b><spring:message code="teacher.setup-project-run-step1" /></b></h2>
-<p class="bigFont1 north0"> <spring:message code="teacher.selected-projects-message" />
-<b><spring:message code="teacher.type-of-project" /></b> <spring:message code="teacher.project-run-classroom-message" /> </p>
+<h2 class="north0"><b><spring:message code="teacher.setup-project-run-step2" /></b></h2>
 
-<p class="bigFont1 north0"> <spring:message code="teacher.correct-project" /> </p> 
+<p class="bigFont1 north0"><spring:message code="teacher.currently-active-project-runs" /></p>
+<p class="bigFont1 north0"><spring:message code="teacher.archiving-a-project-run" /></p>
+<p class="bigFont1 north0"><spring:message code="teacher.end-or-cont-project-runs" /></p>
 
-<form class="center north0">
-<input type="button" disabled value=<spring:message code='navigate.back' /> style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue" />
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"><spring:message code="navigate.cancel" /> </a> 
-<a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"><spring:message code="navigate.next" /> </a> 
+<!--  
+<div class="center north0">
+<a href="setuprun2.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /></a>
+<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /></a> 
+<a href="setuprun4.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> <spring:message code='navigate.next' /> </a> 
+</div>
+-->
+
+<form method="post" class="center north0">
+<input type="submit" name="_target0" value="<spring:message code="navigate.back" />">
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
+<input type="submit" name="_target2" value="<spring:message code="navigate.next" />">
 </form>
+
 </body>
 </html>
