@@ -169,4 +169,8 @@
 
 	<bean id="teamSignInController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TeamSignInController" />
+
+	<bean id="wiseOverviewController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.WiseOverviewController" />
+
 </beans>
