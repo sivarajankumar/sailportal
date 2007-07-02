@@ -86,12 +86,13 @@
                 /countries.html=ROLE_ANONYMOUS,ROLE_USER
                 /states.html=ROLE_ANONYMOUS,ROLE_USER
                 /help.html=ROLE_ANONYMOUS,ROLE_USER
-                /setup*.html=ROLE_USER
+                /setup*.html=ROLE_ANONYMOUS, ROLE_USER
                 /lostpassword*.html=ROLE_ANONYMOUS,ROLE_USER
                 /enter*.html=ROLE_ANONYMOUS,ROLE_USER
 				/student*.html=ROLE_ANONYMOUS,ROLE_USER
 				/teacher*.html=ROLE_ANONYMOUS,ROLE_USER
 				/team*.html=ROLE_ANONYMOUS,ROLE_USER
+				/wise*.html=ROLE_ANONYMOUS,ROLE_USER
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>
