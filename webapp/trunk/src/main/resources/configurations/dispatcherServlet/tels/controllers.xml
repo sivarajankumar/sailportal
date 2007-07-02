@@ -64,26 +64,17 @@
 	<bean id="indexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
 
-	<bean id="setupRun1Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun1Controller" />
+	<bean id="createRunController" 
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.CreateRunController">
+	    <property name="runService" ref="runService" />
+	    <property name="commandName" value="runParameters" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
+	    </bean>
 
-	<bean id="setupRun2Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun2Controller" />
-
-	<bean id="setupRun3Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun3Controller" />
-
-	<bean id="setupRun4Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun4Controller" />
-
-	<bean id="setupRun5Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun5Controller" />
-
-	<bean id="setupRun6Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun6Controller" />
-
-	<bean id="setupRun7Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.SetupRun7Controller" />
+    <bean id="runParameters"
+        class="org.telscenter.sail.webapp.domain.impl.RunParameters"
+        scope="prototype" />
 
 	<bean id="lostPasswordMainController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController" />
@@ -131,7 +122,6 @@
 			value="lostpasswordstudentprojectcoderesult.html" />
 	</bean>
 
-
 	<bean id="lostPasswordStudentPasswordReminder1Controller"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordReminder1Controller">
 		<property name="userService" ref="userService" />
@@ -159,7 +149,6 @@
 		<property name="successView"
 			value="lostpasswordstudentpasswordreminder3" />
 	</bean>
-
 
 	<bean id="enterProjectCodeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.EnterProjectCodeController" />
