@@ -33,6 +33,7 @@
 	top:-7em;
 }
 
+
 .north_1{
 	position:relative;
 	top:-16em;
@@ -40,7 +41,7 @@
 
 .north_2{
 	position:relative;
-	top:-1.5em;
+	top:-2.5em;
 }
 
 .north2{
@@ -50,28 +51,39 @@
 
 .north3{
 	position:relative;
-	top:-42.5em;
+	top:-1.5em;
+}
+
+.north_3{
+	position:relative;
+	top:-4.5em;	
 }
 
 .north4{
 	position:relative;
-	top:-22.5em;
+	top:-13.2em;
 }
 
 .north5{
 	position:relative;
-	top: -18.5em;
+	top: -16.5em;
 }
 
 .north6{
 	position:relative;
-	top:0.5em;	
+	top:-1.25em;	
 }
 
 #north{
 	position:relative;
-	top:-29.5em;
+	top:-8.5em;
 }
+
+#south{
+	position:relative;
+	top:3.5em;
+}
+
 .south{
 	position:relative;
 	top:7em;
@@ -79,7 +91,7 @@
 
 .south0{
 	position:relative;
-	top:2.1em;
+	top:5.25em;
 	}
 	
 .south2{
@@ -89,12 +101,57 @@
 
 .south_1{
 	position:relative;
-	top:1.5em;
+	top:0em;
 }
 
 .left1{
 	position:relative;
 	left:-4em;	
+}
+
+#left{
+	position:relative;
+	left:-2em;
+}
+
+#left1{
+	position:relative;
+	left:-0.5em;
+}
+
+#right{
+	position:relative;
+	right:-17em;	
+}
+
+#right2{
+	position:relative;
+	right:-40.85em;
+}
+
+.right5{
+	position:relative;
+	right:-21.3em;
+}
+
+.right1{
+	position:relative;
+	right:-10em;
+}
+
+.right2{
+	position:relative;
+	right:-12.5em;
+}
+
+.right3{
+	position:relative;
+	right:-35.5em;
+}
+
+.right4{
+	position:relative;
+	right:-47em;
 }
 	
 .border{
@@ -129,7 +186,7 @@
 }
 
 .bgcolorLightBlue{
-	background-color:#AFDCEC;
+	background-color:#CCFFFF;
 }
 
 .bgColorYellow{
@@ -150,8 +207,28 @@
 	border: 0em 0em 0em 0em;
 }
 
+.nopadding{
+	padding:0em;
+}
+
 .padding1{
 	padding: 2em;
+}
+
+.padding0{
+	padding: 0em 0.75em 0em 1.45em; 	
+}
+
+.marginAdj0{
+	margin: -1.82em 0em -1.52em -1.5em;	
+}
+
+#padding{
+	padding: 0.2em 0.2em 8em 0.2em;	
+}
+
+.padding3{
+	padding: 0.2em 0.2em 8.5em 0.2em;
 }
 
 .marginAdj1{
@@ -163,19 +240,28 @@
 }
 
 .marginAdj3{
-	margin:-12.5em -10em 0em 40em;
+	margin:-19em 0em 0em 0em;
 }
 
 .marginAdj4{
-	margin:-2em -10em 0em 40em;	
+	margin:-17em 0em 0em 0em;	
 }
+
+.marginAdj5{
+	margin:-6em 0em 0em 0em;
+}
+
+.marginAdj6{
+	margin:-15.35em 0em -5em 0em;
+}
+
 
 .heightAdj1{
 	height:5em;	
 }
 
 .widthAdj0{
-	width: 8em;
+	width: 21.1em;
 }
 
 .widthAdj{
@@ -209,35 +295,11 @@
 	height:19.5em;
 }
 
-.positionAdj1{
-	position:absolute;
-	top:28em;
-	left:2em;
-}
-
-.positionAdj2{
-	position:absolute;
-	top:28em;
-	left:17em;
-}
-
 .positionAdj3{
 	position:relative;
 	left:3em;	
 	
 }
-
-.positionAdj4{
-	position:relative;
-	left:35em;	
-}
-
-.positionAdj5{
-	position:relative;
-	top:-17.8em;
-	left:34em;
-}
-
 
 .smallFont{
 	font-size:0.8em;
@@ -262,40 +324,6 @@
     line-height:2em;
 }
 
-#left{
-	position:relative;
-	left:-2em;
-}
-
-#left1{
-	position:relative;
-	left:-0.5em;
-}
-
-#right{
-	position:relative;
-	right:-17em;	
-}
-
-.right1{
-	position:relative;
-	right:-10em;
-}
-
-.right2{
-	position:relative;
-	right:-12.5em;
-}
-
-.right3{
-	position:relative;
-	right:-33.5em;
-}
-
-.right4{
-	position:relative;
-	right:-47em;
-}
 
 .heading{
 	font-weight: bold;
@@ -350,8 +378,7 @@ display: block;
 label.login{
 	width:4.45em;
 	text-align:left;
-	margin:0em;
-	margin-right:0.83em;
+	margin:0em 0.83em 0em -0.4em;
 	display:block;
 
 }
@@ -470,13 +497,13 @@ p.userlogout{
 }
 
 .parastyle{
-line-height: 1.5em;
-margin: 0em;
+line-height: 1.1em;
+margin: -1em -0.5em -3em 0.5em;
 padding:0em;
-font-size:0.9em;
+font-size:0.8em;
 font-family:arial,sans-serif;
 color:black;
-width: 23em;
+width: 25.8em;
 text-align:justify;
 }
 
@@ -672,44 +699,44 @@ font-family:arial,sans-serif;
 
 #imgPos1{
 	position:absolute;
-	top:48em;	
-	left:8em;
+	top:33em;	
+	left:6em;
 }
 
 #imgPos2{
 	position:absolute;
-	top:48em;	
-	left:10em;
+	top:33em;	
+	left:8em;
 }
 
 #imgPos3{
 	position:absolute;
-	top:48em;	
-	left:28em;
+	top:13em;	
+	left:5.5em;
 }
 
 #imgPos4{
 	position:absolute;
-	top:48em;	
-	left:30em;
+	top:13em;	
+	left:7.5em;
 }
 
 #imgPos5{
 	position:absolute;
-	top:28em;
+	top:8.5em;
 	left:4em;
 }
 
 #imgPos6{
 	position:absolute;
-	top:28em;
-	left:20em;
+	top:2em;
+	left:2em;
 }
 
 #imgPos7{
 	position:absolute;
-	top:28em;
-	left:35em;
+	top:3em;
+	left:2em;
 }
 
 .imgPos8{
@@ -743,7 +770,8 @@ top: -1.7em;
 .heading2{
 	font-size: 1.6em;
 	font-style:bold;
-	font-variant:small-caps;	
+	font-variant:small-caps;
+	padding:0.2em;	
 }
 
 .heading4{
