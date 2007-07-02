@@ -17,6 +17,7 @@
  */
 package org.telscenter.sail.webapp.domain.impl;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,9 +28,11 @@ import net.sf.sail.webapp.domain.impl.OfferingParameters;
  *
  * @version $Id$
  */
-public class RunParameters extends OfferingParameters {
+public class RunParameters extends OfferingParameters implements Serializable {
 
-	    private Set<String> periodNames = new HashSet<String>();
+	private static final long serialVersionUID = 1L;
+
+	private Set<String> periodNames = new HashSet<String>();
 
 		/**
 		 * @return the periodNames
