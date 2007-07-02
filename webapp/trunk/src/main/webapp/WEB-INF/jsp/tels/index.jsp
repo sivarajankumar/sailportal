@@ -38,51 +38,103 @@
 <%@ include file= "header.jsp"%>
 
 <!-- Support for Spring errors object -->
-
-<div id="outerDiv" >
-<div id="headRows" class="bgcolorLightBlue">
-
-<ul class="intropos">
-<li class="heading2"><spring:message code="wise.welcome" /></li>
-<li class="heading2 positionAdj3"><spring:message code="wise.signIn" /></li>
-</ul>
-</div>
-
-<div id="verticalNavigation" class="widthAdj3 border bgcolorLightBlue">
-
-<p class="parastyle bgcolorLightBlue">
+<div id="verticalNavigation" class="north3 widthAdj3 border bgcolorLightBlue">
+<h4 class="heading2 north3"><spring:message code="wise.welcome" /></h4>
+<p class="parastyle bgcolorLightBlue north_3">
 <spring:message code="wise.about.desc" />
 </p>
 <ul class="intropos">
-<li><a href="#"><spring:message code="wise.overview" /></a></li>
+<li><a href="wiseoverview.html"><spring:message code="wise.overview" /></a></li>
 <li><a href="#"> <spring:message code="wise.preview" /></a> </li>
 <li><a href="#"> <spring:message code="wise.commonQs" /></a></li>
 <li><a href="register.html"><b><spring:message code="joinwise" /></b></a></li>
 </ul>
 </div>
 
-<div id="headRows" class="bgcolorLightBlue widthAdj4">
-<ul class="none north6">
-<li class="space"><spring:message code="wise.inAction" /></li>
-<li class="space"><spring:message code="wise.testimonials" /></li>
-<li class="space"><spring:message code="wise.latestNews" /></li>
+<form:form id="home" method="post" action="j_acegi_security_check">
+<ul id="verticalNavigation" class="none bgcolorLightBlue border right3 north4 widthAdj2 marginAdj0 padding0">
+<li id="left" class="heading2 north6"><spring:message code="wise.signIn" /></li>
+<li class="login north_2">
+<label for="username" class="login">
+<spring:message code="login.username" />
+</label>
+<input type="text" size="20" />
+</li>
+<li class="login north_2">
+<label for="password" class="login">
+<spring:message code="login.password" />
+</label>
+<input type="password" size="20" />
+</li>
+<li class="right north_2"><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
+
 </ul>
+<a href="lostpasswordmain.html" class="bgcolorLightBlue right4 widthAdj2 north5">
+<spring:message code="forgotten.username-or-password" /> 
+</a>
+</form:form>
+<div id="south" class="padding3 marginAdj3 border widthAdj5">
+<h4 class="heading2 north3">
+<spring:message code="wise.inAction" />
+</h4>
+<ul class="none">
+<li id="imgPos5" class="marginAdj5"><img id="rotator" class="widthAdj1 border"  src="./themes/tels/default/images/wiseInAction/AirBag.jpg" /></li>
+</ul>
+<img class="dynamicImage marginAdj3" id="imgPos1" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+
+<img class="dynamicImage marginAdj3" id="imgPos2" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstRClicked=setRClicked();oldCtr=counter;counter=proceedToNextImage(firstRClicked,counter);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+
+</div>
+<div class="padding3 south0 right5 marginAdj4 widthAdj5 border">
+<h4 class="heading2 north3">
+<spring:message code="wise.testimonials" />
+</h4>
+<ul class="none">
+<li id="imgPos6"><img id="rotatorT" class="widthAdj1 border" src="./themes/tels/default/images/wiseInAction/dummyfile.jpg" />
+</ul>
+<img class="dynamicImage marginAdj1" id="imgPos3" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif"
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;counter_T=proceedToPreviousImage_T(firstLClicked_T,counter_T);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+
+<img class="dynamicImage marginAdj1" id="imgPos4" src="./themes/tels/default/images/wiseInAction/arrow_forward.gif" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;counter_T=proceedToNextImage_T(firstRClicked_T,counter_T);"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+
+</div>
+<div id="right2" class="border south0 marginAdj6 nopadding widthAdj0">
+<h4 class="heading2 north3">
+<spring:message code="wise.latestNews" />
+</h4>
 </div>
 
-<div id="headRows" class="bgcolorLightBlue widthAdj4">
+</body>
+</html>
+
+<!--
+
+<div class="padding3 marginAdj3 border widthAdj5">
+<h4 class="heading2 north3">
+<spring:message code="wise.inAction" />
+</h4>
 <ul class="none">
 <li id="imgPos5" class="space1"><img id="rotator" class="widthAdj1 border"  src="./themes/tels/default/images/wiseInAction/AirBag.jpg" /></li>
-<li id="imgPos6" class="space1"><img id="rotatorT" class="widthAdj1 border" src="./themes/tels/default/images/wiseInAction/dummyfile.jpg" />
- </li>
-<li class="space1 widthAdj1" id="imgPos7">
-<textarea rows=15 cols=25>
-<spring:message code="wise.newsMessage" />
-</textarea>
-</li>
 </ul>
-</div>
-
-<div class="inline bgcolorLightBlue">
 <img class="dynamicImage marginAdj1" id="imgPos1" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif" 
 onmouseover="this.style.cursor='pointer';" 
 onclick="firstLClicked = setLClicked();oldCtr=counter;counter=proceedToPreviousImage(firstLClicked,counter);"
@@ -97,6 +149,16 @@ onmousedown="this.style.cursor='pointer';"
 onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" />
 
+</div>
+
+
+<div class="padding3 south0 right5 marginAdj4 widthAdj5 border">
+<h4 class="heading2 north3">
+<spring:message code="wise.testimonials" />
+</h4>
+<ul class="none">
+<li id="imgPos6" class="space1"><img id="rotatorT" class="widthAdj1 border" src="./themes/tels/default/images/wiseInAction/dummyfile.jpg" />
+</ul>
 <img class="dynamicImage marginAdj1" id="imgPos3" src="./themes/tels/default/images/wiseInAction/arrow_prev.gif"
 onmouseover="this.style.cursor='pointer';" 
 onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;counter_T=proceedToPreviousImage_T(firstLClicked_T,counter_T);"
@@ -110,34 +172,17 @@ onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;counter_T=proceedToN
 onmousedown="this.style.cursor='pointer';" 
 onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" />
-</div>
-
-
-<form:form id="home" method="post" action="j_acegi_security_check">
-<ul id="verticalNavigation" class="none bgcolorLightBlue border north4 right3 widthAdj2">
-<li class="login">
-<label for="username" class="login">
-<spring:message code="login.username" />
-</label>
-<input type="text" size="20" />
-</li>
-<li class="login">
-<label for="password" class="login">
-<spring:message code="login.password" />
-</label>
-<input type="password" size="20" />
-</li>
-<li class="right"><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
-<li></li>
-</ul>
-<a href="lostpasswordmain.html" id="north" class="bgcolorLightBlue right4 widthAdj2">
-<spring:message code="forgotten.username-or-password" /> 
-</a>
-</form:form>
-
 
 </div>
 
-</body>
-</html>
 
+<div id="right2" class="border north_1 widthAdj0">
+<h4 class="heading2">
+<spring:message code="wise.latestNews" />
+</h4>
+<textarea cols=35 rows=12> here is some news </textarea>
+</div>
+
+
+
+-->
