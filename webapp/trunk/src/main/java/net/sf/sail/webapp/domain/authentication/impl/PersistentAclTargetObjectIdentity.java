@@ -33,21 +33,25 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import org.acegisecurity.acls.objectidentity.ObjectIdentity;
+
 /**
- * Represents the object identity of a Java object that will be authorized
- * according to an access control list (ACL). This class is marked with EJB3
- * annotations for persistence.
+ * Persistent implementation of <code>ObjectIdentity</code>. Represents the
+ * object identity of a Java object that will be authorized according to an
+ * access control list (ACL). This class is marked with EJB3 annotations for
+ * persistence.
  * 
  * @author Cynick Young
  * 
  * @version $Id: PersistentAclTargetObjectIdentity.java 491 2007-06-22 02:33:59Z
  *          cynick $
+ * @see org.acegisecurity.acls.objectidentity.ObjectIdentity
  */
 @Entity
 @Table(name = PersistentAclTargetObjectIdentity.DATA_STORE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = {
         PersistentAclTargetObjectIdentity.COLUMN_NAME_TARGET_OBJECT,
         PersistentAclTargetObjectIdentity.COLUMN_NAME_TARGET_OBJECT_ID }) })
-public class PersistentAclTargetObjectIdentity implements Serializable {
+public class PersistentAclTargetObjectIdentity implements ObjectIdentity {
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -106,7 +110,7 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
 
     /**
      * @param id
-     *            the id to set
+     *                the id to set
      */
     @SuppressWarnings("unused")
     private void setId(Long id) {
@@ -123,7 +127,7 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
 
     /**
      * @param version
-     *            the version to set
+     *                the version to set
      */
     @SuppressWarnings("unused")
     private void setVersion(Integer version) {
@@ -139,7 +143,7 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
 
     /**
      * @param aclTargetObject
-     *            the aclTargetObject to set
+     *                the aclTargetObject to set
      */
     public void setAclTargetObject(PersistentAclTargetObject aclTargetObject) {
         this.aclTargetObject = aclTargetObject;
@@ -154,7 +158,7 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
 
     /**
      * @param aclTargetObjectId
-     *            the aclTargetObjectId to set
+     *                the aclTargetObjectId to set
      */
     public void setAclTargetObjectId(Long aclTargetObjectId) {
         this.aclTargetObjectId = aclTargetObjectId;
@@ -173,7 +177,7 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
 
     /**
      * @param inheriting
-     *            the inheriting to set
+     *                the inheriting to set
      */
     public void setInheriting(Boolean isInheriting) {
         this.inheriting = isInheriting;
@@ -188,7 +192,7 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
 
     /**
      * @param ownerSid
-     *            the ownerSid to set
+     *                the ownerSid to set
      */
     public void setOwnerSid(PersistentAclSid ownerSid) {
         this.ownerSid = ownerSid;
@@ -203,7 +207,7 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
 
     /**
      * @param parent
-     *            the parent to set
+     *                the parent to set
      */
     public void setParent(PersistentAclTargetObjectIdentity parent) {
         this.parent = parent;
@@ -248,5 +252,20 @@ public class PersistentAclTargetObjectIdentity implements Serializable {
         } else if (!aclTargetObjectId.equals(other.aclTargetObjectId))
             return false;
         return true;
+    }
+
+    /**
+     * @see org.acegisecurity.acls.objectidentity.ObjectIdentity#getIdentifier()
+     */
+    public Serializable getIdentifier() {
+        return this.getAclTargetObjectId();
+    }
+
+    /**
+     * @see org.acegisecurity.acls.objectidentity.ObjectIdentity#getJavaType()
+     */
+    @SuppressWarnings("unchecked")
+    public Class getJavaType() {
+        return this.getAclTargetObject().getClass();
     }
 }
