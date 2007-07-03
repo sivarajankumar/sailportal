@@ -177,10 +177,6 @@
     <bean id="workgroup" class="net.sf.sail.webapp.domain.impl.WorkgroupImpl"
         scope="prototype" />
 
-    <bean id="workgroupParameters"
-        class="net.sf.sail.webapp.domain.impl.WorkgroupParameters"
-        scope="prototype" />
-
     <bean id="offering" class="net.sf.sail.webapp.domain.impl.OfferingImpl"
         scope="prototype" />
 

@@ -68,8 +68,8 @@
     </bean>
 
     <bean id="passwordEncoder"
-        class="org.acegisecurity.providers.encoding.Md5PasswordEncoder">
-    </bean>
+        class="org.acegisecurity.providers.encoding.Md5PasswordEncoder" />
+
 
     <bean id="systemSaltSource"
         class="org.acegisecurity.providers.dao.salt.SystemWideSaltSource">
@@ -148,7 +148,7 @@
 
     <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter" />
 
-    <bean id="accessDecisionManager"
+    <bean id="urlAccessDecisionManager"
         class="org.acegisecurity.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions" value="false" />
         <property name="decisionVoters">
@@ -162,7 +162,7 @@
         class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
-        <property name="accessDecisionManager" ref="accessDecisionManager" />
+        <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
         <property name="objectDefinitionSource">
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
@@ -179,7 +179,7 @@
     <!-- ~~~~~~~~~~~~~~~~~~ "BEFORE INVOCATION" AUTHORIZATION DEFINITIONS ~~~~~~~~~~~~~~~~ -->
 
     <!-- An access decision manager used by the business objects -->
-    <bean id="businessAccessDecisionManager"
+    <bean id="groupAccessDecisionManager"
         class="org.acegisecurity.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
@@ -187,9 +187,11 @@
         <property name="decisionVoters">
             <list>
                 <ref local="roleVoter" />
-                <ref local="aclGroupReadVoter" />
-                <ref local="aclGroupDeleteVoter" />
                 <ref local="aclGroupAdminVoter" />
+                <ref local="aclGroupReadVoter" />
+                <ref local="aclGroupWriteVoter" />
+                <ref local="aclGroupCreateVoter" />
+                <ref local="aclGroupDeleteVoter" />
             </list>
         </property>
     </bean>
@@ -197,51 +199,106 @@
     <!-- ACL permission masks used by this application -->
     <bean id="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
-        <property name="staticField">
-            <value>
-                org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION
-            </value>
-        </property>
+        <property name="staticField"
+            value="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
     </bean>
     <bean id="org.acegisecurity.acls.domain.BasePermission.READ"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
-        <property name="staticField">
-            <value>org.acegisecurity.acls.domain.BasePermission.READ</value>
-        </property>
+        <property name="staticField"
+            value="org.acegisecurity.acls.domain.BasePermission.READ" />
     </bean>
     <bean id="org.acegisecurity.acls.domain.BasePermission.WRITE"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
-        <property name="staticField">
-            <value>org.acegisecurity.acls.domain.BasePermission.WRITE</value>
-        </property>
+        <property name="staticField"
+            value="org.acegisecurity.acls.domain.BasePermission.WRITE" />
     </bean>
     <bean id="org.acegisecurity.acls.domain.BasePermission.CREATE"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
-        <property name="staticField">
-            <value>org.acegisecurity.acls.domain.BasePermission.CREATE</value>
-        </property>
+        <property name="staticField"
+            value="org.acegisecurity.acls.domain.BasePermission.CREATE" />
     </bean>
     <bean id="org.acegisecurity.acls.domain.BasePermission.DELETE"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
-        <property name="staticField">
-            <value>org.acegisecurity.acls.domain.BasePermission.DELETE</value>
+        <property name="staticField"
+            value="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+    </bean>
+
+    <!-- An access decision voter that reads VOTE_ACL_GROUP_ADMIN configuration settings -->
+    <bean id="aclGroupAdminVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_GROUP_ADMIN</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.group.Group</value>
         </property>
     </bean>
 
-
-    <!-- An access decision voter that reads ACL_GROUP_READ configuration settings -->
+    <!-- An access decision voter that reads VOTE_ACL_GROUP_READ configuration settings -->
     <bean id="aclGroupReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
         <constructor-arg>
-            <value>ACL_GROUP_READ</value>
+            <value>VOTE_ACL_GROUP_READ</value>
         </constructor-arg>
         <constructor-arg>
             <list>
                 <ref
                     local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.group.Group</value>
+        </property>
+    </bean>
+
+    <!-- An access decision voter that reads VOTE_ACL_GROUP_WRITE configuration settings -->
+    <bean id="aclGroupWriteVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_GROUP_WRITE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.group.Group</value>
+        </property>
+    </bean>
+
+    <!-- An access decision voter that reads VOTE_ACL_GROUP_CREATE configuration settings -->
+    <bean id="aclGroupCreateVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_GROUP_CREATE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.CREATE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -256,7 +313,7 @@
             <ref bean="aclService" />
         </constructor-arg>
         <constructor-arg>
-            <value>ACL_GROUP_DELETE</value>
+            <value>VOTE_ACL_GROUP_DELETE</value>
         </constructor-arg>
         <constructor-arg>
             <list>
@@ -264,26 +321,6 @@
                     local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
                     local="org.acegisecurity.acls.domain.BasePermission.DELETE" />
-            </list>
-        </constructor-arg>
-        <property name="processDomainObjectClass">
-            <value>net.sf.sail.webapp.domain.group.Group</value>
-        </property>
-    </bean>
-
-    <!-- An access decision voter that reads ACL_GROUP_ADMIN configuration settings -->
-    <bean id="aclGroupAdminVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
-        <constructor-arg>
-            <ref bean="aclService" />
-        </constructor-arg>
-        <constructor-arg>
-            <value>ACL_GROUP_ADMIN</value>
-        </constructor-arg>
-        <constructor-arg>
-            <list>
-                <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -396,8 +433,7 @@
         class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
-        <property name="accessDecisionManager"
-            ref="businessAccessDecisionManager" />
+        <property name="accessDecisionManager" ref="groupAccessDecisionManager" />
         <property name="afterInvocationManager" ref="afterInvocationManager" />
         <property name="objectDefinitionSource" ref="objectDefinitionSource" />
     </bean>
@@ -418,7 +454,7 @@
     <bean id="groupServiceTarget"
         class="net.sf.sail.webapp.service.group.impl.GroupServiceImpl">
         <property name="groupDao" ref="groupDao" />
-        <!-- property name="mutableAclService"><ref bean="aclService"/></property -->
+        <property name="mutableAclService" ref="aclService" />
     </bean>
 
 </beans>

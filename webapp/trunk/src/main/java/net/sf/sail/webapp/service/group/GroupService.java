@@ -92,8 +92,7 @@ public interface GroupService {
  * Example usage:
  * "ROLE_USER" specifies the role required to call this method.
  * "AFTER_ACL_COLLECTION_READ" specifies the filtering of objects returned in the collection to only contain objects with the proper access control list entry permission
- * Some sample data for a hsqldb
-    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+ * Some sample data for hsqldb
 INSERT INTO ACL_CLASS VALUES(1,NULL,'net.sf.sail.webapp.domain.group.impl.PersistentGroup')
 INSERT INTO ACL_ENTRY VALUES(1,1,1,TRUE,TRUE,TRUE,NULL,1,1)
 INSERT INTO ACL_OBJECT_IDENTITY VALUES(1,2,TRUE,NULL,1,1,NULL)
@@ -138,5 +137,6 @@ INSERT INTO WORKGROUPS_RELATED_TO_USERS VALUES(2,2)
 INSERT INTO WORKGROUPS_RELATED_TO_USERS VALUES(3,1)
 INSERT INTO WORKGROUPS_RELATED_TO_USERS VALUES(4,1)
 */
+//    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
     public List<Group> getGroups();
 }

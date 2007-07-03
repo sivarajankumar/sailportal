@@ -72,7 +72,7 @@
     <bean id="filterInvocationInterceptor"
         class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager" />
-        <property name="accessDecisionManager" ref="accessDecisionManager" />
+        <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
         <property name="objectDefinitionSource">
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
@@ -86,13 +86,13 @@
                 /countries.html=ROLE_ANONYMOUS,ROLE_USER
                 /states.html=ROLE_ANONYMOUS,ROLE_USER
                 /help.html=ROLE_ANONYMOUS,ROLE_USER
-                /setup*.html=ROLE_ANONYMOUS, ROLE_USER
+                /setup*.html=ROLE_ANONYMOUS,ROLE_USER
                 /lostpassword*.html=ROLE_ANONYMOUS,ROLE_USER
                 /enter*.html=ROLE_ANONYMOUS,ROLE_USER
-				/student*.html=ROLE_ANONYMOUS,ROLE_USER
-				/teacher*.html=ROLE_ANONYMOUS,ROLE_USER
-				/team*.html=ROLE_ANONYMOUS,ROLE_USER
-				/wise*.html=ROLE_ANONYMOUS,ROLE_USER
+                /student*.html=ROLE_ANONYMOUS,ROLE_USER
+                /teacher*.html=ROLE_ANONYMOUS,ROLE_USER
+                /team*.html=ROLE_ANONYMOUS,ROLE_USER
+                /wise*.html=ROLE_ANONYMOUS,ROLE_USER
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>

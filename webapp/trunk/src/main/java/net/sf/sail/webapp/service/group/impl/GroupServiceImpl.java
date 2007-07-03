@@ -34,6 +34,7 @@ import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 import net.sf.sail.webapp.service.group.GroupService;
 
+import org.acegisecurity.acls.MutableAclService;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,14 +48,7 @@ public class GroupServiceImpl implements GroupService {
 
     private GroupDao<Group> groupDao;
 
-    /**
-     * @param groupDao
-     *            the groupDao to set
-     */
-    @Required
-    public void setGroupDao(GroupDao<Group> groupDao) {
-        this.groupDao = groupDao;
-    }
+    private MutableAclService mutableAclService;
 
     /**
      * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group,
@@ -116,7 +110,7 @@ public class GroupServiceImpl implements GroupService {
      * Checks to see if the given group contains a cycle
      * 
      * @param group
-     *            <code>Group</code> group to be checked for cycles
+     *                <code>Group</code> group to be checked for cycles
      * @return boolean true iff the given group contains a cycle
      */
     private boolean cycleExists(Group group) {
@@ -146,5 +140,23 @@ public class GroupServiceImpl implements GroupService {
     @Transactional(readOnly = true)
     public List<Group> getGroups() {
         return this.groupDao.getList();
+    }
+
+    /**
+     * @param mutableAclService
+     *                the mutableAclService to set
+     */
+    @Required
+    public void setMutableAclService(MutableAclService mutableAclService) {
+        this.mutableAclService = mutableAclService;
+    }
+
+    /**
+     * @param groupDao
+     *                the groupDao to set
+     */
+    @Required
+    public void setGroupDao(GroupDao<Group> groupDao) {
+        this.groupDao = groupDao;
     }
 }
