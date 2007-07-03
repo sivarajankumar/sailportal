@@ -60,23 +60,23 @@ public class GroupServiceImpl implements GroupService {
      * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group,
      *      java.lang.String)
      */
-	@Transactional()
+    @Transactional()
     public void changeGroupName(Group group, String newName) {
         group.setName(newName);
         this.groupDao.save(group);
     }
-   
+
     /**
      * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.impl.GroupParameters)
      */
-	@Transactional()
+    @Transactional()
     public Group createGroup(GroupParameters groupParameters) {
         Group group = new PersistentGroup();
         group.setName(groupParameters.getName());
         Long parentId = groupParameters.getParentId();
         if (parentId != null) {
             Group parentGroup = this.groupDao.getById(parentId);
-        	group.setParent(parentGroup);
+            group.setParent(parentGroup);
         }
         this.groupDao.save(group);
         return group;
@@ -86,7 +86,7 @@ public class GroupServiceImpl implements GroupService {
      * @see net.sf.sail.webapp.service.group.GroupService#moveGroup(net.sf.sail.webapp.domain.group.Group,
      *      net.sf.sail.webapp.domain.group.Group)
      */
-	@Transactional()
+    @Transactional()
     public void moveGroup(Group newParent, Group groupToBeMoved)
             throws CyclicalGroupException {
         Group previousParent = groupToBeMoved.getParent();
@@ -104,7 +104,7 @@ public class GroupServiceImpl implements GroupService {
      * @see net.sf.sail.webapp.service.group.GroupService#addMembers(net.sf.sail.webapp.domain.group.Group,
      *      java.util.Set)
      */
-	@Transactional()
+    @Transactional()
     public void addMembers(Group group, Set<User> membersToAdd) {
         for (User member : membersToAdd) {
             group.addMember(member);
@@ -143,7 +143,7 @@ public class GroupServiceImpl implements GroupService {
     /**
      * @see net.sf.sail.webapp.service.group.GroupService#getGroups()
      */
-	@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<Group> getGroups() {
         return this.groupDao.getList();
     }

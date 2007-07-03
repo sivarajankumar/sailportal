@@ -89,6 +89,9 @@
         <property name="exceptionMappings">
             <props>
                 <prop key="java.lang.Exception">friendlyError</prop>
+                <prop key="org.acegisecurity.AccessDeniedException">
+                    securityFriendlyError
+                </prop>
                 <prop
                     key="net.sf.sail.webapp.domain.webservice.NetworkTransportException">
                     networkFriendlyError
