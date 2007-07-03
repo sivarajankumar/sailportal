@@ -45,7 +45,7 @@ public class HibernateJnlpDao extends AbstractHibernateDao<Jnlp> implements
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class getDataObjectClass() {
+	protected Class<JnlpImpl> getDataObjectClass() {
 		return JnlpImpl.class;
 	}
 }

@@ -75,6 +75,6 @@ public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
 	 * 
 	 * @return the Class
 	 */
-	protected abstract Class getDataObjectClass();
+	protected abstract Class<? extends T> getDataObjectClass();
 
 }

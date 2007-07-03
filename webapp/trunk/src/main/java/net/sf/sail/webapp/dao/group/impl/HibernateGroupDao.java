@@ -49,7 +49,7 @@ public class HibernateGroupDao extends AbstractHibernateDao<Group> implements
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class getDataObjectClass() {
+	protected Class<PersistentGroup> getDataObjectClass() {
 		return PersistentGroup.class;
 	}
 

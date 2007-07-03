@@ -41,7 +41,7 @@ public class HibernateCurnitDao extends AbstractHibernateDao<Curnit> implements
         return FIND_ALL_QUERY;
     }
     
-    protected Class getDataObjectClass() {
+    protected Class<CurnitImpl> getDataObjectClass() {
     	return CurnitImpl.class;
     }
 }

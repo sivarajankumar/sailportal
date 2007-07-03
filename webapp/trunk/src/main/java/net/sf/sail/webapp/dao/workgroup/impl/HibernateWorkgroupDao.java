@@ -76,7 +76,7 @@ public class HibernateWorkgroupDao extends AbstractHibernateDao<Workgroup>
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class getDataObjectClass() {
+	protected Class<WorkgroupImpl> getDataObjectClass() {
 		return WorkgroupImpl.class;
 	}
 }

@@ -69,7 +69,7 @@ public class HibernateRunDao extends AbstractHibernateDao<Offering>
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class getDataObjectClass() {
+	protected Class<Run> getDataObjectClass() {
 		return Run.class;
 	}
 }

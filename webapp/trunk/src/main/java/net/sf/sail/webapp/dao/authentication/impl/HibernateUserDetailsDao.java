@@ -72,7 +72,7 @@ public class HibernateUserDetailsDao extends
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class getDataObjectClass() {
+	protected Class<PersistentUserDetails> getDataObjectClass() {
 		return PersistentUserDetails.class;
 	}
 }

@@ -48,7 +48,7 @@ public class HibernateOfferingDao extends AbstractHibernateDao<Offering>
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class getDataObjectClass() {
+	protected Class<OfferingImpl> getDataObjectClass() {
 		return OfferingImpl.class;
 	}
     

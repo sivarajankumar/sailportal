@@ -75,7 +75,7 @@ public class HibernateGrantedAuthorityDao extends
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class getDataObjectClass() {
+	protected Class<PersistentGrantedAuthority> getDataObjectClass() {
 		return PersistentGrantedAuthority.class;
 	}
 }
