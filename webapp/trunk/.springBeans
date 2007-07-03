@@ -4,17 +4,24 @@
 		<configExtension>xml</configExtension>
 	</configExtensions>
 	<configs>
-		<config>src/main/resources/configurations/applicationContexts/pas/hibernate.xml</config>
-		<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
-		<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
-		<config>src/main/resources/configurations/applicationContexts/pas/datasource.xml</config>
-		<config>src/main/resources/configurations/applicationContexts/pas/sds.xml</config>
 		<config>src/main/resources/configurations/applicationContexts/pas/acegiSecurity.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/datasource.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/hibernate.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/sds.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
 		<config>src/main/resources/configurations/applicationContexts/pas/spring.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
+		<config>src/main/resources/configurations/dispatcherServlet/pas/config.xml</config>
+		<config>src/main/resources/configurations/dispatcherServlet/pas/controllers.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/tels/extensions.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/tels/overrides.xml</config>
+		<config>src/main/resources/configurations/dispatcherServlet/tels/controllers.xml</config>
+		<config>src/main/resources/configurations/dispatcherServlet/tels/extensions.xml</config>
+		<config>src/main/resources/configurations/dispatcherServlet/tels/overrides.xml</config>
 	</configs>
 	<configSets>
 		<configSet>
-			<name>Everything</name>
+			<name><![CDATA[Pas]]></name>
 			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
 			<incomplete>false</incomplete>
 			<configs>
@@ -25,6 +32,29 @@
 				<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/pas/spring.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
+				<config>src/main/resources/configurations/dispatcherServlet/pas/config.xml</config>
+				<config>src/main/resources/configurations/dispatcherServlet/pas/controllers.xml</config>
+			</configs>
+		</configSet>
+		<configSet>
+			<name><![CDATA[Tels]]></name>
+			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/main/resources/configurations/applicationContexts/pas/acegiSecurity.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/datasource.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/hibernate.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/sds.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/spring.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/tels/extensions.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/tels/overrides.xml</config>
+				<config>src/main/resources/configurations/dispatcherServlet/pas/config.xml</config>
+				<config>src/main/resources/configurations/dispatcherServlet/pas/controllers.xml</config>
+				<config>src/main/resources/configurations/dispatcherServlet/tels/controllers.xml</config>
+				<config>src/main/resources/configurations/dispatcherServlet/tels/extensions.xml</config>
+				<config>src/main/resources/configurations/dispatcherServlet/tels/overrides.xml</config>
 			</configs>
 		</configSet>
 	</configSets>
