@@ -63,7 +63,7 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class getDataObjectClass() {
+	protected Class<UserImpl> getDataObjectClass() {
 		return UserImpl.class;
 	}
 
@@ -82,7 +82,8 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     /**
      * @see net.sf.sail.webapp.dao.user.UserDao#retrieveByEmailAddress(java.lang.String)
      */
-    public List<User> retrieveByEmailAddress(String emailAddress) {
+    @SuppressWarnings("unchecked")
+	public List<User> retrieveByEmailAddress(String emailAddress) {
         return this
         .getHibernateTemplate()
         .findByNamedParam(

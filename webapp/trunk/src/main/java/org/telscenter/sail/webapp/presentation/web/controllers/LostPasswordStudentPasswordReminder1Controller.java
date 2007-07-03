@@ -77,7 +77,7 @@ public class LostPasswordStudentPasswordReminder1Controller  extends SimpleFormC
 	
 				String accountQuestion = ((StudentUserDetails) user.getUserDetails()).getAccountQuestion();
 				
-				Map model = new HashMap();
+				Map<String, String> model = new HashMap<String, String>();
 			    model.put(USERNAME, username);
 			    model.put(ACCOUNTQUESTION, accountQuestion);
 			    

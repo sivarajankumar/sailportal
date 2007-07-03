@@ -29,7 +29,6 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
 /**
  * @author Cynick Young
@@ -166,6 +165,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		assertNotNull(actual.get(1));
 	}
 
+	@SuppressWarnings("unchecked")
 	public void testSave() {
 		verifyDataStoreIsEmpty();
 
@@ -177,7 +177,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		List actualList = retrieveUserListFromDb();
 		assertEquals(1, actualList.size());
 
-		Map actualUserMap = (Map) actualList.get(0);
+		Map<String, String> actualUserMap = (Map) actualList.get(0);
 		assertEquals(USERNAME, actualUserMap
 				.get(PersistentUserDetails.COLUMN_NAME_USERNAME.toUpperCase()));
 		assertEquals(PASSWORD, actualUserMap
@@ -233,6 +233,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 		assertTrue(retrieveUserListFromDb().isEmpty());
 	}
 
+	@SuppressWarnings("unchecked")
 	private List retrieveUserListFromDb() {
 		return this.jdbcTemplate.queryForList("select * from "
 				+ UserImpl.DATA_STORE_NAME + ", "
@@ -250,6 +251,7 @@ public class HibernateUserDaoTest extends AbstractTransactionalDbTests {
 	 * Test method for
 	 * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
 	 */
+	@SuppressWarnings("unchecked")
 	public void testGetList() {
 		verifyDataStoreIsEmpty();
 		this.userDao.save(this.defaultUser);
