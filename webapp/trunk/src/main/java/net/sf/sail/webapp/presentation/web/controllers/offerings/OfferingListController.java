@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.presentation.web.controllers;
+package net.sf.sail.webapp.presentation.web.controllers.offerings;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +28,7 @@ import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
@@ -59,6 +60,8 @@ public class OfferingListController extends AbstractController {
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
+	
+	private static final String VIEW_NAME = "offerings/offeringlist";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -68,7 +71,8 @@ public class OfferingListController extends AbstractController {
 	protected ModelAndView handleRequestInternal(
 			HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse) throws Exception {
-    	ModelAndView modelAndView = new ModelAndView();
+		
+    	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
 		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);

@@ -171,7 +171,9 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
-                /*.html=ROLE_USER
+                /groups/*.html=ROLE_USER
+                /offerings/*.html=ROLE_USER
+                /curnit_list.html=ROLE_USER
             </value>
         </property>
     </bean>

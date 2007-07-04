@@ -1,4 +1,4 @@
-<%@ include file="include.jsp" %>
+<%@ include file="../includes/include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -25,12 +25,12 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="application.title" /> <spring:message code="title.separator" /> <spring:message code="application.title" /></title>
+<title><spring:message code="application.title" /> <spring:message code="title.separator" /> <spring:message code="error.title" /></title>
 </head>
 
 <body>
 
-<%@ include file="header.jsp" %>
+<%@ include file="../includes/header.jsp" %>
 
 <div id="columns">
 <div id="left">
@@ -41,12 +41,12 @@
 </div>
 
 <div id="right">
-<spring:message code="error.network.message" />
+<spring:message code="error.generic.message" />
 </div>
 
 </div>
 
-<%@ include file="footer.jsp" %>
+<%@ include file="../includes/footer.jsp" %>
 
 </body>
 </html>

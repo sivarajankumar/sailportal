@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.sf.sail.webapp.presentation.web.controllers;
+package net.sf.sail.webapp.presentation.web.controllers.offerings;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +38,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * The controller for the create offering page
  * 
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class CreateOfferingController extends SimpleFormController {
 	

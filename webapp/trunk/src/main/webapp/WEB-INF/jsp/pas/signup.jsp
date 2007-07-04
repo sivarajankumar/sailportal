@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="includes/include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -38,7 +38,7 @@ addEvent(window, 'load', onLoadHandler);
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="includes/header.jsp"%>
 
 <div id="columns">
 <div id="left">
@@ -59,7 +59,7 @@ addEvent(window, 'load', onLoadHandler);
   </p>
 </form:form></div>
 </div>
-<%@ include file="footer.jsp"%>
+<%@ include file="includes/footer.jsp"%>
 
 
 </body>

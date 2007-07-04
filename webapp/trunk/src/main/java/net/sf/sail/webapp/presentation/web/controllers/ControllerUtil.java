@@ -33,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class ControllerUtil {
 
-	protected final static String USER_KEY = "user";
+	public final static String USER_KEY = "user";
 
 	public static void addUserToModelAndView(HttpServletRequest request,
 			ModelAndView modelAndView) {

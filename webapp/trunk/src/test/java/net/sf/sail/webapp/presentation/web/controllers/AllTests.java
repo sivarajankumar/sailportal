@@ -19,6 +19,9 @@ package net.sf.sail.webapp.presentation.web.controllers;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import net.sf.sail.webapp.presentation.web.controllers.groups.AddgroupControllerTest;
+import net.sf.sail.webapp.presentation.web.controllers.offerings.CreateOfferingControllerTest;
+import net.sf.sail.webapp.presentation.web.controllers.offerings.OfferingListControllerTest;
 
 /**
  * @author Cynick Young
@@ -33,10 +36,10 @@ public class AllTests {
 				"Test for net.sf.sail.webapp.presentation.web.controllers");
 		//$JUnit-BEGIN$
 		suite.addTestSuite(LoginControllerTest.class);
-		suite.addTestSuite(OfferingListControllerTest.class);
 		suite.addTestSuite(SignupControllerTest.class);
+		suite.addTestSuite(CreateOfferingControllerTest.class);
+		suite.addTestSuite(OfferingListControllerTest.class);
 		suite.addTestSuite(AddgroupControllerTest.class);
-        suite.addTestSuite(CreateOfferingControllerTest.class);
 		//$JUnit-END$
 		return suite;
 	}

@@ -20,13 +20,14 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.sf.sail.webapp.presentation.web.controllers;
+package net.sf.sail.webapp.presentation.web.controllers.offerings;
 
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.presentation.web.controllers.offerings.CreateOfferingController;
 import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
@@ -45,7 +46,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class CreateOfferingControllerTest extends AbstractModelAndViewTests {
 

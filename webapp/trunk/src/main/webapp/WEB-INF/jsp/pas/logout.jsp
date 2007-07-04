@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="includes/include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 

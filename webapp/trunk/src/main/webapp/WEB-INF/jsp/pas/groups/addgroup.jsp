@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../includes/include.jsp"%>
 <!--
   * Copyright (c) 2007 Encore Research Group, University of Toronto
   * 
@@ -29,11 +29,11 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="../includes/header.jsp"%>
 
 <div id="columns">
 <div id="left">
-<%@ include file="menu.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
 </div>
 
 <div id="right">
@@ -53,7 +53,7 @@
 
 </div>
 
-<%@ include file="footer.jsp"%>
+<%@ include file="../includes/footer.jsp"%>
 
 </body>
 </html>

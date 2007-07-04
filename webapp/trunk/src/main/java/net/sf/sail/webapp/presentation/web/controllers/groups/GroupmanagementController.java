@@ -15,11 +15,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.presentation.web.controllers;
+package net.sf.sail.webapp.presentation.web.controllers.groups;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.group.GroupService;
 
 import org.acegisecurity.AccessDeniedException;
@@ -36,12 +37,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class GroupmanagementController extends AbstractController {
 
+	private static final String VIEW_NAME = "groups/groupmanagement";
     private GroupService groupService;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-    	ModelAndView modelAndView = new ModelAndView();
+    	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
     	
         try {

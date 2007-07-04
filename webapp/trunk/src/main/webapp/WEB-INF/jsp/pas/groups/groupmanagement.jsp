@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../includes/include.jsp"%>
 <!--
   * Copyright (c) 2007 Encore Research Group, University of Toronto
   * 
@@ -29,11 +29,11 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="../includes/header.jsp"%>
 
 <div id="columns">
 <div id="left">
-<%@ include file="menu.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
 </div>
 
 <div id="right">
@@ -43,6 +43,7 @@
     <tr>
       <th><spring:message code="group.parent.heading" /></th>
       <th><spring:message code="group.name.heading" /></th>
+      <th></th>
     </tr>
   </thead>
   <c:forEach var="group" items="${grouplist}">
@@ -56,6 +57,7 @@
 		</c:otherwise>
 	</c:choose>
       <td>${group.name}</td>
+      <td><a href="editgroup.html?gid=${group.id}" ><spring:message code="group.edit" /></a></td>
    </tr>
   </c:forEach>
 </table>
@@ -65,7 +67,7 @@
 
 </div>
 
-<%@ include file="footer.jsp"%>
+<%@ include file="../includes/footer.jsp"%>
 
 </body>
 </html>

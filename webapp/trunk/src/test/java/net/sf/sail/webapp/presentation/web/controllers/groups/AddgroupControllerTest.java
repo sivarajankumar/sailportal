@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.presentation.web.controllers;
+package net.sf.sail.webapp.presentation.web.controllers.groups;
 
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.presentation.web.controllers.groups.AddgroupController;
 import net.sf.sail.webapp.service.group.GroupService;
 
 import org.springframework.context.ApplicationContext;

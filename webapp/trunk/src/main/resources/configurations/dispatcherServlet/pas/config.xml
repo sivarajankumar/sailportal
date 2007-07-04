@@ -82,22 +82,20 @@
             </list>
         </property>
     </bean>
-<!--  TODO: uncomment me when ready for production. For debugging purposes, it's useful
-      to keep this commented out so the debug statements can be printed out.
+<!--  The real exceptions are logged to the tomcat/logs/catalina.out file. Look there if you've got a problem. -->
     <bean id="exceptionResolver"
         class="net.sf.sail.webapp.spring.impl.PasSimpleMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
-                <prop key="java.lang.Exception">friendlyError</prop>
+                <prop key="java.lang.Exception">errors/friendlyError</prop>
                 <prop key="org.acegisecurity.AccessDeniedException">
-                    securityFriendlyError
+                    errors/securityFriendlyError
                 </prop>
                 <prop
                     key="net.sf.sail.webapp.domain.webservice.NetworkTransportException">
-                    networkFriendlyError
+                    errors/networkFriendlyError
                 </prop>
             </props>
         </property>
     </bean>
-    -->
 </beans>
