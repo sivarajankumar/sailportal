@@ -25,6 +25,25 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
 
+    <bean id="filterInvocationInterceptor"
+        class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        <property name="validateConfigAttributes" value="true" />
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
+        <property name="objectDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /index.html=ROLE_ANONYMOUS,ROLE_USER
+                /index.jsp=ROLE_ANONYMOUS,ROLE_USER
+                /login.html=ROLE_ANONYMOUS,ROLE_USER
+                /signup.html=ROLE_ANONYMOUS,ROLE_USER
+                /*.html=ROLE_USER
+                /**/*.html=ROLE_USER
+            </value>
+        </property>
+    </bean>
+
     <!-- ======================== FILTER CHAIN ======================= -->
 
     <!--  if you wish to use channel security, add "channelProcessingFilter," in front
@@ -155,26 +174,6 @@
             <list>
                 <ref local="roleVoter" />
             </list>
-        </property>
-    </bean>
-
-    <bean id="filterInvocationInterceptor"
-        class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
-        <property name="validateConfigAttributes" value="true" />
-        <property name="authenticationManager" ref="authenticationManager" />
-        <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
-        <property name="objectDefinitionSource">
-            <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-                PATTERN_TYPE_APACHE_ANT
-                /index.html=ROLE_ANONYMOUS,ROLE_USER
-                /index.jsp=ROLE_ANONYMOUS,ROLE_USER
-                /login.html=ROLE_ANONYMOUS,ROLE_USER
-                /signup.html=ROLE_ANONYMOUS,ROLE_USER
-                /groups/*.html=ROLE_USER
-                /offerings/*.html=ROLE_USER
-                /curnit_list.html=ROLE_USER
-            </value>
         </property>
     </bean>
 
@@ -375,12 +374,32 @@
         </constructor-arg>
     </bean>
 
+    <bean id="objectIdentityDao"
+        class="net.sf.sail.webapp.dao.authentication.impl.HibernateAclTargetObjectIdentityDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
     <bean id="aclService"
+        class="net.sf.sail.webapp.service.authentication.impl.HibernateMutableAclService">
+        <property name="lookupStrategy" ref="lookupStrategy" />
+        <property name="objectIdentityDao" ref="objectIdentityDao" />
+        <property name="mutableAclService">
+            <bean class="org.acegisecurity.acls.jdbc.JdbcMutableAclService">
+                <constructor-arg ref="dataSource" />
+                <constructor-arg ref="lookupStrategy" />
+                <constructor-arg ref="aclCache" />
+            </bean>
+        </property>
+    </bean>
+
+    <!--
+        <bean id="aclService"
         class="org.acegisecurity.acls.jdbc.JdbcMutableAclService">
         <constructor-arg ref="dataSource" />
         <constructor-arg ref="lookupStrategy" />
         <constructor-arg ref="aclCache" />
-    </bean>
+        </bean>
+    -->
 
     <!-- ============== "AFTER INTERCEPTION" AUTHORIZATION DEFINITIONS =========== -->
 

@@ -34,7 +34,13 @@ import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 import net.sf.sail.webapp.service.group.GroupService;
 
+import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
+import org.acegisecurity.acls.domain.BasePermission;
+import org.acegisecurity.acls.objectidentity.ObjectIdentity;
+import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
+import org.acegisecurity.acls.sid.PrincipalSid;
+import org.acegisecurity.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,6 +79,14 @@ public class GroupServiceImpl implements GroupService {
             group.setParent(parentGroup);
         }
         this.groupDao.save(group);
+
+//        ObjectIdentity objectIdentity = new ObjectIdentityImpl(
+//                group.getClass(), group.getId());
+//        MutableAcl acl = this.mutableAclService.createAcl(objectIdentity);
+//        acl.insertAce(null, BasePermission.ADMINISTRATION, new PrincipalSid(
+//                SecurityContextHolder.getContext().getAuthentication()), true);
+//        this.mutableAclService.updateAcl(acl);
+
         return group;
     }
 
