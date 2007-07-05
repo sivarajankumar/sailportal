@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,6 +45,14 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
  * the controller looks for a request parameter starting with "_target" and ending with
  * a number (e.g. "_target1"). The jsp pages should provide these parameters.
  *
+ * General method invocation flow (when user clicks on "prev" and "next"): 
+ *  1) onBind
+ *  2) onBindAndValidate
+ *  3) validatePage
+ *  4) referenceData
+ * Note that on user's first visit to the first page of the wizard, only referenceData will be
+ * invoked, and steps 1-4 are bypassed.
+ *
  * @author Hiroki Terashima
  * @version $Id: $
  */
@@ -55,31 +66,75 @@ public class CreateRunController extends AbstractWizardFormController {
 	 *  - Specify the command name
 	 */
 	public CreateRunController() {
+		setBindOnNewForm(true);
 		setPages(new String[]{"setuprun1", "setuprun2", "setuprun3", 
 				"setuprun4", "setuprun5", "setuprun6"});
+		setSessionForm(true);
 	}
 	
 	/**
-	 * This method will create the command object and set it in its initial state.
-	 * This method is called before the user is directed to the first page of the wizard.
-	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBind(javax.servlet.http.HttpServletRequest, java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request) {
-		RunParameters runParameters = new RunParameters();
-		Long curnitId = Long.getLong(request.getParameter("curnitId"));
-		runParameters.setCurnitId(curnitId);
-		return runParameters;
+	protected void onBind(HttpServletRequest request,
+			Object command, BindException errors) {
+		// TODO HT: implement me
 	}
 	
 	/**
-	 * This method is called after the onBind method. It acts in the same way as the validator
+	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#onBindAndValidate(javax.servlet.http.HttpServletRequest, java.lang.Object, org.springframework.validation.BindException, int)
+	 */
+	@Override
+	protected void onBindAndValidate(HttpServletRequest request,
+            Object command,
+            BindException errors,
+            int page) {
+		// TODO HT: implement me
+	}
+	
+	/**
+	 * This method is called after the onBind and onBindAndValidate method. It acts 
+	 * in the same way as the validator
+	 * 
 	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#validatePage(java.lang.Object, org.springframework.validation.Errors, int)
 	 */
 	@Override
 	protected void validatePage(Object command, Errors errors, int page) {
 		// TODO HT: implement me
+	}
+	
+	/**
+	 * This method is called right before the view is rendered to the user
+	 * 
+	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#referenceData(javax.servlet.http.HttpServletRequest, int)
+	 */
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request, 
+			Object command, Errors errors, int page) {
+		RunParameters runParameters = (RunParameters) command;	
+		Long curnitId = runParameters.getCurnitId();
+		System.out.println(curnitId);
+		Map<String, Object> model = new HashMap<String, Object>();
+		switch(page) {
+		case 0:
+			model.put("project", "hello1");
+			break;
+		case 1:
+			model.put("project", "hello2");
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		default:
+			break;
+		}
+
+		return model;
 	}
 	
 	/**
@@ -111,7 +166,9 @@ public class CreateRunController extends AbstractWizardFormController {
 	}
 	
 	/**
-	 * This method is called if there is a submit that contains the "_cancel" request parameter.
+	 * This method is called if there is a submit that contains the "_cancel"
+	 * request parameter.
+	 * 
 	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#processCancel(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
