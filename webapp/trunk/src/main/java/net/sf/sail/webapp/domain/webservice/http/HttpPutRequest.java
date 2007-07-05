@@ -66,6 +66,7 @@ public final class HttpPutRequest extends AbstractHttpRequest {
      * This is intentionally private - to make the HttpPutRequest object
      * immutable.
      */
+    @SuppressWarnings("unused")
     private HttpPutRequest() {
     }
 

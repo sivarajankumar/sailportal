@@ -45,18 +45,24 @@ import org.hibernate.Session;
  * Another test for HibernateWorkgroupDao
  * 
  * @author Cynick Young
- * @version $Id$
+ * @version $Id: HibernateWorkgroupDaoAnotherTest.java 328 2007-04-24 15:20:13Z
+ *          cynick $
  */
-public class HibernateWorkgroupDaoAnotherTest extends AbstractTransactionalDbTests {
+public class HibernateWorkgroupDaoAnotherTest extends
+        AbstractTransactionalDbTests {
 
     private static final String USERNAME = "username";
+
     private static final String USERNAME_A = "usernameA";
+
     private static final String USERNAME_B = "usernameB";
 
     private static final String PASSWORD = "password";
 
     private static final Integer SDS_ID = new Integer(42);
+
     private static final Integer SDS_ID_A = new Integer(12);
+
     private static final Integer SDS_ID_B = new Integer(32);
 
     private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
@@ -71,7 +77,7 @@ public class HibernateWorkgroupDaoAnotherTest extends AbstractTransactionalDbTes
 
     /**
      * @param workgroupDao
-     *            the workgroupDao to set
+     *                the workgroupDao to set
      */
     public void setWorkgroupDao(HibernateWorkgroupDao workgroupDao) {
         this.workgroupDao = workgroupDao;
@@ -122,7 +128,7 @@ public class HibernateWorkgroupDaoAnotherTest extends AbstractTransactionalDbTes
                 members);
 
         User user = createNewUser(USERNAME, SDS_ID, session);
-        List actual = workgroupDao.getListByOfferingAndUser(offering, user);
+        List<?> actual = workgroupDao.getListByOfferingAndUser(offering, user);
         assertTrue(actual.isEmpty());
     }
 
@@ -150,46 +156,46 @@ public class HibernateWorkgroupDaoAnotherTest extends AbstractTransactionalDbTes
 
     public void testGetListByOfferingAndUser() {
         Session session = this.sessionFactory.getCurrentSession();
-        
+
         Offering offeringA = createNewOffering(session, SDS_ID_A);
         Offering offeringB = createNewOffering(session, SDS_ID_B);
-      
+
         User userA = createNewUser(USERNAME_A, SDS_ID_A, session);
         Set<User> membersA = new HashSet<User>(1);
-        membersA.add(userA);     
+        membersA.add(userA);
 
         User userB = createNewUser(USERNAME_B, SDS_ID_B, session);
         Set<User> membersB = new HashSet<User>(1);
         membersB.add(userB);
- 
+
         Workgroup workgroup1 = createNewWorkgroup(session, 1, offeringA,
-                membersA);        
+                membersA);
         Workgroup workgroup2 = createNewWorkgroup(session, 2, offeringA,
                 membersB);
         Workgroup workgroup3 = createNewWorkgroup(session, 3, offeringB,
-                membersA);        
+                membersA);
         Workgroup workgroup4 = createNewWorkgroup(session, 4, offeringB,
                 membersB);
-        
+
         this.toilet.flush();
-        
-        List<Workgroup> actualWorkgroupList = workgroupDao.getListByOfferingAndUser(
-                offeringA, userA);
+
+        List<Workgroup> actualWorkgroupList = workgroupDao
+                .getListByOfferingAndUser(offeringA, userA);
         assertEquals(1, actualWorkgroupList.size());
         assertEquals(workgroup1, actualWorkgroupList.get(0));
 
-        actualWorkgroupList = workgroupDao.getListByOfferingAndUser(
-                offeringA, userB);
+        actualWorkgroupList = workgroupDao.getListByOfferingAndUser(offeringA,
+                userB);
         assertEquals(1, actualWorkgroupList.size());
         assertEquals(workgroup2, actualWorkgroupList.get(0));
-        
-        actualWorkgroupList = workgroupDao.getListByOfferingAndUser(
-                offeringB, userA);
+
+        actualWorkgroupList = workgroupDao.getListByOfferingAndUser(offeringB,
+                userA);
         assertEquals(1, actualWorkgroupList.size());
         assertEquals(workgroup3, actualWorkgroupList.get(0));
-        
-        actualWorkgroupList = workgroupDao.getListByOfferingAndUser(
-                offeringB, userB);
+
+        actualWorkgroupList = workgroupDao.getListByOfferingAndUser(offeringB,
+                userB);
         assertEquals(1, actualWorkgroupList.size());
         assertEquals(workgroup4, actualWorkgroupList.get(0));
     }

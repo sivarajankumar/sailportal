@@ -68,7 +68,7 @@ public class CustomContextLoader extends ContextLoader {
             ServletContext servletContext, ApplicationContext parent)
             throws BeansException {
 
-        Class contextClass = determineContextClass(servletContext);
+        Class<?> contextClass = determineContextClass(servletContext);
         if (!ConfigurableWebApplicationContext.class
                 .isAssignableFrom(contextClass)) {
             throw new ApplicationContextException("Custom context class ["

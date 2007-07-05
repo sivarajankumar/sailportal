@@ -30,49 +30,49 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * The validator for offering paramter objects
- * e.g. when creating new offerings
- *
+ * The validator for offering paramter objects e.g. when creating new offerings
+ * 
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id: OfferingParametersValidator.java 552 2007-06-28 01:11:36Z
+ *          hiroki $
  */
 public class OfferingParametersValidator implements Validator {
 
-	protected static final int MAX_OFFERINGNAME_LENGTH = 50;
-	
-	public boolean supports(Class clazz) {
-		return OfferingParameters.class.isAssignableFrom(clazz);
-	}
+    protected static final int MAX_OFFERINGNAME_LENGTH = 50;
 
-	public void validate(Object offeringParametersIn, Errors errors) {
+    @SuppressWarnings("unchecked")
+    public boolean supports(Class clazz) {
+        return OfferingParameters.class.isAssignableFrom(clazz);
+    }
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-        "error.offeringname-not-specified");
-	    
-	    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "curnitId",
-	    		"error.offeringcurnitid-not-specified");
-	    
-	    if (errors.hasErrors()) {
-	    	return;
-	    }
+    public void validate(Object offeringParametersIn, Errors errors) {
 
-	    OfferingParameters offeringParameters = 
-	    	(OfferingParameters) offeringParametersIn;
-	    
-	    if (!StringUtils.isAlphanumericSpace(offeringParameters.getName())) {
-	    	errors.rejectValue("name", "error.offeringname-illegal-characters");
-	    	return;
-	    }
-	    
-	    if (offeringParameters.getName().length() > MAX_OFFERINGNAME_LENGTH) {
-	    	errors.rejectValue("name", "error.offeringname-too-long");
-	    	return;
-	    }
-	    
-	    if (offeringParameters.getCurnitId() < 1) {
-	    	errors.rejectValue("curnitId", "error.offeringcurnitid-too-small");
-	    	return;
-	    }
-	}
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
+                "error.offeringname-not-specified");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "curnitId",
+                "error.offeringcurnitid-not-specified");
+
+        if (errors.hasErrors()) {
+            return;
+        }
+
+        OfferingParameters offeringParameters = (OfferingParameters) offeringParametersIn;
+
+        if (!StringUtils.isAlphanumericSpace(offeringParameters.getName())) {
+            errors.rejectValue("name", "error.offeringname-illegal-characters");
+            return;
+        }
+
+        if (offeringParameters.getName().length() > MAX_OFFERINGNAME_LENGTH) {
+            errors.rejectValue("name", "error.offeringname-too-long");
+            return;
+        }
+
+        if (offeringParameters.getCurnitId() < 1) {
+            errors.rejectValue("curnitId", "error.offeringcurnitid-too-small");
+            return;
+        }
+    }
 
 }

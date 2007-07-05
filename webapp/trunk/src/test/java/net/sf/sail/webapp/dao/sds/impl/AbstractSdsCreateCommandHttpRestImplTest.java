@@ -48,7 +48,7 @@ public abstract class AbstractSdsCreateCommandHttpRestImplTest extends TestCase 
 
     protected HttpPostRequest httpRequest;
 
-    protected SdsCommand createCommand;
+    protected SdsCommand<?, HttpPostRequest> createCommand;
 
     /**
      * @see junit.framework.TestCase#setUp()

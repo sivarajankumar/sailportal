@@ -25,7 +25,6 @@ package org.telscenter.sail.webapp.presentation.validators;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
  * validates the username of the student.
@@ -33,21 +32,22 @@ import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
  * @author Anthony Perritano
  * @version $$Id$$
  */
-public class LostPasswordStudentUsernameValidator extends StudentUserDetailsValidator {
+public class LostPasswordStudentUsernameValidator extends
+        StudentUserDetailsValidator {
 
-	
-	/**
-	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
-	 */
-	@Override
-	public void validate(Object userDetailsIn, Errors errors) {
-		StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
-		
-		String username = StringUtils.trimToNull(userDetails.getUsername());
-		
-		if (username == null) {
-			errors.reject("error.no-username");
-			return;
-		}// if
-	}
+    /**
+     * @see org.springframework.validation.Validator#validate(java.lang.Object,
+     *      org.springframework.validation.Errors)
+     */
+    @Override
+    public void validate(Object userDetailsIn, Errors errors) {
+        StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
+
+        String username = StringUtils.trimToNull(userDetails.getUsername());
+
+        if (username == null) {
+            errors.reject("error.no-username");
+            return;
+        }// if
+    }
 }

@@ -42,66 +42,69 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
  * Test class for HibernateRunDao
- *
+ * 
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
     private static final Integer SDS_ID = new Integer(7);
 
     private static final String DEFAULT_NAME = "Airbags";
-    
+
     private static final String DEFAULT_URL = "http://mrpotatoiscoolerthanwoody.com";
 
     private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
 
     private static final SdsJnlp DEFAULT_SDS_JNLP = new SdsJnlp();
-	
-	private Group DEFAULT_GROUP_1, DEFAULT_GROUP_2, DEFAULT_GROUP_3;
 
-	private final Date DEFAULT_STARTTIME = Calendar.getInstance().getTime();
+    private Group DEFAULT_GROUP_1, DEFAULT_GROUP_2, DEFAULT_GROUP_3;
 
-	private Date DEFAULT_ENDTIME = null;
+    private final Date DEFAULT_STARTTIME = Calendar.getInstance().getTime();
 
-	private final String DEFAULT_RUNCODE = "diamonds12345";
+    private Date DEFAULT_ENDTIME = null;
 
-	private final String RUNCODE_NOT_IN_DB = "diamonds54321";
-	
-	private SdsOffering sdsOffering;
-	
-	private Run defaultRun;
-	
-	private HibernateRunDao runDao;
+    private final String DEFAULT_RUNCODE = "diamonds12345";
 
-	/**
-	 * @param sdsOffering the sdsOffering to set
-	 */
+    private final String RUNCODE_NOT_IN_DB = "diamonds54321";
+
+    private SdsOffering sdsOffering;
+
+    private Run defaultRun;
+
+    private HibernateRunDao runDao;
+
+    /**
+     * @param sdsOffering
+     *                the sdsOffering to set
+     */
     public void setSdsOffering(SdsOffering sdsOffering) {
         this.sdsOffering = sdsOffering;
     }
-    
-	/**
-	 * @param defaultRun the defaultRun to set
-	 */
-	public void setDefaultRun(Run defaultRun) {
-		this.defaultRun = defaultRun;
-	}
 
-	/**
-	 * @param runDao the runDao to set
-	 */
-	public void setOfferingDao(HibernateRunDao runDao) {
-		this.runDao = runDao;
-	}
-	
+    /**
+     * @param defaultRun
+     *                the defaultRun to set
+     */
+    public void setDefaultRun(Run defaultRun) {
+        this.defaultRun = defaultRun;
+    }
+
+    /**
+     * @param runDao
+     *                the runDao to set
+     */
+    public void setOfferingDao(HibernateRunDao runDao) {
+        this.runDao = runDao;
+    }
+
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
      */
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
-        
+
         DEFAULT_GROUP_1 = new PersistentGroup();
         DEFAULT_GROUP_1.setName("Period 1");
 
@@ -123,11 +126,11 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         this.sdsOffering.setName(DEFAULT_NAME);
 
         this.defaultRun.setSdsOffering(this.sdsOffering);
-        
+
         this.defaultRun.setStarttime(DEFAULT_STARTTIME);
         this.defaultRun.setRuncode(DEFAULT_RUNCODE);
     }
-    
+
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpInTransaction()
      */
@@ -137,14 +140,13 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         Session session = this.sessionFactory.getCurrentSession();
         session.save(DEFAULT_SDS_CURNIT); // save sds curnit
         session.save(DEFAULT_SDS_JNLP); // save sds jnlp
-        session.save(DEFAULT_GROUP_1); 
-        session.save(DEFAULT_GROUP_2); 
-        session.save(DEFAULT_GROUP_3); 
+        session.save(DEFAULT_GROUP_1);
+        session.save(DEFAULT_GROUP_2);
+        session.save(DEFAULT_GROUP_3);
 
         this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
         this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
     }
-    
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
@@ -153,38 +155,38 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
     protected void onTearDownAfterTransaction() throws Exception {
         super.onTearDownAfterTransaction();
     }
-    
+
     public void testSave() {
-    	verifyRunAndJoinTablesAreEmpty();
-    	
-    	this.runDao.save(this.defaultRun);
+        verifyRunAndJoinTablesAreEmpty();
+
+        this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
-        
-        List runsList = retrieveRunListFromDb();
+
+        List<?> runsList = retrieveRunListFromDb();
         assertEquals(1, runsList.size());
         assertEquals(0, retrieveRunsRelatedToGroupsListFromDb().size());
         assertEquals(0, retrieveRunsAndGroupsListFromDb().size());
-        
-        Map runMap = (Map) runsList.get(0);
-        assertEquals(this.DEFAULT_STARTTIME,
-        		runMap.get(Run.COLUMN_NAME_STARTTIME.toUpperCase()));
-        assertEquals(this.DEFAULT_RUNCODE,
-        		runMap.get(Run.COLUMN_NAME_RUN_CODE.toUpperCase()));
+
+        Map<?, ?> runMap = (Map<?, ?>) runsList.get(0);
+        assertEquals(this.DEFAULT_STARTTIME, runMap
+                .get(Run.COLUMN_NAME_STARTTIME.toUpperCase()));
+        assertEquals(this.DEFAULT_RUNCODE, runMap.get(Run.COLUMN_NAME_RUN_CODE
+                .toUpperCase()));
         assertNull(runMap.get(Run.COLUMN_NAME_ENDTIME.toUpperCase()));
-        
+
         // now add groups to the run
         Set<Group> periods = new HashSet<Group>();
         periods.add(DEFAULT_GROUP_1);
         periods.add(DEFAULT_GROUP_2);
         this.defaultRun.setPeriods(periods);
 
-    	this.runDao.save(this.defaultRun);
+        this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
 
         runsList = retrieveRunListFromDb();
-        List allList = retrieveRunsAndGroupsListFromDb();
+        List<?> allList = retrieveRunsAndGroupsListFromDb();
         assertEquals(1, runsList.size());
         assertEquals(2, retrieveRunsRelatedToGroupsListFromDb().size());
         assertEquals(2, allList.size());
@@ -192,104 +194,103 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         List<String> periodNames = new ArrayList<String>();
         periodNames.add(DEFAULT_GROUP_1.getName());
         periodNames.add(DEFAULT_GROUP_2.getName());
-        
+
         for (int i = 0; i < allList.size(); i++) {
-        	Map allRunMap = (Map) allList.get(i);
-        	String periodName =
-        		(String) allRunMap.get(PersistentGroup.COLUMN_NAME_NAME);
-        	assertTrue(periodNames.contains(periodName));
-        	periodNames.remove(periodName);
+            Map<?, ?> allRunMap = (Map<?, ?>) allList.get(i);
+            String periodName = (String) allRunMap
+                    .get(PersistentGroup.COLUMN_NAME_NAME);
+            assertTrue(periodNames.contains(periodName));
+            periodNames.remove(periodName);
         }
-        
-        
+
         // now "end/archive the run"
         this.DEFAULT_ENDTIME = Calendar.getInstance().getTime();
         this.defaultRun.setEndtime(this.DEFAULT_ENDTIME);
-        
-    	this.runDao.save(this.defaultRun);
+
+        this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
-        
+
         runsList = retrieveRunListFromDb();
-        runMap = (Map) runsList.get(0);
-        assertEquals(this.DEFAULT_ENDTIME,
-        		runMap.get(Run.COLUMN_NAME_ENDTIME.toUpperCase()));
+        runMap = (Map<?, ?>) runsList.get(0);
+        assertEquals(this.DEFAULT_ENDTIME, runMap.get(Run.COLUMN_NAME_ENDTIME
+                .toUpperCase()));
 
     }
-    
+
     // test the retrieveByRunCode() method of HiberateRunDao
     public void testRetrieveByRunCode() {
-    	verifyRunAndJoinTablesAreEmpty();
-    	
-    	this.runDao.save(this.defaultRun);
+        verifyRunAndJoinTablesAreEmpty();
+
+        this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
-        
-        // get Run record from persistent data store and confirm it is 
+
+        // get Run record from persistent data store and confirm it is
         // complete
-        Run run = this.runDao
-              .retrieveByRunCode(DEFAULT_RUNCODE);
+        Run run = this.runDao.retrieveByRunCode(DEFAULT_RUNCODE);
         assertTrue(run instanceof Run);
         assertTrue(Run.class == run.getClass());
 
         assertEquals(DEFAULT_RUNCODE, run.getRuncode());
         assertEquals(DEFAULT_STARTTIME, run.getStarttime());
         assertEquals(this.sdsOffering, run.getSdsOffering());
-        
+
         // choose random non-existent runcode and try to retrieve
         assertNull(this.runDao.retrieveByRunCode(RUNCODE_NOT_IN_DB));
-        
+
     }
-    
+
     // test the hasRunCode() method of HibernateRunDao
     public void testHasRunCode() {
-    	verifyRunAndJoinTablesAreEmpty();
-    	
-    	assertFalse(this.runDao.hasRuncode(DEFAULT_RUNCODE));
-    	assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
+        verifyRunAndJoinTablesAreEmpty();
 
-    	this.runDao.save(this.defaultRun);
+        assertFalse(this.runDao.hasRuncode(DEFAULT_RUNCODE));
+        assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
+
+        this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
-        
-    	assertTrue(this.runDao.hasRuncode(DEFAULT_RUNCODE));
-    	assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
-    	
+
+        assertTrue(this.runDao.hasRuncode(DEFAULT_RUNCODE));
+        assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
+
     }
 
-	private void verifyRunAndJoinTablesAreEmpty() {
-		assertTrue(this.retrieveRunListFromDb().isEmpty());
-		assertTrue(this.retrieveRunsRelatedToGroupsListFromDb().isEmpty());
-	}
+    private void verifyRunAndJoinTablesAreEmpty() {
+        assertTrue(this.retrieveRunListFromDb().isEmpty());
+        assertTrue(this.retrieveRunsRelatedToGroupsListFromDb().isEmpty());
+    }
 
-	/*
-	 * SELECT * FROM runs_related_to_groups
-	 */
-	private List retrieveRunsRelatedToGroupsListFromDb() {
-		return this.jdbcTemplate.queryForList("SELECT * FROM " +
-				Run.PERIODS_JOIN_TABLE_NAME);
-	}
+    /*
+     * SELECT * FROM runs_related_to_groups
+     */
+    private List<?> retrieveRunsRelatedToGroupsListFromDb() {
+        return this.jdbcTemplate.queryForList("SELECT * FROM "
+                + Run.PERIODS_JOIN_TABLE_NAME);
+    }
 
-	/*
-	 * SELECT * FROM runs
-	 */
-	private List retrieveRunListFromDb() {
-		return this.jdbcTemplate.queryForList("SELECT * FROM " +
-				Run.DATA_STORE_NAME, (Object[]) null);
-	}
-	
-	/*
-	 * SELECT * FROM runs, runs_related_to_groups, groups
-	 * WHERE runs.id = runs_related_to_groups.run_fk
-	 * AND groups.id = runs_related_to_groups.group_fk
-	 */
-	private List retrieveRunsAndGroupsListFromDb() {
-		return this.jdbcTemplate.queryForList("SELECT * FROM " +
-				Run.DATA_STORE_NAME + ", " + Run.PERIODS_JOIN_TABLE_NAME +
-				", " + PersistentGroup.DATA_STORE_NAME + " WHERE " +
-				Run.DATA_STORE_NAME + ".id = " + 
-				Run.PERIODS_JOIN_TABLE_NAME + "." + Run.RUNS_JOIN_COLUMN_NAME +
-				" AND " + PersistentGroup.DATA_STORE_NAME + ".id = " +
-				Run.PERIODS_JOIN_TABLE_NAME + "." + Run.PERIODS_JOIN_COLUMN_NAME, (Object []) null);
-	}
+    /*
+     * SELECT * FROM runs
+     */
+    private List<?> retrieveRunListFromDb() {
+        return this.jdbcTemplate.queryForList("SELECT * FROM "
+                + Run.DATA_STORE_NAME, (Object[]) null);
+    }
+
+    /*
+     * SELECT * FROM runs, runs_related_to_groups, groups WHERE runs.id =
+     * runs_related_to_groups.run_fk AND groups.id =
+     * runs_related_to_groups.group_fk
+     */
+    private List<?> retrieveRunsAndGroupsListFromDb() {
+        return this.jdbcTemplate.queryForList("SELECT * FROM "
+                + Run.DATA_STORE_NAME + ", " + Run.PERIODS_JOIN_TABLE_NAME
+                + ", " + PersistentGroup.DATA_STORE_NAME + " WHERE "
+                + Run.DATA_STORE_NAME + ".id = " + Run.PERIODS_JOIN_TABLE_NAME
+                + "." + Run.RUNS_JOIN_COLUMN_NAME + " AND "
+                + PersistentGroup.DATA_STORE_NAME + ".id = "
+                + Run.PERIODS_JOIN_TABLE_NAME + "."
+                + Run.PERIODS_JOIN_COLUMN_NAME, (Object[]) null);
+    }
 }

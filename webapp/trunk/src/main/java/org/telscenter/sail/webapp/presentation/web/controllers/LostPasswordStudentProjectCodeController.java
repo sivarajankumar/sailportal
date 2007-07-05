@@ -45,90 +45,91 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  * @author Anthony Perritano
  * @version
  */
-public class LostPasswordStudentProjectCodeController extends SimpleFormController {
+public class LostPasswordStudentProjectCodeController extends
+        SimpleFormController {
 
-	protected UserService userService = null;
+    protected UserService userService = null;
 
-	/**
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
-	 */
-	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
-		MutableUserDetails userDetails = (MutableUserDetails) command;
+    /**
+     * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+     *      org.springframework.validation.BindException)
+     */
+    @Override
+    protected ModelAndView onSubmit(HttpServletRequest request,
+            HttpServletResponse response, Object command, BindException errors)
+            throws Exception {
+        MutableUserDetails userDetails = (MutableUserDetails) command;
 
-		String username = null;
-		String emailAddress = null;
-		try {
+        String username = null;
+        String emailAddress = null;
+        try {
 
-			username = StringUtils.trimToNull(userDetails.getUsername());
-			emailAddress = StringUtils
-					.trimToNull(userDetails.getEmailAddress());
-			if (username != null) {
+            username = StringUtils.trimToNull(userDetails.getUsername());
+            emailAddress = StringUtils
+                    .trimToNull(userDetails.getEmailAddress());
+            if (username != null) {
 
-				User user = userService.retrieveUserByUsername(userDetails
-						.getUsername());
-				//TODO TP 			
+                User user = userService.retrieveUserByUsername(userDetails
+                        .getUsername());
+                // TODO TP
 
-				// // generate a new password
-				// // set it on the userobject
-				// user.getUserDetails().setPassword(generateRandomPassword());
-				//
-				// userService.updateUser(user);
-				// update the user in the db
-				// send an email
+                // // generate a new password
+                // // set it on the userobject
+                // user.getUserDetails().setPassword(generateRandomPassword());
+                //
+                // userService.updateUser(user);
+                // update the user in the db
+                // send an email
 
-			} else if (emailAddress != null) {
+            } else if (emailAddress != null) {
 
-				List<User> users = userService
-						.retrieveUserByEmailAddress(emailAddress);
+                List<User> users = userService
+                        .retrieveUserByEmailAddress(emailAddress);
 
-			}
-			//TODO TP
-			// get the fields
-			// call user service getUserDetails
+            }
+            // TODO TP
+            // get the fields
+            // call user service getUserDetails
 
-		} catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
 
-			if (username != null) {
-				ModelAndView modelAndView = new ModelAndView(
-						"lostpasswordteachererror");
-				modelAndView.addObject("someValue", userDetails.getUsername());
-				return modelAndView;
-			} else if (emailAddress != null) {
-				ModelAndView modelAndView = new ModelAndView(
-						"lostpasswordteachererror");
-				modelAndView.addObject("someValue", userDetails
-						.getEmailAddress());
-				return modelAndView;
-			}// if
+            if (username != null) {
+                ModelAndView modelAndView = new ModelAndView(
+                        "lostpasswordteachererror");
+                modelAndView.addObject("someValue", userDetails.getUsername());
+                return modelAndView;
+            } else if (emailAddress != null) {
+                ModelAndView modelAndView = new ModelAndView(
+                        "lostpasswordteachererror");
+                modelAndView.addObject("someValue", userDetails
+                        .getEmailAddress());
+                return modelAndView;
+            }// if
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return showForm(request, response, errors);
-		}
-		return new ModelAndView(new RedirectView(getSuccessView()));
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+            return showForm(request, response, errors);
+        }
+        return new ModelAndView(new RedirectView(getSuccessView()));
+    }
 
-	/**
-	 * Sets the userDetailsService object.
-	 * 
-	 * @param userDetailsService
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+    /**
+     * Sets the userDetailsService object.
+     * 
+     * @param userDetailsService
+     */
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
-	public static String generateRandomPassword() {
-		Random rnd = new Random();
-		return Integer.toString(rnd.nextInt(), 27);
-	}
+    public static String generateRandomPassword() {
+        Random rnd = new Random();
+        return Integer.toString(rnd.nextInt(), 27);
+    }
 
-	public static void main(String[] args) {
-		System.out.println("New Password: " + generateRandomPassword());
-	}
+    public static void main(String[] args) {
+        System.out.println("New Password: " + generateRandomPassword());
+    }
 
 }

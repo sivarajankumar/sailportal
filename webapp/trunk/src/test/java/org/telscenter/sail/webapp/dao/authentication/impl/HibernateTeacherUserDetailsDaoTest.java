@@ -66,8 +66,9 @@ public class HibernateTeacherUserDetailsDaoTest extends
     private static final String DEFAULT_FIRSTNAME = "Hiroki";
 
     private static final String DEFAULT_LASTNAME = "Terashima";
-    
-    private static final Date DEFAULT_SIGNUPDATE = Calendar.getInstance().getTime();
+
+    private static final Date DEFAULT_SIGNUPDATE = Calendar.getInstance()
+            .getTime();
 
     private static final String DEFAULT_CITY = "Huntington Beach";
 
@@ -96,11 +97,11 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     private HibernateUserDetailsDao userDetailsDao;
 
-	private Integer DEFAULT_NUMBEROFLOGINS = new Integer(7);
+    private Integer DEFAULT_NUMBEROFLOGINS = new Integer(7);
 
     /**
      * @param authorityDao
-     *            the authorityDao to set
+     *                the authorityDao to set
      */
     public void setAuthorityDao(HibernateGrantedAuthorityDao authorityDao) {
         this.authorityDao = authorityDao;
@@ -108,7 +109,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     /**
      * @param userDetailsDao
-     *            the userDetailsDao to set
+     *                the userDetailsDao to set
      */
     public void setUserDetailsDao(HibernateUserDetailsDao userDetailsDao) {
         this.userDetailsDao = userDetailsDao;
@@ -116,7 +117,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     /**
      * @param defaultUserDetails
-     *            the defaultUserDetails to set
+     *                the defaultUserDetails to set
      */
     public void setDefaultUserDetails(TeacherUserDetails defaultUserDetails) {
         this.defaultUserDetails = defaultUserDetails;
@@ -124,7 +125,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     /**
      * @param role3
-     *            the role3 to set
+     *                the role3 to set
      */
     public void setRole3(MutableGrantedAuthority role3) {
         this.role3 = role3;
@@ -132,7 +133,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     /**
      * @param role1
-     *            the role1 to set
+     *                the role1 to set
      */
     public void setRole1(MutableGrantedAuthority role1) {
         this.role1 = role1;
@@ -140,7 +141,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
     /**
      * @param role2
-     *            the role2 to set
+     *                the role2 to set
      */
     public void setRole2(MutableGrantedAuthority role2) {
         this.role2 = role2;
@@ -172,7 +173,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
                 .setCurriculumsubjects(DEFAULT_CURRICULUMSUBJECTS);
         this.defaultUserDetails.setSchoollevel(DEFAULT_SCHOOLLEVEL);
         this.defaultUserDetails.setSchoolname(DEFAULT_SCHOOLNAME);
-        this.defaultUserDetails.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS );
+        this.defaultUserDetails.setNumberOfLogins(DEFAULT_NUMBEROFLOGINS);
     }
 
     /**
@@ -209,7 +210,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
         // (not dao)
         assertEquals(1, retrieveUsersTableFromDb().size());
         assertEquals(3, retrieveUsersRolesTableFromDb().size());
-        List actualList = retrieveUserDetailsListFromDb();
+        List<?> actualList = retrieveUserDetailsListFromDb();
         assertEquals(3, actualList.size());
 
         List<String> defaultRolesList = new LinkedList<String>();
@@ -218,7 +219,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
         defaultRolesList.add(DEFAULT_ROLE_3);
 
         for (int i = 0; i < actualList.size(); i++) {
-            Map actualUserDetailsMap = (Map) actualList.get(i);
+            Map<?, ?> actualUserDetailsMap = (Map<?, ?>) actualList.get(i);
             // *NOTE* the keys in the map are all in UPPERCASE!
             String actualValue = (String) actualUserDetailsMap
                     .get(PersistentUserDetails.COLUMN_NAME_USERNAME
@@ -301,7 +302,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
         } catch (DataIntegrityViolationException expected) {
         }
     }
-    
+
     public void testEmptySignupdate() {
         verifyUserandJoinTablesAreEmpty();
 
@@ -326,7 +327,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
 
         this.verifyUserandJoinTablesAreEmpty();
 
-        List actualList = this.retrieveRolesTableFromDb();
+        List<?> actualList = this.retrieveRolesTableFromDb();
         assertEquals(3, actualList.size());
 
         List<String> defaultRolesList = new LinkedList<String>();
@@ -335,7 +336,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
         defaultRolesList.add(DEFAULT_ROLE_3);
 
         for (int i = 0; i < actualList.size(); i++) {
-            Map actualRolesMap = (Map) actualList.get(i);
+            Map<?, ?> actualRolesMap = (Map<?, ?>) actualList.get(i);
             // *NOTE* the keys in the map are all in UPPERCASE!
             String actualValue = (String) actualRolesMap
                     .get(PersistentGrantedAuthority.COLUMN_NAME_ROLE
@@ -390,7 +391,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
         assertTrue(this.retrieveUsersRolesTableFromDb().isEmpty());
     }
 
-    private List retrieveUserDetailsListFromDb() {
+    private List<?> retrieveUserDetailsListFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
                 + PersistentUserDetails.DATA_STORE_NAME + ", "
                 + TeacherUserDetails.DATA_STORE_NAME + ", "
@@ -407,17 +408,17 @@ public class HibernateTeacherUserDetailsDaoTest extends
                 (Object[]) null);
     }
 
-    private List retrieveUsersTableFromDb() {
+    private List<?> retrieveUsersTableFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
                 + PersistentUserDetails.DATA_STORE_NAME, (Object[]) null);
     }
 
-    private List retrieveRolesTableFromDb() {
+    private List<?> retrieveRolesTableFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
                 + PersistentGrantedAuthority.DATA_STORE_NAME, (Object[]) null);
     }
 
-    private List retrieveUsersRolesTableFromDb() {
+    private List<?> retrieveUsersRolesTableFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
                 + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME,
                 (Object[]) null);

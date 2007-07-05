@@ -28,48 +28,51 @@ import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id: TeacherUserDetailsValidator.java 353 2007-04-27 22:20:37Z
+ *          hiroki $
  */
 public class TeacherUserDetailsValidator extends UserDetailsValidator {
 
-	/**
-	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
-	 */
-	@Override
-	public boolean supports(Class clazz) {
-		return TeacherUserDetails.class.isAssignableFrom(clazz);
-	}
-	
-	/**
-	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
-	 */
-	@Override
-	public void validate(Object userDetailsIn, Errors errors) {
-		super.validate(userDetailsIn, errors);
-		
-		if (errors.hasErrors())
-			return;
-		
-		TeacherUserDetails userDetails = (TeacherUserDetails) userDetailsIn;
+    /**
+     * @see org.springframework.validation.Validator#supports(java.lang.Class)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean supports(Class clazz) {
+        return TeacherUserDetails.class.isAssignableFrom(clazz);
+    }
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress", 
-				"error.email-not-specified");
+    /**
+     * @see org.springframework.validation.Validator#validate(java.lang.Object,
+     *      org.springframework.validation.Errors)
+     */
+    @Override
+    public void validate(Object userDetailsIn, Errors errors) {
+        super.validate(userDetailsIn, errors);
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country", 
+        if (errors.hasErrors())
+            return;
+
+        TeacherUserDetails userDetails = (TeacherUserDetails) userDetailsIn;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress",
+                "error.email-not-specified");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country",
                 "error.country-not-specified");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolname", 
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolname",
                 "error.schoolname-not-specified");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "curriculumsubjects", 
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "curriculumsubjects",
                 "error.curriculumsubjects-not-specified");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoollevel", 
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoollevel",
                 "error.schoollevel-not-specified");
-		
-		// TODO HT: CHECK FOR ILLEGAL EMAIL ADDRESS FORMAT
-		
-		if (errors.hasErrors())
-			userDetails.setPassword("");
-	}
+
+        // TODO HT: CHECK FOR ILLEGAL EMAIL ADDRESS FORMAT
+
+        if (errors.hasErrors())
+            userDetails.setPassword("");
+    }
 }

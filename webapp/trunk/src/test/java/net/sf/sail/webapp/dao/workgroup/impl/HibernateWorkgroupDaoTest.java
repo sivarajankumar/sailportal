@@ -77,7 +77,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
 
     /**
      * @param workgroupDao
-     *            the workgroupDao to set
+     *                the workgroupDao to set
      */
     public void setWorkgroupDao(HibernateWorkgroupDao workgroupDao) {
         this.workgroupDao = workgroupDao;
@@ -85,7 +85,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
 
     /**
      * @param defaultSdsOffering
-     *            the defaultSdsOffering to set
+     *                the defaultSdsOffering to set
      */
     public void setDefaultSdsOffering(SdsOffering defaultSdsOffering) {
         this.defaultSdsOffering = defaultSdsOffering;
@@ -93,7 +93,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
 
     /**
      * @param defaultOffering
-     *            the defaultOffering to set
+     *                the defaultOffering to set
      */
     public void setDefaultOffering(Offering defaultOffering) {
         this.defaultOffering = defaultOffering;
@@ -101,7 +101,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
 
     /**
      * @param defaultWorkgroup
-     *            the defaultWorkgroup to set
+     *                the defaultWorkgroup to set
      */
     public void setDefaultWorkgroup(Workgroup defaultWorkgroup) {
         this.defaultWorkgroup = defaultWorkgroup;
@@ -109,7 +109,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
 
     /**
      * @param sdsWorkgroup
-     *            the sdsWorkgroup to set
+     *                the sdsWorkgroup to set
      */
     public void setSdsWorkgroup(SdsWorkgroup sdsWorkgroup) {
         this.sdsWorkgroup = sdsWorkgroup;
@@ -191,10 +191,10 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         verifyDataStoreWorkgroupListIsEmpty();
         // saving the workgroup should cascade to the sds workgroup object
         this.workgroupDao.save(this.defaultWorkgroup);
-        List actualList = retrieveWorkgroupListFromDb();
+        List<?> actualList = retrieveWorkgroupListFromDb();
         assertEquals(1, actualList.size());
         for (int i = 0; i < actualList.size(); i++) {
-            Map actualWorkgroupMap = (Map) actualList.get(i);
+            Map<?, ?> actualWorkgroupMap = (Map<?, ?>) actualList.get(i);
             // * NOTE* the keys in the map are all in UPPERCASE!
             String actualValue = (String) actualWorkgroupMap
                     .get(SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME.toUpperCase());
@@ -214,10 +214,10 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         this.workgroupDao.save(this.defaultWorkgroup);
         this.toilet.flush();
 
-        List actualList = retrieveWorkgroupListFromDb();
+        List<?> actualList = retrieveWorkgroupListFromDb();
         assertEquals(1, actualList.size());
         for (int i = 0; i < actualList.size(); i++) {
-            Map actualMap = (Map) actualList.get(i);
+            Map<?, ?> actualMap = (Map<?, ?>) actualList.get(i);
             // * NOTE* the keys in the map are all in UPPERCASE!
             String actualValue = (String) actualMap
                     .get(SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME.toUpperCase());
@@ -227,7 +227,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         actualList = retrieveWorkgroupMembersListFromDb();
         assertEquals(1, actualList.size());
         for (int i = 0; i < actualList.size(); i++) {
-            Map actualMap = (Map) actualList.get(i);
+            Map<?, ?> actualMap = (Map<?, ?>) actualList.get(i);
             // * NOTE* the keys in the map are all in UPPERCASE!
             String actualValue = (String) actualMap
                     .get(PersistentUserDetails.COLUMN_NAME_USERNAME
@@ -241,7 +241,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         verifyDataStoreWorkgroupMembersListIsEmpty();
 
         this.workgroupDao.save(this.defaultWorkgroup);
-        List actualList = retrieveWorkgroupListFromDb();
+        List<?> actualList = retrieveWorkgroupListFromDb();
         assertEquals(1, actualList.size());
         verifyDataStoreWorkgroupMembersListIsEmpty();
 
@@ -260,7 +260,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
         this.defaultWorkgroup.addMember(user);
         this.workgroupDao.save(this.defaultWorkgroup);
         this.toilet.flush();
-        List actualList = retrieveWorkgroupListFromDb();
+        List<?> actualList = retrieveWorkgroupListFromDb();
         assertEquals(1, actualList.size());
         actualList = retrieveWorkgroupMembersListFromDb();
         assertEquals(1, actualList.size());
@@ -278,31 +278,32 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
     public void testGetList() {
         verifyDataStoreWorkgroupListIsEmpty();
         this.workgroupDao.save(this.defaultWorkgroup);
-        List expectedList = retrieveWorkgroupListFromDb();
+        List<?> expectedList = retrieveWorkgroupListFromDb();
         assertEquals(1, expectedList.size());
 
         List<Workgroup> actualList = this.workgroupDao.getList();
         assertEquals(1, actualList.size());
         assertEquals(this.defaultWorkgroup, actualList.get(0));
     }
-    
+
     /**
      * Test method for
      * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
-     */ 
-     public void testGetById() {
-    	 this.verifyDataStoreWorkgroupListIsEmpty();
-    	 Workgroup expectedNullWorkgroup = this.workgroupDao.getById(new Long(3));
-    	 assertNull(expectedNullWorkgroup);
-    	 
-    	 this.workgroupDao.save(this.defaultWorkgroup);
-    	 List<Workgroup> actualList = this.workgroupDao.getList();
-    	 Workgroup actualWorkgroup = (Workgroup) actualList.get(0);
-    	 
-    	 Workgroup retrievedByIdWorkgroup = (Workgroup) this.workgroupDao.getById(actualWorkgroup.getId());
-    	 assertEquals(actualWorkgroup, retrievedByIdWorkgroup);
-    }
+     */
+    public void testGetById() {
+        this.verifyDataStoreWorkgroupListIsEmpty();
+        Workgroup expectedNullWorkgroup = this.workgroupDao
+                .getById(new Long(3));
+        assertNull(expectedNullWorkgroup);
 
+        this.workgroupDao.save(this.defaultWorkgroup);
+        List<Workgroup> actualList = this.workgroupDao.getList();
+        Workgroup actualWorkgroup = (Workgroup) actualList.get(0);
+
+        Workgroup retrievedByIdWorkgroup = (Workgroup) this.workgroupDao
+                .getById(actualWorkgroup.getId());
+        assertEquals(actualWorkgroup, retrievedByIdWorkgroup);
+    }
 
     private User createNewUser(String username, Integer sdsId, Session session) {
         User user = (User) this.applicationContext.getBean("user");
@@ -359,7 +360,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
             + " = "
             + PersistentUserDetails.DATA_STORE_NAME + ".id";
 
-    private List retrieveWorkgroupMembersListFromDb() {
+    private List<?> retrieveWorkgroupMembersListFromDb() {
         return this.jdbcTemplate.queryForList(RETRIEVE_WORKGROUP_MEMBERS_SQL,
                 (Object[]) null);
     }
@@ -384,7 +385,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDbTests {
             + WorkgroupImpl.COLUMN_NAME_OFFERING_FK + " = "
             + OfferingImpl.DATA_STORE_NAME + ".id";
 
-    private List retrieveWorkgroupListFromDb() {
+    private List<?> retrieveWorkgroupListFromDb() {
         return this.jdbcTemplate.queryForList(RETRIEVE_WORKGROUP_LIST_SQL,
                 (Object[]) null);
     }

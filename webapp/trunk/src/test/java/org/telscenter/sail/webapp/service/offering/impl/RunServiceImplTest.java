@@ -56,133 +56,133 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
  */
 public class RunServiceImplTest extends TestCase {
 
-	private static final String CURNIT_NAME = "name";
+    private static final String CURNIT_NAME = "name";
 
-	private static final String CURNIT_URL = "url";
+    private static final String CURNIT_URL = "url";
 
-	private static final String JNLP_NAME = "jname";
+    private static final String JNLP_NAME = "jname";
 
-	private static final String JNLP_URL = "jurl";
-	
-	private static final Long CURNIT_ID = new Long(3);
+    private static final String JNLP_URL = "jurl";
 
-	private static Set<Group> period = new HashSet<Group>();
+    private static final Long CURNIT_ID = new Long(3);
 
-	static {
-		Group group = new PersistentGroup();
-		group.setName(CURNIT_NAME);
-		period.add(group);
-	}
+    private static Set<Group> period = new HashSet<Group>();
 
-	private SdsOfferingDao mockSdsOfferingDao;
-	
-	private CurnitDao mockCurnitDao;
-	
-	private JnlpDao mockJnlpDao;
+    static {
+        Group group = new PersistentGroup();
+        group.setName(CURNIT_NAME);
+        period.add(group);
+    }
 
-	private RunDao<Run> mockRunDao;
-	
-	private GroupDao mockGroupDao;
+    private SdsOfferingDao mockSdsOfferingDao;
 
-	private RunServiceImpl runServiceImpl;
+    private CurnitDao<Curnit> mockCurnitDao;
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpInTransaction()
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+    private JnlpDao<Jnlp> mockJnlpDao;
 
-		this.runServiceImpl = new RunServiceImpl();
+    private RunDao<Run> mockRunDao;
 
-		this.mockSdsOfferingDao = EasyMock.createMock(SdsOfferingDao.class);
-		this.runServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
-		
-		this.mockCurnitDao = EasyMock.createMock(CurnitDao.class);
-		this.runServiceImpl.setCurnitDao(this.mockCurnitDao);
+    private GroupDao<Group> mockGroupDao;
 
-		this.mockJnlpDao = EasyMock.createMock(JnlpDao.class);
-		this.runServiceImpl.setJnlpDao(this.mockJnlpDao);
+    private RunServiceImpl runServiceImpl;
 
-		this.mockGroupDao = EasyMock.createMock(GroupDao.class);
-		this.runServiceImpl.setGroupDao(mockGroupDao);
-		
-		this.mockRunDao = EasyMock.createNiceMock(RunDao.class);
-		this.runServiceImpl.setOfferingDao(this.mockRunDao);
-	}
+    /**
+     * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpInTransaction()
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
 
-	/**
-	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
-	 */
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		this.runServiceImpl = null;
-		this.mockSdsOfferingDao = null;
-		this.mockRunDao = null;
-	}
+        this.runServiceImpl = new RunServiceImpl();
 
-	public void testGetRunList() throws Exception {
-		List<Offering> expectedList = new LinkedList<Offering>();
-		expectedList.add(new Run());
+        this.mockSdsOfferingDao = EasyMock.createMock(SdsOfferingDao.class);
+        this.runServiceImpl.setSdsOfferingDao(this.mockSdsOfferingDao);
 
-		EasyMock.expect(this.mockRunDao.getList()).andReturn(expectedList);
-		EasyMock.replay(this.mockRunDao);
-		assertEquals(expectedList, runServiceImpl.getRunList());
-		EasyMock.verify(this.mockRunDao);
-	}
+        this.mockCurnitDao = EasyMock.createMock(CurnitDao.class);
+        this.runServiceImpl.setCurnitDao(this.mockCurnitDao);
 
-	public void testCreateRun() throws Exception {
-		SdsJnlp sdsJnlp = new SdsJnlp();
-		sdsJnlp.setName(JNLP_NAME);
-		sdsJnlp.setUrl(JNLP_URL);
-		Jnlp jnlp = new JnlpImpl();
-		jnlp.setSdsJnlp(sdsJnlp);
-		List<Jnlp> jnlpList = new ArrayList<Jnlp>();
-		jnlpList.add(jnlp);
-		EasyMock.expect(this.mockJnlpDao.getList()).andReturn(jnlpList);
-		EasyMock.replay(this.mockJnlpDao);
-		
-		SdsCurnit sdsCurnit = new SdsCurnit();
-		sdsCurnit.setName(CURNIT_NAME);
-		sdsCurnit.setUrl(CURNIT_URL);
-		Curnit curnit = new CurnitImpl();
-		curnit.setSdsCurnit(sdsCurnit);
-		EasyMock.expect(this.mockCurnitDao.getById(CURNIT_ID)).andReturn(curnit);
-		EasyMock.replay(this.mockCurnitDao);		
+        this.mockJnlpDao = EasyMock.createMock(JnlpDao.class);
+        this.runServiceImpl.setJnlpDao(this.mockJnlpDao);
 
+        this.mockGroupDao = EasyMock.createMock(GroupDao.class);
+        this.runServiceImpl.setGroupDao(mockGroupDao);
 
-		this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
-		EasyMock.expectLastCall().andReturn(false);
-		EasyMock.replay(this.mockRunDao);
+        this.mockRunDao = EasyMock.createNiceMock(RunDao.class);
+        this.runServiceImpl.setOfferingDao(this.mockRunDao);
+    }
 
-		// TODO LAW figure out how to get this from the beans
-		RunParameters runParameters = new RunParameters();
-		runParameters.setCurnitId(CURNIT_ID);
-		runParameters.setName(CURNIT_NAME);
-		
-		Set<String> periodNames = new HashSet<String>();
-		periodNames.add("Period 1");
-		runParameters.setPeriodNames(periodNames);
-		
-		Run run = runServiceImpl.createRun(runParameters);
-		assertNull(run.getEndtime());
-		assertNotNull(run.getRuncode());
-		assertTrue(run.getRuncode() instanceof String);
+    /**
+     * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onTearDownAfterTransaction()
+     */
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        this.runServiceImpl = null;
+        this.mockSdsOfferingDao = null;
+        this.mockRunDao = null;
+    }
 
-		assertEquals(CURNIT_NAME, run.getSdsOffering().getSdsCurnit().getName());
-		assertEquals(CURNIT_URL, run.getSdsOffering().getSdsCurnit().getUrl());
-		assertEquals(JNLP_NAME, run.getSdsOffering().getSdsJnlp().getName());
-		assertEquals(JNLP_URL, run.getSdsOffering().getSdsJnlp().getUrl());
-		assertEquals(CURNIT_NAME, run.getSdsOffering().getName());
-		assertEquals(1, run.getPeriods().size());
-		for (Group period : run.getPeriods()) {
-			assertEquals("Period 1", period.getName());
-		}
-		EasyMock.verify(this.mockRunDao);
-	}
+    public void testGetRunList() throws Exception {
+        List<Offering> expectedList = new LinkedList<Offering>();
+        expectedList.add(new Run());
 
-	// TODO HT: test when duplicate runcode is generated by the
-	// runcode generator
+        EasyMock.expect(this.mockRunDao.getList()).andReturn(expectedList);
+        EasyMock.replay(this.mockRunDao);
+        assertEquals(expectedList, runServiceImpl.getRunList());
+        EasyMock.verify(this.mockRunDao);
+    }
+
+    public void testCreateRun() throws Exception {
+        SdsJnlp sdsJnlp = new SdsJnlp();
+        sdsJnlp.setName(JNLP_NAME);
+        sdsJnlp.setUrl(JNLP_URL);
+        Jnlp jnlp = new JnlpImpl();
+        jnlp.setSdsJnlp(sdsJnlp);
+        List<Jnlp> jnlpList = new ArrayList<Jnlp>();
+        jnlpList.add(jnlp);
+        EasyMock.expect(this.mockJnlpDao.getList()).andReturn(jnlpList);
+        EasyMock.replay(this.mockJnlpDao);
+
+        SdsCurnit sdsCurnit = new SdsCurnit();
+        sdsCurnit.setName(CURNIT_NAME);
+        sdsCurnit.setUrl(CURNIT_URL);
+        Curnit curnit = new CurnitImpl();
+        curnit.setSdsCurnit(sdsCurnit);
+        EasyMock.expect(this.mockCurnitDao.getById(CURNIT_ID))
+                .andReturn(curnit);
+        EasyMock.replay(this.mockCurnitDao);
+
+        this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
+        EasyMock.expectLastCall().andReturn(false);
+        EasyMock.replay(this.mockRunDao);
+
+        // TODO LAW figure out how to get this from the beans
+        RunParameters runParameters = new RunParameters();
+        runParameters.setCurnitId(CURNIT_ID);
+        runParameters.setName(CURNIT_NAME);
+
+        Set<String> periodNames = new HashSet<String>();
+        periodNames.add("Period 1");
+        runParameters.setPeriodNames(periodNames);
+
+        Run run = runServiceImpl.createRun(runParameters);
+        assertNull(run.getEndtime());
+        assertNotNull(run.getRuncode());
+        assertTrue(run.getRuncode() instanceof String);
+
+        assertEquals(CURNIT_NAME, run.getSdsOffering().getSdsCurnit().getName());
+        assertEquals(CURNIT_URL, run.getSdsOffering().getSdsCurnit().getUrl());
+        assertEquals(JNLP_NAME, run.getSdsOffering().getSdsJnlp().getName());
+        assertEquals(JNLP_URL, run.getSdsOffering().getSdsJnlp().getUrl());
+        assertEquals(CURNIT_NAME, run.getSdsOffering().getName());
+        assertEquals(1, run.getPeriods().size());
+        for (Group period : run.getPeriods()) {
+            assertEquals("Period 1", period.getName());
+        }
+        EasyMock.verify(this.mockRunDao);
+    }
+
+    // TODO HT: test when duplicate runcode is generated by the
+    // runcode generator
 }

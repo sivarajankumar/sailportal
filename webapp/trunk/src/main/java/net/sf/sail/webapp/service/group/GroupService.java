@@ -29,8 +29,6 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 
-import org.acegisecurity.annotation.Secured;
-
 /**
  * @author Hiroki Terashima
  * @version $Id$

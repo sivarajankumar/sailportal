@@ -37,7 +37,6 @@ import net.sf.sail.webapp.service.group.GroupService;
 import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
 import org.acegisecurity.acls.domain.BasePermission;
-import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
 import org.acegisecurity.acls.sid.PrincipalSid;
 import org.acegisecurity.context.SecurityContextHolder;
@@ -80,9 +79,9 @@ public class GroupServiceImpl implements GroupService {
         }
         this.groupDao.save(group);
 
-//        ObjectIdentity objectIdentity = new ObjectIdentityImpl(
-//                group.getClass(), group.getId());
-//        MutableAcl acl = this.mutableAclService.createAcl(objectIdentity);
+//        MutableAcl acl = this.mutableAclService
+//                .createAcl(new ObjectIdentityImpl(group.getClass(), group
+//                        .getId()));
 //        acl.insertAce(null, BasePermission.ADMINISTRATION, new PrincipalSid(
 //                SecurityContextHolder.getContext().getAuthentication()), true);
 //        this.mutableAclService.updateAcl(acl);

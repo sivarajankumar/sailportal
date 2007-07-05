@@ -26,7 +26,6 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,64 +34,66 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
 /**
  * Step 1 of the student password reminder
- *
+ * 
  * @author Anthony Perritano
  * @version $Id: $
  */
-public class LostPasswordStudentPasswordReminder2Controller  extends SimpleFormController{
-	protected UserService userService = null;
-	/**
-	 * submits the page
-	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
-	 */
-	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
-		
-		StudentUserDetails userDetails = (StudentUserDetails) command;
+public class LostPasswordStudentPasswordReminder2Controller extends
+        SimpleFormController {
+    protected UserService userService = null;
 
-		String username = null;
-		try {
+    /**
+     * submits the page
+     * 
+     * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+     *      org.springframework.validation.BindException)
+     */
+    @Override
+    protected ModelAndView onSubmit(HttpServletRequest request,
+            HttpServletResponse response, Object command, BindException errors)
+            throws Exception {
 
-			username = StringUtils.trimToNull(userDetails.getAccountAnswer());
-			if (username != null) {
+        StudentUserDetails userDetails = (StudentUserDetails) command;
 
-				ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));
-				modelAndView.addObject("user", username);
-				return modelAndView;
-				
-//				User user = userService.retrieveUserByUsername(userDetails
-//						.getUsername());
-			}// if
-		} catch (EmptyResultDataAccessException e) {
-				errors.rejectValue("username", "error.username-not-found",
-	                    new Object[] { userDetails.getUsername() },
-	                    "Username not found");
-	            return showForm(request, response, errors);
+        String username = null;
+        try {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return showForm(request, response, errors);
-		}// try
-		
-		return new ModelAndView(new RedirectView(getSuccessView()));
-	}
-	
-	/**
-	 * Sets the userDetailsService object.
-	 * 
-	 * @param userDetailsService
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+            username = StringUtils.trimToNull(userDetails.getAccountAnswer());
+            if (username != null) {
+
+                ModelAndView modelAndView = new ModelAndView(new RedirectView(
+                        getSuccessView()));
+                modelAndView.addObject("user", username);
+                return modelAndView;
+
+                // User user = userService.retrieveUserByUsername(userDetails
+                // .getUsername());
+            }// if
+        } catch (EmptyResultDataAccessException e) {
+            errors.rejectValue("username", "error.username-not-found",
+                    new Object[] { userDetails.getUsername() },
+                    "Username not found");
+            return showForm(request, response, errors);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return showForm(request, response, errors);
+        }// try
+
+        return new ModelAndView(new RedirectView(getSuccessView()));
+    }
+
+    /**
+     * Sets the userDetailsService object.
+     * 
+     * @param userDetailsService
+     */
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 }

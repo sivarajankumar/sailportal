@@ -89,29 +89,30 @@ public class HibernateJnlpDaoTest extends AbstractTransactionalDbTests {
     public void testGetList() {
         verifyDataStoreIsEmpty();
         this.jnlpDao.save(this.defaultJnlp);
-        List expectedList = retrieveJnlpListFromDb();
+        List<?> expectedList = retrieveJnlpListFromDb();
         assertEquals(1, expectedList.size());
 
         List<Jnlp> actualList = this.jnlpDao.getList();
         assertEquals(1, actualList.size());
         assertEquals(this.defaultJnlp, actualList.get(0));
     }
-    
+
     /**
      * Test method for
      * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
-     */    
+     */
     public void testGetById() {
-    	verifyDataStoreIsEmpty();
-    	Jnlp expectedNullJnlp = this.jnlpDao.getById(new Long(3));
-    	assertNull(expectedNullJnlp);
-    	
-    	this.jnlpDao.save(this.defaultJnlp);
-    	List<Jnlp> actualList = this.jnlpDao.getList();
-    	JnlpImpl actualJnlp = (JnlpImpl) actualList.get(0);
-    	
-    	JnlpImpl retrievedByIdJnlp = (JnlpImpl) this.jnlpDao.getById(actualJnlp.getId());
-    	assertEquals(actualJnlp, retrievedByIdJnlp);
+        verifyDataStoreIsEmpty();
+        Jnlp expectedNullJnlp = this.jnlpDao.getById(new Long(3));
+        assertNull(expectedNullJnlp);
+
+        this.jnlpDao.save(this.defaultJnlp);
+        List<Jnlp> actualList = this.jnlpDao.getList();
+        JnlpImpl actualJnlp = (JnlpImpl) actualList.get(0);
+
+        JnlpImpl retrievedByIdJnlp = (JnlpImpl) this.jnlpDao.getById(actualJnlp
+                .getId());
+        assertEquals(actualJnlp, retrievedByIdJnlp);
     }
 
     /**
@@ -121,7 +122,7 @@ public class HibernateJnlpDaoTest extends AbstractTransactionalDbTests {
     public void testDelete() {
         verifyDataStoreIsEmpty();
         this.jnlpDao.save(this.defaultJnlp);
-        List actualList = retrieveJnlpListFromDb();
+        List<?> actualList = retrieveJnlpListFromDb();
         assertEquals(1, actualList.size());
 
         this.jnlpDao.delete(this.defaultJnlp);
@@ -140,10 +141,10 @@ public class HibernateJnlpDaoTest extends AbstractTransactionalDbTests {
 
         // verify data store contains saved data using direct jdbc retrieval
         // (not using dao)
-        List actualList = retrieveJnlpListFromDb();
+        List<?> actualList = retrieveJnlpListFromDb();
         assertEquals(1, actualList.size());
 
-        Map actualCurnitMap = (Map) actualList.get(0);
+        Map<?, ?> actualCurnitMap = (Map<?, ?>) actualList.get(0);
         assertEquals(SDS_ID, actualCurnitMap.get(SdsJnlp.COLUMN_NAME_JNLP_ID
                 .toUpperCase()));
         assertEquals(DEFAULT_NAME, actualCurnitMap
@@ -165,7 +166,7 @@ public class HibernateJnlpDaoTest extends AbstractTransactionalDbTests {
             + JnlpImpl.COLUMN_NAME_SDS_JNLP_FK + " = "
             + SdsJnlp.DATA_STORE_NAME + ".id";
 
-    private List retrieveJnlpListFromDb() {
+    private List<?> retrieveJnlpListFromDb() {
         return this.jdbcTemplate.queryForList(RETRIEVE_JNLP_LIST_SQL,
                 (Object[]) null);
     }

@@ -66,6 +66,7 @@ public final class HttpPostRequest extends AbstractHttpRequest {
      * This is intentionally private - to make the HttpPostRequest object
      * immutable.
      */
+    @SuppressWarnings("unused")
     private HttpPostRequest() {
     }
 

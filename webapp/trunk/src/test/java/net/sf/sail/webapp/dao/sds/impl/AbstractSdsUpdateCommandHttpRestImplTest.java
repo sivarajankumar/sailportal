@@ -33,7 +33,8 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: AbstractSdsUpdateCommandHttpRestImplTest.java 381 2007-05-10
+ *          18:38:04Z laurel $
  */
 public abstract class AbstractSdsUpdateCommandHttpRestImplTest extends TestCase {
 
@@ -47,7 +48,7 @@ public abstract class AbstractSdsUpdateCommandHttpRestImplTest extends TestCase 
 
     protected HttpPutRequest httpRequest;
 
-    protected SdsCommand updateCommand;
+    protected SdsCommand<?, HttpPutRequest> updateCommand;
 
     /**
      * @see junit.framework.TestCase#setUp()

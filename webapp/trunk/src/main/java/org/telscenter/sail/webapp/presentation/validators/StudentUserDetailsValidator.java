@@ -22,53 +22,52 @@
  */
 package org.telscenter.sail.webapp.presentation.validators;
 
-
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
 /**
  * Validator for the TELS Student User Details upon registering
- *
+ * 
  * @author Hiroki Terashima
- *
+ * 
  * @version $Id$
- *
+ * 
  */
 public class StudentUserDetailsValidator extends UserDetailsValidator {
 
-	/**
-	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
-	 */
-	public boolean supports(Class clazz) {
-		return StudentUserDetails.class.isAssignableFrom(clazz);
-	}
+    /**
+     * @see org.springframework.validation.Validator#supports(java.lang.Class)
+     */
+    @SuppressWarnings("unchecked")
+    public boolean supports(Class clazz) {
+        return StudentUserDetails.class.isAssignableFrom(clazz);
+    }
 
-	/**
-	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
-	 */
-	@Override
-	public void validate(Object userDetailsIn, Errors errors) {
-		super.validate(userDetailsIn, errors);
-		
-		if (errors.hasErrors())
-			return;
+    /**
+     * @see org.springframework.validation.Validator#validate(java.lang.Object,
+     *      org.springframework.validation.Errors)
+     */
+    @Override
+    public void validate(Object userDetailsIn, Errors errors) {
+        super.validate(userDetailsIn, errors);
 
-		StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
+        if (errors.hasErrors())
+            return;
 
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender",
-		"error.gender-not-specified");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "accountQuestion",
-		"error.no-accountquestion");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "accountAnswer",
-		"error.no-accountanswer");
-		
-		
-		if (errors.hasErrors())
-			userDetails.setPassword("");
-	}
+        StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender",
+                "error.gender-not-specified");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "accountQuestion",
+                "error.no-accountquestion");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "accountAnswer",
+                "error.no-accountanswer");
+
+        if (errors.hasErrors())
+            userDetails.setPassword("");
+    }
 
 }
