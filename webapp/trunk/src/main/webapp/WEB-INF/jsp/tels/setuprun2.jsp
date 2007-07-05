@@ -47,14 +47,13 @@
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul>
-<br />  
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <h2 class="north0"><b><spring:message code="teacher.setup-project-run-step2" /></b></h2>
 
 <p class="bigFont1 north0"><spring:message code="teacher.currently-active-project-runs" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.archiving-a-project-run" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.end-or-cont-project-runs" /></p>
-
+<p>Project description: <c:out value="${project.description}"/></p>
 <!--  
 <div class="center north0">
 <a href="setuprun2.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /></a>
@@ -64,9 +63,9 @@
 -->
 
 <form method="post" class="center north0">
-<input type="submit" name="_target0" value="<spring:message code="navigate.back" />">
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
-<input type="submit" name="_target2" value="<spring:message code="navigate.next" />">
+<input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+<input type="submit" name="_target2" value="<spring:message code="navigate.next" />" />
 </form>
 
 </body>

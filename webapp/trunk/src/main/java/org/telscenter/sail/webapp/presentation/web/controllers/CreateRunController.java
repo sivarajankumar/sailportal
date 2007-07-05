@@ -23,7 +23,10 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +39,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Project;
+import org.telscenter.sail.webapp.domain.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
 /**
@@ -111,25 +116,35 @@ public class CreateRunController extends AbstractWizardFormController {
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request, 
 			Object command, Errors errors, int page) {
-		RunParameters runParameters = (RunParameters) command;	
-		Long curnitId = runParameters.getCurnitId();
-		System.out.println(curnitId);
 		Map<String, Object> model = new HashMap<String, Object>();
 		switch(page) {
 		case 0:
-			model.put("project", "hello1");
+			// TODO HT: get this stuff from db
+			Project project = new ProjectImpl();
+			Set<Integer> grades = new TreeSet<Integer>();
+			grades.add(1);
+			grades.add(2);
+			grades.add(3);
+			grades.add(4);
+			grades.add(5);
+			project.setGrades(grades);
+			project.setDescription("This project is for advanced bio-engineers.");
+			model.put("project", project);
 			break;
 		case 1:
-			model.put("project", "hello2");
+			Project project1 = new ProjectImpl();
+			Set<Integer> grades1 = new HashSet<Integer>();
+			grades1.add(1);
+			grades1.add(2);
+			project1.setGrades(grades1);
+			project1.setDescription("This project is for advanced chemical-engineers.");
+			model.put("project", project1);
 			break;
 		case 2:
 			break;
 		case 3:
-			break;
 		case 4:
-			break;
 		case 5:
-			break;
 		default:
 			break;
 		}

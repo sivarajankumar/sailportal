@@ -54,7 +54,9 @@
 <b><spring:message code="teacher.type-of-project" /></b> <spring:message code="teacher.project-run-classroom-message" /> </p>
 
 <p class="bigFont1 north0"> <spring:message code="teacher.correct-project" /> </p> 
-
+<p>CurnitID: <spring:bind path="runParameters.curnitId"><c:out value="${status.value}"/></spring:bind></p>
+<p>Project description: <c:out value="${project.description}"/></p>
+<p><c:forEach items="${project.grades}" var="grade"><c:out value="${grade}" /></c:forEach></p>
 <form method="post" class="center north0">
 <!--  
 <input type="button" disabled value=<spring:message code='navigate.back' /> style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue" />
