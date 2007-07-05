@@ -17,8 +17,6 @@
  */
 package net.sf.sail.webapp.domain.authentication.impl;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,10 +26,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import net.sf.sail.webapp.domain.authentication.MutableAclTargetObject;
+
 /**
- * Represents the Java classname of an object that will be authorized according
- * to an access control list (ACL). This class is marked with EJB3 annotations
- * for persistence.
+ * Concrete implementation of <code>MutableAclTargetObject</code> marked with
+ * EJB3 annotations for persistence.
  * 
  * @author Cynick Young
  * 
@@ -39,7 +38,7 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name = PersistentAclTargetObject.DATA_STORE_NAME)
-public class PersistentAclTargetObject implements Serializable {
+public class PersistentAclTargetObject implements MutableAclTargetObject {
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -62,15 +61,14 @@ public class PersistentAclTargetObject implements Serializable {
     private String classname;
 
     /**
-     * @return the classname
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObject#getClassname()
      */
     public String getClassname() {
         return classname;
     }
 
     /**
-     * @param classname
-     *            the classname to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObject#setClassname(java.lang.String)
      */
     public void setClassname(String classname) {
         this.classname = classname;
@@ -86,7 +84,7 @@ public class PersistentAclTargetObject implements Serializable {
 
     /**
      * @param id
-     *            the id to set
+     *                the id to set
      */
     @SuppressWarnings("unused")
     private void setId(Long id) {
@@ -103,7 +101,7 @@ public class PersistentAclTargetObject implements Serializable {
 
     /**
      * @param version
-     *            the version to set
+     *                the version to set
      */
     @SuppressWarnings("unused")
     private void setVersion(Integer version) {
@@ -111,19 +109,19 @@ public class PersistentAclTargetObject implements Serializable {
     }
 
     /**
-     * @see java.lang.Object#hashCode()
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObject#hashCode()
      */
     @Override
     public int hashCode() {
-        final int PRIME = 31;
+        final int prime = 31;
         int result = 1;
-        result = PRIME * result
+        result = prime * result
                 + ((classname == null) ? 0 : classname.hashCode());
         return result;
     }
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObject#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {

@@ -17,8 +17,6 @@
  */
 package net.sf.sail.webapp.domain.authentication.impl;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,16 +27,15 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import net.sf.sail.webapp.domain.authentication.MutableAclSid;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.acls.sid.Sid;
 import org.acegisecurity.userdetails.UserDetails;
 
 /**
- * Concrete implementation of the <code>Sid</code> (security id) interface
- * that is marked with EJB3 annotations for persistence. This implementation
- * supports both principal and granted authority based <code>Sid</code> in a
- * single class. There is no need for separate implementations.
+ * Concrete implementation of <code>MutableAclSid</code> marked with EJB3
+ * annotations for persistence.
  * 
  * @author Cynick Young
  * 
@@ -49,7 +46,7 @@ import org.acegisecurity.userdetails.UserDetails;
 @Table(name = PersistentAclSid.DATA_STORE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = {
         PersistentAclSid.COLUMN_NAME_SID,
         PersistentAclSid.COLUMN_NAME_IS_PRINCIPAL }) })
-public class PersistentAclSid implements Sid, Serializable {
+public class PersistentAclSid implements MutableAclSid {
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -78,13 +75,7 @@ public class PersistentAclSid implements Sid, Serializable {
     private String sidName;
 
     /**
-     * Tests whether this instance of <code>Sid</code> was created as a
-     * principal.
-     * 
-     * @return <code>true</code> if this instance of <code>Sid</code> has
-     *         been created using a principal, <code>false</code> if this has
-     *         been created using a granted authority, and <code>null</code>
-     *         if this instance has not been initialized properly.
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclSid#isPrincipal()
      */
     public Boolean isPrincipal() {
         return this.getIsPrincipal();
@@ -107,12 +98,7 @@ public class PersistentAclSid implements Sid, Serializable {
     }
 
     /**
-     * Gets the <code>Sid</code> as a <code>String</code> if this instance
-     * has been created using a principal.
-     * 
-     * @return the principal
-     * @throws UnsupportedOperationException
-     *             if this instance of Sid is not a principal
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclSid#getPrincipal()
      */
     public String getPrincipal() {
         if (this.getIsPrincipal() == null) {
@@ -126,11 +112,7 @@ public class PersistentAclSid implements Sid, Serializable {
     }
 
     /**
-     * Sets the <code>Sid</code> using an <code>Authentication</code>
-     * principal.
-     * 
-     * @param authentication
-     *            to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclSid#setPrincipal(org.acegisecurity.Authentication)
      */
     public void setPrincipal(Authentication authentication) {
         this.setIsPrincipal(Boolean.TRUE);
@@ -143,10 +125,7 @@ public class PersistentAclSid implements Sid, Serializable {
     }
 
     /**
-     * Sets the <code>Sid</code> using a <code>GrantedAuthority</code>.
-     * 
-     * @param grantedAuthority
-     *            to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclSid#setGrantedAuthority(org.acegisecurity.GrantedAuthority)
      */
     public void setGrantedAuthority(GrantedAuthority grantedAuthority) {
         this.setIsPrincipal(Boolean.FALSE);
@@ -154,12 +133,7 @@ public class PersistentAclSid implements Sid, Serializable {
     }
 
     /**
-     * Gets the <code>Sid</code> as a <code>String</code> if this instance
-     * has been created using a granted authority.
-     * 
-     * @return the granted authority
-     * @throws UnsupportedOperationException
-     *             if this instance of Sid is not a granted authority
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclSid#getGrantedAuthority()
      */
     public String getGrantedAuthority() {
         if (this.getIsPrincipal() == null) {

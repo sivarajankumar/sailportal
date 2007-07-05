@@ -33,13 +33,13 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
-import org.acegisecurity.acls.objectidentity.ObjectIdentity;
+import net.sf.sail.webapp.domain.authentication.MutableAclSid;
+import net.sf.sail.webapp.domain.authentication.MutableAclTargetObject;
+import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
 
 /**
- * Persistent implementation of <code>ObjectIdentity</code>. Represents the
- * object identity of a Java object that will be authorized according to an
- * access control list (ACL). This class is marked with EJB3 annotations for
- * persistence.
+ * Concrete implementation of <code>MutableAclTargetObjectIdentity</code>
+ * marked with EJB3 annotations for persistence.
  * 
  * @author Cynick Young
  * 
@@ -51,7 +51,8 @@ import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 @Table(name = PersistentAclTargetObjectIdentity.DATA_STORE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = {
         PersistentAclTargetObjectIdentity.COLUMN_NAME_TARGET_OBJECT,
         PersistentAclTargetObjectIdentity.COLUMN_NAME_TARGET_OBJECT_ID }) })
-public class PersistentAclTargetObjectIdentity implements ObjectIdentity {
+public class PersistentAclTargetObjectIdentity implements
+        MutableAclTargetObjectIdentity {
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -74,20 +75,20 @@ public class PersistentAclTargetObjectIdentity implements ObjectIdentity {
     @Transient
     static final String COLUMN_NAME_INHERITING = "entries_inheriting";
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = PersistentAclTargetObject.class)
     @JoinColumn(name = COLUMN_NAME_TARGET_OBJECT, nullable = false)
-    private PersistentAclTargetObject aclTargetObject;
+    private MutableAclTargetObject aclTargetObject;
 
     @Column(name = COLUMN_NAME_TARGET_OBJECT_ID, nullable = false)
     private Long aclTargetObjectId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = PersistentAclTargetObjectIdentity.class)
     @JoinColumn(name = COLUMN_NAME_PARENT)
-    private PersistentAclTargetObjectIdentity parent;
+    private MutableAclTargetObjectIdentity parent;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = PersistentAclSid.class)
     @JoinColumn(name = COLUMN_NAME_OWNER_SID)
-    private PersistentAclSid ownerSid;
+    private MutableAclSid ownerSid;
 
     @Column(name = COLUMN_NAME_INHERITING, nullable = false)
     private Boolean inheriting;
@@ -135,37 +136,35 @@ public class PersistentAclTargetObjectIdentity implements ObjectIdentity {
     }
 
     /**
-     * @return the aclTargetObject
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#getAclTargetObject()
      */
-    public PersistentAclTargetObject getAclTargetObject() {
+    public MutableAclTargetObject getAclTargetObject() {
         return aclTargetObject;
     }
 
     /**
-     * @param aclTargetObject
-     *                the aclTargetObject to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#setAclTargetObject(net.sf.sail.webapp.domain.authentication.MutableAclTargetObject)
      */
-    public void setAclTargetObject(PersistentAclTargetObject aclTargetObject) {
+    public void setAclTargetObject(MutableAclTargetObject aclTargetObject) {
         this.aclTargetObject = aclTargetObject;
     }
 
     /**
-     * @return the aclTargetObjectId
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#getAclTargetObjectId()
      */
     public Long getAclTargetObjectId() {
         return aclTargetObjectId;
     }
 
     /**
-     * @param aclTargetObjectId
-     *                the aclTargetObjectId to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#setAclTargetObjectId(java.lang.Long)
      */
     public void setAclTargetObjectId(Long aclTargetObjectId) {
         this.aclTargetObjectId = aclTargetObjectId;
     }
 
     /**
-     * @return the inheriting
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#isInheriting()
      */
     public Boolean isInheriting() {
         return this.getInheriting();
@@ -176,40 +175,37 @@ public class PersistentAclTargetObjectIdentity implements ObjectIdentity {
     }
 
     /**
-     * @param inheriting
-     *                the inheriting to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#setInheriting(java.lang.Boolean)
      */
     public void setInheriting(Boolean isInheriting) {
         this.inheriting = isInheriting;
     }
 
     /**
-     * @return the ownerSid
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#getOwnerSid()
      */
-    public PersistentAclSid getOwnerSid() {
+    public MutableAclSid getOwnerSid() {
         return ownerSid;
     }
 
     /**
-     * @param ownerSid
-     *                the ownerSid to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#setOwnerSid(net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid)
      */
-    public void setOwnerSid(PersistentAclSid ownerSid) {
+    public void setOwnerSid(MutableAclSid ownerSid) {
         this.ownerSid = ownerSid;
     }
 
     /**
-     * @return the parent
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#getParent()
      */
-    public PersistentAclTargetObjectIdentity getParent() {
+    public MutableAclTargetObjectIdentity getParent() {
         return parent;
     }
 
     /**
-     * @param parent
-     *                the parent to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity#setParent(net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity)
      */
-    public void setParent(PersistentAclTargetObjectIdentity parent) {
+    public void setParent(MutableAclTargetObjectIdentity parent) {
         this.parent = parent;
     }
 
@@ -264,8 +260,7 @@ public class PersistentAclTargetObjectIdentity implements ObjectIdentity {
     /**
      * @see org.acegisecurity.acls.objectidentity.ObjectIdentity#getJavaType()
      */
-    @SuppressWarnings("unchecked")
-    public Class getJavaType() {
+    public Class<?> getJavaType() {
         return this.getAclTargetObject().getClass();
     }
 }

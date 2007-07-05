@@ -17,8 +17,6 @@
  */
 package net.sf.sail.webapp.domain.authentication.impl;
 
-import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,10 +30,13 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import net.sf.sail.webapp.domain.authentication.MutableAclEntry;
+import net.sf.sail.webapp.domain.authentication.MutableAclSid;
+import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
+
 /**
- * Represents the Access Control List (ACL) entry (ACE) that grants permissions
- * to a Security ID (SID) for a particular secured object. This class is marked
- * with EJB3 annotations for persistence.
+ * Concrete implementation of <code>MutableAclEntry</code> marked with EJB3
+ * annotations for persistence.
  * 
  * @author Cynick Young
  * 
@@ -45,7 +46,7 @@ import javax.persistence.Version;
 @Table(name = PersistentAclEntry.DATA_STORE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = {
         PersistentAclEntry.COLUMN_NAME_TARGET_OBJECT_ID,
         PersistentAclEntry.COLUMN_NAME_ACE_ORDER }) })
-public class PersistentAclEntry implements Serializable {
+public class PersistentAclEntry implements MutableAclEntry {
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -74,16 +75,16 @@ public class PersistentAclEntry implements Serializable {
     @Transient
     static final String COLUMN_NAME_AUDIT_FAILURE = "audit_failure";
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = PersistentAclTargetObjectIdentity.class)
     @JoinColumn(name = COLUMN_NAME_TARGET_OBJECT_ID, nullable = false)
-    private PersistentAclTargetObjectIdentity targetObjectIdentity;
+    private MutableAclTargetObjectIdentity targetObjectIdentity;
 
     @Column(name = COLUMN_NAME_ACE_ORDER, nullable = false)
     private Integer aceOrder;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = PersistentAclSid.class)
     @JoinColumn(name = COLUMN_NAME_SID, nullable = false)
-    private PersistentAclSid sid;
+    private MutableAclSid sid;
 
     @Column(name = COLUMN_NAME_MASK, nullable = false)
     private Integer mask;
@@ -106,108 +107,101 @@ public class PersistentAclEntry implements Serializable {
     private Integer version = null;
 
     /**
-     * @return the aceOrder
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getAceOrder()
      */
     public Integer getAceOrder() {
         return aceOrder;
     }
 
     /**
-     * @param aceOrder
-     *            the aceOrder to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setAceOrder(java.lang.Integer)
      */
     public void setAceOrder(Integer aceOrder) {
         this.aceOrder = aceOrder;
     }
 
     /**
-     * @return the auditFailure
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getAuditFailure()
      */
     public Boolean getAuditFailure() {
         return auditFailure;
     }
 
     /**
-     * @param auditFailure
-     *            the auditFailure to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setAuditFailure(java.lang.Boolean)
      */
     public void setAuditFailure(Boolean auditFailure) {
         this.auditFailure = auditFailure;
     }
 
     /**
-     * @return the auditSuccess
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getAuditSuccess()
      */
     public Boolean getAuditSuccess() {
         return auditSuccess;
     }
 
     /**
-     * @param auditSuccess
-     *            the auditSuccess to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setAuditSuccess(java.lang.Boolean)
      */
     public void setAuditSuccess(Boolean auditSuccess) {
         this.auditSuccess = auditSuccess;
     }
 
     /**
-     * @return the granting
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getGranting()
      */
     public Boolean getGranting() {
         return granting;
     }
 
     /**
-     * @param granting
-     *            the granting to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setGranting(java.lang.Boolean)
      */
     public void setGranting(Boolean granting) {
         this.granting = granting;
     }
 
     /**
-     * @return the mask
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getMask()
      */
     public Integer getMask() {
         return mask;
     }
 
     /**
-     * @param mask
-     *            the mask to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setMask(java.lang.Integer)
      */
     public void setMask(Integer mask) {
         this.mask = mask;
     }
 
     /**
-     * @return the sid
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getSid()
      */
-    public PersistentAclSid getSid() {
+    public MutableAclSid getSid() {
         return sid;
     }
 
     /**
-     * @param sid
-     *            the sid to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setSid(net.sf.sail.webapp.domain.authentication.MutableAclSid)
      */
-    public void setSid(PersistentAclSid sid) {
+    public void setSid(MutableAclSid sid) {
         this.sid = sid;
     }
 
     /**
-     * @return the targetObjectIdentity
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getTargetObjectIdentity()
      */
-    public PersistentAclTargetObjectIdentity getTargetObjectIdentity() {
+    public MutableAclTargetObjectIdentity getTargetObjectIdentity() {
         return targetObjectIdentity;
     }
 
     /**
-     * @param targetObjectIdentity
-     *            the targetObjectIdentity to set
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setTargetObjectIdentity(net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity)
      */
     public void setTargetObjectIdentity(
-            PersistentAclTargetObjectIdentity targetObjectIdentity) {
+            MutableAclTargetObjectIdentity targetObjectIdentity) {
         this.targetObjectIdentity = targetObjectIdentity;
     }
 
@@ -232,7 +226,7 @@ public class PersistentAclEntry implements Serializable {
     }
 
     /**
-     * @see java.lang.Object#hashCode()
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#hashCode()
      */
     @Override
     public int hashCode() {
@@ -248,7 +242,7 @@ public class PersistentAclEntry implements Serializable {
     }
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {

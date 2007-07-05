@@ -19,6 +19,8 @@ package net.sf.sail.webapp.domain.authentication.impl;
 
 import junit.framework.TestCase;
 
+import net.sf.sail.webapp.domain.authentication.MutableAclSid;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
@@ -37,7 +39,7 @@ public class PersistentSidTest extends TestCase {
 
     private static final String ROLE = "some role";
 
-    private PersistentAclSid sid;
+    private MutableAclSid sid;
 
     /**
      * @see junit.framework.TestCase#setUp()
