@@ -38,17 +38,36 @@ public interface CurnitService {
 	 */
 	public List<Curnit> getCurnitList();
 
-
 	/**
 	 * Creates a new <code>SdsCurnit</code> on the SDS as well as a
 	 * <code>Curnit</code> object in the local data store. A side effect is
 	 * that the sdsObjectId is set to the value that the SDS assigns to the new
 	 * curnit.
 	 * 
-	 * @param curnitParameters
+	 * @param <code>curnitParameters</code>
 	 *            The curnit parameters (name and url)
 	 * @return the curnit
 	 */
 	public Curnit createCurnit(CurnitParameters curnitParameters);
+	
+	/**
+	 * Gets a curnit with the given curnitId.
+	 * 
+	 * @param curnitId
+	 *            The Id of the curnit
+	 * @return <code>Curnit</code> with the specified curnitId
+	 * @throws CurnitNotFoundException when the specified curnit is
+	 *         not found
+	 */
+	public Curnit getById(Long curnitId) throws CurnitNotFoundException;
+	
+	/**
+	 * Changes the name of the given curnit.
+	 * 
+	 * @param curnit an existing <code>Curnit</code> that should
+	 *               have its name changed
+	 * @param newName <code>String</code> name of the new curnit
+	 */
+	public void changeCurnitName(Curnit curnit, String newName);
 
 }

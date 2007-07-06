@@ -56,7 +56,7 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
  *  3) validatePage
  *  4) referenceData
  * Note that on user's first visit to the first page of the wizard, only referenceData will be
- * invoked, and steps 1-4 are bypassed.
+ * invoked, and steps 1-3 are bypassed.
  *
  * @author Hiroki Terashima
  * @version $Id$

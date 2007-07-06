@@ -27,6 +27,7 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 
 import org.easymock.EasyMock;
 
@@ -39,6 +40,8 @@ public class CurnitServiceImplTest extends TestCase {
 
 	private static final String CURNIT_NAME = "name";
 	private static final String CURNIT_URL = "url";
+	private static final Long EXISTING_CURNIT_ID = new Long(10);
+	private static final Long NONEXISTING_CURNIT_ID = new Long(103);
 	
     private SdsCurnitDao mockSdsCurnitDao;
     private CurnitDao<Curnit> mockCurnitDao;
@@ -94,5 +97,28 @@ public class CurnitServiceImplTest extends TestCase {
         assertEquals(CURNIT_URL, actualSdsCurnit.getUrl());
     }
 
+    public void testGetById() throws Exception {
+    	Curnit expectedCurnit = new CurnitImpl();
+    	EasyMock.expect(mockCurnitDao.getById(EXISTING_CURNIT_ID)).andReturn(expectedCurnit);
+    	EasyMock.replay(mockCurnitDao);
+    	assertEquals(expectedCurnit, curnitServiceImpl.getById(EXISTING_CURNIT_ID));
+    	EasyMock.verify(mockCurnitDao);
+    	EasyMock.reset(mockCurnitDao);
+
+    	// now check when curnit is not found
+    	EasyMock.expect(mockCurnitDao.getById(NONEXISTING_CURNIT_ID))
+    	        .andReturn(null);
+    	EasyMock.replay(mockCurnitDao);
+    	try {
+    		curnitServiceImpl.getById(NONEXISTING_CURNIT_ID);
+    		fail("CurnitNotFoundException expected but was not thrown");
+    	} catch (CurnitNotFoundException e) {
+    	}
+    	EasyMock.verify(mockCurnitDao);
+    }
+    
+    public void testChangeCurnitName() {
+    	
+    }
 
 }

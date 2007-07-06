@@ -27,6 +27,7 @@ import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -85,6 +86,31 @@ public class CurnitServiceImpl implements CurnitService {
 		curnit.setSdsCurnit(sdsCurnit);
         this.curnitDao.save(curnit);
         return curnit;
+	}
+
+    /**
+     * @see net.sf.sail.webapp.service.curnit.CurnitService#getById(java.lang.Long)
+     */
+    @Transactional(readOnly = true)
+	public Curnit getById(Long curnitId) throws CurnitNotFoundException {
+		Curnit curnit = this.curnitDao.getById(curnitId);
+		if (curnit == null) {
+			throw new CurnitNotFoundException("curnit " + curnitId + " not found.");
+		} else {
+			return curnit;
+		}
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.curnit.CurnitService#changeCurnitName(net.sf.sail.webapp.domain.Curnit, java.lang.String)
+	 */
+	@Transactional()
+	public void changeCurnitName(Curnit curnit, String newName) {
+		// The name is stored in SdsCurnit, so only SdsCurnit should be 
+		// modified and saved.
+		SdsCurnit sdsCurnit = curnit.getSdsCurnit();
+		sdsCurnit.setName(newName);
+		this.sdsCurnitDao.save(sdsCurnit);
 	}
 
 }
