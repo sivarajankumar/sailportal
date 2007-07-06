@@ -93,6 +93,7 @@
                 /teacher*.html=ROLE_ANONYMOUS,ROLE_USER
                 /team*.html=ROLE_ANONYMOUS,ROLE_USER
                 /wise*.html=ROLE_ANONYMOUS,ROLE_USER
+                /create*.html=ROLE_ANONYMOUS,ROLE_USER
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>
