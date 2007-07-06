@@ -39,6 +39,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Project;
+import org.telscenter.sail.webapp.domain.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
 /**
@@ -121,25 +123,25 @@ public class CreateRunController extends AbstractWizardFormController {
 		switch(page) {
 		case 0:
 			// TODO HT: get this stuff from db
-//			Project project = new ProjectImpl();
+			Project project = new ProjectImpl();
 			Set<Integer> grades = new TreeSet<Integer>();
 			grades.add(1);
 			grades.add(2);
 			grades.add(3);
 			grades.add(4);
 			grades.add(5);
-//			project.setGrades(grades);
-//			project.setDescription("This project is for advanced bio-engineers.");
-//			model.put("project", project);
+			project.setGrades(grades);
+			project.setDescription("This project is for advanced bio-engineers.");
+			model.put("project", project);
 			break;
 		case 1:
-//			Project project1 = new ProjectImpl();
+			Project project1 = new ProjectImpl();
 			Set<Integer> grades1 = new HashSet<Integer>();
 			grades1.add(1);
 			grades1.add(2);
-//			project1.setGrades(grades1);
-//			project1.setDescription("This project is for advanced chemical-engineers.");
-//			model.put("project", project1);
+			project1.setGrades(grades1);
+			project1.setDescription("This project is for advanced chemical-engineers.");
+			model.put("project", project1);
 			break;
 		case 2:
 			break;
