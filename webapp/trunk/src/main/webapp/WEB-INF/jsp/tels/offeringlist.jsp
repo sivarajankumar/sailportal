@@ -37,21 +37,39 @@
 
 <div id="columns">
 <div id="left"><%@ include file="logout.jsp"%>
-	<a href="offeringlist.html"><spring:message code="offerings.list" /></a><br />
 </div>
 
 <div id="right">
-<h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
+<h2><spring:message code="hello" /> ${user.userDetails.username}</h2>
 
-<table align="center" bgcolor="#008800" border="0" cellspacing="2" cellpadding="3">
-  <tr bgcolor="#CCCCCC"><td><b><spring:message code="curnit.name.heading" /></b></td></tr>
-<c:forEach var="curnit" items="${curnitlist}">
-  <tr bgcolor="#FFFF88">
-  <td><b><a href="<c:url value="setuprun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
-	  <font color="BLACK"><c:out value="${curnit.sdsCurnit.name}"/></font>
-  </a></b></td>
-  </tr>
-</c:forEach>
+<table border="1">
+  <thead>
+    <tr>
+      <th><spring:message code="offering.name.heading" /></th>
+      <th><spring:message code="offering.workgroup.heading" /></th>
+      <th><spring:message code="offering.link.heading" /></th>
+    </tr>
+  </thead>
+  <c:forEach var="offering" items="${offering_list}">
+  <tr>
+    <td><a href="<c:url value="/offering.html"><c:param name="offeringId" value="${offering.id}"/></c:url>">${offering.sdsOffering.name}</a></td>
+    <td>
+      <c:choose>
+        <c:when test="${fn:length(workgroup_map[offering]) == 0}" >
+        <spring:message code="no.workgroups" />
+        </c:when>
+        <c:otherwise>
+          <ul>
+            <c:forEach var="workgroup" items="${workgroup_map[offering]}">
+              <li><a href="${http_transport.baseUrl}/offering/${offering.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a></li>
+            </c:forEach>
+          </ul>
+        </c:otherwise>
+      </c:choose>
+    </td>
+    <td><spring:message code="create.workgroup.link" /></td>
+   </tr>
+  </c:forEach>
 </table>
 </div>
 

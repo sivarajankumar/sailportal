@@ -51,6 +51,7 @@
 <h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /> </h2>
 <p class="bigFont1 north0"> <spring:message code="teacher.setup-run-six-steps" /> </p>
 <h3 class="north0"> <spring:message code="teacher.tips-project-runs" /> </h3>
+
 <ol class="bigFont1 north0">
 <li> <spring:message code="teacher.remember" /> <b> <spring:message code="wise.preview-the-project" /> </b> <spring:message code="teacher.preview-project-message" /> </li>
 <li> <spring:message code="teacher.review" /> <b> <spring:message code="teacher.lesson-plans" /></b> <spring:message code="teacher.lesson-plans-cont" /></li>
@@ -63,13 +64,21 @@
 <li><spring:message code="teacher.cancel-setup-steps" /></li>
 </ul>
 
-<ul class="none bigFont1 north0">
-<li class="center"> <a href="setuprun2.html" style="text-decoration:none;" class="border bigFont1 bgColorLightBlue"> <spring:message code="teacher.setup-project-run-start" /> </a> </li>
-</ul>
 
-<div>
-<a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
-</div>
+<form:form method="post" action="setuprun1.html"
+  commandName="runParameters">
+
+  <p><label for="name"><spring:message code="createrun.name" /></label>
+  <form:input path="name" id="name" /> <form:errors path="name" />
+  </p>
+  <p>
+  <label for="curnitId"><spring:message code="createrun.curnitId" /></label>
+  <input name="curnitId" id="curnitId" value=<%= request.getParameter("curnitId") %> /> <form:errors path="curnitId" />
+  </p>
+  <p><input type="submit" value="<spring:message code="teacher.setup-project-run-start" />" />
+  </p>
+</form:form>
+
 <%@ include file="footer.jsp"%>
 
 </body>
