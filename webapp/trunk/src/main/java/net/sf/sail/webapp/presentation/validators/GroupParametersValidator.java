@@ -45,23 +45,25 @@ public class GroupParametersValidator implements Validator {
         return GroupParameters.class.isAssignableFrom(clazz);
     }
 
-    /**
-     * @see org.springframework.validation.Validator#validate(java.lang.Object,
-     *      org.springframework.validation.Errors)
-     */
-    public void validate(Object groupParametersIn, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-                "error.groupname.not-specified");
-        if (errors.getFieldErrorCount("name") > 0) {
-            return;
-        }
-        GroupParameters groupParameters = (GroupParameters) groupParametersIn;
-        if (!StringUtils.isAlphanumeric(groupParameters.getName())) {
-            errors.rejectValue("name", "error.groupname.illegal-characters");
-        }
-        if (groupParameters.getName().length() > MAX_GROUP_NAME_LENGTH) {
-            errors.rejectValue("name", "error.groupname.too-long");
-        }
-        // TODO: LAW group parent id must be positive
-    }
+	/**
+	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
+	 */
+	public void validate(Object groupParametersIn, Errors errors) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
+				"error.groupname.not-specified");
+		if (errors.getFieldErrorCount("name") > 0) {
+			return;
+		}
+		GroupParameters groupParameters = (GroupParameters) groupParametersIn;
+		if (!StringUtils.isAlphanumeric(groupParameters.getName())) {
+			errors.rejectValue("name", "error.groupname.illegal-characters");
+		}
+		if (groupParameters.getName().length() > MAX_GROUP_NAME_LENGTH) {
+			errors.rejectValue("name", "error.groupname.too-long");
+		}
+		if (groupParameters.getParentId() < 0) {
+			errors.rejectValue("parentId", "error.groupparent.must-be-non-negative");
+		}
+	}
+
 }

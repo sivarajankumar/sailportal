@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.domain.group.impl;
 
+import java.util.Set;
+
 /**
  * @author Laurel Williams
  * 
@@ -29,7 +31,9 @@ public class GroupParameters {
 
 	private String name;
 
-	private Long parentId;
+	private Long parentId = new Long(0);
+	
+	private Set<Long> memberIds;
 
 	/**
 	 * @return the name
@@ -61,4 +65,11 @@ public class GroupParameters {
 		this.parentId = parentId;
 	}
 
+	/**
+	 * @return the memberIds
+	 */
+	public Set<Long> getMemberIds() {
+		return memberIds;
+	}
+	
 }

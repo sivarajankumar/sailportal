@@ -60,6 +60,11 @@
       <td><a href="editgroup.html?gid=${group.id}" ><spring:message code="group.edit" /></a></td>
    </tr>
   </c:forEach>
+  <tr>
+  <td>nbsp;</td>
+  <td><a href="addgroup.html">Add a new group</a></td>
+  <td>nbsp;</td>
+  </tr>
 </table>
 
 <a href="addgroup.html">Add a new group</a>

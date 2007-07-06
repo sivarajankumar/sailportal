@@ -49,110 +49,93 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  */
 public class LostPasswordTeacherMainController extends SimpleFormController {
 
-    private static final String NEW_PASSWORD = "newPassword";
+	private static final String NEW_PASSWORD = "newPassword";
 
-    protected UserService userService = null;
+	protected UserService userService = null;
 
-    /**
-     * gets the information by username or email
-     * 
-     * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-     *      org.springframework.validation.BindException)
-     */
-    @Override
-    protected ModelAndView onSubmit(HttpServletRequest request,
-            HttpServletResponse response, Object command, BindException errors)
-            throws Exception {
-        MutableUserDetails userDetails = (MutableUserDetails) command;
+	/**
+	 * gets the information by username or email
+	 * 
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      org.springframework.validation.BindException)
+	 */
+	@Override
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+			throws Exception {
+		MutableUserDetails userDetails = (MutableUserDetails) command;
 
-        String username = null;
-        String emailAddress = null;
-        try {
+		String username = null;
+		String emailAddress = null;
+		try {
 
-            username = StringUtils.trimToNull(userDetails.getUsername());
-            emailAddress = StringUtils
-                    .trimToNull(userDetails.getEmailAddress());
-            if (username != null) {
+			username = StringUtils.trimToNull(userDetails.getUsername());
+			emailAddress = StringUtils
+					.trimToNull(userDetails.getEmailAddress());
+			User user = null;
+			if (username != null) {
+				user = userService.retrieveUserByUsername(userDetails
+						.getUsername());
+			} else if (emailAddress != null) {
+				List<User> users = userService
+						.retrieveUserByEmailAddress(emailAddress);
 
-                User user = userService.retrieveUserByUsername(userDetails
-                        .getUsername());
+				user = users.get(0);
+			}
+			String generateRandomPassword = generateRandomPassword();
+			userService.updateUserPassword(user, generateRandomPassword);
 
-                // generate a new password
-                // set it on the userobject
-                String generateRandomPassword = generateRandomPassword();
-                user.getUserDetails().setPassword(generateRandomPassword);
+			// send password in the email here
 
-                userService.updateUser(user);
+			Map<String, String> model = new HashMap<String, String>();
+			model.put(NEW_PASSWORD, generateRandomPassword);
+			return new ModelAndView(getSuccessView(), model);
 
-                // send password in the email here
+		} catch (EmptyResultDataAccessException e) {
 
-                Map<String, String> model = new HashMap<String, String>();
-                model.put(NEW_PASSWORD, generateRandomPassword);
-                return new ModelAndView(getSuccessView(), model);
-            } else if (emailAddress != null) {
+			if (username != null) {
+				ModelAndView modelAndView = new ModelAndView(
+						"lostpasswordteachererror");
+				modelAndView.addObject("someValue", userDetails.getUsername());
+				return modelAndView;
+			} else if (emailAddress != null) {
+				ModelAndView modelAndView = new ModelAndView(
+						"lostpasswordteachererror");
+				modelAndView.addObject("someValue", userDetails
+						.getEmailAddress());
+				return modelAndView;
+			}
 
-                List<User> users = userService
-                        .retrieveUserByEmailAddress(emailAddress);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return showForm(request, response, errors);
+		}
+		return new ModelAndView(new RedirectView(getSuccessView()));
+	}
 
-                User user = users.get(0);
+	/**
+	 * Sets the userDetailsService object.
+	 * 
+	 * @param userDetailsService
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
-                String generateRandomPassword = generateRandomPassword();
-                user.getUserDetails().setPassword(generateRandomPassword);
+	/**
+	 * generate random password
+	 * 
+	 * @return
+	 */
+	public static String generateRandomPassword() {
+		// return RandomStringUtils.random(8);
+		Random rnd = new Random();
+		return Integer.toString(rnd.nextInt(), 27);
+	}
 
-                userService.updateUser(user);
-
-                // send password in the email here
-
-                Map<String, String> model = new HashMap<String, String>();
-                model.put(NEW_PASSWORD, generateRandomPassword);
-                return new ModelAndView(getSuccessView(), model);
-            }
-
-        } catch (EmptyResultDataAccessException e) {
-
-            if (username != null) {
-                ModelAndView modelAndView = new ModelAndView(
-                        "lostpasswordteachererror");
-                modelAndView.addObject("someValue", userDetails.getUsername());
-                return modelAndView;
-            } else if (emailAddress != null) {
-                ModelAndView modelAndView = new ModelAndView(
-                        "lostpasswordteachererror");
-                modelAndView.addObject("someValue", userDetails
-                        .getEmailAddress());
-                return modelAndView;
-            }// if
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return showForm(request, response, errors);
-        }
-        return new ModelAndView(new RedirectView(getSuccessView()));
-    }
-
-    /**
-     * Sets the userDetailsService object.
-     * 
-     * @param userDetailsService
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    /**
-     * generate random password
-     * 
-     * @return
-     */
-    public static String generateRandomPassword() {
-        // return RandomStringUtils.random(8);
-        Random rnd = new Random();
-        return Integer.toString(rnd.nextInt(), 27);
-    }
-
-    public static void main(String[] args) {
-        System.out.println("New Password: " + generateRandomPassword());
-    }
+	public static void main(String[] args) {
+		System.out.println("New Password: " + generateRandomPassword());
+	}
 
 }

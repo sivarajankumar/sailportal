@@ -73,7 +73,7 @@ public class GroupServiceImpl implements GroupService {
         Group group = new PersistentGroup();
         group.setName(groupParameters.getName());
         Long parentId = groupParameters.getParentId();
-        if (parentId != null) {
+        if (parentId != 0) {
             Group parentGroup = this.groupDao.getById(parentId);
             group.setParent(parentGroup);
         }

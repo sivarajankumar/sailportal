@@ -17,12 +17,14 @@
  */
 package net.sf.sail.webapp.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 import net.sf.sail.webapp.service.UserService;
@@ -34,7 +36,6 @@ import org.acegisecurity.providers.dao.SaltSource;
 import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.acegisecurity.userdetails.UserDetails;
 import org.easymock.EasyMock;
-import org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherMainController;
 
 /**
  * @author Cynick Young
@@ -52,18 +53,76 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
 	private GrantedAuthorityDao<MutableGrantedAuthority> authorityDao;
 
-	private UserDao<User> userDao;
-
-	private UserDetailsService userDetailsService;
-
 	private UserService userService;
 
-	MutableGrantedAuthority expectedAuthorityCreate;
+	MutableGrantedAuthority authority1;
+	MutableGrantedAuthority authority2;
 
-	MutableUserDetails userDetailsCreate;
+	MutableUserDetails userDetails;
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * @param authorityDao
+	 *            the authorityDao to set
+	 */
+	public void setAuthorityDao(
+			GrantedAuthorityDao<MutableGrantedAuthority> authorityDao) {
+		this.authorityDao = authorityDao;
+	}
+
+	/**
+	 * @param userService
+	 *            the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	/**
+	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUp()
+	 */
+	@Override
+	protected void onSetUp() throws Exception {
+		super.onSetUp();
+		userDetails = (MutableUserDetails) this.applicationContext
+				.getBean("mutableUserDetails");
+		userDetails.setUsername(USERNAME);
+		userDetails.setPassword(PASSWORD);
+		// authority are set in createUser
+		// email address is optional
+	}
+
+	/**
+	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
+	 */
+	@Override
+	protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		authority1 = (MutableGrantedAuthority) this.applicationContext
+				.getBean("mutableGrantedAuthority");
+		authority1.setAuthority(UserDetailsService.USER_ROLE);
+		this.authorityDao.save(authority1);
+
+		authority2 = (MutableGrantedAuthority) this.applicationContext
+				.getBean("mutableGrantedAuthority");
+		authority2.setAuthority(UserDetailsService.ADMIN_ROLE);
+		this.authorityDao.save(authority2);
+	}
+
+	/**
+	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDown()
+	 */
+	@Override
+	protected void onTearDown() throws Exception {
+		super.onTearDown();
+		authority1 = null;
+		authority2 = null;
+		userDetails = null;
+	}
+
+	 @SuppressWarnings("unchecked")
 	public void testRetrieveUser() {
+		// this test simply confirms that the userDao is called appropriately,
+		// since the DAO is being tested and does all the work
 		MutableUserDetails userDetails = (MutableUserDetails) this.applicationContext
 				.getBean("mutableUserDetails");
 		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);
@@ -77,44 +136,37 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		EasyMock.verify(mockUserDao);
 	}
 
-	public void testUpdateUser() throws Exception {
-		setupCreateTest();
+	@SuppressWarnings("unchecked")
+	public void testRetrieveUserByUsername() {
+		// this test simply confirms that the userDao is called appropriately,
+		// since the DAO is being tested and does all the work
+		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);
+		EasyMock.expect(mockUserDao.retrieveByUsername(USERNAME)).andReturn(
+				new UserImpl());
+		EasyMock.replay(mockUserDao);
 
-		// create user (saves automatically)
-		User expectedUser = this.userService.createUser(userDetailsCreate);
-		UserDetails expectedUserDetails = expectedUser.getUserDetails();
+		UserServiceImpl userService = new UserServiceImpl();
+		userService.setUserDao(mockUserDao);
+		userService.retrieveUserByUsername(USERNAME);
+		EasyMock.verify(mockUserDao);
+	}
 
-		// retrieve user and compare
-		UserDetails actual = this.userDetailsService
-				.loadUserByUsername(USERNAME);
-		assertEquals(expectedUserDetails, actual);
+	@SuppressWarnings("unchecked")
+	public void testRetrieveUserByEmail() {
+		// this test simply confirms that the userDao is called appropriately,
+		// since the DAO is being tested and does all the work
+		List<User> userList = new ArrayList();
+		User user = new UserImpl();
+		userList.add(user);
+		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);
+		EasyMock.expect(mockUserDao.retrieveByEmailAddress(EMAIL)).andReturn(
+				userList);
+		EasyMock.replay(mockUserDao);
 
-		checkPasswordEncoding(actual);
-		checkRole(actual);
-		
-		PersistentUserDetails actualUserDetails = (PersistentUserDetails) actual;
-		
-		String newPassword = LostPasswordTeacherMainController.generateRandomPassword();
-		actualUserDetails.setPassword(newPassword);
-		
-		expectedUser.setUserDetails(actualUserDetails);
-		
-		this.userService.updateUser(expectedUser);
-		
-		// retrieve user and compare
-		UserDetails updatedUser = this.userDetailsService
-				.loadUserByUsername(USERNAME);
-		
-		User retrievedUserDetails = this.userService.retrieveUser(expectedUser.getUserDetails());
-		assertEquals(updatedUser.getPassword(), retrievedUserDetails.getUserDetails().getPassword());
-		
-		// added this end transaction to catch a transaction commit within a
-		// transaction rollback problem
-		this.userDao.delete(expectedUser);
-		this.authorityDao.delete(expectedAuthorityCreate);
-		this.setComplete();
-		this.endTransaction();
-
+		UserServiceImpl userService = new UserServiceImpl();
+		userService.setUserDao(mockUserDao);
+		userService.retrieveUserByEmailAddress(EMAIL);
+		EasyMock.verify(mockUserDao);
 	}
 
 	public void testDuplicateUserErrors() throws Exception {
@@ -132,19 +184,24 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 			fail("DuplicateUsernameException expected and not caught.");
 		} catch (DuplicateUsernameException e) {
 		}
-
 	}
 
-	private void setupCreateTest() {
-		expectedAuthorityCreate = (MutableGrantedAuthority) this.applicationContext
-				.getBean("mutableGrantedAuthority");
-		expectedAuthorityCreate.setAuthority(UserDetailsService.USER_ROLE);
-		this.authorityDao.save(expectedAuthorityCreate);
+	/*
+	 * This test checks creation of a user within the portal, but ignores the
+	 * creation of a user on the remote SDS. Tests for system integration are
+	 * beyond the scope of this testing mechanism. We are assuming the SdsUserId
+	 * cannot be null, enforced by the data store constraint.
+	 */
+	public void testCreateUserWithNoEmail() throws Exception {
+		User expectedUser = this.userService.createUser(userDetails);
+		UserDetails expectedUserDetails = expectedUser.getUserDetails();
 
-		userDetailsCreate = (MutableUserDetails) this.applicationContext
-				.getBean("mutableUserDetails");
-		userDetailsCreate.setUsername(USERNAME);
-		userDetailsCreate.setPassword(PASSWORD);
+		User actualUser = this.userService.retrieveUserByUsername(USERNAME);
+		UserDetails actualUserDetails = actualUser.getUserDetails();
+		assertEquals(expectedUserDetails, actualUserDetails);
+
+		this.checkPasswordEncoding(actualUserDetails, PASSWORD);
+		this.checkRole(actualUserDetails);
 	}
 
 	/*
@@ -154,38 +211,28 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 	 * cannot be null, enforced by the data store constraint.
 	 */
 	public void testCreateUserWithEmail() throws Exception {
-		setupCreateTest();
+		userDetails.setEmailAddress(EMAIL);
 
-		// create user (saves automatically)
-		User expectedUser = this.userService.createUser(userDetailsCreate);
+		User expectedUser = this.userService.createUser(userDetails);
 		UserDetails expectedUserDetails = expectedUser.getUserDetails();
 
-		// retrieve user and compare
-		UserDetails actual = this.userDetailsService
-				.loadUserByUsername(USERNAME);
-		assertEquals(expectedUserDetails, actual);
+		User actualUser = this.userService.retrieveUserByUsername(USERNAME);
+		UserDetails actualUserDetails = actualUser.getUserDetails();
+		assertEquals(expectedUserDetails, actualUserDetails);
 
-		checkPasswordEncoding(actual);
-		checkRole(actual);
-
-		// added this end transaction to catch a transaction commit within a
-		// transaction rollback problem
-		this.userDao.delete(expectedUser);
-		this.authorityDao.delete(expectedAuthorityCreate);
-		this.setComplete();
-		this.endTransaction();
+		this.checkPasswordEncoding(actualUserDetails, PASSWORD);
+		this.checkRole(actualUserDetails);
 	}
 
-
-	private void checkPasswordEncoding(UserDetails actual) {
+	private void checkPasswordEncoding(UserDetails actual, String password) {
 		// check password encoding
-		assertFalse(PASSWORD.equals(actual.getPassword()));
+		assertFalse(password.equals(actual.getPassword()));
 		PasswordEncoder passwordEncoder = (PasswordEncoder) this.applicationContext
 				.getBean("passwordEncoder");
 		SaltSource saltSource = (SaltSource) this.applicationContext
 				.getBean("systemSaltSource");
-		String encodedPassword = passwordEncoder.encodePassword(PASSWORD,
-				saltSource.getSalt(userDetailsCreate));
+		String encodedPassword = passwordEncoder.encodePassword(password,
+				saltSource.getSalt(userDetails));
 		assertEquals(encodedPassword, actual.getPassword());
 	}
 
@@ -204,67 +251,26 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		assertTrue(foundUserRole);
 	}
 
-	/*
-	 * This test checks creation of a user within the portal, but ignores the
-	 * creation of a user on the remote SDS. Tests for system integration are
-	 * beyond the scope of this testing mechanism. We are assuming the SdsUserId
-	 * cannot be null, enforced by the data store constraint.
-	 */
-	public void testCreateUserBlankEmail() throws Exception {
-		setupCreateTest();
-		userDetailsCreate.setEmailAddress(EMAIL);
+	 public void testUpdateUserPassword() throws Exception {
+		User createdUser = this.userService.createUser(userDetails);
 
-		// create user (saves automatically)
-		User expectedUser = this.userService.createUser(userDetailsCreate);
-		UserDetails expectedUserDetails = expectedUser.getUserDetails();
+		MutableUserDetails expectedUserDetails = createdUser.getUserDetails();
+		String NEWW = "NEW";
 
-		// retrieve user and compare
-		UserDetails actual = this.userDetailsService
-				.loadUserByUsername(USERNAME);
-		assertEquals(expectedUserDetails, actual);
+		this.userService.updateUserPassword(createdUser, NEWW);
 
-		checkPasswordEncoding(actual);
-		checkRole(actual);
+		// retrieve updated user and compare
+		User updatedUser = this.userService.retrieveUserByUsername(USERNAME);
+		MutableUserDetails updatedUserDetails = updatedUser.getUserDetails();
 
-		// added this end transaction to catch a transaction commit within a
-		// transaction rollback problem
-		this.userDao.delete(expectedUser);
-		this.authorityDao.delete(expectedAuthorityCreate);
-		this.setComplete();
-		this.endTransaction();
+		assertEquals(createdUser.getId(), updatedUser.getId());
+		assertEquals(createdUser.getSdsUser(), updatedUser.getSdsUser());
+		
+		assertEquals(USERNAME, updatedUserDetails.getUsername());
+		assertNull(updatedUserDetails.getEmailAddress());
+		assertEquals(expectedUserDetails.getId(), updatedUserDetails.getId());
+		GrantedAuthority grantedAuthority[] = updatedUserDetails.getAuthorities();
+		assertEquals(UserDetailsService.USER_ROLE, grantedAuthority[0].getAuthority());
+		this.checkPasswordEncoding(updatedUserDetails, NEWW);
 	}
-
-	/**
-	 * @param authorityDao
-	 *            the authorityDao to set
-	 */
-	public void setAuthorityDao(
-			GrantedAuthorityDao<MutableGrantedAuthority> authorityDao) {
-		this.authorityDao = authorityDao;
-	}
-
-	/**
-	 * @param userDetailsService
-	 *            the userDetailsService to set
-	 */
-	public void setUserDetailsService(UserDetailsService userDetailsService) {
-		this.userDetailsService = userDetailsService;
-	}
-
-	/**
-	 * @param userService
-	 *            the userService to set
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
-	/**
-	 * @param userDao
-	 *            the userDao to set
-	 */
-	public void setUserDao(UserDao<User> userDao) {
-		this.userDao = userDao;
-	}
-
 }

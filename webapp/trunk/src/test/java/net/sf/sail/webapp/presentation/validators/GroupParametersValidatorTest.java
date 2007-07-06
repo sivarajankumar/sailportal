@@ -88,6 +88,15 @@ public class GroupParametersValidatorTest extends TestCase {
 		assertNotNull(errors.getFieldError("name"));
 		
 	}
+	
+	public void testParentIdNegative() {
+		groupParameters.setName("legalname");
+		groupParameters.setParentId(new Long(-3));
+		groupParametersValidator.validate(groupParameters, errors);
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("parentId"));
+	}
 
 	protected void tearDown() throws Exception {
 		super.tearDown();

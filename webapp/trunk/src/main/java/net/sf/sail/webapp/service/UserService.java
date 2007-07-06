@@ -35,69 +35,68 @@ import org.acegisecurity.userdetails.UserDetails;
  * @version $Id$
  * 
  */
+/**
+ * @author Laurel Williams
+ * 
+ * @version $Id$
+ */
 public interface UserService {
 
-    /**
-     * Given a MutableUserDetails object with a unique name, creates a remote
-     * SDS user and also inserts the object into the local db. If username is
-     * not unique throws a DuplicateUsernameException.
-     * 
-     * @param userDetails
-     *            A user object.
-     * @return A reference to a <code>User</code> object
-     * @throws DuplicateUsernameException
-     *             If username is not unique.
-     * @throws BadRequestException
-     *             If username is unacceptable according to SDS, ie. contains
-     *             invalid characters.
-     * @throws NetworkTransportException
-     *             If an error occurs during network communications with SDS
-     *             while creating a SDS user.
-     */
-    public User createUser(MutableUserDetails userDetails)
-            throws DuplicateUsernameException, BadRequestException,
-            NetworkTransportException;
+	/**
+	 * Given a MutableUserDetails object with a unique name, creates a remote
+	 * SDS user and also inserts the object into the local db. If username is
+	 * not unique throws a DuplicateUsernameException.
+	 * 
+	 * @param userDetails
+	 *            A user object.
+	 * @return A reference to a <code>User</code> object
+	 * @throws DuplicateUsernameException
+	 *             If username is not unique.
+	 * @throws BadRequestException
+	 *             If username is unacceptable according to SDS, ie. contains
+	 *             invalid characters.
+	 * @throws NetworkTransportException
+	 *             If an error occurs during network communications with SDS
+	 *             while creating a SDS user.
+	 */
+	public User createUser(MutableUserDetails userDetails)
+			throws DuplicateUsernameException, BadRequestException,
+			NetworkTransportException;
 
-    /**
-     * Retrieve user with the given user details.
-     * 
-     * @param userDetails
-     *            that has valid authentication credentials
-     * @return <code>User</code> associated with the given user details
-     */
-    public User retrieveUser(UserDetails userDetails) ;
+	/**
+	 * Retrieve user with the given user details.
+	 * 
+	 * @param userDetails
+	 *            that has valid authentication credentials
+	 * @return <code>User</code> associated with the given user details
+	 */
+	public User retrieveUser(UserDetails userDetails);
 
-    
-    /**
-     * Retrieve user with the give username
-     * 
-     * @param username 
-     * @return <code>User</code> associated with the given username
-     */
-    public User retrieveUserByUsername(String username);
-    
-    /**
-     * Retrieve users with the given emailAddress
-     * 
-     * @param emailAddress
-     * @return <code>Users</code> associated with the given emailaddress
-     */
-    public List<User> retrieveUserByEmailAddress(String emailAddress);
- 
-    /**
-     * Updates the user with new information
-     * 
-     * @param user
-     * 
-     * @return copy of the new user
-     * @throws BadRequestException 
-     * 				If username is unacceptable according to SDS, ie. contains
-     *             	invalid characters
-     * @throws NetworkTransportException 
-     * 				If an error occurs during network communications with SDS
-     *             	while creating a SDS user.
-     */
-    //TODO LAW rewrite implementation
-	public User updateUser(User user) throws BadRequestException, NetworkTransportException ;
-	
+	/**
+	 * Retrieve user with the give username
+	 * 
+	 * @param username
+	 * @return <code>User</code> associated with the given username
+	 */
+	public User retrieveUserByUsername(String username);
+
+	/**
+	 * Retrieve users with the given emailAddress
+	 * 
+	 * @param emailAddress
+	 * @return <code>Users</code> associated with the given emailaddress
+	 */
+	public List<User> retrieveUserByEmailAddress(String emailAddress);
+
+	/**
+	 * Encodes a new password and updates a user in the persistent data store.
+	 * @param user
+	 *            The user that you want to update
+	 * @param newPassword
+	 *            The UN-ENCODED new password that you want to put in place for
+	 *            this user
+	 * @return The user with the newly encoded password.
+	 */
+	public User updateUserPassword(final User user, String newPassword);
+
 }

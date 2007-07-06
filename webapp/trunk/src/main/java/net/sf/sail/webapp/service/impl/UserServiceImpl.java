@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
 	private UserDao<User> userDao;
 
-	private PasswordEncoder passwordEncoder;
+	protected PasswordEncoder passwordEncoder;
 
 	private SaltSource saltSource;
 
@@ -141,32 +141,6 @@ public class UserServiceImpl implements UserService {
 	public List<User> retrieveUserByEmailAddress(String emailAddress) {
 		return this.userDao.retrieveByEmailAddress(emailAddress);
 	}
-	
-	/**
-	 * @see net.sf.sail.webapp.service.UserService#updateUser(net.sf.sail.webapp.domain.User)
-	 */
-	@Transactional(rollbackFor = { DuplicateUsernameException.class,
-			BadRequestException.class, NetworkTransportException.class })
-	// TODO LAW rewrite this - it doesn't save updates to SDS, or throw a
-	// DuplicateUsernameExeption
-	public User updateUser(final User user) throws BadRequestException,
-			NetworkTransportException {
-
-		try {
-			this.encodePassword(user.getUserDetails());
-
-			user.getSdsUser().setFirstName(user.getUserDetails().getUsername());
-			user.getSdsUser().setLastName(user.getUserDetails().getUsername());
-
-			this.userDao.save(user);
-
-			return user;
-		} catch (BadRequestException e) {
-			throw e;
-		} catch (NetworkTransportException e) {
-			throw e;
-		}
-	}
 
 	/**
 	 * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
@@ -194,13 +168,12 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	protected void encodePassword(MutableUserDetails userDetails) {
+	void encodePassword(MutableUserDetails userDetails) {
 		userDetails.setPassword(this.passwordEncoder.encodePassword(userDetails
 				.getPassword(), this.saltSource.getSalt(userDetails)));
 	}
 
-	private void assignRole(final MutableUserDetails userDetails,
-			final String role) {
+	private void assignRole(MutableUserDetails userDetails, final String role) {
 		GrantedAuthority authority = this.grantedAuthorityDao
 				.retrieveByName(role);
 		userDetails.addAuthority(authority);
@@ -221,5 +194,19 @@ public class UserServiceImpl implements UserService {
 		if (this.userDetailsDao.hasUsername(username)) {
 			throw new DuplicateUsernameException(username);
 		}
+	}
+
+
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#updateUserPassword(net.sf.sail.webapp.domain.User, java.lang.String)
+	 */
+	@Transactional()
+	public User updateUserPassword(User user, String newPassword) {
+		MutableUserDetails userDetails = user.getUserDetails();
+		userDetails.setPassword(newPassword);
+		this.encodePassword(userDetails);
+		this.userDao.save(user);
+
+		return user;
 	}
 }

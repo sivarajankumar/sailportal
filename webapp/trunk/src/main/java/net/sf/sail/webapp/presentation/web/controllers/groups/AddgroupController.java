@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.group.GroupService;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -39,6 +40,15 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AddgroupController extends SimpleFormController {
 
 	private GroupService groupService;
+	
+	private UserService userService;
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	/**
 	 * @param groupService
@@ -57,6 +67,7 @@ public class AddgroupController extends SimpleFormController {
 		ModelAndView modelAndView = super.showForm(request, response, bindException);
 //		TODO would like to sort these by parent group
         modelAndView.addObject("grouplist", this.groupService.getGroups());
+//        modelAndView.addObject("userlist", this.userService.getUsers());
 		return modelAndView;
 	}
 
