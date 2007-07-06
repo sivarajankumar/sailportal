@@ -40,9 +40,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class CurnitServiceImpl implements CurnitService {
 
-    private SdsCurnitDao sdsCurnitDao;
+    protected SdsCurnitDao sdsCurnitDao;
 
-    private CurnitDao<Curnit> curnitDao;
+    protected CurnitDao<Curnit> curnitDao;
 
     /**
      * @param curnitDao
