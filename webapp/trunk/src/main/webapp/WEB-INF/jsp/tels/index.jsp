@@ -66,13 +66,21 @@
 </label>
 <input type="password" size="20" />
 </li>
-<li class="right north_2"><a href="#"> <spring:message code="wise.signIn" /> </a> </li>
+<li class="right north_2">
+    <input type="submit" value="<spring:message code="login.submit" />"  
+            onclick="Effect.toggle('waiting', 'appear')" />
+</li>
+<li><div id="waiting" style="display: none">
+       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
+     </div>
+</li>
 
 </ul>
 <a href="lostpasswordmain.html" class="bgcolorLightBlue right4 widthAdj2 north5">
 <spring:message code="forgotten.username-or-password" /> 
 </a>
 </form:form>
+
 <div id="south" class="padding3 marginAdj3 border widthAdj5">
 <h4 class="heading2 north3">
 <spring:message code="wise.inAction" />
