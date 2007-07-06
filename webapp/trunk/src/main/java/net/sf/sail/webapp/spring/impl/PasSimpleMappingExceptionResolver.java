@@ -37,6 +37,7 @@ public class PasSimpleMappingExceptionResolver extends
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) {
 		this.logException(exception, request);
+		exception.printStackTrace();
 		return super.resolveException(request, response, handler, exception);
 	}
 
