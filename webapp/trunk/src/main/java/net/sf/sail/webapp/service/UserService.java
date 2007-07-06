@@ -99,4 +99,10 @@ public interface UserService {
 	 */
 	public User updateUserPassword(final User user, String newPassword);
 
+	/**
+	 * Gets all users from persistent data store.
+	 * 
+	 * @return a Set of all users.
+	 */
+	public List<User> retrieveAllUsers();
 }

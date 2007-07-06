@@ -56,6 +56,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 	private UserService userService;
 
 	MutableGrantedAuthority authority1;
+
 	MutableGrantedAuthority authority2;
 
 	MutableUserDetails userDetails;
@@ -119,7 +120,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		userDetails = null;
 	}
 
-	 @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public void testRetrieveUser() {
 		// this test simply confirms that the userDao is called appropriately,
 		// since the DAO is being tested and does all the work
@@ -251,7 +252,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		assertTrue(foundUserRole);
 	}
 
-	 public void testUpdateUserPassword() throws Exception {
+	public void testUpdateUserPassword() throws Exception {
 		User createdUser = this.userService.createUser(userDetails);
 
 		MutableUserDetails expectedUserDetails = createdUser.getUserDetails();
@@ -265,12 +266,27 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
 		assertEquals(createdUser.getId(), updatedUser.getId());
 		assertEquals(createdUser.getSdsUser(), updatedUser.getSdsUser());
-		
+
 		assertEquals(USERNAME, updatedUserDetails.getUsername());
 		assertNull(updatedUserDetails.getEmailAddress());
 		assertEquals(expectedUserDetails.getId(), updatedUserDetails.getId());
-		GrantedAuthority grantedAuthority[] = updatedUserDetails.getAuthorities();
-		assertEquals(UserDetailsService.USER_ROLE, grantedAuthority[0].getAuthority());
+		GrantedAuthority grantedAuthority[] = updatedUserDetails
+				.getAuthorities();
+		assertEquals(UserDetailsService.USER_ROLE, grantedAuthority[0]
+				.getAuthority());
 		this.checkPasswordEncoding(updatedUserDetails, NEWW);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void testRetrieveAllUsers() {
+		List<User> users = new ArrayList<User>();
+		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);
+		EasyMock.expect(mockUserDao.getList()).andReturn(users);
+		EasyMock.replay(mockUserDao);
+
+		UserServiceImpl userService = new UserServiceImpl();
+		userService.setUserDao(mockUserDao);
+		userService.retrieveAllUsers();
+		EasyMock.verify(mockUserDao);
 	}
 }

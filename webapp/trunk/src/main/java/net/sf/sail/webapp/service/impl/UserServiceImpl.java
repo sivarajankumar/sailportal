@@ -196,7 +196,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-
 	/**
 	 * @see net.sf.sail.webapp.service.UserService#updateUserPassword(net.sf.sail.webapp.domain.User, java.lang.String)
 	 */
@@ -208,5 +207,9 @@ public class UserServiceImpl implements UserService {
 		this.userDao.save(user);
 
 		return user;
+	}
+
+	public List<User> retrieveAllUsers() {
+		return this.userDao.getList();
 	}
 }
