@@ -118,7 +118,7 @@ public class CurnitServiceImplTest extends TestCase {
     }
     
     public void testChangeCurnitName() {
-    	
+    	// TODO HT implement me
     }
 
 }
