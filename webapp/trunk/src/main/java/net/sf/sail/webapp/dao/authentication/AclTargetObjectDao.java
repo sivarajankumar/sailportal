@@ -28,4 +28,12 @@ import net.sf.sail.webapp.domain.authentication.MutableAclTargetObject;
 public interface AclTargetObjectDao<T extends MutableAclTargetObject> extends
         SimpleDao<T> {
 
+    /**
+     * Return the object whose target class is the given classname.
+     * 
+     * @param classname
+     *                to look for
+     * @return the object or <code>null</code> if not found
+     */
+    public T retrieveByClassname(String classname);
 }

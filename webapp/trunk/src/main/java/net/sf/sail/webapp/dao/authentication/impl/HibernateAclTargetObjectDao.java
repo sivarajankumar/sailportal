@@ -22,24 +22,19 @@ import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableAclTargetObject;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObject;
 
+import org.springframework.dao.support.DataAccessUtils;
+
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateAclTargetObjectDao.java 612 2007-07-09 14:26:01Z
+ *          cynick $
  */
 public class HibernateAclTargetObjectDao extends
         AbstractHibernateDao<MutableAclTargetObject> implements
         AclTargetObjectDao<MutableAclTargetObject> {
 
     private static final String FIND_ALL_QUERY = "from PersistentAclTargetObject";
-
-    /**
-     * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#save(java.lang.Object)
-     */
-    @Override
-    public void save(MutableAclTargetObject object) {
-        throw new UnsupportedOperationException();
-    }
 
     /**
      * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
@@ -55,5 +50,17 @@ public class HibernateAclTargetObjectDao extends
     @Override
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.dao.authentication.AclTargetObjectDao#retrieveByClassname(java.lang.String)
+     */
+    public MutableAclTargetObject retrieveByClassname(String classname) {
+        return (MutableAclTargetObject) DataAccessUtils
+                .uniqueResult(this
+                        .getHibernateTemplate()
+                        .findByNamedParam(
+                                "from PersistentAclTargetObject as target where target.classname = :classname",
+                                "classname", classname));
     }
 }

@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.dao.authentication.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import net.sf.sail.webapp.dao.AbstractTransactionalDaoTests;
 import net.sf.sail.webapp.domain.authentication.MutableAclTargetObject;
@@ -26,11 +27,14 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObject;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateAclTargetObjectDaoTest.java 612 2007-07-09 14:26:01Z
+ *          cynick $
  */
 public class HibernateAclTargetObjectDaoTest
         extends
         AbstractTransactionalDaoTests<HibernateAclTargetObjectDao, MutableAclTargetObject> {
+
+    private static final String CLASSNAME = "some class";
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -42,6 +46,19 @@ public class HibernateAclTargetObjectDaoTest
                 .getBean("aclTargetObjectDao");
         this.dataObject = (MutableAclTargetObject) this.applicationContext
                 .getBean("mutableAclTargetObject");
+
+        this.dataObject.setClassname(CLASSNAME);
+    }
+
+    public void testRetrieveByClassname() {
+        this.verifyDataStoreIsEmpty();
+        this.dao.save(this.dataObject);
+
+        MutableAclTargetObject actual = this.dao.retrieveByClassname(CLASSNAME);
+        assertEquals(CLASSNAME, actual.getClassname());
+        assertEquals(this.dataObject, actual);
+
+        assertNull(this.dao.retrieveByClassname("blah"));
     }
 
     /**
@@ -49,35 +66,22 @@ public class HibernateAclTargetObjectDaoTest
      */
     @Override
     public void testSave() {
-        try {
-            this.dao.save(this.dataObject);
-            fail("UnsupportedOperationException expected");
-        } catch (UnsupportedOperationException expected) {
-        }
-    }
+        this.verifyDataStoreIsEmpty();
 
-    /**
-     * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#testDelete()
-     */
-    @Override
-    public void testDelete() {
-        // TODO Auto-generated method stub
-    }
+        // save the default granted authority object using dao
+        this.dao.save(this.dataObject);
 
-    /**
-     * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#testGetById()
-     */
-    @Override
-    public void testGetById() {
-        // TODO Auto-generated method stub
-    }
+        // verify data store contains saved data using direct jdbc retrieval
+        // (not using dao)
+        List<?> actualList = this.retrieveDataObjectListFromDb();
+        assertEquals(1, actualList.size());
 
-    /**
-     * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#testGetList()
-     */
-    @Override
-    public void testGetList() {
-        // TODO Auto-generated method stub
+        Map<?, ?> actualValueMap = (Map<?, ?>) actualList.get(0);
+        // * NOTE* the keys in the map are all in UPPERCASE!
+        String actualValue = (String) actualValueMap
+                .get(PersistentAclTargetObject.COLUMN_NAME_CLASSNAME
+                        .toUpperCase());
+        assertEquals(CLASSNAME, actualValue);
     }
 
     /**
