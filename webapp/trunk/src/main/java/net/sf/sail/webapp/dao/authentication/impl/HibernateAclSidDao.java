@@ -22,6 +22,8 @@ import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableAclSid;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid;
 
+import org.springframework.dao.support.DataAccessUtils;
+
 /**
  * @author Cynick Young
  * 
@@ -32,14 +34,15 @@ public class HibernateAclSidDao extends AbstractHibernateDao<MutableAclSid>
 
     private static final String FIND_ALL_QUERY = "from PersistentAclSid";
 
-    /**
-     * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#save(java.lang.Object)
-     */
-    @Override
-    public void save(MutableAclSid object) {
-        throw new UnsupportedOperationException();
-    }
-
+    // /**
+    // * @see
+    // net.sf.sail.webapp.dao.impl.AbstractHibernateDao#save(java.lang.Object)
+    // */
+    // @Override
+    // public void save(MutableAclSid object) {
+    // this.g
+    // }
+    //
     /**
      * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
      */
@@ -54,5 +57,17 @@ public class HibernateAclSidDao extends AbstractHibernateDao<MutableAclSid>
     @Override
     protected String getFindAllQuery() {
         return FIND_ALL_QUERY;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.dao.authentication.AclSidDao#retrieveBySidName(java.lang.String)
+     */
+    public MutableAclSid retrieveBySidName(String sidName) {
+        return (MutableAclSid) DataAccessUtils
+                .uniqueResult(this
+                        .getHibernateTemplate()
+                        .findByNamedParam(
+                                "from PersistentAclSid as sid where sid.sidName = :sidName",
+                                "sidName", sidName));
     }
 }

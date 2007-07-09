@@ -18,10 +18,13 @@
 package net.sf.sail.webapp.dao.authentication.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import net.sf.sail.webapp.dao.AbstractTransactionalDaoTests;
 import net.sf.sail.webapp.domain.authentication.MutableAclSid;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid;
+
+import org.acegisecurity.GrantedAuthorityImpl;
 
 /**
  * @author Cynick Young
@@ -30,6 +33,8 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid;
  */
 public class HibernateAclSidDaoTest extends
         AbstractTransactionalDaoTests<HibernateAclSidDao, MutableAclSid> {
+
+    private static final String SID_NAME = "Sid Vicious";
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -41,6 +46,25 @@ public class HibernateAclSidDaoTest extends
                 .getBean("aclSidDao");
         this.dataObject = (MutableAclSid) this.applicationContext
                 .getBean("mutableAclSid");
+
+        this.dataObject.setGrantedAuthority(new GrantedAuthorityImpl(SID_NAME));
+    }
+
+    public void testRetrieveBySidName() {
+        this.verifyDataStoreIsEmpty();
+        this.dao.save(this.dataObject);
+
+        MutableAclSid actual = this.dao.retrieveBySidName(SID_NAME);
+        assertTrue(!actual.isPrincipal());
+        assertEquals(SID_NAME, actual.getGrantedAuthority());
+        try {
+            actual.getPrincipal();
+            fail("UnsupportedOperationException expected");
+        } catch (UnsupportedOperationException expected) {
+        }
+        assertEquals(this.dataObject, actual);
+
+        assertNull(this.dao.retrieveBySidName("blah"));
     }
 
     /**
@@ -48,35 +72,21 @@ public class HibernateAclSidDaoTest extends
      */
     @Override
     public void testSave() {
-        try {
-            this.dao.save(this.dataObject);
-            fail("UnsupportedOperationException expected");
-        } catch (UnsupportedOperationException expected) {
-        }
-    }
+        this.verifyDataStoreIsEmpty();
 
-    /**
-     * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#testDelete()
-     */
-    @Override
-    public void testDelete() {
-        // TODO Auto-generated method stub
-    }
+        // save the default granted authority object using dao
+        this.dao.save(this.dataObject);
 
-    /**
-     * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#testGetById()
-     */
-    @Override
-    public void testGetById() {
-        // TODO Auto-generated method stub
-    }
+        // verify data store contains saved data using direct jdbc retrieval
+        // (not using dao)
+        List<?> actualList = this.retrieveDataObjectListFromDb();
+        assertEquals(1, actualList.size());
 
-    /**
-     * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#testGetList()
-     */
-    @Override
-    public void testGetList() {
-        // TODO Auto-generated method stub
+        Map<?, ?> actualValueMap = (Map<?, ?>) actualList.get(0);
+        // * NOTE* the keys in the map are all in UPPERCASE!
+        String actualValue = (String) actualValueMap
+                .get(PersistentAclSid.COLUMN_NAME_SID.toUpperCase());
+        assertEquals(SID_NAME, actualValue);
     }
 
     /**

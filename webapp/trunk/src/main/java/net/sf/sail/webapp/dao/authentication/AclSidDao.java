@@ -27,4 +27,12 @@ import net.sf.sail.webapp.domain.authentication.MutableAclSid;
  */
 public interface AclSidDao<T extends MutableAclSid> extends SimpleDao<T> {
 
+    /**
+     * Return the object whose SID is the given SID name.
+     * 
+     * @param sidName
+     *                to look for
+     * @return the object or <code>null</code> if not found
+     */
+    public T retrieveBySidName(String sidName);
 }
