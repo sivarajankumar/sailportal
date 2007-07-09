@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
-import java.io.Serializable;
+import net.sf.sail.webapp.domain.Persistable;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
@@ -34,7 +34,7 @@ import org.acegisecurity.acls.sid.Sid;
  * @version $Id$
  * @see org.acegisecurity.acls.sid.Sid
  */
-public interface MutableAclSid extends Sid, Serializable {
+public interface MutableAclSid extends Sid, Persistable {
 
     /**
      * Tests whether this instance of <code>Sid</code> was created as a

@@ -75,6 +75,9 @@ public class PersistentGrantedAuthority implements MutableGrantedAuthority {
         return this.authority;
     }
 
+    /**
+     * @see net.sf.sail.webapp.domain.Persistable#getId()
+     */
     public Long getId() {
         return id;
     }

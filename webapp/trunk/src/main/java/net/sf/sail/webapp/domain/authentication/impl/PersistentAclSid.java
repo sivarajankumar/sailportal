@@ -52,13 +52,13 @@ public class PersistentAclSid implements MutableAclSid {
     private static final long serialVersionUID = 1L;
 
     @Transient
-    static final String DATA_STORE_NAME = "acl_sid";
+    public static final String DATA_STORE_NAME = "acl_sid";
 
     @Transient
     static final String COLUMN_NAME_IS_PRINCIPAL = "principal";
 
     @Transient
-    static final String COLUMN_NAME_SID = "sid";
+    public static final String COLUMN_NAME_SID = "sid";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -147,8 +147,10 @@ public class PersistentAclSid implements MutableAclSid {
         }
     }
 
-    @SuppressWarnings("unused")
-    private Long getId() {
+    /**
+     * @see net.sf.sail.webapp.domain.Persistable#getId()
+     */
+    public Long getId() {
         return id;
     }
 

@@ -17,35 +17,50 @@
  */
 package net.sf.sail.webapp.dao.authentication.impl;
 
-import java.util.List;
-
-import net.sf.sail.webapp.dao.authentication.ObjectIdentityDao;
+import net.sf.sail.webapp.dao.authentication.AclTargetObjectIdentityDao;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity;
 
 import org.acegisecurity.acls.objectidentity.ObjectIdentity;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateAclTargetObjectIdentityDao.java 592 2007-07-05
+ *          15:54:23Z cynick $
  */
-public class HibernateAclTargetObjectIdentityDao extends HibernateDaoSupport
-        implements ObjectIdentityDao<PersistentAclTargetObjectIdentity> {
+public class HibernateAclTargetObjectIdentityDao extends
+        AbstractHibernateDao<MutableAclTargetObjectIdentity> implements
+        AclTargetObjectIdentityDao<MutableAclTargetObjectIdentity> {
 
-    private static final PersistentAclTargetObjectIdentity[] SAMPLE = new PersistentAclTargetObjectIdentity[0];
+    private static final String FIND_ALL_QUERY = "from PersistentAclTargetObjectIdentity";
+
+//    private static final MutableAclTargetObjectIdentity[] SAMPLE = new MutableAclTargetObjectIdentity[0];
 
     /**
-     * @see net.sf.sail.webapp.dao.authentication.ObjectIdentityDao#findChildren(org.acegisecurity.acls.objectidentity.ObjectIdentity)
+     * @see net.sf.sail.webapp.dao.authentication.AclTargetObjectIdentityDao#findChildren(org.acegisecurity.acls.objectidentity.ObjectIdentity)
      */
-    public PersistentAclTargetObjectIdentity[] findChildren(
+    public MutableAclTargetObjectIdentity[] findChildren(
             ObjectIdentity parentIdentity) {
-        List<?> list = this
-                .getHibernateTemplate()
-                .findByNamedParam(
-                        "from PersistentAclTargetObjectIdentity as object_identity where object_identity.parent = :parent",
-                        new String[] { "parent" },
-                        new Object[] { parentIdentity });
-        return list.toArray(SAMPLE);
+        throw new UnsupportedOperationException();
+        // TODO - not really sure what the requirements are for this method
+//        List<?> list = this
+//                .getHibernateTemplate()
+//                .findByNamedParam(
+//                        "from PersistentAclTargetObjectIdentity as object_identity where object_identity.parent = :parent",
+//                        new String[] { "parent" },
+//                        new Object[] { parentIdentity });
+//        return list.toArray(SAMPLE);
+    }
+
+    @Override
+    protected Class<PersistentAclTargetObjectIdentity> getDataObjectClass() {
+        return PersistentAclTargetObjectIdentity.class;
+    }
+
+    @Override
+    protected String getFindAllQuery() {
+        return FIND_ALL_QUERY;
     }
 }

@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
-import java.io.Serializable;
+import net.sf.sail.webapp.domain.Persistable;
 
 /**
  * Represents the Java classname of an object that will be authorized according
@@ -27,7 +27,7 @@ import java.io.Serializable;
  * 
  * @version $Id$
  */
-public interface MutableAclTargetObject extends Serializable {
+public interface MutableAclTargetObject extends Persistable {
 
     /**
      * @return the classname

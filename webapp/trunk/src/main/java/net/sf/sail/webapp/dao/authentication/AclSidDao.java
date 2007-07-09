@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * Copyright (c) 2007 Encore Research Group, University of Toronto
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,30 +15,16 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.authentication.impl;
+package net.sf.sail.webapp.dao.authentication;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.domain.authentication.MutableAclSid;
 
 /**
  * @author Cynick Young
  * 
  * @version $Id$
- * 
  */
-public class AllTests {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.dao.authentication.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(HibernateAclTargetObjectIdentityDaoTest.class);
-        suite.addTestSuite(HibernateAclTargetObjectDaoTest.class);
-        suite.addTestSuite(HibernateUserDetailsDaoTest.class);
-        suite.addTestSuite(HibernateGrantedAuthorityDaoTest.class);
-        suite.addTestSuite(HibernateAclSidDaoTest.class);
-        //$JUnit-END$
-        return suite;
-    }
+public interface AclSidDao<T extends MutableAclSid> extends SimpleDao<T> {
 
 }

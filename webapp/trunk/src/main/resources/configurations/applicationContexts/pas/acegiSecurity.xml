@@ -478,4 +478,31 @@
         <property name="mutableAclService" ref="aclService" />
     </bean>
 
+    <bean id="aclSidDao"
+        class="net.sf.sail.webapp.dao.authentication.impl.HibernateAclSidDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="aclTargetObjectDao"
+        class="net.sf.sail.webapp.dao.authentication.impl.HibernateAclTargetObjectDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="aclTargetObjectIdentityDao"
+        class="net.sf.sail.webapp.dao.authentication.impl.HibernateAclTargetObjectIdentityDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="mutableAclSid"
+        class="net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid"
+        scope="prototype" />
+
+    <bean id="mutableAclTargetObject"
+        class="net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObject"
+        scope="prototype" />
+
+    <bean id="mutableAclTargetObjectIdentity"
+        class="net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity"
+        scope="prototype" />
+
 </beans>

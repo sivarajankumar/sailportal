@@ -19,7 +19,7 @@ package net.sf.sail.webapp.service.authentication.impl;
 
 import java.util.Map;
 
-import net.sf.sail.webapp.dao.authentication.ObjectIdentityDao;
+import net.sf.sail.webapp.dao.authentication.AclTargetObjectIdentityDao;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity;
 
 import org.acegisecurity.acls.Acl;
@@ -39,7 +39,7 @@ public class HibernateAclService implements AclService {
 
     private LookupStrategy lookupStrategy;
 
-    private ObjectIdentityDao<PersistentAclTargetObjectIdentity> objectIdentityDao;
+    private AclTargetObjectIdentityDao<PersistentAclTargetObjectIdentity> objectIdentityDao;
 
     /**
      * @see org.acegisecurity.acls.AclService#findChildren(org.acegisecurity.acls.objectidentity.ObjectIdentity)
@@ -104,7 +104,7 @@ public class HibernateAclService implements AclService {
      */
     @Required
     public void setObjectIdentityDao(
-            ObjectIdentityDao<PersistentAclTargetObjectIdentity> objectIdentityDao) {
+            AclTargetObjectIdentityDao<PersistentAclTargetObjectIdentity> objectIdentityDao) {
         this.objectIdentityDao = objectIdentityDao;
     }
 }

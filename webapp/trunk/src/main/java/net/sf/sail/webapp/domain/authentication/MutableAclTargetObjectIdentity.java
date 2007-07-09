@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
+import net.sf.sail.webapp.domain.Persistable;
 
 import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 
@@ -27,10 +28,12 @@ import org.acegisecurity.acls.objectidentity.ObjectIdentity;
  * 
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: MutableAclTargetObjectIdentity.java 595 2007-07-05 17:55:23Z
+ *          cynick $
  * @see org.acegisecurity.acls.objectidentity.ObjectIdentity
  */
-public interface MutableAclTargetObjectIdentity extends ObjectIdentity {
+public interface MutableAclTargetObjectIdentity extends ObjectIdentity,
+        Persistable {
 
     /**
      * @return the aclTargetObject

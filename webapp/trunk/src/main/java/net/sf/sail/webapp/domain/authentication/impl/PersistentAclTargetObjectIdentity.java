@@ -58,13 +58,13 @@ public class PersistentAclTargetObjectIdentity implements
     private static final long serialVersionUID = 1L;
 
     @Transient
-    static final String DATA_STORE_NAME = "acl_object_identity";
+    public static final String DATA_STORE_NAME = "acl_object_identity";
 
     @Transient
     static final String COLUMN_NAME_TARGET_OBJECT = "object_id_class";
 
     @Transient
-    static final String COLUMN_NAME_TARGET_OBJECT_ID = "object_id_identity";
+    public static final String COLUMN_NAME_TARGET_OBJECT_ID = "object_id_identity";
 
     @Transient
     static final String COLUMN_NAME_PARENT = "parent_object";
@@ -102,10 +102,9 @@ public class PersistentAclTargetObjectIdentity implements
     private Integer version = null;
 
     /**
-     * @return the id
+     * @see net.sf.sail.webapp.domain.Persistable#getId()
      */
-    @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

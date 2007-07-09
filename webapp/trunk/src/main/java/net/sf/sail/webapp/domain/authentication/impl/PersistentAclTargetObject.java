@@ -44,10 +44,10 @@ public class PersistentAclTargetObject implements MutableAclTargetObject {
     private static final long serialVersionUID = 1L;
 
     @Transient
-    static final String DATA_STORE_NAME = "acl_class";
+    public static final String DATA_STORE_NAME = "acl_class";
 
     @Transient
-    static final String COLUMN_NAME_CLASSNAME = "class";
+    public static final String COLUMN_NAME_CLASSNAME = "class";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -75,10 +75,9 @@ public class PersistentAclTargetObject implements MutableAclTargetObject {
     }
 
     /**
-     * @return the id
+     * @see net.sf.sail.webapp.domain.Persistable#getId()
      */
-    @SuppressWarnings("unused")
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

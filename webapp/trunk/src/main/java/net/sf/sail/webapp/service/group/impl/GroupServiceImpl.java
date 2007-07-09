@@ -79,6 +79,7 @@ public class GroupServiceImpl implements GroupService {
         }
         this.groupDao.save(group);
 
+        // TODO - CY add the acl entry when creating groups
 //        MutableAcl acl = this.mutableAclService
 //                .createAcl(new ObjectIdentityImpl(group.getClass(), group
 //                        .getId()));

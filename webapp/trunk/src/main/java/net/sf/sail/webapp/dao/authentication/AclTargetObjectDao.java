@@ -17,14 +17,15 @@
  */
 package net.sf.sail.webapp.dao.authentication;
 
-import org.acegisecurity.acls.objectidentity.ObjectIdentity;
+import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.domain.authentication.MutableAclTargetObject;
 
 /**
  * @author Cynick Young
  * 
  * @version $Id$
  */
-public interface ObjectIdentityDao<T extends ObjectIdentity> {
+public interface AclTargetObjectDao<T extends MutableAclTargetObject> extends
+        SimpleDao<T> {
 
-    public T[] findChildren(ObjectIdentity parentIdentity);
 }

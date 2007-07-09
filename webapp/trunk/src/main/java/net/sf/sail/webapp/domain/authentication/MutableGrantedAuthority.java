@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
+import net.sf.sail.webapp.domain.Persistable;
+
 import org.acegisecurity.GrantedAuthority;
 
 /**
@@ -30,7 +32,7 @@ import org.acegisecurity.GrantedAuthority;
  * @version $Id$
  * @see org.acegisecurity.GrantedAuthority
  */
-public interface MutableGrantedAuthority extends GrantedAuthority {
+public interface MutableGrantedAuthority extends GrantedAuthority, Persistable {
 
     /**
      * Sets the name of the this authority.
