@@ -80,4 +80,12 @@ public interface Run extends Offering {
 	 */
 	public void setPeriods(Set<Group> periods);
    
+	/**
+	 * Returns the period with periodName that is associated
+	 * with this run
+	 * @param periodName
+	 * @return Group the period with the periodName that is
+	 *           associated with this run
+	 */
+	public Group getPeriodByName(String periodName);
 }

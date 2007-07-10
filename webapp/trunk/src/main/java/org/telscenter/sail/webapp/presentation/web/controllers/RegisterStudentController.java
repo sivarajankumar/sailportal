@@ -26,7 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,12 +39,17 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.AccountQuestion;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
+import net.sf.sail.webapp.service.group.GroupService;
 
 /**
  * Signup controller for TELS student user
@@ -52,6 +59,10 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
  */
 public class RegisterStudentController extends SignupController {
 
+	private RunService runService;
+	
+	private GroupService groupService;
+	
 	public RegisterStudentController() {
 		setValidateOnBinding(false);
 	}
@@ -74,7 +85,15 @@ public class RegisterStudentController extends SignupController {
 
 		if (accountForm.isNewAccount()) {
 			try {
-				this.userService.createUser(userDetails);
+				User user = this.userService.createUser(userDetails);
+				String projectCode = accountForm.getProjectCode();
+				String runcode = getRuncodeFromProjectCode(projectCode);
+				String periodName = getPeriodNameFromProjectCode(projectCode);
+				Run run = this.runService.retrieveRunByRuncode(runcode);
+				Group period = run.getPeriodByName(periodName);
+				Set<User> membersToAdd = new HashSet<User>();
+				membersToAdd.add(user);
+				this.groupService.addMembers(period, membersToAdd);
 			}
 			catch (DuplicateUsernameException e) {
 				errors.rejectValue("username", "error.duplicate-username",
@@ -120,9 +139,44 @@ public class RegisterStudentController extends SignupController {
 				errors.reject("error.passwords-mismatch",
 				"Passwords did not match or were not provided. Matching passwords are required.");
 			}
+			
+			String projectCode = accountForm.getProjectCode();	
+			if (projectCode == null || projectCode.length() < 1) {
+				errors.reject("error.projectcode-empty",
+				"Project Code must be specified. Get this from your teacher.");
+				return;
+			} else {
+				int indexOfHyphon = projectCode.lastIndexOf("-");
+				if (indexOfHyphon < 0) {
+					errors.reject("error.projectcode-invalid",
+					"Project Code is invalid. Get this from your teacher.");
+					return;
+				}
+				String runcode = getRuncodeFromProjectCode(projectCode);
+				String periodName = getPeriodNameFromProjectCode(projectCode);
+				Run run = runService.retrieveRunByRuncode(runcode);
+				if (run == null) {
+					errors.reject("error.projectcode-not-in-db",
+					"Project Code is invalid. Get this from your teacher.");					
+					return;
+				} else {
+					boolean periodExists = false;
+					Set<Group> periods = run.getPeriods();
+					for (Group period : periods) {
+						if (periodName.equals(period.getName())) {
+							periodExists = true;
+						}
+					}
+					if (!periodExists) {
+						errors.reject("error.projectcode-not-in-db",
+						"Project Code is invalid. Get this from your teacher.");					
+						return;
+					}
+				}
+			}
 		}
 	}
-	
+
 	@Override
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception
 	{
@@ -130,6 +184,30 @@ public class RegisterStudentController extends SignupController {
 	  binder.registerCustomEditor(Date.class,
 	    new CustomDateEditor(new SimpleDateFormat("MM/dd"), false)
 	  );
+	}
+
+	private String getPeriodNameFromProjectCode(String projectCode) {
+		int indexOfHyphon = projectCode.lastIndexOf("-");
+		return projectCode.substring(indexOfHyphon+1);
+	}
+	
+	private String getRuncodeFromProjectCode(String projectCode) {
+		int indexOfHyphon = projectCode.lastIndexOf("-");
+		return projectCode.substring(0, indexOfHyphon);
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
+
+	/**
+	 * @param groupService the groupService to set
+	 */
+	public void setGroupService(GroupService groupService) {
+		this.groupService = groupService;
 	}
 
 }

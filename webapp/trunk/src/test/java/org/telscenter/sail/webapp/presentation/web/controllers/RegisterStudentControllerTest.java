@@ -30,14 +30,20 @@ import static org.easymock.EasyMock.verify;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
+import net.sf.sail.webapp.service.group.GroupService;
 
+import org.easymock.EasyMock;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -45,9 +51,13 @@ import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
+import org.telscenter.sail.webapp.service.offering.RunService;
+
 
 /**
  * @author Hiroki Terashima
@@ -65,8 +75,14 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 	private static final String FIRSTNAME = "Hiroki";
 
 	private static final String LASTNAME = "Terashima";
+	
+	private static final String PERIODNAME = "6";
 
 	private static final Gender GENDER = Gender.MALE;
+
+	private static final String PROJECTCODE = "Ruby8180-6";
+	
+	private static final String RUNCODE = "Ruby8180";
 	
 	private Date birthday = null;
 	
@@ -84,6 +100,10 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 
 	UserService mockUserService;
 	
+	GroupService mockGroupService;
+	
+	RunService mockRunService;
+	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -94,6 +114,8 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		studentAccountForm = new StudentAccountForm();
 		errors = new BindException(studentUserDetails, "");
 		mockUserService = createMock(UserService.class);
+		mockGroupService = createMock(GroupService.class);
+		mockRunService = createMock(RunService.class);
 		Calendar cal = Calendar.getInstance();
 		cal.set(1983, 6, 19);
 		birthday = cal.getTime();
@@ -107,7 +129,23 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		User user = new UserImpl();
 		expect(mockUserService.createUser(studentUserDetails)).andReturn(user);
 		replay(mockUserService);
+		
+		Run run = new RunImpl();
+		Group group = new PersistentGroup();
+		group.setName(PERIODNAME);
+		Set<Group> periods = new HashSet<Group>();
+		periods.add(group);
+		run.setPeriods(periods);
+		expect(mockRunService.retrieveRunByRuncode(RUNCODE)).andReturn(run);
+		replay(mockRunService);
+		
 
+		Set<User> membersToAdd = new HashSet<User>();
+		membersToAdd.add(user);
+		mockGroupService.addMembers(group, membersToAdd);
+		EasyMock.expectLastCall();
+		replay(mockGroupService);
+		
 		studentUserDetails.setFirstname(FIRSTNAME);
 		studentUserDetails.setLastname(LASTNAME);
 		studentUserDetails.setGender(GENDER);
@@ -117,9 +155,12 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		request.addParameter("password", PASSWORD);		
 
 		studentAccountForm.setUserDetails(studentUserDetails);
+		studentAccountForm.setProjectCode(PROJECTCODE);
 		RegisterStudentController signupController = new RegisterStudentController();
 		signupController.setApplicationContext(mockApplicationContext);
 		signupController.setUserService(mockUserService);
+		signupController.setGroupService(mockGroupService);
+		signupController.setRunService(mockRunService);
 		signupController.setSuccessView(SUCCESS);
 		ModelAndView modelAndView = signupController.onSubmit(request,
 				response, studentAccountForm, errors);

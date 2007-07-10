@@ -27,6 +27,8 @@
     <bean id="registerstudentController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterStudentController">
     	<property name="userService" ref="userService" />
+    	<property name="runService" ref="runService" />
+    	<property name="groupService" ref="groupService" />
     	<property name="commandName" value="studentAccountForm" />
     	<property name="validator" ref="studentUserDetailsValidator" />
     	<property name="formView" value="registerstudent" />

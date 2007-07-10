@@ -147,5 +147,18 @@ public class RunImpl extends OfferingImpl implements Run {
 	public void setPeriods(Set<Group> periods) {
 		this.periods = periods;
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#getPeriodByName(java.lang.String)
+	 */
+	public Group getPeriodByName(String periodName) {
+		Set<Group> periods = getPeriods();
+		for (Group period : periods) {
+			if (period.getName().equals(periodName)) {
+				return period;
+			}
+		}
+		return null;
+	}
    
 }

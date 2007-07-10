@@ -58,4 +58,23 @@ public interface RunService extends OfferingService {
 	 */
     public List<Run> getRunList();
     
+    /**
+     * Checks if the runcode already exists in the database
+     * 
+     * @param runcode 
+     *           The <code>String</code> to check for
+     * @return <code>true</code> 
+     */
+    public boolean isRunCodeInDB(String runcode);
+    
+    /**
+     * Retrieves the Run domain object using the unique runcode
+     * 
+     * @param runcode
+     *          The <code>String</code> runcode to use for lookup
+     * @return <code>Run</code>
+     *          The Run object with the runcode
+     *     
+     */
+    public Run retrieveRunByRuncode(String runcode);
 }

@@ -170,13 +170,26 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
      * @throws DuplicateRunCodeException
      *             if the run's runcde already exists in the data store
      */
-    @SuppressWarnings("unchecked")
     private void checkForRunCodeError(String runCode)
             throws DuplicateRunCodeException {
-        if (runDao.hasRuncode(runCode)) {
+        if (isRunCodeInDB(runCode)) {
             throw new DuplicateRunCodeException("Runcode " + runCode
                     + " already exists.");
         }
     }
+
+    /**
+     * @see org.telscenter.sail.webapp.service.offering.RunService#isRunCodeInDB(java.lang.String)
+     */
+	public boolean isRunCodeInDB(String runcode) {
+		return runDao.hasRuncode(runcode);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#retrieveRunByRuncode(java.lang.String)
+	 */
+	public Run retrieveRunByRuncode(String runcode) {
+		return runDao.retrieveByRunCode(runcode);
+	}
 
 }
