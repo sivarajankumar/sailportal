@@ -35,6 +35,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.telscenter.sail.webapp.domain.Run;
+
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
@@ -47,8 +49,8 @@ import net.sf.sail.webapp.domain.impl.OfferingImpl;
  * @version $Id$
  */
 @Entity
-@Table(name = Run.DATA_STORE_NAME)
-public class Run extends OfferingImpl {
+@Table(name = RunImpl.DATA_STORE_NAME)
+public class RunImpl extends OfferingImpl implements Run {
 
     @Transient
     public static final String DATA_STORE_NAME = "runs";
@@ -74,13 +76,13 @@ public class Run extends OfferingImpl {
     @Transient
     public static final long serialVersionUID = 1L;
     
-    @Column(name = Run.COLUMN_NAME_STARTTIME, nullable = false)
+    @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
     private Date starttime;
 
-    @Column(name = Run.COLUMN_NAME_ENDTIME)
+    @Column(name = RunImpl.COLUMN_NAME_ENDTIME)
     private Date endtime;
 
-    @Column(name = Run.COLUMN_NAME_RUN_CODE, nullable = false, unique = true)
+    @Column(name = RunImpl.COLUMN_NAME_RUN_CODE, nullable = false, unique = true)
     private String runcode;
     
     @OneToMany(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
