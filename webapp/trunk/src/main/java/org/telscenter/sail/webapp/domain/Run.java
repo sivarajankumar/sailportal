@@ -20,32 +20,64 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.offering;
+package org.telscenter.sail.webapp.domain;
 
-import net.sf.sail.webapp.dao.offering.OfferingDao;
+import java.util.Date;
+import java.util.Set;
 
-import org.telscenter.sail.webapp.domain.Run;
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.group.Group;
 
 /**
+ * TELS's representation for a length of time in which the 
+ * offering becomes available for the students
+ *
  * @author Hiroki Terashima
  * @version $Id: $
  */
-public interface RunDao<T extends Run> extends OfferingDao<Run> {
+public interface Run extends Offering {
+
+	   /**
+     * @return the endtime
+     */
+    public Date getEndtime();
 
     /**
-     * Given an input string retrieve a corresponding record from data store.
-     * 
-     * @param runcode
-     *            <code>String</code> representing the runcode of the data in the data store.
-     * @return A new instance of a data object.
+     * @param endtime
+     *            the endtime to set
      */
-	public Run retrieveByRunCode(String runcode);
-	
+    public void setEndtime(Date endtime);
+
     /**
-     * Checks if the given runcode is already being used
-     * 
-     * @param runcode <code>String</code> the runcode to check
-     * @return true iff the given runcode exists in the data store
+     * @return the starttime
      */
-	public boolean hasRuncode(String runcode);
+    public Date getStarttime();
+
+    /**
+     * @param starttime
+     *            the starttime to set
+     */
+    public void setStarttime(Date starttime);
+
+    /**
+     * @return the runcode
+     */
+    public String getRuncode();
+
+    /**
+     * @param runcode
+     *            the runcode to set
+     */
+    public void setRuncode(String runcode);
+
+	/**
+	 * @return the periods
+	 */
+	public Set<Group> getPeriods();
+
+	/**
+	 * @param periods the periods to set
+	 */
+	public void setPeriods(Set<Group> periods);
+   
 }

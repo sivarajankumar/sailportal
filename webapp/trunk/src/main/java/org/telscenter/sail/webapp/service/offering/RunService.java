@@ -20,55 +20,42 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.offering.impl;
+package org.telscenter.sail.webapp.service.offering;
 
-import org.springframework.dao.support.DataAccessUtils;
-import org.telscenter.sail.webapp.dao.offering.RunDao;
+import java.util.List;
+
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
-import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
+import net.sf.sail.webapp.service.offering.OfferingService;
 
 /**
- * DAO for WISE run, which extends offering
+ * A service for working with <code>Run</code> objects
  *
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id: $
  */
-public class HibernateRunDao extends AbstractHibernateDao<Run> 
-        implements RunDao<Run> {
-
-	private static final String FIND_ALL_QUERY = "from RunImpl";
+public interface RunService extends OfferingService {
 
     /**
-     * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
+     * Creates a new <code>SdsOffering</code> on the SDS as well as an
+     * <code>Run</code> object in the local data store. A side effect is
+     * that the Run id is set to the value that the SDS assigns to the new
+     * Run.
+     * 
+     * @param offeringParameters
+     *            The object that encapsulate parameters for creating a run
+     * @return the run created.
      */
-    @Override
-    protected String getFindAllQuery() {
-        return FIND_ALL_QUERY;
-    }
-    
-    /**
-     * @see org.telscenter.sail.webapp.dao.offering.RunDao#retrieveByRunCode(String)
-     */
-    public Run retrieveByRunCode(String runcode) {
-    	return (Run) DataAccessUtils.uniqueResult(
-    			this.getHibernateTemplate().findByNamedParam(
-    					"from RunImpl as run where run.runcode = :runcode", 
-    					"runcode", runcode));
-    }
-
-    /**
-     * @see org.telscenter.sail.webapp.dao.offering.RunDao#hasRuncode(String)
-     */
-    public boolean hasRuncode(String runcode) {
-    	return (this.retrieveByRunCode(runcode) != null);
-    }
-
+	public RunImpl createRun(RunParameters runParameters) throws CurnitNotFoundException;
+	
 	/**
-	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 * Retrieves a list of <code>Run</code>
+	 * 
+	 * @return <code>List</code> of <code>Run</code>
 	 */
-	@Override
-	protected Class<Run> getDataObjectClass() {
-		return Run.class;
-	}
+    public List<Run> getRunList();
+    
 }

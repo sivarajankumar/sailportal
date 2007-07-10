@@ -30,6 +30,7 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
         <mapping
-            class="org.telscenter.sail.webapp.domain.impl.Run" />
+            class="org.telscenter.sail.webapp.domain.impl.RunImpl" />
+            
     </session-factory>
 </hibernate-configuration>

@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.group.impl.HibernateGroupDao;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
@@ -37,7 +38,8 @@ import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import org.hibernate.Session;
-import org.telscenter.sail.webapp.domain.impl.Run;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
@@ -74,6 +76,8 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
     private HibernateRunDao runDao;
 
+    private HibernateGroupDao groupDao;
+    
     /**
      * @param sdsOffering
      *                the sdsOffering to set
@@ -98,6 +102,13 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         this.runDao = runDao;
     }
 
+	/**
+	 * @param groupDao the groupDao to set
+	 */
+	public void setGroupDao(HibernateGroupDao groupDao) {
+		this.groupDao = groupDao;
+	}
+	
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
      */
@@ -140,9 +151,9 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         Session session = this.sessionFactory.getCurrentSession();
         session.save(DEFAULT_SDS_CURNIT); // save sds curnit
         session.save(DEFAULT_SDS_JNLP); // save sds jnlp
-        session.save(DEFAULT_GROUP_1);
-        session.save(DEFAULT_GROUP_2);
-        session.save(DEFAULT_GROUP_3);
+//        session.save(DEFAULT_GROUP_1);
+//        session.save(DEFAULT_GROUP_2);
+//        session.save(DEFAULT_GROUP_3);
 
         this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
         this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
@@ -170,17 +181,19 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
         Map<?, ?> runMap = (Map<?, ?>) runsList.get(0);
         assertEquals(this.DEFAULT_STARTTIME, runMap
-                .get(Run.COLUMN_NAME_STARTTIME.toUpperCase()));
-        assertEquals(this.DEFAULT_RUNCODE, runMap.get(Run.COLUMN_NAME_RUN_CODE
+                .get(RunImpl.COLUMN_NAME_STARTTIME.toUpperCase()));
+        assertEquals(this.DEFAULT_RUNCODE, runMap.get(RunImpl.COLUMN_NAME_RUN_CODE
                 .toUpperCase()));
-        assertNull(runMap.get(Run.COLUMN_NAME_ENDTIME.toUpperCase()));
+        assertNull(runMap.get(RunImpl.COLUMN_NAME_ENDTIME.toUpperCase()));
 
         // now add groups to the run
         Set<Group> periods = new HashSet<Group>();
         periods.add(DEFAULT_GROUP_1);
         periods.add(DEFAULT_GROUP_2);
         this.defaultRun.setPeriods(periods);
-
+        this.groupDao.save(DEFAULT_GROUP_1);
+        this.groupDao.save(DEFAULT_GROUP_2);
+        
         this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
@@ -213,7 +226,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
         runsList = retrieveRunListFromDb();
         runMap = (Map<?, ?>) runsList.get(0);
-        assertEquals(this.DEFAULT_ENDTIME, runMap.get(Run.COLUMN_NAME_ENDTIME
+        assertEquals(this.DEFAULT_ENDTIME, runMap.get(RunImpl.COLUMN_NAME_ENDTIME
                 .toUpperCase()));
 
     }
@@ -229,8 +242,8 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         // get Run record from persistent data store and confirm it is
         // complete
         Run run = this.runDao.retrieveByRunCode(DEFAULT_RUNCODE);
-        assertTrue(run instanceof Run);
-        assertTrue(Run.class == run.getClass());
+        assertTrue(run instanceof RunImpl);
+        assertTrue(RunImpl.class == run.getClass());
 
         assertEquals(DEFAULT_RUNCODE, run.getRuncode());
         assertEquals(DEFAULT_STARTTIME, run.getStarttime());
@@ -267,7 +280,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
      */
     private List<?> retrieveRunsRelatedToGroupsListFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
-                + Run.PERIODS_JOIN_TABLE_NAME);
+                + RunImpl.PERIODS_JOIN_TABLE_NAME);
     }
 
     /*
@@ -275,7 +288,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
      */
     private List<?> retrieveRunListFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
-                + Run.DATA_STORE_NAME, (Object[]) null);
+                + RunImpl.DATA_STORE_NAME, (Object[]) null);
     }
 
     /*
@@ -285,12 +298,13 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
      */
     private List<?> retrieveRunsAndGroupsListFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
-                + Run.DATA_STORE_NAME + ", " + Run.PERIODS_JOIN_TABLE_NAME
+                + RunImpl.DATA_STORE_NAME + ", " + RunImpl.PERIODS_JOIN_TABLE_NAME
                 + ", " + PersistentGroup.DATA_STORE_NAME + " WHERE "
-                + Run.DATA_STORE_NAME + ".id = " + Run.PERIODS_JOIN_TABLE_NAME
-                + "." + Run.RUNS_JOIN_COLUMN_NAME + " AND "
+                + RunImpl.DATA_STORE_NAME + ".id = " + RunImpl.PERIODS_JOIN_TABLE_NAME
+                + "." + RunImpl.RUNS_JOIN_COLUMN_NAME + " AND "
                 + PersistentGroup.DATA_STORE_NAME + ".id = "
-                + Run.PERIODS_JOIN_TABLE_NAME + "."
-                + Run.PERIODS_JOIN_COLUMN_NAME, (Object[]) null);
+                + RunImpl.PERIODS_JOIN_TABLE_NAME + "."
+                + RunImpl.PERIODS_JOIN_COLUMN_NAME, (Object[]) null);
     }
+
 }

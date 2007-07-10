@@ -42,12 +42,4 @@
     	<property name="successView" value="login.html" />
     </bean>
     
-    <bean id="runService"
-        class="org.telscenter.sail.webapp.service.offering.impl.RunServiceImpl">
-        <property name="sdsOfferingDao" ref="sdsOfferingDao" />
-        <property name="offeringDao" ref="offeringDao" />
-        <property name="curnitDao" ref="curnitDao" />
-        <property name="jnlpDao" ref="jnlpDao" />
-        <property name="groupDao" ref="groupDao" />
-    </bean>
 </beans>

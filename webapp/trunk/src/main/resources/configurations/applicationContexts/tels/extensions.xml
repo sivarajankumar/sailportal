@@ -33,11 +33,32 @@
     </bean>
 
     <bean id="run" scope="prototype"
-        class="org.telscenter.sail.webapp.domain.impl.Run">
+        class="org.telscenter.sail.webapp.domain.impl.RunImpl">
     </bean>
 
     <bean id="runDao"
         class="org.telscenter.sail.webapp.dao.offering.impl.HibernateRunDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+
+    <bean id="projectParameters"
+    	class="org.telscenter.sail.webapp.domain.impl.ProjectParameters"
+    	scope="prototype" />
+
+    <bean id="runService"
+    	class="org.telscenter.sail.webapp.service.offering.impl.RunServiceImpl">
+    	<property name="sdsOfferingDao" ref="sdsOfferingDao" />
+    	<property name="offeringDao" ref="offeringDao" />
+    	<property name="runDao" ref="runDao" />
+    	<property name="curnitDao" ref="curnitDao" />
+    	<property name="jnlpDao" ref="jnlpDao" />
+    	<property name="groupDao" ref="groupDao" />
+    </bean>
+
+    <bean id="projectService"
+    	class="org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl">
+    	<property name="sdsCurnitDao" ref="sdsCurnitDao" />
+    	<property name="curnitDao" ref="curnitDao" />
+    </bean>
+
 </beans>

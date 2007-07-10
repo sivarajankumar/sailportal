@@ -35,7 +35,6 @@ import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
-import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
@@ -45,7 +44,8 @@ import net.sf.sail.webapp.domain.sds.SdsJnlp;
 
 import org.easymock.EasyMock;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
-import org.telscenter.sail.webapp.domain.impl.Run;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
 /**
@@ -66,12 +66,13 @@ public class RunServiceImplTest extends TestCase {
 
     private static final Long CURNIT_ID = new Long(3);
 
-    private static Set<Group> period = new HashSet<Group>();
+    //private static Set<Group> periods = new HashSet<Group>();
+    
+    private static Set<String> periodNames = new HashSet<String>();
 
     static {
-        Group group = new PersistentGroup();
-        group.setName(CURNIT_NAME);
-        period.add(group);
+    	periodNames.add("Period 1");
+    	periodNames.add("Period 2");
     }
 
     private SdsOfferingDao mockSdsOfferingDao;
@@ -109,7 +110,7 @@ public class RunServiceImplTest extends TestCase {
         this.runServiceImpl.setGroupDao(mockGroupDao);
 
         this.mockRunDao = EasyMock.createNiceMock(RunDao.class);
-        this.runServiceImpl.setOfferingDao(this.mockRunDao);
+        this.runServiceImpl.setRunDao(this.mockRunDao);
     }
 
     /**
@@ -124,8 +125,8 @@ public class RunServiceImplTest extends TestCase {
     }
 
     public void testGetRunList() throws Exception {
-        List<Offering> expectedList = new LinkedList<Offering>();
-        expectedList.add(new Run());
+        List<Run> expectedList = new LinkedList<Run>();
+        expectedList.add(new RunImpl());
 
         EasyMock.expect(this.mockRunDao.getList()).andReturn(expectedList);
         EasyMock.replay(this.mockRunDao);
@@ -153,20 +154,26 @@ public class RunServiceImplTest extends TestCase {
                 .andReturn(curnit);
         EasyMock.replay(this.mockCurnitDao);
 
-        this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
-        EasyMock.expectLastCall().andReturn(false);
-        EasyMock.replay(this.mockRunDao);
+        Group group = null;
+        for (String periodName : periodNames) {
+        	group = new PersistentGroup();
+        	group.setName(periodName);
+        	this.mockGroupDao.save(group);
+            EasyMock.expectLastCall();
+        }
+        EasyMock.replay(this.mockGroupDao);
 
         // TODO LAW figure out how to get this from the beans
         RunParameters runParameters = new RunParameters();
         runParameters.setCurnitId(CURNIT_ID);
         runParameters.setName(CURNIT_NAME);
-
-        Set<String> periodNames = new HashSet<String>();
-        periodNames.add("Period 1");
         runParameters.setPeriodNames(periodNames);
 
-        Run run = runServiceImpl.createRun(runParameters);
+        this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
+        EasyMock.expectLastCall().andReturn(false);
+        EasyMock.replay(this.mockRunDao);
+
+        RunImpl run = runServiceImpl.createRun(runParameters);
         assertNull(run.getEndtime());
         assertNotNull(run.getRuncode());
         assertTrue(run.getRuncode() instanceof String);
@@ -176,9 +183,9 @@ public class RunServiceImplTest extends TestCase {
         assertEquals(JNLP_NAME, run.getSdsOffering().getSdsJnlp().getName());
         assertEquals(JNLP_URL, run.getSdsOffering().getSdsJnlp().getUrl());
         assertEquals(CURNIT_NAME, run.getSdsOffering().getName());
-        assertEquals(1, run.getPeriods().size());
+        assertEquals(2, run.getPeriods().size());
         for (Group period : run.getPeriods()) {
-            assertEquals("Period 1", period.getName());
+        	assertTrue(periodNames.contains(period.getName()));
         }
         EasyMock.verify(this.mockRunDao);
     }

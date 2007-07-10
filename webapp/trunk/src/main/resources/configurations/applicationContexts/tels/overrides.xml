@@ -24,15 +24,6 @@
     xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-    <bean id="offeringService"
-        class="org.telscenter.sail.webapp.service.offering.impl.RunServiceImpl">
-        <property name="sdsOfferingDao" ref="sdsOfferingDao" />
-        <property name="offeringDao" ref="offeringDao" />
-        <property name="curnitDao" ref="curnitDao" />
-        <property name="jnlpDao" ref="jnlpDao" />
-        <property name="groupDao" ref="groupDao" />
-    </bean>
-
     <bean id="userService"
         class="org.telscenter.sail.webapp.service.impl.UserServiceImpl">
         <property name="userDetailsDao" ref="userDetailsDao" />

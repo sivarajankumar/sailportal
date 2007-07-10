@@ -66,7 +66,7 @@ public class CurnitServiceImpl implements CurnitService {
      * @see net.sf.sail.webapp.service.curnit.CurnitService#getCurnitList()
      */
     @Transactional(readOnly = true)
-    public List<Curnit> getCurnitList() {
+    public List<? extends Curnit> getCurnitList() {
         return this.curnitDao.getList();
     }
 

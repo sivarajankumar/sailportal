@@ -20,32 +20,26 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.offering;
+package org.telscenter.sail.webapp.service.project;
 
-import net.sf.sail.webapp.dao.offering.OfferingDao;
+import java.util.List;
 
-import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.Project;
+
+import net.sf.sail.webapp.service.curnit.CurnitService;
 
 /**
+ * A service for working with <code>Project</code> objects
+ *
  * @author Hiroki Terashima
  * @version $Id: $
  */
-public interface RunDao<T extends Run> extends OfferingDao<Run> {
+public interface ProjectService extends CurnitService {
 
-    /**
-     * Given an input string retrieve a corresponding record from data store.
-     * 
-     * @param runcode
-     *            <code>String</code> representing the runcode of the data in the data store.
-     * @return A new instance of a data object.
-     */
-	public Run retrieveByRunCode(String runcode);
-	
-    /**
-     * Checks if the given runcode is already being used
-     * 
-     * @param runcode <code>String</code> the runcode to check
-     * @return true iff the given runcode exists in the data store
-     */
-	public boolean hasRuncode(String runcode);
+	/**
+	 * Get a <code>List</code> of Projects.
+	 * 
+	 * @return a <code>List</code> of Projects.
+	 */
+	public List<Project> getProjectList();
 }

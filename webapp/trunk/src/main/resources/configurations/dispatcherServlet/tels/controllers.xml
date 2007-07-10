@@ -67,6 +67,7 @@
 	<bean id="createRunController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.CreateRunController">
 	    <property name="runService" ref="runService" />
+	    <property name="projectService" ref="projectService" />
 	    <property name="commandName" value="runParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />

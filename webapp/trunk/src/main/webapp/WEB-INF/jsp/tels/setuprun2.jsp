@@ -53,7 +53,15 @@
 <p class="bigFont1 north0"><spring:message code="teacher.currently-active-project-runs" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.archiving-a-project-run" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.end-or-cont-project-runs" /></p>
-<p>Project description: <c:out value="${project.description}"/></p>
+<p>Existing Runs:
+
+<p><c:forEach var="run" items="${existingRunList}">
+	<tr>
+		<td>${run.sdsOffering.name}</td>
+	</tr>
+</c:forEach></p>
+</p>
+
 <!--  
 <div class="center north0">
 <a href="setuprun2.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /></a>

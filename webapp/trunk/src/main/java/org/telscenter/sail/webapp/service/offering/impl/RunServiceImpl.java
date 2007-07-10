@@ -29,7 +29,6 @@ import java.util.Random;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.group.GroupDao;
-import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
@@ -40,9 +39,11 @@ import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
-import org.telscenter.sail.webapp.domain.impl.Run;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * Services for WISE's Run Domain Object
@@ -50,7 +51,7 @@ import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class RunServiceImpl extends OfferingServiceImpl {
+public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 
     private static final String[] RUNCODE_WORDS = { "Tiger", "Cheetah", "Fox",
             "Owl", "Panda", "Jaguar", "Hawk", "Mole", "Falcon", "Orca",
@@ -63,6 +64,8 @@ public class RunServiceImpl extends OfferingServiceImpl {
 
     private static final int MAX_RUNCODE_DIGIT = 10000;
 
+    private RunDao<Run> runDao;
+    
     private GroupDao<Group> groupDao;
 
     /**
@@ -77,9 +80,16 @@ public class RunServiceImpl extends OfferingServiceImpl {
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
      */
-    public List<Offering> getRunList() {
-        return super.getOfferingList();
+    public List<Run> getRunList() {
+        return runDao.getList();
     }
+    
+	/**
+	 * @param runDao the runDao to set
+	 */
+	public void setRunDao(RunDao<Run> runDao) {
+		this.runDao = runDao;
+	}
 
     /**
      * Generate a random runcode
@@ -113,24 +123,27 @@ public class RunServiceImpl extends OfferingServiceImpl {
      */
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
-    public Run createRun(RunParameters runParameters) throws CurnitNotFoundException {
+    public RunImpl createRun(RunParameters runParameters) throws CurnitNotFoundException {
 
-        Run run = new Run();
+        RunImpl run = new RunImpl();
         run.setEndtime(null);
         run.setStarttime(Calendar.getInstance().getTime());
         run.setRuncode(generateUniqueRunCode());
         run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
 
-        Set<Group> periods = new HashSet<Group>();
-        for (String periodName : runParameters.getPeriodNames()) {
-            Group group = new PersistentGroup();
-            group.setName(periodName);
-            this.groupDao.save(group);
-            periods.add(group);
+        Set<String> periodNames = runParameters.getPeriodNames();
+        if (periodNames != null) {
+        	Set<Group> periods = new HashSet<Group>();
+        	for (String periodName : runParameters.getPeriodNames()) {
+        		Group group = new PersistentGroup();
+        		group.setName(periodName);
+        		this.groupDao.save(group);
+        		periods.add(group);
+        	}
+        	run.setPeriods(periods);
         }
-        run.setPeriods(periods);
 
-        this.offeringDao.save(run);
+        this.runDao.save(run);
         return run;
     }
 
@@ -160,7 +173,7 @@ public class RunServiceImpl extends OfferingServiceImpl {
     @SuppressWarnings("unchecked")
     private void checkForRunCodeError(String runCode)
             throws DuplicateRunCodeException {
-        if (((RunDao) this.offeringDao).hasRuncode(runCode)) {
+        if (runDao.hasRuncode(runCode)) {
             throw new DuplicateRunCodeException("Runcode " + runCode
                     + " already exists.");
         }

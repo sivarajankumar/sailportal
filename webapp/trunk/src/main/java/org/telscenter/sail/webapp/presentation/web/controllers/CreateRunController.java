@@ -23,16 +23,13 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
-import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -40,8 +37,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Project;
-import org.telscenter.sail.webapp.domain.impl.ProjectImpl;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Controller for the wizard to "create a run"
@@ -63,7 +63,9 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
  */
 public class CreateRunController extends AbstractWizardFormController {
 	
-	protected OfferingService runService = null;
+	private RunService runService = null;
+	
+	private ProjectService projectService = null;
 	
 	/**
 	 * Constructor
@@ -119,31 +121,36 @@ public class CreateRunController extends AbstractWizardFormController {
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request, 
 			Object command, Errors errors, int page) {
+		RunParameters runParameters = (RunParameters) command;
+		Project project = null;
 		Map<String, Object> model = new HashMap<String, Object>();
 		switch(page) {
 		case 0:
-			// TODO HT: get this stuff from db
-			Project project = new ProjectImpl();
-			Set<Integer> grades = new TreeSet<Integer>();
-			grades.add(1);
-			grades.add(2);
-			grades.add(3);
-			grades.add(4);
-			grades.add(5);
-			project.setGrades(grades);
-			project.setDescription("This project is for advanced bio-engineers.");
+			try {
+				project = (Project) this.projectService.getById(runParameters.getCurnitId());
+			} catch (CurnitNotFoundException e) {
+				// TODO HT: what should happen when the project id is invalid?
+				e.printStackTrace();
+			}
 			model.put("project", project);
 			break;
 		case 1:
-			Project project1 = new ProjectImpl();
-			Set<Integer> grades1 = new HashSet<Integer>();
-			grades1.add(1);
-			grades1.add(2);
-			project1.setGrades(grades1);
-			project1.setDescription("This project is for advanced chemical-engineers.");
-			model.put("project", project1);
+			// for page 2 of the wizard, display existing runs for this user
+			List<Run> existingRuns = runService.getRunList();
+			model.put("existingRunList", existingRuns);
+
+			// TODO HT: talk with Matt on how to set/change run name
+			try {
+				project = (Project) this.projectService.getById(runParameters.getCurnitId());
+			} catch (CurnitNotFoundException e) {
+				// TODO HT: what should happen when the project id is invalid?
+				e.printStackTrace();
+			}
+			runParameters.setName("Run: " + project.getSdsCurnit().getName());
 			break;
 		case 2:
+			// for page 3 of the wizard, display available period names to the user
+			model.put("periodNames", DefaultPeriodNames.values());
 			break;
 		case 3:
 		case 4:
@@ -173,14 +180,14 @@ public class CreateRunController extends AbstractWizardFormController {
     	// e.g. CurnitNotFoundException and JNLPNotFoundException
     	// answer: yes
     	try {
-			this.runService.createOffering(runParameters);
+			this.runService.createRun(runParameters);
 		} catch (CurnitNotFoundException e) {
 			errors.rejectValue("curnitId", "error.curnit-not_found",
 					new Object[] { runParameters.getCurnitId() }, 
 					"Curnit Not Found.");
 			return showForm(request, response, errors);
 		}
-    	return new ModelAndView("index.html");
+    	return new ModelAndView("index");
 	}
 	
 	/**
@@ -198,8 +205,15 @@ public class CreateRunController extends AbstractWizardFormController {
 	/**
 	 * @param runService the runService to set
 	 */
-	public void setRunService(OfferingService runService) {
+	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 
 }

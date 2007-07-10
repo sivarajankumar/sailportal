@@ -43,8 +43,9 @@ public interface OfferingService {
      * that the offering id is set to the value that the SDS assigns to the new
      * offering.
      * 
-     * @param offering
-     *            The offering you want to create (no offering id required).
+     * @param offeringParameters
+     *            The <code>OfferingParameters</code> that encapsulate information
+     *            needed to create an offering.
      * @return the offering created.
      */
     public Offering createOffering(OfferingParameters offeringParameters) throws

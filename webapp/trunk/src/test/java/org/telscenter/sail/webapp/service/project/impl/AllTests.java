@@ -20,32 +20,23 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.dao.offering;
+package org.telscenter.sail.webapp.service.project.impl;
 
-import net.sf.sail.webapp.dao.offering.OfferingDao;
-
-import org.telscenter.sail.webapp.domain.Run;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * @author Hiroki Terashima
  * @version $Id: $
  */
-public interface RunDao<T extends Run> extends OfferingDao<Run> {
+public class AllTests {
 
-    /**
-     * Given an input string retrieve a corresponding record from data store.
-     * 
-     * @param runcode
-     *            <code>String</code> representing the runcode of the data in the data store.
-     * @return A new instance of a data object.
-     */
-	public Run retrieveByRunCode(String runcode);
-	
-    /**
-     * Checks if the given runcode is already being used
-     * 
-     * @param runcode <code>String</code> the runcode to check
-     * @return true iff the given runcode exists in the data store
-     */
-	public boolean hasRuncode(String runcode);
+	public static Test suite() {
+		TestSuite suite = new TestSuite(
+				"Test for org.telscenter.sail.webapp.service.project.impl");
+		//$JUnit-BEGIN$
+		suite.addTestSuite(ProjectServiceImplTest.class);
+		//$JUnit-END$
+		return suite;
+	}
 }

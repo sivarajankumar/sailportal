@@ -36,7 +36,7 @@ public interface CurnitService {
 	 * 
 	 * @return a <code>List</code> of curnits.
 	 */
-	public List<Curnit> getCurnitList();
+	public List<? extends Curnit> getCurnitList();
 
 	/**
 	 * Creates a new <code>SdsCurnit</code> on the SDS as well as a

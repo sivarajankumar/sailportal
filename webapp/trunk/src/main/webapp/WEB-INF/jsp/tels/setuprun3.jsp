@@ -77,7 +77,9 @@ if(form.manualCheckbox.checked==true){
 <p class="bigFont1 north0"><spring:message code="teacher.select-classroom-periods" /></p>
 
 <div class="north0">
-<form method="post" class="center north0">
+<form:form method="post" commandName="runParameters">
+
+<!--  
 <input type="checkbox" name="options" value="Period 1" /> <spring:message code="classroom.period1" /><br />
 <input type="checkbox" name="options" value="Period 2" /> <spring:message code="classroom.period2" /><br />
 <input type="checkbox" name="options" value="Period 3" /> <spring:message code="classroom.period3" /><br />
@@ -88,6 +90,15 @@ if(form.manualCheckbox.checked==true){
 <input type="checkbox" name="options" value="Period 8" /> <spring:message code="classroom.period8" /><br />
 <input type="checkbox" name="options" value="Period 9" /> <spring:message code="classroom.period9" /><br />
 <input type="checkbox" name="options" value="Period 10" /> <spring:message code="classroom.period10" /><br />
+-->
+
+    <div>
+      <label for="gender"><spring:message code="signup.gender" /></label>
+          <c:forEach items="${periodNames}" var="periodName">
+            <form:checkbox path="periodNames" value="${periodName}" />
+            <spring:message code="defaultPeriodNames.${periodName}" /><br/>
+          </c:forEach>      
+    </div>
 
 OR <br />
 
@@ -103,14 +114,7 @@ OR <br />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
 <input type="submit" name="_target3" value="<spring:message code="navigate.next" />">
 
-</form>
+</form:form>
 </div>
-
-<div class="center north0">
-<a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /> </a>
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /> </a> 
-<a href="setuprun5.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"><spring:message code='navigate.next' /> </a> 
-</div>
-
 </body>
 </html>
