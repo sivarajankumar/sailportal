@@ -134,7 +134,50 @@ public class RunServiceImplTest extends TestCase {
         EasyMock.verify(this.mockRunDao);
     }
 
-    public void testCreateRun() throws Exception {
+    public void testCreateRunWithoutPeriods() throws Exception {
+        SdsJnlp sdsJnlp = new SdsJnlp();
+        sdsJnlp.setName(JNLP_NAME);
+        sdsJnlp.setUrl(JNLP_URL);
+        Jnlp jnlp = new JnlpImpl();
+        jnlp.setSdsJnlp(sdsJnlp);
+        List<Jnlp> jnlpList = new ArrayList<Jnlp>();
+        jnlpList.add(jnlp);
+        EasyMock.expect(this.mockJnlpDao.getList()).andReturn(jnlpList);
+        EasyMock.replay(this.mockJnlpDao);
+
+        SdsCurnit sdsCurnit = new SdsCurnit();
+        sdsCurnit.setName(CURNIT_NAME);
+        sdsCurnit.setUrl(CURNIT_URL);
+        Curnit curnit = new CurnitImpl();
+        curnit.setSdsCurnit(sdsCurnit);
+        EasyMock.expect(this.mockCurnitDao.getById(CURNIT_ID))
+                .andReturn(curnit);
+        EasyMock.replay(this.mockCurnitDao);
+
+        // TODO LAW figure out how to get this from the beans
+        RunParameters runParameters = new RunParameters();
+        runParameters.setCurnitId(CURNIT_ID);
+        runParameters.setName(CURNIT_NAME);
+
+        this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
+        EasyMock.expectLastCall().andReturn(false);
+        EasyMock.replay(this.mockRunDao);
+
+        RunImpl run = runServiceImpl.createRun(runParameters);
+        assertNull(run.getEndtime());
+        assertNotNull(run.getRuncode());
+        assertTrue(run.getRuncode() instanceof String);
+
+        assertEquals(CURNIT_NAME, run.getSdsOffering().getSdsCurnit().getName());
+        assertEquals(CURNIT_URL, run.getSdsOffering().getSdsCurnit().getUrl());
+        assertEquals(JNLP_NAME, run.getSdsOffering().getSdsJnlp().getName());
+        assertEquals(JNLP_URL, run.getSdsOffering().getSdsJnlp().getUrl());
+        assertEquals(CURNIT_NAME, run.getSdsOffering().getName());
+        assertEquals(0, run.getPeriods().size());
+        EasyMock.verify(this.mockRunDao);
+    }
+
+    public void testCreateRunWithPeriods() throws Exception {
         SdsJnlp sdsJnlp = new SdsJnlp();
         sdsJnlp.setName(JNLP_NAME);
         sdsJnlp.setUrl(JNLP_URL);
