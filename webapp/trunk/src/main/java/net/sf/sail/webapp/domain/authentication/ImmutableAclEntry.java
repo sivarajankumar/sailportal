@@ -15,16 +15,31 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.dao.authentication;
+package net.sf.sail.webapp.domain.authentication;
 
-import net.sf.sail.webapp.dao.SimpleDao;
-import net.sf.sail.webapp.domain.authentication.ImmutableAclEntry;
+import net.sf.sail.webapp.domain.Persistable;
+
+import org.acegisecurity.acls.AccessControlEntry;
+import org.acegisecurity.acls.AuditableAccessControlEntry;
 
 /**
+ * Represents the Access Control List (ACL) entry (ACE) that grants permissions
+ * to a Security ID (SID) for a particular secured object.
+ * 
  * @author Cynick Young
  * 
  * @version $Id$
  */
-public interface AclEntryDao<T extends ImmutableAclEntry> extends SimpleDao<T> {
-
+public interface ImmutableAclEntry extends AccessControlEntry,
+        AuditableAccessControlEntry, Persistable {
+//
+//    /**
+//     * @return the aceOrder
+//     */
+//    public abstract Integer getAceOrder();
+//
+//    /**
+//     * @return the targetObjectIdentity
+//     */
+//    public abstract MutableAclTargetObjectIdentity getTargetObjectIdentity();
 }

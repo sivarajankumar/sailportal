@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.SimpleDao;
@@ -66,8 +67,10 @@ public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
 	 * @see net.sf.sail.webapp.dao.SimpleDao#getById(java.lang.Integer)
 	 */
 	@SuppressWarnings("unchecked")
-	public T getById(Long id) {
+	public T getById(Serializable id) {
+	    if (id instanceof Long || id instanceof Integer)
 		return (T) this.getHibernateTemplate().get(this.getDataObjectClass(), id);
+	    else throw new IllegalArgumentException();
 	}
 
 	/**

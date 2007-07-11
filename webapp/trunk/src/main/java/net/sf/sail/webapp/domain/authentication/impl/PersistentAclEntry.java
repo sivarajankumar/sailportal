@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.domain.authentication.impl;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,9 +32,14 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
-import net.sf.sail.webapp.domain.authentication.MutableAclEntry;
+import net.sf.sail.webapp.domain.authentication.ImmutableAclEntry;
 import net.sf.sail.webapp.domain.authentication.MutableAclSid;
 import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
+
+import org.acegisecurity.acls.Acl;
+import org.acegisecurity.acls.Permission;
+import org.acegisecurity.acls.domain.BasePermission;
+import org.acegisecurity.acls.sid.Sid;
 
 /**
  * Concrete implementation of <code>MutableAclEntry</code> marked with EJB3
@@ -46,39 +53,41 @@ import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
 @Table(name = PersistentAclEntry.DATA_STORE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = {
         PersistentAclEntry.COLUMN_NAME_TARGET_OBJECT_ID,
         PersistentAclEntry.COLUMN_NAME_ACE_ORDER }) })
-public class PersistentAclEntry implements MutableAclEntry {
+public class PersistentAclEntry implements ImmutableAclEntry, Serializable {
 
     @Transient
     private static final long serialVersionUID = 1L;
 
     @Transient
-    static final String DATA_STORE_NAME = "acl_entry";
+    public static final String DATA_STORE_NAME = "acl_entry";
 
     @Transient
     static final String COLUMN_NAME_TARGET_OBJECT_ID = "acl_object_identity";
 
     @Transient
-    static final String COLUMN_NAME_ACE_ORDER = "ace_order";
+    public static final String COLUMN_NAME_ACE_ORDER = "ace_order";
 
     @Transient
     static final String COLUMN_NAME_SID = "sid";
 
     @Transient
-    static final String COLUMN_NAME_MASK = "mask";
+    public static final String COLUMN_NAME_MASK = "mask";
 
     @Transient
-    static final String COLUMN_NAME_GRANTING = "granting";
+    public static final String COLUMN_NAME_GRANTING = "granting";
 
     @Transient
-    static final String COLUMN_NAME_AUDIT_SUCCESS = "audit_success";
+    public static final String COLUMN_NAME_AUDIT_SUCCESS = "audit_success";
 
     @Transient
-    static final String COLUMN_NAME_AUDIT_FAILURE = "audit_failure";
+    public static final String COLUMN_NAME_AUDIT_FAILURE = "audit_failure";
 
+    @SuppressWarnings("unused")
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = PersistentAclTargetObjectIdentity.class)
     @JoinColumn(name = COLUMN_NAME_TARGET_OBJECT_ID, nullable = false)
     private MutableAclTargetObjectIdentity targetObjectIdentity;
 
+    @SuppressWarnings("unused")
     @Column(name = COLUMN_NAME_ACE_ORDER, nullable = false)
     private Integer aceOrder;
 
@@ -86,8 +95,12 @@ public class PersistentAclEntry implements MutableAclEntry {
     @JoinColumn(name = COLUMN_NAME_SID, nullable = false)
     private MutableAclSid sid;
 
+    @SuppressWarnings("unused")
     @Column(name = COLUMN_NAME_MASK, nullable = false)
     private Integer mask;
+
+    @Transient
+    private Permission permission;
 
     @Column(name = COLUMN_NAME_GRANTING, nullable = false)
     private Boolean granting;
@@ -102,167 +115,165 @@ public class PersistentAclEntry implements MutableAclEntry {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @SuppressWarnings("unused")
     @Version
     @Column(name = "OPTLOCK")
     private Integer version = null;
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getAceOrder()
+     * @param targetObjectIdentity
+     * @param aceOrder
+     * @param sid
+     * @param permission
+     * @param granting
+     * @param auditSuccess
+     * @param auditFailure
      */
-    public Integer getAceOrder() {
-        return aceOrder;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setAceOrder(java.lang.Integer)
-     */
-    public void setAceOrder(Integer aceOrder) {
+    public PersistentAclEntry(
+            MutableAclTargetObjectIdentity targetObjectIdentity,
+            Integer aceOrder, MutableAclSid sid, Permission permission,
+            Boolean granting, Boolean auditSuccess, Boolean auditFailure) {
+        super();
+        this.targetObjectIdentity = targetObjectIdentity;
         this.aceOrder = aceOrder;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getAuditFailure()
-     */
-    public Boolean getAuditFailure() {
-        return auditFailure;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setAuditFailure(java.lang.Boolean)
-     */
-    public void setAuditFailure(Boolean auditFailure) {
+        this.sid = sid;
+        this.permission = permission;
+        this.mask = permission.getMask();
+        this.granting = granting;
+        this.auditSuccess = auditSuccess;
         this.auditFailure = auditFailure;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getAuditSuccess()
+     * @see org.acegisecurity.acls.AccessControlEntry#getAcl()
      */
-    public Boolean getAuditSuccess() {
-        return auditSuccess;
+    public Acl getAcl() {
+        // TODO CY Auto-generated method stub
+        return null;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setAuditSuccess(java.lang.Boolean)
+     * @see org.acegisecurity.acls.AccessControlEntry#getId()
      */
-    public void setAuditSuccess(Boolean auditSuccess) {
-        this.auditSuccess = auditSuccess;
+    public Serializable getId() {
+        return this.id;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getGranting()
+     * @see org.acegisecurity.acls.AccessControlEntry#getPermission()
      */
-    public Boolean getGranting() {
-        return granting;
+    public Permission getPermission() {
+        return this.permission;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setGranting(java.lang.Boolean)
+     * @see org.acegisecurity.acls.AccessControlEntry#getSid()
      */
-    public void setGranting(Boolean granting) {
-        this.granting = granting;
+    public Sid getSid() {
+        return this.sid;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getMask()
+     * @see org.acegisecurity.acls.AccessControlEntry#isGranting()
      */
-    public Integer getMask() {
-        return mask;
+    public boolean isGranting() {
+        return this.granting;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setMask(java.lang.Integer)
+     * @see org.acegisecurity.acls.AuditableAccessControlEntry#isAuditFailure()
      */
-    public void setMask(Integer mask) {
-        this.mask = mask;
+    public boolean isAuditFailure() {
+        return this.auditFailure;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getSid()
+     * @see org.acegisecurity.acls.AuditableAccessControlEntry#isAuditSuccess()
      */
-    public MutableAclSid getSid() {
-        return sid;
+    public boolean isAuditSuccess() {
+        return this.auditSuccess;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setSid(net.sf.sail.webapp.domain.authentication.MutableAclSid)
+     * @param targetObjectIdentity
+     *                the targetObjectIdentity to set
      */
-    public void setSid(MutableAclSid sid) {
-        this.sid = sid;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#getTargetObjectIdentity()
-     */
-    public MutableAclTargetObjectIdentity getTargetObjectIdentity() {
-        return targetObjectIdentity;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#setTargetObjectIdentity(net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity)
-     */
-    public void setTargetObjectIdentity(
+    @SuppressWarnings("unused")
+    private void setTargetObjectIdentity(
             MutableAclTargetObjectIdentity targetObjectIdentity) {
         this.targetObjectIdentity = targetObjectIdentity;
     }
 
+    /**
+     * @param aceOrder
+     *                the aceOrder to set
+     */
     @SuppressWarnings("unused")
-    private Long getId() {
-        return id;
+    private void setAceOrder(Integer aceOrder) {
+        this.aceOrder = aceOrder;
     }
 
+    /**
+     * @param sid
+     *                the sid to set
+     */
+    @SuppressWarnings("unused")
+    private void setSid(MutableAclSid sid) {
+        this.sid = sid;
+    }
+
+    /**
+     * @param mask
+     *                the mask to set
+     */
+    @SuppressWarnings("unused")
+    private void setMask(Integer mask) {
+        this.mask = mask;
+        this.permission = BasePermission.buildFromMask(mask);
+    }
+
+    /**
+     * @param granting
+     *                the granting to set
+     */
+    @SuppressWarnings("unused")
+    private void setGranting(Boolean granting) {
+        this.granting = granting;
+    }
+
+    /**
+     * @param auditSuccess
+     *                the auditSuccess to set
+     */
+    @SuppressWarnings("unused")
+    private void setAuditSuccess(Boolean auditSuccess) {
+        this.auditSuccess = auditSuccess;
+    }
+
+    /**
+     * @param auditFailure
+     *                the auditFailure to set
+     */
+    @SuppressWarnings("unused")
+    private void setAuditFailure(Boolean auditFailure) {
+        this.auditFailure = auditFailure;
+    }
+
+    /**
+     * @param id
+     *                the id to set
+     */
     @SuppressWarnings("unused")
     private void setId(Long id) {
         this.id = id;
     }
 
-    @SuppressWarnings("unused")
-    private Integer getVersion() {
-        return version;
-    }
-
+    /**
+     * @param version
+     *                the version to set
+     */
     @SuppressWarnings("unused")
     private void setVersion(Integer version) {
         this.version = version;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result
-                + ((aceOrder == null) ? 0 : aceOrder.hashCode());
-        result = PRIME
-                * result
-                + ((targetObjectIdentity == null) ? 0 : targetObjectIdentity
-                        .hashCode());
-        return result;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.domain.authentication.MutableAclEntry#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final PersistentAclEntry other = (PersistentAclEntry) obj;
-        if (aceOrder == null) {
-            if (other.aceOrder != null)
-                return false;
-        } else if (!aceOrder.equals(other.aceOrder))
-            return false;
-        if (targetObjectIdentity == null) {
-            if (other.targetObjectIdentity != null)
-                return false;
-        } else if (!targetObjectIdentity.equals(other.targetObjectIdentity))
-            return false;
-        return true;
     }
 }

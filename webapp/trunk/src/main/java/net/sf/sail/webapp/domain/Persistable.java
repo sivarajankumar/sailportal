@@ -29,7 +29,7 @@ public interface Persistable extends Serializable {
     /**
      * Primary identifier that is unique for each different object instance.
      * 
-     * @return <code>Long</code> numeric ID
+     * @return <code>Serializable</code> ID
      */
-    public abstract Long getId();
+    public abstract Serializable getId();
 }
