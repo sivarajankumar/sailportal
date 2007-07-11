@@ -27,19 +27,23 @@ import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclSid;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObject;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 
 import org.acegisecurity.GrantedAuthorityImpl;
+import org.acegisecurity.acls.objectidentity.ObjectIdentity;
+import org.easymock.EasyMock;
 
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HibernateAclTargetObjectIdentityDaoTest.java 612 2007-07-09
+ *          14:26:01Z cynick $
  */
 public class HibernateAclTargetObjectIdentityDaoTest
         extends
         AbstractTransactionalDaoTests<HibernateAclTargetObjectIdentityDao, MutableAclTargetObjectIdentity> {
 
-    private static final String CLASSNAME = "some class";
+    private static final String CLASSNAME = PersistentGroup.class.getName();
 
     private static final String AUTHORITY = "some authority";
 
@@ -94,6 +98,27 @@ public class HibernateAclTargetObjectIdentityDaoTest
             fail("UnsupportedOperationException expected");
         } catch (UnsupportedOperationException expected) {
         }
+    }
+
+    public void testRetrieveByObjectIdentity() {
+        this.verifyDataStoreIsEmpty();
+        // save the default granted authority object using dao
+        this.dao.save(this.dataObject);
+
+        ObjectIdentity objectIdentity = EasyMock
+                .createMock(ObjectIdentity.class);
+        EasyMock.expect(objectIdentity.getJavaType()).andReturn(
+                PersistentGroup.class);
+        EasyMock.expect(objectIdentity.getIdentifier()).andReturn(ID);
+        EasyMock.replay(objectIdentity);
+
+        MutableAclTargetObjectIdentity actual = this.dao
+                .retrieveByObjectIdentity(objectIdentity);
+        assertNotNull(actual);
+        assertEquals(CLASSNAME, actual.getJavaType().getName());
+        assertEquals(ID, actual.getIdentifier());
+        assertEquals(this.dataObject, actual);
+        EasyMock.verify(objectIdentity);
     }
 
     /**

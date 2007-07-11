@@ -260,6 +260,11 @@ public class PersistentAclTargetObjectIdentity implements
      * @see org.acegisecurity.acls.objectidentity.ObjectIdentity#getJavaType()
      */
     public Class<?> getJavaType() {
-        return this.getAclTargetObject().getClass();
+        try {
+            return Class.forName(this.getAclTargetObject().getClassname());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

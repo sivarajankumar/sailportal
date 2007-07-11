@@ -31,4 +31,6 @@ public interface AclTargetObjectIdentityDao<T extends MutableAclTargetObjectIden
         extends SimpleDao<T> {
 
     public T[] findChildren(ObjectIdentity parentIdentity);
+
+    public T retrieveByObjectIdentity(ObjectIdentity objectIdentity);
 }

@@ -10,6 +10,7 @@ public class AllTests {
                 "Test for net.sf.sail.webapp.domain.authentication.impl");
         //$JUnit-BEGIN$
         suite.addTestSuite(PersistentSidTest.class);
+        suite.addTestSuite(PersistentAclTargetObjectIdentityTest.class);
         //$JUnit-END$
         return suite;
     }
