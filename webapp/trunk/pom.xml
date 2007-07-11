@@ -110,7 +110,7 @@
                 <sendOnWarning>true</sendOnWarning>
                 <sendOnSuccess>true</sendOnSuccess>
                 <configuration>
-                    <address>hirochan@berkeley.edu</address>
+                    <address>honchikun@gmail.com</address>
                 </configuration>
             </notifier>
             <notifier>
