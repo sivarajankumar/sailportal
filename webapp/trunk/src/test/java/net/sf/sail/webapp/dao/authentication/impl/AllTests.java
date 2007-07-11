@@ -34,6 +34,7 @@ public class AllTests {
         //$JUnit-BEGIN$
         suite.addTestSuite(HibernateAclTargetObjectIdentityDaoTest.class);
         suite.addTestSuite(HibernateAclTargetObjectDaoTest.class);
+        suite.addTestSuite(HibernateAclEntryDaoTest.class);
         suite.addTestSuite(HibernateUserDetailsDaoTest.class);
         suite.addTestSuite(HibernateGrantedAuthorityDaoTest.class);
         suite.addTestSuite(HibernateAclSidDaoTest.class);
