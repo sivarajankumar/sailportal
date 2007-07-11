@@ -32,6 +32,7 @@ import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.easymock.EasyMock;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * @author Cynick Young
@@ -72,10 +73,10 @@ public class HibernateAclTargetObjectIdentityDaoTest
                 .getBean("mutableAclSid");
         this.ownerSid.setGrantedAuthority(new GrantedAuthorityImpl(AUTHORITY));
 
-        this.dataObject.setAclTargetObject(aclTargetObject);
+        this.dataObject.setAclTargetObject(this.aclTargetObject);
         this.dataObject.setAclTargetObjectId(ID);
         this.dataObject.setInheriting(Boolean.TRUE);
-        this.dataObject.setOwnerSid(ownerSid);
+        this.dataObject.setOwnerSid(this.ownerSid);
     }
 
     /**
@@ -166,6 +167,20 @@ public class HibernateAclTargetObjectIdentityDaoTest
                 .get(PersistentAclTargetObjectIdentity.COLUMN_NAME_TARGET_OBJECT_ID
                         .toUpperCase());
         assertEquals(ID, actualLongValue);
+
+        MutableAclTargetObjectIdentity duplicateObject = (MutableAclTargetObjectIdentity) this.applicationContext
+                .getBean("mutableAclTargetObjectIdentity");
+
+        duplicateObject.setAclTargetObject(this.aclTargetObject);
+        duplicateObject.setAclTargetObjectId(ID);
+        duplicateObject.setInheriting(Boolean.TRUE);
+        duplicateObject.setOwnerSid(this.ownerSid);
+
+        try {
+            this.dao.save(duplicateObject);
+            fail("DataIntegrityViolationException expected");
+        } catch (DataIntegrityViolationException expected) {
+        }
     }
 
     private List<?> retrieveSidListFromDb() {

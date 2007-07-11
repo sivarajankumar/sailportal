@@ -390,6 +390,10 @@
                 <constructor-arg ref="aclCache" />
             </bean>
         </property>
+        <property name="aclSidDao" ref="aclSidDao" />
+        <property name="aclTargetObjectDao" ref="aclTargetObjectDao" />
+        <property name="aclTargetObjectIdentityDao"
+            ref="aclTargetObjectIdentityDao" />
     </bean>
 
     <!--
@@ -504,5 +508,9 @@
     <bean id="mutableAclTargetObjectIdentity"
         class="net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity"
         scope="prototype" />
+        
+    <bean id="aclEntryDao" class="net.sf.sail.webapp.dao.authentication.impl.HibernateAclEntryDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 
 </beans>
