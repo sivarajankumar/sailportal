@@ -29,6 +29,8 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 
+import org.acegisecurity.annotation.Secured;
+
 /**
  * @author Hiroki Terashima
  * @version $Id$
@@ -49,6 +51,7 @@ public interface GroupService {
      * 
      * @return The Group that was created
      */
+//  @Secured( { "ROLE_TEACHER", "ROLE_ADMINISTRATOR", "ROLE_RESEARCHER", "ROLE_TA" })
     public Group createGroup(GroupParameters groupParameters);
 
     /**
@@ -137,6 +140,6 @@ INSERT INTO WORKGROUPS_RELATED_TO_USERS VALUES(2,2)
 INSERT INTO WORKGROUPS_RELATED_TO_USERS VALUES(3,1)
 INSERT INTO WORKGROUPS_RELATED_TO_USERS VALUES(4,1)
 */
-//    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
     public List<Group> getGroups();
 }

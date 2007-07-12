@@ -380,30 +380,11 @@
     </bean>
 
     <bean id="aclService"
-        class="net.sf.sail.webapp.service.authentication.impl.HibernateMutableAclService">
-        <property name="lookupStrategy" ref="lookupStrategy" />
-        <property name="objectIdentityDao" ref="objectIdentityDao" />
-        <property name="mutableAclService">
-            <bean class="org.acegisecurity.acls.jdbc.JdbcMutableAclService">
-                <constructor-arg ref="dataSource" />
-                <constructor-arg ref="lookupStrategy" />
-                <constructor-arg ref="aclCache" />
-            </bean>
-        </property>
-        <property name="aclSidDao" ref="aclSidDao" />
-        <property name="aclTargetObjectDao" ref="aclTargetObjectDao" />
-        <property name="aclTargetObjectIdentityDao"
-            ref="aclTargetObjectIdentityDao" />
-    </bean>
-
-    <!--
-        <bean id="aclService"
         class="org.acegisecurity.acls.jdbc.JdbcMutableAclService">
         <constructor-arg ref="dataSource" />
         <constructor-arg ref="lookupStrategy" />
         <constructor-arg ref="aclCache" />
-        </bean>
-    -->
+    </bean>
 
     <!-- ============== "AFTER INTERCEPTION" AUTHORIZATION DEFINITIONS =========== -->
 

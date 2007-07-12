@@ -62,18 +62,6 @@
             </roles>
             <timezone>-8</timezone>
         </developer>
-        <developer>
-            <id>cynick</id>
-            <name>Cynick Young</name>
-            <email>cynick.young@utoronto.ca</email>
-            <url>http://www.utoronto.ca/</url>
-            <organization>University of Toronto</organization>
-            <organizationUrl>http://www.utoronto.ca/</organizationUrl>
-            <roles>
-                <role>contributor</role>
-            </roles>
-            <timezone>-5</timezone>
-        </developer>
     </developers>
     <scm>
         <connection>
@@ -121,16 +109,6 @@
                 <sendOnSuccess>true</sendOnSuccess>
                 <configuration>
                     <address>aperritano@gmail.com</address>
-                </configuration>
-            </notifier>
-            <notifier>
-                <type>mail</type>
-                <sendOnError>true</sendOnError>
-                <sendOnFailure>true</sendOnFailure>
-                <sendOnWarning>true</sendOnWarning>
-                <sendOnSuccess>true</sendOnSuccess>
-                <configuration>
-                    <address>cynick.young@utoronto.ca</address>
                 </configuration>
             </notifier>
         </notifiers>

@@ -26,24 +26,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.sail.webapp.dao.authentication.AclEntryDao;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.authentication.ImmutableAclEntry;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentAclEntry;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 import net.sf.sail.webapp.service.group.GroupService;
 
+import org.acegisecurity.acls.AlreadyExistsException;
 import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
+import org.acegisecurity.acls.NotFoundException;
 import org.acegisecurity.acls.domain.BasePermission;
 import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
 import org.acegisecurity.acls.sid.PrincipalSid;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -55,8 +55,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class GroupServiceImpl implements GroupService {
 
     private GroupDao<Group> groupDao;
-    
-//    private AclEntryDao<ImmutableAclEntry> aclEntryDao;
 
     private MutableAclService mutableAclService;
 
@@ -73,7 +71,8 @@ public class GroupServiceImpl implements GroupService {
     /**
      * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.impl.GroupParameters)
      */
-    @Transactional()
+    @Transactional(rollbackFor = { AlreadyExistsException.class,
+            NotFoundException.class, DataIntegrityViolationException.class })
     public Group createGroup(GroupParameters groupParameters) {
         Group group = new PersistentGroup();
         group.setName(groupParameters.getName());
@@ -84,19 +83,12 @@ public class GroupServiceImpl implements GroupService {
         }
         this.groupDao.save(group);
 
-        // TODO - CY add the acl entry when creating groups
         MutableAcl acl = this.mutableAclService
                 .createAcl(new ObjectIdentityImpl(group.getClass(), group
                         .getId()));
-        
-        
-//        ImmutableAclEntry aclEntry = new PersistentAclEntry(acl.getObjectIdentity(),
-//                aceOrder, acl.getOwner(), permission, granting, auditSuccess, auditFailure);
-//        this.aclEntryDao.save(aclEntry);
-//  
-//        acl.insertAce(null, BasePermission.ADMINISTRATION, new PrincipalSid(
-//                SecurityContextHolder.getContext().getAuthentication()), true);
-//        this.mutableAclService.updateAcl(acl);
+        acl.insertAce(null, BasePermission.ADMINISTRATION, new PrincipalSid(
+                SecurityContextHolder.getContext().getAuthentication()), true);
+        this.mutableAclService.updateAcl(acl);
 
         return group;
     }
@@ -184,12 +176,4 @@ public class GroupServiceImpl implements GroupService {
     public void setGroupDao(GroupDao<Group> groupDao) {
         this.groupDao = groupDao;
     }
-    
-//    /**
-//     * @param aclEntryDao the aclEntryDao to set
-//     */
-//    @Required
-//    private void setAclEntryDao(AclEntryDao<ImmutableAclEntry> aclEntryDao) {
-//        this.aclEntryDao = aclEntryDao;
-//    }
 }
