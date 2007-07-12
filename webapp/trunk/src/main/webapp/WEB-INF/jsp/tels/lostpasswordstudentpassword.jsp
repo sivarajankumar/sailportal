@@ -39,7 +39,7 @@
 <ol>
 <li> <spring:message code="lostpassword.ask-teacher" /></li>
 <li> <spring:message code="lostpassword.create-new-password" />
-<a href="lostpasswordstudentpasswordreminder1.html"><spring:message code="lostpassword.reminder" /></a>
+<a href="lostpasswordstudentreminderwizard.html"><spring:message code="lostpassword.reminder" /></a>
 <spring:message code="lostpassword.question" />
 </li>
 </ol>
