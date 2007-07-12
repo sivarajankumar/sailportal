@@ -26,8 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.authentication.AclEntryDao;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.authentication.ImmutableAclEntry;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentAclEntry;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
@@ -52,6 +55,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class GroupServiceImpl implements GroupService {
 
     private GroupDao<Group> groupDao;
+    
+//    private AclEntryDao<ImmutableAclEntry> aclEntryDao;
 
     private MutableAclService mutableAclService;
 
@@ -80,9 +85,15 @@ public class GroupServiceImpl implements GroupService {
         this.groupDao.save(group);
 
         // TODO - CY add the acl entry when creating groups
-//        MutableAcl acl = this.mutableAclService
-//                .createAcl(new ObjectIdentityImpl(group.getClass(), group
-//                        .getId()));
+        MutableAcl acl = this.mutableAclService
+                .createAcl(new ObjectIdentityImpl(group.getClass(), group
+                        .getId()));
+        
+        
+//        ImmutableAclEntry aclEntry = new PersistentAclEntry(acl.getObjectIdentity(),
+//                aceOrder, acl.getOwner(), permission, granting, auditSuccess, auditFailure);
+//        this.aclEntryDao.save(aclEntry);
+//  
 //        acl.insertAce(null, BasePermission.ADMINISTRATION, new PrincipalSid(
 //                SecurityContextHolder.getContext().getAuthentication()), true);
 //        this.mutableAclService.updateAcl(acl);
@@ -173,4 +184,12 @@ public class GroupServiceImpl implements GroupService {
     public void setGroupDao(GroupDao<Group> groupDao) {
         this.groupDao = groupDao;
     }
+    
+//    /**
+//     * @param aclEntryDao the aclEntryDao to set
+//     */
+//    @Required
+//    private void setAclEntryDao(AclEntryDao<ImmutableAclEntry> aclEntryDao) {
+//        this.aclEntryDao = aclEntryDao;
+//    }
 }

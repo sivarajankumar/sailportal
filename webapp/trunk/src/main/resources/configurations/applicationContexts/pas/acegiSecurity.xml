@@ -390,12 +390,10 @@
                 <constructor-arg ref="aclCache" />
             </bean>
         </property>
-<!--
         <property name="aclSidDao" ref="aclSidDao" />
         <property name="aclTargetObjectDao" ref="aclTargetObjectDao" />
         <property name="aclTargetObjectIdentityDao"
             ref="aclTargetObjectIdentityDao" />
--->
     </bean>
 
     <!--
