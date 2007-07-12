@@ -73,6 +73,21 @@
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
 	    </bean>
 
+
+	<bean id="lostPasswordStudentReminderWizardController" 
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">
+	   <property name="userService" ref="userService" />
+	    <property name="commandName" value="reminderParameters" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.ReminderParameters" />
+	    </bean>
+
+	 <bean id="reminderParameters"
+        class="org.telscenter.sail.webapp.domain.impl.ReminderParameters"
+        scope="prototype" />
+	
+
+
     <bean id="runParameters"
         class="org.telscenter.sail.webapp.domain.impl.RunParameters"
         scope="prototype" />
@@ -123,33 +138,6 @@
 			value="lostpasswordstudentprojectcoderesult.html" />
 	</bean>
 
-	<bean id="lostPasswordStudentPasswordReminder1Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordReminder1Controller">
-		<property name="userService" ref="userService" />
-		<property name="commandName" value="userDetails" />
-		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
-		<property name="validator"
-			ref="lostPasswordStudentUsernameValidator" />
-		<property name="formView"
-			value="lostpasswordstudentpasswordreminder1" />
-		<property name="successView"
-			value="lostpasswordstudentpasswordreminder2" />
-	</bean>
-
-	<bean id="lostPasswordStudentPasswordReminder2Controller"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentPasswordReminder2Controller">
-		<property name="userService" ref="userService" />
-		<property name="commandName" value="userDetails" />
-		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
-		<property name="validator"
-			ref="lostPasswordStudentAccountQuestionValidator" />
-		<property name="formView"
-			value="lostpasswordstudentpasswordreminder2" />
-		<property name="successView"
-			value="lostpasswordstudentpasswordreminder3" />
-	</bean>
 
 	<bean id="enterProjectCodeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.EnterProjectCodeController" />
