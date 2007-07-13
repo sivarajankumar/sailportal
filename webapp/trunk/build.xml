@@ -262,10 +262,7 @@
               failifexecutionfails="true"
         >
             <arg value="clean" />
-            <arg value="compile" />
-<!--
             <arg value="test" />
--->
             <arg value="resources:resources" />
         </exec>
         <!-- this should work for Microsoft Windows NT-based systems, including Windows 2000, XP and successors -->
