@@ -24,6 +24,10 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentAclEntry;
 
 /**
  * A dao for PersistentAclEntry.
+ * This class is not being used. Tried to implement Hibernate versions of the acl
+ * services and became bogged down, so went back to jdbc versions. Keeping this
+ * class around in case we want to try again later.
+ * 
  * 
  * @author Cynick Young
  *

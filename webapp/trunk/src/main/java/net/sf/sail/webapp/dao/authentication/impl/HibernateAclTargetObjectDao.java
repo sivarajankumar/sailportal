@@ -25,6 +25,10 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObject;
 import org.springframework.dao.support.DataAccessUtils;
 
 /**
+ * This class is not being used. Tried to implement Hibernate versions of the acl
+ * services and became bogged down, so went back to jdbc versions. Keeping this
+ * class around in case we want to try again later.
+ * 
  * @author Cynick Young
  * 
  * @version $Id: HibernateAclTargetObjectDao.java 612 2007-07-09 14:26:01Z

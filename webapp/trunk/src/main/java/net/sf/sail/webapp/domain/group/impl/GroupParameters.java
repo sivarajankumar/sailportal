@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.domain.group.impl;
 
-import java.util.Set;
 
 /**
  * @author Laurel Williams

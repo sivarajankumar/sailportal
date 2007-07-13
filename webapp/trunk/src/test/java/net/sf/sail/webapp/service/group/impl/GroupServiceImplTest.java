@@ -22,19 +22,13 @@
  */
 package net.sf.sail.webapp.service.group.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
-import net.sf.sail.webapp.domain.group.impl.GroupParameters;
-import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
-import net.sf.sail.webapp.service.group.CyclicalGroupException;
 
 import org.easymock.EasyMock;
 
@@ -46,12 +40,12 @@ public class GroupServiceImplTest extends TestCase {
 
 	private GroupDao<Group> mockGroupDao;
 
-	private Group group1, group2, group3;
+//	private Group group1, group2, group3;
 
 	private GroupServiceImpl groupServiceImpl;
 
-	private final String[] DEFAULT_GROUP_NAMES = { "Period 1", "Period 2",
-			"My Science Class" };
+//	private final String[] DEFAULT_GROUP_NAMES = { "Period 1", "Period 2",
+//			"My Science Class" };
 
 	private User user1, user2, user3;
 
@@ -73,9 +67,9 @@ public class GroupServiceImplTest extends TestCase {
 		this.mockGroupDao = EasyMock.createMock(GroupDao.class);
 		this.groupServiceImpl.setGroupDao(this.mockGroupDao);
 
-		this.group1 = new PersistentGroup();
-		this.group2 = new PersistentGroup();
-		this.group3 = new PersistentGroup();
+//		this.group1 = new PersistentGroup();
+//		this.group2 = new PersistentGroup();
+//		this.group3 = new PersistentGroup();
 		this.user1 = new UserImpl();
 		this.user2 = new UserImpl();
 		this.user3 = new UserImpl();
@@ -101,9 +95,9 @@ public class GroupServiceImplTest extends TestCase {
 		this.groupServiceImpl = null;
 		this.mockGroupDao = null;
 
-		this.group1 = null;
-		this.group2 = null;
-		this.group3 = null;
+//		this.group1 = null;
+//		this.group2 = null;
+//		this.group3 = null;
 		this.user1 = null;
 		this.user2 = null;
 		this.user3 = null;

@@ -33,7 +33,6 @@ public class AllTests {
                 "Test for net.sf.sail.webapp.service.authentication.impl");
         //$JUnit-BEGIN$
         suite.addTestSuite(UserDetailsServiceImplTest.class);
-        suite.addTestSuite(HibernateMutableAclServiceTest.class);
         //$JUnit-END$
         return suite;
     }
