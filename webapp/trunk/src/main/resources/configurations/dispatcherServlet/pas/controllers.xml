@@ -44,6 +44,7 @@
 	<bean
 		class="net.sf.sail.webapp.presentation.web.controllers.groups.AddgroupController">
 		<property name="groupService" ref="groupService" />
+		<property name="userService" ref="userService" />
 		<property name="commandName" value="groupParameters" />
 		<property name="commandClass"
 			value="net.sf.sail.webapp.domain.group.impl.GroupParameters" />

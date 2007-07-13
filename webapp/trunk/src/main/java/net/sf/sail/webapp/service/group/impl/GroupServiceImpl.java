@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.group.GroupDao;
+import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
@@ -55,6 +56,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class GroupServiceImpl implements GroupService {
 
     private GroupDao<Group> groupDao;
+    
+    private UserDao<User> userDao;
 
     private MutableAclService mutableAclService;
 
@@ -76,11 +79,17 @@ public class GroupServiceImpl implements GroupService {
     public Group createGroup(GroupParameters groupParameters) {
         Group group = new PersistentGroup();
         group.setName(groupParameters.getName());
+        
         Long parentId = groupParameters.getParentId();
         if (parentId != 0) {
             Group parentGroup = this.groupDao.getById(parentId);
             group.setParent(parentGroup);
         }
+        
+        for (Long memberId : groupParameters.getMemberIds()) {
+        	group.addMember(this.userDao.getById(memberId));
+        }
+        
         this.groupDao.save(group);
 
         MutableAcl acl = this.mutableAclService
@@ -176,4 +185,14 @@ public class GroupServiceImpl implements GroupService {
     public void setGroupDao(GroupDao<Group> groupDao) {
         this.groupDao = groupDao;
     }
+
+	/**
+	 * @param userDao the userDao to set
+	 */
+    @Required
+	public void setUserDao(UserDao<User> userDao) {
+		this.userDao = userDao;
+	}
+    
+    
 }

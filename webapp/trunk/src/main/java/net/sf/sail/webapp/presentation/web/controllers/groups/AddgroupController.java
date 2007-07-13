@@ -46,6 +46,7 @@ public class AddgroupController extends SimpleFormController {
 	/**
 	 * @param userService the userService to set
 	 */
+	@Required
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
@@ -65,9 +66,9 @@ public class AddgroupController extends SimpleFormController {
 	@Override
 	protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
 		ModelAndView modelAndView = super.showForm(request, response, bindException);
-//		TODO would like to sort these by parent group
+//		TODO would like to sort groups by parent group
         modelAndView.addObject("grouplist", this.groupService.getGroups());
-//        modelAndView.addObject("userlist", this.userService.getUsers());
+        modelAndView.addObject("userlist", this.userService.retrieveAllUsers());
 		return modelAndView;
 	}
 

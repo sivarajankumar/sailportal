@@ -33,7 +33,7 @@ public class GroupParameters {
 
 	private Long parentId = new Long(0);
 	
-	private Set<Long> memberIds;
+	private Long[] memberIds;
 
 	/**
 	 * @return the name
@@ -68,8 +68,18 @@ public class GroupParameters {
 	/**
 	 * @return the memberIds
 	 */
-	public Set<Long> getMemberIds() {
+	public Long[] getMemberIds() {
 		return memberIds;
 	}
+	
+	/**
+	 * This method is required for use via jsp to populate the member ids.
+	 * 
+	 * @param memberIds the memberIds to set
+	 */
+	public void setMemberIds(Long[] memberIds) {
+		this.memberIds = memberIds;
+	}
+
 	
 }

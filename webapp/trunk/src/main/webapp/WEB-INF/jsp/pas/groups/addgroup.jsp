@@ -36,8 +36,7 @@
 <div id="left"><%@ include file="../includes/menu.jsp"%>
 </div>
 
-<div id="right"><form:form method="post" action="addgroup.html"
-	commandName="groupParameters">
+<div id="right"><form:form method="post" action="addgroup.html" commandName="groupParameters">
 	<label for="group_name"><spring:message code="group.name.label" /></label>
 	<form:input path="name" id="group_name" />
 	<form:errors path="name" />
@@ -50,7 +49,7 @@
 	<c:forEach var="user" items="${userlist}">
 		<form:checkbox path="memberIds" value="${user.id}"
 			id="user_${user.id}" />
-		<label for="user_${member.id}">${user.name}</label>
+		<label for="user_${user.id}">${user.userDetails.username}</label>
 	</c:forEach>
 	<input type="submit"
 		value="<spring:message code="group.add.submit.label" />" />
