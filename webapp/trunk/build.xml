@@ -212,7 +212,7 @@
             depends="_mvn.compile, db.create"
             description="Initialize a production database with user role and default administrator account."
     >
-        <java classname="net.sf.sail.webapp.Initializer"
+        <java classname="${init.classname}"
               fork="true"
               failonerror="true"
               newenvironment="true"
@@ -262,7 +262,10 @@
               failifexecutionfails="true"
         >
             <arg value="clean" />
+            <arg value="compile" />
+<!--
             <arg value="test" />
+-->
             <arg value="resources:resources" />
         </exec>
         <!-- this should work for Microsoft Windows NT-based systems, including Windows 2000, XP and successors -->
