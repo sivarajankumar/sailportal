@@ -47,7 +47,7 @@
   <tr bgcolor="#CCCCCC"><td><b><spring:message code="curnit.name.heading" /></b></td></tr>
 <c:forEach var="curnit" items="${curnitlist}">
   <tr bgcolor="#FFFF88">
-  <td><b><a href="<c:url value="setuprun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
+  <td><b><a href="<c:url value="createrun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
 	  <font color="BLACK"><c:out value="${curnit.sdsCurnit.name}"/></font>
   </a></b></td>
   </tr>
