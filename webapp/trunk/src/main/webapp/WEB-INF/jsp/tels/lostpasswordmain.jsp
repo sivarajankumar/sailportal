@@ -35,7 +35,7 @@
 <h1 class="center"><spring:message code="wise.lost-username-or-password" /></h1>
 <h2 class="center"><spring:message code="wise.type-of-account" /></h2>
 <div id="verticalNavigation" class="center">
-<ul class="bigFont2 north_2">
+<ul class="bigFont2 north3">
 <li><a href="lostpasswordstudentmain.html"><spring:message code="signup.studentAccount" /></a></li> 
 <li><a href="lostpasswordteachermain.html"><spring:message code="signup.teacherAccount" /></a></li>
 </ul>
