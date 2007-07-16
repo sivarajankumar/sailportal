@@ -166,7 +166,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos3',1)" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(2,counter,'Action');
-prevClick = getPrevClick(prevClick,1,oldCtr);" 
+prevClick = getPrevClick(prevClick,2,oldCtr);" 
 onmouseout="onOrOff(prevClick,2,'imgPos3')" 
 />
 <img id="imgPos4" class="dynamicImage" 
@@ -174,7 +174,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos4',1)" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(3,counter,'Action');
-prevClick = getPrevClick(prevClick,1,oldCtr);" 
+prevClick = getPrevClick(prevClick,3,oldCtr);" 
 onmouseout="onOrOff(prevClick,3,'imgPos4')" 
 />
 <img id="imgPos5" class="dynamicImage" 
@@ -182,7 +182,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos5',1)" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(4,counter,'Action');
-prevClick = getPrevClick(prevClick,1,oldCtr);" 
+prevClick = getPrevClick(prevClick,4,oldCtr);" 
 onmouseout="onOrOff(prevClick,4,'imgPos5')" 
 />
 <img id="imgPos6" class="dynamicImage" 
@@ -190,7 +190,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos6',1)" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(5,counter,'Action');
-prevClick = getPrevClick(prevClick,1,oldCtr);" 
+prevClick = getPrevClick(prevClick,5,oldCtr);" 
 onmouseout="onOrOff(prevClick,5,'imgPos6')" 
 />
 <img id="imgPos7" class="dynamicImage" 
@@ -198,7 +198,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos7',1)" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(6,counter,'Action');
-prevClick = getPrevClick(prevClick,1,oldCtr);" 
+prevClick = getPrevClick(prevClick,6,oldCtr);" 
 onmouseout="onOrOff(prevClick,6,'imgPos7')" 
 />
 <img id="imgPos8" class="dynamicImage" 
@@ -206,7 +206,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos8',1)" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(7,counter,'Action');
-prevClick = getPrevClick(prevClick,1,oldCtr);" 
+prevClick = getPrevClick(prevClick,7,oldCtr);" 
 onmouseout="onOrOff(prevClick,7,'imgPos8')" 
 />
 <img id="imgPos9" class="dynamicImage" 
@@ -214,7 +214,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos9',1)" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(8,counter,'Action');
-prevClick = getPrevClick(prevClick,1,oldCtr);" 
+prevClick = getPrevClick(prevClick,8,oldCtr);" 
 onmouseout="onOrOff(prevClick,8,'imgPos9')" 
 />
 <img id="imgPos10" class="dynamicImage" 
@@ -222,7 +222,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos10',1)" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(9,counter,'Action');
-prevClick = getPrevClick(prevClick,1,oldCtr);" 
+prevClick = getPrevClick(prevClick,9,oldCtr);" 
 onmouseout="onOrOff(prevClick,9,'imgPos10')" 
 />
 <img id="imgPos11" class="dynamicImage" src="<spring:theme code="arrow_next" />" 
