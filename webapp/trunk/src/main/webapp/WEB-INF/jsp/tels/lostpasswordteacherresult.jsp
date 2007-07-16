@@ -40,7 +40,7 @@
 <li><spring:message code="lostpassword.teacher.new-password" />
 <spring:message code="lostpassword.teacher.emailed" /></li>
 <li><spring:message code="lostpassword.teacher.issues" />
-<a href="#"><spring:message code="lostpassword.teacher.contact-wise" /></li>
+<a href="#"><spring:message code="lostpassword.teacher.contact-wise" /></a></li>
 
 </ul>
 
