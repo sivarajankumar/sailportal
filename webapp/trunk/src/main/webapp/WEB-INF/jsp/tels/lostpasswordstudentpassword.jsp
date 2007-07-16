@@ -1,4 +1,4 @@
-`<%@ include file="include.jsp"%>
+<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -48,6 +48,7 @@
 <ul>
 <li><a href="index.html"><spring:message code="wise.return-to-sign-in" /></a></li>
 </ul>
+</div>
 </div>
 </body>
 </html>
