@@ -249,23 +249,34 @@ onmouseout="this.style.cursor='default';" />
 <img id="rotatorT" class="right4 north0 marginVerAdj1 " src="<spring:theme code="wise_action" />" />
 <img id="imgPos12" class="dynamicImage" src="<spring:theme code="arrow_prev" />" 
 onmouseover="this.style.cursor='pointer';" 
-onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;counter_T=proceedToPreviousImage_T(firstLClicked_T,counter_T);"
+onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;"
 onmousedown="this.style.cursor='pointer';" 
 onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" />
-<img id="imgPos13" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos14" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos15" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos16" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos17" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos18" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos19" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos20" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos21" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos22" class="dynamicImage" src="<spring:theme code="circle_unselected" />" />
-<img id="imgPos23" class="dynamicImage" src="<spring:theme code="arrow_next" />" 
+<img id="imgPos13" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos14" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos15" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos16" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos17" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos18" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos19" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos20" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos21" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos22" class="dynamicImage" 
+src="<spring:theme code="circle_unselected" />" />
+<img id="imgPos23" class="dynamicImage" 
+src="<spring:theme code="arrow_next" />" 
 onmouseover="this.style.cursor='pointer';" 
-onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;counter_T=proceedToNextImage_T(firstRClicked_T,counter_T);"
+onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;"
 onmousedown="this.style.cursor='pointer';" 
 onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" />
