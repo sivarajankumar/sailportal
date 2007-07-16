@@ -33,8 +33,7 @@
 <%@ include file="header.jsp"%>
 <div class="center">
 <object width="700" height="500">
-<embed src="./flash/tels/WISE_Slideshow.swf" width="700" height="500">
-</embed>
+<embed src="./flash/tels/WISE_Slideshow.swf" width="700" height="500" />
 </object>
 
 </div>
