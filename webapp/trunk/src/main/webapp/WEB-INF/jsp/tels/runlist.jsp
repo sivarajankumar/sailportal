@@ -45,29 +45,25 @@
 <table border="1">
   <thead>
     <tr>
-      <th><spring:message code="offering.name.heading" /></th>
-      <th><spring:message code="offering.workgroup.heading" /></th>
-      <th><spring:message code="offering.link.heading" /></th>
+      <th><spring:message code="run.name.heading" /></th>
+      <th><spring:message code="run.options.heading" /></th>
     </tr>
   </thead>
-  <c:forEach var="offering" items="${offering_list}">
+  <c:forEach var="run" items="${run_list}">
   <tr>
-    <td><a href="<c:url value="/offering.html"><c:param name="offeringId" value="${offering.id}"/></c:url>">${offering.sdsOffering.name}</a></td>
-    <td>
+    <td>${run.sdsOffering.name}</td>
+    <td><a href="authoringjnlplauncher.html?curnit_url=${run.sdsOffering.sdsCurnit.url}"><spring:message code="edit.curnit" /></a>
       <c:choose>
-        <c:when test="${fn:length(workgroup_map[offering]) == 0}" >
+        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
         <spring:message code="no.workgroups" />
         </c:when>
         <c:otherwise>
-          <ul>
-            <c:forEach var="workgroup" items="${workgroup_map[offering]}">
-              <li><a href="${http_transport.baseUrl}/offering/${offering.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a></li>
+            <c:forEach var="workgroup" items="${workgroup_map[run]}">
+              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a><br />
             </c:forEach>
-          </ul>
         </c:otherwise>
       </c:choose>
     </td>
-    <td><spring:message code="create.workgroup.link" /></td>
    </tr>
   </c:forEach>
 </table>
