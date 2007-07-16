@@ -15,12 +15,24 @@ var firstRClicked_T = 0;
 
 //obtained the tips on rotating Images, source code from http://www.communitymx.com/content/article.cfm?cid=651FF
 // Comma separated list of images to rotate
-var imgs = new Array('./themes/tels/default/images/wiseInAction/kidsOnComputer.jpg','./themes/tels/default/images/wiseInAction/kidsinaquarium.jpg','./themes/tels/default/images/wiseInAction/csiScreenshot.jpg','./themes/tels/default/images/wiseInAction/Studentputdata.jpg','./themes/tels/default/images/wiseInAction/AirBag.jpg',
-'./themes/tels/default/images/wiseInAction/Reflection.jpg','./themes/tels/default/images/wiseInAction/PondSim.jpg','./themes/tels/default/images/wiseInAction/OnlineDiscussion.jpg',
+var imgs = new Array('./themes/tels/default/images/wiseInAction/kidsOnComputer.jpg','./themes/tels/default/images/wiseInAction/kidsinaquarium.jpg','./themes/tels/default/images/wiseInAction/csiScreenshot.jpg','./themes/tels/default/images/wiseInAction/Studentputdata.jpg','./themes/tels/default/images/wiseInAction/AirBag.jpg','./themes/tels/default/images/wiseInAction/Reflection.jpg','./themes/tels/default/images/wiseInAction/PondSim.jpg','./themes/tels/default/images/wiseInAction/OnlineDiscussion.jpg',
 './themes/tels/default/images/wiseInAction/MolecularModel.jpg','./themes/tels/default/images/wiseInAction/SkinCells.jpg');
 
-var imgAr = new Array("images/Action-Button-White.png",
-"images/Action-Button-Red.png");
+var imgAr = new Array("./themes/tels/default/images/wiseInAction/Action-Button-White.png","./themes/tels/default/images/wiseInAction/Action-Button-Yellow.png",
+"./themes/tels/default/images/wiseInAction/Action-Button-Red.png");
+
+var wiseButtons = new Array("./themes/tels/default/images/Overview-of-WISE-button.png",
+							"./themes/tels/default/images/Overview-of-WISE-button-rollover.png",
+							"./themes/tels/default/images/preview_wise.png",
+							"./themes/tels/default/images/preview_wise_rollover.png",
+							"./themes/tels/default/images/common_questions.png",
+							"./themes/tels/default/images/common_questions_rollover.png",
+							"./themes/tels/default/images/join_wise.png",
+							"./themes/tels/default/images/join_wise_rollover.png");
+
+var signInButtons = new Array("./themes/tels/default/images/sign_in.png",
+							  "./themes/tels/default/images/sign_in_rollover.png");
+							
 if(document.images){
 var imgs2 = new Array();
   for(var i = 0; i < imgAr.length; i++){
@@ -82,16 +94,16 @@ function MM_swapImage() { //v3.01
 
 function colorImage(old,num){
   switch(old){
-	    case 1: document.circles.src = imgs2[num].src; break;
-		case 2: document.circles2.src = imgs2[num].src; break;
-		case 3: document.circles3.src = imgs2[num].src; break;
-		case 4: document.circles4.src = imgs2[num].src; break;
-		case 5: document.circles5.src = imgs2[num].src; break;
-		case 6: document.circles6.src = imgs2[num].src; break;
-		case 7: document.circles7.src = imgs2[num].src; break;
-		case 8: document.circles8.src = imgs2[num].src; break;
-		case 9: document.circles9.src = imgs2[num].src; break;
-		case 10: document.circles10.src = imgs2[num].src; break;
+	    case 1: document.getElementById('imgPos1').src = imgs2[num].src; break;
+		case 2: document.getElementById('imgPos2').src = imgs2[num].src; break;
+		case 3: document.getElementById('imgPos3').src = imgs2[num].src; break;
+		case 4: document.getElementById('imgPos4').src = imgs2[num].src; break;
+		case 5: document.getElementById('imgPos5').src = imgs2[num].src; break;
+		case 6: document.getElementById('imgPos6').src = imgs2[num].src; break;
+		case 7: document.getElementById('imgPos7').src = imgs2[num].src; break;
+		case 8: document.getElementById('imgPos8').src = imgs2[num].src; break;
+		case 9: document.getElementById('imgPos9').src = imgs2[num].src; break;
+		case 10: document.getElementById('imgPos10').src = imgs2[num].src; break;
 		default: break;
   }
 }
@@ -132,12 +144,12 @@ function setRClicked_T(){
     return firstRClicked_T;
 }
 
-function onOrOff(prevClick,ind,name){
+function onOrOff(prevClick,ind,id){
    var onOff = 0;
    if(prevClick==ind){
-     onOff = 1;
+     onOff = 2;
    }
-   swapImage(name,onOff);
+   swapImage(id,onOff);
 }
 
 function onOrOff_T(prevClick_T,ind,name){
@@ -148,74 +160,22 @@ function onOrOff_T(prevClick_T,ind,name){
   swapImage(name,onOff);
 }
 
-function swapImage(name,num){
+function swapImage(id,num){
    if(document.images){
-    switch(name){
-	 case 'circles':
-		document.circles.src = imgs2[num].src;
-		break;
-	 case 'circles2':
-	    document.circles2.src = imgs2[num].src;
-		break;
-     case 'circles3':
-	    document.circles3.src = imgs2[num].src;
-		break;
-	 case 'circles4':
-	    document.circles4.src = imgs2[num].src;
-		break;
-	 case 'circles5':
-	    document.circles5.src = imgs2[num].src;
-		break;
-	 case 'circles6':
-	    document.circles6.src = imgs2[num].src;
-		break;
-	 case 'circles7':
-   	    document.circles7.src = imgs2[num].src;
-		break;
-	 case 'circles8':
-	    document.circles8.src = imgs2[num].src;
-		break;
-	 case 'circles9':
-  	    document.circles9.src = imgs2[num].src;
-		break;
-	 case 'circles10':
-	    document.circles10.src = imgs2[num].src;
-		break;
-	 case 'circles11':
-		document.circles11.src = imgs2[num].src;
-		break;
-	 case 'circles12':
-	    document.circles12.src = imgs2[num].src;
-		break;
-     case 'circles13':
-	    document.circles13.src = imgs2[num].src;
-		break;
-	 case 'circles14':
-	    document.circles14.src = imgs2[num].src;
-		break;
-	 case 'circles15':
-	    document.circles15.src = imgs2[num].src;
-		break;
-	 case 'circles16':
-	    document.circles16.src = imgs2[num].src;
-		break;
-	 case 'circles17':
-   	    document.circles17.src = imgs2[num].src;
-		break;
-	 case 'circles18':
-	    document.circles18.src = imgs2[num].src;
-		break;
-	 case 'circles19':
-  	    document.circles19.src = imgs2[num].src;
-		break;
-	 case 'circles20':
-	    document.circles20.src = imgs2[num].src;
-		break;
+   		document.getElementById(id).src = imgs2[num].src;
+	}
+}
 
-	default:
-	    break;
-   }
-  }
+function swapSignIn(id,num){
+	if(document.images){
+		document.getElementById(id).src=signInButtons[num];
+	}
+}
+
+function swapWiseImage(id,num){
+	if(document.images){
+		document.getElementById(id).src=wiseButtons[num];
+	}
 }
 
 function swapBigImage(index,counter,whichAction){
@@ -236,21 +196,20 @@ function getPrevClick(prevClick,curr,oldCtr){
 			prevClick = oldCtr-1;
       }
 	  switch(prevClick){
-	      case 0: document.circles.src = imgs2[0].src; break;
-		  case 1: document.circles2.src = imgs2[0].src; break;
-		  case 2: document.circles3.src = imgs2[0].src; break;
-		  case 3: document.circles4.src = imgs2[0].src; break;
-		  case 4: document.circles5.src = imgs2[0].src; break;
-		  case 5: document.circles6.src = imgs2[0].src; break;
-		  case 6: document.circles7.src = imgs2[0].src; break;
-		  case 7: document.circles8.src = imgs2[0].src; break;
-		  case 8: document.circles9.src = imgs2[0].src; break;
-		  case 9: document.circles10.src = imgs2[0].src; break;
+	      case 0: document.getElementById('imgPos1').src = imgs2[0].src; break;
+		  case 1: document.getElementById('imgPos2').src = imgs2[0].src; break;
+		  case 2: document.getElementById('imgPos3').src = imgs2[0].src; break;
+		  case 3: document.getElementById('imgPos4').src = imgs2[0].src; break;
+		  case 4: document.getElementById('imgPos5').src = imgs2[0].src; break;
+		  case 5: document.getElementById('imgPos6').src = imgs2[0].src; break;
+		  case 6: document.getElementById('imgPos7').src = imgs2[0].src; break;
+		  case 7: document.getElementById('imgPos8').src = imgs2[0].src; break;
+		  case 8: document.getElementById('imgPos9').src = imgs2[0].src; break;
+		  case 9: document.getElementById('imgPos10').src = imgs2[0].src; break;
 		  default: break;
-
-    }
-   prevClick = curr;
-   return prevClick;
+	   }
+	   prevClick = curr;
+   	   return prevClick;
 }
 
 function getPrevClick_T(prevClick_T,curr,oldCtr_T){
@@ -275,44 +234,96 @@ function getPrevClick_T(prevClick_T,curr,oldCtr_T){
 }
 
 function moveCircle(thisvalue,direction){
+	var num1 = 0;
+	var num2 = 2;
 		
 	if(direction==1){thisvalue--;}else{thisvalue++;}
 	
 	switch(thisvalue){
-	case 1: if(direction==1){ document.circles.src = imgs2[0].src;document.circles2.src = imgs2[1].src;}
-			else{document.circles3.src = imgs2[0].src;document.circles2.src = imgs2[1].src;}
+	case 1: if(direction==1){ 
+				document.getElementById('imgPos1').src = imgs2[num1].src;
+				document.getElementById('imgPos2').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos3').src = imgs2[num1].src;
+				document.getElementById('imgPos2').src = imgs2[num2].src;
+			}
 			break;
-	case 2: if(direction==1){ document.circles2.src = imgs2[0].src;document.circles3.src = imgs2[1].src;}
-			else{document.circles4.src = imgs2[0].src;document.circles3.src = imgs2[1].src;}
+	case 2: if(direction==1){ 
+				document.getElementById('imgPos2').src = imgs2[num1].src;
+				document.getElementById('imgPos3').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos4').src = imgs2[num1].src;
+				document.getElementById('imgPos3').src = imgs2[num2].src;
+			}
 			break;
-	case 3: if(direction==1){ document.circles3.src = imgs2[0].src;document.circles4.src = imgs2[1].src;}
-			else{document.circles5.src = imgs2[0].src;document.circles4.src = imgs2[1].src;}
+	case 3: if(direction==1){ 
+				document.getElementById('imgPos3').src = imgs2[num1].src;
+				document.getElementById('imgPos4').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos5').src = imgs2[num1].src;
+				document.getElementById('imgPos4').src = imgs2[num2].src;
+			}
 			break;
-	case 4: if(direction==1){ document.circles4.src = imgs2[0].src;document.circles5.src = imgs2[1].src;}
-			else{document.circles6.src = imgs2[0].src;document.circles5.src = imgs2[1].src;}
+	case 4: if(direction==1){ 
+				document.getElementById('imgPos4').src = imgs2[num1].src;
+				document.getElementById('imgPos5').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos6').src = imgs2[num1].src;
+				document.getElementById('imgPos5').src = imgs2[num2].src;
+			}
 			break;
-	case 5: if(direction==1){ document.circles5.src = imgs2[0].src;document.circles6.src = imgs2[1].src;}
-			else{document.circles7.src = imgs2[0].src;document.circles6.src = imgs2[1].src;}
+	case 5: if(direction==1){ 
+				document.getElementById('imgPos5').src = imgs2[num1].src;
+				document.getElementById('imgPos6').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos7').src = imgs2[num1].src;
+				document.getElementById('imgPos6').src = imgs2[num2].src;
+			}
 			break;
-	case 6: if(direction==1){ document.circles6.src = imgs2[0].src;document.circles7.src = imgs2[1].src;}
-			else{document.circles8.src = imgs2[0].src;document.circles7.src = imgs2[1].src;}
+	case 6: if(direction==1){ 
+				document.getElementById('imgPos6').src = imgs2[num1].src;
+				document.getElementById('imgPos7').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos8').src = imgs2[num1].src;
+				document.getElementById('imgPos7').src = imgs2[num2].src;
+			}
 			break;
-	case 7: if(direction==1){ document.circles7.src = imgs2[0].src;document.circles8.src = imgs2[1].src;}
-			else{document.circles9.src = imgs2[0].src;document.circles8.src = imgs2[1].src;}
+	case 7: if(direction==1){ 
+				document.getElementById('imgPos7').src = imgs2[num1].src;
+				document.getElementById('imgPos8').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos9').src = imgs2[num1].src;
+				document.getElementById('imgPos8').src = imgs2[num2].src;
+			}
 			break;
-	case 8: if(direction==1){ document.circles8.src = imgs2[0].src;document.circles9.src = imgs2[1].src;}
-			else{document.circles10.src = imgs2[0].src;document.circles9.src = imgs2[1].src;}
+	case 8: if(direction==1){ 
+				document.getElementById('imgPos8').src = imgs2[num1].src;
+				document.getElementById('imgPos9').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos10').src = imgs2[num1].src;
+				document.getElementById('imgPos9').src = imgs2[num2].src;
+			}
 			break;
-	case 9: if(direction==1){ document.circles9.src = imgs2[0].src;document.circles10.src = imgs2[1].src;}
-			else{document.circles.src = imgs2[0].src;document.circles10.src = imgs2[1].src;}
+	case 9: if(direction==1){ 
+				document.getElementById('imgPos9').src = imgs2[num1].src;
+				document.getElementById('imgPos10').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos1').src = imgs2[num1].src;
+				document.getElementById('imgPos10').src = imgs2[num2].src;
+			}
 			break;
-	case 0:if(direction==1){ document.circles10.src = imgs2[0].src;document.circles.src = imgs2[1].src;}
-			else{document.circles2.src = imgs2[0].src;document.circles.src = imgs2[1].src;}
+	case 0:if(direction==1){ 
+				document.getElementById('imgPos10').src = imgs2[num1].src;
+				document.getElementById('imgPos1').src = imgs2[num2].src;
+			}else{
+				document.getElementById('imgPos2').src = imgs2[num1].src;
+				document.getElementById('imgPos1').src = imgs2[num2].src;
+			}
 			break;
 
 	default: break;
   }
-  return thisvalue;
+	  return thisvalue;
 }
 
 function moveCircle_T(thisvalue,direction){	
@@ -424,7 +435,7 @@ function randomImages(){
 	}
   
 	MM_swapImage('rotator', '', imgs[counter++]);
-	colorImage(counter,1);
+	colorImage(counter,2);
 	setTimeout('randomImages()', delay);
 	}
 }
