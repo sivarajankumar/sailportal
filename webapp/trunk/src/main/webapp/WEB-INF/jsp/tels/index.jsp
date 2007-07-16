@@ -72,7 +72,7 @@
 </li>
 
 <li>
-	<a href="#">
+	<a href="register.html">
 		<img id="imgBorder4None" src="<spring:theme code="join" />" 
 		onmouseover="swapWiseImage('imgBorder4None',7);"
 		onmouseout="swapWiseImage('imgBorder4None',6);"
@@ -88,20 +88,20 @@
 <div id="xsnazzy" class="width1 north8 spacingVerAdj0" height="100%">
 <b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
 <div class="border1">
-<form:form id="home" method="post" action="j_acegi_security_check">
+<form id="home" method="post" action="j_acegi_security_check">
 <h4 class="heading2 north6"><spring:message code="wise.signIn" /></h4>
 <ul id="lineHeightAdj1" class="none north_5 marginVerAdj5">
 <li>
 <label for="username" class="login">
 <spring:message code="login.username" />
 </label>
-<input type="text" size="20" />
+<input type="text" name="j_username" id="j_username" size="20" />
 </li>
 <li>
 <label for="password" class="login">
 <spring:message code="login.password" />
 </label>
-<input type="password" size="20" />
+<input type="password" name="j_password" id="j_password" size="20" />
 </li>
 <li><div id="waiting" style="display: none">
        <div>
@@ -113,7 +113,7 @@
      </div>
 </li>
 <li class="right6 marginHorAdj">
- <img src="<spring:theme code="sign_in" />" 
+ <input type="image" src="<spring:theme code="sign_in" />" 
             onclick="Effect.toggle('waiting', 'appear')" /> 
 </li>
 
@@ -122,7 +122,7 @@
 <spring:message code="forgotten.username-or-password" /> 
 </a>
 
-</form:form>
+</form>
 </div>
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 </div>
