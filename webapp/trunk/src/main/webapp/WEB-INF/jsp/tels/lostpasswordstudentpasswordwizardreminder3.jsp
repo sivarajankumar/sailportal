@@ -44,12 +44,33 @@
 
 
 <p class="bigFont1 north0">step 3</p> 
+ <spring:bind path="reminderParameters.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <b>
+      <br /><c:out value="${error}"/>
+    </b>
+  </c:forEach>
+</spring:bind>
+<form id="submittedAccountPasswords" method="post" commandName="reminderParameters">
+
+  <p><label for="send_passwords"><spring:message code="lostpassword.student.new-password" />
+  </label>
+  <input type="text" name="newPassword" id="newPassword"  class="text" tabindex="1" />
+ <label for="answer"><spring:message code="lostpassword.student.verify-password" /></label>
+  <input type="text" name="verifyPassword" id="verifyPassword"  class="text" tabindex="2" />
  
-<form id="submittedAccountAnswer" method="post" class="center north0" commandName="reminderParameters" >
+  </p>
+
+   <div id="waiting" style="display: none">
+       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
+     </div>
+   </p>
+</div>
+
 
 <input type="submit" name="_target2" value="<spring:message code="navigate.back" />">
-<input type="submit" name="_target3" value="<spring:message code="navigate.next" />">
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
+<input type="submit" name="_finish" value="<spring:message code="navigate.done" />">
 </form>
 </body>
 </html>

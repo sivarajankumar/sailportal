@@ -27,15 +27,19 @@ import java.util.HashMap;
 
 public class ReminderParameters extends HashMap<String, String> {
 	
-	private static final String SUBMITTEDACCOUNTANSWER = "submittedaccountanswer";
+	public static final String SUBMITTEDACCOUNTANSWER = "submittedaccountanswer";
 
-	private static final String ACCOUNT_ANSWER = "accountAnswer";
+	public static final String ACCOUNT_ANSWER = "accountAnswer";
 
-	private static final String ACCOUNT_QUESTION = "accountQuestion";
+	public static final String ACCOUNT_QUESTION = "accountQuestion";
 
 	private static final long serialVersionUID = 1L;
 	
 	public static final String USERNAME = "username";
+	
+	public static final String NEW_PASSWORD = "newPassword";
+	
+	public static final String VERIFY_PASSWORD = "verifyPassword";
 
 	public void setUsername(String username) {
 		this.put(USERNAME, username);
@@ -68,6 +72,23 @@ public class ReminderParameters extends HashMap<String, String> {
 	public String getSubmittedAccountAnswer() {
 		return this.get(SUBMITTEDACCOUNTANSWER);
 	}
+	
+	public void setNewPassword(String password) {
+		this.put(NEW_PASSWORD, password);
+	}
+	
+	public String getNewPassword(){
+		return this.get(NEW_PASSWORD);
+	}
+	
+	public void setVerifyPassword(String password) {
+		this.put(VERIFY_PASSWORD, password);
+	}
+	
+	public String getVerifyPassword(){
+		return this.get(VERIFY_PASSWORD);
+	}
+	
 	
 
 }

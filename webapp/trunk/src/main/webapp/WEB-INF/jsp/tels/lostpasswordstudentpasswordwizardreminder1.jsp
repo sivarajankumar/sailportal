@@ -42,9 +42,18 @@
 </ul>
 </div>
 
-
+<div>
+<!-- Support for Spring errors object -->
+<spring:bind path="reminderParameters.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <b>
+      <br /><c:out value="${error}"/>
+    </b>
+  </c:forEach>
+</spring:bind>
+</div>
+  
 <p class="bigFont1 north0">step 1: </p> 
-
 <form id="username" method="post" class="center north0" commandName="reminderParameters">
 
  <p><label for="send_username"><spring:message code="login.username" /></label>
