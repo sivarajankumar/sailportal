@@ -43,7 +43,6 @@
 <h2><spring:message code="welcome" /> 
     <authz:authentication operation="username" />
 </h2>
-    <a href="curnitlist.html"><spring:message code="curnit.list" /></a><br /><br /><br />
 </div>
 
 <spring:message code="signup.firstname" /><authz:authentication operation="firstname" /><br />
@@ -51,12 +50,35 @@
 <spring:message code="signup.emailAddress" /><authz:authentication operation="emailAddress" /><br />
 <spring:message code="signup.signupdate" /><authz:authentication operation="signupdate" /><br /><br />
 
-<div id="right">
-<a href="registerstudent.html"><spring:message code="register.student" /></a><br />
-<a href="registerteacher.html"><spring:message code="register.teacher" /></a><br /></div>
-
 </div>
 
+<div>
+<table border="1">
+  <thead>
+    <tr>
+      <th><spring:message code="run.name.heading" /></th>
+      <th><spring:message code="run.options.heading" /></th>
+    </tr>
+  </thead>
+  <c:forEach var="run" items="${run_list}">
+  <tr>
+    <td>${run.sdsOffering.name}</td>
+    <td>
+      <c:choose>
+        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
+        <spring:message code="not.in.workgroup.yet" />
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="workgroup" items="${workgroup_map[run]}">
+              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a><br />
+            </c:forEach>
+        </c:otherwise>
+      </c:choose>
+    </td>
+   </tr>
+  </c:forEach>
+</table>
+</div>
 
 <%@ include file="../footer.jsp"%>
 

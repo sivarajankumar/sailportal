@@ -35,10 +35,12 @@ import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.JnlpImpl;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 
@@ -84,7 +86,7 @@ public class RunServiceImplTest extends TestCase {
     private RunDao<Run> mockRunDao;
 
     private GroupDao<Group> mockGroupDao;
-
+    
     private RunServiceImpl runServiceImpl;
 
     /**
@@ -131,6 +133,25 @@ public class RunServiceImplTest extends TestCase {
         EasyMock.expect(this.mockRunDao.getList()).andReturn(expectedList);
         EasyMock.replay(this.mockRunDao);
         assertEquals(expectedList, runServiceImpl.getRunList());
+        EasyMock.verify(this.mockRunDao);
+    }
+    
+    public void testGetRunListGivenUser() throws Exception {
+    	User user = new UserImpl();
+    	List<Group> expectedGroups = new LinkedList<Group>();
+    	Group group = new PersistentGroup();
+    	group.addMember(user);
+    	expectedGroups.add(group);
+        List<Run> expectedList = new LinkedList<Run>();
+        Run run = new RunImpl();
+        Set<Group> groups = new HashSet<Group>();
+        groups.add(group);
+        run.setPeriods(groups);
+        expectedList.add(run);
+
+        EasyMock.expect(this.mockRunDao.getList()).andReturn(expectedList);
+        EasyMock.replay(this.mockRunDao);
+        assertEquals(expectedList, runServiceImpl.getRunList(user));
         EasyMock.verify(this.mockRunDao);
     }
 

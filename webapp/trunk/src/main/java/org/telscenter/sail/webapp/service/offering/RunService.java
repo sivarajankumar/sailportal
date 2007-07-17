@@ -28,6 +28,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
@@ -57,6 +58,15 @@ public interface RunService extends OfferingService {
 	 * @return <code>List</code> of <code>Run</code>
 	 */
     public List<Run> getRunList();
+    
+    /**
+     * Retrieves a list of <code>Run</code> that the given user
+     * is associated with
+     * 
+     * @param user <code>User</code> that is associated with 0 or more runs
+     * @return list of <code>Run</code> that the user is associated with
+     */
+    public List<Run> getRunList(User user);
     
     /**
      * Checks if the runcode already exists in the database

@@ -24,11 +24,13 @@ package org.telscenter.sail.webapp.service.offering.impl;
 
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.group.GroupDao;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
@@ -67,7 +69,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
     private RunDao<Run> runDao;
     
     private GroupDao<Group> groupDao;
-
+    
     /**
      * @param groupDao
      *            the groupDao to set
@@ -76,6 +78,14 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
     public void setGroupDao(GroupDao<Group> groupDao) {
         this.groupDao = groupDao;
     }
+    
+	/**
+	 * @param runDao the runDao to set
+	 */
+    @Required
+	public void setRunDao(RunDao<Run> runDao) {
+		this.runDao = runDao;
+	}
 
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
@@ -84,13 +94,28 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
         return runDao.getList();
     }
     
-	/**
-	 * @param runDao the runDao to set
-	 */
-	public void setRunDao(RunDao<Run> runDao) {
-		this.runDao = runDao;
-	}
+    /**
+     * @see org.telscenter.sail.webapp.service.offering.RunService#getRunList(net.sf.sail.webapp.domain.User)
+     */
+	public List<Run> getRunList(User user) {
 
+		List<Run> runs = runDao.getList();
+		List<Run> runsAssociatedWithUser = new LinkedList<Run>();
+		for (Run run : runs) {
+			Set<Group> periods = run.getPeriods();
+			// TODO HT&LW improve PersistentGroup's hashcode
+			// right now if same name & same parent, group is considered te same
+			// this won't work for TELS, as there will be many root group nodes with
+			// name 3.
+			for (Group period : periods) {
+				if (period.getMembers().contains(user)) {
+					runsAssociatedWithUser.add(run);
+				}
+			}
+		}
+		return runsAssociatedWithUser;
+	}
+	
     /**
      * Generate a random runcode
      * 
@@ -191,5 +216,4 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public Run retrieveRunByRuncode(String runcode) {
 		return runDao.retrieveByRunCode(runcode);
 	}
-
 }
