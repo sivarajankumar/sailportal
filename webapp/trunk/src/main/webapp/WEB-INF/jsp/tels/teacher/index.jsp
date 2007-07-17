@@ -40,6 +40,7 @@
     <authz:authentication operation="username" />
 </h2>
     <a href="../curnitlist.html"><spring:message code="curnit.list" /></a><br /><br /><br />
+    <a href="../runlist.html"><spring:message code="run.list" /></a>
 </div>
 
 <spring:message code="signup.firstname" /><authz:authentication operation="firstname" /><br />

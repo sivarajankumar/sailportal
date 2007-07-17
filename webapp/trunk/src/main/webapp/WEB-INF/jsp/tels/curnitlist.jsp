@@ -17,7 +17,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id$ -->
+<!-- $Id: curnitlist.jsp 660 2007-07-16 22:03:10Z hiroki $ -->
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
@@ -37,7 +37,7 @@
 
 <div id="columns">
 <div id="left"><%@ include file="logout.jsp"%>
-	<a href="offeringlist.html"><spring:message code="offerings.list" /></a><br />
+	<a href="runlist.html"><spring:message code="run.list" /></a><br />
 </div>
 
 <div id="right">

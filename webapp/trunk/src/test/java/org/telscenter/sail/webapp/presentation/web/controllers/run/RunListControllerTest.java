@@ -152,7 +152,7 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		ModelAndView modelAndView = runListController
 		.handleRequestInternal(request, response);
 		assertModelAttributeValue(modelAndView,
-				RunListController.OFFERING_LIST_KEY,
+				RunListController.RUN_LIST_KEY,
 				this.expectedRunList);
 		assertModelAttributeValue(modelAndView,
 				RunListController.WORKGROUP_MAP_KEY, expectedWorkgroupMap);
@@ -177,7 +177,7 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		ModelAndView modelAndView = runListController
 		.handleRequestInternal(request, response);
 		assertModelAttributeValue(modelAndView,
-				RunListController.OFFERING_LIST_KEY, emptyRunList);
+				RunListController.RUN_LIST_KEY, emptyRunList);
 		assertModelAttributeValue(modelAndView,
 				RunListController.WORKGROUP_MAP_KEY, emptyWorkgroupMap);
 		assertModelAttributeValue(modelAndView,

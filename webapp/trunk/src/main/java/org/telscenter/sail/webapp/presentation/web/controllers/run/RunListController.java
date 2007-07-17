@@ -58,8 +58,8 @@ public class RunListController extends AbstractController {
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
-	protected final static String OFFERING_LIST_KEY = "run_list";
-
+	protected final static String RUN_LIST_KEY = "run_list";
+	
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
@@ -90,7 +90,7 @@ public class RunListController extends AbstractController {
 			workgroupMap.put(run, workgroupList);
 		}
 
-		modelAndView.addObject(OFFERING_LIST_KEY, runList);
+		modelAndView.addObject(RUN_LIST_KEY, runList);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 		return modelAndView;

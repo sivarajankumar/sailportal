@@ -24,7 +24,7 @@
 <head>
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="success.title" /></title>
+<title><spring:message code="run.list" /></title>
 </head>
 
 <body>
@@ -46,12 +46,14 @@
   <thead>
     <tr>
       <th><spring:message code="run.name.heading" /></th>
+      <th><spring:message code="run.projectcodes.heading" /></th>
       <th><spring:message code="run.options.heading" /></th>
     </tr>
   </thead>
   <c:forEach var="run" items="${run_list}">
   <tr>
     <td>${run.sdsOffering.name}</td>
+    <td><c:forEach var="period" items="${run.periods}">${run.runcode}-${period.name} </c:forEach></td>
     <td><a href="authoringjnlplauncher.html?curnit_url=${run.sdsOffering.sdsCurnit.url}"><spring:message code="edit.curnit" /></a>
       <c:choose>
         <c:when test="${fn:length(workgroup_map[run]) == 0}" >
