@@ -24,23 +24,15 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.service.UserService;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.oro.text.regex.StringSubstitution;
-import org.jaxen.function.SumFunction;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -50,7 +42,6 @@ import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.impl.ReminderParameters;
-import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
 /**
  * Controller for the wizard to "Remind the student of their password"
