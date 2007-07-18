@@ -52,11 +52,6 @@
 <p class="bigFont1 north0"><spring:message code="teacher.review-lesson-plan" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.skip-lesson-plan" /></p>
-<div class="center north0">
-<a href="setuprun4.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /> </a>
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /> </a> 
-<a href="setuprun6.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> <spring:message code='navigate.next' /> </a> 
-</div>
 <form method="post" class="center north0">
 <input type="submit" name="_target2" value="<spring:message code="navigate.back" />">
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">

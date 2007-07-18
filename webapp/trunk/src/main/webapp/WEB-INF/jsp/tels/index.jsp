@@ -72,7 +72,7 @@
 </li>
 
 <li>
-	<a href="register.html">
+	<a href="signup.html">
 		<img id="imgBorder4None" src="<spring:theme code="join" />" 
 		onmouseover="swapWiseImage('imgBorder4None',7);"
 		onmouseout="swapWiseImage('imgBorder4None',6);"
@@ -105,15 +105,16 @@
 </li>
 <li><div id="waiting" style="display: none">
        <div>
-       		<img id="signIn" src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" 
-       		onmouseover="swapSignIn('signIn', 1);"
-       		onmouseout="swapSignIn('signIn', 0);"
+       		<img id="wait" src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" 
        		/>
        </div>
      </div>
 </li>
 <li class="right6 marginHorAdj">
- <input type="image" src="<spring:theme code="sign_in" />" 
+ <input type="image" id="signIn" src="<spring:theme code="sign_in" />" 
+        	onmouseover="swapSignIn('signIn', 1);"
+       		onmouseout="swapSignIn('signIn', 0);"
+ 
             onclick="Effect.toggle('waiting', 'appear')" /> 
 </li>
 
