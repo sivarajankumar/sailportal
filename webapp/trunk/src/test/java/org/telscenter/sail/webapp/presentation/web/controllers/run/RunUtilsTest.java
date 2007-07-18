@@ -1,7 +1,5 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.run;
 
-import org.apache.commons.lang.StringUtils;
-
 import junit.framework.TestCase;
 
 public class RunUtilsTest extends TestCase {
