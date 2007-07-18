@@ -67,6 +67,8 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private ProjectService projectService = null;
 	
+	private static final String VIEW_NAME = "teacher/index.html";
+
 	/**
 	 * Constructor
 	 *  - Specify the pages in the wizard
@@ -187,7 +189,7 @@ public class CreateRunController extends AbstractWizardFormController {
 					"Curnit Not Found.");
 			return showForm(request, response, errors);
 		}
-    	return new ModelAndView("index");
+    	return new ModelAndView(VIEW_NAME);
 	}
 	
 	/**
@@ -199,7 +201,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	@Override
 	protected ModelAndView processCancel(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors) {
-		return new ModelAndView(new RedirectView("index.html"));
+		return new ModelAndView(new RedirectView(VIEW_NAME));
 	}
 
 	/**
