@@ -84,8 +84,8 @@
 </div>
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 </div>
-</div>
-<div id="xsnazzy" class="width1 north8 spacingVerAdj0" height="100%">
+
+<div id="xsnazzy" class="width1 north8 spacingVerAdj0">
 <b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
 <div class="border1">
 <form id="home" method="post" action="j_acegi_security_check">
@@ -125,12 +125,14 @@
 
 </form>
 </div>
+
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 </div>
-
+</div>
 <div class="north7">
 <div id="xsnazzy" class="widthAdj5">
 <b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+
 <div class="border1">
 <h4 class="heading2 north6 ">
 <spring:message code="wise.inAction" />
@@ -139,110 +141,112 @@
 <img id="imgPos0" class="dynamicImage" 
 src="<spring:theme code="arrow_prev" />" 
 onmouseover="this.style.cursor='pointer';" 
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" 
 onclick="firstLClicked = setLClicked();
 oldCtr=counter;
 counter=proceedToPreviousImage(firstLClicked,counter);
 prevCircle = moveCircle(counter,0);"   
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" />
+/>
 <img id="imgPos1" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos1',1)" 
+onmouseout = "onOrOff(prevClick,0,'imgPos1');"
 onclick="oldCtr = counter; 
 counter=swapBigImage(0,counter,'Action');
 prevClick = getPrevClick(prevClick,0,oldCtr);" 
-onmouseout = "onOrOff(prevClick,0,'imgPos1');"
 />
 <img id="imgPos2" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos2',1)" 
+onmouseout="onOrOff(prevClick,1,'imgPos2')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(1,counter,'Action');
 prevClick = getPrevClick(prevClick,1,oldCtr);" 
-onmouseout="onOrOff(prevClick,1,'imgPos2')" 
 />
 <img id="imgPos3" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos3',1)" 
+onmouseout="onOrOff(prevClick,2,'imgPos3')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(2,counter,'Action');
 prevClick = getPrevClick(prevClick,2,oldCtr);" 
-onmouseout="onOrOff(prevClick,2,'imgPos3')" 
 />
 <img id="imgPos4" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos4',1)" 
+onmouseout="onOrOff(prevClick,3,'imgPos4')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(3,counter,'Action');
 prevClick = getPrevClick(prevClick,3,oldCtr);" 
-onmouseout="onOrOff(prevClick,3,'imgPos4')" 
 />
 <img id="imgPos5" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos5',1)" 
+onmouseout="onOrOff(prevClick,4,'imgPos5')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(4,counter,'Action');
 prevClick = getPrevClick(prevClick,4,oldCtr);" 
-onmouseout="onOrOff(prevClick,4,'imgPos5')" 
 />
 <img id="imgPos6" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos6',1)" 
+onmouseout="onOrOff(prevClick,5,'imgPos6')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(5,counter,'Action');
 prevClick = getPrevClick(prevClick,5,oldCtr);" 
-onmouseout="onOrOff(prevClick,5,'imgPos6')" 
 />
 <img id="imgPos7" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos7',1)" 
+onmouseout="onOrOff(prevClick,6,'imgPos7')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(6,counter,'Action');
 prevClick = getPrevClick(prevClick,6,oldCtr);" 
-onmouseout="onOrOff(prevClick,6,'imgPos7')" 
 />
 <img id="imgPos8" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos8',1)" 
+onmouseout="onOrOff(prevClick,7,'imgPos8')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(7,counter,'Action');
 prevClick = getPrevClick(prevClick,7,oldCtr);" 
-onmouseout="onOrOff(prevClick,7,'imgPos8')" 
 />
 <img id="imgPos9" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos9',1)" 
+onmouseout="onOrOff(prevClick,8,'imgPos9')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(8,counter,'Action');
 prevClick = getPrevClick(prevClick,8,oldCtr);" 
-onmouseout="onOrOff(prevClick,8,'imgPos9')" 
 />
 <img id="imgPos10" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos10',1)" 
+onmouseout="onOrOff(prevClick,9,'imgPos10')" 
 onclick="oldCtr = counter; 
 counter=swapBigImage(9,counter,'Action');
 prevClick = getPrevClick(prevClick,9,oldCtr);" 
-onmouseout="onOrOff(prevClick,9,'imgPos10')" 
 />
 <img id="imgPos11" class="dynamicImage" src="<spring:theme code="arrow_next" />" 
 onmouseover="this.style.cursor='pointer';" 
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" 
 onclick="firstRClicked = setRClicked();
 oldCtr=counter;
 counter=proceedToNextImage(firstRClicked,counter);
 prevClick = moveCircle(counter,1);"
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" />
+/>
 </div>
+
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 </div>
-<p class="marginVerAdj3" />
+
 
 <div id="xsnazzy" class="_right4 widthAdj5 ">
 <b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
-
 <div class="border1">
 <h4 class="heading2 north6">
 <spring:message code="wise.testimonials" />
@@ -281,6 +285,7 @@ onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;"
 onmousedown="this.style.cursor='pointer';" 
 onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" />
+
 </div>
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 
@@ -298,14 +303,11 @@ onmouseout="this.style.cursor='default';" />
 
 </div>
 
-
-</div>
-<p class="marginVerAdj4" />
-
-<div class="center">
-<img src="<spring:theme code="nsf_tiny_logo" />" />
 </div>
 
+<div id="north3">
+<img src="<spring:theme code="nsf_logo" />" class="center"/>
+</div>
 
 <!-- Support for Spring errors object -->
 
@@ -317,9 +319,5 @@ onmouseout="this.style.cursor='default';" />
 
 
 <!-- 
-<p class="marginVerAdj4" />
 
-<div class="border center">
-<img src="<spring:theme code="nsf_logo" />" />
-</div>
 -->
