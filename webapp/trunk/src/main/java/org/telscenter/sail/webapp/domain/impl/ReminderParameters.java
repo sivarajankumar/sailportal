@@ -41,6 +41,9 @@ public class ReminderParameters extends HashMap<String, String> {
 	
 	public static final String VERIFY_PASSWORD = "verifyPassword";
 
+	
+	public static final String PROJECT_CODE = "projectCode";
+	
 	public void setUsername(String username) {
 		this.put(USERNAME, username);
 	}
@@ -87,6 +90,13 @@ public class ReminderParameters extends HashMap<String, String> {
 	
 	public String getVerifyPassword(){
 		return this.get(VERIFY_PASSWORD);
+	}
+	
+	public void setProjectCode(String projectCode) {
+		this.put(PROJECT_CODE, projectCode);
+	}
+	public String getProjectCode() {
+		return this.get(PROJECT_CODE);
 	}
 	
 	

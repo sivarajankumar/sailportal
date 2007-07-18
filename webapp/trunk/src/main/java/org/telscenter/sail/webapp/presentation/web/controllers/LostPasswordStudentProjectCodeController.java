@@ -22,22 +22,27 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.service.UserService;
+import net.sf.sail.webapp.domain.group.Group;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.impl.ReminderParameters;
+import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtils;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * looks up the project code in student lost password
@@ -48,8 +53,11 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 public class LostPasswordStudentProjectCodeController extends
         SimpleFormController {
 
-    protected UserService userService = null;
-
+    
+    protected RunService runService = null;
+    private String PROJECT_CODE = "projectcode";
+    private String RUN_TITLE = "runtitle";
+    private String USERS = "users";
     /**
      * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse, java.lang.Object,
@@ -59,77 +67,50 @@ public class LostPasswordStudentProjectCodeController extends
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors)
             throws Exception {
-        MutableUserDetails userDetails = (MutableUserDetails) command;
+        ReminderParameters params = (ReminderParameters) command;
 
-        String username = null;
-        String emailAddress = null;
-        try {
-
-            username = StringUtils.trimToNull(userDetails.getUsername());
-            emailAddress = StringUtils
-                    .trimToNull(userDetails.getEmailAddress());
-            if (username != null) {
-
-                User user = userService.retrieveUserByUsername(userDetails
-                        .getUsername());
-                // TODO TP
-
-                // // generate a new password
-                // // set it on the userobject
-                // user.getUserDetails().setPassword(generateRandomPassword());
-                //
-                // userService.updateUser(user);
-                // update the user in the db
-                // send an email
-
-            } else if (emailAddress != null) {
-
-                List<User> users = userService
-                        .retrieveUserByEmailAddress(emailAddress);
-
-            }
-            // TODO TP
-            // get the fields
-            // call user service getUserDetails
-
-        } catch (EmptyResultDataAccessException e) {
-
-            if (username != null) {
-                ModelAndView modelAndView = new ModelAndView(
-                        "lostpasswordteachererror");
-                modelAndView.addObject("someValue", userDetails.getUsername());
-                return modelAndView;
-            } else if (emailAddress != null) {
-                ModelAndView modelAndView = new ModelAndView(
-                        "lostpasswordteachererror");
-                modelAndView.addObject("someValue", userDetails
-                        .getEmailAddress());
-                return modelAndView;
-            }// if
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return showForm(request, response, errors);
+        String projectCode = params.getProjectCode();
+        
+        String runCode = RunUtils.getRunCode(projectCode);
+        String runPeriod = RunUtils.getRunPeriod(projectCode);
+        
+        if( runService.isRunCodeInDB(runCode)) {
+        	
+        	Run run = runService.retrieveRunByRuncode(runCode);
+        	
+        	Group group = run.getPeriodByName(runPeriod);
+        	
+        	Set<User> members = group.getMembers();
+        	
+        	Map<String, String> usersMap = new HashMap<String, String>();
+        	for (User user : members) {
+				usersMap.put(user.getUserDetails().getUsername(), ((StudentUserDetails)(user.getUserDetails())).getFirstname() + ((StudentUserDetails)(user.getUserDetails())).getLastname());
+			}// for
+        	
+        	System.out.println("Memebers: " + members.toString());
+        	
+        	
+        	Map<String, Object> model = new HashMap<String, Object>();
+			model.put(PROJECT_CODE, projectCode);
+			model.put(RUN_TITLE, run.getSdsOffering().getName());
+			model.put(USERS, usersMap);
+			return new ModelAndView(getSuccessView(), model);
+        	
+        	
+        } else {
+        	//reject
         }
+        
         return new ModelAndView(new RedirectView(getSuccessView()));
     }
 
-    /**
-     * Sets the userDetailsService object.
-     * 
-     * @param userDetailsService
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    
+	public RunService getRunService() {
+		return runService;
+	}
 
-    public static String generateRandomPassword() {
-        Random rnd = new Random();
-        return Integer.toString(rnd.nextInt(), 27);
-    }
-
-    public static void main(String[] args) {
-        System.out.println("New Password: " + generateRandomPassword());
-    }
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
 
 }
