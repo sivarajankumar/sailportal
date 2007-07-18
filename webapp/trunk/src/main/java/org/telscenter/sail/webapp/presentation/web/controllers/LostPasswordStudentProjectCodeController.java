@@ -98,10 +98,11 @@ public class LostPasswordStudentProjectCodeController extends
         	
         	
         } else {
-        	//reject
+        	//no 
+        	errors.reject("error.no-projectcode");
+			return showForm(request, response, errors);
         }
         
-        return new ModelAndView(new RedirectView(getSuccessView()));
     }
 
     
