@@ -38,11 +38,8 @@
 	<bean id="lostPasswordStudentUsernameValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentUsernameValidator" />
 
-
-
 	<bean id="lostPasswordStudentAccountQuestionValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentAccountQuestionValidator" />
-
 
 	<bean id="lostPasswordStudentProjectCodeValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentProjectCodeValidator" />
@@ -101,8 +98,6 @@
 		class="org.telscenter.sail.webapp.domain.impl.ReminderParameters"
 		scope="prototype" />
 
-
-
 	<bean id="runParameters"
 		class="org.telscenter.sail.webapp.domain.impl.RunParameters"
 		scope="prototype" />
@@ -136,10 +131,8 @@
 	<bean id="lostPasswordTeacherResultController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherResultController" />
 
-
 	<bean id="lostPasswordStudentProjectCodeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentProjectCodeController">
-
 		<property name="runService" ref="runService" />
 		<property name="commandName" value="reminderParameters" />
 		<property name="validator" ref="lostPasswordStudentProjectCodeValidator"/>
@@ -150,7 +143,6 @@
 		<property name="successView"
 			value="lostpasswordstudentprojectcoderesult" />
 	</bean>
-
 
 	<bean id="enterProjectCodeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.EnterProjectCodeController" />
