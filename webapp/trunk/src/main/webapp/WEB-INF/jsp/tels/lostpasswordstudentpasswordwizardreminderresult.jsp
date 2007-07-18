@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+`<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -24,46 +24,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
-<title><spring:message code="lostpassword.title" /></title>
+  type="text/css" />
+<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<title><spring:message code="teacher.setup-project-run-step-one" /></title>
+
 </head>
-
 <body>
-
-<%@ include file="header.jsp"%>
-
-<h1>pc</h1>
-
-<div id="columns">
-<div id="left">
-</div>
-<div>
-<!-- Support for Spring errors object -->
-<spring:bind path="reminderParameters.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <b>
-      <br /><c:out value="${error}"/>
-    </b>
-  </c:forEach>
-</spring:bind>
+<%@ include file="teacher/header.jsp"%>
+<div id="navigation" class="center north2 widthAdj4">
+<ul class="bigFont1">
+<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
+<li class="bgColorLightBlue"  class="border"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
+<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
+<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
+<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
+</ul>
 </div>
 
-<form id="projectCode" method="post"  commandName="reminderParameters">
 
-  <p><label for="send_projectcode"><spring:message code="lostpassword.student.projectcode"/></label>
-  <input type="text" name="projectCode" id="projectCode"  class="text" tabindex="1" /></p>
-  
-   <div id="waiting" style="display: none">
-       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
-     </div>
-     <p><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
-      onclick="Effect.toggle('waiting', 'appear')" /></p>
-
-</form>
-
-
-
-<a href="index.html">go home homey</a>
+<p class="bigFont1 north0">Your Done ${username}</p> 
+ 
 
 </body>
 </html>

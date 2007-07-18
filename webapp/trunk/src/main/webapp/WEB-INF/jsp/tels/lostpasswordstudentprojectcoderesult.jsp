@@ -32,34 +32,24 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>pc</h1>
+<h1>result</h1>
 
 <div id="columns">
 <div id="left">
 </div>
-<div>
-<!-- Support for Spring errors object -->
-<spring:bind path="reminderParameters.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <b>
-      <br /><c:out value="${error}"/>
-    </b>
+
+
+<p>PC: ${projectcode}
+<p>T: ${runtitle}
+<p>m: 
+  <c:forEach var="entry" items="${users}">
+    Name:  ${entry.key}
+    Value: ${entry.value}<br>
   </c:forEach>
-</spring:bind>
-</div>
 
-<form id="projectCode" method="post"  commandName="reminderParameters">
 
-  <p><label for="send_projectcode"><spring:message code="lostpassword.student.projectcode"/></label>
-  <input type="text" name="projectCode" id="projectCode"  class="text" tabindex="1" /></p>
-  
-   <div id="waiting" style="display: none">
-       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
-     </div>
-     <p><input type="submit" class="buttons" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
-      onclick="Effect.toggle('waiting', 'appear')" /></p>
 
-</form>
+
 
 
 

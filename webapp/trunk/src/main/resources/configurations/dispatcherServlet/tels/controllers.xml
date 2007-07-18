@@ -43,6 +43,10 @@
 	<bean id="lostPasswordStudentAccountQuestionValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentAccountQuestionValidator" />
 
+
+	<bean id="lostPasswordStudentProjectCodeValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentProjectCodeValidator" />
+
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
 
@@ -69,14 +73,14 @@
 	    <property name="runService" ref="runService" />
 	</bean>
 
-	<bean id="createRunController" 
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.CreateRunController">
-	    <property name="runService" ref="runService" />
-	    <property name="projectService" ref="projectService" />
-	    <property name="commandName" value="runParameters" />
+	<bean id="createRunController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.CreateRunController">
+		<property name="runService" ref="runService" />
+		<property name="projectService" ref="projectService" />
+		<property name="commandName" value="runParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
-	    </bean>
+	</bean>
 
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.run.RunListController">
@@ -85,23 +89,23 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
-	<bean id="lostPasswordStudentReminderWizardController" 
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">
-	   <property name="userService" ref="userService" />
-	    <property name="commandName" value="reminderParameters" />
+	<bean id="lostPasswordStudentReminderWizardController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">
+		<property name="userService" ref="userService" />
+		<property name="commandName" value="reminderParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.ReminderParameters" />
-	    </bean>
+	</bean>
 
-	 <bean id="reminderParameters"
-        class="org.telscenter.sail.webapp.domain.impl.ReminderParameters"
-        scope="prototype" />
-	
+	<bean id="reminderParameters"
+		class="org.telscenter.sail.webapp.domain.impl.ReminderParameters"
+		scope="prototype" />
 
 
-    <bean id="runParameters"
-        class="org.telscenter.sail.webapp.domain.impl.RunParameters"
-        scope="prototype" />
+
+	<bean id="runParameters"
+		class="org.telscenter.sail.webapp.domain.impl.RunParameters"
+		scope="prototype" />
 
 	<bean id="lostPasswordMainController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController" />
@@ -136,17 +140,15 @@
 	<bean id="lostPasswordStudentProjectCodeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentProjectCodeController">
 
-		<property name="userService" ref="userService" />
-
-		<property name="commandName" value="userDetails" />
+		<property name="runService" ref="runService" />
+		<property name="commandName" value="reminderParameters" />
+		<property name="validator" ref="lostPasswordStudentProjectCodeValidator"/>
 		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
-		<property name="validator" ref="lostTeacherValidator" />
-
+			value="org.telscenter.sail.webapp.domain.impl.ReminderParameters" />
 		<property name="formView"
 			value="lostpasswordstudentprojectcode" />
 		<property name="successView"
-			value="lostpasswordstudentprojectcoderesult.html" />
+			value="lostpasswordstudentprojectcoderesult" />
 	</bean>
 
 
