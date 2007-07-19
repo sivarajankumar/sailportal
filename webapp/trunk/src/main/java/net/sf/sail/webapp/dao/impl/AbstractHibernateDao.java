@@ -68,9 +68,13 @@ public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
 	 */
 	@SuppressWarnings("unchecked")
 	public T getById(Serializable id) {
-	    if (id instanceof Long || id instanceof Integer)
-		return (T) this.getHibernateTemplate().get(this.getDataObjectClass(), id);
-	    else throw new IllegalArgumentException();
+		// TODO LW, HT - what if we throw an ObjectNotFoundException here rather
+		// than checking for null everywhere?
+		if (id instanceof Long || id instanceof Integer)
+			return (T) this.getHibernateTemplate().get(
+					this.getDataObjectClass(), id);
+		else
+			throw new IllegalArgumentException();
 	}
 
 	/**
