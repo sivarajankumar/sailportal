@@ -20,10 +20,10 @@ package net.sf.sail.webapp.dao.curnit.impl;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.AbstractTransactionalDaoTests;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
-import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
  * @author Cynick Young
@@ -31,7 +31,7 @@ import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
  * @version $Id$
  * 
  */
-public class HibernateCurnitDaoTest extends AbstractTransactionalDbTests {
+public class HibernateCurnitDaoTest extends AbstractTransactionalDaoTests<HibernateCurnitDao, Curnit> {
 
     private static final Integer SDS_ID = new Integer(7);
 
@@ -39,19 +39,7 @@ public class HibernateCurnitDaoTest extends AbstractTransactionalDbTests {
 
     private static final String DEFAULT_URL = "http://mrpotatoiscoolerthanwoody.com";
 
-    private HibernateCurnitDao curnitDao;
-
     private SdsCurnit sdsCurnit;
-
-    private Curnit defaultCurnit;
-
-    public void setCurnitDao(HibernateCurnitDao curnitDao) {
-        this.curnitDao = curnitDao;
-    }
-
-    public void setDefaultCurnit(Curnit defaultCurnit) {
-        this.defaultCurnit = defaultCurnit;
-    }
 
     public void setSdsCurnit(SdsCurnit sdsCurnit) {
         this.sdsCurnit = sdsCurnit;
@@ -63,11 +51,16 @@ public class HibernateCurnitDaoTest extends AbstractTransactionalDbTests {
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
+        this.dao = ((HibernateCurnitDao) this.applicationContext
+                .getBean("curnitDao"));
+        this.dataObject = ((CurnitImpl) this.applicationContext
+                .getBean("curnit"));
+
         this.sdsCurnit.setSdsObjectId(SDS_ID);
         this.sdsCurnit.setName(DEFAULT_NAME);
         this.sdsCurnit.setUrl(DEFAULT_URL);
 
-        this.defaultCurnit.setSdsCurnit(this.sdsCurnit);
+        this.dataObject.setSdsCurnit(this.sdsCurnit);
     }
 
     /**
@@ -76,25 +69,9 @@ public class HibernateCurnitDaoTest extends AbstractTransactionalDbTests {
     @Override
     protected void onTearDownAfterTransaction() throws Exception {
         super.onTearDownAfterTransaction();
-        this.curnitDao = null;
         this.sdsCurnit = null;
-        this.defaultCurnit = null;
     }
 
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#delete(java.lang.Object)}.
-     */
-    public void testDelete() {
-        verifyDataStoreIsEmpty();
-        this.curnitDao.save(this.defaultCurnit);
-        List<?> actualList = retrieveCurnitListFromDb();
-        assertEquals(1, actualList.size());
-
-        this.curnitDao.delete(this.defaultCurnit);
-        this.toilet.flush();
-        verifyDataStoreIsEmpty();
-    }
 
     /**
      * Test method for
@@ -103,7 +80,7 @@ public class HibernateCurnitDaoTest extends AbstractTransactionalDbTests {
     public void testSave() {
         verifyDataStoreIsEmpty();
 
-        this.curnitDao.save(this.defaultCurnit);
+        this.dao.save(this.dataObject);
 
         // verify data store contains saved data using direct jdbc retrieval
         // (not using dao)
@@ -119,11 +96,13 @@ public class HibernateCurnitDaoTest extends AbstractTransactionalDbTests {
                 .get(SdsCurnit.COLUMN_NAME_CURNIT_URL.toUpperCase()));
     }
 
-    private void verifyDataStoreIsEmpty() {
-        assertTrue(retrieveCurnitListFromDb().isEmpty());
-    }
-
-    /*
+	@Override
+	protected List<?> retrieveDataObjectListFromDb() {
+	       return this.jdbcTemplate.queryForList("SELECT * FROM "
+	                + CurnitImpl.DATA_STORE_NAME, (Object[]) null);
+	}
+	
+	    /*
      * SELECT * FROM curnits, sds_curnits WHERE curnits.sds_curnit_fk =
      * sds_curnits.id
      */
@@ -137,40 +116,5 @@ public class HibernateCurnitDaoTest extends AbstractTransactionalDbTests {
         return this.jdbcTemplate.queryForList(RETRIEVE_CURNIT_LIST_SQL,
                 (Object[]) null);
     }
-
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
-     */
-    public void testGetList() throws Exception {
-        verifyDataStoreIsEmpty();
-        List<Curnit> expectedEmptyList = this.curnitDao.getList();
-        assertTrue(expectedEmptyList.isEmpty());
-
-        this.curnitDao.save(this.defaultCurnit);
-        List<?> expectedList = retrieveCurnitListFromDb();
-        assertEquals(1, expectedList.size());
-
-        List<Curnit> actualList = this.curnitDao.getList();
-        assertEquals(1, actualList.size());
-        assertEquals(this.defaultCurnit, actualList.get(0));
-    }
-
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
-     */
-    public void testGetById() throws Exception {
-        verifyDataStoreIsEmpty();
-        Curnit expectedNullCurnit = this.curnitDao.getById(new Long(3));
-        assertNull(expectedNullCurnit);
-
-        this.curnitDao.save(this.defaultCurnit);
-        List<Curnit> actualList = this.curnitDao.getList();
-        Curnit actualCurnit = (Curnit) actualList.get(0);
-
-        Curnit retrievedByIdCurnit = (Curnit) this.curnitDao
-                .getById(actualCurnit.getId());
-        assertEquals(actualCurnit, retrievedByIdCurnit);
-    }
+	
 }

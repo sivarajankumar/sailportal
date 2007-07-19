@@ -29,7 +29,7 @@ import net.sf.sail.webapp.domain.sds.SdsCurnit;
  * @version $Id$
  * 
  */
-public interface Curnit extends Serializable {
+public interface Curnit extends Persistable {
 
     /**
      * @return the sdsCurnit
