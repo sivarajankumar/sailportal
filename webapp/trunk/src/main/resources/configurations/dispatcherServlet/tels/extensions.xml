@@ -32,7 +32,7 @@
     	<property name="commandName" value="studentAccountForm" />
     	<property name="validator" ref="studentUserDetailsValidator" />
     	<property name="formView" value="registerstudent" />
-    	<property name="successView" value="login.html" />
+    	<property name="successView" value="registerStudentConfirm" />
     </bean>
     
         <bean id="registerteacherController"

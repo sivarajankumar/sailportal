@@ -37,7 +37,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.AccountQuestion;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
@@ -62,6 +61,8 @@ public class RegisterStudentController extends SignupController {
 	private RunService runService;
 	
 	private GroupService groupService;
+	
+	protected static final String USERNAME_KEY = "username";
 	
 	public RegisterStudentController() {
 		setValidateOnBinding(false);
@@ -104,7 +105,10 @@ public class RegisterStudentController extends SignupController {
 			//userService.updateUser(userDetails);    // TODO HT: add updateUser() to UserService
 		}
 
-		return new ModelAndView(new RedirectView(getSuccessView()));
+		ModelAndView modelAndView = new ModelAndView(getSuccessView());
+
+		modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
+		return modelAndView;
 	}
 	
 	@Override
