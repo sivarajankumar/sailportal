@@ -28,7 +28,6 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -256,26 +255,6 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDaoTests<H
         assertTrue(this.dao.hasUsername(DEFAULT_USERNAME));
 
         assertFalse(this.dao.hasUsername(USERNAME_NOT_IN_DB));
-    }
-
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
-     */
-    public void testGetById() {
-        verifyUserandJoinTablesAreEmpty();
-        UserDetails expectedNullUserDetils = this.dao
-                .getById(new Long(3));
-        assertNull(expectedNullUserDetils);
-
-        this.dao.save(this.dataObject);
-        List<MutableUserDetails> actualList = this.dao.getList();
-        MutableUserDetails actualUserDetails = (MutableUserDetails) actualList
-                .get(0);
-
-        MutableUserDetails retrievedByIdUserDetails = (MutableUserDetails) this.dao
-                .getById(actualUserDetails.getId());
-        assertEquals(actualUserDetails, retrievedByIdUserDetails);
     }
 
     private void verifyUserandJoinTablesAreEmpty() {
