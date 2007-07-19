@@ -32,7 +32,7 @@ public class GroupParameters {
 
 	private Long parentId = new Long(0);
 	
-	private Long[] memberIds;
+	private Long[] memberIds = new Long[0];
 
 	/**
 	 * @return the name
