@@ -19,6 +19,7 @@ package net.sf.sail.webapp.domain.group;
 
 import java.util.Set;
 
+import net.sf.sail.webapp.domain.Persistable;
 import net.sf.sail.webapp.domain.User;
 
 /**
@@ -30,7 +31,7 @@ import net.sf.sail.webapp.domain.User;
  * 
  * @version $Id$
  */
-public interface Group {
+public interface Group extends Persistable{
 
     /**
      * Add a single member to the group.
