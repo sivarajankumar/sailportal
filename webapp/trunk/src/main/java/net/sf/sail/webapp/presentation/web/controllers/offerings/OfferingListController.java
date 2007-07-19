@@ -59,7 +59,7 @@ public class OfferingListController extends AbstractController {
 
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 
-	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
+	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
 	
 	private static final String VIEW_NAME = "offerings/offeringlist";
 
