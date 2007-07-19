@@ -32,17 +32,12 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 import net.sf.sail.webapp.service.group.GroupService;
 
 import org.acegisecurity.acls.AlreadyExistsException;
-import org.acegisecurity.acls.MutableAcl;
-import org.acegisecurity.acls.MutableAclService;
 import org.acegisecurity.acls.NotFoundException;
-import org.acegisecurity.acls.domain.BasePermission;
-import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
-import org.acegisecurity.acls.sid.PrincipalSid;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,9 +54,17 @@ public class GroupServiceImpl implements GroupService {
     
     private UserDao<User> userDao;
 
-    private MutableAclService mutableAclService;
-
+    private AclService<Group> groupAclService;
+    
     /**
+	 * @param groupAclService the groupAclService to set
+	 */
+    @Required
+	public void setGroupAclService(AclService<Group> groupAclService) {
+		this.groupAclService = groupAclService;
+	}
+
+	/**
      * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group,
      *      java.lang.String)
      */
@@ -91,16 +94,11 @@ public class GroupServiceImpl implements GroupService {
         }
         
         this.groupDao.save(group);
-
-        MutableAcl acl = this.mutableAclService
-                .createAcl(new ObjectIdentityImpl(group.getClass(), group
-                        .getId()));
-        acl.insertAce(null, BasePermission.ADMINISTRATION, new PrincipalSid(
-                SecurityContextHolder.getContext().getAuthentication()), true);
-        this.mutableAclService.updateAcl(acl);
-
+        this.groupAclService.createAcl(group);
         return group;
     }
+    
+    //TODO - LAW - if we put in delete group remember to put in deletes for ACL entries
 
     /**
      * @see net.sf.sail.webapp.service.group.GroupService#moveGroup(net.sf.sail.webapp.domain.group.Group,
@@ -172,10 +170,10 @@ public class GroupServiceImpl implements GroupService {
      * @param mutableAclService
      *                the mutableAclService to set
      */
-    @Required
-    public void setMutableAclService(MutableAclService mutableAclService) {
-        this.mutableAclService = mutableAclService;
-    }
+//    @Required
+//    public void setMutableAclService(MutableAclService mutableAclService) {
+//        this.mutableAclService = mutableAclService;
+//    }
 
     /**
      * @param groupDao
