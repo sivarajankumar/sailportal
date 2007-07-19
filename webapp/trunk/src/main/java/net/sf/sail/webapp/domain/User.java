@@ -17,8 +17,6 @@
  */
 package net.sf.sail.webapp.domain;
 
-import java.io.Serializable;
-
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 
@@ -27,7 +25,7 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
  * @author Laurel Williams
  * @version $Id$
  */
-public interface User extends Serializable {
+public interface User extends Persistable {
 
     public static final String CURRENT_USER_SESSION_KEY = "CURRENT_USER";
 
