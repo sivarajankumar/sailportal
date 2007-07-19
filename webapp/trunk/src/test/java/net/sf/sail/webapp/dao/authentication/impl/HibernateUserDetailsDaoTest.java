@@ -21,11 +21,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.AbstractTransactionalDaoTests;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
-import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
@@ -39,7 +39,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  *          cynick $
  * 
  */
-public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
+public class HibernateUserDetailsDaoTest extends AbstractTransactionalDaoTests<HibernateUserDetailsDao, MutableUserDetails> {
 
     private static final String DEFAULT_ROLE_1 = "default_role_1";
 
@@ -61,11 +61,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
 
     private MutableGrantedAuthority role3;
 
-    private MutableUserDetails defaultUserDetails;
-
     private HibernateGrantedAuthorityDao authorityDao;
-
-    private HibernateUserDetailsDao userDetailsDao;
 
     /**
      * @param authorityDao
@@ -73,14 +69,6 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
      */
     public void setAuthorityDao(HibernateGrantedAuthorityDao authorityDao) {
         this.authorityDao = authorityDao;
-    }
-
-    /**
-     * @param userDetailsDao
-     *                the userDetailsDao to set
-     */
-    public void setUserDetailsDao(HibernateUserDetailsDao userDetailsDao) {
-        this.userDetailsDao = userDetailsDao;
     }
 
     /**
@@ -108,27 +96,23 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
     }
 
     /**
-     * @param defaultUserDetails
-     *                the defaultUserDetails to set
-     */
-    public void setDefaultUserDetails(MutableUserDetails defaultUserDetails) {
-        this.defaultUserDetails = defaultUserDetails;
-    }
-
-    /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
      */
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
+        this.dao = ((HibernateUserDetailsDao) this.applicationContext
+                .getBean("userDetailsDao"));
+        this.dataObject = ((MutableUserDetails) this.applicationContext
+                .getBean("mutableUserDetails"));
         this.role1.setAuthority(DEFAULT_ROLE_1);
         this.role2.setAuthority(DEFAULT_ROLE_2);
         this.role3.setAuthority(DEFAULT_ROLE_3);
 
-        this.defaultUserDetails.setUsername(DEFAULT_USERNAME);
-        this.defaultUserDetails.setPassword(DEFAULT_PASSWORD);
-        this.defaultUserDetails.setEmailAddress(DEFAULT_EMAIL);
-        this.defaultUserDetails.setAuthorities(new GrantedAuthority[] {
+        this.dataObject.setUsername(DEFAULT_USERNAME);
+        this.dataObject.setPassword(DEFAULT_PASSWORD);
+        this.dataObject.setEmailAddress(DEFAULT_EMAIL);
+        this.dataObject.setAuthorities(new GrantedAuthority[] {
                 this.role1, this.role2, this.role3 });
     }
 
@@ -152,21 +136,19 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
         this.role1 = null;
         this.role2 = null;
         this.role3 = null;
-        this.defaultUserDetails = null;
         this.authorityDao = null;
-        this.userDetailsDao = null;
     }
 
     public void testSave() {
         verifyUserandJoinTablesAreEmpty();
 
-        this.userDetailsDao.save(this.defaultUserDetails);
+        this.dao.save(this.dataObject);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
 
         // verify data store contains saved data using direct jdbc retrieval
         // (not dao)
-        assertEquals(1, retrieveUsersTableFromDb().size());
+        assertEquals(1, retrieveDataObjectListFromDb().size());
         assertEquals(3, retrieveUsersRolesTableFromDb().size());
         List<?> actualList = retrieveUserDetailsListFromDb();
         assertEquals(3, actualList.size());
@@ -203,7 +185,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
         duplicateUserDetails.setUsername(DEFAULT_USERNAME);
         duplicateUserDetails.setPassword(DEFAULT_PASSWORD);
         try {
-            this.userDetailsDao.save(duplicateUserDetails);
+            this.dao.save(duplicateUserDetails);
             fail("DataIntegrityViolationException expected");
         } catch (DataIntegrityViolationException expected) {
         }
@@ -211,7 +193,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
         MutableUserDetails emptyUserDetails = (MutableUserDetails) this.applicationContext
                 .getBean("mutableUserDetails");
         try {
-            this.userDetailsDao.save(emptyUserDetails);
+            this.dao.save(emptyUserDetails);
             fail("expected DataIntegrityViolationException");
         } catch (DataIntegrityViolationException expected) {
         }
@@ -220,7 +202,7 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
                 .getBean("mutableUserDetails");
         partiallyEmptyUserDetails.setUsername(DEFAULT_USERNAME);
         try {
-            this.userDetailsDao.save(partiallyEmptyUserDetails);
+            this.dao.save(partiallyEmptyUserDetails);
             fail("expected DataIntegrityViolationException");
         } catch (DataIntegrityViolationException expected) {
         }
@@ -229,54 +211,22 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
                 .getBean("mutableUserDetails");
         partiallyEmptyUserDetails.setPassword(DEFAULT_PASSWORD);
         try {
-            this.userDetailsDao.save(partiallyEmptyUserDetails);
+            this.dao.save(partiallyEmptyUserDetails);
             fail("expected DataIntegrityViolationException");
         } catch (DataIntegrityViolationException expected) {
         }
     }
 
-    public void testDelete() {
-        this.verifyUserandJoinTablesAreEmpty();
-
-        this.userDetailsDao.save(this.defaultUserDetails);
-        // flush is required to cascade the join table for some reason
-        this.toilet.flush();
-
-        this.userDetailsDao.delete(this.defaultUserDetails);
-        this.toilet.flush();
-
-        this.verifyUserandJoinTablesAreEmpty();
-
-        List<?> actualList = this.retrieveRolesTableFromDb();
-        assertEquals(3, actualList.size());
-
-        List<String> defaultRolesList = new LinkedList<String>();
-        defaultRolesList.add(DEFAULT_ROLE_1);
-        defaultRolesList.add(DEFAULT_ROLE_2);
-        defaultRolesList.add(DEFAULT_ROLE_3);
-
-        for (int i = 0; i < actualList.size(); i++) {
-            Map<?, ?> actualRolesMap = (Map<?, ?>) actualList.get(i);
-            // * NOTE* the keys in the map are all in UPPERCASE!
-            String actualValue = (String) actualRolesMap
-                    .get(PersistentGrantedAuthority.COLUMN_NAME_ROLE
-                            .toUpperCase());
-            assertTrue(defaultRolesList.contains(actualValue));
-            defaultRolesList.remove(actualValue);
-        }
-
-    }
-
     public void testRetrieveByUsername() {
         this.verifyUserandJoinTablesAreEmpty();
 
-        this.userDetailsDao.save(this.defaultUserDetails);
+        this.dao.save(this.dataObject);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
 
         // get user details record from persistent store and confirm it is
         // complete
-        MutableUserDetails userDetails = this.userDetailsDao
+        MutableUserDetails userDetails = this.dao
                 .retrieveByName(DEFAULT_USERNAME);
         assertTrue(userDetails instanceof PersistentUserDetails);
         assertTrue(PersistentUserDetails.class == userDetails.getClass());
@@ -298,26 +248,14 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
         }
 
         // choose random non-existent user name and try to retrieve
-        assertNull(this.userDetailsDao.retrieveByName(USERNAME_NOT_IN_DB));
+        assertNull(this.dao.retrieveByName(USERNAME_NOT_IN_DB));
     }
 
     public void testHasUsername() {
-        this.userDetailsDao.save(this.defaultUserDetails);
-        assertTrue(this.userDetailsDao.hasUsername(DEFAULT_USERNAME));
+        this.dao.save(this.dataObject);
+        assertTrue(this.dao.hasUsername(DEFAULT_USERNAME));
 
-        assertFalse(this.userDetailsDao.hasUsername(USERNAME_NOT_IN_DB));
-    }
-
-    /**
-     * Test method for
-     * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getList()}.
-     */
-    public void testGetList() {
-        this.userDetailsDao.save(this.defaultUserDetails);
-
-        List<MutableUserDetails> actualList = this.userDetailsDao.getList();
-        assertEquals(1, actualList.size());
-        assertEquals(this.defaultUserDetails, actualList.get(0));
+        assertFalse(this.dao.hasUsername(USERNAME_NOT_IN_DB));
     }
 
     /**
@@ -326,16 +264,16 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
      */
     public void testGetById() {
         verifyUserandJoinTablesAreEmpty();
-        UserDetails expectedNullUserDetils = this.userDetailsDao
+        UserDetails expectedNullUserDetils = this.dao
                 .getById(new Long(3));
         assertNull(expectedNullUserDetils);
 
-        this.userDetailsDao.save(this.defaultUserDetails);
-        List<MutableUserDetails> actualList = this.userDetailsDao.getList();
+        this.dao.save(this.dataObject);
+        List<MutableUserDetails> actualList = this.dao.getList();
         MutableUserDetails actualUserDetails = (MutableUserDetails) actualList
                 .get(0);
 
-        MutableUserDetails retrievedByIdUserDetails = (MutableUserDetails) this.userDetailsDao
+        MutableUserDetails retrievedByIdUserDetails = (MutableUserDetails) this.dao
                 .getById(actualUserDetails.getId());
         assertEquals(actualUserDetails, retrievedByIdUserDetails);
     }
@@ -359,20 +297,17 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDbTests {
                 (Object[]) null);
     }
 
-    private List<?> retrieveUsersTableFromDb() {
-        return this.jdbcTemplate.queryForList("select * from "
-                + PersistentUserDetails.DATA_STORE_NAME, (Object[]) null);
-    }
-
-    private List<?> retrieveRolesTableFromDb() {
-        return this.jdbcTemplate.queryForList("SELECT * FROM "
-                + PersistentGrantedAuthority.DATA_STORE_NAME, (Object[]) null);
-    }
 
     private List<?> retrieveUsersRolesTableFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
                 + PersistentUserDetails.GRANTED_AUTHORITY_JOIN_TABLE_NAME,
                 (Object[]) null);
     }
+
+	@Override
+	protected List<?> retrieveDataObjectListFromDb() {
+		return this.jdbcTemplate.queryForList("SELECT * FROM "
+                + PersistentUserDetails.DATA_STORE_NAME, (Object[]) null);
+	}
 
 }

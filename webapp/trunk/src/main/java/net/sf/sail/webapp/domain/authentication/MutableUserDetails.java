@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
+import net.sf.sail.webapp.domain.Persistable;
+
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 
@@ -32,7 +34,7 @@ import org.acegisecurity.userdetails.UserDetails;
  * @see org.acegisecurity.userdetails.UserDetails
  * 
  */
-public interface MutableUserDetails extends UserDetails {
+public interface MutableUserDetails extends UserDetails, Persistable {
 
 	/**
 	 * Sets an array of <code>GrantedAuthority</code> for this user. A
