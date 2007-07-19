@@ -22,8 +22,6 @@
  */
 package net.sf.sail.webapp.domain;
 
-import java.io.Serializable;
-
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
@@ -32,7 +30,7 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
  * @author Hiroki Terashima
  * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
  */
-public interface Offering extends Serializable {
+public interface Offering extends Persistable {
 
     public Long getId();
     /**
