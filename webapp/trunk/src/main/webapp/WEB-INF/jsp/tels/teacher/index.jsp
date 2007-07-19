@@ -59,12 +59,6 @@
   </c:forEach><br />
 <spring:message code="signup.signupdate" /><authz:authentication operation="signupdate" /><br /><br />
 
-<div id="right">
-<a href="registerstudent.html"><spring:message code="register.student" /></a><br />
-<a href="registerteacher.html"><spring:message code="register.teacher" /></a><br /></div>
-
-</div>
-
 
 <%@ include file="../footer.jsp"%>
 
