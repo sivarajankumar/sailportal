@@ -17,8 +17,6 @@
  */
 package net.sf.sail.webapp.domain;
 
-import java.io.Serializable;
-
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 
 /**
@@ -29,7 +27,7 @@ import net.sf.sail.webapp.domain.sds.SdsJnlp;
  * @version $Id$
  * 
  */
-public interface Jnlp extends Serializable {
+public interface Jnlp extends Persistable {
 
     /**
      * @return the sdsJnlp
