@@ -41,6 +41,7 @@ public class LostPasswordStudentAccountQuestionValidator extends
 	 */
 	@Override
 	public void validate(Object userDetailsIn, Errors errors) {
+		@SuppressWarnings("unused")
 		StudentUserDetails userDetails = (StudentUserDetails) userDetailsIn;
 		
 		if (errors.hasErrors())

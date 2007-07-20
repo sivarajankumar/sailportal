@@ -22,7 +22,6 @@
  */
 package net.sf.sail.webapp.domain;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
@@ -34,7 +33,7 @@ import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
  * @author Hiroki Terashima
  * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
  */
-public interface Workgroup extends Serializable {
+public interface Workgroup extends Persistable {
 
     /**
      * Sets the SdsWorkgroup object.

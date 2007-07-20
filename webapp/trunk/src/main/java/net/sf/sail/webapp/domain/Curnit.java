@@ -17,8 +17,6 @@
  */
 package net.sf.sail.webapp.domain;
 
-import java.io.Serializable;
-
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
 /**
