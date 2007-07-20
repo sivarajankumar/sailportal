@@ -57,11 +57,11 @@
 <li> <spring:message code="login.username-tip" /></li>
 </ul>
 </div>
-<div id="navigation" class="north4 center">
+<div id="navigation" class="north_4 center">
 <ul>
 <li class="space1">
 <a href="registerstudent.html"> 
-<spring:message code="register.teammate" />
+<img id="imgBorderNone" src="<spring:theme code="register_another_teammate" />" />
 </a>
 </li>
 <li>
@@ -72,12 +72,11 @@
 </ul>
 </div>
 
-
-<div id="navigation" class="center">
+<div id="navigation" class="center north6">
 <ul>
 <li class="space1">
-<a href="teacherIndex.html">
-<spring:message code="wise.signIn" />
+<a href="index.html">
+<img id="imgBorderNone" src="<spring:theme code="sign_in_new_account" />" />
 </a>
 </li>
 <li>
@@ -87,35 +86,5 @@
 </li>
 </ul>
 </div>
-<!--  
-<div id="navigation" class="north center">
-<ul>
-<li class="space1">
-<a href="registerstudent.html"> 
-<spring:message code="register.teammate" />
-</a>
-</li>
-<li class="space1">
-<a href="teacherIndex.html">
-<spring:message code="wise.signIn" />
-</a>
-</li>
-</ul>
-<ul>
-<li>
-<p class="justify widthAdj2 smallFont marginAdj3">  
-<spring:message code="register.teammate-info" />
-</p>
-</li>
-<li>
-<p class="justify widthAdj2 smallFont marginAdj4">
-<spring:message code="register.team" />
-</p>
-</li>
-
-</ul>
- 
-</div>
--->
 </body>
 </html>
