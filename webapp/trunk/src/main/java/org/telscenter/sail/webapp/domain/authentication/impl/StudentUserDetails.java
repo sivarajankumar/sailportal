@@ -161,15 +161,14 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getCoreUsername()
 	 */
 	public String getCoreUsername() {
-		String firstname        = getFirstname();
-		String lastnameInitial  = getLastname().substring(0, 1);
+		String firstname = getFirstname();
+		String lastnameInitial = getLastname().substring(0, 1);
 
-		Calendar birthday       = Calendar.getInstance();
-		birthday.set(0, 6, 19);		
-		//setBirthday(birthday.getTime());  // TODO HT: don't hard-code this. get it from form
+		Calendar birthday = Calendar.getInstance();
+		birthday.setTime(this.birthday);
 		
-		int birthmonth          = birthday.get(Calendar.MONTH);
-		int birthdate           = birthday.get(Calendar.DATE);
+		int birthmonth = birthday.get(Calendar.MONTH) + 1;  // month is 0-based
+		int birthdate = birthday.get(Calendar.DATE);
 
 		return firstname + lastnameInitial +
    		       birthmonth + birthdate;

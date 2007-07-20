@@ -38,6 +38,8 @@ public class StudentAccountForm extends UserAccountForm {
 	private String projectCode;
 	private String accountQuestion;
 	private String accountAnswer;
+	private String birthmonth;
+	private String birthdate;
 	
 	public StudentAccountForm() {
 		userDetails = new StudentUserDetails();
@@ -91,4 +93,31 @@ public class StudentAccountForm extends UserAccountForm {
 		this.accountAnswer = accountAnswer;
 	}
 
+	/**
+	 * @return the birthdate
+	 */
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+	/**
+	 * @param birthdate the birthdate to set
+	 */
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	/**
+	 * @return the birthmonth
+	 */
+	public String getBirthmonth() {
+		return birthmonth;
+	}
+
+	/**
+	 * @param birthmonth the birthmonth to set
+	 */
+	public void setBirthmonth(String birthmonth) {
+		this.birthmonth = birthmonth;
+	}
 }

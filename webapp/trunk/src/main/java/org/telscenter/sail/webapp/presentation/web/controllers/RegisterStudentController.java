@@ -133,6 +133,12 @@ public class RegisterStudentController extends SignupController {
 		StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
 		if (accountForm.isNewAccount()) {
 			userDetails.setSignupdate(Calendar.getInstance().getTime());
+			Calendar birthday       = Calendar.getInstance();
+			int birthmonth = Integer.parseInt(accountForm.getBirthmonth());
+			int birthdate = Integer.parseInt(accountForm.getBirthdate());
+			birthday.set(Calendar.MONTH, birthmonth-1);  // month is 0-based
+			birthday.set(Calendar.DATE, birthdate);
+			userDetails.setBirthday(birthday.getTime());
 		}
 		errors.setNestedPath("userDetails");
 		getValidator().validate(userDetails, errors);

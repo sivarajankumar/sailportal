@@ -74,9 +74,31 @@
     </div>
 
     <div>
-      <label for="birthday"><spring:message code="signup.birthday" /></label>
-      <form:input path="userDetails.birthday" id="birthday"/>
-      <form:errors path="userDetails.birthday" />
+      <label for="birthmonth"><spring:message code="signup.birthmonth" /></label>
+
+  	    <form:select path="birthmonth" id="birthmonth">
+		  <c:forEach var="month" begin="1" end="12" step="1">
+			  <form:option value="${month}">
+				  <spring:message code="birthmonths.${month}" />
+			  </form:option>
+		  </c:forEach>
+	    </form:select> 
+
+      <form:errors path="birthmonth" />
+    </div>
+
+    <div>
+      <label for="birthdate"><spring:message code="signup.birthdate" /></label>
+
+  	    <form:select path="birthdate" id="birthdate">
+		  <c:forEach var="date" begin="1" end="31" step="1">
+			  <form:option value="${date}">
+				  <spring:message code="birthdates.${date}" />
+			  </form:option>
+		  </c:forEach>
+	    </form:select> 
+	    
+      <form:errors path="birthdate" />
     </div>
 
     <div>
