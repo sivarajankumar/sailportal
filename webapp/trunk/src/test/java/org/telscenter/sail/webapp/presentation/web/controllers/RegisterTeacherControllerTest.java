@@ -41,7 +41,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 
@@ -112,8 +111,7 @@ public class RegisterTeacherControllerTest extends AbstractModelAndViewTests {
 		ModelAndView modelAndView = signupController.onSubmit(request,
 				response, teacherAccountForm, errors);
 
-		assertTrue(modelAndView.getView() instanceof RedirectView);
-		assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
+		assertEquals(SUCCESS, modelAndView.getViewName());
 		verify(mockUserService);
 
 		// test submission of form with same firstname, lastname and birthday info which
