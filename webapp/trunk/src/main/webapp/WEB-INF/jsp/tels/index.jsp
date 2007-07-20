@@ -95,7 +95,7 @@
 <label for="username" class="login">
 <spring:message code="login.username" />
 </label>
-<input type="text" name="j_username" id="j_username" size="20" />
+<input type="text" name="j_username" id="j_username" size="20"/>
 </li>
 <li>
 <label for="password" class="login">
@@ -251,7 +251,7 @@ prevClick = moveCircle(counter,1);"
 <h4 class="heading2 north6">
 <spring:message code="wise.testimonials" />
 </h4>
-<img id="rotatorT" class="right4 north0 marginVerAdj1 " src="<spring:theme code="wise_action" />" />
+<img id="rotatorT" class="right4 north0 marginVerAdj3 " src="<spring:theme code="wise_testimonials" />" />
 <img id="imgPos12" class="dynamicImage" src="<spring:theme code="arrow_prev" />" 
 onmouseover="this.style.cursor='pointer';" 
 onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;"
@@ -298,6 +298,10 @@ onmouseout="this.style.cursor='default';" />
 <spring:message code="wise.latestNews" />
 </h4>
 <textarea class="marginVerAdj2 north6" rows="12" cols="35"><spring:message code="wise.latestNews" /> </textarea>
+<img id="newsArchive" class="right6" src="<spring:theme code="newsarchive" />" 
+        	onmouseover="swapNewsImage('newsArchive', 1);"
+       		onmouseout="swapNewsImage('newsArchive', 0);"
+/>
 </div>
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 
@@ -305,8 +309,14 @@ onmouseout="this.style.cursor='default';" />
 
 </div>
 
-<div id="north3">
-<img src="<spring:theme code="nsf_logo" />" class="center"/>
+<div class="right7 marginHorAdj1 padding0 south0">
+<img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" 
+class="center"/>
+<spring:message code="wise.legal-acknowledgment" /> 
+<a href="http://www.nsf.gov"> <spring:message code="nsf" /></a>.
+<spring:message code="wise.copyright" /> &nbsp;&nbsp;&nbsp; 
+<a href="#"><spring:message code="wise.contact" /></a> 
+
 </div>
 
 <!-- Support for Spring errors object -->
