@@ -32,7 +32,9 @@ var wiseButtons = new Array("./themes/tels/default/images/Overview-of-WISE-butto
 
 var signInButtons = new Array("./themes/tels/default/images/sign_in.png",
 							  "./themes/tels/default/images/sign_in_rollover.png");
-							
+
+var newsArchiveButtons = new Array("./themes/tels/default/images/News-Archive.png",
+	  							   "./themes/tels/default/images/News-Archive-Roll.png");								
 if(document.images){
 var imgs2 = new Array();
   for(var i = 0; i < imgAr.length; i++){
@@ -163,6 +165,12 @@ function onOrOff_T(prevClick_T,ind,name){
 function swapImage(id,num){
    if(document.images){
    		document.getElementById(id).src = imgs2[num].src;
+	}
+}
+
+function swapNewsImage(id,num){
+	if(document.images){
+		document.getElementById(id).src = newsArchiveButtons[num].src;
 	}
 }
 
