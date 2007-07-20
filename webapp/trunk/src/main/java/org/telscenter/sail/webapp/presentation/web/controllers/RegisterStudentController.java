@@ -42,6 +42,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
+import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtils;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 import net.sf.sail.webapp.domain.User;
@@ -88,8 +89,8 @@ public class RegisterStudentController extends SignupController {
 			try {
 				User user = this.userService.createUser(userDetails);
 				String projectCode = accountForm.getProjectCode();
-				String runcode = getRuncodeFromProjectCode(projectCode);
-				String periodName = getPeriodNameFromProjectCode(projectCode);
+				String runcode = RunUtils.getRunCode(projectCode);
+				String periodName = RunUtils.getRunPeriod(projectCode);
 				Run run = this.runService.retrieveRunByRuncode(runcode);
 				Group period = run.getPeriodByName(periodName);
 				Set<User> membersToAdd = new HashSet<User>();
@@ -156,8 +157,8 @@ public class RegisterStudentController extends SignupController {
 					"Project Code is invalid. Get this from your teacher.");
 					return;
 				}
-				String runcode = getRuncodeFromProjectCode(projectCode);
-				String periodName = getPeriodNameFromProjectCode(projectCode);
+				String runcode = RunUtils.getRunCode(projectCode);
+				String periodName = RunUtils.getRunPeriod(projectCode);
 				Run run = runService.retrieveRunByRuncode(runcode);
 				if (run == null) {
 					errors.reject("error.projectcode-not-in-db",
@@ -188,16 +189,6 @@ public class RegisterStudentController extends SignupController {
 	  binder.registerCustomEditor(Date.class,
 	    new CustomDateEditor(new SimpleDateFormat("MM/dd"), false)
 	  );
-	}
-
-	private String getPeriodNameFromProjectCode(String projectCode) {
-		int indexOfHyphon = projectCode.lastIndexOf("-");
-		return projectCode.substring(indexOfHyphon+1);
-	}
-	
-	private String getRuncodeFromProjectCode(String projectCode) {
-		int indexOfHyphon = projectCode.lastIndexOf("-");
-		return projectCode.substring(0, indexOfHyphon);
 	}
 
 	/**
