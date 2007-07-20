@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 
@@ -43,6 +42,8 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
  * @version $Id$
  */
 public class RegisterTeacherController extends SignupController {
+
+	protected static final String USERNAME_KEY = "username";
 
 	public RegisterTeacherController() {
 		setValidateOnBinding(false);
@@ -81,8 +82,11 @@ public class RegisterTeacherController extends SignupController {
 		} else {
 			//userService.updateUser(userDetails);    // TODO HT: add updateUser() to UserService
 		}
+		
+		ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
-		return new ModelAndView(new RedirectView(getSuccessView()));
+		modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
+		return modelAndView;
 	}
 	
 	@Override
