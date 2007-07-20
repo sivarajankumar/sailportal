@@ -70,7 +70,9 @@
         </c:when>
         <c:otherwise>
             <c:forEach var="workgroup" items="${workgroup_map[run]}">
-              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a><br />
+              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">
+		        <img id="runproject" src="../<spring:theme code="run_project" />"  />              
+              </a><br />
             </c:forEach>
         </c:otherwise>
       </c:choose>

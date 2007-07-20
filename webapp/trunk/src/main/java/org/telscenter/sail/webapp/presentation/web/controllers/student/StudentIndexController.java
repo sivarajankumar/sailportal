@@ -22,13 +22,20 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -43,9 +50,21 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 public class StudentIndexController extends AbstractController {
 
 	private RunService runService;
+
+	private WorkgroupService workgroupService;
+	
+	private HttpRestTransport httpRestTransport;
 	
 	protected final static String RUN_LIST_KEY = "run_list";
+
+	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
+
+	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 	
+	private static final String VIEW_NAME = "student/index";
+
+	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
+
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -54,11 +73,25 @@ public class StudentIndexController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+    	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+    	ControllerUtil.addUserToModelAndView(request, modelAndView);
+ 
+		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		
 		List<Run> runlist = runService.getRunList(user);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(RUN_LIST_KEY, runlist);
+		Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
+		for (Run run : runlist) {
+			List<Workgroup> workgroupList = this.workgroupService
+					.getWorkgroupListByOfferingAndUser(run, user);
+			workgroupList = this.workgroupService
+					.createPreviewWorkgroupForOfferingIfNecessary(run,
+							workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
+			workgroupMap.put(run, workgroupList);
+		}
+
+		modelAndView.addObject(RUN_LIST_KEY, runlist);
+		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
+		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 
         return modelAndView;
 	}
@@ -68,6 +101,24 @@ public class StudentIndexController extends AbstractController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param workgroupService
+	 *            the workgroupService to set
+	 */
+	@Required
+	public void setWorkgroupService(WorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
+	}
+	
+	/**
+	 * @param httpRestTransport
+	 *            the httpRestTransport to set
+	 */
+	@Required
+	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
+		this.httpRestTransport = httpRestTransport;
 	}
 
 }
