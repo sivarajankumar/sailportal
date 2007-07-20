@@ -33,28 +33,58 @@
 
 <%@ include file="studentHeader.jsp"%>
 
-<div class="north">
-<h2 class="center"><spring:message code="register.student" /></h2>
+<div class="north_1">
+<h2 class="center"><spring:message code="student.registration" /></h2>
 <h3 class="center"><spring:message code="login.success" /></h3>
 <h4 class="center"><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="navigation" class="center north0">
+<div id="navigation" class="center north4">
 <ul>
 <li class="vertical"><spring:message code="login.username" />
-<input name="username" value="${username}" />
+<input name="username" value="${username}"/>
 </li>
 <li class="vertical"><spring:message code="login.password" />
-<input name="password" type="password" value="<authz:authentication operation="password" />" size="25" />
+<input name="password" type="password" value="<authz:authentication operation="password" />" />
 </li>
 </ul>
 </div>
 
-<div id="spacing" class="north center">
-<ul align="left">
+<div id="spacing" class="north4 center">
+<ul>
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>
 <li> <spring:message code="login.username-tip" /></li>
+</ul>
+</div>
+<div id="navigation" class="north4 center">
+<ul>
+<li class="space1">
+<a href="registerstudent.html"> 
+<spring:message code="register.teammate" />
+</a>
+</li>
+<li>
+<p class="right1 south justify widthAdj5 smallFont marginAdj3">  
+<spring:message code="register.teammate-info" />
+</p>
+</li>
+</ul>
+</div>
+
+
+<div id="navigation" class="center">
+<ul>
+<li class="space1">
+<a href="teacherIndex.html">
+<spring:message code="wise.signIn" />
+</a>
+</li>
+<li>
+<p class="right1 south_1 justify widthAdj5 smallFont marginAdj4">
+<spring:message code="register.team" />
+</p>
+</li>
 </ul>
 </div>
 <!--  
@@ -79,7 +109,7 @@
 </li>
 <li>
 <p class="justify widthAdj2 smallFont marginAdj4">
-<spring:message code="login.team" />
+<spring:message code="register.team" />
 </p>
 </li>
 
