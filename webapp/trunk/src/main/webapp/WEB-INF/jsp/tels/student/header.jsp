@@ -1,3 +1,5 @@
+<%@ include file="../include.jsp" %>
+
 <!-- 
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
@@ -21,7 +23,8 @@
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
  
-<!-- $Id$ -->
+<!-- $Id$ 
+
 
 <div id="banner" class="welcome1">
 	<img src="<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
@@ -38,3 +41,28 @@
 	</p>
 	<p class="userlogout"> <%@ include file="../logout.jsp"%> </p>
 	</div>
+
+
+
+
+
+
+
+
+-->
+
+
+<div class="welcome1">
+	<img src="<spring:theme code="banner2"/>" alt="<spring:message code="wise.banner.alttext" />" />
+</div>
+	<div class="center heading" ><spring:message code="wise.banner.student" />
+	</div>
+	<div class="right pandaAlign">	<img src="<spring:theme code="panda"/>" alt="<spring:message code="wise.banner.panda.alttext" />" />
+	</div>
+	    <div>
+	</div>
+	
+
+
+
+

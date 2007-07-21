@@ -30,9 +30,9 @@
 
 <body>
 
-<%@ include file="../header.jsp"%>
+<%@ include file="header.jsp"%>
 
-<h1>Student homepage</h1>
+<h1><spring:message code="student.home" /></h1>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
