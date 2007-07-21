@@ -57,7 +57,7 @@
 <p>CurnitID: <spring:bind path="runParameters.curnitId"><c:out value="${status.value}"/></spring:bind></p>
 <p>Project description: <c:out value="${project.description}"/></p>
 <p><c:forEach items="${project.grades}" var="grade"><c:out value="${grade}" /></c:forEach></p>
-<form method="post" class="center north0">
+<form method="post">
 <!--  
 <input type="button" disabled value=<spring:message code='navigate.back' /> style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue" />
 <a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"><spring:message code="navigate.cancel" /> </a> 

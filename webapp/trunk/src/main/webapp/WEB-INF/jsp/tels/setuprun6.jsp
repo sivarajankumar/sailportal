@@ -63,10 +63,10 @@
 <input type="submit" style="text-decoration:none;font-size:1.5em;" class="bgColorLightBlue" value=<spring:message code='navigate.done' /> /> 
 </form>
 -->
-<form method="post" class="center north0">
-<input type="submit" name="_target4" value="<spring:message code="navigate.back" />">
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
-<input type="submit" name="_finish" value="<spring:message code="navigate.done" />">
+<form method="post">
+<input type="submit" name="_target4" value="<spring:message code="navigate.back" />" />
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+<input type="submit" name="_finish" value="<spring:message code="navigate.done" />" />
 </form>
 </div>
 

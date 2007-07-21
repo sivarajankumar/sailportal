@@ -99,7 +99,7 @@ if(form.manualCheckbox.checked==true){
             <spring:message code="defaultPeriodNames.${periodName}" /><br/>
           </c:forEach>      
     </div>
-
+<!--  
 OR <br />
 
 <input type="checkbox" name="manualCheckbox" value="Manual" onclick="checkIfTextAreaEmpty(this.form)" /><spring:message code="classroom.manually-named-periods"/>
@@ -109,7 +109,7 @@ OR <br />
 <p class="center">
 <spring:message code="classroom.separate-periods" />
 </p>
-
+-->
 <input type="submit" name="_target1" value="<spring:message code="navigate.back" />">
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
 <input type="submit" name="_target3" value="<spring:message code="navigate.next" />">

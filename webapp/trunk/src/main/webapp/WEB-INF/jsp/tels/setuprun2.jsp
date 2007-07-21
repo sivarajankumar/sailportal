@@ -70,7 +70,7 @@
 </div>
 -->
 
-<form method="post" class="center north0">
+<form method="post">
 <input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target2" value="<spring:message code="navigate.next" />" />
