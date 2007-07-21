@@ -31,28 +31,33 @@
 
 <body>
 
-<%@ include file="studentHeader.jsp"%>
+<%@ include file="header.jsp"%>
 
-<div class="north">
+<div >
 <h2 class="center"><spring:message code="register.new-account" /></h2>
 <h2 class="center"><spring:message code="register.type-of-account" /></h2>
 </div>
-<div id="navigation" class="center north">
+<div id="navigation" class="center">
 <ul>
 <li class="vertical"><spring:message code="register.create-student-account" />
-<a href="registerstudent.html"> <spring:message code="signup.studentAccount" /> </a>
+<a href="registerstudent.html" class="north_1"> 
+<img id="imgBorderNone" src="<spring:theme code="create_student_account" />" /> 
+</a>
 </li>
 <li class="vertical"><spring:message code="register.create-teacher-account" />
-<a href="registerteacher.html"> <spring:message code="signup.teacherAccount" /> </a>
+<a href="registerteacher.html" class="north_1"> 
+<img id="imgBorder2None" src="<spring:theme code="create_teacher_account" />" />
+</a> 
 </li>
 </ul>
 </div>
 
-<div id="spacing" class="north center border">
+<div id="spacing" class="center border">
 <h4 class="left"> <spring:message code="register.which-account" /> </h4>
 <ul class="left">
-<li> <spring:message code="register.student-account-desc" /></li>
-<li> <spring:message code="register.teacher-account-desc" /></li>
+<li id="lineHeightAdj"> <spring:message code="register.student-account-desc" /></li>
+<p id="lineHeightAdj" />
+<li id="lineHeightAdj"> <spring:message code="register.teacher-account-desc" /></li>
 </ul>
 </div>
 <%@ include file="footer.jsp"%>
