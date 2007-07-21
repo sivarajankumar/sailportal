@@ -35,7 +35,6 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractWizardFormController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Project;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
@@ -201,7 +200,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	@Override
 	protected ModelAndView processCancel(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors) {
-		return new ModelAndView(new RedirectView(VIEW_NAME));
+		return new ModelAndView(VIEW_NAME);
 	}
 
 	/**

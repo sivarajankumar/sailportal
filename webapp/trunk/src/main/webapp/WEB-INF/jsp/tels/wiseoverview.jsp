@@ -31,6 +31,7 @@
 </head>
 <body>
 <%@ include file="header.jsp"%>
+<br /><br />
 <div class="center">
 <object width="700" height="500">
 <embed src="./flash/tels/WISE_Slideshow.swf" width="700" height="500" />
