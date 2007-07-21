@@ -67,7 +67,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private ProjectService projectService = null;
 	
-	private static final String VIEW_NAME = "teacher/index.html";
+	private static final String VIEW_NAME = "teacher/index";
 
 	/**
 	 * Constructor
