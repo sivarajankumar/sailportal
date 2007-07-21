@@ -194,7 +194,7 @@
 
 .right1{
 	position:relative;
-	right:-630px;
+	right:-650px;
 }
 
 .right2{
@@ -838,7 +838,8 @@ font-family:arial,sans-serif;
 }
 
 #imgBorderNone,#imgBorder2None,#imgBorder3None,#imgBorder4None{
-	border:0;
+	border:0px;
+	background:transparent;
 }
 
 #imgPos0{
