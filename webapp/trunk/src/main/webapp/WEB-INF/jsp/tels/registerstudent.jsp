@@ -142,7 +142,9 @@
     </div>
 
      
-    <div><input type="submit" value="<spring:message code="signup.save.information" />" /></div>
+    <div><input type="image" src="<spring:theme code="register_save" />" />
+    <a href="index.html"><input type="image" src="<spring:theme code="register_cancel" />" /> </a>
+    </div>
 
 </form:form></div>
 </div>

@@ -57,6 +57,8 @@
 </ul>
 </div>
 <div class="center">
-<img src="<spring:theme code="sign_in" />" />
+<a href="index.html">
+<img id="imgBorderNone" src="<spring:theme code="sign_in_new_account" />" />
+</a>
 </div>
 </body></html>

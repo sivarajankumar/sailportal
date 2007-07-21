@@ -27,6 +27,21 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script type="text/javascript">
+function checkIfLegalChecked (form) {
+if(form.legalAcknowledged.checked==true){
+	form.signupSubmit.disabled=false;	
+}else{
+	form.signupSubmit.disabled=true;	
+}
+
+}
+
+
+// End -->
+</script>
+
+
 
 <title><spring:message code="signup.title" /></title>
 
@@ -113,7 +128,9 @@
 
   <div>
     <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>
-    <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> I agree to the terms of use.
+    <form:checkbox path="legalAcknowledged" id="legalAcknowledged" 
+    
+    /> <spring:message code="register.teacher.terms-of-use" />
   </div>
   
   <div>
@@ -128,7 +145,10 @@
 
 
 
-<input type="submit" value="<spring:message code="signup.submit" />"  onclick="Effect.toggle('waiting', 'appear')"/>
+<input type="submit" id="signupSubmit"
+value="<spring:message code="signup.submit" />"  
+onclick="checkIfLegalChecked(this.form);
+Effect.toggle('waiting', 'appear')"/>
         <div id="waiting" style="display: none">
             <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" /></div>
         </div>
@@ -137,9 +157,6 @@
         
 </form:form></div>
 
-<div>
-<a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
-</div>
 <%@ include file="footer.jsp"%>
 
 </body>
