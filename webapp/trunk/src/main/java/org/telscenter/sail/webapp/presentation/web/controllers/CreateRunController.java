@@ -66,7 +66,11 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private ProjectService projectService = null;
 	
-	private static final String VIEW_NAME = "teacher/index";
+	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/setuprunconfirm";
+	
+	private static final String CANCEL_VIEW_NAME = "teacher/index";
+
+	private static final String RUN_KEY = "run";
 
 	/**
 	 * Constructor
@@ -180,15 +184,18 @@ public class CreateRunController extends AbstractWizardFormController {
     	// TODO: LAW or HT: shouldn't createOffering throw exception?
     	// e.g. CurnitNotFoundException and JNLPNotFoundException
     	// answer: yes
+		Run run = null;
     	try {
-			this.runService.createRun(runParameters);
+			run = this.runService.createRun(runParameters);
 		} catch (CurnitNotFoundException e) {
 			errors.rejectValue("curnitId", "error.curnit-not_found",
 					new Object[] { runParameters.getCurnitId() }, 
 					"Curnit Not Found.");
 			return showForm(request, response, errors);
 		}
-    	return new ModelAndView(VIEW_NAME);
+		ModelAndView modelAndView = new ModelAndView(COMPLETE_VIEW_NAME);
+		modelAndView.addObject(RUN_KEY, run);
+    	return modelAndView;
 	}
 	
 	/**
@@ -200,7 +207,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	@Override
 	protected ModelAndView processCancel(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors) {
-		return new ModelAndView(VIEW_NAME);
+		return new ModelAndView(CANCEL_VIEW_NAME);
 	}
 
 	/**
