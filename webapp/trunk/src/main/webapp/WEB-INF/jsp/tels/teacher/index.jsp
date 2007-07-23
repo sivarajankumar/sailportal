@@ -35,7 +35,7 @@
 <h1>Teacher homepage</h1>
 
 <div id="columns">
-<div id="left"><%@ include file="../logout.jsp"%>
+<div><%@ include file="../logout.jsp"%>
 <h2><spring:message code="welcome" /> 
     <authz:authentication operation="username" />
 </h2>
