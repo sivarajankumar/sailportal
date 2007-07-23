@@ -57,8 +57,9 @@ public class AbstractAclService<T extends Persistable> implements AclService<T> 
 					new PrincipalSid(SecurityContextHolder.getContext()
 							.getAuthentication()), true);
 			this.mutableAclService.updateAcl(acl);
-		}
-		throw new IllegalArgumentException("Cannot create ACL. Object not set.");
+		} else
+			throw new IllegalArgumentException(
+					"Cannot create ACL. Object not set.");
 	}
 
 }
