@@ -120,11 +120,11 @@ if(form.legalAcknowledged.checked==true){
   
     <label for="password"><spring:message code="signup.password" /></label>
     <form:password path="userDetails.password" id="password"/>
-  </br>
+  <br />
   
     <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
     <form:password path="repeatedPassword" id="repeatedPassword"/>
-  </br>
+  <br />
 
 
 <input type="submit" id="signupSubmit"
