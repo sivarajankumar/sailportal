@@ -33,8 +33,22 @@ var wiseButtons = new Array("./themes/tels/default/images/Overview-of-WISE-butto
 var signInButtons = new Array("./themes/tels/default/images/sign_in.png",
 							  "./themes/tels/default/images/sign_in_rollover.png");
 
+var signInNewAccountButtons = new Array("./themes/tels/default/images/Sign-in-New-Account.png",
+										"./themes/tels/default/images/Sign-in-New-Account-Roll.png");
+										
 var newsArchiveButtons = new Array("./themes/tels/default/images/News-Archive.png",
 	  							   "./themes/tels/default/images/News-Archive-Roll.png");								
+
+var registerStudentButtons = new Array("./themes/tels/default/images/Register-Another.png",
+									   "./themes/tels/default/images/Register-Another-Roll.png");
+
+var saveButtons = new Array("./themes/tels/default/images/Save.png",
+							"./themes/tels/default/images/Save-Roll.png");
+
+var cancelButtons = new Array("./themes/tels/default/images/Cancel-Reg.png",
+							  "./themes/tels/default/images/Cancel-Reg-Roll.png");
+							  
+							
 if(document.images){
 var imgs2 = new Array();
   for(var i = 0; i < imgAr.length; i++){
@@ -170,7 +184,31 @@ function swapImage(id,num){
 
 function swapNewsImage(id,num){
 	if(document.images){
-		document.getElementById(id).src = newsArchiveButtons[num].src;
+		document.getElementById(id).src = newsArchiveButtons[num];
+	}
+}
+
+function swapSaveImage(id,num){
+	if(document.images){
+		document.getElementById(id).src = saveButtons[num];
+	}
+}
+
+function swapCancelImage(id,num){
+	if(document.images){
+		document.getElementById(id).src = cancelButtons[num];
+	}
+}
+
+function swapRegisterImage(id,num){
+	if(document.images){
+		document.getElementById(id).src = registerStudentButtons[num];
+	}
+}
+
+function swapSignInNewAccount(id,num){
+	if(document.images){
+		document.getElementById(id).src = signInNewAccountButtons[num];
 	}
 }
 
