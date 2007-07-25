@@ -25,7 +25,7 @@
 
 .north_0{
 	position:relative;
-	top:-8.0em;
+	top:-30px;
 }
 	
 .north{
@@ -50,7 +50,7 @@
 
 .north2{
 	position:relative;
-	top:-8.6em;
+	top:-30px;
 }
 
 .north3{
@@ -199,7 +199,7 @@
 
 .right2{
 	position:relative;
-	right:-106px;
+	right:-800px;
 }
 
 .right3{
@@ -631,17 +631,16 @@ p.bgimage{
 }
 
 p.userinfo{
-	text-align:right;
-	position: relative;
-	top:-7.7em;
-	left: -2em;
+	position: absolute;
+	top:5px;
+	left:880px;
 }
 
 p.userlogout{
-	text-align:right;
-	position: relative;
-	top: -8.7em;
-	left:-2em;
+	position: absolute;
+	top: 20px;
+	left:860px;
+	font-size:16px;
 }
 
 .parastyle{
@@ -1023,7 +1022,7 @@ top: -1.7em;
 .pandaAlign{
 	position: absolute;
 	top: 30px;
-	right:10px;
+	right:40px;
 	background-color: transparent;
 }
 
