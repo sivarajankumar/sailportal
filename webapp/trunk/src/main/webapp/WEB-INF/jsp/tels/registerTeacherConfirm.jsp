@@ -34,13 +34,13 @@
 
 <%@ include file="teacherHeader.jsp"%>
 
-<div class="north">
+<div>
 <h2 class="center"><spring:message code="teacher.registration" /></h2>
 <h3 class="center"><spring:message code="login.success" /></h3>
 <h4 class="center"><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="navigation" class="center north0">
+<div id="navigation" class="center">
 <ul>
 <li class="vertical"><spring:message code="login.username" />
 <input name="username" value="${username}"/>
@@ -51,7 +51,7 @@
 </ul>
 </div>
 
-<div id="spacing" class="north">
+<div id="spacing">
 <ul class="center">
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>
