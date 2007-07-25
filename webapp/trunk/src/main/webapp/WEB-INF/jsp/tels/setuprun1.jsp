@@ -63,9 +63,9 @@
 <a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"><spring:message code="navigate.cancel" /> </a> 
 <a href="setuprun3.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"><spring:message code="navigate.next" /> </a> 
 -->
-<input type="submit" name="_target0" disabled value="<spring:message code="navigate.back" />" >
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
-<input type="submit" name="_target1" value="<spring:message code="navigate.next" />">
+<input type="submit" name="_target0" disabled value="<spring:message code="navigate.back" />" />
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+<input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
 </form>
 </body>
 </html>

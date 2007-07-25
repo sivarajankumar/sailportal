@@ -57,11 +57,11 @@ if(form.manualCheckbox.checked==true){
 <%@ include file="teacher/header.jsp"%>
 <div id="navigation" class="center north2 widthAdj4">
 <ul class="bigFont1">
-<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
+<li style="bgcolorWhite"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
 <li class="bgColorLightBlue"  class="border"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
-<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
-<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
-<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
+<li style="bgcolorWhite"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
+<li style="bgcolorWhite"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
+<li style="bgcolorWhite"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
 </ul>
 </div>
 <ul id="tabnav" class="north_0 widthAdj4">

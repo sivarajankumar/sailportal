@@ -25,6 +25,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
+<script src="./javascript/tels/rotator.js" type="text/javascript" > </script>
+  
 <title><spring:message code="signup.title" /></title>
 
 </head>
@@ -142,8 +144,14 @@
     </div>
 
      
-    <div><input type="image" src="<spring:theme code="register_save" />" />
-    <a href="index.html"><input type="image" src="<spring:theme code="register_cancel" />" /> </a>
+    <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
+    onmouseover="swapSaveImage('save',1)" 
+    onmouseout="swapSaveImage('save',0)"
+    />
+    <a href="index.html"><input type="image" id="cancel" src="<spring:theme code="register_cancel" />" 
+    onmouseover="swapCancelImage('cancel',1)"
+    onmouseout="swapCancelImage('cancel',0)"
+    /> </a>
     </div>
 
 </form:form></div>

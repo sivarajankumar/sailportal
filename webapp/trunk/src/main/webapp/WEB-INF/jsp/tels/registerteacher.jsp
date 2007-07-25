@@ -28,7 +28,7 @@
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 <script type="text/javascript">
-function checkIfLegalChecked (form) {
+function checkIfLegalAcknowledged (form) {
 if(form.legalAcknowledged.checked==true){
 	form.signupSubmit.disabled=false;	
 }else{
@@ -63,92 +63,73 @@ if(form.legalAcknowledged.checked==true){
     </b>
   </c:forEach>
 </spring:bind>
-
-<div id="columns">
 <h2 class="center"><spring:message code="register.teacher" /></h2>
 
+<div id="right">
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
 
-
-<div>
 <label for="firstname"><spring:message code="signup.firstname" /></label>
     <form:input path="userDetails.firstname" id="firstname"/>
-</div>   
- 
-  <div>
+<br /> 
     <label for="lastname"><spring:message code="signup.lastname" /></label>
     <form:input path="userDetails.lastname" id="lastname"/>
-  </div>
+<br />
 
-  <div>
     <label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
     <form:input path="userDetails.emailAddress" id="emailAddress"/>
-  </div>
+<br />
 
-<div>
     <label for="country"><spring:message code="signup.country" /></label> 
     <form:input path="userDetails.country" id="country" />
         <div id="autocomplete_choices_country" class="autocomplete" ></div>
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
 		</script>
-  </div>
+<br />
 
-  <div>
     <label for="state"><spring:message code="signup.state" /></label> 
     <form:input path="userDetails.state" id="state" />
         <div id="autocomplete_choices_state" class="autocomplete" ></div>
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('state', 'autocomplete_choices_state', 'states.html', {paramName: 'sofar'}); 	   		
 		</script>
-  </div>
+<br />
 
-  <div>
     <label for="city"><spring:message code="signup.city" /></label> 
     <form:input path="userDetails.city" id="city" />
-  </div>
+<br />
 
-  <div>
     <label for="schoolname"><spring:message code="signup.schoolname" /></label> 
     <form:input path="userDetails.schoolname" id="schoolname" />
-  </div>
+<br />
 
-  <div>
     <label for="curriculumsubjects"><spring:message code="signup.curriculumsubjects" /></label> 
   Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
   Chemistry: <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
   Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" />
-
-  </div>
-
-  <div>
+<br />
+<br />
     <label for="schoollevel"><spring:message code="signup.schoollevel" /></label> 
     <form:input path="userDetails.schoollevel" id="schoollevel" />
-  </div>
+  <br />
 
-  <div>
     <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>
-    <form:checkbox path="legalAcknowledged" id="legalAcknowledged" 
-    
+    <form:checkbox path="legalAcknowledged" id="legalAcknowledged" onclick="checkIfLegalAcknowledged(this.form)"
     /> <spring:message code="register.teacher.terms-of-use" />
-  </div>
+  <br />
   
-  <div>
     <label for="password"><spring:message code="signup.password" /></label>
     <form:password path="userDetails.password" id="password"/>
-  </div>
+  </br>
   
-  <div>
     <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
     <form:password path="repeatedPassword" id="repeatedPassword"/>
-  </div>
-
+  </br>
 
 
 <input type="submit" id="signupSubmit"
 value="<spring:message code="signup.submit" />"  
-onclick="checkIfLegalChecked(this.form);
-Effect.toggle('waiting', 'appear')"/>
+disabled onclick="Effect.toggle('waiting', 'appear')"/>
         <div id="waiting" style="display: none">
             <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" /></div>
         </div>

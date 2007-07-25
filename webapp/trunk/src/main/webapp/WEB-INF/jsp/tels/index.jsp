@@ -104,10 +104,10 @@
 <input type="password" name="j_password" id="j_password" size="20" />
 </li>
 <li><div id="waiting" style="display: none">
-       <div>
+       		<div>
        		<img id="wait" src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" 
-       		/>
-       </div>
+     		/>
+     		</div>
      </div>
 </li>
 <li class="right6 marginHorAdj">

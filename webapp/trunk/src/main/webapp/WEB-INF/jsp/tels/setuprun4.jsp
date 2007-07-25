@@ -53,9 +53,9 @@
 <p class="bigFont1 north0"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></p>
 <p class="bigFont1 north0"><spring:message code="teacher.skip-lesson-plan" /></p>
 <form method="post" class="center north0">
-<input type="submit" name="_target2" value="<spring:message code="navigate.back" />">
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
-<input type="submit" name="_target4" value="<spring:message code="navigate.next" />">
+<input type="submit" name="_target2" value="<spring:message code="navigate.back" />" />
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+<input type="submit" name="_target4" value="<spring:message code="navigate.next" />" />
 </form>
 
 </body>

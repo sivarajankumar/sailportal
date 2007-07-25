@@ -27,13 +27,13 @@
   type="text/css" />
 <title><spring:message code="signup.title" /></title>
 <script type="text/javascript" src="./javascript/pas/utils.js"></script>
+<script type="text/javascript" src="./javascript/tels/rotator.js"></script>
 </head>
 
 <body>
 
 <%@ include file="studentHeader.jsp"%>
-
-<div class="north_1">
+<div class="north_1 center">
 <h2 class="center"><spring:message code="student.registration" /></h2>
 <h3 class="center"><spring:message code="login.success" /></h3>
 <h4 class="center"><spring:message code="login.sign-in-message" /></h4>
@@ -57,11 +57,15 @@
 <li> <spring:message code="login.username-tip" /></li>
 </ul>
 </div>
+
 <div id="navigation" class="north_4 center">
 <ul>
 <li class="space1">
 <a href="registerstudent.html"> 
-<img id="imgBorderNone" src="<spring:theme code="register_another_teammate" />" />
+<img id="imgBorderNone" src="<spring:theme code="register_another_teammate" />" 
+onmouseover="swapRegisterImage('imgBorderNone',1)"
+onmouseout="swapRegisterImage('imgBorderNone',0)"
+/>
 </a>
 </li>
 <li>
@@ -76,7 +80,10 @@
 <ul>
 <li class="space1">
 <a href="index.html">
-<img id="imgBorderNone" src="<spring:theme code="sign_in_new_account" />" />
+<img id="imgBorder2None" src="<spring:theme code="sign_in_new_account" />" 
+onmouseover="swapSignInNewAccount('imgBorder2None',1)"
+onmouseout="swapSignInNewAccount('imgBorder2None',0)"
+/>
 </a>
 </li>
 <li>
@@ -86,5 +93,6 @@
 </li>
 </ul>
 </div>
+
 </body>
 </html>

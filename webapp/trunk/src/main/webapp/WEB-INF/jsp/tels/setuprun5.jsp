@@ -62,9 +62,9 @@
 </div>
 -->
 <form method="post" class="center north0">
-<input type="submit" name="_target3" value="<spring:message code="navigate.back" />">
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
-<input type="submit" name="_target5" value="<spring:message code="navigate.next" />">
+<input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+<input type="submit" name="_target5" value="<spring:message code="navigate.next" />" />
 </form>
 </body>
 </html>
