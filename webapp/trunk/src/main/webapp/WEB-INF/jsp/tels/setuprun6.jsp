@@ -30,7 +30,7 @@
 <title><spring:message code="teacher.setup-project-run-step-six" /></title>
 </head>
 <body>
-<%@ include file="teacher/header.jsp"%>
+<%@ include file="header.jsp"%>
 <div id="navigation" class="center north2 widthAdj4">
 <ul class="bigFont1">
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
@@ -48,21 +48,14 @@
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul>
 <br />  
-<h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2 class="north0"><b> <spring:message code="teacher.setup-project-run-step6" /> </b></h2>
-<p class="bigFont1 north0"><spring:message code="teacher.review-guide"  /></p>
-<p class="bigFont1 north0"><spring:message code="teacher.setup-complete" /></p>
-<p class="bigFont1 north0"><spring:message code="teacher.project-run-appear" /></p>
+<h2 class="center"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2><b> <spring:message code="teacher.setup-project-run-step6" /> </b></h2>
+<p class="bigFont1"><spring:message code="teacher.review-guide"  /></p>
+<p class="bigFont1"><spring:message code="teacher.setup-complete" /></p>
+<p class="bigFont1"><spring:message code="teacher.project-run-appear" /></p>
 
 
-<div class="center north0">
-<!--  
-<form>
-<a href="setuprun6.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /></a>
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /> </a> 
-<input type="submit" style="text-decoration:none;font-size:1.5em;" class="bgColorLightBlue" value=<spring:message code='navigate.done' /> /> 
-</form>
--->
+<div class="center">
 <form method="post" class="center">
 <input type="submit" name="_target4" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />

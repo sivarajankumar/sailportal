@@ -53,15 +53,15 @@ if(form.manualCheckbox.checked==true){
 
 <title><spring:message code="teacher.setup-project-run-step-three" /></title>
 </head>
+<%@ include file="header.jsp"%>
 <body>
-<%@ include file="teacher/header.jsp"%>
 <div id="navigation" class="center north2 widthAdj4">
 <ul class="bigFont1">
-<li style="bgcolorWhite"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
+<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
 <li class="bgColorLightBlue"  class="border"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
-<li style="bgcolorWhite"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
-<li style="bgcolorWhite"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
-<li style="bgcolorWhite"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
+<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
+<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
+<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
 </ul>
 </div>
 <ul id="tabnav" class="north_0 widthAdj4">
@@ -72,11 +72,11 @@ if(form.manualCheckbox.checked==true){
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />  
 
-<h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2 class="north0"><b> <spring:message code="teacher.setup-project-run-step3" /> </b></h2>
-<p class="bigFont1 north0"><spring:message code="teacher.select-classroom-periods" /></p>
+<h2 class="center "> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2><b> <spring:message code="teacher.setup-project-run-step3" /> </b></h2>
+<p class="bigFont1"><spring:message code="teacher.select-classroom-periods" /></p>
 
-<div class="north0">
+<div>
 <form:form method="post" commandName="runParameters">
 
 <!--  

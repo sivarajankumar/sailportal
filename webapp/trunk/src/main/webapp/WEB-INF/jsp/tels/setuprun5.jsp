@@ -30,7 +30,7 @@
 <title><spring:message code="teacher.setup-project-run-step-five" /></title>
 </head>
 <body>
-<%@ include file="teacher/header.jsp"%>
+<%@ include file="header.jsp"%>
 <div id="navigation" class="center north2 widthAdj4">
 <ul class="bigFont1">
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
@@ -48,20 +48,14 @@
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul>
 <br />  
-<h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2 class="north0"><b> <spring:message code="teacher.setup-project-run-step5" /></b></h2>
-<p class="bigFont1 north0"><spring:message code="teacher.recommend-preview-project" /></p>
-<p class="bigFont1 north0"><spring:message code="teacher.preview-project-now" /></p>
-<p class="bigFont1 north0"><spring:message code="teacher.cont-no-preview" /></p>
+<h2 class="center"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2><b> <spring:message code="teacher.setup-project-run-step5" /></b></h2>
+<p class="bigFont1"><spring:message code="teacher.recommend-preview-project" /></p>
+<p class="bigFont1"><spring:message code="teacher.preview-project-now" /></p>
+<p class="bigFont1"><spring:message code="teacher.cont-no-preview" /></p>
 
-<!--  
-<div class="center north0">
-<a href="setuprun5.html" style="text-decoration:none;font-size:1.5em;" class="border bigFont1 bgColorLightBlue"> <spring:message code='navigate.back' /></a>
-<a href="#" style="text-decoration:none;font-size:1.5em;" class="marginAdj2 border bgColorLightBlue"> <spring:message code='navigate.cancel' /> </a> 
-<a href="setuprun7.html" style="text-decoration:none;font-size:1.5em;" class="border bgColorLightBlue"> <spring:message code='navigate.next' /> </a> 
-</div>
--->
-<form method="post" class="center north0">
+
+<form method="post" class="center">
 <input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target5" value="<spring:message code="navigate.next" />" />

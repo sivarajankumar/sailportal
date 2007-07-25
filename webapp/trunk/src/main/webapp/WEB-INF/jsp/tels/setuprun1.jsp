@@ -30,8 +30,9 @@
 <title><spring:message code="teacher.setup-project-run-step-one" /></title>
 
 </head>
+<%@ include file="header.jsp"%>
+
 <body>
-<%@ include file="teacher/header.jsp"%>
 <div id="navigation" class="center north2 widthAdj4">
 <ul class="bigFont1">
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
@@ -48,15 +49,16 @@
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />
-<h2 class="center north0"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2 class="north0"><b><spring:message code="teacher.setup-project-run-step1" /></b></h2>
-<p class="bigFont1 north0"> <spring:message code="teacher.selected-projects-message" />
+<h2 class="center "> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2><b><spring:message code="teacher.setup-project-run-step1" /></b></h2>
+<p class="bigFont1 "> <spring:message code="teacher.selected-projects-message" />
 <b><spring:message code="teacher.type-of-project" /></b> <spring:message code="teacher.project-run-classroom-message" /> </p>
-
-<p class="bigFont1 north0"> <spring:message code="teacher.correct-project" /> </p> 
-<p>CurnitID: <spring:bind path="runParameters.curnitId"><c:out value="${status.value}"/></spring:bind></p>
-<p>Project description: <c:out value="${project.description}"/></p>
+<div>
+<p><spring:message code="setuprun.confirmation.run.projectid" /> <spring:bind path="runParameters.curnitId"><c:out value="${status.value}"/></spring:bind></p>
+<p><spring:message code="createrun.projectdescription" /> <c:out value="${project.description}"/></p>
 <p><c:forEach items="${project.grades}" var="grade"><c:out value="${grade}" /></c:forEach></p>
+<p class="bigFont1 "> <spring:message code="teacher.correct-project" /> </p> 
+</div>
 <form method="post">
 <!--  
 <input type="button" disabled value=<spring:message code='navigate.back' /> style="text-decoration:none;font-size:1.5em;" class="bigFont1 bgColorLightBlue" />
