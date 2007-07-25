@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="include.jsp"%>
 <!-- 
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
@@ -23,16 +23,11 @@
 -->
  
 <!-- $Id$ -->
-<div class="welcome1">
-	<img src="<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
+<div >
+	<img src="../<spring:theme code="wisegradientbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" />
 </div>
-	<div class="center heading" ><spring:message code="wise.banner.dashboard" />
-	</div>
-	<div class="right pandaAlign">	<img src="<spring:theme code="panda"/>" alt="<spring:message code="wise.banner.panda.alttext" />" />
-	</div>
     <div>
     <p class="userinfo">
-    Hi
 	<authz:authentication operation="username" />
 	</p>
 	<p class="userlogout"> <%@ include file="../logout.jsp"%> </p>
