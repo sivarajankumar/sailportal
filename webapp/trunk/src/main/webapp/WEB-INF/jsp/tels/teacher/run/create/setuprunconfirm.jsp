@@ -68,7 +68,10 @@
 <p><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
 
 <p><a href="teacher/index.html"> <img id="imgBorderNone"
-	src="<spring:theme code="gotomyprojectruns" />" />
+	src="<spring:theme code="gotomyprojectruns" />" 
+	onmouseover="swapMyProjectRuns('imgBorderNone',1)"
+	onmouseout="swapMyProjectRuns('imgBorderNone',0)"	
+	/>
 </a></p>
 
 </body>
