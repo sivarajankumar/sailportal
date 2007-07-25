@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -32,7 +32,7 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>Teacher homepage</h1>
+<h1><spring:message code="teacher.home" /></h1>
 
 <div id="columns">
 <div><%@ include file="../logout.jsp"%>
