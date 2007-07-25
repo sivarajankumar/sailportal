@@ -36,11 +36,11 @@
 </div>
 
 <div id="columns">
-<div id="left"><%@ include file="logout.jsp"%>
+<div><%@ include file="logout.jsp"%>
 	<a href="runlist.html"><spring:message code="run.list" /></a><br />
 </div>
 
-<div id="right">
+<div>
 <h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
 
 <table align="center" bgcolor="#008800" border="0" cellspacing="2" cellpadding="3">
