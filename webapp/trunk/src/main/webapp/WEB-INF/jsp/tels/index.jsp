@@ -291,7 +291,7 @@ onmouseout="this.style.cursor='default';" />
 
 </div>
 
-<div id="xsnazzy" class="_right3 width1 ">
+<div id="xsnazzy" class="_right3 width1">
 <b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
 <div class="border1">
 <h4 class="heading2 north6">
@@ -309,7 +309,7 @@ onmouseout="this.style.cursor='default';" />
 
 </div>
 
-<div class="right7 marginHorAdj1 padding0 south0">
+<div class="right7 marginHorAdj1 padding0 south0 widthAdj3">
 <img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" 
 class="center"/>
 <spring:message code="wise.legal-acknowledgment" /> 
@@ -323,11 +323,3 @@ class="center"/>
 
 </body>
 </html>
- 
-
-
-
-
-<!-- 
-
--->
