@@ -19,15 +19,7 @@
 
 <!-- $Id$ -->
 
-<!--<div id="banner">
-	<img src="<spring:theme code="banner"/>" alt="<spring:message code="wise.banner.alttext" />" />
-</div>
-
--->
 <div >
-	<img src="<spring:theme code="banner2"/>" alt="<spring:message code="wise.banner.alttext" />" />
+	<img src="<spring:theme code="wisegradientbanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
-	<div class="right pandaAlign">	
-		<img src="<spring:theme code="panda"/>" alt="<spring:message code="wise.banner.panda.alttext" />" />
-	</div>
 	
