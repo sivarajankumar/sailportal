@@ -75,7 +75,7 @@
 
 .north5{
 	position:relative;
-	top: -16.5em;
+	top: -15px;
 }
 
 .north_5{
@@ -127,7 +127,7 @@
 
 .south0{
 	position:absolute;
-	top:580px;
+	top:520px;
 	}
 
 .south_1{
@@ -219,7 +219,7 @@
 }
 
 .right7{
-	position:absolute;
+	position:relative;
 	right:-150px;
 }
 
@@ -278,9 +278,7 @@
 
 .welcome1{	
 	background-color:blue;
-	margin: 0em;
-	padding: 0em;
-	border: 0em 0em 0em 0em;
+	width:980px;
 }
 
 #main { width:933px; padding:0; background:url(http://images.apple.com/dotmac/images/content_bgtop20070302.gif) no-repeat left top; }
@@ -414,7 +412,7 @@
     width:160px;
 }
 .widthAdj3{
-	width:33em;	
+	width:660px;	
 }
 
 .widthAdj4{
