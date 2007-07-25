@@ -24,7 +24,7 @@
 </div>
 
 -->
-<div class="welcome1">
+<div >
 	<img src="<spring:theme code="banner2"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
 	<div class="right pandaAlign">	
