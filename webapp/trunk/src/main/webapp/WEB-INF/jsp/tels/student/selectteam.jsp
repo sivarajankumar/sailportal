@@ -26,51 +26,15 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
 <title><spring:message code="application.title" /></title>
-<script language="JavaScript">
-
-function popupselectteam(URL) {
-  window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');
-}
-</script>
 </head>
 
 <body>
 
-<%@ include file="header.jsp"%>
-
-<h1><spring:message code="student.home" /></h1>
-
-
-<div id="columns">
-<div id="left"><%@ include file="../logout.jsp"%>
-<h2><spring:message code="welcome" /> 
-    <authz:authentication operation="username" />
-</h2>
-</div>
-
-<spring:message code="signup.firstname" /><authz:authentication operation="firstname" /><br />
-<spring:message code="signup.lastname" /><authz:authentication operation="lastname" /><br />
-<spring:message code="signup.emailAddress" /><authz:authentication operation="emailAddress" /><br />
-<spring:message code="signup.signupdate" /><authz:authentication operation="signupdate" /><br /><br />
-
-</div>
+<h1>SELECT TEAM</h1>
+<h3>Will you be working on this project by yourself or with teammates?</h3>
 
 <div>
-<table border="1">
-  <thead>
-    <tr>
-      <th><spring:message code="run.name.heading" /></th>
-      <th><spring:message code="run.options.heading" /></th>
-    </tr>
-  </thead>
   <c:forEach var="run" items="${run_list}">
-  <tr>
-    <td>${run.sdsOffering.name}</td>
-    <td>
-    <a href="#"	onclick="javascript:popupselectteam('selectteam.html?curnitId=' + ${run.id} )">
-	  <img id="runproject" src="../<spring:theme code="run_project" />" />
-	</a>
-              <!--  
       <c:choose>
         <c:when test="${fn:length(workgroup_map[run]) == 0}" >
         <spring:message code="not.in.workgroup.yet" />
@@ -78,21 +42,17 @@ function popupselectteam(URL) {
         <c:otherwise>
             <c:forEach var="workgroup" items="${workgroup_map[run]}">
               <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">
+                By Myself
+                <!--  
 		        <img id="runproject" src="../<spring:theme code="run_project" />"  />              
+		        -->
               </a><br />
             </c:forEach>
         </c:otherwise>
       </c:choose>
-      -->
-              
-    </td>
-   </tr>
   </c:forEach>
-</table>
 </div>
-
-
-<%@ include file="../footer.jsp"%>
-
+<div><a href="#">With 1-2 Teammates</a></div>
+<div><a href="#" onclick="javascript:window.close()">Cancel</a></div>
 </body>
 </html>
