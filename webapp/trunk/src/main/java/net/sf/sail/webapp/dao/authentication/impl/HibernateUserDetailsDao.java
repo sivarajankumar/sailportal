@@ -49,8 +49,8 @@ public class HibernateUserDetailsDao extends
                 .uniqueResult(this
                         .getHibernateTemplate()
                         .findByNamedParam(
-                                "from PersistentUserDetails as user_details where user_details.username = :username",
-                                "username", username));
+                                "from PersistentUserDetails as user_details where upper(user_details.username) = :username",
+                                "username", username.toUpperCase()));
     }
 
     /**

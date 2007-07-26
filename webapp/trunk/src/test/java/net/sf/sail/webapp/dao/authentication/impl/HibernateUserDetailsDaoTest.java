@@ -246,6 +246,13 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDaoTests<H
             defaultRolesList.remove(role);
         }
 
+        // Try getting user details with different cased username
+        MutableUserDetails userDetails2 = this.dao
+                .retrieveByName(DEFAULT_USERNAME.toUpperCase());
+        assertTrue(userDetails instanceof PersistentUserDetails);
+        assertTrue(PersistentUserDetails.class == userDetails.getClass());
+        assertEquals(userDetails, userDetails2);
+        
         // choose random non-existent user name and try to retrieve
         assertNull(this.dao.retrieveByName(USERNAME_NOT_IN_DB));
     }
