@@ -27,6 +27,8 @@
   type="text/css" />
 <title><spring:message code="setuprun.confirmation.title" /></title>
 <script type="text/javascript" src="./javascript/pas/utils.js"></script>
+<script type="text/javascript" src="./javascript/tels/rotator.js"></script>
+
 </head>
 
 <body>
@@ -67,10 +69,8 @@
 <h4><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
 <p><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
 
-<p><a href="teacher/index.html"> <img id="imgBorderNone"
-	src="<spring:theme code="gotomyprojectruns" />" 
-	onmouseover="swapMyProjectRuns('imgBorderNone',1)"
-	onmouseout="swapMyProjectRuns('imgBorderNone',0)"	
+<p><a href="teacher/index.html"> <img id="projectRuns"
+	src="<spring:theme code="gotomyprojectruns" />" 	
 	/>
 </a></p>
 
