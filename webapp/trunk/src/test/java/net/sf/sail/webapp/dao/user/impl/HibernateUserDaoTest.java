@@ -118,6 +118,12 @@ public class HibernateUserDaoTest extends AbstractTransactionalDaoTests<Hibernat
 				.getUsername());
 		assertNotNull(actual);
 		assertEquals(this.dataObject, actual);
+		
+		// it should also be retrieved if the username is typed in with difference cases
+		actual = this.dao.retrieveByUsername(this.userDetails
+				.getUsername().toUpperCase());
+		assertNotNull(actual);
+		assertEquals(this.dataObject, actual);
 	}
 
 	public void testRetrieveByEmailAddress() {

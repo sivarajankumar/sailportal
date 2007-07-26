@@ -75,8 +75,8 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
                 .requiredUniqueResult(this
                         .getHibernateTemplate()
                         .findByNamedParam(
-                                "from UserImpl as user where user.userDetails.username = :username",
-                                "username", username));
+                                "from UserImpl as user where upper(user.userDetails.username) = :username",
+                                "username", username.toUpperCase()));
     }
     
     /**
