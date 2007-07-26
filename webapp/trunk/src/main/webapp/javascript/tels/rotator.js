@@ -48,7 +48,8 @@ var saveButtons = new Array("./themes/tels/default/images/Save.png",
 var cancelButtons = new Array("./themes/tels/default/images/Cancel-Reg.png",
 							  "./themes/tels/default/images/Cancel-Reg-Roll.png");
 							  
-							
+var gotomyprojectButtons = new Array("./themes/tels/default/images/Go-to-My-Proj-Runs.png", 
+									 "./themes/tels/default/images/Go-to-My-Proj-Runs-Roll.png");							
 if(document.images){
 var imgs2 = new Array();
   for(var i = 0; i < imgAr.length; i++){
@@ -219,6 +220,12 @@ function swapSignIn(id,num){
 }
 
 function swapWiseImage(id,num){
+	if(document.images){
+		document.getElementById(id).src=wiseButtons[num];
+	}
+}
+
+function swapProjectRuns(id,num){
 	if(document.images){
 		document.getElementById(id).src=wiseButtons[num];
 	}
