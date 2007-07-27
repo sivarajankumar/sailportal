@@ -23,7 +23,7 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
 <title><spring:message code="application.title" /></title>
 <script language="JavaScript">
@@ -33,16 +33,11 @@ function popup(URL) {
 }
 </script>
 </head>
-
-<body>
-
 <%@ include file="header.jsp"%>
 
-<h1><spring:message code="student.home" /></h1>
-
-
+<body>
 <div id="columns">
-<div id="left"><%@ include file="../logout.jsp"%>
+<div>
 <h2><spring:message code="welcome" /> 
     <authz:authentication operation="username" />
 </h2>
