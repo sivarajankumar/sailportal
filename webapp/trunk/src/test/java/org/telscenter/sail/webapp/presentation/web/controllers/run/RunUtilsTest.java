@@ -7,6 +7,7 @@ public class RunUtilsTest extends TestCase {
 	String runCode = "saphire8886";
 	String period = "6";
 	String projectCode = runCode + "-" + period;
+	private final String[] ILLEGAL_PROJECTCODES = {"Owl0896", "Owl0896-", "-3", "-", ""};	
 	
 	public void testGetRunCode() {
 		String runCode2 = RunUtils.getRunCode(projectCode);
@@ -16,6 +17,12 @@ public class RunUtilsTest extends TestCase {
 	public void testGetPeriod() {
 		String runPeriod = RunUtils.getRunPeriod(projectCode);
 		assertEquals(period, runPeriod);
+	}
+	
+	public void testIsLegalProjectcode() {
+		for (String illegalProjectcode : ILLEGAL_PROJECTCODES) {
+			assertFalse(RunUtils.isLegalProjectcode(illegalProjectcode));
+		}
 	}
 
 }

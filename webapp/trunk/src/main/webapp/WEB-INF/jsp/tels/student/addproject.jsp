@@ -30,28 +30,35 @@
 
 <body>
 
-<h1>SELECT TEAM</h1>
-<h3>Will you be working on this project by yourself or with teammates?</h3>
+<h1>Add a Project</h1>
+<h3>To add a project, fill in the information below.</h3>
 
-<div>
-  <c:forEach var="run" items="${run_list}">
-      <c:choose>
-        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
-        </c:when>
-        <c:otherwise>
-            <c:forEach var="workgroup" items="${workgroup_map[run]}">
-              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">
-                By Myself
-                <!--  
-		        <img id="runproject" src="../<spring:theme code="run_project" />"  />              
-		        -->
-              </a><br />
-            </c:forEach>
-        </c:otherwise>
-      </c:choose>
+<!-- Support for Spring errors object -->
+<spring:bind path="addProjectParameters.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <b>
+      <br /><c:out value="${error}"/>
+    </b>
   </c:forEach>
-</div>
-<div><a href="#">With 1-2 Teammates</a></div>
-<div><a href="#" onclick="javascript:window.close()">Cancel</a></div>
+</spring:bind>
+
+<form:form method="post" action="addproject.html" commandName="addProjectParameters" id="addproject" >
+  <div><label for="projectcode">Project Code:</label>
+      <form:input path="projectcode" id="projectcode"/>
+      <form:errors path="projectcode" />
+  </div>
+
+    <div><input type="image" id="save" src="../<spring:theme code="register_save" />" 
+    onmouseover="swapSaveImage('save',1)" 
+    onmouseout="swapSaveImage('save',0)"
+    />
+    <a href="index.html" onclick="javascript:window.close()"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
+    onmouseover="swapCancelImage('cancel',1)"
+    onmouseout="swapCancelImage('cancel',0)"
+    /> </a>
+    </div>
+
+</form:form>
+
 </body>
 </html>

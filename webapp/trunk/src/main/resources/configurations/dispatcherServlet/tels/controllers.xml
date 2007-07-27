@@ -31,6 +31,9 @@
 
 	<bean id="teacherUserDetailsValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.TeacherUserDetailsValidator" />
+		
+	<bean id="addprojectparametersValidator" 
+	    class="org.telscenter.sail.webapp.presentation.validators.student.AddProjectParametersValidator" />
 
 	<bean id="lostTeacherValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" />
@@ -73,8 +76,19 @@
 	    <property name="runService" ref="runService" />
 	    <property name="workgroupService" ref="workgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
-			
 	</bean>
+	
+	<bean id="addProjectController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.AddProjectController">
+    	<property name="runService" ref="runService" />
+    	<property name="groupService" ref="groupService" />
+    	<property name="commandName" value="addProjectParameters" />    	
+    	<property name="commandClass" 
+    	    value="org.telscenter.sail.webapp.domain.impl.AddProjectParameters" />
+    	<property name="validator" ref="addprojectparametersValidator" />
+    	<property name="formView" value="student/addproject" />
+    	<property name="successView" value="student/addprojectsuccess" />
+    </bean>
 
 	<bean id="studentIndexController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentIndexController">

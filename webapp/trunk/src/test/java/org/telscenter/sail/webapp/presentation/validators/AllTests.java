@@ -36,6 +36,7 @@ public class AllTests {
         suite.addTestSuite(UserDetailsValidatorTest.class);
         suite.addTestSuite(TeacherUserDetailsValidatorTest.class);
         suite.addTestSuite(LostPasswordDetailsValidatorTest.class);
+        suite.addTest(org.telscenter.sail.webapp.presentation.validators.student.AllTests.suite());
         //$JUnit-END$
         return suite;
     }

@@ -57,6 +57,7 @@
     		    /index.html=urlFilenameViewController
     		    /student/index.html=studentIndexController
     		    /student/selectteam.html=selectteamController
+    		    /student/addproject.html=addProjectController
     		    /**/index.html=indexController
     		</value>
     	</property>

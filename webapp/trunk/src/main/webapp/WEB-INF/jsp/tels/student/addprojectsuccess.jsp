@@ -30,28 +30,9 @@
 
 <body>
 
-<h1>SELECT TEAM</h1>
-<h3>Will you be working on this project by yourself or with teammates?</h3>
+<h1>Success!</h1>
 
-<div>
-  <c:forEach var="run" items="${run_list}">
-      <c:choose>
-        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
-        </c:when>
-        <c:otherwise>
-            <c:forEach var="workgroup" items="${workgroup_map[run]}">
-              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">
-                By Myself
-                <!--  
-		        <img id="runproject" src="../<spring:theme code="run_project" />"  />              
-		        -->
-              </a><br />
-            </c:forEach>
-        </c:otherwise>
-      </c:choose>
-  </c:forEach>
-</div>
-<div><a href="#">With 1-2 Teammates</a></div>
-<div><a href="#" onclick="javascript:window.close()">Cancel</a></div>
+<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+
 </body>
 </html>

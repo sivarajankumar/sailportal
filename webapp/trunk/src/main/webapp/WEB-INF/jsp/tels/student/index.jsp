@@ -28,7 +28,7 @@
 <title><spring:message code="application.title" /></title>
 <script language="JavaScript">
 
-function popupselectteam(URL) {
+function popup(URL) {
   window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');
 }
 </script>
@@ -56,6 +56,12 @@ function popupselectteam(URL) {
 </div>
 
 <div>
+    <a href="#"	onclick="javascript:popup('addproject.html')">
+    Add Project
+	</a>
+</div>
+
+<div>
 <table border="1">
   <thead>
     <tr>
@@ -67,7 +73,7 @@ function popupselectteam(URL) {
   <tr>
     <td>${run.sdsOffering.name}</td>
     <td>
-    <a href="#"	onclick="javascript:popupselectteam('selectteam.html?curnitId=' + ${run.id} )">
+    <a href="#"	onclick="javascript:popup('selectteam.html?curnitId=' + ${run.id} )">
 	  <img id="runproject" src="../<spring:theme code="run_project" />" />
 	</a>
               <!--  

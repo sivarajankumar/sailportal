@@ -151,13 +151,6 @@ public class SelectTeamController extends AbstractWizardFormController {
 			model.put(WORKGROUP_MAP_KEY, workgroupMap);
 			model.put(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 
-//			try {
-//				project = (Project) this.projectService.getById(runParameters.getCurnitId());
-//			} catch (CurnitNotFoundException e) {
-//				// TODO HT: what should happen when the project id is invalid?
-//				e.printStackTrace();
-//			}
-//			model.put("project", project);
 			break;
 		default:
 			break;
