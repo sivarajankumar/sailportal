@@ -32,33 +32,215 @@
 
 <%@ include file="header.jsp"%>
 
-<div id="columns">
-<div>
-<h2><spring:message code="welcome" /> 
+<div id="columns" class="bgColorYellow" style="width:980px;">
+<div class="north_6">
+<div id="xsnazzy" class="bgcolorSeaBlue widthAdj1" >
+<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+<div class="border1">
+<h4 class="heading2 north6">
+<spring:message code="welcome" /> 
     <authz:authentication operation="username" />
-</h2>
-    <a href="../curnitlist.html"><spring:message code="curnit.list" /></a><br /><br /><br />
-    <a href="../runlist.html"><spring:message code="run.list" /></a>
+</h4>
+<div id="north2">
+<spring:message code="teacher.currentlogin" /> <br />
+<spring:message code="teacher.lastlogin" /> <br />
+<spring:message code="teacher.announcement" />
+<ul id="right0"> 
+<li></li>
+<li></li>
+</ul>
+</div>
+</div>
+<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 </div>
 
-<spring:message code="signup.firstname" /><authz:authentication operation="firstname" /><br />
-<spring:message code="signup.lastname" /><authz:authentication operation="lastname" /><br />
-<spring:message code="signup.emailAddress" /><authz:authentication operation="emailAddress" /><br />
-<spring:message code="signup.country" /><authz:authentication operation="country" /><br />
-<spring:message code="signup.state" /><authz:authentication operation="state" /><br />
-<spring:message code="signup.city" /><authz:authentication operation="city" /><br />
-<spring:message code="signup.schoolname" /><authz:authentication operation="schoolname" /><br />
-<spring:message code="signup.schoollevel" /><authz:authentication operation="schoollevel" /><br />
-<spring:message code="signup.curriculumsubjects" />
-  <c:forEach var="curriculumsubject" items="<authz:authentication operation='curriculumsubjects' />" >
-    <b>
-      <br /><c:out value="${curriculumsubject}"/>
-    </b>
-  </c:forEach><br />
-<spring:message code="signup.signupdate" /><authz:authentication operation="signupdate" /><br /><br />
+<div id="xsnazzy" class="bgColorSeaBlue widthAdj1 north5 right0 spacingVerAdj0">
+<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+<div class="border1">
+<form id="home" method="post" action="j_acegi_security_check">
+<h4 class="heading2 north6"><spring:message code="teacher.projects-awaiting-grading" /></h4>
+<ul id="lineHeightAdj2" class="north_5">
+<li>
+<label for="projectname">
+<spring:message code="wise.projectName" />
+</label>
+<a href="#"> <spring:message code="teacher.grade-by-step" /></a>
+<a href="#" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
+
+</li>
+
+<li>
+<label for="projectname">
+<spring:message code="wise.projectName" />
+</label>
+<a href="#"> <spring:message code="teacher.grade-by-step" /></a>
+<a href="#" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
+</li>
+
+<li>
+<label for="projectname">
+<spring:message code="wise.projectName" />
+</label>
+<a href="#"> <spring:message code="teacher.grade-by-step" /></a>
+<a href="#" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
+</li>
+
+<li>
+<label for="projectname">
+<spring:message code="wise.projectName" />
+</label>
+<a href="#"> <spring:message code="teacher.grade-by-step" /></a>
+<a href="#" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
+</li>
+
+</ul>
+
+
+</form>
+<spring:message code="wise.click-any-link" />
+</div>
+<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
+</div>
+
+<div id="xsnazzy" class="north1 widthAdj1">
+<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+
+<div class="border1">
+<h4 class="heading2 north6">
+<spring:message code="teacher.about-dashboard" />
+</h4>
+<p class="north4"><spring:message code="teacher.dashboard-details" /></p>
+
+<ul id="lineHeightAdj2" class="north4 marginVerAdj3">
+<li>
+
+<spring:message code="banner.home" />
+<span class="right4 justify"> <spring:message code="teacher.home-desc" /></span>
+</li>
+
+<li>
+<spring:message code="banner.projects" />
+<span class="right4"> <spring:message code="teacher.projects-desc" /></span>
+</li>
+
+<li>
+<spring:message code="banner.management" />
+<span class="right4"> <spring:message code="teacher.management-desc" /></span>
+</li>
+
+<li>
+<spring:message code="banner.help" />
+<span class="right4"> <spring:message code="teacher.help-desc" /></span>
+</li>
+
+</ul>
+
+</div>
+
+<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
+</div>
+
+<div id="xsnazzy" class="widthAdj1 right0 north9">
+<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+<h4 class="heading2">
+<spring:message code="teacher.quick-links" />
+</h4>
+<b><spring:message code="banner.projects" /></b> 
+<b class="right4"> 
+<spring:message code="banner.management" />
+<spring:message code="teacher.assessment" />
+</b>
+<br />
+    <a href="../curnitlist.html">
+    <spring:message code="teacher.project-library" />
+    </a>
+    <a href="#">
+<span class="right4"><spring:message code="teacher.grade-work-by-student-group" />
+</span>
+</a>
+<br />
+    <a href="../runlist.html">
+<spring:message code="teacher.my-project-runs" />
+</a>
+<a href="#">
+<span class="right4"><spring:message code="teacher.grade-work-by-step" />
+</span>
+</a>
+<br />
+<a href="#">
+<spring:message code="teacher.my-bookmarked-projects" />
+</a>
+<a href="#">
+<span class="right4"><spring:message code="teacher.edit-ready-made-comments" />
+</span>
+</a>
+<br />
+<a href="#">
+<spring:message code="teacher.my-customized-projects" />
+</a>
+<a href="#">
+<span class="right4"><spring:message code="teacher.real-time-class-monitor" />
+</span>
+</a>
+<br />
+
+
+<b><spring:message code="banner.management" /><spring:message code="students" /></b> 
+<b class="right4"> 
+<spring:message code="misc" />
+</b>
+<br />
+<a href="#">
+<spring:message code="student.view-teacher-code" />
+</a>
+<a href="#">
+<span class="right4"><spring:message code="student.export-all-work-for-student" />
+</span>
+</a>
+<br />
+<a href="#">
+<spring:message code="student.view-my-students" />
+</a>
+<a href="#">
+<span class="right4"><spring:message code="student.export-all-work-for-class" />
+</span>
+</a>
+<br />
+<a href="#">
+<spring:message code="student.my-bookmarked-projects" />
+</a>
+<a href="#">
+<span class="right4"><spring:message code="student.print-all-work-for-student" />
+</span>
+</a>
+<br />
+<a href="#">
+<spring:message code="student.my-customized-projects" />
+</a>
+<a href="#">
+<span class="right4"><spring:message code="student.print-all-work-for-class" />
+</span>
+</a>
+<br />
+<a href="#">
+<spring:message code="student.batch-set-passwords" />
+</a>
+<a href="#">
+<span class="right4"><spring:message code="student.update-account" />
+</span>
+</a>
+<br />
+
+   <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
+
+</div>
 
 
 <%@ include file="../footer.jsp"%>
 
 </body>
 </html>
+
+
+
+
