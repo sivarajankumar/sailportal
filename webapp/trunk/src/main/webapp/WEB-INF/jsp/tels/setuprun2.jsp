@@ -47,19 +47,31 @@
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />
-<h2 class="center"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2><b><spring:message code="teacher.setup-project-run-step2" /></b></h2>
+<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step2" /></b>
+<spring:message code="teacher.setup-project-run-step2-desc" />
+</h3>
 
-<p class="bigFont1"><spring:message code="teacher.currently-active-project-runs" /></p>
-<p class="bigFont1"><spring:message code="teacher.archiving-a-project-run" /></p>
-<p class="bigFont1"><spring:message code="teacher.end-or-cont-project-runs" /></p>
+<p class="bigFont1">
+<spring:message code="teacher.currently-active-project-runs" />
+</p>
+<p id="right0" class="smallFont1">
+<spring:message code="teacher.archiving-a-project-run" />
+</p>
+<p class="bigFont1">
+<spring:message code="teacher.end-or-cont-project-runs" />
+<i> <spring:message code="navigate.next" /> </i>
+<spring:message code="teacher.end-or-cont-project-runs-cont" />
+</p>
 <p><spring:message code="createrun.existing" />
 
 <p><c:forEach var="run" items="${existingRunList}">
 	<tr>
 		<td>${run.sdsOffering.name}</td>
 	</tr>
-</c:forEach></p>
+</c:forEach>
+</p>
+
 </p>
 
 <form method="post">

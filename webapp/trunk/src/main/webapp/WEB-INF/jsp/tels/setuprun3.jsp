@@ -72,9 +72,14 @@ if(form.manualCheckbox.checked==true){
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />  
 
-<h2 class="center "> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2><b> <spring:message code="teacher.setup-project-run-step3" /> </b></h2>
-<p class="bigFont1"><spring:message code="teacher.select-classroom-periods" /></p>
+<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step3" /> </b>
+<spring:message code="teacher.setup-project-run-step3-desc" />
+</h3>
+<p class="bigFont1">
+<spring:message code="teacher.select-classroom-periods" />
+<i><spring:message code="navigate.next" /></i>
+</p>
 
 <div>
 <form:form method="post" commandName="runParameters">

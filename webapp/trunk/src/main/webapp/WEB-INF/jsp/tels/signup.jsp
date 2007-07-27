@@ -27,6 +27,7 @@
   type="text/css" />
 <title><spring:message code="signup.title" /></title>
 <script type="text/javascript" src="./javascript/pas/utils.js"></script>
+<script type="text/javascript" src="./javascript/tels/rotator.js"></script>
 </head>
 
 <body>
@@ -38,15 +39,22 @@
 <h2 class="center"><spring:message code="register.type-of-account" /></h2>
 </div>
 <div id="navigation" class="center">
-<ul>
+<ul class="none">
 <li class="vertical"><spring:message code="register.create-student-account" />
 <a href="registerstudent.html" class="north_1"> 
-<img id="imgBorderNone" src="<spring:theme code="create_student_account" />" /> 
+<img id="imgBorderNone" src="<spring:theme code="create_student_account" />" 
+onmouseover="swapAccountImage('imgBorderNone',1)";
+onmouseout="swapAccountImage('imgBorderNone',0)";
+/> 
 </a>
 </li>
 <li class="vertical"><spring:message code="register.create-teacher-account" />
 <a href="registerteacher.html" class="north_1"> 
-<img id="imgBorder2None" src="<spring:theme code="create_teacher_account" />" />
+<img id="imgBorder2None" src="<spring:theme code="create_teacher_account" />" 
+onmouseover="swapAccountImage('imgBorder2None',3)";
+onmouseout="swapAccountImage('imgBorder2None',2)";
+
+/>
 </a> 
 </li>
 </ul>

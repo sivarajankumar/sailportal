@@ -48,12 +48,28 @@
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul>
 <br />  
-<h2 class="center"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2><b> <spring:message code="teacher.setup-project-run-step6" /> </b></h2>
-<p class="bigFont1"><spring:message code="teacher.review-guide"  /></p>
-<p class="bigFont1"><spring:message code="teacher.setup-complete" /></p>
-<p class="bigFont1"><spring:message code="teacher.project-run-appear" /></p>
+<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step6" /> </b>
+<spring:message code="teacher.setup-project-run-step6-desc" />
+</h3>
+<p class="bigFont1"><spring:message code="teacher.review-guide"  />
+<a href="#"><spring:message code="teacher.how-to-use-wise" /></a>
+<spring:message code="teacher.new-window" />
+</p>
 
+<ul id="right0" class="smallFont1">
+<li>
+<spring:message code="teacher.about-guide" />
+</li>
+<li>
+<spring:message code="teacher.help" />
+</li>
+</ul>
+
+<p class="bigFont1"><spring:message code="teacher.setup-complete" />
+<i><spring:message code="navigate.done" /></i>
+<spring:message code="teacher.setup-complete-below" />
+</p>
 
 <div class="center">
 <form method="post" class="center">

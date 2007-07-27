@@ -47,11 +47,23 @@
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />  
-<h2 class="center "> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h2 ><b> <spring:message code="teacher.setup-project-run-step4" /></b></h2>
-<p class="bigFont1"><spring:message code="teacher.review-lesson-plan" /></p>
-<p class="bigFont1"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></p>
-<p class="bigFont1"><spring:message code="teacher.skip-lesson-plan" /></p>
+<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 class="blueColor"><b class="blackColor"> <spring:message code="teacher.setup-project-run-step4" /></b>
+<spring:message code="teacher.setup-project-run-step4-desc" />
+</h3>
+<p class="bigFont1">
+<spring:message code="teacher.review-lesson-plan-start" />
+<a href=#"><spring:message code="teacher.review-lesson-plan" /></a>
+<spring:message code="teacher.review-lesson-plan-rest" />
+</p>
+
+<p id="right0" class="smallFont1"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></p>
+<p class="bigFont1">
+<spring:message code="teacher.skip-lesson-plan" />
+<i><spring:message code="navigate.next" /></i>
+<spring:message code="teacher.skip-lesson-plan-below" />
+</p>
+
 <form method="post" class="center ">
 <input type="submit" name="_target2" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
