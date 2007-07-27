@@ -32,10 +32,8 @@
 
 <%@ include file="header.jsp"%>
 
-<h1><spring:message code="teacher.home" /></h1>
-
 <div id="columns">
-<div><%@ include file="../logout.jsp"%>
+<div>
 <h2><spring:message code="welcome" /> 
     <authz:authentication operation="username" />
 </h2>
