@@ -20,31 +20,23 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers;
-
-import org.telscenter.sail.webapp.presentation.web.controllers.run.RunListControllerTest;
+package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
  * @author Hiroki Terashima
- *
- * @version $Id$
- *
+ * @version $Id: $
  */
 public class AllTests {
 
     public static Test suite() {
         TestSuite suite = new TestSuite(
-                "Test for org.telscenter.sail.webapp.presentation.web.controllers");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(RegisterTeacherControllerTest.class);
-        suite.addTestSuite(RegisterStudentControllerTest.class);
-        suite.addTestSuite(RunListControllerTest.class);
-        suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.run.AllTests.suite());
-        suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.student.AllTests.suite());
-        //$JUnit-END$
+                "Test for org.telscenter.sail.webapp.web.controllers.student");
+        // $JUnit-BEGIN$
+        suite.addTestSuite(AddProjectControllerTest.class);
+        // $JUnit-END$
         return suite;
     }
 }
