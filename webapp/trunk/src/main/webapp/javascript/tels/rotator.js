@@ -47,7 +47,12 @@ var saveButtons = new Array("./themes/tels/default/images/Save.png",
 
 var cancelButtons = new Array("./themes/tels/default/images/Cancel-Reg.png",
 							  "./themes/tels/default/images/Cancel-Reg-Roll.png");
-							  
+
+var accountButtons = new Array("./themes/tels/default/images/Student-Account.png",
+							   "./themes/tels/default/images/Student-Account-Roll.png",
+							   "./themes/tels/default/images/Teacher-Account.png",
+							   "./themes/tels/default/images/Teacher-Account-Roll.png");
+							   							  
 var gotomyprojectButtons = new Array("./themes/tels/default/images/Go-to-My-Proj-Runs.png", 
 									 "./themes/tels/default/images/Go-to-My-Proj-Runs-Roll.png");							
 if(document.images){
@@ -217,6 +222,12 @@ function swapSignIn(id,num){
 	if(document.images){
 		document.getElementById(id).src=signInButtons[num];
 	}
+}
+
+function swapAccountImage(id,num){
+ 	if(document.images){
+ 		document.getElementById(id).src = accountButtons[num];
+ 	} 
 }
 
 function swapWiseImage(id,num){
