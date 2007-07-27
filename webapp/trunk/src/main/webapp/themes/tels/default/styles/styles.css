@@ -157,7 +157,7 @@
 
 #right0{
 	position:relative;
-	right:-2em;
+	right:-20px;
 }
 
 #right{
@@ -256,7 +256,6 @@
 	text-align:justify;
 }
 
-
 .bgcolorBlue{
     background-color:blue;	
 }
@@ -270,8 +269,12 @@
 }
 
 .blackColor {color:#000000;}
-.blueColor {color:#0066CC}
+.blueColor {color:rgb(0,0,255);}
+.maroon{
+	color:rgb(100,0,0);
+}
 
+	
 .borderBottom{
 	border-bottom:0em;
 }
@@ -458,7 +461,7 @@
 }
 
 .bigFont1{
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 .bigFont2{
@@ -689,57 +692,24 @@ font-family:arial,sans-serif;
 
 #navigation {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2em;
+    font-size: 18px;
 }
 
 #navigation ul {
     list-style: none;
-    margin: 0em;
-    padding: 0em;
-    padding-top: 0.1em;
-}
-
-#navigation ul.regular{
-    list-style: none;
-    margin: 0em;
-    padding: 0em;
-    padding-top: 0.1em;
-    position:relative;
-    top:-2em;
-    left:-1.4em;
-    text-align:center;
-}
-
-#navigation ul.southHeading{
-	position:relative;
-	top:0em;
-	margin:1.0em;
-	padding:0em;	
-	width:45em;
-}
-
-#navigation ul.southContents{
-	position:absolute;
-	top:10em;
-	left:4em;	
+    margin: 0px;
+    padding: 0px;
+    padding-top: 5px;
 }
 
 #navigation li {
     display: inline;
-    margin: 1.5em;
-    padding: 0em;
+    margin: 40px;
+    padding: 0px;
 }
 
 #navigation li.vertical{
 	display: block;	
-}
-
-#navigation li.smallMargin{
-	margin: 1.1em;
-}
-
-#navigation li.fontSizeSmall{
-	font-size:0.9em;
 }
 
 #navigation a:link, #navigation a:visited{
@@ -750,11 +720,10 @@ font-family:arial,sans-serif;
 
 #navigation li a:hover{
 	color: green;
-	background-color: #99AAFF;
 }
 
 #navigation li.space1{
-	line-height:2em;
+	line-height:22px;
 }
 
 #verticalNavigation{
@@ -1052,7 +1021,7 @@ h5 span{
 
 ul.none{
 	list-style-type: none;
-	border:0em;
+	border:0px;
 	border-color:white;
 }
 
@@ -1135,9 +1104,6 @@ height:23em;
 
 div#nifty{ margin: 0 10%;background: #CCFFFF;}
 
-.bgColorSeaBlue{
-	background:#CCFFFF;
-}
 
 .border2{
 	color:black;
