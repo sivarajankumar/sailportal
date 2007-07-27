@@ -86,6 +86,8 @@ public interface Run extends Offering {
 	 * @param periodName
 	 * @return Group the period with the periodName that is
 	 *           associated with this run
+	 * @throws <code>PeriodNotFoundException</code> if the provided
+	 *           period does not exist in the database for this run
 	 */
-	public Group getPeriodByName(String periodName);
+	public Group getPeriodByName(String periodName) throws PeriodNotFoundException;
 }

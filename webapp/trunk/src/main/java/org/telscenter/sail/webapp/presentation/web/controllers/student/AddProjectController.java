@@ -35,9 +35,11 @@ import net.sf.sail.webapp.service.group.GroupService;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
 import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtils;
+import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -66,18 +68,28 @@ public class AddProjectController extends SimpleFormController {
             throws Exception {
 		User user = (User) request.getSession().getAttribute(
 				User.CURRENT_USER_SESSION_KEY);
+		// command contains a legally-formatted projectcode.
     	AddProjectParameters params = (AddProjectParameters) command;
-    	
+
+    	ModelAndView modelAndView = null;
+    	Run run = null;
     	String projectcode = params.getProjectcode();
     	String runcode = RunUtils.getRunCode(projectcode);
     	String periodName = RunUtils.getRunPeriod(projectcode);
-    	Run run = this.runService.retrieveRunByRuncode(runcode);
-    	Group period = run.getPeriodByName(periodName);
-    	Set<User> membersToAdd = new HashSet<User>();
-    	membersToAdd.add(user);
-    	this.groupService.addMembers(period, membersToAdd);
-
-		ModelAndView modelAndView = new ModelAndView(getSuccessView());
+    	try {
+    		run = this.runService.retrieveRunByRuncode(runcode);
+        	Group period = run.getPeriodByName(periodName);
+        	Set<User> membersToAdd = new HashSet<User>();
+        	membersToAdd.add(user);
+        	this.groupService.addMembers(period, membersToAdd);
+        	modelAndView = new ModelAndView(getSuccessView());
+    	} catch (RunNotFoundException e) {
+    		errors.rejectValue("projectcode", "error.illegal-projectcode");
+    		return showForm(request, response, errors);
+    	} catch (PeriodNotFoundException e) {
+    		errors.rejectValue("projectcode", "error.illegal-projectcode");
+    		return showForm(request, response, errors);
+    	}
 		return modelAndView;
     }
     

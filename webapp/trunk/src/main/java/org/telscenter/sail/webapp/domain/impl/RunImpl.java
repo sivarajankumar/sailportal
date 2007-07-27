@@ -35,6 +35,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 
 import net.sf.sail.webapp.domain.group.Group;
@@ -151,14 +152,15 @@ public class RunImpl extends OfferingImpl implements Run {
 	/**
 	 * @see org.telscenter.sail.webapp.domain.Run#getPeriodByName(java.lang.String)
 	 */
-	public Group getPeriodByName(String periodName) {
+	public Group getPeriodByName(String periodName) throws PeriodNotFoundException {
 		Set<Group> periods = getPeriods();
 		for (Group period : periods) {
 			if (period.getName().equals(periodName)) {
 				return period;
 			}
 		}
-		return null;
+		throw new PeriodNotFoundException("Period " + periodName + 
+				" does not exist");
 	}
    
 }

@@ -84,7 +84,8 @@ public interface RunService extends OfferingService {
      *          The <code>String</code> runcode to use for lookup
      * @return <code>Run</code>
      *          The Run object with the runcode
-     *     
+     * @throws <code>RunNotFoundException</code> when runcode cannot be used 
+     *          to find an existing run    
      */
-    public Run retrieveRunByRuncode(String runcode);
+    public Run retrieveRunByRuncode(String runcode) throws RunNotFoundException;
 }

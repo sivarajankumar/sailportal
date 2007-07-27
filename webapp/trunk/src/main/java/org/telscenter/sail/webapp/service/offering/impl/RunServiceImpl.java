@@ -45,6 +45,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
+import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -213,7 +214,11 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#retrieveRunByRuncode(java.lang.String)
 	 */
-	public Run retrieveRunByRuncode(String runcode) {
-		return runDao.retrieveByRunCode(runcode);
+	public Run retrieveRunByRuncode(String runcode) throws RunNotFoundException {
+		Run run = runDao.retrieveByRunCode(runcode);
+		if (run == null) {
+			throw new RunNotFoundException("Run with runcode " + runcode + " was not found");
+		}
+		return run;
 	}
 }
