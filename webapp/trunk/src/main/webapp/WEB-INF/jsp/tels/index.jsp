@@ -251,7 +251,7 @@ prevClick = moveCircle(counter,1);"
 <h4 class="heading2 north6">
 <spring:message code="wise.testimonials" />
 </h4>
-<img id="rotatorT" class="right4 north0 marginVerAdj3 " src="<spring:theme code="wise_testimonials" />" />
+<img id="rotatorT" class="right4 north0 marginVerAdj5 " src="<spring:theme code="wise_testimonials" />" />
 <img id="imgPos12" class="dynamicImage" src="<spring:theme code="arrow_prev" />" 
 onmouseover="this.style.cursor='pointer';" 
 onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;"
