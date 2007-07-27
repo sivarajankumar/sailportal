@@ -54,7 +54,7 @@
   <tr>
     <td>${run.sdsOffering.name}</td>
     <td><c:forEach var="period" items="${run.periods}">${run.runcode}-${period.name} </c:forEach></td>
-    <td><a href="authoringjnlplauncher.html?curnit_url=${run.sdsOffering.sdsCurnit.url}"><spring:message code="edit.curnit" /></a>
+    <td>
       <c:choose>
         <c:when test="${fn:length(workgroup_map[run]) == 0}" >
         <spring:message code="no.workgroups" />
