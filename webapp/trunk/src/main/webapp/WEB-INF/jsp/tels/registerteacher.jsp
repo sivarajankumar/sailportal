@@ -27,6 +27,8 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="./javascript/tels/rotator.js" type="text/javascript" />  
+
 <script type="text/javascript">
 function checkIfLegalAcknowledged (form) {
 if(form.legalAcknowledged.checked==true){
@@ -134,6 +136,15 @@ disabled onclick="Effect.toggle('waiting', 'appear')"/>
             <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" /></div>
         </div>
         
+    <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
+    onmouseover="swapSaveImage('save',1)" 
+    onmouseout="swapSaveImage('save',0)"
+    />
+    <a href="index.html"><input type="image" id="cancel" src="<spring:theme code="register_cancel" />" 
+    onmouseover="swapCancelImage('cancel',1)"
+    onmouseout="swapCancelImage('cancel',0)"
+    /> </a>
+    </div>
         
         
 </form:form></div>
