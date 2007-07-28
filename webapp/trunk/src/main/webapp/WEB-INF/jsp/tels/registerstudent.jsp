@@ -53,17 +53,14 @@
 
 <div id="right">
 <form:form method="post" action="registerstudent.html" commandName="studentAccountForm" id="register" >
-  <div><label for="firstname"><spring:message code="signup.firstname" /></label>
+  <label for="firstname"><spring:message code="signup.firstname" /></label>
       <form:input path="userDetails.firstname" id="firstname"/>
       <form:errors path="userDetails.firstname" />
-  </div>
-    <div>
+<br />  
       <label for="lastname"><spring:message code="signup.lastname" /></label>
       <form:input path="userDetails.lastname" id="lastname"/>
       <form:errors path="userDetails.lastname" />
-    </div>
-
-    <div>
+<br />
       <label for="gender"><spring:message code="signup.gender" /></label>
       
         <form:select path="userDetails.gender" id="gender"> 
@@ -73,9 +70,8 @@
         </form:select>
       
       <form:errors path="userDetails.gender" />
-    </div>
+<br />
 
-    <div>
       <label for="birthmonth"><spring:message code="signup.birthmonth" /></label>
 
   	    <form:select path="birthmonth" id="birthmonth">
@@ -87,9 +83,8 @@
 	    </form:select> 
 
       <form:errors path="birthmonth" />
-    </div>
+<br />
 
-    <div>
       <label for="birthdate"><spring:message code="signup.birthdate" /></label>
 
   	    <form:select path="birthdate" id="birthdate">
@@ -101,26 +96,23 @@
 	    </form:select> 
 	    
       <form:errors path="birthdate" />
-    </div>
+<br />
 
-    <div>
       <label for="password"><spring:message code="signup.password" /></label>
       <form:password path="userDetails.password" id="password"/>
       <form:errors path="userDetails.password"/>
-    </div>
+<br />
   
-    <div>
       <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
       <form:password path="repeatedPassword" id="repeatedPassword"/>
       <form:errors path="repeatedPassword" />
-    </div>
+<br />
 
-    <div>
       <label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
       <form:input path="userDetails.emailAddress" id="emailAddress"/>
       <form:errors path="userDetails.emailAddress"/>
-    </div>
-	<div>
+<br />
+
       <label for="accountQuestion"><spring:message code="signup.project.accountQuestion" /></label>
       
       <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
@@ -130,19 +122,17 @@
         </form:select>
         
       <form:errors path="userDetails.accountQuestion" />
-    </div>
+<br />
 	
-	  <div>
       <label for="accountAnswer"><spring:message code="signup.project.accountAnswer" /></label>
       <form:input path="userDetails.accountAnswer" id="accountAnswer"/>
       <form:errors path="userDetails.accountAnswer" />
-    </div>
-    <div>
+<br />
+
       <label for="projectCode"><spring:message code="signup.project.code" /></label>
       <form:input path="projectCode" id="projectCode"/>
       <form:errors path="projectCode" />
-    </div>
-
+<br />
      
     <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
     onmouseover="swapSaveImage('save',1)" 

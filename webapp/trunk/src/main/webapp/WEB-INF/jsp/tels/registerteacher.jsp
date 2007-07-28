@@ -53,9 +53,6 @@ if(form.legalAcknowledged.checked==true){
 
 <%@ include file="header.jsp"%>
 
-<div id="banner">
-<h1 class="center"><spring:message code="banner.heading" /></h1>
-</div>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="teacherAccountForm.*">
@@ -116,7 +113,7 @@ if(form.legalAcknowledged.checked==true){
   <br />
 
     <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>
-    <form:checkbox path="legalAcknowledged" id="legalAcknowledged" onclick="checkIfLegalAcknowledged(this.form)"
+    <form:checkbox path="legalAcknowledged" id="legalAcknowledged"
     /> <spring:message code="register.teacher.terms-of-use" />
   <br />
   
@@ -128,13 +125,6 @@ if(form.legalAcknowledged.checked==true){
     <form:password path="repeatedPassword" id="repeatedPassword"/>
   <br />
 
-
-<input type="submit" id="signupSubmit"
-value="<spring:message code="signup.submit" />"  
-disabled onclick="Effect.toggle('waiting', 'appear')"/>
-        <div id="waiting" style="display: none">
-            <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" /></div>
-        </div>
         
     <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
     onmouseover="swapSaveImage('save',1)" 

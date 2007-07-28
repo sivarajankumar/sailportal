@@ -298,10 +298,12 @@ onmouseout="this.style.cursor='default';" />
 <spring:message code="wise.latestNews" />
 </h4>
 <textarea class="marginVerAdj2 north6" rows="12" cols="35"><spring:message code="wise.latestNews" /> </textarea>
-<img id="newsArchive" class="right6" src="<spring:theme code="newsarchive" />" 
-        	onmouseover="swapNewsImage('newsArchive', 1);"
-       		onmouseout="swapNewsImage('newsArchive', 0);"
-/>
+<a href="#"> 
+	<img id="newsArchive" style="border:0px;" class="right6" src="<spring:theme code="newsarchive" />" 
+       	 onmouseover="this.style.cursor='pointer';swapNewsImage('newsArchive', 1);"
+       	 onmouseout="this.style.cursor='default';swapNewsImage('newsArchive', 0);"       	       			
+	/>
+</a>
 </div>
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 
