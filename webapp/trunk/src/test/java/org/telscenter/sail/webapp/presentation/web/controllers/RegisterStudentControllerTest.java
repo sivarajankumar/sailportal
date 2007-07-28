@@ -55,6 +55,7 @@ import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
+import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 
@@ -111,7 +112,7 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		mockApplicationContext = createMock(ApplicationContext.class);
 		studentUserDetails = new StudentUserDetails();
 		studentAccountForm = new StudentAccountForm();
-		errors = new BindException(studentUserDetails, "");
+		errors = new BindException(studentAccountForm, "");
 		mockUserService = createMock(UserService.class);
 		mockGroupService = createMock(GroupService.class);
 		mockRunService = createMock(RunService.class);
@@ -180,7 +181,7 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 
 		assertViewName(modelAndView, FORM);
 		assertEquals(1, errors.getErrorCount());
-		assertEquals(1, errors.getFieldErrorCount("username"));
+		assertEquals(1, errors.getFieldErrorCount("userDetails.username"));
 		verify(mockUserService);
 
 		// test submission of form where RuntimeException is thrown.
@@ -195,6 +196,48 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 			fail("Expected RuntimeException but it never happened.");
 		} catch (RuntimeException expected) {
 		}
+		verify(mockUserService);
+	}
+	
+	public void testOnSubmit_failure_bad_projectcode() throws Exception {
+		// test submission of form with correct username and password info,
+		// but with bad projectcode.
+		// Should get ModelAndView back containing form view
+
+		User user = new UserImpl();
+		expect(mockUserService.createUser(studentUserDetails)).andReturn(user);
+		replay(mockUserService);
+		
+		String runcode_not_in_db = "abc1234";
+		studentAccountForm.setProjectCode(runcode_not_in_db + "-" + PERIODNAME);
+		EasyMock.expect(mockRunService.retrieveRunByRuncode(runcode_not_in_db)).andThrow(new RunNotFoundException("Run Not Found"));
+		replay(mockRunService);
+		
+		studentUserDetails.setFirstname(FIRSTNAME);
+		studentUserDetails.setLastname(LASTNAME);
+		studentUserDetails.setGender(GENDER);
+		studentUserDetails.setBirthday(this.birthday);
+		request.addParameter("firstname", FIRSTNAME);
+		request.addParameter("lastname", LASTNAME);
+		request.addParameter("password", PASSWORD);		
+
+		studentAccountForm.setUserDetails(studentUserDetails);
+		RegisterStudentController signupController = new RegisterStudentController();
+		signupController.setApplicationContext(mockApplicationContext);
+		signupController.setUserService(mockUserService);
+		signupController.setGroupService(mockGroupService);
+		signupController.setRunService(mockRunService);
+		signupController.setSuccessView(SUCCESS);
+		signupController.setFormView(FORM);
+		ModelAndView modelAndView = signupController.onSubmit(request,
+				response, studentAccountForm, errors);
+
+		assertEquals(FORM, modelAndView.getViewName());
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getFieldErrorCount());
+		
+		assertNotNull(errors.getFieldError("projectCode"));
+		verify(mockRunService);
 		verify(mockUserService);
 	}
 	

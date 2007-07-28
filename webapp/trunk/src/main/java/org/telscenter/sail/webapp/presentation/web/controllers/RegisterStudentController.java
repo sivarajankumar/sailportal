@@ -38,11 +38,13 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.AccountQuestion;
+import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
 import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtils;
+import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 import net.sf.sail.webapp.domain.User;
@@ -96,12 +98,17 @@ public class RegisterStudentController extends SignupController {
 				Set<User> membersToAdd = new HashSet<User>();
 				membersToAdd.add(user);
 				this.groupService.addMembers(period, membersToAdd);
-			}
-			catch (DuplicateUsernameException e) {
-				errors.rejectValue("username", "error.duplicate-username",
+			} catch (DuplicateUsernameException e) {
+				errors.rejectValue("userDetails.username", "error.duplicate-username",
 						new Object[] { userDetails.getUsername() }, "Duplicate Username.");
 				return showForm(request, response, errors);
-			}
+			} catch (RunNotFoundException e) {
+	    		errors.rejectValue("projectCode", "error.illegal-projectcode");
+	    		return showForm(request, response, errors);
+	    	} catch (PeriodNotFoundException e) {
+	    		errors.rejectValue("projectCode", "error.illegal-projectcode");
+	    		return showForm(request, response, errors);
+	    	}
 		} else {
 			//userService.updateUser(userDetails);    // TODO HT: add updateUser() to UserService
 		}
