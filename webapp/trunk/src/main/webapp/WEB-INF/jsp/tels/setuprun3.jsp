@@ -54,6 +54,21 @@ if(form.manualCheckbox.checked==true){
 <title><spring:message code="teacher.setup-project-run-step-three" /></title>
 </head>
 <%@ include file="header.jsp"%>
+<!-- Support for Spring errors object -->
+<spring:bind path="runParameters.periodNames">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <c:choose>
+      <c:when test="${fn:length(error) > 0}" >
+        <script type="text/javascript">
+          <!--
+            alert("${error}");
+          //-->
+        </script>
+      </c:when>
+    </c:choose>
+  </c:forEach>
+</spring:bind>
+
 <body>
 <div id="navigation" class="center north2 widthAdj4">
 <ul class="bigFont1">

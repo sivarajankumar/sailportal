@@ -114,8 +114,30 @@ public class CreateRunController extends AbstractWizardFormController {
 	 */
 	@Override
 	protected void validatePage(Object command, Errors errors, int page) {
-		// TODO HT: implement me
 	    super.validatePage(command, errors, page);
+		RunParameters runParameters = (RunParameters) command;
+
+	    switch (page) {
+	    case 0:
+	    	break;
+	    case 1:
+	    	break;
+	    case 2:
+	    	if (runParameters.getPeriodNames() == null || 
+	    		runParameters.getPeriodNames().size() == 0) {
+	    		errors.rejectValue("periodNames", "setuprun.error.selectperiods", "You must select one or more periods or manually" +
+	    				" create your period names.");
+	    	}
+	    	break;
+	    case 3:
+	    	break;
+	    case 4:
+	    	break;
+	    case 5:
+	    	break;
+	    default:
+	    	break;
+	    }
 	}
 	
 	/**
