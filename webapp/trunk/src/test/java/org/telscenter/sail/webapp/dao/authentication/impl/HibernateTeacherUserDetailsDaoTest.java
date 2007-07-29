@@ -36,6 +36,7 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
@@ -81,7 +82,7 @@ public class HibernateTeacherUserDetailsDaoTest extends
     private static final String[] DEFAULT_CURRICULUMSUBJECTS = { "Biology",
             "Chemistry" };
 
-    private static final String DEFAULT_SCHOOLLEVEL = "6-9";
+    private static final Schoollevel DEFAULT_SCHOOLLEVEL = Schoollevel.MIDDLE_SCHOOL;
 
     private static final String DEFAULT_SCHOOLNAME = "Dwyer Middle School";
 
@@ -245,10 +246,10 @@ public class HibernateTeacherUserDetailsDaoTest extends
             actualValue = (String) actualUserDetailsMap
                     .get(TeacherUserDetails.COLUMN_NAME_COUNTRY.toUpperCase());
             assertEquals(DEFAULT_COUNTRY, actualValue);
-            actualValue = (String) actualUserDetailsMap
+            actualValue = String.valueOf(actualUserDetailsMap
                     .get(TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL
-                            .toUpperCase());
-            assertEquals(DEFAULT_SCHOOLLEVEL, actualValue);
+                            .toUpperCase()));
+            assertEquals(String.valueOf(DEFAULT_SCHOOLLEVEL.ordinal()), actualValue);
             actualValue = (String) actualUserDetailsMap
                     .get(TeacherUserDetails.COLUMN_NAME_SCHOOLNAME
                             .toUpperCase());

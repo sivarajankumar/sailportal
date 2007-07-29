@@ -32,6 +32,7 @@ import javax.persistence.Transient;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 
 /**
  * Implementation class of <code>MutableUserDetails</code> that uses an EJB3
@@ -109,7 +110,7 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	private String[] curriculumsubjects;
     
     @Column(name = TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL, nullable = false)
-	private String schoollevel;
+	private Schoollevel schoollevel;
     
     @Column(name = StudentUserDetails.COLUMN_NAME_NUMBEROFLOGINS, nullable = false)
     private Integer numberOfLogins;
@@ -189,13 +190,13 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	/**
 	 * @return the schoollevel
 	 */
-	public String getSchoollevel() {
+	public Schoollevel getSchoollevel() {
 		return schoollevel;
 	}
 	/**
 	 * @param schoollevel the schoollevel to set
 	 */
-	public void setSchoollevel(String schoollevel) {
+	public void setSchoollevel(Schoollevel schoollevel) {
 		this.schoollevel = schoollevel;
 	}
 	/**

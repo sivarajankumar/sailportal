@@ -23,12 +23,15 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 
@@ -49,9 +52,22 @@ public class RegisterTeacherController extends SignupController {
 		setValidateOnBinding(false);
 	}
 	
+	/**
+	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		return new TeacherAccountForm();
+	}
+	
+	/**
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("schoollevels", Schoollevel.values());
+		return model;
 	}
 	
 	/**
@@ -89,6 +105,9 @@ public class RegisterTeacherController extends SignupController {
 		return modelAndView;
 	}
 	
+	/**
+	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate(javax.servlet.http.HttpServletRequest, java.lang.Object, org.springframework.validation.BindException)
+	 */
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
 	throws Exception {

@@ -109,7 +109,12 @@ if(form.legalAcknowledged.checked==true){
 <br />
 <br />
     <label for="schoollevel"><spring:message code="signup.schoollevel" /></label> 
-    <form:input path="userDetails.schoollevel" id="schoollevel" />
+
+        <form:select path="userDetails.schoollevel" id="schoollevel"> 
+          <c:forEach items="${schoollevels}" var="schoollevel">
+            <form:option value="${schoollevel}"><spring:message code="signup.schoollevels.${schoollevel}" /></form:option>
+          </c:forEach>
+        </form:select>
   <br />
 
     <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>

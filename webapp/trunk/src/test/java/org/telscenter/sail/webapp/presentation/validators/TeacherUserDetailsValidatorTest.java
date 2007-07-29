@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.validators;
 
 import org.springframework.validation.BeanPropertyBindingResult;
+import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
@@ -45,7 +46,7 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
 
 	private static final String[] CURRICULUMSUBJECTS = {"Biology"};
 
-	private static final String SCHOOLLEVEL = "6";
+	private static final Schoollevel SCHOOLLEVEL = Schoollevel.HIGH_SCHOOL;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -226,16 +227,6 @@ public class TeacherUserDetailsValidatorTest extends UserDetailsValidatorTest {
     	assertNotNull(errors.getFieldError("schoollevel"));
     }
     
-    public void testSchoollevelEmptyValidate() {
-    	userDetails.setSchoollevel(EMPTY);
-    	
-    	userDetailsValidator.validate(userDetails, errors);
-    	
-    	assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-    	assertNotNull(errors.getFieldError("schoollevel"));
-    }
-
     protected void tearDown() throws Exception {
         super.tearDown();
         userDetails = null;
