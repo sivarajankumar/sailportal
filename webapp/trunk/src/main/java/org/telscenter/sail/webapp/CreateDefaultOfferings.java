@@ -61,21 +61,27 @@ public class CreateDefaultOfferings {
 
     static {
         Map<String, String> hashmap = new HashMap<String, String>();
+
         hashmap
                 .put(
-                        "Two Kinds of Processes",
-                        "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar");
+                		"Chemical Reactions", 
+                		"http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24265.jar");
         hashmap
                 .put(
-                        "Direct and Emergent Processes for Engineering Science",
-                        "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24500.jar");
+                		"Global Warming", 
+                		"http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-26100.jar?version=9");
+        hashmap
+                .put(
+                		"Airbags", 
+                		"http://www.telscenter.org/confluence/download/attachments/13003/converted-wise-dev.berkeley.edu-24587.jar?version=11");
+        
         CURNITS = Collections.unmodifiableMap(hashmap);
 
         hashmap = new HashMap<String, String>();
         hashmap
                 .put(
-                        "PLR Everything JDIC snapshot 20070125-0811",
-                        "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot-20070125-0811.jnlp");
+                        "PLR Everything JDIC snapshot current",
+                        "http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/plr-everything-jdic-snapshot/plr-everything-jdic-snapshot.jnlp");
         JNLPS = Collections.unmodifiableMap(hashmap);
     }
 
