@@ -46,14 +46,36 @@
   <thead>
     <tr>
       <th><spring:message code="run.name.heading" /></th>
-      <th><spring:message code="run.projectcodes.heading" /></th>
+      <th>Run Information</th>
       <th><spring:message code="run.options.heading" /></th>
     </tr>
   </thead>
   <c:forEach var="run" items="${run_list}">
   <tr>
     <td>${run.sdsOffering.name}</td>
-    <td><c:forEach var="period" items="${run.periods}">${run.runcode}-${period.name} </c:forEach></td>
+    <td><table border="1">
+          <tr>
+            <th>Period</th>
+            <th>Project Code</th>
+            <th>Students</th>
+          </tr>
+          <c:forEach var="period" items="${run.periods}">
+            <tr>
+              <td>${period.name}</td>
+              <td>${run.runcode}-${period.name}</td>
+              <td>
+                <c:choose>
+                  <c:when test="${fn:length(period.members) == 0}" >
+                    None
+                  </c:when>
+                  <c:otherwise>
+                    <c:forEach var="member" items="${period.members}">${member.userDetails.firstname} ${member.userDetails.lastname}</c:forEach>
+                  </c:otherwise>
+                </c:choose>
+              </td>
+            </tr>
+          </c:forEach>
+        </table></td>
     <td>
       <c:choose>
         <c:when test="${fn:length(workgroup_map[run]) == 0}" >
