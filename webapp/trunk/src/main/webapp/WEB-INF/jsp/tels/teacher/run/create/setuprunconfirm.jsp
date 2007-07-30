@@ -69,7 +69,7 @@
 <h4><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
 <p><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
 
-<p><a href="teacher/index.html"> <img id="projectRuns"
+<p><a href="../../../runlist.html"> <img id="projectRuns"
 	src="<spring:theme code="gotomyprojectruns" />" 	
 	/>
 </a></p>
