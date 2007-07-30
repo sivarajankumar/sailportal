@@ -68,7 +68,6 @@
 </div>
 
 
-<input type="submit" name="_target2" value="<spring:message code="navigate.back" />">
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
 <input type="submit" name="_finish" value="<spring:message code="navigate.done" />">
 </form>

@@ -32,7 +32,7 @@
 
 <%@ include file="header.jsp"%>
 
-<h1>pc</h1>
+<h1>project code</h1>
 
 <div id="columns">
 <div id="left">

@@ -39,9 +39,9 @@
 </div>
 
 
-<p>PC: ${projectcode}
-<p>T: ${runtitle}
-<p>m: 
+<p> ${projectcode}
+<p> ${runtitle}
+<p>
   <c:forEach var="entry" items="${users}">
     Name:  ${entry.key}
     Value: ${entry.value}<br>

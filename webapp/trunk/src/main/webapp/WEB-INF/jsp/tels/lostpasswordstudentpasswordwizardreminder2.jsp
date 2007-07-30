@@ -59,7 +59,6 @@
  <p><label for="send_accountanswer">answer</label>
   <input type="text" name="submittedAccountAnswer" id="submittedAccountAnswer"  class="text" tabindex="1" /></p>
 
-<input type="submit" name="_target1" disabled value="<spring:message code="navigate.back" />" >
 <input type="submit" name="_target2" value="<spring:message code="navigate.next" />">
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
 </form>
