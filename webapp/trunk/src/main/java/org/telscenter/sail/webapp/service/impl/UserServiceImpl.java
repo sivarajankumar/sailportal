@@ -10,6 +10,7 @@ import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserNotFoundException;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -64,6 +65,21 @@ public class UserServiceImpl extends
 		if(user == null) {
 			throw new UserNotFoundException(userDetails.getUsername());
 		}// if
+	}
+	
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#retrieveUserByUsername(java.lang.String)
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public User retrieveUserByUsername(String username) {
+		User user = null;
+		try {
+  		   user = super.retrieveUserByUsername(username);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return user;
 	}
 
 	

@@ -29,6 +29,7 @@ import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
@@ -36,6 +37,8 @@ import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.providers.dao.SaltSource;
 import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.acegisecurity.userdetails.UserDetails;
+import org.easymock.EasyMock;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
@@ -58,6 +61,8 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 	private static final String FIRSTNAME = "Billy";
 
 	private static final String LASTNAME = "Bob";
+	
+	private static final String USERNAME = "BillyB619";
 
 	private static final Date SIGNUPDATE = Calendar.getInstance().getTime();
 
@@ -178,7 +183,35 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		this.authorityDao.delete(expectedAuthorityCreate);
 		this.setComplete();
 		this.endTransaction();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void testRetrieveUserByUsername() {
+		// this test simply confirms that the userDao is called appropriately,
+		// since the DAO is being tested and does all the work
+		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);
+		User expectedUser = new UserImpl();
+		EasyMock.expect(mockUserDao.retrieveByUsername(USERNAME)).andReturn(
+				new UserImpl());
+		EasyMock.replay(mockUserDao);
 
+		UserServiceImpl userService = new UserServiceImpl();
+		userService.setUserDao(mockUserDao);
+		User returnedUser = userService.retrieveUserByUsername(USERNAME);
+		assertNotNull(returnedUser);
+		assertEquals(returnedUser, expectedUser);
+		EasyMock.verify(mockUserDao);
+		
+		// Now check when USERNAME does not exist in data store
+		EasyMock.reset(mockUserDao);
+		EasyMock.expect(mockUserDao.retrieveByUsername(USERNAME)).andThrow(
+				new EmptyResultDataAccessException(1));
+		EasyMock.replay(mockUserDao);
+
+		userService.setUserDao(mockUserDao);
+		returnedUser = userService.retrieveUserByUsername(USERNAME);
+		assertNull(returnedUser);
+		EasyMock.verify(mockUserDao);
 	}
 
 	/**
