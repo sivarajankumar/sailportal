@@ -37,12 +37,9 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractWizardFormController;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -51,13 +48,9 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * @author Hiroki Terashima
  * @version $Id: $
  */
-public class SelectTeamController extends AbstractWizardFormController {
-
-	private static final String COMPLETE_VIEW_NAME = "student/index";
+public class SelectTeamController extends AbstractController {
 	
-	private static final String CANCEL_VIEW_NAME = "student/index";
-	
-	private static final String VIEW_NAME = "student/index";
+	private static final String VIEW_NAME = "student/selectteam";
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
 	
@@ -73,121 +66,6 @@ public class SelectTeamController extends AbstractWizardFormController {
 
 	private HttpRestTransport httpRestTransport;
 
-	/**
-	 * Constructor
-	 *  - Specify the pages in the wizard
-	 *  - Specify the command name
-	 */
-	public SelectTeamController() {
-		setBindOnNewForm(true);
-		setPages(new String[]{"student/selectteam"});
-		setSessionForm(true);
-	}
-	
-	/**
-	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBind(javax.servlet.http.HttpServletRequest, java.lang.Object, org.springframework.validation.BindException)
-	 */
-	@Override
-	protected void onBind(HttpServletRequest request,
-			Object command, BindException errors) throws Exception {
-		// TODO HT: implement me
-	    super.onBind(request, command, errors);
-	}
-	
-	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#onBindAndValidate(javax.servlet.http.HttpServletRequest, java.lang.Object, org.springframework.validation.BindException, int)
-	 */
-	@Override
-	protected void onBindAndValidate(HttpServletRequest request,
-            Object command,
-            BindException errors,
-            int page) throws Exception {
-		// TODO HT: implement me
-	    super.onBindAndValidate(request, command, errors, page);
-	}
-	
-	/**
-	 * This method is called after the onBind and onBindAndValidate method. It acts 
-	 * in the same way as the validator
-	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#validatePage(java.lang.Object, org.springframework.validation.Errors, int)
-	 */
-	@Override
-	protected void validatePage(Object command, Errors errors, int page) {
-		// TODO HT: implement me
-	    super.validatePage(command, errors, page);
-	}
-	
-	/**
-	 * This method is called right before the view is rendered to the user
-	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#referenceData(javax.servlet.http.HttpServletRequest, int)
-	 */
-	@Override
-	protected Map<String, Object> referenceData(HttpServletRequest request, 
-			Object command, Errors errors, int page) {
-		RunParameters runParameters = (RunParameters) command;
-		Map<String, Object> model = new HashMap<String, Object>();
-		switch(page) {
-		case 0:
-	    	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-	    	ControllerUtil.addUserToModelAndView(request, modelAndView);
-
-			User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
-
-			List<Run> runlist = runService.getRunList(user);
-			Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
-			for (Run run : runlist) {
-				if (runParameters.getCurnitId().equals(run.getId())) {
-					List<Workgroup> workgroupList = this.workgroupService
-					.getWorkgroupListByOfferingAndUser(run, user);
-					workgroupList = this.workgroupService
-					.createPreviewWorkgroupForOfferingIfNecessary(run,
-							workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
-					workgroupMap.put(run, workgroupList);
-				}
-			}
-			model.put(RUN_LIST_KEY, runlist);
-			model.put(WORKGROUP_MAP_KEY, workgroupMap);
-			model.put(HTTP_TRANSPORT_KEY, this.httpRestTransport);
-
-			break;
-		default:
-			break;
-		}
-
-		return model;
-	}
-	
-	/**
-	 * Creates a run.
-	 * 
-	 * This method is called if there is a submit that validates and contains the "_finish"
-	 * request parameter.
-	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#processFinish(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
-	 */
-	@Override
-	protected ModelAndView processFinish(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
-
-		ModelAndView modelAndView = new ModelAndView(COMPLETE_VIEW_NAME);
-    	return modelAndView;
-	}
-	
-	/**
-	 * This method is called if there is a submit that contains the "_cancel"
-	 * request parameter.
-	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#processCancel(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
-	 */
-	@Override
-	protected ModelAndView processCancel(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors) {
-		return new ModelAndView(CANCEL_VIEW_NAME);
-	}
-	
 	/**
 	 * @param runService the runService to set
 	 */
@@ -211,6 +89,43 @@ public class SelectTeamController extends AbstractWizardFormController {
 	@Required
 	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
 		this.httpRestTransport = httpRestTransport;
+	}
+
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		Long runId = Long.decode(request.getParameter("runId"));
+		System.out.println(request.getParameter("runId"));
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+
+    	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+    	ControllerUtil.addUserToModelAndView(request, modelAndView);
+
+		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+
+		List<Run> runlist = runService.getRunList(user);
+		Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
+		for (Run run : runlist) {
+			if (runId.equals(run.getId())) {
+				List<Workgroup> workgroupList = this.workgroupService
+				.getWorkgroupListByOfferingAndUser(run, user);
+				workgroupList = this.workgroupService
+				.createPreviewWorkgroupForOfferingIfNecessary(run,
+						workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
+				workgroupMap.put(run, workgroupList);
+			}
+		}
+		modelAndView.addObject(RUN_LIST_KEY, runlist);
+		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
+		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
+
+		model.put(RUN_LIST_KEY, runlist);
+		model.put(WORKGROUP_MAP_KEY, workgroupMap);
+		model.put(HTTP_TRANSPORT_KEY, this.httpRestTransport);
+
+		return modelAndView;
 	}
 
 }

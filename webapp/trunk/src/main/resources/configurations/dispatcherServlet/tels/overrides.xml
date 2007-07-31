@@ -58,6 +58,7 @@
     		    /student/index.html=studentIndexController
     		    /student/selectteam.html=selectteamController
     		    /student/addproject.html=addProjectController
+    		    /student/teamsignin.html=teamSignInController
     		    /**/index.html=indexController
     		</value>
     	</property>
