@@ -1,6 +1,19 @@
 package net.sf.sail.webapp.mail;
 
+import java.net.URL;
+import java.util.Date;
+import java.util.Properties;
+
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
@@ -29,8 +42,40 @@ import javax.mail.MessagingException;
  * @author tony
  * @version $Id$
  */
-public interface IMailFacade {
+public class JavaMail implements IMailFacade {
 
-	public void postMail( String recipients[ ], String subject, String message , String from) throws MessagingException;
+	private Properties properties;
+	
+	public void postMail(String[] recipients, String subject, String message,
+			String from) throws MessagingException {
+		
+		JavaMailSenderImpl sender = new JavaMailSenderImpl();
+		
+		sender.setUsername((String) properties.get("mail.username"));
+		sender.setPassword((String) properties.get("mail.password"));
+		sender.setJavaMailProperties(properties);
+		
+		for (String recip : recipients) {
+			MimeMessage mimeMessage = 	sender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+
+			helper.setTo(recip);
+			helper.setFrom(from);
+			helper.setText(message);
+			helper.setSubject(subject);
+			
+			sender.send(mimeMessage);
+		}
+		
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
 	
 }
