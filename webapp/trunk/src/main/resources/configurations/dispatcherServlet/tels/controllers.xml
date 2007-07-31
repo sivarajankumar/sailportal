@@ -128,7 +128,14 @@
 		<property name="workgroupService" ref="workgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
-
+<!--  
+	<bean
+		class="org.telscenter.sail.webapp.presentation.web.controllers.run.AssessStudentWorkMainController">
+		<property name="runService" ref="runService" />
+		<property name="workgroupService" ref="workgroupService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
+	</bean>
+-->
 	<bean id="lostPasswordStudentReminderWizardController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">
 		<property name="userService" ref="userService" />
@@ -157,6 +164,7 @@
 		<property name="validator" ref="lostTeacherValidator" />
 		<property name="formView" value="lostpasswordteachermain" />
 		<property name="successView" value="lostpasswordteacherresult" />
+		<property name="javaMail" ref="javaMail"/>
 	</bean>
 
 	<bean id="lostPasswordTeacherErrorController"
