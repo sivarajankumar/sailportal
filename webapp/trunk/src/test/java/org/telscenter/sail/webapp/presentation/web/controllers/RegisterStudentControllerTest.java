@@ -104,6 +104,8 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 	
 	RunService mockRunService;
 	
+	RegisterStudentController signupController;
+	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -119,6 +121,24 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		Calendar cal = Calendar.getInstance();
 		cal.set(1983, 6, 19);
 		birthday = cal.getTime();
+		
+		studentUserDetails.setFirstname(FIRSTNAME);
+		studentUserDetails.setLastname(LASTNAME);
+		studentUserDetails.setGender(GENDER);
+		studentUserDetails.setBirthday(this.birthday);
+		request.addParameter("firstname", FIRSTNAME);
+		request.addParameter("lastname", LASTNAME);
+		request.addParameter("password", PASSWORD);		
+		
+		studentAccountForm.setUserDetails(studentUserDetails);
+		studentAccountForm.setProjectCode(PROJECTCODE);
+		
+		signupController = new RegisterStudentController();
+		signupController.setApplicationContext(mockApplicationContext);
+		signupController.setUserService(mockUserService);
+		signupController.setGroupService(mockGroupService);
+		signupController.setRunService(mockRunService);
+		signupController.setSuccessView(SUCCESS);
 	}
 	
 	public void testOnSubmit() throws Exception {
@@ -138,7 +158,6 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		run.setPeriods(periods);
 		expect(mockRunService.retrieveRunByRuncode(RUNCODE)).andReturn(run);
 		replay(mockRunService);
-		
 
 		Set<User> membersToAdd = new HashSet<User>();
 		membersToAdd.add(user);
@@ -146,22 +165,6 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		EasyMock.expectLastCall();
 		replay(mockGroupService);
 		
-		studentUserDetails.setFirstname(FIRSTNAME);
-		studentUserDetails.setLastname(LASTNAME);
-		studentUserDetails.setGender(GENDER);
-		studentUserDetails.setBirthday(this.birthday);
-		request.addParameter("firstname", FIRSTNAME);
-		request.addParameter("lastname", LASTNAME);
-		request.addParameter("password", PASSWORD);		
-
-		studentAccountForm.setUserDetails(studentUserDetails);
-		studentAccountForm.setProjectCode(PROJECTCODE);
-		RegisterStudentController signupController = new RegisterStudentController();
-		signupController.setApplicationContext(mockApplicationContext);
-		signupController.setUserService(mockUserService);
-		signupController.setGroupService(mockGroupService);
-		signupController.setRunService(mockRunService);
-		signupController.setSuccessView(SUCCESS);
 		ModelAndView modelAndView = signupController.onSubmit(request,
 				response, studentAccountForm, errors);
 
@@ -213,21 +216,6 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		EasyMock.expect(mockRunService.retrieveRunByRuncode(runcode_not_in_db)).andThrow(new RunNotFoundException("Run Not Found"));
 		replay(mockRunService);
 		
-		studentUserDetails.setFirstname(FIRSTNAME);
-		studentUserDetails.setLastname(LASTNAME);
-		studentUserDetails.setGender(GENDER);
-		studentUserDetails.setBirthday(this.birthday);
-		request.addParameter("firstname", FIRSTNAME);
-		request.addParameter("lastname", LASTNAME);
-		request.addParameter("password", PASSWORD);		
-
-		studentAccountForm.setUserDetails(studentUserDetails);
-		RegisterStudentController signupController = new RegisterStudentController();
-		signupController.setApplicationContext(mockApplicationContext);
-		signupController.setUserService(mockUserService);
-		signupController.setGroupService(mockGroupService);
-		signupController.setRunService(mockRunService);
-		signupController.setSuccessView(SUCCESS);
 		signupController.setFormView(FORM);
 		ModelAndView modelAndView = signupController.onSubmit(request,
 				response, studentAccountForm, errors);
