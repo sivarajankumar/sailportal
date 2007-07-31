@@ -221,4 +221,15 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		}
 		return run;
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#retrieveById(java.lang.Long)
+	 */
+	public Run retrieveById(Long runId) throws RunNotFoundException {
+		Run run = runDao.getById(runId);
+		if (run == null) {
+			throw new RunNotFoundException("Run with runId " + runId + " was not found");
+		}
+		return run;
+	}
 }

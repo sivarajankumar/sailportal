@@ -49,6 +49,7 @@ import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 
 /**
  * Test class for RunServiceImpl class
@@ -251,6 +252,34 @@ public class RunServiceImplTest extends TestCase {
         for (Group period : run.getPeriods()) {
         	assertTrue(periodNames.contains(period.getName()));
         }
+        EasyMock.verify(this.mockRunDao);
+    }
+    
+    public void testRetrieveById() {
+    	Run run = new RunImpl();
+    	Long runId = new Long(5);
+        EasyMock.expect(this.mockRunDao.getById(runId)).andReturn(run);
+        EasyMock.replay(this.mockRunDao);
+        Run retrievedRun = null;
+        try {
+			retrievedRun = runServiceImpl.retrieveById(runId);
+		} catch (RunNotFoundException e) {
+			fail("RunNotFoundException thrown but should not have been thrown");
+		}
+		assertEquals(run, retrievedRun);
+        EasyMock.verify(this.mockRunDao);
+        EasyMock.reset(this.mockRunDao);
+        
+        EasyMock.expect(this.mockRunDao.getById(runId)).andReturn(null);
+        EasyMock.replay(this.mockRunDao);
+        retrievedRun = null;
+        try {
+			retrievedRun = runServiceImpl.retrieveById(runId);
+			fail("RunNotFoundException thrown but should not have been thrown");
+		} catch (RunNotFoundException e) {
+		}
+		
+		assertNull(retrievedRun);
         EasyMock.verify(this.mockRunDao);
     }
 

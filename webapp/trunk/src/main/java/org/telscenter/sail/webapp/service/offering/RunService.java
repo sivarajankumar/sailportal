@@ -88,4 +88,16 @@ public interface RunService extends OfferingService {
      *          to find an existing run    
      */
     public Run retrieveRunByRuncode(String runcode) throws RunNotFoundException;
+    
+    /**
+     * Retrieves the Run domain object using a unique runId
+     * 
+     * @param runId 
+     *         <code>Long</code> runId to use for lookup
+     * @return <code>Run</code>
+     *          The Run object with the runId
+     * @throws <code>RunNotFoundException</code> when runId cannot be used 
+     *          to find an existing run   
+     */
+    public Run retrieveById(Long runId) throws RunNotFoundException;
 }
