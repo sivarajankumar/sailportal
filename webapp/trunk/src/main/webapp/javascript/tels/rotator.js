@@ -54,7 +54,9 @@ var accountButtons = new Array("./themes/tels/default/images/Student-Account.png
 							   "./themes/tels/default/images/Teacher-Account-Roll.png");
 							   							  
 var gotomyprojectButtons = new Array("./themes/tels/default/images/Go-to-My-Proj-Runs.png", 
-									 "./themes/tels/default/images/Go-to-My-Proj-Runs-Roll.png");							
+									 "./themes/tels/default/images/Go-to-My-Proj-Runs-Roll.png");					
+									 
+									 		
 if(document.images){
 var imgs2 = new Array();
   for(var i = 0; i < imgAr.length; i++){
@@ -239,6 +241,12 @@ function swapWiseImage(id,num){
 function swapProjectRuns(id,num){
 	if(document.images){
 		document.getElementById(id).src=wiseButtons[num];
+	}
+}
+
+function swapGotoMyProjectRuns(id,num){
+	if(document.images){
+		document.getElementById(id).src=gotomyprojectButtons[num];
 	}
 }
 
