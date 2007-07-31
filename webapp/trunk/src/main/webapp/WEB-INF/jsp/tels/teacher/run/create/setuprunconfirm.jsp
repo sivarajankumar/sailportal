@@ -34,21 +34,44 @@
 <body>
 
 <%@ include file="../../../teacherHeader.jsp"%>
+<div id="navigation" class="north2 widthAdj4">
+<ul class="bigFont1">
+<li> <a href="#"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+</ul>
+</div>
+<ul id="tabnav" class="north_0 widthAdj4">
+<li> <a href="#"><spring:message code="teacher.overview" /></a></li>
+<li> <a href="#"><spring:message code="teacher.project-library" /></a></li>
+<li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
+<li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
+<li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
+</ul><br />
 
-<h1><spring:message code="setuprun.confirmation.projectruncreated" /></h1>
-
-<h3><spring:message code="setuprun.confirmation.whereisnewrun" /></h3>
+<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 
 
-<div id="navigation" class="center north4">
+<h3><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
+
+<b>
+<spring:message code="setuprun.confirmation.whereisnewrun" />
+<a href="#"> 
+<spring:message code="setuprun.confirmation.myprojectruns" />
+</a>
+<spring:message code="setuprun.confirmation.end" />
+</b>
+
+<div>
 <ul>
-<li class="vertical"><spring:message code="setuprun.confirmation.run.title" />
+<li><spring:message code="setuprun.confirmation.run.title" />
 <c:out value="${run.sdsOffering.name}" />
 </li>
-<li class="vertical"><spring:message code="setuprun.confirmation.run.createdtime" />
+<li><spring:message code="setuprun.confirmation.run.createdtime" />
 <c:out value="${run.starttime}" />
 </li>
-<li class="vertical"><spring:message code="setuprun.confirmation.run.projectid" />
+<li><spring:message code="setuprun.confirmation.run.projectid" />
 <c:out value="${run.sdsOffering.sdsCurnit.sdsObjectId}" />
 </li>
 <li>
@@ -64,15 +87,15 @@
 </div>
 
 <h4><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
-<p><spring:message code="setuprun.confirmation.aboutprojectids.text" /></p>
+<spring:message code="setuprun.confirmation.aboutprojectids.text" />
 
 <h4><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
-<p><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
+<spring:message code="setuprun.confirmation.aboutprojectcodes.text" />
 
-<p><a href="../../../runlist.html"> <img id="projectRuns"
-	src="<spring:theme code="gotomyprojectruns" />" 	
-	/>
-</a></p>
+<a href="./runlist.html"> <img id="projectRuns"
+	src="<spring:theme code="gotomyprojectruns" />"	 	
+	style="border:0px;"/>
+</a>
 
 </body>
 </html>
