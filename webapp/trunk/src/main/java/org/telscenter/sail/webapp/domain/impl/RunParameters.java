@@ -18,8 +18,8 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 
@@ -32,7 +32,7 @@ public class RunParameters extends OfferingParameters implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Set<String> periodNames = new HashSet<String>();
+	private Set<String> periodNames = new TreeSet<String>();
 
 		/**
 		 * @return the periodNames
@@ -47,5 +47,4 @@ public class RunParameters extends OfferingParameters implements Serializable {
 		public void setPeriodNames(Set<String> periodNames) {
 			this.periodNames = periodNames;
 		}
-
 }

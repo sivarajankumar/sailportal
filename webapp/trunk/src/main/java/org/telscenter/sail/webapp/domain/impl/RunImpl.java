@@ -23,8 +23,8 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -88,7 +88,7 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @OneToMany(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
     @JoinTable(name = PERIODS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = PERIODS_JOIN_COLUMN_NAME, nullable = false))
-    private Set<Group> periods = new HashSet<Group>();
+    private Set<Group> periods = new TreeSet<Group>();
 
     /**
      * @return the endtime

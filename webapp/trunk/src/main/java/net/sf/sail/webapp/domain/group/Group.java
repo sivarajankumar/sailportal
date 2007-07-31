@@ -31,7 +31,7 @@ import net.sf.sail.webapp.domain.User;
  * 
  * @version $Id$
  */
-public interface Group extends Persistable{
+public interface Group extends Persistable, Comparable<Group> {
 
     /**
      * Add a single member to the group.

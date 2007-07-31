@@ -23,11 +23,11 @@
 package org.telscenter.sail.webapp.service.offering.impl;
 
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
@@ -159,7 +159,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 
         Set<String> periodNames = runParameters.getPeriodNames();
         if (periodNames != null) {
-        	Set<Group> periods = new HashSet<Group>();
+        	Set<Group> periods = new TreeSet<Group>();
         	for (String periodName : runParameters.getPeriodNames()) {
         		Group group = new PersistentGroup();
         		group.setName(periodName);

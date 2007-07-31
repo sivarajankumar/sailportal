@@ -214,4 +214,12 @@ public class PersistentGroup implements Group {
             return false;
         return true;
     }
+
+	public int compareTo(Group o) {
+		try {
+  		   return Integer.valueOf(this.getName()).compareTo(Integer.valueOf(o.getName()));
+		} catch (NumberFormatException e) {
+			return this.getName().compareTo(o.getName());
+		}
+	}
 }

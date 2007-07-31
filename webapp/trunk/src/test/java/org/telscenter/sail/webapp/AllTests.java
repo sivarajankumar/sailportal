@@ -10,6 +10,7 @@ public class AllTests {
 		//$JUnit-BEGIN$
 		   suite.addTest(org.telscenter.sail.webapp.dao.authentication.impl.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.dao.offering.impl.AllTests.suite());
+		   suite.addTest(org.telscenter.sail.webapp.domain.impl.AllTests.suite());
            suite.addTest(org.telscenter.sail.webapp.presentation.validators.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.service.impl.AllTests.suite());
