@@ -30,30 +30,27 @@
 
 <body>
 
-<h1>SELECT TEAM</h1>
-<h3>Will you be working on this project by yourself or with teammates?</h3>
+<h1>Team Sign In</h1>
+<h3><authz:authentication operation="username" /> is already signed in. All other teammates should sign in below.</h3>
+
+<form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" >
+  <label for="username1">Username 1:</label>
+     <form:input disabled="true" path="username1" id="username1" />
+
+  <c:forEach var="teammate_index" begin="2" end="3" step="1">
+    <label for="username${teammate_index}">Username ${teammate_index}:</label>
+        <form:input path="username${teammate_index}" id="username${teammate_index}"/>
+        <form:errors path="username${teammate_index}" />
+      <br />  
+    <label for="password${teammate_index}">Password:</label>
+        <form:password path="password${teammate_index}" id="password${teammate_index}"/>
+        <form:errors path="password${teammate_index}" />
+  </c:forEach>
 
 <div>
-  <c:forEach var="run" items="${run_list}">
-      <c:choose>
-        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
-        </c:when>
-        <c:otherwise>
-            <c:forEach var="workgroup" items="${workgroup_map[run]}">
-              <a href="#"
-                onclick="window.opener.location.href='${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}'; window.close();">
-                By Myself
-                <!--  
-		        <img id="runproject" src="../<spring:theme code="run_project" />"  />              
-		        -->
-              </a><br />
-            </c:forEach>
-        </c:otherwise>
-      </c:choose>
-      <a href="teamsignin.html?runId=${run.id}">With 1 or 2 Teammates</a>
-  </c:forEach>
+  <input type="submit" name="_finish" value="Run Project" />
 </div>
-
+</form:form>
 
 <div><a href="#" onclick="javascript:window.close()">Cancel</a></div>
 </body>

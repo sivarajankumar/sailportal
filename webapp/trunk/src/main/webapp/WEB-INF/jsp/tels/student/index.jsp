@@ -68,7 +68,7 @@ function popup(URL) {
   <tr>
     <td>${run.sdsOffering.name}</td>
     <td>
-    <a href="#"	onclick="javascript:popup('selectteam.html?curnitId=' + ${run.id} )">
+    <a href="#"	onclick="javascript:popup('selectteam.html?runId=' + ${run.id} )">
 	  <img id="runproject" src="../<spring:theme code="run_project" />" />
 	</a>
               <!--  
