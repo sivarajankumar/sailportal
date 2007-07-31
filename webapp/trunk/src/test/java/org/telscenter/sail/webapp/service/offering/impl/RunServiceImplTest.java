@@ -69,8 +69,6 @@ public class RunServiceImplTest extends TestCase {
 
     private static final Long CURNIT_ID = new Long(3);
 
-    //private static Set<Group> periods = new HashSet<Group>();
-    
     private static Set<String> periodNames = new HashSet<String>();
 
     static {
@@ -268,17 +266,48 @@ public class RunServiceImplTest extends TestCase {
 		}
 		assertEquals(run, retrievedRun);
         EasyMock.verify(this.mockRunDao);
+
         EasyMock.reset(this.mockRunDao);
-        
         EasyMock.expect(this.mockRunDao.getById(runId)).andReturn(null);
         EasyMock.replay(this.mockRunDao);
         retrievedRun = null;
         try {
 			retrievedRun = runServiceImpl.retrieveById(runId);
-			fail("RunNotFoundException thrown but should not have been thrown");
+			fail("RunNotFoundException not thrown but should have been thrown");
 		} catch (RunNotFoundException e) {
 		}
 		
+		assertNull(retrievedRun);
+        EasyMock.verify(this.mockRunDao);
+    }
+    
+    public void testRetrieveRunByRuncode() {
+    	Run run = new RunImpl();
+
+    	String good_runcode = "falcon8989";
+    	String bad_runcode = "badbadbad3454";
+    	EasyMock.expect(this.mockRunDao.retrieveByRunCode(good_runcode)).andReturn(run);
+        EasyMock.replay(this.mockRunDao);
+
+    	Run retrievedRun = null;
+    	try {
+    		retrievedRun = runServiceImpl.retrieveRunByRuncode(good_runcode);
+    	} catch (RunNotFoundException e) {
+    		fail("RunNotFoundException thrown but should not have been thrown");
+    	}
+    	assertEquals(run, retrievedRun);
+        EasyMock.verify(this.mockRunDao);
+
+        EasyMock.reset(this.mockRunDao);
+    	EasyMock.expect(this.mockRunDao.retrieveByRunCode(bad_runcode)).andReturn(null);
+        EasyMock.replay(this.mockRunDao);
+        retrievedRun = null;
+        try {
+			retrievedRun = runServiceImpl.retrieveRunByRuncode(bad_runcode);
+			fail("RunNotFoundException not thrown but should have been thrown");
+		} catch (RunNotFoundException e) {
+		}
+
 		assertNull(retrievedRun);
         EasyMock.verify(this.mockRunDao);
     }
