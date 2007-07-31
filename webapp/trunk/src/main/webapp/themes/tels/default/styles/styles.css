@@ -50,7 +50,7 @@
 
 .north2{
 	position:relative;
-	top:-30px;
+	top:-40px;
 }
 
 .north3{
@@ -167,12 +167,17 @@
 
 #right{
 	position:relative;
-	right:-17em;	
+	right:-350px;	
 }
 
 .right0{
 	position:relative;
 	right:-500px;
+}
+
+._right1{
+	position:relative;
+	right:-150px;
 }
 
 ._right3{
@@ -225,7 +230,7 @@
 
 .right7{
 	position:relative;
-	right:-150px;
+	right:22px;
 }
 
 .border{
@@ -336,9 +341,13 @@
 }
 
 .marginHorAdj1{
-	margin-right:300px;
+	margin-right:360px;
 }
 
+.marginHorAdj2{
+	margin-right:600px;	
+}	
+	
 #marginVerAdj{
 	margin-bottom:-4.0em;
 }
@@ -392,15 +401,15 @@
 }
 
 .marginAdj3{
-	margin:-6em 0em 0em 0em;
+	margin:-85px 0px 0px 20px;
 }
 
 .marginAdj4{
-	margin:-17em 0em 0em 0em;	
+	margin:-260px 0px 0px 20px;	
 }
 
 .marginAdj5{
-	margin:-6em 0em 0em 0em;
+	margin-bottom:-1200px;
 }
 
 .marginAdj6{
@@ -432,7 +441,7 @@
 }
 
 .widthAdj4{
-	width:48.5em;	
+	width:990px;	
 }
 
 .widthAdj5{
@@ -531,20 +540,19 @@ a.none{
   text-decoration:none;	
 }
 label{
-width: 8em;
+width: 120px;
 float: left;
 text-align: right;
-margin-right: 0.5em;
+margin-right: 10px;
 display: block;
 
 }
 
 label.login{
-	width:4.45em;
+	width:70px;
 	text-align:left;
-	margin:0em 0.83em 0em -0.4em;
+	margin:0px 10px 0px -7px;
 	display:block;
-
 }
 
 
@@ -568,8 +576,8 @@ div.welcome{
 	width: 550;
 	background-color: blue;
 	border: 6 solid black;
-	margin: 0em;
-	padding: 0em;	
+	margin: 0px;
+	padding: 0px;	
 }
 
 
@@ -616,19 +624,17 @@ form div.formcontents{
 }
 
 form#login {
-    background-color: #CCCCCC;
+	align:center;
     color: #000000;
-    border: 22px solid #999999;
+    border: 0px;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 1em;
-    text-align: right;
 }
 
 #login .text {
     font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	width: 110px;
-	margin-right: 1em;
 }
 
 #login .buttons {
@@ -636,9 +642,7 @@ form#login {
 	font-size: 1em;
 	background-color: #333333;
 	color: #FFFFFF;
-	margin-right: 1em;
 }
-
 
 
 p.bgimage{
@@ -747,36 +751,36 @@ font-family:arial,sans-serif;
 
 #verticalNavigation ul {
     list-style: none;
-    margin: 0em;
-    padding: 0em;
-    padding-top: 0.1em;
+    margin: 0px;
+    padding: 0px;
+    padding-top: 13px;
     text-align:center;
 }
 
 #verticalNavigation li {
-    padding: 0em;
-    margin: 1.3em;
-    line-height:1.2em;
+    padding: 0px;
+    margin: 25px;
+    line-height:18px;
 }
 
 #verticalNavigation li.login{
-	margin: 0.5em;
-	line-height:1.5em;	
+	margin: 8px;
+	line-height:20px;	
 }
 
 #verticalNavigation li.space1{
-	line-height:2em;
+	line-height:22px;
 }
 
 #verticalNavigation a:link, #verticalNavigation a:visited{
-	padding: .3em 1.0em .2em 1.0em;
+	padding: 3px 12px 5px 12px;
 	color: black;
 	background-color: rgb(150,180,230);
 	text-decoration: none;
 }
 
 #verticalNavigation a:hover{
-	padding: .3em 1.0em .2em 1.0em;
+	padding: 3px 12px 5px 12px;
 	color: black;
 	background-color: rgb(0,200,130);
 	text-decoration: none;
@@ -788,7 +792,7 @@ font-family:arial,sans-serif;
 
 #headRows li{
 	display:inline;
-	margin: 0;
+	margin: 0px;
 	padding: 4em;
 }
 
