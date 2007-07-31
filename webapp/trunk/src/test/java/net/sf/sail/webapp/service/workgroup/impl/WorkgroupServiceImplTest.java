@@ -17,8 +17,10 @@
  */
 package net.sf.sail.webapp.service.workgroup.impl;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
@@ -200,5 +202,34 @@ public class WorkgroupServiceImplTest extends TestCase {
 
         EasyMock.verify(this.mockSdsWorkgroupDao);
         EasyMock.verify(this.mockWorkgroupDao);
+    }
+    
+    public void testAddMembers() {
+        this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockSdsWorkgroupDao);
+
+        this.mockWorkgroupDao.save(this.workgroup);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockWorkgroupDao);
+
+        this.workgroupServiceImpl.createWorkgroup(this.workgroup);
+
+        EasyMock.verify(this.mockSdsWorkgroupDao);
+        EasyMock.verify(this.mockWorkgroupDao);
+        EasyMock.reset(this.mockWorkgroupDao);
+
+        User newuser = new UserImpl();
+        this.workgroup.addMember(newuser);
+        this.mockWorkgroupDao.save(this.workgroup);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockWorkgroupDao);
+                
+        Set<User> membersToAdd = new HashSet<User>();
+        membersToAdd.add(newuser);
+        this.workgroupServiceImpl.addMembers(this.workgroup, membersToAdd);
+
+        assertEquals(1, this.workgroup.getMembers().size());
+        
     }
 }

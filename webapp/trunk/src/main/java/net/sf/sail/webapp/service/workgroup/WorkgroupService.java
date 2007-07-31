@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.service.workgroup;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
@@ -84,4 +85,30 @@ public interface WorkgroupService {
      *            The workgroup you want to create (no workgroup id required).
      */
     public void createWorkgroup(Workgroup workgroup);
+    
+    /**
+     * Creates a new <code>SdsWorkgroup</code> on the SDS as well as a
+     * <code>Workgroup</code> object in the local data store, and then associates
+     * that workgroup to an offering.  A side effect is
+     * that the workgroup id is set to the value that the SDS assigns to the new
+     * workgroup.
+     * 
+     * @param workgroup
+     *            The workgroup you want to create (no workgroup id required).
+     * @param offering
+     *            The offering to associate the workgroup to
+     */
+    public Workgroup createWorkgroup(String name, Set<User> members, Offering offering);
+    
+    /**
+     * Adds members to an already-existing workgroup. If a member is
+     * already in the group, do not add again
+     * 
+     * @param workgroup
+     *          an existing <code>Workgroup</code> that the members will be
+     *          added to
+     * @param membersToAdd
+     *          <code>Set</code> of users to add to the group
+     */
+    public void addMembers(Workgroup workgroup, Set<User> membersToAdd);
 }

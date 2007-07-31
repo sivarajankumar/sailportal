@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.service.workgroup.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
@@ -116,5 +117,41 @@ public class WorkgroupServiceImpl implements WorkgroupService {
             workgroupList.add(workgroup);
         }
         return workgroupList;
+    }
+
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#addMembers(net.sf.sail.webapp.domain.Workgroup, java.util.Set)
+     */
+    @Transactional()
+	public void addMembers(Workgroup workgroup, Set<User> membersToAdd) {
+    	for (User member : membersToAdd) {
+    		workgroup.addMember(member);
+    	}
+    	this.workgroupDao.save(workgroup);
+	}
+
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createWorkgroup(net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Offering)
+     */
+    @Transactional(rollbackFor = { BadRequestException.class,
+            NetworkTransportException.class })
+	public Workgroup createWorkgroup(String name, Set<User> members, Offering offering) {
+        SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
+        sdsWorkgroup.setName(name);
+        for (User member : members) {
+        	sdsWorkgroup.addMember(member.getSdsUser());
+        }
+    	sdsWorkgroup.setSdsOffering(offering.getSdsOffering());
+        this.sdsWorkgroupDao.save(sdsWorkgroup);
+
+        Workgroup workgroup = new WorkgroupImpl();
+        for (User member : members) {
+        	workgroup.addMember(member);
+        }
+        workgroup.setOffering(offering);
+        workgroup.setSdsWorkgroup(sdsWorkgroup);
+        this.workgroupDao.save(workgroup);
+
+        return workgroup;
     }
 }
