@@ -37,7 +37,7 @@
 <div id="right" class="widthAdj6">
 <ul class="bigFont1">
 <li><spring:message code="lostpassword.teacher.username" />
-${someValue}<spring:message code="lostpassword.teacher.error" />
+<b>${someValue}</b><spring:message code="lostpassword.teacher.error" />
 </li>
 </ul>
 </div>

@@ -38,7 +38,7 @@
 <div id="right" class="widthAdj6">
 <ul class="bigFont1 marginAdj1">
 <li><spring:message code="lostpassword.teacher.new-password" />
-<spring:message code="lostpassword.teacher.emailed" /></li>
+<spring:message code="lostpassword.teacher.emailed" /><b>${someValue}</b></li>
 <li><spring:message code="lostpassword.teacher.issues" />
 <a href="#"><spring:message code="lostpassword.teacher.contact-wise" /></a></li>
 
