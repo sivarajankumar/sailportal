@@ -25,12 +25,14 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.mail.JavaMail;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
@@ -52,6 +54,15 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 	private static final String NEW_PASSWORD = "newPassword";
 
 	protected UserService userService = null;
+	protected JavaMail javaMail = null;
+
+	public JavaMail getJavaMail() {
+		return javaMail;
+	}
+
+	public void setJavaMail(JavaMail javaMail) {
+		this.javaMail = javaMail;
+	}
 
 	/**
 	 * gets the information by username or email
@@ -68,6 +79,9 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 
 		String username = null;
 		String emailAddress = null;
+		
+		Properties properties = javaMail.getProperties();
+		
 		try {
 
 			username = StringUtils.trimToNull(userDetails.getUsername());
@@ -77,41 +91,44 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 			if (username != null) {
 				user = userService.retrieveUserByUsername(userDetails
 						.getUsername());
+				
+				if( user == null ) {
+					ModelAndView modelAndView = new ModelAndView(
+					"lostpasswordteachererror");
+					modelAndView.addObject("someValue", username);
+					return modelAndView;
+				}
+				
 			} else if (emailAddress != null) {
 				List<User> users = userService
 						.retrieveUserByEmailAddress(emailAddress);
 
-				user = users.get(0);
+				
+				if (users.isEmpty()) {
+					ModelAndView modelAndView = new ModelAndView(
+							"lostpasswordteachererror");
+					modelAndView.addObject("someValue", emailAddress);
+					return modelAndView;
+				} else {
+					user = users.get(0);
+				}
 			}
 			String generateRandomPassword = generateRandomPassword();
 			userService.updateUserPassword(user, generateRandomPassword);
 
+			String userEmail = user.getUserDetails().getEmailAddress();
 			// send password in the email here
-
+			javaMail.postMail(new String[]{userEmail}, "[Tels Portal] Changed Password", "for username: " + username + " Your new password is: "+ generateRandomPassword, "telsportal@gmail.com");
+			
 			Map<String, String> model = new HashMap<String, String>();
-			model.put(NEW_PASSWORD, generateRandomPassword);
+			model.put("someValue", userEmail);
+			//model.put(NEW_PASSWORD, generateRandomPassword);
 			return new ModelAndView(getSuccessView(), model);
-
-		} catch (EmptyResultDataAccessException e) {
-
-			if (username != null) {
-				ModelAndView modelAndView = new ModelAndView(
-						"lostpasswordteachererror");
-				modelAndView.addObject("someValue", userDetails.getUsername());
-				return modelAndView;
-			} else if (emailAddress != null) {
-				ModelAndView modelAndView = new ModelAndView(
-						"lostpasswordteachererror");
-				modelAndView.addObject("someValue", userDetails
-						.getEmailAddress());
-				return modelAndView;
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return showForm(request, response, errors);
 		}
-		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
 
 	/**
