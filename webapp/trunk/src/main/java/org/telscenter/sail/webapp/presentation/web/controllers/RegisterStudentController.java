@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
@@ -80,6 +81,9 @@ public class RegisterStudentController extends SignupController {
 	 *      org.springframework.validation.BindException)
 	 */
 	@Override
+	@Transactional(rollbackFor = { 
+			DuplicateUsernameException.class, RunNotFoundException.class, 
+			PeriodNotFoundException.class })
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
