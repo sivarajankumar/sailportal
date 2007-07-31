@@ -72,7 +72,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
     private SdsOffering sdsOffering;
 
-    private Run defaultRun;
+    private RunImpl defaultRun;
 
     private HibernateRunDao runDao;
 
@@ -90,7 +90,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
      * @param defaultRun
      *                the defaultRun to set
      */
-    public void setDefaultRun(Run defaultRun) {
+    public void setDefaultRun(RunImpl defaultRun) {
         this.defaultRun = defaultRun;
     }
 
@@ -268,6 +268,14 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         assertTrue(this.runDao.hasRuncode(DEFAULT_RUNCODE));
         assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
 
+    }
+    
+    public void testGetById() {
+        verifyRunAndJoinTablesAreEmpty();
+
+        this.runDao.save(this.defaultRun);
+
+        assertNotNull(this.runDao.getById(this.defaultRun.getId()));
     }
 
     private void verifyRunAndJoinTablesAreEmpty() {

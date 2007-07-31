@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.dao.offering.impl;
 import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
@@ -68,7 +69,7 @@ public class HibernateRunDao extends AbstractHibernateDao<Run>
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class<Run> getDataObjectClass() {
-		return Run.class;
+	protected Class<RunImpl> getDataObjectClass() {
+		return RunImpl.class;
 	}
 }
