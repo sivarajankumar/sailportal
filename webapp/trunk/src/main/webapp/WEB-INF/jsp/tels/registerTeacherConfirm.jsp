@@ -34,30 +34,31 @@
 
 <%@ include file="teacherHeader.jsp"%>
 
-<div>
-<h2 class="center"><spring:message code="teacher.registration" /></h2>
-<h3 class="center"><spring:message code="login.success" /></h3>
-<h4 class="center"><spring:message code="login.sign-in-message" /></h4>
+<div style="position:relative;right:-380px;">
+<h2><spring:message code="teacher.registration" /></h2>
+<h3><spring:message code="login.success" /></h3>
+<h4><spring:message code="login.sign-in-message" /></h4>
 </div>
-
-<div id="navigation" class="center">
+<div id="verticalNavigation" style="position:relative;right:100px;">
 <ul>
-<li class="vertical"><spring:message code="login.username" />
+<li><spring:message code="login.username" />
 <input name="username" value="${username}"/>
 </li>
-<li class="vertical"><spring:message code="login.password" />
+<li><spring:message code="login.password" />
 <input name="password" type="password" value="<authz:authentication operation="password" />"  />
 </li>
 </ul>
 </div>
 
-<div id="spacing">
-<ul class="center">
+
+<div id="spacing" style="position:relative;right:-150px;">
+<ul>
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>
 </ul>
 </div>
-<div class="center">
+
+<div style="position:relative;right:-390px;" >
 <a href="index.html">
 <img id="imgBorderNone" src="<spring:theme code="sign_in_new_account" />" 
 onmouseover="swapSignInNewAccount('imgBorderNone',1)"

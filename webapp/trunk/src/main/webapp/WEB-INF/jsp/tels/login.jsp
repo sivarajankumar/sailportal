@@ -28,6 +28,8 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
+
 <style type="text/css" media="screen">
   .inplaceeditor-saving {background: url(<spring:theme code="wait"/>) bottom right no-repeat; }
 </style>
@@ -40,34 +42,53 @@
 <%@ include file="header.jsp"%>
 
 
-<div id="columns">
+<div>
 <h2><spring:message code="login" /></h2>
 
-<div><a href="signup.html"><spring:message code="sign.up" /></a><br />
+<a href="signup.html"><spring:message code="sign.up" /></a><br />
 
 <c:if test="${failed}">
   <p><spring:message code="login.failed" /></p>
 </c:if>
 
+<div id="right" class="marginHorAdj1" >
 <form id="login" method="post" action="j_acegi_security_check">
 
-  <p><label for="j_username"><spring:message code="login.username" /></label>
-  <input type="text" name="j_username" id="j_username"  class="text" tabindex="1" /></p>
-
-  <p><label for="j_password"><spring:message code="login.password" /></label>
-  <input type="password" name="j_password" id="j_password" class="text" tabindex="2" /></p>
+  <label for="j_username"><spring:message code="login.username" /></label>
+  <input type="text" name="j_username" id="j_username"  class="text" tabindex="1" />
+<br />
+  <label for="j_password"><spring:message code="login.password" /></label>
+  <input type="password" name="j_password" id="j_password" class="text" tabindex="2" />
+<br />
 
      <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
-     <p><input type="submit" class="buttons" tabindex="3" value="<spring:message code="login.submit" />" 
-      onclick="Effect.toggle('waiting', 'appear')" /></p>
+     
+ <input type="image" id="signIn" src="<spring:theme code="sign_in" />" 
+        	class="_right1" tabindex="3" onmouseover="swapSignIn('signIn', 1);"
+       		onmouseout="swapSignIn('signIn', 0);"
+ 
+            onclick="Effect.toggle('waiting', 'appear')" /> 
+      
+ 
 </form>
-<a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
 
 </div>
+<a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
+
+
+
+
+
 </div>
 <%@ include file="footer.jsp"%>
 
 </body>
 </html>
+
+<!--
+<input type="submit" class="buttons" tabindex="3" value="<spring:message code="login.submit" />" 
+      onclick="Effect.toggle('waiting', 'appear')" />
+
+-->

@@ -103,18 +103,14 @@
 </label>
 <input type="password" name="j_password" id="j_password" size="20" />
 </li>
-<li><div id="waiting" style="display: none">
-       		<div>
+<li id="waiting" style="display:none" class="marginAdj5">
        		<img id="wait" src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" 
-     		/>
-     		</div>
-     </div>
+       		/> 
 </li>
 <li class="right6 marginHorAdj">
  <input type="image" id="signIn" src="<spring:theme code="sign_in" />" 
         	onmouseover="swapSignIn('signIn', 1);"
        		onmouseout="swapSignIn('signIn', 0);"
- 
             onclick="Effect.toggle('waiting', 'appear')" /> 
 </li>
 
@@ -311,7 +307,7 @@ onmouseout="this.style.cursor='default';" />
 
 </div>
 
-<div class="right7 marginHorAdj1 padding0 south0 widthAdj3">
+<div class="right6 marginHorAdj1 padding0 south0 widthAdj3">
 <img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" 
 class="center"/>
 <spring:message code="wise.legal-acknowledgment" /> 

@@ -31,10 +31,6 @@
 
 <%@ include file="header.jsp"%>
 
-<div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
-</div>
-
 <div id="columns">
 <div><%@ include file="logout.jsp"%>
 	<a href="runlist.html"><spring:message code="run.list" /></a><br />

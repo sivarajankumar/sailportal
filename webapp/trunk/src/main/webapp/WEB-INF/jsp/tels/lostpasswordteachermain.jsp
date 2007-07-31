@@ -30,7 +30,7 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="teacherHeader.jsp"%>
 
 <h2 class="center"><spring:message code="lost.username-or-password" /></h2>
 <h1 class="center"><spring:message code="lostpassword.teacher-or-researcher" /></h1>

@@ -33,24 +33,25 @@
 <body>
 
 <%@ include file="studentHeader.jsp"%>
-<div class="north_1 center">
-<h2 class="center"><spring:message code="student.registration" /></h2>
-<h3 class="center"><spring:message code="login.success" /></h3>
-<h4 class="center"><spring:message code="login.sign-in-message" /></h4>
+
+<div class="north_1" style="position:relative;right:-380px;">
+<h2><spring:message code="student.registration" /></h2>
+<h3><spring:message code="login.success" /></h3>
+<h4><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="navigation" class="center north4">
+<div id="verticalNavigation" class="north4" style="position:relative;right:100px;">
 <ul>
-<li class="vertical"><spring:message code="login.username" />
+<li><spring:message code="login.username" />
 <input name="username" value="${username}"/>
 </li>
-<li class="vertical"><spring:message code="login.password" />
+<li><spring:message code="login.password" />
 <input name="password" type="password" value="<authz:authentication operation="password" />" />
 </li>
 </ul>
 </div>
 
-<div id="spacing" class="north4 center">
+<div id="spacing" class="north4" style="position:relative;right:-150px;">
 <ul>
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>
@@ -60,7 +61,7 @@
 
 <div id="navigation" class="north_4 center">
 <ul>
-<li class="space1">
+<li class="space1 right7">
 <a href="registerstudent.html"> 
 <img id="imgBorderNone" src="<spring:theme code="register_another_teammate" />" 
 onmouseover="swapRegisterImage('imgBorderNone',1)"
@@ -78,7 +79,7 @@ onmouseout="swapRegisterImage('imgBorderNone',0)"
 
 <div id="navigation" class="center north6">
 <ul>
-<li class="space1">
+<li class="space1 right7">
 <a href="index.html">
 <img id="imgBorder2None" src="<spring:theme code="sign_in_new_account" />" 
 onmouseover="swapSignInNewAccount('imgBorder2None',1)"

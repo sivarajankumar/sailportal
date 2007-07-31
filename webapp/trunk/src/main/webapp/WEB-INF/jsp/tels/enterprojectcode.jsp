@@ -57,50 +57,50 @@ function addProjectCode(form){
 </head>
 <body>
 
-<%@ include file="student/header.jsp"%>
-<div class=" border widthAdj1 north0">
-<p class="left"> User(s): 
+<%@ include file="studentHeader.jsp"%>
+<div class=" border widthAdj1 marginAdj5 south_1">
+<p class="left"> <spring:message code="wise.users" /> 
 <authz:authentication operation="username" />
 </p>
 "The time is" <%= new java.util.Date() %>
 <div id="navigation" class="center fontSizeAdj widthAdj2">
-<h4 id="left"> Account Options </h4>
+<h4 id="left"> <spring:message code="wise.account-options" /> </h4>
 <form> 
 <div>
-<input type="button" class="bgColorYellow medFont bold" size=15 value="ADD A PROJECT" onclick="addProjectCode(this.form)"/> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="Change Password" /> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="Change Language" /> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="Sign Out" /> <br />
+<input type="button" class="bgColorYellow medFont bold" size=15 value="<spring:message code='wise.add-project' />" onclick="addProjectCode(this.form)"/> <br />
+<input type="button" disabled class="bgColorBlue medFont" size=15 value="<spring:message code='wise.change-password' />" /> <br />
+<input type="button" disabled class="bgColorBlue medFont" size=15 value="<spring:message code='wise.change-language' />" /> <br />
+<input type="button" disabled class="bgColorBlue medFont" size=15 value="<spring:message code='log.out' />" /> <br />
 </div>
 </form>
 </div>
-
-<ul id="tabnav" class="north_1 widthAdj3 right1">
+</div>
+<ul id="tabnav" class="widthAdj3">
 <li class="currentProjects bgColorLightBlue borderBottom"> <a href="#"><spring:message code="student.current-projects" /></a></li>
 <li class="archivedProjects"> <a href="studentarchivedprojects.html"><spring:message code="student.archived-projects" /></a></li>
 </ul>
 
-<div class="right2 north5 widthAdj3 border"> 
-<h3 class="left"> Projects with UserName1 </h3>
+<div class="north5 widthAdj3 border"> 
+<h3 class="left"> <spring:message code="wise.projects-with" /> UserName1 </h3>
 <table border="1">
 <tr> 
-<td> Name: </td>
+<td> <spring:message code="wise.name" /> </td>
 <td> Project Name 1 </td> 
 <td class="bold bgColorYellow"><a href="teamsignin.html" class="none"> <spring:message code="student.run-project" /></a></td>
 
 </tr>
 <tr> 
-<td> Period: </td>
+<td> <spring:message code="wise.period" /> </td>
 <td> 2 </td>
 <td> <spring:message code="student.change-period-or-team" /> </td>
 </tr>
 <tr>
-<td> Team: </td>
+<td> <spring:message code="wise.team" /> </td>
 <td> Username 1 + Username 2 (sn1, sn2) </td>
 <td> <spring:message code="wise.report-a-problem" /> </td>
 </tr>
 <tr>
-<td> Last Use: </td>
+<td> <spring:message code="wise.last-use" /> </td>
 <td> Tuesday, 5/23/04 </td>
 <td> <spring:message code="student.archive-this-project" /></td>
 </tr>
@@ -108,22 +108,22 @@ function addProjectCode(form){
 <h3 class="left"> Projects with UserName2 </h3>
 <table border="1">
 <tr> 
-<td> Name: </td>
+<td> <spring:message code="wise.name" /> </td>
 <td> Project Name 1 </td> 
 <td class="bold bgColorYellow"><a href="teamsignin.html" class="none"> <spring:message code="student.run-project" /> </a></td>
 </tr>
 <tr> 
-<td> Period: </td>
+<td> <spring:message code="wise.period" /> </td>
 <td> 2 </td>
 <td> <spring:message code="student.change-period-or-team" /> </td>
 </tr>
 <tr>
-<td> Team: </td>
+<td> <spring:message code="wise.team" /> </td>
 <td> Username 1 + Username 2 (sn1, sn2) </td>
 <td> <spring:message code="wise.report-a-problem" /> </td>
 </tr>
 <tr>
-<td> Last Use: </td>
+<td> <spring:message code="wise.last-use" /> </td>
 <td> Tuesday, 5/23/04 </td>
 <td> <spring:message code="student.archive-this-project" /> </td>
 
@@ -134,9 +134,9 @@ function addProjectCode(form){
 </div>
 
 
-<div>
+<div class="north marginAdj6">
 <a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
-</div>
 <%@ include file="footer.jsp" %>
+</div>
 </body>
 </html>

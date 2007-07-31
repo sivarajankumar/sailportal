@@ -30,14 +30,13 @@
 <title><spring:message code="teacher.setup-project-run-step-six" /></title>
 </head>
 <body>
-<%@ include file="header.jsp"%>
-<div id="navigation" class="center north2 widthAdj4">
+<%@ include file="teacherHeader.jsp"%>
+<div id="navigation" class="north2 widthAdj4">
 <ul class="bigFont1">
-<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
-<li class="bgColorLightBlue"  class="border"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
-<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
-<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
-<li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
+<li> <a href="#"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>
 <ul id="tabnav" class="north_0 widthAdj4">
