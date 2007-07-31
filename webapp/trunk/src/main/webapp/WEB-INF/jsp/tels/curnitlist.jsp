@@ -40,12 +40,18 @@
 <h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
 
 <table align="center" bgcolor="#008800" border="0" cellspacing="2" cellpadding="3">
-  <tr bgcolor="#CCCCCC"><td><b><spring:message code="curnit.name.heading" /></b></td></tr>
+  <tr bgcolor="#CCCCCC">
+    <th>Project Title</th>
+    <th>Options</th>
+  </tr>
 <c:forEach var="curnit" items="${curnitlist}">
   <tr bgcolor="#FFFF88">
-  <td><b><a href="<c:url value="createrun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
-	  <font color="BLACK"><c:out value="${curnit.sdsCurnit.name}"/></font>
-  </a></b></td>
+  <td><c:out value="${curnit.sdsCurnit.name}"/></td>
+  <td><a href="<c:url value="createrun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
+	       <font color="BLACK">Set up a Run For My Class</font>
+      </a><br />
+      
+  </td>
   </tr>
 </c:forEach>
 </table>
