@@ -311,7 +311,7 @@ onmouseout="this.style.cursor='default';" />
 <img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" 
 class="center"/>
 <spring:message code="wise.legal-acknowledgment" /> 
-<a href="http://www.nsf.gov"> <spring:message code="nsf" /></a>.
+<a href="http://www.nsf.gov" target="_blank"> <spring:message code="nsf" /></a>.
 <spring:message code="wise.copyright" /> &nbsp;&nbsp;&nbsp; 
 <a href="#"><spring:message code="wise.contact" /></a> 
 
