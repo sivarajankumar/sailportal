@@ -50,10 +50,10 @@ public class JavaMailTest extends TestCase {
 	 * load the prop file
 	 */
 	protected void setUp() throws Exception {
-		URL resource = JavaMailTest.class.getResource("sendmail.properties");
-		
-		props = new Properties();
-		props.load(resource.openStream());
+//		URL resource = JavaMailTest.class.getResource("sendmail.properties");
+//		
+//		props = new Properties();
+//		props.load(resource.openStream());
 	}
 
 	/**
