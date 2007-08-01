@@ -22,62 +22,80 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
- * Controller for Student's index page
+ * Controller to start the project
  *
  * @author Hiroki Terashima
  * @version $Id: $
  */
-public class StudentIndexController extends AbstractController {
+public class StartProjectController extends AbstractController {
 
 	private RunService runService;
+	
+	private WorkgroupService workgroupService;
 
 	private HttpRestTransport httpRestTransport;
-	
-	protected final static String RUN_LIST_KEY = "run_list";
 
-	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
-
-	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
-	
-	private static final String VIEW_NAME = "student/index";
-
-	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
-
-	/** 
+	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
 
-    	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-    	ControllerUtil.addUserToModelAndView(request, modelAndView);
- 
-		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		Long runId = Long.valueOf(request.getParameter("runId"));
 		
-		List<Run> runlist = runService.getRunList(user);
-
-		modelAndView.addObject(RUN_LIST_KEY, runlist);
-		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
-
-        return modelAndView;
+		Run run = runService.retrieveById(runId);
+		
+		List<Workgroup> workgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+		assert(workgroups.size() <= 1);
+		
+		Workgroup workgroup = null;
+		if (workgroups.size() == 0) {
+			// need to create a workgroup for this user
+			String name = "Workgroup for " + user.getUserDetails().getUsername();
+			Set<User> members = new HashSet<User>();
+			members.add(user);
+			workgroup = workgroupService.createWorkgroup(name, members, run);
+		} else if (workgroups.size() == 1) {
+			// user has created a workgroup before for this run
+			workgroup = workgroups.get(0);
+		} else {
+			// TODO HT: this case should never happen. But since WISE requirements are not clear yet regarding
+			// the workgroup issues, leave this for now.
+			workgroup = workgroups.get(0);
+//			
+//			throw new IllegalStateException("The user " + 
+//					user.getUserDetails().getUsername() + " is in more than one " +
+//							"groups for the run " + run.getSdsOffering().getName());
+		}
+		
+		ModelAndView modelAndView = 
+			new ModelAndView(new RedirectView(this.httpRestTransport.getBaseUrl() + "/offering/" + 
+					run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
+					workgroup.getSdsWorkgroup().getSdsObjectId()));
+		
+		return modelAndView;
 	}
 
 	/**
@@ -88,12 +106,17 @@ public class StudentIndexController extends AbstractController {
 	}
 
 	/**
-	 * @param httpRestTransport
-	 *            the httpRestTransport to set
+	 * @param httpRestTransport the httpRestTransport to set
 	 */
-	@Required
 	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
 		this.httpRestTransport = httpRestTransport;
+	}
+
+	/**
+	 * @param workgroupService the workgroupService to set
+	 */
+	public void setWorkgroupService(WorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
 	}
 
 }

@@ -76,6 +76,11 @@
 	<bean id="selectteamController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.student.SelectTeamController">
 	    <property name="runService" ref="runService" />
+	</bean>
+	
+	<bean id="startProjectController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StartProjectController">
+	    <property name="runService" ref="runService" />
 	    <property name="workgroupService" ref="workgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
@@ -109,7 +114,6 @@
 	<bean id="studentIndexController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentIndexController">
 	    <property name="runService" ref="runService" />
-	    <property name="workgroupService" ref="workgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 

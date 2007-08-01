@@ -29,7 +29,9 @@
 </head>
 
 <body>
-
+<c:if test="${closeokay}">
+<c:out value="hi" />
+</c:if>
 <h1>Team Sign In</h1>
 <h3><authz:authentication operation="username" /> is already signed in. All other teammates should sign in below.</h3>
 

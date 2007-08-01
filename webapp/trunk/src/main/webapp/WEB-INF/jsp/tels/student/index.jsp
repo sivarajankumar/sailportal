@@ -29,7 +29,7 @@
 <script language="JavaScript">
 
 function popup(URL) {
-  window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');
+  window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300,left = 570,top = 300');
 }
 </script>
 </head>
@@ -68,24 +68,9 @@ function popup(URL) {
   <tr>
     <td>${run.sdsOffering.name}</td>
     <td>
-    <a href="#"	onclick="javascript:popup('selectteam.html?runId=' + ${run.id} )">
-	  <img id="runproject" src="../<spring:theme code="run_project" />" />
-	</a>
-              <!--  
-      <c:choose>
-        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
-        <spring:message code="not.in.workgroup.yet" />
-        </c:when>
-        <c:otherwise>
-            <c:forEach var="workgroup" items="${workgroup_map[run]}">
-              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">
-		        <img id="runproject" src="../<spring:theme code="run_project" />"  />              
-              </a><br />
-            </c:forEach>
-        </c:otherwise>
-      </c:choose>
-      -->
-              
+      <a href="#"	onclick="javascript:popup('selectteam.html?runId=' + ${run.id} )">
+	    <img id="runproject" src="../<spring:theme code="run_project" />" />
+ 	  </a>
     </td>
    </tr>
   </c:forEach>

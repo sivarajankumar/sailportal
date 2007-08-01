@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,23 +85,40 @@ public class TeamSignInController extends SimpleFormController {
 		//List<Workgroup> workgrouplist = workgroupService.getWorkgroupListByOfferingAndUser(run, user1);
 
 		Set<User> members = new HashSet<User>();
-		String workgroupname = user1.getUserDetails().getUsername();
+		String workgroupname = "Workgroup for " + user1.getUserDetails().getUsername();
 		members.add(user1);
+		List<Workgroup> workgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, user1);
+
 		if (user2 != null) {
 			members.add(user2);
 			workgroupname += user2.getUserDetails().getUsername();
+			workgroups.addAll(workgroupService.getWorkgroupListByOfferingAndUser(run, user2));
 		}
 		if (user3 != null) {
 			members.add(user3);
 			workgroupname += user3.getUserDetails().getUsername();
+			workgroups.addAll(workgroupService.getWorkgroupListByOfferingAndUser(run, user3));
 		}
-	
-		Workgroup workgroup = workgroupService.createWorkgroup(workgroupname, members, run);
+
+		Workgroup workgroup = null;
+		if (workgroups.size() == 0) {
+			workgroup = workgroupService.createWorkgroup(workgroupname, members, run);
+		} else if (workgroups.size() == 1) {
+			workgroup = workgroups.get(0);
+			workgroupService.addMembers(workgroup, members);
+		} else {
+			// more than one user has created a workgroup for this run.
+			// TODO HT gather requirements and find out what should be done in this case
+			// for now, just choose one
+			workgroup = workgroups.get(0);
+			workgroupService.addMembers(workgroup, members);
+		}
 		
 		ModelAndView modelAndView = 
 			new ModelAndView(new RedirectView(this.httpRestTransport.getBaseUrl() + "/offering/" + 
 					run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
 					workgroup.getSdsWorkgroup().getSdsObjectId()));
+		modelAndView.addObject("closeokay", true);
 		
 		return modelAndView;
 	}

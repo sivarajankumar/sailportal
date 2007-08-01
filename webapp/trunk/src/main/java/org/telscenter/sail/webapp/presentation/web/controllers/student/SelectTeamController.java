@@ -22,21 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
-
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -54,17 +42,13 @@ public class SelectTeamController extends AbstractController {
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
 	
-	protected final static String RUN_LIST_KEY = "run_list";
+	protected final static String RUN_KEY = "run";
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 
 	private RunService runService;
-
-	private WorkgroupService workgroupService;
-
-	private HttpRestTransport httpRestTransport;
 
 	/**
 	 * @param runService the runService to set
@@ -73,57 +57,14 @@ public class SelectTeamController extends AbstractController {
 		this.runService = runService;
 	}
 
-	/**
-	 * @param workgroupService
-	 *            the workgroupService to set
-	 */
-	@Required
-	public void setWorkgroupService(WorkgroupService workgroupService) {
-		this.workgroupService = workgroupService;
-	}
-	
-	/**
-	 * @param httpRestTransport
-	 *            the httpRestTransport to set
-	 */
-	@Required
-	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-		this.httpRestTransport = httpRestTransport;
-	}
-
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
 		Long runId = Long.decode(request.getParameter("runId"));
-		System.out.println(request.getParameter("runId"));
+		Run run = runService.retrieveById(runId);
 		
-		Map<String, Object> model = new HashMap<String, Object>();
-
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-    	ControllerUtil.addUserToModelAndView(request, modelAndView);
-
-		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
-
-		List<Run> runlist = runService.getRunList(user);
-		Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
-		for (Run run : runlist) {
-			if (runId.equals(run.getId())) {
-				List<Workgroup> workgroupList = this.workgroupService
-				.getWorkgroupListByOfferingAndUser(run, user);
-				workgroupList = this.workgroupService
-				.createPreviewWorkgroupForOfferingIfNecessary(run,
-						workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
-				workgroupMap.put(run, workgroupList);
-			}
-		}
-		modelAndView.addObject(RUN_LIST_KEY, runlist);
-		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
-		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
-
-		model.put(RUN_LIST_KEY, runlist);
-		model.put(WORKGROUP_MAP_KEY, workgroupMap);
-		model.put(HTTP_TRANSPORT_KEY, this.httpRestTransport);
+		modelAndView.addObject(RUN_KEY, run);
 
 		return modelAndView;
 	}
