@@ -25,13 +25,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
+    
+<script type="text/javascript" src="./javascript/tels/rotator.js"></script>
+    
 <title><spring:message code="application.title" /></title>
 </head>
 
 <body>
 
-<h1>Add a Project</h1>
-<h3>To add a project, fill in the information below.</h3>
+<h1><spring:message code="teacher.add-project" /></h1>
+<h3><spring:message code="teacher.add-project-info" /></h3>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="addProjectParameters.*">
@@ -43,10 +46,11 @@
 </spring:bind>
 
 <form:form method="post" action="addproject.html" commandName="addProjectParameters" id="addproject" >
-  <div><label for="projectcode">Project Code:</label>
+  <div><label for="projectcode"><spring:message code="teacher.project-code" /></label>
       <form:input path="projectcode" id="projectcode"/>
       <form:errors path="projectcode" />
   </div>
+
 
     <div><input type="image" id="save" src="../<spring:theme code="register_save" />" 
     onmouseover="swapSaveImage('save',1)" 
