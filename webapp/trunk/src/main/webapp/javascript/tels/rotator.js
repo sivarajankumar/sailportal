@@ -33,8 +33,8 @@ var wiseButtons = new Array("./themes/tels/default/images/Overview-of-WISE-butto
 var signInButtons = new Array("./themes/tels/default/images/sign_in.png",
 							  "./themes/tels/default/images/sign_in_rollover.png");
 
-var signInNewAccountButtons = new Array("./themes/tels/default/images/Sign-in-New-Account.png",
-										"./themes/tels/default/images/Sign-in-New-Account-Roll.png");
+var signInNewAccountButtons = new Array("./themes/tels/default/images/Go-To-Home-Page.png",
+										"./themes/tels/default/images/Go-To-Home-Page-Roll.png");
 										
 var newsArchiveButtons = new Array("./themes/tels/default/images/News-Archive.png",
 	  							   "./themes/tels/default/images/News-Archive-Roll.png");								
