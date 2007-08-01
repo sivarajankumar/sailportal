@@ -28,22 +28,15 @@
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 <script src="./javascript/tels/rotator.js" type="text/javascript" />  
-
 <script type="text/javascript">
-function checkIfLegalAcknowledged (form) {
-if(form.legalAcknowledged.checked==true){
-	form.signupSubmit.disabled=false;	
+function checkIfLegalAcknowledged (form, id) {
+if(form.getElementById(id).checked==true){
 }else{
-	form.signupSubmit.disabled=true;	
 }
-
 }
-
 
 // End -->
 </script>
-
-
 
 <title><spring:message code="signup.title" /></title>
 
@@ -51,7 +44,7 @@ if(form.legalAcknowledged.checked==true){
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="teacherHeader.jsp"%>
 
 
 <!-- Support for Spring errors object -->
@@ -119,7 +112,8 @@ if(form.legalAcknowledged.checked==true){
 
     <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>
     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"
-    /> <spring:message code="register.teacher.terms-of-use" />
+     onclick="checkIfLegalAcknowledged(this.form, 'legalAcknowledged')"/> <spring:message code="register.teacher.terms-of-use" />
+     
   <br />
   
     <label for="password"><spring:message code="signup.password" /></label>
@@ -129,7 +123,6 @@ if(form.legalAcknowledged.checked==true){
     <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
     <form:password path="repeatedPassword" id="repeatedPassword"/>
   <br />
-
         
     <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
     onmouseover="swapSaveImage('save',1)" 
