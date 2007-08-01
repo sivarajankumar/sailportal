@@ -28,10 +28,8 @@
 
 
 <div>
-	<img src="../<spring:theme code="wisegradientbanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
+	<img src="../<spring:theme code="studentbanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
-	<div class="center heading" ><spring:message code="wise.banner.student" />
-	</div>
 	    <div>
     <p class="userinfo">
 	<authz:authentication operation="username" />
