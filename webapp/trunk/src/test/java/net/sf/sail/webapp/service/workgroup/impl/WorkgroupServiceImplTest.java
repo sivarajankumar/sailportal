@@ -218,12 +218,19 @@ public class WorkgroupServiceImplTest extends TestCase {
         EasyMock.verify(this.mockSdsWorkgroupDao);
         EasyMock.verify(this.mockWorkgroupDao);
         EasyMock.reset(this.mockWorkgroupDao);
+        EasyMock.reset(this.mockSdsWorkgroupDao);
 
         User newuser = new UserImpl();
         this.workgroup.addMember(newuser);
         this.mockWorkgroupDao.save(this.workgroup);
         EasyMock.expectLastCall();
         EasyMock.replay(this.mockWorkgroupDao);
+        
+        this.sdsWorkgroup.addMember(newuser.getSdsUser());
+        this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockSdsWorkgroupDao);
+
                 
         Set<User> membersToAdd = new HashSet<User>();
         membersToAdd.add(newuser);

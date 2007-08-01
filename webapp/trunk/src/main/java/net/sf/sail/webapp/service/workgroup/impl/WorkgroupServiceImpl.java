@@ -124,9 +124,13 @@ public class WorkgroupServiceImpl implements WorkgroupService {
      */
     @Transactional()
 	public void addMembers(Workgroup workgroup, Set<User> membersToAdd) {
+    	SdsWorkgroup sdsWorkgroup = workgroup.getSdsWorkgroup();
     	for (User member : membersToAdd) {
     		workgroup.addMember(member);
+    		sdsWorkgroup.addMember(member.getSdsUser());
     	}
+        this.sdsWorkgroupDao.save(sdsWorkgroup);
+        workgroup.setSdsWorkgroup(sdsWorkgroup);
     	this.workgroupDao.save(workgroup);
 	}
 
