@@ -50,10 +50,10 @@ public class JavaMailTest extends TestCase {
 	 * load the prop file
 	 */
 	protected void setUp() throws Exception {
-//		URL resource = JavaMailTest.class.getResource("sendmail.properties");
-//		
-//		props = new Properties();
-//		props.load(resource.openStream());
+		URL resource = JavaMailTest.class.getResource("sendmail.properties");
+		
+		props = new Properties();
+		props.load(resource.openStream());
 	}
 
 	/**
@@ -62,24 +62,24 @@ public class JavaMailTest extends TestCase {
 	 * @throws IOException
 	 */
 	public void testSendBasicMessage() throws IOException  {
-		// TODO TP: TELSP-139 these tests don't pass on the server.
-//		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-//	
-//		sender.setUsername((String) props.get("mail.username"));
-//		sender.setPassword((String) props.get("mail.password"));
-//		sender.setJavaMailProperties(props);
-//		MimeMessage message = 	sender.createMimeMessage();
-//		MimeMessageHelper helper = new MimeMessageHelper(message);
-//		try {
-//			helper.setTo("youremail@gmail.com");
-//			helper.setFrom((String) props.get("mail.username"));
-//			helper.setText("pimp testin' from the portal da place to be");
-//		} catch (MessagingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		sender.send(message);
+		JavaMailSenderImpl sender = new JavaMailSenderImpl();
+	
+		sender.setUsername((String) props.get("mail.username"));
+		sender.setPassword((String) props.get("mail.password"));
+		sender.setJavaMailProperties(props);
+		MimeMessage message = 	sender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		try {
+			helper.setTo((String) props.get("mail.to1"));
+			helper.setFrom((String) props.get("mail.username"));
+			helper.setText((String) props.get("mail.message"));
+			helper.setSubject(((String) props.get("mail.subject")));
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		sender.send(message);
 	
 	}
 	
@@ -90,14 +90,13 @@ public class JavaMailTest extends TestCase {
 	 * @throws MessagingException
 	 */
 	public void testSendMultiMessage() throws IOException, MessagingException {
-		// TODO TP: TELSP-139 these tests don't pass on the server.
-//		 JavaMail jm = new JavaMail();
-//		 jm.setProperties(props);
-//		 
-//		 String[] recipients = new String[]{"email1@gmail.com","email2@gmail.com"};
-//		 
-//		 jm.postMail(recipients, "[PORTAL TEST]", "just a test. one two. one two.", "tels-portal");
-//		
+		 JavaMail jm = new JavaMail();
+		 jm.setProperties(props);
+		 
+		 String[] recipients = new String[]{(String) props.get("mail.to1"),(String) props.get("mail.to2")};
+		 
+		 jm.postMail(recipients, (String) props.get("mail.subject"), (String) props.get("mail.message"), (String) props.get("mail.from"));
+		
 	}
 	
 
