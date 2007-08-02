@@ -25,7 +25,6 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,11 +35,9 @@ import net.sf.sail.webapp.mail.JavaMail;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
@@ -50,8 +47,6 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  * @version
  */
 public class LostPasswordTeacherMainController extends SimpleFormController {
-
-	private static final String NEW_PASSWORD = "newPassword";
 
 	protected UserService userService = null;
 	protected JavaMail javaMail = null;
@@ -79,8 +74,6 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 
 		String username = null;
 		String emailAddress = null;
-		
-		Properties properties = javaMail.getProperties();
 		
 		try {
 
