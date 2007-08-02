@@ -29,5 +29,5 @@ package org.telscenter.sail.webapp.domain.authentication;
  * @version $Id: $
  */
 public enum Schoollevel {
-	GRADE_SCHOOL, MIDDLE_SCHOOL, HIGH_SCHOOL, NOT_SPECIFIED
+	ELEMENTARY_SCHOOL, MIDDLE_SCHOOL, HIGH_SCHOOL, NOT_SPECIFIED
 }
