@@ -1,110 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.sail</groupId>
-  <artifactId>webapp</artifactId>
-  <packaging>war</packaging>
-  <name>SAIL Web Application</name>
-  <version>0.1.0-SNAPSHOT</version>
-  <url>http://sail.sourceforge.net/</url>
-  <issueManagement>
-    <system>Jira</system>
-    <url>http://www.telscenter.org/jira/</url>
-  </issueManagement>
-  <ciManagement>
-    <system>continuum</system>
-    <url>http://portal-continuum.encorewiki.org/</url>
-    <notifiers>
-      <notifier>
-        <configuration>
-          <address>laurel.williams@utoronto.ca</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>honchikun@gmail.com</address>
-        </configuration>
-      </notifier>
-      <notifier>
-        <configuration>
-          <address>aperritano@gmail.com</address>
-        </configuration>
-      </notifier>
-    </notifiers>
-  </ciManagement>
-  <developers>
-    <developer>
-      <id>laurel</id>
-      <name>Laurel Williams</name>
-      <email>laurel.williams@utoronto.ca</email>
-      <url>http://www.utoronto.ca/</url>
-      <organization>University of Toronto</organization>
-      <organizationUrl>http://www.utoronto.ca/</organizationUrl>
-      <roles>
-        <role>developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-    <developer>
-      <id>hiroki</id>
-      <name>Hiroki Terashima</name>
-      <email>honchikun@gmail.com</email>
-      <organization>TELS</organization>
-      <organizationUrl>http://www.telscenter.org/</organizationUrl>
-      <roles>
-        <role>developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>tony</id>
-      <name>Anthony Perritano</name>
-      <email>aperritano@gmail.com</email>
-      <organization>TELS</organization>
-      <organizationUrl>http://www.telscenter.org/</organizationUrl>
-      <roles>
-        <role>developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-  </developers>
-  <scm>
-    <connection>scm:svn:http://svn.encorewiki.org/svn/sail/webapp/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.encorewiki.org/svn/sail/webapp/trunk/</developerConnection>
-    <url>http://svn.encorewiki.org/svn/sail/webapp/trunk/</url>
-  </scm>
-  <build>
-    <resources>
-      <resource>
-        <filtering>true</filtering>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
-    <finalName>webapp</finalName>
-    <plugins>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <forkMode>once</forkMode>
-          <excludes>
-            <exclude>**/AllTests.java</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <webResources>
+<!--
+    * Copyright (c) 2007 Encore Research Group, University of Toronto
+    * 
+    * This library is free software; you can redistribute it and/or
+    * modify it under the terms of the GNU Lesser General Public
+    * License as published by the Free Software Foundation; either
+    * version 2.1 of the License, or (at your option) any later version.
+    *
+    * This library is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    * Lesser General Public License for more details.
+    *
+    * You should have received a copy of the GNU Lesser General Public
+    * License along with this library; if not, write to the Free Software
+    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+
+<!-- $Id$ -->
+
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sf.sail</groupId>
+    <artifactId>webapp</artifactId>
+    <packaging>war</packaging>
+    <name>SAIL Web Application</name>
+    <version>0.1.0-SNAPSHOT</version>
+    <url>http://sail.sourceforge.net/</url>
+    <developers>
+        <developer>
+            <id>laurel</id>
+            <name>Laurel Williams</name>
+            <email>laurel.williams@utoronto.ca</email>
+            <url>http://www.utoronto.ca/</url>
+            <organization>University of Toronto</organization>
+            <organizationUrl>http://www.utoronto.ca/</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>hiroki</id>
+            <name>Hiroki Terashima</name>
+            <email>honchikun@gmail.com</email>
+            <organization>TELS</organization>
+            <organizationUrl>http://www.telscenter.org/</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>tony</id>
+            <name>Anthony Perritano</name>
+            <email>aperritano@gmail.com</email>
+            <organization>TELS</organization>
+            <organizationUrl>http://www.telscenter.org/</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-8</timezone>
+        </developer>
+    </developers>
+    <scm>
+        <connection>
+            scm:svn:http://svn.encorewiki.org/svn/sail/webapp/trunk/
+        </connection>
+        <developerConnection>
+            scm:svn:https://svn.encorewiki.org/svn/sail/webapp/trunk/
+        </developerConnection>
+        <tag>HEAD</tag>
+        <url>http://svn.encorewiki.org/svn/sail/webapp/trunk/</url>
+    </scm>
+    <issueManagement>
+        <system>Jira</system>
+        <url>http://www.telscenter.org/jira/</url>
+    </issueManagement>
+    <ciManagement>
+        <system>continuum</system>
+        <url>http://portal-continuum.encorewiki.org/</url>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>laurel.williams@utoronto.ca</address>
+                </configuration>
+            </notifier>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>honchikun@gmail.com</address>
+                </configuration>
+            </notifier>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>aperritano@gmail.com</address>
+                </configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+    <build>
+        <resources outputDirectory="${project.build.outputDirectory}">
             <resource>
               <directory>src/main/webapp/WEB-INF</directory>
               <filtering>true</filtering>
