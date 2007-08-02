@@ -30,8 +30,10 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import junit.framework.TestCase;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -42,23 +44,23 @@ import org.springframework.mail.javamail.MimeMessageHelper;
  * @author aperritano
  * 
  */
-public class JavaMailTest extends TestCase {
+public class JavaMailTest {
 
 	private Properties props;
 
 	/**
 	 * load the prop file
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		URL resource = JavaMailTest.class.getResource("sendmail.properties");
+		props = new Properties();
+		props.load(resource.openStream());
+	}
 
-		if (resource != null) {
-			props = new Properties();
-			props.load(resource.openStream());
-		}
-		else {
-			System.out.println("JavaMailTest not run because sendmail.properties file not found");
-		}
+	@After
+	public void tearDown() throws Exception {
+		props = null;
 	}
 
 	/**
@@ -66,29 +68,27 @@ public class JavaMailTest extends TestCase {
 	 * 
 	 * @throws IOException
 	 */
+
+	@Ignore	
+	@Test
 	public void testSendBasicMessage() throws IOException {
-		if (props != null) {
-			JavaMailSenderImpl sender = new JavaMailSenderImpl();
+		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 
-			sender.setUsername((String) props.get("mail.username"));
-			sender.setPassword((String) props.get("mail.password"));
-			sender.setJavaMailProperties(props);
-			MimeMessage message = sender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(message);
-			try {
-				helper.setTo((String) props.get("mail.to1"));
-				helper.setFrom((String) props.get("mail.username"));
-				helper.setText((String) props.get("mail.message"));
-				helper.setSubject(((String) props.get("mail.subject")));
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		sender.setUsername((String) props.get("mail.username"));
+		sender.setPassword((String) props.get("mail.password"));
+		sender.setJavaMailProperties(props);
+		MimeMessage message = sender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		try {
+			helper.setTo((String) props.get("mail.to1"));
+			helper.setFrom((String) props.get("mail.username"));
+			helper.setText((String) props.get("mail.message"));
+			helper.setSubject(((String) props.get("mail.subject")));
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 
-			sender.send(message);
-		} else
-			assertTrue(true);
-
+		sender.send(message);
 	}
 
 	/**
@@ -97,21 +97,18 @@ public class JavaMailTest extends TestCase {
 	 * @throws IOException
 	 * @throws MessagingException
 	 */
+	@Ignore 
+	@Test
 	public void testSendMultiMessage() throws IOException, MessagingException {
-		if (props != null) {
-			JavaMail jm = new JavaMail();
-			jm.setProperties(props);
+		JavaMail jm = new JavaMail();
+		jm.setProperties(props);
 
-			String[] recipients = new String[] {
-					(String) props.get("mail.to1"),
-					(String) props.get("mail.to2") };
+		String[] recipients = new String[] {
+				(String) props.get("mail.to1"),
+				(String) props.get("mail.to2") };
 
-			jm.postMail(recipients, (String) props.get("mail.subject"),
-					(String) props.get("mail.message"), (String) props
-							.get("mail.from"));
-		} else
-			assertTrue(true);
-
+		jm.postMail(recipients, (String) props.get("mail.subject"),
+				(String) props.get("mail.message"), (String) props
+				.get("mail.from"));
 	}
-
 }
