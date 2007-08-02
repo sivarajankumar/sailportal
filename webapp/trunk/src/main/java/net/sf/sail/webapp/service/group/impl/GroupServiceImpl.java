@@ -54,14 +54,14 @@ public class GroupServiceImpl implements GroupService {
     
     private UserDao<User> userDao;
 
-    private AclService<Group> groupAclService;
+    private AclService<Group> aclService;
     
     /**
 	 * @param groupAclService the groupAclService to set
 	 */
     @Required
-	public void setGroupAclService(AclService<Group> groupAclService) {
-		this.groupAclService = groupAclService;
+	public void setAclService(AclService<Group> aclService) {
+		this.aclService = aclService;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class GroupServiceImpl implements GroupService {
         }
         
         this.groupDao.save(group);
-        this.groupAclService.createAcl(group);
+        this.aclService.createAcl(group);
         return group;
     }
     
@@ -165,15 +165,6 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> getGroups() {
         return this.groupDao.getList();
     }
-
-    /**
-     * @param mutableAclService
-     *                the mutableAclService to set
-     */
-//    @Required
-//    public void setMutableAclService(MutableAclService mutableAclService) {
-//        this.mutableAclService = mutableAclService;
-//    }
 
     /**
      * @param groupDao

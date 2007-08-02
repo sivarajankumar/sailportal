@@ -35,6 +35,7 @@ public interface OfferingService {
      * 
      * @return an offerings <code>List</code>.
      */
+//    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
     public List<Offering> getOfferingList();
 
     /**

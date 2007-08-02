@@ -35,7 +35,7 @@ import org.springframework.beans.factory.annotation.Required;
  * 
  * @version $Id$
  */
-public class AbstractAclService<T extends Persistable> implements AclService<T> {
+public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 
 	private MutableAclService mutableAclService;
 
@@ -48,6 +48,9 @@ public class AbstractAclService<T extends Persistable> implements AclService<T> 
 		this.mutableAclService = mutableAclService;
 	}
 
+	/**
+	 * @see net.sf.sail.webapp.service.AclService#createAcl(java.lang.Object)
+	 */
 	public void createAcl(T object) {
 		if (object != null) {
 			MutableAcl acl = this.mutableAclService

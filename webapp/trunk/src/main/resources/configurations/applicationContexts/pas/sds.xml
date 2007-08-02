@@ -79,12 +79,13 @@
         <property name="transport" ref="httpRestTransport" />
     </bean>
 
-    <bean id="offeringService"
+   <bean id="offeringServiceTarget"
         class="net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl">
         <property name="sdsOfferingDao" ref="sdsOfferingDao" />
         <property name="offeringDao" ref="offeringDao" />
         <property name="curnitDao" ref="curnitDao" />
         <property name="jnlpDao" ref="jnlpDao" />
+        <property name="aclService" ref="aclServiceImpl" />
     </bean>
 
     <bean id="groupDao"

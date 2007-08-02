@@ -53,6 +53,7 @@
     	<property name="curnitDao" ref="curnitDao" />
     	<property name="jnlpDao" ref="jnlpDao" />
     	<property name="groupDao" ref="groupDao" />
+    	<property name="aclService" ref="aclServiceImpl" />
     </bean>
 
     <bean id="projectService"

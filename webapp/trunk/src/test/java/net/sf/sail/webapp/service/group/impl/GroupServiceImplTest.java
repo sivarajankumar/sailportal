@@ -76,7 +76,7 @@ public class GroupServiceImplTest extends TestCase {
 		this.mockGroupDao = EasyMock.createMock(GroupDao.class);
 		this.mockGroupAclService = EasyMock.createMock(AclService.class);
 		this.groupServiceImpl.setGroupDao(this.mockGroupDao);
-		this.groupServiceImpl.setGroupAclService(this.mockGroupAclService);
+		this.groupServiceImpl.setAclService(this.mockGroupAclService);
 		
 		this.group1 = new PersistentGroup();
 		this.group2 = new PersistentGroup();

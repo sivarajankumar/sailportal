@@ -19,13 +19,17 @@ package net.sf.sail.webapp;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.authentication.UserDetailsService;
 import net.sf.sail.webapp.spring.SpringConfiguration;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
+import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.providers.TestingAuthenticationToken;
+import org.acegisecurity.context.SecurityContextImpl;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -39,52 +43,56 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Initializer {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        if (args.length < 1) {
-            System.out.println("Usage: Initializer "
-                    + "<spring-configuration-classname> ");
-            System.exit(1);
-        }
-        ConfigurableApplicationContext applicationContext = null;
-        try {
-            SpringConfiguration springConfig = (SpringConfiguration) BeanUtils
-                    .instantiateClass(Class.forName(args[0]));
-            applicationContext = new ClassPathXmlApplicationContext(
-                    springConfig.getRootApplicationContextConfigLocations());
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		if (args.length < 1) {
+			System.out.println("Usage: Initializer "
+					+ "<spring-configuration-classname> ");
+			System.exit(1);
+		}
+		ConfigurableApplicationContext applicationContext = null;
+		try {
+			SpringConfiguration springConfig = (SpringConfiguration) BeanUtils
+					.instantiateClass(Class.forName(args[0]));
+			applicationContext = new ClassPathXmlApplicationContext(
+					springConfig.getRootApplicationContextConfigLocations());
 
-            CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers(
-                    applicationContext);
-            createDefaultUsers.createRoles(applicationContext);
-            // TODO LAW: return admin user from method
-            createDefaultUsers.createAdministrator(applicationContext, "admin",
-                    "pass");
-            // TODO LAW: create security context and set it into security context holder
-            // TODO LAW: use UsernamePasswordAuthenticationToken
+			CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers(
+					applicationContext);
+			createDefaultUsers.createRoles(applicationContext);
+			User adminUser = createDefaultUsers.createAdministrator(
+					applicationContext, "admin", "pass");
 
-//            Authentication auth = new TestingAuthenticationToken("ben", "ignored",
-//                    new GrantedAuthority[] {new GrantedAuthorityImpl("ROLE_ADMINISTRATOR")});
-//            auth.setAuthenticated(true);
-//            SecurityContextHolder.getContext().setAuthentication(auth);
+			// createDefaultOfferings requires security context so that ACL
+			// entries can be created for the default offerings.
+			// this also means that the only user allowed to "see" offerings at
+			// the initial login will be the admin user.
+			Authentication authority = new UsernamePasswordAuthenticationToken(
+					adminUser.getUserDetails(), null,
+					new GrantedAuthority[] { new GrantedAuthorityImpl(
+							UserDetailsService.ADMIN_ROLE) });
+			SecurityContext securityContext = new SecurityContextImpl();
+			securityContext.setAuthentication(authority);
+			SecurityContextHolder.setContext(securityContext);
 
-            CreateDefaultOfferings createDefaultOfferings = new CreateDefaultOfferings(
-                    applicationContext);
-            Curnit[] curnits = createDefaultOfferings
-                    .createDefaultCurnits(applicationContext);
-            Jnlp[] jnlps = createDefaultOfferings
-                    .createDefaultJnlps(applicationContext);
-            createDefaultOfferings.createDefaultOfferings(applicationContext,
-                    curnits, jnlps);
+			CreateDefaultOfferings createDefaultOfferings = new CreateDefaultOfferings(
+					applicationContext);
+			Curnit[] curnits = createDefaultOfferings
+					.createDefaultCurnits(applicationContext);
+			Jnlp[] jnlps = createDefaultOfferings
+					.createDefaultJnlps(applicationContext);
+			createDefaultOfferings.createDefaultOfferings(applicationContext,
+					curnits, jnlps);
 
-        } catch (Exception all) {
-            System.err.println(all.getLocalizedMessage());
-            all.printStackTrace(System.out);
-            System.exit(2);
-        } finally {
-            applicationContext.close();
-        }
-    }
+		} catch (Exception all) {
+			System.err.println(all.getLocalizedMessage());
+			all.printStackTrace(System.out);
+			System.exit(2);
+		} finally {
+			applicationContext.close();
+		}
+	}
 
 }

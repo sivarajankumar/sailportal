@@ -31,6 +31,7 @@ import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
@@ -51,6 +52,9 @@ public class OfferingServiceImpl implements OfferingService {
     protected JnlpDao<Jnlp> jnlpDao;
 
     protected SdsOfferingDao sdsOfferingDao;
+    
+    private AclService<Offering> aclService;
+
 
     /**
      * @param offeringDao
@@ -87,6 +91,15 @@ public class OfferingServiceImpl implements OfferingService {
     public void setJnlpDao(JnlpDao<Jnlp> jnlpDao) {
         this.jnlpDao = jnlpDao;
     }
+    
+	/**
+	 * @param offeringAclService the offeringAclService to set
+	 */
+    @Required
+	public void setAclService(AclService<Offering> aclService) {
+		this.aclService = aclService;
+	}
+
 
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
@@ -110,6 +123,9 @@ public class OfferingServiceImpl implements OfferingService {
         Offering offering = new OfferingImpl();
         offering.setSdsOffering(sdsOffering);
         this.offeringDao.save(offering);
+        
+        this.aclService.createAcl(offering);
+        
         return offering;
     }
 
@@ -135,4 +151,5 @@ public class OfferingServiceImpl implements OfferingService {
         this.sdsOfferingDao.save(sdsOffering);
         return sdsOffering;
     }
+
 }

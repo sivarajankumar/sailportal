@@ -35,6 +35,7 @@ import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 
 import org.easymock.EasyMock;
@@ -59,6 +60,8 @@ public class OfferingServiceImplTest extends TestCase {
 	
 	private CurnitDao<Curnit> mockCurnitDao;
 	private JnlpDao<Jnlp> mockJnlpDao;
+	
+	private AclService<Offering> mockAclService;
 
 	private OfferingServiceImpl offeringServiceImpl;
 	
@@ -85,6 +88,10 @@ public class OfferingServiceImplTest extends TestCase {
 
 		this.mockJnlpDao = EasyMock.createMock(JnlpDao.class);
 		this.offeringServiceImpl.setJnlpDao(this.mockJnlpDao);
+		
+		this.mockAclService = EasyMock.createMock(AclService.class);
+		this.offeringServiceImpl.setAclService(mockAclService);
+		
 	}
 
 	/**
@@ -97,6 +104,7 @@ public class OfferingServiceImplTest extends TestCase {
 		this.mockOfferingDao = null;
 		this.mockCurnitDao = null;
 		this.mockJnlpDao = null;
+		this.mockAclService = null;
 	}
 
 	public void testGetOfferingList() throws Exception {
