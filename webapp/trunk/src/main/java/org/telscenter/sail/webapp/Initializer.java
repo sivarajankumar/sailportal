@@ -19,8 +19,17 @@ package org.telscenter.sail.webapp;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.authentication.UserDetailsService;
 import net.sf.sail.webapp.spring.SpringConfiguration;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.GrantedAuthorityImpl;
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.context.SecurityContextImpl;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -53,9 +62,21 @@ public class Initializer {
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers(
                     applicationContext);
             createDefaultUsers.createRoles(applicationContext);
-            createDefaultUsers.createAdministrator(applicationContext, "admin",
+            User adminUser = createDefaultUsers.createAdministrator(applicationContext, "admin",
                     "pass");
 
+			// createDefaultOfferings requires security context so that ACL
+			// entries can be created for the default offerings.
+			// this also means that the only user allowed to "see" offerings at
+			// the initial login will be the admin user.
+			Authentication authority = new UsernamePasswordAuthenticationToken(
+					adminUser.getUserDetails(), null,
+					new GrantedAuthority[] { new GrantedAuthorityImpl(
+							UserDetailsService.ADMIN_ROLE) });
+			SecurityContext securityContext = new SecurityContextImpl();
+			securityContext.setAuthentication(authority);
+			SecurityContextHolder.setContext(securityContext);
+            
             CreateDefaultOfferings createDefaultOfferings = new CreateDefaultOfferings(
                     applicationContext);
             Curnit[] curnits = createDefaultOfferings
