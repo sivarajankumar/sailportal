@@ -73,8 +73,6 @@
 </c:forEach>
 </p>
 
-</p>
-
 <form method="post">
 <input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />

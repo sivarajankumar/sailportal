@@ -65,7 +65,6 @@
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
    </p>
-</div>
 
 
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
