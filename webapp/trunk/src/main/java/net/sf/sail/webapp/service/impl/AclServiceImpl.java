@@ -29,7 +29,7 @@ import org.acegisecurity.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Required;
 
 /**
- * A class which allows creation of access control lists for groups.
+ * A class which allows creation of access control lists for any object.
  * 
  * @author Laurel Williams
  * 
