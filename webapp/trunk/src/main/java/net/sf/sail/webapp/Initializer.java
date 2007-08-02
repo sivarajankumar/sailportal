@@ -21,6 +21,11 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.spring.SpringConfiguration;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.GrantedAuthorityImpl;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.providers.TestingAuthenticationToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -53,8 +58,16 @@ public class Initializer {
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers(
                     applicationContext);
             createDefaultUsers.createRoles(applicationContext);
+            // TODO LAW: return admin user from method
             createDefaultUsers.createAdministrator(applicationContext, "admin",
                     "pass");
+            // TODO LAW: create security context and set it into security context holder
+            // TODO LAW: use UsernamePasswordAuthenticationToken
+
+//            Authentication auth = new TestingAuthenticationToken("ben", "ignored",
+//                    new GrantedAuthority[] {new GrantedAuthorityImpl("ROLE_ADMINISTRATOR")});
+//            auth.setAuthenticated(true);
+//            SecurityContextHolder.getContext().setAuthentication(auth);
 
             CreateDefaultOfferings createDefaultOfferings = new CreateDefaultOfferings(
                     applicationContext);
