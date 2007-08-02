@@ -45,7 +45,7 @@
 </spring:bind>
 
 <div id="columns">
-<h2><spring:message code="student.registration" /></h2>
+<h2 class="center"><spring:message code="student.registration" /></h2>
 
 <div>
 <h3><spring:message code="student.registration.instructions" /></h3>
@@ -146,7 +146,6 @@
 
 </form:form></div>
 </div>
-<%@ include file="footer.jsp"%>
 
 
 </body>

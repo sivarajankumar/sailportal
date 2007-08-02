@@ -107,7 +107,7 @@
        		<img id="wait" src="<spring:theme code="wait"/>" alt="<spring:message code="wise.wait.alttext" />" 
        		/> 
 </li>
-<li class="right6 marginHorAdj">
+<li class="_right1 marginHorAdj">
  <input type="image" id="signIn" src="<spring:theme code="sign_in" />" 
         	onmouseover="swapSignIn('signIn', 1);"
        		onmouseout="swapSignIn('signIn', 0);"
@@ -115,11 +115,12 @@
 </li>
 
 </ul>
-<a href="lostpasswordmain.html" class="smallFont1 widthAdj2">
+
+</form>
+<a href="lostpasswordmain.html" class="right6 smallFont1 widthAdj2">
 <spring:message code="forgotten.username-or-password" /> 
 </a>
 
-</form>
 </div>
 
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
@@ -295,7 +296,7 @@ onmouseout="this.style.cursor='default';" />
 </h4>
 <textarea class="marginVerAdj2 north6" rows="12" cols="35"><spring:message code="wise.latestNews" /> </textarea>
 <a href="#"> 
-	<img id="newsArchive" style="border:0px;" class="right6" src="<spring:theme code="newsarchive" />" 
+	<img id="newsArchive" style="border:0px;" class="_right1" src="<spring:theme code="newsarchive" />" 
        	 onmouseover="this.style.cursor='pointer';swapNewsImage('newsArchive', 1);"
        	 onmouseout="this.style.cursor='default';swapNewsImage('newsArchive', 0);"       	       			
 	/>
@@ -307,7 +308,7 @@ onmouseout="this.style.cursor='default';" />
 
 </div>
 
-<div class="right6 marginHorAdj1 padding0 south0 widthAdj3">
+<div class="_right1 marginHorAdj1 padding0 south0 widthAdj3">
 <img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" 
 class="center"/>
 <spring:message code="wise.legal-acknowledgment" /> 

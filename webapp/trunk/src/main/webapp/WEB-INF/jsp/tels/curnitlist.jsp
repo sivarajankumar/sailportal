@@ -24,31 +24,29 @@
 <head>
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="success.title" /></title>
+<title><spring:message code="curnit.list" /></title>
 </head>
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="teacherHeader.jsp"%>
 
-<div id="columns">
-<div><%@ include file="logout.jsp"%>
-	<a href="runlist.html"><spring:message code="run.list" /></a><br />
-</div>
+<p class="userinfo"> 
+<authz:authentication operation="username" />
+ </p>
 
-<div>
-<h2><spring:message code="hello" /> <authz:authentication operation="username" /></h2>
+<h2 align="center"><spring:message code="curnitlist.project.library" /></h2>
 
-<table align="center" bgcolor="#008800" border="0" cellspacing="2" cellpadding="3">
-  <tr bgcolor="#CCCCCC">
-    <th>Project Title</th>
-    <th>Options</th>
+<table align="center" border="1" cellspacing="2" cellpadding="3">
+  <tr>
+    <th><spring:message code="curnitlist.title" /></th>
+    <th><spring:message code="curnitlist.options" /></th>
   </tr>
 <c:forEach var="curnit" items="${curnitlist}">
-  <tr bgcolor="#FFFF88">
+  <tr>
   <td><c:out value="${curnit.sdsCurnit.name}"/></td>
   <td><a href="<c:url value="createrun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
-	       <font color="BLACK">Set up a Run For My Class</font>
+	       <spring:message code="curnitlist.setup.for.class" />
       </a><br />
       
   </td>
@@ -58,8 +56,6 @@
 </div>
 
 </div>
-
-<%@ include file="footer.jsp"%>
 
 </body>
 </html>

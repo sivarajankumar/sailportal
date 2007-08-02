@@ -29,21 +29,23 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
-
+<%@ include file="teacherHeader.jsp"%>
+<p class="userInfo">
+${user.userDetails.username}
+</p>
+<h2>
+<spring:message code="runlist.my.project.runs" />
+</h2>
 
 <div id="columns">
-<div id="left"><%@ include file="logout.jsp"%>
-</div>
 
-<div id="right">
-<h2><spring:message code="hello" /> ${user.userDetails.username}</h2>
+<div style="align:center;">
 
 <table border="1">
   <thead>
     <tr>
       <th><spring:message code="run.name.heading" /></th>
-      <th>Run Information</th>
+      <th><spring:message code="run.information" /></th>      
       <th><spring:message code="run.options.heading" /></th>
     </tr>
   </thead>
@@ -52,9 +54,9 @@
     <td>${run.sdsOffering.name}</td>
     <td><table border="1">
           <tr>
-            <th>Period</th>
-            <th>Project Code</th>
-            <th>Students</th>
+            <th><spring:message code="run.period" /></th>
+            <th><spring:message code="teacher.project-code" /></th>
+            <th><spring:message code="run.students" /></th>
           </tr>
           <c:forEach var="period" items="${run.periods}">
             <tr>
@@ -91,8 +93,6 @@
 </div>
 
 </div>
-
-<%@ include file="footer.jsp"%>
 
 </body>
 </html>

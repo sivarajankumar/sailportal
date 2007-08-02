@@ -23,7 +23,4 @@
 <div>
 	<img src="<spring:theme code="dashboardbanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
-	    <div>
-   <p class="userlogout"> <%@ include file="logout.jsp"%> </p>
-	</div>
 	

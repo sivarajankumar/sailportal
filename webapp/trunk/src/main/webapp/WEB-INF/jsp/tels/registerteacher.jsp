@@ -44,7 +44,7 @@ if(form.getElementById(id).checked==true){
 
 <body>
 
-<%@ include file="teacherHeader.jsp"%>
+<%@ include file="teacherHeaderPlain.jsp"%>
 
 
 <!-- Support for Spring errors object -->
@@ -55,7 +55,7 @@ if(form.getElementById(id).checked==true){
     </b>
   </c:forEach>
 </spring:bind>
-<h2 class="center"><spring:message code="register.teacher" /></h2>
+<h2 class="center"><spring:message code="teacher.registration" /></h2>
 
 <div id="right">
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
@@ -137,7 +137,6 @@ if(form.getElementById(id).checked==true){
         
 </form:form></div>
 
-<%@ include file="footer.jsp"%>
 
 </body>
 </html>
