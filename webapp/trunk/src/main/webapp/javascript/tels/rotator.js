@@ -513,5 +513,9 @@ function randomImages(){
 }
 
 
+function displayNothingYet(URL) {
+  window.open(URL, "Not Here Yet", 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');
+}
+
 
 //-->
