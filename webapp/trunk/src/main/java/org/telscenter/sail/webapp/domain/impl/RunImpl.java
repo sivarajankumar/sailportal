@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -38,9 +39,11 @@ import javax.persistence.Transient;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
 /**
  * WISE "run" domain object A WISE run is an offering with more information,
@@ -75,6 +78,12 @@ public class RunImpl extends OfferingImpl implements Run {
     public static final String RUNS_JOIN_COLUMN_NAME = "runs_fk";
 
     @Transient
+    public static final String OWNERS_JOIN_TABLE_NAME = "runs_related_to_owners";
+    
+    @Transient
+    public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
+      
+    @Transient
     public static final long serialVersionUID = 1L;
     
     @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
@@ -89,6 +98,10 @@ public class RunImpl extends OfferingImpl implements Run {
     @OneToMany(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
     @JoinTable(name = PERIODS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = PERIODS_JOIN_COLUMN_NAME, nullable = false))
     private Set<Group> periods = new TreeSet<Group>();
+    
+    @OneToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
+    private Set<User> owners = new HashSet<User>();
 
     /**
      * @return the endtime
@@ -148,7 +161,21 @@ public class RunImpl extends OfferingImpl implements Run {
 	public void setPeriods(Set<Group> periods) {
 		this.periods = periods;
 	}
+	
+	/**
+	 * @return a <code>Set</code> of Users who own this run
+	 */
+	public Set<User> getOwners() {
+		return owners;
+	}
 
+	/**
+	 * @param owners <code>Set</code> of Users who own this run
+	 */
+	public void setOwners(Set<User> owners) {
+		this.owners = owners;
+	}
+	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.Run#getPeriodByName(java.lang.String)
 	 */
@@ -162,5 +189,4 @@ public class RunImpl extends OfferingImpl implements Run {
 		throw new PeriodNotFoundException("Period " + periodName + 
 				" does not exist");
 	}
-   
 }

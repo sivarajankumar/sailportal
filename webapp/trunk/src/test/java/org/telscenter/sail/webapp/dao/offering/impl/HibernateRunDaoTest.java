@@ -31,11 +31,16 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.group.impl.HibernateGroupDao;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 
 import org.hibernate.Session;
 import org.telscenter.sail.webapp.domain.Run;
@@ -60,6 +65,14 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
     private static final SdsJnlp DEFAULT_SDS_JNLP = new SdsJnlp();
 
+	private static final MutableUserDetails DEFAULT_USER_DETAILS = new PersistentUserDetails();
+
+	private static Set<User> DEFAULT_OWNERS = new HashSet<User>();
+	
+	private static User DEFAULT_OWNER = new UserImpl();
+	
+	private static final SdsUser DEFAULT_SDS_USER = new SdsUser();
+	
     private Group DEFAULT_GROUP_1, DEFAULT_GROUP_2, DEFAULT_GROUP_3;
 
     private final Date DEFAULT_STARTTIME = Calendar.getInstance().getTime();
@@ -140,6 +153,18 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
         this.defaultRun.setStarttime(DEFAULT_STARTTIME);
         this.defaultRun.setRuncode(DEFAULT_RUNCODE);
+        
+        DEFAULT_SDS_USER.setSdsObjectId(SDS_ID);
+        DEFAULT_SDS_USER.setFirstName(DEFAULT_NAME);
+        DEFAULT_SDS_USER.setLastName(DEFAULT_NAME);
+        
+        DEFAULT_USER_DETAILS.setPassword(DEFAULT_NAME);
+        DEFAULT_USER_DETAILS.setUsername(DEFAULT_NAME);
+        DEFAULT_OWNER.setUserDetails(DEFAULT_USER_DETAILS);
+        DEFAULT_OWNER.setSdsUser(DEFAULT_SDS_USER);
+
+        DEFAULT_OWNERS = new HashSet<User>();
+        DEFAULT_OWNERS.add(DEFAULT_OWNER);
     }
 
     /**
@@ -151,12 +176,16 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         Session session = this.sessionFactory.getCurrentSession();
         session.save(DEFAULT_SDS_CURNIT); // save sds curnit
         session.save(DEFAULT_SDS_JNLP); // save sds jnlp
+        session.save(DEFAULT_SDS_USER);
+        session.save(DEFAULT_USER_DETAILS);
+        session.save(DEFAULT_OWNER);  // save owner
 //        session.save(DEFAULT_GROUP_1);
 //        session.save(DEFAULT_GROUP_2);
 //        session.save(DEFAULT_GROUP_3);
 
         this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
         this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
+        this.defaultRun.setOwners(DEFAULT_OWNERS);
     }
 
     /**
@@ -165,17 +194,23 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
     @Override
     protected void onTearDownAfterTransaction() throws Exception {
         super.onTearDownAfterTransaction();
+        this.defaultRun = null;
     }
 
     public void testSave() {
         verifyRunAndJoinTablesAreEmpty();
 
+        this.defaultRun.setOwners(DEFAULT_OWNERS);
         this.runDao.save(this.defaultRun);
         // flush is required to cascade the join table for some reason
         this.toilet.flush();
 
         List<?> runsList = retrieveRunListFromDb();
         assertEquals(1, runsList.size());
+        // TODO HT: figure out why this works when this test class is run individually,
+        // but not when you do mvn test
+//        assertEquals(1, retrieveRunsAndOwnersListFromDb().size());
+//        assertEquals(1, retrieveRunsRelatedToOwnersListFromDb().size());
         assertEquals(0, retrieveRunsRelatedToGroupsListFromDb().size());
         assertEquals(0, retrieveRunsAndGroupsListFromDb().size());
 
@@ -281,6 +316,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
     private void verifyRunAndJoinTablesAreEmpty() {
         assertTrue(this.retrieveRunListFromDb().isEmpty());
         assertTrue(this.retrieveRunsRelatedToGroupsListFromDb().isEmpty());
+        assertTrue(this.retrieveRunsAndOwnersListFromDb().isEmpty());
     }
 
     /*
@@ -289,6 +325,15 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
     private List<?> retrieveRunsRelatedToGroupsListFromDb() {
         return this.jdbcTemplate.queryForList("SELECT * FROM "
                 + RunImpl.PERIODS_JOIN_TABLE_NAME);
+    }
+    
+    /*
+     * SELECT * FROM runs_related_to_owners
+     */
+    @SuppressWarnings("unused")
+	private List<?> retrieveRunsRelatedToOwnersListFromDb() {
+        return this.jdbcTemplate.queryForList("SELECT * FROM "
+                + RunImpl.OWNERS_JOIN_TABLE_NAME);
     }
 
     /*
@@ -313,6 +358,22 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
                 + PersistentGroup.DATA_STORE_NAME + ".id = "
                 + RunImpl.PERIODS_JOIN_TABLE_NAME + "."
                 + RunImpl.PERIODS_JOIN_COLUMN_NAME, (Object[]) null);
+    }
+    
+    /*
+     * SELECT * FROM runs, runs_related_to_owners, users WHERE runs.id = 
+     * runs_related_to_owners.run_fk AND users.id =
+     * runs_related_to_owners.owner_fk
+     */
+    private List<?> retrieveRunsAndOwnersListFromDb() {
+    	return this.jdbcTemplate.queryForList("SELECT * FROM "
+    			+ RunImpl.DATA_STORE_NAME + ", " + RunImpl.OWNERS_JOIN_TABLE_NAME
+    			+ ", " + UserImpl.DATA_STORE_NAME + " WHERE "
+    			+ RunImpl.DATA_STORE_NAME + ".id = " + RunImpl.OWNERS_JOIN_TABLE_NAME
+    			+ "." + RunImpl.OWNERS_JOIN_COLUMN_NAME + " AND "
+    			+ UserImpl.DATA_STORE_NAME + ".id = " 
+    			+ RunImpl.OWNERS_JOIN_TABLE_NAME + "."
+    			+ RunImpl.OWNERS_JOIN_COLUMN_NAME, (Object[]) null);
     }
 
 }

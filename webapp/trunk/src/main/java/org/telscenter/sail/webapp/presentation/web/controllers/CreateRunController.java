@@ -23,12 +23,15 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 
 import org.springframework.validation.BindException;
@@ -161,6 +164,13 @@ public class CreateRunController extends AbstractWizardFormController {
 				e.printStackTrace();
 			}
 			model.put("project", project);
+			
+			// add the current user as an owner of the run
+			User user = (User) request.getSession().getAttribute(
+					User.CURRENT_USER_SESSION_KEY);
+			Set<User> owners = new HashSet<User>();
+			owners.add(user);
+			runParameters.setOwners(owners);
 			break;
 		case 1:
 			// for page 2 of the wizard, display existing runs for this user

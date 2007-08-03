@@ -71,6 +71,8 @@ public class RunServiceImplTest extends TestCase {
 
     private static Set<String> periodNames = new HashSet<String>();
 
+    private Set<User> owners = new HashSet<User>();
+    
     static {
     	periodNames.add("Period 1");
     	periodNames.add("Period 2");
@@ -112,6 +114,9 @@ public class RunServiceImplTest extends TestCase {
 
         this.mockRunDao = EasyMock.createNiceMock(RunDao.class);
         this.runServiceImpl.setRunDao(this.mockRunDao);
+        
+        User user = new UserImpl();
+		owners.add(user);
     }
 
     /**
@@ -178,6 +183,7 @@ public class RunServiceImplTest extends TestCase {
         RunParameters runParameters = new RunParameters();
         runParameters.setCurnitId(CURNIT_ID);
         runParameters.setName(CURNIT_NAME);
+        runParameters.setOwners(owners);
 
         this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
         EasyMock.expectLastCall().andReturn(false);
@@ -231,6 +237,7 @@ public class RunServiceImplTest extends TestCase {
         runParameters.setCurnitId(CURNIT_ID);
         runParameters.setName(CURNIT_NAME);
         runParameters.setPeriodNames(periodNames);
+        runParameters.setOwners(owners);
 
         this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
         EasyMock.expectLastCall().andReturn(false);

@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.Set;
 
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 
 /**
@@ -71,7 +72,7 @@ public interface Run extends Offering {
     public void setRuncode(String runcode);
 
 	/**
-	 * @return the periods
+	 * @return the periods associated with this run
 	 */
 	public Set<Group> getPeriods();
 
@@ -80,6 +81,16 @@ public interface Run extends Offering {
 	 */
 	public void setPeriods(Set<Group> periods);
    
+	/**
+	 * @return a <code>Set</code> of Users who own this run
+	 */
+	public Set<User> getOwners();
+
+	/**
+	 * @param owners <code>Set</code> of Users who own this run
+	 */
+	public void setOwners(Set<User> owners);
+	
 	/**
 	 * Returns the period with periodName that is associated
 	 * with this run
