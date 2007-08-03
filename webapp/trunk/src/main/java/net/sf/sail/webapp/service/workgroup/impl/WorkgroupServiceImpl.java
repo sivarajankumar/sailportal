@@ -75,6 +75,31 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     }
 
     /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createWorkgroup(net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Offering)
+     */
+    @Transactional(rollbackFor = { BadRequestException.class,
+            NetworkTransportException.class })
+	public Workgroup createWorkgroup(String name, Set<User> members, Offering offering) {
+        SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
+        sdsWorkgroup.setName(name);
+        for (User member : members) {
+        	sdsWorkgroup.addMember(member.getSdsUser());
+        }
+    	sdsWorkgroup.setSdsOffering(offering.getSdsOffering());
+
+        Workgroup workgroup = new WorkgroupImpl();
+        for (User member : members) {
+        	workgroup.addMember(member);
+        }
+        workgroup.setOffering(offering);
+        workgroup.setSdsWorkgroup(sdsWorkgroup);
+
+        createWorkgroup(workgroup);
+
+        return workgroup;
+    }
+    
+    /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getWorkgroupIterator()
      */
     @Transactional(readOnly = true)
@@ -133,29 +158,4 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         workgroup.setSdsWorkgroup(sdsWorkgroup);
     	this.workgroupDao.save(workgroup);
 	}
-
-    /**
-     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createWorkgroup(net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Offering)
-     */
-    @Transactional(rollbackFor = { BadRequestException.class,
-            NetworkTransportException.class })
-	public Workgroup createWorkgroup(String name, Set<User> members, Offering offering) {
-        SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
-        sdsWorkgroup.setName(name);
-        for (User member : members) {
-        	sdsWorkgroup.addMember(member.getSdsUser());
-        }
-    	sdsWorkgroup.setSdsOffering(offering.getSdsOffering());
-        this.sdsWorkgroupDao.save(sdsWorkgroup);
-
-        Workgroup workgroup = new WorkgroupImpl();
-        for (User member : members) {
-        	workgroup.addMember(member);
-        }
-        workgroup.setOffering(offering);
-        workgroup.setSdsWorkgroup(sdsWorkgroup);
-        this.workgroupDao.save(workgroup);
-
-        return workgroup;
-    }
 }
