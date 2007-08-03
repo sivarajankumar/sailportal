@@ -27,53 +27,50 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
+
 <title><spring:message code="teacher.setup-project-run-step-two" /></title>
 </head>
 <%@ include file="teacherHeader.jsp"%>
 <body>
-
+<p class="userinfo"> 
+<authz:authentication operation="username" />
+ </p>
 <div id="navigation" class="north2 widthAdj4">
 <ul class="bigFont1">
-<li> <a href="#"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+<li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>
 
-<ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
-</ul><br />
-<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2 id="right2" class=" maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step2" /></b>
 <spring:message code="teacher.setup-project-run-step2-desc" />
 </h3>
 
-<p class="bigFont1">
+<p class="bigFont1 widthAdj6">
 <spring:message code="teacher.currently-active-project-runs" />
 </p>
-<p id="right0" class="smallFont1">
+<p id="right0" class="width2 justify smallFont1">
 <spring:message code="teacher.archiving-a-project-run" />
 </p>
-<p class="bigFont1">
+<p class="bigFont1 widthAdj6">
 <spring:message code="teacher.end-or-cont-project-runs" />
 <i> <spring:message code="navigate.next" /> </i>
 <spring:message code="teacher.end-or-cont-project-runs-cont" />
 </p>
 <p><spring:message code="createrun.existing" />
 
-<p><c:forEach var="run" items="${existingRunList}">
+<p class="widthAdj6"><c:forEach var="run" items="${existingRunList}">
 	<tr>
 		<td>${run.sdsOffering.name}</td>
 	</tr>
 </c:forEach>
 </p>
 
-<form method="post">
+<form method="post" id="right" class="widthAdj6">
 <input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target2" value="<spring:message code="navigate.next" />" />
@@ -81,3 +78,13 @@
 
 </body>
 </html>
+<!--  
+<ul id="tabnav" class="north_0 widthAdj4">
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.overview" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.project-library" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.project-runs" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.bookmarked-projects" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.customized-projects" /></a></li>
+</ul><br />
+-->
+

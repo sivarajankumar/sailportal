@@ -55,7 +55,7 @@ if(form.getElementById(id).checked==true){
     </b>
   </c:forEach>
 </spring:bind>
-<h2 class="center"><spring:message code="teacher.registration" /></h2>
+<h2 id="right2"><spring:message code="teacher.registration" /></h2>
 
 <div id="right">
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
@@ -71,13 +71,9 @@ if(form.getElementById(id).checked==true){
     <form:input path="userDetails.emailAddress" id="emailAddress"/>
 <br />
 
-    <label for="country"><spring:message code="signup.country" /></label> 
-    <form:input path="userDetails.country" id="country" />
-        <div id="autocomplete_choices_country" class="autocomplete" ></div>
-		<script type="text/javascript">  
-	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
-		</script>
-<br />
+    <label for="city"><spring:message code="signup.city" /></label> 
+    <form:input path="userDetails.city" id="city" />
+	<br />
 
     <label for="state"><spring:message code="signup.state" /></label> 
     <form:input path="userDetails.state" id="state" />
@@ -85,11 +81,15 @@ if(form.getElementById(id).checked==true){
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('state', 'autocomplete_choices_state', 'states.html', {paramName: 'sofar'}); 	   		
 		</script>
-<br />
+	<br />
 
-    <label for="city"><spring:message code="signup.city" /></label> 
-    <form:input path="userDetails.city" id="city" />
-<br />
+    <label for="country"><spring:message code="signup.country" /></label> 
+    <form:input path="userDetails.country" id="country" />
+        <div id="autocomplete_choices_country" class="autocomplete" ></div>
+		<script type="text/javascript">  
+	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
+		</script>
+	<br />
 
     <label for="schoolname"><spring:message code="signup.schoolname" /></label> 
     <form:input path="userDetails.schoolname" id="schoolname" />

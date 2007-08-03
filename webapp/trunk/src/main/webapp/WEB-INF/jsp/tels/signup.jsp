@@ -35,10 +35,10 @@
 <%@ include file="header.jsp"%>
 
 <div >
-<h2 class="center"><spring:message code="register.new-account" /></h2>
-<h2 class="center"><spring:message code="register.type-of-account" /></h2>
+<h2 id="right2"><spring:message code="register.new-account" /></h2>
+<h2 id="right2"><spring:message code="register.type-of-account" /></h2>
 </div>
-<div id="navigation" class="center">
+<div id="navigation" style="position:relative;right:-250px;">
 <ul class="none">
 <li class="vertical"><spring:message code="register.create-student-account" />
 <a href="registerstudent.html" class="north_1"> 
@@ -53,22 +53,20 @@ onmouseout="swapAccountImage('imgBorderNone',0)";
 <img id="imgBorder2None" src="<spring:theme code="create_teacher_account" />" 
 onmouseover="swapAccountImage('imgBorder2None',3)";
 onmouseout="swapAccountImage('imgBorder2None',2)";
-
 />
 </a> 
 </li>
 </ul>
 </div>
 
-<div id="spacing" class="center border">
+<div id="spacing" class="border" style="padding:0px;position:relative;right:-260px;width:600px;">
 <h4 class="left"> <spring:message code="register.which-account" /> </h4>
 <ul class="left">
 <li id="lineHeightAdj"> <spring:message code="register.student-account-desc" /></li>
-<p id="lineHeightAdj" />
 <li id="lineHeightAdj"> <spring:message code="register.teacher-account-desc" /></li>
 </ul>
 </div>
-<%@ include file="footer.jsp"%>
+
 
 
 </body>

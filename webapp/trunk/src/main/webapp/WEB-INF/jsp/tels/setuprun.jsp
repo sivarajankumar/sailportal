@@ -27,27 +27,33 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 <title><spring:message code="teacher.setup-project-run" /></title>
 </head>
 <body>
 <%@ include file="teacherHeader.jsp"%>
-
+<p class="userinfo"> 
+<authz:authentication operation="username" />
+ </p>
 <div id="navigation" class="north2 widthAdj4">
 <ul class="bigFont1">
-<li> <a href="#"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+<li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>
+<!--  
 <ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.overview" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.project-library" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.project-runs" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.bookmarked-projects" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />
-<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+-->
+
+<h2 id="right2" class="maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <p class="bigFont1 north0"> <spring:message code="teacher.setup-run-six-steps" /> </p>
 <h3 class="north0"> <spring:message code="teacher.tips-project-runs" /> </h3>
 
@@ -58,7 +64,7 @@
 <spring:message code="teacher.lesson-plans-cont" /> </li>
 </ol>
 
-<ul class="center none bigFont1 north0">
+<ul class="none bigFont1 north0">
 <li> <spring:message code="teacher.get-started" /> </li>
 <li><spring:message code="teacher.cancel-setup-steps" /></li>
 </ul>
@@ -78,7 +84,7 @@
   </p>
 </form:form>
 
-<%@ include file="footer.jsp"%>
+
 
 </body>
 </html>

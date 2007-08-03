@@ -35,9 +35,18 @@
 <authz:authentication operation="username" />
  </p>
 
-<h2 align="center"><spring:message code="curnitlist.project.library" /></h2>
+<div id="navigation" class="north2 widthAdj4">
+<ul class="bigFont1">
+<li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+</ul>
+</div>
 
-<table align="center" border="1" cellspacing="2" cellpadding="3">
+<h2 id="right" class="north2"><spring:message code="curnitlist.project.library" /></h2>
+
+<table id="right" class="north2" border="1" cellspacing="2" cellpadding="3">
   <tr>
     <th><spring:message code="curnitlist.title" /></th>
     <th><spring:message code="curnitlist.options" /></th>

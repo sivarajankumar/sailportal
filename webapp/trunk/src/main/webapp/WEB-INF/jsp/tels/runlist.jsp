@@ -24,6 +24,7 @@
 <head>
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
+<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 <title><spring:message code="run.list" /></title>
 </head>
 
@@ -33,11 +34,21 @@
 <p class="userInfo">
 ${user.userDetails.username}
 </p>
-<h2>
+
+<div id="navigation" class="north2 widthAdj4">
+<ul class="bigFont1">
+<li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+</ul>
+</div>
+
+<h2 class="north2">
 <spring:message code="runlist.my.project.runs" />
 </h2>
 
-<div id="columns">
+<div id="columns" class="north2">
 
 <div style="align:center;">
 

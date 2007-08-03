@@ -53,17 +53,16 @@
 </li>
 
 <li>
-	<a href="#"> 
+	<a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> 
 		<img id="imgBorder2None" src="<spring:theme code="preview" />"
 		onmouseover="swapWiseImage('imgBorder2None',3);"
 		onmouseout="swapWiseImage('imgBorder2None',2);"
-	 
 		/>
 	</a> 
 </li>
 
 <li>
-	<a href="#"> 
+	<a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> 
 		<img id="imgBorder3None" src="<spring:theme code="common" />" 
 		onmouseover="swapWiseImage('imgBorder3None',5);"
 		onmouseout="swapWiseImage('imgBorder3None',4);"

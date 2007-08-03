@@ -35,21 +35,16 @@ if(form.manualCheckbox.checked==true){
 	   form.options[i].disabled=true;
 	   form.options[i].checked=false;
 	}
-	
 }else{
 	form.manualPeriods.disabled=true;
 	for(i=0;i<form.options.length;i++){
 	   form.options[i].disabled=false;
-	}
-	
+	}	
 }
-
 }
-
-
 // End -->
 </script>
-
+<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-three" /></title>
 </head>
@@ -70,28 +65,34 @@ if(form.manualCheckbox.checked==true){
 </spring:bind>
 
 <body>
+<p class="userinfo"> 
+<authz:authentication operation="username" />
+ </p>
 <div id="navigation" class="north2 widthAdj4">
 <ul class="bigFont1">
-<li> <a href="#"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+<li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>
 
+<!--  
 <ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.overview" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.project-library" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.project-runs" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.bookmarked-projects" /></a></li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />  
+-->
 
-<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step3" /> </b>
+
+<h2 id="right2" class="widthAdj6 maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 class="widthAdj6 blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step3" /> </b>
 <spring:message code="teacher.setup-project-run-step3-desc" />
 </h3>
-<p class="bigFont1">
+<p class="bigFont1 widthAdj6">
 <spring:message code="teacher.select-classroom-periods" />
 <i><spring:message code="navigate.next" /></i>
 </p>
@@ -112,7 +113,7 @@ if(form.manualCheckbox.checked==true){
 <input type="checkbox" name="options" value="Period 10" /> <spring:message code="classroom.period10" /><br />
 -->
 
-    <div>
+    <div class="widthAdj6">
       <label for="periods"><spring:message code="periods" /></label><br />
           <c:forEach items="${periodNames}" var="periodName">
             <form:checkbox path="periodNames" value="${periodName}" />
@@ -130,10 +131,11 @@ OR <br />
 <spring:message code="classroom.separate-periods" />
 </p>
 -->
-<input type="submit" name="_target1" value="<spring:message code="navigate.back" />" />
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_target3" value="<spring:message code="navigate.next" />" />
-
+<div id="right" class="widthAdj6">
+<input type="submit" name="_target1" value="<spring:message code="navigate.back"/>" />
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel"/>" />
+<input type="submit" name="_target3" value="<spring:message code="navigate.next"/>" />
+</div>
 </form:form>
 </div>
 </body>

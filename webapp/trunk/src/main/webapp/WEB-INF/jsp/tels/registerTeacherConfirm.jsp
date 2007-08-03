@@ -33,13 +33,15 @@
 <body>
 
 <%@ include file="teacherHeader.jsp"%>
-
+<p class="userinfo"> 
+<authz:authentication operation="username" />
+ </p>
 <div style="position:relative;right:-380px;">
 <h2><spring:message code="teacher.registration" /></h2>
 <h3><spring:message code="login.success" /></h3>
 <h4><spring:message code="login.sign-in-message" /></h4>
 </div>
-<div id="verticalNavigation" style="position:relative;right:100px;">
+<div id="verticalNavigation" style="position:relative;right:-380px;">
 <ul>
 <li><spring:message code="login.username" />
 <input name="username" value="${username}"/>

@@ -45,7 +45,7 @@
 </spring:bind>
 
 <div id="columns">
-<h2 class="center"><spring:message code="student.registration" /></h2>
+<h2 id="right"><spring:message code="student.registration" /></h2>
 
 <div>
 <h3><spring:message code="student.registration.instructions" /></h3>
@@ -106,11 +106,6 @@
       <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
       <form:password path="repeatedPassword" id="repeatedPassword"/>
       <form:errors path="repeatedPassword" />
-<br />
-
-      <label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
-      <form:input path="userDetails.emailAddress" id="emailAddress"/>
-      <form:errors path="userDetails.emailAddress"/>
 <br />
 
       <label for="accountQuestion"><spring:message code="signup.project.accountQuestion" /></label>

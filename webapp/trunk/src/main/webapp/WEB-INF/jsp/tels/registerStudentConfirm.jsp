@@ -33,14 +33,16 @@
 <body>
 
 <%@ include file="studentHeader.jsp"%>
-
+<p class="userinfo"> 
+<authz:authentication operation="username" />
+ </p>
 <div class="north_1" style="position:relative;right:-380px;">
 <h2><spring:message code="student.registration" /></h2>
 <h3><spring:message code="login.success" /></h3>
 <h4><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="verticalNavigation" class="north4" style="position:relative;right:100px;">
+<div id="verticalNavigation" class="north4" style="position:relative;right:-380px;">
 <ul>
 <li><spring:message code="login.username" />
 <input name="username" value="${username}"/>
@@ -59,9 +61,9 @@
 </ul>
 </div>
 
-<div id="navigation" class="north_4 center">
+<div id="navigation" class="north_4">
 <ul>
-<li class="space1 right7">
+<li class="right7">
 <a href="registerstudent.html"> 
 <img id="imgBorderNone" src="<spring:theme code="register_another_teammate" />" 
 onmouseover="swapRegisterImage('imgBorderNone',1)"
@@ -77,7 +79,7 @@ onmouseout="swapRegisterImage('imgBorderNone',0)"
 </ul>
 </div>
 
-<div id="navigation" class="center north6">
+<div id="navigation" class="north6">
 <ul>
 <li class="space1 right7">
 <a href="index.html">
