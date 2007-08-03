@@ -39,14 +39,9 @@ function popup(URL) {
 <div id="columns">
 <div>
 <h2><spring:message code="welcome" /> 
-    <authz:authentication operation="username" />
+    <authz:authentication operation="firstname" />
 </h2>
 </div>
-
-<spring:message code="signup.firstname" /><authz:authentication operation="firstname" /><br />
-<spring:message code="signup.lastname" /><authz:authentication operation="lastname" /><br />
-<spring:message code="signup.emailAddress" /><authz:authentication operation="emailAddress" /><br />
-<spring:message code="signup.signupdate" /><authz:authentication operation="signupdate" /><br /><br />
 
 </div>
 
@@ -61,12 +56,14 @@ function popup(URL) {
   <thead>
     <tr>
       <th><spring:message code="run.name.heading" /></th>
+      <th>Teacher name</th>
       <th><spring:message code="run.options.heading" /></th>
     </tr>
   </thead>
   <c:forEach var="run" items="${run_list}">
   <tr>
     <td>${run.sdsOffering.name}</td>
+    <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
     <td>
     <a href="#"	onclick="javascript:popup('selectteam.html?runId=' + ${run.id} )">
 	  <img id="runproject" src="../<spring:theme code="run_project" />" />
@@ -91,9 +88,6 @@ function popup(URL) {
   </c:forEach>
 </table>
 </div>
-
-
-<%@ include file="../footer.jsp"%>
 
 </body>
 </html>
