@@ -36,6 +36,7 @@ public class AllTests {
                 "Test for org.telscenter.sail.webapp.web.controllers.student");
         // $JUnit-BEGIN$
         suite.addTestSuite(AddProjectControllerTest.class);
+        suite.addTestSuite(StudentIndexControllerTest.class);
         // $JUnit-END$
         return suite;
     }
