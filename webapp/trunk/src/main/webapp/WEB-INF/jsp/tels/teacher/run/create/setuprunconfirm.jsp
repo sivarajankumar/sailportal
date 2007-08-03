@@ -34,14 +34,18 @@
 <body>
 
 <%@ include file="../../../teacherHeader.jsp"%>
+<p class="userinfo"> 
+<authz:authentication operation="username" />
+ </p>
 <div id="navigation" class="north2 widthAdj4">
 <ul class="bigFont1">
-<li> <a href="#"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+<li> <a href="./teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>
+<!--  
 <ul id="tabnav" class="north_0 widthAdj4">
 <li> <a href="#"><spring:message code="teacher.overview" /></a></li>
 <li> <a href="#"><spring:message code="teacher.project-library" /></a></li>
@@ -49,21 +53,20 @@
 <li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
 <li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
 </ul><br />
+-->
 
-<h2 class="center maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2 id="right2" class="widthAdj6 maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 class="widthAdj6"><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
 
-
-<h3><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
-
-<b>
+<b class="widthAdj6">
 <spring:message code="setuprun.confirmation.whereisnewrun" />
-<a href="#"> 
+<a href="./runlist.html" onclick="javascript:displayNothingYet('notexisting.html')"> 
 <spring:message code="setuprun.confirmation.myprojectruns" />
 </a>
 <spring:message code="setuprun.confirmation.end" />
 </b>
 
-<div>
+<div class="widthAdj6">
 <ul>
 <li><spring:message code="setuprun.confirmation.run.title" />
 <c:out value="${run.sdsOffering.name}" />
@@ -86,13 +89,13 @@
 </ul>
 </div>
 
-<h4><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
-<spring:message code="setuprun.confirmation.aboutprojectids.text" />
+<h4 class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
+<p class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></p>
 
-<h4><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
-<spring:message code="setuprun.confirmation.aboutprojectcodes.text" />
+<h4 class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
+<p class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
 
-<a href="./runlist.html"> <img id="projectRuns"
+<a href="./runlist.html" class="widthAdj6"> <img id="projectRuns"
 	src="<spring:theme code="gotomyprojectruns" />"	 	
 	style="border:0px;"/>
 </a>
