@@ -31,6 +31,14 @@
 <body>
 
 <%@ include file="header.jsp"%>
+<div id="navigation" class="north2 widthAdj4">
+<ul class="bigFont1">
+<li> <a href="teacher/index.html"> <img src="../<spring:theme code="home_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="../<spring:theme code="projects" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="../<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="../<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+</ul>
+</div>
 
 <div id="columns" class="bgColorYellow" style="width:980px;">
 <div class="north_6">
@@ -234,9 +242,6 @@
    <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 
 </div>
-
-
-<%@ include file="../footer.jsp"%>
 
 </body>
 </html>
