@@ -55,7 +55,7 @@
 
 .north3{
 	position:relative;
-	top:-1.5em;
+	top:-10px;
 }
 
 .north_3{
@@ -75,7 +75,7 @@
 
 .north5{
 	position:relative;
-	top: -212px;
+	top: -243px;
 }
 
 .north_5{
@@ -101,7 +101,7 @@
 
 .north9{
 	position:relative;
-	top:-487px;
+	top:-539px;
 }
 
 #north2{
@@ -120,9 +120,9 @@
 	top:277px;
 }
 
-#south{
+.south1{
 	position:relative;
-	top:3.5em;
+	top:65px;
 }
 
 .south{
@@ -259,7 +259,7 @@
 	line-height:2.0em;
 }
 
-#lineHeightAdj2{
+.lineHeightAdj2{
 	line-height:15px;
 }
 
@@ -374,7 +374,15 @@
 }
 
 .spacingVerAdj1{
-	padding-bottom:-110px;
+	padding-bottom:59px;
+}
+
+.spacingVerAdj2{
+	padding-bottom:6px;
+}
+
+.spacingVerAdj3{
+	padding-bottom:140px;
 }
 
 .marginVerAdj1{
@@ -658,7 +666,7 @@ p.bgimage{
 p.userinfo{
 	position: absolute;
 	top:-5px;
-	left:880px;
+	left:800px;
 }
 
 p.userlogout{
