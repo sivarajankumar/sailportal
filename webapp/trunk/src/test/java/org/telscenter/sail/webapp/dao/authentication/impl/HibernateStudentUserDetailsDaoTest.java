@@ -250,7 +250,6 @@ public class HibernateStudentUserDetailsDaoTest extends
                     .get(StudentUserDetails.COLUMN_NAME_ACCOUNTANSWER
                             .toUpperCase());
             assertEquals(DEFAULT_ACCOUNT_ANSWER, actualValue);
-
         }
 
         StudentUserDetails duplicateUserDetails = (StudentUserDetails) this.applicationContext
@@ -288,7 +287,6 @@ public class HibernateStudentUserDetailsDaoTest extends
             fail("expected DataIntegrityViolationException");
         } catch (DataIntegrityViolationException expected) {
         }
-
     }
 
     public void testEmptySignupdate() {
@@ -372,6 +370,19 @@ public class HibernateStudentUserDetailsDaoTest extends
         this.userDetailsDao.save(this.defaultUserDetails);
         assertTrue(this.userDetailsDao.hasUsername(DEFAULT_USERNAME));
         assertFalse(this.userDetailsDao.hasUsername(USERNAME_NOT_IN_DB));
+    }
+    
+    public void testGetById() {
+        this.userDetailsDao.save(this.defaultUserDetails);
+    	StudentUserDetails userDetails = (StudentUserDetails) 
+    		this.userDetailsDao.getById(this.defaultUserDetails.getId());
+    	assertNotNull(userDetails);
+    	assertEquals(userDetails.getUsername(), DEFAULT_USERNAME);
+    	
+        Long userIdNotInDb = new Long(100);
+        userDetails = (StudentUserDetails) 
+		this.userDetailsDao.getById(userIdNotInDb);
+    	assertNull(userDetails);
     }
 
     private void verifyUserandJoinTablesAreEmpty() {

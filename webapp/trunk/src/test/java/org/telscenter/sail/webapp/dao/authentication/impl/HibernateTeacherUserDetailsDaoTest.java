@@ -386,6 +386,19 @@ public class HibernateTeacherUserDetailsDaoTest extends
         assertTrue(this.userDetailsDao.hasUsername(DEFAULT_USERNAME));
         assertFalse(this.userDetailsDao.hasUsername(USERNAME_NOT_IN_DB));
     }
+    
+    public void testGetById() {
+        this.userDetailsDao.save(this.defaultUserDetails);
+        TeacherUserDetails userDetails = (TeacherUserDetails) 
+               this.userDetailsDao.getById(this.defaultUserDetails.getId());
+        assertNotNull(userDetails);
+        assertEquals(userDetails.getUsername(), DEFAULT_USERNAME);
+        
+        Long userIdNotInDb = new Long(100);
+        userDetails = (TeacherUserDetails) 
+             this.userDetailsDao.getById(userIdNotInDb);
+        assertNull(userDetails);
+    }
 
     private void verifyUserandJoinTablesAreEmpty() {
         assertTrue(this.retrieveUserDetailsListFromDb().isEmpty());
