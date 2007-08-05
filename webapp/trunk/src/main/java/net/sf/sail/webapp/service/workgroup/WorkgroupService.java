@@ -93,10 +93,14 @@ public interface WorkgroupService {
      * that the workgroup id is set to the value that the SDS assigns to the new
      * workgroup.
      * 
-     * @param workgroup
-     *            The workgroup you want to create (no workgroup id required).
+     * @param name
+     *            <code>String</code> name of the workgroup you want to create
+     * @parm members
+     *            <code>Set</code> of <code>User</code> objects that belong in
+     *            the workgroup
      * @param offering
      *            The offering to associate the workgroup to
+     * @return a <code>Workgroup</code> that is created.
      */
     public Workgroup createWorkgroup(String name, Set<User> members, Offering offering);
     

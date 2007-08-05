@@ -225,11 +225,33 @@ public class WorkgroupServiceImplTest extends TestCase {
         EasyMock.expectLastCall();
         EasyMock.replay(this.mockWorkgroupDao);
 
+        // test when we want to create a workgroup with no members
         Set<User> members = new HashSet<User>();
         Offering offering = new OfferingImpl();
         offering.setSdsOffering(this.sdsWorkgroup.getSdsOffering());
-        this.workgroupServiceImpl.createWorkgroup(DEFAULT_WORKGROUP_NAME, members, offering);
+        Workgroup createdWorkgroup = 
+        	this.workgroupServiceImpl.createWorkgroup(DEFAULT_WORKGROUP_NAME, members, offering);
 
+        assertEquals(0, createdWorkgroup.getMembers().size());
+        EasyMock.verify(this.mockSdsWorkgroupDao);
+        EasyMock.verify(this.mockWorkgroupDao);
+
+        // now test when we want to create a workgroup with at least one member
+        EasyMock.reset(this.mockSdsWorkgroupDao);
+        EasyMock.reset(this.mockWorkgroupDao);
+        this.mockSdsWorkgroupDao.save(EasyMock.isA(SdsWorkgroup.class));
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockSdsWorkgroupDao);
+
+        this.mockWorkgroupDao.save(EasyMock.isA(Workgroup.class));
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockWorkgroupDao);
+
+        members.add(new UserImpl());
+        createdWorkgroup = 
+        	this.workgroupServiceImpl.createWorkgroup(DEFAULT_WORKGROUP_NAME, members, offering);
+
+        assertEquals(1, createdWorkgroup.getMembers().size());
         EasyMock.verify(this.mockSdsWorkgroupDao);
         EasyMock.verify(this.mockWorkgroupDao);
     }
