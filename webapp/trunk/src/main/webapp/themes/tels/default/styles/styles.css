@@ -80,7 +80,7 @@
 
 .north_5{
 	position:relative;
-	top:-40px;
+	top:-385px;
 }
 
 .north6{
@@ -130,6 +130,11 @@
 	top:40px;
 }
 
+.south2{
+	position:relative;
+	top:20px;
+}
+
 .south0{
 	position:absolute;
 	top:520px;
@@ -140,24 +145,14 @@
 	top:210px;
 }
 
-.left1{
-	position:relative;
-	left:-4em;	
-}
-
 #left{
 	position:relative;
-	left:-2em;
+	left:-34px;
 }
 
 #left1{
-	position:relative;
-	left:-0.5em;
-}
-
-#left2{
-	position:relative;
-	left:-13em;
+	position:absolute;
+	left:20px;
 }
 
 #right0{
@@ -439,7 +434,7 @@
 }
 
 .widthAdj{
-	width:4em;
+	width:220px;
 }
 
 .widthAdj1{
