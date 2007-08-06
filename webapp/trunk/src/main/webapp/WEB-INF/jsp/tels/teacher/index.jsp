@@ -76,7 +76,7 @@ Overview
 <div class="border1 spacingVerAdj2">
 <form id="home" method="post" action="j_acegi_security_check">
 <h4 class="heading2 north6"><spring:message code="teacher.projects-awaiting-grading" /></h4>
-<ul class="lineHeiightAdj2 north_5">
+<ul class="lineHeiightAdj2 north">
 <li>
 <label for="projectname">
 <spring:message code="wise.projectName" />
