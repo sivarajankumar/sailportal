@@ -37,21 +37,224 @@ function popup(URL) {
 
 <body>
 <div id="columns">
-<div>
-<h2><spring:message code="welcome" /> 
-    <authz:authentication operation="firstname" />
-</h2>
-</div>
+<h3 class="maroon"><spring:message code="student.project-menu" /></h3>
+<div id="xsnazzy" class="bgcolorSeaBlue widthAdj south2" >
+	<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+	<div class="border1">
+		<h3 >
+		<spring:message code="student.user" /><spring:message code="colon" /> 
+		    <authz:authentication operation="username" />
+		</h3>
+		<h5>
+		<spring:message code="msg" /><spring:message code="colon" />
+		<spring:message code="good.morning" /><authz:authentication operation="username" />
+		</h5>
+		
+		<div >
+		<spring:message code="teacher.currentlogin" /> 
+		 <%= new java.util.Date().getHours() %>
+		 <spring:message code="colon" />
+		 <%= new java.util.Date().getMinutes() %>
+		<br />
+		<spring:message code="teacher.lastlogin" /> 
+		 <%= new java.util.Date() %>
+		<br />
+		<spring:message code="wise.language" />
+		<spring:message code="colon" />
+		English
+		<br />
+		</div>
+		
+		<h3><spring:message code="wise.account-options" /></h3>
+		<ul class="none">
+		<li>
+		<a href="#"	onclick="javascript:popup('addproject.html')">
+		<img src="../<spring:theme code="student_add_project" />" style="border:0px;"/>
+		</a>
+		</li>
+		<li>
+		<a href="#">
+		<img src="../<spring:theme code="student_change_password" />" style="border:0px;"/>
+		</a>
+		</li>
+		<li>
+		<a href="#">
+		<img src="../<spring:theme code="student_change_lang" />" style="border:0px;"/>
+		</a>
+		</li>
+		<li>
+		<a href="#">
+		<img src="../<spring:theme code="sign_out" />" style="border:0px;"/>
+		</a>
+		</li>
+		</ul>
+		
+	</div>
+	<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
+	
+ </div>
+ 
+<div id="right2" class="widthAdj3 north_5" >
+<ul id="tabnav" class="widthAdj3" style="position:relative;top:-27px;">
+<li class="currentProjects bgColorLightBlue borderBottom"> <a href="enterprojectcode.html"><spring:message code="student.current-projects" /></a></li>
+<li class="archivedProjects "> <a href="#"><spring:message code="student.archived-projects" /> </a></li>
+</ul>
+
+<c:forEach var="run" items="${run_list}">
+
+<c:forEach var="owner" items="${run.owners}">
+
+<h3 id="left1">Projects With ${owner.userDetails.username}</h3><br />
+<table border="1" id="left1" class=" south">
+<tr> 
+<td> <spring:message code="wise.name" /> </td>
+<td> ${run.sdsOffering.name} </td> 
+<td> <img src="../<spring:theme code="run_project" />" padding="0" />  </td>
+</tr>
+<tr> 
+<td> <spring:message code="wise.period" /> </td>
+<td>
+<c:forEach var="period" items="${run.periods}"> 
+${period.name} 
+
+</c:forEach>
+</td>
+<td> <img src="../<spring:theme code="change_period" />" padding="0" /></td>
+</tr>
+<tr>
+<td> <spring:message code="wise.team" /> </td>
+<td>
+ <c:forEach var="period" items="${run.periods}">
+     <c:choose>
+       <c:when test="${fn:length(period.members) == 0}" >
+         None
+       </c:when>
+       <c:otherwise>
+         <c:forEach var="member" items="${period.members}">${member.userDetails.firstname} ${member.userDetails.lastname}</c:forEach>
+       </c:otherwise>
+     </c:choose>
+</c:forEach>
+</td>
+<td> <img src="../<spring:theme code="report_problem" />" /></td>
+</tr>
+
+<tr>
+<td> <spring:message code="wise.last-use" /> </td>
+<td> Tuesday, 5/23/04 </td>
+<td> <img src="../<spring:theme code="archive_project" />" /></td>
+</tr>
+</table>
+
+</c:forEach>
+</c:forEach>
+
 
 </div>
 
-<div>
-    <a href="#"	onclick="javascript:popup('addproject.html')">
-    <spring:message code="teacher.add-project" />
-	</a>
-</div>
+</body>
+</html>
 
-<div>
+
+<!-- 
+<h3 id="left1"> Projects with UserName1 </h3><br />
+<table border="1" padding="0" id="left1" class=" south">
+<tr> 
+<td> <spring:message code="wise.name" /> </td>
+<td> Project Name 1 </td> 
+<td> <img src="../<spring:theme code="run_project" />" padding="0" />  </td>
+</tr>
+<tr> 
+<td> <spring:message code="wise.period" /> </td>
+<td> 2 </td>
+<td> <img src="../<spring:theme code="change_period" />" padding="0" /></td>
+</tr>
+<tr>
+<td> <spring:message code="wise.team" /> </td>
+<td> Username 1 + Username 2 (sn1, sn2) </td>
+<td> <img src="../<spring:theme code="report_problem" />" padding="0"  /></td>
+</tr>
+
+<tr>
+<td> <spring:message code="wise.last-use" /> </td>
+<td> Tuesday, 5/23/04 </td>
+<td> <img src="../<spring:theme code="archive_project" />" padding="0"  /></td>
+</tr>
+</table>
+
+<h3 class="south_1 right4"> Projects with UserName2 </h3>
+<table border="1" class="right4 south_1">
+
+<tr> 
+<td> <spring:message code="wise.name" /> </td>
+<td> Project Name 1 </td> 
+<td> <img src="../<spring:theme code="run_project" />" /></td>
+
+</tr>
+<tr> 
+<td> <spring:message code="wise.period" /> </td>
+<td> 2 </td>
+<td> <img src="../<spring:theme code="change_period" />" /></td>
+</tr>
+<tr>
+<td> <spring:message code="wise.team" /> </td>
+<td> Username 1 + Username 2 (sn1, sn2) </td>
+<td> <img src="../<spring:theme code="report_problem" />" /></td>
+</tr>
+<tr>
+<td> <spring:message code="wise.last-use" /> </td>
+<td> Tuesday, 5/23/04 </td>
+<td> <img src="../<spring:theme code="archive_project" />" /></td>
+</tr>
+</table>
+ -->
+ 
+
+
+
+
+<!-- 
+  <c:forEach var="run" items="${run_list}">
+  <tr>
+    <td>${run.sdsOffering.name}</td>
+    <td><table border="1">
+          <tr>
+            <th><spring:message code="run.period" /></th>
+            <th><spring:message code="teacher.project-code" /></th>
+            <th><spring:message code="run.students" /></th>
+          </tr>
+          <c:forEach var="period" items="${run.periods}">
+            <tr>
+              <td>${period.name}</td>
+              <td>${run.runcode}-${period.name}</td>
+              <td>
+                <c:choose>
+                  <c:when test="${fn:length(period.members) == 0}" >
+                    None
+                  </c:when>
+                  <c:otherwise>
+                    <c:forEach var="member" items="${period.members}">${member.userDetails.firstname} ${member.userDetails.lastname}</c:forEach>
+                  </c:otherwise>
+                </c:choose>
+              </td>
+            </tr>
+          </c:forEach>
+        </table></td>
+    <td>
+      <c:choose>
+        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
+        <spring:message code="no.workgroups" />
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="workgroup" items="${workgroup_map[run]}">
+              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a><br />
+            </c:forEach>
+        </c:otherwise>
+      </c:choose>
+    </td>
+   </tr>
+  </c:forEach>
+</table>
+  
 <table border="1">
   <thead>
     <tr>
@@ -62,13 +265,14 @@ function popup(URL) {
   </thead>
   <c:forEach var="run" items="${run_list}">
   <tr>
+  
     <td>${run.sdsOffering.name}</td>
     <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
     <td>
     <a href="#"	onclick="javascript:popup('selectteam.html?runId=' + ${run.id} )">
 	  <img id="runproject" src="../<spring:theme code="run_project" />" />
 	</a>
-              <!--  
+       
       <c:choose>
         <c:when test="${fn:length(workgroup_map[run]) == 0}" >
         <spring:message code="not.in.workgroup.yet" />
@@ -81,13 +285,10 @@ function popup(URL) {
             </c:forEach>
         </c:otherwise>
       </c:choose>
-      -->
+    
               
     </td>
    </tr>
   </c:forEach>
 </table>
-</div>
-
-</body>
-</html>
+  -->
