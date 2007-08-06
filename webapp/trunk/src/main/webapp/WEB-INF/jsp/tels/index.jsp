@@ -53,7 +53,7 @@
 </li>
 
 <li>
-	<a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> 
+	<a href="#" onclick="javascript:alert('This page is not available yet')"> 
 		<img id="imgBorder2None" src="<spring:theme code="preview" />"
 		onmouseover="swapWiseImage('imgBorder2None',3);"
 		onmouseout="swapWiseImage('imgBorder2None',2);"
@@ -62,7 +62,7 @@
 </li>
 
 <li>
-	<a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> 
+	<a href="#" onclick="javascript:alert('This page is not available yet')"> 
 		<img id="imgBorder3None" src="<spring:theme code="common" />" 
 		onmouseover="swapWiseImage('imgBorder3None',5);"
 		onmouseout="swapWiseImage('imgBorder3None',4);"
@@ -89,7 +89,7 @@
 <div class="border1">
 <form id="home" method="post" action="j_acegi_security_check">
 <h4 class="heading2 north6"><spring:message code="wise.signIn" /></h4>
-<ul id="lineHeightAdj1" class="none north_5 marginVerAdj5">
+<ul id="lineHeightAdj1" class="none north marginVerAdj5">
 <li>
 <label for="username" class="login">
 <spring:message code="login.username" />
@@ -116,7 +116,9 @@
 </ul>
 
 </form>
-<a href="lostpasswordmain.html" class="right6 smallFont1 widthAdj2">
+<a href="#" class="right6 smallFont1 widthAdj2"
+
+onclick="javascript:alert('This page is not available yet')">
 <spring:message code="forgotten.username-or-password" /> 
 </a>
 
@@ -313,7 +315,7 @@ class="center"/>
 <spring:message code="wise.legal-acknowledgment" /> 
 <a href="http://www.nsf.gov" target="_blank"> <spring:message code="nsf" /></a>.
 <spring:message code="wise.copyright" /> &nbsp;&nbsp;&nbsp; 
-<a href="#"><spring:message code="wise.contact" /></a> 
+<a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="wise.contact" /></a> 
 
 </div>
 
