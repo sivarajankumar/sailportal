@@ -36,9 +36,9 @@
 <div id="navigation" class="north2 widthAdj4">
 <ul class="bigFont1">
 <li> <a href="teacher/index.html"> <img src="../<spring:theme code="home_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="../<spring:theme code="projects" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="../<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="../<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="projects" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>
 <ul id="tabnav" class="north_6" style="width:980px;">
@@ -81,8 +81,8 @@ Overview
 <label for="projectname">
 <spring:message code="wise.projectName" />
 </label>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <spring:message code="teacher.grade-by-step" /></a>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
+<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.grade-by-step" /></a>
+<a href="#" onclick="javascript:alert('This page is not available yet')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
 
 </li>
 
@@ -90,24 +90,24 @@ Overview
 <label for="projectname">
 <spring:message code="wise.projectName" />
 </label>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <spring:message code="teacher.grade-by-step" /></a>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
+<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.grade-by-step" /></a>
+<a href="#" onclick="javascript:alert('This page is not available yet')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
 </li>
 
 <li>
 <label for="projectname">
 <spring:message code="wise.projectName" />
 </label>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <spring:message code="teacher.grade-by-step" /></a>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
+<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.grade-by-step" /></a>
+<a href="#" onclick="javascript:alert('This page is not available yet')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
 </li>
 
 <li>
 <label for="projectname">
 <spring:message code="wise.projectName" />
 </label>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <spring:message code="teacher.grade-by-step" /></a>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
+<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.grade-by-step" /></a>
+<a href="#" onclick="javascript:alert('This page is not available yet')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
 </li>
 
 </ul>
@@ -133,7 +133,7 @@ Overview
 <div id="navigation">
 <ul id="left" class="lineHeightAdj2 none north4 ">
 <li>
-<a href="#"  onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#"  onclick="javascript:alert('This page is not available yet')">
 <img src="../<spring:theme code="home_mini" />" style="border:0px;"  />
 </a>
 </li>
@@ -145,7 +145,7 @@ Overview
 
 <ul id="left" class="lineHeightAdj2 none" style="position:relative;top:-10px;">
 <li>
-<a href="#"  onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#"  onclick="javascript:alert('This page is not available yet')">
 <img src="../<spring:theme code="projects_mini" />" style="border:0px;"/>
 </a>
 </li>
@@ -156,7 +156,7 @@ Overview
 
 <ul id="left" class="lineHeightAdj2 none" style="position:relative;top:30px;">
 <li>
-<a href="#"  onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#"  onclick="javascript:alert('This page is not available yet')">
 <img src="../<spring:theme code="management_mini" />" style="border:0px;"/>
 </a>
 </li>
@@ -167,7 +167,7 @@ Overview
 
 <ul id="left" class="lineHeightAdj2 none" style="position:relative;top:70px;">
 <li>
-<a href="#"  onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#"  onclick="javascript:alert('This page is not available yet')">
 <img src="../<spring:theme code="help_mini" />" style="border:0px;"/>
 </a>
 </li>
@@ -199,7 +199,7 @@ Overview
     <spring:message code="teacher.project-library" />
     </a>
 </td>
-<td align="left"><a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<td align="left"><a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="teacher.grade-work-by-student-group" />
 </a>
 </td>
@@ -211,31 +211,31 @@ Overview
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="teacher.grade-work-by-step" />
 </a>
 </td>
 </tr>
 <tr>
 <td align="left"> 
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="teacher.my-bookmarked-projects" />
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="teacher.edit-ready-made-comments" />
 </a>
 </td>
 </tr>
 <tr>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="teacher.my-customized-projects" />
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="teacher.real-time-class-monitor" />
 </a>
 </td>
@@ -251,60 +251,60 @@ Overview
 </tr>
 <tr>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.view-teacher-code" />
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.export-all-work-for-student" />
 </a>
 </td>
 </tr>
 <tr>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.view-my-students" />
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.export-all-work-for-class" />
 </a>
 </td>
 </tr>
 <tr>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.my-bookmarked-projects" />
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.print-all-work-for-student" />
 </a>
 </td>
 </tr>
 <tr>
 <td>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.my-customized-projects" />
 </a>
 </td>
 <td>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.print-all-work-for-class" />
 </a>
 </td>
 </tr>
 <tr>
 <td>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.batch-set-passwords" />
 </a>
 </td>
 <td>
-<a href="#" onclick="javascript:displayNothingYet('notexisting.html')">
+<a href="#" onclick="javascript:alert('This page is not available yet')">
 <spring:message code="student.update-account" />
 </a>
 </td>
