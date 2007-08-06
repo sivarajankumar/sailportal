@@ -54,8 +54,8 @@ public class HibernateRunDao extends AbstractHibernateDao<Run>
     public Run retrieveByRunCode(String runcode) {
     	return (Run) DataAccessUtils.uniqueResult(
     			this.getHibernateTemplate().findByNamedParam(
-    					"from RunImpl as run where run.runcode = :runcode", 
-    					"runcode", runcode));
+    					"from RunImpl as run where upper(run.runcode) = :runcode", 
+    					"runcode", runcode.toUpperCase()));
     }
 
     /**

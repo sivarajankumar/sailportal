@@ -284,9 +284,18 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         assertEquals(DEFAULT_STARTTIME, run.getStarttime());
         assertEquals(this.sdsOffering, run.getSdsOffering());
 
+        // user the same runcode but with all uppercase and make sure
+        // it can be retrieved
+        run = this.runDao.retrieveByRunCode(DEFAULT_RUNCODE.toUpperCase());
+        assertTrue(run instanceof RunImpl);
+        assertTrue(RunImpl.class == run.getClass());
+
+        assertEquals(DEFAULT_RUNCODE, run.getRuncode());
+        assertEquals(DEFAULT_STARTTIME, run.getStarttime());
+        assertEquals(this.sdsOffering, run.getSdsOffering());
+        
         // choose random non-existent runcode and try to retrieve
         assertNull(this.runDao.retrieveByRunCode(RUNCODE_NOT_IN_DB));
-
     }
 
     // test the hasRunCode() method of HibernateRunDao
@@ -302,7 +311,6 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
         assertTrue(this.runDao.hasRuncode(DEFAULT_RUNCODE));
         assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
-
     }
     
     public void testGetById() {
