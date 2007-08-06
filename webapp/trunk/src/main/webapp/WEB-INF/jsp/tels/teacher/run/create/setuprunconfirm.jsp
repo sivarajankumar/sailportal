@@ -40,9 +40,9 @@
 <div id="navigation" class="north2 widthAdj4">
 <ul class="bigFont1">
 <li> <a href="./teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>
 <!--  
@@ -60,7 +60,7 @@
 
 <b class="widthAdj6">
 <spring:message code="setuprun.confirmation.whereisnewrun" />
-<a href="./runlist.html" onclick="javascript:displayNothingYet('notexisting.html')"> 
+<a href="./runlist.html" onclick="javascript:alert('This page is not available yet')"> 
 <spring:message code="setuprun.confirmation.myprojectruns" />
 </a>
 <spring:message code="setuprun.confirmation.end" />
