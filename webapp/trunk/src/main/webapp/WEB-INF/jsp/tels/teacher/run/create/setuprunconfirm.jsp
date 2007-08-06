@@ -95,7 +95,7 @@
 <h4 class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
 <p class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
 
-<a href="./runlist.html" class="widthAdj6"> <img id="projectRuns"
+<a href="teacher/run/myprojectruns.html" class="widthAdj6"> <img id="projectRuns"
 	src="<spring:theme code="gotomyprojectruns" />"	 	
 	style="border:0px;"/>
 </a>

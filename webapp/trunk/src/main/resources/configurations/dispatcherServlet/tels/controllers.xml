@@ -125,13 +125,23 @@
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
 	</bean>
+	
+	<bean id="myProjectRunsController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
+		<property name="runService" ref="runService" />
+		<property name="workgroupService" ref="workgroupService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
+	</bean>
 
+<!--  	
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.run.RunListController">
 		<property name="runService" ref="runService" />
 		<property name="workgroupService" ref="workgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
+-->
+
 <!--  
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.run.AssessStudentWorkMainController">

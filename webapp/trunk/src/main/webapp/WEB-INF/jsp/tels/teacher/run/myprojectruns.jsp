@@ -29,8 +29,10 @@
 </head>
 
 <body>
-
-<%@ include file="teacherHeader.jsp"%>
+<div>
+<a href="../index.html">Go back to Teacher Home page</a>
+</div>
+<!--  
 <p class="userInfo">
 ${user.userDetails.username}
 </p>
@@ -43,6 +45,7 @@ ${user.userDetails.username}
 <li> <a href="#" onclick="javascript:displayNothingYet('notexisting.html')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>
+-->
 
 <h2 class="north2">
 <spring:message code="runlist.my.project.runs" />

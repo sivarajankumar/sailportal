@@ -22,7 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
-import org.telscenter.sail.webapp.presentation.web.controllers.run.RunListControllerTest;
+import org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListControllerTest;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

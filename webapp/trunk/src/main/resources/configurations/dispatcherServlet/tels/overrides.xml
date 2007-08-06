@@ -70,6 +70,7 @@
     		    /student/addproject.html=addProjectController
     		    /student/teamsignin.html=teamSignInController
     		    /student/startproject.html=startProjectController
+    		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /**/index.html=indexController
     		</value>
     	</property>

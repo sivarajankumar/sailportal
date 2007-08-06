@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.run;
+package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +64,7 @@ public class RunListController extends AbstractController {
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
 	
-	private static final String VIEW_NAME = "runlist";
+	private static final String VIEW_NAME = "teacher/run/myprojectruns";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,

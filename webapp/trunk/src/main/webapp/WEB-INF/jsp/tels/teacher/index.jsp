@@ -206,7 +206,7 @@ Overview
 </tr>
 <tr>
 <td align="left">
-    <a href="../runlist.html">
+    <a href="run/myprojectruns.html">
 <spring:message code="teacher.my-project-runs" />
 </a>
 </td>

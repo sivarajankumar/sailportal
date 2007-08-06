@@ -107,8 +107,7 @@
     create table runs_related_to_owners (
         runs_fk bigint not null,
         owners_fk bigint not null,
-        primary key (runs_fk, owners_fk),
-        unique (owners_fk)
+        primary key (runs_fk, owners_fk)
     );
 
     create table sds_curnits (

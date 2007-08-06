@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.run;
+package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,7 +49,7 @@ import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
-import org.telscenter.sail.webapp.presentation.web.controllers.run.RunListController;
+import org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**

@@ -30,7 +30,7 @@
 
 <body>
 
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
@@ -50,7 +50,7 @@ An error has occurred.
 
 </div>
 
-<%@ include file="footer.jsp" %>
+<%@ include file="../footer.jsp" %>
 
 </body>
 </html>
