@@ -26,7 +26,7 @@ java.lang.String[] countries = {"Afghanistan", "Albania", "Algeria", "Andorra", 
 		"Yemen",
 		"Zaire", "Zambia", "Zimbabwe"};
 for (String country : countries) {
-    if (country.toLowerCase().contains(request.getParameter("sofar").toLowerCase())) {
+    if (country.toLowerCase().startsWith(request.getParameter("sofar").toLowerCase())) {
 %><li><%= country %></li>
 <%
     }
