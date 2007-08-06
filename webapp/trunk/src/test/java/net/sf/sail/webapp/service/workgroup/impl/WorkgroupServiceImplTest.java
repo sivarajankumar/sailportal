@@ -28,6 +28,8 @@ import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
@@ -56,6 +58,10 @@ public class WorkgroupServiceImplTest extends TestCase {
     private WorkgroupServiceImpl workgroupServiceImpl;
     
     private static final String DEFAULT_WORKGROUP_NAME = "default workgroup";
+
+	private static final String USERNAME_1 = "username 1";
+
+	private static final String USERNAME_2 = "username 2";
 
     /**
      * @see junit.framework.TestCase#setUp()
@@ -306,6 +312,7 @@ public class WorkgroupServiceImplTest extends TestCase {
     }
     
     public void testAddMembers() {
+    	// first create a workgroup
         this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
         EasyMock.expectLastCall();
         EasyMock.replay(this.mockSdsWorkgroupDao);
@@ -321,7 +328,11 @@ public class WorkgroupServiceImplTest extends TestCase {
         EasyMock.reset(this.mockWorkgroupDao);
         EasyMock.reset(this.mockSdsWorkgroupDao);
 
+        // now add one member to that workgroup
         User newuser = new UserImpl();
+        MutableUserDetails userDetails1 = new PersistentUserDetails();
+        userDetails1.setUsername(USERNAME_1);
+        newuser.setUserDetails(userDetails1);
         this.workgroup.addMember(newuser);
         this.mockWorkgroupDao.save(this.workgroup);
         EasyMock.expectLastCall();
@@ -331,13 +342,60 @@ public class WorkgroupServiceImplTest extends TestCase {
         this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
         EasyMock.expectLastCall();
         EasyMock.replay(this.mockSdsWorkgroupDao);
-
                 
         Set<User> membersToAdd = new HashSet<User>();
         membersToAdd.add(newuser);
         this.workgroupServiceImpl.addMembers(this.workgroup, membersToAdd);
 
         assertEquals(1, this.workgroup.getMembers().size());
+        EasyMock.verify(this.mockSdsWorkgroupDao);
+        EasyMock.verify(this.mockWorkgroupDao);
         
+        // try to add a new user to that workgroup. should increase membership by 1
+        EasyMock.reset(this.mockWorkgroupDao);
+        EasyMock.reset(this.mockSdsWorkgroupDao);
+
+        User newuser2 = new UserImpl();
+        MutableUserDetails userDetails2 = new PersistentUserDetails();
+        userDetails2.setUsername(USERNAME_2);
+        newuser2.setUserDetails(userDetails2);
+        this.workgroup.addMember(newuser2);
+        this.mockWorkgroupDao.save(this.workgroup);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockWorkgroupDao);
+        
+        this.sdsWorkgroup.addMember(newuser2.getSdsUser());
+        this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockSdsWorkgroupDao);
+                
+        membersToAdd.add(newuser2);
+        this.workgroupServiceImpl.addMembers(this.workgroup, membersToAdd);
+
+        assertEquals(2, this.workgroup.getMembers().size());
+        EasyMock.verify(this.mockSdsWorkgroupDao);
+        EasyMock.verify(this.mockWorkgroupDao);
+
+        // try to add the already-existing user again...should not add
+        EasyMock.reset(this.mockWorkgroupDao);
+        EasyMock.reset(this.mockSdsWorkgroupDao);
+
+        this.workgroup.addMember(newuser);
+        this.mockWorkgroupDao.save(this.workgroup);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockWorkgroupDao);
+        
+        this.sdsWorkgroup.addMember(newuser.getSdsUser());
+        this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
+        EasyMock.expectLastCall();
+        EasyMock.replay(this.mockSdsWorkgroupDao);
+        
+        membersToAdd = new HashSet<User>();
+        membersToAdd.add(newuser);
+        this.workgroupServiceImpl.addMembers(this.workgroup, membersToAdd);
+
+        assertEquals(2, this.workgroup.getMembers().size());
+        EasyMock.verify(this.mockSdsWorkgroupDao);
+        EasyMock.verify(this.mockWorkgroupDao);
     }
 }
