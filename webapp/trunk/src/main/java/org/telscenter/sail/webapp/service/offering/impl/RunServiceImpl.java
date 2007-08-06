@@ -70,7 +70,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
     private RunDao<Run> runDao;
     
     private GroupDao<Group> groupDao;
-    
+        
     /**
      * @param groupDao
      *            the groupDao to set
@@ -91,6 +91,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
      */
+    @Transactional(readOnly = true)
     public List<Run> getRunList() {
         return runDao.getList();
     }
@@ -171,6 +172,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
         }
 
         this.runDao.save(run);
+        this.aclService.createAcl(run);
         return run;
     }
 

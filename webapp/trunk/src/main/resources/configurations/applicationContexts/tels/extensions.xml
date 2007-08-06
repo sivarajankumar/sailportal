@@ -46,6 +46,28 @@
     	scope="prototype" />
 
     <bean id="runService"
+        class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>org.telscenter.sail.webapp.service.offering.RunService</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref local="runServiceSecurity" />
+                <idref bean="runServiceTarget" />
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="runServiceSecurity"
+        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="validateConfigAttributes" value="true" />
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager" ref="offeringAccessDecisionManager" />
+        <property name="afterInvocationManager" ref="afterInvocationManager" />
+        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+    </bean>    
+
+    <bean id="runServiceTarget"
     	class="org.telscenter.sail.webapp.service.offering.impl.RunServiceImpl">
     	<property name="sdsOfferingDao" ref="sdsOfferingDao" />
     	<property name="offeringDao" ref="offeringDao" />

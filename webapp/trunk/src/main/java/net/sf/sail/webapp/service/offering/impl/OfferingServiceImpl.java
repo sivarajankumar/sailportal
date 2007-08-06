@@ -53,7 +53,7 @@ public class OfferingServiceImpl implements OfferingService {
 
     protected SdsOfferingDao sdsOfferingDao;
     
-    private AclService<Offering> aclService;
+    protected AclService<Offering> aclService;
 
 
     /**

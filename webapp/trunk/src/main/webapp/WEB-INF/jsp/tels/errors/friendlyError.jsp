@@ -1,4 +1,4 @@
-<%@ include file="include.jsp" %>
+<%@ include file="../include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -30,8 +30,6 @@
 
 <body>
 
-<%@ include file="../header.jsp" %>
-
 <div id="banner">
 <h1><spring:message code="banner.heading" /></h1>
 </div>
@@ -49,8 +47,6 @@ An error has occurred.
 </div>
 
 </div>
-
-<%@ include file="../footer.jsp" %>
 
 </body>
 </html>
