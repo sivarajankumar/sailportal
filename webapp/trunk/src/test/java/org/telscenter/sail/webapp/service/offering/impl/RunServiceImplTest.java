@@ -35,6 +35,7 @@ import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
@@ -43,6 +44,7 @@ import net.sf.sail.webapp.domain.impl.JnlpImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
+import net.sf.sail.webapp.service.AclService;
 
 import org.easymock.EasyMock;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
@@ -89,6 +91,9 @@ public class RunServiceImplTest extends TestCase {
     private GroupDao<Group> mockGroupDao;
     
     private RunServiceImpl runServiceImpl;
+    
+	private AclService<Offering> mockAclService;
+
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpInTransaction()
@@ -115,6 +120,9 @@ public class RunServiceImplTest extends TestCase {
         this.mockRunDao = EasyMock.createNiceMock(RunDao.class);
         this.runServiceImpl.setRunDao(this.mockRunDao);
         
+		this.mockAclService = EasyMock.createMock(AclService.class);
+		this.runServiceImpl.setAclService(mockAclService);
+        
         User user = new UserImpl();
 		owners.add(user);
     }
@@ -128,6 +136,7 @@ public class RunServiceImplTest extends TestCase {
         this.runServiceImpl = null;
         this.mockSdsOfferingDao = null;
         this.mockRunDao = null;
+		this.mockAclService = null;
     }
 
     public void testGetRunList() throws Exception {
