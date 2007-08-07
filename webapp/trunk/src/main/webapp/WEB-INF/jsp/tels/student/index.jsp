@@ -73,17 +73,17 @@ function popup(URL) {
 		</a>
 		</li>
 		<li>
-		<a href="#">
+		<a href="#" onclick="javascript:alert('This page is not available yet')">
 		<img src="../<spring:theme code="student_change_password" />" style="border:0px;"/>
 		</a>
 		</li>
 		<li>
-		<a href="#">
+		<a href="#" onclick="javascript:alert('This page is not available yet')">
 		<img src="../<spring:theme code="student_change_lang" />" style="border:0px;"/>
 		</a>
 		</li>
 		<li>
-		<a href="#">
+		<a href="#" onclick="javascript:alert('This page is not available yet')">
 		<img src="../<spring:theme code="sign_out" />" style="border:0px;"/>
 		</a>
 		</li>
@@ -94,11 +94,46 @@ function popup(URL) {
 	
  </div>
  
-<div id="right2" class="widthAdj3 north_5" >
+<!--  COMMENTED THIS OUT because clicking on them takes you to page not found page 
+ <div id="right2" class="widthAdj3 north_5" >
+ 
 <ul id="tabnav" class="widthAdj3" style="position:relative;top:-27px;">
 <li class="currentProjects bgColorLightBlue borderBottom"> <a href="enterprojectcode.html"><spring:message code="student.current-projects" /></a></li>
 <li class="archivedProjects "> <a href="#"><spring:message code="student.archived-projects" /> </a></li>
 </ul>
+
+-->
+
+<div id="right2" class="widthAdj3 north_5" >
+
+
+
+<div>
+<table border="1">
+  <thead>
+    <tr>
+      <th><spring:message code="run.name.heading" /></th>
+      <th>Teacher name</th>
+      <th><spring:message code="run.options.heading" /></th>
+    </tr>
+  </thead>
+  <c:forEach var="run" items="${run_list}">
+  <tr>
+    <td>${run.sdsOffering.name}</td>
+    <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
+    <td>
+    <a href="#"	onclick="javascript:popup('selectteam.html?runId=' + ${run.id} )">
+	  <img id="runproject" src="../<spring:theme code="run_project" />" />
+	</a>
+    </td>
+   </tr>
+  </c:forEach>
+</table>
+</div>
+
+
+<!-- ARCHANA- this doesn't work when there are more than 1 run that the student is associated to...the tables overlap.
+  also, the run project button is no longer clickable for some reason.
 
 <c:forEach var="run" items="${run_list}">
 
@@ -147,7 +182,7 @@ ${period.name}
 
 </c:forEach>
 </c:forEach>
-
+ -->
 
 </div>
 
