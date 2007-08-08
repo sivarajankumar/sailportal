@@ -52,6 +52,7 @@ public class JavaMailTest {
 	 * load the prop file
 	 */
 	@Before
+	@Ignore
 	public void setUp() {
 		URL resource = JavaMailTest.class.getResource("sendmail.properties");
 		props = new Properties();
@@ -64,6 +65,7 @@ public class JavaMailTest {
 	}
 
 	@After
+	@Ignore
 	public void tearDown() throws Exception {
 		props = null;
 	}
@@ -74,6 +76,7 @@ public class JavaMailTest {
 	 * @throws IOException
 	 */
 	@Test
+	@Ignore
 	public void testSendBasicMessage() {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 
@@ -101,6 +104,7 @@ public class JavaMailTest {
 	 * @throws MessagingException
 	 */
 	@Test
+	@Ignore
 	public void testSendMultiMessage() {
 		JavaMail jm = new JavaMail();
 		jm.setProperties(props);
