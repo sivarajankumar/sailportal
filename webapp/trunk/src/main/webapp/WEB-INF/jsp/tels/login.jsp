@@ -75,11 +75,6 @@
 </form>
 
 </div>
-<a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
-
-
-
-
 
 </div>
 
