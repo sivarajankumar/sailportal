@@ -52,10 +52,15 @@ public class JavaMailTest {
 	 * load the prop file
 	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		URL resource = JavaMailTest.class.getResource("sendmail.properties");
 		props = new Properties();
-		props.load(resource.openStream());
+		try {
+			props.load(resource.openStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@After
@@ -68,10 +73,8 @@ public class JavaMailTest {
 	 * 
 	 * @throws IOException
 	 */
-
-	@Ignore	
 	@Test
-	public void testSendBasicMessage() throws IOException {
+	public void testSendBasicMessage() {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 
 		sender.setUsername((String) props.get("mail.username"));
@@ -97,9 +100,8 @@ public class JavaMailTest {
 	 * @throws IOException
 	 * @throws MessagingException
 	 */
-	@Ignore 
 	@Test
-	public void testSendMultiMessage() throws IOException, MessagingException {
+	public void testSendMultiMessage() {
 		JavaMail jm = new JavaMail();
 		jm.setProperties(props);
 
@@ -107,8 +109,12 @@ public class JavaMailTest {
 				(String) props.get("mail.to1"),
 				(String) props.get("mail.to2") };
 
-		jm.postMail(recipients, (String) props.get("mail.subject"),
-				(String) props.get("mail.message"), (String) props
-				.get("mail.from"));
+		try {
+			jm.postMail(recipients, (String) props.get("mail.subject"),
+					(String) props.get("mail.message"), (String) props
+					.get("mail.from"));
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 }
