@@ -36,6 +36,7 @@ import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.AclService;
 
 import org.easymock.EasyMock;
 
@@ -52,6 +53,8 @@ public class WorkgroupServiceImplTest extends TestCase {
     private SdsWorkgroup sdsWorkgroup;
 
     private WorkgroupDao<Workgroup> mockWorkgroupDao;
+
+	private AclService<Workgroup> mockAclService;
 
     private Workgroup workgroup;
 
@@ -77,6 +80,9 @@ public class WorkgroupServiceImplTest extends TestCase {
 
         this.mockWorkgroupDao = EasyMock.createMock(WorkgroupDao.class);
         this.workgroupServiceImpl.setWorkgroupDao(this.mockWorkgroupDao);
+        
+		this.mockAclService = EasyMock.createMock(AclService.class);
+		this.workgroupServiceImpl.setAclService(mockAclService);
 
         this.sdsWorkgroup = new SdsWorkgroup();
 
@@ -95,6 +101,7 @@ public class WorkgroupServiceImplTest extends TestCase {
         this.sdsWorkgroup = null;
         this.mockWorkgroupDao = null;
         this.workgroup = null;
+        this.mockAclService = null;
     }
 
     public void testCreatePreviewWorkgroupForOfferingIfNecessary_Necessary() {
@@ -155,72 +162,10 @@ public class WorkgroupServiceImplTest extends TestCase {
         assertEquals(expectedList, workgroupServiceImpl.getWorkgroupList());
         EasyMock.verify(this.mockWorkgroupDao);
     }
-
+   
     // tests that the command is delegated to the DAOs and that the DAOs are
     // called once
     public void testCreateWorkgroup() throws Exception {
-    	// test for createWorkgroup() method.
-
-        this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
-        EasyMock.expectLastCall();
-        EasyMock.replay(this.mockSdsWorkgroupDao);
-
-        this.mockWorkgroupDao.save(this.workgroup);
-        EasyMock.expectLastCall();
-        EasyMock.replay(this.mockWorkgroupDao);
-
-        this.workgroupServiceImpl.createWorkgroup(this.workgroup);
-
-        EasyMock.verify(this.mockSdsWorkgroupDao);
-        EasyMock.verify(this.mockWorkgroupDao);
-    }
-
-    public void testCreateWorkgroup_BadRequestException() throws Exception {
-    	// test for createWorkgroup() method.
-
-        this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
-        EasyMock.expectLastCall().andThrow(
-                new BadRequestException("bad request"));
-        EasyMock.replay(this.mockSdsWorkgroupDao);
-
-        // expecting no calls to Dao.save()
-        EasyMock.replay(this.mockWorkgroupDao);
-
-        try {
-            this.workgroupServiceImpl.createWorkgroup(this.workgroup);
-            fail("BadRequestException expected");
-        } catch (BadRequestException expected) {
-        }
-
-        EasyMock.verify(this.mockSdsWorkgroupDao);
-        EasyMock.verify(this.mockWorkgroupDao);
-    }
-
-    public void testCreateWorkgroup_NetworkTransportException()
-            throws Exception {
-    	// test for createWorkgroup() method.
-
-        this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
-        EasyMock.expectLastCall().andThrow(
-                new NetworkTransportException("network transport exception"));
-        EasyMock.replay(this.mockSdsWorkgroupDao);
-
-        // expecting no calls to Dao.save()
-        EasyMock.replay(this.mockWorkgroupDao);
-
-        try {
-            this.workgroupServiceImpl.createWorkgroup(this.workgroup);
-            fail("NetworkTransportException expected");
-        } catch (NetworkTransportException expected) {
-        }
-
-        EasyMock.verify(this.mockSdsWorkgroupDao);
-        EasyMock.verify(this.mockWorkgroupDao);
-    }
-    
-    // tests that the command is delegated to the DAOs and that the DAOs are
-    // called once
-    public void testCreateWorkgroup_overloaded() throws Exception {
     	// test for createWorkgroup(String, Set<User>, Offering) method.
     	
         this.mockSdsWorkgroupDao.save(EasyMock.isA(SdsWorkgroup.class));
@@ -262,7 +207,7 @@ public class WorkgroupServiceImplTest extends TestCase {
         EasyMock.verify(this.mockWorkgroupDao);
     }
     
-    public void testCreateWorkgroup_overloaded_BadRequestException() throws Exception {
+    public void testCreateWorkgroup_BadRequestException() throws Exception {
     	// test for createWorkgroup(String, Set<User>, Offering) method.
 
         this.mockSdsWorkgroupDao.save(EasyMock.isA(SdsWorkgroup.class));
@@ -286,7 +231,7 @@ public class WorkgroupServiceImplTest extends TestCase {
         EasyMock.verify(this.mockWorkgroupDao);
     }
 
-    public void testCreateWorkgroup_overloaded_NetworkTransportException()
+    public void testCreateWorkgroup_NetworkTransportException()
             throws Exception {
     	// test for createWorkgroup(String, Set<User>, Offering) method.
 
@@ -312,16 +257,20 @@ public class WorkgroupServiceImplTest extends TestCase {
     }
     
     public void testAddMembers() {
-    	// first create a workgroup
-        this.mockSdsWorkgroupDao.save(this.sdsWorkgroup);
+        this.mockSdsWorkgroupDao.save(EasyMock.isA(SdsWorkgroup.class));
         EasyMock.expectLastCall();
         EasyMock.replay(this.mockSdsWorkgroupDao);
 
-        this.mockWorkgroupDao.save(this.workgroup);
+        this.mockWorkgroupDao.save(EasyMock.isA(Workgroup.class));
         EasyMock.expectLastCall();
         EasyMock.replay(this.mockWorkgroupDao);
 
-        this.workgroupServiceImpl.createWorkgroup(this.workgroup);
+        // test when we want to create a workgroup with no members
+        Set<User> members = new HashSet<User>();
+        Offering offering = new OfferingImpl();
+        offering.setSdsOffering(this.sdsWorkgroup.getSdsOffering());
+
+        this.workgroupServiceImpl.createWorkgroup(DEFAULT_WORKGROUP_NAME, members, offering);
 
         EasyMock.verify(this.mockSdsWorkgroupDao);
         EasyMock.verify(this.mockWorkgroupDao);

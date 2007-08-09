@@ -38,8 +38,12 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
+                /admin/adminoffering.html=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER
-                /**/*.html=ROLE_USER
+                /errors/*.html=ROLE_USER
+                /groups/*.html=ROLE_USER
+                /includes/*.html=ROLE_USER
+                /offerings/*.html=ROLE_USER
             </value>
         </property>
     </bean>
@@ -214,6 +218,23 @@
             </list>
         </property>
     </bean>
+    
+    <bean id="workgroupAccessDecisionManager"
+        class="org.acegisecurity.vote.ConsensusBased">
+        <property name="allowIfAllAbstainDecisions">
+            <value>false</value>
+        </property>
+        <property name="decisionVoters">
+            <list>
+                <ref local="roleVoter" />
+                <ref local="aclWorkgroupAdminVoter" />
+                <ref local="aclWorkgroupReadVoter" />
+                <ref local="aclWorkgroupWriteVoter" />
+                <ref local="aclWorkgroupCreateVoter" />
+                <ref local="aclWorkgroupDeleteVoter" />
+            </list>
+        </property>
+    </bean>
 
     <!-- ACL permission masks used by this application -->
     <bean id="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION"
@@ -280,6 +301,25 @@
             <value>net.sf.sail.webapp.domain.Offering</value>
         </property>
     </bean>
+    
+    <bean id="aclWorkgroupAdminVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_WORKGROUP_ADMIN</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.Workgroup</value>
+        </property>
+    </bean>
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_READ configuration settings -->
     <bean id="aclGroupReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
@@ -317,6 +357,25 @@
         </constructor-arg>
         <property name="processDomainObjectClass">
             <value>net.sf.sail.webapp.domain.Offering</value>
+        </property>
+    </bean>   
+
+	<bean id="aclWorkgroupReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_WORKGROUP_READ</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.Workgroup</value>
         </property>
     </bean>
 
@@ -358,6 +417,26 @@
         </constructor-arg>
         <property name="processDomainObjectClass">
             <value>net.sf.sail.webapp.domain.Offering</value>
+        </property>
+    </bean>
+
+    <bean id="aclWorkgroupWriteVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_WORKGROUP_WRITE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.Workgroup</value>
         </property>
     </bean>
 
@@ -404,6 +483,27 @@
         </property>
     </bean>
 
+   <bean id="aclWorkgroupCreateVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_WORKGROUP_CREATE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.CREATE" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.Workgroup</value>
+        </property>
+    </bean>
+
     <!-- An access decision voter that reads ACL_GROUP_DELETE configuration settings -->
     <bean id="aclGroupDeleteVoter"
         class="org.acegisecurity.vote.AclEntryVoter">
@@ -444,6 +544,27 @@
         </constructor-arg>
         <property name="processDomainObjectClass">
             <value>net.sf.sail.webapp.domain.Offering</value>
+        </property>
+    </bean> 
+    
+    <bean id="aclWorkgroupDeleteVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_WORKGROUP_DELETE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>net.sf.sail.webapp.domain.Workgroup</value>
         </property>
     </bean>
 
@@ -600,6 +721,28 @@
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="offeringAccessDecisionManager" />
+        <property name="afterInvocationManager" ref="afterInvocationManager" />
+        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+    </bean>    
+    
+       <bean id="workgroupService"
+        class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>net.sf.sail.webapp.service.workgroup.WorkgroupService</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref local="workgroupServiceSecurity" />
+                <idref bean="workgroupServiceTarget" />
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="workgroupServiceSecurity"
+        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="validateConfigAttributes" value="true" />
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager" ref="workgroupAccessDecisionManager" />
         <property name="afterInvocationManager" ref="afterInvocationManager" />
         <property name="objectDefinitionSource" ref="objectDefinitionSource" />
     </bean>    

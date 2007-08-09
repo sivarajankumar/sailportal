@@ -86,7 +86,7 @@ public class SdsWorkgroup implements SdsObject {
     @JoinColumn(name = SdsWorkgroup.COLUMN_NAME_SDS_OFFERING_FK, nullable = false)
     private SdsOffering sdsOffering;
 
-    @ManyToMany(targetEntity = SdsUser.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = SdsUser.class, fetch = FetchType.EAGER)
     @JoinTable(name = SdsWorkgroup.SDS_USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = SDS_WORKGROUP_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SDS_USER_JOIN_COLUMN_NAME, nullable = false))
     private Set<SdsUser> members = new HashSet<SdsUser>();
 

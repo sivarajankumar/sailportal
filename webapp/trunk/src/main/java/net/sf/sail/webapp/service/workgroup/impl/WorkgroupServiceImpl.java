@@ -29,6 +29,7 @@ import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -45,8 +46,18 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     private SdsWorkgroupDao sdsWorkgroupDao;
 
     private WorkgroupDao<Workgroup> workgroupDao;
+    
+    private AclService<Workgroup> aclService;
 
     /**
+	 * @param aclService the aclService to set
+	 */
+    @Required
+	public void setAclService(AclService<Workgroup> aclService) {
+		this.aclService = aclService;
+	}
+
+	/**
      * @param sdsWorkgroupDao
      *            the sdsWorkgroupDao to set
      */
@@ -62,17 +73,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     @Required
     public void setWorkgroupDao(WorkgroupDao<Workgroup> workgroupDao) {
         this.workgroupDao = workgroupDao;
-    }
-
-    /**
-     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createWorkgroup(net.sf.sail.webapp.domain.Workgroup)
-     */
-    @Transactional(rollbackFor = { BadRequestException.class,
-            NetworkTransportException.class })
-    public void createWorkgroup(Workgroup workgroup) {
-        this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
-        this.workgroupDao.save(workgroup);
-    }
+    }  
 
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createWorkgroup(net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Offering)
@@ -94,7 +95,10 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         workgroup.setOffering(offering);
         workgroup.setSdsWorkgroup(sdsWorkgroup);
 
-        createWorkgroup(workgroup);
+        this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
+        this.workgroupDao.save(workgroup);
+        
+        this.aclService.createAcl(workgroup);
 
         return workgroup;
     }
@@ -138,6 +142,8 @@ public class WorkgroupServiceImpl implements WorkgroupService {
             workgroup.setOffering(offering);
             workgroup.setSdsWorkgroup(sdsWorkgroup);
             this.workgroupDao.save(workgroup);
+            
+            this.aclService.createAcl(workgroup);
 
             workgroupList.add(workgroup);
         }

@@ -24,6 +24,8 @@ import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
+import org.acegisecurity.annotation.Secured;
+
 /**
  * @author Cynick Young
  * 
@@ -73,19 +75,9 @@ public interface WorkgroupService {
      * 
      * @return a <code>Workgroup</code> <code>List</code>.
      */
+//  @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
     public List<Workgroup> getWorkgroupList();
-
-    /**
-     * Creates a new <code>SdsWorkgroup</code> on the SDS as well as a
-     * <code>Workgroup</code> object in the local data store. A side effect is
-     * that the workgroup id is set to the value that the SDS assigns to the new
-     * workgroup.
-     * 
-     * @param workgroup
-     *            The workgroup you want to create (no workgroup id required).
-     */
-    public void createWorkgroup(Workgroup workgroup);
-    
+   
     /**
      * Creates a new <code>SdsWorkgroup</code> on the SDS as well as a
      * <code>Workgroup</code> object in the local data store, and then associates
