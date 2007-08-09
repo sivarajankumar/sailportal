@@ -137,8 +137,7 @@ public class RegisterStudentController extends SignupController {
 	}
 	
 	@Override
-	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
-	throws Exception {
+	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) {
 
 		StudentAccountForm accountForm = (StudentAccountForm) command;
 		StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
@@ -176,7 +175,14 @@ public class RegisterStudentController extends SignupController {
 				}
 				String runcode = RunUtils.getRunCode(projectCode);
 				String periodName = RunUtils.getRunPeriod(projectCode);
-				Run run = runService.retrieveRunByRuncode(runcode);
+				Run run = null;
+				try {
+					run = runService.retrieveRunByRuncode(runcode);
+				} catch (RunNotFoundException e) {
+					errors.reject("error.projectcode-not-in-db",
+					"Project Code is invalid. Get this from your teacher.");					
+					return;
+				}
 				if (run == null) {
 					errors.reject("error.projectcode-not-in-db",
 					"Project Code is invalid. Get this from your teacher.");					
