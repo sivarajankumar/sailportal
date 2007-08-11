@@ -1,4 +1,4 @@
-`<%@ include file="include.jsp"%>
+<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -64,11 +64,10 @@
    <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
-   </p>
+   
 
-
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
-<input type="submit" name="_finish" value="<spring:message code="navigate.done" />">
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+<input type="submit" name="_finish" value="<spring:message code="navigate.done" />" />
 </form>
 </body>
 </html>
