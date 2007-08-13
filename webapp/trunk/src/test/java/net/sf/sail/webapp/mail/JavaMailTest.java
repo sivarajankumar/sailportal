@@ -56,7 +56,7 @@ public class JavaMailTest {
 	 */
 	@Before
 	public void setUp() throws IOException {
-		InputStream is = getClass().getResourceAsStream( "/net/sf/sail/webapp/mail/sendmail.properties" );
+		InputStream is = getClass().getResourceAsStream( "net/sf/sail/webapp/mail/sendmail.properties" );
 
 		props = new Properties();
 		props.load(is);
