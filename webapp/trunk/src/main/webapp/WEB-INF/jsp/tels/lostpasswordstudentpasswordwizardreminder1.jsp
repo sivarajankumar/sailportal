@@ -1,4 +1,4 @@
-`<%@ include file="include.jsp"%>
+<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -59,9 +59,10 @@
  <p><label for="send_username"><spring:message code="login.username" /></label>
   <input type="text" name="username" id="username"  class="text" tabindex="1" /></p>
 
-
-<input type="submit" name="_target1" value="<spring:message code="navigate.next" />">
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />">
+<div>
+  <input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
+  <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+</div>
 
 </form>
 </body>
