@@ -24,11 +24,9 @@
 package net.sf.sail.webapp.mail;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Iterator;
+import java.net.URL;
 import java.util.Properties;
 import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -59,24 +57,24 @@ public class JavaMailTest {
 	public void setUp() {
 		
 		
-		bundle    =   (PropertyResourceBundle) ResourceBundle.getBundle ("net.sf.sail.webapp.mail.sendmail");
-		
-		Enumeration<String> keys = bundle.getKeys();
-		
-		while (keys.hasMoreElements()) {
-			  String key = keys.nextElement();
-			  props.setProperty(key, bundle.getString(key));
-			  // process element
-			}
-		System.out.println("hey");
-//		URL resource = JavaMailTest.class.getResource("sendmail.properties");
-//		props = new Properties();
-//		try {
-//			props.load(resource.openStream());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+//		bundle    =   (PropertyResourceBundle) ResourceBundle.getBundle ("net.sf.sail.webapp.mail.sendmail");
+//		
+//		Enumeration<String> keys = bundle.getKeys();
+//		
+//		while (keys.hasMoreElements()) {
+//			  String key = keys.nextElement();
+//			  props.setProperty(key, bundle.getString(key));
+//			  // process element
+//			}
+//		System.out.println("hey");
+		URL resource = JavaMailTest.class.getResource("sendmail.properties");
+		props = new Properties();
+		try {
+			props.load(resource.openStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@After
