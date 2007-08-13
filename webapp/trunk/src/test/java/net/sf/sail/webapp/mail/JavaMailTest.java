@@ -25,16 +25,15 @@ package net.sf.sail.webapp.mail;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.Properties;
 import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -55,7 +54,7 @@ public class JavaMailTest {
 	 * load the prop file
 	 */
 	@Before
-	//@Ignore
+	@Ignore
 	public void setUp() {
 		
 //		System.out.println("START");
@@ -81,7 +80,7 @@ public class JavaMailTest {
 	}
 
 	@After
-	//@Ignore
+	@Ignore
 	public void tearDown() throws Exception {
 		props = null;
 	}
@@ -92,7 +91,7 @@ public class JavaMailTest {
 	 * @throws IOException
 	 */
 	@Test
-	//@Ignore
+	@Ignore
 	public void testSendBasicMessage() {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 
@@ -122,7 +121,7 @@ public class JavaMailTest {
 	 * @throws MessagingException
 	 */
 	@Test
-	//@Ignore
+	@Ignore
 	public void testSendMultiMessage() {
 		JavaMail jm = new JavaMail();
 		jm.setProperties(props);
