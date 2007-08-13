@@ -24,7 +24,8 @@
 package net.sf.sail.webapp.mail;
 
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.Properties;
 import java.util.PropertyResourceBundle;
 
@@ -33,7 +34,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -48,40 +48,22 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 public class JavaMailTest {
 
 	private PropertyResourceBundle bundle;
-	private Properties props = new Properties();
+	private Properties props;
+	private Enumeration<String> keys;
 
 	/**
 	 * load the prop file
 	 */
 	@Before
-	@Ignore
-	public void setUp() {
-		
-//		System.out.println("START");
-//		bundle    =   (PropertyResourceBundle) ResourceBundle.getBundle ("sendmail.properties");
-//		
-//		Enumeration<String> keys = bundle.getKeys();
-//		
-//		while (keys.hasMoreElements()) {
-//			  String key = keys.nextElement();
-//			  props.setProperty(key, bundle.getString(key));
-//			  // process element
-//			}
-//		System.out.println("hey");
-		URL url = this.getClass().getClassLoader().getResource("sendmail.properties");
+	public void setUp() throws IOException {
+		InputStream is = getClass().getResourceAsStream( "/net/sf/sail/webapp/mail/sendmail.properties" );
 
 		props = new Properties();
-		try {
-			props.load(url.openStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		props.load(is);
 	}
 
 	@After
-	@Ignore
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		props = null;
 	}
 
@@ -91,8 +73,10 @@ public class JavaMailTest {
 	 * @throws IOException
 	 */
 	@Test
-	@Ignore
-	public void testSendBasicMessage() {
+	//@Ignore
+	public void testSendBasicMessage() throws IOException {
+		this.setUp();
+		
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 
 		sender.setUsername((String) props.get("mail.username"));
@@ -109,9 +93,12 @@ public class JavaMailTest {
 			helper.setSubject(((String) props.get("mail.subject")));
 		} catch (MessagingException e) {
 			e.printStackTrace();
+		} catch(IllegalArgumentException iae) {
+			iae.printStackTrace();
 		}
 
 		sender.send(message);
+		this.tearDown();
 	}
 
 	/**
@@ -121,8 +108,8 @@ public class JavaMailTest {
 	 * @throws MessagingException
 	 */
 	@Test
-	@Ignore
-	public void testSendMultiMessage() {
+	public void testSendMultiMessage() throws IOException {
+		this.setUp();
 		JavaMail jm = new JavaMail();
 		jm.setProperties(props);
 
@@ -134,6 +121,7 @@ public class JavaMailTest {
 			jm.postMail(recipients, (String) props.get("mail.subject"),
 					(String) props.get("mail.message"), (String) props
 					.get("mail.from"));
+			this.tearDown();
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
