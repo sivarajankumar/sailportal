@@ -59,7 +59,7 @@ public class JavaMailTest {
 	public void setUp() {
 		
 		System.out.println("START");
-		bundle    =   (PropertyResourceBundle) ResourceBundle.getBundle ("net/sf/sail/webapp/mail/sendmail");
+		bundle    =   (PropertyResourceBundle) ResourceBundle.getBundle ("src/test/java/net/sf/sail/webapp/mail/sendmail");
 		
 		Enumeration<String> keys = bundle.getKeys();
 		
