@@ -37,8 +37,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.domain.impl.ReminderParameters;
-import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtils;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -66,10 +66,10 @@ public class LostPasswordStudentProjectCodeController extends
             throws Exception {
         ReminderParameters params = (ReminderParameters) command;
 
-        String projectCode = params.getProjectCode();
+        Projectcode projectcode = new Projectcode(params.getProjectCode());
         
-        String runCode = RunUtils.getRunCode(projectCode);
-        String runPeriod = RunUtils.getRunPeriod(projectCode);
+        String runCode = projectcode.getRuncode();
+        String runPeriod = projectcode.getRunPeriod();
         
         if( runService.isRunCodeInDB(runCode)) {
         	
@@ -88,7 +88,7 @@ public class LostPasswordStudentProjectCodeController extends
         	
         	
         	Map<String, Object> model = new HashMap<String, Object>();
-			model.put(PROJECT_CODE, projectCode);
+			model.put(PROJECT_CODE, projectcode.getProjectcode());
 			model.put(RUN_TITLE, run.getSdsOffering().getName());
 			model.put(USERS, usersMap);
 			return new ModelAndView(getSuccessView(), model);

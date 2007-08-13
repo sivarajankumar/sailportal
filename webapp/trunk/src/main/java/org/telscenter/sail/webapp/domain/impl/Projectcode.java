@@ -44,7 +44,7 @@ public class Projectcode implements Serializable {
 	private static String SEPARATOR = "-";
 
 	/**
-	 * Constuctor
+	 * Constructor
 	 * 
 	 * @param projectcode
 	 */

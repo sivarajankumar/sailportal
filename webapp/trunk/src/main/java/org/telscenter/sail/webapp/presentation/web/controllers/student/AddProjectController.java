@@ -38,7 +38,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
-import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtils;
+import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -73,9 +73,9 @@ public class AddProjectController extends SimpleFormController {
 
     	ModelAndView modelAndView = null;
     	Run run = null;
-    	String projectcode = params.getProjectcode();
-    	String runcode = RunUtils.getRunCode(projectcode);
-    	String periodName = RunUtils.getRunPeriod(projectcode);
+    	Projectcode projectcode = new Projectcode(params.getProjectcode());
+    	String runcode = projectcode.getRuncode();
+    	String periodName = projectcode.getRunPeriod();
     	try {
     		run = this.runService.retrieveRunByRuncode(runcode);
         	Group period = run.getPeriodByName(periodName);

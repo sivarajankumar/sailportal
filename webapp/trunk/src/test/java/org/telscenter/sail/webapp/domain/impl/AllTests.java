@@ -36,6 +36,7 @@ public class AllTests {
                 "Test for org.telscenter.sail.webapp.domain.impl");
         //$JUnit-BEGIN$
         suite.addTestSuite(RunImplTest.class);
+        suite.addTestSuite(ProjectcodeTest.class);
         //$JUnit-END$
         return suite;
 	}

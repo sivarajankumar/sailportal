@@ -43,8 +43,8 @@ import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
-import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtils;
 import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -94,9 +94,9 @@ public class RegisterStudentController extends SignupController {
 		if (accountForm.isNewAccount()) {
 			try {
 				User user = this.userService.createUser(userDetails);
-				String projectCode = accountForm.getProjectCode();
-				String runcode = RunUtils.getRunCode(projectCode);
-				String periodName = RunUtils.getRunPeriod(projectCode);
+				Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
+				String runcode = projectcode.getRuncode();
+				String periodName = projectcode.getRunPeriod();
 				Run run = this.runService.retrieveRunByRuncode(runcode);
 				Group period = run.getPeriodByName(periodName);
 				Set<User> membersToAdd = new HashSet<User>();
@@ -167,14 +167,14 @@ public class RegisterStudentController extends SignupController {
 				"Project Code must be specified. Get this from your teacher.");
 				return;
 			} else {
-				int indexOfHyphon = projectCode.lastIndexOf("-");
-				if (indexOfHyphon < 0) {
+				Projectcode projectcode = new Projectcode(projectCode);
+				if (!projectcode.isLegalProjectcode()) {
 					errors.reject("error.projectcode-invalid",
 					"Project Code is invalid. Get this from your teacher.");
 					return;
 				}
-				String runcode = RunUtils.getRunCode(projectCode);
-				String periodName = RunUtils.getRunPeriod(projectCode);
+				String runcode = projectcode.getRuncode();
+				String periodName = projectcode.getRunPeriod();
 				Run run = null;
 				try {
 					run = runService.retrieveRunByRuncode(runcode);
