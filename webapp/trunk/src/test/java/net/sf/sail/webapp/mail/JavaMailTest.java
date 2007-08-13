@@ -58,26 +58,26 @@ public class JavaMailTest {
 	//@Ignore
 	public void setUp() {
 		
-		System.out.println("START");
-		bundle    =   (PropertyResourceBundle) ResourceBundle.getBundle ("sendmail.properties");
-		
-		Enumeration<String> keys = bundle.getKeys();
-		
-		while (keys.hasMoreElements()) {
-			  String key = keys.nextElement();
-			  props.setProperty(key, bundle.getString(key));
-			  // process element
-			}
+//		System.out.println("START");
+//		bundle    =   (PropertyResourceBundle) ResourceBundle.getBundle ("sendmail.properties");
+//		
+//		Enumeration<String> keys = bundle.getKeys();
+//		
+//		while (keys.hasMoreElements()) {
+//			  String key = keys.nextElement();
+//			  props.setProperty(key, bundle.getString(key));
+//			  // process element
+//			}
 //		System.out.println("hey");
-//		URL url = ClassLoader.getSystemResource("sendmail.properties");
-//
-//		props = new Properties();
-//		try {
-//			props.load(url.openStream());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		URL url = this.getClass().getClassLoader().getResource("sendmail.properties");
+
+		props = new Properties();
+		try {
+			props.load(url.openStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@After
