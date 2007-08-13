@@ -67,10 +67,11 @@ public class JavaMailTest {
 //			  // process element
 //			}
 		System.out.println("hey");
-		URL resource = JavaMailTest.class.getResource("sendmail.properties");
+		URL url = ClassLoader.getSystemResource("sendmail.properties");
+
 		props = new Properties();
 		try {
-			props.load(resource.openStream());
+			props.load(url.openStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
