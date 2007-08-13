@@ -55,7 +55,7 @@ public class JavaMailTest {
 	/**
 	 * load the prop file
 	 */
-	//@Before
+	@Before
 	@Ignore
 	public void setUp() throws IOException {
 		InputStream is = getClass().getResourceAsStream( "/net/sf/sail/webapp/mail/sendmail.properties" );
@@ -64,7 +64,7 @@ public class JavaMailTest {
 		props.load(is);
 	}
 
-	//@After
+	@After
 	@Ignore
 	public void tearDown() {
 		props = null;
@@ -75,7 +75,7 @@ public class JavaMailTest {
 	 * 
 	 * @throws IOException
 	 */
-	//@Test
+	@Test
 	@Ignore
 	public void testSendBasicMessage() throws IOException {
 		this.setUp();
@@ -110,7 +110,7 @@ public class JavaMailTest {
 	 * @throws IOException
 	 * @throws MessagingException
 	 */
-	//@Test
+	@Test
 	@Ignore
 	public void testSendMultiMessage() throws IOException {
 		this.setUp();
