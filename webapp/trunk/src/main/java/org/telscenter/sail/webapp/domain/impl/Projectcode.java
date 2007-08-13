@@ -79,7 +79,7 @@ public class Projectcode implements Serializable {
 	/**
 	 * @return the runcode
 	 */
-	public String getRunCode() {
+	public String getRuncode() {
 		return StringUtils.substringBefore(projectcode, SEPARATOR);
 	}
 	
@@ -97,7 +97,7 @@ public class Projectcode implements Serializable {
 	 */
 	public boolean isLegalProjectcode() {
 		if (StringUtils.contains(projectcode, SEPARATOR)) {
-			String runcode = getRunCode();
+			String runcode = getRuncode();
 			String periodname = getRunPeriod();
 			if (!StringUtils.isEmpty(runcode) && 
 			    !StringUtils.isEmpty(periodname) && 
