@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.acegisecurity.annotation.Secured;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
 import net.sf.sail.webapp.domain.User;
@@ -52,7 +51,7 @@ public interface RunService extends OfferingService {
      * @return the run created.
      */
 //  @Secured( { "ROLE_TEACHER", "ROLE_ADMINISTRATOR", "ROLE_RESEARCHER", "ROLE_TA" })
-	public RunImpl createRun(RunParameters runParameters) throws CurnitNotFoundException;
+	public Run createRun(RunParameters runParameters) throws CurnitNotFoundException;
 	
 	/**
 	 * Retrieves a list of <code>Run</code>
