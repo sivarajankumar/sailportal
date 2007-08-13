@@ -24,15 +24,17 @@
 package net.sf.sail.webapp.mail;
 
 import java.io.IOException;
-import java.net.URL;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -46,7 +48,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
  */
 public class JavaMailTest {
 
-	private Properties props;
+	private PropertyResourceBundle bundle;
+	private Properties props = new Properties();
 
 	/**
 	 * load the prop file
@@ -54,14 +57,26 @@ public class JavaMailTest {
 	@Before
 	//@Ignore
 	public void setUp() {
-		URL resource = JavaMailTest.class.getResource("sendmail.properties");
-		props = new Properties();
-		try {
-			props.load(resource.openStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
+		bundle    =   (PropertyResourceBundle) ResourceBundle.getBundle ("net.sf.sail.webapp.mail.sendmail");
+		
+		Enumeration<String> keys = bundle.getKeys();
+		
+		while (keys.hasMoreElements()) {
+			  String key = keys.nextElement();
+			  props.setProperty(key, bundle.getString(key));
+			  // process element
+			}
+		System.out.println("hey");
+//		URL resource = JavaMailTest.class.getResource("sendmail.properties");
+//		props = new Properties();
+//		try {
+//			props.load(resource.openStream());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	@After
@@ -82,6 +97,8 @@ public class JavaMailTest {
 
 		sender.setUsername((String) props.get("mail.username"));
 		sender.setPassword((String) props.get("mail.password"));
+		
+	
 		sender.setJavaMailProperties(props);
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
