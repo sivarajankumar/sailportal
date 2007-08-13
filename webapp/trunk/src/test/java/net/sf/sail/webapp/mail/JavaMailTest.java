@@ -66,7 +66,7 @@ public class JavaMailTest {
 //			  props.setProperty(key, bundle.getString(key));
 //			  // process element
 //			}
-//		System.out.println("hey");
+		System.out.println("hey");
 		URL resource = JavaMailTest.class.getResource("sendmail.properties");
 		props = new Properties();
 		try {
