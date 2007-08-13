@@ -26,7 +26,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
-import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtils;
+import org.telscenter.sail.webapp.domain.impl.Projectcode;
 
 /**
  * Validator for student's AddProjectParameters
@@ -56,9 +56,9 @@ public class AddProjectParametersValidator implements Validator {
 			return;
 		}
 		
-		String projectcode = params.getProjectcode();
+		Projectcode projectcode = new Projectcode(params.getProjectcode());
 
-		if (!RunUtils.isLegalProjectcode(projectcode)) {
+		if (!projectcode.isLegalProjectcode()) {
 			errors.rejectValue("projectcode", "error.illegal-projectcode");
 		}
 	}

@@ -42,7 +42,6 @@ public class AllTests {
         suite.addTestSuite(RegisterTeacherControllerTest.class);
         suite.addTestSuite(RegisterStudentControllerTest.class);
         suite.addTestSuite(RunListControllerTest.class);
-        suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.run.AllTests.suite());
         suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.student.AllTests.suite());
         //$JUnit-END$
         return suite;
