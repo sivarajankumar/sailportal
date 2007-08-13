@@ -39,6 +39,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.group.GroupService;
@@ -104,8 +105,11 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 	
 	RunService mockRunService;
 	
+	AclService<Run> mockAclService;
+	
 	RegisterStudentController signupController;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -118,6 +122,7 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		mockUserService = createMock(UserService.class);
 		mockGroupService = createMock(GroupService.class);
 		mockRunService = createMock(RunService.class);
+		mockAclService = createMock(AclService.class);
 		Calendar cal = Calendar.getInstance();
 		cal.set(1983, 6, 19);
 		birthday = cal.getTime();
@@ -138,6 +143,7 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		signupController.setUserService(mockUserService);
 		signupController.setGroupService(mockGroupService);
 		signupController.setRunService(mockRunService);
+		signupController.setAclService(mockAclService);
 		signupController.setSuccessView(SUCCESS);
 	}
 	

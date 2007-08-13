@@ -70,9 +70,7 @@ public class StudentIndexController extends AbstractController {
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
  
-		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
-		
-		List<Run> runlist = runService.getRunList(user);
+		List<Run> runlist = runService.getRunList();
 
 		modelAndView.addObject(RUN_LIST_KEY, runlist);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);

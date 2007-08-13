@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.GroupService;
 
 import org.springframework.validation.BindException;
@@ -53,6 +54,8 @@ public class AddProjectController extends SimpleFormController {
 	private RunService runService;
 	
 	private GroupService groupService;
+
+    private AclService<Run> aclService;
 
 	/**
      * On submission of the Add a Project form, the logged-in user is added to 
@@ -78,6 +81,7 @@ public class AddProjectController extends SimpleFormController {
     	String periodName = projectcode.getRunPeriod();
     	try {
     		run = this.runService.retrieveRunByRuncode(runcode);
+			this.aclService.createAcl(run);
         	Group period = run.getPeriodByName(periodName);
         	Set<User> membersToAdd = new HashSet<User>();
         	membersToAdd.add(user);
@@ -106,5 +110,11 @@ public class AddProjectController extends SimpleFormController {
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
-	
+
+	/**
+	 * @param aclService the aclService to set
+	 */
+	public void setAclService(AclService<Run> aclService) {
+		this.aclService = aclService;
+	}
 }

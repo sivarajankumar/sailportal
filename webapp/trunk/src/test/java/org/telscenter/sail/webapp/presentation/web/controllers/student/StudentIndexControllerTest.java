@@ -112,7 +112,7 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
     }
     
     @Test public void testHandleRequestInternal_WithRun() throws Exception {
-    	EasyMock.expect(mockRunService.getRunList(user)).andReturn(
+    	EasyMock.expect(mockRunService.getRunList()).andReturn(
     			expectedRunList);
     	EasyMock.replay(mockRunService);
     	
@@ -129,7 +129,7 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
     
     @Test public void testHandleRequestInternal_WithoutRun() throws Exception {
     	List<Run> emptyRunList = Collections.emptyList();
-    	EasyMock.expect(mockRunService.getRunList(user)).
+    	EasyMock.expect(mockRunService.getRunList()).
     	       andReturn(emptyRunList);
     	EasyMock.replay(mockRunService);
     	

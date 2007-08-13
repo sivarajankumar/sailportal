@@ -103,6 +103,7 @@
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.AddProjectController">
     	<property name="runService" ref="runService" />
     	<property name="groupService" ref="groupService" />
+    	<property name="aclService" ref="aclServiceImpl" />
     	<property name="commandName" value="addProjectParameters" />    	
     	<property name="commandClass" 
     	    value="org.telscenter.sail.webapp.domain.impl.AddProjectParameters" />

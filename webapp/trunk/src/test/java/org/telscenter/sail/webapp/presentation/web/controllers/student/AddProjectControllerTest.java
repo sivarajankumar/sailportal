@@ -33,6 +33,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.GroupService;
 
 import org.easymock.EasyMock;
@@ -73,6 +74,8 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 
 	private GroupService mockGroupService;
 	
+	private AclService<Run> mockAclService;
+	
 	private ApplicationContext mockApplicationContext;
 	
 	private MockHttpServletRequest request;
@@ -93,6 +96,7 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 	 * @throws Exception 
 	 * @see junit.framework.TestCase#setUp()
 	 */
+	@SuppressWarnings("unchecked")
 	protected void setUp() throws Exception {
 		super.setUp();
 		mockApplicationContext = createMock(ApplicationContext.class);
@@ -116,10 +120,12 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 		
 		this.mockRunService = EasyMock.createMock(RunService.class);
 		this.mockGroupService = EasyMock.createMock(GroupService.class);
+		this.mockAclService = EasyMock.createMock(AclService.class);
 		addProjectController = new AddProjectController();
 		addProjectController.setApplicationContext(mockApplicationContext);
 		addProjectController.setRunService(mockRunService);
 		addProjectController.setGroupService(mockGroupService);
+		addProjectController.setAclService(mockAclService);
 		addProjectController.setSuccessView(SUCCESS);
 		addProjectController.setFormView(FORM);
 	}

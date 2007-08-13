@@ -51,6 +51,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.group.GroupService;
 
@@ -65,6 +66,8 @@ public class RegisterStudentController extends SignupController {
 	private RunService runService;
 	
 	private GroupService groupService;
+	
+    private AclService<Run> aclService;
 	
 	protected static final String USERNAME_KEY = "username";
 	
@@ -98,6 +101,7 @@ public class RegisterStudentController extends SignupController {
 				String runcode = projectcode.getRuncode();
 				String periodName = projectcode.getRunPeriod();
 				Run run = this.runService.retrieveRunByRuncode(runcode);
+				this.aclService.createAcl(run);
 				Group period = run.getPeriodByName(periodName);
 				Set<User> membersToAdd = new HashSet<User>();
 				membersToAdd.add(user);
@@ -228,4 +232,10 @@ public class RegisterStudentController extends SignupController {
 		this.groupService = groupService;
 	}
 
+	/**
+	 * @param aclService the aclService to set
+	 */
+	public void setAclService(AclService<Run> aclService) {
+		this.aclService = aclService;
+	}
 }
