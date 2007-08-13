@@ -34,6 +34,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -56,7 +57,7 @@ public class JavaMailTest {
 	 */
 	@Before
 	public void setUp() throws IOException {
-		InputStream is = getClass().getResourceAsStream( "net/sf/sail/webapp/mail/sendmail.properties" );
+		InputStream is = getClass().getResourceAsStream( "/net/sf/sail/webapp/mail/sendmail.properties" );
 
 		props = new Properties();
 		props.load(is);
@@ -72,8 +73,8 @@ public class JavaMailTest {
 	 * 
 	 * @throws IOException
 	 */
-	@Test
-	//@Ignore
+	//@Test
+	@Ignore
 	public void testSendBasicMessage() throws IOException {
 		this.setUp();
 		
@@ -107,7 +108,8 @@ public class JavaMailTest {
 	 * @throws IOException
 	 * @throws MessagingException
 	 */
-	@Test
+	//@Test
+	@Ignore
 	public void testSendMultiMessage() throws IOException {
 		this.setUp();
 		JavaMail jm = new JavaMail();
