@@ -40,7 +40,12 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
- * Tests sending a message to specified server. 
+ * Tests sending a message to specified server. Note that this test DOES NOT pass if the properties file
+ * is not found: sendmail.properties.
+ * 
+ * 1. rename sendmail_sample.properties to sendmail.properties
+ * 2. fill in empty fields
+ * 3. run test
  * 
  * @author aperritano
  * 
@@ -52,7 +57,7 @@ public class JavaMailTest {
 	private Enumeration<String> keys;
 
 	/**
-	 * load the prop file
+	 * loads the property file that contains all the javamail server information
 	 */
 	@Before
 	@Ignore
@@ -70,7 +75,7 @@ public class JavaMailTest {
 	}
 
 	/**
-	 * tests the basic sending
+	 * tests sending just a basic message.
 	 * 
 	 * @throws IOException
 	 */
@@ -104,7 +109,7 @@ public class JavaMailTest {
 	}
 
 	/**
-	 * tests send multi emails interface
+	 * tests sending a message to multiple email receiptents. 
 	 * 
 	 * @throws IOException
 	 * @throws MessagingException
