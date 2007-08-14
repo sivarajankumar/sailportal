@@ -40,8 +40,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
- * Tests sending a message to specified server. Note that this test passes if the properties file
- * is not found.
+ * Tests sending a message to specified server. 
  * 
  * @author aperritano
  * 
