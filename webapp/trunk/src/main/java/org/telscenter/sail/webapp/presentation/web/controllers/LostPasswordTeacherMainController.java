@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.mail.JavaMail;
+import net.sf.sail.webapp.mail.JavaMailHelper;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
@@ -49,13 +49,13 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 public class LostPasswordTeacherMainController extends SimpleFormController {
 
 	protected UserService userService = null;
-	protected JavaMail javaMail = null;
+	protected JavaMailHelper javaMail = null;
 
-	public JavaMail getJavaMail() {
+	public JavaMailHelper getJavaMail() {
 		return javaMail;
 	}
 
-	public void setJavaMail(JavaMail javaMail) {
+	public void setJavaMail(JavaMailHelper javaMail) {
 		this.javaMail = javaMail;
 	}
 
