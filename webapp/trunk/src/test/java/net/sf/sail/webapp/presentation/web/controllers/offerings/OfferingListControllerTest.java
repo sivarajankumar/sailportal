@@ -23,26 +23,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
-import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.presentation.web.controllers.ModelAndViewTests;
 import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.easymock.EasyMock;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -50,137 +43,122 @@ import org.springframework.web.servlet.ModelAndView;
  * 
  * @version $Id$
  */
-public class OfferingListControllerTest extends AbstractModelAndViewTests {
+public class OfferingListControllerTest extends ModelAndViewTests {
 
-    private OfferingListController offeringListController;
+	private OfferingListController offeringListController;
 
-    private HttpRestTransport mockHttpTransport;
+	private HttpRestTransport mockHttpTransport;
 
-    private MockHttpServletRequest request;
+	private OfferingService mockOfferingsService;
 
-    private MockHttpServletResponse response;
+	private WorkgroupService mockWorkgroupService;
 
-    private OfferingService mockOfferingsService;
+	private List<Offering> expectedOfferingList;
 
-    private WorkgroupService mockWorkgroupService;
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	protected void setUp() throws Exception {
+		super.setUp();
+		this.mockOfferingsService = EasyMock.createMock(OfferingService.class);
+		this.mockWorkgroupService = EasyMock.createMock(WorkgroupService.class);
+		SdsOffering sdsOffering = new SdsOffering();
 
-    private List<Offering> expectedOfferingList;
+		SdsCurnit curnit = new SdsCurnit();
+		curnit.setSdsObjectId(1);
+		sdsOffering.setSdsCurnit(curnit);
 
-    private User user;
+		SdsJnlp jnlp = new SdsJnlp();
+		jnlp.setSdsObjectId(2);
+		sdsOffering.setSdsJnlp(jnlp);
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.request = new MockHttpServletRequest();
-        this.response = new MockHttpServletResponse();
-        HttpSession mockSession = new MockHttpSession();
-        this.user = new UserImpl();
-        mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, this.user);
-        this.request.setSession(mockSession);
+		sdsOffering.setName("test");
+		sdsOffering.setSdsObjectId(3);
+		Offering offering = new OfferingImpl();
+		offering.setSdsOffering(sdsOffering);
 
-        this.mockOfferingsService = EasyMock.createMock(OfferingService.class);
-        this.mockWorkgroupService = EasyMock.createMock(WorkgroupService.class);
-        SdsOffering sdsOffering = new SdsOffering();
+		this.expectedOfferingList = new LinkedList<Offering>();
+		this.expectedOfferingList.add(offering);
 
-        SdsCurnit curnit = new SdsCurnit();
-        curnit.setSdsObjectId(1);
-        sdsOffering.setSdsCurnit(curnit);
+		this.mockHttpTransport = EasyMock.createMock(HttpRestTransport.class);
+		this.offeringListController = new OfferingListController();
+		this.offeringListController
+				.setOfferingService(this.mockOfferingsService);
+		this.offeringListController
+				.setWorkgroupService(this.mockWorkgroupService);
+		this.offeringListController
+				.setHttpRestTransport(this.mockHttpTransport);
+	}
 
-        SdsJnlp jnlp = new SdsJnlp();
-        jnlp.setSdsObjectId(2);
-        sdsOffering.setSdsJnlp(jnlp);
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		this.mockOfferingsService = null;
+	}
 
-        sdsOffering.setName("test");
-        sdsOffering.setSdsObjectId(3);
-        Offering offering = new OfferingImpl();
-        offering.setSdsOffering(sdsOffering);
+	public void testHandleRequestInternal_WithOffering() throws Exception {
+		EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
+				this.expectedOfferingList);
+		List<Workgroup> emptyWorkgroupList = Collections.emptyList();
+		Offering offering = this.expectedOfferingList.get(0);
+		Map<Offering, List<Workgroup>> expectedWorkgroupMap = new HashMap<Offering, List<Workgroup>>(
+				1);
+		expectedWorkgroupMap.put(offering, emptyWorkgroupList);
 
-        this.expectedOfferingList = new LinkedList<Offering>();
-        this.expectedOfferingList.add(offering);
+		EasyMock.expect(
+				this.mockWorkgroupService.getWorkgroupListByOfferingAndUser(
+						offering, this.user)).andReturn(emptyWorkgroupList);
+		EasyMock
+				.expect(
+						this.mockWorkgroupService
+								.createPreviewWorkgroupForOfferingIfNecessary(
+										offering,
+										emptyWorkgroupList,
+										this.user,
+										OfferingListController.DEFAULT_PREVIEW_WORKGROUP_NAME))
+				.andReturn(emptyWorkgroupList);
+		EasyMock.replay(this.mockOfferingsService);
+		EasyMock.replay(this.mockWorkgroupService);
 
-        this.mockHttpTransport = EasyMock.createMock(HttpRestTransport.class);
-        this.offeringListController = new OfferingListController();
-        this.offeringListController
-                .setOfferingService(this.mockOfferingsService);
-        this.offeringListController
-                .setWorkgroupService(this.mockWorkgroupService);
-        this.offeringListController
-                .setHttpRestTransport(this.mockHttpTransport);
-    }
+		ModelAndView modelAndView = offeringListController
+				.handleRequestInternal(request, response);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.OFFERING_LIST_KEY,
+				this.expectedOfferingList);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.WORKGROUP_MAP_KEY, expectedWorkgroupMap);
+		assertModelAttributeValue(modelAndView, ControllerUtil.USER_KEY,
+				this.user);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.HTTP_TRANSPORT_KEY,
+				this.mockHttpTransport);
+		EasyMock.verify(this.mockOfferingsService);
+		EasyMock.verify(this.mockWorkgroupService);
+	}
 
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        this.request = null;
-        this.response = null;
-        this.mockOfferingsService = null;
-    }
+	public void testHandleRequestInternal_NoOfferings() throws Exception {
+		List<Offering> emptyOfferingList = Collections.emptyList();
+		Map<Offering, List<Workgroup>> emptyWorkgroupMap = Collections
+				.emptyMap();
+		EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
+				emptyOfferingList);
+		EasyMock.replay(this.mockOfferingsService);
+		EasyMock.replay(this.mockWorkgroupService);
 
-    public void testHandleRequestInternal_WithOffering() throws Exception {
-        EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
-                this.expectedOfferingList);
-        List<Workgroup> emptyWorkgroupList = Collections.emptyList();
-        Offering offering = this.expectedOfferingList.get(0);
-        Map<Offering, List<Workgroup>> expectedWorkgroupMap = new HashMap<Offering, List<Workgroup>>(
-                1);
-        expectedWorkgroupMap.put(offering, emptyWorkgroupList);
-
-        EasyMock.expect(
-                this.mockWorkgroupService.getWorkgroupListByOfferingAndUser(
-                        offering, this.user)).andReturn(emptyWorkgroupList);
-        EasyMock
-                .expect(
-                        this.mockWorkgroupService
-                                .createPreviewWorkgroupForOfferingIfNecessary(
-                                        offering,
-                                        emptyWorkgroupList,
-                                        this.user,
-                                        OfferingListController.DEFAULT_PREVIEW_WORKGROUP_NAME))
-                .andReturn(emptyWorkgroupList);
-        EasyMock.replay(this.mockOfferingsService);
-        EasyMock.replay(this.mockWorkgroupService);
-
-        ModelAndView modelAndView = offeringListController
-                .handleRequestInternal(request, response);
-        assertModelAttributeValue(modelAndView,
-                OfferingListController.OFFERING_LIST_KEY,
-                this.expectedOfferingList);
-        assertModelAttributeValue(modelAndView,
-                OfferingListController.WORKGROUP_MAP_KEY, expectedWorkgroupMap);
-        assertModelAttributeValue(modelAndView,
-                ControllerUtil.USER_KEY, this.user);
-        assertModelAttributeValue(modelAndView,
-                OfferingListController.HTTP_TRANSPORT_KEY,
-                this.mockHttpTransport);
-        EasyMock.verify(this.mockOfferingsService);
-        EasyMock.verify(this.mockWorkgroupService);
-    }
-
-    public void testHandleRequestInternal_NoOfferings() throws Exception {
-        List<Offering> emptyOfferingList = Collections.emptyList();
-        Map<Offering, List<Workgroup>> emptyWorkgroupMap = Collections
-                .emptyMap();
-        EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
-                emptyOfferingList);
-        EasyMock.replay(this.mockOfferingsService);
-        EasyMock.replay(this.mockWorkgroupService);
-
-        ModelAndView modelAndView = offeringListController
-                .handleRequestInternal(request, response);
-        assertModelAttributeValue(modelAndView,
-                OfferingListController.OFFERING_LIST_KEY, emptyOfferingList);
-        assertModelAttributeValue(modelAndView,
-                OfferingListController.WORKGROUP_MAP_KEY, emptyWorkgroupMap);
-        assertModelAttributeValue(modelAndView,
-                ControllerUtil.USER_KEY, this.user);
-        assertModelAttributeValue(modelAndView,
-                OfferingListController.HTTP_TRANSPORT_KEY,
-                this.mockHttpTransport);
-        EasyMock.verify(this.mockOfferingsService);
-        EasyMock.verify(this.mockWorkgroupService);
-    }
+		ModelAndView modelAndView = offeringListController
+				.handleRequestInternal(request, response);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.OFFERING_LIST_KEY, emptyOfferingList);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.WORKGROUP_MAP_KEY, emptyWorkgroupMap);
+		assertModelAttributeValue(modelAndView, ControllerUtil.USER_KEY,
+				this.user);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.HTTP_TRANSPORT_KEY,
+				this.mockHttpTransport);
+		EasyMock.verify(this.mockOfferingsService);
+		EasyMock.verify(this.mockWorkgroupService);
+	}
 }
