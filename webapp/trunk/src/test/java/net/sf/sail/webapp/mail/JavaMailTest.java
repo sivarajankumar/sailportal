@@ -118,7 +118,7 @@ public class JavaMailTest {
 	@Ignore
 	public void testSendMultiMessage() throws IOException {
 		this.setUp();
-		JavaMail jm = new JavaMail();
+		JavaMailHelper jm = new JavaMailHelper();
 		jm.setProperties(props);
 
 		String[] recipients = new String[] {
