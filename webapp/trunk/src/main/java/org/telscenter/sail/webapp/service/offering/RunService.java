@@ -54,6 +54,16 @@ public interface RunService extends OfferingService {
 	public Run createRun(RunParameters runParameters) throws CurnitNotFoundException;
 	
 	/**
+	 * Archives/Ends this run. The side effect is that the run's endtime gets set.
+	 * A Run that has ended is no longer eligible for classroom run. 
+	 * 
+	 * If the run is already archived, nothing happens.
+	 * 
+	 * @param run the <code>Run</code> to archive
+	 */
+	public void archiveRun(Run run);
+	
+	/**
 	 * Retrieves a list of <code>Run</code>
 	 * 
 	 * @return <code>List</code> of <code>Run</code>

@@ -23,6 +23,8 @@
 package org.telscenter.sail.webapp.service.offering.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,7 +95,8 @@ public class RunServiceImplTest extends TestCase {
     private RunServiceImpl runServiceImpl;
     
 	private AclService<Offering> mockAclService;
-
+	
+	private Run run;
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpInTransaction()
@@ -125,6 +128,9 @@ public class RunServiceImplTest extends TestCase {
         
         User user = new UserImpl();
 		owners.add(user);
+		
+		this.run = new RunImpl();
+		this.run.setStarttime(Calendar.getInstance().getTime());
     }
 
     /**
@@ -137,6 +143,7 @@ public class RunServiceImplTest extends TestCase {
         this.mockSdsOfferingDao = null;
         this.mockRunDao = null;
 		this.mockAclService = null;
+		this.run = null;
     }
 
     public void testGetRunList() throws Exception {
@@ -325,6 +332,31 @@ public class RunServiceImplTest extends TestCase {
 		}
 
 		assertNull(retrievedRun);
+        EasyMock.verify(this.mockRunDao);
+    }
+    
+    public void testArchiveRun_on_UnArchived_Run() {
+    	assertNull(run.getEndtime());
+    	this.mockRunDao.save(run);
+    	EasyMock.expectLastCall();
+    	EasyMock.replay(this.mockRunDao);
+    	runServiceImpl.archiveRun(run);
+
+    	assertNotNull(run.getEndtime());
+    	assertTrue(!run.getStarttime().after(run.getEndtime()));
+        EasyMock.verify(this.mockRunDao);
+    }
+
+    public void testArchiveRun_on_Archived_Run() {
+    	Date endtime = Calendar.getInstance().getTime();
+    	run.setEndtime(endtime);
+    	EasyMock.replay(this.mockRunDao);
+    	runServiceImpl.archiveRun(run);
+
+    	assertNotNull(run.getEndtime());
+    	// check that endtime didn't change
+    	assertEquals(endtime, run.getEndtime());
+    	assertTrue(!run.getStarttime().after(run.getEndtime()));
         EasyMock.verify(this.mockRunDao);
     }
 
