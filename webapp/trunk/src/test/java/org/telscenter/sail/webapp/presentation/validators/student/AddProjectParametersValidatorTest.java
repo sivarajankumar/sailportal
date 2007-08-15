@@ -46,6 +46,7 @@ public class AddProjectParametersValidatorTest extends TestCase {
 	
 	private final String EMPTY_PROJECTCODE = "";
 	
+	@Override
 	protected void setUp() {
 		validator = new AddProjectParametersValidator();
 		params = new AddProjectParameters();
@@ -89,8 +90,10 @@ public class AddProjectParametersValidatorTest extends TestCase {
 		}
 	}
 	
+	@Override
 	protected void tearDown() {
 		validator = null;
 		params = null;
+		errors = null;
 	}
 }
