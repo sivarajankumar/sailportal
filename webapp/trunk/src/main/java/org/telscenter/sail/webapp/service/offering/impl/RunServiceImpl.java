@@ -150,7 +150,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
      */
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
-    public RunImpl createRun(RunParameters runParameters) throws CurnitNotFoundException {
+    public Run createRun(RunParameters runParameters) throws CurnitNotFoundException {
 
         RunImpl run = new RunImpl();
         run.setEndtime(null);

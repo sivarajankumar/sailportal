@@ -205,7 +205,7 @@ public class RunServiceImplTest extends TestCase {
         EasyMock.expectLastCall().andReturn(false);
         EasyMock.replay(this.mockRunDao);
 
-        RunImpl run = runServiceImpl.createRun(runParameters);
+        Run run = runServiceImpl.createRun(runParameters);
         assertNull(run.getEndtime());
         assertNotNull(run.getRuncode());
         assertTrue(run.getRuncode() instanceof String);
@@ -259,7 +259,7 @@ public class RunServiceImplTest extends TestCase {
         EasyMock.expectLastCall().andReturn(false);
         EasyMock.replay(this.mockRunDao);
 
-        RunImpl run = runServiceImpl.createRun(runParameters);
+        Run run = runServiceImpl.createRun(runParameters);
         assertNull(run.getEndtime());
         assertNotNull(run.getRuncode());
         assertTrue(run.getRuncode() instanceof String);
