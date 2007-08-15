@@ -152,7 +152,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
             NetworkTransportException.class })
     public Run createRun(RunParameters runParameters) throws CurnitNotFoundException {
 
-        RunImpl run = new RunImpl();
+        Run run = new RunImpl();
         run.setEndtime(null);
         run.setStarttime(Calendar.getInstance().getTime());
         run.setRuncode(generateUniqueRunCode());
