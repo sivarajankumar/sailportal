@@ -51,16 +51,26 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 	protected UserService userService = null;
 	protected JavaMailHelper javaMail = null;
 
+	/**
+	 * helper for sending emails
+	 * 
+	 * @return
+	 */
 	public JavaMailHelper getJavaMail() {
 		return javaMail;
 	}
 
+	/**
+	 * helper for sending emails
+	 * 
+	 * @param javaMail
+	 */
 	public void setJavaMail(JavaMailHelper javaMail) {
 		this.javaMail = javaMail;
 	}
 
 	/**
-	 * gets the information by username or email
+	 * gets the information by username or email and sends an email to the user with the new password.
 	 * 
 	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
@@ -104,6 +114,7 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 					return modelAndView;
 				} else {
 					user = users.get(0);
+					username = user.getUserDetails().getUsername();
 				}
 			}
 			String generateRandomPassword = generateRandomPassword();
@@ -144,6 +155,11 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 		return Integer.toString(rnd.nextInt(), 27);
 	}
 
+	/**
+	 * Tests the password generation
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		System.out.println("New Password: " + generateRandomPassword());
 	}
