@@ -27,7 +27,7 @@
 	<!-- javamail stuff -->
 	<util:properties id="javaMailProperties" location="classpath:sendmail.properties"/>
 	
-	 <bean id="javaMail" class="net.sf.sail.webapp.mail.JavaMail">
+	 <bean id="javaMail" class="net.sf.sail.webapp.mail.JavaMailHelper">
    		<property name="properties" ref="javaMailProperties"/>
  	</bean>
  	
