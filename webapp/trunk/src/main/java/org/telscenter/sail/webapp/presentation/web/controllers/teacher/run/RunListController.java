@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,8 +59,10 @@ public class RunListController extends AbstractController {
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
-	protected final static String RUN_LIST_KEY = "run_list";
-	
+	protected final static String CURRENT_RUN_LIST_KEY = "current_run_list";
+
+	protected final static String ENDED_RUN_LIST_KEY = "ended_run_list";
+
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
@@ -80,6 +83,8 @@ public class RunListController extends AbstractController {
  
 		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
 		List<Run> runList = this.runService.getRunList();
+		List<Run> current_run_list = new ArrayList<Run>();
+		List<Run> ended_run_list = new ArrayList<Run>();
 		Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
 		for (Run run : runList) {
 			List<Workgroup> workgroupList = this.workgroupService
@@ -88,9 +93,15 @@ public class RunListController extends AbstractController {
 					.createPreviewWorkgroupForOfferingIfNecessary(run,
 							workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
 			workgroupMap.put(run, workgroupList);
+			if (run.isEnded()) {
+				ended_run_list.add(run);
+			} else {
+				current_run_list.add(run);
+			}
 		}
 
-		modelAndView.addObject(RUN_LIST_KEY, runList);
+		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
+		modelAndView.addObject(ENDED_RUN_LIST_KEY, ended_run_list);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 		return modelAndView;

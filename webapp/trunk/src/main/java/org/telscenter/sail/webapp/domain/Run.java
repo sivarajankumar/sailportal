@@ -38,10 +38,10 @@ import net.sf.sail.webapp.domain.group.Group;
  */
 public interface Run extends Offering {
 
-	   /**
-     * @return the endtime
-     */
-    public Date getEndtime();
+	/**
+	 * @return the endtime
+	 */
+	public Date getEndtime();
 
     /**
      * @param endtime
@@ -101,4 +101,11 @@ public interface Run extends Offering {
 	 *           period does not exist in the database for this run
 	 */
 	public Group getPeriodByName(String periodName) throws PeriodNotFoundException;
+	
+	/**
+	 * Returns whether this run has ended
+	 * 
+	 * @return true iff this run has ended
+	 */
+	public boolean isEnded();
 }

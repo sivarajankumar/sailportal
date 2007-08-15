@@ -190,4 +190,11 @@ public class RunImpl extends OfferingImpl implements Run {
 		throw new PeriodNotFoundException("Period " + periodName + 
 				" does not exist");
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#isEnded()
+	 */
+	public boolean isEnded() {
+		return this.endtime != null;
+	}
 }

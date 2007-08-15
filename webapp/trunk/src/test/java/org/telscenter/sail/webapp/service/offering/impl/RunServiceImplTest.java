@@ -335,25 +335,31 @@ public class RunServiceImplTest extends TestCase {
         EasyMock.verify(this.mockRunDao);
     }
     
-    public void testArchiveRun_on_UnArchived_Run() {
+    public void testEndRun_on_Ongoing_Run() {
+    	// this also tests the isEnded() method.
     	assertNull(run.getEndtime());
+    	assertFalse(run.isEnded());
     	this.mockRunDao.save(run);
     	EasyMock.expectLastCall();
     	EasyMock.replay(this.mockRunDao);
-    	runServiceImpl.archiveRun(run);
+    	runServiceImpl.endRun(run);
 
+    	assertTrue(run.isEnded());
     	assertNotNull(run.getEndtime());
     	assertTrue(!run.getStarttime().after(run.getEndtime()));
         EasyMock.verify(this.mockRunDao);
     }
 
-    public void testArchiveRun_on_Archived_Run() {
+    public void testEndRun_on_Ended_Run() {
+    	// this also tests the isEnded() method.
     	Date endtime = Calendar.getInstance().getTime();
     	run.setEndtime(endtime);
+    	assertTrue(run.isEnded());
     	EasyMock.replay(this.mockRunDao);
-    	runServiceImpl.archiveRun(run);
+    	runServiceImpl.endRun(run);
 
     	assertNotNull(run.getEndtime());
+    	assertTrue(run.isEnded());
     	// check that endtime didn't change
     	assertEquals(endtime, run.getEndtime());
     	assertTrue(!run.getStarttime().after(run.getEndtime()));

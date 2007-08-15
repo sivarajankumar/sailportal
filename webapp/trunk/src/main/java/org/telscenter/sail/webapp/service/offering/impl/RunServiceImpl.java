@@ -91,7 +91,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
     /**
      * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
      */
-    @Transactional(readOnly = true)
+    @Transactional()
     public List<Run> getRunList() {
         return runDao.getList();
     }
@@ -239,7 +239,8 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#archiveRun(Run)
 	 */
-	public void archiveRun(Run run) {
+	@Transactional()
+	public void endRun(Run run) {
 		if (run.getEndtime() == null) {
 			run.setEndtime(Calendar.getInstance().getTime());
 			this.runDao.save(run);
