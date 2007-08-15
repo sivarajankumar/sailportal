@@ -116,9 +116,7 @@
 </ul>
 
 </form>
-<a href="#" class="right6 smallFont1 widthAdj2"
-
-onclick="javascript:alert('This page is not available yet')">
+<a href="lostpasswordmain.html" class="right6 smallFont1 widthAdj2">
 <spring:message code="forgotten.username-or-password" /> 
 </a>
 
