@@ -39,11 +39,8 @@
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
                 /admin/adminoffering.html=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER
-                /errors/*.html=ROLE_USER
-                /groups/*.html=ROLE_USER
-                /includes/*.html=ROLE_USER
-                /offerings/*.html=ROLE_USER
-            </value>
+                /**/*.html=ROLE_USER
+           </value>
         </property>
     </bean>
 
