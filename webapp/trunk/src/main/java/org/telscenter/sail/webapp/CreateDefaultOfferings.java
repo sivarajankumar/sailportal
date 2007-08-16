@@ -23,13 +23,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.impl.JnlpParameters;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 import net.sf.sail.webapp.service.offering.OfferingService;
@@ -87,7 +87,7 @@ public class CreateDefaultOfferings {
 
     public Offering[] createDefaultOfferings(
             ApplicationContext applicationContext, Curnit[] curnits,
-            Jnlp[] jnlps) throws CurnitNotFoundException {
+            Jnlp[] jnlps) throws ObjectNotFoundException {
         Offering[] offerings = new Offering[curnits.length * jnlps.length];
         int offeringsIndex = 0;
         for (int c = 0, cLength = curnits.length; c < cLength; c++) {

@@ -35,7 +35,7 @@ import org.telscenter.sail.webapp.presentation.web.TeamSignInForm;
  * Validator for the TeamSignIn form
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class TeamSignInFormValidator implements Validator {
 
@@ -44,6 +44,7 @@ public class TeamSignInFormValidator implements Validator {
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return TeamSignInForm.class.isAssignableFrom(clazz);
 	}

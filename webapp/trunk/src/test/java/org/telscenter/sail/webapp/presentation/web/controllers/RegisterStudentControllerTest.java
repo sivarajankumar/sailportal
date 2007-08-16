@@ -35,6 +35,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
@@ -56,7 +57,6 @@ import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
-import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 
@@ -219,7 +219,7 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		
 		String runcode_not_in_db = "abc1234";
 		studentAccountForm.setProjectCode(runcode_not_in_db + "-" + PERIODNAME);
-		EasyMock.expect(mockRunService.retrieveRunByRuncode(runcode_not_in_db)).andThrow(new RunNotFoundException("Run Not Found"));
+		EasyMock.expect(mockRunService.retrieveRunByRuncode(runcode_not_in_db)).andThrow(new ObjectNotFoundException(runcode_not_in_db, Run.class));
 		replay(mockRunService);
 		
 		signupController.setFormView(FORM);

@@ -171,7 +171,7 @@ public class GroupServiceImplTest extends TestCase {
 	// name: DEFAULT_GROUP_NAMES[2]
 	// parent: group 1
 	// members: none
-	private void createGroup3() {
+	private void createGroup3() throws Exception {
 		this.group3.setName(DEFAULT_GROUP_NAMES[2]);
 		this.group3.setParent(this.group1);
 
@@ -228,7 +228,7 @@ public class GroupServiceImplTest extends TestCase {
 
 	// test creating a sub group. Creating this new group
 	// will not create any cycle
-	public void testCreateSubGroup_NoCycle() {
+	public void testCreateSubGroup_NoCycle() throws Exception {
 
 		// create group1
 		createGroup1();
@@ -273,7 +273,7 @@ public class GroupServiceImplTest extends TestCase {
 	}
 
 	// test moving a group that results in a cycle being created
-	public void testMoveGroup_Cycle_1() {
+	public void testMoveGroup_Cycle_1() throws Exception {
 		// test making a group's parent be itself.
 		// This should create a cycle.
 		createGroup1();

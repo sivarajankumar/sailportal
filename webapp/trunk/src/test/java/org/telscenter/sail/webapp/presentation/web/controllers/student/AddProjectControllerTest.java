@@ -29,6 +29,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
@@ -47,12 +48,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
-import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class AddProjectControllerTest extends AbstractModelAndViewTests {
 	
@@ -157,7 +157,7 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 		// should get ModelAndView back containing form view
 		String runcode_not_in_db = "abc1234";
 		addProjectParameters.setProjectcode(runcode_not_in_db + "-" + PERIODNAME);
-		EasyMock.expect(mockRunService.retrieveRunByRuncode(runcode_not_in_db)).andThrow(new RunNotFoundException("Run Not Found"));
+		EasyMock.expect(mockRunService.retrieveRunByRuncode(runcode_not_in_db)).andThrow(new ObjectNotFoundException(runcode_not_in_db, Run.class));
 		EasyMock.replay(mockRunService);
 		
 		ModelAndView modelAndView = addProjectController.onSubmit(request, response, addProjectParameters, errors);

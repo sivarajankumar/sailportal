@@ -27,7 +27,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
@@ -41,7 +40,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * Controller for Student's index page
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class StudentIndexController extends AbstractController {
 

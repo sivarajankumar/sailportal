@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
@@ -57,7 +58,8 @@ public class GroupServiceImpl implements GroupService {
     private AclService<Group> aclService;
     
     /**
-	 * @param groupAclService the groupAclService to set
+	 * @param groupAclService
+	 *            the groupAclService to set
 	 */
     @Required
 	public void setAclService(AclService<Group> aclService) {
@@ -65,9 +67,9 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	/**
-     * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group,
-     *      java.lang.String)
-     */
+	 * @see net.sf.sail.webapp.service.group.GroupService#changeGroupName(net.sf.sail.webapp.domain.group.Group,
+	 *      java.lang.String)
+	 */
     @Transactional()
     public void changeGroupName(Group group, String newName) {
         group.setName(newName);
@@ -75,22 +77,34 @@ public class GroupServiceImpl implements GroupService {
     }
 
     /**
-     * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.impl.GroupParameters)
-     */
+	 * @see net.sf.sail.webapp.service.group.GroupService#createGroup(net.sf.sail.webapp.domain.group.impl.GroupParameters)
+	 */
     @Transactional(rollbackFor = { AlreadyExistsException.class,
             NotFoundException.class, DataIntegrityViolationException.class })
     public Group createGroup(GroupParameters groupParameters) {
         Group group = new PersistentGroup();
         group.setName(groupParameters.getName());
         
+        // TODO LAW I think the logic here may be off in that there could be a
+		// group with id = 0 which is the parent group
         Long parentId = groupParameters.getParentId();
         if (parentId != 0) {
-            Group parentGroup = this.groupDao.getById(parentId);
-            group.setParent(parentGroup);
+        	try {
+        		Group parentGroup = this.groupDao.getById(parentId);
+        		group.setParent(parentGroup);
+        	} catch (ObjectNotFoundException e) {
+        		parentId = new Long(0);
+        	}
         }
         
         for (Long memberId : groupParameters.getMemberIds()) {
-        	group.addMember(this.userDao.getById(memberId));
+        	try {
+        		User user = this.userDao.getById(memberId);
+        		group.addMember(user);
+        	}
+        	catch (ObjectNotFoundException e) {
+        		// no member to add - ignore
+        	}
         }
         
         this.groupDao.save(group);
@@ -98,12 +112,13 @@ public class GroupServiceImpl implements GroupService {
         return group;
     }
     
-    //TODO - LAW - if we put in delete group remember to put in deletes for ACL entries
+    // TODO - LAW - if we put in delete group remember to put in deletes for ACL
+	// entries
 
     /**
-     * @see net.sf.sail.webapp.service.group.GroupService#moveGroup(net.sf.sail.webapp.domain.group.Group,
-     *      net.sf.sail.webapp.domain.group.Group)
-     */
+	 * @see net.sf.sail.webapp.service.group.GroupService#moveGroup(net.sf.sail.webapp.domain.group.Group,
+	 *      net.sf.sail.webapp.domain.group.Group)
+	 */
     @Transactional()
     public void moveGroup(Group newParent, Group groupToBeMoved)
             throws CyclicalGroupException {
@@ -119,9 +134,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     /**
-     * @see net.sf.sail.webapp.service.group.GroupService#addMembers(net.sf.sail.webapp.domain.group.Group,
-     *      java.util.Set)
-     */
+	 * @see net.sf.sail.webapp.service.group.GroupService#addMembers(net.sf.sail.webapp.domain.group.Group,
+	 *      java.util.Set)
+	 */
     @Transactional()
     public void addMembers(Group group, Set<User> membersToAdd) {
         for (User member : membersToAdd) {
@@ -131,12 +146,12 @@ public class GroupServiceImpl implements GroupService {
     }
 
     /**
-     * Checks to see if the given group contains a cycle
-     * 
-     * @param group
-     *                <code>Group</code> group to be checked for cycles
-     * @return boolean true iff the given group contains a cycle
-     */
+	 * Checks to see if the given group contains a cycle
+	 * 
+	 * @param group
+	 *            <code>Group</code> group to be checked for cycles
+	 * @return boolean true iff the given group contains a cycle
+	 */
     private boolean cycleExists(Group group) {
         if (group.getParent().equals(group))
             return true;
@@ -159,24 +174,25 @@ public class GroupServiceImpl implements GroupService {
     }
 
     /**
-     * @see net.sf.sail.webapp.service.group.GroupService#getGroups()
-     */
+	 * @see net.sf.sail.webapp.service.group.GroupService#getGroups()
+	 */
     @Transactional(readOnly = true)
     public List<Group> getGroups() {
         return this.groupDao.getList();
     }
 
     /**
-     * @param groupDao
-     *                the groupDao to set
-     */
+	 * @param groupDao
+	 *            the groupDao to set
+	 */
     @Required
     public void setGroupDao(GroupDao<Group> groupDao) {
         this.groupDao = groupDao;
     }
 
 	/**
-	 * @param userDao the userDao to set
+	 * @param userDao
+	 *            the userDao to set
 	 */
     @Required
 	public void setUserDao(UserDao<User> userDao) {

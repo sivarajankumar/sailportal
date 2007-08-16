@@ -86,10 +86,15 @@ public abstract class AbstractTransactionalDaoTests<DAO extends SimpleDao<OBJECT
      * Test method for
      * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
      */
-    public void testGetById() {
+    public void testGetById() throws Exception {
         this.verifyDataStoreIsEmpty();
-        assertNull(this.dao.getById(NON_EXISTENT_PK));
-
+        try {
+        	this.dao.getById(NON_EXISTENT_PK);
+        	fail("Expected ObjectNotFoundException");
+        }
+        catch (ObjectNotFoundException e) {
+        	
+        }
         this.dao.save(this.dataObject);
         List<OBJECT> actualList = this.dao.getList();
         OBJECT actualObject = actualList.get(0);

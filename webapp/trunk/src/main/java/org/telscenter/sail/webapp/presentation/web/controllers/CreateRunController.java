@@ -31,8 +31,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -159,7 +159,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		case 0:
 			try {
 				project = (Project) this.projectService.getById(runParameters.getCurnitId());
-			} catch (CurnitNotFoundException e) {
+			} catch (ObjectNotFoundException e) {
 				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();
 			}
@@ -180,7 +180,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			// TODO HT: talk with Matt on how to set/change run name
 			try {
 				project = (Project) this.projectService.getById(runParameters.getCurnitId());
-			} catch (CurnitNotFoundException e) {
+			} catch (ObjectNotFoundException e) {
 				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();
 			}
@@ -220,7 +220,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		Run run = null;
     	try {
 			run = this.runService.createRun(runParameters);
-		} catch (CurnitNotFoundException e) {
+		} catch (ObjectNotFoundException e) {
 			errors.rejectValue("curnitId", "error.curnit-not_found",
 					new Object[] { runParameters.getCurnitId() }, 
 					"Curnit Not Found.");

@@ -24,8 +24,6 @@ import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
-import org.acegisecurity.annotation.Secured;
-
 /**
  * @author Cynick Young
  * 

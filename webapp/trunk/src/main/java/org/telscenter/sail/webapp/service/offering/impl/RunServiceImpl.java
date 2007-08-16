@@ -29,13 +29,13 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -45,7 +45,6 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
-import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -56,49 +55,50 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  */
 public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 
-    private static final String[] RUNCODE_WORDS = { "Tiger", "Cheetah", "Fox",
-            "Owl", "Panda", "Jaguar", "Hawk", "Mole", "Falcon", "Orca",
-            "Eagle", "Dolphin", "Otter", "Elephant", "Zebra", "Flea", "Wolf",
-            "Dragon", "Kraken", "Cobra", "Ladybug", "Gecko", "Octopus",
-            "Koala", "Tortoise", "Wombat", "Shark", "Whale", "Emu", "Sloth",
-            "Slug", "Ant", "Mantis", "Bat", "Rhino", "Gator", "Monkey",
-            "Diamond", "Ruby", "Topaz", "Sapphire", "Emerald", "Amber",
-            "Garnet", "Moonstone", "Sunstone", "Opal", "Zircon", "Quartz" };
+	private static final String[] RUNCODE_WORDS = { "Tiger", "Cheetah", "Fox",
+			"Owl", "Panda", "Jaguar", "Hawk", "Mole", "Falcon", "Orca",
+			"Eagle", "Dolphin", "Otter", "Elephant", "Zebra", "Flea", "Wolf",
+			"Dragon", "Kraken", "Cobra", "Ladybug", "Gecko", "Octopus",
+			"Koala", "Tortoise", "Wombat", "Shark", "Whale", "Emu", "Sloth",
+			"Slug", "Ant", "Mantis", "Bat", "Rhino", "Gator", "Monkey",
+			"Diamond", "Ruby", "Topaz", "Sapphire", "Emerald", "Amber",
+			"Garnet", "Moonstone", "Sunstone", "Opal", "Zircon", "Quartz" };
 
-    private static final int MAX_RUNCODE_DIGIT = 10000;
+	private static final int MAX_RUNCODE_DIGIT = 10000;
 
-    private RunDao<Run> runDao;
-    
-    private GroupDao<Group> groupDao;
-        
-    /**
-     * @param groupDao
-     *            the groupDao to set
-     */
-    @Required
-    public void setGroupDao(GroupDao<Group> groupDao) {
-        this.groupDao = groupDao;
-    }
-    
+	private RunDao<Run> runDao;
+
+	private GroupDao<Group> groupDao;
+
 	/**
-	 * @param runDao the runDao to set
+	 * @param groupDao
+	 *            the groupDao to set
 	 */
-    @Required
+	@Required
+	public void setGroupDao(GroupDao<Group> groupDao) {
+		this.groupDao = groupDao;
+	}
+
+	/**
+	 * @param runDao
+	 *            the runDao to set
+	 */
+	@Required
 	public void setRunDao(RunDao<Run> runDao) {
 		this.runDao = runDao;
 	}
 
-    /**
-     * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
-     */
-    @Transactional()
-    public List<Run> getRunList() {
-        return runDao.getList();
-    }
-    
-    /**
-     * @see org.telscenter.sail.webapp.service.offering.RunService#getRunList(net.sf.sail.webapp.domain.User)
-     */
+	/**
+	 * @see net.sf.sail.webapp.service.offering.OfferingService#getOfferingList()
+	 */
+	@Transactional()
+	public List<Run> getRunList() {
+		return runDao.getList();
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#getRunList(net.sf.sail.webapp.domain.User)
+	 */
 	public List<Run> getRunList(User user) {
 
 		List<Run> runs = runDao.getList();
@@ -107,7 +107,8 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 			Set<Group> periods = run.getPeriods();
 			// TODO HT&LW improve PersistentGroup's hashcode
 			// right now if same name & same parent, group is considered te same
-			// this won't work for TELS, as there will be many root group nodes with
+			// this won't work for TELS, as there will be many root group nodes
+			// with
 			// name 3.
 			for (Group period : periods) {
 				if (period.getMembers().contains(user)) {
@@ -117,123 +118,120 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		}
 		return runsAssociatedWithUser;
 	}
-	
-    /**
-     * Generate a random runcode
-     * 
-     * @return the randomly generated runcode.
-     * 
-     */
-    String generateRunCode() {
-        Random rand = new Random();
-        Integer digits = rand.nextInt(MAX_RUNCODE_DIGIT);
-        StringBuffer sb = new StringBuffer(digits.toString());
 
-        int max_runcode_digit_length = Integer.toString(MAX_RUNCODE_DIGIT)
-                .length() - 1;
-        while (sb.length() < max_runcode_digit_length) {
-            sb.insert(0, "0");
-        }
+	/**
+	 * Generate a random runcode
+	 * 
+	 * @return the randomly generated runcode.
+	 * 
+	 */
+	String generateRunCode() {
+		Random rand = new Random();
+		Integer digits = rand.nextInt(MAX_RUNCODE_DIGIT);
+		StringBuffer sb = new StringBuffer(digits.toString());
 
-        String word = RUNCODE_WORDS[rand.nextInt(RUNCODE_WORDS.length)];
-        String runCode = (word + sb.toString());
-        return runCode;
-    }
+		int max_runcode_digit_length = Integer.toString(MAX_RUNCODE_DIGIT)
+				.length() - 1;
+		while (sb.length() < max_runcode_digit_length) {
+			sb.insert(0, "0");
+		}
 
-    /**
-     * Creates a run based on input parameters provided.
-     * 
-     * @param runParameters
-     * @return The run created.
-     * @throws CurnitNotFoundException 
-     * 
-     */
-    @Transactional(rollbackFor = { BadRequestException.class,
-            NetworkTransportException.class })
-    public Run createRun(RunParameters runParameters) throws CurnitNotFoundException {
-
-        Run run = new RunImpl();
-        run.setEndtime(null);
-        run.setStarttime(Calendar.getInstance().getTime());
-        run.setRuncode(generateUniqueRunCode());
-        run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
-        run.setOwners(runParameters.getOwners());
-
-        Set<String> periodNames = runParameters.getPeriodNames();
-        if (periodNames != null) {
-        	Set<Group> periods = new TreeSet<Group>();
-        	for (String periodName : runParameters.getPeriodNames()) {
-        		Group group = new PersistentGroup();
-        		group.setName(periodName);
-        		this.groupDao.save(group);
-        		periods.add(group);
-        	}
-        	run.setPeriods(periods);
-        }
-
-        this.runDao.save(run);
-        this.aclService.createAcl(run);
-        return run;
-    }
-
-    private String generateUniqueRunCode() {
-        String tempRunCode = generateRunCode();
-        while (true) {
-            try {
-                checkForRunCodeError(tempRunCode);
-            } catch (DuplicateRunCodeException e) {
-                tempRunCode = generateRunCode();
-                continue;
-            }
-            break;
-        }
-        return tempRunCode;
-    }
-
-    /**
-     * Checks if the given runcode is unique.
-     * 
-     * @param runCode
-     *            A unique string.
-     * 
-     * @throws DuplicateRunCodeException
-     *             if the run's runcde already exists in the data store
-     */
-    private void checkForRunCodeError(String runCode)
-            throws DuplicateRunCodeException {
-        if (isRunCodeInDB(runCode)) {
-            throw new DuplicateRunCodeException("Runcode " + runCode
-                    + " already exists.");
-        }
-    }
-
-    /**
-     * @see org.telscenter.sail.webapp.service.offering.RunService#isRunCodeInDB(java.lang.String)
-     */
-	public boolean isRunCodeInDB(String runcode) {
-		return runDao.hasRuncode(runcode);
+		String word = RUNCODE_WORDS[rand.nextInt(RUNCODE_WORDS.length)];
+		String runCode = (word + sb.toString());
+		return runCode;
 	}
+
+	/**
+	 * Creates a run based on input parameters provided.
+	 * 
+	 * @param runParameters
+	 * @return The run created.
+	 * @throws CurnitNotFoundException
+	 * 
+	 */
+	@Transactional(rollbackFor = { BadRequestException.class,
+			NetworkTransportException.class })
+	public Run createRun(RunParameters runParameters)
+			throws ObjectNotFoundException {
+
+		Run run = new RunImpl();
+		run.setEndtime(null);
+		run.setStarttime(Calendar.getInstance().getTime());
+		run.setRuncode(generateUniqueRunCode());
+		run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
+		run.setOwners(runParameters.getOwners());
+
+		Set<String> periodNames = runParameters.getPeriodNames();
+		if (periodNames != null) {
+			Set<Group> periods = new TreeSet<Group>();
+			for (String periodName : runParameters.getPeriodNames()) {
+				Group group = new PersistentGroup();
+				group.setName(periodName);
+				this.groupDao.save(group);
+				periods.add(group);
+			}
+			run.setPeriods(periods);
+		}
+
+		this.runDao.save(run);
+		this.aclService.createAcl(run);
+		return run;
+	}
+
+	private String generateUniqueRunCode() {
+		String tempRunCode = generateRunCode();
+		while (true) {
+			try {
+				checkForRunCodeDuplicate(tempRunCode);
+			} catch (DuplicateRunCodeException e) {
+				tempRunCode = generateRunCode();
+				continue;
+			}
+			break;
+		}
+		return tempRunCode;
+	}
+
+	/**
+	 * Checks if the given runcode is unique.
+	 * 
+	 * @param runCode
+	 *            A unique string.
+	 * 
+	 * @throws DuplicateRunCodeException
+	 *             if the run's runcde already exists in the data store
+	 */
+	private void checkForRunCodeDuplicate(String runCode)
+			throws DuplicateRunCodeException {
+		try {
+			this.runDao.retrieveByRunCode(runCode);
+		} catch (ObjectNotFoundException e) {
+			throw new DuplicateRunCodeException("Runcode " + runCode
+					+ " already exists.");
+		}
+	}
+
+	// /**
+	// * @see
+	// org.telscenter.sail.webapp.service.offering.RunService#isRunCodeInDB(java.lang.String)
+	// */
+	// public boolean isRunCodeInDB(String runcode) {
+	// return runDao.hasRuncode(runcode);
+	// }
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#retrieveRunByRuncode(java.lang.String)
 	 */
-	public Run retrieveRunByRuncode(String runcode) throws RunNotFoundException {
-		Run run = runDao.retrieveByRunCode(runcode);
-		if (run == null) {
-			throw new RunNotFoundException("Run with runcode " + runcode + " was not found");
-		}
-		return run;
+	public Run retrieveRunByRuncode(String runcode)
+			throws ObjectNotFoundException {
+		return runDao.retrieveByRunCode(runcode);
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#retrieveById(java.lang.Long)
 	 */
-	public Run retrieveById(Long runId) throws RunNotFoundException {
-		Run run = runDao.getById(runId);
-		if (run == null) {
-			throw new RunNotFoundException("Run with runId " + runId + " was not found");
-		}
-		return run;
+	public Run retrieveById(Long runId) throws ObjectNotFoundException {
+		return runDao.getById(runId);
 	}
 
 	/**

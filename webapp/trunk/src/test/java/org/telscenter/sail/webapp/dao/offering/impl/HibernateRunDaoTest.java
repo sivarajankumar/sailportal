@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.impl.HibernateGroupDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -267,7 +268,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
     }
 
     // test the retrieveByRunCode() method of HiberateRunDao
-    public void testRetrieveByRunCode() {
+    public void testRetrieveByRunCode() throws Exception {
         verifyRunAndJoinTablesAreEmpty();
 
         this.runDao.save(this.defaultRun);
@@ -295,25 +296,29 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         assertEquals(this.sdsOffering, run.getSdsOffering());
         
         // choose random non-existent runcode and try to retrieve
-        assertNull(this.runDao.retrieveByRunCode(RUNCODE_NOT_IN_DB));
+        try{
+        	this.runDao.retrieveByRunCode(RUNCODE_NOT_IN_DB);
+        	fail ("Expected ObjectNotFoundException");
+        }
+        catch (ObjectNotFoundException e) {}
     }
-
+    //TODO LAW remove
     // test the hasRunCode() method of HibernateRunDao
-    public void testHasRunCode() {
-        verifyRunAndJoinTablesAreEmpty();
-
-        assertFalse(this.runDao.hasRuncode(DEFAULT_RUNCODE));
-        assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
-
-        this.runDao.save(this.defaultRun);
-        // flush is required to cascade the join table for some reason
-        this.toilet.flush();
-
-        assertTrue(this.runDao.hasRuncode(DEFAULT_RUNCODE));
-        assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
-    }
+//    public void testHasRunCode() {
+//        verifyRunAndJoinTablesAreEmpty();
+//
+//        assertFalse(this.runDao.hasRuncode(DEFAULT_RUNCODE));
+//        assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
+//
+//        this.runDao.save(this.defaultRun);
+//        // flush is required to cascade the join table for some reason
+//        this.toilet.flush();
+//
+//        assertTrue(this.runDao.hasRuncode(DEFAULT_RUNCODE));
+//        assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
+//    }
     
-    public void testGetById() {
+    public void testGetById() throws Exception {
         verifyRunAndJoinTablesAreEmpty();
 
         this.runDao.save(this.defaultRun);

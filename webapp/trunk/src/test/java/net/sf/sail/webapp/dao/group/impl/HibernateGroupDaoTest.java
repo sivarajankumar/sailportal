@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
@@ -493,11 +494,15 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
      * Test method for
      * {@link net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getById(java.lang.Long)}.
      */
-    public void testGetById() {
+    public void testGetById() throws Exception {
         verifyDataStoreIsEmpty();
-        Group expectedNullGroup = this.groupDao.getById(new Long(3));
-        assertNull(expectedNullGroup);
-
+        try {
+        	this.groupDao.getById(new Long(3));
+        	fail("Expected ObjectNotFoundException");
+        }
+        catch (ObjectNotFoundException e) {
+        }
+        
         this.groupDao.save(this.rootGroup);
         List<Group> actualList = this.groupDao.getList();
         PersistentGroup actualGroup = (PersistentGroup) actualList.get(0);

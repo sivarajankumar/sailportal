@@ -28,6 +28,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.service.AclService;
@@ -40,14 +41,13 @@ import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
-import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * The Controller for Add a Project page for WISE students
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class AddProjectController extends SimpleFormController {
 
@@ -87,7 +87,7 @@ public class AddProjectController extends SimpleFormController {
         	membersToAdd.add(user);
         	this.groupService.addMembers(period, membersToAdd);
         	modelAndView = new ModelAndView(getSuccessView());
-    	} catch (RunNotFoundException e) {
+    	} catch (ObjectNotFoundException e) {
     		errors.rejectValue("projectcode", "error.illegal-projectcode");
     		return showForm(request, response, errors);
     	} catch (PeriodNotFoundException e) {

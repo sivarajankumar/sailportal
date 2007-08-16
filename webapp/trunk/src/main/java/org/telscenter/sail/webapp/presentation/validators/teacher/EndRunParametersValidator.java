@@ -38,6 +38,7 @@ public class EndRunParametersValidator implements Validator {
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return EndRunParameters.class.isAssignableFrom(clazz);
 	}

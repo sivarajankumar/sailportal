@@ -22,19 +22,18 @@
  */
 package net.sf.sail.webapp.presentation.web.controllers.offerings;
 
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.impl.OfferingImpl;
-import net.sf.sail.webapp.domain.impl.OfferingParameters;
-import net.sf.sail.webapp.presentation.web.controllers.offerings.CreateOfferingController;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
-import net.sf.sail.webapp.service.offering.OfferingService;
-
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
+
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
+import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -105,12 +104,12 @@ public class CreateOfferingControllerTest extends AbstractModelAndViewTests {
 		verify(mockOfferingService);
 	}
 	
-	public void testOnSubmitCurnitNotFoundException() throws Exception {
+	public void testOnSubmitObjectNotFoundException() throws Exception {
 		// test submission of form with offeringParameter.curnitId
 		// that does not exist in the data store.  Should get ModelAndView
 		// back with original form returned with name of Form View as set.
 		expect(mockOfferingService.createOffering(this.offeringParameters))
-		    .andThrow(new CurnitNotFoundException(offeringParameters.getCurnitId().toString()));
+		    .andThrow(new ObjectNotFoundException(offeringParameters.getCurnitId(), Offering.class));
 		replay(mockOfferingService);
 		
 		CreateOfferingController createOfferingController = new CreateOfferingController();

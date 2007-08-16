@@ -30,6 +30,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.UserImpl;
@@ -44,7 +45,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.EndRunParameters;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
-import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 import com.ibm.icu.util.Calendar;
@@ -180,7 +180,7 @@ public class EndRunControllerTest extends AbstractModelAndViewTests {
 		EasyMock.expect(mockSession.getAttribute(User.CURRENT_USER_SESSION_KEY))
 		     .andReturn(user);
 		EasyMock.replay(mockSession);
-		EasyMock.expect(mockRunService.retrieveById(INVALID_RUNID)).andThrow(new RunNotFoundException("Run Not Found"));
+		EasyMock.expect(mockRunService.retrieveById(INVALID_RUNID)).andThrow(new ObjectNotFoundException(INVALID_RUNID, Run.class));
 		EasyMock.replay(mockRunService);
 
 		endRunParameters.setRunId(INVALID_RUNID);

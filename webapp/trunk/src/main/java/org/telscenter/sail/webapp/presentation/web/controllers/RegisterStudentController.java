@@ -33,6 +33,14 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.presentation.web.controllers.SignupController;
+import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
+import net.sf.sail.webapp.service.group.GroupService;
+
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
@@ -45,15 +53,7 @@ import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
-import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
-
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.group.Group;
-import net.sf.sail.webapp.presentation.web.controllers.SignupController;
-import net.sf.sail.webapp.service.AclService;
-import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
-import net.sf.sail.webapp.service.group.GroupService;
 
 /**
  * Signup controller for TELS student user
@@ -85,7 +85,7 @@ public class RegisterStudentController extends SignupController {
 	 */
 	@Override
 	@Transactional(rollbackFor = { 
-			DuplicateUsernameException.class, RunNotFoundException.class, 
+			DuplicateUsernameException.class, ObjectNotFoundException.class, 
 			PeriodNotFoundException.class })
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
@@ -110,7 +110,7 @@ public class RegisterStudentController extends SignupController {
 				errors.rejectValue("userDetails.username", "error.duplicate-username",
 						new Object[] { userDetails.getUsername() }, "Duplicate Username.");
 				return showForm(request, response, errors);
-			} catch (RunNotFoundException e) {
+			} catch (ObjectNotFoundException e) {
 	    		errors.rejectValue("projectCode", "error.illegal-projectcode");
 	    		return showForm(request, response, errors);
 	    	} catch (PeriodNotFoundException e) {
@@ -182,7 +182,7 @@ public class RegisterStudentController extends SignupController {
 				Run run = null;
 				try {
 					run = runService.retrieveRunByRuncode(runcode);
-				} catch (RunNotFoundException e) {
+				} catch (ObjectNotFoundException e) {
 					errors.reject("error.projectcode-not-in-db",
 					"Project Code is invalid. Get this from your teacher.");					
 					return;

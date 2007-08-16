@@ -96,6 +96,7 @@ public class AddgroupControllerTest extends AbstractModelAndViewTests {
 		assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
 		verify(mockGroupService);
 	}
+	
 	public void testOnSubmitGroupWithParent() throws Exception {
 		// test submission of form with group name and a parent.
 		// should get ModelAndView back containing view which is instance of

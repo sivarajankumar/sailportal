@@ -21,13 +21,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 
 import org.easymock.EasyMock;
 
@@ -106,13 +106,12 @@ public class CurnitServiceImplTest extends TestCase {
     	EasyMock.reset(mockCurnitDao);
 
     	// now check when curnit is not found
-    	EasyMock.expect(mockCurnitDao.getById(NONEXISTING_CURNIT_ID))
-    	        .andReturn(null);
+    	EasyMock.expect(mockCurnitDao.getById(NONEXISTING_CURNIT_ID)).andThrow(new ObjectNotFoundException(NONEXISTING_CURNIT_ID, Curnit.class));
     	EasyMock.replay(mockCurnitDao);
     	try {
     		curnitServiceImpl.getById(NONEXISTING_CURNIT_ID);
-    		fail("CurnitNotFoundException expected but was not thrown");
-    	} catch (CurnitNotFoundException e) {
+    		fail("ObjectNotFoundException expected but was not thrown");
+    	} catch (ObjectNotFoundException e) {
     	}
     	EasyMock.verify(mockCurnitDao);
     }

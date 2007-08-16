@@ -27,43 +27,51 @@ import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
 /**
  * DAO for WISE run, which extends offering
- *
+ * 
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class HibernateRunDao extends AbstractHibernateDao<Run> 
-        implements RunDao<Run> {
+public class HibernateRunDao extends AbstractHibernateDao<Run> implements
+		RunDao<Run> {
 
 	private static final String FIND_ALL_QUERY = "from RunImpl";
 
-    /**
-     * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
-     */
-    @Override
-    protected String getFindAllQuery() {
-        return FIND_ALL_QUERY;
-    }
-    
-    /**
-     * @see org.telscenter.sail.webapp.dao.offering.RunDao#retrieveByRunCode(String)
-     */
-    public Run retrieveByRunCode(String runcode) {
-    	return (Run) DataAccessUtils.uniqueResult(
-    			this.getHibernateTemplate().findByNamedParam(
-    					"from RunImpl as run where upper(run.runcode) = :runcode", 
-    					"runcode", runcode.toUpperCase()));
-    }
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
+	 */
+	@Override
+	protected String getFindAllQuery() {
+		return FIND_ALL_QUERY;
+	}
 
-    /**
-     * @see org.telscenter.sail.webapp.dao.offering.RunDao#hasRuncode(String)
-     */
-    public boolean hasRuncode(String runcode) {
-    	return (this.retrieveByRunCode(runcode) != null);
-    }
+	/**
+	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#retrieveByRunCode(String)
+	 */
+	public Run retrieveByRunCode(String runcode) throws ObjectNotFoundException {
+		Run run = (Run) DataAccessUtils
+				.uniqueResult(this
+						.getHibernateTemplate()
+						.findByNamedParam(
+								"from RunImpl as run where upper(run.runcode) = :runcode",
+								"runcode", runcode.toUpperCase()));
+		if (run == null)
+			throw new ObjectNotFoundException(runcode, this
+					.getDataObjectClass());
+		return run;
+	}
+
+//TODO LAW remove
+//	/**
+//	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#hasRuncode(String)
+//	 */
+//	public boolean hasRuncode(String runcode) {
+//		return (this.retrieveByRunCode(runcode) != null);
+//	}
 
 	/**
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()

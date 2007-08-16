@@ -25,8 +25,8 @@ package net.sf.sail.webapp.presentation.web.controllers.offerings;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.springframework.validation.BindException;
@@ -64,7 +64,7 @@ public class CreateOfferingController extends SimpleFormController {
     	// answer: yes
     	try {
 			this.offeringService.createOffering(offeringParameters);
-		} catch (CurnitNotFoundException e) {
+		} catch (ObjectNotFoundException e) {
 			errors.rejectValue("curnitId", "error.curnit-not_found",
 					new Object[] { offeringParameters.getCurnitId() }, 
 					"Curnit Not Found.");

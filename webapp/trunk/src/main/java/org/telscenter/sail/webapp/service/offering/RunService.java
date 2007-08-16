@@ -24,19 +24,19 @@ package org.telscenter.sail.webapp.service.offering;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.offering.OfferingService;
+
 import org.acegisecurity.annotation.Secured;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
-
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
-import net.sf.sail.webapp.service.offering.OfferingService;
 
 /**
  * A service for working with <code>Run</code> objects
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public interface RunService extends OfferingService {
 
@@ -51,7 +51,7 @@ public interface RunService extends OfferingService {
      * @return the run created.
      */
 //  @Secured( { "ROLE_TEACHER", "ROLE_ADMINISTRATOR", "ROLE_RESEARCHER", "ROLE_TA" })
-	public Run createRun(RunParameters runParameters) throws CurnitNotFoundException;
+	public Run createRun(RunParameters runParameters) throws ObjectNotFoundException;
 	
 	/**
 	 * Ends this run. The side effect is that the run's endtime gets set.
@@ -79,16 +79,7 @@ public interface RunService extends OfferingService {
      * @return list of <code>Run</code> that the user is associated with
      */
     public List<Run> getRunList(User user);
-    
-    /**
-     * Checks if the runcode already exists in the database
-     * 
-     * @param runcode 
-     *           The <code>String</code> to check for
-     * @return <code>true</code> 
-     */
-    public boolean isRunCodeInDB(String runcode);
-    
+       
     /**
      * Retrieves the Run domain object using the unique runcode
      * 
@@ -99,7 +90,7 @@ public interface RunService extends OfferingService {
      * @throws <code>RunNotFoundException</code> when runcode cannot be used 
      *          to find an existing run    
      */
-    public Run retrieveRunByRuncode(String runcode) throws RunNotFoundException;
+    public Run retrieveRunByRuncode(String runcode) throws ObjectNotFoundException;
     
     /**
      * Retrieves the Run domain object using a unique runId
@@ -111,5 +102,5 @@ public interface RunService extends OfferingService {
      * @throws <code>RunNotFoundException</code> when runId cannot be used 
      *          to find an existing run   
      */
-    public Run retrieveById(Long runId) throws RunNotFoundException;
+    public Run retrieveById(Long runId) throws ObjectNotFoundException;
 }

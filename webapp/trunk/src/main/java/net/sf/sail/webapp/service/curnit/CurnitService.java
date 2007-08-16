@@ -19,6 +19,7 @@ package net.sf.sail.webapp.service.curnit;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 
@@ -56,10 +57,10 @@ public interface CurnitService {
 	 * @param curnitId
 	 *            The Id of the curnit
 	 * @return <code>Curnit</code> with the specified curnitId
-	 * @throws CurnitNotFoundException when the specified curnit is
+	 * @throws ObjectNotFoundException when the specified curnit is
 	 *         not found
 	 */
-	public Curnit getById(Long curnitId) throws CurnitNotFoundException;
+	public Curnit getById(Long curnitId) throws ObjectNotFoundException;
 	
 	/**
 	 * Changes the name of the given curnit.

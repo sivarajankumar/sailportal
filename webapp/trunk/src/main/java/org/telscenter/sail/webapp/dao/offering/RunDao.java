@@ -22,30 +22,34 @@
  */
 package org.telscenter.sail.webapp.dao.offering;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 
 import org.telscenter.sail.webapp.domain.Run;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public interface RunDao<T extends Run> extends OfferingDao<Run> {
 
     /**
-     * Given an input string retrieve a corresponding record from data store.
-     * 
-     * @param runcode
-     *            <code>String</code> representing the runcode of the data in the data store.
-     * @return A new instance of a data object.
-     */
-	public Run retrieveByRunCode(String runcode);
-	
-    /**
-     * Checks if the given runcode is already being used
-     * 
-     * @param runcode <code>String</code> the runcode to check
-     * @return true iff the given runcode exists in the data store
-     */
-	public boolean hasRuncode(String runcode);
+	 * Given an input string retrieve a corresponding record from data store.
+	 * 
+	 * @param runcode
+	 *            <code>String</code> representing the runcode of the data in
+	 *            the data store.
+	 * @return A new instance of a data object.
+	 * @throws ObjectNotFoundException if Run is not found.
+	 */
+	public Run retrieveByRunCode(String runcode) throws ObjectNotFoundException;
+//TODO LAW remove	
+//    /**
+//	 * Checks if the given runcode is already being used
+//	 * 
+//	 * @param runcode
+//	 *            <code>String</code> the runcode to check
+//	 * @return true iff the given runcode exists in the data store
+//	 */
+//	public boolean hasRuncode(String runcode);
 }

@@ -32,13 +32,14 @@ import org.telscenter.sail.webapp.domain.impl.Projectcode;
  * Validator for student's AddProjectParameters
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class AddProjectParametersValidator implements Validator {
 
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return AddProjectParameters.class.isAssignableFrom(clazz);
 	}

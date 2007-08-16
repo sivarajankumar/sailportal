@@ -29,6 +29,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 
@@ -71,8 +72,7 @@ public class LostPasswordStudentProjectCodeController extends
         String runCode = projectcode.getRuncode();
         String runPeriod = projectcode.getRunPeriod();
         
-        if( runService.isRunCodeInDB(runCode)) {
-        	
+        try {
         	Run run = runService.retrieveRunByRuncode(runCode);
         	
         	Group group = run.getPeriodByName(runPeriod);
@@ -92,10 +92,9 @@ public class LostPasswordStudentProjectCodeController extends
 			model.put(RUN_TITLE, run.getSdsOffering().getName());
 			model.put(USERS, usersMap);
 			return new ModelAndView(getSuccessView(), model);
-        	
-        	
-        } else {
-        	//no 
+        }
+        catch (ObjectNotFoundException e) {
+        	//no run with this run code found
         	errors.reject("error.no-projectcode");
 			return showForm(request, response, errors);
         }

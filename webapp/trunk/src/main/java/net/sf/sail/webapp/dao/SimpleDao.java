@@ -59,5 +59,5 @@ public interface SimpleDao<T> {
      * 
      * @return The object.
      */
-    public T getById(Serializable id);
+    public T getById(Serializable id) throws ObjectNotFoundException;
 }

@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.mana
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 
 import org.springframework.validation.BindException;
@@ -32,7 +33,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.EndRunParameters;
-import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -81,7 +81,7 @@ public class EndRunController extends SimpleFormController {
 				errors.rejectValue("runId", "error.not-owner-of-run");	
 				modelAndView = new ModelAndView(getFormView());
 			}
-		} catch (RunNotFoundException e) {
+		} catch (ObjectNotFoundException e) {
 			errors.rejectValue("runId", "error.illegal-runId");
 			modelAndView = new ModelAndView(getFormView());
 		}

@@ -19,6 +19,7 @@ package net.sf.sail.webapp.service.curnit.impl;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
 import net.sf.sail.webapp.domain.Curnit;
@@ -27,7 +28,6 @@ import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -89,16 +89,12 @@ public class CurnitServiceImpl implements CurnitService {
 	}
 
     /**
+     * @throws net.sf.sail.webapp.dao.ObjectNotFoundException 
      * @see net.sf.sail.webapp.service.curnit.CurnitService#getById(java.lang.Long)
      */
     @Transactional(readOnly = true)
-	public Curnit getById(Long curnitId) throws CurnitNotFoundException {
-		Curnit curnit = this.curnitDao.getById(curnitId);
-		if (curnit == null) {
-			throw new CurnitNotFoundException("curnit " + curnitId + " not found.");
-		} else {
-			return curnit;
-		}
+	public Curnit getById(Long curnitId) throws ObjectNotFoundException {
+    	return this.curnitDao.getById(curnitId);
 	}
 
 	/**

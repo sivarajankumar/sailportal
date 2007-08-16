@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
@@ -53,7 +54,6 @@ import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
-import org.telscenter.sail.webapp.service.offering.RunNotFoundException;
 
 /**
  * Test class for RunServiceImpl class
@@ -200,9 +200,9 @@ public class RunServiceImplTest extends TestCase {
         runParameters.setCurnitId(CURNIT_ID);
         runParameters.setName(CURNIT_NAME);
         runParameters.setOwners(owners);
-
-        this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
-        EasyMock.expectLastCall().andReturn(false);
+        
+        this.mockRunDao.retrieveByRunCode(EasyMock.isA(String.class));
+        EasyMock.expectLastCall().andThrow(new ObjectNotFoundException("runcode", Run.class));
         EasyMock.replay(this.mockRunDao);
 
         Run run = runServiceImpl.createRun(runParameters);
@@ -254,9 +254,9 @@ public class RunServiceImplTest extends TestCase {
         runParameters.setName(CURNIT_NAME);
         runParameters.setPeriodNames(periodNames);
         runParameters.setOwners(owners);
-
-        this.mockRunDao.hasRuncode(EasyMock.isA(String.class));
-        EasyMock.expectLastCall().andReturn(false);
+        
+        this.mockRunDao.retrieveByRunCode(EasyMock.isA(String.class));
+        EasyMock.expectLastCall().andThrow(new ObjectNotFoundException("runcode", Run.class));
         EasyMock.replay(this.mockRunDao);
 
         Run run = runServiceImpl.createRun(runParameters);
@@ -276,35 +276,32 @@ public class RunServiceImplTest extends TestCase {
         EasyMock.verify(this.mockRunDao);
     }
     
-    public void testRetrieveById() {
+    public void testRetrieveById() throws Exception {
     	Run run = new RunImpl();
     	Long runId = new Long(5);
         EasyMock.expect(this.mockRunDao.getById(runId)).andReturn(run);
         EasyMock.replay(this.mockRunDao);
         Run retrievedRun = null;
-        try {
-			retrievedRun = runServiceImpl.retrieveById(runId);
-		} catch (RunNotFoundException e) {
-			fail("RunNotFoundException thrown but should not have been thrown");
-		}
-		assertEquals(run, retrievedRun);
+       	retrievedRun = runServiceImpl.retrieveById(runId);
+		
+       	assertEquals(run, retrievedRun);
         EasyMock.verify(this.mockRunDao);
 
         EasyMock.reset(this.mockRunDao);
-        EasyMock.expect(this.mockRunDao.getById(runId)).andReturn(null);
+        EasyMock.expect(this.mockRunDao.getById(runId)).andThrow(new ObjectNotFoundException(runId, Run.class));
         EasyMock.replay(this.mockRunDao);
         retrievedRun = null;
         try {
 			retrievedRun = runServiceImpl.retrieveById(runId);
-			fail("RunNotFoundException not thrown but should have been thrown");
-		} catch (RunNotFoundException e) {
+			fail("ObjectNotFoundException not thrown but should have been thrown");
+		} catch (ObjectNotFoundException e) {
 		}
 		
 		assertNull(retrievedRun);
         EasyMock.verify(this.mockRunDao);
     }
     
-    public void testRetrieveRunByRuncode() {
+    public void testRetrieveRunByRuncode() throws Exception {
     	Run run = new RunImpl();
 
     	String good_runcode = "falcon8989";
@@ -315,20 +312,20 @@ public class RunServiceImplTest extends TestCase {
     	Run retrievedRun = null;
     	try {
     		retrievedRun = runServiceImpl.retrieveRunByRuncode(good_runcode);
-    	} catch (RunNotFoundException e) {
-    		fail("RunNotFoundException thrown but should not have been thrown");
+    	} catch (ObjectNotFoundException e) {
+    		fail("ObjectNotFoundException thrown but should not have been thrown");
     	}
     	assertEquals(run, retrievedRun);
         EasyMock.verify(this.mockRunDao);
 
         EasyMock.reset(this.mockRunDao);
-    	EasyMock.expect(this.mockRunDao.retrieveByRunCode(bad_runcode)).andReturn(null);
+    	EasyMock.expect(this.mockRunDao.retrieveByRunCode(bad_runcode)).andThrow(new ObjectNotFoundException(bad_runcode, Run.class));
         EasyMock.replay(this.mockRunDao);
         retrievedRun = null;
         try {
 			retrievedRun = runServiceImpl.retrieveRunByRuncode(bad_runcode);
-			fail("RunNotFoundException not thrown but should have been thrown");
-		} catch (RunNotFoundException e) {
+			fail("ObjectNotFoundException not thrown but should have been thrown");
+		} catch (ObjectNotFoundException e) {
 		}
 
 		assertNull(retrievedRun);

@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
@@ -36,7 +37,6 @@ import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.service.AclService;
-import net.sf.sail.webapp.service.curnit.CurnitNotFoundException;
 
 import org.easymock.EasyMock;
 
@@ -153,7 +153,7 @@ public class OfferingServiceImplTest extends TestCase {
 		EasyMock.verify();
 	}
 	
-	public void testCreateOfferingCurnitNotFoundException() {
+	public void testCreateOfferingObjectNotFoundException() throws Exception {
 		//use beans
 		SdsJnlp sdsJnlp = new SdsJnlp();
 		sdsJnlp.setName(JNLP_NAME);
@@ -170,7 +170,7 @@ public class OfferingServiceImplTest extends TestCase {
 		sdsCurnit.setUrl(CURNIT_URL);
 		Curnit curnit = new CurnitImpl();
 		curnit.setSdsCurnit(sdsCurnit);
-		EasyMock.expect(this.mockCurnitDao.getById(NON_EXISTING_CURNIT_ID)).andReturn(null);
+		EasyMock.expect(this.mockCurnitDao.getById(NON_EXISTING_CURNIT_ID)).andThrow(new ObjectNotFoundException(NON_EXISTING_CURNIT_ID, Curnit.class));
 		EasyMock.replay(this.mockCurnitDao);
 		
 		OfferingParameters offeringParameters = new OfferingParameters();
@@ -179,8 +179,8 @@ public class OfferingServiceImplTest extends TestCase {
 
 		try {
 			offeringServiceImpl.createOffering(offeringParameters);
-			fail("CurnitNotFoundException was expected");
-		} catch (CurnitNotFoundException e) {
+			fail("ObjectNotFoundException was expected");
+		} catch (ObjectNotFoundException e) {
 		}
 				
 		EasyMock.verify();

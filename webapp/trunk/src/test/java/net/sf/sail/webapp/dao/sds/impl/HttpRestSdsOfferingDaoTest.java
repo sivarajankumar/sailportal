@@ -221,7 +221,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
      * Test method for
      * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getById(java.lang.Long)}.
      */
-    public void testGetById() {
+    public void testGetById() throws Exception {
         try {
             this.sdsOfferingDao.getById(new Long(3));
             fail("UnsupportedOperationException expected");

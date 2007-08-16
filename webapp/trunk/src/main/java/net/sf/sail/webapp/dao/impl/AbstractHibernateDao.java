@@ -20,6 +20,7 @@ package net.sf.sail.webapp.dao.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.SimpleDao;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -67,14 +68,17 @@ public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
 	 * @see net.sf.sail.webapp.dao.SimpleDao#getById(java.lang.Integer)
 	 */
 	@SuppressWarnings("unchecked")
-	public T getById(Serializable id) {
-		// TODO LW, HT - what if we throw an ObjectNotFoundException here rather
-		// than checking for null everywhere?
-		if (id instanceof Long || id instanceof Integer)
-			return (T) this.getHibernateTemplate().get(
+	public T getById(Serializable id) throws ObjectNotFoundException {
+		if (id instanceof Long || id instanceof Integer) {
+
+			T object = (T) this.getHibernateTemplate().get(
 					this.getDataObjectClass(), id);
-		else
+			if (object == null)
+				throw new ObjectNotFoundException(id, this.getDataObjectClass());
+			return object;
+		} else {
 			throw new IllegalArgumentException();
+		}
 	}
 
 	/**
