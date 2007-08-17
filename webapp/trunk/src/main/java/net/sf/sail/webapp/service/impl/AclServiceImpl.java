@@ -22,7 +22,9 @@ import net.sf.sail.webapp.service.AclService;
 
 import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
+import org.acegisecurity.acls.NotFoundException;
 import org.acegisecurity.acls.domain.BasePermission;
+import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
 import org.acegisecurity.acls.sid.PrincipalSid;
 import org.acegisecurity.context.SecurityContextHolder;
@@ -49,20 +51,28 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	}
 
 	/**
-	 * @see net.sf.sail.webapp.service.AclService#createAcl(java.lang.Object)
+	 * @see net.sf.sail.webapp.service.AclService#addPermission(java.lang.Object)
 	 */
-	public void createAcl(T object) {
-		if (object != null) {
-			MutableAcl acl = this.mutableAclService
-					.createAcl(new ObjectIdentityImpl(object.getClass(), object
-							.getId()));
+	public void addPermission(T object) {
+		if (object != null) {	
+			MutableAcl acl = null;
+			ObjectIdentity objectIdentity = new ObjectIdentityImpl(object.getClass(), object
+					.getId());
+
+	        try {
+	            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity);
+	        } catch (NotFoundException nfe) {
+	            acl = mutableAclService.createAcl(objectIdentity);
+	        }
+	        
 			acl.insertAce(null, BasePermission.ADMINISTRATION,
 					new PrincipalSid(SecurityContextHolder.getContext()
 							.getAuthentication()), true);
 			this.mutableAclService.updateAcl(acl);
-		} else
+		} else {
 			throw new IllegalArgumentException(
 					"Cannot create ACL. Object not set.");
+		}
 	}
 
 }

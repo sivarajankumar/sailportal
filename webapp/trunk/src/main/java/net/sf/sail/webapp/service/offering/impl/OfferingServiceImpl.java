@@ -127,7 +127,7 @@ public class OfferingServiceImpl implements OfferingService {
 		offering.setSdsOffering(sdsOffering);
 		this.offeringDao.save(offering);
 
-		this.aclService.createAcl(offering);
+		this.aclService.addPermission(offering);
 
 		return offering;
 	}

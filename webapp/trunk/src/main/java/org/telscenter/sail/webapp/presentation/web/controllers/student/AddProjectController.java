@@ -81,7 +81,7 @@ public class AddProjectController extends SimpleFormController {
     	String periodName = projectcode.getRunPeriod();
     	try {
     		run = this.runService.retrieveRunByRuncode(runcode);
-			this.aclService.createAcl(run);
+			this.aclService.addPermission(run);
         	Group period = run.getPeriodByName(periodName);
         	Set<User> membersToAdd = new HashSet<User>();
         	membersToAdd.add(user);

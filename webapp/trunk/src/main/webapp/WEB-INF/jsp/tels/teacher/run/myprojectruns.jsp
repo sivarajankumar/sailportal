@@ -160,7 +160,7 @@ ${user.userDetails.username}
         </c:otherwise>
       </c:choose>
       <br/>
-      <a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')">Un-archive this run</a>
+      <a href="#" onclick="javascript:alert('not available yet')">Un-archive this run</a>
     </td>
    </tr>
   </c:forEach>

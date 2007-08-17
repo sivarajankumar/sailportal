@@ -109,6 +109,7 @@ function popup(URL) {
 
 
 <div>
+<h1>Current Runs</h1>
 <table border="1">
   <thead>
     <tr>
@@ -117,7 +118,7 @@ function popup(URL) {
       <th><spring:message code="run.options.heading" /></th>
     </tr>
   </thead>
-  <c:forEach var="run" items="${run_list}">
+  <c:forEach var="run" items="${current_run_list}">
   <tr>
     <td>${run.sdsOffering.name}</td>
     <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
@@ -129,6 +130,27 @@ function popup(URL) {
    </tr>
   </c:forEach>
 </table>
+
+<h1>Archived Runs</h1>
+<table border="1">
+  <thead>
+    <tr>
+      <th><spring:message code="run.name.heading" /></th>
+      <th>Teacher name</th>
+      <th><spring:message code="run.options.heading" /></th>
+    </tr>
+  </thead>
+  <c:forEach var="run" items="${ended_run_list}">
+  <tr>
+    <td>${run.sdsOffering.name}</td>
+    <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
+    <td>
+    You will be able to view your work on this archived run later.
+    </td>
+   </tr>
+  </c:forEach>
+</table>
+
 </div>
 
 

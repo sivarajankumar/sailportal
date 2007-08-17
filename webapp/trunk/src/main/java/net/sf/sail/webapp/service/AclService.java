@@ -37,6 +37,6 @@ public interface AclService<T> {
 	 * 
 	 * @param group
 	 */
-	public void createAcl(T object);
+	public void addPermission(T object);
 
 }

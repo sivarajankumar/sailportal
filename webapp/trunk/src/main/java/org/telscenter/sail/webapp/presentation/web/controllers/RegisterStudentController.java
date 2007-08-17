@@ -101,7 +101,7 @@ public class RegisterStudentController extends SignupController {
 				String runcode = projectcode.getRuncode();
 				String periodName = projectcode.getRunPeriod();
 				Run run = this.runService.retrieveRunByRuncode(runcode);
-				this.aclService.createAcl(run);
+				this.aclService.addPermission(run);
 				Group period = run.getPeriodByName(periodName);
 				Set<User> membersToAdd = new HashSet<User>();
 				membersToAdd.add(user);

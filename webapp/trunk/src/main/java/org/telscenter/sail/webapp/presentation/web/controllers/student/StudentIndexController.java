@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * Controller for Student's index page
  *
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id: $
  */
 public class StudentIndexController extends AbstractController {
 
@@ -48,7 +49,9 @@ public class StudentIndexController extends AbstractController {
 
 	private HttpRestTransport httpRestTransport;
 	
-	protected final static String RUN_LIST_KEY = "run_list";
+	protected final static String CURRENT_RUN_LIST_KEY = "current_run_list";
+
+	protected final static String ENDED_RUN_LIST_KEY = "ended_run_list";
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
@@ -70,8 +73,19 @@ public class StudentIndexController extends AbstractController {
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
  
 		List<Run> runlist = runService.getRunList();
-
-		modelAndView.addObject(RUN_LIST_KEY, runlist);
+		List<Run> current_run_list = new ArrayList<Run>();
+		List<Run> ended_run_list = new ArrayList<Run>();
+		
+		for (Run run : runlist) {
+			if (run.isEnded()) {
+				ended_run_list.add(run);
+			} else {
+				current_run_list.add(run);
+			}
+		}
+		
+		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
+		modelAndView.addObject(ENDED_RUN_LIST_KEY, ended_run_list);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 
         return modelAndView;

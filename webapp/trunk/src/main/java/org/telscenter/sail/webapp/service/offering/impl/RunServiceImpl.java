@@ -174,7 +174,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		}
 
 		this.runDao.save(run);
-		this.aclService.createAcl(run);
+		this.aclService.addPermission(run);
 		return run;
 	}
 
@@ -206,9 +206,10 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		try {
 			this.runDao.retrieveByRunCode(runCode);
 		} catch (ObjectNotFoundException e) {
-			throw new DuplicateRunCodeException("Runcode " + runCode
-					+ " already exists.");
+			return;
 		}
+		throw new DuplicateRunCodeException("Runcode " + runCode
+				+ " already exists.");
 	}
 
 	// /**

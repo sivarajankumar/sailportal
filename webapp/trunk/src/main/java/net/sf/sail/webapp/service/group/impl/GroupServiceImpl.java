@@ -108,7 +108,7 @@ public class GroupServiceImpl implements GroupService {
         }
         
         this.groupDao.save(group);
-        this.aclService.createAcl(group);
+        this.aclService.addPermission(group);
         return group;
     }
     

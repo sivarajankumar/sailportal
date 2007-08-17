@@ -125,7 +125,7 @@ public class GroupServiceImplTest extends TestCase {
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 		
-		this.mockGroupAclService.createAcl(this.group1);
+		this.mockGroupAclService.addPermission(this.group1);
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupAclService);
 
@@ -151,7 +151,7 @@ public class GroupServiceImplTest extends TestCase {
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 
-		this.mockGroupAclService.createAcl(this.group2);
+		this.mockGroupAclService.addPermission(this.group2);
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupAclService);
 
@@ -180,7 +180,7 @@ public class GroupServiceImplTest extends TestCase {
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 		
-		this.mockGroupAclService.createAcl(this.group3);
+		this.mockGroupAclService.addPermission(this.group3);
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupAclService);
 

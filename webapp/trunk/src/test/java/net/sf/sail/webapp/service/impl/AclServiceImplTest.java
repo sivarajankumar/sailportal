@@ -22,8 +22,11 @@ import net.sf.sail.webapp.domain.group.Group;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
+import org.acegisecurity.acls.AlreadyExistsException;
 import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
+import org.acegisecurity.acls.NotFoundException;
+import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
@@ -42,6 +45,9 @@ public class AclServiceImplTest extends TestCase {
 	private AclServiceImpl<Group> groupAclService;
 	private TestingAuthenticationToken authority;
 	private SecurityContext securityContext;
+	private Group group;
+	private ObjectIdentity objectIdentity;
+	private MutableAcl mockMutableAcl;
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -60,6 +66,16 @@ public class AclServiceImplTest extends TestCase {
 		groupAclService = new AclServiceImpl<Group>();
 		mutableAclService = EasyMock.createMock(MutableAclService.class);
 		groupAclService.setMutableAclService(mutableAclService);
+		
+		group = EasyMock.createMock(Group.class);
+		EasyMock.expect(group.getId()).andReturn(new Long(1)).anyTimes();
+		EasyMock.replay(group);
+		
+		objectIdentity = 
+			new ObjectIdentityImpl(group.getClass(), group.getId());
+		
+		mockMutableAcl = EasyMock.createNiceMock(MutableAcl.class);
+
 	}
 
 	/**
@@ -71,25 +87,49 @@ public class AclServiceImplTest extends TestCase {
 		mutableAclService = null;
 		authority = null;
 		securityContext = null;
+		group = null;
+		objectIdentity = null;
+		mockMutableAcl = null;
 	}
 
-	public void testCreateAcl() {
-		Group group = EasyMock.createMock(Group.class);
-		EasyMock.expect(group.getId()).andReturn(new Long(1)).anyTimes();
-		EasyMock.replay(group);
-		
-		MutableAcl mockMutableAcl = EasyMock.createNiceMock(MutableAcl.class);
-		EasyMock.expect(mutableAclService.createAcl(new ObjectIdentityImpl(group.getClass(), group.getId()))).andStubReturn(	mockMutableAcl);
+	public void testAddPermission() {
+		// here, test that acl doesn't exist yet, so a new acl 
+		// will be created and a new ace will be added to that
+		EasyMock.expect(mutableAclService.readAclById(objectIdentity))
+		     .andThrow(new NotFoundException("acl not found"));
+		EasyMock.expect(mutableAclService.createAcl(objectIdentity)).andStubReturn(mockMutableAcl);
 		EasyMock.expect(mutableAclService.updateAcl(mockMutableAcl)).andReturn(mockMutableAcl);
 		EasyMock.replay(mutableAclService);
 		EasyMock.replay(mockMutableAcl);
 		
-		groupAclService.createAcl(group);
+		groupAclService.addPermission(group);
 		
 		EasyMock.verify(group);
 		EasyMock.verify(mockMutableAcl);
 		EasyMock.verify(mutableAclService);
-
+	}
+	
+	public void testAddPermission_acl_exists() {
+		// test the case in which the acl already exists in the db.
+		// in this case, a new ace is added to the acl.
+		EasyMock.expect(mutableAclService.readAclById(objectIdentity)).andStubReturn(mockMutableAcl);
+		EasyMock.expect(mutableAclService.updateAcl(mockMutableAcl)).andReturn(mockMutableAcl);
+		EasyMock.replay(mutableAclService);
+		EasyMock.replay(mockMutableAcl);
+		
+		groupAclService.addPermission(group);
+		
+		EasyMock.verify(group);
+		EasyMock.verify(mockMutableAcl);
+		EasyMock.verify(mutableAclService);
+	}
+	
+	public void testAddPermission_null_object() {
+		try {
+  		     groupAclService.addPermission(null);
+  		     fail("Exception expected but was not thrown");
+		} catch (IllegalArgumentException e) {
+		}
 	}
 
 }

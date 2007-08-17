@@ -98,7 +98,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
         this.workgroupDao.save(workgroup);
         
-        this.aclService.createAcl(workgroup);
+        this.aclService.addPermission(workgroup);
 
         return workgroup;
     }
@@ -143,7 +143,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
             workgroup.setSdsWorkgroup(sdsWorkgroup);
             this.workgroupDao.save(workgroup);
             
-            this.aclService.createAcl(workgroup);
+            this.aclService.addPermission(workgroup);
 
             workgroupList.add(workgroup);
         }

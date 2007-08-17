@@ -119,7 +119,7 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
     	ModelAndView modelAndView = 
     		studentIndexController.handleRequestInternal(request, response);
     	assertModelAttributeValue(modelAndView, 
-    			StudentIndexController.RUN_LIST_KEY, expectedRunList);
+    			StudentIndexController.CURRENT_RUN_LIST_KEY, expectedRunList);
     	assertModelAttributeValue(modelAndView, 
     			ControllerUtil.USER_KEY, user);
     	assertModelAttributeValue(modelAndView, 
@@ -136,7 +136,7 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
     	ModelAndView modelAndView = 
     		studentIndexController.handleRequestInternal(request, response);
     	assertModelAttributeValue(modelAndView, 
-    			StudentIndexController.RUN_LIST_KEY, emptyRunList);
+    			StudentIndexController.CURRENT_RUN_LIST_KEY, emptyRunList);
     	assertModelAttributeValue(modelAndView, 
     			ControllerUtil.USER_KEY, user);
     	assertModelAttributeValue(modelAndView, 
