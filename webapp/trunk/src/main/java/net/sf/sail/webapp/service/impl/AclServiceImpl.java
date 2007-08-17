@@ -20,6 +20,7 @@ package net.sf.sail.webapp.service.impl;
 import net.sf.sail.webapp.domain.Persistable;
 import net.sf.sail.webapp.service.AclService;
 
+import org.acegisecurity.Authentication;
 import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
 import org.acegisecurity.acls.NotFoundException;
@@ -66,13 +67,16 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	        }
 	        
 			acl.insertAce(null, permission,
-					new PrincipalSid(SecurityContextHolder.getContext()
-							.getAuthentication()), true);
+					new PrincipalSid(this.getAuthentication()), true);
 			this.mutableAclService.updateAcl(acl);
 		} else {
 			throw new IllegalArgumentException(
 					"Cannot create ACL. Object not set.");
 		}
 	}
+	
+    private Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
 
 }
