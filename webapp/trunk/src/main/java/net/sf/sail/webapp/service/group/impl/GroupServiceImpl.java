@@ -39,6 +39,7 @@ import net.sf.sail.webapp.service.group.GroupService;
 
 import org.acegisecurity.acls.AlreadyExistsException;
 import org.acegisecurity.acls.NotFoundException;
+import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
@@ -108,7 +109,7 @@ public class GroupServiceImpl implements GroupService {
         }
         
         this.groupDao.save(group);
-        this.aclService.addPermission(group);
+        this.aclService.addPermission(group, BasePermission.ADMINISTRATION);
         return group;
     }
     

@@ -22,10 +22,10 @@ import net.sf.sail.webapp.domain.group.Group;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.acls.AlreadyExistsException;
 import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
 import org.acegisecurity.acls.NotFoundException;
+import org.acegisecurity.acls.domain.BasePermission;
 import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
 import org.acegisecurity.context.SecurityContext;
@@ -102,7 +102,7 @@ public class AclServiceImplTest extends TestCase {
 		EasyMock.replay(mutableAclService);
 		EasyMock.replay(mockMutableAcl);
 		
-		groupAclService.addPermission(group);
+		groupAclService.addPermission(group, BasePermission.ADMINISTRATION);
 		
 		EasyMock.verify(group);
 		EasyMock.verify(mockMutableAcl);
@@ -117,7 +117,7 @@ public class AclServiceImplTest extends TestCase {
 		EasyMock.replay(mutableAclService);
 		EasyMock.replay(mockMutableAcl);
 		
-		groupAclService.addPermission(group);
+		groupAclService.addPermission(group, BasePermission.ADMINISTRATION);
 		
 		EasyMock.verify(group);
 		EasyMock.verify(mockMutableAcl);
@@ -126,7 +126,7 @@ public class AclServiceImplTest extends TestCase {
 	
 	public void testAddPermission_null_object() {
 		try {
-  		     groupAclService.addPermission(null);
+  		     groupAclService.addPermission(null, BasePermission.ADMINISTRATION);
   		     fail("Exception expected but was not thrown");
 		} catch (IllegalArgumentException e) {
 		}

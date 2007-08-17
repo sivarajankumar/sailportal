@@ -22,10 +22,11 @@
  */
 package net.sf.sail.webapp.service;
 
+import org.acegisecurity.acls.Permission;
 
 /**
- * An interface for a Access Control list (acl) service which allows user
- * to create an acl for an object.
+ * An interface for a Access Control list (acl) service which allows user to
+ * create an acl for an object.
  * 
  * @author Laurel Williams
  * @version $Id$
@@ -33,10 +34,13 @@ package net.sf.sail.webapp.service;
 public interface AclService<T> {
 
 	/**
-	 * Creates an acl for an object.
+	 * Creates an acl for an object if neccessary and adds an ace for that
+	 * object with the permission specified.
 	 * 
-	 * @param group
+	 * @param object
+	 *            The object for which the acl and ace are to be created.
+	 * @param permission
 	 */
-	public void addPermission(T object);
+	public void addPermission(T object, Permission permission);
 
 }

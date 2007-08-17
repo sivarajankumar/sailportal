@@ -38,6 +38,7 @@ import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
+import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
@@ -174,7 +175,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		}
 
 		this.runDao.save(run);
-		this.aclService.addPermission(run);
+		this.aclService.addPermission(run, BasePermission.ADMINISTRATION);
 		return run;
 	}
 

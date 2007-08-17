@@ -32,6 +32,7 @@ import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
+import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -98,7 +99,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
         this.workgroupDao.save(workgroup);
         
-        this.aclService.addPermission(workgroup);
+        this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
 
         return workgroup;
     }
@@ -143,7 +144,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
             workgroup.setSdsWorkgroup(sdsWorkgroup);
             this.workgroupDao.save(workgroup);
             
-            this.aclService.addPermission(workgroup);
+            this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
 
             workgroupList.add(workgroup);
         }

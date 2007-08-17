@@ -41,6 +41,7 @@ import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.group.GroupService;
 
+import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
@@ -101,7 +102,7 @@ public class RegisterStudentController extends SignupController {
 				String runcode = projectcode.getRuncode();
 				String periodName = projectcode.getRunPeriod();
 				Run run = this.runService.retrieveRunByRuncode(runcode);
-				this.aclService.addPermission(run);
+				this.aclService.addPermission(run, BasePermission.READ);
 				Group period = run.getPeriodByName(periodName);
 				Set<User> membersToAdd = new HashSet<User>();
 				membersToAdd.add(user);

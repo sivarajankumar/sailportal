@@ -35,6 +35,7 @@ import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
+import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -127,7 +128,7 @@ public class OfferingServiceImpl implements OfferingService {
 		offering.setSdsOffering(sdsOffering);
 		this.offeringDao.save(offering);
 
-		this.aclService.addPermission(offering);
+		this.aclService.addPermission(offering, BasePermission.ADMINISTRATION);
 
 		return offering;
 	}

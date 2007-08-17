@@ -37,6 +37,7 @@ import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 
+import org.acegisecurity.acls.domain.BasePermission;
 import org.easymock.EasyMock;
 
 /**
@@ -125,7 +126,7 @@ public class GroupServiceImplTest extends TestCase {
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 		
-		this.mockGroupAclService.addPermission(this.group1);
+		this.mockGroupAclService.addPermission(this.group1, BasePermission.ADMINISTRATION);
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupAclService);
 
@@ -151,7 +152,7 @@ public class GroupServiceImplTest extends TestCase {
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 
-		this.mockGroupAclService.addPermission(this.group2);
+		this.mockGroupAclService.addPermission(this.group2, BasePermission.ADMINISTRATION);
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupAclService);
 
@@ -180,7 +181,7 @@ public class GroupServiceImplTest extends TestCase {
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupDao);
 		
-		this.mockGroupAclService.addPermission(this.group3);
+		this.mockGroupAclService.addPermission(this.group3, BasePermission.ADMINISTRATION);
 		EasyMock.expectLastCall();
 		EasyMock.replay(this.mockGroupAclService);
 

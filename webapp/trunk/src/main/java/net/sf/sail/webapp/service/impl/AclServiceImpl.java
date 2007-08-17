@@ -23,7 +23,7 @@ import net.sf.sail.webapp.service.AclService;
 import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
 import org.acegisecurity.acls.NotFoundException;
-import org.acegisecurity.acls.domain.BasePermission;
+import org.acegisecurity.acls.Permission;
 import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
 import org.acegisecurity.acls.sid.PrincipalSid;
@@ -53,7 +53,7 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	/**
 	 * @see net.sf.sail.webapp.service.AclService#addPermission(java.lang.Object)
 	 */
-	public void addPermission(T object) {
+	public void addPermission(T object, Permission permission) {
 		if (object != null) {	
 			MutableAcl acl = null;
 			ObjectIdentity objectIdentity = new ObjectIdentityImpl(object.getClass(), object
@@ -65,7 +65,7 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	            acl = mutableAclService.createAcl(objectIdentity);
 	        }
 	        
-			acl.insertAce(null, BasePermission.ADMINISTRATION,
+			acl.insertAce(null, permission,
 					new PrincipalSid(SecurityContextHolder.getContext()
 							.getAuthentication()), true);
 			this.mutableAclService.updateAcl(acl);

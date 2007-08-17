@@ -34,6 +34,7 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.GroupService;
 
+import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -81,7 +82,7 @@ public class AddProjectController extends SimpleFormController {
     	String periodName = projectcode.getRunPeriod();
     	try {
     		run = this.runService.retrieveRunByRuncode(runcode);
-			this.aclService.addPermission(run);
+			this.aclService.addPermission(run, BasePermission.READ);
         	Group period = run.getPeriodByName(periodName);
         	Set<User> membersToAdd = new HashSet<User>();
         	membersToAdd.add(user);
