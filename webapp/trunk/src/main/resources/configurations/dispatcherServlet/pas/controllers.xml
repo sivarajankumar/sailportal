@@ -33,7 +33,7 @@
 	</bean>
 	
 	<bean
-		class="net.sf.sail.webapp.presentation.web.controllers.offerings.AdminOfferingController">
+		class="net.sf.sail.webapp.presentation.web.controllers.admin.AdminOfferingController">
 		<property name="offeringService" ref="offeringService" />
 	</bean>
 

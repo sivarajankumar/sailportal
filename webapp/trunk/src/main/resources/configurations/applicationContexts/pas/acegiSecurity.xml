@@ -37,7 +37,7 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
-                /admin/adminoffering.html=ROLE_ADMINISTRATOR
+                /adminoffering.html=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
            </value>
