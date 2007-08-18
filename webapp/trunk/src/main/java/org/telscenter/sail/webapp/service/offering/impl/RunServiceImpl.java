@@ -237,12 +237,23 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.service.offering.RunService#archiveRun(Run)
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#endRun(Run)
 	 */
 	@Transactional()
 	public void endRun(Run run) {
 		if (run.getEndtime() == null) {
 			run.setEndtime(Calendar.getInstance().getTime());
+			this.runDao.save(run);
+		}
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#startRun(Run)
+	 */
+	@Transactional()
+	public void startRun(Run run) {
+		if (run.getEndtime() != null) {
+			run.setEndtime(null);
 			this.runDao.save(run);
 		}
 	}

@@ -59,10 +59,20 @@ public interface RunService extends OfferingService {
 	 * 
 	 * If the run is already ended, nothing happens.
 	 * 
-	 * @param run the <code>Run</code> to archive
+	 * @param run the <code>Run</code> to end
 	 */
 	public void endRun(Run run);
-	
+
+	/**
+	 * Starts this run. The side effect is that the run's endtime gets set to null.
+	 * A Run that has started becomes eligible for classroom run. 
+	 * 
+	 * If the run is already started, nothing happens.
+	 * 
+	 * @param run the <code>Run</code> to start
+	 */
+	public void startRun(Run run);
+
 	/**
 	 * Retrieves a list of <code>Run</code>
 	 * 
