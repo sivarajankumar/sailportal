@@ -102,7 +102,7 @@ public class RegisterStudentController extends SignupController {
 				String runcode = projectcode.getRuncode();
 				String periodName = projectcode.getRunPeriod();
 				Run run = this.runService.retrieveRunByRuncode(runcode);
-				this.aclService.addPermission(run, BasePermission.READ);
+				// this.aclService.addPermission(run, BasePermission.READ); TODO HT: uncomment when this is figured out
 				Group period = run.getPeriodByName(periodName);
 				Set<User> membersToAdd = new HashSet<User>();
 				membersToAdd.add(user);
