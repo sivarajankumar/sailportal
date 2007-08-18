@@ -37,6 +37,9 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.easymock.EasyMock;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -112,7 +115,8 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
     }
     
     @Test public void testHandleRequestInternal_WithRun() throws Exception {
-    	EasyMock.expect(mockRunService.getRunList()).andReturn(
+    	User user = new UserImpl();
+    	EasyMock.expect(mockRunService.getRunList(user)).andReturn(
     			expectedRunList);
     	EasyMock.replay(mockRunService);
     	
@@ -129,7 +133,7 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
     
     @Test public void testHandleRequestInternal_WithoutRun() throws Exception {
     	List<Run> emptyRunList = Collections.emptyList();
-    	EasyMock.expect(mockRunService.getRunList()).
+    	EasyMock.expect(mockRunService.getRunList(user)).
     	       andReturn(emptyRunList);
     	EasyMock.replay(mockRunService);
     	

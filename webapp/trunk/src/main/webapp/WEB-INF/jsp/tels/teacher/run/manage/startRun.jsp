@@ -25,14 +25,41 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
-<title>Success with End Run</title>
+    
+<script type="text/javascript" src="./javascript/tels/rotator.js"></script>
+    
+<title>Start Run</title>
 </head>
 
 <body>
 
-<h1>Success!</h1>
-<p>please close this window and refresh the main window. This run should then appear under the "Archived Runs" section.</p>
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<h1>Start Run</h1>
+
+<!-- Support for Spring errors object -->
+<spring:bind path="startRunParameters.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <b>
+      <br /><c:out value="${error}"/>
+    </b>
+  </c:forEach>
+</spring:bind>
+
+<form:form method="post" action="startRun.html" commandName="startRunParameters" id="startRun" >
+  <div><label for="runId">Run ID:</label>
+      <form:input disabled="true" path="runId" id="runId"/>
+      <form:errors path="runId" />
+  </div>
+
+
+    <div><input type="image" id="save" src="../../../<spring:theme code="register_save" />" 
+    onmouseover="swapSaveImage('save',1)" 
+    onmouseout="swapSaveImage('save',0)"
+    />
+
+    <a href="#" onclick="javascript:window.close()">cancel</a>
+    </div>
+
+</form:form>
 
 </body>
 </html>

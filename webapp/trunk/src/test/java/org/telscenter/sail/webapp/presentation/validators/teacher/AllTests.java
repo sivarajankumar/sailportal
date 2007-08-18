@@ -36,6 +36,7 @@ public class AllTests {
                 "Test for org.telscenter.sail.webapp.presentation.validators.teacher");
         // $JUnit-BEGIN$
         suite.addTestSuite(EndRunParametersValidatorTest.class);
+        suite.addTestSuite(StartRunParametersValidatorTest.class);
         // $JUnit-END$
         return suite;
     }

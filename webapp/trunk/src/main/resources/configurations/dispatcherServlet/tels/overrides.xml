@@ -67,6 +67,7 @@
     		    /student/startproject.html=startProjectController
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/manage/endRun.html=endRunController
+    		    /teacher/run/manage/startRun.html=startRunController
     		    /**/index.html=indexController
     		</value>
     	</property>

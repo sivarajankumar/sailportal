@@ -158,9 +158,9 @@ ${user.userDetails.username}
               <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a><br />
             </c:forEach>
         </c:otherwise>
-      </c:choose>
+      </c:choose>     
       <br/>
-      <a href="#" onclick="javascript:alert('not available yet')">Un-archive this run</a>
+      <a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')">Un-archive this run</a>
     </td>
    </tr>
   </c:forEach>

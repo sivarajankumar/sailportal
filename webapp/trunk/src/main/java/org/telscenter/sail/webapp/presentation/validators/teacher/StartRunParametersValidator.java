@@ -20,24 +20,47 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
+package org.telscenter.sail.webapp.presentation.validators.teacher;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+import org.telscenter.sail.webapp.domain.impl.StartRunParameters;
 
 /**
+ * Validator for teacher's StartRunParameters transfer object
+ *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $ Id: $
  */
-public class AllTests {
+public class StartRunParametersValidator implements Validator {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for org.telscenter.sail.webapp.web.controllers.teacher.run");
-        // $JUnit-BEGIN$
-        suite.addTestSuite(RunListControllerTest.class);
-        suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.manage.AllTests.suite());
-        // $JUnit-END$
-        return suite;
-    }
+	/**
+	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	public boolean supports(Class clazz) {
+		return StartRunParameters.class.isAssignableFrom(clazz);
+	}
+
+	/**
+	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
+	 */
+	public void validate(Object paramsIn, Errors errors) {
+		StartRunParameters params = (StartRunParameters) paramsIn;
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "runId", "error.no-runId");
+		
+		if (errors.getErrorCount() != 0) {
+			return;
+		}
+		
+		Long runId = params.getRunId();
+		
+		if (runId < 1) {
+			errors.rejectValue("runId", "error.illegal-runId");
+			return;
+		}
+	}
+
 }

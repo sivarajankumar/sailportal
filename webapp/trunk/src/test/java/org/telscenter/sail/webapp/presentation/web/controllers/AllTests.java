@@ -22,8 +22,6 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
-import org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListControllerTest;
-
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -41,8 +39,8 @@ public class AllTests {
         //$JUnit-BEGIN$
         suite.addTestSuite(RegisterTeacherControllerTest.class);
         suite.addTestSuite(RegisterStudentControllerTest.class);
-        suite.addTestSuite(RunListControllerTest.class);
         suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.student.AllTests.suite());
+        suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.AllTests.suite());
         //$JUnit-END$
         return suite;
     }

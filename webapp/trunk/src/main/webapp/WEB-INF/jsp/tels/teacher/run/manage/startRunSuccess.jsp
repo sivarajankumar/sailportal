@@ -25,13 +25,13 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
-<title>Success with End Run</title>
+<title>Success with Start Run</title>
 </head>
 
 <body>
 
 <h1>Success!</h1>
-<p>please close this window and refresh the main window. This run should then appear under the "Archived Runs" section.</p>
+<p>please close this window and refresh the main window. This run should then appear under the "Current Runs" section.</p>
 <div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
 
 </body>

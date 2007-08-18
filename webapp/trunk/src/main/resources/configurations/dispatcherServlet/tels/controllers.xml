@@ -38,6 +38,9 @@
 	<bean id="endRunParametersValidator"
 	    class="org.telscenter.sail.webapp.presentation.validators.teacher.EndRunParametersValidator" />
 
+	<bean id="startRunParametersValidator"
+	    class="org.telscenter.sail.webapp.presentation.validators.teacher.StartRunParametersValidator" />
+
 	<bean id="teamSignInFormValidator" 
 	    class="org.telscenter.sail.webapp.presentation.validators.student.TeamSignInFormValidator" >
 	    <property name="userService" ref="userService" />
@@ -125,6 +128,18 @@
     	<property name="validator" ref="endRunParametersValidator" />
         <property name="formView" value="teacher/run/manage/endRun" />
     	<property name="successView" value="teacher/run/manage/endRunSuccess" />
+    </bean>
+    
+    <bean id="startRunController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.manage.StartRunController">
+        <property name="runService" ref="runService" />
+    	<property name="commandName" value="startRunParameters" />    	
+    	<property name="commandClass" 
+    	    value="org.telscenter.sail.webapp.domain.impl.StartRunParameters" />
+    	<property name="sessionForm" value="true" />
+    	<property name="validator" ref="startRunParametersValidator" />
+        <property name="formView" value="teacher/run/manage/startRun" />
+    	<property name="successView" value="teacher/run/manage/startRunSuccess" />
     </bean>
 
 	<bean id="studentIndexController" 

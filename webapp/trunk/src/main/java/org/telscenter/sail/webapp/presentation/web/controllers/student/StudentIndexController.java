@@ -28,6 +28,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
@@ -71,8 +72,10 @@ public class StudentIndexController extends AbstractController {
 
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
- 
-		List<Run> runlist = runService.getRunList();
+    	User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
+    	
+		List<Run> runlist = runService.getRunList(user);
 		List<Run> current_run_list = new ArrayList<Run>();
 		List<Run> ended_run_list = new ArrayList<Run>();
 		

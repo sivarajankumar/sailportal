@@ -145,7 +145,7 @@ function popup(URL) {
     <td>${run.sdsOffering.name}</td>
     <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
     <td>
-    You will be able to view your work on this archived run later.
+    You cannot Run an "Archived Run". You will be able to view your work on this archived run later.
     </td>
    </tr>
   </c:forEach>
