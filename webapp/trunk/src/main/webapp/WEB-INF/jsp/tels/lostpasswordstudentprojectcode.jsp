@@ -63,7 +63,7 @@
 
 
 
-<a href="index.html">go home homey</a>
+<a href="index.html">go home</a>
 
 </body>
 </html>
