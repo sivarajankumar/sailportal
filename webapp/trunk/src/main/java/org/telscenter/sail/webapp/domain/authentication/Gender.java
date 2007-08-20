@@ -30,5 +30,7 @@ package org.telscenter.sail.webapp.domain.authentication;
  * @version $Id$
  */
 public enum Gender {
+	
 	MALE, FEMALE
+	
 }

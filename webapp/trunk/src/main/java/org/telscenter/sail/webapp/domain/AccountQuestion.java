@@ -34,15 +34,4 @@ public enum AccountQuestion {
 	
 	QUESTION_ONE,QUESTION_TWO; 
 	
-	public String toString() {
-		switch( this.ordinal() ) {
-		case 0:
-			return "what is your middle name?";
-		case 1:
-			return "what is the name of your first pet?";
-		default:
-			return null;
-		}
-	}
-	
 }

@@ -112,7 +112,7 @@
       
       <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
           <c:forEach items="${accountQuestions}" var="questionchoice">
-            <form:option value="${questionchoice}">${questionchoice}</form:option>
+            <form:option value="${questionchoice}"><spring:message code="accountquestions.${questionchoice}" /></form:option>
           </c:forEach>
         </form:select>
         
