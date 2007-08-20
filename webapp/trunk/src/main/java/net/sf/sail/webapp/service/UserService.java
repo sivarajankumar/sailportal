@@ -31,11 +31,6 @@ import org.acegisecurity.userdetails.UserDetails;
  * Represents the set of operations on a user.
  * 
  * @author Cynick Young
- * 
- * @version $Id$
- * 
- */
-/**
  * @author Laurel Williams
  * 
  * @version $Id$
