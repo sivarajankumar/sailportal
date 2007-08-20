@@ -116,7 +116,7 @@
 </ul>
 
 </form>
-<a href="lostpasswordmain.html" class="right6 smallFont1 widthAdj2">
+<a href="forgotaccount/selectaccounttype.html" class="right6 smallFont1 widthAdj2">
 <spring:message code="forgotten.username-or-password" /> 
 </a>
 

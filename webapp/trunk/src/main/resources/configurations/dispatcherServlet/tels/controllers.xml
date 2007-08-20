@@ -197,23 +197,27 @@
 		class="org.telscenter.sail.webapp.domain.impl.RunParameters"
 		scope="prototype" />
 
-	<bean id="lostPasswordMainController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordMainController" />
+	<bean id="selectAccountTypeController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.SelectAccountTypeController" />
 
-	<bean id="lostPasswordTeacherMainController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherMainController">
+	<bean id="forgotAccountTeacherIndexController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.ForgotAccountTeacherIndexController">
 		<property name="userService" ref="userService" />
 		<property name="commandName" value="userDetails" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
 		<property name="validator" ref="lostTeacherValidator" />
-		<property name="formView" value="lostpasswordteachermain" />
-		<property name="successView" value="lostpasswordteacherresult" />
+		<property name="formView" value="forgotaccount/teacher/index" />
+		<property name="successView" value="forgotaccount/teacher/success" />
+		<property name="errorView" value="forgotaccount/teacher/error" />		
 		<property name="javaMail" ref="javaMail"/>
 	</bean>
 
-	<bean id="lostPasswordTeacherErrorController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherErrorController" />
+	<bean id="forgotAccountTeacherSuccessController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.SuccessController" />
+
+	<bean id="forgotAccountTeacherErrorController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.ErrorController" />
 
 	<bean id="lostPasswordStudentMainController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentMainController" />
@@ -223,10 +227,7 @@
 
 	<bean id="lostPasswordStudentUsernameController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentUsernameController" />
-
-	<bean id="lostPasswordTeacherResultController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordTeacherResultController" />
-
+		
 	<bean id="lostPasswordStudentProjectCodeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentProjectCodeController">
 		<property name="runService" ref="runService" />

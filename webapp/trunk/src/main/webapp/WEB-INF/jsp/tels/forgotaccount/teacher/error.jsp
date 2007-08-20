@@ -23,31 +23,30 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<link href="../../<spring:theme code="teacherforgotstylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
-<title><spring:message code="lostpassword.title" /></title>
+<script type="text/javascript" src="../../javascript/general.js"></script>	
+<title>Forgot username or password - teacher</title>
 </head>
 
 <body>
+<%@ include file="header.jsp"%>
 
-<%@ include file="teacherHeader.jsp"%>
-<h2 class="center"><spring:message code="lost.username-or-password" /></h2>
-<h1 class="center"><spring:message code="lostpassword.teacher-or-researcher" /></h1>
+<h2 id="heading"> LOST USERNAME OR PASSWORD </h2>
+<h2 id="heading2"> TEACHER/RESEARCHER </h2>
 
-<div id="right" class="widthAdj6">
-<ul class="bigFont1">
-<li><spring:message code="lostpassword.teacher.username" />
-<b>${someValue}</b><spring:message code="lostpassword.teacher.error" />
+<div id="forgot2"> 
+ <ul id="forgotList2">
+<li> The <b>${someValue}</b> information entered does
+not match anything on file.
 </li>
-</ul>
+ </ul>
 </div>
-
-<div id="verticalNavigation">
-<ul>
-<li><a href="#"> <spring:message code="lostpassword.teacher.try-again" /></a></li>
-<li><a href="#"><spring:message code="lostpassword.teacher.contact-wise" /></a></li>
-</ul>
-</div>
-
+<br /> 
+<form>
+<input type="button" id="try" value="Try Again" />
+<input type="button" id="contact" value="Contact Wise" />
+</form>
 </body>
 </html>
+

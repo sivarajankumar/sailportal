@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers;
+package org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,10 +46,12 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  * @author Anthony Perritano
  * @version
  */
-public class LostPasswordTeacherMainController extends SimpleFormController {
+public class ForgotAccountTeacherIndexController extends SimpleFormController {
 
 	protected UserService userService = null;
 	protected JavaMailHelper javaMail = null;
+	
+	private String errorView = "/forgotaccount/teacher/error";
 
 	/**
 	 * helper for sending emails
@@ -97,7 +99,7 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 				
 				if( user == null ) {
 					ModelAndView modelAndView = new ModelAndView(
-					"lostpasswordteachererror");
+					getErrorView());
 					modelAndView.addObject("someValue", username);
 					return modelAndView;
 				}
@@ -109,7 +111,7 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 				
 				if (users.isEmpty()) {
 					ModelAndView modelAndView = new ModelAndView(
-							"lostpasswordteachererror");
+							getErrorView());
 					modelAndView.addObject("someValue", emailAddress);
 					return modelAndView;
 				} else {
@@ -162,6 +164,20 @@ public class LostPasswordTeacherMainController extends SimpleFormController {
 	 */
 	public static void main(String[] args) {
 		System.out.println("New Password: " + generateRandomPassword());
+	}
+
+	/**
+	 * @return the errorView
+	 */
+	public String getErrorView() {
+		return errorView;
+	}
+
+	/**
+	 * @param errorView the errorView to set
+	 */
+	public void setErrorView(String errorView) {
+		this.errorView = errorView;
 	}
 
 }

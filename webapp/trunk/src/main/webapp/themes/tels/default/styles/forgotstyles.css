@@ -1,0 +1,47 @@
+.maroon{
+	color:rgb(100,0,0);
+}
+
+#right{
+	position:relative;
+	left:350px;	
+}
+
+#heading{
+	color:rgb(100,0,0);
+	position:relative;
+	left:350px;
+	width:350px;
+}
+
+#heading2{
+	position:relative;
+	left:325px;
+	width:450px;
+}
+
+#account{
+	position:relative;
+	left:426px;
+	top: 21px;
+	height: 107px;
+	width: 225px;
+}
+
+#select{
+	position:relative;
+	left:454px;
+	top: 48px;
+	height:100px;
+	width:172px;
+}
+
+#italic{
+	font-style:italic;
+	font-weight:100;
+	
+}	
+
+img{
+	border:0px;
+}

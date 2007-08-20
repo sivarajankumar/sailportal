@@ -20,7 +20,8 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers;
+
+package org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,14 +30,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * Controller for lost password
+ * 
+ * displays error message for teacher lost password
  *
  * @author Anthony Perritano
- * @version
+ * @version $Id: $
  */
-public class LostPasswordMainController extends AbstractController {
-
-	/**
+public class ErrorController extends AbstractController {
+	
+	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@SuppressWarnings("unchecked")
@@ -44,7 +46,7 @@ public class LostPasswordMainController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 
-		ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
 
         return modelAndView;
 	}

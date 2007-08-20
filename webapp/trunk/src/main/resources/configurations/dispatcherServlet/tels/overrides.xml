@@ -69,6 +69,10 @@
     		    /teacher/run/manage/endRun.html=endRunController
     		    /teacher/run/manage/startRun.html=startRunController
     		    /**/index.html=indexController
+    		    /forgotaccount/selectaccounttype.html=selectAccountTypeController
+    		    /forgotaccount/teacher/index.html=forgotAccountTeacherIndexController
+    		    /forgotaccount/teacher/success.html=forgotAccountTeacherSuccessController
+    		    /forgotaccount/teacher/error.html=forgotAccountTeacherErrorController
     		</value>
     	</property>
     </bean>
