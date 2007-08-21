@@ -28,8 +28,7 @@
     	class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterStudentController">
     	<property name="userService" ref="userService" />
     	<property name="runService" ref="runService" />
-    	<property name="groupService" ref="groupService" />
-    	<property name="aclService" ref="aclServiceImpl" />
+    	<property name="studentService" ref="studentService" />
     	<property name="commandName" value="studentAccountForm" />
     	<property name="validator" ref="studentUserDetailsValidator" />
     	<property name="formView" value="registerstudent" />

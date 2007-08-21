@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,11 +36,8 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
-import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
-import net.sf.sail.webapp.service.group.GroupService;
 
-import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
@@ -55,6 +51,7 @@ import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
  * Signup controller for TELS student user
@@ -63,12 +60,10 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * @version $Id$
  */
 public class RegisterStudentController extends SignupController {
-
+	
+	private StudentService studentService;
+	
 	private RunService runService;
-	
-	private GroupService groupService;
-	
-    private AclService<Run> aclService;
 	
 	protected static final String USERNAME_KEY = "username";
 	
@@ -97,16 +92,9 @@ public class RegisterStudentController extends SignupController {
 
 		if (accountForm.isNewAccount()) {
 			try {
-				User user = this.userService.createUser(userDetails);
+				User user = userService.createUser(userDetails);
 				Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
-				String runcode = projectcode.getRuncode();
-				String periodName = projectcode.getRunPeriod();
-				Run run = this.runService.retrieveRunByRuncode(runcode);
-				// this.aclService.addPermission(run, BasePermission.READ); TODO HT: uncomment when this is figured out
-				Group period = run.getPeriodByName(periodName);
-				Set<User> membersToAdd = new HashSet<User>();
-				membersToAdd.add(user);
-				this.groupService.addMembers(period, membersToAdd);
+				studentService.addStudentToRun(user, projectcode);
 			} catch (DuplicateUsernameException e) {
 				errors.rejectValue("userDetails.username", "error.duplicate-username",
 						new Object[] { userDetails.getUsername() }, "Duplicate Username.");
@@ -220,23 +208,16 @@ public class RegisterStudentController extends SignupController {
 	}
 
 	/**
+	 * @param studentService the studentService to set
+	 */
+	public void setStudentService(StudentService studentService) {
+		this.studentService = studentService;
+	}
+
+	/**
 	 * @param runService the runService to set
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
-	}
-
-	/**
-	 * @param groupService the groupService to set
-	 */
-	public void setGroupService(GroupService groupService) {
-		this.groupService = groupService;
-	}
-
-	/**
-	 * @param aclService the aclService to set
-	 */
-	public void setAclService(AclService<Run> aclService) {
-		this.aclService = aclService;
 	}
 }

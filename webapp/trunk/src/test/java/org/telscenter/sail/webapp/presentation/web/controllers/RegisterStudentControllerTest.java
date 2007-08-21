@@ -22,30 +22,20 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.reset;
-import static org.easymock.EasyMock.verify;
+import static org.easymock.EasyMock.*;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.group.Group;
-import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
-import net.sf.sail.webapp.service.group.GroupService;
 
-import org.easymock.EasyMock;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -55,9 +45,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.student.StudentService;
 
 
 /**
@@ -77,37 +68,41 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 
 	private static final String LASTNAME = "Terashima";
 	
-	private static final String PERIODNAME = "6";
+	private static final String RUNCODE = "fly8978";
+	
+	private static final String PERIODNAME = "3";
+	
+	private static final String LEGAL_PROJECTCODE = RUNCODE + "-" + PERIODNAME;
+
+	private final String RUNCODE_NOT_IN_DB = "abc1234";
+	
+	private final String PERIODNAME_NOT_IN_DB = "thisperioddoesnotexist";
 
 	private static final Gender GENDER = Gender.MALE;
 
-	private static final String PROJECTCODE = "Ruby8180-6";
-	
-	private static final String RUNCODE = "Ruby8180";
-	
 	private Date birthday = null;
 	
-	ApplicationContext mockApplicationContext;
+	private ApplicationContext mockApplicationContext;
 
-	MockHttpServletRequest request;
+	private MockHttpServletRequest request;
 
-	HttpServletResponse response;
+	private HttpServletResponse response;
 
-	BindException errors;
+	private BindException errors;
 	
-	StudentUserDetails studentUserDetails;
+	private StudentUserDetails studentUserDetails;
 	
-	StudentAccountForm studentAccountForm;
+	private StudentAccountForm studentAccountForm;
 
-	UserService mockUserService;
+	private UserService mockUserService;
 	
-	GroupService mockGroupService;
+	private StudentService mockStudentService;
 	
-	RunService mockRunService;
+	private RunService mockRunService;
 	
-	AclService<Run> mockAclService;
+	private AclService<Run> mockAclService;
 	
-	RegisterStudentController signupController;
+	private RegisterStudentController signupController;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -120,9 +115,10 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		studentAccountForm = new StudentAccountForm();
 		errors = new BindException(studentAccountForm, "");
 		mockUserService = createMock(UserService.class);
-		mockGroupService = createMock(GroupService.class);
 		mockRunService = createMock(RunService.class);
 		mockAclService = createMock(AclService.class);
+		mockStudentService = createMock(StudentService.class);
+		
 		Calendar cal = Calendar.getInstance();
 		cal.set(1983, 6, 19);
 		birthday = cal.getTime();
@@ -136,15 +132,14 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		request.addParameter("password", PASSWORD);		
 		
 		studentAccountForm.setUserDetails(studentUserDetails);
-		studentAccountForm.setProjectCode(PROJECTCODE);
-		
+		studentAccountForm.setProjectCode(LEGAL_PROJECTCODE);
 		signupController = new RegisterStudentController();
 		signupController.setApplicationContext(mockApplicationContext);
 		signupController.setUserService(mockUserService);
-		signupController.setGroupService(mockGroupService);
 		signupController.setRunService(mockRunService);
-		signupController.setAclService(mockAclService);
+		signupController.setStudentService(mockStudentService);
 		signupController.setSuccessView(SUCCESS);
+		signupController.setFormView(FORM);
 	}
 	
 	public void testOnSubmit() throws Exception {
@@ -156,26 +151,16 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		expect(mockUserService.createUser(studentUserDetails)).andReturn(user);
 		replay(mockUserService);
 		
-		Run run = new RunImpl();
-		Group group = new PersistentGroup();
-		group.setName(PERIODNAME);
-		Set<Group> periods = new HashSet<Group>();
-		periods.add(group);
-		run.setPeriods(periods);
-		expect(mockRunService.retrieveRunByRuncode(RUNCODE)).andReturn(run);
-		replay(mockRunService);
-
-		Set<User> membersToAdd = new HashSet<User>();
-		membersToAdd.add(user);
-		mockGroupService.addMembers(group, membersToAdd);
-		EasyMock.expectLastCall();
-		replay(mockGroupService);
-		
+		mockStudentService.addStudentToRun(user, new Projectcode(LEGAL_PROJECTCODE));
+		expectLastCall();
+		replay(mockStudentService);
+				
 		ModelAndView modelAndView = signupController.onSubmit(request,
 				response, studentAccountForm, errors);
 
 		assertEquals(SUCCESS, modelAndView.getViewName());
 		verify(mockUserService);
+		verify(mockStudentService);
 
 		// test submission of form with same firstname, lastname and birthday info which
 		// would result in a duplicate username
@@ -208,21 +193,19 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		verify(mockUserService);
 	}
 	
-	public void testOnSubmit_failure_bad_projectcode() throws Exception {
+	public void testOnSubmit_failure_bad_runcode() throws Exception {
 		// test submission of form with correct username and password info,
-		// but with bad projectcode.
+		// but with bad projectcode (specifically, the runcode)
 		// Should get ModelAndView back containing form view
-
 		User user = new UserImpl();
 		expect(mockUserService.createUser(studentUserDetails)).andReturn(user);
 		replay(mockUserService);
 		
-		String runcode_not_in_db = "abc1234";
-		studentAccountForm.setProjectCode(runcode_not_in_db + "-" + PERIODNAME);
-		EasyMock.expect(mockRunService.retrieveRunByRuncode(runcode_not_in_db)).andThrow(new ObjectNotFoundException(runcode_not_in_db, Run.class));
-		replay(mockRunService);
+		studentAccountForm.setProjectCode(RUNCODE_NOT_IN_DB + "-" + PERIODNAME);
+		mockStudentService.addStudentToRun(user, new Projectcode(RUNCODE_NOT_IN_DB, PERIODNAME));
+		expectLastCall().andThrow(new ObjectNotFoundException(RUNCODE_NOT_IN_DB, Run.class));
+		replay(mockStudentService);
 		
-		signupController.setFormView(FORM);
 		ModelAndView modelAndView = signupController.onSubmit(request,
 				response, studentAccountForm, errors);
 
@@ -231,8 +214,34 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		assertEquals(1, errors.getFieldErrorCount());
 		
 		assertNotNull(errors.getFieldError("projectCode"));
-		verify(mockRunService);
 		verify(mockUserService);
+		verify(mockStudentService);
+	}
+	
+	public void testOnSubmit_failure_bad_periodname() throws Exception {
+		// test submission of form with correct username and password info,
+		// but with bad projectcode (specifically, the periodname)
+		// Should get ModelAndView back containing form view
+		User user = new UserImpl();
+		expect(mockUserService.createUser(studentUserDetails)).andReturn(user);
+		replay(mockUserService);
+		
+		studentAccountForm.setProjectCode(RUNCODE + "-" + PERIODNAME_NOT_IN_DB);
+		mockStudentService.addStudentToRun(user, new Projectcode(RUNCODE, PERIODNAME_NOT_IN_DB));
+		expectLastCall().andThrow(new ObjectNotFoundException(PERIODNAME_NOT_IN_DB, Run.class));
+		replay(mockStudentService);
+		
+		ModelAndView modelAndView = signupController.onSubmit(request,
+				response, studentAccountForm, errors);
+
+		assertEquals(FORM, modelAndView.getViewName());
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getFieldErrorCount());
+		
+		assertNotNull(errors.getFieldError("projectCode"));
+		verify(mockUserService);
+		verify(mockStudentService);
+		
 	}
 	
 	@Override

@@ -16,6 +16,7 @@ public class AllTests {
 		   suite.addTest(org.telscenter.sail.webapp.service.impl.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.service.offering.impl.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.service.project.impl.AllTests.suite());
+		   suite.addTest(org.telscenter.sail.webapp.service.student.impl.AllTests.suite());		   
 		//$JUnit-END$
 		return suite;
 	}

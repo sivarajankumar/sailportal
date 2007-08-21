@@ -22,27 +22,19 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.group.Group;
-import net.sf.sail.webapp.service.AclService;
-import net.sf.sail.webapp.service.group.GroupService;
 
-import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
-import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
  * The Controller for Add a Project page for WISE students
@@ -52,11 +44,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  */
 public class AddProjectController extends SimpleFormController {
 
-	private RunService runService;
-	
-	private GroupService groupService;
-
-    private AclService<Run> aclService;
+	private StudentService studentService;
 
 	/**
      * On submission of the Add a Project form, the logged-in user is added to 
@@ -76,18 +64,10 @@ public class AddProjectController extends SimpleFormController {
     	AddProjectParameters params = (AddProjectParameters) command;
 
     	ModelAndView modelAndView = null;
-    	Run run = null;
     	Projectcode projectcode = new Projectcode(params.getProjectcode());
-    	String runcode = projectcode.getRuncode();
-    	String periodName = projectcode.getRunPeriod();
     	try {
-    		run = this.runService.retrieveRunByRuncode(runcode);
-			// this.aclService.addPermission(run, BasePermission.READ); TODO HT: uncomment when this is figured out
-        	Group period = run.getPeriodByName(periodName);
-        	Set<User> membersToAdd = new HashSet<User>();
-        	membersToAdd.add(user);
-        	this.groupService.addMembers(period, membersToAdd);
-        	modelAndView = new ModelAndView(getSuccessView());
+    		studentService.addStudentToRun(user, projectcode);
+    		modelAndView = new ModelAndView(getSuccessView());
     	} catch (ObjectNotFoundException e) {
     		errors.rejectValue("projectcode", "error.illegal-projectcode");
     		return showForm(request, response, errors);
@@ -97,25 +77,11 @@ public class AddProjectController extends SimpleFormController {
     	}
 		return modelAndView;
     }
-    
-	/**
-	 * @param groupService the groupService to set
-	 */
-	public void setGroupService(GroupService groupService) {
-		this.groupService = groupService;
-	}
 
 	/**
-	 * @param runService the runService to set
+	 * @param studentService the studentService to set
 	 */
-	public void setRunService(RunService runService) {
-		this.runService = runService;
-	}
-
-	/**
-	 * @param aclService the aclService to set
-	 */
-	public void setAclService(AclService<Run> aclService) {
-		this.aclService = aclService;
+	public void setStudentService(StudentService studentService) {
+		this.studentService = studentService;
 	}
 }

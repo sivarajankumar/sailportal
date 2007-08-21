@@ -83,5 +83,12 @@
     	<property name="sdsCurnitDao" ref="sdsCurnitDao" />
     	<property name="curnitDao" ref="curnitDao" />
     </bean>
-
+    
+    <bean id="studentService"
+        class="org.telscenter.sail.webapp.service.student.impl.StudentServiceImpl">
+        <property name="aclService" ref="aclServiceImpl" />
+        <property name="groupService" ref="groupService" />
+        <property name="runService" ref="runService" />
+    </bean>
+    
 </beans>

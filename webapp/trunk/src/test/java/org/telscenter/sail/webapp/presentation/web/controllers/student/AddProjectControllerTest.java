@@ -22,7 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
-import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,10 +34,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
-import net.sf.sail.webapp.service.AclService;
-import net.sf.sail.webapp.service.group.GroupService;
 
-import org.easymock.EasyMock;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -45,10 +42,12 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
+import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
-import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
  * @author Hiroki Terashima
@@ -62,6 +61,10 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 	
 	private static final String LEGAL_PROJECTCODE = RUNCODE + "-" + PERIODNAME;
 
+	private final String RUNCODE_NOT_IN_DB = "abc1234";
+	
+	private final String PERIODNAME_NOT_IN_DB = "thisperioddoesnotexist";
+
 	private static final String SUCCESS = "SUCCESS VIEW";
 
 	private static final String FORM = "FORM VIEW";
@@ -70,11 +73,7 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 	
 	private AddProjectParameters addProjectParameters;
 	
-	private RunService mockRunService;
-
-	private GroupService mockGroupService;
-	
-	private AclService<Run> mockAclService;
+	private StudentService mockStudentService;
 	
 	private ApplicationContext mockApplicationContext;
 	
@@ -118,14 +117,10 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 		periods.add(group);
 		run.setPeriods(periods);
 		
-		this.mockRunService = EasyMock.createMock(RunService.class);
-		this.mockGroupService = EasyMock.createMock(GroupService.class);
-		this.mockAclService = EasyMock.createMock(AclService.class);
+		this.mockStudentService = createMock(StudentService.class);
 		addProjectController = new AddProjectController();
 		addProjectController.setApplicationContext(mockApplicationContext);
-		addProjectController.setRunService(mockRunService);
-		addProjectController.setGroupService(mockGroupService);
-		addProjectController.setAclService(mockAclService);
+		addProjectController.setStudentService(mockStudentService);
 		addProjectController.setSuccessView(SUCCESS);
 		addProjectController.setFormView(FORM);
 	}
@@ -133,59 +128,48 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_success() throws Exception {
 		// test submission of form with correct projectcode info.
 		// should get ModelAndView back containing success view
+		mockStudentService.addStudentToRun(user, new Projectcode(LEGAL_PROJECTCODE));
+		expectLastCall();
+		replay(mockStudentService);
 		
-		EasyMock.expect(mockRunService.retrieveRunByRuncode(RUNCODE)).andReturn(run);
-		EasyMock.replay(mockRunService);
-		
-		Set<User> membersToAdd = new HashSet<User>();
-		membersToAdd.add(user);
-		mockGroupService.addMembers(group, membersToAdd);
-		EasyMock.expectLastCall();
-		EasyMock.replay(mockGroupService);
-
 		ModelAndView modelAndView = addProjectController.onSubmit(request, response, addProjectParameters, errors);
 		assertEquals(SUCCESS, modelAndView.getViewName());
 		assertTrue(!errors.hasErrors());
-		
-		EasyMock.verify(mockRunService);		
-		EasyMock.verify(mockGroupService);
+		verify(mockStudentService);
 	}
-	
+
 	public void testOnSubmit_failure_bad_runcode() throws Exception {
 		// test submission of form with projectcode that has a runcode
 		// that does not exist in datastore.
 		// should get ModelAndView back containing form view
-		String runcode_not_in_db = "abc1234";
-		addProjectParameters.setProjectcode(runcode_not_in_db + "-" + PERIODNAME);
-		EasyMock.expect(mockRunService.retrieveRunByRuncode(runcode_not_in_db)).andThrow(new ObjectNotFoundException(runcode_not_in_db, Run.class));
-		EasyMock.replay(mockRunService);
-		
-		ModelAndView modelAndView = addProjectController.onSubmit(request, response, addProjectParameters, errors);
+		addProjectParameters.setProjectcode(RUNCODE_NOT_IN_DB + "-" + PERIODNAME);
+		mockStudentService.addStudentToRun(user, new Projectcode(RUNCODE_NOT_IN_DB, PERIODNAME));
+		expectLastCall().andThrow(new ObjectNotFoundException(RUNCODE_NOT_IN_DB, Run.class));
+		replay(mockStudentService);
 
+		ModelAndView modelAndView = addProjectController.onSubmit(request, response, addProjectParameters, errors);
 		assertEquals(FORM, modelAndView.getViewName());
 		assertTrue(errors.hasErrors());
 		assertEquals(1, errors.getFieldErrorCount());
-		
+
 		assertNotNull(errors.getFieldError("projectcode"));
-		EasyMock.verify(mockRunService);
+		verify(mockStudentService);
 	}
 	
 	public void testOnSubmit_failure_bad_periodname() throws Exception {
 		// test submission of form with projectcode that has a periodname
 		// that does not exist in datastore.
 		// should get ModelAndView back containing form view
-		String periodname_not_in_db = "thisperioddoesnotexist";
-		addProjectParameters.setProjectcode(RUNCODE + "-" + periodname_not_in_db);
-		EasyMock.expect(mockRunService.retrieveRunByRuncode(RUNCODE)).andReturn(run);
-		EasyMock.replay(mockRunService);
+		addProjectParameters.setProjectcode(RUNCODE + "-" + PERIODNAME_NOT_IN_DB);
+		mockStudentService.addStudentToRun(user, new Projectcode(RUNCODE, PERIODNAME_NOT_IN_DB));
+		expectLastCall().andThrow(new PeriodNotFoundException(PERIODNAME_NOT_IN_DB + " was not found"));
+		replay(mockStudentService);
 
 		ModelAndView modelAndView = addProjectController.onSubmit(request, response, addProjectParameters, errors);
 		assertEquals(FORM, modelAndView.getViewName());
 		assertTrue(errors.hasErrors());
 		assertEquals(1, errors.getFieldErrorCount());
 		assertNotNull(errors.getFieldError("projectcode"));
-
-		EasyMock.verify(mockRunService);		
+		verify(mockStudentService);		
 	}
-
 }
