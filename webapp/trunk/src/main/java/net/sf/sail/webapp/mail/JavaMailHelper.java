@@ -27,66 +27,65 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
  * Helps easily construct an email message using the JavaMail Framework
  * 
- * @author Anthony Perritnao
+ * @author Anthony Perritano
+ * 
  * @version $Id$
  */
 public class JavaMailHelper implements IMailFacade {
 
 	private Properties properties;
-	
+
+	private JavaMailSenderImpl sender;
+
 	/**
-	 * Constructs an email and sends it the desired receptents.
-	 * 
-	 * @param recipients what emails they are going to 
-	 * @param subject the email subject
-	 * @param message the email message
-	 * @param from from email address
+	 * @see net.sf.sail.webapp.mail.IMailFacade#postMail(java.lang.String[],
+	 *      java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public void postMail(String[] recipients, String subject, String message,String from) throws MessagingException {
-		
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		
-		sender.setUsername((String) properties.get("mail.username"));
-		sender.setPassword((String) properties.get("mail.password"));
+	public void postMail(String[] recipients, String subject, String message,
+			String from) throws MessagingException {
+
+		sender.setUsername((String) properties.getProperty("mail.user"));
+		sender.setPassword((String) properties.getProperty("mail.password"));
 		sender.setJavaMailProperties(properties);
-		
-		for (String recip : recipients) {
-			MimeMessage mimeMessage = 	sender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+		MimeMessage mimeMessage = sender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+		helper.setFrom(from);
+		helper.setText(message);
+		helper.setSubject(subject);
 
-			helper.setTo(recip);
-			helper.setFrom(from);
-			helper.setText(message);
-			helper.setSubject(subject);
-			
-			sender.send(mimeMessage);
+		for (String receiver : recipients) {
+			if (receiver != null) {
+				helper.setTo(receiver);
+				sender.send(mimeMessage);
+			}
 		}
-		
+
 	}
 
 	/**
-	 * returns the email server properties
-	 * 
-	 * @return
-	 */
-	public Properties getProperties() {
-		return properties;
-	}
-
-	/**
-	 * Sets the email server properties
+	 * Sets the email server properties (generally from a properties file).
 	 * 
 	 * @param properties
 	 */
+	@Required
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
 
-	
+	/**
+	 * @param sender
+	 *            the sender to set
+	 */
+	@Required
+	public void setSender(JavaMailSenderImpl sender) {
+		this.sender = sender;
+	}
+
 }

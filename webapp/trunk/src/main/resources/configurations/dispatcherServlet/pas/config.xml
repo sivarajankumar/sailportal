@@ -24,13 +24,6 @@
     xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-	<!-- javamail stuff -->
-	<util:properties id="javaMailProperties" location="classpath:sendmail.properties"/>
-	
-	 <bean id="javaMail" class="net.sf.sail.webapp.mail.JavaMailHelper">
-   		<property name="properties" ref="javaMailProperties"/>
- 	</bean>
- 	
     <!-- Switch locales according to the user's browser -->
     <bean id="localeResolver"
         class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />

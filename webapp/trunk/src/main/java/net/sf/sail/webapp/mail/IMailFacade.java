@@ -31,6 +31,16 @@ import javax.mail.MessagingException;
  */
 public interface IMailFacade {
 
-	public void postMail( String recipients[ ], String subject, String message , String from) throws MessagingException;
+	/**
+	 * Constructs an email and sends it the desired recipients.
+	 * 
+	 * @param recipients An array containing the email addresses of the recipients. 
+	 * @param subject The subject of the email message.
+	 * @param message The body of the email message.
+	 * @param from The 'from' email address.
+	 * 
+	 * @throws MessagingException
+	 */
+	public void postMail(String recipients[], String subject, String message , String from) throws MessagingException;
 	
 }

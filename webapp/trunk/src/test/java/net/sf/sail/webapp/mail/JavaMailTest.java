@@ -23,115 +23,129 @@
 
 package net.sf.sail.webapp.mail;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.Properties;
-import java.util.PropertyResourceBundle;
-
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+
+import net.sf.sail.webapp.junit.AbstractSpringTests;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.junit.internal.runners.TestClassRunner;
+import org.junit.runner.RunWith;
 
 /**
- * Tests sending a message to specified server. Note that this test DOES NOT pass if the properties file
- * is not found: sendmail.properties.
+ * FUNCTIONAL TEST
  * 
- * 1. rename sendmail_sample.properties to sendmail.properties
- * 2. fill in empty fields
- * 3. run test
+ * Tests sending a message using the information specified in the
+ * sendmail.properties file. This is really a functional test and not a unit
+ * test. You do not need to run this test every time you run unit tests, but
+ * only to check if your sendmail.properties are correct and to confirm that
+ * emails are being sent out. Note that this test throws a NullPointerException
+ * on setup if the sendmail.properties file is not found. Note also that if you
+ * do not receive an email after this test, this may mean many things, which may
+ * imply that your sendmail.properties are wrong, or may just imply that your
+ * email got lost or your sendmail server is running slowly, etc. You may want
+ * to make sure mail.debug=true is set in the properties file so that you can
+ * see the debugging messages as the sendmail process is taking place. This can
+ * help you debug some problems.
+ * 
+ * Steps for testing: 
+ * (A) in /src/mail/resources, rename sendmail_sample.properties to sendmail.properties. 
+ * (B) in src/main/resources/configurations/applicationContexts/pas/javamail.xml
+ * uncomment the first line of the following and comment out the second line:
+ * <!--util:properties id="javaMailProperties" location="classpath:sendmail.properties" /--> 
+ * <util:properties id="javaMailProperties" location="classpath:sendmail_sample.properties" />
+ * (C) change the properties in sendmail.properties to meet the requirements of
+ * your sendmail server. you can find more information about this by looking at
+ * the JavaMail api at http://java.sun.com/products/javamail/javadocs/index.html
+ * (D) remove the Ignore annotations from this test 
+ * (E) change the RECEIVER and FROM email addresses below to something appropriate (D) Run the tests and
+ * ensure that you receive an email (probably you will want to set the receiver
+ * email addresses to be yourself).
  * 
  * @author aperritano
+ * @author Laurel Williams
+ * @version $Id: $
  * 
  */
-public class JavaMailTest {
+@RunWith(TestClassRunner.class)
+public class JavaMailTest extends AbstractSpringTests {
 
-	private PropertyResourceBundle bundle;
-	private Properties props;
-	private Enumeration<String> keys;
+	private JavaMailHelper mailHelper;
+
+	private static final String RECEIVER = "test@test.ca";
+	private static final String RECEIVER2 = "test@test.com";
+	private static final String MESSAGE = "test portal message";
+	private static final String SUBJECT = "test portal subject";
+	private static final String FROM = "test@test.ca";
+
+	private String[] recipients;
 
 	/**
-	 * loads the property file that contains all the javamail server information
+	 * @throws Exception
 	 */
 	@Before
-	@Ignore
-	public void setUp() throws IOException {
-		InputStream is = getClass().getResourceAsStream( "/net/sf/sail/webapp/mail/sendmail.properties" );
+	public void callSetUp() throws Exception {
+		this.setUp();
+		this.onSetUp();
+	}
 
-		props = new Properties();
-		props.load(is);
+	/**
+	 * @see org.springframework.test.AbstractSingleSpringContextTests#onSetUp()
+	 */
+	protected void onSetUp() throws Exception {
+		super.onSetUp();
+		mailHelper = (JavaMailHelper) this.applicationContext
+				.getBean("javaMail");
+		recipients = new String[2];
+		recipients[0] = RECEIVER;
 	}
 
 	@After
-	@Ignore
-	public void tearDown() {
-		props = null;
-	}
-
-	/**
-	 * tests sending just a basic message.
-	 * 
-	 * @throws IOException
-	 */
-	@Test
-	@Ignore
-	public void testSendBasicMessage() throws IOException {
-		this.setUp();
-		
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-
-		sender.setUsername((String) props.get("mail.username"));
-		sender.setPassword((String) props.get("mail.password"));
-		
-	
-		sender.setJavaMailProperties(props);
-		MimeMessage message = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message);
-		try {
-			helper.setTo((String) props.get("mail.to1"));
-			helper.setFrom((String) props.get("mail.username"));
-			helper.setText((String) props.get("mail.message"));
-			helper.setSubject(((String) props.get("mail.subject")));
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		} catch(IllegalArgumentException iae) {
-			iae.printStackTrace();
-		}
-
-		sender.send(message);
+	public void callTearDown() throws Exception {
 		this.tearDown();
+		this.onTearDown();
 	}
 
 	/**
-	 * tests sending a message to multiple email receiptents. 
+	 * @see org.springframework.test.AbstractSingleSpringContextTests#onTearDown()
+	 */
+	protected void onTearDown() throws Exception {
+		super.onTearDown();
+		mailHelper = null;
+		recipients = null;
+	}
+
+	/**
+	 * tests sending a basic message.
 	 * 
-	 * @throws IOException
-	 * @throws MessagingException
+	 * @throws Exception
 	 */
 	@Test
 	@Ignore
-	public void testSendMultiMessage() throws IOException {
-		this.setUp();
-		JavaMailHelper jm = new JavaMailHelper();
-		jm.setProperties(props);
-
-		String[] recipients = new String[] {
-				(String) props.get("mail.to1"),
-				(String) props.get("mail.to2") };
-
+	public void testSendBasicMessage() throws Exception {
 		try {
-			jm.postMail(recipients, (String) props.get("mail.subject"),
-					(String) props.get("mail.message"), (String) props
-					.get("mail.from"));
-			this.tearDown();
+			mailHelper.postMail(recipients, SUBJECT, MESSAGE, FROM);
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
+
+	/**
+	 * tests sending a message to multiple email recipients.
+	 */
+	@Test
+	@Ignore
+	public void testSendMultiMessage() {
+		recipients[1] = RECEIVER2;
+		try {
+			mailHelper.postMail(recipients, SUBJECT, MESSAGE, FROM);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 }

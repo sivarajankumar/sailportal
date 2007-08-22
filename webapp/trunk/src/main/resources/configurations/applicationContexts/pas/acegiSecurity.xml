@@ -75,6 +75,7 @@
             <list>
                 <ref local="daoAuthenticationProvider" />
                 <ref local="anonymousAuthenticationProvider" />
+                <ref local="runAsAuthenticationProvider" />
             </list>
         </property>
     </bean>
@@ -156,6 +157,16 @@
         </constructor-arg>
     </bean>
 
+	<!-- =================== SECURITY SYSTEM DEFINITIONS ================== -->
+	
+	<!-- RunAsManager -->
+	<bean id="runAsManager" class="org.acegisecurity.runas.RunAsManagerImpl">
+     	<property name="key"><value>my_run_as_password</value></property>
+ 	</bean>
+ 	
+ 	<bean id="runAsAuthenticationProvider" class="org.acegisecurity.runas.RunAsImplAuthenticationProvider">
+  		<property name="key"><value>my_run_as_password</value></property>
+	</bean>
 
     <!-- ===================== HTTP REQUEST SECURITY ==================== -->
 
