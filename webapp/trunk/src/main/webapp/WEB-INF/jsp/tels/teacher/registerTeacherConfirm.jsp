@@ -32,46 +32,40 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
-
-<div >
-<h2 id="right2"><spring:message code="register.new-account" /></h2>
-<h2 id="right2"><spring:message code="register.type-of-account" /></h2>
+<%@ include file="teacherHeader.jsp"%>
+<p class="userinfo"> 
+<authz:authentication operation="username" />
+ </p>
+<div style="position:relative;right:-380px;">
+<h2><spring:message code="teacher.registration" /></h2>
+<h3><spring:message code="login.success" /></h3>
+<h4><spring:message code="login.sign-in-message" /></h4>
 </div>
-<div id="navigation" style="position:relative;left:250px;">
-<ul class="none">
-<li class="vertical"><spring:message code="register.create-student-account" />
-<a href="registerstudent.html" class="north_1"> 
-<img id="imgBorderNone" src="<spring:theme code="create_student_account" />" 
-onmouseover="swapAccountImage('imgBorderNone',1)";
-onmouseout="swapAccountImage('imgBorderNone',0)";
-/> 
-</a>
+<div id="verticalNavigation" style="position:relative;right:-380px;">
+<ul>
+<li><spring:message code="login.username" />
+<input name="username" value="${username}"/>
 </li>
-<li class="vertical"><spring:message code="register.create-teacher-account" />
-<a href="registerteacher.html" class="north_1"> 
-<img id="imgBorder2None" src="<spring:theme code="create_teacher_account" />" 
-onmouseover="swapAccountImage('imgBorder2None',3)";
-onmouseout="swapAccountImage('imgBorder2None',2)";
+<li><spring:message code="login.password" />
+<input name="password" type="password" value="<authz:authentication operation="password" />"  />
+</li>
+</ul>
+</div>
+
+
+<div id="spacing" style="position:relative;right:-150px;">
+<ul>
+<li > <spring:message code="login.email-info-message" /></li>
+<li> <spring:message code="login.remember" /></li>
+</ul>
+</div>
+
+<div style="position:relative;right:-390px;" >
+<a href="index.html">
+<img id="imgBorderNone" src="<spring:theme code="sign_in_new_account" />" 
+onmouseover="swapSignInNewAccount('imgBorderNone',1)"
+onmouseout="swapSignInNewAccount('imgBorderNone',0)"
 />
-</a> 
-</li>
-</ul>
+</a>
 </div>
-
-<div id="spacing" class="border" style="padding:0px;position:relative;left:260px;width:600px;">
-<h4 class="left"> <spring:message code="register.which-account" /> </h4>
-<ul class="left">
-<li id="lineHeightAdj"> <spring:message code="register.student-account-desc" /></li>
-<li id="lineHeightAdj"> <spring:message code="register.teacher-account-desc" /></li>
-</ul>
-</div>
-
-
-
-</body>
-</html>
-
-
-
-
+</body></html>

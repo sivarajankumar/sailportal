@@ -198,26 +198,7 @@
 	<bean id="selectAccountTypeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.SelectAccountTypeController" />
 
-	<bean id="forgotAccountTeacherIndexController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.ForgotAccountTeacherIndexController">
-		<property name="userService" ref="userService" />
-		<property name="commandName" value="userDetails" />
-		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
-		<property name="validator" ref="lostTeacherValidator" />
-		<property name="formView" value="forgotaccount/teacher/index" />
-		<property name="successView" value="forgotaccount/teacher/success" />
-		<property name="errorView" value="forgotaccount/teacher/error" />		
-		<property name="javaMail" ref="javaMail"/>
-	</bean>
-
-	<bean id="forgotAccountTeacherSuccessController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.SuccessController" />
-
-	<bean id="forgotAccountTeacherErrorController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.ErrorController" />
-
-	<bean id="lostPasswordStudentMainController"
+<bean id="lostPasswordStudentMainController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentMainController" />
 
 	<bean id="lostPasswordStudentPasswordController"
@@ -237,6 +218,52 @@
 			value="lostpasswordstudentprojectcode" />
 		<property name="successView"
 			value="lostpasswordstudentprojectcoderesult" />
+	</bean>
+	
+	<bean id="forgotAccountTeacherIndexController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.ForgotAccountTeacherIndexController">
+		<property name="userService" ref="userService" />
+		<property name="commandName" value="userDetails" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
+		<property name="validator" ref="lostTeacherValidator" />
+		<property name="formView" value="forgotaccount/teacher/index" />
+		<property name="successView" value="forgotaccount/teacher/success" />
+		<property name="errorView" value="forgotaccount/teacher/error" />		
+		<property name="javaMail" ref="javaMail"/>
+	</bean>
+
+	<bean id="forgotAccountTeacherSuccessController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.SuccessController" />
+
+	<bean id="forgotAccountTeacherErrorController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.ErrorController" />
+
+	<bean id="forgotAccountStudentUsernameController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.student.UsernameController" />
+	
+	<bean id="forgotAccountStudentPasswordController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.student.PasswordController" />
+	
+	<bean id="forgotAccountStudentPasswordReminderWizardController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController">
+		<property name="userService" ref="userService" />
+		<property name="commandName" value="reminderParameters" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.ReminderParameters" />
+	</bean>
+			
+	<bean id="forgotAccountStudentCheckProjectCodeController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.student.CheckProjectCodeController">
+		<property name="runService" ref="runService" />
+		<property name="commandName" value="reminderParameters" />
+		<property name="validator" ref="lostPasswordStudentProjectCodeValidator"/>
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.ReminderParameters" />
+		<property name="formView"
+			value="forgotaccount/student/enterprojectcode" />
+		<property name="successView"
+			value="forgotaccount/student/projectcoderesult" />
 	</bean>
 
 	<bean id="enterProjectCodeController"

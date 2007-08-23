@@ -1,0 +1,203 @@
+#heading{
+	color:rgb(100,0,0);
+	position:relative;
+	left:300px;
+	width:400px;
+}
+
+#heading2{
+	color:rgb(100,0,0);
+	position:relative;
+	left:400px;
+	width:150px;
+}
+
+
+#forgot1{
+	position:relative;
+	left:289px;
+	top: 20px;
+	height: 107px;
+	width: 350px;
+}
+
+#forgot2{
+	position:relative;
+	left:239px;
+	top: 20px;
+	font-size:1.1em; 
+	width: 500px;
+}
+
+#enterinfo{
+	position:relative;
+	left:370px;
+	top:0px;
+	width:300px;
+}
+
+#suggestions{
+	position:relative;
+	left:301px;
+	top: 42px;
+	width: 337px;
+	font-size:1.1em;
+	font-weight:100;
+	border:1px black solid;
+}
+
+#footer{
+	position:relative;
+	left:300px;
+	top: 150px;
+	height:241px;
+	font-size:1.05em;
+	font-weight:100;
+	width:350px;
+}
+
+#fontSize1{
+	font-size:1.2em;
+	font-weight:100;
+}
+
+#fontSize2{
+	font-size:1.1em;
+	font-weight:100;
+}
+
+.padding0{
+	padding:0px 15px 15px 15px;
+}
+
+.bgcolorRed{
+	background-color:#CC9966;
+}
+
+.border{
+	border:1px black solid;
+}
+
+#linkPos{
+	position:relative;
+	left:70px;
+	top:10px;
+	width:265px;
+}
+
+#linkPos2{
+	font-size:1.1em;
+	position:relative;
+	left:100px;
+	top:10px;
+	width:65px;
+}
+
+#linkPos3{
+	font-size:1.1em;
+	position:relative;
+	left:350px;
+	top:80px;
+	width:165px;
+}
+
+#linkPos4{
+	font-size:1.1em;
+	position:relative;
+	left:400px;
+	top:120px;
+	width:165px;
+}
+
+#textPos{
+	position:relative;
+	left:170px;
+	top:10px;
+	width:30px;
+}
+
+#textPos2{
+	position:relative;
+	right:40px;
+	top:20px;
+	width:500px;
+}
+
+#signInAgain{
+	position:relative;
+	left:170px;
+	top:40px;
+}
+
+#signIn2{
+	position:relative;
+	left:350px;
+	top:350px;
+}
+
+#signIn3{
+	position:relative;
+	left:350px;
+	top:200px;
+}
+
+#signIn4{
+	position:relative;
+	left:350px;
+	top:70px;
+}
+
+#signIn5{
+	position:relative;
+	left:350px;
+	top:70px;
+}
+
+#signIn6{
+	position:relative;
+	left:400px;
+	top:70px;
+}
+
+img{
+	border:0px;
+}
+
+#search{
+	position:relative;
+	left:375px;
+	top:60px;
+	width:200px;
+}
+
+#submitPos{
+	position:relative;
+	left:275px;
+}
+
+#submittedAccountPasswords{
+	border:1px black solid;
+	background-color:#CC9966;
+	padding:0px 15px 15px 15px;
+}
+
+#passwordformStyle{
+	border:1px black solid;
+	background-color:#CC9966;
+	padding:0px 15px 15px 15px;
+}
+
+label#passwordform{
+	margin-right:15px;
+	margin-left:25px;
+	width:150px;
+	text-align:left;
+}
+
+label#passwordform2{
+	margin-right:15px;
+	margin-left:15px;
+	width:150px;
+	text-align:left;
+}
+
