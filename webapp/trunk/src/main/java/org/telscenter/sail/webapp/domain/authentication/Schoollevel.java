@@ -26,8 +26,8 @@ package org.telscenter.sail.webapp.domain.authentication;
  * Enumeration class for School level
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public enum Schoollevel {
-	ELEMENTARY_SCHOOL, MIDDLE_SCHOOL, HIGH_SCHOOL, NOT_SPECIFIED
+	ELEMENTARY_SCHOOL, MIDDLE_SCHOOL, HIGH_SCHOOL, COLLEGE, OTHER
 }
