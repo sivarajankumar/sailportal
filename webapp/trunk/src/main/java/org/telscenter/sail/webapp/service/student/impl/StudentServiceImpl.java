@@ -33,6 +33,7 @@ import net.sf.sail.webapp.service.group.GroupService;
 
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
@@ -53,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
 	 * @see org.telscenter.sail.webapp.service.student.StudentService#addStudentToRun(net.sf.sail.webapp.domain.User, org.telscenter.sail.webapp.domain.impl.Projectcode)
 	 */
 	public void addStudentToRun(User studentUser, Projectcode projectcode) 
-	    throws ObjectNotFoundException, PeriodNotFoundException {
+	    throws ObjectNotFoundException, PeriodNotFoundException, StudentUserAlreadyAssociatedWithRunException {
 		// TODO HT: figure out if we need a Transactional annotation for this method
 		// possible problem: groupService.addMembers is transactional
 		// we probably need a rollback though
@@ -61,11 +62,15 @@ public class StudentServiceImpl implements StudentService {
     	String periodName = projectcode.getRunPeriod();
 
 		Run run = this.runService.retrieveRunByRuncode(runcode);
-		// this.aclService.addPermission(run, BasePermission.READ); TODO HT: uncomment when this is figured out
-    	Group period = run.getPeriodByName(periodName);
-    	Set<User> membersToAdd = new HashSet<User>();
-    	membersToAdd.add(studentUser);
-    	this.groupService.addMembers(period, membersToAdd);
+		if (!run.isStudentAssociatedToThisRun(studentUser)) {
+			// this.aclService.addPermission(run, BasePermission.READ); TODO HT: uncomment when this is figured out
+			Group period = run.getPeriodByName(periodName);
+			Set<User> membersToAdd = new HashSet<User>();
+			membersToAdd.add(studentUser);
+			this.groupService.addMembers(period, membersToAdd);
+		} else {
+			throw new StudentUserAlreadyAssociatedWithRunException(studentUser, run);
+		}
 	}
 
 	/**

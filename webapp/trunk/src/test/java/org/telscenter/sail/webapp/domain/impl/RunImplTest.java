@@ -25,8 +25,10 @@ package org.telscenter.sail.webapp.domain.impl;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.telscenter.sail.webapp.domain.Run;
 
@@ -40,6 +42,10 @@ public class RunImplTest extends TestCase {
 
 	private Run run;
 	
+	private User studentUser = new UserImpl();
+	
+	private User studentUser_not_associated_with_run;
+	
 	private static final String[] periodnames = {"1", "2", "3", "6", "9", "10", "sunflower"};
 	
 	@Override
@@ -49,6 +55,9 @@ public class RunImplTest extends TestCase {
 		for (String periodname : periodnames) {
 			Group period = new PersistentGroup();
 			period.setName(periodname);
+			if (periodname.equals("1")) {
+			    period.addMember(studentUser);
+			}
 			periods.add(period);
 		}
 		run.setPeriods(periods);
@@ -67,6 +76,12 @@ public class RunImplTest extends TestCase {
 			assertEquals(period.getName(), periodnames[i]);
 			i++;
 		}
+	}
+	
+	public void testIsStudentAssociatedToThisRun() {
+		assertTrue(run.isStudentAssociatedToThisRun(studentUser));
+		assertFalse(run.isStudentAssociatedToThisRun(
+				studentUser_not_associated_with_run));
 	}
 
 }

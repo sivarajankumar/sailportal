@@ -142,7 +142,7 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		signupController.setFormView(FORM);
 	}
 	
-	public void testOnSubmit() throws Exception {
+	public void testOnSubmit_success() throws Exception {
 		// test submission of form with correct username and password info.
 		// should get ModelAndView back containing view which is instance of
 		// RedirectView, with name of success view as URL.
@@ -241,7 +241,6 @@ public class RegisterStudentControllerTest extends AbstractModelAndViewTests {
 		assertNotNull(errors.getFieldError("projectCode"));
 		verify(mockUserService);
 		verify(mockStudentService);
-		
 	}
 	
 	@Override

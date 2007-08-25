@@ -32,6 +32,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
+import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.service.student.StudentService;
@@ -73,6 +74,9 @@ public class AddProjectController extends SimpleFormController {
     		return showForm(request, response, errors);
     	} catch (PeriodNotFoundException e) {
     		errors.rejectValue("projectcode", "error.illegal-projectcode");
+    		return showForm(request, response, errors);
+    	} catch (StudentUserAlreadyAssociatedWithRunException se) {
+    		errors.rejectValue("projectcode", "error.student-already-associated-with-run");
     		return showForm(request, response, errors);
     	}
 		return modelAndView;

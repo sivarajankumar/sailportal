@@ -44,6 +44,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.AddProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
@@ -172,4 +173,22 @@ public class AddProjectControllerTest extends AbstractModelAndViewTests {
 		assertNotNull(errors.getFieldError("projectcode"));
 		verify(mockStudentService);		
 	}
+	
+	public void testOnSubmit_failure_student_already_associated_with_run() throws Exception {
+		// test submission of form with correct projectcode info
+		// but the student is already associated with the run.
+		// should get ModelAndView back containing success view
+		mockStudentService.addStudentToRun(user, new Projectcode(LEGAL_PROJECTCODE));
+		expectLastCall().andThrow(new StudentUserAlreadyAssociatedWithRunException(
+				"student user is already associated with this run."));
+		replay(mockStudentService);
+		
+		ModelAndView modelAndView = addProjectController.onSubmit(request, response, addProjectParameters, errors);
+		assertEquals(FORM, modelAndView.getViewName());
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getFieldErrorCount());
+		assertNotNull(errors.getFieldError("projectcode"));
+		verify(mockStudentService);		
+	}
+
 }

@@ -108,4 +108,14 @@ public interface Run extends Offering {
 	 * @return true iff this run has ended
 	 */
 	public boolean isEnded();
+	
+	/**
+	 * Returns whether the given student is already associated
+	 * with this run, in any of the periods that the run is available for
+	 * 
+	 * @param studentUser <code>User</code> to check
+	 * @return true iff the given student is associated in this
+	 *     <code>Run</code> in any of the periods.
+	 */
+	public boolean isStudentAssociatedToThisRun(User studentUser);
 }

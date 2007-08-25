@@ -38,6 +38,7 @@ import static org.easymock.EasyMock.*;
 
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -106,7 +107,8 @@ public class StudentServiceImplTest extends TestCase {
 	}
 	
 	public void testAddStudentToRun_success() 
-	     throws ObjectNotFoundException, PeriodNotFoundException {
+	     throws ObjectNotFoundException, PeriodNotFoundException, 
+	     StudentUserAlreadyAssociatedWithRunException {
   	    expect(mockRunService.retrieveRunByRuncode(RUNCODE)).andReturn(run);
   	    replay(mockRunService);
   	    Group period = run.getPeriodByName(PERIODNAME);
@@ -136,6 +138,8 @@ public class StudentServiceImplTest extends TestCase {
 		} catch (ObjectNotFoundException oe) {
 		} catch (PeriodNotFoundException pe) {
 			fail("PeriodNotFoundException was not expected to be thrown");
+		} catch (StudentUserAlreadyAssociatedWithRunException se) {
+			fail("StudentUserAlreadyAssociatedWithRunException was not expected to be thrown");
 		}
   	    
   	    verify(mockRunService);
@@ -162,9 +166,52 @@ public class StudentServiceImplTest extends TestCase {
 		} catch (ObjectNotFoundException oe) {
 			fail("ObjectNotFoundException was not expected to be thrown");
 		} catch (PeriodNotFoundException pe) {
+		} catch (StudentUserAlreadyAssociatedWithRunException se) {
+			fail("StudentUserAlreadyAssociatedWithRunException was not expected to be thrown");
 		}
   	    
   	    verify(mockRunService);
   	    verify(mockGroupService);	
+	}
+	
+	public void testAddStudentsToRun_StudentAlreadyAssociatedWithRunException() 
+        throws ObjectNotFoundException, PeriodNotFoundException {
+  	    expect(mockRunService.retrieveRunByRuncode(RUNCODE)).andReturn(run);
+  	    replay(mockRunService);
+  	    Group period = run.getPeriodByName(PERIODNAME);
+  	    Set<User> membersToAdd = new HashSet<User>();
+  	    membersToAdd.add(studentUser);
+  	    mockGroupService.addMembers(period, membersToAdd);
+  	    expectLastCall();
+  	    replay(mockGroupService);
+  	    
+  	    try {
+  	        studentService.addStudentToRun(studentUser, projectcode);
+		} catch (ObjectNotFoundException oe) {
+			fail("ObjectNotFoundException was not expected to be thrown");
+		} catch (PeriodNotFoundException pe) {
+			fail("PeriodNotFoundException was not expected to be thrown");
+		} catch (StudentUserAlreadyAssociatedWithRunException se) {
+			fail("StudentUserAlreadyAssociatedWithRunException was not expected to be thrown");
+		}
+  	    verify(mockRunService);
+  	    verify(mockGroupService);
+
+  	    reset(mockRunService);
+  	    run.getPeriodByName(PERIODNAME).addMember(studentUser);
+  	    expect(mockRunService.retrieveRunByRuncode(RUNCODE)).andReturn(run);
+  	    replay(mockRunService);
+
+  	    // now, if we try to add the studentUser again, we expect 
+  	    // StudentUserAlreadyAssociatedWithRunException to be thrown
+		try {
+  	        studentService.addStudentToRun(studentUser, projectcode);
+		} catch (ObjectNotFoundException oe) {
+			fail("ObjectNotFoundException was not expected to be thrown");
+		} catch (PeriodNotFoundException pe) {
+			fail("PeriodNotFoundException was not expected to be thrown");
+		} catch (StudentUserAlreadyAssociatedWithRunException se) {
+		}
+  	    verify(mockRunService);
 	}
 }
