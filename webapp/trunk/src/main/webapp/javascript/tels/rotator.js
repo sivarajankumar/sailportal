@@ -184,12 +184,6 @@ function onOrOff_T(prevClick_T,ind,name){
   swapImage(name,onOff);
 }
 
-function swapImage(id,num){
-   if(document.images){
-   		document.getElementById(id).src = imgs2[num].src;
-	}
-}
-
 function swapNewsImage(id,num){
 	if(document.images){
 		document.getElementById(id).src = newsArchiveButtons[num];
