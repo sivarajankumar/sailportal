@@ -20,316 +20,297 @@
 <!-- $Id$ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
-<%@page import="java.text.DateFormat"%>
-<html xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet"
     type="text/css" />
-<script src=".././javascript/tels/rotator.js" type="text/javascript" ></script>
+ <script type="text/javascript" src=".././javascript/tels/general.js"></script>
 <title><spring:message code="application.title" /></title>
 </head>
 
 <body>
+<img src="../<spring:theme code="wisebanner" />" alt="WISE logo" />
 
-<%@ include file="header.jsp"%>
 <div id="navigation" class="north2 widthAdj4">
-<ul class="bigFont1">
-<li> <a href="teacher/index.html"> <img src="../<spring:theme code="home_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="projects" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="help" />" style="border:0px;"/> </a> </li>
-</ul>
-</div>
-<ul id="tabnav" class="north_6" style="width:980px;">
-<li class="border" style="border-bottom:2px solid #ffffff;">
-Overview
+<ul>
+<li> 
+<a href="index.html"> <img id="home" src="../<spring:theme code="home_selected" />"> 
+</a> 
+</li>
+<li> 
+<a href="#"> <img id="projects" src="../<spring:theme code="projects" />"   
+onclick="changeNavigationColor('projects','../<spring:theme code="projects_selected" />');
+  		 displayNotAvailable('This page is not available yet')"/> 
+</a> 
+</li>
+<li> 
+<a href="#"> <img id="grading" src="../<spring:theme code="grading" />" 
+onclick="changeNavigationColor('grading','../<spring:theme code="grading_selected" />');
+		 displayNotAvailable('This page is not available yet')"/> 
+</a> 
+</li>
+
+<li> 
+<a href="#"> <img id="management" src="../<spring:theme code="management" />"
+onclick="changeNavigationColor('management','../<spring:theme code="management_selected" />');
+		 displayNotAvailable('This page is not available yet')"/> 
+</a> 
+</li>
+<li> 
+<a href="#"> <img id="help" src="../<spring:theme code="help" />"
+onclick="changeNavigationColor('help','../<spring:theme code="help_selected" />');
+		 displayNotAvailable('This page is not available yet')"/> 
+</a> 
 </li>
 </ul>
-<div class="bgColorYellow north3" style="width:980px;"> 
-
-<div id="xsnazzy" class="bgcolorSeaBlue widthAdj1 " >
-	<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
-	<div class="border1 spacingVerAdj1">
-		<h4 class="heading2 north6">
-		<spring:message code="welcome" /> 
-		    <authz:authentication operation="username" />
-		</h4>
-		<div id="north2">
-		<spring:message code="teacher.currentlogin" /> 
-		 <%= new java.util.Date() %>
-		<br />
-		<spring:message code="teacher.lastlogin" /> 
-		 <%= new java.util.Date() %>
-		<br />
-		<spring:message code="teacher.announcement" />
+</div>
+<div id="welcome">
+<div id="innerWelcome">
+<h1 id="headingPos">
+Welcome: ${username}
+</h1>
+<p id="userLoginInfo"> 
+	Current Log-in: 
+		Thu Aug 09 13:17:23 EDT 2007
+	<br>
+	Last Login: 
+		Thu Aug 09 13:17:23 EDT 2007
+	<br>
+	Announcements:
 		nothing here yet
-		<br />
-		</div>
-	</div>
-	<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
+	<br>
+</p>
+</div>
+<div id="signInBox">
+<form id="projects" method="post" action="../j_acegi_security_check">
+	<h1 id="headingPos"> Projects Awaiting Grading</h1>
+	<ul>
+	<li>
+	<label for="projectname">
+	ProjectName:
+	</label>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	</li>
+		<li>
+	<label for="projectname">
+	ProjectName:
+	</label>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	</li>
+		<li>
+	<label for="projectname">
+	ProjectName:
+	</label>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	</li>
+		<li>
+	<label for="projectname">
+	ProjectName:
+	</label>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	</li>
+	</ul>
 	
- </div>
-
- <div id="xsnazzy" class="bgColorSeaBlue widthAdj1 north5 right0">
-<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
-<div class="border1 spacingVerAdj2">
-<form id="home" method="post" action="j_acegi_security_check">
-<h4 class="heading2 north6"><spring:message code="teacher.projects-awaiting-grading" /></h4>
-<ul class="lineHeiightAdj2 north">
-<li>
-<label for="projectname">
-<spring:message code="wise.projectName" />
-</label>
-<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.grade-by-step" /></a>
-<a href="#" onclick="javascript:alert('This page is not available yet')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
-
-</li>
-
-<li>
-<label for="projectname">
-<spring:message code="wise.projectName" />
-</label>
-<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.grade-by-step" /></a>
-<a href="#" onclick="javascript:alert('This page is not available yet')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
-</li>
-
-<li>
-<label for="projectname">
-<spring:message code="wise.projectName" />
-</label>
-<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.grade-by-step" /></a>
-<a href="#" onclick="javascript:alert('This page is not available yet')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
-</li>
-
-<li>
-<label for="projectname">
-<spring:message code="wise.projectName" />
-</label>
-<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.grade-by-step" /></a>
-<a href="#" onclick="javascript:alert('This page is not available yet')" class="right4"> <spring:message code="teacher.grade-by-student" /></a>
-</li>
-
-</ul>
-
-
-</form>
-<spring:message code="wise.click-any-link" />
-</div>
-<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
-</div>
- 
- 
-<div id="xsnazzy" class="north1 widthAdj1">
-<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
-
-<div class="border1 spacingVerAdj3">
-<h4 class="heading2 north6">
-<spring:message code="teacher.about-dashboard" />
-</h4>
-<p class="north4"><spring:message code="teacher.dashboard-details" /></p>
-
-
-<div id="navigation">
-<ul id="left" class="lineHeightAdj2 none north4 ">
-<li>
-<a href="#"  onclick="javascript:alert('This page is not available yet')">
-<img src="../<spring:theme code="home_mini" />" style="border:0px;"  />
-</a>
-</li>
-<li>
-<p class="_right1 south1 justify widthAdj5 smallFont marginAdj3" > 
-<spring:message code="teacher.home-desc" /></p>
-</li>
-</ul>
-
-<ul id="left" class="lineHeightAdj2 none" style="position:relative;top:-10px;">
-<li>
-<a href="#"  onclick="javascript:alert('This page is not available yet')">
-<img src="../<spring:theme code="projects_mini" />" style="border:0px;"/>
-</a>
-</li>
-<li>
-<p class="_right1 south1 justify widthAdj5 smallFont marginAdj3" > <spring:message code="teacher.projects-desc" /></p>
-</li>
-</ul>
-
-<ul id="left" class="lineHeightAdj2 none" style="position:relative;top:30px;">
-<li>
-<a href="#"  onclick="javascript:alert('This page is not available yet')">
-<img src="../<spring:theme code="management_mini" />" style="border:0px;"/>
-</a>
-</li>
-<li>
-<p class="_right1 south1 justify widthAdj5 smallFont marginAdj3" > <spring:message code="teacher.management-desc" /></p>
-</li>
-</ul>
-
-<ul id="left" class="lineHeightAdj2 none" style="position:relative;top:70px;">
-<li>
-<a href="#"  onclick="javascript:alert('This page is not available yet')">
-<img src="../<spring:theme code="help_mini" />" style="border:0px;"/>
-</a>
-</li>
-<li>
-<p class="_right1 south1 justify widthAdj5 smallFont marginAdj3" > <spring:message code="teacher.help-desc" /></p>
-</li>
-</ul>
+	
+	</form>
 
 </div>
+
 </div>
-<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
-</div>
 
-
-<div id="xsnazzy" class="widthAdj1 right0 north9">
-<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
-
-<div class="border1">
-<h4 class="heading2 north6">
-<spring:message code="teacher.quick-links" />
-</h4>
-<table border="0" padding="0" class="smallFont1 widthAdj1 north_4" style="margin-bottom:-39.5px;">
+<div id="wiseInActionPos">
+<div id="innerWiseInAction">
+<h1 id="headingPos">
+About the Dashboard
+</h1>
+<p id="dashboardMsg">Details about the four Dashboard sections at top of the screen:</p>
+<table id="dashboardSections">
 <tr>
-<th align="left"> <b><spring:message code="banner.projects" /></b> </th>
-<th align="left"><b> <spring:message code="banner.management" /><spring:message code="teacher.assessment" /></b></th>
+<td>   
+<a href="#"  onclick="displayNotAvailable('This page is not available yet')">
+<img src="../<spring:theme code="home_mini" />" id="dashboardButtonPos" 
+ />
+</a>
+</td>
+<td class="width0">
+Sign-in data, links to Recent Areas, links to Projects Awaiting Grading
+</td>
+</tr>
+<tr>
+<td>
+<a href="#"  onclick="displayNotAvailable('This page is not available yet');">
+<img src="../<spring:theme code="projects_mini" />" id="dashboardButtonPos" />
+</a>
+</td>
+<td>
+Search the library of WISE and TELS projects, edit existing projects, or create your own!
+</td>
+</tr>
+<tr>
+<td>
+<a href="#"  onclick="displayNotAvailable('This page is not available yet');">
+<img src="../<spring:theme code="grading_mini" />" id="dashboardButtonPos" />
+</a>
+</td>
+<td>
+Online tools for grading student work
+quickly and efficiently.
+</td>
+</tr>
+
+<tr>
+<td>
+<a href="#"  onclick="displayNotAvailable('This page is not available yet')">
+<img src="../<spring:theme code="management_mini" />" id="dashboardButtonPos"/>
+</a>
+</td>
+<td>
+Online tools to manage your students, print or export reports, and update your account.
+</td>
+</tr>
+<tr>
+<td>
+<a href="#"  onclick="displayNotAvailable('This page is not available yet')">
+<img src="../<spring:theme code="help_mini" />" id="dashboardButtonPos" />
+</a>
+</td>
+<td>
+Resources and tools to get WISE running more smoothly in your classroom.
+</td>
+</tr>
+</table>
+
+
+</div>
+<div id="latestNewsPos">
+<h1 id="headingPos">
+Quick Links
+</h1>
+<table border="0" id="quickLinksTable">
+<tr>
+<th align="left"> <b>Projects</b> </th>
+<th align="left"><b> Management(assessment)</b></th>
 </tr>
 <tr>
 <td align="left"><a href="../curnitlist.html">
-    <spring:message code="teacher.project-library" />
+    Project Library
     </a>
 </td>
-<td align="left"><a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="teacher.grade-work-by-student-group" />
+<td align="left"><a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Grade Work by Student-Group
 </a>
 </td>
 </tr>
 <tr>
 <td align="left">
-    <a href="run/myprojectruns.html">
-<spring:message code="teacher.my-project-runs" />
+    <a href="../run/myprojectruns.html">
+My Project Runs
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="teacher.grade-work-by-step" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Grade Work by Step
 </a>
 </td>
 </tr>
 <tr>
 <td align="left"> 
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="teacher.my-bookmarked-projects" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+My Bookmarked Projects
 </a>
 </td>
+
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="teacher.edit-ready-made-comments" />
-</a>
 </td>
 </tr>
 <tr>
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="teacher.my-customized-projects" />
-</a>
-</td>
-<td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="teacher.real-time-class-monitor" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+My Customized Projects
 </a>
 </td>
 </tr>
 <tr />
 <tr>
 <th align="left">
-<b><spring:message code="banner.management" /><spring:message code="students" /></b> 
+<b>Management(students)</b> 
 </th>
 <th align="left">
-<b><spring:message code="misc" /></b>
+<b>Misc.</b>
 </th>
 </tr>
 <tr>
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.view-teacher-code" />
-</a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.export-all-work-for-student" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Export All Work for Student
 </a>
 </td>
 </tr>
 <tr>
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.view-my-students" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+View My Students
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.export-all-work-for-class" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Export All Work for a Class
 </a>
 </td>
 </tr>
 <tr>
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.my-bookmarked-projects" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Edit Ready-Made Comments
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.print-all-work-for-student" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Print All Work for Student
 </a>
 </td>
 </tr>
 <tr>
 <td>
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.my-customized-projects" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Real-Time Class Monitor
 </a>
 </td>
 <td>
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.print-all-work-for-class" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Print All work for Class
 </a>
 </td>
 </tr>
 <tr>
 <td>
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.batch-set-passwords" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Batch Set Passwords
 </a>
 </td>
 <td>
-<a href="#" onclick="javascript:alert('This page is not available yet')">
-<spring:message code="student.update-account" />
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+Update My Account
 </a>
 </td>
 </tr>
-
 </table>
 
 </div>
-
-<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 </div>
 
 
+<!-- Support for Spring errors object -->
 
 
 
-</div>
-</body>
-</html>
 
 
-<!-- 
-
-<br />
-
-
- -->
+</body></html>
 
