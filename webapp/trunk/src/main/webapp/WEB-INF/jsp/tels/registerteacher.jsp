@@ -25,6 +25,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 <script src="./javascript/tels/rotator.js" type="text/javascript" />  
@@ -44,7 +45,7 @@ if(form.getElementById(id).checked==true){
 
 <body>
 
-<%@ include file="teacherHeaderPlain.jsp"%>
+<%@ include file="header.jsp"%>
 
 
 <!-- Support for Spring errors object -->
@@ -125,12 +126,12 @@ if(form.getElementById(id).checked==true){
   <br />
         
     <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
-    onmouseover="swapSaveImage('save',1)" 
-    onmouseout="swapSaveImage('save',0)"
+    onmouseover="swapImage('save','<spring:theme code="register_save_roll" />')" 
+    onmouseout="swapImage('save','<spring:theme code="register_save" />')"
     />
     <a href="index.html"><input type="image" id="cancel" src="<spring:theme code="register_cancel" />" 
-    onmouseover="swapCancelImage('cancel',1)"
-    onmouseout="swapCancelImage('cancel',0)"
+    onmouseover="swapImage('cancel','<spring:theme code="register_cancel_roll" />')" 
+    onmouseout="swapImage('cancel','<spring:theme code="register_cancel" />')"
     /> </a>
     </div>
         

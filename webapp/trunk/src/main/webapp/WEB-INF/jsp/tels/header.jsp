@@ -20,6 +20,6 @@
 <!-- $Id$ -->
 
 <div >
-	<img src="<spring:theme code="wisegradientbanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
+	<img src="<spring:theme code="wisebanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
 	

@@ -51,7 +51,7 @@
 </ul>
 </div>
 
-<div id="spacing" class="north4" style="position:relative;right:-150px;">
+<div id="spacing" class="north4 left">
 <ul>
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>

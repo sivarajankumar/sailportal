@@ -20,32 +20,52 @@
 <!-- $Id: setupRun3.jsp 357 2007-05-03 00:49:48Z archana $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
-<html xml:lang="en" lang="en">
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="./javascript/tels/AC_ActiveX.js" type="text/javascript"></script>
+<script src="./javascript/tels/AC_RunActiveContent.js" type="text/javascript"></script>
+
 <title><spring:message code="wise.overview" /></title>
 </head>
+
 <body>
-<%@ include file="header.jsp"%>
+
+ <div >
+  <div align="center"><img src="<spring:theme code="wisebanner" />" alt="WISE logo" />
+    </div>
+</div>
+	
 <br /><br />
 <div class="center">
-<object width="700" height="500">
-<embed src="./flash/tels/WISE_Slideshow.swf" width="700" height="500" />
-</object>
-
+  <p>
+    <script type="text/javascript">
+    <embed src="./flash/tels/WISE_Slideshow.swf" width="700" height="500" />
+  </script>
+    <noscript>
+    <object width="891" height="503" align="top">
+      <embed src="./flash/tels/WISE_Slideshow.swf" width="891" height="503" align="top" />  
+    </object>
+    </noscript>
+  </p>
+  <h5 align="center"><spring:message code="wise.cannot-see-movie" /> 
+  <a href="http://www.macromedia.com/go/getflashplayer">
+  <spring:message code="wise.install-flash" />.
+  </a>
+  </h5>
+  <p align="center"><a href="index.html">
+  
+  <img id="return" src="<spring:theme code="return_to_homepage" />" 
+  onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
+  onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');"
+  /> 
+  </a>
+  </p>
 </div>
-<p class="center">
-<spring:message code="wise.cannot-see-movie" /> 
-<a href="http://www.macromedia.com/go/getflashplayer"><spring:message code="wise.install-flash" />
-</a>
-</p>
-
 </body>
 </html>
-
-
-

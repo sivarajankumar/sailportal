@@ -100,8 +100,7 @@
             onclick="Effect.toggle('waiting', 'appear')" />
 </form>
  
-<a href="#" id="forgot"
-onclick="displayNotAvailable('This page is not available yet');">
+<a href="forgotaccount/selectaccounttype.html" id="forgot">
 <spring:message code="forgotten.username-or-password" /> 
 </a>
 </div>
