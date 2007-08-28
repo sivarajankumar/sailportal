@@ -25,7 +25,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="../../<spring:theme code="teacherforgotstylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
-<script type="text/javascript" src="../../javascript/general.js"></script>			    
+<script type="text/javascript" src="./javascript/tels/general.js"></script>			    
 <title>Forgot username or password - teacher</title>
 </head>
 
