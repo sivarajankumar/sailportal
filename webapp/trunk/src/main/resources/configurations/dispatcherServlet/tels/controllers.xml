@@ -275,4 +275,7 @@
 	<bean id="wiseOverviewController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.WiseOverviewController" />
 
+	<bean id="termsOfUseController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.WebPageViewController" />
+		
 </beans>
