@@ -19,6 +19,6 @@
 <!-- $Id: header.jsp 749 2007-07-25 20:47:16Z archana $ -->
 
 <div >
-	<img src="../<spring:theme code="wisegradientbanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
+	<img src="../<spring:theme code="wisebanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
 </div>
 	
