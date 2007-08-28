@@ -20,109 +20,58 @@
 
 .north0{
 	position:relative;
-	top:-62px;
+	bottom:62px;
 }
 
 .north_0{
 	position:relative;
-	top:-30px;
+	bottom:30px;
 }
 	
 .north{
 	position:relative;
-	top:-40px;
-}
-
-.north1{
-	position:relative;
-	top:-220px;
+	bottom:40px;
 }
 
 .north_1{
 	position:relative;
-	top:-5px;
-}
-
-.north_2{
-	position:relative;
-	top:-49px;
+	bottom:5px;
 }
 
 .north2{
 	position:relative;
-	top:-35px;
-}
-
-.north3{
-	position:relative;
-	top:-10px;
-}
-
-.north_3{
-	position:relative;
-	top:-168px;	
+	bottom:35px;
 }
 
 .north4{
 	position:relative;
-	top:-50px;
+	bottom:50px;
 }
 
 .north_4{
 	position:relative;
-	top:-60px;
-}
-
-.north5{
-	position:relative;
-	top: -243px;
+	bottom:60px;
 }
 
 .north_5{
 	position:relative;
-	top:-385px;
+	bottom:385px;
 }
 
 .north6{
 	position:relative;
-	top:-29px;	
-}
-
-.north_6{
-	position:absolute;
-	top:73px;
-}
-
-.north8{
-	position:absolute;
-	top:1.5px;
-	left:650px;
-}
-
-.north9{
-	position:relative;
-	top:-539px;
+	bottom:29px;
 }
 
 #north2{
 	position:relative;
-	top:-50px;
+	bottom:50px;
 }
 
 #north3{
 	position:absolute;
 	top:575px;
 	align:center;	
-}
-	
-.north7{
-	position:absolute;
-	top:277px;
-}
-
-.south1{
-	position:relative;
-	top:65px;
 }
 
 .south{
@@ -135,11 +84,6 @@
 	top:20px;
 }
 
-.south0{
-	position:absolute;
-	top:520px;
-	}
-
 .south_1{
 	position:relative;
 	top:210px;
@@ -147,7 +91,7 @@
 
 #left{
 	position:relative;
-	left:-34px;
+	right:34px;
 }
 
 #left1{
@@ -157,49 +101,27 @@
 
 #right0{
 	position:relative;
-	right:-20px;
+	left:20px;
 }
 
 #right{
 	position:relative;
-	right:-350px;	
+	left:350px;	
 }
 
 #right2{
 	position:relative;
-	right:-250px;
+	left:250px;
 }
 
 .right0{
 	position:relative;
-	right:-500px;
+	left:500px;
 }
 
 ._right1{
 	position:relative;
-	right:-150px;
-}
-
-._right3{
-	position:absolute;
-	right:-665px;
-	top:2px;
-}
-
-._right4{
-	position:absolute;
-	top:1.5px;
-	right:-325px;
-}
-
-#right5{
-	position:relative;
-	right:-100px;
-}
-
-.right5{
-	position:relative;
-	right:-470px;
+	left:150px;
 }
 
 .right1{
@@ -212,20 +134,9 @@
 	right:-800px;
 }
 
-.right3{
-	position:relative;
-	right:-600px;
-	top:0px;
-}
-
 .right4{
 	position:relative;
 	right:-22px;
-}
-
-.right6{
-	position:relative;
-	right:-120px;
 }
 
 .right7{
@@ -246,6 +157,17 @@
 	line-height:20px;
 }
 
+#spacing.pos1{
+	padding:0px;
+	position:relative;
+	left:260px;
+	width:600px;
+}
+
+#spacing.left{
+	position:relative;
+	left:150px;
+}
 #lineHeightAdj{
 	line-height:1.5em;
 }
@@ -314,25 +236,8 @@
 	padding: 8px 0px 0px 0px;	
 }
 
-.marginAdj0{
-	margin: -1.82em 0em -1.52em -1.5em;	
-}
-
 #padding{
 	padding: 0.2em 0.2em 8em 0.2em;	
-}
-
-.padding3{
-	padding: 0.2em 0.2em 8.5em 0.2em;
-}
-
-.paddingHorAdj{
-	padding-left:-42px;
-	margin-right:62px;
-}
-
-.spacingHorAdj0{
-	margin-left:-20px;
 }
 
 .marginHorAdj{
@@ -344,10 +249,6 @@
 	margin-right:360px;
 }
 
-.marginHorAdj2{
-	margin-right:600px;	
-}	
-	
 #marginVerAdj{
 	margin-bottom:-4.0em;
 }
@@ -364,50 +265,6 @@
 	margin-bottom:-162px;
 }
 
-.spacingVerAdj0{
-	padding-bottom:18px;
-}
-
-.spacingVerAdj1{
-	padding-bottom:59px;
-}
-
-.spacingVerAdj2{
-	padding-bottom:6px;
-}
-
-.spacingVerAdj3{
-	padding-bottom:140px;
-}
-
-.marginVerAdj1{
-	margin-bottom:-45px;	
-}
-
-.marginVerAdj2{
-	margin-bottom:-8px;	
-}
-
-.marginVerAdj3{
-	margin-bottom:-30px;
-}
-	
-.marginVerAdj4{
-	margin-bottom:-24px;
-}
-
-.marginVerAdj5{
-	margin-bottom:-52px;
-}
-
-.marginAdj1{
-	margin: 1.2em;		
-}
-
-.marginAdj2{
-	margin: 1.3em;
-}
-
 .marginAdj3{
 	margin:-85px 0px 0px 20px;
 }
@@ -422,15 +279,6 @@
 
 .marginAdj6{
 	margin:-15.35em 0em -5em 0em;
-}
-
-
-.heightAdj1{
-	height:5em;	
-}
-
-.widthAdj0{
-	width: 640px;
 }
 
 .widthAdj{
@@ -460,23 +308,10 @@
 	width:950px;	
 }
 
-.width1{
-	width:330px;
-}
-
 .width2{
 	width:900px;
 }
 
-.heightAdj1{
-	height:19.5em;
-}
-
-.positionAdj1{
-	position:absolute;
-	top:2.5em;
-	left:1.5em;	
-}
 
 .smallFont{
 	font-size:0.8em;
@@ -492,10 +327,6 @@
 
 .bigFont1{
 	font-size: 1em;
-}
-
-.bigFont2{
-	font-size:2.0em;
 }
 
 #spacing{
@@ -519,18 +350,6 @@
 .inline{
 	display: inline;
 	}
-
-.widthPercentAdj1{
-	width: 20%;
-}
-
-.widthPercentAdj2{
-	width:10%;
-}
-
-.widthPercentAdjFull{
-	width:100%;
-}
 
 .bold{
 	font-weight: bold;
