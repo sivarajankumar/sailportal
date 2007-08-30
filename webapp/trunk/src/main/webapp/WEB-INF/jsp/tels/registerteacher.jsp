@@ -23,7 +23,7 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<link href="<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <script src="./javascript/tels/general.js" type="text/javascript" ></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
@@ -35,10 +35,13 @@ if(form.getElementById(id).checked==true){
 }else{
 }
 }
-
+</script>
+<script lang="Javascript">
+function popup(URL) {
+  window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=650,height=500,left = 570,top = 300');
+}
 // End -->
 </script>
-
 <title><spring:message code="signup.title" /></title>
 
 </head>
@@ -56,27 +59,28 @@ if(form.getElementById(id).checked==true){
     </b>
   </c:forEach>
 </spring:bind>
-<h2 id="right2"><spring:message code="teacher.registration" /></h2>
+<h2 id="teacherRegistrationHeading">Teacher Registration</h2>
+<h4 id="teacherRegistrationHeading">(please fill out the following required fields)</h4>
 
-<div id="right">
+<div id="registerPos">
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
 
-<label for="firstname"><spring:message code="signup.firstname" /></label>
+<label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label>
     <form:input path="userDetails.firstname" id="firstname"/>
 <br /> 
-    <label for="lastname"><spring:message code="signup.lastname" /></label>
+    <label for="lastname" id="lastname2"><spring:message code="signup.lastname" /></label>
     <form:input path="userDetails.lastname" id="lastname"/>
 <br />
 
-    <label for="emailAddress"><spring:message code="signup.emailAddress" /></label>
+    <label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label>
     <form:input path="userDetails.emailAddress" id="emailAddress"/>
 <br />
 
-    <label for="city"><spring:message code="signup.city" /></label> 
+    <label for="city" id="city1"><spring:message code="signup.city" /></label> 
     <form:input path="userDetails.city" id="city" />
 	<br />
 
-    <label for="state"><spring:message code="signup.state" /></label> 
+    <label for="state" id="state1"><spring:message code="signup.state" /></label> 
     <form:input path="userDetails.state" id="state" />
         <div id="autocomplete_choices_state" class="autocomplete" ></div>
 		<script type="text/javascript">  
@@ -84,7 +88,7 @@ if(form.getElementById(id).checked==true){
 		</script>
 	<br />
 
-    <label for="country"><spring:message code="signup.country" /></label> 
+    <label for="country" id="country1"><spring:message code="signup.country" /></label> 
     <form:input path="userDetails.country" id="country" />
         <div id="autocomplete_choices_country" class="autocomplete" ></div>
 		<script type="text/javascript">  
@@ -92,17 +96,15 @@ if(form.getElementById(id).checked==true){
 		</script>
 	<br />
 
-    <label for="schoolname"><spring:message code="signup.schoolname" /></label> 
+    <label for="schoolname" id="schoolname1"><spring:message code="signup.schoolname" /></label> 
     <form:input path="userDetails.schoolname" id="schoolname" />
 <br />
 
-    <label for="curriculumsubjects"><spring:message code="signup.curriculumsubjects" /></label> 
-  Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" />
-  Chemistry: <form:checkbox path="userDetails.curriculumsubjects" value="Chemistry" />
-  Physics: <form:checkbox path="userDetails.curriculumsubjects" value="Physics" />
+    <label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label>   
+	<a href="#"	onclick="javascript:popup('teacher/curriculumsubjects.html')"> Click to select your subjects </a>
 <br />
 <br />
-    <label for="schoollevel"><spring:message code="signup.schoollevel" /></label> 
+    <label for="schoollevel" id="schoollevel1"><spring:message code="signup.schoollevel" /></label> 
 
         <form:select path="userDetails.schoollevel" id="schoollevel"> 
           <c:forEach items="${schoollevels}" var="schoollevel">
@@ -111,17 +113,17 @@ if(form.getElementById(id).checked==true){
         </form:select>
   <br />
 
-    <label for="legalAcknowledged"><spring:message code="signup.legalAcknowledged" /></label>
+    <label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label>
     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"
      onclick="checkIfLegalAcknowledged(this.form, 'legalAcknowledged')"/> <spring:message code="register.teacher.terms-of-use" />
      
   <br />
   
-    <label for="password"><spring:message code="signup.password" /></label>
+    <label for="password" id="password1"><spring:message code="signup.password" /></label>
     <form:password path="userDetails.password" id="password"/>
   <br />
   
-    <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
+    <label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label>
     <form:password path="repeatedPassword" id="repeatedPassword"/>
   <br />
         

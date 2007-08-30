@@ -31,19 +31,8 @@
 
 <title><spring:message code="teacher.setup-project-run-step-two" /></title>
 </head>
-<%@ include file="teacherHeader.jsp"%>
 <body>
-<p class="userinfo"> 
-<authz:authentication operation="username" />
- </p>
-<div id="navigation" class="north2 widthAdj4">
-<ul class="bigFont1">
-<li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
-</ul>
-</div>
+<%@ include file="teacherHeader.jsp"%>
 
 <h2 id="right2" class=" maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step2" /></b>
