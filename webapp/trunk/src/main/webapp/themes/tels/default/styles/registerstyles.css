@@ -110,84 +110,137 @@ label#firstname1{
 label#lastname1{
 	margin-left:19px;
 	display: inline;
+	margin-right:5px;
+	padding-right:5px;
+}
+
+label#lastname2{
+	margin-left:19px;
+	display: inline;
 }
 
 label#gender1{
 	  margin-left:41px;
 	  display: inline;
+	  margin-right:-17px;
+	  padding-right:27px;
 }
 
 label#birthmonth1{
-	margin-left:-9px;
+	width:150px;
+	margin-left:-15px;
 	display: inline;
+	margin-right:9px;
+	padding-left:37px;
 }
 
 label#birthdate1{
-	margin-left:2px;
+	width:150px;
+	margin-left:-2px;
 	display: inline;
+	margin-right:-4px;
+	padding-right:12px;
+	
 }
 
 label#password1{
 	margin-left:26px;
 	display: inline;
+    margin-right:2px;
+    padding-right:8px;
 }
 
 label#repeatedPassword1{
-	margin-left:-15px;
-	display:inline;
+	width:150px;
+	margin-left:-14px;
+	display: inline;
+	margin-right:8px;
+	padding-right:1px;  
+}
+
+label#repeatedPassword2{
+	width:150px;
+	margin-left:-13px;
+	display: inline;
+	margin-right:12px;
+	padding-left:36px;   
 }
 
 label#accountQuestion1{
-	margin-left:32px;
+	margin-left:35px;
 	display: inline;
+    margin-right:-11px;
+    padding-right:18px;
 }
 
 label#accountAnswer1{
-	margin-left:39px;
+	margin-left:42px;
 	display: inline;
+    margin-right:-18px;
+    padding-right:25px;
 }
 
 label#projectCode1{
-	margin-left:4px;
+	width:150px;
+	margin-left:6px;
 	display: inline;
+	margin-right:-12px;
+	padding-right:20px;  
 }
 
 label#emailAddress1{
 	margin-left:53px;
 	display: inline;
+	margin-right:-24px;
+	padding-right:34px;
 }
 
 label#city1{
 	margin-left:61px;
 	display: inline;
+	margin-right:-32px;
+	padding-right:42px;
 }
 
 label#state1{
 	margin-left:55px;
 	display: inline;
+	margin-right:-26px;
+	padding-right:36px;
 }
 
 label#country1{
 	margin-left:37px;
 	display: inline;
+	margin-right:-8px;
+	padding-right:18px;
 }
 
 label#schoolname1{
+	width:150px;
 	margin-left:3px;
 	display: inline;
+	margin-right:-4px;
+	padding-right:14px;
 }
 
 label#curriculumsubjects1{
+	width:180px;
 	margin-left:-35px;
 	display: inline;
 }
 
 label#schoollevel1{
+	width:150px;
 	margin-left:7px;
 	display: inline;
+	margin-right:-8px;
+	padding-right:19px;
 }
 
 label#legalAcknowledged1{
 	margin-left:53px;
 	display: inline;
+	margin-right:-28px;
+	padding-right:35px;
 }
