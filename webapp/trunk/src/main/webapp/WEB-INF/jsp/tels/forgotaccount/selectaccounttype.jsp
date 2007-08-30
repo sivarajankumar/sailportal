@@ -38,15 +38,15 @@
 
 <div id="account">  
 <a href="student/index.html">
-  <img id="studentAccount" src="../themes/tels/default/images/Student-Account.png" width="228" height="41"
-  onmouseover="swapImage('studentAccount','../themes/tels/default/images/Student-Account-Roll.png');" 
-  onmouseout="swapImage('studentAccount','../themes/tels/default/images/Student-Account.png');" > 
+  <img id="studentAccount" src="../<spring:theme code="create_student_account" />" width="228" height="41"
+  onmouseover="swapImage('studentAccount','../<spring:theme code="create_student_account_rollover" />');" 
+  onmouseout="swapImage('studentAccount','../<spring:theme code="create_student_account" />');" /> 
  </a>
   or
 <a href="teacher/index.html"> 
-<img id="teacherAccount" src="../themes/tels/default/images/Teacher-Account.png" height="46"
-  onmouseover="swapImage('teacherAccount','../themes/tels/default/images/Teacher-Account-Roll.png');" 
-  onmouseout="swapImage('teacherAccount','../themes/tels/default/images/Teacher-Account.png');" ></a>
+<img id="teacherAccount" src="../<spring:theme code="create_teacher_account" />" height="46"
+  onmouseover="swapImage('teacherAccount','../<spring:theme code="create_teacher_account_rollover" />');" 
+  onmouseout="swapImage('teacherAccount','../<spring:theme code="create_teacher_account" />');" /></a>
 </div>
 
 <div id="select">
