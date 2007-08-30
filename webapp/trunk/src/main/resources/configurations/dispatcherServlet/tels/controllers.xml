@@ -105,6 +105,10 @@
     	<property name="successView" value="student/teamsigninsuccess" />
 	</bean>
 	
+	<bean id="curriculumSubjectsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.CurriculumSubjectsController">
+	</bean>
+		
 	<bean id="addProjectController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.AddProjectController">
     	<property name="studentService" ref="studentService" />
@@ -276,6 +280,6 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.WiseOverviewController" />
 
 	<bean id="termsOfUseController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.WebPageViewController" />
+		class="org.telscenter.sail.webapp.presentation.web.controllers.TermsOfUseController" />
 		
 </beans>
