@@ -116,22 +116,6 @@ function MM_swapImage() { //v3.01
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
 
-function colorImage(old,num){
-  switch(old){
-	    case 1: document.getElementById('imgPos1').src = imgs2[num].src; break;
-		case 2: document.getElementById('imgPos2').src = imgs2[num].src; break;
-		case 3: document.getElementById('imgPos3').src = imgs2[num].src; break;
-		case 4: document.getElementById('imgPos4').src = imgs2[num].src; break;
-		case 5: document.getElementById('imgPos5').src = imgs2[num].src; break;
-		case 6: document.getElementById('imgPos6').src = imgs2[num].src; break;
-		case 7: document.getElementById('imgPos7').src = imgs2[num].src; break;
-		case 8: document.getElementById('imgPos8').src = imgs2[num].src; break;
-		case 9: document.getElementById('imgPos9').src = imgs2[num].src; break;
-		case 10: document.getElementById('imgPos10').src = imgs2[num].src; break;
-		default: break;
-  }
-}
-
 function setLClicked(){
   if(firstLClicked==0){
     firstLClicked = 1;
@@ -184,29 +168,6 @@ function onOrOff_T(prevClick_T,ind,name){
   swapImage(name,onOff);
 }
 
-function swapNewsImage(id,num){
-	if(document.images){
-		document.getElementById(id).src = newsArchiveButtons[num];
-	}
-}
-
-function swapSaveImage(id,num){
-	if(document.images){
-		document.getElementById(id).src = saveButtons[num];
-	}
-}
-
-function swapCancelImage(id,num){
-	if(document.images){
-		document.getElementById(id).src = cancelButtons[num];
-	}
-}
-
-function swapRegisterImage(id,num){
-	if(document.images){
-		document.getElementById(id).src = registerStudentButtons[num];
-	}
-}
 
 function swapSignInNewAccount(id,num){
 	if(document.images){
@@ -217,30 +178,6 @@ function swapSignInNewAccount(id,num){
 function swapSignIn(id,num){
 	if(document.images){
 		document.getElementById(id).src=signInButtons[num];
-	}
-}
-
-function swapAccountImage(id,num){
- 	if(document.images){
- 		document.getElementById(id).src = accountButtons[num];
- 	} 
-}
-
-function swapWiseImage(id,num){
-	if(document.images){
-		document.getElementById(id).src=wiseButtons[num];
-	}
-}
-
-function swapProjectRuns(id,num){
-	if(document.images){
-		document.getElementById(id).src=wiseButtons[num];
-	}
-}
-
-function swapGotoMyProjectRuns(id,num){
-	if(document.images){
-		document.getElementById(id).src=gotomyprojectButtons[num];
 	}
 }
 
@@ -494,22 +431,16 @@ function proceedToNextImage_T(firstRClicked_T,counter_T){
 
 function randomImages(){
    if(flag==0){
-	colorImage(counter,0);
+	//colorImage(counter,0);
    
 	if(counter == (imgs.length)){
 		counter = 0;
 	}
   
 	MM_swapImage('rotator', '', imgs[counter++]);
-	colorImage(counter,2);
+	//colorImage(counter,2);
 	setTimeout('randomImages()', delay);
 	}
 }
-
-
-function displayNothingYet(URL) {
-  window.open(URL, "Not Here Yet", 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');
-}
-
 
 //-->
