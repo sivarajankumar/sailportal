@@ -27,6 +27,7 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
 <script src="./javascript/tels/rotator.js" type="text/javascript" />  
 <script type="text/javascript">
 function checkIfLegalAcknowledged (form, id) {
@@ -122,15 +123,17 @@ if(form.getElementById(id).checked==true){
     <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
     <form:password path="repeatedPassword" id="repeatedPassword"/>
   <br />
-        
-    <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
-    onmouseover="swapSaveImage('save',1)" 
-    onmouseout="swapSaveImage('save',0)"
+    
+     <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
+    onmouseover="swapImage('save','<spring:theme code="register_save_roll" />');" 
+    onmouseout="swapImage('save','<spring:theme code="register_save" />');"
     />
-    <a href="index.html"><input type="image" id="cancel" src="<spring:theme code="register_cancel" />" 
-    onmouseover="swapCancelImage('cancel',1)"
-    onmouseout="swapCancelImage('cancel',0)"
-    /> </a>
+    <a href="../index.html">
+    <input type="image" id="cancel" src="<spring:theme code="register_cancel" />" 
+    onmouseover="swapImage('cancel','<spring:theme code="register_cancel_roll" />');"
+    onmouseout="swapImage('cancel','<spring:theme code="register_cancel" />');"
+    /> 
+    </a>
     </div>
         
         
