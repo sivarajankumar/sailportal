@@ -66,6 +66,7 @@
     		    /student/teamsignin.html=teamSignInController
     		    /student/startproject.html=startProjectController
     		    /teacher/termsofuse.html=termsOfUseController
+    		    /teacher/curriculumsubjects.html=curriculumSubjectsController
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/manage/endRun.html=endRunController
     		    /teacher/run/manage/startRun.html=startRunController
