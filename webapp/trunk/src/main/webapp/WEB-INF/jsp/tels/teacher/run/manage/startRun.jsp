@@ -26,7 +26,7 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
     
-<script type="text/javascript" src="./javascript/tels/rotator.js"></script>
+<script type="text/javascript" src="./javascript/tels/general.js"></script>
     
 <title>Start Run</title>
 </head>
@@ -52,8 +52,8 @@
 
 
     <div><input type="image" id="save" src="../../../<spring:theme code="register_save" />" 
-    onmouseover="swapSaveImage('save',1)" 
-    onmouseout="swapSaveImage('save',0)"
+    onmouseover="swapImage('save','../../../<spring:theme code="register_save_roll" />');" 
+    onmouseout="swapImage('save','../../../<spring:theme code="register_save" />');"
     />
 
     <a href="#" onclick="javascript:window.close()">cancel</a>
