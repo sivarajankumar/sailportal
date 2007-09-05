@@ -29,6 +29,7 @@
 </head>
 
 <body>
+ 
 <img src="../<spring:theme code="wisebanner" />" alt="WISE logo" />
 
 <div id="navigation" class="north2 widthAdj4">
@@ -64,6 +65,7 @@ onclick="changeNavigationColor('help','../<spring:theme code="help_selected" />'
 </li>
 </ul>
 </div>
+ 
 <div id="welcome">
 <div id="innerWelcome">
 <h1 id="headingPos">
@@ -81,10 +83,18 @@ Welcome: ${username}
 	<br>
 </p>
 </div>
-<div id="signInBox">
+
+<div id="projectsBox">
 <form id="projects" method="post" action="../j_acegi_security_check">
 	<h1 id="headingPos"> Projects Awaiting Grading</h1>
-	<ul>
+	<ul id="projectNames">
+	<li>
+	<label for="projectname">
+	ProjectName:
+	</label>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
+	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	</li>
 	<li>
 	<label for="projectname">
 	ProjectName:
@@ -106,24 +116,15 @@ Welcome: ${username}
 	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
 	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
 	</li>
-		<li>
-	<label for="projectname">
-	ProjectName:
-	</label>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
-	</li>
 	</ul>
-	
-	
-	</form>
+</form>
 
 </div>
 
 </div>
 
-<div id="wiseInActionPos">
-<div id="innerWiseInAction">
+<div id="dashboardBox">
+<div id="innerDashboard">
 <h1 id="headingPos">
 About the Dashboard
 </h1>
@@ -183,13 +184,12 @@ Resources and tools to get WISE running more smoothly in your classroom.
 </td>
 </tr>
 </table>
-
-
 </div>
-<div id="latestNewsPos">
+<div id="quickLinksPos">
 <h1 id="headingPos">
 Quick Links
 </h1>
+
 <table border="0" id="quickLinksTable">
 <tr>
 <th align="left"> <b>Projects</b> </th>
@@ -207,7 +207,7 @@ Grade Work by Student-Group
 </tr>
 <tr>
 <td align="left">
-    <a href="../run/myprojectruns.html">
+    <a href="run/myprojectruns.html">
 My Project Runs
 </a>
 </td>
