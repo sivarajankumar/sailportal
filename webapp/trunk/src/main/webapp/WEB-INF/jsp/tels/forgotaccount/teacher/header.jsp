@@ -24,7 +24,7 @@
  
 <!-- $Id: header.jsp 837 2007-08-01 19:37:51Z archana $ -->
 <div >
-	<img src="../../<spring:theme code="wisebanner"/>" alt="../<spring:message code="wise.banner.alttext" />" />
+	<a href="index.html"><img id="none" src="../../<spring:theme code="wisebanner"/>" alt="../<spring:message code="wise.banner.alttext" />" /></a>
 </div>
     
 
