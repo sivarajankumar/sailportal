@@ -23,15 +23,14 @@
 }
 
 .north2{
-	position:absolute;
-	top:38px;
-	left:0px;
+	position:relative;
+	bottom:35px;
 }
 
 .widthAdj4{
 	width:980px;	
 }
-
+	
 #navigation {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -67,79 +66,23 @@
   
 #welcome{
 	position:relative;
-	top:20px;
+	bottom:10px;
 	width:980px;
 }
 
-#welcomeHeader{
-	position:relative;
-	left:10px;
-	width:320px;
-}
 
 #innerWelcome{
-	color:black;
-	border-style:solid;
-	border-width:1px;
-	width: 640px;
+	border:1px solid black;
+    width: 470px;   
 	padding-bottom:0px;
 	padding-top:0px;
 }
-
-#welcomeButtonPos{
-	line-height:20px;
-	position:absolute;
-	bottom:163px;
-	left:445px;
-	margin-bottom:-160px;
-	margin-right:795px;
-	padding-right:0px;
-	top: 43px;
-}	
-
-#parastyle{
-	line-height: 15px;
-	margin: -12px -6px 0px 16px;
-	padding:0px;
-	font-size:0.85em;
-	font-family:arial,sans-serif;
-	color:black;
-	width: 450px;
-	text-align:justify;
-}
-
-#signInBox{
-	position:absolute;
-	left:500px;
-	top:0px;
-	color:black;
-	border:1px solid black;
-	width:475px;
-	height:100%;
-}
-
-#signInPos{
-	position:relative;
-	top:0px;
-	left:10px;
-	width:100px;
-	padding-bottom:24px;
-}	
-
-#signIn{
-	margin-left:180px; 
-	margin-bottom:1px;
-}
-
+\
 #headingPos{
 	position:relative;
 	padding-top:5px;
 	margin-top:5px;
 	width:400px;
-}
-
-img{
-	border:0px;
 }
 
 #linkPos0{
@@ -157,182 +100,6 @@ img{
 	left:25px;
 }
 
-label{
-width: 320px;
-position:relative;
-right:30px;
-text-align: left;
-display: inline;
-}
-
-label#homelogin{
-	width: 120px;
-	padding-left:50px;
-	text-align: left;
-	margin-right: 7px;
-	display: inline;
-	margin-left:10px;
-}
-
-#actionNav{
-	position:relative;
-	top:20px;
-	left:20px;
-	width:230px;
-}
-
-#testimonialsNav{
-	position:relative;
-	top:-35px;
-	left:20px;
-	width:230px;
-}
-
-#imgPos0{
-	position:relative;
-	top:0px;
-	left:10px;
-}
-
-#imgPos1{
-	position:relative;
-	top:0px;
-	left:15px;
-}
-
-#imgPos2{
-	position:relative;
-	top:0px;
-	left:20px;
-}
-
-#imgPos3{
-	position:relative;
-	top:0px;
-	left:25px;
-}
-
-#imgPos4{
-	position:relative;
-	top:0px;
-	left:30px;
-}
-
-#imgPos5{
-	position:relative;
-	top:0px;
-	left:35px;
-}
-
-#imgPos6{
-	position:relative;
-	top:0px;
-	left:40px;
-}
-
-#imgPos7{
-	position:relative;
-	top:0px;
-	left:45px;
-}
-
-#imgPos8{
-	position:relative;
-	top:0px;
-	left:50px;
-}
-
-#imgPos9{
-	position:relative;
-	top:0px;
-	left:55px;
-}
-
-#imgPos10{
-	position:relative;
-	top:0px;
-	left:60px;
-}
-
-#imgPos11{
-	position:relative;
-	top:0px;
-	left:65px;
-}
-
-#imgPos12{
-	position:relative;
-	top:0px;
-	left:10px;
-}
-
-#imgPos13{
-	position:relative;
-	top:0px;
-	left:15px;
-}
-
-#imgPos14{
-	position:relative;
-	top:0px;
-	left:20px;
-}
-
-#imgPos15{
-	position:relative;
-	top:0px;
-	left:25px;
-}
-
-#imgPos16{
-	position:relative;
-	top:0px;
-	left:30px;
-
-}
-
-#imgPos17{
-	position:relative;
-	top:0px;
-	left:35px;
-
-}
-
-#imgPos18{
-	position:relative;
-	top:0px;
-	left:40px;
-}
-
-#imgPos19{
-	position:relative;
-	top:0px;
-	left:45px;
-}
-
-#imgPos20{
-	position:relative;
-	top:0px;
-	left:50px;
-}
-
-#imgPos21{
-	position:relative;
-	top:0px;
-	left:55px;
-}
-
-#imgPos22{
-	position:relative;
-	top:0px;
-	left:60px;
-}
-
-#imgPos23{
-	position:relative;
-	top:0px;
-	left:65px;
-}
 
 img.dynamicImage{
 	cursor:pointer;	
@@ -368,172 +135,14 @@ ul.none{
 	list-style-type:none;
 }
 
-#rotator{
-	position:relative;
-	left:22px;
-}
-
-#rotatorT{
-	position:relative;
-	left:22px;
-	margin-bottom:47px;
-}
-
-#wiseInActionPos{
-	position:relative;
-	top:25px;
-	width:980px;
-}
-
-#innerWiseInAction{
-	border: 1px solid black;
-	width:315px;	
-	padding-bottom:45px;
-}
-
-#testimonialsPos{
-	position:absolute;
-	top:1.5px;
-	right:338px;
-	padding-bottom:0px;
-	border:1px solid black;
-	width:315px;	
-	height:100%;
-}
-
-#quickLinksTable{
-	font-size:0.9em;
-	width: 470px; 
-}
-
-#latestNewsPos{
-	position:absolute;
-	left:500px;
-	top:2px;
-	border:1px solid black;
-	width:475px;
-	height:100%;
-}
-
-#newsHeading{
-	padding-bottom:55px;
-}
-
-#newsContent{
-	position:relative;
-	bottom:70px;
-	left:10px;
-	width:300px;
-}
-
-#newsArchive{
-	position:relative;
-	bottom:50px;
-	left:100px;
-}
-
-#footerPos{
-	position:relative;
-	top:25px;
-	left:200px;
-	padding-top:0px;
-	padding-bottom:0px;
-	width:660px;	
-}
 
 #waiting{
 	display:none;
 }
 
-#forgot{
-	position:relative;
-	right:-100px;
-	font-size:0.9em;
-	margin-bottom:0px;
-	width:190px;
-}
-
-
 #heading{
 	width:300px;
 }
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#welcomeHeader{
-	position:relative;
-	left:10px;
-	width:320px;
-}
-
-#innerWelcome{
-	border:1px solid black;
-    width: 470px;   
-	padding-bottom:0px;
-	padding-top:0px;
-}
-
-#welcomeButtonPos{
-	line-height:20px;
-	position:absolute;
-	bottom:163px;
-	left:445px;
-	margin-bottom:-160px;
-	margin-right:795px;
-	padding-right:0px;
-	top: 43px;
-}	
-
-#parastyle{
-	line-height: 15px;
-	margin: -12px -6px 0px 16px;
-	padding:0px;
-	font-size:0.85em;
-	font-family:arial,sans-serif;
-	color:black;
-	width: 450px;
-	text-align:justify;
-}
-
-
-#signInPos{
-	position:relative;
-	top:0px;
-	left:10px;
-	width:100px;
-	padding-bottom:24px;
-}	
-
-#signIn{
-	margin-left:180px; 
-	margin-bottom:1px;
-}
-
-
 
 img{
 	border:0px;
@@ -541,233 +150,50 @@ img{
 
 label{
 width: 120px;
-padding-left:40px;
+padding-left:20px;
+margin-right:40px;
 text-align: left;
-margin-right: 20px;
 display: inline;
 }
 
-label#homelogin{
-	width: 120px;
-	padding-left:50px;
-	text-align: left;
-	margin-right: 7px;
-	display: inline;
-	margin-left:10px;
+
+#userLoginInfo{
+	position:relative;
+	bottom:15px;
+	left:40px;
+	line-height:30px;
+	font-size:1.05em;
+	font-weight:100;
+	padding-bottom:30px;
 }
 
-#actionNav{
+
+#projectsBox{
+	position:absolute;
+	left:500px;
+	top:0px;
+	color:black;
+	border:1px solid black;
+	width:475px;
+	bottom:0px;
+	
+}
+
+#projectNames{
+	padding-top:22px;
+	line-height:20px;	
+	position:relative;
+	bottom:10px;	
+}
+
+
+#dashboardBox{
 	position:relative;
 	top:20px;
-	left:20px;
-	width:230px;
-}
-
-#testimonialsNav{
-	position:relative;
-	top:-35px;
-	left:20px;
-	width:230px;
-}
-
-#imgPos0{
-	position:relative;
-	top:0px;
-	left:10px;
-}
-
-#imgPos1{
-	position:relative;
-	top:0px;
-	left:15px;
-}
-
-#imgPos2{
-	position:relative;
-	top:0px;
-	left:20px;
-}
-
-#imgPos3{
-	position:relative;
-	top:0px;
-	left:25px;
-}
-
-#imgPos4{
-	position:relative;
-	top:0px;
-	left:30px;
-}
-
-#imgPos5{
-	position:relative;
-	top:0px;
-	left:35px;
-}
-
-#imgPos6{
-	position:relative;
-	top:0px;
-	left:40px;
-}
-
-#imgPos7{
-	position:relative;
-	top:0px;
-	left:45px;
-}
-
-#imgPos8{
-	position:relative;
-	top:0px;
-	left:50px;
-}
-
-#imgPos9{
-	position:relative;
-	top:0px;
-	left:55px;
-}
-
-#imgPos10{
-	position:relative;
-	top:0px;
-	left:60px;
-}
-
-#imgPos11{
-	position:relative;
-	top:0px;
-	left:65px;
-}
-
-#imgPos12{
-	position:relative;
-	top:0px;
-	left:10px;
-}
-
-#imgPos13{
-	position:relative;
-	top:0px;
-	left:15px;
-}
-
-#imgPos14{
-	position:relative;
-	top:0px;
-	left:20px;
-}
-
-#imgPos15{
-	position:relative;
-	top:0px;
-	left:25px;
-}
-
-#imgPos16{
-	position:relative;
-	top:0px;
-	left:30px;
-
-}
-
-#imgPos17{
-	position:relative;
-	top:0px;
-	left:35px;
-
-}
-
-#imgPos18{
-	position:relative;
-	top:0px;
-	left:40px;
-}
-
-#imgPos19{
-	position:relative;
-	top:0px;
-	left:45px;
-}
-
-#imgPos20{
-	position:relative;
-	top:0px;
-	left:50px;
-}
-
-#imgPos21{
-	position:relative;
-	top:0px;
-	left:55px;
-}
-
-#imgPos22{
-	position:relative;
-	top:0px;
-	left:60px;
-}
-
-#imgPos23{
-	position:relative;
-	top:0px;
-	left:65px;
-}
-
-img.dynamicImage{
-	cursor:pointer;	
-}	
-
-.center{
-	text-align:center;
-}
-
-b.rtop, b.rbottom{display:block;background: #FFF; }
-b.rtop b, b.rbottom b{display:block;height: 1px;
-    overflow: hidden; background: #CCFFFF; border:20px;border-color:black;}
-.r1{margin: 0 5px}
-.r2{margin: 0 3px}
-.r3{margin: 0 2px}
-.rtop .r4, .rbottom .r4{border-top:2px solid #08c; margin: 0 1px;height: 2px; }
-
-#xsnazzy{background:transparent;}
-.xtop, .xbottom {display:block; background:transparent; font-size:1px;}
-.xb1, .xb2, .xb3, .xb4 {display:block; overflow:hidden;}
-.xb1, .xb2, .xb3 {height:1px;}
-.xb2, .xb3, .xb4 {background:#fff; border-left:1px solid #08c; border-right:1px solid #08c;}
-.xb1 {margin:0 5px; background:#08c;}
-.xb2 {margin:0 3px; border-width:0 2px;}
-.xb3 {margin:0 2px;}
-.xb4 {height:2px; margin:0 1px;}
-
-.xboxcontent {display:block; border:0 solid #08c; border-width:0 1px;}
-
-.border1{display:block; border: 0px solid #08c; border-width: 0 1px; }
-
-ul.none{
-	list-style-type:none;
-}
-
-#rotator{
-	position:relative;
-	left:22px;
-}
-
-#rotatorT{
-	position:relative;
-	left:22px;
-	margin-bottom:47px;
-}
-
-#wiseInActionPos{
-	position:relative;
-	top:40px;
 	width:980px;
 }
 
-#innerWiseInAction{
+#innerDashboard{
 	border: 1px solid black;
 	width:475px;	
 	padding-bottom:45px;
@@ -780,67 +206,23 @@ ul.none{
 	font-weight:100;
 }
 
-#testimonialsPos{
+
+#quickLinksPos{
 	position:absolute;
-	top:1.5px;
-	right:338px;
-	padding-bottom:0px;
+	left:500px;
+	top:0px;
 	border:1px solid black;
-	width:315px;	
-	height:100%;
+	width:475px;
+	bottom:0px;
+	padding-bottom:13px;
 }
 
-#newsHeading{
-	padding-bottom:55px;
-}
-
-#newsContent{
-	position:relative;
-	bottom:70px;
-	left:10px;
-	width:300px;
-}
-
-#newsArchive{
-	position:relative;
-	bottom:50px;
-	left:100px;
-}
-
-#footerPos{
-	position:relative;
-	top:25px;
-	left:200px;
-	padding-top:0px;
-	padding-bottom:0px;
-	width:660px;	
-}
-
-#waiting{
-	display:none;
-}
-
-#forgot{
-	position:relative;
-	left:100px;
+#quickLinksTable{
 	font-size:0.9em;
-	margin-bottom:0px;
-	width:190px;
-}
-
-
-#heading{
-	width:300px;
-}
-
-#userLoginInfo{
+	width:470px;
+	line-height:20px;	
 	position:relative;
-	bottom:15px;
-	left:40px;
-	line-height:30px;
-	font-size:1.05em;
-	font-weight:100;
-	padding-bottom:30px;
+	bottom:0px;	
 }
-	
+
 
