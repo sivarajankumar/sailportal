@@ -19,12 +19,12 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<html xml:lang="en" lang="en">
 <head>
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 <title><spring:message code="run.list" /></title>
 <script language="JavaScript">
 
@@ -32,35 +32,27 @@ function popup(URL, title) {
   window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300,left = 570,top = 300');
 }
 </script>
+
 </head>
 
 <body>
-<div>
-<a href="../index.html">Go back to Teacher Home page</a>
-</div>
-<!--  
-<p class="userInfo">
-${user.userDetails.username}
-</p>
-
-<div id="navigation" class="north2 widthAdj4">
-<ul class="bigFont1">
-<li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+<%@ include file="../projectHeader.jsp"%>
+<!-- 
+<ul id="tabnav2"  >
+<li> <a href="#">Current</a></li>
+<li> <a href="#">Archived</a></li>
 </ul>
-</div>
--->
+ -->
+<div id="runContent"> 
+<br />
+<h3 id="headingPos">
+To manage a Project Run, click its underlined title.
+</h3>
 
-<h2 class="north2">
-<spring:message code="runlist.my.project.runs" />
-</h2>
 
-<div id="columns" class="north2">
+<div id="runBox">
 
 <div style="align:center;">
-<h1>Current Runs</h1>
 <table border="1">
   <thead>
     <tr>
@@ -112,6 +104,45 @@ ${user.userDetails.username}
    </tr>
   </c:forEach>
 </table>
+
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 
 <h1>Archived Runs</h1>
 <table border="1">
@@ -166,9 +197,5 @@ ${user.userDetails.username}
   </c:forEach>
 </table>
 
-</div>
 
-</div>
-
-</body>
-</html>
+-->
