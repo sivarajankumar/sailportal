@@ -1,3 +1,7 @@
+img#none{
+	border:0px;
+}
+
 #heading{
 	color:rgb(100,0,0);
 	position:relative;
