@@ -165,6 +165,13 @@
 		<property name="workgroupService" ref="workgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
+	
+	<bean id="myArchivedRunsController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunListController">
+		<property name="runService" ref="runService" />
+		<property name="workgroupService" ref="workgroupService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
+	</bean>
 
 <!--  	
 	<bean
