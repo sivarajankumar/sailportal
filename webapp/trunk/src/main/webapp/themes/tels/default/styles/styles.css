@@ -167,14 +167,6 @@
 	line-height:1.5em;
 }
 
-#lineHeightAdj1{
-	line-height:2.0em;
-}
-
-.lineHeightAdj2{
-	line-height:15px;
-}
-
 .center{
 	text-align:center;
 }
@@ -215,16 +207,8 @@
 	width:980px;
 }
 
-#main { width:933px; padding:0; background:url(http://images.apple.com/dotmac/images/content_bgtop20070302.gif) no-repeat left top; }
-#main div.mainswapcontent { display:none; width:602px; }
-#main div.mainswapcontent.active { display:block; }
-
-.nopadding{
-	padding:0em;
-}
-
 .padding1{
-	padding: 2em;
+	padding: 22px;
 }
 
 .padding0{
@@ -232,12 +216,12 @@
 }
 
 #padding{
-	padding: 0.2em 0.2em 8em 0.2em;	
+	padding: 4px 4px 84px 4px;	
 }
 
 .marginHorAdj{
-	padding:0em;
-	margin-right:10em;
+	padding:0px;
+	margin-right:110px;
 }
 
 .marginHorAdj1{
@@ -673,12 +657,6 @@ top: -1.7em;
 
 #outerDiv{
 	height:25em;
-}
-.pandaAlign{
-	position: absolute;
-	top: 30px;
-	right:40px;
-	background-color: transparent;
 }
 
 h5.heading{
