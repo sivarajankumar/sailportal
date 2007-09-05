@@ -21,7 +21,7 @@
 
 
 <div>
-	<img src="<spring:theme code="dashboardbanner"/>" alt="<spring:message code="wise.banner.alttext" />" />
+	<a href="teacher/index.html"><img id="none" src="<spring:theme code="dashboardbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
 </div>
 	    <div>
    <p class="userlogout"> <%@ include file="logout.jsp"%> </p>

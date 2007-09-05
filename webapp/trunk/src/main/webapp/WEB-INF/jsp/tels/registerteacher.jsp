@@ -115,7 +115,8 @@ function popup(URL) {
 
     <label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label>
     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"
-     onclick="checkIfLegalAcknowledged(this.form, 'legalAcknowledged')"/> <spring:message code="register.teacher.terms-of-use" />
+     onclick="checkIfLegalAcknowledged(this.form, 'legalAcknowledged')"/> 
+     I agree to the <a href="teacher/termsofuse.html"> terms of use. </a>
      
   <br />
   
