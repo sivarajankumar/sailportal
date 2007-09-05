@@ -67,6 +67,7 @@
     		    /student/startproject.html=startProjectController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/curriculumsubjects.html=curriculumSubjectsController
+    		    /teacher/projects/overview.html=projectOverviewController
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/myarchivedruns.html=myArchivedRunsController
     		    /teacher/run/manage/endRun.html=endRunController

@@ -173,6 +173,9 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
+	<bean id="projectOverviewController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectOverviewController">
+	</bean>	
 <!--  	
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.run.RunListController">
