@@ -100,7 +100,8 @@ function popup(URL) {
     <form:input path="userDetails.schoolname" id="schoolname" />
 <br />
 
-    <label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label>   
+    <label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label>  
+     Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" /> 
 	<a href="#"	onclick="javascript:popup('teacher/curriculumsubjects.html')"> Click to select your subjects </a>
 <br />
 <br />
