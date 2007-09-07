@@ -27,7 +27,7 @@
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet"
     type="text/css" />
  <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
-<title>Projects Overview</title>
+<title>Change Periods</title>
 </head>
 
 <body>
@@ -38,34 +38,12 @@
 <li> <a href="#">Archived</a></li>
 </ul>
  -->
-<div id="overviewContent"> 
-<br />
-
-<table>
-<tr>
-<td><a href="#">Project Library</a></td>
-<td>Search the extensive library of WISE and TELS projects. Find a
-project and set it up to run in your classroom.</td>
-</tr>
-<tr>
-<td><a href="../run/myprojectruns.html">My Project Runs</a></td>
-<td>View projects that you are currently running in your classroom.</td>
-</tr>
-<tr>
-<td><a href="#">My Bookmarked Projects</a></td>
-<td>View library projects that you have earmarked for future use.</td>
-</tr>
-<tr>
-<td><a href="#">My Customized Projects</a></td>
-<td>View your customized projects. Use the Project Editor to customize
-Library projects or to create new projects.</td>
-</tr>
-</table>
-
+ <a href="../run/myprojectruns.html">Back to My Project Runs </a>
+ <h2>CHANGE PERIODS</h2>
+<div id="periods"> 
+To change period(s) for this project run, click checkboxes below and click Save Changes.
+ 
 </div>
-<p>
-Interested in running WISE projects in another language? <a href="languagetranslations.html"> Find out more. </a>
-</p>
 </body>
 </html>
 
