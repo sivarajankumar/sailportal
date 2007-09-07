@@ -176,6 +176,22 @@
 	<bean id="projectOverviewController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectOverviewController">
 	</bean>	
+	
+	<bean id="projectRunManagerController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectRunManagerController">
+	</bean>
+	
+	<bean id="changePeriodsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ChangePeriodsController">
+	</bean>
+	
+	<bean id="languageTranslationsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.LanguageTranslationsController">
+	</bean>
+	
+	<bean id="projectOptionsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.ProjectOptionsController">
+	</bean>
 <!--  	
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.run.RunListController">

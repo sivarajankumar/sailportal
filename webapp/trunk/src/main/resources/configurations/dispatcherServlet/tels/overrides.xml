@@ -68,6 +68,10 @@
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/curriculumsubjects.html=curriculumSubjectsController
     		    /teacher/projects/overview.html=projectOverviewController
+    		    /teacher/projects/runmanager.html=projectRunManagerController
+    		    /teacher/projects/changeperiods.html=changePeriodsController
+    		    /teacher/projects/languagetranslations.html=languageTranslationsController
+    		    /teacher/projects/library/options.html=projectOptionsController
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/myarchivedruns.html=myArchivedRunsController
     		    /teacher/run/manage/endRun.html=endRunController
