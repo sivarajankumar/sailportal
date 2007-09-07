@@ -141,3 +141,23 @@ img#none{
 	padding-bottom:40px;
 	width:980px;
 }
+
+#periods{
+	width:600px;
+}
+
+#translations{
+	width:900px;
+	text-align:justify;
+}
+
+#translations.p{
+	font-size:1.0em;
+}
+
+#projectoptions{
+	width:940px;
+	text-align:left;
+	display:inline;
+}
+
