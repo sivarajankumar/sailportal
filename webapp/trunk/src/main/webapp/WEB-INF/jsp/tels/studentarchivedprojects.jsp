@@ -106,7 +106,9 @@
 
 </div>
 
-
+ <div id="waiting" style="display: none">
+       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
+     </div>
 <div>
 <a href="javascript:Effect.toggle('waiting', 'appear')">click me</a>
 </div>
