@@ -100,9 +100,14 @@ function popup(URL) {
     <form:input path="userDetails.schoolname" id="schoolname" />
 <br />
 
-    <label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label>  
-     Biology: <form:checkbox path="userDetails.curriculumsubjects" value="Biology" /> 
-	<a href="#"	onclick="javascript:popup('teacher/curriculumsubjects.html')"> Click to select your subjects </a>
+    <label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label> 
+     <div id="curriculumSubjectsBox" style="display:none"> 
+          <c:forEach items="${curriculumsubjects}" var="curriculumsubject">
+            <form:checkbox path="userDetails.curriculumsubjects" value="${curriculumsubject}" /><spring:message code="signup.curriculumsubjects.${curriculumsubject}" />
+          </c:forEach>
+	</div>
+    <a href="javascript:Effect.toggle('curriculumSubjectsBox','appear')" > List of Curriculum Subjects </a>
+     
 <br />
 <br />
     <label for="schoollevel" id="schoollevel1"><spring:message code="signup.schoollevel" /></label> 
@@ -115,8 +120,7 @@ function popup(URL) {
   <br />
 
     <label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label>
-    <form:checkbox path="legalAcknowledged" id="legalAcknowledged"
-     onclick="checkIfLegalAcknowledged(this.form, 'legalAcknowledged')"/> 
+    <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
      I agree to the <a href="teacher/termsofuse.html"> terms of use. </a>
      
   <br />
