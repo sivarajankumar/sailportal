@@ -47,10 +47,14 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * runlist.jsp
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class RunListController extends AbstractController {
 	
+	protected static final String FALSE = "FALSE";
+
+	protected static final String GRADING_ENABLED = "GRADING_ENABLED";
+
 	private RunService runService;
 
 	private WorkgroupService workgroupService;
@@ -64,6 +68,8 @@ public class RunListController extends AbstractController {
 	protected final static String ENDED_RUN_LIST_KEY = "ended_run_list";
 
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
+	
+	protected final static String GRADING_PARAM = "gradingParam";
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
 	
@@ -77,6 +83,11 @@ public class RunListController extends AbstractController {
 	protected ModelAndView handleRequestInternal(
 			HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse) throws Exception {
+		
+		String gradingParam = servletRequest.getParameter(GRADING_ENABLED);
+		
+		if( gradingParam == null )
+			gradingParam = FALSE;
 		
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
@@ -100,6 +111,7 @@ public class RunListController extends AbstractController {
 			}
 		}
 
+		modelAndView.addObject(GRADING_PARAM, gradingParam);
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
 		modelAndView.addObject(ENDED_RUN_LIST_KEY, ended_run_list);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
