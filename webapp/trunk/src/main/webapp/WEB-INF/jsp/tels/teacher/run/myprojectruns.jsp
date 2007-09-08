@@ -36,7 +36,7 @@ function popup(URL, title) {
 </head>
 
 <body>
-<%@ include file="..projectHeader.jsp"%>
+<%@ include file="../projectHeader.jsp"%>
 <!-- 
 <ul id="tabnav2"  >
 <li> <a href="#">Current</a></li>
@@ -90,7 +90,7 @@ To manage a Project Run, click its underlined title.
     <td>
 	<c:choose>
         <c:when test="${gradingParam =='TRUE'}">
-            <a href="gradeByStep.html?runId=${run.id}">Grade By Step</a><br/>
+            <a href="gradebystep.html?runId=${run.id}">Grade By Step</a><br/>
 			 <a href="#" onclick="javascript:alert('not implemented yet')">Grade By Gdfdfdroup</a><br/>
         </c:when>
         <c:otherwise>
