@@ -88,18 +88,26 @@ To manage a Project Run, click its underlined title.
           </c:forEach>
         </table></td>
     <td>
-      <c:choose>
-        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
-        <spring:message code="no.workgroups" />
+	<c:choose>
+        <c:when test="${gradingParam =='TRUE'}">
+            <a href="gradeByStep.html?runId=${run.id}">Grade By Step</a><br/>
+			 <a href="#" onclick="javascript:alert('not implemented yet')">Grade By Gdfdfdroup</a><br/>
         </c:when>
         <c:otherwise>
-            <c:forEach var="workgroup" items="${workgroup_map[run]}">
-              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a><br />
-            </c:forEach>
-        </c:otherwise>
-      </c:choose>
-      <br/>
-      <a href="#" onclick="javascript:popup('manage/endRun.html?runId=${run.id}')">Archive this run</a>
+            <c:choose>
+			        <c:when test="${fn:length(workgroup_map[run]) == 0}" >
+			        <spring:message code="no.workgroups" />
+			        </c:when>
+			        <c:otherwise>
+			            <c:forEach var="workgroup" items="${workgroup_map[run]}">
+			              <a href="${http_transport.baseUrl}/offering/${run.sdsOffering.sdsObjectId}/jnlp/${workgroup.sdsWorkgroup.sdsObjectId}">${workgroup.sdsWorkgroup.name}</a><br />
+			            </c:forEach>
+			        </c:otherwise>
+			      </c:choose>
+			      <br/>
+			      <a href="#" onclick="javascript:popup('manage/endRun.html?runId=${run.id}')">Archive this run</a>
+		</c:otherwise>
+    </c:choose>
     </td>
    </tr>
   </c:forEach>
@@ -110,7 +118,6 @@ To manage a Project Run, click its underlined title.
 
 </div>
 
-hello
 </div>
 
 </body>
