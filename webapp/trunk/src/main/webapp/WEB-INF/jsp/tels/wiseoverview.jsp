@@ -44,14 +44,9 @@
 <br /><br />
 <div class="center">
   <p>
-    <script type="text/javascript">
+  <object width="700" height="500">
     <embed src="./flash/tels/WISE_Slideshow.swf" width="700" height="500" />
-  </script>
-    <noscript>
-    <object width="891" height="503" align="top">
-      <embed src="./flash/tels/WISE_Slideshow.swf" width="891" height="503" align="top" />  
-    </object>
-    </noscript>
+  </object>
   </p>
   <h5 align="center"><spring:message code="wise.cannot-see-movie" /> 
   <a href="http://www.macromedia.com/go/getflashplayer">
