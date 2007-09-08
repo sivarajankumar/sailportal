@@ -54,9 +54,10 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class RunListControllerTest extends AbstractModelAndViewTests {
+
 	private RunListController runListController;
 
 	private HttpRestTransport mockHttpTransport;
@@ -82,6 +83,8 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		this.response = new MockHttpServletResponse();
 		HttpSession mockSession = new MockHttpSession();
 		this.user = new UserImpl();
+		
+		this.request.setParameter(RunListController.GRADING_ENABLED, RunListController.FALSE);
 		mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, this.user);
 		this.request.setSession(mockSession);
 
@@ -161,6 +164,7 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		assertModelAttributeValue(modelAndView,
 				RunListController.HTTP_TRANSPORT_KEY,
 				this.mockHttpTransport);
+		assertModelAttributeValue(modelAndView, RunListController.GRADING_PARAM, RunListController.FALSE);
 		EasyMock.verify(this.mockRunService);
 		EasyMock.verify(this.mockWorkgroupService);
 	}
@@ -185,6 +189,7 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		assertModelAttributeValue(modelAndView,
 				RunListController.HTTP_TRANSPORT_KEY,
 				this.mockHttpTransport);
+		assertModelAttributeValue(modelAndView, RunListController.GRADING_PARAM, RunListController.FALSE);
 		EasyMock.verify(this.mockRunService);
 		EasyMock.verify(this.mockWorkgroupService);
 	}
