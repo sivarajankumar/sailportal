@@ -36,7 +36,7 @@ function popup(URL, title) {
 </head>
 
 <body>
-<%@ include file="projectHeader.jsp"%>
+<%@ include file="..projectHeader.jsp"%>
 <!-- 
 <ul id="tabnav2"  >
 <li> <a href="#">Current</a></li>
