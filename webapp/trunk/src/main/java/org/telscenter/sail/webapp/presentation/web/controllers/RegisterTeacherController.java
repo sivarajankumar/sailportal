@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
+import org.telscenter.sail.webapp.domain.authentication.Curriculumsubjects;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 
@@ -67,6 +68,7 @@ public class RegisterTeacherController extends SignupController {
 	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("schoollevels", Schoollevel.values());
+		model.put("curriculumsubjects",Curriculumsubjects.values());
 		return model;
 	}
 	
