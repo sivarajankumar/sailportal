@@ -100,12 +100,12 @@
 <h3>Management Actions:</h3>
 <table>
 <tr>
-<td><a href="#">Change Periods</a></td>
+<td><a href="changeperiods.html">Change Periods</a></td>
 <td>Change the classroom periods for this project run.</td>
 </tr>
 <tr>
 <td><a href="#">Project Information</a></td>
-<td>View project information including <a href="#">Overview</a>, <a href="#">Teacher Guide</a>, <a href="#">Learning Goals</a>, <a href="#">Credits.</a></td>
+<td>View project information including <a href="overview.html">Overview</a>, <a href="#">Teacher Guide</a>, <a href="#">Learning Goals</a>, <a href="#">Credits.</a></td>
 </tr>
 <tr>
 <td><a href="#">Manage Students</a></td>
