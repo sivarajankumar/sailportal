@@ -20,45 +20,63 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.sf.sail.webapp.domain.annotation;
+package net.sf.sail.webapp.domain.annotation.impl;
 
-import net.sf.sail.webapp.domain.Persistable;
+import java.io.Serializable;
+
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 
 /**
- * AnnotationBundle domain object interface. An AnnotationBundle encapsulates
- * the xml string representation of the PAS AnnotationBundle as well as a reference
- * to the workgroup to which the AnnotationBundle is for. 
- * For reference on PAS AnnotationBundle, look at
- * http://www.telscenter.org/confluence/display/SAIL/EMFBundleAnnotationService
+ * Domain Object that encapsulates the bundle and the workgroup that this
+ * AnnotationBundle is for
  *
  * @author Hiroki Terashima
  * @author Laurel Williams
  * @version $ Id: $
  */
-public interface AnnotationBundle extends Persistable {
+public class AnnotationBundleImpl implements AnnotationBundle {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @return the annotation bundle
+	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#getBundle()
 	 */
-	public String getBundle();
-	
+	public String getBundle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
-	 * @param bundle
-	 *     the bundle to set
+	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#getWorkgroup()
 	 */
-	public void setBundle(String bundle);
-	
+	public Workgroup getWorkgroup() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
-	 * @return <code>Workgroup</code> that owns
-	 *     this AnnotationBundle
+	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#setBundle(java.lang.String)
 	 */
-	public Workgroup getWorkgroup();
-	
+	public void setBundle(String bundle) {
+		// TODO Auto-generated method stub
+
+	}
+
 	/**
-	 * @param workgroup the <code>Workgroup</code> that owns this
-	 *     AnnotationBundle
+	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#setWorkGroup(net.sf.sail.webapp.domain.Workgroup)
 	 */
-	public void setWorkGroup(Workgroup workgroup);
-	
+	public void setWorkGroup(Workgroup workgroup) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.domain.Persistable#getId()
+	 */
+	public Serializable getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
