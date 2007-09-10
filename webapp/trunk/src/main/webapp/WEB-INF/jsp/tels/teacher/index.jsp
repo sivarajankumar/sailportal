@@ -207,12 +207,12 @@ Grade Work by Student-Group
 </tr>
 <tr>
 <td align="left">
-    <a href="run/myprojectruns.html">
+    <a href="run/myprojectruns.html?GRADING_ENABLED=FALSE">
 My Project Runs
 </a>
 </td>
 <td align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+<a href="run/myprojectruns.html?GRADING_ENABLED=TRUE">
 Grade Work by Step
 </a>
 </td>
