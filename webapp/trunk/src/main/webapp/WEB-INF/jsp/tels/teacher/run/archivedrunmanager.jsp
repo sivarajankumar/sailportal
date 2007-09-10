@@ -17,7 +17,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: setupRun1.jsp 357 2007-05-03 00:49:48Z archana $ -->
+<!-- $Id: myprojectruns.jsp 1044 2007-09-08 21:02:03Z tony $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
@@ -25,7 +25,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="run.list" /></title>
+<title>Teacher:Projects - Archived Run Manager </title>
 <script language="JavaScript">
 
 function popup(URL, title) {
@@ -37,14 +37,70 @@ function popup(URL, title) {
 
 <body>
 <%@ include file="projectHeader.jsp"%>
-<!-- 
-<ul id="tabnav2"  >
-<li> <a href="#">Current</a></li>
-<li> <a href="#">Archived</a></li>
-</ul>
- -->
+
 <div id="runContent"> 
-<h3>Archived Runs</h3>
+<br />
+<a href="myprojectruns.html"> Back to My Project Runs </a>
+<h3 id="headingPos">
+Project Run Manager (archived projects)
+</h3>
+<h3> Archive Actions: </h3>
+<table>
+<tr>
+<td> <a href="#"> Reactivate Project </a> </td>
+<td>Moves the archived project run back to Current folder. Also reactivates the project for registered students. </td>
+</tr>
+<tr>
+<td> <a href="#"> Project Information </a> </td>
+<td> View project information including <a href="../projects/overview.html"> Overview </a>, <a href="#"> Teacher Guide </a>, <a href="#"> Learning Goals </a>, <a href="#"> Credits. </a></td>
+</tr>
+<tr>
+<td> <a href="#"> View Students </a></td>
+<td> View a list of all students associated with this project run, per period.</td>
+</tr>
+<tr>
+<td> <a href="#"> View Student Work </a></td>
+<td> View all student work stored with the project run.</td>
+</tr>
+<tr>
+<td> <a href="#"> Report a Problem </a></td>
+<td> Send a message to WISE describing content or functionality problems found in this project.</td>
+</tr>
+</table>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<h1>Archived Runs</h1>
 <table border="1">
   <thead>
     <tr>
@@ -96,39 +152,6 @@ function popup(URL, title) {
    </tr>
   </c:forEach>
 </table>
-</div>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
 
 
 -->
