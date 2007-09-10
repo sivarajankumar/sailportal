@@ -84,6 +84,7 @@
                 /teacher/register.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/curriculumsubjects.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/termsofuse.html=ROLE_ANONYMOUS,ROLE_USER
+				/teacher/gradingtool/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher*.html=ROLE_ANONYMOUS,ROLE_USER
                 /team*.html=ROLE_ANONYMOUS,ROLE_USER
                 /wise*.html=ROLE_ANONYMOUS,ROLE_USER

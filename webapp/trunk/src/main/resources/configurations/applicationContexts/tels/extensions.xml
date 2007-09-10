@@ -90,5 +90,9 @@
         <property name="groupService" ref="groupService" />
         <property name="runService" ref="runService" />
     </bean>
+
+	 <bean id="curnitMapService"
+    	class="org.telscenter.sail.webapp.service.gradingtool.impl.CurnitMapServiceImpl">
+    </bean>
     
 </beans>
