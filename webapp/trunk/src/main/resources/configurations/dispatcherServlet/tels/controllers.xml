@@ -192,6 +192,78 @@
 	<bean id="projectOptionsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.ProjectOptionsController">
 	</bean>
+	
+	<bean id="studentMessageController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.StudentMessageController">
+	</bean>
+	
+	<bean id="studentMessageInputController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.StudentMessageInputController">
+	</bean>
+	
+	<bean id="studentMessageOptionsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.StudentMessageOptionsController">
+	</bean>
+	
+	<bean id="studentMessageConfirmController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.StudentMessageConfirmController">
+	</bean>
+
+	<bean id="reportProblemController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ReportProblemController">
+	</bean>
+	
+	<bean id="archivedRunManagerController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunManagerController">
+	</bean>
+
+	<bean id="selectPeriodToGradeController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectPeriodToGradeController">
+	</bean>
+		
+	<bean id="selectProjectToGradeController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectProjectToGradeController">
+	</bean>
+	
+	<bean id="gradeStudentWorkController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeStudentWorkController">
+	</bean>
+	
+	<bean id="gradeByStudentGroupController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStudentGroupController">
+	</bean>
+	
+	<bean id="gradeByStepController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStepController">
+	</bean>
+	
+	<bean id="selectStepToAssessController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectStepToAssessController">
+	</bean>
+	
+	<bean id="managementOverviewController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManagementOverviewController">
+	</bean>
+	
+	<bean id="exportsAndReportsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ExportsAndReportsController">
+	</bean>
+	
+	<bean id="manageStudentsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManageStudentsController">
+	</bean>
+	
+	<bean id="updateMyAccountController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateMyAccountController">
+	</bean>
+
+	<bean id="mainHelpController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.MainHelpController">
+	</bean>
+
+	<bean id="contactWiseController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.ContactWiseController">
+	</bean>	
 <!--  	
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.run.RunListController">
