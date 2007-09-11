@@ -114,6 +114,11 @@
     <path id="lib.jdom">
         <path location="${M2_REPO}/jdom/jdom/1.0/jdom-1.0.jar" />
     </path>
+  
+  <path id="lib.javamail">
+    <path location="${M2_REPO}/javax/activation/activation/1.1/activation-1.1.jar" />
+    <path location="${M2_REPO}/javax/mail/mail/1.4/mail-1.4.jar" />
+  </path>
 
     <path id="classes">
         <path location="${dir.build.classes}" />
@@ -134,6 +139,7 @@
         <path refid="lib.ehcache" />
         <path refid="lib.acegi-security" />
         <path refid="lib.jdom" />
+      	<path refid="lib.javamail" />
         <path refid="classes" />
     </path>
 
