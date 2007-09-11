@@ -38,7 +38,8 @@ function popup(URL) {
 <body>
 <div id="columns">
 <h3 class="maroon"><spring:message code="student.project-menu" /></h3>
-<div id="xsnazzy" class="bgcolorSeaBlue widthAdj south2" >
+<div id="xsnazzy" class="bgcolorSeaBlue widthAdj" style="position:relative;
+	top:20px;" >
 	<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
 	<div class="border1">
 		<h3 >
@@ -104,7 +105,7 @@ function popup(URL) {
 
 -->
 
-<div id="right2" class="widthAdj3 north_5" >
+<div id="right2" class="widthAdj3" style="position:relative;bottom:385px;" >
 
 
 
