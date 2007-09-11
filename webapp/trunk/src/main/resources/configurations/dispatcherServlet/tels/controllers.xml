@@ -114,6 +114,10 @@
 		<property name="curnitMapService" ref="curnitMapService" />
 	</bean>
 
+		<bean id="gradingToolController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.gradingtool.GradingToolController">
+	</bean>
+
 	<bean id="addProjectController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.AddProjectController">
     	<property name="studentService" ref="studentService" />
