@@ -52,7 +52,7 @@
 <a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.preview-project" /> </a>
 <spring:message code="teacher.before-running" />
 </p>
-<p id="right0" class="widthAdj6 smallFont1"><spring:message code="teacher.preview-project-now" /></p>
+<p style="position:relative;left:20px;" class="widthAdj6 smallFont1"><spring:message code="teacher.preview-project-now" /></p>
 <p class="widthAdj6 bigFont1"><spring:message code="teacher.cont-no-preview" />
 <i><spring:message code="navigate.next" /></i>
 <spring:message code="teacher.cont-no-preview-below" />

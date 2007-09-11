@@ -40,7 +40,7 @@
 <h4><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="verticalNavigation" class="north4" style="position:relative;right:100px;">
+<div id="verticalNavigation" style="position:relative;right:100px;bottom:50px">
 <ul>
 <li><spring:message code="login.username" />
 <input name="username" value="${username}"/>
@@ -51,7 +51,7 @@
 </ul>
 </div>
 
-<div id="spacing" class="north4 left">
+<div id="spacing" style="position:relative;bottom:50px;" class="left">
 <ul>
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>

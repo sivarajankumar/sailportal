@@ -58,7 +58,7 @@ function addProjectCode(form){
 <body>
 
 <%@ include file="studentHeader.jsp"%>
-<div class=" border widthAdj1 marginAdj5 south_1">
+<div class=" border widthAdj1 marginAdj5" style="position:relative;top:210px;">
 <p class="left"> <spring:message code="wise.users" /> 
 <authz:authentication operation="username" />
 </p>

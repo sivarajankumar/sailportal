@@ -53,7 +53,7 @@
 <spring:message code="teacher.new-window" />
 </p>
 
-<ul id="right0" class="width2 smallFont1">
+<ul style="position:relative;left:20px;" class="width2 smallFont1">
 <li>
 <spring:message code="teacher.about-guide" />
 </li>

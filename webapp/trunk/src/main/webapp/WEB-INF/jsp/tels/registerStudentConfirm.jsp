@@ -42,7 +42,7 @@
 <h4><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="verticalNavigation" class="north4" style="position:relative;right:-380px;">
+<div id="verticalNavigation" style="position:relative;right:-380px;bottom:50px;">
 <ul>
 <li><spring:message code="login.username" />
 <input name="username" value="${username}"/>
@@ -53,7 +53,7 @@
 </ul>
 </div>
 
-<div id="spacing" class="north4 left">
+<div id="spacing" class="left" style="position:relative;bottom:50px;">
 <ul>
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>
@@ -61,9 +61,10 @@
 </ul>
 </div>
 
-<div id="navigation" class="north_4">
+<div id="navigation" style="position:relative;bottom:60px;">
 <ul>
-<li class="right7">
+<li style="position:relative;
+	right:-350px;">
 <a href="registerstudent.html"> 
 <img id="imgBorderNone" src="<spring:theme code="register_another_teammate" />" 
 onmouseover="swapImage('imgBorderNone','<spring:theme code="register_another_teammate_rollover" />')"
@@ -79,9 +80,10 @@ onmouseout="swapImage('imgBorderNone','<spring:theme code="register_another_team
 </ul>
 </div>
 
-<div id="navigation" class="north6">
+<div id="navigation" style="position:relative;bottom:29px;">
 <ul>
-<li class="space1 right7">
+<li class="space1" style="position:relative;
+	right:-350px;">
 <a href="index.html">
 <img id="imgBorder2None" src="<spring:theme code="sign_in_new_account" />" 
 onmouseover="swapImage('imgBorder2None','<spring:theme code="sign_in_new_account_rollover" />')"
@@ -90,7 +92,7 @@ onmouseout="swapImage('imgBorder2None','<spring:theme code="sign_in_new_account"
 </a>
 </li>
 <li>
-<p class="right1 south_1 justify widthAdj5 smallFont marginAdj4">
+<p class="right1 justify widthAdj5 smallFont marginAdj4" style="position:relative;top:210px;">
 <spring:message code="register.team" />
 </p>
 </li>

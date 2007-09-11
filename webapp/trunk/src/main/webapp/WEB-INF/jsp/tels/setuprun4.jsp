@@ -54,7 +54,7 @@
 <spring:message code="teacher.review-lesson-plan-rest" />
 </p>
 
-<p id="right0" class="widthAdj6 smallFont1"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></p>
+<p style="position:relative;left:20px;" class="widthAdj6 smallFont1"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></p>
 <p class="widthAdj6 bigFont1">
 <spring:message code="teacher.skip-lesson-plan" />
 <i><spring:message code="navigate.next" /></i>

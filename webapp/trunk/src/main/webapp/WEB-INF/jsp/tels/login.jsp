@@ -66,7 +66,7 @@
      </div>
      
  <input type="image" id="signIn" src="<spring:theme code="sign_in" />" 
-        	class="_right1" tabindex="3" onmouseover="swapSignIn('signIn', 1);"
+        	style="position:relative;left:150px;" tabindex="3" onmouseover="swapSignIn('signIn', 1);"
        		onmouseout="swapSignIn('signIn', 0);"
  
             onclick="Effect.toggle('waiting', 'appear')" /> 

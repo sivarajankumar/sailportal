@@ -42,7 +42,7 @@
 <p class="bigFont1 widthAdj6">
 <spring:message code="teacher.currently-active-project-runs" />
 </p>
-<p id="right0" class="width2 justify smallFont1">
+<p style="position:relative;left:20px;" class="width2 justify smallFont1">
 <spring:message code="teacher.archiving-a-project-run" />
 </p>
 <p class="bigFont1 widthAdj6">
