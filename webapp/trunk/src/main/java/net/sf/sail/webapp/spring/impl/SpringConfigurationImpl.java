@@ -38,7 +38,8 @@ public final class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/applicationContexts/pas/security.xml",
             "classpath:configurations/applicationContexts/pas/spring.xml",
             "classpath:configurations/applicationContexts/pas/user.xml",
-            "classpath:configurations/applicationContexts/pas/javamail.xml"};
+            "classpath:configurations/applicationContexts/pas/javamail.xml",
+            "classpath:configurations/applicationContexts/pas/annotation.xml"};
 
     private static final String[] DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
             "classpath:configurations/dispatcherServlet/pas/config.xml",

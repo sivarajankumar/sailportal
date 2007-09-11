@@ -32,25 +32,26 @@ public class AllTests {
 		TestSuite suite = new TestSuite(
 				"Test for net.sf.sail.webapp.dao.sds.impl");
 		//$JUnit-BEGIN$
-		suite.addTestSuite(SdsJnlpUpdateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsJnlpCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsWorkgroupDaoTest.class);
-		suite.addTestSuite(HttpRestSdsUserDaoTest.class);
 		suite.addTestSuite(SdsOfferingCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsOfferingListCommandHttpRestImplTest.class);
 		suite.addTestSuite(HttpRestSdsOfferingDaoTest.class);
+		suite.addTestSuite(SdsJnlpCreateCommandHttpRestImplTest.class);
+		suite.addTestSuite(SdsWorkgroupUpdateCommandHttpRestImplTest.class);
+		suite.addTestSuite(HttpRestSdsCurnitDaoTest.class);
 		suite
 				.addTestSuite(SdsWorkgroupMemberCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsCurnitListCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsCurnitDaoTest.class);
-		suite.addTestSuite(SdsOfferingUpdateCommandHttpRestImplTest.class);
 		suite.addTestSuite(HttpRestSdsJnlpDaoTest.class);
-		suite.addTestSuite(SdsCurnitUpdateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsUserUpdateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsCurnitCreateCommandHttpRestImplTest.class);
 		suite.addTestSuite(SdsWorkgroupCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsWorkgroupUpdateCommandHttpRestImplTest.class);
+		suite.addTestSuite(SdsOfferingListCommandHttpRestImplTest.class);
+		suite.addTestSuite(SdsCurnitUpdateCommandHttpRestImplTest.class);
+		suite.addTestSuite(SdsCurnitListCommandHttpRestImplTest.class);
+		suite.addTestSuite(HttpRestSdsUserDaoTest.class);
+		suite.addTestSuite(SdsOfferingUpdateCommandHttpRestImplTest.class);
+		suite.addTest(AllTests.suite());
+		suite.addTestSuite(SdsUserUpdateCommandHttpRestImplTest.class);
+		suite.addTestSuite(HttpRestSdsWorkgroupDaoTest.class);
+		suite.addTestSuite(SdsJnlpUpdateCommandHttpRestImplTest.class);
 		//$JUnit-END$
 		return suite;
 	}

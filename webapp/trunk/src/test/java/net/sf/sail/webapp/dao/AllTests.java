@@ -18,6 +18,7 @@ public class AllTests {
 		suite.addTest(net.sf.sail.webapp.dao.user.impl.AllTests.suite());
 		suite.addTest(net.sf.sail.webapp.dao.workgroup.impl.AllTests.suite());
 		suite.addTest(net.sf.sail.webapp.dao.group.impl.AllTests.suite());
+		suite.addTest(net.sf.sail.webapp.dao.annotation.impl.AllTests.suite());
 
 		// $JUnit-END$
 		return suite;

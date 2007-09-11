@@ -54,5 +54,6 @@
         <mapping class="net.sf.sail.webapp.domain.impl.WorkgroupImpl" />
         <mapping class="net.sf.sail.webapp.domain.impl.UserImpl" />
         <mapping class="net.sf.sail.webapp.domain.group.impl.PersistentGroup" />
+        <mapping class="net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl" />
     </session-factory>
 </hibernate-configuration>
