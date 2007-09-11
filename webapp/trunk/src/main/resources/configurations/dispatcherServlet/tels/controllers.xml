@@ -238,8 +238,8 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStudentGroupController">
 	</bean>
 	
-	<bean id="gradeByStepController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStepController">
+	<bean id="teacherGradeByStepController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.TeacherGradeByStepController">
 	</bean>
 	
 	<bean id="selectStepToAssessController"

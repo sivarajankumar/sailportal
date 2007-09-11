@@ -87,7 +87,7 @@
     		    /teacher/grading/selectprojecttograde.html=selectProjectToGradeController
     		    /teacher/grading/gradestudentwork.html=gradeStudentWorkController
     		    /teacher/grading/gradebystudentgroup.html=gradeByStudentGroupController
-    		    /teacher/grading/gradebystep.html=gradeByStepController
+    		    /teacher/grading/gradebystep.html=teacherGradeByStepController
     		    /teacher/grading/selectsteptoassess.html=selectStepToAssessController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
