@@ -59,6 +59,6 @@ public interface AnnotationBundle extends Persistable {
 	 * @param workgroup the <code>Workgroup</code> that owns this
 	 *     AnnotationBundle
 	 */
-	public void setWorkGroup(Workgroup workgroup);
+	public void setWorkgroup(Workgroup workgroup);
 	
 }

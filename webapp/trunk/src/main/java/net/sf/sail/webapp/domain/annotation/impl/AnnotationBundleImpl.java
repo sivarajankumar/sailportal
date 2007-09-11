@@ -24,8 +24,22 @@ package net.sf.sail.webapp.domain.annotation.impl;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 
 /**
  * Domain Object that encapsulates the bundle and the workgroup that this
@@ -35,48 +49,129 @@ import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
  * @author Laurel Williams
  * @version $ Id: $
  */
+@Entity
+@Table(name = AnnotationBundleImpl.DATA_STORE_NAME)
 public class AnnotationBundleImpl implements AnnotationBundle {
 
-	private static final long serialVersionUID = 1L;
+    @Transient
+    private static final long serialVersionUID = 1L;
+
+    @Transient
+    public static final String DATA_STORE_NAME = "annotationBundles";
+
+    @Transient
+    public static final String COLUMN_NAME_BUNDLE = "bundle";
+
+    @Transient
+    public static final String COLUMN_NAME_WORKGROUP_FK = "workgroup_fk";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	public Long id = null;
+
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version = null;
+
+    @Column(name = AnnotationBundleImpl.COLUMN_NAME_BUNDLE, nullable = false)
+    private String bundle = null;
+
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = WorkgroupImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = COLUMN_NAME_WORKGROUP_FK, nullable = false)
+    private Workgroup workgroup;
 
 	/**
 	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#getBundle()
 	 */
 	public String getBundle() {
-		// TODO Auto-generated method stub
-		return null;
+		return bundle;
 	}
 
 	/**
 	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#getWorkgroup()
 	 */
 	public Workgroup getWorkgroup() {
-		// TODO Auto-generated method stub
-		return null;
+		return workgroup;
 	}
 
 	/**
 	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#setBundle(java.lang.String)
 	 */
 	public void setBundle(String bundle) {
-		// TODO Auto-generated method stub
-
+		this.bundle = bundle;
 	}
 
 	/**
 	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#setWorkGroup(net.sf.sail.webapp.domain.Workgroup)
 	 */
-	public void setWorkGroup(Workgroup workgroup) {
-		// TODO Auto-generated method stub
-
+	public void setWorkgroup(Workgroup workgroup) {
+		this.workgroup = workgroup;
 	}
 
 	/**
 	 * @see net.sf.sail.webapp.domain.Persistable#getId()
 	 */
 	public Serializable getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return id;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public Integer getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bundle == null) ? 0 : bundle.hashCode());
+		result = prime * result
+				+ ((workgroup == null) ? 0 : workgroup.hashCode());
+		return result;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final AnnotationBundleImpl other = (AnnotationBundleImpl) obj;
+		if (bundle == null) {
+			if (other.bundle != null)
+				return false;
+		} else if (!bundle.equals(other.bundle))
+			return false;
+		if (workgroup == null) {
+			if (other.workgroup != null)
+				return false;
+		} else if (!workgroup.equals(other.workgroup))
+			return false;
+		return true;
 	}
 
 }
