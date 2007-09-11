@@ -23,11 +23,6 @@
 	bottom:62px;
 }
 
-.north_0{
-	position:relative;
-	bottom:30px;
-}
-	
 .north{
 	position:relative;
 	bottom:40px;
@@ -43,26 +38,6 @@
 	bottom:35px;
 }
 
-.north4{
-	position:relative;
-	bottom:50px;
-}
-
-.north_4{
-	position:relative;
-	bottom:60px;
-}
-
-.north_5{
-	position:relative;
-	bottom:385px;
-}
-
-.north6{
-	position:relative;
-	bottom:29px;
-}
-
 #north2{
 	position:relative;
 	bottom:50px;
@@ -74,29 +49,9 @@
 	top:40px;
 }
 
-.south2{
-	position:relative;
-	top:20px;
-}
-
-.south_1{
-	position:relative;
-	top:210px;
-}
-
 #left{
 	position:relative;
 	right:34px;
-}
-
-#left1{
-	position:absolute;
-	left:20px;
-}
-
-#right0{
-	position:relative;
-	left:20px;
 }
 
 #right{
@@ -109,16 +64,6 @@
 	left:250px;
 }
 
-.right0{
-	position:relative;
-	left:500px;
-}
-
-._right1{
-	position:relative;
-	left:150px;
-}
-
 .right1{
 	position:relative;
 	right:-600px;
@@ -127,16 +72,6 @@
 .right2{
 	position:relative;
 	right:-800px;
-}
-
-.right4{
-	position:relative;
-	right:-22px;
-}
-
-.right7{
-	position:relative;
-	right:-350px;
 }
 
 .border{
@@ -177,14 +112,6 @@
 
 .justify{
 	text-align:justify;
-}
-
-.bgcolorBlue{
-    background-color:blue;	
-}
-
-.bgcolorLightBlue{
-	background-color:#CCFFFF;
 }
 
 .bgColorYellow{
@@ -310,10 +237,6 @@
 	font-weight: bold;
 }
 
-.specialPadding{
-	padding: 4em 0em 4em 0em;	
-}
-
 body {
     background-color: white;
 }
@@ -342,15 +265,6 @@ div {
     color: black;
     padding: 0.05em;
 }
-
-
-div#upperright {
-	margin-left: 1em;
-	margin-right: 1em;
-    width: 50em;
-    border: .2em solid #00FFCC;
-}
-
 
 div.welcome{
 	display: inline;
@@ -427,11 +341,6 @@ form#login {
 }
 
 
-p.bgimage{
-	background-image: url('../panda.png');	
-	
-}
-
 p.userinfo{
 	position: absolute;
 	top:-5px;
@@ -443,24 +352,6 @@ p.userlogout{
 	top: 12px;
 	left:860px;
 	font-size:14px;
-}
-
-.parastyle{
-line-height: 15px;
-margin: -12px -6px -40px 6px;
-padding:0px;
-font-size:0.85em;
-font-family:arial,sans-serif;
-color:black;
-width: 450px;
-text-align:justify;
-}
-
-.headerPos{
-position:relative;
-top:0em;
-margin:8;
-font-family:arial,sans-serif;
 }
 
 
@@ -598,38 +489,6 @@ img#none{
 	border:none;
 }
 
-.heading{
-font-weight: bold;
-color: yellow;
-font-size: 1.6em;
-font-variant: small-caps;
-background-color: transparent;
-position:relative;
-top: -1.7em;
-}
-
-.heading2{
-	font-size: 1.6em;
-	font-style:bold;
-	font-variant:normal;
-	padding:0.2em;	
-}
-
-
-#outerDiv{
-	height:25em;
-}
-
-h5.heading{
-  background-image: url(banner.jpg );
-  background-position: top left;
-  background-repeat: no-repeat;
-  width:100%;
-  height: 100;
-  margin-bottom: 3em;
-  text-align:left;
-  }
- 
 img{
 position: top right;
 vertical-align: text-top;
@@ -659,17 +518,6 @@ ul#tabnav{
 	font-family: verdana, arial, sans-serif;
 }
 
-ul#tabnav2 {
-	list-style-type:none;
-	width: 50em;
-   margin: 0em;
-   	padding-left:0em;
-	padding-bottom:0em;
-	font-style: bold;
-	font-size: 1.7em;
-	font-family: verdana, arial, sans-serif;
-}
-
 
 ul#tabnav li{
 	float:left;
@@ -680,19 +528,6 @@ ul#tabnav li{
 	border-style: solid;
 	border-color: black;
 }
-
-ul#tabnav2 li{
-	float:left;
-	height:1.2em;
-	color: green;
-	margin: 2.0em;
-	padding: 0em;
-	border: 0.02em;
-	border-style: solid;
-	border-color: black;
-}
-
-
 ul#tabnav a:link, ul#tabnav a:visited{
 	display: block;
 	background-color: transparent;
@@ -703,19 +538,6 @@ ul#tabnav a:hover{
 	background-color: #AA11FF;
 	color: #AAEECC;
 }
-
-ul#tabnav2 a:link, ul#tabnav2 a:visited{
-	display: block;
-	background-color: transparent;
-	text-decoration: none;
-	}
-
-ul#tabnav2 a:hover{
-	background-color: #AA11FF;
-	color: #AAEECC;
-}
-
-
 
 #content{
  margin: -0.5em;
