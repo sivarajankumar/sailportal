@@ -169,6 +169,21 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+    	<repository>
+    		<id>eclipse-repo</id>
+    		<name>oaw-eclipse-repo</name>
+    		<url>http://www.openarchitectureware.org/m2</url>
+    	</repository>
+    	<repository>
+    		<id>tels-repo-internal-snapshot</id>
+    		<name>TELS internal repository snapshot</name>
+    		<url>http://repo.telscenter.org/internal_snapshot</url>
+    		<snapshots>
+    			<enabled>true</enabled>
+    		</snapshots>
+    	</repository>
+    </repositories>
     <pluginRepositories>
         <pluginRepository>
             <releases>
@@ -339,6 +354,22 @@
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>1.3.0</version>
+        </dependency>
+        <dependency>
+        	<groupId>net.sf.sail</groupId>
+        	<artifactId>sail-core</artifactId>
+        	<version>0.4.5-SNAPSHOT</version>
+        	<scope>compile</scope>
+        </dependency>
+        <dependency>
+        	<groupId>net.sf.sail</groupId>
+        	<artifactId>sail-data-emf</artifactId>
+        	<version>0.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.telscenter</groupId>
+        	<artifactId>pas-curnitmap</artifactId>
+        	<version>0.1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <reporting>
