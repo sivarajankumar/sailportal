@@ -110,12 +110,12 @@
 	</bean>
 		
 	<bean id="gradeByStepController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStepController">
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.gradingtool.GradeByStepController">
 		<property name="curnitMapService" ref="curnitMapService" />
 	</bean>
 
 		<bean id="gradingToolController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingToolController">
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.gradingtool.GradingToolController">
 	</bean>
 
 	<bean id="addProjectController"
@@ -160,7 +160,7 @@
 	</bean>
 
 	<bean id="createRunController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.CreateRunController">
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.CreateRunController">
 		<property name="runService" ref="runService" />
 		<property name="projectService" ref="projectService" />
 		<property name="commandName" value="runParameters" />
