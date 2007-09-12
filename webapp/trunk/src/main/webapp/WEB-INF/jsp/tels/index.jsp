@@ -123,7 +123,7 @@ oldCtr=counter;
 counter=proceedToPreviousImage(firstLClicked,counter);
 "   
 />
-<input type="text" id="imageInput" value="1" style="display:none;" onchange="moveToImage('rotator',this.value);
+<input type="text" id="imageInput" value="1" size="2" style="display:none;" onchange="moveToImage('rotator',this.value);
 oldCtr = counter; 
 counter=swapBigImage(this.value,counter,'Action');
 prevClick = getPrevClick(prevClick,this.value,oldCtr);"
@@ -172,8 +172,8 @@ onmouseout="this.style.cursor='default';" />
 <textarea id="newsContent" rows="12" cols="35"><spring:message code="wise.latestNews" /> </textarea>
 <a href="#" onclick="displayNotAvailable('This page is not available yet');">
 	<img id="newsArchive" src="<spring:theme code="newsarchive" />" 
-       	 onmouseover="this.style.cursor='pointer';swapImage('newsArchive', 'images/News-Archive-Roll.png');"
-       	 onmouseout="this.style.cursor='default';swapImage('newsArchive', 'images/News-Archive.png');"       	       			
+       	 onmouseover="this.style.cursor='pointer';swapImage('newsArchive', '<spring:theme code="newsarchive_roll" />');"
+       	 onmouseout="this.style.cursor='default';swapImage('newsArchive', '<spring:theme code="newsarchive" />');"       	       			
 	/>
 </a>
 </div>
