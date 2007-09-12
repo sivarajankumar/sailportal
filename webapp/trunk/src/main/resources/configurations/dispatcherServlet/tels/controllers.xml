@@ -226,6 +226,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunManagerController">
 	</bean>
 
+<!-- 
 	<bean id="selectPeriodToGradeController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectPeriodToGradeController">
 	</bean>
@@ -249,7 +250,8 @@
 	<bean id="selectStepToAssessController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectStepToAssessController">
 	</bean>
-	
+	 -->
+	 
 	<bean id="managementOverviewController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManagementOverviewController">
 	</bean>
