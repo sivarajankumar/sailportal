@@ -121,7 +121,7 @@ onmouseout="this.style.cursor='default';"
 onclick="firstLClicked = setLClicked();
 oldCtr=counter;
 counter=proceedToPreviousImage(firstLClicked,counter);
-prevCircle = moveCircle(counter,0);"   
+"   
 />
 <input type="text" id="imageInput" value="1" style="display:none;" onchange="moveToImage('rotator',this.value);
 oldCtr = counter; 
@@ -137,8 +137,7 @@ onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" 
 onclick="firstRClicked = setRClicked();
 oldCtr=counter;
-counter=proceedToNextImage(firstRClicked,counter);
-prevClick = moveCircle(counter,1);"
+counter=proceedToNextImage(firstRClicked,counter);"
 />
 
 </div>
