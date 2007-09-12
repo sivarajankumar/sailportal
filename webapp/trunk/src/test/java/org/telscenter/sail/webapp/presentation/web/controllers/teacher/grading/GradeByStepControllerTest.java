@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.gradingtool;
+package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -45,12 +45,13 @@ import org.telscenter.sail.webapp.domain.gradingtool.CurnitMap;
 import org.telscenter.sail.webapp.domain.gradingtool.PasActivity;
 import org.telscenter.sail.webapp.domain.gradingtool.PasProject;
 import org.telscenter.sail.webapp.domain.gradingtool.PasStep;
+import org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStepController;
 import org.telscenter.sail.webapp.service.gradingtool.CurnitMapService;
 
 /**
  * @author Anthony Perritano
  */
-public class GradingToolControllerTest extends AbstractModelAndViewTests {
+public class GradeByStepControllerTest extends AbstractModelAndViewTests {
 
 	private GradeByStepController gradeByStepController;
 
