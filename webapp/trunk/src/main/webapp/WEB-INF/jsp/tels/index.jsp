@@ -25,6 +25,8 @@
 <link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
+<script src="./javascript/tels/prototype.js" type="text/javascript" > </script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript" > </script>
 <script src="./javascript/tels/rotator.js" type="text/javascript" > </script>
 <script src="./javascript/tels/rotatorT.js" type="text/javascript" > </script>
 <title><spring:message code="application.title" /></title>
@@ -121,6 +123,75 @@ oldCtr=counter;
 counter=proceedToPreviousImage(firstLClicked,counter);
 prevCircle = moveCircle(counter,0);"   
 />
+<input type="text" id="imageInput" value="1" style="display:none;" onchange="moveToImage('rotator',this.value);
+oldCtr = counter; 
+counter=swapBigImage(this.value,counter,'Action');
+prevClick = getPrevClick(prevClick,this.value,oldCtr);"
+
+/>
+<a href="javascript:Effect.toggle('imageInput','appear')" id="imgPos6"> 1 of 10 </a>
+<img id="imgPos11" class="dynamicImage" src="<spring:theme code="arrow_next" />" 
+onmouseover="this.style.cursor='pointer';" 
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" 
+onclick="firstRClicked = setRClicked();
+oldCtr=counter;
+counter=proceedToNextImage(firstRClicked,counter);
+prevClick = moveCircle(counter,1);"
+/>
+
+</div>
+</div>
+<div id="testimonialsPos">
+<h2 id="heading">
+<spring:message code="wise.testimonials" />
+</h2>
+<img id="rotatorT" src="<spring:theme code="wise_testimonials" />" />
+<div id="testimonialsNav">
+<img id="imgPos12" class="dynamicImage" src="<spring:theme code="arrow_prev" />" 
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+
+<img id="imgPos23" class="dynamicImage" 
+src="<spring:theme code="arrow_next" />"  
+onmouseover="this.style.cursor='pointer';" 
+onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;"
+onmousedown="this.style.cursor='pointer';" 
+onmouseup="this.style.cursor='pointer';"
+onmouseout="this.style.cursor='default';" />
+
+</div>
+</div>
+<div id="latestNewsPos">
+<h2 id="newsHeading">
+<spring:message code="wise.latestNews" />
+</h2>
+<textarea id="newsContent" rows="12" cols="35"><spring:message code="wise.latestNews" /> </textarea>
+<a href="#" onclick="displayNotAvailable('This page is not available yet');">
+	<img id="newsArchive" src="<spring:theme code="newsarchive" />" 
+       	 onmouseover="this.style.cursor='pointer';swapImage('newsArchive', 'images/News-Archive-Roll.png');"
+       	 onmouseout="this.style.cursor='default';swapImage('newsArchive', 'images/News-Archive.png');"       	       			
+	/>
+</a>
+</div>
+</div>
+<div id="footerPos">
+<img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" align="center"/>
+<spring:message code="wise.legal-acknowledgment" />  
+<a href="http://www.nsf.gov" target="_blank"> <spring:message code="nsf" /></a>.
+<spring:message code="wise.copyright" /> &nbsp;&nbsp;&nbsp; 
+<a href="#" onclick="displayNotAvailable('This page is not available yet');"><spring:message code="wise.contact" /></a> 
+
+</div>
+
+</body>
+</html>
+
+<!-- 
 <img id="imgPos1" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos1','<spring:theme code="circle_rollover" />');" 
@@ -202,31 +273,8 @@ oldCtr = counter;
 counter=swapBigImage(9,counter,'Action');
 prevClick = getPrevClick(prevClick,9,oldCtr);" 
 />
-<img id="imgPos11" class="dynamicImage" src="<spring:theme code="arrow_next" />" 
-onmouseover="this.style.cursor='pointer';" 
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" 
-onclick="firstRClicked = setRClicked();
-oldCtr=counter;
-counter=proceedToNextImage(firstRClicked,counter);
-prevClick = moveCircle(counter,1);"
-/>
 
-</div>
-</div>
-<div id="testimonialsPos">
-<h2 id="heading">
-<spring:message code="wise.testimonials" />
-</h2>
-<img id="rotatorT" src="<spring:theme code="wise_testimonials" />" />
-<div id="testimonialsNav">
-<img id="imgPos12" class="dynamicImage" src="<spring:theme code="arrow_prev" />" 
-onmouseover="this.style.cursor='pointer';" 
-onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;"
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" />
+
 <img id="imgPos13" class="dynamicImage" 
 src="<spring:theme code="circle_unselected" />" 
 onmouseover="swapImage('imgPos13','<spring:theme code="circle_rollover" />');"
@@ -278,39 +326,7 @@ src="<spring:theme code="circle_unselected" />"
 onmouseover="swapImage('imgPos22','<spring:theme code="circle_rollover" />');"
 onclick="swapImage('imgPos22','<spring:theme code="circle_selected" />');"
 />
-<img id="imgPos23" class="dynamicImage" 
-src="<spring:theme code="arrow_next" />"  
-onmouseover="this.style.cursor='pointer';" 
-onclick="firstRClicked_T=setRClicked_T();oldCtr_T=counter_T;"
-onmousedown="this.style.cursor='pointer';" 
-onmouseup="this.style.cursor='pointer';"
-onmouseout="this.style.cursor='default';" />
 
-</div>
-</div>
-<div id="latestNewsPos">
-<h2 id="newsHeading">
-<spring:message code="wise.latestNews" />
-</h2>
-<textarea id="newsContent" rows="12" cols="35"><spring:message code="wise.latestNews" /> </textarea>
-<a href="#" onclick="displayNotAvailable('This page is not available yet');">
-	<img id="newsArchive" src="<spring:theme code="newsarchive" />" 
-       	 onmouseover="this.style.cursor='pointer';swapImage('newsArchive', 'images/News-Archive-Roll.png');"
-       	 onmouseout="this.style.cursor='default';swapImage('newsArchive', 'images/News-Archive.png');"       	       			
-	/>
-</a>
-</div>
-</div>
-<div id="footerPos">
-<img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" align="center"/>
-<spring:message code="wise.legal-acknowledgment" />  
-<a href="http://www.nsf.gov" target="_blank"> <spring:message code="nsf" /></a>.
-<spring:message code="wise.copyright" /> &nbsp;&nbsp;&nbsp; 
-<a href="#" onclick="displayNotAvailable('This page is not available yet');"><spring:message code="wise.contact" /></a> 
-
-</div>
-
-</body>
-</html>
+ -->
 
 
