@@ -28,6 +28,7 @@
   type="text/css" />
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
 <script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 
 <style type="text/css" media="screen">
@@ -64,14 +65,12 @@
      <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
-     
+   
  <input type="image" id="signIn" src="<spring:theme code="sign_in" />" 
-        	style="position:relative;left:150px;" tabindex="3" onmouseover="swapSignIn('signIn', 1);"
-       		onmouseout="swapSignIn('signIn', 0);"
- 
+        	style="position:relative;left:150px;" tabindex="3" onmouseover="swapImage('signIn', '<spring:theme code="sign_in_rollover" />');"
+       		onmouseout="swapImage('signIn', '<spring:theme code="sign_in" />');"
             onclick="Effect.toggle('waiting', 'appear')" /> 
       
- 
 </form>
 
 </div>
