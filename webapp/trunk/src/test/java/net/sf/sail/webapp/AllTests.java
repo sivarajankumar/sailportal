@@ -48,6 +48,7 @@ public class AllTests {
                 .suite());
         suite.addTest(net.sf.sail.webapp.presentation.web.controllers.AllTests
                 .suite());
+        suite.addTest(net.sf.sail.webapp.service.annotation.impl.AllTests.suite());
         suite.addTest(net.sf.sail.webapp.service.authentication.impl.AllTests
                 .suite());
         suite.addTest(net.sf.sail.webapp.service.curnit.impl.AllTests.suite());

@@ -28,6 +28,7 @@ import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 
+import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 
 /**
@@ -37,23 +38,52 @@ import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 public class GradeWorkByStepAggregateImpl extends GradeWorkAggregateImpl
 		implements GradeWorkByStepAggregate {
 	
+	protected EStep step;
+	
 	protected Map<Workgroup, ESessionBundle> sessionBundles;
 
 	protected Map<Workgroup, AnnotationBundle> annotationBundles;
 
 	/**
-	 * TODO HT comment me
-	 * @return
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#getStep()
+	 */
+	public EStep getStep() {
+		return step;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#setStep(EStep)
+	 */
+	public void setStep(EStep step) {
+		this.step = step;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#getAnnotationBundles()
 	 */
 	public Map<Workgroup, AnnotationBundle> getAnnotationBundles() {
 		return annotationBundles;
 	}
-
+	
 	/**
-	 * TODO HT comment me
-	 * @return
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#setAnnotationBundles(Map)
+	 */
+	public void setAnnotationBundles(
+			Map<Workgroup, AnnotationBundle> annotationBundles) {
+		this.annotationBundles = annotationBundles;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#getSessionBundles()
 	 */
 	public Map<Workgroup, ESessionBundle> getSessionBundles() {
 		return sessionBundles;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#setSessionBundles(Map)
+	 */
+	public void setSessionBundles(Map<Workgroup, ESessionBundle> sessionBundles) {
+		this.sessionBundles = sessionBundles;
 	}
 }

@@ -20,45 +20,34 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.grading;
+package org.telscenter.sail.webapp.service.grading.impl;
 
-import org.telscenter.pas.emf.pas.ECurnitmap;
+import net.sf.sail.webapp.domain.Workgroup;
+
+import org.telscenter.sail.webapp.service.grading.SessionBundleService;
+
+import junit.framework.TestCase;
 
 /**
- * An abstract transfer object for aggregating necessary objects to allow
- * WISE teachers to grade student work.
- * 
- * This object encapsulates the following objects:
- * 1) <code>AnnotationBundle</code>
- * 2) <code>ESessionBundle</code>
- * 3) <code>ECurnitmap</code>
- * Only the AnnotationBundle is modifiable and persist-able. 
- * 
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
-public interface GradeWorkAggregate {
+public class SessionBundleServiceImplTest extends TestCase {
+
+	private SessionBundleService sessionBundleService;
 	
-	/**
-	 * Returns the runId that this object is for
-	 * @return runId for this object
-	 */
-	public Long getRunId();
-
-	/**
- 	 * TODO HT comment me
-	 */
-	public void setRunId(Long runId);
-
-	/**
-	 * TODO HT comment me
-	 * @return
-	 */
-	public ECurnitmap getCurnitmap();
-
-	/**
-	 * TODO HT comment me
-	 */
-	public void setCurnitmap(ECurnitmap curnitmap);
+	private Long runId;
 	
+	private Workgroup workgroup;
+	
+	@Override
+	protected void setUp() {
+		sessionBundleService = new SessionBundleServiceImpl();
+	}
+	
+	public void testGetSessionBundle() {
+		// TODO implement me
+		//sessionBundleService.getSessionBundle(runId, workgroup);
+		assertTrue(true);
+	}
 }

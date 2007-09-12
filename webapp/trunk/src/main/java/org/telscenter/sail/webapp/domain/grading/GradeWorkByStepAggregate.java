@@ -24,6 +24,8 @@ package org.telscenter.sail.webapp.domain.grading;
 
 import java.util.Map;
 
+import org.telscenter.pas.emf.pas.EStep;
+
 import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
@@ -46,12 +48,36 @@ public interface GradeWorkByStepAggregate extends GradeWorkAggregate {
 	 * TODO HT comment me
 	 * @return
 	 */
+	public EStep getStep();
+	
+	/**
+	 * TODO HT comment me
+	 * @return
+	 */
+	public void setStep(EStep step);
+	
+	/**
+	 * TODO HT comment me
+	 * @return
+	 */
 	public Map<Workgroup, AnnotationBundle> getAnnotationBundles();
 
 	/**
 	 * TODO HT comment me
 	 * @return
 	 */
+	public void setAnnotationBundles(Map<Workgroup, AnnotationBundle> annotationBundles);
+
+	/**
+	 * TODO HT comment me
+	 * @return
+	 */
 	public Map<Workgroup, ESessionBundle> getSessionBundles();
-	
+
+	/**
+	 * TODO HT comment me
+	 * @return
+	 */
+	public void setSessionBundles(Map<Workgroup, ESessionBundle> sessionBundles);
+
 }

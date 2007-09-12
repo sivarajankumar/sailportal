@@ -22,16 +22,31 @@
  */
 package org.telscenter.sail.webapp.service.grading.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
+import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
+import org.telscenter.pas.emf.pas.util.CurnitmapLoader;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
+import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByStepAggregateImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.grading.SessionBundleService;
 
 /**
  * @author Hiroki Terashima
@@ -39,21 +54,65 @@ import org.telscenter.sail.webapp.service.grading.GradingService;
  */
 public class GradingServiceImpl implements GradingService {
 
+	private SessionBundleService sessionBundleService;
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(java.lang.Long)
 	 */
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO REPLACE MOCK BELOW WITH ACTUAL CODE WHEN READY	
+		// ALSO ADD LOGIC TO RETRIEVE RUN USING PROVIDED runId PARAMETER
+		String curnitmapXMLString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
+			"<pas:ECurnitmap xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:pas=\"pas\" xsi:schemaLocation=\"pas pas.ecore\">" +
+			"<project podUUID=\"cccccccc-0002-3878-0000-000000000000\"	title=\"Global Warming: Virtual Earth\">" +
+			"<activity podUUID=\"dddddddd-6004-0000-0000-000000000000\"	title=\"Identifying the Problem\" number=\"0\">" +
+			"<step podUUID=\"dddddddd-6004-0001-0000-000000000000\"	title=\"1. Global Warming is happening\" number=\"0\" type=\"Display\"		classname=\"org.telscenter.pas.steps.Display\" />" +
+			"<step podUUID=\"dddddddd-6004-0002-0000-000000000000\"	title=\"2. Take notes on the Science behind Global Warming part 1\" number=\"1\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined6\" prompt=\"html-stylized prompt for step 2 goes here\"/></step>" +
+			"<step podUUID=\"dddddddd-6004-0003-0000-000000000000\"	title=\"3. Take notes on the Science behind Global Warming part 2\" number=\"2\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined7\" prompt=\"html-stylized prompt for step 3 goes here\"/></step>" +
+			"</activity></project></pas:ECurnitmap>";	
+		ECurnitmap curnitmap = CurnitmapLoader.loadCurnitmap(curnitmapXMLString);
+		return curnitmap;
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradeWorkByStepAggregate(java.lang.Long, org.telscenter.pas.emf.pas.EStep)
 	 */
 	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId,
-			EStep step) {
-		// TODO Auto-generated method stub
-		return null;
+			EStep step) throws ObjectNotFoundException {
+		// TODO REPLACE MOCK BELOW WITH ACTUAL CODE WHEN READY	
+		String annotationBundleString1 = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
+				"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
+				"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
+		        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
+		        "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
+		        "</annotationGroups></sailuserdata:EAnnotationBundle>";
+		User user1 = new UserImpl();
+		String username1 = "username1";
+		MutableUserDetails userDetails1 = new PersistentUserDetails();
+		userDetails1.setUsername(username1);
+		user1.setUserDetails(userDetails1);
+		Offering offering = new OfferingImpl();
+		Workgroup workgroup1 = new WorkgroupImpl();
+		workgroup1.addMember(user1);
+		workgroup1.setOffering(offering);
+		
+		AnnotationBundle annotationBundle1 = new AnnotationBundleImpl();
+		annotationBundle1.setBundle(annotationBundleString1);
+		annotationBundle1.setWorkgroup(workgroup1);
+		Map<Workgroup, AnnotationBundle> annotationBundles = new HashMap<Workgroup, AnnotationBundle>();
+		annotationBundles.put(workgroup1, annotationBundle1);
+		
+		ESessionBundle sessionBundle1 = sessionBundleService.getSessionBundle(runId, workgroup1);
+		Map<Workgroup, ESessionBundle> sessionBundles = new HashMap<Workgroup, ESessionBundle>();
+		sessionBundles.put(workgroup1, sessionBundle1);
+		
+		GradeWorkByStepAggregate aggregate = new GradeWorkByStepAggregateImpl();
+		aggregate.setRunId(runId);
+		aggregate.setCurnitmap(getCurnitmap(runId));
+		aggregate.setStep(step);
+		aggregate.setAnnotationBundles(annotationBundles);
+		aggregate.setSessionBundles(sessionBundles);
+		return aggregate;
 	}
 
 	/**
@@ -73,4 +132,10 @@ public class GradingServiceImpl implements GradingService {
 
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.grading.GradingService#setSessionService(SessionBundleService)
+	 */
+	public void setSessionService(SessionBundleService sessionBundleService) {
+		this.sessionBundleService = sessionBundleService;
+	}
 }

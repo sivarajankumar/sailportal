@@ -14,6 +14,7 @@ public class AllTests {
            suite.addTest(org.telscenter.sail.webapp.presentation.validators.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.presentation.web.controllers.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.service.impl.AllTests.suite());
+		   suite.addTest(org.telscenter.sail.webapp.service.grading.impl.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.service.offering.impl.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.service.project.impl.AllTests.suite());
 		   suite.addTest(org.telscenter.sail.webapp.service.student.impl.AllTests.suite());		   

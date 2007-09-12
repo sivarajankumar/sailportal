@@ -41,11 +41,25 @@ public abstract class GradeWorkAggregateImpl implements GradeWorkAggregate {
 	public Long getRunId() {
 		return runId;
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkAggregate#setRunId(Long)
+	 */
+	public void setRunId(Long runId) {
+		this.runId = runId;
+	}
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkAggregate#getCurnitmap()
 	 */
 	public ECurnitmap getCurnitmap() {
 		return curnitmap;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkAggregate#setCurnitmap(ECurnitmap)
+	 */
+	public void setCurnitmap(ECurnitmap curnitmap) {
+		this.curnitmap = curnitmap;
 	}
 }

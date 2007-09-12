@@ -20,45 +20,24 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.grading;
+package net.sf.sail.webapp.service.annotation.impl;
 
-import org.telscenter.pas.emf.pas.ECurnitmap;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
- * An abstract transfer object for aggregating necessary objects to allow
- * WISE teachers to grade student work.
- * 
- * This object encapsulates the following objects:
- * 1) <code>AnnotationBundle</code>
- * 2) <code>ESessionBundle</code>
- * 3) <code>ECurnitmap</code>
- * Only the AnnotationBundle is modifiable and persist-able. 
- * 
  * @author Hiroki Terashima
  * @version $ Id: $
  */
-public interface GradeWorkAggregate {
-	
-	/**
-	 * Returns the runId that this object is for
-	 * @return runId for this object
-	 */
-	public Long getRunId();
+public class AllTests {
 
-	/**
- 	 * TODO HT comment me
-	 */
-	public void setRunId(Long runId);
+	public static Test suite() {
+		TestSuite suite = new TestSuite(
+				"Test for net.sf.sail.webapp.service.annotation.impl");
+		//$JUnit-BEGIN$
+		suite.addTestSuite(AnnotationBundleServiceImplTest.class);
+		//$JUnit-END$
+		return suite;
+	}
 
-	/**
-	 * TODO HT comment me
-	 * @return
-	 */
-	public ECurnitmap getCurnitmap();
-
-	/**
-	 * TODO HT comment me
-	 */
-	public void setCurnitmap(ECurnitmap curnitmap);
-	
 }

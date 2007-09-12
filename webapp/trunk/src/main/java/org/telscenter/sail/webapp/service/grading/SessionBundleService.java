@@ -20,45 +20,26 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.grading;
+package org.telscenter.sail.webapp.service.grading;
 
-import org.telscenter.pas.emf.pas.ECurnitmap;
+import net.sf.sail.emf.sailuserdata.ESessionBundle;
+import net.sf.sail.webapp.domain.Workgroup;
 
 /**
- * An abstract transfer object for aggregating necessary objects to allow
- * WISE teachers to grade student work.
- * 
- * This object encapsulates the following objects:
- * 1) <code>AnnotationBundle</code>
- * 2) <code>ESessionBundle</code>
- * 3) <code>ECurnitmap</code>
- * Only the AnnotationBundle is modifiable and persist-able. 
- * 
+ * Service for retrieving/saving SessionBundle objects
+ *
  * @author Hiroki Terashima
  * @version $ Id: $
  */
-public interface GradeWorkAggregate {
+public interface SessionBundleService {
 	
 	/**
-	 * Returns the runId that this object is for
-	 * @return runId for this object
+	 * Get SessionBundle for specified workgroup.
+	 * 
+	 * @param runId key to <code>Run</code> that the workgroup belongs in
+	 * @param workgroup the workgroup to retrieve SessionBundle for
+	 * @return SessionBundle for the specified workgroup
 	 */
-	public Long getRunId();
+	public ESessionBundle getSessionBundle(Long runId, Workgroup workgroup);
 
-	/**
- 	 * TODO HT comment me
-	 */
-	public void setRunId(Long runId);
-
-	/**
-	 * TODO HT comment me
-	 * @return
-	 */
-	public ECurnitmap getCurnitmap();
-
-	/**
-	 * TODO HT comment me
-	 */
-	public void setCurnitmap(ECurnitmap curnitmap);
-	
 }

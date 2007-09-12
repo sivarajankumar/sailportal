@@ -71,8 +71,11 @@ public interface GradingService {
 	 * @param step particular step that the teacher wants to grade
 	 * @return <code>GradeWorkAggregate</code> containing all of the students'
 	 *     work for the specified step.
+	 * @throws ObjectNotFoundException when the provided runId
+	 *     does not key to an existing <code>Run</code>
 	 */
-	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId, EStep step);
+	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId, EStep step) 
+	    throws ObjectNotFoundException;
 	
 	/**
 	 * Returns an aggregate object to allow WISE teachers to grade student work
@@ -96,4 +99,9 @@ public interface GradingService {
 	 * @param annotationBundles all of the annotationbundles to save
 	 */
 	public void saveGrades(List<AnnotationBundle> annotationBundles);
+	
+	/**
+	 * @param sessionBundleService <code>SessionBundleService</code> to set
+	 */
+	public void setSessionService(SessionBundleService sessionBundleService);
 }
