@@ -198,19 +198,6 @@ function getPrevClick(prevClick,curr,oldCtr){
       if(prevClick < 0){
 			prevClick = oldCtr-1;
       }
-	  switch(prevClick){
-	      case 0: document.getElementById('imgPos1').src = imgs2[0].src; break;
-		  case 1: document.getElementById('imgPos2').src = imgs2[0].src; break;
-		  case 2: document.getElementById('imgPos3').src = imgs2[0].src; break;
-		  case 3: document.getElementById('imgPos4').src = imgs2[0].src; break;
-		  case 4: document.getElementById('imgPos5').src = imgs2[0].src; break;
-		  case 5: document.getElementById('imgPos6').src = imgs2[0].src; break;
-		  case 6: document.getElementById('imgPos7').src = imgs2[0].src; break;
-		  case 7: document.getElementById('imgPos8').src = imgs2[0].src; break;
-		  case 8: document.getElementById('imgPos9').src = imgs2[0].src; break;
-		  case 9: document.getElementById('imgPos10').src = imgs2[0].src; break;
-		  default: break;
-	   }
 	   prevClick = curr;
    	   return prevClick;
 }
