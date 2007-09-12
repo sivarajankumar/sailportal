@@ -49,7 +49,6 @@ import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
-import org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**

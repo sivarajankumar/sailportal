@@ -22,7 +22,10 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 
 import java.util.HashSet;
 import java.util.Set;

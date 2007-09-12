@@ -302,21 +302,6 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         }
         catch (ObjectNotFoundException e) {}
     }
-    //TODO LAW remove
-    // test the hasRunCode() method of HibernateRunDao
-//    public void testHasRunCode() {
-//        verifyRunAndJoinTablesAreEmpty();
-//
-//        assertFalse(this.runDao.hasRuncode(DEFAULT_RUNCODE));
-//        assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
-//
-//        this.runDao.save(this.defaultRun);
-//        // flush is required to cascade the join table for some reason
-//        this.toilet.flush();
-//
-//        assertTrue(this.runDao.hasRuncode(DEFAULT_RUNCODE));
-//        assertFalse(this.runDao.hasRuncode(RUNCODE_NOT_IN_DB));
-//    }
     
     public void testGetById() throws Exception {
         verifyRunAndJoinTablesAreEmpty();

@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
-import net.sf.sail.webapp.presentation.web.controllers.groups.AddgroupController;
 import net.sf.sail.webapp.service.group.GroupService;
 
 import org.springframework.context.ApplicationContext;
