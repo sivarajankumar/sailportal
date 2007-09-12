@@ -83,12 +83,6 @@
     		    /teacher/run/manage/endRun.html=endRunController
     		    /teacher/run/manage/startRun.html=startRunController
 				/teacher/gradingtool/gradebystep.html=gradeByStepController
-    		    /teacher/grading/selectperiodtograde.html=selectPeriodToGradeController
-    		    /teacher/grading/selectprojecttograde.html=selectProjectToGradeController
-    		    /teacher/grading/gradestudentwork.html=gradeStudentWorkController
-    		    /teacher/grading/gradebystudentgroup.html=gradeByStudentGroupController
-    		    /teacher/grading/gradebystep.html=teacherGradeByStepController
-    		    /teacher/grading/selectsteptoassess.html=selectStepToAssessController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
