@@ -54,6 +54,9 @@ public class SdsOffering implements SdsObject {
 
     @Transient
     public static final String COLUMN_NAME_SDS_JNLP_FK = "sds_jnlp_fk";
+    
+    @Transient
+    public static final String COLUMN_NAME_SDS_CURNITMAP = "sds_curnitmap";
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -80,6 +83,9 @@ public class SdsOffering implements SdsObject {
     @Column(name = SdsOffering.COLUMN_NAME_OFFERING_ID, unique = true, nullable = false)
     private Integer sdsObjectId;
 
+    @Column(name=SdsOffering.COLUMN_NAME_SDS_CURNITMAP)
+    private String sdsCurnitMap;
+    
     /**
      * @param name
      *            the name to set
@@ -174,52 +180,74 @@ public class SdsOffering implements SdsObject {
     }
 
     /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result + ((sdsCurnit == null) ? 0 : sdsCurnit.hashCode());
-        result = PRIME * result + ((sdsJnlp == null) ? 0 : sdsJnlp.hashCode());
-        result = PRIME * result + ((name == null) ? 0 : name.hashCode());
-        result = PRIME * result
-                + ((sdsObjectId == null) ? 0 : sdsObjectId.hashCode());
-        return result;
-    }
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((sdsCurnit == null) ? 0 : sdsCurnit.hashCode());
+		result = prime * result
+				+ ((sdsCurnitMap == null) ? 0 : sdsCurnitMap.hashCode());
+		result = prime * result + ((sdsJnlp == null) ? 0 : sdsJnlp.hashCode());
+		result = prime * result
+				+ ((sdsObjectId == null) ? 0 : sdsObjectId.hashCode());
+		return result;
+	}
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final SdsOffering other = (SdsOffering) obj;
-        if (sdsCurnit == null) {
-            if (other.sdsCurnit != null)
-                return false;
-        } else if (!sdsCurnit.equals(other.sdsCurnit))
-            return false;
-        if (sdsJnlp == null) {
-            if (other.sdsJnlp != null)
-                return false;
-        } else if (!sdsJnlp.equals(other.sdsJnlp))
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (sdsObjectId == null) {
-            if (other.sdsObjectId != null)
-                return false;
-        } else if (!sdsObjectId.equals(other.sdsObjectId))
-            return false;
-        return true;
-    }
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final SdsOffering other = (SdsOffering) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (sdsCurnit == null) {
+			if (other.sdsCurnit != null)
+				return false;
+		} else if (!sdsCurnit.equals(other.sdsCurnit))
+			return false;
+		if (sdsCurnitMap == null) {
+			if (other.sdsCurnitMap != null)
+				return false;
+		} else if (!sdsCurnitMap.equals(other.sdsCurnitMap))
+			return false;
+		if (sdsJnlp == null) {
+			if (other.sdsJnlp != null)
+				return false;
+		} else if (!sdsJnlp.equals(other.sdsJnlp))
+			return false;
+		if (sdsObjectId == null) {
+			if (other.sdsObjectId != null)
+				return false;
+		} else if (!sdsObjectId.equals(other.sdsObjectId))
+			return false;
+		return true;
+	}
+
+	/**
+	 * @return the sdsCurnitMap
+	 */
+	public String getSdsCurnitMap() {
+		return sdsCurnitMap;
+	}
+
+	/**
+	 * @param sdsCurnitMap the sdsCurnitMap to set
+	 */
+	public void setSdsCurnitMap(String sdsCurnitMap) {
+		this.sdsCurnitMap = sdsCurnitMap;
+	}
 }
