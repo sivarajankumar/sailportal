@@ -17,15 +17,16 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: registerstudent.jsp 952 2007-08-20 17:37:45Z hiroki $ -->
+<!-- $Id: registerstudent.jsp 989 2007-08-30 01:15:54Z archana $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <script src=".././javascript/tels/general.js" type="text/javascript" > </script>
+<script src=".././javascript/tels/rotator.js" type="text/javascript" > </script>
   
 <title><spring:message code="signup.title" /></title>
 
@@ -44,36 +45,35 @@
   </c:forEach>
 </spring:bind>
 
-<div id="columns">
-<h2 id="right"><spring:message code="student.registration" /></h2>
-
-<div>
+<h2 id="studentRegistrationHeading"><spring:message code="student.registration" /></h2>
 <h3><spring:message code="student.registration.instructions" /></h3>
-</div>
 
-<div id="right">
+<div id="registerPos">
 <form:form method="post" action="registerstudent.html" commandName="studentAccountForm" id="register" >
-  <label for="firstname"><spring:message code="signup.firstname" /></label>
-      <form:input path="userDetails.firstname" id="firstname"/>
+  <label for="firstname" id="firstname1">
+  First Name:
+  </label>
+     <form:input path="userDetails.firstname" id="firstname"/>
       <form:errors path="userDetails.firstname" />
-<br />  
-      <label for="lastname"><spring:message code="signup.lastname" /></label>
+      
+      <label for="lastname" id="lastname1"
+	  >Last Name:</label>
       <form:input path="userDetails.lastname" id="lastname"/>
       <form:errors path="userDetails.lastname" />
-<br />
-      <label for="gender"><spring:message code="signup.gender" /></label>
-      
-        <form:select path="userDetails.gender" id="gender"> 
+            
+      <label for="gender" id="gender1"
+	  >Gender:</label>
+      <form:select path="userDetails.gender" id="gender"> 
           <c:forEach items="${genders}" var="genderchoice">
             <form:option value="${genderchoice}"><spring:message code="genders.${genderchoice}" /></form:option>
           </c:forEach>
-        </form:select>
+      </form:select>
       
       <form:errors path="userDetails.gender" />
-<br />
+ <br />
 
-      <label for="birthmonth"><spring:message code="signup.birthmonth" /></label>
-
+      <label for="birthmonth" id="birthmonth1" 
+	   >Birthday (Month):</label>
   	    <form:select path="birthmonth" id="birthmonth">
 		  <c:forEach var="month" begin="1" end="12" step="1">
 			  <form:option value="${month}">
@@ -84,9 +84,8 @@
 
       <form:errors path="birthmonth" />
 <br />
-
-      <label for="birthdate"><spring:message code="signup.birthdate" /></label>
-
+      <label for="birthdate" id="birthdate1"	  
+	  >Birthday (Day):</label>
   	    <form:select path="birthdate" id="birthdate">
 		  <c:forEach var="date" begin="1" end="31" step="1">
 			  <form:option value="${date}">
@@ -98,50 +97,57 @@
       <form:errors path="birthdate" />
 <br />
 
-      <label for="password"><spring:message code="signup.password" /></label>
+
+      <label for="password" id="password1">
+	  Password:
+	  </label>
       <form:password path="userDetails.password" id="password"/>
-      <form:errors path="userDetails.password"/>
+      <form:errors path="userDetails.password"/>      
 <br />
   
-      <label for="repeatedPassword"><spring:message code="signup.password.verify" /></label>
+      <label for="repeatedPassword" id="repeatedPassword1"
+	  >Verify Password:</label>
       <form:password path="repeatedPassword" id="repeatedPassword"/>
-      <form:errors path="repeatedPassword" />
+      <form:errors path="repeatedPassword" />      
 <br />
 
-      <label for="accountQuestion"><spring:message code="signup.project.accountQuestion" /></label>
+      <label for="accountQuestion" id="accountQuestion1"
+	  >Question:</label>
       
-      <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
+            <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
           <c:forEach items="${accountQuestions}" var="questionchoice">
             <form:option value="${questionchoice}"><spring:message code="accountquestions.${questionchoice}" /></form:option>
           </c:forEach>
         </form:select>
         
       <form:errors path="userDetails.accountQuestion" />
-<br />
+
+
 	
-      <label for="accountAnswer"><spring:message code="signup.project.accountAnswer" /></label>
+      <label for="accountAnswer" id="accountAnswer1"
+	  >Answer:</label>
       <form:input path="userDetails.accountAnswer" id="accountAnswer"/>
       <form:errors path="userDetails.accountAnswer" />
+      
+      <label for="projectCode" id="projectCode1" 
+	  >Project Code:</label>
+	  <form:input path="projectCode" id="projectCode"/>
+      <form:errors path="projectCode" />
+      
 <br />
 
-      <label for="projectCode"><spring:message code="signup.project.code" /></label>
-      <form:input path="projectCode" id="projectCode"/>
-      <form:errors path="projectCode" />
-<br />
-     
-    <div><input type="image" id="save" src="<spring:theme code="register_save" />" 
-    onmouseover="swapImage('save','<spring:theme code="register_save_roll" />');" 
-    onmouseout="swapImage('save','<spring:theme code="register_save" />');"
+ <div><input type="image" id="save" src="../<spring:theme code="register_save" />" 
+     onmouseover="swapImage('save','../<spring:theme code="register_save_roll" />')" 
+    onmouseout="swapImage('save','../<spring:theme code="register_save" />')"
     />
-    <a href="../index.html"><input type="image" id="cancel" src="<spring:theme code="register_cancel" />" 
-    onmouseover="swapImage('cancel','<spring:theme code="register_cancel_roll" />');"
-    onmouseout="swapImage('cancel','<spring:theme code="register_cancel" />');"
+    <a href="../index.html"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
+    onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')" 
+    onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"
     /> </a>
     </div>
 
-</form:form></div>
+</form:form>
 </div>
-
 
 </body>
 </html>

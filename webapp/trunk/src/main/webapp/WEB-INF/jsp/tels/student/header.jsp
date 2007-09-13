@@ -28,11 +28,5 @@
 
 
 <div>
-	<a href="index.html"><img src="../<spring:theme code="studentbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
+	<a href="../index.html"><img src="../<spring:theme code="studentbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
 </div>
-	    <div>
-    <p class="userinfo">
-	<authz:authentication operation="username" />
-	</p>
-	<p class="userlogout"> <%@ include file="../logout.jsp"%> </p>
-	</div>
