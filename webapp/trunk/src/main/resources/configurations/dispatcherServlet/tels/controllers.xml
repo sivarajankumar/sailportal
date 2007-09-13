@@ -68,10 +68,10 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterController" />
 
 	<bean id="countriesController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.CountriesController" />
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.CountriesController" />
 
 	<bean id="statesController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.StatesController" />
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.StatesController" />
 
 	<bean id="helpController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.HelpController" />

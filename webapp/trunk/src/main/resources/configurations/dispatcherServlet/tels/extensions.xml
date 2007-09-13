@@ -25,22 +25,22 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
     <bean id="registerstudentController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterStudentController">
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.RegisterStudentController">
     	<property name="userService" ref="userService" />
     	<property name="runService" ref="runService" />
     	<property name="studentService" ref="studentService" />
     	<property name="commandName" value="studentAccountForm" />
     	<property name="validator" ref="studentUserDetailsValidator" />
-    	<property name="formView" value="registerstudent" />
+    	<property name="formView" value="student/registerstudent" />
     	<property name="successView" value="registerStudentConfirm" />
     </bean>
     
         <bean id="registerteacherController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterTeacherController">
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.RegisterTeacherController">
     	<property name="userService" ref="userService" />
     	<property name="commandName" value="teacherAccountForm" />
     	<property name="validator" ref="teacherUserDetailsValidator" />
-    	<property name="formView" value="registerteacher" />
+    	<property name="formView" value="teacher/registerteacher" />
     	<property name="successView" value="registerTeacherConfirm" />
     </bean>
     
