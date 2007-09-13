@@ -42,7 +42,7 @@
 <div id="navigation" style="position:relative;left:250px;">
 <ul class="none">
 <li class="vertical"><spring:message code="register.create-student-account" />
-<a href="registerstudent.html" class="north_1"> 
+<a href="student/registerstudent.html" class="north_1"> 
 <img id="imgBorderNone" src="<spring:theme code="create_student_account" />" 
     onmouseover="swapImage('imgBorderNone','<spring:theme code="create_student_account_rollover" />')" 
     onmouseout="swapImage('imgBorderNone','<spring:theme code="create_student_account" />')"
@@ -51,7 +51,7 @@
 </a>
 </li>
 <li class="vertical"><spring:message code="register.create-teacher-account" />
-<a href="registerteacher.html" class="north_1"> 
+<a href="teacher/registerteacher.html" class="north_1"> 
 <img id="imgBorder2None" src="<spring:theme code="create_teacher_account" />" 
     onmouseover="swapImage('imgBorder2None','<spring:theme code="create_teacher_account_rollover" />')" 
     onmouseout="swapImage('imgBorder2None','<spring:theme code="create_teacher_account" />')"

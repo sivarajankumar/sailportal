@@ -25,9 +25,9 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
+<script type="text/javascript" src=".././javascript/tels/general.js"></script>
+<script type="text/javascript" src=".././javascript/pas/utils.js"></script>
 <title><spring:message code="signup.title" /></title>
-<script type="text/javascript" src="./javascript/pas/utils.js"></script>
-<script type="text/javascript" src="./javascript/tels/general.js"></script>
 </head>
 
 <body>
@@ -58,10 +58,10 @@
 </div>
 
 <div style="position:relative;right:-390px;" >
-<a href="index.html">
-<img id="imgBorderNone" src="<spring:theme code="sign_in_new_account" />" 
-onmouseover="swapImage('imgBorderNone','<spring:theme code="sign_in_new_account_rollover" />');"
-onmouseout="swapImage('imgBorderNone','<spring:theme code="sign_in_new_account" />');"
+<a href="../index.html">
+<img id="imgBorderNone" style="border:0px;" src="../<spring:theme code="sign_in_new_account" />" 
+onmouseover="swapImage('imgBorderNone','../<spring:theme code="sign_in_new_account_rollover" />');"
+onmouseout="swapImage('imgBorderNone','../<spring:theme code="sign_in_new_account" />');"
 />
 </a>
 </div>
