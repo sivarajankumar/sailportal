@@ -48,7 +48,7 @@ if(form.manualCheckbox.checked==true){
 
 <title><spring:message code="teacher.setup-project-run-step-three" /></title>
 </head>
-<%@ include file="../../teacherHeader.jsp"%>
+<%@ include file="../../../teacherHeader.jsp"%>
 <!-- Support for Spring errors object -->
 <spring:bind path="runParameters.periodNames">
   <c:forEach var="error" items="${status.errorMessages}">

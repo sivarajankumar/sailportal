@@ -33,7 +33,7 @@
 </head>
 
 <body>
-<%@ include file="../../teacherHeader.jsp"%>
+<%@ include file="../../../teacherHeader.jsp"%>
 
 <h2 id="right2" class=" maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step1" /></b>

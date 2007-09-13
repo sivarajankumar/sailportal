@@ -32,7 +32,7 @@
 <title><spring:message code="teacher.setup-project-run-step-six" /></title>
 </head>
 <body>
-<%@ include file="../../teacherHeader.jsp"%>
+<%@ include file="../../../teacherHeader.jsp"%>
 
 <!--  
 <ul id="tabnav" class="north_0 widthAdj4">
