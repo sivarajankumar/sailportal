@@ -56,6 +56,13 @@ public class GradingServiceImpl implements GradingService {
 
 	private SessionBundleService sessionBundleService;
 	
+	
+	
+	public GradingServiceImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(java.lang.Long)
 	 */
@@ -135,7 +142,7 @@ public class GradingServiceImpl implements GradingService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#setSessionService(SessionBundleService)
 	 */
-	public void setSessionService(SessionBundleService sessionBundleService) {
+	public void setSessionBundleService(SessionBundleService sessionBundleService) {
 		this.sessionBundleService = sessionBundleService;
 	}
 }

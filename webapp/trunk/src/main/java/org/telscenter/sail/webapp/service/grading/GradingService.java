@@ -103,5 +103,5 @@ public interface GradingService {
 	/**
 	 * @param sessionBundleService <code>SessionBundleService</code> to set
 	 */
-	public void setSessionService(SessionBundleService sessionBundleService);
+	public void setSessionBundleService(SessionBundleService sessionBundleService);
 }
