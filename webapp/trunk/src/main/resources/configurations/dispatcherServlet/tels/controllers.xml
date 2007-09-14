@@ -111,7 +111,7 @@
 		
 	<bean id="gradeByStepController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStepController">
-		<property name="curnitMapService" ref="curnitMapService" />
+		<property name="gradingService" ref="gradingService" />
 	</bean>
 
 		<bean id="gradingToolController"

@@ -22,22 +22,15 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.gradingtool.CurnitMap;
+import org.telscenter.pas.emf.pas.ECurnitmap;
+import org.telscenter.pas.emf.pas.EStep;
+import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl;
 import org.telscenter.sail.webapp.service.gradingtool.CurnitMapService;
 
 /**
@@ -50,7 +43,7 @@ public class GradeByStepController extends AbstractController {
 
 	public static final String RUN_ID = "runId";
 	public static final String CURNIT_MAP = "curnitMap";
-	private CurnitMapService curnitMapService;
+	private GradingService gradingService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -63,11 +56,14 @@ public class GradeByStepController extends AbstractController {
 		String runId = request.getParameter(RUN_ID);
 		
 		if( runId != null ) {
-			System.out.println("got it "+runId);
+			System.out.println("The runId is "+runId);
 			
-			CurnitMap curnitMap = this.curnitMapService.getCurnitMapByRunId(runId);
-			
+			GradingService gs = new GradingServiceImpl();
+			ECurnitmap curnitMap = gs.getCurnitmap(new Long(runId));
+//			EStep step = new EStep();
+//			step.getPodUUID()
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject(RUN_ID, runId);
 			modelAndView.addObject(CURNIT_MAP, curnitMap);
 			
 			return modelAndView;
@@ -82,8 +78,8 @@ public class GradeByStepController extends AbstractController {
         return modelAndView;
 	}
 
-	public void setCurnitMapService(CurnitMapService curnitMapService) {
-		this.curnitMapService = curnitMapService;
+	public GradingService getGradingService() {
+		return gradingService;
 	}
 
 	
