@@ -22,23 +22,23 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.emf.sailuserdata.ESessionBundle;
 
+import org.eclipse.emf.common.util.EList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.gradingtool.CurnitMap;
-import org.telscenter.sail.webapp.service.gradingtool.CurnitMapService;
+import org.telscenter.pas.emf.pas.EActivity;
+import org.telscenter.pas.emf.pas.ECurnitmap;
+import org.telscenter.pas.emf.pas.EProject;
+import org.telscenter.pas.emf.pas.EStep;
+import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
+import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl;
 
 /**
  * The actual gradingTool.
@@ -48,8 +48,8 @@ import org.telscenter.sail.webapp.service.gradingtool.CurnitMapService;
  */
 public class GradingToolController extends AbstractController {
 
-	public static final String RUN_ID = "runId";
-	public static final String CURNIT_MAP = "curnitMap";
+	public static final String PODUUID = "podUUID";
+	public static final String STEP_AGGREGATE = "stepAggregate";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -59,11 +59,40 @@ public class GradingToolController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		String runId = request.getParameter(RUN_ID);
 		
-	
 		ModelAndView modelAndView = new ModelAndView();
 
+		
+//		String runId = request.getParameter(GradeByStepController.RUN_ID);
+//		String podUUID = request.getParameter(PODUUID);
+//		
+//		GradingService gs = new GradingServiceImpl();
+//		ECurnitmap curnitMap = gs.getCurnitmap(new Long(runId));
+//		ESessionBundle
+//		EProject project = curnitMap.getProject();
+//		
+//		EList activities = project.getActivity();
+//		for (Iterator iterator = activities.iterator(); iterator.hasNext();) {
+//			EActivity activity = (EActivity) iterator.next();
+//			
+//			EList steps = activity.getStep();
+//			
+//			for (Iterator iterator2 = steps.iterator(); iterator2.hasNext();) {
+//				EStep step = (EStep) iterator2.next();
+//				if( step.getPodUUID().equals(podUUID)) {
+//					System.out.println("we got it!");
+//					
+//					GradeWorkByStepAggregate gradeWorkByStepAggregate = gs.getGradeWorkByStepAggregate(new Long(runId), step);
+//					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregate);
+//				}// if
+//			}// for
+//			
+//		}
+		
+//		getGradeWorkByStepAggregate(Long runId,
+//				EStep step)
+
+		
         return modelAndView;
 	}
 
