@@ -18,19 +18,9 @@
  * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
  */
 
-.north0{
-	position:relative;
-	bottom:62px;
-}
-
 .north{
 	position:relative;
 	bottom:40px;
-}
-
-.north_1{
-	position:relative;
-	bottom:5px;
 }
 
 .north2{
@@ -41,12 +31,6 @@
 #north2{
 	position:relative;
 	bottom:50px;
-}
-
-
-.south{
-	position:relative;
-	top:40px;
 }
 
 #left{
@@ -62,6 +46,22 @@
 #right2{
 	position:relative;
 	left:250px;
+}
+
+#headingPos{
+	width:550px;
+	position:relative;
+	left:250px;
+}
+
+.centerpos{
+	position:relative;
+	left:250px;	
+}
+
+#studentLinkPos{
+	position:relative;
+	bottom:5px;	
 }
 
 .right1{
@@ -80,26 +80,39 @@
 	border-width:1px;
 }
 
-#spacing{
-	margin: 0px;
-	padding: 10px;
-	text-align:justify;
-	line-height:20px;
+#registerDesc{
+ 	margin: 0px;
+    padding: 0px 150px 0px 150px;
+    text-align:justify;
+    line-height:34px;	
 }
 
-#spacing.pos1{
+#registerDesc.pos1{
 	padding:0px;
 	position:relative;
 	left:260px;
 	width:600px;
 }
 
+#registerDesc.left{
+	position:relative;
+	left:150px;
+}
+
+#spacing{
+    margin: 0px;
+    padding: 0px 150px 0px 150px;
+    text-align:justify;
+    line-height:34px;
+}
+
 #spacing.left{
 	position:relative;
 	left:150px;
 }
+
 #lineHeightAdj{
-	line-height:1.5em;
+	line-height:30px;
 }
 
 .center{
@@ -114,29 +127,8 @@
 	text-align:justify;
 }
 
-.bgColorYellow{
-	background-color:rgb(255,255,200);
-}
-
-.blackColor {color:#000000;}
-.blueColor {color:rgb(0,0,255);}
-.maroon{
-	color:rgb(100,0,0);
-}
-
-	
-.borderBottom{
-	border-bottom:0em;
-}
-
-.welcome1{	
-	background-color:blue;
-	width:980px;
-}
-
-.padding1{
-	padding: 22px;
-}
+#blackColor {color:#000000;}
+#blueColor {color:rgb(0,0,255);}
 
 .padding0{
 	padding: 8px 0px 0px 0px;	
@@ -146,76 +138,20 @@
 	padding: 4px 4px 84px 4px;	
 }
 
-.marginHorAdj{
-	padding:0px;
-	margin-right:110px;
-}
-
-.marginHorAdj1{
-	margin-right:360px;
-}
-
-.marginAdj3{
-	margin:-85px 0px 0px 20px;
-}
-
-.marginAdj4{
-	margin:-260px 0px 0px 20px;	
-}
-
 .widthAdj{
 	width:220px;
-}
-
-.widthAdj1{
-    width: 470px;   
-}
-
-.widthAdj2{
-    width:160px;
-}
-.widthAdj3{
-	width:660px;	
 }
 
 .widthAdj4{
 	width:990px;	
 }
 
-.widthAdj5{
-	width:315px;	
-}
-
 .widthAdj6{
 	width:950px;	
 }
 
-.width2{
-	width:900px;
-}
-
-
-.smallFont{
-	font-size:0.8em;
-}
-
-.smallFont1{
-	font-size:0.9em;
-}
-
-.medFont{
-	font-size:1.0em;
-}
-
 .bigFont1{
 	font-size: 1em;
-}
-
-#spacing{
-    margin: 0em;
-    padding: 0em 10em 0em 10em;
-    text-align:justify;
-    line-height:2em;
 }
 
 
@@ -282,8 +218,8 @@ div.autocomplete{
 	width: 250;	
 	background-color: white;
 	border: 1 solid #888;
-	margin: 0em;
-	padding: 0em;
+	margin: 0px;
+	padding: 0px;
 }
 
 div.autocomplete ul{
@@ -511,8 +447,8 @@ ul.none{
 
 ul#tabnav{
 	list-style-type:none;
-	margin:0em;
-	padding:0em;
+	margin:0px;
+	padding:0px;
 	font-style: bold;
 	font-size: 1.247em;
 	font-family: verdana, arial, sans-serif;
@@ -523,7 +459,7 @@ ul#tabnav li{
 	float:left;
 	height:1.2em;
 	color: green;
-	margin: 0em;
+	margin: 0px;
 	border: 0.02em;
 	border-style: solid;
 	border-color: black;

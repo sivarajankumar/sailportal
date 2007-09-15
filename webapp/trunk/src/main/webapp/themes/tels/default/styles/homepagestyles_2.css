@@ -18,58 +18,84 @@
  * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
  */
   
-#welcome{
+ 
+#welcomerow{
 	position:relative;
-	top:10px;
+	top:5px;
 	width:980px;
 }
 
-#welcomeHeader{
+#boxHeader{
 	position:relative;
 	left:10px;
-	width:320px;
+	width:250px;
+	font-family:  "Times New Roman", Times, serif;
+	font-style: normal;
+	font-size: 1.5em;
+	line-height: normal;
+	top: 0px;
+	padding-top: 12px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 3px;
+	margin:0px;
 }
 
-#innerWelcome{
-	color:black;
+#welcomeBox{
+	color:#000000;
 	border-style:solid;
 	border-width:1px;
+	border-top-color: #999999;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	border-left-color: #999999;
 	width: 640px;
-	padding-bottom:0px;
-	padding-top:0px;
+	padding:0px;
+	margin:0px;
+	background-color: #EBEBEB;
 }
 
 #welcomeButtonPos{
-	line-height:20px;
+	list-style-type:none;
+	line-height:25px;
 	position:absolute;
-	bottom:163px;
 	left:445px;
-	margin-bottom:-160px;
-	margin-right:795px;
-	padding-right:0px;
-	top: 43px;
+	top: 0px;
+	margin-top:30px;
+	border-top-color: #999999;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	border-left-color: #999999;
+	border-width:1px;
 }	
 
 #parastyle{
-	line-height: 15px;
-	margin: -12px -6px 0px 16px;
-	padding:0px;
-	padding-bottom:15px;
+	margin:0px;
+	padding:3px 0px 10px 15px;
 	font-size:0.8em;
-	font-family:arial,sans-serif;
+	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial;
 	color:black;
 	width: 450px;
-	text-align:justify;
+	text-align:left;
+	line-height:130%;
+	position:relative;
+	top:0px;
 }
 
 #signInBox{
 	position:absolute;
 	left:650px;
 	top:0px;
+	bottom:0px;
 	color:black;
-	border:1px solid black;
-	width:330px;
-	height:100%;
+	border:1px solid;
+	border-top-color: #999999;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	border-left-color: #999999;	
+	width:325px;
+	height:auto;
+	background-color: #EBEBEB;
 }
 
 #signInPos{
@@ -82,7 +108,8 @@
 
 #signIn{
 	margin-left:180px; 
-	margin-bottom:1px;
+	position:relative;
+	top:15px;
 }
 
 
@@ -109,6 +136,18 @@ label#homelogin{
 	margin-right: 7px;
 	display: inline;
 	margin-left:10px;
+	position:relative;
+	top:15px;
+}
+
+#j_username{
+	position:relative;
+	top:15px;
+}
+
+#j_password{
+	position:relative;
+	top:15px;
 }
 
 #actionNav{
@@ -123,6 +162,7 @@ label#homelogin{
 	top:-35px;
 	left:20px;
 	width:230px;
+	margin-bottom:-9px;
 }
 
 #action_prev{
@@ -209,35 +249,62 @@ ul.none{
 	margin-bottom:47px;
 }
 
-#wiseInActionPos{
+#actionRow{
 	position:relative;
-	top:25px;
 	width:980px;
+	padding:0px;
 }
 
 #innerWiseInAction{
-	border: 1px solid black;
-	width:315px;	
+	border: 1px solid;
+	border-top-color: #999999;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	border-left-color: #999999;
+	width:314px;	
 	padding-bottom:45px;
+	background-color: #EBEBEB;
+	position: relative;
+	left: 0px;
+	top: 15px;
+	right: 0px;
+	bottom: 0px;
+
 }
 
 #testimonialsPos{
 	position:absolute;
-	top:1.5px;
-	right:338px;
+	top:15px;
+	right:340px;
 	padding-bottom:0px;
-	border:1px solid black;
-	width:315px;	
-	height:100%;
+	margin:0px;
+	margin-bottom:-15px;
+	border:1px solid #999999;
+	border-top-color: #999999;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	border-left-color: #999999;
+	background-color: #EBEBEB;	
+	width:314px;	
+	height:auto;
 }
 
 #latestNewsPos{
 	position:absolute;
-	right:-2px;
-	top:2px;
-	border:1px solid black;
-	width:330px;
-	height:100%;
+	right:0px;
+	top:15px;
+	bottom:0px;
+	border:1px solid #999999;
+	border-color:#666666;
+	border-top-color: #999999;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	border-left-color: #999999;	
+	width:325px;
+	left:650px;
+	height:auto;
+	background-color: #EBEBEB;
+	margin-bottom:-15px;
 }
 
 #newsHeading{
@@ -246,14 +313,15 @@ ul.none{
 
 #newsContent{
 	position:relative;
-	bottom:70px;
 	left:10px;
+	bottom:30px;
 	width:300px;
+	margin-top:64px;
 }
 
 #newsArchive{
 	position:relative;
-	bottom:50px;
+	bottom:20px;
 	left:100px;
 }
 
@@ -287,4 +355,19 @@ ul.none{
 	position:relative;
 	bottom:45px;
 	left:25px;
-}	
+}
+
+
+#signInLinkPosition {
+	list-style-type:none;
+	padding-right: 30px;
+	padding-top:2px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	position:relative;
+	left:0px;
+	top:10px;
+	text-align:right;
+}
+
+

@@ -2,20 +2,6 @@ img#none{
     border:0px;
 }
 
-#newAccountHeadingPos{
-    position:relative;
-    left:250px;
-}
-
-#typeOfAccountHeadingPos{
-    position:relative;
-    left:250px;
-}
-
-#teacherAccountHeading{
-    display:block;
-}
-
 #teacherRegistrationHeading{
     position:relative;
     left:350px;    
@@ -25,6 +11,16 @@ img#none{
     position:relative;
     left:350px;    
     width:220px;
+}
+
+.north{
+	position:relative;
+	bottom:10px;
+}
+
+.right1{
+	position:relative;
+	right:-600px;
 }
 
 #navigation {
@@ -74,21 +70,6 @@ ul.none{
     border-style:solid;
     border-width:1px;
     padding:0px;
-}
-
-#studentAccountPos{
-    position:relative;
-    top:8px;
-}
-
-#teacherAccountPos{
-    position:relative;
-    top:8px;
-}
-
-.accountRightPos{
-    position:relative;
-    left:250px;
 }
 
 #registerPos{
@@ -253,3 +234,74 @@ label#legalAcknowledged1{
     padding-right:34px;
 }
 
+
+#verticalNavigation{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;	
+    position:relative;
+}
+
+#verticalNavigation ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    padding-top:13px;
+}
+
+#verticalNavigation li {
+    padding: 0px;
+    margin: 25px;
+    line-height:18px;
+}
+
+#verticalNavigation li.login{
+	margin: 8px;
+	line-height:20px;	
+}
+
+#verticalNavigation li.space1{
+	line-height:22px;
+}
+
+#verticalNavigation a:link, #verticalNavigation a:visited{
+	padding: 3px 12px 5px 12px;
+	color: black;
+	background-color: rgb(150,180,230);
+	text-decoration: none;
+}
+
+#verticalNavigation a:hover{
+	padding: 3px 12px 5px 12px;
+	color: black;
+	background-color: rgb(0,200,130);
+	text-decoration: none;
+}
+
+
+#spacing{
+    margin: 0px;
+    padding: 0px 150px 0px 150px;
+    text-align:justify;
+    line-height:34px;
+    width:420px;
+}
+
+
+#spacing.left{
+	position:relative;
+	left:150px;
+}
+
+#teacherRegConfirmBox{
+	width:300px;
+	position:relative;right:-380px;
+}
+
+#studentRegConfirmBox{
+	position:relative;right:-380px;bottom:5px;
+}
+
+.userAccountConfirmBox{
+	width:300px;
+	position:relative;right:-380px;
+}
