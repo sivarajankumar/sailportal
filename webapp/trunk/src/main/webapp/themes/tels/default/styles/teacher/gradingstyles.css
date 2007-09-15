@@ -123,17 +123,6 @@ img#none{
 	border:0px;
 }
 
-
-#projectOverviewTable{
-	border:1px solid black;
-	position:relative;
-	top:17px;
-    padding-right:800px;
-	padding-bottom:40px;
-	width:900px;
-}
-
-
 #overviewContent{
 	border:1px solid black;
 	position:relative;
