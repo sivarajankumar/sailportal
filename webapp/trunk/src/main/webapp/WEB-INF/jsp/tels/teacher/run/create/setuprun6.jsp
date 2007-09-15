@@ -44,8 +44,8 @@
 </ul>
 <br />
 -->  
-<h2 id="right2" class="widthAdj6 maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 class="widthAdj6 blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step6" /> </b>
+<h2 id="right2" class="widthAdj6" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 id="blueColor" class="widthAdj6"><b id="blackColor"><spring:message code="teacher.setup-project-run-step6" /> </b>
 <spring:message code="teacher.setup-project-run-step6-desc" />
 </h3>
 <p class="widthAdj6 bigFont1"><spring:message code="teacher.review-guide"  />
@@ -53,7 +53,7 @@
 <spring:message code="teacher.new-window" />
 </p>
 
-<ul style="position:relative;left:20px;" class="width2 smallFont1">
+<ul style="position:relative;left:20px;width:900px;font-size:0.9em;">
 <li>
 <spring:message code="teacher.about-guide" />
 </li>

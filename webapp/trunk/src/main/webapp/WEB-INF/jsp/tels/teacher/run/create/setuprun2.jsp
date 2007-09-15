@@ -34,15 +34,15 @@
 <body>
 <%@ include file="../../../teacherHeader.jsp"%>
 
-<h2 id="right2" class=" maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step2" /></b>
+<h2 id="right2" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 id="blueColor"><b id="blackColor"><spring:message code="teacher.setup-project-run-step2" /></b>
 <spring:message code="teacher.setup-project-run-step2-desc" />
 </h3>
 
 <p class="bigFont1 widthAdj6">
 <spring:message code="teacher.currently-active-project-runs" />
 </p>
-<p style="position:relative;left:20px;" class="width2 justify smallFont1">
+<p style="position:relative;left:20px;width:900px;font-size:0.9em;" class="justify">
 <spring:message code="teacher.archiving-a-project-run" />
 </p>
 <p class="bigFont1 widthAdj6">

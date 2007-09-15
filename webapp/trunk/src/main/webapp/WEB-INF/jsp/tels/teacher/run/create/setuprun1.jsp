@@ -35,8 +35,8 @@
 <body>
 <%@ include file="../../../teacherHeader.jsp"%>
 
-<h2 id="right2" class=" maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 class="blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step1" /></b>
+<h2 id="right2" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 id="blueColor"><b id="blackColor"><spring:message code="teacher.setup-project-run-step1" /></b>
 <spring:message code="teacher.setup-project-run-step1-desc" />
 </h3>
 <p class="bigFont1"> <spring:message code="teacher.selected-projects-message" />

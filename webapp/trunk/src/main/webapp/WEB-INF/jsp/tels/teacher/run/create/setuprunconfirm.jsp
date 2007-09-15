@@ -45,7 +45,7 @@
 </ul><br />
 -->
 
-<h2 id="right2" class="widthAdj6 maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2 id="right2" class="widthAdj6" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
 <h3 class="widthAdj6"><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
 
 <b class="widthAdj6">

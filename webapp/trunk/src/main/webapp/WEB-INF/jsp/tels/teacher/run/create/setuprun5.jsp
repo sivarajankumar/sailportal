@@ -44,15 +44,15 @@
 </ul>
 <br />
 -->  
-<h2 id="right2" class="widthAdj6 maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 class="widthAdj6 blueColor"><b class="blackColor"><spring:message code="teacher.setup-project-run-step5" /></b>
+<h2 id="right2" class="widthAdj6" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 id="blueColor" class="widthAdj6"><b id="blackColor"><spring:message code="teacher.setup-project-run-step5" /></b>
 <spring:message code="teacher.setup-project-run-step5-desc" />
 </h3>
 <p class="widthAdj6 bigFont1"><spring:message code="teacher.recommend-preview-project" />
 <a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.preview-project" /> </a>
 <spring:message code="teacher.before-running" />
 </p>
-<p style="position:relative;left:20px;" class="widthAdj6 smallFont1"><spring:message code="teacher.preview-project-now" /></p>
+<p style="position:relative;left:20px;font-size:0.9em;" class="widthAdj6"><spring:message code="teacher.preview-project-now" /></p>
 <p class="widthAdj6 bigFont1"><spring:message code="teacher.cont-no-preview" />
 <i><spring:message code="navigate.next" /></i>
 <spring:message code="teacher.cont-no-preview-below" />
