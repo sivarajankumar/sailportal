@@ -52,7 +52,7 @@
   <p><spring:message code="login.failed" /></p>
 </c:if>
 
-<div id="right" class="marginHorAdj1" >
+<div id="right" style="margin-right:360px;" >
 <form id="login" method="post" action="j_acegi_security_check">
 
   <label for="j_username"><spring:message code="login.username" /></label>

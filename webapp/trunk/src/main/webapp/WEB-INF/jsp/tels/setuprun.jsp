@@ -53,18 +53,19 @@
 </ul><br />
 -->
 
-<h2 id="right2" class="maroon"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<p class="bigFont1 north0"> <spring:message code="teacher.setup-run-six-steps" /> </p>
-<h3 class="north0"> <spring:message code="teacher.tips-project-runs" /> </h3>
+<h2 id="right2" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<p class="bigFont1" style="position:relative;bottom:62px;"> 
+<spring:message code="teacher.setup-run-six-steps" /> </p>
+<h3 style="position:relative;bottom:62px;"> <spring:message code="teacher.tips-project-runs" /> </h3>
 
-<ol class="bigFont1 north0">
+<ol class="bigFont1" style="position:relative;bottom:62px;">
 <li> <spring:message code="teacher.remember" /> <b> <spring:message code="wise.preview-the-project" /> </b> <spring:message code="teacher.preview-project-message" /> </li>
 <li> <spring:message code="teacher.review" /> <b> <spring:message code="teacher.lesson-plans" /></b> <spring:message code="teacher.lesson-plans-cont" /></li>
 <li> <spring:message code="teacher.lesson-plans-more-info" /> <b><spring:message code="wise.guide-to-running" /></b>
 <spring:message code="teacher.lesson-plans-cont" /> </li>
 </ol>
 
-<ul class="none bigFont1 north0">
+<ul class="none bigFont1" style="position:relative;bottom:62px;">
 <li> <spring:message code="teacher.get-started" /> </li>
 <li><spring:message code="teacher.cancel-setup-steps" /></li>
 </ul>

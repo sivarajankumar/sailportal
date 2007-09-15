@@ -22,7 +22,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="homepagev2stylesheet"/>" media="screen" rel="stylesheet"
+<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" > </script>
@@ -35,17 +35,15 @@
 <!-- Support for Spring errors object -->
 <%@ include file= "header.jsp"%>
 <body onload="randomImages()">
-
-<div id="welcomerow">
-<div id="welcomebox">
-<h1 id="boxHeader" name="welcomeHeader">
+<div id="welcome">
+<div id="innerWelcome">
+<h1 id="welcomeHeader">
 <spring:message code="wise.welcome" />
 </h1>
 <p id="parastyle">  
 	<spring:message code="wise.about.desc" />
 </p>
-
-<ul id="welcomeButtonPos" >
+<ul class="none" id="welcomeButtonPos" >
 <li>
 	<a href="wiseoverview.html">
 		<img id="overview" src="<spring:theme code="overview" />" 
@@ -79,11 +77,11 @@
 	</a> 
 </li>
 </ul>
-
 </div>
 <div id="signInBox">
+
 <form id="home" method="post" action="j_acegi_security_check">
-<h1 id="boxHeader"><spring:message code="wise.signIn" /></h1>
+<h1 id="signInPos"><spring:message code="wise.signIn" /></h1>
  <label for="username" id="homelogin">
  <spring:message code="login.username" />
   </label> 
@@ -103,23 +101,16 @@
        		onmouseout="swapImage('signIn','images/sign_in.png');"
             onclick="Effect.toggle('waiting', 'appear')" />
 </form>
-
-<ul id="signInLinkPosition">
-<li>
-<a href="forgotaccount/selectaccounttype.html" id="forgotlink">
-      Forgot Username or Password?</a>
-  </li>
-<li>
-<a href="signup.html" id="joinlink">Want to join WISE?</a>
-</li>
-</ul>
-
+ 
+<a href="forgotaccount/selectaccounttype.html" id="forgot">
+<spring:message code="forgotten.username-or-password" /> 
+</a>
 </div>
 </div>
 
-<div id="actionRow">
+<div id="wiseInActionPos">
 <div id="innerWiseInAction">
-<h2 id="boxHeader"><spring:message code="wise.inAction" /></h2>
+<h2 id="heading"><spring:message code="wise.inAction" /></h2>
 <img id="rotator" src="<spring:theme code="wise_action" />" />
 <div id="actionNav"> 
 <img src="<spring:theme code="arrow_prev" />" class="dynamicImage" id="action_prev" 
@@ -152,7 +143,7 @@ counter=proceedToNextImage(firstRClicked,counter);"
 </div>
 </div>
 <div id="testimonialsPos">
-<h2 id="boxHeader">
+<h2 id="heading">
 <spring:message code="wise.testimonials" />
 </h2>
 <img id="rotatorT" src="<spring:theme code="wise_testimonials" />" />
@@ -175,9 +166,8 @@ onmouseout="this.style.cursor='default';" />
 
 </div>
 </div>
-
 <div id="latestNewsPos">
-<h2 id="boxHeader">
+<h2 id="newsHeading">
 <spring:message code="wise.latestNews" />
 </h2>
 <textarea id="newsContent" rows="12" cols="35"><spring:message code="wise.latestNews" /> </textarea>
@@ -188,7 +178,6 @@ onmouseout="this.style.cursor='default';" />
 	/>
 </a>
 </div>
-
 </div>
 <div id="footerPos">
 <img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" align="center"/>

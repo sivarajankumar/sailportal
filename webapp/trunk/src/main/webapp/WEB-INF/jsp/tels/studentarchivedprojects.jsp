@@ -34,35 +34,36 @@
 <body>
 
 <%@ include file="student/header.jsp"%>
-<div class=" border widthAdj1 north0">
+<div class=" border" style="width:470px;position:relative;
+	bottom:62px;">
 <p class="left"> User(s): 
 <authz:authentication operation="username" />
 </p>
 "The time is" <%= new java.util.Date() %>
-<div id="navigation" class="center fontSizeAdj widthAdj2">
+<div id="navigation" class="center fontSizeAdj" style="width:160px;">
 <h4 id="left"> Account Options </h4>
 <form> 
-<div>
-<input type="button" class="bgColorYellow medFont bold" size=15 value="ADD A PROJECT"/> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="Change Password" /> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="Change Language" /> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="Sign Out" /> <br />
+<div> 
+<input type="button" style="background-color:rgb(255,255,200);font-size:1.0em;" class="bold" size=15 value="ADD A PROJECT"/> <br />
+<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="Change Password" /> <br />
+<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="Change Language" /> <br />
+<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="Sign Out" /> <br />
 </div>
 </form>
 </div>
 
-<ul id="tabnav" class="north_1 widthAdj3 right1">
+<ul id="tabnav" class="right1" style="width:660px;position:relative;bottom:5px;">
 <li class="currentProjects "> <a href="enterprojectcode.html"><spring:message code="student.current-projects" /></a></li>
-<li class="archivedProjects bgColorLightBlue borderBottom"> <a href="#"><spring:message code="student.archived-projects" /> </a></li>
+<li class="archivedProjects bgColorLightBlue" style="border-bottom:0px;"> <a href="#"><spring:message code="student.archived-projects" /> </a></li>
 </ul>
 
-<div class="right2 north5 widthAdj3 border"> 
+<div class="right2 north5 border" style="width:660px;"> 
 <h3 class="left"> Projects with UserName1 </h3>
 <table border="1">
 <tr> 
 <td> <spring:message code="wise.name" /> </td>
 <td> Project Name 1 </td> 
-<td rowspan=2 class="bold bgColorYellow"> <spring:message code="student.review-project" /></td>
+<td rowspan=2 class="bold" style="background-color:rgb(255,255,200);"> <spring:message code="student.review-project" /></td>
 </tr>
 <tr> 
 <td> <spring:message code="wise.period" /> </td>
@@ -71,7 +72,7 @@
 <tr>
 <td> <spring:message code="wise.team" /> </td>
 <td> Username 1 + Username 2 (sn1, sn2) </td>
-<td rowspan=2 class="bgColorYellow"> <spring:message code="student.move-to-current-projects" /> </td>
+<td rowspan=2 style="background-color:rgb(255,255,200);"> <spring:message code="student.move-to-current-projects" /> </td>
 </tr>
 
 <tr>
@@ -84,7 +85,7 @@
 <tr> 
 <td> <spring:message code="wise.name" /> </td>
 <td> Project Name 1 </td> 
-<td rowspan=2 class="bold bgColorYellow"> <spring:message code="student.review-project" />
+<td rowspan=2 class="bold" style="background-color:rgb(255,255,200);"> <spring:message code="student.review-project" />
 </td>
 </tr>
 <tr> 
@@ -94,7 +95,7 @@
 <tr>
 <td> <spring:message code="wise.period" /> </td>
 <td> Username 1 + Username 2 (sn1, sn2) </td>
-<td rowspan=2 class="bgColorYellow"> <spring:message code="student.move-to-current-projects" />
+<td rowspan=2 style="background-color:rgb(255,255,200);"> <spring:message code="student.move-to-current-projects" />
  </td>
 </tr>
 <tr>

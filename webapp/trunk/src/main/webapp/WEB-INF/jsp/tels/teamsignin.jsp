@@ -69,7 +69,7 @@
 </ul>
 </div>
 
-<ul class="none bigFont1 center padding1">
+<ul class="none bigFont1 center" style="padding:22px;">
 <li class="center"> <a href="#" style="text-decoration:none;" class="border bigFont1 bgColorBlue"> <spring:message code="student.run-project" /> </a> </li>
 <li class="center"> <a href="#" style="text-decoration:none;" class="border bigFont1 bgColorBlue "> <spring:message code="navigate.cancel" /> </a> </li>
 </ul>

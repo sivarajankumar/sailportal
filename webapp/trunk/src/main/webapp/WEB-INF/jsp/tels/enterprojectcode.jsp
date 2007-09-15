@@ -58,35 +58,35 @@ function addProjectCode(form){
 <body>
 
 <%@ include file="studentHeader.jsp"%>
-<div class=" border widthAdj1 marginAdj5" style="position:relative;top:210px;">
+<div class=" border marginAdj5" style="width:470px;position:relative;top:210px;">
 <p class="left"> <spring:message code="wise.users" /> 
 <authz:authentication operation="username" />
 </p>
 "The time is" <%= new java.util.Date() %>
-<div id="navigation" class="center fontSizeAdj widthAdj2">
+<div id="navigation" class="center fontSizeAdj" style="width:160px;">
 <h4 id="left"> <spring:message code="wise.account-options" /> </h4>
 <form> 
 <div>
-<input type="button" class="bgColorYellow medFont bold" size=15 value="<spring:message code='wise.add-project' />" onclick="addProjectCode(this.form)"/> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="<spring:message code='wise.change-password' />" /> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="<spring:message code='wise.change-language' />" /> <br />
-<input type="button" disabled class="bgColorBlue medFont" size=15 value="<spring:message code='log.out' />" /> <br />
+<input type="button" style="background-color:rgb(255,255,200);font-size:1.0em;" class="bold" size=15 value="<spring:message code='wise.add-project' />" onclick="addProjectCode(this.form)"/> <br />
+<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="<spring:message code='wise.change-password' />" /> <br />
+<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="<spring:message code='wise.change-language' />" /> <br />
+<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="<spring:message code='log.out' />" /> <br />
 </div>
 </form>
 </div>
 </div>
-<ul id="tabnav" class="widthAdj3">
-<li class="currentProjects bgColorLightBlue borderBottom"> <a href="#"><spring:message code="student.current-projects" /></a></li>
+<ul id="tabnav" style="width:660px;">
+<li class="currentProjects bgColorLightBlue" style="border-bottom:0px;"> <a href="#"><spring:message code="student.current-projects" /></a></li>
 <li class="archivedProjects"> <a href="studentarchivedprojects.html"><spring:message code="student.archived-projects" /></a></li>
 </ul>
 
-<div class="north5 widthAdj3 border"> 
+<div class="north5 border" style="width:660px;"> 
 <h3 class="left"> <spring:message code="wise.projects-with" /> UserName1 </h3>
 <table border="1">
 <tr> 
 <td> <spring:message code="wise.name" /> </td>
 <td> Project Name 1 </td> 
-<td class="bold bgColorYellow"><a href="teamsignin.html" class="none"> <spring:message code="student.run-project" /></a></td>
+<td class="bold" style="background-color:rgb(255,255,200);"><a href="teamsignin.html" class="none"> <spring:message code="student.run-project" /></a></td>
 
 </tr>
 <tr> 
@@ -110,7 +110,7 @@ function addProjectCode(form){
 <tr> 
 <td> <spring:message code="wise.name" /> </td>
 <td> Project Name 1 </td> 
-<td class="bold bgColorYellow"><a href="teamsignin.html" class="none"> <spring:message code="student.run-project" /> </a></td>
+<td class="bold" style="background-color:rgb(255,255,200);"><a href="teamsignin.html" class="none"> <spring:message code="student.run-project" /> </a></td>
 </tr>
 <tr> 
 <td> <spring:message code="wise.period" /> </td>
