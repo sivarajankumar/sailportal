@@ -24,7 +24,7 @@
  
 <!-- $Id: projectHeader.jsp 1011 2007-09-05 20:01:48Z archana $ -->
 <div >
-	<a href="index.html"><img id="none" src="../../<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" /></a>
+	<a href="../index.html"><img id="none" src="../../<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" /></a>
 </div>
 
 <div id="navigation" class="north2 widthAdj4">
