@@ -23,26 +23,24 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 <title><spring:message code="signup.title" /></title>
-<script type="text/javascript" src="./javascript/pas/utils.js"></script>
-<script type="text/javascript" src="./javascript/tels/general.js"></script>
+<script type="text/javascript" src=".././javascript/pas/utils.js"></script>
+<script type="text/javascript" src=".././javascript/tels/general.js"></script>
 </head>
 
 <body>
 
 <%@ include file="studentHeader.jsp"%>
-<p class="userinfo"> 
-<authz:authentication operation="username" />
- </p>
-<div class="north_1" style="position:relative;right:-380px;">
+
+<div id="studentRegConfirmBox">
 <h2><spring:message code="student.registration" /></h2>
 <h3><spring:message code="login.success" /></h3>
 <h4><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="verticalNavigation" class="north4" style="position:relative;right:-380px;">
+<div id="verticalNavigation" class="userAccountConfirmBox">
 <ul>
 <li><spring:message code="login.username" />
 <input name="username" value="${username}"/>
@@ -53,7 +51,7 @@
 </ul>
 </div>
 
-<div id="spacing" class="north4" style="position:relative;right:-150px;">
+<div id="spacing" class="left">
 <ul>
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>
@@ -61,36 +59,37 @@
 </ul>
 </div>
 
-<div id="navigation" class="north_4">
-<ul>
-<li class="right7">
+<div id="navigation" class="north">
+<ul style="position:relative;left:350px;">
+<li>
 <a href="registerstudent.html"> 
-<img id="imgBorderNone" src="<spring:theme code="register_another_teammate" />" 
-onmouseover="swapImage('imgBorderNone','<spring:theme code="register_another_teammate_roll" />');"
-onmouseout="swapImage('imgBorderNone','<spring:theme code="register_another_teammate" />');"
+<img id="imgBorderNone" src="../<spring:theme code="register_another_teammate" />" 
+onmouseover="swapImage('imgBorderNone','../<spring:theme code="register_another_teammate_rollover" />');"
+onmouseout="swapImage('imgBorderNone','../<spring:theme code="register_another_teammate" />');"
 />
 </a>
 </li>
 <li>
-<p class="right1 south justify widthAdj5 smallFont marginAdj3">  
+<p style="font-size:0.8em;width:315px;margin:-85px 0px 0px 20px;position:relative;top:40px;left:200px;">  
 <spring:message code="register.teammate-info" />
 </p>
 </li>
 </ul>
 </div>
 
-<div id="navigation" class="north6">
-<ul>
-<li class="space1 right7">
-<a href="index.html">
-<img id="imgBorder2None" src="<spring:theme code="sign_in_new_account" />" 
-onmouseover="swapImage('imgBorder2None','<spring:theme code="sign_in_new_account_roll" />');"
-onmouseout="swapImage('imgBorder2None','<spring:theme code="sign_in_new_account" />');"
+<div id="navigation" style="position:relative;top:30px;">
+<ul style="position:relative;left:350px;">
+<li class="space1">
+<a href="../index.html">
+<img id="imgBorder2None" src="../<spring:theme code="sign_in_new_account" />" 
+onmouseover="swapImage('imgBorder2None','../<spring:theme code="sign_in_new_account_rollover" />');"
+onmouseout="swapImage('imgBorder2None','../<spring:theme code="sign_in_new_account" />');"
 />
 </a>
 </li>
 <li>
-<p class="right1 south_1 justify widthAdj5 smallFont marginAdj4">
+<p style="font-size:0.8em;width:315px;margin:-260px 0px 0px 20px;
+position:relative;top:210px;left:200px;">
 <spring:message code="register.team" />
 </p>
 </li>

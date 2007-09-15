@@ -28,5 +28,5 @@
 
 
 <div>
-	<a href="../index.html"><img src="../<spring:theme code="studentbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
+	<a href="index.html"><img src="../<spring:theme code="studentbanner"/>" style="border:0px;" alt="<spring:message code="wise.banner.alttext" />" /></a>
 </div>

@@ -34,7 +34,7 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="studentHeader.jsp"%>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="studentAccountForm.*">

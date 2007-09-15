@@ -26,6 +26,7 @@
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
 <title><spring:message code="application.title" /></title>
+<script type="text/javascript" src=".././javascript/tels/general.js"></script>
 <script language="JavaScript">
 
 function popup(URL) {
@@ -37,7 +38,7 @@ function popup(URL) {
 
 <body>
 <div id="columns">
-<h3 class="maroon"><spring:message code="student.project-menu" /></h3>
+<h3 style="color:rgb(100,0,0);"><spring:message code="student.project-menu" /></h3>
 <div id="xsnazzy" class="bgcolorSeaBlue widthAdj" style="position:relative;
 	top:20px;" >
 	<b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
@@ -69,23 +70,35 @@ function popup(URL) {
 		<h3><spring:message code="wise.account-options" /></h3>
 		<ul class="none">
 		<li>
-		<a href="#"	onclick="javascript:popup('addproject.html')">
-		<img src="../<spring:theme code="student_add_project" />" style="border:0px;"/>
+		<a href="#"	
+		onmouseover="swapImage('addproject','../<spring:theme code="student_add_project_roll" />');"
+		onmouseout="swapImage('addproject','../<spring:theme code="student_add_project" />');"  
+		onclick="javascript:popup('addproject.html')">
+		<img id="addproject" src="../<spring:theme code="student_add_project" />" style="border:0px;"/>
 		</a>
 		</li>
 		<li>
-		<a href="#" onclick="javascript:alert('This page is not available yet')">
-		<img src="../<spring:theme code="student_change_password" />" style="border:0px;"/>
+		<a href="#" 
+		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
+		onmouseout="swapImage('studentchangepwd','../<spring:theme code="student_change_password" />');"  
+		onclick="javascript:alert('This page is not available yet')">
+		<img id="studentchangepwd" src="../<spring:theme code="student_change_password" />" style="border:0px;"/>
 		</a>
 		</li>
 		<li>
-		<a href="#" onclick="javascript:alert('This page is not available yet')">
-		<img src="../<spring:theme code="student_change_lang" />" style="border:0px;"/>
+		<a href="#" 
+		onmouseover="swapImage('studentchangelang','../<spring:theme code="student_change_lang_roll" />');" 
+		onmouseout="swapImage('studentchangelang','../<spring:theme code="student_change_lang" />');" 
+		onclick="javascript:alert('This page is not available yet')">
+		<img id="studentchangelang" src="../<spring:theme code="student_change_lang" />" style="border:0px;"/>
 		</a>
 		</li>
 		<li>
-		<a href="#" onclick="javascript:alert('This page is not available yet')">
-		<img src="../<spring:theme code="sign_out" />" style="border:0px;"/>
+		<a href="#" 
+		onmouseover="swapImage('studentsignout','../<spring:theme code="sign_out_roll" />');" 
+		onmouseout="swapImage('studentsignout','../<spring:theme code="sign_out" />');" 
+		onclick="javascript:alert('This page is not available yet')">
+		<img id="studentsignout" src="../<spring:theme code="sign_out" />" style="border:0px;"/>
 		</a>
 		</li>
 		</ul>
@@ -105,7 +118,7 @@ function popup(URL) {
 
 -->
 
-<div id="right2" class="widthAdj3" style="position:relative;bottom:385px;" >
+<div id="right2" style="width:660px;position:relative;bottom:385px;" >
 
 
 
@@ -124,8 +137,10 @@ function popup(URL) {
     <td>${run.sdsOffering.name}</td>
     <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
     <td>
-    <a href="#"	onclick="javascript:popup('selectteam.html?runId=' + ${run.id} )">
-	  <img id="runproject" src="../<spring:theme code="run_project" />" />
+    <a href="#"	onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');" 
+    onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
+    onclick="javascript:popup('selectteam.html?runId=' + ${run.id} )">
+	  <img id="runproject" src="../<spring:theme code="run_project" />" style="border:0px;" />
 	</a>
     </td>
    </tr>
