@@ -72,7 +72,6 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
-                /register*.html=ROLE_ANONYMOUS,ROLE_USER
                 /test.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/countries.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/states.html=ROLE_ANONYMOUS,ROLE_USER
@@ -85,11 +84,12 @@
                 /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/curriculumsubjects.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/termsofuse.html=ROLE_ANONYMOUS,ROLE_USER
-				/teacher/grading/*.html=ROLE_ANONYMOUS,ROLE_USER
+				/teacher/grading/*.html=ROLE_ANONYMOUS,ROLE_USER				
                 /teacher*.html=ROLE_ANONYMOUS,ROLE_USER
                 /team*.html=ROLE_ANONYMOUS,ROLE_USER
                 /wise*.html=ROLE_ANONYMOUS,ROLE_USER
                 /create*.html=ROLE_ANONYMOUS,ROLE_USER
+                /forgotaccount/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /forgotaccount/**/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
