@@ -21,7 +21,7 @@
 
 
 <div>
-	<a href="index.html"><img id="none" src="<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" /></a>
+	<a href="../index.html"><img id="none" src="../<spring:theme code="dashboardbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
 </div>
 	    <div>
    <p class="userlogout"> <%@ include file="logout.jsp"%> </p>
@@ -33,10 +33,10 @@
  </p>
 <div id="navigation" class="north2 widthAdj4">
 <ul class="bigFont1">
-<li> <a href="index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="grading" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
+<li> <a href="index.html"> <img src="../<spring:theme code="home" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="grading" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>	
