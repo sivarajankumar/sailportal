@@ -43,10 +43,10 @@ public class SessionBundleServiceImpl implements SessionBundleService {
 		String portfolioXMLString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 		"<sailuserdata:EPortfolio xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:sailuserdata=\"sailuserdata\">" +
 		"<sessionBundles xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:sailuserdata=\"sailuserdata\" start=\"2007-05-23T17:09:32.320-0700\" stop=\"2007-05-23T17:10:30.221-0700\" curnitUUID=\"af133621-b3d1-11db-a373-8b155032f53b\" sessionUUID=\"19c4d720-fdde-4254-8c83-480ba66b161e\">" +
-		"<sockParts podId=\"dddddddd-6004-002-0000-000000000000\" rimName=\"undefined6\">" +
+		"<sockParts podId=\"dddddddd-6004-0002-0000-000000000000\" rimName=\"undefined6\">" +
 		"<sockEntries value=\"green house asourb sun light and global warming is the earth warming up but it is alike...actually I have no idea what I'm talking about. this is my answer for rim with rimname undefined6.\" millisecondsOffset=\"1277103\"/>" +
-		"</sockParts>" +
-		"<sockParts podId=\"dddddddd-6004-003-0000-000000000000\" rimName=\"undefined7\">" +
+		"</sockParts>" + 
+		"<sockParts podId=\"dddddddd-6004-0003-0000-000000000000\" rimName=\"undefined7\">" +
 		"<sockEntries value=\"this is a response to rim with name undefined7 and I have no idea what I should write here.\" millisecondsOffset=\"1277103\"/>" +
 		"</sockParts>" +
 		"<agents role=\"RUN_WORKGROUP\">" +
