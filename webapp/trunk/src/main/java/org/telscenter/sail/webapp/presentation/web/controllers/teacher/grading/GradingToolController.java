@@ -64,7 +64,7 @@ public class GradingToolController extends AbstractController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 
-		String gradingType = request.getParameter(this.GRADE_TYPE);
+		String gradingType = request.getParameter(GRADE_TYPE);
 		String runId = request.getParameter(GradeByStepController.RUN_ID);
 		String podUUID = request.getParameter(PODUUID);
 		

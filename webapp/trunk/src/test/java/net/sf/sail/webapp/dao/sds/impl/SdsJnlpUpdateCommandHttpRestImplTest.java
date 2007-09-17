@@ -30,7 +30,7 @@ import org.easymock.EasyMock;
 public class SdsJnlpUpdateCommandHttpRestImplTest extends
 		AbstractSdsUpdateCommandHttpRestImplTest {
 
-	private static final Integer EXPECTED_ID = new Integer(1);
+	private static final Long EXPECTED_ID = new Long(1);
 
 	private static final String EXPECTED_NAME = "Blah";
 

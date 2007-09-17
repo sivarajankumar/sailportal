@@ -63,7 +63,7 @@ public class SdsUser implements SdsObject {
     private Integer version = null;
 
     @Column(name = SdsUser.COLUMN_NAME_USER_ID, unique = true, nullable = false)
-    private Integer sdsObjectId = null;
+    private Long sdsObjectId = null;
 
     @Column(name = SdsUser.COLUMN_NAME_FIRST_NAME, nullable = false)
     private String firstName = null;
@@ -74,15 +74,14 @@ public class SdsUser implements SdsObject {
     /**
      * @return the sdsObjectId
      */
-    public Integer getSdsObjectId() {
+    public Long getSdsObjectId() {
         return sdsObjectId;
     }
 
     /**
-     * @param sdsObjectId
-     *            the sdsObjectId to set
+     * @see net.sf.sail.webapp.domain.sds.SdsObject#setSdsObjectId(java.lang.Long)
      */
-    public void setSdsObjectId(Integer sdsObjectId) {
+    public void setSdsObjectId(Long sdsObjectId) {
         this.sdsObjectId = sdsObjectId;
     }
 

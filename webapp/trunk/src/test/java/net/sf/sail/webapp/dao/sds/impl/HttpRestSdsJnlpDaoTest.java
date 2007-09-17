@@ -98,7 +98,7 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsJnlpDao#save(net.sf.sail.webapp.domain.sds.SdsJnlp)}.
 	 */
 	public void testUpdateJnlp() throws Exception {
-		Integer sdsJnlpId = this.createJnlpInSds();
+		Long sdsJnlpId = this.createJnlpInSds();
 		SdsJnlp actualSdsJnlp = this.getJnlpInSds(sdsJnlpId);
 		assertEquals(actualSdsJnlp.getSdsObjectId(), sdsJnlpId);
 		assertEquals(actualSdsJnlp.getName(), DEFAULT_NAME);

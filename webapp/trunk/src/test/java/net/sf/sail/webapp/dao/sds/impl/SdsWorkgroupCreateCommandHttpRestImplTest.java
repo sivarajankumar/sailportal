@@ -50,7 +50,7 @@ public class SdsWorkgroupCreateCommandHttpRestImplTest extends
         expectedSdsWorkgroup = new SdsWorkgroup();
         expectedSdsWorkgroup.setName(SOME_NAME);
         SdsOffering existingOffering = new SdsOffering();
-        Integer existingOfferingId = new Integer(42);
+        Long existingOfferingId = new Long(42);
         existingOffering.setSdsObjectId(existingOfferingId);
         expectedSdsWorkgroup.setSdsOffering(existingOffering);
 

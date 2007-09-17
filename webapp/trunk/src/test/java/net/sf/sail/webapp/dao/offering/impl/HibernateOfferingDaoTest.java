@@ -44,7 +44,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 public class HibernateOfferingDaoTest extends
 		AbstractTransactionalDaoTests<HibernateOfferingDao, Offering> {
 
-	private static final Integer SDS_ID = new Integer(7);
+	private static final Long SDS_ID = new Long(7);
 
 	private static final String DEFAULT_NAME = "Airbags";
 

@@ -79,6 +79,11 @@
 		class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingUpdateCommandHttpRestImpl">
 		<property name="transport" ref="httpRestTransport" />
 	</bean>
+	
+	<bean id="sdsOfferingGetCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsOfferingGetCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
 	<bean id="offeringServiceTarget"
 		class="net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl">
@@ -109,6 +114,7 @@
 		<property name="listCommand" ref="sdsOfferingListCommand" />
 		<property name="createCommand" ref="sdsOfferingCreateCommand" />
 		<property name="updateCommand" ref="sdsOfferingUpdateCommand" />
+		<property name="getCommand" ref="sdsOfferingGetCommand" />
 	</bean>
 
 	<bean id="sdsWorkgroupDao"

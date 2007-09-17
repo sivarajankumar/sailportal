@@ -22,8 +22,6 @@
  */
 package net.sf.sail.webapp.domain.annotation.impl;
 
-import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -107,11 +105,11 @@ public class AnnotationBundleImpl implements AnnotationBundle {
 	public void setWorkgroup(Workgroup workgroup) {
 		this.workgroup = workgroup;
 	}
-
+	
 	/**
 	 * @see net.sf.sail.webapp.domain.Persistable#getId()
 	 */
-	public Serializable getId() {
+	public Long getId() {
 		return id;
 	}
 

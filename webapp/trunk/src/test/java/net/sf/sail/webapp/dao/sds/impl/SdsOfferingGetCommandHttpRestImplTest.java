@@ -37,7 +37,7 @@ public class SdsOfferingGetCommandHttpRestImplTest extends
 
     private SdsOffering expectedSdsOffering;
     
-    static final Integer ID = new Integer(1);
+    static final Long ID = new Long(1);
     
 	private static final SdsCurnit SDS_CURNIT = new SdsCurnit();
 

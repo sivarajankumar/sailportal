@@ -19,9 +19,11 @@ package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
+import net.sf.sail.webapp.dao.sds.SdsOfferingGetCommand;
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.dao.sds.SdsOfferingUpdateCommand;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -46,6 +48,16 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	private SdsOfferingCreateCommand createCommand;
 
 	private SdsOfferingUpdateCommand updateCommand;
+	
+	private SdsOfferingGetCommand getCommand;
+	
+	/**
+	 * @param getCommand the getCommand to set
+	 */
+	@Required
+	public void setGetCommand(SdsOfferingGetCommand getCommand) {
+		this.getCommand = getCommand;
+	}
 
 	/**
 	 * @param listCommand
@@ -71,6 +83,18 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	@SuppressWarnings("unchecked")
 	public List<SdsOffering> getList() {
 		return this.listCommand.execute(this.listCommand.generateRequest());
+	}
+	
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#getById(java.io.Serializable)
+	 */
+	@Override
+	public SdsOffering getById(Long id) throws ObjectNotFoundException {
+		SdsOffering sdsOffering = new SdsOffering();
+		sdsOffering.setSdsObjectId(id);
+		this.getCommand.setSdsOffering(sdsOffering);
+		return this.getCommand.execute(this.getCommand.generateRequest());
 	}
 
 	/**

@@ -50,15 +50,15 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
 
     private static final String USERNAME_1 = "Hiroki";
 
-    private static final Integer SDS_ID_1 = new Integer(42);
+    private static final Long SDS_ID_1 = new Long(42);
 
     private static final String USERNAME_2 = "Cynick";
 
-    private static final Integer SDS_ID_2 = new Integer(15);
+    private static final Long SDS_ID_2 = new Long(15);
 
     private static final String USERNAME_3 = "Laurel";
 
-    private static final Integer SDS_ID_3 = new Integer(24);
+    private static final Long SDS_ID_3 = new Long(24);
 
     private static final String DEFAULT_NAME = "the heros";
 
@@ -372,7 +372,7 @@ public class HibernateGroupDaoTest extends AbstractTransactionalDbTests {
         return (Long) actualRootGroupMap.get("ID");
     }
 
-    private User createNewUser(String username, Integer sdsId, Session session) {
+    private User createNewUser(String username, Long sdsId, Session session) {
         User user = (User) this.applicationContext.getBean("user");
         SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
         sdsUser.setFirstName(DEFAULT_NAME);

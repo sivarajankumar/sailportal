@@ -43,13 +43,13 @@ import org.jdom.xpath.XPath;
  */
 public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
 
-    private static final Integer SDS_USER_ID1 = new Integer(1);
+    private static final Long SDS_USER_ID1 = new Long(1);
 
-    private static final Integer SDS_USER_ID2 = new Integer(3);
+    private static final Long SDS_USER_ID2 = new Long(3);
 
-    private static final Integer SDS_USER_ID3 = new Integer(5);
+    private static final Long SDS_USER_ID3 = new Long(5);
 
-    private static final Integer WORKGROUP_ID = new Integer(42);
+    private static final Long WORKGROUP_ID = new Long(42);
 
     private SdsWorkgroup testWorkgroup;
 
@@ -86,12 +86,12 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
         HttpPostRequest request = this.command.generateRequest();
         List<Element> userNodeList = convertBodyDataToXMLNodes(request);
 
-        Set<Integer> setOfExpectedIds = setUpExpectedUserIdSet();
+        Set<Long> setOfExpectedIds = setUpExpectedUserIdSet();
 
         Set<SdsUser> sdsUserList = new HashSet<SdsUser>();
         for (Element memberNode : userNodeList) {
             SdsUser sdsUser = new SdsUser();
-            sdsUser.setSdsObjectId(new Integer(memberNode.getValue()));
+            sdsUser.setSdsObjectId(new Long(memberNode.getValue()));
             sdsUserList.add(sdsUser);
             assertTrue(setOfExpectedIds.contains(sdsUser.getSdsObjectId()));
         }
@@ -115,8 +115,8 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
         assertEquals(EXPECTED_URL, request.getRelativeUrl());
     }
 
-    private Set<Integer> setUpExpectedUserIdSet() {
-        Set<Integer> setOfExpectedIds = new HashSet<Integer>(3);
+    private Set<Long> setUpExpectedUserIdSet() {
+        Set<Long> setOfExpectedIds = new HashSet<Long>(3);
         setOfExpectedIds.add(SDS_USER_ID1);
         setOfExpectedIds.add(SDS_USER_ID2);
         setOfExpectedIds.add(SDS_USER_ID3);
@@ -143,7 +143,7 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImplTest extends TestCase {
         return doc;
     }
 
-    private void addUserToCommandWorkgroup(Integer id) {
+    private void addUserToCommandWorkgroup(Long id) {
         SdsUser user = new SdsUser();
         this.testWorkgroup.addMember(user);
         user.setSdsObjectId(id);

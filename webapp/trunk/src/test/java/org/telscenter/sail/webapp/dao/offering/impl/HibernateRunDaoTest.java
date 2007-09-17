@@ -56,7 +56,7 @@ import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
  */
 public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
-    private static final Integer SDS_ID = new Integer(7);
+    private static final Long SDS_ID = new Long(7);
 
     private static final String DEFAULT_NAME = "Airbags";
 

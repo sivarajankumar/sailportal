@@ -76,7 +76,7 @@ public class SdsUserCreateCommandHttpRestImpl extends AbstractHttpRestCommand
         // clear the thread local reference to avoid resource leak since we're
         // done executing
         SDS_USER.set(null);
-        sdsUser.setSdsObjectId(new Integer(locationHeader
+        sdsUser.setSdsObjectId(new Long(locationHeader
                 .substring(locationHeader.lastIndexOf("/") + 1)));
         return sdsUser;
     }

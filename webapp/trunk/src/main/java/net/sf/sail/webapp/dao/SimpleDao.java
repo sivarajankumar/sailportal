@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -59,5 +58,5 @@ public interface SimpleDao<T> {
      * 
      * @return The object.
      */
-    public T getById(Serializable id) throws ObjectNotFoundException;
+    public T getById(Long id) throws ObjectNotFoundException;
 }

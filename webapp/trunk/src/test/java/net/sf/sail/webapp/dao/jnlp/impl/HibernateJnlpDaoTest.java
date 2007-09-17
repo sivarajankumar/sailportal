@@ -33,7 +33,7 @@ import net.sf.sail.webapp.domain.sds.SdsJnlp;
  */
 public class HibernateJnlpDaoTest extends AbstractTransactionalDaoTests<HibernateJnlpDao, Jnlp> {
 
-    private static final Integer SDS_ID = new Integer(7);
+    private static final Long SDS_ID = new Long(7);
 
     private static final String DEFAULT_NAME = "Airbags";
 

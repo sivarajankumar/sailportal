@@ -32,7 +32,6 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;

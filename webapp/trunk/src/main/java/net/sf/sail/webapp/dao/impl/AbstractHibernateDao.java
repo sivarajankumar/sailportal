@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.dao.impl;
 
-import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -68,17 +67,12 @@ public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
 	 * @see net.sf.sail.webapp.dao.SimpleDao#getById(java.lang.Integer)
 	 */
 	@SuppressWarnings("unchecked")
-	public T getById(Serializable id) throws ObjectNotFoundException {
-		if (id instanceof Long || id instanceof Integer) {
-
-			T object = (T) this.getHibernateTemplate().get(
-					this.getDataObjectClass(), id);
-			if (object == null)
-				throw new ObjectNotFoundException(id, this.getDataObjectClass());
-			return object;
-		} else {
-			throw new IllegalArgumentException();
-		}
+	public T getById(Long id) throws ObjectNotFoundException {
+		T object = (T) this.getHibernateTemplate().get(
+				this.getDataObjectClass(), id);
+		if (object == null)
+			throw new ObjectNotFoundException(id, this.getDataObjectClass());
+		return object;
 	}
 
 	/**

@@ -27,6 +27,8 @@ import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
  * 
  */
 public interface SdsOfferingGetCommand extends
-        SdsCommand<SdsOffering, HttpGetRequest> {
+		SdsCommand<SdsOffering, HttpGetRequest> {
+
+	public void setSdsOffering(SdsOffering sdsOffering);
 
 }

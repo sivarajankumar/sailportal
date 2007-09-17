@@ -74,7 +74,7 @@ public class SdsCurnitCreateCommandHttpRestImpl extends AbstractHttpRestCommand
         // clear the thread local reference to avoid resource leak since we're
         // done executing
         SDS_CURNIT.set(null);
-        sdsCurnit.setSdsObjectId(new Integer(locationHeader
+        sdsCurnit.setSdsObjectId(new Long(locationHeader
                 .substring(locationHeader.lastIndexOf("/") + 1)));
         return sdsCurnit;
     }

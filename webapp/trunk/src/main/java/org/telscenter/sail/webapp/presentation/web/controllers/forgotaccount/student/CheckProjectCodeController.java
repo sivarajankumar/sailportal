@@ -43,10 +43,11 @@ import org.telscenter.sail.webapp.domain.impl.ReminderParameters;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
- * looks up the project code in student lost password
+ * Looks up the project code in student lost password
  * 
  * @author Anthony Perritano
- * @version
+ * 
+ * @version $Id: $
  */
 
 

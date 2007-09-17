@@ -48,9 +48,9 @@ public class HibernateUserDaoTest extends AbstractTransactionalDaoTests<Hibernat
 
 	private static final String LAST_NAME = USERNAME;
 
-	private static final Integer SDS_USER_ID = new Integer(42);
+	private static final Long SDS_USER_ID = new Long(42);
 
-	private static final Integer ALTERNATE_SDS_USER_ID = new Integer(3);
+	private static final Long ALTERNATE_SDS_USER_ID = new Long(3);
 
 	private static final String EMAILADDRESS = "bart.simpson@gmail.com";
 

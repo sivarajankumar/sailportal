@@ -101,7 +101,7 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
         actualSdsUser.setFirstName(rootElement.getChild("first-name")
                 .getValue());
         actualSdsUser.setLastName(rootElement.getChild("last-name").getValue());
-        actualSdsUser.setSdsObjectId(new Integer(rootElement.getChild("id")
+        actualSdsUser.setSdsObjectId(new Long(rootElement.getChild("id")
                 .getValue()));
         assertEquals(this.sdsUser, actualSdsUser);
     }
@@ -111,7 +111,7 @@ public class HttpRestSdsUserDaoTest extends AbstractSpringHttpUnitTests {
 	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsUserDao#save(net.sf.sail.webapp.domain.sds.SdsUser)}.
 	 */
 	public void testUpdateUser() throws Exception {
-		Integer sdsUserId = this.createUserInSds();
+		Long sdsUserId = this.createUserInSds();
 		SdsUser actualSdsUser = this.getUserInSds(sdsUserId);
 		assertEquals(actualSdsUser.getSdsObjectId(), sdsUserId);
 		assertEquals(actualSdsUser.getFirstName(), DEFAULT_NAME);

@@ -66,15 +66,15 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 
         Element sdsOfferingElement = doc.getRootElement();
         sdsOffering.setName(sdsOfferingElement.getChild("name").getValue());
-        sdsOffering.setSdsObjectId(new Integer(sdsOfferingElement.getChild("id")
+        sdsOffering.setSdsObjectId(new Long(sdsOfferingElement.getChild("id")
                     .getValue()));
 
         SdsCurnit sdsCurnit = new SdsCurnit();
-        sdsCurnit.setSdsObjectId(new Integer(sdsOfferingElement.getChild("curnit-id").getValue()));
+        sdsCurnit.setSdsObjectId(new Long(sdsOfferingElement.getChild("curnit-id").getValue()));
         sdsOffering.setSdsCurnit(sdsCurnit);
 
         SdsJnlp sdsJnlp = new SdsJnlp();
-        sdsJnlp.setSdsObjectId(new Integer(sdsOfferingElement.getChild("jnlp-id").getValue()));
+        sdsJnlp.setSdsObjectId(new Long(sdsOfferingElement.getChild("jnlp-id").getValue()));
             sdsOffering.setSdsJnlp(sdsJnlp);
 
         return sdsOffering;

@@ -74,7 +74,7 @@ public class SdsJnlpCreateCommandHttpRestImpl extends AbstractHttpRestCommand
         // clear the thread local reference to avoid resource leak since we're
         // done executing
         SDS_JNLP.set(null);
-        sdsJnlp.setSdsObjectId(new Integer(locationHeader
+        sdsJnlp.setSdsObjectId(new Long(locationHeader
                 .substring(locationHeader.lastIndexOf("/") + 1)));
         return sdsJnlp;
     }

@@ -43,13 +43,5 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
 	 * @throws ObjectNotFoundException if Run is not found.
 	 */
 	public Run retrieveByRunCode(String runcode) throws ObjectNotFoundException;
-//TODO LAW remove	
-//    /**
-//	 * Checks if the given runcode is already being used
-//	 * 
-//	 * @param runcode
-//	 *            <code>String</code> the runcode to check
-//	 * @return true iff the given runcode exists in the data store
-//	 */
-//	public boolean hasRuncode(String runcode);
+
 }

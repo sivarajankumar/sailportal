@@ -59,7 +59,7 @@ public class SdsWorkgroupCreateCommandHttpRestImpl extends
                 .post(httpRequest);
         final String locationHeader = responseHeaders.get("Location");
         SdsWorkgroup workgroup = this.getWorkgroup();
-        workgroup.setSdsObjectId(new Integer(locationHeader
+        workgroup.setSdsObjectId(new Long(locationHeader
                 .substring(locationHeader.lastIndexOf("/") + 1)));
 
         // release the thread local reference to the actual object to prevent

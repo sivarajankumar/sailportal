@@ -38,6 +38,7 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
+import org.acegisecurity.annotation.Secured;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
@@ -83,6 +84,7 @@ public class RegisterStudentController extends SignupController {
 	@Transactional(rollbackFor = { 
 			DuplicateUsernameException.class, ObjectNotFoundException.class, 
 			PeriodNotFoundException.class })
+	@Secured({"ROLE_STUDENT", "RUN_AS_ALLOWED"})
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {

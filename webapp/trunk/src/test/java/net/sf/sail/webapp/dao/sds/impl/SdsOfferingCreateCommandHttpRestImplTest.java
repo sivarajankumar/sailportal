@@ -35,9 +35,9 @@ public class SdsOfferingCreateCommandHttpRestImplTest extends
 
     private static final String EXPECTED_NAME = "Blah";
 
-    private static final Integer EXPECTED_CURNIT_ID = new Integer(5);
+    private static final Long EXPECTED_CURNIT_ID = new Long(5);
 
-    private static final Integer EXPECTED_JNLP_ID = new Integer(5);
+    private static final Long EXPECTED_JNLP_ID = new Long(5);
 
     private static final String OFFERING_DIRECTORY = "offering/";
 

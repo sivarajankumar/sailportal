@@ -61,7 +61,7 @@ public class SdsCurnit implements SdsObject {
     private Integer version = null;
 
     @Column(name = SdsCurnit.COLUMN_NAME_CURNIT_ID, unique = true, nullable = false)
-    private Integer sdsObjectId = null;
+    private Long sdsObjectId = null;
 
     @Column(name = SdsCurnit.COLUMN_NAME_CURNIT_NAME, nullable = false)
     private String name;
@@ -102,14 +102,14 @@ public class SdsCurnit implements SdsObject {
     /**
      * @see net.sf.sail.webapp.domain.sds.SdsObject#getSdsObjectId()
      */
-    public Integer getSdsObjectId() {
+    public Long getSdsObjectId() {
         return this.sdsObjectId;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.sds.SdsObject#setSdsObjectId(java.lang.Integer)
+     * @see net.sf.sail.webapp.domain.sds.SdsObject#setSdsObjectId(java.lang.Long)
      */
-    public void setSdsObjectId(Integer id) {
+    public void setSdsObjectId(Long id) {
         this.sdsObjectId = id;
     }
 

@@ -76,7 +76,7 @@ public class SdsOfferingCreateCommandHttpRestImpl extends
         // clear the thread local reference to avoid resource leak since we're
         // done executing
         SDS_OFFERING.set(null);
-        sdsOffering.setSdsObjectId(new Integer(locationHeader
+        sdsOffering.setSdsObjectId(new Long(locationHeader
                 .substring(locationHeader.lastIndexOf("/") + 1)));
         return sdsOffering;
     }

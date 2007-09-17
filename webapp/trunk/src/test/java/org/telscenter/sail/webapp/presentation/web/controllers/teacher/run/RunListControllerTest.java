@@ -92,15 +92,15 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		SdsOffering sdsOffering = new SdsOffering();
 
 		SdsCurnit curnit = new SdsCurnit();
-		curnit.setSdsObjectId(1);
+		curnit.setSdsObjectId(new Long(1));
 		sdsOffering.setSdsCurnit(curnit);
 
 		SdsJnlp jnlp = new SdsJnlp();
-		jnlp.setSdsObjectId(2);
+		jnlp.setSdsObjectId(new Long(2));
 		sdsOffering.setSdsJnlp(jnlp);
 
 		sdsOffering.setName("test");
-		sdsOffering.setSdsObjectId(3);
+		sdsOffering.setSdsObjectId(new Long(3));
 		Run run = new RunImpl();
 		run.setSdsOffering(sdsOffering);
 

@@ -73,7 +73,7 @@ public class SdsCurnitListCommandHttpRestImpl extends AbstractHttpRestCommand
         for (Element curnitNode : nodeList) {
             SdsCurnit sdsCurnit = new SdsCurnit();
             sdsCurnit.setName(curnitNode.getChild("name").getValue());
-            sdsCurnit.setSdsObjectId(new Integer(curnitNode.getChild("id")
+            sdsCurnit.setSdsObjectId(new Long(curnitNode.getChild("id")
                     .getValue()));
             sdsCurnit.setUrl(curnitNode.getChild("url").getValue());
 

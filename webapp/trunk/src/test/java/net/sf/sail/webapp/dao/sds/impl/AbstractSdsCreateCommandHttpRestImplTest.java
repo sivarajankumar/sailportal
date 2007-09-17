@@ -42,7 +42,7 @@ public abstract class AbstractSdsCreateCommandHttpRestImplTest extends TestCase 
 
     static final String PORTAL_URL = "http://portal/url/";
 
-    static final Integer EXPECTED_ID = new Integer(1);
+    static final Long EXPECTED_ID = new Long(1);
 
     protected HttpRestTransport mockTransport;
 

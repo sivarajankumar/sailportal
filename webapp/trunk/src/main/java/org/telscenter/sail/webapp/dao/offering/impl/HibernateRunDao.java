@@ -65,14 +65,6 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 		return run;
 	}
 
-//TODO LAW remove
-//	/**
-//	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#hasRuncode(String)
-//	 */
-//	public boolean hasRuncode(String runcode) {
-//		return (this.retrieveByRunCode(runcode) != null);
-//	}
-
 	/**
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */

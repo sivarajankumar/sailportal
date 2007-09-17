@@ -115,7 +115,7 @@ public class SdsCurnitListCommandHttpRestImplTest extends
 
     private SdsCurnit createCurnit(int objectId, String url, String name) {
         SdsCurnit curnit = new SdsCurnit();
-        curnit.setSdsObjectId(objectId);
+        curnit.setSdsObjectId(new Long(objectId));
         curnit.setName(name);
         curnit.setUrl(url);
 

@@ -103,37 +103,37 @@ public class GradingServiceImplTest extends TestCase {
 		}
 	}
 	
-	public void testGetGradeWorkByStepAggregate() throws ObjectNotFoundException {
-		// TODO HT add more as things are implemented
-		assertTrue(true);
-		ECurnitmap curnitmap = null;
-		curnitmap = gradingService.getCurnitmap(runId);
-		EStep step = (EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1);
-		GradeWorkByStepAggregate aggregate = gradingService.getGradeWorkByStepAggregate(runId, step);
-		//assertEquals(curnitmap, aggregate.getCurnitmap());  this should be true, but is not because equals() method isn't implemented yet
-		assertEquals(step, aggregate.getStep());
-		assertNotNull(aggregate.getAnnotationBundles());
-		assertNotNull(aggregate.getSessionBundles());
-		
-		User user1 = new UserImpl();
-		String username1 = "username1";
-		MutableUserDetails userDetails1 = new PersistentUserDetails();
-		userDetails1.setUsername(username1);
-		user1.setUserDetails(userDetails1);
-		Offering offering = new OfferingImpl();
-		Workgroup workgroup1 = new WorkgroupImpl();
-		workgroup1.addMember(user1);
-		workgroup1.setOffering(offering);
-
-		AnnotationBundle annotationBundle1 = (AnnotationBundle) aggregate.getAnnotationBundles().get(workgroup1);
-		assertNotNull(annotationBundle1);
-		assertEquals(workgroup1, annotationBundle1.getWorkgroup());	
-		
-		ESessionBundle sessionBundle1 = aggregate.getSessionBundles().get(workgroup1);
-		//assertNotNull(sessionBundle1); right now this is null
-		//assertEquals(
-		//		((ESockPart) sessionBundle1.getSockParts().get(1)).getRimName(),
-		//		((ERim) ((EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1)).getRim().get(0)).getRimname()
-		//		);
-	}
+//	public void testGetGradeWorkByStepAggregate() throws ObjectNotFoundException {
+//		// TODO HT add more as things are implemented
+//		assertTrue(true);
+//		ECurnitmap curnitmap = null;
+//		curnitmap = gradingService.getCurnitmap(runId);
+//		EStep step = (EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1);
+//		GradeWorkByStepAggregate aggregate = gradingService.getGradeWorkByStepAggregate(runId, step);
+//		//assertEquals(curnitmap, aggregate.getCurnitmap());  this should be true, but is not because equals() method isn't implemented yet
+//		assertEquals(step, aggregate.getStep());
+//		assertNotNull(aggregate.getAnnotationBundles());
+//		assertNotNull(aggregate.getSessionBundles());
+//		
+//		User user1 = new UserImpl();
+//		String username1 = "username1";
+//		MutableUserDetails userDetails1 = new PersistentUserDetails();
+//		userDetails1.setUsername(username1);
+//		user1.setUserDetails(userDetails1);
+//		Offering offering = new OfferingImpl();
+//		Workgroup workgroup1 = new WorkgroupImpl();
+//		workgroup1.addMember(user1);
+//		workgroup1.setOffering(offering);
+//
+//		AnnotationBundle annotationBundle1 = (AnnotationBundle) aggregate.getAnnotationBundles().get(workgroup1);
+//		assertNotNull(annotationBundle1);
+//		assertEquals(workgroup1, annotationBundle1.getWorkgroup());	
+//		
+//		ESessionBundle sessionBundle1 = aggregate.getSessionBundles().get(workgroup1);
+//		//assertNotNull(sessionBundle1); right now this is null
+//		//assertEquals(
+//		//		((ESockPart) sessionBundle1.getSockParts().get(1)).getRimName(),
+//		//		((ERim) ((EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1)).getRim().get(0)).getRimname()
+//		//		);
+//	}
 }

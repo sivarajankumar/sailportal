@@ -76,16 +76,16 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
         for (Element offeringNode : nodeList) {
             SdsOffering sdsOffering = new SdsOffering();
             sdsOffering.setName(offeringNode.getChild("name").getValue());
-            sdsOffering.setSdsObjectId(new Integer(offeringNode.getChild("id")
+            sdsOffering.setSdsObjectId(new Long(offeringNode.getChild("id")
                     .getValue()));
 
             SdsCurnit sdsCurnit = new SdsCurnit();
-            sdsCurnit.setSdsObjectId(new Integer(offeringNode.getChild(
+            sdsCurnit.setSdsObjectId(new Long(offeringNode.getChild(
                     "curnit-id").getValue()));
             sdsOffering.setSdsCurnit(sdsCurnit);
 
             SdsJnlp sdsJnlp = new SdsJnlp();
-            sdsJnlp.setSdsObjectId(new Integer(offeringNode.getChild("jnlp-id")
+            sdsJnlp.setSdsObjectId(new Long(offeringNode.getChild("jnlp-id")
                     .getValue()));
             sdsOffering.setSdsJnlp(sdsJnlp);
 

@@ -42,7 +42,7 @@ public class HibernateAnnotationBundleDaoTest
 		extends
 		AbstractTransactionalDaoTests<HibernateAnnotationBundleDao, AnnotationBundle> {
 
-	private static final Integer SDS_ID = new Integer(42);
+	private static final Long SDS_ID = new Long(42);
 
 	private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
 

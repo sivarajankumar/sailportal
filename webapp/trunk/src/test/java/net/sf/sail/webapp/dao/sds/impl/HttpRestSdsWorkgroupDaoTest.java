@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -103,7 +104,7 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
     @SuppressWarnings("unchecked")
     public void testSave_NewSdsWorkgroup() throws Exception {
         // create offering in SDS
-        Integer sdsOfferingId = this.createWholeOffering();
+    	Long sdsOfferingId = this.createWholeOffering();
         this.sdsOffering.setSdsObjectId(sdsOfferingId);
 
         this.sdsWorkgroup.setName(DEFAULT_NAME);
@@ -111,7 +112,7 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
         this.sdsWorkgroup.addMember(this.sdsUser);
 
         // create user in SDS
-        Integer sdsUserId = createUserInSds();
+        Long sdsUserId = createUserInSds();
         this.sdsUser.setSdsObjectId(sdsUserId);
 
         assertNull(this.sdsWorkgroup.getSdsObjectId());
@@ -127,12 +128,12 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
         Document doc = createDocumentFromResponse(webResponse);
 
         Element rootElement = doc.getRootElement();
-        assertEquals(this.sdsWorkgroup.getSdsObjectId(), new Integer(
+        assertEquals(this.sdsWorkgroup.getSdsObjectId(), new Long(
                 rootElement.getChild("id").getValue()));
         assertEquals(this.sdsWorkgroup.getName(), rootElement.getChild("name")
                 .getValue());
         assertEquals(this.sdsWorkgroup.getSdsOffering().getSdsObjectId(),
-                new Integer(rootElement.getChild("offering-id").getValue()));
+                new Long(rootElement.getChild("offering-id").getValue()));
 
         // compare the members in the workgroup
         webResponse = makeHttpRestGetRequest("/workgroup/"
@@ -146,7 +147,7 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
                 "/workgroup-memberships/workgroup-membership").selectNodes(doc);
 
         assertEquals(1, nodeList.size());
-        assertEquals(this.sdsUser.getSdsObjectId(), new Integer(nodeList.get(0)
+        assertEquals(this.sdsUser.getSdsObjectId(), new Long(nodeList.get(0)
                 .getChild("sail-user-id").getValue()));
     }
 
@@ -157,7 +158,7 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
     @SuppressWarnings("unchecked")
     public void testSave_NewSdsWorkgroup_NoMembers() throws Exception {
         // create offering in SDS
-        Integer sdsOfferingId = this.createWholeOffering();
+    	Long sdsOfferingId = this.createWholeOffering();
         this.sdsOffering.setSdsObjectId(sdsOfferingId);
 
         this.sdsWorkgroup.setName(DEFAULT_NAME);
@@ -176,12 +177,12 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
         Document doc = createDocumentFromResponse(webResponse);
 
         Element rootElement = doc.getRootElement();
-        assertEquals(this.sdsWorkgroup.getSdsObjectId(), new Integer(
+        assertEquals(this.sdsWorkgroup.getSdsObjectId(), new Long(
                 rootElement.getChild("id").getValue()));
         assertEquals(this.sdsWorkgroup.getName(), rootElement.getChild("name")
                 .getValue());
         assertEquals(this.sdsWorkgroup.getSdsOffering().getSdsObjectId(),
-                new Integer(rootElement.getChild("offering-id").getValue()));
+                new Long(rootElement.getChild("offering-id").getValue()));
 
         // compare the members in the workgroup
         webResponse = makeHttpRestGetRequest("/workgroup/"
@@ -237,10 +238,10 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
      */
     public void testUpdateWorkgroupNoMembers() throws Exception {
 
-        Integer sdsOfferingId = this.createWholeOffering();
+    	Long sdsOfferingId = this.createWholeOffering();
 
         // create workgroup in SDS
-        Integer sdsWorkgroupId = this.createWorkgroupInSds(sdsOfferingId);
+    	Long sdsWorkgroupId = this.createWorkgroupInSds(sdsOfferingId);
         SdsWorkgroup actualSdsWorkgroup = this
                 .getWorkgroupInSds(sdsWorkgroupId);
 
@@ -253,8 +254,8 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
                 .getBean("sdsWorkgroup");
         sdsWorkgroupToUpdate.setName("updated");
 
-        Integer newSdsOfferingId = this.createWholeOffering();
-        SdsOffering newSdsOffering = this.getOfferngInSds(newSdsOfferingId);
+        Serializable newSdsOfferingId = this.createWholeOffering();
+        SdsOffering newSdsOffering = this.getOfferingAlternativeMethod(newSdsOfferingId);
 
         sdsWorkgroupToUpdate.setSdsOffering(newSdsOffering);
         sdsWorkgroupToUpdate.setSdsObjectId(sdsWorkgroupId);
@@ -275,15 +276,15 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
      */
     public void testUpdateWorkgroup() throws Exception {
 
-        Integer sdsOfferingId = this.createWholeOffering();
+    	Long sdsOfferingId = this.createWholeOffering();
 
         // create workgroup in SDS
-        Integer sdsWorkgroupId = this.createWorkgroupInSds(sdsOfferingId);
+    	Long sdsWorkgroupId = this.createWorkgroupInSds(sdsOfferingId);
 
         // create user in SDS
-        Integer sdsUserId = createUserInSds();
+    	Long sdsUserId = createUserInSds();
         this.sdsUser = this.getUserInSds(sdsUserId);
-        Set<Integer> sdsUserIds = new HashSet<Integer>();
+        Set<Long> sdsUserIds = new HashSet<Long>();
         sdsUserIds.add(sdsUserId);
 
         // add user to workgroup as member in SDS
@@ -303,12 +304,12 @@ public class HttpRestSdsWorkgroupDaoTest extends AbstractSpringHttpUnitTests {
                 .getBean("sdsWorkgroup");
         sdsWorkgroupToUpdate.setName("updated");
 
-        Integer newSdsOfferingId = this.createWholeOffering();
-        SdsOffering newSdsOffering = this.getOfferngInSds(newSdsOfferingId);
+        Serializable newSdsOfferingId = this.createWholeOffering();
+        SdsOffering newSdsOffering = this.getOfferingAlternativeMethod(newSdsOfferingId);
         sdsWorkgroupToUpdate.setSdsOffering(newSdsOffering);
 
         // create another user in SDS
-        Integer newSdsUserId = createUserInSds();
+        Long newSdsUserId = createUserInSds();
         SdsUser newSdsUser = this.getUserInSds(newSdsUserId);
 
         sdsWorkgroupToUpdate.addMember(newSdsUser);

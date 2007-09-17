@@ -81,7 +81,7 @@ public class SdsOffering implements SdsObject {
     private SdsJnlp sdsJnlp;
 
     @Column(name = SdsOffering.COLUMN_NAME_OFFERING_ID, unique = true, nullable = false)
-    private Integer sdsObjectId;
+    private Long sdsObjectId;
 
     @Column(name=SdsOffering.COLUMN_NAME_SDS_CURNITMAP)
     private String sdsCurnitMap;
@@ -97,14 +97,14 @@ public class SdsOffering implements SdsObject {
     /**
      * @see net.sf.sail.webapp.domain.sds.SdsObject#getSdsObjectId()
      */
-    public Integer getSdsObjectId() {
+    public Long getSdsObjectId() {
         return this.sdsObjectId;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.sds.SdsObject#setSdsObjectId(java.lang.Integer)
+     * @see net.sf.sail.webapp.domain.sds.SdsObject#setSdsObjectId(java.lang.Long)
      */
-    public void setSdsObjectId(Integer id) {
+    public void setSdsObjectId(Long id) {
         this.sdsObjectId = id;
     }
 

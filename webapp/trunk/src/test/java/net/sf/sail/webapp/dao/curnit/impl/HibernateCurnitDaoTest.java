@@ -33,7 +33,7 @@ import net.sf.sail.webapp.domain.sds.SdsCurnit;
  */
 public class HibernateCurnitDaoTest extends AbstractTransactionalDaoTests<HibernateCurnitDao, Curnit> {
 
-    private static final Integer SDS_ID = new Integer(7);
+    private static final Long SDS_ID = new Long(7);
 
     private static final String DEFAULT_NAME = "Airbags";
 

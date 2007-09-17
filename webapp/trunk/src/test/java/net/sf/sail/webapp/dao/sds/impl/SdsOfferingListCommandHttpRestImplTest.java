@@ -147,15 +147,15 @@ public class SdsOfferingListCommandHttpRestImplTest extends
     private SdsOffering createOffering(int objectId, int curnitId, int jnlpId,
             String name) {
         SdsOffering offering = new SdsOffering();
-        offering.setSdsObjectId(objectId);
+        offering.setSdsObjectId(new Long(objectId));
         offering.setName(name);
 
         SdsCurnit curnit = new SdsCurnit();
-        curnit.setSdsObjectId(curnitId);
+        curnit.setSdsObjectId(new Long(curnitId));
         offering.setSdsCurnit(curnit);
 
         SdsJnlp jnlp = new SdsJnlp();
-        jnlp.setSdsObjectId(jnlpId);
+        jnlp.setSdsObjectId(new Long(jnlpId));
         offering.setSdsJnlp(jnlp);
 
         return offering;

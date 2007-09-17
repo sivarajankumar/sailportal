@@ -51,7 +51,7 @@ public class SdsWorkgroupUpdateCommandHttpRestImplTest extends
         this.expectedSdsWorkgroup.setName(EXPECTED_NAME);
         
         SdsOffering existingOffering = new SdsOffering();
-        Integer existingOfferingId = new Integer(EXPECTED_ID);
+        Long existingOfferingId = new Long(EXPECTED_ID);
         existingOffering.setSdsObjectId(existingOfferingId);
         expectedSdsWorkgroup.setSdsOffering(existingOffering);
         

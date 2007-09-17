@@ -77,7 +77,7 @@ public class SdsWorkgroup implements SdsObject {
     private Integer version = null;
 
     @Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_ID, unique = true, nullable = false)
-    private Integer sdsObjectId;
+    private Long sdsObjectId;
 
     @Column(name = SdsWorkgroup.COLUMN_NAME_WORKGROUP_NAME, nullable = false)
     private String name;
@@ -108,14 +108,14 @@ public class SdsWorkgroup implements SdsObject {
     /**
      * @see net.sf.sail.webapp.domain.sds.SdsObject#getSdsObjectId()
      */
-    public Integer getSdsObjectId() {
+    public Long getSdsObjectId() {
         return this.sdsObjectId;
     }
 
     /**
-     * @see net.sf.sail.webapp.domain.sds.SdsObject#setSdsObjectId(java.lang.Integer)
+     * @see net.sf.sail.webapp.domain.sds.SdsObject#setSdsObjectId(java.lang.Long)
      */
-    public void setSdsObjectId(Integer sdsObjectId) {
+    public void setSdsObjectId(Long sdsObjectId) {
         this.sdsObjectId = sdsObjectId;
     }
 

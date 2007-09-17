@@ -33,11 +33,11 @@ public interface SdsObject extends Serializable {
      * @param id
      *            the SDS identifier for this object
      */
-    public void setSdsObjectId(Integer id);
+    public void setSdsObjectId(Long id);
 
     /**
-     * @return <code>Integer</code> that is the SDS identifier for this object
+     * @return <code>Long</code> that is the SDS identifier for this object
      *         (i.e. primary key of offering ID).
      */
-    public Integer getSdsObjectId();
+    public Long getSdsObjectId();
 }

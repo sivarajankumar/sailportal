@@ -59,11 +59,11 @@ public class HibernateWorkgroupDaoAnotherTest extends
 
     private static final String PASSWORD = "password";
 
-    private static final Integer SDS_ID = new Integer(42);
+    private static final Long SDS_ID = new Long(42);
 
-    private static final Integer SDS_ID_A = new Integer(12);
+    private static final Long SDS_ID_A = new Long(12);
 
-    private static final Integer SDS_ID_B = new Integer(32);
+    private static final Long SDS_ID_B = new Long(32);
 
     private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
 
@@ -168,13 +168,13 @@ public class HibernateWorkgroupDaoAnotherTest extends
         Set<User> membersB = new HashSet<User>(1);
         membersB.add(userB);
 
-        Workgroup workgroup1 = createNewWorkgroup(session, 1, offeringA,
+        Workgroup workgroup1 = createNewWorkgroup(session, new Long(1), offeringA,
                 membersA);
-        Workgroup workgroup2 = createNewWorkgroup(session, 2, offeringA,
+        Workgroup workgroup2 = createNewWorkgroup(session, new Long(2), offeringA,
                 membersB);
-        Workgroup workgroup3 = createNewWorkgroup(session, 3, offeringB,
+        Workgroup workgroup3 = createNewWorkgroup(session, new Long(3), offeringB,
                 membersA);
-        Workgroup workgroup4 = createNewWorkgroup(session, 4, offeringB,
+        Workgroup workgroup4 = createNewWorkgroup(session, new Long(4), offeringB,
                 membersB);
 
         this.toilet.flush();
@@ -200,7 +200,7 @@ public class HibernateWorkgroupDaoAnotherTest extends
         assertEquals(workgroup4, actualWorkgroupList.get(0));
     }
 
-    private Workgroup createNewWorkgroup(Session session, Integer sdsId,
+    private Workgroup createNewWorkgroup(Session session, Long sdsId,
             Offering offering, Set<User> members) {
         SdsWorkgroup sdsWorkgroup = (SdsWorkgroup) this.applicationContext
                 .getBean("sdsWorkgroup");
@@ -223,7 +223,7 @@ public class HibernateWorkgroupDaoAnotherTest extends
         return workgroup;
     }
 
-    private Offering createNewOffering(Session session, Integer sdsId) {
+    private Offering createNewOffering(Session session, Long sdsId) {
         SdsOffering sdsOffering = (SdsOffering) this.applicationContext
                 .getBean("sdsOffering");
         sdsOffering.setName(DEFAULT_NAME);
@@ -238,7 +238,7 @@ public class HibernateWorkgroupDaoAnotherTest extends
         return offering;
     }
 
-    private User createNewUser(String username, Integer sdsId, Session session) {
+    private User createNewUser(String username, Long sdsId, Session session) {
         User user = (User) this.applicationContext.getBean("user");
         SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
         sdsUser.setFirstName(DEFAULT_NAME);

@@ -20,23 +20,24 @@ package net.sf.sail.webapp.presentation.web.controllers.admin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.impl.AdminOfferingParameters;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.AbstractCommandController;
 
 /**
  * @author Laurel Williams
  * 
  * @version $Id$
  * 
- * 
  */
-public class AdminOfferingController extends AbstractController {
+public class AdminOfferingController extends AbstractCommandController {
 
 	private OfferingService offeringService;
 
@@ -47,38 +48,28 @@ public class AdminOfferingController extends AbstractController {
 	private static final String VIEW_NAME = "admin/adminoffering";
 
 	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	protected ModelAndView handleRequestInternal(
-			HttpServletRequest servletRequest,
-			HttpServletResponse servletResponse) throws Exception {
-
-		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-		ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
-
-		Long offeringId = Long.valueOf(servletRequest
-				.getParameter(OFFERING_ID_KEY));
-		Offering offering;
-		try {
-			offering = this.offeringService.getOffering(offeringId);
-			modelAndView.addObject(OFFERING_KEY, offering);
-		} catch (ObjectNotFoundException e) {
-			e.printStackTrace();
-			//TODO LAW do something.
-//			errors.rejectValue("projectcode", "error.illegal-projectcode");
-//			return showForm(servletRequest, servletResponse, errors);
-		}
-		return modelAndView;
-	}
-
-	/**
 	 * @param offeringService
 	 *            the offeringService to set
 	 */
 	@Required
 	public void setOfferingService(OfferingService offeringService) {
 		this.offeringService = offeringService;
+	}
+
+	@Override
+	protected ModelAndView handle(HttpServletRequest servletRequest,
+			HttpServletResponse servletResponse, Object command, BindException errors) {
+		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+		ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
+
+		AdminOfferingParameters adminOfferingParameters = (AdminOfferingParameters) command;
+		Offering offering;
+		try {
+			offering = this.offeringService.getOffering(adminOfferingParameters.getOfferingId());
+			modelAndView.addObject(OFFERING_KEY, offering);
+		} catch (ObjectNotFoundException e) {
+			errors.rejectValue(OFFERING_ID_KEY, "error.illegal-projectcode");
+		}
+		return modelAndView;	
 	}
 }

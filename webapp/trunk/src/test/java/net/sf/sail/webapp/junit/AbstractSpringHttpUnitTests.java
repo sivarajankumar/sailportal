@@ -20,6 +20,7 @@ package net.sf.sail.webapp.junit;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Set;
@@ -154,7 +155,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws IOException
      * @throws SAXException
      */
-    protected Integer createUserInSds() throws MalformedURLException,
+    protected Long createUserInSds() throws MalformedURLException,
             IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/sail_user",
                 "<user><first-name>" + DEFAULT_NAME
@@ -173,7 +174,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws JDOMException
      * @throws SAXException
      */
-    protected SdsCurnit getCurnitInSds(Integer sdsCurnitId) throws IOException,
+    protected SdsCurnit getCurnitInSds(Long sdsCurnitId) throws IOException,
             JDOMException, SAXException {
         WebResponse webResponse = this.makeHttpRestGetRequest("/curnit/"
                 + sdsCurnitId);
@@ -185,7 +186,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         Element curnitElement = doc.getRootElement();
         sdsCurnit.setName(curnitElement.getChild("name").getValue());
         sdsCurnit.setUrl(curnitElement.getChild("url").getValue());
-        sdsCurnit.setSdsObjectId(new Integer(curnitElement.getChild("id")
+        sdsCurnit.setSdsObjectId(new Long(curnitElement.getChild("id")
                 .getValue()));
         return sdsCurnit;
     }
@@ -200,7 +201,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws JDOMException
      * @throws SAXException
      */
-    protected SdsJnlp getJnlpInSds(Integer sdsJnlpId) throws IOException,
+    protected SdsJnlp getJnlpInSds(Long sdsJnlpId) throws IOException,
             JDOMException, SAXException {
         WebResponse webResponse = this.makeHttpRestGetRequest("/jnlp/"
                 + sdsJnlpId);
@@ -211,7 +212,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         Element jnlpElement = doc.getRootElement();
         sdsJnlp.setName(jnlpElement.getChild("name").getValue());
         sdsJnlp.setUrl(jnlpElement.getChild("url").getValue());
-        sdsJnlp.setSdsObjectId(new Integer(jnlpElement.getChild("id")
+        sdsJnlp.setSdsObjectId(new Long(jnlpElement.getChild("id")
                 .getValue()));
         return sdsJnlp;
     }
@@ -228,7 +229,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws JDOMException
      * @throws SAXException
      */
-    protected SdsOffering getOfferngInSds(Integer sdsOfferingId)
+    protected SdsOffering getOfferingAlternativeMethod(Serializable sdsOfferingId)
             throws IOException, JDOMException, SAXException {
         WebResponse webResponse = this.makeHttpRestGetRequest("/offering/"
                 + sdsOfferingId);
@@ -239,15 +240,15 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
                 .getBean("sdsOffering");
         Element offeringElement = doc.getRootElement();
         sdsOffering.setName(offeringElement.getChild("name").getValue());
-        sdsOffering.setSdsObjectId(new Integer(offeringElement.getChild("id")
+        sdsOffering.setSdsObjectId(new Long(offeringElement.getChild("id")
                 .getValue()));
 
-        Integer sdsCurnitId = new Integer(offeringElement.getChild("curnit-id")
+        Long sdsCurnitId = new Long(offeringElement.getChild("curnit-id")
                 .getValue());
         SdsCurnit sdsCurnit = this.getCurnitInSds(sdsCurnitId);
         sdsOffering.setSdsCurnit(sdsCurnit);
 
-        Integer sdsJnlpId = new Integer(offeringElement.getChild("jnlp-id")
+        Long sdsJnlpId = new Long(offeringElement.getChild("jnlp-id")
                 .getValue());
         SdsJnlp sdsJnlp = this.getJnlpInSds(sdsJnlpId);
         sdsOffering.setSdsJnlp(sdsJnlp);
@@ -268,7 +269,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws SAXException
      */
     @SuppressWarnings("unchecked")
-    protected SdsWorkgroup getWorkgroupInSds(Integer sdsWorkgroupId)
+    protected SdsWorkgroup getWorkgroupInSds(Serializable sdsWorkgroupId)
             throws IOException, JDOMException, SAXException {
         String WORKGROUP_PATH = "/workgroup/" + sdsWorkgroupId;
         WebResponse webResponse = this.makeHttpRestGetRequest(WORKGROUP_PATH);
@@ -280,12 +281,12 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
         Element workgroupElement = doc.getRootElement();
         sdsWorkgroup.setName(workgroupElement.getChild("name").getValue());
-        sdsWorkgroup.setSdsObjectId(new Integer(workgroupElement.getChild("id")
+        sdsWorkgroup.setSdsObjectId(new Long(workgroupElement.getChild("id")
                 .getValue()));
 
         Integer sdsOfferingId = new Integer(workgroupElement.getChild(
                 "offering-id").getValue());
-        SdsOffering sdsOffering = this.getOfferngInSds(sdsOfferingId);
+        SdsOffering sdsOffering = this.getOfferingAlternativeMethod(sdsOfferingId);
         sdsWorkgroup.setSdsOffering(sdsOffering);
 
         WebResponse membersWebResponse = this
@@ -298,7 +299,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
                 .selectNodes(membersDoc);
 
         for (Element memberNode : memberElements) {
-            SdsUser sdsUser = this.getUserInSds(new Integer(memberNode
+            SdsUser sdsUser = this.getUserInSds(new Long(memberNode
                     .getValue()));
             sdsWorkgroup.addMember(sdsUser);
         }
@@ -316,7 +317,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws JDOMException
      * @throws SAXException
      */
-    protected SdsUser getUserInSds(Integer sdsUserId) throws IOException,
+    protected SdsUser getUserInSds(Serializable sdsUserId) throws IOException,
             JDOMException, SAXException {
         WebResponse webResponse = this.makeHttpRestGetRequest("/sail_user/"
                 + sdsUserId);
@@ -327,7 +328,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         Element userElement = doc.getRootElement();
         sdsUser.setFirstName(userElement.getChild("first-name").getValue());
         sdsUser.setLastName(userElement.getChild("last-name").getValue());
-        sdsUser.setSdsObjectId(new Integer(userElement.getChild("id")
+        sdsUser.setSdsObjectId(new Long(userElement.getChild("id")
                 .getValue()));
         return sdsUser;
     }
@@ -345,7 +346,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws IOException
      * @throws SAXException
      */
-    protected Integer createOfferingInSds(Integer sdsCurnitId, Integer sdsJnlpId)
+    protected Long createOfferingInSds(Long sdsCurnitId, Long sdsJnlpId)
             throws MalformedURLException, IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/offering",
                 "<offering><name>" + DEFAULT_NAME + "</name><curnit-id>"
@@ -364,7 +365,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws IOException
      * @throws SAXException
      */
-    protected Integer createWorkgroupInSds(Integer sdsOfferingId)
+    protected Long createWorkgroupInSds(Long sdsOfferingId)
             throws MalformedURLException, IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/workgroup",
                 "<workgroup><name>" + DEFAULT_NAME + "</name><offering-id>"
@@ -381,11 +382,11 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws IOException
      * @throws SAXException
      */
-    protected void createWorkgroupMembersInSds(Integer sdsWorkgroupId,
-            Set<Integer> sdsUserIds) throws MalformedURLException, IOException,
+    protected void createWorkgroupMembersInSds(Long sdsWorkgroupId,
+            Set<Long> sdsUserIds) throws MalformedURLException, IOException,
             SAXException {
         String memberList = "<workgroup-memberships><workgroup-membership>";
-        for (Integer sdsUserId : sdsUserIds) {
+        for (Serializable sdsUserId : sdsUserIds) {
             memberList += "<sail-user-id>" + sdsUserId + "</sail-user-id>";
         }
         memberList += "</workgroup-membership></workgroup-memberships>";
@@ -402,7 +403,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws IOException
      * @throws SAXException
      */
-    protected Integer createJnlpInSds() throws MalformedURLException,
+    protected Long createJnlpInSds() throws MalformedURLException,
             IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/jnlp",
                 "<jnlp><name>" + DEFAULT_NAME + "</name><url>"
@@ -419,7 +420,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
      * @throws IOException
      * @throws SAXException
      */
-    protected Integer createCurnitInSds() throws MalformedURLException,
+    protected Long createCurnitInSds() throws MalformedURLException,
             IOException, SAXException {
         WebResponse webResponse = this.makeHttpRestPostRequest("/curnit",
                 "<curnit><name>" + DEFAULT_NAME + "</name><url>"
@@ -427,18 +428,14 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
         return this.extractNewlyCreatedId(webResponse);
     }
 
-    /**
-     * @param webResponse
-     * @return
-     */
-    private Integer extractNewlyCreatedId(WebResponse webResponse) {
+    private Long extractNewlyCreatedId(WebResponse webResponse) {
         assertEquals(HttpStatus.SC_CREATED, webResponse.getResponseCode());
         String locationHeader = webResponse.getHeaderField("Location");
-        return new Integer(locationHeader.substring(locationHeader
+        return new Long(locationHeader.substring(locationHeader
                 .lastIndexOf("/") + 1));
     }
 
-    protected Integer createWholeOffering() throws MalformedURLException,
+    protected Long createWholeOffering() throws MalformedURLException,
             IOException, SAXException, JDOMException {
         SdsOffering sdsOffering = (SdsOffering) this.applicationContext
                 .getBean("sdsOffering");

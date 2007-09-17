@@ -55,7 +55,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
 
     private static final String PASSWORD = "password";
 
-    private static final Integer SDS_ID = new Integer(42);
+    private static final Long SDS_ID = new Long(42);
 
     private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
 
@@ -242,7 +242,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
         verifyDataStoreWorkgroupMembersListIsEmpty();
     }
 
-    private User createNewUser(String username, Integer sdsId, Session session) {
+    private User createNewUser(String username, Long sdsId, Session session) {
         User user = (User) this.applicationContext.getBean("user");
         SdsUser sdsUser = (SdsUser) this.applicationContext.getBean("sdsUser");
         sdsUser.setFirstName(DEFAULT_NAME);
