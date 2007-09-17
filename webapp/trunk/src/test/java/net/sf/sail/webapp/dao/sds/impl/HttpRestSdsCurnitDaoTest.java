@@ -38,14 +38,6 @@ import com.meterware.httpunit.WebResponse;
  */
 public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 
-	private static final String EXPECTED_NAME = "name";
-
-	// Note that this url cannot be a fake one.
-	// It must return an appropriate jar in order to create the real one in the
-	// sds database
-	// Otherwise the test will fail
-	private static final String EXPECTED_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
-
 	private HttpRestSdsCurnitDao sdsCurnitDao;
 
 	private SdsCurnit sdsCurnit;
@@ -72,8 +64,8 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 	@Override
 	protected void onSetUp() throws Exception {
 		super.onSetUp();
-		this.sdsCurnit.setName(EXPECTED_NAME);
-		this.sdsCurnit.setUrl(EXPECTED_URL);
+		this.sdsCurnit.setName(SdsValidData.VALID_CURNIT_NAME);
+		this.sdsCurnit.setUrl(SdsValidData.VALID_CURNIT_URL);
 	}
 
 	/**
