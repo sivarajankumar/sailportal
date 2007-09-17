@@ -36,12 +36,12 @@
 
 <div style="align:left;">
 ${curnitMap.project.title}
-   <c:forEach var="activity" varStatus="varAct" items="${curnitMap.project.activities}">
-		<h3>Activity <c:out value="${varStep.count}" />: ${activity.title}</h3>  
+   <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
+		<h3>Activity <c:out value="${varStep.count}" />: ${someAct.title}</h3>  
 		<ul> 
-			<c:forEach var="step" varStatus="varStep" items="${activity.steps}">
+			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
 				
-				<li><a href="gradingtool.html?GRADE_TYPE=step?stepId=${step.id}">Step <c:out value="${varStep.count}" /> : ${step.title}</li></a></li>
+				<li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  : ${someStep.title}</li></a></li>
 			</c:forEach>
 		</ul>
     </c:forEach>

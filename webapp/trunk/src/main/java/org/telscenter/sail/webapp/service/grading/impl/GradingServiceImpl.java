@@ -94,13 +94,23 @@ public class GradingServiceImpl implements GradingService {
 		        "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
 		        "</annotationGroups></sailuserdata:EAnnotationBundle>";
 		User user1 = new UserImpl();
-		String username1 = "username1";
+		User user2 = new UserImpl();
+		//create user1
+		String username1 = "Tony";
 		MutableUserDetails userDetails1 = new PersistentUserDetails();
 		userDetails1.setUsername(username1);
 		user1.setUserDetails(userDetails1);
+		
+		String username2 = "Hiroki";
+		MutableUserDetails userDetails2 = new PersistentUserDetails();
+		userDetails2.setUsername(username2);
+		user2.setUserDetails(userDetails2);
+		
+		
 		Offering offering = new OfferingImpl();
 		Workgroup workgroup1 = new WorkgroupImpl();
 		workgroup1.addMember(user1);
+		workgroup1.addMember(user2);
 		workgroup1.setOffering(offering);
 		
 		AnnotationBundle annotationBundle1 = new AnnotationBundleImpl();

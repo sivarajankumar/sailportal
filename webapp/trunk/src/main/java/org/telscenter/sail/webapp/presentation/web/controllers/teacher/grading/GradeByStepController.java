@@ -58,10 +58,8 @@ public class GradeByStepController extends AbstractController {
 		if( runId != null ) {
 			System.out.println("The runId is "+runId);
 			
-			GradingService gs = new GradingServiceImpl();
-			ECurnitmap curnitMap = gs.getCurnitmap(new Long(runId));
-//			EStep step = new EStep();
-//			step.getPodUUID()
+			//GradingService gs = new GradingServiceImpl();
+			ECurnitmap curnitMap = gradingService.getCurnitmap(new Long(runId));
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
 			modelAndView.addObject(CURNIT_MAP, curnitMap);
@@ -82,6 +80,8 @@ public class GradeByStepController extends AbstractController {
 		return gradingService;
 	}
 
-	
+	public void setGradingService(GradingService gradingService) {
+		this.gradingService = gradingService;
+	}
 
 }

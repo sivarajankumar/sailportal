@@ -27,8 +27,6 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.emf.sailuserdata.ESessionBundle;
-
 import org.eclipse.emf.common.util.EList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -37,6 +35,7 @@ import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EProject;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
+import org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl;
 
@@ -48,8 +47,11 @@ import org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl;
  */
 public class GradingToolController extends AbstractController {
 
+	private static final String STEP = "step";
 	public static final String PODUUID = "podUUID";
 	public static final String STEP_AGGREGATE = "stepAggregate";
+	public static final String GRADE_TYPE = "GRADE_TYPE";
+	private GradingService gradingService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -62,38 +64,50 @@ public class GradingToolController extends AbstractController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 
+		String gradingType = request.getParameter(this.GRADE_TYPE);
+		String runId = request.getParameter(GradeByStepController.RUN_ID);
+		String podUUID = request.getParameter(PODUUID);
 		
-//		String runId = request.getParameter(GradeByStepController.RUN_ID);
-//		String podUUID = request.getParameter(PODUUID);
-//		
-//		GradingService gs = new GradingServiceImpl();
-//		ECurnitmap curnitMap = gs.getCurnitmap(new Long(runId));
-//		ESessionBundle
-//		EProject project = curnitMap.getProject();
-//		
-//		EList activities = project.getActivity();
-//		for (Iterator iterator = activities.iterator(); iterator.hasNext();) {
-//			EActivity activity = (EActivity) iterator.next();
-//			
-//			EList steps = activity.getStep();
-//			
-//			for (Iterator iterator2 = steps.iterator(); iterator2.hasNext();) {
-//				EStep step = (EStep) iterator2.next();
-//				if( step.getPodUUID().equals(podUUID)) {
-//					System.out.println("we got it!");
-//					
-//					GradeWorkByStepAggregate gradeWorkByStepAggregate = gs.getGradeWorkByStepAggregate(new Long(runId), step);
-//					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregate);
-//				}// if
-//			}// for
-//			
-//		}
+		
+		ECurnitmap curnitMap = this.gradingService.getCurnitmap(new Long(runId));
+		EProject project = curnitMap.getProject();
+		
+		EList activities = project.getActivity();
+		for (Iterator iterator = activities.iterator(); iterator.hasNext();) {
+			EActivity activity = (EActivity) iterator.next();
+			
+			EList steps = activity.getStep();
+			
+			for (Iterator iterator2 = steps.iterator(); iterator2.hasNext();) {
+				EStep step = (EStep) iterator2.next();
+				if( step.getPodUUID().toString().equals(podUUID)) {
+					System.out.println("we got it!");
+					
+					GradeWorkByStepAggregate gradeWorkByStepAggregate = this.gradingService.getGradeWorkByStepAggregate(new Long(runId), step);
+					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregate);
+					modelAndView.addObject(STEP,step);
+					
+					System.out.println("KeySet: " + gradeWorkByStepAggregate.getSessionBundles().keySet());
+					System.out.println("values: " + gradeWorkByStepAggregate.getSessionBundles().values());
+					return modelAndView;
+				}// if
+			}// for
+			
+		}
 		
 //		getGradeWorkByStepAggregate(Long runId,
 //				EStep step)
 
 		
         return modelAndView;
+	}
+
+	public GradingService getGradingService() {
+		return gradingService;
+	}
+
+	public void setGradingService(GradingService gradingService) {
+		this.gradingService = gradingService;
 	}
 
 }
