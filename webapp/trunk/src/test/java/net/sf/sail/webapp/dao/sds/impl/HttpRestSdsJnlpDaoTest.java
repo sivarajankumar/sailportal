@@ -28,10 +28,6 @@ import net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests;
  */
 public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 
-    private static final String EXPECTED_NAME = "name";
-
-    private static final String EXPECTED_URL = "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot-20070125-0811.jnlp";
-
     private HttpRestSdsJnlpDao sdsJnlpDao;
 
     private SdsJnlp sdsJnlp;
@@ -58,8 +54,8 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
     @Override
     protected void onSetUp() throws Exception {
         super.onSetUp();
-        this.sdsJnlp.setName(EXPECTED_NAME);
-        this.sdsJnlp.setUrl(EXPECTED_URL);
+        this.sdsJnlp.setName(SdsValidData.VALID_JNLP_NAME);
+        this.sdsJnlp.setUrl(SdsValidData.VALID_JNLP_URL);
     }
 
     /**
@@ -108,9 +104,9 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 				.getBean("sdsJnlp");
 		sdsJnlpToUpdate.setSdsObjectId(sdsJnlpId);
 
-		String updateName = "Updated";
-		String updateURL = EXPECTED_URL;
-
+		String updateName = "Updated_Valid_JNLP";
+		String updateURL = SdsValidData.VALID_JNLP_URL;
+		
 		sdsJnlpToUpdate.setName(updateName);
 		sdsJnlpToUpdate.setUrl(updateURL);
 		this.sdsJnlpDao.save(sdsJnlpToUpdate);
