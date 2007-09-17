@@ -20,104 +20,92 @@
 <!-- $Id$ -->
 
 <project name="sail-webapp" default="echo" basedir=".">
-    <description>
+  <description>
       Build file for using Hibernate Tools for database schema generation.
     </description>
-    <property file="build.properties" />
+  <property file="build.properties" />
 
-    <path id="lib.servlet-api">
-        <path location="${M2_REPO}/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar"
-        />
-    </path>
+  <path id="lib.servlet-api">
+    <path location="${M2_REPO}/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar" />
+  </path>
 
-    <path id="lib.jdbc">
-        <path location="${M2_REPO}/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar" />
-        <path location="${M2_REPO}/mysql/mysql-connector-java/5.0.5/mysql-connector-java-5.0.5.jar"
-        />
-    </path>
+  <path id="lib.jdbc">
+    <path location="${M2_REPO}/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar" />
+    <path location="${M2_REPO}/mysql/mysql-connector-java/5.0.5/mysql-connector-java-5.0.5.jar" />
+  </path>
 
-    <path id="lib.commons-logging">
-        <path location="${M2_REPO}/commons-logging/commons-logging/1.1/commons-logging-1.1.jar"
-        />
-    </path>
+  <path id="lib.commons-logging">
+    <path location="${M2_REPO}/commons-logging/commons-logging/1.1/commons-logging-1.1.jar" />
+  </path>
 
-    <path id="lib.commons-dbcp">
-        <path location="${M2_REPO}/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar"
-        />
-        <path location="${M2_REPO}/commons-pool/commons-pool/1.2/commons-pool-1.2.jar"
-        />
-    </path>
+  <path id="lib.commons-dbcp">
+    <path location="${M2_REPO}/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar" />
+    <path location="${M2_REPO}/commons-pool/commons-pool/1.2/commons-pool-1.2.jar" />
+  </path>
 
-    <path id="lib.commons-collections">
-        <path location="${M2_REPO}/commons-collections/commons-collections/3.2/commons-collections-3.2.jar"
-        />
-    </path>
+  <path id="lib.commons-collections">
+    <path location="${M2_REPO}/commons-collections/commons-collections/3.2/commons-collections-3.2.jar" />
+  </path>
 
-    <path id="lib.dom4j">
-        <path location="${M2_REPO}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" />
-    </path>
+  <path id="lib.dom4j">
+    <path location="${M2_REPO}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" />
+  </path>
 
-    <path id="lib.acegi-security">
-        <path location="${M2_REPO}/org/acegisecurity/acegi-security/1.0.4/acegi-security-1.0.4.jar"
-        />
-        <path location="${M2_REPO}/org/acegisecurity/acegi-security-tiger/1.0.4/acegi-security-tiger-1.0.4.jar"
-        />
-    </path>
+  <path id="lib.acegi-security">
+    <path location="${M2_REPO}/org/acegisecurity/acegi-security/1.0.4/acegi-security-1.0.4.jar" />
+    <path location="${M2_REPO}/org/acegisecurity/acegi-security-tiger/1.0.4/acegi-security-tiger-1.0.4.jar" />
+  </path>
 
-    <path id="lib.hibernate">
-        <path location="${M2_REPO}/org/hibernate/hibernate/3.2.4.ga/hibernate-3.2.4.ga.jar"
-        />
-        <path location="${M2_REPO}/org/hibernate/hibernate-annotations/3.2.1.ga/hibernate-annotations-3.2.1.ga.jar"
-        />
-        <path location="${M2_REPO}/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar"
-        />
-        <path location="${M2_REPO}/antlr/antlr/2.7.6/antlr-2.7.6.jar" />
-    </path>
+  <path id="lib.hibernate">
+    <path location="${M2_REPO}/org/hibernate/hibernate/3.2.4.ga/hibernate-3.2.4.ga.jar" />
+    <path location="${M2_REPO}/org/hibernate/hibernate-annotations/3.2.1.ga/hibernate-annotations-3.2.1.ga.jar" />
+    <path location="${M2_REPO}/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar" />
+    <path location="${M2_REPO}/antlr/antlr/2.7.6/antlr-2.7.6.jar" />
+  </path>
 
-    <path id="lib.jta">
-        <path location="${M2_REPO}/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar"
-        />
-    </path>
+  <path id="lib.jta">
+    <path location="${M2_REPO}/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar" />
+  </path>
 
-    <path id="lib.spring">
-        <path location="${M2_REPO}/org/springframework/spring-context/2.0.5/spring-context-2.0.5.jar"
-        />
-        <path location="${M2_REPO}/org/springframework/spring-beans/2.0.5/spring-beans-2.0.5.jar"
-        />
-        <path location="${M2_REPO}/org/springframework/spring-core/2.0.5/spring-core-2.0.5.jar"
-        />
-        <path location="${M2_REPO}/org/springframework/spring/2.0.5/spring-2.0.5.jar"
-        />
-    </path>
+  <path id="lib.spring">
+    <path location="${M2_REPO}/org/springframework/spring-context/2.0.5/spring-context-2.0.5.jar" />
+    <path location="${M2_REPO}/org/springframework/spring-beans/2.0.5/spring-beans-2.0.5.jar" />
+    <path location="${M2_REPO}/org/springframework/spring-core/2.0.5/spring-core-2.0.5.jar" />
+    <path location="${M2_REPO}/org/springframework/spring/2.0.5/spring-2.0.5.jar" />
+  </path>
 
-    <path id="lib.ehcache">
-        <path location="${M2_REPO}/net/sf/ehcache/ehcache/1.3.0/ehcache-1.3.0.jar"
-        />
-    </path>
+  <path id="lib.ehcache">
+    <path location="${M2_REPO}/net/sf/ehcache/ehcache/1.3.0/ehcache-1.3.0.jar" />
+  </path>
 
-    <path id="lib.cglib">
-        <path location="${M2_REPO}/cglib/cglib/2.1_3/cglib-2.1_3.jar" />
-        <path location="${M2_REPO}/asm/asm/1.5.3/asm-1.5.3.jar" />
-    </path>
+  <path id="lib.cglib">
+    <path location="${M2_REPO}/cglib/cglib/2.1_3/cglib-2.1_3.jar" />
+    <path location="${M2_REPO}/asm/asm/1.5.3/asm-1.5.3.jar" />
+  </path>
 
-    <path id="lib.commons-codec">
-        <path location="${M2_REPO}/commons-codec/commons-codec/1.3/commons-codec-1.3.jar"
-        />
-    </path>
+  <path id="lib.commons-codec">
+    <path location="${M2_REPO}/commons-codec/commons-codec/1.3/commons-codec-1.3.jar" />
+  </path>
 
-    <path id="lib.commons-httpclient">
-        <path location="${M2_REPO}/commons-httpclient/commons-httpclient/3.0.1/commons-httpclient-3.0.1.jar"
-        />
-        <path refid="lib.commons-codec" />
-    </path>
+  <path id="lib.commons-httpclient">
+    <path location="${M2_REPO}/commons-httpclient/commons-httpclient/3.0.1/commons-httpclient-3.0.1.jar" />
+    <path refid="lib.commons-codec" />
+  </path>
 
-    <path id="lib.jdom">
-        <path location="${M2_REPO}/jdom/jdom/1.0/jdom-1.0.jar" />
-    </path>
-  
+  <path id="lib.jdom">
+    <path location="${M2_REPO}/jdom/jdom/1.0/jdom-1.0.jar" />
+  </path>
+
   <path id="lib.javamail">
     <path location="${M2_REPO}/javax/activation/activation/1.1/activation-1.1.jar" />
     <path location="${M2_REPO}/javax/mail/mail/1.4/mail-1.4.jar" />
+  </path>
+
+  <path id="lib.sail">
+    <path location="${M2_REPO}/net/sf/sail/sail-data-emf/0.1.0-SNAPSHOT/sail-data-emf-0.1.0-SNAPSHOT.jar" />
+    <path location="${M2_REPO}/org/eclipse/emf/ecore/2.2.0/ecore-2.2.0.jar" />
+ 	<path location="${M2_REPO}/org/eclipse/emf/common/2.2.0/common-2.2.0.jar" />
+    <path location="${M2_REPO}/org/telscenter/pas-curnitmap/0.1.0-SNAPSHOT/pas-curnitmap-0.1.0-SNAPSHOT.jar" />
   </path>
 
     <path id="classes">
@@ -140,6 +128,7 @@
         <path refid="lib.acegi-security" />
         <path refid="lib.jdom" />
       	<path refid="lib.javamail" />
+        <path refid="lib.sail" />
         <path refid="classes" />
     </path>
 
@@ -147,20 +136,11 @@
     <!-- ================================= 
           target: db.schema-export
          ================================= -->
-    <target name="db.schema-export"
-            depends="_set.properties.jdbc,_mvn.compile, _input.portal.config"
-            description="Generate the database schema from annotated persistent classes in the production code."
-    >
-        <mkdir dir="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}"
-        />
-        <java classname="net.sf.sail.webapp.DbSchemaExporter"
-              fork="true"
-              failonerror="true"
-              newenvironment="true"
-        >
+    <target name="db.schema-export" depends="_set.properties.jdbc,_mvn.compile, _input.portal.config" description="Generate the database schema from annotated persistent classes in the production code.">
+        <mkdir dir="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}" />
+        <java classname="net.sf.sail.webapp.DbSchemaExporter" fork="true" failonerror="true" newenvironment="true">
             <arg value="${spring.configuration.classname}" />
-            <arg value="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}/${schema.export.filename}"
-            />
+            <arg value="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}/${schema.export.filename}" />
             <classpath refid="runtime.classpath" />
         </java>
     </target>
@@ -169,24 +149,16 @@
     <!-- ================================= 
           target: db.create
          ================================= -->
-    <target name="db.create"
-            depends="_set.properties.jdbc, _input.portal.config"
-            description="Create a production database with table structure only.  No initial data inserted."
-    >
+    <target name="db.create" depends="_set.properties.jdbc, _input.portal.config" description="Create a production database with table structure only.  No initial data inserted.">
 
         <!-- determine the database directory and files and delete them first -->
         <tempfile property="temp.file" prefix="temp" suffix=".properties" />
         <propertyfile file="${temp.file}">
-            <entry key="db.directory"
-                   value="${settings.profiles.profile.properties.jdbc.url}"
-            />
-            <entry key="db.prefix"
-                   value="${settings.profiles.profile.properties.jdbc.url}"
-            />
+            <entry key="db.directory" value="${settings.profiles.profile.properties.jdbc.url}" />
+            <entry key="db.prefix" value="${settings.profiles.profile.properties.jdbc.url}" />
         </propertyfile>
         <replaceregexp file="${temp.file}">
-            <regexp pattern="=jdbc\\:hsqldb\\:file\\:(.*)/(.*);shutdown\\=true"
-            />
+            <regexp pattern="=jdbc\\:hsqldb\\:file\\:(.*)/(.*);shutdown\\=true" />
             <substitution expression="=\1" />
         </replaceregexp>
         <replaceregexp file="${temp.file}">
@@ -199,32 +171,16 @@
             <fileset file="${temp.file}" />
         </delete>
 
-        <sql driver="${settings.profiles.profile.properties.jdbc.driverClassName}"
-             url="${settings.profiles.profile.properties.jdbc.url}"
-             userid="${settings.profiles.profile.properties.jdbc.username}"
-             password="${settings.profiles.profile.properties.jdbc.password}"
-             src="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}/${schema.export.filename}"
-             autocommit="false"
-             onerror="abort"
-             classpathref="lib.jdbc"
-        />
+        <sql driver="${settings.profiles.profile.properties.jdbc.driverClassName}" url="${settings.profiles.profile.properties.jdbc.url}" userid="${settings.profiles.profile.properties.jdbc.username}" password="${settings.profiles.profile.properties.jdbc.password}" src="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}/${schema.export.filename}" autocommit="false" onerror="abort" classpathref="lib.jdbc" />
     </target>
 
 
     <!-- ================================= 
           target: db.init
          ================================= -->
-    <target name="db.init"
-            depends="_mvn.compile, db.create"
-            description="Initialize a production database with user role and default administrator account."
-    >
-        <java classname="${init.classname}"
-              fork="true"
-              failonerror="true"
-              newenvironment="true"
-        >
-            <arg value="${settings.profiles.profile.properties.context.config.class}"
-            />
+    <target name="db.init" depends="_mvn.compile, db.create" description="Initialize a production database with user role and default administrator account.">
+        <java classname="${init.classname}" fork="true" failonerror="true" newenvironment="true">
+            <arg value="${settings.profiles.profile.properties.context.config.class}" />
             <classpath refid="runtime.classpath" />
         </java>
     </target>
@@ -235,11 +191,7 @@
          ================================= -->
 
     <target name="_input.portal.config">
-        <input message="Portal configuration?"
-               validargs="pas,tels"
-               addproperty="portal.config"
-               defaultvalue="pas"
-        />
+        <input message="Portal configuration?" validargs="pas,tels" addproperty="portal.config" defaultvalue="pas" />
         <property file="build-${portal.config}.properties" />
     </target>
 
@@ -262,21 +214,13 @@
          ================================= -->
     <target name="_mvn.compile" depends="_verify.version.ant">
         <!-- this should work in Linux, Mac OS X, and other Unix-like OS -->
-        <exec osfamily="Unix"
-              executable="mvn"
-              failonerror="true"
-              failifexecutionfails="true"
-        >
+        <exec osfamily="Unix" executable="mvn" failonerror="true" failifexecutionfails="true">
             <arg value="clean" />
             <arg value="test" />
             <arg value="resources:resources" />
         </exec>
         <!-- this should work for Microsoft Windows NT-based systems, including Windows 2000, XP and successors -->
-        <exec osfamily="Winnt"
-              executable="cmd"
-              failonerror="true"
-              failifexecutionfails="true"
-        >
+        <exec osfamily="Winnt" executable="cmd" failonerror="true" failifexecutionfails="true">
             <arg value="/c" />
             <arg value="mvn.bat" />
             <arg value="clean" />
@@ -296,9 +240,7 @@ The password is currently hard-coded in build.properties as an empty string for 
 When switching to another database, the password needs to be set accordingly.
 The best way to set the password would be to extract it from settings.xml like the driverClassName, etc.
     -->
-        <xmlproperty file="${user.home}/.m2/settings.xml"
-                     semanticAttributes="true"
-        />
+        <xmlproperty file="${user.home}/.m2/settings.xml" semanticAttributes="true" />
     </target>
 
 
