@@ -359,7 +359,6 @@
         	<groupId>net.sf.sail</groupId>
         	<artifactId>sail-core</artifactId>
         	<version>0.4.5-SNAPSHOT</version>
-        	<scope>compile</scope>
         </dependency>
         <dependency>
         	<groupId>net.sf.sail</groupId>
