@@ -35,16 +35,15 @@
 	<bean
 		class="net.sf.sail.webapp.presentation.web.controllers.admin.AdminOfferingController">
 		<property name="offeringService" ref="offeringService" />
-<!--  		<property name="validator" ref="adminOfferingParametersValidator" />  -->
+  		<property name="validator" ref="adminOfferingParametersValidator" />
 		<property name="commandName" value="adminOfferingParameters" />
 		<property name="commandClass"
 			value="net.sf.sail.webapp.domain.impl.AdminOfferingParameters" />
 	</bean>
 
-<!--  	
+	
 	<bean id="adminOfferingParametersValidator"
 		class="net.sf.sail.webapp.presentation.validators.AdminOfferingParametersValidator" />
--->	
 
 	<bean
 		class="net.sf.sail.webapp.presentation.web.controllers.CurnitListController">
