@@ -31,9 +31,9 @@
 
 <%@ include file="teacherHeader.jsp"%>
 
-<h2 id="right" class="north2"><spring:message code="curnitlist.project.library" /></h2>
+<h2 style="position:relative;left:350px;bottom:35px;"><spring:message code="curnitlist.project.library" /></h2>
 
-<table id="right" class="north2" border="1" cellspacing="2" cellpadding="3">
+<table style="position:relative;left:350px;bottom:35px;" border="1" cellspacing="2" cellpadding="3">
   <tr>
     <th><spring:message code="curnitlist.title" /></th>
     <th><spring:message code="curnitlist.options" /></th>
