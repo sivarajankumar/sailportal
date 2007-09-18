@@ -35,37 +35,37 @@
 
 <%@ include file="header.jsp"%>
 
-<div >
-<h2 id="headingPos"><spring:message code="register.new-account" /></h2>
-<h2 id="headingPos"><spring:message code="register.type-of-account" /></h2>
+<div class="center">
+<h2><spring:message code="register.new-account" /></h2>
+<h2><spring:message code="register.type-of-account" /></h2>
 </div>
-<div id="navigation" class="centerpos">
-<ul class="none">
+<div id="navigation" class="center">
+<ul class="plainList">
 <li class="vertical"><spring:message code="register.create-student-account" />
 <a href="student/registerstudent.html" id="studentLinkPos">
-<img id="imgBorderNone" src="<spring:theme code="create_student_account" />" 
-    onmouseover="swapImage('imgBorderNone','<spring:theme code="create_student_account_rollover" />')" 
-    onmouseout="swapImage('imgBorderNone','<spring:theme code="create_student_account" />')"
+<img id="createstudentacct" src="<spring:theme code="create_student_account" />" 
+    onmouseover="swapImage('createstudentacct','<spring:theme code="create_student_account_rollover" />')" 
+    onmouseout="swapImage('createstudentacct','<spring:theme code="create_student_account" />')"
 /> 
 </a>
 </li>
 <li class="vertical"><spring:message code="register.create-teacher-account" />
 <a href="teacher/registerteacher.html" id="studentLinkPos"> 
-<img id="imgBorder2None" src="<spring:theme code="create_teacher_account" />" 
-    onmouseover="swapImage('imgBorder2None','<spring:theme code="create_teacher_account_rollover" />')" 
-    onmouseout="swapImage('imgBorder2None','<spring:theme code="create_teacher_account" />')"
-
+<img id="createteacheracct" src="<spring:theme code="create_teacher_account" />" 
+    onmouseover="swapImage('createteacheracct','<spring:theme code="create_teacher_account_rollover" />')" 
+    onmouseout="swapImage('createteacheracct','<spring:theme code="create_teacher_account" />')"
 />
 </a> 
 </li>
 </ul>
 </div>
 
-<div id="registerDesc" class="border pos1">
-<h4 class="left"> <spring:message code="register.which-account" /> </h4>
-<ul class="left">
-<li id="lineHeightAdj"> <spring:message code="register.student-account-desc" /></li>
-<li id="lineHeightAdj"> <spring:message code="register.teacher-account-desc" /></li>
+<!-- <div id="registerDesc" class="regCenter"> -->
+<div class="center border">
+<h4> <spring:message code="register.which-account" /> </h4>
+<ul>
+<li id="registerDescAcctSpacing"> <spring:message code="register.student-account-desc" /></li>
+<li id="registerDescAcctSpacing"> <spring:message code="register.teacher-account-desc" /></li>
 </ul>
 </div>
 
