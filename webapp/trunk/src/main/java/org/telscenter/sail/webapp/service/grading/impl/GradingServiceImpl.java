@@ -34,6 +34,8 @@ import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
@@ -50,13 +52,13 @@ import org.telscenter.sail.webapp.service.grading.SessionBundleService;
 
 /**
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $ Id: $
  */
 public class GradingServiceImpl implements GradingService {
 
 	private SessionBundleService sessionBundleService;
 	
-	
+	private net.sf.sail.webapp.service.annotation.AnnotationBundleService annotationBundleService;
 	
 	public GradingServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -67,7 +69,7 @@ public class GradingServiceImpl implements GradingService {
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(java.lang.Long)
 	 */
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException {
-		// TODO HT - REPLACE MOCK BELOW WITH ACTUAL CODE WHEN READY	
+		// TODO REPLACE MOCK BELOW WITH ACTUAL CODE WHEN READY	
 		// ALSO ADD LOGIC TO RETRIEVE RUN USING PROVIDED runId PARAMETER
 		String curnitmapXMLString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
 			"<pas:ECurnitmap xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:pas=\"pas\" xsi:schemaLocation=\"pas pas.ecore\">" +
@@ -131,13 +133,113 @@ public class GradingServiceImpl implements GradingService {
 		aggregate.setSessionBundles(sessionBundles);
 		return aggregate;
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradeWorkByStepAggregateAllPeriods(Long, EStep)
+	 */
+	public Map<Group, GradeWorkByStepAggregate> getGradeWorkByStepAggregateAllPeriods(
+			Long runId, EStep step) throws ObjectNotFoundException {
+		// TODO REPLACE MOCK BELOW WITH ACTUAL CODE WHEN READY	
+		String annotationBundleString1 = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
+				"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
+				"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
+		        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
+		        "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
+		        "</annotationGroups></sailuserdata:EAnnotationBundle>";
+
+		//create user1
+		User user1 = new UserImpl();
+		String username1 = "Tony";
+		MutableUserDetails userDetails1 = new PersistentUserDetails();
+		userDetails1.setUsername(username1);
+		user1.setUserDetails(userDetails1);
+		
+		//create user2
+		User user2 = new UserImpl();
+		String username2 = "Hiroki";
+		MutableUserDetails userDetails2 = new PersistentUserDetails();
+		userDetails2.setUsername(username2);
+		user2.setUserDetails(userDetails2);
+		
+		//create user3
+		User user3 = new UserImpl();
+		String username3 = "Freda";
+		MutableUserDetails userDetails3 = new PersistentUserDetails();
+		userDetails3.setUsername(username3);
+		user3.setUserDetails(userDetails3);
+		
+		//create user4
+		User user4 = new UserImpl();
+		String username4 = "Doug";
+		MutableUserDetails userDetails4 = new PersistentUserDetails();
+		userDetails4.setUsername(username4);
+		user4.setUserDetails(userDetails4);
+		
+		Offering offering = new OfferingImpl();
+		Workgroup workgroup1 = new WorkgroupImpl();
+		workgroup1.addMember(user1);
+		workgroup1.addMember(user2);
+		workgroup1.setOffering(offering);
+
+		Workgroup workgroup2 = new WorkgroupImpl();
+		workgroup2.addMember(user3);
+		workgroup2.addMember(user4);
+		workgroup2.setOffering(offering);
+
+		
+		AnnotationBundle annotationBundle1 = new AnnotationBundleImpl();
+		annotationBundle1.setBundle(annotationBundleString1);
+		annotationBundle1.setWorkgroup(workgroup1);
+		Map<Workgroup, AnnotationBundle> annotationBundles1 = new HashMap<Workgroup, AnnotationBundle>();
+		annotationBundles1.put(workgroup1, annotationBundle1);
+		
+		SessionBundle sessionBundle1 = sessionBundleService.getSessionBundle(runId, workgroup1);
+		Map<Workgroup, SessionBundle> sessionBundles1 = new HashMap<Workgroup, SessionBundle>();
+		sessionBundles1.put(workgroup1, sessionBundle1);
+		
+		GradeWorkByStepAggregate aggregate1 = new GradeWorkByStepAggregateImpl();
+		aggregate1.setRunId(runId);
+		aggregate1.setCurnitmap(getCurnitmap(runId));
+		aggregate1.setStep(step);
+		aggregate1.setAnnotationBundles(annotationBundles1);
+		aggregate1.setSessionBundles(sessionBundles1);
+		
+		AnnotationBundle annotationBundle2 = new AnnotationBundleImpl();
+		annotationBundle2.setBundle(annotationBundleString1);
+		annotationBundle2.setWorkgroup(workgroup2);
+		Map<Workgroup, AnnotationBundle> annotationBundles2 = new HashMap<Workgroup, AnnotationBundle>();
+		annotationBundles2.put(workgroup2, annotationBundle2);
+		
+		SessionBundle sessionBundle2 = sessionBundleService.getSessionBundle(runId, workgroup2);
+		Map<Workgroup, SessionBundle> sessionBundles2 = new HashMap<Workgroup, SessionBundle>();
+		sessionBundles2.put(workgroup1, sessionBundle2);
+		
+		GradeWorkByStepAggregate aggregate2 = new GradeWorkByStepAggregateImpl();
+		aggregate2.setRunId(runId);
+		aggregate2.setCurnitmap(getCurnitmap(runId));
+		aggregate2.setStep(step);
+		aggregate2.setAnnotationBundles(annotationBundles2);
+		aggregate2.setSessionBundles(sessionBundles2);
+		
+		Group period1 = new PersistentGroup();
+		period1.setName("period one");
+		Group period2 = new PersistentGroup();
+		period2.setName("period two");
+		Map<Group, GradeWorkByStepAggregate> period_to_aggregate =
+			new HashMap<Group, GradeWorkByStepAggregate>();
+		period_to_aggregate.put(period1, aggregate1);
+		period_to_aggregate.put(period2, aggregate2);
+		
+		return period_to_aggregate;
+	}
+
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradeWorkByStepAggregate(java.lang.Long, java.lang.Long)
 	 */
 	public GradeWorkByWorkgroupAggregate getGradeWorkByStepAggregate(
 			Long runId, Long workgroupId) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub UNIMPLEMENTED
 		return null;
 	}
 
@@ -145,8 +247,9 @@ public class GradingServiceImpl implements GradingService {
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#saveGrades(java.util.List)
 	 */
 	public void saveGrades(List<AnnotationBundle> annotationBundles) {
-		// TODO Auto-generated method stub
-
+		for (AnnotationBundle annotationBundle : annotationBundles) {
+			annotationBundleService.saveAnnotationBundle(annotationBundle);
+		}
 	}
 
 	/**

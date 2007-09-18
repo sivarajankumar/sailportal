@@ -23,9 +23,11 @@
 package org.telscenter.sail.webapp.service.grading;
 
 import java.util.List;
+import java.util.Map;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.domain.group.Group;
 
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
@@ -39,7 +41,7 @@ import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
  * those objects.
  * 
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $ Id: $
  */
 public interface GradingService {
 	
@@ -75,6 +77,26 @@ public interface GradingService {
 	 *     does not key to an existing <code>Run</code>
 	 */
 	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId, EStep step) 
+	    throws ObjectNotFoundException;
+	
+	/**
+	 * Returns an aggregate object to allow WISE teachers to grade student
+	 * work for a particular <code>Step</code> of a particular 
+	 * <code>Project</code> that is being used in a <code>Run</code> indicated
+	 * by the runId. The aggregate objects are separated into Periods that the workgroups
+	 * belong to using a Map.
+	 * 
+	 * All of the workgroups' work is retrieved along with their respective
+	 * <code>AnnotationBundle</code> for the particular step.
+	 * 
+	 * @param runId id of the run that the teacher wants to grade
+	 * @param step particular step that the teacher wants to grade
+	 * @return a Map from <code>Group</code> to <code>GradeWorkAggregate</code> containing all of the students'
+	 *     work for the specified step.
+	 * @throws ObjectNotFoundException when the provided runId
+	 *     does not key to an existing <code>Run</code>
+	 */
+	public Map<Group,GradeWorkByStepAggregate> getGradeWorkByStepAggregateAllPeriods(Long runId, EStep step) 
 	    throws ObjectNotFoundException;
 	
 	/**
