@@ -31,15 +31,15 @@
 <body>
 
 <%@ include file="header.jsp"%>
-<h2 class="center"><spring:message code="forgotten.username" /></h2>
-<h1 class="center"><spring:message code="lostpassword.student" /></h1>
-<div id="right" class="widthAdj6">
-<h4 class="bold"><spring:message code="forgotten.username-check" /></h4>
+<h2 style="text-align:center;"><spring:message code="forgotten.username" /></h2>
+<h1 style="text-align:center;"><spring:message code="lostpassword.student" /></h1>
+<div style="position:relative;left:350px;width:950px;">
+<h4 style="font-weight:bold;"><spring:message code="forgotten.username-check" /></h4>
 <p><spring:message code="forgotten.username-hint" /></p>
 <p><spring:message code="forgotten.username-hint-example" /></p>
 
-<p class="center"><spring:message code="forgotten.username-more" /></p>
-<div class="border">
+<p style="text-align:center;"><spring:message code="forgotten.username-more" /></p>
+<div style="border:1px solid black;">
 <ol>
 <li><spring:message code="forgotten.option1" /></li>
 <li><spring:message code="forgotten.lookup-project-code" /> 
@@ -48,7 +48,7 @@
 </ol>
 </div>
 <div id="verticalNavigation">
-<ul class="center">
+<ul style="text-align:center;">
 <li><a href="index.html"><spring:message code="wise.return-to-sign-in" /></a></li>
 </ul>
 </div>

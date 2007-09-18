@@ -31,11 +31,11 @@
 <body>
 
 <%@ include file="header.jsp"%>
-<h2 class="center"><spring:message code="forgotten.password" /></h2>
-<h1 class="center"><spring:message code="lostpassword.student" /></h1>
-<div id="right" class="widthAdj6">
-<h4 class="bold"><spring:message code="forgotten.password-check" /></h4>
-<div class="border bigFont1">
+<h2 style="text-align:center;"><spring:message code="forgotten.password" /></h2>
+<h1 style="text-align:center;"><spring:message code="lostpassword.student" /></h1>
+<div style="position:relative;left:350px;width:950px;">
+<h4 style="font-weight:bold;"><spring:message code="forgotten.password-check" /></h4>
+<div style="border:1px solid black;font-size: 1em;">
 <ol>
 <li> <spring:message code="lostpassword.ask-teacher" /></li>
 <li> <spring:message code="lostpassword.create-new-password" />
@@ -44,7 +44,7 @@
 </li>
 </ol>
 </div>
-<div id="verticalNavigation" class="center">
+<div id="verticalNavigation" style="text-align:center;">
 <ul>
 <li><a href="index.html"><spring:message code="wise.return-to-sign-in" /></a></li>
 </ul>

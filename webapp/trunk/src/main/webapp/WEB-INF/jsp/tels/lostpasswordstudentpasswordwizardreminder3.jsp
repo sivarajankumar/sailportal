@@ -32,10 +32,11 @@
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
-<div id="navigation" class="center north2 widthAdj4">
-<ul class="bigFont1">
+<div id="navigation" style="text-align:center;position:relative;
+	bottom:35px;width:990px;">
+<ul style="font-size: 1em;">
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
-<li class="bgColorLightBlue"  class="border"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
+<li style="border:1px solid black;"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
@@ -43,7 +44,7 @@
 </div>
 
 
-<p class="bigFont1 north0">step 3</p> 
+<p class="north0" style="font-size: 1em;">step 3</p> 
  <spring:bind path="reminderParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
     <b>
@@ -55,9 +56,13 @@
 
   <p><label for="send_passwords"><spring:message code="lostpassword.student.new-password" />
   </label>
-  <input type="text" name="newPassword" id="newPassword"  class="text" tabindex="1" />
+  <input type="text" name="newPassword" id="newPassword"  style=" font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	width: 110px;" tabindex="1" />
  <label for="answer"><spring:message code="lostpassword.student.verify-password" /></label>
-  <input type="text" name="verifyPassword" id="verifyPassword"  class="text" tabindex="2" />
+  <input type="text" name="verifyPassword" id="verifyPassword"  style=" font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	width: 110px;" tabindex="2" />
  
   </p>
 

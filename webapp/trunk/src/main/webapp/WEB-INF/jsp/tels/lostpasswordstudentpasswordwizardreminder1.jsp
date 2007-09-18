@@ -32,10 +32,11 @@
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
-<div id="navigation" class="center north2 widthAdj4">
-<ul class="bigFont1">
+<div id="navigation" style="text-align:center;position:relative;
+	bottom:35px;width:990px;">
+<ul style="font-size: 1em;">
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
-<li class="bgColorLightBlue"  class="border"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
+<li style="border:1px solid black;"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
@@ -53,11 +54,13 @@
 </spring:bind>
 </div>
   
-<p class="bigFont1 north0">step 1: </p> 
-<form id="username" method="post" class="center north0" commandName="reminderParameters">
+<p style="font-size: 1em;" class="north0">step 1: </p> 
+<form id="username" method="post" style="text-align:center;" class="north0" commandName="reminderParameters">
 
  <p><label for="send_username"><spring:message code="login.username" /></label>
-  <input type="text" name="username" id="username"  class="text" tabindex="1" /></p>
+  <input type="text" name="username" id="username" style=" font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	width: 110px;" tabindex="1" /></p>
 
 <div>
   <input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />

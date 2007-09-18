@@ -51,7 +51,9 @@
 <form id="projectCode" method="post"  commandName="reminderParameters">
 
   <p><label for="send_projectcode"><spring:message code="lostpassword.student.projectcode"/></label>
-  <input type="text" name="projectCode" id="projectCode"  class="text" tabindex="1" /></p>
+  <input type="text" name="projectCode" id="projectCode" style=" font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	width: 110px;" tabindex="1" /></p>
   
    <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>

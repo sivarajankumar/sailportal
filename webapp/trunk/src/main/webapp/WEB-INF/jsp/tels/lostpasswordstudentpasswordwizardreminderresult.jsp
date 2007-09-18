@@ -32,10 +32,11 @@
 </head>
 <body>
 <%@ include file="teacher/header.jsp"%>
-<div id="navigation" class="center north2 widthAdj4">
-<ul class="bigFont1">
+<div id="navigation" style="text-align:center;position:relative;
+	bottom:35px;width:990px;">
+<ul style="font-size: 1em;">
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.home" /> </a> </li>
-<li class="bgColorLightBlue"  class="border"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
+<li style="border:1px solid black;"> <a href="#"><spring:message code="banner.projects" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.management" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.community" /> </a> </li>
 <li style="background-color:#FFFFFF;"> <a href="#"> <spring:message code="banner.help" /> </a> </li>
@@ -43,7 +44,7 @@
 </div>
 
 
-<p class="bigFont1 north0">Your Done ${username}</p> 
+<p class="north0" style="font-size: 1em;">Your Done ${username}</p> 
  
 
 </body>
