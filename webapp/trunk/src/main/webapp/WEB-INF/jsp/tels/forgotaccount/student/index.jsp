@@ -35,7 +35,7 @@
 <h2 id="heading"> FORGOTTEN INFORMATION </h2>
 <h1 id="heading2"> STUDENT </h1>
 <div id="forgot1"> 
-<p id="fontSize1">What have you forgotten?</p>
+<p style="font-size:1.2em;font-weight:100;">What have you forgotten?</p>
 <h2 id="linkPos"><a href="username.html">Forgot My Username</a></h2>
 <p id="textPos">OR</p>
 <h2 id="linkPos"><a href="password.html">Forgot My Password</a></h2>

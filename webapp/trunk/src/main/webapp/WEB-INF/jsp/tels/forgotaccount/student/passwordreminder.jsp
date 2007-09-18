@@ -46,12 +46,14 @@
 </spring:bind>
 </div>
 
-<div id="forgot2" class="padding0"> 
+<div id="forgot2" style="padding:0px 15px 15px 15px;"> 
 <h2><b>Step 1: </b></h2>
 <h2><b>First, enter your username: </b></h2>
 <form id="username" name="retrievepassword" method="post" commandName="reminderParameters">
 <label for="send_username"><spring:message code="login.username" /></label>
-  <input type="text" name="username" id="username"  class="text" size="40" tabindex="1" />
+  <input type="text" name="username" id="username"  
+  	style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 1em; width: 110px;" 
+	size="40" tabindex="1" />
 <br />
   <input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
 </form>

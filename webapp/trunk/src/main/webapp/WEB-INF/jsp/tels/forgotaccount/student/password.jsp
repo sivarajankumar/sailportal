@@ -36,7 +36,7 @@
 <h1 id="heading2"> STUDENT </h1>
 
 
-<div id="forgot2" class="border"> 
+<div id="forgot2" style="border:1px solid black;"> 
 <b>Forgot your Password?</b><br />
 <ol>
 <li>You can always ask your teacher for help looking up your

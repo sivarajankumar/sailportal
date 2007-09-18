@@ -35,7 +35,7 @@
 <h1 id="heading2"> STUDENT </h1>
 
 
-<div id="forgot2" class="padding0"> 
+<div id="forgot2" style="padding:0px 15px 15px 15px;"> 
 <h2><b>Step 4: </b></h2>
 <h3><b> Your username is ${username}</b></h3>
 <h3><b>Your password has been changed.</b></h3>

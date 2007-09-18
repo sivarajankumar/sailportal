@@ -47,7 +47,7 @@
 </spring:bind>
 </div>
 
-<div id="forgot2" class="padding0"> 
+<div id="forgot2" style="padding:0px 15px 15px 15px;"> 
 <h2><b>Step 2: </b></h2>
 <h3><b>Hello ${username} </b></h3>
 <h3>
@@ -57,7 +57,11 @@ encountered during your initial registration.
 <form id="submittedAccountAnswer" method="post" commandName="reminderParameters" >
 <p>Question: ${accountQuestion}
  <p><label for="send_accountanswer">answer</label>
-  <input type="text" name="submittedAccountAnswer" id="submittedAccountAnswer"  class="text" tabindex="1" /></p>
+  <input type="text" name="submittedAccountAnswer" id="submittedAccountAnswer"  
+  style=" font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	width: 110px;"
+  tabindex="1" /></p>
 
 <input type="submit" name="_target2" value="<spring:message code="navigate.next" />">
 </form>
