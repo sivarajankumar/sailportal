@@ -59,10 +59,10 @@ function popup(URL) {
     </b>
   </c:forEach>
 </spring:bind>
-<h2 id="teacherRegistrationHeading">Teacher Registration</h2>
-<h4 id="teacherRegistrationHeading">(please fill out the following required fields)</h4>
+<h2 class="center">Teacher Registration</h2>
+<h4 class="center">(please fill out the following required fields)</h4>
 
-<div id="registerPos">
+<div class="center">
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
 
 <label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label>

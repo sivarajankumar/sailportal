@@ -34,12 +34,12 @@
 
 <%@ include file="plainheader.jsp"%>
 
-<div id="teacherRegConfirmBox">
+<div class="center">
 <h2><spring:message code="teacher.registration" /></h2>
 <h3><spring:message code="login.success" /></h3>
 <h4><spring:message code="login.sign-in-message" /></h4>
 </div>
-<div id="verticalNavigation" class="userAccountConfirmBox">
+<div id="verticalNavigation" class="center">
 <ul>
 <li><spring:message code="login.username" />
 <input name="username" value="${username}"/>
@@ -51,18 +51,18 @@
 </div>
 
 
-<div id="spacing" class="left">
+<div id="spacing" class="center">
 <ul>
 <li > <spring:message code="login.email-info-message" /></li>
 <li> <spring:message code="login.remember" /></li>
 </ul>
 </div>
 
-<div id="teacherRegConfirmBox">
+<div class="center">
 <a href="../index.html">
-<img id="imgBorderNone" src="../<spring:theme code="sign_in_new_account" />" 
-onmouseover="swapImage('imgBorderNone','../<spring:theme code="sign_in_new_account_rollover" />');"
-onmouseout="swapImage('imgBorderNone','../<spring:theme code="sign_in_new_account" />');"
+<img id="signinnewaccount" src="../<spring:theme code="sign_in_new_account" />" 
+onmouseover="swapImage('signinnewaccount','../<spring:theme code="sign_in_new_account_rollover" />');"
+onmouseout="swapImage('signinnewaccount','../<spring:theme code="sign_in_new_account" />');"
 />
 </a>
 </div>
