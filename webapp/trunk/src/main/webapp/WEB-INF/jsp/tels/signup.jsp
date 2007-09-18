@@ -33,7 +33,7 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
+<%@ include file="header2.jsp"%>
 
 <div class="center">
 <h2><spring:message code="register.new-account" /></h2>
