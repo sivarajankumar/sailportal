@@ -82,6 +82,7 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SdsOffering> getList() {
+		//TODO LAW - when offering list is retreived, each curnitmap should also be retrieved.
 		return this.listCommand.execute(this.listCommand.generateRequest());
 	}
 	
