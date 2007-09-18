@@ -22,17 +22,62 @@
  */
 package net.sf.sail.webapp.service.annotation.impl;
 
+import static org.easymock.EasyMock.*;
+
+import net.sf.sail.webapp.dao.annotation.AnnotationBundleDao;
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl;
+import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import junit.framework.TestCase;
 
 /**
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $ Id: $
  */
 public class AnnotationBundleServiceImplTest extends TestCase {
 	
+	private AnnotationBundleServiceImpl annotationBundleService;
 
-	// TODO add to this test class when more things are implemented
-	public void test() {
+	private AnnotationBundleDao<AnnotationBundle> mockAnnotationBundleDao;
+	
+	private AnnotationBundle annotationBundle;
+	
+	private Workgroup workgroup;
+
+	private String annotationBundleXMLString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
+	"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
+	"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
+    "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
+    "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
+    "</annotationGroups></sailuserdata:EAnnotationBundle>";
+; 
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void setUp() {
+		annotationBundleService = new AnnotationBundleServiceImpl();
+		mockAnnotationBundleDao = createMock(AnnotationBundleDao.class);
+		annotationBundleService.setAnnotationBundleDao(mockAnnotationBundleDao);
+		
+		// TODO HT replace with bean context if possible
+		annotationBundle = new AnnotationBundleImpl();
+		annotationBundle.setBundle(annotationBundleXMLString);
+		workgroup = new WorkgroupImpl();
+		annotationBundle.setWorkgroup(workgroup);
+	}
+
+	@Override
+	protected void tearDown() {
+		annotationBundleService = null;
+		mockAnnotationBundleDao = null;
+		annotationBundle = null;
+	}
+	
+	public void testSaveAnnotationBundle() {
+		mockAnnotationBundleDao.save(annotationBundle);
+		expectLastCall();
+		annotationBundleService.saveAnnotationBundle(annotationBundle);
 		assertTrue(true);
 	}
 }

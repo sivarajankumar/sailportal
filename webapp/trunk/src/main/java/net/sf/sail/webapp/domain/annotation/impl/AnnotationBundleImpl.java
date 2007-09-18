@@ -47,7 +47,7 @@ import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
  *
  * @author Hiroki Terashima
  * @author Laurel Williams
- * @version $Id$
+ * @version $ Id: $
  */
 @Entity
 @Table(name = AnnotationBundleImpl.DATA_STORE_NAME)
@@ -79,6 +79,8 @@ public class AnnotationBundleImpl implements AnnotationBundle {
     @OneToOne(cascade = CascadeType.ALL, targetEntity = WorkgroupImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = COLUMN_NAME_WORKGROUP_FK, nullable = false)
     private Workgroup workgroup;
+    
+    private EAnnotationBundle eAnnotationBundle;
 
 	/**
 	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#getBundle()
@@ -112,9 +114,9 @@ public class AnnotationBundleImpl implements AnnotationBundle {
 	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#getEAnnotationBundle()
 	 */
 	public EAnnotationBundle getEAnnotationBundle() {
-		EAnnotationBundle eAnnotationBundle = 
-			AnnotationBundleLoader.loadAnnotationBundle(bundle);
-				
+		if (eAnnotationBundle == null) {
+			return AnnotationBundleLoader.loadAnnotationBundle(bundle);
+		}
 		return eAnnotationBundle;
 	}
 	
