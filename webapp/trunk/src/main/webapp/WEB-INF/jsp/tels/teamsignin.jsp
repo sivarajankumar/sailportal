@@ -33,18 +33,20 @@
 
 <%@ include file="studentHeader.jsp"%>
 
-<div class="north">
-<h1 class="center"><spring:message code="student.team-sign-in" /></h1>
-<h3 class="center"><spring:message code="student.user" /> Username <spring:message code="student.is-signed-in" /></h3>
-<h3 class="center"><spring:message code="student.teammates-sign-in" /> </h3>
-<h5 class="center"><spring:message code="student.absent-today-desc" /></h5>
+<div style="position:relative;bottom:40px;">
+<h1 style="text-align:center;"><spring:message code="student.team-sign-in" /></h1>
+<h3 style="text-align:center;"><spring:message code="student.user" /> Username <spring:message code="student.is-signed-in" /></h3>
+<h3 style="text-align:center;"><spring:message code="student.teammates-sign-in" /> </h3>
+<h5 style="text-align:center;"><spring:message code="student.absent-today-desc" /></h5>
 </div>
 <form:form>
-<div class="border north center">
+<div style="border:1px solid black;text-align:center;position:relative;
+	bottom:40px;">
 <label> UserName 1: </label> 
 <input type="text" value="" size=20 />
 </div>
-<div class="border north center">
+<div style="border:1px solid black;text-align:center;position:relative;
+	bottom:40px;">
 <label> UserName 2: </label> 
 <input type="text" value="" size=20 />
 <br />
@@ -52,7 +54,8 @@
 <input type="text" value="" size=20 />
 <br />
 </div>
-<div class="border north center">
+<div style="border:1px solid black;text-align:center;position:relative;
+	bottom:40px;">
 <label> UserName 3: </label> 
 <input type="text" value="" size=20 />
 <br />
@@ -69,9 +72,9 @@
 </ul>
 </div>
 
-<ul class="none bigFont1 center" style="padding:22px;">
-<li class="center"> <a href="#" style="text-decoration:none;" class="border bigFont1 bgColorBlue"> <spring:message code="student.run-project" /> </a> </li>
-<li class="center"> <a href="#" style="text-decoration:none;" class="border bigFont1 bgColorBlue "> <spring:message code="navigate.cancel" /> </a> </li>
+<ul style="text-align:center;font-size: 1em;padding:22px;" class="none">
+<li style="text-align:center;"> <a href="#" style="text-decoration:none;font-size: 1em;border:1px solid black;"> <spring:message code="student.run-project" /> </a> </li>
+<li style="text-align:center;"> <a href="#" style="text-decoration:none;font-size: 1em;border:1px solid black;"> <spring:message code="navigate.cancel" /> </a> </li>
 </ul>
 
 <%@ include file="footer.jsp" %>

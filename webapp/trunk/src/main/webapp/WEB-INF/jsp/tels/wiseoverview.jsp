@@ -37,7 +37,7 @@
 <body>
 
  <div >
-  <div align="center"><img src="<spring:theme code="wisebanner" />" alt="WISE logo" />
+  <div class="center"><img src="<spring:theme code="wisebanner" />" alt="WISE logo" />
     </div>
 </div>
 	
@@ -48,12 +48,12 @@
     <embed src="./flash/tels/WISE_Slideshow.swf" width="700" height="500" />
   </object>
   </p>
-  <h5 align="center"><spring:message code="wise.cannot-see-movie" /> 
+  <h5 class="center"><spring:message code="wise.cannot-see-movie" /> 
   <a href="http://www.macromedia.com/go/getflashplayer">
   <spring:message code="wise.install-flash" />.
   </a>
   </h5>
-  <p align="center"><a href="index.html">
+  <p class="center"><a href="index.html">
   
   <img id="return" src="<spring:theme code="return_to_homepage" />" 
   onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
