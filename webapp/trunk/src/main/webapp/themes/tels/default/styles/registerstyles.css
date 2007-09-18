@@ -18,11 +18,6 @@ img#none{
 	bottom:10px;
 }
 
-.right1{
-	position:relative;
-	right:-600px;
-}
-
 #navigation {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -73,6 +68,7 @@ ul.none{
 }
 
 #registerPos{
+	text-align:center;
     position:relative;
     left:370px;
     width:350px;
@@ -259,10 +255,6 @@ label#legalAcknowledged1{
 	line-height:20px;	
 }
 
-#verticalNavigation li.space1{
-	line-height:22px;
-}
-
 #verticalNavigation a:link, #verticalNavigation a:visited{
 	padding: 3px 12px 5px 12px;
 	color: black;
@@ -280,10 +272,10 @@ label#legalAcknowledged1{
 
 #spacing{
     margin: 0px;
-    padding: 0px 150px 0px 150px;
+    padding: 0px 50px 0px 50px;
     text-align:justify;
     line-height:34px;
-    width:420px;
+    width:520px;
 }
 
 
@@ -305,3 +297,8 @@ label#legalAcknowledged1{
 	width:300px;
 	position:relative;right:-380px;
 }
+
+.center{
+	text-align:center;
+}
+

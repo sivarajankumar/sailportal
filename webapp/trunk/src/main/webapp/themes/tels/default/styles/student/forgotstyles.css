@@ -60,27 +60,6 @@ img#none{
 	width:350px;
 }
 
-#fontSize1{
-	font-size:1.2em;
-	font-weight:100;
-}
-
-#fontSize2{
-	font-size:1.1em;
-	font-weight:100;
-}
-
-.padding0{
-	padding:0px 15px 15px 15px;
-}
-
-.bgcolorRed{
-	background-color:#CC9966;
-}
-
-.border{
-	border:1px black solid;
-}
 
 #linkPos{
 	position:relative;
@@ -131,12 +110,6 @@ img#none{
 	position:relative;
 	left:170px;
 	top:40px;
-}
-
-#signIn2{
-	position:relative;
-	left:350px;
-	top:350px;
 }
 
 #signIn3{

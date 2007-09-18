@@ -1,9 +1,4 @@
 
-.north2{
-	position:relative;
-	bottom:35px;
-}
-
 #headingPos{
 	position:relative;
 	bottom:0px;
@@ -44,10 +39,6 @@
 
 #navigation li a:hover{
 	color: green;
-}
-
-#navigation li.space1{
-	line-height:22px;
 }
 
 ul#tabnav{
