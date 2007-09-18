@@ -230,8 +230,9 @@
 		<property name="aclService" ref="aclServiceImpl" />
 	</bean>
 
-	<bean id="ecurnitmap" class="org.telscenter.pas.emf.pas.ECurnitMap"
+	<bean id="ecurnitmap" class="org.telscenter.pas.emf.pas.impl.ECurnitmapImpl"
 		scope="prototype" />
-	<bean id="esessionBundle" class="net.sf.sail.emf.sailuserdata.ESessionBundle"
+		
+	<bean id="esessionBundle" class="net.sf.sail.emf.sailuserdata.impl.ESessionBundleImpl"
 		scope="prototype" />
 </beans>
