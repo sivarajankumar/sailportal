@@ -30,7 +30,7 @@ import org.telscenter.sail.webapp.service.grading.SessionBundleService;
 
 /**
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class SessionBundleServiceImpl implements SessionBundleService {
 

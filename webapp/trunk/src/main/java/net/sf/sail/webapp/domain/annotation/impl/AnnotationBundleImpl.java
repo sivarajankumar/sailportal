@@ -47,7 +47,7 @@ import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
  *
  * @author Hiroki Terashima
  * @author Laurel Williams
- * @version $ Id: $
+ * @version $Id$
  */
 @Entity
 @Table(name = AnnotationBundleImpl.DATA_STORE_NAME)

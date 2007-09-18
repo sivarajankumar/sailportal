@@ -30,7 +30,7 @@ import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 
 /**
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 		implements GradeWorkByWorkgroupAggregate {

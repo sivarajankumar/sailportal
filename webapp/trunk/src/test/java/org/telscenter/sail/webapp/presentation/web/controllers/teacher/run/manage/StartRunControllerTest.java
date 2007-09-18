@@ -51,7 +51,7 @@ import com.ibm.icu.util.Calendar;
 
 /**
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class StartRunControllerTest extends AbstractModelAndViewTests {
 	

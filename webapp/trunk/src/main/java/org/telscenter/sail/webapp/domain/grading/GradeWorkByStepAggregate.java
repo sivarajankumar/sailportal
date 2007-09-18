@@ -40,7 +40,7 @@ import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
  * Only the AnnotationBundle is modifiable and persist-able.
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public interface GradeWorkByStepAggregate extends GradeWorkAggregate {
 

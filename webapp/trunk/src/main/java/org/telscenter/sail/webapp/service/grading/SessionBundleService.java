@@ -29,7 +29,7 @@ import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
  * Service for retrieving/saving SessionBundle objects
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public interface SessionBundleService {
 	

@@ -37,7 +37,7 @@ import net.sf.sail.webapp.service.group.GroupService;
  * Represents the set of operations on a WISE Student user.
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public interface StudentService {
 

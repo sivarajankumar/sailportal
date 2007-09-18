@@ -36,7 +36,7 @@ import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
  * Only the AnnotationBundle is modifiable and persist-able.
  *  
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public interface GradeWorkByWorkgroupAggregate extends GradeWorkAggregate {
 

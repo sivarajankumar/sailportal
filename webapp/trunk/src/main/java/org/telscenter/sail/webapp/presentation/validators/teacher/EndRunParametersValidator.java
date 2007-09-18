@@ -31,7 +31,7 @@ import org.telscenter.sail.webapp.domain.impl.EndRunParameters;
  * Validator for teacher's EndRunParameters transfer object
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class EndRunParametersValidator implements Validator {
 

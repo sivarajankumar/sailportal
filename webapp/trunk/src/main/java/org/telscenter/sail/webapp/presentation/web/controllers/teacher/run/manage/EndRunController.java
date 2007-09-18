@@ -39,7 +39,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * The controller for Ending a Run for teachers
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class EndRunController extends SimpleFormController {
 

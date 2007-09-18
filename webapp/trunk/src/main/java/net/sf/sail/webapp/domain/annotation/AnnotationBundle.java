@@ -35,7 +35,7 @@ import net.sf.sail.webapp.domain.Workgroup;
  *
  * @author Hiroki Terashima
  * @author Laurel Williams
- * @version $ Id: $
+ * @version $Id$
  */
 public interface AnnotationBundle extends Persistable {
 

@@ -55,7 +55,7 @@ import junit.framework.TestCase;
  * Test for GradingServiceImpl class
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class GradingServiceImplTest extends TestCase {
 

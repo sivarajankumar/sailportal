@@ -26,7 +26,7 @@ package net.sf.sail.webapp.service.annotation.impl;
  * Represents the set of operations on a <code>AnnotationBundle</code>
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public interface AnnotationBundleService {
 

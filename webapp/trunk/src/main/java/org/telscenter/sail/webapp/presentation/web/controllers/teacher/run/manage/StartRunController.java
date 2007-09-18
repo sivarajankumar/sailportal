@@ -39,7 +39,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * Controller for Starting a Run for WISE Teachers
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class StartRunController extends SimpleFormController {
 	

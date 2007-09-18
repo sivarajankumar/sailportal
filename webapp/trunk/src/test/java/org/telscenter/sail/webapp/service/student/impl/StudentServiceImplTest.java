@@ -52,7 +52,7 @@ import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class StudentServiceImplTest extends TestCase {
 

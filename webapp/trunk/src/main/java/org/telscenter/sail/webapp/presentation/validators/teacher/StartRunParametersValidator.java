@@ -31,7 +31,7 @@ import org.telscenter.sail.webapp.domain.impl.StartRunParameters;
  * Validator for teacher's StartRunParameters transfer object
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class StartRunParametersValidator implements Validator {
 

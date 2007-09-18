@@ -29,7 +29,7 @@ import net.sf.sail.webapp.domain.User;
  * added to a <code>Run</code> was already-associated with the run.
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class StudentUserAlreadyAssociatedWithRunException extends Exception {
 

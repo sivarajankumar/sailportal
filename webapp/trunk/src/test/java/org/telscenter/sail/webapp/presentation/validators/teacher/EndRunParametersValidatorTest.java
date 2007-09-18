@@ -30,7 +30,7 @@ import junit.framework.TestCase;
 
 /**
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class EndRunParametersValidatorTest extends TestCase {
 

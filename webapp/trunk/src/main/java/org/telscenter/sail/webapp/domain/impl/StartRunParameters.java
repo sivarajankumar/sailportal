@@ -28,7 +28,7 @@ import java.io.Serializable;
  * A form-backing object for WISE teachers when starting a project run
  *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class StartRunParameters implements Serializable {
 

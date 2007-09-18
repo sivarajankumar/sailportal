@@ -27,7 +27,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class AllTests {
 

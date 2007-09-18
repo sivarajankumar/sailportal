@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 
 /**
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class ProjectcodeTest extends TestCase {
 

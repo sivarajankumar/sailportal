@@ -35,7 +35,7 @@ import org.telscenter.pas.emf.pas.ECurnitmap;
  * Only the AnnotationBundle is modifiable and persist-able. 
  * 
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public interface GradeWorkAggregate {
 	

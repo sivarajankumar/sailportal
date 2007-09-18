@@ -33,7 +33,7 @@ import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 
 /**
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public class GradeWorkByStepAggregateImpl extends GradeWorkAggregateImpl
 		implements GradeWorkByStepAggregate {
