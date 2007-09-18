@@ -103,8 +103,8 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 		Long sdsCurnitId = this.createCurnitInSds();
 		SdsCurnit actualSdsCurnit = this.getCurnitInSds(sdsCurnitId);
 		assertEquals(actualSdsCurnit.getSdsObjectId(), sdsCurnitId);
-		assertEquals(actualSdsCurnit.getName(), DEFAULT_NAME);
-		assertEquals(actualSdsCurnit.getUrl(), DEFAULT_CURNIT_URL);
+		assertEquals(actualSdsCurnit.getName(), SdsValidData.VALID_CURNIT_NAME);
+		assertEquals(actualSdsCurnit.getUrl(), SdsValidData.VALID_CURNIT_URL);
 
 		SdsCurnit sdsCurnitToUpdate = (SdsCurnit) this.applicationContext
 				.getBean("sdsCurnit");

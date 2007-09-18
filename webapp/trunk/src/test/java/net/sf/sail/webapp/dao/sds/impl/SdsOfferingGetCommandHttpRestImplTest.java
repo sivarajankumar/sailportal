@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.io.InputStream;
+
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -27,18 +29,19 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: SdsOfferingGetCommandHttpRestImplTest.java 1143 2007-09-17
+ *          15:25:53Z laurel $
  * 
  */
 public class SdsOfferingGetCommandHttpRestImplTest extends
-        AbstractSdsGetCommandHttpRestImplTest {
+		AbstractSdsGetCommandHttpRestImplTest {
 
-    SdsOfferingGetCommandHttpRestImpl command;
+	private SdsOfferingGetCommandHttpRestImpl command;
+	
+	private SdsOffering expectedSdsOffering;
 
-    private SdsOffering expectedSdsOffering;
-    
-    static final Long ID = new Long(1);
-    
+	private static final Long ID = new Long(1);
+
 	private static final SdsCurnit SDS_CURNIT = new SdsCurnit();
 
 	private static final SdsJnlp SDS_JNLP = new SdsJnlp();
@@ -46,15 +49,19 @@ public class SdsOfferingGetCommandHttpRestImplTest extends
 	private static final String NAME = "the heros";
 
 	private static final String URL = "http://woohoo";
-	 
-    private static final String XML_RESPONSE = "<offering><name>" + NAME + "</name><curnit-id>" + ID + "</curnit-id><id>" +  ID + "</id><jnlp-id>" + ID + "</jnlp-id></offering>";
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+	private static final String XML_RESPONSE = "<offering><name>" + NAME
+			+ "</name><curnit-id>" + ID + "</curnit-id><id>" + ID
+			+ "</id><jnlp-id>" + ID + "</jnlp-id></offering>";
+
+	private static final String CURNITMAP_XML_RESPONSE = "<curnitmap>this is the curnitmap string</curnitmap>";
+
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
 		SDS_CURNIT.setName(NAME);
 		SDS_CURNIT.setUrl(URL);
 		SDS_CURNIT.setSdsObjectId(ID);
@@ -63,43 +70,52 @@ public class SdsOfferingGetCommandHttpRestImplTest extends
 		SDS_JNLP.setUrl(URL);
 		SDS_JNLP.setSdsObjectId(ID);
 
-        this.expectedSdsOffering = new SdsOffering();
-        this.expectedSdsOffering.setSdsCurnit(SDS_CURNIT);
-        this.expectedSdsOffering.setSdsJnlp(SDS_JNLP);
-        this.expectedSdsOffering.setSdsObjectId(ID);
-        this.expectedSdsOffering.setName(NAME);
-                
-        this.getCommand = new SdsOfferingGetCommandHttpRestImpl();
-        this.command = (SdsOfferingGetCommandHttpRestImpl) this.getCommand;
-        this.command.setTransport(this.mockTransport);
-        this.command.setSdsOffering(this.expectedSdsOffering);
-        this.httpRequest = this.command.generateRequest();
-    }
+		this.expectedSdsOffering = new SdsOffering();
+		this.expectedSdsOffering.setSdsCurnit(SDS_CURNIT);
+		this.expectedSdsOffering.setSdsJnlp(SDS_JNLP);
+		this.expectedSdsOffering.setSdsObjectId(ID);
+		this.expectedSdsOffering.setName(NAME);
 
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        this.command = null;
-        this.expectedSdsOffering = null;
-    }
+		this.getCommand = new SdsOfferingGetCommandHttpRestImpl();
+		this.command = (SdsOfferingGetCommandHttpRestImpl) this.getCommand;
+		this.command.setTransport(this.mockTransport);
+		this.command.setSdsOffering(this.expectedSdsOffering);
+		this.httpRequest = this.command.generateRequest();
+	}
 
-    public void testExecute() throws Exception {
-        setAndTestResponseStream(XML_RESPONSE);        
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		this.command = null;
+		this.expectedSdsOffering = null;
+	}
 
-        SdsOffering actualOffering = this.command.execute(this.httpRequest);
-        assertEquals(NAME, actualOffering.getName());
-        assertEquals(SDS_CURNIT.getSdsObjectId(), actualOffering.getSdsCurnit().getSdsObjectId());
-        assertEquals(SDS_JNLP.getSdsObjectId(), actualOffering.getSdsJnlp().getSdsObjectId());
-        assertEquals(ID, actualOffering.getSdsObjectId());
-        assertNull(actualOffering.getSdsCurnitMap());
-        EasyMock.verify(this.mockTransport);
-    }
-    
-    public void testGenerateRequest(){
-    	HttpGetRequest request = this.command.generateRequest();
-    	assertEquals("/offering/" + ID, request.getRelativeUrl());
-    }
- }
+	public void testExecute() throws Exception {
+		InputStream responseStream = setAndTestResponseStream(XML_RESPONSE);
+		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+				responseStream);
+
+		InputStream curnitMapResponseStream = setAndTestResponseStream(CURNITMAP_XML_RESPONSE);
+		EasyMock.expect(this.mockTransport.get(EasyMock.isA(HttpGetRequest.class))).andReturn(
+				curnitMapResponseStream);
+		EasyMock.replay(this.mockTransport);
+
+		SdsOffering actualOffering = this.command.execute(this.httpRequest);
+		assertEquals(NAME, actualOffering.getName());
+		assertEquals(SDS_CURNIT.getSdsObjectId(), actualOffering.getSdsCurnit()
+				.getSdsObjectId());
+		assertEquals(SDS_JNLP.getSdsObjectId(), actualOffering.getSdsJnlp()
+				.getSdsObjectId());
+		assertEquals(ID, actualOffering.getSdsObjectId());
+		assertNotNull(actualOffering.getSdsCurnitMap());
+		EasyMock.verify(this.mockTransport);
+	}
+
+	public void testGenerateRequest() {
+		HttpGetRequest request = this.command.generateRequest();
+		assertEquals("/offering/" + ID, request.getRelativeUrl());
+	}
+}

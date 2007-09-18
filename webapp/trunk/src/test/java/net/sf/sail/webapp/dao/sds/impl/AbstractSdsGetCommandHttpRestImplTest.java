@@ -33,80 +33,80 @@ import org.easymock.EasyMock;
 /**
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: AbstractSdsGetCommandHttpRestImplTest.java 1095 2007-09-12
+ *          18:27:13Z laurel $
  */
 public abstract class AbstractSdsGetCommandHttpRestImplTest extends TestCase {
 
-    protected HttpRestTransport mockTransport;
+	protected HttpRestTransport mockTransport;
 
-    protected HttpGetRequest httpRequest;
+	protected HttpGetRequest httpRequest;
 
-    protected SdsCommand<?, HttpGetRequest> getCommand;
+	protected SdsCommand<?, HttpGetRequest> getCommand;
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
-    }
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		this.mockTransport = EasyMock.createMock(HttpRestTransport.class);
+	}
 
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        this.mockTransport = null;
-        this.getCommand = null;
-        this.httpRequest = null;
-    }
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		this.mockTransport = null;
+		this.getCommand = null;
+		this.httpRequest = null;
+	}
 
-    protected void setAndTestResponseStream(final String responseString)
-            throws IOException {
-        final InputStream responseStream = new ByteArrayInputStream(
-                responseString.getBytes());
+	protected InputStream setAndTestResponseStream(final String responseString)
+			throws IOException {
+		final InputStream responseStream = new ByteArrayInputStream(
+				responseString.getBytes());
 
-        final byte[] streamBytes = new byte[responseString.length()];
-        assertEquals(responseString.length(), responseStream.read(streamBytes));
-        assertEquals(responseString, new String(streamBytes));
-        responseStream.reset();
+		final byte[] streamBytes = new byte[responseString.length()];
+		assertEquals(responseString.length(), responseStream.read(streamBytes));
+		assertEquals(responseString, new String(streamBytes));
+		responseStream.reset();
+		
+		return responseStream;
 
-        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
-                responseStream);
-        EasyMock.replay(this.mockTransport);
-    }
+	}
 
-    @SuppressWarnings("unchecked")
-    public void testExecuteExceptions() throws Exception {
-        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
-                new BadRequestException("exception"));
-        EasyMock.replay(this.mockTransport);
-        try {
-            this.getCommand.execute(this.httpRequest);
-            fail("Expected BadRequestException");
-        } catch (BadRequestException e) {
-        }
-        EasyMock.verify(this.mockTransport);
+	@SuppressWarnings("unchecked")
+	public void testExecuteExceptions() throws Exception {
+		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
+				new BadRequestException("exception"));
+		EasyMock.replay(this.mockTransport);
+		try {
+			this.getCommand.execute(this.httpRequest);
+			fail("Expected BadRequestException");
+		} catch (BadRequestException e) {
+		}
+		EasyMock.verify(this.mockTransport);
 
-        EasyMock.reset(this.mockTransport);
-        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
-                new NetworkTransportException("exception"));
-        EasyMock.replay(this.mockTransport);
-        try {
-            this.getCommand.execute(this.httpRequest);
-            fail("Expected NetworkTransportException");
-        } catch (NetworkTransportException e) {
-        }
-        EasyMock.verify(this.mockTransport);
-    }
+		EasyMock.reset(this.mockTransport);
+		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
+				new NetworkTransportException("exception"));
+		EasyMock.replay(this.mockTransport);
+		try {
+			this.getCommand.execute(this.httpRequest);
+			fail("Expected NetworkTransportException");
+		} catch (NetworkTransportException e) {
+		}
+		EasyMock.verify(this.mockTransport);
+	}
 
-    /**
-     * Not testing this since we would be essentially testing info that is hard
-     * coded.
-     */
-    public void testGenerateRequest() {
-    }
+	/**
+	 * Not testing this since we would be essentially testing info that is hard
+	 * coded.
+	 */
+	public void testGenerateRequest() {
+	}
 
 }

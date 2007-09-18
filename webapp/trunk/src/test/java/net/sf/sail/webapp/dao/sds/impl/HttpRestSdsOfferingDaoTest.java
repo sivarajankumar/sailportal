@@ -39,7 +39,8 @@ import com.meterware.httpunit.WebResponse;
 /**
  * @author Cynick Young
  * 
- * @version $Id$
+ * @version $Id: HttpRestSdsOfferingDaoTest.java 1143 2007-09-17 15:25:53Z
+ *          laurel $
  * 
  */
 public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
@@ -198,8 +199,9 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getById(java.lang.Long)}.
 	 */
 	public void testGetById() throws Exception {
-		this.sdsOffering = createAndSaveOffering(); 
-		SdsOffering actualSdsOffering = this.sdsOfferingDao.getById(this.sdsOffering.getSdsObjectId());
+		this.sdsOffering = createAndSaveOffering();
+		SdsOffering actualSdsOffering = this.sdsOfferingDao
+				.getById(this.sdsOffering.getSdsObjectId());
 		assertEqualOfferings(actualSdsOffering);
 	}
 
@@ -211,8 +213,9 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 				actualSdsOffering.getSdsCurnit().getSdsObjectId());
 		assertEquals(this.sdsOffering.getSdsJnlp().getSdsObjectId(),
 				actualSdsOffering.getSdsJnlp().getSdsObjectId());
-		//TODO LAW this below should change soon
-		assertNull(actualSdsOffering.getSdsCurnitMap());
+		// not that the original sdsOffering does not have a curnitmap which is
+		// generated via the SDS, so we can't compare these
+		assertNotNull(actualSdsOffering.getSdsCurnitMap());
 	}
 
 }

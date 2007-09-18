@@ -97,8 +97,8 @@ public class HttpRestSdsJnlpDaoTest extends AbstractSpringHttpUnitTests {
 		Long sdsJnlpId = this.createJnlpInSds();
 		SdsJnlp actualSdsJnlp = this.getJnlpInSds(sdsJnlpId);
 		assertEquals(actualSdsJnlp.getSdsObjectId(), sdsJnlpId);
-		assertEquals(actualSdsJnlp.getName(), DEFAULT_NAME);
-		assertEquals(actualSdsJnlp.getUrl(), DEFAULT_JNLP_URL);
+		assertEquals(actualSdsJnlp.getName(), SdsValidData.VALID_JNLP_NAME);
+		assertEquals(actualSdsJnlp.getUrl(), SdsValidData.VALID_JNLP_URL);
 
 		SdsJnlp sdsJnlpToUpdate = (SdsJnlp) this.applicationContext
 				.getBean("sdsJnlp");

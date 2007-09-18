@@ -34,6 +34,6 @@ public abstract class SdsValidData {
 
 	public static final String VALID_JNLP_NAME = "Valid JNLP";
 	
-	public static final String VALID_JNLP_URL = "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot-20070125-0811.jnlp";
+	public static final String VALID_JNLP_URL = "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot.jnlp";
 
 }

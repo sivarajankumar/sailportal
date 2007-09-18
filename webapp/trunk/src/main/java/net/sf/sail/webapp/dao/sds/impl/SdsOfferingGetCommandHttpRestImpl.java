@@ -34,60 +34,76 @@ import org.jdom.Element;
  * 
  * @author Laurel Williams
  * 
- * @version $Id$
+ * @version $Id: SdsOfferingGetCommandHttpRestImpl.java 1143 2007-09-17
+ *          15:25:53Z laurel $
  * 
  */
 public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
-        implements SdsOfferingGetCommand {
+		implements SdsOfferingGetCommand {
 
-    private static final ThreadLocal<SdsOffering> SDS_OFFERING = new ThreadLocal<SdsOffering>();
+	private static final ThreadLocal<SdsOffering> SDS_OFFERING = new ThreadLocal<SdsOffering>();
 
-    public void setSdsOffering(SdsOffering sdsOffering) {
-        SDS_OFFERING.set(sdsOffering);
-    }
+	public void setSdsOffering(SdsOffering sdsOffering) {
+		SDS_OFFERING.set(sdsOffering);
+	}
 
-    private SdsOffering getSdsOffering() {
-        return SDS_OFFERING.get();
-    }
+	private SdsOffering getSdsOffering() {
+		return SDS_OFFERING.get();
+	}
 
-    /**
+	/**
 	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
 	 */
-    @SuppressWarnings("unchecked")
-    public SdsOffering execute(HttpGetRequest httpRequest) {
-        final SdsOffering sdsOffering = this.getSdsOffering();
+	@SuppressWarnings("unchecked")
+	public SdsOffering execute(HttpGetRequest httpRequest) {
+		final SdsOffering sdsOffering = this.getSdsOffering();
 		SDS_OFFERING.set(null);
-        Document doc = convertXmlInputStreamToXmlDocument(this.transport
-                .get(httpRequest));
-        System.out.println(doc.toString());
-        if (doc == null) {
-            return sdsOffering;
-        }
+		Document doc = convertXmlInputStreamToXmlDocument(this.transport
+				.get(httpRequest));
+		if (doc == null) {
+			return sdsOffering;
+		}
 
-        Element sdsOfferingElement = doc.getRootElement();
-        sdsOffering.setName(sdsOfferingElement.getChild("name").getValue());
-        sdsOffering.setSdsObjectId(new Long(sdsOfferingElement.getChild("id")
-                    .getValue()));
+		Element sdsOfferingElement = doc.getRootElement();
+		sdsOffering.setName(sdsOfferingElement.getChild("name").getValue());
+		sdsOffering.setSdsObjectId(new Long(sdsOfferingElement.getChild("id")
+				.getValue()));
 
-        SdsCurnit sdsCurnit = new SdsCurnit();
-        sdsCurnit.setSdsObjectId(new Long(sdsOfferingElement.getChild("curnit-id").getValue()));
-        sdsOffering.setSdsCurnit(sdsCurnit);
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setSdsObjectId(new Long(sdsOfferingElement.getChild(
+				"curnit-id").getValue()));
+		sdsOffering.setSdsCurnit(sdsCurnit);
 
-        SdsJnlp sdsJnlp = new SdsJnlp();
-        sdsJnlp.setSdsObjectId(new Long(sdsOfferingElement.getChild("jnlp-id").getValue()));
-            sdsOffering.setSdsJnlp(sdsJnlp);
+		SdsJnlp sdsJnlp = new SdsJnlp();
+		sdsJnlp.setSdsObjectId(new Long(sdsOfferingElement.getChild("jnlp-id")
+				.getValue()));
+		sdsOffering.setSdsJnlp(sdsJnlp);
 
-        return sdsOffering;
-    }
+		HttpGetRequest curnitMapRequest = this
+				.generateCurnitMapRequest(sdsOffering.getSdsObjectId());
+		sdsOffering.setSdsCurnitMap(this.getSdsCurnitMap(curnitMapRequest));
+		return sdsOffering;
+	}
 
-    /**
+	private String getSdsCurnitMap(HttpGetRequest curnitMapRequest) {
+		return convertXMLInputStreamToString(this.transport.get(curnitMapRequest));
+	}
+
+	protected HttpGetRequest generateCurnitMapRequest(Long sdsOfferingId) {
+		final String url = "/offering/" + sdsOfferingId + "/curnitmap";
+
+		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
+				url, HttpStatus.SC_OK);
+	}
+
+	/**
 	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
 	 */
-    public HttpGetRequest generateRequest() {
-        final SdsOffering sdsOffering = this.getSdsOffering();
-        final String url = "/offering/" + sdsOffering.getSdsObjectId();
-        return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
-                url, HttpStatus.SC_OK);
-    }
+	public HttpGetRequest generateRequest() {
+		final SdsOffering sdsOffering = this.getSdsOffering();
+		final String url = "/offering/" + sdsOffering.getSdsObjectId();
+		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
+				url, HttpStatus.SC_OK);
+	}
 
 }

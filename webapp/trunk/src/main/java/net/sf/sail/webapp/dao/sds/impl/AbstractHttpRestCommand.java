@@ -106,6 +106,19 @@ public abstract class AbstractHttpRestCommand {
 	    }
 	    return doc;
 	}
+	
+	protected String convertXMLInputStreamToString(InputStream stream) {
+		StringBuilder xmlBuffer = new StringBuilder();
+		byte[] buffer = new byte[4096];
+		try {
+			for (int n; (n = stream.read(buffer)) != -1;) {
+				xmlBuffer.append(new String(buffer, 0, n));
+			}
+		} catch (IOException e) {
+			//ignore and return empty string
+		}
+		return xmlBuffer.toString();
+	}
 
 	private void logResponse(InputStream responseStream) throws IOException {
 	    byte[] responseBuffer = new byte[responseStream.available()];
