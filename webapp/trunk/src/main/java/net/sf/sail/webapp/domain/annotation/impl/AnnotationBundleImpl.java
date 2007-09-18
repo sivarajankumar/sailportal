@@ -35,6 +35,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import net.sf.sail.emf.sailuserdata.EAnnotationBundle;
+import net.sf.sail.emf.sailuserdata.util.AnnotationBundleLoader;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
@@ -107,6 +109,16 @@ public class AnnotationBundleImpl implements AnnotationBundle {
 	}
 	
 	/**
+	 * @see net.sf.sail.webapp.domain.annotation.AnnotationBundle#getEAnnotationBundle()
+	 */
+	public EAnnotationBundle getEAnnotationBundle() {
+		EAnnotationBundle eAnnotationBundle = 
+			AnnotationBundleLoader.loadAnnotationBundle(bundle);
+				
+		return eAnnotationBundle;
+	}
+	
+	/**
 	 * @see net.sf.sail.webapp.domain.Persistable#getId()
 	 */
 	public Long getId() {
@@ -171,5 +183,4 @@ public class AnnotationBundleImpl implements AnnotationBundle {
 			return false;
 		return true;
 	}
-
 }

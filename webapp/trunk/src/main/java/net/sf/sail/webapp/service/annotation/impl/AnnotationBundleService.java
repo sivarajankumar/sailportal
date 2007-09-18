@@ -20,26 +20,15 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.grading;
-
-import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
+package net.sf.sail.webapp.service.annotation.impl;
 
 /**
- * Service for retrieving/saving SessionBundle objects
+ * Represents the set of operations on a <code>AnnotationBundle</code>
  *
  * @author Hiroki Terashima
  * @version $ Id: $
  */
-public interface SessionBundleService {
-	
-	/**
-	 * Get SessionBundle for specified workgroup.
-	 * 
-	 * @param runId key to <code>Run</code> that the workgroup belongs in
-	 * @param workgroup the workgroup to retrieve SessionBundle for
-	 * @return SessionBundle for the specified workgroup
-	 */
-	public SessionBundle getSessionBundle(Long runId, Workgroup workgroup);
+public interface AnnotationBundleService {
 
+	//public AnnotationService 
 }

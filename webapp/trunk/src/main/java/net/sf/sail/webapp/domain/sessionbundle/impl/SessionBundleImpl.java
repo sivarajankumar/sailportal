@@ -20,64 +20,60 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.grading;
+package net.sf.sail.webapp.domain.sessionbundle.impl;
 
-import java.util.Map;
-
-import org.telscenter.pas.emf.pas.EStep;
-
+import net.sf.sail.emf.sailuserdata.EPortfolio;
+import net.sf.sail.emf.sailuserdata.ESessionBundle;
+import net.sf.sail.emf.sailuserdata.util.PortfolioLoader;
 import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 
 /**
- * A transfer object for aggregating necessary objects to allow
- * WISE teachers to "grade student work by step".
- * This object encapsulates the following objects:
- * 1) <code>AnnotationBundle</code>
- * 2) <code>ESessionBundle</code>
- * 3) <code>ECurnitmap</code>
- * Only the AnnotationBundle is modifiable and persist-able.
- *
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
-public interface GradeWorkByStepAggregate extends GradeWorkAggregate {
+public class SessionBundleImpl implements SessionBundle {
 
-	/**
-	 * TODO HT comment me
-	 * @return
-	 */
-	public EStep getStep();
+	private String bundleString;
+	
+    private Workgroup workgroup;
 	
 	/**
-	 * TODO HT comment me
-	 * @return
+	 * @see net.sf.sail.webapp.domain.sessionbundle.SessionBundle#getBundleString()
 	 */
-	public void setStep(EStep step);
-	
-	/**
-	 * TODO HT comment me
-	 * @return
-	 */
-	public Map<Workgroup, AnnotationBundle> getAnnotationBundles();
+	public String getBundleString() {
+		return bundleString;
+	}
 
 	/**
-	 * TODO HT comment me
-	 * @return
+	 * @see net.sf.sail.webapp.domain.sessionbundle.SessionBundle#getWorkgroup()
 	 */
-	public void setAnnotationBundles(Map<Workgroup, AnnotationBundle> annotationBundles);
+	public Workgroup getWorkgroup() {
+		return workgroup;
+	}
 
 	/**
-	 * TODO HT comment me
-	 * @return
+	 * @see net.sf.sail.webapp.domain.sessionbundle.SessionBundle#getESessionBundle()
 	 */
-	public Map<Workgroup, SessionBundle> getSessionBundles();
+	public ESessionBundle getESessionBundle() {
+		EPortfolio portfolio = PortfolioLoader.loadPortfolio(bundleString);
+		ESessionBundle eSessionBundle = (ESessionBundle) portfolio.getSessionBundles().get(0);
+
+		return eSessionBundle;
+	}
 
 	/**
-	 * TODO HT comment me
-	 * @return
+	 * @see net.sf.sail.webapp.domain.sessionbundle.SessionBundle#setBundleString(java.lang.String)
 	 */
-	public void setSessionBundles(Map<Workgroup, SessionBundle> sessionBundles);
+	public void setBundleString(String bundleString) {
+		this.bundleString = bundleString;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.domain.sessionbundle.SessionBundle#setWorkgroup(net.sf.sail.webapp.domain.Workgroup)
+	 */
+	public void setWorkgroup(Workgroup workgroup) {
+		this.workgroup = workgroup;
+	}
 
 }

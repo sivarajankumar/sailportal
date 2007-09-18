@@ -24,9 +24,9 @@ package org.telscenter.sail.webapp.domain.grading.impl;
 
 import java.util.Map;
 
-import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
@@ -40,7 +40,7 @@ public class GradeWorkByStepAggregateImpl extends GradeWorkAggregateImpl
 	
 	protected EStep step;
 	
-	protected Map<Workgroup, ESessionBundle> sessionBundles;
+	protected Map<Workgroup, SessionBundle> sessionBundles;
 
 	protected Map<Workgroup, AnnotationBundle> annotationBundles;
 
@@ -76,14 +76,14 @@ public class GradeWorkByStepAggregateImpl extends GradeWorkAggregateImpl
 	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#getSessionBundles()
 	 */
-	public Map<Workgroup, ESessionBundle> getSessionBundles() {
+	public Map<Workgroup, SessionBundle> getSessionBundles() {
 		return sessionBundles;
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#setSessionBundles(Map)
 	 */
-	public void setSessionBundles(Map<Workgroup, ESessionBundle> sessionBundles) {
+	public void setSessionBundles(Map<Workgroup, SessionBundle> sessionBundles) {
 		this.sessionBundles = sessionBundles;
 	}
 }

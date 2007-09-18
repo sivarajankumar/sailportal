@@ -20,57 +20,52 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.sf.sail.webapp.domain.annotation;
+package net.sf.sail.webapp.domain.sessionbundle;
 
-import net.sf.sail.emf.sailuserdata.EAnnotationBundle;
-import net.sf.sail.webapp.domain.Persistable;
+import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.domain.Workgroup;
 
 /**
- * AnnotationBundle domain object interface. An AnnotationBundle encapsulates
- * the xml string representation of the PAS AnnotationBundle as well as a reference
- * to the workgroup to which the AnnotationBundle is for. 
- * For reference on PAS AnnotationBundle, look at
- * http://www.telscenter.org/confluence/display/SAIL/EMFBundleAnnotationService
+ * SessonBundle contains a workgroup's data. A SessionBundle encapsulates
+ * the xml string representation of the SessionBundle that is gotten from the SDS
+ * as well as a reference to the workgroup to which the SessionBundle is for. 
  *
  * @author Hiroki Terashima
- * @author Laurel Williams
- * @version $ Id: $
+ * @version $Id$
  */
-public interface AnnotationBundle extends Persistable {
+public interface SessionBundle {
 
 	/**
-	 * @return the annotation bundle
+	 * @param bundleString the bundleString to set
 	 */
-	public String getBundle();
-	
+	public void setBundleString(String bundleString);
+
 	/**
-	 * @param bundle
-	 *     the bundle to set
+	 * @return the sessionbundle in string format
 	 */
-	public void setBundle(String bundle);
-	
+	public String getBundleString();
+
 	/**
 	 * @return <code>Workgroup</code> that owns
-	 *     this AnnotationBundle
+	 *     this SessionBundle
 	 */
 	public Workgroup getWorkgroup();
 	
 	/**
-	 * @param workgroup the <code>Workgroup</code> that owns this
-	 *     AnnotationBundle
+	 * @param workgroup the <code>Workgroup</code> that owns
+	 *     this SessionBundle
 	 */
 	public void setWorkgroup(Workgroup workgroup);
-
+	
 	/**
-	 * Returns this <code>AnnotationBundle</code> represented as an
-	 * <code>EAnnotationBundle</code> object.
+	 * Returns this <code>SessionBundle<code> represented as an
+	 * <code>ESessionBundle</code> object.
 	 * 
-	 * <code>bundle</code> must be set before calling this method.
+	 * <code>bundleString</code> must be set before calling this method.
 	 * If it is no set, the behavior of this method is undefined.
 	 * 
-	 * @return <code>EAnnotationBundle</code>
+	 * @return <code>ESessionBundle</code>
 	 */
-	public EAnnotationBundle getEAnnotationBundle();
+	public ESessionBundle getESessionBundle();
 	
 }

@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
@@ -38,6 +37,7 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
+import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
@@ -119,8 +119,8 @@ public class GradingServiceImpl implements GradingService {
 		Map<Workgroup, AnnotationBundle> annotationBundles = new HashMap<Workgroup, AnnotationBundle>();
 		annotationBundles.put(workgroup1, annotationBundle1);
 		
-		ESessionBundle sessionBundle1 = sessionBundleService.getSessionBundle(runId, workgroup1);
-		Map<Workgroup, ESessionBundle> sessionBundles = new HashMap<Workgroup, ESessionBundle>();
+		SessionBundle sessionBundle1 = sessionBundleService.getSessionBundle(runId, workgroup1);
+		Map<Workgroup, SessionBundle> sessionBundles = new HashMap<Workgroup, SessionBundle>();
 		sessionBundles.put(workgroup1, sessionBundle1);
 		
 		GradeWorkByStepAggregate aggregate = new GradeWorkByStepAggregateImpl();

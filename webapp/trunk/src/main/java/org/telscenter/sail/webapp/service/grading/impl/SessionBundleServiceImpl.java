@@ -22,10 +22,9 @@
  */
 package org.telscenter.sail.webapp.service.grading.impl;
 
-import net.sf.sail.emf.sailuserdata.EPortfolio;
-import net.sf.sail.emf.sailuserdata.ESessionBundle;
-import net.sf.sail.emf.sailuserdata.util.PortfolioLoader;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
+import net.sf.sail.webapp.domain.sessionbundle.impl.SessionBundleImpl;
 
 import org.telscenter.sail.webapp.service.grading.SessionBundleService;
 
@@ -38,7 +37,7 @@ public class SessionBundleServiceImpl implements SessionBundleService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.SessionBundleService#getSessionBundle(java.lang.Long, net.sf.sail.webapp.domain.Workgroup)
 	 */
-	public ESessionBundle getSessionBundle(Long runId, Workgroup workgroup) {
+	public SessionBundle getSessionBundle(Long runId, Workgroup workgroup) {
 		// TODO REPLACE BELOW STUB IMPLEMENTATION WITH ACTUAL CODE WHEN the code is ready
 		String portfolioXMLString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 		"<sailuserdata:EPortfolio xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:sailuserdata=\"sailuserdata\">" +
@@ -56,8 +55,9 @@ public class SessionBundleServiceImpl implements SessionBundleService {
 		"<launchProperties key=\"maven.jnlp.version\" value=\"plr-everything-jdic-snapshot-0.1.0-20070523.165636\"/>" +
 		"</sessionBundles></sailuserdata:EPortfolio>";
 		
-		EPortfolio portfolio = PortfolioLoader.loadPortfolio(portfolioXMLString);
-		ESessionBundle sessionBundle = (ESessionBundle) portfolio.getSessionBundles().get(0);
+		SessionBundle sessionBundle = new SessionBundleImpl();
+		sessionBundle.setBundleString(portfolioXMLString);
+		sessionBundle.setWorkgroup(workgroup);
 		return sessionBundle;
 	}
 
