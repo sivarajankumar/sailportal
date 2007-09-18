@@ -148,7 +148,6 @@ public class PersistentAclEntry implements ImmutableAclEntry, Serializable {
      * @see org.acegisecurity.acls.AccessControlEntry#getAcl()
      */
     public Acl getAcl() {
-        // TODO CY Auto-generated method stub
         return null;
     }
 
