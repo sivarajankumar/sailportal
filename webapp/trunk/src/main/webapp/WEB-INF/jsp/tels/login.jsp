@@ -52,14 +52,14 @@
   <p><spring:message code="login.failed" /></p>
 </c:if>
 
-<div id="right" style="margin-right:360px;" >
+<div id="accountLoginBox">
 <form id="login" method="post" action="j_acegi_security_check">
 
   <label for="j_username"><spring:message code="login.username" /></label>
-  <input type="text" name="j_username" id="j_username"  class="text" tabindex="1" />
+  <input type="text" name="j_username" id="j_username" tabindex="1" />
 <br />
   <label for="j_password"><spring:message code="login.password" /></label>
-  <input type="password" name="j_password" id="j_password" class="text" tabindex="2" />
+  <input type="password" name="j_password" id="j_password" tabindex="2" />
 <br />
 
      <div id="waiting" style="display: none">
@@ -67,7 +67,7 @@
      </div>
    
  <input type="image" id="signIn" src="<spring:theme code="sign_in" />" 
-        	style="position:relative;left:150px;" tabindex="3" onmouseover="swapImage('signIn', '<spring:theme code="sign_in_rollover" />');"
+        	tabindex="3" onmouseover="swapImage('signIn', '<spring:theme code="sign_in_rollover" />');"
        		onmouseout="swapImage('signIn', '<spring:theme code="sign_in" />');"
             onclick="Effect.toggle('waiting', 'appear')" /> 
       
