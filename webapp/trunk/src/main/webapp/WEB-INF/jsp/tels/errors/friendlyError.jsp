@@ -42,7 +42,7 @@
 </h2>
 </div>
 
-<div id="right">
+<div style="position:relative;left:350px;	">
 An error has occurred.
 </div>
 
