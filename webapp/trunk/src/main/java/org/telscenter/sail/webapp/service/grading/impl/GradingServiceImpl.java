@@ -40,6 +40,7 @@ import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
+import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
@@ -58,7 +59,7 @@ public class GradingServiceImpl implements GradingService {
 
 	private SessionBundleService sessionBundleService;
 	
-	private net.sf.sail.webapp.service.annotation.AnnotationBundleService annotationBundleService;
+	private AnnotationBundleService annotationBundleService;
 	
 	public GradingServiceImpl() {
 		// TODO Auto-generated constructor stub
