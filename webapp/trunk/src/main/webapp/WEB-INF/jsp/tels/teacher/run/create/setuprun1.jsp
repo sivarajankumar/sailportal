@@ -35,11 +35,12 @@
 <body>
 <%@ include file="../../../teacherHeader.jsp"%>
 
-<h2 id="right2" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 id="blueColor"><b id="blackColor"><spring:message code="teacher.setup-project-run-step1" /></b>
+<h2 style="position:relative;
+	left:250px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 style="color:rgb(0,0,255);"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step1" /></b>
 <spring:message code="teacher.setup-project-run-step1-desc" />
 </h3>
-<p class="bigFont1"> <spring:message code="teacher.selected-projects-message" />
+<p style="font-size: 1em;"> <spring:message code="teacher.selected-projects-message" />
 <b><spring:message code="teacher.type-of-project" /></b> 
 <spring:message code="teacher.project-run-classroom-message" /> 
 </p>
@@ -51,12 +52,12 @@
 <p>
 <spring:message code="createrun.projectdescription" /> <c:out value="${project.description}"/>
 </p>
-<p class="bigFont1 ">
+<p style="font-size: 1em;">
 <b> <spring:message code="teacher.correct-project" /> </b>
 </p> 
 </div>
 
-<form method="post" id="right" class="widthAdj6">
+<form method="post" style="position:relative;left:350px;width:950px;">
 <input type="submit" name="_target0" disabled value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />

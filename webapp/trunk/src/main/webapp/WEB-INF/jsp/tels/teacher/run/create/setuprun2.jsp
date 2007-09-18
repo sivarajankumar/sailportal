@@ -34,32 +34,33 @@
 <body>
 <%@ include file="../../../teacherHeader.jsp"%>
 
-<h2 id="right2" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 id="blueColor"><b id="blackColor"><spring:message code="teacher.setup-project-run-step2" /></b>
+<h2 style="position:relative;
+	left:250px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 style="color:rgb(0,0,255);"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step2" /></b>
 <spring:message code="teacher.setup-project-run-step2-desc" />
 </h3>
 
-<p class="bigFont1 widthAdj6">
+<p style="font-size:1em;width:950px;">
 <spring:message code="teacher.currently-active-project-runs" />
 </p>
-<p style="position:relative;left:20px;width:900px;font-size:0.9em;" class="justify">
+<p style="position:relative;left:20px;width:900px;font-size:0.9em;text-align:justify;">
 <spring:message code="teacher.archiving-a-project-run" />
 </p>
-<p class="bigFont1 widthAdj6">
+<p style="font-size:1em;width:950px;">
 <spring:message code="teacher.end-or-cont-project-runs" />
 <i> <spring:message code="navigate.next" /> </i>
 <spring:message code="teacher.end-or-cont-project-runs-cont" />
 </p>
 <p><spring:message code="createrun.existing" />
 
-<p class="widthAdj6"><c:forEach var="run" items="${existingRunList}">
+<p style="width:950px;"><c:forEach var="run" items="${existingRunList}">
 	<tr>
 		<td>${run.sdsOffering.name}</td>
 	</tr>
 </c:forEach>
 </p>
 
-<form method="post" id="right" class="widthAdj6">
+<form method="post" style="position:relative;left:350px;width:950px;">
 <input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target2" value="<spring:message code="navigate.next" />" />

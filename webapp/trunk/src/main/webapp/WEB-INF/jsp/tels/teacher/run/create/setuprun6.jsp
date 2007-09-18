@@ -44,11 +44,12 @@
 </ul>
 <br />
 -->  
-<h2 id="right2" class="widthAdj6" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 id="blueColor" class="widthAdj6"><b id="blackColor"><spring:message code="teacher.setup-project-run-step6" /> </b>
+<h2 style="position:relative;
+	left:250px;width:950px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 style="color:rgb(0,0,255);width:950px;"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step6" /> </b>
 <spring:message code="teacher.setup-project-run-step6-desc" />
 </h3>
-<p class="widthAdj6 bigFont1"><spring:message code="teacher.review-guide"  />
+<p style="width:950px;font-size:1em;"><spring:message code="teacher.review-guide"  />
 <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.how-to-use-wise" /></a>
 <spring:message code="teacher.new-window" />
 </p>
@@ -62,12 +63,12 @@
 </li>
 </ul>
 
-<p class="widthAdj6 bigFont1"><spring:message code="teacher.setup-complete" />
+<p style="width:950px;font-size:1em;"><spring:message code="teacher.setup-complete" />
 <i><spring:message code="navigate.done" /></i>
 <spring:message code="teacher.setup-complete-below" />
 </p>
 
-<div id="right" class="widthAdj6">
+<div style="position:relative;left:350px;width:950px;">
 <form method="post">
 <input type="submit" name="_target4" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />

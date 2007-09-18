@@ -77,11 +77,12 @@ if(form.manualCheckbox.checked==true){
 -->
 
 
-<h2 id="right2" style="color:rgb(100,0,0);" class="widthAdj6"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 id="blueColor" class="widthAdj6"><b id="blackColor"><spring:message code="teacher.setup-project-run-step3" /> </b>
+<h2 style="position:relative;
+	left:250px;color:rgb(100,0,0);width:950px;"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 style="color:rgb(0,0,255);width:950px;"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step3" /> </b>
 <spring:message code="teacher.setup-project-run-step3-desc" />
 </h3>
-<p class="bigFont1 widthAdj6">
+<p style="width:950px;font-size:1em;">
 <spring:message code="teacher.select-classroom-periods" />
 <i><spring:message code="navigate.next" /></i>
 </p>
@@ -102,7 +103,7 @@ if(form.manualCheckbox.checked==true){
 <input type="checkbox" name="options" value="Period 10" /> <spring:message code="classroom.period10" /><br />
 -->
 
-    <div class="widthAdj6">
+    <div style="width:950px;">
       <label for="periods"><spring:message code="periods" /></label><br />
           <c:forEach items="${periodNames}" var="periodName">
             <form:checkbox path="periodNames" value="${periodName}" />
@@ -120,7 +121,7 @@ OR <br />
 <spring:message code="classroom.separate-periods" />
 </p>
 -->
-<div id="right" class="widthAdj6">
+<div style="position:relative;left:350px;width:950px;">
 <input type="submit" name="_target1" value="<spring:message code="navigate.back"/>" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel"/>" />
 <input type="submit" name="_target3" value="<spring:message code="navigate.next"/>" />

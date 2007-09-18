@@ -45,10 +45,11 @@
 </ul><br />
 -->
 
-<h2 id="right2" class="widthAdj6" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 class="widthAdj6"><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
+<h2 style="position:relative;
+	left:250px;width:950px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h3 style="width:950px;"><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
 
-<b class="widthAdj6">
+<b style="width:950px;">
 <spring:message code="setuprun.confirmation.whereisnewrun" />
 <a href="./runlist.html" onclick="javascript:alert('This page is not available yet')"> 
 <spring:message code="setuprun.confirmation.myprojectruns" />
@@ -56,7 +57,7 @@
 <spring:message code="setuprun.confirmation.end" />
 </b>
 
-<div class="widthAdj6">
+<div style="width:950px;">
 <ul>
 <li><spring:message code="setuprun.confirmation.run.title" />
 <c:out value="${run.sdsOffering.name}" />
@@ -79,13 +80,13 @@
 </ul>
 </div>
 
-<h4 class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
-<p class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></p>
+<h4 style="width:950px;"><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
+<p style="width:950px;"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></p>
 
-<h4 class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
-<p class="widthAdj6"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
+<h4 style="width:950px;"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
+<p style="width:950px;"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
 
-<a href="teacher/run/myprojectruns.html" class="widthAdj6"> <img id="projectRuns"
+<a href="teacher/run/myprojectruns.html"  style="width:950px;"> <img id="projectRuns"
 	src="<spring:theme code="gotomyprojectruns" />"	 	
 	style="border:0px;"/>
 </a>
