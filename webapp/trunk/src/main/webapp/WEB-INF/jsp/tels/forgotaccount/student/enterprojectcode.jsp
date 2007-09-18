@@ -56,7 +56,7 @@
 
 
 <form id="projectCode" name="projectcode" method="post" commandName="reminderParameters">
-<div id="suggestions" class="padding0 bgcolorRed">
+<div id="suggestions" style="padding:0px 15px 15px 15px;background-color:#CC9966;">
 <label for="send_projectcode"><b><spring:message code="lostpassword.student.projectcode"/></b></label>
  <input type="text" name="projectCodeValue" id="projectCodeValue" tabindex="1" />
   
