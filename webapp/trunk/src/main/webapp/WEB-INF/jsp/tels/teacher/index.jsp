@@ -32,7 +32,8 @@
  
 <img src="../<spring:theme code="wisebanner" />" alt="WISE logo" />
 
-<div id="navigation" class="north2 widthAdj4">
+<div id="navigation" style="position:relative;
+	bottom:35px;width:980px;">
 <ul>
 <li> 
 <a href="index.html"> <img id="home" src="../<spring:theme code="home_selected" />"> 

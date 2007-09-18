@@ -27,10 +27,11 @@
 	<img src="../<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" />
 </div>
     <div>
-    <p class="userinfo">
+    <p style="position: absolute;top:-5px;left:800px;">
 	<authz:authentication operation="username" />
 	</p>
-	<p class="userlogout"> <%@ include file="../logout.jsp"%> </p>
+	<p style="position: absolute;top: 12px;left:860px;font-size:14px;"> 
+	<%@ include file="../logout.jsp"%> </p>
 	</div>
 
 
