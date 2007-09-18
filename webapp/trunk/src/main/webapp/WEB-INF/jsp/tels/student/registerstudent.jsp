@@ -45,22 +45,22 @@
   </c:forEach>
 </spring:bind>
 
-<h2 id="studentRegistrationHeading"><spring:message code="student.registration" /></h2>
-<h3><spring:message code="student.registration.instructions" /></h3>
+<h2 class="center"><spring:message code="student.registration" /></h2>
+<h3 class="center"><spring:message code="student.registration.instructions" /></h3>
 
-<div id="registerPos">
+<div class="center">
 <form:form method="post" action="registerstudent.html" commandName="studentAccountForm" id="register" >
   <label for="firstname" id="firstname1">
   First Name:
   </label>
      <form:input path="userDetails.firstname" id="firstname"/>
       <form:errors path="userDetails.firstname" />
-      
+      <br />
       <label for="lastname" id="lastname1"
 	  >Last Name:</label>
       <form:input path="userDetails.lastname" id="lastname"/>
       <form:errors path="userDetails.lastname" />
-            
+            <br />
       <label for="gender" id="gender1"
 	  >Gender:</label>
       <form:select path="userDetails.gender" id="gender"> 
@@ -122,13 +122,13 @@
         
       <form:errors path="userDetails.accountQuestion" />
 
-
+<br />
 	
       <label for="accountAnswer" id="accountAnswer1"
 	  >Answer:</label>
       <form:input path="userDetails.accountAnswer" id="accountAnswer"/>
       <form:errors path="userDetails.accountAnswer" />
-      
+      <br />
       <label for="projectCode" id="projectCode1" 
 	  >Project Code:</label>
 	  <form:input path="projectCode" id="projectCode"/>

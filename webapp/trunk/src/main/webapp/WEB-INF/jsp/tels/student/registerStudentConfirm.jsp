@@ -34,13 +34,13 @@
 
 <%@ include file="studentHeader.jsp"%>
 
-<div id="studentRegConfirmBox">
+<div class="center">
 <h2><spring:message code="student.registration" /></h2>
 <h3><spring:message code="login.success" /></h3>
 <h4><spring:message code="login.sign-in-message" /></h4>
 </div>
 
-<div id="verticalNavigation" class="userAccountConfirmBox">
+<div id="verticalNavigation" class="center">
 <ul>
 <li><spring:message code="login.username" />
 <input name="username" value="${username}"/>
@@ -59,40 +59,44 @@
 </ul>
 </div>
 
-<div id="navigation" class="north">
-<ul style="position:relative;left:350px;">
+<div id="navigation" class="center">
+<ul>
 <li>
 <a href="registerstudent.html"> 
-<img id="imgBorderNone" src="../<spring:theme code="register_another_teammate" />" 
-onmouseover="swapImage('imgBorderNone','../<spring:theme code="register_another_teammate_rollover" />');"
-onmouseout="swapImage('imgBorderNone','../<spring:theme code="register_another_teammate" />');"
+<img id="registerteammate" src="../<spring:theme code="register_another_teammate" />" 
+onmouseover="swapImage('registerteammate','../<spring:theme code="register_another_teammate_rollover" />');"
+onmouseout="swapImage('registerteammate','../<spring:theme code="register_another_teammate" />');"
 />
 </a>
 </li>
+<!-- 
 <li>
-<p style="font-size:0.8em;width:315px;margin:-85px 0px 0px 20px;position:relative;top:40px;left:200px;">  
+<p style="font-size:0.8em;width:315px;margin:-85px 0px 0px 20px;position:relative;top:40px;left:500px;">  
 <spring:message code="register.teammate-info" />
 </p>
 </li>
+ -->
 </ul>
 </div>
 
-<div id="navigation" style="position:relative;top:30px;">
-<ul style="position:relative;left:350px;">
+<div id="navigation" class="center" style="position:relative;top:10px;">
+<ul>
 <li class="space1">
 <a href="../index.html">
-<img id="imgBorder2None" src="../<spring:theme code="sign_in_new_account" />" 
-onmouseover="swapImage('imgBorder2None','../<spring:theme code="sign_in_new_account_rollover" />');"
-onmouseout="swapImage('imgBorder2None','../<spring:theme code="sign_in_new_account" />');"
+<img id="signinnewaccount" src="../<spring:theme code="sign_in_new_account" />" 
+onmouseover="swapImage('signinnewaccount','../<spring:theme code="sign_in_new_account_rollover" />');"
+onmouseout="swapImage('signinnewaccount','../<spring:theme code="sign_in_new_account" />');"
 />
 </a>
 </li>
+<!--   
 <li>
 <p style="font-size:0.8em;width:315px;margin:-260px 0px 0px 20px;
 position:relative;top:210px;left:200px;">
 <spring:message code="register.team" />
 </p>
 </li>
+-->
 </ul>
 </div>
 
