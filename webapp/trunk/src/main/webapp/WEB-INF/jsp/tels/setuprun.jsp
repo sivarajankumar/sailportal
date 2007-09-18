@@ -32,11 +32,12 @@
 </head>
 <body>
 <%@ include file="teacherHeader.jsp"%>
-<p class="userinfo"> 
+<p style="position: absolute;top:-5px;left:800px;"> 
 <authz:authentication operation="username" />
  </p>
-<div id="navigation" class="north2 widthAdj4">
-<ul class="bigFont1">
+<div id="navigation" style="position:relative;
+	bottom:35px;width:990px;">
+<ul style="font-size: 1em;">
 <li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="management" />" style="border:0px;"/> </a> </li>
@@ -53,19 +54,19 @@
 </ul><br />
 -->
 
-<h2 id="right2" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<p class="bigFont1" style="position:relative;bottom:62px;"> 
+<h2 style="position:relative;left:800px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<p style="font-size: 1em;position:relative;bottom:62px;"> 
 <spring:message code="teacher.setup-run-six-steps" /> </p>
 <h3 style="position:relative;bottom:62px;"> <spring:message code="teacher.tips-project-runs" /> </h3>
 
-<ol class="bigFont1" style="position:relative;bottom:62px;">
+<ol style="font-size: 1em;position:relative;bottom:62px;">
 <li> <spring:message code="teacher.remember" /> <b> <spring:message code="wise.preview-the-project" /> </b> <spring:message code="teacher.preview-project-message" /> </li>
 <li> <spring:message code="teacher.review" /> <b> <spring:message code="teacher.lesson-plans" /></b> <spring:message code="teacher.lesson-plans-cont" /></li>
 <li> <spring:message code="teacher.lesson-plans-more-info" /> <b><spring:message code="wise.guide-to-running" /></b>
 <spring:message code="teacher.lesson-plans-cont" /> </li>
 </ol>
 
-<ul class="none bigFont1" style="position:relative;bottom:62px;">
+<ul class="none" style="font-size: 1em;position:relative;bottom:62px;">
 <li> <spring:message code="teacher.get-started" /> </li>
 <li><spring:message code="teacher.cancel-setup-steps" /></li>
 </ul>
