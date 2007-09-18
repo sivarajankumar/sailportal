@@ -24,15 +24,16 @@
 	<a href="teacher/index.html"><img id="none" src="<spring:theme code="dashboardbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
 </div>
 	    <div>
-   <p class="userlogout"> <%@ include file="logout.jsp"%> </p>
+   <p style="position: absolute;top: 12px;left:860px;font-size:14px;"> <%@ include file="logout.jsp"%> </p>
 	</div>
 
 
-<p class="userinfo"> 
+<p style="position: absolute;top:-5px;left:800px;"> 
 <authz:authentication operation="username" />
  </p>
-<div id="navigation" class="north2 widthAdj4">
-<ul class="bigFont1">
+<div id="navigation" style="position:relative;
+	bottom:35px;width:990px;">
+<ul style="font-size: 1em;">
 <li> <a href="teacher/index.html"> <img src="<spring:theme code="home" />" style="border:0px;"/> </a> </li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="grading" />" style="border:0px;"/> </a> </li>

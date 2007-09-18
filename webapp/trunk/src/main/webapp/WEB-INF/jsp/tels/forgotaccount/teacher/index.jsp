@@ -56,7 +56,8 @@ Enter Your UserName below. A new password will be sent to
 your registered email address.<br />
 <b><label for="send_username" /><spring:message code="login.username" /></b>
 <input type="text" id="username" name="username" size="40" tabindex="1" /> <br />
-<input type="submit" name="sendpassword" id="sendpassword" value="Send Password" class="right2" />
+<input type="submit" name="sendpassword" id="sendpassword" value="Send Password" style="position:relative;
+	left:300px;" />
  </li>
  <li>
  <b>Forgot Your Username?</b><br />
@@ -64,7 +65,8 @@ Enter the email address you used when registering for WISE. Your
 UserName and a new Password will be sent to this email address.<br />
 <b><label for="send_usernamepassword" /><spring:message code="lostpassword.teacher.email" /></b>
 <input type="text" name="emailAddress" id="emailAddress" size="40" tabindex="2" /> <br />
-<input type="submit" name="sendemailAndPwd" id="sendEmailAndPwd" value="Send Password + Email" class="right2" />
+<input type="submit" name="sendemailAndPwd" id="sendEmailAndPwd" value="Send Password + Email" style="position:relative;
+	left:300px;" />
 </li>
 
 <li> If you're still stuck, <a href="#" onclick="displayNotAvailable('This page is not available yet.');">contact WISE.</a>

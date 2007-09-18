@@ -34,36 +34,36 @@
 <body>
 
 <%@ include file="student/header.jsp"%>
-<div class=" border" style="width:470px;position:relative;
-	bottom:62px;">
+<div style="width:470px;position:relative;
+	bottom:62px;border:1px solid black;">
 <p class="left"> User(s): 
 <authz:authentication operation="username" />
 </p>
 "The time is" <%= new java.util.Date() %>
-<div id="navigation" class="center fontSizeAdj" style="width:160px;">
+<div id="navigation" style="text-align:center;width:160px;">
 <h4 id="left"> Account Options </h4>
 <form> 
 <div> 
-<input type="button" style="background-color:rgb(255,255,200);font-size:1.0em;" class="bold" size=15 value="ADD A PROJECT"/> <br />
-<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="Change Password" /> <br />
-<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="Change Language" /> <br />
-<input type="button" disabled style="font-size:1.0em;" class="bgColorBlue" size=15 value="Sign Out" /> <br />
+<input type="button" style="background-color:rgb(255,255,200);font-size:1.0em;font-weight:bold;" size=15 value="ADD A PROJECT"/> <br />
+<input type="button" disabled style="font-size:1.0em;" size=15 value="Change Password" /> <br />
+<input type="button" disabled style="font-size:1.0em;" size=15 value="Change Language" /> <br />
+<input type="button" disabled style="font-size:1.0em;" size=15 value="Sign Out" /> <br />
 </div>
 </form>
 </div>
-
-<ul id="tabnav" class="right1" style="width:660px;position:relative;bottom:5px;">
+<ul id="tabnav" style="width:660px;position:relative;bottom:5px;left:600px;">
 <li class="currentProjects "> <a href="enterprojectcode.html"><spring:message code="student.current-projects" /></a></li>
-<li class="archivedProjects bgColorLightBlue" style="border-bottom:0px;"> <a href="#"><spring:message code="student.archived-projects" /> </a></li>
+<li class="archivedProjects" style="border-bottom:0px;"> <a href="#"><spring:message code="student.archived-projects" /> </a></li>
 </ul>
 
-<div class="right2 north5 border" style="width:660px;"> 
+<div style="border:1px solid black;position:relative;
+	right:-800px;width:660px;"> 
 <h3 class="left"> Projects with UserName1 </h3>
 <table border="1">
 <tr> 
 <td> <spring:message code="wise.name" /> </td>
 <td> Project Name 1 </td> 
-<td rowspan=2 class="bold" style="background-color:rgb(255,255,200);"> <spring:message code="student.review-project" /></td>
+<td rowspan=2 style="font-weight:bold;background-color:rgb(255,255,200);"> <spring:message code="student.review-project" /></td>
 </tr>
 <tr> 
 <td> <spring:message code="wise.period" /> </td>
@@ -85,7 +85,7 @@
 <tr> 
 <td> <spring:message code="wise.name" /> </td>
 <td> Project Name 1 </td> 
-<td rowspan=2 class="bold" style="background-color:rgb(255,255,200);"> <spring:message code="student.review-project" />
+<td rowspan=2 style="font-weight:bold;background-color:rgb(255,255,200);"> <spring:message code="student.review-project" />
 </td>
 </tr>
 <tr> 
