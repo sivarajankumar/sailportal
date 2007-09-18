@@ -67,7 +67,7 @@ public class GradingServiceImpl implements GradingService {
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(java.lang.Long)
 	 */
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException {
-		// TODO REPLACE MOCK BELOW WITH ACTUAL CODE WHEN READY	
+		// TODO HT - REPLACE MOCK BELOW WITH ACTUAL CODE WHEN READY	
 		// ALSO ADD LOGIC TO RETRIEVE RUN USING PROVIDED runId PARAMETER
 		String curnitmapXMLString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
 			"<pas:ECurnitmap xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:pas=\"pas\" xsi:schemaLocation=\"pas pas.ecore\">" +
