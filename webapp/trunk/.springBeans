@@ -18,6 +18,7 @@
 		<config>src/main/resources/configurations/dispatcherServlet/tels/controllers.xml</config>
 		<config>src/main/resources/configurations/dispatcherServlet/tels/extensions.xml</config>
 		<config>src/main/resources/configurations/dispatcherServlet/tels/overrides.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/annotation.xml</config>
 	</configs>
 	<configSets>
 		<configSet>
