@@ -80,6 +80,7 @@ public class AnnotationBundleImpl implements AnnotationBundle {
     @JoinColumn(name = COLUMN_NAME_WORKGROUP_FK, nullable = false)
     private Workgroup workgroup;
     
+    @Transient
     private EAnnotationBundle eAnnotationBundle;
 
 	/**
