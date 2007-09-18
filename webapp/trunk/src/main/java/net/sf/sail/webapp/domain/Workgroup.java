@@ -53,7 +53,6 @@ public interface Workgroup extends Persistable {
     /**
      * @return the members
      */
-    // TODO - maybe change this to a list instead of set for things like JSP
     public Set<User> getMembers();
 
     /**
