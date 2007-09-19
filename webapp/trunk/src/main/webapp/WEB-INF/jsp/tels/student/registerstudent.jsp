@@ -57,7 +57,7 @@
   </label>
   </td>
   <td>
-     <form:input path="userDetails.firstname" id="firstname"/>
+     <form:input path="userDetails.firstname" id="firstname" size="30"/>
       <form:errors path="userDetails.firstname" />
   </td>
   </tr>
@@ -66,7 +66,7 @@
       <label for="lastname" id="lastname1">Last Name:</label>
 	  </td>
 	  <td>
-      <form:input path="userDetails.lastname" id="lastname"/>
+      <form:input path="userDetails.lastname" id="lastname" size="30"/>
       <form:errors path="userDetails.lastname" />
       </td>
       </tr>
@@ -142,7 +142,7 @@
 	  <td>
             <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
           <c:forEach items="${accountQuestions}" var="questionchoice">
-            <form:option value="${questionchoice}"><spring:message code="accountquestions.${questionchoice}" /></form:option>
+            <form:option value="${questionchoice}"><spring:message code="accountquestions.${questionchoice}"/></form:option>
           </c:forEach>
         </form:select>
         

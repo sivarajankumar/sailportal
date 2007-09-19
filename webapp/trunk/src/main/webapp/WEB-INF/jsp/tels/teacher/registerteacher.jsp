@@ -71,15 +71,15 @@ function popup(URL) {
 <label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label>
 </td>
 <td>    
-    <form:input path="userDetails.firstname" id="firstname"/>
+    <form:input path="userDetails.firstname" id="firstname" size="30"/>
 </td>
 </tr>
 <tr>
 <td>
-    <label for="lastname" id="lastname1"><spring:message code="signup.lastname" /></label>
+    <label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label>
 </td>
 <td>
-    <form:input path="userDetails.lastname" id="lastname"/>
+    <form:input path="userDetails.lastname" id="lastname" size="30"/>
 </td>
 </tr>
 <tr>
