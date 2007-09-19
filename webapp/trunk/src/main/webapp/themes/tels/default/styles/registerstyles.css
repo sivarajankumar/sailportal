@@ -74,6 +74,15 @@ ul.none{
     width:350px;
 }
 
+#curriculumSubjectsBox{
+	width:400px;
+	position:relative;
+	top:0px;
+	left:200px;
+	align:center;
+	text-align:justify;
+	margin-bottom:-90px;
+}
 
 label{
 width: 120px;
@@ -84,15 +93,13 @@ display: inline;
 }
 
 label#firstname1{
-    margin-left:18px;
+    margin-left:40px;
     display: inline;
 }
 
 label#lastname1{
-    margin-left:19px;
+    margin-left:40px;
     display: inline;
-    margin-right:5px;
-    padding-right:5px;
 }
 
 label#lastname2{
@@ -101,56 +108,42 @@ label#lastname2{
 }
 
 label#gender1{
-      margin-left:41px;
+      margin-left:62px;
       display: inline;
-      margin-right:-17px;
-      padding-right:27px;
 }
 
 label#birthmonth1{
     width:150px;
-    margin-left:-19px;
+    margin-left:-2px;
     display: inline;
-    margin-right:9px;
-    padding-left:37px;
 }
 
 label#birthdate1{
     width:150px;
-    margin-left:-7px;
-    display: inline;
-    margin-right:-3px;
-    padding-right:12px;
-    
+    margin-left:13px;
+    display: inline;    
 }
 
 label#password1{
-    margin-left:27px;
+    margin-left:48px;
     display: inline;
-    margin-right:2px;
-    padding-right:8px;
 }
 
 label#repeatedPassword1{
     width:150px;
-    margin-left:-18px;
+    margin-left:3px;
     display: inline;
-    margin-right:8px;
-    padding-right:2px;  
 }
 
 label#repeatedPassword2{
     width:150px;
-    margin-left:-17px;
+    margin-left:3px;
     display: inline;
-    margin-right:9px;
 }
 
 label#accountQuestion1{
-    margin-left:31px;
+    margin-left:52px;
     display: inline;
-    margin-right:-11px;
-    padding-right:18px;
 }
 
 #accountQuestion{
@@ -159,75 +152,57 @@ label#accountQuestion1{
 }
 
 label#accountAnswer1{
-    margin-left:38px;
+    margin-left:59px;
     display: inline;
-    margin-right:-18px;
-    padding-right:28px;
 }
 
 label#projectCode1{
     width:150px;
-    margin-left:6px;
+    margin-left:28px;
     display: inline;
-    margin-right:-12px;
-    padding-right:22px;  
 }
 
 label#emailAddress1{
-    margin-left:51px;
+    margin-left:72px;
     display: inline;
-    margin-right:-24px;
-    padding-right:34px;
 }
 
 label#city1{
-    margin-left:61px;
+    margin-left:82px;
     display: inline;
-    margin-right:-32px;
-    padding-right:42px;
 }
 
 label#state1{
-    margin-left:57px;
+    margin-left:78px;
     display: inline;
-    margin-right:-26px;
-    padding-right:36px;
 }
 
 label#country1{
-    margin-left:36px;
+    margin-left:57px;
     display: inline;
-    margin-right:-8px;
-    padding-right:18px;
 }
 
 label#schoolname1{
     width:150px;
-    margin-left:2px;
+    margin-left:23px;
     display: inline;
-    margin-right:-4px;
-    padding-right:14px;
 }
 
 label#curriculumsubjects1{
     width:180px;
-    margin-left:-42px;
+    margin-left:-20px;
     display: inline;
 }
 
 label#schoollevel1{
     width:150px;
-    margin-left:5px;
+    margin-left:25px;
     display: inline;
-    margin-right:-8px;
-    padding-right:18px;
 }
 
 label#legalAcknowledged1{
-    margin-left:53px;
+    margin-left:73px;
     display: inline;
-    margin-right:-28px;
-    padding-right:34px;
 }
 
 
