@@ -33,8 +33,8 @@
 
 <%@ include file="header.jsp"%>
 
-<h2 id="heading"> LOST USERNAME/PASSWORD </h2>
-<h2 id="heading2"> What sort of WISE account do you have?</h2>
+<h2 class="center"> LOST USERNAME/PASSWORD </h2>
+<h2 class="center"> What sort of WISE account do you have?</h2>
 
 <div id="account">  
 <a href="student/index.html">
@@ -49,7 +49,7 @@
   onmouseout="swapImage('teacherAccount','../<spring:theme code="create_teacher_account" />');" /></a>
 </div>
 
-<div id="select">
+<div id="select" class="center">
 <h3 id="italic">Select a choice above.</h3>
 <a href="../index.html">Return to Sign In</a>
 <!-- replace with proper image when ready
