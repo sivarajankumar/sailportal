@@ -22,7 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,9 +37,7 @@ import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EProject;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
-import org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController;
 import org.telscenter.sail.webapp.service.grading.GradingService;
-import org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl;
 
 /**
  * The actual gradingTool.
@@ -87,6 +87,13 @@ public class GradingToolController extends AbstractController {
 					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregate);
 					modelAndView.addObject(STEP,step);
 					
+					Map<String, String> periods = new HashMap<String, String>();
+					
+					periods.put("Period3", "ok");
+					periods.put("Period2", "ok");
+					periods.put("Period1", "ok");
+					
+					modelAndView.addObject("periods",periods);
 					System.out.println("KeySet: " + gradeWorkByStepAggregate.getSessionBundles().keySet());
 					System.out.println("values: " + gradeWorkByStepAggregate.getSessionBundles().values());
 					return modelAndView;
