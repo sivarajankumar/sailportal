@@ -22,7 +22,7 @@ img#none{
 
 #account{
 	position:relative;
-	left:426px;
+	left:526px;
 	top: 21px;
 	height: 107px;
 	width: 225px;
@@ -44,4 +44,8 @@ img#none{
 
 img{
 	border:0px;
+}
+
+.center{
+	text-align:center;
 }
