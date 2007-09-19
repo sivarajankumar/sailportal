@@ -50,30 +50,45 @@
 
 <div class="center">
 <form:form method="post" action="registerstudent.html" commandName="studentAccountForm" id="register" >
+  <table align="center">
+  <tr><td>
   <label for="firstname" id="firstname1">
   First Name:
   </label>
+  </td>
+  <td>
      <form:input path="userDetails.firstname" id="firstname"/>
       <form:errors path="userDetails.firstname" />
-      <br />
-      <label for="lastname" id="lastname1"
-	  >Last Name:</label>
+  </td>
+  </tr>
+  <tr>
+      <td>
+      <label for="lastname" id="lastname1">Last Name:</label>
+	  </td>
+	  <td>
       <form:input path="userDetails.lastname" id="lastname"/>
       <form:errors path="userDetails.lastname" />
-            <br />
-      <label for="gender" id="gender1"
-	  >Gender:</label>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <label for="gender" id="gender1">Gender:</label>
+	  </td>
+	  <td>
       <form:select path="userDetails.gender" id="gender"> 
           <c:forEach items="${genders}" var="genderchoice">
             <form:option value="${genderchoice}"><spring:message code="genders.${genderchoice}" /></form:option>
           </c:forEach>
       </form:select>
       
-      <form:errors path="userDetails.gender" />
- <br />
-
-      <label for="birthmonth" id="birthmonth1" 
-	   >Birthday (Month):</label>
+      <form:errors path="userDetails.gender" />	  
+	  </td>
+	  </tr>
+	  <tr>
+	  <td>
+	  <label for="birthmonth" id="birthmonth1">Birthday (Month):</label>
+	  </td>
+	  <td>
   	    <form:select path="birthmonth" id="birthmonth">
 		  <c:forEach var="month" begin="1" end="12" step="1">
 			  <form:option value="${month}">
@@ -82,38 +97,49 @@
 		  </c:forEach>
 	    </form:select> 
 
-      <form:errors path="birthmonth" />
-<br />
-      <label for="birthdate" id="birthdate1"	  
-	  >Birthday (Day):</label>
-  	    <form:select path="birthdate" id="birthdate">
+      <form:errors path="birthmonth" />	  
+	  </td>
+	  </tr>
+	  <tr>
+	  <td>
+      <label for="birthdate" id="birthdate1">Birthday (Day):</label>
+	  </td>
+	  <td>
+	   	<form:select path="birthdate" id="birthdate">
 		  <c:forEach var="date" begin="1" end="31" step="1">
 			  <form:option value="${date}">
 				  <spring:message code="birthdates.${date}" />
 			  </form:option>
 		  </c:forEach>
-	    </form:select> 
-	    
-      <form:errors path="birthdate" />
-<br />
-
-
-      <label for="password" id="password1">
+	    </form:select> 	    
+	      <form:errors path="birthdate" />
+	  </td>
+	  </tr>
+	  <tr>
+	  <td>
+	  <label for="password" id="password1">
 	  Password:
 	  </label>
+	  </td>
+	  <td>
       <form:password path="userDetails.password" id="password"/>
-      <form:errors path="userDetails.password"/>      
-<br />
-  
-      <label for="repeatedPassword" id="repeatedPassword1"
-	  >Verify Password:</label>
+      <form:errors path="userDetails.password"/>      	  
+	  </td>
+	  </tr>
+	  <tr>
+	  <td>
+      <label for="repeatedPassword" id="repeatedPassword1">Verify Password:</label>	  
+	  </td>
+	  <td>
       <form:password path="repeatedPassword" id="repeatedPassword"/>
-      <form:errors path="repeatedPassword" />      
-<br />
-
-      <label for="accountQuestion" id="accountQuestion1"
-	  >Question:</label>
-      
+      <form:errors path="repeatedPassword" />      	  
+	  </td>
+	  </tr>
+	  <tr>
+	  <td>
+	  <label for="accountQuestion" id="accountQuestion1">Question:</label>
+	  </td>
+	  <td>
             <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
           <c:forEach items="${accountQuestions}" var="questionchoice">
             <form:option value="${questionchoice}"><spring:message code="accountquestions.${questionchoice}" /></form:option>
@@ -121,19 +147,32 @@
         </form:select>
         
       <form:errors path="userDetails.accountQuestion" />
-
-<br />
-	
-      <label for="accountAnswer" id="accountAnswer1"
-	  >Answer:</label>
+	  
+	  </td>
+	  </tr>
+	  
+	  <tr>
+	  <td>
+	   <label for="accountAnswer" id="accountAnswer1">Answer:</label>
+	  </td>
+	  <td>
       <form:input path="userDetails.accountAnswer" id="accountAnswer"/>
-      <form:errors path="userDetails.accountAnswer" />
-      <br />
-      <label for="projectCode" id="projectCode1" 
-	  >Project Code:</label>
-	  <form:input path="projectCode" id="projectCode"/>
-      <form:errors path="projectCode" />
-      
+      <form:errors path="userDetails.accountAnswer" />	  
+	  </td>
+	  </tr>
+
+	  <tr>
+	  <td>
+	  <label for="projectCode" id="projectCode1">Project Code:</label>	  
+	  </td>
+	  <td>
+	  	  <form:input path="projectCode" id="projectCode"/>
+      	  <form:errors path="projectCode" />
+	  </td>
+	  </tr>	
+	       
+      </table>
+   
 <br />
 
  <div><input type="image" id="save" src="../<spring:theme code="register_save" />" 

@@ -65,72 +65,122 @@ function popup(URL) {
 <div class="center">
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="register" >
 
+<table align="center">
+<tr>
+<td>
 <label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label>
+</td>
+<td>    
     <form:input path="userDetails.firstname" id="firstname"/>
-<br /> 
-    <label for="lastname" id="lastname2"><spring:message code="signup.lastname" /></label>
+</td>
+</tr>
+<tr>
+<td>
+    <label for="lastname" id="lastname1"><spring:message code="signup.lastname" /></label>
+</td>
+<td>
     <form:input path="userDetails.lastname" id="lastname"/>
-<br />
-
-    <label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label>
-    <form:input path="userDetails.emailAddress" id="emailAddress"/>
-<br />
-
-    <label for="city" id="city1"><spring:message code="signup.city" /></label> 
-    <form:input path="userDetails.city" id="city" />
-	<br />
-
-    <label for="state" id="state1"><spring:message code="signup.state" /></label> 
-    <form:input path="userDetails.state" id="state" />
+</td>
+</tr>
+<tr>
+<td>
+<label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label>
+</td>
+<td>    
+<form:input path="userDetails.emailAddress" id="emailAddress"/>
+</td>
+</tr>
+<tr>
+<td>
+<label for="city" id="city1"><spring:message code="signup.city" /></label> 
+</td>
+<td>
+<form:input path="userDetails.city" id="city" />
+</td>
+</tr>
+<tr>
+<td>
+<label for="state" id="state1"><spring:message code="signup.state" /></label> 
+</td>
+<td>
+<form:input path="userDetails.state" id="state" />
         <div id="autocomplete_choices_state" class="autocomplete" ></div>
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('state', 'autocomplete_choices_state', 'states.html', {paramName: 'sofar'}); 	   		
 		</script>
-	<br />
-
+</td>
+</tr>
+<tr>
+<td>
     <label for="country" id="country1"><spring:message code="signup.country" /></label> 
+</td>
+<td>
     <form:input path="userDetails.country" id="country" />
         <div id="autocomplete_choices_country" class="autocomplete" ></div>
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
 		</script>
-	<br />
-
+</td>
+</tr>
+<tr>
+<td>
     <label for="schoolname" id="schoolname1"><spring:message code="signup.schoolname" /></label> 
+</td>
+<td>    
     <form:input path="userDetails.schoolname" id="schoolname" />
-<br />
-
+</td>
+</tr>
+<tr>
+<td>
     <label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label> 
+</td>
+<td>
      <div id="curriculumSubjectsBox" style="display:none"> 
           <c:forEach items="${curriculumsubjects}" var="curriculumsubject">
             <form:checkbox path="userDetails.curriculumsubjects" value="${curriculumsubject}" /><spring:message code="signup.curriculumsubjects.${curriculumsubject}" />
           </c:forEach>
 	</div>
     <a href="javascript:Effect.toggle('curriculumSubjectsBox','appear')" > List of Curriculum Subjects </a>
-     
-<br />
-<br />
+</td>
+</tr>     
+<tr>
+<td>
     <label for="schoollevel" id="schoollevel1"><spring:message code="signup.schoollevel" /></label> 
-
+</td>
+<td>
         <form:select path="userDetails.schoollevel" id="schoollevel"> 
           <c:forEach items="${schoollevels}" var="schoollevel">
             <form:option value="${schoollevel}"><spring:message code="signup.schoollevels.${schoollevel}" /></form:option>
           </c:forEach>
         </form:select>
-  <br />
-
+</td>
+</tr>
+<tr>
+<td>
     <label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label>
+</td>
+<td>
     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
      I agree to the <a href="termsofuse.html"> terms of use. </a>
-     
-  <br />
-  
+</td>     
+</tr>
+<tr>
+<td>  
     <label for="password" id="password1"><spring:message code="signup.password" /></label>
+</td>
+<td>
     <form:password path="userDetails.password" id="password"/>
-  <br />
-  
-    <label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label>
-    <form:password path="repeatedPassword" id="repeatedPassword"/>
+</td>
+</tr>
+<tr>
+<td>
+<label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label>
+</td>
+<td>
+<form:password path="repeatedPassword" id="repeatedPassword"/>
+</td>
+</tr>
+</table>
   <br />
         
     <div><input type="image" id="save" src="../<spring:theme code="register_save" />" 
