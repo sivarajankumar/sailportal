@@ -31,11 +31,11 @@
 
 <body>
 <%@ include file="header.jsp"%>
-<h2 id="heading"> FORGOTTEN USERNAME</h2>
-<h1 id="heading2"> STUDENT </h1>
+<h2 class="center"> FORGOTTEN USERNAME</h2>
+<h1 class="center"> STUDENT </h1>
 
 
-<div id="forgot2"> 
+<div align="center"> 
 <b>Forgot your UserName?</b><br />
 Recall that a username consists of your first name, initial of last
 name, month of birth, and day of birth.<br />
@@ -47,7 +47,7 @@ If this doesn't help you recall your Username, try one of the following: <br />
 </div>
 
 
-<div id="suggestions">
+<div align="center">
 <ol>
 <li>
 You can always ask your teacher for help
@@ -59,9 +59,10 @@ your Username in the list of student names for
 that project by <a href="enterprojectcode.html">clicking here.</a>
 </li>
 </ol>
+<a align="center" href="../../index.html"> Return to Sign In</a>
 
 </div>
-<a id="linkPos3" href="../../index.html"> Return to Sign In</a>
+
 
 </body>
 </html>

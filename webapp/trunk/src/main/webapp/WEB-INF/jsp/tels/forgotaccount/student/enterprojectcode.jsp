@@ -32,9 +32,9 @@
 <body>
 <%@ include file="header.jsp" %>
 
-<h2 id="heading"> LOST USERNAME/PASSWORD</h2>
-<h1 id="heading2"> STUDENT </h1>
-<h2 id="heading">Search Usernames in a Project Run </h2><br />
+<h2 class="center"> LOST USERNAME/PASSWORD</h2>
+<h1 class="center"> STUDENT </h1>
+<h2 class="center">Search Usernames in a Project Run </h2><br />
 
 <div>
 <!-- Support for Spring errors object -->
@@ -47,7 +47,7 @@
 </spring:bind>
 </div>
 
-<div id="enterinfo"> 
+<div align="center"> 
 
 <b>Fill in the information below</b><br />
 (you can get this information from your teacher)
@@ -56,7 +56,7 @@
 
 
 <form id="projectCode" name="projectcode" method="post" commandName="reminderParameters">
-<div id="suggestions" style="padding:0px 15px 15px 15px;background-color:#CC9966;">
+<div id="suggestions" style="background-color:#CC9966;">
 <label for="send_projectcode"><b><spring:message code="lostpassword.student.projectcode"/></b></label>
  <input type="text" name="projectCodeValue" id="projectCodeValue" tabindex="1" />
   
@@ -68,9 +68,10 @@
       onclick="Effect.toggle('waiting', 'appear')" />
       
 </form>
-
-<a id="linkPos4" href="../../index.html">Return to Sign In</a>
-
+<br />
+<div align="center">
+<a href="../../index.html">Return to Sign In</a>
+</div>
 <!--
 <img id="search" name="search" src="" width="380" height="61" alt="search" style="background-color: #999900">
 <a href="#" ><img id="signIn3" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 

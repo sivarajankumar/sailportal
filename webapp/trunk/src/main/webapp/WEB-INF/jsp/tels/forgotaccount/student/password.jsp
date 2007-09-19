@@ -32,11 +32,11 @@
 <body>
 <%@ include file="header.jsp" %>
 
-<h2 id="heading"> FORGOTTEN PASSWORD</h2>
-<h1 id="heading2"> STUDENT </h1>
+<h2 class="center"> FORGOTTEN PASSWORD</h2>
+<h1 class="center"> STUDENT </h1>
 
 
-<div id="forgot2" style="border:1px solid black;"> 
+<div align="center" style="border:1px solid black;"> 
 <b>Forgot your Password?</b><br />
 <ol>
 <li>You can always ask your teacher for help looking up your
@@ -47,7 +47,9 @@ successfully answering a <a href="passwordreminder.html">Password Reminder</a> q
 </li>
 </ol>
 </div>
-<a id="linkPos3" href="../../index.html">Return to Sign In</a>
+<div align="center">
+<a align="center" href="../../index.html">Return to Sign In</a>
+</div>
 <!--
 <a href="#" ><img id="signIn4" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
 onmouseover="swapImage('signIn4','../../images/Sign-in-New-Account-Roll.png');"

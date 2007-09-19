@@ -36,20 +36,23 @@
 <h2 class="center"> LOST USERNAME/PASSWORD </h2>
 <h2 class="center"> What sort of WISE account do you have?</h2>
 
-<div id="account">  
+<div align="center">  
 <a href="student/index.html">
   <img id="studentAccount" src="../<spring:theme code="create_student_account" />" width="228" height="41"
   onmouseover="swapImage('studentAccount','../<spring:theme code="create_student_account_rollover" />');" 
   onmouseout="swapImage('studentAccount','../<spring:theme code="create_student_account" />');" /> 
  </a>
+ <br />
   or
+  <br />
 <a href="teacher/index.html"> 
 <img id="teacherAccount" src="../<spring:theme code="create_teacher_account" />" height="46"
   onmouseover="swapImage('teacherAccount','../<spring:theme code="create_teacher_account_rollover" />');" 
   onmouseout="swapImage('teacherAccount','../<spring:theme code="create_teacher_account" />');" /></a>
+<br />
 </div>
 
-<div id="select" class="center">
+<div align="center">
 <h3 id="italic">Select a choice above.</h3>
 <a href="../index.html">Return to Sign In</a>
 <!-- replace with proper image when ready

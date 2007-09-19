@@ -32,8 +32,8 @@
 <body>
 <%@ include file="header.jsp" %>
 
-<h2 id="heading"> PASSWORD REMINDER</h2>
-<h1 id="heading2"> STUDENT </h1>
+<h2 class="center"> PASSWORD REMINDER</h2>
+<h1 class="center"> STUDENT </h1>
 
 <div>
 <!-- Support for Spring errors object -->
@@ -46,7 +46,7 @@
 </spring:bind>
 </div>
 
-<div id="forgot2" style="padding:0px 15px 15px 15px;"> 
+<div align="center" style="padding:0px 15px 15px 15px;"> 
 <h2><b>Step 1: </b></h2>
 <h2><b>First, enter your username: </b></h2>
 <form id="username" name="retrievepassword" method="post" commandName="reminderParameters">
@@ -57,8 +57,8 @@
 <br />
   <input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
 </form>
+<a align="center" href="../../index.html">Return to Sign In</a>
 </div>
-<a id="signIn4" href="../../index.html">Return to Sign In</a>
 <!--
 <a href="#" ><img id="signIn4" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
 onmouseover="swapImage('signIn4','../../images/Sign-in-New-Account-Roll.png');"

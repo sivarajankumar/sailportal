@@ -20,7 +20,7 @@
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
 
-<div>
+<div align="center">
 	<a href="index.html"><img id="none" src="../../<spring:theme code="wisebanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
 </div>
 	    <div>
