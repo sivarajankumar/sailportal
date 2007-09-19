@@ -42,7 +42,7 @@ img#none{
 
 #suggestions{
 	position:relative;
-	left:301px;
+	left:601px;
 	top: 42px;
 	width: 337px;
 	font-size:1.1em;
@@ -176,5 +176,9 @@ label#passwordform2{
 	margin-left:15px;
 	width:150px;
 	text-align:left;
+}
+
+.center{
+	text-align:center;
 }
 
