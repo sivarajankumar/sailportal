@@ -41,7 +41,7 @@ ${curnitMap.project.title}
 		<ul> 
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
 				
-				<li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  : ${someStep.title}</li></a></li>
+				<li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  : ${someStep.title}</a></li>
 			</c:forEach>
 		</ul>
     </c:forEach>
