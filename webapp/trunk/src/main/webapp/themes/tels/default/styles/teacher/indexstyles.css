@@ -57,22 +57,24 @@
   
 #welcome{
 	position:relative;
-	bottom:10px;
+	bottom:30px;
 	width:980px;
 }
 
 
 #innerWelcome{
 	border:1px solid black;
-    width: 470px;   
+    width: 480px;   
 	padding-bottom:0px;
 	padding-top:0px;
+	
 }
 
 #headingPos{
 	position:relative;
 	padding-top:5px;
 	margin-top:5px;
+	left:20px;
 	width:400px;
 }
 
@@ -151,9 +153,9 @@ display: inline;
 #userLoginInfo{
 	position:relative;
 	bottom:15px;
-	left:40px;
+	left:25px;
 	line-height:30px;
-	font-size:1.05em;
+	font-size:1.02em;
 	font-weight:100;
 	padding-bottom:30px;
 }
@@ -165,7 +167,7 @@ display: inline;
 	top:0px;
 	color:black;
 	border:1px solid black;
-	width:475px;
+	width:480px;
 	bottom:0px;
 	
 }
@@ -180,20 +182,23 @@ display: inline;
 
 #dashboardBox{
 	position:relative;
-	top:20px;
+	top:-20px;
+	bottom:0px;
 	width:980px;
 }
 
 #innerDashboard{
 	border: 1px solid black;
-	width:475px;	
+	width:480px;	
+	margin-right:-5px;
 	padding-bottom:45px;
 }
 
 #dashboardMsg{
 	position:relative;
 	top:0px;
-	font-size:1.05em;
+	left:20px;
+	font-size:1.02em;
 	font-weight:100;
 }
 
@@ -203,7 +208,7 @@ display: inline;
 	left:500px;
 	top:0px;
 	border:1px solid black;
-	width:475px;
+	width:470px;
 	bottom:0px;
 	padding-bottom:13px;
 }
@@ -216,4 +221,7 @@ display: inline;
 	bottom:0px;	
 }
 
-
+#dashboardSections{
+	padding:0px;
+	margin:0px 30px -13px 20px;
+}
