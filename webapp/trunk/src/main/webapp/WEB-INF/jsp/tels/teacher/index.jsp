@@ -29,43 +29,7 @@
 </head>
 
 <body>
- 
-<img src="../<spring:theme code="wisebanner" />" alt="WISE logo" />
-
-<div id="navigation" style="position:relative;
-	bottom:35px;width:980px;">
-<ul>
-<li> 
-<a href="index.html"> <img id="home" src="../<spring:theme code="home_selected" />"> 
-</a> 
-</li>
-<li> 
-<a href="#"> <img id="projects" src="../<spring:theme code="projects" />"   
-onclick="changeNavigationColor('projects','../<spring:theme code="projects_selected" />');
-  		 displayNotAvailable('This page is not available yet')"/> 
-</a> 
-</li>
-<li> 
-<a href="#"> <img id="grading" src="../<spring:theme code="grading" />" 
-onclick="changeNavigationColor('grading','../<spring:theme code="grading_selected" />');
-		 displayNotAvailable('This page is not available yet')"/> 
-</a> 
-</li>
-
-<li> 
-<a href="#"> <img id="management" src="../<spring:theme code="management" />"
-onclick="changeNavigationColor('management','../<spring:theme code="management_selected" />');
-		 displayNotAvailable('This page is not available yet')"/> 
-</a> 
-</li>
-<li> 
-<a href="#"> <img id="help" src="../<spring:theme code="help" />"
-onclick="changeNavigationColor('help','../<spring:theme code="help_selected" />');
-		 displayNotAvailable('This page is not available yet')"/> 
-</a> 
-</li>
-</ul>
-</div>
+<%@ include file="teacherHeader.jsp" %> 
  
 <div id="welcome">
 <div id="innerWelcome">
@@ -75,13 +39,13 @@ Welcome: ${username}
 <p id="userLoginInfo"> 
 	Current Log-in: 
 		Thu Aug 09 13:17:23 EDT 2007
-	<br>
+	<br />
 	Last Login: 
 		Thu Aug 09 13:17:23 EDT 2007
-	<br>
+	<br />
 	Announcements:
 		nothing here yet
-	<br>
+	<br />
 </p>
 </div>
 
@@ -138,7 +102,7 @@ About the Dashboard
  />
 </a>
 </td>
-<td class="width0">
+<td>
 Sign-in data, links to Recent Areas, links to Projects Awaiting Grading
 </td>
 </tr>
