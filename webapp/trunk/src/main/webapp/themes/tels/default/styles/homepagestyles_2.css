@@ -22,7 +22,10 @@
 #welcomerow{
 	position:relative;
 	top:5px;
+	left:0px;
 	width:980px;
+	padding:0px;
+	margin:0px;
 }
 
 #boxHeader{
@@ -43,8 +46,7 @@
 
 #welcomeBox{
 	color:#000000;
-	border-style:solid;
-	border-width:1px;
+	border:1px solid black;
 	border-top-color: #999999;
 	border-right-color: #666666;
 	border-bottom-color: #666666;
@@ -52,6 +54,7 @@
 	width: 640px;
 	padding:0px;
 	margin:0px;
+	align:left;
 	background-color: #EBEBEB;
 }
 
@@ -251,8 +254,11 @@ ul.none{
 
 #actionRow{
 	position:relative;
+	left:0px;
+	top:10px;
 	width:980px;
 	padding:0px;
+	margin:0px;
 }
 
 #innerWiseInAction{
@@ -266,7 +272,7 @@ ul.none{
 	background-color: #EBEBEB;
 	position: relative;
 	left: 0px;
-	top: 15px;
+	top: 0px;
 	right: 0px;
 	bottom: 0px;
 
@@ -274,11 +280,11 @@ ul.none{
 
 #testimonialsPos{
 	position:absolute;
-	top:15px;
+	top:0px;
 	right:340px;
 	padding-bottom:0px;
 	margin:0px;
-	margin-bottom:-15px;
+	margin-bottom:0px;
 	border:1px solid #999999;
 	border-top-color: #999999;
 	border-right-color: #666666;
@@ -292,7 +298,7 @@ ul.none{
 #latestNewsPos{
 	position:absolute;
 	right:0px;
-	top:15px;
+	top:0px;
 	bottom:0px;
 	border:1px solid #999999;
 	border-color:#666666;
@@ -304,7 +310,7 @@ ul.none{
 	left:650px;
 	height:auto;
 	background-color: #EBEBEB;
-	margin-bottom:-15px;
+	margin-bottom:0px;
 }
 
 #newsHeading{

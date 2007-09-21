@@ -271,9 +271,9 @@ ul#tabnav a:hover{
 }
 
 #accountLoginBox{
-	position:relative;
-	left:350px;
-	margin-right:360px;
+	align:center;
+	width:260px;
+	margin:0px;
 }
 
 #j_username{
@@ -290,7 +290,7 @@ ul#tabnav a:hover{
 
 #signIn{
 	position:relative;
-	left:150px;
+	left:100px;
 }
 
 .center{
@@ -301,5 +301,23 @@ ul#tabnav a:hover{
 	border:1px solid black;
 }
 
+#whichAccountDescBox{
+	width:550px;
+	align:center;
+	text-align:justify;
+	padding-left:15px;
+	padding-right:15px;
+	border:1px solid black;	
+}
 
-  
+.textLeft{
+	text-align:left;
+}  
+
+#setuprunbox{
+	width:850px;
+	align:center;
+	text-align:justify;
+	position:relative;
+	left:0px;
+}	
