@@ -55,6 +55,9 @@ public class SdsWorkgroup implements SdsObject {
 
     @Transient
     public static final String COLUMN_NAME_SDS_OFFERING_FK = "sds_offering_fk";
+    
+    @Transient
+    public static final String COLUMN_NAME_SDS_SESSIONBUNDLE = "sds_sessionbundle";
 
     @Transient
     public static final String SDS_USERS_JOIN_TABLE_NAME = "sds_workgroups_related_to_sds_users";
@@ -89,6 +92,9 @@ public class SdsWorkgroup implements SdsObject {
     @ManyToMany(targetEntity = SdsUser.class, fetch = FetchType.EAGER)
     @JoinTable(name = SdsWorkgroup.SDS_USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = SDS_WORKGROUP_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SDS_USER_JOIN_COLUMN_NAME, nullable = false))
     private Set<SdsUser> members = new HashSet<SdsUser>();
+
+    @Column(name=SdsWorkgroup.COLUMN_NAME_SDS_SESSIONBUNDLE)
+    private String sdsSessionBundle;
 
     /**
      * @return the name
@@ -194,57 +200,75 @@ public class SdsWorkgroup implements SdsObject {
     }
 
     /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result
-                + ((this.members == null) ? 0 : this.members.hashCode());
-        result = PRIME * result
-                + ((this.name == null) ? 0 : this.name.hashCode());
-        result = PRIME
-                * result
-                + ((this.sdsObjectId == null) ? 0 : this.sdsObjectId.hashCode());
-        result = PRIME
-                * result
-                + ((this.sdsOffering == null) ? 0 : this.sdsOffering.hashCode());
-        return result;
-    }
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((members == null) ? 0 : members.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((sdsObjectId == null) ? 0 : sdsObjectId.hashCode());
+		result = prime * result
+				+ ((sdsOffering == null) ? 0 : sdsOffering.hashCode());
+		result = prime
+				* result
+				+ ((sdsSessionBundle == null) ? 0 : sdsSessionBundle.hashCode());
+		return result;
+	}
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final SdsWorkgroup other = (SdsWorkgroup) obj;
-        if (this.members == null) {
-            if (other.members != null)
-                return false;
-        } else if (!this.members.equals(other.members))
-            return false;
-        if (this.name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!this.name.equals(other.name))
-            return false;
-        if (this.sdsObjectId == null) {
-            if (other.sdsObjectId != null)
-                return false;
-        } else if (!this.sdsObjectId.equals(other.sdsObjectId))
-            return false;
-        if (this.sdsOffering == null) {
-            if (other.sdsOffering != null)
-                return false;
-        } else if (!this.sdsOffering.equals(other.sdsOffering))
-            return false;
-        return true;
-    }
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final SdsWorkgroup other = (SdsWorkgroup) obj;
+		if (members == null) {
+			if (other.members != null)
+				return false;
+		} else if (!members.equals(other.members))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (sdsObjectId == null) {
+			if (other.sdsObjectId != null)
+				return false;
+		} else if (!sdsObjectId.equals(other.sdsObjectId))
+			return false;
+		if (sdsOffering == null) {
+			if (other.sdsOffering != null)
+				return false;
+		} else if (!sdsOffering.equals(other.sdsOffering))
+			return false;
+		if (sdsSessionBundle == null) {
+			if (other.sdsSessionBundle != null)
+				return false;
+		} else if (!sdsSessionBundle.equals(other.sdsSessionBundle))
+			return false;
+		return true;
+	}
+
+	/**
+	 * @return the sdsSessionBundle
+	 */
+	public String getSdsSessionBundle() {
+		return sdsSessionBundle;
+	}
+
+	/**
+	 * @param sdsSessionBundle the sdsSessionBundle to set
+	 */
+	public void setSdsSessionBundle(String sdsSessionBundle) {
+		this.sdsSessionBundle = sdsSessionBundle;
+	}
 }

@@ -27,6 +27,7 @@ import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
 import org.easymock.EasyMock;
 
@@ -41,6 +42,9 @@ public class SdsOfferingListCommandHttpRestImplTest extends
         AbstractSdsListCommandHttpRestImplTest {
 
     private SdsOfferingListCommandHttpRestImpl command;
+    
+	private static final String CURNITMAP_XML_RESPONSE = "<curnitmap>this is the curnitmap string</curnitmap>";
+
 
     /**
      * @see junit.framework.TestCase#setUp()
@@ -69,14 +73,28 @@ public class SdsOfferingListCommandHttpRestImplTest extends
      */
     public void testExecute() throws Exception {
         final String responseString = "<offerings><offering><name>Airbag Complete</name><curnit-id>1</curnit-id><id>1</id><jnlp-id>6</jnlp-id></offering><offering><name>Air Bag Test</name><curnit-id>2</curnit-id><id>2</id><jnlp-id>6</jnlp-id></offering></offerings>";
-        setAndTestResponseStream(responseString);
+        InputStream responseStream = setAndTestResponseStream(responseString);
+        
+        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+                responseStream);
+
+		InputStream curnitMapResponseStream = setAndTestResponseStream(CURNITMAP_XML_RESPONSE);
+		EasyMock.expect(this.mockTransport.get(EasyMock.isA(HttpGetRequest.class))).andReturn(
+				curnitMapResponseStream);
+		curnitMapResponseStream = setAndTestResponseStream(CURNITMAP_XML_RESPONSE);
+		EasyMock.expect(this.mockTransport.get(EasyMock.isA(HttpGetRequest.class))).andReturn(
+				curnitMapResponseStream);
+		EasyMock.replay(this.mockTransport);
+
+        
         List<SdsOffering> expectedList = new LinkedList<SdsOffering>();
-        expectedList.add(createOffering(1, 1, 6, "Airbag Complete"));
-        expectedList.add(createOffering(2, 2, 6, "Air Bag Test"));
+        expectedList.add(createOffering(1, 1, 6, "Airbag Complete", CURNITMAP_XML_RESPONSE));
+        expectedList.add(createOffering(2, 2, 6, "Air Bag Test", CURNITMAP_XML_RESPONSE));
 
         List<SdsOffering> actualList = this.command.execute(this.httpRequest);
         assertEquals(expectedList.size(), actualList.size());
-        assertEquals(expectedList, actualList);
+        assertEquals((SdsOffering) expectedList.get(0), (SdsOffering) actualList.get(0));
+        assertEquals((SdsOffering) expectedList.get(1), (SdsOffering) actualList.get(1));
         EasyMock.verify(this.mockTransport);
     }
 
@@ -145,7 +163,7 @@ public class SdsOfferingListCommandHttpRestImplTest extends
     }
 
     private SdsOffering createOffering(int objectId, int curnitId, int jnlpId,
-            String name) {
+            String name, String curnitmap) {
         SdsOffering offering = new SdsOffering();
         offering.setSdsObjectId(new Long(objectId));
         offering.setName(name);
@@ -157,6 +175,8 @@ public class SdsOfferingListCommandHttpRestImplTest extends
         SdsJnlp jnlp = new SdsJnlp();
         jnlp.setSdsObjectId(new Long(jnlpId));
         offering.setSdsJnlp(jnlp);
+        
+        offering.setSdsCurnitMap(curnitmap);
 
         return offering;
     }

@@ -65,7 +65,12 @@ public class SdsCurnitListCommandHttpRestImplTest extends
      */
     public void testExecute() throws Exception {
         final String responseString = "<curnits><curnit><name>Airbag test</name><portal-id type=\"integer\">1</portal-id><url>http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-airbag.jar</url><id type=\"integer\">3</id></curnit><curnit><name>Windbag test</name><portal-id type=\"integer\">1</portal-id><url>http://tels-develop.soe.berkeley.edu:8080/maven-jnlp/curnit-windbag.jar</url><id type=\"integer\">2</id></curnit></curnits>";
-        setAndTestResponseStream(responseString);
+        InputStream responseStream = setAndTestResponseStream(responseString);
+
+        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+                responseStream);
+        EasyMock.replay(this.mockTransport);
+
         List<SdsCurnit> expectedList = new LinkedList<SdsCurnit>();
         expectedList
                 .add(createCurnit(

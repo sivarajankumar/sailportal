@@ -45,63 +45,81 @@ import org.jdom.xpath.XPath;
  * 
  */
 public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
-        implements SdsOfferingListCommand {
+		implements SdsOfferingListCommand {
 
-    private static final List<SdsOffering> EMPTY_SDSOFFERING_LIST = Collections
-            .emptyList();
+	private static final List<SdsOffering> EMPTY_SDSOFFERING_LIST = Collections
+			.emptyList();
 
-    /**
-     * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
-     */
-    @SuppressWarnings("unchecked")
-    public List<SdsOffering> execute(HttpGetRequest httpRequest) {
-        Document doc = convertXmlInputStreamToXmlDocument(this.transport
-                .get(httpRequest));
-        if (doc == null) {
-            return EMPTY_SDSOFFERING_LIST;
-        }
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SdsOffering> execute(HttpGetRequest httpRequest) {
+		Document doc = convertXmlInputStreamToXmlDocument(this.transport
+				.get(httpRequest));
+		if (doc == null) {
+			return EMPTY_SDSOFFERING_LIST;
+		}
 
-        List<Element> nodeList;
-        try {
-            nodeList = XPath.newInstance("/offerings/offering")
-                    .selectNodes(doc);
-        } catch (JDOMException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
-            return EMPTY_SDSOFFERING_LIST;
-        }
+		List<Element> nodeList;
+		try {
+			nodeList = XPath.newInstance("/offerings/offering")
+					.selectNodes(doc);
+		} catch (JDOMException e) {
+			if (logger.isErrorEnabled()) {
+				logger.error(e.getMessage(), e);
+			}
+			return EMPTY_SDSOFFERING_LIST;
+		}
 
-        List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
-        for (Element offeringNode : nodeList) {
-            SdsOffering sdsOffering = new SdsOffering();
-            sdsOffering.setName(offeringNode.getChild("name").getValue());
-            sdsOffering.setSdsObjectId(new Long(offeringNode.getChild("id")
-                    .getValue()));
+		// TODO LAW - there are some significant refactoring opportunities here
+		// in common with SdsOfferingGetCommand
+		List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
+		for (Element offeringNode : nodeList) {
+			SdsOffering sdsOffering = new SdsOffering();
+			sdsOffering.setName(offeringNode.getChild("name").getValue());
+			sdsOffering.setSdsObjectId(new Long(offeringNode.getChild("id")
+					.getValue()));
 
-            SdsCurnit sdsCurnit = new SdsCurnit();
-            sdsCurnit.setSdsObjectId(new Long(offeringNode.getChild(
-                    "curnit-id").getValue()));
-            sdsOffering.setSdsCurnit(sdsCurnit);
+			SdsCurnit sdsCurnit = new SdsCurnit();
+			sdsCurnit.setSdsObjectId(new Long(offeringNode
+					.getChild("curnit-id").getValue()));
+			sdsOffering.setSdsCurnit(sdsCurnit);
 
-            SdsJnlp sdsJnlp = new SdsJnlp();
-            sdsJnlp.setSdsObjectId(new Long(offeringNode.getChild("jnlp-id")
-                    .getValue()));
-            sdsOffering.setSdsJnlp(sdsJnlp);
+			SdsJnlp sdsJnlp = new SdsJnlp();
+			sdsJnlp.setSdsObjectId(new Long(offeringNode.getChild("jnlp-id")
+					.getValue()));
+			sdsOffering.setSdsJnlp(sdsJnlp);
 
-            sdsOfferingList.add(sdsOffering);
-        }
-        return sdsOfferingList;
-    }
+			HttpGetRequest curnitMapRequest = this
+					.generateCurnitMapRequest(sdsOffering.getSdsObjectId());
+			sdsOffering.setSdsCurnitMap(this.getSdsCurnitMap(curnitMapRequest));
 
-    /**
-     * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
-     */
-    public HttpGetRequest generateRequest() {
-        final String url = "/offering";
+			sdsOfferingList.add(sdsOffering);
+		}
+		return sdsOfferingList;
+	}
 
-        return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
-                url, HttpStatus.SC_OK);
-    }
+	protected String getSdsCurnitMap(HttpGetRequest curnitMapRequest) {
+		return convertXMLInputStreamToString(this.transport
+				.get(curnitMapRequest));
+	}
+
+	protected HttpGetRequest generateCurnitMapRequest(Long sdsOfferingId) {
+		final String url = "/offering/" + sdsOfferingId + "/curnitmap";
+
+		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
+				url, HttpStatus.SC_OK);
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#generateRequest()
+	 */
+	public HttpGetRequest generateRequest() {
+		final String url = "/offering";
+
+		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
+				url, HttpStatus.SC_OK);
+	}
 
 }

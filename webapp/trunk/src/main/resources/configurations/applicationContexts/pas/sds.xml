@@ -59,6 +59,11 @@
 		class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupUpdateCommandHttpRestImpl">
 		<property name="transport" ref="httpRestTransport" />
 	</bean>
+	
+	<bean id="sdsWorkgroupGetCommand"
+		class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupGetCommandHttpRestImpl">
+		<property name="transport" ref="httpRestTransport" />
+	</bean>
 
 	<bean id="sdsWorkgroupMemberCreateCommand"
 		class="net.sf.sail.webapp.dao.sds.impl.SdsWorkgroupMemberCreateCommandHttpRestImpl">
@@ -123,6 +128,7 @@
 		<property name="membershipCreateCommand"
 			ref="sdsWorkgroupMemberCreateCommand" />
 		<property name="updateCommand" ref="sdsWorkgroupUpdateCommand" />
+		<property name="getCommand" ref="sdsWorkgroupGetCommand" />
 	</bean>
 
 	<bean id="sdsWorkgroup"

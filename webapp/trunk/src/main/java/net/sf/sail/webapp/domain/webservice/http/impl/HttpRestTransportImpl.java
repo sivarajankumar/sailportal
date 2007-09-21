@@ -127,6 +127,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
         } catch (IOException e) {
             logAndThrow(e);
         } finally {
+        	//TODO LAW need to figure out what to do about the range of response status codes now being passed back
             method.releaseConnection();
         }
         return null;
@@ -241,7 +242,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
                 logger.warn(statusCode + ": " + method.getStatusText());
                 logger.warn("body: " + method.getResponseBodyAsString());
             }
-            if (statusCode == HttpStatus.SC_NOT_FOUND) {
+            if (statusCode == HttpStatus.SC_NOT_FOUND || statusCode == HttpStatus.SC_BAD_REQUEST) {
                 throw new BadRequestException(method.getStatusText());
             } else {
                 throw new NetworkTransportException(statusCode, method

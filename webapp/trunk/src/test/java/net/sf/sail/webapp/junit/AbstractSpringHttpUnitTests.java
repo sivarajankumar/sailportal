@@ -445,10 +445,11 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 				.lastIndexOf("/") + 1));
 	}
 
-	protected Long createWholeOffering() throws MalformedURLException,
+	protected SdsOffering createWholeOffering() throws MalformedURLException,
 			IOException, SAXException, JDOMException {
 		SdsOffering sdsOffering = (SdsOffering) this.applicationContext
 				.getBean("sdsOffering");
+		sdsOffering.setName(DEFAULT_NAME);
 		// create curnit in SDS
 		SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
 				.getBean("sdsCurnit");
@@ -461,8 +462,11 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 		sdsOffering.setSdsJnlp(sdsJnlp);
 
 		// create offering in SDS
-		return this.createOfferingInSds(sdsCurnit.getSdsObjectId(), sdsJnlp
-				.getSdsObjectId());
+		assertNull(sdsOffering.getSdsObjectId());
+		sdsOffering.setSdsObjectId(this.createOfferingInSds(sdsCurnit.getSdsObjectId(), sdsJnlp
+				.getSdsObjectId()));
+		assertNotNull(sdsOffering.getSdsObjectId());
+		return sdsOffering;
 	}
 
 }

@@ -17,9 +17,11 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
+import net.sf.sail.webapp.dao.sds.SdsWorkgroupGetCommand;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupMemberCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupUpdateCommand;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
@@ -44,6 +46,16 @@ public class HttpRestSdsWorkgroupDao extends AbstractDao<SdsWorkgroup>
 	private SdsWorkgroupUpdateCommand updateCommand;
 
 	private SdsWorkgroupMemberCreateCommand membershipCreateCommand;
+	
+	private SdsWorkgroupGetCommand getCommand;
+
+	/**
+	 * @param getCommand the getCommand to set
+	 */
+	@Required
+	public void setGetCommand(SdsWorkgroupGetCommand getCommand) {
+		this.getCommand = getCommand;
+	}
 
 	/**
 	 * @param updateCommand
@@ -92,5 +104,17 @@ public class HttpRestSdsWorkgroupDao extends AbstractDao<SdsWorkgroup>
 					.generateRequest());
 		}
 	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#getById(java.lang.Long)
+	 */
+	@Override
+	public SdsWorkgroup getById(Long id) throws ObjectNotFoundException {
+		SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
+		sdsWorkgroup.setSdsObjectId(id);
+		this.getCommand.setSdsWorkgroup(sdsWorkgroup);
+		return this.getCommand.execute(this.getCommand.generateRequest());
+	}
+
 	
 }

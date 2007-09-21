@@ -122,8 +122,8 @@
         name varchar(255) not null,
         offering_id bigint not null,
         sds_curnitmap varchar(255),
-        sds_jnlp_fk bigint not null,
         sds_curnit_fk bigint not null,
+        sds_jnlp_fk bigint not null,
         primary key (id),
         unique (offering_id)
     );
@@ -143,6 +143,7 @@
         OPTLOCK integer,
         workgroup_id bigint not null,
         name varchar(255) not null,
+        sds_sessionbundle varchar(255),
         sds_offering_fk bigint not null,
         primary key (id),
         unique (workgroup_id)

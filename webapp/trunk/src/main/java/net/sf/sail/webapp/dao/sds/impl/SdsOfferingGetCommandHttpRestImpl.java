@@ -51,11 +51,14 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 		return SDS_OFFERING.get();
 	}
 
+	//TODO LAW check on thread safety of these method
+
 	/**
 	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
 	 */
 	@SuppressWarnings("unchecked")
 	public SdsOffering execute(HttpGetRequest httpRequest) {
+		//TODO LAW check on thread safety of these method
 		final SdsOffering sdsOffering = this.getSdsOffering();
 		SDS_OFFERING.set(null);
 		Document doc = convertXmlInputStreamToXmlDocument(this.transport
@@ -85,7 +88,7 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 		return sdsOffering;
 	}
 
-	private String getSdsCurnitMap(HttpGetRequest curnitMapRequest) {
+	protected String getSdsCurnitMap(HttpGetRequest curnitMapRequest) {
 		return convertXMLInputStreamToString(this.transport.get(curnitMapRequest));
 	}
 

@@ -64,7 +64,7 @@ public abstract class AbstractSdsListCommandHttpRestImplTest extends TestCase {
         this.httpRequest = null;
     }
 
-    protected void setAndTestResponseStream(final String responseString)
+    protected InputStream setAndTestResponseStream(final String responseString)
             throws IOException {
         final InputStream responseStream = new ByteArrayInputStream(
                 responseString.getBytes());
@@ -73,10 +73,8 @@ public abstract class AbstractSdsListCommandHttpRestImplTest extends TestCase {
         assertEquals(responseString.length(), responseStream.read(streamBytes));
         assertEquals(responseString, new String(streamBytes));
         responseStream.reset();
+        return responseStream;
 
-        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
-                responseStream);
-        EasyMock.replay(this.mockTransport);
     }
 
     @SuppressWarnings("unchecked")
