@@ -19,13 +19,14 @@ function displayNotAvailable(message){
 }
 
 function moveToImage(id,value){
-	if(value==''){
-		alert('Please enter in the number of the image you wish to go to');
-	}else if((value < 0) || (value > 9)){
-		alert('Please enter in a value between 0 and 9');
-	}else{
+	if((value >=0) && (value < 10)){
 		document.getElementById(id).src = wiseImages[value-1];	
 	}
+}
+
+function changeText(id,value){
+if(value== 0) value = 10;
+	document.getElementById(id).innerHTML= value + ' of 10';	
 }
 
 //-->

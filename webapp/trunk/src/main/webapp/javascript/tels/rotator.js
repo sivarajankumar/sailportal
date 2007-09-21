@@ -204,9 +204,13 @@ function randomImages(){
 	}
   
 	MM_swapImage('rotator', '', imgs[counter++]);
+	changeImageNum('actionImgLink',counter);
 	//colorImage(counter,2);
 	setTimeout('randomImages()', delay);
 	}
 }
 
+function changeImageNum(id,value){
+	document.getElementById(id).innerHTML = value + " of 10";
+}
 //-->
