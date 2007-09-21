@@ -31,11 +31,11 @@
 
 <body>
 <%@ include file="header.jsp" %>
-<h2 id="heading"> PASSWORD REMINDER</h2>
-<h1 id="heading2"> STUDENT </h1>
+<h2 class="center"> PASSWORD REMINDER</h2>
+<h1 class="center"> STUDENT </h1>
 
-
-<div id="forgot2" style="padding:0px 15px 15px 15px;"> 
+<div align="center">
+<div id="passwordreminder2" align="center"> 
 <h2><b>Step 4: </b></h2>
 <h3><b> Your username is ${username}</b></h3>
 <h3><b>Your password has been changed.</b></h3>
@@ -44,7 +44,8 @@ Please click the the button below to Sign In
 using your new password.
 </h3>
 </div>
-<a href="../../index.html" id="signIn5">Return to Sign In</a>
+<a href="../../index.html" align="center">Return to Sign In</a>
+</div>
 <!-- 
 <a href="#" ><img id="signIn5" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
 onmouseover="swapImage('signIn5','../../images/Sign-in-New-Account-Roll.png');"

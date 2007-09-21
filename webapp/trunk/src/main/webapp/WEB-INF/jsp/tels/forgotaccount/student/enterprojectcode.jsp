@@ -56,17 +56,17 @@
 
 
 <form id="projectCode" name="projectcode" method="post" commandName="reminderParameters">
-<div id="suggestions" style="background-color:#CC9966;">
+<div align="center">
 <label for="send_projectcode"><b><spring:message code="lostpassword.student.projectcode"/></b></label>
  <input type="text" name="projectCodeValue" id="projectCodeValue" tabindex="1" />
   
    <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
      </div>
-</div>
+
      <input id="search" type="submit" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
       onclick="Effect.toggle('waiting', 'appear')" />
-      
+  </div>    
 </form>
 <br />
 <div align="center">

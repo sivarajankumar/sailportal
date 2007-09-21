@@ -43,7 +43,7 @@
 <%@ include file="header.jsp"%>
 
 
-<div>
+<div align="center">
 <h2><spring:message code="login" /></h2>
 
 <a href="signup.html"><spring:message code="sign.up" /></a><br />
@@ -57,10 +57,9 @@
 
   <label for="j_username"><spring:message code="login.username" /></label>
   <input type="text" name="j_username" id="j_username" tabindex="1" />
-<br />
+
   <label for="j_password"><spring:message code="login.password" /></label>
   <input type="password" name="j_password" id="j_password" tabindex="2" />
-<br />
 
      <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>

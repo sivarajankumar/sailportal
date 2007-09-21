@@ -34,17 +34,18 @@
 
 <!-- Support for Spring errors object -->
 <%@ include file= "header.jsp"%>
-<body onload="randomImages()">
+<body onload="randomImages();changeText('actionImgLink',counter);">
+<div align="center">
 
 <div id="welcomerow">
-<div id="welcomebox">
+<div align="left">
+<div id="welcomebox" align="left">
 <h1 id="boxHeader" name="welcomeHeader">
 <spring:message code="wise.welcome" />
 </h1>
 <p id="parastyle">  
 	<spring:message code="wise.about.desc" />
 </p>
-
 <ul id="welcomeButtonPos" >
 <li>
 	<a href="wiseoverview.html">
@@ -116,8 +117,12 @@
 
 </div>
 </div>
+</div>
 
+</div>
+<div align="center">
 <div id="actionRow">
+<div align="left">
 <div id="innerWiseInAction">
 <h2 id="boxHeader"><spring:message code="wise.inAction" /></h2>
 <img id="rotator" src="<spring:theme code="wise_action" />" />
@@ -130,15 +135,10 @@ onmouseout="this.style.cursor='default';"
 onclick="firstLClicked = setLClicked();
 oldCtr=counter;
 counter=proceedToPreviousImage(firstLClicked,counter);
+changeText('actionImgLink',counter+1);
 "   
 />
-<input type="text" id="imageInput" value="1" size="2" style="display:none;" onchange="moveToImage('rotator',this.value);
-oldCtr = counter; 
-counter=swapBigImage(this.value,counter,'Action');
-prevClick = getPrevClick(prevClick,this.value,oldCtr);"
-
-/>
-<a href="javascript:Effect.toggle('imageInput','appear')" id="actionImgLink"> 1 of 10 </a>
+<a id="actionImgLink"> 1 of 10 </a>
 <img id="action_next" class="dynamicImage" src="<spring:theme code="arrow_next" />" 
 onmouseover="this.style.cursor='pointer';" 
 onmousedown="this.style.cursor='pointer';" 
@@ -146,16 +146,21 @@ onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" 
 onclick="firstRClicked = setRClicked();
 oldCtr=counter;
-counter=proceedToNextImage(firstRClicked,counter);"
+counter=proceedToNextImage(firstRClicked,counter);
+changeText('actionImgLink',counter);"
 />
+</div>
+
+
 
 </div>
-</div>
+
 <div id="testimonialsPos">
 <h2 id="boxHeader">
 <spring:message code="wise.testimonials" />
 </h2>
 <img id="rotatorT" src="<spring:theme code="wise_testimonials" />" />
+
 <div id="testimonialsNav">
 
 <img id="test_prev" class="dynamicImage" src="<spring:theme code="arrow_prev" />" 
@@ -174,6 +179,7 @@ onmouseup="this.style.cursor='pointer';"
 onmouseout="this.style.cursor='default';" />
 
 </div>
+
 </div>
 
 <div id="latestNewsPos">
@@ -190,13 +196,8 @@ onmouseout="this.style.cursor='default';" />
 </div>
 
 </div>
-<div id="footerPos">
-<img id="nsfImage" src="<spring:theme code="nsf_tiny_logo"/>" align="center"/>
-<p id="nsfLink"><spring:message code="wise.legal-acknowledgment" />  
-<a href="http://www.nsf.gov" target="_blank"> <spring:message code="nsf" /></a>.
-<spring:message code="wise.copyright" /> &nbsp;&nbsp;&nbsp; 
-<a href="#" onclick="displayNotAvailable('This page is not available yet');"><spring:message code="wise.contact" /></a> 
-</p>
+</div>
+
 </div>
 
 </body>

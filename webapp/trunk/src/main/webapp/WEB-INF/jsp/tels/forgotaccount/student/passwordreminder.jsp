@@ -45,19 +45,22 @@
   </c:forEach>
 </spring:bind>
 </div>
-
-<div align="center" style="padding:0px 15px 15px 15px;"> 
+<div align="center">
+<div id="passwordreminder1" align="center"> 
 <h2><b>Step 1: </b></h2>
 <h2><b>First, enter your username: </b></h2>
+
 <form id="username" name="retrievepassword" method="post" commandName="reminderParameters">
 <label for="send_username"><spring:message code="login.username" /></label>
   <input type="text" name="username" id="username"  
   	style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 1em; width: 110px;" 
 	size="40" tabindex="1" />
 <br />
-  <input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
+  <input type="submit" id="next" name="_target1" value="<spring:message code="navigate.next" />" />
 </form>
 <a align="center" href="../../index.html">Return to Sign In</a>
+</div>
+
 </div>
 <!--
 <a href="#" ><img id="signIn4" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 

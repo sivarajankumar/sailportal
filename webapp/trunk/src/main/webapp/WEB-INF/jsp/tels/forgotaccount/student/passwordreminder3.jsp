@@ -43,7 +43,8 @@
   </c:forEach>
 </spring:bind>
 
-<div id="forgot2" style="padding:0px 15px 15px 15px;"> 
+<div align="center">
+<div id="passwordreminder2" align="center"> 
 <h2><b>Step 3: </b></h2>
 <h3><b>Correct answer.</b></h3>
 <h3>
@@ -53,6 +54,7 @@ and click submit.
 
 
 <form id="submittedAccountPasswords" name="changedPassword" method="post" commandName="reminderParameters">
+<div id="submittedAccountPasswordBox">
 <label id="passwordform" for="send_passwords">
 <spring:message code="lostpassword.student.new-password" />
 </label>
@@ -61,6 +63,7 @@ and click submit.
 <label id="passwordform2" for="answer"><spring:message code="lostpassword.student.verify-password" /></label>
 <input id="verifyPassword" name="verifyPassword" type="password" size="40" tabindex="2" />
 <br />
+</div>
 <input name="sendpassword" type="submit" value="Submit" id="submitPos">
 
    <div id="waiting" style="display: none">
@@ -70,7 +73,8 @@ and click submit.
 </form>
 
 </div>
-<a href="../../index.html" id="signIn6">Return to Sign In</a>
+<a href="../../index.html" align="center">Return to Sign In</a>
+</div>
 <!--
 <a href="#" ><img id="signIn5" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
 onmouseover="swapImage('signIn5','../../images/Sign-in-New-Account-Roll.png');"

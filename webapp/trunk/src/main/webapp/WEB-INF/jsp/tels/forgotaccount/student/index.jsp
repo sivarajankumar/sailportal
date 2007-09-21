@@ -39,7 +39,7 @@
 <h2 align="center"><a href="username.html">Forgot My Username</a></h2>
 <p align="center">OR</p>
 <h2 align="center"><a href="password.html">Forgot My Password</a></h2>
-<p align="center">
+<p align="center" id="forgotparagraph">
 If you've forgotten your Username and Password (hey, it happens to the
 best of us), first follow the Username link, then follow the Password link.
 </p><br />

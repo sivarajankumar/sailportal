@@ -33,10 +33,10 @@
 
 <%@ include file="header.jsp"%>
 
-<h2 id="heading"> LOST USERNAME OR PASSWORD </h2>
-<h2 id="heading2"> TEACHER/RESEARCHER </h2>
+<h2 align="center"> LOST USERNAME OR PASSWORD </h2>
+<h2 align="center"> TEACHER/RESEARCHER </h2>
 
-<div id="columns">
+<div id="columns" align="center">
 
 <!-- Support for Spring errors object -->
 <spring:bind path="userDetails.*">
@@ -47,17 +47,16 @@
   </c:forEach>
 </spring:bind>
 
-<div id="forgot1"> 
+<div align="center"> 
 <form id="username" method="post" action="index.html" commandName="userDetails">
- <ul id="forgotList">
+ <ul >
  <li>
  <b>Remember Your Username but Forgot Your Password?</b>
 Enter Your UserName below. A new password will be sent to
 your registered email address.<br />
 <b><label for="send_username" /><spring:message code="login.username" /></b>
 <input type="text" id="username" name="username" size="40" tabindex="1" /> <br />
-<input type="submit" name="sendpassword" id="sendpassword" value="Send Password" style="position:relative;
-	left:300px;" />
+<input type="submit" name="sendpassword" id="sendpassword" value="Send Password"  />
  </li>
  <li>
  <b>Forgot Your Username?</b><br />
@@ -65,8 +64,7 @@ Enter the email address you used when registering for WISE. Your
 UserName and a new Password will be sent to this email address.<br />
 <b><label for="send_usernamepassword" /><spring:message code="lostpassword.teacher.email" /></b>
 <input type="text" name="emailAddress" id="emailAddress" size="40" tabindex="2" /> <br />
-<input type="submit" name="sendemailAndPwd" id="sendEmailAndPwd" value="Send Password + Email" style="position:relative;
-	left:300px;" />
+<input type="submit" name="sendemailAndPwd" id="sendEmailAndPwd" value="Send Password + Email" />
 </li>
 
 <li> If you're still stuck, <a href="#" onclick="displayNotAvailable('This page is not available yet.');">contact WISE.</a>

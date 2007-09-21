@@ -20,17 +20,8 @@
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
 
-<div>
+<div align="center">
 	<a href="teacher/index.html"><img id="none" src="<spring:theme code="dashboardbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
-</div>
-	    <div>
-   <p style="position: absolute;top: 12px;left:860px;font-size:14px;"> <%@ include file="logout.jsp"%> </p>
-	</div>
-
-
-<p style="position: absolute;top:-5px;left:800px;"> 
-<authz:authentication operation="username" />
- </p>
 <div id="navigation" style="position:relative;
 	bottom:35px;width:990px;">
 <ul style="font-size: 1em;">
@@ -41,3 +32,14 @@
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>	
+
+
+</div>
+<p style="position: absolute;top:-5px;text-align:right;"> 
+<authz:authentication operation="username" />
+ </p>
+<%@ include file="logout.jsp"%> 
+
+<p style="margin-bottom:-60px;" />
+
+

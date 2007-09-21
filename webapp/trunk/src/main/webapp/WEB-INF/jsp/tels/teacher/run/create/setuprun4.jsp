@@ -44,8 +44,9 @@
 </ul><br />
 -->
 
-<h2 style="position:relative;
-	left:250px;width:950px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2 class="center"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<div align="center">
+<div id="setuprunbox">
 <h3 style="color:rgb(0,0,255);width:950px;"><b style="color:#000000;"> <spring:message code="teacher.setup-project-run-step4" /></b>
 <spring:message code="teacher.setup-project-run-step4-desc" />
 </h3>
@@ -61,13 +62,15 @@
 <i><spring:message code="navigate.next" /></i>
 <spring:message code="teacher.skip-lesson-plan-below" />
 </p>
-
-<form method="post" style="position:relative;
-	left:350px;	width:950px;">
+<div align="center">
+<form method="post" >
 <input type="submit" name="_target2" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target4" value="<spring:message code="navigate.next" />" />
 </form>
+</div>
 
+</div>
+</div>
 </body>
 </html>

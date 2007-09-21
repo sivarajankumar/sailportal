@@ -30,8 +30,9 @@
 
 <body>
 <%@ include file="teacherHeader.jsp" %> 
- 
+<div align="center"> 
 <div id="welcome">
+<div align="left">
 <div id="innerWelcome">
 <h1 id="headingPos">
 Welcome: ${username}
@@ -88,7 +89,12 @@ Welcome: ${username}
 
 </div>
 
+</div>
+</div>
+
+<div align="center">
 <div id="dashboardBox">
+<div align="left">
 <div id="innerDashboard">
 <h1 id="headingPos">
 About the Dashboard
@@ -150,6 +156,7 @@ Resources and tools to get WISE running more smoothly in your classroom.
 </tr>
 </table>
 </div>
+
 <div id="quickLinksPos">
 <h1 id="headingPos">
 Quick Links
@@ -268,7 +275,41 @@ Update My Account
 </table>
 
 </div>
+
+
+
+
+
+
+
 </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
+
+
+<!-- 
+
+</div>
+ -->
 
 
 <!-- Support for Spring errors object -->
@@ -277,5 +318,5 @@ Update My Account
 
 
 
-</body></html>
+
 

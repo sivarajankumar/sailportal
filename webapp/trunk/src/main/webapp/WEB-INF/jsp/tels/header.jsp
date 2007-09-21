@@ -19,7 +19,7 @@
 
 <!-- $Id$ -->
 
-<div>
+<div align="center">
 	<a href="index.html"><img id="none" src="<spring:theme code="wisebanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
 </div>
 	

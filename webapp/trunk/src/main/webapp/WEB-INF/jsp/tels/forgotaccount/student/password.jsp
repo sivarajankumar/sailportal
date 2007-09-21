@@ -35,18 +35,21 @@
 <h2 class="center"> FORGOTTEN PASSWORD</h2>
 <h1 class="center"> STUDENT </h1>
 
-
-<div align="center" style="border:1px solid black;"> 
-<b>Forgot your Password?</b><br />
+<h3 class="center"> Forgot your Password? </h3>
+<div align="center">
+<div id="studentpasswordremindersuggestion"> 
 <ol>
 <li>You can always ask your teacher for help looking up your
 Username and Password.
 </li>
+<br />
 <li>Or you can create a new password for your account after
 successfully answering a <a href="passwordreminder.html">Password Reminder</a> question.
 </li>
 </ol>
 </div>
+</div>
+<br /><br />
 <div align="center">
 <a align="center" href="../../index.html">Return to Sign In</a>
 </div>

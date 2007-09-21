@@ -61,14 +61,15 @@
 </div>
 
 <!-- <div id="registerDesc" class="regCenter"> -->
-<div class="center border">
+<div align="center">
+<div id="whichAccountDescBox" align="center">
 <h4> <spring:message code="register.which-account" /> </h4>
 <ul>
 <li id="registerDescAcctSpacing"> <spring:message code="register.student-account-desc" /></li>
 <li id="registerDescAcctSpacing"> <spring:message code="register.teacher-account-desc" /></li>
 </ul>
 </div>
-
+</div>
 </body>
 </html>
 

@@ -35,8 +35,9 @@
 <body>
 <%@ include file="../../../teacherHeader.jsp"%>
 
-<h2 style="position:relative;
-	left:250px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<h2 class="center" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<div align="center">
+<div id="setuprunbox">
 <h3 style="color:rgb(0,0,255);"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step1" /></b>
 <spring:message code="teacher.setup-project-run-step1-desc" />
 </h3>
@@ -45,7 +46,6 @@
 <spring:message code="teacher.project-run-classroom-message" /> 
 </p>
 
-<div>
 <p>
 <spring:message code="setuprun.confirmation.run.projectid" /> <spring:bind path="runParameters.curnitId"><c:out value="${status.value}"/></spring:bind>
 </p>
@@ -55,13 +55,16 @@
 <p style="font-size: 1em;">
 <b> <spring:message code="teacher.correct-project" /> </b>
 </p> 
-</div>
 
-<form method="post" style="position:relative;left:350px;width:950px;">
+</div>
+</div>
+<div align="center">
+<form method="post" align="center">
 <input type="submit" name="_target0" disabled value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
 </form>
+</div>
 </body>
 </html>
 

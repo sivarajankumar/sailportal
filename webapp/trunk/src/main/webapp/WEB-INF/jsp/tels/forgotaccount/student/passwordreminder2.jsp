@@ -47,7 +47,8 @@
 </spring:bind>
 </div>
 
-<div align="center" style="padding:0px 15px 15px 15px;"> 
+<div align="center">
+<div id="passwordreminder2" align="center"> 
 <h2><b>Step 2: </b></h2>
 <h3><b>Hello ${username} </b></h3>
 <h3>
@@ -65,9 +66,10 @@ encountered during your initial registration.
 
 <input type="submit" name="_target2" value="<spring:message code="navigate.next" />">
 </form>
-<a align="center" href="../../index.html">Return to Sign In</a>
 </div>
+<a align="center" href="../../index.html">Return to Sign In</a>
 
+</div>
 <!-- 
 <a href="#" ><img id="signIn5" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
 onmouseover="swapImage('signIn5','../../images/Sign-in-New-Account-Roll.png');"
