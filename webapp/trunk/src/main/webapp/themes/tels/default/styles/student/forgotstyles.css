@@ -142,9 +142,8 @@ img{
 
 #search{
 	position:relative;
-	left:375px;
 	top:60px;
-	width:200px;
+	left:0px;
 }
 
 #submitPos{
@@ -153,9 +152,12 @@ img{
 }
 
 #submittedAccountPasswords{
-	border:1px black solid;
-	background-color:#CC9966;
 	padding:0px 15px 15px 15px;
+	width:550px;
+}
+
+#submittedAccountPasswordBox{
+	background-color:#CC9966;	
 }
 
 #passwordformStyle{
@@ -173,12 +175,66 @@ label#passwordform{
 
 label#passwordform2{
 	margin-right:15px;
-	margin-left:15px;
+	margin-left:19px;
 	width:150px;
 	text-align:left;
 }
 
 .center{
 	text-align:center;
+}
+
+#forgotparagraph{
+	padding-left:25px;
+	padding-right:25px;
+	width:450px;	
+}
+
+#forgotusernamelist{
+	padding-left:15px;
+	padding-right:15px;
+	width:400px;
+	align:center;
+	text-align:justify;
+	list-style-type:none;	
+}
+
+#forgotusernamesuggestions{
+	padding-left:25px;
+	padding-right:25px;
+	width:450px;
+	border:1px solid black;
+	align:center;
+	text-align:justify;	
+}
+
+#studentpasswordremindersuggestion{
+	align:center;
+	text-align:justify;
+	padding-left:25px;
+	padding-right:25px;
+	width:500px;
+	border:1px solid black;
+}
+
+#passwordreminder1{
+	text-align:justify;
+	align:center;
+	padding-left:15px;
+	padding-right:15px;
+	width:300px;	
+}
+
+#passwordreminder2{
+	text-align:justify;
+	align:left;
+	padding-left:15px;
+	padding-right:15px;
+	width:400px;	
+}
+
+#next{
+	align:right;
+	text-align:right;
 }
 

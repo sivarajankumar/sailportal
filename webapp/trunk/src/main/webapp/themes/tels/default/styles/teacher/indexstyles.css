@@ -57,10 +57,13 @@
   
 #welcome{
 	position:relative;
-	bottom:30px;
+	left:0px;
+	top:0px;
+	bottom:0px;
 	width:980px;
+	margin:0px;
+	padding:0px;
 }
-
 
 #innerWelcome{
 	border:1px solid black;
@@ -167,8 +170,9 @@ display: inline;
 	top:0px;
 	color:black;
 	border:1px solid black;
-	width:480px;
+	width:470px;
 	bottom:0px;
+	margin-right:-30px;
 	
 }
 
@@ -182,7 +186,7 @@ display: inline;
 
 #dashboardBox{
 	position:relative;
-	top:-20px;
+	top:5px;
 	bottom:0px;
 	width:980px;
 }
