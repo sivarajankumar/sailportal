@@ -23,11 +23,10 @@
 -->
  
 <!-- $Id: projectHeader.jsp 1011 2007-09-05 20:01:48Z archana $ -->
-<div >
+<div align="center">
 	<a href="../index.html"><img id="none" src="../../<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" /></a>
-</div>
 
-<div id="navigation" style="position:relative;
+<div id="navigation" align="center" style="position:relative;
 	bottom:35px;width:980px;">
 <ul style="font-size: 1em;">
 <li> <a href="../index.html"> <img src="../../<spring:theme code="home" />" style="border:0px;"/> </a> </li>
@@ -37,7 +36,7 @@
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../../<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 
-<ul id="tabnav">
+<ul id="tabnav" align="center">
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.overview" /></a></li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-library" /></a></li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-runs" /></a></li>
@@ -46,4 +45,8 @@
 </ul>
 
 </div>	
-   
+<p style="position: absolute;top:-5px;text-align:right;"> 
+<authz:authentication operation="username" />
+ </p>
+ <%@ include file="../../logout.jsp"%>
+</div>

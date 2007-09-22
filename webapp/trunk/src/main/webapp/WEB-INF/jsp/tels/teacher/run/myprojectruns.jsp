@@ -43,6 +43,7 @@ function popup(URL, title) {
 <li> <a href="#">Archived</a></li>
 </ul>
  -->
+ <div align="center">
 <div id="runContent"> 
 <br />
 <h3 id="headingPos">
@@ -119,7 +120,7 @@ To manage a Project Run, click its underlined title.
 </div>
 
 </div>
-
+</div>
 </body>
 </html>
 
