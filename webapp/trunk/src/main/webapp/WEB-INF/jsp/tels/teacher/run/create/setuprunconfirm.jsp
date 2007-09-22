@@ -28,6 +28,7 @@
 <title><spring:message code="setuprun.confirmation.title" /></title>
 <script type="text/javascript" src="./javascript/pas/utils.js"></script>
 <script type="text/javascript" src="./javascript/tels/rotator.js"></script>
+<script type="text/javascript" src="./javascript/tels/general.js"></script>
 
 </head>
 
@@ -45,11 +46,12 @@
 </ul><br />
 -->
 
-<h2 style="position:relative;
-	left:250px;width:950px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<h3 style="width:950px;"><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
+<h2 class="center" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
+<div align="center">
+<div id="setuprunbox">
+<h3><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
 
-<b style="width:950px;">
+<b>
 <spring:message code="setuprun.confirmation.whereisnewrun" />
 <a href="./runlist.html" onclick="javascript:alert('This page is not available yet')"> 
 <spring:message code="setuprun.confirmation.myprojectruns" />
@@ -57,7 +59,7 @@
 <spring:message code="setuprun.confirmation.end" />
 </b>
 
-<div style="width:950px;">
+<div>
 <ul>
 <li><spring:message code="setuprun.confirmation.run.title" />
 <c:out value="${run.sdsOffering.name}" />
@@ -80,16 +82,20 @@
 </ul>
 </div>
 
-<h4 style="width:950px;"><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
-<p style="width:950px;"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></p>
+<h4><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
+<p><spring:message code="setuprun.confirmation.aboutprojectids.text" /></p>
 
-<h4 style="width:950px;"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
-<p style="width:950px;"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
-
-<a href="teacher/run/myprojectruns.html"  style="width:950px;"> <img id="projectRuns"
+<h4><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
+<p><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
+</div>
+</div>
+<div align="center">
+<a href="teacher/run/myprojectruns.html"> <img id="projectRuns"
 	src="<spring:theme code="gotomyprojectruns" />"	 	
+	onmouseover="swapImage('projectRuns','<spring:theme code="gotomyprojectruns_roll" />');"
+	onmouseout="swapImage('projectRuns','<spring:theme code="gotomyprojectruns" />');"
 	style="border:0px;"/>
 </a>
-
+</div>
 </body>
 </html>
