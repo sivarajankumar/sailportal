@@ -102,9 +102,10 @@ ul#tabnav2 a:hover{
 }
 
 #runContent{
+	align:center;
 	border:1px solid black;
 	position:relative;
-	top:17px;
+	top:0px;
 	padding-bottom:40px;
 	width:980px;
 }
