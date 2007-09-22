@@ -26,7 +26,7 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
     
-<script type="text/javascript" src="./javascript/tels/general.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
     
 <title>End Run</title>
 </head>
