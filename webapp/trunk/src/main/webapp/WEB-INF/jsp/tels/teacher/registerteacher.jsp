@@ -71,44 +71,49 @@ function popup(URL) {
 <label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label>
 </td>
 <td>    
-    <form:input path="userDetails.firstname" id="firstname" size="30"/>
+    <form:input path="userDetails.firstname" id="firstname" onfocus="Effect.toggle('showFirstNameInfo','appear');" onblur="Effect.toggle('showFirstNameInfo','appear');" size="30"/>
 </td>
+<td id="showFirstNameInfo" style="display:none"> This is your first name </td>
 </tr>
 <tr>
 <td>
     <label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label>
 </td>
 <td>
-    <form:input path="userDetails.lastname" id="lastname" size="30"/>
+    <form:input path="userDetails.lastname" id="lastname" onfocus="Effect.toggle('showLastNameInfo','appear');" onblur="Effect.toggle('showLastNameInfo','appear');" size="30"/>
 </td>
+<td id="showLastNameInfo" style="display:none"> This is your last name </td>
 </tr>
 <tr>
 <td>
 <label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label>
 </td>
 <td>    
-<form:input path="userDetails.emailAddress" id="emailAddress"/>
+<form:input path="userDetails.emailAddress" id="emailAddress" onfocus="Effect.toggle('showEmailAddressInfo','appear');" onblur="Effect.toggle('showEmailAddressInfo','appear');"/>
 </td>
+<td id="showEmailAddressInfo" style="display:none"> This is your email address </td>
 </tr>
 <tr>
 <td>
 <label for="city" id="city1"><spring:message code="signup.city" /></label> 
 </td>
 <td>
-<form:input path="userDetails.city" id="city" />
+<form:input path="userDetails.city" id="city" onfocus="Effect.toggle('showCityInfo','appear');" onblur="Effect.toggle('showCityInfo','appear');"/>
 </td>
+<td id="showCityInfo" style="display:none"> This is your city </td>
 </tr>
 <tr>
 <td>
-<label for="state" id="state1"><spring:message code="signup.state" /></label> 
+<label for="state" id="state1" ><spring:message code="signup.state" /></label> 
 </td>
 <td>
-<form:input path="userDetails.state" id="state" />
+<form:input path="userDetails.state" id="state"/>
         <div id="autocomplete_choices_state" class="autocomplete" ></div>
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('state', 'autocomplete_choices_state', 'states.html', {paramName: 'sofar'}); 	   		
 		</script>
 </td>
+<td id="showStateInfo" style="display:none"> This is your state </td>
 </tr>
 <tr>
 <td>
@@ -121,39 +126,43 @@ function popup(URL) {
 	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
 		</script>
 </td>
+<td id="showCountryInfo" style="display:none"> This is your country </td>
 </tr>
 <tr>
 <td>
     <label for="schoolname" id="schoolname1"><spring:message code="signup.schoolname" /></label> 
 </td>
 <td>    
-    <form:input path="userDetails.schoolname" id="schoolname" />
+    <form:input path="userDetails.schoolname" id="schoolname" onfocus="Effect.toggle('showSchoolNameInfo','appear');" onblur="Effect.toggle('showSchoolNameInfo','appear');"/>
 </td>
+<td id="showSchoolNameInfo" style="display:none"> This is your school name </td>
 </tr>
 <tr>
 <td>
     <label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label> 
 </td>
 <td>
-     <div id="curriculumSubjectsBox" style="display:none"> 
+     <div id="curriculumSubjectsBox" style="display:none" onfocus="Effect.toggle('showCurriculumInfo','appear');" onblur="Effect.toggle('showCurriculumSubjectsInfo','appear');"> 
           <c:forEach items="${curriculumsubjects}" var="curriculumsubject">
             <form:checkbox path="userDetails.curriculumsubjects" value="${curriculumsubject}" /><spring:message code="signup.curriculumsubjects.${curriculumsubject}" />
           </c:forEach>
 	</div>
     <a href="javascript:Effect.toggle('curriculumSubjectsBox','appear')" > List of Curriculum Subjects </a>
 </td>
+<td id="showCurriculumSubjectsInfo" style="display:none"> This is your curriculum subjects </td>
 </tr>     
 <tr>
 <td>
     <label for="schoollevel" id="schoollevel1"><spring:message code="signup.schoollevel" /></label> 
 </td>
 <td>
-        <form:select path="userDetails.schoollevel" id="schoollevel"> 
+        <form:select path="userDetails.schoollevel" id="schoollevel" onfocus="Effect.toggle('showSchoolLevelInfo','appear');" onblur="Effect.toggle('showSchoolLevelInfo','appear');"> 
           <c:forEach items="${schoollevels}" var="schoollevel">
             <form:option value="${schoollevel}"><spring:message code="signup.schoollevels.${schoollevel}" /></form:option>
           </c:forEach>
         </form:select>
 </td>
+<td id="showSchoolLevelInfo" style="display:none"> This is your school level </td>
 </tr>
 <tr>
 <td>
@@ -169,16 +178,18 @@ function popup(URL) {
     <label for="password" id="password1"><spring:message code="signup.password" /></label>
 </td>
 <td>
-    <form:password path="userDetails.password" id="password"/>
+    <form:password path="userDetails.password" id="password" onfocus="Effect.toggle('showPasswordInfo','appear');" onblur="Effect.toggle('showPasswordInfo','appear');"/>
 </td>
+<td id="showPasswordInfo" style="display:none"> This is your password </td>
 </tr>
 <tr>
 <td>
 <label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label>
 </td>
 <td>
-<form:password path="repeatedPassword" id="repeatedPassword"/>
+<form:password path="repeatedPassword" id="repeatedPassword" onfocus="Effect.toggle('showRepeatedPasswordInfo','appear');" onblur="Effect.toggle('showRepeatedPasswordInfo','appear');"/>
 </td>
+<td id="showRepeatedPasswordInfo" style="display:none"> This is your password repeated </td>
 </tr>
 </table>
   <br />
