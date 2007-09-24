@@ -46,7 +46,7 @@ public abstract class AbstractHttpRestCommand {
 
     private static final String HEADER_ACCEPT = "Accept";
 
-    protected static final Map<String, String> EMPTY_STRING_MAP = Collections
+    public static final Map<String, String> EMPTY_STRING_MAP = Collections
             .emptyMap();
 
     protected static final Map<String, String> REQUEST_HEADERS_CONTENT;
@@ -56,7 +56,7 @@ public abstract class AbstractHttpRestCommand {
         REQUEST_HEADERS_CONTENT = Collections.unmodifiableMap(map);
     }
 
-    protected static final Map<String, String> REQUEST_HEADERS_ACCEPT;
+    public static final Map<String, String> REQUEST_HEADERS_ACCEPT;
 
 	protected static final Log logger = LogFactory
 	            .getLog(AbstractHttpRestCommand.class);
