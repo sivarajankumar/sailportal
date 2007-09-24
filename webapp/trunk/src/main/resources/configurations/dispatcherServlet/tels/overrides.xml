@@ -89,6 +89,7 @@
     		    /teacher/run/manage/startRun.html=startRunController
 				/teacher/grading/gradebystep.html=gradeByStepController
 				/teacher/grading/gradingtool.html=gradingToolController
+				/teacher/grading/gradingsubmit.html=gradingSubmitController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
