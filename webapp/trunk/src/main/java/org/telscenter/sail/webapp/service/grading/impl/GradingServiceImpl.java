@@ -77,7 +77,7 @@ public class GradingServiceImpl implements GradingService {
 			"<project podUUID=\"cccccccc-0002-3878-0000-000000000000\"	title=\"Global Warming: Virtual Earth\">" +
 			"<activity podUUID=\"dddddddd-6004-0000-0000-000000000000\"	title=\"Identifying the Problem\" number=\"0\">" +
 			"<step podUUID=\"dddddddd-6004-0001-0000-000000000000\"	title=\"1. Global Warming is happening\" number=\"0\" type=\"Display\"		classname=\"org.telscenter.pas.steps.Display\" />" +
-			"<step podUUID=\"dddddddd-6004-0002-0000-000000000000\"	title=\"2. Take notes on the Science behind Global Warming part 1\" number=\"1\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined6\" prompt=\"html-stylized prompt for step 2 goes here\"/></step>" +
+			"<step podUUID=\"dddddddd-6004-0002-0000-000000000000\"	title=\"2. Take notes on the Science behind Global Warming part 1\" number=\"1\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined6\" prompt=\"html-stylized prompt for step 2 goes here\"/><rim rimname=\"undefined6a\" prompt=\"chocie prompt\"/></step>" +
 			"<step podUUID=\"dddddddd-6004-0003-0000-000000000000\"	title=\"3. Take notes on the Science behind Global Warming part 2\" number=\"2\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined7\" prompt=\"html-stylized prompt for step 3 goes here\"/></step>" +
 			"</activity></project></pas:ECurnitmap>";	
 		ECurnitmap curnitmap = CurnitmapLoader.loadCurnitmap(curnitmapXMLString);
@@ -94,6 +94,7 @@ public class GradingServiceImpl implements GradingService {
 				"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
 				"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
 		        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
+		        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6a\" contentType=\"text/plain\" contents=\"Test rim annotation CHOCIE for rim with name undefined6a\"/>" +
 		        "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
 		        "</annotationGroups></sailuserdata:EAnnotationBundle>";
 		User user1 = new UserImpl();
@@ -145,6 +146,7 @@ public class GradingServiceImpl implements GradingService {
 				"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
 				"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
 		        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
+		        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6a\" contentType=\"text/plain\" contents=\"Test rim annotation CHOCIE for rim with name undefined6a\"/>" +
 		        "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
 		        "</annotationGroups></sailuserdata:EAnnotationBundle>";
 
@@ -210,10 +212,12 @@ public class GradingServiceImpl implements GradingService {
 		annotationBundle2.setWorkgroup(workgroup2);
 		Map<Workgroup, AnnotationBundle> annotationBundles2 = new HashMap<Workgroup, AnnotationBundle>();
 		annotationBundles2.put(workgroup2, annotationBundle2);
+		annotationBundles2.put(workgroup1, annotationBundle1);
 		
 		SessionBundle sessionBundle2 = sessionBundleService.getSessionBundle(runId, workgroup2);
 		Map<Workgroup, SessionBundle> sessionBundles2 = new HashMap<Workgroup, SessionBundle>();
-		sessionBundles2.put(workgroup1, sessionBundle2);
+		sessionBundles2.put(workgroup2, sessionBundle2);
+		sessionBundles2.put(workgroup1, sessionBundle1);
 		
 		GradeWorkByStepAggregate aggregate2 = new GradeWorkByStepAggregateImpl();
 		aggregate2.setRunId(runId);

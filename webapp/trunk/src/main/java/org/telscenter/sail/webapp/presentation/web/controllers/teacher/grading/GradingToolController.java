@@ -29,6 +29,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.group.Group;
+
 import org.eclipse.emf.common.util.EList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -82,20 +84,10 @@ public class GradingToolController extends AbstractController {
 				EStep step = (EStep) iterator2.next();
 				if( step.getPodUUID().toString().equals(podUUID)) {
 					System.out.println("we got it!");
-					
-					GradeWorkByStepAggregate gradeWorkByStepAggregate = this.gradingService.getGradeWorkByStepAggregate(new Long(runId), step);
-					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregate);
-					modelAndView.addObject(STEP,step);
-					
-					Map<String, String> periods = new HashMap<String, String>();
-					
-					periods.put("Period3", "ok");
-					periods.put("Period2", "ok");
-					periods.put("Period1", "ok");
-					
-					modelAndView.addObject("periods",periods);
-					System.out.println("KeySet: " + gradeWorkByStepAggregate.getSessionBundles().keySet());
-					System.out.println("values: " + gradeWorkByStepAggregate.getSessionBundles().values());
+					//TODO: Hiroki use stepId instead of EStep object as param
+					Map<Group, GradeWorkByStepAggregate> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), step);
+					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
+					modelAndView.addObject(GradeByStepController.RUN_ID, runId);
 					return modelAndView;
 				}// if
 			}// for

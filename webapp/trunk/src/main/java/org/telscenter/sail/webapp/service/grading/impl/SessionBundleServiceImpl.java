@@ -45,6 +45,9 @@ public class SessionBundleServiceImpl implements SessionBundleService {
 		"<sockParts podId=\"dddddddd-6004-0002-0000-000000000000\" rimName=\"undefined6\">" +
 		"<sockEntries value=\"green house asourb sun light and global warming is the earth warming up but it is alike...actually I have no idea what I'm talking about. this is my answer for rim with rimname undefined6.\" millisecondsOffset=\"1277103\"/>" +
 		"</sockParts>" + 
+		"<sockParts podId=\"dddddddd-6004-0002-0000-000000000000\" rimName=\"undefined6a\">" +
+		"<sockEntries value=\"NEW something else up but it is alike...actually I have no idea what I'm talking about. this is my answer for rim with rimname undefined6A.\" millisecondsOffset=\"1277103\"/>" +
+		"</sockParts>" + 
 		"<sockParts podId=\"dddddddd-6004-0003-0000-000000000000\" rimName=\"undefined7\">" +
 		"<sockEntries value=\"this is a response to rim with name undefined7 and I have no idea what I should write here.\" millisecondsOffset=\"1277103\"/>" +
 		"</sockParts>" +
