@@ -81,7 +81,7 @@ function popup(URL) {
 		<a href="#" 
 		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
 		onmouseout="swapImage('studentchangepwd','../<spring:theme code="student_change_password" />');"  
-		onclick="javascript:alert('This page is not available yet')">
+		onclick="javascript:popup('changepassword.html')">
 		<img id="studentchangepwd" src="../<spring:theme code="student_change_password" />" style="border:0px;"/>
 		</a>
 		</li>

@@ -397,4 +397,19 @@
 	<bean id="termsOfUseController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TermsOfUseController" />
 		
+	 <bean id="changePasswordController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.ChangePasswordController">
+    	<property name="commandName" value="changePasswordParameters" />
+		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.ChangePasswordParameters" />
+ 	<!-- 	<property name="validator" ref="changePasswordParametersValidator" /> -->
+ 	    <property name="validator" ref="changePasswordParametersValidator" />
+		<property name="formView" value="student/changepassword" />
+    	<property name="successView" value="student/changepasswordsuccess" />
+    </bean>
+ 
+	
+	<bean id="changePasswordParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.student.ChangePasswordParametersValidator" />
+		
+		
 </beans>
