@@ -46,7 +46,7 @@ import org.junit.runners.Suite;
 	SdsUserUpdateCommandHttpRestImplTest.class,
 	SdsWorkgroupCreateCommandHttpRestImplTest.class,
 	SdsWorkgroupMemberCreateCommandHttpRestImplTest.class,
-	SdsWorkgroupUpdateCommandHttpRestImplTest.class,
+	SdsWorkgroupUpdateCommandHttpRestImplTest.class
 })
 
 public class AllTests {
