@@ -14,31 +14,30 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- */
-package net.sf.sail.webapp;
+ */package net.sf.sail.webapp.service;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-/**
- * This is the all encompassing AllTests that includes all the other test suites
- * from every package. This file needs to be kept up-to-date by hand every time
- * a new package of unit tests is added. This will test the entire application.
- * 
- * @author Cynick Young
+/*
+ * @author Laurel Williams
  * 
  * @version $Id$
  * 
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-	CreateDefaultUsersTest.class,
-	net.sf.sail.webapp.dao.AllTests.class,
-	net.sf.sail.webapp.domain.AllTests.class,
-	net.sf.sail.webapp.mail.AllTests.class,
-	net.sf.sail.webapp.presentation.AllTests.class,
-	net.sf.sail.webapp.service.AllTests.class
+@Suite.SuiteClasses( {
+	net.sf.sail.webapp.service.annotation.impl.AnnotationBundleServiceImplTest.class,
+	net.sf.sail.webapp.service.authentication.impl.UserDetailsServiceImplTest.class,
+	net.sf.sail.webapp.service.curnit.impl.CurnitServiceImplTest.class,
+	net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifierTest.class,
+	net.sf.sail.webapp.service.group.impl.GroupServiceImplTest.class,
+	net.sf.sail.webapp.service.impl.AclServiceImplTest.class,
+	net.sf.sail.webapp.service.impl.UserServiceImplTest.class,
+	net.sf.sail.webapp.service.jnlp.impl.JnlpServiceImplTest.class,
+	net.sf.sail.webapp.service.offering.impl.OfferingServiceImplTest.class,
+	net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImplTest.class
 })
 
 public class AllTests {

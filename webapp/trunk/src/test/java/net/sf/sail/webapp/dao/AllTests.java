@@ -14,7 +14,6 @@ import org.junit.runners.Suite;
 	net.sf.sail.webapp.dao.sds.impl.AllTests.class,
 	net.sf.sail.webapp.dao.user.impl.AllTests.class,
 	net.sf.sail.webapp.dao.workgroup.impl.AllTests.class,
-	net.sf.sail.webapp.dao.AbstractTransactionalDaoTests.class
 })
 
 public class AllTests {

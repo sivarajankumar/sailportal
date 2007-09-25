@@ -1,16 +1,11 @@
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses( { 
+	net.sf.sail.webapp.AllTests.class,
+	org.telscenter.sail.webapp.AllTests.class 
+})
 
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for default package");
-		//$JUnit-BEGIN$
-	    suite.addTest(net.sf.sail.webapp.AllTests.suite());
-	    suite.addTest(org.telscenter.sail.webapp.AllTests.suite());
-		//$JUnit-END$
-		return suite;
-	}
-
 }

@@ -15,26 +15,21 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.service.impl;
+package net.sf.sail.webapp.mail;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * @author Cynick Young
- * 
- * @version $$Id$$
- * 
+ * @author Laurel Williams
+ *
+ * @version $Id$
+ *
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses( {
+	net.sf.sail.webapp.mail.JavaMailTest.class
+})
+
 public class AllTests {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.service.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(UserServiceImplTest.class);
-        //$JUnit-END$
-        return suite;
-    }
-
 }
