@@ -17,43 +17,37 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Cynick Young
  * 
- * @version $$Id$$
+ * @version $Id$
  * 
  */
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	HttpRestSdsCurnitDaoTest.class,
+	HttpRestSdsJnlpDaoTest.class,
+	HttpRestSdsOfferingDaoTest.class,
+	HttpRestSdsUserDaoTest.class,
+	HttpRestSdsWorkgroupDaoTest.class,
+	SdsCurnitCreateCommandHttpRestImplTest.class,
+	SdsCurnitListCommandHttpRestImplTest.class,
+	SdsCurnitUpdateCommandHttpRestImplTest.class,
+	SdsJnlpCreateCommandHttpRestImplTest.class,
+	SdsJnlpUpdateCommandHttpRestImplTest.class,
+	SdsOfferingCreateCommandHttpRestImplTest.class,
+	SdsOfferingListCommandHttpRestImplTest.class,
+	SdsOfferingUpdateCommandHttpRestImplTest.class,
+	SdsUserCreateCommandHttpRestImplTest.class,
+	SdsUserUpdateCommandHttpRestImplTest.class,
+	SdsWorkgroupCreateCommandHttpRestImplTest.class,
+	SdsWorkgroupMemberCreateCommandHttpRestImplTest.class,
+	SdsWorkgroupUpdateCommandHttpRestImplTest.class,
+})
+
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(
-				"Test for net.sf.sail.webapp.dao.sds.impl");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(SdsOfferingCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsOfferingDaoTest.class);
-		suite.addTestSuite(SdsJnlpCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsWorkgroupUpdateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsCurnitDaoTest.class);
-		suite
-				.addTestSuite(SdsWorkgroupMemberCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsUserCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsJnlpDaoTest.class);
-		suite.addTestSuite(SdsCurnitCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsWorkgroupCreateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsOfferingListCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsCurnitUpdateCommandHttpRestImplTest.class);
-		suite.addTestSuite(SdsCurnitListCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsUserDaoTest.class);
-		suite.addTestSuite(SdsOfferingUpdateCommandHttpRestImplTest.class);
-		suite.addTest(AllTests.suite());
-		suite.addTestSuite(SdsUserUpdateCommandHttpRestImplTest.class);
-		suite.addTestSuite(HttpRestSdsWorkgroupDaoTest.class);
-		suite.addTestSuite(SdsJnlpUpdateCommandHttpRestImplTest.class);
-		//$JUnit-END$
-		return suite;
-	}
-
 }
