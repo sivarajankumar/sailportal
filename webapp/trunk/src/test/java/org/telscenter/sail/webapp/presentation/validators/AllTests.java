@@ -17,8 +17,8 @@
  */
 package org.telscenter.sail.webapp.presentation.validators;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Cynick Young
@@ -26,20 +26,16 @@ import junit.framework.TestSuite;
  * @version $Id$
  *
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	org.telscenter.sail.webapp.presentation.validators.StudentUserDetailsValidatorTest.class,
+	org.telscenter.sail.webapp.presentation.validators.UserDetailsValidatorTest.class,
+	org.telscenter.sail.webapp.presentation.validators.TeacherUserDetailsValidatorTest.class,
+	org.telscenter.sail.webapp.presentation.validators.LostPasswordDetailsValidatorTest.class,
+	org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentUsernameValidatorTest.class,
+	org.telscenter.sail.webapp.presentation.validators.teacher.AllTests.class,
+	org.telscenter.sail.webapp.presentation.validators.student.AllTests.class
+})
+
 public class AllTests {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for org.telscenter.sail.webapp.presentation.validators");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(StudentUserDetailsValidatorTest.class);
-        suite.addTestSuite(UserDetailsValidatorTest.class);
-        suite.addTestSuite(TeacherUserDetailsValidatorTest.class);
-        suite.addTestSuite(LostPasswordDetailsValidatorTest.class);
-        suite.addTest(org.telscenter.sail.webapp.presentation.validators.student.AllTests.suite());
-        suite.addTest(org.telscenter.sail.webapp.presentation.validators.teacher.AllTests.suite());
-        //$JUnit-END$
-        return suite;
-    }
-
 }

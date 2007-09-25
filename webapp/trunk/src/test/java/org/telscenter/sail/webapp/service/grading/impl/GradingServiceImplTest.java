@@ -22,32 +22,18 @@
  */
 package org.telscenter.sail.webapp.service.grading.impl;
 
-import java.net.SocketPermission;
-
-import net.sf.sail.emf.sailuserdata.EAnnotationBundle;
-import net.sf.sail.emf.sailuserdata.ESessionBundle;
-import net.sf.sail.emf.sailuserdata.ESockPart;
-import net.sf.sail.emf.sailuserdata.impl.EAnnotationBundleImpl;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.domain.Offering;
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
-import net.sf.sail.webapp.domain.impl.OfferingImpl;
-import net.sf.sail.webapp.domain.impl.UserImpl;
-import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
+
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import static org.easymock.EasyMock.*;
 
-import org.telscenter.pas.emf.pas.EActivity;
+
 import org.telscenter.pas.emf.pas.ECurnitmap;
-import org.telscenter.pas.emf.pas.ERim;
-import org.telscenter.pas.emf.pas.EStep;
-import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
-import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.service.grading.SessionBundleService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 import junit.framework.TestCase;
 
@@ -65,6 +51,17 @@ public class GradingServiceImplTest extends TestCase {
 	
 	private SessionBundleService sessionBundleService;
 	
+	private RunService runService;
+	
+	private String sdsCurnitmap =  "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
+		"<pas:ECurnitmap xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:pas=\"pas\" xsi:schemaLocation=\"pas pas.ecore\">" +
+		"<project podUUID=\"cccccccc-0002-3878-0000-000000000000\"	title=\"Global Warming: Virtual Earth\">" +
+		"<activity podUUID=\"dddddddd-6004-0000-0000-000000000000\"	title=\"Identifying the Problem\" number=\"0\">" +
+		"<step podUUID=\"dddddddd-6004-0001-0000-000000000000\"	title=\"1. Global Warming is happening\" number=\"0\" type=\"Display\"		classname=\"org.telscenter.pas.steps.Display\" />" +
+		"<step podUUID=\"dddddddd-6004-0002-0000-000000000000\"	title=\"2. Take notes on the Science behind Global Warming part 1\" number=\"1\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined6\" prompt=\"html-stylized prompt for step 2 goes here\"/></step>" +
+		"<step podUUID=\"dddddddd-6004-0003-0000-000000000000\"	title=\"3. Take notes on the Science behind Global Warming part 2\" number=\"2\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined7\" prompt=\"html-stylized prompt for step 3 goes here\"/></step>" +
+		"</activity></project></pas:ECurnitmap>";	
+	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -74,6 +71,8 @@ public class GradingServiceImplTest extends TestCase {
 		gradingService = new GradingServiceImpl();
 		sessionBundleService = createMock(SessionBundleService.class);
 		gradingService.setSessionBundleService(sessionBundleService);
+		runService = createMock(RunService.class);
+		//gradingService.setRunService(runService);
 	}
 	
 	@Override
@@ -87,13 +86,27 @@ public class GradingServiceImplTest extends TestCase {
 	public void testGetCurnitmap_success() 
 	    throws ObjectNotFoundException {
 		// TODO HT add more as things are implemented
+		Run run = new RunImpl();
+		SdsOffering sdsOffering = new SdsOffering();
+		sdsOffering.setSdsCurnitMap(sdsCurnitmap);
+		run.setSdsOffering(sdsOffering);
 		ECurnitmap curnitmap = null;
+		expect(runService.retrieveById(runId)).andReturn(run);
+		replay(runService);
 		curnitmap = gradingService.getCurnitmap(runId);
 		assertNotNull(curnitmap);
 	}
 	
-	public void testGetCurnitmap_runId_invalid() {
+	public void testGetCurnitmap_runId_invalid() 
+	     throws ObjectNotFoundException {
 		// TODO HT add more as things are implemented
+		Run run = new RunImpl();
+		SdsOffering sdsOffering = new SdsOffering();
+		sdsOffering.setSdsCurnitMap(sdsCurnitmap);
+		run.setSdsOffering(sdsOffering);
+		expect(runService.retrieveById(runId)).andReturn(run);
+		replay(runService);
+
 		ECurnitmap curnitmap = null;
 		try {
 			curnitmap = gradingService.getCurnitmap(runId);

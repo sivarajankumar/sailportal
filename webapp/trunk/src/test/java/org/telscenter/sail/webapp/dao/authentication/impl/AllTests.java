@@ -22,8 +22,8 @@
  */
 package org.telscenter.sail.webapp.dao.authentication.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
@@ -31,15 +31,11 @@ import junit.framework.TestSuite;
  * @version $Id$
  *
  */
-public class AllTests {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	org.telscenter.sail.webapp.dao.authentication.impl.HibernateStudentUserDetailsDaoTest.class,
+	org.telscenter.sail.webapp.dao.authentication.impl.HibernateTeacherUserDetailsDaoTest.class
+})
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for org.telscenter.sail.webapp.dao.authentication.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(HibernateTeacherUserDetailsDaoTest.class);
-        suite.addTestSuite(HibernateStudentUserDetailsDaoTest.class);
-        //$JUnit-END$
-        return suite;
-    }
+public class AllTests {
 }

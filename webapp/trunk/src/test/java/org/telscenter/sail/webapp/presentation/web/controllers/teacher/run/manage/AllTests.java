@@ -22,22 +22,18 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.manage;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class AllTests {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.manage.EndRunControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.manage.StartRunControllerTest.class
+})
 
-	 public static Test suite() {
-	        TestSuite suite = new TestSuite(
-	                "Test for org.telscenter.sail.webapp.web.controllers.teacher.run.manage");
-	        // $JUnit-BEGIN$
-	        suite.addTestSuite(EndRunControllerTest.class);
-	        suite.addTestSuite(StartRunControllerTest.class);
-	        // $JUnit-END$
-	        return suite;
-	    }
+public class AllTests {
 }

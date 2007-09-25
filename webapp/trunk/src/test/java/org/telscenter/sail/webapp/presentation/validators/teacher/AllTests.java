@@ -22,22 +22,18 @@
  */
 package org.telscenter.sail.webapp.presentation.validators.teacher;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class AllTests {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	org.telscenter.sail.webapp.presentation.validators.teacher.EndRunParametersValidatorTest.class,
+	org.telscenter.sail.webapp.presentation.validators.teacher.StartRunParametersValidatorTest.class	
+})
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for org.telscenter.sail.webapp.presentation.validators.teacher");
-        // $JUnit-BEGIN$
-        suite.addTestSuite(EndRunParametersValidatorTest.class);
-        suite.addTestSuite(StartRunParametersValidatorTest.class);
-        // $JUnit-END$
-        return suite;
-    }
+public class AllTests {
 }

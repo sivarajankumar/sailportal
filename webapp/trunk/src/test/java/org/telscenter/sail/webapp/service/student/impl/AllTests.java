@@ -22,22 +22,17 @@
  */
 package org.telscenter.sail.webapp.service.student.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses( {
+	org.telscenter.sail.webapp.service.student.impl.StudentServiceImplTest.class
+})
+
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(
-				"Test for org.telscenter.sail.webapp.service.student.impl");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(StudentServiceImplTest.class);
-		//$JUnit-END$
-		return suite;
-	}
-
 }
