@@ -17,7 +17,6 @@
  */
 package net.sf.sail.webapp.domain.webservice.http.impl;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -119,7 +118,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
 			logRequest(method, "");
 			int statusCode = this.client.executeMethod(method);
 			httpGetRequestData.isValidResponseStatus(method, statusCode);
-			return new ByteArrayInputStream(method.getResponseBody());
+			return method.getResponseBodyAsStream();
 		} catch (HttpException e) {
 			logAndThrow(e);
 		} catch (IOException e) {

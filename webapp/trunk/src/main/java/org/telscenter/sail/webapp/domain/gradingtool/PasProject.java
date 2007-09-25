@@ -26,30 +26,41 @@ package org.telscenter.sail.webapp.domain.gradingtool;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author
+ * 
+ * $Id: $
+ */
 public class PasProject {
-	
+
 	private String id;
 	private String title;
 	private List<PasActivity> activities = new ArrayList<PasActivity>();
-	
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public List getActivities() {
+
+	public List<PasActivity> getActivities() {
 		return activities;
 	}
-	public void setActivities(List activities) {
+
+	public void setActivities(List<PasActivity> activities) {
 		this.activities = activities;
 	}
+
 	public void addActivity(PasActivity pasActivity) {
 		this.activities.add(pasActivity);
 	}
