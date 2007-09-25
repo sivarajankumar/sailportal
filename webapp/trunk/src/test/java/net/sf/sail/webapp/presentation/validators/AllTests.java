@@ -17,8 +17,8 @@
  */
 package net.sf.sail.webapp.presentation.validators;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Cynick Young
@@ -26,17 +26,13 @@ import junit.framework.TestSuite;
  * @version $Id$
  *
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses( {
+	net.sf.sail.webapp.presentation.validators.AdminOfferingParametersValidatorTest.class,
+	net.sf.sail.webapp.presentation.validators.GroupParametersValidatorTest.class,
+	net.sf.sail.webapp.presentation.validators.OfferingParametersValidatorTest.class,
+	net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest.class
+})
+
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(
-				"Test for net.sf.sail.webapp.presentation.validators");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(UserDetailsValidatorTest.class);
-		suite.addTestSuite(GroupParametersValidatorTest.class);
-		suite.addTestSuite(OfferingParametersValidatorTest.class);
-		//$JUnit-END$
-		return suite;
-	}
-
 }

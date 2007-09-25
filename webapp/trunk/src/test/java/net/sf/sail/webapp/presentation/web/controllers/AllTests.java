@@ -17,11 +17,8 @@
  */
 package net.sf.sail.webapp.presentation.web.controllers;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import net.sf.sail.webapp.presentation.web.controllers.groups.AddgroupControllerTest;
-import net.sf.sail.webapp.presentation.web.controllers.offerings.CreateOfferingControllerTest;
-import net.sf.sail.webapp.presentation.web.controllers.offerings.OfferingListControllerTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Cynick Young
@@ -29,19 +26,14 @@ import net.sf.sail.webapp.presentation.web.controllers.offerings.OfferingListCon
  * @version $Id$
  *
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses( {
+	net.sf.sail.webapp.presentation.web.controllers.groups.AddgroupControllerTest.class,
+	net.sf.sail.webapp.presentation.web.controllers.offerings.CreateOfferingControllerTest.class,
+	net.sf.sail.webapp.presentation.web.controllers.offerings.OfferingListControllerTest.class,
+	net.sf.sail.webapp.presentation.web.controllers.LoginControllerTest.class,
+	net.sf.sail.webapp.presentation.web.controllers.SignupControllerTest.class
+})
+
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(
-				"Test for net.sf.sail.webapp.presentation.web.controllers");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(LoginControllerTest.class);
-		suite.addTestSuite(SignupControllerTest.class);
-		suite.addTestSuite(CreateOfferingControllerTest.class);
-		suite.addTestSuite(OfferingListControllerTest.class);
-		suite.addTestSuite(AddgroupControllerTest.class);
-		//$JUnit-END$
-		return suite;
-	}
-
 }
