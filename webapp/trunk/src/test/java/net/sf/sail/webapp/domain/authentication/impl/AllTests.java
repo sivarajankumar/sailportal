@@ -1,18 +1,13 @@
 package net.sf.sail.webapp.domain.authentication.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses( { 
+	PersistentSidTest.class,
+	PersistentAclTargetObjectIdentityTest.class
+})
 
 public class AllTests {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.domain.authentication.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(PersistentSidTest.class);
-        suite.addTestSuite(PersistentAclTargetObjectIdentityTest.class);
-        //$JUnit-END$
-        return suite;
-    }
-
 }

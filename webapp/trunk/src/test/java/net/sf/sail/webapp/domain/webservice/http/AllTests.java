@@ -17,25 +17,21 @@
  */
 package net.sf.sail.webapp.domain.webservice.http;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Cynick Young
  *
- * @version $$Id$$
+ * @version $Id$
  *
  */
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses( { 
+	HttpPostRequestTest.class,
+	AbstractHttpRequestTest.class
+})
+
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(
-				"Test for net.sf.sail.webapp.domain.webservice.http");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(HttpPostRequestTest.class);
-		suite.addTestSuite(AbstractHttpRequestTest.class);
-		//$JUnit-END$
-		return suite;
-	}
-
 }
