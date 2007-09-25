@@ -13,7 +13,7 @@ import org.junit.runners.Suite;
 	net.sf.sail.webapp.dao.offering.impl.AllTests.class,
 	net.sf.sail.webapp.dao.sds.impl.AllTests.class,
 	net.sf.sail.webapp.dao.user.impl.AllTests.class,
-	net.sf.sail.webapp.dao.workgroup.impl.AllTests.class,
+	net.sf.sail.webapp.dao.workgroup.impl.AllTests.class
 })
 
 public class AllTests {
