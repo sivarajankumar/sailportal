@@ -263,4 +263,11 @@ public class GradingServiceImpl implements GradingService {
 	public void setSessionBundleService(SessionBundleService sessionBundleService) {
 		this.sessionBundleService = sessionBundleService;
 	}
+
+
+	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId,
+			String stepId) throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

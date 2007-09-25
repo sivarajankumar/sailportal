@@ -79,6 +79,27 @@ public interface GradingService {
 	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId, EStep step) 
 	    throws ObjectNotFoundException;
 	
+	
+	/**
+	 * Returns an aggregate object to allow WISE teachers to grade student
+	 * work for a particular <code>Step</code> of a particular 
+	 * <code>Project</code> that is being used in a <code>Run</code> indicated
+	 * by the runId.
+	 * 
+	 * All of the workgroups' work is retrieved along with their respective
+	 * <code>AnnotationBundle</code> for the particular step.
+	 * 
+	 * @param runId id of the run that the teacher wants to grade
+	 * @param stepId id of a particular step that the teacher wants to grade
+	 * @return <code>GradeWorkAggregate</code> containing all of the students'
+	 *     work for the specified step.
+	 * @throws ObjectNotFoundException when the provided runId
+	 *     does not key to an existing <code>Run</code>
+	 */
+	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId, String stepId) 
+	    throws ObjectNotFoundException;
+	
+	
 	/**
 	 * Returns an aggregate object to allow WISE teachers to grade student
 	 * work for a particular <code>Step</code> of a particular 
