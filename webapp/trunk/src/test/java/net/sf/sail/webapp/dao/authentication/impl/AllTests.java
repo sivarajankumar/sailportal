@@ -17,8 +17,8 @@
  */
 package net.sf.sail.webapp.dao.authentication.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Cynick Young
@@ -26,20 +26,16 @@ import junit.framework.TestSuite;
  * @version $Id$
  * 
  */
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses( {
+	net.sf.sail.webapp.dao.authentication.impl.HibernateAclEntryDaoTest.class,
+	net.sf.sail.webapp.dao.authentication.impl.HibernateAclSidDaoTest.class,
+	net.sf.sail.webapp.dao.authentication.impl.HibernateAclTargetObjectDaoTest.class,
+	net.sf.sail.webapp.dao.authentication.impl.HibernateAclTargetObjectIdentityDaoTest.class,
+	net.sf.sail.webapp.dao.authentication.impl.HibernateGrantedAuthorityDaoTest.class,
+	net.sf.sail.webapp.dao.authentication.impl.HibernateUserDetailsDaoTest.class
+})
+
 public class AllTests {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.dao.authentication.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(HibernateAclTargetObjectIdentityDaoTest.class);
-        suite.addTestSuite(HibernateAclTargetObjectDaoTest.class);
-        suite.addTestSuite(HibernateAclEntryDaoTest.class);
-        suite.addTestSuite(HibernateUserDetailsDaoTest.class);
-        suite.addTestSuite(HibernateGrantedAuthorityDaoTest.class);
-        suite.addTestSuite(HibernateAclSidDaoTest.class);
-        //$JUnit-END$
-        return suite;
-    }
-
 }

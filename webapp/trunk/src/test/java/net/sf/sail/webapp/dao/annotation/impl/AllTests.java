@@ -17,8 +17,8 @@
  */
 package net.sf.sail.webapp.dao.annotation.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Laurel Williams
@@ -26,15 +26,10 @@ import junit.framework.TestSuite;
  * @version $Id$
  *
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses( {
+	HibernateAnnotationBundleDaoTest.class
+})
+
 public class AllTests {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.dao.annotation.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(HibernateAnnotationBundleDaoTest.class);
-        //$JUnit-END$
-        return suite;
-    }
-
 }

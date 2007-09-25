@@ -22,22 +22,20 @@
  */
 package net.sf.sail.webapp.dao.workgroup.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
+ * 
  * @version $Id$
  */
-public class AllTests {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.dao.workgroup.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(HibernateWorkgroupDaoTest.class);
-        suite.addTestSuite(HibernateWorkgroupDaoAnotherTest.class);
-        //$JUnit-END$
-        return suite;
-    }
+@RunWith(Suite.class)
+@Suite.SuiteClasses( {
+	net.sf.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDaoAnotherTest.class,
+	net.sf.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDaoTest.class
+})
+	
+public class AllTests {
 }

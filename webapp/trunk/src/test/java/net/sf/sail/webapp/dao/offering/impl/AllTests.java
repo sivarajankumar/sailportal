@@ -22,21 +22,19 @@
  */
 package net.sf.sail.webapp.dao.offering.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
+ * 
  * @version $Id$
  */
-public class AllTests {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(
-                "Test for net.sf.sail.webapp.dao.offering.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(HibernateOfferingDaoTest.class);
-        //$JUnit-END$
-        return suite;
-    }
+@RunWith(Suite.class)
+@Suite.SuiteClasses( {
+	net.sf.sail.webapp.dao.offering.impl.HibernateOfferingDaoTest.class
+})
+
+public class AllTests {
 }
