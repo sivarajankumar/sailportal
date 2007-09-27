@@ -72,7 +72,7 @@ public class GradingServiceImplTest extends TestCase {
 		sessionBundleService = createMock(SessionBundleService.class);
 		gradingService.setSessionBundleService(sessionBundleService);
 		runService = createMock(RunService.class);
-		//gradingService.setRunService(runService);
+		gradingService.setRunService(runService);
 	}
 	
 	@Override

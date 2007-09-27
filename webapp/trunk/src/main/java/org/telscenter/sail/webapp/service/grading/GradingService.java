@@ -41,7 +41,7 @@ import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
  * those objects.
  * 
  * @author Hiroki Terashima
- * @version $ Id: $
+ * @version $Id$
  */
 public interface GradingService {
 	
