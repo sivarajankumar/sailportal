@@ -101,16 +101,23 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	/**
 	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#save(java.lang.Object)
 	 */
+	@Override
 	public void save(SdsOffering sdsOffering) {
 		if (sdsOffering.getSdsObjectId() == null) {
 			this.createCommand.setSdsOffering(sdsOffering);
 			this.createCommand.execute(this.createCommand.generateRequest());
+
+			// also, get the curnitmap from the sds and set it to 
+			// sdsOffering.sdsCurnitmap...this will add about
+	        // 20-30 more seconds for creating new SdsOfferings because 
+			//it takes that much time to generate curnitmaps
+			this.getCommand.getSdsCurnitmap(sdsOffering);
 		} else {
 			this.updateCommand.setSdsOffering(sdsOffering);
 			this.updateCommand.execute(this.updateCommand.generateRequest());
 		}
 	}
-
+	
 	/**
 	 * @param updateCommand
 	 *            the updateCommand to set
@@ -119,5 +126,4 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	public void setUpdateCommand(SdsOfferingUpdateCommand updateCommand) {
 		this.updateCommand = updateCommand;
 	}
-
 }

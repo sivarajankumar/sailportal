@@ -82,9 +82,8 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 				.getValue()));
 		sdsOffering.setSdsJnlp(sdsJnlp);
 
-		HttpGetRequest curnitMapRequest = this
-				.generateCurnitMapRequest(sdsOffering.getSdsObjectId());
-		sdsOffering.setSdsCurnitMap(this.getSdsCurnitMap(curnitMapRequest));
+		HttpGetRequest curnitMapRequest = generateCurnitMapRequest(sdsOffering.getSdsObjectId());
+		sdsOffering.setSdsCurnitMap(getSdsCurnitMap(curnitMapRequest));
 		return sdsOffering;
 	}
 
@@ -92,7 +91,7 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 		return convertXMLInputStreamToString(this.transport.get(curnitMapRequest));
 	}
 
-	protected HttpGetRequest generateCurnitMapRequest(Long sdsOfferingId) {
+	protected static HttpGetRequest generateCurnitMapRequest(Long sdsOfferingId) {
 		final String url = "/offering/" + sdsOfferingId + "/curnitmap";
 
 		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
@@ -107,6 +106,14 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 		final String url = "/offering/" + sdsOffering.getSdsObjectId();
 		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
 				url, HttpStatus.SC_OK);
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.sds.SdsOfferingGetCommand#getSdsCurnitmap(SdsOffering)
+	 */
+	public void getSdsCurnitmap(SdsOffering sdsOffering) {
+		HttpGetRequest curnitMapRequest = generateCurnitMapRequest(sdsOffering.getSdsObjectId());
+		sdsOffering.setSdsCurnitMap(getSdsCurnitMap(curnitMapRequest));
 	}
 
 }

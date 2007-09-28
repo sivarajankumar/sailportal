@@ -30,5 +30,14 @@ public interface SdsOfferingGetCommand extends
 		SdsCommand<SdsOffering, HttpGetRequest> {
 
 	public void setSdsOffering(SdsOffering sdsOffering);
+	
+	/**
+	 * Retrieves the SdsCurnitmap for the provided SdsOffering from the SDS. 
+	 * Does not return any object, but the side-effect is that the 
+	 * provided SdsOffering's sdsCurnitmap is set
+	 * 
+	 * @param sdsOffering <code>SdsOffering</code> to get the SdsCurnitmap for
+	 */
+	public void getSdsCurnitmap(SdsOffering sdsOffering);
 
 }
