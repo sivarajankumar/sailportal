@@ -107,7 +107,7 @@ public abstract class AbstractHttpRestCommand {
 	    return doc;
 	}
 	
-	protected String convertXMLInputStreamToString(InputStream stream) {
+	protected static String convertXMLInputStreamToString(InputStream stream) {
 		StringBuilder xmlBuffer = new StringBuilder();
 		byte[] buffer = new byte[4096];
 		try {
