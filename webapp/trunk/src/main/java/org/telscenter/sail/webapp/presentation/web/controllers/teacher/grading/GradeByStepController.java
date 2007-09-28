@@ -28,10 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.pas.emf.pas.ECurnitmap;
-import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.service.grading.GradingService;
-import org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl;
-import org.telscenter.sail.webapp.service.gradingtool.CurnitMapService;
 
 /**
  * A Controller for TELS's grade by step
@@ -42,7 +39,9 @@ import org.telscenter.sail.webapp.service.gradingtool.CurnitMapService;
 public class GradeByStepController extends AbstractController {
 
 	public static final String RUN_ID = "runId";
+	
 	public static final String CURNIT_MAP = "curnitMap";
+	
 	private GradingService gradingService;
 
 	/**
@@ -76,12 +75,10 @@ public class GradeByStepController extends AbstractController {
         return modelAndView;
 	}
 
-	public GradingService getGradingService() {
-		return gradingService;
-	}
-
+	/**
+	 * @param gradingService the gradingService to set
+	 */
 	public void setGradingService(GradingService gradingService) {
 		this.gradingService = gradingService;
 	}
-
 }
