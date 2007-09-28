@@ -12,8 +12,10 @@ import org.telscenter.sail.webapp.domain.impl.Passwords;
 
 /**
  * @author patricklawler
- * 
- * $Id: $
+ * @author sallyahn
+ * $Id:$
+ * TODO: SALLY and Patrick comment this file, write new file changePasswordValidatorTest 
+ *       (reference AddProjectParametersValidatorTest)
  */
 public class ChangePasswordParametersValidator implements Validator {
 
