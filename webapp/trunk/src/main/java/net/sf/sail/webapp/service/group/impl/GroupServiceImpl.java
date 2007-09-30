@@ -52,7 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class GroupServiceImpl implements GroupService {
 
-    private GroupDao<Group> groupDao;
+    protected GroupDao<Group> groupDao;
     
     private UserDao<User> userDao;
 
