@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +39,7 @@ import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EProject;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
+import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -107,7 +108,7 @@ public class GradingToolController extends AbstractController {
 						}
 					}// for
 					//TODO: Hiroki use stepId instead of EStep object as param
-					Map<Group, GradeWorkByStepAggregate> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), step);
+					Map<Group, Set<GradeWorkByWorkgroupAggregate>> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), step);
 					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
 					modelAndView.addObject(STEP, step);
 					modelAndView.addObject(ACTIVITY,activity);
