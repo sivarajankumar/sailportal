@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.service.grading;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
@@ -119,7 +120,7 @@ public interface GradingService {
 	 * @throws ObjectNotFoundException when the provided runId
 	 *     does not key to an existing <code>Run</code>
 	 */
-	public Map<Group,GradeWorkByStepAggregate> getGradeWorkByStepAggregateAllPeriods(Long runId, EStep step) 
+	public Map<Group, Set<GradeWorkByWorkgroupAggregate>> getGradeWorkByStepAggregateAllPeriods(Long runId, EStep step) 
 	    throws ObjectNotFoundException;
 	
 	/**
@@ -135,8 +136,10 @@ public interface GradingService {
 	 * @param workgroupId particular workgroup that the teacher wants to grade
 	 * @return <code>gradeWorkAggregate</code> containing all of the workgroup's
 	 *     work for the entire project.
+	 * @throws ObjectNotFoundException when the provided runId
+	 *     does not key to an existing <code>Run</code>
 	 */
-	public GradeWorkByWorkgroupAggregate getGradeWorkByStepAggregate(Long runId, Long workgroupId);
+	public GradeWorkByWorkgroupAggregate getGradeWorkByWorkgroupAggregate(Long runId, Long workgroupId) throws ObjectNotFoundException;
 	
 	/**
 	 * Saves the grades and comments
