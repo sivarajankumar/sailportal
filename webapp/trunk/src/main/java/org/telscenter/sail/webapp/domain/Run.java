@@ -118,4 +118,14 @@ public interface Run extends Offering {
 	 *     <code>Run</code> in any of the periods.
 	 */
 	public boolean isStudentAssociatedToThisRun(User studentUser);
+	
+	/**
+	 * Returns the Period (<code>Group</code>) that this student is in
+	 * for this run.
+	 * 
+	 * @param studentUser <code>User</code> to check
+	 * @return the period that the student is in for this run
+	 */
+	public Group getPeriodOfStudent(User studentUser);
+	
 }

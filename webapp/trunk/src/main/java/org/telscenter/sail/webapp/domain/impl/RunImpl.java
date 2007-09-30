@@ -202,12 +202,19 @@ public class RunImpl extends OfferingImpl implements Run {
 	 * @see org.telscenter.sail.webapp.domain.Run#isStudentAssociatedToThisRun(User)
 	 */
 	public boolean isStudentAssociatedToThisRun(User studentUser) {
+		return getPeriodOfStudent(studentUser) != null;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#getPeriodOfStudent(User)
+	 */
+	public Group getPeriodOfStudent(User studentUser) {
 		Set<Group> periods = getPeriods();
 		for (Group period : periods) {
 			if (period.getMembers().contains(studentUser)) {
-				return true;
+				return period;
 			}
 		}
-		return false;
+		return null;
 	}
 }
