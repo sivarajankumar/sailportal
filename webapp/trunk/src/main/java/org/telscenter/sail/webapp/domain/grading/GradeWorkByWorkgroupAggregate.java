@@ -22,9 +22,9 @@
  */
 package org.telscenter.sail.webapp.domain.grading;
 
-import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 
 /**
  * A transfer object for aggregating necessary objects to allow
@@ -46,12 +46,27 @@ public interface GradeWorkByWorkgroupAggregate extends GradeWorkAggregate {
 	public AnnotationBundle getAnnotationBundle();
 
 	/**
+	 * @param annotationBundle the annotationbundle to set
+	 */
+	public void setAnnotationBundle(AnnotationBundle annotationBundle);
+
+	/**
 	 * @return the SessionBundle belonging to the workgroup
 	 */
-	public ESessionBundle getSessionBundle();
+	public SessionBundle getSessionBundle();
 
+	/**
+	 * @param the SessionBundle to set
+	 */
+	public void setSessionBundle(SessionBundle sessionBundle);
+	
 	/**
 	 * @return the workgroup to grade
 	 */
 	public Workgroup getWorkgroup();
+
+	/**
+	 * @param workgroup the workgroup to set
+	 */
+	public void setWorkgroup(Workgroup workgroup);
 }

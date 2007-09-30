@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.domain.grading.impl;
 import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 
@@ -37,7 +38,7 @@ public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 	
 	protected Workgroup workgroup;
 	
-	protected ESessionBundle sessionBundle;
+	protected SessionBundle sessionBundle;
 	
 	protected AnnotationBundle annotationBundle;
 
@@ -51,7 +52,7 @@ public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 	/**
 	 * @see GradeWorkByWorkgroupAggregate#getSessionBundle()
 	 */
-	public ESessionBundle getSessionBundle() {
+	public SessionBundle getSessionBundle() {
 		return sessionBundle;
 	}
 
@@ -60,6 +61,20 @@ public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 	 */
 	public Workgroup getWorkgroup() {
 		return workgroup;
+	}
+
+	/**
+	 * @see GradeWorkByWorkgroupAggregate#setAnnotationBundle(AnnotationBundle)
+	 */
+	public void setAnnotationBundle(AnnotationBundle annotationBundle) {
+		this.annotationBundle = annotationBundle;
+	}
+	
+	/**
+	 * @see GradeWorkByWorkgroupAggregate#setSessionBundle(ESessionBundle)
+	 */
+	public void setSessionBundle(SessionBundle sessionBundle) {
+		this.sessionBundle = sessionBundle;
 	}
 
 	/**
