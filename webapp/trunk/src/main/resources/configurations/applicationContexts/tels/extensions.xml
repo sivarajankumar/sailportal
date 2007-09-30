@@ -40,6 +40,11 @@
         class="org.telscenter.sail.webapp.dao.offering.impl.HibernateRunDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    
+    <bean id="wiseWorkgroupDao"
+		class="org.telscenter.sail.webapp.dao.workgroup.impl.HibernateWISEWorkgroupDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
     <bean id="projectParameters"
     	class="org.telscenter.sail.webapp.domain.impl.ProjectParameters"
@@ -100,4 +105,32 @@
           <property name="runService" ref="runService" />
     </bean>
     
+    <bean id="wiseWorkgroupService"
+        class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref local="wiseWorkgroupServiceSecurity" />
+                <idref bean="wiseWorkgroupServiceTarget" />
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="wiseWorkgroupServiceSecurity"
+        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="validateConfigAttributes" value="true" />
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager" ref="workgroupAccessDecisionManager" />
+        <property name="afterInvocationManager" ref="afterInvocationManager" />
+        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+    </bean>    
+
+    <bean id="wiseWorkgroupServiceTarget"
+    	class="org.telscenter.sail.webapp.service.workgroup.impl.WISEWorkgroupServiceImpl">
+		<property name="sdsWorkgroupDao" ref="sdsWorkgroupDao" />
+		<property name="workgroupDao" ref="wiseWorkgroupDao" />
+		<property name="aclService" ref="aclServiceImpl" />
+    </bean>    
 </beans>

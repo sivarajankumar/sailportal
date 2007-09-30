@@ -31,6 +31,8 @@
             class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
         <mapping
             class="org.telscenter.sail.webapp.domain.impl.RunImpl" />
+        <mapping
+            class="org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl" />
             
     </session-factory>
 </hibernate-configuration>

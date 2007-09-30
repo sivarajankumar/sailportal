@@ -87,7 +87,7 @@
 	<bean id="startProjectController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StartProjectController">
 	    <property name="runService" ref="runService" />
-	    <property name="workgroupService" ref="workgroupService" />
+	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 	
@@ -97,7 +97,7 @@
 	    <property name="commandClass" 
 	        value="org.telscenter.sail.webapp.presentation.web.TeamSignInForm" />
 	    <property name="runService" ref="runService" />
-	    <property name="workgroupService" ref="workgroupService" />
+	    <property name="workgroupService" ref="wiseWorkgroupService" />
 	    <property name="userService" ref="userService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	    <property name="validator" ref="teamSignInFormValidator" />
@@ -178,14 +178,14 @@
 	<bean id="myProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
 		<property name="runService" ref="runService" />
-		<property name="workgroupService" ref="workgroupService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 	
 	<bean id="myArchivedRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunListController">
 		<property name="runService" ref="runService" />
-		<property name="workgroupService" ref="workgroupService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
