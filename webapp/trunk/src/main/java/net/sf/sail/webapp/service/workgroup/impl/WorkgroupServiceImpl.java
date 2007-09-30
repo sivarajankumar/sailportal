@@ -44,11 +44,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class WorkgroupServiceImpl implements WorkgroupService {
 
-    private SdsWorkgroupDao sdsWorkgroupDao;
+    protected SdsWorkgroupDao sdsWorkgroupDao;
 
-    private WorkgroupDao<Workgroup> workgroupDao;
+    protected WorkgroupDao<Workgroup> workgroupDao;
     
-    private AclService<Workgroup> aclService;
+    protected AclService<Workgroup> aclService;
 
     /**
 	 * @param aclService the aclService to set
@@ -82,19 +82,9 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     @Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
 	public Workgroup createWorkgroup(String name, Set<User> members, Offering offering) {
-        SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
-        sdsWorkgroup.setName(name);
-        for (User member : members) {
-        	sdsWorkgroup.addMember(member.getSdsUser());
-        }
-    	sdsWorkgroup.setSdsOffering(offering.getSdsOffering());
+        SdsWorkgroup sdsWorkgroup = createSdsWorkgroup(name, members, offering);
 
-        Workgroup workgroup = new WorkgroupImpl();
-        for (User member : members) {
-        	workgroup.addMember(member);
-        }
-        workgroup.setOffering(offering);
-        workgroup.setSdsWorkgroup(sdsWorkgroup);
+        Workgroup workgroup = createWorkgroup(members, offering, sdsWorkgroup);
 
         this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
         this.workgroupDao.save(workgroup);
@@ -103,6 +93,44 @@ public class WorkgroupServiceImpl implements WorkgroupService {
 
         return workgroup;
     }
+
+	/**
+	 * Creates and returns a <code>Workgroup</code> given parameters
+	 * 
+	 * @param members Set of users in this SdsWorkgroup
+	 * @param offering which <code>Offering</code> this workgroup belongs in
+	 * @param sdsWorkgroup <code>SdsWorkgroup</code that this Workgroup contains
+	 * @return created <code>Workgroup</code>
+	 */
+	protected Workgroup createWorkgroup(Set<User> members, Offering offering,
+			SdsWorkgroup sdsWorkgroup) {
+		Workgroup workgroup = new WorkgroupImpl();
+        for (User member : members) {
+        	workgroup.addMember(member);
+        }
+        workgroup.setOffering(offering);
+        workgroup.setSdsWorkgroup(sdsWorkgroup);
+		return workgroup;
+	}
+
+	/**
+	 * Creates and returns a <code>SdsWorkgroup</code> given parameters
+	 * 
+	 * @param name what this SdsWorkgroup is called
+	 * @param members Set of users in this SdsWorkgroup
+	 * @param offering which <code>Offering</code> this workgroup belongs in
+	 * @return created <code>SdsWorkgroup</code>
+	 */
+	protected SdsWorkgroup createSdsWorkgroup(String name, Set<User> members,
+			Offering offering) {
+		SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
+        sdsWorkgroup.setName(name);
+        for (User member : members) {
+        	sdsWorkgroup.addMember(member.getSdsUser());
+        }
+    	sdsWorkgroup.setSdsOffering(offering.getSdsOffering());
+		return sdsWorkgroup;
+	}
     
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getWorkgroupIterator()
