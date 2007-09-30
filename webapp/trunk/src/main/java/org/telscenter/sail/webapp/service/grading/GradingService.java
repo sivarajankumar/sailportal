@@ -60,6 +60,8 @@ public interface GradingService {
 	 */
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException;
 	
+	public ECurnitmap getCurnitmapMock(Long runId) throws ObjectNotFoundException;
+	
 	/**
 	 * Returns an aggregate object to allow WISE teachers to grade student
 	 * work for a particular <code>Step</code> of a particular 

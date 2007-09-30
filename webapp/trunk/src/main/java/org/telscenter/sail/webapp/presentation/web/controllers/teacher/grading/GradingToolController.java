@@ -22,7 +22,6 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -38,8 +37,10 @@ import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EProject;
 import org.telscenter.pas.emf.pas.EStep;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * The actual gradingTool.
@@ -49,11 +50,16 @@ import org.telscenter.sail.webapp.service.grading.GradingService;
  */
 public class GradingToolController extends AbstractController {
 
+	private static final String NEXT_STEP = "nextStep";
+	private static final String CURNIT_ID = "curnitId";
+	private static final String PROJECT_TITLE = "projectTitle";
+	private static final String ACTIVITY = "activity";
 	private static final String STEP = "step";
 	public static final String PODUUID = "podUUID";
 	public static final String STEP_AGGREGATE = "stepAggregate";
 	public static final String GRADE_TYPE = "GRADE_TYPE";
 	private GradingService gradingService;
+	private RunService runService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -71,7 +77,13 @@ public class GradingToolController extends AbstractController {
 		String podUUID = request.getParameter(PODUUID);
 		
 		
-		ECurnitmap curnitMap = this.gradingService.getCurnitmap(new Long(runId));
+		Run aRun = runService.retrieveById(new Long(runId));
+		
+		System.out.println("OBJECT ID: " + aRun.getSdsOffering().getSdsCurnit().getSdsObjectId() );
+		
+		String curnitId = aRun.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();
+		
+		ECurnitmap curnitMap = this.gradingService.getCurnitmapMock(new Long(runId));
 		EProject project = curnitMap.getProject();
 		
 		EList activities = project.getActivity();
@@ -84,9 +96,24 @@ public class GradingToolController extends AbstractController {
 				EStep step = (EStep) iterator2.next();
 				if( step.getPodUUID().toString().equals(podUUID)) {
 					System.out.println("we got it!");
+					
+					for (Iterator iterator3 = iterator2; iterator3.hasNext();) {
+						EStep nextStep = (EStep) iterator3.next();
+						if( this.isGradable(nextStep.getType()) ){
+							modelAndView.addObject(NEXT_STEP, nextStep);
+							break;
+						} else {
+							modelAndView.addObject(NEXT_STEP, null);
+						}
+					}// for
 					//TODO: Hiroki use stepId instead of EStep object as param
 					Map<Group, GradeWorkByStepAggregate> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), step);
 					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
+					modelAndView.addObject(STEP, step);
+					modelAndView.addObject(ACTIVITY,activity);
+					modelAndView.addObject(PROJECT_TITLE,project.getTitle());
+					modelAndView.addObject(CURNIT_ID,curnitId);
+					
 					modelAndView.addObject(GradeByStepController.RUN_ID, runId);
 					return modelAndView;
 				}// if
@@ -101,12 +128,27 @@ public class GradingToolController extends AbstractController {
         return modelAndView;
 	}
 
+	protected boolean isGradable(String stepType) {
+		if( stepType.equals("Note")) {
+			return true;
+		} else if(stepType.equals("Student Assessment" )) {
+			return true;
+		} else if(stepType.equals("CCDraw")) {
+			return true;
+		}// if
+		
+		return false;
+	}
 	public GradingService getGradingService() {
 		return gradingService;
 	}
 
 	public void setGradingService(GradingService gradingService) {
 		this.gradingService = gradingService;
+	}
+
+	public void setRunService(RunService runService) {
+		this.runService = runService;
 	}
 
 }

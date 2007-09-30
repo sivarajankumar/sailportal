@@ -71,6 +71,9 @@ public class GradingSubmitController extends AbstractController {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(POD_ID, podId);
 			
+			//save the bundle
+			
+			//this.gradingService.saveGrades(null);
 			return modelAndView;
 		} else {
 			
