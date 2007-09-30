@@ -122,6 +122,7 @@
 		<bean id="gradingToolController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingToolController">
 		<property name="gradingService" ref="gradingService" />
+		<property name="runService" ref="runService" />
 	</bean>
 
 	<bean id="addProjectController"
