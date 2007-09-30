@@ -211,7 +211,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 
 <!-- 
 aggregate.key = period
-aggregate.value = aggregate
+aggregate.value = set of workgroupWorkAggregate
  -->
 
 <div id="periodTabs" class="yui-navset"> 
@@ -227,12 +227,11 @@ aggregate.value = aggregate
 			 <c:set var="period" value="${fn:replace(aggregate.key.name, ' ', '-')}"/>
 			<div>
 				<!-- Actual Tab 
-					${sessionBundles.key} = workGroup
-					${sessionBundles.value} = sessionBundle
+					${workgroupAggregateObj} = workgroupAggregateObj
 				 -->
-					<c:forEach var="sessionBundles" varStatus="sessionStatus" items="${aggregate.value.sessionBundles}">
+					<c:forEach var="workgroupAggregateObj" varStatus="workgroupAggregateObjStatus" items="${aggregate.value}">
 						<!-- get the workgroup id -->
-						<c:set var="workgroupId" value="${sessionBundles.key.id}"/>
+						<c:set var="workgroupId" value="${workgroupAggregateObj.workgroup.id}"/>
 						<table width="900" border="1">
 						<!-- table header -->
 									<tr>
@@ -241,7 +240,7 @@ aggregate.value = aggregate
 										<div align="center">
 										
 										<strong>Group:<c:forEach var="user" varStatus="userStatus"
-											items="${sessionBundles.key.members}">
+											items="${workgroupAggregateObj.workgroup.members}">
 										 		${user.userDetails.username}
 										 		   <c:if test="${userStatus.last=='false'}">
 							     					&
@@ -253,16 +252,15 @@ aggregate.value = aggregate
 										</td>
 							
 									</tr>
-								<!-- 1st row prompt, 2nd answer and feedback box -->
-								<c:set var="count" value="1"/>
-								<c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundles.value.ESessionBundle.sockParts}">
 									
-									<c:forEach var="rimFromStep" items="${aggregate.value.step.rim}">
+								<c:set var="count" value="1"/>
+								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
+									<c:forEach var="rimFromStep" items="${step.rim}">
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
 											<tr>
 				                          		<td>
 				                          		 <c:choose>
-											        <c:when test="${fn:length(aggregate.value.step.rim) > 1}">
+											        <c:when test="${fn:length(step.rim) > 1}">
 											            Part ${count}: ${rimFromStep.prompt}
 											            <c:set var="count" value="${count + 1}"/>
 											        </c:when>
@@ -287,7 +285,7 @@ aggregate.value = aggregate
 		  			 							
 												<td>
 													
-													<c:forEach var="annotationGroup" items="${aggregate.value.annotationBundles[sessionBundles.key].EAnnotationBundle.annotationGroups}">
+													<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
 													<c:set var="done" value="false"/>
 														<c:forEach var="annotation" items="${annotationGroup.annotations}">
 															
@@ -318,6 +316,11 @@ aggregate.value = aggregate
                     						</c:if>
 									</c:forEach>
 								</c:forEach>
+									
+									
+									
+									
+									
 							</table>
 						
 					</c:forEach> 
