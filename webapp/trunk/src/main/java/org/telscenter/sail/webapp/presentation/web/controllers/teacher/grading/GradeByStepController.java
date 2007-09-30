@@ -58,7 +58,7 @@ public class GradeByStepController extends AbstractController {
 			System.out.println("The runId is "+runId);
 			
 			//GradingService gs = new GradingServiceImpl();
-			ECurnitmap curnitMap = gradingService.getCurnitmapMock(new Long(runId));
+			ECurnitmap curnitMap = gradingService.getCurnitmap(new Long(runId));
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
 			modelAndView.addObject(CURNIT_MAP, curnitMap);

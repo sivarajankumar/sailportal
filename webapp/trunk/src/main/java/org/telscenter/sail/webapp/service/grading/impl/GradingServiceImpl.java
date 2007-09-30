@@ -203,4 +203,13 @@ public class GradingServiceImpl implements GradingService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public AnnotationBundleService getAnnotationBundleService() {
+		return annotationBundleService;
+	}
+
+	public void setAnnotationBundleService(
+			AnnotationBundleService annotationBundleService) {
+		this.annotationBundleService = annotationBundleService;
+	}
 }

@@ -84,7 +84,7 @@ public class GradingToolController extends AbstractController {
 		
 		String curnitId = aRun.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();
 		
-		ECurnitmap curnitMap = this.gradingService.getCurnitmapMock(new Long(runId));
+		ECurnitmap curnitMap = this.gradingService.getCurnitmap(new Long(runId));
 		EProject project = curnitMap.getProject();
 		
 		EList activities = project.getActivity();

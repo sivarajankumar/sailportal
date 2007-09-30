@@ -102,6 +102,7 @@
      <bean id="gradingService"
         class="org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl">
           <property name="sessionBundleService" ref="sessionBundleService" />
+          <property name="annotationBundleService" ref="annotationBundleService" />
           <property name="runService" ref="runService" />
     </bean>
     
