@@ -28,13 +28,13 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="registerstylesheet" />" media="screen"
-	rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet"
+  type="text/css" />
+
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/base/base-min.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/fonts/fonts-min.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/grids/grids-min.css"> 
  
 <!--CSS for Controls:--> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/container/assets/skins/sam/container.css"> 
@@ -118,13 +118,40 @@ YUI download for details on each of the aggregate files and their contents):-->
 		  argument:['foo','bar']
 		};
 
+	function enableButton( textarea,podId,rimName,period) {
+		
+		var buttonText = 'pushbutton-'+podId+'_'+rimName+'_'+period;
+		var savedText = 'saved-'+podId+'_'+rimName+'_'+period;
+		
+		var buttons = document.getElementById(buttonText);
+		var names = document.getElementsByTagName(buttonText);
+		for(var i = 0; i < names.length; i++) {
+				YAHOO.log( 'dfdfd' + names[i]);
+			}
+			
+		//set the textarea background color white
+		textarea.style.backgroundColor ="#FFFFFF";
+		
+	//	YAHOO.util.Dom.setStyle(commentedText, 'background-color', 'white'); 
+		
+		//make the comment "not saved"
+		var savedEl = YAHOO.util.Dom.getElementsByClassName(savedText, 'div');
+		YAHOO.log( 'saved ' + savedEl );
+		for(var i = 0; i < savedEl.length; i++) {
+			savedEl[i].innerHTML = "not saved";
+		}
+			
+		
+	};
 	
-	function doSubmit(podId,rimName,period) {
+	function doSubmit(button,podId,rimName,period) {
 			YAHOO.log('podId' + podId);
 			YAHOO.log('rimName' + rimName);
 			YAHOO.log('pe' + period);
 			
+			YAHOO.log( 'button:' + button );
 			
+			//button.disabled = 'true';
 			
 			var savedText = 'saved-'+podId+'_'+rimName+'_'+period;
 			var commentedText = 'comment-'+podId+'_'+rimName+'_'+period;
@@ -144,21 +171,17 @@ YUI download for details on each of the aggregate files and their contents):-->
 			var postData = 'workgroupId=3434&runId=${runId}&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value;
 			
 			var request = YAHOO.util.Connect.asyncRequest('POST', sUrl, null, postData);	
+			
+			
+			//change the comment
 			YAHOO.log('comente '+ tel[0].value);
 			for(var i = 0; i < el.length; i++) {
-				el[i].innerHTML = "<span class='style1'>saved!</span>";
-			} 
+				el[i].innerHTML = "saved!";
+			}
 			
-			/*
-			//alert('Element' + document.getElementById(bob+'_saved') );
-			var el = document.getElementById(podId+'_saved');
-			YAHOO.log( "el: " + el + "html: " + el.innerHTML);
-			
-			el.innerHTML = "<span class='style1'>saved!</span>";
-			//alert('found: ' + YAHOO.util.Dom.getElementsByClassName('bar', 'div')).length + ' elements'); 
-			*/
-			
-			
+		
+			YAHOO.util.Dom.setStyle(commentedText, 'background-color', 'white'); 
+		
 			
 		};
 	//create tab
@@ -171,10 +194,21 @@ YUI download for details on each of the aggregate files and their contents):-->
 </script>
 
 <body class=" yui-skin-sam">
+<%@ include file="gradingtoolHeader.jsp"%>
+<h2>Grading Tool</h2>
 
-<h3 align="center">Grading tool</h3>
+<table border="0px">
+  <tr>
+  	<td>Project: </td>
+    <td><div align="left">${projectTitle} (${curnitId})</div></td>
+  </tr>
+    <tr>
+    <td>View:</td>
+    <td><div align="left">Act ${activity.number},Step ${step.number}: ${step.title}   <a href="gradebystep.html?runId=${runId}">Change Step</a> <c:if test="${nextStep != null}"><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}">Next Step</a></c:if></div></td>
+  </tr>
+  </table>
 
-<h2>Step title</h2>
+
 <!-- 
 aggregate.key = period
 aggregate.value = aggregate
@@ -196,13 +230,13 @@ aggregate.value = aggregate
 					${sessionBundles.key} = workGroup
 					${sessionBundles.value} = sessionBundle
 				 -->
-					<c:forEach var="sessionBundles" items="${aggregate.value.sessionBundles}">
+					<c:forEach var="sessionBundles" varStatus="sessionStatus" items="${aggregate.value.sessionBundles}">
 						<!-- get the workgroup id -->
 						<c:set var="workgroupId" value="${sessionBundles.key.id}"/>
-						<table width="853" border="1">
+						<table width="900" border="1">
 						<!-- table header -->
 									<tr>
-										<td width="492">
+										<td width="600">
 										<!--  print member anmes -->
 										<div align="center">
 										
@@ -214,17 +248,31 @@ aggregate.value = aggregate
 							    				</c:if>
 										 	</c:forEach> </strong></div>
 										</td>
-										<td width="268">
+										<td width="300">
 										<div align="center"><strong>Teacher Feedback</strong></div>
 										</td>
 							
 									</tr>
 								<!-- 1st row prompt, 2nd answer and feedback box -->
-								<c:forEach var="sockPart" items="${sessionBundles.value.ESessionBundle.sockParts}">
+								<c:set var="count" value="1"/>
+								<c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundles.value.ESessionBundle.sockParts}">
+									
 									<c:forEach var="rimFromStep" items="${aggregate.value.step.rim}">
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
 											<tr>
-				                          		<td>Display prompt ${rimFromStep.prompt}</td>
+				                          		<td>
+				                          		 <c:choose>
+											        <c:when test="${fn:length(aggregate.value.step.rim) > 1}">
+											            Part ${count}: ${rimFromStep.prompt}
+											            <c:set var="count" value="${count + 1}"/>
+											        </c:when>
+											        <c:otherwise>
+											           ${rimFromStep.prompt}
+											        </c:otherwise>
+											    </c:choose>
+				                          		<!-- print out part if more than one element -->
+				                          		
+				                          		</td>
 				                          		<td></td>
 				             				</tr>
 											<tr>
@@ -245,7 +293,7 @@ aggregate.value = aggregate
 															
 															<c:if test="${done == false}">
 																	<c:choose>
-																      <c:when  test="${annotation.entityName == sockPart.rimName}">got it.
+																      <c:when  test="${annotation.entityName == sockPart.rimName}">
 																      	<c:set var="done" value="true"/>
 																      	<c:set var="foundAnnotation" value="${annotation}"/>
 																      </c:when>
@@ -258,13 +306,12 @@ aggregate.value = aggregate
 													
 												
 													<div id="div_${sockPart.podId}_${sockPart.rimName}" >
-													<textarea class="comment-${sockPart.podId}_${sockPart.rimName}_${period}" cols="35" rows="3"><c:if test="${done == true}">${fn:trim(foundAnnotation.contents)}</c:if></textarea>
-													<fieldset id="pushbuttonsfrommarkup">
+													<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')"><c:if test="${done == true}">${fn:trim(foundAnnotation.contents)}</c:if></textarea>
 														<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}" class="yui-button yui-push-button"><em class="first-child">
-															<button type="submit" name="button5" onClick="javascript:doSubmit('${sockPart.podId}','${sockPart.rimName}','${period}')">Save Comment</button></em>
+															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}')">Save Comment</button></em>
 														</span>
-													</fieldset>
-													</div><div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}" >not saved</div>
+														<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}" style="display: inline; width: 12%;">not saved</div>
+													</div>
 												
 												</td>
 											</tr>

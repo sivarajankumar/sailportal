@@ -26,13 +26,17 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
-<link href="<spring:theme code="registerstylesheet" />" media="screen" rel="stylesheet"
+<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
+  <script type="text/javascript" src="../javascript/general.js"></script> 
 </head>
-<body>
-<h3 align="center">Grade By Step</h3>
 
-<div id="runBox">
+<body>
+
+<%@ include file="gradingtoolHeader.jsp"%>
+
+<h4>Grade By Step</h4>
+
 
 <div style="align:left;">
 ${curnitMap.project.title}
@@ -40,14 +44,13 @@ ${curnitMap.project.title}
 		<h3>Activity <c:out value="${varStep.count}" />: ${someAct.title}</h3>  
 		<ul> 
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
-				
-				<li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  : ${someStep.title}</a></li>
+				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  : ${someStep.title}</a>    (${someStep.type})</li></c:if>
+				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  : ${someStep.title}</a></li></c:if>
 			</c:forEach>
 		</ul>
     </c:forEach>
 </div>
 
-</div>
 
 </body>
 </html>
