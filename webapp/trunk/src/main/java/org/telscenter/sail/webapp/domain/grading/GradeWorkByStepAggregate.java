@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.grading;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.telscenter.pas.emf.pas.EStep;
 
@@ -80,4 +81,11 @@ public interface GradeWorkByStepAggregate extends GradeWorkAggregate {
 	 */
 	public void setSessionBundles(Map<Workgroup, SessionBundle> sessionBundles);
 
+	/**
+	 * Returns a <code>Set</code> of <code>Workgroup</code> that are contained
+	 * in this aggregate.
+	 * 
+	 * @return set of Workgroups that are in this aggregate
+	 */
+	public Set<Workgroup> getWorkgroups();
 }

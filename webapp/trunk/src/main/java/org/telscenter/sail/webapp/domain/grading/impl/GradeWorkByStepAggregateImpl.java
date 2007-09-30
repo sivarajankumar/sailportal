@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.grading.impl;
 
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
@@ -85,5 +86,14 @@ public class GradeWorkByStepAggregateImpl extends GradeWorkAggregateImpl
 	 */
 	public void setSessionBundles(Map<Workgroup, SessionBundle> sessionBundles) {
 		this.sessionBundles = sessionBundles;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate#getWorkgroups()
+	 */
+	public Set<Workgroup> getWorkgroups() {
+		// getting the workgroups from annotationbundles or sessionbundles
+		// would be ok
+		return getAnnotationBundles().keySet();
 	}
 }
