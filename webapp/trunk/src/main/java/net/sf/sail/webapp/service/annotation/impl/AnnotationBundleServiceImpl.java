@@ -27,6 +27,7 @@ import java.io.IOException;
 
 import net.sf.sail.emf.sailuserdata.EAnnotationBundle;
 import net.sf.sail.webapp.dao.annotation.AnnotationBundleDao;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 
@@ -58,6 +59,13 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 		String annotationBundleXMLString = new String(annotationBytes);
 		annotationBundle.setBundle(annotationBundleXMLString);
 		annotationBundleDao.save(annotationBundle);
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#getAnnotationBundle(Long, Workgroup)
+	 */
+	public AnnotationBundle getAnnotationBundle(Long runId, Workgroup workgroup) {
+		return null;
 	}
 
 	/**
