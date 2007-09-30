@@ -31,14 +31,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * Controller to start the project
@@ -50,9 +52,13 @@ public class StartProjectController extends AbstractController {
 
 	private RunService runService;
 	
-	private WorkgroupService workgroupService;
+	private WISEWorkgroupService workgroupService;
 
 	private HttpRestTransport httpRestTransport;
+	
+	//private String portalBaseUrlString;
+
+	//private String retrieveAnnotationsUrl = "/student/retrieveAnnotationBundle.html";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -66,35 +72,46 @@ public class StartProjectController extends AbstractController {
 		Long runId = Long.valueOf(request.getParameter("runId"));
 		
 		Run run = runService.retrieveById(runId);
+		Group period = run.getPeriodOfStudent(user);
 		
 		List<Workgroup> workgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
 		assert(workgroups.size() <= 1);
 		
-		Workgroup workgroup = null;
+		WISEWorkgroup workgroup = null;
 		if (workgroups.size() == 0) {
 			// need to create a workgroup for this user
 			String name = "Workgroup for " + user.getUserDetails().getUsername();
 			Set<User> members = new HashSet<User>();
 			members.add(user);
-			workgroup = workgroupService.createWorkgroup(name, members, run);
+			workgroup = workgroupService.createWISEWorkgroup(name, members, run, period);
 		} else if (workgroups.size() == 1) {
 			// user has created a workgroup before for this run
-			workgroup = workgroups.get(0);
+			workgroup = (WISEWorkgroup) workgroups.get(0);
 		} else {
 			// TODO HT: this case should never happen. But since WISE requirements are not clear yet regarding
 			// the workgroup issues, leave this for now.
-			workgroup = workgroups.get(0);
+			workgroup = (WISEWorkgroup) workgroups.get(0);
 //			
 //			throw new IllegalStateException("The user " + 
 //					user.getUserDetails().getUsername() + " is in more than one " +
 //							"groups for the run " + run.getSdsOffering().getName());
 		}
+		/*
+		String url = this.httpRestTransport.getBaseUrl() + "/offering/" + 
+		    run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
+		    workgroup.getSdsWorkgroup().getSdsObjectId() +
+		    "?emf.annotation.bundle.url=" + portalBaseUrlString + 
+		    retrieveAnnotationsUrl + "?workgroupId=" + workgroup.getId();
+		    */
 		
+		//String url = 
+		//"http://rails.dev.concord.org/sds/1/offering/4/jnlp/833/view?emf.annotation.bundle.url=http://concord.org/~scytacki/test-annotation-bundle.xmi";
+
+		//ModelAndView modelAndView = new ModelAndView(new RedirectView(url));
 		ModelAndView modelAndView = 
 			new ModelAndView(new RedirectView(this.httpRestTransport.getBaseUrl() + "/offering/" + 
 					run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
 					workgroup.getSdsWorkgroup().getSdsObjectId()));
-		
 		return modelAndView;
 	}
 
@@ -115,8 +132,15 @@ public class StartProjectController extends AbstractController {
 	/**
 	 * @param workgroupService the workgroupService to set
 	 */
-	public void setWorkgroupService(WorkgroupService workgroupService) {
+	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
 	}
+
+	/**
+	 * @param portalBaseUrlString the portalBaseUrlString to set
+	 */
+	//public void setPortalBaseUrlString(String portalBaseUrlString) {
+	//	this.portalBaseUrlString = portalBaseUrlString;
+	//}
 
 }
