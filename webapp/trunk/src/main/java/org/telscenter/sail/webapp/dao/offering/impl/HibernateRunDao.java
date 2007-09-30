@@ -22,6 +22,10 @@
  */
 package org.telscenter.sail.webapp.dao.offering.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
@@ -29,6 +33,7 @@ import org.telscenter.sail.webapp.domain.impl.RunImpl;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.domain.Workgroup;
 
 /**
  * DAO for WISE run, which extends offering
@@ -71,5 +76,21 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 	@Override
 	protected Class<RunImpl> getDataObjectClass() {
 		return RunImpl.class;
+	}
+
+	
+	/**
+	 * TODO HT comment and test this method
+	 */
+	@SuppressWarnings("unchecked")
+	public Set<Workgroup> getWorkgroupsForOffering(Long offeringId) {
+		List<Workgroup> workgroupList =  this.getHibernateTemplate()
+	    .findByNamedParam(
+	    		"from WISEWorkgroupImpl as workgroup where workgroup.offering.id = :offeringId",
+	    		"offeringId", offeringId);
+
+		Set<Workgroup> workgroupSet = new HashSet<Workgroup>();
+		workgroupSet.addAll(workgroupList);
+		return workgroupSet;
 	}
 }
