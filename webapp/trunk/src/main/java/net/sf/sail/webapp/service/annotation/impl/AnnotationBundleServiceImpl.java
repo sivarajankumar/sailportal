@@ -29,6 +29,7 @@ import net.sf.sail.emf.sailuserdata.EAnnotationBundle;
 import net.sf.sail.webapp.dao.annotation.AnnotationBundleDao;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 
 /**
@@ -65,7 +66,20 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#getAnnotationBundle(Long, Workgroup)
 	 */
 	public AnnotationBundle getAnnotationBundle(Long runId, Workgroup workgroup) {
-		return null;
+		// TODO HT: replace with actual code when ready
+		String annotationBundleString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
+		"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
+		"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
+        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
+        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6a\" contentType=\"text/plain\" contents=\"Test rim annotation CHOCIE for rim with name undefined6a\"/>" +
+        "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
+        "</annotationGroups></sailuserdata:EAnnotationBundle>";
+		
+		AnnotationBundle annotationBundle = new AnnotationBundleImpl();
+		annotationBundle.setBundle(annotationBundleString);
+		annotationBundle.setWorkgroup(workgroup);		
+
+		return annotationBundle;
 	}
 
 	/**

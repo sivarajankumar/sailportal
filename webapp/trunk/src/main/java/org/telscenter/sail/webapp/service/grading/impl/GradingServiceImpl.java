@@ -31,7 +31,6 @@ import java.util.Set;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
-import net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
@@ -163,26 +162,12 @@ public class GradingServiceImpl implements GradingService {
 			Long runId, Workgroup workgroup) throws ObjectNotFoundException {
 		GradeWorkByWorkgroupAggregate aggregate = 
 			new GradeWorkByWorkgroupAggregateImpl();
+
 		aggregate.setWorkgroup(workgroup);
 		aggregate.setRunId(runId);
-		aggregate.setCurnitmap(getCurnitmap(runId));
-		
-		// TODO HT: replace with actual code when ready
-		String annotationBundleString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
-		"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
-		"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
-        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
-        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6a\" contentType=\"text/plain\" contents=\"Test rim annotation CHOCIE for rim with name undefined6a\"/>" +
-        "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
-        "</annotationGroups></sailuserdata:EAnnotationBundle>";
-		
-		AnnotationBundle annotationBundle = new AnnotationBundleImpl();
-		annotationBundle.setBundle(annotationBundleString);
-		annotationBundle.setWorkgroup(workgroup);		
-		aggregate.setAnnotationBundle(annotationBundle);
-		
-		SessionBundle sessionBundle = sessionBundleService.getSessionBundle(runId, workgroup);
-		aggregate.setSessionBundle(sessionBundle);
+		aggregate.setCurnitmap(getCurnitmap(runId));		
+		aggregate.setAnnotationBundle(annotationBundleService.getAnnotationBundle(runId, workgroup));
+		aggregate.setSessionBundle(sessionBundleService.getSessionBundle(runId, workgroup));
 		
 		return aggregate;
 	}
