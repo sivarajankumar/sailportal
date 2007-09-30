@@ -32,6 +32,7 @@ import java.util.TreeSet;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
@@ -256,5 +257,14 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 			run.setEndtime(null);
 			this.runDao.save(run);
 		}
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#getWorkgroups(Long)
+	 * TODO: HT test this method
+	 */
+	public Set<Workgroup> getWorkgroups(Long runId) 
+	     throws ObjectNotFoundException {
+		return this.runDao.getWorkgroupsForOffering(runId);
 	}
 }

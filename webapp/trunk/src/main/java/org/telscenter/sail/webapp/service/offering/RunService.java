@@ -23,9 +23,11 @@
 package org.telscenter.sail.webapp.service.offering;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.acegisecurity.annotation.Secured;
@@ -113,4 +115,12 @@ public interface RunService extends OfferingService {
      *          to find an existing run   
      */
     public Run retrieveById(Long runId) throws ObjectNotFoundException;
+    
+    /**
+     * Gets all of the Workgroups that are associated with this run
+     * @return set of Workgroups for that are in this run
+     * @throws ObjectNotFoundException when runId cannot be used 
+     *     to find an existing run 
+     */
+    public Set<Workgroup> getWorkgroups(Long runId) throws ObjectNotFoundException;
 }
