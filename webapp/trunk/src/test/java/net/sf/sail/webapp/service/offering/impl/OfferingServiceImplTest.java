@@ -187,4 +187,6 @@ public class OfferingServiceImplTest extends TestCase {
 	}
 	
 	// TODO LAW test JNLPNotFound RuntimeException
+	
+	// TODO Hiroki test OfferingService.getWorkgroupsForOffering()
 }

@@ -22,8 +22,11 @@
  */
 package net.sf.sail.webapp.dao.offering;
 
+import java.util.Set;
+
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.Workgroup;
 
 /**
  * @author Hiroki Terashima
@@ -31,4 +34,11 @@ import net.sf.sail.webapp.domain.Offering;
  */
 public interface OfferingDao<T extends Offering> extends SimpleDao<T> {
 
+	/**
+	 * Returns a set of workgroups for the offering with provided offeringId.
+	 * 
+	 * @param offeringId key to the <code>Offering</code> to look up
+	 * @return a Set of Workgroups that belong in the <code>Offering</code>
+	 */
+	public Set<Workgroup> getWorkgroupsForOffering(Long offeringId);
 }

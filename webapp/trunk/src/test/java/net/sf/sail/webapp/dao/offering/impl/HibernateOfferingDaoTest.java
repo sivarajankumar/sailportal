@@ -24,10 +24,13 @@ package net.sf.sail.webapp.dao.offering.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.AbstractTransactionalDaoTests;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
+import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -55,6 +58,8 @@ public class HibernateOfferingDaoTest extends
 	private static final SdsJnlp DEFAULT_SDS_JNLP = new SdsJnlp();
 
 	private SdsOffering sdsOffering;
+	
+	private Workgroup workgroup;
 
 	/**
 	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onTearDownAfterTransaction()
@@ -63,20 +68,22 @@ public class HibernateOfferingDaoTest extends
 	protected void onTearDownAfterTransaction() throws Exception {
 		super.onTearDownAfterTransaction();
 		this.sdsOffering = null;
+		this.workgroup = null;
 	}
 
 	/**
 	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onSetUpBeforeTransaction() throws Exception {
 		super.onSetUpBeforeTransaction();
 		
 		
-        this.dao = ((HibernateOfferingDao) this.applicationContext
-                .getBean("offeringDao"));
-        this.dataObject = ((OfferingImpl) this.applicationContext
-                .getBean("offering"));
+        this.dao = (HibernateOfferingDao) this.applicationContext
+                .getBean("offeringDao");
+        this.dataObject = (OfferingImpl) this.applicationContext
+                .getBean("offering");
         
 		DEFAULT_SDS_CURNIT.setSdsObjectId(SDS_ID);
 		DEFAULT_SDS_CURNIT.setName(DEFAULT_NAME);
@@ -88,8 +95,12 @@ public class HibernateOfferingDaoTest extends
 
 		this.sdsOffering.setSdsObjectId(SDS_ID);
 		this.sdsOffering.setName(DEFAULT_NAME);
-
+		
 		this.dataObject.setSdsOffering(this.sdsOffering);
+		
+		this.workgroup = (WorkgroupImpl) this.applicationContext
+		    .getBean("workgroup");
+		this.workgroup.setOffering(this.dataObject);
 	}
 
 	/**
@@ -159,6 +170,17 @@ public class HibernateOfferingDaoTest extends
 				.get(SdsOffering.COLUMN_NAME_OFFERING_ID.toUpperCase()));
 		assertEquals(DEFAULT_NAME, actualOfferingMap
 				.get(SdsOffering.COLUMN_NAME_OFFERING_NAME.toUpperCase()));
+	}
+	
+	public void testGetWorkgroupsForOffering() {
+		// TODO HT: test this more, like check to see if workgroups has one workgroup, etc.
+		verifyDataStoreIsEmpty();
+
+		// save the default offering object using dao
+		this.dao.save(this.dataObject);
+		
+		Set<Workgroup> workgroups = this.dao.getWorkgroupsForOffering(this.dataObject.getId());
+		assertNotNull(workgroups);
 	}
 
 	/*

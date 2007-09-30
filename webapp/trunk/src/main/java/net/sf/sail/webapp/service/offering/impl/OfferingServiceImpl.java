@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.service.offering.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
@@ -27,6 +28,7 @@ import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -149,6 +151,14 @@ public class OfferingServiceImpl implements OfferingService {
 		sdsOffering.setSdsJnlp(jnlp.getSdsJnlp());
 		this.sdsOfferingDao.save(sdsOffering);
 		return sdsOffering;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.offering.OfferingService#getWorkgroupsForOffering(Long)
+	 */
+	public Set<Workgroup> getWorkgroupsForOffering(Long offeringId)
+			throws ObjectNotFoundException {
+		return this.offeringDao.getWorkgroupsForOffering(offeringId);
 	}
 
 }

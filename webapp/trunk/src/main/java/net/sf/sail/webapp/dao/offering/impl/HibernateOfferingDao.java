@@ -22,9 +22,14 @@
  */
 package net.sf.sail.webapp.dao.offering.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 
 /**
@@ -50,6 +55,21 @@ public class HibernateOfferingDao extends AbstractHibernateDao<Offering>
 	@Override
 	protected Class<OfferingImpl> getDataObjectClass() {
 		return OfferingImpl.class;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.offering.OfferingDao#getWorkgroupsForOffering(Long)
+	 */
+	@SuppressWarnings("unchecked")
+	public Set<Workgroup> getWorkgroupsForOffering(Long offeringId) {
+		List<Workgroup> workgroupList =  this.getHibernateTemplate()
+		    .findByNamedParam(
+		    		"from WorkgroupImpl as workgroup where workgroup.offering.id = :offeringId", 
+		    		"offeringId", offeringId);
+
+		Set<Workgroup> workgroupSet = new HashSet<Workgroup>();
+		workgroupSet.addAll(workgroupList);
+		return workgroupSet;
 	}
     
     

@@ -18,9 +18,11 @@
 package net.sf.sail.webapp.service.offering;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 
 /**
@@ -46,7 +48,7 @@ public interface OfferingService {
 	 * 
 	 * @param id The id of the offering to be retrieved.
 	 * @return The offering.
-	 * @throws ObjectNotFoundException If an offering with the given id is not found.
+	 * @throws ObjectNotFoundException if an offering with the given id is not found.
 	 */
 	public Offering getOffering(Long id) throws ObjectNotFoundException;
 
@@ -65,6 +67,18 @@ public interface OfferingService {
 	 *             exist in the data store.
 	 */
 	public Offering createOffering(OfferingParameters offeringParameters)
-			throws ObjectNotFoundException;
+	    throws ObjectNotFoundException;
+	
+	/**
+	 * Returns a set of <code>Workgroup</code> that belong in the the <code>Offering</code>
+	 * with the provided offeringId.
+	 * 
+	 * @param offeringId key to the <code>Offering</code> to look up
+	 * @return a Set of Workgroups that belong in the <code>Offering</code>
+	 * 
+	 * @throws ObjectNotFoundException if an offering with the given id is not found.
+	 */
+	public Set<Workgroup> getWorkgroupsForOffering(Long offeringId) 
+	    throws ObjectNotFoundException;
 
 }
