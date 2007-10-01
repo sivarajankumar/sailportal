@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.dao.annotation;
 
 import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 
 /**
@@ -31,4 +32,12 @@ import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 public interface AnnotationBundleDao<T extends AnnotationBundle> extends
 		SimpleDao<T> {
 	
+	/**
+	 * Retrieves the annotation for the specified <code>Workgroup</code>
+	 * 
+	 * @param workgroup <code>Workgroup</code> to retrieved the associated
+	 * AnnotationBundle
+	 * @return <code>AnnotationBundle</code> associated with the workgroup
+	 */
+	public AnnotationBundle retrieveAnnotationBundle(Workgroup workgroup);
 }

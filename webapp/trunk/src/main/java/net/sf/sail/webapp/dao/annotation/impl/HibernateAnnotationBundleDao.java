@@ -17,8 +17,11 @@
  */
 package net.sf.sail.webapp.dao.annotation.impl;
 
+import org.springframework.dao.support.DataAccessUtils;
+
 import net.sf.sail.webapp.dao.annotation.AnnotationBundleDao;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl;
 
@@ -45,4 +48,17 @@ public class HibernateAnnotationBundleDao extends AbstractHibernateDao<Annotatio
     protected Class<AnnotationBundleImpl> getDataObjectClass() {
     	return AnnotationBundleImpl.class;
     }
+
+    /**
+     * @see net.sf.sail.webapp.dao.annotation.AnnotationBundleDao#retrieveAnnotationBundle(net.sf.sail.webapp.domain.Workgroup)
+     */
+	public AnnotationBundle retrieveAnnotationBundle(Workgroup workgroup) {
+		return (AnnotationBundle) DataAccessUtils
+		    .uniqueResult(
+		    		this.getHibernateTemplate()
+		    		.findByNamedParam(
+		    				"from AnnotationBundleImpl as annotationbundle where " +
+		    				"annotationbundle.workgroup = :workgroup", 
+		    				"workgroup", workgroup));
+	}
 }
