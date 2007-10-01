@@ -29,6 +29,7 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.BadRequestException;
 import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 import net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl;
 
 import org.acegisecurity.acls.domain.BasePermission;
@@ -45,6 +46,8 @@ import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 		WISEWorkgroupService {
 
+	private AnnotationBundleService annotationBundleService;
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService#createWISEWorkgroup(java.lang.String, java.util.Set, org.telscenter.sail.webapp.domain.Run, net.sf.sail.webapp.domain.group.Group)
 	 */
@@ -61,6 +64,8 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
         this.workgroupDao.save(workgroup);
         
         this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
+        
+        this.annotationBundleService.createAnnotationBundle(run.getId(), workgroup);
 
         return workgroup;
 	}
@@ -85,6 +90,13 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 		workgroup.setSdsWorkgroup(sdsWorkgroup);
 		workgroup.setPeriod(period);
 		return workgroup;
+	}
+
+	/**
+	 * @param annotationService the annotationService to set
+	 */
+	public void setAnnotationBundleService(AnnotationBundleService annotationBundleService) {
+		this.annotationBundleService = annotationBundleService;
 	}
 
 }

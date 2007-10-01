@@ -34,7 +34,7 @@
 		scope="prototype" />
 		
 	<bean id="annotationBundleService"
-		class="net.sf.sail.webapp.service.annotation.impl.AnnotationBundleServiceImpl"
-		scope="prototype" />
-
+		class="net.sf.sail.webapp.service.annotation.impl.AnnotationBundleServiceImpl" >
+		<property name="annotationBundleDao" ref="annotationBundleDao" />
+    </bean>
 </beans>
