@@ -33,9 +33,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.impl.ChangePasswordParameters;
 
-/*
- * TODO: Add class comments, make new file ChangePasswordControllerTest
- */
 
 /**
  * The Controller for Change Password page for WISE students
@@ -58,23 +55,17 @@ public class ChangePasswordController extends SimpleFormController{
      */
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request,
-            HttpServletResponse response, Object command, BindException errors)
-            throws Exception {
+            HttpServletResponse response, Object command, BindException errors){
 		User user = (User) request.getSession().getAttribute(
 				User.CURRENT_USER_SESSION_KEY);
     	ChangePasswordParameters params = (ChangePasswordParameters) command;
 
     	ModelAndView modelAndView = null;
 
-   	try {
-   			userService.updateUserPassword(user, params.getPasswd1());
-    		modelAndView = new ModelAndView(getSuccessView());
-    	} catch (Exception e) {
-    		errors.rejectValue("changepassword", "error.illegal-password");
-    		return showForm(request, response, errors);
-    	}
-    	
-		return modelAndView;
+   		userService.updateUserPassword(user, params.getPasswd1());
+    	modelAndView = new ModelAndView(getSuccessView());
+
+    	return modelAndView;
     }
     
 	/**
