@@ -32,7 +32,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	org.telscenter.sail.webapp.presentation.validators.student.AddProjectParametersValidatorTest.class,
-	org.telscenter.sail.webapp.presentation.validators.student.TeamSignInFormValidatorTest.class
+	org.telscenter.sail.webapp.presentation.validators.student.TeamSignInFormValidatorTest.class,
+	org.telscenter.sail.webapp.presentation.validators.student.ChangePasswordParametersValidatorTest.class
 })
 
 public class AllTests {
