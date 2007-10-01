@@ -66,7 +66,15 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#getAnnotationBundle(Long, Workgroup)
 	 */
 	public AnnotationBundle getAnnotationBundle(Long runId, Workgroup workgroup) {
+		return annotationBundleDao.retrieveAnnotationBundle(workgroup);
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#createAnnotationBundle(Long, Workgroup)
+	 */
+	public void createAnnotationBundle(Long runId, Workgroup workgroup) {
 		// TODO HT: replace with actual code when ready
+
 		String annotationBundleString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
 		"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
 		"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
@@ -77,9 +85,8 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 		
 		AnnotationBundle annotationBundle = new AnnotationBundleImpl();
 		annotationBundle.setBundle(annotationBundleString);
-		annotationBundle.setWorkgroup(workgroup);		
-
-		return annotationBundle;
+		annotationBundle.setWorkgroup(workgroup);
+		this.annotationBundleDao.save(annotationBundle);
 	}
 
 	/**
@@ -89,5 +96,4 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 			AnnotationBundleDao<AnnotationBundle> annotationBundleDao) {
 		this.annotationBundleDao = annotationBundleDao;
 	}
-
 }
