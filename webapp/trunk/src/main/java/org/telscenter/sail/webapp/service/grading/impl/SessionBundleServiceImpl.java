@@ -22,7 +22,10 @@
  */
 package org.telscenter.sail.webapp.service.grading.impl;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 import net.sf.sail.webapp.domain.sessionbundle.impl.SessionBundleImpl;
 
@@ -34,34 +37,45 @@ import org.telscenter.sail.webapp.service.grading.SessionBundleService;
  */
 public class SessionBundleServiceImpl implements SessionBundleService {
 
+	private SdsWorkgroupDao sdsWorkgroupDao;
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.SessionBundleService#getSessionBundle(java.lang.Long, net.sf.sail.webapp.domain.Workgroup)
 	 */
-	public SessionBundle getSessionBundle(Long runId, Workgroup workgroup) {
+	public SessionBundle getSessionBundle(Long runId, Workgroup workgroup) throws ObjectNotFoundException {
 		// TODO REPLACE BELOW STUB IMPLEMENTATION WITH ACTUAL CODE WHEN the code is ready
-		String portfolioXMLString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-		"<sailuserdata:EPortfolio xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:sailuserdata=\"sailuserdata\">" +
-		"<sessionBundles xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:sailuserdata=\"sailuserdata\" start=\"2007-05-23T17:09:32.320-0700\" stop=\"2007-05-23T17:10:30.221-0700\" curnitUUID=\"af133621-b3d1-11db-a373-8b155032f53b\" sessionUUID=\"19c4d720-fdde-4254-8c83-480ba66b161e\">" +
-		"<sockParts podId=\"dddddddd-6004-0002-0000-000000000000\" rimName=\"undefined6\">" +
-		"<sockEntries value=\"green house asourb sun light and global warming is the earth warming up but it is alike...actually I have no idea what I'm talking about. this is my answer for rim with rimname undefined6.\" millisecondsOffset=\"1277103\"/>" +
-		"</sockParts>" + 
-		"<sockParts podId=\"dddddddd-6004-0002-0000-000000000000\" rimName=\"undefined6a\">" +
-		"<sockEntries value=\"NEW something else up but it is alike...actually I have no idea what I'm talking about. this is my answer for rim with rimname undefined6A.\" millisecondsOffset=\"1277103\"/>" +
-		"</sockParts>" + 
-		"<sockParts podId=\"dddddddd-6004-0003-0000-000000000000\" rimName=\"undefined7\">" +
-		"<sockEntries value=\"this is a response to rim with name undefined7 and I have no idea what I should write here.\" millisecondsOffset=\"1277103\"/>" +
-		"</sockParts>" +
-		"<agents role=\"RUN_WORKGROUP\">" +
-		"<users>47fe0b74-08ae-11dc-add0-0014c2c34555</users>" +
-		"</agents>" +
-		"<sdsReturnAddresses>http://saildataservice.concord.org/3/offering/1200/bundle/1215/0</sdsReturnAddresses>" +
-		"<launchProperties key=\"maven.jnlp.version\" value=\"plr-everything-jdic-snapshot-0.1.0-20070523.165636\"/>" +
-		"</sessionBundles></sailuserdata:EPortfolio>";
-		
+//		String portfolioXMLString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+//		"<sailuserdata:EPortfolio xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:sailuserdata=\"sailuserdata\">" +
+//		"<sessionBundles xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:sailuserdata=\"sailuserdata\" start=\"2007-05-23T17:09:32.320-0700\" stop=\"2007-05-23T17:10:30.221-0700\" curnitUUID=\"af133621-b3d1-11db-a373-8b155032f53b\" sessionUUID=\"19c4d720-fdde-4254-8c83-480ba66b161e\">" +
+//		"<sockParts podId=\"dddddddd-6004-0002-0000-000000000000\" rimName=\"undefined6\">" +
+//		"<sockEntries value=\"green house asourb sun light and global warming is the earth warming up but it is alike...actually I have no idea what I'm talking about. this is my answer for rim with rimname undefined6.\" millisecondsOffset=\"1277103\"/>" +
+//		"</sockParts>" + 
+//		"<sockParts podId=\"dddddddd-6004-0002-0000-000000000000\" rimName=\"undefined6a\">" +
+//		"<sockEntries value=\"NEW something else up but it is alike...actually I have no idea what I'm talking about. this is my answer for rim with rimname undefined6A.\" millisecondsOffset=\"1277103\"/>" +
+//		"</sockParts>" + 
+//		"<sockParts podId=\"dddddddd-6004-0003-0000-000000000000\" rimName=\"undefined7\">" +
+//		"<sockEntries value=\"this is a response to rim with name undefined7 and I have no idea what I should write here.\" millisecondsOffset=\"1277103\"/>" +
+//		"</sockParts>" +
+//		"<agents role=\"RUN_WORKGROUP\">" +
+//		"<users>47fe0b74-08ae-11dc-add0-0014c2c34555</users>" +
+//		"</agents>" +
+//		"<sdsReturnAddresses>http://saildataservice.concord.org/3/offering/1200/bundle/1215/0</sdsReturnAddresses>" +
+//		"<launchProperties key=\"maven.jnlp.version\" value=\"plr-everything-jdic-snapshot-0.1.0-20070523.165636\"/>" +
+//		"</sessionBundles></sailuserdata:EPortfolio>";
+
+		// get most-recent SessionBundle from SDS.
+		SdsWorkgroup sdsWorkgroupWithSessionBundle = sdsWorkgroupDao.getById(workgroup.getSdsWorkgroup().getSdsObjectId());
 		SessionBundle sessionBundle = new SessionBundleImpl();
-		sessionBundle.setBundleString(portfolioXMLString);
+		sessionBundle.setBundleString(sdsWorkgroupWithSessionBundle.getSdsSessionBundle());
 		sessionBundle.setWorkgroup(workgroup);
 		return sessionBundle;
+	}
+
+	/**
+	 * @param sdsWorkgroupDao the sdsWorkgroupDao to set
+	 */
+	public void setSdsWorkgroupDao(SdsWorkgroupDao sdsWorkgroupDao) {
+		this.sdsWorkgroupDao = sdsWorkgroupDao;
 	}
 
 }
