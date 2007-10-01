@@ -22,7 +22,22 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import static org.easymock.EasyMock.*;
+
+import javax.servlet.http.HttpSession;
+
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.UserImpl;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.AbstractModelAndViewTests;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import net.sf.sail.webapp.service.UserService;
+import org.telscenter.sail.webapp.domain.impl.ChangePasswordParameters;
 
 /**
  * @author Patrick Lawler
@@ -31,15 +46,77 @@ import org.springframework.test.web.AbstractModelAndViewTests;
  */
 public class ChangePasswordControllerTest extends AbstractModelAndViewTests{
 	
-//	private static final String PASSWORD = "a";
-//	
-//	private static final String MISMATCH_PASSWORD = "b";
+	private static final String PASSWORD = "a";
+	
+	private static final String SUCCESS = "SUCCESS VIEW";
+
+	private static final String FORM = "FORM VIEW";
+
+	private ChangePasswordController changePasswordController;
+	
+	private ChangePasswordParameters changePasswordParameters;
+	
+	private UserService mockUserService;
+	
+	private ApplicationContext mockApplicationContext;
+	
+	private MockHttpServletRequest request;
+
+	private MockHttpServletResponse response;
+	
+	private HttpSession mockSession;
+	
+	private BindException errors;
+	
+	private User user;
+
+	/**
+	 * @throws Exception 
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@SuppressWarnings("unchecked")
+	protected void setUp() throws Exception {
+		super.setUp();
+		mockApplicationContext = createMock(ApplicationContext.class);
+		request = new MockHttpServletRequest();
+		response = new MockHttpServletResponse();
+		changePasswordParameters = new ChangePasswordParameters();
+		changePasswordParameters.setPasswd1(PASSWORD);
+		changePasswordParameters.setPasswd2(PASSWORD);
+		errors = new BindException(changePasswordParameters, "");
+
+		mockSession = new MockHttpSession();
+		this.user = new UserImpl();
+		mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, this.user);
+		this.request.setSession(mockSession);
+		
+		this.mockUserService = createMock(UserService.class);
+		changePasswordController = new ChangePasswordController();
+		changePasswordController.setApplicationContext(mockApplicationContext);
+		changePasswordController.setUserService(mockUserService);
+		changePasswordController.setSuccessView(SUCCESS);
+		changePasswordController.setFormView(FORM);
+	}
+	
+	public void testOnSubmit_success() throws Exception {
+		// test submission of form with correct password info.
+		// should get ModelAndView back containing Success view
+
+		User user = new UserImpl();
+		expect(mockUserService.updateUserPassword(this.user, PASSWORD)).andReturn(user);
+		replay(mockUserService);
+		ModelAndView modelAndView = changePasswordController.onSubmit(request, response, changePasswordParameters, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		assertTrue(!errors.hasErrors());
+		verify(mockUserService);
+	}
 	
 
-	// TODO patrick: replace the following with actual unit tests
-	// right now it's a dummy to make the continuum tests pass
-	public void testSuccess() {
-		assertTrue(true);
-	}
-
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		request = null;
+		response = null;
+	}	
+	
 }
