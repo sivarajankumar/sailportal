@@ -56,7 +56,7 @@ public class StartProjectController extends AbstractController {
 
 	private HttpRestTransport httpRestTransport;
 	
-	private String retrieveAnnotationBundleUrl = "/student/retrieveAnnotationBundle.html";
+	private String retrieveAnnotationBundleUrl = "/student/retrieveannotationbundle.html";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)

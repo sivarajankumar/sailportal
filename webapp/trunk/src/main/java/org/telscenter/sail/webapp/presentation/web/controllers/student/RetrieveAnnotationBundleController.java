@@ -42,7 +42,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class RetrieveAnnotationBundleController extends AbstractController {
 
-	private static final String VIEW_NAME = "student/retrieveAnnotationBundle";
+	private static final String VIEW_NAME = "student/retrieveannotationbundle";
 	
 	private static final String ANNOTATION_BUNDLE_KEY = "annotationbundle";
 
