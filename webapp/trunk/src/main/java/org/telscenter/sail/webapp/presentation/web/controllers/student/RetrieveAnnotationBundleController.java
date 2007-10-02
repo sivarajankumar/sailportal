@@ -42,8 +42,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class RetrieveAnnotationBundleController extends AbstractController {
 
-	private static final String VIEW_NAME = "student/retrieveannotationbundle";
-	
 	private static final String ANNOTATION_BUNDLE_KEY = "annotationbundle";
 
 	private AnnotationBundleService annotationBundleService;
@@ -59,7 +57,7 @@ public class RetrieveAnnotationBundleController extends AbstractController {
 
 		//String annotationBundleXmlString = "<?xml version=\"1.0\" encoding=\"ASCII\"?><sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\"><annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\"><annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined4\" contentType=\"text/plain\" contents=\"Test rim annotation\"/></annotationGroups></sailuserdata:EAnnotationBundle>";
 
-		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(ANNOTATION_BUNDLE_KEY, annotationBundle.getBundle());
 
 		return modelAndView;
