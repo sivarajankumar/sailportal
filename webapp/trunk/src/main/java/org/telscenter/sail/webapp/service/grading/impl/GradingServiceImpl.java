@@ -108,7 +108,7 @@ public class GradingServiceImpl implements GradingService {
 		for (Workgroup workgroup : workgroups) {
 			SessionBundle sessionBundle = sessionBundleService.getSessionBundle(runId, workgroup);
 			sessionBundles.put(workgroup, sessionBundle);
-			AnnotationBundle annotationBundle = annotationBundleService.getAnnotationBundle(runId, workgroup);
+			AnnotationBundle annotationBundle = annotationBundleService.getAnnotationBundle(workgroup);
 			annotationBundles.put(workgroup, annotationBundle);
 		}
 
@@ -166,7 +166,7 @@ public class GradingServiceImpl implements GradingService {
 		aggregate.setWorkgroup(workgroup);
 		aggregate.setRunId(runId);
 		aggregate.setCurnitmap(getCurnitmap(runId));		
-		aggregate.setAnnotationBundle(annotationBundleService.getAnnotationBundle(runId, workgroup));
+		aggregate.setAnnotationBundle(annotationBundleService.getAnnotationBundle(workgroup));
 		aggregate.setSessionBundle(sessionBundleService.getSessionBundle(runId, workgroup));
 		
 		return aggregate;

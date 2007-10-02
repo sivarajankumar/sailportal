@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
@@ -346,5 +347,30 @@ public class WorkgroupServiceImplTest extends TestCase {
         assertEquals(2, this.workgroup.getMembers().size());
         EasyMock.verify(this.mockSdsWorkgroupDao);
         EasyMock.verify(this.mockWorkgroupDao);
+    }
+    
+    public void testRetrieveById() throws Exception {
+    	Workgroup workgroup = new WorkgroupImpl();
+    	Long workgroupId = new Long(5);
+    	EasyMock.expect(this.mockWorkgroupDao.getById(workgroupId)).andReturn(workgroup);
+    	EasyMock.replay(this.mockWorkgroupDao);
+    	Workgroup retrievedWorkgroup = null;
+    	retrievedWorkgroup = workgroupServiceImpl.retrieveById(workgroupId);
+    	
+    	assertEquals(workgroup, retrievedWorkgroup);
+    	EasyMock.verify(this.mockWorkgroupDao);
+    	
+    	EasyMock.reset(this.mockWorkgroupDao);
+    	EasyMock.expect(this.mockWorkgroupDao.getById(workgroupId)).andThrow(new ObjectNotFoundException(workgroupId, Workgroup.class));
+    	EasyMock.replay(this.mockWorkgroupDao);
+    	retrievedWorkgroup = null;
+    	try {
+    		retrievedWorkgroup = workgroupServiceImpl.retrieveById(workgroupId);
+    		fail("ObjectNotFoundException not thrown but should have been thrown");
+		} catch (ObjectNotFoundException e) {
+		}
+		
+		assertNull(retrievedWorkgroup);
+		EasyMock.verify(this.mockWorkgroupDao);
     }
 }

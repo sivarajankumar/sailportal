@@ -20,6 +20,7 @@ package net.sf.sail.webapp.service.workgroup;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -105,4 +106,16 @@ public interface WorkgroupService {
      *          <code>Set</code> of users to add to the group
      */
     public void addMembers(Workgroup workgroup, Set<User> membersToAdd);
+
+    /**
+     * Retrieves the Workgroup domain object using unique workgroupId
+     * 
+     * @param workgroupId
+     *     <code>Long</code> workgroupId to use for lookup
+     * @return <code>Workgroup</code> 
+     *     the Workgroup object with the workgroupId
+     * @throws <code>ObjectNotFoundException</code> when workgroupId cannot
+     *     be used to find an existing workgroup
+     */
+    public Workgroup retrieveById(Long workgroupId) throws ObjectNotFoundException;
 }

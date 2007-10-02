@@ -66,6 +66,7 @@
     		    /student/teamsignin.html=teamSignInController
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
+    		    /student/retrieveAnnotationBundle.html=retrieveAnnotationBundleController
     		    <!-- /student/retrieveAnnotationBundle.html=retrieveAnnotationBundleController  -->
     		    /student/changepassword.html=changePasswordController
     		    /teacher/termsofuse.html=termsOfUseController

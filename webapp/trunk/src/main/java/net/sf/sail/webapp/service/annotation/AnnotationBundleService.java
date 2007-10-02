@@ -43,11 +43,10 @@ public interface AnnotationBundleService {
 	/**
 	 * Get AnnotationBundle for specified workgroup
 	 * 
-	 * @param runId key to <code>Run</code> that the workgroup belongs in
 	 * @param workgroup the workgroup to retrieve AnnotationBundle for
 	 * @return AnnotationBundle for the specified workgroup
 	 */
-	public AnnotationBundle getAnnotationBundle(Long runId, Workgroup workgroup);
+	public AnnotationBundle getAnnotationBundle(Workgroup workgroup);
 	
 	/**
 	 * Creates an AnnotationBundle for the specified workgroup

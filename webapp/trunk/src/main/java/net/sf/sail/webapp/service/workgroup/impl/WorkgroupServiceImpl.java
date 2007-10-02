@@ -20,6 +20,7 @@ package net.sf.sail.webapp.service.workgroup.impl;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
@@ -192,5 +193,12 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         this.sdsWorkgroupDao.save(sdsWorkgroup);
         workgroup.setSdsWorkgroup(sdsWorkgroup);
     	this.workgroupDao.save(workgroup);
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#retrieveById(Long)
+	 */
+    public Workgroup retrieveById(Long workgroupId) throws ObjectNotFoundException {
+		return workgroupDao.getById(workgroupId);
 	}
 }

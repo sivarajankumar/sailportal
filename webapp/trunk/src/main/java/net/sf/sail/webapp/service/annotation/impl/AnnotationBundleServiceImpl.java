@@ -63,9 +63,9 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 	}
 
 	/**
-	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#getAnnotationBundle(Long, Workgroup)
+	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#getAnnotationBundle(Workgroup)
 	 */
-	public AnnotationBundle getAnnotationBundle(Long runId, Workgroup workgroup) {
+	public AnnotationBundle getAnnotationBundle(Workgroup workgroup) {
 		return annotationBundleDao.retrieveAnnotationBundle(workgroup);
 	}
 

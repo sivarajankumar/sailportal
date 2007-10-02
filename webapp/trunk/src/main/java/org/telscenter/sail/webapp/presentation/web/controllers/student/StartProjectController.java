@@ -56,9 +56,7 @@ public class StartProjectController extends AbstractController {
 
 	private HttpRestTransport httpRestTransport;
 	
-	//private String portalBaseUrlString;
-
-	//private String retrieveAnnotationsUrl = "/student/retrieveAnnotationBundle.html";
+	private String retrieveAnnotationBundleUrl = "/student/retrieveAnnotationBundle.html";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -96,22 +94,26 @@ public class StartProjectController extends AbstractController {
 //					user.getUserDetails().getUsername() + " is in more than one " +
 //							"groups for the run " + run.getSdsOffering().getName());
 		}
-		/*
-		String url = this.httpRestTransport.getBaseUrl() + "/offering/" + 
-		    run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
-		    workgroup.getSdsWorkgroup().getSdsObjectId() +
-		    "?emf.annotation.bundle.url=" + portalBaseUrlString + 
-		    retrieveAnnotationsUrl + "?workgroupId=" + workgroup.getId();
-		    */
 		
 		//String url = 
 		//"http://rails.dev.concord.org/sds/1/offering/4/jnlp/833/view?emf.annotation.bundle.url=http://concord.org/~scytacki/test-annotation-bundle.xmi";
 
-		//ModelAndView modelAndView = new ModelAndView(new RedirectView(url));
+		String jnlpUrl = this.httpRestTransport.getBaseUrl() + "/offering/" + 
+		    run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
+		    workgroup.getSdsWorkgroup().getSdsObjectId();
+		
+	    String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
+	       request.getServerPort() + request.getContextPath();
+	    
+	    String entireUrl = jnlpUrl + 
+	        "/view?emf.annotation.bundle.url=" +
+	        portalUrl +
+	        retrieveAnnotationBundleUrl + 
+	        "?workgroupId=" + workgroup.getId();
+	        
 		ModelAndView modelAndView = 
-			new ModelAndView(new RedirectView(this.httpRestTransport.getBaseUrl() + "/offering/" + 
-					run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
-					workgroup.getSdsWorkgroup().getSdsObjectId()));
+			new ModelAndView(new RedirectView(entireUrl));
+		
 		return modelAndView;
 	}
 

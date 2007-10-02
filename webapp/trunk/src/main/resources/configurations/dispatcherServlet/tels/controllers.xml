@@ -411,5 +411,9 @@
 	<bean id="changePasswordParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.student.ChangePasswordParametersValidator" />
 		
-		
+	<bean id="retrieveAnnotationBundleController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.RetrieveAnnotationBundleController" >
+        <property name="annotationBundleService" ref="annotationBundleService" />
+	    <property name="workgroupService" ref="workgroupService" />
+	</bean>	
 </beans>
