@@ -30,7 +30,6 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
-import org.acegisecurity.annotation.Secured;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
@@ -80,7 +79,7 @@ public interface RunService extends OfferingService {
 	 * 
 	 * @return <code>List</code> of <code>Run</code>
 	 */
-    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+    //@Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
     public List<Run> getRunList();
     
     /**
