@@ -106,7 +106,7 @@ public class StartProjectController extends AbstractController {
 	       request.getServerPort() + request.getContextPath();
 	    
 	    String entireUrl = jnlpUrl + 
-	        "/view?emf.annotation.bundle.url=" +
+	        "?emf.annotation.bundle.url=" +
 	        portalUrl +
 	        retrieveAnnotationBundleUrl + 
 	        "?workgroupId=" + workgroup.getId();
