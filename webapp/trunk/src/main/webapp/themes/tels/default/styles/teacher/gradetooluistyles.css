@@ -1,0 +1,71 @@
+@charset "UTF-8";
+/* CSS Document */
+
+table, tr, td {
+	border-collapse: collapse;
+	border:0;
+	padding: 0px;
+	margin: 0px
+}
+
+#tableByStep {
+	width:100%;
+	border: 1px solid #666666;
+	border-collapse: collapse;
+	background-color: #CCCCCC;
+	padding: 0px;
+	margin: 0px;
+	cell-padding:5px;
+	}
+
+#tableByStep .column1 {
+	width:8%;
+	color:#000099;
+	padding: 5px;
+}
+
+#tableByStep tr {
+	border-bottom: 1px solid #666666;
+}
+
+#gradingProjectInfo {
+	padding: 5px;
+	}
+	
+#gradingViewInfo {
+	font-size: 1.2em;
+	font-weight: bold;
+	padding: 5px;
+	}
+	
+#gradingMiniSteps {
+	font-size:.8em;
+	padding: 5px;
+	}
+	
+
+#gradingMainTable td {
+	border: 1px solid #000000;
+	padding:5px;
+	}
+
+.tdHeader {
+	height:22px;
+	padding:7px;
+	background-color: #2647A0;
+	font-size:1.0em;
+	color: #FFFFFF;
+	}
+
+.promptDiv {
+	background-color:#66FFFF;
+}
+
+.answerDiv {
+	height: 100%;
+}
+
+textarea {
+width: 100%;
+}
+®
