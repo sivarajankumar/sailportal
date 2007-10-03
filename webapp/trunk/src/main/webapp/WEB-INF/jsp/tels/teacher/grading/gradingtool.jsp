@@ -212,10 +212,11 @@ YUI download for details on each of the aggregate files and their contents):-->
 		
 	};
 	
-	function doSubmit(button,podId,rimName,period,workgroupId) {
+	function doSubmit(button,podId,rimName,period,workgroupId,runId) {
 			YAHOO.log('podId' + podId);
 			YAHOO.log('rimName' + rimName);
 			YAHOO.log('pe' + period);
+			YAHOO.log('runId' + runId)
 			
 			YAHOO.log( 'button:' + button );
 			
@@ -236,7 +237,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 			* the string contains special characters.
 			*/
 			var sUrl = "gradingsubmit.html";
-			var postData = 'workgroupId='+workgroupId+'&runId=${runId}&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value;
+			var postData = 'workgroupId='+workgroupId+'&runId='+runId+'&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value;
 			
 			var request = YAHOO.util.Connect.asyncRequest('POST', sUrl, null, postData);	
 			
@@ -356,6 +357,7 @@ aggregate.value = set of workgroupWorkAggregate
 												      </c:when>
 												
 												      <c:otherwise>
+												      	
 												      ${rimFromStep.prompt}
 												      </c:otherwise>
 												    </c:choose>
@@ -430,7 +432,7 @@ aggregate.value = set of workgroupWorkAggregate
 													<div id="div_${sockPart.podId}_${sockPart.rimName}_${workgroupId}" >
 													<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')"><c:if test="${done == true}">${fn:trim(foundAnnotation.contents)}</c:if></textarea>
 														<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
-															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}')">Save Comment</button></em>
+															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}','${runId}')">Save Comment</button></em>
 														</span>
 														<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" style="display: inline; width: 12%;">not saved</div>
 													</div>
