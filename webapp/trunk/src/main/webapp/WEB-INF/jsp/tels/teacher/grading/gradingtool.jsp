@@ -31,6 +31,8 @@
 <link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
 
+  
+
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/base/base-min.css"> 
@@ -48,80 +50,73 @@
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/logger/assets/skins/sam/logger.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/tabview/assets/skins/sam/tabview.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/treeview/assets/skins/sam/treeview.css"> 
+ <link href="../../<spring:theme code="teachergradingtooluistylesheet"/>" media="screen" rel="stylesheet"
+  type="text/css" /> 
+<style>
+@charset "UTF-8";
+/* CSS Document */
 
-<style type="text/css">
- 
-.style1 {
-	color: #FF0033;
+table, tr, td {
+	border-collapse: collapse;
+	border:0;
+	padding: 0px;
+	margin: 0px
+}
+
+#tableByStep {
+	width:100%;
+	border: 1px solid #666666;
+	border-collapse: collapse;
+	background-color: #CCCCCC;
+	padding: 0px;
+	margin: 0px;
+	cell-padding:5px;
+	}
+
+#tableByStep .column1 {
+	width:8%;
+	color:#000099;
+	padding: 5px;
+}
+
+#tableByStep tr {
+	border-bottom: 1px solid #666666;
+}
+
+#gradingProjectInfo {
+	padding: 5px;
+	}
+	
+#gradingViewInfo {
+	font-size: 1.2em;
 	font-weight: bold;
-} 
-table.view {
-	border-width: 0px 0px 0px 0px;
-	border-spacing: 0px;
-	border-style: none none none none;
-	border-color: #EDF5FF #EDF5FF #EDF5FF #EDF5FF;
-	border-collapse: collapse;
-	background-color: white;
-}
-table.view th {
-	border-width: 0px 0px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	border-style: none none none none;
-	border-color: none none none none;
-	background-color: white;
-}
-table.view td {
-	border-width: 0px 0px 0px 0px;
-	padding: 2px 2px 2px 2px;
-	border-style: none none none none;
-	border-color: none none none none;
-	background-color: white;
-}
-table.sample {
-	border-width: 0px 0px 0px 0px;
-	border-spacing: 0px;
-	border-style: none none none none;
-	border-color: #EDF5FF #EDF5FF #EDF5FF #EDF5FF;
-	border-collapse: collapse;
-	background-color: #EDF5FF;
-}
-table.sample th {
-	border-width: 0px 0px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	border-style: none none none none;
-	border-color: none none none none;
-	background-color: #EDF5FF;
-}
-table.sample td {
-	border-width: 0px 0px 0px 0px;
-	padding: 2px 2px 2px 2px;
-	border-style: none none none none;
-	border-color: none none none none;
-	background-color: #EDF5FF;
-}
+	padding: 5px;
+	}
+	
+#gradingMiniSteps {
+	font-size:.8em;
+	padding: 5px;
+	}
+	
+
+#gradingMainTable td {
+	border: 1px solid #000000;
+	padding:5px;
+	}
+
 .tdHeader {
+	height:22px;
+	padding:7px;
 	background-color: #2647A0;
-}
-.headerFont {
+	font-size:1.0em;
 	color: #FFFFFF;
-}
+	}
+
 .promptDiv {
-	border-width: 1px 1px 1px 1px;
-	border-style: solid solid solid solid;
-	background-color: white;
-	border-top-color: #000000;
-	border-right-color: #000000;
-	border-bottom-color: #000000;
-	border-left-color: #000000;
+	background-color:#66FFFF;
 }
+
 .answerDiv {
-	border-width: 0px 0px 0px 0px;
-	border-style: solid solid solid solid;
-	background-color: white;
-	border-top-color: #000000;
-	border-right-color: #000000;
-	border-bottom-color: #000000;
-	border-left-color: #000000;
 	height: 100%;
 }
 
@@ -270,16 +265,20 @@ YUI download for details on each of the aggregate files and their contents):-->
 <%@ include file="gradingtoolHeader.jsp"%>
 <h2>Grading Tool</h2>
 
-<table class="view">
+<table id="tableByStep">
   <tr>
-  	<td>Project: </td>
-    <td><div align="left">${projectTitle} (${curnitId})</div></td>
-    <td></td>
+  	<td class="column1"><strong>Project: </strong></td>
+    <td id="gradingProjectInfo">SAIL Global Warming: Virtual Earth (Version A) (13731)</td>
+
   </tr>
-    <tr>
-    <td>View:</td>
-    <td><div align="left">Act ${activity.number+1},Step ${step.number+1}: ${step.title}</td>
-    <td>   <a href="gradebystep.html?runId=${runId}">All Steps</a> <c:if test="${nextStep != null}"><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}">Next Step</a></c:if></div></td>
+  <tr>
+  	<td class="column1"><strong>View:</strong></td>
+    <td id="gradingViewInfo">Act 1, Step 5: Your Ecological Footprint Data
+    </td>
+  <tr>
+    <td class="column1"></td>
+    <td id="gradingMiniSteps"><a href="gradebystep.html?runId=5">Return to Step Menu </a> &nbsp &nbsp <a href="gradingtool.html?GRADE_TYPE=step&amp;runId=5&amp;podUUID=dddddddd-6004-0007-0000-001242145646"> View Next Step</a></td>
+
   </tr>
   </table>
 
@@ -293,22 +292,22 @@ aggregate.value = set of workgroupWorkAggregate
 		<!-- create the tabs nav -->
 		<ul class="yui-nav"> 
 			<c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
-				<c:if test="${!empty aggregate.value}">
 				 <li><a href="${aggregate.key.name}"><em>Period ${aggregate.key.name}</em></a></li> 
-				 </c:if>
 			 </c:forEach> 
 		 </ul>   
 		 <!-- create the tabs content -->
 		<div class="yui-content">
 			 <c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
-			 <c:if test="${!empty aggregate.value}">
+			
 			 <c:set var="period" value="${fn:replace(aggregate.key.name, ' ', '-')}"/>
 			<div>
 				<!-- Actual Tab 
 					${workgroupAggregateObj} = workgroupAggregateObj
 				 -->
+				 <c:if test="${empty aggregate.value}">There are no workgroups for this period</c:if>
 					<c:forEach var="workgroupAggregateObj" varStatus="workgroupAggregateObjStatus" items="${aggregate.value}">
 						<!-- get the workgroup id -->
+						
 						<c:set var="workgroupId" value="${workgroupAggregateObj.workgroup.id}"/>
 						<div align="center">
 						<table width="100%" border="1" class="sample">
@@ -337,21 +336,55 @@ aggregate.value = set of workgroupWorkAggregate
 									</tr>
 									
 								<c:set var="count" value="1"/>
+								<c:set var="sockFound" value="false"/>
 								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
+								
+									
 									<c:forEach var="rimFromStep" items="${step.rim}">
+											
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
+											<c:set var="sockFound" value="true"/>
+											
 											<tr>
 				                          		<td>
+				                          		
+				                          		
 				                          		<div class="promptDiv">
+				                          		<c:choose>
+												      <c:when test="${empty rimFromStep.prompt}">
+												      There is no question
+												      </c:when>
+												
+												      <c:otherwise>
+												      ${rimFromStep.prompt}
+												      </c:otherwise>
+												    </c:choose>
+				                          		
+				                          		
+				                          		
+				                          		<!--  
 				                          		 <c:choose>
 											        <c:when test="${fn:length(step.rim) > 1}">
 											            Part ${count}: ${rimFromStep.prompt}
 											            <c:set var="count" value="${count + 1}"/>
 											        </c:when>
 											        <c:otherwise>
+											        
+											        	 <c:choose>
+													        <c:when test="${fn:length(step.rim) > 1}">
+													            Part ${count}: ${rimFromStep.prompt}
+													            <c:set var="count" value="${count + 1}"/>
+													        </c:when>
+													        <c:otherwise>
+													           ${rimFromStep.prompt}
+													        </c:otherwise>
+													    </c:choose>
+											        
+											        
 											           ${rimFromStep.prompt}
 											        </c:otherwise>
 											    </c:choose>
+											    -->
 				                          		<!-- print out part if more than one element -->
 				                          		</div>
 				                          		</td>
@@ -383,6 +416,8 @@ aggregate.value = set of workgroupWorkAggregate
 																      <c:when  test="${annotation.entityName == sockPart.rimName}">
 																      	<c:set var="done" value="true"/>
 																      	<c:set var="foundAnnotation" value="${annotation}"/>
+																      	${foundAnnotation}
+																      	contents ${foundAnnotation.contents}
 																      </c:when>
 																    </c:choose>
 														    </c:if>
@@ -414,7 +449,6 @@ aggregate.value = set of workgroupWorkAggregate
 		
 		
 				</div>	 
-				</c:if>
 			</c:forEach> 
 		</div>
 		<!-- end create tab content -->
