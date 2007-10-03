@@ -32,10 +32,10 @@
 	<bean id="annotationBundle"
 		class="net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl"
 		scope="prototype" />
-		
+
 	<bean id="annotationBundleService"
 		class="net.sf.sail.webapp.service.annotation.impl.AnnotationBundleServiceImpl" >
 		<property name="annotationBundleDao" ref="annotationBundleDao" />
-		<property name="gradingService" ref="gradingService" />
-    </bean>
+    </bean>		
+
 </beans>
