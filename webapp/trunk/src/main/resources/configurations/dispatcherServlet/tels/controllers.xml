@@ -117,6 +117,9 @@
 		<bean id="gradingSubmitController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingSubmitController">
 		<property name="gradingService" ref="gradingService" />
+		<property name="annotationBundleService" ref="annotationBundleService" />
+		<property name="workgroupService" ref="workgroupService" />
+		
 	</bean>
 
 		<bean id="gradingToolController"

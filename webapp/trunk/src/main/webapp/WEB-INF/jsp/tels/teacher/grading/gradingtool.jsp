@@ -48,15 +48,88 @@
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/logger/assets/skins/sam/logger.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/tabview/assets/skins/sam/tabview.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/treeview/assets/skins/sam/treeview.css"> 
+
 <style type="text/css">
-<!--
+ 
 .style1 {
 	color: #FF0033;
 	font-weight: bold;
+} 
+table.view {
+	border-width: 0px 0px 0px 0px;
+	border-spacing: 0px;
+	border-style: none none none none;
+	border-color: #EDF5FF #EDF5FF #EDF5FF #EDF5FF;
+	border-collapse: collapse;
+	background-color: white;
 }
--->
+table.view th {
+	border-width: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	border-style: none none none none;
+	border-color: none none none none;
+	background-color: white;
+}
+table.view td {
+	border-width: 0px 0px 0px 0px;
+	padding: 2px 2px 2px 2px;
+	border-style: none none none none;
+	border-color: none none none none;
+	background-color: white;
+}
+table.sample {
+	border-width: 0px 0px 0px 0px;
+	border-spacing: 0px;
+	border-style: none none none none;
+	border-color: #EDF5FF #EDF5FF #EDF5FF #EDF5FF;
+	border-collapse: collapse;
+	background-color: #EDF5FF;
+}
+table.sample th {
+	border-width: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	border-style: none none none none;
+	border-color: none none none none;
+	background-color: #EDF5FF;
+}
+table.sample td {
+	border-width: 0px 0px 0px 0px;
+	padding: 2px 2px 2px 2px;
+	border-style: none none none none;
+	border-color: none none none none;
+	background-color: #EDF5FF;
+}
+.tdHeader {
+	background-color: #2647A0;
+}
+.headerFont {
+	color: #FFFFFF;
+}
+.promptDiv {
+	border-width: 1px 1px 1px 1px;
+	border-style: solid solid solid solid;
+	background-color: white;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.answerDiv {
+	border-width: 0px 0px 0px 0px;
+	border-style: solid solid solid solid;
+	background-color: white;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+	height: 100%;
+}
+
+textarea {
+width: 100%;
+}
+
 </style>
- 
 <!--JavaScript source files for the entire YUI Library:--> 
  
 <!--Utilities (also aggregated in yahoo-dom-event.js and utilities.js; see readmes in the 
@@ -144,7 +217,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 		
 	};
 	
-	function doSubmit(button,podId,rimName,period) {
+	function doSubmit(button,podId,rimName,period,workgroupId) {
 			YAHOO.log('podId' + podId);
 			YAHOO.log('rimName' + rimName);
 			YAHOO.log('pe' + period);
@@ -168,7 +241,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 			* the string contains special characters.
 			*/
 			var sUrl = "gradingsubmit.html";
-			var postData = 'workgroupId=3434&runId=${runId}&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value;
+			var postData = 'workgroupId='+workgroupId+'&runId=${runId}&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value;
 			
 			var request = YAHOO.util.Connect.asyncRequest('POST', sUrl, null, postData);	
 			
@@ -197,14 +270,16 @@ YUI download for details on each of the aggregate files and their contents):-->
 <%@ include file="gradingtoolHeader.jsp"%>
 <h2>Grading Tool</h2>
 
-<table border="0px">
+<table class="view">
   <tr>
   	<td>Project: </td>
     <td><div align="left">${projectTitle} (${curnitId})</div></td>
+    <td></td>
   </tr>
     <tr>
     <td>View:</td>
-    <td><div align="left">Act ${activity.number},Step ${step.number}: ${step.title}   <a href="gradebystep.html?runId=${runId}">Change Step</a> <c:if test="${nextStep != null}"><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}">Next Step</a></c:if></div></td>
+    <td><div align="left">Act ${activity.number+1},Step ${step.number+1}: ${step.title}</td>
+    <td>   <a href="gradebystep.html?runId=${runId}">All Steps</a> <c:if test="${nextStep != null}"><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}">Next Step</a></c:if></div></td>
   </tr>
   </table>
 
@@ -218,12 +293,15 @@ aggregate.value = set of workgroupWorkAggregate
 		<!-- create the tabs nav -->
 		<ul class="yui-nav"> 
 			<c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
-				 <li><a href="${aggregate.key.name}"><em>${aggregate.key.name}</em></a></li> 
+				<c:if test="${!empty aggregate.value}">
+				 <li><a href="${aggregate.key.name}"><em>Period ${aggregate.key.name}</em></a></li> 
+				 </c:if>
 			 </c:forEach> 
 		 </ul>   
 		 <!-- create the tabs content -->
 		<div class="yui-content">
 			 <c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
+			 <c:if test="${!empty aggregate.value}">
 			 <c:set var="period" value="${fn:replace(aggregate.key.name, ' ', '-')}"/>
 			<div>
 				<!-- Actual Tab 
@@ -232,25 +310,30 @@ aggregate.value = set of workgroupWorkAggregate
 					<c:forEach var="workgroupAggregateObj" varStatus="workgroupAggregateObjStatus" items="${aggregate.value}">
 						<!-- get the workgroup id -->
 						<c:set var="workgroupId" value="${workgroupAggregateObj.workgroup.id}"/>
-						<table width="900" border="1">
+						<div align="center">
+						<table width="100%" border="1" class="sample">
 						<!-- table header -->
 									<tr>
-										<td width="600">
+										<td width="40%">
 										<!--  print member anmes -->
-										<div align="center">
-										
-										<strong>Group:<c:forEach var="user" varStatus="userStatus"
+										<div align="center" class="tdHeader">
+										<strong class="headerFont">Group:
+										<c:forEach var="user" varStatus="userStatus"
 											items="${workgroupAggregateObj.workgroup.members}">
 										 		${user.userDetails.username}
 										 		   <c:if test="${userStatus.last=='false'}">
 							     					&
 							    				</c:if>
-										 	</c:forEach> </strong></div>
+										 	</c:forEach> </strong>
+										 </div>
 										</td>
-										<td width="300">
-										<div align="center"><strong>Teacher Feedback</strong></div>
+										
+										<td width="45%">
+										<div align="center" class="tdHeader" ><strong class="headerFont">Teacher Feedback</strong></div>
 										</td>
-							
+										<td >
+										<div align="center" class="tdHeader" ><strong class="headerFont">Score</strong></div>
+										</td>
 									</tr>
 									
 								<c:set var="count" value="1"/>
@@ -259,6 +342,7 @@ aggregate.value = set of workgroupWorkAggregate
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
 											<tr>
 				                          		<td>
+				                          		<div class="promptDiv">
 				                          		 <c:choose>
 											        <c:when test="${fn:length(step.rim) > 1}">
 											            Part ${count}: ${rimFromStep.prompt}
@@ -269,16 +353,21 @@ aggregate.value = set of workgroupWorkAggregate
 											        </c:otherwise>
 											    </c:choose>
 				                          		<!-- print out part if more than one element -->
-				                          		
+				                          		</div>
 				                          		</td>
+				                          		<td></td>
 				                          		<td></td>
 				             				</tr>
 											<tr>
 												<!-- The users entrie -->
 												<td>
+												
 												<c:forEach var="sockEntry" items="${sockPart.sockEntries}">
+												<div class="answerDiv">
 		  			 									${sockEntry.value}
+		  			 							</div>
 		  			 							</c:forEach>
+		  			 							
 		  			 							</td>
 		  			 							<!-- The teacher box -->
 		  			 							<!-- check for annotation -->
@@ -306,28 +395,26 @@ aggregate.value = set of workgroupWorkAggregate
 													<div id="div_${sockPart.podId}_${sockPart.rimName}" >
 													<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')"><c:if test="${done == true}">${fn:trim(foundAnnotation.contents)}</c:if></textarea>
 														<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}" class="yui-button yui-push-button"><em class="first-child">
-															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}')">Save Comment</button></em>
+															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}')">Save Comment</button></em>
 														</span>
 														<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}" style="display: inline; width: 12%;">not saved</div>
 													</div>
 												
 												</td>
+												<td></td>
 											</tr>
                     						</c:if>
 									</c:forEach>
 								</c:forEach>
 									
-									
-									
-									
-									
 							</table>
-						
+							</div>
 					</c:forEach> 
 		
 		
 		
 				</div>	 
+				</c:if>
 			</c:forEach> 
 		</div>
 		<!-- end create tab content -->

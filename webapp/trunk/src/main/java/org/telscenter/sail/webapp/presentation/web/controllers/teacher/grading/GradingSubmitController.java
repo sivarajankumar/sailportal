@@ -22,16 +22,24 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.emf.sailuserdata.EAnnotation;
+import net.sf.sail.emf.sailuserdata.EAnnotationGroup;
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
+import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
+
+import org.eclipse.emf.common.util.EList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.pas.emf.pas.ECurnitmap;
-import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.service.grading.GradingService;
-import org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl;
-import org.telscenter.sail.webapp.service.gradingtool.CurnitMapService;
 
 /**
  * A Controller for TELS's that processes a teachers annotation
@@ -46,6 +54,8 @@ public class GradingSubmitController extends AbstractController {
 	public static final String ANNOTATION_CONTENT = "annotationContent";
 	public static final String POD_ID = "podId";
 	private GradingService gradingService;
+	private AnnotationBundleService annotationBundleService;
+	private WorkgroupService workgroupService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -71,6 +81,32 @@ public class GradingSubmitController extends AbstractController {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(POD_ID, podId);
 			
+			
+			///retrieve
+			Workgroup workgroup = workgroupService.retrieveById(new Long(workgroupId));
+			
+			AnnotationBundle annotationBundle = annotationBundleService.getAnnotationBundle(workgroup);
+			EList annotationGroups = annotationBundle.getEAnnotationBundle().getAnnotationGroups();
+			
+			for (Iterator agIt = annotationGroups.iterator(); agIt
+					.hasNext();) {
+				EAnnotationGroup agroup = (EAnnotationGroup) agIt.next();
+				EList annotations = agroup.getAnnotations();
+				
+				for (Iterator annosIT = annotations.iterator(); annosIT
+						.hasNext();) {
+					EAnnotation annotation = (EAnnotation) annosIT.next();
+					if( annotation.getEntityUUID().toString().equals(podId) && annotation.getEntityName().equals(rimName)) {
+						annotation.setContents(annotationContent);
+						List<AnnotationBundle> al = new ArrayList<AnnotationBundle>();
+						al.add(annotationBundle);
+						this.gradingService.saveGrades(al);
+					}// if
+				}
+				
+			}
+			
+			
 			//save the bundle
 			
 			//this.gradingService.saveGrades(null);
@@ -92,6 +128,19 @@ public class GradingSubmitController extends AbstractController {
 
 	public void setGradingService(GradingService gradingService) {
 		this.gradingService = gradingService;
+	}
+
+	public AnnotationBundleService getAnnotationBundleService() {
+		return annotationBundleService;
+	}
+
+	public void setAnnotationBundleService(
+			AnnotationBundleService annotationBundleService) {
+		this.annotationBundleService = annotationBundleService;
+	}
+
+	public void setWorkgroupService(WorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
 	}
 
 }

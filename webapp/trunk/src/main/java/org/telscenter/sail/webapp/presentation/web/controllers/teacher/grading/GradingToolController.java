@@ -29,14 +29,19 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.emf.sailuserdata.ESock;
+import net.sf.sail.emf.sailuserdata.ESockEntry;
+import net.sf.sail.emf.sailuserdata.ESockPart;
 import net.sf.sail.webapp.domain.group.Group;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EProject;
+import org.telscenter.pas.emf.pas.ERim;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
@@ -109,6 +114,13 @@ public class GradingToolController extends AbstractController {
 					}// for
 					//TODO: Hiroki use stepId instead of EStep object as param
 					Map<Group, Set<GradeWorkByWorkgroupAggregate>> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), step);
+					
+					EList rims = step.getRim();
+					for (Iterator rimIt = rims.iterator(); rimIt
+							.hasNext();) {
+						ERim rim = (ERim) rimIt.next();
+						this.strip( rim.getPrompt() );
+					}
 					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
 					modelAndView.addObject(STEP, step);
 					modelAndView.addObject(ACTIVITY,activity);
@@ -127,6 +139,17 @@ public class GradingToolController extends AbstractController {
 
 		
         return modelAndView;
+	}
+
+	private void strip(String prompt) {
+		System.out.println("BEFORE " + prompt);
+		
+		StringUtils.contains("<body>", prompt);
+		String substringBetween = StringUtils.substringBetween("<body>", "</body>");
+		
+		System.out.println("AFTER " + substringBetween);
+		
+		
 	}
 
 	protected boolean isGradable(String stepType) {

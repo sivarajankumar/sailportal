@@ -116,7 +116,7 @@ public class AnnotationBundleImpl implements AnnotationBundle {
 	 */
 	public EAnnotationBundle getEAnnotationBundle() {
 		if (eAnnotationBundle == null) {
-			return AnnotationBundleLoader.loadAnnotationBundle(bundle);
+			this.eAnnotationBundle = AnnotationBundleLoader.loadAnnotationBundle(bundle);
 		}
 		return eAnnotationBundle;
 	}

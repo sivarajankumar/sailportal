@@ -41,11 +41,11 @@
 <div style="align:left;">
 ${curnitMap.project.title}
    <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
-		<h3>Activity <c:out value="${varStep.count}" />: ${someAct.title}</h3>  
+		<h3>Activity ${someAct.number+1}: ${someAct.title}</h3>  
 		<ul> 
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
-				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  : ${someStep.title}</a>    (${someStep.type})</li></c:if>
-				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  : ${someStep.title}</a></li></c:if>
+				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  ${someStep.number+1}: ${someStep.title}</a>    (${someStep.type})</li></c:if>
+				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
 			</c:forEach>
 		</ul>
     </c:forEach>
