@@ -34,6 +34,7 @@ import net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 
 import org.eclipse.emf.common.util.EList;
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EProject;
@@ -52,6 +53,7 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 	/**
 	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#saveAnnotationBundle(net.sf.sail.webapp.domain.annotation.AnnotationBundle)
 	 */
+	@Transactional
 	public void saveAnnotationBundle(AnnotationBundle annotationBundle) {
 		// save annotation as into stream, then convert the stream into String
 		EAnnotationBundle eAnnotationBundle = annotationBundle.getEAnnotationBundle();
