@@ -55,8 +55,6 @@ public class GetAnnotationBundleController extends AbstractController {
 		Long workgroupId = Long.decode(request.getParameter("workgroupId"));
 		AnnotationBundle annotationBundle = annotationBundleService.getAnnotationBundle(workgroupService.retrieveById(workgroupId));
 
-		//String annotationBundleXmlString = "<?xml version=\"1.0\" encoding=\"ASCII\"?><sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\"><annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\"><annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined4\" contentType=\"text/plain\" contents=\"Test rim annotation\"/></annotationGroups></sailuserdata:EAnnotationBundle>";
-
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(ANNOTATION_BUNDLE_KEY, annotationBundle.getBundle());
 
