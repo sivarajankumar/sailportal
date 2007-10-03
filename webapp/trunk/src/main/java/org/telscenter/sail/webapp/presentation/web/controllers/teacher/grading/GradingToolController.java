@@ -115,12 +115,12 @@ public class GradingToolController extends AbstractController {
 					//TODO: Hiroki use stepId instead of EStep object as param
 					Map<Group, Set<GradeWorkByWorkgroupAggregate>> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), step);
 					
-					EList rims = step.getRim();
-					for (Iterator rimIt = rims.iterator(); rimIt
-							.hasNext();) {
-						ERim rim = (ERim) rimIt.next();
-						this.strip( rim.getPrompt() );
-					}
+//					EList rims = step.getRim();
+//					for (Iterator rimIt = rims.iterator(); rimIt
+//							.hasNext();) {
+//						ERim rim = (ERim) rimIt.next();
+//						this.strip( rim.getPrompt() );
+//					}
 					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
 					modelAndView.addObject(STEP, step);
 					modelAndView.addObject(ACTIVITY,activity);
