@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import net.sf.sail.emf.sailuserdata.EAnnotationBundle;
-import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.annotation.AnnotationBundleDao;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
@@ -40,7 +39,6 @@ import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EProject;
 import org.telscenter.pas.emf.pas.ERim;
 import org.telscenter.pas.emf.pas.EStep;
-import org.telscenter.sail.webapp.service.grading.GradingService;
 
 /**
  * @author Hiroki Terashima
@@ -49,7 +47,6 @@ import org.telscenter.sail.webapp.service.grading.GradingService;
 public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 
 	private AnnotationBundleDao<AnnotationBundle> annotationBundleDao;
-	private GradingService gradingService;
 	
 
 	/**
@@ -84,10 +81,9 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 	}
 
 	/**
-	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#createAnnotationBundle(Long, Workgroup)
+	 * @see net.sf.sail.webapp.service.annotation.AnnotationBundleService#createAnnotationBundle(Workgroup, ECurnitmap)
 	 */
-	public void createAnnotationBundle(Long runId, Workgroup workgroup) {
-		// TODO HT: replace with actual code when ready
+	public void createAnnotationBundle(Workgroup workgroup, ECurnitmap curnitmap) {
 
 		StringBuilder xmlString = new StringBuilder();
 		//append the header
@@ -95,63 +91,43 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 		xmlString.append("<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">");                               
 		        //"<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\)
 		
-		try {
-			ECurnitmap curnitMap = gradingService.getCurnitmap(new Long(runId));
-			
-			EProject project = curnitMap.getProject();
-			for (Iterator actIt = project.getActivity().iterator(); actIt.hasNext();) {
-				EActivity act = (EActivity) actIt.next();
-				
-				//cycle throught the steps
-				for (Iterator stepIt = act.getStep().iterator(); stepIt.hasNext();) {
-					EStep step = (EStep) stepIt.next();
-					
-					
-					EList rims = step.getRim();
-					for (Iterator rimIt = rims.iterator(); rimIt
-							.hasNext();) {
-						ERim rim = (ERim) rimIt.next();
-						//for each rim entry
-						xmlString.append("<annotations entityUUID=\"");
-						//podUUID of step
-						xmlString.append(step.getPodUUID().toString());
-						xmlString.append("\"");
-						xmlString.append(" ");
-						
-						//entityName
-						xmlString.append("entityName=\"");
-						
-						xmlString.append(rim.getRimname());
-						xmlString.append("\"");
-						xmlString.append(" ");
-						xmlString.append("contentType=\"text/plain\"");
-						xmlString.append(" ");
-						xmlString.append("contents=\" ");
-						xmlString.append("\"");
-						xmlString.append("/>");
-					}// for
-					
+		EProject project = curnitmap.getProject();
+		for (Iterator actIt = project.getActivity().iterator(); actIt.hasNext();) {
+			EActivity act = (EActivity) actIt.next();
+
+			//cycle throught the steps
+			for (Iterator stepIt = act.getStep().iterator(); stepIt.hasNext();) {
+				EStep step = (EStep) stepIt.next();
+
+				EList rims = step.getRim();
+				for (Iterator rimIt = rims.iterator(); rimIt
+				.hasNext();) {
+					ERim rim = (ERim) rimIt.next();
+					//for each rim entry
+					xmlString.append("<annotations entityUUID=\"");
+					//podUUID of step
+					xmlString.append(step.getPodUUID().toString());
+					xmlString.append("\"");
+					xmlString.append(" ");
+
+					//entityName
+					xmlString.append("entityName=\"");
+
+					xmlString.append(rim.getRimname());
+					xmlString.append("\"");
+					xmlString.append(" ");
+					xmlString.append("contentType=\"text/plain\"");
+					xmlString.append(" ");
+					xmlString.append("contents=\" ");
+					xmlString.append("\"");
+					xmlString.append("/>");
 				}// for
-				
-			}
-			
-			
-			
-		} catch (ObjectNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			}// for
+
 		}
-		
 		xmlString.append("</annotationGroups></sailuserdata:EAnnotationBundle>");
-		
-		//curnitMap from run
-		//run service get run get curnitmap
-		//podUUID
-		String annotationBundleString = "undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
-        "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6a\" contentType=\"text/plain\" contents=\"Test rim annotation CHOCIE for rim with name undefined6a\"/>" +
-        "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
-        "</annotationGroups></sailuserdata:EAnnotationBundle>";
-		
+
 		AnnotationBundle annotationBundle = new AnnotationBundleImpl();
 		annotationBundle.setBundle(xmlString.toString());
 		annotationBundle.setWorkgroup(workgroup);
@@ -164,13 +140,5 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 	public void setAnnotationBundleDao(
 			AnnotationBundleDao<AnnotationBundle> annotationBundleDao) {
 		this.annotationBundleDao = annotationBundleDao;
-	}
-
-	public GradingService getGradingService() {
-		return gradingService;
-	}
-
-	public void setGradingService(GradingService gradingService) {
-		this.gradingService = gradingService;
 	}
 }

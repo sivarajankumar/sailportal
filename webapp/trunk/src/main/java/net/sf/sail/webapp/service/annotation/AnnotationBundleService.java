@@ -22,6 +22,8 @@
  */
 package net.sf.sail.webapp.service.annotation;
 
+import org.telscenter.pas.emf.pas.ECurnitmap;
+
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 
@@ -51,8 +53,9 @@ public interface AnnotationBundleService {
 	/**
 	 * Creates an AnnotationBundle for the specified workgroup
 	 * 
-	 * @param runId  key to <code>Run</code> that the workgroup belongs in
+	 * @param curnitmap the <code>ECurnitmap</code> to create with 
+	 *    AnnotationBundle from
 	 * @param workgroup the workgroup to associate the AnnotationBundle with
 	 */
-	public void createAnnotationBundle(Long runId, Workgroup workgroup);
+	public void createAnnotationBundle(Workgroup workgroup, ECurnitmap curnitmap);
 }
