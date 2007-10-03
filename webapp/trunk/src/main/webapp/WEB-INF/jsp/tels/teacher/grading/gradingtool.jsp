@@ -221,8 +221,8 @@ YUI download for details on each of the aggregate files and their contents):-->
 			
 			//button.disabled = 'true';
 			
-			var savedText = 'saved-'+podId+'_'+rimName+'_'+period;
-			var commentedText = 'comment-'+podId+'_'+rimName+'_'+period;
+			var savedText = 'saved-'+podId+'_'+rimName+'_'+period+'_'+workgroupId;
+			var commentedText = 'comment-'+podId+'_'+rimName+'_'+period+'_'+workgroupId;
 			
 			YAHOO.log( "SAVED " + savedText);
 			 //alert('found: ' + YAHOO.util.Dom.getElementsByClassName(savedText, 'div').length + ' elements');
@@ -427,12 +427,12 @@ aggregate.value = set of workgroupWorkAggregate
 												
 													
 												
-													<div id="div_${sockPart.podId}_${sockPart.rimName}" >
-													<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')"><c:if test="${done == true}">${fn:trim(foundAnnotation.contents)}</c:if></textarea>
-														<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}" class="yui-button yui-push-button"><em class="first-child">
-															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}')">Save Comment</button></em>
+													<div id="div_${sockPart.podId}_${sockPart.rimName}_${workgroupId}" >
+													<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')"><c:if test="${done == true}">${fn:trim(foundAnnotation.contents)}</c:if></textarea>
+														<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
+															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}')">Save Comment</button></em>
 														</span>
-														<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}" style="display: inline; width: 12%;">not saved</div>
+														<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" style="display: inline; width: 12%;">not saved</div>
 													</div>
 												
 												</td>
