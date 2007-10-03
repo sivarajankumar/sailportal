@@ -35,6 +35,7 @@
 				<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/pas/config.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/pas/controllers.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/annotation.xml</config>
 			</configs>
 		</configSet>
 		<configSet>
@@ -53,6 +54,7 @@
 				<config>src/main/resources/configurations/applicationContexts/tels/overrides.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/pas/config.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/pas/controllers.xml</config>
+                <config>src/main/resources/configurations/applicationContexts/pas/annotation.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/tels/controllers.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/tels/extensions.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/tels/overrides.xml</config>
