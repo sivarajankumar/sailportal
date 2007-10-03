@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.service.workgroup.impl;
 
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
@@ -34,9 +35,11 @@ import net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl;
 
 import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
+import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
+import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
@@ -48,13 +51,15 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 
 	private AnnotationBundleService annotationBundleService;
 	
+	private GradingService gradingService;
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService#createWISEWorkgroup(java.lang.String, java.util.Set, org.telscenter.sail.webapp.domain.Run, net.sf.sail.webapp.domain.group.Group)
 	 */
 	@Transactional(rollbackFor = { BadRequestException.class,
             NetworkTransportException.class })
 	public WISEWorkgroup createWISEWorkgroup(String name, Set<User> members,
-			Run run, Group period) {
+			Run run, Group period) throws ObjectNotFoundException {
 
         SdsWorkgroup sdsWorkgroup = createSdsWorkgroup(name, members, run);
 
@@ -65,7 +70,9 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
         
         this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
         
-        this.annotationBundleService.createAnnotationBundle(run.getId(), workgroup);
+        ECurnitmap curnitmap = gradingService.getCurnitmap(run.getId());
+        
+        this.annotationBundleService.createAnnotationBundle(workgroup, curnitmap);
 
         return workgroup;
 	}
@@ -97,6 +104,13 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 	 */
 	public void setAnnotationBundleService(AnnotationBundleService annotationBundleService) {
 		this.annotationBundleService = annotationBundleService;
+	}
+
+	/**
+	 * @param gradingService the gradingService to set
+	 */
+	public void setGradingService(GradingService gradingService) {
+		this.gradingService = gradingService;
 	}
 
 }

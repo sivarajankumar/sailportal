@@ -27,6 +27,7 @@ import java.util.Set;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
@@ -47,6 +48,8 @@ public interface WISEWorkgroupService extends WorkgroupService {
 	 * @param run
 	 * @param period
 	 * @return the created <code>WISEWorkgroup</code>
+	 * @throws ObjectNotFoundException when the curnitmap could not be
+	 *     retrieved for the <code>Run</code>
 	 */
-	public WISEWorkgroup createWISEWorkgroup(String name, Set<User> members, Run run, Group period);
+	public WISEWorkgroup createWISEWorkgroup(String name, Set<User> members, Run run, Group period) throws ObjectNotFoundException;
 }
