@@ -103,24 +103,16 @@ public class GradingToolController extends AbstractController {
 				if( step.getPodUUID().toString().equals(podUUID)) {
 					System.out.println("we got it!");
 					
-					for (Iterator iterator3 = iterator2; iterator3.hasNext();) {
-						EStep nextStep = (EStep) iterator3.next();
+						EStep nextStep = (EStep) iterator2.next();
 						if( this.isGradable(nextStep.getType()) ){
 							modelAndView.addObject(NEXT_STEP, nextStep);
 							break;
 						} else {
 							modelAndView.addObject(NEXT_STEP, null);
 						}
-					}// for
 					//TODO: Hiroki use stepId instead of EStep object as param
 					Map<Group, Set<GradeWorkByWorkgroupAggregate>> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), step);
 					
-//					EList rims = step.getRim();
-//					for (Iterator rimIt = rims.iterator(); rimIt
-//							.hasNext();) {
-//						ERim rim = (ERim) rimIt.next();
-//						this.strip( rim.getPrompt() );
-//					}
 					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
 					modelAndView.addObject(STEP, step);
 					modelAndView.addObject(ACTIVITY,activity);

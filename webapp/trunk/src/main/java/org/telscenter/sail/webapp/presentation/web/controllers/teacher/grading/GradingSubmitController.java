@@ -49,6 +49,7 @@ import org.telscenter.sail.webapp.service.grading.GradingService;
  */
 public class GradingSubmitController extends AbstractController {
 
+	private static final String SCORE = "score";
 	public static final String WORKGROUP_ID = "workgroupId";
 	public static final String RIM_NAME = "rimName";
 	public static final String ANNOTATION_CONTENT = "annotationContent";
@@ -70,6 +71,7 @@ public class GradingSubmitController extends AbstractController {
 		String rimName = request.getParameter(RIM_NAME);
 		String runId = request.getParameter(GradeByStepController.RUN_ID);
 		String workgroupId = request.getParameter(WORKGROUP_ID);
+		String score = request.getParameter(SCORE);
 		
 		if( podId != null ) {
 			System.out.println("The Pod ID is "+podId);
@@ -77,6 +79,7 @@ public class GradingSubmitController extends AbstractController {
 			System.out.println("The RIM_Name Content is "+rimName);
 			System.out.println("The runId Content is "+runId);
 			System.out.println("The workgroupId Content is "+workgroupId);
+			System.out.println("the score is: " + score);
 			//GradingService gs = new GradingServiceImpl();
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(POD_ID, podId);
@@ -96,7 +99,10 @@ public class GradingSubmitController extends AbstractController {
 				for (Iterator annosIT = annotations.iterator(); annosIT
 						.hasNext();) {
 					EAnnotation annotation = (EAnnotation) annosIT.next();
-					if( annotation.getEntityUUID().toString().equals(podId) && annotation.getEntityName().equals(rimName)) {
+					//for the score
+					if( annotation.getEntityUUID().toString().equals(podId) && annotation.getSource().contains("score")){
+						annotation.setContents(score);
+					} else if( annotation.getEntityUUID().toString().equals(podId) && annotation.getEntityName().equals(rimName)) {
 						annotation.setContents(annotationContent);
 						List<AnnotationBundle> al = new ArrayList<AnnotationBundle>();
 						al.add(annotationBundle);
@@ -105,16 +111,9 @@ public class GradingSubmitController extends AbstractController {
 				}
 				
 			}
-			
-			
-			//save the bundle
-			
-			//this.gradingService.saveGrades(null);
 			return modelAndView;
 		} else {
-			
 			//throw error
-			
 		}// if
 		
 		ModelAndView modelAndView = new ModelAndView();
