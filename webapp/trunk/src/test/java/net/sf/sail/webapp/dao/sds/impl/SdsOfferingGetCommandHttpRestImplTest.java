@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
@@ -114,6 +115,19 @@ public class SdsOfferingGetCommandHttpRestImplTest extends
 		EasyMock.verify(this.mockTransport);
 	}
 
+	public void testGetSdsCurnitmap() throws IOException {
+		InputStream curnitMapResponseStream = setAndTestResponseStream(CURNITMAP_XML_RESPONSE);
+		EasyMock.expect(this.mockTransport.get(EasyMock.isA(HttpGetRequest.class))).andReturn(
+				curnitMapResponseStream);
+		EasyMock.replay(this.mockTransport);
+
+		assertNull(this.expectedSdsOffering.getSdsCurnitMap());
+		this.command.getSdsCurnitmap(this.expectedSdsOffering);
+		assertNotNull(this.expectedSdsOffering.getSdsCurnitMap());
+		assertEquals(CURNITMAP_XML_RESPONSE, this.expectedSdsOffering.getSdsCurnitMap());
+		EasyMock.verify(this.mockTransport);
+	}
+	
 	public void testGenerateRequest() {
 		HttpGetRequest request = this.command.generateRequest();
 		assertEquals("/offering/" + ID, request.getRelativeUrl());
