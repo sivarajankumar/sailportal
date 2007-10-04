@@ -24,6 +24,13 @@ package net.sf.sail.webapp.service.annotation.impl;
 
 import static org.easymock.EasyMock.*;
 
+import org.telscenter.pas.emf.pas.ECurnitmap;
+import org.telscenter.pas.emf.pas.impl.ECurnitmapImpl;
+import org.telscenter.pas.emf.pas.util.CurnitmapLoader;
+import org.telscenter.sail.webapp.domain.gradingtool.CurnitMap;
+
+import net.sf.sail.emf.sailuserdata.impl.ECurnitImpl;
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.annotation.AnnotationBundleDao;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
@@ -47,11 +54,22 @@ public class AnnotationBundleServiceImplTest extends TestCase {
 
 	private String annotationBundleXMLString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
 	"<sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">" +
-	"<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">" +                               
-    "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined6\"/>" +
-    "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"Test rim annotation for rim with name undefined7\"/>" +
+	"<annotationGroups annotationSource=\"http://telscenter.org/annotation/score\">" +                               
+    "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
+    "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
+    "</annotationGroups>" +
+	"<annotationGroups annotationSource=\"http://telscenter.org/annotation/comment\">" +                               
+    "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"\"/>" +
+    "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"\"/>" +
     "</annotationGroups></sailuserdata:EAnnotationBundle>";
-; 
+	
+	String curnitmapXMLString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
+	"<pas:ECurnitmap xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:pas=\"pas\" xsi:schemaLocation=\"pas pas.ecore\">" +
+	"<project podUUID=\"cccccccc-0002-3878-0000-000000000000\"	title=\"Global Warming: Virtual Earth\">" +
+	"<activity podUUID=\"dddddddd-6004-0000-0000-000000000000\"	title=\"Identifying the Problem\" number=\"0\">" +
+	"<step podUUID=\"dddddddd-6004-0002-0000-000000000000\"	title=\"2. Take notes on the Science behind Global Warming part 1\" number=\"1\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined6\" prompt=\"html-stylized prompt for step 2 goes here\"/></step>" +
+	"<step podUUID=\"dddddddd-6004-0003-0000-000000000000\"	title=\"3. Take notes on the Science behind Global Warming part 2\" number=\"2\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined7\" prompt=\"html-stylized prompt for step 3 goes here\"/></step>" +
+	"</activity></project></pas:ECurnitmap>";	
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -80,4 +98,26 @@ public class AnnotationBundleServiceImplTest extends TestCase {
 		annotationBundleService.saveAnnotationBundle(annotationBundle);
 		assertTrue(true);
 	}
+	
+	/**
+	 * Tests creating the annotation bundle xml
+	 * 
+	 * @throws ObjectNotFoundException
+	 */
+	public void testCreateAnnotationBundle() throws ObjectNotFoundException {
+		mockAnnotationBundleDao.save(annotationBundle);
+		expectLastCall();
+		replay(mockAnnotationBundleDao);
+		annotationBundleService.createAnnotationBundle(workgroup, this.getCurnitmapMock());
+		verify(mockAnnotationBundleDao);
+	}
+	
+	/**
+	 * Creates a mock curnit map to test
+	 */
+	public ECurnitmap getCurnitmapMock() throws ObjectNotFoundException {
+		ECurnitmap curnitmap = CurnitmapLoader.loadCurnitmap(curnitmapXMLString);
+		return curnitmap;
+	}
+
 }

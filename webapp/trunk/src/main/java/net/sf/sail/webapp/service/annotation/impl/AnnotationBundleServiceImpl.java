@@ -90,50 +90,69 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 		StringBuilder xmlString = new StringBuilder();
 		//append the header
 		xmlString.append("<?xml version=\"1.0\" encoding=\"ASCII\"?><sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">");
-		xmlString.append("<annotationGroups annotationSource=\"http://sail.sf.net/annotations/test\">");                               
-		        //"<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\)
-		
+		                             
 		EProject project = curnitmap.getProject();
 		for (Iterator actIt = project.getActivity().iterator(); actIt.hasNext();) {
 			EActivity act = (EActivity) actIt.next();
 
 			//cycle throught the steps
+			xmlString.append("<annotationGroups annotationSource=\"http://telscenter.org/annotation/score\">");  
 			for (Iterator stepIt = act.getStep().iterator(); stepIt.hasNext();) {
 				EStep step = (EStep) stepIt.next();
-
+				buildAnnotationString(xmlString, step, null);
+			}// for
+			xmlString.append("</annotationGroups>");
+			xmlString.append("<annotationGroups annotationSource=\"http://telscenter.org/annotation/comment\">");  
+			for (Iterator stepIt2 = act.getStep().iterator(); stepIt2.hasNext();) {
+				EStep step = (EStep) stepIt2.next();
 				EList rims = step.getRim();
 				for (Iterator rimIt = rims.iterator(); rimIt
 				.hasNext();) {
 					ERim rim = (ERim) rimIt.next();
-					//for each rim entry
-					xmlString.append("<annotations entityUUID=\"");
-					//podUUID of step
-					xmlString.append(step.getPodUUID().toString());
-					xmlString.append("\"");
-					xmlString.append(" ");
-
-					//entityName
-					xmlString.append("entityName=\"");
-
-					xmlString.append(rim.getRimname());
-					xmlString.append("\"");
-					xmlString.append(" ");
-					xmlString.append("contentType=\"text/plain\"");
-					xmlString.append(" ");
-					xmlString.append("contents=\" ");
-					xmlString.append("\"");
-					xmlString.append("/>");
+					buildAnnotationString(xmlString, step, rim);
 				}// for
-
 			}// for
+			xmlString.append("</annotationGroups>");
 
 		}
-		xmlString.append("</annotationGroups></sailuserdata:EAnnotationBundle>");
+		xmlString.append("</sailuserdata:EAnnotationBundle>");
 
 		AnnotationBundle annotationBundle = new AnnotationBundleImpl();
 		annotationBundle.setBundle(xmlString.toString());
 		annotationBundle.setWorkgroup(workgroup);
 		this.annotationBundleDao.save(annotationBundle);
+	}
+
+	/**
+	 * Builds the annotation string
+	 * 
+	 * @param xmlString - the current xml string that is being built
+	 * @param step - the current step
+	 * @param rim - the current rim
+	 */
+	protected void buildAnnotationString(StringBuilder xmlString, EStep step,
+			ERim rim) {
+		//for each rim entry
+		xmlString.append("<annotations entityUUID=\"");
+		//podUUID of step
+		xmlString.append(step.getPodUUID().toString());
+		xmlString.append("\"");
+		xmlString.append(" ");
+
+		
+		if( rim != null) {
+			//entityName
+			xmlString.append("entityName=\"");
+			xmlString.append(rim.getRimname());
+			xmlString.append("\"");
+			xmlString.append(" ");
+		}
+		
+		xmlString.append("contentType=\"text/plain\"");
+		xmlString.append(" ");
+		xmlString.append("contents=\"");
+		xmlString.append("\"");
+		xmlString.append("/>");
 	}
 
 	/**
@@ -144,3 +163,5 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 		this.annotationBundleDao = annotationBundleDao;
 	}
 }
+
+
