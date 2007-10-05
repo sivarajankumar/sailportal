@@ -55,7 +55,7 @@ public class AnnotationBundleServiceImplTest extends TestCase {
     "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
     "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
     "</annotationGroups>" +
-	"<annotationGroups annotationSource=\"http://telscenter.org/annotation/comment\">" +                               
+	"<annotationGroups annotationSource=\"http://telscenter.org/annotation/comments\">" +                               
     "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
     "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"\"/>" +
     "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
