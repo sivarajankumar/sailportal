@@ -110,7 +110,7 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 		}
 		xmlString.append("</annotationGroups>");
 		
-		xmlString.append("<annotationGroups annotationSource=\"http://telscenter.org/annotation/comment\">");  
+		xmlString.append("<annotationGroups annotationSource=\"http://telscenter.org/annotation/comments\">");  
 		for (EStep step : allSteps) {
 			buildAnnotationString(xmlString, step, null);
 			EList rims = step.getRim();
