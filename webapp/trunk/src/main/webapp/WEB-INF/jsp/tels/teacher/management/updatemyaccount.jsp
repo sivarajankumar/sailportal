@@ -28,6 +28,12 @@
 <script type="text/javascript" src="../javascript/general.js"></script> 
 
 <title>Teacher:Management - Update My Account </title>
+<script language="JavaScript">
+
+function popup(URL) {
+  window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');
+}
+</script>
 </head>
 
 <body>
@@ -37,9 +43,10 @@
 <div id="overviewContent">
 <h3>Update My Account </h3>
 <table>
-<tr> 
-<td> Change My Password </td>
-<td> Revise your WISE password. </td>
+<tr>
+<td>
+<a href="#" onclick="javascript:popup('../changepassword.html')">Change My Password</a></td>
+<td>Change your WISE password</td>
 </tr>
 <tr> 
 <td> Update My Account Information </td>

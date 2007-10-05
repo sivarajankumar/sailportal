@@ -402,18 +402,18 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TermsOfUseController" />
 		
 	 <bean id="changePasswordController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.ChangePasswordController">
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.ChangePasswordController">
     	<property name="commandName" value="changePasswordParameters" />
 		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.ChangePasswordParameters" />
  	    <property name="validator" ref="changePasswordParametersValidator" />
-		<property name="formView" value="student/changepassword" />
-    	<property name="successView" value="student/changepasswordsuccess" />
+		<property name="formView" value="changepassword" />
+    	<property name="successView" value="changepasswordsuccess" />
     	<property name="userService" ref="userService" />
     </bean>
 	
 	<bean id="changePasswordParametersValidator"
-		class="org.telscenter.sail.webapp.presentation.validators.student.ChangePasswordParametersValidator" />
-		
+		class="org.telscenter.sail.webapp.presentation.validators.ChangePasswordParametersValidator" />
+				
 	<bean id="getAnnotationBundleController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.GetAnnotationBundleController" >
         <property name="annotationBundleService" ref="annotationBundleService" />

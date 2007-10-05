@@ -27,13 +27,12 @@ import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	org.telscenter.sail.webapp.presentation.validators.student.AddProjectParametersValidatorTest.class,
-	org.telscenter.sail.webapp.presentation.validators.student.TeamSignInFormValidatorTest.class,
-	org.telscenter.sail.webapp.presentation.validators.student.ChangePasswordParametersValidatorTest.class
+	org.telscenter.sail.webapp.presentation.validators.student.TeamSignInFormValidatorTest.class
 })
 
 public class AllTests {

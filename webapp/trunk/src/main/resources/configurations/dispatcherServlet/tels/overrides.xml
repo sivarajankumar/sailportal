@@ -67,7 +67,6 @@
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController
-    		    /student/changepassword.html=changePasswordController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
     		    /teacher/states.html=statesController
@@ -107,6 +106,7 @@
 				/forgotaccount/student/password.html=forgotAccountStudentPasswordController
 	  			/forgotaccount/student/passwordreminder*.html=forgotAccountStudentPasswordReminderWizardController
 				/forgotaccount/student/enterprojectcode.html=forgotAccountStudentCheckProjectCodeController
+				/**/changepassword.html=changePasswordController
     		</value>
     	</property>
     </bean>

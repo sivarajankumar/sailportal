@@ -267,7 +267,7 @@ Batch Set Passwords
 </a>
 </td>
 <td>
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+<a href="management/updatemyaccount.html">
 Update My Account
 </a>
 </td>

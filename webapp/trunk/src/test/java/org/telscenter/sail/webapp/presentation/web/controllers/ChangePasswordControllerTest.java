@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.student;
+package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import static org.easymock.EasyMock.*;
 
@@ -38,6 +38,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import net.sf.sail.webapp.service.UserService;
 import org.telscenter.sail.webapp.domain.impl.ChangePasswordParameters;
+import org.telscenter.sail.webapp.presentation.web.controllers.ChangePasswordController;
 
 /**
  * @author Patrick Lawler

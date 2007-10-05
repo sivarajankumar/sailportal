@@ -42,7 +42,7 @@
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')">Manage My Students</a></li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')">Class Monitor</a></li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')">Exports & Reports</a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')">Update My Account</a></li>
+<li> <a href="updatemyaccount.html">Update My Account</a></li>
 </ul>
 
 </div>	

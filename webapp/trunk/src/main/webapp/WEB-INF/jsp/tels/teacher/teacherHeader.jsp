@@ -28,7 +28,7 @@
 <li> <a href="index.html"> <img src="../<spring:theme code="home" />" style="border:0px;"/> </a> </li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="projects_selected" />" style="border:0px;"/> </a> </li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="grading" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="management" />" style="border:0px;"/> </a> </li>
+<li> <a href="management/overview.html"> <img src="../<spring:theme code="management" />" style="border:0px;"/> </a> </li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../<spring:theme code="help" />" style="border:0px;"/> </a> </li>
 </ul>
 </div>  
