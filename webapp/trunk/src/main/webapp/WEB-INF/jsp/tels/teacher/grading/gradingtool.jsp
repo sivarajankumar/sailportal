@@ -64,23 +64,21 @@ table, tr, td {
 }
 
 #tableByStep {
-	width:100%;
-	border: 1px solid #666666;
+	border: 0px solid #666666;
 	border-collapse: collapse;
-	background-color: #CCCCCC;
+	background-color: #FFFFFF;
 	padding: 0px;
 	margin: 0px;
 	cell-padding:5px;
 	}
 
 #tableByStep .column1 {
-	width:8%;
-	color:#000099;
+	color:#000000;
 	padding: 5px;
 }
 
 #tableByStep tr {
-	border-bottom: 1px solid #666666;
+	border-bottom: 1px solid #FFFFFF;
 }
 
 #gradingProjectInfo {
@@ -113,7 +111,7 @@ table, tr, td {
 	}
 
 .promptDiv {
-	background-color:#66FFFF;
+	background-color:#FFFFFF;
 }
 
 .answerDiv {
@@ -224,20 +222,25 @@ YUI download for details on each of the aggregate files and their contents):-->
 			
 			var savedText = 'saved-'+podId+'_'+rimName+'_'+period+'_'+workgroupId;
 			var commentedText = 'comment-'+podId+'_'+rimName+'_'+period+'_'+workgroupId;
-			
-			YAHOO.log( "SAVED " + savedText);
+			var scoreText = 'score-'+podId+'_'+rimName+'_'+period+'_'+workgroupId;
+			YAHOO.log( "SAVED " + scoreText);
 			 //alert('found: ' + YAHOO.util.Dom.getElementsByClassName(savedText, 'div').length + ' elements');
 			
 			var el = YAHOO.util.Dom.getElementsByClassName(savedText, 'div');
 			
 			var tel = YAHOO.util.Dom.getElementsByClassName(commentedText, 'textarea');
 			
+			var scoreElement = YAHOO.util.Dom.getElementsByClassName(scoreText, 'input');
+			
+			var score = scoreElement[0].value;
+			
+			YAHOO.log("score "+ scoreElement[0].value );
 			/*
 			* Remember to encode the key-value string if and when
 			* the string contains special characters.
 			*/
 			var sUrl = "gradingsubmit.html";
-			var postData = 'workgroupId='+workgroupId+'&runId='+runId+'&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value;
+			var postData = 'workgroupId='+workgroupId+'&runId='+runId+'&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value+'&score='+score;
 			
 			var request = YAHOO.util.Connect.asyncRequest('POST', sUrl, null, postData);	
 			
@@ -270,16 +273,17 @@ YUI download for details on each of the aggregate files and their contents):-->
   <tr>
   	<td class="column1"><strong>Project: </strong></td>
     <td id="gradingProjectInfo">SAIL Global Warming: Virtual Earth (Version A) (13731)</td>
-
+	<td></td>
   </tr>
   <tr>
   	<td class="column1"><strong>View:</strong></td>
     <td id="gradingViewInfo">Act 1, Step 5: Your Ecological Footprint Data
     </td>
+    <td><a href="gradebystep.html?runId=${runId}">Return to Step Menu </a> &nbsp &nbsp <a href="gradingtool.html?GRADE_TYPE=step&amp;runId=${runId}&amp;podUUID=dddddddd-6004-0007-0000-001242145646"> View Next Step</a></td>
   <tr>
     <td class="column1"></td>
-    <td id="gradingMiniSteps"><a href="gradebystep.html?runId=5">Return to Step Menu </a> &nbsp &nbsp <a href="gradingtool.html?GRADE_TYPE=step&amp;runId=5&amp;podUUID=dddddddd-6004-0007-0000-001242145646"> View Next Step</a></td>
-
+    <td id="gradingMiniSteps"></td>
+	<td></td>
   </tr>
   </table>
 
@@ -336,15 +340,24 @@ aggregate.value = set of workgroupWorkAggregate
 										</td>
 									</tr>
 									
+								
+								<c:set var="found" value="true"/>
+								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
+									<c:if test="${sockPart.rimName != rimFromStep.rimname}">
+									<c:set var="found" value="false"/>
+									</c:if>
+								</c:forEach>
+								<c:if test="${found == false}">
+								<c:set var="found" value="true"/>
+								<tr><td>dfd</td><td>fff</td><td>ff</td></tr>
+								</c:if>
 								<c:set var="count" value="1"/>
-								<c:set var="sockFound" value="false"/>
 								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
 								
 									
 									<c:forEach var="rimFromStep" items="${step.rim}">
 											
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
-											<c:set var="sockFound" value="true"/>
 											
 											<tr>
 				                          		<td>
@@ -431,14 +444,16 @@ aggregate.value = set of workgroupWorkAggregate
 												
 													<div id="div_${sockPart.podId}_${sockPart.rimName}_${workgroupId}" >
 													<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')"><c:if test="${done == true}">${fn:trim(foundAnnotation.contents)}</c:if></textarea>
-														<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
-															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}','${runId}')">Save Comment</button></em>
-														</span>
-														<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" style="display: inline; width: 12%;">not saved</div>
+														
+														
 													</div>
 												
 												</td>
-												<td></td>
+												<td><input class="score-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" type="text" size="5"> 
+													<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
+															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}','${runId}')">Save</button></em>
+													</span>
+													<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" style="display: inline; width: 12%;"></div></td>
 											</tr>
                     						</c:if>
 									</c:forEach>
