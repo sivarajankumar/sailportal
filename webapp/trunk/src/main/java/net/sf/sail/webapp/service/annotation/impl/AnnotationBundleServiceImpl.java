@@ -24,7 +24,9 @@ package net.sf.sail.webapp.service.annotation.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import net.sf.sail.emf.sailuserdata.EAnnotationBundle;
 import net.sf.sail.webapp.dao.annotation.AnnotationBundleDao;
@@ -90,31 +92,36 @@ public class AnnotationBundleServiceImpl implements AnnotationBundleService {
 		StringBuilder xmlString = new StringBuilder();
 		//append the header
 		xmlString.append("<?xml version=\"1.0\" encoding=\"ASCII\"?><sailuserdata:EAnnotationBundle xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:sailuserdata=\"sailuserdata\">");
-		                             
+
+		List<EStep> allSteps = new ArrayList<EStep>();
 		EProject project = curnitmap.getProject();
 		for (Iterator actIt = project.getActivity().iterator(); actIt.hasNext();) {
 			EActivity act = (EActivity) actIt.next();
 
-			//cycle throught the steps
-			xmlString.append("<annotationGroups annotationSource=\"http://telscenter.org/annotation/score\">");  
 			for (Iterator stepIt = act.getStep().iterator(); stepIt.hasNext();) {
 				EStep step = (EStep) stepIt.next();
-				buildAnnotationString(xmlString, step, null);
-			}// for
-			xmlString.append("</annotationGroups>");
-			xmlString.append("<annotationGroups annotationSource=\"http://telscenter.org/annotation/comment\">");  
-			for (Iterator stepIt2 = act.getStep().iterator(); stepIt2.hasNext();) {
-				EStep step = (EStep) stepIt2.next();
-				EList rims = step.getRim();
-				for (Iterator rimIt = rims.iterator(); rimIt
-				.hasNext();) {
-					ERim rim = (ERim) rimIt.next();
-					buildAnnotationString(xmlString, step, rim);
-				}// for
-			}// for
-			xmlString.append("</annotationGroups>");
-
+				allSteps.add(step);
+			}
 		}
+
+		xmlString.append("<annotationGroups annotationSource=\"http://telscenter.org/annotation/score\">");  
+		for (EStep step : allSteps) {
+			buildAnnotationString(xmlString, step, null);
+		}
+		xmlString.append("</annotationGroups>");
+		
+		xmlString.append("<annotationGroups annotationSource=\"http://telscenter.org/annotation/comment\">");  
+		for (EStep step : allSteps) {
+			buildAnnotationString(xmlString, step, null);
+			EList rims = step.getRim();
+			for (Iterator rimIt = rims.iterator(); rimIt
+				.hasNext();) {
+				ERim rim = (ERim) rimIt.next();
+				buildAnnotationString(xmlString, step, rim);
+			}
+		}
+		xmlString.append("</annotationGroups>");
+		
 		xmlString.append("</sailuserdata:EAnnotationBundle>");
 
 		AnnotationBundle annotationBundle = new AnnotationBundleImpl();

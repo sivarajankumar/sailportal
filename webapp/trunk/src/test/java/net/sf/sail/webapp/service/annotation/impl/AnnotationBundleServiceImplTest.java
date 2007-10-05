@@ -25,11 +25,8 @@ package net.sf.sail.webapp.service.annotation.impl;
 import static org.easymock.EasyMock.*;
 
 import org.telscenter.pas.emf.pas.ECurnitmap;
-import org.telscenter.pas.emf.pas.impl.ECurnitmapImpl;
 import org.telscenter.pas.emf.pas.util.CurnitmapLoader;
-import org.telscenter.sail.webapp.domain.gradingtool.CurnitMap;
 
-import net.sf.sail.emf.sailuserdata.impl.ECurnitImpl;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.annotation.AnnotationBundleDao;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -59,7 +56,9 @@ public class AnnotationBundleServiceImplTest extends TestCase {
     "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
     "</annotationGroups>" +
 	"<annotationGroups annotationSource=\"http://telscenter.org/annotation/comment\">" +                               
+    "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
     "<annotations entityUUID=\"dddddddd-6004-0002-0000-000000000000\" entityName=\"undefined6\" contentType=\"text/plain\" contents=\"\"/>" +
+    "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" contentType=\"text/plain\" contents=\"\"/>" +
     "<annotations entityUUID=\"dddddddd-6004-0003-0000-000000000000\" entityName=\"undefined7\" contentType=\"text/plain\" contents=\"\"/>" +
     "</annotationGroups></sailuserdata:EAnnotationBundle>";
 	

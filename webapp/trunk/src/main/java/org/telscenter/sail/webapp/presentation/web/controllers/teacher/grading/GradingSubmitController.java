@@ -100,17 +100,19 @@ public class GradingSubmitController extends AbstractController {
 						.hasNext();) {
 					EAnnotation annotation = (EAnnotation) annosIT.next();
 					//for the score
-					if( annotation.getEntityUUID().toString().equals(podId) && annotation.getSource().contains("score")){
+					if( annotation.getEntityUUID().toString().equals(podId) && agroup.getAnnotationSource().contains("score")){
 						annotation.setContents(score);
-					} else if( annotation.getEntityUUID().toString().equals(podId) && annotation.getEntityName().equals(rimName)) {
+					} else if( annotation.getEntityUUID().toString().equals(podId) && agroup.getAnnotationSource().contains("comment") 
+							&& annotation.getEntityName() == null) {
 						annotation.setContents(annotationContent);
-						List<AnnotationBundle> al = new ArrayList<AnnotationBundle>();
-						al.add(annotationBundle);
-						this.gradingService.saveGrades(al);
 					}// if
 				}
 				
 			}
+			List<AnnotationBundle> al = new ArrayList<AnnotationBundle>();
+			al.add(annotationBundle);
+			this.gradingService.saveGrades(al);
+			
 			return modelAndView;
 		} else {
 			//throw error
