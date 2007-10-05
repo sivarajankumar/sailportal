@@ -385,7 +385,7 @@ aggregate.value = set of workgroupWorkAggregate
 												     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
 																	
 																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
-																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comment'}">
+																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
 																		
 																			<c:if test="${annotation.entityUUID == step.podUUID}">
 																			<c:if test="${commentDone == false}">
