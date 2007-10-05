@@ -332,33 +332,32 @@ aggregate.value = set of workgroupWorkAggregate
 										 </div>
 										</td>
 										
-										<td width="45%">
+										<td width="45%" >
 										<div align="center" class="tdHeader" ><strong class="headerFont">Teacher Feedback</strong></div>
 										</td>
 										<td >
 										<div align="center" class="tdHeader" ><strong class="headerFont">Score</strong></div>
 										</td>
 									</tr>
-									
+							<!-- End Table Header -->
 								
-								<c:set var="found" value="true"/>
+					
+								<c:set var="cellCounter" value="0"/>
 								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
-									<c:if test="${sockPart.rimName != rimFromStep.rimname}">
-									<c:set var="found" value="false"/>
-									</c:if>
+									<c:forEach var="rimFromStep" items="${step.rim}">
+											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
+												<c:set var="cellCounter" value="${cellCounter+1}"/>
+											</c:if>
+									</c:forEach>
 								</c:forEach>
-								<c:if test="${found == false}">
-								<c:set var="found" value="true"/>
-								<tr><td>dfd</td><td>fff</td><td>ff</td></tr>
-								</c:if>
-								<c:set var="count" value="1"/>
+								<c:set var="count" value="0"/>
 								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
 								
 									
 									<c:forEach var="rimFromStep" items="${step.rim}">
-											
+										
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
-											
+											<c:set var="count" value="${count+1}"/>
 											<tr>
 				                          		<td>
 				                          		
@@ -373,38 +372,78 @@ aggregate.value = set of workgroupWorkAggregate
 												      	
 												      ${rimFromStep.prompt}
 												      </c:otherwise>
-												    </c:choose>
+												   </c:choose>
 				                          		
-				                          		
-				                          		
-				                          		<!--  
-				                          		 <c:choose>
-											        <c:when test="${fn:length(step.rim) > 1}">
-											            Part ${count}: ${rimFromStep.prompt}
-											            <c:set var="count" value="${count + 1}"/>
-											        </c:when>
-											        <c:otherwise>
-											        
-											        	 <c:choose>
-													        <c:when test="${fn:length(step.rim) > 1}">
-													            Part ${count}: ${rimFromStep.prompt}
-													            <c:set var="count" value="${count + 1}"/>
-													        </c:when>
-													        <c:otherwise>
-													           ${rimFromStep.prompt}
-													        </c:otherwise>
-													    </c:choose>
-											        
-											        
-											           ${rimFromStep.prompt}
-											        </c:otherwise>
-											    </c:choose>
-											    -->
 				                          		<!-- print out part if more than one element -->
 				                          		</div>
 				                          		</td>
-				                          		<td></td>
-				                          		<td></td>
+				                          		<c:choose>
+												      <c:when test="${count == 1}">
+												     	<td rowspan="${cellCounter*2}">
+												     	<!-- do annotation magic here -->
+												     	<c:set var="commentDone" value="false"/>
+												     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
+																	
+																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
+																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comment'}">
+																		
+																			<c:if test="${annotation.entityUUID == step.podUUID}">
+																			<c:if test="${commentDone == false}">
+																				<c:set var="comment" value="${annotation.contents}"/>
+																				<c:set var="commentDone" value="true"/>
+																			</c:if>
+																			</c:if>
+																		</c:if>
+																		</c:forEach>
+																	</c:forEach>
+														    <div id="div_${sockPart.podId}_${sockPart.rimName}_${workgroupId}" >
+																	<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')" >${comment}</textarea>
+															</div>
+												     	
+												     	</td>
+												      </c:when>
+												
+												      <c:otherwise>
+														  <!-- no cell-->
+<!--												      <td >nope</td>-->
+												      </c:otherwise>
+												   </c:choose>
+				                          	
+				                          		<c:choose>
+												      <c:when test="${count == 1}">
+												     	<td rowspan="${cellCounter*2}">
+												     		<c:set var="scoreDone" value="false"/>
+												     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
+																	
+																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
+																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/score'}">
+																			<c:if test="${annotation.entityUUID == step.podUUID}">
+																			<c:if test="${scoreDone == false}">
+																				<c:set var="score" value="${annotation.contents}"/>
+																				<c:set var="scoreDone" value="true"/>
+																			</c:if>
+																			</c:if>
+																		</c:if>
+									
+																	</c:forEach>
+															</c:forEach>
+															<input class="score-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" type="text" size="5" value="${score}"> 
+																	<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
+																			<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}','${runId}')">Save</button></em>
+																	</span>
+															<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" style="display: inline; width: 12%;"></div>
+														     	
+												     	
+												     	</td>
+												      </c:when>
+												
+												      <c:otherwise>
+														  <!-- no cell-->
+<!--												      <td >nope</td>-->
+												      </c:otherwise>
+												   </c:choose>
+				                          	
+				                          		
 				             				</tr>
 											<tr>
 												<!-- The users entrie -->
@@ -420,41 +459,9 @@ aggregate.value = set of workgroupWorkAggregate
 		  			 							<!-- The teacher box -->
 		  			 							<!-- check for annotation -->
 		  			 							
-												<td>
-													
-													<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
-													<c:set var="done" value="false"/>
-														<c:forEach var="annotation" items="${annotationGroup.annotations}">
-															
-															<c:if test="${done == false}">
-																	<c:choose>
-																      <c:when  test="${annotation.entityName == sockPart.rimName}">
-																      	<c:set var="done" value="true"/>
-																      	<c:set var="foundAnnotation" value="${annotation}"/>
-																      	${foundAnnotation}
-																      	contents ${foundAnnotation.contents}
-																      </c:when>
-																    </c:choose>
-														    </c:if>
-															</c:forEach>
-														</c:forEach>
-												
-												
-													
-												
-													<div id="div_${sockPart.podId}_${sockPart.rimName}_${workgroupId}" >
-													<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')"><c:if test="${done == true}">${fn:trim(foundAnnotation.contents)}</c:if></textarea>
-														
-														
-													</div>
-												
-												</td>
-												<td><input class="score-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" type="text" size="5"> 
-													<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
-															<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}','${runId}')">Save</button></em>
-													</span>
-													<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" style="display: inline; width: 12%;"></div></td>
-											</tr>
+												<!-- no row -->
+												<!-- no row -->
+												</tr>
                     						</c:if>
 									</c:forEach>
 								</c:forEach>
