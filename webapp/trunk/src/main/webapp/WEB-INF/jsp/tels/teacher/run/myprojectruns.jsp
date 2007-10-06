@@ -92,7 +92,6 @@ To manage a Project Run, click its underlined title.
 	<c:choose>
         <c:when test="${gradingParam =='TRUE'}">
             <a href="../grading/gradebystep.html?runId=${run.id}">Grade By Step</a><br/>
-			 <a href="#" onclick="javascript:alert('not implemented yet')">Grade By Group</a><br/>
         </c:when>
         <c:otherwise>
             <c:choose>
