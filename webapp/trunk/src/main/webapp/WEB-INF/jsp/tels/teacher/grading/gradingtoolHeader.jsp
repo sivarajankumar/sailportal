@@ -44,6 +44,9 @@
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')">Exports & Reports</a></li>
 <li> <a href="#" onclick="javascript:alert('This page is not available yet')">Update My Account</a></li>
 </ul>
-
+<p style="position: absolute;top:-5px;text-align:right;"> 
+<authz:authentication operation="username" />
+ </p>
+<%@ include file="../../logout.jsp"%> 
 </div>	
    
