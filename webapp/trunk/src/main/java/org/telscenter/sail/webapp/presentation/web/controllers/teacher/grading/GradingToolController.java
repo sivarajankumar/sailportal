@@ -29,12 +29,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.emf.sailuserdata.ESock;
-import net.sf.sail.emf.sailuserdata.ESockEntry;
-import net.sf.sail.emf.sailuserdata.ESockPart;
 import net.sf.sail.webapp.domain.group.Group;
 
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -81,6 +77,8 @@ public class GradingToolController extends AbstractController {
 		String gradingType = request.getParameter(GRADE_TYPE);
 		String runId = request.getParameter(GradeByStepController.RUN_ID);
 		String podUUID = request.getParameter(PODUUID);
+		boolean foundCurrentStep = false;
+		boolean foundNextStep = false;
 		
 		
 		Run aRun = runService.retrieveById(new Long(runId));
@@ -100,48 +98,81 @@ public class GradingToolController extends AbstractController {
 			
 			for (Iterator iterator2 = steps.iterator(); iterator2.hasNext();) {
 				EStep step = (EStep) iterator2.next();
+				
+				//this is nextstep
+				if( foundCurrentStep == true && stepIsGradable(step)) {
+					modelAndView.addObject(NEXT_STEP, step);
+					return modelAndView;
+				}
+				
 				if( step.getPodUUID().toString().equals(podUUID)) {
 					System.out.println("we got it!");
 					
-						EStep nextStep = (EStep) iterator2.next();
-						if( this.isGradable(nextStep.getType()) ){
-							modelAndView.addObject(NEXT_STEP, nextStep);
-							break;
-						} else {
-							modelAndView.addObject(NEXT_STEP, null);
-						}
+					if( foundCurrentStep == false) {
+						foundCurrentStep = true;
+					} else {
+						foundCurrentStep = false;
+					}
 					//TODO: Hiroki use stepId instead of EStep object as param
 					Map<Group, Set<GradeWorkByWorkgroupAggregate>> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), step);
 					
 					modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
+					this.stripHTMLFromBody(step);
 					modelAndView.addObject(STEP, step);
+					modelAndView.addObject(NEXT_STEP, null);
 					modelAndView.addObject(ACTIVITY,activity);
 					modelAndView.addObject(PROJECT_TITLE,project.getTitle());
 					modelAndView.addObject(CURNIT_ID,curnitId);
 					
 					modelAndView.addObject(GradeByStepController.RUN_ID, runId);
-					return modelAndView;
 				}// if
 			}// for
-			
 		}
-		
-//		getGradeWorkByStepAggregate(Long runId,
-//				EStep step)
 
 		
         return modelAndView;
 	}
 
-	private void strip(String prompt) {
-		System.out.println("BEFORE " + prompt);
-		
-		StringUtils.contains("<body>", prompt);
-		String substringBetween = StringUtils.substringBetween("<body>", "</body>");
-		
-		System.out.println("AFTER " + substringBetween);
-		
-		
+	/**
+	 * Checks if this step is gradable
+	 * 
+	 * @param someStep
+	 * @return
+	 */
+	protected boolean stepIsGradable(EStep someStep) {
+		if( someStep.getType().contains("Note") || someStep.getType().contains("Student Assessment")) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Grabs the html within the middle of the html body
+	 * 
+	 * @param someStep - the current step
+	 */
+	public void stripHTMLFromBody(EStep someStep) {
+		EList rim = someStep.getRim();
+		for (Iterator iterator = rim.iterator(); iterator.hasNext();) {
+			ERim someRim = (ERim) iterator.next();
+			
+			someRim.setPrompt(this.extractBody(someRim.getPrompt()));
+			
+			System.out.println("the prompt " + someRim.getPrompt());
+			
+		}
+	}
+	
+	public String extractBody(String prompt) {
+		  int start = prompt.indexOf("<body>");
+		  int end = prompt.indexOf("</body>");
+		  String extractedBody = "";
+		  
+		  if (start != -1 && end != -1) {
+		   extractedBody = prompt.substring(start+6, end);
+		   return extractedBody;
+		  }   
+		  return prompt;
 	}
 
 	protected boolean isGradable(String stepType) {
