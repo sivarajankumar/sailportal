@@ -22,6 +22,7 @@
 
 <div class="center">
 	<a href="../index.html"><img id="none" src="../<spring:theme code="studentbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
+	<p style="position: absolute;top:-5px;text-align:right;"> 
 </div>
 	    <div>
 	</div>
