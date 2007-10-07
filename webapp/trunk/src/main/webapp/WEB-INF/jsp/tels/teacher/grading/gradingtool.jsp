@@ -56,9 +56,17 @@
 @charset "UTF-8";
 /* CSS Document */
 
-table, tr, td {
+table {
 	border-collapse: collapse;
-	border:0;
+	border:3;
+	border-color: #2647A0;
+	padding: 0px;
+		
+} 
+
+tr, td {
+	border-collapse: collapse;
+	border:1px;
 	padding: 0px;
 	margin: 0px
 }
@@ -110,17 +118,29 @@ table, tr, td {
 	color: #FFFFFF;
 	}
 
-.promptDiv {
-	background-color:#FFFFFF;
+.promptTd {
+	vertical-align:top;
+	background-color:#D3E1E4;
+
 }
 
 .answerDiv {
 	height: 100%;
+	vertical-align:top;
+	
 }
-
+.textareaTd {
+vertical-align:bottom;
+padding: 5px;
+<!-- border: px solid #000000;-->
+}
 textarea {
 width: 100%;
+background-color:#FFF1F8;
+border: 1px solid #000000;
 }
+
+
 
 </style>
 <!--JavaScript source files for the entire YUI Library:--> 
@@ -272,14 +292,14 @@ YUI download for details on each of the aggregate files and their contents):-->
 <table id="tableByStep">
   <tr>
   	<td class="column1"><strong>Project: </strong></td>
-    <td id="gradingProjectInfo">SAIL Global Warming: Virtual Earth (Version A) (13731)</td>
+    <td id="gradingProjectInfo">${projectTitle} (${curnitId})</td>
 	<td></td>
   </tr>
   <tr>
   	<td class="column1"><strong>View:</strong></td>
-    <td id="gradingViewInfo">Act 1, Step 5: Your Ecological Footprint Data
+    <td id="gradingViewInfo">Act ${activity.number+1}, Step ${step.number+1}: ${step.title}
     </td>
-    <td><a href="gradebystep.html?runId=${runId}">Return to Step Menu </a> &nbsp &nbsp <a href="gradingtool.html?GRADE_TYPE=step&amp;runId=${runId}&amp;podUUID=dddddddd-6004-0007-0000-001242145646"> View Next Step</a></td>
+    <td><a href="gradebystep.html?runId=${runId}">Return to Step Menu </a> &nbsp &nbsp <c:if test="${!empty nextStep}"><a href="gradingtool.html?GRADE_TYPE=step&amp;runId=${runId}&amp;podUUID=${nextStep.podUUID}"> View Next Step</a></c:if></td>
   <tr>
     <td class="column1"></td>
     <td id="gradingMiniSteps"></td>
@@ -315,7 +335,7 @@ aggregate.value = set of workgroupWorkAggregate
 						
 						<c:set var="workgroupId" value="${workgroupAggregateObj.workgroup.id}"/>
 						<div align="center">
-						<table width="100%" border="1" class="sample">
+						<table width="100%" border="1">
 						<!-- table header -->
 									<tr>
 										<td width="40%">
@@ -340,8 +360,21 @@ aggregate.value = set of workgroupWorkAggregate
 										</td>
 									</tr>
 							<!-- End Table Header -->
-								
-					
+							<!-- for no work in work group -->
+								<c:set var="noWorkFound" value="true"/>
+								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
+									<c:forEach var="rimFromStep" items="${step.rim}">
+											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
+												<c:set var="noWorkFound" value="false"/>
+											</c:if>
+									</c:forEach>
+								</c:forEach>
+							
+						
+							<c:if test="${noWorkFound == true}">
+								<tr><td colspan="3" align="center">There is no work for this workgroup</td></tr>
+							</c:if>
+							<!-- no work found -->
 								<c:set var="cellCounter" value="0"/>
 								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
 									<c:forEach var="rimFromStep" items="${step.rim}">
@@ -359,33 +392,31 @@ aggregate.value = set of workgroupWorkAggregate
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
 											<c:set var="count" value="${count+1}"/>
 											<tr>
-				                          		<td>
+				                          		<td class="promptTd">
 				                          		
-				                          		
-				                          		<div class="promptDiv">
 				                          		<c:choose>
 												      <c:when test="${empty rimFromStep.prompt}">
 												      There is no question
 												      </c:when>
 												
 												      <c:otherwise>
-												      	
-												      ${rimFromStep.prompt}
+																${rimFromStep.prompt}
 												      </c:otherwise>
 												   </c:choose>
 				                          		
+				                          		
+				                          		
 				                          		<!-- print out part if more than one element -->
-				                          		</div>
 				                          		</td>
 				                          		<c:choose>
 												      <c:when test="${count == 1}">
-												     	<td rowspan="${cellCounter*2}">
+												     	<td rowspan="${cellCounter*2}" class="textareaTd">
 												     	<!-- do annotation magic here -->
 												     	<c:set var="commentDone" value="false"/>
 												     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
 																	
 																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
-																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
+																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comment'}">
 																		
 																			<c:if test="${annotation.entityUUID == step.podUUID}">
 																			<c:if test="${commentDone == false}">
@@ -397,7 +428,7 @@ aggregate.value = set of workgroupWorkAggregate
 																		</c:forEach>
 																	</c:forEach>
 														    <div id="div_${sockPart.podId}_${sockPart.rimName}_${workgroupId}" >
-																	<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6" style="background-color:#FFCCCC" onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')" >${comment}</textarea>
+																	<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6"  onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')" >${comment}</textarea>
 															</div>
 												     	
 												     	</td>
