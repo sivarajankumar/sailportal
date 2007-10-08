@@ -69,7 +69,24 @@ public class ChangePasswordParametersValidatorTest extends TestCase{
 		assertTrue(errors.hasErrors());
 		assertEquals(1, errors.getErrorCount());
 		assertNotNull(errors.getFieldError("passwd1"));
+		
+		setUp();
+		params.setPasswd2(EMPTY_PASSWORD);
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("passwd2"));
+		
+		setUp();
+		params.setPasswd1(EMPTY_PASSWORD);
+		params.setPasswd2(EMPTY_PASSWORD);
+		validator.validate(params, errors);
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("passwd1"));
 	}
+	
 	
 	public void testIllegalPasswordsValidate() {
 		for (String illegalPassword : ILLEGAL_PASSWORDS) {
