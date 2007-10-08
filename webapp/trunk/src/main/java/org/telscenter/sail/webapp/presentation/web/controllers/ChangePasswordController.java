@@ -35,7 +35,7 @@ import org.telscenter.sail.webapp.domain.impl.ChangePasswordParameters;
 
 
 /**
- * The Controller for Change Password page for WISE students
+ * The Controller for Change Password page for WISE users
  *
  * @author Patrick Lawler
  *         Sally Ahn
