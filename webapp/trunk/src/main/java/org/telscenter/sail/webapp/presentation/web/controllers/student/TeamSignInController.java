@@ -31,9 +31,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.UserService;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,23 +42,26 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.presentation.web.TeamSignInForm;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * Controller for handling team sign-ins before students start the project
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class TeamSignInController extends SimpleFormController {
 
 	private UserService userService;
 	
-	private WorkgroupService workgroupService;
+	private WISEWorkgroupService workgroupService;
 	
 	private RunService runService;
 	
 	private HttpRestTransport httpRestTransport;
 
+	private String retrieveAnnotationBundleUrl = "/student/getannotationbundle.html";
+	
 	public TeamSignInController() {
 		setSessionForm(true);
 	}
@@ -82,7 +85,6 @@ public class TeamSignInController extends SimpleFormController {
 		User user3 = userService.retrieveUserByUsername(teamSignInForm.getUsername3());
 		
 		Run run = runService.retrieveById(teamSignInForm.getRunId());
-		//List<Workgroup> workgrouplist = workgroupService.getWorkgroupListByOfferingAndUser(run, user1);
 
 		Set<User> members = new HashSet<User>();
 		String workgroupname = "Workgroup for " + user1.getUserDetails().getUsername();
@@ -101,8 +103,9 @@ public class TeamSignInController extends SimpleFormController {
 		}
 
 		Workgroup workgroup = null;
+		Group period = run.getPeriodOfStudent(user1);
 		if (workgroups.size() == 0) {
-			workgroup = workgroupService.createWorkgroup(workgroupname, members, run);
+			workgroup = workgroupService.createWISEWorkgroup(workgroupname, members, run, period);
 		} else if (workgroups.size() == 1) {
 			workgroup = workgroups.get(0);
 			workgroupService.addMembers(workgroup, members);
@@ -114,10 +117,21 @@ public class TeamSignInController extends SimpleFormController {
 			workgroupService.addMembers(workgroup, members);
 		}
 		
+		String jnlpUrl = this.httpRestTransport.getBaseUrl() + "/offering/" + 
+	        run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
+	        workgroup.getSdsWorkgroup().getSdsObjectId();
+		
+	    String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
+	       request.getServerPort() + request.getContextPath();
+	    
+	    String entireUrl = jnlpUrl + 
+	        "?emf.annotation.bundle.url=" +
+	        portalUrl +
+	        retrieveAnnotationBundleUrl + 
+	        "?workgroupId=" + workgroup.getId();
+	    
 		ModelAndView modelAndView = 
-			new ModelAndView(new RedirectView(this.httpRestTransport.getBaseUrl() + "/offering/" + 
-					run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
-					workgroup.getSdsWorkgroup().getSdsObjectId()));
+			new ModelAndView(new RedirectView(entireUrl));
 		modelAndView.addObject("closeokay", true);
 		
 		return modelAndView;
@@ -145,7 +159,7 @@ public class TeamSignInController extends SimpleFormController {
 	/**
 	 * @param workgroupService the workgroupService to set
 	 */
-	public void setWorkgroupService(WorkgroupService workgroupService) {
+	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
 	}
 
