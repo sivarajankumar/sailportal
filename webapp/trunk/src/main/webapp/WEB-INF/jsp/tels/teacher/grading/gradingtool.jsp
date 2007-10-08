@@ -56,19 +56,44 @@
 @charset "UTF-8";
 /* CSS Document */
 
-table {
-	border-collapse: collapse;
-	border:3;
-	border-color: #2647A0;
-	padding: 0px;
-		
-} 
 
-tr, td {
+table.sample {
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 1px;
+	border-style: solid solid solid solid;
+	border-color: gray gray gray gray;
 	border-collapse: collapse;
-	border:1px;
-	padding: 0px;
-	margin: 0px
+	background-color: white;
+}
+table.sample th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: inset inset inset inset;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.sample td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: inset inset inset inset;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+
+table.view {
+	border-width: 0px;
+	border-spacing: 1px;
+	padding: 5px;
+}
+table.view th {
+	border-width: 0px;
+	padding: 4px;
+}
+table.view td {
+	border-width: 0px;
+	padding: 4px;
 }
 
 #tableByStep {
@@ -131,8 +156,7 @@ tr, td {
 }
 .textareaTd {
 vertical-align:bottom;
-padding: 5px;
-<!-- border: px solid #000000;-->
+padding: 0px;
 }
 textarea {
 width: 100%;
@@ -268,7 +292,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 			//change the comment
 			YAHOO.log('comente '+ tel[0].value);
 			for(var i = 0; i < el.length; i++) {
-				el[i].innerHTML = "saved!";
+				el[i].innerHTML = "information saved!";
 			}
 			
 		
@@ -289,20 +313,20 @@ YUI download for details on each of the aggregate files and their contents):-->
 <%@ include file="gradingtoolHeader.jsp"%>
 <h2>Grading Tool</h2>
 
-<table id="tableByStep">
+<table class="view">
   <tr>
-  	<td class="column1"><strong>Project: </strong></td>
-    <td id="gradingProjectInfo">${projectTitle} (${curnitId})</td>
+  	<td><strong>Project: </strong></td>
+    <td>${projectTitle} (${curnitId})</td>
 	<td></td>
   </tr>
   <tr>
-  	<td class="column1"><strong>View:</strong></td>
-    <td id="gradingViewInfo">Act ${activity.number+1}, Step ${step.number+1}: ${step.title}
+  	<td><strong>View:</strong></td>
+    <td>Act ${activity.number+1}, Step ${step.number+1}: ${step.title}
     </td>
     <td><a href="gradebystep.html?runId=${runId}">Return to Step Menu </a> &nbsp &nbsp <c:if test="${!empty nextStep}"><a href="gradingtool.html?GRADE_TYPE=step&amp;runId=${runId}&amp;podUUID=${nextStep.podUUID}"> View Next Step</a></c:if></td>
   <tr>
-    <td class="column1"></td>
-    <td id="gradingMiniSteps"></td>
+    <td></td>
+    <td></td>
 	<td></td>
   </tr>
   </table>
@@ -335,7 +359,7 @@ aggregate.value = set of workgroupWorkAggregate
 						
 						<c:set var="workgroupId" value="${workgroupAggregateObj.workgroup.id}"/>
 						<div align="center">
-						<table width="100%" border="1">
+						<table width="100%" border="1" class="sample">
 						<!-- table header -->
 									<tr>
 										<td width="40%">
@@ -392,7 +416,7 @@ aggregate.value = set of workgroupWorkAggregate
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
 											<c:set var="count" value="${count+1}"/>
 											<tr>
-				                          		<td class="promptTd">
+				                          		<td>
 				                          		
 				                          		<c:choose>
 												      <c:when test="${empty rimFromStep.prompt}">
@@ -403,14 +427,11 @@ aggregate.value = set of workgroupWorkAggregate
 																${rimFromStep.prompt}
 												      </c:otherwise>
 												   </c:choose>
-				                          		
-				                          		
-				                          		
 				                          		<!-- print out part if more than one element -->
 				                          		</td>
 				                          		<c:choose>
 												      <c:when test="${count == 1}">
-												     	<td rowspan="${cellCounter*2}" class="textareaTd">
+												     	<td rowspan="${cellCounter*2}">
 												     	<!-- do annotation magic here -->
 												     	<c:set var="commentDone" value="false"/>
 												     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
@@ -451,6 +472,9 @@ aggregate.value = set of workgroupWorkAggregate
 																			<c:if test="${annotation.entityUUID == step.podUUID}">
 																			<c:if test="${scoreDone == false}">
 																				<c:set var="score" value="${annotation.contents}"/>
+																				<c:if test="${empty score}">
+																					<c:set var="score" value="no score"/>
+																				</c:if>
 																				<c:set var="scoreDone" value="true"/>
 																			</c:if>
 																			</c:if>
@@ -458,16 +482,14 @@ aggregate.value = set of workgroupWorkAggregate
 									
 																	</c:forEach>
 															</c:forEach>
-															<input class="score-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" type="text" size="5" value="${score}"> 
+															<input class="score-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" type="text" size="9" value="${score}"/> 
 																	<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
 																			<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}','${runId}')">Save</button></em>
 																	</span>
 															<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" style="display: inline; width: 12%;"></div>
 														     	
-												     	
 												     	</td>
 												      </c:when>
-												
 												      <c:otherwise>
 														  <!-- no cell-->
 <!--												      <td >nope</td>-->
@@ -480,15 +502,27 @@ aggregate.value = set of workgroupWorkAggregate
 												<!-- The users entrie -->
 												<td>
 												
-												<c:forEach var="sockEntry" items="${sockPart.sockEntries}">
-												<div class="answerDiv">
-		  			 									${sockEntry.value}
-		  			 							</div>
-		  			 							</c:forEach>
+													<c:forEach var="sockEntry" items="${sockPart.sockEntries}">
+													<div class="answerDiv">
+													
+															<!-- if they answered it or not -->
+															
+															<c:choose>
+														      <c:when test="${empty sockEntry.value}">
+														      		There was no reponse
+														      </c:when>
+														
+														      <c:otherwise>
+																		${sockEntry.value}
+														      </c:otherwise>
+														   </c:choose>
+															
+															
+			  			 									
+			  			 							</div>
+			  			 							</c:forEach>
 		  			 							
 		  			 							</td>
-		  			 							<!-- The teacher box -->
-		  			 							<!-- check for annotation -->
 		  			 							
 												<!-- no row -->
 												<!-- no row -->
