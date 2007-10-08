@@ -94,15 +94,23 @@ public class RunListController extends AbstractController {
  
 		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
 		List<Run> runList = this.runService.getRunList();
+		// this is a temporary solution to filtering out runs that the logged-in user owns.
+		// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
+		// start temporary code
+		List<Run> runList2 = new ArrayList<Run>();
+		for (Run run : runList) {
+			if (run.getOwners().contains(user)) {
+				runList2.add(run);
+			}
+		}
+		// end temporary code
 		List<Run> current_run_list = new ArrayList<Run>();
 		List<Run> ended_run_list = new ArrayList<Run>();
 		Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
-		for (Run run : runList) {
+		for (Run run : runList2) {
 			List<Workgroup> workgroupList = this.workgroupService
 					.getWorkgroupListByOfferingAndUser(run, user);
-			workgroupList = this.workgroupService
-					.createPreviewWorkgroupForOfferingIfNecessary(run,
-							workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
+
 			workgroupMap.put(run, workgroupList);
 			if (run.isEnded()) {
 				ended_run_list.add(run);

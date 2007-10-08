@@ -24,9 +24,11 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -103,6 +105,9 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		sdsOffering.setSdsObjectId(new Long(3));
 		Run run = new RunImpl();
 		run.setSdsOffering(sdsOffering);
+		Set<User> owners = new HashSet<User>();
+		owners.add(user);
+		run.setOwners(owners);
 
 		this.expectedRunList = new LinkedList<Run>();
 		this.expectedRunList.add(run);
@@ -139,15 +144,7 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		EasyMock.expect(
 				this.mockWorkgroupService.getWorkgroupListByOfferingAndUser(
 						offering, this.user)).andReturn(emptyWorkgroupList);
-		EasyMock
-		.expect(
-				this.mockWorkgroupService
-				.createPreviewWorkgroupForOfferingIfNecessary(
-						offering,
-						emptyWorkgroupList,
-						this.user,
-						RunListController.DEFAULT_PREVIEW_WORKGROUP_NAME))
-						.andReturn(emptyWorkgroupList);
+
 		EasyMock.replay(this.mockRunService);
 		EasyMock.replay(this.mockWorkgroupService);
 
