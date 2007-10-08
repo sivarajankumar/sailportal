@@ -95,9 +95,6 @@ public class StartProjectController extends AbstractController {
 //							"groups for the run " + run.getSdsOffering().getName());
 		}
 		
-		//String url = 
-		//"http://rails.dev.concord.org/sds/1/offering/4/jnlp/833/view?emf.annotation.bundle.url=http://concord.org/~scytacki/test-annotation-bundle.xmi";
-
 		String jnlpUrl = this.httpRestTransport.getBaseUrl() + "/offering/" + 
 		    run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
 		    workgroup.getSdsWorkgroup().getSdsObjectId();
@@ -137,12 +134,4 @@ public class StartProjectController extends AbstractController {
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
 	}
-
-	/**
-	 * @param portalBaseUrlString the portalBaseUrlString to set
-	 */
-	//public void setPortalBaseUrlString(String portalBaseUrlString) {
-	//	this.portalBaseUrlString = portalBaseUrlString;
-	//}
-
 }
