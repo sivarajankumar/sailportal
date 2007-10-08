@@ -437,19 +437,21 @@ aggregate.value = set of workgroupWorkAggregate
 												     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
 																	
 																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
-																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comment'}">
+																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
 																		
 																			<c:if test="${annotation.entityUUID == step.podUUID}">
-																			<c:if test="${commentDone == false}">
-																				<c:set var="comment" value="${annotation.contents}"/>
-																				<c:set var="commentDone" value="true"/>
-																			</c:if>
+																			  <c:if test="${empty annotation.entityName}" >
+																			     <c:if test="${commentDone == false}">
+																				   <c:set var="comment" value="${annotation.contents}"/>
+																				   <c:set var="commentDone" value="true"/>
+																			     </c:if>
+																			  </c:if>
 																			</c:if>
 																		</c:if>
 																		</c:forEach>
 																	</c:forEach>
 														    <div id="div_${sockPart.podId}_${sockPart.rimName}_${workgroupId}" >
-																	<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6"  onKeyPress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')" >${comment}</textarea>
+																	<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6"  onkeypress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')" >${comment}</textarea>
 															</div>
 												     	
 												     	</td>
