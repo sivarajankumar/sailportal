@@ -68,8 +68,12 @@ public class CreateDefaultOfferings {
                 		"http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24265.jar");
         hashmap
                 .put(
-                		"Global Warming", 
+                		"Global Warming stable", 
                 		"http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-26100.jar?version=9");
+        hashmap
+                .put(
+                		"Global Warming revised for October 15 run in North Carolina", 
+                		"http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-25816.jar");        
         hashmap
                 .put(
                 		"Airbags", 
