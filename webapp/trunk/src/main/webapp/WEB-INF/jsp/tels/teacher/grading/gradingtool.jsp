@@ -305,8 +305,8 @@ YUI download for details on each of the aggregate files and their contents):-->
     tabView.set('activeIndex', 0); 
     
     //create logger
-    var myContainer = document.body.appendChild(document.createElement("div")); 
-	var myLogReader = new YAHOO.widget.LogReader(myContainer); 
+    ///var myContainer = document.body.appendChild(document.createElement("div")); 
+	//var myLogReader = new YAHOO.widget.LogReader(myContainer); 
 </script>
 
 <body class=" yui-skin-sam">
@@ -396,15 +396,18 @@ aggregate.value = set of workgroupWorkAggregate
 							
 						
 							<c:if test="${noWorkFound == true}">
-								<tr><td colspan="3" align="center">There is no work for this workgroup</td></tr>
+								<tr><td colspan="3" align="center">No work submitted yet.</td></tr>
 							</c:if>
 							<!-- no work found -->
 								<c:set var="cellCounter" value="0"/>
 								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
 									<c:forEach var="rimFromStep" items="${step.rim}">
+										<c:set var="cellCounter" value="${cellCounter+1}"/>
+									
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
 												<c:set var="cellCounter" value="${cellCounter+1}"/>
 											</c:if>
+								
 									</c:forEach>
 								</c:forEach>
 								<c:set var="count" value="0"/>
@@ -412,21 +415,11 @@ aggregate.value = set of workgroupWorkAggregate
 								
 									
 									<c:forEach var="rimFromStep" items="${step.rim}">
-										
-											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
+										<c:if test="${sockPart.rimName == rimFromStep.rimname}">
 											<c:set var="count" value="${count+1}"/>
 											<tr>
 				                          		<td>
-				                          		
-				                          		<c:choose>
-												      <c:when test="${empty rimFromStep.prompt}">
-												      There is no question
-												      </c:when>
-												
-												      <c:otherwise>
-																${rimFromStep.prompt}
-												      </c:otherwise>
-												   </c:choose>
+				                          		${rimFromStep.prompt}
 				                          		<!-- print out part if more than one element -->
 				                          		</td>
 				                          		<c:choose>
@@ -504,7 +497,7 @@ aggregate.value = set of workgroupWorkAggregate
 												<!-- The users entrie -->
 												<td>
 												
-													<c:forEach var="sockEntry" items="${sockPart.sockEntries}">
+													<c:forEach var="sockEntry" varStatus="sockStatus" items="${sockPart.sockEntries}">
 													<div class="answerDiv">
 													
 															<!-- if they answered it or not -->
@@ -544,10 +537,6 @@ aggregate.value = set of workgroupWorkAggregate
 		</div>
 		<!-- end create tab content -->
 </div>
-<div id="myLogger"></div>
-<script type="text/javascript">
-var myLogReader = new YAHOO.widget.LogReader("myLogger");
-</script>
-<div id="container"></div>
+
 </body>
 </html>
