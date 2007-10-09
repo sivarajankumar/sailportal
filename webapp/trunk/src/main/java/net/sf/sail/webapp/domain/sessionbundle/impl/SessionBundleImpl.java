@@ -57,7 +57,7 @@ public class SessionBundleImpl implements SessionBundle {
 	 */
 	public ESessionBundle getESessionBundle() {
 		EPortfolio portfolio = PortfolioLoader.loadPortfolio(bundleString);
-		ESessionBundle eSessionBundle = (ESessionBundle) portfolio.getSessionBundles().get(0);
+		ESessionBundle eSessionBundle = (ESessionBundle) portfolio.getSessionBundles().get(portfolio.getSessionBundles().size()-1);
 
 		return eSessionBundle;
 	}
