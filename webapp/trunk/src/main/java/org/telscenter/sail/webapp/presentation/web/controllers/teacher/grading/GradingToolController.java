@@ -155,14 +155,16 @@ public class GradingToolController extends AbstractController {
 		EList rim = someStep.getRim();
 		for (Iterator iterator = rim.iterator(); iterator.hasNext();) {
 			ERim someRim = (ERim) iterator.next();
-			
 			someRim.setPrompt(this.extractBody(someRim.getPrompt()));
-			
-			System.out.println("the prompt " + someRim.getPrompt());
-			
 		}
 	}
 	
+	/**
+	 * extract the html from the body
+	 * 
+	 * @param prompt
+	 * @return
+	 */
 	public String extractBody(String prompt) {
 		  int start = prompt.indexOf("<body>");
 		  int end = prompt.indexOf("</body>");
@@ -175,6 +177,12 @@ public class GradingToolController extends AbstractController {
 		  return prompt;
 	}
 
+	/**
+	 * checks if this step is gradable
+	 * 
+	 * @param stepType
+	 * @return
+	 */
 	protected boolean isGradable(String stepType) {
 		if( stepType.equals("Note")) {
 			return true;
