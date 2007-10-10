@@ -28,8 +28,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
 
   
 
@@ -50,123 +49,8 @@
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/logger/assets/skins/sam/logger.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/tabview/assets/skins/sam/tabview.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/treeview/assets/skins/sam/treeview.css"> 
- <link href="../../<spring:theme code="teachergradingtooluistylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" /> 
-<style>
-@charset "UTF-8";
-/* CSS Document */
+<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /> 
 
-
-table.sample {
-	border-width: 1px 1px 1px 1px;
-	border-spacing: 1px;
-	border-style: solid solid solid solid;
-	border-color: gray gray gray gray;
-	border-collapse: collapse;
-	background-color: white;
-}
-table.sample th {
-	border-width: 1px 1px 1px 1px;
-	padding: 1px 1px 1px 1px;
-	border-style: inset inset inset inset;
-	border-color: gray gray gray gray;
-	background-color: white;
-	-moz-border-radius: 0px 0px 0px 0px;
-}
-table.sample td {
-	border-width: 1px 1px 1px 1px;
-	padding: 1px 1px 1px 1px;
-	border-style: inset inset inset inset;
-	border-color: gray gray gray gray;
-	background-color: white;
-	-moz-border-radius: 0px 0px 0px 0px;
-}
-
-table.view {
-	border-width: 0px;
-	border-spacing: 1px;
-	padding: 5px;
-}
-table.view th {
-	border-width: 0px;
-	padding: 4px;
-}
-table.view td {
-	border-width: 0px;
-	padding: 4px;
-}
-
-#tableByStep {
-	border: 0px solid #666666;
-	border-collapse: collapse;
-	background-color: #FFFFFF;
-	padding: 0px;
-	margin: 0px;
-	cell-padding:5px;
-	}
-
-#tableByStep .column1 {
-	color:#000000;
-	padding: 5px;
-}
-
-#tableByStep tr {
-	border-bottom: 1px solid #FFFFFF;
-}
-
-#gradingProjectInfo {
-	padding: 5px;
-	}
-	
-#gradingViewInfo {
-	font-size: 1.2em;
-	font-weight: bold;
-	padding: 5px;
-	}
-	
-#gradingMiniSteps {
-	font-size:.8em;
-	padding: 5px;
-	}
-	
-
-#gradingMainTable td {
-	border: 1px solid #000000;
-	padding:5px;
-	}
-
-.tdHeader {
-	height:22px;
-	padding:7px;
-	background-color: #2647A0;
-	font-size:1.0em;
-	color: #FFFFFF;
-	}
-
-.promptTd {
-	vertical-align:top;
-	background-color:#D3E1E4;
-
-}
-
-.answerDiv {
-	height: 100%;
-	vertical-align:top;
-	
-}
-.textareaTd {
-vertical-align:bottom;
-padding: 0px;
-}
-textarea {
-width: 100%;
-background-color:#FFF1F8;
-border: 1px solid #000000;
-}
-
-
-
-</style>
 <!--JavaScript source files for the entire YUI Library:--> 
  
 <!--Utilities (also aggregated in yahoo-dom-event.js and utilities.js; see readmes in the 
@@ -256,6 +140,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 	
 	function doSubmit(button,podId,rimName,period,workgroupId,runId) {
 			YAHOO.log('podId' + podId);
+			//
 			YAHOO.log('rimName' + rimName);
 			YAHOO.log('pe' + period);
 			YAHOO.log('runId' + runId)
@@ -264,9 +149,9 @@ YUI download for details on each of the aggregate files and their contents):-->
 			
 			//button.disabled = 'true';
 			
-			var savedText = 'saved-'+podId+'_'+rimName+'_'+period+'_'+workgroupId;
-			var commentedText = 'comment-'+podId+'_'+rimName+'_'+period+'_'+workgroupId;
-			var scoreText = 'score-'+podId+'_'+rimName+'_'+period+'_'+workgroupId;
+			var savedText = 'saved-'+podId+'_'+workgroupId;
+			var commentedText = 'comment-'+podId+'_'+workgroupId;
+			var scoreText = 'score-'+podId+'_'+workgroupId;
 			YAHOO.log( "SAVED " + scoreText);
 			 //alert('found: ' + YAHOO.util.Dom.getElementsByClassName(savedText, 'div').length + ' elements');
 			
@@ -305,25 +190,27 @@ YUI download for details on each of the aggregate files and their contents):-->
     tabView.set('activeIndex', 0); 
     
     //create logger
-    ///var myContainer = document.body.appendChild(document.createElement("div")); 
-	//var myLogReader = new YAHOO.widget.LogReader(myContainer); 
+    var myContainer = document.body.appendChild(document.createElement("div")); 
+	var myLogReader = new YAHOO.widget.LogReader(myContainer); 
 </script>
 
 <body class=" yui-skin-sam">
 <%@ include file="gradingtoolHeader.jsp"%>
 <h2>Grading Tool</h2>
 
+<div id="tableProjectView">
+
 <table class="view">
   <tr>
-  	<td><strong>Project: </strong></td>
+  	<td><em>Project:</em> </td>
     <td>${projectTitle} (${curnitId})</td>
 	<td></td>
   </tr>
   <tr>
-  	<td><strong>View:</strong></td>
-    <td>Act ${activity.number+1}, Step ${step.number+1}: ${step.title}
+  	<td><em>View:</em></td>
+    <td id="viewStep"><strong>Act ${activity.number+1}, Step ${step.number+1}: ${step.title}</strong>
     </td>
-    <td><a href="gradebystep.html?runId=${runId}">Return to Step Menu </a> &nbsp &nbsp <c:if test="${!empty nextStep}"><a href="gradingtool.html?GRADE_TYPE=step&amp;runId=${runId}&amp;podUUID=${nextStep.podUUID}"> View Next Step</a></c:if></td>
+    <td><td id="gradeStepLinks">View Previous Step&nbsp &nbsp<a href="gradebystep.html?runId=${runId}">View Step Menu</a> &nbsp &nbsp <c:if test="${!empty nextStep}"><a href="gradingtool.html?GRADE_TYPE=step&amp;runId=${runId}&amp;podUUID=${nextStep.podUUID}"> View Next Step</a></c:if></td>
   <tr>
     <td></td>
     <td></td>
@@ -331,7 +218,9 @@ YUI download for details on each of the aggregate files and their contents):-->
   </tr>
   </table>
 
-
+</div>  
+<br>
+<br>
 <!-- 
 aggregate.key = period
 aggregate.value = set of workgroupWorkAggregate
@@ -394,40 +283,33 @@ aggregate.value = set of workgroupWorkAggregate
 									</c:forEach>
 								</c:forEach>
 							
-						
-							<c:if test="${noWorkFound == true}">
-								<tr><td colspan="3" align="center">No work submitted yet.</td></tr>
-							</c:if>
 							<!-- no work found -->
-								<c:set var="cellCounter" value="0"/>
-								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
-									<c:forEach var="rimFromStep" items="${step.rim}">
-										<c:set var="cellCounter" value="${cellCounter+1}"/>
+							
+							<c:choose>
+								<c:when test="${noWorkFound == true}">
+									<tr><td colspan="3" align="center">No work submitted yet.</td></tr>
+								</c:when>
+								<c:otherwise>
+									<!-- do the rest of the table -->
 									
-											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
-												<c:set var="cellCounter" value="${cellCounter+1}"/>
-											</c:if>
+									<c:set var="count" value="0"/>
 								
-									</c:forEach>
-								</c:forEach>
-								<c:set var="count" value="0"/>
-								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
-								
-									
-									<c:forEach var="rimFromStep" items="${step.rim}">
-										<c:if test="${sockPart.rimName == rimFromStep.rimname}">
-											<c:set var="count" value="${count+1}"/>
+										<c:forEach var="rimFromStep" varStatus="rimListStatus" items="${step.rim}">
 											<tr>
-				                          		<td>
-				                          		${rimFromStep.prompt}
-				                          		<!-- print out part if more than one element -->
-				                          		</td>
-				                          		<c:choose>
-												      <c:when test="${count == 1}">
-												     	<td rowspan="${cellCounter*2}">
-												     	<!-- do annotation magic here -->
-												     	<c:set var="commentDone" value="false"/>
-												     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
+						                          		<td class="questionField">
+						                          		<!-- prompt -->
+						                          		${rimFromStep.prompt}
+						                          		<!-- print out part if more than one element -->
+						                          		</td>
+						                          		
+						                          		<!-- create the textbox -->
+						                          		
+															<c:if test="${rimListStatus.first}">
+																   <td rowspan="${fn:length(step.rim)*2}">
+																   <div align="center">
+																   	<c:set var="commentDone" value="false"/>
+																   	<c:set var="commentAnnotation" value=" "/>
+												     				<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
 																	
 																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
 																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
@@ -435,7 +317,7 @@ aggregate.value = set of workgroupWorkAggregate
 																			<c:if test="${annotation.entityUUID == step.podUUID}">
 																			  <c:if test="${empty annotation.entityName}" >
 																			     <c:if test="${commentDone == false}">
-																				   <c:set var="comment" value="${annotation.contents}"/>
+																				   <c:set var="commentAnnotation" value="${annotation}"/>
 																				   <c:set var="commentDone" value="true"/>
 																			     </c:if>
 																			  </c:if>
@@ -443,89 +325,78 @@ aggregate.value = set of workgroupWorkAggregate
 																		</c:if>
 																		</c:forEach>
 																	</c:forEach>
-														    <div id="div_${sockPart.podId}_${sockPart.rimName}_${workgroupId}" >
-																	<textarea id="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="comment-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" cols="45" rows="6"  onkeypress="enableButton(this,'${sockPart.podId}','${sockPart.rimName}','${period}')" >${comment}</textarea>
-															</div>
-												     	
-												     	</td>
-												      </c:when>
+																    <div id="div_${commentAnnotation.entityUUID}_${workgroupId}" >
+																			<textarea id="comment-${commentAnnotation.entityUUID}_${workgroupId}" class="comment-${commentAnnotation.entityUUID}_${workgroupId}" cols="45" rows="6"  onkeypress="enableButton(this,'${commentAnnotation.entityUUID}','${workgroupId}','${period}')" >${commentAnnotation.contents}</textarea>
+																	</div>
+																   
+																   </div>
+																   </td>   		
+															</c:if>
+														  <!-- create the scoring -->
+						                          		
+						                          			<c:if test="${rimListStatus.first}">
+																   <td rowspan="${fn:length(step.rim)*2}">
+																   
+																    <div align="center">
+																	<c:set var="scoreDone" value="false"/>
+																	<c:set var="scoreAnnotation" value=" "/>
+															     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
+																				
+																				<c:forEach var="annotation" items="${annotationGroup.annotations}">
+																					<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/score'}">
+																						<c:if test="${annotation.entityUUID == step.podUUID}">
+																						<c:if test="${scoreDone == false}">
+																							<c:set var="score" value="${annotation.contents}"/>
+																							<c:set var="scoreAnnotation" value="${annotation}"/>
+																							<c:if test="${empty score}">
+																								<c:set var="score" value="unscored"/>
+																							</c:if>
+																							<c:set var="scoreDone" value="true"/>
+																						</c:if>
+																						</c:if>
+																					</c:if>
 												
-												      <c:otherwise>
-														  <!-- no cell-->
-<!--												      <td >nope</td>-->
-												      </c:otherwise>
-												   </c:choose>
-				                          	
-				                          		<c:choose>
-												      <c:when test="${count == 1}">
-												     	<td rowspan="${cellCounter*2}">
-												     		<c:set var="scoreDone" value="false"/>
-												     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
-																	
-																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
-																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/score'}">
-																			<c:if test="${annotation.entityUUID == step.podUUID}">
-																			<c:if test="${scoreDone == false}">
-																				<c:set var="score" value="${annotation.contents}"/>
-																				<c:if test="${empty score}">
-																					<c:set var="score" value="no score"/>
-																				</c:if>
-																				<c:set var="scoreDone" value="true"/>
-																			</c:if>
-																			</c:if>
-																		</c:if>
-									
-																	</c:forEach>
-															</c:forEach>
-															<input class="score-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" type="text" size="9" value="${score}"/> 
-																	<span id="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
-																			<button type="submit" name="pushbutton-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" onClick="javascript:doSubmit(this,'${sockPart.podId}','${sockPart.rimName}','${period}','${workgroupId}','${runId}')">Save</button></em>
-																	</span>
-															<div class="saved-${sockPart.podId}_${sockPart.rimName}_${period}_${workgroupId}" style="display: inline; width: 12%;"></div>
-														     	
-												     	</td>
-												      </c:when>
-												      <c:otherwise>
-														  <!-- no cell-->
-<!--												      <td >nope</td>-->
-												      </c:otherwise>
-												   </c:choose>
-				                          	
-				                          		
-				             				</tr>
-											<tr>
-												<!-- The users entrie -->
-												<td>
-												
-													<c:forEach var="sockEntry" varStatus="sockStatus" items="${sockPart.sockEntries}">
-													<div class="answerDiv">
-													
-															<!-- if they answered it or not -->
-															
-															<c:choose>
-														      <c:when test="${empty sockEntry.value}">
-														      		There was no reponse
-														      </c:when>
-														
-														      <c:otherwise>
-																		${sockEntry.value}
-														      </c:otherwise>
-														   </c:choose>
-															
-															
-			  			 									
-			  			 							</div>
-			  			 							</c:forEach>
-		  			 							
-		  			 							</td>
-		  			 							
-												<!-- no row -->
-												<!-- no row -->
-												</tr>
-                    						</c:if>
-									</c:forEach>
-								</c:forEach>
-									
+																				</c:forEach>
+																		</c:forEach>
+																		<input class="score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="9" value="${score}"/> 
+																				<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
+																						<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save</button></em>
+																				</span>
+																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 12%;"></div>																   
+																		</div>	   
+																   </td>   		
+															</c:if>
+						                          		
+						                     </tr>
+						                     <tr>
+						                          		<td>
+						                          		<!--answer -->
+						                          			<div class="answerDiv">
+							                          			<c:set var="sockPartFound" value="false"/>
+							                          			<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
+							                          				<c:if test="${sockPart.rimName == rimFromStep.rimname}">
+							                          					<c:set var="sockPartFound" value="true"/>
+							                          					<c:forEach var="sockEntry" varStatus="sockStatus" items="${sockPart.sockEntries}">
+																							${sockEntry.value}
+				  			 											</c:forEach>
+							                          				</c:if>
+							                          			</c:forEach>
+							                          			
+							                          			<c:choose>
+																      <c:when test="${sockPartFound == 'false'}">
+																      		no response.
+																      </c:when>
+																      <c:otherwise>
+																				<c:set var="sockPartFound" value="false"/>
+																      </c:otherwise>
+														  		 </c:choose>
+						                          			</div>
+						                          		</td>
+						                          		
+						                     </tr>
+										</c:forEach>
+								</c:otherwise>
+							</c:choose>
 							</table>
 							</div>
 					</c:forEach> 
@@ -537,6 +408,10 @@ aggregate.value = set of workgroupWorkAggregate
 		</div>
 		<!-- end create tab content -->
 </div>
-
+<div id="myLogger"></div>
+<script type="text/javascript">
+var myLogReader = new YAHOO.widget.LogReader("myLogger");
+</script>
+<div id="container"></div>
 </body>
 </html>
