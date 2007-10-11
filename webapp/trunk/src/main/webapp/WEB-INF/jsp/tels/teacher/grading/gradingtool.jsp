@@ -274,7 +274,8 @@ aggregate.value = set of workgroupWorkAggregate
 									</tr>
 							<!-- End Table Header -->
 							<!-- for no work in work group -->
-								<c:set var="noWorkFound" value="true"/>
+							<!--  
+								
 								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
 									<c:forEach var="rimFromStep" items="${step.rim}">
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
@@ -283,10 +284,10 @@ aggregate.value = set of workgroupWorkAggregate
 									</c:forEach>
 								</c:forEach>
 							
-							<!-- no work found -->
-							
+							<!-- no work found this is disabled -->
+							<c:set var="noWorkFound" value="true"/>
 							<c:choose>
-								<c:when test="${noWorkFound == true}">
+								<c:when test="${noWorkFound == false}">
 									<tr><td colspan="3" align="center">No work submitted yet.</td></tr>
 								</c:when>
 								<c:otherwise>
