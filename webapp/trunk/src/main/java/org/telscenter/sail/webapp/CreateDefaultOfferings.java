@@ -68,6 +68,18 @@ public class CreateDefaultOfferings {
                 		"http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24265.jar");
         hashmap
                 .put(
+		                "TELS Chemical Reactions - Mt Diablo (Red)", 
+		                "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-28796.jar");
+        hashmap
+                .put(
+		                "TELS Chemical Reactions - Mt Diablo (Green)", 
+		                "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-28797.jar");
+        hashmap
+                .put(
+		                 "TELS Chemical Reactions - Mt Diablo (Blue)", 
+		                 "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-28798.jar");
+        hashmap
+                .put(
                 		"Global Warming stable", 
                 		"http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-26100.jar?version=9");
         hashmap
