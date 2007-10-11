@@ -31,12 +31,11 @@ import java.util.TreeSet;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.GroupDao;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
 import org.acegisecurity.acls.domain.BasePermission;
@@ -151,8 +150,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	 * @throws CurnitNotFoundException
 	 * 
 	 */
-	@Transactional(rollbackFor = { BadRequestException.class,
-			NetworkTransportException.class })
+	@Transactional(rollbackFor = { HttpStatusCodeException.class })
 	public Run createRun(RunParameters runParameters)
 			throws ObjectNotFoundException {
 

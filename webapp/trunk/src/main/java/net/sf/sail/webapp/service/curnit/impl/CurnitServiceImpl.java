@@ -21,13 +21,12 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -73,8 +72,7 @@ public class CurnitServiceImpl implements CurnitService {
 	/**
 	 * @see net.sf.sail.webapp.service.curnit.CurnitService#createCurnit(net.sf.sail.webapp.domain.impl.CurnitParameters)
 	 */
-    @Transactional(rollbackFor = { BadRequestException.class,
-            NetworkTransportException.class })
+    @Transactional(rollbackFor = { HttpStatusCodeException.class })
 	public Curnit createCurnit(CurnitParameters curnitParameters) {
 		//TODO LAW get the sdsCurnit and CurnitImpl from bean
 		SdsCurnit sdsCurnit = new SdsCurnit();

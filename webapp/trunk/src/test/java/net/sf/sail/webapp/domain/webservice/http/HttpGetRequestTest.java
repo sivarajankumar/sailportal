@@ -24,70 +24,54 @@ package net.sf.sail.webapp.domain.webservice.http;
  * 
  */
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.impl.AbstractHttpRestCommand;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.easymock.EasyMock;
 
-public class AbstractHttpRequestTest extends TestCase {
+public class HttpGetRequestTest extends TestCase {
 
 	private static final String URL = "/curnit";
 
-	private AbstractHttpRequest request;
+	protected AbstractHttpRequest request;
 
-	private HttpMethod method;
+	protected HttpMethod method;
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		method = EasyMock.createMock(HttpMethod.class);
 		request = new HttpGetRequest(
 				AbstractHttpRestCommand.REQUEST_HEADERS_ACCEPT,
 				AbstractHttpRestCommand.EMPTY_STRING_MAP, URL, HttpStatus.SC_OK);
-		method = EasyMock.createMock(HttpMethod.class);
 	}
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
-		request = null;
 		method = null;
+		request = null;
 	}
 
+	public void testIsValidResponseStatus_shouldThrowHttpStatusCodeException()
+			throws Exception {
+		EasyMock.expect(method.getStatusText()).andReturn("whatever")
+				.anyTimes();
+		EasyMock.expect(method.getResponseBodyAsString()).andReturn("whatever")
+				.anyTimes();
+		EasyMock.replay(method);
+		try {
+			request.isValidResponseStatus(method, HttpStatus.SC_CONFLICT);
+			fail("Expected HttpStatusCodeException to be thrown");
+		} catch (HttpStatusCodeException e) {
+		}
+		EasyMock.verify(method);
+	}
+	
 	public void testIsValidResponseStatus() throws Exception {
 		EasyMock.replay(method);
 		assertTrue(request.isValidResponseStatus(method, request
 				.getExpectedResponseStatusCode()));
-		EasyMock.verify(method);
-	}
-
-	public void testIsValidResponseStatus_shouldThrowBadRequestException()
-			throws Exception {
-		EasyMock.expect(method.getStatusText()).andReturn("whatever")
-				.anyTimes();
-		EasyMock.expect(method.getResponseBodyAsString()).andReturn("whatever")
-				.anyTimes();
-		EasyMock.replay(method);
-		try {
-			request.isValidResponseStatus(method, HttpStatus.SC_NOT_FOUND);
-			fail("Expected BadRequestException to be thrown");
-		} catch (BadRequestException e) {
-		}
-		EasyMock.verify(method);
-	}
-
-	public void testIsValidResponseStatus_shouldThrowNetworkTransportException()
-			throws Exception {
-		EasyMock.expect(method.getStatusText()).andReturn("whatever")
-				.anyTimes();
-		EasyMock.expect(method.getResponseBodyAsString()).andReturn("whatever")
-				.anyTimes();
-		EasyMock.replay(method);
-		try {
-			request.isValidResponseStatus(method, HttpStatus.SC_BAD_GATEWAY);
-			fail("Expected NetworkTransportException to be thrown");
-		} catch (NetworkTransportException e) {
-		}
 		EasyMock.verify(method);
 	}
 

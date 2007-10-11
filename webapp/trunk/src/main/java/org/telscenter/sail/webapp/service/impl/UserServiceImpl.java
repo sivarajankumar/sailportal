@@ -3,10 +3,9 @@
  */
 package org.telscenter.sail.webapp.service.impl;
 
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserNotFoundException;
 
@@ -15,20 +14,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Hiroki Terashima
- * @version $$Id$$
+ * @version $Id$
  */
 public class UserServiceImpl extends
 		net.sf.sail.webapp.service.impl.UserServiceImpl {
 
 	/**
+	 * @throws DuplicateUsernameException 
 	 * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
 	 */
 	@Override
-	@Transactional(rollbackFor = { DuplicateUsernameException.class,
-			BadRequestException.class, NetworkTransportException.class })
-	public User createUser(final MutableUserDetails userDetails)
-			throws DuplicateUsernameException, BadRequestException,
-			NetworkTransportException {
+	@Transactional(rollbackFor = { DuplicateUsernameException.class, HttpStatusCodeException.class})
+	public User createUser(final MutableUserDetails userDetails) throws DuplicateUsernameException, HttpStatusCodeException {
 
 		org.telscenter.sail.webapp.domain.authentication.MutableUserDetails details = 
 			(org.telscenter.sail.webapp.domain.authentication.MutableUserDetails) userDetails;
@@ -50,15 +47,18 @@ public class UserServiceImpl extends
 				index++;
 				continue;
 			}
-			catch (BadRequestException e) {
-				throw e;
-			}
-			catch (NetworkTransportException e) {
+			catch (HttpStatusCodeException e) {
 				throw e;
 			}
 		}
 	}
 	
+	/**
+	 * Comment me.
+	 * 
+	 * @param userDetails
+	 * @throws UserNotFoundException
+	 */
 	public void checkUserUpdateErrors(MutableUserDetails userDetails) throws UserNotFoundException {
 		//check if the use does exist
 		User user = this.retrieveUser(userDetails);

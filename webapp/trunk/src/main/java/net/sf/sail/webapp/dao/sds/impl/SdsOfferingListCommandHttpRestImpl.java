@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.sf.sail.webapp.dao.sds.CurnitMapNotFoundException;
 import net.sf.sail.webapp.dao.sds.SdsOfferingListCommand;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
@@ -50,6 +51,8 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
 	private static final List<SdsOffering> EMPTY_SDSOFFERING_LIST = Collections
 			.emptyList();
 
+	private SdsCurnitMapGetter curnitMapGetter = new SdsCurnitMapGetter(this);
+
 	/**
 	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
 	 */
@@ -72,8 +75,6 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
 			return EMPTY_SDSOFFERING_LIST;
 		}
 
-		// TODO LAW - there are some significant refactoring opportunities here
-		// in common with SdsOfferingGetCommand
 		List<SdsOffering> sdsOfferingList = new LinkedList<SdsOffering>();
 		for (Element offeringNode : nodeList) {
 			SdsOffering sdsOffering = new SdsOffering();
@@ -91,25 +92,17 @@ public class SdsOfferingListCommandHttpRestImpl extends AbstractHttpRestCommand
 					.getValue()));
 			sdsOffering.setSdsJnlp(sdsJnlp);
 
-			HttpGetRequest curnitMapRequest = this
-					.generateCurnitMapRequest(sdsOffering.getSdsObjectId());
-			sdsOffering.setSdsCurnitMap(this.getSdsCurnitMap(curnitMapRequest));
-
+			try {
+				curnitMapGetter.setSdsOfferingCurnitMap(sdsOffering);
+			} catch (CurnitMapNotFoundException cmnfe) {
+				sdsOffering = cmnfe.getSdsOffering();
+				// TODO LAW note here that if the curnitmap is not found a blank
+				// curnitmap is inserted. There is nothing otherwise to alert us
+				// that a curnitmap was not found
+			}
 			sdsOfferingList.add(sdsOffering);
 		}
 		return sdsOfferingList;
-	}
-
-	protected String getSdsCurnitMap(HttpGetRequest curnitMapRequest) {
-		return convertXMLInputStreamToString(this.transport
-				.get(curnitMapRequest));
-	}
-
-	protected HttpGetRequest generateCurnitMapRequest(Long sdsOfferingId) {
-		final String url = "/offering/" + sdsOfferingId + "/curnitmap";
-
-		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
-				url, HttpStatus.SC_OK);
 	}
 
 	/**

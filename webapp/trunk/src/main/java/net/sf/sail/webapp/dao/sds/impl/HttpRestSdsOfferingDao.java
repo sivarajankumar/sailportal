@@ -21,6 +21,8 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractDao;
+import net.sf.sail.webapp.dao.sds.CurnitMapNotFoundException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsOfferingCreateCommand;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.dao.sds.SdsOfferingGetCommand;
@@ -48,11 +50,12 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	private SdsOfferingCreateCommand createCommand;
 
 	private SdsOfferingUpdateCommand updateCommand;
-	
+
 	private SdsOfferingGetCommand getCommand;
-	
+
 	/**
-	 * @param getCommand the getCommand to set
+	 * @param getCommand
+	 *            the getCommand to set
 	 */
 	@Required
 	public void setGetCommand(SdsOfferingGetCommand getCommand) {
@@ -78,20 +81,28 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	}
 
 	/**
+	 * @param updateCommand
+	 *            the updateCommand to set
+	 */
+	@Required
+	public void setUpdateCommand(SdsOfferingUpdateCommand updateCommand) {
+		this.updateCommand = updateCommand;
+	}
+
+	/**
 	 * @see net.sf.sail.webapp.dao.sds.SdsOfferingDao#getList()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SdsOffering> getList() {
-		//TODO LAW - when offering list is retreived, each curnitmap should also be retrieved.
 		return this.listCommand.execute(this.listCommand.generateRequest());
 	}
-	
 
 	/**
 	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#getById(java.io.Serializable)
 	 */
 	@Override
-	public SdsOffering getById(Long id) throws ObjectNotFoundException {
+	public SdsOffering getById(Long id) throws ObjectNotFoundException,
+			HttpStatusCodeException {
 		SdsOffering sdsOffering = new SdsOffering();
 		sdsOffering.setSdsObjectId(id);
 		this.getCommand.setSdsOffering(sdsOffering);
@@ -107,23 +118,25 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 			this.createCommand.setSdsOffering(sdsOffering);
 			this.createCommand.execute(this.createCommand.generateRequest());
 
-			// also, get the curnitmap from the sds and set it to 
+			// TODO LAW I think that the retrieval of the curnitmap should be
+			// moved to the createCommand.execute. Possibly for update too.
+
+			// also, get the curnitmap from the sds and set it to
 			// sdsOffering.sdsCurnitmap...this will add about
-	        // 20-30 more seconds for creating new SdsOfferings because 
-			//it takes that much time to generate curnitmaps
-			this.getCommand.getSdsCurnitmap(sdsOffering);
+			// 20-30 more seconds for creating new SdsOfferings because
+			// it takes that much time to generate curnitmaps
+			try {
+				this.getCommand.getSdsCurnitMap(sdsOffering);
+			} catch (CurnitMapNotFoundException cmnfe) {
+				sdsOffering = cmnfe.getSdsOffering();
+				// TODO LAW: note that in this case curnitmap is blank and
+				// curnitmap has not been retrieved....do we want to do anything
+				// more?
+			}
 		} else {
 			this.updateCommand.setSdsOffering(sdsOffering);
 			this.updateCommand.execute(this.updateCommand.generateRequest());
 		}
 	}
-	
-	/**
-	 * @param updateCommand
-	 *            the updateCommand to set
-	 */
-	@Required
-	public void setUpdateCommand(SdsOfferingUpdateCommand updateCommand) {
-		this.updateCommand = updateCommand;
-	}
+
 }

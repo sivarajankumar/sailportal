@@ -113,7 +113,7 @@ public class GroupServiceImpl implements GroupService {
         return group;
     }
     
-    // TODO - LAW - if we put in delete group remember to put in deletes for ACL
+    // TODO LAW - if we put in delete group remember to put in deletes for ACL
 	// entries
 
     /**

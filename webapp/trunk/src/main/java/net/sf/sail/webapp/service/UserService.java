@@ -19,10 +19,9 @@ package net.sf.sail.webapp.service;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 import org.acegisecurity.userdetails.UserDetails;
@@ -47,16 +46,12 @@ public interface UserService {
 	 * @return A reference to a <code>User</code> object
 	 * @throws DuplicateUsernameException
 	 *             If username is not unique.
-	 * @throws BadRequestException
-	 *             If username is unacceptable according to SDS, ie. contains
-	 *             invalid characters.
-	 * @throws NetworkTransportException
-	 *             If an error occurs during network communications with SDS
-	 *             while creating a SDS user.
+	 * @throws HttpStatusCodeException
+	 *             If any unexpected status code is returned from the SDS while
+	 *             creating the user.
 	 */
 	public User createUser(MutableUserDetails userDetails)
-			throws DuplicateUsernameException, BadRequestException,
-			NetworkTransportException;
+			throws DuplicateUsernameException, HttpStatusCodeException;
 
 	/**
 	 * Retrieve user with the given user details.
@@ -85,6 +80,7 @@ public interface UserService {
 
 	/**
 	 * Encodes a new password and updates a user in the persistent data store.
+	 * 
 	 * @param user
 	 *            The user that you want to update
 	 * @param newPassword

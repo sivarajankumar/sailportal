@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
+import net.sf.sail.webapp.domain.webservice.BadHeaderException;
 
 /**
  * @author Cynick Young
@@ -71,7 +71,7 @@ public class HttpPostRequestTest extends TestCase {
           expectedResponseStatusCode);
       fail("Expected BadRequestException");
     }
-    catch (BadRequestException e) {
+    catch (BadHeaderException e) {
     }
 
     requestHeaders.clear();
@@ -83,7 +83,7 @@ public class HttpPostRequestTest extends TestCase {
           expectedResponseStatusCode);
       fail("Expected BadRequestException");
     }
-    catch (BadRequestException e) {
+    catch (BadHeaderException e) {
     }
 
     requestHeaders.clear();
@@ -93,7 +93,7 @@ public class HttpPostRequestTest extends TestCase {
           expectedResponseStatusCode);
       fail("Expected BadRequestException");
     }
-    catch (BadRequestException e) {
+    catch (BadHeaderException e) {
     }
 
     requestHeaders.clear();
@@ -103,7 +103,7 @@ public class HttpPostRequestTest extends TestCase {
           expectedResponseStatusCode);
       fail("Expected BadRequestException");
     }
-    catch (BadRequestException e) {
+    catch (BadHeaderException e) {
     }
 
     requestHeaders.clear();
@@ -113,7 +113,7 @@ public class HttpPostRequestTest extends TestCase {
           expectedResponseStatusCode);
       fail("Expected BadRequestException");
     }
-    catch (BadRequestException e) {
+    catch (BadHeaderException e) {
     }
 
     requestHeaders.clear();
@@ -124,7 +124,7 @@ public class HttpPostRequestTest extends TestCase {
           expectedResponseStatusCode);
       fail("Expected BadRequestException");
     }
-    catch (BadRequestException e) {
+    catch (BadHeaderException e) {
     }
   }
 }

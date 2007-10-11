@@ -30,7 +30,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses( { 
 	HttpPostRequestTest.class,
-	AbstractHttpRequestTest.class
+	HttpGetRequestTest.class,
+	HttpGetCurnitMapRequestTest.class
 })
 
 public class AllTests {

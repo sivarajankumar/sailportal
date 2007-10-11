@@ -25,11 +25,10 @@ package org.telscenter.sail.webapp.service.workgroup.impl;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 import net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl;
 
@@ -56,8 +55,7 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 	/**
 	 * @see org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService#createWISEWorkgroup(java.lang.String, java.util.Set, org.telscenter.sail.webapp.domain.Run, net.sf.sail.webapp.domain.group.Group)
 	 */
-	@Transactional(rollbackFor = { BadRequestException.class,
-            NetworkTransportException.class })
+	@Transactional(rollbackFor = { HttpStatusCodeException.class })
 	public WISEWorkgroup createWISEWorkgroup(String name, Set<User> members,
 			Run run, Group period) throws ObjectNotFoundException {
 

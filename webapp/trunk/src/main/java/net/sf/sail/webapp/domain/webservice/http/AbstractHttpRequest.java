@@ -22,11 +22,10 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
+import net.sf.sail.webapp.domain.webservice.BadHeaderException;
 
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -39,8 +38,8 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public abstract class AbstractHttpRequest {
-	
-    private Log logger;
+
+	protected Log logger;
 
 	protected Map<String, String> requestHeaders;
 
@@ -62,16 +61,15 @@ public abstract class AbstractHttpRequest {
 	 * @param expectedResponseStatusCode
 	 *            is the HTTP status code that is expected to be returned by the
 	 *            server
-	 * @throws BadRequestException
+	 * @throws BadHeaderException
 	 *             if the request headers contain any illegal characters either
 	 *             in the request field name or the request field value
 	 */
 	protected AbstractHttpRequest(final Map<String, String> requestHeaders,
 			final Map<String, String> requestParameters,
-			final String relativeUrl, final int expectedResponseStatusCode)
-			throws BadRequestException {
+			final String relativeUrl, final int expectedResponseStatusCode) throws BadHeaderException {
 
-        this.logger = LogFactory.getLog(this.getClass());
+		this.logger = LogFactory.getLog(this.getClass());
 		this.checkForLegalHeaders(requestHeaders);
 		this.requestHeaders = Collections.unmodifiableMap(requestHeaders);
 		this.requestParameters = Collections.unmodifiableMap(requestParameters);
@@ -128,36 +126,67 @@ public abstract class AbstractHttpRequest {
 	private static final Pattern ILLEGAL_HEADER_FIELD_VALUE_PATTERN = Pattern
 			.compile("(.*[\\p{Cntrl}]+.*)+");
 
+	/**
+	 * Checks that the request headers are legal
+	 * 
+	 * @param requestHeaders A map of the request headers
+	 * @throws BadHeaderException Thrown if the headers are illegal.
+	 */
 	protected void checkForLegalHeaders(final Map<String, String> requestHeaders)
-			throws BadRequestException {
+			throws BadHeaderException {
 		for (String key : requestHeaders.keySet()) {
 			if ("".equals(key)
 					|| ILLEGAL_HEADER_FIELD_NAME_PATTERN.matcher(key).matches()) {
-				throw new BadRequestException(
+				throw new BadHeaderException(
 						"Request header field-name contains illegal characters.");
 			}
 			if (ILLEGAL_HEADER_FIELD_VALUE_PATTERN.matcher(
 					requestHeaders.get(key)).matches()) {
-				throw new BadRequestException(
+				throw new BadHeaderException(
 						"Request header field-value contains illegal characters.");
 			}
 		}
 	}
 
-	public boolean isValidResponseStatus(HttpMethod method, int statusCode)
-			throws IOException {
-		if (statusCode != this.getExpectedResponseStatusCode()) {
-			if (logger.isWarnEnabled()) {
-				logger.warn(statusCode + ": " + method.getStatusText());
-				logger.warn("body: " + method.getResponseBodyAsString());
-			}
-			if (statusCode == HttpStatus.SC_NOT_FOUND) {
-				throw new BadRequestException(method.getStatusText());
-			} else {
-				throw new NetworkTransportException(statusCode, method
-						.getStatusText());
-			}
+	/**
+	 * Checks the status code returned from an HTTP request against the status
+	 * code expected to be returned and logs the response information if the
+	 * status code is not the expected one. Override this method to handle
+	 * specific status codes.
+	 * 
+	 * @param method
+	 *            The request sent.
+	 * @param actualStatusCode
+	 *            The status code returned from the request
+	 * @return true if the status code matches the expected status code
+	 * @throws IOException
+	 *             when the http response body cannot be obtained.
+	 * @throws HttpStatusCodeException
+	 *             when the returned status code is not as expected.
+	 * 
+	 */
+
+	public boolean isValidResponseStatus(HttpMethod method, int actualStatusCode)
+			throws IOException, HttpStatusCodeException {
+		if (actualStatusCode == this.expectedResponseStatusCode)
+			return true;
+
+		String statusText = method.getStatusText();
+		logMethodInfo(method, actualStatusCode);
+		throw new HttpStatusCodeException(statusText);
+	}
+
+	/**
+	 * Logs the HttpMethod response information
+	 * 
+	 * @param method the HttpMethod response.
+	 * @param actualStatusCode The status code retrieved from the response.
+	 * @throws IOException If the response body cannot be retrieved.
+	 */
+	protected void logMethodInfo(HttpMethod method, int actualStatusCode) throws IOException{
+		if (logger.isWarnEnabled()) {
+			logger.warn(actualStatusCode + ": " + method.getStatusText());
+			logger.warn("body: " + method.getResponseBodyAsString());
 		}
-		else return true;
 	}
 }

@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import net.sf.sail.webapp.dao.sds.CurnitMapNotFoundException;
 import net.sf.sail.webapp.dao.sds.SdsOfferingGetCommand;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
@@ -50,15 +51,18 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 	private SdsOffering getSdsOffering() {
 		return SDS_OFFERING.get();
 	}
-
-	//TODO LAW check on thread safety of these method
+	
+	private SdsCurnitMapGetter curnitMapGetter = new SdsCurnitMapGetter(this);
+	
+	// TODO LAW check on thread safety of these method
 
 	/**
 	 * @see net.sf.sail.webapp.dao.sds.SdsCommand#execute()
 	 */
 	@SuppressWarnings("unchecked")
-	public SdsOffering execute(HttpGetRequest httpRequest) {
-		//TODO LAW check on thread safety of these method
+	public SdsOffering execute(HttpGetRequest httpRequest)
+			throws CurnitMapNotFoundException {
+		// TODO LAW check on thread safety of these method
 		final SdsOffering sdsOffering = this.getSdsOffering();
 		SDS_OFFERING.set(null);
 		Document doc = convertXmlInputStreamToXmlDocument(this.transport
@@ -82,20 +86,9 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 				.getValue()));
 		sdsOffering.setSdsJnlp(sdsJnlp);
 
-		HttpGetRequest curnitMapRequest = generateCurnitMapRequest(sdsOffering.getSdsObjectId());
-		sdsOffering.setSdsCurnitMap(getSdsCurnitMap(curnitMapRequest));
+		curnitMapGetter.setSdsOfferingCurnitMap(sdsOffering);
 		return sdsOffering;
-	}
 
-	protected String getSdsCurnitMap(HttpGetRequest curnitMapRequest) {
-		return convertXMLInputStreamToString(this.transport.get(curnitMapRequest));
-	}
-
-	protected static HttpGetRequest generateCurnitMapRequest(Long sdsOfferingId) {
-		final String url = "/offering/" + sdsOfferingId + "/curnitmap";
-
-		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
-				url, HttpStatus.SC_OK);
 	}
 
 	/**
@@ -109,11 +102,10 @@ public class SdsOfferingGetCommandHttpRestImpl extends AbstractHttpRestCommand
 	}
 
 	/**
-	 * @see net.sf.sail.webapp.dao.sds.SdsOfferingGetCommand#getSdsCurnitmap(SdsOffering)
+	 * @see net.sf.sail.webapp.dao.sds.SdsOfferingGetCommand#getSdsCurnitMap(java.lang.Long)
 	 */
-	public void getSdsCurnitmap(SdsOffering sdsOffering) {
-		HttpGetRequest curnitMapRequest = generateCurnitMapRequest(sdsOffering.getSdsObjectId());
-		sdsOffering.setSdsCurnitMap(getSdsCurnitMap(curnitMapRequest));
+	public void getSdsCurnitMap(SdsOffering sdsOffering) throws CurnitMapNotFoundException {
+		curnitMapGetter.setSdsOfferingCurnitMap(sdsOffering);
 	}
 
 }

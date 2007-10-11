@@ -24,6 +24,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsOfferingDao;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
@@ -32,8 +33,6 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
@@ -121,8 +120,7 @@ public class OfferingServiceImpl implements OfferingService {
 	/**
 	 * @see net.sf.sail.webapp.service.offering.OfferingService#createOffering(Offering)
 	 */
-	@Transactional(rollbackFor = { BadRequestException.class,
-			NetworkTransportException.class, ObjectNotFoundException.class })
+	@Transactional(rollbackFor = { HttpStatusCodeException.class, ObjectNotFoundException.class })
 	public Offering createOffering(OfferingParameters offeringParameters)
 			throws ObjectNotFoundException {
 		SdsOffering sdsOffering = generateSdsOfferingFromParameters(offeringParameters);

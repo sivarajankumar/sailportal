@@ -22,9 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsCommand;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
@@ -80,23 +79,12 @@ public abstract class AbstractSdsListCommandHttpRestImplTest extends TestCase {
     @SuppressWarnings("unchecked")
     public void testExecuteExceptions() throws Exception {
         EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
-                new BadRequestException("exception"));
+                new HttpStatusCodeException("exception"));
         EasyMock.replay(this.mockTransport);
         try {
             this.listCommand.execute(this.httpRequest);
-            fail("Expected BadRequestException");
-        } catch (BadRequestException e) {
-        }
-        EasyMock.verify(this.mockTransport);
-
-        EasyMock.reset(this.mockTransport);
-        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
-                new NetworkTransportException("exception"));
-        EasyMock.replay(this.mockTransport);
-        try {
-            this.listCommand.execute(this.httpRequest);
-            fail("Expected NetworkTransportException");
-        } catch (NetworkTransportException e) {
+            fail("Expected HttpStatusCodeException");
+        } catch (HttpStatusCodeException e) {
         }
         EasyMock.verify(this.mockTransport);
     }

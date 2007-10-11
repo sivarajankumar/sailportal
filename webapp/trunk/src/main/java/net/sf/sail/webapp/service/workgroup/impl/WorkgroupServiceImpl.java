@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
@@ -28,8 +29,6 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
@@ -80,8 +79,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createWorkgroup(net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Offering)
      */
-    @Transactional(rollbackFor = { BadRequestException.class,
-            NetworkTransportException.class })
+    @Transactional(rollbackFor = { HttpStatusCodeException.class })
 	public Workgroup createWorkgroup(String name, Set<User> members, Offering offering) {
         SdsWorkgroup sdsWorkgroup = createSdsWorkgroup(name, members, offering);
 
@@ -155,8 +153,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createPreviewWorkgroupForOfferingIfNecessary(net.sf.sail.webapp.domain.Offering,
      *      java.util.List, net.sf.sail.webapp.domain.User)
      */
-    @Transactional(rollbackFor = { BadRequestException.class,
-            NetworkTransportException.class })
+    @Transactional(rollbackFor = { HttpStatusCodeException.class })
     public List<Workgroup> createPreviewWorkgroupForOfferingIfNecessary(
             Offering offering, List<Workgroup> workgroupList, User user,
             String previewWorkgroupName) {

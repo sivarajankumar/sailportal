@@ -17,8 +17,21 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.sail.webapp.dao.sds.CurnitMapNotFoundException;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests;
+
+import org.apache.commons.httpclient.HttpStatus;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.xpath.XPath;
+
+import com.meterware.httpunit.WebResponse;
 
 /**
  * @author Cynick Young
@@ -74,29 +87,26 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 		// equivalent.
 		// *Note* there is a small chance that between the 2 retrievals, a new
 		// offering may be inserted into the SDS and cause this test to break.
-//TODO LAW this test doesn't work due to failed status returns from sds reteival.
-//neet to fix.
-		assertTrue(true);
-		
-//		List<SdsOffering> actualSet = this.sdsOfferingDao.getList();
-//
-//		WebResponse webResponse = makeHttpRestGetRequest("/offering");
-//		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
-//
-//		Document doc = createDocumentFromResponse(webResponse);
-//
-//		List<Element> nodeList = XPath.newInstance("/offerings/offering/id")
-//				.selectNodes(doc);
-//		assertEquals(nodeList.size(), actualSet.size());
-//		List<Integer> offeringIdList = new ArrayList<Integer>(nodeList.size());
-//		for (Element element : nodeList) {
-//			offeringIdList.add(new Integer(element.getText()));
-//		}
-//
-//		assertEquals(offeringIdList.size(), actualSet.size());
-//		for (SdsOffering offering : actualSet) {
-//			offeringIdList.contains(offering.getSdsObjectId());
-//		}
+		// *Note that I (LAW) haven't bothered to check the curnitmaps for this test,
+		// although they are retrieved by getList. GetById is probably sufficient.
+		List<SdsOffering> actualSet = this.sdsOfferingDao.getList();
+		WebResponse webResponse = makeHttpRestGetRequest("/offering");
+		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
+
+		Document doc = createDocumentFromResponse(webResponse);
+
+		List<Element> nodeList = XPath.newInstance("/offerings/offering/id")
+				.selectNodes(doc);
+		assertEquals(nodeList.size(), actualSet.size());
+		List<Integer> offeringIdList = new ArrayList<Integer>(nodeList.size());
+		for (Element element : nodeList) {
+			offeringIdList.add(new Integer(element.getText()));
+		}
+
+		assertEquals(offeringIdList.size(), actualSet.size());
+		for (SdsOffering offering : actualSet) {
+			offeringIdList.contains(offering.getSdsObjectId());
+		}
 	}
 
 	/**
@@ -108,7 +118,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 		Long constantSdsOfferingId = this.sdsOffering.getSdsObjectId();
 
 		SdsOffering actualSdsOffering = this
-				.getOfferingAlternativeMethod(constantSdsOfferingId);		
+				.getOfferingAlternativeMethod(constantSdsOfferingId);
 		assertEqualOfferings(actualSdsOffering);
 
 		SdsOffering sdsOfferingToUpdate = this.sdsOffering;
@@ -125,12 +135,27 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	}
 
 	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+	 * Test method for {@link
+	 * net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
 	 */
 	@SuppressWarnings("unchecked")
 	public void testSave_NewOffering() throws Exception {
-		this.sdsOffering = this.createWholeOffering();
+		this.sdsOffering.setName(DEFAULT_NAME);
+		// create curnit in SDS
+		SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
+				.getBean("sdsCurnit");
+		sdsCurnit.setSdsObjectId(this.createCurnitInSds());
+		this.sdsOffering.setSdsCurnit(sdsCurnit);
+
+		// create jnlp in SDS
+		SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
+		sdsJnlp.setSdsObjectId(this.createJnlpInSds());
+		this.sdsOffering.setSdsJnlp(sdsJnlp);
+
+		// create offering in SDS
+		assertNull(this.sdsOffering.getSdsObjectId());
+		this.sdsOfferingDao.save(this.sdsOffering);
+		assertNotNull(this.sdsOffering.getSdsObjectId());
 
 		SdsOffering actualSdsOffering = this
 				.getOfferingAlternativeMethod(this.sdsOffering.getSdsObjectId());
@@ -138,8 +163,8 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	}
 
 	/**
-	 * Test method for
-	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#delete(net.sf.sail.webapp.domain.sds.SdsOffering)}.
+	 * Test method for {@link
+	 * net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#delete(net.sf.sail.webapp.domain.sds.SdsOffering)}.
 	 */
 	public void testDelete() {
 		try {
@@ -158,6 +183,18 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 		SdsOffering actualSdsOffering = this.sdsOfferingDao
 				.getById(this.sdsOffering.getSdsObjectId());
 		assertEqualOfferings(actualSdsOffering);
+	}
+
+	public void testGetByIdCurnitMapNotRetrieved() throws Exception {
+		this.sdsOffering = this.createBogusOffering();
+		try {
+			this.sdsOfferingDao.getById(this.sdsOffering.getSdsObjectId());
+			fail("CurnitMapNotFoundException expected");
+		} catch (CurnitMapNotFoundException cmnfe) {
+			SdsOffering actualSdsOffering = cmnfe.getSdsOffering();
+			assertEqualOfferings(actualSdsOffering);
+			assertEquals("", actualSdsOffering.getSdsCurnitMap());
+		}
 	}
 
 	private void assertEqualOfferings(SdsOffering actualSdsOffering) {

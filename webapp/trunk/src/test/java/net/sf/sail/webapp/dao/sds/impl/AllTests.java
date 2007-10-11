@@ -40,6 +40,7 @@ import org.junit.runners.Suite;
 	SdsJnlpCreateCommandHttpRestImplTest.class,
 	SdsJnlpUpdateCommandHttpRestImplTest.class,
 	SdsOfferingCreateCommandHttpRestImplTest.class,
+	SdsOfferingGetCommandHttpRestImplTest.class,
 	SdsOfferingListCommandHttpRestImplTest.class,
 	SdsOfferingUpdateCommandHttpRestImplTest.class,
 	SdsUserCreateCommandHttpRestImplTest.class,

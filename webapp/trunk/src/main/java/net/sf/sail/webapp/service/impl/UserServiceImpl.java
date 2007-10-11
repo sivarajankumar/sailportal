@@ -21,6 +21,7 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsUserDao;
 import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
@@ -28,8 +29,6 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsUser;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
@@ -145,11 +144,9 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
 	 */
-	@Transactional(rollbackFor = { DuplicateUsernameException.class,
-			BadRequestException.class, NetworkTransportException.class })
+	@Transactional(rollbackFor = { DuplicateUsernameException.class, HttpStatusCodeException.class })
 	public User createUser(final MutableUserDetails userDetails)
-			throws DuplicateUsernameException, BadRequestException,
-			NetworkTransportException {
+			throws DuplicateUsernameException, HttpStatusCodeException {
 
 		this.checkUserErrors(userDetails.getUsername());
 		this.assignRole(userDetails, UserDetailsService.USER_ROLE);

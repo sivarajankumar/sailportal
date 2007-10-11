@@ -22,11 +22,10 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
 import org.easymock.EasyMock;
@@ -141,25 +140,15 @@ public class SdsOfferingListCommandHttpRestImplTest extends
 
     public void testExecuteExceptions() throws Exception {
         EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
-                new BadRequestException("exception"));
+                new HttpStatusCodeException("exception"));
         EasyMock.replay(this.mockTransport);
         try {
             this.command.execute(this.httpRequest);
-            fail("Expected BadRequestException");
-        } catch (BadRequestException e) {
+            fail("Expected HttpStatusCodeException");
+        } catch (HttpStatusCodeException e) {
         }
         EasyMock.verify(this.mockTransport);
 
-        EasyMock.reset(this.mockTransport);
-        EasyMock.expect(this.mockTransport.get(this.httpRequest)).andThrow(
-                new NetworkTransportException("exception"));
-        EasyMock.replay(this.mockTransport);
-        try {
-            this.command.execute(this.httpRequest);
-            fail("Expected NetworkTransportException");
-        } catch (NetworkTransportException e) {
-        }
-        EasyMock.verify(this.mockTransport);
     }
 
     private SdsOffering createOffering(int objectId, int curnitId, int jnlpId,

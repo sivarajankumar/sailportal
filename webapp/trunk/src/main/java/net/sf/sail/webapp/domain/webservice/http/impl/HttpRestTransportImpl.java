@@ -25,7 +25,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
+import net.sf.sail.webapp.dao.sds.CurnitMapNotFoundException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
@@ -95,7 +96,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
 	/**
 	 * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#get(net.sf.sail.webapp.domain.webservice.http.HttpGetRequest)
 	 */
-	public InputStream get(final HttpGetRequest httpGetRequestData) {
+	public InputStream get(final HttpGetRequest httpGetRequestData) throws HttpStatusCodeException {
 		// add parameters to URL
 		Map<String, String> requestParameters = httpGetRequestData
 				.getRequestParameters();
@@ -120,13 +121,18 @@ public class HttpRestTransportImpl implements HttpRestTransport {
 			int statusCode = this.client.executeMethod(method);
 			httpGetRequestData.isValidResponseStatus(method, statusCode);
 			return new ByteArrayInputStream(method.getResponseBody());
-		} catch (HttpException e) {
-			logAndThrow(e);
-		} catch (IOException e) {
-			logAndThrow(e);
+		} catch (CurnitMapNotFoundException cmnfe) {
+			if (logger.isErrorEnabled()) {
+				logger.error(cmnfe.getMessage(), cmnfe);
+			}
+			throw cmnfe;
+		} catch (HttpStatusCodeException hsce) {
+			logAndThrowRuntimeException(hsce);
+		} catch (HttpException he) {
+			logAndThrowRuntimeException(he);
+		} catch (IOException ioe) {
+			logAndThrowRuntimeException(ioe);
 		} finally {
-			// TODO LAW need to figure out what to do about the range of
-			// response status codes now being passed back
 			method.releaseConnection();
 		}
 		return null;
@@ -135,7 +141,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
 	/**
 	 * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#post(net.sf.sail.webapp.domain.webservice.http.HttpPostRequest)
 	 */
-	public Map<String, String> post(final HttpPostRequest httpPostRequestData) {
+	public Map<String, String> post(final HttpPostRequest httpPostRequestData) throws HttpStatusCodeException {
 		final PostMethod method = new PostMethod(this.baseUrl
 				+ httpPostRequestData.getRelativeUrl());
 
@@ -170,9 +176,9 @@ public class HttpRestTransportImpl implements HttpRestTransport {
 						.put(headers[i].getName(), headers[i].getValue());
 			}
 		} catch (HttpException e) {
-			logAndThrow(e);
+			logAndThrowRuntimeException(e);
 		} catch (IOException e) {
-			logAndThrow(e);
+			logAndThrowRuntimeException(e);
 		} finally {
 			method.releaseConnection();
 		}
@@ -183,7 +189,7 @@ public class HttpRestTransportImpl implements HttpRestTransport {
 	/**
 	 * @see net.sf.sail.webapp.domain.webservice.http.HttpRestTransport#put(net.sf.sail.webapp.domain.webservice.http.HttpPutRequest)
 	 */
-	public Map<String, String> put(final HttpPutRequest httpPutRequestData) {
+	public Map<String, String> put(final HttpPutRequest httpPutRequestData) throws HttpStatusCodeException {
 		final PutMethod method = new PutMethod(this.baseUrl
 				+ httpPutRequestData.getRelativeUrl());
 
@@ -207,9 +213,9 @@ public class HttpRestTransportImpl implements HttpRestTransport {
 						.put(headers[i].getName(), headers[i].getValue());
 			}
 		} catch (HttpException e) {
-			logAndThrow(e);
+			logAndThrowRuntimeException(e);
 		} catch (IOException e) {
-			logAndThrow(e);
+			logAndThrowRuntimeException(e);
 		} finally {
 			method.releaseConnection();
 		}
@@ -226,12 +232,12 @@ public class HttpRestTransportImpl implements HttpRestTransport {
 		}
 	}
 
-	private void logAndThrow(Exception e) {
+	private void logAndThrowRuntimeException(Exception e) throws RuntimeException {
 		if (logger.isErrorEnabled()) {
 			logger.error(e.getMessage(), e);
 		}
-		throw new NetworkTransportException(e.getMessage());
-	}
+		throw new RuntimeException(e);
+	}	
 
 	private void setHeaders(final AbstractHttpRequest httpRequestData,
 			HttpMethodBase method) {

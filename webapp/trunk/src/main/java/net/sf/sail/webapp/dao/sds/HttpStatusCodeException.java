@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * Copyright (c) 2007 Encore Research Group, University of Toronto
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,30 +15,21 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.domain.webservice;
+package net.sf.sail.webapp.dao.sds;
 
 /**
- * Signals that a network transport error has occured on a request. Thrown by
- * transport mechanisms when an unexpected response status is encountered.
+ * This exception is thrown when a transaction with the sds returns an unexpected
+ * http status code.
  * 
- * @author Cynick Young
+ * @author Laurel Williams
  * 
  * @version $Id$
- * 
  */
-public class NetworkTransportException extends RuntimeException {
+public class HttpStatusCodeException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public NetworkTransportException(String message) {
-        super(message);
-    }
-
-    public NetworkTransportException(int statusCode) {
-        this(String.valueOf(statusCode));
-    }
-
-    public NetworkTransportException(int statusCode, String message) {
-        this(statusCode + " " + message);
-    }
+	public HttpStatusCodeException(String message) {
+		super(message);
+	}	
 }

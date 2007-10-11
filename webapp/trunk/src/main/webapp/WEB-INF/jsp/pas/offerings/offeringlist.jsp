@@ -62,7 +62,7 @@
       </c:choose>
     </td>
     <authz:accesscontrollist domainObject="${offering}" hasPermission="16">
-    	<td><a href="adminoffering.html?offering_id=${offering.id}"><spring:message code="manage.offering"/></a></td>
+    	<td><a href="adminoffering.html?offeringId=${offering.id}"><spring:message code="manage.offering"/></a></td>
   	</authz:accesscontrollist>
    </tr>
   </c:forEach>

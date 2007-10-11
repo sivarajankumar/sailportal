@@ -15,25 +15,31 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.sf.sail.webapp.domain.webservice.http;
+package net.sf.sail.webapp.domain.webservice.http.impl;
 
+import java.io.IOException;
 import java.util.Map;
 
+import net.sf.sail.webapp.dao.sds.CurnitMapNotFoundException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.webservice.BadHeaderException;
+import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
+
+import org.apache.commons.httpclient.HttpMethod;
 
 /**
  * Immutable and thread-safe class to encapsulate data required for a GET
- * request (headers, parameters, relativeUrl and expected response).
+ * request for curnitmaps specifically.
  * 
- * @author Cynick Young
+ * @author Laurel Williams
  * 
  * @version $Id$
  * 
  */
-public class HttpGetRequest extends AbstractHttpRequest {
+public class HttpGetCurnitMapRequest extends HttpGetRequest {
 
 	/**
-	 * Creates an HttpGetRequest object with all of the data required.
+	 * Creates an HttpGetCurnitMapRequest object with all of the data required.
 	 * 
 	 * @param requestHeaders
 	 *            is a map of HTTP request headers
@@ -48,7 +54,7 @@ public class HttpGetRequest extends AbstractHttpRequest {
 	 *             if the request headers contain any illegal characters either
 	 *             in the request field name or the request field value
 	 */
-	public HttpGetRequest(final Map<String, String> requestHeaders,
+	public HttpGetCurnitMapRequest(final Map<String, String> requestHeaders,
 			final Map<String, String> requestParameters,
 			final String relativeUrl, final int expectedResponseStatusCode)
 			throws BadHeaderException {
@@ -61,8 +67,22 @@ public class HttpGetRequest extends AbstractHttpRequest {
 	 * DO NOT USE THIS METHOD
 	 */
 	@SuppressWarnings("unused")
-	protected HttpGetRequest() {
+	protected HttpGetCurnitMapRequest() {
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest#isValidResponseStatus(org.apache.commons.httpclient.HttpMethod,
+	 *      int)
+	 */
+	public boolean isValidResponseStatus(HttpMethod method, int actualStatusCode)
+			throws IOException, HttpStatusCodeException {
+		if (actualStatusCode == this.expectedResponseStatusCode)
+			return true;
+
+		String statusText = method.getStatusText();
+		logMethodInfo(method, actualStatusCode);
+		throw new CurnitMapNotFoundException(statusText);
 	}
 
 }

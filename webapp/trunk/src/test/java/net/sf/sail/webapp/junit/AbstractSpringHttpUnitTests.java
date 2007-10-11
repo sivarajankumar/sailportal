@@ -253,13 +253,14 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 				.getValue());
 		SdsJnlp sdsJnlp = this.getJnlpInSds(sdsJnlpId);
 		sdsOffering.setSdsJnlp(sdsJnlp);
-		
-		WebResponse curnitMapWebResponse = this.makeHttpRestGetRequest("/offering/"
-				+ sdsOfferingId + "/curnitmap");
+
+		WebResponse curnitMapWebResponse = this
+				.makeHttpRestGetRequest("/offering/" + sdsOfferingId
+						+ "/curnitmap");
 		assertEquals(HttpStatus.SC_OK, curnitMapWebResponse.getResponseCode());
 
 		Document curnitMapDoc = createDocumentFromResponse(curnitMapWebResponse);
-		sdsOffering.setSdsCurnitMap(curnitMapDoc.getRootElement().getText());		
+		sdsOffering.setSdsCurnitMap(curnitMapDoc.getRootElement().getText());
 
 		return sdsOffering;
 	}
@@ -463,8 +464,36 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
 		// create offering in SDS
 		assertNull(sdsOffering.getSdsObjectId());
-		sdsOffering.setSdsObjectId(this.createOfferingInSds(sdsCurnit.getSdsObjectId(), sdsJnlp
-				.getSdsObjectId()));
+		sdsOffering.setSdsObjectId(this.createOfferingInSds(sdsCurnit
+				.getSdsObjectId(), sdsJnlp.getSdsObjectId()));
+		assertNotNull(sdsOffering.getSdsObjectId());
+		return sdsOffering;
+	}
+
+	protected SdsOffering createBogusOffering() throws MalformedURLException,
+			IOException, SAXException, JDOMException {
+		SdsOffering sdsOffering = (SdsOffering) this.applicationContext
+				.getBean("sdsOffering");
+		sdsOffering.setName(DEFAULT_NAME);
+		// create curnit in SDS
+		SdsCurnit sdsCurnit = (SdsCurnit) this.applicationContext
+				.getBean("sdsCurnit");
+		sdsCurnit.setSdsObjectId(this.createCurnitInSds());
+		sdsOffering.setSdsCurnit(sdsCurnit);
+
+		// create invalid jnlp in SDS
+		SdsJnlp sdsJnlp = (SdsJnlp) this.applicationContext.getBean("sdsJnlp");
+
+		WebResponse webResponse = this.makeHttpRestPostRequest("/jnlp",
+				"<jnlp><name>" + "invalid jnlp" + "</name><url>"
+						+ "http://www.invalid.com" + "</url></jnlp>");
+		sdsJnlp.setSdsObjectId(this.extractNewlyCreatedId(webResponse));
+		sdsOffering.setSdsJnlp(sdsJnlp);
+
+		// create offering in SDS
+		assertNull(sdsOffering.getSdsObjectId());
+		sdsOffering.setSdsObjectId(this.createOfferingInSds(sdsCurnit
+				.getSdsObjectId(), sdsJnlp.getSdsObjectId()));
 		assertNotNull(sdsOffering.getSdsObjectId());
 		return sdsOffering;
 	}

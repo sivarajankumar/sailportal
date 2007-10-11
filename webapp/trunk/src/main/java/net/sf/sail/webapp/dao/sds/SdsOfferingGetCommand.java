@@ -21,6 +21,8 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
 /**
+ * Interface for a command which gets an sds offering from the sds.
+ * 
  * @author Laurel Williams
  * 
  * @version $Id$
@@ -29,15 +31,32 @@ import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 public interface SdsOfferingGetCommand extends
 		SdsCommand<SdsOffering, HttpGetRequest> {
 
-	public void setSdsOffering(SdsOffering sdsOffering);
-	
 	/**
-	 * Retrieves the SdsCurnitmap for the provided SdsOffering from the SDS. 
-	 * Does not return any object, but the side-effect is that the 
-	 * provided SdsOffering's sdsCurnitmap is set
+	 * Sets the sdsOffering for this command.
 	 * 
-	 * @param sdsOffering <code>SdsOffering</code> to get the SdsCurnitmap for
+	 * @param sdsOffering
 	 */
-	public void getSdsCurnitmap(SdsOffering sdsOffering);
+	public void setSdsOffering(SdsOffering sdsOffering);
 
+	/**
+	 * Retrieves the curnitmap for this sdsOffering from the sds, independently
+	 * of the retrieving the sds offering itself.
+	 * 
+	 * @param sdsOffering.
+	 *            All that is really required to pass in is that the sdsObjectId
+	 *            of the sdsOffering is set. The retrieved sdsCurnitMap is
+	 *            stored in the sdsOffering and can be retrieved by using
+	 *            sdsOffering.getSdsCurnitMap() {
+	 * 
+	 * @throws CurnitMapNotFoundException
+	 *             Is thrown if the curnitMap cannot be retrieved from the sds.
+	 *             In this case, it is possible to store the sdsOffering in the
+	 *             exception for retrieval, so that when this exception is
+	 *             thrown, we can still retrieve the offering without the valid
+	 *             curnitmap.
+	 * 
+	 */
+
+	public void getSdsCurnitMap(SdsOffering sdsOffering)
+			throws CurnitMapNotFoundException;
 }

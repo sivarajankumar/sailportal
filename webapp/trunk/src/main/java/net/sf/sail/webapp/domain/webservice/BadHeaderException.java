@@ -18,15 +18,14 @@
 package net.sf.sail.webapp.domain.webservice;
 
 /**
- * Represents programming errors in making a request, either by passing wrong or
- * missing parameters or some other condition.
+ * Represents errors in headers for a request.
  * 
  * @author Cynick Young
  * 
  * @version $Id$
  * 
  */
-public class BadRequestException extends RuntimeException {
+public class BadHeaderException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,7 +33,7 @@ public class BadRequestException extends RuntimeException {
      * @param message
      *            is a string that should give an explanation of the error.
      */
-    public BadRequestException(String message) {
+    public BadHeaderException(String message) {
         super(message);
     }
 }

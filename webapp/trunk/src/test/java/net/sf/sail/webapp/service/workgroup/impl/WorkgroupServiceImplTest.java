@@ -24,6 +24,7 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
@@ -35,8 +36,6 @@ import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
-import net.sf.sail.webapp.domain.webservice.BadRequestException;
-import net.sf.sail.webapp.domain.webservice.NetworkTransportException;
 import net.sf.sail.webapp.service.AclService;
 
 import org.easymock.EasyMock;
@@ -213,7 +212,7 @@ public class WorkgroupServiceImplTest extends TestCase {
 
         this.mockSdsWorkgroupDao.save(EasyMock.isA(SdsWorkgroup.class));
         EasyMock.expectLastCall().andThrow(
-                new BadRequestException("bad request"));
+                new HttpStatusCodeException("bad request"));
         EasyMock.replay(this.mockSdsWorkgroupDao);
 
         // expecting no calls to Dao.save()
@@ -224,8 +223,8 @@ public class WorkgroupServiceImplTest extends TestCase {
              Offering offering = new OfferingImpl();
              offering.setSdsOffering(this.sdsWorkgroup.getSdsOffering());
             this.workgroupServiceImpl.createWorkgroup(DEFAULT_WORKGROUP_NAME, members, offering);
-            fail("BadRequestException expected");
-        } catch (BadRequestException expected) {
+            fail("HttpStatusCodeException expected");
+        } catch (HttpStatusCodeException expected) {
         }
 
         EasyMock.verify(this.mockSdsWorkgroupDao);
@@ -238,7 +237,7 @@ public class WorkgroupServiceImplTest extends TestCase {
 
         this.mockSdsWorkgroupDao.save(EasyMock.isA(SdsWorkgroup.class));
         EasyMock.expectLastCall().andThrow(
-                new NetworkTransportException("network transport exception"));
+                new HttpStatusCodeException("http status code exception"));
         EasyMock.replay(this.mockSdsWorkgroupDao);
 
         // expecting no calls to Dao.save()
@@ -249,8 +248,8 @@ public class WorkgroupServiceImplTest extends TestCase {
         	Offering offering = new OfferingImpl();
         	offering.setSdsOffering(this.sdsWorkgroup.getSdsOffering());
         	this.workgroupServiceImpl.createWorkgroup(DEFAULT_WORKGROUP_NAME, members, offering);
-        	fail("NetworkTransportException expected");
-        } catch (NetworkTransportException expected) {
+        	fail("HttpStatusCodeException expected");
+        } catch (HttpStatusCodeException expected) {
         }
 
         EasyMock.verify(this.mockSdsWorkgroupDao);

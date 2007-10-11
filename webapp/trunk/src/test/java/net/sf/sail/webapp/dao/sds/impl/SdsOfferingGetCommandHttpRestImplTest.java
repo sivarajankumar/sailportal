@@ -20,10 +20,12 @@ package net.sf.sail.webapp.dao.sds.impl;
 import java.io.IOException;
 import java.io.InputStream;
 
+import net.sf.sail.webapp.dao.sds.CurnitMapNotFoundException;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
+import net.sf.sail.webapp.domain.webservice.http.impl.HttpGetCurnitMapRequest;
 
 import org.easymock.EasyMock;
 
@@ -38,7 +40,7 @@ public class SdsOfferingGetCommandHttpRestImplTest extends
 		AbstractSdsGetCommandHttpRestImplTest {
 
 	private SdsOfferingGetCommandHttpRestImpl command;
-	
+
 	private SdsOffering expectedSdsOffering;
 
 	private static final Long ID = new Long(1);
@@ -100,7 +102,9 @@ public class SdsOfferingGetCommandHttpRestImplTest extends
 				responseStream);
 
 		InputStream curnitMapResponseStream = setAndTestResponseStream(CURNITMAP_XML_RESPONSE);
-		EasyMock.expect(this.mockTransport.get(EasyMock.isA(HttpGetRequest.class))).andReturn(
+		EasyMock.expect(
+				this.mockTransport.get(EasyMock
+						.isA(HttpGetCurnitMapRequest.class))).andReturn(
 				curnitMapResponseStream);
 		EasyMock.replay(this.mockTransport);
 
@@ -115,19 +119,70 @@ public class SdsOfferingGetCommandHttpRestImplTest extends
 		EasyMock.verify(this.mockTransport);
 	}
 
-	public void testGetSdsCurnitmap() throws IOException {
+	public void testExecuteThrowsCurnitMapNotFoundException() throws Exception {
+		InputStream responseStream = setAndTestResponseStream(XML_RESPONSE);
+		EasyMock.expect(this.mockTransport.get(this.httpRequest)).andReturn(
+				responseStream);
+
+		EasyMock.expect(
+				this.mockTransport.get(EasyMock
+						.isA(HttpGetCurnitMapRequest.class))).andThrow(
+				new CurnitMapNotFoundException("whatever"));
+		EasyMock.replay(this.mockTransport);
+
+		try {
+			this.command.execute(this.httpRequest);
+			fail("CurnitMapNotFoundException expected");
+		} catch (CurnitMapNotFoundException cmnfe) {
+			SdsOffering actualOffering = cmnfe.getSdsOffering();
+			assertEquals(NAME, actualOffering.getName());
+			assertEquals(SDS_CURNIT.getSdsObjectId(), actualOffering
+					.getSdsCurnit().getSdsObjectId());
+			assertEquals(SDS_JNLP.getSdsObjectId(), actualOffering.getSdsJnlp()
+					.getSdsObjectId());
+			assertEquals(ID, actualOffering.getSdsObjectId());
+			assertEquals("", actualOffering.getSdsCurnitMap());
+			EasyMock.verify(this.mockTransport);
+		}
+
+	}
+
+	public void testGetSdsCurnitMap() throws IOException {
 		InputStream curnitMapResponseStream = setAndTestResponseStream(CURNITMAP_XML_RESPONSE);
-		EasyMock.expect(this.mockTransport.get(EasyMock.isA(HttpGetRequest.class))).andReturn(
+		EasyMock.expect(
+				this.mockTransport.get(EasyMock
+						.isA(HttpGetCurnitMapRequest.class))).andReturn(
 				curnitMapResponseStream);
 		EasyMock.replay(this.mockTransport);
 
 		assertNull(this.expectedSdsOffering.getSdsCurnitMap());
-		this.command.getSdsCurnitmap(this.expectedSdsOffering);
+		this.command.getSdsCurnitMap(this.expectedSdsOffering);
 		assertNotNull(this.expectedSdsOffering.getSdsCurnitMap());
-		assertEquals(CURNITMAP_XML_RESPONSE, this.expectedSdsOffering.getSdsCurnitMap());
+		assertEquals(CURNITMAP_XML_RESPONSE, this.expectedSdsOffering
+				.getSdsCurnitMap());
 		EasyMock.verify(this.mockTransport);
+
 	}
-	
+
+	public void testGetSdsCurnitMap_expectCurnitMapNotFoundException()
+			throws IOException {
+		EasyMock.expect(
+				this.mockTransport.get(EasyMock
+						.isA(HttpGetCurnitMapRequest.class))).andThrow(
+				new CurnitMapNotFoundException("whatever"));
+		EasyMock.replay(this.mockTransport);
+
+		assertNull(this.expectedSdsOffering.getSdsCurnitMap());
+		try {
+			this.command.getSdsCurnitMap(this.expectedSdsOffering);
+			fail("CurnitMapNotFoundException expected");
+		} catch (CurnitMapNotFoundException cmnfe) {
+			this.expectedSdsOffering = cmnfe.getSdsOffering();
+			assertEquals("", this.expectedSdsOffering.getSdsCurnitMap());
+			EasyMock.verify(this.mockTransport);
+		}
+	}
+
 	public void testGenerateRequest() {
 		HttpGetRequest request = this.command.generateRequest();
 		assertEquals("/offering/" + ID, request.getRelativeUrl());
