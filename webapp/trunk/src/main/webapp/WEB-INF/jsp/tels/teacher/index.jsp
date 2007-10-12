@@ -35,7 +35,7 @@
 <div align="left">
 <div id="innerWelcome">
 <h1 id="headingPos">
-Welcome: ${username}
+Welcome there: ${username}
 </h1>
 <p id="userLoginInfo"> 
 	Current Log-in: 
@@ -54,28 +54,28 @@ Welcome: ${username}
 <form id="projects" method="post" action="../j_acegi_security_check">
 	<h1 id="headingPos"> Projects Awaiting Grading</h1>
 	<ul id="projectNames">
-	<li>
+	<li class="hidden">
 	<label for="projectname">
 	ProjectName:
 	</label>
 	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
 	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
 	</li>
-	<li>
+	<li class="hidden">
 	<label for="projectname">
 	ProjectName:
 	</label>
 	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
 	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
 	</li>
-		<li>
+	<li class="hidden">
 	<label for="projectname">
 	ProjectName:
 	</label>
 	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
 	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
 	</li>
-		<li>
+	<li class="hidden">
 	<label for="projectname">
 	ProjectName:
 	</label>
@@ -172,7 +172,7 @@ Quick Links
     Project Library
     </a>
 </td>
-<td align="left"><a href="#" onclick="displayNotAvailable('This page is not available yet')">
+<td class="hidden" align="left"><a href="#" onclick="displayNotAvailable('This page is not available yet')">
 Grade Work by Student-Group
 </a>
 </td>
@@ -190,7 +190,7 @@ Grade Work by Step
 </td>
 </tr>
 <tr>
-<td align="left"> 
+<td class="hidden" align="left"> 
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 My Bookmarked Projects
 </a>
@@ -200,7 +200,7 @@ My Bookmarked Projects
 </td>
 </tr>
 <tr>
-<td align="left">
+<td class="hidden" align="left">
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 My Customized Projects
 </a>
@@ -216,57 +216,56 @@ My Customized Projects
 </th>
 </tr>
 <tr>
-<td align="left">
+<td class="hidden" align="left">
+<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+View My Students
+</a>
 </td>
-<td align="left">
+<td class="hidden" align="left">
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 Export All Work for Student
 </a>
 </td>
 </tr>
 <tr>
-<td align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-View My Students
-</a>
-</td>
-<td align="left">
+
+<td class="hidden" align="left">
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 Export All Work for a Class
 </a>
 </td>
 </tr>
 <tr>
-<td align="left">
+<td class="hidden" align="left">
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 Edit Ready-Made Comments
 </a>
 </td>
-<td align="left">
+<td class="hidden" align="left">
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 Print All Work for Student
 </a>
 </td>
 </tr>
 <tr>
-<td>
+<td class="hidden" align="left">
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 Real-Time Class Monitor
 </a>
 </td>
-<td>
+<td class="hidden" align="left">
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 Print All work for Class
 </a>
 </td>
 </tr>
 <tr>
-<td>
+<td class="hidden" align="left">
 <a href="#" onclick="displayNotAvailable('This page is not available yet')">
 Batch Set Passwords
 </a>
 </td>
-<td>
+<td class="hidden" align="left">
 <a href="management/updatemyaccount.html">
 Update My Account
 </a>
@@ -275,13 +274,6 @@ Update My Account
 </table>
 
 </div>
-
-
-
-
-
-
-
 </div>
 </div>
 </div>

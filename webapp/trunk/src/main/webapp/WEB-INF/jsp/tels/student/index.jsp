@@ -77,7 +77,7 @@ function popup(URL) {
 		<img id="addproject" src="../<spring:theme code="student_add_project" />" style="border:0px;"/>
 		</a>
 		</li>
-		<li>
+		<li visibility="hidden">
 		<a href="#" 
 		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
 		onmouseout="swapImage('studentchangepwd','../<spring:theme code="student_change_password" />');"  
@@ -86,7 +86,7 @@ function popup(URL) {
 		</a>
 		</li>
 		<li>
-		<a href="#" 
+		<a href="#"  
 		onmouseover="swapImage('studentchangelang','../<spring:theme code="student_change_lang_roll" />');" 
 		onmouseout="swapImage('studentchangelang','../<spring:theme code="student_change_lang" />');" 
 		onclick="javascript:alert('This page is not available yet')">
@@ -102,7 +102,7 @@ function popup(URL) {
 		</a>
 		</li>
 		</ul>
-		
+		<!-- comment -->
 	</div>
 	<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
 	
