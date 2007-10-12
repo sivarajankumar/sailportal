@@ -229,3 +229,15 @@ display: inline;
 	padding:0px;
 	margin:0px 30px -13px 20px;
 }
+
+.hidden {visibility:hidden}
+
+/* .linkHighlight a:link, .linkHighlight a:visited {
+	font-weight:bold;
+	color:990000;
+}
+
+.linkHighlight a:hover {
+	font-weight:bold;
+	color:FF0000;
+}    */
