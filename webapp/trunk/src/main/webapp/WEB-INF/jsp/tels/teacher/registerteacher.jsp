@@ -149,7 +149,10 @@ function MM_swapImage() { //v3.0
     <dt><label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label> 
 </dt>
 	<dd>
-     <div id="curriculumSubjectsBox" style="display:none;"> 
+     
+    <a href="javascript:Effect.toggle('curriculumSubjectsBox','appear')" >click to show/hide subjects</a> 
+   
+   	<div id="curriculumSubjectsBox" style="display:none;"> 
           	<p><strong>Select Curriculum Subjects:</strong></p>
 		  <p> Describe the science topic(s) you teach by selecting one or more checkboxes below.</p>
 		  
@@ -193,10 +196,8 @@ function MM_swapImage() { //v3.0
 			 team. This information guides the ongoing direction of WISE projects, allowing the creation of
 		  projects that best serve the needs of our science teacher community. Thanks for your input!</p>
      </div>
-
-    <a href="javascript:Effect.toggle('curriculumSubjectsBox','appear')" >click to show/hide subjects</a> 
     </dd>
-    <br/>
+     <br />
      <dt><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></dt>
 	  <dd id="termsOfUse">
 	     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
