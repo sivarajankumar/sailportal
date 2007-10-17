@@ -29,7 +29,7 @@ import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
-import org.easymock.EasyMock;
+import static org.easymock.EasyMock.*;
 
 /**
  * @author Laurel Williams
@@ -46,7 +46,10 @@ public class CurnitServiceImplTest extends TestCase {
     private SdsCurnitDao mockSdsCurnitDao;
     private CurnitDao<Curnit> mockCurnitDao;
  
-     private CurnitServiceImpl curnitServiceImpl;
+    private CurnitServiceImpl curnitServiceImpl;
+    
+    private SdsCurnit sdsCurnit;
+    private Curnit curnit;
      
     /**
      * @see junit.framework.TestCase#setUp()
@@ -56,12 +59,18 @@ public class CurnitServiceImplTest extends TestCase {
         super.setUp();
         this.curnitServiceImpl = new CurnitServiceImpl();
 
-        this.mockSdsCurnitDao = EasyMock.createMock(SdsCurnitDao.class);
+        this.mockSdsCurnitDao = createMock(SdsCurnitDao.class);
         this.curnitServiceImpl.setSdsCurnitDao(this.mockSdsCurnitDao);
 
-        this.mockCurnitDao = EasyMock.createMock(CurnitDao.class);
+        this.mockCurnitDao = createMock(CurnitDao.class);
         this.curnitServiceImpl.setCurnitDao(this.mockCurnitDao);
         
+        this.sdsCurnit = new SdsCurnit();
+        this.sdsCurnit.setName(CURNIT_NAME);
+        this.sdsCurnit.setUrl(CURNIT_URL);
+        
+        this.curnit = new CurnitImpl();
+        this.curnit.setSdsCurnit(this.sdsCurnit);
     }
 
     /**
@@ -78,10 +87,10 @@ public class CurnitServiceImplTest extends TestCase {
         List<Curnit> expectedList = new LinkedList<Curnit>();
         expectedList.add(new CurnitImpl());
 
-        EasyMock.expect(mockCurnitDao.getList()).andReturn(expectedList);
-        EasyMock.replay(mockCurnitDao);
+        expect(mockCurnitDao.getList()).andReturn(expectedList);
+        replay(mockCurnitDao);
         assertEquals(expectedList, curnitServiceImpl.getCurnitList());
-        EasyMock.verify(mockCurnitDao);
+        verify(mockCurnitDao);
     }
 
     public void testCreateCurnit() throws Exception {   
@@ -90,30 +99,38 @@ public class CurnitServiceImplTest extends TestCase {
         curnitParameters.setName(CURNIT_NAME);
         curnitParameters.setUrl(CURNIT_URL);
 
+        mockSdsCurnitDao.save(this.sdsCurnit);
+        expectLastCall();
+        replay(mockSdsCurnitDao);
+        mockCurnitDao.save(this.curnit);
+        expectLastCall();
+        replay(mockCurnitDao);
         Curnit curnit = this.curnitServiceImpl.createCurnit(curnitParameters);
 
         SdsCurnit actualSdsCurnit = curnit.getSdsCurnit();
         assertEquals(CURNIT_NAME, actualSdsCurnit.getName());
         assertEquals(CURNIT_URL, actualSdsCurnit.getUrl());
+        verify(mockSdsCurnitDao);
+        verify(mockCurnitDao);
     }
 
     public void testGetById() throws Exception {
     	Curnit expectedCurnit = new CurnitImpl();
-    	EasyMock.expect(mockCurnitDao.getById(EXISTING_CURNIT_ID)).andReturn(expectedCurnit);
-    	EasyMock.replay(mockCurnitDao);
+    	expect(mockCurnitDao.getById(EXISTING_CURNIT_ID)).andReturn(expectedCurnit);
+    	replay(mockCurnitDao);
     	assertEquals(expectedCurnit, curnitServiceImpl.getById(EXISTING_CURNIT_ID));
-    	EasyMock.verify(mockCurnitDao);
-    	EasyMock.reset(mockCurnitDao);
+    	verify(mockCurnitDao);
+    	reset(mockCurnitDao);
 
     	// now check when curnit is not found
-    	EasyMock.expect(mockCurnitDao.getById(NONEXISTING_CURNIT_ID)).andThrow(new ObjectNotFoundException(NONEXISTING_CURNIT_ID, Curnit.class));
-    	EasyMock.replay(mockCurnitDao);
+    	expect(mockCurnitDao.getById(NONEXISTING_CURNIT_ID)).andThrow(new ObjectNotFoundException(NONEXISTING_CURNIT_ID, Curnit.class));
+    	replay(mockCurnitDao);
     	try {
     		curnitServiceImpl.getById(NONEXISTING_CURNIT_ID);
     		fail("ObjectNotFoundException expected but was not thrown");
     	} catch (ObjectNotFoundException e) {
     	}
-    	EasyMock.verify(mockCurnitDao);
+    	verify(mockCurnitDao);
     }
     
     public void testChangeCurnitName() {
