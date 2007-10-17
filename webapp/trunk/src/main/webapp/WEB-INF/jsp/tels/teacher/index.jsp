@@ -217,7 +217,7 @@ My Customized Projects
 </tr>
 <tr>
 <td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
+<a href="management/viewmystudents.html">
 View My Students
 </a>
 </td>

@@ -107,6 +107,7 @@
 	  			/forgotaccount/student/passwordreminder*.html=forgotAccountStudentPasswordReminderWizardController
 				/forgotaccount/student/enterprojectcode.html=forgotAccountStudentCheckProjectCodeController
 				/**/changepassword.html=changePasswordController
+				/teacher/management/viewmystudents.html=viewMyStudentsController
     		</value>
     	</property>
     </bean>

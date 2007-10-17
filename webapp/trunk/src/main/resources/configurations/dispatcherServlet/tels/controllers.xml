@@ -419,4 +419,13 @@
         <property name="annotationBundleService" ref="annotationBundleService" />
 	    <property name="workgroupService" ref="workgroupService" />
 	</bean>	
+	
+	<bean id="viewMyStudentsController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ViewMyStudentsController">
+		<property name="runService" ref="runService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
+	</bean>
+
+		
 </beans>
