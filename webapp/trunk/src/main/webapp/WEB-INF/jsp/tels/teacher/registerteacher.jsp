@@ -158,36 +158,36 @@ function MM_swapImage() { //v3.0
 		  
           <table id="textCurriculumBox">
           <tr>
-          <td class="width166"><input id="userDetails.curriculumsubjects1" type="checkbox" value="Biology"/><input type="hidden" value="on"/> Biology</td>
-          <td class="width122"><input id="userDetails.curriculumsubjects2" type="checkbox" value="APBiology"/><input type="hidden" value="on"/> AP Biology</td>
+          <td class="width166"><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects1" value="Biology"/><input type="hidden" value="on"/> Biology</td>
+          <td class="width122"><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects2" value="APBiology"/><input type="hidden" value="on"/> AP Biology</td>
           </tr>
           <tr>
-          <td><input id="userDetails.curriculumsubjects3" type="checkbox" value="EnvironmentalScience"/><input type="hidden" value="on"/> Environmental Sci</td>
-		  <td><input id="userDetails.curriculumsubjects4"  type="checkbox" value="Chemistry"/><input type="hidden" value="on"/> Chemistry</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects3" value="EnvironmentalScience"/><input type="hidden" value="on"/> Environmental Sci</td>
+		  <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects4" value="Chemistry"/><input type="hidden" value="on"/> Chemistry</td>
           </tr>
           <tr>
-          <td><input id="userDetails.curriculumsubjects5"  type="checkbox" value="APChemistry"/><input type="hidden"  value="on"/> AP Chemistry</td>
-          <td><input id="userDetails.curriculumsubjects6" type="checkbox" value="Astronomy"/><input type="hidden"  value="on"/> Astronomy</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects5" value="APChemistry"/><input type="hidden"  value="on"/> AP Chemistry</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects6" value="Astronomy"/><input type="hidden"  value="on"/> Astronomy</td>
           </tr>
           <tr>
-          <td><input id="userDetails.curriculumsubjects7"  type="checkbox" value="Physics"/><input type="hidden" value="on"/> Physics</td>
-          <td><input id="userDetails.curriculumsubjects8" type="checkbox" value="APPhysics"/><input type="hidden" value="on"/> AP Physics</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects7" value="Physics"/><input type="hidden" value="on"/> Physics</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects8" value="APPhysics"/><input type="hidden" value="on"/> AP Physics</td>
           </tr>
           <tr>
-          <td><input id="userDetails.curriculumsubjects9" type="checkbox" value="Anatomy"/><input type="hidden"  value="on"/> Anatomy</td>
-          <td><input id="userDetails.curriculumsubjects10"  type="checkbox" value="EarthScience"/><input type="hidden"  value="on"/> Earth Science</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects9" value="Anatomy"/><input type="hidden"  value="on"/> Anatomy</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects10" value="EarthScience"/><input type="hidden"  value="on"/> Earth Science</td>
           </tr>
           <tr>
-          <td><input id="userDetails.curriculumsubjects11" type="checkbox" value="Biotechnology"/><input type="hidden"  value="on"/> Biotechnology</td>
-          <td><input id="userDetails.curriculumsubjects12"  type="checkbox" value="Geology"/><input type="hidden" value="on"/> Geology</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects11" value="Biotechnology"/><input type="hidden"  value="on"/> Biotechnology</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects12" value="Geology"/><input type="hidden" value="on"/> Geology</td>
 		  </tr>
           <tr>
-          <td><input id="userDetails.curriculumsubjects14"  type="checkbox" value="AdvancedIntScience"/><input type="hidden" value="on"/> Adv. Integrated Sci</td>
-          <td><input id="userDetails.curriculumsubjects13"  type="checkbox" value="IntegratedScience"/><input type="hidden" value="on"/> Integrated Sci</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects14" value="AdvancedIntScience"/><input type="hidden" value="on"/> Adv. Integrated Sci</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects13" value="IntegratedScience"/><input type="hidden" value="on"/> Integrated Sci</td>
 
           </tr>
           <tr>
-          <td><input id="userDetails.curriculumsubjects15" type="checkbox" value="Other"/><input type="hidden" value="on"/> Other</td>
+          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects15" value="Other"/><input type="hidden" value="on"/> Other</td>
           <td></td>
           </tr>
           </table>
