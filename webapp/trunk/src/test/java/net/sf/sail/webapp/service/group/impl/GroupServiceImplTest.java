@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -39,6 +40,8 @@ import net.sf.sail.webapp.service.group.CyclicalGroupException;
 
 import org.acegisecurity.acls.domain.BasePermission;
 import org.easymock.EasyMock;
+
+import static org.easymock.EasyMock.*;
 
 /**
  * @author Hiroki Terashima
@@ -74,8 +77,8 @@ public class GroupServiceImplTest extends TestCase {
 		super.setUp();
 		this.groupServiceImpl = new GroupServiceImpl();
 
-		this.mockGroupDao = EasyMock.createMock(GroupDao.class);
-		this.mockGroupAclService = EasyMock.createMock(AclService.class);
+		this.mockGroupDao = createMock(GroupDao.class);
+		this.mockGroupAclService = createMock(AclService.class);
 		this.groupServiceImpl.setGroupDao(this.mockGroupDao);
 		this.groupServiceImpl.setAclService(this.mockGroupAclService);
 		
@@ -123,20 +126,20 @@ public class GroupServiceImplTest extends TestCase {
 	private void createGroup1() {
 		this.group1.setName(DEFAULT_GROUP_NAMES[0]);
 		this.mockGroupDao.save(this.group1);
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupDao);
+		expectLastCall();
+		replay(this.mockGroupDao);
 		
 		this.mockGroupAclService.addPermission(this.group1, BasePermission.ADMINISTRATION);
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupAclService);
+		expectLastCall();
+		replay(this.mockGroupAclService);
 
 		GroupParameters groupParameters = new GroupParameters();
 		groupParameters.setName(DEFAULT_GROUP_NAMES[0]);
 		this.group1 = this.groupServiceImpl.createGroup(groupParameters);
-		EasyMock.verify(this.mockGroupDao);
-		EasyMock.reset(this.mockGroupDao);
-		EasyMock.verify(this.mockGroupAclService);
-		EasyMock.reset(this.mockGroupAclService);
+		verify(this.mockGroupDao);
+		reset(this.mockGroupDao);
+		verify(this.mockGroupAclService);
+		reset(this.mockGroupAclService);
 		assertEquals(0, this.group1.getMembers().size());
 		assertEquals(DEFAULT_GROUP_NAMES[0], this.group1.getName());
 		assertNull(this.group1.getParent());
@@ -149,20 +152,20 @@ public class GroupServiceImplTest extends TestCase {
 	private void createGroup2() {
 		this.group2.setName(DEFAULT_GROUP_NAMES[0]);
 		this.mockGroupDao.save(this.group2);
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupDao);
+		expectLastCall();
+		replay(this.mockGroupDao);
 
 		this.mockGroupAclService.addPermission(this.group2, BasePermission.ADMINISTRATION);
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupAclService);
+		expectLastCall();
+		replay(this.mockGroupAclService);
 
 		GroupParameters groupParameters = new GroupParameters();
 		groupParameters.setName(DEFAULT_GROUP_NAMES[0]);
 		this.group2 = this.groupServiceImpl.createGroup(groupParameters);
-		EasyMock.verify(this.mockGroupDao);
-		EasyMock.reset(this.mockGroupDao);
-		EasyMock.verify(this.mockGroupAclService);
-		EasyMock.reset(this.mockGroupAclService);
+		verify(this.mockGroupDao);
+		reset(this.mockGroupDao);
+		verify(this.mockGroupAclService);
+		reset(this.mockGroupAclService);
 		assertEquals(0, this.group2.getMembers().size());
 		assertEquals(DEFAULT_GROUP_NAMES[0], this.group2.getName());
 		assertNull(this.group2.getParent());
@@ -176,23 +179,23 @@ public class GroupServiceImplTest extends TestCase {
 		this.group3.setName(DEFAULT_GROUP_NAMES[2]);
 		this.group3.setParent(this.group1);
 
-		EasyMock.expect(this.mockGroupDao.getById(new Long(3))).andReturn(this.group1);
+		expect(this.mockGroupDao.getById(new Long(3))).andReturn(this.group1);
 		this.mockGroupDao.save(this.group3);
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupDao);
+		expectLastCall();
+		replay(this.mockGroupDao);
 		
 		this.mockGroupAclService.addPermission(this.group3, BasePermission.ADMINISTRATION);
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupAclService);
+		expectLastCall();
+		replay(this.mockGroupAclService);
 
 		GroupParameters groupParameters = new GroupParameters();
 		groupParameters.setName(DEFAULT_GROUP_NAMES[2]);
 		groupParameters.setParentId(new Long(3));
 		this.group3 = this.groupServiceImpl.createGroup(groupParameters);
-		EasyMock.verify(this.mockGroupDao);
-		EasyMock.reset(this.mockGroupDao);
-		EasyMock.verify(this.mockGroupAclService);
-		EasyMock.reset(this.mockGroupAclService);
+		verify(this.mockGroupDao);
+		reset(this.mockGroupDao);
+		verify(this.mockGroupAclService);
+		reset(this.mockGroupAclService);
 		assertEquals(DEFAULT_GROUP_NAMES[2], this.group3.getName());
 		assertEquals(0, this.group3.getMembers().size());
 	}
@@ -217,13 +220,13 @@ public class GroupServiceImplTest extends TestCase {
 		// change group1's name
 		this.group1.setName(DEFAULT_GROUP_NAMES[1]);
 		this.mockGroupDao.save(this.group1);
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupDao);
+		expectLastCall();
+		replay(this.mockGroupDao);
 		
 		this.groupServiceImpl.changeGroupName(this.group1,
 				DEFAULT_GROUP_NAMES[1]);
-		EasyMock.verify(this.mockGroupDao);
-		EasyMock.reset(this.mockGroupDao);
+		verify(this.mockGroupDao);
+		reset(this.mockGroupDao);
 		assertEquals(DEFAULT_GROUP_NAMES[1], this.group1.getName());
 	}
 
@@ -260,16 +263,16 @@ public class GroupServiceImplTest extends TestCase {
 		this.group2.setParent(this.group1);
 		this.mockGroupDao.save(this.group2);
 		// since there is no cycle, expect group2 to be saved
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupDao);
+		expectLastCall();
+		replay(this.mockGroupDao);
 		
 		try {
 			this.groupServiceImpl.moveGroup(this.group1, this.group2);
 		} catch (CyclicalGroupException e) {
 			fail("CyclicalException NOT expected");
 		}
-		EasyMock.verify(this.mockGroupDao);
-		EasyMock.reset(this.mockGroupDao);
+		verify(this.mockGroupDao);
+		reset(this.mockGroupDao);
 		assertEquals(this.group2.getParent(), this.group1);
 	}
 
@@ -315,13 +318,13 @@ public class GroupServiceImplTest extends TestCase {
 		this.group1.setMembers(members);
 
 		this.mockGroupDao.save(this.group1);
-		EasyMock.expectLastCall();
-		EasyMock.replay(this.mockGroupDao);
+		expectLastCall();
+		replay(this.mockGroupDao);
 		
 		this.groupServiceImpl.addMembers(this.group1, members);
 
-		EasyMock.verify(this.mockGroupDao);
-		EasyMock.reset(this.mockGroupDao);
+		verify(this.mockGroupDao);
+		reset(this.mockGroupDao);
 
 		assertEquals(2, this.group1.getMembers().size());
 
@@ -331,5 +334,30 @@ public class GroupServiceImplTest extends TestCase {
 		newMembers.add(this.user1);
 		this.groupServiceImpl.addMembers(this.group1, newMembers);
 		assertEquals(3, this.group1.getMembers().size());
+	}
+	
+	public void testRetrieveById() throws Exception {
+		Group group = new PersistentGroup();
+		Long groupId = new Long(5);
+		expect(this.mockGroupDao.getById(groupId)).andReturn(group);
+		replay(this.mockGroupDao);
+		Group retrievedGroup = null;
+		retrievedGroup = groupServiceImpl.retrieveById(groupId);
+		
+		assertEquals(group, retrievedGroup);
+		verify(this.mockGroupDao);
+		
+		reset(this.mockGroupDao);
+		expect(this.mockGroupDao.getById(groupId)).andThrow(new ObjectNotFoundException(groupId, Group.class));
+		replay(this.mockGroupDao);
+		retrievedGroup = null;
+		try {
+			retrievedGroup = groupServiceImpl.retrieveById(groupId);
+			fail("ObjectNotFoundException not thrown but should have been thrown");
+		} catch (ObjectNotFoundException e) {
+		}
+		
+		assertNull(retrievedGroup);
+		EasyMock.verify(this.mockGroupDao);
 	}
 }

@@ -183,6 +183,14 @@ public class GroupServiceImpl implements GroupService {
     }
 
     /**
+	 * @see net.sf.sail.webapp.service.group.GroupService#retrieveById(Long)
+	 */
+    @Transactional(readOnly = true)
+	public Group retrieveById(Long groupId) throws ObjectNotFoundException {
+		return groupDao.getById(groupId);
+	}
+
+    /**
 	 * @param groupDao
 	 *            the groupDao to set
 	 */
@@ -199,6 +207,4 @@ public class GroupServiceImpl implements GroupService {
 	public void setUserDao(UserDao<User> userDao) {
 		this.userDao = userDao;
 	}
-    
-    
 }

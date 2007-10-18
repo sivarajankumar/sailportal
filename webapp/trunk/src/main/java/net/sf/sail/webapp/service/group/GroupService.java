@@ -25,6 +25,7 @@ package net.sf.sail.webapp.service.group;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
@@ -142,4 +143,16 @@ INSERT INTO WORKGROUPS_RELATED_TO_USERS VALUES(4,1)
 */
     @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
     public List<Group> getGroups();
+    
+    /**
+     * Retrieves Group domain object using unique groupId
+     * 
+     * @param groupId
+     *     <code>Long</code> groupId to use for lookup
+     * @return <code>Group</code>
+     *     the Group object with the given groupId
+     * @throws <code>ObjectNotFoundException</code> when groupId
+     *     cannot be used to find an existing group
+     */
+    public Group retrieveById(Long groupId) throws ObjectNotFoundException;
 }
