@@ -19,7 +19,10 @@
 
 <!-- $Id$ -->
 
-<div align="center">
-	<a href="index.html"><img id="none" src="<spring:theme code="wisebanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
+<div id="bannerArea">
+    	<div id="wiseLogo"><a href="index.html" 
+    		onmouseout="MM_swapImgRestore()" 
+    		onmouseover="MM_swapImage('WISE Main Logo','','./themes/tels/default/images/WISE-Logo-Large.png',1)">
+    		<img src="./themes/tels/default/images/WISE-Logo-Large.png" 
+    		alt="WISE Large Logo" border="0" id="WISE Main Logo" /></a></div>
 </div>
-	

@@ -25,6 +25,3 @@
         <div id="teacherBannerLabel"><p><img src="../themes/tels/default/images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" /></p></div>
 </div>
 
-<!-- <div class="center">
-	<a href="../index.html"><img id="none" src="../<spring:theme code="dashboardbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
-</div> -->

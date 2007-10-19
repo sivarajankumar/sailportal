@@ -1088,3 +1088,180 @@ Element.Methods.visualEffect = function(element, effect, options) {
 };
 
 Element.addMethods();
+
+
+//Used for the WISE Welcome Links.  When each link is clicked it sets all other bullet //
+//text-passages are set to Display-None and does "effect.toggle" on the current bullet.-->//
+
+function fabulousTurnOff1() { //v3.0
+
+	var welcome2 = document.getElementById('welcomeBullet2');
+	welcome2.style.display = 'none';
+	
+	var welcome3 = document.getElementById('welcomeBullet3');
+	welcome3.style.display = 'none';
+	
+	var welcome4 = document.getElementById('welcomeBullet4');
+	welcome4.style.display = 'none';
+	
+	var welcome5 = document.getElementById('welcomeBullet5');
+	welcome5.style.display = 'none';
+	
+	var welcome6 = document.getElementById('welcomeBullet6');
+	welcome6.style.display = 'none';
+	
+	var welcome7 = document.getElementById('welcomeBullet7');
+	welcome7.style.display = 'none';
+	
+	Effect.toggle('welcomeBullet1','slide');
+	
+	}
+
+function fabulousTurnOff2() { //v3.0
+
+
+	var welcome1 = document.getElementById('welcomeBullet1');
+	welcome1.style.display = 'none';
+	
+	var welcome3 = document.getElementById('welcomeBullet3');
+	welcome3.style.display = 'none';
+	
+	var welcome4 = document.getElementById('welcomeBullet4');
+	welcome4.style.display = 'none';
+	
+	var welcome5 = document.getElementById('welcomeBullet5');
+	welcome5.style.display = 'none';
+	
+	var welcome6 = document.getElementById('welcomeBullet6');
+	welcome6.style.display = 'none';
+	
+	var welcome7 = document.getElementById('welcomeBullet7');
+	welcome7.style.display = 'none';
+	
+	Effect.toggle('welcomeBullet2','slide');
+	
+}
+
+function fabulousTurnOff3() { //v3.0
+
+
+	var welcome1 = document.getElementById('welcomeBullet1');
+	welcome1.style.display = 'none';
+	
+	var welcome2 = document.getElementById('welcomeBullet2');
+	welcome2.style.display = 'none';
+	
+	var welcome4 = document.getElementById('welcomeBullet4');
+	welcome4.style.display = 'none';
+	
+	var welcome5 = document.getElementById('welcomeBullet5');
+	welcome5.style.display = 'none';
+	
+	var welcome6 = document.getElementById('welcomeBullet6');
+	welcome6.style.display = 'none';
+	
+	var welcome7 = document.getElementById('welcomeBullet7');
+	welcome7.style.display = 'none';
+	
+	Effect.toggle('welcomeBullet3','slide');
+	
+}
+
+function fabulousTurnOff4() { //v3.0
+
+
+	var welcome1 = document.getElementById('welcomeBullet1');
+	welcome1.style.display = 'none';
+	
+	var welcome2 = document.getElementById('welcomeBullet2');
+	welcome2.style.display = 'none';
+	
+	var welcome3 = document.getElementById('welcomeBullet3');
+	welcome3.style.display = 'none';
+	
+	var welcome5 = document.getElementById('welcomeBullet5');
+	welcome5.style.display = 'none';
+	
+	var welcome6 = document.getElementById('welcomeBullet6');
+	welcome6.style.display = 'none';
+	
+	var welcome7 = document.getElementById('welcomeBullet7');
+	welcome7.style.display = 'none';
+	
+	Effect.toggle('welcomeBullet4','slide');
+	
+}
+
+function fabulousTurnOff5() { 
+
+
+	var welcome1 = document.getElementById('welcomeBullet1');
+	welcome1.style.display = 'none';
+	
+	var welcome2 = document.getElementById('welcomeBullet2');
+	welcome2.style.display = 'none';
+	
+	var welcome3 = document.getElementById('welcomeBullet3');
+	welcome3.style.display = 'none';
+	
+	var welcome4 = document.getElementById('welcomeBullet4');
+	welcome4.style.display = 'none';
+	
+	var welcome6 = document.getElementById('welcomeBullet6');
+	welcome6.style.display = 'none';
+	
+	var welcome7 = document.getElementById('welcomeBullet7');
+	welcome7.style.display = 'none';
+	
+	Effect.toggle('welcomeBullet5','slide');
+	
+}
+
+function fabulousTurnOff6() { //v3.0
+
+
+	var welcome1 = document.getElementById('welcomeBullet1');
+	welcome1.style.display = 'none';
+	
+	var welcome2 = document.getElementById('welcomeBullet2');
+	welcome2.style.display = 'none';
+	
+	var welcome3 = document.getElementById('welcomeBullet3');
+	welcome3.style.display = 'none';
+	
+	var welcome4 = document.getElementById('welcomeBullet4');
+	welcome4.style.display = 'none';
+	
+	var welcome5 = document.getElementById('welcomeBullet5');
+	welcome5.style.display = 'none';
+		
+	var welcome7 = document.getElementById('welcomeBullet7');
+	welcome7.style.display = 'none';
+	
+	Effect.toggle('welcomeBullet6','slide');
+	
+}
+
+function fabulousTurnOff7() {  
+
+
+	var welcome1 = document.getElementById('welcomeBullet1');
+	welcome1.style.display = 'none';
+	
+	var welcome2 = document.getElementById('welcomeBullet2');
+	welcome2.style.display = 'none';
+	
+	var welcome3 = document.getElementById('welcomeBullet3');
+	welcome3.style.display = 'none';
+	
+	var welcome4 = document.getElementById('welcomeBullet4');
+	welcome4.style.display = 'none';
+	
+	var welcome5 = document.getElementById('welcomeBullet5');
+	welcome5.style.display = 'none';
+	
+	var welcome6 = document.getElementById('welcomeBullet6');
+	welcome6.style.display = 'none';
+	
+	Effect.toggle('welcomeBullet7','slide');
+}

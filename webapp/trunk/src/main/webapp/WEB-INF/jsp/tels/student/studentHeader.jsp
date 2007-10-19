@@ -17,13 +17,10 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
+<!-- $Id: header.jsp 368 2007-05-05 01:41:18Z MattFish $ -->
 
-
-<div class="center">
-	<a href="../index.html"><img id="none" src="../<spring:theme code="studentbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
-	<p style="position: absolute;top:-5px;text-align:right;"> 
+<div id="bannerAreaStudent">
+    	<div id="wiseLogo"><a href="../index.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('WISE Secondary Logo','','../themes/tels/default/images/WISE-Seconary-Banner-Logo-Roll.png',1)"><img src="../themes/tels/default/images/WISE-Seconary-Banner-Logo.png" alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
+        <div id="studentBannerLabel"><p><img src="../themes/tels/default/images/student/Student-Site-Label.png" alt="Teacher Dashboard Label" /></p></div>
 </div>
-	    <div>
-	</div>
 	
