@@ -41,4 +41,8 @@ public class CurnitParametersValidatorTest extends TestCase {
 	private Validator curnitParametersValidator;
 	private Errors errors;
 	
+	public void testFake() {
+		assertTrue(true);
+	}
+	
 }
