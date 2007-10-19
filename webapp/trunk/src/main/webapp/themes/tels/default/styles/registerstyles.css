@@ -93,6 +93,9 @@ a:hover {
 	font-weight: bold;
 		}
 
+#studentRegForm {
+	margin-top:25px;
+	}
 	
 #studentRegForm dl {
 	position: relative;

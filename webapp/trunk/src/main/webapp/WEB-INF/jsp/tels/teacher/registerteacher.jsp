@@ -140,7 +140,8 @@ function MM_swapImage() { //v3.0
     
     <dt><label for="schoollevel" id="schoollevel1"><spring:message code="signup.schoollevel" /></label> </dt>
 	<dd> 
-    		<form:select path="userDetails.schoollevel" id="schoollevel" onfocus="Effect.toggle('showSchoolLevelInfo','appear');" onblur="Effect.toggle('showSchoolLevelInfo','appear');">           <c:forEach items="${schoollevels}" var="schoollevel">
+    		<form:select path="userDetails.schoollevel" id="schoollevel" onfocus="Effect.toggle('showSchoolLevelInfo','appear');" onblur="Effect.toggle('showSchoolLevelInfo','appear');">           
+    		<c:forEach items="${schoollevels}" var="schoollevel">
             <form:option value="${schoollevel}"><spring:message code="signup.schoollevels.${schoollevel}" /></form:option>
           </c:forEach>
         </form:select>

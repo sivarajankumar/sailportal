@@ -1,4 +1,5 @@
 <%@ include file="include.jsp"%>
+
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -17,22 +18,27 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: registerstudent.jsp 989 2007-08-30 01:15:54Z archana $ -->
+<!-- $Id: registerstudent.jsp 989 2007-08-30 01:15:54Z MattFish $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
 <script src=".././javascript/tels/general.js" type="text/javascript" > </script>
-<script src=".././javascript/tels/rotator.js" type="text/javascript" > </script>
-  
-<title><spring:message code="signup.title" /></title>
+<script src=".././javascript/tels/effects.js" type="text/javascript" > </script>
+<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+
+<title><spring:message code="student.signup.title" /></title>
 
 </head>
 
 <body>
+
+<div id="centeredDiv">
 
 <%@ include file="studentHeader.jsp"%>
 
@@ -45,150 +51,117 @@
   </c:forEach>
 </spring:bind>
 
-<h2 class="center"><spring:message code="student.registration" /></h2>
-<h3 class="center"><spring:message code="student.registration.instructions" /></h3>
+<div id="registrationTitle">
+    	<h1 class="blueText">Student Registration</h1></div>
 
-<div class="center">
-<form:form method="post" action="registerstudent.html" commandName="studentAccountForm" id="register" >
-  <table align="center">
-  <tr><td>
-  <label for="firstname" id="firstname1">
-  First Name:
-  </label>
-  </td>
-  <td>
-     <form:input path="userDetails.firstname" id="firstname" size="30"/>
-      <form:errors path="userDetails.firstname" />
-  </td>
-  </tr>
-  <tr>
-      <td>
-      <label for="lastname" id="lastname1">Last Name:</label>
-	  </td>
-	  <td>
-      <form:input path="userDetails.lastname" id="lastname" size="30"/>
-      <form:errors path="userDetails.lastname" />
-      </td>
-      </tr>
-      <tr>
-      <td>
-      <label for="gender" id="gender1">Gender:</label>
-	  </td>
-	  <td>
-      <form:select path="userDetails.gender" id="gender"> 
-          <c:forEach items="${genders}" var="genderchoice">
-            <form:option value="${genderchoice}"><spring:message code="genders.${genderchoice}" /></form:option>
-          </c:forEach>
-      </form:select>
+<div id="subtitle">
+  <p>To create a student account please fill in the following fields.</p></div>
       
-      <form:errors path="userDetails.gender" />	  
-	  </td>
-	  </tr>
-	  <tr>
-	  <td>
-	  <label for="birthmonth" id="birthmonth1">Birthday (Month):</label>
-	  </td>
-	  <td>
-  	    <form:select path="birthmonth" id="birthmonth">
-		  <c:forEach var="month" begin="1" end="12" step="1">
-			  <form:option value="${month}">
-				  <spring:message code="birthmonths.${month}" />
-			  </form:option>
-		  </c:forEach>
-	    </form:select> 
+  <form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html">
+  
+  <dl>
+  	<dt><label for="studentFirstName">First Name:</label></dt>	    
+  	  	<dd><form:input path="userDetails.firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
+	    <form:errors path="userDetails.firstname" />
+    	<span class="hint">Required.<span class="hint-pointer"></span></span> 
+   		</dd>
 
-      <form:errors path="birthmonth" />	  
-	  </td>
-	  </tr>
-	  <tr>
-	  <td>
-      <label for="birthdate" id="birthdate1">Birthday (Day):</label>
-	  </td>
-	  <td>
-	   	<form:select path="birthdate" id="birthdate">
-		  <c:forEach var="date" begin="1" end="31" step="1">
-			  <form:option value="${date}">
-				  <spring:message code="birthdates.${date}" />
-			  </form:option>
-		  </c:forEach>
-	    </form:select> 	    
+  	<dt><label for="studentLastName">Last Name:</label></dt>
+	<dd><form:input path="userDetails.lastname" id="lastname" size="25" maxlength="25" tabindex="2"/>
+	    <form:errors path="userDetails.lastname" />
+    	<span class="hint">Required.<span class="hint-pointer"></span></span> 
+   		</dd>
+            
+  	<dt><label for="studentGender">Gender:</label></dt>
+	<dd><form:select path="userDetails.gender" id="gender" tabindex="3">       
+          <c:forEach items="${genders}" var="genderchoice">
+            <form:option value="${genderchoice}">
+            	<spring:message code="genders.${genderchoice}" />
+            </form:option>
+          </c:forEach>
+      	</form:select> 
+        <span class="hint">Required.<span class="hint-pointer"></span></span> 
+    	</dd>
+            
+    <dt><label for="studentBirthMonth">Birthday (Month):</label></dt>
+	<dd><form:select path="birthmonth" id="birthmonth" tabindex="4">
+		<form:errors path="birthmonth" />
+		<c:forEach var="month" begin="1" end="12" step="1">
+			<form:option value="${month}">
+				<spring:message code="birthmonths.${month}" />
+			</form:option>
+		</c:forEach>
+	    </form:select>
+        <span class="hint">Your birthday information will be used to create a unique (and easy to remember) Username.  You'll use this Username later to sign into WISE.<span class="hint-pointer"></span></span> 
+    	</dd>
+        
+	  <dt><label for="studentBirthDate">Birthday (Day):</label></dt>
+	  <dd><form:select path="birthdate" id="birthdate" tabindex="5">
 	      <form:errors path="birthdate" />
-	  </td>
-	  </tr>
-	  <tr>
-	  <td>
-	  <label for="password" id="password1">
-	  Password:
-	  </label>
-	  </td>
-	  <td>
-      <form:password path="userDetails.password" id="password"/>
-      <form:errors path="userDetails.password"/>      	  
-	  </td>
-	  </tr>
-	  <tr>
-	  <td>
-      <label for="repeatedPassword" id="repeatedPassword1">Verify Password:</label>	  
-	  </td>
-	  <td>
-      <form:password path="repeatedPassword" id="repeatedPassword"/>
-      <form:errors path="repeatedPassword" />      	  
-	  </td>
-	  </tr>
-	  <tr>
-	  <td>
-	  <label for="accountQuestion" id="accountQuestion1">Question:</label>
-	  </td>
-	  <td>
-            <form:select path="userDetails.accountQuestion" id="accountQuestion"> 
-          <c:forEach items="${accountQuestions}" var="questionchoice">
-            <form:option value="${questionchoice}"><spring:message code="accountquestions.${questionchoice}"/></form:option>
+			 <c:forEach var="date" begin="1" end="31" step="1">
+				  <form:option value="${date}">
+				  		<spring:message code="birthdates.${date}" />
+			  	  </form:option>
+		  </c:forEach>
+	    </form:select> 	
+         </dd>
+                   
+	  <dt><label for="studentPassword">Password:</label></dt>
+	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="6"/>
+      		<form:errors path="userDetails.password"/> 
+      		<span class="hint">Your password can contain up to 18 letters and/or numbers. Try to create a password that you can remember!<span class="hint-pointer"></span></span> 
+            </dd>
+
+	  <dt><label for="studentPasswordRepeat">Verify Password:</label></dt>
+	  <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="7"/> 
+            <form:errors path="repeatedPassword" />      	  
+	        <span class="hint">Retype your password.<span class="hint-pointer"></span></span>
+            </dd>
+      
+	  <dt><label for="reminderQuestion">Password Reminder Q:</label></dt>
+	  <dd><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
+            <form:errors path="userDetails.accountQuestion" />
+        	<c:forEach items="${accountQuestions}" var="questionchoice">
+            <form:option value="${questionchoice}">
+            	<spring:message code="accountquestions.${questionchoice}"/>
+             </form:option>
           </c:forEach>
         </form:select>
         
-      <form:errors path="userDetails.accountQuestion" />
-	  
-	  </td>
-	  </tr>
-	  
-	  <tr>
-	  <td>
-	   <label for="accountAnswer" id="accountAnswer1">Answer:</label>
-	  </td>
-	  <td>
-      <form:input path="userDetails.accountAnswer" id="accountAnswer"/>
-      <form:errors path="userDetails.accountAnswer" />	  
-	  </td>
-	  </tr>
+         <span class="hint">Select a question, then answer it below. If you forget your 
+password in the future this reminder helps you prove who you are.<span class="hint-pointer"></span></span>
+		</dd>
 
-	  <tr>
-	  <td>
-	  <label for="projectCode" id="projectCode1">Project Code:</label>	  
-	  </td>
-	  <td>
-	  	  <form:input path="projectCode" id="projectCode"/>
-      	  <form:errors path="projectCode" />
-	  </td>
-	  </tr>	
-	       
-      </table>
-   
-<br />
+	  <dt><label for="reminderAnswer" id="reminderAnswer">Password Reminder A:</label></dt>
+	  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
+          <form:errors path="userDetails.accountAnswer" />	  
+	      <span class="hint">Answer the password reminder question here.<span class="hint-pointer"></span></span>			
+          </dd>
+      
+      <dt><label for="projectCode" id="projectCode1">Project Code:</label></dt>
+	  <dd><form:input path="projectCode" id="projectCode" size="25" maxlength="25" tabindex="10"/>
+       	  <form:errors path="projectCode" />
+          <span class="hint">Ask your teacher for the Project Code.<span class="hint-pointer"></span></span></dd>
 
- <div><input type="image" id="save" src="../<spring:theme code="register_save" />" 
-     onmouseover="swapImage('save','../<spring:theme code="register_save_roll" />')" 
+    </dl>
+               
+ 	  <div id="regButtons">
+ 	    <input type="image" id="save" src="../<spring:theme code="register_save" />" 
+    onmouseover="swapImage('save','../<spring:theme code="register_save_roll" />')" 
     onmouseout="swapImage('save','../<spring:theme code="register_save" />')"
     />
     <a href="../index.html"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
     onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')" 
     onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"
-    /> </a>
-    </div>
+    /> </a>	  </div>
+ 
+ </form:form>
+ 
 
-</form:form>
-</div>
+</div>  <!-- /* End of the CenteredDiv */-->
 
 </body>
+
 </html>
 
 
