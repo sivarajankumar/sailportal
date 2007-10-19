@@ -30,6 +30,12 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.internal.runners.TestClassRunner;
+import org.junit.runner.RunWith;
 
 import com.meterware.httpunit.WebResponse;
 
@@ -40,6 +46,7 @@ import com.meterware.httpunit.WebResponse;
  *          laurel $
  * 
  */
+@RunWith(TestClassRunner.class)
 public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 
 	private HttpRestSdsOfferingDao sdsOfferingDao;
@@ -59,11 +66,26 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	}
 
 	/**
+	 * @throws Exception
+	 */
+	@Before
+	public void callSetUp() throws Exception {
+		this.setUp();
+		this.onSetUp();
+	}
+
+	/**
 	 * @see net.sf.sail.webapp.junit.AbstractSpringHttpUnitTests#onSetUp()
 	 */
 	@Override
 	protected void onSetUp() throws Exception {
 		super.onSetUp();
+	}
+
+	@After
+	public void callTearDown() throws Exception {
+		this.tearDown();
+		this.onTearDown();
 	}
 
 	/**
@@ -81,15 +103,26 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getList()}.
 	 */
 	@SuppressWarnings("unchecked")
+	@Test
+	//Comment out this test by adding @Ignore if it takes too long for you (only works in junit4)
+	@Ignore
 	public void testGetList() throws Exception {
 		// To test, we will retrieve the offering list through 2 methods, via
 		// DAO and httpunit. Compare the lists and make sure that they're
 		// equivalent.
 		// *Note* there is a small chance that between the 2 retrievals, a new
 		// offering may be inserted into the SDS and cause this test to break.
-		// *Note that I (LAW) haven't bothered to check the curnitmaps for this test,
-		// although they are retrieved by getList. GetById is probably sufficient.
-		List<SdsOffering> actualSet = this.sdsOfferingDao.getList();
+		// *Note that I (LAW) haven't bothered to check the curnitmaps for this
+		// test,
+		// although they are retrieved by getList. GetById is probably
+		// sufficient.
+		List<SdsOffering> actualSet = new ArrayList();
+		try {
+			actualSet = this.sdsOfferingDao.getList();
+		} catch (CurnitMapNotFoundException e) {
+			System.out.println("CurnitMapNotFoundException caught and ignored");
+			fail("decided to fail now rather than later");
+		}
 		WebResponse webResponse = makeHttpRestGetRequest("/offering");
 		assertEquals(HttpStatus.SC_OK, webResponse.getResponseCode());
 
@@ -113,6 +146,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	 * Test method for
 	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
 	 */
+	@Test
 	public void testUpdateOffering() throws Exception {
 		this.sdsOffering = this.createWholeOffering();
 		Long constantSdsOfferingId = this.sdsOffering.getSdsObjectId();
@@ -139,6 +173,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	 * net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
 	 */
 	@SuppressWarnings("unchecked")
+	@Test
 	public void testSave_NewOffering() throws Exception {
 		this.sdsOffering.setName(DEFAULT_NAME);
 		// create curnit in SDS
@@ -166,6 +201,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	 * Test method for {@link
 	 * net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#delete(net.sf.sail.webapp.domain.sds.SdsOffering)}.
 	 */
+	@Test
 	public void testDelete() {
 		try {
 			this.sdsOfferingDao.delete(null);
@@ -178,6 +214,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	 * Test method for
 	 * {@link net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#getById(java.lang.Long)}.
 	 */
+	@Test
 	public void testGetById() throws Exception {
 		this.sdsOffering = this.createWholeOffering();
 		SdsOffering actualSdsOffering = this.sdsOfferingDao
@@ -185,6 +222,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 		assertEqualOfferings(actualSdsOffering);
 	}
 
+	@Test
 	public void testGetByIdCurnitMapNotRetrieved() throws Exception {
 		this.sdsOffering = this.createBogusOffering();
 		try {
