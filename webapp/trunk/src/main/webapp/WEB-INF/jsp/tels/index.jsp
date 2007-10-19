@@ -152,8 +152,9 @@
                                     <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" maxlength="20"/></dd>
                                 </dl>
                                                        
-                                <div class="alignRight"><input type="image" id="signInButton" src="./themes/tels/default/images/sign_in.png"   
-                                            onmouseover="MM_swapImage('signIn','./themes/tels/default/images/sign_in_rollover.png')"
+                                <div class="alignRight">
+                                			<input type="image" id="signInButton" src="./themes/tels/default/images/sign_in.png"   
+                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/sign_in_rollover.png',1)"
                                             onmouseout="MM_swapImgRestore()"
                                             onclick="Effect.toggle('waiting', 'appear')" /></div>
                                                  
