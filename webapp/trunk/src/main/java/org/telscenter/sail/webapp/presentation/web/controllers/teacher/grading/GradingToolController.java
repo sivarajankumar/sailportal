@@ -52,6 +52,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  */
 public class GradingToolController extends AbstractController {
 
+	private static final String TAB_INDEX = "tabIndex";
 	private static final String NEXT_STEP = "nextStep";
 	private static final String CURNIT_ID = "curnitId";
 	private static final String PROJECT_TITLE = "projectTitle";
@@ -77,6 +78,7 @@ public class GradingToolController extends AbstractController {
 		String gradingType = request.getParameter(GRADE_TYPE);
 		String runId = request.getParameter(GradeByStepController.RUN_ID);
 		String podUUID = request.getParameter(PODUUID);
+		String tabIndex = request.getParameter(TAB_INDEX);
 		boolean foundCurrentStep = false;
 		boolean foundNextStep = false;
 		
@@ -123,6 +125,7 @@ public class GradingToolController extends AbstractController {
 					modelAndView.addObject(ACTIVITY,activity);
 					modelAndView.addObject(PROJECT_TITLE,project.getTitle());
 					modelAndView.addObject(CURNIT_ID,curnitId);
+					modelAndView.addObject(TAB_INDEX, tabIndex);
 					
 					modelAndView.addObject(GradeByStepController.RUN_ID, runId);
 				}// if

@@ -82,6 +82,29 @@ YUI download for details on each of the aggregate files and their contents):-->
 <script type="text/javascript" src="../.././javascript/tels/yui/treeview/treeview-min.js"></script> 
 <script type="text/javascript">
 		var div = document.getElementById('container');
+		
+		//create tab
+	    var tabView = new YAHOO.widget.TabView('periodTabs'); 
+	    
+		tabView.set('activeIndex', ${tabIndex});								        
+	    
+	     function handleClick(e) { 
+	     	 var returnVar = document.getElementById('nextStepLink');  
+	     	 var tabIndex = tabView.getTabIndex( e.newValue );
+	     	 YAHOO.log('TAB ' + tabIndex);
+	     	 returnVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
+	     	 YAHOO.log('new HREF: ' + returnVar);
+	     	 YAHOO.log('target ' + tabView.getTabIndex( e.newValue ) );
+	    } 
+	     
+	    tabView.addListener('activeTabChange', handleClick); 
+	    
+	    //create logger
+	    var myContainer = document.body.appendChild(document.createElement("div")); 
+		var myLogReader = new YAHOO.widget.LogReader(myContainer); 
+		
+		
+		
 		var handleSuccess = function(o){
 			YAHOO.log("The success handler was called.  tId: " + o.tId + ".", "info", "example");
 			if(o.responseText !== undefined){
@@ -185,13 +208,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 		
 			
 		};
-	//create tab
-    var tabView = new YAHOO.widget.TabView('periodTabs'); 
-    tabView.set('activeIndex', 0); 
-    
-    //create logger
-    var myContainer = document.body.appendChild(document.createElement("div")); 
-	var myLogReader = new YAHOO.widget.LogReader(myContainer); 
+
 </script>
 
 <body class=" yui-skin-sam">
@@ -199,7 +216,8 @@ YUI download for details on each of the aggregate files and their contents):-->
 <h2>Grading Tool</h2>
 
 <div id="tableProjectView">
-
+nextStep ${nextStep.podUUID} <br>
+step ${step.podUUID} 
 <table class="view">
   <tr>
   	<td><em>Project:</em> </td>
@@ -210,7 +228,10 @@ YUI download for details on each of the aggregate files and their contents):-->
   	<td><em>View:</em></td>
     <td id="viewStep"><strong>Act ${activity.number+1}, Step ${step.number+1}: ${step.title}</strong>
     </td>
-    <td><td id="gradeStepLinks">View Previous Step&nbsp &nbsp<a href="gradebystep.html?runId=${runId}">View Step Menu</a> &nbsp &nbsp <c:if test="${!empty nextStep}"><a href="gradingtool.html?GRADE_TYPE=step&amp;runId=${runId}&amp;podUUID=${nextStep.podUUID}"> View Next Step</a></c:if></td>
+    <td><td id="gradeStepLinks">View Previous Step&nbsp &nbsp<a href="gradebystep.html?runId=${runId}">View Step Menu</a>
+    &nbsp &nbsp <c:if test="${!empty nextStep}">
+    <a id='nextStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">View Next Step</a>
+    </c:if></td>
   <tr>
     <td></td>
     <td></td>
