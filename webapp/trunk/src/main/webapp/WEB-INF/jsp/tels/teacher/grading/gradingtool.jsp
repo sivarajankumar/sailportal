@@ -293,13 +293,19 @@ aggregate.value = set of workgroupWorkAggregate
 								<c:otherwise>
 									<!-- do the rest of the table -->
 									
-									<c:set var="count" value="0"/>
-								
 										<c:forEach var="rimFromStep" varStatus="rimListStatus" items="${step.rim}">
 											<tr>
 						                          		<td class="questionField">
 						                          		<!-- prompt -->
-						                          		${rimFromStep.prompt}
+						                          		<c:choose>
+														        <c:when test="${fn:length(step.rim) > 1}">
+														            <b>Part ${rimListStatus.count}:</b> ${rimFromStep.prompt}
+														        </c:when>
+														        <c:otherwise>
+														           ${rimFromStep.prompt}
+														        </c:otherwise>
+														    </c:choose>
+
 						                          		<!-- print out part if more than one element -->
 						                          		</td>
 						                          		
