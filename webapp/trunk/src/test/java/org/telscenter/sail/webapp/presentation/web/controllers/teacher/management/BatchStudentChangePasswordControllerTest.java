@@ -29,9 +29,12 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.group.GroupService;
@@ -59,7 +62,7 @@ public class BatchStudentChangePasswordControllerTest extends AbstractModelAndVi
 
 	private UserService mockUserService;
 	
-//	private GroupService mockGroupService;
+	private GroupService mockGroupService;
 	
 	private MockHttpServletRequest request;
 
@@ -71,6 +74,8 @@ public class BatchStudentChangePasswordControllerTest extends AbstractModelAndVi
 	
 	private User user;
 	
+	private Group expectedGroup;
+	
 	private Set<User> expectedMemberList;
 
 	private User student1;
@@ -79,11 +84,17 @@ public class BatchStudentChangePasswordControllerTest extends AbstractModelAndVi
 	
 	private User student3;
 	
-	private MutableUserDetails userDetails;
+	private MutableUserDetails userDetails1;
+	
+	private MutableUserDetails userDetails2;
+	
+	private MutableUserDetails userDetails3;
 	
 	private static final Long GROUPID = new Long(5);
 	
-	private static final String OLD_PASSWORD = "student";
+	private static final String OLD_PASSWORD1 = "student1";
+	
+	private static final String OLD_PASSWORD2 = "student2";
 	
 	private static final String NEW_PASSWORD = "teacher";
 	
@@ -98,19 +109,19 @@ public class BatchStudentChangePasswordControllerTest extends AbstractModelAndVi
 		super.setUp();
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
-		HttpSession mockSession = new MockHttpSession();
+		mockSession = new MockHttpSession();
 		user = new UserImpl();
+		expectedGroup = new PersistentGroup();
+		expectedMemberList = new HashSet<User>();
 		
 		mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, user);
 		request.setSession(mockSession);
 
 		mockUserService = EasyMock.createMock(UserService.class);
-//		mockGroupService = EasyMock.createMock(GroupService.class);
+		mockGroupService = EasyMock.createMock(GroupService.class);
 		
-		expectedMemberList = new HashSet<User> ();
-
 		batchStudentChangePasswordController = new BatchStudentChangePasswordController();
-//		batchStudentChangePasswordController.setGroupService(mockGroupService);
+		batchStudentChangePasswordController.setGroupService(mockGroupService);
 		batchStudentChangePasswordController.setUserService(mockUserService);
 		batchStudentChangePasswordController.setSuccessView(SUCCESS);
 		batchStudentChangePasswordController.setFormView(FORM);
@@ -121,8 +132,9 @@ public class BatchStudentChangePasswordControllerTest extends AbstractModelAndVi
 		batchStudentChangePasswordParameters.setGroupId(GROUPID);
 		errors = new BindException(batchStudentChangePasswordParameters, "");
 		
-		userDetails = new PersistentUserDetails();
-		userDetails.setPassword(OLD_PASSWORD);
+		userDetails1 = new PersistentUserDetails();
+		userDetails2 = new PersistentUserDetails();
+		userDetails3 = new PersistentUserDetails();
 	}
 
 	/**
@@ -135,43 +147,92 @@ public class BatchStudentChangePasswordControllerTest extends AbstractModelAndVi
 		mockUserService = null;
 	}
 	
-	public void testOnSubmit_success_1() {
+	public void testOnSubmit_success_1() throws ObjectNotFoundException {
 		// test submission of form with correct password info
 		// for a group with 1 student.
-		// should get ModelAndView back containing Success view
+		// should get ModelAndView back containing Success view 
 		
 		student1 = new UserImpl();
-		student1.setUserDetails(userDetails);
+		userDetails1.setPassword(OLD_PASSWORD1);
+		student1.setUserDetails(userDetails1);
 		expectedMemberList.add(student1);
+		expectedGroup.setMembers(expectedMemberList);
+		expect(mockGroupService.retrieveById(GROUPID)).andReturn(expectedGroup);
+		replay(mockGroupService);
 		expect(mockUserService.updateUserPassword(student1, batchStudentChangePasswordParameters.getPasswd1())).andReturn(user);
 		replay(mockUserService);
-//		ModelAndView modelAndView = batchStudentChangePasswordController.onSubmit(request, response, batchStudentChangePasswordParameters, errors);
-//		assertEquals(SUCCESS, modelAndView.getViewName());
-//		assertTrue(!errors.hasErrors());
-//		verify(mockUserService);
+		ModelAndView modelAndView = batchStudentChangePasswordController.onSubmit(request, response, batchStudentChangePasswordParameters, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		assertTrue(!errors.hasErrors());
+		verify(mockGroupService);
+		verify(mockUserService);
 	}
 	
-	public void testOnSubmit_success_2() {
+	public void testOnSubmit_success_2() throws ObjectNotFoundException {
 		// test submission of form with correct password info
 		// for a group with 2 students.
 		// should not have left out any student
 		// should get ModelAndView back containing Success view
-		assertTrue(true);
+		
+		student1 = new UserImpl();
+		userDetails1.setPassword(OLD_PASSWORD1);
+		userDetails1.setUsername("a");
+		student1.setUserDetails(userDetails1);
+		student2 = new UserImpl();
+		userDetails2.setUsername("b");
+		student2.setUserDetails(userDetails2);
+		expectedMemberList.add(student1);
+		expectedMemberList.add(student2);
+		expectedGroup.setMembers(expectedMemberList);
+		expect(mockGroupService.retrieveById(GROUPID)).andReturn(expectedGroup);
+		replay(mockGroupService);
+		expect(mockUserService.updateUserPassword(student1, batchStudentChangePasswordParameters.getPasswd1())).andReturn(user);
+		expect(mockUserService.updateUserPassword(student2, batchStudentChangePasswordParameters.getPasswd1())).andReturn(user);
+		replay(mockUserService);
+		ModelAndView modelAndView = batchStudentChangePasswordController.onSubmit(request, response, batchStudentChangePasswordParameters, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		assertTrue(!errors.hasErrors());
+		verify(mockGroupService);
+		verify(mockUserService);
 	}
 	
-	public void testOnSubmit_success_3() {
+	public void testOnSubmit_success_3() throws ObjectNotFoundException {
 		// test submission of form with correct password info
 		// for a group with 3 students.
 		// should not have left out any student
 		// should get ModelAndView back containing Success view
-		assertTrue(true);
+		
+		student1 = new UserImpl();
+		userDetails1.setPassword(OLD_PASSWORD1);
+		userDetails1.setUsername("a");
+		student1.setUserDetails(userDetails1);
+		student2 = new UserImpl();
+		userDetails2.setUsername("b");
+		userDetails2.setPassword(OLD_PASSWORD2);
+		student2.setUserDetails(userDetails2);
+		student3 = new UserImpl();
+		userDetails3.setUsername("c");
+		student3.setUserDetails(userDetails3);
+		expectedMemberList.add(student1);
+		expectedMemberList.add(student2);
+		expectedMemberList.add(student3);
+		expectedGroup.setMembers(expectedMemberList);
+		expect(mockGroupService.retrieveById(GROUPID)).andReturn(expectedGroup);
+		replay(mockGroupService);
+		expect(mockUserService.updateUserPassword(student1, batchStudentChangePasswordParameters.getPasswd1())).andReturn(user);
+		expect(mockUserService.updateUserPassword(student2, batchStudentChangePasswordParameters.getPasswd1())).andReturn(user);
+		expect(mockUserService.updateUserPassword(student3, batchStudentChangePasswordParameters.getPasswd1())).andReturn(user);
+		replay(mockUserService);
+		ModelAndView modelAndView = batchStudentChangePasswordController.onSubmit(request, response, batchStudentChangePasswordParameters, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		assertTrue(!errors.hasErrors());
+		verify(mockGroupService);
+		verify(mockUserService);
 	}
 	
-	public void testOnSubmit_emptyGroup() {
-		// test submission of form with correct password info
-		// when the group does not contain any student
-		// should get ModelAndView back containing empty-group error message
+	public void testFormBackingObject() {
 		assertTrue(true);
 	}
+
 	
 }
