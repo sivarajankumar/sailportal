@@ -24,7 +24,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
-<title><spring:message code="viewmystudents.message" /></title>
+<title><spring:message code="run.list" /></title>
 <script language="JavaScript">
 
 function popup(URL, title) {
@@ -35,33 +35,38 @@ function popup(URL, title) {
 </head>
 
 <body>
-<%@ include file="managementHeader.jsp"%>
-<div align="left">
-<div id="runContent"> 
-<br />
-<h3 id="headingPos">
-View My Students
-</h3>
 
-<c:forEach var="run" items="${current_run_list}">
-	<h4>${run.sdsOffering.name}</h4>
-	<c:forEach var="period" items="${run.periods}">
-		<h5>Period: ${period.name} &nbsp;<a href="#" onclick="javascript:popup('batchstudentchangepassword.html?groupId=${period.id}');">Change All Passwords</a></h5>
-		<c:choose>
-			<c:when test="${fn:length(period.members) == 0}">
-				No Students Attached
-			</c:when>
-			<c:otherwise>
-            	<c:forEach var="member" items="${period.members}">
-            		<a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${member.userDetails.username}');">${member.userDetails.firstname} ${member.userDetails.lastname}</a>&nbsp;
-            	</c:forEach>
-            </c:otherwise>
-        </c:choose>
-	</c:forEach>
-</c:forEach>
+<h2><spring:message code="batchstudentchangepassword.menu" /></h2>
 
-</div>
-</div> 
+<!-- Support for Spring errors object -->
+<spring:bind path="batchStudentChangePasswordParameters.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <b>
+      <br /><c:out value="${error}"/>
+    </b>
+  </c:forEach>
+</spring:bind>
+
+	<form:form method="post" action="batchstudentchangepassword.html" commandName="batchStudentChangePasswordParameters" id="batchstudentchangepassword">
+	<div><label for="batchstudentchangepassword"><spring:message code="changepassword.password1" /></label>
+      <form:password path="passwd1" id="batchstudentchangepassword"/>
+	</div>
+	
+	<div><label for="batchstudentchangepassword"><spring:message code="changepassword.password2" /></label>
+		<form:password path="passwd2" id="batchstudentchangepassword"/>
+	</div>
+
+    <div><input type="image" id="save" src="../../<spring:theme code="register_save" />" 
+    onmouseover="swapSaveImage('save',1)" 
+    onmouseout="swapSaveImage('save',0)"
+    />
+    <a href="index.html" onclick="javascript:window.close()"><input type="image" id="cancel" src="../../<spring:theme code="register_cancel" />" 
+    onmouseover="swapCancelImage('cancel',1)"
+    onmouseout="swapCancelImage('cancel',0)"
+    /> </a>
+    </div>
+
+</form:form>
 
 </body>
 </html>

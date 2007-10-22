@@ -26,8 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import org.telscenter.sail.webapp.domain.impl.ChangePasswordParameters;
-import org.telscenter.sail.webapp.domain.impl.Passwords;
+import org.telscenter.sail.webapp.domain.impl.*;
 
 /**
  * Validator for student's ChangePasswordParameters
@@ -45,7 +44,7 @@ public class ChangePasswordParametersValidator implements Validator {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
-		return ChangePasswordParameters.class.isAssignableFrom(clazz);
+		return ChangePasswordParameters.class.isAssignableFrom(clazz) || BatchStudentChangePasswordParameters.class.isAssignableFrom(clazz);
 	}
 
 	/**

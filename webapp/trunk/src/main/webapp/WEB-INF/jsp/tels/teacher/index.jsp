@@ -216,7 +216,7 @@ My Customized Projects
 </th>
 </tr>
 <tr>
-<td class="hidden" align="left">
+<td align="left">
 <a href="management/viewmystudents.html">
 View My Students
 </a>
