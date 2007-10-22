@@ -427,5 +427,27 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
-		
+	<bean id="batchStudentChangePasswordController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.BatchStudentChangePasswordController">
+		<property name="formView" value="/teacher/management/batchstudentchangepassword"/>
+		<property name="successView" value="/teacher/management/batchstudentchangepasswordsuccess"/>
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="sessionForm" value="true"/>
+		<property name="commandName" value="batchStudentChangePasswordParameters"/>
+		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.BatchStudentChangePasswordParameters"/>
+		<property name="validator" ref="changePasswordParametersValidator"/>
+	</bean>
+	
+	<bean id="changeStudentPasswordController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeStudentPasswordController">
+		<property name="formView" value="/teacher/management/changestudentpassword"/>
+		<property name="successView" value="changepasswordsuccess"/>
+		<property name="userService" ref="userService"/>
+		<property name="sessionForm" value="true"/>
+		<property name="commandName" value="changeStudentPasswordParameters"/>
+		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.ChangeStudentPasswordParameters"/>
+		<property name="validator" ref="changePasswordParametersValidator"/>
+	</bean>
+	
 </beans>
