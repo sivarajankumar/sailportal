@@ -30,7 +30,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ViewMyStudentsControllerTest.class
+	org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ViewMyStudentsControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeStudentPasswordControllerTest.class
 })
 
 public class AllTests {
