@@ -108,6 +108,8 @@
 				/forgotaccount/student/enterprojectcode.html=forgotAccountStudentCheckProjectCodeController
 				/**/changepassword.html=changePasswordController
 				/teacher/management/viewmystudents.html=viewMyStudentsController
+				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
+				/teacher/management/changestudentpassword.html=changeStudentPasswordController
     		</value>
     	</property>
     </bean>
