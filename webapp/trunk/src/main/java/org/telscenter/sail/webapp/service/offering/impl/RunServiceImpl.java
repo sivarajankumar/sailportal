@@ -56,14 +56,17 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  */
 public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 
-	private static final String[] RUNCODE_WORDS = { "Tiger", "Cheetah", "Fox",
-			"Owl", "Panda", "Jaguar", "Hawk", "Mole", "Falcon", "Orca",
-			"Eagle", "Dolphin", "Otter", "Elephant", "Zebra", "Flea", "Wolf",
-			"Dragon", "Kraken", "Cobra", "Ladybug", "Gecko", "Octopus",
-			"Koala", "Tortoise", "Wombat", "Shark", "Whale", "Emu", "Sloth",
-			"Slug", "Ant", "Mantis", "Bat", "Rhino", "Gator", "Monkey",
-			"Diamond", "Ruby", "Topaz", "Sapphire", "Emerald", "Amber",
-			"Garnet", "Moonstone", "Sunstone", "Opal", "Zircon", "Quartz" };
+	private static final String[] RUNCODE_WORDS = { 
+		    "Tiger", "Lion", "Fox", "Owl", "Panda", "Hawk", "Mole", "Falcon", "Orca", "Eagle", 
+		    "Manta", "Otter", "Cat", "Zebra", "Flea", "Wolf", "Dragon", "Seal", "Cobra", "Bug", 
+		    "Gecko", "Fish", "Koala", "Mouse", "Wombat", "Shark", "Whale", "Sloth",	"Slug", "Ant", 
+		    "Mantis", "Bat", "Rhino", "Gator", "Monkey", "Swan", "Ray", "Crow", "Goat", "Marmot", 
+		    "Dog", "Finch", "Puffin", "Fly", "Camel", "Kiwi", "Spider", "Lizard", "Robin", "Bear",
+			"Boa", "Cow", "Crab", "Mule", "Moth", "Lynx", "Moose", "Skunk", "Mako", "Liger", 
+			"Llama", "Shrimp", "Parrot", "Pig", "Clam", "Urchin", "Toucan", "Frog", "Toad", "Turtle", 
+			"Viper", "Trout", "Hare", "Bee", "Krill", "Dodo", "Tuna", "Loon", "Leech", "Python", 
+			"Wasp", "Yak", "Snake", "Duck", "Worm", "Yeti"
+			 };
 
 	private static final int MAX_RUNCODE_DIGIT = 10000;
 
@@ -107,7 +110,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		for (Run run : runs) {
 			Set<Group> periods = run.getPeriods();
 			// TODO HT&LW improve PersistentGroup's hashcode
-			// right now if same name & same parent, group is considered te same
+			// right now if same name & same parent, group is considered the same
 			// this won't work for TELS, as there will be many root group nodes
 			// with
 			// name 3.
