@@ -168,9 +168,16 @@
         <property file="${temp.file}" />
         <delete quiet="true" includeemptydirs="true">
             <fileset dir="${db.directory}" includes="**/${db.prefix}*" />
-            <fileset file="${temp.file}" />
         </delete>
-
+    	<propertyfile file="${temp.file}">
+    	    <entry key="db.directory" value="${settings.profiles.profile.properties.db.directory}" />
+    	    <entry key="db.prefix" value="${settings.profiles.profile.properties.db.prefix}" />
+    	</propertyfile>
+    	<delete quiet="true" includeemptydirs="true">
+    	    <fileset dir="${db.directory}" includes="**/${db.prefix}*" />
+    		<fileset file="${temp.file}"/>
+    	</delete>
+    	
         <sql driver="${settings.profiles.profile.properties.jdbc.driverClassName}" url="${settings.profiles.profile.properties.jdbc.url}" userid="${settings.profiles.profile.properties.jdbc.username}" password="${settings.profiles.profile.properties.jdbc.password}" src="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}/${schema.export.filename}" autocommit="false" onerror="abort" classpathref="lib.jdbc" />
     </target>
 
