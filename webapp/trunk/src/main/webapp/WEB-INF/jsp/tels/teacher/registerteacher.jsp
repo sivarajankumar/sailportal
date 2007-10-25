@@ -39,13 +39,8 @@
 			}else{
 			}
 			}
-			</script>
-			<script lang="Javascript">
-			function popup(URL) {
-			  window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=650,height=500,left = 570,top = 300');
-			}
-			// End -->
 </script>
+
 
 <script type="text/javascript">
  
@@ -81,8 +76,7 @@ function MM_swapImage() { //v3.0
 
 <div id="centeredDiv">
 
-<%@ include file="wiseheader.jsp"%>
-
+<%@ include file="headermain.jsp"%>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="teacherAccountForm.*">
@@ -99,7 +93,7 @@ function MM_swapImage() { //v3.0
     	<h1 class="blueText">Teacher Registration</h1>
 </div>
      
-<div id="subtitle"><p>To create a teacher account please fill in the following fields:</p></div>
+<div id="subtitleTeacherReg">To create a teacher account please fill in the following fields:</div>
 
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="teacherRegForm" >  
   <dl>
@@ -202,7 +196,8 @@ function MM_swapImage() { //v3.0
      <dt><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></dt>
 	  <dd id="termsOfUse">
 	     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
-     I agree to the <a href="termsofuse.html"> terms of use. </a> </dd>
+     I agree to the <a href="termsofuse.html" onClick="return popupSpecial(this, 'terms')"> terms of use.</a>
+     </dd>
        
       <dt><label for="password" id="password1"><spring:message code="signup.password" /></label>
 </dt>

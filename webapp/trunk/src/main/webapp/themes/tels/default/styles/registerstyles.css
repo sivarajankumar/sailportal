@@ -1,29 +1,46 @@
 /* Blanket Rules for All Elements  */
-
-img {border: 0px;}
-	
-form {margin:0px; padding:0px;}
 		
 body {
-	font-size:62.7%;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
+	font-size: 62.7%;
 	margin: 5px;
-	text-align:center;
+	text-align: center;
+	background-color:#FFFFFF;
 	}
 	
-h1 {font-size:2.2em;p}
+img {border: 0px;}
+
+h1 {font-size:2.4em;}
 h2 {font-size:1.8em;}
 h3 {font-size:1.7em;}
 h4 {font-size:1.5em;}
 h5 {font-size:1.2em;}
 p  {font-size:1.0em; line-height:150%;padding:0px; margin:0px;}
+	
+abbr, acronym {
+	cursor:help;
+	border-bottom: 1px dotted #666666;	
+	}
+
+#bannerArea {
+	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: center top;
+	width: 960px;
+	height: 60px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 15px;
+	margin-left: auto;
+	}
+	
+form {margin:0px; padding:0px;}
 
 #centeredDiv {
 	background-color:#FFFFFF;
-	width: 980px;
-	text-align: left;
-	padding:0;
-	margin-top: 10;
+	width: 960px;
+	text-align:left;
+	padding: 0px;
+	margin-top: 0;
 	margin-right: auto;
 	margin-bottom: 0;
 	margin-left: auto;
@@ -37,39 +54,13 @@ a:hover {
 
 /* Teacher & Student Pages  */
 
-#bannerAreaStudent{
-	background-image: url(../images/WISE-Secondary-Banner-Gradient.png);
-	background-repeat: repeat-x;
-	background-position: center top;
-	width: 980px;
-	height: 60px;
-	margin: 0 0 30px 0;
-	}
-	
-#wiseLogo {
-	float:left;
-	padding:3px 0px 0px 5px;
-	}
-	
-#teacherBannerLabel {
-	position:relative;
-	padding:3px;
-	margin-left:400px;
-	}
-	
-#studentBannerLabel {
-	position:relative;
-	padding:3px;
-	margin-left:400px;
-	}
-	
-	
 #registrationTitle {
 	clear:both;
 	width:60%;
 	text-align: center;
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
+    background-position: bottom;
 	margin-top: 0px;
 	margin-right: auto;
 	margin-bottom: 0px;
@@ -78,21 +69,26 @@ a:hover {
 	padding-right: 0;
 	padding-bottom: 0px;
 	padding-left: 0;
-	background-position: bottom;
 		}
 	
-#subtitle {
-	position: relative;
+#subtitleTeacherReg {
+	text-align:center;
 	margin-bottom:10px;
-	margin-right:auto;
 	margin-top: 20px;
-	margin-left: auto;
 	padding: 0px;
-	text-align: center;
-	font-size: 1.3em;
-	font-weight: bold;
+	font-size: 1.5em;
+	font-weight: bold;	
 		}
-
+		
+#subtitleStudentReg {
+	text-align:center;
+	margin-bottom:10px;
+	margin-top: 20px;
+	padding: 0px;
+	font-size: 1.5em;
+	font-weight: bold;	
+		}
+		
 #studentRegForm {
 	margin-top:25px;
 	}
@@ -172,7 +168,7 @@ dd {
   border: 1px solid #c93;
   padding: 10px 12px;
   color:#FFFFFF;
-  font-size: .9em;
+  font-size: 1.0em;
   font-weight: bold;
   line-height:120%;
   word-spacing:1px;
@@ -193,6 +189,14 @@ dd {
 	color: #0000FF;
 	padding: 0 0 0 5px;
 	}
+	
+#usernameConfirm {
+	border:0px;
+	color: #0000FF;
+	font-weight:bold;
+	padding: 0 0 0 5px;
+	font-size:1.2em;
+	}
 
 /* FOR TEACHER CONFIRMATION PAGE/  */
 
@@ -204,28 +208,51 @@ dd {
 
 /* FOR STUDENT CONFIRMATION PAGE/  */
 
-#confirmationText {
+#subtitleConfirm  {
 	position: relative;
+	text-align:left;
 	left: 270px;
-	}
-
-#subtitle ul {
-font-size: 1.1em;
-list-style:none;
+	margin-bottom:25px;
 }
 
-#subtitle li {
+#subtitleConfirm ul {
+	font-size: 1.3em;
+	text-align:left;
+	list-style:none;
+}
+
+#subtitleConfirm li {
 	background: transparent url(../images/ListBullet.gif) no-repeat left 4px;
 	padding: 0 0 0 25px;	
-	line-height:140%;
+	line-height:150%;
 	padding-bottom: 10px;
+	width:40%;
 }
+
+.smallText {
+	font-size:.9em;
+	}
 
 #confirmationButtons {
 	position: relative;
 	left: 270px;
-	font-size:1.0em;
+	font-size:1.2em;
+	line-height:140%;
 	}
+
+.width1 {
+	width:35%;
+	margin: 0 10px 0 50px;
+}
+
+.width2 {
+	width:55%;
+	margin: 0 10px 0 10px;
+}
+
+.width122 {width:122px;}
+.width166 {width:166px;}
+
 
 /* ONLY FOR TEACHER REGISTRATION PAGE/  */
 
@@ -260,22 +287,67 @@ list-style:none;
 	font-size:.9em;
 	}
 	
-.width122 {width:122px;}
-.width166 {width:166px;}
+
 	
 /* FOR TEACHER USAGE AGREEMENT PAGE */
 
 #useAgreement {
-	font-size: 1.2em;
-	width=90%;
-	padding:15px;
+	font-size: 1.3em;
+	width:70%;
+	padding:10px;
 	border: 1px solid #000099;
 	bordercolor:#000066;
 	background-color:#99FF66;
-	margin-bottom:30px;
+	margin: 10px auto 15px auto;
 	}
 
 #useAgreement p {
-	line-height:140%;
+	line-height:120%;
 	margin-bottom:10px;
+	text-align:left;
 	}
+	
+	
+/* New Account Picker Screen  (Setup.html) */
+		
+#questionPromptReg {
+	margin-top: 30px;
+	margin-bottom:30px;
+	padding: 0px;
+	font-size: 1.6em;
+	font-weight: bold;	
+		}
+		
+#newAccountButtons  {
+	font-size:1.2em;
+	line-height:120%;
+	text-align:center;
+}
+
+#newAccountButtons ul {
+	list-style:none;
+	margin: 0 0 20px 0;
+	padding:0px;
+	}
+
+#newAccountDetails {
+	margin: 60px 0 20px 305px;
+	padding:0px;
+	}
+	
+#newAccountDetails ul {
+	list-style:circle;
+	width:60%;
+	padding-left:30px;
+
+	}
+	
+#newAccountDetails li {
+	line-height:160%;
+	margin-bottom:20px;
+	}
+	
+#homelink {
+	position:relative;
+	margin-left:335px;
+		}

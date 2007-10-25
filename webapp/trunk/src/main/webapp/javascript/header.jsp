@@ -17,7 +17,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id$ -->
+<!-- $Id: header.jsp 1353 2007-10-19 17:34:42Z mattf $ -->
 
 <div id="bannerArea">
     	<div id="wiseLogo"><a href="index.html" 

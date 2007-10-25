@@ -90,4 +90,17 @@ function MM_swapImage() { //v3.0
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
 
+// Added my MattFish to handle Pop-Up Windows on Teacher/WISE Usage //
 
+function popupSpecial(mylink, windowname)
+		{
+		if (! window.focus)return true;
+		var href;
+		if (typeof(mylink) == 'string')
+		   href=mylink;
+		else
+		   href=mylink.href;
+		window.open(href, windowname, 'width=850,height=600,resizable=yes,scrollbars=yes');
+		return false;
+		}
+		

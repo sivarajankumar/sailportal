@@ -44,12 +44,7 @@
 
 <div id="centeredDiv">
 
-<!-- Support for Spring errors object -->
-<%@ include file= "header.jsp"%>
-
-<!--From Archana --not sure what it does-->
-<!--<body onload="randomImages();changeText('actionImgLink',counter);">-->
-
+<%@ include file="headermain.jsp"%>
 
 <table id="tableTop" cellpadding="0" cellspacing="0">
         		<tr>

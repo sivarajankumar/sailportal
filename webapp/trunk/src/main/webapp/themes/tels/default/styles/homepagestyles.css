@@ -15,8 +15,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
- */
   
 /* NEW CSS SHEET FROM MATTFISH  */	
 
@@ -25,21 +23,22 @@
 body {
 	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
 	font-style: normal;
-	margin: 2px;
+	margin: 5px;
 	text-align:center;
 	background-color:#FFFFFF;
 	}
 	
-image {
+img {
 	border:0px;
 	}
 		
-/*h1 {font-size:2.2em;}
+/*
+h1 {font-size:2.2em;}
 h2 {font-size:1.8em;}
 h3 {font-size:1.7em;}
 h4 {font-size:1.5em;}
 h5 {font-size:1.2em;}
-p  {font-size:1.0em; line-height:150%;padding:0px; margin:0px;}*/
+p  {font-size:1.0em; line-height:150%;padding:0px; margin:0px;}  */
 
 abbr, acronym {
 	cursor:help;
@@ -52,9 +51,9 @@ abbr, acronym {
 	width: 960px;
 	height: 60px;
 	margin-top: 5px;
-	margin-right: 0;
+	margin-right: auto;
 	margin-bottom: 15px;
-	margin-left: 0;
+	margin-left: auto;
 	}
 	
 .panelColor {
@@ -78,6 +77,7 @@ abbr, acronym {
 #centeredDiv {
 	width: 960px;
 	text-align:left;
+	padding:0px;
 	margin-top: 0;
 	margin-right: auto;
 	margin-bottom: 0;
@@ -106,7 +106,7 @@ abbr, acronym {
 	font-weight:bold;
 	font-size: 1.3em;
 	line-height: normal;
-	color:#000066;
+	color:#000033;
 	width:75%;
 }
 	
@@ -140,7 +140,7 @@ abbr, acronym {
 }
 
 #welcomeTextLinks li a:link, #welcomeTextLinks li a:visited {
-	color:#0000FF;
+	color:#000066;
 	text-decoration:none;
 	font-weight:bold;
 	}
@@ -166,7 +166,7 @@ abbr, acronym {
 	float:left;
 	font-size:0.8em;
 	width:270px;
-	color:#0000FF;
+	color:#000066;
 	line-height: 130%;
 	margin-top: 9px;
 	margin-right: 0px;
@@ -396,6 +396,7 @@ abbr, acronym {
 .alignRight {text-align:right;}
 .width15 {width:15px;}
 .imgNoBorder {border:0px;}
+
 
 
 

@@ -26,9 +26,10 @@
 <!-- $Id$ -->
 
 
-
-<div>
-	<a href="index.html"><img src="../<spring:theme code="studentbanner"/>" style="border:0px;" alt="<spring:message code="wise.banner.alttext" />" /></a>
-	<authz:authentication operation="username" />
-<%@ include file="../logout.jsp"%> 
+<div id="bannerArea">
+    	<div><a href="../index.html" 
+    		onmouseout="MM_swapImgRestore()" 
+    		onmouseover="MM_swapImage('WISE Main Logo','','../themes/tels/default/images/WISE-Logo-Large.png',1)">
+    		<img src="../themes/tels/default/images/WISE-Logo-Large.png" 
+    		 alt="WISE Large Logo" border="0" id="WISE Main Logo" /></a></div>
 </div>

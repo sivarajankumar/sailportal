@@ -40,7 +40,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="studentHeader.jsp"%>
+<%@ include file="header.jsp"%>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="studentAccountForm.*">
@@ -54,8 +54,7 @@
 <div id="registrationTitle">
     	<h1 class="blueText">Student Registration</h1></div>
 
-<div id="subtitle">
-  <p>To create a student account please fill in the following fields.</p></div>
+<div id="subtitleStudentReg"><p>To create a student account please fill in the following fields.</p></div>
       
   <form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html">
   

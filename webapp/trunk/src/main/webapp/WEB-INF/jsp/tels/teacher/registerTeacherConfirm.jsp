@@ -17,56 +17,61 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: signup.jsp 323 2007-04-21 18:08:49Z hiroki $ -->
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
 <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"
   type="text/css" />
+  
 <title><spring:message code="signup.title" /></title>
+
 <script type="text/javascript" src=".././javascript/pas/utils.js"></script>
 <script type="text/javascript" src=".././javascript/tels/general.js"></script>
 </head>
 
 <body>
 
-<%@ include file="plainheader.jsp"%>
+<div id="centeredDiv">
 
-<div class="center">
-<h2><spring:message code="teacher.registration" /></h2>
-<h3><spring:message code="login.success" /></h3>
-<h4><spring:message code="login.sign-in-message" /></h4>
-</div>
-<div id="verticalNavigation" class="center">
-<ul>
-<li><spring:message code="login.username" />
-<input name="username" value="${username}"/>
-</li>
-<li><spring:message code="login.password" />
-<input name="password" type="password" value="<authz:authentication operation="password" />"  />
-</li>
-</ul>
+<%@ include file="headerMain.jsp"%>
+
+<div id="registrationTitle">
+    	<h1 class="blueText">Teacher Registration</h1>
 </div>
 
-
-<div id="spacing" class="center">
-<ul>
-<li > <spring:message code="login.email-info-message" /></li>
-<li> <spring:message code="login.remember" /></li>
-</ul>
+<div id="subtitleConfirm">
+			<h4>Account Created!</h4>
+			<h4> Your new Username is: <span><input id="usernameConfirm" name="username" value="${username}"/></span></h4>
+			<ul>
+		    <li>Please memorize/write down your Username and Password. You'll need them ever time you sign into WISE.</li>
+		    <li>Note: there are no spaces between first and last name.</li>
+		    <li>Note: A number may be appended to your Username if a similar name already exists.</li>
+			</ul>
 </div>
 
-<div class="center">
-<a href="../index.html">
-<img id="signinnewaccount" src="../<spring:theme code="sign_in_new_account" />" 
-onmouseover="swapImage('signinnewaccount','../<spring:theme code="sign_in_new_account_rollover" />');"
-onmouseout="swapImage('signinnewaccount','../<spring:theme code="sign_in_new_account" />');"
-/>
-</a>
-</div>
+<table id="confirmationButtons" width="50%" border="0" cellpadding="5" cellspacing="5">
+  <tr>
+      <td class="width1"><a href="../index.html" 
+    onmouseout="MM_swapImgRestore()" 
+    onmouseover="MM_swapImage('Return to Home Page','','../themes/tels/default/images/Go-To-Home-Page-Roll.png',1)">
+    <img src="../themes/tels/default/images/Go-To-Home-Page.png" alt="Go to Home Page & Sign In" width="161" height="52"  id="Return to Home Page" /></a></td>
+  </tr>
+  <tr>
+    <td>Select this button to return to the home page. Then use your new Username and Password in the <em>Sign In</em> area.</td>
+  </tr>
+</table>
+
+
+</div>  <!-- /* End of the CenteredDiv */-->
+
+</body>
+
+</html>
 
 
 
-</body></html>
+

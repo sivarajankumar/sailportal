@@ -23,44 +23,39 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
-<script src="./javascript/tels/general.js" type="text/javascript" ></script>
-<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+
+<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+	
+<script src="./javascript/tels/general.js" type="text/javascript"></script>
+<script src="./javascript/tels/prototype.js" type="text/javascript"></script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript"></script>
 <script src="./javascript/tels/AC_ActiveX.js" type="text/javascript"></script>
-<script src="./javascript/tels/AC_RunActiveContent.js" type="text/javascript"></script>
+<script src="./javascript/tels/AC_RunActiveContent.js"
+	type="text/javascript"></script>
 
 <title><spring:message code="wise.overview" /></title>
 </head>
 
 <body>
 
- <div >
-  <div class="center"><img src="<spring:theme code="wisebanner" />" alt="WISE logo" />
-    </div>
-</div>
-	
-<br /><br />
+<div id="centeredDiv">
+
+<%@ include file="headermain.jsp"%>
+
 <div class="center">
-  <p>
-  <object width="700" height="500">
-    <embed src="./flash/tels/WISE_Slideshow.swf" width="700" height="500" />
-  </object>
-  </p>
-  <h5 class="center"><spring:message code="wise.cannot-see-movie" /> 
-  <a href="http://www.macromedia.com/go/getflashplayer">
-  <spring:message code="wise.install-flash" />.
-  </a>
-  </h5>
-  <p class="center"><a href="index.html">
-  
-  <img id="return" src="<spring:theme code="return_to_homepage" />" 
-  onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
-  onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');"
-  /> 
-  </a>
-  </p>
+<p class="alignCenter"><object width="700" height="500"> <embed
+		src="./flash/tels/WISE_Slideshow.swf" width="700" height="500" /> </object></p>
+<h5 class="alignCenter"><spring:message code="wise.cannot-see-movie" />
+<a href="http://www.macromedia.com/go/getflashplayer"> <spring:message
+	code="wise.install-flash" /></a></h5>
+<div class="alignCenter"><a href="index.html"> <img id="return"
+	src="<spring:theme code="return_to_homepage" />"
+	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
+	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" />
+</a></div>
 </div>
+
+</div>  <!-- end of #centered div-->
+
 </body>
 </html>

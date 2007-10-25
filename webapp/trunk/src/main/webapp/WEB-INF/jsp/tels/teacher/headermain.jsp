@@ -22,16 +22,11 @@
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
  
-<!-- $Id$ -->
-<div >
-	<img src="../<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" />
+
+<div id="bannerArea">
+    	<div><a href="../index.html" 
+    		onmouseout="MM_swapImgRestore()" 
+    		onmouseover="MM_swapImage('WISE Main Logo','','../themes/tels/default/images/WISE-Logo-Large.png',1)">
+    		<img src="../themes/tels/default/images/WISE-Logo-Large.png" 
+    		 alt="WISE Large Logo" border="0" id="WISE Main Logo" /></a></div>
 </div>
-    <div>
-    <p style="position: absolute;top:-5px;left:800px;">
-	<authz:authentication operation="username" />
-	</p>
-	<p style="position: absolute;top: 12px;left:860px;font-size:14px;"> 
-	<%@ include file="../logout.jsp"%> </p>
-	</div>
-
-
