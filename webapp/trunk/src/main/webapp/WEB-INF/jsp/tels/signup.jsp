@@ -26,6 +26,8 @@
 	<h1 class="blueText">New Account Registration</h1>
 </div>
 
+<div id="boxNewAccountReg">
+
 <div id="questionPromptReg" class="center">What sort of account would you like to create?</div>
 
 <div id="newAccountButtons">
@@ -54,6 +56,8 @@
 	<li id="registerDescAcctSpacing"> <spring:message code="register.teacher-account-desc" /></li></h5>
 	</ul>
 </div>
+
+</div>   <!--  end of boxNewAccountReg -->
 
 	<p id="homelink"><a href="index.html">Return to Home Page</a></p>
 	

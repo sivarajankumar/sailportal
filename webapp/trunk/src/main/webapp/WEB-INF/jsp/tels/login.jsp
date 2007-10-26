@@ -24,8 +24,9 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 <script src="./javascript/tels/general.js" type="text/javascript" ></script>
@@ -40,48 +41,51 @@
 
 <body>
 
-<%@ include file="header.jsp"%>
+<div id="centeredDiv">
 
+<%@ include file="headermain.jsp"%>
 
-<div align="center">
-<h2><spring:message code="login" /></h2>
-
-<a href="signup.html"><spring:message code="sign.up" /></a><br />
-
+<div id="errorMsg">
 <c:if test="${failed}">
   <p><spring:message code="login.failed" /></p>
 </c:if>
+</div>
 
-<div id="accountLoginBox">
-<form id="login" method="post" action="j_acegi_security_check">
+<div id="signInReposition">
 
-  <label for="j_username"><spring:message code="login.username" /></label>
-  <input type="text" name="j_username" id="j_username" tabindex="1" />
-
-  <label for="j_password"><spring:message code="login.password" /></label>
-  <input type="password" name="j_password" id="j_password" tabindex="2" />
-
-     <div id="waiting" style="display: none">
-       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
-     </div>
-   
- <input type="image" id="signIn" src="<spring:theme code="sign_in" />" 
-        	tabindex="3" onmouseover="swapImage('signIn', '<spring:theme code="sign_in_rollover" />');"
-       		onmouseout="swapImage('signIn', '<spring:theme code="sign_in" />');"
-            onclick="Effect.toggle('waiting', 'appear')" /> 
-      
-</form>
+<div id="boxTableSignIn" class="panelColor">
+                    			<div id="header">Sign In</div>
+								<form id="home" method="post" action="j_acegi_security_check">
+                                
+                                <dl>
+                                    <dt><label for="username">Username:  </label> </dt>
+                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" maxlength="20"/></dd>
+                                    <dt><label for="password">Password:	</label></dt>
+                                    <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" maxlength="20"/></dd>
+                                </dl>
+                                                       
+                                <div class="alignRight">
+                                			<input type="image" id="signInButton" src="./themes/tels/default/images/sign_in.png"   
+                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/sign_in_rollover.png',1)"
+                                            onmouseout="MM_swapImgRestore()"
+                                            onclick="Effect.toggle('waiting', 'appear')" /></div>
+                                                 
+                                </form>
+                                
+                                <ul id="signInLinkPositionTable">
+                                <li>
+                                <a href="forgotaccount/selectaccounttype.html" id="forgotlink">
+                                      Forgot Username or Password?</a>  </li>
+                                <li>
+                                <a href="signup.html" id="joinlink">Want to join WISE?</a></li>
+                                </ul>
+                                
+</div>   <!--    End of boxTableSignIn  x-->                             
 
 </div>
 
-</div>
+</div>   <!-- end of centered div-->
 
 
 </body>
 </html>
-
-<!--
-<input type="submit" class="buttons" tabindex="3" value="<spring:message code="login.submit" />" 
-      onclick="Effect.toggle('waiting', 'appear')" />
-
--->

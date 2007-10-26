@@ -397,6 +397,16 @@ abbr, acronym {
 .width15 {width:15px;}
 .imgNoBorder {border:0px;}
 
+/* TAGS FOR ANCILLARY LAYOUTS   */
 
+#signInReposition {
+	margin: 40px 0 0 330px;
+}	
 
+#errorMsg {
+	text-align:center;
+	margin-top:60px;
+	margin-bottom:0px;
+	font-weight:bold;
+}
 
