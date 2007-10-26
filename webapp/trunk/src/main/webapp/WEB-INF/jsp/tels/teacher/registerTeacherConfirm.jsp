@@ -37,7 +37,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerMain.jsp"%>
+<%@ include file="headermain.jsp"%>
 
 <div id="registrationTitle">
     	<h1 class="blueText">Teacher Registration</h1>
