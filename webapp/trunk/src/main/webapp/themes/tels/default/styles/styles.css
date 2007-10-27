@@ -1,23 +1,163 @@
-/**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
- * 
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
- */
+/* Blanket Rules for All Elements  */
+		
+body {
+	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
+	font-size: 62.7%;
+	margin: 5px;
+	text-align: center;
+	background-color:#FFFFFF;
+	}
+	
+img {border: 0px;}
 
+h1 {font-size:2.4em;}
+h2 {font-size:1.8em;}
+h3 {font-size:1.7em;}
+h4 {font-size:1.5em;}
+h5 {font-size:1.2em;}
+p  {font-size:1.0em; line-height:150%;padding:0px; margin:0px;}
+	
+abbr, acronym {
+	cursor:help;
+	border-bottom: 1px dotted #666666;	
+	}
+
+#bannerArea {
+	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: center top;
+	width: 960px;
+	height: 60px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	}
+	
+#centeredDiv {
+	background-color:#FFFFFF;
+	width: 960px;
+	text-align:left;
+	padding: 0px;
+	margin-top: 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
+	}
+	
+a:hover {
+	color:#990099;
+	}
+
+.center {text-align:center;}
+
+#wiseLogo {
+	float:left;
+	margin: 3px 0 0 3px;
+	}
+		
+#teacherBannerLabel {
+	padding-top:5px;
+	margin-left:390px;
+	}
+
+#titleBar {
+	clear:both;
+	width:80%;
+	text-align: center;
+	border: 1px solid #333333;
+	background-image: url(../images/GradientFooter.png);
+    background-position: bottom;
+	margin-top: 30px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	padding-top: 0px;
+	padding-right: 0;
+	padding-bottom: 0px;
+	padding-left: 0;
+		}
+
+#usernameSignOutBox {
+	position:absolute;
+	top:7px;
+	right:45px;
+	text-align:right;
+}
+
+#usernameBanner {
+	color:#FFFF33;
+	font-style:italic;
+	font-weight:bold;
+	font-size:1.4em;
+	margin-bottom:3px;
+}
+
+#signOutBanner a:link, #signoutBanner a:visited{
+	color:#FFFF66;
+	font-weight:bold;
+	}
+
+#signOutBanner a:hover {
+	color:#FF6666;
+}
+	
+#navigationMainProjects {
+	position:absolute;
+	top:26px;
+	left:105px;
+	border:0px;
+}
+
+#navigationMainProjects ul {
+	list-style:none;
+}
+	
+#navigationMainProjects li {
+	display:inline;
+	padding-right: 15px;
+	}
+	
+
+#navigationL2 {
+	padding:0px;
+	margin: 5px 0 0 0;
+	width:958px;
+	border:1px solid #999999;
+	}
+
+#navigationL2 ul {
+	padding: 6px 0 6px 100px;
+	margin:0px;
+	list-style:none;
+	}
+	
+#navigationL2 li {
+	font-size:1.0em;
+	letter-spacing:1px;
+	display:inline;
+	margin:0px;
+	padding: 0 20px 0 20px;
+	border-right:1px solid #999999;
+	}
+	
+#navigationL2 a:link, #navigationL2 a:visited{
+	color:#000000;
+	text-decoration:none;
+	}
+	
+#navigationL2 a:hover{
+	color:#CC0000;
+	text-decoration:none;
+	border-bottom:1px dotted #CC0000;
+	}
+
+.projectL2  {
+	background-color:#ffcccc;
+	}
+
+/* ORIGINAL CSS FROM ARCHANA FOLLOWS BELOW  */
+
+/* 
 #left{
 	position:relative;
 	right:34px;
@@ -320,4 +460,4 @@ ul#tabnav a:hover{
 	text-align:justify;
 	position:relative;
 	left:0px;
-}	
+}	*/

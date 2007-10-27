@@ -23,15 +23,18 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+  
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 <script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 <title><spring:message code="teacher.setup-project-run" /></title>
 </head>
 <body>
+
 <%@ include file="teacherHeader.jsp"%>
+
 <p style="position: absolute;top:-5px;left:800px;"> 
 <authz:authentication operation="username" />
  </p>
@@ -55,7 +58,7 @@
 -->
 
 <h2 style="position:relative;left:800px;color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<p style="font-size: 1em;position:relative;bottom:62px;"> 
+<p style="font-size: 1em;position:relative;bottom:62px;">
 <spring:message code="teacher.setup-run-six-steps" /> </p>
 <h3 style="position:relative;bottom:62px;"> <spring:message code="teacher.tips-project-runs" /> </h3>
 

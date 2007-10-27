@@ -23,24 +23,33 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
+<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
+
 <title><spring:message code="teacher.setup-project-run-step-one" /></title>
 
 </head>
 
 <body>
-<%@ include file="../../../teacherHeader.jsp"%>
 
-<h2 class="center" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<div align="center">
+<div id="centeredDiv">
+
+<%@ include file="../../../headerteacherprojects.jsp"%>
+
+<%@ include file="../../../headerteacherprojectsL2overview.jsp"%>
+
+<div id="titleBar">
+    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+    	     	    
 <div id="setuprunbox">
-<h3 style="color:rgb(0,0,255);"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step1" /></b>
+<spring:message code="teacher.setup-project-run-step1" />
 <spring:message code="teacher.setup-project-run-step1-desc" />
-</h3>
+
 <p style="font-size: 1em;"> <spring:message code="teacher.selected-projects-message" />
 <b><spring:message code="teacher.type-of-project" /></b> 
 <spring:message code="teacher.project-run-classroom-message" /> 
@@ -64,7 +73,9 @@
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
 </form>
-</div>
+
+</div>  <!-- /* End of the CenteredDiv */-->
+
 </body>
 </html>
 

@@ -256,15 +256,6 @@ dd {
 
 /* ONLY FOR TEACHER REGISTRATION PAGE/  */
 
-#bannerAreaTeacher {
-	background-image: url(../images/WISE-Secondary-Banner-Gradient.png);
-	background-repeat: repeat-x;
-	background-position: center top;
-	width: 980px;
-	height: 60px;
-	margin: 0 0 30px 0;
-	}
-	
 #termsOfUse {
 	font-size: .9em;
 	}

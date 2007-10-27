@@ -22,17 +22,19 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <title><spring:message code="curnit.list" /></title>
 </head>
 
 <body>
 
-<%@ include file="teacherHeader.jsp"%>
+<div id="centeredDiv">
 
-<h2 class="center"><spring:message code="curnitlist.project.library" /></h2>
+<%@ include file="headerteacherprojects.jsp"%>
 
+<div id="titleBar">
+    	<h1 class="blueText"><spring:message code="curnitlist.project.library" /></h1></div>
+    	
 <table align="center" border="1" cellspacing="2" cellpadding="3">
   <tr>
     <th><spring:message code="curnitlist.title" /></th>
@@ -49,6 +51,8 @@
   </tr>
 </c:forEach>
 </table>
+
+</div>
 
 </body>
 </html>

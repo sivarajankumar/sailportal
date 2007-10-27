@@ -19,9 +19,18 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
+<div id="navigationL2" class="projectL2">
 
-test 2
-<div id="bannerAreaTeacher">
-    	<div id="wiseLogo"><a href="../index.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('WISE Secondary Logo','','../images/WISE-Secondary-Banner-Logo-Roll.png',1)"><img src="../images/WISE-Secondary-Banner-Logo.png" alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
-        <div id="teacherBannerLabel"><p><img src="../images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" /></p></div>
-</div>
+	<ul>
+		<li>
+			<a href="index.html">Overview</a> </li>
+       	<li>
+			<a href="index.html">Project Library</a> </li>
+		<li>
+			<a href="index.html">My Project Runs</a> </li>
+		<li>
+			<a href="index.html">My Bookmarked Projects</a> </li>
+		<li>
+			<a href="index.html">My Customized Projects</a> </li>
+   </ul>
+</div>	
