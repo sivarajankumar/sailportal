@@ -134,8 +134,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        acl_object_identity bigint not null,
         sid bigint not null,
+        acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     );
@@ -146,8 +146,8 @@
         entries_inheriting bit not null,
         OPTLOCK integer,
         object_id_class bigint not null,
-        parent_object bigint,
         owner_sid bigint,
+        parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     );
@@ -240,7 +240,7 @@
         OPTLOCK integer,
         name varchar(255) not null,
         offering_id bigint not null,
-        sds_curnitmap varchar(255),
+        sds_curnitmap longvarchar,
         sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
         primary key (id),
@@ -262,7 +262,7 @@
         OPTLOCK integer,
         workgroup_id bigint not null,
         name varchar(255) not null,
-        sds_sessionbundle varchar(255),
+        sds_sessionbundle longvarchar,
         sds_offering_fk bigint not null,
         primary key (id),
         unique (workgroup_id)

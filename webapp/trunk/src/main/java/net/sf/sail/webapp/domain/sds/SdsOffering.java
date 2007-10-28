@@ -23,10 +23,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * Represents an offering from the Sail Data Service (SDS).
@@ -38,6 +42,7 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name = SdsOffering.DATA_STORE_NAME)
+@OnDelete(action=OnDeleteAction.CASCADE)
 public class SdsOffering implements SdsObject {
 
     @Transient
@@ -84,6 +89,7 @@ public class SdsOffering implements SdsObject {
     private Long sdsObjectId;
 
     @Column(name=SdsOffering.COLUMN_NAME_SDS_CURNITMAP)
+    @Lob
     private String sdsCurnitMap;
     
     /**
