@@ -65,6 +65,9 @@ public class PersistentAclTargetObjectIdentity implements
 
     @Transient
     public static final String COLUMN_NAME_TARGET_OBJECT_ID = "object_id_identity";
+    
+    @Transient
+    public static final String COLUMN_NAME_TARGET_OBJECT_ID_NUM = "object_id_identity_num";
 
     @Transient
     static final String COLUMN_NAME_PARENT = "parent_object";
@@ -81,6 +84,9 @@ public class PersistentAclTargetObjectIdentity implements
 
     @Column(name = COLUMN_NAME_TARGET_OBJECT_ID, nullable = false)
     private Long aclTargetObjectId;
+    
+    @Column(name = COLUMN_NAME_TARGET_OBJECT_ID_NUM)
+    private Integer aclTargetObjectIdNum;
 
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = PersistentAclTargetObjectIdentity.class)
     @JoinColumn(name = COLUMN_NAME_PARENT)
