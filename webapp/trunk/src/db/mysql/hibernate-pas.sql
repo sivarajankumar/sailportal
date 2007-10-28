@@ -258,7 +258,7 @@
         OPTLOCK integer,
         name varchar(255) not null,
         offering_id bigint not null unique,
-        sds_curnitmap varchar(255),
+        sds_curnitmap text,
         sds_jnlp_fk bigint not null,
         sds_curnit_fk bigint not null,
         primary key (id)
