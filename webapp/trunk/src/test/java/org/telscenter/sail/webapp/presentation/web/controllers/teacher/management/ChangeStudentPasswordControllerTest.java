@@ -24,7 +24,6 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.manageme
 
 import static org.easymock.EasyMock.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import net.sf.sail.webapp.domain.User;
@@ -74,6 +73,8 @@ public class ChangeStudentPasswordControllerTest extends AbstractModelAndViewTes
 	private User user;
 	
 	private User studentUser;
+	
+	public Object mockObject;
 
 	/**
 	 * @throws Exception 
@@ -85,10 +86,10 @@ public class ChangeStudentPasswordControllerTest extends AbstractModelAndViewTes
 		mockApplicationContext = createMock(ApplicationContext.class);
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
+		studentUser = new UserImpl();
 		changeStudentPasswordParameters = new ChangeStudentPasswordParameters();
 		changeStudentPasswordParameters.setPasswd1(PASSWORD);
 		changeStudentPasswordParameters.setPasswd2(PASSWORD);
-		studentUser = new UserImpl();
 		changeStudentPasswordParameters.setUser(studentUser);
 		errors = new BindException(changeStudentPasswordParameters, "");
 
@@ -105,18 +106,25 @@ public class ChangeStudentPasswordControllerTest extends AbstractModelAndViewTes
 	}
 	
 	
-//	public void testFormbackingObject_success(){
-//		request.addParameter("username", STUDENT_NAME);
-//		expect(mockUserService.retrieveUserByUsername(request.getParameter("username"))).andReturn(changeStudentPasswordParameters.getUser());
-//		replay(mockUserService);
-//		verify(mockUserService);
-//	}
+	public void testFormbackingObject_success() throws Exception{
+		request.setParameter("userName", STUDENT_NAME);
+		ChangeStudentPasswordParameters params = (ChangeStudentPasswordParameters)changeStudentPasswordController.formBackingObject(request);
+		params.setUser(studentUser);
+		params.setPasswd1(PASSWORD);
+		params.setPasswd2(PASSWORD);
+		assertEquals(params.getUser(), studentUser);
+	}
 	
 	public void testOnSubmit_success() throws Exception {
 		// test submission of form with correct password info.
 		// should get ModelAndView back containing Success view
 
-		assertTrue(true);
+		expect(mockUserService.updateUserPassword(studentUser, PASSWORD)).andReturn(user);
+		replay(mockUserService);
+		ModelAndView modelAndView = changeStudentPasswordController.onSubmit(request, response, changeStudentPasswordParameters, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		assertTrue(!errors.hasErrors());
+		verify(mockUserService);
 	}
 
 	
