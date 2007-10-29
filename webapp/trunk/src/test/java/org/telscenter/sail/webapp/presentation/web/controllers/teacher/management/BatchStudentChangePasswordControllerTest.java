@@ -49,7 +49,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.impl.BatchStudentChangePasswordParameters;
 
 
-
 /**
  * @author Sally Ahn
  * @version $Id: $
@@ -230,8 +229,12 @@ public class BatchStudentChangePasswordControllerTest extends AbstractModelAndVi
 		verify(mockUserService);
 	}
 	
-	public void testFormBackingObject() {
-		assertTrue(true);
+	public void testFormBackingObject() throws Exception {
+		request.setParameter("groupId", GROUPID.toString());
+		BatchStudentChangePasswordParameters params = (BatchStudentChangePasswordParameters) batchStudentChangePasswordController.formBackingObject(request);
+		params.setPasswd1(NEW_PASSWORD);
+		params.setPasswd2(NEW_PASSWORD);
+		assertEquals(params.getGroupId(), batchStudentChangePasswordParameters.getGroupId());
 	}
 
 	
