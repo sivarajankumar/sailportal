@@ -231,10 +231,10 @@ public class BatchStudentChangePasswordControllerTest extends AbstractModelAndVi
 	
 	public void testFormBackingObject() throws Exception {
 		request.setParameter("groupId", GROUPID.toString());
-		BatchStudentChangePasswordParameters params = (BatchStudentChangePasswordParameters) batchStudentChangePasswordController.formBackingObject(request);
-		params.setPasswd1(NEW_PASSWORD);
-		params.setPasswd2(NEW_PASSWORD);
-		assertEquals(params.getGroupId(), batchStudentChangePasswordParameters.getGroupId());
+		Object returnedParams = batchStudentChangePasswordController.formBackingObject(request);
+		assertTrue(returnedParams instanceof BatchStudentChangePasswordParameters);
+		BatchStudentChangePasswordParameters params = (BatchStudentChangePasswordParameters) returnedParams;
+		assertEquals(params.getGroupId(), GROUPID);
 	}
 
 	
