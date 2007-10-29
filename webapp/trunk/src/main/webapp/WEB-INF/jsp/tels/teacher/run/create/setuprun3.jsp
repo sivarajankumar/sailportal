@@ -44,11 +44,16 @@ if(form.manualCheckbox.checked==true){
 }
 // End -->
 </script>
-<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
+
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
+<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
+<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-three" /></title>
+
 </head>
-<%@ include file="../../../teacherHeader.jsp"%>
+
 <!-- Support for Spring errors object -->
 <spring:bind path="runParameters.periodNames">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -66,20 +71,20 @@ if(form.manualCheckbox.checked==true){
 
 <body>
 
-<!--  
-<ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.customized-projects" /></a></li>
-</ul><br />  
--->
+<div id="centeredDiv">
+
+<%@ include file="../../../headerteacherprojects.jsp"%>
+
+<%@ include file="../../../L2projectsnohighlight.jsp"%>
+
+<div id="titleBarSetUpRun">
+    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
 
 
-<h2 class="center" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<div align="center">
-<div id="setuprunbox">
+<div id="setUpRunBox">
+
+<div id="stepNumber">Step 3 of 6:<span class="blueText">&nbsp Selection Period(s)</span></div>
+
 <h3 style="color:rgb(0,0,255);"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step3" /> </b>
 <spring:message code="teacher.setup-project-run-step3-desc" />
 </h3>
@@ -98,17 +103,7 @@ if(form.manualCheckbox.checked==true){
             <spring:message code="defaultPeriodNames.${periodName}" /><br/>
           </c:forEach>      
     </div>
-<!--  
-OR <br />
 
-<input type="checkbox" name="manualCheckbox" value="Manual" onclick="checkIfTextAreaEmpty(this.form)" /><spring:message code="classroom.manually-named-periods"/>
-
-<textarea name="manualPeriods" cols="100" rows="5" onclick="checkIfTextAreaEmpty(this.form)" onkeypress="checkIfTextAreaEmpty(this.form)" ></textarea> 
-<br />
-<p class="center">
-<spring:message code="classroom.separate-periods" />
-</p>
--->
 
 <div align="center">
 <input type="submit" name="_target1" value="<spring:message code="navigate.back"/>" />

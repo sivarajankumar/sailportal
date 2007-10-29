@@ -41,31 +41,48 @@
 
 <%@ include file="../../../headerteacherprojects.jsp"%>
 
-<%@ include file="../../../headerteacherprojectsL2overview.jsp"%>
+<%@ include file="../../../L2projectsnohighlight.jsp"%>
 
-<div id="titleBar">
+<div id="titleBarSetUpRun">
     	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
-    	     	    
-<div id="setuprunbox">
-<spring:message code="teacher.setup-project-run-step1" />
-<spring:message code="teacher.setup-project-run-step1-desc" />
+     	    	    
+<div id="setUpRunBox">
 
-<p style="font-size: 1em;"> <spring:message code="teacher.selected-projects-message" />
-<b><spring:message code="teacher.type-of-project" /></b> 
-<spring:message code="teacher.project-run-classroom-message" /> 
-</p>
+<div id="stepNumber">Step 1 of 6:<span class="blueText">&nbsp Confirm Project</span></div>
+<h5>This process will help you set up a <em>Project Run</em> so students can load and run the project. You can cancel this process at any time.</h5>
 
-<p>
-<spring:message code="setuprun.confirmation.run.projectid" /> <spring:bind path="runParameters.curnitId"><c:out value="${status.value}"/></spring:bind>
-</p>
-<p>
-<spring:message code="createrun.projectdescription" /> <c:out value="${project.description}"/>
-</p>
-<p style="font-size: 1em;">
-<b> <spring:message code="teacher.correct-project" /> </b>
-</p> 
+<h4>You have selected the following [Library/Customized] project to run in your classroom:</h4>
 
-</div>
+<table id="projectTable" border="1" cellpadding="3" cellspacing="2">
+	<tr id="projectTableR1">
+		<td>Project Title</td>
+		<td>Project ID</td>
+		<td>Topics/Keywords</td>
+		<td>Grade</td>
+		<td>Total Time</td>
+		<td>Computer Time</td>
+		<td>Usage</td>
+	</tr>
+	<tr id="projectTableR2">
+		<td><strong>Exploring the Exciting World of Mitosis</strong></td>
+		<td>27134</td>
+		<td>Mitosis, Cell Division, Cell Duplication,, Binary Fission, Life Science</td>
+		<td>6-8</td>
+		<td>8 periods</td>
+		<td>5 periods</td>
+		<td>127 runs</td>
+	</tr>
+	<tr id="projectTableR3">
+		<td class="indent15px" colspan="7">8 Period Unit:  This project promotes a greater understanding of the theory of evolution. Students learn about Darwinian and Lamarckian theories and 
+three principles of evolution: 1) variation in populations, 2) natural selection of "fit" traits, 3) and inherited change over generations. Students examine 
+evidence for these three principles of evolution and integrate their new knowledge via reflective writing.</td>
+	</tr>
+	</table>
+			
+<h4>If this is the correct project, select <em>Next</em> below.</h4>
+
+</div> <!-- /* End setUpRunBox */-->
+
 </div>
 <div align="center">
 <form method="post" align="center">
@@ -78,14 +95,4 @@
 
 </body>
 </html>
-
-<!--  
-<ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.customized-projects" /></a></li>
-</ul><br />
--->
 

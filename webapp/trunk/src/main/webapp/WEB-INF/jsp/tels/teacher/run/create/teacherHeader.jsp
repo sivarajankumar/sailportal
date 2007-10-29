@@ -19,14 +19,9 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
-test<div id="bannerAreaTeacher">
+<div id="bannerAreaTeacher">
     	<div id="wiseLogo"><a href="../index.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('WISE Secondary Logo','','../images/WISE-Secondary-Banner-Logo-Roll.png',1)"><img src="../images/WISE-Secondary-Banner-Logo.png" alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
         <div id="teacherBannerLabel"><p><img src="../images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" /></p></div>
-</div>
-
-test
-<div>
-	<a href="../../index.html"><img id="none" src="../../../../<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" /></a>
 </div>
 
 <div id="navigation" style="position:relative;

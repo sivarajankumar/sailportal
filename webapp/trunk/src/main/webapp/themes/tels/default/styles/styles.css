@@ -11,10 +11,11 @@ body {
 img {border: 0px;}
 
 h1 {font-size:2.4em;}
-h2 {font-size:1.8em;}
+h2 {font-size:1.8em; font-weight:normal;}
 h3 {font-size:1.7em;}
 h4 {font-size:1.5em;}
-h5 {font-size:1.2em;}
+h5 {font-size:1.2em; font-weight:normal;}
+h6 {font-size:1.1em; font-weight:normal;}
 p  {font-size:1.0em; line-height:150%;padding:0px; margin:0px;}
 	
 abbr, acronym {
@@ -62,7 +63,7 @@ a:hover {
 
 #titleBar {
 	clear:both;
-	width:80%;
+	width:790px;
 	text-align: center;
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
@@ -79,8 +80,7 @@ a:hover {
 
 #usernameSignOutBox {
 	position:absolute;
-	top:7px;
-	right:45px;
+	margin: -13px 5px 0 900px;
 	text-align:right;
 }
 
@@ -103,13 +103,15 @@ a:hover {
 	
 #navigationMainProjects {
 	position:absolute;
-	top:26px;
-	left:105px;
-	border:0px;
-}
+	padding:0px;
+	width:960px;
+	margin: 4px 0 0 115px;
+
+	}
 
 #navigationMainProjects ul {
 	list-style:none;
+	padding:0px;
 }
 	
 #navigationMainProjects li {
@@ -117,22 +119,26 @@ a:hover {
 	padding-right: 15px;
 	}
 	
+.projectL2  {
+	background-color:#ffcccc;
+	}
 
-#navigationL2 {
+/* #navigationL2 {
+	position:relative;
 	padding:0px;
-	margin: 5px 0 0 0;
+	margin-top:5px;
 	width:958px;
 	border:1px solid #999999;
 	}
 
 #navigationL2 ul {
-	padding: 6px 0 6px 100px;
+	padding: 6px 0 6px 104px;
 	margin:0px;
 	list-style:none;
 	}
 	
 #navigationL2 li {
-	font-size:1.0em;
+	font-size:2.0em;
 	letter-spacing:1px;
 	display:inline;
 	margin:0px;
@@ -151,11 +157,134 @@ a:hover {
 	border-bottom:1px dotted #CC0000;
 	}
 
-.projectL2  {
-	background-color:#ffcccc;
+.navigationL2highight {
+	background-color:#999999;
+	color:#ff99cc;
+	border-bottom:1px solid #999999;
 	}
 
-/* ORIGINAL CSS FROM ARCHANA FOLLOWS BELOW  */
+.navigationL2norightborder {
+	border:0px;
+	}
+*/
+
+/* ALTERNATE STYLE FOR L2 NAV BAR  */
+
+#navigationL2v2 {
+	padding:0px;
+	margin-top:5px;
+	width:958px;
+	border:1px solid #999999;
+	}
+
+#navigationL2v2 ul {
+	padding: 6px 0 6px 120px;
+	margin:0px;
+	list-style:none;
+	}
+	
+#navigationL2v2 li {
+	font-size:1.1em;
+	letter-spacing:.9px;
+	display:inline;
+	padding:0px;
+	margin:-2px;
+	}
+	
+#navigationL2v2 a:link, #navigationL2v2 a:visited{
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	color:#000000;
+	text-decoration:none;
+		}
+	
+#navigationL2v2 a:hover{
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	background-color:#FF99CC;
+	color:#FFFFFF;
+	text-decoration:none;
+	/* border-left:1px solid #999999;
+	border-right:1px solid #999999; */
+	}
+
+#navigationL2v2highight {
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	background-color:#FF99CC;
+	color:#FFFFFF;
+	border-left:1px solid #999999;
+	border-right:1px solid #999999;
+	}
+
+.navigationL2v2leftborder {
+	/* border-left:1px solid #999999; */
+	}
+	
+	
+/* SETTING UP A RUN */
+	
+#setUpRunBox{
+	height:370px;
+	border:1px solid #666666;
+	margin:20px auto 30px auto ;
+	padding:15px;
+}
+
+#stepNumber{
+	font-size:1.8em;
+	font-weight:bold;
+}
+
+.blueText {
+	color: #0000FF;
+	}
+
+#projectTable {
+	border-collapse:collapse;
+	}
+
+#titleBarSetUpRun {
+	clear:both;
+	width:100%;
+	text-align:center;
+	border: 1px solid #666666;
+	background-color:#CCCCCC;
+	background-image: url(../images/Gradient_Blue-to-Gray.png);
+    margin: 30px auto 0 auto;
+	padding:0px;
+		}
+		
+#projectTableR1 {
+	color:#000000;
+	background-color:#CCCCCC;
+	font-size:12px;
+	font-variant:small-caps;
+	}	
+	
+#projectTableR2{
+	font-size:12px;
+	}	
+	
+#projectTableR3 {
+	font-size:10px;
+	background-image: url(../images/Arrow_Down.png);
+	background-position: 10px 10px;
+	background-repeat:no-repeat;
+		}
+		
+#projectTableR3 {
+	font-size:10px;
+	background-image: url(../images/Arrow_Down.png);
+	background-position: 5px 3px;
+	background-repeat:no-repeat;
+		}	
+		
+.indent15px {
+	padding: 0 0 0 25px;
+}
+
+ /* ORIGINAL CSS FROM ARCHANA FOLLOWS BELOW  */
 
 /* 
 #left{
@@ -287,19 +416,6 @@ form#login {
     padding: 0px;
 }
 
-#navigation li.vertical{
-	display: block;	
-}
-
-#navigation a:link, #navigation a:visited{
-    color: #1122BB;
-    background-color: transparent;
-	text-decoration:none;
-}
-
-#navigation li a:hover{
-	color: green;
-}
 
 
 #verticalNavigation{
@@ -319,11 +435,6 @@ form#login {
     padding: 0px;
     margin: 25px;
     line-height:18px;
-}
-
-#verticalNavigation li.login{
-	margin: 8px;
-	line-height:20px;	
 }
 
 #verticalNavigation a:link, #verticalNavigation a:visited{

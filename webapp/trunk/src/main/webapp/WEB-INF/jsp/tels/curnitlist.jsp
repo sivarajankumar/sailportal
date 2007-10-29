@@ -30,8 +30,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojects.jsp"%>
+<%@ include file="./headerteacherprojects.jsp"%>
 
+<%@ include file="./L2projectsnohighlight.jsp"%>
 <div id="titleBar">
     	<h1 class="blueText"><spring:message code="curnitlist.project.library" /></h1></div>
     	
