@@ -108,11 +108,13 @@ public class ChangeStudentPasswordControllerTest extends AbstractModelAndViewTes
 	
 	public void testFormbackingObject_success() throws Exception{
 		request.setParameter("userName", STUDENT_NAME);
-		ChangeStudentPasswordParameters params = (ChangeStudentPasswordParameters)changeStudentPasswordController.formBackingObject(request);
-		params.setUser(studentUser);
-		params.setPasswd1(PASSWORD);
-		params.setPasswd2(PASSWORD);
-		assertEquals(params.getUser(), studentUser);
+		expect(mockUserService.retrieveUserByUsername(STUDENT_NAME)).andReturn(user);
+		replay(mockUserService);
+		Object returnParams = changeStudentPasswordController.formBackingObject(request);
+		assertTrue(returnParams instanceof ChangeStudentPasswordParameters);
+		ChangeStudentPasswordParameters params = (ChangeStudentPasswordParameters)returnParams;
+		verify(mockUserService);
+		assertEquals(params.getUser(), user);
 	}
 	
 	public void testOnSubmit_success() throws Exception {
