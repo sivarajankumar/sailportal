@@ -123,6 +123,57 @@ a:hover {
 	background-color:#ffcccc;
 	}
 
+
+/* STYLING FOR L2 NAV BAR  */
+
+#navigationL2 {
+	padding:0px;
+	margin-top:5px;
+	width:958px;
+	border:1px solid #999999;
+	}
+
+#navigationL2 ul {
+	padding: 6px 0 6px 120px;
+	margin:0px;
+	list-style:none;
+	}
+	
+#navigationL2 li {
+	font-size:1.1em;
+	letter-spacing:.9px;
+	display:inline;
+	padding:0px;
+	margin:-2px;
+	}
+	
+#navigationL2 a:link, #navigationL2 a:visited{
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	color:#000000;
+	text-decoration:none;
+		}
+	
+#navigationL2 a:hover{
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	background-color:#FF99CC;
+	color:#FFFFFF;
+	text-decoration:none;
+	/* border-left:1px solid #999999;
+	border-right:1px solid #999999; */
+	}
+
+#navigationL2highight {
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	background-color:#FF99CC;
+	color:#FFFFFF;
+	border-left:1px solid #999999;
+	border-right:1px solid #999999;
+	}
+
+	
 /* #navigationL2 {
 	position:relative;
 	padding:0px;
@@ -168,60 +219,6 @@ a:hover {
 	}
 */
 
-/* ALTERNATE STYLE FOR L2 NAV BAR  */
-
-#navigationL2v2 {
-	padding:0px;
-	margin-top:5px;
-	width:958px;
-	border:1px solid #999999;
-	}
-
-#navigationL2v2 ul {
-	padding: 6px 0 6px 120px;
-	margin:0px;
-	list-style:none;
-	}
-	
-#navigationL2v2 li {
-	font-size:1.1em;
-	letter-spacing:.9px;
-	display:inline;
-	padding:0px;
-	margin:-2px;
-	}
-	
-#navigationL2v2 a:link, #navigationL2v2 a:visited{
-	padding: 6px 20px 6px 20px;
-	margin:0px;
-	color:#000000;
-	text-decoration:none;
-		}
-	
-#navigationL2v2 a:hover{
-	padding: 6px 20px 6px 20px;
-	margin:0px;
-	background-color:#FF99CC;
-	color:#FFFFFF;
-	text-decoration:none;
-	/* border-left:1px solid #999999;
-	border-right:1px solid #999999; */
-	}
-
-#navigationL2v2highight {
-	padding: 6px 20px 6px 20px;
-	margin:0px;
-	background-color:#FF99CC;
-	color:#FFFFFF;
-	border-left:1px solid #999999;
-	border-right:1px solid #999999;
-	}
-
-.navigationL2v2leftborder {
-	/* border-left:1px solid #999999; */
-	}
-	
-	
 /* SETTING UP A RUN */
 	
 #setUpRunBox{

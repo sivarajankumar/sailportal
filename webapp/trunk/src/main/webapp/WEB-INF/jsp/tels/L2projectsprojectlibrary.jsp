@@ -19,13 +19,13 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
-<div id="navigationL2v2" class="projectL2">
+<div id="navigationL2" class="projectL2">
 
 	<ul>
 		<li >
 			<a class="navigationL2leftborder" href="projects_overview.html">Overview</a> </li>
        	<li>
-			<a href="curnitlist.html">Project Library</a> </li>
+			<a id="navigationL2highight" href="curnitlist.html">Project Library</a> </li>
 		<li>
 			<a href="index.html">My Project Runs</a> </li>
 		<li>
