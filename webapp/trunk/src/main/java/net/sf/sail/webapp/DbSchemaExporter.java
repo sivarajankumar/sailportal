@@ -74,7 +74,7 @@ public class DbSchemaExporter {
             Configuration hibernateConfig = ((LocalSessionFactoryBean) applicationContext
                     .getBean("&sessionFactory")).getConfiguration();
 
-            final boolean printScriptToConsole = false, exportScriptToDb = false, justDrop = false, justCreate = false;
+            final boolean printScriptToConsole = false, exportScriptToDb = false, justDrop = false, justCreate = true;
             final SchemaExport schemaExport = new SchemaExport(hibernateConfig)
                     .setDelimiter(";").setFormat(true).setHaltOnError(true)
                     .setOutputFile(filename);
