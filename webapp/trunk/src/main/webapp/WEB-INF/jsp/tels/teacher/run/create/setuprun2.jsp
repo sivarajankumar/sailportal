@@ -99,7 +99,7 @@ Previous student work and teacher feedback in archived projects can be viewed ag
 <form method="post" class="center">
 <input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
+<input type="submit" name="_target2" value="<spring:message code="navigate.next" />" />
 </form>
 
 </div>  <!-- /* End of the CenteredDiv */-->
