@@ -23,10 +23,14 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
+<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+
 <script type="text/javascript">
 function checkIfTextAreaEmpty (form) {
 if(form.manualCheckbox.checked==true){
@@ -44,11 +48,6 @@ if(form.manualCheckbox.checked==true){
 }
 // End -->
 </script>
-
-<script src="./javascript/tels/general.js" type="text/javascript" ></script>
-<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
-<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-three" /></title>
 
@@ -80,42 +79,41 @@ if(form.manualCheckbox.checked==true){
 <div id="titleBarSetUpRun">
     	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
 
-
 <div id="setUpRunBox">
 
-<div id="stepNumber">Step 3 of 6:<span class="blueText">&nbsp Selection Period(s)</span></div>
+<div id="stepNumber">Step 3 of 6:<span class="blueText">&nbsp Select Periods</span></div>
 
-<h3 style="color:rgb(0,0,255);"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step3" /> </b>
-<spring:message code="teacher.setup-project-run-step3-desc" />
-</h3>
-<p style="width:950px;font-size:1em;">
-<spring:message code="teacher.select-classroom-periods" />
-<i><spring:message code="navigate.next" /></i>
-</p>
+<h4>Select the classroom period/periods during which you'll run the project, then click <em>Next</em>.</h4>
 
-<div>
 <form:form method="post" commandName="runParameters">
 
-    <div style="width:950px;">
-      <label for="periods"><spring:message code="periods" /></label><br />
+    <div id="periodcheckboxes" class="indent15px">
+      <label for="periods" id="periodlabel"><spring:message code="periods" /></label><br />
           <c:forEach items="${periodNames}" var="periodName">
             <form:checkbox path="periodNames" value="${periodName}" />
             <spring:message code="defaultPeriodNames.${periodName}" /><br/>
           </c:forEach>      
     </div>
 
+<div>
+	<h4>OR enter manually named periods:</h4>
+	<textarea id="manualperiodsinput" rows="1" cols="70"></textarea>
+	<div id="manualperiodsinstructions">Separate manually named periods with commas.  
+		Example: "Section 1, Section 2, Section 3" 	<br />
+		Manually named periods should be no more than 16 characters in length.</div>
+</div>
 
-<div align="center">
+</div>     <!--end of SetUpRunBox -->
+
+<div class="center">
 <input type="submit" name="_target1" value="<spring:message code="navigate.back"/>" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel"/>" />
 <input type="submit" name="_target3" value="<spring:message code="navigate.next"/>" />
 </div>
+
 </form:form>
-</div>
 
-
-</div>
-</div>
+</div>    <!--end of centered div-->
 
 </body>
 </html>

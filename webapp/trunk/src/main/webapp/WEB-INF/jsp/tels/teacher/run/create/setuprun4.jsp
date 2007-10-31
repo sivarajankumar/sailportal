@@ -23,54 +23,48 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
+<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-four" /></title>
 </head>
 <body>
-<%@ include file="../../../teacherHeader.jsp"%>
 
-<!--  
-<ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.customized-projects" /></a></li>
-</ul><br />
--->
+<div id="centeredDiv">
 
-<h2 class="center"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<div align="center">
-<div id="setuprunbox">
-<h3 style="color:rgb(0,0,255);width:950px;"><b style="color:#000000;"> <spring:message code="teacher.setup-project-run-step4" /></b>
-<spring:message code="teacher.setup-project-run-step4-desc" />
-</h3>
-<p style="width:950px;font-size:1em;">
-<spring:message code="teacher.review-lesson-plan-start" />
-<a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.review-lesson-plan" /></a>
-<spring:message code="teacher.review-lesson-plan-rest" />
-</p>
+<%@ include file="../../../headerteacherprojects.jsp"%>
 
-<p style="position:relative;left:20px;font-size:0.9em;width:950px;"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></p>
-<p style="width:950px;font-size:1em;">
-<spring:message code="teacher.skip-lesson-plan" />
-<i><spring:message code="navigate.next" /></i>
-<spring:message code="teacher.skip-lesson-plan-below" />
-</p>
-<div align="center">
-<form method="post" >
+<%@ include file="../../../L2projectsnohighlight.jsp"%>
+
+<div id="titleBarSetUpRun">
+    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+
+<div id="setUpRunBox">
+
+	<div id="stepNumber">Step 4 of 6:<span class="blueText">&nbsp Review Lesson Plan</span></div>
+
+	<h4>We recommend that you <a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.review-lesson-plan" /></a>
+	<spring:message code="teacher.review-lesson-plan-rest" /></h4>
+
+	<h5 class="indent15px"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h5>
+	<h4><spring:message code="teacher.skip-lesson-plan" />
+		<i><spring:message code="navigate.next" /></i>
+		<spring:message code="teacher.skip-lesson-plan-below" /></h4>
+ </div>    
+ 
+<form method="post" class="center">
 <input type="submit" name="_target2" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target4" value="<spring:message code="navigate.next" />" />
 </form>
 </div>
 
-</div>
-</div>
+<div align="centeredDiv">
+
 </body>
 </html>

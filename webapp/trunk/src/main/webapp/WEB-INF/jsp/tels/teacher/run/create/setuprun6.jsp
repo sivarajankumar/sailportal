@@ -23,62 +23,55 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
+<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-six" /></title>
 </head>
 <body>
-<%@ include file="../../../teacherHeader.jsp"%>
 
-<!--  
-<ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.customized-projects" /></a></li>
-</ul>
-<br />
--->  
-<h2 class="center" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<div align="center">
-<div id="setuprunbox">
-<h3 style="color:rgb(0,0,255);"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step6" /> </b>
-<spring:message code="teacher.setup-project-run-step6-desc" />
-</h3>
-<p style="width:950px;font-size:1em;"><spring:message code="teacher.review-guide"  />
-<a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.how-to-use-wise" /></a>
-<spring:message code="teacher.new-window" />
-</p>
+<div id="centeredDiv">
 
-<ul style="position:relative;left:20px;width:900px;font-size:0.9em;">
-<li>
-<spring:message code="teacher.about-guide" />
-</li>
-<li>
-<spring:message code="teacher.help" />
-</li>
-</ul>
+<%@ include file="../../../headerteacherprojects.jsp"%>
 
-<p style="width:950px;font-size:1em;"><spring:message code="teacher.setup-complete" />
-<i><spring:message code="navigate.done" /></i>
-<spring:message code="teacher.setup-complete-below" />
-</p>
+<%@ include file="../../../L2projectsnohighlight.jsp"%>
 
-<div align="center">
-<form method="post">
+<div id="titleBarSetUpRun">
+    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+
+<div id="setUpRunBox">
+
+	<div id="stepNumber">Step 6 of 6:<span class="blueText">&nbsp Help Documentation</span></div>
+
+	<h4>First time running a classroom project?  If so check out the 
+		<a href="#" onclick="javascript:alert('Project Preview Not Available Yet')">Guide to Using WISE 3.0 in the Classroom</a>.</h4>
+	
+   	<h5 class="indent15px">
+   		<ul>
+   		<li>This guide contains everything you need to know about setting up your classroom computers and having your students 
+   				register, form groups, and load projects. 
+   				It also offers tips if you encounter difficulty during a project run (for instance, if a student loses a password).</li>
+   		<li>These help documents are accessible at any time by clicking the HELP button at the top of the screen.</li>
+   		</ul>
+   	</h5>
+
+	<h4>To complete the creation of your project run click <em>Done</em> below. </h4>
+		
+</div>
+
+<form class="center" method="post">
 <input type="submit" name="_target4" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_finish" value="<spring:message code="navigate.done" />" />
 </form>
-</div>
 
 </div>
-</div>
+
 </body>
 </html>
 

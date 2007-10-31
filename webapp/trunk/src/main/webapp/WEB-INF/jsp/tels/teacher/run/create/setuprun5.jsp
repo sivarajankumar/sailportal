@@ -16,58 +16,52 @@
   * License along with this library; if not, write to the Free Software
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
-
-<!-- $Id: setupRun3.jsp 357 2007-05-03 00:49:48Z archana $ -->
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
+<script src="./javascript/tels/general.js" type="text/javascript" ></script>
+<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-five" /></title>
 </head>
 <body>
-<%@ include file="../../../teacherHeader.jsp"%>
 
-<!--  
-<ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.customized-projects" /></a></li>
-</ul>
-<br />
--->  
-<h2 class="center"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<div align="center">
-<div id="setuprunbox">
-<h3 style="color:rgb(0,0,255);"><b style="color:#000000;"><spring:message code="teacher.setup-project-run-step5" /></b>
-<spring:message code="teacher.setup-project-run-step5-desc" />
-</h3>
-<p style="font-size:1em;"><spring:message code="teacher.recommend-preview-project" />
-<a href="#" onclick="javascript:alert('This page is not available yet')"> <spring:message code="teacher.preview-project" /> </a>
-<spring:message code="teacher.before-running" />
-</p>
-<p style="position:relative;left:20px;font-size:0.9em;"><spring:message code="teacher.preview-project-now" /></p>
-<p style="font-size:1em;"><spring:message code="teacher.cont-no-preview" />
-<i><spring:message code="navigate.next" /></i>
-<spring:message code="teacher.cont-no-preview-below" />
-</p>
+<div id="centeredDiv">
 
-<div align="center">
-<form method="post" style="width:950px;text-align:center;">
+<%@ include file="../../../headerteacherprojects.jsp"%>
+
+<%@ include file="../../../L2projectsnohighlight.jsp"%>
+
+<div id="titleBarSetUpRun">
+    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+
+<div id="setUpRunBox">
+
+	<div id="stepNumber">Step 5 of 6:<span class="blueText">&nbsp Preview the Project</span></div>
+
+	<h4><spring:message code="teacher.recommend-preview-project" />
+		<a href="#" onclick="javascript:alert('Project Preview Not Available Yet')"> <spring:message code="teacher.preview-project" /> </a>
+		<spring:message code="teacher.before-running" /></h4>
+		
+	<h5 class="indent15px"><spring:message code="teacher.preview-project-now" /></h5>
+
+	<h4><spring:message code="teacher.cont-no-preview" />
+		<i><spring:message code="navigate.next" /></i>
+		<spring:message code="teacher.cont-no-preview-below" /></h4>
+</div>
+
+<form class="center" method="post">
 <input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target5" value="<spring:message code="navigate.next" />" />
 </form>
-</div>
-</div>
+
 </div>
 </body>
 </html>
