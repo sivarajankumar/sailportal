@@ -23,27 +23,31 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../<spring:theme code="forgotstylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
+
+<link href="../<spring:theme code="forgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+    
 <script src="../javascript/tels/general.js" type="text/javascript" > </script>
 <title><spring:message code="lostpassword.title" /></title>
 </head>
 
 <body>
 
-<%@ include file="header.jsp"%>
+<div id="centeredDiv">
 
-<h2 class="center"> LOST USERNAME/PASSWORD </h2>
-<h2 class="center"> What sort of WISE account do you have?</h2>
+<%@ include file=".././headermain.jsp"%>
 
-<div align="center">  
+<div id="titleBar">
+    	<h1 class="blueText">Lost Username or Password</h1></div>
+    	
+<h3 class="center">What sort of WISE account do you have?</h3>
+
+<div class="center">  
 <a href="student/index.html">
   <img id="studentAccount" src="../<spring:theme code="create_student_account" />" width="228" height="41"
   onmouseover="swapImage('studentAccount','../<spring:theme code="create_student_account_rollover" />');" 
-  onmouseout="swapImage('studentAccount','../<spring:theme code="create_student_account" />');" /> 
- </a>
+  onmouseout="swapImage('studentAccount','../<spring:theme code="create_student_account" />');" /></a>
  <br />
-  or
   <br />
 <a href="teacher/index.html"> 
 <img id="teacherAccount" src="../<spring:theme code="create_teacher_account" />" height="46"
@@ -52,17 +56,16 @@
 <br />
 </div>
 
-<div align="center">
-<h3 id="italic">Select a choice above.</h3>
-<a href="../index.html">Return to Sign In</a>
-<!-- replace with proper image when ready
-<img id="signInAgain" src="../images/Sign-in-New-Account.png" 
-  onmouseover="swapImage('signInAgain','../images/Sign-in-New-Account-Roll.png');"
-  onmouseout="swapImage('signInAgain','../images/Sign-in-New-Account.png');" >
--->
+<div class="center">
+	<h3 id="italic">Select a choice above.</h3>
+	<a href="../index.html">Return to Sign In</a>
+	<!-- replace with proper image when ready
+	<img id="signInAgain" src="../images/Sign-in-New-Account.png" 
+  		onmouseover="swapImage('signInAgain','../images/Sign-in-New-Account-Roll.png');"
+  		onmouseout="swapImage('signInAgain','../images/Sign-in-New-Account.png');" > -->
 </div>
 
-
+</div>
 
 
 </body>

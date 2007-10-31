@@ -23,20 +23,26 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="teacherforgotstylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
+
+<link href="../../<spring:theme code="teacherforgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 <script type="text/javascript" src="./javascript/tels/general.js"></script>			    
 <title>Forgot username or password - teacher</title>
 </head>
 
 <body>
 
-<%@ include file="header.jsp"%>
+<div id="centeredDiv">
 
-<h2 align="center"> LOST USERNAME OR PASSWORD </h2>
-<h2 align="center"> TEACHER/RESEARCHER </h2>
+<%@ include file="../../headermain.jsp"%>
 
-<div id="columns" align="center">
+<div id="titleBar">
+    	<h1 class="blueText">Lost Username or Password</h1></div>
+    	
+<h2 class="center">TEACHER / RESEARCHER</h2>
+
+<div id="columns" class="center">
 
 <!-- Support for Spring errors object -->
 <spring:bind path="userDetails.*">
@@ -47,7 +53,7 @@
   </c:forEach>
 </spring:bind>
 
-<div align="center"> 
+<div class="center"> 
 <form id="username" method="post" action="index.html" commandName="userDetails">
  <ul >
  <li>
@@ -74,6 +80,7 @@ UserName and a new Password will be sent to this email address.<br />
 
 </div>
 
+</div>
 
 </body>
 </html>

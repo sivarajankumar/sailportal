@@ -30,12 +30,12 @@
 <div id="navigationMainProjects">
 	<ul>
 		<li>
-			<a href=".././index.html" 
+			<a href="../teacher/index.html" 
     		onmouseout="MM_swapImgRestore()" 
     		onmouseover="MM_swapImage('homebutton','','../themes/tels/default/images/teacher/Home-Buttn-Selected.png',1)">
     		<img src="../themes/tels/default/images/teacher/Home-Buttn-Clickable.png" alt="Home Nav Button"  id="homebutton" /></a>
 		<li>
-			<a href=".././index.html" 
+			<a href=".././teacher/projects/overview.html" 
     		onmouseout="MM_swapImgRestore()" 
     		onmouseover="MM_swapImage('projectsbutton','','../themes/tels/default/images/teacher/Projects-Buttn-Selected.png',1)">
     		<img src="../themes/tels/default/images/teacher/Projects-Buttn-Clickable.png" alt="Projects Nav Button"  id="projectsbutton" /></a>
