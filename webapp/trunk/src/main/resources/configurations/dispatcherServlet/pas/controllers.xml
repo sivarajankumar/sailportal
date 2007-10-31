@@ -108,5 +108,18 @@
     	<property name="formView" value="offerings/createoffering" />
     	<property name="successView" value="offeringlist.html" />
     </bean>
+    
+    <bean id="curnitParametersValidator"
+        class="net.sf.sail.webapp.presentation.validators.CurnitParametersValidator" />
 
+    <bean id="registerCurnitController"
+    	class="net.sf.sail.webapp.presentation.web.controllers.curnit.RegisterCurnitController">
+    	<property name="curnitService" ref="curnitService" />
+    	<property name="commandName" value="curnitParameters" />
+    	<property name="commandClass"
+    	    value="net.sf.sail.webapp.domain.impl.CurnitParameters" />
+    	<property name="validator" ref="curnitParametersValidator" />
+    	<property name="formView" value="curnit/registercurnit" />
+    	<property name="successView" value="curnitlist.html" />
+    </bean>
 </beans>

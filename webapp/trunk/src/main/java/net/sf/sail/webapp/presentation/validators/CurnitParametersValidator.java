@@ -25,14 +25,13 @@ package net.sf.sail.webapp.presentation.validators;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
  * Validator for add Curnit page
  *
  * @author Hiroki Terashima
- * @author Patrick Lawler
- * 
  * @version $Id$
  */
 public class CurnitParametersValidator implements Validator {
@@ -49,8 +48,15 @@ public class CurnitParametersValidator implements Validator {
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 */
 	public void validate(Object curnitParametersIn, Errors errors) {
-		// TODO Auto-generated method stub
-
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
+            "error.curnitname-not-specified");
+        
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "url",
+            "error.curniturl-not-specified");
+        
+        if (errors.hasErrors()) {
+            return;
+        }
 	}
 
 }

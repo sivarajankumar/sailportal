@@ -46,7 +46,7 @@
   </tr>
 </c:forEach>
 </table>
-
+<div><a href="<c:url value="registercurnit.html" />"><spring:message code="register.curnit" /></a></div>
 </div>
 
 <%@ include file="includes/footer.jsp"%>
