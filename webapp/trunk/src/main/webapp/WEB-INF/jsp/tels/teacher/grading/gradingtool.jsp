@@ -28,58 +28,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
-
-  
-
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/base/base-min.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/fonts/fonts-min.css"> 
- 
-<!--CSS for Controls:--> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/container/assets/skins/sam/container.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/menu/assets/skins/sam/menu.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/autocomplete/assets/skins/sam/autocomplete.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/button/assets/skins/sam/button.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/calendar/assets/skins/sam/calendar.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/colorpicker/assets/skins/sam/colorpicker.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/datatable/assets/skins/sam/datatable.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/editor/assets/skins/sam/editor.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/logger/assets/skins/sam/logger.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/tabview/assets/skins/sam/tabview.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/treeview/assets/skins/sam/treeview.css"> 
-<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /> 
-
-<!--JavaScript source files for the entire YUI Library:--> 
- 
-<!--Utilities (also aggregated in yahoo-dom-event.js and utilities.js; see readmes in the 
-YUI download for details on each of the aggregate files and their contents):--> 
-<script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/dom/dom-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/event/event-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/element/element-beta-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/animation/animation-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/connection/connection-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/datasource/datasource-beta-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/dragdrop/dragdrop-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/history/history-beta-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/imageloader/imageloader-experimental-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/yuiloader/yuiloader-beta-min.js"></script> 
- 
-<!--YUI's UI Controls:--> 
-<script type="text/javascript" src="../.././javascript/tels/yui/container/container-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/menu/menu-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/autocomplete/autocomplete-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/button/button-beta-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/calendar/calendar-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/colorpicker/colorpicker-beta-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/datatable/datatable-beta-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/editor/editor-beta-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/logger/logger-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/slider/slider-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/tabview/tabview-min.js"></script> 
-<script type="text/javascript" src="../.././javascript/tels/yui/treeview/treeview-min.js"></script> 
+<%@ include file="styles.jsp"%>
 <script type="text/javascript">
 		var div = document.getElementById('container');
 		
@@ -89,11 +38,19 @@ YUI download for details on each of the aggregate files and their contents):-->
 		tabView.set('activeIndex', ${tabIndex});								        
 	    
 	     function handleClick(e) { 
-	     	 var returnVar = document.getElementById('nextStepLink');  
+	     	 var nextVar = document.getElementById('nextStepLink');  
 	     	 var tabIndex = tabView.getTabIndex( e.newValue );
 	     	 YAHOO.log('TAB ' + tabIndex);
-	     	 returnVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
-	     	 YAHOO.log('new HREF: ' + returnVar);
+	     	 nextVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
+	     	 YAHOO.log('new HREF: ' + nextVar);
+	     	 
+	     	 //previousStep
+	     	 var previousVar = document.getElementById('previousStepLink');  
+	     	 var tabIndex = tabView.getTabIndex( e.newValue );
+	     	 YAHOO.log('TAB ' + tabIndex);
+	     	 previousVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex='+tabIndex;
+	     	 
+	     	 YAHOO.log('new HREF: ' + previousVar);
 	     	 YAHOO.log('target ' + tabView.getTabIndex( e.newValue ) );
 	    } 
 	     
@@ -216,8 +173,6 @@ YUI download for details on each of the aggregate files and their contents):-->
 <h2>Grading Tool</h2>
 
 <div id="tableProjectView">
-nextStep ${nextStep.podUUID} <br>
-step ${step.podUUID} 
 <table class="view">
   <tr>
   	<td><em>Project:</em> </td>
@@ -228,8 +183,14 @@ step ${step.podUUID}
   	<td><em>View:</em></td>
     <td id="viewStep"><strong>Act ${activity.number+1}, Step ${step.number+1}: ${step.title}</strong>
     </td>
-    <td><td id="gradeStepLinks">View Previous Step&nbsp &nbsp<a href="gradebystep.html?runId=${runId}">View Step Menu</a>
-    &nbsp &nbsp <c:if test="${!empty nextStep}">
+    <td><td id="gradeStepLinks">
+    <c:if test="${!empty previousStep}"> 
+    <a id='previousStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">View Previous Step</a>
+    &nbsp &nbsp
+    </c:if>
+    <a href="gradebystep.html?runId=${runId}">View Step Menu</a>
+    &nbsp &nbsp 
+    <c:if test="${!empty nextStep}">
     <a id='nextStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">View Next Step</a>
     </c:if></td>
   <tr>
