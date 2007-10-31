@@ -191,6 +191,7 @@ dd {
 	}
 	
 #usernameConfirm {
+	width:300px;
 	border:0px;
 	color: #0000FF;
 	font-weight:bold;

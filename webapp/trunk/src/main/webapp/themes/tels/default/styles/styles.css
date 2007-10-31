@@ -79,9 +79,10 @@ a:hover {
 		}
 
 #usernameSignOutBox {
-	position:absolute;
-	margin: -13px 5px 0 900px;
-	text-align:right;
+	float:right;
+	text-align:right;  
+	position:relative;
+	margin: -13px 5px 0 10px;	
 }
 
 #usernameBanner {
@@ -119,14 +120,21 @@ a:hover {
 	padding-right: 15px;
 	}
 	
-.projectL2  {
-	background-color:#ffcccc;
-	}
-
 
 /* STYLING FOR L2 NAV BAR  */
 
-#navigationL2 {
+.projectL2  {
+	background-color:#ffcccc;
+	}
+	
+.blankbarL2  {
+	background-image: url(../images/Pixel_Gray.png);
+	/* background-image: url(../images/Gradient_Blue-to-Gray.png); */
+	background-position: center bottom;
+	margin-bottom:10px;
+	}
+	
+	#navigationL2 {
 	padding:0px;
 	margin-top:5px;
 	width:958px;
@@ -222,9 +230,9 @@ a:hover {
 /* SETTING UP A RUN */
 	
 #setUpRunBox{
-	height:370px;
+	height:360px;
 	border:1px solid #666666;
-	margin:20px auto 30px auto ;
+	margin:15px auto 15px auto ;
 	padding:15px;
 }
 
@@ -281,6 +289,30 @@ a:hover {
 	padding: 0 0 0 25px;
 }
 
+#periodcheckboxes {	font-size:1.1em;}
+		
+#periodlabel {
+	font-size:1.2em;
+	font-variant:small-caps
+}
+
+#manualperiodsinput {
+	font-size:1.5em;
+	position:absolute;
+	margin: -20px 0 0 300px;
+	border-top: 1px solid #666666;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #666666;
+}	
+
+#manualperiodsinstructions {
+	font-size:1.1em;
+	position:absolute;
+	width:570px;
+	margin: 15px 0 0 300px;
+}
+	
  /* ORIGINAL CSS FROM ARCHANA FOLLOWS BELOW  */
 
 /* 
