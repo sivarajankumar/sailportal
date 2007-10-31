@@ -22,15 +22,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html lang="en">
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet"
-    type="text/css" />
- <script type="text/javascript" src=".././javascript/tels/general.js"></script>
+
+<link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
+<script src=".././javascript/tels/general.js" type="text/javascript" ></script>
+<script src=".././javascript/tels/effects.js" type="text/javascript" ></script>
+<script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+
 <title><spring:message code="application.title" /></title>
 </head>
 
 <body>
-<%@ include file="teacherHeader.jsp" %> 
-<div align="center"> 
+
+<div id="centeredDiv">
+
+<%@ include file="../headerteachernohighlight.jsp"%>
+
+<%@ include file="../L2blankbar.jsp"%>
+
+<div center="center"> 
 <div id="welcome">
 <div align="left">
 <div id="innerWelcome">

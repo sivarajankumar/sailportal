@@ -29,7 +29,7 @@
 <div id="navigationMainProjects">
 	<ul>
 		<li>
-			<a href="index.html"><input type="image" id="home" src="<spring:theme code="home"/>"
+			<a href="index.html"><input type="image" id="home" src="<spring:theme code="home"/>"	
     		onmouseover="swapImage('home','<spring:theme code="home_selected"/>')" 
     		onmouseout="swapImage('home','<spring:theme code="home"/>')"/></a> </li>
        	<li>

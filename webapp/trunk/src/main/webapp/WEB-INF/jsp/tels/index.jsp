@@ -142,7 +142,7 @@
                                 
                                 <dl>
                                     <dt><label for="username">Username:  </label> </dt>
-                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" maxlength="20"/></dd>
+                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" maxlength="30"/></dd>
                                     <dt><label for="password">Password:	</label></dt>
                                     <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" maxlength="20"/></dd>
                                 </dl>
