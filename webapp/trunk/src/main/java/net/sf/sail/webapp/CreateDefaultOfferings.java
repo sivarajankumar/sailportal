@@ -74,8 +74,8 @@ public class CreateDefaultOfferings {
         hashmap = new HashMap<String, String>();
         hashmap
                 .put(
-                        "PLR Everything JDIC snapshot 20070125-0811",
-                        "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot-20070125-0811.jnlp");
+                        "PLR Everything JDIC snapshot",
+                        "http://www.encorewiki.org/download/attachments/2114/plr-everything-jdic-snapshot.jnlp");
         JNLPS = Collections.unmodifiableMap(hashmap);
     }
 
