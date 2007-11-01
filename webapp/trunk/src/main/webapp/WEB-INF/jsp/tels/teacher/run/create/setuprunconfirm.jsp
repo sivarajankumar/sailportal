@@ -23,9 +23,11 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
 <title><spring:message code="setuprun.confirmation.title" /></title>
+
 <script type="text/javascript" src="./javascript/pas/utils.js"></script>
 <script type="text/javascript" src="./javascript/tels/rotator.js"></script>
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
@@ -34,20 +36,15 @@
 
 <body>
 
-<%@ include file="../../../teacherHeader.jsp"%>
+<div id="centeredDiv">
 
-<!--  
-<ul id="tabnav" class="north_0 widthAdj4">
-<li> <a href="#"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#"><spring:message code="teacher.project-library" /></a></li>
-<li> <a href="#"><spring:message code="teacher.project-runs" /></a></li>
-<li> <a href="#"><spring:message code="teacher.bookmarked-projects" /></a></li>
-<li> <a href="#"><spring:message code="teacher.customized-projects" /></a></li>
-</ul><br />
--->
+<%@ include file="../../../headerteacherprojects.jsp"%>
+
+<%@ include file="../../../L2projectsnohighlight.jsp"%>
+
 
 <h2 class="center" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<div align="center">
+<div class="center">
 <div id="setuprunbox">
 <h3><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
 
@@ -89,13 +86,14 @@
 <p><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
 </div>
 </div>
-<div align="center">
+<div class="center">
 <a href="teacher/run/myprojectruns.html"> <img id="projectRuns"
 	src="<spring:theme code="gotomyprojectruns" />"	 	
 	onmouseover="swapImage('projectRuns','<spring:theme code="gotomyprojectruns_roll" />');"
 	onmouseout="swapImage('projectRuns','<spring:theme code="gotomyprojectruns" />');"
 	style="border:0px;"/>
 </a>
+</div>
 </div>
 </body>
 </html>
