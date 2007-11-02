@@ -29,13 +29,21 @@ import net.sf.sail.webapp.domain.User;
  * $Id:$
  */
 public class ChangeStudentPasswordParameters extends ChangePasswordParameters{
-
+	
+	private static final long serialVersionUID = 1L;
+	
 	private User user;
 	
+	/**
+	 * @return the user
+	 */
 	public User getUser(){
 		return user;
 	}
 	
+	/**
+	 * @param sets the user
+	 */
 	public void setUser(User user){
 		this.user = user;
 	}
