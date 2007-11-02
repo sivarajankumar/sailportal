@@ -42,58 +42,61 @@
 
 <%@ include file="../../../L2projectsnohighlight.jsp"%>
 
-
-<h2 class="center" style="color:rgb(100,0,0);"> <spring:message code="teacher.setup-project-classroom-run" /></h2>
-<div class="center">
-<div id="setuprunbox">
-<h3><spring:message code="setuprun.confirmation.projectruncreated" /></h3>
-
-<b>
-<spring:message code="setuprun.confirmation.whereisnewrun" />
-<a href="./runlist.html" onclick="javascript:alert('This page is not available yet')"> 
-<spring:message code="setuprun.confirmation.myprojectruns" />
-</a>
-<spring:message code="setuprun.confirmation.end" />
-</b>
-
-<div>
-<ul>
-<li><spring:message code="setuprun.confirmation.run.title" />
-<c:out value="${run.sdsOffering.name}" />
-</li>
-<li><spring:message code="setuprun.confirmation.run.createdtime" />
-<c:out value="${run.starttime}" />
-</li>
-<li><spring:message code="setuprun.confirmation.run.projectid" />
-<c:out value="${run.sdsOffering.sdsCurnit.sdsObjectId}" />
-</li>
-<li>
-<spring:message code="setuprun.confirmation.run.projectcodes" /><br />
-  <c:forEach var="period" items="${run.periods}">
-    <c:out value="${run.runcode}" />-<c:out value="${period.name}" />
-    (<spring:message code="setuprun.confirmation.run.projectcodes.foryourstudentsinperiod" />
-    <c:out value="${period.name}" />)
-    <br />
-  </c:forEach>
-</li>
-</ul>
+<div id="titleBarSetUpRun">
+    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
 </div>
 
-<h4><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
-<p><spring:message code="setuprun.confirmation.aboutprojectids.text" /></p>
+<div id="setUpRunBoxConfirm">
 
-<h4><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
-<p><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></p>
+<div id="stepNumber"><span class="blueText">Project Run Created!</span></div>
+
+	<h4>Your new project run has been placed in the <a href="teacher/run/myprojectruns.html">My Project Runs</a> area.</h4>
+	
+	<table id="projectRunConfirmTable" border="1" cellpadding="5" cellspacing="0" >
+			<tr>
+				<td style="width:30%;"><spring:message code="setuprun.confirmation.run.title" /></td>
+				<td><strong><c:out value="${run.sdsOffering.name}" /></strong></td>
+			</tr>
+			<tr>
+				<td><spring:message code="setuprun.confirmation.run.createdtime" /></td>
+				<td><strong><c:out value="${run.starttime}" /></strong></td>
+			</tr>
+			<tr>
+				<td><spring:message code="setuprun.confirmation.run.projectid" /></td>
+				<td><strong><c:out value="${run.sdsOffering.sdsCurnit.sdsObjectId}" /></strong></td>
+			</tr>
+			<tr>
+				<td><spring:message code="setuprun.confirmation.run.projectcodes" /></td>
+				<td>
+					<c:forEach var="period" items="${run.periods}">
+			    	<strong><c:out value="${run.runcode}" />-<c:out value="${period.name}" /></strong>
+			    	&nbsp;(<spring:message code="setuprun.confirmation.run.projectcodes.foryourstudentsinperiod" />
+			    		<c:out value="${period.name}" />)
+			    	<br />
+			  		</c:forEach>
+			    </td>
+			</tr>
+		</table>
+		
+<h4 class="reducedBottomMargin"><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
+<h5 class="indent15px"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></h5>
+
+<h4 class="reducedBottomMargin"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
+<h5 class="indent15px"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></h5>
+		
+</div>      <!-- end setUpRunBoxConfirm"-->
+		
+<div id="gotoMyRunsButton" class="center">
+	<a href="teacher/run/myprojectruns.html"> 
+		<img id="projectRuns"
+		src="<spring:theme code="gotomyprojectruns" />"	 	
+		onmouseover="swapImage('projectRuns','<spring:theme code="gotomyprojectruns_roll" />');"
+		onmouseout="swapImage('projectRuns','<spring:theme code="gotomyprojectruns" />');"
+		style="border:0px;"/>	</a>
 </div>
-</div>
-<div class="center">
-<a href="teacher/run/myprojectruns.html"> <img id="projectRuns"
-	src="<spring:theme code="gotomyprojectruns" />"	 	
-	onmouseover="swapImage('projectRuns','<spring:theme code="gotomyprojectruns_roll" />');"
-	onmouseout="swapImage('projectRuns','<spring:theme code="gotomyprojectruns" />');"
-	style="border:0px;"/>
-</a>
-</div>
-</div>
+
+</div>    <!-- end CenteredDiv" -->
+
 </body>
+
 </html>

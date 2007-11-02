@@ -14,7 +14,7 @@ h1 {font-size:2.4em;}
 h2 {font-size:1.8em; font-weight:normal;}
 h3 {font-size:1.7em;}
 h4 {font-size:1.5em;}
-h5 {font-size:1.2em; font-weight:normal;}
+h5 {font-size:1.3em; font-weight:normal;}
 h6 {font-size:1.1em; font-weight:normal;}
 p  {font-size:1.0em; line-height:150%;padding:0px; margin:0px;}
 	
@@ -82,7 +82,7 @@ a:hover {
 	float:right;
 	text-align:right;  
 	position:relative;
-	margin: -13px 5px 0 10px;	
+	margin: -13px 8px 0 10px;	
 }
 
 #usernameBanner {
@@ -312,6 +312,41 @@ a:hover {
 	width:570px;
 	margin: 15px 0 0 300px;
 }
+	
+	
+/* Set Up Run Confirmation Page  */
+	
+#setUpRunBoxConfirm {
+	width:100%;
+	border:1px solid #666666;
+	margin:15px auto 15px auto ;
+	padding:15px;
+}
+
+#projectRunConfirmTable	{  
+	border-collapse:collapse;
+	background-color:#CCFF99;
+	font-size:1.3em;
+	width:90%;
+	margin: 5px 15px 5px 15px;
+		}
+	
+#projectRunConfirmTable td	{  
+	vertical-align:text-top;
+		}
+
+.reducedBottomMargin {
+	margin-bottom:5px;
+}
+
+#gotoMyRunsButton {
+	margin: 0 0 30px 0;
+}
+	
+	
+	
+	
+	
 	
  /* ORIGINAL CSS FROM ARCHANA FOLLOWS BELOW  */
 
