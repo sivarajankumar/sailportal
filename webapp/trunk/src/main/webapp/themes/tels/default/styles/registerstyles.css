@@ -191,7 +191,7 @@ dd {
 	}
 	
 #usernameConfirm {
-	width:300px;
+	width:330px;
 	border:0px;
 	color: #0000FF;
 	font-weight:bold;
@@ -253,6 +253,13 @@ dd {
 
 .width122 {width:122px;}
 .width166 {width:166px;}
+
+#buttonText1 {
+	text-align:center;
+	font-size:1.1em;
+	margin: 10px 320px 30px 320px;
+}
+
 
 
 /* ONLY FOR TEACHER REGISTRATION PAGE/  */
@@ -331,7 +338,8 @@ dd {
 	}
 
 #newAccountDetails {
-	margin: 60px 0 20px 105px;
+	margin: 60px 0 20px 200px;
+	width:72%;
 	padding:0px;
 	}
 	

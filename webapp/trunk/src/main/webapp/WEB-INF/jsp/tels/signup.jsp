@@ -49,17 +49,19 @@
 </ul>
 </div>
 
+</div>   <!--  end of boxNewAccountReg -->
+
 <div id="newAccountDetails">
 	<h4><em> <spring:message code="register.which-account" /></em> </h4>
 	<ul>
-	<h5><li id="registerDescAcctSpacing"> <spring:message code="register.student-account-desc" /></li>
-	<li id="registerDescAcctSpacing"> <spring:message code="register.teacher-account-desc" /></li></h5>
+	<h5>
+		<li><spring:message code="register.student-account-desc" /></li>
+		<li><spring:message code="register.teacher-account-desc" /></li>
+	</h5>
 	</ul>
 </div>
 
-</div>   <!--  end of boxNewAccountReg -->
-
-	<p id="homelink"><a href="index.html">Return to Home Page</a></p>
+	<h5 id="homelink"><a href="index.html">Return to Home Page</a></h5>
 	
 </div>   <!-- end of centered div-->
    

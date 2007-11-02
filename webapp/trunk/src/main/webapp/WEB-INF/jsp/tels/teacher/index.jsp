@@ -21,7 +21,8 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -42,57 +43,65 @@
 
 <%@ include file="../L2blankbar.jsp"%>
 
-<div center="center"> 
-<div id="welcome">
-<div align="left">
-<div id="innerWelcome">
-<h1 id="headingPos">
-Welcome there: ${username}
-</h1>
-<p id="userLoginInfo"> 
-	Current Log-in: 
-		Thu Aug 09 13:17:23 EDT 2007
-	<br />
-	Last Login: 
-		Thu Aug 09 13:17:23 EDT 2007
-	<br />
-	Announcements:
-		nothing here yet
-	<br />
-</p>
+<div id="welcomeRow">
+
+<div id="welcomeBox" class="panelStyling">
+
+	<div id="header" class="blueText"><em>Welcome [User's Full Name Here]</em></div>
+	
+	<table id="teacherWelcomeBoxTable"  cellpadding="5" cellspacing="0" >
+			<tr class="tableRowBorder">
+				<td class="tableColor" style="width:20%;">Current Sign In:</td>
+				<td><strong>[Current SignIn Date/Time Stamp]</strong></td>
+			</tr>
+			<tr class="tableRowBorder">
+				<td class="tableColor">Last Sign In:</td>
+				<td><strong>[Most Recent SignIn Date/Time Stamp]</strong></td>
+			</tr>
+			<tr>
+				<td class="tableColor">Announcements:</td>
+				<td>
+					<ul>
+					<li><strong>Good morning, [User FirstName]!</strong></li>
+					<li><strong>Announcement 2</strong></li>
+					<li><strong>Announcement 3</strong></li>
+					</ul>
+				</td>
+			</tr>
+		</table>
 </div>
 
-<div id="projectsBox">
+<div id="projectsBox" class="panelStyling">
 <form id="projects" method="post" action="../j_acegi_security_check">
-	<h1 id="headingPos"> Projects Awaiting Grading</h1>
+	<div id="header">Projects Awaiting Grading</div>
 	<ul id="projectNames">
-	<li class="hidden">
+	<li>
 	<label for="projectname">
-	ProjectName:
+	Project Name 1:
 	</label>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	<div id="linkPos0"> Grade By Step</div>
+	<div id="linkPos1"> Grade By Student</div>
 	</li>
-	<li class="hidden">
+	<li>
 	<label for="projectname">
-	ProjectName:
+	Project Name 2:
 	</label>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	<div id="linkPos0"> Grade By Step</div>
+	<div id="linkPos1"> Grade By Student</div>
 	</li>
-	<li class="hidden">
+	<li>
 	<label for="projectname">
-	ProjectName:
+	Project Name 3:
 	</label>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	<div id="linkPos0"> Grade By Step</div>
+	<div id="linkPos1"> Grade By Student</div>
 	</li>
-	<li class="hidden">
+	<li>
 	<label for="projectname">
-	ProjectName:
+	Project Name 4:
 	</label>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos0"> Grade By Step</a>
-	<a href="#" onclick="displayNotAvailable('This page is not available yet')" id="linkPos1"> Grade By Student</a>
+	<div id="linkPos0"> Grade By Step</div>
+	<div id="linkPos1"> Grade By Student</div>
 	</li>
 	</ul>
 </form>
@@ -101,16 +110,12 @@ Welcome there: ${username}
 
 </div>
 
-</div>
-</div>
 
-<div align="center">
-<div id="dashboardBox">
-<div align="left">
-<div id="innerDashboard">
-<h1 id="headingPos">
-About the Dashboard
-</h1>
+<div class="center">
+<div id="dashboardBox"  class="panelStyling">
+
+<div id="innerDashboard" class="panelStyling">
+<div id="header">About the Dashboard</div>
 <p id="dashboardMsg">Details about the four Dashboard sections at top of the screen:</p>
 <table id="dashboardSections">
 <tr>
@@ -170,9 +175,9 @@ Resources and tools to get WISE running more smoothly in your classroom.
 </div>
 
 <div id="quickLinksPos">
-<h1 id="headingPos">
-Quick Links
-</h1>
+
+<div id="header">Quick Links</div>
+
 
 <table border="0" id="quickLinksTable">
 <tr>
@@ -292,31 +297,11 @@ Update My Account
 
 
 
+</body>
+
+</html>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body></html>
-
-
-<!-- 
-
-</div>
- -->
-
-
-<!-- Support for Spring errors object -->
 
 
 

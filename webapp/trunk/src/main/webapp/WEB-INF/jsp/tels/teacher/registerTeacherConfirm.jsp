@@ -53,18 +53,17 @@
 			</ul>
 </div>
 
-<table id="confirmationButtons" width="50%" border="0" cellpadding="5" cellspacing="5">
-  <tr>
-      <td class="width1"><a href="../index.html" 
+<div class="center">
+  <a href="../index.html" 
     onmouseout="MM_swapImgRestore()" 
     onmouseover="MM_swapImage('Return to Home Page','','../themes/tels/default/images/Go-To-Home-Page-Roll.png',1)">
-    <img src="../themes/tels/default/images/Go-To-Home-Page.png" alt="Go to Home Page & Sign In" width="161" height="52"  id="Return to Home Page" /></a></td>
-  </tr>
-  <tr>
-    <td>Select this button to return to the home page. Then use your new Username and Password in the <em>Sign In</em> area.</td>
-  </tr>
-</table>
+    <img src="../themes/tels/default/images/Go-To-Home-Page.png" alt="Go to Home Page & Sign In" width="161" height="52"  
+    id="Return to Home Page" /></a>
+ </div>
 
+<div id="buttonText1">
+	Select this button to return to the home page. Then use your new Username and Password in the <em>Sign In</em> area.
+</div>
 
 </div>  <!-- /* End of the CenteredDiv */-->
 

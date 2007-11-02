@@ -18,6 +18,82 @@
  * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
  */
 
+.panelStyling {
+	background-image:url(../.././images/teacher/Gradient-Gray-to-Green-350px.png);
+	background-position: bottom;
+	background-repeat:repeat-x;
+	border: 3px double;
+	border-top-color: #666666;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #666666;
+	}
+	
+
+#welcomeRow {
+	position:relative;
+	left:0px;
+	top:0px;
+	bottom:0px;
+	width:980px;
+	margin:0px;
+	padding:0px;
+}
+
+#header {
+	text-align:left;
+	margin: 10px 0px 15px 10px;
+	font-size: 2.2em;
+	font-weight:bold;
+}
+
+#welcomeBox {
+    width: 470px;   
+	padding: 0 3px 0 3px;	
+}
+
+#teacherWelcomeBoxTable	{  
+	border-collapse:collapse;
+	font-size:1.2em;
+	width:435px;
+	margin: 0px 0px 5px 20px;
+		}
+	
+.tableRowBorder { 
+	border-bottom: 1px solid #666666;
+}
+
+#teacherWelcomeBoxTable td	{  
+	vertical-align:text-top;
+	}	
+		
+#teacherWelcomeBoxTable ul	{  
+	padding-left:20px;
+		}
+		
+#teacherWelcomeBoxTable li	{  
+	list-style-type:circle;
+		}
+		
+.tableColor {
+	color:#666666;
+}
+
+#projectsBox {
+	position:absolute;
+	left:485px;
+	top:0px;
+	bottom:0px;
+	color:black;
+	width:470px;
+	margin-right:-30px;
+	}
+
+
+
+
+ORIGINAL CSS FROM ARCHANA
+
 .width0{
 	width:300px;
 }
@@ -55,23 +131,7 @@
 }
 
   
-#welcome{
-	position:relative;
-	left:0px;
-	top:0px;
-	bottom:0px;
-	width:980px;
-	margin:0px;
-	padding:0px;
-}
 
-#innerWelcome{
-	border:1px solid black;
-    width: 480px;   
-	padding-bottom:0px;
-	padding-top:0px;
-	
-}
 
 #headingPos{
 	position:relative;
@@ -153,28 +213,7 @@ display: inline;
 }
 
 
-#userLoginInfo{
-	position:relative;
-	bottom:15px;
-	left:25px;
-	line-height:30px;
-	font-size:1.02em;
-	font-weight:100;
-	padding-bottom:30px;
-}
 
-
-#projectsBox{
-	position:absolute;
-	left:500px;
-	top:0px;
-	color:black;
-	border:1px solid black;
-	width:470px;
-	bottom:0px;
-	margin-right:-30px;
-	
-}
 
 #projectNames{
 	padding-top:22px;

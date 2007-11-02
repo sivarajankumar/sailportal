@@ -64,7 +64,7 @@
 		<td>Usage</td>
 	</tr>
 	<tr id="projectTableR2">
-		<td><strong>Exploring the Exciting World of Mitosis</strong></td>
+		<td><strong>[Name of Project Goes Here]</strong></td>
 		<td>27134</td>
 		<td>Mitosis, Cell Division, Cell Duplication,, Binary Fission, Life Science</td>
 		<td>6-8</td>
