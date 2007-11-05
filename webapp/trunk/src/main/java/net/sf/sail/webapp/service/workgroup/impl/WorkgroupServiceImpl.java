@@ -213,4 +213,12 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     public Workgroup retrieveById(Long workgroupId) throws ObjectNotFoundException {
 		return workgroupDao.getById(workgroupId);
 	}
+
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#updateWorkgroupMembership(net.sf.sail.webapp.domain.User, net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Workgroup)
+     */
+	public void updateWorkgroupMembership(User student,
+			Workgroup workgroupFrom, Workgroup workgroupTo) {
+		// TODO PatrickLawler Implement me
+	}
 }
