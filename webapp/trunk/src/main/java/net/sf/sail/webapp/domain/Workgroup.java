@@ -66,6 +66,12 @@ public interface Workgroup extends Persistable {
      *            the member to add
      */
     public void addMember(User member);
+    
+    /**
+     * @param member
+     *            the member to remove
+     */
+    public void removeMember(User member);
 
     /**
      * @return the offering

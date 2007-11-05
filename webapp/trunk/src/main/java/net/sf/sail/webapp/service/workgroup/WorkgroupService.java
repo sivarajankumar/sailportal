@@ -106,7 +106,18 @@ public interface WorkgroupService {
      *          <code>Set</code> of users to add to the group
      */
     public void addMembers(Workgroup workgroup, Set<User> membersToAdd);
-
+    
+    /**
+     * Removes members from an already-existing workgroup.
+     * 
+     * @param workgroup
+     *          an existing <code>Workgroup</code> that the members will be
+     *          removed from
+     * @param membersToRemove
+     *          <code>Set</code> of users to remove from the group
+     */
+	public void removeMembers(Workgroup workgroup, Set<User> membersToRemove);
+    
     /**
      * Retrieves the Workgroup domain object using unique workgroupId
      * 

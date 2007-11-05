@@ -28,12 +28,20 @@ package org.telscenter.sail.webapp.domain.impl;
  */
 public class BatchStudentChangePasswordParameters extends ChangePasswordParameters{
 
+	private static final long serialVersionUID = 1L;
+
 	private Long groupId;
 	
+	/**
+	 * @return the groupId
+	 */
 	public Long getGroupId() {
 		return this.groupId;
 	}
 	
+	/**
+	 * @param groupId the groupId to set
+	 */
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}

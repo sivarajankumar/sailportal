@@ -124,6 +124,13 @@ public class WorkgroupImpl implements Workgroup {
     public void addMember(User member) {
         this.members.add(member);
     }
+    
+    /**
+     * @see net.sf.sail.webapp.domain.Workgroup#removeMember(net.sf.sail.webapp.domain.User)
+     */
+    public void removeMember(User member) {
+    	this.members.remove(member);
+    }
 
     /**
      * @see net.sf.sail.webapp.domain.Workgroup#setMembers(java.util.Set)

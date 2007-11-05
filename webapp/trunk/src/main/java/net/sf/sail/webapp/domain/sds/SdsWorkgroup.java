@@ -166,6 +166,16 @@ public class SdsWorkgroup implements SdsObject {
     public void addMember(SdsUser member) {
         this.members.add(member);
     }
+    
+    /**
+     * Removes a single <code>SdsUser</code> from a set of workgroup members.
+     * 
+     * @param member
+     *            to be removed from the workgroup
+     */
+    public void removeMember(SdsUser member) {
+    	this.members.remove(member);
+    }
 
     /**
      * @return the id

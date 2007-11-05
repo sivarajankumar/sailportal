@@ -191,6 +191,21 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         workgroup.setSdsWorkgroup(sdsWorkgroup);
     	this.workgroupDao.save(workgroup);
 	}
+    
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#removeMembers(Workgroup, Set)
+     */
+    @Transactional()
+	public void removeMembers(Workgroup workgroup, Set<User> membersToRemove) {
+    	SdsWorkgroup sdsWorkgroup = workgroup.getSdsWorkgroup();
+    	for (User member : membersToRemove) {
+    		workgroup.removeMember(member);
+    		sdsWorkgroup.removeMember(member.getSdsUser());
+    	}
+        this.sdsWorkgroupDao.save(sdsWorkgroup);
+        workgroup.setSdsWorkgroup(sdsWorkgroup);
+    	this.workgroupDao.save(workgroup);
+	}
 
 	/**
 	 * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#retrieveById(Long)

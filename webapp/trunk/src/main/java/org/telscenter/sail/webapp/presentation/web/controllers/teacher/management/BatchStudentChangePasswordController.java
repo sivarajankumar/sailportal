@@ -58,8 +58,9 @@ public class BatchStudentChangePasswordController extends SimpleFormController {
 	}
 	
 	/**
-     * On submission of the End Run form, the selected run is ended,
-     * provided that the logged-in user has the required privileges.
+     * On submission of the change student passwords (batch) form,
+     * all the students' passwords of the selected group (period)
+     * are changed to the new password.
      * 
      * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse, java.lang.Object,
@@ -98,6 +99,9 @@ public class BatchStudentChangePasswordController extends SimpleFormController {
 		this.groupService = groupService;
 	}
 
+	/**
+	 * @param userService the userService to set
+	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
