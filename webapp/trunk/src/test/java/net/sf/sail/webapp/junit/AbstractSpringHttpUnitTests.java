@@ -472,6 +472,11 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 
 	protected SdsOffering createBogusOffering() throws MalformedURLException,
 			IOException, SAXException, JDOMException {
+		// TODO: LAW update me to work with Stephen's recent changes to jnlp validation
+		// in the sds. The validation checks that the url is well-formed. Then, it retrieves
+		// the xml using the url and check that its xml is well formed.
+		// in the case below, http://www.invalid.com is well formed url, but it
+		// apparently doesn't return a xml that is well-formed
 		SdsOffering sdsOffering = (SdsOffering) this.applicationContext
 				.getBean("sdsOffering");
 		sdsOffering.setName(DEFAULT_NAME);
