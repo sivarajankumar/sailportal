@@ -129,4 +129,20 @@ public interface WorkgroupService {
      *     be used to find an existing workgroup
      */
     public Workgroup retrieveById(Long workgroupId) throws ObjectNotFoundException;
+
+
+    /**
+     * Updates the Workgroups by modifying its members
+     * 
+     * @param student
+     * 		the student to move from one workgroup to another
+     * @param workgroupFrom
+     * 		the workgroup that loses the student
+     * @param workgroupTo
+     * 		the workgroup that receives the student
+     * 		if workgroupTo does not exist, workgroupTo is null, and
+     * 		a new workgroup is created
+     * 
+     */
+    public void updateWorkgroupMembership(User student, Workgroup workgroupFrom, Workgroup workgroupTo);
 }
