@@ -35,7 +35,7 @@
 	left:0px;
 	top:0px;
 	bottom:0px;
-	width:980px;
+	width:960px;
 	margin:0px;
 	padding:0px;
 }
@@ -48,7 +48,7 @@
 }
 
 #welcomeBox {
-    width: 470px;   
+    width: 465px;   
 	padding: 0 3px 0 3px;	
 }
 
@@ -59,20 +59,18 @@
 	margin: 0px 0px 5px 20px;
 		}
 	
-.tableRowBorder { 
-	border-bottom: 1px solid #666666;
-}
-
 #teacherWelcomeBoxTable td	{  
 	vertical-align:text-top;
 	}	
 		
 #teacherWelcomeBoxTable ul	{  
-	padding-left:20px;
+	padding-left:0px;
 		}
 		
 #teacherWelcomeBoxTable li	{  
-	list-style-type:circle;
+	font-weight:bold;
+	list-style-type:none;
+	line-height:160%;
 		}
 		
 .tableColor {
@@ -86,197 +84,56 @@
 	bottom:0px;
 	color:black;
 	width:470px;
-	margin-right:-30px;
 	}
 
+#projectGradeLinkBox {  
+	border-collapse:collapse;
+	width:410px;
+	margin: 0px 0px 5px 20px;
+		}
 
+#projectGradeLinkBox td	{  
+	vertical-align:text-top;
+	font-size:.8em;
+	}
 
-
-ORIGINAL CSS FROM ARCHANA
-
-.width0{
-	width:300px;
-}
-	
-#navigation {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-}
-
-#navigation ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    padding-top: 5px;
+.projectNameStyle {
+	font-weight:bold;
 }
 
-#navigation li {
-    display: inline;
-    margin: 30px;
-    padding: 0px;
+.projectLinkStyle {
+	font-style:italic;
 }
 
-#navigation li.vertical{
-	display: block;	
-}
-
-#navigation a:link, #navigation a:visited{
-    color: #1122BB;
-    background-color: transparent;
-	text-decoration:none;
-}
-
-#navigation li a:hover{
-	color: green;
-}
-
-  
-
-
-#headingPos{
+#secondRow {
 	position:relative;
-	padding-top:5px;
-	margin-top:5px;
-	left:20px;
-	width:400px;
-}
-
-#linkPos0{
-	position:relative;
-	right:35px;
-}
-
-#linkPos1{
-	position:relative;
-	right:15px;
-}
-
-#right0{
-	position:relative;
-	left:25px;
-}
-
-
-img.dynamicImage{
-	cursor:pointer;	
-}	
-
-.center{
-	text-align:center;
-}
-
-b.rtop, b.rbottom{display:block;background: #FFF; }
-b.rtop b, b.rbottom b{display:block;height: 1px;
-    overflow: hidden; background: #CCFFFF; border:20px;border-color:black;}
-.r1{margin: 0 5px}
-.r2{margin: 0 3px}
-.r3{margin: 0 2px}
-.rtop .r4, .rbottom .r4{border-top:2px solid #08c; margin: 0 1px;height: 2px; }
-
-#xsnazzy{background:transparent;}
-.xtop, .xbottom {display:block; background:transparent; font-size:1px;}
-.xb1, .xb2, .xb3, .xb4 {display:block; overflow:hidden;}
-.xb1, .xb2, .xb3 {height:1px;}
-.xb2, .xb3, .xb4 {background:#fff; border-left:1px solid #08c; border-right:1px solid #08c;}
-.xb1 {margin:0 5px; background:#08c;}
-.xb2 {margin:0 3px; border-width:0 2px;}
-.xb3 {margin:0 2px;}
-.xb4 {height:2px; margin:0 1px;}
-
-.xboxcontent {display:block; border:0 solid #08c; border-width:0 1px;}
-
-.border1{display:block; border: 0px solid #08c; border-width: 0 1px; }
-
-ul.none{
-	list-style-type:none;
-}
-
-
-#waiting{
-	display:none;
-}
-
-#heading{
-	width:300px;
-}
-
-img{
-	border:0px;
-}
-
-label{
-width: 120px;
-padding-left:20px;
-margin-right:40px;
-text-align: left;
-display: inline;
-}
-
-
-
-
-#projectNames{
-	padding-top:22px;
-	line-height:20px;	
-	position:relative;
-	bottom:10px;	
-}
-
-
-#dashboardBox{
-	position:relative;
-	top:5px;
-	bottom:0px;
-	width:980px;
-}
-
-#innerDashboard{
-	border: 1px solid black;
-	width:480px;	
-	margin-right:-5px;
-	padding-bottom:45px;
-}
-
-#dashboardMsg{
-	position:relative;
+	left:0px;
 	top:0px;
-	left:20px;
-	font-size:1.02em;
-	font-weight:100;
-}
-
-
-#quickLinksPos{
-	position:absolute;
-	left:500px;
-	top:0px;
-	border:1px solid black;
-	width:470px;
 	bottom:0px;
-	padding-bottom:13px;
-}
-
-#quickLinksTable{
-	font-size:0.9em;
-	width:470px;
-	line-height:20px;	
-	position:relative;
-	bottom:0px;	
-}
-
-#dashboardSections{
+	width:960px;
+	margin:10px 0 0 0;
 	padding:0px;
-	margin:0px 30px -13px 20px;
 }
 
-.hidden {visibility:hidden}
+#dashboardBox {
+	width: 465px;   
+	padding: 0 3px 0 3px;	
+}	
+	
+#quickLinksBox {
+	position:absolute;
+	left:485px;
+	top:0px;
+	bottom:0px;
+	width:460px;
+	}
+	
+#quickLinksBox table {
+	margin: 0px 0px 5px 20px;
+	font-size:1.2em;
+	text-align:left;
+	}
+	
+#quickLinksBox table td {
 
-/* .linkHighlight a:link, .linkHighlight a:visited {
-	font-weight:bold;
-	color:990000;
-}
-
-.linkHighlight a:hover {
-	font-weight:bold;
-	color:FF0000;
-}    */
+	}

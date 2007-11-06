@@ -49,253 +49,134 @@
 
 	<div id="header" class="blueText"><em>Welcome [User's Full Name Here]</em></div>
 	
-	<table id="teacherWelcomeBoxTable"  cellpadding="5" cellspacing="0" >
+	<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
 			<tr class="tableRowBorder">
-				<td class="tableColor" style="width:20%;">Current Sign In:</td>
-				<td><strong>[Current SignIn Date/Time Stamp]</strong></td>
+				<td class="tableColor" style="width:25%;">Current Sign In:</td>
+				<td>[Current SignIn Date/Time Stamp]</td>
 			</tr>
 			<tr class="tableRowBorder">
 				<td class="tableColor">Last Sign In:</td>
-				<td><strong>[Most Recent SignIn Date/Time Stamp]</strong></td>
+				<td>[Most Recent SignIn Date/Time Stamp]</td>
 			</tr>
 			<tr>
 				<td class="tableColor">Announcements:</td>
 				<td>
 					<ul>
-					<li><strong>Good morning, [User FirstName]!</strong></li>
-					<li><strong>Announcement 2</strong></li>
-					<li><strong>Announcement 3</strong></li>
+					<li>[Good morning!]</li>
+					<li>[You have gradable work ready in 2 projects. See links to right.]</li>
+					<li>[Announcement 3]</li>
 					</ul>
 				</td>
 			</tr>
 		</table>
-</div>
+</div>    <!-- End of welcomeBox-->
 
 <div id="projectsBox" class="panelStyling">
-<form id="projects" method="post" action="../j_acegi_security_check">
 	<div id="header">Projects Awaiting Grading</div>
-	<ul id="projectNames">
-	<li>
-	<label for="projectname">
-	Project Name 1:
-	</label>
-	<div id="linkPos0"> Grade By Step</div>
-	<div id="linkPos1"> Grade By Student</div>
-	</li>
-	<li>
-	<label for="projectname">
-	Project Name 2:
-	</label>
-	<div id="linkPos0"> Grade By Step</div>
-	<div id="linkPos1"> Grade By Student</div>
-	</li>
-	<li>
-	<label for="projectname">
-	Project Name 3:
-	</label>
-	<div id="linkPos0"> Grade By Step</div>
-	<div id="linkPos1"> Grade By Student</div>
-	</li>
-	<li>
-	<label for="projectname">
-	Project Name 4:
-	</label>
-	<div id="linkPos0"> Grade By Step</div>
-	<div id="linkPos1"> Grade By Student</div>
-	</li>
-	</ul>
-</form>
+	<table id="projectGradeLinkBox" cellpadding="4" cellspacing="3">
+		<tr>
+			<td class="projectNameStyle">[Gradable Project Name A]</td>
+			<td style="width:25%;" class="projectLinkStyle">Grade By Step</td>
+			<td style="width:25%;" class="projectLinkStyle">Grade By Team</td>
+		</tr>
+		<tr>
+			<td class="projectNameStyle">[Gradable Project Name B]</td>
+			<td class="projectLinkStyle">Grade By Step</td>
+			<td class="projectLinkStyle">Grade By Team</td>
+		</tr>
+		<tr>
+			<td class="projectNameStyle">[Gradable Project Name C]</td>
+			<td class="projectLinkStyle">Grade By Step</td>
+			<td class="projectLinkStyle">Grade By Team</td>
+		</tr>
+	</table>
+</div>  <!-- End of projectsBox-->
+</div>   <!-- End of welcomeRow-->
 
-</div>
+<div id="secondRow">
 
-</div>
+<div id="dashboardBox" class="panelStyling">
+	<div id="header">About the Dashboard</div>
+	<div id="dashboardMsg">Details about the four Dashboard sections at top of the screen:</div>
+	<table id="dashboardSections">
+		<tr>
+			<td><a href="#"> <img src="../<spring:theme code="home_mini" />" id="dashboardButtonPos" /></a></td>
+			<td>Sign-in data, links to Recent Areas, links to Projects Awaiting Grading</td>
+		</tr>
+		<tr>
+			<td><a href="#"><img src="../<spring:theme code="projects_mini" />" id="dashboardButtonPos" /></a></td>
+			<td>Search the library of WISE and TELS projects, edit existing projects, or create your own!</td>
+		</tr>
+		<tr>
+			<td><a href="#"><img src="../<spring:theme code="grading_mini" />" id="dashboardButtonPos" /></a></td>
+			<td>Online tools for grading student work quickly and efficiently.</td>
+		</tr>
+		<tr>
+			<td><a href="#" ><img src="../<spring:theme code="management_mini" />" id="dashboardButtonPos"/></a></td>
+			<td>Online tools to manage your students, print or export reports, and update your account.</td>
+		</tr>
+		<tr>
+			<td><a href="#"><img src="../<spring:theme code="help_mini" />" id="dashboardButtonPos" /></a></td>
+			<td>Resources and tools to get WISE running more smoothly in your classroom.</td>
+		</tr>
+	</table>
+</div>   <!-- End of dashboardBox-->
 
+<div id="quickLinksBox" class="panelStyling">
 
-<div class="center">
-<div id="dashboardBox"  class="panelStyling">
+	<div id="header">Quick Links</div>
 
-<div id="innerDashboard" class="panelStyling">
-<div id="header">About the Dashboard</div>
-<p id="dashboardMsg">Details about the four Dashboard sections at top of the screen:</p>
-<table id="dashboardSections">
-<tr>
-<td>   
-<a href="#"  onclick="displayNotAvailable('This page is not available yet')">
-<img src="../<spring:theme code="home_mini" />" id="dashboardButtonPos" 
- />
-</a>
-</td>
-<td>
-Sign-in data, links to Recent Areas, links to Projects Awaiting Grading
-</td>
-</tr>
-<tr>
-<td>
-<a href="#"  onclick="displayNotAvailable('This page is not available yet');">
-<img src="../<spring:theme code="projects_mini" />" id="dashboardButtonPos" />
-</a>
-</td>
-<td>
-Search the library of WISE and TELS projects, edit existing projects, or create your own!
-</td>
-</tr>
-<tr>
-<td>
-<a href="#"  onclick="displayNotAvailable('This page is not available yet');">
-<img src="../<spring:theme code="grading_mini" />" id="dashboardButtonPos" />
-</a>
-</td>
-<td>
-Online tools for grading student work
-quickly and efficiently.
-</td>
-</tr>
+	<table border="0" id="quickLinksTable">
+		<tr>
+			<th><b>Projects</b> </th>
+			<th><b> Management(assessment)</b></th>
+		</tr>
+		<tr>
+			<td><a href="../curnitlist.html">Project Library</a></td>
+			<td class="hidden" align="left"><a href="#">Grade Work by Student-Group</a></td>
+		</tr>
+		<tr>
+			<td><a href="run/myprojectruns.html?GRADING_ENABLED=FALSE">My Project Runs</a></td>
+			<td><a href="run/myprojectruns.html?GRADING_ENABLED=TRUE">Grade Work by Step</a></td>
+		</tr>
+		<tr>
+			<td class="hidden"><a href="#">My Bookmarked Projects</a></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="hidden"><a href="#">My Customized Projects</a></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th><b>Management(students)</b></th>
+			<th><b>Misc.</b></th>
+		</tr>
+		<tr>
+			<td><a href="management/viewmystudents.html">View My Students</a></td>
+			<td class="hidden"><a href="#">Export All Work for Student</a></td>
+		</tr>
+		<tr>
+			<td class="hidden" ><a href="#">Export All Work for a Class</a></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="hidden"><a href="#">Edit Ready-Made Comments</a></td>
+			<td class="hidden"><a href="#">Print All Work for Student</a></td>
+		</tr>
+		<tr>
+			<td class="hidden""><a href="#">Real-Time Class Monitor</a></td>
+			<td class="hidden"><a href="#" >Print All work for Class</a></td>
+		</tr>
+		<tr>
+			<td class="hidden"><a href="#">Batch Set Passwords</a></td>
+			<td class="hidden"><a href="management/updatemyaccount.html">Update My Account</a></td>
+		</tr>
+	</table>
 
-<tr>
-<td>
-<a href="#"  onclick="displayNotAvailable('This page is not available yet')">
-<img src="../<spring:theme code="management_mini" />" id="dashboardButtonPos"/>
-</a>
-</td>
-<td>
-Online tools to manage your students, print or export reports, and update your account.
-</td>
-</tr>
-<tr>
-<td>
-<a href="#"  onclick="displayNotAvailable('This page is not available yet')">
-<img src="../<spring:theme code="help_mini" />" id="dashboardButtonPos" />
-</a>
-</td>
-<td>
-Resources and tools to get WISE running more smoothly in your classroom.
-</td>
-</tr>
-</table>
-</div>
+</div>   <!-- End of quickLinksBox-->
+</div>   <!-- End of secondRow-->
 
-<div id="quickLinksPos">
-
-<div id="header">Quick Links</div>
-
-
-<table border="0" id="quickLinksTable">
-<tr>
-<th align="left"> <b>Projects</b> </th>
-<th align="left"><b> Management(assessment)</b></th>
-</tr>
-<tr>
-<td align="left"><a href="../curnitlist.html">
-    Project Library
-    </a>
-</td>
-<td class="hidden" align="left"><a href="#" onclick="displayNotAvailable('This page is not available yet')">
-Grade Work by Student-Group
-</a>
-</td>
-</tr>
-<tr>
-<td align="left">
-    <a href="run/myprojectruns.html?GRADING_ENABLED=FALSE">
-My Project Runs
-</a>
-</td>
-<td align="left">
-<a href="run/myprojectruns.html?GRADING_ENABLED=TRUE">
-Grade Work by Step
-</a>
-</td>
-</tr>
-<tr>
-<td class="hidden" align="left"> 
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-My Bookmarked Projects
-</a>
-</td>
-
-<td align="left">
-</td>
-</tr>
-<tr>
-<td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-My Customized Projects
-</a>
-</td>
-</tr>
-<tr />
-<tr>
-<th align="left">
-<b>Management(students)</b> 
-</th>
-<th align="left">
-<b>Misc.</b>
-</th>
-</tr>
-<tr>
-<td align="left">
-<a href="management/viewmystudents.html">
-View My Students
-</a>
-</td>
-<td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-Export All Work for Student
-</a>
-</td>
-</tr>
-<tr>
-
-<td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-Export All Work for a Class
-</a>
-</td>
-</tr>
-<tr>
-<td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-Edit Ready-Made Comments
-</a>
-</td>
-<td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-Print All Work for Student
-</a>
-</td>
-</tr>
-<tr>
-<td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-Real-Time Class Monitor
-</a>
-</td>
-<td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-Print All work for Class
-</a>
-</td>
-</tr>
-<tr>
-<td class="hidden" align="left">
-<a href="#" onclick="displayNotAvailable('This page is not available yet')">
-Batch Set Passwords
-</a>
-</td>
-<td class="hidden" align="left">
-<a href="management/updatemyaccount.html">
-Update My Account
-</a>
-</td>
-</tr>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-
-
+</div>   <!-- End of centeredDiv-->
 
 </body>
 
