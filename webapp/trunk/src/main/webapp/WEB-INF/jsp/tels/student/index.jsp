@@ -354,9 +354,11 @@ English <br />
 
 
 <!-- logger -->
+<!--  
 <div id="myLogger"></div>
 <script type="text/javascript">
 var myLogReader = new YAHOO.widget.LogReader("myLogger");
 </script></div>
+-->
 </body>
 </html>
