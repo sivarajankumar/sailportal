@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -22,7 +22,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <title><spring:message code="curnit.list" /></title>
 </head>
 
@@ -30,9 +30,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="./teacher/projects/headerteacherprojects.jsp"%>
+<%@ include file="./headerteacherprojects.jsp"%>
 
-<%@ include file="./teacher/projects/L2projects_projectlibrary.jsp"%>
+<%@ include file="./L2projects_projectlibrary.jsp"%>
 
 <div id="titleBar">
     	<h1 class="blueText"><spring:message code="curnitlist.project.library" /></h1></div>

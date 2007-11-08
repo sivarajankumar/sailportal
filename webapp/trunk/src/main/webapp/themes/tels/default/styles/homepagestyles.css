@@ -341,11 +341,15 @@ abbr, acronym {
 	vertical-align: text-top;
 	}
 
+.marginPushLeft{
+	margin-left:18px;
+}
+
 #footerLogos img {
 	display:inline;
 	border:0px;
 	padding-top:4px;
-	margin: 10px 10px 10px 35px;
+	margin: 10px 10px 10px 10px;
 }
 
 #footerText {

@@ -1,4 +1,4 @@
-<%@ include file="include.jsp" %>
+<%@ include file="../include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -25,7 +25,7 @@
 		<li >
 			<a class="navigationL2leftborder" href="projects_overview.html">Overview</a> </li>
        	<li>
-			<a id="navigationL2highight" href="curnitlist.html">Project Library</a> </li>
+			<a id="navigationL2_projects_highlight"  href="curnitlist.html">Project Library</a> </li>
 		<li>
 			<a href="index.html">My Project Runs</a> </li>
 		<li>

@@ -253,11 +253,12 @@
 <table id="footerTable" cellpadding="0" cellspacing="0">
 	<tr>
     	<td id="footerLogos">
-           		<a href="http://www.nsf.gov" title="National Science Foundation"><img src="./themes/tels/default/images/NSF-Logo-50x50.png" alt="National Science Foundation" /></a>
+           		<a class="marginPushLeft" href="http://www.nsf.gov" title="National Science Foundation"><img src="./themes/tels/default/images/NSF-Logo-50x50.png" alt="National Science Foundation" /></a>
                 <a href="http://www.telscenter.org/confluence/display/SAIL/Home" title="SAIL Technology"><img src="./themes/tels/default/images/SAIL-Logo-Small.png" alt="SAIL Logo" /></a>
                 <a href="http://www.telscenter.org/" title="TELS Consortium"><img src="./themes/tels/default/images/tels_logo.png" alt="SAIL Logo" /></a>
-		</td>
-    	
+                <a href="#" title="WISE 3.0 Logo"><img src="./themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></a>
+       	</td>
+       	    	
         <td id="footerText">
         	 	<ul>
                 <li><a href="index.html">WISE 3.0 Home Page</a></li>
@@ -266,8 +267,8 @@
                 </ul>
             
                 <p>Supported by the National Science Foundation, TELS Grant No. 0334199.</p>
-                <p>Powered by SAIL open-source technology.</p>
-        		<p>Optimized for viewing with <a href="http://www.mozilla.com" title="Firefox web site">Firefox</a> browser.</p>
+                <p>Powered by SAIL open-source technology. Optimized for <a href="http://www.mozilla.com" title="Firefox web site">Firefox</a> browser.</p>
+                <p>Copyright 1998-2008. All rights reserved.</p>
     	</td>
 	</tr>
 </table >  <!--    End of footer --> 

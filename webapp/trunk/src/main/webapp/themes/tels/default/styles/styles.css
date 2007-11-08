@@ -96,10 +96,15 @@ a:hover {
 #signOutBanner a:link, #signoutBanner a:visited{
 	color:#FFFF66;
 	font-weight:bold;
-	}
+	text-decoration:none;
+	border-bottom: 1px solid #FFFF66;
+		}
 
 #signOutBanner a:hover {
-	color:#FF6666;
+	color:#330066;
+	text-decoration:none;
+	border-bottom: 1px dotted #330066;
+	
 }
 	
 #navigationMainProjects {
@@ -123,18 +128,24 @@ a:hover {
 
 /* STYLING FOR L2 NAV BAR  */
 
-.projectL2  {
-	background-color:#ffcccc;
-	}
-	
 .blankbarL2  {
-	background-image: url(../images/Pixel_Gray.png);
-	/* background-image: url(../images/Gradient_Blue-to-Gray.png); */
-	background-position: center bottom;
+	background-image: url(../images/Gradient_Blue-to-Gray.png);
+	background-position: center top;
 	margin-bottom:10px;
 	}
 	
-	#navigationL2 {
+.projectL2  {
+	background-color:#ffcccc;
+	margin-bottom:10px;
+	
+	}
+	
+.homebarL2  {
+	background-color:#ffffcc;
+	margin-bottom:10px;
+		}
+	
+#navigationL2 {
 	padding:0px;
 	margin-top:5px;
 	width:958px;
@@ -165,14 +176,12 @@ a:hover {
 #navigationL2 a:hover{
 	padding: 6px 20px 6px 20px;
 	margin:0px;
-	background-color:#FF99CC;
-	color:#FFFFFF;
+	background-color:#CCCCCC;
+	color:#0000FF;
 	text-decoration:none;
-	/* border-left:1px solid #999999;
-	border-right:1px solid #999999; */
 	}
 
-#navigationL2highight {
+#navigationL2_projects_highlight {
 	padding: 6px 20px 6px 20px;
 	margin:0px;
 	background-color:#FF99CC;
@@ -180,53 +189,17 @@ a:hover {
 	border-left:1px solid #999999;
 	border-right:1px solid #999999;
 	}
-
 	
-/* #navigationL2 {
-	position:relative;
-	padding:0px;
-	margin-top:5px;
-	width:958px;
-	border:1px solid #999999;
-	}
-
-#navigationL2 ul {
-	padding: 6px 0 6px 104px;
+#navigationL2_home_highlight {
+	padding: 6px 20px 6px 20px;
 	margin:0px;
-	list-style:none;
-	}
-	
-#navigationL2 li {
-	font-size:2.0em;
-	letter-spacing:1px;
-	display:inline;
-	margin:0px;
-	padding: 0 20px 0 20px;
+	background-color:#CCCC99;
+	color:#FFFFFF;
+	border-left:1px solid #999999;
 	border-right:1px solid #999999;
 	}
+
 	
-#navigationL2 a:link, #navigationL2 a:visited{
-	color:#000000;
-	text-decoration:none;
-	}
-	
-#navigationL2 a:hover{
-	color:#CC0000;
-	text-decoration:none;
-	border-bottom:1px dotted #CC0000;
-	}
-
-.navigationL2highight {
-	background-color:#999999;
-	color:#ff99cc;
-	border-bottom:1px solid #999999;
-	}
-
-.navigationL2norightborder {
-	border:0px;
-	}
-*/
-
 /* SETTING UP A RUN */
 	
 #setUpRunBox{

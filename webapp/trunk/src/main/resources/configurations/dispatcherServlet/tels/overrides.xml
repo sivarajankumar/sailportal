@@ -82,7 +82,7 @@
     		    /teacher/projects/studentmessageconfirm.html=studentMessageConfirmController
     		    /teacher/projects/reportproblem.html=reportProblemController
     		    /teacher/projects/library/options.html=projectOptionsController
-    		    <!-- /teacher/run/curnitlist.html=curnitListController -->
+    		    /teacher/projects/curnitlist.html=curnitListController
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/myarchivedruns.html=myArchivedRunsController
     		    /teacher/run/archivedrunmanager.html=archivedRunManagerController

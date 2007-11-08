@@ -110,12 +110,13 @@ img#none{
 }
 
 #overviewContent{
-	border:1px solid black;
-	position:relative;
-	top:7px;
-	padding-bottom:40px;
-	width:980px;
-}
+	border-top: 1px solid #666666;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #666666;
+	margin:20px 0 20px 0;
+	padding:30px;
+	}
 
 #periods{
 	width:600px;

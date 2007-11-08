@@ -44,12 +44,12 @@
 	
 	<bean id="adminOfferingParametersValidator"
 		class="net.sf.sail.webapp.presentation.validators.AdminOfferingParametersValidator" />
-
+<!--
 	<bean
 		class="net.sf.sail.webapp.presentation.web.controllers.CurnitListController">
 		<property name="curnitService" ref="curnitService" />
 	</bean>
-
+-->
 	<bean
 		class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
 	</bean>

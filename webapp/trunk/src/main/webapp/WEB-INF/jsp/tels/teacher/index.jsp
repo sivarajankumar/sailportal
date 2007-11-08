@@ -39,15 +39,15 @@
 
 <div id="centeredDiv">
 
-<%@ include file="../headerteachernohighlight.jsp"%>
+<%@ include file="../headerteacherhome.jsp"%>
 
-<%@ include file="../L2blankbar.jsp"%>
+<%@ include file="../L2homebar.jsp"%>
 
 <div id="welcomeRow">
 
 <div id="welcomeBox" class="panelStyling">
 
-	<div id="header" class="blueText"><em>Welcome [User's Full Name Here]</em></div>
+	<div id="header"><em>Welcome [User's Full Name Here]</em></div>
 	
 	<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
 			<tr class="tableRowBorder">
@@ -73,7 +73,7 @@
 
 <div id="projectsBox" class="panelStyling">
 	<div id="header">Projects Awaiting Grading</div>
-	<table id="projectGradeLinkBox" cellpadding="4" cellspacing="3">
+	<table id="projectGradeLinkBox" cellpadding="5" cellspacing="5">
 		<tr>
 			<td class="projectNameStyle">[Gradable Project Name A]</td>
 			<td style="width:25%;" class="projectLinkStyle">Grade By Step</td>
@@ -97,27 +97,41 @@
 
 <div id="dashboardBox" class="panelStyling">
 	<div id="header">About the Dashboard</div>
-	<div id="dashboardMsg">Details about the four Dashboard sections at top of the screen:</div>
-	<table id="dashboardSections">
+	<table id="dashboardSections" cellspacing="8" cellpadding="2">
 		<tr>
-			<td><a href="#"> <img src="../<spring:theme code="home_mini" />" id="dashboardButtonPos" /></a></td>
-			<td>Sign-in data, links to Recent Areas, links to Projects Awaiting Grading</td>
+			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('homebuttonmini','','.././themes/tels/default/images/teacher/Home-Mini-Button-Roll.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Home-Mini-Button.png"
+				alt="Home Button Mini" id="homebuttonmini" /></a></td>
+			<td>Your current location. Includes announcements and quick links to popular tools.</td>
 		</tr>
 		<tr>
-			<td><a href="#"><img src="../<spring:theme code="projects_mini" />" id="dashboardButtonPos" /></a></td>
-			<td>Search the library of WISE and TELS projects, edit existing projects, or create your own!</td>
+			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('projectbuttonmini','','.././themes/tels/default/images/teacher/Project-Mini-Button-Roll.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Project-Mini-Button.png"
+				alt="Project Button Mini" id="projectbuttonmini" /></a></td>
+			<td>Visit this section to search the WISE library, customize existing projects, or create your own!</td>
 		</tr>
 		<tr>
-			<td><a href="#"><img src="../<spring:theme code="grading_mini" />" id="dashboardButtonPos" /></a></td>
-			<td>Online tools for grading student work quickly and efficiently.</td>
+			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('gradingbuttonmini','','.././themes/tels/default/images/teacher/Grading-Mini-Button-Roll.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Grading-Mini-Button.png"
+				alt="Grading Button Mini" id="gradingbuttonmini" /></a></td>
+			<td>Visit this section to view and grade student work quickly and efficiently.</td>
 		</tr>
 		<tr>
-			<td><a href="#" ><img src="../<spring:theme code="management_mini" />" id="dashboardButtonPos"/></a></td>
-			<td>Online tools to manage your students, print or export reports, and update your account.</td>
+			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('managementbuttonmini','','.././themes/tels/default/images/teacher/Management-Mini-Button-Roll.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Management-Mini-Button.png"
+				alt="Management Button Mini" id="managementbuttonmini" /></a></td>
+			<td>Visit this section to manage your students, print/export student work, or update your account.</td>
 		</tr>
 		<tr>
-			<td><a href="#"><img src="../<spring:theme code="help_mini" />" id="dashboardButtonPos" /></a></td>
-			<td>Resources and tools to get WISE running more smoothly in your classroom.</td>
+			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('helpbuttonmini','','.././themes/tels/default/images/teacher/Help-Mini-Button-Roll.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Help-Mini-Button.png"
+				alt="Help Button Mini" id="helpbuttonmini" /></a></td>
+			<td>This sections contains tools and guidelines to help you get WISE running smoothly in your classroom.</td>
 		</tr>
 	</table>
 </div>   <!-- End of dashboardBox-->
@@ -126,52 +140,37 @@
 
 	<div id="header">Quick Links</div>
 
-	<table border="0" id="quickLinksTable">
-		<tr>
-			<th><b>Projects</b> </th>
-			<th><b> Management(assessment)</b></th>
-		</tr>
-		<tr>
-			<td><a href="../curnitlist.html">Project Library</a></td>
-			<td class="hidden" align="left"><a href="#">Grade Work by Student-Group</a></td>
-		</tr>
-		<tr>
-			<td><a href="run/myprojectruns.html?GRADING_ENABLED=FALSE">My Project Runs</a></td>
-			<td><a href="run/myprojectruns.html?GRADING_ENABLED=TRUE">Grade Work by Step</a></td>
-		</tr>
-		<tr>
-			<td class="hidden"><a href="#">My Bookmarked Projects</a></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="hidden"><a href="#">My Customized Projects</a></td>
-			<td></td>
-		</tr>
-		<tr>
-			<th><b>Management(students)</b></th>
-			<th><b>Misc.</b></th>
-		</tr>
-		<tr>
-			<td><a href="management/viewmystudents.html">View My Students</a></td>
-			<td class="hidden"><a href="#">Export All Work for Student</a></td>
-		</tr>
-		<tr>
-			<td class="hidden" ><a href="#">Export All Work for a Class</a></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="hidden"><a href="#">Edit Ready-Made Comments</a></td>
-			<td class="hidden"><a href="#">Print All Work for Student</a></td>
-		</tr>
-		<tr>
-			<td class="hidden""><a href="#">Real-Time Class Monitor</a></td>
-			<td class="hidden"><a href="#" >Print All work for Class</a></td>
-		</tr>
-		<tr>
-			<td class="hidden"><a href="#">Batch Set Passwords</a></td>
-			<td class="hidden"><a href="management/updatemyaccount.html">Update My Account</a></td>
-		</tr>
-	</table>
+	<div id="quickLinks1">
+		<div id="linkHeader">Projects</div>
+		<ul>
+			<li><a href="../curnitlist.html">Project Library</a></li>
+			<li><a href="run/myprojectruns.html?GRADING_ENABLED=FALSE">My Project Runs</a></li>
+			<li class="inactivecolor">My Bookmarked Projects</li>
+			<li class="inactivecolor">My Customized Projects</li>
+		</ul>
+		<div id="linkHeader">Grading</div>
+		<ul>
+			<li><a href="run/myprojectruns.html?GRADING_ENABLED=TRUE">Grade Work by Step</a></li>
+			<li class="inactivecolor">Grade Work by Team</li>
+		</ul>
+	</div>
+
+	<div id="quickLinks2">
+		<div id="linkHeader">Management</div>
+		<ul>
+			<li class="inactivecolor">View My Students</li>
+			<li class="inactivecolor">Edit Ready-Made Comments</li>
+			<li class="inactivecolor">Real-Time Class Monitor</li>
+			<li class="inactivecolor">Review Score Values for Steps</li>
+			<li class="inactivecolor">Export Grades</li>
+			<li class="inactivecolor">Export All Work for Student</li>
+			<li class="inactivecolor">Export All Work for Period</li>
+			<li class="inactivecolor">Print All Work for Student</li>
+			<li class="inactivecolor">Print All Work for Student</li>
+			<li class="inactivecolor">Update My Account</li>
+		</ul>
+	</div>
+	
 
 </div>   <!-- End of quickLinksBox-->
 </div>   <!-- End of secondRow-->
