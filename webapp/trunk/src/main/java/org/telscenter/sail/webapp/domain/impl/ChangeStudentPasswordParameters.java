@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.ChangePasswordParameters;
 
 /**
  * @author patricklawler

@@ -30,7 +30,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses( {
 	net.sf.sail.webapp.presentation.validators.GroupParametersValidatorTest.class,
 	net.sf.sail.webapp.presentation.validators.OfferingParametersValidatorTest.class,
-	net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest.class
+	net.sf.sail.webapp.presentation.validators.UserDetailsValidatorTest.class,
+	net.sf.sail.webapp.presentation.validators.ChangePasswordParametersValidatorTest.class
 })
 
 public class AllTests {

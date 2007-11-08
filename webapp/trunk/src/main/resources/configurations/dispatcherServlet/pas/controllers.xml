@@ -122,4 +122,17 @@
     	<property name="formView" value="curnit/registercurnit" />
     	<property name="successView" value="curnitlist.html" />
     </bean>
+    
+    <bean id="changePasswordParametersValidator"
+		class="net.sf.sail.webapp.presentation.validators.ChangePasswordParametersValidator" />
+    
+    <bean id="changePasswordController"
+    	class="net.sf.sail.webapp.presentation.web.controllers.ChangePasswordController">
+    	<property name="commandName" value="changePasswordParameters" />
+		<property name="commandClass" value="net.sf.sail.webapp.domain.impl.ChangePasswordParameters" />
+ 	    <property name="validator" ref="changePasswordParametersValidator" />
+		<property name="formView" value="changepassword" />
+    	<property name="successView" value="changepasswordsuccess" />
+    	<property name="userService" ref="userService" />
+    </bean>
 </beans>

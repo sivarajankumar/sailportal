@@ -29,10 +29,12 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses( {
 	net.sf.sail.webapp.presentation.web.controllers.groups.AddgroupControllerTest.class,
+	net.sf.sail.webapp.presentation.web.controllers.groups.EditGroupControllerTest.class,
 	net.sf.sail.webapp.presentation.web.controllers.offerings.CreateOfferingControllerTest.class,
 	net.sf.sail.webapp.presentation.web.controllers.offerings.OfferingListControllerTest.class,
 	net.sf.sail.webapp.presentation.web.controllers.LoginControllerTest.class,
-	net.sf.sail.webapp.presentation.web.controllers.SignupControllerTest.class
+	net.sf.sail.webapp.presentation.web.controllers.SignupControllerTest.class,
+	net.sf.sail.webapp.presentation.web.controllers.ChangePasswordControllerTest.class
 })
 
 public class AllTests {

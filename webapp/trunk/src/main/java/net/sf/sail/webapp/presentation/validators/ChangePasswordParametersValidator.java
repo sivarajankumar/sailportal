@@ -20,7 +20,9 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.validators;
+package net.sf.sail.webapp.presentation.validators;
+
+import net.sf.sail.webapp.domain.impl.ChangePasswordParameters;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
