@@ -94,7 +94,6 @@ public class CurnitServiceImplTest extends TestCase {
     }
 
     public void testCreateCurnit() throws Exception {   
-    	//TODO LAW can we get curnitParameters from bean?
         CurnitParameters curnitParameters = new CurnitParameters();
         curnitParameters.setName(CURNIT_NAME);
         curnitParameters.setUrl(CURNIT_URL);

@@ -195,7 +195,6 @@ public class RunServiceImplTest extends TestCase {
                 .andReturn(curnit);
         EasyMock.replay(this.mockCurnitDao);
 
-        // TODO LAW figure out how to get this from the beans
         RunParameters runParameters = new RunParameters();
         runParameters.setCurnitId(CURNIT_ID);
         runParameters.setName(CURNIT_NAME);
