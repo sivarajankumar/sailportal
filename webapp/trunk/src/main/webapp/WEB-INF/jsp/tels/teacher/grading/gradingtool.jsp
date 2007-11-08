@@ -40,18 +40,18 @@
 	     function handleClick(e) { 
 	     	 var nextVar = document.getElementById('nextStepLink');  
 	     	 var tabIndex = tabView.getTabIndex( e.newValue );
-	     	 YAHOO.log('TAB ' + tabIndex);
+	     	// YAHOO.log('TAB ' + tabIndex);
 	     	 nextVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
-	     	 YAHOO.log('new HREF: ' + nextVar);
+	     	 //YAHOO.log('new HREF: ' + nextVar);
 	     	 
 	     	 //previousStep
 	     	 var previousVar = document.getElementById('previousStepLink');  
 	     	 var tabIndex = tabView.getTabIndex( e.newValue );
-	     	 YAHOO.log('TAB ' + tabIndex);
+	     	// YAHOO.log('TAB ' + tabIndex);
 	     	 previousVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex='+tabIndex;
 	     	 
-	     	 YAHOO.log('new HREF: ' + previousVar);
-	     	 YAHOO.log('target ' + tabView.getTabIndex( e.newValue ) );
+	     	// YAHOO.log('new HREF: ' + previousVar);
+	     	// YAHOO.log('target ' + tabView.getTabIndex( e.newValue ) );
 	    } 
 	     
 	    tabView.addListener('activeTabChange', handleClick); 
@@ -131,15 +131,16 @@
 			
 			var savedText = 'saved-'+podId+'_'+workgroupId;
 			var commentedText = 'comment-'+podId+'_'+workgroupId;
-			var scoreText = 'score-'+podId+'_'+workgroupId;
-			YAHOO.log( "SAVED " + scoreText);
+			var teacherScore = 'teacher-score-'+podId+'_'+workgroupId;
+			var possibleScore = 'possible-score-'+podId+'_'+workgroupId;
+			YAHOO.log( "SAVED " + possibleScore);
 			 //alert('found: ' + YAHOO.util.Dom.getElementsByClassName(savedText, 'div').length + ' elements');
 			
 			var el = YAHOO.util.Dom.getElementsByClassName(savedText, 'div');
 			
 			var tel = YAHOO.util.Dom.getElementsByClassName(commentedText, 'textarea');
 			
-			var scoreElement = YAHOO.util.Dom.getElementsByClassName(scoreText, 'input');
+			var scoreElement = YAHOO.util.Dom.getElementsByClassName(possibleScore, 'input');
 			
 			var score = scoreElement[0].value;
 			
@@ -347,7 +348,9 @@ aggregate.value = set of workgroupWorkAggregate
 												
 																				</c:forEach>
 																		</c:forEach>
-																		<input class="score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="9" value="${score}"/> 
+																		<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="9" value="${score}"/> out of
+																		<input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="9" value="${step.possibleScore}"/> 
+																		<INPUT TYPE=CHECKBOX NAME="maillist">revision required<P>
 																				<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
 																						<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save</button></em>
 																				</span>
