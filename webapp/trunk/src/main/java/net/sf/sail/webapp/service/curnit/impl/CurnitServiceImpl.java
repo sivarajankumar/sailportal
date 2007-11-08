@@ -74,7 +74,6 @@ public class CurnitServiceImpl implements CurnitService {
 	 */
     @Transactional(rollbackFor = { HttpStatusCodeException.class })
 	public Curnit createCurnit(CurnitParameters curnitParameters) {
-		//TODO LAW get the sdsCurnit and CurnitImpl from bean
 		SdsCurnit sdsCurnit = new SdsCurnit();
 		sdsCurnit.setName(curnitParameters.getName());
 		sdsCurnit.setUrl(curnitParameters.getUrl());
