@@ -31,10 +31,6 @@
 </head>
 
 <body>
-
-<h1><spring:message code="teacher.add-project" /></h1>
-<h3><spring:message code="teacher.add-project-info" /></h3>
-
 <!-- Support for Spring errors object -->
 <spring:bind path="addProjectParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -47,20 +43,14 @@
 <form:form method="post" action="addproject.html" commandName="addProjectParameters" id="addproject" >
   <div><label for="projectcode"><spring:message code="teacher.project-code" /></label>
       <form:input path="projectcode" id="projectcode"/>
-      <form:errors path="projectcode" />
-  </div>
-
-
-    <div><input type="image" id="save" src="../<spring:theme code="register_save" />" 
+     
+      <input type="image" id="save" src="../<spring:theme code="register_save" />" 
     onmouseover="swapImage('save','../<spring:theme code="register_save_roll" />');" 
     onmouseout="swapImage('save','../<spring:theme code="register_save" />');"
     />
-    <a href="index.html" onclick="javascript:window.close()"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
-    onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />');"
-    onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />');"
-    /> </a>
-    </div>
-
+    <br>
+    <br>
+  </div>
 </form:form>
 
 </body>

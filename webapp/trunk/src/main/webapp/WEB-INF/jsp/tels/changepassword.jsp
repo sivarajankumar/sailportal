@@ -13,9 +13,6 @@
 </head>
 
 <body>
-
-<h2><spring:message code="changepassword.menu" /></h2>
-
 <!-- Support for Spring errors object -->
 <spring:bind path="changePasswordParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -38,10 +35,12 @@
     onmouseover="swapSaveImage('save',1)" 
     onmouseout="swapSaveImage('save',0)"
     />
+    <!-- in ajax dialog don't need it anymore 
     <a href="index.html" onclick="javascript:window.close()"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
     onmouseover="swapCancelImage('cancel',1)"
     onmouseout="swapCancelImage('cancel',0)"
     /> </a>
+    -->
     </div>
 
 </form:form>

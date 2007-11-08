@@ -32,28 +32,30 @@
 <c:if test="${closeokay}">
 <c:out value="hi" />
 </c:if>
-<h1>Team Sign In</h1>
-<h3><authz:authentication operation="username" /> is already signed in. All other teammates should sign in below.</h3>
+<!--  <h1>Team Sign In</h1> -->
+<h4><authz:authentication operation="username" /> is already signed in. All other teammates should sign in below.</h4>
 
 <form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" >
   <label for="username1">Username 1:</label>
      <form:input disabled="true" path="username1" id="username1" />
+     <br>
 
   <c:forEach var="teammate_index" begin="2" end="3" step="1">
     <label for="username${teammate_index}">Username ${teammate_index}:</label>
         <form:input path="username${teammate_index}" id="username${teammate_index}"/>
         <form:errors path="username${teammate_index}" />
-      <br />  
+      
     <label for="password${teammate_index}">Password:</label>
         <form:password path="password${teammate_index}" id="password${teammate_index}"/>
         <form:errors path="password${teammate_index}" />
+        <br>
   </c:forEach>
-
-<div>
+<br>
+<div align='right'>
   <input type="submit" name="_finish" value="Run Project" />
 </div>
 </form:form>
 
-<div><a href="#" onclick="javascript:window.close()">Cancel</a></div>
+<!--  <div><a href="#" onclick="javascript:window.close()">Cancel</a></div>-->
 </body>
 </html>

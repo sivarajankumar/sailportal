@@ -30,17 +30,22 @@
 
 <body>
 
-<h1>SELECT TEAM</h1>
-<h3>Will you be working on this project by yourself or with teammates?</h3>
+<!--  <h3>SELECT TEAM</h3> -->
+<h4>Will you be working on this project by yourself or with teammates?</h4>
 
 <div>
+	<a href="startproject.html?runId=${run.id}">
+        By Myself
+      </a><br />
+      <!--  
       <a href="#" onclick="window.opener.location.href='startproject.html?runId=${run.id}'; window.close();">
         By Myself
       </a><br />
+      -->
       <a href="teamsignin.html?runId=${run.id}">With 1 or 2 Teammates</a>
 </div>
 
 
-<div><a href="#" onclick="javascript:window.close()">Cancel</a></div>
+<!--  <div><a href="#" onclick="javascript:window.close()">Cancel</a></div>-->
 </body>
 </html>
