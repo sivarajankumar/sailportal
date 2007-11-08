@@ -68,7 +68,7 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	        
 			acl.insertAce(null, permission,
 					new PrincipalSid(this.getAuthentication()), true);
-			//this.mutableAclService.updateAcl(acl);
+			this.mutableAclService.updateAcl(acl);
 		} else {
 			throw new IllegalArgumentException(
 					"Cannot create ACL. Object not set.");

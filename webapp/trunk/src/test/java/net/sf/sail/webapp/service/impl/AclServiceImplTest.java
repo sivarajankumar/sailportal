@@ -98,7 +98,7 @@ public class AclServiceImplTest extends TestCase {
 		EasyMock.expect(mutableAclService.readAclById(objectIdentity))
 		     .andThrow(new NotFoundException("acl not found"));
 		EasyMock.expect(mutableAclService.createAcl(objectIdentity)).andStubReturn(mockMutableAcl);
-		//EasyMock.expect(mutableAclService.updateAcl(mockMutableAcl)).andReturn(mockMutableAcl);
+		EasyMock.expect(mutableAclService.updateAcl(mockMutableAcl)).andReturn(mockMutableAcl);
 		EasyMock.replay(mutableAclService);
 		EasyMock.replay(mockMutableAcl);
 		
@@ -113,7 +113,7 @@ public class AclServiceImplTest extends TestCase {
 		// test the case in which the acl already exists in the db.
 		// in this case, a new ace is added to the acl.
 		EasyMock.expect(mutableAclService.readAclById(objectIdentity)).andStubReturn(mockMutableAcl);
-		//EasyMock.expect(mutableAclService.updateAcl(mockMutableAcl)).andReturn(mockMutableAcl);
+		EasyMock.expect(mutableAclService.updateAcl(mockMutableAcl)).andReturn(mockMutableAcl);
 		EasyMock.replay(mutableAclService);
 		EasyMock.replay(mockMutableAcl);
 		
