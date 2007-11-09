@@ -176,19 +176,20 @@ a:hover {
 #navigationL2 a:hover{
 	padding: 6px 20px 6px 20px;
 	margin:0px;
-	background-color:#CCCCCC;
-	color:#0000FF;
+	background-color:#CCCCFF;
+	background-image:none;
 	text-decoration:none;
 	}
 
 #navigationL2_projects_highlight {
 	padding: 6px 20px 6px 20px;
 	margin:0px;
-	background-color:#FF99CC;
+	background-image: url(../images/Pixel_Project_Highlight.png); 
+	/* background-color:#FF99CC; */
+	font-weight:bold;
 	color:#FFFFFF;
-	border-left:1px solid #999999;
-	border-right:1px solid #999999;
-	}
+	border:1px solid #666666;
+		}
 	
 #navigationL2_home_highlight {
 	padding: 6px 20px 6px 20px;

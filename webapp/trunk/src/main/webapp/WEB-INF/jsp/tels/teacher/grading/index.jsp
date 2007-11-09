@@ -37,9 +37,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojects.jsp"%>
+<%@ include file="headerteachergrading.jsp"%>
 
-<%@ include file="L2projects_overview.jsp"%>
+<%@ include file="L2projects_grading.jsp"%>
  
 <div id="overviewContent"> 
 

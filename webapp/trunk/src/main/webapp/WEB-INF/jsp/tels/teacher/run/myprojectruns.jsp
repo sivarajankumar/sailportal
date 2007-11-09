@@ -23,9 +23,12 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+  
 <title><spring:message code="run.list" /></title>
+
 <script language="JavaScript">
 
 function popup(URL, title) {
@@ -36,13 +39,14 @@ function popup(URL, title) {
 </head>
 
 <body>
-<%@ include file="projectHeader.jsp"%>
-<!-- 
-<ul id="tabnav2"  >
-<li> <a href="#">Current</a></li>
-<li> <a href="#">Archived</a></li>
-</ul>
- -->
+
+<div id="centeredDiv">
+
+<%@ include file="../projects/headerteacherprojects.jsp"%>
+
+<%@ include file="L2projects_myprojectruns.jsp"%>
+
+
  <div align="center">
 <div id="runContent"> 
 <br />

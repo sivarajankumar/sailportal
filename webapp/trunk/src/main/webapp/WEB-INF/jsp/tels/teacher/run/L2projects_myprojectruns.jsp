@@ -19,18 +19,20 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
-<div id="navigationL2" class="homebarL2">
+<div id="navigationL2" class="projectL2">
 
 	<ul>
+		<li >
+			<a class="navigationL2leftborder" href="../projects/index.html">Overview</a> </li>
+       	<li>
+			<a href="../projects/curnitlist.html">Project Library</a> </li>
 		<li>
-			<a style="visibility:hidden;" id="navigationL2_home_highlight" class="navigationL2leftborder" href="#">Overview</a> </li>
-       	<li style="visibility:hidden;">
-			<a href="curnitlist.html">Project Library</a> </li>
-		<li style="visibility:hidden;">
-			<a href="index.html">My Project Runs</a> </li>
-		<li style="visibility:hidden;">
-			<a href="index.html">My Bookmarked Projects</a> </li>
-		<li style="visibility:hidden;">
-			<a href="index.html">My Customized Projects</a> </li>
+			<a id="navigationL2_projects_highlight" href="../run/myprojectruns.html?GRADING_ENABLED=FALSE">My Project Runs</a> </li>
+		
+		<li >
+			<a class="L2inactivelink" href="#">My Bookmarked Projects</a></li>
+		
+		<li >
+			<a href="#">My Customized Projects</a> </li>
    </ul>
 </div>	

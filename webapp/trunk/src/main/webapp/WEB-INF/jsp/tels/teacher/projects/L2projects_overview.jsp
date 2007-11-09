@@ -27,7 +27,7 @@
        	<li>
 			<a href="curnitlist.html">Project Library</a> </li>
 		<li>
-			<a href="index.html">My Project Runs</a> </li>
+			<a href="../run/myprojectruns.html?GRADING_ENABLED=FALSE">My Project Runs</a> </li>
 		<li>
 			<a href="index.html">My Bookmarked Projects</a> </li>
 		<li>

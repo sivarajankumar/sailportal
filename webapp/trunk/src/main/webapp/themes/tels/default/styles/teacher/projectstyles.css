@@ -115,20 +115,20 @@ img#none{
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #666666;
 	margin:20px 0 20px 0;
-	padding:30px;
+	padding:10px 30px 30px 30px;
 	}
 
 #periods{
 	width:600px;
 }
 
-#translations{
-	width:900px;
-	text-align:justify;
+#translations h2{
+	font-weight-bold;
 }
 
-#translations.p{
-	font-size:1.0em;
+#translations p {
+	font-size:1.4em;
+	margin-bottom:10px;
 }
 
 #projectoptions{
