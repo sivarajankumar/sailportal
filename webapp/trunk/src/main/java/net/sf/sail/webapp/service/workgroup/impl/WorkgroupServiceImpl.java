@@ -35,6 +35,7 @@ import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
+import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
 
 /**
  * @author Cynick Young
@@ -217,8 +218,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#updateWorkgroupMembership(net.sf.sail.webapp.domain.User, net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Workgroup)
      */
-	public void updateWorkgroupMembership(User student,
-			Workgroup workgroupFrom, Workgroup workgroupTo) {
-		// TODO PatrickLawler Implement me
-	}
+    public void updateWorkgroupMembership(ChangeWorkgroupParameters params) {
+    	
+    }
 }

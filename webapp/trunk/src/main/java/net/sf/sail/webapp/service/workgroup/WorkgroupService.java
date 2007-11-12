@@ -20,6 +20,8 @@ package net.sf.sail.webapp.service.workgroup;
 import java.util.List;
 import java.util.Set;
 
+import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
@@ -144,5 +146,5 @@ public interface WorkgroupService {
      * 		a new workgroup is created
      * 
      */
-    public void updateWorkgroupMembership(User student, Workgroup workgroupFrom, Workgroup workgroupTo);
+    public void updateWorkgroupMembership(ChangeWorkgroupParameters params);
 }
