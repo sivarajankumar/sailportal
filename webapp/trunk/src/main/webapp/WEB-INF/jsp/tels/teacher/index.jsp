@@ -143,7 +143,7 @@
 	<div id="quickLinks1">
 		<div id="linkHeader">Projects</div>
 		<ul>
-			<li><a href="../curnitlist.html">Project Library</a></li>
+			<li><a href="projects/curnitlist.html">Project Library</a></li>
 			<li><a href="run/myprojectruns.html?GRADING_ENABLED=FALSE">My Project Runs</a></li>
 			<li class="inactivecolor">My Bookmarked Projects</li>
 			<li class="inactivecolor">My Customized Projects</li>
