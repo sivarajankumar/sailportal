@@ -22,13 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.validators.teacher;
 
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.Workgroup;
-
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
-import org.telscenter.sail.webapp.domain.impl.StartRunParameters;
 
 /**
  * Validator for ChangeWorkgroupParamters object used to change workgroups
@@ -43,14 +39,13 @@ public class ChangeWorkgroupParametersValidator {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
-		return StartRunParameters.class.isAssignableFrom(clazz);
+		return ChangeWorkgroupParameters.class.isAssignableFrom(clazz);
 	}
 
 	/**
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 */
 	public void validate(Object paramsIn, Errors errors) {
-		ChangeWorkgroupParameters params = (ChangeWorkgroupParameters) paramsIn;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "student", "error.no-student");
 		
@@ -64,18 +59,14 @@ public class ChangeWorkgroupParametersValidator {
 			return;
 		}
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "workgroupTo", "error.no-workgroupTo");
 		
-		if (errors.getErrorCount() != 0) {
-			return;
-		}
-		
-		User student = params.getStudent();
-		Workgroup workgroupFrom = params.getWorkgroupFrom();
-		
-		if (!workgroupFrom.getMembers().contains(student)) {
-			errors.rejectValue("student", "error.student-not-found");
-		}
+		// move to service layer
+//		User student = params.getStudent();
+//		Workgroup workgroupFrom = params.getWorkgroupFrom();
+//		
+//		if (!workgroupFrom.getMembers().contains(student)) {
+//			errors.rejectValue("student", "error.student-not-found");
+//		}
 
 
 	}

@@ -52,6 +52,9 @@ View My Students
 				No Students Attached
 			</c:when>
 			<c:otherwise>
+				<c:forEach var="workgroup" items="${period.members}">
+					
+				</c:forEach>
             	<c:forEach var="member" items="${period.members}">
             		<a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${member.userDetails.username}');">${member.userDetails.firstname} ${member.userDetails.lastname}</a>&nbsp;
             	</c:forEach>

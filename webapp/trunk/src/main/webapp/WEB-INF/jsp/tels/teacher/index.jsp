@@ -158,7 +158,7 @@
 	<div id="quickLinks2">
 		<div id="linkHeader">Management</div>
 		<ul>
-			<li class="inactivecolor">View My Students</li>
+			<li><a href="./management/viewmystudents.html">View My Students</a></li>			
 			<li class="inactivecolor">Edit Ready-Made Comments</li>
 			<li class="inactivecolor">Real-Time Class Monitor</li>
 			<li class="inactivecolor">Review Score Values for Steps</li>
