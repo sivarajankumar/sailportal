@@ -43,18 +43,21 @@
  
 <div id="overviewContent"> 
 
-	<div id="L2choices">
-		<dl>
-			<dt><a href="#">Project Library</a></dt>
-			<dd>Search the extensive library of WISE and TELS projects. Find a project and set it up to run in your classroom.</dd>
-			<dt><a href="../run/myprojectruns.html">My Project Runs</a></dt>
-			<dd>View projects that you are currently running in your classroom.</dd>
-			<dt><a href="#">My Bookmarked Projects</a></dt>
-			<dd>View library projects that you have earmarked for future use.</dd>
-			<dt><a href="#">My Customized Projects</a></dt>
-			<dd>View your customized projects. Use the Project Editor to customize Library projects or to create new projects.</dd>
-		</dl>
-	</div>
+	<table id="projects_overview_choices">
+		<tr>
+			<td style="width:240px;" class="link"><a href="#">Project Library</a></td>
+			<td>Search the extensive library of WISE and TELS projects. Find a project and set it up to run in your classroom.</td></tr>
+		<tr>
+			<td class="link"><a href="../run/myprojectruns.html">My Project Runs</a></td>
+			<td>View projects that you are currently running in your classroom.</td></tr>
+		<tr>
+			<td class="link"><a href="#">My Bookmarked Projects</a></td>
+			<td>View library projects that you have earmarked for future use.</td></tr>
+		<tr>
+			<td class="link"><a href="#">My Customized Projects</a></td>
+			<td>View your customized projects. Use the Project Editor to customize Library projects or to create new projects.</td></tr>
+	</table>
+	
 </div>
 
 <h5 class="center">Interested in running WISE projects in another language? &nbsp <a href="languagetranslations.html">Find out more. </a></h5>
