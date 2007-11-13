@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.5.3 
+Created-By: Apache Maven
+Built-By: balex
+Package: org.acegisecurity
+Build-Jdk: 1.5.0_11
+Extension-Name: acegi-security
+Specification-Title: Acegi Security System for Spring
+Specification-Vendor: Acegi Technology Pty Limited
+Implementation-Title: org.acegisecurity
+Implementation-Vendor: Acegi Technology Pty Limited
+Implementation-Version: 1.0.4
+
