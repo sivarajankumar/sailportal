@@ -28,9 +28,11 @@
 
 <title><spring:message code="setuprun.confirmation.title" /></title>
 
-<script type="text/javascript" src="./javascript/pas/utils.js"></script>
-<script type="text/javascript" src="./javascript/tels/rotator.js"></script>
-<script type="text/javascript" src="./javascript/tels/general.js"></script>
+<script type="text/javascript" src="../../javascript/pas/utils.js"></script>
+<script type="text/javascript" src="../../javascript/tels/rotator.js"></script>
+<script type="text/javascript" src="../../javascript/tels/general.js"></script>
+<script type="text/javascript" src="../../javascript/tels/effects.js"></script>
+
 
 </head>
 
@@ -48,52 +50,51 @@
 
 <div id="setUpRunBoxConfirm">
 
-<div id="stepNumber"><span class="blueText">Project Run Created!</span></div>
-
-	<h4>Your new project run has been placed in the <a href="teacher/run/myprojectruns.html">My Project Runs</a> area.</h4>
+	<div id="stepNumber"><span class="blueText">Project Run Created!</span></div>
 	
-	<table id="projectRunConfirmTable" border="1" cellpadding="5" cellspacing="0" >
-			<tr>
-				<td style="width:30%;"><spring:message code="setuprun.confirmation.run.title" /></td>
-				<td><strong><c:out value="${run.sdsOffering.name}" /></strong></td>
-			</tr>
-			<tr>
-				<td><spring:message code="setuprun.confirmation.run.createdtime" /></td>
-				<td><strong><c:out value="${run.starttime}" /></strong></td>
-			</tr>
-			<tr>
-				<td><spring:message code="setuprun.confirmation.run.projectid" /></td>
-				<td><strong><c:out value="${run.sdsOffering.sdsCurnit.sdsObjectId}" /></strong></td>
-			</tr>
-			<tr>
-				<td><spring:message code="setuprun.confirmation.run.projectcodes" /></td>
-				<td>
-					<c:forEach var="period" items="${run.periods}">
-			    	<strong><c:out value="${run.runcode}" />-<c:out value="${period.name}" /></strong>
-			    	&nbsp;(<spring:message code="setuprun.confirmation.run.projectcodes.foryourstudentsinperiod" />
-			    		<c:out value="${period.name}" />)
-			    	<br />
-			  		</c:forEach>
-			    </td>
-			</tr>
-		</table>
+		<h4>Your new project run has been placed in the <a href="myprojectruns.html">My Project Runs</a> area.</h4>
 		
-<h4 class="reducedBottomMargin"><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
-<h5 class="indent15px"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></h5>
-
-<h4 class="reducedBottomMargin"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
-<h5 class="indent15px"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></h5>
+		<table id="projectRunConfirmTable" border="1" cellpadding="5" cellspacing="0" >
+				<tr>
+					<td style="width:30%;"><spring:message code="setuprun.confirmation.run.title" /></td>
+					<td><strong><c:out value="${run.sdsOffering.name}" /></strong></td>
+				</tr>
+				<tr>
+					<td><spring:message code="setuprun.confirmation.run.createdtime" /></td>
+					<td><strong><c:out value="${run.starttime}" /></strong></td>
+				</tr>
+				<tr>
+					<td><spring:message code="setuprun.confirmation.run.projectid" /></td>
+					<td><strong><c:out value="${run.sdsOffering.sdsCurnit.sdsObjectId}" /></strong></td>
+				</tr>
+				<tr>
+					<td><spring:message code="setuprun.confirmation.run.projectcodes" /></td>
+					<td>
+						<c:forEach var="period" items="${run.periods}">
+				    	<strong><c:out value="${run.runcode}" />-<c:out value="${period.name}" /></strong>
+				    	&nbsp;(<spring:message code="setuprun.confirmation.run.projectcodes.foryourstudentsinperiod" />
+				    		<c:out value="${period.name}" />)
+				    	<br />
+				  		</c:forEach>
+				    </td>
+				</tr>
+			</table>
+			
+	<h4 class="reducedBottomMargin"><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
+	<h5 class="indent15px"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></h5>
+	
+	<h4 class="reducedBottomMargin"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
+	<h5 class="indent15px"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></h5>
 		
 </div>      <!-- end setUpRunBoxConfirm"-->
 		
 <div id="gotoMyRunsButton" class="center">
-	<a href="myprojectruns.html"> 
-		<img id="projectRuns"
-		src="<spring:theme code="gotomyprojectruns" />"	 	
-		onmouseover="swapImage('projectRuns','<spring:theme code="gotomyprojectruns_roll" />');"
-		onmouseout="swapImage('projectRuns','<spring:theme code="gotomyprojectruns" />');"
-		style="border:0px;"/>	</a>
+	<a href="myprojectruns.html"  	
+		onmouseout="MM_swapImgRestore()" 
+		onmouseover="MM_swapImage('projectRuns','','../../themes/tels/default/images/teacher/Go-to-My-Proj-Runs-Roll.png',1)">
+		<img src="../../themes/tels/default/images/teacher/Go-to-My-Proj-Runs.png" alt="My Project Runs" id="projectRuns" /> </a>
 </div>
+    	
 
 </div>    <!-- end CenteredDiv" -->
 

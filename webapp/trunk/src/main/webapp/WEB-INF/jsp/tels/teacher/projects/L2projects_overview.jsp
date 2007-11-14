@@ -23,7 +23,7 @@
 
 	<ul>
 		<li >
-			<a id="navigationL2_projects_highlight" class="navigationL2leftborder" href="#">Overview</a> </li>
+			<a class="navigationL2leftborder" id="navigationL2_projects_highlight" href="#">Overview</a> </li>
        	<li>
 			<a href="curnitlist.html">Project Library</a> </li>
 		<li>

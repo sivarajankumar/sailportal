@@ -135,15 +135,12 @@ a:hover {
 	}
 	
 .projectL2  {
-	background-color:#ffcccc;
 	margin-bottom:10px;
-	
 	}
 	
 .homebarL2  {
-	background-color:#ffffcc;
 	margin-bottom:10px;
-		}
+			}
 	
 #navigationL2 {
 	padding:0px;
@@ -164,14 +161,15 @@ a:hover {
 	display:inline;
 	padding:0px;
 	margin:-2px;
-	}
+	color:#000000;	
+	 	}
 	
 #navigationL2 a:link, #navigationL2 a:visited{
 	padding: 6px 20px 6px 20px;
 	margin:0px;
-	color:#000000;
 	text-decoration:none;
-		}
+	color:#000000;	
+		 }
 	
 #navigationL2 a:hover{
 	padding: 6px 20px 6px 20px;
@@ -185,9 +183,6 @@ a:hover {
 	padding: 6px 20px 6px 20px;
 	margin:0px;
 	background-image: url(../images/Pixel_Project_Highlight.png); 
-	/* background-color:#FF99CC; */
-	font-weight:bold;
-	color:#FFFFFF;
 	border:1px solid #666666;
 		}
 	
@@ -195,9 +190,8 @@ a:hover {
 	padding: 6px 20px 6px 20px;
 	margin:0px;
 	background-color:#CCCC99;
-	color:#FFFFFF;
-	border-left:1px solid #999999;
-	border-right:1px solid #999999;
+	color:#000000;
+	border:1px solid #666666;
 	}
 
 	
@@ -291,7 +285,6 @@ a:hover {
 /* Set Up Run Confirmation Page  */
 	
 #setUpRunBoxConfirm {
-	width:100%;
 	border:1px solid #666666;
 	margin:15px auto 15px auto ;
 	padding:15px;
