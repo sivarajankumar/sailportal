@@ -39,7 +39,7 @@
 
 <%@ include file="headerteacherprojects.jsp"%>
 
-<%@ include file="L2projects_overview.jsp"%>
+<%@ include file="L2projects_nohighlight.jsp"%>
 
 <div id="overviewContent"> 
 
@@ -69,7 +69,7 @@ you through the translation process.</p>
 </div>      <!--end of Translations div-->
 </div>    <!--end of CenteredDiv div-->
 
-<h3 class="center"><a  href="overview.html"> Back to Overview </a></h3>
+<h3 class="center"><a  href="index.html"> Back to Overview </a></h3>
 
 </body>
 </html>

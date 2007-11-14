@@ -24,7 +24,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <title><spring:message code="setuprun.confirmation.title" /></title>
 
@@ -38,9 +38,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="../../../headerteacherprojects.jsp"%>
+<%@ include file="../../projects/headerteacherprojects.jsp"%>
 
-<%@ include file="../../../L2projectsnohighlight.jsp"%>
+<%@ include file="L2projectsnohighlight.jsp"%>
 
 <div id="titleBarSetUpRun">
     	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
@@ -87,7 +87,7 @@
 </div>      <!-- end setUpRunBoxConfirm"-->
 		
 <div id="gotoMyRunsButton" class="center">
-	<a href="teacher/run/myprojectruns.html"> 
+	<a href="myprojectruns.html"> 
 		<img id="projectRuns"
 		src="<spring:theme code="gotomyprojectruns" />"	 	
 		onmouseover="swapImage('projectRuns','<spring:theme code="gotomyprojectruns_roll" />');"

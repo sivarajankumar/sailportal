@@ -62,9 +62,9 @@
 				<td class="tableColor">Announcements:</td>
 				<td>
 					<ul>
-					<li>[Good morning!]</li>
-					<li>[You have gradable work ready in 2 projects. See links to right.]</li>
-					<li>[Announcement 3]</li>
+					<li><b>[Good morning!]</b></li>
+					<li><b>[You have gradable work ready in 2 projects. See links to right.]</b></li>
+					<li><b>[Announcement 3]</b></li>
 					</ul>
 				</td>
 			</tr>
@@ -75,19 +75,19 @@
 	<div id="header">Projects Awaiting Grading</div>
 	<table id="projectGradeLinkBox" cellpadding="5" cellspacing="5">
 		<tr>
-			<td class="projectNameStyle">[Gradable Project Name A]</td>
-			<td style="width:25%;" class="projectLinkStyle">Grade By Step</td>
-			<td style="width:25%;" class="projectLinkStyle">Grade By Team</td>
+			<td class="tableColor">[Gradable Project Name A]</td>
+			<td style="text-decoration:line-through;" style="width:25%;" class="projectLinkStyle"><a href="#">Grade By Step</a></td>
+			<td style="text-decoration:line-through;" style="width:25%;" class="projectLinkStyle"><a href="#">Grade By Team</a></td>
 		</tr>
 		<tr>
-			<td class="projectNameStyle">[Gradable Project Name B]</td>
-			<td class="projectLinkStyle">Grade By Step</td>
-			<td class="projectLinkStyle">Grade By Team</td>
+			<td class="tableColor">[Gradable Project Name B]</td>
+			<td style="text-decoration:line-through;" class="projectLinkStyle"><a href="#">Grade By Step</a></td>
+			<td style="text-decoration:line-through;"class="projectLinkStyle"><a href="#">Grade By Team</a></td>
 		</tr>
 		<tr>
-			<td class="projectNameStyle">[Gradable Project Name C]</td>
-			<td class="projectLinkStyle">Grade By Step</td>
-			<td class="projectLinkStyle">Grade By Team</td>
+			<td class="tableColor">[Gradable Project Name C]</td>
+			<td style="text-decoration:line-through;" class="projectLinkStyle"><a href="#">Grade By Step</a></td>
+			<td style="text-decoration:line-through;" class="projectLinkStyle"><a href="#">Grade By Team</a></td>
 		</tr>
 	</table>
 </div>  <!-- End of projectsBox-->

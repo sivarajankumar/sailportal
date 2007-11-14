@@ -47,8 +47,8 @@
 <c:forEach var="curnit" items="${curnitlist}">
   <tr>
   <td><c:out value="${curnit.sdsCurnit.name}"/></td>
-  <td><a href="<c:url value="createrun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
-	       <spring:message code="curnitlist.setup.for.class" />
+  <td><a href="<c:url value="../run/createRun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
+	       Set up as a Project Run 
       </a><br />
       
   </td>

@@ -30,9 +30,9 @@
 			<a id="navigationL2_projects_highlight" href="../run/myprojectruns.html?GRADING_ENABLED=FALSE">My Project Runs</a> </li>
 		
 		<li >
-			<a class="L2inactivelink" href="#">My Bookmarked Projects</a></li>
+			<a style="text-decoration:line-through;" href="#">My Bookmarked Projects</a></li>
 		
 		<li >
-			<a href="#">My Customized Projects</a> </li>
+			<a style="text-decoration:line-through;" href="#">My Customized Projects</a> </li>
    </ul>
 </div>	

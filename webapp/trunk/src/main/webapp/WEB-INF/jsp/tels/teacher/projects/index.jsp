@@ -43,19 +43,19 @@
  
 <div id="overviewContent"> 
 
-	<table id="projects_overview_choices">
+	<table id="projects_overview_choices"  cellspacing="20">
 		<tr>
-			<td style="width:240px;" class="link"><a href="#">Project Library</a></td>
-			<td>Search the extensive library of WISE and TELS projects. Find a project and set it up to run in your classroom.</td></tr>
+			<td style="width:240px;" class="link"><a href="curnitlist.html">Project Library</a></td>
+			<td class="description">Search the extensive library of WISE and TELS projects. Find a project and set it up to run in your classroom.</td></tr>
 		<tr>
 			<td class="link"><a href="../run/myprojectruns.html">My Project Runs</a></td>
-			<td>View projects that you are currently running in your classroom.</td></tr>
+			<td class="description">View projects that you are currently running in your classroom.</td></tr>
 		<tr>
-			<td class="link"><a href="#">My Bookmarked Projects</a></td>
-			<td>View library projects that you have earmarked for future use.</td></tr>
+			<td style="text-decoration:line-through;" class="link"><a href="#">My Bookmarked Projects</a></td>
+			<td class="description">View library projects that you have earmarked for future use.</td></tr>
 		<tr>
-			<td class="link"><a href="#">My Customized Projects</a></td>
-			<td>View your customized projects. Use the Project Editor to customize Library projects or to create new projects.</td></tr>
+			<td style="text-decoration:line-through;" class="link"><a href="#">My Customized Projects</a></td>
+			<td class="description">View your customized projects. Use the Project Editor to customize Library projects or to create brand new projects.</td></tr>
 	</table>
 	
 </div>

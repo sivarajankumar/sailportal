@@ -24,7 +24,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <script src="./javascript/tels/general.js" type="text/javascript" ></script>
 <script src="./javascript/tels/effects.js" type="text/javascript" ></script>
@@ -72,9 +72,9 @@ if(form.manualCheckbox.checked==true){
 
 <div id="centeredDiv">
 
-<%@ include file="../../../headerteacherprojects.jsp"%>
+<%@ include file="../../projects/headerteacherprojects.jsp"%>
 
-<%@ include file="../../../L2projectsnohighlight.jsp"%>
+<%@ include file="L2projectsnohighlight.jsp"%>
 
 <div id="titleBarSetUpRun">
     	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>

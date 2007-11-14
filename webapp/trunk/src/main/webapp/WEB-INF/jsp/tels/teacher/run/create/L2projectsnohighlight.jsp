@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp" %>
+<%@ include file="include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -23,14 +23,15 @@
 
 	<ul>
 		<li >
-			<a id="navigationL2_projects_highlight" class="navigationL2leftborder" href="#">Overview</a> </li>
+			<a class="navigationL2leftborder" href="../projects/index.html">Overview</a> </li>
        	<li>
-			<a href="curnitlist.html">Project Library</a> </li>
+			<a href="../projects/curnitlist.html">Project Library</a> </li>
 		<li>
-			<a href="../run/myprojectruns.html?GRADING_ENABLED=FALSE">My Project Runs</a> </li>
+			<a href="../run/myprojectruns.html">My Project Runs</a> </li>
 		<li>
-			<a style="text-decoration:line-through;" href="index.html">My Bookmarked Projects</a> </li>
+			<a style="text-decoration:line-through" href="#">My Bookmarked Projects</a> </li>
+			
 		<li>
-			<a style="text-decoration:line-through;" href="index.html">My Customized Projects</a> </li>
+			<a style="text-decoration:line-through" href="#">My Customized Projects</a> </li>
    </ul>
 </div>	

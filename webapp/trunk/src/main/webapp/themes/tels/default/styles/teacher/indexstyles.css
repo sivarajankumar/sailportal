@@ -68,7 +68,7 @@
 		}
 		
 #teacherWelcomeBoxTable li	{  
-	color:#0000CC;
+	/* color:#0000CC;  */ 
 	list-style-type:none;
 	margin-bottom:12px;
 		}
@@ -103,9 +103,11 @@
 	color:#000066;
 }
 
-.projectLinkStyle {
+#projectGradeLinkBox a {
 	font-style:italic;
 	color:#0000CC;
+	text-decoration:none;
+	border-bottom: 1px dotted #0000CC;
 }
 
 #secondRow {
@@ -162,20 +164,29 @@
 	list-style-type:none;
 	padding:0px;
 	margin: 0;
-	line-height:170%;
 	font-size:1.2em;
+	line-height:175%;
+	}
+
+#quickLinks1 li, #quickLinks2 li {
 	}
 	
 #quickLinks1 a:link, #quickLinks1 a:visited, #quickLinks2 a:link, #quickLinks2 a:visited {
 	color:#0000CC;
-	padding: 2px 6px 2px 3px;
-	}
+	padding: 2px 0px 2px 0px;
+	margin-left:2px;
+	text-decoration:none;
+	border-bottom: 1px dotted #0000CC;
+		}
 	
 #quickLinks1 a:hover, #quickLinks2 a:hover {
 	background-color:#333333;
 	color:#CCCCFF;
-	padding: 2px 6px 2px 3px;
-	}
+	padding: 2px 6px 2px 2px;
+	margin-left:2px;
+	text-decoration:none;
+	border-bottom: 1px dotted #0000CC;
+		}
 	
 .inactivecolor {color:#999999;}
 	

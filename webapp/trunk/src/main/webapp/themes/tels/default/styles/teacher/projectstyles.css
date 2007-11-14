@@ -131,19 +131,46 @@ img#none{
 	margin-bottom:10px;
 }
 
+#projects_overview_choices   {
+	padding:30px 0 30px 5px;
+}
+	
 #projects_overview_choices .link  {
-	font-size:1.7em;
+	font-size:1.6em;
 	font-weight:bold;
-	width:350px;
-	padding:8px;
-	border:1px solid #CCC;
+	width:410px;
+	}
+
+#projects_overview_choices a:link, #projects_overview_choices a:visited   {
+	color:#000000;
+	text-decoration:none;
+	display:block;
+	padding:6px 0px 6px 20px;
+	background-image:url(../../images/GradientHomeBox.png);
+	background-position:left top;
+	background-repeat:repeat-x;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
 }
 
+#projects_overview_choices a:hover  {
+	display:block;
+	background-color:#FFFF33;
+	color:#0000CC;
+	padding:6px 0px 6px 20px;
+	background-image:none;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
+		}
+
 #projects_overview_choices .description  {
-	font-size:1.8em;
-	width:400px;
+	font-size:.9em;
 	margin:0px;
-	padding:5px;
+	padding:2px;
 	vertical-align:middle;
 }
 
