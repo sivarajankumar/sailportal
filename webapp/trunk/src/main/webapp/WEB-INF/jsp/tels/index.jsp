@@ -261,9 +261,9 @@
        	    	
         <td id="footerText">
         	 	<ul>
-                <li><a href="index.html">WISE 3.0 Home Page</a></li>
-                <li id="footerNav2"><a href="signup.html">Join WISE</a></li>
-                <li id="footerNav2"><a href="#" onclick="displayNotAvailable('Very kind of you.  But he only works for peanuts.  And this test link will be gone soon.')">Give Matt A Cookie</a></li>
+                <li><a href="signup.html">Join WISE</a></li>
+                <li id="footerNav2"><a href="signout.html">Sign Out</a></li>
+                <li id="footerNav2"><a href="credits.html">Credits</a></li>
                 </ul>
             
                 <p>Supported by the National Science Foundation, TELS Grant No. 0334199.</p>

@@ -1,4 +1,134 @@
+#runContent{
+	border:1px solid #999999;
+	padding: 0 20px 20px 20px;
+}
 
+#header {
+	font-size:2.4em;
+	margin-bottom:5px;
+	padding-botton:0px;
+}
+
+#subHeader {
+	margin:0;
+	padding:0px 0 20px 0;
+}
+
+#currentRunTable {
+	border-collapse:collapse;
+}
+
+#currentRunTable .tableHeaderMain {
+	background-color:#669933;
+	color:#FFFFFF;
+	font-size:.9em;
+	padding: 3px 0px;
+}
+
+#currentRunInfoTable {
+	border-collapse:collapse;
+	margin:0px;
+	padding:0px;
+	width:100%;
+}
+
+#runTitleRow {
+	border-bottom:3px solid #666666;
+	margin-bottom:20px;
+	padding-bottom:10px;
+}
+
+#runTitle {
+	text-align:center;
+	font-size:1.5em;
+	font-weight:bold;
+	margin: 15px 5px;
+	padding:0px;
+}
+
+#titleSubHeader {
+	text-align:center;
+	font-size:.8em;
+	margin-top:1px;
+	padding:0px;
+}
+
+#currentRunInfoTable {
+	border-collapse:collapse;
+	}
+	
+#currentRunInfoTable .tableInnerHeader {
+	font-style:italic;
+	font-size:.8em;
+	font-weight:bold;
+	text-align:center;
+	padding: 3px 2px;
+	border-bottom:1px solid #666666;
+	border-right:1px solid #666666;
+	background-color:#CCCCCC;
+	}
+
+#currentRunInfoTable .tableInnerHeaderRight {
+	font-style:italic;
+	font-size:.8em;
+	font-weight:bold;
+	text-align:center;
+	padding: 3px 2px;
+	border-bottom:1px solid #666666;
+	background-color:#CCCCCC;
+}
+
+#currentRunInfoTable .tableInnerData {
+	font-size:.8em;
+	text-align:center;
+	padding: 3px 2px;
+	border-bottom:1px solid #666666;
+	border-right:1px solid #666666;
+	margin:0px;
+}
+
+#currentRunInfoTable .tableInnerDataRight {
+	font-size:.8em;
+	text-align:center;
+	padding: 3px 2px;
+	border-bottom:1px solid #666666;
+	margin:0px;
+}
+
+#actionList  {
+	list-style-type:none;
+	text-align:left;
+	margin:0px;
+	padding:0px;
+	}
+
+#actionList a:link, #actionList a:visited {
+	display:block;
+	font-size:.8em;
+	color:#0033CC;
+	margin:0px;
+	padding:0px 2px 1px 4px;
+	border-top:1px solid #ffffff;
+	border-bottom:1px solid #ffffff;
+}
+
+#actionList a:hover {
+	display:block;
+	padding:0px 2px 1px 4px;
+	font-size:.8em;
+	color:#6666FF;
+	background-color:#ffff33;
+	border-top:1px solid #666666;
+	border-bottom:1px solid #666666;
+	
+}
+
+
+
+
+/* ORIGINAL CSS FROM ARCHANA FOLLOWS BELOW  */
+
+/* 
 #headingPos{
 	position:relative;
 	bottom:0px;
@@ -101,16 +231,7 @@ ul#tabnav2 a:hover{
 	color: #000000;
 }
 
-#runContent{
-	align:center;
-	border:1px solid black;
-	position:relative;
-	top:0px;
-	padding-bottom:40px;
-	width:980px;
-}
-
-
 img#none{
 	border:0px;
 }
+*/

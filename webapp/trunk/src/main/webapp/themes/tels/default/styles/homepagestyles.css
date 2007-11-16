@@ -287,6 +287,10 @@ abbr, acronym {
 	vertical-align: text-top;
 }
 
+#boxTestimonials img{
+	border:0px;
+}
+
 #boxLatestNews {
 	width:307px;
 	vertical-align: text-top;
@@ -392,8 +396,6 @@ abbr, acronym {
 #footerTable li a:hover, #footerText a:hover {
 	color:#FF0000;
 	border-bottom:1px dashed;
-	margin:0px;
-	padding:0px;
 	}
 	
 .alignLeft 	{text-align:left;}

@@ -132,13 +132,18 @@ a:hover {
 	background-image: url(../images/Gradient_Blue-to-Gray.png);
 	background-position: center top;
 	margin-bottom:10px;
+	color:#000000;	
+	 
 	}
 	
 .projectL2  {
+	/* background-color:#ffcccc;  */
 	margin-bottom:10px;
+
 	}
 	
 .homebarL2  {
+	/* background-color:#ffffcc;  */
 	margin-bottom:10px;
 			}
 	
@@ -147,6 +152,7 @@ a:hover {
 	margin-top:5px;
 	width:958px;
 	border:1px solid #999999;
+	 
 	}
 
 #navigationL2 ul {
@@ -160,16 +166,16 @@ a:hover {
 	letter-spacing:.9px;
 	display:inline;
 	padding:0px;
-	margin:-2px;
-	color:#000000;	
-	 	}
+	margin:-2px;	
+	 
+	}
 	
 #navigationL2 a:link, #navigationL2 a:visited{
 	padding: 6px 20px 6px 20px;
 	margin:0px;
 	text-decoration:none;
 	color:#000000;	
-		 }
+	}
 	
 #navigationL2 a:hover{
 	padding: 6px 20px 6px 20px;
@@ -179,18 +185,19 @@ a:hover {
 	text-decoration:none;
 	}
 
-#navigationL2_projects_highlight {
-	padding: 6px 20px 6px 20px;
+.navigationL2_projects_highlight {
+	padding: 2px 20px 6px 20px;
 	margin:0px;
 	background-image: url(../images/Pixel_Project_Highlight.png); 
+	color:#990000;
 	border:1px solid #666666;
+	
 		}
 	
 #navigationL2_home_highlight {
 	padding: 6px 20px 6px 20px;
 	margin:0px;
 	background-color:#CCCC99;
-	color:#000000;
 	border:1px solid #666666;
 	}
 
@@ -312,294 +319,4 @@ a:hover {
 	
 	
 	
-	
-	
-	
- /* ORIGINAL CSS FROM ARCHANA FOLLOWS BELOW  */
-
-/* 
-#left{
-	position:relative;
-	right:34px;
-}
-
-#studentLinkPos{
-	position:relative;
-	bottom:5px;	
-}
-
-#registerHeading{
-	position:relative;
-	left:350px;
-}
-
-#registerDesc{
-	align:center;
- 	margin: 0px;
-    text-align:justify;
-    line-height:34px;
-    border:1px solid black;	
-}
-
-#registerDesc.pos1{
-	padding:0px;
-	position:relative;
-	left:260px;
-	width:600px;
-}
-
-#registerDesc.regCenter{
-	position:relative;
-	align:center;
-	text-align:justify;
-	padding:0px;
-	width:300px;
-}
-#registerDesc.left{
-	position:relative;
-	left:150px;
-}
-
-#registerDescAcctSpacing{
-	line-height:40px;
-}
-
-#spacing{
-    margin: 0px;
-    padding: 0px 150px 0px 150px;
-    text-align:justify;
-    line-height:34px;
-}
-
-#spacing.left{
-	position:relative;
-	left:150px;
-}
-
-body {
-    background-color: white;
-}
-
-a.none{
-  text-decoration:none;	
-}
-label{
-width: 120px;
-float: left;
-text-align: right;
-margin-right: 10px;
-display: block;
-
-}
-
-div {
-    color: black;
-    padding: 0.05em;
-}
-
-form  div
-{
-clear:left;
-width: 50%;
-padding: 2px;
-position:center;
-}
-
-form div label{
-text-align:center;
-margin-right: 0.5em;
-}
-
-
-form#login {
-	align:center;
-    color: #000000;
-    border: 0px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 1em;
-}
-
-.submit input 
-{
-	margin-left: 4.5em;
-}
-
-#navigation {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-}
-
-.acctAlign{
-	position:relative;
-	left:350px;
-}
-
-#navigation ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    padding-top: 5px;
-}
-
-#navigation li {
-    display: inline;
-    margin: 30px;
-    padding: 0px;
-}
-
-
-
-#verticalNavigation{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2em;	
-    position:relative;
-}
-
-#verticalNavigation ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    padding-top:13px;
-}
-
-#verticalNavigation li {
-    padding: 0px;
-    margin: 25px;
-    line-height:18px;
-}
-
-#verticalNavigation a:link, #verticalNavigation a:visited{
-	padding: 3px 12px 5px 12px;
-	color: black;
-	background-color: rgb(150,180,230);
-	text-decoration: none;
-}
-
-#verticalNavigation a:hover{
-	padding: 3px 12px 5px 12px;
-	color: black;
-	background-color: rgb(0,200,130);
-	text-decoration: none;
-}
-
-#headRows{
-	font-size: 1.2em;
-}
-
-#headRows li{
-	display:inline;
-	margin: 0px;
-	padding: 45px;
-}
-
-img#none{
-	border:none;
-}
-
-img{
-	position: top right;
-	vertical-align: text-top;
-	border:0px;
-}
-
-img.dynamicImage{
-cursor:pointer;	
-}	
-
-ul.none{
-	list-style-type: none;
-	border:0px;
-	border-color:white;
-}
-
-ul.plainList{
-	list-style-type: none;
-	border:0px;
-	border-color:white;
-}
-
-ul#tabnav{
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	font-style: bold;
-	font-size: 1.247em;
-	font-family: verdana, arial, sans-serif;
-}
-
-
-ul#tabnav li{
-	float:left;
-	height:1.2em;
-	color: green;
-	margin: 0px;
-	border: 0.02em;
-	border-style: solid;
-	border-color: black;
-}
-ul#tabnav a:link, ul#tabnav a:visited{
-	display: block;
-	background-color: transparent;
-	text-decoration: none;
-	}
-
-ul#tabnav a:hover{
-	background-color: #AA11FF;
-	color: #AAEECC;
-}
-
-.border{
-	border:1px solid black;
-}
-
-#accountLoginBox{
-	align:center;
-	width:260px;
-	margin:0px;
-}
-
-#j_username{
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 1em;
-	width: 110px;
-}
-
-#j_password{
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 1em;
-	width: 110px;
-}
-
-#signIn{
-	position:relative;
-	left:100px;
-}
-
-.center{
-	text-align:center;
-}
-
-.border{
-	border:1px solid black;
-}
-
-#whichAccountDescBox{
-	width:550px;
-	align:center;
-	text-align:justify;
-	padding-left:15px;
-	padding-right:15px;
-	border:1px solid black;	
-}
-
-.textLeft{
-	text-align:left;
-}  
-
-#setuprunbox{
-	width:850px;
-	align:center;
-	text-align:justify;
-	position:relative;
-	left:0px;
-}	*/
+	}	*/
