@@ -63,7 +63,7 @@ a:hover {
 
 #titleBar {
 	clear:both;
-	width:790px;
+	width:960px;
 	text-align: center;
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
@@ -72,10 +72,7 @@ a:hover {
 	margin-right: auto;
 	margin-bottom: 0px;
 	margin-left: auto;
-	padding-top: 0px;
-	padding-right: 0;
-	padding-bottom: 0px;
-	padding-left: 0;
+	padding:0px;
 		}
 
 #usernameSignOutBox {
@@ -86,7 +83,7 @@ a:hover {
 }
 
 #usernameBanner {
-	color:#FFFF33;
+	color:#FFFFCC;
 	font-style:italic;
 	font-weight:bold;
 	font-size:1.4em;

@@ -37,7 +37,7 @@
 <%@ include file="./L2projects_projectlibrary.jsp"%>
 
 <div id="titleBar">
-    	<h1 class="blueText"><spring:message code="curnitlist.project.library" /></h1></div>
+    	<h1 class="headerText"><spring:message code="curnitlist.project.library" /></h1></div>
     	
 <table align="center" border="1" cellspacing="2" cellpadding="3">
   <tr>
