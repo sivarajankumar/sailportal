@@ -29,39 +29,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <%@ include file="styles.jsp"%>
+
+<!-- use apaches string utils -->
+<script type='text/javascript' src='/webapp/dwr/interface/StringUtilsJS.js'></script>
+<script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 <script type="text/javascript">
-		var div = document.getElementById('container');
 		
 		//create tab
 	    var tabView = new YAHOO.widget.TabView('periodTabs'); 
 	    
 		tabView.set('activeIndex', ${tabIndex});								        
+	    tabView.addListener('activeTabChange', handleTabClick); 
 	    
-	     function handleClick(e) { 
+	    /**
+	     * When tabs change handle a click
+	     */
+	     function handleTabClick(e) { 
 	     	 var nextVar = document.getElementById('nextStepLink');  
 	     	 var tabIndex = tabView.getTabIndex( e.newValue );
-	     	// YAHOO.log('TAB ' + tabIndex);
 	     	 nextVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
-	     	 //YAHOO.log('new HREF: ' + nextVar);
 	     	 
 	     	 //previousStep
-	     	 var previousVar = document.getElementById('previousStepLink');  
-	     	 var tabIndex = tabView.getTabIndex( e.newValue );
-	     	// YAHOO.log('TAB ' + tabIndex);
-	     	 previousVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex='+tabIndex;
-	     	 
-	     	// YAHOO.log('new HREF: ' + previousVar);
-	     	// YAHOO.log('target ' + tabView.getTabIndex( e.newValue ) );
+	     	 var previousVar = document.getElementById('previousStepLink');
+	     	 if( previousVar != null ) {  
+	     	 	var tabIndex = tabView.getTabIndex( e.newValue );
+	     	 	previousVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex='+tabIndex;
+	     	 }// if
 	    } 
 	     
-	    tabView.addListener('activeTabChange', handleClick); 
-	    
-	    //create logger
-	    var myContainer = document.body.appendChild(document.createElement("div")); 
-		var myLogReader = new YAHOO.widget.LogReader(myContainer); 
+	   
 		
 		
-		
+		/**
+		 * handle success handler
+		 */
 		var handleSuccess = function(o){
 			YAHOO.log("The success handler was called.  tId: " + o.tId + ".", "info", "example");
 			if(o.responseText !== undefined){
@@ -75,6 +76,9 @@
 			}
 		};
 
+		/**
+		 * handle fail handler
+		 */
 		var handleFailure = function(o){
 				YAHOO.log("The failure handler was called.  tId: " + o.tId + ".", "info", "example");
 		
@@ -92,6 +96,7 @@
 		  argument:['foo','bar']
 		};
 
+	
 	function enableButton( textarea,podId,rimName,period) {
 		
 		var buttonText = 'pushbutton-'+podId+'_'+rimName+'_'+period;
@@ -100,17 +105,16 @@
 		var buttons = document.getElementById(buttonText);
 		var names = document.getElementsByTagName(buttonText);
 		for(var i = 0; i < names.length; i++) {
-				YAHOO.log( 'dfdfd' + names[i]);
+				//YAHOO.log( 'dfdfd' + names[i]);
 			}
 			
 		//set the textarea background color white
 		textarea.style.backgroundColor ="#FFFFFF";
 		
-	//	YAHOO.util.Dom.setStyle(commentedText, 'background-color', 'white'); 
-		
 		//make the comment "not saved"
 		var savedEl = YAHOO.util.Dom.getElementsByClassName(savedText, 'div');
-		YAHOO.log( 'saved ' + savedEl );
+		
+		//YAHOO.log( 'saved ' + savedEl );
 		for(var i = 0; i < savedEl.length; i++) {
 			savedEl[i].innerHTML = "not saved";
 		}
@@ -118,6 +122,9 @@
 		
 	};
 	
+	/**
+	 * submits the annotation
+	 */
 	function doSubmit(button,podId,rimName,period,workgroupId,runId) {
 			YAHOO.log('podId' + podId);
 			//
@@ -133,39 +140,75 @@
 			var commentedText = 'comment-'+podId+'_'+workgroupId;
 			var teacherScore = 'teacher-score-'+podId+'_'+workgroupId;
 			var possibleScore = 'possible-score-'+podId+'_'+workgroupId;
-			YAHOO.log( "SAVED " + possibleScore);
-			 //alert('found: ' + YAHOO.util.Dom.getElementsByClassName(savedText, 'div').length + ' elements');
 			
-			var el = YAHOO.util.Dom.getElementsByClassName(savedText, 'div');
+			// alert('found: ' + YAHOO.util.Dom.getElementsByClassName(savedText, 'div').length + ' elements');
+			
+			var savedMessageLabel = YAHOO.util.Dom.getElementsByClassName(savedText, 'div');
 			
 			var tel = YAHOO.util.Dom.getElementsByClassName(commentedText, 'textarea');
 			
-			var scoreElement = YAHOO.util.Dom.getElementsByClassName(possibleScore, 'input');
+			var teacherScoreElement = YAHOO.util.Dom.getElementsByClassName(teacherScore, 'input');
 			
-			var score = scoreElement[0].value;
+			var possibleScoreElement = YAHOO.util.Dom.getElementsByClassName(possibleScore, 'input');
 			
-			YAHOO.log("score "+ scoreElement[0].value );
-			/*
-			* Remember to encode the key-value string if and when
-			* the string contains special characters.
-			*/
-			var sUrl = "gradingsubmit.html";
-			var postData = 'workgroupId='+workgroupId+'&runId='+runId+'&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value+'&score='+score;
+			var teacherScore = teacherScoreElement[0].value;
 			
-			var request = YAHOO.util.Connect.asyncRequest('POST', sUrl, null, postData);	
+			var possibleScore = possibleScoreElement[0].value;
 			
+			var possibleScoreResult;
 			
-			//change the comment
-			YAHOO.log('comente '+ tel[0].value);
-			for(var i = 0; i < el.length; i++) {
-				el[i].innerHTML = "information saved!";
+			StringUtilsJS.isNumeric(possibleScore, {
+					  callback:function(possibleScoreResult) { 
+					    // if the result is false display a dialog
+					  	if( possibleScoreResult == false ) {
+					  		displayScoreDialog(possibleScore); 
+					  	} else {
+					  	
+							/*
+							* Remember to encode the key-value string if and when
+							* the string contains special characters.
+							*/
+							var sUrl = "gradingsubmit.html";
+							var postData = 'workgroupId='+workgroupId+'&runId='+runId+'&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value+'&teacherScore='+teacherScore+'&possibleScore='+possibleScore;
+							
+							var request = YAHOO.util.Connect.asyncRequest('POST', sUrl, null, postData);	
+							
+							//change the comment			
+							savedMessageLabel[0].innerHTML = "information saved!";
+							
+							YAHOO.util.Dom.setStyle(commentedText, 'background-color', 'white'); 
+					  	
+					  	}// if
+					  }
+				});
+			};
+
+
+			/**
+			 * display score is incorrect dialog
+			 *
+			 * @param wrongScore - the incorrect input
+			 */
+			function displayScoreDialog(wrongScore) {
+				// Instantiate the Dialog
+				var teacherScoreErrorDialog = 
+								new YAHOO.widget.SimpleDialog("possibleScoreErrorDialog", 
+										 { width: "300px",
+										   fixedcenter: true,
+										   modal: true,
+										   visible: false,
+										   draggable: false,
+										   close: true,
+										   text: wrongScore + " is not a valid score, please input a number",
+										   icon: YAHOO.widget.SimpleDialog.ICON_WARN,
+										   constraintoviewport: true,
+										 } );
+			
+				teacherScoreErrorDialog.setHeader("<center>Score Error</center>"); 
+				teacherScoreErrorDialog.render(document.body); 
+				teacherScoreErrorDialog.show();
+			
 			}
-			
-		
-			YAHOO.util.Dom.setStyle(commentedText, 'background-color', 'white'); 
-		
-			
-		};
 
 </script>
 
@@ -348,9 +391,8 @@ aggregate.value = set of workgroupWorkAggregate
 												
 																				</c:forEach>
 																		</c:forEach>
-																		<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="9" value="${score}"/> out of
-																		<input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="9" value="${step.possibleScore}"/> 
-																		<INPUT TYPE=CHECKBOX NAME="maillist">revision required<P>
+																		<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}"/> out of <input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="3" value="${step.possibleScore}"/>
+																	
 																				<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
 																						<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save</button></em>
 																				</span>

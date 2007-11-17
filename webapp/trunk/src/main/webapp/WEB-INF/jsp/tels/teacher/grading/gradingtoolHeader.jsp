@@ -27,26 +27,5 @@
 	<a href="../index.html"><img id="none" src="../../<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" /></a>
 </div>
 
-<div id="navigation" style="position:relative;
-	bottom:35px;width:980px;">
-<ul style="font-size: 1em;">
-<li> <a href="../index.html"> <img src="../../<spring:theme code="home" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../../<spring:theme code="projects" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../../<spring:theme code="grading" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../../<spring:theme code="management_selected" />" style="border:0px;"/> </a> </li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"> <img src="../../<spring:theme code="help" />" style="border:0px;"/> </a> </li>
-</ul>
-
-<ul id="tabnav">
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')"><spring:message code="teacher.overview" /></a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')">Manage My Students</a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')">Class Monitor</a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')">Exports & Reports</a></li>
-<li> <a href="#" onclick="javascript:alert('This page is not available yet')">Update My Account</a></li>
-</ul>
-<p style="position: absolute;top:-5px;text-align:right;"> 
-<authz:authentication operation="username" />
- </p>
 <%@ include file="../../logout.jsp"%> 
-</div>	
    
