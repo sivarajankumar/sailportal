@@ -1,47 +1,35 @@
 <%@ include file="include.jsp"%>
-<!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
--->
-
-<!-- $Id$ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
+
+<%@ include file="yahooUIStyles.jsp"%>
+
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-
-  
 <title><spring:message code="run.list" /></title>
 
-<script language="JavaScript">
+<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
-function popup(URL, title) {
-  window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300,left = 570,top = 300');
-}
+<script language="JavaScript">
+	function popup(URL, title) 
+  	{window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300,left = 570,top = 300');}
 </script>
-<%@ include file="yahooUIStyles.jsp"%>
+
 <link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 <script>
-(function() {
-    var tabView = new YAHOO.widget.TabView('runTabs');
-})();
-</script>
+		(function() {
+   		 var tabView = new YAHOO.widget.TabView('tabSystem');})();
+ </script>
+ 
+  <style type="text/css" media="screen">
+
+
+
+	</style>
 
 </head>
 
@@ -54,7 +42,7 @@ function popup(URL, title) {
 <%@ include file="L2projects_myprojectruns.jsp"%>
 
 
-<div id="runTabs" class="yui-navset">
+<div id="tabSystem" class="yui-navset">
     <ul class="yui-nav">
         <li class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
         <li ><a href="#archivedRuns"><em>Archived Runs</em></a></li>
@@ -64,22 +52,22 @@ function popup(URL, title) {
         		<h5 id="subHeader">To manage any Project Run, select one of its Actions.</h5>
         		<div id="runBox">
 				
-				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0">
+				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
 				       <th style="width:50%;" class="tableHeaderMain">Project Run Title</th>
-				       <th style="width:35%;" class="tableHeaderMain">Run Information</th>      
-				      <th  style="width:15%;" class="tableHeaderMain">Actions</th>
+				       <th style="width:34%;" class="tableHeaderMain">Run Information</th>      
+				      <th  style="width:16%;" class="tableHeaderMain">Actions</th>
 				    </tr>
 				  <c:forEach var="run" items="${current_run_list}">
 				  
 				  <tr id="runTitleRow">
-				    <td >
+				    <td style="padding:0px 0;">
 				    	<div id="runTitle">${run.sdsOffering.name}</div>
 				      	<div id="titleSubHeader">&middot; library project, ID 21351 &middot;</div>
 				    	<div id="titleSubHeader">&middot; created 4/12/07 &middot;</div>
 				    	 
 				    </td>
-				    <td style="vertical-align:top;">
+				    <td style="vertical-align:top; padding:0px;">
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 				          <tr>
 				            <th class="tableInnerHeader">Period</th>
@@ -98,15 +86,15 @@ function popup(URL, title) {
 				          </c:forEach>
 				        </table>
 				    </td>
-				    <td>
+				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
-					    	<li><a href="#" style="text-decoration:line-through;">View Project Info</a></li>
-					    	<li><a href="#" style="text-decoration:line-through;">Edit Periods</a></li>
-					    	<li><a href="#" style="text-decoration:line-through;">Grade Students</a></li>
-					    	<li><a href="#" style="text-decoration:line-through;">Manage Students</a></li>
-					    	<li><a href="#" style="text-decoration:line-through;">Send Msg to Student(s)</a></li>
-					    	<li><a href="#" style="text-decoration:line-through;">Report a Problem</a></li>
-					    	<li><a href="#" style="text-decoration:line-through;">Archive this Run</a></li>
+					    	<li><a style="color:#cccccc;" href="#">View Project Info</a></li>
+					    	<li><a style="color:#cccccc;" href="#">Edit Periods</a></li>
+					    	<li><a href="../grading/gradebystep.html?runId=${run.id}"">Grade Students</a></li>
+					    	<li><a style="color:#cccccc;" href="#">Manage Students</a></li>
+					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
+					    	<li><a style="color:#cccccc;" href="#">Report a Problem</a></li>
+					    	<li><a style="color:#cccccc;" href="#">Archive this Run</a></li>
 					    </ul>
 					</td>
 				   </tr>

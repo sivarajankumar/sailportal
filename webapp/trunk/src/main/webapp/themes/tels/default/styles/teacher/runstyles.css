@@ -1,3 +1,9 @@
+
+
+
+
+
+
 #runContent{
 	border:1px solid #999999;
 	padding: 0 20px 20px 20px;
@@ -21,26 +27,20 @@
 #currentRunTable .tableHeaderMain {
 	background-color:#669933;
 	color:#FFFFFF;
-	font-size:.9em;
+	font-size:1.3em;
+	font-weight:bold;
 	padding: 3px 0px;
 }
 
-#currentRunInfoTable {
-	border-collapse:collapse;
-	margin:0px;
-	padding:0px;
-	width:100%;
-}
-
 #runTitleRow {
-	border-bottom:3px solid #666666;
+	border-bottom:4px solid #666666;
 	margin-bottom:20px;
 	padding-bottom:10px;
 }
 
 #runTitle {
 	text-align:center;
-	font-size:1.5em;
+	font-size:2.0em;
 	font-weight:bold;
 	margin: 15px 5px;
 	padding:0px;
@@ -48,18 +48,21 @@
 
 #titleSubHeader {
 	text-align:center;
-	font-size:.8em;
+	font-size:1.4em;
 	margin-top:1px;
 	padding:0px;
 }
 
 #currentRunInfoTable {
 	border-collapse:collapse;
+	margin:0px;
+	padding:0px;
+	width:100%;
 	}
 	
 #currentRunInfoTable .tableInnerHeader {
 	font-style:italic;
-	font-size:.8em;
+	font-size:1.3em;
 	font-weight:bold;
 	text-align:center;
 	padding: 3px 2px;
@@ -70,7 +73,7 @@
 
 #currentRunInfoTable .tableInnerHeaderRight {
 	font-style:italic;
-	font-size:.8em;
+	font-size:1.3em;
 	font-weight:bold;
 	text-align:center;
 	padding: 3px 2px;
@@ -79,7 +82,7 @@
 }
 
 #currentRunInfoTable .tableInnerData {
-	font-size:.8em;
+	font-size:1.3em;
 	text-align:center;
 	padding: 3px 2px;
 	border-bottom:1px solid #666666;
@@ -88,7 +91,7 @@
 }
 
 #currentRunInfoTable .tableInnerDataRight {
-	font-size:.8em;
+	font-size:1.3em;
 	text-align:center;
 	padding: 3px 2px;
 	border-bottom:1px solid #666666;
@@ -101,10 +104,15 @@
 	margin:0px;
 	padding:0px;
 	}
+	
+#actionList li {
+	list-style-type:none;
+	}
 
 #actionList a:link, #actionList a:visited {
 	display:block;
-	font-size:.8em;
+	text-decoration:none;
+	font-size:1.3em;
 	color:#0033CC;
 	margin:0px;
 	padding:0px 2px 1px 4px;
@@ -115,13 +123,15 @@
 #actionList a:hover {
 	display:block;
 	padding:0px 2px 1px 4px;
-	font-size:.8em;
-	color:#6666FF;
+	font-size:1.3em;
+	color:#000066;
 	background-color:#ffff33;
 	border-top:1px solid #666666;
 	border-bottom:1px solid #666666;
 	
 }
+
+
 
 
 
