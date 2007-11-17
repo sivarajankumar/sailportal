@@ -134,18 +134,6 @@ public class IndividualScoreImpl implements IndividualScore {
 		this.username = username;
 	}
 
-	@Override
-	public String toString() {
-		return this.lastName + ", " + this.firstName + " score "
-				+ this.getTotalAccumulatedScore() + " / "
-				+ this.getTotalPossibleScore();
-	}
-
-	public int compareTo(IndividualScore o) {
-		int lastCmp = lastName.compareTo(o.getLastName());
-		return (lastCmp != 0 ? lastCmp : firstName.compareTo(o.getFirstName()));
-	}
-
 	public Integer getTotalGradableSteps() {
 		return totalGradableSteps;
 	}
@@ -186,6 +174,56 @@ public class IndividualScoreImpl implements IndividualScore {
 	
 	public void setTotalGradableSteps(Integer totalGradableSteps) {
 		this.totalGradableSteps = totalGradableSteps;
+	}
+
+	
+	@Override
+	public String toString() {
+		return this.lastName + ", " + this.firstName + " score "
+				+ this.getTotalAccumulatedScore() + " / "
+				+ this.getTotalPossibleScore();
+	}
+
+	public int compareTo(IndividualScore o) {
+		return username.compareTo(o.getUsername());
+    }
+
+	// this is TELS-specific.
+//	public int compareTo(IndividualScore o) {
+//		int lastCmp = lastName.compareTo(o.getLastName());
+//		return (lastCmp != 0 ? lastCmp : firstName.compareTo(o.getFirstName()));
+//	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final IndividualScoreImpl other = (IndividualScoreImpl) obj;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
 
 }

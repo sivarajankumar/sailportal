@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.group.Group;
 
@@ -34,6 +35,7 @@ import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
+import org.telscenter.sail.webapp.domain.grading.IndividualScore;
 
 /**
  * Services for WISE teachers for grading student work. Grading involves
@@ -61,8 +63,6 @@ public interface GradingService {
 	 */
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException;
 	
-	public ECurnitmap getCurnitmapMock(Long runId) throws ObjectNotFoundException;
-	
 	/**
 	 * Returns an aggregate object to allow WISE teachers to grade student
 	 * work for a particular <code>Step</code> of a particular 
@@ -81,7 +81,6 @@ public interface GradingService {
 	 */
 	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId, EStep step) 
 	    throws ObjectNotFoundException;
-	
 	
 	/**
 	 * Returns an aggregate object to allow WISE teachers to grade student
@@ -140,6 +139,12 @@ public interface GradingService {
 	 *     does not key to an existing <code>Run</code>
 	 */
 	public GradeWorkByWorkgroupAggregate getGradeWorkByWorkgroupAggregate(Long runId, Long workgroupId) throws ObjectNotFoundException;
+	
+	/**
+	 * Returns a <code>Set</code> of <code>IndividualScore</code> objects for all of the
+	 * members within a specified <code>Workgroup</code> 
+	 */
+	public List<IndividualScore> getIndividualScores(Workgroup workgroup);
 	
 	/**
 	 * Saves the grades and comments

@@ -22,15 +22,30 @@
  */
 package org.telscenter.sail.webapp.service.grading.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
+import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 import static org.easymock.EasyMock.*;
 
 
+import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
+import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.grading.IndividualScore;
+import org.telscenter.sail.webapp.domain.grading.impl.IndividualScoreImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.service.grading.SessionBundleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -44,6 +59,10 @@ import junit.framework.TestCase;
  * @version $Id$
  */
 public class GradingServiceImplTest extends TestCase {
+
+	private static final String USERNAME_USER2 = "username_user1";
+
+	private static final String USERNAME_USER1 = "username_user2";
 
 	private Long runId;
 
@@ -85,7 +104,6 @@ public class GradingServiceImplTest extends TestCase {
 	
 	public void testGetCurnitmap_success() 
 	    throws ObjectNotFoundException {
-		// TODO HT add more as things are implemented
 		Run run = new RunImpl();
 		SdsOffering sdsOffering = new SdsOffering();
 		sdsOffering.setSdsCurnitMap(sdsCurnitmap);
@@ -98,27 +116,59 @@ public class GradingServiceImplTest extends TestCase {
 	}
 	
 	public void testGetCurnitmap_runId_invalid() 
-	     throws ObjectNotFoundException {
-		// TODO HT add more as things are implemented
+	    throws ObjectNotFoundException {
 		Run run = new RunImpl();
 		SdsOffering sdsOffering = new SdsOffering();
 		sdsOffering.setSdsCurnitMap(sdsCurnitmap);
 		run.setSdsOffering(sdsOffering);
-		expect(runService.retrieveById(runId)).andReturn(run);
+		expect(runService.retrieveById(runId)).andThrow(new ObjectNotFoundException(runId, Run.class));
 		replay(runService);
 
 		ECurnitmap curnitmap = null;
 		try {
 			curnitmap = gradingService.getCurnitmap(runId);
-			//fail("expected ObjectNotFoundException to be thrown");
+			fail("expected ObjectNotFoundException to be thrown");
 		} catch (ObjectNotFoundException e) {
 			assertNull(curnitmap);
 		}
 	}
 	
-//	public void testGetGradeWorkByStepAggregate() throws ObjectNotFoundException {
-//		// TODO HT add more as things are implemented
-//		assertTrue(true);
+	public void testGetIndividualScore_success() {
+		List<IndividualScore> expectedInvidualScores, actualIndividualScores = new ArrayList<IndividualScore>();
+
+		// populate expectedIndividualScores
+		expectedInvidualScores = new ArrayList<IndividualScore>();
+		IndividualScore individualScoreUser1 = new IndividualScoreImpl();
+		individualScoreUser1.setUsername(USERNAME_USER1);
+		expectedInvidualScores.add(individualScoreUser1);
+
+		IndividualScore individualScoreUser2 = new IndividualScoreImpl();
+		individualScoreUser2.setUsername(USERNAME_USER2);
+		expectedInvidualScores.add(individualScoreUser2);
+
+		
+		Workgroup workgroup = new WorkgroupImpl();
+		User user1 = new UserImpl();
+		MutableUserDetails userDetails1 = new PersistentUserDetails();
+		userDetails1.setUsername(USERNAME_USER1);
+		user1.setUserDetails(userDetails1);
+		User user2 = new UserImpl();
+		MutableUserDetails userDetails2 = new PersistentUserDetails();
+		userDetails2.setUsername(USERNAME_USER2);
+		user2.setUserDetails(userDetails2);
+		workgroup.addMember(user1);
+		workgroup.addMember(user2);
+		
+		actualIndividualScores = gradingService.getIndividualScores(workgroup);
+		
+		// test to see that expected&actual IndividualScores are equal
+		Collections.sort(expectedInvidualScores);
+		Collections.sort(actualIndividualScores);
+		assertEquals(expectedInvidualScores, actualIndividualScores);
+	}
+	
+//	public void testGetGradeWorkByStepAggregate() 
+//	    throws ObjectNotFoundException {
 //		ECurnitmap curnitmap = null;
 //		curnitmap = gradingService.getCurnitmap(runId);
 //		EStep step = (EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1);
@@ -143,10 +193,10 @@ public class GradingServiceImplTest extends TestCase {
 //		assertEquals(workgroup1, annotationBundle1.getWorkgroup());	
 //		
 //		ESessionBundle sessionBundle1 = aggregate.getSessionBundles().get(workgroup1);
-//		//assertNotNull(sessionBundle1); right now this is null
-//		//assertEquals(
-//		//		((ESockPart) sessionBundle1.getSockParts().get(1)).getRimName(),
-//		//		((ERim) ((EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1)).getRim().get(0)).getRimname()
-//		//		);
+//		assertNotNull(sessionBundle1); right now this is null
+//		assertEquals(
+//				((ESockPart) sessionBundle1.getSockParts().get(1)).getRimName(),
+//				((ERim) ((EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1)).getRim().get(0)).getRimname()
+//				);
 //	}
 }

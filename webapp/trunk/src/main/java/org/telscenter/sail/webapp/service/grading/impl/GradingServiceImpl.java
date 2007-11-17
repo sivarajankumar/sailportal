@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.service.grading.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.group.Group;
@@ -41,8 +43,10 @@ import org.telscenter.pas.emf.pas.util.CurnitmapLoader;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
+import org.telscenter.sail.webapp.domain.grading.IndividualScore;
 import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByStepAggregateImpl;
 import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByWorkgroupAggregateImpl;
+import org.telscenter.sail.webapp.domain.grading.impl.IndividualScoreImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.grading.SessionBundleService;
@@ -71,24 +75,6 @@ public class GradingServiceImpl implements GradingService {
 		return curnitmap;
 	}
 	
-		/**
-	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(java.lang.Long)
-	 */
-	public ECurnitmap getCurnitmapMock(Long runId) throws ObjectNotFoundException {
-		// TODO REPLACE MOCK BELOW WITH ACTUAL CODE WHEN READY	
-		// ALSO ADD LOGIC TO RETRIEVE RUN USING PROVIDED runId PARAMETER
-		String curnitmapXMLString = "<?xml version=\"1.0\" encoding=\"ASCII\"?>" +
-			"<pas:ECurnitmap xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:pas=\"pas\" xsi:schemaLocation=\"pas pas.ecore\">" +
-			"<project podUUID=\"cccccccc-0002-3878-0000-000000000000\"	title=\"Global Warming: Virtual Earth\">" +
-			"<activity podUUID=\"dddddddd-6004-0000-0000-000000000000\"	title=\"Identifying the Problem\" number=\"0\">" +
-			"<step podUUID=\"dddddddd-6004-0001-0000-000000000000\"	title=\"1. Global Warming is happening\" number=\"0\" type=\"Display\"		classname=\"org.telscenter.pas.steps.Display\" />" +
-			"<step podUUID=\"dddddddd-6004-0002-0000-000000000000\"	title=\"2. Take notes on the Science behind Global Warming part 1\" number=\"1\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined6\" prompt=\"html-stylized prompt for step 2 goes here\"/><rim rimname=\"undefined6a\" prompt=\"chocie prompt\"/></step>" +
-			"<step podUUID=\"dddddddd-6004-0003-0000-000000000000\"	title=\"3. Take notes on the Science behind Global Warming part 2\" number=\"2\"			type=\"Note\" classname=\"org.telscenter.pas.steps.Note\" ><rim rimname=\"undefined7\" prompt=\"html-stylized prompt for step 3 goes here\"/></step>" +
-			"</activity></project></pas:ECurnitmap>";	
-		ECurnitmap curnitmap = CurnitmapLoader.loadCurnitmap(curnitmapXMLString);
-		return curnitmap;
-	}
-
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradeWorkByStepAggregate(java.lang.Long, org.telscenter.pas.emf.pas.EStep)
 	 */
@@ -173,6 +159,22 @@ public class GradingServiceImpl implements GradingService {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getIndividualScore(net.sf.sail.webapp.domain.Workgroup)
+	 */
+	public List<IndividualScore> getIndividualScores(Workgroup workgroup) {
+		List<IndividualScore> individualScores = new ArrayList<IndividualScore>();
+		// get gradeworkbyworkgroupaggregate for this workgroup <- mock it for now or populate individualScore objects with random data
+		// do some parsing of the annotationbundle to get what you need to populate IndividualScore object
+		for (User user : workgroup.getMembers()) {
+			IndividualScore individualScore = new IndividualScoreImpl();
+			individualScore.setUsername(user.getUserDetails().getUsername());
+			// here, populate the individualScore object
+			individualScores.add(individualScore);			
+		}
+		return individualScores;
+	}
+	
+	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#saveGrades(java.util.List)
 	 */
 	public void saveGrades(List<AnnotationBundle> annotationBundles) {
@@ -212,4 +214,5 @@ public class GradingServiceImpl implements GradingService {
 			AnnotationBundleService annotationBundleService) {
 		this.annotationBundleService = annotationBundleService;
 	}
+
 }

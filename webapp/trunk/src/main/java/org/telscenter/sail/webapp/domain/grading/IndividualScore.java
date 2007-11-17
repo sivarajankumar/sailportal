@@ -30,7 +30,7 @@ import org.telscenter.pas.emf.pas.EStep;
 
 
 /**
- * Represents a particular students score
+ * Represents a particular student's score for a particular <code>Run</code>
  * 
  * @author Anthony Perritano
  * @version $Id$
@@ -39,8 +39,8 @@ public interface IndividualScore extends Comparable<IndividualScore> {
 
 	//getters
 	
-	public String getFirstName();
-	public String getLastName();
+	public String getFirstName();  // TELS SPECIFIC
+	public String getLastName();   // TELS SPECIFIC
 	public String getAccmulatedScore(EStep step);
 	public String getPossibleScore(EStep step);
 	public String getTotalAccumulatedScore();
@@ -48,8 +48,8 @@ public interface IndividualScore extends Comparable<IndividualScore> {
 	public Integer getTotalGradableSteps();
 	public Integer getTotalGradedSteps();
 	public Workgroup getWorkgroup();
-	public Group getPeriod();
-	public Long getRunId();
+	public Group getPeriod();   // CHANGE TO GROUP
+	public Long getRunId();     // CHANGE TO OFFERING
 	public String getUsername();
 	
 	public Integer getPercentageCompleted(); 
