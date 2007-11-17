@@ -108,6 +108,9 @@
     <path location="${M2_REPO}/org/telscenter/pas-curnitmap/0.1.0-SNAPSHOT/pas-curnitmap-0.1.0-SNAPSHOT.jar" />
   </path>
 
+  <path id="lib.dwr">
+	    <path location="${M2_REPO}/uk/ltd/getahead/dwr/2.0.2/dwr-2.0.2.jar" />
+  </path>
     <path id="classes">
         <path location="${dir.build.classes}" />
     </path>
@@ -129,6 +132,7 @@
         <path refid="lib.jdom" />
       	<path refid="lib.javamail" />
         <path refid="lib.sail" />
+    	<path refid="lib.dwr" />
         <path refid="classes" />
     </path>
 
