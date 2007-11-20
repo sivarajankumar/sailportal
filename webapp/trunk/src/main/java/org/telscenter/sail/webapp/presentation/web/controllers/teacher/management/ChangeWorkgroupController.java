@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.management;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,6 +31,8 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -42,30 +46,47 @@ public class ChangeWorkgroupController extends SimpleFormController {
 
 	private WorkgroupService workgroupService;
 	
+	private RunService runservice;
+	
 	private static final String STUDENT_PARAM_NAME = "student";
 	
 	private static final String WORKGROUPFROM_PARAM_NAME = "workgroupFrom";
 	
-	private static final String WORKGROUPTO_PARAM_NAME = "workgroupTo";
+	private static final String WORKGROUP_TO = "workgroupTo";
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		ChangeWorkgroupParameters params = new ChangeWorkgroupParameters();
 		params.setStudent((User) request.getAttribute(STUDENT_PARAM_NAME));
 		params.setWorkgroupFrom((Workgroup) request.getAttribute(WORKGROUPFROM_PARAM_NAME));
-		params.setWorkgroupTo((Workgroup) request.getAttribute(WORKGROUPTO_PARAM_NAME));
 		return params;
 	}
+	
+	@Override
+	protected ModelAndView showForm(HttpServletRequest request,
+			HttpServletResponse response,
+			BindException errors) throws Exception {
+		
+		// get the period of workgroupFrom
+		// list all the workgroups in that period
+		WISEWorkgroup workgroupFrom = (WISEWorkgroup) request.getAttribute(WORKGROUPFROM_PARAM_NAME);
+		
+		Set<Workgroup> workgroups = runservice.getWorkgroups(workgroupFrom.getOffering().getId(), workgroupFrom.getPeriod());
+	
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject(WORKGROUP_TO, workgroups);
+		return modelAndView;
+	}
+	
 	
 	@Override
     protected ModelAndView onSubmit(HttpServletRequest request, 
     		HttpServletResponse response, Object command, BindException errors){
     	ChangeWorkgroupParameters params = (ChangeWorkgroupParameters) command;
 
-    	ModelAndView modelAndView = null;
-
    		workgroupService.updateWorkgroupMembership(params);
-    	modelAndView = new ModelAndView(getSuccessView());
+    	ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
     	return modelAndView;
     }

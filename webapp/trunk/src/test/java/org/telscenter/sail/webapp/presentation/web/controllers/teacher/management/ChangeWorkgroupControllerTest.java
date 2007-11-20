@@ -130,4 +130,12 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 		assertTrue(!errors.hasErrors());
 		verify(mockWorkgroupService);
 	}
+	
+	public void testShowForm() throws Exception {
+		assertTrue(true);
+	}
+	
+	public void testFormBackingObject() throws Exception {
+		assertTrue(true);
+	}
 }
