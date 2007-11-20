@@ -109,7 +109,7 @@
   </path>
 
   <path id="lib.dwr">
-	    <path location="${M2_REPO}/uk/ltd/getahead/dwr/2.0.2/dwr-2.0.2.jar" />
+	    <path location="${M2_REPO}/org/directwebremoting/dwr/2.0.1/dwr-2.0.1.jar" />
   </path>
     <path id="classes">
         <path location="${dir.build.classes}" />
