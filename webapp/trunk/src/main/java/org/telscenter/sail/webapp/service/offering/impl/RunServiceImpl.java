@@ -22,7 +22,9 @@
  */
 package org.telscenter.sail.webapp.service.offering.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -45,6 +47,7 @@ import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -267,5 +270,20 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public Set<Workgroup> getWorkgroups(Long runId) 
 	     throws ObjectNotFoundException {
 		return this.runDao.getWorkgroupsForOffering(runId);
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#getWorkgroups(java.lang.Long, net.sf.sail.webapp.domain.group.Group)
+	 */
+	public Set<Workgroup> getWorkgroups(Long runId, Group period)
+			throws ObjectNotFoundException {
+		Set<Workgroup> workgroups = getWorkgroups(runId);
+		Set<Workgroup> returnSet = new HashSet<Workgroup>();
+		for(Workgroup workgroup : workgroups){
+				if (((WISEWorkgroup) workgroup).getPeriod().equals(period)){
+					returnSet.add(workgroup);
+			}
+		}
+		return returnSet;
 	}
 }
