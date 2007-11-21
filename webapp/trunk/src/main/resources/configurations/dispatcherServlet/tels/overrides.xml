@@ -86,7 +86,7 @@
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/myarchivedruns.html=myArchivedRunsController
     		    /teacher/run/archivedrunmanager.html=archivedRunManagerController
-    		    /teacher/run/manage/endRun.html=endRunController
+    		    /teacher/run/manage/archiveRun.html=endRunController
     		    /teacher/run/manage/startRun.html=startRunController
     		    /teacher/run/createRun.html=createRunController
     		    /teacher/grading/gradebystep.html=gradeByStepController

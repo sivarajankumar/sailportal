@@ -146,7 +146,7 @@ a:hover {
 	
 #navigationL2 {
 	padding:0px;
-	margin-top:5px;
+	margin-top:3px;
 	width:958px;
 	border:1px solid #999999;
 	 
@@ -198,6 +198,10 @@ a:hover {
 	border:1px solid #666666;
 	}
 
+.inactivecolorL2 {
+	color:#999999;
+	}
+	
 	
 /* SETTING UP A RUN */
 	

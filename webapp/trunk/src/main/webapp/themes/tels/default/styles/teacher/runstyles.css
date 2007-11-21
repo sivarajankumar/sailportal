@@ -1,9 +1,4 @@
 
-
-
-
-
-
 #runContent{
 	border:1px solid #999999;
 	padding: 0 20px 20px 20px;
@@ -24,7 +19,7 @@
 	border-collapse:collapse;
 }
 
-#currentRunTable .tableHeaderMain {
+.tableHeaderMain {
 	background-color:#669933;
 	color:#FFFFFF;
 	font-size:1.3em;
@@ -32,10 +27,23 @@
 	padding: 3px 0px;
 }
 
+.tableHeaderMain.archive {
+	background-color:#FF0000;
+	color:#FFFFFF;
+	font-size:1.3em;
+	font-weight:bold;
+	padding: 3px 0px;
+}
+
 #runTitleRow {
-	border-bottom:4px solid #666666;
+	border-bottom:4px ridge #666666;
 	margin-bottom:20px;
 	padding-bottom:10px;
+}
+
+#titleCell {
+	padding: 0 0 10px 0;
+	
 }
 
 #runTitle {
@@ -48,7 +56,8 @@
 
 #titleSubHeader {
 	text-align:center;
-	font-size:1.4em;
+	font-size:1.3em;
+	color:#333333;
 	margin-top:1px;
 	padding:0px;
 }
@@ -78,6 +87,7 @@
 	text-align:center;
 	padding: 3px 2px;
 	border-bottom:1px solid #666666;
+	border-right:0px;
 	background-color:#CCCCCC;
 }
 
@@ -95,6 +105,7 @@
 	text-align:center;
 	padding: 3px 2px;
 	border-bottom:1px solid #666666;
+	border-right:0px;
 	margin:0px;
 }
 
@@ -129,6 +140,34 @@
 	border-top:1px solid #666666;
 	border-bottom:1px solid #666666;
 	
+}
+
+
+/* STYLES FOR MY PROJECT RUN: POP UP WINDOWS  */
+
+#popUpBoxBoundary {
+	width:640px;
+}
+
+#largeHeader {
+	margin-top:30px;
+	font-size:2.3em;
+	letter-spacing:2px;
+	font-variant:small-caps;
+	text-align:center;
+}
+
+#blockHighlight {
+	width:80%;
+	text-align:center;
+	background-color:#99FF99;
+	border:1px solid #000000; 
+	margin: 20px auto 20px auto;
+	padding:20px 20px 30px 20px;
+}
+
+#runTitle {
+	font-size:2em;
 }
 
 

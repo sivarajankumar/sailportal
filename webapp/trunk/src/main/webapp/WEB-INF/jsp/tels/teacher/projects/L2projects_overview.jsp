@@ -29,8 +29,8 @@
 		<li>
 			<a href="../run/myprojectruns.html">My Project Runs</a> </li>
 		<li>
-			<a style="text-decoration:line-through;" href="index.html">My Bookmarked Projects</a> </li>
+			<a style="color:#999999;" href="index.html">My Bookmarked Projects</a> </li>
 		<li>
-			<a style="text-decoration:line-through;" href="index.html">My Customized Projects</a> </li>
+			<a style="color:#999999;" href="index.html">My Customized Projects</a> </li>
    </ul>
 </div>	

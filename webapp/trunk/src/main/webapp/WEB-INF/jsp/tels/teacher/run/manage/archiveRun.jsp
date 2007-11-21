@@ -23,18 +23,33 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
+
+<link href="../../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
     
 <script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
     
-<title>End Run</title>
+<title>Archive Run Pop Up</title>
 </head>
 
 <body>
 
-<h1>End Run</h1>
+<div id="centeredDiv">
 
+<div id="popUpBoxBoundary">
+
+<div id="largeHeader">Archive Project Run</div>
+
+<div id="blockHighlight" >
+	<div id="runTitle">[DATA NEEDED: Project Name Here]</div>
+	<div id="titleSubHeader">&middot; DATA NEEDED: library project, ID 21351 &middot;</div>
+	<div id="titleSubHeader">&middot; DATA NEEDED: created 4/12/07 &middot;</div>
+	<div id="titleSubHeader">&middot; DATA NEEDED: archived 4/12/07 &middot;</div>
+</div>			    	
+
+<p id="popUpNotice">Are you sure you want to archive this project?<br/>
+Note that no information will be lost, only stored in the Archive folder. 
+You 
 <!-- Support for Spring errors object -->
 <spring:bind path="endRunParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -44,8 +59,8 @@
   </c:forEach>
 </spring:bind>
 
-<form:form method="post" action="endRun.html" commandName="endRunParameters" id="endRun" >
-  <div><label for="runId">Run ID:</label>
+<form:form method="post" action="archiveRun.html" commandName="endRunParameters" id="archiveRun" >
+  <div style="visibility:invisible;"><label for="runId">Run ID:</label>
       <form:input disabled="true" path="runId" id="runId"/>
       <form:errors path="runId" />
   </div>
@@ -60,6 +75,8 @@
     </div>
 
 </form:form>
+
+</div>    <!--    End of centeredDiv -->
 
 </body>
 </html>
