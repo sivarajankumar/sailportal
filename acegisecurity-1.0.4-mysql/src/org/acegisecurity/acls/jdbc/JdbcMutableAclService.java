@@ -95,8 +95,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
     
     private String selectSidPrimaryKey = "SELECT id FROM acl_sid WHERE principal=? AND sid=?";
     
-    private String updateObjectIdentity = "UPDATE acl_object_identity SET "
-        + "parent_object = ?, owner_sid = ?, entries_inheriting = ?" + " where id = ?";
+    private String updateObjectIdentity = "UPDATE acl_object_identity SET parent_object=?, owner_sid=?, entries_inheriting=? where id=?";
 
     //~ Constructors ===================================================================================================
 
