@@ -159,18 +159,24 @@
     </dependencies>
 
     <build>
-    	<sourceDirectory>${basedir}/src</sourceDirectory>
-    	<outputDirectory>/target</outputDirectory>
         <resources>
             <resource>
                 <directory>${basedir}/META-INF</directory>
-                <targetPath>/target/META-INF</targetPath>
+                <targetPath>META-INF</targetPath>
                 <includes>
-                    <include>*</include>
+                    <include>authz.tld</include>
+                    <include>MANIFEST.MF</include>
+                    <include>notice.txt</include>
                 </includes>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
+                <excludes>
+                	<exclude>*.jar</exclude>
+                </excludes>
             </resource>
         </resources>
+		<sourceDirectory>${basedir}/src</sourceDirectory>
+        <directory>target</directory>
+        <outputDirectory>target/classes</outputDirectory>
     </build>
 
 </project>
