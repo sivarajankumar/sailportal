@@ -17,8 +17,10 @@
  */
 package net.sf.sail.webapp.service.workgroup.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.lang.Exception;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
@@ -218,7 +220,25 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#updateWorkgroupMembership(net.sf.sail.webapp.domain.User, net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Workgroup)
      */
-    public void updateWorkgroupMembership(ChangeWorkgroupParameters params) {
+    @Transactional()
+    public void updateWorkgroupMembership(ChangeWorkgroupParameters params)throws Exception {
+    	Workgroup toGroup;
+    	Workgroup fromGroup;
+    	User thisStudent = params.getStudent();
     	
+    	fromGroup = params.getWorkgroupFrom();
+    	if (params.getWorkgroupTo() == null){
+    		toGroup = new WorkgroupImpl();
+    	} else {
+    		toGroup = params.getWorkgroupTo();
+    	}
+    	
+    	Set<User> thisSet = new HashSet<User>();
+    	thisSet.add(thisStudent);
+    	this.addMembers(toGroup, thisSet);
+    	
+    	if(!(fromGroup == null)){
+    		this.removeMembers(fromGroup, thisSet);
+    	}
     }
 }

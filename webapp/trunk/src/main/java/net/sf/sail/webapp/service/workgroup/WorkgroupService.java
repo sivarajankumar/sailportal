@@ -144,7 +144,8 @@ public interface WorkgroupService {
      * 		the workgroup that receives the student
      * 		if workgroupTo does not exist, workgroupTo is null, and
      * 		a new workgroup is created
+     * @throws <code>Exception</code> when update fails
      * 
      */
-    public void updateWorkgroupMembership(ChangeWorkgroupParameters params);
+    public void updateWorkgroupMembership(ChangeWorkgroupParameters params)throws Exception;
 }

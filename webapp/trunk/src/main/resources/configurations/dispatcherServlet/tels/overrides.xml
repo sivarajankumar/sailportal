@@ -111,7 +111,7 @@
 				/teacher/management/viewmystudents.html=viewMyStudentsController
 				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
 				/teacher/management/changestudentpassword.html=changeStudentPasswordController
-				/teacher/management/changeworkgroup.html=changeWorkgroupController				
+				/teacher/management/changeworkgroup.html=changeWorkgroupController
     		</value>
     	</property>
     </bean>

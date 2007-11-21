@@ -41,6 +41,22 @@ public class ChangeWorkgroupParameters implements Serializable {
 	
 	private Workgroup workgroupTo;
 	
+	private Long workgroupToId;
+	
+	/**
+	 * @return the workgroupToId
+	 */
+	public Long getWorkgroupToId() {
+		return workgroupToId;
+	}
+
+	/**
+	 * @param workgroupToId the workgroupToId to set
+	 */
+	public void setWorkgroupToId(Long workgroupToId) {
+		this.workgroupToId = workgroupToId;
+	}
+
 	public void setStudent(User student) {
 		this.student = student;
 	}

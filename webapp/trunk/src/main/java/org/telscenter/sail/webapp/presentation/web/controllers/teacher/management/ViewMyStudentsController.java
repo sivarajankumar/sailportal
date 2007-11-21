@@ -25,11 +25,12 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.manageme
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
+import org.telscenter.sail.webapp.service.workgroup.*;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.service.workgroup.*;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +38,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.domain.Run;
+import net.sf.sail.webapp.domain.group.*;
 
 import java.util.*;
 
@@ -55,6 +57,15 @@ public class ViewMyStudentsController extends AbstractController{
 
 	private HttpRestTransport httpRestTransport;
 
+	/**
+	 * @param httpRestTransport
+	 *            the httpRestTransport to set
+	 */
+	@Required
+	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
+		this.httpRestTransport = httpRestTransport;
+	}
+
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
 	protected final static String CURRENT_RUN_LIST_KEY = "current_run_list";
@@ -62,6 +73,8 @@ public class ViewMyStudentsController extends AbstractController{
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 	
 	protected final static String GRADING_PARAM = "gradingParam";
+	
+	protected final static String NON_WORKGROUP_STUDENT_LIST = "grouplessStudents";
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
 	
@@ -91,18 +104,40 @@ public class ViewMyStudentsController extends AbstractController{
 			}
 		}
 		// end temporary code
+		Map<Group, Set<User>> grouplessStudents = new HashMap<Group, Set<User>>();
+		Map<Group, List<Workgroup>> workgroupMap = new HashMap<Group, List<Workgroup>>();
 		List<Run> current_run_list = new ArrayList<Run>();
-		Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
 		for (Run run : runList2) {
-			List<Workgroup> workgroupList = this.workgroupService
-					.getWorkgroupListByOfferingAndUser(run, user);
-
-			workgroupMap.put(run, workgroupList);
+			
+			Set<Workgroup> workgroups = this.runService.getWorkgroups(run.getId());
+			for(Workgroup workgroup : workgroups){
+				if (workgroup.getMembers().size() > 0){
+					Group period = run.getPeriodOfStudent(workgroup.getMembers().iterator().next());
+					if (workgroupMap.containsKey(period)){
+						workgroupMap.get(period).add(workgroup);
+					} else {
+						ArrayList<Workgroup> newList = new ArrayList<Workgroup>();
+						newList.add(workgroup);
+						workgroupMap.put(period, newList);
+					}
+				}
+			}
+			
+			for(Group period : run.getPeriods()){
+				Set<User> periodStudents = new HashSet<User>();
+				periodStudents.addAll(period.getMembers());
+				for(Workgroup workgroup : workgroups){
+					periodStudents.removeAll(workgroup.getMembers());
+				}
+				grouplessStudents.put(period, periodStudents);
+			}
+			
 			if (!run.isEnded()) {
 				current_run_list.add(run);
 			}
 		}
 
+		modelAndView.addObject(NON_WORKGROUP_STUDENT_LIST, grouplessStudents);
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
@@ -125,14 +160,5 @@ public class ViewMyStudentsController extends AbstractController{
 	@Required
 	public void setRunService(RunService runService) {
 		this.runService = runService;
-	}
-
-	/**
-	 * @param httpRestTransport
-	 *            the httpRestTransport to set
-	 */
-	@Required
-	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-		this.httpRestTransport = httpRestTransport;
 	}
 }

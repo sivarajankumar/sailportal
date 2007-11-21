@@ -36,6 +36,7 @@ import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import net.sf.sail.webapp.service.*;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
@@ -82,13 +83,20 @@ public class ChangeWorkgroupController extends SimpleFormController {
 		modelAndView.addObject(WORKGROUPS_TO, workgroups);
 		return modelAndView;
 	}
-	
+
 	
 	@Override
     protected ModelAndView onSubmit(HttpServletRequest request, 
     		HttpServletResponse response, Object command, BindException errors){
     	ChangeWorkgroupParameters params = (ChangeWorkgroupParameters) command;
 
+    	Long workgroupToId = params.getWorkgroupToId();
+    	
+    	try {
+			params.setWorkgroupTo(workgroupService.retrieveById(workgroupToId));
+		} catch (ObjectNotFoundException e1) {
+			params.setWorkgroupTo(null);
+		}
     	try{
     		workgroupService.updateWorkgroupMembership(params);
     	} catch (Exception e){

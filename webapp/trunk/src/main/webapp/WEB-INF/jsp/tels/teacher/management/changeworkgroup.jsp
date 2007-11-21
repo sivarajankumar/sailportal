@@ -16,28 +16,18 @@
 
 <h2><spring:message code="changeworkgroup.menu" /></h2>
 
-<!-- Support for Spring errors object -->
-<spring:bind path="changeWorkgroupParameters.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <b>
-      <br /><c:out value="${error}"/>
-    </b>
-  </c:forEach>
-</spring:bind>
-
-
 <h1><spring:message code="changeworkgroup.message" /></h1>
 
 <form:form method="post" action="changeworkgroup.html" commandName="changeWorkgroupParameters" id="changeWorkgroups" >
-       <form:select path="workgroupTo" id="workgroupTo">       
-          <c:forEach items="${workgroupsTo}" var="workgroupTo">
-            <form:option value="${workgroupTo}">
-               ${workgroupTo.sdsWorkgroup.name}
+       <form:select path="workgroupToId" id="workgroupTo">       
+          <c:forEach items="${workgroupsTo}" var="workgroupToChoice">
+            <form:option value="${workgroupToChoice.id}">
+               ${workgroupToChoice.sdsWorkgroup.name}
             </form:option>
           </c:forEach>
- <!--         <form:option value="${null}">
+          <form:option value="-1">
              New Workgroup
-          </form:option>   --> 
+          </form:option>   
         </form:select> 
       <input type="image" id="save" src="../<spring:theme code="register_save" />" 
     onmouseover="swapSaveImage('save',1)" 
