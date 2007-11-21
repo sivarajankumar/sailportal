@@ -194,8 +194,12 @@
 	</target>
 
 	<target name="_mysql.recreate" depends="_mysql.check" if="mysql.recreate">
-		<exec executable="/bin/sh">
+		<exec osfamily="Unix" executable="/bin/sh">
 			<arg value="./mysql-init.sh"/>
+		</exec>
+		<exec osfamily="Winnt" executable="cmd">
+			<arg value="/c"/>
+			<arg value="mysql-init.bat"/>
 		</exec>
 	</target>
 

@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
+        parent_object bigint,
         owner_sid bigint,
         object_id_class bigint not null,
-        parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=InnoDB;
@@ -115,9 +115,9 @@
         OPTLOCK integer,
         name varchar(255) not null,
         offering_id bigint not null unique,
-        sds_curnitmap text,
-        sds_curnit_fk bigint not null,
+        sds_curnitmap longtext,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=InnoDB;
 
@@ -168,8 +168,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=InnoDB;
 
