@@ -75,11 +75,12 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
     private String insertClass = "INSERT INTO acl_class (class) VALUES (?)";
     
     private String insertEntry = "INSERT INTO acl_entry "
-        + "(acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure)"
+        + "(acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) "
         + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     
     private String insertObjectIdentity = "INSERT INTO acl_object_identity "
-        + "(object_id_class, object_id_identity, owner_sid, entries_inheriting) " + "VALUES (?, ?, ?, ?)";
+        + "(object_id_class, object_id_identity, owner_sid, entries_inheriting) " 
+        + "VALUES (?, ?, ?, ?)";
     
     private String insertSid = "INSERT INTO acl_sid (principal, sid) VALUES (?, ?)";
     
@@ -95,7 +96,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
     private String selectSidPrimaryKey = "SELECT id FROM acl_sid WHERE principal=? AND sid=?";
     
     private String updateObjectIdentity = "UPDATE acl_object_identity SET "
-        + "parent_object = ?, owner_sid = ?, entries_inheriting = ?" + "where id = ?";
+        + "parent_object = ?, owner_sid = ?, entries_inheriting = ?" + " where id = ?";
 
     //~ Constructors ===================================================================================================
 
