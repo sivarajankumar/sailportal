@@ -132,13 +132,13 @@ public interface GradingService {
 	 * <code>AnnotationBundle</code> for the entire project.
 	 * 
 	 * @param runId id of the run that the teacher wants to grade
-	 * @param workgroupId particular workgroup that the teacher wants to grade
+	 * @param workgroup particular workgroup that the teacher wants to grade
 	 * @return <code>gradeWorkAggregate</code> containing all of the workgroup's
 	 *     work for the entire project.
 	 * @throws ObjectNotFoundException when the provided runId
 	 *     does not key to an existing <code>Run</code>
 	 */
-	public GradeWorkByWorkgroupAggregate getGradeWorkByWorkgroupAggregate(Long runId, Long workgroupId) throws ObjectNotFoundException;
+	public GradeWorkByWorkgroupAggregate getGradeWorkByWorkgroupAggregate(Long runId, Workgroup workgroup) throws ObjectNotFoundException;
 	
 	/**
 	 * Returns a <code>Set</code> of <code>IndividualScore</code> objects for all of the

@@ -157,7 +157,7 @@ public class GradingServiceImpl implements GradingService {
 		
 		return aggregate;
 	}
-
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getIndividualScore(net.sf.sail.webapp.domain.Workgroup)
 	 */
@@ -195,15 +195,6 @@ public class GradingServiceImpl implements GradingService {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
-	}
-
-	/**
-	 * TODO HT: make this work (need to add WorkgroupService.retrieveById)
-	 */
-	public GradeWorkByWorkgroupAggregate getGradeWorkByWorkgroupAggregate(
-			Long runId, Long workgroupId) throws ObjectNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public AnnotationBundleService getAnnotationBundleService() {

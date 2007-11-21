@@ -336,6 +336,18 @@ public class GroupServiceImplTest extends TestCase {
 		assertEquals(3, this.group1.getMembers().size());
 	}
 	
+	public void testUpdateGroup_changeGroupName() throws Exception {
+		
+		// first create a group
+		createGroup1();
+
+		assertEquals(this.group1.getName(), DEFAULT_GROUP_NAMES[0]);
+
+		GroupParameters groupParameters = new GroupParameters();
+		groupParameters.setName(DEFAULT_GROUP_NAMES[1]);
+		this.groupServiceImpl.updateGroup(groupParameters);		
+	}
+	
 	public void testRetrieveById() throws Exception {
 		Group group = new PersistentGroup();
 		Long groupId = new Long(5);
