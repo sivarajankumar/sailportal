@@ -88,8 +88,8 @@ public class SdsOffering implements SdsObject {
     @Column(name = SdsOffering.COLUMN_NAME_OFFERING_ID, unique = true, nullable = false)
     private Long sdsObjectId;
 
-    @Column(name=SdsOffering.COLUMN_NAME_SDS_CURNITMAP)
     @Lob
+    @Column(name=SdsOffering.COLUMN_NAME_SDS_CURNITMAP, length = 2147483647) // Keep length to force it to use large field type 
     private String sdsCurnitMap;
     
     /**
