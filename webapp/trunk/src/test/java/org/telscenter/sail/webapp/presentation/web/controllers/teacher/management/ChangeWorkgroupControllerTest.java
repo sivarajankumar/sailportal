@@ -29,9 +29,12 @@ import javax.servlet.http.HttpSession;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
+import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.easymock.EasyMock;
@@ -41,7 +44,6 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
 
 
@@ -57,6 +59,8 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 	
 	private WorkgroupService mockWorkgroupService;
 	
+	private UserService mockUserService;
+	
 	private MockHttpServletRequest request;
 
 	private MockHttpServletResponse response;
@@ -67,11 +71,19 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 	
 	private User user;
 	
-	private User studentToMove;
+	private User student;
+	
+	private MutableUserDetails studentDetails;
 	
 	private Workgroup workgroupFrom;
 	
 	private Workgroup workgroupTo;
+	
+	private static final Long WORKGROUP_TO_ID = Long.parseLong("2");
+	
+	private static final Long WORKGROUP_FROM_ID = Long.parseLong("3");
+	
+	private static final String STUDENT_NAME = "alice";
 	
 	private static final String SUCCESS = "SUCCESS VIEW";
 	
@@ -89,21 +101,29 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 		mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, user);
 		request.setSession(mockSession);
 		
-		studentToMove = new UserImpl();
+		mockWorkgroupService = EasyMock.createMock(WorkgroupService.class);
+		mockUserService = EasyMock.createMock(UserService.class);
+		
+		student = new UserImpl();
+		studentDetails = new PersistentUserDetails();
+		studentDetails.setUsername(STUDENT_NAME);
+		student.setUserDetails(studentDetails);
 		workgroupTo = new WorkgroupImpl();
 		workgroupFrom = new WorkgroupImpl();
-		workgroupFrom.addMember(studentToMove);
+		workgroupFrom.addMember(student);
+		workgroupFrom.setSdsWorkgroup(new SdsWorkgroup());
+		workgroupFrom.getSdsWorkgroup().setSdsObjectId(WORKGROUP_FROM_ID);
 
-		mockWorkgroupService = EasyMock.createMock(WorkgroupService.class);
-		
 		changeWorkgroupController = new ChangeWorkgroupController();
 		changeWorkgroupController.setSuccessView(SUCCESS);
 		changeWorkgroupController.setFormView(FORM);
 		changeWorkgroupController.setWorkgroupService(mockWorkgroupService);
+		changeWorkgroupController.setUserService(mockUserService);
 		changeWorkgroupParameters = new ChangeWorkgroupParameters();
-		changeWorkgroupParameters.setStudent(studentToMove);
+		changeWorkgroupParameters.setStudent(student);
 		changeWorkgroupParameters.setWorkgroupFrom(workgroupFrom);
-		changeWorkgroupParameters.setWorkgroupTo(workgroupTo);
+		changeWorkgroupParameters.setWorkgroupTo(null);
+		changeWorkgroupParameters.setWorkgroupToId(WORKGROUP_TO_ID);
 		
 		errors = new BindException(changeWorkgroupParameters, "");
 	}
@@ -118,12 +138,14 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 		mockWorkgroupService = null;
 	}
 	
-	public void testOnSubmit_success() throws ObjectNotFoundException {
+	public void testOnSubmit_success() throws Exception {
 		// tests when one student is moved from one group to another.
 		// should return a success view 
+		EasyMock.expect(mockWorkgroupService.retrieveById(WORKGROUP_TO_ID)).andReturn(workgroupTo);
 		mockWorkgroupService.updateWorkgroupMembership(changeWorkgroupParameters);
 		EasyMock.expectLastCall();
         EasyMock.replay(this.mockWorkgroupService);
+      
 		
         ModelAndView modelAndView = changeWorkgroupController.onSubmit(request, response, changeWorkgroupParameters, errors);
 		assertEquals(SUCCESS, modelAndView.getViewName());
@@ -136,6 +158,22 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testFormBackingObject() throws Exception {
+		request.setParameter("workgroupFrom", WORKGROUP_FROM_ID.toString());
+		request.setParameter("student", STUDENT_NAME);
+		
+		EasyMock.expect(mockUserService.retrieveUserByUsername(STUDENT_NAME)).andReturn(student);
+		EasyMock.replay(this.mockUserService);
+		EasyMock.expect(mockWorkgroupService.retrieveById(WORKGROUP_FROM_ID)).andReturn(workgroupFrom);
+		EasyMock.replay(this.mockWorkgroupService);
+		
+		Object returnedParams = changeWorkgroupController.formBackingObject(request);
+		assertTrue(returnedParams instanceof ChangeWorkgroupParameters);
+		
+		verify(mockUserService);
+		verify(mockWorkgroupService);
+		ChangeWorkgroupParameters params = (ChangeWorkgroupParameters) returnedParams;
+		assertEquals(params.getWorkgroupFrom().getSdsWorkgroup().getSdsObjectId(), WORKGROUP_FROM_ID);
+		assertEquals(params.getStudent().getUserDetails().getUsername(), STUDENT_NAME);
 		assertTrue(true);
 	}
 }
