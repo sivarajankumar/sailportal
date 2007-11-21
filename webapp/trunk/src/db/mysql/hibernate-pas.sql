@@ -1,46 +1,3 @@
-    drop table if exists acl_class;
-
-    drop table if exists acl_entry;
-
-    drop table if exists acl_object_identity;
-
-    drop table if exists acl_sid;
-
-    drop table if exists annotationBundles;
-
-    drop table if exists curnits;
-
-    drop table if exists granted_authorities;
-
-    drop table if exists groups;
-
-    drop table if exists groups_related_to_users;
-
-    drop table if exists jnlps;
-
-    drop table if exists offerings;
-
-    drop table if exists sds_curnits;
-
-    drop table if exists sds_jnlps;
-
-    drop table if exists sds_offerings;
-
-    drop table if exists sds_users;
-
-    drop table if exists sds_workgroups;
-
-    drop table if exists sds_workgroups_related_to_sds_users;
-
-    drop table if exists user_details;
-
-    drop table if exists user_details_related_to_roles;
-
-    drop table if exists users;
-
-    drop table if exists workgroups;
-
-    drop table if exists workgroups_related_to_users;
 
     create table acl_class (
         id bigint not null auto_increment,
@@ -69,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
+        owner_sid bigint,
         object_id_class bigint not null,
         parent_object bigint,
-        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=InnoDB;
@@ -219,8 +176,8 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_workgroup_fk bigint not null unique,
         offering_fk bigint not null,
+        sds_workgroup_fk bigint not null unique,
         primary key (id)
     ) type=InnoDB;
 
