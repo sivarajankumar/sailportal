@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.impl;
 
+import java.io.Serializable;
+
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
@@ -29,7 +31,9 @@ import net.sf.sail.webapp.domain.Workgroup;
  * @author Sally Ahn
  * @version $Id: $
  */
-public class ChangeWorkgroupParameters {
+public class ChangeWorkgroupParameters implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private User student;
 	

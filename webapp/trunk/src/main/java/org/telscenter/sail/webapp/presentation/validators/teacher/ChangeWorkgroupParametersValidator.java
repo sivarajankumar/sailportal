@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.presentation.validators.teacher;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
 
 /**
@@ -32,7 +33,7 @@ import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
  * @author Sally Ahn
  * @version $Id: $
  */
-public class ChangeWorkgroupParametersValidator {
+public class ChangeWorkgroupParametersValidator implements Validator{
 
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)

@@ -437,4 +437,19 @@
 		<property name="validator" ref="changePasswordParametersValidator"/>
 	</bean>
 	
+	    
+    <bean id="changeWorkgroupParametersValidator"
+    	class="org.telscenter.sail.webapp.presentation.validators.teacher.ChangeWorkgroupParametersValidator"/>
+
+    <bean id="changeWorkgroupController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeWorkgroupController">
+    	<property name="commandName" value="changeWorkgroupParameters"/>
+    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters"/>
+    	<property name="validator" ref="changeWorkgroupParametersValidator"/>
+    	<property name="runService" ref="runService"/>
+		<property name="sessionForm" value="true"/>    	
+    	<property name="workgroupService" ref="wiseWorkgroupService"/>
+    	<property name="userService" ref="userService"/>
+    </bean>
+    
 </beans>

@@ -32,7 +32,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import net.sf.sail.webapp.service.*;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -46,19 +48,21 @@ public class ChangeWorkgroupController extends SimpleFormController {
 
 	private WorkgroupService workgroupService;
 	
-	private RunService runservice;
+	private RunService runService;
+	
+	private UserService userService;
 	
 	private static final String STUDENT_PARAM_NAME = "student";
 	
 	private static final String WORKGROUPFROM_PARAM_NAME = "workgroupFrom";
 	
-	private static final String WORKGROUP_TO = "workgroupTo";
+	private static final String WORKGROUPS_TO = "workgroupsTo";
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		ChangeWorkgroupParameters params = new ChangeWorkgroupParameters();
-		params.setStudent((User) request.getAttribute(STUDENT_PARAM_NAME));
-		params.setWorkgroupFrom((Workgroup) request.getAttribute(WORKGROUPFROM_PARAM_NAME));
+		params.setStudent(userService.retrieveUserByUsername(request.getParameter(STUDENT_PARAM_NAME)));
+		params.setWorkgroupFrom(workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPFROM_PARAM_NAME))));
 		return params;
 	}
 	
@@ -69,13 +73,13 @@ public class ChangeWorkgroupController extends SimpleFormController {
 		
 		// get the period of workgroupFrom
 		// list all the workgroups in that period
-		WISEWorkgroup workgroupFrom = (WISEWorkgroup) request.getAttribute(WORKGROUPFROM_PARAM_NAME);
+		WISEWorkgroup workgroupFrom = (WISEWorkgroup) workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPFROM_PARAM_NAME)));
 		
-		Set<Workgroup> workgroups = runservice.getWorkgroups(workgroupFrom.getOffering().getId(), workgroupFrom.getPeriod());
-	
-		ModelAndView modelAndView = new ModelAndView();
+		Set<Workgroup> workgroups = runService.getWorkgroups(workgroupFrom.getOffering().getId(), workgroupFrom.getPeriod());
+
+		ModelAndView modelAndView = super.showForm(request, response, errors);
 		
-		modelAndView.addObject(WORKGROUP_TO, workgroups);
+		modelAndView.addObject(WORKGROUPS_TO, workgroups);
 		return modelAndView;
 	}
 	
@@ -85,7 +89,12 @@ public class ChangeWorkgroupController extends SimpleFormController {
     		HttpServletResponse response, Object command, BindException errors){
     	ChangeWorkgroupParameters params = (ChangeWorkgroupParameters) command;
 
-   		workgroupService.updateWorkgroupMembership(params);
+    	try{
+    		workgroupService.updateWorkgroupMembership(params);
+    	} catch (Exception e){
+    		//oh, what to do with error?
+    	}
+    	
     	ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
     	return modelAndView;
@@ -98,6 +107,15 @@ public class ChangeWorkgroupController extends SimpleFormController {
 		this.workgroupService = workgroupService;
 	}
 	
-	
+	public void setRunService(RunService runService){
+		this.runService = runService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 	
 }
