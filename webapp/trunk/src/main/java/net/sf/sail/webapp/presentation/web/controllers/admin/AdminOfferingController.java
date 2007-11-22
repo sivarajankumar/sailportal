@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * @author Laurel Williams
@@ -41,11 +42,13 @@ public class AdminOfferingController extends AbstractCommandController {
 
 	private OfferingService offeringService;
 
-	protected final static String OFFERING_ID_KEY = "offering_id";
+	protected final static String OFFERING_ID_KEY = "offeringId";
 
 	protected final static String OFFERING_KEY = "offering";
 
-	private static final String VIEW_NAME = "admin/adminoffering";
+	public static final String VIEW_NAME = "admin/adminoffering";
+	
+	public static final String ERROR_VIEW_NAME = "redirect:offeringlist.html";
 
 	/**
 	 * @param offeringService
@@ -68,7 +71,9 @@ public class AdminOfferingController extends AbstractCommandController {
 			offering = this.offeringService.getOffering(adminOfferingParameters.getOfferingId());
 			modelAndView.addObject(OFFERING_KEY, offering);
 		} catch (ObjectNotFoundException e) {
-			errors.rejectValue(OFFERING_ID_KEY, "error.illegal-projectcode");
+			//TODO LAW - I would like to display error but can't figure out how.
+			
+			modelAndView.setViewName(ERROR_VIEW_NAME);
 		}
 		return modelAndView;	
 	}

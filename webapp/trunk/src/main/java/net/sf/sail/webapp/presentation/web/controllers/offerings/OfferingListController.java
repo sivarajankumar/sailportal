@@ -29,10 +29,12 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -86,7 +88,7 @@ public class OfferingListController extends AbstractController {
 							workgroupList, user, DEFAULT_PREVIEW_WORKGROUP_NAME);
 			workgroupMap.put(offering, workgroupList);
 		}
-
+		
 		modelAndView.addObject(OFFERING_LIST_KEY, offeringList);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);

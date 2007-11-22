@@ -37,7 +37,7 @@
 </div>
 
 <div id="right">
-${offering.sdsOffering.name}
+Management of ${offering.sdsOffering.name} coming soon!!!
 </div>
 
 </div>

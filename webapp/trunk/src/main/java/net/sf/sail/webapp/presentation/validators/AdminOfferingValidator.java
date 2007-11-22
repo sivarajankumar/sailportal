@@ -31,7 +31,7 @@ import org.springframework.validation.Validator;
  * @version $Id$
  * 
  */
-public class AdminOfferingParametersValidator implements Validator {
+public class AdminOfferingValidator implements Validator {
 
     /**
      * @see org.springframework.validation.Validator#supports(java.lang.Class)
