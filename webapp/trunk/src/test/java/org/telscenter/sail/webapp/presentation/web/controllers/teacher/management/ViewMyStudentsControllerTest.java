@@ -44,6 +44,12 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.easymock.EasyMock;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.internal.runners.TestClassRunner;
+import org.junit.runner.RunWith;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
@@ -59,6 +65,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * @author patricklawler
  * $Id:$
  */
+@RunWith(TestClassRunner.class)
 public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 
 	private ViewMyStudentsController viewMyStudentsController;
@@ -80,7 +87,8 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		this.request = new MockHttpServletRequest();
 		this.response = new MockHttpServletResponse();
@@ -126,16 +134,20 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 	/**
 	 * @see junit.framework.TestCase#tearDown()
 	 */
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		this.request = null;
 		this.response = null;
 		this.mockRunService = null;
 	}
 
+	@Test
+	@Ignore
 	public void testHandleRequestInternal_WithOffering() throws Exception {
 		EasyMock.expect(mockRunService.getRunList()).andReturn(
 				this.expectedRunList);
+				
 		List<Workgroup> emptyWorkgroupList = Collections.emptyList();
 		Offering offering = this.expectedRunList.get(0);
 		Map<Offering, List<Workgroup>> expectedWorkgroupMap = new HashMap<Offering, List<Workgroup>>(
@@ -158,6 +170,7 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 		EasyMock.verify(this.mockWorkgroupService);
 	}
 
+	@Test
 	public void testHandleRequestInternal_NoOfferings() throws Exception {
 		List<Run> emptyRunList = Collections.emptyList();
 		Map<Offering, List<Workgroup>> emptyWorkgroupMap = Collections

@@ -49,7 +49,9 @@ public class ChangeWorkgroupParametersValidatorTest extends TestCase{
 	
 	private final Workgroup WORKGROUP_FROM = new WorkgroupImpl();
 	
-	private final Workgroup WORKGROUP_TO = new WorkgroupImpl();;
+	private final Workgroup WORKGROUP_TO = new WorkgroupImpl();
+	
+	private static final Long WORKGROUP_TO_ID = new Long(5);
 	
 	@Override
 	protected void setUp() {
@@ -58,6 +60,7 @@ public class ChangeWorkgroupParametersValidatorTest extends TestCase{
 		params.setStudent(STUDENT);
 		params.setWorkgroupFrom(WORKGROUP_FROM);
 		params.setWorkgroupTo(WORKGROUP_TO);
+		params.setWorkgroupToId(WORKGROUP_TO_ID);
 		errors = new BeanPropertyBindingResult(params, "");
 	}
 	
