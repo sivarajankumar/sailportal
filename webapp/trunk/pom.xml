@@ -262,9 +262,9 @@
 			<version>2.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.telscenter.external.org.acegisecurity</groupId>
+			<groupId>org.acegisecurity</groupId>
 			<artifactId>acegi-security</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
+			<version>1.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.acegisecurity</groupId>
