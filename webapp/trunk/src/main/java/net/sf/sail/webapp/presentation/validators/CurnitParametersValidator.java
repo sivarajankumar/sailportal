@@ -22,6 +22,8 @@
  */
 package net.sf.sail.webapp.presentation.validators;
 
+import java.util.regex.Pattern;
+
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 
 import org.springframework.validation.Errors;
@@ -35,6 +37,9 @@ import org.springframework.validation.Validator;
  * @version $Id$
  */
 public class CurnitParametersValidator implements Validator {
+
+	private static final Pattern LEGAL_URL_PATTERN = Pattern
+	.compile("");
 
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
@@ -57,6 +62,9 @@ public class CurnitParametersValidator implements Validator {
         if (errors.hasErrors()) {
             return;
         }
+        
+        CurnitParameters curnitParameters = (CurnitParameters) curnitParametersIn;
+
 	}
 
 }

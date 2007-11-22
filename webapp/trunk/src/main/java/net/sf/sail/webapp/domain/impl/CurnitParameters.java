@@ -25,6 +25,8 @@ package net.sf.sail.webapp.domain.impl;
  * Represents the parameters required to create a curnit.
  */
 public class CurnitParameters {
+	public static String FIELD_NAME = "name";
+	public static String FIELD_URL = "url";
 	private String name;
 
 	private String url;

@@ -22,14 +22,20 @@
  */
 package net.sf.sail.webapp.presentation.validators;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import net.sf.sail.webapp.domain.impl.CurnitParameters;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import net.sf.sail.webapp.domain.impl.CurnitParameters;
-
-import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
  * Test class for CurnitParametersValidator
@@ -44,6 +50,9 @@ public class CurnitParametersValidatorTest {
 	private static final String LEGAL_CURNIT_URL = "http://legalcurniturl.jar";
 
 	private static final String EMPTY_STRING = "";
+	
+	private static final String INVALID_URL_1 = "www.utoronto.ca";
+	
 	private CurnitParameters curnitParameters;
 	
 	private Validator curnitParametersValidator;
@@ -65,8 +74,8 @@ public class CurnitParametersValidatorTest {
 		
 		assertFalse(errors.hasErrors());
 		assertEquals(0, errors.getErrorCount());
-		assertNull(errors.getFieldError("name"));
-		assertNull(errors.getFieldError("url"));
+		assertNull(errors.getFieldError(CurnitParameters.FIELD_NAME));
+		assertNull(errors.getFieldError(CurnitParameters.FIELD_URL));
 	}
 	
 	@Test
@@ -144,10 +153,16 @@ public class CurnitParametersValidatorTest {
 	}
 	
 	@Test
-	public void testCurnitUrlInvalid() {
-		// TODO Hiroki implement url format validation
-		// in controller and then fill in this method
-		assertTrue(true);
+	@Ignore
+	public void testCurnitUrlInvalid1() {
+		curnitParameters.setName(LEGAL_CURNIT_NAME);
+		curnitParameters.setUrl(INVALID_URL_1);
+		
+		curnitParametersValidator.validate(curnitParameters, errors);
+		
+		assertEquals(1, errors.getErrorCount());
+		assertNull(errors.getFieldError(CurnitParameters.FIELD_NAME));
+		assertNotNull(errors.getFieldError(CurnitParameters.FIELD_URL));
 	}
 	
 	@After
