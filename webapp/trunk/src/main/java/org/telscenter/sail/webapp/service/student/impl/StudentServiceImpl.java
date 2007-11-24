@@ -23,18 +23,23 @@
 package org.telscenter.sail.webapp.service.student.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.GroupService;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
+import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
 
@@ -47,7 +52,9 @@ public class StudentServiceImpl implements StudentService {
 	private RunService runService;
 	
 	private GroupService groupService;
-
+	
+	private WorkgroupService workgroupService;
+	
     private AclService<Run> aclService;
 
 	/**
@@ -74,6 +81,25 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.service.student.StudentService#getStudentRunInfo(net.sf.sail.webapp.domain.User, org.telscenter.sail.webapp.domain.Run)
+	 */
+	public StudentRunInfo getStudentRunInfo(User studentUser, Run run) {
+		StudentRunInfo studentRunInfo = new StudentRunInfo();
+		studentRunInfo.setRun(run);
+		studentRunInfo.setStudentUser(studentUser);
+		studentRunInfo.setGroup(run.getPeriodOfStudent(studentUser));
+		
+		List<Workgroup> workgroupsForThisRun = 
+			workgroupService.getWorkgroupListByOfferingAndUser(run, studentUser);
+		if (workgroupsForThisRun.size() > 0) {
+			WISEWorkgroup workgroupForThisRun = (WISEWorkgroup) workgroupsForThisRun.get(0);
+			studentRunInfo.setWorkgroup(workgroupForThisRun);
+		} 
+		
+		return studentRunInfo;
+	}
+
+	/**
 	 * @param runService the runService to set
 	 */
 	public void setRunService(RunService runService) {
@@ -86,6 +112,13 @@ public class StudentServiceImpl implements StudentService {
 	public void setGroupService(GroupService groupService) {
 		this.groupService = groupService;
 	}
+	
+	/**
+	 * @param workgroupService the workgroupService to set
+	 */
+	public void setWorkgroupService(WorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
+	}
 
 	/**
 	 * @param aclService the aclService to set
@@ -93,5 +126,4 @@ public class StudentServiceImpl implements StudentService {
 	public void setAclService(AclService<Run> aclService) {
 		this.aclService = aclService;
 	}
-
 }

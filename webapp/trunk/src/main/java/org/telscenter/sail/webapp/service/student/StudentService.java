@@ -26,6 +26,7 @@ import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
+import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -61,6 +62,15 @@ public interface StudentService {
 	 */
 	public void addStudentToRun(User studentUser, Projectcode projectcode) 
 	     throws ObjectNotFoundException, PeriodNotFoundException, StudentUserAlreadyAssociatedWithRunException;
+	
+	/**
+	 * Given a student user and a run, returns a populated
+	 * <code>StudentRunInfo</code> object.
+	 * 
+	 * @param studentUser <code>User</code> student to lookup
+	 * @param run <code>Run</code> run to lookup
+	 */
+	public StudentRunInfo getStudentRunInfo(User studentUser, Run run);
 	
 	/**
 	 * @param runService <code>RunService</code> to set

@@ -56,6 +56,16 @@ public interface GroupService {
     public Group createGroup(GroupParameters groupParameters);
 
     /**
+     * Update an existing group with values in groupParameters
+     * 
+     * @param groupParameters
+     *           <code>GroupParameters</code> containing the group's new 
+     *           attribute values
+     * @throws ObjectNotFoundException when the group to modify does not exist
+     */
+    public void updateGroup(GroupParameters groupParameters) throws ObjectNotFoundException;
+    
+    /**
      * Change an existing group name.
      * 
      * @param group

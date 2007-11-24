@@ -218,4 +218,6 @@ public class StudentServiceImplTest extends TestCase {
 		}
   	    verify(mockRunService);
 	}
+	
+	// TODO Hiroki test getStudentRunInfo()
 }

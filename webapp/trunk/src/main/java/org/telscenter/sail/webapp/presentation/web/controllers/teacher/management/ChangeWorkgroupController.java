@@ -31,13 +31,10 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
-import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import net.sf.sail.webapp.service.*;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
@@ -58,12 +55,23 @@ public class ChangeWorkgroupController extends SimpleFormController {
 	private static final String WORKGROUPFROM_PARAM_NAME = "workgroupFrom";
 	
 	private static final String WORKGROUPS_TO = "workgroupsTo";
+
+	private static final String RUN_ID = "offeringId";
+
+	private static final String PERIOD_ID = "periodId";
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		ChangeWorkgroupParameters params = new ChangeWorkgroupParameters();
 		params.setStudent(userService.retrieveUserByUsername(request.getParameter(STUDENT_PARAM_NAME)));
-		params.setWorkgroupFrom(workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPFROM_PARAM_NAME))));
+		params.setOfferingId(Long.parseLong(request.getParameter(RUN_ID)));
+		params.setPeriodId(Long.parseLong(request.getParameter(PERIOD_ID)));
+		String workgroupFromId = request.getParameter(WORKGROUPFROM_PARAM_NAME);
+		if (workgroupFromId == null) {
+			params.setWorkgroupFrom(null);
+		} else {
+		  params.setWorkgroupFrom(workgroupService.retrieveById(Long.parseLong(workgroupFromId)));
+		}
 		return params;
 	}
 	
@@ -74,9 +82,7 @@ public class ChangeWorkgroupController extends SimpleFormController {
 		
 		// get the period of workgroupFrom
 		// list all the workgroups in that period
-		WISEWorkgroup workgroupFrom = (WISEWorkgroup) workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPFROM_PARAM_NAME)));
-		
-		Set<Workgroup> workgroups = runService.getWorkgroups(workgroupFrom.getOffering().getId(), workgroupFrom.getPeriod());
+		Set<Workgroup> workgroups = runService.getWorkgroups(Long.parseLong(request.getParameter(RUN_ID)), Long.parseLong(request.getParameter(PERIOD_ID)));
 
 		ModelAndView modelAndView = super.showForm(request, response, errors);
 		
@@ -85,6 +91,9 @@ public class ChangeWorkgroupController extends SimpleFormController {
 	}
 
 	
+	/**
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
+	 */
 	@Override
     protected ModelAndView onSubmit(HttpServletRequest request, 
     		HttpServletResponse response, Object command, BindException errors){
@@ -100,7 +109,7 @@ public class ChangeWorkgroupController extends SimpleFormController {
     	try{
     		workgroupService.updateWorkgroupMembership(params);
     	} catch (Exception e){
-    		//oh, what to do with error?
+    		e.printStackTrace();
     	}
     	
     	ModelAndView modelAndView = new ModelAndView(getSuccessView());

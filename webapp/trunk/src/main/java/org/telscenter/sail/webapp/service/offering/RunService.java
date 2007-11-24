@@ -28,7 +28,6 @@ import java.util.Set;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.telscenter.sail.webapp.domain.Run;
@@ -131,7 +130,8 @@ public interface RunService extends OfferingService {
      *     to find an existing run 
      * @param runId
      * 			<code>Long</code> runId to use for lookup
-     * 		    <code>Group</code> period to which all returned workgroups belong
+     * @param groupId
+     *         <code>Long</code> periodId to which all returned workgroups belong
      */
-    public Set<Workgroup> getWorkgroups(Long runId, Group period) throws ObjectNotFoundException;
+    public Set<Workgroup> getWorkgroups(Long runId, Long periodId) throws ObjectNotFoundException;
 }

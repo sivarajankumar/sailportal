@@ -56,7 +56,7 @@ public class StartProjectController extends AbstractController {
 
 	private HttpRestTransport httpRestTransport;
 	
-	private String retrieveAnnotationBundleUrl = "/student/getannotationbundle.html";
+	public static String retrieveAnnotationBundleUrl = "/student/getannotationbundle.html";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -95,23 +95,40 @@ public class StartProjectController extends AbstractController {
 //							"groups for the run " + run.getSdsOffering().getName());
 		}
 		
-		String jnlpUrl = this.httpRestTransport.getBaseUrl() + "/offering/" + 
-		    run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
-		    workgroup.getSdsWorkgroup().getSdsObjectId();
-		
-	    String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
-	       request.getServerPort() + request.getContextPath();
-	    
-	    String entireUrl = jnlpUrl + 
-	        "?emf.annotation.bundle.url=" +
-	        portalUrl +
-	        retrieveAnnotationBundleUrl + 
-	        "?workgroupId=" + workgroup.getId();
+		String entireUrl = generateStartProjectUrlString(this.httpRestTransport, request, run,
+				workgroup, retrieveAnnotationBundleUrl);
 	        
 		ModelAndView modelAndView = 
 			new ModelAndView(new RedirectView(entireUrl));
 		
 		return modelAndView;
+	}
+
+	/**
+	 * Generates the url string that users need to go to start the project
+	 * @param httpRestTransport
+	 * @param request request that was made
+	 * @param run <code>Run</code> that the user is in
+	 * @param workgroup <code>Workgroup</code> that the user is in
+	 * @param retrieveAnnotationBundleUrl
+	 * @returnurl String url representation to download the jnlp and start
+     *     the project
+	 */
+	public static String generateStartProjectUrlString(HttpRestTransport httpRestTransport, HttpServletRequest request,
+			Run run, Workgroup workgroup, String retrieveAnnotationBundleUrl) {
+		String jnlpUrl = httpRestTransport.getBaseUrl() + "/offering/" + 
+		run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
+		workgroup.getSdsWorkgroup().getSdsObjectId();
+
+		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
+		request.getServerPort() + request.getContextPath();
+
+		String entireUrl = jnlpUrl + 
+		"?emf.annotation.bundle.url=" +
+		portalUrl +
+		retrieveAnnotationBundleUrl + 
+		"?workgroupId=" + workgroup.getId();
+		return entireUrl;
 	}
 
 	/**

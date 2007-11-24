@@ -23,6 +23,7 @@
 package net.sf.sail.webapp.service.group.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -57,7 +58,7 @@ public class GroupServiceImpl implements GroupService {
     private UserDao<User> userDao;
 
     private AclService<Group> aclService;
-    
+        
     /**
 	 * @param groupAclService
 	 *            the groupAclService to set
@@ -112,6 +113,28 @@ public class GroupServiceImpl implements GroupService {
         this.aclService.addPermission(group, BasePermission.ADMINISTRATION);
         return group;
     }
+    
+    /**
+     * @see net.sf.sail.webapp.service.group.GroupService#updateGroup(net.sf.sail.webapp.domain.group.impl.GroupParameters)
+     */
+    @Transactional()
+	public void updateGroup(GroupParameters groupParameters) throws ObjectNotFoundException {
+		Group group = this.retrieveById(groupParameters.getGroupId());
+		group.setName(groupParameters.getName());
+		try {
+		    group.setParent(this.retrieveById(groupParameters.getParentId()));
+		} catch (ObjectNotFoundException e) {
+			group.setParent(null);
+		}
+		Set<User> members = new HashSet<User>();
+		for (Long userId : groupParameters.getMemberIds()) {
+			User user = userDao.getById(userId);
+			members.add(user);
+		}
+		group.setMembers(members);
+		this.groupDao.save(group);
+	}
+
     
     // TODO LAW - if we put in delete group remember to put in deletes for ACL
 	// entries

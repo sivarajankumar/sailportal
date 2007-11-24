@@ -168,6 +168,18 @@ public class WorkgroupImpl implements Workgroup {
     private void setId(Long id) {
         this.id = id;
     }
+    
+    /**
+     * @see net.sf.sail.webapp.domain.Workgroup#generateWorkgroupName()
+     */
+	public String generateWorkgroupName() {
+		String workgroupName = "Workgroup with members:";
+		for (User member : members) {
+			workgroupName += " " + member.getUserDetails().getUsername();
+		}
+		return workgroupName;
+	}
+
 
     /**
      * @return the version

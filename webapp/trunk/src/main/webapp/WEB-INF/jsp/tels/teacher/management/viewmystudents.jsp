@@ -39,28 +39,44 @@ function popup(URL, title) {
 <div align="left">
 <div id="runContent"> 
 <br />
-<h3 id="headingPos">
+<h2 id="headingPos">
 View My Students
-</h3>
+</h2>
 
 <c:forEach var="run" items="${current_run_list}">
-	<h4>${run.sdsOffering.name}</h4>
+	<h3>${run.sdsOffering.name}</h3>
 	<c:forEach var="period" items="${run.periods}">
-		<h5>Period: ${period.name} &nbsp;<a href="#" onclick="javascript:popup('batchstudentchangepassword.html?groupId=${period.id}');">Change All Passwords</a></h5>
+		<h4>Period: ${period.name} &nbsp;<a href="#" onclick="javascript:popup('batchstudentchangepassword.html?groupId=${period.id}');">Change All Passwords</a></h4>
 		<c:choose>
 			<c:when test="${fn:length(period.members) == 0}">
 				No Students Attached
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="workgroup" items="${workgroup_map[period]}">
-					<h5>Workgroup: ${workgroup.id}</h5>
-					<c:forEach var="workgroup_member" items="${workgroup.members}">
-						${workgroup_member.userDetails.firstname} ${workgroup_member.userDetails.lastname} <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroup_member.userDetails.username}');">Change Password</a>&nbsp<a href="#" onclick="javascript:popup('changeworkgroup.html?student=${workgroup_member.userDetails.username}&workgroupFrom=${workgroup.id}');">Change Workgroup</a>&nbsp<br />;
-					</c:forEach>
-				</c:forEach>
-		 		<c:forEach var="mem" items="${grouplessStudents[period]}">
-					${mem.userDetails.firstname} ${mem.userDetails.lastname} <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Change Password</a>&nbsp<a href="#" onclick="javascript:popup('changeworkgroup.html?student=${mem.userDetails.username}&workgroupFrom="null"');">Change Workgroup</a>&nbsp;
-				</c:forEach>
+			    <h5>Workgroups:</h5>
+			    <c:choose>
+			      <c:when test="${fn:length(workgroup_map[period]) ==0}">
+			        No workgroups exist in this period <br />
+			      </c:when>
+			      <c:otherwise>
+                      <c:forEach var="workgroup" items="${workgroup_map[period]}">
+					    <h5>Workgroup name: ${workgroup.sdsWorkgroup.name} | Workgroup id: ${workgroup.id}</h5>
+					    <c:forEach var="workgroup_member" items="${workgroup.members}">
+						${workgroup_member.userDetails.firstname} ${workgroup_member.userDetails.lastname} <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroup_member.userDetails.username}');">Change Password</a>&nbsp;<a href="#" onclick="javascript:popup('changeworkgroup.html?offeringId=${run.id}&periodId=${period.id}&student=${workgroup_member.userDetails.username}&workgroupFrom=${workgroup.id}');">Change Workgroup</a><br />
+					    </c:forEach>
+				      </c:forEach>			      
+			      </c:otherwise>
+			    </c:choose>
+				<h5>Students who are not in a workgroup in this period:</h5>
+				<c:choose>
+    		        <c:when test="${fn:length(grouplessStudents[period]) ==0}">
+	  		          All students in this period are in a workgroup<br />
+			        </c:when>
+			        <c:otherwise>
+				        <c:forEach var="mem" items="${grouplessStudents[period]}">
+					        ${mem.userDetails.firstname} ${mem.userDetails.lastname} <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Change Password</a>&nbsp<a href="#" onclick="javascript:popup('changeworkgroup.html?offeringId=${run.id}&periodId=${period.id}&student=${mem.userDetails.username}');">Change Workgroup</a><br />
+				        </c:forEach>
+				    </c:otherwise>
+				</c:choose>
             </c:otherwise>
         </c:choose>
 	</c:forEach>

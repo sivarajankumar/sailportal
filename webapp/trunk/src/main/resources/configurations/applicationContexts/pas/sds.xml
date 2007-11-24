@@ -234,6 +234,7 @@
 		<property name="sdsWorkgroupDao" ref="sdsWorkgroupDao" />
 		<property name="workgroupDao" ref="workgroupDao" />
 		<property name="aclService" ref="aclServiceImpl" />
+		<property name="offeringService" ref="offeringService" />
 	</bean>
 
 	<bean id="ecurnitmap" class="org.telscenter.pas.emf.pas.impl.ECurnitmapImpl"

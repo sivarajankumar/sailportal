@@ -166,6 +166,7 @@
 	<bean id="studentIndexController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentIndexController">
 	    <property name="runService" ref="runService" />
+	    <property name="studentService" ref="studentService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 

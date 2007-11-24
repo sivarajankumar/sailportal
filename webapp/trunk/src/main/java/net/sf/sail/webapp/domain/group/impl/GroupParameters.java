@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.domain.group.impl;
 
+import java.io.Serializable;
+
 
 /**
  * @author Laurel Williams
@@ -26,7 +28,11 @@ package net.sf.sail.webapp.domain.group.impl;
  * A class to represent parameters required to create or update a group from the
  * UI.
  */
-public class GroupParameters {
+public class GroupParameters implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
+	private Long groupId;
 
 	private String name;
 
@@ -34,6 +40,20 @@ public class GroupParameters {
 	
 	private Long[] memberIds = new Long[0];
 
+	/**
+	 * @return the groupId
+	 */
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	/**
+	 * @param groupId the groupId to set
+	 */
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+	
 	/**
 	 * @return the name
 	 */
@@ -79,6 +99,4 @@ public class GroupParameters {
 	public void setMemberIds(Long[] memberIds) {
 		this.memberIds = memberIds;
 	}
-
-	
 }

@@ -94,6 +94,7 @@
         <property name="aclService" ref="aclServiceImpl" />
         <property name="groupService" ref="groupService" />
         <property name="runService" ref="runService" />
+        <property name="workgroupService" ref="wiseWorkgroupService" />
     </bean>
 
 	 <bean id="sessionBundleService"
@@ -137,5 +138,7 @@
 		<property name="annotationBundleService" ref="annotationBundleService" />
 		<property name="aclService" ref="aclServiceImpl" />
 		<property name="gradingService" ref="gradingService" />
+		<property name="offeringService" ref="runService" />
+		<property name="groupService" ref="groupService" />
     </bean>    
 </beans>

@@ -12,6 +12,7 @@
 <body>
 
 <h3>Successfully updated workgroup!</h3>
+Please close this window and refresh the main page
 
 <div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
 

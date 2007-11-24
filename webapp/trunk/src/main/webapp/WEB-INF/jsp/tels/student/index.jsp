@@ -267,27 +267,46 @@ English <br />
 		<tr>
 			<th><spring:message code="run.name.heading" /></th>
 			<th>Teacher name</th>
+			<th>Team members</th>
 			<th><spring:message code="run.options.heading" /></th>
 		</tr>
 	</thead>
-	<c:forEach var="run" items="${current_run_list}">
+	<c:forEach var="studentRunInfo" items="${current_run_list}">
 		<tr>
-			<td>${run.sdsOffering.name}</td>
-			<td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
-			<td>
-			<!-- 
-			<span id="pushbutton" class="yui-button yui-push-button"><em
-				class="first-child">
-			<button type="submit" name="pushbutton" class="runProject"
-				id='${run.id}'>Run Project</button>
-			</em> </span> 
-			-->
-			<a href="#"
-				onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
-				onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
-				id='${run.id}' class="runProjectLink">
-			<img id="runproject" src="../<spring:theme code="run_project" />"
-				style="border: 0px;" /> </a></td>
+			<td>${studentRunInfo.run.sdsOffering.name}</td>
+			<td><c:forEach var="owner" items="${studentRunInfo.run.owners}">${owner.userDetails.username}</c:forEach></td>
+			<c:choose>
+			<c:when test="${studentRunInfo.workgroup == null}" >
+			  <td>Not in a team yet</td>
+			  <td>
+			  <a href="#"
+				  onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
+				  onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
+				  id='${studentRunInfo.run.id}' class="runProjectLink">
+			  <img id="runproject" src="../<spring:theme code="run_project" />"
+			  	  style="border: 0px;" /> </a>
+			  <br />
+ 			  <a href="javascript:alert('please talk to your teacher');">Change Period Or Team</a><br />
+			  <a href="javascript:alert('please talk to your teacher');">Report a Problem</a><br />
+			  <a href="javascript:alert('please talk to your teacher');">Archive this Project</a>
+			  </td>
+		    </c:when>
+		    <c:otherwise>
+		      <td><c:forEach var="member" items="${studentRunInfo.workgroup.members}">${member.userDetails.firstname} ${member.userDetails.lastname} (${member.userDetails.username}), </c:forEach></td>
+		      <td>
+		      <a href="${studentRunInfo.startProjectUrl}"
+				  onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
+				  onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
+				  id='${studentRunInfo.run.id}' class="">
+			  <img id="runproject" src="../<spring:theme code="run_project" />"
+			  	  style="border: 0px;" /> </a>
+			  <br />
+			  <a href="javascript:alert('please talk to your teacher');">Change Period Or Team</a><br />
+			  <a href="javascript:alert('please talk to your teacher');">Report a Problem</a><br />
+			  <a href="javascript:alert('please talk to your teacher');">Archive this Project</a>
+   		      </td>
+		    </c:otherwise>
+			</c:choose>
 		</tr>
 	</c:forEach>
 </table>
@@ -301,10 +320,10 @@ English <br />
 			<th><spring:message code="run.options.heading" /></th>
 		</tr>
 	</thead>
-	<c:forEach var="run" items="${ended_run_list}">
+	<c:forEach var="studentRunInfo" items="${ended_run_list}">
 		<tr>
-			<td>${run.sdsOffering.name}</td>
-			<td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
+			<td>${studentRunInfo.run.sdsOffering.name}</td>
+			<td><c:forEach var="owner" items="${studentRunInfo.run.owners}">${owner.userDetails.username}</c:forEach></td>
 			<td>You cannot Run an "Archived Run". You will be able to view
 			your work on this archived run later.</td>
 		</tr>

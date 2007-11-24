@@ -32,6 +32,7 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.acegisecurity.acls.domain.BasePermission;
@@ -50,6 +51,8 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     protected SdsWorkgroupDao sdsWorkgroupDao;
 
     protected WorkgroupDao<Workgroup> workgroupDao;
+    
+    protected OfferingService offeringService;
     
     protected AclService<Workgroup> aclService;
 
@@ -190,6 +193,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     		workgroup.addMember(member);
     		sdsWorkgroup.addMember(member.getSdsUser());
     	}
+		sdsWorkgroup.setName(workgroup.generateWorkgroupName());
         this.sdsWorkgroupDao.save(sdsWorkgroup);
         workgroup.setSdsWorkgroup(sdsWorkgroup);
     	this.workgroupDao.save(workgroup);
@@ -205,10 +209,38 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     		workgroup.removeMember(member);
     		sdsWorkgroup.removeMember(member.getSdsUser());
     	}
+		sdsWorkgroup.setName(workgroup.generateWorkgroupName());
         this.sdsWorkgroupDao.save(sdsWorkgroup);
         workgroup.setSdsWorkgroup(sdsWorkgroup);
     	this.workgroupDao.save(workgroup);
 	}
+    
+	/**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#updateWorkgroupMembership(net.sf.sail.webapp.domain.User, net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Workgroup)
+     */
+    @Transactional()
+    public void updateWorkgroupMembership(ChangeWorkgroupParameters params)throws Exception {
+    	Workgroup toGroup;
+    	Workgroup fromGroup;
+    	User user = params.getStudent();
+    	Offering offering = offeringService.getOffering(params.getOfferingId());
+    	
+    	fromGroup = params.getWorkgroupFrom();
+    	Set<User> addMemberSet = new HashSet<User>();
+    	addMemberSet.add(user);
+    	if (params.getWorkgroupTo() == null) {
+    		createWorkgroup("workgroup " + user.getUserDetails().getUsername(), addMemberSet, offering);
+    	} else {
+    		toGroup = params.getWorkgroupTo();
+        	this.addMembers(toGroup, addMemberSet);
+    	}
+    	
+    	if(!(fromGroup == null)){
+        	Set<User> removeMemberSet = new HashSet<User>();
+        	removeMemberSet.add(user);
+    		this.removeMembers(fromGroup, removeMemberSet);
+    	}
+    }
 
 	/**
 	 * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#retrieveById(Long)
@@ -217,28 +249,13 @@ public class WorkgroupServiceImpl implements WorkgroupService {
 		return workgroupDao.getById(workgroupId);
 	}
 
-    /**
-     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#updateWorkgroupMembership(net.sf.sail.webapp.domain.User, net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Workgroup)
-     */
-    @Transactional()
-    public void updateWorkgroupMembership(ChangeWorkgroupParameters params)throws Exception {
-    	Workgroup toGroup;
-    	Workgroup fromGroup;
-    	User thisStudent = params.getStudent();
-    	
-    	fromGroup = params.getWorkgroupFrom();
-    	if (params.getWorkgroupTo() == null){
-    		toGroup = new WorkgroupImpl();
-    	} else {
-    		toGroup = params.getWorkgroupTo();
-    	}
-    	
-    	Set<User> thisSet = new HashSet<User>();
-    	thisSet.add(thisStudent);
-    	this.addMembers(toGroup, thisSet);
-    	
-    	if(!(fromGroup == null)){
-    		this.removeMembers(fromGroup, thisSet);
-    	}
-    }
+
+	/**
+	 * @param offeringService the offeringService to set
+	 */
+	public void setOfferingService(OfferingService offeringService) {
+		this.offeringService = offeringService;
+	}
+    
+    // TODO HT: create method for creating workgroupname
 }

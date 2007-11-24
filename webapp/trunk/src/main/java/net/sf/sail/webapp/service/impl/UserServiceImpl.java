@@ -19,6 +19,7 @@ package net.sf.sail.webapp.service.impl;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
@@ -208,5 +209,13 @@ public class UserServiceImpl implements UserService {
 
 	public List<User> retrieveAllUsers() {
 		return this.userDao.getList();
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#retrieveById(java.lang.Long)
+	 */
+	@Transactional(readOnly = true)
+	public User retrieveById(Long userId) throws ObjectNotFoundException {
+		return this.userDao.getById(userId);
 	}
 }

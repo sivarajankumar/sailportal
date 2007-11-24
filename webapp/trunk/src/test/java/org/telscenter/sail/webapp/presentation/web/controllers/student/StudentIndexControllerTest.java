@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,7 +46,9 @@ import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
  * @author Hiroki Terashima
@@ -63,7 +66,16 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
 
     private RunService mockRunService;
     
+    private StudentService mockStudentService;
+    
     private List<Run> expectedRunList;
+    
+    private Run mockRun;
+
+	private StudentRunInfo mockStudentRunInfo;
+	
+	private List<StudentRunInfo> 
+	   expected_current_studentruninfo_list, expected_ended_studentruninfo_list;
     
     private User user;
     
@@ -77,6 +89,7 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
         this.request.setSession(mockSession);
 
         this.mockRunService = EasyMock.createMock(RunService.class);
+        this.mockStudentService = EasyMock.createMock(StudentService.class);
     	
         SdsOffering sdsOffering = new SdsOffering();
 
@@ -91,15 +104,25 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
         sdsOffering.setName("test");
         sdsOffering.setSdsObjectId(new Long(3));
         
-        Run run = new RunImpl();
-        run.setSdsOffering(sdsOffering);
+        mockRun = new RunImpl();
+        mockRun.setSdsOffering(sdsOffering);
         
         this.expectedRunList = new LinkedList<Run>();
-        this.expectedRunList.add(run);
+        this.expectedRunList.add(mockRun);
         
+        mockStudentRunInfo = new StudentRunInfo();
+        mockStudentRunInfo.setRun(mockRun);
+        mockStudentRunInfo.setStudentUser(user);
+        
+        this.expected_current_studentruninfo_list = new ArrayList<StudentRunInfo>();
+        this.expected_current_studentruninfo_list.add(mockStudentRunInfo);
+
+        this.expected_ended_studentruninfo_list = new ArrayList<StudentRunInfo>();
+
         this.mockHttpTransport = EasyMock.createMock(HttpRestTransport.class);
         this.studentIndexController = new StudentIndexController();
         this.studentIndexController.setRunService(this.mockRunService);
+        this.studentIndexController.setStudentService(this.mockStudentService);
         this.studentIndexController.setHttpRestTransport(this.mockHttpTransport);
     }
     
@@ -117,10 +140,19 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
     			expectedRunList);
     	EasyMock.replay(mockRunService);
     	
+    	EasyMock.expect(mockStudentService.getStudentRunInfo(user, mockRun)).
+    	    andReturn(mockStudentRunInfo);
+    	EasyMock.replay(mockStudentService);
+    	
     	ModelAndView modelAndView = 
     		studentIndexController.handleRequestInternal(request, response);
     	assertModelAttributeValue(modelAndView, 
-    			StudentIndexController.CURRENT_RUN_LIST_KEY, expectedRunList);
+    			StudentIndexController.CURRENT_STUDENTRUNINFO_LIST_KEY, 
+    			expected_current_studentruninfo_list);
+    	assertModelAttributeValue(modelAndView, 
+    			StudentIndexController.ENDED_STUDENTRUNINFO_LIST_KEY, 
+    			expected_ended_studentruninfo_list);
+
     	assertModelAttributeValue(modelAndView, 
     			ControllerUtil.USER_KEY, user);
     	assertModelAttributeValue(modelAndView, 
@@ -137,7 +169,7 @@ public class StudentIndexControllerTest extends AbstractModelAndViewTests {
     	ModelAndView modelAndView = 
     		studentIndexController.handleRequestInternal(request, response);
     	assertModelAttributeValue(modelAndView, 
-    			StudentIndexController.CURRENT_RUN_LIST_KEY, emptyRunList);
+    			StudentIndexController.CURRENT_STUDENTRUNINFO_LIST_KEY, emptyRunList);
     	assertModelAttributeValue(modelAndView, 
     			ControllerUtil.USER_KEY, user);
     	assertModelAttributeValue(modelAndView, 

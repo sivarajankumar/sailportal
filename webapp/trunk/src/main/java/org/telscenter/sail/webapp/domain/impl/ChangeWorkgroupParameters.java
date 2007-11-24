@@ -43,19 +43,9 @@ public class ChangeWorkgroupParameters implements Serializable {
 	
 	private Long workgroupToId;
 	
-	/**
-	 * @return the workgroupToId
-	 */
-	public Long getWorkgroupToId() {
-		return workgroupToId;
-	}
-
-	/**
-	 * @param workgroupToId the workgroupToId to set
-	 */
-	public void setWorkgroupToId(Long workgroupToId) {
-		this.workgroupToId = workgroupToId;
-	}
+	private Long offeringId;
+	
+	private Long periodId;
 
 	public void setStudent(User student) {
 		this.student = student;
@@ -79,5 +69,47 @@ public class ChangeWorkgroupParameters implements Serializable {
 	
 	public Workgroup getWorkgroupTo() {
 		return this.workgroupTo;
+	}
+	
+	/**
+	 * @return the workgroupToId
+	 */
+	public Long getWorkgroupToId() {
+		return workgroupToId;
+	}
+
+	/**
+	 * @param workgroupToId the workgroupToId to set
+	 */
+	public void setWorkgroupToId(Long workgroupToId) {
+		this.workgroupToId = workgroupToId;
+	}
+
+	/**
+	 * @return the offeringId
+	 */
+	public Long getOfferingId() {
+		return offeringId;
+	}
+
+	/**
+	 * @param offeringId the offeringId to set
+	 */
+	public void setOfferingId(Long offeringId) {
+		this.offeringId = offeringId;
+	}
+
+	/**
+	 * @return the periodId
+	 */
+	public Long getPeriodId() {
+		return periodId;
+	}
+
+	/**
+	 * @param periodId the periodId to set
+	 */
+	public void setPeriodId(Long periodId) {
+		this.periodId = periodId;
 	}
 }

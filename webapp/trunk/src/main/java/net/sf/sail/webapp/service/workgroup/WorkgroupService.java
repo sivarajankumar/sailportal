@@ -99,7 +99,7 @@ public interface WorkgroupService {
     
     /**
      * Adds members to an already-existing workgroup. If a member is
-     * already in the group, do not add again
+     * already in the group, do not add again. Also update the workgroup name.
      * 
      * @param workgroup
      *          an existing <code>Workgroup</code> that the members will be
@@ -110,7 +110,7 @@ public interface WorkgroupService {
     public void addMembers(Workgroup workgroup, Set<User> membersToAdd);
     
     /**
-     * Removes members from an already-existing workgroup.
+     * Removes members from an already-existing workgroup. Also update the workgroup name.
      * 
      * @param workgroup
      *          an existing <code>Workgroup</code> that the members will be

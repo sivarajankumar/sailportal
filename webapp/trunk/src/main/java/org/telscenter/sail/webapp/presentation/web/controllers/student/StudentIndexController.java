@@ -36,7 +36,9 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
  * Controller for Student's index page
@@ -47,12 +49,14 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 public class StudentIndexController extends AbstractController {
 
 	private RunService runService;
+	
+	private StudentService studentService;
 
 	private HttpRestTransport httpRestTransport;
 	
-	protected final static String CURRENT_RUN_LIST_KEY = "current_run_list";
+	protected final static String CURRENT_STUDENTRUNINFO_LIST_KEY = "current_run_list";
 
-	protected final static String ENDED_RUN_LIST_KEY = "ended_run_list";
+	protected final static String ENDED_STUDENTRUNINFO_LIST_KEY = "ended_run_list";
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
@@ -76,19 +80,32 @@ public class StudentIndexController extends AbstractController {
 				User.CURRENT_USER_SESSION_KEY);
     	
 		List<Run> runlist = runService.getRunList(user);
-		List<Run> current_run_list = new ArrayList<Run>();
-		List<Run> ended_run_list = new ArrayList<Run>();
+		List<StudentRunInfo> current_run_list = new ArrayList<StudentRunInfo>();
+		List<StudentRunInfo> ended_run_list = new ArrayList<StudentRunInfo>();
 		
 		for (Run run : runlist) {
+			StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(user, run);
+
+			// if student is in a workgroup for this run, get the url
+			// that will be used to start the project
+			if (studentRunInfo.getWorkgroup() != null) {
+				String startProjectUrl = 				
+					StartProjectController.generateStartProjectUrlString(
+							httpRestTransport, request, run, 
+							studentRunInfo.getWorkgroup(), 
+							StartProjectController.retrieveAnnotationBundleUrl);
+				studentRunInfo.setStartProjectUrl(startProjectUrl);
+			}
+
 			if (run.isEnded()) {
-				ended_run_list.add(run);
+				ended_run_list.add(studentRunInfo);
 			} else {
-				current_run_list.add(run);
+				current_run_list.add(studentRunInfo);
 			}
 		}
 		
-		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
-		modelAndView.addObject(ENDED_RUN_LIST_KEY, ended_run_list);
+		modelAndView.addObject(CURRENT_STUDENTRUNINFO_LIST_KEY, current_run_list);
+		modelAndView.addObject(ENDED_STUDENTRUNINFO_LIST_KEY, ended_run_list);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 
         return modelAndView;
@@ -97,8 +114,17 @@ public class StudentIndexController extends AbstractController {
 	/**
 	 * @param runService the runService to set
 	 */
+	@Required
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param studentService the studentService to set
+	 */
+	@Required
+	public void setStudentService(StudentService studentService) {
+		this.studentService = studentService;
 	}
 
 	/**
@@ -109,5 +135,4 @@ public class StudentIndexController extends AbstractController {
 	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
 		this.httpRestTransport = httpRestTransport;
 	}
-
 }

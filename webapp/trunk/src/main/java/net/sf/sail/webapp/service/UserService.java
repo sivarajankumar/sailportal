@@ -19,6 +19,7 @@ package net.sf.sail.webapp.service;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -96,4 +97,16 @@ public interface UserService {
 	 * @return a Set of all users.
 	 */
 	public List<User> retrieveAllUsers();
+	
+	/**
+	 * Retrieves User domain object using unique userId
+	 * 
+	 * @param userId
+	 *      <code>Long</code> userId to use for lookup
+	 * @return <code>User</code>
+	 *      the User object with the given userId
+	 * @throws ObjectNotFoundException when userId
+	 *      cannot be used to find the existing user
+	 */
+	public User retrieveById(Long userId) throws ObjectNotFoundException;
 }

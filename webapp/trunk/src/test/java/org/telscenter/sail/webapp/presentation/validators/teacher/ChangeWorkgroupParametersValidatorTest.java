@@ -52,6 +52,10 @@ public class ChangeWorkgroupParametersValidatorTest extends TestCase{
 	private final Workgroup WORKGROUP_TO = new WorkgroupImpl();
 	
 	private static final Long WORKGROUP_TO_ID = new Long(5);
+
+	private static final Long OFFERING_ID = new Long(10);
+
+	private static final Long PERIOD_ID = new Long(2);
 	
 	@Override
 	protected void setUp() {
@@ -61,6 +65,8 @@ public class ChangeWorkgroupParametersValidatorTest extends TestCase{
 		params.setWorkgroupFrom(WORKGROUP_FROM);
 		params.setWorkgroupTo(WORKGROUP_TO);
 		params.setWorkgroupToId(WORKGROUP_TO_ID);
+		params.setOfferingId(OFFERING_ID);
+		params.setPeriodId(PERIOD_ID);
 		errors = new BeanPropertyBindingResult(params, "");
 	}
 	
@@ -86,9 +92,38 @@ public class ChangeWorkgroupParametersValidatorTest extends TestCase{
 		
 		validator.validate(params, errors);
 		
+		assertTrue(!errors.hasErrors());
+	}
+	
+	public void testEmptyWorkgroupToIdValidate() {
+		params.setWorkgroupToId(null);
+
+		validator.validate(params, errors);
+
 		assertTrue(errors.hasErrors());
 		assertEquals(1, errors.getErrorCount());
-		assertNotNull(errors.getFieldError("workgroupFrom"));	}
+		assertNotNull(errors.getFieldError("workgroupToId"));
+	}
+	
+	public void testEmptyOfferingIdValidate() {
+		params.setOfferingId(null);
+		
+		validator.validate(params, errors);
+
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("offeringId"));
+	}
+	
+	public void testEmptyPeriodIdValidate() {
+		params.setPeriodId(null);
+		
+		validator.validate(params, errors);
+
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("periodId"));
+	}
 	
 	@Override
 	protected void tearDown() {

@@ -89,4 +89,12 @@ public interface Workgroup extends Persistable {
 	 */
 	public Long getId();
 
+	/**
+	 * Generates a name for this workgroup. This name may or may not be the same as
+	 * the value in this.sdsWorkgroup.name.
+	 * 
+	 * @return <code>String</code> a name for this workgroup
+	 */
+	public String generateWorkgroupName();
+
 }

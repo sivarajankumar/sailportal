@@ -22,7 +22,6 @@
  */
 package org.telscenter.sail.webapp.service.offering.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -275,12 +274,12 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	/**
 	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#getWorkgroups(java.lang.Long, net.sf.sail.webapp.domain.group.Group)
 	 */
-	public Set<Workgroup> getWorkgroups(Long runId, Group period)
+	public Set<Workgroup> getWorkgroups(Long runId, Long periodId)
 			throws ObjectNotFoundException {
 		Set<Workgroup> workgroups = getWorkgroups(runId);
 		Set<Workgroup> returnSet = new HashSet<Workgroup>();
 		for(Workgroup workgroup : workgroups){
-				if (((WISEWorkgroup) workgroup).getPeriod().equals(period)){
+				if (((WISEWorkgroup) workgroup).getPeriod().getId().equals(periodId)){
 					returnSet.add(workgroup);
 			}
 		}

@@ -89,6 +89,10 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 	
 	private static final String FORM = "FORM VIEW";
 
+	private static final String OFFERING_ID = "5";
+
+	private static final String PERIOD_ID = "2";
+
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
@@ -157,16 +161,23 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 		assertTrue(true);
 	}
 	
-	public void testFormBackingObject() throws Exception {
+	public void testFormBackingObject_success() throws ObjectNotFoundException {
 		request.setParameter("workgroupFrom", WORKGROUP_FROM_ID.toString());
 		request.setParameter("student", STUDENT_NAME);
+		request.setParameter("offeringId", OFFERING_ID);
+		request.setParameter("periodId", PERIOD_ID);
 		
 		EasyMock.expect(mockUserService.retrieveUserByUsername(STUDENT_NAME)).andReturn(student);
 		EasyMock.replay(this.mockUserService);
 		EasyMock.expect(mockWorkgroupService.retrieveById(WORKGROUP_FROM_ID)).andReturn(workgroupFrom);
 		EasyMock.replay(this.mockWorkgroupService);
 		
-		Object returnedParams = changeWorkgroupController.formBackingObject(request);
+		Object returnedParams = null;
+		try {
+			returnedParams = changeWorkgroupController.formBackingObject(request);
+		} catch (Exception e) {
+			fail("Exception thrown but should not have been thrown");
+		}
 		assertTrue(returnedParams instanceof ChangeWorkgroupParameters);
 		
 		verify(mockUserService);
@@ -174,6 +185,11 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 		ChangeWorkgroupParameters params = (ChangeWorkgroupParameters) returnedParams;
 		assertEquals(params.getWorkgroupFrom().getSdsWorkgroup().getSdsObjectId(), WORKGROUP_FROM_ID);
 		assertEquals(params.getStudent().getUserDetails().getUsername(), STUDENT_NAME);
+		assertTrue(true);
+	}
+	
+	public void testFormBackingObject_failure() {
+		// TODO patrick&sally test when formBackingObject throws an exception
 		assertTrue(true);
 	}
 }

@@ -22,7 +22,6 @@
  */
 package org.telscenter.sail.webapp.presentation.validators.teacher;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -54,11 +53,27 @@ public class ChangeWorkgroupParametersValidator implements Validator{
 		if (errors.getErrorCount() != 0) {
 			return;
 		}
-
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "workgroupFrom", "error.no-workgroupFrom");
 		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "offeringId", "error.no-student");		
+
 		if (errors.getErrorCount() != 0) {
 			return;
+		}
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "periodId", "error.no-student");		
+
+		if (errors.getErrorCount() != 0) {
+			return;
+		}
+
+		ChangeWorkgroupParameters params = (ChangeWorkgroupParameters) paramsIn;
+
+		if (params.getWorkgroupFrom() != null) {
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "workgroupFrom", "error.no-workgroupFrom");
+			
+			if (errors.getErrorCount() != 0) {
+				return;
+			}
 		}
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "workgroupToId", "error.no-workgroupTo");
@@ -66,8 +81,6 @@ public class ChangeWorkgroupParametersValidator implements Validator{
 		if (errors.getErrorCount() != 0) {
 			return;
 		}
-
-		ChangeWorkgroupParameters params = (ChangeWorkgroupParameters) paramsIn;
 		
 		// move to service layer
 //		User student = params.getStudent();

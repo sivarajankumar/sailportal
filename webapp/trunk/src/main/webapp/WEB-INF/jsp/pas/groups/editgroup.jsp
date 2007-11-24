@@ -36,43 +36,24 @@
 <div id="left"><%@ include file="../includes/menu.jsp"%>
 </div>
 
-<div id="right">
-
-<table border="1">
-	<thead>
-		<tr>
-			<th><spring:message code="group.parent.heading" /></th>
-			<th><spring:message code="group.name.heading" /></th>
-			<th><spring:message code="group.members.heading" /></th>
-			<th>&nbsp;</th>
-		</tr>
-	</thead>
-	<c:forEach var="group" items="${grouplist}">
-		<tr>
-			<c:choose>
-				<c:when test="${group.parent != null}">
-					<td>${group.parent.name}</td>
-				</c:when>
-				<c:otherwise>
-					<td>&nbsp;</td>
-				</c:otherwise>
-			</c:choose>
-			<td>${group.name}</td>
-			<td><c:forEach var="member" items="${group.members}">
-      	${member.userDetails.username}<br />
-			</c:forEach></td>
-			<td><a href="editgroup.html?groupId=${group.id}"><spring:message
-				code="group.edit" /></a></td>
-		</tr>
+<div id="right"><form:form method="post" action="editgroup.html" commandName="groupParameters">
+	<label for="group_name"><spring:message code="group.name.label" /></label>
+	<form:input path="name" id="group_name" />
+	<form:errors path="name" />
+	<label for="group_parent"><spring:message
+		code="group.parent.label" /></label>
+	<form:select path="parentId" id="group_parent">
+		<form:option value="0" label="no parent" />
+		<form:options items="${grouplist}" itemValue="id" itemLabel="name" />
+	</form:select>
+	<c:forEach var="user" items="${userlist}">
+		<form:checkbox path="memberIds" value="${user.id}"
+			id="user_${user.id}" />
+		<label for="user_${user.id}">${user.userDetails.username}</label>
 	</c:forEach>
-	<tr>
-		<td>&nbsp;</td>
-		<td><a href="addgroup.html">Add a new group</a></td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-	</tr>
-</table>
-</div>
+	<input type="submit"
+		value="<spring:message code="group.add.submit.label" />" />
+</form:form></div>
 
 </div>
 
