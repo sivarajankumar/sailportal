@@ -23,7 +23,6 @@
 package org.telscenter.sail.webapp.service.grading.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,9 +39,7 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 import static org.easymock.EasyMock.*;
 
 
-import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
-import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.grading.IndividualScore;
 import org.telscenter.sail.webapp.domain.grading.impl.IndividualScoreImpl;
