@@ -251,6 +251,7 @@ English <br />
 		onclick="javascript:alert('This page is not available yet')"> <img
 		id="studentsignout" src="../<spring:theme code="sign_out" />"
 		style="border: 0px;" /> </a></li>
+	<li><%@ include file="../logout.jsp"%></li>
 </ul>
 <!-- comment --></div>
 <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b

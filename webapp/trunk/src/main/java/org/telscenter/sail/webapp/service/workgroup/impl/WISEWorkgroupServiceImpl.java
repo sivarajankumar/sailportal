@@ -119,7 +119,9 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
     	Set<User> addMemberSet = new HashSet<User>();
     	addMemberSet.add(user);
     	if (params.getWorkgroupTo() == null) {
-    		createWISEWorkgroup("workgroup " + user.getUserDetails().getUsername(), addMemberSet, offering, period);
+    		if (params.getWorkgroupToId().intValue() == -1) {   		
+    		    createWISEWorkgroup("workgroup " + user.getUserDetails().getUsername(), addMemberSet, offering, period);
+    		}
     	} else {
     		toGroup = params.getWorkgroupTo();
         	this.addMembers(toGroup, addMemberSet);

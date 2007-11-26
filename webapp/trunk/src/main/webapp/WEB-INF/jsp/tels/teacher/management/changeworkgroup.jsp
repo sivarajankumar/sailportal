@@ -16,7 +16,7 @@
 
 <h2><spring:message code="changeworkgroup.menu" /></h2>
 
-<h1><spring:message code="changeworkgroup.message" /></h1>
+<h3><spring:message code="changeworkgroupto.message" /></h3>
 
 <form:form method="post" action="changeworkgroup.html" commandName="changeWorkgroupParameters" id="changeWorkgroups" >
        <form:select path="workgroupToId" id="workgroupTo">       
@@ -26,7 +26,10 @@
             </form:option>
           </c:forEach>
           <form:option value="-1">
-             New Workgroup
+             Put this student into a new workgroup
+          </form:option>
+          <form:option value="-2">
+             Do not put this student into any workgroup
           </form:option>   
         </form:select> 
       <input type="image" id="save" src="../<spring:theme code="register_save" />" 
