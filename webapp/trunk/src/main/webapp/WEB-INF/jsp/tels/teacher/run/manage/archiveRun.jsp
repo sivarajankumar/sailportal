@@ -28,6 +28,8 @@
 <link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
     
 <script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/effects.js"></script>
+
     
 <title>Archive Run Pop Up</title>
 </head>
@@ -42,14 +44,14 @@
 
 <div id="blockHighlight" >
 	<div id="runTitle">[DATA NEEDED: Project Name Here]</div>
-	<div id="titleSubHeader">&middot; DATA NEEDED: library project, ID 21351 &middot;</div>
-	<div id="titleSubHeader">&middot; DATA NEEDED: created 4/12/07 &middot;</div>
-	<div id="titleSubHeader">&middot; DATA NEEDED: archived 4/12/07 &middot;</div>
+	<div id="titleSubHeader">&middot; [DATA NEEDED: project type,project ID]  "library project, ID 21351" &middot;</div>
+	<div id="titleSubHeader">&middot; [DATA NEEDED: run creation date]  "created 4/12/07" &middot;</div>
 </div>			    	
 
-<p id="popUpNotice">Are you sure you want to archive this project?<br/>
-Note that no information will be lost, only stored in the Archive folder. 
-You 
+	<div id="popUpNotice1">Are you sure you want to archive this project?</div>
+	<div id="popUpNotice2">Note that archived information is not deleted, just stored in the "Archived Runs" folder. 
+You can move an archived project run back to the "Current Runs" folder at any time.</div>
+
 <!-- Support for Spring errors object -->
 <spring:bind path="endRunParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -60,22 +62,27 @@ You
 </spring:bind>
 
 <form:form method="post" action="archiveRun.html" commandName="endRunParameters" id="archiveRun" >
-  <div style="visibility:invisible;"><label for="runId">Run ID:</label>
+  <div style="visibility:hidden;"><label for="runId">Run ID:</label>
       <form:input disabled="true" path="runId" id="runId"/>
       <form:errors path="runId" />
   </div>
 
 
-    <div><input type="image" id="save" src="../../../<spring:theme code="register_save" />" 
-    onmouseover="swapImage('save','../../../<spring:theme code="register_save_roll" />');" 
-    onmouseout="swapImage('save','../../../<spring:theme code="register_save" />');"
-    />
+<div id="responseButtons">
+    <input class="center" type="image" id="savebutton" src="../../../<spring:theme code="register_save" />" 
+    onmouseover="swapImage('savebutton','../../../<spring:theme code="register_save_roll" />');" 
+    onmouseout="swapImage('savebutton','../../../<spring:theme code="register_save" />');" />
 
-    <a href="#" onclick="javascript:window.close()">cancel</a>
-    </div>
+    <a href="#" onclick="javascript:window.close()"
+    onmouseout="MM_swapImgRestore()" 
+    onmouseover="MM_swapImage('cancelbutton','','../../../themes/tels/default/images/Cancel-Reg-Roll.png',1)">
+    <img src="../../../themes/tels/default/images/Cancel-Reg.png" 
+    alt="Cancel Button" border="0" id="cancelbutton" /></a>
+</div>
 
 </form:form>
 
+</div>    <!--    End of popUpTextBoundary -->
 </div>    <!--    End of centeredDiv -->
 
 </body>
