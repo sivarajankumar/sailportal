@@ -295,16 +295,28 @@ English <br />
 		    <c:otherwise>
 		      <td><c:forEach var="member" items="${studentRunInfo.workgroup.members}">${member.userDetails.firstname} ${member.userDetails.lastname} (${member.userDetails.username}), </c:forEach></td>
 		      <td>
-		      <a href="${studentRunInfo.startProjectUrl}"
-				  onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
-				  onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
-				  id='${studentRunInfo.run.id}' class="">
-			  <img id="runproject" src="../<spring:theme code="run_project" />"
-			  	  style="border: 0px;" /> </a>
-			  <br />
-			  <a href="javascript:alert('please talk to your teacher');">Change Period Or Team</a><br />
-			  <a href="javascript:alert('please talk to your teacher');">Report a Problem</a><br />
-			  <a href="javascript:alert('please talk to your teacher');">Archive this Project</a>
+		        <c:choose>
+		          <c:when test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+		            <a href="${studentRunInfo.startProjectUrl}"
+			  	      onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
+				      onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
+				      id='${studentRunInfo.run.id}' class="">
+			        <img id="runproject" src="../<spring:theme code="run_project" />"
+			    	  style="border: 0px;" /></a>
+			      </c:when>
+			      <c:otherwise>
+			        <a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+			  	      onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
+				      onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
+				      id='${studentRunInfo.run.id}' class="">
+			        <img id="runproject" src="../<spring:theme code="run_project" />"
+			    	  style="border: 0px;" /></a>
+			      </c:otherwise>
+			    </c:choose>
+ 			    <br />
+			    <a href="javascript:alert('please talk to your teacher');">Change Period Or Team</a><br />
+			    <a href="javascript:alert('please talk to your teacher');">Report a Problem</a><br />
+			    <a href="javascript:alert('please talk to your teacher');">Archive this Project</a>
    		      </td>
 		    </c:otherwise>
 			</c:choose>
