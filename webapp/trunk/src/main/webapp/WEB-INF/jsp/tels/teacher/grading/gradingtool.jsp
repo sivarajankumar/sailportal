@@ -25,7 +25,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <%@page
 	import="org.telscenter.sail.webapp.domain.grading.GradeWorkAggregate"%>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <%@ include file="styles.jsp"%>
@@ -161,9 +161,12 @@
 					  callback:function(possibleScoreResult) { 
 					    // if the result is false display a dialog
 					  	if( possibleScoreResult == false ) {
-					  		displayScoreDialog(possibleScore); 
+					  		displayScoreDialog(possibleScore + " is not a valid score, please input a number"); 
 					  	} else {
 					  	
+					  		//check if the teacher is less than or equal to the possbile score
+					  	
+					  		if( teacherScore <=  possibleScore ) {
 							/*
 							* Remember to encode the key-value string if and when
 							* the string contains special characters.
@@ -177,7 +180,9 @@
 							savedMessageLabel[0].innerHTML = "information saved!";
 							
 							YAHOO.util.Dom.setStyle(commentedText, 'background-color', 'white'); 
-					  	
+					  		} else {
+					  			displayScoreDialog(teacherScore + " cannot be greater than the possible score "+ possibleScore); 
+					  		}
 					  	}// if
 					  }
 				});
@@ -199,7 +204,7 @@
 										   visible: false,
 										   draggable: false,
 										   close: true,
-										   text: wrongScore + " is not a valid score, please input a number",
+										   text: wrongScore,
 										   icon: YAHOO.widget.SimpleDialog.ICON_WARN,
 										   constraintoviewport: true,
 										 } );
