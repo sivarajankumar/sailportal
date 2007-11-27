@@ -38,7 +38,10 @@ public class UserServiceImpl extends
 		for (;;) {   // loop until a unique username can be found
 			try {
 				details.setUsername(coreUsername + suffixes[index]);
-				return super.createUser(details);
+				User newUser = super.createUser(details);
+				newUser.getSdsUser().setFirstName(details.getFirstname());
+				newUser.getSdsUser().setLastName(details.getLastname());
+				return newUser;
 			}
 			catch (DuplicateUsernameException e) {
 				if (index >= suffixes.length) {
