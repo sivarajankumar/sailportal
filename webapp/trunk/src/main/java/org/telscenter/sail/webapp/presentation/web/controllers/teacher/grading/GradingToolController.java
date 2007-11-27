@@ -60,8 +60,8 @@ public class GradingToolController extends AbstractController {
 	private static final String ACTIVITY_NUMBER = "activityNumber";
 	private static final String TAB_INDEX = "tabIndex";
 	private static final String NEXT_STEP = "nextStep";
-	private static final String CURNIT_ID = "curnitId";
-	private static final String PROJECT_TITLE = "projectTitle";
+	public static final String CURNIT_ID = "curnitId";
+	public static final String PROJECT_TITLE = "projectTitle";
 	private static final String ACTIVITY = "activity";
 	private static final String STEP = "step";
 	public static final String PODUUID = "podUUID";
@@ -108,7 +108,7 @@ public class GradingToolController extends AbstractController {
 				for (Iterator stepListIt = stepList.iterator(); stepListIt
 						.hasNext();) {
 					EStep step = (EStep) stepListIt.next();
-					if(this.isGradable(step.getType()) ) {
+					if(isGradable(step.getType()) ) {
 						gradableSteps.add(step);
 						stepToActivityMap.put(step, foundActivity);
 					}// if
@@ -235,19 +235,6 @@ public class GradingToolController extends AbstractController {
 	}
 
 	/**
-	 * Checks if this step is gradable
-	 * 
-	 * @param someStep
-	 * @return
-	 */
-	protected boolean stepIsGradable(EStep someStep) {
-		if( someStep.getType().contains("Note") || someStep.getType().contains("Student Assessment")) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * Grabs the html within the middle of the html body
 	 * 
 	 * @param someStep - the current step
@@ -284,7 +271,7 @@ public class GradingToolController extends AbstractController {
 	 * @param stepType
 	 * @return
 	 */
-	protected boolean isGradable(String stepType) {
+	public static boolean isGradable(String stepType) {
 		if( stepType.equals("Note")) {
 			return true;
 		} else if(stepType.equals("Student Assessment" )) {

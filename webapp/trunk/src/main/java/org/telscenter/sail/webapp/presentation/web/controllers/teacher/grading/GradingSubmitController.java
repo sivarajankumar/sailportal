@@ -49,7 +49,8 @@ import org.telscenter.sail.webapp.service.grading.GradingService;
  */
 public class GradingSubmitController extends AbstractController {
 
-	private static final String SCORE = "score";
+	private static final String TEACHER_SCORE = "teacherScore";
+	private static final String POSSIBLE_SCORE = "possibleScore";
 	public static final String WORKGROUP_ID = "workgroupId";
 	public static final String RIM_NAME = "rimName";
 	public static final String ANNOTATION_CONTENT = "annotationContent";
@@ -71,7 +72,8 @@ public class GradingSubmitController extends AbstractController {
 		String rimName = request.getParameter(RIM_NAME);
 		String runId = request.getParameter(GradeByStepController.RUN_ID);
 		String workgroupId = request.getParameter(WORKGROUP_ID);
-		String score = request.getParameter(SCORE);
+		String teacherScore = request.getParameter(TEACHER_SCORE);
+		String possibleScore = request.getParameter(POSSIBLE_SCORE);
 		
 		if( podId != null ) {
 			System.out.println("The Pod ID is "+podId);
@@ -79,7 +81,8 @@ public class GradingSubmitController extends AbstractController {
 			System.out.println("The RIM_Name Content is "+rimName);
 			System.out.println("The runId Content is "+runId);
 			System.out.println("The workgroupId Content is "+workgroupId);
-			System.out.println("the score is: " + score);
+			System.out.println("the teacher score score is: " + teacherScore);
+			System.out.println("the possible score is: " + possibleScore);
 			//GradingService gs = new GradingServiceImpl();
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(POD_ID, podId);
@@ -101,7 +104,7 @@ public class GradingSubmitController extends AbstractController {
 					EAnnotation annotation = (EAnnotation) annosIT.next();
 					//for the score
 					if( annotation.getEntityUUID().toString().equals(podId) && agroup.getAnnotationSource().contains("score")){
-						annotation.setContents(score);
+						annotation.setContents(teacherScore);
 					} else if( annotation.getEntityUUID().toString().equals(podId) && agroup.getAnnotationSource().contains("comment") 
 							&& annotation.getEntityName() == null) {
 						annotation.setContents(annotationContent);
