@@ -30,41 +30,137 @@ import org.telscenter.pas.emf.pas.EStep;
 
 
 /**
- * Represents a particular student's score for a particular <code>Run</code>
+ * Represents a particular individuals score for a particular <code>Run</code>
  * 
  * @author Anthony Perritano
  * @version $Id$
  */
 public interface IndividualScore extends Comparable<IndividualScore> {
 
-	//getters
+	/**
+	 * Gets the accmulated score for an individual step
+	 * 
+	 * @param stepUUID - id of the step
+	 * @return the score
+	 */
+	public String getAccumulatedScore(String stepUUID);
 	
-	public String getFirstName();  // TELS SPECIFIC
-	public String getLastName();   // TELS SPECIFIC
-	public String getAccmulatedScore(EStep step);
-	public String getPossibleScore(EStep step);
+	/**
+	 * Gets the possible score for that step
+	 * 
+	 * @param stepUUID - id of the step
+	 * @return the score
+	 */
+	public String getPossibleScore(String stepUUID);
+	
+	/**
+	 * Gets the total accumulated score of all steps
+	 * 
+	 * @return the score
+	 */
 	public String getTotalAccumulatedScore();
+	
+	/**
+	 * Gets the total possible score of all the steps
+	 * 
+	 * @return the score
+	 */
 	public String getTotalPossibleScore();
+	
+	/**
+	 * Gets the total number of steps that are gradable
+	 * 
+	 * @return number of gradable steps
+	 */
 	public Integer getTotalGradableSteps();
+	
+	/**
+	 * Gets the total number of steps that have been graded
+	 * 
+	 * @return number of graded steps
+	 */
 	public Integer getTotalGradedSteps();
+	
+	/**
+	 * Gets the individuals workgroup
+	 * 
+	 * @return a workgroup
+	 */
 	public Workgroup getWorkgroup();
-	public Group getPeriod();   // CHANGE TO GROUP
-	public Long getRunId();     // CHANGE TO OFFERING
+	
+	/**
+	 * Gets the associated group for this individual
+	 * 
+	 * @return a group
+	 */
+	public Group getGroup();   
+	
+	/**
+	 * Gets the associated offering id 
+	 * 
+	 * @return id of offering
+	 */
+	public Long getOfferingId();  
+	
+	/**
+	 * Gets the individuals username
+	 * 
+	 * @return username
+	 */
 	public String getUsername();
 	
-	public Integer getPercentageCompleted(); 
-
-
 	
 	//setters
-	public void setFirstName(String firstName);
-	public void setLastName(String lastName);
-	public void setAccmulatedScore(Object step, String score);
-	public void setPossibleScore(Object step, String score);
+	
+	/**
+	 * Sets an accumlated score
+	 * 
+	 * @param stepUUID - id of the step
+	 * @param score - the steps score
+	 */
+	public void setAccmulatedScore(String stepUUID, String score);
+	
+	/**
+	 * Sets a possible score
+	 * 
+	 * @param stepUUID - id of the step
+	 * @param score - the steps score
+	 */
+	public void setPossibleScore(String stepUUID, String score);
+	
+	/**
+	 * Sets the individuals workgroup
+	 * 
+	 * @param workgroup
+	 */
 	public void setWorkgroup(Workgroup workgroup);
-	public void setPeriod(Group group);
-	public void setRunId(Long runId);
+	
+	/**
+	 * Sets the individuals group
+	 * 
+	 * @param group
+	 */
+	public void setGroup(Group group);
+	
+	/**
+	 * Sets the offering id
+	 * 
+	 * @param offeringId
+	 */
+	public void setOfferingId(Long offeringId);
+	
+	/**
+	 * Sets the username
+	 * 
+	 * @param username
+	 */
 	public void setUsername(String username);
+	
+	/**
+	 * Sets the total number of steps that can be graded
+	 * 
+	 * @param totalGradableSteps
+	 */
 	public void setTotalGradableSteps(Integer totalGradableSteps);
 	
 	
