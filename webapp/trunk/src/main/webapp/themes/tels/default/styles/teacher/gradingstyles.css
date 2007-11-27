@@ -113,6 +113,10 @@ background-color:#FFF1F8;
 border: 1px solid #000000;
 }
 
+input {
+border: 1px solid #000000;
+}
+
 .scorearea {
 border: 1px solid #000000;
 }

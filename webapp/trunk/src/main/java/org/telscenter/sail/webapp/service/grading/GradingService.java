@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.service.grading;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -132,7 +133,7 @@ public interface GradingService {
 	 * <code>AnnotationBundle</code> for the entire project.
 	 * 
 	 * @param runId id of the run that the teacher wants to grade
-	 * @param workgroup particular workgroup that the teacher wants to grade
+	 * @param workgroupId particular workgroup that the teacher wants to grade
 	 * @return <code>gradeWorkAggregate</code> containing all of the workgroup's
 	 *     work for the entire project.
 	 * @throws ObjectNotFoundException when the provided runId
@@ -142,9 +143,13 @@ public interface GradingService {
 	
 	/**
 	 * Returns a <code>Set</code> of <code>IndividualScore</code> objects for all of the
-	 * members within a specified <code>Workgroup</code> 
+	 * members within a specified <code>GradeWorkByWorkgroupAggregate</code> and gradableSteps map
+	 * 
+	 * @param <code>gradeWorkByWorkgroupAggregate</code> containing all of the workgroup's
+	 *     work for the entire project.
+	 * @param Map of gradable steps in the project. Key - uuid of the step, Value - the actual step 
 	 */
-	public List<IndividualScore> getIndividualScores(Workgroup workgroup);
+	public List<IndividualScore> getIndividualScores(GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate, HashMap<String, EStep> gradableSteps);
 	
 	/**
 	 * Saves the grades and comments

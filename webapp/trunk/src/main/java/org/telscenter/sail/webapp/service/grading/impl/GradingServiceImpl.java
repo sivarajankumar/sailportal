@@ -25,10 +25,13 @@ package org.telscenter.sail.webapp.service.grading.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.sail.emf.sailuserdata.EAnnotation;
+import net.sf.sail.emf.sailuserdata.EAnnotationGroup;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -37,6 +40,8 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.emf.common.util.EList;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.pas.emf.pas.util.CurnitmapLoader;
@@ -44,9 +49,11 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 import org.telscenter.sail.webapp.domain.grading.IndividualScore;
+import org.telscenter.sail.webapp.domain.grading.StudentScore;
 import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByStepAggregateImpl;
 import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByWorkgroupAggregateImpl;
-import org.telscenter.sail.webapp.domain.grading.impl.IndividualScoreImpl;
+import org.telscenter.sail.webapp.domain.grading.impl.IndividualScoreNumericImpl;
+import org.telscenter.sail.webapp.domain.grading.impl.StudentScoreImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.grading.SessionBundleService;
@@ -157,20 +164,67 @@ public class GradingServiceImpl implements GradingService {
 		
 		return aggregate;
 	}
-	
+
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getIndividualScore(net.sf.sail.webapp.domain.Workgroup)
 	 */
-	public List<IndividualScore> getIndividualScores(Workgroup workgroup) {
+	public List<IndividualScore> getIndividualScores(GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate,HashMap<String, EStep> gradableSteps) {
 		List<IndividualScore> individualScores = new ArrayList<IndividualScore>();
+		
 		// get gradeworkbyworkgroupaggregate for this workgroup <- mock it for now or populate individualScore objects with random data
 		// do some parsing of the annotationbundle to get what you need to populate IndividualScore object
+		Workgroup workgroup = gradeWorkByWorkgroupAggregate.getWorkgroup();
+		
+		//go through all the workgroup members
 		for (User user : workgroup.getMembers()) {
-			IndividualScore individualScore = new IndividualScoreImpl();
+			IndividualScore individualScore = new StudentScoreImpl();
 			individualScore.setUsername(user.getUserDetails().getUsername());
-			// here, populate the individualScore object
+			((StudentScore)individualScore).setFirstName(user.getSdsUser().getFirstName());
+			((StudentScore)individualScore).setLastName(user.getSdsUser().getLastName());
+			individualScore.setWorkgroup(workgroup);
+			individualScore.setOfferingId(gradeWorkByWorkgroupAggregate.getRunId());
+			individualScore.setGroup(((WISEWorkgroup)workgroup).getPeriod());
+			individualScore.setTotalGradableSteps(gradableSteps.size());
+			
+			EList annotationGroups = gradeWorkByWorkgroupAggregate.getAnnotationBundle().getEAnnotationBundle().getAnnotationGroups();
+			
+			for (Iterator iterator = annotationGroups.iterator(); iterator
+					.hasNext();) {
+				EAnnotationGroup annotationGroup = (EAnnotationGroup) iterator.next();
+				if( annotationGroup.getAnnotationSource().equals("http://telscenter.org/annotation/score")) {
+					
+					EList annotations = annotationGroup.getAnnotations();
+					
+					for (Iterator ai = annotations.iterator(); ai
+							.hasNext();) {
+						EAnnotation a = (EAnnotation) ai.next();
+						
+						//if this step is gradable
+						if( gradableSteps.containsKey(a.getEntityUUID().toString())) {
+							
+							//check null also
+							if( !a.getContents().equals("unscored") && StringUtils.trimToNull(a.getContents()) != null ) {
+								individualScore.setAccmulatedScore(a.getEntityUUID().toString(), a.getContents());
+							}// if
+						
+							//look up the possible score for the step
+							String possScore = gradableSteps.get(a.getEntityUUID().toString()).getPossibleScore().toString();
+							
+							if( possScore == null)
+								possScore = "20";
+							
+							individualScore.setPossibleScore(a.getEntityUUID().toString(), possScore);
+						}// if
+					}// for
+					
+				}// if
+				
+			}// for
+			
+			// the score object the list
 			individualScores.add(individualScore);			
-		}
+		}//for
+		
 		return individualScores;
 	}
 	
