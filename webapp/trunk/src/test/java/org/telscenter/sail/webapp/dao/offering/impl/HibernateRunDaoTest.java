@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.impl.HibernateGroupDao;
@@ -223,7 +224,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         assertNull(runMap.get(RunImpl.COLUMN_NAME_ENDTIME.toUpperCase()));
 
         // now add groups to the run
-        Set<Group> periods = new HashSet<Group>();
+        Set<Group> periods = new TreeSet<Group>();
         periods.add(DEFAULT_GROUP_1);
         periods.add(DEFAULT_GROUP_2);
         this.defaultRun.setPeriods(periods);
