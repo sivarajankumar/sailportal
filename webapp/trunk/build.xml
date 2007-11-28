@@ -52,7 +52,7 @@
   </path>
 
   <path id="lib.acegi-security">
-    <path location="${M2_REPO}/org/acegisecurity/acegi-security/1.0.4/acegi-security-1.0.4.jar" />
+    <path location="${M2_REPO}/org/telscenter/external/org/acegisecurity/acegi-security/1.0.4-SNAPSHOT/acegi-security-1.0.4-SNAPSHOT.jar" />
     <path location="${M2_REPO}/org/acegisecurity/acegi-security-tiger/1.0.4/acegi-security-tiger-1.0.4.jar" />
   </path>
 
