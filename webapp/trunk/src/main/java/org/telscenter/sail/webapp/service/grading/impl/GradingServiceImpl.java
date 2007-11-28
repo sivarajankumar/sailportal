@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import net.sf.sail.emf.sailuserdata.EAnnotation;
 import net.sf.sail.emf.sailuserdata.EAnnotationGroup;
@@ -52,7 +53,6 @@ import org.telscenter.sail.webapp.domain.grading.IndividualScore;
 import org.telscenter.sail.webapp.domain.grading.StudentScore;
 import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByStepAggregateImpl;
 import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByWorkgroupAggregateImpl;
-import org.telscenter.sail.webapp.domain.grading.impl.IndividualScoreNumericImpl;
 import org.telscenter.sail.webapp.domain.grading.impl.StudentScoreImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.grading.GradingService;
@@ -120,7 +120,7 @@ public class GradingServiceImpl implements GradingService {
 		Set<Group> periods = run.getPeriods();
 
 		Map<Group, Set<GradeWorkByWorkgroupAggregate>> period_to_aggregate =
-			new HashMap<Group, Set<GradeWorkByWorkgroupAggregate>>();
+			new TreeMap<Group, Set<GradeWorkByWorkgroupAggregate>>();
 
 		// instantiate the List in period_to_aggregate for each period
 		for (Group period : periods) {

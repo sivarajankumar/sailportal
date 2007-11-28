@@ -37,6 +37,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 
@@ -98,6 +100,7 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @OneToMany(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
     @JoinTable(name = PERIODS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = PERIODS_JOIN_COLUMN_NAME, nullable = false))
+    @Sort(type = SortType.NATURAL)
     private Set<Group> periods = new TreeSet<Group>();
     
     @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
