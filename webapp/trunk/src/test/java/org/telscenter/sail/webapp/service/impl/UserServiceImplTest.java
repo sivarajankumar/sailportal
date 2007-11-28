@@ -127,6 +127,32 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 				.getUsername());
 	}
 
+	
+	/*
+	 * This test checks creation of a user within the portal, but ignores the
+	 * creation of a user on the remote SDS. Tests for system integration are
+	 * beyond the scope of this testing mechanism. We are assuming the SdsUserId
+	 * cannot be null, enforced by the data store constraint.
+	 */
+	public void testCreateUserWithFirstNameLastName() throws Exception {
+			setupCreateTest();
+			
+			// create user (saves automatically)
+			User expectedUser = this.userService.createUser(userDetailsCreate);
+			StudentUserDetails expectedUserDetails = (StudentUserDetails) expectedUser.getUserDetails();
+			
+			// retrieve user and compare
+			StudentUserDetails actual = (StudentUserDetails) this.userDetailsService
+					.loadUserByUsername(userDetailsCreate.getUsername());
+			
+			assertEquals(expectedUserDetails.getFirstname(), actual
+					.getFirstname());
+			
+			assertEquals(expectedUserDetails.getFirstname(), actual
+					.getFirstname());
+			
+	}
+	
 	/*
 	 * This test checks creation of a user within the portal, but ignores the
 	 * creation of a user on the remote SDS. Tests for system integration are

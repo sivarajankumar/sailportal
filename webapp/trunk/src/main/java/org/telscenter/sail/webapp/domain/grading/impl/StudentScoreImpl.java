@@ -30,35 +30,35 @@ public class StudentScoreImpl extends IndividualScoreNumericImpl implements Stud
 	private String firstName;
 	private String lastName;
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.StudentScore#getFirstName()
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.StudentScore#getLastName()
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.StudentScore#setFirstName(java.lang.String)
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.StudentScore#setLastName(java.lang.String)
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

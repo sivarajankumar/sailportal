@@ -44,35 +44,35 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 	private Integer totalGradableSteps;
 	
 	
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getAccumulatedScore(java.lang.String)
 	 */
 	public String getAccumulatedScore(String stepUUID) {
 		return accumulatedScores.get(stepUUID);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getGroup()
 	 */
 	public Group getGroup() {
 		return period;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getPossibleScore(java.lang.String)
 	 */
 	public String getPossibleScore(String stepUUID) {
 		return possibleScores.get(stepUUID);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getOfferingId()
 	 */
 	public Long getOfferingId() {
 		return this.runId;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getTotalAccumulatedScore()
 	 */
 	public String getTotalAccumulatedScore() {
@@ -82,7 +82,7 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 		for (Map.Entry<String, String> entry : accumulatedScores.entrySet()) {
 			String accScore = entry.getValue();
 			
-			if( !accScore.equals("unscored") && StringUtils.trimToNull(accScore) != null ) {
+			if( StringUtils.isNumeric(accScore) && StringUtils.trimToNull(accScore) != null ) {
 				totalScore = totalScore + new Integer(accScore).intValue();
 			}// if
 		}// for
@@ -90,7 +90,7 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 		return "" + totalScore;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getTotalPossibleScore()
 	 */
 	public String getTotalPossibleScore() {
@@ -99,7 +99,7 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 		for (Map.Entry<String, String> entry : possibleScores.entrySet()) {
 			String possScore = entry.getValue();
 			
-			if( !possScore.equals("unscored") && StringUtils.trimToNull(possScore) != null ) {
+			if( StringUtils.isNumeric(possScore) && StringUtils.trimToNull(possScore) != null ) {
 				totalScore = totalScore + new Integer(possScore).intValue();
 			}
 		}
@@ -107,70 +107,70 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 		return ""+ totalScore;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getWorkgroup()
 	 */
 	public Workgroup getWorkgroup() {
 		return workgroup;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#setAccmulatedScore(java.lang.String, java.lang.String)
 	 */
 	public void setAccmulatedScore(String stepUUID, String score) {
 		accumulatedScores.put(stepUUID, score);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#setGroup(net.sf.sail.webapp.domain.group.Group)
 	 */
 	public void setGroup(Group group) {
 		this.period = group;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#setPossibleScore(java.lang.String, java.lang.String)
 	 */
 	public void setPossibleScore(String stepUUID, String score) {
 		possibleScores.put(stepUUID, score);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#setOfferingId(java.lang.Long)
 	 */
 	public void setOfferingId(Long runId) {
 		this.runId = runId;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#setWorkgroup(net.sf.sail.webapp.domain.Workgroup)
 	 */
 	public void setWorkgroup(Workgroup workgroup) {
 		this.workgroup = workgroup;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getUsername()
 	 */
 	public String getUsername() {
 		return username;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#setUsername(java.lang.String)
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getTotalGradableSteps()
 	 */
 	public Integer getTotalGradableSteps() {
 		return totalGradableSteps;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getTotalGradedSteps()
 	 */
 	public Integer getTotalGradedSteps() {
@@ -180,7 +180,7 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 		for (Map.Entry<String, String> entry : accumulatedScores.entrySet()) {
 			String accScore = entry.getValue();
 			
-			if( !accScore.equals("unscored")) {
+			if( StringUtils.isNumeric(accScore) && StringUtils.trimToNull(accScore) != null ) {
 				gradableStepsScored++;
 			}// if
 		}// for
@@ -188,15 +188,14 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 		return new Integer(gradableStepsScored);
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#setTotalGradableSteps(java.lang.Integer)
 	 */
 	public void setTotalGradableSteps(Integer totalGradableSteps) {
 		this.totalGradableSteps = totalGradableSteps;
 	}
 
-	
-	/* (non-Javadoc)
+	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -206,14 +205,14 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 				+ this.getTotalPossibleScore();
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	public int compareTo(IndividualScore o) {
 		return username.compareTo(o.getUsername());
     }
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -226,7 +225,7 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 	}
 
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

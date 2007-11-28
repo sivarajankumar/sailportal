@@ -36,14 +36,14 @@ public interface StudentScore extends IndividualScore {
 	 * 
 	 * @return the first name
 	 */
-	public String getFirstName();  // TELS SPECIFIC?
+	public String getFirstName();
 	
 	/**
 	 * An individuals last name
 	 * 
 	 * @return the last name
 	 */
-	public String getLastName();   // TELS SPECIFIC?
+	public String getLastName();
 	
 	/**
 	 * Sets the first name of the individual
