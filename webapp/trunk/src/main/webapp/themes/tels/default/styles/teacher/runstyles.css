@@ -1,4 +1,8 @@
+#currentRunTable{
+	margin:5px;
+}  
 
+table 
 #runContent{
 	border:1px solid #999999;
 	padding: 0 20px 20px 20px;
@@ -43,8 +47,7 @@
 
 #titleCell {
 	padding: 0 0 10px 0;
-	
-}
+	}
 
 #runTitle {
 	text-align:center;
