@@ -230,18 +230,18 @@
   </tr>
   <tr>
   	<td><em>View:</em></td>
-    <td id="viewStep"><strong>Act ${activity.number+1}, Step ${step.number+1}: ${step.title}</strong>
-    </td>
-    <td><td id="gradeStepLinks">
-    <c:if test="${!empty previousStep}"> 
-    <a id='previousStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">View Previous Step</a>
-    &nbsp &nbsp
-    </c:if>
-    <a href="gradebystep.html?runId=${runId}">View Step Menu</a>
-    &nbsp &nbsp 
-    <c:if test="${!empty nextStep}">
-    <a id='nextStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">View Next Step</a>
-    </c:if></td>
+    <td id="viewStep"><strong>Act ${activity.number+1}, Step ${step.number+1}: ${step.title}</strong></td>
+    <td id="gradeStepLinks">
+	    <c:if test="${!empty previousStep}"> 
+	    <a id='previousStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">View Previous Step</a>
+	    &nbsp &nbsp
+	    </c:if>
+	    <a href="gradebystep.html?runId=${runId}">View Step Menu</a>
+	    &nbsp &nbsp 
+	    <c:if test="${!empty nextStep}">
+	    <a id='nextStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">View Next Step</a>
+	    </c:if>
+	</td>
   <tr>
     <td></td>
     <td></td>
@@ -396,7 +396,7 @@ aggregate.value = set of workgroupWorkAggregate
 												
 																				</c:forEach>
 																		</c:forEach>
-																		<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}"/> out of <input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="3" value="${step.possibleScore}"/>
+																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}"/> out of <input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" DISABLED="true" READONLY="true" type="text" size="3" value="${step.possibleScore}"/>
 																	
 																				<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
 																						<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save</button></em>
