@@ -1,1 +1,1 @@
-mysql -u root -proot < mysql-init.sql
+mysql -u root -p < mysql-init.sql
