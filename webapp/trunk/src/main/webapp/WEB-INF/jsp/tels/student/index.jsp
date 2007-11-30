@@ -307,8 +307,11 @@ YAHOO.util.Event.onDOMReady(init);
 
 											<c:choose>
 											<c:when test="${studentRunInfo.workgroup != null}" >
-												<c:forEach var="member" items="${studentRunInfo.workgroup.members}">	
-												${member.userDetails.username}, 
+												<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
+												${member.userDetails.username}
+										 		   <c:if test="${membersStatus.last=='false'}">
+							     					&
+							    				</c:if> 
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
