@@ -280,41 +280,46 @@ YAHOO.util.Event.onDOMReady(init);
 										<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
 										<td class="tableBorderTopBottom tableBorderRight">
 											
-											<c:forEach var="member" items="${studentRunInfo.run.owners}">
+											
 
 											<c:choose>
-											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >	
-												${member.userDetails.firstname} 
-								      			${member.userDetails.lastname}
+											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
+												<c:forEach var="member" items="${studentRunInfo.run.owners}">	
+													${member.userDetails.firstname} 
+									      			${member.userDetails.lastname}
+												</c:forEach>
 											</c:when>
 											<c:otherwise>
 												[Pending]				    
 											</c:otherwise>	
 								      		</c:choose>
-								      	</c:forEach>
+								      	
 
 										</td>
 									</tr>
 								  	<tr>
 								  		<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
 								  		<td class="tableBorderTopBottom tableBorderRight">
-								  			${studentRunInfo.workgroup.period.name}</td>
+								  			${studentRunInfo.group.name}</td>
 								  	</tr>
 								  	<tr bgcolor="#FFFF00">
 								  		<td class="studentTableLeftHeader tableBorderTopBottom">Team</td>
 								  		<td class="tableBorderTopBottom tableBorderRight">
-										<c:forEach var="member" items="${studentRunInfo.workgroup.members}">
+									
+										
 
 											<c:choose>
-											<c:when test="${fn:length(studentRunInfo.workgroup.members) > 0}" >	
+											<c:when test="${studentRunInfo.workgroup != null}" >
+												<c:forEach var="member" items="${studentRunInfo.workgroup.members}">	
 												${member.userDetails.firstname} 
 								      			${member.userDetails.lastname} (${member.userDetails.username}), 
+												</c:forEach>
 											</c:when>
 											<c:otherwise>
 												[Pending]				    
 											</c:otherwise>	
 								      		</c:choose>
-								      	</c:forEach>
+								      	
 
 										</td>
 								  	</tr>
