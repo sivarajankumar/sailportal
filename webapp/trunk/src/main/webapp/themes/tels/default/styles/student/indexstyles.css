@@ -28,19 +28,20 @@ table tr, table td {
 }
 
 #columnLabel {
-	font-size:1.4em;
+	color:#3333cc;
+	font-size:1.5em;
 	font-weight:bold;
-	letter-spacing:2px;
-	text-align:center;
-	margin-top:10px;
-	margin-bottom:10px;
+	font-style:italic;
+	letter-spacing:4px;
+	text-align:left;
+	margin: 25px 0 10px 0;
 }
 
 #columnButtons {
 	float:left;
-	width: 230px;
+	width: 225px;
 	height:375px;
-	margin:0 0 0 0 ;
+	margin:25px 0 0 0 ;
 	background-color:#66FF00;
 	background-image:url(../../images/student/Gradient-ProjectMenu-Green-400.png);
 	background-repeat:repeat-x;
@@ -136,16 +137,16 @@ table tr, table td {
 	margin:25px 0 10px 14px;
 }
 
-#studentCurrentRunTable {
-	border: 1px solid black;
-	}
 	
 #projectMainRow{
-	border-bottom: 6px groove #666666;
+	border: 1px solid black;
 }
 
-tr.even {background-color:#e8e8ff; }
-
+#blankRow {
+	padding:4px;
+	border-left:0px;
+	border-right:0px;
+}
 
 .studentTableLeftHeader{
 	font-size:1.0em;
@@ -166,15 +167,20 @@ tr.even {background-color:#e8e8ff; }
 	padding:0px;
 	}
 
+.tableBorderTopBottom {
+	border-bottom:1px solid #666666;
+	border-top:1px solid #666666;
+}
+
+.tableBorderRight {
+	border-right:1px solid #666666;
+}	
+
 #tableStudentProjectData tr, #tableStudentProjectData td  {
 	margin:0px;
 	padding:3px 5px;
 	}
 	
-#tableStudentProjectData tr{
-	border-bottom: 1px solid #666666;
-	}
-
 #studentTitleText {
 	font-size:1.4em;
 	font-weight:bold;
@@ -200,9 +206,8 @@ tr.even {background-color:#e8e8ff; }
 	color:#0033CC;
 	margin:0px;
 	padding:3px 2px 3px 2px;
-	border-top:1px solid #ffffff;
-	border-bottom:1px solid #ffffff;
-}
+	border:1px solid #FFFFFF;
+	}
 
 #studentActionList a:hover {
 	display:block;
@@ -210,8 +215,8 @@ tr.even {background-color:#e8e8ff; }
 	font-size:1.1em;
 	color:#000066;
 	background-color:#ffff33;
-	border-top:1px solid #666666;
-	border-bottom:1px solid #666666;
+	border:1px solid #666666;
+
 	
 }
 
