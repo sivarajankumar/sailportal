@@ -251,8 +251,6 @@ YAHOO.util.Event.onDOMReady(init);
 
 <div id="columnLabel">PROJECT MENU</div>
 
-<h1>Current Runs</h1>
-
 <div id="tabSystem" class="yui-navset">
     <ul class="yui-nav">
         <li class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
@@ -276,10 +274,9 @@ YAHOO.util.Event.onDOMReady(init);
 											<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
 										</td>
 									</tr>
-									<tr bgcolor="#FFFF00">
+									<tr bgcolor="#CCFF99">
 										<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
 										<td class="tableBorderTopBottom tableBorderRight">
-											
 											
 
 											<c:choose>
@@ -290,7 +287,7 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												[Pending]				    
+												pending...				    
 											</c:otherwise>	
 								      		</c:choose>
 								      	
@@ -302,7 +299,7 @@ YAHOO.util.Event.onDOMReady(init);
 								  		<td class="tableBorderTopBottom tableBorderRight">
 								  			${studentRunInfo.group.name}</td>
 								  	</tr>
-								  	<tr bgcolor="#FFFF00">
+								  	<tr bgcolor="#CCFF99">
 								  		<td class="studentTableLeftHeader tableBorderTopBottom">Team</td>
 								  		<td class="tableBorderTopBottom tableBorderRight">
 									
@@ -311,12 +308,11 @@ YAHOO.util.Event.onDOMReady(init);
 											<c:choose>
 											<c:when test="${studentRunInfo.workgroup != null}" >
 												<c:forEach var="member" items="${studentRunInfo.workgroup.members}">	
-												${member.userDetails.firstname} 
-								      			${member.userDetails.lastname} (${member.userDetails.username}), 
+												${member.userDetails.username}, 
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												[Pending]				    
+												pending...			    
 											</c:otherwise>	
 								      		</c:choose>
 								      	
@@ -331,7 +327,7 @@ YAHOO.util.Event.onDOMReady(init);
 						</td>
 						<td style="width:22%; padding:3px;">
 						  	<ul id="studentActionList">
-						  		<li><a id='${studentRunInfo.run.id}' class="runProjectLink">RUN PROJECT</a></li>
+						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">Run Project</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
@@ -344,7 +340,7 @@ YAHOO.util.Event.onDOMReady(init);
 			</c:forEach>
 			</c:when>
 			<c:otherwise>
-					There are no runs for you.				    
+					Select "Add a Project" to get started.				    
 			</c:otherwise>
 			</c:choose>
 		</div>
@@ -354,7 +350,7 @@ YAHOO.util.Event.onDOMReady(init);
 				>
 			</c:when>
 			<c:otherwise>
-					There are no archived runs for you.				    
+					There are no projects in the Archive.				    
 			</c:otherwise>
 			</c:choose>
 		</div>
