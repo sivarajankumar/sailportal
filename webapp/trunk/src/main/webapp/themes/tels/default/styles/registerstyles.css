@@ -368,8 +368,10 @@ dd {
 	width:80%;
 	text-align: center;
 	border: 1px solid #333333;
+	background-color:#ccffcc;
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
+    background-repeat:repeat-x;
 	margin-top: 0px;
 	margin-right: auto;
 	margin-bottom: 0px;
