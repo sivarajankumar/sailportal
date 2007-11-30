@@ -24,11 +24,14 @@
 </script>
 
 <script>
-		function init() {
+
+	function init() {
 	    //create logger
 	  //  var myContainer = document.body.appendChild(document.createElement("div")); 
-	//	var myLogReader = new YAHOO.widget.LogReader(myContainer); 
-		
+	//	var myLogReader = new YAHOO.widget.LogReader(myContainer);
+	 
+   		var tabView = new YAHOO.widget.TabView('tabSystem');
+
 		function runObject(id){
 				this.runId=id;
 		}
@@ -162,6 +165,22 @@ YAHOO.util.Event.onDOMReady(init);
 <script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
+<script>   <!--This script is used to generate alternating striped effect for Project Tables
+	 
+	 $tablerow_count=0;
+	 function tablerowswitch() {
+	  global $tablerow_count;
+	  $tablerow_count++;
+	  if ($tablerow_count % 2) {
+	   echo "odd";
+	  }
+	  else {
+	   echo "even";
+	  }
+	 }
+	 
+</script>
+
 </head>
 
 <body class="yui-skin-sam">
@@ -171,7 +190,6 @@ YAHOO.util.Event.onDOMReady(init);
 <%@ include file="./studentHeader.jsp"%>
 
 <div id="columnButtons">
-
 
 <dl id="list1" >
 	<dt class="listTitle1">User:</dt>
@@ -201,7 +219,7 @@ YAHOO.util.Event.onDOMReady(init);
 		<a href="#"
 		onmouseover="swapImage('studentaddproject','../<spring:theme code="student_add_project_roll" />');"
 		onmouseout="swapImage('studentaddproject','../<spring:theme code="student_add_project" />');"
-		class="changepasswordLink"> <img id="studentaddproject"
+		class="addprojectLink"> <img id="studentaddproject"
 		src="../<spring:theme code="student_add_project" />" /> </a>
 	</li>
 						
@@ -234,122 +252,147 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="columnLabel">PROJECT MENU</div>
 
 <h1>Current Runs</h1>
-<table border="0">
-	
-	<c:forEach var="studentRunInfo" items="${current_run_list}">
-	
-			<tr id="projectMainRow">
-	
-			<td style="padding:0px;">
-				<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
-						<tr>
-							<td class="studentTableLeftHeader">Title</td>
-							<td id="studentCurrentTitleCell" class="tableBorderRight">
-								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
-							<td class="tableBorderTopBottom tableBorderRight"><c:forEach var="owner" items="${studentRunInfo.run.owners}">[${owner.userDetails.username}]</c:forEach></td>
-									<c:choose>
-									<c:when test="${studentRunInfo.workgroup == null}" >
-					  	</tr>
-					  	<tr>
-					  		<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
-					  		<td class="tableBorderTopBottom tableBorderRight">[3]</td>
-					  	</tr>
-					  	<tr>
-					  		<td class="studentTableLeftHeader tableBorderTopBottom">Team</td>
-					  		<td class="tableBorderTopBottom tableBorderRight">[Pending]</td>
-					  	</tr>
-					  	<tr>
-					  		<td class="studentTableLeftHeader">Last Use</td>
-					  		<td class="tableBorderRight">[Last Launch Date]</td>
-					  	</tr>
-				</table>
-			</td>
-			<td style="width:22%; padding:3px;">
-			  	<ul id="studentActionList">
-			  		<li><a href="#" id='${studentRunInfo.run.id}'>RUN PROJECT</a></li>
-			  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
-			  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
-			  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
-			 	</ul>
-			 </td>
-				    </c:when>
-				    <c:otherwise>
-				      <td><c:forEach var="member" items="${studentRunInfo.workgroup.members}">${member.userDetails.firstname} 
-				      		${member.userDetails.lastname} (${member.userDetails.username}), </c:forEach></td>
-				      <td >
-				      	<a href="${studentRunInfo.startProjectUrl}">Run Project</a><br />
-					  	<a href="#">Change Period Or Team</a><br />
-					  	<a href="#">Report a Problem</a><br />
-					  	<a href="#;">Archive this Project</a>
-		   		      </td>
-				    </c:otherwise>
-					</c:choose>
-				</tr>
-				<tr id="blankRow"><td style="border:0px;"></td><td style="border:0px;"></td></tr>
-			
-			</c:forEach>
-			</table>
 
-<h1>Archived Runs</h1>
-
-<table border="0">
-	
-	<c:forEach var="studentRunInfo" items="${ended_run_list}">
-	
-			<tr id="projectMainRow">
-	
-			<td style="padding:0px;">
-				<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
-						<tr>
-							<td class="studentTableLeftHeader">Title</td>
-							<td id="studentCurrentTitleCell" class="tableBorderRight">
-								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
-							<td class="tableBorderTopBottom tableBorderRight"><c:forEach var="owner" items="${studentRunInfo.run.owners}">[${owner.userDetails.username}]</c:forEach></td>
-									<c:choose>
-									<c:when test="${studentRunInfo.workgroup == null}" >
-					  	</tr>
-					  	<tr>
-					  		<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
-					  		<td class="tableBorderTopBottom tableBorderRight">[3]</td>
-					  	</tr>
-					  	<tr>
-					  		<td class="studentTableLeftHeader tableBorderTopBottom">Team</td>
-					  		<td class="tableBorderTopBottom tableBorderRight">[Pending]</td>
-					  	</tr>
-					  	<tr>
-					  		<td class="studentTableLeftHeader">Last Use</td>
-					  		<td class="tableBorderRight">[Last Launch Date]</td>
-					  	</tr>
-				</table>
-			</td>
-			<td style="width:22%; padding:3px;">
-			  	<ul id="studentActionList">
-			  		<li><a style="color:#cccccc;" href="#">Review Project</a></li>
-			  	  	<li><a style="color:#cccccc;" href="#">Make Project Current</a></li>
-			  	  	
-			 	</ul>
-			 </td>
-				    </c:when>
-				    <c:otherwise>
-				      <td><c:forEach var="member" items="${studentRunInfo.workgroup.members}">${member.userDetails.firstname} 
-				      		${member.userDetails.lastname} (${member.userDetails.username}), </c:forEach></td>
-				      <td >
-				      	<a href="#">Review Project</a><br />
-					  	<a href="#">Make Project Current</a><br />
-					  </td>
-				    </c:otherwise>
-					</c:choose>
-				</tr>
-				<tr id="blankRow"><td style="border:0px;"></td><td style="border:0px;"></td></tr>
+<div id="tabSystem" class="yui-navset">
+    <ul class="yui-nav">
+        <li class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
+        <li ><a href="#archivedRuns"><em>Archived Runs</em></a></li>
+    </ul>            
+    <div class="yui-content">
+		<div id="currentRuns">
+			<c:choose>
+			<c:when test="${fn:length(current_run_list) > 0}" >
 			
+			<c:forEach var="studentRunInfo"  items="${current_run_list}">
+					<table border="0">
+			
+						<tr id="projectMainRow">
+				
+						<td style="padding:0px;">
+							<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
+									<tr >
+										<td class="studentTableLeftHeader">Title</td>
+										<td id="studentCurrentTitleCell" class="tableBorderRight">
+											<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
+										</td>
+									</tr>
+									<tr bgcolor="#FFFF00">
+										<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+										<td class="tableBorderTopBottom tableBorderRight">
+											
+											<c:forEach var="member" items="${studentRunInfo.run.owners}">
+
+											<c:choose>
+											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >	
+												${member.userDetails.firstname} 
+								      			${member.userDetails.lastname}
+											</c:when>
+											<c:otherwise>
+												[Pending]				    
+											</c:otherwise>	
+								      		</c:choose>
+								      	</c:forEach>
+
+										</td>
+									</tr>
+								  	<tr>
+								  		<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+								  		<td class="tableBorderTopBottom tableBorderRight">
+								  			${studentRunInfo.workgroup.period.name}</td>
+								  	</tr>
+								  	<tr bgcolor="#FFFF00">
+								  		<td class="studentTableLeftHeader tableBorderTopBottom">Team</td>
+								  		<td class="tableBorderTopBottom tableBorderRight">
+										<c:forEach var="member" items="${studentRunInfo.workgroup.members}">
+
+											<c:choose>
+											<c:when test="${fn:length(studentRunInfo.workgroup.members) > 0}" >	
+												${member.userDetails.firstname} 
+								      			${member.userDetails.lastname} (${member.userDetails.username}), 
+											</c:when>
+											<c:otherwise>
+												[Pending]				    
+											</c:otherwise>	
+								      		</c:choose>
+								      	</c:forEach>
+
+										</td>
+								  	</tr>
+								  	<tr>
+								  		<td class="studentTableLeftHeader">Last Use</td>
+								  		<td class="tableBorderRight">[Last Launch Date]</td>
+								  	</tr>
+							</table>
+						</td>
+						<td style="width:22%; padding:3px;">
+						  	<ul id="studentActionList">
+						  		<li><a id='${studentRunInfo.run.id}' class="runProjectLink">RUN PROJECT</a></li>
+						  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
+						  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
+						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
+						 	</ul>
+						 </td>
+						</tr>
+					
+					
+						</table>
 			</c:forEach>
-			</table>
-</div>   <!--end of columnProjects, floated to left-->
+			</c:when>
+			<c:otherwise>
+					There are no runs for you.				    
+			</c:otherwise>
+			</c:choose>
+		</div>
+        <div id="archivedRuns">
+			<c:choose>
+			<c:when test="${fn:length(end_run_list) > 0}" >
+				>
+			</c:when>
+			<c:otherwise>
+					There are no archived runs for you.				    
+			</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
+</div>  
+ <!--end of columnProjects, floated to left-->
+ 
+ <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
+<!-- this creates the add project dialog with iframe -->
+<div id="addProjectDialog">
+<div class="hd">Add Project</div>
+<div class="bd">
+<!-- <h1 align="left"><spring:message code="teacher.add-project" /></h1> -->
+<h3 align="left"><spring:message code="teacher.add-project-info" /></h3>
+
+
+<iframe id="addProjectFrame" src=" " width="100%" FRAMEBORDER="0"
+	allowTransparency="false" scrolling="no"> </iframe>
+	
+</div>
+</div>
+
+<!-- creates change passwoerd -->
+<div id="changePasswordDialog">
+<div class="hd">Change Your Password</div>
+<div class="bd">
+
+
+<iframe id="changePasswordFrame" src=" " width="100%" FRAMEBORDER="0"
+	allowTransparency="false" scrolling="no"> </iframe>
+	
+</div>
+</div>
+
+<!-- this creates the select team dialog with iframe -->
+<div id="runProjectDialog">
+<div class="hd">Select a Team</div>
+<div class="bd" align="left">
+
+<iframe id="runProjectFrame" src=" " width="100%" height="200px" FRAMEBORDER="0"
+	allowTransparency="false" scrolling="no"> </iframe>
+	
+</div>
+</div>
+<!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
+ 
