@@ -218,7 +218,7 @@ YAHOO.util.Event.onDOMReady(init);
 		<a href="#"
 		onmouseover="swapImage('studentaddproject','../<spring:theme code="student_add_project_roll" />');"
 		onmouseout="swapImage('studentaddproject','../<spring:theme code="student_add_project" />');"
-		class="changepasswordLink"> <img id="studentaddproject"
+		class="addprojectLink"> <img id="studentaddproject"
 		src="../<spring:theme code="student_add_project" />" /> </a>
 	</li>
 						
@@ -264,17 +264,26 @@ YAHOO.util.Event.onDOMReady(init);
 						</tr>
 						<tr>
 							<td class="studentTableLeftHeader">Teacher</td>
-							<td><c:forEach var="owner" items="${studentRunInfo.run.owners}">[${owner.userDetails.username}]</c:forEach></td>
-									<c:choose>
-									<c:when test="${studentRunInfo.workgroup == null}" >
+							<td><c:forEach var="owner" items="${studentRunInfo.run.owners}">${owner.userDetails.username}</c:forEach></td>
 					  	</tr>
 					  	<tr>
 					  		<td class="studentTableLeftHeader">Period</td>
-					  		<td>[3]</td>
+					  		<td>${studentRunInfo.group.name}</td>
 					  	</tr>
 					  	<tr>
 					  		<td class="studentTableLeftHeader">Team</td>
-					  		<td>[Pending]</td>
+					  		<td>
+					  		  <c:choose>
+					  		    <c:when test="${studentRunInfo.workgroup == null}" >
+					  		       Pending
+					  		    </c:when>
+					  		    <c:otherwise>
+					  		       <c:forEach var="member" items="${studentRunInfo.workgroup.members}">
+					  		         ${member.userDetails.firstname} ${member.userDetails.lastname} (${member.userDetails.username}), 
+					  		       </c:forEach>
+					  		    </c:otherwise>
+					  		  </c:choose>
+					  		</td>
 					  	</tr>
 					  	<tr>
 					  		<td class="studentTableLeftHeader">Last Use</td>
@@ -284,27 +293,34 @@ YAHOO.util.Event.onDOMReady(init);
 			</td>
 			<td style="vertical-align:top; padding:1px 0; width:23%;">
 			  	<ul id="studentActionList">
-			  		<li><a href="#" id='${studentRunInfo.run.id}'>RUN PROJECT</a></li>
+			  		<li>
+			  		  <c:choose>
+  			  		    <c:when test="${studentRunInfo.workgroup == null}" >
+			  		      <a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">RUN PROJECT</a>
+			  		    </c:when>
+			  		    <c:otherwise>
+						<c:choose>
+							<c:when
+								test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+								<a href="${studentRunInfo.startProjectUrl}"
+									id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+							</c:when>
+							<c:otherwise>
+								<a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+									id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+			  		  </c:choose>
+			  		</li>
 			  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
 			  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
 			  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
 			 	</ul>
 			 </td>
-				    </c:when>
-				    <c:otherwise>
-				      <td><c:forEach var="member" items="${studentRunInfo.workgroup.members}">${member.userDetails.firstname} 
-				      		${member.userDetails.lastname} (${member.userDetails.username}), </c:forEach></td>
-				      <td >
-				      	<a href="${studentRunInfo.startProjectUrl}">Run Project</a><br />
-					  	<a href="#">Change Period Or Team</a><br />
-					  	<a href="#">Report a Problem</a><br />
-					  	<a href="#;">Archive this Project</a>
-		   		      </td>
-				    </c:otherwise>
-					</c:choose>
-				</tr>
-			</c:forEach>
-			</table>
+		   </tr>
+		   </c:forEach>
+		</table>
 
 <h1>Archived Runs</h1>
 <table border="1">
@@ -326,3 +342,45 @@ YAHOO.util.Event.onDOMReady(init);
 </table>
 </div>
 </div>
+
+
+<!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
+<!-- this creates the add project dialog with iframe -->
+<div id="addProjectDialog">
+<div class="hd">Add Project</div>
+<div class="bd">
+<!-- <h1 align="left"><spring:message code="teacher.add-project" /></h1> -->
+<h3 align="left"><spring:message code="teacher.add-project-info" /></h3>
+
+
+<iframe id="addProjectFrame" src=" " width="100%" FRAMEBORDER="0"
+	allowTransparency="false" scrolling="no"> </iframe>
+	
+</div>
+</div>
+
+<!-- creates change passwoerd -->
+<div id="changePasswordDialog">
+<div class="hd">Change Your Password</div>
+<div class="bd">
+
+
+<iframe id="changePasswordFrame" src=" " width="100%" FRAMEBORDER="0"
+	allowTransparency="false" scrolling="no"> </iframe>
+	
+</div>
+</div>
+
+<!-- this creates the select team dialog with iframe -->
+<div id="runProjectDialog">
+<div class="hd">Select a Team</div>
+<div class="bd" align="left">
+
+<iframe id="runProjectFrame" src=" " width="100%" height="200px" FRAMEBORDER="0"
+	allowTransparency="false" scrolling="no"> </iframe>
+	
+</div>
+</div>
+<!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
+</body>
+</html>
