@@ -1,46 +1,30 @@
 <%@ include file="../include.jsp"%>
-<!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
--->
-
-<!-- $Id$ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../<spring:theme code="stylesheet"/>" media="screen"
-	rel="stylesheet" type="text/css" />
+
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
+	
 <title><spring:message code="application.title" /></title>
+
 <%@ include file="styles.jsp"%>
 <style>
 .yui-panel-container select {
               _visibility: inherit;
 }
 </style>
-<script type="text/javascript" src=".././javascript/tels/general.js"></script>
-<script language="JavaScript">
 
-function popup(URL) {
-  window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');
-}
+<script language="JavaScript">
+	function popup(URL) {
+  	window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');}
 </script>
+
 <script>
-function init() {
+		function init() {
 	    //create logger
 	  //  var myContainer = document.body.appendChild(document.createElement("div")); 
 	//	var myLogReader = new YAHOO.widget.LogReader(myContainer); 
@@ -155,10 +139,6 @@ function init() {
 																			  { text:"Done", handler:handleCloseRun,isDefault:true } ]
 																 } );
 	
-
-
-
-	
 	// Render the Dialog
 	runProjectDialog.render();
 
@@ -172,72 +152,84 @@ function init() {
                 	document.getElementById('runProjectFrame').src='selectteam.html?runId=' + this.id;
                 	runProjectDialog.show();
     }, runProjectDialog);
-    
-   
-        
 }
 
 YAHOO.util.Event.onDOMReady(init);
 </script>
 
+<script src=".././javascript/tels/general.js" type="text/javascript" ></script>
+<script src=".././javascript/tels/effects.js" type="text/javascript" ></script>
+<script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+
+<script>   <!--This script is used to generate alternating striped effect for Project Tables
+	 
+	 $tablerow_count=0;
+	 function tablerowswitch() {
+	  global $tablerow_count;
+	  $tablerow_count++;
+	  if ($tablerow_count % 2) {
+	   echo "odd";
+	  }
+	  else {
+	   echo "even";
+	  }
+	 }
+	 
+</script>
+
 </head>
-<%@ include file="header.jsp"%>
 
 <body class="yui-skin-sam">
 
+<div id="centeredDiv">
 
+<%@ include file="./studentHeader.jsp"%>
 
-<div id="columns">
-<h3 style="color: rgb(100, 0, 0);"><spring:message
-	code="student.project-menu" /></h3>
-<div id="xsnazzy" class="bgcolorSeaBlue"
-	style="width: 220px; position: relative; top: 20px;"><b
-	class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b
-	class="xb4"></b></b>
-<div class="border1">
-<h3><spring:message code="student.user" /><spring:message
-	code="colon" /> <authz:authentication operation="username" /></h3>
-<h5><spring:message code="msg" /><spring:message code="colon" />
-<spring:message code="good.morning" /><authz:authentication
-	operation="username" /></h5>
+<div id="columnLabel">PROJECT MENU</div>
 
-<div><spring:message code="teacher.currentlogin" /> <%=new java.util.Date().getHours()%>
-<spring:message code="colon" /> <%=new java.util.Date().getMinutes()%>
-<br />
-<spring:message code="teacher.lastlogin" /> <%=new java.util.Date()%> <br />
-<spring:message code="wise.language" /> <spring:message code="colon" />
-English <br />
-</div>
+<div id="columnButtons">
 
-<h3><spring:message code="wise.account-options" /></h3>
-<ul class="none">
+<dl id="list1" >
+	<dt class="listTitle1">User:</dt>
+	<dd id="studentUsername">[Jimmy Slotta!] </dd>
+	<dt class="listTitle1">Msg:</dt>
+	<dd id="studentWelcome">[Good Morning!] </dd>
+</dl>
+
+<div class="separator"></div>
+
+<dl id="list2">
+	<dt class="listTitle2">Current Time:</dt>
+	<dd id="currentSignIn">[Tues Nov. 24, 3:05pm]</dd>
+	<dt class="listTitle2">Last Sign In:</dt>
+	<dd id="lastSignIn">[Mon Nov. 23, 3:56pm]</dd>
+	<dt class="listTitle2">Language:</dt> 
+	<dd id="language">[English]</dd>
+</dl>
+
+<div class="separator"></div>
+
+<div id="accountOptions"><spring:message code="wise.account-options" /></div>
+
+<div id="optionButtons">
+	<ul>
 	<li>
-	
-	<!--  
-		this is the yahoo button that i use to test
-	<span id="pushbutton" class="yui-button yui-push-button"><em
-		class="first-child">
-	<button type="submit" name="pushbutton" class="addProject"
-		id='${run.id}'>Add Project</button>
-	
-	</em> </span>
-	-->
-	 <a href="#"
-		onmouseover="swapImage('addproject','../<spring:theme code="student_add_project_roll" />');"
-		onmouseout="swapImage('addproject','../<spring:theme code="student_add_project" />');"
-		class="addprojectLink" > <img
-		 src="../<spring:theme code="student_add_project" />"
-		style="border: 0px;" /> </a></li>
-		
-	<li visibility="hidden"><a href="#"
+		<a href="#"
+		onmouseover="swapImage('studentaddproject','../<spring:theme code="student_add_project_roll" />');"
+		onmouseout="swapImage('studentaddproject','../<spring:theme code="student_add_project" />');"
+		class="changepasswordLink"> <img id="studentaddproject"
+		src="../<spring:theme code="student_add_project" />" /> </a>
+	</li>
+						
+	<li><a href="#"
 		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
 		onmouseout="swapImage('studentchangepwd','../<spring:theme code="student_change_password" />');"
 		class="changepasswordLink"> <img
 		id="studentchangepwd"
 		src="../<spring:theme code="student_change_password" />"
 		style="border: 0px;" /> </a></li>
-		
-		
+				
 	<li><a href="#"
 		onmouseover="swapImage('studentchangelang','../<spring:theme code="student_change_lang_roll" />');"
 		onmouseout="swapImage('studentchangelang','../<spring:theme code="student_change_lang" />');"
@@ -245,84 +237,74 @@ English <br />
 		id="studentchangelang"
 		src="../<spring:theme code="student_change_lang" />"
 		style="border: 0px;" /> </a></li>
-	<li><a href="#"
-		onmouseover="swapImage('studentsignout','../<spring:theme code="sign_out_roll" />');"
-		onmouseout="swapImage('studentsignout','../<spring:theme code="sign_out" />');"
-		onclick="javascript:alert('This page is not available yet')"> <img
-		id="studentsignout" src="../<spring:theme code="sign_out" />"
-		style="border: 0px;" /> </a></li>
-	<li><%@ include file="../logout.jsp"%></li>
-</ul>
-<!-- comment --></div>
-<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b
-	class="xb2"></b><b class="xb1"></b></b></div>
+
+	</ul>
+</div>
+
+<div id="displayAsEnglish"><a href="#">Display in English</a></div>
+</div>   <!--end of columnButtons, floated to left-->
 
 
-<div
-	style="width: 660px; position: relative; bottom: 385px; left: 250px;">
+<div id="columnProjects">
 
-<div>
 <h1>Current Runs</h1>
-<table border="1">
-	<thead>
-		<tr>
-			<th><spring:message code="run.name.heading" /></th>
-			<th>Teacher name</th>
-			<th>Team members</th>
-			<th><spring:message code="run.options.heading" /></th>
-		</tr>
-	</thead>
+<table id="studentCurrentRunTable" border="1">
+	
 	<c:forEach var="studentRunInfo" items="${current_run_list}">
-		<tr>
-			<td>${studentRunInfo.run.sdsOffering.name}</td>
-			<td><c:forEach var="owner" items="${studentRunInfo.run.owners}">${owner.userDetails.username}</c:forEach></td>
-			<c:choose>
-			<c:when test="${studentRunInfo.workgroup == null}" >
-			  <td>Not in a team yet</td>
-			  <td>
-			  <a href="#"
-				  onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
-				  onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
-				  id='${studentRunInfo.run.id}' class="runProjectLink">
-			  <img id="runproject" src="../<spring:theme code="run_project" />"
-			  	  style="border: 0px;" /> </a>
-			  <br />
- 			  <a href="javascript:alert('please talk to your teacher');">Change Period Or Team</a><br />
-			  <a href="javascript:alert('please talk to your teacher');">Report a Problem</a><br />
-			  <a href="javascript:alert('please talk to your teacher');">Archive this Project</a>
-			  </td>
-		    </c:when>
-		    <c:otherwise>
-		      <td><c:forEach var="member" items="${studentRunInfo.workgroup.members}">${member.userDetails.firstname} ${member.userDetails.lastname} (${member.userDetails.username}), </c:forEach></td>
-		      <td>
-		        <c:choose>
-		          <c:when test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-		            <a href="${studentRunInfo.startProjectUrl}"
-			  	      onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
-				      onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
-				      id='${studentRunInfo.run.id}' class="">
-			        <img id="runproject" src="../<spring:theme code="run_project" />"
-			    	  style="border: 0px;" /></a>
-			      </c:when>
-			      <c:otherwise>
-			        <a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
-			  	      onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />');"
-				      onmouseout="swapImage('runproject','../<spring:theme code="run_project" />');"
-				      id='${studentRunInfo.run.id}' class="">
-			        <img id="runproject" src="../<spring:theme code="run_project" />"
-			    	  style="border: 0px;" /></a>
-			      </c:otherwise>
-			    </c:choose>
- 			    <br />
-			    <a href="javascript:alert('please talk to your teacher');">Change Period Or Team</a><br />
-			    <a href="javascript:alert('please talk to your teacher');">Report a Problem</a><br />
-			    <a href="javascript:alert('please talk to your teacher');">Archive this Project</a>
-   		      </td>
-		    </c:otherwise>
-			</c:choose>
-		</tr>
-	</c:forEach>
-</table>
+	
+			<tr id="projectMainRow" class="tablerowswitch();">
+	
+			<td style="padding:0px;">
+				<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td class="studentTableLeftHeader">Title</td>
+							<td id="studentCurrentTitleCell">
+								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="studentTableLeftHeader">Teacher</td>
+							<td><c:forEach var="owner" items="${studentRunInfo.run.owners}">[${owner.userDetails.username}]</c:forEach></td>
+									<c:choose>
+									<c:when test="${studentRunInfo.workgroup == null}" >
+					  	</tr>
+					  	<tr>
+					  		<td class="studentTableLeftHeader">Period</td>
+					  		<td>[3]</td>
+					  	</tr>
+					  	<tr>
+					  		<td class="studentTableLeftHeader">Team</td>
+					  		<td>[Pending]</td>
+					  	</tr>
+					  	<tr>
+					  		<td class="studentTableLeftHeader">Last Use</td>
+					  		<td>[Last Launch Date]</td>
+					  	</tr>
+				</table>
+			</td>
+			<td style="vertical-align:top; padding:1px 0; width:23%;">
+			  	<ul id="studentActionList">
+			  		<li><a href="#" id='${studentRunInfo.run.id}'>RUN PROJECT</a></li>
+			  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
+			  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
+			  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
+			 	</ul>
+			 </td>
+				    </c:when>
+				    <c:otherwise>
+				      <td><c:forEach var="member" items="${studentRunInfo.workgroup.members}">${member.userDetails.firstname} 
+				      		${member.userDetails.lastname} (${member.userDetails.username}), </c:forEach></td>
+				      <td >
+				      	<a href="${studentRunInfo.startProjectUrl}">Run Project</a><br />
+					  	<a href="#">Change Period Or Team</a><br />
+					  	<a href="#">Report a Problem</a><br />
+					  	<a href="#;">Archive this Project</a>
+		   		      </td>
+				    </c:otherwise>
+					</c:choose>
+				</tr>
+			</c:forEach>
+			</table>
 
 <h1>Archived Runs</h1>
 <table border="1">
@@ -343,54 +325,4 @@ English <br />
 	</c:forEach>
 </table>
 </div>
-
-
-
-<!-- this creates the add project dialog with iframe -->
-<div id="addProjectDialog">
-<div class="hd">Add Project</div>
-<div class="bd">
-<!-- <h1 align="left"><spring:message code="teacher.add-project" /></h1> -->
-<h3 align="left"><spring:message code="teacher.add-project-info" /></h3>
-
-
-<iframe id="addProjectFrame" src=" " width="100%" FRAMEBORDER="0"
-	allowTransparency="false" scrolling="no"> </iframe>
-	
 </div>
-</div>
-
-<!-- creates change passwoerd -->
-<div id="changePasswordDialog">
-<div class="hd">Change Your Password</div>
-<div class="bd">
-
-
-<iframe id="changePasswordFrame" src=" " width="100%" FRAMEBORDER="0"
-	allowTransparency="false" scrolling="no"> </iframe>
-	
-</div>
-</div>
-
-<!-- this creates the select team dialog with iframe -->
-<div id="runProjectDialog">
-<div class="hd">Select a Team</div>
-<div class="bd" align="left">
-
-<iframe id="runProjectFrame" src=" " width="100%" height="200px" FRAMEBORDER="0"
-	allowTransparency="false" scrolling="no"> </iframe>
-	
-</div>
-</div>
-
-
-
-<!-- logger -->
-<!--  
-<div id="myLogger"></div>
-<script type="text/javascript">
-var myLogReader = new YAHOO.widget.LogReader("myLogger");
-</script></div>
--->
-</body>
-</html>
