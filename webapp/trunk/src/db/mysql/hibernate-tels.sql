@@ -1,192 +1,4 @@
 
-    alter table acl_entry 
-        drop 
-        foreign key FK5302D47DC9975936;
-
-    alter table acl_entry 
-        drop 
-        foreign key FK5302D47D9A4DE79D;
-
-    alter table acl_object_identity 
-        drop 
-        foreign key FK2A2BB0099B5E7811;
-
-    alter table acl_object_identity 
-        drop 
-        foreign key FK2A2BB009BDC00DA1;
-
-    alter table acl_object_identity 
-        drop 
-        foreign key FK2A2BB0092458F1A3;
-
-    alter table annotationBundles 
-        drop 
-        foreign key FKD986A02F54443B2;
-
-    alter table curnits 
-        drop 
-        foreign key FK4329FBBA1B78E061;
-
-    alter table groups 
-        drop 
-        foreign key FKB63DD9D4E696E7FF;
-
-    alter table groups_related_to_users 
-        drop 
-        foreign key FK3311F7E356CA53B6;
-
-    alter table groups_related_to_users 
-        drop 
-        foreign key FK3311F7E3895EAE0A;
-
-    alter table jnlps 
-        drop 
-        foreign key FK6095FABA532A941;
-
-    alter table offerings 
-        drop 
-        foreign key FK73F0F12DAB4F6201;
-
-    alter table runs 
-        drop 
-        foreign key FK3597481834F8D3;
-
-    alter table runs_related_to_groups 
-        drop 
-        foreign key FK6CD673CD50B193C8;
-
-    alter table runs_related_to_groups 
-        drop 
-        foreign key FK6CD673CD12D98E95;
-
-    alter table runs_related_to_owners 
-        drop 
-        foreign key FK7AC2FE1960AA7F41;
-
-    alter table runs_related_to_owners 
-        drop 
-        foreign key FK7AC2FE1950B193C8;
-
-    alter table sds_offerings 
-        drop 
-        foreign key FK242EBD70A532A941;
-
-    alter table sds_offerings 
-        drop 
-        foreign key FK242EBD701B78E061;
-
-    alter table sds_workgroups 
-        drop 
-        foreign key FK440A0C42AB4F6201;
-
-    alter table sds_workgroups_related_to_sds_users 
-        drop 
-        foreign key FKA31D36785AAC23E7;
-
-    alter table sds_workgroups_related_to_sds_users 
-        drop 
-        foreign key FKA31D3678F342C661;
-
-    alter table student_user_details 
-        drop 
-        foreign key FKC5AA2952D1D25907;
-
-    alter table teacher_user_details 
-        drop 
-        foreign key FKAC84070BD1D25907;
-
-    alter table user_details_related_to_roles 
-        drop 
-        foreign key FKE6A5FBDEE3B038C2;
-
-    alter table user_details_related_to_roles 
-        drop 
-        foreign key FKE6A5FBDE44F8149A;
-
-    alter table users 
-        drop 
-        foreign key FK6A68E08E3B038C2;
-
-    alter table users 
-        drop 
-        foreign key FK6A68E08F342C661;
-
-    alter table wiseworkgroups 
-        drop 
-        foreign key FKF16C83C9F309B437;
-
-    alter table workgroups 
-        drop 
-        foreign key FKEC8E50255AAC23E7;
-
-    alter table workgroups 
-        drop 
-        foreign key FKEC8E502553AE0756;
-
-    alter table workgroups_related_to_users 
-        drop 
-        foreign key FKD724CDB256CA53B6;
-
-    alter table workgroups_related_to_users 
-        drop 
-        foreign key FKD724CDB2F54443B2;
-
-    drop table if exists acl_class;
-
-    drop table if exists acl_entry;
-
-    drop table if exists acl_object_identity;
-
-    drop table if exists acl_sid;
-
-    drop table if exists annotationBundles;
-
-    drop table if exists curnits;
-
-    drop table if exists granted_authorities;
-
-    drop table if exists groups;
-
-    drop table if exists groups_related_to_users;
-
-    drop table if exists jnlps;
-
-    drop table if exists offerings;
-
-    drop table if exists runs;
-
-    drop table if exists runs_related_to_groups;
-
-    drop table if exists runs_related_to_owners;
-
-    drop table if exists sds_curnits;
-
-    drop table if exists sds_jnlps;
-
-    drop table if exists sds_offerings;
-
-    drop table if exists sds_users;
-
-    drop table if exists sds_workgroups;
-
-    drop table if exists sds_workgroups_related_to_sds_users;
-
-    drop table if exists student_user_details;
-
-    drop table if exists teacher_user_details;
-
-    drop table if exists user_details;
-
-    drop table if exists user_details_related_to_roles;
-
-    drop table if exists users;
-
-    drop table if exists wiseworkgroups;
-
-    drop table if exists workgroups;
-
-    drop table if exists workgroups_related_to_users;
-
     create table acl_class (
         id bigint not null auto_increment,
         OPTLOCK integer,
@@ -211,6 +23,7 @@
     create table acl_object_identity (
         id bigint not null auto_increment,
         object_id_identity bigint not null,
+        object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
         object_id_class bigint not null,
@@ -323,9 +136,9 @@
         OPTLOCK integer,
         name varchar(255) not null,
         offering_id bigint not null unique,
-        sds_curnitmap text,
-        sds_jnlp_fk bigint not null,
+        sds_curnitmap longtext,
         sds_curnit_fk bigint not null,
+        sds_jnlp_fk bigint not null,
         primary key (id)
     ) type=InnoDB;
 
@@ -343,7 +156,7 @@
         OPTLOCK integer,
         workgroup_id bigint not null unique,
         name varchar(255) not null,
-        sds_sessionbundle varchar(255),
+        sds_sessionbundle text,
         sds_offering_fk bigint not null,
         primary key (id)
     ) type=InnoDB;
@@ -404,8 +217,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=InnoDB;
 

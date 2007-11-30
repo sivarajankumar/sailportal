@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.domain.workgroup.impl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -51,7 +52,8 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
 	@Transient
 	private static final String COLUMN_NAME_PERIOD = "period";
 
-	@Column(name = WISEWorkgroupImpl.COLUMN_NAME_PERIOD)
+	@Lob
+	@Column(name = WISEWorkgroupImpl.COLUMN_NAME_PERIOD, length = 2147483647) // Keep length to force it to use large field type
 	private Group period;
 	
 	/**

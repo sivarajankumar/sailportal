@@ -94,8 +94,8 @@ public class SdsWorkgroup implements SdsObject {
     @JoinTable(name = SdsWorkgroup.SDS_USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = SDS_WORKGROUP_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SDS_USER_JOIN_COLUMN_NAME, nullable = false))
     private Set<SdsUser> members = new HashSet<SdsUser>();
 
-    @Column(name=SdsWorkgroup.COLUMN_NAME_SDS_SESSIONBUNDLE)
     @Lob
+    @Column(name=SdsWorkgroup.COLUMN_NAME_SDS_SESSIONBUNDLE, length = 2147483647) // Keep length to force it to use large field type
     private String sdsSessionBundle;
 
     /**
