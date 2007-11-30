@@ -360,3 +360,57 @@ dd {
 	text-align:center;
 	margin:15px;
 		}
+		
+/* STYLING FOR PREVIEW PROJECT PAGE */
+
+#previewProjectTitle {
+	clear:both;
+	width:80%;
+	text-align: center;
+	border: 1px solid #333333;
+	background-image: url(../images/GradientFooter.png);
+    background-position: bottom;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	padding:0;
+		}
+		
+#boxPreviewProject{
+	border: 1px solid #006600;
+	width:80%;
+	margin:15px auto 30px auto;
+	}
+	
+#previewProjectHeader2 {
+	color:#000000;
+	text-align:center;
+	font-size:1.8em;
+	font-weight:bold;
+	margin:15px 100px;
+}
+
+#previewProjectDetails {
+	color:#000000;
+	text-align:left;
+	font-size:1.3em;
+	margin: 0 0 0 100px;	
+}
+
+#previewProjectDetails ul{
+	padding: 0 40px 10px 20px;
+}
+
+#previewProjectDetails li{
+	line-height:120%;
+	padding-bottom:8px;
+}
+
+#previewProjectTable {
+	border-collapse:collapse;
+	margin: 5px auto 25px auto;
+	background-color:#CCFF99;
+}
+
+

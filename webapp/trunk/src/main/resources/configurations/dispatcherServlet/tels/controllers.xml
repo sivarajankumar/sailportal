@@ -79,6 +79,9 @@
 	<bean id="indexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
 
+	<bean id="previewprojectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewProjectController" />
+
 	<bean id="selectteamController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.student.SelectTeamController">
 	    <property name="runService" ref="runService" />

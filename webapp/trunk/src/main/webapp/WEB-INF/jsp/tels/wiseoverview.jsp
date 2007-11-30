@@ -48,6 +48,7 @@
 <h5 class="alignCenter"><spring:message code="wise.cannot-see-movie" />
 <a href="http://www.macromedia.com/go/getflashplayer"> <spring:message
 	code="wise.install-flash" /></a></h5>
+ 
 <div class="alignCenter"><a href="index.html"> <img id="return"
 	src="<spring:theme code="return_to_homepage" />"
 	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"

@@ -100,6 +100,7 @@
     		    /teacher/help/main.html=mainHelpController
     		    /teacher/help/contactwise.html=contactWiseController
     		    /**/index.html=indexController
+    		    /previewproject.html=previewprojectController
     		    /forgotaccount/selectaccounttype.html=selectAccountTypeController
     		    /forgotaccount/teacher/index.html=forgotAccountTeacherIndexController
     		    /forgotaccount/teacher/success.html=forgotAccountTeacherSuccessController

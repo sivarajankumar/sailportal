@@ -60,8 +60,11 @@
 	</h5>
 	</ul>
 </div>
-
-	<h5 id="homelink"><a href="index.html">Return to Home Page</a></h5>
+<br/>
+	<div style="text-align:center;"><a href="index.html"> <img id="return"
+	src="<spring:theme code="return_to_homepage" />"
+	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
+	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>
 	
 </div>   <!-- end of centered div-->
    
