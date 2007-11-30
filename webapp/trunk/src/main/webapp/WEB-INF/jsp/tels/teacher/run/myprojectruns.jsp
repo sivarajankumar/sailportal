@@ -25,12 +25,6 @@
    		 var tabView = new YAHOO.widget.TabView('tabSystem');})();
  </script>
  
-  <style type="text/css" media="screen">
-
-
-
-	</style>
-
 </head>
 
 <body class="yui-skin-sam">
