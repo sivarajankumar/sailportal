@@ -23,6 +23,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 import org.acegisecurity.userdetails.UserDetails;
@@ -109,4 +110,14 @@ public interface UserService {
 	 *      cannot be used to find the existing user
 	 */
 	public User retrieveById(Long userId) throws ObjectNotFoundException;
+	
+	/**
+	 * Instantiates a SdsUser object and populates its firstname
+	 * and lastname using the provided <code>MutableUserDetails</code>
+	 * and returns it
+	 * 
+	 * @param userDetails used to retrieve firstnamd and lastname
+	 * @return new <code>SdsUser</code> object with firstname and lastname set
+	 */
+	public SdsUser createSdsUser(final MutableUserDetails userDetails);
 }

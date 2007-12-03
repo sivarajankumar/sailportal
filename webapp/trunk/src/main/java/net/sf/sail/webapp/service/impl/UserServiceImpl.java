@@ -153,9 +153,7 @@ public class UserServiceImpl implements UserService {
 		this.assignRole(userDetails, UserDetailsService.USER_ROLE);
 		this.encodePassword(userDetails);
 
-		SdsUser sdsUser = new SdsUser();
-		sdsUser.setFirstName(userDetails.getUsername());
-		sdsUser.setLastName(userDetails.getUsername());
+		SdsUser sdsUser = createSdsUser(userDetails);
 		this.sdsUserDao.save(sdsUser);
 
 		User user = new UserImpl();
@@ -164,6 +162,16 @@ public class UserServiceImpl implements UserService {
 		this.userDao.save(user);
 
 		return user;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#createSdsUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
+	 */
+	public SdsUser createSdsUser(final MutableUserDetails userDetails) {
+		SdsUser sdsUser = new SdsUser();
+		sdsUser.setFirstName(userDetails.getUsername());
+		sdsUser.setLastName(userDetails.getUsername());
+		return sdsUser;
 	}
 
 	void encodePassword(MutableUserDetails userDetails) {

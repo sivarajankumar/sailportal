@@ -26,6 +26,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
@@ -275,6 +276,17 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		assertEquals(UserDetailsService.USER_ROLE, grantedAuthority[0]
 				.getAuthority());
 		this.checkPasswordEncoding(updatedUserDetails, NEWW);
+	}
+	
+	/* This test simply confirms that UserService.createSdsUser(MutableUserDetails)
+	 * method returns a SdsUser object with its firstname and lastname attributes
+	 * correctly set for PAS's requirements (firstname = lastname = username)
+	 */
+	public void testCreateSdsUser() {
+		SdsUser createdSdsUser = this.userService.createSdsUser(userDetails);
+		assertEquals(createdSdsUser.getFirstName(), userDetails.getUsername());
+		assertEquals(createdSdsUser.getLastName(), userDetails.getUsername());
+		assertNull(createdSdsUser.getSdsObjectId());
 	}
 	
 	@SuppressWarnings("unchecked")
