@@ -24,8 +24,11 @@
 		(function() {
    		 var tabView = new YAHOO.widget.TabView('tabSystem');})();
  </script>
- 
+
+
+
 </head>
+
 
 <body class="yui-skin-sam">
 
@@ -35,11 +38,20 @@
 
 <%@ include file="L2projects_myprojectruns.jsp"%>
 
+<style type="text/css">
+.yui-skin-sam .yui-navset .yui-nav li,
+.yui-skin-sam .yui-navset .yui-navset-top .yui-nav li {
+    margin:0 0.8em 0 0; /* space between tabs */
+    padding:5px 0 0; /* gecko: make room for overflow */
+    zoom:1;
+}
+</style>
+
 
 <div id="tabSystem" class="yui-navset">
-    <ul class="yui-nav">
-        <li class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
-        <li ><a href="#archivedRuns"><em>Archived Runs</em></a></li>
+    <ul style="font-weight:bold; font-size:1.1em;" class="yui-nav">
+        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Test Current Runs</em></a></li>
+        <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
     </ul>            
     <div class="yui-content">
         <div id="currentRuns">

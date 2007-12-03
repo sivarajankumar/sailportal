@@ -355,5 +355,19 @@ a:hover {
 }
 	
 	
+/* STYLES FOR POP-UP WINDOWS  */
+
+#popUpWindow1 {
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin: 15px 20px 5px 15px;
+	padding:20px;
+	}
 	
-	}	*/
+#changePasswordText1 {
+	text-align:left;
+	font-weight:bold;
+	margin:20px 10px 10px 30px;
+}

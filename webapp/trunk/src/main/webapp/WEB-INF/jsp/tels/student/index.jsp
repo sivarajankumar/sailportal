@@ -87,8 +87,8 @@
 	
 	// Instantiate the Dialog
 	var changePasswordDialog = new YAHOO.widget.Dialog("changePasswordDialog", 
-																{ width : "500px",
-																//  height : "70%",
+																{ width : "600px",
+																//  height : "80%",
 																  fixedcenter : true,
 																  visible : false, 
 																  iframe : true,
@@ -97,7 +97,7 @@
 																  constraintoviewport : true,
 																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
 																  buttons : [ 
-																			  { text:"Done", handler:handleClosePassword,isDefault:true } ]
+																			  { text:"Close", handler:handleClosePassword,isDefault:true } ]
 																 } );
 	
 
@@ -230,8 +230,14 @@ YAHOO.util.Event.onDOMReady(init);
 		id="studentchangepwd"
 		src="../<spring:theme code="student_change_password" />"
 		style="border: 0px;" /> </a></li>
+		
+	<li><a href="<c:url value="/j_acegi_logout"/>"
+		onmouseover="swapImage('studentsignout','../<spring:theme code="student_sign_out_roll" />');"
+		onmouseout="swapImage('studentsignout','../<spring:theme code="student_sign_out" />');"> 
+		<img id="studentsignout" src="../<spring:theme code="student_sign_out" />"
+		style="border: 0px;" /> </a></li>
 				
-	<li><a href="#"
+	<li style="visibility:hidden;"><a href="#"
 		onmouseover="swapImage('studentchangelang','../<spring:theme code="student_change_lang_roll" />');"
 		onmouseout="swapImage('studentchangelang','../<spring:theme code="student_change_lang" />');"
 		onclick="javascript:alert('This page is not available yet')"> <img
@@ -262,20 +268,20 @@ YAHOO.util.Event.onDOMReady(init);
 			<c:when test="${fn:length(current_run_list) > 0}" >
 			
 			<c:forEach var="studentRunInfo"  items="${current_run_list}">
-					<table border="0">
+					<table id="currentRunTable" border="0">
 			
 						<tr id="projectMainRow">
 				
 						<td style="padding:0px;">
 							<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
 									<tr >
-										<td class="studentTableLeftHeader">Title</td>
+										<td bgcolor="#CCFF99" class="studentTableLeftHeader">Title</td>
 										<td id="studentCurrentTitleCell" class="tableBorderRight">
 											<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
 										</td>
 									</tr>
-									<tr bgcolor="#CCFF99">
-										<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+									<tr >
+										<td bgcolor="#CCFF99" class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
 										<td class="tableBorderTopBottom tableBorderRight">
 											
 
@@ -295,16 +301,14 @@ YAHOO.util.Event.onDOMReady(init);
 										</td>
 									</tr>
 								  	<tr>
-								  		<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+								  		<td bgcolor="#CCFF99" class="studentTableLeftHeader tableBorderTopBottom">Period</td>
 								  		<td class="tableBorderTopBottom tableBorderRight">
 								  			${studentRunInfo.group.name}</td>
 								  	</tr>
-								  	<tr bgcolor="#CCFF99">
-								  		<td class="studentTableLeftHeader tableBorderTopBottom">Team</td>
-								  		<td class="tableBorderTopBottom tableBorderRight">
-									
+								  	<tr>
+								  		<td bgcolor="#CCFF99" class="studentTableLeftHeader">Team</td>
+								  		<td class="tableBorderRight">
 										
-
 											<c:choose>
 											<c:when test="${studentRunInfo.workgroup != null}" >
 												<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
@@ -322,9 +326,88 @@ YAHOO.util.Event.onDOMReady(init);
 
 										</td>
 								  	</tr>
+							</table>
+						</td>
+						<td style="width:22%; padding:3px;">
+						  	<ul id="studentActionList">
+						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">Run Project</a></li>
+						  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
+						  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
+						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
+						 	</ul>
+						 </td>
+						</tr>
+							
+						</table>
+			</c:forEach>
+			</c:when>
+			<c:otherwise>
+					To add a WISE 3.0 project click "Add a Project"				    
+			</c:otherwise>
+			</c:choose>
+		</div>
+		<div id="archivedRuns">
+			<c:choose>
+			<c:when test="${fn:length(ended_run_list) > 0}" >
+			
+			<c:forEach var="studentRunInfo"  items="${ended_run_list}">
+					<table id="currentRunTable" border="0">
+			
+						<tr id="projectMainRow">
+				
+						<td style="padding:0px;">
+							<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
+									<tr >
+										<td bgcolor="#CCFF99" class="studentTableLeftHeader">Title</td>
+										<td id="studentCurrentTitleCell" class="tableBorderRight">
+											<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
+										</td>
+									</tr>
+									<tr >
+										<td bgcolor="#CCFF99" class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+										<td class="tableBorderTopBottom tableBorderRight">
+											
+
+											<c:choose>
+											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
+												<c:forEach var="member" items="${studentRunInfo.run.owners}">	
+													${member.userDetails.firstname} 
+									      			${member.userDetails.lastname}
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												pending...				    
+											</c:otherwise>	
+								      		</c:choose>
+								      	
+
+										</td>
+									</tr>
 								  	<tr>
-								  		<td class="studentTableLeftHeader">Last Use</td>
-								  		<td class="tableBorderRight">[Last Launch Date]</td>
+								  		<td bgcolor="#CCFF99" class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+								  		<td class="tableBorderTopBottom tableBorderRight">
+								  			${studentRunInfo.group.name}</td>
+								  	</tr>
+								  	<tr>
+								  		<td bgcolor="#CCFF99" class="studentTableLeftHeader">Team</td>
+								  		<td class="tableBorderRight">
+										
+											<c:choose>
+											<c:when test="${studentRunInfo.workgroup != null}" >
+												<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
+												${member.userDetails.username}
+										 		   <c:if test="${membersStatus.last=='false'}">
+							     					&
+							    				</c:if> 
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												pending...			    
+											</c:otherwise>	
+								      		</c:choose>
+								      	
+
+										</td>
 								  	</tr>
 							</table>
 						</td>
@@ -337,27 +420,15 @@ YAHOO.util.Event.onDOMReady(init);
 						 	</ul>
 						 </td>
 						</tr>
-					
-					
+							
 						</table>
 			</c:forEach>
 			</c:when>
 			<c:otherwise>
-					Select "Add a Project" to get started.				    
+					To add a WISE 3.0 project click "Add a Project"				    
 			</c:otherwise>
 			</c:choose>
 		</div>
-        <div id="archivedRuns">
-			<c:choose>
-			<c:when test="${fn:length(end_run_list) > 0}" >
-				>
-			</c:when>
-			<c:otherwise>
-					There are no projects in the Archive.				    
-			</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
 </div>  
  <!--end of columnProjects, floated to left-->
  

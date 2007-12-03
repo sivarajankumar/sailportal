@@ -4,8 +4,7 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
     
 <script type="text/javascript" src="./javascript/tels/rotator.js"></script>
     
@@ -13,6 +12,7 @@
 </head>
 
 <body>
+
 <!-- Support for Spring errors object -->
 <spring:bind path="changePasswordParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -22,8 +22,10 @@
   </c:forEach>
 </spring:bind>
 
+<div id="popUpWindow1">
+
 	<form:form method="post" action="changepassword.html" commandName="changePasswordParameters" id="changepassword">
-	<div><label for="changepassword"><spring:message code="changepassword.password1" /></label>
+	<div><label id="changePasswordText1" for="changepassword"><spring:message code="changepassword.password1" /></label>
       <form:password path="passwd1" id="changepassword"/>
 	</div>
 	
@@ -43,7 +45,9 @@
     -->
     </div>
 
-</form:form>
+	</form:form>
+
+</div>	<!--end of popUpWindow1 div-->
 
 </body>
 </html>
