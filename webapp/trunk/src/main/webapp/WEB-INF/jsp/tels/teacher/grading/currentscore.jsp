@@ -64,6 +64,57 @@
   } 
 
 </script>
+<html>
+<head>
+<title>Print Image Only</title>
+<script>
+function makepage(src, divElement)
+{
+  // We break the closing script tag in half to prevent
+  // the HTML parser from seeing it as a part of
+  // the *main* page.
+
+  return "<html>\n" +
+    "<head>\n" +
+    "<title>Temporary Printing Window</title>\n" +
+    "<script>\n" +
+    "function step1() {\n" +
+    "  setTimeout('step2()', 10);\n" +
+    "}\n" +
+    "function step2() {\n" +
+    "  window.print();\n" +
+    "  window.close();\n" +
+    "}\n" +
+    "</scr" + "ipt>\n" +
+    "</head>\n" +
+    "<body onLoad='step1()'>\n" +
+    divElement.innerHTML +
+    "</body>\n" +
+    "</html>\n";
+}
+
+function printme(evt,divElement)
+{
+  if (!evt) {
+    // Old IE
+    evt = window.event;
+  }    
+  var image = evt.target;
+  if (!image) {
+    // Old IE
+    image = window.event.srcElement;
+  }
+  src = image.src;
+  link = "about:blank";
+  var pw = window.open(link, "_new");
+  pw.document.open();
+
+  var varPrint = document.getElementById(divElement);
+  
+  pw.document.write(makepage(src, varPrint));
+  pw.document.close();
+}
+</script>
 <script type="text/javascript">
 var tabView = new YAHOO.widget.TabView("scoreTabs");
 tabView.set('activeIndex', 0);
@@ -97,9 +148,13 @@ ${projectTitle} (${curnitId})
     </ul>            
     <div class="yui-content">
         <c:forEach var="periodEntry" varStatus="periodStatus" items="${scoreMap}">
+			
         	<div>
-        		<span id="pushbutton4" class="yui-button yui-push-button"><span class="first-child"><input type="button" name="button4" value="Add"></span></span> 
-				<table border='1'>
+				<span class="yui-button yui-push-button"><em class="first-child">
+					<button type="submit" name="Print" onClick="printme(event,'print_section_${periodEntry.key}')">Print This Report</button></em>
+				</span>
+				<div id="print_section_${periodEntry.key}">
+				<table border="1" >
 				<tr>
 					<th>Name</th>
 					<th>Username</th>
@@ -170,11 +225,15 @@ ${projectTitle} (${curnitId})
 						<td ><script type="text/javascript">drawPercentBar(<fmt:formatNumber type="number" value="${countPercentageCompleted/numberOfItems}" maxFractionDigits="0"/>); </script></td>
 					</tr>
 				</table>
+				</div>
 			</div>
         </c:forEach>
         <!-- all periods -->
         <div>
-       
+       		<span class="yui-button yui-push-button"><em class="first-child">
+					<button type="submit" name="Print" onClick="printme(event,'print_section_${periodEntry.key}')">Print This Report</button></em>
+			</span>
+			<div id="print_section_${periodEntry.key}">
         	<table border='1'>
         			<c:set var="countGradedSteps" value="0"/>
 					<c:set var="countAccScoreRaw" value="0"/>
@@ -242,15 +301,10 @@ ${projectTitle} (${curnitId})
 						<td ><script type="text/javascript">drawPercentBar(<fmt:formatNumber type="number" value="${countPercentageCompleted/numberOfItems}" maxFractionDigits="0"/>); </script></td>
 					</tr>
         </table>
-        
+        </div>
         
         </div>
     </div>
 </div>
-
-
-
-
-
 </body>
 </html>
