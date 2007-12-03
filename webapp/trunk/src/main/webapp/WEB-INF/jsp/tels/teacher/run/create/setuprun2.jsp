@@ -60,13 +60,16 @@ Previous student work and teacher feedback in archived projects can be viewed ag
 		<td>Run Created On</td>
 		<td>Last Revision On</td>
 	</tr>
+			<c:forEach var="run" items="${existingRunList}">
 	<tr id="projectTableR2">
 		<td class="center">{ }</td>
-		<td><strong>An Airbag Knocked Off My Baby's Head</strong></td>
-		<td>27134</td>
-		<td>1/23/07</td>
-		<td>3/4/07</td>
+		<td><strong>${run.sdsOffering.name}</strong></td>
+		<td>${run.id}</td>
+		<td>${run.starttime.month + 1}/${run.starttime.date}/${run.starttime.year + 1900}</td>
+		<td>${run.endtime}</td>
 	</tr>
+			</c:forEach>
+<!-- 			
 	<tr id="projectTableR2">
 		<td class="center">{ }</td>
 		<td><strong>Dingo Got My Baby</strong></td>
@@ -81,6 +84,7 @@ Previous student work and teacher feedback in archived projects can be viewed ag
 		<td>4/1/07</td>
 		<td>4/14/07</td>
 	</tr>
+-->
 	</table>
 	
 	<!--<p style="width:950px;"><c:forEach var="run" items="${existingRunList}">

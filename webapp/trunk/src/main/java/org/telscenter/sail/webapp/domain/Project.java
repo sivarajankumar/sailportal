@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.domain;
 import java.util.Set;
 
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.User;
 
 /**
  * Project Domain Object interface
@@ -38,8 +39,29 @@ public interface Project extends Curnit {
 
 	public Set<Integer> getGrades();
 	
+	public Set<String> getTopicKeywords();
+	
+	public void setTopicKeywords(Set<String> topicKeywords);
+	
 	public void setDescription(String description);
 	
 	public String getDescription();
+	
+	public Long getTotalTime();
+	
+	public void setTotalTime(Long totalTime);
+	
+	public Long getComputerTime();
+	
+	public void setComputerTime(Long computerTime);
+	
+	public String getTechReqs();
+	
+	public void setTechReqs(String techReqs);
+	
+	public Set<User> getOwners();
+	
+	public void setOwners(Set<User> owners);
+	
 
 }

@@ -24,11 +24,18 @@ package org.telscenter.sail.webapp.domain.impl;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.telscenter.sail.webapp.domain.Project;
 
@@ -37,22 +44,69 @@ import org.telscenter.sail.webapp.domain.Project;
  * information.
  *
  * @author Hiroki Terashima
+ * @author Sally
+ * 
  * @version $Id: $
  */
 @Entity
-@Table(name = ProjectImpl.DTAT_STORE_NAME)
+@Table(name = ProjectImpl.DATA_STORE_NAME)
 public class ProjectImpl extends CurnitImpl implements Project {
 
 	@Transient
-	public static final String DTAT_STORE_NAME = "projects";
+	public static final String DATA_STORE_NAME = "projects";
 	
 	@Transient
 	private static final long serialVersionUID = 1L;
+	
+    @Transient
+    public static final String COLUMN_NAME_DESCRIPTION = "description";
 
+    @Transient
+    public static final String COLUMN_NAME_GRADES = "grades";
+    
+    @Transient
+    public static final String COLUMN_NAME_TOPICKEYWORDS = "topicKeywords";
+
+    @Transient
+    public static final String COLUMN_NAME_COMPUTERTIME = "computer_time";
+    
+    @Transient
+    public static final String COLUMN_NAME_TOTALTIME = "total_time";
+    
+    @Transient
+    public static final String COLUMN_NAME_TECHREQS = "tech_reqs";
+    
+    @Transient
+    public static final String PROJECTS_JOIN_COLUMN_NAME = "projects_fk";
+
+    @Transient
+    public static final String OWNERS_JOIN_TABLE_NAME = "projects_related_to_owners";
+    
+    @Transient
+    public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
+
+    @Column(name = ProjectImpl.COLUMN_NAME_DESCRIPTION, nullable = false)
 	private String description;
 
+    @Column(name = ProjectImpl.COLUMN_NAME_GRADES, nullable = false)
 	private Set<Integer> grades;
+    
+    @Column(name = ProjectImpl.COLUMN_NAME_TOPICKEYWORDS, nullable = false)
+	private Set<String> topicKeywords;
 	
+    @Column(name = ProjectImpl.COLUMN_NAME_TOTALTIME, nullable = false)
+	private Long totalTime;
+	
+    @Column(name = ProjectImpl.COLUMN_NAME_COMPUTERTIME, nullable = false)
+	private Long computerTime;
+	
+    @Column(name = ProjectImpl.COLUMN_NAME_TECHREQS, nullable = false)
+	private String techReqs;
+	
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
+	private Set<User> owners;
+		
 	public Set<Integer> getGrades() {
 		return grades;
 	}
@@ -68,5 +122,77 @@ public class ProjectImpl extends CurnitImpl implements Project {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#getComputerTime()
+	 */
+	public Long getComputerTime() {
+		return computerTime	;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#getTotalTime()
+	 */
+	public Long getTotalTime() {
+		return totalTime;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#setComputerTime()
+	 */
+	public void setComputerTime(Long computerTime) {
+		this.computerTime = computerTime;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#setTotalTime()
+	 */
+	public void setTotalTime(Long totalTime) {
+		this.totalTime = totalTime;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#getOWNERS()
+	 */
+	public Set<User> getOwners() {
+		return owners;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#getTechReqs()
+	 */
+	public String getTechReqs() {
+		return techReqs;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#setOWNERS(java.util.Set)
+	 */
+	public void setOwners(Set<User> owners) {
+		this.owners = owners;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#setTechReqs(java.lang.String)
+	 */
+	public void setTechReqs(String techReqs) {
+		this.techReqs = techReqs;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#getTopicKeywords()
+	 */
+	public Set<String> getTopicKeywords() {
+		return topicKeywords;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.Project#setTopicKeywords(java.util.Set)
+	 */
+	public void setTopicKeywords(Set<String> topicKeywords) {
+		this.topicKeywords = topicKeywords;
+	}
+	
+	
 
 }

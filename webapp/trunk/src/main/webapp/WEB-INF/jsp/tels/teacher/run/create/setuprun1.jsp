@@ -64,18 +64,20 @@
 		<td>Usage</td>
 	</tr>
 	<tr id="projectTableR2">
-		<td><strong>[Name of Project Goes Here]</strong></td>
-		<td>27134</td>
-		<td>Mitosis, Cell Division, Cell Duplication,, Binary Fission, Life Science</td>
-		<td>6-8</td>
-		<td>8 periods</td>
-		<td>5 periods</td>
+		<td><strong>${project.sdsCurnit.name}</strong></td>
+		<td>"${project.id}"</td>
+		<td>"${project.topicKeywords}"</td>
+		<td>
+			<c:forEach var="grade" items="${project.grades}">
+			${grade}
+			</c:forEach>
+		</td>
+		<td>"${project.totalTime}"</td>
+		<td>"${project.computerTime}"</td>
 		<td>127 runs</td>
 	</tr>
 	<tr id="projectTableR3">
-		<td class="indent15px" colspan="7">8 Period Unit:  This project promotes a greater understanding of the theory of evolution. Students learn about Darwinian and Lamarckian theories and 
-three principles of evolution: 1) variation in populations, 2) natural selection of "fit" traits, 3) and inherited change over generations. Students examine 
-evidence for these three principles of evolution and integrate their new knowledge via reflective writing.</td>
+		<td class="indent15px" colspan="7">${project.description}</td>
 	</tr>
 	</table>
 			
