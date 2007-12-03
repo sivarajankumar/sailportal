@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+
 <!-- 
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
@@ -23,9 +23,7 @@
 -->
  
 <!-- $Id: projectHeader.jsp 1011 2007-09-05 20:01:48Z archana $ -->
-<div >
-	<a href="../index.html"><img id="none" src="../../<spring:theme code="dashboardbanner"/>" alt="../<spring:message code="wise.banner.alttext" />" /></a>
-</div>
+
 
 <%@ include file="../../logout.jsp"%> 
    

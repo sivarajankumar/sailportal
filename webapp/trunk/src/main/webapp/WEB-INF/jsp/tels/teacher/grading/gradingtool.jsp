@@ -126,14 +126,11 @@
 	 * submits the annotation
 	 */
 	function doSubmit(button,podId,rimName,period,workgroupId,runId) {
-			YAHOO.log('podId' + podId);
-			//
-			YAHOO.log('rimName' + rimName);
-			YAHOO.log('pe' + period);
-			YAHOO.log('runId' + runId)
-			
-			YAHOO.log( 'button:' + button );
-			
+			//YAHOO.log('podId' + podId);
+			//YAHOO.log('rimName' + rimName);
+			//YAHOO.log('pe' + period);
+			//YAHOO.log('runId' + runId);
+			//YAHOO.log( 'button:' + button );
 			//button.disabled = 'true';
 			
 			var savedText = 'saved-'+podId+'_'+workgroupId;
@@ -156,30 +153,32 @@
 			var possibleScore = possibleScoreElement[0].value;
 			
 			var possibleScoreResult;
-			
-			StringUtilsJS.isNumeric(possibleScore, {
-					  callback:function(possibleScoreResult) { 
+
+
+			//checkk the inputs of the score boxes
+			StringUtilsJS.isNumeric(teacherScore, {
+					  callback:function(teacherScoreResult) { 
+
 					    // if the result is false display a dialog
-					  	if( possibleScoreResult == false ) {
-					  		displayScoreDialog(possibleScore + " is not a valid score, please input a number"); 
+					  	if( teacherScoreResult == false ) {
+					  		displayScoreDialog(teacherScore + " is not a valid score, please input a number"); 
 					  	} else {
-					  	
-					  		//check if the teacher is less than or equal to the possbile score
-					  	
-					  		if( teacherScore <=  possibleScore ) {
-							/*
-							* Remember to encode the key-value string if and when
-							* the string contains special characters.
-							*/
-							var sUrl = "gradingsubmit.html";
-							var postData = 'workgroupId='+workgroupId+'&runId='+runId+'&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value+'&teacherScore='+teacherScore+'&possibleScore='+possibleScore;
-							
-							var request = YAHOO.util.Connect.asyncRequest('POST', sUrl, null, postData);	
-							
-							//change the comment			
-							savedMessageLabel[0].innerHTML = "information saved!";
-							
-							YAHOO.util.Dom.setStyle(commentedText, 'background-color', 'white'); 
+						  	
+					  		if( eval(teacherScore) <=  eval(possibleScore) ) {
+
+								/*
+								* Remember to encode the key-value string if and when
+								* the string contains special characters.
+								*/
+								var sUrl = "gradingsubmit.html";
+								var postData = 'workgroupId='+workgroupId+'&runId='+runId+'&podId='+podId+'&rimName='+rimName+'&annotationContent='+tel[0].value+'&teacherScore='+teacherScore+'&possibleScore='+possibleScore;
+								
+								var request = YAHOO.util.Connect.asyncRequest('POST', sUrl, null, postData);	
+								
+								//change the comment			
+								savedMessageLabel[0].innerHTML = "information saved!";
+								
+								YAHOO.util.Dom.setStyle(commentedText, 'background-color', 'white'); 
 					  		} else {
 					  			displayScoreDialog(teacherScore + " cannot be greater than the possible score "+ possibleScore); 
 					  		}
@@ -396,7 +395,7 @@ aggregate.value = set of workgroupWorkAggregate
 												
 																				</c:forEach>
 																		</c:forEach>
-																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}"/> out of <input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" DISABLED="true" READONLY="true" type="text" size="3" value="${step.possibleScore}"/>
+																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}"/> out of <input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" DISABLED="true" READONLY="true" type="text" size="1" value="${step.possibleScore}"/>
 																	
 																				<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
 																						<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save</button></em>
