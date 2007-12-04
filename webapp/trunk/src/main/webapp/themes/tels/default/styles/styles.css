@@ -358,16 +358,138 @@ a:hover {
 /* STYLES FOR POP-UP WINDOWS  */
 
 #popUpWindow1 {
+	width:600px;
+	background-image: url(../images/student/Gradient-ProjectMenu-Green-400.png);
+	background-position: center bottom;
+	background-repeat: repeat-x;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	margin: 15px 20px 5px 15px;
-	padding:20px;
+	margin: 15px 20px 20px 15px;
+	padding:15px;
 	}
 	
-#changePasswordText1 {
+#studentchangepasswordbox {
 	text-align:left;
-	font-weight:bold;
-	margin:20px 10px 10px 30px;
 }
+
+#studentchangepasswordbox dt {
+	float:left;
+	vertical-align:middle;
+	width:255px;
+	font-size:1.2em;
+	font-weight:bold;
+	padding:5px 0px;
+	margin:6px 0 0 20px; ;
+}
+
+#studentchangepasswordbox dd {
+	margin:0px;
+	padding:5px 0px;
+	 }
+
+#changePasswordField {
+	font-size:1.3em;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin:0 0 0 10px;
+	padding:3px;
+}
+
+#save {
+	margin-left:320px;
+
+}
+
+.passwordData {
+	margin-bottom:5px;
+	}
+	
+
+#projectCodeLabel {
+	font-size:1.5em;
+	margin: 0px;
+	padding:0px;
+	text-align:left;
+}
+	
+#projectcode {
+	vertical-align:center;
+	font-size:1.5em;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin-left:3px;
+	padding:3px;
+}
+
+#addProjectButton {
+	position:absolute;
+	margin: -2px 0 0 15px;
+	
+	}
+	
+#errorMessageFormat {
+	margin:20px;
+	color:#FF0000;
+	font-size:1.3em;
+	font-weight:bold;
+	}
+	
+#teamSelect {
+	width:600px;
+	background-color:#99CC99;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin:15px auto;
+	text-align:center;
+	padding:25px;
+	}
+	
+#teamSelectHeader {
+	font-size:1.5em;
+	font-weight:bold;
+}
+	
+#teamSelectChoices ul {
+	width:250px;
+	padding:0px;
+	margin:25 auto 0 auto;
+	}
+
+#teamSelectChoices li {
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+	
+		}
+
+#teamSelectChoices a:link, #teamSelectChoices a:visited {
+	display:block;
+	width: 250px;
+	text-decoration:none;
+	font-size:1.8em;
+	font-weight:bold;
+	color:#0033CC;
+	line-height:200%;	
+	
+}
+
+#teamSelectChoices a:hover {
+	display:block;
+	width: 250px;
+	text-decoration:none;
+	font-size:1.8em;
+	font-weight:bold;
+	color:#000066;
+	background-color:#ffff33;
+	line-height:200%;
+	}
+	
+

@@ -13,6 +13,7 @@
 
 <body>
 
+
 <!-- Support for Spring errors object -->
 <spring:bind path="changePasswordParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -22,32 +23,29 @@
   </c:forEach>
 </spring:bind>
 
+<div id="centeredDiv">
+
 <div id="popUpWindow1">
 
-	<form:form method="post" action="changepassword.html" commandName="changePasswordParameters" id="changepassword">
-	<div><label id="changePasswordText1" for="changepassword"><spring:message code="changepassword.password1" /></label>
-      <form:password path="passwd1" id="changepassword"/>
-	</div>
+	<div id="studentchangepasswordbox">
 	
-	<div><label for="changepassword"><spring:message code="changepassword.password2" /></label>
-		<form:password path="passwd2" id="changepassword"/>
-	</div>
-
-    <div><input type="image" id="save" src="../<spring:theme code="register_save" />" 
-    onmouseover="swapSaveImage('save',1)" 
-    onmouseout="swapSaveImage('save',0)"
-    />
-    <!-- in ajax dialog don't need it anymore 
-    <a href="index.html" onclick="javascript:window.close()"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
-    onmouseover="swapCancelImage('cancel',1)"
-    onmouseout="swapCancelImage('cancel',0)"
-    /> </a>
-    -->
-    </div>
+	<form:form method="post" action="changepassword.html" commandName="changePasswordParameters" id="changepassword">
+		<dl>
+		<dt><label for="changePasswordField"><spring:message code="changepassword.password1" /></label></dt>
+		<dd><form:password path="passwd2" id="changePasswordField"/> </dd>
+		<dt><label for="changePasswordField"><spring:message code="changepassword.password2" /></label></dt>
+		<dd><form:password path="passwd2" id="changePasswordField"/></dd>
+ 		</dl>
+ 	
+ 	   <input type="image" id="save" src="../<spring:theme code="register_save" />" 
+    	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"   />
 
 	</form:form>
-
+ 	
+ 	</div>
+ 	
 </div>	<!--end of popUpWindow1 div-->
 
+</div>
 </body>
 </html>

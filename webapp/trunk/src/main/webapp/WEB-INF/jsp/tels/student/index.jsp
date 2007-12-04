@@ -52,7 +52,7 @@
 
 	// Instantiate the Dialog
 	var addProjectDialog = new YAHOO.widget.Dialog("addProjectDialog", 
-																{ width : "500px",
+																{ width : "700px",
 																//  height : "70%",
 																  fixedcenter : true,
 																  visible : false, 
@@ -62,7 +62,7 @@
 																  constraintoviewport : true,
 																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
 																  buttons : [ 
-																			  { text:"Done", handler:handleCancel,isDefault:true } ]
+																			  {text:"Close", handler:handleCancel,isDefault:true } ]
 																 } );
 	
 	
@@ -87,8 +87,8 @@
 	
 	// Instantiate the Dialog
 	var changePasswordDialog = new YAHOO.widget.Dialog("changePasswordDialog", 
-																{ width : "600px",
-																//  height : "80%",
+																{ width : "700px",
+																  // height : "400px",
 																  fixedcenter : true,
 																  visible : false, 
 																  iframe : true,
@@ -129,7 +129,7 @@
 	
 	// Instantiate the Dialog
 	var runProjectDialog = new YAHOO.widget.Dialog("runProjectDialog", 
-																{ width : "500px",
+																{ width : "700px",
 																//  height : "70%",
 																  fixedcenter : true,
 																  visible : false, 
@@ -139,7 +139,7 @@
 																  constraintoviewport : true,
 																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
 																  buttons : [ 
-																			  { text:"Done", handler:handleCloseRun,isDefault:true } ]
+																			  { text:"Close", handler:handleCloseRun,isDefault:true } ]
 																 } );
 	
 	// Render the Dialog
@@ -179,6 +179,7 @@ YAHOO.util.Event.onDOMReady(init);
 	  }
 	 }
 	 
+    
 </script>
 
 </head>
@@ -258,8 +259,8 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="columnLabel">PROJECT MENU</div>
 
 <div id="tabSystem" class="yui-navset">
-    <ul class="yui-nav">
-        <li class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
+    <ul style="font-size:1.1em;" class="yui-nav">
+        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
         <li ><a href="#archivedRuns"><em>Archived Runs</em></a></li>
     </ul>            
     <div class="yui-content">
@@ -293,7 +294,7 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												pending...				    
+												not established yet			    
 											</c:otherwise>	
 								      		</c:choose>
 								      	
@@ -319,7 +320,7 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												pending...			    
+												not established yet			    
 											</c:otherwise>	
 								      		</c:choose>
 								      	
@@ -330,7 +331,7 @@ YAHOO.util.Event.onDOMReady(init);
 						</td>
 						<td style="width:22%; padding:3px;">
 						  	<ul id="studentActionList">
-						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">Run Project</a></li>
+						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">RUN PROJECT</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
@@ -342,7 +343,7 @@ YAHOO.util.Event.onDOMReady(init);
 			</c:forEach>
 			</c:when>
 			<c:otherwise>
-					To add a WISE 3.0 project click "Add a Project"				    
+					To add a WISE 3.0 project click the "Add a Project" button.			    
 			</c:otherwise>
 			</c:choose>
 		</div>
@@ -376,7 +377,7 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												pending...				    
+												not established yet					    
 											</c:otherwise>	
 								      		</c:choose>
 								      	
@@ -402,7 +403,7 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												pending...			    
+												not established yet					    
 											</c:otherwise>	
 								      		</c:choose>
 								      	
@@ -425,7 +426,7 @@ YAHOO.util.Event.onDOMReady(init);
 			</c:forEach>
 			</c:when>
 			<c:otherwise>
-					To add a WISE 3.0 project click "Add a Project"				    
+					To add a WISE 3.0 project click the "Add a Project" button.			    
 			</c:otherwise>
 			</c:choose>
 		</div>
@@ -435,7 +436,7 @@ YAHOO.util.Event.onDOMReady(init);
  <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
 <!-- this creates the add project dialog with iframe -->
 <div id="addProjectDialog">
-<div class="hd">Add Project</div>
+<div class="hd">Add A Project</div>
 <div class="bd">
 <!-- <h1 align="left"><spring:message code="teacher.add-project" /></h1> -->
 <h3 align="left"><spring:message code="teacher.add-project-info" /></h3>
@@ -447,13 +448,13 @@ YAHOO.util.Event.onDOMReady(init);
 </div>
 </div>
 
-<!-- creates change passwoerd -->
+<!-- creates change password -->
 <div id="changePasswordDialog">
 <div class="hd">Change Your Password</div>
 <div class="bd">
 
 
-<iframe id="changePasswordFrame" src=" " width="100%" FRAMEBORDER="0"
+<iframe id="changePasswordFrame" src=" " width="100%" height="200px" FRAMEBORDER="0"
 	allowTransparency="false" scrolling="no"> </iframe>
 	
 </div>

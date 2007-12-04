@@ -30,9 +30,11 @@
 
 <body>
 
-<h1>Success!</h1>
+<h1>The project has been successfully added.</h1>
 
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<h3>After closing this window please REFRESH your web browser window. 
+This will make the new project appear in your <em>Current Runs</em> menu.</h3>
+
 
 </body>
 </html>

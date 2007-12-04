@@ -17,33 +17,20 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id$ -->
+<!-- $Id: addprojectsuccess.jsp 766 2007-07-27 18:59:09Z hiroki $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
 <head>
-
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+    type="text/css" />
 <title><spring:message code="application.title" /></title>
 </head>
 
 <body>
 
-<div id="teamSelect">
-
-	<div id="teamSelectHeader">Will you be working on this project by yourself or with teammates?</div>
-	<div id="teamSelectChoices">
-		<ul>
-			<li><a href="startproject.html?runId=${run.id}">By Myself</a></li>
-      		<li><a href="teamsignin.html?runId=${run.id}">With 1 or 2 Teammates</a></li>
-    	</ul>
-	</div>
-
-</div>
-
+<h2>To change your period or team please talk with your teacher.</h2>
 
 </body>
 </html>

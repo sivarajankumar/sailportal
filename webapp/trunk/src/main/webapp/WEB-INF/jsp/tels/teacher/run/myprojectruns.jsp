@@ -50,12 +50,12 @@
 
 <div id="tabSystem" class="yui-navset">
     <ul style="font-weight:bold; font-size:1.1em;" class="yui-nav">
-        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Test Current Runs</em></a></li>
+        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
         <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
     </ul>            
     <div class="yui-content">
         <div id="currentRuns">
-        		<h5 id="subHeader">To manage any current Project Run select one of its Actions. To see an archived Project Run click the tab above.</h5>
+        		<h5 style="margin:3px 0 0 0;" id="subHeader">To manage any current Project Run select one of its Actions. To see an archived Project Run click the tab above.</h5>
         		<div id="runBox">
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
@@ -109,7 +109,7 @@
 				</div>
         </div><!-- end current runs tab -->
         <div id="archivedRuns">
-        <h5 id="subHeader">The following projects have been archived. <br />
+        <h5 style="margin:3px 0 0 0;" id="subHeader">The following projects have been archived. <br />
         					To manage any archived Project Run select one of its Actions. </h5>
         		<div id="runBox">
 				

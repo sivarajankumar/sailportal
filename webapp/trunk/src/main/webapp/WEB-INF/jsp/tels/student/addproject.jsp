@@ -23,8 +23,9 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
+
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+    
 <script type="text/javascript" src=".././javascript/tels/general.js"></script>    
     
 <title><spring:message code="application.title" /></title>
@@ -34,24 +35,28 @@
 <!-- Support for Spring errors object -->
 <spring:bind path="addProjectParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
-    <b>
-      <br /><c:out value="${error}"/>
-    </b>
+    <div id="errorMessageFormat">
+      	<c:out value="${error}"/>
+    </div>
   </c:forEach>
 </spring:bind>
 
+<div id="centeredDiv">
+
+<div id="popUpWindow1">
+
 <form:form method="post" action="addproject.html" commandName="addProjectParameters" id="addproject" >
-  <div><label for="projectcode"><spring:message code="teacher.project-code" /></label>
+  <div><label id="projectCodeLabel" for="projectcode"><spring:message code="teacher.project-code" /></label>
       <form:input path="projectcode" id="projectcode"/>
      
-      <input type="image" id="save" src="../<spring:theme code="register_save" />" 
-    onmouseover="swapImage('save','../<spring:theme code="register_save_roll" />');" 
-    onmouseout="swapImage('save','../<spring:theme code="register_save" />');"
-    />
-    <br>
-    <br>
-  </div>
+   	 <input id="addProjectButton" type="image" src="../<spring:theme code="student_add_this_project" />" 
+    	onmouseover="swapImage('addProjectButton','../<spring:theme code="student_add_this_project_roll" />');" 
+    	onmouseout="swapImage('addProjectButton','../<spring:theme code="student_add_this_project"/>');" />
+   
+   </div>
 </form:form>
 
+</div>
+</div>
 </body>
 </html>
