@@ -32,7 +32,7 @@
 
 <body>
 
-<div id="teamSelect">
+<div id="teamSelect" class="teamMargin1">
 
 	<div id="teamSelectHeader">Will you be working on this project by yourself or with teammates?</div>
 	<div id="teamSelectChoices">

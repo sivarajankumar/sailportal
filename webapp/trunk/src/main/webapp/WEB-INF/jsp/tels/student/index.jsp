@@ -359,13 +359,13 @@ YAHOO.util.Event.onDOMReady(init);
 						<td style="padding:0px;">
 							<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
 									<tr >
-										<td bgcolor="#CCFF99" class="studentTableLeftHeader">Title</td>
+										<td bgcolor="#FF9999" class="studentTableLeftHeader">Title</td>
 										<td id="studentCurrentTitleCell" class="tableBorderRight">
 											<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
 										</td>
 									</tr>
 									<tr >
-										<td bgcolor="#CCFF99" class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+										<td bgcolor="#FF9999" class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
 										<td class="tableBorderTopBottom tableBorderRight">
 											
 
@@ -385,12 +385,12 @@ YAHOO.util.Event.onDOMReady(init);
 										</td>
 									</tr>
 								  	<tr>
-								  		<td bgcolor="#CCFF99" class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+								  		<td bgcolor="#FF9999" class="studentTableLeftHeader tableBorderTopBottom">Period</td>
 								  		<td class="tableBorderTopBottom tableBorderRight">
 								  			${studentRunInfo.group.name}</td>
 								  	</tr>
 								  	<tr>
-								  		<td bgcolor="#CCFF99" class="studentTableLeftHeader">Team</td>
+								  		<td bgcolor="#FF9999" class="studentTableLeftHeader">Team</td>
 								  		<td class="tableBorderRight">
 										
 											<c:choose>
@@ -414,11 +414,9 @@ YAHOO.util.Event.onDOMReady(init);
 						</td>
 						<td style="width:22%; padding:3px;">
 						  	<ul id="studentActionList">
-						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">Run Project</a></li>
-						  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
-						  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
-						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
-						 	</ul>
+						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">Review Project</a></li>
+						  	  	<li><a style="color:#cccccc;" href="#">Move to Current Runs</a></li>
+						    </ul>
 						 </td>
 						</tr>
 							
@@ -454,7 +452,7 @@ YAHOO.util.Event.onDOMReady(init);
 <div class="bd">
 
 
-<iframe id="changePasswordFrame" src=" " width="100%" height="200px" FRAMEBORDER="0"
+<iframe id="changePasswordFrame" src=" " width="100%" height="250px" FRAMEBORDER="0"
 	allowTransparency="false" scrolling="no"> </iframe>
 	
 </div>
@@ -465,7 +463,7 @@ YAHOO.util.Event.onDOMReady(init);
 <div class="hd">Select a Team</div>
 <div class="bd" align="left">
 
-<iframe id="runProjectFrame" src=" " width="100%" height="200px" FRAMEBORDER="0"
+<iframe id="runProjectFrame" src=" " width="100%" height="400px" FRAMEBORDER="0"
 	allowTransparency="false" scrolling="no"> </iframe>
 	
 </div>

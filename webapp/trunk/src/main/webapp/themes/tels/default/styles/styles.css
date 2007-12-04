@@ -441,16 +441,19 @@ a:hover {
 	}
 	
 #teamSelect {
-	width:600px;
+	width:550px;
 	background-color:#99CC99;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	margin:15px auto;
 	text-align:center;
 	padding:25px;
 	}
+	
+.teamMargin1 {margin:80px auto 15px auto;}
+.teamMargin2 {margin:20px auto 0px auto;}
+
 	
 #teamSelectHeader {
 	font-size:1.5em;
@@ -492,4 +495,21 @@ a:hover {
 	line-height:200%;
 	}
 	
+#multiUserSignIn {
+	border-collapse:collapse;
+	text-align:left;
+	margin: 25px 15px 15px 25px;
+}
+
+.errorMsgStyle {
+	font-size:.9em;
+	font-weight:bold;
+	font-style:italic;
+	color:#330066;
+}
+
+#finalRunProjectButton{
+	padding:5px;
+}
+
 

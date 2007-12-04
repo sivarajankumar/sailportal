@@ -25,7 +25,12 @@
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="<../spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
+<script src=".././javascript/tels/general.js" type="text/javascript" ></script>
+<script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src=".././javascript/effects.js" type="text/javascript" ></script>
 
 <title><spring:message code="application.title" /></title>
 </head>
@@ -35,29 +40,44 @@
 <c:out value="hi" />
 </c:if>
 <!--  <h1>Team Sign In</h1> -->
-<h4><authz:authentication operation="username" /> is already signed in. All other teammates should sign in below.</h4>
 
-<form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" >
-  <label for="username1">Username 1:</label>
-     <form:input disabled="true" path="username1" id="username1" />
-     <br>
+<div id="teamSelect" class="teamMargin2">
 
-  <c:forEach var="teammate_index" begin="2" end="3" step="1">
-    <label for="username${teammate_index}">Username ${teammate_index}:</label>
-        <form:input path="username${teammate_index}" id="username${teammate_index}"/>
-        <form:errors path="username${teammate_index}" />
-      
-    <label for="password${teammate_index}">Password:</label>
-        <form:password path="password${teammate_index}" id="password${teammate_index}"/>
-        <form:errors path="password${teammate_index}" />
-        <br>
-  </c:forEach>
-<br>
-<div align='right'>
-  <input type="submit" name="_finish" value="Run Project" />
+	<div id="teamSelectHeader"><authz:authentication operation="username" /> is already signed in. <br/>All other teammates should sign in below.</div>
+
+	<form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" >
+			<table id="multiUserSignIn" border="0" cellspacing="0" cellpadding="2">
+		  		<tr>
+		  			<td><label for="username1">Username 1:</label></td>
+		     		<td><form:input disabled="true" path="username1" id="username1" /></td>
+		     		<td><em>signed in</em></td>
+				</tr>
+				<tr><td style="padding:7px;"></td><td></td><td></td><td></td></tr>
+		  		<tr>
+		  		<c:forEach var="teammate_index" begin="2" end="3" step="1">
+		    		<td><label for="username${teammate_index}">Username ${teammate_index}:</label></td>
+		        	<td><form:input path="username${teammate_index}" id="username${teammate_index}"/></td>
+		        	<td class="errorMsgStyle"><form:errors path="username${teammate_index}" /></td>
+		        </tr>
+			
+				<tr>
+		 			<td><label for="password${teammate_index}">Password:</label></td>
+		        	<td><form:password path="password${teammate_index}" id="password${teammate_index}"/></td>
+		        	<td class="errorMsgStyle"><form:errors path="password${teammate_index}" /></td>
+		        </tr>
+   				<tr><td style="padding:7px;"></td><td></td><td></td><td></td></tr>
+		  </c:forEach>
+			</table>
+			
+	 <div id="finalRunProjectButton">
+ 	    <input type="image" name=_finish" value="Run Project" id="runproject" src="../<spring:theme code="run_project" />" 
+    		onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />')" 
+    		onmouseout="swapImage('runproject','../<spring:theme code="run_project" />')" />
+	</div>
+					
+	</form:form>
+
 </div>
-</form:form>
 
-<!--  <div><a href="#" onclick="javascript:window.close()">Cancel</a></div>-->
 </body>
 </html>
