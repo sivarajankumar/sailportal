@@ -25,6 +25,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html lang="en">
 <head>
+<title>Score Summary - ${projectTitle} (${curnitId})</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
 <%@ include file="currentScoreStyles.jsp"%>
   
@@ -134,9 +135,19 @@ tabView.set('activeIndex', 0);
  
 <div style="align:left;">
 ${projectTitle} (${curnitId})
+<c:set var="totalPossibleScore" value="0"/>
 
 <c:set var="numberOfPeriods" value="${fn:length(scoreMap)}"/>
-<c:set var="totalPossibleScore" value="0"/>
+<c:choose>
+      <c:when test="${numberOfPeriods == '0' }">
+			
+			<br><br>
+			<h3>There are no graded items</h3>
+	  </c:when>
+
+      <c:otherwise>
+		<!--  do the tabs -->
+
 <br><br>
 
 <div id="scoreTabs" class="yui-navset">
@@ -177,7 +188,7 @@ ${projectTitle} (${curnitId})
 						<c:set var="numberOfItems" value="${scoreStatus.count}"/>
 						<c:set var="countGradedSteps" value="${countGradedSteps +  scoreEntry.totalGradedSteps}"/>
 						<c:set var="countAccScoreRaw" value="${countAccScoreRaw + scoreEntry.totalAccumulatedScore}"/>
-						<c:set var="countAccScorePercent" value="${countAccScorePercent + (scoreEntry.totalAccumulatedScore/scoreEntry.totalPossibleScore)*100}"/>
+						<c:set var="countAccScorePercent" value="${countAccScorePercent + (scoreEntry.totalAccumulatedScore/scoreEntry.totalAccumulatedPossibleScore)*100}"/>
 						<c:set var="countPercentageCompleted" value="${countPercentageCompleted + (scoreEntry.totalGradedSteps/scoreEntry.totalGradableSteps)*100}"/>
 						<c:set var="totalGradableSteps" value="${scoreEntry.totalGradableSteps}"/>
 						
@@ -187,14 +198,15 @@ ${projectTitle} (${curnitId})
 						<tr>
 						<td align="center">${scoreEntry.lastName}, ${scoreEntry.firstName}</td>
 						<td align="center">${scoreEntry.username}</td>
-						<td align="center">${scoreEntry.totalAccumulatedScore}/${scoreEntry.totalPossibleScore}</td>
-						<td align="center"><fmt:formatNumber type="number" value="${(scoreEntry.totalAccumulatedScore/scoreEntry.totalPossibleScore)*100}" maxFractionDigits="0"/>%</td>
+						<td align="center">${scoreEntry.totalAccumulatedScore}/${scoreEntry.totalAccumulatedPossibleScore}</td>
+						<td align="center"><fmt:formatNumber type="number" value="${(scoreEntry.totalAccumulatedScore/scoreEntry.totalAccumulatedPossibleScore)*100}" maxFractionDigits="0"/>%</td>
 						<td align="center">${scoreEntry.totalGradedSteps}</td>
 						<td align="center">${scoreEntry.totalGradableSteps}</td>
 						<td ><script type="text/javascript">drawPercentBar(<fmt:formatNumber type="number" value="${(scoreEntry.totalGradedSteps/scoreEntry.totalGradableSteps)*100}" maxFractionDigits="0"/>); </script></td>
 						</tr>
 		
 					</c:forEach>
+
 					<tr>
 					<td></td>
 					<td></td>
@@ -203,12 +215,12 @@ ${projectTitle} (${curnitId})
 					<td></td>
 					<td></td>
 					<td></td>
-					
 					</tr>
+
 					<tr>
 					<th></th>
 					<th></th>
-					<th>Current Score (Raw)</th>
+					<th></th>
 					<th>Current Score (Percentage)</th>
 					<th>Graded Steps</th>
 					<th>Total Gradable Steps</th>
@@ -216,9 +228,8 @@ ${projectTitle} (${curnitId})
 					</tr>
 					<tr>
 						<td align="center"></td>
+						<td align="center"></td>
 						<td align="center"><b>Averages<b></td>
-						
-						<td align="center"><fmt:formatNumber type="number" value="${countAccScoreRaw/numberOfItems}" maxFractionDigits="0"/>/${totalPossibleScore}</td>
 						<td align="center"><fmt:formatNumber type="number" value="${countAccScorePercent/numberOfItems}" maxFractionDigits="0"/>%</td>
 						<td align="center"><fmt:formatNumber type="number" value="${countGradedSteps/numberOfItems}" maxFractionDigits="0"/></td>
 						<td align="center">${totalGradableSteps}</td>
@@ -234,77 +245,90 @@ ${projectTitle} (${curnitId})
 					<button type="submit" name="Print" onClick="printme(event,'print_section_${periodEntry.key}')">Print This Report</button></em>
 			</span>
 			<div id="print_section_${periodEntry.key}">
-        	<table border='1'>
-        			<c:set var="countGradedSteps" value="0"/>
+        	<table border="1" >
+				<tr>
+				
+					<th>Period</th>
+					<th>Avg. Current Score (Percentage)</th>
+					<th>Avg. Graded Steps</th>
+					<th>Total Gradable Steps</th>
+					<th>Avg. Progress (% Completed)</th>
+					</tr>
+
+					<c:set var="allCountGradedSteps" value="0"/>
+					<c:set var="allCountAccScorePercent" value="0"/>
+					<c:set var="allCountPercentageCompleted" value="0"/>
+					<c:set var="allNumberOfItems" value="0"/>
+					<c:set var="allTotalGradableSteps" value="0"/>
+
+			 <c:forEach var="periodEntry" varStatus="periodStatus" items="${scoreMap}">
+			
+				
+				
+					<c:set var="countGradedSteps" value="0"/>
 					<c:set var="countAccScoreRaw" value="0"/>
 					<c:set var="countAccScorePercent" value="0"/>
 					<c:set var="countPercentageCompleted" value="0"/>
 					<c:set var="numberOfItems" value="0"/>
-					<tr>
-							<th>Name</th>
-							<th>Username</th>
-							<th>Current Score (Raw)</th>
-							<th>Current Score (Percentage)</th>
-							<th>Graded Steps</th>
-							<th>Total Gradable Steps</th>
-							<th>Progress (% Completed)</th>
-					</tr>	
-		        	<c:forEach var="allScoresEntry" varStatus="allScoreStatus" items="${allScores}">
-		        			
-								<c:set var="numberOfItems" value="${allScoreStatus.count}"/>
-								<c:set var="countGradedSteps" value="${countGradedSteps +  allScoresEntry.totalGradedSteps}"/>
-								<c:set var="countAccScoreRaw" value="${countAccScoreRaw + allScoresEntry.totalAccumulatedScore}"/>
-								<c:set var="countAccScorePercent" value="${countAccScorePercent + (allScoresEntry.totalAccumulatedScore/allScoresEntry.totalPossibleScore)*100}"/>
-								<c:set var="countPercentageCompleted" value="${countPercentageCompleted + (allScoresEntry.totalGradedSteps/allScoresEntry.totalGradableSteps)*100}"/>
-								
-								<c:set var="totalPossibleScore" value="${allScoresEntry.totalPossibleScore}"/>
-								
-								<tr>
-								<td align="center">${allScoresEntry.lastName}, ${allScoresEntry.firstName}</td>
-								<td align="center">${allScoresEntry.username}</td>
-								<td align="center">${allScoresEntry.totalAccumulatedScore}/${allScoresEntry.totalPossibleScore}</td>
-								<td align="center"><fmt:formatNumber type="number" value="${(allScoresEntry.totalAccumulatedScore/allScoresEntry.totalPossibleScore)*100}" maxFractionDigits="0"/>%</td>
-								<td align="center">${allScoresEntry.totalGradedSteps}</td>
-								<td align="center">${allScoresEntry.totalGradableSteps}</td>
-								<td ><script type="text/javascript">drawPercentBar(<fmt:formatNumber type="number" value="${(allScoresEntry.totalGradedSteps/allScoresEntry.totalGradableSteps)*100}" maxFractionDigits="0"/>); </script></td>
-								</tr>
-				
-       		 	</c:forEach>
-       		 			<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-        				<!-- all periods average -->
-        				
-        				<tr>
-						<th></th>
-						<th></th>
-						<th>Current Score (Raw)</th>
-						<th>Current Score (Percentage)</th>
-						<th>Graded Steps</th>
-						<th>Total Gradable Steps</th>
-						<th>Progress (% Completed)</th>
-						</tr>
-						<tr>
-						<td align="center"></td>
-						<td align="center"><b>Averages<b></td>
+					<c:set var="totalGradableSteps" value="0"/>
+					<c:set var="allNumberOfItems" value="${periodStatus.count}"/>
+					<c:forEach var="scoreEntry" varStatus="scoreStatus" items="${periodEntry.value}">
+					
+						<!-- set up vars -->
+						<c:set var="numberOfItems" value="${scoreStatus.count}"/>
+						<c:set var="countGradedSteps" value="${countGradedSteps +  scoreEntry.totalGradedSteps}"/>
+						<c:set var="countAccScoreRaw" value="${countAccScoreRaw + scoreEntry.totalAccumulatedScore}"/>
+						<c:set var="countAccScorePercent" value="${countAccScorePercent + (scoreEntry.totalAccumulatedScore/scoreEntry.totalAccumulatedPossibleScore)*100}"/>
+						<c:set var="countPercentageCompleted" value="${countPercentageCompleted + (scoreEntry.totalGradedSteps/scoreEntry.totalGradableSteps)*100}"/>
+						<c:set var="totalGradableSteps" value="${scoreEntry.totalGradableSteps}"/>
 						
-						<td align="center"><fmt:formatNumber type="number" value="${countAccScoreRaw/numberOfItems}" maxFractionDigits="0"/>/${totalPossibleScore}</td>
+						
+						
+					</c:forEach>
+					<c:set var="allCountGradedSteps" value="${allCountGradedSteps + (countGradedSteps/numberOfItems)}"/>
+					<c:set var="allCountAccScorePercent" value="${allCountAccScorePercent + (countAccScorePercent/numberOfItems)}"/>
+					<c:set var="allCountPercentageCompleted" value="${allCountPercentageCompleted + (countPercentageCompleted/numberOfItems)}"/>
+				
+					<tr>
+						
+						
+						<td align="center">${periodEntry.key}</td>
 						<td align="center"><fmt:formatNumber type="number" value="${countAccScorePercent/numberOfItems}" maxFractionDigits="0"/>%</td>
 						<td align="center"><fmt:formatNumber type="number" value="${countGradedSteps/numberOfItems}" maxFractionDigits="0"/></td>
 						<td align="center">${totalGradableSteps}</td>
 						<td ><script type="text/javascript">drawPercentBar(<fmt:formatNumber type="number" value="${countPercentageCompleted/numberOfItems}" maxFractionDigits="0"/>); </script></td>
 					</tr>
+				
+			
+        </c:forEach>
+					<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					</tr>
+
+					<tr>
+					<th>All Periods</th>
+					<th>Avg. Current Score (Percentage)</th>
+					<th>Avg. Graded Steps</th>
+					<th>Total Gradable Steps</th>
+					<th>Avg. Progress (% Completed)</th>
+					</tr>
+		<!-- all periods average -->
+				<tr>
+						<td align="center"></td>
+						<td align="center"><fmt:formatNumber type="number" value="${allCountAccScorePercent/allNumberOfItems}" maxFractionDigits="0"/>%</td>
+						<td align="center"><fmt:formatNumber type="number" value="${allCountGradedSteps/allNumberOfItems}" maxFractionDigits="0"/></td>
+						<td align="center">${totalGradableSteps}</td>
+						<td ><script type="text/javascript">drawPercentBar(<fmt:formatNumber type="number" value="${allCountPercentageCompleted/allNumberOfItems}" maxFractionDigits="0"/>); </script></td>
+					</tr>
         </table>
-        </div>
-        
         </div>
     </div>
 </div>
+      </c:otherwise>
+ </c:choose>
 </body>
 </html>
