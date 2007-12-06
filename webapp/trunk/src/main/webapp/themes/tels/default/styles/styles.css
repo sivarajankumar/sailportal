@@ -359,7 +359,7 @@ a:hover {
 
 #popUpWindow1 {
 	width:600px;
-	background-image: url(../images/student/Gradient-ProjectMenu-Green-400.png);
+	background-image: url(../images/student/Gradient-ProjectMenu-Green-450.png);
 	background-position: center bottom;
 	background-repeat: repeat-x;
 	border-top:1px solid #666666;
@@ -522,32 +522,39 @@ a:hover {
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
 	margin: 0 auto;
-	padding:0;
+	padding:10px;
+	color: #0000FF;
+	font-size:2.3em;
+	font-weight:bold;
 		}
 	
 #pageSubtitle {
-	width:80%;
+	width:85%;
 	text-align:center;
-	margin: 10px auto;
+	margin: 15px auto;
 	padding: 0px;
 	font-size: 1.5em;
 	font-weight: bold;	
-	line-height:150%;
 		}
 		
 #pageSubtitleLevel2 {
-	text-align:center;
-	margin: 10px auto;
-	width:80%;
+	text-align:left;
+	margin-left:65px;
+	width:85%;
 	margin-bottom:10px;
 	margin-top: 10px;
 	padding: 0px;
-	font-size: 1.2em;	
-		}
+	font-size: 1.3em;
+			}
+
+#pageSubtitleLevel2 li {
+	list-style:circle;
+	padding-top:2px;
+		}	
 		
-#teacherRegForm   {
+#contactWISEForm  {
 	position: relative;
-	width:80%;
+	width:85%;
 	font-size: 1.3em;
 	border: 1px solid #333333;
 	background-color:#CCFFCC;
@@ -569,19 +576,23 @@ a:hover {
 	width:120px;
 }
 
-#teacherRegForm dt {
+#contactWISEForm dt {
 	float:left;
-	width: 160px;
+	width: 165px;
 	text-align: right;
-	margin: 3px 10px 0 0 ;	
+	margin: 3px 5px 0px 0 ;	
 	padding: 4px;
 	font-size:1.0em;
 	font-weight:bold;
 	}
 
-#teacherRegForm dd {
+#contactWISEForm dd {
 	padding:3px;
 	font-size:1.1em;
+}
+
+#contactWISEForm input {
+	padding-left:2px;
 }
 
 #sendMessageButton {
@@ -591,7 +602,8 @@ a:hover {
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	margin:4px auto 10px auto;
+	margin:0px auto 10px auto;
+	padding:3px;
 	background-color:#CCCCFF;
 }
 

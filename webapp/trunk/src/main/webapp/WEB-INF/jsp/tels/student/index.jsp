@@ -249,7 +249,12 @@ YAHOO.util.Event.onDOMReady(init);
 	</ul>
 </div>
 
-<div id="displayAsEnglish"><a href="#">Display in English</a></div>
+<div style="visibility:hidden;" id="displayAsEnglish"><a href="#">Display in English</a></div>
+
+<div style="text-align:center;"><img src="../themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></div>
+
+<div id="displayAsEnglish">WISE 3.0 &#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link">Contact WISE</a></div>
+
 
 </div>   <!--end of columnButtons, floated to left-->
 
@@ -333,7 +338,7 @@ YAHOO.util.Event.onDOMReady(init);
 						  	<ul id="studentActionList">
 						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">RUN PROJECT</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
-						  	  	<li><a href="../contactwisegeneral.html">Report A Problem</a></li>
+						  	  	<li><a href="../contactwiseproject.html">Report A Problem</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
 						 	</ul>
 						 </td>

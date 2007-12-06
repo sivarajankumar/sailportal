@@ -10,7 +10,7 @@
     
 <script type="text/javascript" src="./javascript/tels/rotator.js"></script>
     
-<title>Contact WISE General Issues</title>
+<title>Contact WISE: Project Issues</title>
 </head>
 
 <body>
@@ -20,19 +20,21 @@
 <%@ include file="headermain.jsp"%>
 
 
-<div id="pageTitle">Contact WISE: General Issues</div>
+<div id="pageTitle">Contact WISE: Project Issues</div>
      
-<div id="pageSubtitle">Please describe your issue in as much detail as possible.</div>
+<div id="pageSubtitle">Describe in detail the problem(s) with the project.</div>
 						
 <div id="pageSubtitleLevel2">
 	<ul>
+		<li>Please report the ACTIVITY and STEP numbers where problems occur.</li>
 		<li>If you're encountering an error message please include its full text in the <em>Detailed Description</em> box below.</li>
 		<li>If you're experiencing broken links or other problems on web pages, please provide a URL link to the location in question.</li>
-		<li>When reporting problems with a specific project, please describe the Activity & Step numbers where problems occur.</li>
+		<li>To report a more general problem (not specific to a project) click <a href="./contactwisegeneral.html">Contact WISE: General Issues</a>.</li>
+		
 	</ul>
 </div>
 
-<form:form method="post" action="registerteacher.html" id="contactWISEForm"  >  
+<form:form method="post" action="registerteacher.html" id="contactWISEForm" >  
   <dl>
   
   	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
@@ -40,8 +42,11 @@
             
     <dt><label for="emailContact" id="emailContact"><span class="asterix">* </span>Email</label></dt>
 	<dd><input id="emailContact" size="50"  tabindex="2"/> </dd>
-   
-    <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span>Issue Type</label> </dt>
+	
+    <dt><label for="projectName" id="projectName"><span class="asterix">* </span>Project Name</label></dt>
+	<dd><input id="projectName" size="50"  tabindex="2"/> </dd>
+            
+    <dt><label for="issueTypeContact" id="issueTypeContact"><span class="asterix">* </span>Issue Type</label> </dt>
 	<dd><select name="issueTypeContact" id="issueTypeContact"  tabindex="3">
 			<option value="1">Trouble Signing In</option>
 			<option value="2">Need Help Using WISE</option>
@@ -83,7 +88,7 @@
 	<dd style="color:#3333CC;"><input id="summaryContact" size="50" tabindex="6"/></dd>
 	
 	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span>Detailed Description</label></dt>
-	<dd><textarea name="descriptionContact" id="descriptionContact" tabindex="7" rows="10" cols="65"></textarea></dd>
+	<dd><textarea name="descriptionContact" id="descriptionContact" tabindex="7" rows="8" cols="65"></textarea></dd>
       
      </dl>    
      <div id="asterixWarning">Items marked with <span style="font-size:1.1em; font-weight:bold;">*</span> are required.</div>  
