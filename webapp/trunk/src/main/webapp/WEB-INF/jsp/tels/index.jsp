@@ -29,6 +29,7 @@
 
 <link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
+
 <script src="./javascript/tels/general.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/effects.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/prototype.js" 		type="text/javascript"> </script>
@@ -262,7 +263,8 @@
         <td id="footerText">
         	 	<ul>
                 <li><a href="signup.html">Join WISE</a></li>
-                <li id="footerNav2"><a href="signout.html">Sign Out</a></li>
+                <li id="footerNav2"><a href="./contactwisegeneral.html">Contact WISE</a></li>
+                <li id="footerNav2"><a href="<c:url value="/j_acegi_logout"/>">Sign Out</a></li>     
                 <li id="footerNav2"><a href="credits.html">Credits</a></li>
                 </ul>
             

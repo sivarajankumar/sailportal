@@ -19,7 +19,7 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
-header for teacher.  no main buttons selected yet.
+<!--header for teacher.  no main buttons selected yet.-->
 
 <div id="bannerArea">
     	<div id="wiseLogo"><a href="./index.html" 

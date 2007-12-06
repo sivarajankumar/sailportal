@@ -333,7 +333,7 @@ YAHOO.util.Event.onDOMReady(init);
 						  	<ul id="studentActionList">
 						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">RUN PROJECT</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
-						  	  	<li><a style="color:#cccccc;" href="#">Report A Problem</a></li>
+						  	  	<li><a href="../contactwisegeneral.html">Report A Problem</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
 						 	</ul>
 						 </td>

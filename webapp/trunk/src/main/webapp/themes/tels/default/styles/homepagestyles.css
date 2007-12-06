@@ -417,3 +417,37 @@ abbr, acronym {
 	font-weight:bold;
 }
 
+
+/* STYLES FOR SIGN OUT BOX IN TOP BANNER */
+
+#usernameSignOutBoxHome {
+	float:right;
+	text-align:right;  
+	position:relative;
+	margin: -55px 8px 0 10px;	
+}
+
+#usernameBannerHome {
+	color:#FFFFCC;
+	font-style:italic;
+	font-weight:bold;
+	font-size:.9em;
+	margin-bottom:3px;
+}
+
+#signOutBannerHome a:link, #signoutBannerHome a:visited{
+	color:#FFFF66;
+	font-size:.7em;
+	font-weight:bold;
+	text-decoration:none;
+	border-bottom: 1px solid #FFFF66;
+		}
+
+#signOutBannerHome a:hover {
+	color:#330066;
+	text-decoration:none;
+	border-bottom: 1px dotted #330066;
+	
+}
+	
+

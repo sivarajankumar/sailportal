@@ -41,10 +41,9 @@ table tr, table td {
 #columnButtons {
 	float:left;
 	width: 225px;
-	height:400px;
 	margin:25px 0 0 0 ;
-	background-color:#66FF00;
-	background-image:url(../../images/student/Gradient-ProjectMenu-Green-400.png);
+	background-color:#CCFFCC;
+	background-image:url(../../images/student/Gradient-ProjectMenu-Green-450.png);
 	background-repeat:repeat-x;
 	border-top: 1px solid #666666;
 	border-right: 1px solid #000000;
@@ -112,9 +111,10 @@ table tr, table td {
 }
 	
 #accountOptions{
+	text-align:center;
 	font-size: 1.1em;
 	font-weight:bold;
-	margin:10px 0 10px 10px;
+	margin:10px 0 15px 0px;
 	padding-top:15px;
 }
 
@@ -131,9 +131,20 @@ table tr, table td {
 }
 
 #displayAsEnglish {
+	text-align:center;
 	font-size:.9em;
-	margin:25px 0 10px 14px;
+	margin:3px 5px 10px 5px;
+	}
+
+#projectMenuLogo {
+	text-align:center;
 }
+	
+#studentcopyright {
+	text-align:center;
+	font-size:.9em;
+	margin:-10px 0px 5px 0px;
+	}
 
 #currentRunTable{
 	margin-top:10px;
