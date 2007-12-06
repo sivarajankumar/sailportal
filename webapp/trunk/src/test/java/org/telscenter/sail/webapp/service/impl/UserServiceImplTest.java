@@ -139,17 +139,17 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 			
 			// create user (saves automatically)
 			User expectedUser = this.userService.createUser(userDetailsCreate);
-			StudentUserDetails expectedUserDetails = (StudentUserDetails) expectedUser.getUserDetails();
+			MutableUserDetails expectedUserDetails = (MutableUserDetails) expectedUser.getUserDetails();
 			
 			// retrieve user and compare
-			StudentUserDetails actual = (StudentUserDetails) this.userDetailsService
+			MutableUserDetails actual =  (MutableUserDetails) this.userDetailsService
 					.loadUserByUsername(userDetailsCreate.getUsername());
 			
 			assertEquals(expectedUserDetails.getFirstname(), actual
 					.getFirstname());
 			
-			assertEquals(expectedUserDetails.getFirstname(), actual
-					.getFirstname());
+			assertEquals(expectedUserDetails.getLastname(), actual
+					.getLastname());
 			
 	}
 	
