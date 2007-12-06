@@ -29,12 +29,10 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -65,6 +63,14 @@ public class OfferingListController extends AbstractController {
 	
 	private static final String VIEW_NAME = "offerings/offeringlist";
 
+	public static final String REQUEST_PARAMETER_KEY_ERROR = "error";
+
+	public static final String REQUEST_PARAMETER_VALUE_ERROR = "cannotFindOffering";
+
+	protected static final String ERROR_MODEL_NAME = "error";
+
+	protected static final Object ERROR_MODEL_OBJECT = "Error: cannot find specified offering";
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
@@ -76,6 +82,11 @@ public class OfferingListController extends AbstractController {
 		
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
+    	
+    	String errorType = servletRequest.getParameter(REQUEST_PARAMETER_KEY_ERROR);
+    	if (errorType != null && errorType.equals(REQUEST_PARAMETER_VALUE_ERROR)) {
+    		modelAndView.addObject(ERROR_MODEL_NAME, ERROR_MODEL_OBJECT);
+    	}
  
 		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
 		List<Offering> offeringList = this.offeringService.getOfferingList();

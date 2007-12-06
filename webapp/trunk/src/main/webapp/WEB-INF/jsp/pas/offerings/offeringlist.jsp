@@ -36,6 +36,10 @@
 <%@ include file="../includes/menu.jsp" %>
 </div>
 
+<div>
+  <c:out value="${error}" />
+</div>
+
 <div id="right">
 
 <table border="1">

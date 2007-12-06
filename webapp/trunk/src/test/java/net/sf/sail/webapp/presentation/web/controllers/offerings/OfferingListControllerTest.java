@@ -134,6 +134,8 @@ public class OfferingListControllerTest extends ModelAndViewTests {
 		assertModelAttributeValue(modelAndView,
 				OfferingListController.HTTP_TRANSPORT_KEY,
 				this.mockHttpTransport);
+		assertNull(modelAndView.getModelMap().
+				get(OfferingListController.ERROR_MODEL_NAME));
 		EasyMock.verify(this.mockOfferingsService);
 		EasyMock.verify(this.mockWorkgroupService);
 	}
@@ -149,6 +151,42 @@ public class OfferingListControllerTest extends ModelAndViewTests {
 
 		ModelAndView modelAndView = offeringListController
 				.handleRequestInternal(request, response);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.OFFERING_LIST_KEY, emptyOfferingList);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.WORKGROUP_MAP_KEY, emptyWorkgroupMap);
+		assertModelAttributeValue(modelAndView, ControllerUtil.USER_KEY,
+				this.user);
+		assertModelAttributeValue(modelAndView,
+				OfferingListController.HTTP_TRANSPORT_KEY,
+				this.mockHttpTransport);
+		assertNull(modelAndView.getModelMap().
+				get(OfferingListController.ERROR_MODEL_NAME));
+		EasyMock.verify(this.mockOfferingsService);
+		EasyMock.verify(this.mockWorkgroupService);
+	}
+	
+	public void testHandleRequestInternal_withError() throws Exception {
+		// tests when an ?error=cannotFindOffering parameter is passed 
+		// into the offeringlist.jsp page. Should add a model object
+		// called error with modelObject "Error: cannot find specified offering"
+		// for this test, model after testHandleRequestInternal_NoOfferings()
+		List<Offering> emptyOfferingList = Collections.emptyList();
+		Map<Offering, List<Workgroup>> emptyWorkgroupMap = Collections
+				.emptyMap();
+		EasyMock.expect(mockOfferingsService.getOfferingList()).andReturn(
+				emptyOfferingList);
+		EasyMock.replay(this.mockOfferingsService);
+		EasyMock.replay(this.mockWorkgroupService);
+		
+		request.addParameter(OfferingListController.REQUEST_PARAMETER_KEY_ERROR,
+				OfferingListController.REQUEST_PARAMETER_VALUE_ERROR);
+		ModelAndView modelAndView = offeringListController
+		    .handleRequestInternal(request, response);		
+		assertModelAttributeValue(modelAndView, 
+				OfferingListController.ERROR_MODEL_NAME,
+				OfferingListController.ERROR_MODEL_OBJECT);
+		
 		assertModelAttributeValue(modelAndView,
 				OfferingListController.OFFERING_LIST_KEY, emptyOfferingList);
 		assertModelAttributeValue(modelAndView,
