@@ -17,28 +17,25 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
-
 
 <div id="bannerArea">
-<div id="wiseLogo"><a href=".././index.html"
+<div id="wiseLogo"><a href="../../index.html"
 	onmouseout="MM_swapImgRestore()"
 	onmouseover="MM_swapImage('WISE Secondary Logo','','../../themes/tels/default/images/WISE-Secondary-Banner-Logo-Roll.png',1)">
 	<img src="../../themes/tels/default/images/WISE-Secondary-Banner-Logo.png"
 	alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
 <div id="teacherBannerLabel">
-<p><img
-	src="../../themes/tels/default/images/Teacher-Dashboard-Label.png"
+<p><img	src="../../themes/tels/default/images/Teacher-Dashboard-Label.png"
 	alt="Teacher Dashboard Label" /></p>
 </div>
 
-<div id="navigationMainProjects">
+<div id="navigationMainProjectsTWO">
 <ul>
 	<li><a href="../index.html"
 		onmouseout="MM_swapImgRestore()"
 		onmouseover="MM_swapImage('homebutton','','../../themes/tels/default/images/teacher/Home-Buttn-Selected.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Home-Buttn-Clickable.png"	alt="Home Nav Button" id="homebutton" /></a>
-	<li><a href="index.html"
+	<li><a href="../projects/index.html"
 		onmouseout="MM_swapImgRestore()"
 		onmouseover="MM_swapImage('projectsbutton','','../../themes/tels/default/images/teacher/Projects-Buttn-Selected.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Projects-Buttn-Selected.png"	alt="Projects Nav Button" id="projectsbutton" /></a>
@@ -56,9 +53,10 @@
 		<img src="../../themes/tels/default/images/teacher/Help-Buttn-Clickable.png"	alt="Help Nav Button" id="helpbutton" /></a>
 </ul>
 </div>
-<div id="usernameSignOutBox">
-<div id="usernameBanner"><authz:authentication	operation="username" /></div>
-<div id="signOutBanner"><%@ include file="../logout.jsp"%></div>
+<div id="usernameSignOutBoxTWO">
+		<div id="usernameBanner"><authz:authentication	operation="username" /></div>
+		<div id=""><%@ include file="logout.jsp"%></div>
+		
 </div>
 </div> <!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are relative to bannerArea -->
 

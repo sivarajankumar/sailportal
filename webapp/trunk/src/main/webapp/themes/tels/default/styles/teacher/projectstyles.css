@@ -131,18 +131,25 @@ img#none{
 	margin-bottom:10px;
 }
 
-#projects_overview_choices   {
-	padding:30px 0 30px 5px;
+#overviewHeader {
+	font-size:1.5em;
+	letter-spacing:3px;
+	font-variant:small-caps;
+	margin: 10px 0 0 30px;
+	padding:0px;
 }
 	
-#projects_overview_choices .link  {
+#overview_choices   {
+	padding:15px 0 30px 5px;
+}
+	
+#overview_choices .link  {
 	font-size:1.6em;
 	font-weight:bold;
-	width:410px;
+	width:390px;
 	}
 
-#projects_overview_choices a:link, #projects_overview_choices a:visited   {
-	color:#000000;
+#overview_choices a:link, #overview_choices a:visited   {
 	text-decoration:none;
 	display:block;
 	padding:6px 0px 6px 20px;
@@ -155,7 +162,7 @@ img#none{
 	border-left: 1px solid #999999;
 }
 
-#projects_overview_choices a:hover  {
+#overview_choices a:hover  {
 	display:block;
 	background-color:#FFFF33;
 	color:#0000CC;
@@ -167,7 +174,7 @@ img#none{
 	border-left: 1px solid #999999;
 		}
 
-#projects_overview_choices .description  {
+#overview_choices .description  {
 	font-size:.9em;
 	margin:0px;
 	padding:2px;

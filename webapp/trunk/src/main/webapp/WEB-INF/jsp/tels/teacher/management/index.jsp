@@ -37,32 +37,33 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojects.jsp"%>
+<%@ include file="headerteachermanagement.jsp"%>
 
-<%@ include file="L2projects_overview.jsp"%>
+<%@ include file="L2management_overview.jsp"%>
  
 <div id="overviewContent"> 
 
-	<div id="overviewHeader">Project: Overview</div>
+	<div id="overviewHeader">Management: Overview</div>
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="curnitlist.html">Project Library</a></td>
-			<td class="description">Search the extensive library of WISE and TELS projects. Find a project and set it up to run in your classroom.</td></tr>
+			<td class="link"><a href="#">Manage My Students</a></td>
+			<td class="description">Manage student groupings, periods, passwords, and more.</td></tr>
 		<tr>
-			<td class="link"><a href="../run/myprojectruns.html">My Project Runs</a></td>
-			<td class="description">View projects that you are currently running in your classroom.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#">Class Monitor</a></td>
+			<td class="description">Gives a real-time overview of your class at work, with icons to summarize progress and 
+					problems per team.  Includes a <em>Pause All Screens</em> function to facilitate teacher-led discussions. </td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">My Bookmarked Projects</a></td>
-			<td class="description">View library projects that you have earmarked for future use.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#">Exports & Reports</a></td>
+			<td class="description">Export student work as spreadsheet data or print student work or final grades.</td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;"href="#">My Customized Projects</a></td>
-			<td class="description">View your customized projects. Use the Project Editor to customize Library projects or to create brand new projects.</td></tr>
+			<td class="link"><a style="color:#999999;"href="#">Update My Account</a></td>
+			<td class="description">Update your WISE account information.</td></tr>
 	</table>
 	
 </div>
 
-<h5 class="center">Interested in running WISE projects in another language? &nbsp; <a href="languagetranslations.html">Find out more. </a></h5>
+<h5 class="center">Getting started running WISE 3.0 in your classroom? Visit the <a href="#">Help</a> section for more information.</h5>
 
 </div>    <!--End of CenteredDiv-->
 

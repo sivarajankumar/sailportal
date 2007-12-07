@@ -87,6 +87,15 @@ a:hover {
 	margin: -13px 8px 0 10px;	
 }
 
+/* This variant is used on myprojectruns.html as the Yahoo CSS seems to be mysteriously overriding some margin&padding values */
+
+#usernameSignOutBoxTWO {
+	float:right;
+	text-align:right;  
+	position:relative;
+	margin: -17px 8px 0 10px;	
+}
+
 #usernameBanner {
 	color:#FFFFCC;
 	font-style:italic;
@@ -106,8 +115,9 @@ a:hover {
 	color:#330066;
 	text-decoration:none;
 	border-bottom: 1px dotted #330066;
-	
-}
+	}
+
+
 	
 /* STYLES FOR STUDENT PROJECT MENU */
 
@@ -145,7 +155,6 @@ a:hover {
 	padding:0px;
 	width:960px;
 	margin: 4px 0 0 115px;
-
 	}
 
 #navigationMainProjects ul {
@@ -154,6 +163,24 @@ a:hover {
 }
 	
 #navigationMainProjects li {
+	display:inline;
+	padding-right: 15px;
+	}
+	
+	
+#navigationMainProjectsTWO {
+	position:absolute;
+	padding:0px;
+	width:960px;
+	margin: 0px 0 0 95px;
+	}
+
+#navigationMainProjectsTWO ul {
+	list-style:none;
+	padding:0px;
+}
+	
+#navigationMainProjectsTWO li {
 	display:inline;
 	padding-right: 15px;
 	}
@@ -218,13 +245,20 @@ a:hover {
 	text-decoration:none;
 	}
 
+.navigationL2_management_highlight {
+	padding: 2px 20px 6px 20px;
+	margin:0px;
+	background-image: url(../images/Pixel_Project_Highlight.png); 
+	color:#990000;
+	border:1px solid #666666;
+		}
+		
 .navigationL2_projects_highlight {
 	padding: 2px 20px 6px 20px;
 	margin:0px;
 	background-image: url(../images/Pixel_Project_Highlight.png); 
 	color:#990000;
 	border:1px solid #666666;
-	
 		}
 	
 #navigationL2_home_highlight {
