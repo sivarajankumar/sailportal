@@ -336,8 +336,27 @@ YAHOO.util.Event.onDOMReady(init);
 						</td>
 						<td style="width:22%; padding:3px;">
 						  	<ul id="studentActionList">
-						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">RUN PROJECT</a></li>
-						  	  	<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
+						<li><c:choose>
+							<c:when test="${studentRunInfo.workgroup == null}">
+								<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">RUN
+								PROJECT</a>
+							</c:when>
+							<c:otherwise>
+								<c:choose>
+									<c:when
+										test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+										<a href="${studentRunInfo.startProjectUrl}"
+											id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+											id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+									</c:otherwise>
+								</c:choose>
+							</c:otherwise>
+						</c:choose></li>
+						<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
 						  	  	<li><a href="../contactwiseproject.html">Report A Problem</a></li>
 						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
 						 	</ul>
