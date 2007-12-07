@@ -30,6 +30,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -73,7 +74,8 @@ public class AnnotationBundleImpl implements AnnotationBundle {
     @Column(name = "OPTLOCK")
     private Integer version = null;
 
-    @Column(name = AnnotationBundleImpl.COLUMN_NAME_BUNDLE, nullable = false)
+    @Lob
+    @Column(name = AnnotationBundleImpl.COLUMN_NAME_BUNDLE, nullable = false, length = 2147483647)
     private String bundle = null;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = WorkgroupImpl.class, fetch = FetchType.EAGER)
