@@ -245,4 +245,23 @@ public class IndividualScoreNumericImpl implements IndividualScore {
 		return true;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.IndividualScore#getTotalAccumulatedPossibleScore()
+	 */
+	public String getTotalAccumulatedPossibleScore() {
+		int totalScore = 0;
+
+		for (Map.Entry<String, String> entry : accumulatedScores.entrySet()) {
+			String accScore = entry.getValue();
+			
+			if( StringUtils.isNumeric(accScore) && StringUtils.trimToNull(accScore) != null ) {
+				String possibleScore = this.getPossibleScore(entry.getKey());
+				totalScore = totalScore + new Integer(possibleScore).intValue();
+			}// if
+		}// for
+
+		return "" + totalScore;
+	}
+
+
 }

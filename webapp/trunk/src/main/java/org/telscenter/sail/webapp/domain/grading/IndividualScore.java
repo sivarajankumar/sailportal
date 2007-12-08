@@ -38,6 +38,13 @@ import org.telscenter.pas.emf.pas.EStep;
 public interface IndividualScore extends Comparable<IndividualScore> {
 
 	/**
+	 * Gets the total accmulated possible score for an individual step
+	 * 
+	 * @return the score
+	 */
+	public String getTotalAccumulatedPossibleScore();
+	
+	/**
 	 * Gets the accmulated score for an individual step
 	 * 
 	 * @param stepUUID - id of the step
