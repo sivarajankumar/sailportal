@@ -120,12 +120,6 @@
     		<img src="./themes/tels/default/images/preview_wise.png" alt="Preview of WISE Button" width="145" height="32"  
     			class="imgNoBorder" id="Preview of WISE Button" /></a> </li>
 		 
-	<li><a href="#" 
-			onmouseout="MM_swapImgRestore()" 
-			onmouseover="MM_swapImage('Common Questions Button','','./themes/tels/default/images/common_questions_rollover.png',1)">
-			<img src="./themes/tels/default/images/common_questions.png" alt="Common Questions Button" width="145" height="32" 
-				class="imgNoBorder" id="Common Questions Button" /></a> </li>
-
 	<li><a href="signup.html" 
 			onmouseout="MM_swapImgRestore()" 
 			onmouseover="MM_swapImage('Join WISE Button','','./themes/tels/default/images/join_wise_rollover.png',1)">

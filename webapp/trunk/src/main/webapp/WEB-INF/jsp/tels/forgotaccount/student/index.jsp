@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../../include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -20,45 +20,50 @@
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
+
 <head>
+
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />    
+
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+     
 <script type="text/javascript" src="../../javascript/general.js"></script>	
 <title>Forgot username or password - student</title>
 </head>
 
 <body>
-<%@ include file="header.jsp"%>
 
-<h2 class="center"> FORGOTTEN INFORMATION </h2>
-<h1 class="center"> STUDENT </h1>
-<div align="center"> 
-<p style="font-size:1.2em;font-weight:100;">What have you forgotten?</p>
-<h2 align="center"><a href="username.html">Forgot My Username</a></h2>
-<p align="center">OR</p>
-<h2 align="center"><a href="password.html">Forgot My Password</a></h2>
-<p align="center" id="forgotparagraph">
-If you've forgotten your Username and Password (hey, it happens to the
-best of us), first follow the Username link, then follow the Password link.
-</p><br />
-<a align="center" href="../../index.html"> Return to Sign In </a>
+<div id="centeredDiv">
 
-</div>
+    	
+<%@ include file="headermain.jsp"%>
 
-<!--
-<div id="footer">
-If you've forgotten your Username and Password (hey, it happens to the
-best of us), first follow the Username link, then follow the Password link.<br />
-<a href="../../index.html"> Return to Sign In </a>
+<div id="lostTitleBar">
+    	<h1 class="blueText">Student Lost Username/Password</h1></div>
+    	
  
-<img id="signInAgain" src="../../images/Sign-in-New-Account.png" width="161" height="52"
-onMouseOver="swapImage('signInAgain','../../images/Sign-in-New-Account-Roll.png');"
-onMouseOut="swapImage('signInAgain','../../images/Sign-in-New-Account.png');">
+<div align="center">
+		<h2>What have you forgotten?</h2>
+		<h1><a href="username.html">Forgot My Username</a></h1>
+		<p align="center">OR</p>
+		<h1><a href="password.html">Forgot My Password</a></h1>
+		
+		<div id="forgotparagraph">
+		If you've forgotten your Username and Password (hey, it happens to the
+		best of us), first follow the Username link, then follow the Password link. </div>
+
+
+		<div><a href="../../index.html"> <img id="return"
+			src="../../<spring:theme code="return_to_homepage" />"
+			onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
+			onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" />
+		</a></div>
 
 </div>
- -->
+
+
 </body>
 </html>
 

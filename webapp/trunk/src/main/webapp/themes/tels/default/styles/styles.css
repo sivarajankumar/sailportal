@@ -28,9 +28,9 @@ abbr, acronym {
 	background-position: center top;
 	width: 960px;
 	height: 60px;
-	margin-top: 0px;
+	margin-top: 5px;
 	margin-right: auto;
-	margin-bottom: 0px;
+	margin-bottom: 15px;
 	margin-left: auto;
 	}
 	
@@ -641,3 +641,26 @@ a:hover {
 	background-color:#CCCCFF;
 }
 
+/* LOST USERNAME & PASSWORD PAGES  */
+
+#lostTitleBar {
+	clear:both;
+	width:85%;
+	text-align: center;
+	border: 1px solid #333333;
+	background-image: url(../images/GradientFooter.png);
+    background-position: bottom;
+	margin-top: 30px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	padding:0px;
+		}
+		
+#forgotparagraph {
+	text-align:center;
+	width:60%;
+	font-size:1.4em;
+	margin:30px 0 30px 0;
+	}
+	

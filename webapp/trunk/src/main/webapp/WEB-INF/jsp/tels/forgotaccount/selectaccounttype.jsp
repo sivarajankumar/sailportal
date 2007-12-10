@@ -24,10 +24,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="forgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
     
 <script src="../javascript/tels/general.js" type="text/javascript" > </script>
+
 <title><spring:message code="lostpassword.title" /></title>
 </head>
 
@@ -35,9 +36,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file=".././headermain.jsp"%>
+<%@ include file="headermain.jsp"%>
 
-<div id="titleBar">
+<div id="lostTitleBar">
     	<h1 class="blueText">Lost Username or Password</h1></div>
     	
 <h3 class="center">What sort of WISE account do you have?</h3>

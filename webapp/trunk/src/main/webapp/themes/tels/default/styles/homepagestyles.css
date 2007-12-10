@@ -122,7 +122,7 @@ abbr, acronym {
 
 #parastyleTable {
 	float:left;
-	width:150px;
+	width:138px;
 	font-size:0.8em;
 	color:black;
 	text-align:left;
@@ -133,7 +133,7 @@ abbr, acronym {
 
 #welcomeTextLinks {
 	list-style-type:none;
-	padding: 0px;
+	padding: 8px 0 0 0;
 	font-variant: small-caps;
 	line-height: 160%;
 	margin: 0px;
@@ -143,6 +143,8 @@ abbr, acronym {
 	color:#000066;
 	text-decoration:none;
 	font-weight:bold;
+	margin:0px;
+	padding:0px;
 	}
 	
 #welcomeTextLinks li a:hover {
@@ -158,32 +160,25 @@ abbr, acronym {
 	
 .welcomeBulletHeader {
 	font-weight:bold;
-	margin-bottom:4px;
 	margin-top: 2px;
+	margin-bottom: 2px;
 	}
 		
 #welcomeBullet1, #welcomeBullet2, #welcomeBullet3, #welcomeBullet4, #welcomeBullet5, #welcomeBullet6, #welcomeBullet7 {
 	float:left;
 	font-size:0.8em;
-	width:270px;
+	width:285px;
 	color:#000066;
 	line-height: 130%;
-	margin-top: 9px;
+	margin-top: 7px;
 	margin-right: 0px;
 	margin-bottom: 0px;
-	margin-left: 2px;
-	border-top-width: 1px;
-	border-bottom-width: 1px;
-	border-top-style: dotted;
-	border-right-style: none;
-	border-bottom-style: dotted;
-	border-left-style: none;
-	border-top-color: #0000FF;
-	border-bottom-color: #0000FF;
-	padding-top: 5px;
-	padding-right: 0px;
-	padding-bottom: 5px;
-	padding-left: 0px;
+	margin-left: 0px;
+	border-top: 1px solid #6666FF;
+	border-bottom: 1px solid #3333FF;
+	border-left: 1px solid #6666FF;
+	border-right: 1px solid #3333FF; 
+	padding: 5px 8px;
 	vertical-align:text-top;
 	}
 	
@@ -196,10 +191,7 @@ abbr, acronym {
 	float:right;
 	padding:2px;
 	list-style-type:none;
-	margin-top: 0;
-	margin-right: 8px;
-	margin-bottom: 35;
-	margin-left: 8px;
+	margin:12px 10px 0 2px;
 	}	
 	
 #welcomeButtonPosTable li{
