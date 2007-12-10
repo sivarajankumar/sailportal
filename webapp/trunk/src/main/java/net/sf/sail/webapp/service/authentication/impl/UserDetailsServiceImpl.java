@@ -43,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserDetailsDao<MutableUserDetails> userDetailsDao;
+    protected UserDetailsDao<MutableUserDetails> userDetailsDao;
 
     private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
 
@@ -126,4 +126,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return grantedAuthority;
     }
+    
+    /**
+     * @override @see net.sf.sail.webapp.service.authentication.UserDetailsService#updateUserDetails(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
+     */
+    @Transactional
+	public void updateUserDetails(MutableUserDetails userDetails) {
+		this.userDetailsDao.save(userDetails);
+	}
+    
 }

@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.service.authentication;
 
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 
 import org.acegisecurity.GrantedAuthority;
 
@@ -60,5 +61,12 @@ public interface UserDetailsService extends
      */
     public GrantedAuthority loadAuthorityByName(String authority)
             throws AuthorityNotFoundException;
+    
+    /**
+     * Given a MutableUserDetails, updates the data of that object in the database
+     * @param userDetails
+     */
+    public void updateUserDetails(final MutableUserDetails userDetails);
+    
 
 }

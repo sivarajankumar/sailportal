@@ -226,4 +226,13 @@ public class UserServiceImpl implements UserService {
 	public User retrieveById(Long userId) throws ObjectNotFoundException {
 		return this.userDao.getById(userId);
 	}
+
+	/**
+	 * @override @see net.sf.sail.webapp.service.UserService#saveUserDetails(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
+	 */
+	public void saveUserDetails(MutableUserDetails userDetails) {
+		this.userDetailsDao.save(userDetails);
+	}
+	
+
 }

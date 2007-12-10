@@ -73,4 +73,12 @@ public interface MutableUserDetails extends
 	 * @param numberOfLogins 1 more time
 	 */
 	public void setNumberOfLogins(Integer numberOfLogins);
+	
+	/**
+	 * Increments the number of times the user has logined into the sytem
+	 * 
+	 * @param numberOfLogins
+	 */
+	public void incrementNumberOfLogins();
+	
 }

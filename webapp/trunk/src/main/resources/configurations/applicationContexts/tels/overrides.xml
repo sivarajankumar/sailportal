@@ -58,6 +58,7 @@
         <property name="alwaysUseDefaultTargetUrl" value="false" />
         <property name="defaultTargetUrl" value="/teacherindex.html" />
         <property name="filterProcessesUrl" value="/j_acegi_security_check" />
+        <property name="userDetailsService" ref="userDetailsService" />
     </bean>
 
     <bean id="filterInvocationInterceptor"

@@ -71,6 +71,9 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	public static final String COLUMN_NAME_NUMBEROFLOGINS = "numberoflogins";
 	
 	@Transient
+	public static final String COLUMN_NAME_LASTLOGINTIME = "lastlogintime";
+	
+	@Transient
 	public static final String COLUMN_NAME_ACCOUNTQUESTION = "accountquestion";
 	
 	@Transient
@@ -96,6 +99,9 @@ public class StudentUserDetails extends PersistentUserDetails implements
     
     @Column(name = StudentUserDetails.COLUMN_NAME_NUMBEROFLOGINS, nullable = false)
     private Integer numberOfLogins;
+    
+    @Column(name = StudentUserDetails.COLUMN_NAME_LASTLOGINTIME)
+    private Date lastLoginTime;
     
     @Column(name = StudentUserDetails.COLUMN_NAME_ACCOUNTQUESTION, nullable = false)
     private String accountQuestion;
@@ -217,5 +223,23 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	 */
 	public void setAccountAnswer(String accountAnswer) {
 		this.accountAnswer = accountAnswer;
+	}
+	/**
+	 * @return the lastLoginTime
+	 */
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+	/**
+	 * @param lastLoginTime the lastLoginTime to set
+	 */
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.authentication.MutableUserDetails#incrementNumberOfLogins()
+	 */
+	public void incrementNumberOfLogins() {
+		this.numberOfLogins++;
 	}
 }

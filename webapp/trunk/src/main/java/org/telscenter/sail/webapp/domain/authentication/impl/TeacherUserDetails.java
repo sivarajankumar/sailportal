@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.authentication.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -81,6 +82,8 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	@Transient
 	public static final String COLUMN_NAME_NUMBEROFLOGINS = "numberoflogins";
 	
+	@Transient
+	public static final String COLUMN_NAME_LASTLOGINTIME = "lastlogintime";
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -112,8 +115,11 @@ public class TeacherUserDetails extends PersistentUserDetails implements
     @Column(name = TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL, nullable = false)
 	private Schoollevel schoollevel;
     
-    @Column(name = StudentUserDetails.COLUMN_NAME_NUMBEROFLOGINS, nullable = false)
+    @Column(name = TeacherUserDetails.COLUMN_NAME_NUMBEROFLOGINS, nullable = false)
     private Integer numberOfLogins;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_LASTLOGINTIME)
+    private Date lastLoginTime;
 	
 	/**
 	 * @return the firstname
@@ -243,5 +249,23 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	
 	public void setNumberOfLogins(Integer numberOfLogins) {
 		this.numberOfLogins = numberOfLogins;
+	}
+	/**
+	 * @return the lastLoginTime
+	 */
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+	/**
+	 * @param lastLoginTime the lastLoginTime to set
+	 */
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.authentication.MutableUserDetails#incrementNumberOfLogins()
+	 */
+	public void incrementNumberOfLogins() {
+		this.numberOfLogins++;
 	}
 }

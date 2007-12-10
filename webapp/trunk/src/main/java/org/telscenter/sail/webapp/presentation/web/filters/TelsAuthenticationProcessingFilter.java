@@ -24,12 +24,14 @@ package org.telscenter.sail.webapp.presentation.web.filters;
 
 import java.io.IOException;
 
+import net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter;
+import net.sf.sail.webapp.service.authentication.UserDetailsService;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.userdetails.UserDetails;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
-
-import net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter;
 
 /**
  * Custom AuthenticationProcessingFilter that subclasses Acegi Security. This
@@ -45,6 +47,9 @@ public class TelsAuthenticationProcessingFilter extends
 	private static final String STUDENT_DEFAULT_TARGET_PATH = "/student/index.html";
 	private static final String TEACHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
 
+	private UserDetailsService userDetailsService;
+	
+	
 	/**
 	 * @see org.acegisecurity.ui.AbstractProcessingFilter#successfulAuthentication(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse,
@@ -64,6 +69,22 @@ public class TelsAuthenticationProcessingFilter extends
         	this.setDefaultTargetUrl(TEACHER_DEFAULT_TARGET_PATH);
         }
 		super.successfulAuthentication(request, response, authResult);
+		((MutableUserDetails) userDetails).incrementNumberOfLogins();
+		userDetailsService.updateUserDetails((MutableUserDetails) userDetails);
 	}
+
+	/**
+	 * @return the userDetailsService
+	 */
+	public UserDetailsService getUserDetailsService() {
+		return userDetailsService;
+	}
+
+	/**
+	 * @param userDetailsService the userDetailsService to set
+	 */
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}		
 
 }
