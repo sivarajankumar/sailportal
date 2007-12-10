@@ -28,7 +28,6 @@
 	<ul>
 		<li>If you're encountering an error message please include its full text in the <em>Detailed Description</em> box below.</li>
 		<li>If you're experiencing broken links or other problems on web pages, please provide a URL link to the location in question.</li>
-		<li>When reporting problems with a specific project, please describe the Activity & Step numbers where problems occur.</li>
 	</ul>
 </div>
 
@@ -86,20 +85,19 @@
 	<dd style="color:#3333CC;"><input id="summaryContact" size="50" tabindex="6"/></dd>
 	
 	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span>Detailed Description</label></dt>
-	<dd><textarea name="descriptionContact" id="descriptionContact" tabindex="7" rows="10" cols="65"></textarea></dd>
+	<dd><textarea name="descriptionContact" id="descriptionContact" tabindex="7" rows="9" cols="65"></textarea></dd>
       
      </dl>    
      <div id="asterixWarning">Items marked with <span style="font-size:1.1em; font-weight:bold;">*</span> are required.</div>  
         
-    <div align="center"><input type="submit" id="sendMessageButton" value="Send Message" ></input>
-       
-
-           
+    <div align="center"><input type="submit" id="sendMessageButton" value="Send Message" ></input></div>
+                  
 </form:form>
 
-
-
 </div>   <!--End of the CenteredDiv -->
+
+<h5><a href="index.html">Return to WISE Home Page</a></h5>
+
 
 
 </body>
