@@ -240,8 +240,11 @@ abbr, acronym {
 	text-align:right;
 	margin-right:30px;
 	list-style-type:none;
-	line-height:150%;
-	}
+		}
+	
+#signInLinkPositionTable li {
+	padding-bottom:3px;
+}
 	
 .dataBoxStyle {
 	padding: 1px 0px 1px 5px;

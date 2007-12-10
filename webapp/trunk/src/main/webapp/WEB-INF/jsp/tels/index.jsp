@@ -151,11 +151,9 @@
                                 </form>
                                 
                                 <ul id="signInLinkPositionTable">
-                                <li>
-                                <a href="forgotaccount/selectaccounttype.html" id="forgotlink">
+                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">
                                       Forgot Username or Password?</a>  </li>
-                                <li>
-                                <a href="signup.html" id="joinlink">Want to join WISE?</a></li>
+                                		<li><a href="signup.html" id="joinlink">Want to join WISE?</a></li>
                                 </ul>
                                 
                                 </td>   <!--    End of boxTableSignIn  x-->
