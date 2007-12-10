@@ -30,7 +30,6 @@
 </head>
 
 <body>
-<%@ include file="header.jsp"%>
 <h2 class="center"> FORGOTTEN USERNAME</h2>
 <h1 class="center"> STUDENT </h1>
 

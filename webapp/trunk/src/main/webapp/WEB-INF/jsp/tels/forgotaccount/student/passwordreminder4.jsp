@@ -30,7 +30,6 @@
 </head>
 
 <body>
-<%@ include file="header.jsp" %>
 <h2 class="center"> PASSWORD REMINDER</h2>
 <h1 class="center"> STUDENT </h1>
 

@@ -30,7 +30,6 @@
 </head>
 
 <body>
-<%@ include file="header.jsp" %>
 
 <h2 class="center"> LOST USERNAME/PASSWORD</h2>
 <h1 class="center"> STUDENT </h1>
@@ -55,10 +54,10 @@
 </div>
 
 
-<form id="projectCode" name="projectcode" method="post" commandName="reminderParameters">
+<form id="projectCode" name="projectCode" method="post" commandName="reminderParameters">
 <div align="center">
 <label for="send_projectcode"><b><spring:message code="lostpassword.student.projectcode"/></b></label>
- <input type="text" name="projectCodeValue" id="projectCodeValue" tabindex="1" />
+ <input type="text" name="projectCode" id="projectCode" tabindex="1" />
   
    <div id="waiting" style="display: none">
        <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>

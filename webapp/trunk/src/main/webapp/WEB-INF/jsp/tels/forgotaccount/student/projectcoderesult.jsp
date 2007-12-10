@@ -29,7 +29,6 @@
 </head>
 
 <body>
-<%@ include file="header.jsp"%>
 
 <h1>result</h1>
 

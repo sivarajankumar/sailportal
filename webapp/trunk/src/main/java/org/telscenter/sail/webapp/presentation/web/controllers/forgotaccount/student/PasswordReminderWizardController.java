@@ -113,6 +113,9 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 				String username = reminderParameters.get(ReminderParameters.USERNAME);
 				username = StringUtils.trimToNull(username);
 				user = userService.retrieveUserByUsername(username);
+				if( user == null ) {
+					errors.reject("username", "error.username-not-found");
+				}
 			} catch (EmptyResultDataAccessException e) {
 				//TODO: archana needs to update these
 				errors.reject("username", "error.username-not-found");

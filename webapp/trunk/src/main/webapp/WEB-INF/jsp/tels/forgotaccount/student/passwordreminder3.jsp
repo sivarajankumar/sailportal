@@ -30,7 +30,6 @@
 </head>
 
 <body>
-<%@ include file="header.jsp" %>
 
 <h2 class="center"> PASSWORD REMINDER</h2>
 <h1 class="center"> STUDENT </h1>
@@ -53,7 +52,7 @@ and click submit.
 </h3>
 
 
-<form id="submittedAccountPasswords" name="changedPassword" method="post" commandName="reminderParameters">
+<form id="submittedAccountPasswords" method="post" commandName="reminderParameters">
 <div id="submittedAccountPasswordBox">
 <label id="passwordform" for="send_passwords">
 <spring:message code="lostpassword.student.new-password" />
@@ -64,12 +63,8 @@ and click submit.
 <input id="verifyPassword" name="verifyPassword" type="password" size="40" tabindex="2" />
 <br />
 </div>
-<input name="sendpassword" type="submit" value="Submit" id="submitPos">
-
-   <div id="waiting" style="display: none">
-       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
-     </div>
-   
+  <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+<input type="submit" name="_finish" value="<spring:message code="navigate.done" />" /> 
 </form>
 
 </div>

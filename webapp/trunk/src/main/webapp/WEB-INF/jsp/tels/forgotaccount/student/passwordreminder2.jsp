@@ -30,7 +30,6 @@
 </head>
 
 <body>
-<%@ include file="header.jsp" %>
 
 <h2 class="center"> PASSWORD REMINDER</h2>
 <h1 class="center"> STUDENT </h1>
@@ -56,7 +55,7 @@ Please answer the Password Reminder that you
 encountered during your initial registration.
 </h3>
 <form id="submittedAccountAnswer" method="post" commandName="reminderParameters" >
-<p>Question: ${accountQuestion}
+<p>Question: <spring:message code="accountquestions.${accountQuestion}"/>
  <p><label for="send_accountanswer">answer</label>
   <input type="text" name="submittedAccountAnswer" id="submittedAccountAnswer"  
   style=" font-family: Verdana, Arial, Helvetica, sans-serif;
