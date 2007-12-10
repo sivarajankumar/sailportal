@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.run;
 
+
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
@@ -42,7 +43,7 @@ import org.telscenter.sail.webapp.domain.Run;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class StudentRunInfo {
+public class StudentRunInfo implements Comparable<StudentRunInfo>{
 
 	private User studentUser;
 	
@@ -123,4 +124,20 @@ public class StudentRunInfo {
 	public void setStartProjectUrl(String startProjectUrl) {
 		this.startProjectUrl = startProjectUrl;
 	}
+	
+	public int compareTo(StudentRunInfo o){
+		
+		User bestTeacher = this.run.getOwners().iterator().next();
+		User incomingBestTeacher = o.run.getOwners().iterator().next();
+
+		if(!bestTeacher.getSdsUser().getLastName().equals(incomingBestTeacher.getSdsUser().getLastName())){
+			return bestTeacher.getSdsUser().getLastName().compareTo(incomingBestTeacher.getSdsUser().getLastName());
+		} else if(!bestTeacher.getSdsUser().getFirstName().equals(incomingBestTeacher.getSdsUser().getFirstName())){
+			return bestTeacher.getSdsUser().getFirstName().compareTo(incomingBestTeacher.getSdsUser().getFirstName());
+		} else {
+			return this.run.getSdsOffering().getName().compareTo(o.run.getSdsOffering().getName());
+		}
+
+	}
+
 }

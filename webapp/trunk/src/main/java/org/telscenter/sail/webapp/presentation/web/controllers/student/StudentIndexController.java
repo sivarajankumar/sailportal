@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
+import org.telscenter.sail.webapp.presentation.web.controllers.student.StartProjectController;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
 
@@ -44,7 +46,7 @@ import org.telscenter.sail.webapp.service.student.StudentService;
  * Controller for Student's index page
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class StudentIndexController extends AbstractController {
 
@@ -103,6 +105,9 @@ public class StudentIndexController extends AbstractController {
 				current_run_list.add(studentRunInfo);
 			}
 		}
+		
+		Collections.sort(current_run_list);
+		Collections.sort(ended_run_list);
 		
 		modelAndView.addObject(CURRENT_STUDENTRUNINFO_LIST_KEY, current_run_list);
 		modelAndView.addObject(ENDED_STUDENTRUNINFO_LIST_KEY, ended_run_list);
