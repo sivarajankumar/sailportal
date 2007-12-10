@@ -30,7 +30,6 @@
 </head>
 
 <body>
-<%@ include file="header.jsp"%>
 
 
 <h2 id="heading"> LOST USERNAME OR PASSWORD </h2>
@@ -39,8 +38,7 @@
 <div id="forgot2"> 
  <ul id="forgotList2">
  <li>
-[A new password has]/[Your Username and a new
-Password have] been emailed to ${someValue}. 
+${username}, A new password has been emailed at ${email}. 
 You should receive it within a few
 minutes.
 </li>

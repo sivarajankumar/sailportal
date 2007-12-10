@@ -30,23 +30,18 @@
 </head>
 
 <body>
-<%@ include file="header.jsp"%>
 
 <h2 id="heading"> LOST USERNAME OR PASSWORD </h2>
 <h2 id="heading2"> TEACHER/RESEARCHER </h2>
 
 <div id="forgot2"> 
  <ul id="forgotList2">
-<li> The <b>${someValue}</b> information entered does
+<li> <b>${email}${username}</b>, this information entered does
 not match anything on file.
 </li>
  </ul>
 </div>
 <br /> 
-<form>
-<input type="button" id="try" value="Try Again" />
-<input type="button" id="contact" value="Contact Wise" />
-</form>
 </body>
 </html>
 

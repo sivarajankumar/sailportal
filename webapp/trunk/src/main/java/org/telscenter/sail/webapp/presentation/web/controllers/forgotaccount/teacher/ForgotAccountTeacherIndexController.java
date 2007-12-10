@@ -48,6 +48,8 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  */
 public class ForgotAccountTeacherIndexController extends SimpleFormController {
 
+	private static final String EMAIL = "email";
+	private static final String USERNAME = "username";
 	protected UserService userService = null;
 	protected JavaMailHelper javaMail = null;
 	
@@ -100,7 +102,7 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 				if( user == null ) {
 					ModelAndView modelAndView = new ModelAndView(
 					getErrorView());
-					modelAndView.addObject("someValue", username);
+					modelAndView.addObject(USERNAME, username);
 					return modelAndView;
 				}
 				
@@ -112,7 +114,7 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 				if (users.isEmpty()) {
 					ModelAndView modelAndView = new ModelAndView(
 							getErrorView());
-					modelAndView.addObject("someValue", emailAddress);
+					modelAndView.addObject(EMAIL, emailAddress);
 					return modelAndView;
 				} else {
 					user = users.get(0);
@@ -124,10 +126,11 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 
 			String userEmail = user.getUserDetails().getEmailAddress();
 			// send password in the email here
-			javaMail.postMail(new String[]{userEmail}, "[Tels Portal] Changed Password", "for username: " + username + " Your new password is: "+ generateRandomPassword, "telsportal@gmail.com");
+			javaMail.postMail(new String[]{userEmail}, "[Tels Portal] Changed Password", "Hi,\n\nfor username: " + username + " Your new password is: "+ generateRandomPassword +"\n\n\n-TELS Technology Team", "telsportal@gmail.com");
 			
 			Map<String, String> model = new HashMap<String, String>();
-			model.put("someValue", userEmail);
+			model.put(EMAIL, userEmail);
+			model.put(USERNAME, username);
 			//model.put(NEW_PASSWORD, generateRandomPassword);
 			return new ModelAndView(getSuccessView(), model);
 
