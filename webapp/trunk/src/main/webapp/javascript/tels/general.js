@@ -25,9 +25,17 @@ function moveToImage(id,value){
 }
 
 function changeText(id,value){
-if(value== 0) value = 10;
-	document.getElementById(id).innerHTML= value + ' of 10';	
+  value = value % 10;
+  value += 1;
+  document.getElementById(id).innerHTML= value + ' of 10';	
 }
+
+function changeText_T(id,value){
+  value = value % 5;
+  value += 1;
+  document.getElementById(id).innerHTML= value + ' of 5';	
+}
+
 
 /*These two functions are used for the FORM HINT functionality on registration pages */
 

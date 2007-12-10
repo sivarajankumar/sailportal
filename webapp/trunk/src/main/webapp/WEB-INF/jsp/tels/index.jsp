@@ -162,7 +162,7 @@
                 	</tr> 
             </table>             
 	
-    		<table id="tableBottom" cellpadding="0" cellspacing="0">
+    		    		<table id="tableBottom" cellpadding="0" cellspacing="0">
    		  <tr>
         			<td id="boxWiseInAction" class="panelColor">
                         <div id="header">WISE In Action</div>
@@ -176,10 +176,9 @@
                         onmousedown="this.style.cursor='pointer';" 
                         onmouseup="this.style.cursor='pointer';"
                         onmouseout="this.style.cursor='default';" 
-                        onclick="firstLClicked = setLClicked();
-                        oldCtr=counter;
-                        counter=proceedToPreviousImage(firstLClicked,counter);
-                        changeText('actionImgLink',counter+1);"/>
+                        onclick="
+                        counter=proceedToPreviousImage(counter);
+                        changeText('actionImgLinkTable',counter);"/>
                         
                         <a id="actionImgLinkTable">1 of 10</a>
                         
@@ -188,10 +187,9 @@
                         onmousedown="this.style.cursor='pointer';" 
                         onmouseup="this.style.cursor='pointer';"
                         onmouseout="this.style.cursor='default';" 
-                        onclick="firstRClicked = setRClicked();
-                        oldCtr=counter;
-                        counter=proceedToNextImage(firstRClicked,counter);
-                        changeText('actionImgLink',counter);" /> 
+                        onclick="
+                        counter=proceedToNextImage(counter);
+                        changeText('actionImgLinkTable',counter);" /> 
                    	  </div>
 					</td>  <!--    End of boxWISEInAction  -->
                     
@@ -208,7 +206,8 @@
                             <img id="test_prev" class="dynamicImage" 
                             src="./themes/tels/default/images/wiseInAction/Arrow_Previous.png" 
                             onmouseover="this.style.cursor='pointer';" 
-                            onclick="firstLClicked_T = setLClicked_T();oldCtr_T=counter_T;"
+                            onclick="counter_T=proceedToPreviousImage_T(counter_T);
+                            changeText_T('testimonialsImgLinkTable',counter_T);"
                             onmousedown="this.style.cursor='pointer';" 
                             onmouseup="this.style.cursor='pointer';"
                             onmouseout="this.style.cursor='default';" />
@@ -219,10 +218,9 @@
                             	onmousedown="this.style.cursor='pointer';" 
                         		onmouseup="this.style.cursor='pointer';"
                         		onmouseout="this.style.cursor='default';" 
-                        		onclick="firstRClicked = setRClicked();
-                        		oldCtr=counter;
-                        		counter=proceedToNextImage(firstRClicked,counter);
-                       			 changeText('actionImgLink',counter);" /> 
+                        		onclick="
+                        		counter_T=proceedToNextImage_T(counter_T);
+                       			 changeText_T('testimonialsImgLinkTable',counter_T);" /> 
                    	  		</div>        
 					</td>          
 							

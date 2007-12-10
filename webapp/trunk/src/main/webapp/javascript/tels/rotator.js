@@ -15,14 +15,23 @@ var firstRClicked_T = 0;
 
 //obtained the tips on rotating Images, source code from http://www.communitymx.com/content/article.cfm?cid=651FF
 // Comma separated list of images to rotate
-var imgs = new Array('./themes/tels/default/images/wiseInAction/kidsOnComputer.jpg','./themes/tels/default/images/wiseInAction/kidsinaquarium.jpg','./themes/tels/default/images/wiseInAction/csiScreenshot.jpg','./themes/tels/default/images/wiseInAction/Studentputdata.jpg','./themes/tels/default/images/wiseInAction/AirBag.jpg','./themes/tels/default/images/wiseInAction/Reflection.jpg','./themes/tels/default/images/wiseInAction/PondSim.jpg','./themes/tels/default/images/wiseInAction/OnlineDiscussion.jpg',
-'./themes/tels/default/images/wiseInAction/MolecularModel.jpg','./themes/tels/default/images/wiseInAction/SkinCells.jpg');
+var wiseinactions = new Array('./themes/tels/default/images/wiseInAction/AirBag.jpg',
+                     './themes/tels/default/images/wiseInAction/kidsOnComputer.jpg',
+                     './themes/tels/default/images/wiseInAction/kidsinaquarium.jpg',
+                     './themes/tels/default/images/wiseInAction/csiScreenshot.jpg',
+                     './themes/tels/default/images/wiseInAction/Studentputdata.jpg',
+                     './themes/tels/default/images/wiseInAction/Reflection.jpg',
+                     './themes/tels/default/images/wiseInAction/PondSim.jpg',
+                     './themes/tels/default/images/wiseInAction/OnlineDiscussion.jpg',
+                     './themes/tels/default/images/wiseInAction/MolecularModel.jpg',
+                     './themes/tels/default/images/wiseInAction/SkinCells.jpg');
 
-var testimonials = new Array('./themes/tels/default/images/wiseInAction/dummyfile.jpg','./themes/tels/default/images/wiseInAction/dummyfile2.jpg','./themes/tels/default/images/wiseInAction/dummyfile3.jpg',
-							 './themes/tels/default/images/wiseInAction/dummyfile4.jpg','./themes/tels/default/images/wiseInAction/dummyfile5.jpg','./themes/tels/default/images/wiseInAction/dummyfile6.jpg',
-							 './themes/tels/default/images/wiseInAction/dummyfile7.jpg','./themes/tels/default/images/wiseInAction/dummyfile8.jpg','./themes/tels/default/images/wiseInAction/dummyfile9.jpg',
-							 './themes/tels/default/images/wiseInAction/dummyfile10.jpg');
-
+var testimonials = new Array('./themes/tels/default/images/testimonial.png',
+                             './themes/tels/default/images/wiseInAction/dummyfile2.jpg',
+                             './themes/tels/default/images/wiseInAction/dummyfile3.jpg',
+							 './themes/tels/default/images/wiseInAction/dummyfile4.jpg',
+							 './themes/tels/default/images/wiseInAction/dummyfile5.jpg');
+							 
 //http://code.blizaga.com/javascript_drawing_gradients.html
 function js_gradient(grWidth, grHeight, grDir, grRed1, grGreen1, grBlue1, grRed2, grGreen2, grBlue2) { 
   var i = 0;
@@ -108,7 +117,7 @@ function setRClicked_T(){
 function swapBigImage(index,counter,whichAction){
   if(whichAction=='Action'){
 	flag=1;
-	MM_swapImage('rotator', '', imgs[index]);
+	MM_swapImage('rotator', '', wiseinactions[index]);
 	counter=index;
 	return counter;
   }else{
@@ -135,63 +144,45 @@ function getPrevClick_T(prevClick_T,curr,oldCtr_T){
 	return prevClick_T;
 }
 
-function proceedToPreviousImage(firstLClicked,counter){
-  flag=1;
-  if(firstLClicked==1){
-    counter=counter-1;
-  }
+function proceedToPreviousImage(counter){
+  counter = counter-1;
   if(counter<0){
     counter=9;
 	}
-	MM_swapImage('rotator','',imgs[counter]);
+	MM_swapImage('rotator','', wiseinactions[counter]);
 	prevClick=counter;
-	return counter-1;
-//document.write(counter);
-
+	return counter;
 }
 
-
-function proceedToPreviousImage_T(firstLClicked_T,counter_T){
-  if(firstLClicked_T==1){
-    counter_T=counter_T-1;
-  }
+function proceedToNextImage(counter){
+  counter=counter+1;
   
-  if(counter_T<0){
-    counter_T=9;
-  }
-	MM_swapImage('rotatorT','',testimonials[counter_T]);
-	prevClick_T = counter_T;
-	return counter_T-1;
-//document.write(counter);
-}
-
-function proceedToNextImage(firstRClicked,counter){
-  var old = counter;
-  if(flag==0){
-	counter=counter-1;
-  }
-  flag=1;
-  if(firstRClicked==1){
-    counter=counter+1;
-  }
-  
-  if(counter == (imgs.length)){
+  if(counter == (wiseinactions.length)){
     counter = 0;
   }
-  MM_swapImage('rotator', '', imgs[counter++]);
+  MM_swapImage('rotator', '', wiseinactions[counter]);
   prevClick=counter+1;
   return counter;
 }
 
-function proceedToNextImage_T(firstRClicked_T,counter_T){
-  if(firstRClicked_T==1){
-    counter_T = counter_T+1;
-  }
+function proceedToPreviousImage_T(counter_T){
+  counter_T = counter_T-1;
+  if(counter_T<0){
+    counter_T=4;
+	}
+	MM_swapImage('rotatorT','', testimonials[counter_T]);
+	prevClick=counter_T;
+	return counter_T;
+}
+
+function proceedToNextImage_T(counter_T){
+  counter_T=counter_T+1;
+  
   if(counter_T == (testimonials.length)){
     counter_T = 0;
   }
-  MM_swapImage('rotatorT', '', testimonials[counter_T++]);
-  prevClick_T = counter_T+1;
+  MM_swapImage('rotatorT', '', testimonials[counter_T]);
+  prevClick=counter_T+1;
   return counter_T;
 }
 
