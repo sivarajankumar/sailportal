@@ -128,12 +128,12 @@ abbr, acronym {
 	text-align:left;
 	padding-right: 5px;
 	padding-left: 15px;
-	margin-top: 5px;
+	margin: 5px 0 10px 0;
 }
 
 #welcomeTextLinks {
 	list-style-type:none;
-	padding: 8px 0 0 0;
+	padding: 6px 0 0 0;
 	font-variant: small-caps;
 	line-height: 160%;
 	margin: 0px;
@@ -170,15 +170,15 @@ abbr, acronym {
 	width:285px;
 	color:#000066;
 	line-height: 130%;
-	margin-top: 7px;
+	margin-top: 5px;
 	margin-right: 0px;
 	margin-bottom: 0px;
 	margin-left: 0px;
-	border-top: 1px solid #6666FF;
-	border-bottom: 1px solid #3333FF;
-	border-left: 1px solid #6666FF;
-	border-right: 1px solid #3333FF; 
-	padding: 5px 8px;
+	border-top: 1px dashed #6666FF;
+	border-bottom: 1px dashed #6666FF;
+	border-left: 1px dashed #6666FF;
+	border-right: 1px dashed #6666FF; 
+	padding: 5px 8px 5px 8px;
 	vertical-align:text-top;
 	}
 	
@@ -444,5 +444,17 @@ abbr, acronym {
 	border-bottom: 1px dotted #330066;
 	
 }
+
+.popUpMenuDefault {
+	font-size:1.0em;
+	font-style:italic;
+}
+
+#overviewMessage {
+	font-size:1.1em;
+	margin:0px;
+	padding: 0 0 12px 0;
+}
+	
 	
 

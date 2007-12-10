@@ -73,7 +73,8 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
-                /test.html=ROLE_ANONYMOUS,ROLE_USER
+                /contactwisegeneral.html=ROLE_ANONYMOUS,ROLE_USER
+                /previewproject.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/countries.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/states.html=ROLE_ANONYMOUS,ROLE_USER
                 /help.html=ROLE_ANONYMOUS,ROLE_USER

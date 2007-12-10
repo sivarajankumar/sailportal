@@ -17,7 +17,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headermain.jsp"%>
+<%@ include file="headermain_nousername.jsp"%>
 
 
 <div id="pageTitle">Contact WISE: General Issues</div>
@@ -43,6 +43,7 @@
    
     <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span>Issue Type</label> </dt>
 	<dd><select name="issueTypeContact" id="issueTypeContact"  tabindex="3">
+			<option value="" class="popUpMenuDefault">select an item</option>
 			<option value="1">Trouble Signing In</option>
 			<option value="2">Need Help Using WISE</option>
 			<option value="3">Broken Link</option>
@@ -57,6 +58,7 @@
 			</dd>
     <dt><label for="operatingSystemContact" id="operatingSystemContact" >Operating Sytem</label> </dt>
 	<dd><select name="operatingSystemContact" id="operatingSystemContact"  tabindex="4">
+          	<option value="" class="popUpMenuDefault">select an item</option>
             <option value="1">Mac OS 9</option>
 			<option value="2">Mac OS X Tiger</option>
 			<option value="3">Mac OS X Leopard</option>
@@ -68,6 +70,7 @@
 		</dd>
     <dt><label for="browserContact" id="browserContact">Web Browser</label></dt>
 	<dd><select name="browserContact" id="browserContact" tabindex="5">
+			<option value="" class="popUpMenuDefault">select an item</option>
 			<option value="1">Firefox (Mac)</option>
 			<option value="2">Firefox (Windows)</option>
 			<option value="3">Internet Explorer (Mac)</option>

@@ -20,7 +20,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headermain.jsp"%>
+<%@ include file="headermain_nousername.jsp"%>
 
 <div id="previewProjectTitle">
 	<h1 class="blueText">Preview A Project</h1>

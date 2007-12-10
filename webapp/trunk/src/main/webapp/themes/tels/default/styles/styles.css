@@ -671,3 +671,17 @@ a:hover {
 	padding:35px 0 50px 0;
 	}
 	
+#boxSecondary {
+	background-color:#e0f8df;  
+	color:#003300;
+	border: 1px solid #006600;
+	width:85%;
+	margin:10px auto 10px auto;
+	padding:10px 0 10px 0;
+	}
+	
+#returnHomePageButton {
+	padding:50px;
+	text-align:center;
+}
+	

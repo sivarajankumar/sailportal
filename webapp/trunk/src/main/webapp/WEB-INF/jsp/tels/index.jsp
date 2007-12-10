@@ -76,12 +76,14 @@
 				
 					<div id="welcomeBullet2" style="display:none;"> 
           			<div class="welcomeBulletHeader">Curriculum-Based</div>
-                    <p>Standards-based WISE projects are specifically tailored for classroom use, and revolve around key conceptual difficulties that students historically face across biology, chemistry, and physics topics.  As a result, WISE projects offer a powerful, inquiry-based supplement to a teacher's core scope and sequence.</p>
+                    <p>Standards-based WISE projects are specifically tailored for classroom use, and revolve around key conceptual difficulties that students encounter within biology, chemistry, and physics topics.  As a result, WISE projects offer a powerful, inquiry-based supplement to a teacher's core scope and sequence.</p>
 					</div>
                     
                     <div id="welcomeBullet3" style="display:none;"> 
           			<div class="welcomeBulletHeader">Inquiry Projects</div>
-		  			<p>WISE projects focus on inquiry, letting students (working alone or in pairs) explore and reflect at their own pace, form theories and ideas, and validating these ideas through discussion and model-based testing.</p>
+		  			<p>WISE projects focus on inquiry, letting students explore at their own pace, reflect on ideas, 
+		  				form theories, and validating these theories through discussion and model-based testing. 
+		  				Students can work alone, in pairs, or in trios (at the teacher's discretion).</p>
 					</div>
                     
                     <div id="welcomeBullet4" style="display:none;"> 
