@@ -40,34 +40,34 @@
 
 <div id="lostTitleBar">
     	<h1 class="blueText">Lost Username or Password</h1></div>
-    	
-<h3 class="center">What sort of WISE account do you have?</h3>
+ 
+ <div align="center">   
+  	
+		<div id="lostSubHeader">What sort of WISE account do you have?</div><br/>
+		 
+		<a href="student/index.html">
+		  <img id="studentAccount" src="../<spring:theme code="create_student_account" />" width="228" height="41"
+		  onmouseover="swapImage('studentAccount','../<spring:theme code="create_student_account_rollover" />');" 
+		  onmouseout="swapImage('studentAccount','../<spring:theme code="create_student_account" />');" /></a>
+		 <br />
+		  <br />
+		<a href="teacher/index.html"> 
+		<img id="teacherAccount" src="../<spring:theme code="create_teacher_account" />" height="46"
+		  onmouseover="swapImage('teacherAccount','../<spring:theme code="create_teacher_account_rollover" />');" 
+		  onmouseout="swapImage('teacherAccount','../<spring:theme code="create_teacher_account" />');" /></a>
+		<br />
+		
+		<div id="forgotparagraph">Select a choice above.</div><br /><br />
+		
+		<div><a href="../index.html"> <img id="return"
+					src="../<spring:theme code="return_to_homepage" />"
+					onmouseover="swapImage('return', '..//<spring:theme code="return_to_homepage_roll" />');"
+					onmouseout="swapImage('return', '../<spring:theme code="return_to_homepage" />');" />
+				</a></div>
 
-<div class="center">  
-<a href="student/index.html">
-  <img id="studentAccount" src="../<spring:theme code="create_student_account" />" width="228" height="41"
-  onmouseover="swapImage('studentAccount','../<spring:theme code="create_student_account_rollover" />');" 
-  onmouseout="swapImage('studentAccount','../<spring:theme code="create_student_account" />');" /></a>
- <br />
-  <br />
-<a href="teacher/index.html"> 
-<img id="teacherAccount" src="../<spring:theme code="create_teacher_account" />" height="46"
-  onmouseover="swapImage('teacherAccount','../<spring:theme code="create_teacher_account_rollover" />');" 
-  onmouseout="swapImage('teacherAccount','../<spring:theme code="create_teacher_account" />');" /></a>
-<br />
 </div>
 
-<div class="center">
-	<h3 id="italic">Select a choice above.</h3>
-	<a href="../index.html">Return to Sign In</a>
-	<!-- replace with proper image when ready
-	<img id="signInAgain" src="../images/Sign-in-New-Account.png" 
-  		onmouseover="swapImage('signInAgain','../images/Sign-in-New-Account-Roll.png');"
-  		onmouseout="swapImage('signInAgain','../images/Sign-in-New-Account.png');" > -->
 </div>
-
-</div>
-
 
 </body>
 </html>

@@ -656,11 +656,18 @@ a:hover {
 	margin-left: auto;
 	padding:0px;
 		}
-		
+	
+#lostSubHeader {
+	padding:30px 0 20px 0;
+	letter-spacing:1px;
+	font-size:1.8em;
+	font-weight:bold;
+}
+
 #forgotparagraph {
 	text-align:center;
-	width:60%;
+	width:70%;
 	font-size:1.4em;
-	margin:30px 0 30px 0;
+	padding:35px 0 50px 0;
 	}
 	

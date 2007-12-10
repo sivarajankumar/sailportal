@@ -20,7 +20,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headermain.jsp"%>
+<%@ include file="headermain_nousername.jsp"%>
 
 <div id="registrationTitle">
 	<h1 class="blueText">New Account Registration</h1>

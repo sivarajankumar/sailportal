@@ -11,9 +11,5 @@
     		<img src="themes/tels/default/images/WISE-Logo-Large.png" 
     		 alt="WISE Large Logo" border="0" id="WISE Main Logo" /></a></div>
   		
-			<div id="usernameSignOutBoxHome">
-			<div id="usernameBannerHome"><authz:authentication operation="username" /> </div>
-			<div id="signOutBannerHome"> <%@ include file="logout.jsp"%></div> 
-		</div>
- 
+	
 </div>
