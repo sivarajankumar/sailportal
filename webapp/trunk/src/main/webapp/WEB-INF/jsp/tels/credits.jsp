@@ -28,7 +28,7 @@
 
 <div id="boxPreviewProject">
 
-<div id="previewProjectHeader2">The WISE 3.0 development project includes a wide variety of partners in the open-source community. </div>
+<div id="previewProjectHeader2">The WISE 3.0 development project includes a wide variety of partners in the open-source community... MORE TO COME. </div>
 
 <div id="previewProjectDetails">
 	<div>UC Berkeley Team Members</div>
@@ -36,12 +36,12 @@
 </div>
 
 <div id="previewProjectDetails">
-	<div>UC Berkeley Team Members</div>
+	<div>University of Toronto</div>
 	<p>Name 1, Name 2, etc...</p>
 </div>
 
 <div id="previewProjectDetails">
-	<div>UC Berkeley Team Members</div>
+	<div>Concord Consortium</div>
 	<p>Name 1, Name 2, etc...</p>
 </div>
 

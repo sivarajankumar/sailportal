@@ -78,22 +78,23 @@ function MM_swapImage() { //v3.0
 
 <%@ include file="headermain.jsp"%>
 
+<div id="registrationTitle">
+    	<h1 class="blueText">Teacher Registration</h1>
+</div>
+     
+<div id="subtitleTeacherReg">To create a teacher account please fill in the following fields:</div>
+
+
 <!-- Support for Spring errors object -->
-<spring:bind path="teacherAccountForm.*">
+<div id="regErrorMessages">
+	<spring:bind path="teacherAccountForm.*">
   <c:forEach var="error" items="${status.errorMessages}">
     <b>
       <br /><c:out value="${error}"/>
     </b>
   </c:forEach>
 </spring:bind>
-
-
-
-<div id="registrationTitle">
-    	<h1 class="blueText">Teacher Registration</h1>
 </div>
-     
-<div id="subtitleTeacherReg">To create a teacher account please fill in the following fields:</div>
 
 <form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="teacherRegForm" >  
   <dl>

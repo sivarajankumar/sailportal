@@ -199,6 +199,14 @@ dd {
 	font-size:1.2em;
 	}
 
+#regErrorMessages {
+	text-align:center;
+	font-size:1.3em;
+	color:FF0000;
+	font-weight:bold;
+}
+
+
 /* FOR TEACHER CONFIRMATION PAGE/  */
 
 #confirmationButtonTeacher {
