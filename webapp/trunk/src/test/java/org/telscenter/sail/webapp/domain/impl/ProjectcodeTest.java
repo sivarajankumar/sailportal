@@ -33,6 +33,8 @@ public class ProjectcodeTest extends TestCase {
 	private String runcode = "saphire8886";
 	private String period = "6";
 	private String projectcodeString = "saphire8886-6";
+	private String projectcodeWithWhiteSpace = "  Whale7741-4     ";
+	private String projectcodeWithWhiteSpaceRemoved = "Whale7741-4";
 	private Projectcode projectcode, projectcode2;
 	private final String[] ILLEGAL_PROJECTCODES = {"Owl0896", "Owl0896-", "-3", "-", ""};	
 	
@@ -64,5 +66,16 @@ public class ProjectcodeTest extends TestCase {
 			Projectcode projectcode = new Projectcode(illegalProjectcode);
 			assertFalse(projectcode.isLegalProjectcode());
 		}
+	}
+	
+	public void testRemovedWhiteSpace(){
+		Projectcode projectcode = new Projectcode(projectcodeWithWhiteSpace);
+		assertEquals(projectcodeWithWhiteSpaceRemoved, projectcode.getProjectcode());
+		
+		projectcode = new Projectcode("  Whale7741", "4  ");
+		assertEquals(projectcodeWithWhiteSpaceRemoved, projectcode.getProjectcode());
+		
+		projectcode.setProjectcode(projectcodeWithWhiteSpace);
+		assertEquals(projectcodeWithWhiteSpaceRemoved, projectcode.getProjectcode());
 	}
 }

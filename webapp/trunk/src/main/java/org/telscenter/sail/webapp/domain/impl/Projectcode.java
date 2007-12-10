@@ -33,7 +33,7 @@ import org.apache.commons.lang.StringUtils;
  * 3) periodname
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class Projectcode implements Serializable {
 
@@ -49,7 +49,7 @@ public class Projectcode implements Serializable {
 	 * @param projectcode
 	 */
 	public Projectcode(String projectcode) {
-		this.projectcode = projectcode;
+		this.projectcode = StringUtils.strip(projectcode);
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class Projectcode implements Serializable {
 	 * @param periodname
 	 */
 	public Projectcode(String runcode, String periodname) {
-		this.projectcode = runcode + SEPARATOR + periodname;
+		this.projectcode = StringUtils.strip(runcode + SEPARATOR + periodname);
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public class Projectcode implements Serializable {
 	 * @param projectcode the projectcode to set
 	 */
 	public void setProjectcode(String projectcode) {
-		this.projectcode = projectcode;
+		this.projectcode = StringUtils.strip(projectcode);
 	}
 
 	/**
