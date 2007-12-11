@@ -29,6 +29,10 @@ table tr, table td {
 	border:0px;
 }
 
+#columnProjects {
+	margin:0 0 20px 240px;
+}
+
 #columnLabel {
 	color:#3333cc;
 	font-size:1.5em;
@@ -41,18 +45,15 @@ table tr, table td {
 #columnButtons {
 	float:left;
 	width: 225px;
-	margin:25px 0 0 0 ;
+	margin:15px 0 0 0 ;
 	background-color:#CCFFCC;
-	background-image:url(../../images/student/Gradient-ProjectMenu-Green-450.png);
+	background-image:url(../../images/student/Gradient-ProjectMenu-Green-475.png);
+	background-position:top;
 	background-repeat:repeat-x;
 	border-top: 1px solid #666666;
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #666666;
-}
-
-#columnProjects {
-	margin:0 0 20px 240px;
 }
 
 #list1 {
@@ -147,14 +148,19 @@ table tr, table td {
 	}
 
 #currentRunTable{
+	width:100%;
 	margin-top:10px;
 	margin-bottom:4px;
+	border-top:1px solid black;
 	border-right:2px solid black;
 	border-bottom:2px solid black;
-} 
+	border-left:1px solid black;
+	} 
 	
 #projectMainRow{
 	border: 1px solid black;
+	margin:0px;
+	padding:0px;
 }
 
 #blankRow {
@@ -165,10 +171,11 @@ table tr, table td {
 
 .studentTableLeftHeader{
 	font-size:1.0em;
-	width:11%;
-	padding: 2px 5px;
+	width:10%;
+	padding: 0px 5px;
 	border-right:1px solid #666666;
-}
+	background-color:#CCFF99;
+	}
 
 #tightBorderCell{
 	padding:0px;
@@ -189,7 +196,7 @@ table tr, table td {
 
 .tableBorderRight {
 	border-right:1px solid #666666;
-}	
+	}	
 
 #tableStudentProjectData tr, #tableStudentProjectData td  {
 	margin:0px;
@@ -197,13 +204,16 @@ table tr, table td {
 	}
 	
 #studentTitleText {
-	font-size:1.4em;
 	font-weight:bold;
-	margin: 5px;
+	font-size:1.6em;
+	margin: 5px 0 5px 2px;
 	padding:0px;
 }
 
 #studentActionList  {
+	font-family: "Gill Sans", Arial, Helvetica, "Lucida Grande", "Lucida San Unicode";
+	font-weight:bold;
+	letter-spacing:1px;
 	list-style-type:none;
 	text-align:center;
 	margin:0px;
@@ -218,18 +228,17 @@ table tr, table td {
 	display:block;
 	text-decoration:none;
 	font-size:1.0em;
-	font-weight:bold;
 	color:#0033CC;
 	margin:0px;
-	padding:3px 2px 3px 2px;
+	padding:4px 2px 4px 2px;
 	border:1px solid #FFFFFF;
 	}
 
 #studentActionList a:hover {
 	display:block;
-	padding:3px 2px 3px 2px;
+	margin:0px;
+	padding:4px 2px 4px 2px;
 	font-size:1.0em;
-	font-weight:bold;
 	color:#000066;
 	background-color:#ffff33;
 	border:1px solid #666666;

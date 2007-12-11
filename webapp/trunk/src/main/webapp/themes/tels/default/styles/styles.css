@@ -64,6 +64,7 @@ a:hover {
 #studentBannerLabel {
 	padding-top:5px;
 	margin-left:425px;
+
 	}
 
 #titleBar {
@@ -93,7 +94,7 @@ a:hover {
 	float:right;
 	text-align:right;  
 	position:relative;
-	margin: -17px 8px 0 10px;	
+	margin: -17px 8px 0 10px;
 }
 
 #usernameBanner {
@@ -117,15 +118,13 @@ a:hover {
 	border-bottom: 1px dotted #330066;
 	}
 
-
-	
 /* STYLES FOR STUDENT PROJECT MENU */
 
 #usernameSignOutBoxStudent {
 	float:right;
 	text-align:right;  
 	position:relative;
-	margin: -34px 8px 0 10px;	
+	margin: -16px 8px 0 10px;	
 }
 
 #usernameBannerStudent {

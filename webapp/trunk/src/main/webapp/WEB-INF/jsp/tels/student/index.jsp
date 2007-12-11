@@ -254,23 +254,43 @@ YAHOO.util.Event.onDOMReady(init);
 			<c:when test="${fn:length(current_run_list) > 0}" >
 			
 			<c:forEach var="studentRunInfo"  items="${current_run_list}">
+					
 					<table id="currentRunTable" >
 			
 						<tr id="projectMainRow">
-				
-						<td style="padding:0px; margin:0px;">
-							<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
-									<tr style="margin:0px;">
-										<td class="studentTableLeftHeader">Title</td>
-										<td id="studentCurrentTitleCell" class="tableBorderRight">
-											<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
-										</td>
-									</tr>
-									<tr >
-										<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
-										<td class="tableBorderTopBottom tableBorderRight">
-											
-
+							<td class="studentTableLeftHeader">Title</td>
+							<td id="studentCurrentTitleCell" class="tableBorderRight">
+								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
+							<td ROWSPAN="4" style="width:27%; padding:2px;">
+								  	<ul id="studentActionList">
+										<li><c:choose>
+											<c:when test="${studentRunInfo.workgroup == null}">
+												<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">RUN
+												PROJECT</a>
+											</c:when>
+											<c:otherwise>
+												<c:choose>
+													<c:when
+														test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+														<a href="${studentRunInfo.startProjectUrl}"
+															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+													</c:when>
+													<c:otherwise>
+														<a
+															href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+													</c:otherwise>
+												</c:choose>
+											</c:otherwise>
+										</c:choose></li>
+										<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
+										  	  	<li><a href="../contactwiseproject.html">Report A Problem</a></li>
+								 	</ul>
+						 	</td>
+						</tr>	
+						<tr>
+							<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+							<td class="tableBorderTopBottom tableBorderRight">
 											<c:choose>
 											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
 												<c:forEach var="member" items="${studentRunInfo.run.owners}">	
@@ -282,19 +302,16 @@ YAHOO.util.Event.onDOMReady(init);
 												not established yet			    
 											</c:otherwise>	
 								      		</c:choose>
-								      	
-
-										</td>
-									</tr>
-								  	<tr>
-								  		<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
-								  		<td class="tableBorderTopBottom tableBorderRight">
-								  			${studentRunInfo.group.name}</td>
-								  	</tr>
-								  	<tr>
-								  		<td class="studentTableLeftHeader">Team</td>
-								  		<td class="tableBorderRight">
-										
+							</td>
+							</tr>
+						<tr>
+							<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+							<td class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
+					  	
+					  	</tr>
+						<tr>
+							<td class="studentTableLeftHeader">Team</td>
+							<td class="tableBorderRight">
 											<c:choose>
 											<c:when test="${studentRunInfo.workgroup != null}" >
 												<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
@@ -308,42 +325,12 @@ YAHOO.util.Event.onDOMReady(init);
 												not established yet			    
 											</c:otherwise>	
 								      		</c:choose>
-								      	
-
-										</td>
-								  	</tr>
-							</table>
-						</td>
-						<td style="width:22%; padding:3px;">
-						  	<ul id="studentActionList">
-								<li><c:choose>
-									<c:when test="${studentRunInfo.workgroup == null}">
-										<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">RUN
-										PROJECT</a>
-									</c:when>
-									<c:otherwise>
-										<c:choose>
-											<c:when
-												test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-												<a href="${studentRunInfo.startProjectUrl}"
-													id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
-											</c:when>
-											<c:otherwise>
-												<a
-													href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
-													id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
-											</c:otherwise>
-										</c:choose>
-									</c:otherwise>
-								</c:choose></li>
-								<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
-								  	  	<li><a href="../contactwiseproject.html">Report A Problem</a></li>
-								  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
-						 	</ul>
-						 </td>
-						</tr>
+							</td>
 							
-						</table>
+						</tr>
+				</table>
+					
+						
 			</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -356,23 +343,40 @@ YAHOO.util.Event.onDOMReady(init);
 			<c:when test="${fn:length(ended_run_list) > 0}" >
 			
 			<c:forEach var="studentRunInfo"  items="${ended_run_list}">
-					<table id="currentRunTable" border="0">
+					<table id="currentRunTable" >
 			
 						<tr id="projectMainRow">
-				
-						<td style="padding:0px;">
-							<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
-									<tr >
-										<td bgcolor="#FF9999" class="studentTableLeftHeader">Title</td>
-										<td id="studentCurrentTitleCell" class="tableBorderRight">
-											<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
-										</td>
-									</tr>
-									<tr >
-										<td bgcolor="#FF9999" class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
-										<td class="tableBorderTopBottom tableBorderRight">
-											
-
+							<td class="studentTableLeftHeader">Title</td>
+							<td id="studentCurrentTitleCell" class="tableBorderRight">
+								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
+							<td ROWSPAN="5" style="width:27%; padding:2px;">
+								  	<ul id="studentActionList">
+										<li><c:choose>
+											<c:when test="${studentRunInfo.workgroup == null}">
+												<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">REVIEW
+												PROJECT</a>
+											</c:when>
+											<c:otherwise>
+												<c:choose>
+													<c:when
+														test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+														<a href="${studentRunInfo.startProjectUrl}"
+															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+													</c:when>
+													<c:otherwise>
+														<a
+															href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+													</c:otherwise>
+												</c:choose>
+											</c:otherwise>
+										</c:choose></li>
+									</ul>
+						 	</td>
+						</tr>	
+						<tr>
+							<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+							<td class="tableBorderTopBottom tableBorderRight">
 											<c:choose>
 											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
 												<c:forEach var="member" items="${studentRunInfo.run.owners}">	
@@ -381,22 +385,19 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												not established yet					    
+												not established yet			    
 											</c:otherwise>	
 								      		</c:choose>
-								      	
-
-										</td>
-									</tr>
-								  	<tr>
-								  		<td bgcolor="#FF9999" class="studentTableLeftHeader tableBorderTopBottom">Period</td>
-								  		<td class="tableBorderTopBottom tableBorderRight">
-								  			${studentRunInfo.group.name}</td>
-								  	</tr>
-								  	<tr>
-								  		<td bgcolor="#FF9999" class="studentTableLeftHeader">Team</td>
-								  		<td class="tableBorderRight">
-										
+							</td>
+							</tr>
+						<tr>
+							<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+							<td class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
+					  	
+					  	</tr>
+						<tr>
+							<td class="studentTableLeftHeader tableBorderTopBottom">Team</td>
+							<td class="tableBorderTopBottom tableBorderRight">
 											<c:choose>
 											<c:when test="${studentRunInfo.workgroup != null}" >
 												<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
@@ -407,28 +408,20 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												not established yet					    
+												not established yet			    
 											</c:otherwise>	
 								      		</c:choose>
-								      	
-
-										</td>
-								  	</tr>
-							</table>
-						</td>
-						<td style="width:22%; padding:3px;">
-						  	<ul id="studentActionList">
-						  		<li><a id='${studentRunInfo.run.id}' href="#" class="runProjectLink">Review Project</a></li>
-						  	  	<li><a style="color:#cccccc;" href="#">Move to Current Runs</a></li>
-						    </ul>
-						 </td>
+							</td>
 						</tr>
-							
-						</table>
+						<tr>
+							<td class="studentTableLeftHeader">Archived</td>
+							<td class="tableBorderRight">NEED DATA: Project Run End Date</td>
+						</tr>
+				</table>
 			</c:forEach>
 			</c:when>
 			<c:otherwise>
-					To add a WISE 3.0 project click the "Add a Project" button.			    
+					You currently have no archived projects.	    
 			</c:otherwise>
 			</c:choose>
 		</div>
