@@ -160,28 +160,6 @@
 YAHOO.util.Event.onDOMReady(init);
 </script>
 
-<script src=".././javascript/tels/general.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/effects.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-
-<script>   <!--This script is used to generate alternating striped effect for Project Tables
-	 
-	 $tablerow_count=0;
-	 function tablerowswitch() {
-	  global $tablerow_count;
-	  $tablerow_count++;
-	  if ($tablerow_count % 2) {
-	   echo "odd";
-	  }
-	  else {
-	   echo "even";
-	  }
-	 }
-	 
-    
-</script>
-
 </head>
 
 <body class="yui-skin-sam">
@@ -276,20 +254,20 @@ YAHOO.util.Event.onDOMReady(init);
 			<c:when test="${fn:length(current_run_list) > 0}" >
 			
 			<c:forEach var="studentRunInfo"  items="${current_run_list}">
-					<table id="currentRunTable" border="0">
+					<table id="currentRunTable" >
 			
 						<tr id="projectMainRow">
 				
-						<td style="padding:0px;">
+						<td style="padding:0px; margin:0px;">
 							<table id="tableStudentProjectData" border="0" cellpadding="0" cellspacing="0">
-									<tr >
-										<td bgcolor="#CCFF99" class="studentTableLeftHeader">Title</td>
+									<tr style="margin:0px;">
+										<td class="studentTableLeftHeader">Title</td>
 										<td id="studentCurrentTitleCell" class="tableBorderRight">
 											<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div>
 										</td>
 									</tr>
 									<tr >
-										<td bgcolor="#CCFF99" class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+										<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
 										<td class="tableBorderTopBottom tableBorderRight">
 											
 
@@ -309,12 +287,12 @@ YAHOO.util.Event.onDOMReady(init);
 										</td>
 									</tr>
 								  	<tr>
-								  		<td bgcolor="#CCFF99" class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+								  		<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
 								  		<td class="tableBorderTopBottom tableBorderRight">
 								  			${studentRunInfo.group.name}</td>
 								  	</tr>
 								  	<tr>
-								  		<td bgcolor="#CCFF99" class="studentTableLeftHeader">Team</td>
+								  		<td class="studentTableLeftHeader">Team</td>
 								  		<td class="tableBorderRight">
 										
 											<c:choose>
@@ -338,29 +316,29 @@ YAHOO.util.Event.onDOMReady(init);
 						</td>
 						<td style="width:22%; padding:3px;">
 						  	<ul id="studentActionList">
-						<li><c:choose>
-							<c:when test="${studentRunInfo.workgroup == null}">
-								<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">RUN
-								PROJECT</a>
-							</c:when>
-							<c:otherwise>
-								<c:choose>
-									<c:when
-										test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-										<a href="${studentRunInfo.startProjectUrl}"
-											id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+								<li><c:choose>
+									<c:when test="${studentRunInfo.workgroup == null}">
+										<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">RUN
+										PROJECT</a>
 									</c:when>
 									<c:otherwise>
-										<a
-											href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
-											id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+										<c:choose>
+											<c:when
+												test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+												<a href="${studentRunInfo.startProjectUrl}"
+													id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+											</c:when>
+											<c:otherwise>
+												<a
+													href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+													id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
-								</c:choose>
-							</c:otherwise>
-						</c:choose></li>
-						<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
-						  	  	<li><a href="../contactwiseproject.html">Report A Problem</a></li>
-						  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
+								</c:choose></li>
+								<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
+								  	  	<li><a href="../contactwiseproject.html">Report A Problem</a></li>
+								  	  	<li><a style="color:#cccccc;" href="#">Archive This Project</a></li>
 						 	</ul>
 						 </td>
 						</tr>
@@ -495,4 +473,11 @@ YAHOO.util.Event.onDOMReady(init);
 </div>
 </div>
 <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
+
+</div>
+</div>
+</div>
+</body>
+</html>
+
  
