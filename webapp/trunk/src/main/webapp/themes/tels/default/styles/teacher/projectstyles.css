@@ -1,4 +1,3 @@
-
 #runBox{
 	position:relative;
 	top:15px;
@@ -139,6 +138,52 @@ img#none{
 	padding:0px;
 }
 	
+/* OVERVIEW CHOICES FOR PROJECTS SECTION  */ 
+
+#overview_choices   {
+	padding:15px 0 30px 5px;
+}
+	
+#overview_choices .link  {
+	font-size:1.6em;
+	font-weight:bold;
+	width:390px;
+	}
+
+#overview_choices a:link, #overview_choices a:visited   {
+	text-decoration:none;
+	display:block;
+	padding:6px 0px 6px 20px;
+	background-image:url(../images/Pixel_Project_Highlight.png);
+	background-position:left top;
+	background-repeat:repeat-x;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
+}
+
+#overview_choices a:hover  {
+	display:block;
+	background-color:#FFFF33;
+	color:#0000CC;
+	padding:6px 0px 6px 20px;
+	background-image:none;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
+		}
+		
+#overview_choices .description  {
+	font-size:.9em;
+	margin:0px;
+	padding:2px;
+	vertical-align:middle;
+}
+
+/* OVERVIEW CHOICES FOR MANAGEMENT SECTION  */ 
+
 #overview_choices   {
 	padding:15px 0 30px 5px;
 }
@@ -173,13 +218,16 @@ img#none{
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #999999;
 		}
-
+		
 #overview_choices .description  {
 	font-size:.9em;
 	margin:0px;
 	padding:2px;
 	vertical-align:middle;
 }
+
+
+
 
 .clearFloat {clear:both;}
 

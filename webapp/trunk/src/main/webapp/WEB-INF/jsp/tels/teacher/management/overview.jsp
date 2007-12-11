@@ -1,4 +1,5 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp" %>
+
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -17,46 +18,55 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: index.jsp 888 2007-08-06 23:47:19Z archana $ -->
+<!-- $Id: overview.jsp 997 2007-09-05 16:52:39Z archana $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
-<link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet"
-    type="text/css" />  
-<script type="text/javascript" src="../javascript/general.js"></script> 
 
-<title>Teacher:Management - Overview </title>
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
+ 
+<title>Projects Overview</title>
 </head>
 
 <body>
-<%@ include file="managementHeader.jsp"%>
-<br />
-<div id="overviewContent">
-<table>
-<tr>
-<td>Manage My Students</td>
-<td>Manage student teams, passwords, and more.</td>
-</tr>
-<tr>
-<td>Class Monitor (live view)</td>
-<td>Class Monitor shows progress of your entire class in real-time as they work
-through a project. Pause All Screens allows you to pause all student screens
-simultaneously to facilitate group discussions.</td>
-</tr>
-<tr>
-<td>Exports & Reports</td>
-<td>Export your students' work as spreadsheet data or printable reports.</td>
-</tr>
-<tr>
-<td>Update my Account</td>
-<td>Edit your WISE account information.</td>
-</tr>
-</table>
 
+<div id="centeredDiv">
+
+<%@ include file="headerteachermanagement.jsp"%>
+
+<%@ include file="L2management_overview.jsp"%>
+ 
+<div id="overviewContent"> 
+
+	<div id="overviewHeader">Management: Overview</div>
+	
+	<table id="overview_choices" cellspacing="20">
+		<tr>
+			<td class="link"><a href="#">Manage My Students</a></td>
+			<td class="description">Manage student groupings, periods, passwords, and more.</td></tr>
+		<tr>
+			<td class="link"><a style="color:#999999;" href="#">Class Monitor</a></td>
+			<td class="description">Gives a real-time overview of your class at work, with icons to summarize progress and 
+					problems per team.  Includes a <em>Pause All Screens</em> function to facilitate teacher-led discussions. </td></tr>
+		<tr>
+			<td class="link"><a style="color:#999999;" href="#">Exports & Reports</a></td>
+			<td class="description">Export student work as spreadsheet data or print student work or final grades.</td></tr>
+		<tr>
+			<td class="link"><a style="color:#999999;"href="#">Update My Account</a></td>
+			<td class="description">Update your WISE account information.</td></tr>
+	</table>
+	
 </div>
-<h2> Getting Started with WISE? </h2>
-<p> For help getting started with WISE 3.0, setting up projects to run in your classroom, and more, visit the Help section. </p>
+
+<h5 class="center">Getting started running WISE 3.0 in your classroom? Visit the <a href="#">Help</a> section for more information.</h5>
+
+</div>    <!--End of CenteredDiv-->
+
 </body>
 </html>
+

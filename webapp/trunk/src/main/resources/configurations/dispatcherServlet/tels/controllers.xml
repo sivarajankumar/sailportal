@@ -82,6 +82,9 @@
 	<bean id="previewprojectController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewProjectController" />
 
+	<bean id="creditsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.CreditsController" />
+		
 	<bean id="selectteamController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.student.SelectTeamController">
 	    <property name="runService" ref="runService" />
