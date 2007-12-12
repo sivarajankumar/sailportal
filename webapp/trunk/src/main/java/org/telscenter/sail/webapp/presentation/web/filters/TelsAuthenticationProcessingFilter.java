@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.filters;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
@@ -70,6 +71,7 @@ public class TelsAuthenticationProcessingFilter extends
         }
 		super.successfulAuthentication(request, response, authResult);
 		((MutableUserDetails) userDetails).incrementNumberOfLogins();
+		((MutableUserDetails) userDetails).setLastLoginTime(Calendar.getInstance().getTime());
 		userDetailsService.updateUserDetails((MutableUserDetails) userDetails);
 	}
 

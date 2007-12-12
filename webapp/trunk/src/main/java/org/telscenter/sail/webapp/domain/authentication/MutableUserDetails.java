@@ -68,14 +68,21 @@ public interface MutableUserDetails extends
 	public Integer getNumberOfLogins();
 	
 	/**
-	 * Sets the number of times the user has logined into the sytem
+	 * Sets the number of times the user has logined into the system
 	 * 
 	 * @param numberOfLogins 1 more time
 	 */
 	public void setNumberOfLogins(Integer numberOfLogins);
 	
 	/**
-	 * Increments the number of times the user has logined into the sytem
+	 * Sets the date of the most recent login as lastLoginTime
+	 * 
+	 * @param lastLoginTime 1 more time
+	 */
+	public void setLastLoginTime(Date lastLoginTime);
+	
+	/**
+	 * Increments the number of times the user has logined into the system
 	 * 
 	 * @param numberOfLogins
 	 */
