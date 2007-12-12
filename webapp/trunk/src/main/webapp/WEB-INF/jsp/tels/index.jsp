@@ -69,41 +69,51 @@
 					<div id="welcomeBullet1" style=""> 
           			<div class="welcomeBulletHeader">What is WISE?</div>
 		  			<p>The Web-Based Inquiry Science Environment is a simple yet powerful learning system designed to foster 
-		  			inquiry-based science exploration.  A collection of online and Java-based tools allow students to 
+		  			inquiry-based science.  A collection of online and Java-based tools allow students to 
 		  			download curriculum-based projects, then explore and reflect at their own pace.  Teachers facilitate the 
-		  			process in the classroom and use online tools to offer formative &amp; evaluative assessment of student work.</p>
+		  			process in the classroom and use online tools to offer formative and evaluative assessment of student work.</p>
 					</div>
 				
 					<div id="welcomeBullet2" style="display:none;"> 
           			<div class="welcomeBulletHeader">Curriculum-Based</div>
-                    <p>Standards-based WISE projects are specifically tailored for classroom use, and revolve around key conceptual difficulties that students encounter within biology, chemistry, and physics topics.  As a result, WISE projects offer a powerful, inquiry-based supplement to a teacher's core scope and sequence.</p>
+                    <p>Standards-based WISE projects are specifically tailored for classroom use, and revolve around key conceptual 
+                    difficulties that students encounter in biology, chemistry, and physics.  As a result, WISE projects offer a 
+                    focused and inquiry-rich supplement to a teacher's core scope and sequence.</p>
 					</div>
                     
                     <div id="welcomeBullet3" style="display:none;"> 
           			<div class="welcomeBulletHeader">Inquiry Projects</div>
-		  			<p>WISE projects focus on inquiry, letting students explore at their own pace, reflect on ideas, 
-		  				form theories, and validating these theories through discussion and model-based testing. 
+		  			<p>WISE projects focus on science inquiry. Students explore new ideas and information, ponder discrepant events, write reflections,
+		  				form fact-based theories, and validate these theories through discussion and model-based testing. 
 		  				Students can work alone, in pairs, or in trios (at the teacher's discretion).</p>
 					</div>
                     
                     <div id="welcomeBullet4" style="display:none;"> 
           			<div class="welcomeBulletHeader">Student Engagement</div>
-		  			<p>WISE projects draw and sustain student interest using compelling computer-based interactivity.  The rapid feedback offered by WISE tools encourages students to self-monitor their progress and degree of understanding.  </p>
+		  			<p>WISE projects draw and sustain student interest using compelling computer-based interactivity.  
+		  			The rapid feedback offered by WISE tools encourages students to self-monitor their progress and 
+		  			solidify their new ideas before moving onward.</p>
 					</div>
                     
                     <div id="welcomeBullet5" style="display:none;"> 
           			<div class="welcomeBulletHeader">Visualization Models</div>
-		  			<p>Many WISE project incorporate interactive visualization models that help make micro and macro scientific concepts both visible and testable.  Students experience the core processes of the scientific method as they form hypotheses, test them directly, analyze results, refine their ideas, and retest.</p>
+		  			<p>Many WISE projects incorporate interactive visualization models that help make micro and macro scientific 
+		  			concepts both visible and testable.  Students experience the core processes of the scientific method 
+		  			as they form hypotheses, test them, analyze results, refine ideas, and retest.</p>
                     </div>
                     
 					<div id="welcomeBullet6" style="display:none;"> 
           			<div class="welcomeBulletHeader">Teacher Tools</div>
-		  			<p>WISE offers a variety of tools to help teachers grade efficiently (using editable comments), pause all computers for group discussions, watch student work unfold online in real-time, and even create/revise customized projects using the integrated Authoring Tool.</p>
+		  			<p>A variety of integrated tools help teachers grade efficiently (using editable comment templates), 
+		  			pause all student computers simultaneously (for group discussion), and watch student work unfold online in 
+		  			real-time (with the Class Monitor). Teachers can also create customized projects using the powerful Authoring Tool.</p>
 					</div>
                     
                     <div id="welcomeBullet7" style="display:none;"> 
           			<div class="welcomeBulletHeader">Free &amp; Open-Source</div>
-		  			<p>Best of all, WISE is completely free.  Derived from education research funding, and based on modern open-source technology, WISE is an active, on-going research tool used by a wide community of teachers, researchers and technology developers both nationally and internationally.</p>
+		  			<p>Best of all, WISE is completely free.  Emerging from education research funding, and based on modern open-source 
+		  			technology, WISE is an active, on-going research tool used by an international community of teachers, 
+		  			researchers and software developers.</p>
 					</div>
 
 
