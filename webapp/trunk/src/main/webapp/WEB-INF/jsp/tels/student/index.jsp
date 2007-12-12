@@ -40,43 +40,7 @@
 		
 		
 		
-	//add Change Period/Team Pop-Up    ----------------------------------
-
-    // Define various event handlers for Dialog
-
-	var handleCancel = function() {
-		this.cancel();
-		document.getElementById('changePeriodTeamFrame').src=' ';
-		//reload the page
-		//window.location.reload();
-	};
-
-	// Instantiate the Dialog
-	var addProjectDialog = new YAHOO.widget.Dialog("changePeriodTeamLink", 
-																{ width : "700px",
-																//  height : "70%",
-																  fixedcenter : true,
-																  visible : false, 
-																  iframe : true,
-																  //ie7 modal problem
-																  //modal:false,
-																  constraintoviewport : true,
-																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-																  buttons : [ 
-																			  {text:"Close", handler:handleCancel,isDefault:true } ]
-																 } );
 	
-	
-    addProjectDialog.render();
-    
-    var btns2 = YAHOO.util.Dom.getElementsByClassName("changePeriodTeamLink", "a");
-         
-    YAHOO.util.Event.on(btns2, "click", function(e, panel) {
-                	YAHOO.log('RUNG id ' + this.id);
-                	document.getElementById('addProjectFrame').src='changeperiodteam.html' 
-                	addProjectDialog.show();
-    }, addProjectDialog);
-    
 		
 	//add project dialog ----------------------------------
 
@@ -139,9 +103,6 @@
 																			  { text:"Close", handler:handleClosePassword,isDefault:true } ]
 																 } );
 	
-
-
-
 	
 	// Render the Dialog
 	changePasswordDialog.render();
@@ -287,7 +248,7 @@ YAHOO.util.Event.onDOMReady(init);
         <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
         <li ><a href="#archivedRuns"><em>Archived Runs</em></a></li>
     </ul>            
-    <div class="yui-content">
+    <div class="yui-content" style="background-color:#FFFFFF;">
 		<div id="currentRuns">
 			<c:choose>
 			<c:when test="${fn:length(current_run_list) > 0}" >
@@ -297,7 +258,7 @@ YAHOO.util.Event.onDOMReady(init);
 					<table id="currentRunTable" >
 			
 						<tr id="projectMainRow">
-							<td class="studentTableLeftHeader">Title</td>
+							<td class="studentTableLeftHeaderCurrent">Title</td>
 							<td id="studentCurrentTitleCell" class="tableBorderRight">
 								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 							<td ROWSPAN="4" style="width:27%; padding:2px;">
@@ -328,7 +289,7 @@ YAHOO.util.Event.onDOMReady(init);
 						 	</td>
 						</tr>	
 						<tr>
-							<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+							<td class="studentTableLeftHeaderCurrent tableBorderTopBottom">Teacher</td>
 							<td class="tableBorderTopBottom tableBorderRight">
 											<c:choose>
 											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
@@ -344,12 +305,12 @@ YAHOO.util.Event.onDOMReady(init);
 							</td>
 							</tr>
 						<tr>
-							<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+							<td class="studentTableLeftHeaderCurrent tableBorderTopBottom">Period</td>
 							<td class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
 					  	
 					  	</tr>
 						<tr>
-							<td class="studentTableLeftHeader">Team</td>
+							<td class="studentTableLeftHeaderCurrent">Team</td>
 							<td class="tableBorderRight">
 											<c:choose>
 											<c:when test="${studentRunInfo.workgroup != null}" >
@@ -385,7 +346,7 @@ YAHOO.util.Event.onDOMReady(init);
 					<table id="currentRunTable" >
 			
 						<tr id="projectMainRow">
-							<td class="studentTableLeftHeader">Title</td>
+							<td class="studentTableLeftHeaderArchive">Title</td>
 							<td id="studentCurrentTitleCell" class="tableBorderRight">
 								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 							<td ROWSPAN="5" style="width:27%; padding:2px;">
@@ -414,7 +375,7 @@ YAHOO.util.Event.onDOMReady(init);
 						 	</td>
 						</tr>	
 						<tr>
-							<td class="studentTableLeftHeader tableBorderTopBottom">Teacher</td>
+							<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Teacher</td>
 							<td class="tableBorderTopBottom tableBorderRight">
 											<c:choose>
 											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
@@ -430,12 +391,12 @@ YAHOO.util.Event.onDOMReady(init);
 							</td>
 							</tr>
 						<tr>
-							<td class="studentTableLeftHeader tableBorderTopBottom">Period</td>
+							<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Period</td>
 							<td class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
 					  	
 					  	</tr>
 						<tr>
-							<td class="studentTableLeftHeader tableBorderTopBottom">Team</td>
+							<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Team</td>
 							<td class="tableBorderTopBottom tableBorderRight">
 											<c:choose>
 											<c:when test="${studentRunInfo.workgroup != null}" >
@@ -453,7 +414,7 @@ YAHOO.util.Event.onDOMReady(init);
 							</td>
 						</tr>
 						<tr>
-							<td class="studentTableLeftHeader">Archived</td>
+							<td class="studentTableLeftHeaderArchive">Archived On</td>
 							<td class="tableBorderRight">NEED DATA: Project Run End Date</td>
 						</tr>
 				</table>

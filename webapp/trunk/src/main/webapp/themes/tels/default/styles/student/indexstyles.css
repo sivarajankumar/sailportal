@@ -45,7 +45,7 @@ table tr, table td {
 #columnButtons {
 	float:left;
 	width: 225px;
-	margin:15px 0 0 0 ;
+	margin:10px 0 0 0 ;
 	background-color:#CCFFCC;
 	background-image:url(../../images/student/Gradient-ProjectMenu-Green-475.png);
 	background-position:top;
@@ -169,12 +169,20 @@ table tr, table td {
 	border-right:0px;
 }
 
-.studentTableLeftHeader{
+.studentTableLeftHeaderCurrent {
 	font-size:1.0em;
 	width:10%;
 	padding: 0px 5px;
 	border-right:1px solid #666666;
 	background-color:#CCFF99;
+	}
+	
+.studentTableLeftHeaderArchive {
+	font-size:1.0em;
+	width:11%;
+	padding: 0px 5px;
+	border-right:1px solid #666666;
+	background-color:#FF9999;
 	}
 
 #tightBorderCell{

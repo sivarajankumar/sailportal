@@ -128,6 +128,10 @@
 		<property name="gradingService" ref="gradingService" />
 	</bean>
 	
+	<bean id="gradeOverviewController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeOverviewController">
+	</bean>
+	
 		<bean id="gradingSubmitController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingSubmitController">
 		<property name="gradingService" ref="gradingService" />
@@ -251,31 +255,6 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunManagerController">
 	</bean>
 
-<!-- 
-	<bean id="selectPeriodToGradeController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectPeriodToGradeController">
-	</bean>
-		
-	<bean id="selectProjectToGradeController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectProjectToGradeController">
-	</bean>
-	
-	<bean id="gradeStudentWorkController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeStudentWorkController">
-	</bean>
-	
-	<bean id="gradeByStudentGroupController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStudentGroupController">
-	</bean>
-	
-	<bean id="teacherGradeByStepController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.TeacherGradeByStepController">
-	</bean>
-	
-	<bean id="selectStepToAssessController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectStepToAssessController">
-	</bean>
-	 -->
 	 
 	<bean id="managementOverviewController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManagementOverviewController">
@@ -300,23 +279,8 @@
 	<bean id="contactWiseController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.ContactWiseController">
 	</bean>	
-<!--  	
-	<bean
-		class="org.telscenter.sail.webapp.presentation.web.controllers.run.RunListController">
-		<property name="runService" ref="runService" />
-		<property name="workgroupService" ref="workgroupService" />
-		<property name="httpRestTransport" ref="httpRestTransport" />
-	</bean>
--->
 
-<!--  
-	<bean
-		class="org.telscenter.sail.webapp.presentation.web.controllers.run.AssessStudentWorkMainController">
-		<property name="runService" ref="runService" />
-		<property name="workgroupService" ref="workgroupService" />
-		<property name="httpRestTransport" ref="httpRestTransport" />
-	</bean>
--->
+
 	<bean id="lostPasswordStudentReminderWizardController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">
 		<property name="userService" ref="userService" />
