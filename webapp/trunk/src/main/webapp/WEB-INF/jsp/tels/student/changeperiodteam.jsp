@@ -17,20 +17,29 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: addprojectsuccess.jsp 766 2007-07-27 18:59:09Z hiroki $ -->
+<!-- $Id: addproject.jsp 1502 2007-12-04 02:19:39Z mattf $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
-<title><spring:message code="application.title" /></title>
+
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+    
+<script type="text/javascript" src=".././javascript/tels/general.js"></script>    
+    
+<title>Change Period or Team Pop-Up Window</title>
 </head>
 
 <body>
 
-<h2>To change your period or team please talk with your teacher.</h2>
+<div id="centeredDiv">
+
+<div id="popUpWindow1">
+	<h3>To change your Period or your Team, please ask your teacher for help."</h3>
+</div>
+
+</div>
 
 </body>
 </html>

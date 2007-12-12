@@ -227,7 +227,7 @@ table tr, table td {
 #studentActionList a:link, #studentActionList a:visited {
 	display:block;
 	text-decoration:none;
-	font-size:1.0em;
+	font-size:1.1em;
 	color:#0033CC;
 	margin:0px;
 	padding:4px 2px 4px 2px;
@@ -238,7 +238,7 @@ table tr, table td {
 	display:block;
 	margin:0px;
 	padding:4px 2px 4px 2px;
-	font-size:1.0em;
+	font-size:1.1em;
 	color:#000066;
 	background-color:#ffff33;
 	border:1px solid #666666;

@@ -39,6 +39,45 @@
 		var oRun =new runObject(null);
 		
 		
+		
+	//add Change Period/Team Pop-Up    ----------------------------------
+
+    // Define various event handlers for Dialog
+
+	var handleCancel = function() {
+		this.cancel();
+		document.getElementById('changePeriodTeamFrame').src=' ';
+		//reload the page
+		//window.location.reload();
+	};
+
+	// Instantiate the Dialog
+	var addProjectDialog = new YAHOO.widget.Dialog("changePeriodTeamLink", 
+																{ width : "700px",
+																//  height : "70%",
+																  fixedcenter : true,
+																  visible : false, 
+																  iframe : true,
+																  //ie7 modal problem
+																  //modal:false,
+																  constraintoviewport : true,
+																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
+																  buttons : [ 
+																			  {text:"Close", handler:handleCancel,isDefault:true } ]
+																 } );
+	
+	
+    addProjectDialog.render();
+    
+    var btns2 = YAHOO.util.Dom.getElementsByClassName("changePeriodTeamLink", "a");
+         
+    YAHOO.util.Event.on(btns2, "click", function(e, panel) {
+                	YAHOO.log('RUNG id ' + this.id);
+                	document.getElementById('addProjectFrame').src='changeperiodteam.html' 
+                	addProjectDialog.show();
+    }, addProjectDialog);
+    
+		
 	//add project dialog ----------------------------------
 
     // Define various event handlers for Dialog
@@ -283,8 +322,8 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:choose>
 											</c:otherwise>
 										</c:choose></li>
-										<li><a style="color:#cccccc;" href="#">Change Period or Team</a></li>
-										  	  	<li><a href="../contactwiseproject.html">Report A Problem</a></li>
+										<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#">Change Period or Team</a></li>
+										<li><a href="../contactwiseproject.html">Report A Problem</a></li>
 								 	</ul>
 						 	</td>
 						</tr>	
@@ -429,6 +468,10 @@ YAHOO.util.Event.onDOMReady(init);
  <!--end of columnProjects, floated to left-->
  
  <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
+ 
+
+ 
+ 
 <!-- this creates the add project dialog with iframe -->
 <div id="addProjectDialog">
 <div class="hd">Add A Project</div>
