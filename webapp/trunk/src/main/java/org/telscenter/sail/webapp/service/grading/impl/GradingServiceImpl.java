@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import net.sf.sail.emf.sailuserdata.EAnnotation;
 import net.sf.sail.emf.sailuserdata.EAnnotationGroup;
@@ -125,13 +126,13 @@ public class GradingServiceImpl implements GradingService {
 		// instantiate the List in period_to_aggregate for each period
 		for (Group period : periods) {
 			period_to_aggregate.put(period, 
-					new HashSet<GradeWorkByWorkgroupAggregate>());
+					new TreeSet<GradeWorkByWorkgroupAggregate>());
 		}
 
 		// go through all of the workgroups in this run and sort their work
 		// into periods
 		Set<Workgroup> workgroups = runService.getWorkgroups(runId);
-
+		
 		for (Workgroup workgroup : workgroups) {
 			Group period = ((WISEWorkgroup) workgroup).getPeriod();
 			GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate =

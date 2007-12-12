@@ -284,10 +284,10 @@ aggregate.value = set of workgroupWorkAggregate
 										<td width="40%">
 										<!--  print member anmes -->
 										<div align="center" class="tdHeader">
-										<strong class="headerFont">Group:
+										<strong class="headerFont">Group: ${workgroupAggregateObj.workgroup.id} Members:
 										<c:forEach var="user" varStatus="userStatus"
 											items="${workgroupAggregateObj.workgroup.members}">
-										 		${user.userDetails.username}
+										 		${user.userDetails.firstname} ${user.userDetails.lastname}
 										 		   <c:if test="${userStatus.last=='false'}">
 							     					&
 							    				</c:if>

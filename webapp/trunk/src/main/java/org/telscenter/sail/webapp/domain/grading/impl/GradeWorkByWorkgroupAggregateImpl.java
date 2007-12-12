@@ -34,7 +34,7 @@ import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
  * @version $Id$
  */
 public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
-		implements GradeWorkByWorkgroupAggregate {
+		implements GradeWorkByWorkgroupAggregate, Comparable<GradeWorkByWorkgroupAggregate> {
 	
 	protected Workgroup workgroup;
 	
@@ -82,5 +82,9 @@ public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 	 */
 	public void setWorkgroup(Workgroup workgroup) {
 		this.workgroup = workgroup;
+	}
+
+	public int compareTo(GradeWorkByWorkgroupAggregate o) {
+		return this.workgroup.getId().compareTo(o.getWorkgroup().getId());
 	}
 }
