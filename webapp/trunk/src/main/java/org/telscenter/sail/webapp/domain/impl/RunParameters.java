@@ -25,6 +25,7 @@ import java.util.TreeSet;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 
+
 /**
  * @author Laurel Williams
  *
@@ -37,6 +38,8 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	private Set<String> periodNames = new TreeSet<String>();
 	
 	private Set<User> owners = new HashSet<User>();
+	
+	private String manuallyEnteredPeriods = new String();
 
 	/**
 	 * @return the periodNames
@@ -65,4 +68,19 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	public void setOwners(Set<User> owners) {
 		this.owners = owners;
 	}
+	
+	/**
+	 * @param manuallyEnteredPeriods the manuallyEnteredPerios to set
+	 */
+	public void setManuallyEnteredPeriods(String text){
+		this.manuallyEnteredPeriods = text;
+	}
+	
+	/**
+	 * @return manuallyEnteredPeriods
+	 */
+	public String getManuallyEnteredPeriods(){
+		return this.manuallyEnteredPeriods;
+	}
+	
 }

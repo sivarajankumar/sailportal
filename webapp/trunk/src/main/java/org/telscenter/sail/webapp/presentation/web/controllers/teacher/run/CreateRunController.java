@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,6 +46,8 @@ import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Controller for the wizard to "create a run"
@@ -129,8 +132,26 @@ public class CreateRunController extends AbstractWizardFormController {
 	    case 2:
 	    	if (runParameters.getPeriodNames() == null || 
 	    		runParameters.getPeriodNames().size() == 0) {
-	    		errors.rejectValue("periodNames", "setuprun.error.selectperiods", "You must select one or more periods or manually" +
+	    		if (runParameters.getManuallyEnteredPeriods() == ""){
+	    			errors.rejectValue("periodNames", "setuprun.error.selectperiods", "You must select one or more periods or manually" +
 	    				" create your period names.");
+	    		} else {
+	    			String[] parsed = StringUtils.split(runParameters.getManuallyEnteredPeriods(), ",");
+	    			Set<String> parsedAndTrimmed = new TreeSet<String>();
+	    			for(String current : parsed){
+	    				String trimmed = StringUtils.trim(current);
+	    				if(trimmed == "" || StringUtils.contains(trimmed, " ") || !StringUtils.isAlphanumeric(trimmed)){
+	    					errors.rejectValue("periodNames", "setuprun.error.whitespaceornonalphanumeric", "Manually entered" +
+	    							" periods cannot contain whitespace or non-alphanumeric characters.");
+	    				} else {
+	    					parsedAndTrimmed.add(trimmed);
+	    				}
+	    			}
+	    			runParameters.setPeriodNames(parsedAndTrimmed);
+	    		}
+	    	} else if(runParameters.getManuallyEnteredPeriods() != ""){
+	    		errors.rejectValue("periodNames", "setuprun.error.notsupported", "Selecting periods and " +
+	    				"manually entering periods is not currently supported");
 	    	}
 	    	break;
 	    case 3:

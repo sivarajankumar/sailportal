@@ -97,13 +97,13 @@ if(form.manualCheckbox.checked==true){
 
 <div>
 	<h4>OR enter manually named periods:</h4>
-	<textarea id="manualperiodsinput" rows="1" cols="70"></textarea>
-	<div id="manualperiodsinstructions">Separate manually named periods with commas.  
-		Example: "Section 1, Section 2, Section 3" 	<br />
+	<form:textarea path="manuallyEnteredPeriods" rows="1" cols="70"/>
+	<div id="manualperiodsinstructions">Separate manually named periods with commas or spaces.  
+		Example: "Section1, Section2, Section3" 	<br />
 		Manually named periods should be no more than 16 characters in length.</div>
 </div>
 
-</div>     <!--end of SetUpRunBox -->
+     <!--end of SetUpRunBox -->
 
 <div class="center">
 <input type="submit" name="_target1" value="<spring:message code="navigate.back"/>" />
