@@ -77,7 +77,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.HelpController" />
 		
 	<bean id="overviewHelpController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.overviewHelpController" />
+		class="org.telscenter.sail.webapp.presentation.web.controllers.OverviewHelpController" />
 
 	<bean id="indexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
