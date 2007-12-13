@@ -37,7 +37,7 @@
     		onmouseover="swapImage('projects','../<spring:theme code="projects_selected"/>')" 
     		onmouseout="swapImage('projects','../<spring:theme code="projects"/>')"/></a> </li>
     	<li>
-			<a href="#"><input type="image" id="grading" src="../<spring:theme code="grading"/>"
+			<a href="grading/overview.html"><input type="image" id="grading" src="../<spring:theme code="grading"/>"
     		onmouseover="swapImage('grading','../<spring:theme code="grading_selected"/>')" 
     		onmouseout="swapImage('grading','../<spring:theme code="grading"/>')"/></a> </li>
     	<li>
@@ -45,7 +45,7 @@
     		onmouseover="swapImage('management','../<spring:theme code="management_selected"/>')" 
     		onmouseout="swapImage('management','../<spring:theme code="management"/>')"/></a> </li>
    		<li>
-			<a href="index.html"><input type="image" id="help" src="../<spring:theme code="help"/>"
+			<a href="help/overview.html"><input type="image" id="help" src="../<spring:theme code="help"/>"
     		onmouseover="swapImage('help','../<spring:theme code="help_selected"/>')" 
     		onmouseout="swapImage('help','../<spring:theme code="help"/>')"/></a> </li>
    </ul>

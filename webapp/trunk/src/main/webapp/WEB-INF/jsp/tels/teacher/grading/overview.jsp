@@ -26,7 +26,7 @@
 <head>
 
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teachergradingstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
@@ -45,15 +45,15 @@
 
 	<div id="overviewHeaderGrading">Grading: Overview</div>
 	
-	<table id="overview_choices_Grading" cellspacing="20">
+	<table id="overview_choices_grading" cellspacing="20">
 		<tr>
-			<td class="link_grading"><a href="#">Grade Work by Step</a></td>
+			<td class="link_grading"><a href="../run/myprojectruns.html">Grade Work by Step</a></td>
 			<td class="description_grading">View and grade work, one Student Group at a time.</td></tr>
 		<tr>
 			<td class="link_grading"><a style="color:#999999;" href="#">Grade Work By Student Group</a></td>
 			<td class="description_grading">View and grade work, one Step at a time.</td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;" href="#">Review Values for Gradable Steps</a></td>
+			<td class="link_grading"><a style="color:#999999;" href="#">Review Values for Steps</a></td>
 			<td class="description_grading">Review and edit the default score values for Notes and other graded 
 			student steps in a project. </td></tr>
 		<tr>

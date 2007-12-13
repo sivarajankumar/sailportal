@@ -23,16 +23,16 @@
 
 	<ul>
 		<li >
-			<a  class="navigationL2_grading_highlight" href="#">Overview</a> </li>
+			</li>
        	<li>
-			<a href="../run/myprojectruns.html">Grade by Step</a> </li>
+			<a href="" style="visibility:hidden;">Grade by Step</a> </li>
 		<li>
-			<a style="color:#999999;" href="#">Grade By Group</a> </li>
+			</li>
 		<li>
-			<a style="color:#999999;" href="#">Review Step Values</a> </li>
+		 </li>
 		<li>
-			<a style="color:#999999;" href="#">Review Pre-Post</a> </li>
+			 </li>
 		<li>
-			<a style="color:#999999;" href="#">Edit Ready-Made</a> </li>
+			 </li>
    </ul>
 </div>	

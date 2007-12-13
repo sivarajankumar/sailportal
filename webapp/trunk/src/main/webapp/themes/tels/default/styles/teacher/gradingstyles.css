@@ -1,144 +1,65 @@
 @charset "UTF-8";
 /* CSS Document */
 
-table.sample {
-	border-width: 1px 1px 1px 1px;
-	border-spacing: 1px;
-	border-style: solid solid solid solid;
-	border-color: gray gray gray gray;
-	border-collapse: collapse;
-	background-color: white;
-}
-table.sample th {
-	border-width: 1px 1px 1px 1px;
-	padding: 1px 1px 1px 1px;
-	border-style: inset inset inset inset;
-	border-color: gray gray gray gray;
-	background-color: white;
-	-moz-border-radius: 0px 0px 0px 0px;
-}
-table.sample td {
-	border-width: 1px 1px 1px 1px;
-	padding: 3px;
-	border-style: inset inset inset inset;
-	border-color: gray gray gray gray;
-	background-color: #FFFFFF;
-	-moz-border-radius: 0px 0px 0px 0px;
-}
+	
+/* OVERVIEW CHOICES FOR GRADING SECTION  */ 
 
-table.view {
-	border-width: 0px;
-	border-spacing: 1px;
-	padding: 5px;
-}
-table.view th {
-	border-width: 0px;
-	padding: 4px;
-}
-table.view td {
-	border-width: 0px;
-	padding: 4px;
-}
-
-#tableByStep {
-	border: 0px solid #666666;
-	border-collapse: collapse;
-	background-color: #FFFFFF;
-	padding: 0px;
-	margin: 0px;
-	cell-padding:5px;
-	}
-
-#tableByStep .column1 {
-	color:#000000;
-	padding: 5px;
-}
-
-#tableByStep tr {
-	border-bottom: 1px solid #FFFFFF;
-}
-
-#gradingProjectInfo {
-	padding: 5px;
+#overviewContentGrading {
+	border-top: 1px solid #666666;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #666666;
+	margin:20px 0 20px 0;
+	padding:10px 30px 10px 30px;
 	}
 	
-#gradingViewInfo {
-	font-size: 1.2em;
-	font-weight: bold;
-	padding: 5px;
-	}
+#overviewHeaderGrading {
+	font-size:1.5em;
+	letter-spacing:3px;
+	font-variant:small-caps;
+	margin: 10px 0 0 30px;
+	padding:0px;
+}
+
+#overview_choices_grading   {
+	padding:15px 0 30px 5px;
+}
 	
-#gradingMiniSteps {
-	font-size:.8em;
-	padding: 5px;
-	}
-	
-
-#gradingMainTable td {
-	border: 1px solid #000000;
-	padding:5px;
+#overview_choices_grading .link_grading  {
+	font-size:1.6em;
+	font-weight:bold;
+	width:425px;
 	}
 
-.tdHeader {
-	height:22px;
-	padding:7px;
-	background-color: #2647A0;
-	font-size:1.0em;
-	color: #FFFFFF;
-	}
-
-.promptTd {
-	vertical-align:top;
-	background-color:#00FFFF;
-
+#overview_choices_grading .description_grading  {
+	font-size:.9em;
+	margin:0px;
+	padding:2px;
+	vertical-align:middle;
 }
 
-.answerDiv {
-	height: 100%;
-	vertical-align:top;
-	padding-top: 5px;
-	padding-right: 2px;
-	padding-bottom: 5px;
-	padding-left: 8px;	
-}
-.textareaTd {
-vertical-align:bottom;
-padding: 0px;
-}
-
-textarea {
-width: 95%;
-height: 95%;
-background-color:#FFF1F8;
-border: 1px solid #000000;
+#overview_choices_grading a:link, #overview_choices_grading a:visited   {
+	text-decoration:none;
+	display:block;
+	padding:6px 12px 6px 12px;
+	background-image:url(../../images/Pixel_Grading_Highlight.png);
+	background-position:left top;
+	background-repeat:repeat;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
 }
 
-input {
-border: 1px solid #000000;
-}
-
-.scorearea {
-border: 1px solid #000000;
-}
-
-#gradeStepLinks {
-	font-size:14px;
-	padding-left:80px;
-}
-
-.questionField {
-	color: #0000FF;
-	font-style: italic;
-	}
-
-#tableProjectView {
-	background-color:#CCFFCC;
-	width:100%;
-	align:center;
-	padding: 5px;
-}
-
-#viewStep {
-	font-size:16pt;
-	font-weight: bold;
-}
+#overview_choices_grading a:hover  {
+	display:block;
+	background-color:#FFFF33;
+	color:#0000CC;
+	padding:6px 12px 6px 12px;
+	background-image:none;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
+		}
+		

@@ -266,6 +266,15 @@ a:hover {
 	background-color:#CCCC99;
 	border:1px solid #666666;
 	}
+	
+	
+.navigationL2_grading_highlight {
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	/* background-color:#CCCC99;  */
+	background-image: url(../images/Pixel_Grading_Highlight.png); 
+	border:1px solid #666666;
+	}
 
 .inactivecolorL2 {
 	color:#999999;
