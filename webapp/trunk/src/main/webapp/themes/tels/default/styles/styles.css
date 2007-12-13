@@ -3,7 +3,7 @@
 body {
 	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
 	font-size: 62.7%;
-	margin: 5px;
+	margin: 0px;
 	text-align: center;
 	background-color:#FFFFFF;
 	}
@@ -28,10 +28,7 @@ abbr, acronym {
 	background-position: center top;
 	width: 960px;
 	height: 60px;
-	margin-top: 5px;
-	margin-right: auto;
-	margin-bottom: 15px;
-	margin-left: auto;
+	margin: 5px 0 15px 0;
 	}
 	
 #centeredDiv {
@@ -152,7 +149,7 @@ a:hover {
 #navigationMainProjects {
 	position:absolute;
 	padding:0px;
-	width:960px;
+	width:850px;
 	margin: 4px 0 0 115px;
 	}
 

@@ -39,6 +39,8 @@
 <div id="centeredDiv">
 
 <%@ include file="headerteacherhelp.jsp"%>
+<%@ include file="../../L2homebar.jsp"%>
+
 
 <div id="overviewContentHelp"> 
 

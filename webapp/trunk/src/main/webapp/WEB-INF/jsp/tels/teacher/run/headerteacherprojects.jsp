@@ -39,15 +39,15 @@
 		onmouseout="MM_swapImgRestore()"
 		onmouseover="MM_swapImage('projectsbutton','','../../themes/tels/default/images/teacher/Projects-Buttn-Selected.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Projects-Buttn-Selected.png"	alt="Projects Nav Button" id="projectsbutton" /></a>
-	<li><a href="#" 
+	<li><a href="../grading/overview.html" 
 		onmouseout="MM_swapImgRestore()"
 		onmouseover="MM_swapImage('gradingbutton','','../../themes/tels/default/images/teacher/Grading-Buttn-Selected.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Grading-Buttn-Clickable.png" alt="Grading Nav Button" id="gradingbutton" /></a>
-	<li><a href="#" 
+	<li><a href="../management/overview.html" 
 		onmouseout="MM_swapImgRestore()"
 		onmouseover="MM_swapImage('managementbutton','','../../themes/tels/default/images/teacher/Management-Buttn-Selected.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Management-Buttn-Clickable.png" 	alt="Management Nav Button" id="managementbutton" /></a>
-	<li><a href="#" 
+	<li><a href="../help/overview.html" 
 		onmouseout="MM_swapImgRestore()"
 		onmouseover="MM_swapImage('helpbutton','','../../themes/tels/default/images/teacher/Help-Buttn-Selected.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Help-Buttn-Clickable.png"	alt="Help Nav Button" id="helpbutton" /></a>

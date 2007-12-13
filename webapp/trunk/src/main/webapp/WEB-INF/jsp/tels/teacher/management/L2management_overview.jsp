@@ -25,9 +25,9 @@
 		<li >
 			<a  class="navigationL2_management_highlight" href="#">Overview</a> </li>
        	<li>
-			<a href="curnitlist.html">Manage My Students</a> </li>
+			<a href="../management/viewmystudents.html">Manage My Students</a> </li>
 		<li>
-			<a href="../run/myprojectruns.html">Class Monitor</a> </li>
+			<a style="color:#999999;" href="index.html"">Class Monitor</a> </li>
 		<li>
 			<a style="color:#999999;" href="index.html">Exports & Reports</a> </li>
 		<li>

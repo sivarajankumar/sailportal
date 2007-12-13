@@ -22,8 +22,10 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
 <title><spring:message code="viewmystudents.message" /></title>
 <script language="JavaScript">
 
@@ -35,13 +37,17 @@ function popup(URL, title) {
 </head>
 
 <body>
-<%@ include file="managementHeader.jsp"%>
+
+<div id="centeredDiv">
+
+<%@ include file="headerteachermanagement.jsp"%>
+
+<%@ include file="L2management_overview.jsp"%>
+
 <div align="left">
-<div id="runContent"> 
+<div id="runContent" style="width:930; padding:15px; margin:0px;"> 
 <br />
-<h2 id="headingPos">
-View My Students
-</h2>
+<h2 id="headingPos">View My Students</h2>
 
 <c:forEach var="run" items="${current_run_list}">
 	<h3>${run.sdsOffering.name}</h3>
@@ -84,6 +90,7 @@ View My Students
 
 </div>
 </div> 
+</div>
 
 </body>
 </html>
