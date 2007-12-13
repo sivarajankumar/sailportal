@@ -13,19 +13,18 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author MattFish
  *
  */
-public class overviewHelpController extends AbstractController {
+public class OverviewHelpController extends AbstractController {
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
-
+    
 		ModelAndView modelAndView = new ModelAndView();
 
-        return modelAndView;
-	}
+        return modelAndView;	
+    }
 
 }
