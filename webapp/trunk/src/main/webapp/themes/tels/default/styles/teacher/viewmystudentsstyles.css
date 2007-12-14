@@ -1,3 +1,4 @@
+
 div.workarea { padding:10px; }
 
 ul.draglist { 
@@ -44,3 +45,42 @@ li.workgrouplist {
     background-color: #D8D4E2;
     border:1px solid #6B4C86;
 }
+
+
+#L3Label {
+	color:#0000FF;
+	letter-spacing:1px;
+	font-variant:small-caps;
+	font-size:1.5em;
+	margin:0px;
+	padding:10px 0 0px 3px;
+	}
+	
+	
+table {
+	border-collapse:collapse;
+	border:0px;
+	margin:5px 15px 10px 3px;
+}
+
+#projectTitleBox th {
+	border:0px;
+	font-size:2.1em;
+	font-weight:bold;
+	text-align:left;
+	vertical-align:text-bottom;
+	color:#000066;
+	padding:0px;
+	margin:0px;
+	}
+	
+#projectTitleBox td {
+	border:0px;
+	font-size:1.0em;
+	text-align:left;
+	vertical-align:text-bottom;
+	color:#999999;
+	padding:0 0 0 10px;
+	margin:0px;
+		}
+	

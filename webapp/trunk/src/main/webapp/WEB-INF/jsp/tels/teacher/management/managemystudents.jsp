@@ -1,4 +1,5 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp" %>
+
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -17,60 +18,53 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: index.jsp 888 2007-08-06 23:47:19Z archana $ -->
+<!-- $Id: overview.jsp 997 2007-09-05 16:52:39Z archana $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
-<link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet"
-    type="text/css" />  
-<script type="text/javascript" src="../javascript/general.js"></script> 
 
-<title>Teacher:Management - Exports and Reports </title>
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
+ 
+<title>Manage My Students/title>
 </head>
 
 <body>
-<%@ include file="managementHeader.jsp"%>
-<br />
 
-<div id="overviewContent">
+<div id="centeredDiv">
 
-<table>
-<tr> 
-<td> View Getting Started Guide </td>
-<td> This guide covers everything you need to know about using WISE in a
-classroom, including setting up class computers, registering students, and
-running projects.
-</td>
-</tr>
-<tr> 
-<td> Classroom Setup Assistant </td>
-<td> Set up your classroom computers to use WISE. </td>
-</tr>
-<tr> 
-<td> View Your Project Codes </td>
-<td>Displays a list of the Project Codes you've created for each
-Project Run. Students use this project code to load your project and
-run it for the first time.</td>
-</tr>
-<tr>
-<td>View My Students</td>
-<td>View a list of all your current (and archived) students. Change student
-passwords, class periods, student-teams, and more.</td>
-</tr>
-<tr>
-<td>Batch Set Student Passwords</td>
-<td>Change multiple student passwords at once.</td>
-</tr>
-<tr>
-<td>Manage Extra Teachers</td>
-<td>Give another teacher or proctor access to view, grade, and manage your
-Projects and/or Students.</td>
-</tr>
-</table>
+<%@ include file="headerteachermanagement.jsp"%>
 
+<%@ include file="L2management_managestudents.jsp"%>
+ 
+<div id="overviewContent"> 
+
+	<div id="overviewHeader">Manage My Students</div>
+	
+	<table id="overview_choices" cellspacing="20">
+		<tr>
+			<td class="link"><a href="../management/projectPickerManagement.html">View My Students</a></td>
+			<td class="description">View a list of all your current (and archived) students. Change student
+passwords, student teams, class period assignments, and more.</td></tr>
+		<tr>
+			<td class="link"><a href="../run/myprojectruns.html">View Student Project Codes</a></td>
+			<td class="description">Quick link to the <em>My Project Runs</em> section. Displays the Project Code you will give out to students in each class period.</td></tr>
+		<tr>
+			<td class="link"><a style="color:#999999;" href="#">Manage Extra Teachers</a></td>
+			<td class="description">Alow other teachers or assistants to view, grade, and manage your Project Runs.</td></tr>
+		
+	</table>
+	
 </div>
+
+<h5 class="center">Getting started running WISE 3.0 in your classroom? Visit the <a href="#">Help</a> section for more information.</h5>
+
+</div>    <!--End of CenteredDiv-->
 
 </body>
 </html>
+

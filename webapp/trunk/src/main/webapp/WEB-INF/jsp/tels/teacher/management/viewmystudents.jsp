@@ -4,8 +4,11 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
 <title><spring:message code="viewmystudents.message" /></title>
 
 <!-- FOR LATER REFACTOR <script src="../../../javascript/tels/custom-yui/changegroupdnd.js" type="text/javascript"> </script> -->
@@ -68,20 +71,26 @@ function createNewWorkgroup(periodId, runId) {
 }
 </script>
 
-
-
-
-
 </head>
 
 <body class="yui-skin-sam">
-<%@ include file="managementHeader.jsp"%>
 
-<div id="runContent"> 
-<br />
-<h2 id="headingPos">
-View My Students for Run " ${run_name} "
-</h2>
+<div id="centeredDiv">
+
+<%@ include file="headerteacherviewstudents.jsp"%>
+
+<%@ include file="L2management_viewstudents.jsp"%>
+
+
+<div id="L3Label">View My Students</div> 
+
+<table id="projectTitleBox" border=0>
+	<tr>
+		<th>Sample Project Name Here</th>
+		<td>(project ID [Project ID here])</td>
+	</tr>
+</table>
+
 
 <div id="tabSystem" class="yui-navset">
 <ul class="yui-nav">
@@ -405,7 +414,9 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 --></script>
 
 </div> 
-</div>
+
+
+</div>     <!--End of Centered Div-->
 
 <!-- 
 // THE DEBUGGING CONSOLE...UNCOMMENT TO DISPLAY

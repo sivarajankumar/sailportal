@@ -690,3 +690,96 @@ a:hover {
 	text-align:center;
 }
 	
+	
+/* This variant is used on viewmystudents.html as the Yahoo CSS seems to be mysteriously overriding some margin&padding values */
+
+#usernameSignOutBoxViewStudents {
+	float:right;
+	text-align:right;  
+	position:relative;
+	margin: -17px 8px 0 10px;
+}
+
+#usernameSignOutBoxViewStudents #usernameBanner {
+	color:#FFFFCC;
+	font-style:italic;
+	font-weight:bold;
+	font-size:1.3em;
+	margin-bottom:0px;
+}
+
+#usernameSignOutBoxViewStudents #signOutBanner a:link, #signoutBanner a:visited{
+	color:#FFFF66;
+	font-size:.9em;
+	font-weight:bold;
+	text-decoration:none;
+	border-bottom: 1px solid #FFFF66;
+	padding:0px;
+	margin:0px;
+		}
+
+#usernameSignOutBoxViewStudents #signOutBanner a:hover {
+	color:#330066;
+	font-size:.9em;
+	text-decoration:none;
+	border-bottom: 1px dotted #330066;
+	padding:0px;
+	margin:0px;
+	}
+
+#navigationMainProjectsViewStudents {
+	position:absolute;
+	padding:0px;
+	width:880px;
+	margin: -4px 0 0 91px;
+	padding:0px;
+	}
+
+#navigationMainProjectsViewStudents ul {
+	list-style:none;
+	padding:0px;
+}
+	
+#navigationMainProjectsViewStudents li {
+	display:inline;
+	padding:0 15px 0 0 ;
+	}
+	
+#navigationL2ViewStudents {
+	padding:0px;
+	margin: 3px 0 0 0 ;
+	width:958px;
+	border:1px solid #999999;
+	 }
+
+#navigationL2ViewStudents ul {
+	padding: 4px 0 4px 120px;
+	margin:0px;
+	list-style:none;
+	}
+	
+#navigationL2ViewStudents li {
+	font-size:.9em;
+	letter-spacing:.9px;
+	display:inline;
+	padding:0px;
+	margin:0px;	
+	 
+	}
+	
+#navigationL2ViewStudents a:link, #navigationL2ViewStudents a:visited{
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	text-decoration:none;
+	color:#000000;	
+	}
+	
+#navigationL2ViewStudents a:hover{
+	padding: 6px 20px 6px 20px;
+	margin:0px;
+	background-color:#CCCCFF;
+	background-image:none;
+	text-decoration:none;
+	}
+
+	
