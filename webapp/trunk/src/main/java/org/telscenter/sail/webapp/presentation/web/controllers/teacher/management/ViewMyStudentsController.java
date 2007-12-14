@@ -25,7 +25,6 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.manageme
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import org.telscenter.sail.webapp.service.workgroup.*;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -48,6 +47,7 @@ import java.util.*;
 
 /**
  * @author patricklawler
+ * @author Hiroki Terashima
  * $Id:$
  */
 public class ViewMyStudentsController extends AbstractController{
@@ -123,7 +123,7 @@ public class ViewMyStudentsController extends AbstractController{
 		String runIdStr = servletRequest.getParameter("runId");
 		Long runId = Long.valueOf(runIdStr);
 		Run run = runService.retrieveById(runId);
-		Set<Workgroup> allworkgroups = this.runService.getWorkgroups(run.getId());
+		Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
 		Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();
 		
 		for (Group period : run.getPeriods()) {
