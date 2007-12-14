@@ -1,138 +1,106 @@
-#runBox{
-	position:relative;
-	top:15px;
-}
 
-#navigation {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-}
 
-#navigation ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    padding-top: 5px;
-}
-
-#navigation li {
-    display: inline;
-    margin: 30px;
-    padding: 0px;
-}
-
-#navigation li.vertical{
-	display: block;	
-}
-
-#navigation a:link, #navigation a:visited{
-    color: #1122BB;
-    background-color: transparent;
-	text-decoration:none;
-}
-
-#navigation li a:hover{
-	color: green;
-}
-
-ul#tabnav{
-	list-style-type:none;
-	margin:0em;
-	padding:0em;
-	font-style: bold;
-	font-size: 1em;
-	font-family: verdana, arial, sans-serif;
-	width:980px;
-	background-color:#ADDFFF;
-}
-
-ul#tabnav li{
-	float:left;
-	height:1.1em;
-	color: green;
-	margin: 0em;
-	border: 0.02em;
-	border-style: solid;
-	border-color: black;
-}
-
-ul#tabnav a:link, ul#tabnav a:visited{
-	display: block;
-	text-decoration: none;
+#pickerHeader {
+	background-image:url(../../images/student/Gradient-ProjectMenu-Green-400.png);
+	background-position:top;
+	text-align:center;
 	}
 
-ul#tabnav a:hover{
-	background-color: #AA11FF;
-	color: #AAEECC;
+#mainHeader {
+	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
+	font-size:2.7em;
+	font-weight:bold;
+	font-variant:small-caps;
+	margin:20px 0 0 0;
+	padding:6px 0 5px 0;
 }
 
-ul#tabnav2{
-	width:320px;
-	list-style-type:none;
-	font-style: bold;
-	font-size: 1.3em;
-	font-family: verdana, arial, sans-serif;	
+
+#subHeader {
+	font-size:1.2em;
+	padding:0px 0 10px 0;
 }
 
-ul#tabnav2 li{
-	float:left;
-	height:1em;
+.tableLabel {
+	font-family: "Tahoma", Verdana, Arial, Helvetica, sans-serif;
+	font-size:2.4em;
+	letter-spacing:1px;
+	margin:25px 0 8px 0 ;
+	
+}
+	
+	
+/*  Revised version of Heaven is Closer template  http://icant.co.uk/csstablegallery/index.php?css=27#r27   */
+
+table{
+	font-family: "Tahoma", Verdana, Arial, Helvetica, sans-serif;
+	font-size:  100%;
+	border-collapse: collapse;
+	margin: 0px 0 20px 0;
+	width:100%;
+}
+
+caption{
+	background: url(title.png) no-repeat 50px;
+	font-size: 400%;
+	text-indent: -10000px;
+}
+
+thead tr{
+	font-size:1.2em;
+	background-color: #D9FFD9;
+	border:1px solid black;
+}
+
+thead th{
+	padding: 0.5em;
+	white-space: nowrap;
+}
+
+tr{
+	background-color: #EAFDFF;
+	padding:6px;
+}
+
+tr.odd{
+	background-color: #FFFFFF;
+}
+
+tbody tr:hover{
+	background-color: #FFCCCC;
+}
+
+td, th {
+	border: 1px dotted #6666FF;
+}
+
+td {
+	font-size:1.1em;
+	text-align:center;
+}
+
+tbody td{
+	padding: 1.2em;
+}
+
+tbody th{
+ text-align:left;
+ padding-left:10px;
+}
+
+td a:link, td a:visited, th a:link,th a:visited {
 	color: black;
-	padding:5px;
-	border: 0.02em;
-	border-style: solid;
-	border-color: black;
+	font-size:1.7em;
+	font-weight:bold;
+	text-decoration:none;
+	border-bottom:2px dotted #9999FF;
 }
 
-ul#tabnav2 a:link, ul#tabnav2 a:visited{
-	display: block;
-	background-color: transparent;
-	text-decoration: none;
-	}
-
-ul#tabnav2 a:hover{
-	background-color: #AA11FF;
-	color: #000000;
-}
-
-#runContent{
-	border:1px solid black;
-	position:relative;
-	top:17px;
-	padding-bottom:40px;
-	width:980px;
-}
-
-
-img#none{
-	border:0px;
-}
-
-
-#overviewContent{
-	border:1px solid black;
-	position:relative;
-	top:7px;
-	padding-bottom:40px;
-	width:980px;
-}
-
-#periods{
-	width:600px;
-}
-
-#translations{
-	width:900px;
-	text-align:justify;
-}
-
-#translations.p{
-	font-size:1.0em;
-}
-
-#projectoptions{
-	width:940px;
-	text-align:left;
-	display:inline;
+td a:hover, th a:hover{
+	font-size:1.7em;
+	font-weight:bold;
+	color: #0000CC;
+	border-bottom:2px dotted #0000FF;
+	
 }
 
