@@ -137,8 +137,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_jnlp_fk bigint not null,
         sds_curnit_fk bigint not null,
+        sds_jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -175,6 +175,7 @@
         gender integer not null,
         birthday datetime not null,
         numberoflogins integer not null,
+        lastlogintime datetime,
         accountquestion varchar(255) not null,
         accountanswer varchar(255) not null,
         primary key (id)
@@ -192,6 +193,7 @@
         curriculumsubjects tinyblob not null,
         schoollevel integer not null,
         numberoflogins integer not null,
+        lastlogintime datetime,
         primary key (id)
     ) type=MyISAM;
 

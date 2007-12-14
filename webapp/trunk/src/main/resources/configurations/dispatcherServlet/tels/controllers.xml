@@ -22,7 +22,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.0.xsd
+	http://www.directwebremoting.org/schema/spring-dwr
+	http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
 
 	<!-- Custom controllers -->
 
@@ -140,13 +146,20 @@
 		<property name="gradingService" ref="gradingService" />
 		<property name="annotationBundleService" ref="annotationBundleService" />
 		<property name="workgroupService" ref="workgroupService" />
-		
 	</bean>
 
-		<bean id="gradingToolController"
+	<bean id="gradingToolController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingToolController">
 		<property name="gradingService" ref="gradingService" />
 		<property name="runService" ref="runService" />
+	</bean>
+	
+	<bean id="submitWorkgroupChangesController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.SubmitWorkgroupChangesController">
+		<property name="userService" ref="userService" />
+		<property name="runService" ref="runService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="groupService" ref="groupService" />
 	</bean>
 
 	<bean id="addProjectController"
@@ -265,6 +278,7 @@
 	
 	<bean id="projectPickerManagementController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProjectPickerManagementController">
+		<property name="runService" ref="runService" />
 	</bean>
 	
 	<bean id="exportsAndReportsController"

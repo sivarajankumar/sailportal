@@ -219,7 +219,8 @@ public class WorkgroupServiceImpl implements WorkgroupService {
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#updateWorkgroupMembership(net.sf.sail.webapp.domain.User, net.sf.sail.webapp.domain.Workgroup, net.sf.sail.webapp.domain.Workgroup)
      */
     @Transactional()
-    public void updateWorkgroupMembership(ChangeWorkgroupParameters params)throws Exception {
+    public Workgroup updateWorkgroupMembership(ChangeWorkgroupParameters params)throws Exception {
+    	Workgroup createdWorkgroup = null;
     	Workgroup toGroup;
     	Workgroup fromGroup;
     	User user = params.getStudent();
@@ -229,7 +230,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     	Set<User> addMemberSet = new HashSet<User>();
     	addMemberSet.add(user);
     	if (params.getWorkgroupTo() == null) {
-    		createWorkgroup("workgroup " + user.getUserDetails().getUsername(), addMemberSet, offering);
+    		createdWorkgroup = createWorkgroup("workgroup " + user.getUserDetails().getUsername(), addMemberSet, offering);
     	} else {
     		toGroup = params.getWorkgroupTo();
         	this.addMembers(toGroup, addMemberSet);
@@ -240,6 +241,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         	removeMemberSet.add(user);
     		this.removeMembers(fromGroup, removeMemberSet);
     	}
+    	return createdWorkgroup;
     }
 
 	/**

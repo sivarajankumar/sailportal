@@ -61,8 +61,9 @@
 		</tr>
 	</thead>
 	<tbody>	
+	    <c:forEach var="currentRun" items="${current_run_list}" >
 		<tr>
-			<th scope="row"><a href="#">Sample Title 1</a></th>
+			<th scope="row"><a href="viewmystudents.html?runId=${currentRun.id}">${currentRun.sdsOffering.name}</a></th>
 			<td>45345</td>
 			<td>12/13/07</td>
 			<td>ongoing</td>
@@ -79,6 +80,7 @@
 			<td>Biology</td>
 			<td>3</td>
 		</tr>
+		</c:forEach>
 	</tbody>
 </table>
 

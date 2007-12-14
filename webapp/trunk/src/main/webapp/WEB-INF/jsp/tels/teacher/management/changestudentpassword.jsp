@@ -10,8 +10,14 @@
 <script type="text/javascript" src="./javascript/tels/rotator.js"></script>
     
 <title><spring:message code="application.title" /></title>
-</head>
+<script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
+<script type='text/javascript' src='/webapp/dwr/engine.js'></script>
+<script>
+//alert('hi');
+//alert(ChangePasswordParametersValidatorJS.test('hi'))
+</script>
 
+</head>
 <body>
 
 <h2><spring:message code="changestudentpassword.menu" /></h2>

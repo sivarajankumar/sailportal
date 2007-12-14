@@ -20,32 +20,26 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.workgroup;
-
-import net.sf.sail.webapp.domain.group.Group;
 
 /**
- * A WISE <code>Workgroup</code> is a more specific manifestation of
- * PAS <code>Workgroup</code>.  Every WISE workgroup belongs in a
- * Period (which is a <code>Group</code>).
- *
  * @author Hiroki Terashima
  * @version $Id$
  */
-public interface WISEWorkgroup extends net.sf.sail.webapp.domain.Workgroup  {
 
-	/**
-	 * Gets the period that this workgroup belongs in
-	 * 
-	 * @return <code>Group</code> (Period) that this workgroup belongs in
-	 */
-	public Group getPeriod();
-	
-	/**
-	 * Sets the periods that this workgroup belongs in
-	 * 
-	 * @param period the <code>Group</code> to set
-	 */
-	public void setPeriod(Group period);
-	
+function addEvent(obj, eventType, fn){ 
+ if (obj.addEventListener){ 
+   obj.addEventListener(eventType, fn, false); 
+   return true; 
+ }
+ else if (obj.attachEvent){ 
+   var r = obj.attachEvent("on"+eventType, fn); 
+   return r; 
+ }
+ else { 
+   return false; 
+ } 
+}
+
+function popup(URL, title) {
+  window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300,left = 570,top = 300');
 }

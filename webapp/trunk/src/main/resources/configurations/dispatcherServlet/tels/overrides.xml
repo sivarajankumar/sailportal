@@ -99,6 +99,7 @@
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
     		    /teacher/management/updatemyaccount.html=updateMyAccountController
+    		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
     		    /teacher/help/overview.html=overviewHelpController
     		    /teacher/help/main.html=mainHelpController
     		    /teacher/help/contactwise.html=contactWiseController
@@ -118,6 +119,7 @@
 				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
 				/teacher/management/changestudentpassword.html=changeStudentPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
+				/dwr/*=dwrController
     		</value>
     	</property>
     </bean>

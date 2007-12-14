@@ -1,96 +1,420 @@
 <%@ include file="include.jsp"%>
 
-<!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
--->
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-
+<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <title><spring:message code="viewmystudents.message" /></title>
-<script language="JavaScript">
 
-function popup(URL, title) {
-  window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300,left = 570,top = 300');
+<!-- FOR LATER REFACTOR <script src="../../../javascript/tels/custom-yui/changegroupdnd.js" type="text/javascript"> </script> -->
+
+<%@ include file="../grading/styles.jsp"%>
+<script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>  
+<script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script> 
+<script type="text/javascript" src="../.././javascript/tels/utils.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/teacher/management/viewmystudents.js"></script>
+
+<script>
+    var tabView
+	function init() {
+   		tabView = new YAHOO.widget.TabView('tabSystem');
+		tabView.set('activeIndex', ${tabIndex});
+    }
+    YAHOO.util.Event.onDOMReady(init);
+
+        var newGroupCount = 0;
+        var numPeriods = ${fn:length(viewmystudentsallperiods)};
+        var workgroupchanges = new Array();
+        
+        var handleSuccess = function(o){
+
+	if(o.responseText !== undefined){
+	   setTimeout("window.location.reload()", 2000);
+	}
+}
+
+var callback =
+{
+  success:handleSuccess,
+};
+
+
+function createNewWorkgroup(periodId, runId) {
+  //alert(newGroupCount);
+  var newWorkgroupId = -1 - newGroupCount;
+  var workareaDiv = document.getElementById("div_for_new_workgroups_"+periodId);
+  workareaDiv.innerHTML += "<div class='workarea' id='newgroup_div_"+periodId+"_"+newWorkgroupId+"'>"
+                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>New Workgroup (not saved yet)</li></ul>"
+                          +"</div>";
+                          
+   // need to iterate through all of the newgroups
+   // and re-register DDTarget and DDList; not sure why,
+   // but is needed HT                       
+   for (q=0; q <= newGroupCount; q++) {
+        var newWGId = - 1 - q;
+        var ulid= "ul_"+periodId+"_newgroup_"+newWGId;
+        new YAHOO.util.DDTarget(ulid);
+        var ulElm = document.getElementById(ulid);
+        var liElmsInUl = ulElm.getElementsByTagName("li");
+        for (h=0; h<liElmsInUl.length; h++) {
+            new YAHOO.example.DDList(liElmsInUl[h].id);
+        }
+   }
+                              
+  newGroupCount++;
 }
 </script>
 
+
+
+
+
 </head>
 
-<body>
+<body class="yui-skin-sam">
+<%@ include file="managementHeader.jsp"%>
 
-<div id="centeredDiv">
-
-<%@ include file="headerteachermanagement.jsp"%>
-
-<%@ include file="L2management_managestudents.jsp"%>
-
-<div align="left">
-<div id="runContent" style="width:930; padding:15px; margin:0px;"> 
+<div id="runContent"> 
 <br />
-<h2 id="headingPos">View My Students</h2>
+<h2 id="headingPos">
+View My Students for Run " ${run_name} "
+</h2>
 
-<c:forEach var="run" items="${current_run_list}">
-	<h3>${run.sdsOffering.name}</h3>
-	<c:forEach var="period" items="${run.periods}">
-		<h4>Period: ${period.name} &nbsp;<a href="#" onclick="javascript:popup('batchstudentchangepassword.html?groupId=${period.id}');">Change All Passwords</a></h4>
-		<c:choose>
-			<c:when test="${fn:length(period.members) == 0}">
+<div id="tabSystem" class="yui-navset">
+<ul class="yui-nav">
+	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
+		<li><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
+	</c:forEach>
+</ul>
+<div class="yui-content">
+  <c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
+	<div><c:choose>
+		<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
+   		    <!--  there is NO student in this period  -->
 				No Students Attached
 			</c:when>
-			<c:otherwise>
-			    <h5>Workgroups:</h5>
-			    <c:choose>
-			      <c:when test="${fn:length(workgroup_map[period]) ==0}">
-			        No workgroups exist in this period <br />
-			      </c:when>
-			      <c:otherwise>
-                      <c:forEach var="workgroup" items="${workgroup_map[period]}">
-					    <h5>Workgroup name: ${workgroup.sdsWorkgroup.name} | Workgroup id: ${workgroup.id}</h5>
-					    <c:forEach var="workgroup_member" items="${workgroup.members}">
-						${workgroup_member.userDetails.firstname} ${workgroup_member.userDetails.lastname} <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroup_member.userDetails.username}');">Change Password</a>&nbsp;<a href="#" onclick="javascript:popup('changeworkgroup.html?offeringId=${run.id}&periodId=${period.id}&student=${workgroup_member.userDetails.username}&workgroupFrom=${workgroup.id}');">Change Workgroup</a><br />
-					    </c:forEach>
-				      </c:forEach>			      
-			      </c:otherwise>
-			    </c:choose>
-				<h5>Students who are not in a workgroup in this period:</h5>
-				<c:choose>
-    		        <c:when test="${fn:length(grouplessStudents[period]) ==0}">
-	  		          All students in this period are in a workgroup<br />
-			        </c:when>
-			        <c:otherwise>
-				        <c:forEach var="mem" items="${grouplessStudents[period]}">
-					        ${mem.userDetails.firstname} ${mem.userDetails.lastname} <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Change Password</a>&nbsp<a href="#" onclick="javascript:popup('changeworkgroup.html?offeringId=${run.id}&periodId=${period.id}&student=${mem.userDetails.username}');">Change Workgroup</a><br />
-				        </c:forEach>
-				    </c:otherwise>
-				</c:choose>
-            </c:otherwise>
-        </c:choose>
-	</c:forEach>
-</c:forEach>
+		<c:otherwise>
+		    <!--  there are students in this period  -->
+		    <a href="#" onclick="javascript:popup('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change ALL Passwords for this Period</a><br />
+		    <a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Workgroup</a>
 
+			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
+			  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
+			    <li><b>Groupless students</b></li>
+
+                <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
+			      <li class="grouplesslist" id="li_${mem.id}_groupless">
+			         ${mem.userDetails.firstname} ${mem.userDetails.lastname}
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Change Password</a>
+			      </li>
+			    </c:forEach>
+  			  </ul>
+			</div>
+
+            <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
+              <div class="workarea" id="div_${workgroupInPeriod.id}">
+			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">   			        
+			      <li><b>Workgroup id: ${workgroupInPeriod.id} <br />
+			          Workgroup name:<br /> ${workgroupInPeriod.sdsWorkgroup.name}</b></li>
+			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
+			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
+			         ${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Change Password</a>
+			        </li>
+			      </c:forEach>
+			    </ul>
+			   </div>
+            </c:forEach>
+            
+            <div id="div_for_new_workgroups_${viewmystudentsperiod.period.id}">
+            </div>
+            
+          <div class="user_actions">
+            <input type="button" id="saveButton_${viewmystudentsperiod.period.id}" value="Save" /> 	 
+            <input type="button" id="switchButton" value="Remove List Background" />
+          </div>
+		</c:otherwise>
+	</c:choose>
+	
+	
+	</div>
+    </c:forEach>
 </div>
+
+
+
+	
+<script type="text/javascript"><!--
+(function() {
+
+var Dom = YAHOO.util.Dom;
+var Event = YAHOO.util.Event;
+var DDM = YAHOO.util.DragDropMgr;
+
+//////////////////////////////////////////////////////////////////////////////
+// example app
+//////////////////////////////////////////////////////////////////////////////
+YAHOO.example.DDApp = {
+    init: function() { 
+         // this function initializes the drag-able lists and adds action listeners to the 
+         // save button
+         //alert(${fn:length(viewmystudentsallperiods)});
+        <c:forEach var="viewmystudentsperiod" items="${viewmystudentsallperiods}" >
+          Event.on("saveButton_${viewmystudentsperiod.period.id}", "click", this.showOrder);
+          Event.on("switchButton", "click", this.switchStyles);
+          new YAHOO.util.DDTarget("ul_${viewmystudentsperiod.period.id}_groupless");
+          //alert("ul_${viewmystudentsperiod.period.name}");
+          //alert(${fn:length(viewmystudentsperiod.grouplessStudents)});
+          <c:forEach var="grouplessStudent" items="${viewmystudentsperiod.grouplessStudents}" >
+            //alert("li_${grouplessStudent.id}");
+            new YAHOO.example.DDList("li_${grouplessStudent.id}_groupless");
+            //alert("li_${grouplessStudent.id}");
+          </c:forEach>
+          //alert(${fn:length(viewmystudentsperiod.workgroups)});
+          <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
+            new YAHOO.util.DDTarget("ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}");
+            <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}" >
+              new YAHOO.example.DDList("li_${workgroupMember.id}_${workgroupInPeriod.id}");
+            </c:forEach>
+          </c:forEach>
+        </c:forEach>
+    },
+
+    showOrder : function(event) {
+        // this function saves the workgroup configurations of the group
+        // it also popus the current workgroup configuration
+        var elTarget = YAHOO.util.Event.getTarget(event);    
+        var parseList = function(ul, title) {
+            var items = ul.getElementsByTagName("li");
+            var out = title + ": ";
+            for (i=0;i<items.length;i=i+1) {
+                out += items[i].id + " ";
+            }
+            return out;
+        };
+        
+        //alert(elTarget.id);
+        
+        var changes = "";
+        for (key in workgroupchanges) {
+            changes += "userId: " + key + "workgroupFrom: " + workgroupchanges[key]["workgroupFrom"]
+                    + "workgroupTo: " + workgroupchanges[key]["workgroupTo"] + "\n";
+        }
+        //alert(changes);
+        
+        <c:forEach var="viewmystudentsperiod" items="${viewmystudentsallperiods}" >
+          var periodId=${viewmystudentsperiod.period.id}
+          if (elTarget.id == "saveButton_"+periodId) {
+            var grouplessUl=Dom.get("ul_"+periodId+"_groupless")
+            var out = parseList(grouplessUl, "Groupless students")
+
+            <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
+              var workgroupUl = document.getElementById("ul_"+periodId+"_workgroup_${workgroupInPeriod.id}");
+              out += parseList(workgroupUl, "\nWorkgroup with id: ${workgroupInPeriod.id}");
+            </c:forEach>
+            //alert(out);
+            var submitChangesUrl = "submitworkgroupchanges.html";
+            var numChanges = 0;
+            for (key in workgroupchanges) {
+              numChanges++;
+            }
+            var changeIndex = 0;
+            var postData = 'tabIndex='+tabView.get("activeIndex")+'&numChanges=' + numChanges + '&periodId='+periodId+'&runId='+${viewmystudentsperiod.run.id};
+            for (userId in workgroupchanges) {              
+              var workgroupFrom = workgroupchanges[userId]["workgroupFrom"];
+              var workgroupTo = workgroupchanges[userId]["workgroupTo"];
+              postData += '&userId_'+changeIndex +'='+userId+'&workgroupFrom_'+changeIndex +'='+workgroupFrom+'&workgroupTo_'+changeIndex +'='+workgroupTo;
+              changeIndex++;
+            }
+            //alert(postData);
+            var request = YAHOO.util.Connect.asyncRequest('POST', submitChangesUrl, callback, postData);
+            // make sure that *all* changes in workgroupchanges are persisted...so wait 5-6 seconds and then refresh the page
+            //setTimeout( "window.location.reload()", 5000 );
+            
+          }
+        </c:forEach>
+                
+    },
+
+    switchStyles: function() {
+        Dom.get("ul1").className = "draglist_alt";
+        Dom.get("ul2").className = "draglist_alt";
+    }
+    
+};
+
+//////////////////////////////////////////////////////////////////////////////
+// custom drag and drop implementation
+//////////////////////////////////////////////////////////////////////////////
+
+YAHOO.example.DDList = function(id, sGroup, config) {
+
+    YAHOO.example.DDList.superclass.constructor.call(this, id, sGroup, config);
+
+    this.logger = this.logger || YAHOO;
+    var el = this.getDragEl();
+    Dom.setStyle(el, "opacity", 0.67); // The proxy is slightly transparent
+
+    this.goingUp = false;
+    this.lastY = 0;
+};
+
+YAHOO.extend(YAHOO.example.DDList, YAHOO.util.DDProxy, {
+
+    startDrag: function(x, y) {
+        this.logger.log(this.id + " startDrag");
+        //var workgroupli = document.getElementById(this.id);
+        
+        //workgroupchanges[this.id] = workgroupli.innerHTML;
+        //this.logger.log("body: " + workgroupli.innerHTML + " startDrag");
+
+        // make the proxy look like the source element
+        var dragEl = this.getDragEl();
+        var clickEl = this.getEl();
+        Dom.setStyle(clickEl, "visibility", "hidden");
+
+        dragEl.innerHTML = clickEl.innerHTML;
+
+        Dom.setStyle(dragEl, "color", Dom.getStyle(clickEl, "color"));
+        Dom.setStyle(dragEl, "backgroundColor", Dom.getStyle(clickEl, "backgroundColor"));
+        Dom.setStyle(dragEl, "border", "2px solid gray");
+    },
+
+    endDrag: function(e) {
+        this.logger.log(this.id + " endDrag");
+        var lastIndexOf_ = this.id.lastIndexOf("_");
+        var workgroupFrom = this.id.substr(lastIndexOf_ + 1);
+        var userId = this.id.substring(3, lastIndexOf_);
+        this.logger.log("last index: " + lastIndexOf_);
+        this.logger.log("workgroupFrom: " + workgroupFrom);
+        this.logger.log("userId: " + userId);
+        workgroupchanges[userId] = new Array();
+        workgroupchanges[userId]["workgroupFrom"] = workgroupFrom;
+        var elTarget = YAHOO.util.Event.getTarget(e);    
+        this.logger.log("elTarget.id: " + elTarget.id);
+        this.logger.log("elTarget.tagName: " + elTarget.tagName);
+        this.logger.log("elTarget.parentNode: " + elTarget.parentNode);
+        this.logger.log("elTarget.parentNode.tagName: " + elTarget.parentNode.tagName);
+
+        var srcEl = this.getEl();
+        var proxy = this.getDragEl();
+
+        // Show the proxy element and animate it to the src element's location
+        Dom.setStyle(proxy, "visibility", "");
+        var a = new YAHOO.util.Motion( 
+            proxy, { 
+                points: { 
+                    to: Dom.getXY(srcEl)
+                }
+            }, 
+            0.2, 
+            YAHOO.util.Easing.easeOut 
+        )
+        var proxyid = proxy.id;
+        var thisid = this.id;
+
+        // Hide the proxy and show the source element when finished with the animation
+        a.onComplete.subscribe(function() {
+                Dom.setStyle(proxyid, "visibility", "hidden");
+                Dom.setStyle(thisid, "visibility", "");
+                
+                var element = document.getElementById(thisid);
+                //alert("element: " + element);
+                //alert("element.id: " + element.id);
+                //alert("element.parentNode.tagName: " + element.parentNode.tagName);
+                //alert("element.parentNode.id: " + element.parentNode.id);
+                workgroupToUlStr = element.parentNode.id;
+                var lastIndexOf_ = workgroupToUlStr.lastIndexOf("_");
+                var workgroupTo = workgroupToUlStr.substr(lastIndexOf_ + 1);
+                //alert("workgroupTo: " + workgroupTo);
+        		workgroupchanges[userId]["workgroupTo"] = workgroupTo;
+                
+            });
+        a.animate();
+    },
+
+    onDragDrop: function(e, id) {
+        //this.logger.log(this.id + " onDragDrog");
+
+        // If there is one drop interaction, the li was dropped either on the list,
+        // or it was dropped on the current location of the source element.
+        if (DDM.interactionInfo.drop.length === 1) {
+
+            // The position of the cursor at the time of the drop (YAHOO.util.Point)
+            var pt = DDM.interactionInfo.point; 
+
+            // The region occupied by the source element at the time of the drop
+            var region = DDM.interactionInfo.sourceRegion; 
+
+            // Check to see if we are over the source element's location.  We will
+            // append to the bottom of the list once we are sure it was a drop in
+            // the negative space (the area of the list without any list items)
+            if (!region.intersect(pt)) {
+                var destEl = Dom.get(id);
+                var destDD = DDM.getDDById(id);
+                destEl.appendChild(this.getEl());
+                destDD.isEmpty = false;
+                DDM.refreshCache();
+            }
+
+        }
+    },
+
+    onDrag: function(e) {
+
+        // Keep track of the direction of the drag for use during onDragOver
+        var y = Event.getPageY(e);
+
+        if (y < this.lastY) {
+            this.goingUp = true;
+        } else if (y > this.lastY) {
+            this.goingUp = false;
+        }
+
+        this.lastY = y;
+    },
+
+    onDragOver: function(e, id) {
+    
+        var srcEl = this.getEl();
+        var destEl = Dom.get(id);
+
+        // We are only concerned with list items, we ignore the dragover
+        // notifications for the list.
+        if (destEl.nodeName.toLowerCase() == "li") {
+            var orig_p = srcEl.parentNode;
+            var p = destEl.parentNode;
+
+            if (this.goingUp) {
+                p.insertBefore(srcEl, destEl); // insert above
+            } else {
+                p.insertBefore(srcEl, destEl.nextSibling); // insert below
+            }
+
+            DDM.refreshCache();
+        }
+    }
+});
+
+Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
+
+})();
+--></script>
+
 </div> 
 </div>
 
+<!-- 
+// THE DEBUGGING CONSOLE...UNCOMMENT TO DISPLAY
+
+<div id="myLogger"></div>
+<script type="text/javascript">
+var myLogReader = new YAHOO.widget.LogReader("myLogger");
+</script>
+ -->
+ 
 </body>
 </html>

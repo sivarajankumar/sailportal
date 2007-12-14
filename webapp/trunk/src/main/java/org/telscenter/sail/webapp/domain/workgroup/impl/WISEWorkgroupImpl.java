@@ -41,7 +41,7 @@ import net.sf.sail.webapp.domain.group.Group;
 @Entity
 @Table(name = WISEWorkgroupImpl.DATA_STORE_NAME)
 public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupImpl
-		implements WISEWorkgroup {
+		implements WISEWorkgroup, Comparable<WISEWorkgroupImpl> {
 
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -68,5 +68,9 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
 	 */
 	public void setPeriod(Group period) {
 		this.period = period;
+	}
+
+	public int compareTo(WISEWorkgroupImpl o) {
+		return this.id.compareTo(o.id);
 	}
 }

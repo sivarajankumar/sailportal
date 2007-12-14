@@ -124,6 +124,10 @@ public class ChangePasswordParametersValidator implements Validator {
 	public String getInputFieldValidationMessage(String formInputId, String formInputValue) {
 		return "this is a message error";
 	}
+	
+	public boolean test(String str) {
+		return true;
+	}
 	/**
 	 * Get the validation message for an individual input field of a model
 	 * object.

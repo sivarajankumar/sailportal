@@ -147,5 +147,5 @@ public interface WorkgroupService {
      * @throws <code>Exception</code> when update fails
      * 
      */
-    public void updateWorkgroupMembership(ChangeWorkgroupParameters params)throws Exception;
+    public Workgroup updateWorkgroupMembership(ChangeWorkgroupParameters params)throws Exception;
 }

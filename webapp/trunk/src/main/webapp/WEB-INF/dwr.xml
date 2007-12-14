@@ -9,12 +9,8 @@
 	      <create creator="new" javascript="StringUtilsJS">
 	      <param name="class" value="org.apache.commons.lang.StringUtils"/>
 	    </create>
-	    <!--  
-        <create creator="spring" javascript="ChangePasswordValidatorJS">
-              <param name="beanName" value="changePasswordParametersValidator"/>
-              <include method="getFieldInputValidationMessage"/>
+        <create creator="new" javascript="ChangePasswordParametersValidatorJS">
+             <param name="class" value="net.sf.sail.webapp.presentation.validators.ChangePasswordParametersValidator"/>
         </create>
-        
-        -->
     </allow>
 </dwr>

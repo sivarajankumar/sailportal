@@ -108,7 +108,8 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
      */
 	@Override
     @Transactional()
-    public void updateWorkgroupMembership(ChangeWorkgroupParameters params) throws Exception {
+    public Workgroup updateWorkgroupMembership(ChangeWorkgroupParameters params) throws Exception {
+		Workgroup workgroupCreated = null;
     	Workgroup toGroup;
     	Workgroup fromGroup;
     	User user = params.getStudent();
@@ -119,8 +120,9 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
     	Set<User> addMemberSet = new HashSet<User>();
     	addMemberSet.add(user);
     	if (params.getWorkgroupTo() == null) {
-    		if (params.getWorkgroupToId().intValue() == -1) {   		
-    		    createWISEWorkgroup("workgroup " + user.getUserDetails().getUsername(), addMemberSet, offering, period);
+    		if ((params.getWorkgroupToId() != null) && 
+    				(params.getWorkgroupToId().intValue() == -1)) {   		
+    			workgroupCreated = createWISEWorkgroup("workgroup " + user.getUserDetails().getUsername(), addMemberSet, offering, period);
     		}
     	} else {
     		toGroup = params.getWorkgroupTo();
@@ -132,6 +134,7 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
         	removeMemberSet.add(user);
     		this.removeMembers(fromGroup, removeMemberSet);
     	}
+    	return workgroupCreated;
     }
 	
 	/**
