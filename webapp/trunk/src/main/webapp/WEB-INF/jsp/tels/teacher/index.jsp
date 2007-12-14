@@ -100,36 +100,36 @@
 	<table id="dashboardSections" cellspacing="8" cellpadding="2">
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('homebuttonmini','','.././themes/tels/default/images/teacher/Home-Mini-Button-Roll.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Home-Mini-Button.png"
+				onmouseover="MM_swapImage('homebuttonmini','','.././themes/tels/default/images/teacher/Home-Mini-Button-Roll2.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Home-Mini-Button2.png"
 				alt="Home Button Mini" id="homebuttonmini" /></a></td>
 			<td>Your current location. Includes announcements and quick links to popular tools.</td>
 		</tr>
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('projectbuttonmini','','.././themes/tels/default/images/teacher/Project-Mini-Button-Roll.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Project-Mini-Button.png"
+				onmouseover="MM_swapImage('projectbuttonmini','','.././themes/tels/default/images/teacher/Projects-Mini-Button-Roll2.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Projects-Mini-Button2.png"
 				alt="Project Button Mini" id="projectbuttonmini" /></a></td>
 			<td>Visit this section to search the WISE library, customize existing projects, or create your own!</td>
 		</tr>
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('gradingbuttonmini','','.././themes/tels/default/images/teacher/Grading-Mini-Button-Roll.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Grading-Mini-Button.png"
+				onmouseover="MM_swapImage('gradingbuttonmini','','.././themes/tels/default/images/teacher/Grading-Mini-Button-Roll2.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Grading-Mini-Button2.png"
 				alt="Grading Button Mini" id="gradingbuttonmini" /></a></td>
 			<td>Visit this section to view and grade student work quickly and efficiently.</td>
 		</tr>
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('managementbuttonmini','','.././themes/tels/default/images/teacher/Management-Mini-Button-Roll.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Management-Mini-Button.png"
+				onmouseover="MM_swapImage('managementbuttonmini','','.././themes/tels/default/images/teacher/Management-Mini-Button-Roll2.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Management-Mini-Button2.png"
 				alt="Management Button Mini" id="managementbuttonmini" /></a></td>
 			<td>Visit this section to manage your students, print/export student work, or update your account.</td>
 		</tr>
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('helpbuttonmini','','.././themes/tels/default/images/teacher/Help-Mini-Button-Roll.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Help-Mini-Button.png"
+				onmouseover="MM_swapImage('helpbuttonmini','','.././themes/tels/default/images/teacher/Help-Mini-Button-Roll2.png',1)">
+				<img src=".././themes/tels/default/images/teacher/Help-Mini-Button2.png"
 				alt="Help Button Mini" id="helpbuttonmini" /></a></td>
 			<td>This sections contains tools and guidelines to help you get WISE running smoothly in your classroom.</td>
 		</tr>

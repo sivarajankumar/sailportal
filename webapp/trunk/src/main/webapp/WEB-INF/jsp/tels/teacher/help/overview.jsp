@@ -72,6 +72,7 @@
 		<div class="helpHeader">Technical Problems</div>
 			<ul>
 			<li><a href="/check/">Automated Software Test</a></li>
+			<li><a href="#">Java Loading Issues</a></li>
 			<li><a href="http://docs.telscenter.org/display/WPSD/Troubleshooting">Troubleshooting</a></li>
 			<li><a href="/pages/contact/contactWISE.php">Contact Us</a></li>
 			</ul>

@@ -7,8 +7,8 @@
 
 #overviewContentHelp {
 	border-top: 1px solid #666666;
-	border-right: 1px solid #000000;
-	border-bottom: 1px solid #000000;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #666666;
 	border-left: 1px solid #666666;
 	margin:15px 0 15px 0;
 	padding:10px 0px 25px 0px;
@@ -31,7 +31,12 @@
 }
 
 .helpSection {
-	background-color:CCCCCC;
+	background-image:url(../../images/GradientHomeBox.png);
+	background-position:bottom;
+	border-top: 1px solid #666666;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #666666;
 	margin: 15px 80px 0px 80px;
 	padding:5px;
 	}
@@ -39,22 +44,24 @@
 .helpSection li {
 	list-style-type:none;
 	font-size:1.4em;
-	padding: 6px 0 0 0;
-	line-height: 100%;
-	margin: 0px;
+	width:90%;
 	}
 	
 .helpSection li a:link, .helpSection li a:visited {
-	color:#000066;
+	display:block;
 	text-decoration:none;
+	padding:0px 0 2px 2px;
+	color:#000066;
 	font-weight:bold;
 	margin:0px;
-	padding:0px;
 	}
 	
 .helpSection li a:hover {
-	color:#FF0000;
-	border-bottom:1px dashed;
+	display:block;
+	padding:0px 0 2px 2px;
+	text-decoration:none;
+	background-color:#000066;
+	color:#CCCCFF;
+	font-weight:bold;
 	margin:0px;
-	padding:0px;
 	}
