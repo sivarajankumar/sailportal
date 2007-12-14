@@ -47,7 +47,7 @@
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="#">Manage My Students</a></td>
+			<td class="link"><a href="../management/viewmystudents.html">Manage My Students</a></td>
 			<td class="description">Manage student groupings, periods, passwords, and more.</td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#">Class Monitor</a></td>

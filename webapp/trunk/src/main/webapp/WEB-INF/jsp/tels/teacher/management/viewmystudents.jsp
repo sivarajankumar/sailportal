@@ -42,7 +42,7 @@ function popup(URL, title) {
 
 <%@ include file="headerteachermanagement.jsp"%>
 
-<%@ include file="L2management_overview.jsp"%>
+<%@ include file="L2management_managestudents.jsp"%>
 
 <div align="left">
 <div id="runContent" style="width:930; padding:15px; margin:0px;"> 
