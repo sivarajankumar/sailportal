@@ -83,6 +83,10 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 	private List<Run> expectedRunList;
 
 	private User user;
+	
+	private String default_runId = "5";
+	
+	private Run run;
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -97,6 +101,7 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 		
 		mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, this.user);
 		this.request.setSession(mockSession);
+		this.request.addParameter("runId", default_runId);
 
 		this.mockRunService = EasyMock.createMock(RunService.class);
 		this.mockWorkgroupService = EasyMock.createMock(WorkgroupService.class);
@@ -112,7 +117,7 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 
 		sdsOffering.setName("test");
 		sdsOffering.setSdsObjectId(new Long(3));
-		Run run = new RunImpl();
+		run = new RunImpl();
 		run.setSdsOffering(sdsOffering);
 		Set<User> owners = new HashSet<User>();
 		owners.add(user);
@@ -177,6 +182,8 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 		.emptyMap();
 		EasyMock.expect(mockRunService.getRunList()).andReturn(
 				emptyRunList);
+		EasyMock.expect(mockRunService.retrieveById(Long.valueOf(default_runId))).andReturn(run);
+		EasyMock.expect(mockRunService.getWorkgroups(Long.valueOf(default_runId))).andReturn(null);
 		EasyMock.replay(this.mockRunService);
 		EasyMock.replay(this.mockWorkgroupService);
 

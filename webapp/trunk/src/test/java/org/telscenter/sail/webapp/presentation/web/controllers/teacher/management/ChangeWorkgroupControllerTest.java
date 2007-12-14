@@ -35,7 +35,6 @@ import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.service.UserService;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.easymock.EasyMock;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -45,6 +44,7 @@ import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 
 /**
@@ -57,7 +57,7 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 	
 	private ChangeWorkgroupParameters changeWorkgroupParameters;
 	
-	private WorkgroupService mockWorkgroupService;
+	private WISEWorkgroupService mockWorkgroupService;
 	
 	private UserService mockUserService;
 	
@@ -105,7 +105,7 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 		mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, user);
 		request.setSession(mockSession);
 		
-		mockWorkgroupService = EasyMock.createMock(WorkgroupService.class);
+		mockWorkgroupService = EasyMock.createMock(WISEWorkgroupService.class);
 		mockUserService = EasyMock.createMock(UserService.class);
 		
 		student = new UserImpl();
@@ -146,8 +146,7 @@ public class ChangeWorkgroupControllerTest extends AbstractModelAndViewTests {
 		// tests when one student is moved from one group to another.
 		// should return a success view 
 		EasyMock.expect(mockWorkgroupService.retrieveById(WORKGROUP_TO_ID)).andReturn(workgroupTo);
-		mockWorkgroupService.updateWorkgroupMembership(changeWorkgroupParameters);
-		EasyMock.expectLastCall();
+		EasyMock.expect(mockWorkgroupService.updateWorkgroupMembership(changeWorkgroupParameters)).andReturn(null);
         EasyMock.replay(this.mockWorkgroupService);
       
 		
