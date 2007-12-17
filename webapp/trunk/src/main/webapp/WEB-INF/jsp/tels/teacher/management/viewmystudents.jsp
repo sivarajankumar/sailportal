@@ -7,7 +7,9 @@
 
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
 <title><spring:message code="viewmystudents.message" /></title>
 
@@ -50,7 +52,7 @@ function createNewWorkgroup(periodId, runId) {
   var newWorkgroupId = -1 - newGroupCount;
   var workareaDiv = document.getElementById("div_for_new_workgroups_"+periodId);
   workareaDiv.innerHTML += "<div class='workarea' id='newgroup_div_"+periodId+"_"+newWorkgroupId+"'>"
-                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>New Workgroup (not saved yet)</li></ul>"
+                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>New Team (click SAVE button to save)</li></ul>"
                           +"</div>";
                           
    // need to iterate through all of the newgroups
@@ -92,10 +94,10 @@ function createNewWorkgroup(periodId, runId) {
 </table>
 
 
-<div id="tabSystem" class="yui-navset">
+<div id="tabSystem" class="yui-navset"  >
 <ul class="yui-nav">
 	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
-		<li><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
+		<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
 	</c:forEach>
 </ul>
 <div class="yui-content">
@@ -103,35 +105,44 @@ function createNewWorkgroup(periodId, runId) {
 	<div><c:choose>
 		<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
    		    <!--  there is NO student in this period  -->
-				No Students Attached
+				No students registered in this period
 			</c:when>
 		<c:otherwise>
 		    <!--  there are students in this period  -->
-		    <a href="#" onclick="javascript:popup('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change ALL Passwords for this Period</a><br />
-		    <a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Workgroup</a>
+		    <ul id="periodHeaderBar">
+		    	<li class="periodHeaderStart">[24] Students <span style="font-size:.8em;">(across [18 teams])</span></li>
+		    	<li><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
+		     	<li><a href="#" onclick="javascript:popup('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
+		   	</ul>
 
 			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
 			  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
-			    <li><b>Groupless students</b></li>
+			    <li class="grouplessHeader">unassigned students</li>
 
                 <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
 			      <li class="grouplesslist" id="li_${mem.id}_groupless">
 			         ${mem.userDetails.firstname} ${mem.userDetails.lastname}
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Change Password</a>
-			      </li>
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+    			     </li>
 			    </c:forEach>
+			    
   			  </ul>
 			</div>
 
             <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
               <div class="workarea" id="div_${workgroupInPeriod.id}">
 			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">   			        
-			      <li><b>Workgroup id: ${workgroupInPeriod.id} <br />
-			          Workgroup name:<br /> ${workgroupInPeriod.sdsWorkgroup.name}</b></li>
+			      <li class="workgroupHeader">Team: ${workgroupInPeriod.id}</li>
 			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
 			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
 			         ${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Change Password</a>
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
+    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
 			        </li>
 			      </c:forEach>
 			    </ul>
@@ -141,10 +152,11 @@ function createNewWorkgroup(periodId, runId) {
             <div id="div_for_new_workgroups_${viewmystudentsperiod.period.id}">
             </div>
             
-          <div class="user_actions">
-            <input type="button" id="saveButton_${viewmystudentsperiod.period.id}" value="Save" /> 	 
-            <input type="button" id="switchButton" value="Remove List Background" />
-          </div>
+         <div id="saveBar">
+         		<input type="button" class="saveButton" id="saveButton_${viewmystudentsperiod.period.id}" 
+            	value="Save Changes to Team Assignments" />
+          </div> 
+     
 		</c:otherwise>
 	</c:choose>
 	
@@ -218,7 +230,7 @@ YAHOO.example.DDApp = {
           var periodId=${viewmystudentsperiod.period.id}
           if (elTarget.id == "saveButton_"+periodId) {
             var grouplessUl=Dom.get("ul_"+periodId+"_groupless")
-            var out = parseList(grouplessUl, "Groupless students")
+            var out = parseList(grouplessUl, "unassigned students")
 
             <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
               var workgroupUl = document.getElementById("ul_"+periodId+"_workgroup_${workgroupInPeriod.id}");
