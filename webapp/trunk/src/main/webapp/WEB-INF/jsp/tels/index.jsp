@@ -122,14 +122,14 @@
     
     <li><a href="wiseoverview.html" 
     	onmouseout="MM_swapImgRestore()" 
-    	onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/Overview-of-WISE-button-rollover.png',1)">
-    	<img src="./themes/tels/default/images/Overview-of-WISE-button.png" alt="Overview of WISE" width="145" height="32" 
+    	onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/Animated-WISE-Rollover.png',1)">
+    	<img src="./themes/tels/default/images/Animated-WISE.png" alt="Overview of WISE" width="145" height="32" 
     		class="imgNoBorder" id="Overview of WISE button" /></a> </li>
        
     <li><a href="previewproject.html" 
     		onmouseout="MM_swapImgRestore()" 
-    		onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/preview_wise_rollover.png',1)">
-    		<img src="./themes/tels/default/images/preview_wise.png" alt="Preview of WISE Button" width="145" height="32"  
+    		onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/Instant-Preview-Rollover.png',1)">
+    		<img src="./themes/tels/default/images/Instant-Preview.png" alt="Preview of WISE Button" width="145" height="32"  
     			class="imgNoBorder" id="Preview of WISE Button" /></a> </li>
 		 
 	<li><a href="signup.html" 

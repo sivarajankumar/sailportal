@@ -22,8 +22,9 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+
+<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+  
 <title><spring:message code="run.list" /></title>
 <script language="JavaScript">
 
@@ -36,6 +37,12 @@ function popup(URL, title) {
 
 <body>
 
+<div id="centeredDiv">
+
+<div id="popUpWindowViewStudents">
+
+	<div id="studentchangepasswordbox">
+	
 <h2><spring:message code="batchstudentchangepassword.menu" /></h2>
 
 <!-- Support for Spring errors object -->
@@ -67,6 +74,10 @@ function popup(URL, title) {
     </div>
 
 </form:form>
+
+</div>
+</div>
+</div>
 
 </body>
 </html>

@@ -42,20 +42,22 @@
 
 <%@ include file="header.jsp"%>
 
-<!-- Support for Spring errors object -->
-<spring:bind path="studentAccountForm.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <b>
-      <br /><c:out value="${error}"/>
-    </b>
-  </c:forEach>
-</spring:bind>
+
 
 <div id="registrationTitle">
     	<h1 class="blueText">Student Registration</h1></div>
 
 <div id="subtitleStudentReg"><p>To create a student account please fill in the following fields.</p></div>
       
+<!-- Support for Spring errors object -->
+<div id="regErrorMessages">
+<spring:bind path="studentAccountForm.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+        <br /><c:out value="${error}"/>
+    </c:forEach>
+</spring:bind>
+</div>
+
   <form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html">
   
   <dl>

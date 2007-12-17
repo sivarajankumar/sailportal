@@ -1,9 +1,11 @@
 
-
 #pickerHeader {
+	border:1px solid #666666;
 	background-image:url(../../images/student/Gradient-ProjectMenu-Green-400.png);
-	background-position:top;
+	background-position:bottom;
 	text-align:center;
+	padding:0px;
+	margin:14px 0 0 0;
 	}
 
 #mainHeader {
@@ -11,22 +13,21 @@
 	font-size:2.7em;
 	font-weight:bold;
 	font-variant:small-caps;
-	margin:20px 0 0 0;
-	padding:6px 0 5px 0;
+	margin:0px;
+	padding:5px 0 3px 0;
 }
-
 
 #subHeader {
 	font-size:1.2em;
-	padding:0px 0 10px 0;
+	padding:0px 0 5px 0;
 }
 
 .tableLabel {
 	font-family: "Tahoma", Verdana, Arial, Helvetica, sans-serif;
 	font-size:2.4em;
+	font-weight:bold;
 	letter-spacing:1px;
-	margin:25px 0 8px 0 ;
-	
+	margin:20px 0 8px 0 ;
 }
 	
 	
@@ -67,11 +68,12 @@ tr.odd{
 }
 
 tbody tr:hover{
-	background-color: #FFCCCC;
+	background-color: #FFFF33;
+	
 }
 
 td, th {
-	border: 1px dotted #6666FF;
+	border: 1px dotted #003300;
 }
 
 td {
@@ -90,17 +92,17 @@ tbody th{
 
 td a:link, td a:visited, th a:link,th a:visited {
 	color: black;
-	font-size:1.7em;
+	font-size:1.6em;
 	font-weight:bold;
 	text-decoration:none;
 	border-bottom:2px dotted #9999FF;
 }
 
 td a:hover, th a:hover{
-	font-size:1.7em;
+	font-size:1.6em;
 	font-weight:bold;
 	color: #0000CC;
-	border-bottom:2px dotted #0000FF;
+	border-bottom:2px dotted #003399;
 	
 }
 

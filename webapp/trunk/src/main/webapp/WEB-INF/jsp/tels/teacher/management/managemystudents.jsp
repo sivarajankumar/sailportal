@@ -30,7 +30,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
-<title>Manage My Students/title>
+<title>Manage My Students</title>
 </head>
 
 <body>
