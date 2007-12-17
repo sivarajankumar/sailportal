@@ -28,7 +28,8 @@
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="../javascript/general.js"></script> 
+<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
+
 
 <title>Project Picker Screen 1</title>
 </head>
@@ -43,7 +44,7 @@
 
 <div id="pickerHeader">
 		<div id="mainHeader">Select a Project to Manage</div>
-		<div id="subHeader">(click any Project Title link below)</div>
+		<div id="subHeader">(click any Project Title below)</div>
 </div>
 
 <div class="tableLabel">My Current Project Runs</div>
