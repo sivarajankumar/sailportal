@@ -81,7 +81,7 @@ if(form.manualCheckbox.checked==true){
 
 <div id="setUpRunBox">
 
-<div id="stepNumber">Step 3 of 6:<span class="blueText">&nbsp Select Periods</span></div>
+<div id="stepNumber">Step 3 of 6:<span class="blueText">&nbsp; Select Periods</span></div>
 
 <h4>Select the classroom period/periods during which you'll run the project, then click <em>Next</em>.</h4>
 
@@ -97,13 +97,13 @@ if(form.manualCheckbox.checked==true){
 
 <div>
 	<h4>OR enter manually named periods:</h4>
-	<form:textarea path="manuallyEnteredPeriods" rows="1" cols="70"/>
+	<form:textarea path="manuallyEnteredPeriods" id="manualperiodsinput" rows="1" cols="70"/>
 	<div id="manualperiodsinstructions">Separate manually named periods with commas or spaces.  
 		Example: "Section1, Section2, Section3" 	<br />
 		Manually named periods should be no more than 16 characters in length.</div>
 </div>
 
-     <!--end of SetUpRunBox -->
+</div>     <!--end of SetUpRunBox -->
 
 <div class="center">
 <input type="submit" name="_target1" value="<spring:message code="navigate.back"/>" />
@@ -113,7 +113,7 @@ if(form.manualCheckbox.checked==true){
 
 </form:form>
 
-</div>    <!--end of centered div-->
-
+<!--end of centered div-->
+</div>
 </body>
 </html>

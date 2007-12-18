@@ -32,8 +32,70 @@
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-six" /></title>
+
+<%@ include file="../../grading/styles.jsp"%>
+<link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 </head>
-<body>
+<body class=" yui-skin-sam">
+
+<script type="text/javascript">
+
+    YAHOO.namespace("example.container");
+
+    function init() {
+
+        if (!YAHOO.example.container.wait) {
+
+            // Initialize the temporary Panel to display while waiting for external content to load
+
+            YAHOO.example.container.wait = 
+                    new YAHOO.widget.Panel("wait",  
+                                                    { width: "240px", 
+                                                      fixedcenter: true, 
+                                                      close: false, 
+                                                      draggable: false, 
+                                                      zindex:4,
+                                                      modal: true,
+                                                      visible: false
+                                                    } 
+                                                );
+    
+            YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setBody("<img src=\"http://us.i1.yimg.com/us.yimg.com/i/us/per/gr/gp/rel_interstitial_loading.gif\"/>");
+            YAHOO.example.container.wait.render(document.body);
+
+        }
+
+        // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
+
+
+
+        var callback = {
+            success : function(o) {
+                //content.innerHTML = o.responseText;
+                //content.style.visibility = "visible";
+                YAHOO.example.container.wait.hide();
+            },
+            failure : function(o) {
+                //content.innerHTML = o.responseText;
+                //content.style.visibility = "visible";
+                //content.innerHTML = "CONNECTION FAILED!";
+                YAHOO.example.container.wait.hide();
+            }
+        }
+    
+        // Show the Panel
+        YAHOO.example.container.wait.show();
+        
+        // Connect to our data source and load the data
+        //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
+    }
+    
+    YAHOO.util.Event.on("submit_form", "click", init);
+		
+</script>
 
 <div id="centeredDiv">
 
@@ -67,7 +129,7 @@
 <form class="center" method="post">
 <input type="submit" name="_target4" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_finish" value="<spring:message code="navigate.done" />" />
+<input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />
 </form>
 
 </div>

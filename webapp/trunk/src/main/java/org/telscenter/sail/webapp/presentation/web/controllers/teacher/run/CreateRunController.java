@@ -75,7 +75,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/setuprunconfirm";
 	
-	private static final String CANCEL_VIEW_NAME = "teacher/index.html";
+	private static final String CANCEL_VIEW_NAME = "../../teacher/index.html";
 
 	private static final String RUN_KEY = "run";
 
@@ -149,10 +149,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	    			}
 	    			runParameters.setPeriodNames(parsedAndTrimmed);
 	    		}
-	    	} else if(runParameters.getManuallyEnteredPeriods() != ""){
-	    		errors.rejectValue("periodNames", "setuprun.error.notsupported", "Selecting periods and " +
-	    				"manually entering periods is not currently supported");
-	    	}
+	    	} 
 	    	break;
 	    case 3:
 	    	break;
