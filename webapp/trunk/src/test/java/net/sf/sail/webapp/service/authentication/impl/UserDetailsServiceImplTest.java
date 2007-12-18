@@ -141,6 +141,16 @@ public class UserDetailsServiceImplTest extends AbstractTransactionalDbTests {
                 .loadAuthorityByName(ROLE);
         assertEquals(mutableGrantedAuthority, actual);
     }
+    
+    public void testUpdateUserDetails() {
+    	assertEquals(expectedUserDetails.getPassword(), PASSWORD);
+    	assertEquals(expectedUserDetails.getUsername(), USERNAME);
+    	expectedUserDetails.setPassword("testPassword");
+    	assertFalse(expectedUserDetails.getPassword().equals(PASSWORD));
+    	userDetailsService.updateUserDetails(expectedUserDetails);
+    	assertEquals(userDetailsService.loadUserByUsername(USERNAME).getPassword(), "testPassword");
+    	assertFalse(userDetailsService.loadUserByUsername(USERNAME).getPassword().equals(PASSWORD));
+    }
 
     public GrantedAuthorityDao<MutableGrantedAuthority> getAuthorityDao() {
         return authorityDao;
