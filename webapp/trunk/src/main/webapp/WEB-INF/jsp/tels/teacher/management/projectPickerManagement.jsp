@@ -20,6 +20,7 @@
 <!-- $Id: index.jsp 888 2007-08-06 23:47:19Z archana $ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
@@ -29,7 +30,6 @@
 <link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
-
 
 <title>Project Picker Screen 1</title>
 </head>
@@ -62,24 +62,22 @@
 		</tr>
 	</thead>
 	<tbody>	
-	    <c:forEach var="currentRun" items="${current_run_list}" >
-		<tr>
+	    <c:forEach var="currentRun" varStatus="currentRunVarStatus" items="${current_run_list}" >
+	    <c:choose>
+	      <c:when test="${currentRunVarStatus.index % 2 == 1}">
+      		<tr class="odd">
+	      </c:when>
+	      <c:otherwise>
+	        <tr>
+	      </c:otherwise>
+	    </c:choose>
 			<th scope="row"><a href="viewmystudents.html?runId=${currentRun.id}">${currentRun.sdsOffering.name}</a></th>
 			<td>45345</td>
-			<td>12/13/07</td>
+			<td><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></td>
 			<td>ongoing</td>
 			<td>1,2,4,6</td>
 			<td>Physics</td>
 			<td>12</td>
-		</tr>
-		<tr class="odd">
-			<th scope="row"><a href="#">Sample Title 2</a></th>
-			<td>45721</td>
-			<td>12/22/07</td>
-			<td>ongoing</td>
-			<td>5,6,7,8</td>
-			<td>Biology</td>
-			<td>3</td>
 		</tr>
 		</c:forEach>
 	</tbody>
@@ -136,24 +134,24 @@
 		</tr>
 	</thead>
 	<tbody>	
-		<tr>
-			<th scope="row"><a href="#">Sample Title 1</a></th>
+	    <c:forEach var="archivedRun" varStatus="archivedRunVarStatus" items="${archived_run_list}" >
+	    <c:choose>
+	      <c:when test="${archivedRunVarStatus.index % 2 == 1}">
+      		<tr class="odd">
+	      </c:when>
+	      <c:otherwise>
+	        <tr>
+	      </c:otherwise>
+	    </c:choose>
+			<th scope="row"><a href="viewmystudents.html?runId=${archivedRun.id}">${archivedRun.sdsOffering.name}</a></th>
 			<td>45345</td>
-			<td>12/13/07</td>
-			<td>ongoing</td>
+			<td><fmt:formatDate value="${archivedRun.starttime}" dateStyle="short" /></td>
+			<td><fmt:formatDate value="${archivedRun.endtime}" dateStyle="short" /></td>
 			<td>1,2,4,6</td>
 			<td>Physics</td>
 			<td>12</td>
 		</tr>
-		<tr class="odd">
-			<th scope="row"><a href="#">Sample Title 2</a></th>
-			<td>45721</td>
-			<td>12/22/07</td>
-			<td>ongoing</td>
-			<td>5,6,7,8</td>
-			<td>Biology</td>
-			<td>3</td>
-		</tr>
+		</c:forEach>
 	</tbody>
 </table>
 

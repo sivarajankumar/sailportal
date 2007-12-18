@@ -27,7 +27,9 @@ public class ProjectPickerManagementController extends AbstractController {
 
 	private static final String VIEW_NAME = "teacher/management/projectPickerManagement";
 
-	protected final static String CURRENT_RUN_LIST_KEY = "current_run_list";
+	protected static final String CURRENT_RUN_LIST_KEY = "current_run_list";
+	
+	protected static final String ARCHIVED_RUN_LIST_KEY = "archived_run_list";
 
 	
 	/**
@@ -46,16 +48,23 @@ public class ProjectPickerManagementController extends AbstractController {
 		// this is a temporary solution to filtering out runs that the logged-in user owns.
 		// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
 		// start temporary code
-		List<Run> runList2 = new ArrayList<Run>();
+		List<Run> current_runs = new ArrayList<Run>();
+		List<Run> archived_runs = new ArrayList<Run>();
+		
 		for (Run run : runList) {
 			if (run.getOwners().contains(user)) {
-				runList2.add(run);
+				if (run.isEnded()) {
+					archived_runs.add(run);
+				} else {
+					current_runs.add(run);
+				}
 			}
 		}
 		// end temporary code
 
+		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_runs);
+		modelAndView.addObject(ARCHIVED_RUN_LIST_KEY, archived_runs);
 
-		modelAndView.addObject(CURRENT_RUN_LIST_KEY, runList2);
         return modelAndView;
 	}
 
