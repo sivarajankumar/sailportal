@@ -84,7 +84,7 @@
 				              <td style="width:20%;" class="tableInnerData">${period.name}</td>
 				              <td style="width:45%;" class="tableInnerData">${run.runcode}-${period.name}</td>
 				              <td style="width:35%;" class="tableInnerDataRight">
-				                [X] registered
+				                ${fn:length(period.members)} registered
 				                
 				              </td>
 				            </tr>
@@ -140,7 +140,7 @@
 				              <td style="width:20%;" class="tableInnerData">${period.name}</td>
 				              <td style="width:45%;" class="tableInnerData">${run.runcode}-${period.name}</td>
 				              <td style="width:35%;" class="tableInnerDataRight">
-				                [X] registered
+				                ${fn:length(period.members)} registered
 				                
 				              </td>
 				            </tr>
