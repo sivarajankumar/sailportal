@@ -21,11 +21,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
+
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
   
 <title><spring:message code="run.list" /></title>
+
+<script type="text/javascript" src="../../javascript/tels/general.js"></script>    
+
 <script language="JavaScript">
 
 function popup(URL, title) {
@@ -37,46 +42,52 @@ function popup(URL, title) {
 
 <body>
 
-<div id="centeredDiv">
-
 <div id="popUpWindowViewStudents">
 
-	<div id="studentchangepasswordbox">
-	
-<h2><spring:message code="batchstudentchangepassword.menu" /></h2>
+<h1>Change Passwords for ALL Students <br />in this Period</h1>
 
-<!-- Support for Spring errors object -->
-<spring:bind path="batchStudentChangePasswordParameters.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <b>
-      <br /><c:out value="${error}"/>
-    </b>
-  </c:forEach>
-</spring:bind>
+<h5>Note: This will change the password for <em>all</em> students this period, <br/>not just an individual student.</h5>
 
-	<form:form method="post" action="batchstudentchangepassword.html" commandName="batchStudentChangePasswordParameters" id="batchstudentchangepassword">
-	<div><label for="batchstudentchangepassword"><spring:message code="changepassword.password1" /></label>
-      <form:password path="passwd1" id="batchstudentchangepassword"/>
-	</div>
-	
-	<div><label for="batchstudentchangepassword"><spring:message code="changepassword.password2" /></label>
-		<form:password path="passwd2" id="batchstudentchangepassword"/>
-	</div>
+<div id="errorMessage">
+		<!-- Support for Spring errors object -->
+		<spring:bind path="batchStudentChangePasswordParameters.*">
+		  <c:forEach var="error" items="${status.errorMessages}">
+		    <br /><c:out value="${error}"/>
+		    </c:forEach>
+		</spring:bind>
+</div>
 
-    <div><input type="image" id="save" src="../../<spring:theme code="register_save" />" 
-    onmouseover="swapSaveImage('save',1)" 
-    onmouseout="swapSaveImage('save',0)"
-    />
-    <a href="index.html" onclick="javascript:window.close()"><input type="image" id="cancel" src="../../<spring:theme code="register_cancel" />" 
-    onmouseover="swapCancelImage('cancel',1)"
-    onmouseout="swapCancelImage('cancel',0)"
-    /> </a>
+<div id="studentchangepasswordbox">
+
+	<form:form method="post" action="batchstudentchangepassword.html" 
+	commandName="batchStudentChangePasswordParameters" id="batchstudentchangepassword">
+
+<dl>
+	<dt><label for="batchstudentchangepassword">Type new Password for All Students</label></dt>
+    <dd><form:password path="passwd1" size="30" id="batchstudentchangepassword"/></dd>
+
+	<dt><label for="batchstudentchangepassword">Verify New Password for All Students</label></dt>
+	<dd><form:password path="passwd2" size="30" id="batchstudentchangepassword"/></dd>
+</dl>
+
+    <div>
+    
+   <input id="savePasswordButton" type="image" src="../../<spring:theme code="register_save" />" 
+    onmouseover="swapImage('savePasswordButton','../../<spring:theme code="register_save_roll" />');" 
+    onmouseout="swapImage('savePasswordButton','../../<spring:theme code="register_save"/>');" />
+    
+    <a href="index.html" onclick="javascript:window.close()">
+    	<input type="image" id="cancelPasswordButton" src="../../<spring:theme code="register_cancel" />" 
+    	onmouseover="swapImage('cancelPasswordButton','../../<spring:theme code="register_cancel_roll" />');" 
+    	onmouseout="swapImage('cancelPasswordButton','../../<spring:theme code="register_cancel"/>');" /> </a>
+    	
     </div>
 
 </form:form>
 
 </div>
-</div>
+
+
 </div>
 
 </body>

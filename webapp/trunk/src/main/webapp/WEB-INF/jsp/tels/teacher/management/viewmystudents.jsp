@@ -52,7 +52,7 @@ function createNewWorkgroup(periodId, runId) {
   var newWorkgroupId = -1 - newGroupCount;
   var workareaDiv = document.getElementById("div_for_new_workgroups_"+periodId);
   workareaDiv.innerHTML += "<div class='workarea' id='newgroup_div_"+periodId+"_"+newWorkgroupId+"'>"
-                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>New Team (click SAVE button to save)</li></ul>"
+                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>New Team (UNSAVED. Drag student names here, then click SAVE button to confirm changes.)</li></ul>"
                           +"</div>";
                           
    // need to iterate through all of the newgroups
@@ -112,7 +112,8 @@ function createNewWorkgroup(periodId, runId) {
 		    <ul id="periodHeaderBar">
 		    	<li class="periodHeaderStart">[24] Students <span style="font-size:.8em;">(across [18 teams])</span></li>
 		    	<li><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
-		     	<li><a href="#" onclick="javascript:popup('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
+		     	<li><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
+		       	<li><a href="#" onclick="javascript:popup('#');">Help</a></li>
 		   	</ul>
 
 			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
@@ -122,10 +123,10 @@ function createNewWorkgroup(periodId, runId) {
                 <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
 			      <li class="grouplesslist" id="li_${mem.id}_groupless">
 			         ${mem.userDetails.firstname} ${mem.userDetails.lastname}
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+    			     <a href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userN`ame=${mem.userDetails.username}');">Info</a>
+    			     <a href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
+    			     <a href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
+    			     <a href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
     			     </li>
 			    </c:forEach>
 			    

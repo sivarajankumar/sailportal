@@ -98,7 +98,7 @@ function MM_swapImage() { //v3.0
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
 
-// Added my MattFish to handle Pop-Up Windows on Teacher/WISE Usage //
+// Added my MattFish to handle special Pop-Up Windows on Teacher Dashboard pages //
 
 function popupSpecial(mylink, windowname)
 		{
@@ -109,6 +109,31 @@ function popupSpecial(mylink, windowname)
 		else
 		   href=mylink.href;
 		window.open(href, windowname, 'width=850,height=600,resizable=yes,scrollbars=yes');
+		return false;
+		}
+		
+
+function popup640(mylink, windowname)
+		{
+		if (! window.focus)return true;
+		var href;
+		if (typeof(mylink) == 'string')
+		   href=mylink;
+		else
+		   href=mylink.href;
+		window.open(href, windowname, 'width=640,height=480,resizable=yes,scrollbars=yes');
+		return false;
+		}
+		
+function popup300(mylink, windowname)
+		{
+		if (! window.focus)return true;
+		var href;
+		if (typeof(mylink) == 'string')
+		   href=mylink;
+		else
+		   href=mylink.href;
+		window.open(href, windowname, 'width=300,height=300,resizable=yes,scrollbars=yes');
 		return false;
 		}
 		

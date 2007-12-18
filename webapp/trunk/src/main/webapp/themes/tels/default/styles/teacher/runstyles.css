@@ -200,29 +200,36 @@ table
 /* STYLES FOR VIEW STUDENTS: POP-UP WINDOWS  */
 
 #popUpWindowViewStudents {
-	width:600px;
-	background-image: url(../images/student/Gradient-ProjectMenu-Green-450.png);
+	width:560px;
+	background-image: url(../..//images/student/Gradient-ProjectMenu-Green-450.png);
 	background-position: center bottom;
 	background-repeat: repeat-x;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	margin: 15px 20px 20px 15px;
-	padding:15px;
+	margin: 40px auto;
+	padding:20px;
 	}
 	
+#errorMessage {
+	color:#FF0000;
+	padding:0px;
+	margin:0px;
+	font-size:1.3em;
+}
+
 #studentchangepasswordbox {
 	text-align:left;
 }
 
 #studentchangepasswordbox dt {
 	float:left;
-	vertical-align:middle;
+	vertical-align:baseline;
 	width:255px;
 	font-size:1.2em;
 	font-weight:bold;
-	padding:5px 0px;
+	padding:3px 0px;
 	margin:6px 0 0 20px; ;
 }
 
@@ -231,7 +238,7 @@ table
 	padding:5px 0px;
 	 }
 
-#changePasswordField {
+.changePasswordField {
 	font-size:1.3em;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
@@ -241,9 +248,8 @@ table
 	padding:3px;
 }
 
-#save {
-	margin-left:320px;
-
+#savePasswordButton {
+	margin-left:275px;
 }
 
 

@@ -49,10 +49,9 @@
 	<div class="helpSection">
 		<div class="helpHeader">New Users</div>
 			<ul>
-			<li><a href="http://docs.telscenter.org/display/WPSD/Guide+for+New+Users">Guide for new users</a></li>
-			<li><a href="http://docs.telscenter.org/display/WPSD/WISE+FAQ">WISE FAQ</a></li>
-			
-			<li><a href="http://docs.telscenter.org/display/WPSD/Guide+to+the+Teacher%27s+PET">Guide to the Teacher's PET</a></li>
+			<li><a href="http://docs.telscenter.org/display/WPSD/Guide+for+New+Users">Guide for New Ssers</a></li>
+			<li><a href="http://docs.telscenter.org/display/WPSD/WISE+FAQ">WISE 3.0 FAQ  (Frequently Asked Questions)</a></li>
+			<li><a href="http://docs.telscenter.org/display/WPSD/Guide+to+the+Teacher%27s+PET">Guide to the Teacher Dashboard</a></li>
 			<li><a href="guides/runGuide.php">Using WISE in your Classroom</a></li>
 			</ul>
 	</div>
