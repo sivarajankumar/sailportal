@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -192,8 +193,23 @@ public class CreateRunController extends AbstractWizardFormController {
 			break;
 		case 1:
 			// for page 2 of the wizard, display existing runs for this user
-			List<Run> existingRuns = runService.getRunList();
-			model.put("existingRunList", existingRuns);
+			List<Run> allRuns = runService.getRunList();
+			user = (User) request.getSession().getAttribute(
+					User.CURRENT_USER_SESSION_KEY);
+			
+			// this is a temporary solution to filtering out runs that the logged-in user owns.
+			// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
+			// start temporary code
+			List<Run> currentRuns = new ArrayList<Run>();
+			for (Run run : allRuns) {
+				if (run.getOwners().contains(user) &&
+						!run.isEnded()) {
+					currentRuns.add(run);
+				}
+			}
+			// end temporary code
+			
+			model.put("existingRunList", currentRuns);
 
 			// TODO HT: talk with Matt on how to set/change run name
 			try {
