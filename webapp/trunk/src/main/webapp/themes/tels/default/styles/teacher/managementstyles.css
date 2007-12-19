@@ -13,6 +13,7 @@
 	font-size:2.7em;
 	font-weight:bold;
 	font-variant:small-caps;
+	letter-spacing:1px;
 	margin:0px;
 	padding:5px 0 3px 0;
 }
@@ -58,7 +59,7 @@ thead th{
 	white-space: nowrap;
 }
 
-tr{
+tr {
 	background-color: #EAFDFF;
 	padding:6px;
 }
@@ -72,37 +73,67 @@ tbody tr:hover{
 	
 }
 
-td, th {
-	border: 1px dotted #003300;
-}
-
-td {
-	font-size:1.1em;
-	text-align:center;
+tbody tr {
+	background-color:#FFFFFF;
+	}
+	
+tbody th{
+ text-align:left;
+ padding:0;
 }
 
 tbody td{
 	padding: 1.2em;
+	font-size:1.2em;
+	text-align:center;
 }
 
-tbody th{
- text-align:left;
- padding-left:10px;
-}
 
 td a:link, td a:visited, th a:link,th a:visited {
+	display:block;
 	color: black;
 	font-size:1.6em;
 	font-weight:bold;
-	text-decoration:none;
-	border-bottom:2px dotted #9999FF;
-}
-
-td a:hover, th a:hover{
-	font-size:1.6em;
-	font-weight:bold;
-	color: #0000CC;
-	border-bottom:2px dotted #003399;
+	padding:14px 5px 14px 5px;
 	
 }
 
+td a:hover, th a:hover{
+	display:block;
+	font-size:1.6em;
+	font-weight:bold;
+	padding:14px 5px 14px 5px;
+	background-color:#CCCCFF;
+	color: #0000CC;
+	
+	
+}
+
+/*  Special Styles for the projectPickerManagement screen */
+
+#tabPicker {
+	padding-right:3px; 
+	padding-top:0px; 
+	margin-top:20px; 
+	font-size:1.3em;
+}
+
+#returnToOverviewLink {
+		text-align:center;
+		margin:20px;
+}
+
+#returnToOverviewLink a:link, #returnToOverviewLink a:visited {
+	font-size:1.3em;
+	color:#0000CC;
+	margin:0px;
+	padding: 6px;
+}
+
+#returnToOverviewLink a:hover {
+	font-size:1.3em;
+	background-color:#FFFF99;
+	color:#000066;
+	margin:0px;
+	padding: 6px;
+}

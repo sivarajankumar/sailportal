@@ -25,15 +25,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
 
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
+<script type="text/javascript" src="../../javascript/tels/general.js"></script>
 
 <title>Project Picker Screen 1</title>
 
 <!--  styles.jsp needs to be separated...right now it has a bunch of files that we don't need -->
+
 <%@ include file="../grading/styles.jsp"%>
 
 <script>
@@ -44,34 +41,38 @@
 		tabView.set('activeIndex', 0);
     }
     YAHOO.util.Event.onDOMReady(init);
-    
 </script>
+
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body class="yui-skin-sam">
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="headerteacherprojectpicker.jsp"%>
 
 <%@ include file="L2management_managestudents.jsp"%>
 
 <div id="pickerHeader">
-		<div id="mainHeader">Select a Project to Manage</div>
+		<div id="mainHeader">Select a Project</div>
 		<div id="subHeader">(click any Project Title below)</div>
 </div>
 
-<div id="tabSystem" class="yui-navset"  >
+<div id="tabSystem" class="yui-navset">
 <ul class="yui-nav">
-  <li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="Current Runs"><em>Current Runs</em></a></li>	
-  <li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="Shared Runs"><em>Shared Runs</em></a></li>	
-  <li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="Archived Runs"><em>Archived Runs</em></a></li>	
+  <li id="tabPicker"><a href="Current Runs"><em>Current Runs</em></a></li>	
+  <li id="tabPicker"><a href="Shared Runs"><em>Shared Runs</em></a></li>	
+  <li id="tabPicker"><a href="Archived Runs"><em>Archived Runs</em></a></li>	
 </ul>
-<div class="yui-content">
+<div class="yui-content" style="background-color:#FFFFFF;">
 <div>
 <div class="tableLabel">My Current Project Runs</div>
 
-<table summary="project picker screen for management area">
+<table  style="margin-bottom:40px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
 			<th style="width:50%;" scope="col">Project Title</th>
@@ -93,13 +94,14 @@
 	        <tr>
 	      </c:otherwise>
 	    </c:choose>
+	    <tr>
 			<th scope="row"><a href="viewmystudents.html?runId=${currentRun.id}">${currentRun.sdsOffering.name}</a></th>
-			<td>45345</td>
+			<td>[45345]</td>
 			<td><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></td>
-			<td>ongoing</td>
-			<td>1,2,4,6</td>
-			<td>Physics</td>
-			<td>12</td>
+			<td>[ongoing]</td>
+			<td>[1,2,4,6]</td>
+			<td>[Physics]</td>
+			<td>[12]</td>
 		</tr>
 		</c:forEach>
 	</tbody>
@@ -168,6 +170,7 @@
 	        <tr>
 	      </c:otherwise>
 	    </c:choose>
+		<tr>
 			<th scope="row"><a href="viewmystudents.html?runId=${archivedRun.id}">${archivedRun.sdsOffering.name}</a></th>
 			<td>45345</td>
 			<td><fmt:formatDate value="${archivedRun.starttime}" dateStyle="short" /></td>
@@ -183,6 +186,10 @@
 </div> <!--  end of yui-content Div -->
 
 </div> <!-- end of tabSystem Div -->
+
+<div id="returnToOverviewLink">
+	<a href="overview.html">Return to Management Overview</a>
+</div>
 
 </div>   <!--End of Centered Div-->
 
