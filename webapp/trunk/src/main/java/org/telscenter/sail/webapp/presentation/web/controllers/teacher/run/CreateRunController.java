@@ -79,7 +79,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	private static final String CANCEL_VIEW_NAME = "../../teacher/index.html";
 
 	private static final String RUN_KEY = "run";
-
+	
 	/**
 	 * Constructor
 	 *  - Specify the pages in the wizard
@@ -149,8 +149,12 @@ public class CreateRunController extends AbstractWizardFormController {
 	    				}
 	    			}
 	    			runParameters.setPeriodNames(parsedAndTrimmed);
-	    		}
-	    	} 
+	    			runParameters.setManuallyEnteredPeriods("");
+	    		} 
+	    	} else if (runParameters.getManuallyEnteredPeriods() != "") {
+    			errors.rejectValue("periodNames", "setuprun.error.notsupported", "Selecting both periods AND" +
+				" manually entering periods is not supported.");	    			
+    		}
 	    	break;
 	    case 3:
 	    	break;
