@@ -70,7 +70,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 			"Wasp", "Yak", "Snake", "Duck", "Worm", "Yeti"
 			 };
 
-	private static final int MAX_RUNCODE_DIGIT = 10000;
+	private static final int MAX_RUNCODE_DIGIT = 1000;
 
 	private RunDao<Run> runDao;
 
