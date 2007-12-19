@@ -27,10 +27,7 @@
 	<img src="../../themes/tels/default/images/WISE-Secondary-Banner-Logo.png"
 	alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
 <div id="teacherBannerLabel">
-<p><img
-	src="../../themes/tels/default/images/Teacher-Dashboard-Label.png"
-	alt="Teacher Dashboard Label" /></p>
-</div>
+	<img src="../../themes/tels/default/images/Teacher-Dashboard-Label.png"	alt="Teacher Dashboard Label" /></div>
 
 <div id="navigationMainProjects" style="margin-left:95px;">
 <ul>

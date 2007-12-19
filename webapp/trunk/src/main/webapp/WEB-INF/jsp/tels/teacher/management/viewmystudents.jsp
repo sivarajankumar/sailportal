@@ -5,10 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
 <title><spring:message code="viewmystudents.message" /></title>
@@ -21,6 +17,11 @@
 <script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script> 
 <script type="text/javascript" src="../.././javascript/tels/utils.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/teacher/management/viewmystudents.js"></script>
+
+
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <script>
     var tabView
@@ -79,9 +80,9 @@ function createNewWorkgroup(periodId, runId) {
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherviewstudents.jsp"%>
+<%@ include file="headerteachermanagement.jsp"%>
 
-<%@ include file="L2management_viewstudents.jsp"%>
+<%@ include file="L2management_managestudents.jsp"%>
 
 
 <div id="L3Label">View My Students</div> 
@@ -100,7 +101,8 @@ function createNewWorkgroup(periodId, runId) {
 		<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
 	</c:forEach>
 </ul>
-<div class="yui-content">
+<div class="yui-content" style="background-color:#FFFFFF;">
+
   <c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
 	<div><c:choose>
 		<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
@@ -122,11 +124,13 @@ function createNewWorkgroup(periodId, runId) {
 
                 <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
 			      <li class="grouplesslist" id="li_${mem.id}_groupless">
-			         ${mem.userDetails.firstname} ${mem.userDetails.lastname}
-    			     <a href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userN`ame=${mem.userDetails.username}');">Info</a>
-    			     <a href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
-    			     <a href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
-    			     <a href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+			      
+			         <span class="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
+    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userN`ame=${mem.userDetails.username}');">Info</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+    			     
     			     </li>
 			    </c:forEach>
 			    
@@ -135,15 +139,18 @@ function createNewWorkgroup(periodId, runId) {
 
             <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
               <div class="workarea" id="div_${workgroupInPeriod.id}">
-			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">   			        
+			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
 			      <li class="workgroupHeader">Team: ${workgroupInPeriod.id}</li>
+			      
 			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
+			      
 			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
-			         ${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
-    			     <a href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+			         <span class="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</span>
+    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+    			     
 			        </li>
 			      </c:forEach>
 			    </ul>

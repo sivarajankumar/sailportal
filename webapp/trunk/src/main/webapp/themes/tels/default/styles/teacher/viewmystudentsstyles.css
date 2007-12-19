@@ -79,7 +79,8 @@ ul.draglist {
     border-right: 1px solid #666666;
     border-bottom: 1px solid #666666;
     border-left: 1px solid #999999;
-    margin-bottom:10px;
+    margin-top:12px;
+    margin-bottom:12px;
     padding:0;
 }
 
@@ -102,16 +103,24 @@ ul.draglist_alt li {
 	font-weight:bold;		}
 
 li.grouplesslist {
-    font-size:1.1em;
     font-weight:bold;
     background-color: #FFCCCC;
     border: 1px solid #999999;
     }
 
+.userNameWithinView {
+	 font-size:1.2em;
+	 padding-right:10px;
+	  }
+	  
+.userLinks {
+	font-weight:normal;
+	padding:4px;
+	  }
+	
 li.grouplesslist a:active, li.grouplesslist a:visited{
-    font-size:.9em;
-    font-weight:normal;
     color: #CC0000;
+    background-color:#FFCCCC;
     padding: 2px 3px;
 }
 
@@ -127,18 +136,14 @@ li.grouplesslist a:hover{
 	font-weight:bold; 	}
 	
 li.workgrouplist {
-    font-size:1.1em;
     font-weight:bold;
     background-color: #CCFF99;
     border: 1px solid #999999;
 }
 
 li.workgrouplist a:active, li.workgrouplist a:visited{
-    font-size:.9em;
-    font-weight:normal;
     color: #009900;
     padding: 2px 3px;
-
 }
 
 li.workgrouplist a:hover{

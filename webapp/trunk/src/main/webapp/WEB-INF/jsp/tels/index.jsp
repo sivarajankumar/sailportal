@@ -96,8 +96,8 @@
 					</div>
                     
                     <div id="welcomeBullet5" style="display:none;"> 
-          			<div class="welcomeBulletHeader">Visualization Models</div>
-		  			<p>Many WISE projects incorporate interactive visualization models that help make micro and macro scientific 
+          			<div class="welcomeBulletHeader">Interactive Models</div>
+		  			<p>Many WISE projects incorporate interactive models that help make micro and macro scientific 
 		  			concepts both visible and testable.  Students experience the core processes of the scientific method 
 		  			as they form hypotheses, test them, analyze results, refine ideas, and retest.</p>
                     </div>

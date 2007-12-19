@@ -181,13 +181,13 @@ YAHOO.util.Event.onDOMReady(init);
 
 <dl id="list2">
 	<dt class="listTitle2">Current Time:</dt>
-	<dd id="currentSignIn">[Tues Nov. 24, 3:05pm]</dd>
+	<dd id="currentSignIn">[11/24/2007, 3:05pm]</dd>
 	<dt class="listTitle2">Last Sign In:</dt>
-	<dd id="lastSignIn">[${user.userDetails.lastLoginTime}]</dd>
+	<dd id="lastSignIn">${user.userDetails.lastLoginTime}</dd>
 	<dt class="listTitle2"># of Logins:</dt>
-	<dd id="numberOfLogins">[${user.userDetails.numberOfLogins}]</dd>
+	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
 	<dt class="listTitle2">Language:</dt> 
-	<dd id="language">[English]</dd>
+	<dd id="language">English</dd>
 </dl>
 
 <div class="separator"></div>

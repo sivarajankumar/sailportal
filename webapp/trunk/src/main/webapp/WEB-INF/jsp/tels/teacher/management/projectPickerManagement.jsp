@@ -53,7 +53,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojectpicker.jsp"%>
+<%@ include file="headerteachermanagement.jsp"%>
 
 <%@ include file="L2management_managestudents.jsp"%>
 
