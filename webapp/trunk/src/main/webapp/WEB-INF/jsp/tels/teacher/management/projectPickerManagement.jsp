@@ -32,9 +32,23 @@
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
 <title>Project Picker Screen 1</title>
+
+<!--  styles.jsp needs to be separated...right now it has a bunch of files that we don't need -->
+<%@ include file="../grading/styles.jsp"%>
+
+<script>
+// this is for the tabView
+    var tabView
+	function init() {
+   		tabView = new YAHOO.widget.TabView('tabSystem');
+		tabView.set('activeIndex', 0);
+    }
+    YAHOO.util.Event.onDOMReady(init);
+    
+</script>
 </head>
 
-<body>
+<body class="yui-skin-sam">
 
 <div id="centeredDiv">
 
@@ -47,6 +61,14 @@
 		<div id="subHeader">(click any Project Title below)</div>
 </div>
 
+<div id="tabSystem" class="yui-navset"  >
+<ul class="yui-nav">
+  <li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="Current Runs"><em>Current Runs</em></a></li>	
+  <li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="Shared Runs"><em>Shared Runs</em></a></li>	
+  <li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="Archived Runs"><em>Archived Runs</em></a></li>	
+</ul>
+<div class="yui-content">
+<div>
 <div class="tableLabel">My Current Project Runs</div>
 
 <table summary="project picker screen for management area">
@@ -82,7 +104,8 @@
 		</c:forEach>
 	</tbody>
 </table>
-
+</div>
+<div>
 <div class="tableLabel">My Shared Runs</div>
 
 <table summary="project picker screen for management area">
@@ -118,7 +141,9 @@
 		</tr>
 	</tbody>
 </table>
+</div>
 
+<div>
 <div class="tableLabel">My Archived Project Runs</div>
 
 <table summary="project picker screen for management area">
@@ -154,8 +179,10 @@
 		</c:forEach>
 	</tbody>
 </table>
+</div>
+</div> <!--  end of yui-content Div -->
 
-
+</div> <!-- end of tabSystem Div -->
 
 </div>   <!--End of Centered Div-->
 
