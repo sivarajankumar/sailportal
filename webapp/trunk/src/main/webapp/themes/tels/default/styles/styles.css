@@ -462,7 +462,8 @@ a:hover {
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	margin-left:3px;
+	margin-left:6px;
+	margin-right:10px;
 	padding:3px;
 }
 
@@ -674,6 +675,7 @@ a:hover {
 	width:70%;
 	font-size:1.4em;
 	padding:35px 0 50px 0;
+	line-height:170%;
 	}
 	
 #boxSecondary {

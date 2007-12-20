@@ -23,58 +23,53 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />    
+
+<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+    
 <script type="text/javascript" src="../../javascript/general.js"></script>	
-<title>Forgot username - student</title>
+
+<title>Student - Forgot Username/title>
+
 </head>
 
 <body>
-<h2 class="center"> FORGOTTEN USERNAME</h2>
-<h1 class="center"> STUDENT </h1>
 
+<div id="centeredDiv">
+    	
+<%@ include file="headermain.jsp"%>
 
-<div align="center"> 
-<ul id="forgotusernamelist">
-<li>
-<b>Forgot your UserName?</b>
-</li>
-<li>
-Recall that a username consists of your first name, initial of last
-name, month of birth, and day of birth.
-</li>
-<li>
-Example: A user named Jane Doe with a birthday on March 24
-will generally have the username JaneD324.
-</li>
-<br /><br />
-<li>
-If this doesn't help you recall your Username, try one of the following: 
-</li>
-</ul>
-
-</div>
-
+<div id="lostTitleBar"><h1 class="blueText">Student Lost Username/Password</h1></div>
+    	
 <div align="center">
 
-<div id="forgotusernamesuggestions" align="center">
-<ol>
-<li>
-You can always ask your teacher for help
-looking up your Username and Password.
-</li>
-<li>
-Or if you know your Project Code you can find
-your Username in the list of student names for
-that project by <a href="enterprojectcode.html">clicking here.</a>
-</li>
-</ol>
+	<br/>
+	<h1>Forgot your UserName?</h1>
+	
+	<ul id="forgotusernamelist">
+		<li>Your Username consists of your first name, initial of last name, month of birth, and day of birth.</li>
+		<li>For example, a user named Jane Doe with a birthday on March 24 will generally have the username "JaneD324"</li>
+	</ul>
+	
+	
+	<h4>If this doesn't help you recall your Username, try one of the following: </h4>
+	
+	<div id="forgotusernamesuggestions">
+	<ol>
+		<li>If you know your Project Code you can use it to <b><a href="enterprojectcode.html">Run a Search for your Username</a></b>.</li>
+		<li>Or simply ask your teacher for help finding your Username and Password. Hooray for teachers!</li>
+	</ol>
+	</div>
+	
+	<br /><br /> <br />
+	<div><a href="../../index.html"> <img id="return"
+				src="../../<spring:theme code="return_to_homepage" />"
+				onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
+				onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" /></a></div>
 
 </div>
-<br />
-<a align="center" href="../../index.html"> Return to Sign In</a>
 
-</div>
+</div>          <!--END OF CENTERED DIV-->
 
 </body>
 </html>

@@ -23,60 +23,57 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />    
+
+<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 <script type="text/javascript" src="../../javascript/general.js"></script>	
-<title>Enter project code - student</title>
+
+<title>Student - Search for Username via Project Code</title>
+
 </head>
 
 <body>
 
-<h2 class="center"> LOST USERNAME/PASSWORD</h2>
-<h1 class="center"> STUDENT </h1>
-<h2 class="center">Search Usernames in a Project Run </h2><br />
+<div id="centeredDiv">
+    	
+<%@ include file="headermain.jsp"%>
 
-<div>
-<!-- Support for Spring errors object -->
-<spring:bind path="reminderParameters.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <b>
-      <br /><c:out value="${error}"/>
-    </b>
-  </c:forEach>
-</spring:bind>
-</div>
-
-<div align="center"> 
-
-<b>Fill in the information below</b><br />
-(you can get this information from your teacher)
-
-</div>
-
-
-<form id="projectCode" name="projectCode" method="post" commandName="reminderParameters">
-<div align="center">
-<label for="send_projectcode"><b><spring:message code="lostpassword.student.projectcode"/></b></label>
- <input type="text" name="projectCode" id="projectCode" tabindex="1" />
+<div id="lostTitleBar"><h1 class="blueText">Student Lost Username/Password</h1></div>
   
-   <div id="waiting" style="display: none">
-       <div><img src="<spring:theme code="wait"/>" alt="<spring:message code="wise.banner.alttext" />" /></div>
-     </div>
-
-     <input id="search" type="submit" tabindex="3" value="<spring:message code="lostpassword.teacher.submitpassword" />" 
-      onclick="Effect.toggle('waiting', 'appear')" />
-  </div>    
-</form>
-<br />
 <div align="center">
-<a href="../../index.html">Return to Sign In</a>
-</div>
-<!--
-<img id="search" name="search" src="" width="380" height="61" alt="search" style="background-color: #999900">
-<a href="#" ><img id="signIn3" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
-onmouseover="swapImage('signIn3','../../images/Sign-in-New-Account-Roll.png');"
-onmouseout="swapImage('signIn3','../../images/Sign-in-New-Account.png');"
-></a>
--->
+  	
+  	<br /> 
+	<h1>Run a Search for Your Username</h1>
+
+	<h4>Fill in your Project Code below (get this from your teacher if needed), then click the Search button.</h4>
+	
+	<br />  
+	<div id="errorMessageFormat">
+			<!-- Support for Spring errors object -->
+			<spring:bind path="reminderParameters.*">
+			  	<c:forEach var="error" items="${status.errorMessages}">
+			    	<b><br /><c:out value="${error}"/></b>
+				  </c:forEach>
+			</spring:bind>
+	</div>
+	
+	<form name="projectCode" method="post" commandName="reminderParameters">
+			<label id="projectCodeLabel" for="send_projectcode">Project Code:</label>
+ 			<input type="text" name="projectCode" id="projectCode" />
+    	 	<input type="submit" value="Search"/>
+ 
+		</form>
+	
+		<br/><br/><br/><br/><br/><br/><br/>
+		<a href="../../index.html"> 
+		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
+		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
+		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" /></a>
+	
+<div>
+
+</div>   <!--END OF CENTERED DIV-->
+
 </body>
 </html>

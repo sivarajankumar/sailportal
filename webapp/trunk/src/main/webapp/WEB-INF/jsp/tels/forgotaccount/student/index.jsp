@@ -41,18 +41,19 @@
 <%@ include file="headermain.jsp"%>
 
 <div id="lostTitleBar">
-    	<h1 class="blueText">Student Lost Username/Password</h1></div>
+  	<h1 class="blueText">Student Lost Username/Password</h1>
+</div>
     	
- 
+<br /> <br /> 
 <div align="center">
-		<h2>What have you forgotten?</h2>
+		<h2>What have you forgotten?</h2> <br/>
 		<h1><a href="username.html">Forgot My Username</a></h1>
 		<p align="center">OR</p>
 		<h1><a href="password.html">Forgot My Password</a></h1>
 		
 		<div id="forgotparagraph">
-		If you've forgotten your Username and Password (hey, it happens to the
-		best of us), first follow the Username link, then follow the Password link. </div>
+		If you've forgotten your Username AND your Password (hey, it happens to the
+		best of us), <br/>first follow the <em>Forgot My Username</em> link, then follow the <em>Forgot My Password</em> link. </div>
 
 
 		<div><a href="../../index.html"> <img id="return"
