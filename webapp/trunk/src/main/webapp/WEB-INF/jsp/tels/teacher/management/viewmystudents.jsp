@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
 <title><spring:message code="viewmystudents.message" /></title>
@@ -38,7 +41,7 @@
         var handleSuccess = function(o){
 
 	if(o.responseText !== undefined){
-	   setTimeout("window.location.reload()", 2000);
+	   setTimeout("window.location.reload()", 500);
 	}
 }
 
@@ -77,6 +80,56 @@ function createNewWorkgroup(periodId, runId) {
 </head>
 
 <body class="yui-skin-sam">
+
+<script type="text/javascript">
+
+    YAHOO.namespace("example.container");
+
+    function initLoading() {
+
+        if (!YAHOO.example.container.wait) {
+
+            // Initialize the temporary Panel to display while waiting for external content to load
+
+            YAHOO.example.container.wait = 
+                    new YAHOO.widget.Panel("wait",  
+                                                    { width: "240px", 
+                                                      fixedcenter: true, 
+                                                      close: false, 
+                                                      draggable: false, 
+                                                      zindex:4,
+                                                      modal: true,
+                                                      visible: false
+                                                    } 
+                                                );
+    
+            YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setBody("<img src=\"http://us.i1.yimg.com/us.yimg.com/i/us/per/gr/gp/rel_interstitial_loading.gif\"/>");
+            YAHOO.example.container.wait.render(document.body);
+
+        }
+
+        // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
+        var callback = {
+            success : function(o) {
+                YAHOO.example.container.wait.hide();
+            },
+            failure : function(o) {
+                YAHOO.example.container.wait.hide();
+            }
+        }
+    
+        // Show the Panel
+        YAHOO.example.container.wait.show();
+        
+    }
+    
+    <c:forEach var="viewmystudentsperiod" items="${viewmystudentsallperiods}" >
+          YAHOO.util.Event.on("saveButton_${viewmystudentsperiod.period.id}", "click", initLoading);
+    </c:forEach>
+		
+</script>
+
 
 <div id="centeredDiv">
 
