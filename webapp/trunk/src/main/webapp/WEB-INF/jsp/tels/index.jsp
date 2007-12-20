@@ -31,8 +31,8 @@
 
 
 <script src="./javascript/tels/general.js" 			type="text/javascript"> </script>
-<script src="./javascript/tels/effects.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/prototype.js" 		type="text/javascript"> </script>
+<script src="./javascript/tels/effects.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/scriptaculous.js" 	type="text/javascript"> </script>
 <script src="./javascript/tels/rotator.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/rotatorT.js" 		type="text/javascript"> </script>
