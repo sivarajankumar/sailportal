@@ -1,7 +1,7 @@
 <!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> -->
 <!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> -->
 <!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/base/base-min.css"> -->
-<!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/fonts/fonts-min.css"> -->
+<!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/fonts/fonts-min.css"> -->  
 <!-- -->
 
 <!--CSS for Controls:--> 
