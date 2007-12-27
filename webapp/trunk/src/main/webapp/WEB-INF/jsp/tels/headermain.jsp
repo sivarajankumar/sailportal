@@ -14,6 +14,7 @@
      <authz:authorize ifAllGranted="ROLE_USER">
 	   <div id="usernameBannerHome"><authz:authentication operation="username" /></div>
 	   <div id="signOutBannerHome"><%@ include file="logout.jsp"%></div>
+	   <div id="signOutBannerHome"><a href="#">Home Page</a></div>
      </authz:authorize>
   </div>
 </div>
