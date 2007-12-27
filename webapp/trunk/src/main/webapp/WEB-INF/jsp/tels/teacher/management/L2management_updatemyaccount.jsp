@@ -19,18 +19,18 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
-<div id="navigationL2ViewStudents" >
+<div id="navigationL2" class="projectL2">
 
 	<ul>
 		<li >
-			<a href="overview.html">Overview</a> </li>
+			<a href="../management/overview.html">Overview</a> </li>
        	<li>
-			<a class="navigationL2_management_highlight" href="managemystudents.html">Manage My Students</a> </li>
+			<a href="../management/managemystudents.html">Manage My Students</a> </li>
 		<li>
 			<a style="color:#999999;" href="#">Class Monitor</a> </li>
 		<li>
-			<a style="color:#999999;" href="#">Exports & Reports</a> </li>
+			<a style="color:#999999;" href="#">Exports and Reports</a> </li>
 		<li>
-			<a href="../management/updatemyaccount.html">Update My Account</a> </li>
+			<a class="navigationL2_management_highlight" href="../management/updatemyaccount.html">Update My Account</a> </li>
    </ul>
 </div>	

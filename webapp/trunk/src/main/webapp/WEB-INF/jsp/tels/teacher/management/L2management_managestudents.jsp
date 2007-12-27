@@ -31,6 +31,6 @@
 		<li>
 			<a style="color:#999999;" href="#">Exports & Reports</a> </li>
 		<li>
-			<a style="color:#999999;" href="#">Update My Account</a> </li>
+			<a href="../management/updatemyaccount.html">Update My Account</a> </li>
    </ul>
 </div>	

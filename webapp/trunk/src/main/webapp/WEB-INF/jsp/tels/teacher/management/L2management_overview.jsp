@@ -23,14 +23,14 @@
 
 	<ul>
 		<li >
-			<a  class="navigationL2_management_highlight" href="#">Overview</a> </li>
+			<a class="navigationL2_management_highlight" href="#">Overview</a> </li>
        	<li>
 			<a href="managemystudents.html">Manage My Students</a> </li>
 		<li>
-			<a style="color:#999999;" href="index.html"">Class Monitor</a> </li>
+			<a style="color:#999999;" href="#">Class Monitor</a> </li>
 		<li>
-			<a style="color:#999999;" href="index.html">Exports & Reports</a> </li>
+			<a style="color:#999999;" href="#">Exports & Reports</a> </li>
 		<li>
-			<a style="color:#999999;" href="index.html">Update My Account</a> </li>
+			<a href="../management/updatemyaccount.html">Update My Account</a> </li>
    </ul>
 </div>	

@@ -58,7 +58,7 @@
 			<td class="link"><a style="color:#999999;" href="#">Exports & Reports</a></td>
 			<td class="description">Export student work as spreadsheet, print student work, print final grades.</td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;"href="#">Update My Account</a></td>
+			<td class="link"><a href="updatemyaccount.html">Update My Account</a></td>
 			<td class="description">Update your personal WISE account information.</td></tr>
 	</table>
 	
