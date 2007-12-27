@@ -31,7 +31,7 @@
 	</ul>
 </div>
 
-<form:form method="post" action="registerteacher.html" id="contactWISEForm"  >  
+<form:form method="post" action="contactwiseconfirm.html" id="contactWISEForm"  >  
   <dl>
   
   	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
