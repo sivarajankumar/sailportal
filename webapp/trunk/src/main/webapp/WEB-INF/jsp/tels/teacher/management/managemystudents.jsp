@@ -51,11 +51,12 @@
 			<td class="description">View a list of all your current (and archived) students. Change student
 passwords, student teams, class period assignments, and more.</td></tr>
 		<tr>
-			<td class="link"><a href="../run/myprojectruns.html">View Student Project Codes</a></td>
-			<td class="description">Quick link to the <em>Projects: My Project Runs</em> section. Displays the Project Code you will give out to students per class period.</td></tr>
-		<tr>
 			<td class="link"><a style="color:#999999;" href="#">Manage Extra Teachers</a></td>
 			<td class="description">Allow other teachers or assistants to view, grade, and manage your Project Runs.</td></tr>
+		<tr>
+			<td class="link"><a href="../run/myprojectruns.html">View Student Project Codes</a></td>
+			<td class="description">Links over to the <em>Projects: My Project Runs</em> section. Displays the Project Code you will give out to students per class period.</td></tr>
+
 		
 	</table>
 	

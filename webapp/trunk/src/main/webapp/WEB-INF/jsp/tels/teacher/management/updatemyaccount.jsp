@@ -53,14 +53,14 @@
 			<td class="link"><a href="#">Change My Password</a></td>
 			<td class="description">Change your WISE 3.0 password.</td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Update My Account Settings</a></td>
-			<td class="description">Edit general settings for your WISE 3.0 account.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#">Update Registration Info.</a></td>
+			<td class="description">Edit your email or other registration information.</td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Update Teacher Dashboard Preferences</a></td>
-			<td class="description">Edit the preferences entered when your first created your account.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#">Update Dashboard Prefs.</a></td>
+			<td class="description">Edit the preferences set when you first created your account.</td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#">Change Display Language</a></td>
-			<td class="description">Change the language displayed in the Teacher Dashboard interface.</td></tr>
+			<td class="description">Change the language displayed in the Teacher Dashboard.</td></tr>
 		
 	</table>
 	
