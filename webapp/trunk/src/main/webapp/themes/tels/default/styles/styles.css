@@ -557,7 +557,7 @@ a:hover {
 #pageTitle {
 	clear:both;
 	text-align:center;
-	width:85%;
+	width:800px;
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
@@ -569,7 +569,7 @@ a:hover {
 		}
 	
 #pageSubtitle {
-	width:85%;
+	width:800px;
 	text-align:center;
 	margin: 15px auto;
 	padding: 0px;
@@ -577,10 +577,21 @@ a:hover {
 	font-weight: bold;	
 		}
 		
+#pageSubtitleConfirm {
+	width:800px;
+	text-align:center;
+	margin: 15px auto;
+	font-size: 2.0em;
+	font-weight: bold;	
+	border: 1px solid #000000;
+	padding: 40px 10px;
+	line-height:170%;
+			}
+		
 #pageSubtitleLevel2 {
 	text-align:left;
 	margin-left:65px;
-	width:85%;
+	width:800px;
 	margin-bottom:10px;
 	margin-top: 10px;
 	padding: 0px;
