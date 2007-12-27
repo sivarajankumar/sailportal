@@ -33,6 +33,10 @@
 
 <%@ include file="../grading/styles.jsp"%>
 
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
 <script>
 // this is for the tabView
     var tabView
@@ -42,10 +46,6 @@
     }
     YAHOO.util.Event.onDOMReady(init);
 </script>
-
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -72,7 +72,7 @@
 <div>
 <div class="tableLabel">My Current Project Runs</div>
 
-<table  style="margin-bottom:40px;" summary="project picker screen for management area">
+<table style="margin-bottom:40px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
 			<th style="width:50%;" scope="col">Project Title</th>
@@ -187,7 +187,7 @@
 
 </div> <!-- end of tabSystem Div -->
 
-<div id="returnToOverviewLink">
+<div id="returnToTopLink">
 	<a href="../management/managemystudents.html">Return to <em>Manage My Students</em> Section</a>
 </div>
 

@@ -1,8 +1,9 @@
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/base/base-min.css"> 
-<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/fonts/fonts-min.css"> 
- 
+<!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> -->
+<!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/reset/reset-min.css"> -->
+<!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/base/base-min.css"> -->
+<!--<link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/fonts/fonts-min.css"> -->
+<!-- -->
+
 <!--CSS for Controls:--> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/container/assets/skins/sam/container.css"> 
 <link rel="stylesheet" type="text/css" href="../.././javascript/tels/yui/menu/assets/skins/sam/menu.css"> 
