@@ -186,9 +186,62 @@ img#none{
 	vertical-align:middle;
 }
 
-
-
-
 .clearFloat {clear:both;}
+
+
+/* STYLES FOR TEACHER CHANGE PASSWORD  */
+
+#popUpWindowTeacherPassword {
+	width:550px;
+	background-image: url(../../images/student/Gradient-ProjectMenu-Green-450.png);
+	background-position: center bottom;
+	background-repeat: repeat-x;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin: 30px auto;
+	padding:0px;
+	}
+	
+#teacherchangepasswordbox {
+	text-align:left;
+}
+
+#teacherchangepasswordbox dt {
+	float:left;
+	vertical-align:middle;
+	width:285px;
+	font-size:1.3em;
+	font-weight:bold;
+	padding:5px 0px;
+	margin:5px 0 0 20px; ;
+}
+
+#teacherchangepasswordbox dd {
+	margin:0px;
+	padding:5px 0px;
+	 }
+
+#teacherchangePasswordField {
+	font-size:1.4em;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin:0 0 0 10px;
+	padding:3px;
+}
+
+#teacherPasswordButtons {
+	margin: 30px auto 20px auto;
+	text-align:center;
+}
+
+#teachersave, #teachercancel {
+	padding-right:5px;
+}
+
+	
 
 

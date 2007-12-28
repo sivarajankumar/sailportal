@@ -167,7 +167,7 @@
 			<li class="inactivecolor">Export All Work for Period</li>
 			<li class="inactivecolor">Print All Work for Student</li>
 			<li class="inactivecolor">Print All Work for Student</li>
-			<li class="inactivecolor">Update My Account</li>
+			<li><a href="./management/updatemyaccount.html">Update My Account</a></li>
 		</ul>
 	</div>
 	
