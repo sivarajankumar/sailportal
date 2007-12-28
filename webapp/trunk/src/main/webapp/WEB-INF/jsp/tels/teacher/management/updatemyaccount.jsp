@@ -50,7 +50,7 @@
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="#">Change My Password</a></td>
+			<td class="link"><a href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${user.userDetails.username}');">Change My Password</a></td>
 			<td class="description">Change your WISE 3.0 password.</td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#">Update Registration Info.</a></td>

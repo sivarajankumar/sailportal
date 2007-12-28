@@ -20,8 +20,7 @@
 
 </head>
 <body>
-
-<h2><spring:message code="changestudentpassword.menu" /></h2>
+<h2>Change Password</h2>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="changeStudentPasswordParameters.*">

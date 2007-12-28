@@ -179,7 +179,7 @@ function createNewWorkgroup(periodId, runId) {
 			      <li class="grouplesslist" id="li_${mem.id}_groupless">
 			      
 			         <span class="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
-    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userN`ame=${mem.userDetails.username}');">Info</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
@@ -199,10 +199,10 @@ function createNewWorkgroup(periodId, runId) {
 			      
 			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
 			         <span class="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</span>
-    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Info</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Period</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Detach</a>
     			     
 			        </li>
 			      </c:forEach>
