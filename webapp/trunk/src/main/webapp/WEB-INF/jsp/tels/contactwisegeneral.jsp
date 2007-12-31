@@ -27,7 +27,7 @@
 <div id="pageSubtitleLevel2">
 	<ul>
 		<li>If you're encountering an error message please include its full text in the <em>Detailed Description</em> box below.</li>
-		<li>If you're experiencing broken links or other problems on web pages, please provide a URL link to the location in question.</li>
+		<li>If you're experiencing broken links or other web page problems, please indicate the URL address for the problem page.</li>
 	</ul>
 </div>
 

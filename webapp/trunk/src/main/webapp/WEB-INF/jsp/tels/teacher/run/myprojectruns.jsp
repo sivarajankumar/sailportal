@@ -49,7 +49,7 @@
 
 
 <div id="tabSystem" class="yui-navset">
-    <ul style="font-weight:bold; font-size:1.1em;" class="yui-nav">
+    <ul style="font-weight:bold; font-size:1.2em; letter-spacing:1px;" class="yui-nav">
         <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
         <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
     </ul>            
@@ -60,9 +60,9 @@
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:50%;" class="tableHeaderMain">Current Project Runs</th>
+				       <th style="width:48%;" class="tableHeaderMain">Current Project Runs</th>
 				       <th style="width:34%;" class="tableHeaderMain">Run Information</th>      
-				      <th  style="width:16%;" class="tableHeaderMain">Actions</th>
+				      <th  style="width:18%;" class="tableHeaderMain">Actions</th>
 				    </tr>
 				  <c:forEach var="run" items="${current_run_list}">
 				  
@@ -115,9 +115,9 @@
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:50%;" class="tableHeaderMain archive">Archived Project Runs</th>
+				       <th style="width:48%;" class="tableHeaderMain archive">Archived Project Runs</th>
 				       <th style="width:34%;" class="tableHeaderMain archive">Run Information</th>      
-				       <th style="width:16%;" class="tableHeaderMain archive">Actions</th>
+				       <th style="width:18%;" class="tableHeaderMain archive">Actions</th>
 				    </tr>
 				  <c:forEach var="run" items="${ended_run_list}">
 				  
@@ -150,7 +150,7 @@
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
 					    	<li><a style="color:#cccccc;" href="#">View Project Info</a></li>
-					    	<li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')">Restore to Current Run</a></li>
+					    	<li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')">Move to Current Runs</a></li>
 					    	<li><a style="color:#cccccc;" href="#">View Students</a></li>
 					    	<li><a style="color:#cccccc;" href="#">View Student Work</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Report a Problem</a></li>

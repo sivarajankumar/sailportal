@@ -2,14 +2,14 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-    
-<script type="text/javascript" src="./javascript/tels/rotator.js"></script>
-    
+
+<script src="./javascript/tels/general.js" type="text/javascript"> </script>
+
 <title>Contact WISE: Project Issues</title>
 </head>
 
@@ -17,8 +17,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headermain.jsp"%>
-
+<%@ include file="headermain_nousername.jsp"%>
 
 <div id="pageTitle">Contact WISE: Project Issues</div>
      
@@ -28,7 +27,7 @@
 	<ul>
 		<li>Please report the ACTIVITY and STEP numbers where problems occur.</li>
 		<li>If you're encountering an error message please include its full text in the <em>Detailed Description</em> box below.</li>
-		<li>If you're experiencing broken links or other problems on web pages, please provide a URL link to the location in question.</li>
+		<li>If you're experiencing broken links or other web page problems, please indicate the URL address for the problem page.</li>
 		<li>To report a more general problem (not specific to a project) click <a href="./contactwisegeneral.html">Contact WISE: General Issues</a>.</li>
 		
 	</ul>
@@ -88,18 +87,17 @@
 	<dd style="color:#3333CC;"><input id="summaryContact" size="50" tabindex="6"/></dd>
 	
 	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span>Detailed Description</label></dt>
-	<dd><textarea name="descriptionContact" id="descriptionContact" tabindex="7" rows="8" cols="65"></textarea></dd>
+	<dd><textarea name="descriptionContact" id="descriptionContact" tabindex="7" rows="6" cols="72"></textarea></dd>
       
      </dl>    
      <div id="asterixWarning">Items marked with <span style="font-size:1.1em; font-weight:bold;">*</span> are required.</div>  
         
     <div align="center"><input type="submit" id="sendMessageButton" value="Send Message" ></input>
        
-
-           
+</div>
 </form:form>
 
-
+<h5 align="center"><a href="index.html">Return to WISE Home Page</a></h5>
 
 </div>   <!--End of the CenteredDiv -->
 

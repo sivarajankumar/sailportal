@@ -43,10 +43,6 @@ abbr, acronym {
 	margin-left: auto;
 	}
 	
-a:hover {
-	color:#990099;
-	}
-
 .center {text-align:center;}
 
 #wiseLogo {
@@ -99,7 +95,7 @@ a:hover {
 	color:#FFFFCC;
 	font-style:italic;
 	font-weight:bold;
-	font-size:1.4em;
+	font-size:16px;
 	margin-bottom:3px;
 }
 
@@ -795,5 +791,7 @@ a:hover {
 	background-image:none;
 	text-decoration:none;
 	}
+	
+	
 
 	

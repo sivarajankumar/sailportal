@@ -129,14 +129,14 @@ table
 	font-size:1.3em;
 	color:#0033CC;
 	margin:0px;
-	padding:0px 2px 1px 4px;
+	padding:0px 2px 1px 6px;
 	border-top:1px solid #ffffff;
 	border-bottom:1px solid #ffffff;
 }
 
 #actionList a:hover {
 	display:block;
-	padding:0px 2px 1px 4px;
+	padding:0px 2px 1px 6px;
 	font-size:1.3em;
 	color:#000066;
 	background-color:#ffff33;
