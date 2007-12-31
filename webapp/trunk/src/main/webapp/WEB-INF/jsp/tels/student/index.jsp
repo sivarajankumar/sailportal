@@ -167,27 +167,48 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="centeredDiv">
 
 <%@ include file="./studentHeader.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.util.*" %>
 
 <div id="columnButtons">
 
 <dl id="list1" >
 	<dt class="listTitle1">User:</dt>
-	<dd id="studentUsername">[Jimmy Slotta!] </dd>
+	<dd id="studentUsername">${user.userDetails.firstname} ${user.userDetails.lastname} </dd>
 	<dt class="listTitle1">Msg:</dt>
-	<dd id="studentWelcome">[Good Morning!] </dd>
+	<dd id="studentWelcome">
+	<c:set var="current_date" value="<%= new java.util.Date() %>" />
+	<c:choose>
+        <c:when test="${current_date eq user.userDetails.birthday}" >
+            Happy Birthday!
+        </c:when>
+        <c:when test="${(current_date.hours>=3) && (today.hours<12)}" >
+            Good morning!
+        </c:when>
+        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
+			Good afternoon!	
+        </c:when>
+        <c:otherwise>
+			Hello Night Owl!
+        </c:otherwise>
+    </c:choose>
+	</dd>
 </dl>
 
 <div class="separator"></div>
 
 <dl id="list2">
 	<dt class="listTitle2">Current Time:</dt>
-	<dd id="currentSignIn">[11/24/2007, 3:05pm]</dd>
+	<dd id="currentSignIn"><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
 	<dt class="listTitle2">Last Sign In:</dt>
-	<dd id="lastSignIn">${user.userDetails.lastLoginTime}</dd>
+	<dd id="lastSignIn">
+		<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
+			type="both" dateStyle="short" timeStyle="short" />
+	</dd>
 	<dt class="listTitle2"># of Logins:</dt>
 	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
 	<dt class="listTitle2">Language:</dt> 
-	<dd id="language">English</dd>
+	<dd id="language">[English]</dd>
 </dl>
 
 <div class="separator"></div>

@@ -65,6 +65,8 @@ public class StudentIndexController extends AbstractController {
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 	
 	private static final String VIEW_NAME = "student/index";
+	
+	private final static String CURRENT_DATE = "current_date";
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
 
@@ -112,6 +114,7 @@ public class StudentIndexController extends AbstractController {
 		modelAndView.addObject(CURRENT_STUDENTRUNINFO_LIST_KEY, current_run_list);
 		modelAndView.addObject(ENDED_STUDENTRUNINFO_LIST_KEY, ended_run_list);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
+		modelAndView.addObject(CURRENT_DATE, null);
 
         return modelAndView;
 	}
