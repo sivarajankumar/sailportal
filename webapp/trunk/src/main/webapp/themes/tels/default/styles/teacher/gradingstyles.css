@@ -78,6 +78,23 @@
 	font-variant:small-caps;
 	}	
 	
+#selectAnotherLink a:link, #selectAnotherLink a:visited {
+	font-size: .6em;
+	background-color:#FFFFFF;
+	margin-left:12px;
+	padding:2px;
+	font-weight:normal;
+	font-variant:normal;
+}
+
+#selectAnotherLink a:hover  {
+	font-size: .6em;
+	background-color:#FFFF33;
+	color:#000033;
+	margin-left:12px;
+	padding:2px;
+	}
+			
 #gradeStepInstructions {
 	font-size:1.5em;
 	font-style:italic;
@@ -89,18 +106,19 @@
 	
 #stepSelectionList li {
 	list-style:circle;
-	font-size:1.3em;
+	font-size:1.4em;
 	margin:3px 0 3px 0;
 }
 
 #stepSelectionList a:link, #stepSelectionList a:visited {
 	background-color:#FFFFFF;
-	padding:1px 0 1px 0;
-}
+	padding:2px;
+	}
 
 #stepSelectionList a:hover  {
-	background-color:#FFFF66;
-	padding:1px 0 1px 0;
+	background-color:#FFFF33;
+	color:#000033;
+	padding:2px;	
 	}
 	
 	

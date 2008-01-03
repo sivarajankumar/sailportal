@@ -46,12 +46,14 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
+<br />
+
 <div id="overviewHeaderGrading">Grade By Step</div>
 
 <div id="gradeStepSelectionArea">
 
 <div>
-	<div id="gradeStepSelectedProject">${curnitMap.project.title} <span><a href="#">change project</a></div>
+	<div id="gradeStepSelectedProject">${curnitMap.project.title} <span id="selectAnotherLink"><a href="projectPickerGrading.html">select another project</a></div>
 
 	<div id="gradeStepInstructions">Select a step to grade below</div>
 		
