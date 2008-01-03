@@ -72,17 +72,17 @@ table tr, table td {
 }
 
 #studentUsername {
-	vertical-align:bottom;
 	font-weight:bold;
-	font-size: 1.4em;
+	font-size: 1.2em;
+	text-transform:uppercase;
 	padding-left:10px;
 	margin-left:0px;
 	}
 
 #studentWelcome {
 	font-weight:bold;
-	font-size: 1em;
-	margin:0;
+	font-size: 1.1em;
+	margin:1px 0 0 0;
 }
 
 #list2 {
@@ -101,7 +101,7 @@ table tr, table td {
 }
 
 #list2 dd{
-	font-size: .9em;
+	font-size: 1.0em;
 	font-weight:bold;
 	margin:0;
 }
@@ -155,6 +155,11 @@ table tr, table td {
 	border-right:2px solid black;
 	border-bottom:2px solid black;
 	border-left:1px solid black;
+	padding:0px;
+	} 
+	
+#secondaryRowTightFormat {
+	padding:3px 5px;
 	} 
 	
 #projectMainRow{
@@ -171,7 +176,7 @@ table tr, table td {
 
 .studentTableLeftHeaderCurrent {
 	font-size:1.0em;
-	width:10%;
+	width:11%;
 	padding: 0px 5px;
 	border-right:1px solid #666666;
 	background-color:#CCFF99;
@@ -206,15 +211,15 @@ table tr, table td {
 	border-right:1px solid #666666;
 	}	
 
-#tableStudentProjectData tr, #tableStudentProjectData td  {
+/* #tableStudentProjectData tr, #tableStudentProjectData td  {
 	margin:0px;
 	padding:3px 5px;
-	}
+	}    */
 	
 #studentTitleText {
 	font-weight:bold;
 	font-size:1.6em;
-	margin: 5px 0 5px 2px;
+	margin: 1px;
 	padding:0px;
 }
 
@@ -237,14 +242,14 @@ table tr, table td {
 	font-size:1.2em;
 	color:#0033CC;
 	margin:0px;
-	padding:4px 2px 4px 2px;
+	padding:4px 3px;
 	border:1px solid #FFFFFF;
 	}
 
 #studentActionList a:hover {
 	display:block;
 	margin:0px;
-	padding:4px 2px 4px 2px;
+	padding:4px 3px;
 	font-size:1.2em;
 	color:#000066;
 	background-color:#ffff33;

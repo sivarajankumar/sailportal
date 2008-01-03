@@ -24,25 +24,40 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html lang="en">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
-<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
-  <script type="text/javascript" src="../javascript/general.js"></script> 
+
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+  
+<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/prototype.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/effects.js"></script>
+
+
 </head>
 
 <body>
 
-<%@ include file="gradingtoolHeader.jsp"%>
+<div id="centeredDiv">
 
-<h4>Grade By Step</h4>
+<%@ include file="headerteachergrading.jsp"%>
 
+<%@ include file="L2grading_bystep.jsp"%>
 
-<div style="align:left;">
-${curnitMap.project.title}
+<div id="overviewHeaderGrading">Grade By Step</div>
+
+<div id="gradeStepSelectionArea">
+
+<div>
+	<div id="gradeStepSelectedProject">${curnitMap.project.title} <span><a href="#">change project</a></div>
+
+	<div id="gradeStepInstructions">Select a step to grade below</div>
+		
    <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
 		<h3>Activity ${someAct.number+1}: ${someAct.title}</h3>  
-		<ul> 
+		<ul id="stepSelectionList"> 
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
 				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0">Step  ${someStep.number+1}: ${someStep.title}</a>    (${someStep.type})</li></c:if>
 				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&&tabIndex=0">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
@@ -51,6 +66,10 @@ ${curnitMap.project.title}
     </c:forEach>
 </div>
 
+<div>      <!--End of gradeStepSelectionArea -->
+
+</div>      <!--End of Centered Div-->
 
 </body>
+
 </html>
