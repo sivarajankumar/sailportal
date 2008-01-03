@@ -179,7 +179,8 @@ YAHOO.util.Event.onDOMReady(init);
 	<dd id="studentWelcome">
 	<c:set var="current_date" value="<%= new java.util.Date() %>" />
 	<c:choose>
-        <c:when test="${current_date eq user.userDetails.birthday}" >
+        <c:when test="${(current_date.month == user.userDetails.birthday.month) &&
+                        (current_date.day == user.userDetails.birthday.day)}" >
             Happy Birthday!
         </c:when>
         <c:when test="${(current_date.hours>=3) && (today.hours<12)}" >
