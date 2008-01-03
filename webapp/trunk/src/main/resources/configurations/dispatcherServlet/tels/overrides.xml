@@ -60,9 +60,9 @@
     	<property name="mappings">
     		<value>
     		    /index.html=urlFilenameViewController
+    		    /contactwisegeneral.html=contactWiseController
     		    /student/index.html=studentIndexController
     		    /student/selectteam.html=selectteamController
-    		    /student/addproject.html=addProjectController
     		    /student/addproject.html=addProjectController
     		    /student/changeperiodteam.html=changePeriodTeamController
     		    /student/startproject.html=startProjectController

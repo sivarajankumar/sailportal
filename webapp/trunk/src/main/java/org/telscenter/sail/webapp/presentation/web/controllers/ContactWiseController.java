@@ -1,10 +1,17 @@
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.help;
+package org.telscenter.sail.webapp.presentation.web.controllers;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
+import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
+import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
+import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral;
 
 /**
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
@@ -29,19 +36,20 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class ContactWiseController extends AbstractController{
+public class ContactWiseController extends SimpleFormController {
 
-	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
-
-		ModelAndView modelAndView = new ModelAndView();
-
-        return modelAndView;
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+		return new ContactWISEGeneral();
+	}
+	
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("issuetypes", IssueType.values());
+		model.put("operatingsystems", OperatingSystem.values());
+		model.put("webbrowsers", WebBrowser.values());
+		return model;
 	}
 
 }

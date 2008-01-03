@@ -302,7 +302,11 @@
 	</bean>
 
 	<bean id="contactWiseController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.ContactWiseController">
+		class="org.telscenter.sail.webapp.presentation.web.controllers.ContactWiseController">
+		<property name="commandName" value="contactWISEGeneral" />
+    	<!--  <property name="validator" ref="studentUserDetailsValidator" /> -->
+    	<property name="formView" value="contactwisegeneral" />
+    	<property name="successView" value="contactwiseconfirm" />
 	</bean>	
 
 

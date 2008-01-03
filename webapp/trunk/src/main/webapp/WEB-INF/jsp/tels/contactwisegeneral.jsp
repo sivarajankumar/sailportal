@@ -31,7 +31,7 @@
 	</ul>
 </div>
 
-<form:form method="post" action="contactwiseconfirm.html" id="contactWISEForm"  >  
+<form:form commandName="contactWISEGeneral" method="post" action="contactwisegeneral.html" id="contactWISEForm"  >  
   <dl>
   
   	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
@@ -41,7 +41,14 @@
 	<dd><input id="emailContact" size="50"  tabindex="2"/> </dd>
    
     <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span>Issue Type</label> </dt>
-	<dd><select name="issueTypeContact" id="issueTypeContact"  tabindex="3">
+	<dd><form:select path="issuetype" id="issueTypeContact"  tabindex="3">
+	      <c:forEach items="${issuetypes}" var="issuetype">
+            <form:option value="${issuetype}">
+            	<spring:message code="issuetypes.${issuetype}" />
+            </form:option>
+          </c:forEach>
+		</form:select>
+		<!--  
 			<option value="" class="popUpMenuDefault">select an item</option>
 			<option value="1">Trouble Signing In</option>
 			<option value="2">Need Help Using WISE</option>
@@ -53,10 +60,17 @@
 			<option value="8">Need Help with Authoring</option>
 			<option value="9">Other Problem</option>
 			<option value="10">Request for New Feature</option>
-			</select>
-			</dd>
-    <dt><label for="operatingSystemContact" id="operatingSystemContact" >Operating Sytem</label> </dt>
-	<dd><select name="operatingSystemContact" id="operatingSystemContact"  tabindex="4">
+			</select>-->
+	</dd>
+    <dt><label for="operatingSystemContact" id="operatingSystemLabel" >Operating Sytem</label> </dt>
+	<dd><form:select path="operatingsystem" id="operatingSystemSelect"  tabindex="4">
+	      <c:forEach items="${operatingsystems}" var="operatingsystem">
+            <form:option value="${operatingsystem}">
+            	<spring:message code="operatingsystems.${operatingsystem}" />
+            </form:option>
+          </c:forEach>
+		</form:select>
+	<!-- <select name="operatingSystemContact" id="operatingSystemContact"  tabindex="4">
           	<option value="" class="popUpMenuDefault">select an item</option>
             <option value="1">Mac OS 9</option>
 			<option value="2">Mac OS X Tiger</option>
@@ -65,10 +79,17 @@
 			<option value="5">Windows XP/NT/2000</option>
 			<option value="6">Linux</option>
 			<option value="7">Other or Not Sure</option>
-		</select>
+		</select> -->
 		</dd>
-    <dt><label for="browserContact" id="browserContact">Web Browser</label></dt>
-	<dd><select name="browserContact" id="browserContact" tabindex="5">
+    <dt><label for="browserContact" id="webBrowserLabel">Web Browser</label></dt>
+	<dd><form:select path="webbrowser" id="webBrowserSelect"  tabindex="5">
+	      <c:forEach items="${webbrowsers}" var="webbrowser">
+            <form:option value="${webbrowser}">
+            	<spring:message code="webbrowsers.${webbrowser}" />
+            </form:option>
+          </c:forEach>
+		</form:select>
+	<!-- <select name="browserContact" id="browserContact" tabindex="5">
 			<option value="" class="popUpMenuDefault">select an item</option>
 			<option value="1">Firefox (Mac)</option>
 			<option value="2">Firefox (Windows)</option>
@@ -79,7 +100,7 @@
 			<option value="7">Opera</option>
 			<option value="8">Netscape</option>
 			<option value="9">Other</option>
-		</select>
+		</select> -->
 		</dd>
 	<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span>Issue Summary</label></dt>
 	<dd style="color:#3333CC;"><input id="summaryContact" size="50" tabindex="6"/></dd>
