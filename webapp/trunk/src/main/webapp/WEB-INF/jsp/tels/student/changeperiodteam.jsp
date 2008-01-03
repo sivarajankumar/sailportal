@@ -31,12 +31,12 @@
 <title>Change Period or Team Pop-Up Window</title>
 </head>
 
-<body>
+<body style="background-color:transparent;">
 
-<div id="centeredDiv">
+<div id="centeredDiv" style="background-color:transparent;">
 
 <div id="popUpWindow1">
-	<h3>To change your Period or your Team, please ask your teacher for help."</h3>
+	<h3 align="center">To change your Period or Team please ask your teacher for help.</h3>
 </div>
 
 </div>

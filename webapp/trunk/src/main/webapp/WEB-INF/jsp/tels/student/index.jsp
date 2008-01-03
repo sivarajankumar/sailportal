@@ -2,6 +2,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
@@ -12,6 +13,11 @@
 <title><spring:message code="application.title" /></title>
 
 <%@ include file="styles.jsp"%>
+
+<script src=".././javascript/tels/general.js" type="text/javascript" > </script>
+<script src=".././javascript/tels/prototype.js" type="text/javascript" > </script>
+<script src=".././javascript/tels/effects.js" type="text/javascript" > </script>
+
 <style>
 .yui-panel-container select {
               _visibility: inherit;
@@ -79,6 +85,46 @@
                 	addProjectDialog.show();
     }, addProjectDialog);
     
+    
+    	//Change Period or Team PopUp dialog ----------------------------------
+
+    // Define various event handlers for Dialog
+
+	var handleCancel = function() {
+		this.cancel();
+		document.getElementById('changePeriodTeamFrame').src=' ';
+		//reload the page
+		//window.location.reload();
+	};
+
+	// Instantiate the Dialog
+	var changePeriodTeamDialog = new YAHOO.widget.Dialog("changePeriodTeamDialog", 
+																{ width : "700px",
+																//  height : "70%",
+																  fixedcenter : true,
+																  visible : false, 
+																  iframe : true,
+																  //ie7 modal problem
+																  //modal:false,
+																  constraintoviewport : true,
+																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
+																  buttons : [ 
+																			  {text:"Close", handler:handleCancel,isDefault:true } ]
+																 } );
+	
+	
+    changePeriodTeamDialog.render();
+    
+    var btns2 = YAHOO.util.Dom.getElementsByClassName("changePeriodTeamLink", "a");
+         
+    YAHOO.util.Event.on(btns2, "click", function(e, panel) {
+                	YAHOO.log('RUNG id ' + this.id);
+                	document.getElementById('changePeriodTeamFrame').src='changeperiodteam.html' 
+                	changePeriodTeamDialog.show();
+    }, changePeriodTeamDialog);
+    
+    
+    
      //change password dialog  -----------------
       
     var handleClosePassword = function() {
@@ -90,8 +136,8 @@
 	
 	// Instantiate the Dialog
 	var changePasswordDialog = new YAHOO.widget.Dialog("changePasswordDialog", 
-																{ width : "700px",
-																  // height : "400px",
+																{ width : "525px",
+																  // height : "300px",
 																  fixedcenter : true,
 																  visible : false, 
 																  iframe : true,
@@ -209,7 +255,7 @@ YAHOO.util.Event.onDOMReady(init);
 	<dt class="listTitle2"># of Logins:</dt>
 	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
 	<dt class="listTitle2">Language:</dt> 
-	<dd id="language">[English]</dd>
+	<dd id="language">English</dd>
 </dl>
 
 <div class="separator"></div>
@@ -283,6 +329,7 @@ YAHOO.util.Event.onDOMReady(init);
 							<td class="studentTableLeftHeaderCurrent">Title</td>
 							<td id="studentCurrentTitleCell" class="tableBorderRight">
 								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
+								
 							<td ROWSPAN="4" style="width:27%; padding:2px;">
 								  	<ul id="studentActionList">
 										<li><c:choose>
@@ -309,10 +356,14 @@ YAHOO.util.Event.onDOMReady(init);
 										<li><a href="../contactwiseproject.html">Report A Problem</a></li>
 								 	</ul>
 						 	</td>
-						</tr>	
+						</tr>
 						<tr>
-							<td class="studentTableLeftHeaderCurrent tableBorderTopBottom">Teacher</td>
-							<td class="tableBorderTopBottom tableBorderRight">
+							<td id="secondaryRowTightFormat"class="studentTableLeftHeaderCurrent tableBorderTopBottom">Project Code</td>
+							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${run.runcode}</td>
+					  	</tr>	
+						<tr>
+							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Teacher</td>
+							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">
 											<c:choose>
 											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
 												<c:forEach var="member" items="${studentRunInfo.run.owners}">	
@@ -327,13 +378,13 @@ YAHOO.util.Event.onDOMReady(init);
 							</td>
 							</tr>
 						<tr>
-							<td class="studentTableLeftHeaderCurrent tableBorderTopBottom">Period</td>
-							<td class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
+							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Period</td>
+							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
 					  	
 					  	</tr>
 						<tr>
-							<td class="studentTableLeftHeaderCurrent">Team</td>
-							<td class="tableBorderRight">
+							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Team</td>
+							<td id="secondaryRowTightFormat" class="tableBorderRight">
 											<c:choose>
 											<c:when test="${studentRunInfo.workgroup != null}" >
 												<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
@@ -459,8 +510,7 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="addProjectDialog">
 <div class="hd">Add A Project</div>
 <div class="bd">
-<!-- <h1 align="left"><spring:message code="teacher.add-project" /></h1> -->
-<h3 align="left"><spring:message code="teacher.add-project-info" /></h3>
+<h3 ><spring:message code="teacher.add-project-info" /></h3>
 
 
 <iframe id="addProjectFrame" src=" " width="100%" FRAMEBORDER="0"
@@ -468,6 +518,18 @@ YAHOO.util.Event.onDOMReady(init);
 	
 </div>
 </div>
+
+<!-- this creates the change period team iframe -->
+<div id="changePeriodTeamDialog">
+<div class="hd">Change Period or Team</div>
+<div class="bd">
+
+<iframe id="changePeriodTeamFrame" src=" " width="100%" FRAMEBORDER="0"
+	allowTransparency="false" scrolling="no"> </iframe>
+	
+</div>
+</div>
+
 
 <!-- creates change password -->
 <div id="changePasswordDialog">

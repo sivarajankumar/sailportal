@@ -63,7 +63,8 @@
     		    /student/index.html=studentIndexController
     		    /student/selectteam.html=selectteamController
     		    /student/addproject.html=addProjectController
-    		    /student/teamsignin.html=teamSignInController
+    		    /student/addproject.html=addProjectController
+    		    /student/changeperiodteam.html=changePeriodTeamController
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController

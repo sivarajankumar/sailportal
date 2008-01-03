@@ -31,7 +31,7 @@
 <title><spring:message code="application.title" /></title>
 </head>
 
-<body>
+<body style="background-color:transparent;">
 <!-- Support for Spring errors object -->
 <spring:bind path="addProjectParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -41,7 +41,7 @@
   </c:forEach>
 </spring:bind>
 
-<div id="centeredDiv">
+<div id="centeredDiv" style="background-color:transparent;">
 
 <div id="popUpWindow1">
 

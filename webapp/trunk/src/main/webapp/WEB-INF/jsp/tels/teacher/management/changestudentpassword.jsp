@@ -40,7 +40,6 @@
 <div id="popUpWindowTeacherPassword">
 
 	<div id="teacherchangepasswordbox">
-	
 	<dl>
 		<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword">
 		<dt><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></dt>
