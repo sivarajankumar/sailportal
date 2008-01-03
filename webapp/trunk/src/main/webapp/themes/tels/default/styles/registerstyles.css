@@ -347,15 +347,15 @@ dd {
 	}
 
 #newAccountDetails {
-	margin: 60px 0 20px 200px;
-	width:72%;
+	margin: 60px auto 20px auto;
+	text-align:center;
+	width:45%;
 	padding:0px;
 	}
 	
 #newAccountDetails ul {
-	list-style:circle;
-	width:80%;
-	padding-left:30px;
+	list-style:none;
+	padding:0px;
 
 	}
 	
