@@ -165,6 +165,7 @@ public class ContactWISEValidatorTest extends TestCase {
 	}
 	
 	//TODO: Geoff - Validate email with correct email syntax
+
 	
 	@Override
 	protected void tearDown() {

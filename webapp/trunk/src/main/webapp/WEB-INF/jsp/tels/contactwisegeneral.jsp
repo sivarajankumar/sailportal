@@ -31,17 +31,26 @@
 	</ul>
 </div>
 
+<!-- Support for Spring errors object -->
+<div id="regErrorMessages">
+<spring:bind path="contactWISEGeneral.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+        <br /><c:out value="${error}"/>
+    </c:forEach>
+</spring:bind>
+</div>
+
 <form:form commandName="contactWISEGeneral" method="post" action="contactwisegeneral.html" id="contactWISEForm"  >  
   <dl>
   
   	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
-    <dd><input id="NameContact" size="50" tabindex="1"/></dd>
+    <dd><form:input path="name" id="name" size="50" tabindex="1"/></dd>
             
     <dt><label for="emailContact" id="emailContact"><span class="asterix">* </span>Email</label></dt>
-	<dd><input id="emailContact" size="50"  tabindex="2"/> </dd>
+	<dd><form:input path="email" id="email" size="50"  tabindex="2"/> </dd>
    
     <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span>Issue Type</label> </dt>
-	<dd><form:select path="issuetype" id="issueTypeContact"  tabindex="3">
+	<dd><form:select path="issuetype" id="issuetype"  tabindex="3">
 	      <c:forEach items="${issuetypes}" var="issuetype">
             <form:option value="${issuetype}">
             	<spring:message code="issuetypes.${issuetype}" />
@@ -63,7 +72,7 @@
 			</select>-->
 	</dd>
     <dt><label for="operatingSystemContact" id="operatingSystemLabel" >Operating Sytem</label> </dt>
-	<dd><form:select path="operatingsystem" id="operatingSystemSelect"  tabindex="4">
+	<dd><form:select path="operatingsystem" id="operatingsystem"  tabindex="4">
 	      <c:forEach items="${operatingsystems}" var="operatingsystem">
             <form:option value="${operatingsystem}">
             	<spring:message code="operatingsystems.${operatingsystem}" />
@@ -82,7 +91,7 @@
 		</select> -->
 		</dd>
     <dt><label for="browserContact" id="webBrowserLabel">Web Browser</label></dt>
-	<dd><form:select path="webbrowser" id="webBrowserSelect"  tabindex="5">
+	<dd><form:select path="webbrowser" id="webbrowser"  tabindex="5">
 	      <c:forEach items="${webbrowsers}" var="webbrowser">
             <form:option value="${webbrowser}">
             	<spring:message code="webbrowsers.${webbrowser}" />
@@ -103,10 +112,10 @@
 		</select> -->
 		</dd>
 	<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span>Issue Summary</label></dt>
-	<dd style="color:#3333CC;"><input id="summaryContact" size="50" tabindex="6"/></dd>
+	<dd style="color:#3333CC;"><form:input path="summary" id="summary" size="50" tabindex="6"/></dd>
 	
 	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span>Detailed Description</label></dt>
-	<dd><textarea name="descriptionContact" id="descriptionContact" tabindex="7" rows="9" cols="65"></textarea></dd>
+	<dd><form:textarea path="description" id="description" tabindex="7" rows="9" cols="65"></form:textarea></dd>
       
      </dl>    
      <div id="asterixWarning">Items marked with <span style="font-size:1.1em; font-weight:bold;">*</span> are required.</div>  

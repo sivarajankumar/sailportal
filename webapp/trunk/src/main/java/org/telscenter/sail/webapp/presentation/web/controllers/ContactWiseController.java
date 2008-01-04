@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.mail.JavaMailHelper;
+
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
@@ -38,6 +41,31 @@ import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGen
 
 public class ContactWiseController extends SimpleFormController {
 
+	protected JavaMailHelper javaMail = null;
+	
+	public ContactWiseController() {
+		setSessionForm(true);
+	}
+	
+	@Override
+	public ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+	throws Exception {
+		
+		ContactWISEGeneral contactWISEGeneral = (ContactWISEGeneral) command;
+
+		String[] recipients = contactWISEGeneral.getMailRecipients();
+		String subject = contactWISEGeneral.getMailSubject();
+		String message = contactWISEGeneral.getMailMessage();
+		String fromEmail = contactWISEGeneral.getEmail();
+		
+		javaMail.postMail(recipients, subject, message, fromEmail);
+		
+		ModelAndView modelAndView = new ModelAndView(getSuccessView());
+
+		return modelAndView;
+	}
+	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		return new ContactWISEGeneral();
@@ -50,6 +78,20 @@ public class ContactWiseController extends SimpleFormController {
 		model.put("operatingsystems", OperatingSystem.values());
 		model.put("webbrowsers", WebBrowser.values());
 		return model;
+	}
+
+	/**
+	 * @return the javaMail
+	 */
+	public JavaMailHelper getJavaMail() {
+		return javaMail;
+	}
+
+	/**
+	 * @param javaMail the javaMail to set
+	 */
+	public void setJavaMail(JavaMailHelper javaMail) {
+		this.javaMail = javaMail;
 	}
 
 }

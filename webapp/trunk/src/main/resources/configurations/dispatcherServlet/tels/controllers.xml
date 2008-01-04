@@ -304,11 +304,14 @@
 	<bean id="contactWiseController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.ContactWiseController">
 		<property name="commandName" value="contactWISEGeneral" />
-    	<!--  <property name="validator" ref="studentUserDetailsValidator" /> -->
+    	<property name="validator" ref="contactWISEValidator" />
     	<property name="formView" value="contactwisegeneral" />
     	<property name="successView" value="contactwiseconfirm" />
+    	<property name="javaMail" ref="javaMail"/>
 	</bean>	
-
+	
+	<bean id="contactWISEValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.general.contactwise.ContactWISEValidator" />
 
 	<bean id="lostPasswordStudentReminderWizardController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">

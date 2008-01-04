@@ -60,9 +60,10 @@ public class ContactWISEValidator implements Validator {
 				"error.contactwise-summary");
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description",
-				"error.contactwise.description");
+				"error.contactwise-description");
 		
 		//TODO: Geoff - Validate email with correct email syntax
+		
 	}
 
 }

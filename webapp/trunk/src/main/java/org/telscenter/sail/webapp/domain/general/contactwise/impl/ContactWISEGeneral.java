@@ -34,6 +34,8 @@ import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
  */
 public class ContactWISEGeneral implements ContactWISE {
 
+	private static final long serialVersionUID = 1L;
+
 	private IssueType issuetype;
 	
 	private OperatingSystem operatingsystem;
@@ -146,4 +148,29 @@ public class ContactWISEGeneral implements ContactWISE {
 		this.webbrowser = webbrowser;
 	}
 
+	public String[] getMailRecipients() {
+		//TODO: should be changed to look up recipients based on issue type
+		String[] recipients = {"geoffreykwan@gmail.com", "honchikun@gmail.com"};
+		
+		return recipients;
+	}
+	
+	public String getMailSubject() {
+		String subject = "[Contact WISE] " + issuetype + ": " + summary;
+		
+		return subject;
+	}
+	
+	public String getMailMessage() {
+		String message = "Contact WISE Request\n\n" +
+		 "Name: " + name + "\n" + 
+		 "Email: " + email + "\n" + 
+		 "Issue Type: " + issuetype + "\n" +
+		 "Operating System: " + operatingsystem + "\n" + 
+		 "Web Browser: " + webbrowser + "\n" +
+		 "Summary: " + summary + "\n" + 
+		 "Description: " + description + "\n";
+		
+		return message;
+	}
 }

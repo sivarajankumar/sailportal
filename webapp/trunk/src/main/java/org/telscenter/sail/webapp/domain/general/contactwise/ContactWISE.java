@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.general.contactwise;
 
+import java.io.Serializable;
+
 
 /**
  * @author Hiroki Terashima
@@ -29,7 +31,7 @@ package org.telscenter.sail.webapp.domain.general.contactwise;
  *
  * @version $Id$
  */
-public interface ContactWISE {
+public interface ContactWISE extends Serializable {
 	
 	public String getName();
 	
