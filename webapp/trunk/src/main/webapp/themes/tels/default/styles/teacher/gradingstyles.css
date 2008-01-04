@@ -21,6 +21,14 @@
 	padding:0px;
 }
 
+#overviewHeaderGradingv2 {
+	font-size:1.5em;
+	letter-spacing:3px;
+	font-variant:small-caps;
+	margin: 10px 0 10px 0px;
+	padding:0px;
+}
+
 #overview_choices_grading   {
 	padding:15px 0 30px 5px;
 }
@@ -103,7 +111,7 @@
 	border-bottom:1px solid gray;
 	width:80%;
 	}	
-	
+			
 #stepSelectionList li {
 	list-style:circle;
 	font-size:1.4em;
@@ -121,5 +129,109 @@
 	padding:2px;	
 	}
 	
+#projectIdLabel {
+	font-size: .6em;
+	margin-left:12px;
+	padding:2px;
+	font-weight:normal;
+	font-variant:normal;
+}
 	
 	
+/* CSS FOR GRADING TOOL  */ 
+
+#currentStepTable {
+	margin:6px 0 20px 0;
+	border-collapse:collapse;
+}
+
+#currentStepLabel {
+	width:640px;
+	font-size:1.4em;
+	font-weight:bold;
+	border:1px solid #333333;
+	background-image:url(../../images/Pixel_Grading_Highlight.png);
+	background-position:left top;
+	background-repeat:repeat;
+	padding:3px 5px;
+}
+
+.currentStepNavLink {
+	text-align:center;
+	font-size:.8em;
+	padding:3px 8px;
+}
+
+.currentStepNavLink a:link, currentStepNavLink a:visited { 
+	background-color:#FFFFFF;
+	}
+
+.currentStepNavLink a:hover { 
+	background-color:#FFFF33;
+	color:#000033;
+	}
+	
+#gradingTeamTable {
+	background-color:#FFFFFF;
+	border-collapse:collapse;
+	margin: 5px 0;
+	border-top: 1px solid #000099;
+	border-right: 1px solid #000099;
+	border-bottom: 1px solid #000099;
+	border-left: 1px solid #000099;
+}
+	
+#groupHeaderRow td {
+	background-color:#0000CC;
+	color:#FFFFFF;
+	text-align:left;
+	padding:3px;
+	font-size:.8em;
+	border:1px solid #0000CC;
+}
+
+#groupHeaderRow a:link, #groupHeaderRow a:visited {
+	color:#FFFFFF;
+	padding:0px 4px;
+	font-size:.9em;
+}
+
+#groupHeaderRow a:hover {
+	color:#0000CC;
+	padding:0px 4px;
+	background-color:#FFFF99;
+	font-size:.9em;
+}
+
+.boldText {font-weight:bold; }
+
+#noTeamsInPeriod {
+	padding-left:5px;
+	font-weight:bold;
+	font-size:1.8em;
+}
+
+#stepQuestionField {
+	font-size:.8em;
+	color:#0000FF;
+	padding:5px 5px;
+	font-style:italic;
+	}
+	
+#stepStudentAnswerField {
+	font-size:.9em;
+	padding:5px 5px;
+		}
+		
+#noStudentReponseYet {
+	font-style:italic;
+	color:#666666;
+	padding:20px 0;
+		}
+		
+#gradingSaveButton {
+	font-size:.9em;
+	margin-top:40px;
+}
+	
+          

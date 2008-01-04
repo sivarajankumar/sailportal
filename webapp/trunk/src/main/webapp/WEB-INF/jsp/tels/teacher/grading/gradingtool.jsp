@@ -31,10 +31,12 @@
 
 <%@ include file="styles.jsp"%>
 
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /> 
 
 
 <!-- use apaches string utils -->
+
 <script type='text/javascript' src='/webapp/dwr/interface/StringUtilsJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 <script type="text/javascript">
@@ -220,41 +222,40 @@
 
 </script>
 
-<body class=" yui-skin-sam">
-<%@ include file="gradingtoolHeader.jsp"%>
-<h2>Grading Tool</h2>
+</head>
 
-<div id="tableProjectView">
-<table class="view">
+<body class=" yui-skin-sam">
+
+<div id="centeredDiv">
+
+<%@ include file="headerteachergrading.jsp"%>
+
+<%@ include file="L2grading_bystep.jsp"%>
+
+<div id="overviewHeaderGradingv2">Grade By Step</div>
+
+<div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project ID ${curnitId})</span></div>
+
+<table id="currentStepTable" >
   <tr>
-  	<td><em>Project:</em> </td>
-    <td>${projectTitle} (${curnitId})</td>
-	<td></td>
+  	<td id="currentStepLabel">Act ${activity.number+1}, Step ${step.number+1}: <span style="font-weight:normal;">${step.title}</span></td>
+    <td class="currentStepNavLink"><a id="previousStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
+    			Previous Step</a></td>
+    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}">Return to Step Menu</a></td>
+    <td class="currentStepNavLink"> <a id="nextStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a></td>		
   </tr>
-  <tr>
-  	<td><em>View:</em></td>
-    <td id="viewStep"><strong>Act ${activity.number+1}, Step ${step.number+1}: ${step.title}</strong></td>
-    <td id="gradeStepLinks">
-	    <c:if test="${!empty previousStep}"> 
-	    <a id='previousStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">View Previous Step</a>
-	    &nbsp &nbsp
-	    </c:if>
+ </table>
+ 
+ <!--
+  <c:if test="${!empty previousStep}"> 
+	    
+	   	   </c:if>
 	    <a href="gradebystep.html?runId=${runId}">View Step Menu</a>
-	    &nbsp &nbsp 
-	    <c:if test="${!empty nextStep}">
+	   	    <c:if test="${!empty nextStep}">
 	    <a id='nextStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">View Next Step</a>
 	    </c:if>
-	</td>
-  <tr>
-    <td></td>
-    <td></td>
-	<td></td>
-  </tr>
-  </table>
+-->
 
-</div>  
-<br>
-<br>
 <!-- 
 aggregate.key = period
 aggregate.value = set of workgroupWorkAggregate
@@ -262,13 +263,13 @@ aggregate.value = set of workgroupWorkAggregate
 
 <div id="periodTabs" class="yui-navset"> 
 		<!-- create the tabs nav -->
-		<ul class="yui-nav"> 
+		<ul class="yui-nav" style="font-size:1.2em; text-transform:uppercase;"> 
 			<c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
-				 <li><a href="${aggregate.key.name}"><em>Period ${aggregate.key.name}</em></a></li> 
+				 <li style="margin-right:4px;"><a href="${aggregate.key.name}"><em>Period ${aggregate.key.name}</em></a></li> 
 			 </c:forEach> 
 		 </ul>   
 		 <!-- create the tabs content -->
-		<div class="yui-content">
+		<div class="yui-content" style="background-color:#FFFFFF;">
 			 <c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
 			
 			 <c:set var="period" value="${fn:replace(aggregate.key.name, ' ', '-')}"/>
@@ -276,34 +277,38 @@ aggregate.value = set of workgroupWorkAggregate
 				<!-- Actual Tab 
 					${workgroupAggregateObj} = workgroupAggregateObj
 				 -->
-				 <c:if test="${empty aggregate.value}">There are no workgroups for this period</c:if>
+				<c:if test="${empty aggregate.value}"> 
+					<div id="noTeamsInPeriod" style="padding:20px 0;">
+						This period has no registered student teams
+					</div>
+				</c:if>
 					<c:forEach var="workgroupAggregateObj" varStatus="workgroupAggregateObjStatus" items="${aggregate.value}">
 						<!-- get the workgroup id -->
 						
 						<c:set var="workgroupId" value="${workgroupAggregateObj.workgroup.id}"/>
 						<div align="center">
-						<table width="100%" border="1" class="sample">
+						<table id="gradingTeamTable"  border="1" class="sample">
 						<!-- table header -->
-									<tr>
-										<td width="40%">
+									<tr id="groupHeaderRow">
+										<td class="boldText" width="45%">
 										<!--  print member anmes -->
-										<div align="center" class="tdHeader">
-										<strong class="headerFont">Group: ${workgroupAggregateObj.workgroup.id} Members:
+										<div  class="tdHeader">
+										<class="headerFont">Group ${workgroupAggregateObj.workgroup.id}: 
 										<c:forEach var="user" varStatus="userStatus"
 											items="${workgroupAggregateObj.workgroup.members}">
 										 		${user.userDetails.firstname} ${user.userDetails.lastname}
 										 		   <c:if test="${userStatus.last=='false'}">
 							     					&
 							    				</c:if>
-										 	</c:forEach> </strong>
+										 	</c:forEach>
 										 </div>
 										</td>
 										
-										<td width="45%" >
-										<div align="center" class="tdHeader" ><strong class="headerFont">Teacher Feedback</strong></div>
+										<td width="35%" >
+										<div align="center" class="tdHeader" ><class="headerFont">Teacher Feedback <span style="margin-left:10px;"><a href="#">open ready-made comments</a></span></div>
 										</td>
-										<td >
-										<div align="center" class="tdHeader" ><strong class="headerFont">Score</strong></div>
+										<td width="20%">
+										<div align="center" class="tdHeader" ><class="headerFont">Score</div>
 										</td>
 									</tr>
 							<!-- End Table Header -->
@@ -322,14 +327,14 @@ aggregate.value = set of workgroupWorkAggregate
 							<c:set var="noWorkFound" value="true"/>
 							<c:choose>
 								<c:when test="${noWorkFound == false}">
-									<tr><td colspan="3" align="center">No work submitted yet.</td></tr>
+									<tr><td colspan="3" align="center">no student response yet</td></tr>
 								</c:when>
 								<c:otherwise>
 									<!-- do the rest of the table -->
 									
 										<c:forEach var="rimFromStep" varStatus="rimListStatus" items="${step.rim}">
 											<tr>
-						                          		<td class="questionField">
+						                          		<td id="stepQuestionField" class="questionField">
 						                          		<!-- prompt -->
 						                          		<c:choose>
 														        <c:when test="${fn:length(step.rim) > 1}">
@@ -400,10 +405,15 @@ aggregate.value = set of workgroupWorkAggregate
 																				</c:forEach>
 																		</c:forEach>
 																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}"/> out of <input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" DISABLED="true" READONLY="true" type="text" size="1" value="${step.possibleScore}"/>
-																	
-																				<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button"><em class="first-child">
-																						<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save</button></em>
-																				</span>
+																				
+																				<div id="gradingSaveButton">
+																					<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button">
+																						
+																							<em class="first-child">
+																							<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">
+																						   		Save Feedback + Score</button></em>
+																					</span>
+																				</div>
 																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 12%;"></div>																   
 																		</div>	   
 																   </td>   		
@@ -413,7 +423,7 @@ aggregate.value = set of workgroupWorkAggregate
 						                     <tr>
 						                          		<td>
 						                          		<!--answer -->
-						                          			<div class="answerDiv">
+						                          			<div id="stepStudentAnswerField" class="answerDiv">
 							                          			<c:set var="sockPartFound" value="false"/>
 							                          			<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
 							                          				<c:if test="${sockPart.rimName == rimFromStep.rimname}">
@@ -426,7 +436,7 @@ aggregate.value = set of workgroupWorkAggregate
 							                          			
 							                          			<c:choose>
 																      <c:when test="${sockPartFound == 'false'}">
-																      		no response.
+																      		<span id="noStudentReponseYet">no student response yet</span>
 																      </c:when>
 																      <c:otherwise>
 																				<c:set var="sockPartFound" value="false"/>
@@ -455,5 +465,8 @@ aggregate.value = set of workgroupWorkAggregate
 var myLogReader = new YAHOO.widget.LogReader("myLogger");
 </script>
 <div id="container"></div>
+
+</div>    <!--end of Centered Div-->
+
 </body>
 </html>

@@ -64,15 +64,14 @@
 
 <div id="tabSystem" class="yui-navset">
 <ul class="yui-nav">
-  <li id="tabPicker"><a href="Current Runs"><em>Current Runs</em></a></li>	
-  <li id="tabPicker"><a href="Shared Runs"><em>Shared Runs</em></a></li>	
-  <li id="tabPicker"><a href="Archived Runs"><em>Archived Runs</em></a></li>	
+  <li id="tabPicker"><a href="Current Runs"><em>My Current Runs</em></a></li>	
+  <li id="tabPicker"><a href="Shared Runs"><em>My Shared Runs</em></a></li>	
+  <li id="tabPicker"><a href="Archived Runs"><em>My Archived Runs</em></a></li>	
 </ul>
 <div class="yui-content" style="background-color:#FFFFFF;">
 <div>
-<div class="tableLabel">My Current Project Runs</div>
 
-<table style="margin-bottom:40px;" summary="project picker screen for management area">
+<table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
 			<th style="width:50%;" scope="col">Project Title</th>
@@ -108,9 +107,8 @@
 </table>
 </div>
 <div>
-<div class="tableLabel">My Shared Runs</div>
 
-<table summary="project picker screen for management area">
+<table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
 			<th style="width:50%;" scope="col">Project Title</th>
@@ -146,12 +144,11 @@
 </div>
 
 <div>
-<div class="tableLabel">My Archived Project Runs</div>
 
-<table summary="project picker screen for management area">
+<table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
-			<th style="width:50%;" scope="col">Project Title</th>
+			<th style="width:50%;" scope="col">Title</th>
 			<th scope="col">Project #</th>
 			<th scope="col">Started</th>
 			<th scope="col">Ended</th>
