@@ -29,10 +29,30 @@ package org.telscenter.sail.webapp.domain.general.contactwise;
  * @version $$Id$$
  */
 public enum IssueType {
-	
+		
 	TROUBLE_LOGGING_IN, NEED_HELP_USING_WISE, BROKEN_LINK,
 	MISSPELLING_OR_FACTUAL_ERROR, PROBLEM_WITH_STUDENT_OR_PERIOD,
 	PROBLEM_RUNNING_MODELS, ERROR_MESSAGE, HELP_WITH_AUTHORING,
-	OTHER, NEW_FEATURE
+	OTHER, NEW_FEATURE;
+	
+//	private Properties properties;
+	
+	/**
+	 * @param properties the properties to set
+	 */
+//	public void setProperties(Properties properties) {
+//		this.properties = properties;
+//	}
+
+
+	/**
+	 * Returns the user-friendly string representation of
+	 * the IssueType
+	 * @return String
+	 */
+//	@Override
+//	public String toString() {
+//		return properties.getProperty("issuetype." + this.name());
+//	}
 
 }

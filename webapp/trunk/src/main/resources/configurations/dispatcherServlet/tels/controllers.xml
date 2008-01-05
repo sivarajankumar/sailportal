@@ -310,8 +310,19 @@
     	<property name="javaMail" ref="javaMail"/>
 	</bean>	
 	
+	<util:properties id="uihtmlproperties" 
+        location="classpath:messages/tels/ui-html.properties" />
+
+	<util:properties id="troubleticketlisteners" 
+        location="classpath:troubleticketlisteners" />
+		
 	<bean id="contactWISEValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.general.contactwise.ContactWISEValidator" />
+
+    <bean id="contactwisegeneral"
+        class="org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral">
+        <property name="emaillisteners" ref="troubleticketlisteners" />
+    </bean>
 
 	<bean id="lostPasswordStudentReminderWizardController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">

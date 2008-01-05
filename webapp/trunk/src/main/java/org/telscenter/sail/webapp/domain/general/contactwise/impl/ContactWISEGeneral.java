@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.general.contactwise.impl;
 
+import java.util.Properties;
+
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
@@ -50,6 +52,15 @@ public class ContactWISEGeneral implements ContactWISE {
 	
 	private String description;
 	
+	private static Properties emaillisteners;
+	
+	/**
+	 * @param properties the properties to set
+	 */
+	public void setEmaillisteners(Properties emaillisteners) {
+		this.emaillisteners = emaillisteners;
+	}
+
 	/**
 	 * @see org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE#getDescription()
 	 */
@@ -149,8 +160,9 @@ public class ContactWISEGeneral implements ContactWISE {
 	}
 
 	public String[] getMailRecipients() {
-		//TODO: should be changed to look up recipients based on issue type
-		String[] recipients = {"geoffreykwan@gmail.com", "honchikun@gmail.com"};
+		String[] recipients = {
+				this.emaillisteners.getProperty(this.issuetype.name().toLowerCase())
+		};
 		
 		return recipients;
 	}
