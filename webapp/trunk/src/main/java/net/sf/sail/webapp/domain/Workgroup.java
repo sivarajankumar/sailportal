@@ -24,6 +24,7 @@ package net.sf.sail.webapp.domain;
 
 import java.util.Set;
 
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 /**
@@ -83,6 +84,17 @@ public interface Workgroup extends Persistable {
      *            the offering to set
      */
     public void setOffering(Offering offering);
+    
+    /**
+     * @return the group
+     */
+    public Group getGroup();
+    
+    /**
+     * @param group
+     *           the group to set
+     */
+    public void setGroup(Group group);
 
 	/**
 	 * @return the id

@@ -128,8 +128,18 @@
     	<property name="commandClass"
     	    value="net.sf.sail.webapp.domain.impl.CurnitParameters" />
     	<property name="validator" ref="curnitParametersValidator" />
-    	<property name="formView" value="curnit/registercurnit" />
-    	<property name="successView" value="curnitlist.html" />
+    </bean>
+
+    <bean id="jnlpParametersValidator"
+        class="net.sf.sail.webapp.presentation.validators.JnlpParametersValidator" />
+    
+    <bean id="registerJnlpController"
+    	class="net.sf.sail.webapp.presentation.web.controllers.jnlp.RegisterJnlpController">
+    	<property name="jnlpService" ref="jnlpService" />
+    	<property name="commandName" value="jnlpParameters" />
+    	<property name="commandClass"
+    	    value="net.sf.sail.webapp.domain.impl.JnlpParameters" />
+    	<property name="validator" ref="jnlpParametersValidator" />
     </bean>
     
     <bean id="changePasswordParametersValidator"

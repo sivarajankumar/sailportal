@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -22,48 +22,37 @@
  */
 package net.sf.sail.webapp.presentation.validators;
 
-import java.util.regex.Pattern;
-
-import net.sf.sail.webapp.domain.impl.CurnitParameters;
+import net.sf.sail.webapp.domain.impl.JnlpParameters;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * Validator for add Curnit page
- *
+ * Validator for add Jnlp page
+ * 
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class CurnitParametersValidator implements Validator {
-
-	private static final Pattern LEGAL_URL_PATTERN = Pattern
-	.compile("");
+public class JnlpParametersValidator implements Validator {
 
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
-		return CurnitParameters.class.isAssignableFrom(clazz);
+		return JnlpParameters.class.isAssignableFrom(clazz);
 	}
 
 	/**
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 */
-	public void validate(Object curnitParametersIn, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, 
-        		CurnitParameters.FIELD_NAME, "error.curnitname-not-specified");
-        
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "url",
-            "error.curniturl-not-specified");
-        
-        if (errors.hasErrors()) {
-            return;
-        }
-        
-        CurnitParameters curnitParameters = (CurnitParameters) curnitParametersIn;
+	public void validate(Object jnlpParametersIn, Errors errors) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, 
+				JnlpParameters.FIELD_NAME, "error.jnlpname-not-specified");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, 
+				JnlpParameters.FIELD_URL, "error.jnlpurl-not-specified");
 
 	}
 

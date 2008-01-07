@@ -14,7 +14,12 @@
      <authz:authorize ifAllGranted="ROLE_USER">
 	   <div id="usernameBannerHome"><authz:authentication operation="username" /></div>
 	   <div id="signOutBannerHome"><%@ include file="logout.jsp"%></div>
-	   <div id="signOutBannerHome"><a href="#">Home Page</a></div>
+	   <authz:authorize ifAllGranted="ROLE_STUDENT">
+	   	   <div id="signOutBannerHome"><a href="student/index.html">Student Home Page</a></div>
+	   </authz:authorize>
+	   <authz:authorize ifAllGranted="ROLE_TEACHER">
+	   	   <div id="signOutBannerHome"><a href="teacher/index.html">Teacher Home Page</a></div>
+	   </authz:authorize>
      </authz:authorize>
   </div>
 </div>

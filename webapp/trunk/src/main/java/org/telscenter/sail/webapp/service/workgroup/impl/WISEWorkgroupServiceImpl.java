@@ -70,6 +70,7 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
         WISEWorkgroup workgroup = createWISEWorkgroup(members, run, sdsWorkgroup, period);
 
         this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
+        this.groupDao.save(workgroup.getGroup());
         this.workgroupDao.save(workgroup);
         
         this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);

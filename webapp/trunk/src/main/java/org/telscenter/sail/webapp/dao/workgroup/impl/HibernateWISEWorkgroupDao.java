@@ -32,11 +32,8 @@ import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
-import net.sf.sail.webapp.dao.workgroup.impl.HibernateWorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 
 /**
  * DAO for <code>WISEWorkgroup</code>
@@ -65,12 +62,14 @@ public class HibernateWISEWorkgroupDao extends AbstractHibernateDao<WISEWorkgrou
     public List<WISEWorkgroup> getListByOfferingAndUser(Offering offering, User user) {
         Session session = this.getSession();
         SQLQuery sqlQuery = session
-                .createSQLQuery("SELECT w.*, w_r_u.*, ww.* FROM workgroups as w, "
-                        + "workgroups_related_to_users as w_r_u, wiseworkgroups as ww "
-                        + "WHERE w.id = w_r_u.workgroup_fk "
-                        + "AND w_r_u.user_fk = :user_param "
-                        + "AND w.offering_fk = :offering_param "
-                        + "AND w.id = ww.id");
+        .createSQLQuery("SELECT w.*, g.*, ww.* FROM workgroups as w, groups as g, "
+        		+ "groups_related_to_users as g_r_u, wiseworkgroups as ww "
+                + "WHERE w.group_fk = g.id "
+                + "AND g_r_u.group_fk = w.group_fk "
+                + "AND g_r_u.user_fk = :user_param "
+                + "AND w.offering_fk = :offering_param "
+                + "AND w.id = ww.id");
+
         sqlQuery.addEntity("wiseworkgroup", WISEWorkgroupImpl.class);
         sqlQuery.setParameter("offering_param", offering.getId(),
                 Hibernate.LONG);

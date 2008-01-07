@@ -101,8 +101,6 @@ public class RegisterCurnitControllerTest extends AbstractModelAndViewTests {
 		ModelAndView modelAndView = registerCurnitController.onSubmit(
 				request, response, curnitParameters, errors);
 		
-		assertTrue(modelAndView.getView() instanceof RedirectView);
-		assertEquals(SUCCESS, ((RedirectView) modelAndView.getView()).getUrl());
 		verify(mockCurnitService);
 	}
 	

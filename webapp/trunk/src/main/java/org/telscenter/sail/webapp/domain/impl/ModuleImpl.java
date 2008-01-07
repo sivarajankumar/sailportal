@@ -37,7 +37,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
-import org.telscenter.sail.webapp.domain.Project;
+import org.telscenter.sail.webapp.domain.Module;
 
 /**
  * WISE "Project" domain object. A WISE Project is a Curnit with more
@@ -49,8 +49,8 @@ import org.telscenter.sail.webapp.domain.Project;
  * @version $Id: $
  */
 @Entity
-@Table(name = ProjectImpl.DATA_STORE_NAME)
-public class ProjectImpl extends CurnitImpl implements Project {
+@Table(name = ModuleImpl.DATA_STORE_NAME)
+public class ModuleImpl extends CurnitImpl implements Module {
 
 	@Transient
 	public static final String DATA_STORE_NAME = "projects";
@@ -85,22 +85,22 @@ public class ProjectImpl extends CurnitImpl implements Project {
     @Transient
     public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
 
-    @Column(name = ProjectImpl.COLUMN_NAME_DESCRIPTION, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_DESCRIPTION, nullable = false)
 	private String description;
 
-    @Column(name = ProjectImpl.COLUMN_NAME_GRADES, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_GRADES, nullable = false)
 	private Set<Integer> grades;
     
-    @Column(name = ProjectImpl.COLUMN_NAME_TOPICKEYWORDS, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_TOPICKEYWORDS, nullable = false)
 	private Set<String> topicKeywords;
 	
-    @Column(name = ProjectImpl.COLUMN_NAME_TOTALTIME, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_TOTALTIME, nullable = false)
 	private Long totalTime;
 	
-    @Column(name = ProjectImpl.COLUMN_NAME_COMPUTERTIME, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_COMPUTERTIME, nullable = false)
 	private Long computerTime;
 	
-    @Column(name = ProjectImpl.COLUMN_NAME_TECHREQS, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_TECHREQS, nullable = false)
 	private String techReqs;
 	
     @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)

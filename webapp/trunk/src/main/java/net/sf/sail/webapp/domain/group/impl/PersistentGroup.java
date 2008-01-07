@@ -97,6 +97,7 @@ public class PersistentGroup implements Group {
      * @see net.sf.sail.webapp.domain.group.Group#addMember(net.sf.sail.webapp.domain.User)
      */
     public void addMember(User member) {
+        // TODO: LW & HT DISCUSS: WHY IS THIS IF CASE NEEDED? IT'S USING A SET
         if (this.members.contains(member)) {
             return;
         }

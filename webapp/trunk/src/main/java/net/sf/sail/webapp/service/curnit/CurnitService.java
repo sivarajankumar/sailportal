@@ -40,7 +40,7 @@ public interface CurnitService {
 	public List<? extends Curnit> getCurnitList();
 
 	/**
-	 * Creates a new <code>SdsCurnit</code> on the SDS as well as a
+	 * Registers a new <code>SdsCurnit</code> on the SDS and creates a
 	 * <code>Curnit</code> object in the local data store. A side effect is
 	 * that the sdsObjectId is set to the value that the SDS assigns to the new
 	 * curnit.

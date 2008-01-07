@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -20,45 +20,45 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.sf.sail.webapp.presentation.web.controllers.curnit;
+package net.sf.sail.webapp.presentation.web.controllers.jnlp;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.impl.CurnitParameters;
-import net.sf.sail.webapp.service.curnit.CurnitService;
+import net.sf.sail.webapp.domain.impl.JnlpParameters;
+import net.sf.sail.webapp.service.jnlp.JnlpService;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
- * The controller for registering a new curnit with the portal
- * Note that when a new curnit is created, we say "register a curnit",
+ * The controller for registering a new jnlp with the portal
+ * Note that when a new jnlp is created, we say "register a jnlp",
  * and when a new offering is created, we say "create an offering".
- * This is because a curnit is a domain that is stored outside of the portal
+ * This is because a jnlp is a domain that is stored outside of the portal
  * and the offering is created and stored inside the portal.
  * 
  * @author Hiroki Terashima
- * @version $Id$ 
+ * @version $Id$
  */
-public class RegisterCurnitController extends SimpleFormController {
+public class RegisterJnlpController extends SimpleFormController {
 
-	protected CurnitService curnitService = null;
-
+	protected JnlpService jnlpService = null;
+	
 	@Override
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors)  {
-		CurnitParameters curnitParameters = (CurnitParameters) command;
-		this.curnitService.createCurnit(curnitParameters);
+		JnlpParameters jnlpParameters = (JnlpParameters) command;
+		this.jnlpService.createJnlp(jnlpParameters);
 		
 		return null;
 	}
-	
+
 	/**
-	 * @param curnitService the curnitService to set
+	 * @param jnlpService the jnlpService to set
 	 */
-	public void setCurnitService(CurnitService curnitService) {
-		this.curnitService = curnitService;
+	public void setJnlpService(JnlpService jnlpService) {
+		this.jnlpService = jnlpService;
 	}
 }

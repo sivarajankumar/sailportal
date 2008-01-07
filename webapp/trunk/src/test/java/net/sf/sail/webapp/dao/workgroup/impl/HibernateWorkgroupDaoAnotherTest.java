@@ -32,6 +32,7 @@ import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -73,8 +74,10 @@ public class HibernateWorkgroupDaoAnotherTest extends
 
     private static final String DEFAULT_URL = "http://woohoo";
 
-    private HibernateWorkgroupDao workgroupDao;
+    private static final String GROUP_NAME = "the heros group";
 
+    private HibernateWorkgroupDao workgroupDao;
+    
     /**
      * @param workgroupDao
      *                the workgroupDao to set
@@ -215,6 +218,11 @@ public class HibernateWorkgroupDaoAnotherTest extends
 
         Workgroup workgroup = (Workgroup) this.applicationContext
                 .getBean("workgroup");
+        Group group = (Group) this.applicationContext
+        		.getBean("group");
+        group.setName(GROUP_NAME);
+        session.save(group);
+        workgroup.setGroup(group);
         workgroup.setMembers(members);
         workgroup.setOffering(offering);
         workgroup.setSdsWorkgroup(sdsWorkgroup);

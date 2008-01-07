@@ -313,15 +313,15 @@
 	<util:properties id="uihtmlproperties" 
         location="classpath:messages/tels/ui-html.properties" />
 
-	<util:properties id="troubleticketlisteners" 
-        location="classpath:troubleticketlisteners" />
+	<util:properties id="emaillisteners" 
+        location="classpath:emaillisteners" />
 		
 	<bean id="contactWISEValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.general.contactwise.ContactWISEValidator" />
 
     <bean id="contactwisegeneral"
         class="org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral">
-        <property name="emaillisteners" ref="troubleticketlisteners" />
+        <property name="emaillisteners" ref="emaillisteners" />
     </bean>
 
 	<bean id="lostPasswordStudentReminderWizardController"

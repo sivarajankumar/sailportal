@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -20,26 +20,22 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.project;
-
-import java.util.List;
-
-import org.telscenter.sail.webapp.domain.Module;
-
-import net.sf.sail.webapp.service.curnit.CurnitService;
+package org.telscenter.sail.webapp.service.authentication;
 
 /**
- * A service for working with <code>Project</code> objects
- *
+ * Provides TELS-specific ROLES on top of what is already
+ * available in PAS
+ * 
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
-public interface ProjectService extends CurnitService {
+public interface UserDetailsService extends
+		net.sf.sail.webapp.service.authentication.UserDetailsService {
+	
+	public static final String TEACHER_ROLE = "ROLE_TEACHER";
+	
+	public static final String STUDENT_ROLE = "ROLE_STUDENT";
+	
+	public static final String AUTHOR_ROLE = "ROLE_AUTHOR";
 
-	/**
-	 * Get a <code>List</code> of Projects.
-	 * 
-	 * @return a <code>List</code> of Projects.
-	 */
-	public List<Module> getProjectList();
 }

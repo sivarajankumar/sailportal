@@ -22,7 +22,6 @@
  */
 package net.sf.sail.webapp.domain.impl;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,8 +34,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -45,6 +42,8 @@ import javax.persistence.Version;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 
 /**
@@ -66,8 +65,8 @@ public class WorkgroupImpl implements Workgroup {
     public static final String COLUMN_NAME_OFFERING_FK = "offering_fk";
 
     @Transient
-    public static final String USERS_JOIN_TABLE_NAME = "workgroups_related_to_users";
-
+    public static final String COLUMN_NAME_GROUP_FK = "group_fk";
+    
     @Transient
     public static final String USERS_JOIN_COLUMN_NAME = "user_fk";
 
@@ -93,9 +92,9 @@ public class WorkgroupImpl implements Workgroup {
     @JoinColumn(name = COLUMN_NAME_OFFERING_FK, nullable = false)
     private Offering offering;
 
-    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
-    @JoinTable(name = USERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = USERS_JOIN_COLUMN_NAME, nullable = false))
-    private Set<User> members = new HashSet<User>();
+    @OneToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = COLUMN_NAME_GROUP_FK, nullable = false)
+    private Group group = new PersistentGroup();
 
     /**
      * @see net.sf.sail.webapp.domain.Workgroup#setSdsWorkgroup(net.sf.sail.webapp.domain.sds.SdsWorkgroup)
@@ -115,29 +114,44 @@ public class WorkgroupImpl implements Workgroup {
      * @see net.sf.sail.webapp.domain.Workgroup#getMembers()
      */
     public Set<User> getMembers() {
-        return members;
+        return this.group.getMembers();
     }
 
     /**
      * @see net.sf.sail.webapp.domain.Workgroup#addMember(net.sf.sail.webapp.domain.User)
      */
     public void addMember(User member) {
-        this.members.add(member);
+        this.group.addMember(member);
+        this.group.setName(this.generateWorkgroupName());
     }
     
     /**
      * @see net.sf.sail.webapp.domain.Workgroup#removeMember(net.sf.sail.webapp.domain.User)
      */
     public void removeMember(User member) {
-    	this.members.remove(member);
+    	this.group.getMembers().remove(member);
     }
 
     /**
      * @see net.sf.sail.webapp.domain.Workgroup#setMembers(java.util.Set)
      */
     public void setMembers(Set<User> members) {
-        this.members = members;
+        this.group.setMembers(members);
     }
+    
+	/**
+	 * @return the group
+	 */
+	public Group getGroup() {
+		return group;
+	}
+
+	/**
+	 * @param group the group to set
+	 */
+	public void setGroup(Group group) {
+		this.group = group;
+	}
 
     /**
      * @see net.sf.sail.webapp.domain.Workgroup#getOffering()
@@ -174,7 +188,7 @@ public class WorkgroupImpl implements Workgroup {
      */
 	public String generateWorkgroupName() {
 		String workgroupName = "Workgroup with members:";
-		for (User member : members) {
+		for (User member : group.getMembers()) {
 			workgroupName += " " + member.getUserDetails().getUsername();
 		}
 		return workgroupName;
@@ -198,51 +212,49 @@ public class WorkgroupImpl implements Workgroup {
         this.version = version;
     }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result
-                + ((this.members == null) ? 0 : this.members.hashCode());
-        result = PRIME * result
-                + ((this.offering == null) ? 0 : this.offering.hashCode());
-        result = PRIME
-                * result
-                + ((this.sdsWorkgroup == null) ? 0 : this.sdsWorkgroup
-                        .hashCode());
-        return result;
-    }
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((group == null) ? 0 : group.hashCode());
+		result = prime * result
+				+ ((offering == null) ? 0 : offering.hashCode());
+		result = prime * result
+				+ ((sdsWorkgroup == null) ? 0 : sdsWorkgroup.hashCode());
+		return result;
+	}
 
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final WorkgroupImpl other = (WorkgroupImpl) obj;
-        if (this.members == null) {
-            if (other.members != null)
-                return false;
-        } else if (!this.members.equals(other.members))
-            return false;
-        if (this.offering == null) {
-            if (other.offering != null)
-                return false;
-        } else if (!this.offering.equals(other.offering))
-            return false;
-        if (this.sdsWorkgroup == null) {
-            if (other.sdsWorkgroup != null)
-                return false;
-        } else if (!this.sdsWorkgroup.equals(other.sdsWorkgroup))
-            return false;
-        return true;
-    }
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final WorkgroupImpl other = (WorkgroupImpl) obj;
+		if (group == null) {
+			if (other.group != null)
+				return false;
+		} else if (!group.equals(other.group))
+			return false;
+		if (offering == null) {
+			if (other.offering != null)
+				return false;
+		} else if (!offering.equals(other.offering))
+			return false;
+		if (sdsWorkgroup == null) {
+			if (other.sdsWorkgroup != null)
+				return false;
+		} else if (!sdsWorkgroup.equals(other.sdsWorkgroup))
+			return false;
+		return true;
+	}
+
 }

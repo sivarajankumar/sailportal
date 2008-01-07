@@ -99,6 +99,7 @@
 		<property name="aclService" ref="aclServiceImpl" />
 	</bean>
 
+<!-- TODO: LW&HI groupDao bean def. duplicate with user.xml? -->
 	<bean id="groupDao"
 		class="net.sf.sail.webapp.dao.group.impl.HibernateGroupDao">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -233,6 +234,7 @@
 		class="net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl">
 		<property name="sdsWorkgroupDao" ref="sdsWorkgroupDao" />
 		<property name="workgroupDao" ref="workgroupDao" />
+		<property name="groupDao" ref="groupDao" />
 		<property name="aclService" ref="aclServiceImpl" />
 		<property name="offeringService" ref="offeringService" />
 	</bean>

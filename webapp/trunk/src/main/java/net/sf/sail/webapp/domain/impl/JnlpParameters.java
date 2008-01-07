@@ -22,10 +22,15 @@ package net.sf.sail.webapp.domain.impl;
  *
  * @version $Id$
  * 
- * Represents the parameters requred to create a jnlp.
+ * Represents the parameters required to create a jnlp.
  * 
  */
 public class JnlpParameters {
+
+	public static String FIELD_NAME = "name";
+	
+	public static String FIELD_URL = "url";
+
 	private String name;
 
 	private String url;

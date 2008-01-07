@@ -60,10 +60,11 @@ public class HibernateWorkgroupDao extends AbstractHibernateDao<Workgroup>
     public List<Workgroup> getListByOfferingAndUser(Offering offering, User user) {
         Session session = this.getSession();
         SQLQuery sqlQuery = session
-                .createSQLQuery("SELECT w.*, w_r_u.* FROM workgroups as w, "
-                        + "workgroups_related_to_users as w_r_u "
-                        + "WHERE w.id = w_r_u.workgroup_fk "
-                        + "AND w_r_u.user_fk = :user_param "
+                .createSQLQuery("SELECT w.*, g.* FROM workgroups as w, groups as g, "
+                		+ "groups_related_to_users as g_r_u "
+                        + "WHERE w.group_fk = g.id "
+                        + "AND g_r_u.group_fk = w.group_fk "
+                        + "AND g_r_u.user_fk = :user_param "
                         + "AND w.offering_fk = :offering_param");
         sqlQuery.addEntity("workgroup", WorkgroupImpl.class);
         sqlQuery.setParameter("offering_param", offering.getId(),

@@ -31,6 +31,12 @@
     <bean id="teacherUserDetails" scope="prototype"
         class="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails">
     </bean>
+    
+    <bean id="userDetailsService" scope="prototype"
+        class="org.telscenter.sail.webapp.service.authentication.impl.UserDetailsServiceImpl">
+        <property name="userDetailsDao" ref="userDetailsDao" />
+        <property name="grantedAuthorityDao" ref="grantedAuthorityDao" />
+    </bean>
 
     <bean id="run" scope="prototype"
         class="org.telscenter.sail.webapp.domain.impl.RunImpl">
@@ -140,5 +146,6 @@
 		<property name="gradingService" ref="gradingService" />
 		<property name="offeringService" ref="runService" />
 		<property name="groupService" ref="groupService" />
+		<property name="groupDao" ref="groupDao" />
     </bean>    
 </beans>

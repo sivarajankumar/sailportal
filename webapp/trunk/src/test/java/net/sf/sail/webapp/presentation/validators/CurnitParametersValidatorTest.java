@@ -155,6 +155,8 @@ public class CurnitParametersValidatorTest {
 	@Test
 	@Ignore
 	public void testCurnitUrlInvalid1() {
+		// TODO Laurel: finish writing this and remove
+		// the @Ignore tag when ready
 		curnitParameters.setName(LEGAL_CURNIT_NAME);
 		curnitParameters.setUrl(INVALID_URL_1);
 		

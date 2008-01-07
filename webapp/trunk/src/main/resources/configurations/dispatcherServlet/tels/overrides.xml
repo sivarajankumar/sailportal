@@ -63,6 +63,7 @@
     		    /contactwisegeneral.html=contactWiseController
     		    /student/index.html=studentIndexController
     		    /student/selectteam.html=selectteamController
+    		    /student/teamsignin.html=teamSignInController
     		    /student/addproject.html=addProjectController
     		    /student/changeperiodteam.html=changePeriodTeamController
     		    /student/startproject.html=startProjectController
@@ -121,6 +122,8 @@
 				/teacher/management/changestudentpassword.html=changeStudentPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/dwr/*=dwrController
+				/author/registerproject.html=registerCurnitController
+				/author/registerjnlp.html=registerJnlpController
     		</value>
     	</property>
     </bean>

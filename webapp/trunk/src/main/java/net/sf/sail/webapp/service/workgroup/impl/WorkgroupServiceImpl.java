@@ -23,12 +23,14 @@ import java.util.Set;
 import java.lang.Exception;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.service.AclService;
@@ -51,6 +53,8 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     protected SdsWorkgroupDao sdsWorkgroupDao;
 
     protected WorkgroupDao<Workgroup> workgroupDao;
+    
+    protected GroupDao<Group> groupDao;
     
     protected OfferingService offeringService;
     
@@ -92,6 +96,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         Workgroup workgroup = createWorkgroup(members, offering, sdsWorkgroup);
 
         this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
+        this.groupDao.save(workgroup.getGroup());
         this.workgroupDao.save(workgroup);
         
         this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
@@ -174,6 +179,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
             workgroup.addMember(user);
             workgroup.setOffering(offering);
             workgroup.setSdsWorkgroup(sdsWorkgroup);
+            this.groupDao.save(workgroup.getGroup());
             this.workgroupDao.save(workgroup);
             
             this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
@@ -193,9 +199,11 @@ public class WorkgroupServiceImpl implements WorkgroupService {
     		workgroup.addMember(member);
     		sdsWorkgroup.addMember(member.getSdsUser());
     	}
-		sdsWorkgroup.setName(workgroup.generateWorkgroupName());
+    	String workgroupName = workgroup.generateWorkgroupName();
+		sdsWorkgroup.setName(workgroupName);
         this.sdsWorkgroupDao.save(sdsWorkgroup);
         workgroup.setSdsWorkgroup(sdsWorkgroup);
+        this.groupDao.save(workgroup.getGroup());
     	this.workgroupDao.save(workgroup);
 	}
     
@@ -212,6 +220,7 @@ public class WorkgroupServiceImpl implements WorkgroupService {
 		sdsWorkgroup.setName(workgroup.generateWorkgroupName());
         this.sdsWorkgroupDao.save(sdsWorkgroup);
         workgroup.setSdsWorkgroup(sdsWorkgroup);
+        this.groupDao.save(workgroup.getGroup());
     	this.workgroupDao.save(workgroup);
 	}
     
@@ -257,6 +266,13 @@ public class WorkgroupServiceImpl implements WorkgroupService {
 	 */
 	public void setOfferingService(OfferingService offeringService) {
 		this.offeringService = offeringService;
+	}
+
+	/**
+	 * @param groupDao the groupDao to set
+	 */
+	public void setGroupDao(GroupDao<Group> groupDao) {
+		this.groupDao = groupDao;
 	}
     
     // TODO HT: create method for creating workgroupname

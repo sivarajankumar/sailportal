@@ -30,8 +30,8 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
 
-import org.telscenter.sail.webapp.domain.Project;
-import org.telscenter.sail.webapp.domain.impl.ProjectImpl;
+import org.telscenter.sail.webapp.domain.Module;
+import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -44,15 +44,15 @@ public class ProjectServiceImpl extends CurnitServiceImpl implements
 		ProjectService {
 	
 	@SuppressWarnings("unchecked")
-	public List<Project> getProjectList() {
-		return (List<Project>) super.getCurnitList();
+	public List<Module> getProjectList() {
+		return (List<Module>) super.getCurnitList();
 	}
 
 	@Override
-	public Project getById(Long projectId) throws ObjectNotFoundException {
+	public Module getById(Long projectId) throws ObjectNotFoundException {
 		// TODO HT: change Initializer.java to populate database with Projects, not curnits.
 		Curnit curnit = super.getById(projectId);
-		Project project = new ProjectImpl();
+		Module project = new ModuleImpl();
 		project.setSdsCurnit(curnit.getSdsCurnit());
 		Set<Integer> grades = new TreeSet<Integer>();
 		grades.add(1);

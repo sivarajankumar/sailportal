@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -20,26 +20,36 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.project;
-
-import java.util.List;
-
-import org.telscenter.sail.webapp.domain.Module;
-
-import net.sf.sail.webapp.service.curnit.CurnitService;
+package org.telscenter.sail.webapp.domain.project;
 
 /**
- * A service for working with <code>Project</code> objects
- *
+ * A WISE Project domain object
+ * 
+ * A Project can be launched, which means that the <code>Curnit</code>
+ * can be rendered to the user using <code>Jnlp</code>.
+ * 
+ * To launch a project as a student, you need
+ * -- to have set up a run (a teacher would do this)
+ * -- to have registered to that run (using projectcode)
+ * -- to be in a workgroup for the run
+ * - to preview, you need
+ * 
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
-public interface ProjectService extends CurnitService {
-
+public interface Project {
+	
 	/**
-	 * Get a <code>List</code> of Projects.
-	 * 
-	 * @return a <code>List</code> of Projects.
+	 * Launches the project
 	 */
-	public List<Module> getProjectList();
+	public void launch();
+	
+	/**
+	 * Launches the project in preview mode
+	 */
+	public void preview();
+	
+	/**
+	 * 
+	 */
 }

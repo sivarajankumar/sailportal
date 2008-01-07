@@ -26,13 +26,13 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
-import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
  * A disposable class that is used to create default roles in the data store and
@@ -119,6 +119,9 @@ public class CreateDefaultUsers {
             throws DuplicateAuthorityException {
         createRole(applicationContext, UserDetailsService.USER_ROLE);
         createRole(applicationContext, UserDetailsService.ADMIN_ROLE);
+        createRole(applicationContext, UserDetailsService.TEACHER_ROLE);
+        createRole(applicationContext, UserDetailsService.STUDENT_ROLE);
+        createRole(applicationContext, UserDetailsService.AUTHOR_ROLE);
     }
 
     private void createRole(ApplicationContext applicationContext, String role)

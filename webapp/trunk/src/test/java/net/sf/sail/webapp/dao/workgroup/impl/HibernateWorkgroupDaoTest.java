@@ -31,6 +31,8 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
@@ -61,11 +63,15 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
 
     private static final SdsJnlp DEFAULT_SDS_JNLP = new SdsJnlp();
 
-    private static final String DEFAULT_NAME = "the heros";
+    private static final String DEFAULT_NAME = "the heros workgroup";
+
+    private static final String GROUP_NAME = "the heros group";
 
     private static final String DEFAULT_URL = "http://woohoo";
 
     private SdsWorkgroup sdsWorkgroup;
+    
+    private Group group;
 
     private SdsOffering defaultSdsOffering;
 
@@ -96,6 +102,13 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
     }
 
     /**
+	 * @param group the group to set
+	 */
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	/**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
      */
     @Override
@@ -105,7 +118,7 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
                 .getBean("workgroupDao"));
         this.dataObject = ((WorkgroupImpl) this.applicationContext
                 .getBean("workgroup"));
- 
+        
         DEFAULT_SDS_CURNIT.setName(DEFAULT_NAME);
         DEFAULT_SDS_CURNIT.setUrl(DEFAULT_URL);
         DEFAULT_SDS_CURNIT.setSdsObjectId(SDS_ID);
@@ -120,6 +133,10 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
         this.sdsWorkgroup.setSdsObjectId(SDS_ID);
         this.sdsWorkgroup.setName(DEFAULT_NAME);
         this.dataObject.setSdsWorkgroup(this.sdsWorkgroup);
+        
+        this.group.setName(GROUP_NAME);
+        this.dataObject.setGroup(this.group);
+
     }
 
     /**
@@ -138,6 +155,8 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
         session.save(this.defaultOffering); // save offering
         this.sdsWorkgroup.setSdsOffering(this.defaultSdsOffering);
         this.dataObject.setOffering(this.defaultOffering);
+        session.save(this.group);
+        this.dataObject.setGroup(group);
     }
 
     /**
@@ -193,8 +212,8 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
         verifyDataStoreWorkgroupListIsEmpty();
         verifyDataStoreWorkgroupMembersListIsEmpty();
 
-        User user = createNewUser(USERNAME, SDS_ID, this.sessionFactory
-                .getCurrentSession());
+        Session currentSession = this.sessionFactory.getCurrentSession();
+        User user = createNewUser(USERNAME, SDS_ID, currentSession);
         this.dataObject.addMember(user);
         // saving the workgroup should cascade to the sds workgroup object
         this.dao.save(this.dataObject);
@@ -226,8 +245,8 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
         verifyDataStoreWorkgroupListIsEmpty();
         verifyDataStoreWorkgroupMembersListIsEmpty();
 
-        User user = createNewUser(USERNAME, SDS_ID, this.sessionFactory
-                .getCurrentSession());
+        Session currentSession = this.sessionFactory.getCurrentSession();
+        User user = createNewUser(USERNAME, SDS_ID, currentSession);
         this.dataObject.addMember(user);
         this.dao.save(this.dataObject);
         this.toilet.flush();
@@ -257,40 +276,41 @@ public class HibernateWorkgroupDaoTest extends AbstractTransactionalDaoTests<Hib
         session.save(user);
         return user;
     }
-
+    
     private void verifyDataStoreWorkgroupMembersListIsEmpty() {
         assertTrue(retrieveWorkgroupMembersListFromDb().isEmpty());
     }
 
     /*
-     * SELECT * FROM workgroups, workgroups_related_to_users, users,
-     * user_details WHERE workgroups.id =
-     * workgroups_related_to_users.workgroup_fk AND
-     * workgroups_related_to_users.user_fk = users.id AND users.user_details_fk =
+     * SELECT * FROM workgroups, groups, groups_related_to_users, users, user_details
+     * WHERE workgroups.group_fk = groups.id AND
+     * groups_related_to_users.group_fk = groups.id AND
+     * groups_related_to_users.user_fk = users.id AND users.user_details_fk =
      * user_details.id
      */
     private static final String RETRIEVE_WORKGROUP_MEMBERS_SQL = "SELECT * FROM "
             + WorkgroupImpl.DATA_STORE_NAME
             + ", "
-            + WorkgroupImpl.USERS_JOIN_TABLE_NAME
+            + PersistentGroup.DATA_STORE_NAME
+            + ", "
+            + PersistentGroup.USERS_JOIN_TABLE_NAME
             + ", "
             + UserImpl.DATA_STORE_NAME
             + ","
             + PersistentUserDetails.DATA_STORE_NAME
             + " WHERE "
             + WorkgroupImpl.DATA_STORE_NAME
-            + ".id = "
-            + WorkgroupImpl.USERS_JOIN_TABLE_NAME
-            + "."
-            + WorkgroupImpl.WORKGROUPS_JOIN_COLUMN_NAME
-            + " AND "
-            + WorkgroupImpl.USERS_JOIN_TABLE_NAME
-            + "."
-            + WorkgroupImpl.USERS_JOIN_COLUMN_NAME
-            + " = "
+            + ".group_fk = "
+            + PersistentGroup.DATA_STORE_NAME
+            + ".id AND "
+            + PersistentGroup.USERS_JOIN_TABLE_NAME
+            + ".group_fk = "
+            + PersistentGroup.DATA_STORE_NAME
+            + ".id AND "
+            + PersistentGroup.USERS_JOIN_TABLE_NAME
+            + ".user_fk = "
             + UserImpl.DATA_STORE_NAME
-            + ".id"
-            + " AND "
+            + ".id AND "
             + UserImpl.DATA_STORE_NAME
             + "."
             + UserImpl.COLUMN_NAME_USER_DETAILS_FK

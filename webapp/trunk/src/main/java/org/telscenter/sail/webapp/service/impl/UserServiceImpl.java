@@ -12,6 +12,9 @@ import net.sf.sail.webapp.service.authentication.UserNotFoundException;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
  * @author Hiroki Terashima
@@ -31,6 +34,14 @@ public class UserServiceImpl extends
 		org.telscenter.sail.webapp.domain.authentication.MutableUserDetails details = 
 			(org.telscenter.sail.webapp.domain.authentication.MutableUserDetails) userDetails;
 
+		// assign roles
+		if (userDetails instanceof StudentUserDetails) {
+			this.assignRole(userDetails, UserDetailsService.STUDENT_ROLE);
+		} else if (userDetails instanceof TeacherUserDetails) {
+			this.assignRole(userDetails, UserDetailsService.TEACHER_ROLE);
+			this.assignRole(userDetails, UserDetailsService.AUTHOR_ROLE);
+		} 
+		
 		String coreUsername = details.getCoreUsername();
 		String[] suffixes = details.getUsernameSuffixes(); // extra at end to ensure username uniqueness
 		int index = 0;  // index within suffixes array 

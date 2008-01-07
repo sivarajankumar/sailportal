@@ -179,7 +179,7 @@ public class UserServiceImpl implements UserService {
 				.getPassword(), this.saltSource.getSalt(userDetails)));
 	}
 
-	private void assignRole(MutableUserDetails userDetails, final String role) {
+	protected void assignRole(MutableUserDetails userDetails, final String role) {
 		GrantedAuthority authority = this.grantedAuthorityDao
 				.retrieveByName(role);
 		userDetails.addAuthority(authority);

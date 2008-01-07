@@ -33,7 +33,7 @@ import net.sf.sail.webapp.domain.User;
  * @author Hiroki Terashima
  * @version $Id: $
  */
-public interface Project extends Curnit {
+public interface Module extends Curnit {
 
 	public void setGrades(Set<Integer> grades);
 

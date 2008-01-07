@@ -41,7 +41,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.Project;
+import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
@@ -176,12 +176,12 @@ public class CreateRunController extends AbstractWizardFormController {
 	protected Map<String, Object> referenceData(HttpServletRequest request, 
 			Object command, Errors errors, int page) {
 		RunParameters runParameters = (RunParameters) command;
-		Project project = null;
+		Module project = null;
 		Map<String, Object> model = new HashMap<String, Object>();
 		switch(page) {
 		case 0:
 			try {
-				project = (Project) this.projectService.getById(runParameters.getCurnitId());
+				project = (Module) this.projectService.getById(runParameters.getCurnitId());
 			} catch (ObjectNotFoundException e) {
 				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();
@@ -217,7 +217,7 @@ public class CreateRunController extends AbstractWizardFormController {
 
 			// TODO HT: talk with Matt on how to set/change run name
 			try {
-				project = (Project) this.projectService.getById(runParameters.getCurnitId());
+				project = (Module) this.projectService.getById(runParameters.getCurnitId());
 			} catch (ObjectNotFoundException e) {
 				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();

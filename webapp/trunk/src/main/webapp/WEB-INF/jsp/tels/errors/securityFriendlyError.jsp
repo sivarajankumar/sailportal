@@ -1,4 +1,4 @@
-<%@ include file="include.jsp" %>
+<%@ include file="../includes/include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -17,12 +17,28 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
+<!-- $Id$ -->
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<html xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
+  type="text/css" />
+<title><spring:message code="access.denied" /> <spring:message code="title.separator" /> <spring:message code="application.title" /></title>
+</head>
 
-<div>
-	<a href="student/index.html"><img id="none" src="<spring:theme code="studentbanner"/>" alt="<spring:message code="wise.banner.alttext" />" /></a>
+<body>
+
+<div id="columns">
+<div id="left">
 </div>
-	    <div>
-	</div>
-	
+
+<div id="right">
+<spring:message code="error.security.message" />
+</div>
+
+</div>
+
+</body>
+</html>

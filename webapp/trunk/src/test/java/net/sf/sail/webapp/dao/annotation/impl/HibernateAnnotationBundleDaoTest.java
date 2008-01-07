@@ -27,6 +27,7 @@ import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.annotation.impl.AnnotationBundleImpl;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
@@ -52,6 +53,8 @@ public class HibernateAnnotationBundleDaoTest
 
 	private static final String DEFAULT_URL = "http://woohoo";
 
+    private static final String GROUP_NAME = "the heros group";
+
 	private SdsOffering defaultSdsOffering;
 
 	private Offering defaultOffering;
@@ -59,6 +62,8 @@ public class HibernateAnnotationBundleDaoTest
 	private SdsWorkgroup sdsWorkgroup;
 
 	private Workgroup workgroup;
+	
+	private Group group;
 
 	/**
 	 * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -104,6 +109,9 @@ public class HibernateAnnotationBundleDaoTest
 
 		this.workgroup.setOffering(this.defaultOffering);
 		this.workgroup.setSdsWorkgroup(this.sdsWorkgroup);
+		this.group.setName(GROUP_NAME);
+		session.save(group);
+		this.workgroup.setGroup(group);
 		session.save(this.workgroup);
 
 		this.dataObject.setWorkgroup(this.workgroup);
@@ -182,6 +190,13 @@ public class HibernateAnnotationBundleDaoTest
 	 */
 	public void setWorkgroup(Workgroup workgroup) {
 		this.workgroup = workgroup;
+	}
+
+	/**
+	 * @param group the group to set
+	 */
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 }

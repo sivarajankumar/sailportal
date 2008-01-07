@@ -22,15 +22,17 @@
  */
 package org.telscenter.sail.webapp.domain.workgroup.impl;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 
 /**
  * A WISE Workgroup object implementation
@@ -50,10 +52,10 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
     public static final String DATA_STORE_NAME = "wiseworkgroups";
 
 	@Transient
-	private static final String COLUMN_NAME_PERIOD = "period";
+	private static final String COLUMN_NAME_PERIOD_FK = "period";
 
-	@Lob
-	@Column(name = WISEWorkgroupImpl.COLUMN_NAME_PERIOD, length = 2147483647) // Keep length to force it to use large field type
+    @OneToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = COLUMN_NAME_PERIOD_FK)
 	private Group period;
 	
 	/**

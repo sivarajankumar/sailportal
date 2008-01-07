@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        sid bigint not null,
         acl_object_identity bigint not null,
+        sid bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        owner_sid bigint,
         parent_object bigint,
         object_id_class bigint not null,
+        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -219,29 +219,24 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
     create table wiseworkgroups (
         id bigint not null,
-        period longblob,
+        period bigint,
         primary key (id)
     ) type=MyISAM;
 
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
+        group_fk bigint not null,
         offering_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
         primary key (id)
-    ) type=MyISAM;
-
-    create table workgroups_related_to_users (
-        workgroup_fk bigint not null,
-        user_fk bigint not null,
-        primary key (workgroup_fk, user_fk)
     ) type=MyISAM;
 
     alter table acl_entry 
@@ -413,6 +408,12 @@
         references sds_users (id);
 
     alter table wiseworkgroups 
+        add index FKF16C83C93013AD46 (period), 
+        add constraint FKF16C83C93013AD46 
+        foreign key (period) 
+        references groups (id);
+
+    alter table wiseworkgroups 
         add index FKF16C83C9F309B437 (id), 
         add constraint FKF16C83C9F309B437 
         foreign key (id) 
@@ -430,14 +431,8 @@
         foreign key (offering_fk) 
         references offerings (id);
 
-    alter table workgroups_related_to_users 
-        add index FKD724CDB256CA53B6 (user_fk), 
-        add constraint FKD724CDB256CA53B6 
-        foreign key (user_fk) 
-        references users (id);
-
-    alter table workgroups_related_to_users 
-        add index FKD724CDB2F54443B2 (workgroup_fk), 
-        add constraint FKD724CDB2F54443B2 
-        foreign key (workgroup_fk) 
-        references workgroups (id);
+    alter table workgroups 
+        add index FKEC8E5025895EAE0A (group_fk), 
+        add constraint FKEC8E5025895EAE0A 
+        foreign key (group_fk) 
+        references groups (id);

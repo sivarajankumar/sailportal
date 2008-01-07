@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -20,26 +20,16 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.project;
+package org.telscenter.sail.webapp.service.authentication.impl;
 
-import java.util.List;
-
-import org.telscenter.sail.webapp.domain.Module;
-
-import net.sf.sail.webapp.service.curnit.CurnitService;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
- * A service for working with <code>Project</code> objects
- *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
-public interface ProjectService extends CurnitService {
-
-	/**
-	 * Get a <code>List</code> of Projects.
-	 * 
-	 * @return a <code>List</code> of Projects.
-	 */
-	public List<Module> getProjectList();
+public class UserDetailsServiceImpl extends
+		net.sf.sail.webapp.service.authentication.impl.UserDetailsServiceImpl
+		implements UserDetailsService {
+	
 }
