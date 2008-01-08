@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.service.project.impl;
 
 import org.easymock.EasyMock;
+import org.telscenter.sail.webapp.service.module.impl.ProjectServiceImpl;
 
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
