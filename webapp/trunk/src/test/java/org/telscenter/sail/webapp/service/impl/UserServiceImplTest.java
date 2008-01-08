@@ -31,7 +31,6 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.UserService;
-import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.providers.dao.SaltSource;
@@ -43,6 +42,7 @@ import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
  * Tests services available to TELS Portal User
@@ -81,6 +81,8 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 	private StudentUserDetails userDetailsCreate;
 
 	private MutableGrantedAuthority expectedAuthorityCreate;
+	
+	private MutableGrantedAuthority studentAuthority;
 
 	private Integer DEFAULT_NUMBEROFLOGINS = new Integer(9);
 	
@@ -179,6 +181,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		// transaction rollback problem
 		this.userDao.delete(expectedUser);
 		this.authorityDao.delete(expectedAuthorityCreate);
+		this.authorityDao.delete(studentAuthority);
 		this.setComplete();
 		this.endTransaction();
 	}
@@ -207,6 +210,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		// transaction rollback problem
 		this.userDao.delete(expectedUser);
 		this.authorityDao.delete(expectedAuthorityCreate);
+		this.authorityDao.delete(studentAuthority);
 		this.setComplete();
 		this.endTransaction();
 	}
@@ -278,7 +282,12 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 				.getBean("mutableGrantedAuthority");
 		expectedAuthorityCreate.setAuthority(UserDetailsService.USER_ROLE);
 		this.authorityDao.save(expectedAuthorityCreate);
+		studentAuthority = (MutableGrantedAuthority) this.applicationContext
+		         .getBean("mutableGrantedAuthority");
+		studentAuthority.setAuthority(UserDetailsService.STUDENT_ROLE);
+		this.authorityDao.save(studentAuthority);
 
+		
 		userDetailsCreate = (StudentUserDetails) this.applicationContext
 				.getBean("studentUserDetails");
 		userDetailsCreate.setPassword(PASSWORD);

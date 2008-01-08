@@ -23,7 +23,7 @@
 package org.telscenter.sail.webapp.service.project.impl;
 
 import org.easymock.EasyMock;
-import org.telscenter.sail.webapp.service.module.impl.ProjectServiceImpl;
+import org.telscenter.sail.webapp.service.module.impl.ModuleServiceImpl;
 
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 import net.sf.sail.webapp.dao.sds.SdsCurnitDao;
@@ -41,7 +41,7 @@ public class ProjectServiceImplTest extends TestCase {
     private SdsCurnitDao mockSdsCurnitDao;
     private CurnitDao<Curnit> mockCurnitDao;
  
-	private ProjectServiceImpl projectServiceImpl;
+	private ModuleServiceImpl moduleServiceImpl;
 	
     /**
      * @see junit.framework.TestCase#setUp()
@@ -49,13 +49,13 @@ public class ProjectServiceImplTest extends TestCase {
     @SuppressWarnings("unchecked")
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.projectServiceImpl = new ProjectServiceImpl();
+		this.moduleServiceImpl = new ModuleServiceImpl();
 		
         this.mockSdsCurnitDao = EasyMock.createMock(SdsCurnitDao.class);
-        this.projectServiceImpl.setSdsCurnitDao(this.mockSdsCurnitDao);
+        this.moduleServiceImpl.setSdsCurnitDao(this.mockSdsCurnitDao);
 
         this.mockCurnitDao = EasyMock.createMock(CurnitDao.class);
-        this.projectServiceImpl.setCurnitDao(this.mockCurnitDao);
+        this.moduleServiceImpl.setCurnitDao(this.mockCurnitDao);
 	}
     
     /**
@@ -63,7 +63,7 @@ public class ProjectServiceImplTest extends TestCase {
      */
     protected void tearDown() throws Exception {
         super.tearDown();
-        this.projectServiceImpl = null;
+        this.moduleServiceImpl = null;
         this.mockSdsCurnitDao = null;
         this.mockCurnitDao = null;
     }
@@ -72,13 +72,16 @@ public class ProjectServiceImplTest extends TestCase {
     
     public void testGetProjectList() throws Exception {
     	// TODO HT: IMPLEMENT ME
+    	assertTrue(true);
     }
     
     public void testCreateProject() throws Exception {
     	// TODO HT: IMPLEMENT ME
+    	assertTrue(true);
     }
     
     public void testGetById() throws Exception {
     	// TODO HT: IMPLEMENT ME
+    	assertTrue(true);
     }
 }

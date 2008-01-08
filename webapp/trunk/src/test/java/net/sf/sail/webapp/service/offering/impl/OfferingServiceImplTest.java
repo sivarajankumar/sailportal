@@ -48,12 +48,13 @@ import org.easymock.EasyMock;
 public class OfferingServiceImplTest extends TestCase {
 	
 	private static final String CURNIT_NAME = "name";
-	
 	private static final String CURNIT_URL = "url";
 	
 	private static final String JNLP_NAME = "jname";
 	private static final String JNLP_URL = "jurl";
 
+	private static final String OFFERING_NAME = "offeringname";
+	
 	private SdsOfferingDao mockSdsOfferingDao;
 
 	private OfferingDao<Offering> mockOfferingDao;
@@ -67,7 +68,11 @@ public class OfferingServiceImplTest extends TestCase {
 	
 	private static final Long CURNIT_ID = new Long(3);
 
+	private static final Long JNLP_ID = new Long(5);
+
 	private static final Long NON_EXISTING_CURNIT_ID = new Long(9999999);
+
+	private static final Long NON_EXISTING_JNLP_ID = new Long(1904568384);
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -124,9 +129,7 @@ public class OfferingServiceImplTest extends TestCase {
 		sdsJnlp.setUrl(JNLP_URL);
 		Jnlp jnlp = new JnlpImpl();
 		jnlp.setSdsJnlp(sdsJnlp);
-		List<Jnlp> jnlpList = new ArrayList<Jnlp>();
-		jnlpList.add(jnlp);
-		EasyMock.expect(this.mockJnlpDao.getList()).andReturn(jnlpList);
+		EasyMock.expect(this.mockJnlpDao.getById(JNLP_ID)).andReturn(jnlp);
 		EasyMock.replay(this.mockJnlpDao);
 		
 		SdsCurnit sdsCurnit = new SdsCurnit();
@@ -138,8 +141,9 @@ public class OfferingServiceImplTest extends TestCase {
 		EasyMock.replay(this.mockCurnitDao);
 		
 		OfferingParameters offeringParameters = new OfferingParameters();
-		offeringParameters.setName(CURNIT_NAME);
+		offeringParameters.setName(OFFERING_NAME);
 		offeringParameters.setCurnitId(CURNIT_ID);
+		offeringParameters.setJnlpId(JNLP_ID);
 
 		Offering offering = offeringServiceImpl
 				.createOffering(offeringParameters);
@@ -148,21 +152,19 @@ public class OfferingServiceImplTest extends TestCase {
 		assertEquals(CURNIT_URL, offering.getSdsOffering().getSdsCurnit().getUrl());
 		assertEquals(JNLP_NAME, offering.getSdsOffering().getSdsJnlp().getName());
 		assertEquals(JNLP_URL, offering.getSdsOffering().getSdsJnlp().getUrl());
-		assertEquals(CURNIT_NAME, offering.getSdsOffering().getName());
+		assertEquals(OFFERING_NAME, offering.getSdsOffering().getName());
 		
 		EasyMock.verify();
 	}
 	
-	public void testCreateOfferingObjectNotFoundException() throws Exception {
+	public void testCreateOfferingObjectNotFoundException_curnit() throws Exception {
 		//use beans
 		SdsJnlp sdsJnlp = new SdsJnlp();
 		sdsJnlp.setName(JNLP_NAME);
 		sdsJnlp.setUrl(JNLP_URL);
 		Jnlp jnlp = new JnlpImpl();
 		jnlp.setSdsJnlp(sdsJnlp);
-		List<Jnlp> jnlpList = new ArrayList<Jnlp>();
-		jnlpList.add(jnlp);
-		EasyMock.expect(this.mockJnlpDao.getList()).andReturn(jnlpList);
+		EasyMock.expect(this.mockJnlpDao.getById(JNLP_ID)).andReturn(jnlp);
 		EasyMock.replay(this.mockJnlpDao);
 		
 		SdsCurnit sdsCurnit = new SdsCurnit();
@@ -174,8 +176,9 @@ public class OfferingServiceImplTest extends TestCase {
 		EasyMock.replay(this.mockCurnitDao);
 		
 		OfferingParameters offeringParameters = new OfferingParameters();
-		offeringParameters.setName(CURNIT_NAME);
+		offeringParameters.setName(OFFERING_NAME);
 		offeringParameters.setCurnitId(NON_EXISTING_CURNIT_ID);
+		offeringParameters.setJnlpId(JNLP_ID);
 
 		try {
 			offeringServiceImpl.createOffering(offeringParameters);
@@ -186,7 +189,38 @@ public class OfferingServiceImplTest extends TestCase {
 		EasyMock.verify();
 	}
 	
-	// TODO LAW test JNLPNotFound RuntimeException
+	public void testCreateOfferingObjectNotFoundException_jnlp() throws Exception {
+		//use beans
+		SdsJnlp sdsJnlp = new SdsJnlp();
+		sdsJnlp.setName(JNLP_NAME);
+		sdsJnlp.setUrl(JNLP_URL);
+		Jnlp jnlp = new JnlpImpl();
+		jnlp.setSdsJnlp(sdsJnlp);
+		EasyMock.expect(this.mockJnlpDao.getById(NON_EXISTING_JNLP_ID)).andThrow(new ObjectNotFoundException(NON_EXISTING_JNLP_ID, Jnlp.class));
+		EasyMock.replay(this.mockJnlpDao);
+
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setName(CURNIT_NAME);
+		sdsCurnit.setUrl(CURNIT_URL);
+		Curnit curnit = new CurnitImpl();
+		curnit.setSdsCurnit(sdsCurnit);
+		EasyMock.expect(this.mockCurnitDao.getById(CURNIT_ID)).andReturn(curnit);
+		EasyMock.replay(this.mockCurnitDao);
+		
+		OfferingParameters offeringParameters = new OfferingParameters();
+		offeringParameters.setName(OFFERING_NAME);
+		offeringParameters.setCurnitId(CURNIT_ID);
+		offeringParameters.setJnlpId(NON_EXISTING_JNLP_ID);
+
+		try {
+			offeringServiceImpl.createOffering(offeringParameters);
+			fail("ObjectNotFoundException was expected");
+		} catch (ObjectNotFoundException e) {
+		}
+				
+		EasyMock.verify();
+	}
+	
 	
 	// TODO Hiroki test OfferingService.getWorkgroupsForOffering()
 }
