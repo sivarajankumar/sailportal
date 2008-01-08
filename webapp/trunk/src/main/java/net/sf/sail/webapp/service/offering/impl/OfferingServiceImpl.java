@@ -139,14 +139,21 @@ public class OfferingServiceImpl implements OfferingService {
 		SdsOffering sdsOffering = new SdsOffering();
 		sdsOffering.setName(offeringParameters.getName());
 		Curnit curnit = this.curnitDao
-				.getById(offeringParameters.getCurnitId());
+		        .getById(offeringParameters.getCurnitId());
 		sdsOffering.setSdsCurnit(curnit.getSdsCurnit());
-
-		// TODO LAW this will need to be rethought this gets the "default jnlp"
-		// assuming there is only one jnlp for everything
-		List<Jnlp> jnlpList = this.jnlpDao.getList();
-		Jnlp jnlp = jnlpList.get(0);
+		Jnlp jnlp = null;
+		
+		// TODO: HT: make getJnlpId work for PAS Portal if jnlpId
+		// is not set in the OfferingParameters
+		if (offeringParameters.getJnlpId() !=  null) {
+			jnlp = this.jnlpDao
+			.getById(offeringParameters.getJnlpId());
+		} else {
+			List<Jnlp> jnlpList = this.jnlpDao.getList();
+			jnlp = jnlpList.get(0);
+		}
 		sdsOffering.setSdsJnlp(jnlp.getSdsJnlp());
+		
 		this.sdsOfferingDao.save(sdsOffering);
 		return sdsOffering;
 	}

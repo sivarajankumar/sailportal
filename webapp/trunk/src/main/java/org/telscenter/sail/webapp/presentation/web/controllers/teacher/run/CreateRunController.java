@@ -45,8 +45,8 @@ import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -72,7 +72,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private RunService runService = null;
 	
-	private ProjectService projectService = null;
+	private ModuleService moduleService = null;
 	
 	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/setuprunconfirm";
 	
@@ -181,7 +181,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		switch(page) {
 		case 0:
 			try {
-				project = (Module) this.projectService.getById(runParameters.getCurnitId());
+				project = (Module) this.moduleService.getById(runParameters.getCurnitId());
 			} catch (ObjectNotFoundException e) {
 				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();
@@ -217,7 +217,7 @@ public class CreateRunController extends AbstractWizardFormController {
 
 			// TODO HT: talk with Matt on how to set/change run name
 			try {
-				project = (Module) this.projectService.getById(runParameters.getCurnitId());
+				project = (Module) this.moduleService.getById(runParameters.getCurnitId());
 			} catch (ObjectNotFoundException e) {
 				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();
@@ -289,10 +289,10 @@ public class CreateRunController extends AbstractWizardFormController {
 	}
 
 	/**
-	 * @param projectService the projectService to set
+	 * @param moduleService the projectService to set
 	 */
-	public void setProjectService(ProjectService projectService) {
-		this.projectService = projectService;
+	public void setProjectService(ModuleService moduleService) {
+		this.moduleService = moduleService;
 	}
 
 }

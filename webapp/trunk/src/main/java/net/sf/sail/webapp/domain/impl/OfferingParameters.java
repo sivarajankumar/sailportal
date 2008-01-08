@@ -27,9 +27,27 @@ package net.sf.sail.webapp.domain.impl;
  * 
  */
 public class OfferingParameters {
+	
 	private String name;
 
 	private Long curnitId;
+	
+	private Long jnlpId;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * @return the curnitId
@@ -47,18 +65,17 @@ public class OfferingParameters {
 	}
 
 	/**
-	 * @return the name
+	 * @return the jnlpId
 	 */
-	public String getName() {
-		return name;
+	public Long getJnlpId() {
+		return jnlpId;
 	}
 
 	/**
-	 * @param name
-	 *            the name to set
+	 * @param jnlpId the jnlpId to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setJnlpId(Long jnlpId) {
+		this.jnlpId = jnlpId;
 	}
 
 }

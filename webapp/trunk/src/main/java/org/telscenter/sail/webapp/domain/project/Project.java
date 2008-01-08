@@ -25,6 +25,9 @@ package org.telscenter.sail.webapp.domain.project;
 /**
  * A WISE Project domain object
  * 
+ * A Project has all of the data needed to set up an <code>Offering</code>, 
+ * or in WISE terms, <code>Run</code>.
+ * 
  * A Project can be launched, which means that the <code>Curnit</code>
  * can be rendered to the user using <code>Jnlp</code>.
  * 
@@ -42,12 +45,12 @@ public interface Project {
 	/**
 	 * Launches the project
 	 */
-	public void launch();
+//	public void launch();
 	
 	/**
 	 * Launches the project in preview mode
 	 */
-	public void preview();
+//	public void preview();
 	
 	/**
 	 * 

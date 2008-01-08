@@ -30,7 +30,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * The validator for offering paramter objects e.g. when creating new offerings
+ * The validator for offering parameter objects e.g. when creating new offerings
  * 
  * @author Hiroki Terashima
  * @version $Id: OfferingParametersValidator.java 552 2007-06-28 01:11:36Z
