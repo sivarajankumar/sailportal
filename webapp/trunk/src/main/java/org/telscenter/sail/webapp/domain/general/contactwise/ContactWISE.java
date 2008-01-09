@@ -35,8 +35,12 @@ public interface ContactWISE extends Serializable {
 	
 	public String getName();
 	
-	public String getEmail();
+	public void setName(String name);
 	
+	public String getEmail();
+
+	public void setEmail(String email);
+
 	public IssueType getIssuetype();
 	
 	public OperatingSystem getOperatingsystem();
