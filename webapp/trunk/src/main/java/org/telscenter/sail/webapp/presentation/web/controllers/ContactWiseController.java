@@ -6,11 +6,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.JavaMailHelper;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
 import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
@@ -68,7 +71,16 @@ public class ContactWiseController extends SimpleFormController {
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		return new ContactWISEGeneral();
+		ContactWISE contactWISE = new ContactWISEGeneral();
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
+
+		if (user != null) {
+			MutableUserDetails telsUserDetails = (MutableUserDetails) user.getUserDetails();
+			contactWISE.setName(telsUserDetails.getFirstname() + " " + telsUserDetails.getLastname());
+			contactWISE.setEmail(telsUserDetails.getEmailAddress());
+		}
+		return contactWISE;
 	}
 	
 	@Override

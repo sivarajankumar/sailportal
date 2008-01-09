@@ -37,7 +37,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
@@ -59,7 +58,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	
 	private static final String EMAIL = "";
 	
-	private static final IssueType ISSUETYPE = IssueType.BROKEN_LINK;
+	private static final IssueType ISSUETYPE = IssueType.TROUBLE_LOGGING_IN;
 	
 	private static final OperatingSystem OPERATINGSYSTEM = OperatingSystem.MAC_OSX_LEOPARD;
 	
