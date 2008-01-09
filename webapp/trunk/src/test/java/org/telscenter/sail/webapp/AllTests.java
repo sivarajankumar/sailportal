@@ -47,7 +47,7 @@ import org.junit.runners.Suite;
 	   org.telscenter.sail.webapp.service.impl.AllTests.class,
 	   org.telscenter.sail.webapp.service.grading.impl.AllTests.class,
 	   org.telscenter.sail.webapp.service.offering.impl.AllTests.class,
-	   org.telscenter.sail.webapp.service.project.impl.AllTests.class,
+	   org.telscenter.sail.webapp.service.module.impl.AllTests.class,
 	   org.telscenter.sail.webapp.service.student.impl.AllTests.class
 })
 
