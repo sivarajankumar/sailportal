@@ -31,7 +31,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses( {
-	org.telscenter.sail.webapp.service.project.impl.ProjectServiceImplTest.class
+	org.telscenter.sail.webapp.service.project.impl.ModuleServiceImplTest.class
 })
 
 public class AllTests {

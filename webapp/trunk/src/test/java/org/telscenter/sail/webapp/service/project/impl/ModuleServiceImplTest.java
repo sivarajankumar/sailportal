@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * @author Hiroki Terashima
  * @version $Id: $
  */
-public class ProjectServiceImplTest extends TestCase {
+public class ModuleServiceImplTest extends TestCase {
 
     private SdsCurnitDao mockSdsCurnitDao;
     private CurnitDao<Curnit> mockCurnitDao;
