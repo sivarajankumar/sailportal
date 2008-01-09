@@ -35,10 +35,72 @@
 <script type="text/javascript" src="../.././javascript/tels/prototype.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/effects.js"></script>
 
-
+<%@ include file="./styles.jsp"%>
+<link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 </head>
 
-<body>
+<body class="yui-skin-sam">
+
+<script type="text/javascript">
+
+    YAHOO.namespace("example.container");
+
+    function init() {
+
+        if (!YAHOO.example.container.wait) {
+
+            // Initialize the temporary Panel to display while waiting for external content to load
+
+            YAHOO.example.container.wait = 
+                    new YAHOO.widget.Panel("wait",  
+                                                    { width: "240px", 
+                                                      fixedcenter: true, 
+                                                      close: false, 
+                                                      draggable: false, 
+                                                      zindex:4,
+                                                      modal: true,
+                                                      visible: false
+                                                    } 
+                                                );
+    
+            YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setBody("<img src=\"http://us.i1.yimg.com/us.yimg.com/i/us/per/gr/gp/rel_interstitial_loading.gif\"/>");
+            YAHOO.example.container.wait.render(document.body);
+
+        }
+
+        // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
+
+
+
+        var callback = {
+            success : function(o) {
+                //content.innerHTML = o.responseText;
+                //content.style.visibility = "visible";
+                YAHOO.example.container.wait.hide();
+            },
+            failure : function(o) {
+                //content.innerHTML = o.responseText;
+                //content.style.visibility = "visible";
+                //content.innerHTML = "CONNECTION FAILED!";
+                YAHOO.example.container.wait.hide();
+            }
+        }
+    
+        // Show the Panel
+        YAHOO.example.container.wait.show();
+        
+        // Connect to our data source and load the data
+        //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
+    }
+
+	<c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
+			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
+				YAHOO.util.Event.on("gradeAct${someAct.number}Step${someStep.number}", "click", init);
+			</c:forEach>
+	</c:forEach>
+</script>
 
 <div id="centeredDiv">
 
@@ -61,8 +123,8 @@
 		<h3>Activity ${someAct.number+1}: ${someAct.title}</h3>  
 		<ul id="stepSelectionList"> 
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
-				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0">Step  ${someStep.number+1}: ${someStep.title}</a>    (${someStep.type})</li></c:if>
-				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&&tabIndex=0">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
+				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a>    (${someStep.type})</li></c:if>
+				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
 			</c:forEach>
 		</ul>
     </c:forEach>
