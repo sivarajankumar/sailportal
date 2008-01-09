@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.project.impl;
+package org.telscenter.sail.webapp.service.module.impl;
 
 import org.easymock.EasyMock;
 import org.telscenter.sail.webapp.service.module.impl.ModuleServiceImpl;
