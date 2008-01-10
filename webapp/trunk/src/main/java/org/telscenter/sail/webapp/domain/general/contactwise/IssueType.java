@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.general.contactwise;
 
+import java.util.Properties;
+
 /**
  * @author Hiroki Terashima
  * @author Geoff Kwan
@@ -33,15 +35,17 @@ public enum IssueType {
 	TROUBLE_LOGGING_IN, NEED_HELP_USING_WISE, PROJECT_PROBLEMS,
 	STUDENT_MANAGEMENT, AUTHORING, FEEDBACK, OTHER;
 	
-	
-//	private Properties properties;
+	//the properties file that contains the user friendly values
+	private static Properties uiHTMLProperties;
 	
 	/**
-	 * @param properties the properties to set
+	 * @param properties the properties file that contains the user friendly
+	 * (regular casing and spaces instead of underscores) values i.e.
+	 * TROUBLE_LOGGING_IN would be resolved to Trouble Logging In
 	 */
-//	public void setProperties(Properties properties) {
-//		this.properties = properties;
-//	}
+	public static void setProperties(Properties properties) {
+		uiHTMLProperties = properties;
+	}
 
 
 	/**
@@ -49,9 +53,18 @@ public enum IssueType {
 	 * the IssueType
 	 * @return String
 	 */
-//	@Override
-//	public String toString() {
-//		return properties.getProperty("issuetype." + this.name());
-//	}
+	@Override
+	public String toString() {
+		return uiHTMLProperties.getProperty("issuetypes." + this.name());
+	}
 
+	/*
+	 * This is required because the jsp needs to retrieve the declared
+	 * value and not the user friendly value
+	 * @return the value of the enum as declared i.e. TROUBLE_LOGGING_IN
+	 */
+	public String getName() {
+		return name();
+	}
+	
 }

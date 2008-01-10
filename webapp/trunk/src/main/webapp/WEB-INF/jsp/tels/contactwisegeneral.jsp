@@ -142,8 +142,8 @@ YUI download for details on each of the aggregate files and their contents):-->
     <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span>Issue Type</label> </dt>
 	<dd><form:select path="issuetype" id="issuetype"  tabindex="3">
 	      <c:forEach items="${issuetypes}" var="issuetype">
-            <form:option value="${issuetype}">
-            	<spring:message code="issuetypes.${issuetype}" />
+            <form:option value="${issuetype.name}">
+            	<spring:message code="issuetypes.${issuetype.name}" />
             </form:option>
           </c:forEach>
 		</form:select>
@@ -161,11 +161,11 @@ YUI download for details on each of the aggregate files and their contents):-->
 			<option value="10">Request for New Feature</option>
 			</select>-->
 	</dd>
-    <dt><label for="operatingSystemContact" id="operatingSystemLabel" >Operating Sytem</label> </dt>
+    <dt><label for="operatingSystemContact" id="operatingSystemLabel" >Operating System</label> </dt>
 	<dd><form:select path="operatingsystem" id="operatingsystem"  tabindex="4">
 	      <c:forEach items="${operatingsystems}" var="operatingsystem">
-            <form:option value="${operatingsystem}">
-            	<spring:message code="operatingsystems.${operatingsystem}" />
+            <form:option value="${operatingsystem.name}">
+            	<spring:message code="operatingsystems.${operatingsystem.name}" />
             </form:option>
           </c:forEach>
 		</form:select>
@@ -183,8 +183,8 @@ YUI download for details on each of the aggregate files and their contents):-->
     <dt><label for="browserContact" id="webBrowserLabel">Web Browser</label></dt>
 	<dd><form:select path="webbrowser" id="webbrowser"  tabindex="5">
 	      <c:forEach items="${webbrowsers}" var="webbrowser">
-            <form:option value="${webbrowser}">
-            	<spring:message code="webbrowsers.${webbrowser}" />
+            <form:option value="${webbrowser.name}">
+            	<spring:message code="webbrowsers.${webbrowser.name}" />
             </form:option>
           </c:forEach>
 		</form:select>

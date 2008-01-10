@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.general.contactwise;
 
+import java.util.Properties;
+
 /**
  * @author Hiroki Terashima
  * @author Geoffrey Kwan
@@ -31,6 +33,37 @@ package org.telscenter.sail.webapp.domain.general.contactwise;
 public enum OperatingSystem {
 
 	MAC_OS9, MAC_OSX_TIGER, MAC_OSX_LEOPARD, 
-	WINDOWS_VISTA, WINDOWS_XP_NT_2K, LINUX, OTHER
+	WINDOWS_VISTA, WINDOWS_XP_NT_2K, LINUX, OTHER;
 	
+	//the properties file that contains the user friendly values
+	private static Properties uiHTMLProperties;
+	
+	/**
+	 * @param properties the properties file that contains the user friendly
+	 * (regular casing and spaces instead of underscores) values i.e.
+	 * WINDOWS_XP_NT_2K would be resolved to Windows XP/NT/2000
+	 */
+	public static void setProperties(Properties properties) {
+		uiHTMLProperties = properties;
+	}
+
+
+	/**
+	 * Returns the user-friendly string representation of
+	 * the IssueType
+	 * @return String
+	 */
+	@Override
+	public String toString() {
+		return uiHTMLProperties.getProperty("operatingsystems." + this.name());
+	}
+
+	/*
+	 * This is required because the jsp needs to retrieve the declared
+	 * value and not the user friendly value
+	 * @return the value of the enum as declared i.e. TROUBLE_LOGGING_IN
+	 */
+	public String getName() {
+		return name();
+	}
 }

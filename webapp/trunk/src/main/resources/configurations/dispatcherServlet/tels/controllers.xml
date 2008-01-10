@@ -308,6 +308,7 @@
     	<property name="formView" value="contactwisegeneral" />
     	<property name="successView" value="contactwiseconfirm" />
     	<property name="javaMail" ref="javaMail"/>
+    	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
 	</bean>	
 	
 	<util:properties id="uihtmlproperties" 

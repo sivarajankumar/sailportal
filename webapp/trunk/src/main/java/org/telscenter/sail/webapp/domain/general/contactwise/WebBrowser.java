@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.general.contactwise;
 
+import java.util.Properties;
+
 /**
  * @author Hiroki Terashima
  * @author Geoffrey Kwan
@@ -30,6 +32,37 @@ package org.telscenter.sail.webapp.domain.general.contactwise;
  */
 public enum WebBrowser {
 
-	FIREFOX, IE, SAFARI, OPERA, NETSCAPE, OTHER
+	FIREFOX, IE, SAFARI, OPERA, NETSCAPE, OTHER;
+	
+	//the properties file that contains the user friendly values
+	private static Properties uiHTMLProperties;
+	
+	/**
+	 * @param properties the properties file that contains the user friendly
+	 * (regular casing) values i.e. FIREFOX would be resolved to Firefox
+	 */
+	public static void setProperties(Properties properties) {
+		uiHTMLProperties = properties;
+	}
+
+
+	/**
+	 * Returns the user-friendly string representation of
+	 * the IssueType
+	 * @return String
+	 */
+	@Override
+	public String toString() {
+		return uiHTMLProperties.getProperty("webbrowsers." + this.name());
+	}
+
+	/*
+	 * This is required because the jsp needs to retrieve the declared
+	 * value and not the user friendly value
+	 * @return the value of the enum as declared i.e. FIREFOX
+	 */
+	public String getName() {
+		return name();
+	}
 	
 }
