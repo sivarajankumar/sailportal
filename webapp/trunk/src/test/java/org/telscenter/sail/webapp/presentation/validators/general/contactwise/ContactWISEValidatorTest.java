@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.presentation.validators.general.contactwise;
 
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
+import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
 import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
@@ -54,7 +55,7 @@ public class ContactWISEValidatorTest extends TestCase {
 
 	private static final String SUMMARY = "I type in my username and password but it says my username does not exist.";
 
-	private ContactWISEGeneral params;
+	private ContactWISE params;
 	
 	private ContactWISEValidator validator;
 	
@@ -165,7 +166,225 @@ public class ContactWISEValidatorTest extends TestCase {
 	}
 	
 	//TODO: Geoff - Validate email with correct email syntax
-
+	public void testEmailValidateFail1() {
+		params.setEmail("abc");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail2() {
+		params.setEmail("abc!@berkeley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail3() {
+		params.setEmail("abc@berkeley!.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail4() {
+		params.setEmail("abc@berkeley.edu!");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail5() {
+		params.setEmail(".@.");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail6() {
+		params.setEmail("a.b.c.@berkeley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail7() {
+		params.setEmail(".a.b.c@berkeley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail8() {
+		params.setEmail("a.b.c@berk@eley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail9() {
+		params.setEmail("a.b.c@berkeley.e");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail10() {
+		params.setEmail(".abc@berkeley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail11() {
+		params.setEmail("_abc@berkeley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail12() {
+		params.setEmail("a..b@berkeley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail13() {
+		params.setEmail("a.b.c@berk..eley.edu.");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail14() {
+		params.setEmail("abc@");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail15() {
+		params.setEmail("@.");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail16() {
+		params.setEmail("@berkeley.");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail17() {
+		params.setEmail("@.com");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidateFail18() {
+		params.setEmail(" ");
+		validator.validate(params, errors);
+		
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
+		assertNotNull(errors.getFieldError("email"));
+	}
+	
+	public void testEmailValidatePass1() {
+		params.setEmail("abc@berkeley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(!errors.hasErrors());
+		assertEquals(0, errors.getErrorCount());
+	}
+	
+	public void testEmailValidatePass2() {
+		params.setEmail("a.b.c@berkeley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(!errors.hasErrors());
+		assertEquals(0, errors.getErrorCount());
+	}
+	
+	public void testEmailValidatePass3() {
+		params.setEmail("a_b_c@berk.eley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(!errors.hasErrors());
+		assertEquals(0, errors.getErrorCount());
+	}
+	
+	public void testEmailValidatePass4() {
+		params.setEmail("abc123@berkeley123.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(!errors.hasErrors());
+		assertEquals(0, errors.getErrorCount());
+	}
+	
+	public void testEmailValidatePass5() {
+		params.setEmail("abc123@berk-eley.edu");
+		validator.validate(params, errors);
+		
+		assertTrue(!errors.hasErrors());
+		assertEquals(0, errors.getErrorCount());
+	}
+	
+	public void testEmailValidatePass6() {
+		params.setEmail("ABC123@BERKELEY.EDU");
+		validator.validate(params, errors);
+		
+		assertTrue(!errors.hasErrors());
+		assertEquals(0, errors.getErrorCount());
+	}
+	
+	public void testEmailValidatePass7() {
+		params.setEmail("abc123@berkeley.eduuuuuuuuuuuuuuuuuuuuuuuuu");
+		validator.validate(params, errors);
+		
+		assertTrue(!errors.hasErrors());
+		assertEquals(0, errors.getErrorCount());
+	}
+	
+	
 	
 	@Override
 	protected void tearDown() {

@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.validators.general.contactwise;
 
+import java.util.regex.Pattern;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -37,6 +39,9 @@ import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGen
  */
 public class ContactWISEValidator implements Validator {
 
+	private static final String EMAIL_REGEXP =
+		"^[a-zA-Z0-9]+([_\\.-][a-zA-Z0-9]+)*@" +
+			"([a-zA-Z0-9]+([\\.-][a-zA-Z0-9]+)*)+\\.[a-zA-Z]{2,}$";
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
@@ -54,7 +59,7 @@ public class ContactWISEValidator implements Validator {
 				"error.contactwise-name");
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email",
-				"error.contactwise-email");
+				"error.contactwise-email-empty");
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "summary",
 				"error.contactwise-summary");
@@ -62,8 +67,20 @@ public class ContactWISEValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description",
 				"error.contactwise-description");
 		
-		//TODO: Geoff - Validate email with correct email syntax
+		String email = ((ContactWISEGeneral)contactWISEIn).getEmail();
 		
+		//validate email if it is not null and not empty
+		if(email != null && !email.trim().equals("")) {
+			validateEmail(email, errors);
+		}
 	}
 
+	/*
+	 * Validates the email against the email regular expression
+	 */
+	private void validateEmail(String email, Errors errors) {
+		if(email != null && !Pattern.matches(EMAIL_REGEXP, email)) {
+			errors.rejectValue("email", "error.email-invalid");
+		}
+	}
 }

@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.general.contactwise;
 
 import java.io.Serializable;
+import java.util.Properties;
 
 
 /**
@@ -43,11 +44,29 @@ public interface ContactWISE extends Serializable {
 
 	public IssueType getIssuetype();
 	
+	public void setIssuetype(IssueType issuetype);
+	
 	public OperatingSystem getOperatingsystem();
+	
+	public void setOperatingsystem(OperatingSystem operatingSystem);
 	
 	public WebBrowser getWebbrowser();
 	
+	public void setWebbrowser(WebBrowser webBrowser);
+	
 	public String getSummary();
 	
+	public void setSummary(String summary);
+	
 	public String getDescription();
+	
+	public void setDescription(String description);
+	
+	public void setEmaillisteners(Properties emaillisteners);
+	
+	public String[] getMailRecipients();
+	
+	public String getMailSubject();
+	
+	public String getMailMessage();
 }

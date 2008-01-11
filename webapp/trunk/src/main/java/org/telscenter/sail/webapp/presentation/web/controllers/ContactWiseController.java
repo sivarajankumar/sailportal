@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.mail.JavaMailHelper;
 
 import org.springframework.validation.BindException;
@@ -45,7 +46,7 @@ import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGen
 
 public class ContactWiseController extends SimpleFormController {
 
-	protected JavaMailHelper javaMail = null;
+	protected IMailFacade javaMail = null;
 	
 	protected Properties uiHTMLProperties = null;
 	
@@ -110,7 +111,7 @@ public class ContactWiseController extends SimpleFormController {
 	/**
 	 * @return the javaMail
 	 */
-	public JavaMailHelper getJavaMail() {
+	public IMailFacade getJavaMail() {
 		return javaMail;
 	}
 
@@ -119,7 +120,7 @@ public class ContactWiseController extends SimpleFormController {
 	 * an email. This javaMail is set by the contactWiseController bean 
 	 * in controllers.xml.
 	 */
-	public void setJavaMail(JavaMailHelper javaMail) {
+	public void setJavaMail(IMailFacade javaMail) {
 		this.javaMail = javaMail;
 	}
 
