@@ -33,11 +33,15 @@ import java.util.TreeSet;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.impl.HibernateGroupDao;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.domain.impl.JnlpImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
@@ -47,6 +51,8 @@ import net.sf.sail.webapp.domain.sds.SdsUser;
 import org.hibernate.Session;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
 
 /**
@@ -72,8 +78,14 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 	private static Set<User> DEFAULT_OWNERS = new HashSet<User>();
 	
 	private static User DEFAULT_OWNER = new UserImpl();
-	
+
+	private static Project DEFAULT_PROJECT = new ProjectImpl();
+
 	private static final SdsUser DEFAULT_SDS_USER = new SdsUser();
+
+	private static final Curnit DEFAULT_CURNIT = new CurnitImpl();;
+
+	private static final Jnlp DEFAULT_JNLP = new JnlpImpl();
 	
     private Group DEFAULT_GROUP_1, DEFAULT_GROUP_2, DEFAULT_GROUP_3;
 
@@ -167,6 +179,11 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
         DEFAULT_OWNERS = new HashSet<User>();
         DEFAULT_OWNERS.add(DEFAULT_OWNER);
+        
+        DEFAULT_CURNIT.setSdsCurnit(DEFAULT_SDS_CURNIT);
+        DEFAULT_PROJECT.setCurnit(DEFAULT_CURNIT);
+        DEFAULT_JNLP.setSdsJnlp(DEFAULT_SDS_JNLP);
+        DEFAULT_PROJECT.setJnlp(DEFAULT_JNLP);
     }
 
     /**
@@ -181,13 +198,14 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         session.save(DEFAULT_SDS_USER);
         session.save(DEFAULT_USER_DETAILS);
         session.save(DEFAULT_OWNER);  // save owner
-//        session.save(DEFAULT_GROUP_1);
-//        session.save(DEFAULT_GROUP_2);
-//        session.save(DEFAULT_GROUP_3);
+        session.save(DEFAULT_CURNIT);  // save curnit
+        session.save(DEFAULT_JNLP);  // save jnlp
+        session.save(DEFAULT_PROJECT);  // save project
 
         this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
         this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
         this.defaultRun.setOwners(DEFAULT_OWNERS);
+        this.defaultRun.setProject(DEFAULT_PROJECT);
     }
 
     /**
@@ -198,7 +216,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
         super.onTearDownAfterTransaction();
         this.defaultRun = null;
     }
-
+    
     public void testSave() {
         verifyRunAndJoinTablesAreEmpty();
 
@@ -268,6 +286,18 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
     }
 
+    public void testSave_withoutProject() {
+    	// test saving the run without setting the project. Should fail
+        verifyRunAndJoinTablesAreEmpty();
+
+        this.defaultRun.setProject(null);
+        try {
+        	this.runDao.save(this.defaultRun);
+        	fail("Exception expected to be thrown but was not");
+        } catch (Exception e) {
+        }
+    }
+    
     // test the retrieveByRunCode() method of HiberateRunDao
     public void testRetrieveByRunCode() throws Exception {
         verifyRunAndJoinTablesAreEmpty();

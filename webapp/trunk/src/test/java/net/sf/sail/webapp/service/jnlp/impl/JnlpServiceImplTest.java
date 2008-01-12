@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.TestCase;
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.sds.SdsJnlpDao;
 import net.sf.sail.webapp.domain.Jnlp;
@@ -28,7 +29,7 @@ import net.sf.sail.webapp.domain.impl.JnlpImpl;
 import net.sf.sail.webapp.domain.impl.JnlpParameters;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 
-import org.easymock.EasyMock;
+import static org.easymock.EasyMock.*;
 
 /**
  * @author Laurel Williams
@@ -40,6 +41,10 @@ public class JnlpServiceImplTest extends TestCase {
 	private static final String JNLP_NAME= "jnlpname";
 	
 	private static final String JNLP_URL = "URL";
+	
+	private static final Long EXISTING_JNLP_ID = new Long(10);
+
+	private static final Long NONEXISTING_JNLP_ID = new Long(103);
 
     private SdsJnlpDao mockSdsJnlpDao;
 
@@ -56,10 +61,10 @@ public class JnlpServiceImplTest extends TestCase {
         super.setUp();
         this.jnlpServiceImpl = new JnlpServiceImpl();
 
-        this.mockSdsJnlpDao = EasyMock.createMock(SdsJnlpDao.class);
+        this.mockSdsJnlpDao = createMock(SdsJnlpDao.class);
         this.jnlpServiceImpl.setSdsJnlpDao(this.mockSdsJnlpDao);
 
-        this.mockJnlpDao = EasyMock.createMock(JnlpDao.class);
+        this.mockJnlpDao = createMock(JnlpDao.class);
         this.jnlpServiceImpl.setJnlpDao(this.mockJnlpDao);
     }
 
@@ -78,10 +83,10 @@ public class JnlpServiceImplTest extends TestCase {
         List<Jnlp> expectedList = new LinkedList<Jnlp>();
         expectedList.add(new JnlpImpl());
 
-        EasyMock.expect(this.mockJnlpDao.getList()).andReturn(expectedList);
-        EasyMock.replay(this.mockJnlpDao);
+        expect(this.mockJnlpDao.getList()).andReturn(expectedList);
+        replay(this.mockJnlpDao);
         assertEquals(expectedList, jnlpServiceImpl.getJnlpList());
-        EasyMock.verify(this.mockJnlpDao);
+        verify(this.mockJnlpDao);
     }
 
     public void testCreateJnlp() throws Exception {
@@ -94,7 +99,25 @@ public class JnlpServiceImplTest extends TestCase {
         SdsJnlp sdsJnlp = jnlp.getSdsJnlp();
         assertEquals(JNLP_NAME, sdsJnlp.getName());
         assertEquals(JNLP_URL, sdsJnlp.getUrl());
-        
+    }
+    
+    public void testGetById() throws Exception {
+    	Jnlp expectedJnlp = new JnlpImpl();
+    	expect(mockJnlpDao.getById(EXISTING_JNLP_ID)).andReturn(expectedJnlp);
+    	replay(mockJnlpDao);
+    	assertEquals(expectedJnlp, jnlpServiceImpl.getById(EXISTING_JNLP_ID));
+    	verify(mockJnlpDao);
+    	reset(mockJnlpDao);
+    	
+    	// now check when jnlp is not found
+    	expect(mockJnlpDao.getById(NONEXISTING_JNLP_ID)).andThrow(new ObjectNotFoundException(NONEXISTING_JNLP_ID, Jnlp.class));
+    	replay(mockJnlpDao);
+    	try {
+    		jnlpServiceImpl.getById(NONEXISTING_JNLP_ID);
+    		fail("ObjectNotFoundException expected but was not thrown");
+    	} catch (ObjectNotFoundException e) {
+    	}
+    	verify(mockJnlpDao);
     }
 
  

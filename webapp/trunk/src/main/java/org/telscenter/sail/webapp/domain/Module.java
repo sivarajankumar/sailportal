@@ -35,13 +35,13 @@ import net.sf.sail.webapp.domain.User;
  */
 public interface Module extends Curnit {
 
-	public void setGrades(Set<Integer> grades);
+	//public void setGrades(Set<Integer> grades);
 
-	public Set<Integer> getGrades();
+	//public Set<Integer> getGrades();
 	
-	public Set<String> getTopicKeywords();
+	//public Set<String> getTopicKeywords();
 	
-	public void setTopicKeywords(Set<String> topicKeywords);
+	//public void setTopicKeywords(Set<String> topicKeywords);
 	
 	public void setDescription(String description);
 	

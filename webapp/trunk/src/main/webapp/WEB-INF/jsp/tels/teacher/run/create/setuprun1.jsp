@@ -64,20 +64,16 @@
 		<td>Usage</td>
 	</tr>
 	<tr id="projectTableR2">
-		<td><strong>${project.sdsCurnit.name}</strong></td>
-		<td>"${project.id}"</td>
-		<td>"${project.topicKeywords}"</td>
+		<td><strong>${project.curnit.sdsCurnit.name}</strong></td>
+		<td>"${project.curnit.id}"</td>
 		<td>
-			<c:forEach var="grade" items="${project.grades}">
-			${grade}
-			</c:forEach>
 		</td>
-		<td>"${project.totalTime}"</td>
-		<td>"${project.computerTime}"</td>
+		<td>"${project.curnit.totalTime}"</td>
+		<td>"${project.curnit.computerTime}"</td>
 		<td>127 runs</td>
 	</tr>
 	<tr id="projectTableR3">
-		<td class="indent15px" colspan="7">${project.description}</td>
+		<td class="indent15px" colspan="7">${project.curnit.description}</td>
 	</tr>
 	</table>
 			

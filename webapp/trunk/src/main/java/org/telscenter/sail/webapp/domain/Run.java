@@ -25,6 +25,8 @@ package org.telscenter.sail.webapp.domain;
 import java.util.Date;
 import java.util.Set;
 
+import org.telscenter.sail.webapp.domain.project.Project;
+
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
@@ -90,6 +92,20 @@ public interface Run extends Offering {
 	 * @param owners <code>Set</code> of Users who own this run
 	 */
 	public void setOwners(Set<User> owners);
+	
+	/**
+	 * Gets the project that this run uses
+	 * 
+	 * @return <code>Project</code> that this run uses
+	 */
+	public Project getProject();
+	
+	/**
+	 * Set the project that this run uses
+	 * 
+	 * @param project <code>Project</code> to use for this run
+	 */
+	public void setProject(Project project);
 	
 	/**
 	 * Returns the period with periodName that is associated

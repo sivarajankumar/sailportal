@@ -47,7 +47,7 @@
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="curnitlist.html">Project Library</a></td>
+			<td class="link"><a href="projectlibrary.html">Project Library</a></td>
 			<td class="description">Search the extensive library of WISE and TELS projects. Find a project and set it up to run in your classroom.</td></tr>
 		<tr>
 			<td class="link"><a href="../run/myprojectruns.html">My Project Runs</a></td>

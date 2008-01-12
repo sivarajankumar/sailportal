@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.telscenter.sail.webapp.domain.project.Project;
+
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 
@@ -38,6 +40,8 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	private Set<String> periodNames = new TreeSet<String>();
 	
 	private Set<User> owners = new HashSet<User>();
+	
+	private Project project;
 	
 	private String manuallyEnteredPeriods = new String();
 
@@ -81,6 +85,20 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	 */
 	public String getManuallyEnteredPeriods(){
 		return this.manuallyEnteredPeriods;
+	}
+
+	/**
+	 * @return the project
+	 */
+	public Project getProject() {
+		return project;
+	}
+
+	/**
+	 * @param project the project to set
+	 */
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	
 }

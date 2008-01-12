@@ -53,10 +53,7 @@ import org.telscenter.sail.webapp.domain.Module;
 public class ModuleImpl extends CurnitImpl implements Module {
 
 	@Transient
-	public static final String DATA_STORE_NAME = "projects";
-	
-	@Transient
-	private static final long serialVersionUID = 1L;
+	public static final String DATA_STORE_NAME = "modules";
 	
     @Transient
     public static final String COLUMN_NAME_DESCRIPTION = "description";
@@ -77,43 +74,46 @@ public class ModuleImpl extends CurnitImpl implements Module {
     public static final String COLUMN_NAME_TECHREQS = "tech_reqs";
     
     @Transient
-    public static final String PROJECTS_JOIN_COLUMN_NAME = "projects_fk";
+    public static final String PROJECTS_JOIN_COLUMN_NAME = "module_fk";
 
     @Transient
-    public static final String OWNERS_JOIN_TABLE_NAME = "projects_related_to_owners";
+    public static final String OWNERS_JOIN_TABLE_NAME = "modules_related_to_owners";
     
     @Transient
     public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
+    
+	@Transient
+	private static final long serialVersionUID = 1L;
 
-    @Column(name = ModuleImpl.COLUMN_NAME_DESCRIPTION, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_DESCRIPTION)
 	private String description;
 
-    @Column(name = ModuleImpl.COLUMN_NAME_GRADES, nullable = false)
-	private Set<Integer> grades;
+    //@Column(name = ModuleImpl.COLUMN_NAME_GRADES, nullable = false)
+	//private Set<Integer> grades;
     
-    @Column(name = ModuleImpl.COLUMN_NAME_TOPICKEYWORDS, nullable = false)
-	private Set<String> topicKeywords;
+    //@Column(name = ModuleImpl.COLUMN_NAME_TOPICKEYWORDS, nullable = false)
+	//private Set<String> topicKeywords;
 	
-    @Column(name = ModuleImpl.COLUMN_NAME_TOTALTIME, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_TOTALTIME)
 	private Long totalTime;
 	
-    @Column(name = ModuleImpl.COLUMN_NAME_COMPUTERTIME, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_COMPUTERTIME)
 	private Long computerTime;
 	
-    @Column(name = ModuleImpl.COLUMN_NAME_TECHREQS, nullable = false)
+    @Column(name = ModuleImpl.COLUMN_NAME_TECHREQS)
 	private String techReqs;
 	
     @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
-    @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
+    @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = PROJECTS_JOIN_COLUMN_NAME) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME))
 	private Set<User> owners;
 		
-	public Set<Integer> getGrades() {
-		return grades;
-	}
-
-	public void setGrades(Set<Integer> grades) {
-		this.grades = grades;
-	}
+//	public Set<Integer> getGrades() {
+//		return grades;
+//	}
+//
+//	public void setGrades(Set<Integer> grades) {
+//		this.grades = grades;
+//	}
 
 	public String getDescription() {
 		return description;
@@ -179,19 +179,19 @@ public class ModuleImpl extends CurnitImpl implements Module {
 		this.techReqs = techReqs;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#getTopicKeywords()
-	 */
-	public Set<String> getTopicKeywords() {
-		return topicKeywords;
-	}
-
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#setTopicKeywords(java.util.Set)
-	 */
-	public void setTopicKeywords(Set<String> topicKeywords) {
-		this.topicKeywords = topicKeywords;
-	}
+//	/**
+//	 * @override @see org.telscenter.sail.webapp.domain.Project#getTopicKeywords()
+//	 */
+//	public Set<String> getTopicKeywords() {
+//		return topicKeywords;
+//	}
+//
+//	/**
+//	 * @override @see org.telscenter.sail.webapp.domain.Project#setTopicKeywords(java.util.Set)
+//	 */
+//	public void setTopicKeywords(Set<String> topicKeywords) {
+//		this.topicKeywords = topicKeywords;
+//	}
 	
 	
 

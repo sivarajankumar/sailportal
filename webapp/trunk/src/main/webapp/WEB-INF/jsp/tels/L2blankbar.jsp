@@ -25,7 +25,7 @@
 		<li style="visibility:hidden;">
 			<a class="navigationL2leftborder" href="projects_overview.html">Overview</a> </li>
        	<li style="visibility:hidden;">
-			<a href="curnitlist.html">Project Library</a> </li>
+			<a href="projectlibrary.html">Project Library</a> </li>
 		<li style="visibility:hidden;">
 			<a href="index.html">My Project Runs</a> </li>
 		<li style="visibility:hidden;">

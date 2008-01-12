@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        acl_object_identity bigint not null,
         sid bigint not null,
+        acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -26,8 +26,8 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        parent_object bigint,
         object_id_class bigint not null,
+        parent_object bigint,
         owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
@@ -85,10 +85,33 @@
         primary key (id)
     ) type=MyISAM;
 
+    create table modules (
+        id bigint not null,
+        description varchar(255),
+        total_time bigint,
+        computer_time bigint,
+        tech_reqs varchar(255),
+        primary key (id)
+    ) type=MyISAM;
+
+    create table modules_related_to_owners (
+        module_fk bigint not null,
+        owners_fk bigint not null,
+        primary key (module_fk, owners_fk)
+    ) type=MyISAM;
+
     create table offerings (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_offering_fk bigint not null unique,
+        primary key (id)
+    ) type=MyISAM;
+
+    create table projects (
+        id bigint not null auto_increment,
+        OPTLOCK integer,
+        curnit_fk bigint not null,
+        jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -97,6 +120,7 @@
         start_time datetime not null,
         end_time datetime,
         run_code varchar(255) not null unique,
+        projects_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -219,8 +243,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -233,8 +257,8 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        group_fk bigint not null,
         offering_fk bigint not null,
+        group_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
@@ -305,11 +329,47 @@
         foreign key (sds_jnlp_fk) 
         references sds_jnlps (id);
 
+    alter table modules 
+        add index FK492927875E6F3BA6 (id), 
+        add constraint FK492927875E6F3BA6 
+        foreign key (id) 
+        references curnits (id);
+
+    alter table modules_related_to_owners 
+        add index FKE09C9860AA7F41 (owners_fk), 
+        add constraint FKE09C9860AA7F41 
+        foreign key (owners_fk) 
+        references users (id);
+
+    alter table modules_related_to_owners 
+        add index FKE09C9839A4B723 (module_fk), 
+        add constraint FKE09C9839A4B723 
+        foreign key (module_fk) 
+        references modules (id);
+
     alter table offerings 
         add index FK73F0F12DAB4F6201 (sds_offering_fk), 
         add constraint FK73F0F12DAB4F6201 
         foreign key (sds_offering_fk) 
         references sds_offerings (id);
+
+    alter table projects 
+        add index FKC479187A7F08E576 (curnit_fk), 
+        add constraint FKC479187A7F08E576 
+        foreign key (curnit_fk) 
+        references curnits (id);
+
+    alter table projects 
+        add index FKC479187A9568F016 (jnlp_fk), 
+        add constraint FKC479187A9568F016 
+        foreign key (jnlp_fk) 
+        references jnlps (id);
+
+    alter table runs 
+        add index FK359748AC92FD99 (projects_fk), 
+        add constraint FK359748AC92FD99 
+        foreign key (projects_fk) 
+        references projects (id);
 
     alter table runs 
         add index FK3597481834F8D3 (id), 

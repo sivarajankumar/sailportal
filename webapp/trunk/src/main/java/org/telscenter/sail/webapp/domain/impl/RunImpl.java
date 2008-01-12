@@ -23,7 +23,6 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -33,6 +32,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -41,6 +41,8 @@ import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
@@ -85,7 +87,10 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Transient
     public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
-      
+    
+    @Transient
+	private static final String PROJECTS_JOIN_COLUMN_NAME = "projects_fk";
+
     @Transient
     public static final long serialVersionUID = 1L;
     
@@ -106,6 +111,10 @@ public class RunImpl extends OfferingImpl implements Run {
     @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> owners = new TreeSet<User>();
+    
+    @ManyToOne(targetEntity = ProjectImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = PROJECTS_JOIN_COLUMN_NAME, nullable = false, unique = false)
+    private Project project;
 
     /**
      * @return the endtime
@@ -178,6 +187,20 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setOwners(Set<User> owners) {
 		this.owners = owners;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#getProject()
+	 */
+	public Project getProject() {
+		return project;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#setProject(org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	
 	/**

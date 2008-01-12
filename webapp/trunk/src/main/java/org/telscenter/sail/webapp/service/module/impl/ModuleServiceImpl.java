@@ -23,15 +23,18 @@
 package org.telscenter.sail.webapp.service.module.impl;
 
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
+import org.telscenter.sail.webapp.dao.module.ModuleDao;
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
+import org.telscenter.sail.webapp.domain.impl.ModuleParameters;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.domain.impl.CurnitParameters;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
 
 /**
@@ -42,27 +45,43 @@ import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
  */
 public class ModuleServiceImpl extends CurnitServiceImpl implements
 		ModuleService {
-
+	
+	private ModuleDao<Module> moduleDao;
+	
+	@Override
+	public Module createCurnit(CurnitParameters curnitParameters) {
+		ModuleParameters moduleParameters = (ModuleParameters) curnitParameters;
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setName(moduleParameters.getName());
+		sdsCurnit.setUrl(moduleParameters.getUrl());
+	    this.sdsCurnitDao.save(sdsCurnit);  
+		
+		Module module = new ModuleImpl();
+		module.setSdsCurnit(sdsCurnit);
+        this.moduleDao.save(module);
+        return module;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Module> getProjectList() {
-		return (List<Module>) super.getCurnitList();
+		return moduleDao.getList();
+		//return (List<Module>) super.getCurnitList();
 	}
 
+	/**
+	 * @see net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl#getById(java.lang.Long)
+	 */
 	@Override
-	public Module getById(Long projectId) throws ObjectNotFoundException {
-		// TODO HT: change Initializer.java to populate database with Projects, not curnits.
-		Curnit curnit = super.getById(projectId);
-		Module project = new ModuleImpl();
-		project.setSdsCurnit(curnit.getSdsCurnit());
-		Set<Integer> grades = new TreeSet<Integer>();
-		grades.add(1);
-		grades.add(2);
-		grades.add(3);
-		grades.add(4);
-		grades.add(5);
-		project.setGrades(grades);
-		project.setDescription("This project is for advanced bio-engineers.");
-		return project;
+	public Module getById(Long moduleId) throws ObjectNotFoundException {
+		return moduleDao.getById(moduleId);
+		//return moduleDao.getById(moduleId);
 	}
+
+	/**
+	 * @param moduleDao the moduleDao to set
+	 */
+	public void setModuleDao(ModuleDao<Module> moduleDao) {
+		this.moduleDao = moduleDao;
+	}
+
 }

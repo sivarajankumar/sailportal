@@ -33,6 +33,10 @@
         <property name="passwordEncoder" ref="passwordEncoder" />
         <property name="saltSource" ref="systemSaltSource" />
     </bean>
+    
+	<bean id="curnitParameters"
+		class="org.telscenter.sail.webapp.domain.impl.ModuleParameters"
+		scope="prototype" />
 
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">

@@ -45,8 +45,10 @@ import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -73,7 +75,9 @@ public class CreateRunController extends AbstractWizardFormController {
 	private RunService runService = null;
 	
 	private ModuleService moduleService = null;
-	
+
+	private ProjectService projectService = null;
+
 	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/setuprunconfirm";
 	
 	private static final String CANCEL_VIEW_NAME = "../../teacher/index.html";
@@ -175,25 +179,32 @@ public class CreateRunController extends AbstractWizardFormController {
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request, 
 			Object command, Errors errors, int page) {
+		String projectIdStr = request.getParameter("projectId");
+		Long projectId = Long.valueOf(projectIdStr);
 		RunParameters runParameters = (RunParameters) command;
-		Module project = null;
+		Module module = null;
+		Project project = null;
 		Map<String, Object> model = new HashMap<String, Object>();
 		switch(page) {
 		case 0:
 			try {
-				project = (Module) this.moduleService.getById(runParameters.getCurnitId());
+				project = (Project) this.projectService.getById(projectId);
 			} catch (ObjectNotFoundException e) {
 				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();
 			}
 			model.put("project", project);
-			
+
+			// set curnitId and jnlpId to use for this run
+			runParameters.setCurnitId(project.getCurnit().getId());
+			runParameters.setJnlpId(project.getJnlp().getId());
 			// add the current user as an owner of the run
 			User user = (User) request.getSession().getAttribute(
 					User.CURRENT_USER_SESSION_KEY);
 			Set<User> owners = new HashSet<User>();
 			owners.add(user);
 			runParameters.setOwners(owners);
+			runParameters.setProject(project);
 			break;
 		case 1:
 			// for page 2 of the wizard, display existing runs for this user
@@ -217,12 +228,12 @@ public class CreateRunController extends AbstractWizardFormController {
 
 			// TODO HT: talk with Matt on how to set/change run name
 			try {
-				project = (Module) this.moduleService.getById(runParameters.getCurnitId());
+				module = (Module) this.moduleService.getById(runParameters.getCurnitId());
 			} catch (ObjectNotFoundException e) {
 				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();
 			}
-			runParameters.setName("Run: " + project.getSdsCurnit().getName());
+			runParameters.setName("Run: " + module.getSdsCurnit().getName());
 			break;
 		case 2:
 			// for page 3 of the wizard, display available period names to the user
@@ -291,8 +302,15 @@ public class CreateRunController extends AbstractWizardFormController {
 	/**
 	 * @param moduleService the projectService to set
 	 */
-	public void setProjectService(ModuleService moduleService) {
+	public void setModuleService(ModuleService moduleService) {
 		this.moduleService = moduleService;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 
 }

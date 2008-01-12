@@ -56,7 +56,7 @@ public class CurnitImpl implements Curnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	public Long id = null;
+	private Long id = null;
 
     @Version
     @Column(name = "OPTLOCK")

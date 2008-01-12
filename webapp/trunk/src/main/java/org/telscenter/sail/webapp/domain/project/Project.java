@@ -22,6 +22,10 @@
  */
 package org.telscenter.sail.webapp.domain.project;
 
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.Persistable;
+
 /**
  * A WISE Project domain object
  * 
@@ -40,19 +44,35 @@ package org.telscenter.sail.webapp.domain.project;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public interface Project {
+public interface Project extends Persistable {
 	
 	/**
-	 * Launches the project
+	 * Set the <code>Jnlp</code> of this project
+	 * @param Jnlp
 	 */
-//	public void launch();
+	public void setJnlp(Jnlp jnlp);
+
+	/**
+	 * Get the <code>Jnlp</code> of this project
+	 * @return Jnlp
+	 */
+	public Jnlp getJnlp();
 	
 	/**
-	 * Launches the project in preview mode
+	 * Set the <code>Curnit</code> of this project
+	 * @param Curnit
 	 */
-//	public void preview();
+	public void setCurnit(Curnit curnit);
+
+	/**
+	 * Get the <code>Curnit</code> of this project
+	 * @return Curnit
+	 */
+	public Curnit getCurnit();
 	
 	/**
-	 * 
+	 * @return The id of the project in the persistent data store
 	 */
+	public Long getId();
+
 }

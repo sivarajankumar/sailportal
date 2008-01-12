@@ -19,6 +19,7 @@ package net.sf.sail.webapp.service.jnlp;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.impl.JnlpParameters;
 
@@ -47,5 +48,16 @@ public interface JnlpService {
      * @return the jnlp created
      */
     public Jnlp createJnlp(JnlpParameters jnlpParameters);
+    
+	/**
+	 * Gets a jnlp with the given jnlpId.
+	 * 
+	 * @param jnlpId
+	 *            The Id of the jnlp
+	 * @return <code>Jnlp</code> with the specified jnlpId
+	 * @throws ObjectNotFoundException when the specified jnlp is
+	 *         not found
+	 */
+    public Jnlp getById(Long jnlpId) throws ObjectNotFoundException;
 
 }

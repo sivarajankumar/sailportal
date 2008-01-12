@@ -25,7 +25,7 @@
 		<li >
 			<a class="navigationL2leftborder" href="../projects/index.html">Overview</a> </li>
        	<li>
-			<a href="../projects/curnitlist.html">Project Library</a> </li>
+			<a href="../projects/projectlibrary.html">Project Library</a> </li>
 		<li>
 			<a class="navigationL2_projects_highlight" href="../run/myprojectruns.html">My Project Runs</a> </li>
 		

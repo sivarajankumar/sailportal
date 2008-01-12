@@ -39,4 +39,9 @@ public interface Jnlp extends Persistable {
      *            the sdsJnlp to set
      */
     public void setSdsJnlp(SdsJnlp sdsJnlp);
+    
+	/**
+	 * @return The id of the jnlp in the persistent data store
+	 */
+	public Long getId();
 }

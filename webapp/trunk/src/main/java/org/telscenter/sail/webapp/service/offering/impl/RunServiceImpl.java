@@ -165,6 +165,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setRuncode(generateUniqueRunCode());
 		run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
 		run.setOwners(runParameters.getOwners());
+		run.setProject(runParameters.getProject());
 
 		Set<String> periodNames = runParameters.getPeriodNames();
 		if (periodNames != null) {

@@ -19,6 +19,7 @@ package net.sf.sail.webapp.service.jnlp.impl;
 
 import java.util.List;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.jnlp.JnlpDao;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.SdsJnlpDao;
@@ -86,4 +87,12 @@ public class JnlpServiceImpl implements JnlpService {
         return this.jnlpDao.getList();
     }
 
+    /**
+     * @see net.sf.sail.webapp.service.jnlp.JnlpService#getById(java.lang.Long)
+     */
+    @Transactional(readOnly = true)
+	public Jnlp getById(Long jnlpId) throws ObjectNotFoundException {
+		return this.jnlpDao.getById(jnlpId);
+	}
+    
 }

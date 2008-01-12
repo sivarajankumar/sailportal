@@ -22,14 +22,51 @@
  */
 package org.telscenter.sail.webapp.domain.impl;
 
-import net.sf.sail.webapp.domain.impl.CurnitParameters;
+import java.io.Serializable;
 
 /**
- * Represents the parameters required to create a TELS Project.
+ * Represents the parameters required to create a WISE Project.
  *
  * @author Hiroki Terashima
  * @version $Id: $
  */
-public class ProjectParameters extends CurnitParameters {
+public class ProjectParameters implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
+	public static String FIELD_CURNITID = "curnitId";
+	
+	public static String FIELD_JNLPID = "jnlpId";
+
+	private Long curnitId;
+	
+	private Long jnlpId;
+
+	/**
+	 * @return the curnitId
+	 */
+	public Long getCurnitId() {
+		return curnitId;
+	}
+
+	/**
+	 * @param curnitId the curnitId to set
+	 */
+	public void setCurnitId(Long curnitId) {
+		this.curnitId = curnitId;
+	}
+
+	/**
+	 * @return the jnlpId
+	 */
+	public Long getJnlpId() {
+		return jnlpId;
+	}
+
+	/**
+	 * @param jnlpId the jnlpId to set
+	 */
+	public void setJnlpId(Long jnlpId) {
+		this.jnlpId = jnlpId;
+	}
 }

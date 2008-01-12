@@ -49,18 +49,18 @@ addEvent(window, 'load', onLoadHandler);
 
 <div id="columns">
 <div id="left">
-<h2>Register Project</h2>
+<h2>Register Module</h2>
 </div>
 
-<div id="right"><form:form method="post" action="registerproject.html"
+<div id="right"><form:form method="post" action="registermodule.html"
   commandName="curnitParameters">
 
   <p>
-    <label for="name">Project name:</label>
+    <label for="name">Module name:</label>
     <form:input path="name" id="name" /> <form:errors path="name" />
   </p>
   <p>
-    <label for="url">Project URL:</label>
+    <label for="url">Module URL:</label>
     <form:input path="url" id="url" /> <form:errors path="url" />
   </p>
   <p><input type="submit" value="Submit" />

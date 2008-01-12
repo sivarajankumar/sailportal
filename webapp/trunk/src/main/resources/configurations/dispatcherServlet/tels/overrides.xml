@@ -29,6 +29,15 @@
         class="org.springframework.ui.context.support.ResourceBundleThemeSource">
         <property name="basenamePrefix" value="themes/tels/" />
     </bean>
+    
+    <bean id="registerCurnitController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterModuleController">
+    	<property name="curnitService" ref="curnitService" />
+    	<property name="commandName" value="curnitParameters" />
+    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.ModuleParameters" />
+    	<property name="validator" ref="curnitParametersValidator" />
+    </bean>
+    
 
     <!-- JSP with optional JSTL views -->
     <bean id="viewResolver"
@@ -53,7 +62,7 @@
         class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-
+    
     <bean
     	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
     	<property name="order" value="2"></property>
@@ -84,7 +93,7 @@
     		    /teacher/projects/studentmessageconfirm.html=studentMessageConfirmController
     		    /teacher/projects/reportproblem.html=reportProblemController
     		    /teacher/projects/library/options.html=projectOptionsController
-    		    /teacher/projects/curnitlist.html=curnitListController
+    		    /teacher/projects/projectlibrary.html=projectLibraryController
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/myarchivedruns.html=myArchivedRunsController
     		    /teacher/run/archivedrunmanager.html=archivedRunManagerController
@@ -122,8 +131,9 @@
 				/teacher/management/changestudentpassword.html=changeStudentPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/dwr/*=dwrController
-				/author/registerproject.html=registerCurnitController
+				/author/registermodule.html=registerCurnitController
 				/author/registerjnlp.html=registerJnlpController
+				/author/createproject.html=createProjectController
     		</value>
     	</property>
     </bean>

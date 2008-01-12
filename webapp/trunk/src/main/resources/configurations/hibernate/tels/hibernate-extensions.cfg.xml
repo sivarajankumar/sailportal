@@ -33,6 +33,10 @@
             class="org.telscenter.sail.webapp.domain.impl.RunImpl" />
         <mapping
             class="org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl" />
+        <mapping
+            class="org.telscenter.sail.webapp.domain.impl.ModuleImpl" />
+        <mapping
+            class="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl" />
             
     </session-factory>
 </hibernate-configuration>

@@ -48,5 +48,5 @@
 		class="net.sf.sail.webapp.presentation.web.controllers.CurnitListController">
 		<property name="curnitService" ref="curnitService" />
 	</bean>
-    
+	
 </beans>
