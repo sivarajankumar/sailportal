@@ -46,11 +46,17 @@
      	    	    
 <div id="setUpRunBox">
 
-<div id="stepNumber">Step 2 of 6:<span class="blueText">&nbsp Archive Existing Project Runs</span></div>
+<div id="stepNumber">Step 2 of 6:<span class="blueText">&nbsp; Archive Existing Project Runs</span></div>
 
 <h4>Your currently active project runs are listed below.  If these project runs are now complete, you can archive them using the ARCHIVE boxes.</h4>
 <h5 class="indent15px">Note:  when you archive a project run no information is lost.  The project is simply moved to the an Archive area for storage. 
 Previous student work and teacher feedback in archived projects can be viewed again at any time. </h5>
+
+<c:choose>
+	<c:when test="${fn:length(existingRunList) == 0}">
+      <b>You are not running any projects at this time.</b>
+	</c:when>
+	<c:otherwise>
 
 <table  id="projectTable" border="1" cellpadding="3" cellspacing="2" style="margin:0 0 0 25px;">
 	<tr id="projectTableR1">
@@ -60,41 +66,19 @@ Previous student work and teacher feedback in archived projects can be viewed ag
 		<td>Run Created On</td>
 		<td>Last Revision On</td>
 	</tr>
-			<c:forEach var="run" items="${existingRunList}">
-	<tr id="projectTableR2">
-		<td class="center">{ }</td>
-		<td><strong>${run.sdsOffering.name}</strong></td>
-		<td>${run.id}</td>
-		<td>${run.starttime.month + 1}/${run.starttime.date}/${run.starttime.year + 1900}</td>
-		<td>${run.endtime}</td>
-	</tr>
-			</c:forEach>
-<!-- 			
-	<tr id="projectTableR2">
-		<td class="center">{ }</td>
-		<td><strong>Dingo Got My Baby</strong></td>
-		<td>30281</td>
-		<td>7/15/07</td>
-		<td>7/27/07</td>
-	</tr>
-	<tr id="projectTableR2">
-		<td class="center">{ }</td>
-		<td><strong>Baby, Baby, What I'd Do For You</strong></td>
-		<td>23999</td>
-		<td>4/1/07</td>
-		<td>4/14/07</td>
-	</tr>
--->
+    <c:forEach var="run" items="${existingRunList}">
+	    <tr id="projectTableR2">
+	     <td class="center">{ }</td>
+		        <td><strong>${run.sdsOffering.name}</strong></td>
+		        <td>${run.id}</td>
+		        <td>${run.starttime.month + 1}/${run.starttime.date}/${run.starttime.year + 1900}</td>
+		        <td>${run.endtime}</td>
+	     </tr>
+	</c:forEach>
 	</table>
-	
-	<!--<p style="width:950px;"><c:forEach var="run" items="${existingRunList}">
-		<tr>
-			<td>${run.sdsOffering.name}</td>
-		</tr>
-			</c:forEach>
-	</p>-->
-			
-<h4>If you do not wish to archive any project runs, leave the boxes unchecked and click <em>Next</em> to continue.</h4>
+	<h4>If you do not wish to archive any project runs, leave the boxes unchecked and click <em>Next</em> to continue.</h4>
+	</c:otherwise>
+</c:choose>
 
 </div> <!-- /* End setUpRunBox */-->
 
