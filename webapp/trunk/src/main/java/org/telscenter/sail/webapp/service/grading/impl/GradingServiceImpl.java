@@ -76,13 +76,19 @@ public class GradingServiceImpl implements GradingService {
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(java.lang.Long)
 	 */
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException {
-
 		Run run = runService.retrieveById(runId);
+		return getCurnitmap(run);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(org.telscenter.sail.webapp.domain.Run)
+	 */
+	private ECurnitmap getCurnitmap(Run run) throws ObjectNotFoundException {
 		String curnitmapXMLString = run.getSdsOffering().getSdsCurnitMap();
 		ECurnitmap curnitmap = CurnitmapLoader.loadCurnitmap(curnitmapXMLString);
 		return curnitmap;
 	}
-	
+
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradeWorkByStepAggregate(java.lang.Long, org.telscenter.pas.emf.pas.EStep)
 	 */
@@ -133,10 +139,12 @@ public class GradingServiceImpl implements GradingService {
 		// into periods
 		Set<Workgroup> workgroups = runService.getWorkgroups(runId);
 		
+		// get the curnitmap for this run
+		ECurnitmap curnitmap = getCurnitmap(runId);		
 		for (Workgroup workgroup : workgroups) {
 			Group period = ((WISEWorkgroup) workgroup).getPeriod();
 			GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate =
-				getGradeWorkByWorkgroupAggregate(runId, workgroup);
+				getGradeWorkByWorkgroupAggregate(run, workgroup, curnitmap);
 			period_to_aggregate.get(period).add(gradeWorkByWorkgroupAggregate);
 		}
 
@@ -154,17 +162,23 @@ public class GradingServiceImpl implements GradingService {
 	 */
 	public GradeWorkByWorkgroupAggregate getGradeWorkByWorkgroupAggregate(
 			Long runId, Workgroup workgroup) throws ObjectNotFoundException {
+		return getGradeWorkByWorkgroupAggregate(runService.retrieveById(runId), workgroup, getCurnitmap(runId));
+	}
+
+	private GradeWorkByWorkgroupAggregate getGradeWorkByWorkgroupAggregate(
+			Run run, Workgroup workgroup, ECurnitmap curnitmap) throws ObjectNotFoundException {
 		GradeWorkByWorkgroupAggregate aggregate = 
 			new GradeWorkByWorkgroupAggregateImpl();
 
 		aggregate.setWorkgroup(workgroup);
-		aggregate.setRunId(runId);
-		aggregate.setCurnitmap(getCurnitmap(runId));		
+		aggregate.setRunId(run.getId());
+		aggregate.setCurnitmap(curnitmap);		
 		aggregate.setAnnotationBundle(annotationBundleService.getAnnotationBundle(workgroup));
-		aggregate.setSessionBundle(sessionBundleService.getSessionBundle(runId, workgroup));
+		aggregate.setSessionBundle(sessionBundleService.getSessionBundle(run.getId(), workgroup));
 		
 		return aggregate;
 	}
+	
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getIndividualScore(net.sf.sail.webapp.domain.Workgroup)
@@ -260,5 +274,4 @@ public class GradingServiceImpl implements GradingService {
 			AnnotationBundleService annotationBundleService) {
 		this.annotationBundleService = annotationBundleService;
 	}
-
 }

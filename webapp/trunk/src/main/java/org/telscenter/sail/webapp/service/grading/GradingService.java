@@ -34,6 +34,7 @@ import net.sf.sail.webapp.domain.group.Group;
 
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 import org.telscenter.sail.webapp.domain.grading.IndividualScore;

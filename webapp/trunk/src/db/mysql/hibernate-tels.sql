@@ -26,8 +26,8 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        object_id_class bigint not null,
         parent_object bigint,
+        object_id_class bigint not null,
         owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
@@ -110,8 +110,8 @@
     create table projects (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        curnit_fk bigint not null,
         jnlp_fk bigint not null,
+        curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -243,8 +243,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -258,8 +258,8 @@
         id bigint not null auto_increment,
         OPTLOCK integer,
         offering_fk bigint not null,
-        group_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
+        group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 

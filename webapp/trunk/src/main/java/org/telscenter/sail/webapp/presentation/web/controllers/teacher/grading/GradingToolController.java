@@ -140,7 +140,8 @@ public class GradingToolController extends AbstractController {
 			if( currentStep.getPodUUID().toString().equals(podUUID)) {
 				
 				//TODO: Hiroki use stepId instead of EStep object as param
-				Map<Group, Set<GradeWorkByWorkgroupAggregate>> gradeWorkByStepAggregateAllPeriods = this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), currentStep);
+				Map<Group, Set<GradeWorkByWorkgroupAggregate>> gradeWorkByStepAggregateAllPeriods 
+				= this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), currentStep);
 				
 				modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
 				this.stripHTMLFromBody(currentStep);
