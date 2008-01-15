@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.service.module.impl;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.module.ModuleDao;
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
@@ -31,8 +32,7 @@ import org.telscenter.sail.webapp.domain.impl.ModuleParameters;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
@@ -48,8 +48,9 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 	
 	private ModuleDao<Module> moduleDao;
 	
-	@Override
-	public Module createCurnit(CurnitParameters curnitParameters) {
+	 @Override
+	 @Transactional(rollbackFor = { HttpStatusCodeException.class })	
+	 public Module createCurnit(CurnitParameters curnitParameters) {
 		ModuleParameters moduleParameters = (ModuleParameters) curnitParameters;
 		SdsCurnit sdsCurnit = new SdsCurnit();
 		sdsCurnit.setName(moduleParameters.getName());
