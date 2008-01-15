@@ -82,7 +82,7 @@ function MM_swapImage() { //v3.0
     	<h1 class="blueText">Teacher Registration</h1>
 </div>
      
-<div id="subtitleTeacherReg">To create a teacher account please fill in the following fields:</div>
+<div id="subtitleTeacherReg">To create a teacher account please complete the fields below:</div>
 
 
 <!-- Support for Spring errors object -->
@@ -106,15 +106,15 @@ function MM_swapImage() { //v3.0
 	<dd><form:input path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint">Required. <span class="hint-pointer"></span></span> </dd>
             
     <dt><label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label></dt>
-	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="25" tabindex="3"/> 		<span class="hint">Required.  Your new account information will be automatically emailed to this email address. <span class="hint-pointer"></span></span></dd>
+	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="25" tabindex="3"/> <span class="hint">Required.  Your new account information will be automatically emailed to this email address. <span class="hint-pointer"></span></span></dd>
             
      <dt><label for="city" id="city1"><spring:message code="signup.city" /></label> </dt>
 	<dd><form:input path="userDetails.city" id="teacherCity" size="25" maxlength="25" tabindex="4"/>
-    <span class="hint">Optional.<span class="hint-pointer"></span></span>  </dd>
+    <span class="hint">Required.<span class="hint-pointer"></span></span>  </dd>
            
     <dt><label for="state" id="state1" ><spring:message code="signup.state" /></label> </dt>
 	<dd><form:input path="userDetails.state" id="teacherState" size="25" maxlength="25" tabindex="5"/>
-    	<span class="hint">Optional.<span class="hint-pointer"></span></span>  
+    	<span class="hint">Required.<span class="hint-pointer"></span></span>  
     	<div id="autocomplete_choices_state" class="autocomplete" ></div>
 		<script type="text/javascript">  
 			new Ajax.Autocompleter('state', 'autocomplete_choices_state', 'states.html', {paramName: 'sofar'}); 	   		
@@ -123,7 +123,7 @@ function MM_swapImage() { //v3.0
                 
     <dt><label for="country" id="country1"><spring:message code="signup.country" /></label></dt>
 	<dd><form:input path="userDetails.country" id="teacherCountry" size="25" maxlength="25" tabindex="6"/> 
-    <span class="hint">Optional.<span class="hint-pointer"></span></span> 
+    <span class="hint">Required.<span class="hint-pointer"></span></span> 
     <div id="autocomplete_choices_country" class="autocomplete" ></div>
 		<script type="text/javascript">  
 	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		

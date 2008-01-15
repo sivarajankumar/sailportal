@@ -56,16 +56,19 @@
 		
 		<table id="projectRunConfirmTable" border="1" cellpadding="5" cellspacing="0" >
 				<tr>
-					<td style="width:30%;"><spring:message code="setuprun.confirmation.run.title" /></td>
-					<td><strong><c:out value="${run.sdsOffering.name}" /></strong></td>
+					<td style="width:14%;"><spring:message code="setuprun.confirmation.run.title" /></td>
+					<td style="width:40%;"><strong><c:out value="${run.sdsOffering.name}" /></strong></td>
+					<td style="width:46%;"></td>
 				</tr>
 				<tr>
 					<td><spring:message code="setuprun.confirmation.run.createdtime" /></td>
 					<td><strong><c:out value="${run.starttime}" /></strong></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td><spring:message code="setuprun.confirmation.run.projectid" /> FOR TEACHER USE ONLY</td>
+					<td><spring:message code="setuprun.confirmation.run.projectid" /> </td>
 					<td><strong><c:out value="${run.sdsOffering.sdsCurnit.sdsObjectId}" /></strong></td>
+					<td><spring:message code="setuprun.confirmation.aboutprojectids.text" /></td>
 				</tr>
 				<tr>
 					<td><spring:message code="setuprun.confirmation.run.projectcodes" /></td>
@@ -77,14 +80,13 @@
 				    	<br />
 				  		</c:forEach>
 				    </td>
+				    <td>
+				    	<spring:message code="setuprun.confirmation.aboutprojectcodes.text1" /> <br/><br/>
+				    	<spring:message code="setuprun.confirmation.aboutprojectcodes.text2" /> <br/><br/>
+				    	<spring:message code="setuprun.confirmation.aboutprojectcodes.text3" />
+				    </td>
 				</tr>
 			</table>
-			
-	<h4 class="reducedBottomMargin"><spring:message code="setuprun.confirmation.aboutprojectids.heading" /></h4>
-	<h5 class="indent15px"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></h5>
-	
-	<h4 class="reducedBottomMargin"><spring:message code="setuprun.confirmation.aboutprojectcodes.heading" /></h4>
-	<h5 class="indent15px"><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></h5>
 		
 </div>      <!-- end setUpRunBoxConfirm"-->
 		
