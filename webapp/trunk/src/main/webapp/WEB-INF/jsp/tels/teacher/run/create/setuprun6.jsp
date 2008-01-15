@@ -22,7 +22,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
+
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<%@ include file="../../grading/styles.jsp"%>
+<link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
@@ -32,10 +37,6 @@
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-six" /></title>
-
-<%@ include file="../../grading/styles.jsp"%>
-<link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 </head>
 <body class=" yui-skin-sam">
