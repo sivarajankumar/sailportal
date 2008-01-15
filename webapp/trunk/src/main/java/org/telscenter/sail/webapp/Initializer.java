@@ -83,8 +83,8 @@ public class Initializer {
                     .createDefaultCurnits(applicationContext);
             Jnlp[] jnlps = createDefaultOfferings
                     .createDefaultJnlps(applicationContext);
-            createDefaultOfferings.createDefaultOfferings(applicationContext,
-                    curnits, jnlps);
+            //createDefaultOfferings.createDefaultOfferings(applicationContext,
+            //        curnits, jnlps);
 
         } catch (Exception all) {
             System.err.println(all.getLocalizedMessage());
