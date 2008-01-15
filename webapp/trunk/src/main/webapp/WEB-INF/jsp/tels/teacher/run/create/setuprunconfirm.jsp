@@ -64,7 +64,7 @@
 					<td><strong><c:out value="${run.starttime}" /></strong></td>
 				</tr>
 				<tr>
-					<td><spring:message code="setuprun.confirmation.run.projectid" /></td>
+					<td><spring:message code="setuprun.confirmation.run.projectid" /> FOR TEACHER USE ONLY</td>
 					<td><strong><c:out value="${run.sdsOffering.sdsCurnit.sdsObjectId}" /></strong></td>
 				</tr>
 				<tr>
