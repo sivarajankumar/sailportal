@@ -134,7 +134,10 @@ public class GradingToolController extends AbstractController {
 	    		previousStep = gradableSteps.get(previousIndex);
 	    		
 	    	
-	    	nextStep = gradableSteps.get(nextIndex);
+	    	if( nextIndex == gradableSteps.size() )
+	    		nextStep = null;
+	    	else
+	    		nextStep = gradableSteps.get(nextIndex);
 	    	
 			//get the current step
 			if( currentStep.getPodUUID().toString().equals(podUUID)) {

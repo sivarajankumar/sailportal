@@ -255,7 +255,16 @@
     <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}">Return to Step Menu</a></td>
     <td class="currentStepNavLink"> 
 
-<a id="nextStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
+	  <c:choose>
+			<c:when test="${!empty nextStep}">
+				<a id="nextStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
+			</c:when>
+			<c:otherwise>
+				Next Step
+			</c:otherwise>
+	</c:choose>
+
+
 </td>		
   </tr>
  </table>
