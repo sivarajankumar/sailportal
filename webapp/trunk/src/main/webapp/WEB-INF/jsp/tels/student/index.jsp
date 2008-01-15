@@ -359,7 +359,7 @@ YAHOO.util.Event.onDOMReady(init);
 						</tr>
 						<tr>
 							<td id="secondaryRowTightFormat"class="studentTableLeftHeaderCurrent tableBorderTopBottom">Project Code</td>
-							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${run.runcode}</td>
+							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
 					  	</tr>	
 						<tr>
 							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Teacher</td>
