@@ -239,10 +239,24 @@
 <table id="currentStepTable" >
   <tr>
   	<td id="currentStepLabel">Act ${activity.number+1}, Step ${step.number+1}: <span style="font-weight:normal;">${step.title}</span></td>
-    <td class="currentStepNavLink"><a id="previousStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
-    			Previous Step</a></td>
+    <td class="currentStepNavLink">
+    
+    <c:choose>
+			<c:when test="${!empty previousStep}">
+				<a id="previousStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
+    			Previous Step</a>
+			</c:when>
+			<c:otherwise>
+				Previous Step
+			</c:otherwise>
+	</c:choose>
+
+</td>
     <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}">Return to Step Menu</a></td>
-    <td class="currentStepNavLink"> <a id="nextStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a></td>		
+    <td class="currentStepNavLink"> 
+
+<a id="nextStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
+</td>		
   </tr>
  </table>
  
