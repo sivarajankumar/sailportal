@@ -297,7 +297,7 @@ YAHOO.util.Event.onDOMReady(init);
 	</ul>
 </div>
 
-<div style="visibility:hidden;" id="displayAsEnglish"><a href="#">Display in English</a></div>
+<div style="display:none;" id="displayAsEnglish"><a href="#">Display in English</a></div>
 
 <div style="text-align:center;"><img src="../themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></div>
 
@@ -327,10 +327,10 @@ YAHOO.util.Event.onDOMReady(init);
 			
 						<tr id="projectMainRow">
 							<td class="studentTableLeftHeaderCurrent">Title</td>
-							<td id="studentCurrentTitleCell" class="tableBorderRight">
+							<td class="tableBorderRight">
 								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 								
-							<td ROWSPAN="4" style="width:27%; padding:2px;">
+							<td ROWSPAN="5" style="width:28%; padding:2px;">
 								  	<ul id="studentActionList">
 										<li><c:choose>
 											<c:when test="${studentRunInfo.workgroup == null}">
@@ -358,7 +358,7 @@ YAHOO.util.Event.onDOMReady(init);
 						 	</td>
 						</tr>
 						<tr>
-							<td id="secondaryRowTightFormat"class="studentTableLeftHeaderCurrent tableBorderTopBottom">Project Code</td>
+							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Project Code</td>
 							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
 					  	</tr>	
 						<tr>

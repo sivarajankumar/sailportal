@@ -139,10 +139,10 @@ password in the future this reminder helps you prove who you are.<span class="hi
 	      <span class="hint">Answer the password reminder question here.<span class="hint-pointer"></span></span>			
           </dd>
       
-      <dt><label for="projectCode" id="projectCode1">Project Code:</label></dt>
+      <dt><label for="projectCode" id="projectCode1">Student Code:</label></dt>
 	  <dd><form:input path="projectCode" id="projectCode" size="25" maxlength="25" tabindex="10"/>
        	  <form:errors path="projectCode" />
-          <span class="hint">Ask your teacher for the Project Code.<span class="hint-pointer"></span></span></dd>
+          <span class="hint">Ask your teacher for the Student Code.<span class="hint-pointer"></span></span></dd>
 
     </dl>
                
