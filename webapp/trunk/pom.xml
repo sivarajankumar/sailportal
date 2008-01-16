@@ -124,6 +124,12 @@
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
+		<testResources testOutputDirectory="${project.build.outputDirectory}">
+			<testResource>
+				<filtering>true</filtering>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
 		<finalName>webapp</finalName>
 		<plugins>
 			<plugin>
