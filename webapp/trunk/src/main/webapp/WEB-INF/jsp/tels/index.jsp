@@ -239,7 +239,8 @@
                     <td id="boxLatestNews" class="panelColor">
                             <div id="header">Latest News</div>
                             <div class="alignCenter">
-                            	<textarea id="newsContent" class="dataBoxStyle" rows="16" cols="35">Latest News Goes Here</textarea>
+                            	<textarea id="newsContent" class="dataBoxStyle" rows="16" cols="35">Latest News Goes Here... Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.  Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam oluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.
+                            	</textarea>
                        		</div>
                                 
                                 <div class="alignCenter"> 
