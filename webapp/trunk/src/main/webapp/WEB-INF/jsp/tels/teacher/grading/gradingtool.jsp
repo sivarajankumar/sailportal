@@ -483,6 +483,40 @@ aggregate.value = set of workgroupWorkAggregate
 		</div>
 		<!-- end create tab content -->
 </div>
+
+<table id="currentStepTable" >
+  <tr>
+  	<td id="currentStepLabel"></td>
+    <td class="currentStepNavLink">
+    
+    <c:choose>
+			<c:when test="${!empty previousStep}">
+				<a id="previousStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
+    			Previous Step</a>
+			</c:when>
+			<c:otherwise>
+				Previous Step
+			</c:otherwise>
+	</c:choose>
+
+</td>
+    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}">Return to Step Menu</a></td>
+    <td class="currentStepNavLink"> 
+
+	  <c:choose>
+			<c:when test="${!empty nextStep}">
+				<a id="nextStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
+			</c:when>
+			<c:otherwise>
+				Next Step
+			</c:otherwise>
+	</c:choose>
+
+
+</td>		
+  </tr>
+ </table>
+
 <div id="myLogger"></div>
 <script type="text/javascript">
 var myLogReader = new YAHOO.widget.LogReader("myLogger");
