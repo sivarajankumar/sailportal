@@ -3,7 +3,6 @@
 body {
 	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
 	font-size: 62.7%;
-	margin: 0px;
 	text-align: center;
 	background-color:#FFFFFF;
 	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
@@ -37,10 +36,7 @@ abbr, acronym {
 	width: 960px;
 	text-align:left;
 	padding: 0px;
-	margin-top: 0;
-	margin-right: auto;
-	margin-bottom: 0;
-	margin-left: auto;
+	margin: 0 auto;
 	}
 	
 .center {text-align:center;}
@@ -554,11 +550,11 @@ abbr, acronym {
 #pageTitle {
 	clear:both;
 	text-align:center;
-	width:800px;
+	width:90%;
+	margin: 0 auto;
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
-	margin: 0 auto;
 	padding:10px;
 	color: #0000FF;
 	font-size:2.3em;
@@ -635,6 +631,7 @@ abbr, acronym {
 	}
 
 #contactWISEForm dd {
+	text-align:left;
 	padding:3px;
 	font-size:1.1em;
 }

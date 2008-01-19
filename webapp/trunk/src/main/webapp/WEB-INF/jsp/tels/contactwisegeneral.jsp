@@ -7,8 +7,7 @@
 
 
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-    
+       
 <script type="text/javascript" src="./javascript/tels/rotator.js"></script>
 
 
@@ -24,7 +23,7 @@
 <link rel="stylesheet" type="text/css" href="./javascript/tels/yui/logger/assets/skins/sam/logger.css"> 
 <link rel="stylesheet" type="text/css" href="./javascript/tels/yui/tabview/assets/skins/sam/tabview.css"> 
 <link rel="stylesheet" type="text/css" href="./javascript/tels/yui/treeview/assets/skins/sam/treeview.css"> 
-<link href="<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /> 
+
 
 <!--JavaScript source files for the entire YUI Library:--> 
  
@@ -109,9 +108,10 @@ YUI download for details on each of the aggregate files and their contents):-->
 
 <%@ include file="headermain_nousername.jsp"%>
 
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE.  Have I mentioned that I hate IE?-->
 
-<div id="pageTitle">Contact WISE: General Issues</div>
-     
+	<div id="pageTitle">Contact WISE: General Issues</div>
+
 <div id="pageSubtitle">Please describe your issue in as much detail as possible.</div>
 						
 <div id="pageSubtitleLevel2">
@@ -214,9 +214,11 @@ YUI download for details on each of the aggregate files and their contents):-->
                   
 </form:form>
 
+</div>
+	<h5 class="center"><a href="index.html">Return to WISE Home Page</a></h5>
+
 </div>   <!--End of the CenteredDiv -->
 
-<h5><a href="index.html">Return to WISE Home Page</a></h5>
 
 </body>
 </html>

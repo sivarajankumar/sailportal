@@ -22,9 +22,9 @@
 
 <%@ include file="headermain_nousername.jsp"%>
 
-<div id="registrationTitle">
-	<h1 class="blueText">New Account Registration</h1>
-</div>
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
+
+<h1 id="registrationTitle" class="blueText">New Account Registration</h1>
 
 <div id="boxNewAccountReg">
 
@@ -60,12 +60,14 @@
 	</h5>
 	</ul>
 </div>
-<br/>
+
 	<div style="text-align:center;"><a href="index.html"> <img id="return"
 	src="<spring:theme code="return_to_homepage" />"
 	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
 	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>
 	
+</div>     <!-- end of IE center fix-->
+
 </div>   <!-- end of centered div-->
    
 </body>

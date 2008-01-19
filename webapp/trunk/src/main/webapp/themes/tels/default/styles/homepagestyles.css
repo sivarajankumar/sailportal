@@ -201,21 +201,22 @@ abbr, acronym {
 }
 
 #boxTableSignIn dl {
-	margin-left:25px;	
+	margin-left:15px;	
 		}
 
 #boxTableSignIn dt {
 	float:left;
-	width:75px;
+	width:80px;
 	margin:0px;
 	padding:5px;
-	font-size:.9em;
+	font-size:14px;
 		}
 		
 #boxTableSignIn dd {
-	margin:0px;
+	text-align:right;
+	margin:0px 25px 0 0;
 	padding:5px;
-	font-size:.9em;
+	font-size:14px;
 }	
 
 #boxTableSignIn li {

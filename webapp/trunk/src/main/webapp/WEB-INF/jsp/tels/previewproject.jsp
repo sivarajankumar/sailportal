@@ -22,9 +22,9 @@
 
 <%@ include file="headermain_nousername.jsp"%>
 
-<div id="previewProjectTitle">
-	<h1 class="blueText">Preview A Project</h1>
-</div>
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
+
+<h1 id="previewProjectTitle" class="blueText">Preview A Project</h1>
 
 <div id="boxPreviewProject">
 
@@ -76,6 +76,8 @@
 	src="<spring:theme code="return_to_homepage" />"
 	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
 	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>
+	
+</div>
 	
 </div>   <!-- end of centered div-->
    

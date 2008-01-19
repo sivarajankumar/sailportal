@@ -37,6 +37,14 @@
 <script src="./javascript/tels/rotator.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/rotatorT.js" 		type="text/javascript"> </script>
 
+<!--NOTE: the following two scripts are CONDITIONAL items that only apply to IE (MattFish)-->
+
+<!--[if lt IE 7]>
+<script defer type="text/javascript" src="./javascript/tels/iefixes.js"></script>
+<![endif]-->
+
+
+
 <title><spring:message code="application.title" /></title>
 
 </head>
@@ -123,19 +131,19 @@
     <li><a href="wiseoverview.html" 
     	onmouseout="MM_swapImgRestore()" 
     	onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/Animated-WISE-Rollover.png',1)">
-    	<img src="./themes/tels/default/images/Animated-WISE.png" alt="Overview of WISE" width="145" height="32" 
+    	<img src="./themes/tels/default/images/Animated-WISE.png" width="145" height="32" alt="Animated Overview of WISE" 
     		class="imgNoBorder" id="Overview of WISE button" /></a> </li>
        
     <li><a href="previewproject.html" 
     		onmouseout="MM_swapImgRestore()" 
     		onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/Instant-Preview-Rollover.png',1)">
-    		<img src="./themes/tels/default/images/Instant-Preview.png" alt="Preview of WISE Button" width="145" height="32"  
+    		<img src="./themes/tels/default/images/Instant-Preview.png" width="145" height="32"  alt="Instant Preview a WISE Project" 
     			class="imgNoBorder" id="Preview of WISE Button" /></a> </li>
 		 
 	<li><a href="signup.html" 
 			onmouseout="MM_swapImgRestore()" 
 			onmouseover="MM_swapImage('Join WISE Button','','./themes/tels/default/images/join_wise_rollover.png',1)">
-			<img src="./themes/tels/default/images/join_wise.png" alt="Common Questions Button" width="145" height="32" 
+			<img src="./themes/tels/default/images/join_wise.png" width="145" height="32"  alt="Join WISE"
 				class="imgNoBorder"  id="Join WISE Button" /></a> </li>
 </ul> 	
 	
@@ -149,17 +157,16 @@
                                 
                                 <dl>
                                     <dt><label for="username">Username:  </label> </dt>
-                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" maxlength="30"/></dd>
+                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="20" maxlength="30"/></dd>
                                     <dt><label for="password">Password:	</label></dt>
-                                    <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" maxlength="20"/></dd>
+                                    <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="20" maxlength="20"/></dd>
                                 </dl>
                                                        
                                 <div class="alignRight">
-                                			<input type="image" id="signInButton" src="./themes/tels/default/images/sign_in.png"   
+                                			<input type="image" id="signInButton" img src="./themes/tels/default/images/sign_in.png" width="100" height="27" alt="Sign In Button"
                                             onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/sign_in_rollover.png',1)"
                                             onmouseout="MM_swapImgRestore()"
                                             onclick="Effect.toggle('waiting', 'appear')" /></div>
-                                                 
                                 </form>
                                 
                                 <ul id="signInLinkPositionTable">
@@ -257,10 +264,10 @@
 <table id="footerTable" cellpadding="0" cellspacing="0">
 	<tr>
     	<td id="footerLogos">
-           		<a class="marginPushLeft" href="http://www.nsf.gov" title="National Science Foundation"><img src="./themes/tels/default/images/NSF-Logo-50x50.png" alt="National Science Foundation" /></a>
-                <a href="http://www.telscenter.org/confluence/display/SAIL/Home" title="SAIL Technology"><img src="./themes/tels/default/images/SAIL-Logo-Small.png" alt="SAIL Logo" /></a>
-                <a href="http://www.telscenter.org/" title="TELS Consortium"><img src="./themes/tels/default/images/tels_logo.png" alt="SAIL Logo" /></a>
-                <a href="#" title="WISE 3.0 Logo"><img src="./themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></a>
+           		<a class="marginPushLeft" href="http://www.nsf.gov" title="National Science Foundation"><img src="./themes/tels/default/images/NSF-Logo-50x50.png" width="50" height="50" alt="National Science Foundation" /></a>
+                <a href="http://www.telscenter.org/confluence/display/SAIL/Home" title="SAIL Technology"><img src="./themes/tels/default/images/SAIL-Logo-Small.png" width="96" height="50" alt="SAIL Logo" /></a>
+                <a href="http://www.telscenter.org/" title="TELS Consortium"><img src="./themes/tels/default/images/tels_logo.png" width="160" height="50"alt="SAIL Logo" /></a>
+                <a href="#" title="WISE 3.0 Logo"><img src="./themes/tels/default/images/Wise-Logo-W3-Georgia.png" width="50" height="50" alt="SAIL Logo" /></a>
        	</td>
        	    	
         <td id="footerText">

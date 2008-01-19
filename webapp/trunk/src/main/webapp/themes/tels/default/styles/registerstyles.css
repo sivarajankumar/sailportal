@@ -62,14 +62,8 @@ a:hover {
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
-	margin-top: 0px;
-	margin-right: auto;
-	margin-bottom: 0px;
-	margin-left: auto;
-	padding-top: 0px;
-	padding-right: 0;
-	padding-bottom: 0px;
-	padding-left: 0;
+	margin: 0 auto 25px auto;
+	padding:15px 0;
 		}
 	
 #subtitleTeacherReg {
@@ -347,21 +341,22 @@ dd {
 	}
 
 #newAccountDetails {
-	margin: 60px auto 20px auto;
+	margin: 30px auto 20px auto;
 	text-align:center;
-	width:45%;
+	width:57%;
 	padding:0px;
 	}
 	
 #newAccountDetails ul {
 	list-style:none;
+	margin:0px;
 	padding:0px;
-
 	}
 	
 #newAccountDetails li {
 	line-height:160%;
-	margin-bottom:20px;
+	margin: 0 0 15px 0;
+	padding:0px;
 	}
 	
 #homelink {
@@ -381,11 +376,9 @@ dd {
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
     background-repeat:repeat-x;
-	margin-top: 0px;
-	margin-right: auto;
-	margin-bottom: 0px;
-	margin-left: auto;
-	padding:0;
+	margin: 0 auto;
+	vertical-align:text-bottom;
+	padding:15px 0;
 		}
 		
 #boxPreviewProject{
