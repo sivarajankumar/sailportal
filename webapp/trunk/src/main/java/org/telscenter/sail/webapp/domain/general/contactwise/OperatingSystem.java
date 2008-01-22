@@ -32,8 +32,9 @@ import java.util.Properties;
  */
 public enum OperatingSystem {
 
-	MAC_OS9, MAC_OSX_TIGER, MAC_OSX_LEOPARD, 
-	WINDOWS_VISTA, WINDOWS_XP_NT_2K, LINUX, OTHER;
+	MAC_OSX_LEOPARD, MAC_OSX_TIGER, MAC_OS9, 
+	WINDOWS_VISTA, WINDOWS_XP, WINDOWS_2K_NT,
+	WINDOWS_98, LINUX, OTHER;
 	
 	//the properties file that contains the user friendly values
 	private static Properties uiHTMLProperties;

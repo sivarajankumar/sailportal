@@ -89,7 +89,7 @@ YUI download for details on each of the aggregate files and their contents):-->
                                                 );
     
             YAHOO.example.container.wait.setHeader("Loading, please wait...");
-            YAHOO.example.container.wait.setBody("<img src=\"http://us.i1.yimg.com/us.yimg.com/i/us/per/gr/gp/rel_interstitial_loading.gif\"/>");
+            YAHOO.example.container.wait.setBody("<img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif />");
             YAHOO.example.container.wait.render(document.body);
 
         }

@@ -39,8 +39,68 @@
 
 <script type='text/javascript' src='/webapp/dwr/interface/StringUtilsJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
+
+</head>
 <script type="text/javascript">
 		
+		    YAHOO.namespace("example.container");
+
+    function init() {
+
+        if (!YAHOO.example.container.wait) {
+
+            // Initialize the temporary Panel to display while waiting for external content to load
+
+            YAHOO.example.container.wait = 
+                    new YAHOO.widget.Panel("wait",  
+                                                    { width: "240px", 
+                                                      fixedcenter: true, 
+                                                      close: false, 
+                                                      draggable: false, 
+                                                      zindex:4,
+                                                      modal: true,
+                                                      visible: false
+                                                    } 
+                                                );
+
+            YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setBody("<img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif />");
+            YAHOO.example.container.wait.render(document.body);
+
+        }
+
+        // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
+
+
+
+        var callback = {
+            success : function(o) {
+                //content.innerHTML = o.responseText;
+                //content.style.visibility = "visible";
+                YAHOO.example.container.wait.hide();
+            },
+            failure : function(o) {
+                //content.innerHTML = o.responseText;
+                //content.style.visibility = "visible";
+                //content.innerHTML = "CONNECTION FAILED!";
+                YAHOO.example.container.wait.hide();
+            }
+        }
+    
+        // Show the Panel
+        YAHOO.example.container.wait.show();
+        
+        // Connect to our data source and load the data
+        //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
+    }
+
+
+		YAHOO.util.Event.on("previousStepLinkTop", "click", init);
+		YAHOO.util.Event.on("nextStepLinkTop", "click", init);
+		YAHOO.util.Event.on("previousStepLinkBottom", "click", init);
+		YAHOO.util.Event.on("nextStepLinkBottom", "click", init);
+	
+	
 		//create tab
 	    var tabView = new YAHOO.widget.TabView('periodTabs'); 
 	    
@@ -211,7 +271,7 @@
 										   close: true,
 										   text: wrongScore,
 										   icon: YAHOO.widget.SimpleDialog.ICON_WARN,
-										   constraintoviewport: true,
+										   constraintoviewport: true
 										 } );
 			
 				teacherScoreErrorDialog.setHeader("<center>Score Error</center>"); 
@@ -219,10 +279,10 @@
 				teacherScoreErrorDialog.show();
 			
 			}
-
+			
 </script>
 
-</head>
+
 
 <body class=" yui-skin-sam">
 
@@ -243,7 +303,7 @@
     
     <c:choose>
 			<c:when test="${!empty previousStep}">
-				<a id="previousStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
+				<a id="previousStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
     			Previous Step</a>
 			</c:when>
 			<c:otherwise>
@@ -257,7 +317,7 @@
 
 	  <c:choose>
 			<c:when test="${!empty nextStep}">
-				<a id="nextStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
+				<a id="nextStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
 			</c:when>
 			<c:otherwise>
 				Next Step
@@ -491,7 +551,7 @@ aggregate.value = set of workgroupWorkAggregate
     
     <c:choose>
 			<c:when test="${!empty previousStep}">
-				<a id="previousStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
+				<a id="previousStepLinkBottom" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
     			Previous Step</a>
 			</c:when>
 			<c:otherwise>
@@ -505,7 +565,7 @@ aggregate.value = set of workgroupWorkAggregate
 
 	  <c:choose>
 			<c:when test="${!empty nextStep}">
-				<a id="nextStepLink" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
+				<a id="nextStepLinkBottom" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
 			</c:when>
 			<c:otherwise>
 				Next Step

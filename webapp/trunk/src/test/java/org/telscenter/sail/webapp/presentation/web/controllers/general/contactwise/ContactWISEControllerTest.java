@@ -63,9 +63,9 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	
 	private static final String EMAIL = "spongebob@bikinibottom.com";
 	
-	private static final IssueType ISSUETYPE = IssueType.TROUBLE_LOGGING_IN;
+	private static IssueType issueType = IssueType.TROUBLE_LOGGING_IN;
 	
-	private static final OperatingSystem OPERATINGSYSTEM = OperatingSystem.MAC_OSX_LEOPARD;
+	private static OperatingSystem operatingSystem = OperatingSystem.MAC_OSX_LEOPARD;
 	
 	private static final WebBrowser WEBBROWSER = WebBrowser.FIREFOX;
 	
@@ -73,7 +73,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	
 	private static final String DESCRIPTION = "Where is my spatula?";
 	
-	private static final String [] RECIPIENTS = {"geoffreykwan@gmail.com"};
+	private static final String [] RECIPIENTS = {"WISE3-trouble-logging-in@googlegroups.com"};
 	
 	private static final String SUCCESS = "WooHoo";
 
@@ -108,13 +108,13 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		mockMail = createMock(IMailFacade.class);
 		
 		emailListeners = new Properties();
-		emailListeners.setProperty("trouble_logging_in", "geoffreykwan@gmail.com");
-		emailListeners.setProperty("need_help_using_wise", "geoffreykwan@gmail.com");
-		emailListeners.setProperty("project_problems", "geoffreykwan@gmail.com");
-		emailListeners.setProperty("student_management", "geoffreykwan@gmail.com");
-		emailListeners.setProperty("authoring", "geoffreykwan@gmail.com");
-		emailListeners.setProperty("feedback", "geoffreykwan@gmail.com");
-		emailListeners.setProperty("other", "geoffreykwan@gmail.com");
+		emailListeners.setProperty("trouble_logging_in", "WISE3-trouble-logging-in@googlegroups.com");
+		emailListeners.setProperty("need_help_using_wise", "WISE3-need-help-using@googlegroups.com");
+		emailListeners.setProperty("project_problems", "WISE3-project-problems@googlegroups.com");
+		emailListeners.setProperty("student_management", "WISE3-student-management@googlegroups.com");
+		emailListeners.setProperty("authoring", "WISE3-authoring-help@googlegroups.com");
+		emailListeners.setProperty("feedback", "WISE3-feedback@googlegroups.com");
+		emailListeners.setProperty("other", "WISE3-other@googlegroups.com");
 
 		uiHTMLProperties = new Properties();
 		uiHTMLProperties.setProperty("issuetypes.TROUBLE_LOGGING_IN", "Trouble Signing In");
@@ -125,10 +125,12 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		uiHTMLProperties.setProperty("issuetypes.FEEDBACK", "Feedback to WISE");
 		uiHTMLProperties.setProperty("issuetypes.OTHER", "Other Problem");
 		uiHTMLProperties.setProperty("operatingsystems.MAC_OS9", "Mac OS 9");
-		uiHTMLProperties.setProperty("operatingsystems.MAC_OSX_TIGER", "Mac OS X Tiger");
-		uiHTMLProperties.setProperty("operatingsystems.MAC_OSX_LEOPARD", "Mac OS X Leopard");
+		uiHTMLProperties.setProperty("operatingsystems.MAC_OSX_TIGER", "Mac OS X (10.4) Tiger");
+		uiHTMLProperties.setProperty("operatingsystems.MAC_OSX_LEOPARD", "Mac OS X (10.5) Leopard");
 		uiHTMLProperties.setProperty("operatingsystems.WINDOWS_VISTA", "Windows Vista");
-		uiHTMLProperties.setProperty("operatingsystems.WINDOWS_XP_NT_2K", "Windows XP/NT/2000");
+		uiHTMLProperties.setProperty("operatingsystems.WINDOWS_2K_NT", "Windows 2000/NT");
+		uiHTMLProperties.setProperty("operatingsystems.WINDOWS_XP", "Windows XP");
+		uiHTMLProperties.setProperty("operatingsystems.WINDOWS_98", "Windows 98");
 		uiHTMLProperties.setProperty("operatingsystems.LINUX", "Linux");
 		uiHTMLProperties.setProperty("operatingsystems.OTHER", "Other or Not Sure");
 		uiHTMLProperties.setProperty("webbrowsers.FIREFOX", "Firefox");
@@ -140,8 +142,8 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		
 		contactDetails.setName(NAME);
 		contactDetails.setEmail(EMAIL);
-		contactDetails.setIssuetype(ISSUETYPE);
-		contactDetails.setOperatingsystem(OPERATINGSYSTEM);
+		contactDetails.setIssuetype(issueType);
+		contactDetails.setOperatingsystem(operatingSystem);
 		contactDetails.setWebbrowser(WEBBROWSER);
 		contactDetails.setSummary(SUMMARY);
 		contactDetails.setDescription(DESCRIPTION);
@@ -156,13 +158,13 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	
 	public void testOnSubmit_success() throws Exception {
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + ISSUETYPE + ": " + SUMMARY;
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
 		String message = "Contact WISE Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
-		 "Issue Type: " + ISSUETYPE + "\n" +
-		 "Operating System: " + OPERATINGSYSTEM + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + operatingSystem + "\n" + 
 		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
@@ -175,4 +177,405 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		assertEquals(SUCCESS, modelAndView.getViewName());
 		verify(mockMail);
 	}
+	
+	public void testOnSubmit_leopard_success() throws Exception {
+		operatingSystem = OperatingSystem.MAC_OSX_LEOPARD;
+		contactDetails.setOperatingsystem(operatingSystem);
+
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Mac OS X (10.5) Leopard" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_tiger_success() throws Exception {
+		operatingSystem = OperatingSystem.MAC_OSX_TIGER;
+		contactDetails.setOperatingsystem(operatingSystem);
+		
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Mac OS X (10.4) Tiger" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_os9_success() throws Exception {
+		operatingSystem = OperatingSystem.MAC_OS9;
+		contactDetails.setOperatingsystem(operatingSystem);
+		
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Mac OS 9" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_vista_success() throws Exception {
+		operatingSystem = OperatingSystem.WINDOWS_VISTA;
+		contactDetails.setOperatingsystem(operatingSystem);
+		
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Windows Vista" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_xp_success() throws Exception {
+		operatingSystem = OperatingSystem.WINDOWS_XP;
+		contactDetails.setOperatingsystem(operatingSystem);
+		
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Windows XP" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_2k_success() throws Exception {
+		operatingSystem = OperatingSystem.WINDOWS_2K_NT;
+		contactDetails.setOperatingsystem(operatingSystem);
+		
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Windows 2000/NT" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_98_success() throws Exception {
+		operatingSystem = OperatingSystem.WINDOWS_98;
+		contactDetails.setOperatingsystem(operatingSystem);
+		
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Windows 98" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_linux_success() throws Exception {
+		operatingSystem = OperatingSystem.LINUX;
+		contactDetails.setOperatingsystem(operatingSystem);
+		
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Linux" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_other_success() throws Exception {
+		operatingSystem = OperatingSystem.OTHER;
+		contactDetails.setOperatingsystem(operatingSystem);
+		
+		String[] recipients = RECIPIENTS; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_trouble_logging_in_success() throws Exception {
+		issueType = IssueType.TROUBLE_LOGGING_IN;
+		contactDetails.setIssuetype(issueType);
+		
+		String[] recipients = {"WISE3-trouble-logging-in@googlegroups.com"}; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_authoring_success() throws Exception {
+		issueType = IssueType.AUTHORING;
+		contactDetails.setIssuetype(issueType);
+		
+		String[] recipients = {"WISE3-authoring-help@googlegroups.com"}; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_feedback_success() throws Exception {
+		issueType = IssueType.FEEDBACK;
+		contactDetails.setIssuetype(issueType);
+		
+		String[] recipients = {"WISE3-feedback@googlegroups.com"}; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_help_using_success() throws Exception {
+		issueType = IssueType.NEED_HELP_USING_WISE;
+		contactDetails.setIssuetype(issueType);
+		
+		String[] recipients = {"WISE3-need-help-using@googlegroups.com"}; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_issue_other_success() throws Exception {
+		issueType = IssueType.OTHER;
+		contactDetails.setIssuetype(issueType);
+		
+		String[] recipients = {"WISE3-other@googlegroups.com"}; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_project_problems_success() throws Exception {
+		issueType = IssueType.PROJECT_PROBLEMS;
+		contactDetails.setIssuetype(issueType);
+		
+		String[] recipients = {"WISE3-project-problems@googlegroups.com"}; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
+	public void testOnSubmit_student_management_success() throws Exception {
+		issueType = IssueType.STUDENT_MANAGEMENT;
+		contactDetails.setIssuetype(issueType);
+		
+		String[] recipients = {"WISE3-student-management@googlegroups.com"}; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + EMAIL + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = EMAIL;
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
+	
 }
