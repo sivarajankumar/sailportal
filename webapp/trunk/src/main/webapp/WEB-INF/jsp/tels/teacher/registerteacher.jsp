@@ -25,8 +25,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
   
 <script src=".././javascript/tels/general.js" type="text/javascript" ></script>
 <script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
@@ -78,12 +77,12 @@ function MM_swapImage() { //v3.0
 
 <%@ include file="headermain.jsp"%>
 
-<div id="registrationTitle">
-    	<h1 class="blueText">Teacher Registration</h1>
-</div>
-     
-<div id="subtitleTeacherReg">To create a teacher account please complete the fields below:</div>
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
+<h1 id="registrationTitle" class="blueText">Teacher Registration</h1>
+     
+<div id="subtitleTeacherReg">To create a teacher account <br/> please complete the required fields below:</div>
 
 <!-- Support for Spring errors object -->
 <div id="regErrorMessages">
@@ -100,8 +99,13 @@ function MM_swapImage() { //v3.0
   <dl>
   
   	<dt><label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label></dt>
-    <dd><form:input path="userDetails.firstname" id="teacherFirstName" size="25" maxlength="25" tabindex="1"/><span class="hint">Required.  <span class="hint-pointer"></span></span> </dd>
-            
+    <dd><form:input path="userDetails.firstname" id="teacherFirstName" size="25" maxlength="25" tabindex="1"/><span class="hint">Required.<span class="hint-pointer"></span></span> </dd>
+        
+<!--This unusually placed script gets the cursor into the First Name field immediately on page load  (MattFish)-->
+<script type="text/javascript">
+document.getElementById('teacherFirstName').focus();
+</script>
+       
   	<dt><label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label></dt>
 	<dd><form:input path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint">Required. <span class="hint-pointer"></span></span> </dd>
             
@@ -193,9 +197,9 @@ function MM_swapImage() { //v3.0
 		  projects that best serve the needs of our science teacher community. Thanks for your input!</p>
      </div>
     </dd>
-     <br />
-     <dt><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></dt>
-	  <dd id="termsOfUse">
+     <div>&nbsp;</div>
+     <dt id="layoutForLegal"><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></dt>
+	 <dd id="termsOfUse">
 	     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
      I agree to the <a href="termsofuse.html" onClick="return popupSpecial(this, 'terms')"> terms of use.</a>
      </dd>
@@ -221,6 +225,8 @@ function MM_swapImage() { //v3.0
     /> </a>	  </div>
            
 </form:form>
+
+</div> 
 
 </div>   <!--End of the CenteredDiv -->
 

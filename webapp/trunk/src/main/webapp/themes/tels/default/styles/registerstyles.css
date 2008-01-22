@@ -62,14 +62,14 @@ a:hover {
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
-	margin: 0 auto 25px auto;
+	margin: 0 auto 20px auto;
 	padding:15px 0;
 		}
 	
 #subtitleTeacherReg {
 	text-align:center;
-	margin-bottom:10px;
-	margin-top: 20px;
+	margin-bottom:0px;
+	margin-top: 10px;
 	padding: 0px;
 	font-size: 1.5em;
 	font-weight: bold;	
@@ -77,18 +77,19 @@ a:hover {
 		
 #subtitleStudentReg {
 	text-align:center;
-	margin-bottom:10px;
-	margin-top: 20px;
+	margin-bottom:0px;
+	margin-top: 10px;
 	padding: 0px;
 	font-size: 1.5em;
 	font-weight: bold;	
 		}
 		
 #studentRegForm {
-	margin-top:25px;
+	margin-top:20px;
 	}
 	
 #studentRegForm dl {
+	text-align:left;
 	position: relative;
 	width:460px;
 	font-size: 1.3em;
@@ -102,25 +103,7 @@ a:hover {
 	margin-left: auto;
 }
 
-#teacherRegForm {
-	margin-top:25px;
-	}
-
-#teacherRegForm dl {
-	position: relative;
-	width:425px;
-	font-size: 1.3em;
-	border: 1px solid #333333;
-	background-color:#CCFFCC;
-	padding-top:10px;
-	padding-bottom:10px;
-	margin-top: 0px;
-	margin-right: auto;
-	margin-bottom: 0px;
-	margin-left: auto;
-}
-
-dt {
+#studentRegForm dt {
 	float:left;
 	width: 180px;
 	text-align: left;
@@ -131,17 +114,54 @@ dt {
 	padding-left: 14px;
 }
 
-dd {
+#studentRegForm dd {
+	padding: 4px 0 3px 0px;
+}
+#teacherRegForm {
+	margin-top:20px;
+	}
+
+#teacherRegForm dl {
+	text-align:left;
+	position: relative;
+	width:400px;
+	font-size: 1.3em;
+	border: 1px solid #333333;
+	background-color:#CCFFCC;
+	padding:5px 0px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+
+#teacherRegForm dt {
+	float:left;
+	width: 160px;
+	text-align: left;
+	margin-top:2px;
 	padding-top: 4px;
 	padding-right: 0px;
 	padding-bottom: 3px;
-	padding-left: 0px;
+	padding-left: 14px;
+}
+
+#teacherRegForm dd {
+	padding: 4px 0 3px 0px;
+}
+
+#teacherFirstName, #teacherLastName, #teacherEmail, #teacherCity, #teacherState, #teacherCountry, #teacherSchool, #password, #repeatedPassword {
+	padding-left:2px;
+}
+
+#firstname, #lastname, #accountAnswer, #projectCode {
+	padding-left:2px;
 }
 
 #regButtons {
   clear: both;
   text-align:center;
-  margin-top:30px;
+  margin-top:20px;
 }
 	
 #genderFieldDefault {color:#0099FF;}
@@ -277,7 +297,7 @@ dd {
 	min-height:366px;
 	position:absolute;
 	top:-1px;
-	left:435px;
+	left:415px;
 	border:3px double #666666;
 	line-height: 110%;
 	background-color:#CCCCCC;

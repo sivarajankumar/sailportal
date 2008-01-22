@@ -42,12 +42,12 @@
 
 <%@ include file="header.jsp"%>
 
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
+<h1 id="registrationTitle" class="blueText">Student Registration</h1>
 
-<div id="registrationTitle">
-    	<h1 class="blueText">Student Registration</h1></div>
-
-<div id="subtitleStudentReg"><p>To create a student account please fill in the following fields.</p></div>
+<div id="subtitleStudentReg">To create a student account <br/>please fill in the following fields.</div>
       
 <!-- Support for Spring errors object -->
 <div id="regErrorMessages">
@@ -66,6 +66,11 @@
 	    <form:errors path="userDetails.firstname" />
     	<span class="hint">Required.<span class="hint-pointer"></span></span> 
    		</dd>
+
+<!--This unusually placed script gets the cursor into the First Name field immediately on page load  (MattFish)-->
+<script type="text/javascript">
+document.getElementById('firstname').focus();
+</script>
 
   	<dt><label for="studentLastName">Last Name:</label></dt>
 	<dd><form:input path="userDetails.lastname" id="lastname" size="25" maxlength="25" tabindex="2"/>
@@ -158,6 +163,7 @@ password in the future this reminder helps you prove who you are.<span class="hi
  
  </form:form>
  
+</div>
 
 </div>  <!-- /* End of the CenteredDiv */-->
 
