@@ -26,15 +26,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <%@ include file="../../grading/styles.jsp"%>
-<link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-
-<script src="./javascript/tels/general.js" type="text/javascript" ></script>
-<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
-<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.setup-project-run-step-six" /></title>
 
@@ -42,7 +35,13 @@
 <body class=" yui-skin-sam">
 
 <script type="text/javascript">
-
+	
+	//preload image if browser is not IE because animated gif will just freeze if user is using IE
+	if(navigator.appName != "Microsoft Internet Explorer") {
+		loadingImage = new Image();
+		loadingImage.src = "/webapp/themes/tels/default/images/rel_interstitial_loading.gif";
+	}
+	
     YAHOO.namespace("example.container");
 
     function init() {
@@ -63,8 +62,8 @@
                                                     } 
                                                 );
 
-            YAHOO.example.container.wait.setHeader("Loading, please wait...");
-            YAHOO.example.container.wait.setBody("<img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif />");
+            //YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
             YAHOO.example.container.wait.render(document.body);
 
         }

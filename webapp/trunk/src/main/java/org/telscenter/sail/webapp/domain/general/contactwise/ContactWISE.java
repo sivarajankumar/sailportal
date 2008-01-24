@@ -66,6 +66,8 @@ public interface ContactWISE extends Serializable {
 	
 	public String[] getMailRecipients();
 	
+	public String getMailRecipient();
+	
 	public String getMailSubject();
 	
 	public String getMailMessage();

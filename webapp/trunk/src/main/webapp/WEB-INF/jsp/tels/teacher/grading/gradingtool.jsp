@@ -41,9 +41,16 @@
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 
 </head>
+<body class=" yui-skin-sam">
 <script type="text/javascript">
-		
-		    YAHOO.namespace("example.container");
+
+	//preload image if browser is not IE because animated gif will just freeze if user is using IE
+	if(navigator.appName != "Microsoft Internet Explorer") {
+		loadingImage = new Image();
+		loadingImage.src = "/webapp/themes/tels/default/images/rel_interstitial_loading.gif";
+	}
+	
+	YAHOO.namespace("example.container");
 
     function init() {
 
@@ -63,8 +70,8 @@
                                                     } 
                                                 );
 
-            YAHOO.example.container.wait.setHeader("Loading, please wait...");
-            YAHOO.example.container.wait.setBody("<img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif />");
+            //YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
             YAHOO.example.container.wait.render(document.body);
 
         }
@@ -94,7 +101,6 @@
         //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
     }
 
-
 		YAHOO.util.Event.on("previousStepLinkTop", "click", init);
 		YAHOO.util.Event.on("nextStepLinkTop", "click", init);
 		YAHOO.util.Event.on("previousStepLinkBottom", "click", init);
@@ -111,12 +117,23 @@
 	     * When tabs change handle a click
 	     */
 	     function handleTabClick(e) { 
-	     	 var nextVar = document.getElementById('nextStepLink');  
+	     	 var nextVar = document.getElementById('nextStepLinkTop');  
 	     	 var tabIndex = tabView.getTabIndex( e.newValue );
 	     	 nextVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
+
+	     	 var nextVar = document.getElementById('nextStepLinkBottom');  
+	     	 var tabIndex = tabView.getTabIndex( e.newValue );
+	     	 nextVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
+
 	     	 
 	     	 //previousStep
-	     	 var previousVar = document.getElementById('previousStepLink');
+	     	 var previousVar = document.getElementById('previousStepLinkTop');
+	     	 if( previousVar != null ) {  
+	     	 	var tabIndex = tabView.getTabIndex( e.newValue );
+	     	 	previousVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex='+tabIndex;
+	     	 }// if
+	     	 
+	     	 var previousVar = document.getElementById('previousStepLinkBottom');
 	     	 if( previousVar != null ) {  
 	     	 	var tabIndex = tabView.getTabIndex( e.newValue );
 	     	 	previousVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex='+tabIndex;
@@ -284,7 +301,7 @@
 
 
 
-<body class=" yui-skin-sam">
+
 
 <div id="centeredDiv">
 

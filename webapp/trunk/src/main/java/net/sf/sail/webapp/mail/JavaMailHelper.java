@@ -51,6 +51,11 @@ public class JavaMailHelper implements IMailFacade {
 	public void postMail(String[] recipients, String subject, String message,
 			String from) throws MessagingException {
 
+		postMail(recipients, subject, message, from, null);
+	}
+	
+	public void postMail(String[] recipients, String subject, String message,
+			String from, String[] cc) throws MessagingException {
 		sender.setUsername((String) properties.getProperty("mail.user"));
 		sender.setPassword((String) properties.getProperty("mail.password"));
 		sender.setJavaMailProperties(properties);
@@ -59,14 +64,17 @@ public class JavaMailHelper implements IMailFacade {
 		helper.setFrom(from);
 		helper.setText(message);
 		helper.setSubject(subject);
-
+		
+		if(cc != null) {
+			helper.setCc(cc);
+		}
+		
 		for (String receiver : recipients) {
 			if (receiver != null) {
 				helper.setTo(receiver);
 				sender.send(mimeMessage);
 			}
 		}
-
 	}
 
 	/**

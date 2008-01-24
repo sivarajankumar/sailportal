@@ -44,6 +44,11 @@
 
 <script type="text/javascript">
 
+	if(navigator.appName != "Microsoft Internet Explorer") {
+		loadingImage = new Image();
+		loadingImage.src = "/webapp/themes/tels/default/images/rel_interstitial_loading.gif";
+	}
+	
     YAHOO.namespace("example.container");
 
     function init() {
@@ -64,8 +69,8 @@
                                                     } 
                                                 );
 
-            YAHOO.example.container.wait.setHeader("Loading, please wait...");
-            YAHOO.example.container.wait.setBody("<img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif />");
+            //YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
             YAHOO.example.container.wait.render(document.body);
 
         }
