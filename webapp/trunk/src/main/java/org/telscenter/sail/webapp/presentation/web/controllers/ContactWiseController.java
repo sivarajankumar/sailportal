@@ -50,6 +50,8 @@ public class ContactWiseController extends SimpleFormController {
 	
 	protected Properties uiHTMLProperties = null;
 	
+	private static final Boolean DEBUG = false;
+	
 	public ContactWiseController() {
 		setSessionForm(true);
 	}
@@ -66,9 +68,17 @@ public class ContactWiseController extends SimpleFormController {
 		String subject = contactWISEGeneral.getMailSubject();
 		String message = contactWISEGeneral.getMailMessage();
 		String fromEmail = contactWISEGeneral.getEmail();
+		String[] cc = {fromEmail, contactWISEGeneral.getMailRecipient()};
+
+		//for testing out the email functionality without spamming the groups
+		if(DEBUG) {
+			cc = new String[1];
+			cc[0] = fromEmail;
+			recipients[0] = "youremail@email.com";
+		}
 		
 		//sends the email to the recipients
-		javaMail.postMail(recipients, subject, message, fromEmail);
+		javaMail.postMail(recipients, subject, message, fromEmail, cc);
 		
 		ModelAndView modelAndView = new ModelAndView(getSuccessView());
 

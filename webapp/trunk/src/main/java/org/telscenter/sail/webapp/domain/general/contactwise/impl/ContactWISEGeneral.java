@@ -166,6 +166,13 @@ public class ContactWISEGeneral implements ContactWISE {
 		return recipients;
 	}
 	
+	public String getMailRecipient() {
+		String recipient =
+				emaillisteners.getProperty(this.issuetype.name().
+						toLowerCase());
+		return recipient;
+	}
+	
 	public String getMailSubject() {
 		String subject = "[Contact WISE] " + issuetype + ": " + summary;
 		

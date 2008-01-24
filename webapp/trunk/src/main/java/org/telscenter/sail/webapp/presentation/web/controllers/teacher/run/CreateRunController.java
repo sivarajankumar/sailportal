@@ -346,17 +346,14 @@ public class CreateRunController extends AbstractWizardFormController {
 			"through all the setup steps.";
 		
 		String fromEmail = teacherEmail;
-		String[] cc = {teacherEmail, emaillisteners.getProperty("project_setup")};
 		
 		//for testing out the email functionality without spamming the groups
 		if(DEBUG) {
-			cc = new String[1];
-			cc[0] = teacherEmail;
 			recipients[0] = "youremail@email.com";
 		}
 		
 		//sends the email to the recipients
-		javaMail.postMail(recipients, subject, message, fromEmail, cc);
+		javaMail.postMail(recipients, subject, message, fromEmail);
 	}
 	
 	/**
