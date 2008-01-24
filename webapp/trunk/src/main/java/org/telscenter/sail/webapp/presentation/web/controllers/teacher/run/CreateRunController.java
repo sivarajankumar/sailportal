@@ -93,7 +93,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private Properties emaillisteners = null;
 	
-	private static final Boolean DEBUG = false;
+	private static final Boolean DEBUG = true;
 	
 	/**
 	 * Constructor
@@ -308,6 +308,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		String schoolName = null;
 		String schoolCity = null;
 		String schoolState = null;
+		String schoolPeriods = null;
 		
 		//tries to retrieve the user from the session
 		User user = (User) request.getSession().getAttribute(
@@ -324,6 +325,10 @@ public class CreateRunController extends AbstractWizardFormController {
 		schoolName = teacherUserDetails.getSchoolname();
 		schoolCity = teacherUserDetails.getCity();
 		schoolState = teacherUserDetails.getState();
+		
+		
+		schoolPeriods = runParameters.printAllPeriods();
+		
 		projectName = runParameters.getName();
 		projectID = runParameters.getProject().getId();
 		
@@ -338,6 +343,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			"Teacher Email: " + teacherEmail + "\n" +
 			"School Name: " + schoolName + "\n" +
 			"School Location: " + schoolCity + ", " + schoolState + "\n" + 
+			"School Periods: " + schoolPeriods + "\n" +
 			"Project Name: " + projectName + "\n" + 
 			"Project ID: "+ projectID + "\n" +
 
@@ -349,7 +355,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		
 		//for testing out the email functionality without spamming the groups
 		if(DEBUG) {
-			recipients[0] = "youremail@email.com";
+			recipients[0] = "geoffreykwan@gmail.com";
 		}
 		
 		//sends the email to the recipients

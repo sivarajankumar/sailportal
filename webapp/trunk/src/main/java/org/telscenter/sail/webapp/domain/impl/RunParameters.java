@@ -101,4 +101,15 @@ public class RunParameters extends OfferingParameters implements Serializable {
 		this.project = project;
 	}
 	
+	public String printAllPeriods() {
+		String allPeriods = null;
+		
+		if(periodNames.isEmpty()) {
+			allPeriods = getManuallyEnteredPeriods();
+		} else {
+			allPeriods = getPeriodNames().toString();
+		}
+		
+		return allPeriods;
+	}
 }
