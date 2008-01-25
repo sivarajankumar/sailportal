@@ -216,8 +216,6 @@
 		<property name="commandName" value="runParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
-		<property name="javaMail" ref="javaMail"/>
-		<property name="emaillisteners" ref="emaillisteners" />
 	</bean>
 	
 	<bean id="myProjectRunsController"
@@ -309,6 +307,16 @@
 		<property name="commandName" value="contactWISEGeneral" />
     	<property name="validator" ref="contactWISEValidator" />
     	<property name="formView" value="contactwisegeneral" />
+    	<property name="successView" value="contactwiseconfirm" />
+    	<property name="javaMail" ref="javaMail"/>
+    	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
+	</bean>	
+	
+	<bean id="contactWiseProjectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.ContactWiseProjectController">
+		<property name="commandName" value="contactWISEGeneral" />
+    	<property name="validator" ref="contactWISEValidator" />
+    	<property name="formView" value="contactwiseproject" />
     	<property name="successView" value="contactwiseconfirm" />
     	<property name="javaMail" ref="javaMail"/>
     	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
