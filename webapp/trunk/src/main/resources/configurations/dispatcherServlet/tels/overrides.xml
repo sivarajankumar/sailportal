@@ -70,6 +70,7 @@
     		<value>
     		    /index.html=urlFilenameViewController
     		    /contactwisegeneral.html=contactWiseController
+    		    /contactwiseproject.html=contactWiseProjectController
     		    /student/index.html=studentIndexController
     		    /student/selectteam.html=selectteamController
     		    /student/teamsignin.html=teamSignInController
