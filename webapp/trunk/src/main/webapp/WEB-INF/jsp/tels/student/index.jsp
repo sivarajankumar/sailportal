@@ -249,8 +249,16 @@ YAHOO.util.Event.onDOMReady(init);
 	<dd id="currentSignIn"><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
 	<dt class="listTitle2">Last Sign In:</dt>
 	<dd id="lastSignIn">
-		<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
-			type="both" dateStyle="short" timeStyle="short" />
+	<c:choose>
+		<c:when test="${user.userDetails.lastLoginTime == null}">
+			never
+		</c:when>
+		<c:otherwise>
+			<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
+				type="both" dateStyle="short" timeStyle="short" />
+		</c:otherwise>
+	</c:choose>
+		
 	</dd>
 	<dt class="listTitle2"># of Logins:</dt>
 	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
