@@ -30,19 +30,20 @@
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
      
 <script type="text/javascript" src="../../javascript/general.js"></script>	
+
 <title>Forgot username or password - student</title>
 </head>
 
 <body>
 
 <div id="centeredDiv">
-
     	
 <%@ include file="headermain.jsp"%>
 
-<div id="lostTitleBar">
-  	<h1 class="blueText">Student Lost Username/Password</h1>
-</div>
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
+
+<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
     	
 <br /> <br /> 
 <div align="center">
@@ -63,7 +64,7 @@
 		</a></div>
 
 </div>
-
+</div>
 
 </body>
 </html>

@@ -37,7 +37,10 @@
 
 <%@ include file="headermain.jsp"%>
 
-	<div id="lostTitleBar"><h1 class="blueText">Lost Username or Password</h1></div>
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
+
+<h1 id="lostTitleBar" blueText">Lost Username or Password</h1>
  
  <div id="boxSecondary">
  
@@ -55,8 +58,7 @@
 			<img id="teacherAccount" src="../<spring:theme code="create_teacher_account" />" height="46"
 			  onmouseover="swapImage('teacherAccount','../<spring:theme code="create_teacher_account_rollover" />');" 
 			  onmouseout="swapImage('teacherAccount','../<spring:theme code="create_teacher_account" />');" /></a>
-			<br />
-			
+						
 			<div id="forgotparagraph">Select a choice above.</div>
 						
 	</div>
@@ -68,7 +70,7 @@
 			onmouseover="swapImage('return', '..//<spring:theme code="return_to_homepage_roll" />');"
 			onmouseout="swapImage('return', '../<spring:theme code="return_to_homepage" />');" /></a></div>
 </div>
-
+</div>
 
 </body>
 </html>
