@@ -229,7 +229,7 @@ YAHOO.util.Event.onDOMReady(init);
                         (current_date.day == user.userDetails.birthday.day)}" >
             Happy Birthday!
         </c:when>
-        <c:when test="${(current_date.hours>=3) && (today.hours<12)}" >
+        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
             Good morning!
         </c:when>
         <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
