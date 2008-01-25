@@ -1,50 +1,3 @@
-/* Blanket Rules for All Elements  */
-		
-body {
-	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
-	font-size: 62.7%;
-	text-align: center;
-	background-color:#FFFFFF;
-	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
-	}
-	
-img {border: 0px;}
-
-h1 {font-size:2.4em;}
-h2 {font-size:1.8em; font-weight:normal;}
-h3 {font-size:1.7em;}
-h4 {font-size:1.5em;}
-h5 {font-size:1.3em; font-weight:normal;}
-h6 {font-size:1.1em; font-weight:normal;}
-p  {font-size:1.0em; line-height:150%;padding:0px; margin:0px;}
-	
-abbr, acronym {
-	cursor:help;
-	border-bottom: 1px dotted #666666;	
-	}
-
-#bannerArea {
-	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
-	background-position: center top;
-	width: 960px;
-	height: 60px;
-	margin: 5px 0 15px 0;
-	}
-	
-#centeredDiv {
-	background-color:#FFFFFF;
-	width: 960px;
-	text-align:left;
-	padding: 0px;
-	margin: 0 auto;
-	}
-	
-.center {text-align:center;}
-
-#wiseLogo {
-	float:left;
-	margin: 3px 0 0 3px;
-	}
 		
 #teacherBannerLabel {
 	padding-top:5px;
@@ -765,7 +718,7 @@ abbr, acronym {
 	list-style:none;
 	}
 	
-#navigationL2ViewStudents li {
+.navigationL2ViewStudents li {
 	font-size:.9em;
 	letter-spacing:.9px;
 	display:inline;

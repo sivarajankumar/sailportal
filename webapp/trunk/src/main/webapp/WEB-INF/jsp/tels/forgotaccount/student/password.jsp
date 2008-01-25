@@ -23,40 +23,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />    
+
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+   
 <script type="text/javascript" src="../../javascript/general.js"></script>	
+
 <title>Forgot password - student</title>
 </head>
 
 <body>
 
-<h2 class="center"> FORGOTTEN PASSWORD</h2>
-<h1 class="center"> STUDENT </h1>
+<div id="centeredDiv">
+    	
+<%@ include file="headermain.jsp"%>
 
-<h3 class="center"> Forgot your Password? </h3>
-<div align="center">
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
+<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+
+<h1> Forgot your Password? </h1>
+
 <div id="studentpasswordremindersuggestion"> 
-<ol>
-<li>You can always ask your teacher for help looking up your
-Username and Password.
-</li>
-<br />
-<li>Or you can create a new password for your account after
-successfully answering a <a href="passwordreminder.html">Password Reminder</a> question.
-</li>
-</ol>
+	<ol>
+	<li>You can create a NEW password for your account if you can answer the
+	<a id="passwordReminderLink" href="passwordreminder.html">Password Reminder</a> 
+	you created while registering.</li>
+	
+	<li>If you can't remember your Password Reminder, ask your teacher for help looking up your
+	Username and Password.</li>
+	
+	</ol>
 </div>
-</div>
+
 <br /><br />
-<div align="center">
-<a align="center" href="../../index.html">Return to Sign In</a>
+
+<a href="../../index.html"> 
+		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
+		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
+		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" />
+</a>
+
 </div>
-<!--
-<a href="#" ><img id="signIn4" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
-onmouseover="swapImage('signIn4','../../images/Sign-in-New-Account-Roll.png');"
-onmouseout="swapImage('signIn4','../../images/Sign-in-New-Account.png');"
-></a>
--->
+</div>
 </body>
 </html>

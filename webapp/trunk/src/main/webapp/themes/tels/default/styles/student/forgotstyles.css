@@ -218,12 +218,22 @@ label#passwordform2{
 }
 
 #studentpasswordremindersuggestion{
-	align:center;
-	text-align:justify;
+	font-size:1.5em;
+	text-align:left;
 	padding-left:25px;
 	padding-right:25px;
+	margin:35px auto;
 	width:500px;
 	border:1px solid black;
+}
+
+#studentpasswordremindersuggestion li{
+	margin-bottom:15px;
+}
+
+#passwordReminderLink {
+	font-size:1.1em;
+	font-weight:bold;
 }
 
 #passwordreminder1{
@@ -246,4 +256,15 @@ label#passwordform2{
 	align:right;
 	text-align:right;
 }
+
+.dataBoxStyle {
+	font-size:1.0em;
+	font-weight:bold;
+	color:#006633;
+	padding: 3px;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #666666;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #999999;
+		}
 

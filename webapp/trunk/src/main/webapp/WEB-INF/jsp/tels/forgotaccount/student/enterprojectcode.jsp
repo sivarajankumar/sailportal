@@ -24,6 +24,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
@@ -39,7 +40,7 @@
     	
 <%@ include file="headermain.jsp"%>
 
-<div id="lostTitleBar"><h1 class="blueText">Student Lost Username/Password</h1></div>
+<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
   
 <div align="center">
   	

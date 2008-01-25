@@ -23,18 +23,42 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />    
+
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+   
 <script type="text/javascript" src="../../javascript/general.js"></script>	
-<title>Password reminder - student</title>
+
+<title>Forgot password - student</title>
 </head>
 
 <body>
 
-<h2 class="center"> PASSWORD REMINDER</h2>
-<h1 class="center"> STUDENT </h1>
+<div id="centeredDiv">
+    	
+<%@ include file="headermain.jsp"%>
 
-<div>
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
+<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+
+<h1> Forgot your Password? </h1>
+
+<div id="studentpasswordremindersuggestion"> 
+	<h4><b>Step 1: </b></h4>
+	<h4><b>Enter your WISE username: </b></h4>
+
+	<form id="username" name="retrievepassword" method="post" commandName="reminderParameters">
+	<label style="margin-left:30px; font-weight:bold;" for="send_username"><spring:message code="login.username" /></label>
+  	<input class="dataBoxStyle" type="text" name="username" id="username" size="30" tabindex="1" />
+ 	<input style="margin-left:20px;" type="submit" id="next" name="_target1" value="<spring:message code="navigate.next" />" />
+	</form>
+	<br /><br />
+</div>
+
+<div id="errorMessageFormat">
 <!-- Support for Spring errors object -->
 <spring:bind path="reminderParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -44,28 +68,15 @@
   </c:forEach>
 </spring:bind>
 </div>
-<div align="center">
-<div id="passwordreminder1" align="center"> 
-<h2><b>Step 1: </b></h2>
-<h2><b>First, enter your username: </b></h2>
 
-<form id="username" name="retrievepassword" method="post" commandName="reminderParameters">
-<label for="send_username"><spring:message code="login.username" /></label>
-  <input type="text" name="username" id="username"  
-  	style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 1em; width: 110px;" 
-	size="40" tabindex="1" />
-<br />
-  <input type="submit" id="next" name="_target1" value="<spring:message code="navigate.next" />" />
-</form>
-<a align="center" href="../../index.html">Return to Sign In</a>
-</div>
+<a href="../../index.html"> 
+		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
+		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
+		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" />
+</a>
 
 </div>
-<!--
-<a href="#" ><img id="signIn4" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
-onmouseover="swapImage('signIn4','../../images/Sign-in-New-Account-Roll.png');"
-onmouseout="swapImage('signIn4','../../images/Sign-in-New-Account.png');"
-></a>
--->
+</div>
+
 </body>
 </html>

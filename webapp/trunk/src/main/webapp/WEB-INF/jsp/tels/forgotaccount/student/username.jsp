@@ -24,22 +24,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
     
 <script type="text/javascript" src="../../javascript/general.js"></script>	
 
-<title>Student - Forgot Username/title>
+<title>STUDENT Forgot Username </title>
 
 </head>
 
 <body>
 
 <div id="centeredDiv">
-    	
+
 <%@ include file="headermain.jsp"%>
 
-<div id="lostTitleBar"><h1 class="blueText">Student Lost Username/Password</h1></div>
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
+<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
     	
 <div align="center">
 
@@ -68,7 +72,7 @@
 				onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" /></a></div>
 
 </div>
-
+</div>
 </div>          <!--END OF CENTERED DIV-->
 
 </body>

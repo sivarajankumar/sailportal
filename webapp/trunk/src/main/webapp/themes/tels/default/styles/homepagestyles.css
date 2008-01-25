@@ -16,39 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
   
-/* NEW CSS SHEET FROM MATTFISH  */	
+/* CSS FOR THE MAIN HOME PAGE*/	
 
 /* TAGS FOR THE TABLE LAYOUT METHOD   */	
 
-body {
-	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
-	font-style: normal;
-	margin: 5px;
-	text-align:center;
-	background-color:#FFFFFF;
-	overflow-y:scroll;  /* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
-	}
-	
-img {
-	border:0px;
-	}
-		
-abbr, acronym {
-	cursor:help;
-	border-bottom: 1px dotted #666666;	
-	}
-
-#bannerArea {
-	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
-	background-position: center top;
-	width: 960px;
-	height: 60px;
-	margin-top: 5px;
-	margin-right: auto;
-	margin-bottom: 15px;
-	margin-left: auto;
-	}
-	
 .panelColor {
 	background-image:url(../images/GradientHomeBox.png);
 	background-position:left bottom;
@@ -67,17 +38,6 @@ abbr, acronym {
 	border-left-color: #666666;
 	}
 	
-#centeredDiv {
-	width: 960px;
-	text-align:left;
-	padding:0px;
-	margin-top: 0;
-	margin-right: auto;
-	margin-bottom: 0;
-	margin-left: auto;
-	background-color:#FFFFFF;
-	}
-		
 #tableTop {
 	border-collapse:collapse;
 	border:0px;
@@ -115,7 +75,6 @@ abbr, acronym {
 
 #parastyleTable {
 	float:left;
-	
 	font-size:0.8em;
 	color:black;
 	text-align:left;
@@ -159,7 +118,7 @@ abbr, acronym {
 		
 #welcomeBullet1, #welcomeBullet2, #welcomeBullet3, #welcomeBullet4, #welcomeBullet5, #welcomeBullet6, #welcomeBullet7 {
 	float:left;
-	font-size:0.8em;
+	font-size:0.75em;
 	width:285px;
 	color:#000066;
 	line-height: 130%;

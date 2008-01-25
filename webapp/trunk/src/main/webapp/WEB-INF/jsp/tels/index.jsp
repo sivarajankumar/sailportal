@@ -27,6 +27,7 @@
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 
@@ -37,8 +38,8 @@
 <script src="./javascript/tels/rotator.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/rotatorT.js" 		type="text/javascript"> </script>
 
-<!--NOTE: the following two scripts are CONDITIONAL items that only apply to IE (MattFish)-->
 
+<!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
 <script defer type="text/javascript" src="./javascript/tels/iefixes.js"></script>
 <![endif]-->
@@ -71,7 +72,7 @@
         <li><a href="#" onClick="javascript: fabulousTurnOff6();">ONLINE GRADING</a></li>
         <li><a href="#" onClick="javascript: fabulousTurnOff7();">FREE & OPEN-SOURCE</a></li>
         </ul>
-        <p class="smallText">Click above for details</p>
+        <p class="smallText">Click above for details</p><br/ ><br />
     </div>
     
 					<div id="welcomeBullet1" style=""> 
@@ -163,8 +164,8 @@
                                 </dl>
                                                        
                                 <div class="alignRight">
-                                			<input type="image" id="signInButton" img src="./themes/tels/default/images/sign_in.png" width="100" height="27" alt="Sign In Button"
-                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/sign_in_rollover.png',1)"
+                                			<input type="image" id="signInButton" img src="./themes/tels/default/images/Sign-In-No-Trans.png" width="100" height="27" alt="Sign In Button"
+                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/Sign-In-Roll-No-Trans.png',1)"
                                             onmouseout="MM_swapImgRestore()"
                                             onclick="Effect.toggle('waiting', 'appear')" /></div>
                                 </form>

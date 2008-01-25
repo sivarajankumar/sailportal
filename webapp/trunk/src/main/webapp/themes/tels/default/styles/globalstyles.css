@@ -1,0 +1,70 @@
+/**
+ * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+  
+/* THESE STYLES ARE USED GLOBALLY IN THE SITE  */	
+
+
+body {
+	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
+	font-size: 62.7%;
+	text-align: center;
+	margin: 5px;
+	background-color:#FFFFFF;
+	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
+	}
+	
+img {border: 0px;}
+
+h1 {font-size:2.4em;}
+h2 {font-size:1.8em; }
+h3 {font-size:1.7em;}
+h4 {font-size:1.5em;}
+h5 {font-size:1.3em; }
+h6 {font-size:1.1em; }
+p  {font-size:1.0em; line-height:150%;padding:0px; margin:0px;}
+	
+abbr, acronym {
+	cursor:help;
+	border-bottom: 1px dotted #666666;	
+	}
+
+#bannerArea {
+	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: center top;
+	width: 960px;
+	height: 60px;
+	margin: 0px 0 15px 0;
+	}
+	
+#centeredDiv {
+	background-color:#FFFFFF;
+	width: 960px;
+	text-align:left;
+	padding: 0;
+	margin: 0 auto;
+	}
+	
+.center {text-align:center;}
+
+#wiseLogo {
+	float:left;
+	margin: 3px 0 0 3px;
+	}
+
+form {margin:0px; padding:0px;}
+	
