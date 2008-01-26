@@ -65,12 +65,12 @@
         
     <ul id="welcomeTextLinks">
     	<li><a href="#" onClick="javascript: fabulousTurnOff1();">WHAT IS WISE?</a></li>
-        <li><a href="#" onClick="javascript: fabulousTurnOff2();">CURRICULUM-BASED</a></li>
+        <li><a href="#" onClick="javascript: fabulousTurnOff2();">CURRICULUM BASED</a></li>
         <li><a href="#" onClick="javascript: fabulousTurnOff3();">INQUIRY PROJECTS</a></li>
         <li><a href="#" onClick="javascript: fabulousTurnOff4();">STUDENT ENGAGEMENT</a></li>
         <li><a href="#" onClick="javascript: fabulousTurnOff5();">INTERACTIVE MODELS</a></li>
         <li><a href="#" onClick="javascript: fabulousTurnOff6();">ONLINE GRADING</a></li>
-        <li><a href="#" onClick="javascript: fabulousTurnOff7();">FREE & OPEN-SOURCE</a></li>
+        <li><a href="#" onClick="javascript: fabulousTurnOff7();">FREE & OPEN SOURCE</a></li>
         </ul>
         <p class="smallText">Click above for details</p><br/ ><br />
     </div>
@@ -79,7 +79,7 @@
           			<div class="welcomeBulletHeader">What is WISE?</div>
 		  			<p>The Web-Based Inquiry Science Environment is a simple yet powerful learning system designed to foster 
 		  			inquiry-based science.  A collection of online and Java-based tools allow students to 
-		  			download curriculum-based projects, then explore and reflect at their own pace.  Teachers facilitate the 
+		  			download curriculum projects, then explore and reflect at their own pace.  Teachers facilitate the 
 		  			process in the classroom and use online tools to offer formative and evaluative assessment of student work.</p>
 					</div>
 				

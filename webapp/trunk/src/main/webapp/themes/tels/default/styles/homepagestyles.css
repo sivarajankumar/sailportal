@@ -80,29 +80,34 @@
 	text-align:left;
 	padding-right: 7px;
 	padding-left: 15px;
-	margin: 5px 0 10px 0;
+	margin: 5px 0 8px 0;
+	width:145px;
 }
 
 #welcomeTextLinks {
 	list-style-type:none;
 	font-size:.9em;
 	padding: 6px 0 0 0;
-	line-height: 180%;
-	margin: 0 0 10px 0;
+	line-height: 100%;
+	margin: 0 0 16px 0;
+}
+
+#welcomeTextLinks li {
+		margin: 0 0 11px 0;
 }
 
 #welcomeTextLinks li a:link, #welcomeTextLinks li a:visited {
 	color:#000066;
 	text-decoration:none;
 	font-weight:bold;
-	margin:0px;
-	padding:0px;
+	margin:0;
+	padding:0
 	}
 	
 #welcomeTextLinks li a:hover {
 	color:#FF0000;
 	border-bottom:1px dashed;
-	margin:0px;
+	margin:0;
 	padding:0px;
 	}
 	
@@ -119,18 +124,15 @@
 #welcomeBullet1, #welcomeBullet2, #welcomeBullet3, #welcomeBullet4, #welcomeBullet5, #welcomeBullet6, #welcomeBullet7 {
 	float:left;
 	font-size:0.75em;
-	width:285px;
+	width:260px;
 	color:#000066;
 	line-height: 130%;
-	margin-top: 5px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
+	margin:5px 0 0 10px;
 	border-top: 1px dashed #6666FF;
 	border-bottom: 1px dashed #6666FF;
 	border-left: 1px dashed #6666FF;
 	border-right: 1px dashed #6666FF; 
-	padding: 5px 8px 5px 8px;
+	padding: 5px 5px 5px 8px;
 	vertical-align:text-top;
 	}
 	

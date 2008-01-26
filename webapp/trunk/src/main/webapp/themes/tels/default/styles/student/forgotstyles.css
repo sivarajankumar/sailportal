@@ -268,3 +268,17 @@ label#passwordform2{
 	border-left: 1px solid #999999;
 		}
 
+#resultsTable {
+	border-collapse:collapse;
+	border:3px double black;
+	text-align:center;
+	background-color:#CCFF99;
+	font-size:1.3em;
+	width:30%;
+	margin: 10px auto;
+}
+
+#resultsTable td {
+	padding:3px;
+	border:1px solid black
+}

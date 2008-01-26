@@ -40,14 +40,15 @@
     	
 <%@ include file="headermain.jsp"%>
 
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
 <h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
   
-<div align="center">
-  	
   	<br /> 
 	<h1>Run a Search for Your Username</h1>
 
-	<h4>Fill in your Project Code below (get this from your teacher if needed), then click the Search button.</h4>
+	<h4>Fill in your Student Code below (get this from your teacher if needed), then click the Search button.</h4>
 	
 	<br />  
 	<div id="errorMessageFormat">
@@ -60,7 +61,7 @@
 	</div>
 	
 	<form name="projectCode" method="post" commandName="reminderParameters">
-			<label id="projectCodeLabel" for="send_projectcode">Project Code:</label>
+			<label id="projectCodeLabel" for="send_projectcode">Student Code:</label>
  			<input type="text" name="projectCode" id="projectCode" />
     	 	<input type="submit" value="Search"/>
  

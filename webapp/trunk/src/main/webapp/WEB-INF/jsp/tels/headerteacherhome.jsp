@@ -20,13 +20,17 @@
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
 <div id="bannerArea">
-    	<div id="wiseLogo"><a href="../index.html" 
+
+    <div id="wiseLogo"><a href="../index.html" 
     	onmouseout="MM_swapImgRestore()" 
     	onmouseover="MM_swapImage('WISE Secondary Logo','','../themes/tels/default/images/WISE-Secondary-Banner-Logo-Roll.png',1)">
-    	<img src="../themes/tels/default/images/WISE-Secondary-Banner-Logo.png" alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
-        <div id="teacherBannerLabel"><p><img src="../themes/tels/default/images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" /></p></div>
+    	<img src="../themes/tels/default/images/WISE-Secondary-Banner-Logo.png" alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a>
+    </div>
+    
+    <div id="teacherBannerLabel"><img src="../themes/tels/default/images/Teacher-Dashboard-Label.png" width="169" height="11" alt="Teacher Dashboard Label" />
+    </div>
 
-<div id="navigationMainProjects">
+	<div id="navigationMainProjects">
 	<ul>
 		<li>
 			<a href="index.html"><input type="image" id="home" src="../<spring:theme code="home_selected"/>"	
@@ -50,11 +54,14 @@
     		onmouseout="swapImage('help','../<spring:theme code="help"/>')"/></a> </li>
    </ul>
    </div>
-<div id="usernameSignOutBox">
-	<div id="usernameBanner"><authz:authentication operation="username" /> </div>
-	<div id="signOutBanner"> <%@ include file="logout.jsp"%></div> 
-</div>
-</div>   <!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are relative to bannerArea -->
+
+	<div id="usernameSignOutBox">
+		<div id="usernameBanner"><authz:authentication operation="username" /> </div>
+		<div id="signOutBanner"> <%@ include file="logout.jsp"%></div> 
+	</div>
+
+</div>   
+<!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are relative to bannerArea -->
 
     
 

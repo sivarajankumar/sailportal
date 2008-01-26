@@ -23,28 +23,51 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
+
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
 <title> Project Code Results - Student</title>
 </head>
 
 <body>
 
-<h1>result</h1>
+<div id="centeredDiv">
+    	
+<%@ include file="headermain.jsp"%>
 
-<div id="columns">
-<div id="left">
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
+<h1 id="lostTitleBar" class="blueText">Results for Your Search</h1>
+
+<table id="resultsTable" border="1">
+	<tr>
+		<td>Student Code:</td>
+		<td><b>${projectcode}</b></td>
+	</tr>
+	<tr>
+		<td>Project Title:</td>
+		<td><b>${runtitle}</b></td>
+	</tr>
+</table>
+	
+<h4>The following Usernames are registered for this Student Code:</h4>
+  <h3 style="color:#990000; line-height:140%;">
+  		<c:forEach var="entry" items="${users}">
+    		Username:  ${entry.key}
+    		<br>
+  		</c:forEach>
+  </h3>	
+
+<br/><br/>
+<a href="../../index.html"> 
+		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
+		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
+		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" /></a>
+
 </div>
-
-<p> ${projectcode}
-<p> ${runtitle}
-<p>
-  <c:forEach var="entry" items="${users}">
-    Name:  ${entry.key}
-    Value: ${entry.value}<br>
-  </c:forEach>
-
-<a href="../../index.html">Return to Sign In</a>
+</div>
 
 </body>
 </html>

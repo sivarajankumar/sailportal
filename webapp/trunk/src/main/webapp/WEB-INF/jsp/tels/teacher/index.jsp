@@ -24,6 +24,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
+<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
@@ -33,6 +34,12 @@
 <script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="application.title" /></title>
+
+<!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
+<!--[if lt IE 7]>
+<script defer type="text/javascript" src=".././javascript/tels/iefixes.js"></script>
+<![endif]-->
+
 </head>
 
 <body>

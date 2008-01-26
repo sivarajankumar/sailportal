@@ -60,7 +60,7 @@
 	
 	<div id="forgotusernamesuggestions">
 	<ol>
-		<li>If you know your Project Code you can use it to <b><a href="enterprojectcode.html">Run a Search for your Username</a></b>.</li>
+		<li>If you know your Student Code you can use it to <b><a href="enterprojectcode.html">Run a Search for your Username</a></b>.</li>
 		<li>Or simply ask your teacher for help finding your Username and Password. Hooray for teachers!</li>
 	</ol>
 	</div>

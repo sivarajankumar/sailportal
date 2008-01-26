@@ -28,7 +28,7 @@
 	float:right;
 	text-align:right;  
 	position:relative;
-	margin: -13px 8px 0 10px;	
+	margin: -60px 8px 0 10px;	
 }
 
 /* This variant is used on myprojectruns.html as the Yahoo CSS seems to be mysteriously overriding some margin&padding values */
@@ -93,10 +93,9 @@
 	}
 
 #navigationMainProjects {
-	position:absolute;
-	padding:0px;
-	width:850px;
-	margin: 4px 0 0 115px;
+	position:relative;
+	width:875px;
+	padding: 4px 0 0 105px;
 	}
 
 #navigationMainProjects ul {
