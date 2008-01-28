@@ -135,7 +135,7 @@
     	<img src="./themes/tels/default/images/Animated-WISE.png" width="145" height="32" alt="Animated Overview of WISE" 
     		class="imgNoBorder" id="Overview of WISE button" /></a> </li>
        
-    <li><a href="previewproject.html" 
+    <li><a href="previewprojectlist.html" 
     		onmouseout="MM_swapImgRestore()" 
     		onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/Instant-Preview-Rollover.png',1)">
     		<img src="./themes/tels/default/images/Instant-Preview.png" width="145" height="32"  alt="Instant Preview a WISE Project" 

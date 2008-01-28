@@ -1,6 +1,6 @@
 <%@ include file="include.jsp"%>
 
-<!-- $Id: previewproject.jsp 323 2007-04-21 18:08:49Z hiroki $ -->
+<!-- $Id$ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-  
+
 <title>Preview A Project</title>
 
 <script type="text/javascript" src="./javascript/pas/utils.js"></script> 
@@ -22,9 +22,9 @@
 
 <%@ include file="headermain_nousername.jsp"%>
 
-<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
-
-<h1 id="previewProjectTitle" class="blueText">Preview A Project</h1>
+<div id="previewProjectTitle">
+	<h1 class="blueText">Preview A Project</h1>
+</div>
 
 <div id="boxPreviewProject">
 
@@ -38,7 +38,7 @@
 		<li>Click the <em>Trust</em> button to launch the Java program.</li>
 		<li>In Preview mode you can explore the project and create work, but none of your work will be saved. 
 				When students use a WISE 3.0 project all of their work is saved to a personalized account.</li>
-		<li>Review the <a href="#">WISE 3.0 System Requirements</a> for details on minimum hardware/software requirements across Windows and 
+		<li>Review the <a href="http://www.telscenter.org/confluence/display/WPSD/Classroom+computer+lab+requirements+to+run+SAIL+projects">WISE 3.0 System Requirements</a> for details on minimum hardware/software requirements across Windows and 
 				Macintosh computers.</li>
 	</ul>
 </div>
@@ -50,24 +50,20 @@
     <th>Grade</th>
     <th>Action</th>
   </tr>
+<c:forEach var="project" items="${projectList}">
   <tr>
-    <td>Airbags: Take the Hit!</td>
-    <td>Physics</td>
-    <td>Grades 10-12</td>
-    <td class="center"><a href="previewproject.html?projectId=1">Preview Project</td>
+  <td><c:out value="${project.curnit.sdsCurnit.name}"/></td>
+  <td>[curriculum goes here]</td>
+  <td>[grade goes here]</td>
+  <td><a href="<c:url value="previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
+	       Preview Project
+      </a> | 
+      <a href="<c:url value="http://tels-develop.soe.berkeley.edu:8080/maven-jnlp-snapshot/jnlp-tests/jardiff/javachecker-1.1.jnlp"></c:url>">
+           Check if your computer can preview/run this project
+      </a>
+  </td>
   </tr>
-  <tr>
-    <td>Placeholder</td>
-    <td>Biology</td>
-    <td>Grades 6-8</td>
-    <td class="center"><a href="#" style="color:#999999">Preview Project</td>
-  </tr>
-  <tr>
-    <td>Placeholder</td>
-    <td>Biology</td>
-    <td>Grades 9-11</td>
-    <td class="center"><a href="#" style="color:#999999">Preview Project</td>
-  </tr>
+</c:forEach>
 </table>
 
 </div>   <!--  end of boxNewAccountReg -->
@@ -76,8 +72,7 @@
 	src="<spring:theme code="return_to_homepage" />"
 	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
 	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>
-	
-</div>
+
 	
 </div>   <!-- end of centered div-->
    
