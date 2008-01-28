@@ -27,6 +27,7 @@
 
 <%@ include file="../../grading/styles.jsp"%>
 
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <title><spring:message code="teacher.setup-project-run-step-six" /></title>

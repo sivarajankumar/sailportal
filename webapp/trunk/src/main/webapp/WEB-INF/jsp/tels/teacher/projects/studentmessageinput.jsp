@@ -24,8 +24,10 @@
 
 <html lang="en">
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet"
-    type="text/css" />
+
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet"  type="text/css" />
+
  <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 <title>Teacher:Projects - Write Student Message </title>
 </head>
