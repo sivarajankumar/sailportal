@@ -117,6 +117,7 @@
     		    /teacher/help/contactwise.html=contactWiseController
     		    /**/index.html=indexController
     		    /previewproject.html=previewprojectController
+    		    /previewprojectlist.html=previewprojectlistController
     		    /credits.html=creditsController
     		    /forgotaccount/selectaccounttype.html=selectAccountTypeController
     		    /forgotaccount/teacher/index.html=forgotAccountTeacherIndexController

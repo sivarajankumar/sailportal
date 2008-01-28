@@ -51,9 +51,14 @@
   <tr>
   <td><c:out value="${project.curnit.sdsCurnit.name}"/></td>
   <td><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	       Set up as a Project Run 
-      </a><br />
-      
+	       Set up as a Project Run
+      </a> | 
+      <a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
+	       Preview this project
+      </a> | 
+      <a href="<c:url value="http://tels-develop.soe.berkeley.edu:8080/maven-jnlp-snapshot/jnlp-tests/jardiff/javachecker-1.1.jnlp"></c:url>">
+           Check if your computer can preview/run this project
+      </a>
   </td>
   </tr>
 </c:forEach>

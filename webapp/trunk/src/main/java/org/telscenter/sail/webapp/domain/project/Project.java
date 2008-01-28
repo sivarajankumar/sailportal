@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.project;
 
+import org.telscenter.sail.webapp.domain.Run;
+
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Persistable;
@@ -71,8 +73,21 @@ public interface Project extends Persistable {
 	public Curnit getCurnit();
 	
 	/**
+	 * Get the <code>Run</code> that will be used to preview
+	 * this project
+	 * @return
+	 */
+	public Run getPreviewRun();
+	
+	/**
+	 * Set the <code>Run</code> that will be used to
+	 * preview this project
+	 * @param run
+	 */
+	public void setPreviewRun(Run run);
+
+	/**
 	 * @return The id of the project in the persistent data store
 	 */
 	public Long getId();
-
 }

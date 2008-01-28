@@ -26,8 +26,8 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        parent_object bigint,
         object_id_class bigint not null,
+        parent_object bigint,
         owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
@@ -110,8 +110,9 @@
     create table projects (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        jnlp_fk bigint not null,
         curnit_fk bigint not null,
+        run_fk bigint unique,
+        jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -120,7 +121,7 @@
         start_time datetime not null,
         end_time datetime,
         run_code varchar(255) not null unique,
-        projects_fk bigint not null,
+        project_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -161,8 +162,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -243,8 +244,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -257,8 +258,8 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        offering_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
+        offering_fk bigint not null,
         group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
@@ -360,15 +361,21 @@
         references curnits (id);
 
     alter table projects 
+        add index FKC479187ABD6D05A5 (run_fk), 
+        add constraint FKC479187ABD6D05A5 
+        foreign key (run_fk) 
+        references runs (id);
+
+    alter table projects 
         add index FKC479187A9568F016 (jnlp_fk), 
         add constraint FKC479187A9568F016 
         foreign key (jnlp_fk) 
         references jnlps (id);
 
     alter table runs 
-        add index FK359748AC92FD99 (projects_fk), 
-        add constraint FK359748AC92FD99 
-        foreign key (projects_fk) 
+        add index FK3597486F1ED29A (project_fk), 
+        add constraint FK3597486F1ED29A 
+        foreign key (project_fk) 
         references projects (id);
 
     alter table runs 

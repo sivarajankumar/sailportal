@@ -88,9 +88,6 @@
 	<bean id="indexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
 
-	<bean id="previewprojectController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewProjectController" />
-
 	<bean id="creditsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.CreditsController" />
 		
@@ -104,7 +101,20 @@
 	    <property name="runService" ref="runService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
+		<property name="projectService" ref="projectService" />
 	</bean>
+	
+	<bean id="previewprojectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewProjectController">
+		<property name="projectService" ref="projectService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
+	</bean>
+		
+	<bean id="previewprojectlistController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewProjectListController">
+		<property name="projectService" ref="projectService" />
+	</bean>
+	
 	
 	<bean id="teamSignInController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.TeamSignInController">
@@ -218,6 +228,7 @@
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
 	</bean>
 	
+
 	<bean id="myProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
 		<property name="runService" ref="runService" />

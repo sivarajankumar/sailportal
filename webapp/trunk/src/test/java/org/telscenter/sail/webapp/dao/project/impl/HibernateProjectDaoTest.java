@@ -22,12 +22,15 @@
  */
 package org.telscenter.sail.webapp.dao.project.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.Module;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
@@ -67,7 +70,13 @@ public class HibernateProjectDaoTest extends org.telscenter.sail.webapp.dao.Abst
 	private static final String MODULE_TECH_REQS = "This module requires a giant TV";
 
 	private static final Long MODULE_TOTAL_TIME = new Long(45);
-    
+	
+	private static final Date START_TIME = Calendar.getInstance().getTime();
+
+	private static final Date END_TIME = Calendar.getInstance().getTime();
+	
+	private static final String RUNCODE = "abcde-123";
+	
 	private Module module;
 	
 	private Jnlp jnlp;
@@ -75,6 +84,8 @@ public class HibernateProjectDaoTest extends org.telscenter.sail.webapp.dao.Abst
     private SdsCurnit sdsCurnit;
 
     private SdsJnlp sdsJnlp;
+    
+    private Run run;
 	
 	public void setModule(Module module) {
 		this.module = module;
@@ -92,7 +103,11 @@ public class HibernateProjectDaoTest extends org.telscenter.sail.webapp.dao.Abst
         this.sdsJnlp = sdsJnlp;
     }
 
-    /**
+	public void setRun(Run run) {
+		this.run = run;
+	}
+
+	/**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
      */
     @Override
@@ -122,6 +137,14 @@ public class HibernateProjectDaoTest extends org.telscenter.sail.webapp.dao.Abst
     	this.module.setTotalTime(MODULE_TOTAL_TIME);
     	this.dataObject.setCurnit(this.module);
     	this.dataObject.setJnlp(this.jnlp);
+    	this.run.setOwners(null);
+		this.run.setPeriods(null);
+		this.run.setRuncode(RUNCODE);
+		this.run.setSdsOffering(null);
+    	this.run.setStarttime(START_TIME);
+    	this.run.setEndtime(END_TIME);
+    	this.run.setProject(this.dataObject);
+    	this.dataObject.setPreviewRun(run);
     }
     
     /**

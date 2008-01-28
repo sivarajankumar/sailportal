@@ -25,21 +25,26 @@ package org.telscenter.sail.webapp.domain.project.impl;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.JnlpImpl;
 
 import org.hibernate.annotations.Cascade;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 
 /**
@@ -61,6 +66,9 @@ public class ProjectImpl implements Project {
 
 	@Transient
 	public static final String COLUMN_NAME_JNLP_FK = "jnlp_fk";
+	
+	@Transient
+	public static final String COLUMN_NAME_PREVIEWOFFERING_FK = "run_fk";
 
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
@@ -72,6 +80,10 @@ public class ProjectImpl implements Project {
 	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = false, unique = false)
 	private Jnlp jnlp;
 	
+	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
+	@JoinColumn(name = COLUMN_NAME_PREVIEWOFFERING_FK, unique = true)
+	private Run previewRun;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id = null;
@@ -79,7 +91,6 @@ public class ProjectImpl implements Project {
     @Version
     @Column(name = "OPTLOCK")
     private Integer version = null;
-
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
@@ -120,6 +131,20 @@ public class ProjectImpl implements Project {
     private void setId(Long id) {
         this.id = id;
     }
+
+	/**
+	 * @return the previewOffering
+	 */
+	public Run getPreviewRun() {
+		return previewRun;
+	}
+
+	/**
+	 * @param previewOffering the previewOffering to set
+	 */
+	public void setPreviewRun(Run previewRun) {
+		this.previewRun = previewRun;
+	}
     
     @SuppressWarnings("unused")
     private Integer getVersion() {
@@ -167,5 +192,4 @@ public class ProjectImpl implements Project {
 			return false;
 		return true;
 	}
-
  }

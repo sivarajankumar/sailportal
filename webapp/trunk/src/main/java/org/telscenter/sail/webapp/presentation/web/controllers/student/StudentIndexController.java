@@ -38,8 +38,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
-import org.telscenter.sail.webapp.presentation.web.controllers.student.StartProjectController;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl;
 import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
@@ -94,10 +94,10 @@ public class StudentIndexController extends AbstractController {
 			// that will be used to start the project
 			if (studentRunInfo.getWorkgroup() != null) {
 				String startProjectUrl = 				
-					StartProjectController.generateStartProjectUrlString(
+					ProjectServiceImpl.generateStudentStartProjectUrlString(
 							httpRestTransport, request, run, 
 							studentRunInfo.getWorkgroup(), 
-							StartProjectController.retrieveAnnotationBundleUrl);
+							ProjectServiceImpl.retrieveAnnotationBundleUrl);
 				studentRunInfo.setStartProjectUrl(startProjectUrl);
 			}
 

@@ -36,14 +36,15 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
- * Controller to start the project
+ * Controller to allow students to launch the VLE using the project
  *
  * @author Hiroki Terashima
  * @version $Id: $
@@ -54,10 +55,10 @@ public class StartProjectController extends AbstractController {
 	
 	private WISEWorkgroupService workgroupService;
 
+	private ProjectService projectService;
+	
 	private HttpRestTransport httpRestTransport;
 	
-	public static String retrieveAnnotationBundleUrl = "/student/getannotationbundle.html";
-
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -70,6 +71,7 @@ public class StartProjectController extends AbstractController {
 		Long runId = Long.valueOf(request.getParameter("runId"));
 		
 		Run run = runService.retrieveById(runId);
+
 		Group period = run.getPeriodOfStudent(user);
 		
 		List<Workgroup> workgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
@@ -95,40 +97,12 @@ public class StartProjectController extends AbstractController {
 //							"groups for the run " + run.getSdsOffering().getName());
 		}
 		
-		String entireUrl = generateStartProjectUrlString(this.httpRestTransport, request, run,
-				workgroup, retrieveAnnotationBundleUrl);
-	        
-		ModelAndView modelAndView = 
-			new ModelAndView(new RedirectView(entireUrl));
-		
-		return modelAndView;
-	}
-
-	/**
-	 * Generates the url string that users need to go to start the project
-	 * @param httpRestTransport
-	 * @param request request that was made
-	 * @param run <code>Run</code> that the user is in
-	 * @param workgroup <code>Workgroup</code> that the user is in
-	 * @param retrieveAnnotationBundleUrl
-	 * @returnurl String url representation to download the jnlp and start
-     *     the project
-	 */
-	public static String generateStartProjectUrlString(HttpRestTransport httpRestTransport, HttpServletRequest request,
-			Run run, Workgroup workgroup, String retrieveAnnotationBundleUrl) {
-		String jnlpUrl = httpRestTransport.getBaseUrl() + "/offering/" + 
-		run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
-		workgroup.getSdsWorkgroup().getSdsObjectId();
-
-		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
-		request.getServerPort() + request.getContextPath();
-
-		String entireUrl = jnlpUrl + 
-		"?emf.annotation.bundle.url=" +
-		portalUrl +
-		retrieveAnnotationBundleUrl + 
-		"?workgroupId=" + workgroup.getId();
-		return entireUrl;
+		LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
+		launchProjectParameters.setRun(run);
+		launchProjectParameters.setWorkgroup(workgroup);
+		launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
+		launchProjectParameters.setHttpServletRequest(request);
+		return (ModelAndView) projectService.launchProject(launchProjectParameters);
 	}
 
 	/**
@@ -150,5 +124,12 @@ public class StartProjectController extends AbstractController {
 	 */
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 }

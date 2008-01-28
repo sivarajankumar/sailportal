@@ -50,7 +50,9 @@ import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
  */
 public class WorkgroupServiceImpl implements WorkgroupService {
 
-    protected SdsWorkgroupDao sdsWorkgroupDao;
+    private static final String PREVIEWWORKGROUPNAME = "preview workgroup";
+
+	protected SdsWorkgroupDao sdsWorkgroupDao;
 
     protected WorkgroupDao<Workgroup> workgroupDao;
     
@@ -188,6 +190,34 @@ public class WorkgroupServiceImpl implements WorkgroupService {
         }
         return workgroupList;
     }
+    
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getWorkgroupForPreviewOffering(net.sf.sail.webapp.domain.Offering)
+     */
+    @Transactional(rollbackFor = { HttpStatusCodeException.class })
+	public Workgroup getWorkgroupForPreviewOffering(Offering previewOffering, User previewUser) {
+		List<Workgroup> listByOfferingAndUser = this.workgroupDao.getListByOfferingAndUser(previewOffering, previewUser);
+		if (listByOfferingAndUser.isEmpty()) {
+			SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
+			sdsWorkgroup.addMember(previewUser.getSdsUser());
+			sdsWorkgroup.setName(PREVIEWWORKGROUPNAME);
+			sdsWorkgroup.setSdsOffering(previewOffering.getSdsOffering());
+			this.sdsWorkgroupDao.save(sdsWorkgroup);
+
+			Workgroup workgroup = new WorkgroupImpl();
+			workgroup.addMember(previewUser);
+			workgroup.setOffering(previewOffering);
+			workgroup.setSdsWorkgroup(sdsWorkgroup);
+			this.groupDao.save(workgroup.getGroup());
+			this.workgroupDao.save(workgroup);
+
+			this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
+			return workgroup;
+		} else {
+			return listByOfferingAndUser.get(0);
+		}
+	}
+
 
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#addMembers(net.sf.sail.webapp.domain.Workgroup, java.util.Set)

@@ -20,44 +20,67 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library;
-
-import java.util.List;
+package org.telscenter.sail.webapp.domain.project.impl;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.service.project.ProjectService;
+
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 /**
- * Controller for displaying WISE's Project Library
- * 
+ * Parameters required to preview a project
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class ProjectLibraryController extends AbstractController {
+public class PreviewProjectParameters {
 
-	private ProjectService projectService;
+	private HttpRestTransport httpRestTransport;
 	
+	private HttpServletRequest httpServletRequest;
+	
+	private Project project;
+
 	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @return the httpRestTransport
 	 */
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		 List<Project> projectList = this.projectService.getProjectList();
-		 ModelAndView modelAndView = new ModelAndView();
-	     modelAndView.addObject("projectList", projectList);
-		 return modelAndView;
+	public HttpRestTransport getHttpRestTransport() {
+		return httpRestTransport;
+	}
+
+	/**
+	 * @param httpRestTransport the httpRestTransport to set
+	 */
+	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
+		this.httpRestTransport = httpRestTransport;
+	}
+
+	/**
+	 * @return the httpServletRequest
+	 */
+	public HttpServletRequest getHttpServletRequest() {
+		return httpServletRequest;
+	}
+
+	/**
+	 * @param httpServletRequest the httpServletRequest to set
+	 */
+	public void setHttpServletRequest(HttpServletRequest httpServletRequest) {
+		this.httpServletRequest = httpServletRequest;
+	}
+
+	/**
+	 * @return the project
+	 */
+	public Project getProject() {
+		return project;
+	}
+
+	/**
+	 * @param project the project to set
+	 */
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	
-	/**
-	 * @param projectService the projectService to set
-	 */
-	public void setProjectService(ProjectService projectService) {
-		this.projectService = projectService;
-	}
 }

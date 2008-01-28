@@ -33,6 +33,7 @@ import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.telscenter.sail.webapp.domain.project.Project;
 
 /**
  * A disposable class that is used to initialize the system.
@@ -83,6 +84,9 @@ public class Initializer {
                     .createDefaultCurnits(applicationContext);
             Jnlp[] jnlps = createDefaultOfferings
                     .createDefaultJnlps(applicationContext);
+            Project[] projects = createDefaultOfferings
+                    .createDefaultProjects(applicationContext, curnits, jnlps);
+            
             //createDefaultOfferings.createDefaultOfferings(applicationContext,
             //        curnits, jnlps);
 

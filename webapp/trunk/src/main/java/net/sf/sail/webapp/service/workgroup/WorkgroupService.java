@@ -57,6 +57,16 @@ public interface WorkgroupService {
     public List<Workgroup> createPreviewWorkgroupForOfferingIfNecessary(
             Offering offering, List<Workgroup> workgroupList, User user,
             String previewWorkgroupName);
+    
+    /**
+     * Given a PreviewOffering, returns a workgroup that is used to preview it
+     * If a workgroup has not been created yet, a new workgroup is created
+     * with a default preview user
+     * @param previewOffering
+     * @param previewUser
+     * @return workgroup
+     */
+    public Workgroup getWorkgroupForPreviewOffering(Offering previewOffering, User previewUser);
 
     /**
      * Gets a <code>List</code> of workgroups for a given offering with the

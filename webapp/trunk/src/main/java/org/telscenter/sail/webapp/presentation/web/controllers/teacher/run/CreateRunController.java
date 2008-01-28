@@ -252,6 +252,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			break;
 		case 3:
 		case 4:
+			model.put("projectId", projectId);
 		case 5:
 		default:
 			break;

@@ -22,15 +22,18 @@
  */
 package org.telscenter.sail.webapp.service.project;
 
+import java.io.IOException;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 
 /**
- * A Service for working with Projects
+ * A Service for Projects
  * 
  * @author Hiroki Terashima
  * @version $Id$
@@ -46,6 +49,12 @@ public interface ProjectService {
 	/**
 	 * Creates a new <code>Project</code>
 	 * 
+	 * Also, this creates a "Preview run"- that is, a run that is used
+	 * just for the purpose of previewing this project. This is not the ideal
+	 * solution to Previewing a Project, but the other solution is too much work
+	 * (making a new JNLP project that takes in curniturl and jnlpurl). The author
+	 * can also always use the authoring tool to preview the project
+	 * 
 	 * @param <code>ProjectParameters</code>
 	 *     the project parameters object
 	 * @return the <code>Project</code> that was created
@@ -54,6 +63,33 @@ public interface ProjectService {
 	 */
 	public Project createProject(ProjectParameters projectParameters) 
 	    throws ObjectNotFoundException;
+	
+	/**
+	 * Launches the project given the launchProjectParameters
+	 * 
+	 * @param launchProjectParameters parameters needed to launch the project
+	 */
+	public Object launchProject(LaunchProjectParameters launchProjectParameters) throws Exception;
+
+	/**
+	 * Launches a Preview of the Project
+	 * 
+	 * @param projectId
+	 *     the id of the project
+	 * @throws ObjectNotFoundException when the specified projectId
+	 *     does not exist
+	 * @throws IOException when the url cannot be loaded
+	 */
+	public Object previewProject(PreviewProjectParameters previewProjectParameters) throws Exception;
+
+	/**
+	 * Allows users to author a project
+	 * 
+	 * @param authorProjectParameters
+	 * @return
+	 * @throws Exception
+	 */
+	//public Object authorProject(AuthorProjectParameters authorProjectParameters) throws Exception;
 
 	/**
 	 * Gets a project with the given projectid

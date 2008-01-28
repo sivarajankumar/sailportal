@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library;
+package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.List;
 
@@ -33,15 +33,16 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
- * Controller for displaying WISE's Project Library
+ * Controller for listing the Preview-able projects in the preview projects
+ * page.
  * 
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class ProjectLibraryController extends AbstractController {
+public class PreviewProjectListController extends AbstractController {
 
 	private ProjectService projectService;
-	
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -53,7 +54,7 @@ public class ProjectLibraryController extends AbstractController {
 	     modelAndView.addObject("projectList", projectList);
 		 return modelAndView;
 	}
-	
+
 	/**
 	 * @param projectService the projectService to set
 	 */

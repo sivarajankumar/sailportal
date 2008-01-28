@@ -37,6 +37,9 @@ import net.sf.sail.webapp.service.offering.OfferingService;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * A disposable class that is used to create default curnits, jnlp(s), and
@@ -54,6 +57,8 @@ public class CreateDefaultOfferings {
     private JnlpService jnlpService;
 
     private OfferingService offeringService;
+    
+    private ProjectService projectService;
 
     private static final Map<String, String> CURNITS;
 
@@ -90,7 +95,11 @@ public class CreateDefaultOfferings {
                 .put(
                 		"Airbags", 
                 		"http://www.telscenter.org/confluence/download/attachments/13003/converted-wise-dev.berkeley.edu-24587.jar?version=11");
-        
+        hashmap
+                .put(
+		                "Meiosis", 
+		                "http://www.telscenter.org/confluence/download/attachments/19315/converted-wise-dev.berkeley.edu-29913.jar");
+
         CURNITS = Collections.unmodifiableMap(hashmap);
 
         hashmap = new HashMap<String, String>();
@@ -98,6 +107,11 @@ public class CreateDefaultOfferings {
                 .put(
                         "PLR Everything JDIC snapshot current",
                         "http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/plr-everything-jdic-snapshot/plr-everything-jdic-snapshot.jnlp");
+        hashmap
+                .put(
+                        "PLR Everything + OTrunk",
+                        "http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/plr-everything-jdic-otrunk-snapshot/plr-everything-jdic-otrunk-snapshot.jnlp");
+        
         JNLPS = Collections.unmodifiableMap(hashmap);
     }
 
@@ -152,6 +166,55 @@ public class CreateDefaultOfferings {
         }
         return jnlps;
     }
+    
+    public Project[] createDefaultProjects(ApplicationContext applicationContext, Curnit[] curnits, Jnlp[] jnlps) {
+    	Project[] projects = new Project[2];
+    	Curnit meiosisCurnit = null;
+    	Curnit airbagsCurnit = null;
+    	Jnlp plrJnlp = null;
+    	Jnlp plrotrunkJnlp = null;
+    	
+    	for (Curnit curnit : curnits) {
+    		if (curnit.getSdsCurnit().getName() == "Meiosis") {
+    			meiosisCurnit = curnit;
+    		}
+    		if (curnit.getSdsCurnit().getName() == "Airbags") {
+    			airbagsCurnit = curnit;
+    		}
+    	}
+    	
+    	for (Jnlp jnlp : jnlps) {
+    		if (jnlp.getSdsJnlp().getName() == "PLR Everything JDIC snapshot current") {
+    			plrJnlp = jnlp;
+    		}
+    		if (jnlp.getSdsJnlp().getName() == "PLR Everything + OTrunk") {
+    			plrotrunkJnlp = jnlp;
+    		}
+    	}
+    	
+    	ProjectParameters projectParameters = (ProjectParameters) applicationContext
+        .getBean("projectParameters");
+    	
+    	// create Meiosis project
+    	projectParameters.setCurnitId(meiosisCurnit.getId());
+    	projectParameters.setJnlpId(plrotrunkJnlp.getId());
+    	try {
+			projects[0] = this.projectService.createProject(projectParameters);
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+
+    	// create Airbags project
+    	projectParameters.setCurnitId(airbagsCurnit.getId());
+    	projectParameters.setJnlpId(plrJnlp.getId());
+    	try {
+			projects[1] = this.projectService.createProject(projectParameters);
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
+    	return projects;
+    }
 
     /**
      * @param applicationContext
@@ -168,6 +231,8 @@ public class CreateDefaultOfferings {
                 .getBean("jnlpService"));
         this.setOfferingService((OfferingService) applicationContext
                 .getBean("offeringService"));
+        this.setProjectService((ProjectService) applicationContext
+        		.getBean("projectService"));
     }
 
     /**
@@ -196,4 +261,12 @@ public class CreateDefaultOfferings {
     public void setOfferingService(OfferingService offeringService) {
         this.offeringService = offeringService;
     }
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+    @Required
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
 }

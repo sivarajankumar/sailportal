@@ -89,7 +89,7 @@ public class RunImpl extends OfferingImpl implements Run {
     public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
     
     @Transient
-	private static final String PROJECTS_JOIN_COLUMN_NAME = "projects_fk";
+	private static final String PROJECTS_JOIN_COLUMN_NAME = "project_fk";
 
     @Transient
     public static final long serialVersionUID = 1L;

@@ -113,6 +113,9 @@
         <property name="curnitService" ref="curnitService" />
         <property name="jnlpService" ref="jnlpService" />
         <property name="projectDao" ref="projectDao" />
+        <property name="runService" ref="runService" />
+        <property name="workgroupService" ref="wiseWorkgroupService" />
+        <property name="userService" ref="userService" />
     </bean>
     
     <bean id="curnitService"
