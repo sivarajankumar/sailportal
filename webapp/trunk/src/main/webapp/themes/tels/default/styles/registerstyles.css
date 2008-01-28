@@ -335,7 +335,7 @@
 
 #previewProjectTitle {
 	clear:both;
-	width:80%;
+	width:95%;
 	text-align: center;
 	border: 1px solid #333333;
 	background-color:#ccffcc;
@@ -349,14 +349,14 @@
 		
 #boxPreviewProject{
 	border: 1px solid #006600;
-	width:80%;
+	width:95%;
 	margin:15px auto 30px auto;
 	}
 	
 #previewProjectHeader2 {
 	color:#000000;
 	text-align:center;
-	font-size:1.8em;
+	font-size:1.9em;
 	font-weight:bold;
 	margin:15px 100px;
 }
@@ -365,7 +365,7 @@
 	color:#000000;
 	text-align:left;
 	font-size:1.3em;
-	margin: 0 0 0 100px;	
+	margin: 20px 0 0 70px;	
 }
 
 #previewProjectDetails ul{
@@ -373,14 +373,42 @@
 }
 
 #previewProjectDetails li{
-	line-height:120%;
+	line-height:140%;
 	padding-bottom:8px;
 }
 
 #previewProjectTable {
+	width:90%;
 	border-collapse:collapse;
 	margin: 5px auto 25px auto;
+	font-size:1.3em;
+}
+
+#previewProjectTable td {
+	text-align:left;
 	background-color:#CCFF99;
 }
 
+#previewProjectTable th {
+	text-align:left;
+	background-color:#99CC66;
+}
 
+#previewActionLinks{
+	line-height:180%;
+	
+}
+
+#previewActionLinks a:link, #previewActionLinks a:visited {
+	padding:5px;
+	color:#0000CC;
+	font-weight:bold;
+}
+
+#previewActionLinks a:hover {
+	padding:5px;
+	background-color:#FFFF00;
+	color:#000066;
+	font-weight:bold;
+	
+}

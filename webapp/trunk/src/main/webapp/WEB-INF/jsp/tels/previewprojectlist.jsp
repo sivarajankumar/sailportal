@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <title>Preview A Project</title>
@@ -22,22 +23,26 @@
 
 <%@ include file="headermain_nousername.jsp"%>
 
-<div id="previewProjectTitle">
-	<h1 class="blueText">Preview A Project</h1>
-</div>
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  -->
+
+<h1 id="previewProjectTitle" class="blueText">Preview A Project</h1>
 
 <div id="boxPreviewProject">
 
-<div id="previewProjectHeader2">Want an instant preview of a WISE 3.0 project, without needing to register? Just click a link below.</div>
+<div id="previewProjectHeader2">Want to instantly preview a project, without needing to register?</div>
 
 <div id="previewProjectDetails">
 	<div>NOTE:</div>
 	<ul>
-		<li>Clicking a link below will start the download of a secure Java-based program.  
-				This download process can take several minutes, depending on your connection bandwidth.</li>
-		<li>Click the <em>Trust</em> button to launch the Java program.</li>
-		<li>In Preview mode you can explore the project and create work, but none of your work will be saved. 
-				When students use a WISE 3.0 project all of their work is saved to a personalized account.</li>
+		<li>Click <em>Preview Project</em> below to begin downloading a secure Java-based preview.   
+				This download process can take several minutes, depending on your connection bandwidth. 
+				Click the <em>Trust</em> button to launch the Java program.</li>
+		<li>Click <em>Check My Computer</em> to see if your computer has the technical requirements to run a particular project.  
+				A secure Java-based diagnostic program will begin loading. 
+				Click the <em>Trust</em> button to launch the Java program.</li>
+		<li>In Preview mode you can explore the project and create work, but none of this temporary work will be saved. 
+				When registered teachers or students use a WISE 3.0 project all work is saved to their personalized account.</li>
 		<li>Review the <a href="http://www.telscenter.org/confluence/display/WPSD/Classroom+computer+lab+requirements+to+run+SAIL+projects">WISE 3.0 System Requirements</a> for details on minimum hardware/software requirements across Windows and 
 				Macintosh computers.</li>
 	</ul>
@@ -55,11 +60,11 @@
   <td><c:out value="${project.curnit.sdsCurnit.name}"/></td>
   <td>[curriculum goes here]</td>
   <td>[grade goes here]</td>
-  <td><a href="<c:url value="previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
+  <td id="previewActionLinks"><a href="<c:url value="previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
 	       Preview Project
-      </a> | 
+      </a> <br /> 
       <a href="<c:url value="http://tels-develop.soe.berkeley.edu:8080/maven-jnlp-snapshot/jnlp-tests/jardiff/javachecker-1.1.jnlp"></c:url>">
-           Check if your computer can preview/run this project
+           Check My Computer's Compatibility with this Project
       </a>
   </td>
   </tr>
@@ -73,7 +78,7 @@
 	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
 	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>
 
-	
+</div>
 </div>   <!-- end of centered div-->
    
 </body>
