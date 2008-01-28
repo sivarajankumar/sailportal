@@ -47,7 +47,8 @@
 	<div id="stepNumber">Step 5 of 6:<span class="blueText">&nbsp Preview the Project</span></div>
 
 	<h4><spring:message code="teacher.recommend-preview-project" />
-		<a href="#" onclick="javascript:alert('Project Preview Not Available Yet')"> <spring:message code="teacher.preview-project" /> </a>
+		<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">
+		<spring:message code="teacher.preview-project" /> </a>
 		<spring:message code="teacher.before-running" /></h4>
 		
 	<h5 class="indent15px"><spring:message code="teacher.preview-project-now" /></h5>
