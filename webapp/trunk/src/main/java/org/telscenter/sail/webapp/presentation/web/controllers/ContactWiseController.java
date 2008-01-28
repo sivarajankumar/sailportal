@@ -15,6 +15,8 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
@@ -50,7 +52,12 @@ public class ContactWiseController extends SimpleFormController {
 	
 	protected Properties uiHTMLProperties = null;
 	
+	/* change this to true if you are testing and do not want to send mail to
+	   the actual groups */
 	private static final Boolean DEBUG = false;
+	
+	//set this to your email
+	private static final String DEBUG_EMAIL = "youremail@email.com";
 	
 	public ContactWiseController() {
 		setSessionForm(true);
@@ -60,21 +67,26 @@ public class ContactWiseController extends SimpleFormController {
 	public ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
-		
 		ContactWISEGeneral contactWISEGeneral = (ContactWISEGeneral) command;
-
+		
+		/* set email to a generic address "student@wise.com" for students
+		   since we don't ask students for their email */
+		if(contactWISEGeneral.isStudent()) {
+			contactWISEGeneral.setEmail("student@wise.com");
+		}
+		
 		//retrieves the contents of the email to be sent
 		String[] recipients = contactWISEGeneral.getMailRecipients();
 		String subject = contactWISEGeneral.getMailSubject();
-		String message = contactWISEGeneral.getMailMessage();
 		String fromEmail = contactWISEGeneral.getEmail();
-		String[] cc = {fromEmail, contactWISEGeneral.getMailRecipient()};
+		String message = contactWISEGeneral.getMailMessage();
+		String[] cc = contactWISEGeneral.getMailCcs();
 
 		//for testing out the email functionality without spamming the groups
 		if(DEBUG) {
 			cc = new String[1];
 			cc[0] = fromEmail;
-			recipients[0] = "youremail@email.com";
+			recipients[0] = DEBUG_EMAIL;
 		}
 		
 		//sends the email to the recipients
@@ -95,13 +107,20 @@ public class ContactWiseController extends SimpleFormController {
 				User.CURRENT_USER_SESSION_KEY);
 
 		/* if the user is logged in to the session, auto populate the name and 
-		email address in the form, if not, the fields will just be blank */
+		   email address in the form, if not, the fields will just be blank */
 		if (user != null) {
+			contactWISE.setUser(user);
+			
 			MutableUserDetails telsUserDetails = 
 				(MutableUserDetails) user.getUserDetails();
+
 			contactWISE.setName(telsUserDetails.getFirstname() + " " + 
 					telsUserDetails.getLastname());
-			contactWISE.setEmail(telsUserDetails.getEmailAddress());
+			
+			//if user is a teacher, retrieve their email
+			if(telsUserDetails instanceof TeacherUserDetails) {
+				contactWISE.setEmail(telsUserDetails.getEmailAddress());
+			}
 		}
 		return contactWISE;
 	}

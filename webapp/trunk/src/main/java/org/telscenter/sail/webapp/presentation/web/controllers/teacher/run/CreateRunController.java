@@ -93,7 +93,12 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private Properties emaillisteners = null;
 	
-	private static final Boolean DEBUG = true;
+	/* change this to true if you are testing and do not want to send mail to
+	   the actual groups */
+	private static final Boolean DEBUG = false;
+	
+	//set this to your email
+	private static final String DEBUG_EMAIL = "youremail@email.com";
 	
 	/**
 	 * Constructor
@@ -356,7 +361,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		
 		//for testing out the email functionality without spamming the groups
 		if(DEBUG) {
-			recipients[0] = "geoffreykwan@gmail.com";
+			recipients[0] = DEBUG_EMAIL;
 		}
 		
 		//sends the email to the recipients

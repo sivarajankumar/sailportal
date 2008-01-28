@@ -25,6 +25,8 @@ package org.telscenter.sail.webapp.domain.general.contactwise;
 import java.io.Serializable;
 import java.util.Properties;
 
+import net.sf.sail.webapp.domain.User;
+
 
 /**
  * @author Hiroki Terashima
@@ -66,9 +68,15 @@ public interface ContactWISE extends Serializable {
 	
 	public String[] getMailRecipients();
 	
-	public String getMailRecipient();
-	
 	public String getMailSubject();
 	
 	public String getMailMessage();
+	
+	public String[] getMailCcs();
+	
+	public void setUser(User user);
+	
+	public User getUser();
+	
+	public Boolean isStudent();
 }

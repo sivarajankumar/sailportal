@@ -24,6 +24,9 @@ package org.telscenter.sail.webapp.domain.general.contactwise.impl;
 
 import java.util.Properties;
 
+import net.sf.sail.webapp.domain.User;
+
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
@@ -53,6 +56,10 @@ public class ContactWISEGeneral implements ContactWISE {
 	private String description;
 	
 	private static Properties emaillisteners;
+	
+	private User user;
+	
+	private Boolean isStudent = false;
 	
 	/**
 	 * @param properties the properties to set
@@ -166,11 +173,12 @@ public class ContactWISEGeneral implements ContactWISE {
 		return recipients;
 	}
 	
-	public String getMailRecipient() {
-		String recipient =
-				emaillisteners.getProperty(this.issuetype.name().
-						toLowerCase());
-		return recipient;
+	/*
+	 * Returns a string array of emails to be cc'd
+	 */
+	public String[] getMailCcs() {
+		String[] cc = {getEmail()};
+		return cc;
 	}
 	
 	public String getMailSubject() {
@@ -191,5 +199,27 @@ public class ContactWISEGeneral implements ContactWISE {
 		 "Description: " + description + "\n";
 		
 		return message;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+		
+		if(user != null && user.getUserDetails() instanceof StudentUserDetails) {
+			isStudent = true;
+		}
+	}
+	
+	public Boolean isStudent() {
+		return isStudent;
 	}
 }

@@ -24,9 +24,15 @@ package org.telscenter.sail.webapp.presentation.validators.general.contactwise;
 
 import java.util.regex.Pattern;
 
+import net.sf.sail.webapp.domain.User;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral;
 
 /**
@@ -54,12 +60,17 @@ public class ContactWISEValidator implements Validator {
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 */
 	public void validate(Object contactWISEIn, Errors errors) {
+		ContactWISE contactWISE = (ContactWISE) contactWISEIn;
+		Boolean isStudent = contactWISE.isStudent();
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
 				"error.contactwise-name");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email",
-				"error.contactwise-email-empty");
+		//email is not required for students
+		if(!isStudent) {
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email",
+				"error.contactwise-email-empty");	
+		}
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "summary",
 				"error.contactwise-summary");
@@ -67,10 +78,11 @@ public class ContactWISEValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description",
 				"error.contactwise-description");
 		
-		String email = ((ContactWISEGeneral)contactWISEIn).getEmail();
+		String email = ((ContactWISE)contactWISEIn).getEmail();
 		
-		//validate email if it is not null and not empty
-		if(email != null && !email.trim().equals("")) {
+		//validate email if user is not a student and email is not null and 
+		//not empty
+		if(!isStudent && email != null && !email.trim().equals("")) {
 			validateEmail(email, errors);
 		}
 	}

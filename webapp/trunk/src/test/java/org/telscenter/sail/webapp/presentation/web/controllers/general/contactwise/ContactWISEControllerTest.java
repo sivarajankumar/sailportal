@@ -28,6 +28,8 @@ import java.util.Properties;
 
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.mail.JavaMailHelper;
 import net.sf.sail.webapp.mail.JavaMailTest;
@@ -42,6 +44,7 @@ import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
@@ -169,7 +172,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -195,7 +198,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -221,7 +224,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -247,7 +250,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -273,7 +276,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -299,7 +302,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -325,7 +328,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -351,7 +354,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -377,7 +380,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -403,7 +406,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -430,7 +433,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -457,7 +460,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -484,7 +487,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -511,7 +514,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -538,7 +541,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -565,7 +568,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -592,7 +595,7 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		 "Summary: " + SUMMARY + "\n" + 
 		 "Description: " + DESCRIPTION + "\n";
 		String from = EMAIL;
-		String[] cc = {from, recipients[0]};
+		String[] cc = {from};
 
 		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
 		replay(mockMail);
@@ -602,4 +605,32 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		verify(mockMail);
 	}
 	
+	public void testOnSubmit_from_student() throws Exception {
+		issueType = IssueType.STUDENT_MANAGEMENT;
+		contactDetails.setIssuetype(issueType);
+		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
+		User user = new UserImpl();
+		user.setUserDetails(new StudentUserDetails());
+		contactDetails.setUser(user);
+		String[] recipients = {"WISE3-student-management@googlegroups.com"}; 
+		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE Request\n" +
+		 "=================\n" + 
+		 "Name: " + NAME + "\n" + 
+		 "Email: " + "student@wise.com" + "\n" + 
+		 "Issue Type: " + issueType + "\n" +
+		 "Operating System: " + "Other or Not Sure" + "\n" + 
+		 "Web Browser: " + WEBBROWSER + "\n" +
+		 "Summary: " + SUMMARY + "\n" + 
+		 "Description: " + DESCRIPTION + "\n";
+		String from = "student@wise.com";
+		String[] cc = {from};
+
+		mockMail.postMail(aryEq(recipients), eq(subject), eq(message), eq(from), aryEq(cc));
+		replay(mockMail);
+		ModelAndView modelAndView = contactController.onSubmit(request,
+				response, contactDetails, errors);
+		assertEquals(SUCCESS, modelAndView.getViewName());
+		verify(mockMail);
+	}
 }
