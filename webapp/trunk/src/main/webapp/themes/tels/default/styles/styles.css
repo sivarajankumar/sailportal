@@ -1,17 +1,82 @@
+/* Styles for TEACHER HOME PAGE:  Top Navigation Bar */
 		
+#wiseLogo {
+	position:absolute;
+	left: 3px;
+	top: 3px;
+	}
+	
 #teacherBannerLabel {
-	padding-top:5px;
-	margin-left:390px;
+	position:absolute;
+	left:390px;
+	top:5px;
 	}
 	
 #studentBannerLabel {
-	padding-top:5px;
-	margin-left:425px;
-
+	position:absolute;
+	left:425px;
+	top:18px;
 	}
 
+#usernameSignOutBox {
+	text-align:right;  
+	position:absolute;
+	right:7px;
+	top:4px;
+}
+
+#usernameBanner {
+	position:relative;
+	color:#FFFFCC;
+	font-style:italic;
+	font-weight:bold;
+	font-size:1.5em;
+	padding:0;
+	margin:0 0 3px 0;
+}
+
+#signOutBanner a:link, #signoutBanner a:visited {
+	position:relative;
+	color:#FFFF66;
+	font-weight:bold;
+	text-decoration:none;
+	font-size:1.1em;
+	padding:0px;
+	margin:0px;
+	border-bottom: 1px solid #FFFF66;
+		}
+
+#signOutBanner a:hover {
+	position:relative;
+	color:#330066;
+	text-decoration:none;
+	padding:0px;
+	margin:0px;
+	border-bottom: 1px dotted #330066;
+	}
+
+#navigationMainProjects {
+	position:absolute;
+	width:900px;
+	padding:0px;
+	margin:0px;
+	left:108px;
+	top:31px;
+		}
+
+#navigationMainProjects ul {
+	list-style:none;
+	padding:0px;
+	margin:0px;
+}
+	
+#navigationMainProjects li {
+	display:inline;
+	padding: 0 14px 0 0;
+	}
+	
+
 #titleBar {
-	clear:both;
 	width:960px;
 	text-align: center;
 	border: 1px solid #333333;
@@ -24,42 +89,7 @@
 	padding:0px;
 		}
 
-#usernameSignOutBox {
-	float:right;
-	text-align:right;  
-	position:relative;
-	margin: -60px 8px 0 10px;	
-}
 
-/* This variant is used on myprojectruns.html as the Yahoo CSS seems to be mysteriously overriding some margin&padding values */
-
-#usernameSignOutBoxTWO {
-	float:right;
-	text-align:right;  
-	position:relative;
-	margin: -17px 8px 0 10px;
-}
-
-#usernameBanner {
-	color:#FFFFCC;
-	font-style:italic;
-	font-weight:bold;
-	font-size:16px;
-	margin-bottom:3px;
-}
-
-#signOutBanner a:link, #signoutBanner a:visited{
-	color:#FFFF66;
-	font-weight:bold;
-	text-decoration:none;
-	border-bottom: 1px solid #FFFF66;
-		}
-
-#signOutBanner a:hover {
-	color:#330066;
-	text-decoration:none;
-	border-bottom: 1px dotted #330066;
-	}
 
 /* STYLES FOR STUDENT PROJECT MENU */
 
@@ -92,41 +122,6 @@
 	border-bottom: 1px dotted #330066;
 	}
 
-#navigationMainProjects {
-	position:relative;
-	width:875px;
-	padding: 4px 0 0 105px;
-	}
-
-#navigationMainProjects ul {
-	list-style:none;
-	padding:0px;
-}
-	
-#navigationMainProjects li {
-	display:inline;
-	padding-right: 15px;
-	}
-	
-	
-#navigationMainProjectsTWO {
-	position:absolute;
-	padding:0px;
-	width:960px;
-	margin: 0px 0 0 95px;
-	}
-
-#navigationMainProjectsTWO ul {
-	list-style:none;
-	padding:0px;
-}
-	
-#navigationMainProjectsTWO li {
-	display:inline;
-	padding-right: 15px;
-	}
-	
-
 /* STYLING FOR L2 NAV BAR  */
 
 .blankbarL2  {
@@ -134,7 +129,6 @@
 	background-position: center top;
 	margin-bottom:10px;
 	color:#000000;	
-	 
 	}
 	
 .projectL2  {
@@ -667,7 +661,7 @@
 	margin-bottom:0px;
 }
 
-#usernameSignOutBoxViewStudents #signOutBanner a:link, #signoutBanner a:visited{
+#usernameSignOutBoxViewStudents a:link, #usernameSignOutBoxViewStudents a:visited{
 	color:#FFFF66;
 	font-size:.9em;
 	font-weight:bold;
@@ -677,7 +671,7 @@
 	margin:0px;
 		}
 
-#usernameSignOutBoxViewStudents #signOutBanner a:hover {
+#usernameSignOutBoxViewStudents a:hover {
 	color:#330066;
 	font-size:.9em;
 	text-decoration:none;

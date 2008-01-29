@@ -26,8 +26,6 @@
    		 var tabView = new YAHOO.widget.TabView('tabSystem');})();
  </script>
 
-
-
 </head>
 
 

@@ -29,7 +29,7 @@
     
     <div id="teacherBannerLabel"><img src="../themes/tels/default/images/Teacher-Dashboard-Label.png" width="169" height="11" alt="Teacher Dashboard Label" />
     </div>
-
+		
 	<div id="navigationMainProjects">
 	<ul>
 		<li>
@@ -57,11 +57,11 @@
 
 	<div id="usernameSignOutBox">
 		<div id="usernameBanner"><authz:authentication operation="username" /> </div>
-		<div id="signOutBanner"> <%@ include file="logout.jsp"%></div> 
+		<div id="signOutBanner"><%@ include file="logout.jsp"%></div> 
 	</div>
 
-</div>   
-<!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are relative to bannerArea -->
+ 
+</div> <!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are position ABSOLUTE to bannerArea (which is set Relative) -->
 
     
 

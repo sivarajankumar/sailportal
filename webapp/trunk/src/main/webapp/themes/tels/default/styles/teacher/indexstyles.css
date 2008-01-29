@@ -47,6 +47,7 @@
 }
 
 #welcomeBox {
+    position:absolute;
     width: 466px;   
 	padding: 0 3px 0 3px;	
 	min-height:220px;
@@ -90,7 +91,6 @@
 	text-align:center;
 	width:425px;
 	margin: 0px 0px 5px 18px;
-	
 		}
 
 #projectGradeLinkBox td	{  
@@ -121,6 +121,7 @@
 }
 
 #dashboardBox {
+	position:absolute;
 	width: 466px;   
 	padding: 0 3px 0 3px;	
 	min-height:290px;

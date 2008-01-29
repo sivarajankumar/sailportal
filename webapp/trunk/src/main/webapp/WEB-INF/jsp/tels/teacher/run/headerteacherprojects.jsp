@@ -27,10 +27,10 @@
 	alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
 	
 <div id="teacherBannerLabel">
-	<p><img	src="../../themes/tels/default/images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" /></p>
+	<img src="../../themes/tels/default/images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" />
 </div>
 
-<div id="navigationMainProjectsTWO">
+<div id="navigationMainProjects">
 <ul>
 	<li><a href="../index.html"
 		onmouseout="MM_swapImgRestore()"
@@ -54,12 +54,12 @@
 		<img src="../../themes/tels/default/images/teacher/Help-Buttn-Clickable2.png"	alt="Help Nav Button" id="helpbutton" /></a>
 </ul>
 </div>
-<div id="usernameSignOutBoxTWO">
+<div id="usernameSignOutBox">
 		<div id="usernameBanner"><authz:authentication	operation="username" /></div>
 		<div id=""><%@ include file="logout.jsp"%></div>
 		
 </div>
-</div> <!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are relative to bannerArea -->
+</div> <!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are position ABSOLUTE to bannerArea (which is set Relative) -->
 
 
 

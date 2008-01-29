@@ -24,9 +24,7 @@
 
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-
-<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"
-  type="text/css" />
+<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
   
 <title><spring:message code="signup.title" /></title>
 
@@ -40,9 +38,10 @@
 
 <%@ include file="headermain.jsp"%>
 
-<div id="registrationTitle">
-    	<h1 class="blueText">Teacher Registration</h1>
-</div>
+<div style="text-align:center;">
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
+<h1 id="registrationTitle" class="blueText">Teacher Registration</h1>
 
 <div id="subtitleConfirm">
 			<h4>Account Created!</h4>
@@ -66,6 +65,7 @@
 	Select this button to return to the home page. Then use your new Username and Password in the <em>Sign In</em> area.
 </div>
 
+</div>
 </div>  <!-- /* End of the CenteredDiv */-->
 
 </body>
