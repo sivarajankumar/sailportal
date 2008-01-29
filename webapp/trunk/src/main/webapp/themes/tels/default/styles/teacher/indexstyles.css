@@ -47,7 +47,6 @@
 }
 
 #welcomeBox {
-    position:absolute;
     width: 466px;   
 	padding: 0 3px 0 3px;	
 	min-height:220px;
@@ -121,7 +120,6 @@
 }
 
 #dashboardBox {
-	position:absolute;
 	width: 466px;   
 	padding: 0 3px 0 3px;	
 	min-height:290px;
