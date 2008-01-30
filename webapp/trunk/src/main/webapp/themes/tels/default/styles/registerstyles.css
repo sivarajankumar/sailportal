@@ -2,14 +2,13 @@
 /* Teacher & Student Pages  */
 
 #registrationTitle {
-	clear:both;
 	width:60%;
 	text-align: center;
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
-	margin: 0 auto 20px auto;
-	padding:15px 0;
+	margin: 20px auto 20px auto;
+	padding:15px;
 		}
 	
 #subtitleTeacherReg {
@@ -342,7 +341,7 @@
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
     background-repeat:repeat-x;
-	margin: 0 auto;
+	margin: 20px auto;
 	vertical-align:text-bottom;
 	padding:15px 0;
 		}
@@ -407,8 +406,8 @@
 
 #previewActionLinks a:hover {
 	padding:5px;
-	background-color:#FFFF00;
-	color:#000066;
+	background-color:#339933;
+	color:#CCCCFF;
 	font-weight:bold;
 	
 }

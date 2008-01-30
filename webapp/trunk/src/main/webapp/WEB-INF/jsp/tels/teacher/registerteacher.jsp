@@ -26,7 +26,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
   
 <script src=".././javascript/tels/general.js" type="text/javascript" ></script>
@@ -80,7 +79,7 @@ function MM_swapImage() { //v3.0
 <%@ include file="headermain.jsp"%>
 
 <div style="text-align:center;">   
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
 <h1 id="registrationTitle" class="blueText">Teacher Registration</h1>
      
@@ -103,7 +102,8 @@ function MM_swapImage() { //v3.0
   	<dt><label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label></dt>
     <dd><form:input path="userDetails.firstname" id="teacherFirstName" size="25" maxlength="25" tabindex="1"/><span class="hint">Required.<span class="hint-pointer"></span></span> </dd>
         
-<!--This unusually placed script gets the cursor into the First Name field immediately on page load  (MattFish)-->
+<!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
+It must appear immediately after the Input field in question  (MattFish)-->
 <script type="text/javascript">
 document.getElementById('teacherFirstName').focus();
 </script>
