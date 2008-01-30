@@ -11,6 +11,7 @@
 		<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
 		<config>src/main/resources/configurations/applicationContexts/pas/spring.xml</config>
 		<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
+		<config>src/main/resources/configurations/applicationContexts/pas/javamail.xml</config>
 		<config>src/main/resources/configurations/dispatcherServlet/pas/config.xml</config>
 		<config>src/main/resources/configurations/dispatcherServlet/pas/controllers.xml</config>
 		<config>src/main/resources/configurations/applicationContexts/tels/extensions.xml</config>
@@ -33,6 +34,7 @@
 				<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/pas/spring.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/javamail.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/pas/config.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/pas/controllers.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/pas/annotation.xml</config>
@@ -50,6 +52,7 @@
 				<config>src/main/resources/configurations/applicationContexts/pas/security.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/pas/spring.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/pas/user.xml</config>
+				<config>src/main/resources/configurations/applicationContexts/pas/javamail.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/tels/extensions.xml</config>
 				<config>src/main/resources/configurations/applicationContexts/tels/overrides.xml</config>
 				<config>src/main/resources/configurations/dispatcherServlet/pas/config.xml</config>
