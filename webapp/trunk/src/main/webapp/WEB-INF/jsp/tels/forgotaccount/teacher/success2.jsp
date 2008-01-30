@@ -32,7 +32,7 @@
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>	
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
 
-<title>Teach Forgotten Password: confirmation screen</title>
+<title>Teach Lost Username and/or Password:  confirmation screen</title>
 </head>
 
 <body>
@@ -46,13 +46,12 @@
 
 <h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
 
-<h1> Forgot your Password? </h1>
+<h1> Forgot your Username and/or Password? </h1>
 
 <div id="studentpasswordremindersuggestion"> 
 	<ul>
-		<li class="forgotPasswordInstructionText3">${username}, a new password has been emailed to ${email}. 
-You should receive it within a few
-minutes.</li>
+		<li class="forgotPasswordInstructionText3">A new Username and Ppassword has been emailed to ${email}. 
+You should receive this information within a few minutes.</li>
 		<li class="forgotPasswordInstructionText">If you have any other problems or questions, <a href="#" onclick="displayNotAvailable('This page is not available yet');"
 >contact WISE.</a></li>
 	</ul>

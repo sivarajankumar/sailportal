@@ -60,12 +60,13 @@
 
 <div id="boxSecondary">
  <h2><b>Remember Your Username but Forgot Your Password?</b></h2>
- <h5>Enter Your Username and click the button. A new password will be sent to your registered email address.</h5>
+ <h5>Enter Your Username and click the button. <br/>A reminder of your existing password will be sent to your registered email address.</h5>
  		<b><label for="send_username" /><spring:message code="login.username" /> </b>
 		<input type="text" id="username" name="username" size="30" tabindex="1" /> <br /><br /><br />
 		<input type="submit" name="sendpassword" id="sendpassword" value="Email My Password"  />
  </div>
 
+<h3>OR</h3>
 
 <div id="boxSecondary">
 	<h2><b>Forgot Your Username?</b></h2>
