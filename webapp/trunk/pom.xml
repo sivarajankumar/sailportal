@@ -195,6 +195,14 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>concord-repo-internal-snapshot</id>
+			<name>concord internal repository snapshot</name>
+			<url>http://source.concord.org/maven2/internal_snapshot/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
