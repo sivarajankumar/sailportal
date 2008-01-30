@@ -20,64 +20,83 @@
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-    
-<script type="text/javascript" src="../../javascript/general.js"></script>	
-<title>Password reminder step 3- student</title>
+<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+   
+<script type="text/javascript" src="../../javascript/tels/general.js"></script>	
+<script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
+
+<title>Password Reminder Step 3</title>
 </head>
 
 <body>
 
-<h2 class="center"> PASSWORD REMINDER</h2>
-<h1 class="center"> STUDENT </h1>
+<div id="centeredDiv">
+    	
+<%@ include file="headermain.jsp"%>
 
-<spring:bind path="reminderParameters.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <b>
-      <br /><c:out value="${error}"/>
-    </b>
-  </c:forEach>
-</spring:bind>
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<div align="center">
-<div id="passwordreminder2" align="center"> 
-<h2><b>Step 3: </b></h2>
-<h3><b>Correct answer.</b></h3>
-<h3>
-Please enter a new password below, verify it,
-and click submit.
-</h3>
+<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
 
+<h1> Forgot your Password? </h1>
 
-<form id="submittedAccountPasswords" method="post" commandName="reminderParameters">
-<div id="submittedAccountPasswordBox">
-<label id="passwordform" for="send_passwords">
-<spring:message code="lostpassword.student.new-password" />
-</label>
-<input type="password" name="newPassword" id="newPassword" size="40" tabindex="1" />
-<br />
-<label id="passwordform2" for="answer"><spring:message code="lostpassword.student.verify-password" /></label>
-<input id="verifyPassword" name="verifyPassword" type="password" size="40" tabindex="2" />
-<br />
+<div id="studentpasswordremindersuggestion"> 
+	<ul>
+		<li class="forgotPasswordInstructionText">Step 3:</li>
+		<li class="forgotPasswordInstructionText">That answer is correct!</li>
+		<li class="forgotPasswordInstructionText2">please enter a new password below, verify it, and click the SUBMIT button.</li>
+	</ul>
+	
+	<form id="submittedAccountPasswords" method="post" commandName="reminderParameters">
+		<table id="submittedAccountPasswordTable">
+		<tr>
+			<td><label id="passwordform" for="send_passwords"><spring:message code="lostpassword.student.new-password" /></label></td>
+			<td><input type="password" name="newPassword" id="newPassword" size="25" tabindex="1" /></td>
+				<!-- 			Special script pulls focus onto immediately preceding Input field-->
+ 				<script type="text/javascript">document.getElementById('newPassword').focus();
+				</script>
+			</tr>
+		<tr>
+			<td><label id="passwordform2" for="answer"><spring:message code="lostpassword.student.verify-password" /></label></td>
+			<td><input id="verifyPassword" name="verifyPassword" type="password" size="25" tabindex="2" /></td>
+		</tr>
+		</table>		
+		<div id="finalPasswordReminderButtons">
+  			<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+			<input type="submit" name="_finish" value="<spring:message code="navigate.done" />" /> 
+		</div>
+	</form>
+
 </div>
-  <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_finish" value="<spring:message code="navigate.done" />" /> 
-</form>
+
+<div id="errorMessageFormat">
+		<!-- Support for Spring errors object -->
+		<spring:bind path="reminderParameters.*">
+		  <c:forEach var="error" items="${status.errorMessages}">
+		    <b>
+		      <br /><c:out value="${error}"/>
+		    </b>
+		  </c:forEach>
+		</spring:bind>
+</div>
+
+<a href="../../index.html"> 
+		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
+		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
+		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" />
+</a>
 
 </div>
-<a href="../../index.html" align="center">Return to Sign In</a>
 </div>
-<!--
-<a href="#" ><img id="signIn5" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
-onmouseover="swapImage('signIn5','../../images/Sign-in-New-Account-Roll.png');"
-onmouseout="swapImage('signIn5','../../images/Sign-in-New-Account.png');"
-></a>
--->
 
 </body>
 </html>

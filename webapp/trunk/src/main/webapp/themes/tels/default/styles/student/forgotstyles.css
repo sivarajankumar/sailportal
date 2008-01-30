@@ -217,19 +217,37 @@ label#passwordform2{
 	line-height:130%;
 }
 
-#studentpasswordremindersuggestion{
-	font-size:1.5em;
+#studentpasswordremindersuggestion {
+	font-size:1.4em;
 	text-align:left;
-	padding-left:25px;
-	padding-right:25px;
-	margin:35px auto;
+	margin:20px auto;
+	padding:20px;
 	width:500px;
 	border:1px solid black;
 }
 
-#studentpasswordremindersuggestion li{
+#studentpasswordremindersuggestion li {
+	line-height:150%;
 	margin-bottom:15px;
 }
+
+.forgotPasswordInstructionText {
+	font-size:1.6em;
+	font-weight:bold;
+	list-style-type:none;
+}
+
+.forgotPasswordInstructionText2 {
+	font-size:1.3em;
+	list-style-type:none;
+	font-variant:small-caps;
+	}
+	
+.forgotPasswordInstructionText3 {
+	font-size:1.5em;
+	list-style-type:none;
+	color:#000099
+		}
 
 #passwordReminderLink {
 	font-size:1.1em;
@@ -268,6 +286,11 @@ label#passwordform2{
 	border-left: 1px solid #999999;
 		}
 
+#finalPasswordReminderButtons {
+	padding:15px;
+	text-align:center;
+}
+	
 #resultsTable {
 	border-collapse:collapse;
 	border:3px double black;

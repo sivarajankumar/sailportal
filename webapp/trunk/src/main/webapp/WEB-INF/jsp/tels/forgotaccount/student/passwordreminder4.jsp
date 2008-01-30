@@ -20,38 +20,50 @@
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-    
-<script type="text/javascript" src="../../javascript/general.js"></script>	
-<title>Password reminder step 4- student</title>
+<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+   
+<script type="text/javascript" src="../../javascript/tels/general.js"></script>	
+<script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
+
+<title>Password Reminder Step 3</title>
 </head>
 
 <body>
-<h2 class="center"> PASSWORD REMINDER</h2>
-<h1 class="center"> STUDENT </h1>
 
-<div align="center">
-<div id="passwordreminder2" align="center"> 
-<h2><b>Step 4: </b></h2>
-<h3><b> Your username is ${username}</b></h3>
-<h3><b>Your password has been changed.</b></h3>
-<h3>
-Please click the the button below to Sign In
-using your new password.
-</h3>
+<div id="centeredDiv">
+    	
+<%@ include file="headermain.jsp"%>
+
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
+<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+
+<h1> Forgot your Password? </h1>
+
+<div id="studentpasswordremindersuggestion"> 
+	<ul>
+		<li class="forgotPasswordInstructionText">Your username is still <em>${username}</em></li>
+		<li class="forgotPasswordInstructionText">Your password has been  changed.</li>
+		<li class="forgotPasswordInstructionText2">Please click the the button below to sign in using your new password.</li>
+	</ul>
 </div>
-<a href="../../index.html" align="center">Return to Sign In</a>
+
+<a href="../../index.html"> 
+		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
+		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
+		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" />
+</a>
+
 </div>
-<!-- 
-<a href="#" ><img id="signIn5" src="../../images/Sign-in-New-Account.png" alt="return to sign in" name="signInAgain" width="161" height="52" 
-onmouseover="swapImage('signIn5','../../images/Sign-in-New-Account-Roll.png');"
-onmouseout="swapImage('signIn5','../../images/Sign-in-New-Account.png');"
-></a>
--->
+</div>
+
 </body>
 </html>
