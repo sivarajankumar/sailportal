@@ -40,7 +40,7 @@
 <div id="centeredDiv">
 
 <%@ include file="headerteacherhelp.jsp"%>
-<%@ include file="../../L2homebar.jsp"%>
+<%@ include file="../../L2helpbar.jsp"%>
 
 
 <div id="overviewContentHelp"> 
