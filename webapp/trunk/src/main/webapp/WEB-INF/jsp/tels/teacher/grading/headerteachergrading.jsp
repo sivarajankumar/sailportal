@@ -50,7 +50,7 @@
 		onmouseout="MM_swapImgRestore()"
 		onmouseover="MM_swapImage('managementbutton','','../../themes/tels/default/images/teacher/Management-Buttn-Selected2.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Management-Buttn-Clickable2.png" 	alt="Management Nav Button" id="managementbutton" /></a>
-	<li><a href="#" 
+	<li><a href="../help/overview.html" 
 		onmouseout="MM_swapImgRestore()"
 		onmouseover="MM_swapImage('helpbutton','','../../themes/tels/default/images/teacher/Help-Buttn-Selected2.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Help-Buttn-Clickable2.png"	alt="Help Nav Button" id="helpbutton" /></a>
