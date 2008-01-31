@@ -138,9 +138,14 @@
 	}
 	
 .homebarL2  {
-	/* background-color:#ffffcc;  */
 	margin-bottom:10px;
-			}
+	background-color:#ffffcc;
+				}
+	
+.helpbarL2  {
+	margin-bottom:10px;
+	background-color:#ccccff;
+}
 	
 #navigationL2 {
 	padding:0px;

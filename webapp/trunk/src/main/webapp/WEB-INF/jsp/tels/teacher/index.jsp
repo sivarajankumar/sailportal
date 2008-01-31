@@ -27,7 +27,6 @@
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 
 <script src=".././javascript/tels/general.js" type="text/javascript" ></script>
@@ -56,11 +55,11 @@
 
 <div id="welcomeBox" class="panelStyling">
 
-	<div id="header"><em>Welcome [User's Full Name Here]</em></div>
+	<div id="headerTeacherHome">Welcome, [User's Full Name Here]</div>
 	
 	<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
 			<tr class="tableRowBorder">
-				<td class="tableColor" style="width:25%;">Current Sign In:</td>
+				<td class="tableColor" style="width:26%;">Current Sign In:</td>
 				<td>[Current SignIn Date/Time Stamp]</td>
 			</tr>
 			<tr class="tableRowBorder">
@@ -81,22 +80,22 @@
 </div>    <!-- End of welcomeBox-->
 
 <div id="projectsBox" class="panelStyling">
-	<div id="header">Projects Awaiting Grading</div>
+	<div id="headerTeacherHome">Projects Awaiting Grading</div>
 	<table id="projectGradeLinkBox" cellpadding="5" cellspacing="5">
 		<tr>
 			<td class="tableColor">[Gradable Project Name A]</td>
-			<td style="text-decoration:line-through;" style="width:25%;" class="projectLinkStyle"><a href="#">Grade By Step</a></td>
-			<td style="text-decoration:line-through;" style="width:25%;" class="projectLinkStyle"><a href="#">Grade By Team</a></td>
+			<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
+			<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
 		</tr>
 		<tr>
 			<td class="tableColor">[Gradable Project Name B]</td>
-			<td style="text-decoration:line-through;" class="projectLinkStyle"><a href="#">Grade By Step</a></td>
-			<td style="text-decoration:line-through;"class="projectLinkStyle"><a href="#">Grade By Team</a></td>
+			<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
+			<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
 		</tr>
 		<tr>
 			<td class="tableColor">[Gradable Project Name C]</td>
-			<td style="text-decoration:line-through;" class="projectLinkStyle"><a href="#">Grade By Step</a></td>
-			<td style="text-decoration:line-through;" class="projectLinkStyle"><a href="#">Grade By Team</a></td>
+			<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
+			<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
 		</tr>
 	</table>
 </div>  <!-- End of projectsBox-->
@@ -105,7 +104,7 @@
 <div id="secondRow">
 
 <div id="dashboardBox" class="panelStyling">
-	<div id="header">About the Dashboard</div>
+	<div id="headerTeacherHome">About the Dashboard</div>
 	<table id="dashboardSections" cellspacing="8" cellpadding="2">
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
@@ -147,54 +146,43 @@
 
 <div id="quickLinksBox" class="panelStyling">
 
-	<div id="header">Quick Links</div>
+	<div id="headerTeacherHome">Quick Links</div>
 
 	<div id="quickLinks1">
 		<div id="linkHeader">Projects</div>
-		<ul>
+			<ul>
 			<li><a href="projects/projectlibrary.html">Project Library</a></li>
 			<li><a href="run/myprojectruns.html">My Project Runs</a></li>
 			<li class="inactivecolor">My Bookmarked Projects</li>
 			<li class="inactivecolor">My Customized Projects</li>
-		</ul>
+			</ul>
 		<div id="linkHeader">Grading</div>
-		<ul>
+			<ul>
 			<li><a href="../teacher/grading/projectPickerGrading.html">Grade Work by Step</a></li>
 			<li class="inactivecolor">Grade Work by Team</li>
-		</ul>
+			<li class="inactivecolor">View Student Score Summary</li>
+			<li class="inactivecolor">Edit Ready-Made Comments</li>
+			</ul>		
 	</div>
 
 	<div id="quickLinks2">
 		<div id="linkHeader">Management</div>
 		<ul>
 			<li><a href="./management/projectPickerManagement.html">View My Students</a></li>			
-			<li class="inactivecolor">Edit Ready-Made Comments</li>
 			<li class="inactivecolor">Real-Time Class Monitor</li>
-			<li class="inactivecolor">Review Score Values for Steps</li>
-			<li class="inactivecolor">Export Grades</li>
-			<li class="inactivecolor">Export All Work for Student</li>
-			<li class="inactivecolor">Export All Work for Period</li>
-			<li class="inactivecolor">Print All Work for Student</li>
-			<li class="inactivecolor">Print All Work for Student</li>
+			<li class="inactivecolor">Print Student Work</li>
 			<li><a href="./management/updatemyaccount.html">Update My Account</a></li>
 		</ul>
+		<div id="linkHeader">Help</div> 
+		<ul>
+			<li class="inactivecolor">Guide for New Users</li>
+			<li><a href="../contactwisegeneral.html">Contact WISE</a></li>
+		</ul>
 	</div>
-	
 
-</div>   <!-- End of quickLinksBox-->
+</div>  <!-- End of quickLinksBox-->
 
 </div>   <!-- End of secondRow-->
-
-<table  id="footerTable" cellpadding="0" cellspacing="0">
-	<tr>
-        <td style="text-align:center;" id="footerText">
-         	<ul>
-        	    <li id="footerNav2"><a href="./contactwisegeneral.html">Contact WISE</a></li>
-            	<li id="footerNav2"><a href="<c:url value="/j_acegi_logout"/>">Sign Out</a></li>     
-            </ul>
-    	</td>
-	</tr>
-</table >  <!--    End of footer --> 
 
 </div>   <!-- End of centeredDiv-->
 
