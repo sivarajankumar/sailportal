@@ -19,15 +19,13 @@
  */
 
 .panelStyling {
-	background-image:url(../.././images/teacher/Gradient-Blue-to-White-350px.png);
+	background-image:url(../.././images/teacher/Gradient-Gray-to-White-350px.png);
 	background-position: top;
 	background-repeat:repeat-x;
 	border-top: 1px solid #666666;
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #666666;
-	bottom:0px;
-	top:0px;
 	}
 	
 #welcomeRow {
@@ -73,7 +71,6 @@
 #teacherWelcomeBoxTable li	{  
 	list-style-type:none;
 	margin-bottom:10px;
-	padding-left:0px;
 		}
 		
 .tableColor {
@@ -90,7 +87,6 @@
 
 #projectGradeLinkBox {  
 	border-collapse:collapse;
-	border:0px;
 	text-align:center;
 	width:425px;
 	margin: 0px 0px 5px 18px;
@@ -145,15 +141,15 @@
 }
 
 #quickLinks1 {
-	position:absolute;
+	float:left;
 	font-size:1.0em;
-	margin: 5px 0px 0px 40px;
+	padding-left:35px;
 	}
 
 #quickLinks2 {
-	position:absolute;
+	float:right;
 	font-size:1.0em;
-	margin: 5px 0 0 260px;
+	padding: 0 65px 0 0;
 	}
 
 #quickLinks1 ul, #quickLinks2 ul {
