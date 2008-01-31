@@ -60,7 +60,7 @@
 
 <div id="pickerHeader">
 		<div id="mainHeader">Select a Project</div>
-		<div id="subHeader">(click a Project Title below for Grading)</div>
+		<div id="subHeader">(click a Project Title below)</div>
 </div>
 
 <div id="tabSystem" class="yui-navset">

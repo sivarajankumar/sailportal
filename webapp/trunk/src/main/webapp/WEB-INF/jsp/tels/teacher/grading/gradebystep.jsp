@@ -27,11 +27,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
-
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-  
+ 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/prototype.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/effects.js"></script>
@@ -39,6 +35,11 @@
 <%@ include file="./styles.jsp"%>
 <link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body class="yui-skin-sam">

@@ -36,6 +36,9 @@
 
 <body>
 
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
 <div id="centeredDiv">
 
 <%@ include file="headerteachergrading.jsp"%>
@@ -49,24 +52,28 @@
 	<table id="overview_choices_grading" cellspacing="20">
 		<tr>
 			<td class="link_grading"><a href="../run/myprojectruns.html">Grade Work by Step</a></td>
-			<td class="description_grading">View and grade work, one Student Group at a time.</td></tr>
-		<tr>
-			<td class="link_grading"><a style="color:#999999;" href="#">Grade Work By Student Group</a></td>
 			<td class="description_grading">View and grade work, one Step at a time.</td></tr>
 		<tr>
+			<td class="link_grading"><a style="color:#999999;" href="#">Grade Work By Student-Group</a></td>
+			<td class="description_grading">View and grade work, one Student-Group at a time.</td></tr>
+		<tr>
+			<td class="link_grading"><a style="color:#999999;"href="#">Review Student Score Summary</a></td>
+			<td class="description_grading">View a summary of student scores for a project.</td></tr>
+		<tr>
+			<td class="link_grading"><a style="color:#999999;"href="#">Review My Grading Progress</a></td>
+			<td class="description_grading">View the progress you've made in grading a project.</td></tr>
+		<tr>
 			<td class="link_grading"><a style="color:#999999;" href="#">Review Values for Steps</a></td>
-			<td class="description_grading">Review and edit the default score values for Notes and other graded 
+			<td class="description_grading">Review and edit the default score values for Notes and other gradable 
 			student steps in a project. </td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;"href="#">Review Pre/Post Questionnaire</a></td>
-			<td class="description_grading">View student responses to Pre-Post Questionnaire Steps for the project.</td></tr>
-		<tr>
 			<td class="link_grading"><a style="color:#999999;"href="#">Edit Ready-Made Comments</a></td>
-			<td class="description_grading">Create and edit a list of ready-made comments and stickers to streamline your grading.</td></tr>
+			<td class="description_grading">Create and edit a list of ready-made comments to streamline your grading.</td></tr>
 	</table>
 	
 </div>
 
+</div>
 </div>    <!--End of CenteredDiv-->
 
 </body>

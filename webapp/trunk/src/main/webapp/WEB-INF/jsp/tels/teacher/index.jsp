@@ -27,6 +27,8 @@
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 
 <script src=".././javascript/tels/general.js" type="text/javascript" ></script>
 <script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
@@ -157,7 +159,7 @@
 		</ul>
 		<div id="linkHeader">Grading</div>
 		<ul>
-			<li><a href="run/myprojectruns.html?GRADING_ENABLED=TRUE">Grade Work by Step</a></li>
+			<li><a href="../teacher/grading/projectPickerGrading.html">Grade Work by Step</a></li>
 			<li class="inactivecolor">Grade Work by Team</li>
 		</ul>
 	</div>
@@ -182,6 +184,17 @@
 </div>   <!-- End of quickLinksBox-->
 
 </div>   <!-- End of secondRow-->
+
+<table  id="footerTable" cellpadding="0" cellspacing="0">
+	<tr>
+        <td style="text-align:center;" id="footerText">
+         	<ul>
+        	    <li id="footerNav2"><a href="./contactwisegeneral.html">Contact WISE</a></li>
+            	<li id="footerNav2"><a href="<c:url value="/j_acegi_logout"/>">Sign Out</a></li>     
+            </ul>
+    	</td>
+	</tr>
+</table >  <!--    End of footer --> 
 
 </div>   <!-- End of centeredDiv-->
 

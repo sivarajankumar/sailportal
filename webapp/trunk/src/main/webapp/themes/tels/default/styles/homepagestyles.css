@@ -375,29 +375,31 @@
 	text-align:right;  
 	position:relative;
 	margin: -58px 8px 0 10px;
-	line-height:105%;	
+	line-height:100%;	
 }
 
 #usernameBannerHome {
 	color:#FFFFCC;
-	font-style:italic;
+	font-style:italic; 
 	font-weight:bold;
-	font-size:.9em;
+	font-size:1.5em;
+	margin: 2px 0 5px 0;
 }
 
 #signOutBannerHome a:link, #signoutBannerHome a:visited{
 	color:#FFFF66;
-	font-size:.7em;
-	font-weight:bold;
+	font-size:1.2em;
 	text-decoration:none;
 	border-bottom: 1px solid #FFFF66;
+	line-height:140%;	
 		}
 
 #signOutBannerHome a:hover {
 	color:#330066;
 	text-decoration:none;
 	border-bottom: 1px dotted #330066;
-	}
+	line-height:140%;	
+		}
 
 .popUpMenuDefault {
 	font-size:1.0em;

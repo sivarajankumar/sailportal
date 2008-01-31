@@ -25,8 +25,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html lang="en">
 <head>
+
 <title>Score Summary - ${projectTitle} (${curnitId})</title>
+
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
+
 <%@ include file="currentScoreStyles.jsp"%>
   
 <script type="text/javascript">
@@ -65,9 +68,13 @@
   } 
 
 </script>
+
 <html>
+
 <head>
+
 <title>Print Image Only</title>
+
 <script>
 function makepage(src, divElement)
 {
@@ -121,15 +128,25 @@ var tabView = new YAHOO.widget.TabView("scoreTabs");
 tabView.set('activeIndex', 0);
 </script> 
 
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 </head>
 
+
 <body class=" yui-skin-sam">
 
-<%@ include file="gradingtoolHeader.jsp"%>
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
+<div id="centeredDiv">
 
-<h4>Current Score</h4>
+<%@ include file="headerteachergrading.jsp"%>
+
+<%@ include file="L2grading_overview.jsp"%>
+
+<h4>Current Student Score</h4>
 
 <%  %>
  
