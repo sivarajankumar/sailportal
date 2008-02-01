@@ -25,6 +25,8 @@
 
 <hibernate-configuration>
     <session-factory>
+        <!--  specify when hibernate should release JDBC connections -->
+        <property name="hibernate.connection.release_mode">after_statement</property>
         <mapping
             class="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails" />
         <mapping
