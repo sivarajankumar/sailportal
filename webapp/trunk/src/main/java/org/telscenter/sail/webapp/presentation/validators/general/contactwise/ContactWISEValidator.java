@@ -34,6 +34,7 @@ import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral;
+import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEProject;
 
 /**
  * Validator for TELS Contact WISE page
@@ -53,7 +54,7 @@ public class ContactWISEValidator implements Validator {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {		
-		return ContactWISEGeneral.class.isAssignableFrom(clazz);
+		return ContactWISE.class.isAssignableFrom(clazz);
 	}
 
 	/**
@@ -61,7 +62,10 @@ public class ContactWISEValidator implements Validator {
 	 */
 	public void validate(Object contactWISEIn, Errors errors) {
 		ContactWISE contactWISE = (ContactWISE) contactWISEIn;
-		Boolean isStudent = contactWISE.isStudent();
+		
+		/* NOTE: this check may be removed later if we never allow students to 
+		   submit feedback */
+		Boolean isStudent = contactWISE.getIsStudent();
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
 				"error.contactwise-name");
@@ -72,6 +76,11 @@ public class ContactWISEValidator implements Validator {
 				"error.contactwise-email-empty");	
 		}
 		
+		if(contactWISE instanceof ContactWISEProject) {
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "projectName",
+			"error.contactwise-project-empty");
+		}
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "summary",
 				"error.contactwise-summary");
 		
@@ -80,8 +89,8 @@ public class ContactWISEValidator implements Validator {
 		
 		String email = ((ContactWISE)contactWISEIn).getEmail();
 		
-		//validate email if user is not a student and email is not null and 
-		//not empty
+		/* validate email if user is not a student and email is not null and 
+		   not empty */
 		if(!isStudent && email != null && !email.trim().equals("")) {
 			validateEmail(email, errors);
 		}

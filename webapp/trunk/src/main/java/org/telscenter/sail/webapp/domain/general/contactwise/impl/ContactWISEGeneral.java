@@ -41,25 +41,25 @@ public class ContactWISEGeneral implements ContactWISE {
 
 	private static final long serialVersionUID = 1L;
 
-	private IssueType issuetype;
+	protected IssueType issuetype;
 	
-	private OperatingSystem operatingsystem;
+	protected String name;
 	
-	private WebBrowser webbrowser;
+	protected String email;
 	
-	private String name;
+	protected String summary;
 	
-	private String email;
-	
-	private String summary;
-	
-	private String description;
+	protected String description;
 	
 	private static Properties emaillisteners;
 	
 	private User user;
 	
 	private Boolean isStudent = false;
+	
+	protected String usersystem;
+	
+
 	
 	/**
 	 * @param properties the properties to set
@@ -138,34 +138,6 @@ public class ContactWISEGeneral implements ContactWISE {
 		this.description = description;
 	}
 
-	/**
-	 * @return the operatingsystem
-	 */
-	public OperatingSystem getOperatingsystem() {
-		return operatingsystem;
-	}
-
-	/**
-	 * @param operatingsystem the operatingsystem to set
-	 */
-	public void setOperatingsystem(OperatingSystem operatingsystem) {
-		this.operatingsystem = operatingsystem;
-	}
-
-	/**
-	 * @return the webbrowser
-	 */
-	public WebBrowser getWebbrowser() {
-		return webbrowser;
-	}
-
-	/**
-	 * @param webbrowser the webbrowser to set
-	 */
-	public void setWebbrowser(WebBrowser webbrowser) {
-		this.webbrowser = webbrowser;
-	}
-
 	public String[] getMailRecipients() {
 		String[] recipients = {
 				emaillisteners.getProperty(this.issuetype.name().toLowerCase())
@@ -182,44 +154,52 @@ public class ContactWISEGeneral implements ContactWISE {
 	}
 	
 	public String getMailSubject() {
-		String subject = "[Contact WISE] " + issuetype + ": " + summary;
+		String subject = "[Contact WISE General] " + issuetype + ": " + summary;
 		
 		return subject;
 	}
 	
 	public String getMailMessage() {
-		String message = "Contact WISE Request\n" +
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + name + "\n" + 
 		 "Email: " + email + "\n" + 
 		 "Issue Type: " + issuetype + "\n" +
-		 "Operating System: " + operatingsystem + "\n" + 
-		 "Web Browser: " + webbrowser + "\n" +
 		 "Summary: " + summary + "\n" + 
-		 "Description: " + description + "\n";
+		 "Description: " + description + "\n" +
+		 "User System: " + usersystem + "\n";
 		
 		return message;
 	}
-
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
+	
+	public void setIsStudent(Boolean isStudent) {
+		this.isStudent = isStudent;
+		setEmail("student@wise.com");
 	}
 
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
-		
+	public void setIsStudent(User user) {
 		if(user != null && user.getUserDetails() instanceof StudentUserDetails) {
 			isStudent = true;
+			setEmail("student@wise.com");
 		}
 	}
 	
-	public Boolean isStudent() {
+	public Boolean getIsStudent() {
 		return isStudent;
+	}
+	
+
+	/**
+	 * @return the usersystem
+	 */
+	public String getUsersystem() {
+		return usersystem;
+	}
+
+	/**
+	 * @param usersystem the usersystem to set
+	 */
+	public void setUsersystem(String usersystem) {
+		this.usersystem = usersystem;
 	}
 }

@@ -70,8 +70,6 @@ public class ContactWISEValidatorTest extends TestCase {
 		params.setName(NAME);
 		params.setEmail(EMAIL);
 		params.setIssuetype(ISSUETYPE);
-		params.setOperatingsystem(OPERATINGSYSTEM);
-		params.setWebbrowser(WEBBROWSER);
 		params.setDescription(DESCRIPTION);
 		params.setSummary(SUMMARY);
 	}

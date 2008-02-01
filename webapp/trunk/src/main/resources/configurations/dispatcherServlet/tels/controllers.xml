@@ -327,12 +327,13 @@
 	
 	<bean id="contactWiseProjectController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.ContactWiseProjectController">
-		<property name="commandName" value="contactWISEGeneral" />
+		<property name="commandName" value="contactWISEProject" />
     	<property name="validator" ref="contactWISEValidator" />
     	<property name="formView" value="contactwiseproject" />
     	<property name="successView" value="contactwiseconfirm" />
     	<property name="javaMail" ref="javaMail"/>
     	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
+    	<property name="projectService" ref="projectService" />
 	</bean>	
 	
 	<util:properties id="uihtmlproperties" 
@@ -349,6 +350,11 @@
         <property name="emaillisteners" ref="emaillisteners" />
     </bean>
 
+    <bean id="contactWISEProject"
+        class="org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEProject">
+        <property name="emaillisteners" ref="emaillisteners" />
+    </bean>
+    
 	<bean id="lostPasswordStudentReminderWizardController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">
 		<property name="userService" ref="userService" />

@@ -79,6 +79,9 @@
 
     YAHOO.util.Event.on("sendMessageButton", "click", init);
 		
+	function detectUserSystem() {
+		document.getElementById("usersystem").setAttribute("value", navigator.userAgent);
+	}
 </script>
 
 
@@ -133,70 +136,19 @@
             </form:option>
           </c:forEach>
 		</form:select>
-		<!--  
-			<option value="" class="popUpMenuDefault">select an item</option>
-			<option value="1">Trouble Signing In</option>
-			<option value="2">Need Help Using WISE</option>
-			<option value="3">Broken Link</option>
-			<option value="4">Misspelling or Factual Error in Project</option>
-			<option value="5">Problem with Student or Period</option>
-			<option value="6">Problem Running a Model/Simulation Step</option>
-			<option value="7">Error Message</option>
-			<option value="8">Need Help with Authoring</option>
-			<option value="9">Other Problem</option>
-			<option value="10">Request for New Feature</option>
-			</select>-->
 	</dd>
-    <dt><label for="operatingSystemContact" id="operatingSystemLabel" >Operating System</label> </dt>
-	<dd><form:select path="operatingsystem" id="operatingsystem"  tabindex="4">
-	      <c:forEach items="${operatingsystems}" var="operatingsystem">
-            <form:option value="${operatingsystem.name}">
-            	<spring:message code="operatingsystems.${operatingsystem.name}" />
-            </form:option>
-          </c:forEach>
-		</form:select>
-	<!-- <select name="operatingSystemContact" id="operatingSystemContact"  tabindex="4">
-          	<option value="" class="popUpMenuDefault">select an item</option>
-            <option value="1">Mac OS 9</option>
-			<option value="2">Mac OS X Tiger</option>
-			<option value="3">Mac OS X Leopard</option>
-			<option value="4">Windows Vista</option>
-			<option value="5">Windows XP/NT/2000</option>
-			<option value="6">Linux</option>
-			<option value="7">Other or Not Sure</option>
-		</select> -->
-		</dd>
-    <dt><label for="browserContact" id="webBrowserLabel">Web Browser</label></dt>
-	<dd><form:select path="webbrowser" id="webbrowser"  tabindex="5">
-	      <c:forEach items="${webbrowsers}" var="webbrowser">
-            <form:option value="${webbrowser.name}">
-            	<spring:message code="webbrowsers.${webbrowser.name}" />
-            </form:option>
-          </c:forEach>
-		</form:select>
-	<!-- <select name="browserContact" id="browserContact" tabindex="5">
-			<option value="" class="popUpMenuDefault">select an item</option>
-			<option value="1">Firefox (Mac)</option>
-			<option value="2">Firefox (Windows)</option>
-			<option value="3">Internet Explorer (Mac)</option>
-			<option value="4">Internet Explorer (Windows)</option>
-			<option value="5">Safari (Mac)</option>
-			<option value="6">Safari (Windows)</option>
-			<option value="7">Opera</option>
-			<option value="8">Netscape</option>
-			<option value="9">Other</option>
-		</select> -->
-		</dd>
+
 	<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span>Issue Summary</label></dt>
 	<dd style="color:#3333CC;"><form:input path="summary" id="summary" size="50" tabindex="6"/></dd>
 	
 	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span>Detailed Description</label></dt>
 	<dd><form:textarea path="description" id="description" tabindex="7" rows="9" cols="65"></form:textarea></dd>
       
-     </dl>    
+    <form:hidden path="usersystem" id="usersystem" />
+  </dl>    
      <div id="asterixWarning">Items marked with <span style="font-size:1.1em; font-weight:bold;">*</span> are required.</div>  
         
-    <div align="center"><input type="submit" id="sendMessageButton" value="Send Message" ></input></div>
+    <div align="center"><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="Send Message" ></input></div>
                   
 </form:form>
 

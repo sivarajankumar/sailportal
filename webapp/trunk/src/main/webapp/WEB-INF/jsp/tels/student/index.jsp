@@ -362,7 +362,7 @@ YAHOO.util.Event.onDOMReady(init);
 											</c:otherwise>
 										</c:choose></li>
 										<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#">Change Period or Team</a></li>
-										<li><a href="../contactwiseproject.html">Report A Problem</a></li>
+										<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}">Report A Problem</a></li>
 								 	</ul>
 						 	</td>
 						</tr>

@@ -17,11 +17,15 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
 import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
 import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral;
+import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEProject;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author gloriasass
@@ -33,6 +37,15 @@ public class ContactWiseProjectController extends SimpleFormController {
 	
 	protected Properties uiHTMLProperties = null;
 	
+	private ProjectService projectService;
+
+	/* change this to true if you are testing and do not want to send mail to
+	   the actual groups */
+	private static final Boolean DEBUG = false;
+	
+	//set this to your email
+	private static final String DEBUG_EMAIL = "youremail@gmail.com";
+	
 	public ContactWiseProjectController() {
 		setSessionForm(true);
 	}
@@ -42,16 +55,25 @@ public class ContactWiseProjectController extends SimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
 		
-		ContactWISEGeneral contactWISEGeneral = (ContactWISEGeneral) command;
+		ContactWISEProject contactWISEProject = (ContactWISEProject) command;
 
 		//retrieves the contents of the email to be sent
-		String[] recipients = contactWISEGeneral.getMailRecipients();
-		String subject = contactWISEGeneral.getMailSubject();
-		String message = contactWISEGeneral.getMailMessage();
-		String fromEmail = contactWISEGeneral.getEmail();
+		String[] recipients = contactWISEProject.getMailRecipients();
+		String subject = contactWISEProject.getMailSubject();
+		String message = contactWISEProject.getMailMessage();
+		String fromEmail = contactWISEProject.getEmail();
+		String[] cc = contactWISEProject.getMailCcs();
+		
+		if(DEBUG) {
+			cc = new String[1];
+			cc[0] = fromEmail;
+			recipients[0] = DEBUG_EMAIL;
+		}
 		
 		//sends the email to the recipients
-		javaMail.postMail(recipients, subject, message, fromEmail);
+		javaMail.postMail(recipients, subject, message, fromEmail, cc);
+		
+		//System.out.println(message);
 		
 		ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
@@ -61,7 +83,7 @@ public class ContactWiseProjectController extends SimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) 
 			throws Exception {
-		ContactWISE contactWISE = new ContactWISEGeneral();
+		ContactWISEProject contactWISEProject = new ContactWISEProject();
 		
 		//tries to retrieve the user from the session
 		User user = (User) request.getSession().getAttribute(
@@ -70,13 +92,40 @@ public class ContactWiseProjectController extends SimpleFormController {
 		/* if the user is logged in to the session, auto populate the name and 
 		email address in the form, if not, the fields will just be blank */
 		if (user != null) {
+			//contactWISEProject.setUser(user);
+			contactWISEProject.setIsStudent(user);
+			
 			MutableUserDetails telsUserDetails = 
 				(MutableUserDetails) user.getUserDetails();
-			contactWISE.setName(telsUserDetails.getFirstname() + " " + 
+
+			contactWISEProject.setName(telsUserDetails.getFirstname() + " " + 
 					telsUserDetails.getLastname());
-			contactWISE.setEmail(telsUserDetails.getEmailAddress());
+			
+			//if user is a teacher, retrieve their email
+			/* NOTE: this check may be removed later if we never allow students
+			   to submit feedback */
+			if(telsUserDetails instanceof TeacherUserDetails) {
+				contactWISEProject.setEmail(telsUserDetails.getEmailAddress());
+			}
 		}
-		return contactWISE;
+		
+		//tries to retrieve the project ID number from the request
+		if(request.getParameter("projectId") != null) {
+			Project project = projectService.getById(Long.parseLong(
+					request.getParameter("projectId")));
+			
+			if(project != null) {
+				//sets the project and project name
+				contactWISEProject.setProjectName(
+						project.getCurnit().getSdsCurnit().getName());
+				contactWISEProject.setProjectId(Long.parseLong(
+						request.getParameter("projectId")));
+			}
+		}
+		
+		contactWISEProject.setIssuetype(IssueType.PROJECT_PROBLEMS);
+		
+		return contactWISEProject;
 	}
 	
 	@Override
@@ -121,4 +170,18 @@ public class ContactWiseProjectController extends SimpleFormController {
 		WebBrowser.setProperties(uiHTMLProperties);
 	}
 
+	/**
+	 * @return the projectService
+	 */
+	public ProjectService getProjectService() {
+		return projectService;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
+	
 }

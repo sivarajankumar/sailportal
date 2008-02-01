@@ -146,11 +146,10 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 		contactDetails.setName(NAME);
 		contactDetails.setEmail(EMAIL);
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(operatingSystem);
-		contactDetails.setWebbrowser(WEBBROWSER);
 		contactDetails.setSummary(SUMMARY);
 		contactDetails.setDescription(DESCRIPTION);
 		contactDetails.setEmaillisteners(emailListeners);
+		contactDetails.setUsersystem("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11");
 		
 		contactController = new ContactWiseController();
 		contactController.setJavaMail(mockMail);
@@ -161,16 +160,15 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	
 	public void testOnSubmit_success() throws Exception {
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + operatingSystem + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -183,20 +181,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_leopard_success() throws Exception {
-		operatingSystem = OperatingSystem.MAC_OSX_LEOPARD;
-		contactDetails.setOperatingsystem(operatingSystem);
-
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Mac OS X (10.5) Leopard" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -209,20 +203,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_tiger_success() throws Exception {
-		operatingSystem = OperatingSystem.MAC_OSX_TIGER;
-		contactDetails.setOperatingsystem(operatingSystem);
-		
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Mac OS X (10.4) Tiger" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -235,20 +225,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_os9_success() throws Exception {
-		operatingSystem = OperatingSystem.MAC_OS9;
-		contactDetails.setOperatingsystem(operatingSystem);
-		
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Mac OS 9" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -261,20 +247,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_vista_success() throws Exception {
-		operatingSystem = OperatingSystem.WINDOWS_VISTA;
-		contactDetails.setOperatingsystem(operatingSystem);
-		
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Windows Vista" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -287,20 +269,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_xp_success() throws Exception {
-		operatingSystem = OperatingSystem.WINDOWS_XP;
-		contactDetails.setOperatingsystem(operatingSystem);
-		
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Windows XP" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -313,20 +291,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_2k_success() throws Exception {
-		operatingSystem = OperatingSystem.WINDOWS_2K_NT;
-		contactDetails.setOperatingsystem(operatingSystem);
-		
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Windows 2000/NT" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -339,20 +313,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_98_success() throws Exception {
-		operatingSystem = OperatingSystem.WINDOWS_98;
-		contactDetails.setOperatingsystem(operatingSystem);
-		
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Windows 98" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -365,20 +335,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_linux_success() throws Exception {
-		operatingSystem = OperatingSystem.LINUX;
-		contactDetails.setOperatingsystem(operatingSystem);
-		
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Linux" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -391,20 +357,16 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_other_success() throws Exception {
-		operatingSystem = OperatingSystem.OTHER;
-		contactDetails.setOperatingsystem(operatingSystem);
-		
 		String[] recipients = RECIPIENTS; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -419,19 +381,17 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_trouble_logging_in_success() throws Exception {
 		issueType = IssueType.TROUBLE_LOGGING_IN;
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
 		
 		String[] recipients = {"WISE3-trouble-logging-in@googlegroups.com"}; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -446,19 +406,17 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_authoring_success() throws Exception {
 		issueType = IssueType.AUTHORING;
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
 		
 		String[] recipients = {"WISE3-authoring-help@googlegroups.com"}; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -473,19 +431,17 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_feedback_success() throws Exception {
 		issueType = IssueType.FEEDBACK;
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
 		
 		String[] recipients = {"WISE3-feedback@googlegroups.com"}; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -500,19 +456,17 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_help_using_success() throws Exception {
 		issueType = IssueType.NEED_HELP_USING_WISE;
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
 		
 		String[] recipients = {"WISE3-need-help-using@googlegroups.com"}; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -527,19 +481,17 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_issue_other_success() throws Exception {
 		issueType = IssueType.OTHER;
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
 		
 		String[] recipients = {"WISE3-other@googlegroups.com"}; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -554,19 +506,17 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_project_problems_success() throws Exception {
 		issueType = IssueType.PROJECT_PROBLEMS;
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
 		
 		String[] recipients = {"WISE3-project-problems@googlegroups.com"}; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -581,19 +531,17 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_student_management_success() throws Exception {
 		issueType = IssueType.STUDENT_MANAGEMENT;
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
 		
 		String[] recipients = {"WISE3-student-management@googlegroups.com"}; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + EMAIL + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = EMAIL;
 		String[] cc = {from};
 
@@ -608,21 +556,20 @@ public class ContactWISEControllerTest extends AbstractModelAndViewTests {
 	public void testOnSubmit_from_student() throws Exception {
 		issueType = IssueType.STUDENT_MANAGEMENT;
 		contactDetails.setIssuetype(issueType);
-		contactDetails.setOperatingsystem(OperatingSystem.OTHER);
+		
 		User user = new UserImpl();
 		user.setUserDetails(new StudentUserDetails());
-		contactDetails.setUser(user);
+		contactDetails.setIsStudent(user);
 		String[] recipients = {"WISE3-student-management@googlegroups.com"}; 
-		String subject = "[Contact WISE] " + issueType + ": " + SUMMARY;
-		String message = "Contact WISE Request\n" +
+		String subject = "[Contact WISE General] " + issueType + ": " + SUMMARY;
+		String message = "Contact WISE General Request\n" +
 		 "=================\n" + 
 		 "Name: " + NAME + "\n" + 
 		 "Email: " + "student@wise.com" + "\n" + 
 		 "Issue Type: " + issueType + "\n" +
-		 "Operating System: " + "Other or Not Sure" + "\n" + 
-		 "Web Browser: " + WEBBROWSER + "\n" +
 		 "Summary: " + SUMMARY + "\n" + 
-		 "Description: " + DESCRIPTION + "\n";
+		 "Description: " + DESCRIPTION + "\n" + 
+		 "User System: " + "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11" + "\n";
 		String from = "student@wise.com";
 		String[] cc = {from};
 

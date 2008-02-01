@@ -48,14 +48,6 @@ public interface ContactWISE extends Serializable {
 	
 	public void setIssuetype(IssueType issuetype);
 	
-	public OperatingSystem getOperatingsystem();
-	
-	public void setOperatingsystem(OperatingSystem operatingSystem);
-	
-	public WebBrowser getWebbrowser();
-	
-	public void setWebbrowser(WebBrowser webBrowser);
-	
 	public String getSummary();
 	
 	public void setSummary(String summary);
@@ -73,10 +65,14 @@ public interface ContactWISE extends Serializable {
 	public String getMailMessage();
 	
 	public String[] getMailCcs();
+
+	public void setIsStudent(Boolean isStudent);
 	
-	public void setUser(User user);
+	public void setIsStudent(User user);
 	
-	public User getUser();
+	public Boolean getIsStudent();
 	
-	public Boolean isStudent();
+	public String getUsersystem();
+	
+	public void setUsersystem(String usersystem);
 }

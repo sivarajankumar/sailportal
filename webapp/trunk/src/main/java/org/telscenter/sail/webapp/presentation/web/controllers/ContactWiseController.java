@@ -57,7 +57,7 @@ public class ContactWiseController extends SimpleFormController {
 	private static final Boolean DEBUG = false;
 	
 	//set this to your email
-	private static final String DEBUG_EMAIL = "youremail@email.com";
+	private static final String DEBUG_EMAIL = "youremail@gmail.com";
 	
 	public ContactWiseController() {
 		setSessionForm(true);
@@ -68,12 +68,6 @@ public class ContactWiseController extends SimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
 		ContactWISEGeneral contactWISEGeneral = (ContactWISEGeneral) command;
-		
-		/* set email to a generic address "student@wise.com" for students
-		   since we don't ask students for their email */
-		if(contactWISEGeneral.isStudent()) {
-			contactWISEGeneral.setEmail("student@wise.com");
-		}
 		
 		//retrieves the contents of the email to be sent
 		String[] recipients = contactWISEGeneral.getMailRecipients();
@@ -91,6 +85,7 @@ public class ContactWiseController extends SimpleFormController {
 		
 		//sends the email to the recipients
 		javaMail.postMail(recipients, subject, message, fromEmail, cc);
+		//System.out.println(message);
 		
 		ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
@@ -100,7 +95,7 @@ public class ContactWiseController extends SimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) 
 			throws Exception {
-		ContactWISE contactWISE = new ContactWISEGeneral();
+		ContactWISEGeneral contactWISE = new ContactWISEGeneral();
 		
 		//tries to retrieve the user from the session
 		User user = (User) request.getSession().getAttribute(
@@ -109,7 +104,8 @@ public class ContactWiseController extends SimpleFormController {
 		/* if the user is logged in to the session, auto populate the name and 
 		   email address in the form, if not, the fields will just be blank */
 		if (user != null) {
-			contactWISE.setUser(user);
+			//contactWISE.setUser(user);
+			contactWISE.setIsStudent(user);
 			
 			MutableUserDetails telsUserDetails = 
 				(MutableUserDetails) user.getUserDetails();
@@ -118,6 +114,8 @@ public class ContactWiseController extends SimpleFormController {
 					telsUserDetails.getLastname());
 			
 			//if user is a teacher, retrieve their email
+			/* NOTE: this check may be removed later if we never allow students
+			   to submit feedback */
 			if(telsUserDetails instanceof TeacherUserDetails) {
 				contactWISE.setEmail(telsUserDetails.getEmailAddress());
 			}

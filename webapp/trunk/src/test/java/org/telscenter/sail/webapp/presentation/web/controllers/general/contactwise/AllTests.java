@@ -31,7 +31,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	org.telscenter.sail.webapp.presentation.web.controllers.general.contactwise.ContactWISEControllerTest.class
+	org.telscenter.sail.webapp.presentation.web.controllers.general.contactwise.ContactWISEControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.general.contactwise.ContactWISEProjectControllerTest.class
 })
 
 public class AllTests {
