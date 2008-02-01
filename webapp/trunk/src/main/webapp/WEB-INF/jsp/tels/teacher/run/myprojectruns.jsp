@@ -99,7 +99,7 @@
 					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Manage Students</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
-					    	<li><a style="color:#cccccc;" href="#">Report a Problem</a></li>
+					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}">Report a Problem</a></li>
 					    	<li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')">Archive this Run</a></li>
 					    </ul>
 					</td>
