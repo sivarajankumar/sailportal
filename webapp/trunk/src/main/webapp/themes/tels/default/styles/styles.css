@@ -30,9 +30,9 @@
 	color:#FFFFCC;
 	font-style:italic;
 	font-weight:bold;
-	font-size:1.5em;
+	font-size:1.1em;
 	padding:0;
-	margin:0 0 3px 0;
+	margin:0;
 }
 
 #signOutBanner a:link, #signoutBanner a:visited {
@@ -40,9 +40,7 @@
 	color:#FFFF66;
 	font-weight:bold;
 	text-decoration:none;
-	font-size:1.1em;
-	padding:0px;
-	margin:0px;
+	font-size:.8em;
 	border-bottom: 1px solid #FFFF66;
 		}
 
@@ -50,8 +48,7 @@
 	position:relative;
 	color:#330066;
 	text-decoration:none;
-	padding:0px;
-	margin:0px;
+	font-size:.8em;
 	border-bottom: 1px dotted #330066;
 	}
 
@@ -88,8 +85,6 @@
 	margin-left: auto;
 	padding:0px;
 		}
-
-
 
 /* STYLES FOR STUDENT PROJECT MENU */
 
@@ -162,7 +157,7 @@
 	}
 	
 #navigationL2 li {
-	font-size:1.1em;
+	font-size:.7em;
 	letter-spacing:.9px;
 	display:inline;
 	padding:0px;
@@ -232,7 +227,7 @@
 }
 
 #stepNumber{
-	font-size:1.8em;
+	font-size:1.4em;
 	font-weight:bold;
 }
 

@@ -27,19 +27,23 @@
     	<img src="../themes/tels/default/images/WISE-Secondary-Banner-Logo.png" alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a>
     </div>
     
-    <div id="teacherBannerLabel"><img src="../themes/tels/default/images/Teacher-Dashboard-Label.png" width="169" height="11" alt="Teacher Dashboard Label" />
-    </div>
+    <div id="teacherBannerLabel"><a href="#" 
+    	onmouseout="MM_swapImgRestore()" 
+    	onmouseover="MM_swapImage('Teacher Dashboard Label','','../themes/tels/default/images/Teacher-Dashboard-Label.png',1)">
+    	<img src="../themes/tels/default/images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" width="169" height="11" border="0" id="Teacher Dashboard Label" /></a>
+   </div>
 		
 	<div id="navigationMainProjects">
 	<ul>
-		<li>
-			<a href="index.html"><input type="image" id="home" src="../<spring:theme code="home_selected"/>"	
-    		onmouseover="swapImage('home','../<spring:theme code="home_selected"/>')" 
-    		onmouseout="swapImage('home','../<spring:theme code="home_selected"/>')"/></a> </li>
-       	<li>
-			<a href="projects/index.html"><input type="image" id="projects" src="../<spring:theme code="projects"/>"
-    		onmouseover="swapImage('projects','../<spring:theme code="projects_selected"/>')" 
-    		onmouseout="swapImage('projects','../<spring:theme code="projects"/>')"/></a> </li>
+	   	<li>	
+    		<a href="index.html"><input type="image" id="hometest" src="../<spring:theme code="home_NoTrans_Roll"/>"	
+    		onmouseover="swapImage('hometest','../<spring:theme code="home_NoTrans_Roll"/>')" 
+    		onmouseout="swapImage('hometest','../<spring:theme code="home_NoTrans_Roll"/>)"/></a> </li>
+    	    		
+	    <li>
+			<a href="projects/index.html"><input type="image" id="projects" src="../<spring:theme code="projects_NoTrans"/>"
+    		onmouseover="swapImage('projects','../<spring:theme code="projects_NoTrans_Roll"/>')" 
+    		onmouseout="swapImage('projects','../<spring:theme code="projects_NoTrans"/>')"/></a> </li>
     	<li>
 			<a href="grading/overview.html"><input type="image" id="grading" src="../<spring:theme code="grading"/>"
     		onmouseover="swapImage('grading','../<spring:theme code="grading_selected"/>')" 

@@ -155,12 +155,11 @@
           <td id="boxTableSignIn" class="panelColor">
                     			<div id="header">Sign In</div>
 								<form id="home" method="post" action="j_acegi_security_check">
-                                
-                                <dl>
-                                    <dt><label for="username">Username:  </label> </dt>
-                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="20" maxlength="60"/></dd>
+                                <dl id="signinDefinList">
+                                    <dt><label for="username">Username:</label> </dt>
+                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60"/></dd>
                                     <dt><label for="password">Password:	</label></dt>
-                                    <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="20" maxlength="20"/></dd>
+                                    <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30"/></dd>
                                 </dl>
                                                        
                                 <div class="alignRight">
@@ -170,7 +169,7 @@
                                             onclick="Effect.toggle('waiting', 'appear')" /></div>
                                 </form>
                                 
-                                <ul id="signInLinkPositionTable">
+                                <ul id="signInLinkPosition">
                                 		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">
                                       Forgot Username or Password?</a>  </li>
                                 		<li><a href="signup.html" id="joinlink">Want to join WISE?</a></li>

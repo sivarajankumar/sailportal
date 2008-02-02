@@ -47,7 +47,7 @@
 	}
 	
 #tableBottom {
-	border-collapse:collapse;
+	border-collapse:collapse; 
 	border:0px;
 	margin:0px;
 	padding: 0px;
@@ -55,9 +55,9 @@
 	
 #header {
 	text-align:left;
-	margin: 8px 0 8px 12px;
+	margin: 10px 0 8px 12px;
 	font-weight:bold;
-	font-size: 1.3em;
+	font-size: 1.4em;
 	line-height: normal;
 	color:#000033;
 	width:75%;
@@ -78,18 +78,17 @@
 	font-size:0.8em;
 	color:black;
 	text-align:left;
-	padding-right: 7px;
+	padding-right: 10px;
 	padding-left: 15px;
-	margin: 5px 0 8px 0;
-	width:145px;
+	margin: 5px 0 0px 0;
 }
 
 #welcomeTextLinks {
 	list-style-type:none;
-	font-size:.9em;
+	font-size:1em;
 	padding: 6px 0 0 0;
 	line-height: 100%;
-	margin: 0 0 16px 0;
+	margin: 0 0 0px 0;
 }
 
 #welcomeTextLinks li {
@@ -124,7 +123,7 @@
 #welcomeBullet1, #welcomeBullet2, #welcomeBullet3, #welcomeBullet4, #welcomeBullet5, #welcomeBullet6, #welcomeBullet7 {
 	float:left;
 	font-size:0.75em;
-	width:260px;
+	width:265px;
 	color:#000066;
 	line-height: 130%;
 	margin:5px 0 0 10px;
@@ -161,44 +160,40 @@
 	vertical-align: text-top;
 }
 
-#boxTableSignIn dl {
-	margin-left:15px;	
+#signinDefinList {
+	margin-left:25px;	
 		}
 
-#boxTableSignIn dt {
+#signinDefinList dt {
 	float:left;
-	width:80px;
-	margin:0px;
-	padding:5px;
-	font-size:14px;
-		}
+	font-size:.9em;
+	width:82px; 
+	 			}
 		
-#boxTableSignIn dd {
-	text-align:right;
-	margin:0px 25px 0 0;
-	padding:5px;
-	font-size:14px;
+#signinDefinList input {
+	font-size:.9em;
+	margin-bottom:10px;
+	width:162px;
 }	
 
 #boxTableSignIn li {
 	font-size:.7em;
-	line-height:150%;
-	}
+		}
 
 #signInButton {
 	position:relative;
-	margin-right:30px;
+	margin-right:35px;
 }
 
-#signInLinkPositionTable {
+#signInLinkPosition { 
 	position:relative;
-	text-align:right;
-	margin-right:30px;
+	text-align:right; 
+	margin-right:35px;
 	list-style-type:none;
 		}
 	
-#signInLinkPositionTable li {
-	padding-bottom:3px;
+#signInLinkPosition li {
+	padding-bottom:5px;
 }
 	
 .dataBoxStyle {
@@ -371,34 +366,39 @@
 /* STYLES FOR SIGN OUT BOX IN TOP BANNER */
 
 #usernameSignOutBoxHome {
-	float:right;
 	text-align:right;  
-	position:relative;
-	margin: -58px 8px 0 10px;
-	line-height:100%;	
-}
+	position:absolute;
+	top:3px;
+	left:854px;
+	margin:0px;
+	padding:0px;
+	line-height:100%;
+	}
 
 #usernameBannerHome {
 	color:#FFFFCC;
+	text-align:right;
 	font-style:italic; 
 	font-weight:bold;
-	font-size:1.5em;
-	margin: 2px 0 5px 0;
-}
-
-#signOutBannerHome a:link, #signoutBannerHome a:visited{
-	color:#FFFF66;
-	font-size:1.2em;
-	text-decoration:none;
-	border-bottom: 1px solid #FFFF66;
-	line-height:140%;	
+	font-size:1.0em;
+	padding: 0 0 2px 0;
+	margin:0px;
 		}
+
+#signOutBannerHome a:link, #signoutBannerHome a:visited {
+	color:#FFFF66;
+	font-size:.70em;
+	text-decoration:none; 
+	border-bottom: 1px solid #FFFF66;
+	line-height:130%;
+				}
 
 #signOutBannerHome a:hover {
 	color:#330066;
+	font-size:.7em;
 	text-decoration:none;
 	border-bottom: 1px dotted #330066;
-	line-height:140%;	
+	line-height:130%;
 		}
 
 .popUpMenuDefault {

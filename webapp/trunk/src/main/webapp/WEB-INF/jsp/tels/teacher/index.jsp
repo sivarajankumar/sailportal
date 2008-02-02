@@ -38,7 +38,7 @@
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
-<script defer type="text/javascript" src=".././javascript/tels/iefixes.js"></script>
+<script defer type="text/javascript" src="../javascript/tels/iefixes.js"></script>
 <![endif]-->
 
 </head>
@@ -55,9 +55,13 @@
 
 <div id="welcomeBox" class="panelStyling">
 
-	<div id="headerTeacherHome">Welcome, [User's Full Name Here]</div>
+	<div id="headerTeacherHome">Welcome to WISE 3.0!</div>
 	
 	<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
+			<tr class="tableRowBorder">
+				<td class="tableColor" style="width:26%;">Current User:</td>
+				<td>[Full Name for current user]</td>
+			</tr>
 			<tr class="tableRowBorder">
 				<td class="tableColor" style="width:26%;">Current Sign In:</td>
 				<td>[Current SignIn Date/Time Stamp]</td>
