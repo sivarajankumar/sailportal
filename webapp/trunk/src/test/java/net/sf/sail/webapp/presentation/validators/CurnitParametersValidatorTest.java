@@ -75,13 +75,13 @@ public class CurnitParametersValidatorTest {
 	}
 	
 	@Test
-	public void testAllLegal() {
+	public void testDeadURLDestination() {
 		curnitParametersValidator.validate(curnitParameters, errors);
 		
-		assertFalse(errors.hasErrors());
-		assertEquals(0, errors.getErrorCount());
+		assertTrue(errors.hasErrors());
+		assertEquals(1, errors.getErrorCount());
 		assertNull(errors.getFieldError(CurnitParameters.FIELD_NAME));
-		assertNull(errors.getFieldError(CurnitParameters.FIELD_URL));
+		assertNotNull(errors.getFieldError(CurnitParameters.FIELD_URL));
 	}
 	
 	@Test
