@@ -53,6 +53,12 @@ public class CurnitParametersValidatorTest {
 	
 	private static final String INVALID_URL_1 = "www.utoronto.ca";
 	
+	private static final String URL_NO_PROTOCOL = "www.google.com";
+	
+	private static final String URL_NO_DOMAIN = "www..com";
+	
+	private static final String URL_NO_DOMAIN2 = "www.google.";
+	
 	private CurnitParameters curnitParameters;
 	
 	private Validator curnitParametersValidator;
@@ -153,7 +159,6 @@ public class CurnitParametersValidatorTest {
 	}
 	
 	@Test
-	@Ignore
 	public void testCurnitUrlInvalid1() {
 		// TODO Laurel: finish writing this and remove
 		// the @Ignore tag when ready
@@ -166,6 +171,43 @@ public class CurnitParametersValidatorTest {
 		assertNull(errors.getFieldError(CurnitParameters.FIELD_NAME));
 		assertNotNull(errors.getFieldError(CurnitParameters.FIELD_URL));
 	}
+	
+	@Test
+	public void testCurnitUrlNoProtocol(){
+		curnitParameters.setName(LEGAL_CURNIT_NAME);
+		curnitParameters.setUrl(URL_NO_PROTOCOL);
+		
+		curnitParametersValidator.validate(curnitParameters, errors);
+		
+		assertEquals(1, errors.getErrorCount());
+		assertNull(errors.getFieldError(CurnitParameters.FIELD_NAME));
+		assertNotNull(errors.getFieldError(CurnitParameters.FIELD_URL));
+	}
+	
+	@Test
+	public void testCurnitUrlNoDomain(){
+		curnitParameters.setName(LEGAL_CURNIT_NAME);
+		curnitParameters.setUrl(URL_NO_DOMAIN);
+		
+		curnitParametersValidator.validate(curnitParameters, errors);
+		
+		assertEquals(1, errors.getErrorCount());
+		assertNull(errors.getFieldError(CurnitParameters.FIELD_NAME));
+		assertNotNull(errors.getFieldError(CurnitParameters.FIELD_URL));
+	}
+	
+	@Test
+	public void testCurnitUrlNoDomain2(){
+		curnitParameters.setName(LEGAL_CURNIT_NAME);
+		curnitParameters.setUrl(URL_NO_DOMAIN2);
+		
+		curnitParametersValidator.validate(curnitParameters, errors);
+		
+		assertEquals(1, errors.getErrorCount());
+		assertNull(errors.getFieldError(CurnitParameters.FIELD_NAME));
+		assertNotNull(errors.getFieldError(CurnitParameters.FIELD_URL));
+	}
+
 	
 	@After
 	public void tearDown() {
