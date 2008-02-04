@@ -299,6 +299,11 @@
 		<property name="runService" ref="runService" />
 	</bean>
 	
+		<bean id="projectPickerGradingController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.ProjectPickerGradingController">
+		<property name="runService" ref="runService" />
+	</bean>
+	
 	<bean id="exportsAndReportsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ExportsAndReportsController">
 	</bean>

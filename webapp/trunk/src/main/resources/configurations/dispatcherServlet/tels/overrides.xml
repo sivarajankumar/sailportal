@@ -106,6 +106,7 @@
 				/teacher/grading/gradingtool.html=gradingToolController
 				/teacher/grading/gradingsubmit.html=gradingSubmitController
 				/teacher/grading/currentscore.html=currentScoreController
+				/teacher/grading/projectPickerGrading.html=projectPickerGradingController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
