@@ -49,7 +49,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
-import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
@@ -149,7 +148,8 @@ public class ProjectServiceImpl implements ProjectService {
 	public ModelAndView previewProject(PreviewProjectParameters params) throws ObjectNotFoundException, IOException {
 		Project project = params.getProject();
 		// this is a temporary hack until projects can be run without have to create a 
-		// workgroups with at least 1 member in it.
+		// workgroup with at least 1 member in it. See this JIRA task:
+		// http://jira.concord.org/browse/SDS-23
 		User previewUser = userService.retrieveById(new Long(1));
 		Workgroup previewWorkgroup = 
 			workgroupService.getWorkgroupForPreviewOffering(project.getPreviewRun(), previewUser);
