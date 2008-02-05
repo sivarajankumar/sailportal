@@ -25,7 +25,7 @@
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-<h1 id="previewProjectTitle" class="blueText">Preview A Project</h1>
+<div id="previewProjectTitle" class="blueText">Preview A Project</div>
 
 <div id="boxPreviewProject">
 

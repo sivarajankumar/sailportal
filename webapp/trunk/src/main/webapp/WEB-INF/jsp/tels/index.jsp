@@ -77,7 +77,7 @@
     
 					<div id="welcomeBullet1" style=""> 
           			<div class="welcomeBulletHeader">What is WISE?</div>
-		  			<p>The Web-Based Inquiry Science Environment is a simple yet powerful learning system designed to foster 
+		  			<p>The Web-Based Inquiry Science Environment <br/>is a simple yet powerful learning system designed to foster 
 		  			inquiry-based science.  A collection of online and Java-based tools allow students to 
 		  			download curriculum projects, then explore and reflect at their own pace.  Teachers facilitate the 
 		  			process in the classroom and use online tools to offer formative and evaluative assessment of student work.</p>

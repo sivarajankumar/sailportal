@@ -48,7 +48,7 @@
 <div align="center">
 
 	<br/>
-	<h1>Forgot your UserName?</h1>
+	<h2>Forgot your UserName?</h2>
 	
 	<ul id="forgotusernamelist">
 		<li>Your Username consists of your first name, initial of last name, month of birth, and day of birth.</li>
@@ -65,7 +65,7 @@
 	</ol>
 	</div>
 	
-	<br /><br /> <br />
+	<br /> 
 	<div><a href="../../index.html"> <img id="return"
 				src="../../<spring:theme code="return_to_homepage" />"
 				onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"

@@ -46,9 +46,9 @@
 <h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
   
   	<br /> 
-	<h1>Run a Search for Your Username</h1>
+	<h2>Run a Search for Your Username</h2>
 
-	<h4>Fill in your Student Code below (get this from your teacher if needed), then click the Search button.</h4>
+	<h5>Fill in your Student Code below (get this from your teacher if needed), then click the Search button.</h5>
 	
 	<br />  
 	<div id="errorMessageFormat">

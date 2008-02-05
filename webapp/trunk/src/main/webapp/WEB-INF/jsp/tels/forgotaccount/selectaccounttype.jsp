@@ -41,7 +41,7 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-<h1 id="lostTitleBar" blueText">Lost Username or Password</h1>
+<h1 id="lostTitleBar" class="blueText">Lost Username or Password</h1>
  
  <div id="boxSecondary">
  
@@ -53,8 +53,9 @@
 			  <img id="studentAccount" src="../<spring:theme code="create_student_account" />" width="228" height="41"
 			  onmouseover="swapImage('studentAccount','../<spring:theme code="create_student_account_rollover" />');" 
 			  onmouseout="swapImage('studentAccount','../<spring:theme code="create_student_account" />');" /></a>
-			 <br />
-			  <br />
+			<br/>
+			<div style="margin:8px 0 0px 0;">or</div>
+			<br/>
 			<a href="teacher/index.html"> 
 			<img id="teacherAccount" src="../<spring:theme code="create_teacher_account" />" height="46"
 			  onmouseover="swapImage('teacherAccount','../<spring:theme code="create_teacher_account_rollover" />');" 

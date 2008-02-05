@@ -55,7 +55,7 @@
 		
 		<div id="forgotparagraph">
 		If you've forgotten your Username AND your Password (hey, it happens to the
-		best of us), <br/>first follow the <em>Forgot My Username</em> link, then follow the <em>Forgot My Password</em> link. </div>
+		best of us) <br/>first follow the <em>Forgot My Username</em> link, then follow the <em>Forgot My Password</em> link. </div>
 
 
 		<div><a href="../../index.html"> <img id="return"

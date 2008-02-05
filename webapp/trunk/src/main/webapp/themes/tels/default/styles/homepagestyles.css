@@ -88,7 +88,9 @@
 	font-size:1em;
 	padding: 6px 0 0 0;
 	line-height: 100%;
-	margin: 0 0 0px 0;
+	margin: 0;
+	padding:8px 0 5px 0;
+	width:147px; 
 }
 
 #welcomeTextLinks li {
@@ -100,18 +102,20 @@
 	text-decoration:none;
 	font-weight:bold;
 	margin:0;
-	padding:0
-	}
+	padding:2px;
+		}
 	
 #welcomeTextLinks li a:hover {
-	color:#FF0000;
-	border-bottom:1px dashed;
 	margin:0;
-	padding:0px;
+	padding:1px;
+	background-color:#ffff33;
+	border: 1px solid #6666CC;
 	}
 	
 .smallText {
 	font-size:.9em;
+	width:147px;
+	padding-left:2px; 
 	}
 	
 .welcomeBulletHeader {
@@ -122,16 +126,13 @@
 		
 #welcomeBullet1, #welcomeBullet2, #welcomeBullet3, #welcomeBullet4, #welcomeBullet5, #welcomeBullet6, #welcomeBullet7 {
 	float:left;
-	font-size:0.75em;
-	width:265px;
+	font-size:1em;
+	width:273px; 
 	color:#000066;
 	line-height: 130%;
-	margin:5px 0 0 10px;
-	border-top: 1px dashed #6666FF;
-	border-bottom: 1px dashed #6666FF;
-	border-left: 1px dashed #6666FF;
-	border-right: 1px dashed #6666FF; 
-	padding: 5px 5px 5px 8px;
+	margin:7px 0 0 0;
+	border-left: 1px solid #6666FF;
+	padding: 0 0 0 7px;
 	vertical-align:text-top;
 	}
 	
@@ -177,7 +178,7 @@
 }	
 
 #boxTableSignIn li {
-	font-size:.7em;
+	font-size:.75em;
 		}
 
 #signInButton {
@@ -194,7 +195,21 @@
 	
 #signInLinkPosition li {
 	padding-bottom:5px;
+	text-decoration:none;
 }
+
+#signInLinkPosition li a:link, #signInLinkPosition a:visited { 
+	text-decoration:none;
+	margin:0;
+	padding:2px;
+		}
+	
+#signInLinkPosition li a:hover {
+	margin:0;
+	padding:1px;
+	background-color:#ffff33;
+	border: 1px solid #6666CC;
+	}
 	
 .dataBoxStyle {
 	padding: 1px 0px 1px 3px;
@@ -327,21 +342,29 @@
 	}
 
 #footerText p {
-	padding:0px;
+	padding:0px 2px;
 	margin:0px;
 	line-height:120%;
 	}
 
 #footerTable li a:link, #footer li a:visited, #footerText a:link, #footerText a:visited {
+	font-size:1.1em;
 	color:#0033CC;
 	text-decoration:none;
 	font-weight:bold;
+	margin:0;
+	padding:2px;
 	}
 	
 #footerTable li a:hover, #footerText a:hover {
-	color:#FF0000;
-	border-bottom:1px dashed;
-	}
+	font-size:1.1em;
+	margin:0;
+	padding:1px;
+	font-weight:bold;
+	background-color:#ffff33;
+	border: 1px solid #6666CC;
+		}
+	
 	
 .alignLeft 	{text-align:left;}
 .alignCenter {text-align:center;}

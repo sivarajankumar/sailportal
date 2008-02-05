@@ -388,7 +388,7 @@
 	
 
 #projectCodeLabel {
-	font-size:1.5em;
+	font-size:1.2em;
 	margin: 0px;
 	padding:0px;
 	text-align:left;
@@ -396,7 +396,7 @@
 	
 #projectcode {
 	vertical-align:center;
-	font-size:1.5em;
+	font-size:1.2em;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
@@ -415,7 +415,7 @@
 #errorMessageFormat {
 	margin:20px;
 	color:#FF0000;
-	font-size:1.3em;
+	font-size:1.1em;
 	font-weight:bold;
 	}
 	
@@ -607,24 +607,21 @@
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
-	margin-top: 30px;
-	margin-right: auto;
-	margin-bottom: 0px;
-	margin-left: auto;
-	padding:10px;
+	margin: 30px auto 0 auto;
+	padding:10px 0; 
 		}
 	
 #lostSubHeader {
 	padding:30px 0 20px 0;
 	letter-spacing:1px;
-	font-size:1.8em;
+	font-size:1.5em;
 	font-weight:bold;
 }
 
 #forgotparagraph {
 	text-align:center;
 	width:70%;
-	font-size:1.4em;
+	font-size:.9em; 
 	padding:35px 0 50px 0;
 	line-height:170%;
 	}
@@ -634,7 +631,7 @@
 	color:#003300;
 	border: 1px solid #006600;
 	width:85%;
-	margin:10px auto 10px auto;
+	margin:15px auto 10px auto;
 	padding:10px 0 10px 0;
 	}
 	

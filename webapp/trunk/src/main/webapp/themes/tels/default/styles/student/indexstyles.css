@@ -35,7 +35,7 @@ table tr, table td {
 
 #columnLabel {
 	color:#3333cc;
-	font-size:1.5em;
+	font-size:1.2em;
 	font-weight:bold;
 	letter-spacing:4px;
 	text-align:left;
@@ -64,7 +64,7 @@ table tr, table td {
 
 .listTitle1 {
 	float:left;
-	font-size:.9em;
+	font-size:.8em;
 	vertical-align:bottom;
 	margin:0px;
 	padding:0px;
@@ -73,7 +73,7 @@ table tr, table td {
 
 #studentUsername {
 	font-weight:bold;
-	font-size: 1.2em;
+	font-size: .9em;
 	text-transform:uppercase;
 	padding-left:10px;
 	margin-left:0px;
@@ -81,7 +81,7 @@ table tr, table td {
 
 #studentWelcome {
 	font-weight:bold;
-	font-size: 1.1em;
+	font-size: .8em;
 	margin:1px 0 0 0;
 }
 
@@ -93,7 +93,7 @@ table tr, table td {
 
 .listTitle2 {
 	float:left;
-	font-size:.9em;
+	font-size:.8em;
 	vertical-align:bottom;
 	margin:0px;
 	padding:0px;
@@ -101,7 +101,7 @@ table tr, table td {
 }
 
 #list2 dd{
-	font-size: 1.0em;
+	font-size: .8em;
 	font-weight:bold;
 	margin:0;
 }
@@ -113,7 +113,7 @@ table tr, table td {
 	
 #accountOptions{
 	text-align:center;
-	font-size: 1.1em;
+	font-size: .9em;
 	font-weight:bold;
 	margin:10px 0 15px 0px;
 	padding-top:15px;
@@ -133,7 +133,7 @@ table tr, table td {
 
 #displayAsEnglish {
 	text-align:center;
-	font-size:.9em;
+	font-size:.8em;
 	margin:2px 5px 5px 5px;
 	}
 
@@ -143,7 +143,7 @@ table tr, table td {
 	
 #studentcopyright {
 	text-align:center;
-	font-size:.9em;
+	font-size:.8em;
 	margin:-10px 0px 5px 0px;
 	}
 
