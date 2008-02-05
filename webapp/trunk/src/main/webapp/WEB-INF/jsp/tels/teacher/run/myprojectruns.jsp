@@ -83,9 +83,7 @@
 				              <td style="width:20%;" class="tableInnerData">${period.name}</td>
 				              <td style="width:45%;" class="tableInnerData">${run.runcode}-${period.name}</td>
 				              <td style="width:35%;" class="tableInnerDataRight">
-				                ${fn:length(period.members)} registered
-				                
-				              </td>
+				                <a href="../management/viewmystudents.html?runId=${run.id}&periodName=${period.name}">${fn:length(period.members)} registered</a></td>
 				            </tr>
 				          </c:forEach>
 				        </table>

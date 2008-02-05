@@ -126,6 +126,12 @@ public class ViewMyStudentsController extends AbstractController{
 		Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
 		Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();
 		
+		/* retrieves the get parameter periodName to determine which 
+		   period the link is requesting */
+		String periodName = servletRequest.getParameter("periodName");
+		int periodNumber = 0;
+		int periodCounter = 0;
+		
 		for (Group period : run.getPeriods()) {
 			ViewMyStudentsPeriod viewmystudentsperiod = new ViewMyStudentsPeriod();
 			viewmystudentsperiod.setRun(run);
@@ -142,6 +148,12 @@ public class ViewMyStudentsController extends AbstractController{
 			viewmystudentsperiod.setGrouplessStudents(grouplessStudents);
 			viewmystudentsperiod.setWorkgroups(periodworkgroups);
 			viewmystudentsallperiods.add(viewmystudentsperiod);
+			
+			//determines which period tab to show in the AJAX tab object
+			if(periodName != null && periodName.equals(period.getName())) {
+				periodNumber = periodCounter;
+			}
+			periodCounter++;
 		}
 
 		/*
@@ -183,7 +195,7 @@ public class ViewMyStudentsController extends AbstractController{
 		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
 		modelAndView.addObject(RUN_NAME_KEY, run.getSdsOffering().getName());
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
-		modelAndView.addObject(TAB_INDEX, 0);		
+		modelAndView.addObject(TAB_INDEX, periodNumber);		
 		return modelAndView;
 	}
 
