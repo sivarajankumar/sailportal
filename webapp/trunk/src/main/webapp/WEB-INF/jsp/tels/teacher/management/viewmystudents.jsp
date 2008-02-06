@@ -149,7 +149,7 @@ function createNewWorkgroup(periodId, runId) {
 
 
 <div id="tabSystem" class="yui-navset">
-<ul class="yui-nav" style="font-size:1.3em;">
+<ul class="yui-nav" style="font-size:1.0em;">
 	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
 		<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
 	</c:forEach>
@@ -170,6 +170,7 @@ function createNewWorkgroup(periodId, runId) {
 		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
 		       	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');">Help</a></li>
 		   	</ul>
+		   	<div id="studentCodeHeader">Student Code: [NEED DATA]</div>
 			
 			<div id="viewStudentsInstructions"><strong>To changes groupings:</strong> &nbsp; drag and drop student names with your mouse. <br/> <strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link, then drag student names into the new empty box.</div>
 			

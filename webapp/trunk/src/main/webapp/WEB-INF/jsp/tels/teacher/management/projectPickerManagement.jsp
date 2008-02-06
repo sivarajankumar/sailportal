@@ -75,7 +75,7 @@
 <table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
-			<th style="width:50%;" scope="col">Project Title</th>
+			<th style="width:50%; text-align:left;" scope="col">Project Title</th>
 			<th scope="col">Project #</th>
 			<th scope="col">Started</th>
 			<th scope="col">Ended</th>

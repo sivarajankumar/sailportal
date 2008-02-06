@@ -48,7 +48,7 @@
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="managemystudents.html">Manage My Students</a></td>
+			<td class="link"><a href="../management/projectPickerManagement.html">Manage My Students</a></td>
 			<td class="description">Manage student groupings, periods, passwords, and more. 
 			Also manage the sharing of your project run with other teachers/assistants.</td></tr>
 		<tr>
@@ -59,13 +59,16 @@
 			<td class="link"><a style="color:#999999;" href="#">Exports & Reports</a></td>
 			<td class="description">Export student work as spreadsheet, print student work, print final grades.</td></tr>
 		<tr>
+			<td class="link"><a style="color:#999999;" href="#">Manage Extra Teachers</a></td>
+			<td class="description">Allow other teachers or assistants to view, grade, and manage your Project Runs.</td></tr>
+		<tr>
 			<td class="link"><a href="updatemyaccount.html">Update My Account</a></td>
 			<td class="description">Update your personal WISE account information.</td></tr>
 	</table>
 	
 </div>
 
-<h5 class="center">Getting started running WISE 3.0 in your classroom? Visit the <a href="#">Help</a> section for more information.</h5>
+<p class="center">Getting started running WISE 3.0 in your classroom? Visit the <a href="#">Help</a> section for more information.</p>
 
 </div>    <!--End of CenteredDiv-->
 
