@@ -13,7 +13,7 @@
    <div id="usernameSignOutBoxHome">
      <authz:authorize ifAllGranted="ROLE_USER">
 	   <div id="usernameBannerHome"><authz:authentication operation="username" /></div>
-	   <div id="signOutBannerHome"><%@ include file="logout.jsp"%></div>
+	   <div id="signOutBannerHome"><a href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a></div>
 	   <authz:authorize ifAllGranted="ROLE_STUDENT">
 	   	   <div id="signOutBannerHome"><a href="student/index.html">Student Home Page</a></div>
 	   </authz:authorize>

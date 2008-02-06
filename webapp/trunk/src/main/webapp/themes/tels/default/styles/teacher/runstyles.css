@@ -9,14 +9,15 @@ table
 }
 
 #header {
-	font-size:2.4em;
+	font-size:2.0em;
 	margin-bottom:5px;
 	padding-botton:0px;
 }
 
 #subHeader {
-	margin:0;
-	padding:0px 0 20px 0;
+	margin:3px 0 10px 0 ;
+	font-size:.8em;
+	font-weight:bold;
 }
 
 #currentRunTable {

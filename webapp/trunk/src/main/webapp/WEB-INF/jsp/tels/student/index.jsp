@@ -207,6 +207,12 @@
 YAHOO.util.Event.onDOMReady(init);
 </script>
 
+
+<!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
+<!--[if lt IE 7]>
+<script defer type="text/javascript" src=".././javascript/tels/iefixes.js"></script>
+<![endif]-->
+
 </head>
 
 <body class="yui-skin-sam">
@@ -214,6 +220,7 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="centeredDiv">
 
 <%@ include file="./studentHeader.jsp"%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.*" %>
 
@@ -246,10 +253,10 @@ YAHOO.util.Event.onDOMReady(init);
 <div class="separator"></div>
 
 <dl id="list2">
-	<dt class="listTitle2">Current Time:</dt>
-	<dd id="currentSignIn"><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
-	<dt class="listTitle2">Last Sign In:</dt>
-	<dd id="lastSignIn">
+	<dt>Current Time:</dt>
+	<dd><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
+	<dt>Last Sign In:</dt>
+	<dd>
 	<c:choose>
 		<c:when test="${user.userDetails.lastLoginTime == null}">
 			never
@@ -339,7 +346,7 @@ YAHOO.util.Event.onDOMReady(init);
 							<td class="tableBorderRight">
 								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 								
-							<td ROWSPAN="5" style="width:28%; padding:2px;">
+							<td ROWSPAN="5" style="width:30%; padding:2px;">
 								  	<ul id="studentActionList">
 										<li><c:choose>
 											<c:when test="${studentRunInfo.workgroup == null}">

@@ -59,9 +59,9 @@
    </ul>
    </div>
 
-	<div id="usernameSignOutBox">
-		<div id="usernameBanner"><authz:authentication operation="username" /> </div>
-		<div id="signOutBanner"><%@ include file="logout.jsp"%></div> 
+	<div id="usernameSignOutBoxTeacher">
+		<div id="usernameBannerTeacher"><authz:authentication operation="username" /> </div>
+		<div id="signOutBannerTeacher"><a href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a></div> 
 	</div>
 
  

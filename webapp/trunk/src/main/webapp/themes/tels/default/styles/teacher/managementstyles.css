@@ -10,7 +10,7 @@
 
 #mainHeader {
 	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Arial, Helvetica;
-	font-size:2.9em;
+	font-size:2.1em;
 	font-weight:bold;
 	font-variant:small-caps;
 	letter-spacing:1px;
@@ -19,8 +19,8 @@
 }
 
 #subHeader {
-	font-size:1.2em;
-	padding:0px 0 5px 0;
+	font-size:.9em;
+	padding:4px 0 7px 0;
 }
 
 .tableLabel {
@@ -49,15 +49,15 @@ caption{
 }
 
 thead tr{
-	font-size:1.2em;
+	font-size:.8em;
 	background-color: #D9FFD9;
 	border:1px solid black;
 }
 
 thead th{
-	padding: 0.5em;
+	padding: 0.4em;
 	white-space: nowrap;
-		border:1px solid black;
+	border:1px solid black;
 	
 }
 
@@ -87,8 +87,8 @@ tbody th{
 }
 
 tbody td{
-	padding: 1.2em;
-	font-size:1.2em;
+	padding: .8em;
+	font-size:.8em;
 	text-align:center;
 	border:1px solid #333333;
 	
@@ -97,8 +97,8 @@ tbody td{
 
 td a:link, td a:visited, th a:link,th a:visited {
 	display:block;
-	color: black;
-	font-size:1.6em;
+	color:#990000;
+	font-size:1.0em;
 	font-weight:bold;
 	padding:14px 5px 14px 5px;
 	
@@ -106,38 +106,37 @@ td a:link, td a:visited, th a:link,th a:visited {
 
 td a:hover, th a:hover{
 	display:block;
-	font-size:1.6em;
+	color:#990000;
+	font-size:1.0em;
 	font-weight:bold;
 	padding:14px 5px 14px 5px;
-	background-color:#CCCCFF;
-	color: #0000CC;
-	
-	
+	background-color:#CCCCFF;	
 }
 
 /*  Special Styles for the projectPickerManagement screen */
 
 #tabPicker {
 	padding-right:3px; 
-	padding-top:0px; 
+	padding-top:0px;
 	margin-top:20px; 
-	font-size:1.3em;
+	font-size:.8em;
+	color:#990000;
 }
 
 #returnToTopLink {
-		text-align:center;
-		margin:30px 10px 10px 10px;
+	text-align:center;
+	margin:30px 10px 10px 10px;
 }
 
 #returnToTopLink a:link, #returnToTopLink a:visited {
-	font-size:1.5em;
+	font-size:1.1em;
 	color:#0000CC;
 	margin:0px;
 	padding: 5px;
 }
 
 #returnToTopLink a:hover {
-	font-size:1.5em;
+	font-size:1.1em;
 	background-color:#FFFF66;
 	color:#000066;
 	margin:0px;

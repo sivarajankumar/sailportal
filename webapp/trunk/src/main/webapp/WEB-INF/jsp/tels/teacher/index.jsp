@@ -172,7 +172,7 @@
 	<div id="quickLinks2">
 		<div id="linkHeader">Management</div>
 		<ul>
-			<li><a href="./management/projectPickerManagement.html">View My Students</a></li>			
+			<li><a href="./management/projectPickerManagement.html">Manage My Students</a></li>			
 			<li class="inactivecolor">Real-Time Class Monitor</li>
 			<li class="inactivecolor">Print Student Work</li>
 			<li><a href="./management/updatemyaccount.html">Update My Account</a></li>

@@ -17,15 +17,14 @@
   	{window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240');}
 </script>
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-
 <script>
 		(function() {
    		 var tabView = new YAHOO.widget.TabView('tabSystem');})();
  </script>
 
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 </head>
 
 
@@ -46,15 +45,15 @@
 }
 </style>
 
-
 <div id="tabSystem" class="yui-navset">
-    <ul style="font-weight:bold; font-size:1.2em; letter-spacing:1px;" class="yui-nav">
+    <ul style="font-weight:bold; font-size:.8em; letter-spacing:1px;" class="yui-nav">
         <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
         <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
     </ul>            
     <div class="yui-content">
         <div id="currentRuns">
-        		<h5 style="margin:3px 0 0 0;" id="subHeader">To manage any current Project Run select one of its Actions. To see an archived Project Run click the tab above.</h5>
+        		<div id="subHeader">To manage any current Project Run select one of its Actions. To see an archived Project Run click the tab above.</div>
+        	       		
         		<div id="runBox">
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
@@ -75,7 +74,7 @@
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 				          <tr>
 				            <th class="tableInnerHeader">Period</th>
-				            <th class="tableInnerHeader">Project Code</th>
+				            <th class="tableInnerHeader">Student Code</th>
 				            <th class="tableInnerHeaderRight">Students</th>
 				          </tr>
 				          <c:forEach var="period" items="${run.periods}">

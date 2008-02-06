@@ -30,21 +30,12 @@ table tr, table td {
 }
 
 #columnProjects {
-	margin:0 0 20px 240px;
-}
-
-#columnLabel {
-	color:#3333cc;
-	font-size:1.2em;
-	font-weight:bold;
-	letter-spacing:4px;
-	text-align:left;
-	margin: 25px 0 10px 0;
+	margin:0 0 20px 245px;
 }
 
 #columnButtons {
 	float:left;
-	width: 225px;
+	width: 230px;
 	margin:10px 0 0 0 ;
 	background-color:#CCFFCC;
 	background-image:url(../../images/student/Gradient-ProjectMenu-Green-475.png);
@@ -57,53 +48,51 @@ table tr, table td {
 }
 
 #list1 {
-		padding:12px 10px 10px 10px;
+		padding:12px 10px;
 		margin:0 0 10px 0px;
-		line-height:200%;
 }
 
-.listTitle1 {
+#list1 dt {
 	float:left;
-	font-size:.8em;
-	vertical-align:bottom;
+	font-size:1em;
 	margin:0px;
 	padding:0px;
-	width:35px;
+	width:45px;
 }
 
 #studentUsername {
 	font-weight:bold;
-	font-size: .9em;
+	font-size: 1.1em;
 	text-transform:uppercase;
 	padding-left:10px;
-	margin-left:0px;
+	margin-bottom:5px;
 	}
 
 #studentWelcome {
 	font-weight:bold;
-	font-size: .8em;
-	margin:1px 0 0 0;
+	font-size: 1em;
+	margin:0;
 }
 
 #list2 {
-		padding:12px 10px 10px 10px;
+		padding:12px 10px;
 		margin:0px;
 		line-height:160%;
 }
 
-.listTitle2 {
+#list2 dt {
 	float:left;
-	font-size:.8em;
-	vertical-align:bottom;
+	font-size:1em;
 	margin:0px;
 	padding:0px;
-	width:75px;
+	width:95px;
 }
 
 #list2 dd{
-	font-size: .8em;
+	font-size: 1em;
 	font-weight:bold;
 	margin:0;
+	padding:0px;
 }
 
 .separator {
@@ -113,27 +102,27 @@ table tr, table td {
 	
 #accountOptions{
 	text-align:center;
-	font-size: .9em;
+	font-size: 1em;
 	font-weight:bold;
-	margin:10px 0 15px 0px;
+	margin:0px 0 15px 0px;
 	padding-top:15px;
 }
 
 #optionButtons ul{
 	margin:0;
-	padding:0px;
+	padding:0;
 }
 
 #optionButtons li{
 	text-align:center;
 	list-style-type:none;
-	padding:0 0 0px 0;
-	margin:0 0 0 0px;
+	padding:0;
+	margin:0 0 5px 0;
 }
 
 #displayAsEnglish {
 	text-align:center;
-	font-size:.8em;
+	font-size:.9em;
 	margin:2px 5px 5px 5px;
 	}
 
@@ -143,9 +132,18 @@ table tr, table td {
 	
 #studentcopyright {
 	text-align:center;
-	font-size:.8em;
+	font-size:.9em;
 	margin:-10px 0px 5px 0px;
 	}
+
+#columnLabel {
+	color:#3333cc;
+	font-size:1.3em;
+	font-weight:bold;
+	letter-spacing:4px;
+	text-align:left;
+	margin: 25px 0 10px 0;
+}
 
 #currentRunTable{
 	width:100%;
@@ -176,7 +174,7 @@ table tr, table td {
 
 .studentTableLeftHeaderCurrent {
 	font-size:1.0em;
-	width:13%;
+	width:14%;
 	padding: 0px 5px;
 	border-right:1px solid #666666;
 	background-color:#CCFF99;
@@ -225,10 +223,11 @@ table tr, table td {
 }
 
 #studentActionList  {
-	font-family: "Gill Sans", Arial, Helvetica, "Lucida Grande", "Lucida San Unicode";
+	font-family: "Gill Sans", Helvetica, Arial, "Lucida Grande", "Lucida San Unicode";
 	font-weight:bold;
 	list-style-type:none;
 	text-align:center;
+	vertical-align:top;
 	margin:0px;
 	padding:0px;
 	}
@@ -240,7 +239,7 @@ table tr, table td {
 #studentActionList a:link, #studentActionList a:visited {
 	display:block;
 	text-decoration:none;
-	font-size:15px;
+	font-size:1.2em;
 	color:#0033CC;
 	margin:0px;
 	padding:4px 3px;
@@ -251,7 +250,7 @@ table tr, table td {
 	display:block;
 	margin:0px;
 	padding:4px 3px;
-	font-size:15px;
+	font-size:1.2em;
 	color:#000066;
 	background-color:#ffff33;
 	border:1px solid #666666;

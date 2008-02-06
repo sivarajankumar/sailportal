@@ -90,6 +90,8 @@
 
 <%@ include file="headermain_nousername.jsp"%>
 
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
+
 <div id="pageTitle">Contact WISE: Project Issues</div>
      
 <div id="pageSubtitle">Describe in detail the problem(s) with the project.</div>
@@ -160,6 +162,8 @@
 </form:form>
 
 <h5 align="center"><a href="index.html">Return to WISE Home Page</a></h5>
+
+</div>
 
 </div>   <!--End of the CenteredDiv -->
 

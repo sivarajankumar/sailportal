@@ -38,9 +38,7 @@
 
 <%@ include file="header.jsp"%>
 
-<div id="registrationTitle">
-    	<h1 class="blueText">Student Registration</h1>
-</div>
+<h1 id="registrationTitle" class="blueText">Student Registration</h1>
 
 <div id="subtitleConfirm">
 			<h4>Account Created!</h4>

@@ -102,11 +102,11 @@ function MM_swapImage() { //v3.0
   	<dt><label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label></dt>
     <dd><form:input path="userDetails.firstname" id="teacherFirstName" size="25" maxlength="25" tabindex="1"/><span class="hint">Required.<span class="hint-pointer"></span></span> </dd>
         
-<!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
-It must appear immediately after the Input field in question  (MattFish)-->
-<script type="text/javascript">
-document.getElementById('teacherFirstName').focus();
-</script>
+	<!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
+	It must appear immediately after the Input field in question  (MattFish)-->
+	<script type="text/javascript">
+	document.getElementById('teacherFirstName').focus();
+	</script>
        
   	<dt><label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label></dt>
 	<dd><form:input path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint">Required. <span class="hint-pointer"></span></span> </dd>

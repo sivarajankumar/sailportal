@@ -78,7 +78,7 @@
 					<div id="welcomeBullet1" style=""> 
           			<div class="welcomeBulletHeader">What is WISE?</div>
 		  			<p>The Web-Based Inquiry Science Environment <br/>is a simple yet powerful learning system designed to foster 
-		  			inquiry-based science.  A collection of online and Java-based tools allow students to 
+		  			inquiry-based science. <br/> A collection of online and Java-based tools allow students to 
 		  			download curriculum projects, then explore and reflect at their own pace.  Teachers facilitate the 
 		  			process in the classroom and use online tools to offer formative and evaluative assessment of student work.</p>
 					</div>
@@ -158,7 +158,14 @@
                                 <dl id="signinDefinList">
                                     <dt><label for="username">Username:</label> </dt>
                                     <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60"/></dd>
-                                    <dt><label for="password">Password:	</label></dt>
+                                    
+                                    <!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
+									It must appear immediately after the Input field in question  (MattFish)-->
+									<script type="text/javascript">
+										document.getElementById('j_username').focus();
+									</script>
+									
+									<dt><label for="password">Password:	</label></dt>
                                     <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30"/></dd>
                                 </dl>
                                                        

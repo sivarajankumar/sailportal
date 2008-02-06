@@ -61,7 +61,6 @@
 	font-size: 1.4em;
 	line-height: normal;
 	color:#000033;
-	width:75%;
 }
 	
 #boxTableWelcome {
@@ -85,6 +84,7 @@
 }
 
 #welcomeTextLinks {
+	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
 	list-style-type:none;
 	font-size:1em;
 	padding: 6px 0 0 0;
@@ -126,6 +126,7 @@
 	}
 		
 #welcomeBullet1, #welcomeBullet2, #welcomeBullet3, #welcomeBullet4, #welcomeBullet5, #welcomeBullet6, #welcomeBullet7 {
+	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
 	float:left;
 	font-size:1em;
 	width:273px; 
@@ -313,8 +314,7 @@
 #footerLogos img {
 	display:inline;
 	border:0px;
-	padding-top:4px;
-	margin: 10px 10px 10px 10px;
+	margin: 5px 10px;
 }
 
 #footerText {
@@ -325,7 +325,7 @@
 
 #footerTable ul {
 	list-style:none;
-	margin:10px 0 5px 0;
+	margin:8px 0 2px 0;
 	padding:0px;
 }
 
@@ -343,9 +343,10 @@
 	}
 
 #footerText p {
+	font-size:.9em;
 	padding:0px 2px;
 	margin:0px;
-	line-height:120%;
+	line-height:130%;
 	}
 
 #footerTable li a:link, #footer li a:visited, #footerText a:link, #footerText a:visited {
@@ -375,12 +376,10 @@
 
 /* TAGS FOR ANCILLARY LAYOUTS   */
 
-#signInReposition {
-	margin: 40px 0 0 330px;
-}	
-
 #errorMsg {
+	color:FF0000;
 	text-align:center;
+	font-size:1.2em;
 	margin-top:60px;
 	margin-bottom:0px;
 	font-weight:bold;
@@ -393,8 +392,8 @@
 	text-align:right;  
 	position:absolute;
 	top:3px;
-	left:854px;
-	margin:0px;
+	right:8px;
+	margin:0;
 	padding:0px;
 	line-height:100%;
 	}
@@ -411,18 +410,16 @@
 
 #signOutBannerHome a:link, #signoutBannerHome a:visited {
 	color:#FFFF66;
-	font-size:.70em;
+	font-size:.7em;
 	text-decoration:none; 
 	border-bottom: 1px solid #FFFF66;
-	line-height:130%;
 				}
 
 #signOutBannerHome a:hover {
 	color:#330066;
 	font-size:.7em;
 	text-decoration:none;
-	border-bottom: 1px dotted #330066;
-	line-height:130%;
+	border-bottom: 1px solid #330066;
 		}
 
 .popUpMenuDefault {

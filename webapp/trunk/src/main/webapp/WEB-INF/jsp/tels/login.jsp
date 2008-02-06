@@ -46,42 +46,45 @@
 
 <%@ include file="headermain.jsp"%>
 
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
 <div id="errorMsg">
 <c:if test="${failed}">
   <p><spring:message code="login.failed" /></p>
 </c:if>
 </div>
 
-<div id="signInReposition">
-
-<div id="boxTableSignIn" class="panelColor">
+ <div style="margin:25px auto 0 auto;" id="boxTableSignIn" class="panelColor">
                     			<div id="header">Sign In</div>
 								<form id="home" method="post" action="j_acegi_security_check">
-                                
-                                <dl>
-                                    <dt><label for="username">Username:  </label> </dt>
-                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" maxlength="20"/></dd>
-                                    <dt><label for="password">Password:	</label></dt>
-                                    <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" maxlength="20"/></dd>
+                                <dl id="signinDefinList">
+                                    <dt><label for="username">Username:</label> </dt>
+                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60"/></dd>
+                                    
+                                    <!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
+									It must appear immediately after the Input field in question  (MattFish)-->
+									<script type="text/javascript">
+										document.getElementById('j_username').focus();
+									</script>
+									
+									<dt><label for="password">Password:	</label></dt>
+                                    <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30"/></dd>
                                 </dl>
                                                        
                                 <div class="alignRight">
-                                			<input type="image" id="signInButton" src="./themes/tels/default/images/sign_in.png"   
-                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/sign_in_rollover.png',1)"
+                                			<input type="image" id="signInButton" img src="./themes/tels/default/images/Sign-In-No-Trans.png" width="100" height="27" alt="Sign In Button"
+                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/Sign-In-Roll-No-Trans.png',1)"
                                             onmouseout="MM_swapImgRestore()"
                                             onclick="Effect.toggle('waiting', 'appear')" /></div>
-                                                 
                                 </form>
                                 
-                                <ul id="signInLinkPositionTable">
-                                <li>
-                                <a href="forgotaccount/selectaccounttype.html" id="forgotlink">
+                                <ul id="signInLinkPosition">
+                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">
                                       Forgot Username or Password?</a>  </li>
-                                <li>
-                                <a href="signup.html" id="joinlink">Want to join WISE?</a></li>
+                                		<li><a href="signup.html" id="joinlink">Want to join WISE?</a></li>
                                 </ul>
                                 
-</div>   <!--    End of boxTableSignIn  x-->                             
+ </div>   <!--    End of boxTableSignIn  x-->               
 
 </div>
 

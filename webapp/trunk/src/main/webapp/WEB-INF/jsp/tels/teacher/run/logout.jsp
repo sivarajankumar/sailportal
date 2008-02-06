@@ -19,7 +19,4 @@
 
 <!-- $Id: logout.jsp 470 2007-06-19 17:11:07Z archana $ -->
 
-	<a style="color:#FFFF66;
-	font-weight:bold;
-	text-decoration:none;
-	border-bottom: 1px solid #FFFF66;" href="<c:url value="/j_acegi_logout"/>">Sign Out</a><br />
+	<a href="<c:url value="/j_acegi_logout"/>">Sign Out</a><br />

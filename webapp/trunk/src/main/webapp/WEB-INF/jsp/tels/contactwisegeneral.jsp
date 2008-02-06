@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<title>Contact WISE General Issues</title>
+
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title>Contact WISE General Issues</title>
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <%@ include file="teacher/grading/styles.jsp"%>
 
 </head>
@@ -90,7 +90,7 @@
 
 <%@ include file="headermain_nousername.jsp"%>
 
-<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE.  Have I mentioned that I hate IE?-->
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 
 <div id="pageTitle">Contact WISE: General Issues</div>
 
@@ -148,7 +148,7 @@
   </dl>    
      <div id="asterixWarning">Items marked with <span style="font-size:1.1em; font-weight:bold;">*</span> are required.</div>  
         
-    <div align="center"><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="Send Message" ></input></div>
+    <div><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="Send Message" ></input></div>
                   
 </form:form>
 

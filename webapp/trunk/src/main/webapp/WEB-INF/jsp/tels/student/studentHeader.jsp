@@ -27,12 +27,14 @@
     		<img src="../themes/tels/default/images/WISE-Secondary-Banner-Logo.png" alt="WISE Logo" width="209" 
     		height="24" border="0" id="WISE Secondary Logo" /> </a></div>
     		
-    	<div id="studentBannerLabel"><img src="../themes/tels/default/images/student/Student-Site-Label.png" 
-    		alt="Student Dashboard Label" /></div>
-     
-     	<div id="usernameSignOutBoxStudent">
+    	<div id="studentBannerLabel">
+    		<img src="../themes/tels/default/images/student/Student-Site-Label.png" width="104" height="11"
+       		alt="Student Dashboard Label" />
+       	</div>
+          
+       	<div id="usernameSignOutBoxStudent">
 			<div id="usernameBannerStudent"><authz:authentication operation="username" /> </div>
-			<div id="signOutBannerStudent"> <%@ include file="../logout.jsp"%></div> 
+			<div id="signOutBannerStudent"><a href=../"<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a></div> 
 		</div>
    
 </div>
