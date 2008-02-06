@@ -58,9 +58,9 @@
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:48%;" class="tableHeaderMain">Current Project Runs</th>
-				       <th style="width:34%;" class="tableHeaderMain">Run Information</th>      
-				      <th  style="width:18%;" class="tableHeaderMain">Actions</th>
+				       <th style="width:450px;"class="tableHeaderMain">Current Project Runs</th>
+				       <th style="width:325px;" class="tableHeaderMain">Run Information</th>      
+				       <th style="width:200px;" class="tableHeaderMain">Actions</th>
 				    </tr>
 				  <c:forEach var="run" items="${current_run_list}">
 				  

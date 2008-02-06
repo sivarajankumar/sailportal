@@ -40,23 +40,24 @@
 
 <%@ include file="./L2projects_projectlibrary.jsp"%>
 
-<div id="titleBar">
-    	<h1 class="headerText"><spring:message code="curnitlist.project.library" /></h1></div>
+<h1 id="titleBar" class="headerText"><spring:message code="curnitlist.project.library" /></h1> 
     	
+<br/><br/>
+
 <table align="center" border="1" cellspacing="2" cellpadding="3">
   <tr>
     <th><spring:message code="curnitlist.title" /></th>
     <th><spring:message code="curnitlist.options" /></th>
   </tr>
 <c:forEach var="project" items="${projectList}">
-  <tr>
-  <td><c:out value="${project.curnit.sdsCurnit.name}"/></td>
-  <td><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	       Set up as a Project Run
-      </a> | 
+  <tr >
+  <td style="color:#FF0000; font-weight:bold;"><c:out value="${project.curnit.sdsCurnit.name}"/></td>
+  <td style="text-align:center; line-height:150%;"><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
+	       Set up as a Project Run</a>
+	       <br/> 
       <a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	       Preview this project
-      </a> | 
+	       Preview this project</a>
+	       <br/> 
       <a href="<c:url value="http://tels-develop.soe.berkeley.edu:8080/maven-jnlp-snapshot/jnlp-tests/jardiff/javachecker-1.1.jnlp"></c:url>">
            Check if your computer can preview/run this project
       </a>
