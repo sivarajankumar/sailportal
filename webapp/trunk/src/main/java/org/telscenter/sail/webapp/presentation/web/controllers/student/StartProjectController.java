@@ -44,12 +44,20 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
- * Controller to allow students to launch the VLE using the project
+ * Controller to allow students to launch the VLE using the project.
+ * This link is *always* used to start the project for students, whether
+ * - they're not in a workgroup
+ * - they're in a workgroup by themself
+ * - they're in a workgroup with other people
  *
  * @author Hiroki Terashima
  * @version $Id: $
  */
 public class StartProjectController extends AbstractController {
+
+	private static final String SELECT_TEAM_URL = "student/selectteam";
+
+	private static final String TEAM_SIGN_IN_URL = "student/teamsignin";
 
 	private RunService runService;
 	
@@ -69,6 +77,11 @@ public class StartProjectController extends AbstractController {
 				User.CURRENT_USER_SESSION_KEY);
 
 		Long runId = Long.valueOf(request.getParameter("runId"));
+		String bymyselfStr = request.getParameter("bymyself");
+		boolean bymyself = false;
+		if (bymyselfStr != null) {
+			bymyself = Boolean.valueOf(bymyselfStr);
+		}
 		
 		Run run = runService.retrieveById(runId);
 
@@ -78,31 +91,47 @@ public class StartProjectController extends AbstractController {
 		assert(workgroups.size() <= 1);
 		
 		WISEWorkgroup workgroup = null;
-		if (workgroups.size() == 0) {
-			// need to create a workgroup for this user
-			String name = "Workgroup for " + user.getUserDetails().getUsername();
-			Set<User> members = new HashSet<User>();
-			members.add(user);
-			workgroup = workgroupService.createWISEWorkgroup(name, members, run, period);
+		if (workgroups.size() == 0) { 	// student is not yet in a workgroup
+			if (bymyself) { 
+				// if bymyself=true was passed in as request
+				// create new workgroup with this student in it
+				String name = "Workgroup for " + user.getUserDetails().getUsername();
+				Set<User> members = new HashSet<User>();
+				members.add(user);
+				workgroup = workgroupService.createWISEWorkgroup(name, members, run, period);
+				LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
+				launchProjectParameters.setRun(run);
+				launchProjectParameters.setWorkgroup(workgroup);
+				launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
+				launchProjectParameters.setHttpServletRequest(request);
+				return (ModelAndView) projectService.launchProject(launchProjectParameters);
+			} else {
+				// need to create a workgroup for this user, take them to create workgroup wizard
+				ModelAndView modelAndView = new ModelAndView(SELECT_TEAM_URL);
+				modelAndView.addObject("runId", runId);
+				return modelAndView;
+			}
 		} else if (workgroups.size() == 1) {
-			// user has created a workgroup before for this run
-			workgroup = (WISEWorkgroup) workgroups.get(0);
+			// need to create a workgroup for this user, take them to create workgroup wizard
+			//workgroup = (WISEWorkgroup) workgroups.get(0);
+
+			ModelAndView modelAndView = new ModelAndView(TEAM_SIGN_IN_URL);
+			modelAndView.addObject("runId", runId);
+			return modelAndView;
 		} else {
 			// TODO HT: this case should never happen. But since WISE requirements are not clear yet regarding
 			// the workgroup issues, leave this for now.
 			workgroup = (WISEWorkgroup) workgroups.get(0);
+			ModelAndView modelAndView = new ModelAndView(TEAM_SIGN_IN_URL);
+			modelAndView.addObject("runId", runId);
+			return modelAndView;
+
 //			
 //			throw new IllegalStateException("The user " + 
 //					user.getUserDetails().getUsername() + " is in more than one " +
 //							"groups for the run " + run.getSdsOffering().getName());
 		}
-		
-		LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
-		launchProjectParameters.setRun(run);
-		launchProjectParameters.setWorkgroup(workgroup);
-		launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
-		launchProjectParameters.setHttpServletRequest(request);
-		return (ModelAndView) projectService.launchProject(launchProjectParameters);
+
 	}
 
 	/**

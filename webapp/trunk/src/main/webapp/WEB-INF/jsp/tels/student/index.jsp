@@ -27,7 +27,7 @@
 
 <script language="JavaScript">
 	function popup(URL) {
-  	window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=300,height=300,left = 570,top = 300');}
+  	window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=650,height=500,left = 570,top = 300');}
 </script>
 
 <script>
@@ -350,14 +350,13 @@ YAHOO.util.Event.onDOMReady(init);
 								  	<ul id="studentActionList">
 										<li><c:choose>
 											<c:when test="${studentRunInfo.workgroup == null}">
-												<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">RUN
-												PROJECT</a>
+												<a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}'>RUN PROJECT</a>
 											</c:when>
 											<c:otherwise>
 												<c:choose>
 													<c:when
 														test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-														<a href="${studentRunInfo.startProjectUrl}"
+														<a href="startproject.html?runId=${studentRunInfo.run.id}"
 															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
 													</c:when>
 													<c:otherwise>

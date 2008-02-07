@@ -31,15 +31,15 @@
 <title><spring:message code="application.title" /></title>
 </head>
 
-<body>
+<body onunload="opener.location.reload()">
 
 <div id="teamSelect" class="teamMargin1">
 
 	<div id="teamSelectHeader">Will you be working on this project by yourself or with teammates?</div>
 	<div id="teamSelectChoices">
 		<ul>
-			<li><a href="startproject.html?runId=${run.id}">By Myself</a></li>
-      		<li><a href="teamsignin.html?runId=${run.id}">With 1 or 2 Teammates</a></li>
+			<li><a href="startproject.html?runId=${runId}&bymyself=true" onclick="setTimeout('self.close()', 5000);">By Myself</a></li>
+      		<li><a href="teamsignin.html?runId=${runId}">With 1 or 2 Teammates</a></li>
     	</ul>
 	</div>
 

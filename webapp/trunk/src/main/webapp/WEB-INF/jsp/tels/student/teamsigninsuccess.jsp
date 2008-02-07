@@ -30,7 +30,7 @@
 <title><spring:message code="application.title" /></title>
 </head>
 
-<body>
-
+<body onload="setTimeout('self.close()', 5000);" onunload="opener.location.reload()">
+   Successfully signed in.
 </body>
 </html>

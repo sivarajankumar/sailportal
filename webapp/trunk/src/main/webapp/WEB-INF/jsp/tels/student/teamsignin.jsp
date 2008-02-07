@@ -36,7 +36,7 @@
 <title><spring:message code="application.title" /></title>
 </head>
 
-<body>
+<body onunload="opener.location.reload()">
 <c:if test="${closeokay}">
 <c:out value="hi" />
 </c:if>
@@ -70,7 +70,7 @@
 		  </c:forEach>
 			</table>
 			
-	 <div id="finalRunProjectButton">
+	 <div id="finalRunProjectButton" onclick="setTimeout('self.close()', 5000);">
  	    <input type="image" name=_finish" value="Run Project" id="runproject" src="../<spring:theme code="run_project" />" 
     		onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />')" 
     		onmouseout="swapImage('runproject','../<spring:theme code="run_project" />')" />
