@@ -138,7 +138,7 @@ function createNewWorkgroup(periodId, runId) {
 <%@ include file="L2management_managestudents.jsp"%>
 
 
-<div id="L3Label">View My Students</div> 
+<div id="L3Label">view my students</div> 
 
 <table id="projectTitleBox" border=0>
 	<tr>
@@ -149,7 +149,7 @@ function createNewWorkgroup(periodId, runId) {
 
 
 <div id="tabSystem" class="yui-navset">
-<ul class="yui-nav" style="font-size:1.0em;">
+<ul class="yui-nav" style="font-size:.7em;">
 	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
 		<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
 	</c:forEach>
@@ -165,13 +165,13 @@ function createNewWorkgroup(periodId, runId) {
 		<c:otherwise>
 		    <!--  there are students in this period  -->
 		    <ul id="periodHeaderBar">
-		    	<li class="periodHeaderStart">[DATA:24] Students <span style="font-size:.8em;">(across [DATA:18 teams])</span></li>
+		    	<li class="periodHeaderStart">[DATA:24] Students / [DATA:18] teams(s)</li>
+		    	<li class="periodHeaderStart"">Student Code: [NEED DATA]</li>
 		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
 		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
 		       	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');">Help</a></li>
-		   	</ul>
-		   	<div id="studentCodeHeader">Student Code: [NEED DATA]</div>
-			
+		    </ul>
+		  			
 			<div id="viewStudentsInstructions"><strong>To changes groupings:</strong> &nbsp; drag and drop student names with your mouse. <br/> <strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link, then drag student names into the new empty box.</div>
 			
 			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
