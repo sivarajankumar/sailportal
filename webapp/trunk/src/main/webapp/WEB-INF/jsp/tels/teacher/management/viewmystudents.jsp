@@ -138,7 +138,7 @@ function createNewWorkgroup(periodId, runId) {
 <%@ include file="L2management_managestudents.jsp"%>
 
 
-<div id="L3Label">view my students</div> 
+<div id="L3Label">manage my students</div> 
 
 <table id="projectTitleBox" border=0>
 	<tr>
