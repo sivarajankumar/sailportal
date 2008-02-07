@@ -90,6 +90,10 @@ public class ViewMyStudentsController extends AbstractController{
 	private static final String TAB_INDEX = "tabIndex";
 
 	private static final String RUN_NAME_KEY = "run_name";
+	
+	private static final String PROJECT_NAME = "project_name";
+	
+	private static final String PROJECT_ID = "project_id";
 
 
 	/**
@@ -125,6 +129,8 @@ public class ViewMyStudentsController extends AbstractController{
 		Run run = runService.retrieveById(runId);
 		Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
 		Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();
+		String projectName = run.getSdsOffering().getName();
+		String projectId = run.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();
 		
 		/* retrieves the get parameter periodName to determine which 
 		   period the link is requesting */
@@ -195,7 +201,9 @@ public class ViewMyStudentsController extends AbstractController{
 		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
 		modelAndView.addObject(RUN_NAME_KEY, run.getSdsOffering().getName());
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
-		modelAndView.addObject(TAB_INDEX, periodNumber);		
+		modelAndView.addObject(TAB_INDEX, periodNumber);
+		modelAndView.addObject(PROJECT_NAME, projectName);
+		modelAndView.addObject(PROJECT_ID, projectId);
 		return modelAndView;
 	}
 

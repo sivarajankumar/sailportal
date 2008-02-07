@@ -142,8 +142,8 @@ function createNewWorkgroup(periodId, runId) {
 
 <table id="projectTitleBox" border=0>
 	<tr>
-		<th>[DATA NEEDED: Project Name Here]</th>
-		<td>(project ID [Project ID here])</td>
+		<th>${project_name}</th>
+		<td>(${project_id})</td>
 	</tr>
 </table>
 
@@ -165,8 +165,8 @@ function createNewWorkgroup(periodId, runId) {
 		<c:otherwise>
 		    <!--  there are students in this period  -->
 		    <ul id="periodHeaderBar">
-		    	<li class="periodHeaderStart">[DATA:24] Students / [DATA:18] teams(s)</li>
-		    	<li class="periodHeaderStart"">Student Code: [NEED DATA]</li>
+		    	<li class="periodHeaderStart">${fn:length(viewmystudentsperiod.period.members)} Student(s) / ${fn:length(viewmystudentsperiod.workgroups)} team(s)</li>
+		    	<li class="periodHeaderStart"">Student Code: ${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</li>
 		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
 		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
 		       	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');">Help</a></li>
