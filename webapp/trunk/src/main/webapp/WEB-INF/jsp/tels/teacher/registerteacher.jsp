@@ -112,7 +112,7 @@ function MM_swapImage() { //v3.0
 	<dd><form:input path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint">Required. <span class="hint-pointer"></span></span> </dd>
             
     <dt><label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label></dt>
-	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="25" tabindex="3"/> <span class="hint">Required.  Your new account information will be automatically emailed to this email address. <span class="hint-pointer"></span></span></dd>
+	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="3"/> <span class="hint">Required.  Your new account information will be automatically emailed to this email address. <span class="hint-pointer"></span></span></dd>
             
      <dt><label for="city" id="city1"><spring:message code="signup.city" /></label> </dt>
 	<dd><form:input path="userDetails.city" id="teacherCity" size="25" maxlength="25" tabindex="4"/>
