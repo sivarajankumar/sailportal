@@ -112,12 +112,21 @@ public class StartProjectController extends AbstractController {
 				return modelAndView;
 			}
 		} else if (workgroups.size() == 1) {
-			// need to create a workgroup for this user, take them to create workgroup wizard
-			//workgroup = (WISEWorkgroup) workgroups.get(0);
-
-			ModelAndView modelAndView = new ModelAndView(TEAM_SIGN_IN_URL);
-			modelAndView.addObject("runId", runId);
-			return modelAndView;
+			workgroup = (WISEWorkgroup) workgroups.get(0);
+			if (workgroup.getMembers().size() == 1) {
+				// if the student is already in a workgroup and she is the only member,
+				// launch the project
+				LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
+				launchProjectParameters.setRun(run);
+				launchProjectParameters.setWorkgroup(workgroup);
+				launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
+				launchProjectParameters.setHttpServletRequest(request);
+				return (ModelAndView) projectService.launchProject(launchProjectParameters);				
+			} else {
+				ModelAndView modelAndView = new ModelAndView(TEAM_SIGN_IN_URL);
+				modelAndView.addObject("runId", runId);
+				return modelAndView;
+			}
 		} else {
 			// TODO HT: this case should never happen. But since WISE requirements are not clear yet regarding
 			// the workgroup issues, leave this for now.
