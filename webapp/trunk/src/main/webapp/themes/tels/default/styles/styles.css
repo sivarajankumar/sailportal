@@ -423,7 +423,7 @@
 #errorMessageFormat {
 	margin:20px;
 	color:#FF0000;
-	font-size:1.1em;
+	font-size:1.0em;
 	font-weight:bold;
 	}
 	
@@ -443,7 +443,7 @@
 
 	
 #teamSelectHeader {
-	font-size:1.5em;
+	font-size:1.2em;
 	font-weight:bold;
 }
 	
@@ -464,7 +464,7 @@
 	display:block;
 	width: 250px;
 	text-decoration:none;
-	font-size:1.8em;
+	font-size:1.5em;
 	font-weight:bold;
 	color:#0033CC;
 	line-height:200%;	
@@ -475,7 +475,7 @@
 	display:block;
 	width: 250px;
 	text-decoration:none;
-	font-size:1.8em;
+	font-size:1.5em;
 	font-weight:bold;
 	color:#000066;
 	background-color:#ffff33;
@@ -489,7 +489,7 @@
 }
 
 .errorMsgStyle {
-	font-size:.9em;
+	font-size:.8em;
 	font-weight:bold;
 	font-style:italic;
 	color:#330066;
@@ -504,14 +504,14 @@
 #pageTitle {
 	clear:both;
 	text-align:center;
-	width:90%;
-	margin: 10px auto;
+	width:880px;
+	margin: 15px auto;
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
     background-position: bottom;
-	padding:10px;
+	padding:10px 0;
 	color: #0000FF;
-	font-size:1.9em;
+	font-size:1.7em;
 	font-weight:bold;
 		}
 	
@@ -551,7 +551,7 @@
 		
 #contactWISEForm  {
 	position: relative;
-	width:85%;
+	width:800px;
 	font-size: .9em;
 	border: 1px solid #333333;
 	background-color:#CCFFCC;

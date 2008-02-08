@@ -214,7 +214,7 @@
 	}
 	
 .dataBoxStyle {
-	padding: 1px 0px 1px 3px;
+	padding: 1px;
 	border-top-width: 1px;
 	border-top-color: #999999;
 	border-right-color: #666666;
@@ -274,7 +274,7 @@
 #newsContent {
 	background-image:url(../images/Pixel_Gray.png);
 	position:relative;
-	width:90%;
+	width:92%;
 	height: 75%;
 }
 

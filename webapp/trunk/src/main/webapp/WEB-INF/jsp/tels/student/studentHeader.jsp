@@ -34,7 +34,7 @@
           
        	<div id="usernameSignOutBoxStudent">
 			<div id="usernameBannerStudent"><authz:authentication operation="username" /> </div>
-			<div id="signOutBannerStudent"><a href=../"<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a></div> 
+			<div id="signOutBannerStudent"><a href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a></div> 
 		</div>
    
 </div>

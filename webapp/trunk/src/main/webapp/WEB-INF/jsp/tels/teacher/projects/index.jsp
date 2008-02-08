@@ -52,7 +52,7 @@
 			<td class="description">Search the extensive library of WISE and TELS projects. Find a project and set it up to run in your classroom.</td></tr>
 		<tr>
 			<td class="link"><a href="../run/myprojectruns.html">My Project Runs</a></td>
-			<td class="description">View projects that you are currently running in your classroom.</td></tr>
+			<td class="description">View projects that you are currently running in your classroom and the <b>Student Codes</b> for each of these project runs.</td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#">My Bookmarked Projects</a></td>
 			<td class="description">View library projects that you have earmarked for future use.</td></tr>

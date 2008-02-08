@@ -59,7 +59,7 @@
 </spring:bind>
 </div>
 
-  <form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html">
+<form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html">
   
   <dl>
   	<dt><label for="studentFirstName">First Name:</label></dt>	    
@@ -141,7 +141,6 @@ password in the future this reminder helps you prove who you are.<span class="hi
 
 	  <dt><label for="reminderAnswer" id="reminderAnswer">Password Reminder A:</label></dt>
 	  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
-          <form:errors path="userDetails.accountAnswer" />	  
 	      <span class="hint">Answer the password reminder question here.<span class="hint-pointer"></span></span>			
           </dd>
       

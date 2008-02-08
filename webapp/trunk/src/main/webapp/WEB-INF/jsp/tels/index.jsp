@@ -253,7 +253,14 @@
                     <td id="boxLatestNews" class="panelColor">
                             <div id="header">Latest News</div>
                             <div class="alignCenter">
-                            	<textarea id="newsContent" class="dataBoxStyle" rows="16" cols="35">Latest News Goes Here... Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.  Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam oluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.
+                            	<textarea id="newsContent" class="dataBoxStyle" rows="16" cols="35">WISE 3.0 LAUNCHES AT COLLEGE PARK HIGH SCHOOL (Feb 2008)!
+                            	The inquisitive students in Mr. Kwirant's biology classroom will be the first to use the new WISE 3.0 Portal. 
+                            	Thank you, kids, for your participation in this cutting-edge education technology system. Your feedback about the website and the project will help us make both better over time.  
+                            	We appreciate your patience dealing with any bugs or problems that may appear in this Beta system. 
+
+                            	Sincerely, 
+                            	
+                            	The WISE Technology Team at UC Berkeley.
                             	</textarea>
                        		</div>
                                 

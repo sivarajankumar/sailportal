@@ -46,7 +46,7 @@
 </style>
 
 <div id="tabSystem" class="yui-navset">
-    <ul style="font-weight:bold; font-size:.8em; letter-spacing:1px;" class="yui-nav">
+    <ul style="font-weight:bold; font-size:.7em; letter-spacing:1px;" class="yui-nav">
         <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
         <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
     </ul>            

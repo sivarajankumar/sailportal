@@ -157,6 +157,7 @@
 			<ul>
 			<li><a href="projects/projectlibrary.html">Project Library</a></li>
 			<li><a href="run/myprojectruns.html">My Project Runs</a></li>
+			<li><a href="run/myprojectruns.html">View Student Codes</a></li>
 			<li class="inactivecolor">My Bookmarked Projects</li>
 			<li class="inactivecolor">My Customized Projects</li>
 			</ul>
