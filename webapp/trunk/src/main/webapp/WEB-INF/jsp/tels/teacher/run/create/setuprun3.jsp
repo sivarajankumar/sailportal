@@ -77,14 +77,13 @@ if(form.manualCheckbox.checked==true){
 
 <%@ include file="L2projectsnohighlight.jsp"%>
 
-<div id="titleBarSetUpRun">
-    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+<h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
 
 <div id="setUpRunBox">
 
 <div id="stepNumber">Step 3 of 6:<span class="blueText">&nbsp; Select Periods</span></div>
 
-<h4>Select the classroom period/periods during which you'll run the project, then click <em>Next</em>.</h4>
+<h5 style="margin:20px 0px 15px 0;">Select the classroom period/periods during which you'll run the project, then click <em>Next</em>.</h5>
 
 <form:form method="post" commandName="runParameters">
 
@@ -97,7 +96,7 @@ if(form.manualCheckbox.checked==true){
     </div>
 
 <div>
-	<h4>OR enter manually named periods:</h4>
+	<h5>OR enter manually named periods:</h5>
 	<form:textarea path="manuallyEnteredPeriods" id="manualperiodsinput" rows="1" cols="70"/>
 	<div id="manualperiodsinstructions">Separate manually named periods with commas or spaces.  
 		Example: "Section1, Section2, Section3" 	<br />

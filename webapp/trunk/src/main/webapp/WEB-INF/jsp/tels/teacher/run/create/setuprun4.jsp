@@ -42,20 +42,19 @@
 
 <%@ include file="L2projectsnohighlight.jsp"%>
 
-<div id="titleBarSetUpRun">
-    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+<h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
 
 <div id="setUpRunBox">
 
 	<div id="stepNumber">Step 4 of 6:<span class="blueText">&nbsp Review Lesson Plan</span></div>
 
-	<h4>We recommend that you <a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.review-lesson-plan" /></a>
-	<spring:message code="teacher.review-lesson-plan-rest" /></h4>
+	<h5>We recommend that you <a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.review-lesson-plan" /></a>
+	<spring:message code="teacher.review-lesson-plan-rest" /></h5>
 
-	<h5 class="indent15px"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h5>
-	<h4><spring:message code="teacher.skip-lesson-plan" />
+	<h6 class="indent15px"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h6>
+	<h5><spring:message code="teacher.skip-lesson-plan" />
 		<i><spring:message code="navigate.next" /></i>
-		<spring:message code="teacher.skip-lesson-plan-below" /></h4>
+		<spring:message code="teacher.skip-lesson-plan-below" /></h5>
  </div>    
  
 <form method="post" class="center">

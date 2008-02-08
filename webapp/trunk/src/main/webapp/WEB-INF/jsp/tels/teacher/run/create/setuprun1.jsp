@@ -44,15 +44,15 @@
 
 <%@ include file="L2projectsnohighlight.jsp"%>
 
-<div id="titleBarSetUpRun">
-    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+<h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
      	    	    
 <div id="setUpRunBox">
 
 <div id="stepNumber">Step 1 of 6:<span class="blueText">&nbsp Confirm Project</span></div>
-<h5>This process will help you set up a <em>Project Run</em> so students can load and run the project. You can cancel this process at any time.</h5>
 
-<h4>You have selected the following [Library/Customized] project to run in your classroom:</h4>
+<h5>This process will help you set up a <em>Project Run</em> so students can load and run the project. <br/>You can cancel this process at any time.</h5>
+
+<h5>You have selected the following [Library/Customized] project to run in your classroom:</h5>
 
 <table id="projectTable" border="1" cellpadding="3" cellspacing="2">
 	<tr id="projectTableR1">
@@ -65,20 +65,20 @@
 		<td>Usage</td>
 	</tr>
 	<tr id="projectTableR2">
-		<td><strong>${project.curnit.sdsCurnit.name}</strong></td>
-		<td>"${project.curnit.id}"</td>
-		<td>
-		</td>
-		<td>"${project.curnit.totalTime}"</td>
-		<td>"${project.curnit.computerTime}"</td>
-		<td>127 runs</td>
+		<td class="setupProjectTitle">${project.curnit.sdsCurnit.name}</td>
+		<td>[6 dig ID here]</td>       		   <!--		""${project.curnit.id}""-->
+		<td>[Topics/Keywords here]</td>
+		<td>[Grades(s) here]</td>              <!--		"${project.curnit.totalTime}"-->
+		<td>[# Periods here]</td>              <!--		"${project.curnit.computerTime}"-->
+		<td>[# Periods here]</td>
+		<td>[# Runs Here]
 	</tr>
 	<tr id="projectTableR3">
-		<td class="indent15px" colspan="7">${project.curnit.description}</td>
+		<td class="indent15px" colspan="7">${project.curnit.description}[Project Description goes here]</td>
 	</tr>
 	</table>
 			
-<h4>If this is the correct project, select <em>Next</em> below.</h4>
+<h5>If this is the correct project, select <em>Next</em> below.</h5>
 
 </div> <!-- /* End setUpRunBox */-->
 

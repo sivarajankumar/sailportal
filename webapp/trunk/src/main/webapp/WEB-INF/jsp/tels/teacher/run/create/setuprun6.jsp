@@ -104,26 +104,25 @@
 
 <%@ include file="L2projectsnohighlight.jsp"%>
 
-<div id="titleBarSetUpRun">
-    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+<h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
 
 <div id="setUpRunBox">
 
 	<div id="stepNumber">Step 6 of 6:<span class="blueText">&nbsp Help Documentation</span></div>
 
-	<h4>First time running a classroom project?  If so check out the 
-		<a href="#" onclick="javascript:alert('Project Preview Not Available Yet')">Guide to Using WISE 3.0 in the Classroom</a>.</h4>
+	<h5>First time running a classroom project?  If so check out the 
+		<a href="#" onclick="javascript:alert('Project Preview Not Available Yet')">Guide to Using WISE 3.0 in the Classroom</a>.</h5>
 	
-   	<h5 class="indent15px">
+   	<h6 class="indent15px">
    		<ul>
    		<li>This guide contains everything you need to know about setting up your classroom computers and having your students 
    				register, form groups, and load projects. 
    				It also offers tips if you encounter difficulty during a project run (for instance, if a student loses a password).</li>
    		<li>These help documents are accessible at any time by clicking the HELP button at the top of the screen.</li>
    		</ul>
-   	</h5>
+   	</h6>
 
-	<h4>To complete the creation of your project run click <em>Done</em> below. </h4>
+	<h5>To complete the creation of your project run click <em>Done</em> below. </h5>
 		
 </div>
 

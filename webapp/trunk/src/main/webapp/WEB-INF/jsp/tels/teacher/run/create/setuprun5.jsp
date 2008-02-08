@@ -40,23 +40,22 @@
 
 <%@ include file="L2projectsnohighlight.jsp"%>
 
-<div id="titleBarSetUpRun">
-    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+<h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
 
 <div id="setUpRunBox">
 
 	<div id="stepNumber">Step 5 of 6:<span class="blueText">&nbsp Preview the Project</span></div>
 
-	<h4><spring:message code="teacher.recommend-preview-project" />
+	<h5><spring:message code="teacher.recommend-preview-project" />
 		<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">
 		<spring:message code="teacher.preview-project" /> </a>
-		<spring:message code="teacher.before-running" /></h4>
+		<spring:message code="teacher.before-running" /></h5>
 		
-	<h5 class="indent15px"><spring:message code="teacher.preview-project-now" /></h5>
+	<h6 class="indent15px"><spring:message code="teacher.preview-project-now" /></h6>
 
-	<h4><spring:message code="teacher.cont-no-preview" />
+	<h5><spring:message code="teacher.cont-no-preview" />
 		<i><spring:message code="navigate.next" /></i>
-		<spring:message code="teacher.cont-no-preview-below" /></h4>
+		<spring:message code="teacher.cont-no-preview-below" /></h5>
 </div>
 
 <form class="center" method="post">

@@ -45,15 +45,13 @@
 
 <%@ include file="L2projectsnohighlight.jsp"%>
 
-<div id="titleBarSetUpRun">
-    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
-</div>
+<h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
 
 <div id="setUpRunBoxConfirm">
 
 	<div id="stepNumber"><span class="blueText">Project Run Created!</span></div>
 	
-		<h4>Your new project run has been placed in the <a href="myprojectruns.html">My Project Runs</a> area.</h4>
+		<h5>Your new project run has been placed in the <a href="myprojectruns.html">My Project Runs</a> area.</h5>
 		
 		<table id="projectRunConfirmTable" border="1" cellpadding="5" cellspacing="0" >
 				<tr>

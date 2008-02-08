@@ -42,16 +42,15 @@
 
 <%@ include file="L2projectsnohighlight.jsp"%>
 
-<div id="titleBarSetUpRun">
-    	<h1 class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1></div>
+<h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
      	    	    
 <div id="setUpRunBox">
 
 <div id="stepNumber">Step 2 of 6:<span class="blueText">&nbsp; Archive Existing Project Runs</span></div>
 
-<h4>Your currently active project runs are listed below.  If these project runs are now complete, you can archive them using the ARCHIVE boxes.</h4>
-<h5 class="indent15px">Note:  when you archive a project run no information is lost.  The project is simply moved to the an Archive area for storage. 
-Previous student work and teacher feedback in archived projects can be viewed again at any time. </h5>
+<h5>Your currently active project runs are listed below.  If these project runs are now complete, you can archive them using the ARCHIVE boxes.</h5>
+<h6 class="indent15px">Note:  when you archive a project run no information is lost.  The project is simply moved to the an Archive area for storage. 
+Previous student work and teacher feedback in archived projects can be viewed again at any time. </h6>
 
 <c:choose>
 	<c:when test="${fn:length(existingRunList) == 0}">
@@ -77,7 +76,7 @@ Previous student work and teacher feedback in archived projects can be viewed ag
 	     </tr>
 	</c:forEach>
 	</table>
-	<h4>If you do not wish to archive any project runs, leave the boxes unchecked and click <em>Next</em> to continue.</h4>
+	<h5>If you do not wish to archive any project runs, leave the boxes unchecked and click <em>Next</em> to continue.</h5>
 	</c:otherwise>
 </c:choose>
 
