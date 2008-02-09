@@ -63,9 +63,10 @@ public class Initializer {
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers(
                     applicationContext);
             createDefaultUsers.createRoles(applicationContext);
-            User adminUser = createDefaultUsers.createAdministrator(applicationContext, "admin",
+            // note: change this admin's password once the portal is deployed on server
+            User adminUser = createDefaultUsers.createAdministrator(applicationContext, "ad", "min",
                     "pass");
-
+            
 			// createDefaultOfferings requires security context so that ACL
 			// entries can be created for the default offerings.
 			// this also means that the only user allowed to "see" offerings at
@@ -78,6 +79,11 @@ public class Initializer {
 			securityContext.setAuthentication(authority);
 			SecurityContextHolder.setContext(securityContext);
             
+			// next create a preview user, who is just another teacher
+			// this user will be used to preview projects (in 'Instant Preview' page)
+			User previewUser = createDefaultUsers.createPreviewUser(applicationContext, "preview", 
+					"user", "preview");
+			
             CreateDefaultOfferings createDefaultOfferings = new CreateDefaultOfferings(
                     applicationContext);
             Curnit[] curnits = createDefaultOfferings
@@ -86,10 +92,6 @@ public class Initializer {
                     .createDefaultJnlps(applicationContext);
             Project[] projects = createDefaultOfferings
                     .createDefaultProjects(applicationContext, curnits, jnlps);
-            
-            //createDefaultOfferings.createDefaultOfferings(applicationContext,
-            //        curnits, jnlps);
-
         } catch (Exception all) {
             System.err.println(all.getLocalizedMessage());
             all.printStackTrace(System.out);

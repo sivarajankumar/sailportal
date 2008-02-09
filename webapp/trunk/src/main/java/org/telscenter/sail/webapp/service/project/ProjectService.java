@@ -27,6 +27,7 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
@@ -44,6 +45,7 @@ public interface ProjectService {
 	 * Get a <code>List</code> of <code>Project</code>
 	 * @return a <code>List</code> of <code>Project</code>
 	 */
+	@Transactional
 	public List<Project> getProjectList();
 	
 	/**

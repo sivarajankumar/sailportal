@@ -31,7 +31,9 @@ import org.acegisecurity.GrantedAuthority;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
+import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
@@ -45,7 +47,21 @@ import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
  */
 public class CreateDefaultUsers {
 
-    private UserDetailsService userDetailsService = null;
+    private static final String DEFAULT_CITY = "Berkeley";
+
+	private static final String DEFAULT_COUNTRY = "USA";
+
+	private static final String DEFAULT_STATE = "CA";
+
+	private static final String[] DEFAULT_CURRICULUMSUBJECTS = {"biology"};
+
+	private static final Schoollevel DEFAULT_SCHOOLLEVEL = Schoollevel.COLLEGE;
+
+	private static final String DEFAULT_SCHOOLNAME = "Berkeley";
+
+	private static final Date DEFAULT_SIGNUPDATE = Calendar.getInstance().getTime();
+
+	private UserDetailsService userDetailsService = null;
 
     private UserService userService = null;
 
@@ -70,8 +86,10 @@ public class CreateDefaultUsers {
      * 
      * @param applicationContext
      *                The Spring application context that contains the beans.
-     * @param username
-     *                The username.
+     * @param firstname
+     *                The firstname.
+     * @param lastname
+     *                The lastname.
      * @param password
      *                The password.
      * @return A User object with UserDetails set including username and
@@ -86,22 +104,74 @@ public class CreateDefaultUsers {
      *                 username or null password)
      */
     public User createAdministrator(ApplicationContext applicationContext,
-            String username, String password)
+            String firstname, String lastname, String password)
             throws AuthorityNotFoundException, DuplicateUsernameException {
-        StudentUserDetails userDetails = (StudentUserDetails) applicationContext
-                .getBean("studentUserDetails");
-        Date now = Calendar.getInstance().getTime();
+        TeacherUserDetails userDetails = (TeacherUserDetails) applicationContext
+                .getBean("teacherUserDetails");
         userDetails.setPassword(password);
-        userDetails.setFirstname(username);
-        userDetails.setLastname(username);
-        userDetails.setGender(Gender.FEMALE);
-        userDetails.setBirthday(now);
-        userDetails.setSignupdate(now);
-        userDetails.setAccountQuestion("who's your daddy?");
-        userDetails.setAccountAnswer("uh huh, you know it");
-        GrantedAuthority authority = this.userDetailsService
+        userDetails.setFirstname(firstname);
+        userDetails.setLastname(lastname);
+        userDetails.setCity(DEFAULT_CITY);
+        userDetails.setCountry(DEFAULT_COUNTRY);
+        userDetails.setCurriculumsubjects(DEFAULT_CURRICULUMSUBJECTS);
+        userDetails.setState(DEFAULT_STATE);
+        userDetails.setSchoollevel(DEFAULT_SCHOOLLEVEL);
+        userDetails.setSchoolname(DEFAULT_SCHOOLNAME);
+        userDetails.setSignupdate(DEFAULT_SIGNUPDATE);
+        GrantedAuthority adminAuthority = this.userDetailsService
                 .loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
-        userDetails.addAuthority(authority);
+        GrantedAuthority teacherAuthority = this.userDetailsService
+                .loadAuthorityByName(UserDetailsService.TEACHER_ROLE);
+        userDetails.addAuthority(adminAuthority);
+        userDetails.addAuthority(teacherAuthority);
+
+        return this.userService.createUser(userDetails);
+    }
+    
+    /**
+     * Creates a PreviewUser that will be used in 'Instant Preview' page to allow 
+     * any visitor to the site to preview projects without having to log in.
+     * 
+     * The PreviewUser is granted the same ROLES as a Teacher user
+     * 
+     * @param applicationContext
+     *                The Spring application context that contains the beans.
+     * @param firstname
+     *                The firstname.
+     * @param lastname
+     *                The lastname.
+     * @param password
+     *                The password.
+     * @return A User object with UserDetails set including username and
+     *         password that were input and with roles
+     *         UserDetailsService.USER_ROLE and UserDetailsService.ADMIN_ROLE
+     *         authorities.
+     * @throws AuthorityNotFoundException
+     *                 If the user or admin roles are not already loaded into
+     *                 the granted authority table in data store.
+     * @throws UserCreationException
+     *                 If the user cannot be created (duplicate user name, null
+     *                 username or null password)
+     */
+    public User createPreviewUser(ApplicationContext applicationContext,
+            String firstname, String lastname, String password)
+            throws AuthorityNotFoundException, DuplicateUsernameException {
+        TeacherUserDetails userDetails = (TeacherUserDetails) applicationContext
+                .getBean("teacherUserDetails");
+        userDetails.setPassword(password);
+        userDetails.setFirstname(firstname);
+        userDetails.setLastname(lastname);
+        userDetails.setCity(DEFAULT_CITY);
+        userDetails.setCountry(DEFAULT_COUNTRY);
+        userDetails.setCurriculumsubjects(DEFAULT_CURRICULUMSUBJECTS);
+        userDetails.setState(DEFAULT_STATE);
+        userDetails.setSchoollevel(DEFAULT_SCHOOLLEVEL);
+        userDetails.setSchoolname(DEFAULT_SCHOOLNAME);
+        userDetails.setSignupdate(DEFAULT_SIGNUPDATE);
+        GrantedAuthority teacherAuthority = this.userDetailsService
+                .loadAuthorityByName(UserDetailsService.TEACHER_ROLE);
+        userDetails.addAuthority(teacherAuthority);
+
         return this.userService.createUser(userDetails);
     }
 

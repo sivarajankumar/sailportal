@@ -116,6 +116,7 @@ public class ProjectServiceImpl implements ProjectService {
 	 * @param project
 	 * @throws ObjectNotFoundException 
 	 */
+	@Transactional
 	private void createPreviewRun(Project project) throws ObjectNotFoundException {
 		RunParameters runParameters = new RunParameters();
 		runParameters.setCurnitId(project.getCurnit().getId());
@@ -145,12 +146,13 @@ public class ProjectServiceImpl implements ProjectService {
 	 * @throws IOException 
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#previewProject(java.lang.Long)
 	 */
+	@Transactional
 	public ModelAndView previewProject(PreviewProjectParameters params) throws ObjectNotFoundException, IOException {
 		Project project = params.getProject();
 		// this is a temporary hack until projects can be run without have to create a 
 		// workgroup with at least 1 member in it. See this JIRA task:
 		// http://jira.concord.org/browse/SDS-23
-		User previewUser = userService.retrieveById(new Long(1));
+		User previewUser = userService.retrieveById(new Long(2));// preview user is user #2 in the database
 		Workgroup previewWorkgroup = 
 			workgroupService.getWorkgroupForPreviewOffering(project.getPreviewRun(), previewUser);
 		
