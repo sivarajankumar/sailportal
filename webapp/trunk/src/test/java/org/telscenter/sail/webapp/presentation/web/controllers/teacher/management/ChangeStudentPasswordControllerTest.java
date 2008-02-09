@@ -38,7 +38,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import net.sf.sail.webapp.service.UserService;
 import org.telscenter.sail.webapp.domain.impl.ChangeStudentPasswordParameters;
-import org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeStudentPasswordController;
+import org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeUserPasswordController;
 
 /**
  * @author patricklawler
@@ -54,7 +54,7 @@ public class ChangeStudentPasswordControllerTest extends AbstractModelAndViewTes
 	
 	private static final String STUDENT_NAME = "z";
 
-	private ChangeStudentPasswordController changeStudentPasswordController;
+	private ChangeUserPasswordController changeStudentPasswordController;
 	
 	private ChangeStudentPasswordParameters changeStudentPasswordParameters;
 	
@@ -98,7 +98,7 @@ public class ChangeStudentPasswordControllerTest extends AbstractModelAndViewTes
 		this.request.setSession(mockSession);
 		
 		this.mockUserService = createMock(UserService.class);
-		changeStudentPasswordController = new ChangeStudentPasswordController();
+		changeStudentPasswordController = new ChangeUserPasswordController();
 		changeStudentPasswordController.setApplicationContext(mockApplicationContext);
 		changeStudentPasswordController.setUserService(mockUserService);
 		changeStudentPasswordController.setSuccessView(SUCCESS);

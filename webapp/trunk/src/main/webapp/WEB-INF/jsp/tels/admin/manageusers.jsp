@@ -5,13 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
     
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>
-
+<script type="text/javascript" src=".././javascript/tels/general.js"></script>
     
 <title><spring:message code="application.title" /></title>
 
@@ -25,9 +23,15 @@
 
 </head>
 <body>
-If you see this, you have admin privileges.
+If you see this, you have admin privileges.<br>
+View all users:
 
-<a href="manageusers.html">change any user's password</a>
+<c:forEach var="user" items="${all_users_list}">
+<li>${user.userDetails.firstname} ${user.userDetails.lastname}
+<a href="#" onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${user.userDetails.username}');">Password</a>
+</li>
+</c:forEach>
+
 
 </body>
 </html>

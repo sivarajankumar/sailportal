@@ -137,6 +137,7 @@
 				/author/registermodule.html=registerCurnitController
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
+				/admin/manageusers.html=viewAllUsersController
     		</value>
     	</property>
     </bean>

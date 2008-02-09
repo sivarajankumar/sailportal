@@ -299,7 +299,7 @@
 		<property name="runService" ref="runService" />
 	</bean>
 	
-		<bean id="projectPickerGradingController"
+	<bean id="projectPickerGradingController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.ProjectPickerGradingController">
 		<property name="runService" ref="runService" />
 	</bean>
@@ -485,7 +485,7 @@
 	</bean>
 	
 	<bean id="changeStudentPasswordController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeStudentPasswordController">
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeUserPasswordController">
 		<property name="formView" value="/teacher/management/changestudentpassword"/>
 		<property name="successView" value="changepasswordsuccess"/>
 		<property name="userService" ref="userService"/>
@@ -531,6 +531,12 @@
 	<bean id="projectParameters" 
 	    class="org.telscenter.sail.webapp.domain.impl.ProjectParameters">
 	</bean>
+	
+	<bean id="viewAllUsersController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ViewAllUsersController">
+		<property name="userService" ref="userService" />
+	</bean>
+	
     
     
 </beans>
