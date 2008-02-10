@@ -25,7 +25,7 @@
 
 </head>
 <body>
-	<a href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a><br>
+<%@ include file="adminheader.jsp"%>
 
 
 If you see this, you have admin privileges.<br>
