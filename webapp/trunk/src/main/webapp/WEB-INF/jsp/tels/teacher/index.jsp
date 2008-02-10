@@ -51,6 +51,8 @@
 
 <%@ include file="../L2homebar.jsp"%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div id="welcomeRow">
 
 <div id="welcomeBox" class="panelStyling">
@@ -60,21 +62,48 @@
 	<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
 			<tr class="tableRowBorder">
 				<td class="tableColor" style="width:26%;">Current User:</td>
-				<td>[Full Name for current user]</td>
+				<td>${user.userDetails.firstname}current user goes here${user.userDetails.lastname} </td>
 			</tr>
 			<tr class="tableRowBorder">
 				<td class="tableColor" style="width:26%;">Current Sign In:</td>
-				<td>[Current SignIn Date/Time Stamp]</td>
+				<c:set var="current_date" value="<%= new java.util.Date() %>" />
+				<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
 			</tr>
 			<tr class="tableRowBorder">
 				<td class="tableColor">Last Sign In:</td>
-				<td>[Most Recent SignIn Date/Time Stamp]</td>
+				<td>
+				<c:choose>
+					<c:when test="${user.userDetails.lastLoginTime == null}">
+						never
+					</c:when>
+					<c:otherwise>
+						<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
+							type="both" dateStyle="short" timeStyle="short" />
+					</c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td class="tableColor">Announcements:</td>
 				<td>
 					<ul>
-					<li><b>[Good morning!]</b></li>
+					<li><b>
+					<c:choose>
+				        <c:when test="${(current_date.month == user.userDetails.birthday.month) &&
+				                        (current_date.day == user.userDetails.birthday.day)}" >
+				            Happy Birthday!
+				        </c:when>
+				        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
+				            Good morning!
+				        </c:when>
+				        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
+							Good afternoon!	
+				        </c:when>
+				        <c:otherwise>
+							Hello Night Owl!
+				        </c:otherwise>
+				    </c:choose>
+    				</b></li>
 					<li><b>[You have gradable work ready in 2 projects. See links to right.]</b></li>
 					<li><b>[Announcement 3]</b></li>
 					</ul>

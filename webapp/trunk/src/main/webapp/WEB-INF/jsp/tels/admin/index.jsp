@@ -25,7 +25,11 @@
 
 </head>
 <body>
-If you see this, you have admin privileges.
+	<a href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a><br>
+
+
+If you see this, you have admin privileges.<br>
+
 
 <a href="manageusers.html">change any user's password</a>
 

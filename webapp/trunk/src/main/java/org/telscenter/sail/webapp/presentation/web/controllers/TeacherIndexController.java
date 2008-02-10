@@ -25,6 +25,10 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -35,16 +39,24 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @version $Id: $
  */
 public class TeacherIndexController extends AbstractController {
+	
+	private final static String CURRENT_DATE = "current_date";
+	
+	private final static String VIEW_NAME = "teacher/index";
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
+	protected ModelAndView handleRequestInternal(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+    	ControllerUtil.addUserToModelAndView(request, modelAndView);
+    	User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
 
+    	modelAndView.addObject(CURRENT_DATE, null);
         return modelAndView;
 	}
 
