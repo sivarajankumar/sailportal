@@ -53,12 +53,7 @@
 	
 	<bean id="adminOfferingValidator"
 		class="net.sf.sail.webapp.presentation.validators.AdminOfferingValidator" />
-<!--
-	<bean
-		class="net.sf.sail.webapp.presentation.web.controllers.CurnitListController">
-		<property name="curnitService" ref="curnitService" />
-	</bean>
--->
+
 	<bean
 		class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
 	</bean>
