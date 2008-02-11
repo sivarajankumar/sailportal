@@ -62,7 +62,7 @@
 	<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
 			<tr class="tableRowBorder">
 				<td class="tableColor" style="width:26%;">Current User:</td>
-				<td>${user.userDetails.firstname}current user goes here${user.userDetails.lastname} </td>
+				<td>${user.userDetails.firstname} ${user.userDetails.lastname} </td>
 			</tr>
 			<tr class="tableRowBorder">
 				<td class="tableColor" style="width:26%;">Current Sign In:</td>
@@ -89,10 +89,6 @@
 					<ul>
 					<li><b>
 					<c:choose>
-				        <c:when test="${(current_date.month == user.userDetails.birthday.month) &&
-				                        (current_date.day == user.userDetails.birthday.day)}" >
-				            Happy Birthday!
-				        </c:when>
 				        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
 				            Good morning!
 				        </c:when>

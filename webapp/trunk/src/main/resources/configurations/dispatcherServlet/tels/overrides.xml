@@ -79,6 +79,7 @@
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController
+     		    /teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
     		    /teacher/states.html=statesController

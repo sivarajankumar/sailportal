@@ -25,8 +25,6 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -53,8 +51,6 @@ public class TeacherIndexController extends AbstractController {
 
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
-    	User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
 
     	modelAndView.addObject(CURRENT_DATE, null);
         return modelAndView;
