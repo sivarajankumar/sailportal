@@ -76,12 +76,12 @@
 	<thead>
 		<tr>
 			<th style="width:50%; text-align:left;" scope="col">Project Title</th>
-			<th scope="col">Project #</th>
-			<th scope="col">Started</th>
-			<th scope="col">Ended</th>
-			<th scope="col">Periods</th>
-			<th scope="col">Subject</th>
-			<th scope="col">Ungraded Items</th>
+			<th scope="col">Project ID</th>
+			<th scope="col">Run <br/>Started On</th>
+			<th scope="col">Run <br/>Ended On</th>
+			<th scope="col">Period(s)</th>
+			<th scope="col">Subject(s)</th>
+			<th scope="col">Items <br/>to Grade</th>
 		</tr>
 	</thead>
 	<tbody>	
