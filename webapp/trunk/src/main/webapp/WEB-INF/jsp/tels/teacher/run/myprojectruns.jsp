@@ -67,8 +67,8 @@
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.sdsOffering.name}</div>
-				      	<div id="titleSubHeader">&middot; [DATA NEEDED: project type/project id] "library project, ID 21351"&middot;</div>
-				    	<div id="titleSubHeader">&middot; [DATA NEEDED: run creation date]  "created 4/12/07 &middot;</div>
+				      	<div id="titleSubHeader">[Library Project], [Project ID 24569]</div>
+				    	<div id="titleSubHeader">[Created 3/24/2008]</div>
 				    </td>
 				    <td style="vertical-align:top; padding:0px;">
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">

@@ -14,7 +14,7 @@
 	}
 	
 #overviewHeaderGrading {
-	font-size:1.5em;
+	font-size:1.1em;
 	letter-spacing:3px;
 	font-variant:small-caps;
 	margin: 10px 0 0 30px;
@@ -22,7 +22,7 @@
 }
 
 #overviewHeaderGradingv2 {
-	font-size:1.5em;
+	font-size:1.1em;
 	letter-spacing:3px;
 	font-variant:small-caps;
 	margin: 10px 0 10px 0px;
@@ -34,13 +34,13 @@
 }
 	
 #overview_choices_grading .link_grading  {
-	font-size:1.6em;
+	font-size:1.2em;
 	font-weight:bold;
 	width:440px;
 	}
 
 #overview_choices_grading .description_grading  {
-	font-size:.9em;
+	font-size:.7em;
 	margin:0px;
 	padding:2px;
 	vertical-align:middle;
@@ -81,41 +81,45 @@
 	
 #gradeStepSelectedProject {
 	color:#CC0000;
-	font-size:2.2em;
+	font-size:1.8em;
 	font-weight:bold;
 	font-variant:small-caps;
 	}	
+
+#selectAnotherLink  {
+	margin-top:3px;
+}
 	
 #selectAnotherLink a:link, #selectAnotherLink a:visited {
-	font-size: .6em;
+	font-size: .8em;
 	background-color:#FFFFFF;
-	margin-left:12px;
 	padding:2px;
-	font-weight:normal;
-	font-variant:normal;
 }
 
 #selectAnotherLink a:hover  {
-	font-size: .6em;
+	font-size: .8em;
 	background-color:#FFFF33;
+	padding:2px; 
 	color:#000033;
-	margin-left:12px;
-	padding:2px;
 	}
 			
 #gradeStepInstructions {
-	font-size:1.5em;
+	font-size:1.1em;
 	font-style:italic;
 	margin: 10px 0 25px 0;
 	padding-bottom:10px;
 	border-bottom:1px solid gray;
 	width:80%;
-	}	
-			
+	}		
+	
+#stepSelectionList {
+
+}
+
 #stepSelectionList li {
 	list-style:circle;
-	font-size:1.4em;
-	margin:3px 0 3px 0;
+	font-size:1.0em;
+	margin:0px 0 3px 0;
 }
 
 #stepSelectionList a:link, #stepSelectionList a:visited {

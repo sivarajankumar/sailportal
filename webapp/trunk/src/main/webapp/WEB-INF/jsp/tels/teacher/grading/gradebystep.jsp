@@ -122,12 +122,13 @@
 <div id="gradeStepSelectionArea">
 
 <div>
-	<div id="gradeStepSelectedProject">${curnitMap.project.title} <span id="selectAnotherLink"><a href="projectPickerGrading.html">select another project</a></div>
+	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
+	<div id="selectAnotherLink"><a href="projectPickerGrading.html">Select Another Project</a></div>
 
 	<div id="gradeStepInstructions">Select a step to grade below</div>
 		
    <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
-		<h3>Activity ${someAct.number+1}: ${someAct.title}</h3>  
+		<h4 style="padding-bottom:0px; margin-bottom:0px;">Activity ${someAct.number+1}: ${someAct.title}</h4>  
 		<ul id="stepSelectionList"> 
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
 				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a>    (${someStep.type})</li></c:if>
@@ -141,6 +142,8 @@
 
 </div>      <!--End of Centered Div-->
 
+</div>
+</div>
 </body>
 
 </html>
