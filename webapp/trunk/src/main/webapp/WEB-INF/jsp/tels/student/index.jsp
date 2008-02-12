@@ -137,7 +137,7 @@
 	
 	// Instantiate the Dialog
 	var changePasswordDialog = new YAHOO.widget.Dialog("changePasswordDialog", 
-																{ width : "525px",
+																{ width : "650px",
 																  // height : "300px",
 																  fixedcenter : true,
 																  visible : false, 
@@ -313,11 +313,13 @@ YAHOO.util.Event.onDOMReady(init);
 	</ul>
 </div>
 
-<div style="display:none;" id="displayAsEnglish"><a href="#">Display in English</a></div>
+<div style="text-align:center;"><img src="../themes/tels/default/images/student/Panda.jpg" width="220"  alt="WIse 3 Panda" /></div>
 
 <div style="text-align:center;"><img src="../themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></div>
 
-<div id="displayAsEnglish">WISE 3.0 &#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link">Contact WISE</a></div>
+<div id="displayAsEnglish">WISE 3.0 & Amanda the Panda <br/>&#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link">Contact WISE</a></div>
+
+<div style="display:none;" id="displayAsEnglish"><a href="#">Display in English</a></div>
 
 
 </div>   <!--end of columnButtons, floated to left-->

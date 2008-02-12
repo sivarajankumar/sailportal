@@ -104,12 +104,12 @@ table tr, table td {
 	text-align:center;
 	font-size: 1em;
 	font-weight:bold;
-	margin:0px 0 15px 0px;
-	padding-top:15px;
+	margin:0px 0 15px 6px;
+	padding: 15px 0 0 0px ;
 }
 
-#optionButtons ul{
-	margin:0;
+#optionButtons ul{ 
+	margin:0 0 0 6px;
 	padding:0;
 }
 
@@ -137,12 +137,14 @@ table tr, table td {
 	}
 
 #columnLabel {
-	color:#3333cc;
+	background-color:#FFFF66;
+	color:#000000;
 	font-size:1.3em;
-	font-weight:bold;
-	letter-spacing:4px;
+	letter-spacing:3px;
 	text-align:left;
-	margin: 25px 0 10px 0;
+	padding: 5px 5px 5px 8px;
+	margin: 17px 0 15px 0;
+	border:1px solid #666666;
 }
 
 #currentRunTable{
@@ -177,7 +179,7 @@ table tr, table td {
 	width:14%;
 	padding: 0px 5px;
 	border-right:1px solid #666666;
-	background-color:#CCFF99;
+	background-color:#FFFF99;
 	}
 	
 .studentTableLeftHeaderArchive {
