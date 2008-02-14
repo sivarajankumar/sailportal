@@ -57,6 +57,8 @@ import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ViewMyStudentsController;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -87,6 +89,8 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 	private String default_runId = "5";
 	
 	private Run run;
+	
+	private Project mockProject;
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -122,6 +126,9 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 		Set<User> owners = new HashSet<User>();
 		owners.add(user);
 		run.setOwners(owners);
+		this.mockProject = EasyMock.createMock(Project.class);
+		run.setProject(mockProject);
+		
 
 		this.expectedRunList = new LinkedList<Run>();
 		this.expectedRunList.add(run);
@@ -184,8 +191,11 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 				emptyRunList);
 		EasyMock.expect(mockRunService.retrieveById(Long.valueOf(default_runId))).andReturn(run);
 		EasyMock.expect(mockRunService.getWorkgroups(Long.valueOf(default_runId))).andReturn(null);
+		EasyMock.expect(mockProject.getId()).andReturn((long) 1);
+		
 		EasyMock.replay(this.mockRunService);
 		EasyMock.replay(this.mockWorkgroupService);
+		EasyMock.replay(this.mockProject);
 
 		ModelAndView modelAndView = viewMyStudentsController
 		.handleRequestInternal(request, response);
@@ -195,5 +205,6 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 		assertModelAttributeValue(modelAndView, ViewMyStudentsController.HTTP_TRANSPORT_KEY, this.mockHttpTransport);
 		EasyMock.verify(this.mockRunService);
 		EasyMock.verify(this.mockWorkgroupService);
+		EasyMock.verify(this.mockProject);
 	}
 }
