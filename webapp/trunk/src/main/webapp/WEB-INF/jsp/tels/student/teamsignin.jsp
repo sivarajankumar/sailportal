@@ -70,7 +70,7 @@
 		  </c:forEach>
 			</table>
 			
-	 <div id="finalRunProjectButton" onclick="setTimeout('self.close()', 5000);">
+	 <div id="finalRunProjectButton" onclick="setTimeout('self.close()', 12000);">
  	    <input type="image" name=_finish" value="Run Project" id="runproject" src="../<spring:theme code="run_project" />" 
     		onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />')" 
     		onmouseout="swapImage('runproject','../<spring:theme code="run_project" />')" />
