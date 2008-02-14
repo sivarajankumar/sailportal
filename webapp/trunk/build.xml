@@ -140,13 +140,37 @@
     <!-- ================================= 
           target: db.schema-export
          ================================= -->
-    <target name="db.schema-export" depends="_set.properties.jdbc,_mvn.compile, _input.portal.config" description="Generate the database schema from annotated persistent classes in the production code.">
-        <mkdir dir="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}" />
+    <target name="db.schema-export" description="Generate the database schema from annotated persistent classes in the production code.">
+        <property name="portal.config" value="tels"/>
+
+	<antcall target="_mvn.recompile"/>
+
+        <mkdir dir="${dir.src.db}/hsqldb"/>
+        <mkdir dir="${dir.src.db}/mysql"/>
+        
+        <replace file="${basedir}/target/classes/hibernate.properties" token="org.hibernate.dialect.MySQLInnoDBDialect" value="org.hibernate.dialect.HSQLDialect"/>
         <java classname="net.sf.sail.webapp.DbSchemaExporter" fork="true" failonerror="true" newenvironment="true">
-            <arg value="${spring.configuration.classname}" />
-            <arg value="${dir.src.db}/${settings.profiles.profile.properties.db.vendor}/${schema.export.filename}" />
+            <arg value="net.sf.sail.webapp.spring.impl.SpringConfigurationImpl" />
+            <arg value="${dir.src.db}/hsqldb/hibernate-pas.sql" />
             <classpath refid="runtime.classpath" />
         </java>
+        <java classname="net.sf.sail.webapp.DbSchemaExporter" fork="true" failonerror="true" newenvironment="true">
+            <arg value="org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl" />
+            <arg value="${dir.src.db}/hsqldb/hibernate-tels.sql" />
+            <classpath refid="runtime.classpath" />
+        </java>
+        
+        <replace file="${basedir}/target/classes/hibernate.properties" token="org.hibernate.dialect.HSQLDialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
+        <java classname="net.sf.sail.webapp.DbSchemaExporter" fork="true" failonerror="true" newenvironment="true">
+            <arg value="net.sf.sail.webapp.spring.impl.SpringConfigurationImpl" />
+            <arg value="${dir.src.db}/mysql/hibernate-pas.sql" />
+            <classpath refid="runtime.classpath" />
+        </java>
+        <java classname="net.sf.sail.webapp.DbSchemaExporter" fork="true" failonerror="true" newenvironment="true">
+            <arg value="org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl" />
+            <arg value="${dir.src.db}/mysql/hibernate-tels.sql" />
+            <classpath refid="runtime.classpath" />
+        </java>        
     </target>
 
 
@@ -256,7 +280,21 @@
             <arg value="resources:resources" />
         </exec>
     </target>
-
+    
+    <target name="_mvn.recompile" depends="_verify.version.ant">
+        <!-- this should work in Linux, Mac OS X, and other Unix-like OS -->
+        <exec osfamily="Unix" executable="mvn" failonerror="true" failifexecutionfails="true">
+            <arg value="clean" />
+            <arg value="compile" />
+        </exec>
+        <!-- this should work for Microsoft Windows NT-based systems, including Windows 2000, XP and successors -->
+        <exec osfamily="Winnt" executable="cmd" failonerror="true" failifexecutionfails="true">
+            <arg value="/c" />
+            <arg value="mvn.bat" />
+            <arg value="clean" />
+            <arg value="compile" />
+        </exec>
+    </target>
 
     <!-- ================================= 
           internal target
