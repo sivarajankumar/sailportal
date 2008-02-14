@@ -130,12 +130,15 @@ public class ViewMyStudentsController extends AbstractController{
 		Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
 		Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();
 		String projectName = run.getSdsOffering().getName();
-		String projectId = run.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();
+		String projectId = run.getProject().getId().toString();
 		
 		/* retrieves the get parameter periodName to determine which 
 		   period the link is requesting */
 		String periodName = servletRequest.getParameter("periodName");
-		int periodNumber = 0;
+		
+		int tabIndex = 0;
+		//tabIndex = Integer.parseInt(servletRequest.getParameter("tabIndex"));
+		//System.out.println(servletRequest.getParameter("tabIndex"));
 		int periodCounter = 0;
 		
 		for (Group period : run.getPeriods()) {
@@ -157,7 +160,7 @@ public class ViewMyStudentsController extends AbstractController{
 			
 			//determines which period tab to show in the AJAX tab object
 			if(periodName != null && periodName.equals(period.getName())) {
-				periodNumber = periodCounter;
+				tabIndex = periodCounter;
 			}
 			periodCounter++;
 		}
@@ -193,7 +196,7 @@ public class ViewMyStudentsController extends AbstractController{
 		}
 		*/
 		
-
+		System.out.println(modelAndView.getModelMap().get(TAB_INDEX));
 		//modelAndView.addObject(NON_WORKGROUP_STUDENT_LIST, grouplessStudents);
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
 		//modelAndView.addObject(CURRENT_RUN, current_run_list.get(0));
@@ -201,7 +204,7 @@ public class ViewMyStudentsController extends AbstractController{
 		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
 		modelAndView.addObject(RUN_NAME_KEY, run.getSdsOffering().getName());
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
-		modelAndView.addObject(TAB_INDEX, periodNumber);
+		modelAndView.addObject(TAB_INDEX, tabIndex);
 		modelAndView.addObject(PROJECT_NAME, projectName);
 		modelAndView.addObject(PROJECT_ID, projectId);
 		return modelAndView;

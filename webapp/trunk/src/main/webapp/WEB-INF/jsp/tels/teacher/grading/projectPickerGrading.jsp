@@ -96,7 +96,7 @@
 	      </c:otherwise>
 	    </c:choose>
 	    <tr>
-			<th scope="row"><a href="viewmystudents.html?runId=${currentRun.id}">${currentRun.sdsOffering.name}</a></th>
+			<th scope="row"><a href="gradebystep.html?runId=${currentRun.id}">${currentRun.sdsOffering.name}</a></th>
 			<td>[45345]</td>
 			<td><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></td>
 			<td>[ongoing]</td>
