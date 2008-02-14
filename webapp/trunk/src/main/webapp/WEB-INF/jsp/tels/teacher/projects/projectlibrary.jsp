@@ -29,7 +29,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
-<title><spring:message code="curnit.list" /></title>
+<title><spring:message code="curnitlist.project.library" /></title>
 </head>
 
 <body>
