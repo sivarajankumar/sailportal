@@ -239,7 +239,6 @@ public class CreateRunController extends AbstractWizardFormController {
 				}
 			}
 			// end temporary code
-			
 			model.put("existingRunList", currentRuns);
 
 			// TODO HT: talk with Matt on how to set/change run name
@@ -295,6 +294,12 @@ public class CreateRunController extends AbstractWizardFormController {
 		ModelAndView modelAndView = new ModelAndView(COMPLETE_VIEW_NAME);
 		modelAndView.addObject(RUN_KEY, run);
 
+		Set<String> runIdsToArchive = runParameters.getRunIdsToArchive();
+		for(String runIdStr : runIdsToArchive) {
+			Long runId = Long.valueOf(runIdStr);
+			Run runToArchive = runService.retrieveById(runId);
+			runService.endRun(runToArchive);
+		}
 		sendEmail(request, command);
 		
     	return modelAndView;

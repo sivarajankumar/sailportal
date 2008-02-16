@@ -43,10 +43,13 @@
 <%@ include file="L2projectsnohighlight.jsp"%>
 
 <h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
+
      	    	    
 <div id="setUpRunBox">
 
 <div id="stepNumber">Step 2 of 6:<span class="blueText">&nbsp; Archive Existing Project Runs</span></div>
+
+<form:form method="post" commandName="runParameters">
 
 <h5>Your currently active project runs are listed below.  If these project runs are now complete, you can archive them using the ARCHIVE boxes.</h5>
 <h6 class="indent15px">Note:  when you archive a project run no information is lost.  The project is simply moved to the an Archive area for storage. 
@@ -57,7 +60,6 @@ Previous student work and teacher feedback in archived projects can be viewed ag
       <b>You are not running any projects at this time.</b>
 	</c:when>
 	<c:otherwise>
-
 <table  id="projectTable" border="1" cellpadding="3" cellspacing="2" style="margin:0 0 0 25px;">
 	<tr id="projectTableR1">
 		<td>CHECK TO ARCHIVE</td>
@@ -68,7 +70,15 @@ Previous student work and teacher feedback in archived projects can be viewed ag
 	</tr>
     <c:forEach var="run" items="${existingRunList}">
 	    <tr id="projectTableR2">
-	     <td class="center">{ }</td>
+	     <td class="center">
+	     
+	     <!-- CHECKBOXES -->
+		    <div id="runcheckboxes">
+		       <form:checkbox path="runIdsToArchive" value="${run.id}" /><br/> 
+		    </div>
+		 <!-- END CHECKBOXES -->
+    <!--end of SetUpRunBox -->
+	     </td>
 		        <td><strong>${run.sdsOffering.name}</strong></td>
 		        <td>${run.id}</td>
 		        <td>${run.starttime.month + 1}/${run.starttime.date}/${run.starttime.year + 1900}</td>
@@ -78,18 +88,15 @@ Previous student work and teacher feedback in archived projects can be viewed ag
 	</table>
 	<h5>If you do not wish to archive any project runs, leave the boxes unchecked and click <em>Next</em> to continue.</h5>
 	</c:otherwise>
+	
 </c:choose>
-
 </div> <!-- /* End setUpRunBox */-->
-
-</div>
 <div class="center">
-<form method="post" class="center">
 <input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" name="_target2" value="<spring:message code="navigate.next" />" />
-</form>
-
+</div>  
+</form:form>
 </div>  <!-- /* End of the CenteredDiv */-->
 
 </body>

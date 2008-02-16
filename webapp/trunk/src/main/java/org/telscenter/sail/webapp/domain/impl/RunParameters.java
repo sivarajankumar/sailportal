@@ -18,10 +18,13 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.Project;
 
 import net.sf.sail.webapp.domain.User;
@@ -38,6 +41,8 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Set<String> periodNames = new TreeSet<String>();
+	
+	private Set<String> runIdsToArchive = new TreeSet<String>();
 	
 	private Set<User> owners = new HashSet<User>();
 	
@@ -112,4 +117,19 @@ public class RunParameters extends OfferingParameters implements Serializable {
 		
 		return allPeriods;
 	}
+
+	/**
+	 * @return the runIdsToArchive
+	 */
+	public Set<String> getRunIdsToArchive() {
+		return runIdsToArchive;
+	}
+
+	/**
+	 * @param runIdsToArchive the runIdsToArchive to set
+	 */
+	public void setRunIdsToArchive(Set<String> runIdsToArchive) {
+		this.runIdsToArchive = runIdsToArchive;
+	}
+
 }
