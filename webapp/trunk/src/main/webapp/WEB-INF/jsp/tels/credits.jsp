@@ -23,19 +23,31 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headermain_nousername.jsp"%>
+<%@ include file="headermain_returntohomepage.jsp"%>
 
-<div id="previewProjectTitle">
-	<h1 class="blueText">Credits</h1>
-</div>
+<h1 id="previewProjectTitle" class="blueText">Credits</h1>
 
 <div id="boxPreviewProject">
 
-<div id="previewProjectHeader2">The WISE 3.0 development project includes a wide variety of partners in the open-source community... MORE TO COME. </div>
+<div id="creditsIntroText">The WISE 3.0 open-source system stems from the dedicated efforts of wide-ranging community of 
+software development teams. The multidisiplenary colloboration of these teams, spanning a range of technolo are a reflection of the colloborative effort  </div>
 
-<div id="previewProjectDetails">
-	<div>UC Berkeley Team Members</div>
-	<p>Name 1, Name 2, etc...</p>
+<div id="creditsTeamBox">
+	<h2 id="creditsTeamHeader">University of California, Berkeley</h2>
+	<h6>(reverse alphabetical order)</h6> 
+	<ul id="creditsTeamType">
+		<li><a href="mailto:hirochan@berkeley.edu">Hiroki Terashima</a> &nbsp; (Lead Programmer)</li>
+		<li><a href="mailto:hirochan@berkeley.edu">Tony Perritano</a> &nbsp; (Senior Programmer)</li>
+		<li><a href="mailto:mlinn@berkeley.edu">Marcia Linn</a>  &nbsp;(WISE Director)</li>
+		<li><a href="mailto:geoffreykwan@gmail.com">Geoffrey Kwan</a> &nbsp;(Programmer)</li>
+		<li><a href="mailto:dougkirk@berkeley.edu">Doug Kirpatrick</a> &nbsp;(Teacher/Classroom Manager)</li>
+		<li><a href="#">Patrick ?</a> &nbsp;(Asst. Programmer)</li>
+		<li><a href="#">Sally ?</a> &nbsp;(Asst. Programmer))</li>
+		<li><a href="mailto:fish771@yahoo.com">Matt Fishbach</a> &nbsp;(Lead Interface/Interactive Design)</li>
+		<li><a href="mailto:kbenneman@berkeley.edu">Kathy Benneman</a> &nbsp;(Program Manager)</li>
+
+		
+	</ol>
 </div>
 
 <div id="previewProjectDetails">

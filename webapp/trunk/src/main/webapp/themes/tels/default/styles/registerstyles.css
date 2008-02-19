@@ -406,3 +406,27 @@
 	font-weight:bold;
 	
 }
+
+/* STYLING FOR CREDITS PAGE */
+
+#creditsTeamBox {
+	margin:0 auto;
+	width:850px;
+	background-color:#FFFF99;
+	padding:10px;
+}
+
+#creditsTeamHeader {
+	letter-spacing:2px;
+}
+
+#creditsTeamType {
+	paddling-left:30px;
+}
+
+#creditsTeamType a{
+	width:120px; 
+	font-weight:bold;
+}
+
+

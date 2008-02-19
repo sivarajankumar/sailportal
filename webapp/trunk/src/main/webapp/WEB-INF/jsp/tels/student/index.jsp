@@ -227,27 +227,27 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="columnButtons">
 
 <dl id="list1" >
-	<dt class="listTitle1">User:</dt>
-	<dd id="studentUsername">${user.userDetails.firstname} ${user.userDetails.lastname} </dd>
-	<dt class="listTitle1">Msg:</dt>
-	<dd id="studentWelcome">
-	<c:set var="current_date" value="<%= new java.util.Date() %>" />
-	<c:choose>
-        <c:when test="${(current_date.month == user.userDetails.birthday.month) &&
-                        (current_date.day == user.userDetails.birthday.day)}" >
-            Happy Birthday!
-        </c:when>
-        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
-            Good morning!
-        </c:when>
-        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
-			Good afternoon!	
-        </c:when>
-        <c:otherwise>
-			Hello Night Owl!
-        </c:otherwise>
-    </c:choose>
-	</dd>
+	<dt id="studentUsername">${user.userDetails.firstname} ${user.userDetails.lastname} </dt>
+	<dd></dd>
+	<dt id="studentWelcome">
+		<c:set var="current_date" value="<%= new java.util.Date() %>" />
+		<c:choose>
+	        <c:when test="${(current_date.month == user.userDetails.birthday.month) &&
+	                        (current_date.day == user.userDetails.birthday.day)}" >
+	            Happy Birthday!
+	        </c:when>
+	        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
+	            Good morning!
+	        </c:when>
+	        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
+				Good afternoon!	
+	        </c:when>
+	        <c:otherwise>
+				Hello Night Owl!
+	        </c:otherwise>
+	    </c:choose>
+	</dt>
+	<dd></dd>
 </dl>
 
 <div class="separator"></div>

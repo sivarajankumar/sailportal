@@ -49,28 +49,24 @@ table tr, table td {
 
 #list1 {
 		padding:12px 10px;
-		margin:0 0 10px 0px;
+		margin:0 0 5px 0px;
 }
 
 #list1 dt {
-	float:left;
-	font-size:1em;
-	margin:0px;
+	margin:0 0 5px 0;
 	padding:0px;
-	width:45px;
+	width:220px;
 }
 
 #studentUsername {
 	font-weight:bold;
-	font-size: 1.1em;
-	text-transform:uppercase;
-	padding-left:10px;
-	margin-bottom:5px;
-	}
+	font-size: 1.4em;
+	letter-spacing:1px;
+	text-transform:capitalize;	}
 
 #studentWelcome {
 	font-weight:bold;
-	font-size: 1em;
+	font-size: 1.0em;
 	margin:0;
 }
 
