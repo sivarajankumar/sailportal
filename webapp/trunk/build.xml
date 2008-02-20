@@ -173,7 +173,18 @@
         </java>        
     </target>
 
-
+	<target name="db.migrate" depends="_set.properties.jdbc" description="Generate the database schema from annotated persistent classes in the production code.">
+	        <property name="portal.config" value="tels"/>
+			<antcall target="_mvn.recompile"/>
+	        <java classname="net.sf.sail.webapp.dbmigration.DbMigration" fork="true" failonerror="true" newenvironment="true">
+	        	<arg value="${settings.profiles.profile.properties.jdbc.driverClassName}"/>
+	        	<arg value="${settings.profiles.profile.properties.jdbc.url}" />
+		        <arg value="${settings.profiles.profile.properties.jdbc.username}"/>
+		        <arg value="${settings.profiles.profile.properties.jdbc.password}"/>	        	
+	            <classpath refid="runtime.classpath" />
+	        </java>
+	</target>
+	
     <!-- ================================= 
           target: db.create
          ================================= -->
@@ -286,6 +297,7 @@
         <exec osfamily="Unix" executable="mvn" failonerror="true" failifexecutionfails="true">
             <arg value="clean" />
             <arg value="compile" />
+        	<arg value="resources:resources" />
         </exec>
         <!-- this should work for Microsoft Windows NT-based systems, including Windows 2000, XP and successors -->
         <exec osfamily="Winnt" executable="cmd" failonerror="true" failifexecutionfails="true">
@@ -293,6 +305,7 @@
             <arg value="mvn.bat" />
             <arg value="clean" />
             <arg value="compile" />
+        	<arg value="resources:resources" />
         </exec>
     </target>
 
