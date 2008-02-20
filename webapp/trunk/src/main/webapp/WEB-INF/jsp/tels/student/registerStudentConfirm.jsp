@@ -38,11 +38,14 @@
 
 <%@ include file="header.jsp"%>
 
+<div style="text-align:center;">   
+<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
+
 <h1 id="registrationTitle" class="blueText">Student Registration</h1>
 
 <div id="subtitleConfirm">
 			<h4>Account Created!</h4>
-			<h4> Your new Username is: <span><input id="usernameConfirm" name="username" value="${username}"/></span></h4>
+			<h4> Your new Username is: <span id="usernameConfirm">${username}</span></h4>
 			<ul>
 		    <li>Your Username combines your name and birthday information. Write it down so you don't forget!</li>
 		    <li>Example Username: John Smith with birthday 3/24 would have the Username "<em>JohnS324</em>" <br />
@@ -50,24 +53,25 @@
 			</ul>
 </div>
 
-<table id="confirmationButtons" width="55%" border="0" cellpadding="5" cellspacing="5">
+<table id="confirmationButtons" border="0" cellpadding="5" cellspacing="5">
   <tr>
-    <td class="width1"><a href="registerstudent.html" 
+    <td><a href="registerstudent.html" 
     onmouseout="MM_swapImgRestore()" 
     onmouseover="MM_swapImage('Register Another Student','','../themes/tels/default/images/student/Register-Another-Roll.png',1)">
     <img src="../themes/tels/default/images/student/Register-Another.png" alt="Register Another Student" width="161" height="52"  id="Register Another Student"/></a></td>
     
-    <td class="width2"><a href="../index.html" 
+    <td ><a href="../index.html" 
     onmouseout="MM_swapImgRestore()" 
     onmouseover="MM_swapImage('Return to Home Page','','../themes/tels/default/images/Go-To-Home-Page-Roll.png',1)">
     <img src="../themes/tels/default/images/Go-To-Home-Page.png" alt="Go to Home Page & Sign In" width="161" height="52"  id="Return to Home Page" /></a></td>
   </tr>
   <tr>
-    <td>Select this option if you are working in a team.  All teammates should register before you start the project.</td>
-    <td>Select this option if everyone on your team has registered (or if you are working on your own). Return to the home page and type your new Username and Password in the <em>Sign In</em> area.</td>
+    <td class="width1">Select this option if you are working in a team.  All teammates should register before you start the project.</td>
+    <td class="width2">Select this option if everyone on your team has registered (or if you are working on your own). Return to the home page and type your new Username and Password in the <em>Sign In</em> area.</td>
   </tr>
 </table>
 
+</div>
 
 </div>  <!-- /* End of the CenteredDiv */-->
 

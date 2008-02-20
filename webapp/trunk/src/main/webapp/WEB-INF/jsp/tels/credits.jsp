@@ -47,7 +47,7 @@ software development teams. The multidisiplenary colloboration of these teams, s
 		<li><a href="mailto:kbenneman@berkeley.edu">Kathy Benneman</a> &nbsp;(Program Manager)</li>
 
 		
-	</ol>
+	</ul>
 </div>
 
 <div id="previewProjectDetails">

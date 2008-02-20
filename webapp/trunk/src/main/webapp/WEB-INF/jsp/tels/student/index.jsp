@@ -213,6 +213,26 @@ YAHOO.util.Event.onDOMReady(init);
 <script defer type="text/javascript" src=".././javascript/tels/iefixes.js"></script>
 <![endif]-->
 
+<!--[if IE 5]>
+<style>
+#studentActionList a:link, #studentActionList a:visited {
+	float: left;
+	clear: both;
+	width: 100%;
+	font-family: "Gill Sans", Helvetica, Arial, "Lucida Grande", "Lucida San Unicode";
+			}
+</style>
+<![endif]-->
+
+<!--[if lte IE 6]>
+<style>
+#studentActionList a:link, #studentActionList a:visited {
+	height: 1%;
+	font-family: "Gill Sans", Helvetica, Arial, "Lucida Grande", "Lucida San Unicode";
+		}
+</style>
+<![endif]-->
+
 </head>
 
 <body class="yui-skin-sam">
@@ -317,7 +337,7 @@ YAHOO.util.Event.onDOMReady(init);
 
 <div style="text-align:center;"><img src="../themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></div>
 
-<div id="displayAsEnglish">WISE 3.0 & Amanda the Panda <br/>&#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link">Contact WISE</a></div>
+<div id="displayAsEnglish">WISE 3.0 &amp; Amanda the Panda <br/>&#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link">Contact WISE</a></div>
 
 <div style="display:none;" id="displayAsEnglish"><a href="#">Display in English</a></div>
 
@@ -348,7 +368,7 @@ YAHOO.util.Event.onDOMReady(init);
 							<td class="tableBorderRight">
 								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 								
-							<td ROWSPAN="5" style="width:30%; padding:2px;">
+							<td rowspan="5" style="width:30%; padding:2px;">
 								  	<ul id="studentActionList">
 										<li><c:choose>
 											<c:when test="${studentRunInfo.workgroup == null}">
@@ -439,7 +459,7 @@ YAHOO.util.Event.onDOMReady(init);
 							<td class="studentTableLeftHeaderArchive">Title</td>
 							<td id="studentCurrentTitleCell" class="tableBorderRight">
 								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
-							<td ROWSPAN="5" style="width:27%; padding:2px;">
+							<td rowspan="5" style="width:27%; padding:2px;">
 								  	<ul id="studentActionList">
 										<li><c:choose>
 											<c:when test="${studentRunInfo.workgroup == null}">
@@ -530,7 +550,7 @@ YAHOO.util.Event.onDOMReady(init);
 <h3 ><spring:message code="teacher.add-project-info" /></h3>
 
 
-<iframe id="addProjectFrame" src=" " width="100%" FRAMEBORDER="0"
+<iframe id="addProjectFrame" src="" width="100%" FRAMEBORDER="0"
 	allowTransparency="false" scrolling="no"> </iframe>
 	
 </div>
@@ -541,7 +561,7 @@ YAHOO.util.Event.onDOMReady(init);
 <div class="hd">Change Period or Team</div>
 <div class="bd">
 
-<iframe id="changePeriodTeamFrame" src=" " width="100%" FRAMEBORDER="0"
+<iframe id="changePeriodTeamFrame" src="" width="100%" FRAMEBORDER="0"
 	allowTransparency="false" scrolling="no"> </iframe>
 	
 </div>

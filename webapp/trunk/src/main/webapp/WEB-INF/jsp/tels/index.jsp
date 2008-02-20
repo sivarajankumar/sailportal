@@ -38,15 +38,30 @@
 <script src="./javascript/tels/rotator.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/rotatorT.js" 		type="text/javascript"> </script>
 
+<title><spring:message code="application.title" /></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
 <script defer type="text/javascript" src="./javascript/tels/iefixes.js"></script>
 <![endif]-->
 
+<!--The next two conditional statements fix problems with the Display:Block navigation elements in older IE Browsers (MattFish)-->
 
+<!--[if IE 5]>
+<style>
+#welcomeTextLinks a {
+float: left;
+clear: both;
+width: 100%;
+}
+</style>
+<![endif]-->
 
-<title><spring:message code="application.title" /></title>
+<!--[if lte IE 6]>
+<style>
+#welcomeTextLinks a {height: 1%;}
+</style>
+<![endif]-->
 
 </head>
 
@@ -143,9 +158,9 @@
 		 
 	<li><a href="signup.html" 
 			onmouseout="MM_swapImgRestore()" 
-			onmouseover="MM_swapImage('Join WISE Button','','./themes/tels/default/images/join_wise_rollover.png',1)">
-			<img src="./themes/tels/default/images/join_wise.png" width="145" height="32"  alt="Join WISE"
-				class="imgNoBorder"  id="Join WISE Button" /></a> </li>
+			onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateNewAccountRoll.png',1)">
+			<img src="./themes/tels/default/images/CreateNewAccount.png" width="145" height="44"  alt="Create New WISE Account"
+				class="imgNoBorder" id="Create Account Button" /></a> </li>
 </ul> 	
 	
                     </td> <!--    End of Welcome Box-->	
@@ -153,7 +168,7 @@
                     <td class="width15"></td>  <!--    Separator Column-->	
                     
           <td id="boxTableSignIn" class="panelColor">
-                    			<div id="header">Sign In</div>
+                    			<div id="header">Sign In <span style="font-size:.6em;font-weight:normal;">(existing accounts)</span></div>
 								<form id="home" method="post" action="j_acegi_security_check">
                                 <dl id="signinDefinList">
                                     <dt><label for="username">Username:</label> </dt>
@@ -179,7 +194,7 @@
                                 <ul id="signInLinkPosition">
                                 		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">
                                       Forgot Username or Password?</a>  </li>
-                                		<li><a href="signup.html" id="joinlink">Want to join WISE?</a></li>
+                                		<li><a href="signup.html" id="joinlink">Want to create a new WISE account?</a></li>
                                 </ul>
                                 
                                 </td>   <!--    End of boxTableSignIn  x-->
@@ -286,7 +301,7 @@
        	    	
         <td id="footerText">
         	 	<ul>
-                <li><a href="signup.html">Join WISE</a></li>
+                <li><a href="signup.html">Create New WISE Account</a></li>
                 <li id="footerNav2"><a href="./contactwisegeneral.html">Contact WISE</a></li>
                 <li id="footerNav2"><a href="<c:url value="/j_acegi_logout"/>">Sign Out</a></li>     
                 <li id="footerNav2"><a href="credits.html">Credits</a></li>

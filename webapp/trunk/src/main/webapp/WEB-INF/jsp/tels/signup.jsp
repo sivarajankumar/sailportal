@@ -25,7 +25,7 @@
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-<div id="registrationTitle" class="blueText">New Account Registration</div>
+<h1 id="registrationTitle" class="blueText">New Account Registration</h1>
 
 <div id="boxNewAccountReg">
 
@@ -55,10 +55,8 @@
 <div id="newAccountDetails">
 	<h4><em> <spring:message code="register.which-account" /></em> </h4>
 	<ul>
-	<h5>
 		<li><spring:message code="register.student-account-desc" /></li>
 		<li><spring:message code="register.teacher-account-desc" /></li>
-	</h5> 
 	</ul>
 </div>
 
