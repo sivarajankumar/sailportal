@@ -90,8 +90,8 @@
 	padding: 6px 0 0 0;
 	line-height: 100%;
 	margin: 0;
-	padding:8px 0 5px 0;
-	width:147px; 
+	padding:5px 0 5px 0;
+	width:149px; 
 }
 
 #welcomeTextLinks li {
@@ -99,17 +99,25 @@
 }
 
 #welcomeTextLinks li a:link, #welcomeTextLinks li a:visited {
+	display:block;
 	color:#000066;
 	text-decoration:none;
 	font-weight:bold;
 	margin:0;
-	padding:2px;
+	background-color:#CCCCFF;
+	border: 1px solid #333333;
+	padding:2px; 
+	
 		}
 	
 #welcomeTextLinks li a:hover {
+	display:block;
+	color:#000000;
+	text-decoration:none;
 	margin:0;
 	padding:1px;
 	background-color:#ffff33;
+	padding:2px;
 	border: 1px solid #6666CC;
 	}
 	
@@ -164,7 +172,7 @@
 }
 
 #signinDefinList {
-	margin-left:25px;	
+	margin:25px 0 0 25px;	
 		}
 
 #signinDefinList dt {
@@ -185,29 +193,30 @@
 
 #signInButton {
 	position:relative;
-	margin-right:35px;
+	margin: 5px 35px 10px 0;
 }
 
 #signInLinkPosition { 
 	position:relative;
 	text-align:right; 
-	margin-right:35px;
+	margin:25px 35px 0 0;
 	list-style-type:none;
 		}
 	
 #signInLinkPosition li {
-	padding-bottom:5px;
+	padding-bottom:10px;
 	text-decoration:none;
 }
 
 #signInLinkPosition li a:link, #signInLinkPosition a:visited { 
-	text-decoration:none;
 	margin:0;
-	padding:2px;
+	padding:2px; 
+	color:#000066;
 		}
 	
 #signInLinkPosition li a:hover {
 	margin:0;
+	text-decoration:none; 
 	padding:1px;
 	background-color:#ffff33;
 	border: 1px solid #6666CC;

@@ -145,10 +145,10 @@
 	
 #usernameConfirm {
 	width:330px;
-	border:0px;
 	color: #0000FF;
 	font-weight:bold;
 	padding: 0 0 0 5px;
+	margin:0px;
 	font-size:1.2em;
 	}
 
@@ -197,21 +197,22 @@
 	}
 
 #confirmationButtons {
-	position: relative;
-	left: 270px;
+	margin: 0 180px 0 290px;
 	font-size:.8em;
 	line-height:140%;
 	}
 
+#confirmationButtons td {
+	vertical-align:top;
+	}
+	
 .width1 {
-	width:35%;
-	margin: 0 10px 0 50px;
+	padding: 0 20px 0 10px;
 }
 
 .width2 {
-	width:55%;
-	margin: 0 10px 0 10px;
-}
+	padding: 0 8px 0 10px;
+	}
 
 .width122 {width:122px;}
 .width166 {width:166px;}
@@ -277,7 +278,7 @@
 	border: 1px solid #006600;
 	width:60%;
 	margin:10px auto 10px auto;
-	padding:10px 0 10px 0;
+	padding:10px;
 	}
 		
 #questionPromptReg {
@@ -316,6 +317,8 @@
 	line-height:160%;
 	margin: 0 0 15px 0;
 	padding:0px;
+	font-size:.8em;
+	font-weight:bold;
 	}
 	
 #homelink {
