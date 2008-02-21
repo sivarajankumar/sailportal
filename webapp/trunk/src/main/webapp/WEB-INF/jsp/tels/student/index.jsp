@@ -47,8 +47,6 @@
 		
 		
 		
-	
-		
 	//add project dialog ----------------------------------
 
     // Define various event handlers for Dialog
@@ -270,31 +268,7 @@ YAHOO.util.Event.onDOMReady(init);
 	<dd></dd>
 </dl>
 
-<div class="separator"></div>
-
-<dl id="list2">
-	<dt>Current Time:</dt>
-	<dd><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
-	<dt>Last Sign In:</dt>
-	<dd>
-	<c:choose>
-		<c:when test="${user.userDetails.lastLoginTime == null}">
-			never
-		</c:when>
-		<c:otherwise>
-			<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
-				type="both" dateStyle="short" timeStyle="short" />
-		</c:otherwise>
-	</c:choose>
-		
-	</dd>
-	<dt class="listTitle2"># of Logins:</dt>
-	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
-	<dt class="listTitle2">Language:</dt> 
-	<dd id="language">English</dd>
-</dl>
-
-<div class="separator"></div>
+<div style="text-align:center;"><img src="../themes/tels/default/images/student/Panda.jpg" width="220"  alt="WIse 3 Panda" /></div>
 
 <div id="accountOptions"><spring:message code="wise.account-options" /></div>
 
@@ -322,7 +296,7 @@ YAHOO.util.Event.onDOMReady(init);
 		<img id="studentsignout" src="../<spring:theme code="student_sign_out" />"
 		style="border: 0px;" /> </a></li>
 				
-	<li style="visibility:hidden;"><a href="#"
+	<li style="display:none;"><a href="#"
 		onmouseover="swapImage('studentchangelang','../<spring:theme code="student_change_lang_roll" />');"
 		onmouseout="swapImage('studentchangelang','../<spring:theme code="student_change_lang" />');"
 		onclick="javascript:alert('This page is not available yet')"> <img
@@ -333,14 +307,37 @@ YAHOO.util.Event.onDOMReady(init);
 	</ul>
 </div>
 
-<div style="text-align:center;"><img src="../themes/tels/default/images/student/Panda.jpg" width="220"  alt="WIse 3 Panda" /></div>
+<div class="separator"></div>
+
+<dl id="list2">
+	<dt>This Sign In:</dt>
+	<dd><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
+	<dt>Last Sign In:</dt>
+	<dd>
+	<c:choose>
+		<c:when test="${user.userDetails.lastLoginTime == null}">
+			never
+		</c:when>
+		<c:otherwise>
+			<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
+				type="both" dateStyle="short" timeStyle="short" />
+		</c:otherwise>
+	</c:choose>
+		
+	</dd>
+	<dt class="listTitle2"># of Logins:</dt>
+	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
+	<dt class="listTitle2">Language:</dt> 
+	<dd id="language">English</dd>
+</dl>
+
+<div class="separator"></div>
 
 <div style="text-align:center;"><img src="../themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></div>
 
 <div id="displayAsEnglish">WISE 3.0 &amp; Amanda the Panda <br/>&#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link">Contact WISE</a></div>
 
 <div style="display:none;" id="displayAsEnglish"><a href="#">Display in English</a></div>
-
 
 </div>   <!--end of columnButtons, floated to left-->
 
