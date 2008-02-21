@@ -27,7 +27,7 @@
 
 <script language="JavaScript">
 	function popup(URL) {
-  	window.open(URL, 'Select Team', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=650,height=500,left = 570,top = 300');}
+  	window.open(URL, 'SelectTeam', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=650,height=500,left = 570,top = 300');}
 </script>
 
 <script>
