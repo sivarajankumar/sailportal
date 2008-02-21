@@ -347,9 +347,9 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="columnLabel">PROJECT MENU</div>
 
 <div id="tabSystem" class="yui-navset">
-    <ul style="font-size:1.1em;" class="yui-nav">
+    <ul style="font-size:1.0em;" class="yui-nav">
         <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
-        <li ><a href="#archivedRuns"><em>Archived Runs</em></a></li>
+        <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
     </ul>            
     <div class="yui-content" style="background-color:#FFFFFF;">
 		<div id="currentRuns">
