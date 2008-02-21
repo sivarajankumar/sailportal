@@ -38,7 +38,7 @@ table tr, table td {
 	width: 230px;
 	margin:10px 0 0 0 ;
 	background-color:#CCFFCC;
-	background-image:url(../../images/Texture_Green2.png); 
+	background-image:url(../../images/Texture_Green3.png); 
 	background-position:top;
 	background-repeat:repeat;
 	border-top: 1px solid #666666;
@@ -134,6 +134,9 @@ table tr, table td {
 
 #columnLabel {
 	background-color:#FFFF66;
+	background-image:url(../../images/Texture_Green3.png); 
+	background-position:right; 
+	background-repeat:repeat;
 	color:#000000;
 	font-size:1.3em;
 	letter-spacing:3px;
