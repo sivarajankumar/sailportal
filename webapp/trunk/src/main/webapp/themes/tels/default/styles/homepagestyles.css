@@ -283,8 +283,23 @@
 #newsContent {
 	background-image:url(../images/Pixel_Gray.png);
 	position:relative;
-	width:92%;
-	height: 75%;
+	height:227px;
+	width:90%;
+	margin-left:14px; 
+	overflow:auto; 
+}
+
+#newsContentHeader {
+	color:#3333FF;
+	font-size:.8em; 
+	font-weight:bold;
+	padding-bottom:7px;
+}
+
+#newsContentData {
+	font-size:.8em; 
+	font-weight:normal;
+	padding-bottom:7px;
 }
 
 #newsArchive {
@@ -423,14 +438,21 @@
 	text-decoration:none; 
 	border-bottom: 1px solid #FFFF66;
 				}
-
+				
 #signOutBannerHome a:hover {
 	color:#330066;
-	font-size:.7em;
 	text-decoration:none;
 	border-bottom: 1px solid #330066;
 		}
 
+/* This little trick solves a problem with Safari getting confused by a call for "c:url value="/j_acegi_logout"/>" */
+#styleOverRideSafari1 {
+	color:#FFFF66;
+	font-size:.7em;
+	text-decoration:none; 
+	border-bottom: 1px solid #FFFF66;
+				}
+					
 .popUpMenuDefault {
 	font-size:1.0em;
 	font-style:italic;

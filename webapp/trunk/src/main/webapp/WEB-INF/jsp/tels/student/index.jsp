@@ -231,6 +231,15 @@ YAHOO.util.Event.onDOMReady(init);
 </style>
 <![endif]-->
 
+<script src=".././javascript/tels/classAnim.js" type="text/javascript" > </script>
+<script>  YAHOO.util.Event.onAvailable("TestClassAnim", function(){ var anim = new 
+		  YAHOO.mozmonkey.ClassAnim("TestClassAnim"); var start = 0; 
+		  YAHOO.util.Event.addListener("TestClassAnim", "mouseover", function(){ anim.addClass("classAnimHover"); }); 
+		  YAHOO.util.Event.addListener("TestClassAnim", "mouseout", function(){ anim.removeClass("classAnimHover"); }); 
+		  YAHOO.util.Event.addListener("TestClassAnim", "click", function(){ if(start == 0){ start = 1; anim.addClass("classAnim2"); } else{ start = 0; anim.removeClass("classAnim2"); } }); 
+		  }); 
+		  </script>
+
 </head>
 
 <body class="yui-skin-sam">
@@ -344,202 +353,199 @@ YAHOO.util.Event.onDOMReady(init);
 
 <div id="columnProjects">
 
-<div id="columnLabel">PROJECT MENU</div>
-
-<div id="tabSystem" class="yui-navset">
-    <ul style="font-size:1.0em;" class="yui-nav">
-        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
-        <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
-    </ul>            
-    <div class="yui-content" style="background-color:#FFFFFF;">
-		<div id="currentRuns">
-			<c:choose>
-			<c:when test="${fn:length(current_run_list) > 0}" >
-			
-			<c:forEach var="studentRunInfo"  items="${current_run_list}">
-					
-					<table id="currentRunTable" >
-			
-						<tr id="projectMainRow">
-							<td class="studentTableLeftHeaderCurrent">Title</td>
-							<td class="tableBorderRight">
-								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
-								
-							<td rowspan="5" style="width:30%; padding:2px;">
-								  	<ul id="studentActionList">
-										<li><c:choose>
-											<c:when test="${studentRunInfo.workgroup == null}">
-												<a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}'>RUN PROJECT</a>
-											</c:when>
-											<c:otherwise>
-												<c:choose>
-													<c:when
-														test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-														<a href="startproject.html?runId=${studentRunInfo.run.id}"
-															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
-													</c:when>
-													<c:otherwise>
-														<a
-															href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
-															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
-													</c:otherwise>
-												</c:choose>
-											</c:otherwise>
-										</c:choose></li>
-										<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#">Change Period or Team</a></li>
-										<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}">Report A Problem</a></li>
-								 	</ul>
-						 	</td>
-						</tr>
-						<tr>
-							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Student Code</td>
-							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
-					  	</tr>	
-						<tr>
-							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Teacher</td>
-							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">
-											<c:choose>
-											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
-												<c:forEach var="member" items="${studentRunInfo.run.owners}">	
-													${member.userDetails.firstname} 
-									      			${member.userDetails.lastname}
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												not established yet			    
-											</c:otherwise>	
-								      		</c:choose>
-							</td>
-							</tr>
-						<tr>
-							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Period</td>
-							<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
-					  	
-					  	</tr>
-						<tr>
-							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Team</td>
-							<td id="secondaryRowTightFormat" class="tableBorderRight">
-											<c:choose>
-											<c:when test="${studentRunInfo.workgroup != null}" >
-												<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
-												${member.userDetails.username}
-										 		   <c:if test="${membersStatus.last=='false'}">
-							     					&
-							    				</c:if> 
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												not established yet			    
-											</c:otherwise>	
-								      		</c:choose>
-							</td>
-							
-						</tr>
-				</table>
-					
+	<div id="columnLabel">PROJECT MENU</div>
+	
+	<div id="tabSystem" class="yui-navset">
+	    <ul style="font-size:1.0em;" class="yui-nav">
+	        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
+	        <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
+	    </ul>            
+	    <div class="yui-content" style="background-color:#FFFFFF;">
+			<div id="currentRuns">
+				<c:choose>
+				<c:when test="${fn:length(current_run_list) > 0}" >
+				
+				<c:forEach var="studentRunInfo"  items="${current_run_list}">
 						
-			</c:forEach>
-			</c:when>
-			<c:otherwise>
-					To add a WISE 3.0 project click the "Add a Project" button.			    
-			</c:otherwise>
-			</c:choose>
-		</div>
-		<div id="archivedRuns">
-			<c:choose>
-			<c:when test="${fn:length(ended_run_list) > 0}" >
-			
-			<c:forEach var="studentRunInfo"  items="${ended_run_list}">
-					<table id="currentRunTable" >
-			
-						<tr id="projectMainRow">
-							<td class="studentTableLeftHeaderArchive">Title</td>
-							<td id="studentCurrentTitleCell" class="tableBorderRight">
-								<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
-							<td rowspan="5" style="width:27%; padding:2px;">
-								  	<ul id="studentActionList">
-										<li><c:choose>
-											<c:when test="${studentRunInfo.workgroup == null}">
-												<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">REVIEW
-												PROJECT</a>
-											</c:when>
-											<c:otherwise>
-												<c:choose>
-													<c:when
-														test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-														<a href="${studentRunInfo.startProjectUrl}"
-															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
-													</c:when>
-													<c:otherwise>
-														<a
-															href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
-															id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
-													</c:otherwise>
-												</c:choose>
-											</c:otherwise>
-										</c:choose></li>
-									</ul>
-						 	</td>
-						</tr>	
-						<tr>
-							<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Teacher</td>
-							<td class="tableBorderTopBottom tableBorderRight">
-											<c:choose>
-											<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
-												<c:forEach var="member" items="${studentRunInfo.run.owners}">	
-													${member.userDetails.firstname} 
-									      			${member.userDetails.lastname}
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												not established yet			    
-											</c:otherwise>	
-								      		</c:choose>
-							</td>
+						<table id="currentRunTable" >
+				
+							<tr id="projectMainRow">
+								<td class="studentTableLeftHeaderCurrent">Title</td>
+								<td class="tableBorderRight">
+									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
+									
+								<td rowspan="5" style="width:30%; padding:2px;">
+									  	<ul id="studentActionList">
+											<li><c:choose>
+												<c:when test="${studentRunInfo.workgroup == null}">
+													<a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}'>RUN PROJECT</a>
+												</c:when>
+												<c:otherwise>
+													<c:choose>
+														<c:when
+															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+															<a href="startproject.html?runId=${studentRunInfo.run.id}"
+																id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+														</c:when>
+														<c:otherwise>
+															<a
+																href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+																id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+														</c:otherwise>
+													</c:choose>
+												</c:otherwise>
+											</c:choose></li>
+											<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#">Change Period or Team</a></li>
+											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}">Report A Problem</a></li>
+									 	</ul>
+							 	</td>
 							</tr>
-						<tr>
-							<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Period</td>
-							<td class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
-					  	
-					  	</tr>
-						<tr>
-							<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Team</td>
-							<td class="tableBorderTopBottom tableBorderRight">
-											<c:choose>
-											<c:when test="${studentRunInfo.workgroup != null}" >
-												<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
-												${member.userDetails.username}
-										 		   <c:if test="${membersStatus.last=='false'}">
-							     					&
-							    				</c:if> 
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												not established yet			    
-											</c:otherwise>	
-								      		</c:choose>
-							</td>
-						</tr>
-						<tr>
-							<td class="studentTableLeftHeaderArchive">Archived On</td>
-							<td class="tableBorderRight">NEED DATA: Project Run End Date</td>
-						</tr>
-				</table>
-			</c:forEach>
-			</c:when>
-			<c:otherwise>
-					You currently have no archived projects.	    
-			</c:otherwise>
-			</c:choose>
-		</div>
-</div>  
- <!--end of columnProjects, floated to left-->
+							<tr>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Student Code</td>
+								<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
+						  	</tr>	
+							<tr>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Teacher</td>
+								<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">
+												<c:choose>
+												<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
+													<c:forEach var="member" items="${studentRunInfo.run.owners}">	
+														${member.userDetails.firstname} 
+										      			${member.userDetails.lastname}
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													not established yet			    
+												</c:otherwise>	
+									      		</c:choose>
+								</td>
+								</tr>
+							<tr>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Period</td>
+								<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
+						  	
+						  	</tr>
+							<tr>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Team</td>
+								<td id="secondaryRowTightFormat" class="tableBorderRight">
+												<c:choose>
+												<c:when test="${studentRunInfo.workgroup != null}" >
+													<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
+													${member.userDetails.username}
+											 		   <c:if test="${membersStatus.last=='false'}">
+								     					&
+								    				</c:if> 
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													not established yet			    
+												</c:otherwise>	
+									      		</c:choose>
+								</td>
+								
+							</tr>
+					</table>
+						
+							
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+						To add a WISE 3.0 project click the "Add a Project" button.			    
+				</c:otherwise>
+				</c:choose>
+			</div>
+			<div id="archivedRuns">
+				<c:choose>
+				<c:when test="${fn:length(ended_run_list) > 0}" >
+				
+				<c:forEach var="studentRunInfo"  items="${ended_run_list}">
+						<table id="currentRunTable" >
+				
+							<tr id="projectMainRow">
+								<td class="studentTableLeftHeaderArchive">Title</td>
+								<td id="studentCurrentTitleCell" class="tableBorderRight">
+									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
+								<td rowspan="5" style="width:27%; padding:2px;">
+									  	<ul id="studentActionList">
+											<li><c:choose>
+												<c:when test="${studentRunInfo.workgroup == null}">
+													<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">REVIEW
+													PROJECT</a>
+												</c:when>
+												<c:otherwise>
+													<c:choose>
+														<c:when
+															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+															<a href="${studentRunInfo.startProjectUrl}"
+																id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+														</c:when>
+														<c:otherwise>
+															<a
+																href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+																id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+														</c:otherwise>
+													</c:choose>
+												</c:otherwise>
+											</c:choose></li>
+										</ul>
+							 	</td>
+							</tr>	
+							<tr>
+								<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Teacher</td>
+								<td class="tableBorderTopBottom tableBorderRight">
+												<c:choose>
+												<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
+													<c:forEach var="member" items="${studentRunInfo.run.owners}">	
+														${member.userDetails.firstname} 
+										      			${member.userDetails.lastname}
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													not established yet			    
+												</c:otherwise>	
+									      		</c:choose>
+								</td>
+								</tr>
+							<tr>
+								<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Period</td>
+								<td class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
+						  	
+						  	</tr>
+							<tr>
+								<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Team</td>
+								<td class="tableBorderTopBottom tableBorderRight">
+												<c:choose>
+												<c:when test="${studentRunInfo.workgroup != null}" >
+													<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
+													${member.userDetails.username}
+											 		   <c:if test="${membersStatus.last=='false'}">
+								     					&
+								    				</c:if> 
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													not established yet			    
+												</c:otherwise>	
+									      		</c:choose>
+								</td>
+							</tr>
+							<tr>
+								<td class="studentTableLeftHeaderArchive">Archived On</td>
+								<td class="tableBorderRight">NEED DATA: Project Run End Date</td>
+							</tr>
+					</table>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+						You currently have no archived projects.	    
+				</c:otherwise>
+				</c:choose>
+			</div>
+</div>   <!--end of columnProjects, floated to left-->
+ 
  
  <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
- 
-
- 
- 
+  
 <!-- this creates the add project dialog with iframe -->
 <div id="addProjectDialog">
 <div class="hd">Add A Project</div>

@@ -267,20 +267,22 @@ width: 100%;
                                     
                     <td id="boxLatestNews" class="panelColor">
                             <div id="header">Latest News</div>
-                            <div class="alignCenter">
-                            	<textarea id="newsContent" class="dataBoxStyle" rows="16" cols="35">WISE 3.0 LAUNCHES AT COLLEGE PARK HIGH SCHOOL (Feb 2008)!
-                            	The inquisitive students in Mr. Kwirant's biology classroom will be the first to use the new WISE 3.0 Portal. 
-                            	Thank you, kids, for your participation in this cutting-edge education technology system. Your feedback about the website and the project will help us make both better over time.  
-                            	We appreciate your patience dealing with any bugs or problems that may appear in this Beta system. 
-
-                            	Sincerely, 
-                            	
-                            	The WISE Technology Team at UC Berkeley.
-                            	</textarea>
-                       		</div>
-                                
+                            <div id="newsContent" class="dataBoxStyle" >
+                            	<div id="newsContentHeader">WISE 3.0 at College Park High School!</div>
+                            	<div id="newsContentData"><img src="./themes/tels/default/images/cphs_logo.jpg" width="102" height="62.5" alt="College Park High School Logo" /></div>
+                            	<div id="newsContentData"><em>Pleasant Hills, CA, Feb 2008:</em></div>
+                            	<div id="newsContentData">The inquisitive students in Mr. Bodrog's biology classes will be using the 
+                            	new WISE 3.0 Portal this month.</div>
+                            	<div id="newsContentData">Feedback from these students will play an essential role in refining the WISE 
+                            	system, as it prepares for full release in Fall 2008.</div>
+                            	<div id="newsContentData">If you encounter problems with this web site or any WISE 3.0 project,
+                            	please visit the "Contact WISE" link at the bottom of the home page.</div>
+                          		<div id="newsContentData">Sincerely,</div> 
+                            	<div id="newsContentData"><em>The WISE Technology Team at UC Berkeley<em></div>
+                            </div>
+                       		                                
                                 <div class="alignCenter"> 
-                                <p id="newsArchiveButton"><a href="#" 
+                                <p id="newsArchiveButton"><a href="./newsarchive.html" 
                                 onmouseout="MM_swapImgRestore()" 
                                 onmouseover="MM_swapImage('News Archive','','./themes/tels/default/images/News-Archive-Roll.png',1)">
                                 <img class="imgNoBorder" src="./themes/tels/default/images/News-Archive.png" alt="Go to News Archive" 
