@@ -23,10 +23,21 @@
 package org.telscenter.sail.webapp.service.project.impl;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.domain.impl.JnlpImpl;
+import net.sf.sail.webapp.service.curnit.CurnitService;
+import net.sf.sail.webapp.service.jnlp.JnlpService;
 
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 import junit.framework.TestCase;
 
@@ -43,9 +54,19 @@ public class ProjectServiceImplTest extends TestCase {
 
 	private ProjectDao<Project> mockProjectDao;
 	
+	private CurnitService mockCurnitService;
+	
+	private JnlpService mockJnlpService;
+	
+	private RunService mockRunService;
+	
 	private static final Long EXISTING_PROJECT_ID = new Long(10);
 
 	private static final Long NONEXISTING_PROJECT_ID = new Long(103);
+	
+	private static final Long EXISTING_CURNIT_ID = new Long(100);
+
+	private static final Long EXISTING_JNLP_ID = new Long(2);
 
 	
 	@SuppressWarnings("unchecked")
@@ -54,7 +75,14 @@ public class ProjectServiceImplTest extends TestCase {
 		this.projectServiceImpl = new ProjectServiceImpl();
 		this.mockProjectDao = createMock(ProjectDao.class);
 		this.projectServiceImpl.setProjectDao(mockProjectDao);
+		this.mockCurnitService = createMock(CurnitService.class);
+		this.projectServiceImpl.setCurnitService(mockCurnitService);
+		this.mockJnlpService = createMock(JnlpService.class);
+		this.projectServiceImpl.setJnlpService(mockJnlpService);
+		this.mockRunService = createMock(RunService.class);
+		this.projectServiceImpl.setRunService(mockRunService);
 	}
+	
 	public void testGetById() throws Exception {
 		Project expectedProject = new ProjectImpl();
 		expect(mockProjectDao.getById(EXISTING_PROJECT_ID)).andReturn(expectedProject);
@@ -72,6 +100,50 @@ public class ProjectServiceImplTest extends TestCase {
     	} catch (ObjectNotFoundException e) {
     	}
     	verify(mockProjectDao);
+	}
+	
+	public void testCreateProject_success() throws Exception {
+		Curnit expectedCurnit = new CurnitImpl();
+		expect(mockCurnitService.getById(EXISTING_CURNIT_ID)).andReturn(expectedCurnit);
+		replay(mockCurnitService);
+		Jnlp expectedJnlp = new JnlpImpl();
+		expect(mockJnlpService.getById(EXISTING_JNLP_ID)).andReturn(expectedJnlp);
+		replay(mockJnlpService);
+		Project projectToCreate = new ProjectImpl();
+		projectToCreate.setCurnit(expectedCurnit);
+		projectToCreate.setJnlp(expectedJnlp);
+		
+		mockProjectDao.save(projectToCreate);
+		expectLastCall();
 
+		RunParameters expectedRunParameters = new RunParameters();
+		expectedRunParameters.setCurnitId(EXISTING_CURNIT_ID);
+		expectedRunParameters.setJnlpId(EXISTING_JNLP_ID);
+		expectedRunParameters.setName(ProjectServiceImpl.PREVIEW_RUN_NAME);
+		expectedRunParameters.setOwners(null);
+		expectedRunParameters.setPeriodNames(ProjectServiceImpl.PREVIEW_PERIOD_NAMES);
+		expectedRunParameters.setProject(projectToCreate);
+		Run expectedPreviewRun = new RunImpl();
+		expect(this.mockRunService.createRun(expectedRunParameters)).andReturn(expectedPreviewRun );
+		replay(mockRunService);
+		projectToCreate.setPreviewRun(expectedPreviewRun);
+
+		mockProjectDao.save(projectToCreate);
+		expectLastCall();
+
+		replay(mockProjectDao);
+		
+		ProjectParameters projectParameters = new ProjectParameters();
+		projectParameters.setCurnitId(EXISTING_CURNIT_ID);
+		projectParameters.setJnlpId(EXISTING_JNLP_ID);
+		Project createdProject = projectServiceImpl.createProject(projectParameters);
+
+		assertEquals(createdProject.getPreviewRun(), expectedPreviewRun);
+		assertEquals(createdProject.getCurnit(), expectedCurnit);
+		assertEquals(createdProject.getJnlp(), expectedJnlp);
+		verify(mockProjectDao);
+		verify(mockCurnitService);
+		verify(mockJnlpService);
+		verify(mockRunService);
 	}
 }

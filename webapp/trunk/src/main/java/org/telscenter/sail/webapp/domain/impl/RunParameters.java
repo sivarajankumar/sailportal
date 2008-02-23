@@ -18,13 +18,10 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.Project;
 
 import net.sf.sail.webapp.domain.User;
@@ -130,6 +127,66 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	 */
 	public void setRunIdsToArchive(Set<String> runIdsToArchive) {
 		this.runIdsToArchive = runIdsToArchive;
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime
+				* result
+				+ ((manuallyEnteredPeriods == null) ? 0
+						: manuallyEnteredPeriods.hashCode());
+		result = prime * result + ((owners == null) ? 0 : owners.hashCode());
+		result = prime * result
+				+ ((periodNames == null) ? 0 : periodNames.hashCode());
+		result = prime * result + ((project == null) ? 0 : project.hashCode());
+		result = prime * result
+				+ ((runIdsToArchive == null) ? 0 : runIdsToArchive.hashCode());
+		return result;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final RunParameters other = (RunParameters) obj;
+		if (manuallyEnteredPeriods == null) {
+			if (other.manuallyEnteredPeriods != null)
+				return false;
+		} else if (!manuallyEnteredPeriods.equals(other.manuallyEnteredPeriods))
+			return false;
+		if (owners == null) {
+			if (other.owners != null)
+				return false;
+		} else if (!owners.equals(other.owners))
+			return false;
+		if (periodNames == null) {
+			if (other.periodNames != null)
+				return false;
+		} else if (!periodNames.equals(other.periodNames))
+			return false;
+		if (project == null) {
+			if (other.project != null)
+				return false;
+		} else if (!project.equals(other.project))
+			return false;
+		if (runIdsToArchive == null) {
+			if (other.runIdsToArchive != null)
+				return false;
+		} else if (!runIdsToArchive.equals(other.runIdsToArchive))
+			return false;
+		return true;
 	}
 
 }

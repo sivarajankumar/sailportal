@@ -64,11 +64,11 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class ProjectServiceImpl implements ProjectService {
 
-	private static final String PREVIEW_RUN_NAME = "preview";
+	protected static final String PREVIEW_RUN_NAME = "preview";
 
 	private static final String PREVIEW_PERIOD_NAME = "preview period";
 	
-	private static Set<String> PREVIEW_PERIOD_NAMES;
+	protected static Set<String> PREVIEW_PERIOD_NAMES;
 
 	private ProjectDao<Project> projectDao;
 	
