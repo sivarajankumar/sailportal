@@ -38,6 +38,8 @@ public class PremadeCommentServiceImplTest extends TestCase{
 	
 	private HibernatePremadeCommentListDao premadeCommentListDao;
 	
+	private PremadeCommentServiceImplTest premadeCommentServiceImplTest;
+	
 	@Override
 	protected void setUp(){
 		
@@ -46,6 +48,10 @@ public class PremadeCommentServiceImplTest extends TestCase{
 	@Override
 	protected void tearDown(){
 		
+	}
+	
+	public void testSave(){
+		assertTrue(true);
 	}
 
 	/**
