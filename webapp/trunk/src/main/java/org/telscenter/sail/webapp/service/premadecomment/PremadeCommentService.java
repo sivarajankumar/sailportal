@@ -29,6 +29,7 @@ import org.telscenter.sail.webapp.domain.impl.PremadeCommentParameters;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 
 /**
@@ -62,7 +63,8 @@ public interface PremadeCommentService {
 	 * @param newComment <code>String</code>
 	 * @return updated PremadeComment
 	 */
-	public PremadeComment updatePremadeCommentMessage(Long premadeCommentID, String newComment);
+	public PremadeComment updatePremadeCommentMessage(Long premadeCommentID, String newComment)
+		throws ObjectNotFoundException;
 	
 	/**
 	 * Updates the label for a PremadeComment using its id
@@ -72,7 +74,8 @@ public interface PremadeCommentService {
 	 * @param newLabel <code>String</code>
 	 * @return updated PremadeComment
 	 */
-	public PremadeComment updatePremadeCommentLabel(Long premadeCommentID, String newLabel);
+	public PremadeComment updatePremadeCommentLabel(Long premadeCommentID, String newLabel)
+		throws ObjectNotFoundException;
 	
 	/**
 	 * Retrieves all PremadeComments from the data store.
@@ -110,7 +113,7 @@ public interface PremadeCommentService {
 	 * 
 	 * @param commentListID <code>Long</code>
 	 */
-	public void deletePremadeCommentList(Long commentListID);
+	public void deletePremadeCommentList(Long commentListID) throws ObjectNotFoundException;
 	
 	/**
 	 * Updates the label of a PremadeCommentList given its ID
@@ -120,7 +123,8 @@ public interface PremadeCommentService {
 	 * @param newLabel <code>String</code>
 	 * @return PremadeCommentList
 	 */
-	public PremadeCommentList updatePremadeCommentListLabel(Long commentListID, String newLabel);
+	public PremadeCommentList updatePremadeCommentListLabel(Long commentListID, String newLabel)
+		throws ObjectNotFoundException;
 	
 	/**
 	 * Adds a PremadeComment to the PremadeCommentList given
@@ -130,7 +134,8 @@ public interface PremadeCommentService {
 	 * @param premadeComment <code>PremadeComment</code>
 	 * @return PremadeCommentList
 	 */
-	public PremadeCommentList addPremadeCommentToList(Long commentListID, PremadeComment premadeComment);
+	public PremadeCommentList addPremadeCommentToList(Long commentListID, PremadeComment premadeComment)
+		throws ObjectNotFoundException;
 	
 	/**
 	 * Removes a PremadeComment from the list of PremadeCommentList
@@ -140,7 +145,8 @@ public interface PremadeCommentService {
 	 * @param PremadeComment <code>PremadeComment</code>
 	 * @return PremadeCommentList
 	 */
-	public PremadeCommentList removePremadeCommentFromList(Long commentID, PremadeComment premadeComment);
+	public PremadeCommentList removePremadeCommentFromList(Long commentID, PremadeComment premadeComment)
+		throws ObjectNotFoundException;
 	
 	/**
 	 * Retrieves all PremadeCommentLists from the data store.

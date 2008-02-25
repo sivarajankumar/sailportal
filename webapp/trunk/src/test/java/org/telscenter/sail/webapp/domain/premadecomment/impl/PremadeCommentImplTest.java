@@ -20,82 +20,55 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.impl;
+package org.telscenter.sail.webapp.domain.premadecomment.impl;
 
-import java.util.Set;
-
+import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.User;
-
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
+
 
 /**
  * @author patrick lawler
  *
  */
-public class PremadeCommentListParameters {
+public class PremadeCommentImplTest extends TestCase{
 
-	private Set<PremadeComment> list = null;
+	private Run run;
 	
-	private String label = null;
+	private User user;
 	
-	private User owner = null;
+	private String label;
 	
-	private Run run = null;
-
-	/**
-	 * @return the list
-	 */
-	public Set<PremadeComment> getList() {
-		return list;
+	private PremadeComment comment;
+	
+	@Override
+	protected void setUp() {
+		label = "bad students";
+		comment = new PremadeCommentImpl();
+		
+		comment.setRun(run);
+		comment.setOwner(user);
+		comment.setLabel(label);
+		comment.setComment("needs work");
 	}
-
-	/**
-	 * @param list the list to set
-	 */
-	public void setList(Set<PremadeComment> list) {
-		this.list = list;
+	
+	@Override
+	protected void tearDown() {
+		run = null;
+		user = null;
+		label = null;
+		comment = null;
 	}
-
-	/**
-	 * @return the label
-	 */
-	public String getLabel() {
-		return label;
-	}
-
-	/**
-	 * @param label the label to set
-	 */
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	/**
-	 * @return the owner
-	 */
-	public User getOwner() {
-		return owner;
-	}
-
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-
-	/**
-	 * @return the run
-	 */
-	public Run getRun() {
-		return run;
-	}
-
-	/**
-	 * @param run the run to set
-	 */
-	public void setRun(Run run) {
-		this.run = run;
+	
+	public void testPremadeComment(){
+		run = new RunImpl();
+		comment.setRun(run);
+		
+		assertEquals(null, comment.getOwner());
+		assertEquals("needs work", comment.getComment());
+		assertEquals(label, comment.getLabel());
+		assertEquals(run, comment.getRun());
 	}
 }

@@ -20,82 +20,36 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.impl;
+package org.telscenter.sail.webapp.dao.premadecomment.impl;
 
-import java.util.Set;
-
-import net.sf.sail.webapp.domain.User;
-
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
+import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
 /**
  * @author patrick lawler
  *
  */
-public class PremadeCommentListParameters {
-
-	private Set<PremadeComment> list = null;
+public class HibernatePremadeCommentDao extends AbstractHibernateDao<PremadeComment>{
 	
-	private String label = null;
+	private static final String FIND_ALL_QUERY = "from PremadeCommentImpl";
+
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
+	 */
+	@Override
+	protected String getFindAllQuery() {
+		return FIND_ALL_QUERY;
+	}
 	
-	private User owner = null;
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class<PremadeCommentImpl> getDataObjectClass() {
+		return PremadeCommentImpl.class;
+	}
 	
-	private Run run = null;
-
-	/**
-	 * @return the list
-	 */
-	public Set<PremadeComment> getList() {
-		return list;
-	}
-
-	/**
-	 * @param list the list to set
-	 */
-	public void setList(Set<PremadeComment> list) {
-		this.list = list;
-	}
-
-	/**
-	 * @return the label
-	 */
-	public String getLabel() {
-		return label;
-	}
-
-	/**
-	 * @param label the label to set
-	 */
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	/**
-	 * @return the owner
-	 */
-	public User getOwner() {
-		return owner;
-	}
-
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-
-	/**
-	 * @return the run
-	 */
-	public Run getRun() {
-		return run;
-	}
-
-	/**
-	 * @param run the run to set
-	 */
-	public void setRun(Run run) {
-		this.run = run;
-	}
 }

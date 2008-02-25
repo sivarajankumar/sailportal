@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.premadecomment;
 
 import java.util.List;
+import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.owned.Owned;
 
@@ -37,10 +38,10 @@ public interface PremadeCommentList extends Owned{
 	/**
 	 * @return a list of PremadeComments
 	 */
-	public List<PremadeComment> getPremadeCommentList();
+	public Set<PremadeComment> getPremadeCommentList();
 	
 	/**
 	 * @param premadeCommentList that sets the List of PremadeComments
 	 */
-	public void setPremadeCommentList(List<PremadeComment> premadeCommentList);
+	public void setPremadeCommentList(Set<PremadeComment> premadeCommentList);
 }

@@ -33,6 +33,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
@@ -42,7 +43,7 @@ import net.sf.sail.webapp.domain.impl.OfferingImpl;
  *
  */
 @Entity
-@Table(name = OfferingImpl.DATA_STORE_NAME)
+@Table(name = OwnedImpl.DATA_STORE_NAME)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class OwnedImpl {
 
@@ -58,22 +59,19 @@ public class OwnedImpl {
     @Transient
     public static final String COLUMN_NAME_RUN = "run";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id = null;
-    
-    @Transient
-    public static final long serialVersionUID = 1L;
-    
     @Column(name = OwnedImpl.COLUMN_NAME_LABEL, nullable=false)
-    private String label = null;
+    private String label;
     
     @Column(name = OwnedImpl.COLUMN_NAME_OWNER, nullable = true)
     private User owner = null;
 
     @Column(name = OwnedImpl.COLUMN_NAME_RUN, nullable = true)
     private Run run = null;
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
+    
 	/**
 	 * @return the id
 	 */

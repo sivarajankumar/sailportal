@@ -20,82 +20,61 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.impl;
 
-import java.util.Set;
+package org.telscenter.sail.webapp.service.premadecomment.impl;
 
-import net.sf.sail.webapp.domain.User;
+import org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentDao;
+import org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentListDao;
 
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
+import junit.framework.TestCase;
 
 /**
+ * 
  * @author patrick lawler
- *
  */
-public class PremadeCommentListParameters {
-
-	private Set<PremadeComment> list = null;
+public class PremadeCommentServiceImplTest extends TestCase{
 	
-	private String label = null;
+	private HibernatePremadeCommentDao premadeCommentDao;
 	
-	private User owner = null;
+	private HibernatePremadeCommentListDao premadeCommentListDao;
 	
-	private Run run = null;
-
-	/**
-	 * @return the list
-	 */
-	public Set<PremadeComment> getList() {
-		return list;
+	@Override
+	protected void setUp(){
+		
+	}
+	
+	@Override
+	protected void tearDown(){
+		
 	}
 
 	/**
-	 * @param list the list to set
+	 * @return the premadeCommentDao
 	 */
-	public void setList(Set<PremadeComment> list) {
-		this.list = list;
+	public HibernatePremadeCommentDao getPremadeCommentDao() {
+		return premadeCommentDao;
 	}
 
 	/**
-	 * @return the label
+	 * @param premadeCommentDao the premadeCommentDao to set
 	 */
-	public String getLabel() {
-		return label;
+	public void setPremadeCommentDao(HibernatePremadeCommentDao premadeCommentDao) {
+		this.premadeCommentDao = premadeCommentDao;
 	}
 
 	/**
-	 * @param label the label to set
+	 * @return the premadeCommentListDao
 	 */
-	public void setLabel(String label) {
-		this.label = label;
+	public HibernatePremadeCommentListDao getPremadeCommentListDao() {
+		return premadeCommentListDao;
 	}
 
 	/**
-	 * @return the owner
+	 * @param premadeCommentListDao the premadeCommentListDao to set
 	 */
-	public User getOwner() {
-		return owner;
+	public void setPremadeCommentListDao(
+			HibernatePremadeCommentListDao premadeCommentListDao) {
+		this.premadeCommentListDao = premadeCommentListDao;
 	}
-
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-
-	/**
-	 * @return the run
-	 */
-	public Run getRun() {
-		return run;
-	}
-
-	/**
-	 * @param run the run to set
-	 */
-	public void setRun(Run run) {
-		this.run = run;
-	}
+	
 }

@@ -183,4 +183,22 @@
 		<property name="groupService" ref="groupService" />
 		<property name="groupDao" ref="groupDao" />
     </bean>    
+
+    <bean id="premadeCommentDao"
+        class="org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>         
+    
+    <bean id="premadeComment" scope="prototype"
+        class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl">
+    </bean>
+    
+    <bean id="premadeCommentListDao"
+    	class="org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentListDao">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    	
+    <bean id="premadeCommentList" scope="prototype"
+    	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl">
+    </bean>
 </beans>

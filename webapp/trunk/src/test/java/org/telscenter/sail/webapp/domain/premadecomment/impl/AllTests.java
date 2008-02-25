@@ -20,82 +20,20 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.impl;
+package org.telscenter.sail.webapp.domain.premadecomment.impl;
 
-import java.util.Set;
-
-import net.sf.sail.webapp.domain.User;
-
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * @author patrick lawler
- *
+ * 
  */
-public class PremadeCommentListParameters {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImplTest.class,
+	org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImplTest.class
+})
 
-	private Set<PremadeComment> list = null;
-	
-	private String label = null;
-	
-	private User owner = null;
-	
-	private Run run = null;
-
-	/**
-	 * @return the list
-	 */
-	public Set<PremadeComment> getList() {
-		return list;
-	}
-
-	/**
-	 * @param list the list to set
-	 */
-	public void setList(Set<PremadeComment> list) {
-		this.list = list;
-	}
-
-	/**
-	 * @return the label
-	 */
-	public String getLabel() {
-		return label;
-	}
-
-	/**
-	 * @param label the label to set
-	 */
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	/**
-	 * @return the owner
-	 */
-	public User getOwner() {
-		return owner;
-	}
-
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-
-	/**
-	 * @return the run
-	 */
-	public Run getRun() {
-		return run;
-	}
-
-	/**
-	 * @param run the run to set
-	 */
-	public void setRun(Run run) {
-		this.run = run;
-	}
+public class AllTests {
 }

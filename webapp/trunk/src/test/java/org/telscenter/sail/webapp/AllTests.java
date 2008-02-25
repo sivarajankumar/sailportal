@@ -41,6 +41,7 @@ import org.junit.runners.Suite;
 	   org.telscenter.sail.webapp.dao.authentication.impl.AllTests.class,
 	   org.telscenter.sail.webapp.dao.offering.impl.AllTests.class,
 	   org.telscenter.sail.webapp.dao.project.impl.AllTests.class,
+	   org.telscenter.sail.webapp.dao.premadecomment.impl.AllTests.class,
 	   org.telscenter.sail.webapp.domain.impl.AllTests.class,
 	   org.telscenter.sail.webapp.domain.run.AllTests.class,
        org.telscenter.sail.webapp.presentation.validators.AllTests.class,
@@ -50,7 +51,8 @@ import org.junit.runners.Suite;
 	   org.telscenter.sail.webapp.service.offering.impl.AllTests.class,
 	   org.telscenter.sail.webapp.service.module.impl.AllTests.class,
 	   org.telscenter.sail.webapp.service.student.impl.AllTests.class,
-	   org.telscenter.sail.webapp.service.project.impl.AllTests.class
+	   org.telscenter.sail.webapp.service.project.impl.AllTests.class,
+	   org.telscenter.sail.webapp.domain.premadecomment.impl.AllTests.class
 })
 
 public class AllTests {
