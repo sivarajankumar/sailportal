@@ -146,4 +146,15 @@ public class ProjectServiceImplTest extends TestCase {
 		verify(mockJnlpService);
 		verify(mockRunService);
 	}
+	
+	public void testCreateProject_nonexistent_curnit() {
+		// TODO: Hiroki implement
+		assertTrue(true);
+	}
+	
+	public void testCreateProject_nonexistent_jnlp() {
+		// TODO: Hiroki implement
+		assertTrue(true);
+	}
+
 }

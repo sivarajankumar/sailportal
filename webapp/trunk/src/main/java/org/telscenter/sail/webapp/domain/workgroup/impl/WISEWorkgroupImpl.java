@@ -57,6 +57,9 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
     @OneToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
     @JoinColumn(name = COLUMN_NAME_PERIOD_FK)
 	private Group period;
+    
+    @Transient
+    private String workPDFUrl;
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.workgroup.impl.Workgroup#getPeriod()
@@ -74,5 +77,19 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
 
 	public int compareTo(WISEWorkgroupImpl o) {
 		return this.id.compareTo(o.id);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup#getStudentWorkPDFUrl()
+	 */
+	public String getWorkPDFUrl() {
+		return this.workPDFUrl;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup#setStudentWorkPDFUrl(java.lang.String)
+	 */
+	public void setWorkPDFUrl(String url) {
+		this.workPDFUrl = url;
 	}
 }

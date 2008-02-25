@@ -62,7 +62,7 @@ public abstract class AbstractSpringHttpUnitTests extends AbstractSpringTests {
 	// It must return an appropriate jar or jnlp in order to create the real one
 	// in the sds database
 	// Otherwise the test will fail
-	protected static final String DEFAULT_CURNIT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar";
+	protected static final String DEFAULT_CURNIT_URL = "http://www.encorewiki.org/download/attachments/2113/converted-wise.berkeley.edu-16704.jar";
 
 	protected static final String DEFAULT_JNLP_URL = "http://tels-develop.soe.berkeley.edu:8080/tels-jnlp/plr-everything-jdic-snapshot-20070125-0811.jnlp";
 

@@ -32,15 +32,18 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl;
 import org.telscenter.sail.webapp.service.student.StudentService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * Controller for Student's index page
@@ -53,6 +56,8 @@ public class StudentIndexController extends AbstractController {
 	private RunService runService;
 	
 	private StudentService studentService;
+	
+	private WorkgroupService workgroupService;
 
 	private HttpRestTransport httpRestTransport;
 	
@@ -91,7 +96,8 @@ public class StudentIndexController extends AbstractController {
 			StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(user, run);
 
 			// if student is in a workgroup for this run, get the url
-			// that will be used to start the project
+			// that will be used to start the project and set the url where
+			// the workgroup's work can be retrieved as PDF
 			if (studentRunInfo.getWorkgroup() != null) {
 				String startProjectUrl = 				
 					ProjectServiceImpl.generateStudentStartProjectUrlString(
@@ -99,6 +105,10 @@ public class StudentIndexController extends AbstractController {
 							studentRunInfo.getWorkgroup(), 
 							ProjectServiceImpl.retrieveAnnotationBundleUrl);
 				studentRunInfo.setStartProjectUrl(startProjectUrl);
+				
+				String workPdfUrl = ((WISEWorkgroupService) workgroupService)
+			        .generateWorkgroupWorkPdfUrlString(httpRestTransport, request, (WISEWorkgroup) studentRunInfo.getWorkgroup());
+			    ((WISEWorkgroup) studentRunInfo.getWorkgroup()).setWorkPDFUrl(workPdfUrl);
 			}
 
 			if (run.isEnded()) {
@@ -142,5 +152,13 @@ public class StudentIndexController extends AbstractController {
 	@Required
 	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
 		this.httpRestTransport = httpRestTransport;
+	}
+
+	/**
+	 * @param workgroupService the workgroupService to set
+	 */
+	@Required
+	public void setWorkgroupService(WorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
 	}
 }

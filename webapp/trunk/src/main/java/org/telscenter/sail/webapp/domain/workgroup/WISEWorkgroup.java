@@ -48,4 +48,18 @@ public interface WISEWorkgroup extends net.sf.sail.webapp.domain.Workgroup  {
 	 */
 	public void setPeriod(Group period);
 	
+	/**
+	 * Returns the url that generates this workgroup's work as PDF
+	 * 
+	 * @return the url that generates this workgroup's work as PDF
+	 */
+	public String getWorkPDFUrl();
+
+	/**
+	 * Sets the url that generates this workgroup's work as PDF
+	 * 
+	 * @param url that generates this workgroup's work as PDF
+	 */
+	public void setWorkPDFUrl(String url);
+
 }

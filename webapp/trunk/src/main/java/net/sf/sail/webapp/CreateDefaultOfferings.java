@@ -64,11 +64,11 @@ public class CreateDefaultOfferings {
         hashmap
                 .put(
                         "Two Kinds of Processes",
-                        "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-16704.jar");
+                        "http://www.encorewiki.org/download/attachments/2113/converted-wise.berkeley.edu-16704.jar");
         hashmap
                 .put(
                         "Direct and Emergent Processes for Engineering Science",
-                        "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24500.jar");
+                        "http://www.encorewiki.org/download/attachments/2113/converted-wise.berkeley.edu-24500.jar");
         CURNITS = Collections.unmodifiableMap(hashmap);
 
         hashmap = new HashMap<String, String>();

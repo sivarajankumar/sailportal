@@ -151,5 +151,6 @@
 		<property name="formView" value="changepassword" />
     	<property name="successView" value="changepasswordsuccess" />
     	<property name="userService" ref="userService" />
+		<property name="sessionForm" value="true"/>
     </bean>
 </beans>

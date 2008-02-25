@@ -196,7 +196,9 @@ function createNewWorkgroup(periodId, runId) {
             <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
               <div class="workarea" id="div_${workgroupInPeriod.id}">
 			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
-			      <li class="workgroupHeader">Team: ${workgroupInPeriod.id}</li>
+			      <li class="workgroupHeader">Team: ${workgroupInPeriod.id}
+			        <a href="${workgroupInPeriod.workPDFUrl}">Download this group's work as PDF</a>
+			      </li>
 			      
 			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
 			      

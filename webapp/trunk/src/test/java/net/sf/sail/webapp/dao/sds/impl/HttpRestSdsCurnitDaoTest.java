@@ -111,7 +111,7 @@ public class HttpRestSdsCurnitDaoTest extends AbstractSpringHttpUnitTests {
 		sdsCurnitToUpdate.setSdsObjectId(sdsCurnitId);
 
 		String updateName = "Updated";
-		String updateURL = "http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24500.jar";
+		String updateURL = "http://www.encorewiki.org/download/attachments/2113/converted-wise.berkeley.edu-24500.jar";
 
 		sdsCurnitToUpdate.setName(updateName);
 		sdsCurnitToUpdate.setUrl(updateURL);

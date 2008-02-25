@@ -70,35 +70,35 @@ public class CreateDefaultOfferings {
         hashmap
                 .put(
                 		"Chemical Reactions", 
-                		"http://www.encorewiki.org/download/attachments/2113/converted-wise-dev.berkeley.edu-24265.jar");
+                		"http://www.encorewiki.org/download/attachments/2113/converted-wise.berkeley.edu-24265.jar");
         hashmap
                 .put(
 		                "TELS Chemical Reactions - Mt Diablo (Red)", 
-		                "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-28796.jar");
+		                "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise.berkeley.edu-28796.jar");
         hashmap
                 .put(
 		                "TELS Chemical Reactions - Mt Diablo (Green)", 
-		                "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-28797.jar");
+		                "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise.berkeley.edu-28797.jar");
         hashmap
                 .put(
 		                 "TELS Chemical Reactions - Mt Diablo (Blue)", 
-		                 "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-28798.jar");
+		                 "http://www.telscenter.org/confluence/download/attachments/16335/converted-wise.berkeley.edu-28798.jar");
         hashmap
                 .put(
                 		"Global Warming stable", 
-                		"http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-26100.jar?version=9");
+                		"http://www.telscenter.org/confluence/download/attachments/16335/converted-wise.berkeley.edu-26100.jar?version=9");
         hashmap
                 .put(
                 		"Global Warming revised for October 15 run in North Carolina", 
-                		"http://www.telscenter.org/confluence/download/attachments/16335/converted-wise-dev.berkeley.edu-25816.jar");        
+                		"http://www.telscenter.org/confluence/download/attachments/16335/converted-wise.berkeley.edu-25816.jar");        
         hashmap
                 .put(
                 		"Airbags", 
-                		"http://www.telscenter.org/confluence/download/attachments/13003/converted-wise-dev.berkeley.edu-24587.jar?version=11");
+                		"http://www.telscenter.org/confluence/download/attachments/13003/converted-wise.berkeley.edu-24587.jar?version=11");
         hashmap
                 .put(
 		                "Meiosis", 
-		                "http://www.telscenter.org/confluence/download/attachments/19315/converted-wise-dev.berkeley.edu-29913.jar");
+		                "http://www.telscenter.org/confluence/download/attachments/19315/converted-wise.berkeley.edu-29913.jar");
 
         CURNITS = Collections.unmodifiableMap(hashmap);
 

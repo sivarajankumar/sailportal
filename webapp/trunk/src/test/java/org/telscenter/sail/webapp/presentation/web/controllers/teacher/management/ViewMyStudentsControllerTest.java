@@ -58,14 +58,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ViewMyStudentsController;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 
 /**
  * @author patricklawler
- * $Id:$
+ * @version $Id:$
  */
 @RunWith(TestClassRunner.class)
 public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {

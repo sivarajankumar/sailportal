@@ -38,7 +38,8 @@ import org.telscenter.sail.webapp.domain.impl.Passwords;
  * Validator for student's ChangePasswordParameters
  * 
  * @author Patrick Lawler
- * @author Sally Ahn $Id:$
+ * @author Sally Ahn 
+ * @version $Id:$
  */
 public class ChangePasswordParametersValidator implements Validator {
 

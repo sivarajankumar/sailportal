@@ -34,7 +34,7 @@
 	<form:form method="post" action="changepassword.html" commandName="changePasswordParameters" id="changepassword">
 		<dl>
 		<dt><label for="changePasswordField"><spring:message code="changepassword.password1" /></label></dt>
-		<dd><form:password path="passwd2" id="changePasswordField"/> </dd>
+		<dd><form:password path="passwd1" id="changePasswordField"/> </dd>
 		<dt><label for="changePasswordField"><spring:message code="changepassword.password2" /></label></dt>
 		<dd><form:password path="passwd2" id="changePasswordField"/></dd>
  		</dl>

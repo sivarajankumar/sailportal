@@ -25,12 +25,15 @@ package org.telscenter.sail.webapp.service.workgroup.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 import net.sf.sail.webapp.service.group.GroupService;
 import net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl;
@@ -43,6 +46,8 @@ import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
+import org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
@@ -157,6 +162,17 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 	 */
 	public void setGroupService(GroupService groupService) {
 		this.groupService = groupService;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService#generateWorkgroupWorkPdfUrlString(net.sf.sail.webapp.domain.webservice.http.HttpRestTransport, javax.servlet.http.HttpServletRequest, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public String generateWorkgroupWorkPdfUrlString(
+			HttpRestTransport httpRestTransport, HttpServletRequest request,
+			WISEWorkgroup workgroup) {
+		String previewProjectUrlString = ProjectServiceImpl.generatePreviewProjectUrlString(httpRestTransport, (Run) workgroup.getOffering(), workgroup);
+		String workgroupWorkPdfUrlString = previewProjectUrlString + "?generateReportOnly=true&" + ProjectServiceImpl.generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
+		return workgroupWorkPdfUrlString;
 	}
 
 }

@@ -92,7 +92,7 @@ public class StudentServiceImpl implements StudentService {
 		List<Workgroup> workgroupsForThisRun = 
 			workgroupService.getWorkgroupListByOfferingAndUser(run, studentUser);
 		if (workgroupsForThisRun.size() > 0) {
-			WISEWorkgroup workgroupForThisRun = (WISEWorkgroup) workgroupsForThisRun.get(0);
+			WISEWorkgroup workgroupForThisRun = (WISEWorkgroup) workgroupsForThisRun.get(0);			
 			studentRunInfo.setWorkgroup(workgroupForThisRun);
 		} 
 		

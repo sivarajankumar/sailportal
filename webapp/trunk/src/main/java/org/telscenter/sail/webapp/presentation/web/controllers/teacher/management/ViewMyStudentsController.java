@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.teacher.management.ViewMyStudentsPeriod;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
@@ -48,7 +49,7 @@ import java.util.*;
 /**
  * @author patricklawler
  * @author Hiroki Terashima
- * $Id:$
+ * @version $Id:$
  */
 public class ViewMyStudentsController extends AbstractController{
 
@@ -59,15 +60,6 @@ public class ViewMyStudentsController extends AbstractController{
 	private WorkgroupService workgroupService;
 
 	private HttpRestTransport httpRestTransport;
-
-	/**
-	 * @param httpRestTransport
-	 *            the httpRestTransport to set
-	 */
-	@Required
-	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-		this.httpRestTransport = httpRestTransport;
-	}
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
@@ -120,7 +112,7 @@ public class ViewMyStudentsController extends AbstractController{
 			}
 		}
 		// end temporary code
-		//Map<Group, Set<User>> grouplessStudents = new HashMap<Group, Set<User>>();
+
 		Map<Group, List<Workgroup>> workgroupMap = new HashMap<Group, List<Workgroup>>();
 		
 		List<Run> current_run_list = new ArrayList<Run>();
@@ -137,8 +129,6 @@ public class ViewMyStudentsController extends AbstractController{
 		String periodName = servletRequest.getParameter("periodName");
 		
 		int tabIndex = 0;
-		//tabIndex = Integer.parseInt(servletRequest.getParameter("tabIndex"));
-		//System.out.println(servletRequest.getParameter("tabIndex"));
 		int periodCounter = 0;
 		
 		for (Group period : run.getPeriods()) {
@@ -151,6 +141,10 @@ public class ViewMyStudentsController extends AbstractController{
 			for(Workgroup workgroup : allworkgroups){
 				grouplessStudents.removeAll(workgroup.getMembers());
 				if ( ((WISEWorkgroup) workgroup).getPeriod().equals(period)) {
+					// set url where this workgroup's work can be retrieved as PDF
+					String workPdfUrl = ((WISEWorkgroupService) workgroupService)
+					    .generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);
+					((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);
 					periodworkgroups.add(workgroup);
 				}
 			}
@@ -165,41 +159,8 @@ public class ViewMyStudentsController extends AbstractController{
 			periodCounter++;
 		}
 
-		/*
-		for (Run run : runList2) {
-			Set<Workgroup> workgroups = this.runService.getWorkgroups(run.getId());
-			for(Workgroup workgroup : workgroups){
-				if (workgroup.getMembers().size() > 0){
-					Group period = run.getPeriodOfStudent(workgroup.getMembers().iterator().next());
-					if (workgroupMap.containsKey(period)){
-						workgroupMap.get(period).add(workgroup);
-					} else {
-						ArrayList<Workgroup> newList = new ArrayList<Workgroup>();
-						newList.add(workgroup);
-						workgroupMap.put(period, newList);
-					}
-				}
-			}
-			
-			for(Group period : run.getPeriods()){
-				Set<User> periodStudents = new HashSet<User>();
-				periodStudents.addAll(period.getMembers());
-				for(Workgroup workgroup : workgroups){
-					periodStudents.removeAll(workgroup.getMembers());
-				}
-				grouplessStudents.put(period, periodStudents);
-			}
-			
-			if (!run.isEnded()) {
-				current_run_list.add(run);
-			}
-		}
-		*/
-		
 		System.out.println(modelAndView.getModelMap().get(TAB_INDEX));
-		//modelAndView.addObject(NON_WORKGROUP_STUDENT_LIST, grouplessStudents);
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
-		//modelAndView.addObject(CURRENT_RUN, current_run_list.get(0));
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
 		modelAndView.addObject(RUN_NAME_KEY, run.getSdsOffering().getName());
@@ -208,6 +169,15 @@ public class ViewMyStudentsController extends AbstractController{
 		modelAndView.addObject(PROJECT_NAME, projectName);
 		modelAndView.addObject(PROJECT_ID, projectId);
 		return modelAndView;
+	}
+
+	/**
+	 * @param httpRestTransport
+	 *            the httpRestTransport to set
+	 */
+	@Required
+	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
+		this.httpRestTransport = httpRestTransport;
 	}
 
 	/**

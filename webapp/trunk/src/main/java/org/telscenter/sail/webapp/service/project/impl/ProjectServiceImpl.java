@@ -179,15 +179,26 @@ public class ProjectServiceImpl implements ProjectService {
 		String jnlpUrl = generateLaunchProjectUrlString(httpRestTransport, run,
 				workgroup);
 
+		String entireUrl = jnlpUrl + "?" + generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
+		return entireUrl;
+	}
+	
+	/**
+	 * Generates the request parameter string to be added to the end of
+	 * the launch/preview project url
+	 * 
+	 * @param request
+	 * @param workgroup
+	 * @return
+	 */
+	public static String generateRetrieveAnnotationBundleParamRequestString(HttpServletRequest request, Workgroup workgroup) {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
 		request.getServerPort() + request.getContextPath();
 
-		String entireUrl = jnlpUrl + 
-		"?emf.annotation.bundle.url=" +
-		portalUrl +
-		retrieveAnnotationBundleUrl + 
-		"?workgroupId=" + workgroup.getId();
-		return entireUrl;
+	    String retrieveAnnotationBundleUrlString = "emf.annotation.bundle.url=" + 
+	         portalUrl + retrieveAnnotationBundleUrl + "?workgroupId=" + workgroup.getId();
+
+		return retrieveAnnotationBundleUrlString;
 	}
 	
 	/**
