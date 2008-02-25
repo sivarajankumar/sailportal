@@ -30,37 +30,66 @@
 <div id="boxPreviewProject">
 
 <div id="creditsIntroText">The WISE 3.0 open-source system stems from the dedicated efforts of wide-ranging community of 
-software development teams. The multidisiplenary colloboration of these teams, spanning a range of technolo are a reflection of the colloborative effort  </div>
+software development teams. The multidisciplinary collaboration of these teams, spanning a range of technolo are a reflection of the colloborative effort  </div>
 
-<div id="creditsTeamBox">
-	<h2 id="creditsTeamHeader">University of California, Berkeley</h2>
-	<h6>(reverse alphabetical order)</h6> 
-	<ul id="creditsTeamType">
-		<li><a href="mailto:hirochan@berkeley.edu">Hiroki Terashima</a> &nbsp; (Lead Programmer)</li>
-		<li><a href="mailto:hirochan@berkeley.edu">Tony Perritano</a> &nbsp; (Senior Programmer)</li>
-		<li><a href="mailto:mlinn@berkeley.edu">Marcia Linn</a>  &nbsp;(WISE Director)</li>
-		<li><a href="mailto:geoffreykwan@gmail.com">Geoffrey Kwan</a> &nbsp;(Programmer)</li>
-		<li><a href="mailto:dougkirk@berkeley.edu">Doug Kirpatrick</a> &nbsp;(Teacher/Classroom Manager)</li>
-		<li><a href="#">Patrick ?</a> &nbsp;(Asst. Programmer)</li>
-		<li><a href="#">Sally ?</a> &nbsp;(Asst. Programmer))</li>
-		<li><a href="mailto:fish771@yahoo.com">Matt Fishbach</a> &nbsp;(Lead Interface/Interactive Design)</li>
-		<li><a href="mailto:kbenneman@berkeley.edu">Kathy Benneman</a> &nbsp;(Program Manager)</li>
-
+<table border="1" cellpadding="4" id="creditsTeamTable">
+	<tr>  
+		<td COLSPAN=2>University of California, Berkeley</td>  
+	</tr>
+	<tr>
+		<td>Program Director</td> 
+		<td>
+		<ul><li>Marica Linn <a href="mlinn@berkeley.edu">email</a> <a href="#">bio</a></li></ul>
+		</td> 	
+	</tr> 
+	<tr>
+		<td>Programming Team</td> 
+		<td>
+			<ul>
+			<li><p>(reverse alphabetical order)</p></li>
+			<li>Hiroki Terashima <a href="mailto:hirochan@berkeley.edu">email</a> <a href="#">bio</a></li>
+			<li>Tony Perritano <a href="mailto:hirochan@berkeley.edu">email</a> <a href="#">bio</a></li>
+			<li>Geoffrey Kwan <a href="mailto:geoffreykwan@gmail.com">email</a>  <a href="#">bio</a></li>
+			</ul>
+			</td> 	
+	</tr>
+	<tr>
+		<td>Programming Support</td> 
+		<td>
+			<ul>
+			<li>Sally Ahn, Patrick Lawler, Archana Raghunathan</li>
+			</ul>
+			</td> 	
+	</tr>
+	<tr>
+		<td>Interactive/Interface Design</td> 
+		<td>
+			<ul><li>Matt Fishbach <a href="mailto:fish771@yahoo.com">email</a> <a href="#">bio</a></li></ul>
+		</td> 
+	</tr>
+	<tr>
+		<td>Project Management</td> 
+		<td>
+			<ul><li>Kathy Benneman <a href="mailto:kbenneman@berkeley.edu">email</a> <a href="#">bio</a></li></ul>
+		</td>  
+	</tr>
+	<tr>
+		<td>Classroom/Teacher Support</td> 
+		<td>
+			<ul><li>Doug Kirkpatrick <a href="dougkirk@berkeley.edu">email</a> <a href="#">bio</a></li></ul>
+		</td>  
+	</tr>
+	<tr>
+	<td>Research Team & Contributors</td>  
+		<td>
+			<ul>
+			<li><p>(reverse alphabetical order)</p></li>
+			<li>Name A, Name B, Name C, Name D, Name E, etc etc.</li>
+			</ul>
+			</td> 	
+	</tr>
 		
-	</ul>
-</div>
-
-<div id="previewProjectDetails">
-	<div>University of Toronto</div>
-	<p>Name 1, Name 2, etc...</p>
-</div>
-
-<div id="previewProjectDetails">
-	<div>Concord Consortium</div>
-	<p>Name 1, Name 2, etc...</p>
-</div>
-
-
+	</table>
 
 </div>   <!--  end of boxNewAccountReg -->
 

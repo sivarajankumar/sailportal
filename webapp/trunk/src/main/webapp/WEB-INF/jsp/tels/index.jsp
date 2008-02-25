@@ -78,16 +78,18 @@ width: 100%;
                       
 	<div id="parastyleTable">
         
-    <ul id="welcomeTextLinks">
-    	<li><a href="#" onClick="javascript: fabulousTurnOff1();">WHAT IS WISE?</a></li>
-        <li><a href="#" onClick="javascript: fabulousTurnOff2();">CURRICULUM BASED</a></li>
-        <li><a href="#" onClick="javascript: fabulousTurnOff3();">INQUIRY PROJECTS</a></li>
-        <li><a href="#" onClick="javascript: fabulousTurnOff4();">STUDENT ENGAGEMENT</a></li>
-        <li><a href="#" onClick="javascript: fabulousTurnOff5();">INTERACTIVE MODELS</a></li>
-        <li><a href="#" onClick="javascript: fabulousTurnOff6();">ONLINE GRADING</a></li>
-        <li><a href="#" onClick="javascript: fabulousTurnOff7();">FREE & OPEN SOURCE</a></li>
-        </ul>
-        <p class="smallText">Click above for details</p><br/ ><br />
+	    <ul id="welcomeTextLinks">
+	    	<li><a href="#" onClick="javascript: fabulousTurnOff1();">WHAT IS WISE?</a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff2();">CURRICULUM BASED</a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff3();">INQUIRY PROJECTS</a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff4();">STUDENT ENGAGEMENT</a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff5();">INTERACTIVE MODELS</a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff6();">ONLINE GRADING</a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff7();">FREE & OPEN SOURCE</a></li>
+	    </ul>
+	    
+	    <p class="smallText">Click above for details</p>
+    
     </div>
     
 					<div id="welcomeBullet1" style=""> 

@@ -166,13 +166,17 @@ function createNewWorkgroup(periodId, runId) {
 		    <!--  there are students in this period  -->
 		    <ul id="periodHeaderBar">
 		    	<li class="periodHeaderStart">${fn:length(viewmystudentsperiod.period.members)} Student(s) / ${fn:length(viewmystudentsperiod.workgroups)} team(s)</li>
-		    	<li class="periodHeaderStart"">Student Code: ${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</li>
+		    	<li class="periodHeaderStart"">Student Code for this Period: ${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</li>
 		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
 		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
 		       	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');">Help</a></li>
 		    </ul>
 		  			
-			<div id="viewStudentsInstructions"><strong>To changes groupings:</strong> &nbsp; drag and drop student names with your mouse. <br/> <strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link, then drag student names into the new empty box.</div>
+			<div id="viewStudentsInstructions"><strong>To changes groupings:</strong> &nbsp; mouse over a student name to see a 'hand' icon.  Then click and drag the name.
+			<br/> 
+			<strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link, then drag student names into the new box.
+			<br>
+			<strong>To create a PDF file of student work:</strong> &nbsp; click the "Create PDF" link adjacent to each Team Number below.</div>
 			
 			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
 			  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
@@ -181,13 +185,12 @@ function createNewWorkgroup(periodId, runId) {
                 <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
 			      <li class="grouplesslist" id="li_${mem.id}_groupless">
 			      
-			         <span class="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
+			         <span id="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
     			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
-    			     
-    			     </li>
+    			  </li>
 			    </c:forEach>
 			    
   			  </ul>
@@ -196,14 +199,14 @@ function createNewWorkgroup(periodId, runId) {
             <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
               <div class="workarea" id="div_${workgroupInPeriod.id}">
 			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
-			      <li class="workgroupHeader">Team: ${workgroupInPeriod.id}
-			        <a href="${workgroupInPeriod.workPDFUrl}">Download this group's work as PDF</a>
+			      <li class="workgroupHeader">TEAM ${workgroupInPeriod.id}
+			        <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}">Create PDF file for this team's work</a>
 			      </li>
 			      
 			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
 			      
 			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
-			         <span class="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</span>
+			         <span id="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</span>
     			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Period</a>

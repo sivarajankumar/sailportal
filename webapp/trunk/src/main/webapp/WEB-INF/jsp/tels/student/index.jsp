@@ -397,9 +397,9 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:choose>
 												</c:otherwise>
 											</c:choose></li>
-											<li><a href="${studentRunInfo.workgroup.workPDFUrl}">Download my work as PDF</a></li>
-											<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#">Change Period or Team</a></li>
-											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}">Report A Problem</a></li>
+											<li><a href="${studentRunInfo.workgroup.workPDFUrl}">Save my work as PDF file</a></li>
+											<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#">Change period or team</a></li>
+											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}">Report a problem</a></li>
 									 	</ul>
 							 	</td>
 							</tr>

@@ -52,18 +52,19 @@ table {
 .periodHeaderStart {
 	font-size:.8em;
 	font-weight:bold;
-	color:#666666;
+	color:#FF0000;
 	padding:0 25px 0 0 ;
 }
 
 .viewStudentsLink {
-	font-size:.8em;
+	font-size:.9em;
 	margin: 0 5px 0 10px;
 	}
 
 #periodHeaderBar a:active, #periodHeaderBar a:visited {
 	color: #0000FF;
-	padding:3px;
+	padding:3px 0;
+	font-weight:bold;
     }	
     
 #periodHeaderBar a:hover {
@@ -103,7 +104,6 @@ ul.draglist li {
     padding:1px 1px 1px 3px;
         }
 
-
 ul.draglist_alt li {
     margin: 1px;
     cursor: move;
@@ -112,7 +112,8 @@ ul.draglist_alt li {
 .grouplessHeader{
 	background-color:#990000;
 	color:#FFFFFF;
-	font-weight:bold;		}
+	font-weight:bold;
+	font-size:.85em		}
 
 li.grouplesslist {
     font-weight:bold;
@@ -120,31 +121,32 @@ li.grouplesslist {
     border: 1px solid #999999;
     }
 
-.userNameWithinView {
-	 font-size:.85em;
-	 padding-right:10px;
-	  }
+#userNameWithinView {
+	 font-size:.80em;
+	 padding-right:20px;
+		  }
 	  
 .userLinks {
 	font-size:.75em;
 	font-weight:normal;
-	text-decoration:none;
 	margin: 0 4px;
-	  }
-	
+		  }
+
 li.grouplesslist a:active, li.grouplesslist a:visited{
     color: #CC0000;
-}
+    text-decoration:underline;  
+     }
 
 li.grouplesslist a:hover{
 	color: #000033;
 	text-decoration:underline;
-		}
+	}
 
 .workgroupHeader{
 	background-color:#336633;
 	color:#FFFFFF;
-	font-weight:bold; 	}
+	font-weight:bold;
+	font-size:.8em; 	}
 	
 li.workgrouplist {
     font-weight:bold;
@@ -155,13 +157,25 @@ li.workgrouplist {
 li.workgrouplist a:active, li.workgrouplist a:visited{
     list-style-type:none;
     color: #009900;
-}
+    text-decoration:underline;  
+   }
 
 li.workgrouplist a:hover{
 	color: #000033;
 	text-decoration:underline;
-	
+	}
+
+.createPdfLink {
+	font-size:.9em;
+	position:absolute;
+	right: 10px;
+	color:#ffffff;
 }
+
+li.workgroupHeader a:hover {
+	color:#CC99FF;
+}
+
 
 #saveBar {
 	text-align:center;  }
