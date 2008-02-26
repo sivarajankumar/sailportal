@@ -21,10 +21,7 @@
 <script type="text/javascript" src="../.././javascript/tels/utils.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/teacher/management/viewmystudents.js"></script>
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
 
 <script>
     var tabView
@@ -56,7 +53,7 @@ function createNewWorkgroup(periodId, runId) {
   var newWorkgroupId = -1 - newGroupCount;
   var workareaDiv = document.getElementById("div_for_new_workgroups_"+periodId);
   workareaDiv.innerHTML += "<div class='workarea' id='newgroup_div_"+periodId+"_"+newWorkgroupId+"'>"
-                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>New Team (UNSAVED. Drag student names here, then click SAVE button to confirm changes.)</li></ul>"
+                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>New Team.  UNSAVED. Drag student names here, then click SAVE button (below) to confirm changes.</li></ul>"
                           +"</div>";
                           
    // need to iterate through all of the newgroups
@@ -76,10 +73,6 @@ function createNewWorkgroup(periodId, runId) {
   newGroupCount++;
 }
 </script>
-
-</head>
-
-<body class="yui-skin-sam">
 
 <script type="text/javascript">
 
@@ -131,112 +124,6 @@ function createNewWorkgroup(periodId, runId) {
 </script>
 
 
-<div id="centeredDiv">
-
-<%@ include file="headerteachermanagement.jsp"%>
-
-<%@ include file="L2management_managestudents.jsp"%>
-
-
-<div id="L3Label">manage my students</div> 
-
-<table id="projectTitleBox" border=0>
-	<tr>
-		<th>${project_name}</th>
-		<td>(${project_id})</td>
-	</tr>
-</table>
-
-
-<div id="tabSystem" class="yui-navset">
-<ul class="yui-nav" style="font-size:.7em;">
-	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
-		<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
-	</c:forEach>
-</ul>
-<div class="yui-content" style="background-color:#FFFFFF;">
-
-  <c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
-	<div><c:choose>
-		<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
-   		    <!--  there is NO student in this period  -->
-				No students registered in this period
-			</c:when>
-		<c:otherwise>
-		    <!--  there are students in this period  -->
-		    <ul id="periodHeaderBar">
-		    	<li class="periodHeaderStart">${fn:length(viewmystudentsperiod.period.members)} Student(s) / ${fn:length(viewmystudentsperiod.workgroups)} team(s)</li>
-		    	<li class="periodHeaderStart"">Student Code for this Period: ${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</li>
-		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
-		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
-		       	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');">Help</a></li>
-		    </ul>
-		  			
-			<div id="viewStudentsInstructions"><strong>To changes groupings:</strong> &nbsp; mouse over a student name to see a 'hand' icon.  Then click and drag the name.
-			<br/> 
-			<strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link, then drag student names into the new box.
-			<br>
-			<strong>To create a PDF file of student work:</strong> &nbsp; click the "Create PDF" link adjacent to each Team Number below.</div>
-			
-			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
-			  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
-			    <li class="grouplessHeader">unassigned students</li>
-
-                <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
-			      <li class="grouplesslist" id="li_${mem.id}_groupless">
-			      
-			         <span id="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
-    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
-    			  </li>
-			    </c:forEach>
-			    
-  			  </ul>
-			</div>
-
-            <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
-              <div class="workarea" id="div_${workgroupInPeriod.id}">
-			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
-			      <li class="workgroupHeader">TEAM ${workgroupInPeriod.id}
-			        <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}">Create PDF file for this team's work</a>
-			      </li>
-			      
-			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
-			      
-			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
-			         <span id="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</span>
-    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Info</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Period</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Detach</a>
-    			     
-			        </li>
-			      </c:forEach>
-			    </ul>
-			   </div>
-            </c:forEach>
-            
-            <div id="div_for_new_workgroups_${viewmystudentsperiod.period.id}">
-            </div>
-            
-         <div id="saveBar">
-         		<input type="button" class="saveButton" id="saveButton_${viewmystudentsperiod.period.id}" 
-            	value="Save Changes to Team Assignments" />
-          </div> 
-     
-		</c:otherwise>
-	</c:choose>
-	
-	
-	</div>
-    </c:forEach>
-</div>
-
-
-
-	
 <script type="text/javascript"><!--
 (function() {
 
@@ -493,6 +380,118 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 
 })();
 --></script>
+
+
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body class="yui-skin-sam">
+
+<div id="centeredDiv">
+
+<%@ include file="headerteachermanagement.jsp"%>
+
+<%@ include file="L2management_managestudents_ajax.jsp"%>
+
+<div id="L3Label">manage my students</div> 
+
+<table id="projectTitleBox" border=0>
+	<tr>
+		<th>${project_name}</th>
+		<td>Project ID: ${project_id}</td>
+	</tr>
+</table>
+
+
+<div id="tabSystem" class="yui-navset">
+<ul class="yui-nav" style="font-size:.7em;">
+	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
+		<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
+	</c:forEach>
+</ul>
+<div class="yui-content" style="background-color:#FFFFFF;">
+
+  <c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
+	<div><c:choose>
+		<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
+   		    <!--  there is NO student in this period  -->
+				No students registered in this period
+			</c:when>
+		<c:otherwise>
+		    <!--  there are students in this period  -->
+		    <ul id="periodHeaderBar">
+		    	<li class="periodHeaderStart">${fn:length(viewmystudentsperiod.period.members)} Student(s) / ${fn:length(viewmystudentsperiod.workgroups)} team(s)</li>
+		    	<li class="periodHeaderStart"">Student Code for this Period: ${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</li>
+		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
+		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
+		       	<li style="display:none;" class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');">Help</a></li>
+		    </ul>
+		  			
+			<div id="viewStudentsInstructions"><strong>To changes groupings:</strong> &nbsp; move the cursor over a student name, then click 'n drag.
+			<br/> 
+			<strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link (above) to make an empty team box appear below. Then drag student names into this box.
+			<br/>
+			<strong>To create a PDF file of student work:</strong> &nbsp; click the "Create PDF" link adjacent to each Team Number below.</div>
+			
+			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
+			  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
+			    <li class="grouplessHeader">unassigned students</li>
+
+                <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
+			      <li class="grouplesslist" id="li_${mem.id}_groupless">
+			      
+			         <span id="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
+    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+    			  </li>
+			    </c:forEach>
+			    
+  			  </ul>
+			</div>
+
+            <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
+              <div class="workarea" id="div_${workgroupInPeriod.id}">
+			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
+			      <li class="workgroupHeader">TEAM ${workgroupInPeriod.id}
+			        <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}">Create PDF file for this team's work</a>
+			      </li>
+			      
+			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
+			      
+			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
+			         <span id="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</span>
+    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Info</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Period</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Detach</a>
+    			     
+			        </li>
+			      </c:forEach>
+			    </ul>
+			   </div>
+            </c:forEach>
+            
+            <div id="div_for_new_workgroups_${viewmystudentsperiod.period.id}">
+            </div>
+            
+         <div id="saveBar">
+         		<input type="button" class="saveButton" id="saveButton_${viewmystudentsperiod.period.id}" 
+            	value="Save Changes to Team Assignments" />
+          </div> 
+     
+		</c:otherwise>
+	</c:choose>
+	
+	
+	</div>
+    </c:forEach>
+</div>
 
 </div> 
 

@@ -1,4 +1,4 @@
-<%@ include file="include.jsp" %>
+<%@ include file="../include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -19,23 +19,22 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
-<div id="navigationL2" class="projectL2">
+<div id="navigationL2" class="management2">
 
 <!--NOTE:  The UL below has a manual CSS override, to displace some weird values being injected by Ajax on this page.-->
 
 	<ul style="padding: 2px 0 5px 120px;">
 		<li >
-			<a class="navigationL2leftborder" href="../projects/index.html">Overview</a> </li>
+			<a href="overview.html">Overview</a> </li>
        	<li>
-			<a href="../projects/projectlibrary.html">Project Library</a> </li>
+			<a class="navigationL2_management_highlight" href="../management/overview.html">Manage Students</a> </li>
 		<li>
-			<a class="navigationL2_projects_highlight" href="../run/myprojectruns.html">My Project Runs</a> </li>
-		
-		<li >
-			<a style="color:#999999;" href="#">My Bookmarked Projects</a></li>
-		
-		<li >
-			<a style="color:#999999;" href="#">My Customized Projects</a> </li>
+			<a style="color:#999999;" href="#">Class Monitor</a> </li>
+		<li>
+			<a style="color:#999999;" href="#">Exports Reports</a> </li>
+		<li>
+			<a style="color:#999999;" href="#">Manage Teachers</a> </li>
+		<li>
+			<a href="../management/updatemyaccount.html">Update My Account</a> </li>
    </ul>
 </div>	
-

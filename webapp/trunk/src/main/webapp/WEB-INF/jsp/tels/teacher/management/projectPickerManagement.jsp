@@ -186,7 +186,7 @@
 </div> <!-- end of tabSystem Div -->
 
 <div id="returnToTopLink">
-	<a href="../management/managemystudents.html">Return to <em>Manage My Students</em> Section</a>
+	<a href="../management/overview.html">Return to <em>Overview</em></a>
 </div>
 
 </div>   <!--End of Centered Div-->

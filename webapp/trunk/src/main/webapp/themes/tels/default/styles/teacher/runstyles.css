@@ -219,16 +219,17 @@ table #runContent{
 
 #studentchangepasswordbox {
 	text-align:left;
+	margin: 0 auto;
 }
 
 #studentchangepasswordbox dt {
 	float:left;
 	vertical-align:baseline;
-	width:255px;
-	font-size:1.2em;
+	width:215px;
+	font-size:.8em;
 	font-weight:bold;
 	padding:3px 0px;
-	margin:6px 0 0 20px; ;
+	margin:6px 0 0 30px; ;
 }
 
 #studentchangepasswordbox dd {
@@ -237,7 +238,7 @@ table #runContent{
 	 }
 
 .changePasswordField {
-	font-size:1.3em;
+	font-size:.8em;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
@@ -246,8 +247,9 @@ table #runContent{
 	padding:3px;
 }
 
-#savePasswordButton {
-	margin-left:275px;
+#saveCancelButtons {
+text-align:center;
+margin: 30px auto 5px auto;
 }
 
 

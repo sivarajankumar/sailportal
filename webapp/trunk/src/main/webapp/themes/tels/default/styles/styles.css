@@ -135,9 +135,11 @@
 	}
 	
 .projectL2  {
-	/* background-color:#ffcccc;  */
 	margin-bottom:10px;
-
+	}
+	
+.management2  {
+	margin-bottom:5px;
 	}
 	
 .homebarL2  {
@@ -150,62 +152,57 @@
 	background-color:#ccccff;
 }
 	
-#navigationL2 {
-	padding:0px;
-	margin-top:3px;
-	width:958px;
-	border:1px solid #999999;
-	 
-	}
+/* NORMAL CSS FOR THE NAVIGATION L2 BAR */ 
 
-#navigationL2 ul {
-	padding: 6px 0 6px 120px;
-	margin:0px;
-	list-style:none;
-	}
-	
-#navigationL2 li {
-	font-size:.7em;
-	letter-spacing:.9px;
-	display:inline;
-	padding:0px;
-	margin:-2px;	
-	 
-	}
-	
-#navigationL2 a:link, #navigationL2 a:visited{
-	padding: 6px 20px 6px 20px;
-	margin:0px;
-	text-decoration:none;
-	color:#000000;	
-	}
-	
-#navigationL2 a:hover{
-	padding: 6px 20px 6px 20px;
-	margin:0px;
-	background-color:#CCCCFF;
-	background-image:none;
-	text-decoration:none;
-	}
+		#navigationL2 {
+			padding:0px;
+			width:958px;
+			border:1px solid #999999;
+			line-height:normal;
+				 }
+		
+		#navigationL2 ul {
+			padding: 6px 0 6px 120px;
+			margin:0px;
+			list-style:none;
+				}
+			
+		#navigationL2 li {
+			font-size:.7em;
+			letter-spacing:.9px;
+			display:inline;
+			padding:0px;
+			margin:-2px;
+		}
+		
+		#navigationL2 a:link, #navigationL2 a:visited{
+			padding: 6px 20px 6px 20px;
+			margin:0px;
+			text-decoration:none;
+			color:#000000;	
+			}
+			q
+		#navigationL2 a:hover{
+			padding: 6px 20px 6px 20px;
+			margin:0px;
+			background-color:#FFFF00;
+			background-image:none;
+			text-decoration:none;
+			}
 
 .navigationL2_management_highlight {
-	padding: 2px 20px 6px 20px;
-	margin:0px;
 	background-image: url(../images/Pixel_Management_Highlight.png); 
 	color:#990000;
 	border:1px solid #666666;
 		}
 		
 .navigationL2_projects_highlight {
-	padding: 2px 20px 6px 20px;
-	margin:0px;
 	background-image: url(../images/Pixel_Project_Highlight.png); 
 	color:#990000;
 	border:1px solid #666666;
 		}
 	
 #navigationL2_home_highlight {
-	padding: 6px 20px 6px 20px;
 	margin:0px;
 	background-color:#CCCC99;
 	border:1px solid #666666;

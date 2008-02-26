@@ -19,7 +19,7 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
-<div id="navigationL2" class="projectL2">
+<div id="navigationL2" class="management2">
 
 	<ul>
 		<li >

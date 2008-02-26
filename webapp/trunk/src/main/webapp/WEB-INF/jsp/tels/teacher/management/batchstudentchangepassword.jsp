@@ -45,9 +45,9 @@ function popup(URL, title) {
 
 <div id="popUpWindowViewStudents">
 
-<h1>Change Passwords for ALL Students <br />in this Period</h1>
+<h2>Change Passwords for ALL Students <br />in this Period</h2>
 
-<h5>Note: This will change the password for <em>all</em> students this period, <br/>not just an individual student.</h5>
+<h5>Note: This will change the password for <em>all</em> students in this period, <br/>not just an individual student.</h5>
 
 <div id="errorMessage">
 		<!-- Support for Spring errors object -->
@@ -64,14 +64,14 @@ function popup(URL, title) {
 	commandName="batchStudentChangePasswordParameters" id="batchstudentchangepassword">
 
 <dl>
-	<dt><label for="batchstudentchangepassword">Type new Password for All Students</label></dt>
+	<dt><label for="batchstudentchangepassword">New Password for All</label></dt>
     <dd><form:password path="passwd1" size="30" id="batchstudentchangepassword"/></dd>
 
-	<dt><label for="batchstudentchangepassword">Verify New Password for All Students</label></dt>
+	<dt><label for="batchstudentchangepassword">Verify New Password for All</label></dt>
 	<dd><form:password path="passwd2" size="30" id="batchstudentchangepassword"/></dd>
 </dl>
 
-    <div>
+    <div id="saveCancelButtons">
     
    <input id="savePasswordButton" type="image" src="../../<spring:theme code="register_save" />" 
     onmouseover="swapImage('savePasswordButton','../../<spring:theme code="register_save_roll" />');" 

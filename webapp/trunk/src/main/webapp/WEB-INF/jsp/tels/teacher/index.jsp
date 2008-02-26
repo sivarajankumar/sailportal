@@ -147,28 +147,28 @@
 				onmouseover="MM_swapImage('projectbuttonmini','','.././themes/tels/default/images/teacher/Projects-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Projects-Mini-Button2.png"
 				alt="Project Button Mini" id="projectbuttonmini" /></a></td>
-			<td>Visit this section to search the WISE library, customize existing projects, or create your own!</td>
+			<td>Search the WISE library, customize/create projects, view your current Project Runs.</td>
 		</tr>
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('gradingbuttonmini','','.././themes/tels/default/images/teacher/Grading-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Grading-Mini-Button2.png"
 				alt="Grading Button Mini" id="gradingbuttonmini" /></a></td>
-			<td>Visit this section to view and grade student work quickly and efficiently.</td>
+			<td>View and grade student work using an assortment of time-saving tools.</td>
 		</tr>
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('managementbuttonmini','','.././themes/tels/default/images/teacher/Management-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Management-Mini-Button2.png"
 				alt="Management Button Mini" id="managementbuttonmini" /></a></td>
-			<td>Visit this section to manage your students, print/export student work, or update your account.</td>
+			<td>Manage your students, print/export student work, update your account, and more.</td>
 		</tr>
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('helpbuttonmini','','.././themes/tels/default/images/teacher/Help-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Help-Mini-Button2.png"
 				alt="Help Button Mini" id="helpbuttonmini" /></a></td>
-			<td>This sections contains tools and guidelines to help you get WISE running smoothly in your classroom.</td>
+			<td>Review guidelines to help you use WISE 3.0 smoothly in your classroom.</td>
 		</tr>
 	</table>
 </div>   <!-- End of dashboardBox-->
@@ -202,6 +202,7 @@
 			<li class="inactivecolor">Real-Time Class Monitor</li>
 			<li class="inactivecolor">Print Student Work</li>
 			<li><a href="./management/updatemyaccount.html">Update My Account</a></li>
+			<li style="visibility:hidden;">test</li>
 		</ul>
 		<div id="linkHeader">Help</div> 
 		<ul>
