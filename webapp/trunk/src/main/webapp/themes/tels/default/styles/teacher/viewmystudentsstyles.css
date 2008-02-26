@@ -125,6 +125,11 @@ li.grouplesslist {
 	 font-size:.80em;
 	 padding-right:20px;
 		  }
+	
+#userLinksBar {
+	position:absolute;
+	right:15px;
+		  }
 	  
 .userLinks {
 	font-size:.75em;
