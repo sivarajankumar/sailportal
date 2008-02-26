@@ -49,7 +49,7 @@ table tr, table td {
 
 #list1 {
 		padding:12px 10px;
-		margin:0 0 5px 0px;
+		margin:0 0 5px 5px;
 }
 
 #list1 dt {
@@ -60,14 +60,14 @@ table tr, table td {
 
 #studentUsername {
 	font-weight:bold;
-	font-size: 1.4em;
+	font-size: 1.1em;
 	letter-spacing:1px;
-	text-transform:capitalize;	}
+	text-transform:capitalize;	
+	}
 
 #studentWelcome {
 	font-weight:bold;
-	font-size: 1.0em;
-	margin:0;
+	font-size: .8em;
 }
 
 #list2 {
@@ -78,14 +78,14 @@ table tr, table td {
 
 #list2 dt {
 	float:left;
-	font-size:.95em;
-	margin:0px;
+	font-size:.70em;
+	margin:0 0 0 10px;
 	padding:0px;
-	width:98px;
+	width:80px;
 }
 
 #list2 dd{
-	font-size: .95em;
+	font-size: .8em;
 	font-weight:bold;
 	margin:0;
 	padding:0px;
@@ -98,7 +98,7 @@ table tr, table td {
 	
 #accountOptions{
 	text-align:center;
-	font-size: 1em;
+	font-size: .85em;
 	font-weight:bold;
 	margin:0px 0 15px 6px;
 	padding: 15px 0 000px ;
@@ -118,7 +118,7 @@ table tr, table td {
 
 #displayAsEnglish {
 	text-align:center;
-	font-size:.9em;
+	font-size:.8em;
 	margin:2px 5px 5px 5px;
 	}
 
@@ -128,7 +128,7 @@ table tr, table td {
 	
 #studentcopyright {
 	text-align:center;
-	font-size:.9em;
+	font-size:.75em;
 	margin:-10px 0px 5px 0px;
 	}
 
@@ -138,7 +138,7 @@ table tr, table td {
 	background-position:right; 
 	background-repeat:repeat;
 	color:#000000;
-	font-size:1.3em;
+	font-size:1.1em;
 	letter-spacing:3px;
 	text-align:left;
 	padding: 5px 5px 5px 8px;
@@ -157,6 +157,11 @@ table tr, table td {
 	padding:0px;
 	} 
 	
+#currentRunTable td {
+	border:1px solid #333333;
+	font-size:.8em;
+		} 
+		
 #secondaryRowTightFormat {
 	padding:3px 5px;
 	} 
@@ -174,16 +179,13 @@ table tr, table td {
 }
 
 .studentTableLeftHeaderCurrent {
-	font-size:1.0em;
-	width:14%;
+	width:15%;
 	padding: 0px 5px;
-	border-right:1px solid #666666;
 	background-color:#FFFF99;	
 	}
 	
 .studentTableLeftHeaderArchive {
-	font-size:1.0em;
-	width:11%;
+	width:12%;
 	padding: 0px 5px;
 	border-right:1px solid #666666;
 	background-color:#FF9999;
@@ -201,15 +203,6 @@ table tr, table td {
 	padding:0px;
 	}
 
-.tableBorderTopBottom {
-	border-bottom:1px solid #666666;
-	border-top:1px solid #666666;
-}
-
-.tableBorderRight {
-	border-right:1px solid #666666;
-	}	
-
 /* #tableStudentProjectData tr, #tableStudentProjectData td  {
 	margin:0px;
 	padding:3px 5px;
@@ -217,7 +210,7 @@ table tr, table td {
 	
 #studentTitleText {
 	font-weight:bold;
-	font-size:1.6em;
+	font-size:1.3em;
 	margin: 0px;
 	margin-left:-2px;
 	padding: 0px;
@@ -255,7 +248,6 @@ table tr, table td {
 	display:block;
 	margin:0px;
 	padding:4px 3px;
-	font-size:1.1em;
 	color:#000066;
 	background-color:#ffff33;
 	border:1px solid #666666;

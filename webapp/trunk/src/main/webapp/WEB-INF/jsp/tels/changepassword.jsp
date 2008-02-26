@@ -46,7 +46,7 @@
  	
  	</div>
  	
-</div>	<!--end of popUpWindow1 div-->
+</div>	 
 
 </div>
 </body>

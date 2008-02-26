@@ -79,7 +79,7 @@
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController
-				/student/changestudentpassword.html=changeStudentPasswordController
+				/student/changestudentpassword.html=changeUserPasswordController
 				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
@@ -133,7 +133,8 @@
 				/**/changepassword.html=changePasswordController
 				/teacher/management/viewmystudents.html=viewMyStudentsController
 				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
-				/teacher/management/changestudentpassword.html=changeStudentPasswordController
+				/teacher/management/changeteacherpassword.html=changeUserPasswordController
+				/teacher/management/changestudentpassword.html=changeUserPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController

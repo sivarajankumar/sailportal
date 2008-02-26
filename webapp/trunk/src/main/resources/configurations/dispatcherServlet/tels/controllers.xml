@@ -485,9 +485,8 @@
 		<property name="validator" ref="changePasswordParametersValidator"/>
 	</bean>
 	
-	<bean id="changeStudentPasswordController"
+	<bean id="changeUserPasswordController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeUserPasswordController">
-		<property name="formView" value="/teacher/management/changestudentpassword"/>
 		<property name="successView" value="changepasswordsuccess"/>
 		<property name="userService" ref="userService"/>
 		<property name="sessionForm" value="true"/>

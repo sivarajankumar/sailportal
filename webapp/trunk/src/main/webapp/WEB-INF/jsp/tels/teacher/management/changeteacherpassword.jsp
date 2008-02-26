@@ -5,9 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>
@@ -18,7 +18,6 @@
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 <script>
-
 //alert('hi');
 //alert(ChangePasswordParametersValidatorJS.test('hi'))
 </script>
@@ -26,8 +25,7 @@
 </head>
 <body>
 
-
-<h1>Change My Password</h1>
+<h2>Change My Password</h2>
 
 <div id="errorMessageFormat">
 	<!-- Support for Spring errors object -->
@@ -52,14 +50,14 @@
 	
     <div id="teacherPasswordButtons">
     
-		    <input type="image" id="teachersave" src="../<spring:theme code="register_save" />" 
-		    onmouseover="swapImage('teachersave','../<spring:theme code="register_save_roll" />')" 
+		    <input type="image" id="teachersave" src="../../<spring:theme code="register_save" />" 
+		    onmouseover="swapImage('teachersave','../../<spring:theme code="register_save_roll" />')" 
 		    onmouseout="swapImage('teachersave','../../<spring:theme code="register_save" />')"/>
 		    
 		    <a href="index.html" onclick="javascript:window.close()">
-		    <input type="image" id="teachercancel" src="../<spring:theme code="register_cancel" />" 
-		    onmouseover="swapImage('teachercancel','../<spring:theme code="register_cancel_roll" />')" 
-		    onmouseout="swapImage('teachercancel','../<spring:theme code="register_cancel" />')"
+		    <input type="image" id="teachercancel" src="../../<spring:theme code="register_cancel" />" 
+		    onmouseover="swapImage('teachercancel','../../<spring:theme code="register_cancel_roll" />')" 
+		    onmouseout="swapImage('teachercancel','../../<spring:theme code="register_cancel" />')"
 		    /> </a>
     </div>
 
@@ -68,7 +66,6 @@
  	</div>
  	
 </div>	<!--end of popUpWindowTeacherPassword div-->
- 	
 
 </body>
 </html>

@@ -5,11 +5,6 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="../<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-
 	
 <title><spring:message code="application.title" /></title>
 
@@ -61,7 +56,6 @@
 	// Instantiate the Dialog
 	var addProjectDialog = new YAHOO.widget.Dialog("addProjectDialog", 
 																{ width : "700px",
-																//  height : "70%",
 																  fixedcenter : true,
 																  visible : false, 
 																  iframe : true,
@@ -135,7 +129,7 @@
 	
 	// Instantiate the Dialog
 	var changePasswordDialog = new YAHOO.widget.Dialog("changePasswordDialog", 
-																{ width : "650px",
+																{ width : "700px",
 																  // height : "300px",
 																  fixedcenter : true,
 																  visible : false, 
@@ -240,6 +234,10 @@ YAHOO.util.Event.onDOMReady(init);
 		  }); 
 		  </script>
 
+<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body class="yui-skin-sam">
@@ -291,7 +289,8 @@ YAHOO.util.Event.onDOMReady(init);
 		src="../<spring:theme code="student_add_project" />" /> </a>
 	</li>
 		
-		<!-- note: to make the change student password into AJAX, type in class="changepasswordLink" -->				
+	<!-- note: to make the change student password into AJAX, type in class="changepasswordLink" -->	
+					
 	<li><a href="#"
         onclick="javascript:popup640('changestudentpassword.html?userName=${user.userDetails.username}')"	
 		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
@@ -358,7 +357,7 @@ YAHOO.util.Event.onDOMReady(init);
 	<div id="columnLabel">PROJECT MENU</div>
 	
 	<div id="tabSystem" class="yui-navset">
-	    <ul style="font-size:1.0em;" class="yui-nav">
+	    <ul style="font-size:.8em;" class="yui-nav">
 	        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
 	        <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
 	    </ul>            
@@ -373,9 +372,8 @@ YAHOO.util.Event.onDOMReady(init);
 				
 							<tr id="projectMainRow">
 								<td class="studentTableLeftHeaderCurrent">Title</td>
-								<td class="tableBorderRight">
+								<td>
 									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
-									
 								<td rowspan="5" style="width:30%; padding:2px;">
 									  	<ul id="studentActionList">
 											<li><c:choose>
@@ -397,19 +395,19 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:choose>
 												</c:otherwise>
 											</c:choose></li>
-											<li><a href="${studentRunInfo.workgroup.workPDFUrl}">Save my work as PDF file</a></li>
+											<li><a href="${studentRunInfo.workgroup.workPDFUrl}">Create PDF file of my work</a></li>
 											<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#">Change period or team</a></li>
 											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}">Report a problem</a></li>
 									 	</ul>
 							 	</td>
 							</tr>
 							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Student Code</td>
-								<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Student Code</td>
+								<td id="secondaryRowTightFormat" >${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
 						  	</tr>	
 							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Teacher</td>
-								<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Teacher</td>
+								<td id="secondaryRowTightFormat" >
 												<c:choose>
 												<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
 													<c:forEach var="member" items="${studentRunInfo.run.owners}">	
@@ -424,13 +422,13 @@ YAHOO.util.Event.onDOMReady(init);
 								</td>
 								</tr>
 							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent tableBorderTopBottom">Period</td>
-								<td id="secondaryRowTightFormat" class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Period</td>
+								<td id="secondaryRowTightFormat" >${studentRunInfo.group.name}</td>
 						  	
 						  	</tr>
 							<tr>
 								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Team</td>
-								<td id="secondaryRowTightFormat" class="tableBorderRight">
+								<td id="secondaryRowTightFormat" >
 												<c:choose>
 												<c:when test="${studentRunInfo.workgroup != null}" >
 													<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
@@ -466,7 +464,7 @@ YAHOO.util.Event.onDOMReady(init);
 				
 							<tr id="projectMainRow">
 								<td class="studentTableLeftHeaderArchive">Title</td>
-								<td id="studentCurrentTitleCell" class="tableBorderRight">
+								<td id="studentCurrentTitleCell">
 									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 								<td rowspan="5" style="width:27%; padding:2px;">
 									  	<ul id="studentActionList">
@@ -494,8 +492,8 @@ YAHOO.util.Event.onDOMReady(init);
 							 	</td>
 							</tr>	
 							<tr>
-								<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Teacher</td>
-								<td class="tableBorderTopBottom tableBorderRight">
+								<td class="studentTableLeftHeaderArchive">Teacher</td>
+								<td>
 												<c:choose>
 												<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
 													<c:forEach var="member" items="${studentRunInfo.run.owners}">	
@@ -510,13 +508,13 @@ YAHOO.util.Event.onDOMReady(init);
 								</td>
 								</tr>
 							<tr>
-								<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Period</td>
-								<td class="tableBorderTopBottom tableBorderRight">${studentRunInfo.group.name}</td>
+								<td class="studentTableLeftHeaderArchive">Period</td>
+								<td>${studentRunInfo.group.name}</td>
 						  	
 						  	</tr>
 							<tr>
-								<td class="studentTableLeftHeaderArchive tableBorderTopBottom">Team</td>
-								<td class="tableBorderTopBottom tableBorderRight">
+								<td class="studentTableLeftHeaderArchive">Team</td>
+								<td>
 												<c:choose>
 												<c:when test="${studentRunInfo.workgroup != null}" >
 													<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
@@ -534,7 +532,7 @@ YAHOO.util.Event.onDOMReady(init);
 							</tr>
 							<tr>
 								<td class="studentTableLeftHeaderArchive">Archived On</td>
-								<td class="tableBorderRight">NEED DATA: Project Run End Date</td>
+								<td>NEED DATA: Project Run End Date</td>
 							</tr>
 					</table>
 				</c:forEach>
@@ -553,7 +551,7 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="addProjectDialog">
 <div class="hd">Add A Project</div>
 <div class="bd">
-<h3 ><spring:message code="teacher.add-project-info" /></h3>
+<h3><spring:message code="teacher.add-project-info" /></h3>
 
 
 <iframe id="addProjectFrame" src="" width="100%" FRAMEBORDER="0"
@@ -597,7 +595,6 @@ YAHOO.util.Event.onDOMReady(init);
 </div>
 </div>
 <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
-
 </div>
 </div>
 </div>
