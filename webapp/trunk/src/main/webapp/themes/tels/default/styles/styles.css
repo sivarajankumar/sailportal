@@ -496,9 +496,20 @@
 	}
 	
 #multiUserSignIn {
-	border-collapse:collapse;
 	text-align:left;
-	margin: 25px 15px 15px 25px;
+	margin: 25px auto 25px auto;
+}
+
+#multiUserSignIn td {
+	border: 1px solid #000000;
+}
+
+#multiUserSignIn input {
+	padding:3px;
+}
+
+#tableKludge1 {
+	border-right:1px solid #000000;
 }
 
 .errorMsgStyle {
@@ -506,6 +517,7 @@
 	font-weight:bold;
 	font-style:italic;
 	color:#330066;
+	border-right:1px solid #000000;
 }
 
 #finalRunProjectButton{

@@ -107,29 +107,37 @@
 
 <div id="teamSelect" class="teamMargin2">
 
-	<div id="teamSelectHeader"><authz:authentication operation="username" /> is already signed in. <br/>All other teammates should sign in below.</div>
+	<div id="teamSelectHeader"><span style="color:#0000CC;"><authz:authentication operation="username" /></span> is already signed in.</div>
+	<div id="teamSelectHeader">All other teammates should sign in below.</div>
 
 	<form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" >
 			<table id="multiUserSignIn" border="0" cellspacing="0" cellpadding="2">
 		  		<tr>
 		  			<td><label for="username1">Username 1:</label></td>
 		     		<td><form:input disabled="true" path="username1" id="username1" /></td>
-		     		<td><em>signed in</em></td>
+		     		<td style="width:90px;" id="tableKludge1"><em>already signed in</em></td>
 				</tr>
-				<tr><td style="padding:7px;"></td><td></td><td></td><td></td></tr>
+				<tr>
+		  			<td style="color:#666666;">Password</td>
+		     		<td style="color:#666666;">************</td>
+		     		<td style="border-right:1px solid #000000;"></td>
+		     	</tr>
+				<tr><td colspan=3 style="height:7px; background-color:#666666;"></td>
+				</tr>
 		  		<tr>
 		  		<c:forEach var="teammate_index" begin="2" end="3" step="1">
 		    		<td><label for="username${teammate_index}">Username ${teammate_index}:</label></td>
 		        	<td><form:input path="username${teammate_index}" id="username${teammate_index}"/></td>
 		        	<td class="errorMsgStyle"><form:errors path="username${teammate_index}" /></td>
 		        </tr>
-			
 				<tr>
 		 			<td><label for="password${teammate_index}">Password:</label></td>
 		        	<td><form:password path="password${teammate_index}" id="password${teammate_index}"/></td>
 		        	<td class="errorMsgStyle"><form:errors path="password${teammate_index}" /></td>
 		        </tr>
-   				<tr><td style="padding:7px;"></td><td></td><td></td><td></td></tr>
+				<tr>
+					<td colspan=3 style="height:7px; background-color:#666666;"></td>
+				</tr>
 		  </c:forEach>
 			</table>
 			
