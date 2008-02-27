@@ -26,9 +26,11 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter;
+import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.acegisecurity.Authentication;
+import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
@@ -47,6 +49,7 @@ public class TelsAuthenticationProcessingFilter extends
 
 	private static final String STUDENT_DEFAULT_TARGET_PATH = "/student/index.html";
 	private static final String TEACHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
+	private static final String ADMIN_DEFAULT_TARGET_PATH = "/admin/index.html";
 
 	private UserDetailsService userDetailsService;
 	
@@ -66,13 +69,27 @@ public class TelsAuthenticationProcessingFilter extends
         if (userDetails instanceof StudentUserDetails) {
         	this.setDefaultTargetUrl(STUDENT_DEFAULT_TARGET_PATH);
         }
-        if (userDetails instanceof TeacherUserDetails) {
-        	this.setDefaultTargetUrl(TEACHER_DEFAULT_TARGET_PATH);
+        else if (userDetails instanceof TeacherUserDetails) {
+	   		this.setDefaultTargetUrl(TEACHER_DEFAULT_TARGET_PATH);
+        	GrantedAuthority adminAuth = null;
+        	try {
+				adminAuth = userDetailsService.loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
+			} catch (AuthorityNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			GrantedAuthority authorities[] = userDetails.getAuthorities();
+        	for (int i = 0; i < authorities.length; i++) {
+        		if (adminAuth.equals(authorities[i])) {
+        			this.setDefaultTargetUrl(ADMIN_DEFAULT_TARGET_PATH);
+        		}
+        	}
         }
 		super.successfulAuthentication(request, response, authResult);
 		((MutableUserDetails) userDetails).incrementNumberOfLogins();
 		((MutableUserDetails) userDetails).setLastLoginTime(Calendar.getInstance().getTime());
 		userDetailsService.updateUserDetails((MutableUserDetails) userDetails);
+       
 	}
 
 	/**
