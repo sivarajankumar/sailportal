@@ -53,88 +53,95 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div id="welcomeRow">
+<table id="teacherHomeTable1" >
+<tr>
+<td id="welcomePanel" class="panelStyling">
+			
+			<div id="headerTeacherHome">Welcome to WISE 3.0!</div>
+			
+			<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
+					<tr class="tableRowBorder">
+						<td class="tableColor" style="width:26%;">Current User:</td>
+						<td>${user.userDetails.firstname} ${user.userDetails.lastname} </td>
+					</tr>
+					<tr class="tableRowBorder">
+						<td class="tableColor" style="width:26%;">Current Sign In:</td>
+						<c:set var="current_date" value="<%= new java.util.Date() %>" />
+						<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
+					</tr>
+					<tr class="tableRowBorder">
+						<td class="tableColor">Last Sign In:</td>
+						<td>
+						<c:choose>
+							<c:when test="${user.userDetails.lastLoginTime == null}">
+								never
+							</c:when>
+							<c:otherwise>
+								<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
+									type="both" dateStyle="short" timeStyle="short" />
+							</c:otherwise>
+						</c:choose>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColor">Announcements:</td>
+						<td>
+							<ul>
+							<li><b>
+							<c:choose>
+						        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
+						            Good morning!
+						        </c:when>
+						        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
+									Good afternoon!	
+						        </c:when>
+						        <c:otherwise>
+									Hello Night Owl!
+						        </c:otherwise>
+						    </c:choose>
+		    				</b></li>
+							<li><b>[You have gradable work ready in 2 projects. See links to right.]</b></li>
+							<li><b>[Announcement 3]</b></li>
+							</ul>
+						</td>
+					</tr>
+				</table> 
+</td> 
 
-<div id="welcomeBox" class="panelStyling">
+<td style="width:12px;"></td>
 
-	<div id="headerTeacherHome">Welcome to WISE 3.0!</div>
-	
-	<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
-			<tr class="tableRowBorder">
-				<td class="tableColor" style="width:26%;">Current User:</td>
-				<td>${user.userDetails.firstname} ${user.userDetails.lastname} </td>
-			</tr>
-			<tr class="tableRowBorder">
-				<td class="tableColor" style="width:26%;">Current Sign In:</td>
-				<c:set var="current_date" value="<%= new java.util.Date() %>" />
-				<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
-			</tr>
-			<tr class="tableRowBorder">
-				<td class="tableColor">Last Sign In:</td>
-				<td>
-				<c:choose>
-					<c:when test="${user.userDetails.lastLoginTime == null}">
-						never
-					</c:when>
-					<c:otherwise>
-						<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
-							type="both" dateStyle="short" timeStyle="short" />
-					</c:otherwise>
-				</c:choose>
-				</td>
-			</tr>
-			<tr>
-				<td class="tableColor">Announcements:</td>
-				<td>
-					<ul>
-					<li><b>
-					<c:choose>
-				        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
-				            Good morning!
-				        </c:when>
-				        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
-							Good afternoon!	
-				        </c:when>
-				        <c:otherwise>
-							Hello Night Owl!
-				        </c:otherwise>
-				    </c:choose>
-    				</b></li>
-					<li><b>[You have gradable work ready in 2 projects. See links to right.]</b></li>
-					<li><b>[Announcement 3]</b></li>
-					</ul>
-				</td>
-			</tr>
-		</table>
-</div>    <!-- End of welcomeBox-->
+<td id="projectsPanel" class="panelStyling" >
 
-<div id="projectsBox" class="panelStyling">
-	<div id="headerTeacherHome">Projects Awaiting Grading</div>
-	<table id="projectGradeLinkBox" cellpadding="5" cellspacing="5">
-		<tr>
-			<td class="tableColor">[Gradable Project Name A]</td>
-			<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
-			<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
-		</tr>
-		<tr>
-			<td class="tableColor">[Gradable Project Name B]</td>
-			<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
-			<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
-		</tr>
-		<tr>
-			<td class="tableColor">[Gradable Project Name C]</td>
-			<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
-			<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
-		</tr>
-	</table>
-</div>  <!-- End of projectsBox-->
-</div>   <!-- End of welcomeRow-->
+			<div id="headerTeacherHome">Projects Awaiting Grading</div>
 
-<div id="secondRow">
+			<table id="projectGradeLinkBox" cellpadding="5" cellspacing="5">
+				<tr>
+					<td class="tableColor">[Gradable Project Name A]</td>
+					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
+					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
+				</tr>
+				<tr>
+					<td class="tableColor">[Gradable Project Name B]</td>
+					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
+					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
+				</tr>
+				<tr>
+					<td class="tableColor">[Gradable Project Name C]</td>
+					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
+					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
+				</tr>
+			</table>
+</td>
+</tr>
+</table>
 
-<div id="dashboardBox" class="panelStyling">
+<table id="teacherHomeTable1" class="secondTableMargin" >
+<tr>
+<td id="dashboardPanel" class="panelStyling">
+
 	<div id="headerTeacherHome">About the Dashboard</div>
-	<table id="dashboardSections" cellspacing="8" cellpadding="2">
+	
+	<table id="dashboardSections" cellspacing="4" cellpadding="2">
 		<tr>
 			<td><a href="#"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('homebuttonmini','','.././themes/tels/default/images/teacher/Home-Mini-Button-Roll2.png',1)">
@@ -171,9 +178,11 @@
 			<td>Review guidelines to help you use WISE 3.0 smoothly in your classroom.</td>
 		</tr>
 	</table>
-</div>   <!-- End of dashboardBox-->
+</td>
 
-<div id="quickLinksBox" class="panelStyling">
+<td style="width:12px;"></td>
+
+<td id="quickLinksPanel" class="panelStyling">
 
 	<div id="headerTeacherHome">Quick Links</div>
 
@@ -211,9 +220,9 @@
 		</ul>
 	</div>
 
-</div>  <!-- End of quickLinksBox-->
-
-</div>   <!-- End of secondRow-->
+</td>
+</tr>
+</table>
 
 </div>   <!-- End of centeredDiv-->
 
