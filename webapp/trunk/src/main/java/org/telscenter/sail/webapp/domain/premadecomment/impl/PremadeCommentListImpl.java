@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.premadecomment.impl;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -58,7 +59,7 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 @Entity
 @Table(name = PremadeCommentListImpl.DATA_STORE_NAME)
-public class PremadeCommentListImpl implements PremadeCommentList{
+public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
 	
     @Transient
     public static final String DATA_STORE_NAME = "premadecommentlists";
@@ -168,5 +169,7 @@ public class PremadeCommentListImpl implements PremadeCommentList{
 		this.id = id;
 	}
 
-
+	public int compareTo(Object premadeCommentList){
+		return this.getLabel().compareTo(((PremadeCommentListImpl) premadeCommentList).getLabel());
+	}
 }

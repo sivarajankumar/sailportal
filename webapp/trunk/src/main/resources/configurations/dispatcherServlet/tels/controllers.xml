@@ -305,6 +305,31 @@
 		<property name="runService" ref="runService" />
 	</bean>
 	
+	<bean id="premadeCommentsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.PremadeCommentsController">
+		<property name="premadeCommentService" ref="premadeCommentService" />
+	</bean>
+	
+	<bean id="editCommentController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.EditCommentController">
+		<property name="premadeCommentService" ref="premadeCommentService" />
+	</bean>
+	
+	<bean id="createNewCommentListController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.CreateNewCommentListController">
+		<property name="premadeCommentService" ref="premadeCommentService" />
+	</bean>
+	
+	<bean id="addCommentToListController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.AddCommentToListController">
+		<property name="premadeCommentService" ref="premadeCommentService" />
+	</bean>
+	
+	<bean id="deleteCommentListController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.DeleteCommentListController">
+		<property name="premadeCommentService" ref="premadeCommentService" />
+	</bean>
+	
 	<bean id="exportsAndReportsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ExportsAndReportsController">
 	</bean>

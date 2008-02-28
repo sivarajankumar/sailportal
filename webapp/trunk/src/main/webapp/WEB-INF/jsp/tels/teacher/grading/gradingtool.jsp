@@ -53,6 +53,27 @@
 	
 	YAHOO.namespace("example.container");
 
+	function openPremadeComments() {
+
+		var premadeCommentsPanel = new YAHOO.widget.Panel("premadeComments",  
+                                                    { width: "600px", 
+                                                      fixedcenter: true, 
+                                                      close: true, 
+                                                      draggable: true, 
+                                                      zindex:4,
+                                                      modal: true
+                                                    } 
+                                                );
+		premadeCommentsPanel.setBody("<p>Hello</p>");
+		premadeCommentsPanel.render(document.body);
+		premadeCommentsPanel.show();
+		//abc.render(document.body);
+	}
+
+	function popup(URL) {
+  		window.open(URL, 'PremadeComments', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=650,height=500,left = 570,top = 300');
+  	}
+  	
     function init() {
 
         if (!YAHOO.example.container.wait) {
@@ -406,7 +427,28 @@ aggregate.value = set of workgroupWorkAggregate
 										</td>
 										
 										<td width="35%" >
-										<div align="center" class="tdHeader" ><class="headerFont">Teacher Feedback <span style="margin-left:10px;"><a href="#">open ready-made comments</a></span></div>
+										
+																										   	<c:set var="commentDone" value="false"/>
+																   	<c:set var="commentAnnotation" value=" "/>
+												     				<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
+																	
+																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
+																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
+																		
+																			<c:if test="${annotation.entityUUID == step.podUUID}">
+																			  <c:if test="${empty annotation.entityName}" >
+																			     <c:if test="${commentDone == false}">
+																				   <c:set var="commentAnnotation" value="${annotation}"/>
+																				   <c:set var="commentDone" value="true"/>
+																			     </c:if>
+																			  </c:if>
+																			</c:if>
+																		</c:if>
+																		</c:forEach>
+																	</c:forEach>
+																	
+																	
+										<div align="center" class="tdHeader" ><class="headerFont">Teacher Feedback <span style="margin-left:10px;"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')">open ready-made comments</a></span></div>
 										</td>
 										<td width="20%">
 										<div align="center" class="tdHeader" ><class="headerFont">Score</div>

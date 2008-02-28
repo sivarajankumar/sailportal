@@ -33,7 +33,7 @@ import org.telscenter.sail.webapp.domain.owned.Owned;
  * 
  * @author patrick lawler
  */
-public interface PremadeCommentList extends Owned{
+public interface PremadeCommentList extends Owned, Comparable {
 
 	/**
 	 * @return a list of PremadeComments
@@ -44,4 +44,6 @@ public interface PremadeCommentList extends Owned{
 	 * @param premadeCommentList that sets the List of PremadeComments
 	 */
 	public void setPremadeCommentList(Set<PremadeComment> premadeCommentList);
+	
+	public int compareTo(Object premadeCommentList);
 }

@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.service.premadecomment.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -29,6 +30,7 @@ import java.util.TreeSet;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentDao;
 import org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentListDao;
 import org.telscenter.sail.webapp.domain.Run;
@@ -46,10 +48,11 @@ import org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService;
  */
 public class PremadeCommentServiceImpl implements PremadeCommentService{
 	
-	private HibernatePremadeCommentDao premadeCommentDao = new HibernatePremadeCommentDao();
+	private HibernatePremadeCommentDao premadeCommentDao;
 	
-	private HibernatePremadeCommentListDao premadeCommentListDao = new HibernatePremadeCommentListDao();
+	private HibernatePremadeCommentListDao premadeCommentListDao;
 	
+	@Transactional()
 	public PremadeComment createPremadeComment (PremadeCommentParameters param){
 		PremadeComment premadeComment = new PremadeCommentImpl();
 		premadeComment.setComment(param.getComment());
@@ -61,6 +64,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		return premadeComment;
 	}
 	
+	@Transactional()
 	public void deletePremadeComment(Long commentId){
 		try{
 			PremadeComment premadeComment = premadeCommentDao.getById(commentId);
@@ -69,6 +73,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		}
 	}
 	
+	@Transactional()
 	public PremadeComment updatePremadeCommentMessage (Long premadeCommentId, String newComment)
 		throws ObjectNotFoundException{
 		try{
@@ -81,6 +86,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		}
 	}
 
+	@Transactional()
 	public PremadeComment updatePremadeCommentLabel (Long premadeCommentId, String newLabel)
 		throws ObjectNotFoundException{
 		try{
@@ -93,6 +99,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		}	
 	}
 	
+	@Transactional()
 	public Set<PremadeComment> retrieveAllPremadeComments(){
 		TreeSet<PremadeComment> returnSet = new TreeSet<PremadeComment>();
 		List<PremadeComment> returnedList = premadeCommentDao.getList();
@@ -101,6 +108,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		return returnSet;
 	}
 	
+	@Transactional()
 	public Set<PremadeComment> retrieveAllPremadeCommentsByUser(User user){
 		TreeSet<PremadeComment> returnSet = new TreeSet<PremadeComment>();
 		List<PremadeComment> returnedList = premadeCommentDao.getList();
@@ -113,6 +121,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		return returnSet;
 	}
 	
+	@Transactional()
 	public Set<PremadeComment> retrieveAllPremadeCommentsByRun(Run run){
 		TreeSet<PremadeComment> returnSet = new TreeSet<PremadeComment>();
 		List<PremadeComment> returnedList = premadeCommentDao.getList();
@@ -125,6 +134,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		return returnSet;
 	}
 	
+	@Transactional()
 	public PremadeCommentList createPremadeCommentList(PremadeCommentListParameters param){
 		PremadeCommentList premadeCommentList = new PremadeCommentListImpl();
 		premadeCommentList.setLabel(param.getLabel());
@@ -136,6 +146,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		return premadeCommentList;
 	}
 	
+	@Transactional()
 	public void deletePremadeCommentList (Long commentListId) throws ObjectNotFoundException {
 		try{
 			PremadeCommentList premadeCommentList = premadeCommentListDao.getById(commentListId);
@@ -144,6 +155,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		}
 	}
 	
+	@Transactional()
 	public PremadeCommentList updatePremadeCommentListLabel(Long commentListId, String newLabel)
 		throws ObjectNotFoundException{
 		try{
@@ -156,11 +168,13 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		}
 	}
 	
+	@Transactional()
 	public PremadeCommentList addPremadeCommentToList (Long commentListId, PremadeComment comment)
 		throws ObjectNotFoundException{
 		try{
 			PremadeCommentList premadeCommentList = premadeCommentListDao.getById(commentListId);
 			premadeCommentList.getPremadeCommentList().add(comment);
+			premadeCommentDao.save(comment);
 			premadeCommentListDao.save(premadeCommentList);
 			return premadeCommentList;
 		} catch (ObjectNotFoundException e){
@@ -168,6 +182,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		}
 	}
 	
+	@Transactional()
 	public PremadeCommentList removePremadeCommentFromList (Long commentListId, PremadeComment comment)
 		throws ObjectNotFoundException{
 		try{
@@ -180,14 +195,38 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		}
 	}
 	
+	@Transactional()
 	public Set<PremadeCommentList> retrieveAllPremadeCommentLists(){
 		TreeSet<PremadeCommentList> returnSet = new TreeSet<PremadeCommentList>();
 		List<PremadeCommentList> returnedList = premadeCommentListDao.getList();
 		
+		/*
+		int length = returnedList.size();
+		
+		List<PremadeCommentList> returnedList2 = new ArrayList<PremadeCommentList>();
+		
+		PremadeCommentList premadeCustomCommentsList = new PremadeCommentListImpl();
+		premadeCustomCommentsList.setId((long) 3);
+		premadeCustomCommentsList.setLabel("Premade Custom Comments");
+		returnedList2.add(premadeCustomCommentsList);
+		
+		PremadeCommentList premadeCustomCommentsList2 = new PremadeCommentListImpl();
+		premadeCustomCommentsList2.setId((long) 4);
+		premadeCustomCommentsList2.setLabel("Premade Custom Comments2");
+		returnedList2.add(premadeCustomCommentsList2);
+		
+		returnSet.add(premadeCustomCommentsList);
+		returnSet.add(premadeCustomCommentsList2);
+		
+		//System.out.println(premadeCustomCommentsList);
+		
+		returnSet.addAll(returnedList2);
+		*/
 		returnSet.addAll(returnedList);
 		return returnSet;
 	}
 	
+	@Transactional()
 	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByUser(User user){
 		TreeSet<PremadeCommentList> returnSet = new TreeSet<PremadeCommentList>();
 		List<PremadeCommentList> returnedList = premadeCommentListDao.getList();
@@ -200,6 +239,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		return returnSet;
 	}
 	
+	@Transactional()
 	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByRun(Run run){
 		TreeSet<PremadeCommentList> returnSet = new TreeSet<PremadeCommentList>();
 		List<PremadeCommentList> returnedList = premadeCommentListDao.getList();
@@ -210,6 +250,21 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 			}
 		}
 		return returnSet;		
+	}
+
+	/**
+	 * @param premadeCommentDao the premadeCommentDao to set
+	 */
+	public void setPremadeCommentDao(HibernatePremadeCommentDao premadeCommentDao) {
+		this.premadeCommentDao = premadeCommentDao;
+	}
+
+	/**
+	 * @param premadeCommentListDao the premadeCommentListDao to set
+	 */
+	public void setPremadeCommentListDao(
+			HibernatePremadeCommentListDao premadeCommentListDao) {
+		this.premadeCommentListDao = premadeCommentListDao;
 	}
 	
 }
