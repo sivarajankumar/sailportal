@@ -17,15 +17,18 @@ import java.util.Properties;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import sun.security.action.GetBooleanAction;
+
 public class DbMigration {
+	private String built = "";
     private String username = "";
     private String password = "";
     private String jdbcDriver = "";
     private String connectionString = "";
     
-    private static final String VERSION_DATE_INSERT_SQL = "INSERT INTO codebase_version (version_pk, update_date) VALUES(?, ?);";
-    private static final String VERSION_QUERY_SQL = "SELECT max(version_pk) FROM codebase_version;";
-    private static final String CREATE_VERSION_TABLE_SQL = "CREATE TABLE codebase_version ( version_pk integer NOT NULL, update_date date NOT NULL);";
+    private static final String VERSION_DATE_INSERT_SQL = "INSERT INTO codebase_version (version_pk, update_date, built) VALUES(?, ?, ?);";
+    private static final String VERSION_QUERY_SQL = "SELECT max(version_pk) FROM codebase_version WHERE built=?;";
+    private static final String CREATE_VERSION_TABLE_SQL = "CREATE TABLE codebase_version ( version_pk integer NOT NULL, update_date date NOT NULL, built varchar NOT NULL);";
     
     public void performMigration() {
         Connection connection = null;
@@ -67,8 +70,8 @@ public class DbMigration {
     }
     
     public static void main(String args[]) {
-    	if (args.length < 3) {
-            System.err.println("Usage: DbMigration <jdbcDriver> <connectionString> <username> [password]");
+    	if (args.length < 4) {
+            System.err.println("Usage: DbMigration <built> <jdbcDriver> <connectionString> <username> [password]");
             System.err.println("Only has "+args.length+" arguments.");
             for(int i=0; i<args.length; i++) {
             	System.err.println("args["+i+"]: "+args[i]);
@@ -79,11 +82,12 @@ public class DbMigration {
     	else {
 	    	DbMigration me = new DbMigration();
 
-	    	me.setJdbcDriver(args[0]);
-	    	me.setConnectionString(args[1]);
-	    	me.setUsername(args[2]);
-	    	if (args.length >= 4)
-	    		me.setPassword(args[3]);
+	    	me.setBuilt(args[0]);
+	    	me.setJdbcDriver(args[1]);
+	    	me.setConnectionString(args[2]);
+	    	me.setUsername(args[3]);
+	    	if (args.length > 4)
+	    		me.setPassword(args[4]);
 	    
 	    	me.performMigration();
     	}
@@ -109,10 +113,21 @@ public class DbMigration {
     public int getDbVersion(Connection connection) throws SQLException {
     	int version = 0;
 
-    	ResultSet tablesResultSet = connection.getMetaData().getTables(null, null, "codebase_version", new String[] { "TABLE" });
-        
-        if (tablesResultSet.next()) {
+    	ResultSet tablesResultSet = connection.getMetaData().getTables(null, null, null, new String[] {"TABLE"});
+    	boolean found = false;
+    	while(tablesResultSet.next()) {
+    		String tname = tablesResultSet.getString("TABLE_NAME");
+    		
+    		if (tname.equalsIgnoreCase("CODEBASE_VERSION")) {
+    			found = true;
+    			break;
+    		}
+    	}
+    	
+        if (found) {
             PreparedStatement preparedStatement = connection.prepareStatement(VERSION_QUERY_SQL);
+            
+            preparedStatement.setString(1, built);
             
             ResultSet versionResultSet = preparedStatement.executeQuery();
             
@@ -238,6 +253,7 @@ public class DbMigration {
         
         preparedStatement.setInt(1, upgradeVersion.intValue());
         preparedStatement.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
+        preparedStatement.setString(3, built);
         
         preparedStatement.executeUpdate();
         
@@ -248,7 +264,7 @@ public class DbMigration {
 
     private Properties readProperties() throws IOException {
         Properties properties = new Properties();
-        InputStream is = getClass().getResourceAsStream("/dbmigration.properties");
+        InputStream is = getClass().getResourceAsStream("/"+built+"/dbmigration.properties");
         
         if (is != null) {
         	properties.load(is);
@@ -333,5 +349,13 @@ public class DbMigration {
 	 */
 	public void setConnectionString(String connectionString) {
 		this.connectionString = connectionString;
+	}
+
+	public String getBuilt() {
+		return built;
+	}
+
+	public void setBuilt(String built) {
+		this.built = built;
 	}
 }

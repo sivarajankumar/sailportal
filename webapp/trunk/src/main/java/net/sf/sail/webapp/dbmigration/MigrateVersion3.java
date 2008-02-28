@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class MigrateVersion3 extends AbstractMigrationClass {
 	public MigrateVersion3() {
 		this.statements = new String[] {
-	        "ALTER TABLE t2 ADD COLUMN f3 varchar(255);",
-	        "ALTER TABLE t1 DROP COLUMN f3;"
+	        "ALTER TABLE pas_t2 ADD COLUMN f3 varchar(255);",
+	        "ALTER TABLE pas_t1 DROP COLUMN f3;"
 		};
 	}
 	
