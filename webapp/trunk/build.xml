@@ -173,10 +173,11 @@
         </java>        
     </target>
 
-	<target name="db.migrate" depends="_set.properties.jdbc" description="Generate the database schema from annotated persistent classes in the production code.">
+	<target name="db.migrate" depends="_set.properties.jdbc, _input.portal.config" description="Generate the database schema from annotated persistent classes in the production code.">
 	        <property name="portal.config" value="tels"/>
 			<antcall target="_mvn.recompile"/>
-	        <java classname="net.sf.sail.webapp.dbmigration.DbMigration" fork="true" failonerror="true" newenvironment="true">
+	        <java classname="${dbmigration.classname}" fork="true" failonerror="true" newenvironment="true">
+	        	<arg value="${portal.config}"/>
 	        	<arg value="${settings.profiles.profile.properties.jdbc.driverClassName}"/>
 	        	<arg value="${settings.profiles.profile.properties.jdbc.url}" />
 		        <arg value="${settings.profiles.profile.properties.jdbc.username}"/>
