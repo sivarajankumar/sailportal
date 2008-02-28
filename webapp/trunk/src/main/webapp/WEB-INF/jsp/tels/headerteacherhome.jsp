@@ -36,12 +36,11 @@
 	<div id="navigationMainProjects">
 	<ul>
 	   	<li>	
-    		<a href="index.html"><input type="image" id="hometest" src="../<spring:theme code="home_NoTrans_Roll"/>"	
+    		<a href="./index.html"><input type="image" id="hometest" src="../<spring:theme code="home_NoTrans_Roll"/>"	
     		onmouseover="swapImage('hometest','../<spring:theme code="home_NoTrans_Roll"/>')" 
-    		onmouseout="swapImage('hometest','../<spring:theme code="home_NoTrans_Roll"/>)"/></a> </li>
-    	    		
+    		onmouseout="swapImage('hometest','../<spring:theme code="home_NoTrans_Roll"/>)"/></a> </li>    	    		
 	    <li>
-			<a href="projects/index.html"><input type="image" id="projects" src="../<spring:theme code="projects_NoTrans"/>"
+			<a href="./projects/index.html"><input type="image" id="projects" src="../<spring:theme code="projects_NoTrans"/>"
     		onmouseover="swapImage('projects','../<spring:theme code="projects_NoTrans_Roll"/>')" 
     		onmouseout="swapImage('projects','../<spring:theme code="projects_NoTrans"/>')"/></a> </li>
     	<li>
