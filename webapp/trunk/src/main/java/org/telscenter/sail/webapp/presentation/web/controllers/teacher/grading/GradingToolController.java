@@ -61,6 +61,7 @@ public class GradingToolController extends AbstractController {
 	private static final String TAB_INDEX = "tabIndex";
 	private static final String NEXT_STEP = "nextStep";
 	public static final String CURNIT_ID = "curnitId";
+	public static final String PROJECT_ID = "projectId";
 	public static final String PROJECT_TITLE = "projectTitle";
 	private static final String ACTIVITY = "activity";
 	private static final String STEP = "step";
@@ -91,6 +92,7 @@ public class GradingToolController extends AbstractController {
 		Run aRun = runService.retrieveById(new Long(runId));
 		System.out.println("OBJECT ID: " + aRun.getSdsOffering().getSdsCurnit().getSdsObjectId() );
 		String curnitId = aRun.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();
+		String projectId = aRun.getProject().getId().toString();
 		
 		ECurnitmap curnitMap = this.gradingService.getCurnitmap(new Long(runId));
 		EProject project = curnitMap.getProject();
@@ -156,6 +158,7 @@ public class GradingToolController extends AbstractController {
 				modelAndView.addObject(ACTIVITY,stepToActivityMap.get(currentStep));
 				modelAndView.addObject(PROJECT_TITLE,project.getTitle());
 				modelAndView.addObject(CURNIT_ID,curnitId);
+				modelAndView.addObject(PROJECT_ID,projectId);
 				modelAndView.addObject(TAB_INDEX, tabIndex);
 				
 				modelAndView.addObject(GradeByStepController.RUN_ID, runId);

@@ -333,7 +333,7 @@
 
 <div id="overviewHeaderGradingv2">Grade By Step</div>
 
-<div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project ID ${curnitId})</span></div>
+<div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project ID ${projectId})</span></div>
 
 <table id="currentStepTable" >
   <tr>
