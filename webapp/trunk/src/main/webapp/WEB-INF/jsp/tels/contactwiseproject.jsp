@@ -117,9 +117,21 @@
 
 <form:form commandName="contactWISEProject" method="post" action="contactwiseproject.html" id="contactWISEForm" >  
   <dl>
-  
-  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
-    <dd><form:input path="name" id="name" size="50" tabindex="1"/></dd>
+
+  	<authz:authorize ifAllGranted="ROLE_ANONYMOUS">
+  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+   		<dd><form:input path="name" id="name" size="50" tabindex="1" /></dd>
+    </authz:authorize>
+    
+   <authz:authorize ifAllGranted="ROLE_TEACHER">
+  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+   		<dd><form:input path="name" id="name" size="50" tabindex="1" /></dd>
+    </authz:authorize>
+    
+  	<authz:authorize ifAllGranted="ROLE_STUDENT">
+  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+   		<dd><form:input path="name" id="name" size="50" tabindex="1" disabled="true" /></dd>
+    </authz:authorize>
             
 	<authz:authorize ifAllGranted="ROLE_ANONYMOUS">
 		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span>Email</label></dt>
