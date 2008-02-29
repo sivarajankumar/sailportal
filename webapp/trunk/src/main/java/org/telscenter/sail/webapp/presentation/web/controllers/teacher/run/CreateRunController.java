@@ -22,7 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -320,6 +322,8 @@ public class CreateRunController extends AbstractWizardFormController {
 		String schoolCity = null;
 		String schoolState = null;
 		String schoolPeriods = null;
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMMM d, yyyy");
 		
 		//tries to retrieve the user from the session
 		User user = (User) request.getSession().getAttribute(
@@ -357,6 +361,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			"School Periods: " + schoolPeriods + "\n" +
 			"Project Name: " + projectName + "\n" + 
 			"Project ID: "+ projectID + "\n" +
+			"Run Created: " + sdf.format(date) + "\n" + 
 
 			"\n\nThis does not guarantee that the project is actually going to " +
 			"be run in the classroom, only that the teacher has gone " + 
