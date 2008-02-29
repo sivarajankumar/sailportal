@@ -2,52 +2,61 @@ package org.telscenter.sail.webapp.dbmigration;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import net.sf.sail.webapp.dbmigration.AbstractMigrationClass;
 
+/**
+ * This migration is to add three new tables used for the PremadeComments functionality
+ * 
+ * @author Hiroki Terashima
+ * @author Rokham Sadeghnezhadfard
+ * @author David Leung
+ * @author Geoffrey Kwan
+ *
+ * @version $Id:$
+ */
 public class MigrateVersion1 extends AbstractMigrationClass {
 	public MigrateVersion1() {
 		this.statements = new String[] {
-			"CREATE TABLE tels_t1 (f1 varchar(255), f2 varchar(255));",
-			"CREATE TABLE tels_t2 (f1 varchar(255), f2 varchar(255), f3 varchar(255));"		
-		};
+				"create table premadecommentlists (" +
+				"id bigint not null auto_increment," +
+				"label varchar(255) not null," +
+				"owner longtext," +
+				"run longtext," +
+				"primary key (id)" +
+				") type=InnoDB;",
+				"create table premadecomments (" +
+				"id bigint not null auto_increment," +
+				"comment varchar(255) not null," +
+				"label varchar(255) not null," +
+				"owner longtext," +
+				"run longtext," +
+				"primary key (id)" +
+				") type=InnoDB;",
+			    "create table premadecomments_related_to_premadecommentlists (" +
+			    "premadecommentslist_fk bigint not null," +
+			    "premadecomments_fk bigint not null," +
+			    "primary key (premadecommentslist_fk, premadecomments_fk)" +
+			    ") type=InnoDB;",
+			    "alter table premadecomments_related_to_premadecommentlists " +
+			    "add index FK6958FC11C8153CF5 (premadecomments_fk), " +
+			    "add constraint FK6958FC11C8153CF5 " +
+			    "foreign key (premadecomments_fk) " +
+			    "references premadecomments (id);",
+			    "alter table premadecomments_related_to_premadecommentlists " +
+			    "add index FK6958FC112FC6E4D5 (premadecommentslist_fk), " +
+			    "add constraint FK6958FC112FC6E4D5 " +
+			    "foreign key (premadecommentslist_fk) " +
+			    "references premadecommentlists (id);"
+			};
 	}
 
     public int doMigration(Connection conn) throws SQLException {
     	super.doMigration(conn);
-
-        doCodeTables(conn);
-
+    	
+    	// call the class that we are going to run
+    	
     	return 0;
 	}
 
-	private static void doCodeTables(Connection conn) throws SQLException {
-		Statement stmt;
-		conn.setAutoCommit(false);
-
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t1 (f1, f2)" + "VALUES(1, 1)");
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t1 (f1, f2)" + "VALUES(2, 2)");
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t1 (f1, f2)" + "VALUES(3, 3)");
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t1 (f1, f2)" + "VALUES(4, 4)");		
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t1 (f1, f2)" + "VALUES(5, 5)");		
-		
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t2 (f1, f2, f3)" + "VALUES(1, 1, 1)");
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t2 (f1, f2, f3)" + "VALUES(2, 2, 2)");
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t2 (f1, f2, f3)" + "VALUES(3, 3, 3)");
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t2 (f1, f2, f3)" + "VALUES(4, 4, 4)");		
-		stmt = conn.createStatement();
-		stmt.executeUpdate("INSERT INTO tels_t2 (f1, f2, f3)" + "VALUES(5, 5, 5)");		
-
-		conn.commit();
-	}
 }

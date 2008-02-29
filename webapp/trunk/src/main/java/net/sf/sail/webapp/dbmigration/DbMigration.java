@@ -28,7 +28,7 @@ public class DbMigration {
     
     private static final String VERSION_DATE_INSERT_SQL = "INSERT INTO codebase_version (version_pk, update_date, built) VALUES(?, ?, ?);";
     private static final String VERSION_QUERY_SQL = "SELECT max(version_pk) FROM codebase_version WHERE built=?;";
-    private static final String CREATE_VERSION_TABLE_SQL = "CREATE TABLE codebase_version ( version_pk integer NOT NULL, update_date date NOT NULL, built varchar NOT NULL);";
+    private static final String CREATE_VERSION_TABLE_SQL = "CREATE TABLE codebase_version ( version_pk integer NOT NULL, update_date date NOT NULL, built varchar(20) NOT NULL);";
     
     public void performMigration() {
         Connection connection = null;

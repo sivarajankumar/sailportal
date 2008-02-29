@@ -33,6 +33,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -89,10 +90,12 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
     @Column(name = PremadeCommentImpl.COLUMN_NAME_LABEL, nullable=false)
     private String label;
     
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true)
+    @Lob
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true, length=2147483647)
     private User owner = null;
 
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true)
+    @Lob
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true, length=2147483647)
     private Run run = null;
     
     @Id

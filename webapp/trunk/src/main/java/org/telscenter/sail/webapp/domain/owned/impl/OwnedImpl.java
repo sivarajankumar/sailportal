@@ -29,6 +29,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -62,10 +63,12 @@ public class OwnedImpl {
     @Column(name = OwnedImpl.COLUMN_NAME_LABEL, nullable=false)
     private String label;
     
-    @Column(name = OwnedImpl.COLUMN_NAME_OWNER, nullable = true)
+    @Lob
+    @Column(name = OwnedImpl.COLUMN_NAME_OWNER, nullable = true, length=2147483647)
     private User owner = null;
 
-    @Column(name = OwnedImpl.COLUMN_NAME_RUN, nullable = true)
+    @Lob
+    @Column(name = OwnedImpl.COLUMN_NAME_RUN, nullable = true, length=2147483647)
     private Run run = null;
     
     @Id

@@ -151,6 +151,7 @@
 		listId = "premadeCommentList" + listNumber;
 		
 		//TODO remove this for loop, it's not necessary
+		var commentLists = document.getElementById("commentLists");
 		for (var x=0;x<commentLists.length;x++) {
 			if(commentLists[x].value == listId) {
 				document.getElementById(commentLists[x].value).style.display = "";
@@ -189,6 +190,7 @@
 	
 	function useList(listNumber) {
 		var listId = "premadeCommentList" + listNumber;
+		var commentLists = document.getElementById("commentLists");
 		for (var x=0;x<commentLists.length;x++) {
 			if(commentLists[x].value == listId) {
 				document.getElementById(commentLists[x].value).style.display = "";
@@ -232,7 +234,7 @@
 												addNewListToDropDown(newListNumber, newListName);
 												addNewListToDisplay(newListNumber, newListName);
 											},
-						failure: function(o){}
+						failure: function(o){ }
 						};
 		var request = YAHOO.util.Connect.asyncRequest('POST', url, callBack, postData);
 		
@@ -329,7 +331,7 @@
 	}
 	
 	function toggleCreateNewListDisplay() {
-		
+		var commentLists = document.getElementById("commentLists");
 		for (var i=0;i<commentLists.length;i++) {
 			document.getElementById(commentLists[i].value).style.display = "none";
 		}

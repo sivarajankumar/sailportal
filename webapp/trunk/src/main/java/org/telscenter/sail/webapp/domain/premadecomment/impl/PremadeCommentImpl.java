@@ -27,6 +27,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -71,10 +72,12 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     @Column(name = PremadeCommentImpl.COLUMN_NAME_LABEL, nullable=false)
     private String label;
     
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true)
+    @Lob
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true, length=2147483647)
     private User owner = null;
 
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true)
+    @Lob
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true, length=2147483647)
     private Run run = null;
     
     @Id
