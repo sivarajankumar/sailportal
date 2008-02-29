@@ -17,7 +17,67 @@
   	{window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240');}
 </script>
 
-<script>
+<script type="text/javascript">
+
+	if(navigator.appName != "Microsoft Internet Explorer") {
+		loadingImage = new Image();
+		loadingImage.src = "/webapp/themes/tels/default/images/rel_interstitial_loading.gif";
+	}
+	
+    YAHOO.namespace("example.container");
+
+    function init() {
+
+        if (!YAHOO.example.container.wait) {
+
+            // Initialize the temporary Panel to display while waiting for external content to load
+
+            YAHOO.example.container.wait = 
+                    new YAHOO.widget.Panel("wait",  
+                                                    { width: "240px", 
+                                                      fixedcenter: true, 
+                                                      close: false, 
+                                                      draggable: false, 
+                                                      zindex:4,
+                                                      modal: true,
+                                                      visible: false
+                                                    } 
+                                                );
+
+            //YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
+            YAHOO.example.container.wait.render(document.body);
+
+        }
+
+        // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
+
+
+
+        var callback = {
+            success : function(o) {
+                //content.innerHTML = o.responseText;
+                //content.style.visibility = "visible";
+                YAHOO.example.container.wait.hide();
+            },
+            failure : function(o) {
+                //content.innerHTML = o.responseText;
+                //content.style.visibility = "visible";
+                //content.innerHTML = "CONNECTION FAILED!";
+                YAHOO.example.container.wait.hide();
+            }
+        }
+    
+        // Show the Panel
+        YAHOO.example.container.wait.show();
+        
+        // Connect to our data source and load the data
+        //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
+    }
+
+    YAHOO.util.Event.on("studentScoreSummary", "click", init);
+    
+    
 		(function() {
    		 var tabView = new YAHOO.widget.TabView('tabSystem');})();
  </script>
@@ -92,7 +152,7 @@
 					    	<li><a style="color:#cccccc;" href="#">View Project Info</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Edit Periods</a></li>
 					    	<li><a href="../grading/gradebystep.html?runId=${run.id}">Grade Students</a></li>
-					    	<li><a href="../grading/currentscore.html?runId=${run.id}">Student Score Summary</a></li>
+					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Manage Students</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
