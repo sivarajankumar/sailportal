@@ -18,8 +18,13 @@
 	   	   <div id="signOutBannerHome"><a href="student/index.html">Student Home Page</a></div>
 	   </authz:authorize>
 	   <authz:authorize ifAllGranted="ROLE_TEACHER">
-	   	   <div id="signOutBannerHome"><a href="teacher/index.html">Teacher Home Page</a></div>
+	   	   <span id="signOutBannerHome"><a href="teacher/index.html">Teacher Home Page</a></span>
 	   </authz:authorize>
+	   <authz:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+	   	  <span id="signOutBannerHome"><a href="admin/index.html">Admin Home Page</a></span>
+	 	</authz:authorize>
      </authz:authorize>
+
+
   </div>
 </div>
