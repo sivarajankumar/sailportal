@@ -92,7 +92,7 @@
 				<sendOnWarning>true</sendOnWarning>
 				<sendOnSuccess>true</sendOnSuccess>
 				<configuration>
-					<address>laurel.williams@utoronto.ca</address>
+					<address>somebodyiknow@gmail.com</address>
 				</configuration>
 			</notifier>
 			<notifier>
@@ -113,6 +113,16 @@
 				<sendOnSuccess>true</sendOnSuccess>
 				<configuration>
 					<address>aperritano@gmail.com</address>
+				</configuration>
+			</notifier>
+			<notifier>
+				<type>mail</type>
+				<sendOnError>true</sendOnError>
+				<sendOnFailure>true</sendOnFailure>
+				<sendOnWarning>true</sendOnWarning>
+				<sendOnSuccess>true</sendOnSuccess>
+				<configuration>
+					<address>geoffreykwan@gmail.com</address>
 				</configuration>
 			</notifier>
 		</notifiers>
