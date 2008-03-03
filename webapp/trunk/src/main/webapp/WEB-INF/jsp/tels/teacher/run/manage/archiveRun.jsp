@@ -37,16 +37,17 @@
 
 <body>
 
-<div id="centeredDiv">
+
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
 <div id="popUpBoxBoundary">
 
 <div id="largeHeader">Archive Project Run</div>
 
 <div id="blockHighlight" >
-	<div id="runTitle">[DATA NEEDED: Project Name Here]</div>
-	<div id="titleSubHeader">&middot; [DATA NEEDED: project type,project ID]  "library project, ID 21351" &middot;</div>
-	<div id="titleSubHeader">&middot; [DATA NEEDED: run creation date]  "created 4/12/07" &middot;</div>
+	<div id="runTitle">[VARIABLE: Project Name Here]</div>
+	<div id="titleSubHeader">[VARIABLE: project type, ID]  Ex: "Library project, Project ID 21351" </div>
+	<div id="titleSubHeader">[VARIABLE: run creation date]  Ex "Created 4/12/07"</div>
 </div>			    	
 
 	<div id="popUpNotice1">Are you sure you want to archive this project?</div>
@@ -83,8 +84,8 @@ You can move an archived project run back to the "Current Runs" folder at any ti
 
 </form:form>
 
+</div>
 </div>    <!--    End of popUpTextBoundary -->
-</div>    <!--    End of centeredDiv -->
 
 </body>
 </html>
