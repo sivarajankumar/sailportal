@@ -252,3 +252,46 @@ table tr, table td {
 	background-color:#ffff33;
 	border:1px solid #666666;
 }
+
+.teamNotRegisteredMessage {
+	font-weight:bold;
+	color:#3333FF;
+}
+
+#firstUseBox{
+	margin-top:20px;
+	margin-bottom:4px;
+	background-color:#CCCCCC;
+	border:1px solid black;
+	padding:5px;
+	} 
+	
+#firstUseBox{
+	margin-top:100px;
+	margin-bottom:4px;
+	background-color:#CCCCCC;
+	border:1px solid black;
+	padding:8px;
+	} 
+	
+#firstUseHeader{
+	color:#000066;
+	font-style:italic;
+	font-weight:bold;
+	} 
+	
+#instructionsArea {
+	margin:4px 0 0 1px;
+	} 
+		
+#instructionsArea ol {
+	margin-top:8px;
+	font-size:.8em;
+	
+	} 
+
+#instructionsArea li {
+	padding-left:5px;
+	margin-left:0;
+	} 
+	

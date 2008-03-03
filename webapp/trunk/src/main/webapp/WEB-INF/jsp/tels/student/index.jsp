@@ -335,7 +335,7 @@ YAHOO.util.Event.onDOMReady(init);
 	</c:choose>
 		
 	</dd>
-	<dt class="listTitle2"># of Logins:</dt>
+	<dt class="listTitle2"># of Sign Ins:</dt>
 	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
 	<dt class="listTitle2">Language:</dt> 
 	<dd id="language">English</dd>
@@ -439,7 +439,7 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
-													not established yet			    
+													<div class="teamNotRegisteredMessage">Click RUN PROJECT to get started, and to set up the team with 1, 2, or 3 students.</div>  
 												</c:otherwise>	
 									      		</c:choose>
 								</td>
@@ -454,6 +454,19 @@ YAHOO.util.Event.onDOMReady(init);
 						To add a WISE 3.0 project click the "Add a Project" button.			    
 				</c:otherwise>
 				</c:choose>
+				<div id="firstUseBox">
+					<div id="firstUseHeader">First time running a project?</div>
+					<div id="instructionsArea">
+						<h6>Try the following:</h6>
+						<ol>
+							<li>Click RUN PROJECT to get started.</li>
+							<li>Select how many students on your team.</li>
+							<li>For multiplayer teams, students 2 and 3 will enter their Username/Password.</li>
+							<li>Click OK button (when asked to "Open With Java Web Start").</li>
+							<li>Click TRUST button to launch the learning module.</li> 
+						</ol>
+					</div>
+				</div>
 			</div>
 			<div id="archivedRuns">
 				<c:choose>

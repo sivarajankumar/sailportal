@@ -131,17 +131,17 @@ img#none{
 }
 
 #overviewHeader {
-	font-size:1.3em; 
+	font-size:1.0em; 
 	letter-spacing:3px;
 	font-variant:small-caps;
-	margin: 10px 0 0 25px;
+	margin: 10px 0 0 28px;
 	padding:0px;
 }
 	
 /* OVERVIEW CHOICES FOR ALL SECTIONS  */ 
 
 #overview_choices   {
-	padding:15px 0 30px 5px;
+	padding:10px 0 30px 5px;
 }
 	
 #overview_choices .link  {
