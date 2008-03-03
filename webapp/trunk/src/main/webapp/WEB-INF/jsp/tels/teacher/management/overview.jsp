@@ -31,7 +31,13 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
-<title>Projects Overview</title>
+<title>Management Overview</title>
+
+<!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
+<!--[if lt IE 7]>
+<script defer type="text/javascript" src="../../javascript/tels/iefixes.js"></script>
+<![endif]-->
+
 </head>
 
 <body>
@@ -44,7 +50,7 @@
  
 <div id="overviewContent"> 
 
-	<div id="overviewHeader">Management: Overview</div>
+	<div id="overviewHeader">management: overview</div>
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>

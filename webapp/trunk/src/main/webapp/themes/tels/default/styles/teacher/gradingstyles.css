@@ -104,23 +104,32 @@
 	}
 			
 #gradeStepInstructions {
-	font-size:1.1em;
+	font-size:.9em;
 	font-style:italic;
-	margin: 10px 0 25px 0;
+	margin: 5px 0 15px 0;
 	padding-bottom:10px;
 	border-bottom:1px solid gray;
-	width:80%;
+	width:100%;
 	}		
 	
+#stepTitle {
+   font-size:1.0em;
+   font-weight:bold;
+   margin:0px 0 5px 0;
+}
+	
 #stepSelectionList {
-
+   padding-top:0;
+   margin: 0 0 20px 0;
 }
 
 #stepSelectionList li {
 	list-style:circle;
-	font-size:1.0em;
+	font-weight:bold;
+	font-size:.8em;
 	margin:0px 0 3px 0;
-}
+	padding:0px;
+	}
 
 #stepSelectionList a:link, #stepSelectionList a:visited {
 	background-color:#FFFFFF;
@@ -140,6 +149,11 @@
 	font-weight:normal;
 	font-variant:normal;
 }
+	
+#stepTypeStyle {
+   font-size:.8em;
+   color:#CC0000;
+   }
 	
 	
 /* CSS FOR GRADING TOOL  */ 

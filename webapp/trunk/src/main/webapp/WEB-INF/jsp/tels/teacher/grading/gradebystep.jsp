@@ -125,13 +125,13 @@
 	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
 	<div id="selectAnotherLink"><a href="projectPickerGrading.html">Select Another Project</a></div>
 
-	<div id="gradeStepInstructions">Select a step to grade below</div>
+	<div id="gradeStepInstructions">Select any step below to begin grading</div>
 		
    <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
-		<h4 style="padding-bottom:0px; margin-bottom:0px;">Activity ${someAct.number+1}: ${someAct.title}</h4>  
+		<div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div>  
 		<ul id="stepSelectionList"> 
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
-				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a>    (${someStep.type})</li></c:if>
+				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a> <span id="stepTypeStyle"> (${someStep.type})</span></li></c:if>
 				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
 			</c:forEach>
 		</ul>

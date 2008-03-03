@@ -35,26 +35,26 @@
 		
 	<div id="navigationMainProjects">
 	<ul>
-	   	<li>	
-    		<a href="./index.html"><input type="image" id="hometest" src="../<spring:theme code="home_NoTrans_Roll"/>"	
-    		onmouseover="swapImage('hometest','../<spring:theme code="home_NoTrans_Roll"/>')" 
-    		onmouseout="swapImage('hometest','../<spring:theme code="home_NoTrans_Roll"/>)"/></a> </li>    	    		
-	    <li>
-			<a href="./projects/index.html"><input type="image" id="projects" src="../<spring:theme code="projects_NoTrans"/>"
-    		onmouseover="swapImage('projects','../<spring:theme code="projects_NoTrans_Roll"/>')" 
-    		onmouseout="swapImage('projects','../<spring:theme code="projects_NoTrans"/>')"/></a> </li>
-    	<li>
-			<a href="grading/overview.html"><input type="image" id="grading" src="../<spring:theme code="grading"/>"
-    		onmouseover="swapImage('grading','../<spring:theme code="grading_selected"/>')" 
-    		onmouseout="swapImage('grading','../<spring:theme code="grading"/>')"/></a> </li>
-    	<li>
-			<a href="management/overview.html"><input type="image" id="management" src="../<spring:theme code="management"/>"
-    		onmouseover="swapImage('management','../<spring:theme code="management_selected"/>')" 
-    		onmouseout="swapImage('management','../<spring:theme code="management"/>')"/></a> </li>
-   		<li>
-			<a href="help/overview.html"><input type="image" id="help" src="../<spring:theme code="help"/>"
-    		onmouseover="swapImage('help','../<spring:theme code="help_selected"/>')" 
-    		onmouseout="swapImage('help','../<spring:theme code="help"/>')"/></a> </li>
+	<li><a href="../teacher/index.html"
+		onmouseout="MM_swapImgRestore()"
+		onmouseover="MM_swapImage('homebutton','','../themes/tels/default/images/teacher/Home-Buttn-Selected.png',1)">
+		<img src="../themes/tels/default/images/teacher/Home-Buttn-Selected.png"	alt="Home Nav Button" id="homebutton" /></a></li>
+	<li><a href="../teacher/projects/index.html"
+		onmouseout="MM_swapImgRestore()"
+		onmouseover="MM_swapImage('projectsbutton','','../themes/tels/default/images/teacher/Projects-Buttn-Selected.png',1)">
+		<img src="../themes/tels/default/images/teacher/Projects-Buttn-Clickable.png"	alt="Projects Nav Button" id="projectsbutton" /></a></li>
+	<li><a href="../teacher/grading/overview.html" 
+		onmouseout="MM_swapImgRestore()"
+		onmouseover="MM_swapImage('gradingbutton','','../themes/tels/default/images/teacher/Grading-Buttn-Selected.png',1)">
+		<img src="../themes/tels/default/images/teacher/Grading-Buttn-Clickable.png" alt="Grading Nav Button" id="gradingbutton" /></a></li>
+	<li><a href="../teacher/management/overview.html" 
+		onmouseout="MM_swapImgRestore()"
+		onmouseover="MM_swapImage('managementbutton','','../themes/tels/default/images/teacher/Management-Buttn-Selected2.png',1)">
+		<img src="../themes/tels/default/images/teacher/Management-Buttn-Clickable2.png" 	alt="Management Nav Button" id="managementbutton" /></a></li>
+	<li><a href="../teacher/help/overview.html" 
+		onmouseout="MM_swapImgRestore()"
+		onmouseover="MM_swapImage('helpbutton','','../themes/tels/default/images/teacher/Help-Buttn-Selected2.png',1)">
+		<img src="../themes/tels/default/images/teacher/Help-Buttn-Clickable2.png"	alt="Help Nav Button" id="helpbutton" /></a></li>
    </ul>
    </div>
 

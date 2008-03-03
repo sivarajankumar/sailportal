@@ -131,10 +131,10 @@ img#none{
 }
 
 #overviewHeader {
-	font-size:1.5em;
+	font-size:1.3em; 
 	letter-spacing:3px;
 	font-variant:small-caps;
-	margin: 10px 0 0 30px;
+	margin: 10px 0 0 25px;
 	padding:0px;
 }
 	
@@ -145,7 +145,7 @@ img#none{
 }
 	
 #overview_choices .link  {
-	font-size:1.6em;
+	font-size:1.4em;
 	font-weight:bold;
 	width:390px;
 	}
@@ -180,7 +180,7 @@ img#none{
 		}
 		
 #overview_choices .description  {
-	font-size:.9em;
+	font-size:.8em;
 	margin:0px;
 	padding:2px;
 	vertical-align:middle;

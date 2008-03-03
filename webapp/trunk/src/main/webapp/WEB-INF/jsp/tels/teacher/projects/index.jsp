@@ -32,6 +32,13 @@
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
 <title>Projects Overview</title>
+
+<!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
+<!--[if lt IE 7]>
+<script defer type="text/javascript" src="../../javascript/tels/iefixes.js"></script>
+<![endif]-->
+
+
 </head>
 
 <body>
