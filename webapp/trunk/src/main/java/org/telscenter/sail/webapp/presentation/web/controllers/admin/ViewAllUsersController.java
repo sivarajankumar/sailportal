@@ -63,7 +63,7 @@ public class ViewAllUsersController extends AbstractController{
 
 	private static final String VIEW_NAME = "admin/manageusers";
 	
-	private static final String ALL_USERS_LIST = "all_users_list";
+	protected static final String ALL_USERS_LIST = "all_users_list";
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
