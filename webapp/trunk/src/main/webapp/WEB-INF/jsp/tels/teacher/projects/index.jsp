@@ -51,7 +51,7 @@
  
 <div id="overviewContent"> 
 
-	<div id="overviewHeader">Project: Overview</div>
+	<div id="overviewHeader">project: overview</div>
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>

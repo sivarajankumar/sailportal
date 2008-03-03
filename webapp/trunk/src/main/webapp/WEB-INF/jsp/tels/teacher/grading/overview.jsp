@@ -53,7 +53,7 @@
  
 <div id="overviewContentGrading"> 
 
-	<div id="overviewHeaderGrading">Grading: Overview</div>
+	<div id="overviewHeaderGrading">grading: overview</div>
 	
 	<table id="overview_choices_grading" cellspacing="20">
 		<tr>

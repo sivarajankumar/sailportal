@@ -28,6 +28,7 @@
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../../<spring:theme code="teacherhelpstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>
@@ -49,9 +50,9 @@
 <%@ include file="../../L2helpbar.jsp"%>
 
 
-<div id="overviewContentHelp"> 
+<div id="overviewContent"> 
 
-	<div id="overviewHeaderHelp">Teacher Help Overview</div>
+	<div id="overviewHeader">help: overview</div>
 	
 	<div class="helpSection">
 		<div class="helpHeader">New Users</div>
