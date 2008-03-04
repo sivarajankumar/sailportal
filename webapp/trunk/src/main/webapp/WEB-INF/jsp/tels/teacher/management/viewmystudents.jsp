@@ -436,7 +436,9 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			<strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link (above) to make an empty team box appear below. Then drag student names into this box.
 			<br/>
 			<strong>To create a PDF file of student work:</strong> &nbsp; click the "Create PDF" link adjacent to each Team Number below.</div>
-			
+			<table>
+			<tr>
+			<td>
 			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
 			  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
 			    <li class="grouplessHeader">unassigned students</li>
@@ -453,11 +455,16 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
     			     </span>
     			  </li>
 			    </c:forEach>
-			    
   			  </ul>
 			</div>
-
-            <c:forEach var="workgroupInPeriod" items="${viewmystudentsperiod.workgroups}" >
+			</td>
+			<td>
+			<div id="div_for_new_workgroups_${viewmystudentsperiod.period.id}"></div>
+			</td>
+			</tr>
+			<tr>
+            <c:forEach var="workgroupInPeriod" varStatus="workgroupVarStatus" items="${viewmystudentsperiod.workgroups}" >
+                <td>
               <div class="workarea" id="div_${workgroupInPeriod.id}">
 			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
 			      <li class="workgroupHeader">TEAM ${workgroupInPeriod.id}
@@ -478,10 +485,17 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			      </c:forEach>
 			    </ul>
 			   </div>
+                 </td>                
+                <c:choose>
+                    <c:when test="${workgroupVarStatus.index % 2 == 1}" >
+                      </tr><tr>
+                    </c:when>
+                    <c:otherwise>
+                    </c:otherwise>
+              </c:choose>
             </c:forEach>
-            
-            <div id="div_for_new_workgroups_${viewmystudentsperiod.period.id}">
-            </div>
+            </tr>
+            </table>
             
          <div id="saveBar">
          		<input type="button" class="saveButton" id="saveButton_${viewmystudentsperiod.period.id}" 
