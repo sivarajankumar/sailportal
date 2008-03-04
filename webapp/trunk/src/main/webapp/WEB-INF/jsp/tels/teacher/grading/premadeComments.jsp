@@ -33,9 +33,8 @@
 <script type="text/javascript" src="/webapp/javascript/tels/effects.js"></script>
 <script type="text/javascript" src="/webapp/javascript/tels/controls.js"></script>
 
-
-
 <%@ include file="./styles.jsp"%>
+
 <link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
@@ -365,13 +364,9 @@
 	}
 </script>
 
-<div id="centeredDiv">
+<div id="premadeCommentsBox">
 
-
-<br />
-
-
-<div id="premadeComments">Premade Comments</div>
+<div id="premadeComments">pre-made comments editor</div> 
 <select id="commentLists" name="commentLists" onchange="showCommentList()">
 	<c:forEach var="premadeCommentList" items="${premadeCommentLists}">
 		<option value="premadeCommentList${premadeCommentList.id}">${premadeCommentList.label}</option>
@@ -380,9 +375,9 @@
 
 <div>
 	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()">Create New List</a>
-
-	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="button" value="Create New List" onclick="createNewList()" /></p>
-
+	<form onsubmit="return false;">
+	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
+	</form>
 </div>
 
 <div id="premadeCommentsSelectionArea">
@@ -441,8 +436,8 @@
 	<input type="button" value="Set Comments" onclick="addComments()" />
 <!--	</form> -->
 <script>document.getElementById("previewComments").value = window.opener.document.getElementById("${commentBox}").value</script>
-</div>      <!--End of Centered Div-->
 
+</div>      <!--End of premadeCommentsBox-->
 
 </body>
 

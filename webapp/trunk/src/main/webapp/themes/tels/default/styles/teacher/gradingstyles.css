@@ -81,7 +81,7 @@
 	
 #gradeStepSelectedProject {
 	color:#CC0000;
-	font-size:1.8em;
+	font-size:1.3em;
 	font-weight:bold;
 	font-variant:small-caps;
 	}	
@@ -165,7 +165,7 @@
 
 #currentStepLabel {
 	width:640px;
-	font-size:1.4em;
+	font-size:1.3em;
 	font-weight:bold;
 	border:1px solid #333333;
 	background-image:url(../../images/Pixel_Grading_Highlight.png);
@@ -203,23 +203,11 @@
 	background-color:#0000CC;
 	color:#FFFFFF;
 	text-align:left;
-	padding:3px;
+	padding:5px;
 	font-size:.8em;
 	border:1px solid #0000CC;
-}
-
-#groupHeaderRow a:link, #groupHeaderRow a:visited {
-	color:#FFFFFF;
-	padding:0px 4px;
-	font-size:.9em;
-}
-
-#groupHeaderRow a:hover {
-	color:#0000CC;
-	padding:0px 4px;
-	background-color:#FFFF99;
-	font-size:.9em;
-}
+	border-bottom: 1px solid #000000;
+	}
 
 .boldText {font-weight:bold; }
 
@@ -251,5 +239,66 @@
 	font-size:.9em;
 	margin-top:40px;
 }
+
+#preMadeCommentsLink {
+	margin-left:15px;
+	}
+	
+#preMadeCommentsLink a:visited, #preMadeCommentsLink a:link {
+	border-top: 1px solid #000099;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000099;
+	background-color:#CCCCCC;
+	padding:1px 4px;
+	color:#000000;
+	text-decoration:none;
+	}          
+	
+#preMadeCommentsLink a:hover {
+	padding:1px 4px;
+	background-color:#FFFF99;
+	color:#000000;
+}        
+	
+/* CSS FOR PRE-MADE COMMENTS EDITOR  */ 
+
+#premadeCommentsBox {
+	background-color:#FFFFFF;
+	width: 630px;
+	text-align:left;
+	padding: 0;
+	margin: 15px auto;
+	border: 1px solid #333333
+}
+
+#premadeComments {
+	font-weight:bold;
+	background-image:url(../../images/Texture_Green3.png);
+	background-position:left top;
+	background-repeat:repeat;
+	border-bottom: 1px solid #333333;
+	padding:10px;
+	font-size:1.1em;
+	letter-spacing:1px;
+	font-variant:small-caps;
+}
+
+#commentLists {
+	width:400px;
+	margin:15px 10px;
+	border-top: 1px solid #000099;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000099;
+	background-color:#9999FF;
+	color:#000000;
+	font-weight:bold;
+}
+
+
+
+
+
 	
           

@@ -59,9 +59,9 @@
 <%@ include file="L2grading_bystep.jsp"%>
 
 <div id="pickerHeader">
-		<div id="mainHeader">Select a Project</div>
-		<div id="subHeader">(click a Project Title below)</div>
+	<div id="mainHeader">Select a Project</div>
 </div>
+<div id="subHeader">(click any Project Title below)</div>
 
 <div id="tabSystem" class="yui-navset">
 <ul class="yui-nav">

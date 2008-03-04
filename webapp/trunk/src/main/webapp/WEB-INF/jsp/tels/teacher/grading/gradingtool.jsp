@@ -56,7 +56,7 @@
 	function openPremadeComments() {
 
 		var premadeCommentsPanel = new YAHOO.widget.Panel("premadeComments",  
-                                                    { width: "600px", 
+                                                    { width: "800px", 
                                                       fixedcenter: true, 
                                                       close: true, 
                                                       draggable: true, 
@@ -385,7 +385,7 @@ aggregate.value = set of workgroupWorkAggregate
 
 <div id="periodTabs" class="yui-navset"> 
 		<!-- create the tabs nav -->
-		<ul class="yui-nav" style="font-size:1.2em; text-transform:uppercase;"> 
+		<ul class="yui-nav" style="font-size:.8em; text-transform:uppercase;"> 
 			<c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
 				 <li style="margin-right:4px;"><a href="${aggregate.key.name}"><em>Period ${aggregate.key.name}</em></a></li> 
 			 </c:forEach> 
@@ -401,7 +401,7 @@ aggregate.value = set of workgroupWorkAggregate
 				 -->
 				<c:if test="${empty aggregate.value}"> 
 					<div id="noTeamsInPeriod" style="padding:20px 0;">
-						This period has no registered student teams
+						This period has no registered student teams.
 					</div>
 				</c:if>
 					<c:forEach var="workgroupAggregateObj" varStatus="workgroupAggregateObjStatus" items="${aggregate.value}">
@@ -448,10 +448,10 @@ aggregate.value = set of workgroupWorkAggregate
 																	</c:forEach>
 																	
 																	
-										<div align="center" class="tdHeader" ><class="headerFont">Teacher Feedback <span style="margin-left:10px;"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')">open ready-made comments</a></span></div>
+										<div align="center" class="tdHeader" class="headerFont">Teacher Feedback <span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')">Open Pre-Made Comments Editor</a></span></div>
 										</td>
 										<td width="20%">
-										<div align="center" class="tdHeader" ><class="headerFont">Score</div>
+										<div align="center" class="tdHeader" class="headerFont">Score</div>
 										</td>
 									</tr>
 							<!-- End Table Header -->
