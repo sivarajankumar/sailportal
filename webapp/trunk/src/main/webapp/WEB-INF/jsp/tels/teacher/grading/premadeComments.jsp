@@ -332,12 +332,7 @@
 						};
 		var request = YAHOO.util.Connect.asyncRequest('POST', url, callBack, postData);	
 		
-		document.getElementById("addCommentDisplay" + listNumber).style.display = "none";
-		
-		
-		
-
-		
+		//document.getElementById("addCommentDisplay" + listNumber).style.display = "none";
 		document.getElementById("addCommentField" + listNumber).value = "";
 	}
 	
