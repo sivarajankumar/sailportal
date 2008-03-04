@@ -87,7 +87,7 @@ public class SdsWorkgroupGetCommandHttpRestImpl extends AbstractHttpRestCommand
 
 	// add the /1 at the end for now for workgroup version.
 	protected HttpGetRequest generateSessionBundleRequest(Long sdsWorkgroupId, Long sdsOfferingId) {
-		final String url = "/offering/" + sdsOfferingId + "/bundle/" + sdsWorkgroupId + "/1";
+		final String url = "/offering/" + sdsOfferingId + "/bundle/" + sdsWorkgroupId + "/0";
 
 		return new HttpGetRequest(REQUEST_HEADERS_ACCEPT, EMPTY_STRING_MAP,
 				url, HttpStatus.SC_OK);
