@@ -49,6 +49,8 @@
 
 <script type="text/javascript">
 
+	var mode = new Array();
+
 	var inPlaceEditor = new Array();
 	
 	var commentIdToDbId = new Array();
@@ -150,6 +152,8 @@
 	function openEditList(listNumber) {
 		listId = "premadeCommentList" + listNumber;
 		
+		mode[listId] = "edit";
+		
 		//TODO remove this for loop, it's not necessary
 		var commentLists = document.getElementById("commentLists");
 		for (var x=0;x<commentLists.length;x++) {
@@ -169,14 +173,18 @@
 				}
 				for (var i=1;i<numCheckBoxes + 1;i++) {
 					commentId = commentIdToDbId[listId + '_' + i];
-					inPlaceEditor[listId + '_' + i] = new Ajax.InPlaceEditor(listId + "_" + i, '/webapp/teacher/grading/editComment.html', 
+					
+					if(inPlaceEditor[listId + '_' + i] == undefined) {
+						inPlaceEditor[listId + '_' + i] = new Ajax.InPlaceEditor(listId + "_" + i, '/webapp/teacher/grading/editComment.html', 
 						{okText: "save",
 						 formId: commentId,
 							callback:function(form, value) {
 								return "listId=" + listId + "&commentId=" + form.id + "&editedComment=" + value;
 			    			}
 			    			});
-			    	document.getElementById(listId + "_" + i + "_checkboxval").style.display = "none";
+			    		document.getElementById(listId + "_" + i + "_checkboxval").style.display = "none";
+					}
+
     			}
 			} else {
 				document.getElementById(commentLists[x].value).style.display = "none";
@@ -190,6 +198,8 @@
 	
 	function useList(listNumber) {
 		var listId = "premadeCommentList" + listNumber;
+		mode[listId] = "view";
+		
 		var commentLists = document.getElementById("commentLists");
 		for (var x=0;x<commentLists.length;x++) {
 			if(commentLists[x].value == listId) {
@@ -210,7 +220,10 @@
 					document.getElementById(listId + "_" + i + "_checkboxval").value = 
 						document.getElementById(listId + "_" + i).innerHTML; 
 			    	
-			    	inPlaceEditor[listId + '_' + i].dispose();
+			    	if(inPlaceEditor[listId + '_' + i] != undefined) {
+			    		inPlaceEditor[listId + '_' + i].dispose();
+			    		inPlaceEditor[listId + '_' + i] = undefined;
+			    	}
 			    	
 			    	document.getElementById(listId + "_" + i + "_checkboxval").style.display = "";
     			}
@@ -233,6 +246,7 @@
 												var newListNumber = o.responseText;
 												addNewListToDropDown(newListNumber, newListName);
 												addNewListToDisplay(newListNumber, newListName);
+												mode["premadeCommentList" + newListNumber] = "view";
 											},
 						failure: function(o){ }
 						};
@@ -255,15 +269,14 @@
 		var newForm = document.createElement('form');
 
 		newForm.setAttribute("id", "premadeCommentList" + listNumber);
-		newForm.innerHTML = "<a href='#' id='openEditList" + listNumber + "' onclick='openEditList(" + listNumber + ")'>Edit List</a>";
-		newForm.innerHTML += " <a href='#' id='useList" + listNumber + "' style='display:none' onclick='useList(" + listNumber + ")'>Use List</a>";
 		//newForm.innerHTML += " <a href='#' id='duplicateList' onclick='duplicateList(" + listId + ")'>Duplicate List</a>";
 		//newForm.innerHTML += " <a href='#' id='renameList' onclick='renameList(" + listId + ")'>Rename List</a>";
 		//newForm.innerHTML += " <a href='#' id='shareList' onclick='shareList(" + listId + ")'>Share List</a>";
 		//newForm.innerHTML += " <a href='#' id='deleteList' onclick='deleteList(" + listId + ")'>Delete List</a>";
 		//newForm.innerHTML += " <a href='#' id='newList' onclick='toggleCreateNewListDisplay()'>Create New List</a>";
-		newForm.innerHTML += " <a href='#' id='addCommentToList' onclick='toggleAddCommentDisplay(" + listNumber + ")'>Add Comment To List</a>";
-
+		newForm.innerHTML = "<a href='#' id='addCommentToList' onclick='toggleAddCommentDisplay(" + listNumber + ")'>Add Comment To List</a>";
+		newForm.innerHTML += " <a href='#' id='openEditList" + listNumber + "' style='display:none' onclick='openEditList(" + listNumber + ")'>Edit List</a>";
+		newForm.innerHTML += " <a href='#' id='useList" + listNumber + "' style='display:none' onclick='useList(" + listNumber + ")'>Save List</a>";
 		newForm.innerHTML += "<p id='addCommentDisplay" + listNumber + "'>Enter a new comment: <input id='addCommentField" + listNumber + "' type='text' /><input type='button' value='Add Comment' onclick='addCommentToList(" + listNumber + ")' /></p>";
 		newForm.innerHTML += "<p id='clickToEditMessage" + listNumber + "' style='display:none'>Click Comments to Edit</p>";
 		document.getElementById('premadeCommentsSelectionArea').appendChild(newForm);
@@ -296,6 +309,25 @@
 		var callBack = {
 						success: function(o) {
 									commentIdToDbId["premadeCommentList" + listNumber + "_" + commentNumber] = o.responseText;
+									var premadeCommentForm = document.getElementById("premadeCommentList" + listNumber);
+									var newCommentTable = document.createElement("table");
+									var newTableTr = document.createElement("tr");
+									var newTableTdCheckBox = document.createElement("td");
+									var newTableTdP = document.createElement("td");
+									newTableTdP.setAttribute("width", "400");
+									newTableTdCheckBox.innerHTML = "<input type='checkbox' value='" + comment + "' id='premadeCommentList" + listNumber + "_" + commentNumber + "_checkboxval' name='checkBoxes' onclick=\"toggleComment('premadeCommentList" + listNumber + "_" + commentNumber + "_checkboxval')\" />";
+									newTableTdP.innerHTML = "<p id='premadeCommentList" + listNumber + "_" + commentNumber + "' name='checkBoxLabels'>" + comment + "</p>";
+		
+									premadeCommentForm.appendChild(newCommentTable);
+									newCommentTable.appendChild(newTableTr);
+									newTableTr.appendChild(newTableTdCheckBox);
+									newTableTr.appendChild(newTableTdP);
+									
+									if(mode["premadeCommentList" + listNumber] == "edit") {
+										openEditList(listNumber);
+									} else if(mode["premadeCommentList" + listNumber] == "view") {
+										document.getElementById("openEditList" + listNumber).style.display = "";
+									}
 									},
 						failure: function(o){}
 						};
@@ -305,19 +337,7 @@
 		
 		
 		
-		var premadeCommentForm = document.getElementById("premadeCommentList" + listNumber);
-		var newCommentTable = document.createElement("table");
-		var newTableTr = document.createElement("tr");
-		var newTableTdCheckBox = document.createElement("td");
-		var newTableTdP = document.createElement("td");
-		newTableTdP.setAttribute("width", "400");
-		newTableTdCheckBox.innerHTML = "<input type='checkbox' value='" + comment + "' id='premadeCommentList" + listNumber + "_" + commentNumber + "_checkboxval' name='checkBoxes' onclick=\"toggleComment('premadeCommentList" + listNumber + "_" + commentNumber + "_checkboxval')\" />";
-		newTableTdP.innerHTML = "<p id='premadeCommentList" + listNumber + "_" + commentNumber + "' name='checkBoxLabels'>" + comment + "</p>";
-		
-		premadeCommentForm.appendChild(newCommentTable);
-		newCommentTable.appendChild(newTableTr);
-		newTableTr.appendChild(newTableTdCheckBox);
-		newTableTr.appendChild(newTableTdP);
+
 		
 		document.getElementById("addCommentField" + listNumber).value = "";
 	}
@@ -338,6 +358,7 @@
 		
 		if(document.getElementById("createNewListDisplay").style.display == "") {
 			document.getElementById("createNewListDisplay").style.display = "none";
+			showCommentList();
 		} else {
 			document.getElementById("createNewListDisplay").style.display = "";
 		}
@@ -359,15 +380,15 @@
 
 <div>
 	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()">Create New List</a>
-	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="button" value="Create New List" onclick="createNewList()" /></p>
+	<form onsubmit="return false;">
+	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
+	</form>
 </div>
 
 <div id="premadeCommentsSelectionArea">
 
 	<c:forEach var="premadeCommentList" items="${premadeCommentLists}" varStatus="listStatus">
 		<form id="premadeCommentList${premadeCommentList.id}" style="display:none">
-			<a href="#" id="openEditList${premadeCommentList.id}" onclick="openEditList('${premadeCommentList.id}')">Edit List</a>
-			<a href="#" id="useList${premadeCommentList.id}" style="display:none" onclick="useList('${premadeCommentList.id}')">Use List</a>
 <!-- 
 			<a href="#" id="duplicateList" onclick="duplicateList('premadeCommentList${premadeCommentList.id}')">Duplicate List</a>
 			<a href="#" id="renameList" onclick="renameList('premadeCommentList${premadeCommentList.id}')">Rename List</a>
@@ -376,8 +397,15 @@
  -->
 			
 			<a href="#" id="addCommentToList" onclick="toggleAddCommentDisplay(${premadeCommentList.id})">Add Comment To List</a>
+			<c:if test="${fn:length(premadeCommentList.premadeCommentList) != 0}">
+				<a href="#" id="openEditList${premadeCommentList.id}" onclick="openEditList('${premadeCommentList.id}')">Edit List</a>
+			</c:if>
+
+			<a href="#" id="useList${premadeCommentList.id}" style="display:none" onclick="useList('${premadeCommentList.id}')">Save List</a>
+
 			
 			<p id="addCommentDisplay${premadeCommentList.id}" style="display:none">Enter a new comment: <input id="addCommentField${premadeCommentList.id}" type="text" /><input type="button" value="Add Comment" onclick="addCommentToList('${premadeCommentList.id}')" /></p>
+			
 			<p id="clickToEditMessage${premadeCommentList.id}" style="display:none">Click Comments to Edit</p>
 			
 
@@ -391,6 +419,7 @@
 							<input type="checkbox" value="${premadeComment.comment}" id="premadeCommentList${premadeCommentList.id}_${commentStatus.count}_checkboxval" name="checkBoxes" onclick="toggleComment('premadeCommentList${premadeCommentList.id}_${commentStatus.count}_checkboxval')" />
 							<script>
 								commentIdToDbId["premadeCommentList${premadeCommentList.id}_${commentStatus.count}"] = "${premadeComment.id}";
+								mode["premadeCommentList${premadeCommentList.id}"] = "view";
 							</script>
 						</td>
 						<td width="400">
