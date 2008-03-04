@@ -380,9 +380,9 @@
 
 <div>
 	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()">Create New List</a>
-	<form onsubmit="return false;">
-	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
-	</form>
+
+	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="button" value="Create New List" onclick="createNewList()" /></p>
+
 </div>
 
 <div id="premadeCommentsSelectionArea">
