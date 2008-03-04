@@ -71,7 +71,7 @@
 	}
 
 	function popup(URL) {
-  		window.open(URL, 'PremadeComments', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=650,height=500,left = 570,top = 300');
+  		window.open(URL, 'PremadeComments', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=675,height=500,left = 570,top = 300');
   	}
   	
     function init() {
