@@ -22,6 +22,8 @@
  */
 package net.sf.sail.webapp.domain.sessionbundle;
 
+import java.util.List;
+
 import net.sf.sail.emf.sailuserdata.ESessionBundle;
 import net.sf.sail.webapp.domain.Workgroup;
 
@@ -35,15 +37,15 @@ import net.sf.sail.webapp.domain.Workgroup;
  */
 public interface SessionBundle {
 
-	/**
-	 * @param bundleString the bundleString to set
-	 */
-	public void setBundleString(String bundleString);
-
-	/**
-	 * @return the sessionbundle in string format
-	 */
-	public String getBundleString();
+//	/**
+//	 * @param bundleString the bundleString to set
+//	 */
+//	public void setBundleString(String bundleString);
+//
+//	/**
+//	 * @return the sessionbundle in string format
+//	 */
+//	public String getBundleString();
 
 	/**
 	 * @return <code>Workgroup</code> that owns
@@ -61,11 +63,15 @@ public interface SessionBundle {
 	 * Returns this <code>SessionBundle<code> represented as an
 	 * <code>ESessionBundle</code> object.
 	 * 
-	 * <code>bundleString</code> must be set before calling this method.
-	 * If it is no set, the behavior of this method is undefined.
-	 * 
 	 * @return <code>ESessionBundle</code>
 	 */
 	public ESessionBundle getESessionBundle();
 	
+	/**
+	 * Sets this <code>SessionBundle<code> represented as an
+	 * <code>ESessionBundle</code> object.
+	 * 
+	 * @param <code>ESessionBundle</code>
+	 */
+	public void setESessionBundle(ESessionBundle eSessionBundle);
 }

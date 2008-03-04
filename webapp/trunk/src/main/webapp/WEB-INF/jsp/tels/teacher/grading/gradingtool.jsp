@@ -456,16 +456,16 @@ aggregate.value = set of workgroupWorkAggregate
 									</tr>
 							<!-- End Table Header -->
 							<!-- for no work in work group -->
-							<!--  
-								
-								<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
+							<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${workgroupAggregateObj.sessionBundles}">
+								<c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundle.ESessionBundle.sockParts}">
 									<c:forEach var="rimFromStep" items="${step.rim}">
 											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
 												<c:set var="noWorkFound" value="false"/>
 											</c:if>
 									</c:forEach>
 								</c:forEach>
-							
+							</c:forEach>
+
 							<!-- no work found this is disabled -->
 							<c:set var="noWorkFound" value="true"/>
 							<c:choose>
@@ -568,13 +568,18 @@ aggregate.value = set of workgroupWorkAggregate
 						                          		<!--answer -->
 						                          			<div id="stepStudentAnswerField" class="answerDiv">
 							                          			<c:set var="sockPartFound" value="false"/>
-							                          			<c:forEach var="sockPart" varStatus="partStatus" items="${workgroupAggregateObj.sessionBundle.ESessionBundle.sockParts}">
-							                          				<c:if test="${sockPart.rimName == rimFromStep.rimname}">
-							                          					<c:set var="sockPartFound" value="true"/>
-							                          					<c:forEach var="sockEntry" varStatus="sockStatus" items="${sockPart.sockEntries}">
-																							${sockEntry.value}
-				  			 											</c:forEach>
-							                          				</c:if>
+							                          			<c:set var="sockEntryValue" value="" />
+							                          			<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${workgroupAggregateObj.sessionBundles}">
+							                          			    <c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundle.ESessionBundle.sockParts}">
+							                          				    <c:if test="${sockPart.rimName == rimFromStep.rimname}">
+							                          					    <c:set var="sockPartFound" value="true"/>
+							                          					    <c:forEach var="sockEntry" varStatus="sockStatus" items="${sockPart.sockEntries}">
+							                          					        <c:if test="${sockStatus.index == fn:length(sockPart.sockEntries) - 1}">
+																					<c:set var="sockEntryValue" value ="${sockEntry.value}" />
+																				</c:if>
+				  			 											    </c:forEach>
+							                          				    </c:if>
+							                          			    </c:forEach>
 							                          			</c:forEach>
 							                          			
 							                          			<c:choose>
@@ -582,6 +587,7 @@ aggregate.value = set of workgroupWorkAggregate
 																      		<span id="noStudentReponseYet">no student response yet</span>
 																      </c:when>
 																      <c:otherwise>
+																                ${sockEntryValue}
 																				<c:set var="sockPartFound" value="false"/>
 																      </c:otherwise>
 														  		 </c:choose>

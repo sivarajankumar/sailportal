@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.grading;
 
+import java.util.List;
+
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
@@ -51,14 +53,14 @@ public interface GradeWorkByWorkgroupAggregate extends GradeWorkAggregate {
 	public void setAnnotationBundle(AnnotationBundle annotationBundle);
 
 	/**
-	 * @return the SessionBundle belonging to the workgroup
+	 * @return the SessionBundles belonging to the workgroup
 	 */
-	public SessionBundle getSessionBundle();
+	public List<SessionBundle> getSessionBundles();
 
 	/**
 	 * @param the SessionBundle to set
 	 */
-	public void setSessionBundle(SessionBundle sessionBundle);
+	public void setSessionBundles(List<SessionBundle> sessionBundles);
 	
 	/**
 	 * @return the workgroup to grade

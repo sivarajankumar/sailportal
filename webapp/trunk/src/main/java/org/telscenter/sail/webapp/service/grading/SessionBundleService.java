@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.service.grading;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
@@ -43,6 +45,6 @@ public interface SessionBundleService {
 	 * @throws ObjectNotFoundException when the Workgroup does not have a
 	 *     SdsWorkgroup associated with it
 	 */
-	public SessionBundle getSessionBundle(Long runId, Workgroup workgroup) throws ObjectNotFoundException;
+	public List<SessionBundle> getSessionBundles(Long runId, Workgroup workgroup) throws ObjectNotFoundException;
 
 }

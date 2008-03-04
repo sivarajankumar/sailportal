@@ -81,8 +81,8 @@ public interface GradingService {
 	 * @throws ObjectNotFoundException when the provided runId
 	 *     does not key to an existing <code>Run</code>
 	 */
-	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId, EStep step) 
-	    throws ObjectNotFoundException;
+//	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId, EStep step) 
+//	    throws ObjectNotFoundException;
 	
 	/**
 	 * Returns an aggregate object to allow WISE teachers to grade student

@@ -22,7 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.grading.impl;
 
-import net.sf.sail.emf.sailuserdata.ESessionBundle;
+import java.util.List;
+
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
@@ -38,7 +39,7 @@ public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 	
 	protected Workgroup workgroup;
 	
-	protected SessionBundle sessionBundle;
+	protected List<SessionBundle> sessionBundles;
 	
 	protected AnnotationBundle annotationBundle;
 
@@ -47,13 +48,6 @@ public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 	 */
 	public AnnotationBundle getAnnotationBundle() {
 		return annotationBundle;
-	}
-
-	/**
-	 * @see GradeWorkByWorkgroupAggregate#getSessionBundle()
-	 */
-	public SessionBundle getSessionBundle() {
-		return sessionBundle;
 	}
 
 	/**
@@ -71,13 +65,6 @@ public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 	}
 	
 	/**
-	 * @see GradeWorkByWorkgroupAggregate#setSessionBundle(ESessionBundle)
-	 */
-	public void setSessionBundle(SessionBundle sessionBundle) {
-		this.sessionBundle = sessionBundle;
-	}
-
-	/**
 	 * @param workgroup the workgroup to set
 	 */
 	public void setWorkgroup(Workgroup workgroup) {
@@ -86,5 +73,19 @@ public class GradeWorkByWorkgroupAggregateImpl extends GradeWorkAggregateImpl
 
 	public int compareTo(GradeWorkByWorkgroupAggregate o) {
 		return this.workgroup.getId().compareTo(o.getWorkgroup().getId());
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate#getSessionBundles()
+	 */
+	public List<SessionBundle> getSessionBundles() {
+		return sessionBundles;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate#setSessionBundles(java.util.List)
+	 */
+	public void setSessionBundles(List<SessionBundle> sessionBundles) {
+		this.sessionBundles = sessionBundles;
 	}
 }
