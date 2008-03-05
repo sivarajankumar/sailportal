@@ -263,7 +263,7 @@
 	
 /* CSS FOR PRE-MADE COMMENTS EDITOR  */ 
 
-#premadeCommentsBox {
+#premadeCommentsWindowBorder {
 	background-color:#FFFFFF;
 	width: 630px;
 	text-align:left;
@@ -271,43 +271,143 @@
 	margin: 15px auto;
 	border: 1px solid #333333
 }
-
+	
 #premadeComments {
 	font-weight:bold;
 	background-image:url(../../images/Texture_Green3.png);
 	background-position:left top;
 	background-repeat:repeat;
 	border-bottom: 1px solid #333333;
-	padding:10px;
-	font-size:1.1em;
+	padding:2px 0 4px 20px;
+	font-size:1.5em;
 	letter-spacing:1px;
 	font-variant:small-caps;
 }
 
+#headerMyLists{
+	margin:20px 10px 4px 20px;
+	padding:0px;
+	font-size:.7em;
+	letter-spacing:1px;
+	}
+	
 #commentLists {
 	width:400px;
-	margin:15px 10px;
+	margin:0px 20px 20px 20px;
+	padding:2px;
 	border-top: 1px solid #000099;
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #000099;
-	background-color:#9999FF;
+	background-color:#CCFFcc;
 	color:#000000;
 	font-weight:bold;
 }
 
 #newList {
-	margin:15px 10px;
+	margin:0px 20px;
+	padding:2px 5px;
+	text-decoration:none;
+	font-size:.9em;
+	font-weight:bold;
+	font-variant:small-caps;
+	color:#333333;
+	border-top: 1px solid #000099;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000099;
+	background-color:#9999FF;
+}
+
+#newList:hover {
+	background-color:#FFFF66;
+}
+
+#createNewListDisplay{
+	margin:10px 20px;
+	}
+	
+#commentButtonsCheckboxes	{
+	margin: 10px 0 0 20px;
+}
+	
+#commentButtonsCheckboxes a:link, #commentButtonsCheckboxes a:visited {
+	margin:0px 10px 0px 0px;
+	padding:2px 5px;
+	text-decoration:none;
+	font-size:.9em;
+	font-weight:bold;
+	font-variant:small-caps;
+	color:#333333;
+	border-top: 1px solid #000099;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000099;
+	background-color:#9999FF;
+}
+
+#commentButtonsCheckboxes a:hover {
+	background-color:#FFFF66;
+}
+
+.addCommentDisplayClass {
+	margin-top:10px;
+	color:#FF0000;
+}
+
+.addCommentFieldClass {
+	width:420px;
+	border:1px solid #666666;
+	padding:3px;
+}
+
+.createCommentButton {
+	margin:5px 0 0 425px;
 }
 
 
-#premadeCommentsSelectionArea {
-	margin:15px 10px;
-	border:1px solid #000000;
-	background-color:FF0000;
+#checkBoxArea {
+	border:1px solid #333333;
+	padding:5px;
+	margin: 10px 10px 0 0 ;
 }
+
+.clickToEditMessageClass{
+	color:#FF0000;
+	margin:10px 0 0 5px;
+	padding:0px;
+}
+
+#headerPreview{
+	margin:20px 10px 4px 35px;
+	padding:0px;
+	font-size:.7em;
+	letter-spacing:1px;
+	}
 	
+#previewComments {
+	margin:0 10px 0 35px;
+	padding:5px;
+	border: 1px solid #336600;
+	width:525px; 
+	} 
 	
+#pastePreviewButton {
+	font-size:1.1em;
+	margin:30px 0px;
+	padding:4px;
+	border-top: 1px solid #000099;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000099;
+	background-color:#9999FF;
+	font-weight:bold;
+	font-variant:small-caps;
+	}
+	
+#pastePreviewButton:hover {
+	background-color:#FFFF66;
+	}
 	
 	
 	

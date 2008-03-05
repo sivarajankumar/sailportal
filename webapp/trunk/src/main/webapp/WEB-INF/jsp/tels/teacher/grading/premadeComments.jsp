@@ -359,9 +359,11 @@
 	}
 </script>
 
-<div id="premadeCommentsBox">
+<div id="premadeCommentsWindowBorder">
 
 <div id="premadeComments">pre-made comments editor</div> 
+
+<div id=headerMyLists>MY LISTS</div>
 <select id="commentLists" name="commentLists" onchange="showCommentList()">
 	<c:forEach var="premadeCommentList" items="${premadeCommentLists}">
 		<option value="premadeCommentList${premadeCommentList.id}">${premadeCommentList.label}</option>
@@ -369,13 +371,14 @@
 </select>
 
 <div>
-	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()">Create New List</a>
+	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()">create new list</a>
 	<form onsubmit="return false;">
 	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
 	</form>
 </div>
 
-<div id="premadeCommentsSelectionArea">
+
+<div id="commentButtonsCheckboxes">
 
 	<c:forEach var="premadeCommentList" items="${premadeCommentLists}" varStatus="listStatus">
 		<form id="premadeCommentList${premadeCommentList.id}" style="display:none">
@@ -386,23 +389,23 @@
 			<a href="#" id="deleteList" onclick="deleteList('premadeCommentList${premadeCommentList.id}')">Delete List</a>
  -->
 			
-			<a href="#" id="addCommentToList" onclick="toggleAddCommentDisplay(${premadeCommentList.id})">Add Comment To List</a>
+			<a href="#" id="addCommentToList" onclick="toggleAddCommentDisplay(${premadeCommentList.id})">show/hide comment maker</a>
 			<c:if test="${fn:length(premadeCommentList.premadeCommentList) != 0}">
-				<a href="#" id="openEditList${premadeCommentList.id}" onclick="openEditList('${premadeCommentList.id}')">Edit List</a>
+				<a href="#" id="openEditList${premadeCommentList.id}" onclick="openEditList('${premadeCommentList.id}')">show edit mode</a>
 			</c:if>
 
-			<a href="#" id="useList${premadeCommentList.id}" style="display:none" onclick="useList('${premadeCommentList.id}')">Save List</a>
+			<a href="#" id="useList${premadeCommentList.id}" style="display:none" onclick="useList('${premadeCommentList.id}')">show checkbox mode</a>
 
 			
-			<p id="addCommentDisplay${premadeCommentList.id}" style="display:none">Enter a new comment: <input id="addCommentField${premadeCommentList.id}" type="text" /><input type="button" value="Add Comment" onclick="addCommentToList('${premadeCommentList.id}')" /></p>
+			<p class="addCommentDisplayClass" id="addCommentDisplay${premadeCommentList.id}" style="display:none">Type a new comment: <input class="addCommentFieldClass" id="addCommentField${premadeCommentList.id}" type="text" /><input class="createCommentButton" type="button" value="Create Comment" onclick="addCommentToList('${premadeCommentList.id}')" /></p>
 			
-			<p id="clickToEditMessage${premadeCommentList.id}" style="display:none">Click Comments to Edit</p>
+			<p class="clickToEditMessageClass" id="clickToEditMessage${premadeCommentList.id}" style="display:none">Click any comment below to edit it.</p> 
 			
-
-			<c:forEach var="premadeComment" items="${premadeCommentList.premadeCommentList}" varStatus="commentStatus">
+<div id="checkBoxArea">
+		<c:forEach var="premadeComment" items="${premadeCommentList.premadeCommentList}" varStatus="commentStatus">
 				<c:set var="premadeCommentUnescaped" value="${premadeComment.comment}" />
 				
-				
+			
 				<table>
 					<tr>
 						<td>
@@ -412,7 +415,7 @@
 								mode["premadeCommentList${premadeCommentList.id}"] = "view";
 							</script>
 						</td>
-						<td width="400">
+						<td style="width:400px;">
 							<p id="premadeCommentList${premadeCommentList.id}_${commentStatus.count}" name="checkBoxLabels">${premadeCommentUnescaped}</p>
 						</td>
 					</tr>
@@ -424,11 +427,14 @@
 		</c:if>
 		
 	</c:forEach>
-</div>      <!--End of premadeCommentsSelectionArea -->
-<p>Preview Comments</p>
-<textarea id="previewComments" rows=7 cols=50"></textarea>
-	<br />
-	<input type="button" value="Set Comments" onclick="addComments()" />
+
+</div>
+
+<div id="headerPreview">PREVIEW</div>
+
+<textarea id="previewComments" rows="7" cols="60"></textarea>
+	
+	<input id="pastePreviewButton" type="button" value="paste preview to teacher feedback box" onclick="addComments()" />
 <!--	</form> -->
 <script>document.getElementById("previewComments").value = window.opener.document.getElementById("${commentBox}").value</script>
 
