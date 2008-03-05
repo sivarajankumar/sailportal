@@ -178,7 +178,7 @@
 						{okText: "save",
 						 formId: commentId,
 							callback:function(form, value) {
-								return "listId=" + listId + "&commentId=" + form.id + "&editedComment=" + value;
+								return "commentId=" + form.id + "&editedComment=" + value;
 			    			}
 			    			});
 			    		document.getElementById(listId + "_" + i + "_checkboxval").style.display = "none";

@@ -68,7 +68,10 @@ public class PremadeCommentsController extends AbstractController {
 		Set<PremadeCommentList> allCommentLists = 
 			premadeCommentService.retrieveAllPremadeCommentListsByUser(user);
 
+		//sends the comment lists to the browser
 		modelAndView.addObject(PREMADE_COMMENTS_LISTS, allCommentLists);
+		
+		//sends the comment box id to the browser
 		modelAndView.addObject(COMMENT_BOX, commentBox);
 		
 		return modelAndView;

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService;
 
 /**
- * @author Patrick
+ * @author Geoffrey Kwan
  *
  */
 public class DeleteCommentListController extends AbstractController {
@@ -24,11 +24,12 @@ public class DeleteCommentListController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
+		
+		/* this does not perform deletion at the moment, will implement later 
+		 * if we decide we want this functionality */
 		
 		String label = request.getParameter("label");
 		
-		System.out.println("delete comment list: " + label);
 		return null;
 	}
 

@@ -24,21 +24,20 @@ public class EditCommentController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
-		String listId = request.getParameter("listId");
+		
+		//retrieves the id of the comment
 		String commentId = request.getParameter("commentId");
+		
+		//retrieves the edited version of the comment
 		String editedComment = request.getParameter("editedComment");
 		
-		//System.out.println(listId);
-		//System.out.println(commentId);
-		//System.out.println(editedComment);
-		
+		//updates the comment in the database
 		premadeCommentService.updatePremadeCommentMessage(new Long(commentId), editedComment);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
+		//sends back the edited comment to be displayed
 		modelAndView.addObject("editedComment", editedComment);
-		
 		
 		return modelAndView;
 	}

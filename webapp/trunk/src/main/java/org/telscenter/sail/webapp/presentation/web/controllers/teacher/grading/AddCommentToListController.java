@@ -13,7 +13,7 @@ import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
 import org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService;
 
 /**
- * @author Patrick
+ * @author Geoffrey Kwan
  *
  */
 public class AddCommentToListController extends AbstractController {
@@ -28,23 +28,24 @@ public class AddCommentToListController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
 		
+		//retrieve the listId that we are going to add a comment to
 		String listId = request.getParameter("listNumber");
+		
+		//retrieve the text of the comment we are going to add
 		String comment = request.getParameter("comment");
 		
-		//System.out.println("listNumber: " + listId + ", comment: " + comment);
-		
+		//create a premade comment with the text of the new comment
 		PremadeComment premadeComment = new PremadeCommentImpl();
 		premadeComment.setComment(comment);
 		premadeComment.setLabel(comment);
 		
+		//add the new comment to the existing list with listId
 		premadeCommentService.addPremadeCommentToList(new Long(listId), premadeComment);
-		
-		System.out.println(premadeComment.getId());
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
+		//send back the Id of the comment, this Id is unique from all other comment Ids
 		modelAndView.addObject("commentId", premadeComment.getId());
 		
 		return modelAndView;
