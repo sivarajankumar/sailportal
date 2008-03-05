@@ -245,10 +245,10 @@
 	}
 	
 #preMadeCommentsLink a:visited, #preMadeCommentsLink a:link {
-	border-top: 1px solid #000099;
-	border-right: 1px solid #000000;
-	border-bottom: 1px solid #000000;
-	border-left: 1px solid #000099;
+	border-top: 1px solid #ffffff;
+	border-right: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+	border-left: 1px solid #ffffff;
 	background-color:#CCCCCC;
 	padding:1px 4px;
 	color:#000000;
@@ -296,7 +296,22 @@
 	font-weight:bold;
 }
 
+#newList {
+	margin:15px 10px;
+}
 
+
+#premadeCommentsSelectionArea {
+	margin:15px 10px;
+	border:1px solid #000000;
+	background-color:FF0000;
+}
+	
+	
+	
+	
+	
+	
 
 
 

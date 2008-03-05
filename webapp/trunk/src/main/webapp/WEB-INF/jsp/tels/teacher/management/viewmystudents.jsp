@@ -402,7 +402,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 <table id="projectTitleBox" border=0>
 	<tr>
 		<th>${project_name}</th>
-		<td>Project ID: ${project_id}</td>
+		<td>(Project ID: ${project_id})</td>
 	</tr>
 </table>
 
@@ -436,7 +436,8 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			<strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link (above) to make an empty team box appear below. Then drag student names into this box.
 			<br/>
 			<strong>To create a PDF file of student work:</strong> &nbsp; click the "Create PDF" link adjacent to each Team Number below.</div>
-			<table>
+			
+		<table id="manageStudentsTable">
 			<tr>
 			<td>
 			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">

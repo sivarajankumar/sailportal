@@ -58,19 +58,26 @@ table {
 
 .viewStudentsLink {
 	font-size:.9em;
-	margin: 0 5px 0 10px;
+	margin: 0 0px 0 25px;
 	}
 
 #periodHeaderBar a:active, #periodHeaderBar a:visited {
-	color: #0000FF;
-	padding:3px 0;
+	font-size:.8em;
 	font-weight:bold;
-    }	
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:3px 5px;
+	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: top;
+	text-decoration:none;
+	    }	
     
 #periodHeaderBar a:hover {
-	background-color: #FFFF00;
-	color:#000033;
-	padding:3px 0;
+	color:#000000;
+	background-image: none;
+	background-color:#FFFF66;	
     }	
 
 #viewStudentsInstructions {
@@ -79,6 +86,14 @@ table {
 	}
 
 /* BEGIN STYLING FOR STUDENT DATA  */
+
+#manageStudentsTable {
+	margin-top:10px;}
+	
+#manageStudentsTable td {
+	padding:0 0 0 20px;
+	vertical-align:top;
+}
 
 .workarea {
 	display:inline;
@@ -92,8 +107,8 @@ ul.draglist {
     border-right: 1px solid #666666;
     border-bottom: 1px solid #666666;
     border-left: 1px solid #999999;
-    margin-top:12px;
-    margin-bottom:12px;
+    margin-top:4px;
+    margin-bottom:4px;
     padding:0;
 }
 
@@ -201,7 +216,6 @@ li.workgroupHeader a:hover {
 .saveButton:hover {
 	background-image:none;
 	background-color:#FFFF66;	
-	cursor:crosshair;
 }
 
 
