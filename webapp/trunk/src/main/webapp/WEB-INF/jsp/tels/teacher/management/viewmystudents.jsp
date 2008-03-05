@@ -44,8 +44,8 @@
 
 var callback =
 {
-  success:handleSuccess,
-};
+  success: handleSuccess
+}
 
 
 function createNewWorkgroup(periodId, runId) {
