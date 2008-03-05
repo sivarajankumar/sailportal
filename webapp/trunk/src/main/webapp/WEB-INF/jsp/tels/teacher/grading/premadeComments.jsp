@@ -276,9 +276,9 @@
 		newForm.innerHTML = "<a href='#' id='addCommentToList' onclick='toggleAddCommentDisplay(" + listNumber + ")'>Add Comment To List</a>";
 		newForm.innerHTML += " <a href='#' id='openEditList" + listNumber + "' style='display:none' onclick='openEditList(" + listNumber + ")'>Edit List</a>";
 		newForm.innerHTML += " <a href='#' id='useList" + listNumber + "' style='display:none' onclick='useList(" + listNumber + ")'>Save List</a>";
-		newForm.innerHTML += "<p id='addCommentDisplay" + listNumber + "'>Enter a new comment: <input id='addCommentField" + listNumber + "' type='text' /><input type='button' value='Add Comment' onclick='addCommentToList(" + listNumber + ")' /></p>";
-		newForm.innerHTML += "<p id='clickToEditMessage" + listNumber + "' style='display:none'>Click Comments to Edit</p>";
-		document.getElementById('premadeCommentsSelectionArea').appendChild(newForm);
+		newForm.innerHTML += "<p class='addCommentDisplayClass'  id='addCommentDisplay" + listNumber + "'>Enter a new comment: <input id='addCommentField" + listNumber + "' type='text' /><input type='button' value='Add Comment' onclick='addCommentToList(" + listNumber + ")' /></p>";
+		newForm.innerHTML += "<p class='clickToEditMessageClass' id='clickToEditMessage" + listNumber + "' style='display:none'>Click Comments to Edit</p>";
+		document.getElementById('commentButtonsCheckboxes').appendChild(newForm);
 	}
 	
 	function deleteList() {
@@ -363,6 +363,9 @@
 
 <div id="premadeComments">pre-made comments editor</div> 
 
+<h6 style="padding:10px;">BETA TEST WARNING: this new module still has quirks.  Please do NOT use the RETURN/ENTER key on your keyboard when creating lists names and comments.
+Instead, click the appropriate onscreen buttons  (this keyboard issue will be fixed soon).</h6>
+
 <div id=headerMyLists>MY LISTS</div>
 <select id="commentLists" name="commentLists" onchange="showCommentList()">
 	<c:forEach var="premadeCommentList" items="${premadeCommentLists}">
@@ -401,7 +404,6 @@
 			
 			<p class="clickToEditMessageClass" id="clickToEditMessage${premadeCommentList.id}" style="display:none">Click any comment below to edit it.</p> 
 			
-<div id="checkBoxArea">
 		<c:forEach var="premadeComment" items="${premadeCommentList.premadeCommentList}" varStatus="commentStatus">
 				<c:set var="premadeCommentUnescaped" value="${premadeComment.comment}" />
 				
@@ -438,7 +440,7 @@
 <!--	</form> -->
 <script>document.getElementById("previewComments").value = window.opener.document.getElementById("${commentBox}").value</script>
 
-</div>      <!--End of premadeCommentsBox-->
+</div>      <!--End of premadeCommentsWindowBorder-->
 
 </body>
 
