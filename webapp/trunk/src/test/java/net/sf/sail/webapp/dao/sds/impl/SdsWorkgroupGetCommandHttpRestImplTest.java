@@ -108,7 +108,7 @@ public class SdsWorkgroupGetCommandHttpRestImplTest extends
 		Long sdsOfferingId = new Long(5);
 		Long sdsWorkgroupId = new Long(3);
 		HttpGetRequest request = this.command.generateSessionBundleRequest(sdsWorkgroupId,sdsOfferingId);
-		assertEquals("/offering/" + sdsOfferingId + "/bundle/" + sdsWorkgroupId + "/1", request.getRelativeUrl());
+		assertEquals("/offering/" + sdsOfferingId + "/bundle/" + sdsWorkgroupId + "/0", request.getRelativeUrl());
 		
 	}
 }
