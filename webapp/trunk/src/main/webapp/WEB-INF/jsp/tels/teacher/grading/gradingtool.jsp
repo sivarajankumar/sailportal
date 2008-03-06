@@ -494,7 +494,7 @@ aggregate.value = set of workgroupWorkAggregate
 						                          		<!-- create the textbox -->
 						                          		
 															<c:if test="${rimListStatus.first}">
-																   <td rowspan="${fn:length(step.rim)*2}">
+																   <td id="teacherFeedbackTd" rowspan="${fn:length(step.rim)*2}">
 																   <div align="center">
 																   	<c:set var="commentDone" value="false"/>
 																   	<c:set var="commentAnnotation" value=" "/>

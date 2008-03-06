@@ -152,9 +152,20 @@
 	
 #stepTypeStyle {
    font-size:.8em;
+   color:#009900;
+   }
+   
+#stepGradingNotification {
+   margin-left:10px;
    color:#CC0000;
+   font-variant:small-caps;
    }
 	
+#teacherFeedbackTd textarea {
+	margin:3px;
+	padding:5px;
+	border:1px solid #999999;
+}
 	
 /* CSS FOR GRADING TOOL  */ 
 

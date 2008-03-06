@@ -53,7 +53,7 @@ function createNewWorkgroup(periodId, runId) {
   var newWorkgroupId = -1 - newGroupCount;
   var workareaDiv = document.getElementById("div_for_new_workgroups_"+periodId);
   workareaDiv.innerHTML += "<div class='workarea' id='newgroup_div_"+periodId+"_"+newWorkgroupId+"'>"
-                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>New Team.  UNSAVED. Drag student names here, then click SAVE button (below) to confirm changes.</li></ul>"
+                          +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'><li>UNSAVED TEAM. Drag student names here, then click SAVE button (below) to confirm changes.</li></ul>"
                           +"</div>";
                           
    // need to iterate through all of the newgroups
@@ -449,10 +449,10 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			      
 			         <span id="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
     			     <span id="userLinksBar">
-    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
+    			     <a class="userLinks" style="color:#666666;" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Period</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Detach</a>
+    			     <a class="userLinks" style="color:#666666;" href="#">Period</a>
+    			     <a class="userLinks" style="color:#666666;" href="#">Detach</a>
     			     </span>
     			  </li>
 			    </c:forEach>
@@ -477,10 +477,10 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
 			         <span id="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</span>
     			     <span id="userLinksBar">
-    			     <a class="userLinks" href="#" onclick="javascript:popup('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Info</a>
+    			     <a class="userLinks" style="color:#666666;" href="#" >Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Period</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Detach</a>
+    			     <a class="userLinks" style="color:#666666;" href="#" >Period</a>
+    			     <a class="userLinks" style="color:#666666;" href="#" >Detach</a>
     			     </span>
 			        </li>
 			      </c:forEach>

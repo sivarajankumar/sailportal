@@ -132,14 +132,14 @@
 	float:left;
 	font-size:.8em;
 	padding-left:35px;
-	margin:-6px 0 0 0;
+	margin:-10px 0 0 0;
 	}
 
 #quickLinks2 {
 	float:right;
 	font-size:.8em;
 	padding: 0 65px 0 0; 
-	margin:-6px 0 0 0;
+	margin:-10px 0 0 0;
 	
 	}
 
@@ -148,7 +148,7 @@
 	padding:0px;
 	margin: 0;
 	font-size:1.0em;
-	line-height:150%;
+	line-height:140%; 
 	}
 
 #quickLinks1 a:link, #quickLinks1 a:visited, #quickLinks2 a:link, #quickLinks2 a:visited, #projectGradeLinkBox a:link, #projectGradeLinkBox a:visited  {

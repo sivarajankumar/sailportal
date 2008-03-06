@@ -439,7 +439,7 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
-													<div class="teamNotRegisteredMessage">Click RUN PROJECT to get started, and to set up the team with 1, 2, or 3 students.</div>  
+													<div class="teamNotRegisteredMessage">Click RUN PROJECT to set up the team with 1, 2, or 3 students.</div>  
 												</c:otherwise>	
 									      		</c:choose>
 								</td>
@@ -460,9 +460,9 @@ YAHOO.util.Event.onDOMReady(init);
 						<h6>Try the following:</h6>
 						<ol>
 							<li>Click RUN PROJECT to get started.</li>
-							<li>Select how many students on your team.</li>
-							<li>For multiplayer teams, students 2 and 3 will enter their Username/Password.</li>
-							<li>Click OK button (when asked to "Open With Java Web Start").</li>
+							<li>Select how many students on the team  (1,2 or 3).</li>
+							<li>When working in teams, additional students will enter their Username/Password.</li>
+							<li>Click OK button when asked to "Open With Java Web Start".</li>
 							<li>Click TRUST button to launch the learning module.</li> 
 						</ol>
 					</div>

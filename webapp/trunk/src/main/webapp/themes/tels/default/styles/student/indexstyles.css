@@ -259,15 +259,7 @@ table tr, table td {
 }
 
 #firstUseBox{
-	margin-top:20px;
-	margin-bottom:4px;
-	background-color:#CCCCCC;
-	border:1px solid black;
-	padding:5px;
-	} 
-	
-#firstUseBox{
-	margin-top:100px;
+	margin-top:60px;
 	margin-bottom:4px;
 	background-color:#CCCCCC;
 	border:1px solid black;

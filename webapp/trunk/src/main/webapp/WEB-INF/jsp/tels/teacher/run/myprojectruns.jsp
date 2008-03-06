@@ -154,7 +154,6 @@
 					    	<li><a href="../grading/gradebystep.html?runId=${run.id}">Grade Students</a></li>
 					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
-					    	<li><a style="color:#cccccc;" href="#">Manage Students</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}">Report a Problem</a></li>
 					    	<li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')">Archive this Run</a></li>
