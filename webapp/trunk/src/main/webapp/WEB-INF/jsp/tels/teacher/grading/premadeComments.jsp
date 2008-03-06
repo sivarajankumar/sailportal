@@ -44,7 +44,7 @@
 
 </head>
 
-<body class="yui-skin-sam">
+<body class="yui-skin-sam" style="background-color:#CCCCCC;">
 
 <script type="text/javascript">
 
@@ -278,7 +278,7 @@
 		newForm.innerHTML += " <a href='#' id='useList" + listNumber + "' style='display:none' onclick='useList(" + listNumber + ")'>Save List</a>";
 		newForm.innerHTML += "<p class='addCommentDisplayClass'  id='addCommentDisplay" + listNumber + "'>Enter a new comment: <input id='addCommentField" + listNumber + "' type='text' /><input type='button' value='Add Comment' onclick='addCommentToList(" + listNumber + ")' /></p>";
 		newForm.innerHTML += "<p class='clickToEditMessageClass' id='clickToEditMessage" + listNumber + "' style='display:none'>Click Comments to Edit</p>";
-		document.getElementById('commentButtonsCheckboxes').appendChild(newForm);
+		document.getElementById('commentButtonsAndCheckboxes').appendChild(newForm);
 	}
 	
 	function deleteList() {
@@ -363,8 +363,16 @@
 
 <div id="premadeComments">pre-made comments editor</div> 
 
-<h6 style="padding:10px;">BETA TEST WARNING: this new module still has quirks.  Please do NOT use the RETURN/ENTER key on your keyboard when creating lists names and comments.
-Instead, click the appropriate onscreen buttons  (this keyboard issue will be fixed soon).</h6>
+<h6 style="padding:0px 10px 10px 10px; margin:10px;">BETA TEST WARNING: this new module still has quirks.  <br/>
+Please do <em>not</em> use the RETURN/ENTER key on your keyboard while creating list names and comments.
+Instead, click the appropriate on-screen buttons  (this keyboard issue will be fixed soon).</h6>
+
+<div>
+	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()">show/hide list maker</a>
+	<form onsubmit="return false;">
+	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
+	</form>
+</div>
 
 <div id=headerMyLists>MY LISTS</div>
 <select id="commentLists" name="commentLists" onchange="showCommentList()">
@@ -373,15 +381,7 @@ Instead, click the appropriate onscreen buttons  (this keyboard issue will be fi
 	</c:forEach>
 </select>
 
-<div>
-	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()">create new list</a>
-	<form onsubmit="return false;">
-	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
-	</form>
-</div>
-
-
-<div id="commentButtonsCheckboxes">
+<div id="commentButtonsAndCheckboxes">
 
 	<c:forEach var="premadeCommentList" items="${premadeCommentLists}" varStatus="listStatus">
 		<form id="premadeCommentList${premadeCommentList.id}" style="display:none">

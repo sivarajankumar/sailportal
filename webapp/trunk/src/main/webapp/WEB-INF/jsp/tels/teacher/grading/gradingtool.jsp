@@ -56,7 +56,7 @@
 	function openPremadeComments() {
 
 		var premadeCommentsPanel = new YAHOO.widget.Panel("premadeComments",  
-                                                    { width: "800px", 
+                                                    { width: "800px",
                                                       fixedcenter: true, 
                                                       close: true, 
                                                       draggable: true, 
@@ -71,7 +71,7 @@
 	}
 
 	function popup(URL) {
-  		window.open(URL, 'PremadeComments', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=675,height=500,left = 570,top = 300');
+  		window.open(URL, 'PremadeComments', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=740,left = 450,top = 150');
   	}
   	
     function init() {

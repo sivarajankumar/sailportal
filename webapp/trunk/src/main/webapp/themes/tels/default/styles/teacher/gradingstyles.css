@@ -265,7 +265,7 @@
 
 #premadeCommentsWindowBorder {
 	background-color:#FFFFFF;
-	width: 630px;
+	width: 700px;
 	text-align:left;
 	padding: 0;
 	margin: 15px auto;
@@ -327,11 +327,12 @@
 	margin:10px 20px;
 	}
 	
-#commentButtonsCheckboxes	{
-	margin: 10px 0 0 20px;
+#commentButtonsAndCheckboxes	{
+	margin: 10px 20px; 0 20px;
+	border:1px solid #666666;
 }
 	
-#commentButtonsCheckboxes a:link, #commentButtonsCheckboxes a:visited {
+#commentButtonsAndCheckboxes a:link, #commentButtonsAndCheckboxes a:visited {
 	margin:0px 10px 0px 0px;
 	padding:2px 5px;
 	text-decoration:none;
@@ -346,7 +347,7 @@
 	background-color:#9999FF;
 }
 
-#commentButtonsCheckboxes a:hover {
+#commentButtonsAndCheckboxes a:hover {
 	background-color:#FFFF66;
 }
 
@@ -379,14 +380,14 @@
 }
 
 #headerPreview{
-	margin:20px 10px 4px 35px;
+	margin:20px 10px 4px 55px;
 	padding:0px;
 	font-size:.7em;
 	letter-spacing:1px;
 	}
 	
 #previewComments {
-	margin:0 10px 0 35px;
+	margin:0 10px 0 55px;
 	padding:5px;
 	border: 1px solid #336600;
 	width:525px; 
