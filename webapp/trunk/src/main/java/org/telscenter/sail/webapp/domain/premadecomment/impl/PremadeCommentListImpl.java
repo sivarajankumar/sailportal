@@ -22,7 +22,6 @@
  */
 package org.telscenter.sail.webapp.domain.premadecomment.impl;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -33,25 +32,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
-import org.hibernate.annotations.Sort;
-import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.owned.Owned;
-import org.telscenter.sail.webapp.domain.owned.impl.OwnedImpl;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 /**
  * 
@@ -90,12 +82,12 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
     @Column(name = PremadeCommentImpl.COLUMN_NAME_LABEL, nullable=false)
     private String label;
     
-    @Lob
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true, length=2147483647)
+    @OneToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true)
     private User owner = null;
 
-    @Lob
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true, length=2147483647)
+    @OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true)
     private Run run = null;
     
     @Id

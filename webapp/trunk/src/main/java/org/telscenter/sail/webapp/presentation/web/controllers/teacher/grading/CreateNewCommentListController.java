@@ -52,7 +52,7 @@ public class CreateNewCommentListController extends AbstractController {
 		Set<PremadeComment> list = new TreeSet<PremadeComment>();
 		
 		//TODO: this should retrieve the current run
-		Run run = new RunImpl();
+		Run run = null;
 		
 		/* creates the parameter object to be used to create a new 
 		   PremadeCommentList object */

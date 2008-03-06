@@ -24,16 +24,20 @@ package org.telscenter.sail.webapp.domain.premadecomment.impl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 
 
@@ -72,12 +76,12 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     @Column(name = PremadeCommentImpl.COLUMN_NAME_LABEL, nullable=false)
     private String label;
     
-    @Lob
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true, length=2147483647)
+    @OneToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true)
     private User owner = null;
 
-    @Lob
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true, length=2147483647)
+    @OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true)
     private Run run = null;
     
     @Id
