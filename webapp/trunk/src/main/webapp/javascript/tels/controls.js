@@ -479,10 +479,9 @@ Ajax.InPlaceEditor.prototype = {
       okButton: true,
       okText: "ok",
       cancelLink: true,
-      cancelText: "cancel",
+      cancelText: "Cancel",
       savingText: "Saving...",
       clickToEditText: "Click to edit",
-      okText: "ok",
       rows: 1,
       onComplete: function(transport, element) {
         new Effect.Highlight(element, {startcolor: this.options.highlightcolor});
