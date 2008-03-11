@@ -205,7 +205,7 @@ function MM_swapImage() { //v3.0
 	     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
      I agree to the <a href="termsofuse.html" onClick="return popupSpecial(this, 'terms')"> terms of use.</a>
      </dd>
-       
+      <div>&nbsp;</div> 
       <dt><label for="password" id="password1"><spring:message code="signup.password" /></label>
 </dt>
 	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="11"/>      		<span class="hint">Your password can contain up to 18 letters and/or numbers. Try to create a password that you can remember!<span class="hint-pointer"></span></span> </dd>

@@ -18,7 +18,7 @@
 	margin-bottom:0px;
 	margin-top: 10px;
 	padding: 0px;
-	font-size: 1.2em;
+	font-size: 1.1em; 
 	font-weight: bold;	
 		}
 		
@@ -29,7 +29,7 @@
 #studentRegForm dl {
 	text-align:left;
 	position: relative;
-	width:460px; 
+	width:470px; 
 	font-size: .9em;
 	border: 1px solid #333333;
 	background-color:#CCFFCC;
@@ -62,7 +62,7 @@
 #teacherRegForm dl {
 	text-align:left;
 	position: relative;
-	width:400px;
+	width:410px; 
 	font-size: .9em; 
 	border: 1px solid #333333;
 	background-color:#CCFFCC;
@@ -233,7 +233,7 @@
 
 #curriculumSubjectsBox{
 	font-size:.9em;
-	width:245px;
+	width:260px;
 	min-height:366px;
 	position:absolute;
 	top:-1px;
