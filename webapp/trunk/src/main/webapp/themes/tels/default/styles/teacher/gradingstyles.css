@@ -167,7 +167,7 @@
 	border:1px solid #999999;
 }
 	
-/* CSS FOR GRADING TOOL  */ 
+/* CSS FOR GRADE BY STEP LAYOUT  */ 
 
 #currentStepTable {
 	margin:6px 0 20px 0;
@@ -363,7 +363,7 @@
 }
 
 .addCommentDisplayClass {
-	margin-top:10px;
+	margin: 10px 0 0 5px;
 	color:#FF0000;
 }
 

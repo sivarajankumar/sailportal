@@ -175,7 +175,7 @@
 					
 					if(inPlaceEditor[listId + '_' + i] == undefined) {
 						inPlaceEditor[listId + '_' + i] = new Ajax.InPlaceEditor(listId + "_" + i, '/webapp/teacher/grading/editComment.html', 
-						{okText: "save",
+						{ cols:52, okText: "Save", cancelText: "Cancel"					
 						 formId: commentId,
 							callback:function(form, value) {
 								return "commentId=" + form.id + "&editedComment=" + value;
@@ -402,22 +402,21 @@ Instead, click the appropriate on-screen buttons  (this keyboard issue will be f
 			
 			<p class="addCommentDisplayClass" id="addCommentDisplay${premadeCommentList.id}" style="display:none">Type a new comment: <input class="addCommentFieldClass" id="addCommentField${premadeCommentList.id}" type="text" /><input class="createCommentButton" type="button" value="Create Comment" onclick="addCommentToList('${premadeCommentList.id}')" /></p>
 			
-			<p class="clickToEditMessageClass" id="clickToEditMessage${premadeCommentList.id}" style="display:none">Click any comment below to edit it.</p> 
+			<p class="clickToEditMessageClass" id="clickToEditMessage${premadeCommentList.id}" style="display:none">Click any comment below to edit it:</p> 
 			
 		<c:forEach var="premadeComment" items="${premadeCommentList.premadeCommentList}" varStatus="commentStatus">
 				<c:set var="premadeCommentUnescaped" value="${premadeComment.comment}" />
 				
-			
 				<table>
 					<tr>
 						<td>
 							<input type="checkbox" value="${premadeComment.comment}" id="premadeCommentList${premadeCommentList.id}_${commentStatus.count}_checkboxval" name="checkBoxes" onclick="toggleComment('premadeCommentList${premadeCommentList.id}_${commentStatus.count}_checkboxval')" />
-							<script>
+							<script>s
 								commentIdToDbId["premadeCommentList${premadeCommentList.id}_${commentStatus.count}"] = "${premadeComment.id}";
 								mode["premadeCommentList${premadeCommentList.id}"] = "view";
 							</script>
 						</td>
-						<td style="width:400px;">
+						<td style="width:700px;">
 							<p id="premadeCommentList${premadeCommentList.id}_${commentStatus.count}" name="checkBoxLabels">${premadeCommentUnescaped}</p>
 						</td>
 					</tr>
@@ -436,8 +435,8 @@ Instead, click the appropriate on-screen buttons  (this keyboard issue will be f
 
 <textarea id="previewComments" rows="7" cols="60"></textarea>
 	
-	<input id="pastePreviewButton" type="button" value="paste preview to teacher feedback box" onclick="addComments()" />
-<!--	</form> -->
+<input id="pastePreviewButton" type="button" value="paste preview to teacher feedback box" onclick="addComments()" />
+		<!--	</form> -->
 <script>document.getElementById("previewComments").value = window.opener.document.getElementById("${commentBox}").value</script>
 
 </div>      <!--End of premadeCommentsWindowBorder-->
