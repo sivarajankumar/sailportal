@@ -491,12 +491,12 @@ YAHOO.util.Event.onDOMReady(init);
 														<c:when
 															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
 															<a href="${studentRunInfo.startProjectUrl}"
-																id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+																id='${studentRunInfo.run.id}' class="">REVIEW PROJECT</a>
 														</c:when>
 														<c:otherwise>
 															<a
 																href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
-																id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+																id='${studentRunInfo.run.id}' class="">REVIEW PROJECT</a>
 														</c:otherwise>
 													</c:choose>
 												</c:otherwise>
