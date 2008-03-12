@@ -33,7 +33,6 @@
 <div id="previewProjectHeader2">Want to instantly preview a project, without needing to register?</div>
 
 <div id="previewProjectDetails">
-	<div>NOTE:</div>
 	<ul>
 		<li>Click <em>Preview Project</em> below to begin downloading a secure Java-based preview.   
 				This download process can take several minutes, depending on your connection bandwidth. 
@@ -45,7 +44,10 @@
 				When registered teachers or students use a WISE 3.0 project all work is saved to their personalized account.</li>
 		<li>Review the <a href="http://www.telscenter.org/confluence/display/WPSD/Classroom+computer+lab+requirements+to+run+SAIL+projects">WISE 3.0 System Requirements</a> for details on minimum hardware/software requirements across Windows and 
 				Macintosh computers.</li>
-	</ul>
+		<li ><span style="font-weight:bold; color:#FF0000;">Macintosh Users:</span> A known problem with Java may stall your download/opening of the Java "JNLP" file.  
+		<br/>Please visit the <a href="http://www.telscenter.org/confluence/display/WPSD/Check+your+System+for+Compatibility+with+WISE+3">Check Your System for Compatibility with WISE 3</a> help section.
+		Then follow the instructions in the "Applying Macintosh Java patch" section.</li>
+	</ul> 
 </div>
 
 <table id="previewProjectTable" width="80%" border="1" cellpadding="5" summary="Displays W3 Projects that can be instantly previewed (no user data saved; registration not required).">
