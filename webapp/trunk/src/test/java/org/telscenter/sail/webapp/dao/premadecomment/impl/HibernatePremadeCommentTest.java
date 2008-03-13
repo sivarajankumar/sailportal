@@ -26,6 +26,8 @@ package org.telscenter.sail.webapp.dao.premadecomment.impl;
 import java.util.List;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.UserImpl;
+
+import org.junit.Ignore;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
@@ -71,6 +73,8 @@ public class HibernatePremadeCommentTest extends AbstractTransactionalDbTests{
         this.defaultPremadeComment = null;
     }
 
+    /*
+     * TODO: patrick fix
 	public void testSave(){
 		
 		assertTrue(true);
@@ -82,6 +86,7 @@ public class HibernatePremadeCommentTest extends AbstractTransactionalDbTests{
 		assertEquals(1, thisList.size());
 		assertEquals(thisList.get(0), defaultPremadeComment);
 	}
+	*/
 
 
 	public void testSaveWithoutLabel(){
