@@ -14,6 +14,9 @@
     </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar">
       <dependency-type>uses</dependency-type>
+    </dependent-module>    
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/h2database/h2/1.0.20070429/h2-1.0.20070429.jar">
+      <dependency-type>uses</dependency-type>      
     </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/cglib/cglib/2.1_3/cglib-2.1_3.jar">
       <dependency-type>uses</dependency-type>
