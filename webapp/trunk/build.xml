@@ -31,6 +31,7 @@
 
   <path id="lib.jdbc">
     <path location="${M2_REPO}/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar" />
+  	<path location="${M2_REPO}/com/h2database/h2/1.0.20070429/h2-1.0.20070429.jar" />
     <path location="${M2_REPO}/mysql/mysql-connector-java/5.0.5/mysql-connector-java-5.0.5.jar" />
   </path>
 
