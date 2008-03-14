@@ -30,7 +30,7 @@
 <div id="boxPreviewProject">
 
 <div id="creditsIntroText">The WISE 3.0 education system (along with the underlying SAIL and PAS Researcher Pack tools) are part of an open-source development community
-spanning the United States and Europe.  This project would not be possible without the dedicated efforts of the individuals listed below.</div>
+spanning the United States and Europe.  This system has reached fruition through the dedicated efforts of the individuals listed below.</div>
 
 <table border="0" cellpadding="4" id="creditsTeamTable">
 	<tr>  
@@ -39,7 +39,7 @@ spanning the United States and Europe.  This project would not be possible witho
 		</th>  
 	</tr>
 	<tr>
-		<td class="creditCategory">Research Program Directors</td> 
+		<td class="creditCategory">Program Directors</td> 
 		<td>
 		<dl> 
 			<dt>Ken Bell</dt>
@@ -68,7 +68,7 @@ spanning the United States and Europe.  This project would not be possible witho
 		</td> 	
 	</tr> 
 	<tr>
-		<td class="creditCategory">Software Programmers</td> 
+		<td class="creditCategory">Software Programming Team</td> 
 		<td>
 			<dl> 
 			<dt>Turadg Aleahmad</dt>
@@ -81,7 +81,7 @@ spanning the United States and Europe.  This project would not be possible witho
 				<dd>Univerity of California, Berkeley<a href="mailto:geoffreykwan@gmail.com">email</a>  <a href="#">bio pending</a></dd>
 			<dt>Anthony Perritano</dt>
 				<dd>Univerity of California, Berkeley <a href="mailto:jane@mills.edu">email</a> <a href="http://www.telscenter.org/grad_ed/mills.html">bio pending</a></dd>
-			<dt>Rokham Sadeghnezhadfard</dt>
+			<dt>Rokham <span style="letter-spacing:-1px;">Sadeghnezhadfard</span></dt>
 				<dd>Univerity of Toronto <a href="mailto:somebodyiknow@gmail.com">email</a> <a href="http://www.telscenter.org/grad_ed/mills.html">bio pending</a></dd>
 			<dt>Hiroki Terashima</dt>
 				<dd>Univerity of California, Berkeley <a href="mailto:hirochan@berkeley.edu">email</a> <a href="#">bio pending</a></dd>
@@ -89,6 +89,7 @@ spanning the United States and Europe.  This project would not be possible witho
 				<dd>The Concord Consortium <a href="mailto:aaron.unger@gmail.com">email</a> <a href="http://www.telscenter.org/grad_ed/asu.html">bio pending</a></dd>
 			<dt>Laurel Williams</dt>
 				<dd>University of Toronto <a href="mailto:laurel.williams@utoronto.ca">email</a> <a href="http://www.telscenter.org/grad_ed/asu.html">bio pending</a></dd>
+			</dl>
 			<div class="alumnaeHeader">alumnae / contributors</div>
 			<div class="alumnaeNames">Sally Ahn, Patrick Lawler, Archana Raghunathan, Jinna Lei, Nathaniel Titterton, Cynick Young</div>
 				
@@ -124,15 +125,77 @@ spanning the United States and Europe.  This project would not be possible witho
 		</td>  
 	</tr>
 	<tr>
+		<td class="creditCategory">Project Support</td> 
+		<td>
+			<dl>
+			<dt>David Crowell</dt>
+				<dd>Univerity of California, Berkeley <a href="mailto:dcrowell@berkeley.edu">email</a></dd>
+			<dt>Jon Breitbart</dt>
+				<dd>Univerity of California, Berkeley <a href="mailto:breity@berkeley.edu">email</a></dd>
+			</dl>
+		</td>  
+	</tr>
+	<tr>
 	<td class="creditCategory">WISE/TELS Research Team</td>  
 		<td>
-			<div class="alumnaeNames" style="font-size:.9em; line-height:150%;">Hsin-Yi Change, Jennie Chiu, Stephanie Corliss, Paul Dabenmire, Andrew Fisher, 
-			Libby Gerard, Tara Higgins, Patty Holman, Jeff Holmes, Diane Johnson, Samantha Johnson, Nathan Kirk, Hee-Sun Lee, Joey Lee, Dalit Levy,
-			Jacqueline Madhok, Paul Mazzei, Kevin McElhaney, Muhsin Meneskse, Frank Raminrez-Marin, Tamar Ronen-Fuhrmann,
-			Barrington Ross, Beat Schwendimann, Michelle Spitulnick, Ji Shen, Tina Skjerping, Erika Tate, Keisha Varma, Stephanie Touchman, 
-			Michelle Williams, Zhihui (Helen) Zhang,  </div>	
-	</tr>
 		
+		<dl>
+			<dt>Hsin-Yi Chang</dt> <dd></dd>
+			<dt>Jennie Chiu</dt> <dd></dd>
+			<dt>Stephanie Corliss,</dt> <dd></dd>
+			<dt>Paul Dabenmire</dt> <dd></dd>
+			<dt>Andrew Fisher</dt> <dd></dd>
+			<dt>Libby Gerard</dt> <dd></dd>
+			<dt>Tara Higgins</dt> <dd></dd>
+			<dt>Patty Holman</dt> <dd></dd>
+			<dt>Jeff Holmes</dt> <dd></dd>
+			<dt>Diane Johnson</dt> <dd></dd>
+			<dt>Samantha Johnson</dt> <dd></dd>
+			<dt>Nathan Kirk</dt> <dd></dd>
+			<dt>Hee-Sun Lee</dt> <dd></dd>
+			<dt>Joey Lee</dt> <dd></dd>
+			<dt>Dalit Levy</dt> <dd></dd>
+			<dt>Jacqueline Madhok</dt> <dd></dd>
+			<dt>Paul Mazzei</dt> <dd></dd>
+			<dt>Kevin McElhaney</dt> <dd></dd>
+			<dt>Muhsin Meneskse</dt> <dd></dd>
+			<dt>Frank Raminrez-Marin</dt> <dd></dd>
+			<dt>Tamar Ronen-Fuhrmann</dt> <dd></dd>
+			<dt>Barrington Ross</dt> <dd></dd>
+			<dt>Beat Schwendimann,</dt> <dd></dd>
+			<dt>Michelle Spitulnick</dt> <dd></dd>
+			<dt>Ji Shen</dt> <dd></dd>
+			<dt>Tina Skjerping</dt> <dd></dd>
+			<dt>Erika Tate</dt> <dd></dd>
+			<dt>Keisha Varma,</dt> <dd></dd>
+			<dt>Stephanie Touchman</dt> <dd></dd>
+			<dt>Michelle Williams</dt> <dd></dd>
+			<dt>Zhihui (Helen) Zhang</dt> <dd></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td class="creditCategory">Participating Classroom Teachers</td> 
+		<td>
+			<dl>
+			<dt>Laurel Nourse</dt>
+				<dd>Foothill Middle School, Martinez, CA</dd>
+			<dt>Ariel Owens</dt>
+				<dd>Martinez High School, Martinez, CA</dd>
+			<dt>Priscilla Robinson</dt>
+				<dd>Martinez High School, Martinez, CA</dd>
+			</dl>
+		</td>  
+	</tr>
+	<tr>
+		<td class="creditCategory">Special Thanks To</td>  
+		<td>
+			<dl>
+			<dt>Amanda the Panda</dt>
+				<dd>The WISE Mascot, 1996-2008 </dd>
+			</dl>
+		</td>  
+	</tr>	
 	</table>
 
 </div>   <!--  end of boxNewAccountReg -->
