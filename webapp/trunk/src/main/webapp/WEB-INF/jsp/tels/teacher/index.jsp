@@ -143,35 +143,35 @@
 	
 	<table id="dashboardSections" cellspacing="4" cellpadding="2">
 		<tr>
-			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+			<td><a href="../teacher/index.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('homebuttonmini','','.././themes/tels/default/images/teacher/Home-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Home-Mini-Button2.png"
 				alt="Home Button Mini" id="homebuttonmini" /></a></td>
 			<td>Your current location. Includes announcements and quick links to popular tools.</td>
 		</tr>
 		<tr>
-			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+			<td><a href="../teacher/projects/index.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('projectbuttonmini','','.././themes/tels/default/images/teacher/Projects-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Projects-Mini-Button2.png"
 				alt="Project Button Mini" id="projectbuttonmini" /></a></td>
 			<td>Search the WISE library, customize/create projects, view your current Project Runs.</td>
 		</tr>
 		<tr>
-			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+			<td><a href="../teacher/grading/overview.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('gradingbuttonmini','','.././themes/tels/default/images/teacher/Grading-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Grading-Mini-Button2.png"
 				alt="Grading Button Mini" id="gradingbuttonmini" /></a></td>
 			<td>View and grade student work using an assortment of time-saving tools.</td>
 		</tr>
 		<tr>
-			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+			<td><a href="../teacher/management/overview.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('managementbuttonmini','','.././themes/tels/default/images/teacher/Management-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Management-Mini-Button2.png"
 				alt="Management Button Mini" id="managementbuttonmini" /></a></td>
 			<td>Manage your students, print/export student work, update your account, and more.</td>
 		</tr>
 		<tr>
-			<td><a href="#"	onmouseout="MM_swapImgRestore()"
+			<td><a href="../teacher/help/overview.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('helpbuttonmini','','.././themes/tels/default/images/teacher/Help-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Help-Mini-Button2.png"
 				alt="Help Button Mini" id="helpbuttonmini" /></a></td>
