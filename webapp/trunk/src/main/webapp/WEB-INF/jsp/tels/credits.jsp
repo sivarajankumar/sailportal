@@ -29,8 +29,8 @@
 
 <div id="boxPreviewProject">
 
-<div id="creditsIntroText">The WISE 3.0 education system stems from  open-source project with contributors acrostems from the dedicated efforts of wide-ranging community of 
-software development teams. The multidisciplinary collaboration of these teams, spanning a range of technolo are a reflection of the colloborative effort  </div>
+<div id="creditsIntroText">The WISE 3.0 education system (along with the underlying SAIL and PAS Researcher Pack tools) are part of an open-source development community
+spanning the United States and Europe.  This project would not be possible without the dedicated efforts of the individuals listed below.</div>
 
 <table border="0" cellpadding="4" id="creditsTeamTable">
 	<tr>  
@@ -89,7 +89,7 @@ software development teams. The multidisciplinary collaboration of these teams, 
 				<dd>The Concord Consortium <a href="mailto:aaron.unger@gmail.com">email</a> <a href="http://www.telscenter.org/grad_ed/asu.html">bio pending</a></dd>
 			<dt>Laurel Williams</dt>
 				<dd>University of Toronto <a href="mailto:laurel.williams@utoronto.ca">email</a> <a href="http://www.telscenter.org/grad_ed/asu.html">bio pending</a></dd>
-			<div class="alumnaeHeader">alumnae</div>
+			<div class="alumnaeHeader">alumnae / contributors</div>
 			<div class="alumnaeNames">Sally Ahn, Patrick Lawler, Archana Raghunathan, Jinna Lei, Nathaniel Titterton, Cynick Young</div>
 				
 		</td> 	
