@@ -101,6 +101,7 @@
                 /forgotaccount/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /forgotaccount/**/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /admin/**/*.html=ROLE_ADMINISTRATOR
+                /j_acegi_switch_user*=ROLE_ADMINISTRATOR                
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>

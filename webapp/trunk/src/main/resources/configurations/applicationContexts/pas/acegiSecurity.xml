@@ -38,6 +38,7 @@
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
                 /adminoffering.html=ROLE_ADMINISTRATOR
+                /j_acegi_switch_user*=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
            </value>
@@ -54,7 +55,7 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+                /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter
             </value>
             <!--
                 <value>
@@ -157,7 +158,21 @@
         </constructor-arg>
     </bean>
 
-	<!-- =================== SECURITY SYSTEM DEFINITIONS ================== -->
+    <bean id="switchUserProcessingFilter" class="org.acegisecurity.ui.switchuser.SwitchUserProcessingFilter">
+    	<property name="userDetailsService" ref="userDetailsService" />
+    	<property name="switchUserUrl">
+    		<value>/j_acegi_switch_user</value>
+    	</property>
+    	<property name="exitUserUrl">
+    		<value>/j_acegi_exit_user</value>
+    	</property>
+    	<property name="targetUrl">
+    		<value>/index.html</value>
+    	</property>
+    </bean>
+
+
+    <!-- =================== SECURITY SYSTEM DEFINITIONS ================== -->
 	
 	<!-- RunAsManager -->
 	<bean id="runAsManager" class="org.acegisecurity.runas.RunAsManagerImpl">
