@@ -55,13 +55,15 @@
 <div id="centeredDiv">
 
 <%@ include file="headerteachergrading.jsp"%>
-<c:choose>
-  <c:when test="${gradeByType==step}">
+  <c:if test="${gradeByType == 'step'}">
       <%@ include file="L2grading_bystep.jsp"%>
-  </c:when>
-  <c:otherwise>
-  </c:otherwise>
-</c:choose>
+  </c:if>
+  <c:if test="${gradeByType == 'group'}">
+     <%@ include file="L2grading_bygroup.jsp"%>
+  </c:if>
+  <c:if test="${gradeByType == 'value'}">
+   	<%@ include file="L2grading_byvalue.jsp"%>
+   </c:if>	
 
 <div id="pickerHeader">
 	<div id="mainHeader">Select a Project</div>

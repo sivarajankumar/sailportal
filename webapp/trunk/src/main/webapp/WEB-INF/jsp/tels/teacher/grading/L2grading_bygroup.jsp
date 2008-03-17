@@ -25,9 +25,9 @@
 		<li >
 			<a href="../grading/overview.html">Overview</a> </li>
        	<li>
-			<a class="navigationL2_grading_highlight" href="../grading/projectPickerGrading.html?gradeByType=step">Grade by Step</a> </li>
+			<a href="../grading/projectPickerGrading.html?gradeByType=step">Grade by Step</a> </li>
 		<li>
-			<a href="../grading/projectPickerGrading.html?gradeByType=group">Grade By Workgroup</a> </li>
+			<a class="navigationL2_grading_highlight"  href="../grading/projectPickerGrading.html?gradeByType=group">Grade By Workgroup</a> </li>
 		<li>
 			<a style="color:#999999;" href="#">Review Step Values</a> </li>
 		<li>

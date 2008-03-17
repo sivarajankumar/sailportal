@@ -25,11 +25,11 @@
 		<li >
 			<a  class="navigationL2_grading_highlight" href="#">Overview</a> </li>
        	<li>
-			<a href="../run/myprojectruns.html">Grade by Step</a> </li>
+			<a href="../grading/projectPickerGrading.html?gradeByType=step">Grade by Step</a> </li>
 		<li>
-			<a style="color:#999999;" href="#">Grade By Group</a> </li>
+			<a href="../grading/projectPickerGrading.html?gradeByType=group">Grade By Workgroup</a> </li>
 		<li>
-			<a style="color:#999999;" href="#">Review Step Values</a> </li>
+			<a href="href="../grading/projectPickerGrading.html?gradeByType=value">Review Step Values</a> </li>
 		<li>
 			<a style="color:#999999;" href="#">Review Pre-Post</a> </li>
 		<li>
