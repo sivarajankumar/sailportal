@@ -37,7 +37,7 @@ public class ProjectPickerGradingController extends AbstractController {
 	protected static final String GRADE_BY_TYPE_REQUEST_PARAM_NAME = "gradeByType";
 	
 	private static String GRADING_PAGE_BASE_URL = "gradingpage";
-
+	
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -81,6 +81,7 @@ public class ProjectPickerGradingController extends AbstractController {
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_runs);
 		modelAndView.addObject(ARCHIVED_RUN_LIST_KEY, archived_runs);
 		modelAndView.addObject(GRADING_PAGE_BASE_URL, gradingPageBaseUrl);
+		modelAndView.addObject(GRADE_BY_TYPE_REQUEST_PARAM_NAME, gradeByTypeParam);
 
         return modelAndView;
 	}
