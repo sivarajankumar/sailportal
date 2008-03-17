@@ -72,7 +72,7 @@
 		}
 		
 		
-/* CSS FOR GRADE BY STEP  */ 
+/* CSS FOR GRADE BY STEP SELECTION LIST */ 
 
 #gradeStepSelectionArea {
 	margin: 10px 0 0 30px;
@@ -270,8 +270,58 @@
 	padding:1px 4px;
 	background-color:#FFFF99;
 	color:#000000;
-}        
-	
+}
+
+#scoreBoxStyling1 {  
+	padding:3px 4px;
+	font-weight:bold;
+	text-align:center;
+	color:#000066;
+	border-top: 1px solid #666666;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #666666;
+}
+
+#scoreBoxStyling2 {
+	padding:3px 5px;
+	text-align:center;
+	color:#000066;
+	background-color:#CCCCCC;
+	border: 1px solid #666666;
+
+
+#scoreBoxStyling3 { 
+	font-variant:small-caps;
+	font-size:.8em;
+}
+
+#gradingSaveButton button {
+	font-size:.9em; 
+	padding:3px;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
+}
+
+#gradingSaveButton button:hover {
+	background-color:#FFFF66;
+}
+
+#revisionRequiredArea {
+	test-align:center;
+	margin:10px 0 10px 5px;
+	font-size:.8em;
+}
+
+#revisionRequiredCheckbox1 {
+	margin:10px 0 10px 5px;
+	font-size:.8em;
+}
+
+
+
 /* CSS FOR PRE-MADE COMMENTS EDITOR  */ 
 
 #premadeCommentsWindowBorder {
