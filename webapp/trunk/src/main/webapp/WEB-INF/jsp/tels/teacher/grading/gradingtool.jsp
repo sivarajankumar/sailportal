@@ -563,7 +563,7 @@ aggregate.value = set of workgroupWorkAggregate
 																				</div>
 																			
 																				<div id="scoringHelpLink">
-																					<a href="revisionRequired.html" onClick="return popupSpecial(this, 'revisionPopup')">Help</a>
+																					<a href="#">Help</a>
 																				</div>	
 																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 11%;"></div>																   
 																		</div>	
