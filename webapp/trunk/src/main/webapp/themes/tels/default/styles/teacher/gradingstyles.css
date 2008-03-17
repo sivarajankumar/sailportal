@@ -283,13 +283,13 @@
 	border-left: 1px solid #666666;
 }
 
-#scoreBoxStyling2 {
+.scoreBoxStyling2 {
 	padding:3px 5px;
 	text-align:center;
 	color:#000066;
 	background-color:#CCCCCC;
 	border: 1px solid #666666;
-
+}
 
 #scoreBoxStyling3 { 
 	font-variant:small-caps;
@@ -310,17 +310,23 @@
 }
 
 #revisionRequiredArea {
+	visibility:hidden;
 	test-align:center;
-	margin:10px 0 10px 5px;
+	margin:10px 0 0px 5px;
 	font-size:.8em;
 }
 
-#revisionRequiredCheckbox1 {
-	margin:10px 0 10px 5px;
+#scoringHelpLink {
+	test-align:center;
+	margin:20px 0 10px 5px;
 	font-size:.8em;
+	font-variant:small-caps;
+	letter-spacing:1px;
+	}
+	
+#scoringHelpLink:hover {
+	background-color:#FFFF66;
 }
-
-
 
 /* CSS FOR PRE-MADE COMMENTS EDITOR  */ 
 
