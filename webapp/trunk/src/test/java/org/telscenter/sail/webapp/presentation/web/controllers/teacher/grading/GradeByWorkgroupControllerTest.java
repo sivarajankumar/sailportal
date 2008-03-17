@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -20,25 +20,28 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers;
+package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
+
+import org.springframework.test.web.AbstractModelAndViewTests;
+import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * @author Hiroki Terashima
  * @version $Id$
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-	org.telscenter.sail.webapp.presentation.web.controllers.RegisterTeacherControllerTest.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.RegisterStudentControllerTest.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.student.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.general.contactwise.AllTests.class
-})
+public class GradeByWorkgroupControllerTest extends AbstractModelAndViewTests {
 
-public class AllTests {
+	private RunService runService;
+	
+	private GradingService gradingService;
+	
+	private WorkgroupService workgroupService;
+	
+	// placeholder for tests.
+	public void testNothing() {
+		assertTrue(true);
+	}
 }

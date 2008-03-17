@@ -115,6 +115,8 @@
 				/teacher/grading/deleteCommentList.html=deleteCommentListController
 				/teacher/grading/addCommentToList.html=addCommentToListController
 				/teacher/grading/createNewCommentList.html=createNewCommentListController
+				/teacher/grading/selectworkgroup.html=selectWorkgroupController
+				/teacher/grading/gradebyworkgroup.html=gradeByWorkgroupController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController

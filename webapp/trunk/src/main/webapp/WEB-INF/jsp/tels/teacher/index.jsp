@@ -197,8 +197,8 @@
 			</ul>
 		<div id="linkHeader">Grading</div>
 			<ul>
-			<li><a href="./grading/projectPickerGrading.html">Grade Work by Step</a></li>
-			<li class="inactivecolor">Grade Work by Team</li>
+			<li><a href="./grading/projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></li>
+			<li><a href="./grading/projectPickerGrading.html?gradeByType=group">Grade Work by Team</a></li>
 			<li class="inactivecolor">View Student Score Summary</li>
 			<li class="inactivecolor">Edit Ready-Made Comments</li>
 			</ul>		

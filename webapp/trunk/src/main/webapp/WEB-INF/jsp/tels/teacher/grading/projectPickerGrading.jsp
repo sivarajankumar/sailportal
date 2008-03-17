@@ -55,8 +55,13 @@
 <div id="centeredDiv">
 
 <%@ include file="headerteachergrading.jsp"%>
-
-<%@ include file="L2grading_bystep.jsp"%>
+<c:choose>
+  <c:when test="${gradeByType==step}">
+      <%@ include file="L2grading_bystep.jsp"%>
+  </c:when>
+  <c:otherwise>
+  </c:otherwise>
+</c:choose>
 
 <div id="pickerHeader">
 	<div id="mainHeader">Select a Project</div>
@@ -96,7 +101,7 @@
 	      </c:otherwise>
 	    </c:choose>
 	    <tr>
-			<th scope="row"><a href="gradebystep.html?runId=${currentRun.id}">${currentRun.sdsOffering.name}</a></th>
+			<th scope="row"><a href="${gradingpage}?runId=${currentRun.id}">${currentRun.sdsOffering.name}</a></th>
 			<td>[45345]</td>
 			<td><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></td>
 			<td>[ongoing]</td>

@@ -123,7 +123,7 @@
 
 <div>
 	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
-	<div id="selectAnotherLink"><a href="projectPickerGrading.html">Select Another Project</a></div>
+	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Select Another Project</a></div>
 
 	<div id="gradeStepInstructions">Select any step below to begin grading</div>
 		

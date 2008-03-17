@@ -57,10 +57,10 @@
 	
 	<table id="overview_choices_grading" cellspacing="20">
 		<tr>
-			<td class="link_grading"><a href="./projectPickerGrading.html">Grade Work by Step</a></td>
+			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></td>
 			<td class="description_grading">View and grade work, one Step at a time.</td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;" href="#">Grade Work By Student-Group</a></td>
+			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=group">Grade Work By Student-Group</a></td>
 			<td class="description_grading">View and grade work, one Student-Group at a time.</td></tr>
 		<tr>
 			<td class="link_grading"><a style="color:#999999;"href="#">Review Student Score Summary</a></td>

@@ -562,6 +562,18 @@
 		<property name="userService" ref="userService" />
 	</bean>
 	
+	<bean id="selectWorkgroupController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectWorkgroupController">
+		<property name="offeringService" ref="runService" />
+	</bean>
+	
+		<bean id="gradeByWorkgroupController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByWorkgroupController">
+		<property name="runService" ref="runService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="gradingService" ref="gradingService" />
+	</bean>
+	
     
     
 </beans>

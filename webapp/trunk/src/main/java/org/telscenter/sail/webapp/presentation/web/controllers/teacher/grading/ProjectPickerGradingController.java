@@ -34,6 +34,10 @@ public class ProjectPickerGradingController extends AbstractController {
 	
 	protected static final String ARCHIVED_RUN_LIST_KEY = "archived_run_list";
 
+	protected static final String GRADE_BY_TYPE_REQUEST_PARAM_NAME = "gradeByType";
+	
+	private static String GRADING_PAGE_BASE_URL = "gradingpage";
+
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -64,9 +68,19 @@ public class ProjectPickerGradingController extends AbstractController {
 			}
 		}
 		// end temporary code
+		
+		// set grading page base url...gradeByTypeParam is assumed to be not null
+		String gradingPageBaseUrl = "";
+		String gradeByTypeParam = request.getParameter(GRADE_BY_TYPE_REQUEST_PARAM_NAME);
+		if (gradeByTypeParam.equals("step")) {
+			gradingPageBaseUrl = "gradebystep.html";
+		} else if (gradeByTypeParam.equals("group")) {
+			gradingPageBaseUrl = "selectworkgroup.html";
+		}
 
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_runs);
 		modelAndView.addObject(ARCHIVED_RUN_LIST_KEY, archived_runs);
+		modelAndView.addObject(GRADING_PAGE_BASE_URL, gradingPageBaseUrl);
 
         return modelAndView;
 	}
