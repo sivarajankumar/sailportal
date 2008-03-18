@@ -547,7 +547,7 @@ aggregate.value = set of workgroupWorkAggregate
 												
 																				</c:forEach>
 																		</c:forEach>
-																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/><span id="scoreBoxStyling3"> out of </span><input class="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
+																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/><span id="scoreBoxStyling3"> out of </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
 																				
 																				<div id="revisionRequiredArea" >
 	     																			<form>

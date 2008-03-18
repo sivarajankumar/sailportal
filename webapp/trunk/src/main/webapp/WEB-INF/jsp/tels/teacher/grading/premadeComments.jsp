@@ -175,7 +175,7 @@
 					
 					if(inPlaceEditor[listId + '_' + i] == undefined) {
 						inPlaceEditor[listId + '_' + i] = new Ajax.InPlaceEditor(listId + "_" + i, '/webapp/teacher/grading/editComment.html', 
-						{ cols:52, okText: "Save", cancelText: "Cancel"					
+						{ cols:52, okText: "Save", cancelText: "Cancel",					
 						 formId: commentId,
 							callback:function(form, value) {
 								return "commentId=" + form.id + "&editedComment=" + value;
@@ -411,7 +411,7 @@ Instead, click the appropriate on-screen buttons  (this keyboard issue will be f
 					<tr>
 						<td>
 							<input type="checkbox" value="${premadeComment.comment}" id="premadeCommentList${premadeCommentList.id}_${commentStatus.count}_checkboxval" name="checkBoxes" onclick="toggleComment('premadeCommentList${premadeCommentList.id}_${commentStatus.count}_checkboxval')" />
-							<script>s
+							<script>
 								commentIdToDbId["premadeCommentList${premadeCommentList.id}_${commentStatus.count}"] = "${premadeComment.id}";
 								mode["premadeCommentList${premadeCommentList.id}"] = "view";
 							</script>

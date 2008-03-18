@@ -130,10 +130,10 @@
 	
 	
 		//create tab
-	    var tabView = new YAHOO.widget.TabView('periodTabs'); 
+	    //var tabView = new YAHOO.widget.TabView('periodTabs'); 
 	    
-		tabView.set('activeIndex', ${tabIndex});								        
-	    tabView.addListener('activeTabChange', handleTabClick); 
+		//tabView.set('activeIndex', ${tabIndex});								        
+	    //tabView.addListener('activeTabChange', handleTabClick); 
 	    
 	    /**
 	     * When tabs change handle a click
@@ -359,102 +359,54 @@ aggregate.value = set of workgroupWorkAggregate
 	</div>
 </c:when>
 <c:otherwise>
-  This group has done some work. Display them here.
   <c:set var="sessionbundles" value="${aggregate.sessionBundles}"/>
-</c:otherwise>
-</c:choose>
-
-
-<div id="periodTabs" class="yui-navset"> 
-		<!-- create the tabs nav -->
-		<ul class="yui-nav" style="font-size:.8em; text-transform:uppercase;"> 
-			<c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
-				 <li style="margin-right:4px;"><a href="${aggregate.key.name}"><em>Period ${aggregate.key.name}</em></a></li> 
-			 </c:forEach> 
-		 </ul>   
-		 <!-- create the tabs content -->
-		<div class="yui-content" style="background-color:#FFFFFF;">
-			 <c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
-			
-			 <c:set var="period" value="${fn:replace(aggregate.key.name, ' ', '-')}"/>
-			<div>
-				<!-- Actual Tab 
-					${workgroupAggregateObj} = workgroupAggregateObj
-				 -->
-				<c:if test="${empty aggregate.value}"> 
-					<div id="noTeamsInPeriod" style="padding:20px 0;">
-						This period has no registered student teams.
-					</div>
-				</c:if>
-					<c:forEach var="workgroupAggregateObj" varStatus="workgroupAggregateObjStatus" items="${aggregate.value}">
-						<!-- get the workgroup id -->
-						
-						<c:set var="workgroupId" value="${workgroupAggregateObj.workgroup.id}"/>
-						<div align="center">
-						<table id="gradingTeamTable"  border="1" class="sample">
-						<!-- table header -->
-									<tr id="groupHeaderRow">
-										<td class="boldText" width="45%">
-										<!--  print member anmes -->
-										<div  class="tdHeader">
-										<class="headerFont">Group ${workgroupAggregateObj.workgroup.id}: 
-										<c:forEach var="user" varStatus="userStatus"
-											items="${workgroupAggregateObj.workgroup.members}">
-										 		${user.userDetails.firstname} ${user.userDetails.lastname}
-										 		   <c:if test="${userStatus.last=='false'}">
-							     					&
-							    				</c:if>
-										 	</c:forEach>
-										 </div>
-										</td>
-										
-										<td width="35%" >
-										
-																										   	<c:set var="commentDone" value="false"/>
-																   	<c:set var="commentAnnotation" value=" "/>
-												     				<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
-																	
-																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
-																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
-																		
-																			<c:if test="${annotation.entityUUID == step.podUUID}">
-																			  <c:if test="${empty annotation.entityName}" >
-																			     <c:if test="${commentDone == false}">
-																				   <c:set var="commentAnnotation" value="${annotation}"/>
-																				   <c:set var="commentDone" value="true"/>
-																			     </c:if>
-																			  </c:if>
-																			</c:if>
-																		</c:if>
-																		</c:forEach>
-																	</c:forEach>
-																	
-																	
-										<div align="center" class="tdHeader" class="headerFont">Teacher Feedback <span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')">Open Pre-Made Comments Editor</a></span></div>
-										</td>
-										<td width="20%">
-										<div align="center" class="tdHeader" class="headerFont">Score</div>
-										</td>
-									</tr>
-							<!-- End Table Header -->
-							<!-- for no work in work group -->
-							<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${workgroupAggregateObj.sessionBundles}">
-								<c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundle.ESessionBundle.sockParts}">
-									<c:forEach var="rimFromStep" items="${step.rim}">
-											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
-												<c:set var="noWorkFound" value="false"/>
+  <c:set var="curnitmap" value="${aggregate.curnitmap}"/>
+  <c:set var="workgroupId" value="${aggregate.workgroup.id}"/>
+  
+  <div id="gradeStepSelectedProject">${curnitmap.project.title}</div>
+  
+  
+   <c:forEach var="activity" varStatus="varAct" items="${curnitmap.project.activity}">
+		<div id="stepTitle">Activity ${activity.number+1}: ${activity.title}</div>  
+		<ul id="stepSelectionList"> 
+			<c:forEach var="step" varStatus="varStep" items="${activity.step}">
+				<c:if test="${step.type == 'Note' || step.type == 'Student Assessment'}">
+				<!--  for each grade-able step, show prompt, answer, and teacher's feedback input boxes -->
+					<table id="gradingTeamTable"  border="1" class="sample">
+						<!-- table header to display step title, teacher feedback, premade comment button, score header -->
+						<tr id="groupHeaderRow">
+							<td class="boldText" width="45%">
+		    					<!--  print member anmes -->
+		 					   <div  class="tdHeader">
+		 					   	<class="headerFont">Step  ${step.number+1}: ${step.title}</class>							    </div>
+							</td>					
+							<td width="35%" >
+								<c:set var="commentDone" value="false"/>
+								<c:set var="commentAnnotation" value=" "/>
+								<c:forEach var="annotationGroup" items="${aggregate.annotationBundle.EAnnotationBundle.annotationGroups}">
+			   						<c:forEach var="annotation" items="${annotationGroup.annotations}">
+			        					<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
+					    					<c:if test="${annotation.entityUUID == step.podUUID}">
+						    					<c:if test="${empty annotation.entityName}" >
+							    					<c:if test="${commentDone == false}">
+								    					<c:set var="commentAnnotation" value="${annotation}"/>
+														<c:set var="commentDone" value="true"/>
+							    					</c:if>
+						    					</c:if>
 											</c:if>
+										</c:if>
 									</c:forEach>
 								</c:forEach>
-							</c:forEach>
-
-							<!-- no work found this is disabled -->
+								<div align="center" class="tdHeader" class="headerFont">Teacher Feedback <span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')">Open Pre-Made Comments Editor</a></span></div>
+								</td>
+								<td width="20%">
+								<div align="center" class="tdHeader" class="headerFont">Score</div>
+								</td>
+							</tr>
+							
+							<!-- table row to display this workgroup's work, teacher's feedback and score for this step -->
+							<tr>
 							<c:set var="noWorkFound" value="true"/>
-							<c:choose>
-								<c:when test="${noWorkFound == false}">
-									<tr><td colspan="3" align="center">no student response yet</td></tr>
-								</c:when>
-								<c:otherwise>
 									<!-- do the rest of the table -->
 									
 										<c:forEach var="rimFromStep" varStatus="rimListStatus" items="${step.rim}">
@@ -476,11 +428,11 @@ aggregate.value = set of workgroupWorkAggregate
 						                          		<!-- create the textbox -->
 						                          		
 															<c:if test="${rimListStatus.first}">
-																   <td rowspan="${fn:length(step.rim)*2}">
+																   <td id="teacherFeedbackTd" rowspan="${fn:length(step.rim)*2}">
 																   <div align="center">
 																   	<c:set var="commentDone" value="false"/>
 																   	<c:set var="commentAnnotation" value=" "/>
-												     				<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
+												     				<c:forEach var="annotationGroup" items="${aggregate.annotationBundle.EAnnotationBundle.annotationGroups}">
 																	
 																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
 																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
@@ -511,7 +463,7 @@ aggregate.value = set of workgroupWorkAggregate
 																    <div align="center">
 																	<c:set var="scoreDone" value="false"/>
 																	<c:set var="scoreAnnotation" value=" "/>
-															     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
+															     		<c:forEach var="annotationGroup" items="${aggregate.annotationBundle.EAnnotationBundle.annotationGroups}">
 																				
 																				<c:forEach var="annotation" items="${annotationGroup.annotations}">
 																					<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/score'}">
@@ -529,18 +481,28 @@ aggregate.value = set of workgroupWorkAggregate
 												
 																				</c:forEach>
 																		</c:forEach>
-																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}"/> out of <input class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" DISABLED="true" READONLY="true" type="text" size="1" value="${step.possibleScore}"/>
+																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/><span id="scoreBoxStyling3"> out of </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
 																				
+																				<div id="revisionRequiredArea" >
+	     																			<form>
+	     																				<input type="checkbox" name="checkBox" id="checkbox"/><span>Require a Revision</span>
+	     																			</form>
+    																			</div>
+    																			
 																				<div id="gradingSaveButton">
 																					<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button">
-																						
 																							<em class="first-child">
-																							<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">
-																						   		Save Feedback + Score</button></em>
+																							<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save Feedback <br>&amp; Score</button></em>
 																					</span>
 																				</div>
-																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 12%;"></div>																   
-																		</div>	   
+																			
+																				<div id="scoringHelpLink">
+																					<a href="#">Help</a>
+																				</div>	
+																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 11%;"></div>																   
+																		</div>	
+																		
+																		
 																   </td>   		
 															</c:if>
 						                          		
@@ -551,7 +513,7 @@ aggregate.value = set of workgroupWorkAggregate
 						                          			<div id="stepStudentAnswerField" class="answerDiv">
 							                          			<c:set var="sockPartFound" value="false"/>
 							                          			<c:set var="sockEntryValue" value="" />
-							                          			<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${workgroupAggregateObj.sessionBundles}">
+							                          			<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${aggregate.sessionBundles}">
 							                          			    <c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundle.ESessionBundle.sockParts}">
 							                          				    <c:if test="${sockPart.rimName == rimFromStep.rimname}">
 							                          					    <c:set var="sockPartFound" value="true"/>
@@ -578,19 +540,30 @@ aggregate.value = set of workgroupWorkAggregate
 						                          		
 						                     </tr>
 										</c:forEach>
-								</c:otherwise>
-							</c:choose>
-							</table>
-							</div>
-					</c:forEach> 
-		
-		
-		
-				</div>	 
-			</c:forEach> 
-		</div>
-		<!-- end create tab content -->
-</div>
+							
+							</tr>
+							
+						</table>
+				
+				    <!-- for no work in work group -->
+					<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${aggregate.sessionBundles}">
+					    <c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundle.ESessionBundle.sockParts}">
+							<c:forEach var="rimFromStep" items="${step.rim}">
+								<c:if test="${sockPart.rimName == rimFromStep.rimname}">
+									<c:set var="noWorkFound" value="false"/>
+								</c:if>
+							</c:forEach>
+						</c:forEach>
+					</c:forEach>
+				</c:if>
+			</c:forEach>
+		</ul>
+    </c:forEach>
+  
+</c:otherwise>
+</c:choose>
+
+
 <table id="currentStepTable" >
   <tr>
   	<td id="currentStepLabel">${aggregate.workgroup.sdsWorkgroup.name}<span style="font-weight:normal;">${step.title}</span></td>
