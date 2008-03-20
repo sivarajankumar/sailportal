@@ -260,17 +260,15 @@
 			var possibleScoreResult;
 
 
-			//checkk the inputs of the score boxes
+		//checkk the inputs of the score boxes
 			StringUtilsJS.isNumeric(teacherScore, {
 					  callback:function(teacherScoreResult) { 
 
 					    // if the result is false display a dialog
-					  	if( teacherScoreResult == false ) {
+					  	if( teacherScoreResult == false && !(teacherScore == "unscored")) {
 					  		displayScoreDialog(teacherScore + " is not a valid score, please input a number"); 
 					  	} else {
-						  	
-					  		if( eval(teacherScore) <=  eval(possibleScore) ) {
-
+					  		if( teacherScore == "unscored" || eval(teacherScore) <=  eval(possibleScore) ) {
 								/*
 								* Remember to encode the key-value string if and when
 								* the string contains special characters.
@@ -291,7 +289,6 @@
 					  }
 				});
 			};
-
 
 			/**
 			 * display score is incorrect dialog

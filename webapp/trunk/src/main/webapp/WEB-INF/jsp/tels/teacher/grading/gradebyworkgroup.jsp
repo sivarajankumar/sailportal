@@ -265,12 +265,10 @@
 					  callback:function(teacherScoreResult) { 
 
 					    // if the result is false display a dialog
-					  	if( teacherScoreResult == false ) {
+					  	if( teacherScoreResult == false && !(teacherScore == "unscored")) {
 					  		displayScoreDialog(teacherScore + " is not a valid score, please input a number"); 
 					  	} else {
-						  	
-					  		if( eval(teacherScore) <=  eval(possibleScore) ) {
-
+					  		if( teacherScore == "unscored" || eval(teacherScore) <=  eval(possibleScore) ) {
 								/*
 								* Remember to encode the key-value string if and when
 								* the string contains special characters.
