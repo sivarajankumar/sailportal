@@ -22,11 +22,19 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
@@ -37,6 +45,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 
 /**
  * @author Hiroki Terashima
@@ -54,6 +66,10 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 	
 	private Workgroup workgroup;
 	
+	private Group group;
+	
+	private Run run;
+	
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
@@ -62,7 +78,13 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 		this.request = new MockHttpServletRequest();
 		this.request.setParameter("runId", "4");
 		this.response = new MockHttpServletResponse();
-		this.workgroup = new WorkgroupImpl();
+		this.workgroup = new WISEWorkgroupImpl();
+		this.group = new PersistentGroup();
+		((WISEWorkgroup) this.workgroup).setPeriod(group);
+		Set<Group> periods = new HashSet<Group>();
+		periods.add(this.group);
+		this.run = new RunImpl();
+		this.run.setPeriods(periods);
 
 		offeringService = createMock(OfferingService.class);
 		selectWorkgroupController = new SelectWorkgroupController();
@@ -93,7 +115,12 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 		
 		Set<Workgroup> expectedWorkgroups = new HashSet<Workgroup>();
 		expect(offeringService.getWorkgroupsForOffering(offeringId)).andReturn(expectedWorkgroups);
+		expect(offeringService.getOffering(offeringId)).andReturn(run);
 		replay(offeringService);
+
+		Map<Group,List<Workgroup>> expectedPeriodsToWorkgroups = 
+			new HashMap<Group, List<Workgroup>>();
+		expectedPeriodsToWorkgroups.put(this.group, new ArrayList<Workgroup>());
 		
 		ModelAndView modelAndView = null;
 		try {
@@ -102,10 +129,13 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 			fail("Unexpected exception was thrown");
 		}
 		assertNotNull(modelAndView);
-		assertModelAttributeValue(modelAndView, SelectWorkgroupController.RUN_ID_PARAM_NAME, offeringId);
-		assertModelAttributeValue(modelAndView, SelectWorkgroupController.WORKGROUPS_PARAM_NAME, expectedWorkgroups);
-		Set<Workgroup> actualWorkgroups = (Set<Workgroup>) modelAndView.getModel().get(SelectWorkgroupController.WORKGROUPS_PARAM_NAME);
-		assertTrue(actualWorkgroups.isEmpty());
+		assertModelAttributeValue(modelAndView, 
+				SelectWorkgroupController.RUN_ID_PARAM_NAME, offeringId);
+		assertModelAttributeValue(modelAndView, 
+				SelectWorkgroupController.PERIODS_TO_WORKGROUPS_PARAM_NAME, expectedPeriodsToWorkgroups);
+		Map<Group,List<Workgroup>> actualPeriodsToWorkgroups = 
+			(Map<Group, List<Workgroup>>) modelAndView.getModel().get(SelectWorkgroupController.PERIODS_TO_WORKGROUPS_PARAM_NAME);
+		assertTrue(actualPeriodsToWorkgroups.get(this.group).isEmpty());
 		verify(offeringService);
 	}
 
@@ -123,7 +153,13 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 		Set<Workgroup> expectedWorkgroups = new HashSet<Workgroup>();
 		expectedWorkgroups.add(workgroup);
 		expect(offeringService.getWorkgroupsForOffering(offeringId)).andReturn(expectedWorkgroups);
+		expect(offeringService.getOffering(offeringId)).andReturn(run);
 		replay(offeringService);
+		
+		Map<Group,List<Workgroup>> expectedPeriodsToWorkgroups = 
+			new HashMap<Group, List<Workgroup>>();
+		expectedPeriodsToWorkgroups.put(this.group, new ArrayList<Workgroup>());
+		expectedPeriodsToWorkgroups.get(this.group).add(this.workgroup);
 		
 		ModelAndView modelAndView = null;
 		try {
@@ -132,12 +168,15 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 			fail("Unexpected exception was thrown");
 		}
 		assertNotNull(modelAndView);
-		assertModelAttributeValue(modelAndView, SelectWorkgroupController.RUN_ID_PARAM_NAME, offeringId);
-		assertModelAttributeValue(modelAndView, SelectWorkgroupController.WORKGROUPS_PARAM_NAME, expectedWorkgroups);
-		Set<Workgroup> actualWorkgroups = (Set<Workgroup>) modelAndView.getModel().get(SelectWorkgroupController.WORKGROUPS_PARAM_NAME);
-		assertTrue(!actualWorkgroups.isEmpty());
-		assertTrue(actualWorkgroups.size() == 1);
-		assertTrue(actualWorkgroups.contains(workgroup));
+		assertModelAttributeValue(modelAndView, 
+				SelectWorkgroupController.RUN_ID_PARAM_NAME, offeringId);
+		assertModelAttributeValue(modelAndView, 
+				SelectWorkgroupController.PERIODS_TO_WORKGROUPS_PARAM_NAME, expectedPeriodsToWorkgroups);
+		Map<Group,List<Workgroup>> actualPeriodsToWorkgroups = 
+			(Map<Group,List<Workgroup>>) modelAndView.getModel().get(SelectWorkgroupController.PERIODS_TO_WORKGROUPS_PARAM_NAME);
+		assertTrue(!actualPeriodsToWorkgroups.isEmpty());
+		assertTrue(actualPeriodsToWorkgroups.size() == 1);
+		assertTrue(actualPeriodsToWorkgroups.get(group).contains(workgroup));
 		verify(offeringService);
 	}
 

@@ -45,6 +45,10 @@
 <body class="yui-skin-sam">
 
 <script type="text/javascript">
+	//create tab
+	var tabView = new YAHOO.widget.TabView('tabSystem');
+	tabView.set('activeIndex', 0);								        
+	 
 
 	if(navigator.appName != "Microsoft Internet Explorer") {
 		loadingImage = new Image();
@@ -126,21 +130,39 @@
 	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
 	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=group">Select Another Project</a></div>
 
-	<div id="gradeStepInstructions">Select any team below to start grading.</div>
-		
-	<div id="workgroupTitle">Period [NEED PERIOD/TEAMS layout here with all Periods shown]</div>  
-	<ul id="workgroupSelectionList">
-	    <c:forEach var="workgroup" varStatus="workgroupStatus" items="${workgroups}">	
+	<div id="gradeStepInstructions">Select a team below to start grading</div>
 
-	        <li><a href="gradebyworkgroup.html?runId=${runId}&workgroupId=${workgroup.id}">Team ${workgroup.id}: 
-	                <c:forEach var="workgroupMember" items="${workgroup.members}">
-			         ${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}, 
+<div id="tabSystem" class="yui-navset">
+    <ul class="yui-nav" style="font-size:.7em;">
+	    <c:forEach var="periodToWorkgroups" varStatus="periodStatus" items="${periodsToWorkgroups}">
+		    <li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${periodToWorkgroups.key.name}"><em>Period ${periodToWorkgroups.key.name}</em></a></li>
+	    </c:forEach>
+    </ul>
+    
+    <!-- create the tabs content -->
+	<div class="yui-content" style="background-color:#FFFFFF;">
+		 <c:forEach var="periodToWorkgroups" varStatus="periodStatus" items="${periodsToWorkgroups}">
+	<ul id="workgroupSelectionList">
+	    <c:forEach var="workgroup" varStatus="workgroupStatus" items="${periodToWorkgroups.value}">	
+	        <li><a href="gradebyworkgroup.html?runId=${runId}&workgroupId=${workgroup.id}">Team ${workgroup.id} : 
+	                <c:forEach var="workgroupMember" varStatus="workgroupMemberStatus" items="${workgroup.members}">
+			         ${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}
+			        <c:choose>
+			            <c:when test="${workgroupMemberStatus.last}">
+			            </c:when>
+			            <c:otherwise>
+			              <c:out value="," />
+			            </c:otherwise>
+			        </c:choose>
 			        </c:forEach>
                 </a>
             </li>
 	        
 	    </c:forEach>
 	</ul>
+	</c:forEach>
+	</div>  <!-- end of div class=yui-content -->
+</div>  <!-- end of div id=tabSystem -->
 </div>
 
 <div>      <!--End of gradeStepSelectionArea -->
