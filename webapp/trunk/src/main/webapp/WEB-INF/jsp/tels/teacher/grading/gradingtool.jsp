@@ -335,22 +335,23 @@
 <table id="currentStepTable" >
   <tr>
   	<td id="currentStepLabel">Act ${activity.number+1}, Step ${step.number+1}: <span style="font-weight:normal;">${step.title}</span></td>
-    <td class="currentStepNavLink">
     
-    <c:choose>
-			<c:when test="${!empty previousStep}">
-				<a id="previousStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
-    			Previous Step</a>
-			</c:when>
-			<c:otherwise>
-				Previous Step
-			</c:otherwise>
-	</c:choose>
-
-</td>
-    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}">Return to Step Menu</a></td>
+    <td class="currentStepNavLink">
+        <c:choose>
+				<c:when test="${!empty previousStep}">
+					<a id="previousStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
+	    			Previous Step</a>
+				</c:when>
+				<c:otherwise>
+					Previous Step
+				</c:otherwise>
+		</c:choose>
+	</td>
+    
+    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}">Return to Step Menu</a>
+    </td>
+    
     <td class="currentStepNavLink"> 
-
 	  <c:choose>
 			<c:when test="${!empty nextStep}">
 				<a id="nextStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
@@ -358,10 +359,9 @@
 			<c:otherwise>
 				Next Step
 			</c:otherwise>
-	</c:choose>
-
-
-</td>		
+		</c:choose>
+	</td>		
+	
   </tr>
  </table>
  
@@ -560,7 +560,8 @@ aggregate.value = set of workgroupWorkAggregate
 																				</div>
 																			
 																				<div id="scoringHelpLink">
-																					<a href="#">Help</a>
+																					<a href="#" style="color:#999999;">Help</a>
+																					
 																				</div>	
 																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 11%;"></div>																   
 																		</div>	

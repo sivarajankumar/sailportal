@@ -327,22 +327,18 @@
 
 <%@ include file="headerteachergrading.jsp"%>
 
-<%@ include file="L2grading_bystep.jsp"%>
+<%@ include file="L2grading_bygroup.jsp"%>
 
-<div id="overviewHeaderGradingv2">Grade By Workgroup</div>
+<div id="overviewHeaderGradingv2">Grade By Team</div>
 
 <div id="gradeStepSelectedProject">${curnitmap.project.title}<span id="projectIdLabel">(Project ID [project id goes here])</span></div>
 
-<table id="currentStepTable" >
+<table id="currentTeamTable" > 
   <tr>
-  	<td id="currentStepLabel">${aggregate.workgroup.sdsWorkgroup.name}<span style="font-weight:normal;">${step.title}</span></td>
-    <td class="currentStepNavLink">
-				Previous Team
-    </td>
-    <td class="currentStepNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></td>
-    <td class="currentStepNavLink"> 
-				Next Team
-    </td>		
+  	<td id="currentTeamLabel">[Name 1, Name 2, Name 3]<span id="teamPeriodAndNumber">(period [XX], team [YY])</span></td>
+    <td class="currentTeamNavLink">Previous Team</td>
+    <td class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></td>
+    <td class="currentTeamNavLink">Next Team</td>		
   </tr>
  </table>
  
@@ -353,7 +349,7 @@ aggregate.value = set of workgroupWorkAggregate
 <c:choose>
 <c:when test="${empty aggregate}"> 
     <div id="noTeamsInPeriod" style="padding:20px 0;">
-	    This group has not done any work
+	    This team has not submitted any work
 	</div>
 </c:when>
 <c:otherwise>
@@ -364,7 +360,7 @@ aggregate.value = set of workgroupWorkAggregate
   
    <c:forEach var="activity" varStatus="varAct" items="${curnitmap.project.activity}">
 		<div id="stepTitle">Activity ${activity.number+1}: ${activity.title}</div>  
-		<ul id="stepSelectionList"> 
+		<ul id="TeamSelectionList"> 
 			<c:forEach var="step" varStatus="varStep" items="${activity.step}">
 				<c:if test="${step.type == 'Note' || step.type == 'Student Assessment'}">
 				<!--  for each grade-able step, show prompt, answer, and teacher's feedback input boxes -->
@@ -424,7 +420,7 @@ aggregate.value = set of workgroupWorkAggregate
 						                          		<!-- create the textbox -->
 						                          		
 															<c:if test="${rimListStatus.first}">
-																   <td id="teacherFeedbackTd" rowspan="${fn:length(step.rim)*2}">
+																   <td id="teacherFeedbackTdTeam" rowspan="${fn:length(step.rim)*2}">
 																   <div align="center">
 																   	<c:set var="commentDone" value="false"/>
 																   	<c:set var="commentAnnotation" value=" "/>
@@ -560,14 +556,14 @@ aggregate.value = set of workgroupWorkAggregate
 </c:choose>
 
 
-<table id="currentStepTable" >
+<table id="currentTeamTable" >
   <tr>
-  	<td id="currentStepLabel">${aggregate.workgroup.sdsWorkgroup.name}<span style="font-weight:normal;">${step.title}</span></td>
-    <td class="currentStepNavLink">
+  	<td id="currentTeamLabel">${aggregate.workgroup.sdsWorkgroup.name}<span style="font-weight:normal;">${step.title}</span></td>
+    <td class="currentTeamNavLink">
 				Previous Team
     </td>
-    <td class="currentStepNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></td>
-    <td class="currentStepNavLink"> 
+    <td class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></td>
+    <td class="currentTeamNavLink"> 
 				Next Team
     </td>		
   </tr>

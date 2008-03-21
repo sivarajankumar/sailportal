@@ -73,7 +73,7 @@
 		}
 		
 		
-/* CSS FOR GRADE BY STEP SELECTION LIST */ 
+/* CSS FOR GRADE BY STEP AND GRADE BY TEAM SELECTION LIST */ 
 
 #gradeStepSelectionArea {
 	margin: 10px 0 0 30px;
@@ -195,15 +195,17 @@
 	text-align:center;
 	font-size:.8em;
 	padding:3px 8px;
+	color:#666666;
 }
 
-.currentStepNavLink a:link, currentStepNavLink a:visited { 
+.currentStepNavLink a:link, .currentStepNavLink a:visited { 
 	background-color:#FFFFFF;
+	color:#0000CC;	
 	}
 
 .currentStepNavLink a:hover { 
 	background-color:#FFFF33;
-	color:#000033;
+	color:#0000CC;
 	}
 	
 #gradingTeamTable {
@@ -278,6 +280,12 @@
 	color:#000000;
 }
 
+#teacherFeedbackTd textarea {
+	margin:3px;
+	padding:5px;
+	border:1px solid #999999;
+}
+
 #scoreBoxStyling1 {  
 	padding:3px 4px;
 	font-weight:bold;
@@ -289,10 +297,10 @@
 	border-left: 1px solid #666666;
 }
 
-.scoreBoxStyling2 {
+#scoreBoxStyling2 {
 	padding:3px 5px;
 	text-align:center;
-	color:#000066;
+	color:#000000;
 	background-color:#CCCCCC;
 	border: 1px solid #666666;
 }
@@ -334,6 +342,72 @@
 	background-color:#FFFF66;
 }
 
+
+/* CSS FOR GRADE BY TEAM LAYOUT  */ 
+
+#currentTeamTable {
+	margin:6px 0 20px 0;
+	border-collapse:collapse;
+}
+
+#currentTeamLabel {
+	width:600px;
+	font-size:1.2em;
+	font-weight:bold;
+	color:#FFCC66;
+	border:1px solid #999999;
+	background-color:#663333;
+	background-position:left top;
+	background-repeat:repeat;
+	padding:5px;
+}
+
+#teamPeriodAndNumber {
+	font-size:.7em;
+	font-weight:normal;
+	font-variant:small-caps;
+	margin-left:15px;
+}
+
+.currentTeamNavLink {
+	text-align:center;
+	font-size:.8em;
+	padding:3px 8px;
+	color:#666666;
+	}
+
+.currentTeamNavLink a:link, .currentTeamNavLink a:visited { 
+	background-color:#FFFFFF;
+	color:#0000CC; 
+	}
+
+.currentTeamNavLink a:hover { 
+	background-color:#FFFF33;
+	color:#0000CC;
+	}
+	
+#TeamSelectionList {
+	padding-left:0px;
+}
+
+#gradingTeamTable {
+	background-color:#FFFFFF;
+	border-collapse:collapse;
+	margin: 0px 0 10px 0; 
+	border-top: 1px solid #000099;
+	border-right: 1px solid #000099;
+	border-bottom: 1px solid #000099;
+	border-left: 1px solid #000099;
+}
+	
+#teacherFeedbackTdTeam textarea {
+	margin:10px;
+	padding:5px;
+	border:1px solid #999999;
+}
+
+	
+	
 /* CSS FOR PRE-MADE COMMENTS EDITOR  */ 
 
 #premadeCommentsWindowBorder {
