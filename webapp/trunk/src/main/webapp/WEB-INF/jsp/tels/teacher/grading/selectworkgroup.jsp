@@ -113,11 +113,11 @@
 
 <%@ include file="headerteachergrading.jsp"%>
 
-<%@ include file="L2grading_bystep.jsp"%>
+<%@ include file="L2grading_bygroup.jsp"%>
 
 <br />
 
-<div id="overviewHeaderGrading">Grade By Workgroup : Select Workgroup to Grade</div>
+<div id="overviewHeaderGrading">Grade By Team: Select Team</div>
 
 <div id="gradeStepSelectionArea">
 
@@ -126,12 +126,13 @@
 	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
 	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=group">Select Another Project</a></div>
 
-	<div id="gradeStepInstructions">Select a workgroup below to start grading</div>
+	<div id="gradeStepInstructions">Select any team below to start grading.</div>
 		
+	<div id="workgroupTitle">Period [NEED PERIOD/TEAMS layout here with all Periods shown]</div>  
 	<ul id="workgroupSelectionList">
 	    <c:forEach var="workgroup" varStatus="workgroupStatus" items="${workgroups}">	
 
-	        <li><a href="gradebyworkgroup.html?runId=${runId}&workgroupId=${workgroup.id}">Workgroup ${workgroup.id} : 
+	        <li><a href="gradebyworkgroup.html?runId=${runId}&workgroupId=${workgroup.id}">Team ${workgroup.id}: 
 	                <c:forEach var="workgroupMember" items="${workgroup.members}">
 			         ${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}, 
 			        </c:forEach>

@@ -14,7 +14,7 @@
 	}
 	
 #overviewHeaderGrading {
-	font-size:1.1em;
+	font-size:1.0em;
 	letter-spacing:3px;
 	font-variant:small-caps;
 	margin: 10px 0 0 30px;
@@ -30,11 +30,11 @@
 }
 
 #overview_choices_grading   {
-	padding:15px 0 30px 5px;
+	padding:15px 0 25px 5px;
 }
 	
 #overview_choices_grading .link_grading  {
-	font-size:1.2em;
+	font-size:1.1em; 
 	font-weight:bold;
 	width:420px;
 	}
@@ -49,6 +49,7 @@
 #overview_choices_grading a:link, #overview_choices_grading a:visited   {
 	text-decoration:none;
 	display:block;
+	color:#0000CC;
 	padding:6px 12px 6px 12px;
 	background-image:url(../../images/Pixel_Grading_Highlight.png);
 	background-position:left top;
@@ -112,18 +113,18 @@
 	width:100%;
 	}		
 	
-#stepTitle {
+#stepTitle, #workgroupTitle {
    font-size:1.0em;
    font-weight:bold;
    margin:0px 0 5px 0;
 }
 	
-#stepSelectionList {
+#stepSelectionList, #workgroupSelectionList {
    padding-top:0;
    margin: 0 0 20px 0;
 }
 
-#stepSelectionList li {
+#stepSelectionList li, #workgroupSelectionList li  {
 	list-style:circle;
 	font-weight:bold;
 	font-size:.8em;
@@ -135,8 +136,13 @@
 	background-color:#FFFFFF;
 	padding:2px;
 	}
+	
+#workgroupSelectionList a:link, #workgroupSelectionList a:visited {
+	background-color:#FFFFFF;
+	padding:2px;
+	}
 
-#stepSelectionList a:hover  {
+#stepSelectionList a:hover,  #workgroupSelectionList a:hover {
 	background-color:#FFFF33;
 	color:#000033;
 	padding:2px;	

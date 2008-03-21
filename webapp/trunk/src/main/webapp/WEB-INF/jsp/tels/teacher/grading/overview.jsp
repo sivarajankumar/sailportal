@@ -60,7 +60,7 @@
 			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></td>
 			<td class="description_grading">View and grade work, one Step at a time.</td></tr>
 		<tr>
-			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=group">Grade Work By Workgroup</a></td>
+			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=group">Grade Work By Team</a></td>
 			<td class="description_grading">View and grade work, one student team (workgroup) at a time.</td></tr>
 		<tr>
 			<td class="link_grading"><a style="color:#999999;"href="#">Review Student Score Summary</a></td>
@@ -69,11 +69,11 @@
 			<td class="link_grading"><a style="color:#999999;"href="#">Review My Grading Progress</a></td>
 			<td class="description_grading">View the progress you've made in grading a project.</td></tr>
 		<tr>
-			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=value">Review Values for Steps</a></td>
+			<td class="link_grading"><a style="color:#999999;" href="./projectPickerGrading.html?gradeByType=value">Review Values for Steps</a></td>
 			<td class="description_grading">Review and edit the default score values for Notes and other gradable 
 			student steps in a project. </td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;"href="#">Edit Ready-Made Comments</a></td>
+			<td class="link_grading"><a style="color:#999999;"href="#">Edit Pre-Made Comment Lists</a></td>
 			<td class="description_grading">Create and edit a list of ready-made comments to streamline your grading.</td></tr>
 	</table>
 	

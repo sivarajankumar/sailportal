@@ -169,7 +169,7 @@ width: 100%;
                     
                     <td class="width15"></td>  <!--    Separator Column-->	
                     
-          <td id="boxTableSignIn" class="panelColor">
+          <td id="boxTableSignInHome" class="panelColor">
                     			<div id="header">Sign In <span style="font-size:.6em;font-weight:normal;">(existing accounts)</span></div>
 								<form id="home" method="post" action="j_acegi_security_check">
                                 <dl id="signinDefinList">
@@ -194,9 +194,8 @@ width: 100%;
                                 </form>
                                 
                                 <ul id="signInLinkPosition">
-                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">
-                                      Forgot Username or Password?</a>  </li>
-                                		<li><a href="signup.html" id="joinlink">Want to create a new WISE account?</a></li>
+                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">Find a lost Username or Password</a>  </li>
+                                		<li><a href="signup.html" id="joinlink">Create a new WISE account</a></li>
                                 </ul>
                                 
                                 </td>   <!--    End of boxTableSignIn  x-->

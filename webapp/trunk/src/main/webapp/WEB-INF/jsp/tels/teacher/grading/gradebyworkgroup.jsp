@@ -260,7 +260,7 @@
 			var possibleScoreResult;
 
 
-			//checkk the inputs of the score boxes
+			//check the inputs of the score boxes
 			StringUtilsJS.isNumeric(teacherScore, {
 					  callback:function(teacherScoreResult) { 
 
@@ -331,17 +331,17 @@
 
 <div id="overviewHeaderGradingv2">Grade By Workgroup</div>
 
-<div id="gradeStepSelectedProject">[Project Title goes here]<span id="projectIdLabel">(Project ID [project id goes here])</span></div>
+<div id="gradeStepSelectedProject">${curnitmap.project.title}<span id="projectIdLabel">(Project ID [project id goes here])</span></div>
 
 <table id="currentStepTable" >
   <tr>
   	<td id="currentStepLabel">${aggregate.workgroup.sdsWorkgroup.name}<span style="font-weight:normal;">${step.title}</span></td>
     <td class="currentStepNavLink">
-				Previous Workgroup
+				Previous Team
     </td>
-    <td class="currentStepNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Workgroup Menu</a></td>
+    <td class="currentStepNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></td>
     <td class="currentStepNavLink"> 
-				Next Workgroup
+				Next Team
     </td>		
   </tr>
  </table>
@@ -360,8 +360,6 @@ aggregate.value = set of workgroupWorkAggregate
   <c:set var="sessionbundles" value="${aggregate.sessionBundles}"/>
   <c:set var="curnitmap" value="${aggregate.curnitmap}"/>
   <c:set var="workgroupId" value="${aggregate.workgroup.id}"/>
-  
-  <div id="gradeStepSelectedProject">${curnitmap.project.title}</div>
   
   
    <c:forEach var="activity" varStatus="varAct" items="${curnitmap.project.activity}">
@@ -566,11 +564,11 @@ aggregate.value = set of workgroupWorkAggregate
   <tr>
   	<td id="currentStepLabel">${aggregate.workgroup.sdsWorkgroup.name}<span style="font-weight:normal;">${step.title}</span></td>
     <td class="currentStepNavLink">
-				Previous Workgroup
+				Previous Team
     </td>
-    <td class="currentStepNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Workgroup Menu</a></td>
+    <td class="currentStepNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></td>
     <td class="currentStepNavLink"> 
-				Next Workgroup
+				Next Team
     </td>		
   </tr>
  </table>

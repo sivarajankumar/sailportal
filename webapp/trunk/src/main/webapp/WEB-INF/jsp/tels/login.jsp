@@ -54,7 +54,7 @@
 </c:if>
 </div>
 
- <div style="margin:25px auto 0 auto;" id="boxTableSignIn" class="panelColor">
+ <div style="margin:25px auto 0 auto;" id="boxTableSignInFailedLogin" class="panelColor">
                     			<div id="header">Sign In</div>
 								<form id="home" method="post" action="j_acegi_security_check">
                                 <dl id="signinDefinList">
@@ -64,7 +64,7 @@
                                     <!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
 									It must appear immediately after the Input field in question  (MattFish)-->
 									<script type="text/javascript">
-										document.getElementById('j_username').focus();
+										document.getElementById('j_username').focus(); 
 									</script>
 									
 									<dt><label for="password">Password:	</label></dt>
@@ -79,9 +79,9 @@
                                 </form>
                                 
                                 <ul id="signInLinkPosition">
-                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">
-                                      Forgot Username or Password?</a>  </li>
-                                		<li><a href="signup.html" id="joinlink">Want to join WISE?</a></li>
+                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">Find a lost Username or Password</a>  </li>
+                                		<li><a href="signup.html" id="joinlink">Create a new WISE account</a></li>
+                                		<li><a href="./index.html" id="joinlink">Return to Home Page</a></li>
                                 </ul>
                                 
  </div>   <!--    End of boxTableSignIn  x-->               
