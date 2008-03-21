@@ -333,14 +333,17 @@
 
 <div id="gradeStepSelectedProject">${curnitmap.project.title}<span id="projectIdLabel">(Project ID [project id goes here])</span></div>
 
-<table id="currentTeamTable" > 
-  <tr>
-  	<td id="currentTeamLabel">[Name 1, Name 2, Name 3]<span id="teamPeriodAndNumber">(period [XX], team [YY])</span></td>
-    <td class="currentTeamNavLink">Previous Team</td>
-    <td class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></td>
-    <td class="currentTeamNavLink">Next Team</td>		
-  </tr>
- </table>
+<div id="currentTeamHeader" > 
+   	<div id="currentTeamLabel">[Name 1, Name 2, Name 3]<span id="teamPeriodAndNumber">(period [XX], team [YY])</span></div>
+</div>
+<div>   	
+  <ul id="currentTeamNavList">
+    <li class="currentTeamNavLink">Previous Team</li>
+    <li class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></li>
+    <li class="currentTeamNavLink">Next Team</li>	
+  </ul>
+</div>
+
  
 <!-- 
 aggregate.key = period
@@ -372,7 +375,7 @@ aggregate.value = set of workgroupWorkAggregate
 		 					   <div  class="tdHeader">
 		 					   	<class="headerFont">Step  ${step.number+1}: ${step.title}</class>							    </div>
 							</td>					
-							<td width="35%" >
+							<td  >
 								<c:set var="commentDone" value="false"/>
 								<c:set var="commentAnnotation" value=" "/>
 								<c:forEach var="annotationGroup" items="${aggregate.annotationBundle.EAnnotationBundle.annotationGroups}">
@@ -473,8 +476,10 @@ aggregate.value = set of workgroupWorkAggregate
 												
 																				</c:forEach>
 																		</c:forEach>
-																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/><span id="scoreBoxStyling3"> out of </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
-																				
+																				<div id="gradingScoreArea">
+																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/>
+																					<span id="scoreBoxStyling3"> out of </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
+																				</div>
 																				<div id="revisionRequiredArea" >
 	     																			<form>
 	     																				<input type="checkbox" name="checkBox" id="checkbox"/><span>Require a Revision</span>
@@ -556,18 +561,16 @@ aggregate.value = set of workgroupWorkAggregate
 </c:choose>
 
 
-<table id="currentTeamTable" >
-  <tr>
-  	<td id="currentTeamLabel">${aggregate.workgroup.sdsWorkgroup.name}<span style="font-weight:normal;">${step.title}</span></td>
-    <td class="currentTeamNavLink">
-				Previous Team
-    </td>
-    <td class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></td>
-    <td class="currentTeamNavLink"> 
-				Next Team
-    </td>		
-  </tr>
- </table>
+<div id="currentTeamHeader" > 
+   	<div id="currentTeamLabel">[Name 1, Name 2, Name 3]<span id="teamPeriodAndNumber">(period [XX], team [YY])</span></div>
+</div>
+<div>   	
+  <ul id="currentTeamNavList">
+    <li class="currentTeamNavLink">Previous Team</li>
+    <li class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></li>
+    <li class="currentTeamNavLink">Next Team</li>	
+  </ul>
+</div>
 
 <div id="myLogger"></div>
 <script type="text/javascript">

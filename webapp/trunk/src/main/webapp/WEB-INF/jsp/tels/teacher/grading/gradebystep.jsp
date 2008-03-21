@@ -115,8 +115,6 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
-<br />
-
 <div id="overviewHeaderGrading">Grade By Step</div>
 
 <div id="gradeStepSelectionArea">

@@ -119,19 +119,16 @@
 
 <%@ include file="L2grading_bygroup.jsp"%>
 
-<br />
-
 <div id="overviewHeaderGrading">Grade By Team: Select Team</div>
 
 <div id="gradeStepSelectionArea">
 
-
-<div>
-	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
+	<div id="gradeStepSelectedProject">[PROJECT TITLE NEEDS TO SHOW HERE]${curnitMap.project.title}</div>
+	
 	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=group">Select Another Project</a></div>
 
-	<div id="gradeStepInstructions">Select a team below to start grading</div>
-
+	<div id="gradeStepInstructions">Select any team below to start grading.  Click the tabs to change periods.</div>
+	
 <div id="tabSystem" class="yui-navset">
     <ul class="yui-nav" style="font-size:.7em;">
 	    <c:forEach var="periodToWorkgroups" varStatus="periodStatus" items="${periodsToWorkgroups}">
@@ -144,18 +141,21 @@
 		 <c:forEach var="periodToWorkgroups" varStatus="periodStatus" items="${periodsToWorkgroups}">
 	<ul id="workgroupSelectionList">
 	    <c:forEach var="workgroup" varStatus="workgroupStatus" items="${periodToWorkgroups.value}">	
-	        <li><a href="gradebyworkgroup.html?runId=${runId}&workgroupId=${workgroup.id}">Team ${workgroup.id} : 
-	                <c:forEach var="workgroupMember" varStatus="workgroupMemberStatus" items="${workgroup.members}">
-			         ${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}
-			        <c:choose>
-			            <c:when test="${workgroupMemberStatus.last}">
-			            </c:when>
-			            <c:otherwise>
-			              <c:out value="," />
-			            </c:otherwise>
-			        </c:choose>
-			        </c:forEach>
-                </a>
+	        <li><a href="gradebyworkgroup.html?runId=${runId}&workgroupId=${workgroup.id}">
+	                <span id="selectWorkgroupStudentNames">
+	                	<c:forEach var="workgroupMember" varStatus="workgroupMemberStatus" items="${workgroup.members}">
+			         	${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}
+			         	<c:choose>
+			         		<c:when test="${workgroupMemberStatus.last}">
+			         			</c:when>
+			         			<c:otherwise>
+			         			<c:out value=" + " />
+			         		</c:otherwise>
+			         	</c:choose>
+			        	</c:forEach>
+			        </span>
+			      </a>
+			      <span id="selectWorkgroupTeamNumber">(Team ${workgroup.id})</span> 
             </li>
 	        
 	    </c:forEach>
@@ -170,7 +170,7 @@
 </div>      <!--End of Centered Div-->
 
 </div>
-</div>
+
 </body>
 
 </html>
