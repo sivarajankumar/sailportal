@@ -79,8 +79,7 @@
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController
-				/student/changestudentpassword.html=changeUserPasswordController
-				/teacher/index.html=teacherIndexController
+     		    /teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
     		    /teacher/states.html=statesController
@@ -115,15 +114,13 @@
 				/teacher/grading/deleteCommentList.html=deleteCommentListController
 				/teacher/grading/addCommentToList.html=addCommentToListController
 				/teacher/grading/createNewCommentList.html=createNewCommentListController
-				/teacher/grading/selectworkgroup.html=selectWorkgroupController
-				/teacher/grading/gradebyworkgroup.html=gradeByWorkgroupController
-				/teacher/grading/editmaxstepvalues.html=editMaxStepValuesController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
     		    /teacher/management/updatemyaccount.html=updateMyAccountController
     		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
+    		    /teacher/management/studentinfo.html=studentInfoController
     		    /teacher/help/overview.html=overviewHelpController
     		    /teacher/help/main.html=mainHelpController
     		    /teacher/help/contactwise.html=contactWiseController
@@ -142,14 +139,14 @@
 				/**/changepassword.html=changePasswordController
 				/teacher/management/viewmystudents.html=viewMyStudentsController
 				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
-				/teacher/management/changeteacherpassword.html=changeUserPasswordController
-				/teacher/management/changestudentpassword.html=changeUserPasswordController
+				/teacher/management/changestudentpassword.html=changeStudentPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
 				/admin/manageusers.html=viewAllUsersController
+				/admin/lookupuser.html=lookupUserController
     		</value>
     	</property>
     </bean>

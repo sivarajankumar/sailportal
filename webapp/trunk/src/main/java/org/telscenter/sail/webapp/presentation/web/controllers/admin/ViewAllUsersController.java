@@ -28,16 +28,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * @author Sally Ahn
@@ -45,23 +40,12 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  */
 public class ViewAllUsersController extends AbstractController{
 	protected static final String FALSE = "FALSE";
-
-	private HttpRestTransport httpRestTransport;
 	
 	private UserService userService;
 
-	/**
-	 * @param httpRestTransport
-	 *            the httpRestTransport to set
-	 */
-	@Required
-	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-		this.httpRestTransport = httpRestTransport;
-	}
-
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
-	private static final String VIEW_NAME = "admin/manageusers";
+	protected static final String VIEW_NAME = "admin/manageusers";
 	
 	protected static final String ALL_USERS_LIST = "all_users_list";
 	
@@ -77,7 +61,6 @@ public class ViewAllUsersController extends AbstractController{
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
-		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
 		List<User> all_users_list = this.userService.retrieveAllUsers();
 		
 		modelAndView.addObject(ALL_USERS_LIST, all_users_list);

@@ -26,13 +26,16 @@
 </head>
 <body>
 <%@ include file="adminheader.jsp"%>
-
-
 If you see this, you have admin privileges.<br>
 
+<c:out value="${message}" />
 
-<a href="manageusers.html">change any user's password</a><br>
-<a href="lookupuser.html">look up user</a>
-
+<form:form method="post" commandName="lookupUserParameters">
+	Please Type in Username: 
+	<input type="text" name="usernameToLookup"/>
+	<input type="image" id="save" src="../../<spring:theme code="register_save" />" 
+    	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"   />
+	
+</form:form>
 </body>
 </html>

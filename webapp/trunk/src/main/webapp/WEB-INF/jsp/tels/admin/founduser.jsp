@@ -28,11 +28,16 @@
 <%@ include file="adminheader.jsp"%>
 
 
-If you see this, you have admin privileges.<br>
+If you see this, you have admin privileges.<br><br>
 
+Found User<br><br>
 
-<a href="manageusers.html">change any user's password</a><br>
-<a href="lookupuser.html">look up user</a>
+	First Name: <c:out value="${userInfoMap['First Name']}"/><br>
+	Last Name: <c:out value="${userInfoMap['Last Name']}"/><br>
+	Last Login: <c:out value="${userInfoMap['Last Login']}"/><br>
+	Sign Up Date: <c:out value="${userInfoMap['Sign Up Date']}"/><br>
+	Number of Logins: <c:out value="${userInfoMap['Number of Logins']}"/><br>
+
 
 </body>
 </html>

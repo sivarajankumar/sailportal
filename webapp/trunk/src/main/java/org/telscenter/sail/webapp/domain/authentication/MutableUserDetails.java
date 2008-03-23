@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.authentication;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * TELS Portal version of MutableUserDetails interface
@@ -45,6 +46,11 @@ public interface MutableUserDetails extends
 	public Date getSignupdate();
 	
 	public void setSignupdate(Date signupdate);
+	
+	/**
+	 * @return this user's attributes in form of a HashMap
+	 */
+	public HashMap<String, String> getInfo();
 	
 	/**
 	 * @return this user's 'root' username.

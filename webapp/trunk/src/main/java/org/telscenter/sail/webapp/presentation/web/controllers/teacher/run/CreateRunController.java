@@ -295,12 +295,13 @@ public class CreateRunController extends AbstractWizardFormController {
 		}
 		ModelAndView modelAndView = new ModelAndView(COMPLETE_VIEW_NAME);
 		modelAndView.addObject(RUN_KEY, run);
-
 		Set<String> runIdsToArchive = runParameters.getRunIdsToArchive();
-		for(String runIdStr : runIdsToArchive) {
-			Long runId = Long.valueOf(runIdStr);
-			Run runToArchive = runService.retrieveById(runId);
-			runService.endRun(runToArchive);
+		if(runIdsToArchive != null) {
+			for(String runIdStr : runIdsToArchive) {
+				Long runId = Long.valueOf(runIdStr);
+				Run runToArchive = runService.retrieveById(runId);
+				runService.endRun(runToArchive);
+			}
 		}
 		sendEmail(request, command);
 		

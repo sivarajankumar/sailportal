@@ -63,6 +63,9 @@
 
 	<bean id="lostPasswordStudentProjectCodeValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentProjectCodeValidator" />
+		
+	<bean id="lookupUserParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.LookupUserParameteresValidator" />
 
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
@@ -215,7 +218,6 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentIndexController">
 	    <property name="runService" ref="runService" />
 	    <property name="studentService" ref="studentService" />
-	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
@@ -510,8 +512,9 @@
 		<property name="validator" ref="changePasswordParametersValidator"/>
 	</bean>
 	
-	<bean id="changeUserPasswordController"
+	<bean id="changeStudentPasswordController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeUserPasswordController">
+		<property name="formView" value="/teacher/management/changestudentpassword"/>
 		<property name="successView" value="changepasswordsuccess"/>
 		<property name="userService" ref="userService"/>
 		<property name="sessionForm" value="true"/>
@@ -557,24 +560,26 @@
 	    class="org.telscenter.sail.webapp.domain.impl.ProjectParameters">
 	</bean>
 	
+	<bean id="studentInfoController" 
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.StudentInfoController">
+	    <property name="userService" ref="userService" />
+	</bean>
+	
 	<bean id="viewAllUsersController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ViewAllUsersController">
 		<property name="userService" ref="userService" />
 	</bean>
 	
-	<bean id="selectWorkgroupController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectWorkgroupController">
-		<property name="offeringService" ref="runService" />
-	</bean>
-	
-		<bean id="gradeByWorkgroupController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByWorkgroupController">
-		<property name="runService" ref="runService" />
-		<property name="workgroupService" ref="wiseWorkgroupService" />
-		<property name="gradingService" ref="gradingService" />
+    <bean id="lookupUserController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupUserController">
+		<property name="commandName" value="lookupUserParameters" />
+		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.LookupUserParameters"/>
+		<property name="validator" ref="lookupUserParametersValidator" />
+		<property name="userService" ref="userService" />
+		<property name="successView" value="admin/founduser" />
 	</bean>
     
-    <bean id="editMaxStepValuesController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.EditMaxStepValuesController">
-	</bean>
+    <bean id="lookupUserParameters"
+    	class="org.telscenter.sail.webapp.domain.impl.LookupUserParameters">
+    	</bean>
 </beans>

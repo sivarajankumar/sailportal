@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.domain.authentication.impl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -241,5 +242,19 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	 */
 	public void incrementNumberOfLogins() {
 		this.numberOfLogins++;
+	}
+	/**
+	 * @override @see org.telscenter.sail.webapp.domain.authentication.MutableUserDetails#getInfo()
+	 */
+	public HashMap<String, String> getInfo() {
+		HashMap<String, String> infoMap = new HashMap<String, String>();
+		infoMap.put("First Name", this.getFirstname());
+		infoMap.put("Last Name", this.getLastname());
+		infoMap.put("Sign Up Date", this.getSignupdate().toString());
+		infoMap.put("Gender", this.getGender().toString());
+		infoMap.put("Birthday", this.getBirthday().toString());
+		infoMap.put("Number of Logins", this.getNumberOfLogins().toString());
+		infoMap.put("Last Login", this.getLastLoginTime().toString());
+		return infoMap;
 	}
 }
