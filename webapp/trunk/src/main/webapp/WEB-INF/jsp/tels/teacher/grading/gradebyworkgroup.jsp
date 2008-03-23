@@ -331,7 +331,7 @@
 
 <div id="overviewHeaderGradingv2">Grade By Team</div>
 
-<div id="gradeStepSelectedProject">${curnitmap.project.title}<span id="projectIdLabel">(Project ID [project id goes here])</span></div>
+<div id="gradeTeamSelectedProject">${curnitmap.project.title}<span id="projectIdLabel">(Project ID [project id goes here])</span></div>
 
 <div id="currentTeamHeader" > 
    	<div id="currentTeamLabel">[Name 1, Name 2, Name 3]<span id="teamPeriodAndNumber">(period [XX], team [YY])</span></div>
