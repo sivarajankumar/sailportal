@@ -31,9 +31,7 @@
 
 <body class="yui-skin-sam">
 
-
-
-<div id="studentInfoNameHeader">student info</div> 
+<div id="studentInfoNameHeader">student information</div> 
 
 <table id="studentInfoTable">
 	<tr>
@@ -41,7 +39,7 @@
 		<td><c:out value="${userInfoMap['First Name']}"/>&nbsp;<c:out value="${userInfoMap['Last Name']}"/> </td>
 	</tr>
 	<tr>
-		<th>WISE UserName:</th>
+		<th>WISE Username:</th>
 		<td>[Need Student's UserName here]</td>
 	</tr>
 	<tr>
@@ -49,7 +47,7 @@
 		<td><c:out value="${userInfoMap['Last Login']}" /> [Need to Revise]</td>
 			</tr>
 	<tr>
-		<th>Joined WISE On:</th>
+		<th>WISE Registration Date:</th>
 		<td><c:out value="${userInfoMap['Sign Up Date']}"/> [Need to Revise]</td>
 	</tr>
 	<tr>
