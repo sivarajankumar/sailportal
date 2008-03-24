@@ -424,19 +424,22 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 		<c:otherwise>
 		    <!--  there are students in this period  -->
 		    <ul id="periodHeaderBar">
-		    	<li class="periodHeaderStart">Students: ${fn:length(viewmystudentsperiod.period.members)} ~ Teams: ${fn:length(viewmystudentsperiod.workgroups)}</li>
-		    	<li class="periodHeaderStart"">Student Code for this Period: ${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</li>
+		    	<li class="periodHeaderStart">Students: <span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
+		    	<li class="periodHeaderStart">Teams: <span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
+		    	<li class="periodHeaderStart"">Student Code: <span class="manageDataStyle">${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</span></li>
 		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
 		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
 		       	<li style="display:none;" class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');">Help</a></li>
 		    </ul>
 		  			
-			<div id="viewStudentsInstructions"><strong>To changes groupings:</strong> &nbsp; move the cursor over a student name, then click 'n drag.
-			<br/> 
-			<strong>To create new teams:</strong> &nbsp; click the "Create a New Team" link (above) to make an empty team box appear below. Then drag student names into this box.
-			<br/>
-			<strong>To create a PDF file of student work:</strong> &nbsp; click the "Create PDF" link adjacent to each Team Number below.</div>
-			
+			<div id="viewStudentsInstructions">
+				<ul>
+					<li><strong>To Create New Teams:</strong> &nbsp; Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the box. Click SAVE.</li>
+					<li><strong>To Change Team Members:</strong> &nbsp; Click/drag any student name from one box to another.  Click SAVE.</li>
+					<li><strong>To Create a PDF File of a Team's Work:</strong> &nbsp; Click the "Create PDF file" link within a particular team box.</li>
+					<li><strong>Moving an Assigned Student?</strong>&nbsp; Any student moved from team A to team B will lose his/her existing work and inherit the current work of Team B.</li>
+				</ul>
+			</div>	
 		<table id="manageStudentsTable">
 			<tr>
 			<td>
@@ -449,7 +452,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			      
 			         <span id="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
     			     <span id="userLinksBar">
-    			     <a class="userLinks" style="color:#666666;" href="#" onclick="javascript:popupSpecial('changestudentpassword.html?userName=${mem.userDetails.username}');">Info</a>
+    			     <a class="userLinks" onclick="javascript:popupSpecial('studentinfo.html?userName=${mem.userDetails.username}');" href="#" >Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
     			     <a class="userLinks" style="color:#666666;" href="#">Period</a>
     			     <a class="userLinks" style="color:#666666;" href="#">Detach</a>
@@ -477,7 +480,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
 			         <span id="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</span>
     			     <span id="userLinksBar">
-    			     <a class="userLinks" style="color:#666666;" href="#" >Info</a>
+    			     <a class="userLinks" onclick="javascript:popupSpecial('studentinfo.html?userName=${workgroupMember.userDetails.username}');" href="#" >Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
     			     <a class="userLinks" style="color:#666666;" href="#" >Period</a>
     			     <a class="userLinks" style="color:#666666;" href="#" >Detach</a>

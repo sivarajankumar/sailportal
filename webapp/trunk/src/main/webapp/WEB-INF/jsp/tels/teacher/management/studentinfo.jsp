@@ -31,37 +31,46 @@
 
 <body class="yui-skin-sam">
 
-<script type="text/javascript">
-
-		
-</script>
 
 
-<div id="centeredDiv">
+<div id="studentInfoNameHeader">student info</div> 
 
-<div id="L3Label">Student Info</div> 
+<table id="studentInfoTable">
+	<tr>
+		<th>Full Name:</th>
+		<td><c:out value="${userInfoMap['First Name']}"/>&nbsp;<c:out value="${userInfoMap['Last Name']}"/> </td>
+	</tr>
+	<tr>
+		<th>WISE UserName:</th>
+		<td>[Need Student's UserName here]</td>
+	</tr>
+	<tr>
+		<th>Most Recent Sign In:</th>
+		<td><c:out value="${userInfoMap['Last Login']}" /> [Need to Revise]</td>
+			</tr>
+	<tr>
+		<th>Joined WISE On:</th>
+		<td><c:out value="${userInfoMap['Sign Up Date']}"/> [Need to Revise]</td>
+	</tr>
+	<tr>
+		<th>Gender:</th>
+		<td><span style="text-transform:lowercase;"><c:out value="${userInfoMap['Gender']}"/></span></td> 
+	</tr>
+	<tr>
+		<th>Birthday:<br/><span class="studentInfoSmallText">(as entered during registration)</span></th>
+		<td><c:out value="${userInfoMap['Birthday']}"/>[Need to Revise]</td>
+	</tr>
+	<tr>
+		<th>Number of Logins:</th>
+		<td><c:out value="${userInfoMap['Number of Logins']}"/></td>
+	</tr>
+</table>
 
-<dl id="list2">
-	First Name: <c:out value="${userInfoMap['First Name']}"/><br>
-	Last Name: <c:out value="${userInfoMap['Last Name']}"/><br>
-	Last Login: <c:out value="${userInfoMap['Last Login']}"/><br>
-	Sign Up Date: <c:out value="${userInfoMap['Sign Up Date']}"/><br>
-	Gender: <c:out value="${userInfoMap['Gender']}"/><br>
-	Birthday: <c:out value="${userInfoMap['Birthday']}"/><br>
-	Number of Logins: <c:out value="${userInfoMap['Number of Logins']}"/><br>
-
-<!--	<dt>Full Name:</dt>-->
-<!--	<dd>${userDetails.firstname} ${userDetails.lastname}</dd>-->
-<!--	<dt>Username:</dt>-->
-<!--	<dd></dd>-->
-<!--	<dt class="listTitle2">Joined WISE on:</dt>-->
-<!--	<dd">${userDetails.signupdate} test</dd>-->
-<!--	<dt class="listTitle2">Birthday:</dt> -->
-<!--	<dd>${userDetails.birthday}</dd>-->
-</dl>
-
-
-</div>     <!--End of Centered Div-->
+<div class="center" >
+ 		 <a href="#" onclick="self.close();return false;">
+ 		 <img src="../../themes/tels/default/images/teacher/Close-Window.png" alt="Close Terms of Use" class="imgNoBorder" /></a> 
+</div> 
+    
  
 </body>
 </html>
