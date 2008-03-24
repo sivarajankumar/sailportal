@@ -79,7 +79,8 @@
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController
-     		    /teacher/index.html=teacherIndexController
+				/student/changestudentpassword.html=changeUserPasswordController
+				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
     		    /teacher/states.html=statesController
@@ -114,6 +115,9 @@
 				/teacher/grading/deleteCommentList.html=deleteCommentListController
 				/teacher/grading/addCommentToList.html=addCommentToListController
 				/teacher/grading/createNewCommentList.html=createNewCommentListController
+				/teacher/grading/selectworkgroup.html=selectWorkgroupController
+				/teacher/grading/gradebyworkgroup.html=gradeByWorkgroupController
+				/teacher/grading/editmaxstepvalues.html=editMaxStepValuesController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
@@ -139,12 +143,14 @@
 				/**/changepassword.html=changePasswordController
 				/teacher/management/viewmystudents.html=viewMyStudentsController
 				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
-				/teacher/management/changestudentpassword.html=changeStudentPasswordController
+				/teacher/management/changeteacherpassword.html=changeUserPasswordController
+				/teacher/management/changestudentpassword.html=changeUserPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
+				/author/authorproject.html=authorProjectController
 				/admin/manageusers.html=viewAllUsersController
 				/admin/lookupuser.html=lookupUserController
     		</value>

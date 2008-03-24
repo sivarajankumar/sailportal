@@ -51,6 +51,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
@@ -162,6 +163,17 @@ public class ProjectServiceImpl implements ProjectService {
 				previewWorkgroup);
 		
 		return new ModelAndView(new RedirectView(previewProjectUrl));
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#authorProject(org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters)
+	 */
+	@Transactional
+	public ModelAndView authorProject(AuthorProjectParameters authorProjectParameters)
+			throws Exception {
+		String authorProjectUrl = "http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp";
+		
+		return new ModelAndView(new RedirectView(authorProjectUrl));
 	}
 
 	/**
@@ -290,5 +302,4 @@ public class ProjectServiceImpl implements ProjectService {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
 }

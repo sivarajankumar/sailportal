@@ -30,6 +30,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 
@@ -91,7 +92,7 @@ public interface ProjectService {
 	 * @return
 	 * @throws Exception
 	 */
-	//public Object authorProject(AuthorProjectParameters authorProjectParameters) throws Exception;
+	public Object authorProject(AuthorProjectParameters authorProjectParameters) throws Exception;
 
 	/**
 	 * Gets a project with the given projectid
