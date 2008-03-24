@@ -424,7 +424,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 		<c:otherwise>
 		    <!--  there are students in this period  -->
 		    <ul id="periodHeaderBar">
-		    	<li class="periodHeaderStart">${fn:length(viewmystudentsperiod.period.members)} Student(s) / ${fn:length(viewmystudentsperiod.workgroups)} team(s)</li>
+		    	<li class="periodHeaderStart">Students: ${fn:length(viewmystudentsperiod.period.members)} ~ Teams: ${fn:length(viewmystudentsperiod.workgroups)}</li>
 		    	<li class="periodHeaderStart"">Student Code for this Period: ${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</li>
 		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
 		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
