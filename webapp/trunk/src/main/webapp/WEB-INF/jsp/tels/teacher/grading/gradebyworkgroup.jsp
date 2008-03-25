@@ -334,7 +334,15 @@
 <div id="gradeTeamSelectedProject">${curnitmap.project.title}<span id="projectIdLabel">(Project ID [project id goes here])</span></div>
 
 <div id="currentTeamHeader" > 
-   	<div id="currentTeamLabel">[Name 1, Name 2, Name 3]<span id="teamPeriodAndNumber">(period [XX], team [YY])</span></div>
+   	<div id="currentTeamLabel">
+   	    <c:forEach var="user" varStatus="userStatus" items="${aggregate.workgroup.members}">
+			${user.userDetails.firstname} ${user.userDetails.lastname}
+			<c:if test="${userStatus.last=='false'}">
+			    ,
+		    </c:if>
+		</c:forEach>
+   	    <span id="teamPeriodAndNumber">(period ${aggregate.workgroup.period.name}, team ${aggregate.workgroup.id})</span>
+   	</div>
 </div>
 <div>   	
   <ul id="currentTeamNavList">
@@ -562,7 +570,15 @@ aggregate.value = set of workgroupWorkAggregate
 
 
 <div id="currentTeamHeader" > 
-   	<div id="currentTeamLabel">[Name 1, Name 2, Name 3]<span id="teamPeriodAndNumber">(period [XX], team [YY])</span></div>
+   	<div id="currentTeamLabel">
+   	    <c:forEach var="user" varStatus="userStatus" items="${aggregate.workgroup.members}">
+			${user.userDetails.firstname} ${user.userDetails.lastname}
+			<c:if test="${userStatus.last=='false'}">
+			    ,
+		    </c:if>
+		</c:forEach>
+   	    <span id="teamPeriodAndNumber">(period ${aggregate.workgroup.period.name}, team ${aggregate.workgroup.id})</span>
+   	</div>
 </div>
 <div>   	
   <ul id="currentTeamNavList">
