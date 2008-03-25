@@ -246,15 +246,16 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	/**
 	 * @override @see org.telscenter.sail.webapp.domain.authentication.MutableUserDetails#getInfo()
 	 */
-	public HashMap<String, String> getInfo() {
-		HashMap<String, String> infoMap = new HashMap<String, String>();
+	public HashMap<String, Object> getInfo() {
+		HashMap<String, Object> infoMap = new HashMap<String, Object>();
 		infoMap.put("First Name", this.getFirstname());
 		infoMap.put("Last Name", this.getLastname());
-		infoMap.put("Sign Up Date", this.getSignupdate().toString());
+		infoMap.put("username", this.getUsername());
+		infoMap.put("Sign Up Date", this.getSignupdate());
 		infoMap.put("Gender", this.getGender().toString());
-		infoMap.put("Birthday", this.getBirthday().toString());
+		infoMap.put("Birthday", this.getBirthday());
 		infoMap.put("Number of Logins", this.getNumberOfLogins().toString());
-		infoMap.put("Last Login", this.getLastLoginTime().toString());
+		infoMap.put("Last Login", this.getLastLoginTime());
 		return infoMap;
 	}
 }

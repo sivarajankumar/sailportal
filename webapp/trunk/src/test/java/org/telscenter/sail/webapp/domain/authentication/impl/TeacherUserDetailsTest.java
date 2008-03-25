@@ -73,7 +73,7 @@ public class TeacherUserDetailsTest extends TestCase {
 		teacherUserDetails.setLastLoginTime(LASTLOGIN);
 		teacherUserDetails.setNumberOfLogins(NUMBEROFLOGINS);
 		
-		HashMap<String, String> infoMap = teacherUserDetails.getInfo();
+		HashMap<String, Object> infoMap = teacherUserDetails.getInfo();
 		
 		assertEquals(infoMap.get("City"), CITY);
 		assertEquals(infoMap.get("Country"), COUNTRY);

@@ -26,6 +26,7 @@
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 </head>
 
@@ -40,15 +41,15 @@
 	</tr>
 	<tr>
 		<th>WISE Username:</th>
-		<td>[Need Student's UserName here]</td>
+		<td><c:out value="${userInfoMap['username']}"/></td>
 	</tr>
 	<tr>
 		<th>Most Recent Sign In:</th>
-		<td><c:out value="${userInfoMap['Last Login']}" /> [Need to Revise]</td>
+		<td><fmt:formatDate value="${userInfoMap['Last Login']}" type="both" dateStyle="short" timeStyle="short" /></td>
 			</tr>
 	<tr>
 		<th>WISE Registration Date:</th>
-		<td><c:out value="${userInfoMap['Sign Up Date']}"/> [Need to Revise]</td>
+		<td><fmt:formatDate value="${userInfoMap['Sign Up Date']}" type="both" dateStyle="short" timeStyle="short" /></td>
 	</tr>
 	<tr>
 		<th>Gender:</th>
@@ -56,7 +57,7 @@
 	</tr>
 	<tr>
 		<th>Birthday:<br/><span class="studentInfoSmallText">(as entered during registration)</span></th>
-		<td><c:out value="${userInfoMap['Birthday']}"/>[Need to Revise]</td>
+		<td><fmt:formatDate value="${userInfoMap['Birthday']}" pattern="M/d" /></td>
 	</tr>
 	<tr>
 		<th>Number of Logins:</th>

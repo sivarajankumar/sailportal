@@ -50,7 +50,7 @@ public interface MutableUserDetails extends
 	/**
 	 * @return this user's attributes in form of a HashMap
 	 */
-	public HashMap<String, String> getInfo();
+	public HashMap<String, Object> getInfo();
 	
 	/**
 	 * @return this user's 'root' username.
