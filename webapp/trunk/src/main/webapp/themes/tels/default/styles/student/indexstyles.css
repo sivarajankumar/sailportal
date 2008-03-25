@@ -261,15 +261,16 @@ table tr, table td {
 #firstUseBox{
 	margin-top:60px;
 	margin-bottom:4px;
-	background-color:#CCCCCC;
-	border:1px solid black;
+	background-image:url(../../images/Pixel_Gray.png); 
+	background-position:top;
+	background-repeat:repeat;	border:1px solid black;
 	padding:8px;
 	} 
 	
 #firstUseHeader{
-	color:#000066;
-	font-style:italic;
+	color:#0000CC;
 	font-weight:bold;
+	font-size:1.8em;
 	} 
 	
 #instructionsArea {

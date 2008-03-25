@@ -149,7 +149,7 @@
 			         		<c:when test="${workgroupMemberStatus.last}">
 			         			</c:when>
 			         			<c:otherwise>
-			         			<c:out value=" + " />
+			         			<c:out value="& " />
 			         		</c:otherwise>
 			         	</c:choose>
 			        	</c:forEach>

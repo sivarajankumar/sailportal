@@ -455,11 +455,11 @@ YAHOO.util.Event.onDOMReady(init);
 				</c:otherwise>
 				</c:choose>
 				<div id="firstUseBox">
-					<div id="firstUseHeader">First time running a project?</div>
+					<div id="firstUseHeader">INSTRUCTIONS</div>
 					<div id="instructionsArea">
-						<h6>Try the following:</h6>
+						<h6>To run a WISE 3.0 project for the first time:</h6>
 						<ol>
-							<li>Click RUN PROJECT to get started.</li>
+							<li>Click RUN PROJECT button.</li>
 							<li>Select how many students on the team  (1,2 or 3).</li>
 							<li>When working in teams, additional students will enter their Username/Password.</li>
 							<li>Click OK button when asked to "Open With Java Web Start".</li>
