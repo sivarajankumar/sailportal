@@ -160,6 +160,36 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 	 * creation of a user on the remote SDS. Tests for system integration are
 	 * beyond the scope of this testing mechanism. We are assuming the SdsUserId
 	 * cannot be null, enforced by the data store constraint.
+	 * 
+	 * Verifies that the leading and trailing whitespaces on firstname and lastname
+	 * get trimmed correctly
+	 */
+	public void testCreateUserWithFirstNameLastNameSpaces() throws Exception {
+			setupCreateTest();
+			
+			// create user (saves automatically)
+			userDetailsCreate.setFirstname(" " + FIRSTNAME + " ");
+			userDetailsCreate.setLastname(" " + LASTNAME + " ");
+			User expectedUser = this.userService.createUser(userDetailsCreate);
+			MutableUserDetails expectedUserDetails = (MutableUserDetails) expectedUser.getUserDetails();
+			
+			// retrieve user and compare
+			MutableUserDetails actual =  (MutableUserDetails) this.userDetailsService
+					.loadUserByUsername(userDetailsCreate.getUsername());
+			
+			assertEquals(expectedUserDetails.getFirstname(), actual
+					.getFirstname());
+			
+			assertEquals(expectedUserDetails.getLastname(), actual
+					.getLastname());
+			
+	}
+	
+	/*
+	 * This test checks creation of a user within the portal, but ignores the
+	 * creation of a user on the remote SDS. Tests for system integration are
+	 * beyond the scope of this testing mechanism. We are assuming the SdsUserId
+	 * cannot be null, enforced by the data store constraint.
 	 */
 	public void testCreateUserWithEmail() throws Exception {
 		setupCreateTest();

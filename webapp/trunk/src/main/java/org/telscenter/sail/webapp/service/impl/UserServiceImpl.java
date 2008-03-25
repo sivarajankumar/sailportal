@@ -42,6 +42,9 @@ public class UserServiceImpl extends
 			this.assignRole(userDetails, UserDetailsService.AUTHOR_ROLE);
 		} 
 		
+		// trim firstname and lastname so it doesn't contain leading or trailing spaces
+		details.setFirstname(details.getFirstname().trim());
+		details.setLastname(details.getLastname().trim());
 		String coreUsername = details.getCoreUsername();
 		String[] suffixes = details.getUsernameSuffixes(); // extra at end to ensure username uniqueness
 		int index = 0;  // index within suffixes array 
