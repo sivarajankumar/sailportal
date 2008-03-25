@@ -33,7 +33,6 @@
 <script type="text/javascript" src="../.././javascript/tels/effects.js"></script>
 
 <%@ include file="./styles.jsp"%>
-
 <link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
@@ -116,7 +115,7 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
-<div id="overviewHeaderGrading">Grade By Step</div>
+<div id="overviewHeaderGrading">Edit Values for Graded Steps</div>
 
 <div id="gradeStepSelectionArea">
 
@@ -126,15 +125,31 @@
 
 	<div id="gradeStepInstructions">Select any step below to begin grading</div>
 	
-	 <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
-		<div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div>  
-		<ul id="stepSelectionList"> 
-			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
-				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a> <span id="stepTypeStyle"> (${someStep.type})</span> <span id="stepGradingNotification"> x items to grade</span></li></c:if>
-				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
-			</c:forEach>
+	<div id="editValuesInstructions">
+		<ul>
+			<li>To change the maximum possible value for a step, enter a value (between 0-1000) in the <em>New Maximum Score</em> column.  Then click SAVE.</li>
+			<li>Any Step with a maximum value of zero (0) will be automatically excluded from the Grading Layouts.</li>		
 		</ul>
-    </c:forEach>
+	</div>
+	
+	<table id="editValuesTable">
+		<tr>
+			<th>Activity</th>
+			<th>Step</th>
+			<th>Current Maximum Score</th>
+			<th>New Maximum Score</th>
+		</tr>
+		<tr>
+			<td>[sample activity name]</td>
+			<td>[sample step name]</td>
+			<td>[sample current score name]</td>
+			<td></td>
+		</tr>
+	</table>
+
+<div id=editValueSaveButton">
+	[SAVE NEW VALUES button]
+</div>
 
 </div>
 
