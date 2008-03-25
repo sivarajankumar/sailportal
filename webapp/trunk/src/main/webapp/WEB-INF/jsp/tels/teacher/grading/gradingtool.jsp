@@ -650,11 +650,14 @@ aggregate.value = set of workgroupWorkAggregate
 </td>		
   </tr>
  </table>
-
+ 
+<!-- uncomment this section if you want to display the yahoo logger
+     remember to comment it before committing to repository
 <div id="myLogger"></div>
 <script type="text/javascript">
 var myLogReader = new YAHOO.widget.LogReader("myLogger");
 </script>
+-->
 <div id="container"></div>
 
 </div>    <!--end of Centered Div-->
