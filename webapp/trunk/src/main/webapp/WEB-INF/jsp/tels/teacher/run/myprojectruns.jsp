@@ -151,7 +151,8 @@
 					    <ul id="actionList">
 					    	<li><a style="color:#cccccc;" href="#">View Project Info</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Edit Periods</a></li>
-					    	<li><a href="../grading/gradebystep.html?runId=${run.id}">Grade Students</a></li>
+					    	<li><a href="../grading/gradebystep.html?runId=${run.id}">Grade by step</a></li>
+						    <li><a href="../grading/selectworkgroup.html?runId=${run.id}">Grade by workgroup</a></li>				    	
 					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
