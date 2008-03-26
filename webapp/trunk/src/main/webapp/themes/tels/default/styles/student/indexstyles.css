@@ -275,6 +275,7 @@ table tr, table td {
 	
 #instructionsArea {
 	margin:4px 0 0 1px;
+	line-height:110%;
 	} 
 		
 #instructionsArea ol {

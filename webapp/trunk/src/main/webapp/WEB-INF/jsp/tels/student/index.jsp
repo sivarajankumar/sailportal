@@ -439,7 +439,7 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
-													<div class="teamNotRegisteredMessage">Click RUN PROJECT to set up the team with 1, 2, or 3 students.</div>  
+													<div class="teamNotRegisteredMessage">To get started see the INSTRUCTIONS listed below.</div>  
 												</c:otherwise>	
 									      		</c:choose>
 								</td>
@@ -459,7 +459,7 @@ YAHOO.util.Event.onDOMReady(init);
 					<div id="instructionsArea">
 						<h6>To run a WISE 3.0 project for the first time:</h6>
 						<ol>
-							<li>Click RUN PROJECT button.</li>
+							<li>Click the RUN PROJECT button.</li>
 							<li>Select how many students on the team  (1,2 or 3).</li>
 							<li>When working in teams, additional students will enter their Username/Password.</li>
 							<li>Click OK button when asked to "Open With Java Web Start".</li>
