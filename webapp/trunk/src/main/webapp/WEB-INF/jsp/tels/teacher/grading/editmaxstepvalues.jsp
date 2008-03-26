@@ -115,27 +115,56 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
-<br />
-
-<div id="overviewHeaderGrading">Edit Maximum Values for Graded Steps</div>
+<div id="overviewHeaderGrading">Edit Values for Graded Steps</div>
 
 <div id="gradeStepSelectionArea">
 
 <div>
-	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
-	<div id="selectAnotherLink"><a href="projectPickerGrading.html">Select Another Project</a></div>
+<c:set var="eCurnitmap" value="${curnitmap.ECurnitmap}" />
+
+    <div id="gradeStepSelectedProject">${eCurnitmap.project.title}</div>
+
+	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Select Another Project</a></div>
 
 	<div id="gradeStepInstructions">Select any step below to begin grading</div>
-		
-   <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
-		<div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div>  
-		<ul id="stepSelectionList"> 
-			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
-				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a> <span id="stepTypeStyle"> (${someStep.type})</span> <span id="stepGradingNotification"> x items to grade</span></li></c:if>
-				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
-			</c:forEach>
+	
+	<div id="editValuesInstructions">
+		<ul>
+			<li>To change the maximum possible value for a step, enter a value (between 0-1000) in the <em>New Maximum Score</em> column.  Then click SAVE.</li>
+			<li>Any Step with a maximum value of zero (0) will be automatically excluded from the Grading Layouts.</li>		
 		</ul>
-    </c:forEach>
+	</div>
+
+<form:form method="post" action="editmaxstepvalues.html" commandName="curnitmap" id="curnitmapform" >  				
+	<table id="editValuesTable">
+		<tr>
+			<th>Activity</th>
+			<th>Step</th>
+			<th>Current Maximum Score</th>
+			<th>New Maximum Score</th>
+		</tr>
+
+	 <c:forEach var="someAct" varStatus="varAct" items="${eCurnitmap.project.activity}">
+			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
+				<c:if test="${someStep.type == 'Note' || someStep.type == 'Student Assessment'}">
+				    <tr><td><div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div></td>
+				        <td>Step ${someStep.number+1}: ${someStep.title} (${someStep.type})</td>
+				        <td>${someStep.possibleScore}</td>
+				        <td><form:input path="ECurnitmap.project.activity"></form:input></td>
+				     </tr>
+				 </c:if>
+			</c:forEach>
+      </c:forEach>
+	</table>
+	<div id="saveButton">
+	  <input type="button" value="save" onclick="javascript:alert('save not implemented yet');" />
+	</div>
+</form:form>
+
+<div id=editValueSaveButton">
+	[SAVE NEW VALUES button]
+</div>
+
 </div>
 
 <div>      <!--End of gradeStepSelectionArea -->

@@ -604,5 +604,15 @@
     
     <bean id="editMaxStepValuesController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.EditMaxStepValuesController">
+    	<property name="gradingService" ref="gradingService" />
+    	<property name="runService" ref="runService" />
+    	<property name="sessionForm" value="true" />
+    	<property name="commandName" value="curnitmap" />
+    	<!--  
+    	<property name="validator" ref="teacherUserDetailsValidator" />
+    	-->
+    	<property name="formView" value="teacher/grading/editmaxstepvalues" />
+    	<property name="successView" value="teacher/grading/editmaxstepvaluesconfirm" />
+		
 	</bean>
 </beans>

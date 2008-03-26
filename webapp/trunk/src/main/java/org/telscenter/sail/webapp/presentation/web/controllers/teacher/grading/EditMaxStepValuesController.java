@@ -22,27 +22,116 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+
+import org.eclipse.emf.ecore.resource.Resource;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.pas.emf.pas.ECurnitmap;
+import org.telscenter.pas.emf.pas.EStep;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.Curnitmap;
+import org.telscenter.sail.webapp.domain.project.impl.CurnitmapImpl;
+import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
+import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * @author MattFish
  * @author Hiroki Terashima
- *
+ * @version $$Id:$$
  */
-public class EditMaxStepValuesController extends AbstractController {
+public class EditMaxStepValuesController extends SimpleFormController {
+
+	public static final String RUNID_PARAM_NAME = "runId";
+	
+	public static final String CURNIT_MAP = "curnitmap";
+	
+	private GradingService gradingService;
+	
+	private RunService runService;
 
 	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
-		ModelAndView modelAndView = new ModelAndView();
-		return modelAndView;
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+		Long runId = Long.parseLong(request.getParameter(RUNID_PARAM_NAME));
+		ECurnitmap eCurnitmap = gradingService.getCurnitmap(runId);
+		Curnitmap curnitmap = new CurnitmapImpl();
+		curnitmap.setECurnitmap(eCurnitmap);
+		Run run = runService.retrieveById(runId);
+		//String sdsCurnitMap = run.getSdsOffering().getSdsCurnitMap();
+		//Resource resource = eCurnitmap.eResource();
+		return curnitmap;
 	}
+	
+	/**
+	 * This method is called right before the view is rendered to the user
+	 * Add the run to the model
+	 * 
+	 * @see org.springframework.web.servlet.mvc.AbstractWizardFormController#referenceData(javax.servlet.http.HttpServletRequest, int)
+	 */
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request, 
+			Object command, Errors errors) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		Long runId = Long.parseLong(request.getParameter(RUNID_PARAM_NAME));
+		Run run = null;
+		try {
+			run = runService.retrieveById(runId);
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		model.put("run", run);
+		
+		return model;
+	}
+	
+	/**
+	 * On submission of the editmaxstepvalues form, 
+	 * the modified curnitmap is saved with the associated run
+	 *  
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      org.springframework.validation.BindException)
+	 */
+	@Override
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+	throws Exception {
+		ECurnitmap eCurnitmap = (ECurnitmap) command;
+		Long runId = Long.parseLong(request.getParameter(RUNID_PARAM_NAME));
+		Run run = runService.retrieveById(runId);
+		//run.getSdsOffering().set
+		return null;
+	}
+	
+	/**
+	 * @param gradingService the gradingService to set
+	 */
+	public void setGradingService(GradingService gradingService) {
+		this.gradingService = gradingService;
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
+
+
+
 
 }
