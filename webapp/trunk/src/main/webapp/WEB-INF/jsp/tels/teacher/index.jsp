@@ -100,8 +100,8 @@
 						        </c:otherwise>
 						    </c:choose>
 		    				</b></li>
-							<li><b>[You have gradable work ready in 2 projects. See links to right.]</b></li>
-							<li><b>[Announcement 3]</b></li>
+							<li><b>[Auto Msg regarding projects w/steps to grade]</b></li>
+							<li><b>[Special Announcements here]</b></li>
 							</ul>
 						</td>
 					</tr>
@@ -116,17 +116,17 @@
 
 			<table id="projectGradeLinkBox" cellpadding="5" cellspacing="5">
 				<tr>
-					<td class="tableColor">[Gradable Project Name A]</td>
+					<td class="tableColor">[Project Name: Sample A]</td>
 					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
 					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
 				</tr>
 				<tr>
-					<td class="tableColor">[Gradable Project Name B]</td>
+					<td class="tableColor">[Project Name: Sample B]</td>
 					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
 					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
 				</tr>
 				<tr>
-					<td class="tableColor">[Gradable Project Name C]</td>
+					<td class="tableColor">[Project Name: Sample C]</td>
 					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
 					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
 				</tr>
@@ -190,8 +190,7 @@
 		<div id="linkHeader">Projects</div>
 			<ul>
 			<li><a href="projects/projectlibrary.html">Project Library</a></li>
-			<li><a href="run/myprojectruns.html">My Project Runs</a></li>
-			<li><a href="run/myprojectruns.html">View Student Codes</a></li>
+			<li><a href="run/myprojectruns.html">My Project Runs & Student Codes</a></li>
 			<li class="inactivecolor">My Bookmarked Projects</li>
 			<li class="inactivecolor">My Customized Projects</li>
 			</ul>
