@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.service.offering.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +40,7 @@ import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.service.AclService;
 
 import org.easymock.EasyMock;
+import org.telscenter.pas.emf.pas.ECurnitmap;
 
 /**
  * @author Laurel Williams
@@ -73,6 +75,8 @@ public class OfferingServiceImplTest extends TestCase {
 	private static final Long NON_EXISTING_CURNIT_ID = new Long(9999999);
 
 	private static final Long NON_EXISTING_JNLP_ID = new Long(1904568384);
+	
+	private static final Long NON_EXISTING_OFFERING_ID = new Long(12345);
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -223,4 +227,23 @@ public class OfferingServiceImplTest extends TestCase {
 	
 	
 	// TODO Hiroki test OfferingService.getWorkgroupsForOffering()
+	
+	public void testUpdateCurnitmapForOffering_nonexisting_offering() 
+	     throws ObjectNotFoundException {
+		Long offeringId = NON_EXISTING_OFFERING_ID;
+		ECurnitmap curnitmap = null;
+		EasyMock.expect(this.mockOfferingDao.getById(offeringId)).andThrow(new ObjectNotFoundException(NON_EXISTING_OFFERING_ID, Offering.class));
+		EasyMock.replay(this.mockOfferingDao);
+		try {
+			offeringServiceImpl.updateCurnitmapForOffering(offeringId, curnitmap);
+			fail("ObjectNotFoundException was expected");
+		} catch (ObjectNotFoundException e) {
+		}
+		
+		EasyMock.verify(mockOfferingDao);
+	}
+	
+	public void testUpdateCurnitmapForOffering_success() {
+		
+	}
 }

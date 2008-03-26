@@ -20,6 +20,8 @@ package net.sf.sail.webapp.service.offering;
 import java.util.List;
 import java.util.Set;
 
+import org.telscenter.pas.emf.pas.ECurnitmap;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.Workgroup;
@@ -81,4 +83,13 @@ public interface OfferingService {
 	public Set<Workgroup> getWorkgroupsForOffering(Long offeringId) 
 	    throws ObjectNotFoundException;
 
+	/**
+	 * Updates the curnitmap of the offering identified by the offeringId
+	 * 
+	 * @param offeringId key to the <code>Offering</code> to look up
+	 * @param eCurnitmap new curnitmap to associate this offering with
+	 * @throws ObjectNotFoundException if an offering with the given id is not found.
+	 */
+	public void updateCurnitmapForOffering(Long offeringId, ECurnitmap eCurnitmap)
+	    throws ObjectNotFoundException;
 }

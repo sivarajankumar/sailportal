@@ -36,6 +36,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
@@ -110,10 +111,9 @@ public class EditMaxStepValuesController extends SimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
-		ECurnitmap eCurnitmap = (ECurnitmap) command;
+		Curnitmap curnitmap = (Curnitmap) command;
 		Long runId = Long.parseLong(request.getParameter(RUNID_PARAM_NAME));
-		Run run = runService.retrieveById(runId);
-		//run.getSdsOffering().set
+		runService.updateCurnitmapForOffering(runId, curnitmap.getECurnitmap());
 		return null;
 	}
 	

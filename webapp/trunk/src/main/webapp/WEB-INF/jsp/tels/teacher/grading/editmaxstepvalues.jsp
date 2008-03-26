@@ -135,7 +135,7 @@
 		</ul>
 	</div>
 
-<form:form method="post" action="editmaxstepvalues.html" commandName="curnitmap" id="curnitmapform" >  				
+<form:form method="post" action="editmaxstepvalues.html?runId=${run.id}" commandName="curnitmap" id="curnitmapform" >  				
 	<table id="editValuesTable">
 		<tr>
 			<th>Activity</th>
@@ -150,20 +150,16 @@
 				    <tr><td><div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div></td>
 				        <td>Step ${someStep.number+1}: ${someStep.title} (${someStep.type})</td>
 				        <td>${someStep.possibleScore}</td>
-				        <td><form:input path="ECurnitmap.project.activity"></form:input></td>
+				        <td><form:input path="ECurnitmap.project.activity[${varAct.index}].step[${varStep.index}].possibleScore" /></td>
 				     </tr>
 				 </c:if>
 			</c:forEach>
       </c:forEach>
 	</table>
-	<div id="saveButton">
-	  <input type="button" value="save" onclick="javascript:alert('save not implemented yet');" />
+	<div id="editValueSaveButton">
+	  <input type="submit" value="submit" />
 	</div>
 </form:form>
-
-<div id=editValueSaveButton">
-	[SAVE NEW VALUES button]
-</div>
 
 </div>
 
