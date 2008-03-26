@@ -241,6 +241,144 @@ img#none{
 	padding-right:5px;
 }
 
+/* STYLES FOR PROJECT LIBRARY PAGES */
 	
+/*  
+#libraryTempTable {
+	border: 2px ridge #000000;
+	border-collapse:collapse;
+	margin-top:30px;
+		}
 
+#libraryTempTable th, #libraryTempTable td {
+	padding:10px;
+	border: 1px solid #333333;
+	vertical-align:center;
+}
+
+#libraryTempTable th {
+	background-image: url(../../images/Gradient_Blue-to-Gray.png);
+	font-size:1em;
+	font-variant:small-caps;
+}
+
+.libraryTitleStyle {
+	color:#CC0000; 
+	font-weight:bold;
+	font-size:1.1em;
+	text-align:center;
+	width:350px;
+}
+
+.libraryActionColumn {
+	width:600px; 
+}
+	
+#libraryTempTable ul {
+	list-style:none;
+	padding:0px;
+ 	margin: 6px 0;
+ 	text-align:center;
+}
+	
+#libraryTempTable li {
+	display:inline;
+	padding:0px 10px 0 0;
+	}
+	
+#libraryTempTable a:link, #libraryTempTable a:visited {
+	text-decoration:none;
+	font-size:.8em; 
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:3px 5px;
+	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: top;
+	color:#000000; 
+	    }	
+    
+#libraryTempTable a:hover {
+	color:#000000;
+	background-image: none;
+	background-color:#FFFF66;	
+    }	
+	
+*/	
+
+#libraryProjectTable {
+	border-collapse:collapse;
+	border:1px solid #000000;
+	margin-bottom:20px;
+	width:960px;
+	text-align:center;
+	}
+
+#libraryProjectTable th, #libraryProjectTable td  {
+	border:1px solid #000000; 
+	padding:0px;
+	margin:0px;
+}
+
+#libraryProjectTable td {
+	padding:6px;
+	margin:0px;
+	border:1px solid #000000; 
+	}
+	
+.libraryProjectTitle {
+	font-size:1.4em;
+	width:420px;
+	font-weight:bold;
+}
+
+#libraryProjectTable th {
+	color:#000000;
+	background-color:#CCCCCC;
+	font-size:.9em;
+	font-weight:bold;
+	font-variant:small-caps;
+		}	
+		
+#libraryProjectTableR1 td {
+	padding: 6px;
+		}	
+	
+#libraryProjectTableR2{
+	font-size:.85em;
+	color:#006600;
+	}	
+	
+#libraryProjectIDHeader {
+	width:85px;
+}
+
+#libraryKeywordHeader {
+	width:140px;
+}
+
+#libraryKeywordData {
+	font-size:.7em;
+}
+
+#libraryProjectTableR2 td{
+	padding: 6px;
+	}
+	
+#libraryProjectTableR3 { 
+	font-size:.85em;
+	color:#339933;
+	background-image: url(../../images/Arrow_Down.png);
+	background-position: 8px 10px;
+	background-repeat:no-repeat;
+		}	 
+		
+#libraryProjectTableR3 td {
+	text-align:left;
+	padding-left:30px;
+}
+
+#libraryProjectTable a:hover:
+	background-color:#FFFF66;
 

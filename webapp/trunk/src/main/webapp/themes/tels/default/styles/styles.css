@@ -247,7 +247,7 @@
 	color: #0000FF;
 	}
 
-#projectTable {
+#setupProjectTable {
 	border-collapse:collapse;
 	}
 
@@ -269,7 +269,7 @@
 	font-weight:bold;
 }
 
-#projectTableR1 {
+#setupProjectTableR1 {
 	color:#000000;
 	background-color:#CCCCCC;
 	font-size:.9em;
@@ -277,20 +277,20 @@
 	font-variant:small-caps;
 		}	
 		
-#projectTableR1 td {
+#setupProjectTableR1 td {
 	padding: 5px 10px;
 		}	
 	
-#projectTableR2{
+#setupProjectTableR2{
 	font-size:.85em;
 	color:#006600;
 	}	
 	
-#projectTableR2 td{
+#setupProjectTableR2 td{
 	padding: 10px;
 	}
 	
-#projectTableR3 {
+#setupProjectTableR3 {
 	font-size:.85em;
 	color:#339933;
 	background-image: url(../images/Arrow_Down.png);
@@ -499,10 +499,6 @@
 	}
 	
 #multiUserSignIn {
-	
-	
-	
-	
 	text-align:left;
 	margin: 25px auto 25px auto;
 }

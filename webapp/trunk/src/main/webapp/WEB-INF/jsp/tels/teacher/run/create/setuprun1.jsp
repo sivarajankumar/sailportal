@@ -54,8 +54,8 @@
 
 <h5>You have selected the following [Library/Customized] project to run in your classroom:</h5>
 
-<table id="projectTable" border="1" cellpadding="3" cellspacing="2">
-	<tr id="projectTableR1">
+<table id="setupProjectTable" border="1" cellpadding="3" cellspacing="2">
+	<tr id="setupProjectTableR1">
 		<td>Project Title</td>
 		<td>Project ID</td>
 		<td>Topics/Keywords</td>
@@ -64,7 +64,7 @@
 		<td>Computer Time</td>
 		<td>Usage</td>
 	</tr>
-	<tr id="projectTableR2">
+	<tr id="setupProjectTableR2">
 		<td class="setupProjectTitle">${project.curnit.sdsCurnit.name}</td>
 		<td>[6 dig ID here]</td>       		   <!--		""${project.curnit.id}""-->
 		<td>[Topics/Keywords here]</td>
@@ -73,7 +73,7 @@
 		<td>[# Periods here]</td>
 		<td>[# Runs Here]
 	</tr>
-	<tr id="projectTableR3">
+	<tr id="setupProjectTableR3">
 		<td class="indent15px" colspan="7">${project.curnit.description}[Project Description goes here]</td>
 	</tr>
 	</table>
