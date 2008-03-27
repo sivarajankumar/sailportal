@@ -115,7 +115,7 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
-<div id="overviewHeaderGrading">Edit Values for Graded Steps</div>
+<div id="overviewHeaderGrading">Edit Maximum Values for Graded Steps</div>
 
 <div id="gradeStepSelectionArea">
 
@@ -125,23 +125,25 @@
     <div id="gradeStepSelectedProject">${eCurnitmap.project.title}</div>
 
 	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Select Another Project</a></div>
-
-	<div id="gradeStepInstructions">Select any step below to begin grading</div>
 	
 	<div id="editValuesInstructions">
 		<ul>
-			<li>To change the maximum possible value for a step, enter a value (between 0-1000) in the <em>New Maximum Score</em> column.  Then click SAVE.</li>
-			<li>Any Step with a maximum value of zero (0) will be automatically excluded from the Grading Layouts.</li>		
+			<li>To change the maximum possible value for a step, enter a value (between 0-1000) in the <em>New Maximum Score</em> column.  Click the SAVE button when you're done making changes.</li>
+			<li>Any Step with a score value of zero (0) will be automatically excluded when you're grading. This is a handy way to reduce your visual clutter when grading by Step or by Team.</li>
+			<li>Each gradable step has just one score value.  If you're using a Note step with multiple sub-parts, 
+			you can indicate the value of each Part to students by embedding a statement within the individual question prompts.		
+			Ex: "(5 pts for Part 1)"
 		</ul>
 	</div>
 
 <form:form method="post" action="editmaxstepvalues.html?runId=${run.id}" commandName="curnitmap" id="curnitmapform" >  				
+	
 	<table id="editValuesTable">
 		<tr>
-			<th>Activity</th>
-			<th>Step</th>
-			<th>Current Maximum Score</th>
-			<th>New Maximum Score</th>
+			<th>activity</th>
+			<th>step</th>
+			<th>current <br>maximum score</th>
+			<th>NEW <br>maximum score</th>
 		</tr>
 
 	 <c:forEach var="someAct" varStatus="varAct" items="${eCurnitmap.project.activity}">
@@ -149,15 +151,15 @@
 				<c:if test="${someStep.type == 'Note' || someStep.type == 'Student Assessment'}">
 				    <tr><td><div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div></td>
 				        <td>Step ${someStep.number+1}: ${someStep.title} (${someStep.type})</td>
-				        <td>${someStep.possibleScore}</td>
-				        <td><form:input path="ECurnitmap.project.activity[${varAct.index}].step[${varStep.index}].possibleScore" /></td>
+				        <td class="scoreStyle">${someStep.possibleScore}</td>
+				        <td class="scoreStyle"><form:input id="newScoreBox" path="ECurnitmap.project.activity[${varAct.index}].step[${varStep.index}].possibleScore" /></td>
 				     </tr>
 				 </c:if>
 			</c:forEach>
       </c:forEach>
 	</table>
 	<div id="editValueSaveButton">
-	  <input type="submit" value="submit" />
+	  <input type="submit" value="Save New Maximum Scores" />
 	</div>
 </form:form>
 

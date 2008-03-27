@@ -627,9 +627,91 @@
 	}
 	
 	
+/* EDIT MAXIMUM STEP VALUES page  */ 
 	
+#editValuesInstructions {
+	font-size:.8em;'
+}
+ 
+#editValuesInstructions ul {
+	margin: 20px 60px 0 20px;
+}
+
+#editValuesInstructions li {
+	margin-bottom:10px;
+}
+
+
+#editValuesTable {
+	font-family: "Tahoma", Verdana, Arial, Helvetica, sans-serif;
+	font-size:  75%;
+	border-collapse: collapse;
+	border:1px solid #000000; 
+	width:850px;
+	margin:5px auto 20px auto;
+	}
+
+#editValuesTable tr{
+	background-color: #EAFDFF;
+}
+
+#editValuesTable tr:hover{
+	background-color: #FFCCCC;
+}
+
+#editValuesTable th{
+	border: 1px dotted #CCCCCC;
+	padding:3px 10px;
+	border-bottom:1px dotted #000000;
+	background-color:#333399;
+	color:#D9FFD9;
+	letter-spacing:1px;
+	font-variant:small-caps;
+	font-size:1.1em;
+	}
+
+#editValuesTable td{
+	border: 1px dotted #CCCCCC;
+	padding:3px 5px;
+}
+
+#editValuesTable .scoreStyle {
+	text-align:center;
+}
+
+#newScoreBox {
+	width:50px;
+	text-align:center;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	}
 	
 
+#editValueSaveButton {
+	text-align:center;
+	margin:0 0 0 20px;
+}
+
+#editValueSaveButton input {
+	text-decoration:none;
+	font-size:.8em; 
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:3px 5px;
+	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: top;
+	color:#000000; 
+	    }	
+    
+#editValueSaveButton input:hover {
+	color:#000000;
+	background-image: none;
+	background-color:#FFFF66;	
+    }	
 
 
 	
