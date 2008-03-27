@@ -22,6 +22,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+<%@ include file="styles.jsp"%>
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -32,40 +33,44 @@
 <title><spring:message code="curnitlist.project.library" /></title>
 </head>
 
-<body>
-
+<body class="yui-skin-sam">
 <div id="centeredDiv">
 
 <%@ include file="./headerteacherprojects.jsp"%>
 
 <%@ include file="./L2projects_projectlibrary.jsp"%>
 
-<h1 id="titleBar" class="headerText"><spring:message code="curnitlist.project.library" /></h1> 
-    	
-<table id="libraryTempTable">
-  <tr>
-    <th><spring:message code="curnitlist.title" /></th>
-    <th><spring:message code="curnitlist.options" /></th>
-  </tr>
-<c:forEach var="project" items="${projectList}">
-  <tr >
-  <td class="libraryTitleStyle"><c:out value="${project.curnit.sdsCurnit.name}"/></td>
-  <td class="libraryActionColumn">
-  	<ul id="libraryActionButtons">
-  		<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	       Set Up as a Project Run</a></li>
-	    <li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	       Preview this Project</a></li> 
-        <li><a href="<c:url value="http://tels-develop.soe.berkeley.edu:8080/maven-jnlp-snapshot/jnlp-tests/jardiff/javachecker-1.1.jnlp"></c:url>">
-           Computer Compatibility Check</a></li>
-    </ul>
-  </td>
-  </tr>
-</c:forEach>
-</table>
-
-<h5>Click any project title below to review its detailed <em>Project Information</em> display.</h5> 
-  
+<h1 id="titleBar" class="headerText">Project Information</h1> 
+    	  
+<div id="projectInfoTabs" class="yui-navset">
+    <ul class="yui-nav">
+        <li><a href="#tab1"><em>Overview</em></a></li>
+        <li><a href="#tab2"><em>Teacher Guide</em></a></li>
+        <li><a href="#tab3"><em>Learning Goals</em></a></li>
+        <li><a href="#tab4"><em>Project Credits</em></a></li>
+    </ul>            
+    <div class="yui-content">
+        <div id="tab1">
+            <p>project title:${project.curnit.sdsCurnit.name}</p>
+            <p><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
+	             Preview this Project</a>
+	        </p>
+	        <p><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
+	             Set Up as a Project Run</a>
+	        </p>
+        </div>
+        <div id="tab2">
+            <p>Tab Two Content</p>
+        </div>
+        <div id="tab3">
+            <p>Tab Three Content</p>
+        </div>
+        <div id="tab4">
+            <p>Tab Four Content</p>
+        </div>
+    </div>
+</div>
+    	  
 <c:forEach var="project" items="${projectList}">
 	<table id="libraryProjectTable">
 		<tr>
@@ -97,6 +102,10 @@
 </c:forEach>	
 	
 </div>
+<script type="text/javascript">
+    var tabView = new YAHOO.widget.TabView('projectInfoTabs');
+    tabView.set('activeIndex', 0);
+</script>
 
 </body>
 </html>

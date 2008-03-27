@@ -97,6 +97,7 @@
     		    /teacher/projects/reportproblem.html=reportProblemController
     		    /teacher/projects/library/options.html=projectOptionsController
     		    /teacher/projects/projectlibrary.html=projectLibraryController
+    		    /teacher/projects/projectinfo.html=projectInfoController
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/myarchivedruns.html=myArchivedRunsController
     		    /teacher/run/archivedrunmanager.html=archivedRunManagerController
