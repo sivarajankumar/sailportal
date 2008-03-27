@@ -379,7 +379,6 @@
 	lsit-style-type:none;
 	padding:0;
 	margin: 0 0 20px 0;	
-
 }
 
 #currentTeamNavList li {
@@ -410,8 +409,6 @@
 	background-image:none;
 	background-color:#FFFF66;
 	}
-	
-}
 
 .saveButton:hover {
 	background-image:none;
@@ -437,7 +434,6 @@
 	border-right:2px solid #000099;	
 	border-bottom:1px solid #000099;	
 	border-left:2px solid #000099;	
-	
 }
 	
 #teacherFeedbackTdTeam textarea {
@@ -641,14 +637,13 @@
 	margin-bottom:10px;
 }
 
-
 #editValuesTable {
 	font-family: "Tahoma", Verdana, Arial, Helvetica, sans-serif;
 	font-size:  75%;
 	border-collapse: collapse;
 	border:1px solid #000000; 
 	width:850px;
-	margin:5px auto 20px auto;
+	margin:10px auto 20px auto;
 	}
 
 #editValuesTable tr{
@@ -672,7 +667,7 @@
 
 #editValuesTable td{
 	border: 1px dotted #CCCCCC;
-	padding:3px 5px;
+	padding:5px;
 }
 
 #editValuesTable .scoreStyle {
@@ -682,13 +677,13 @@
 #newScoreBox {
 	width:50px;
 	text-align:center;
+	font-weight:bold;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
 	}
 	
-
 #editValueSaveButton {
 	text-align:center;
 	margin:0 0 0 20px;

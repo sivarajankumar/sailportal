@@ -67,10 +67,6 @@ tr {
 	padding:6px;
 }
 
-tr.odd{
-	background-color: #FFFFFF;
-}
-
 tbody tr:hover{
 	background-color: #CCCCCC;
 	
@@ -100,7 +96,9 @@ td a:link, td a:visited, th a:link,th a:visited {
 	color:#000066;
 	font-size:.9em;
 	font-weight:bold;
-	padding:14px 5px 14px 5px;
+	padding:14px 5px 14px 10px;
+	text-decoration:none;
+	font-style:italic;
 	
 }
 
@@ -109,7 +107,7 @@ td a:hover, th a:hover{
 	color:#000033;
 	font-size:.9em;
 	font-weight:bold;
-	padding:14px 5px 14px 5px;
+	padding:14px 5px 14px 10px;
 	background-color:#FFFF00;	
 }
 

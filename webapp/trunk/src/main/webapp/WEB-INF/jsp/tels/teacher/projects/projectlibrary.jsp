@@ -40,33 +40,17 @@
 
 <%@ include file="./L2projects_projectlibrary.jsp"%>
 
-<h1 id="titleBar" class="headerText"><spring:message code="curnitlist.project.library" /></h1> 
-    	
-<table id="libraryTempTable">
-  <tr>
-    <th><spring:message code="curnitlist.title" /></th>
-    <th><spring:message code="curnitlist.options" /></th>
-  </tr>
-<c:forEach var="project" items="${projectList}">
-  <tr >
-  <td class="libraryTitleStyle"><c:out value="${project.curnit.sdsCurnit.name}"/></td>
-  <td class="libraryActionColumn">
-  	<ul id="libraryActionButtons">
-  		<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	       Set Up as a Project Run</a></li>
-	    <li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	       Preview this Project</a></li> 
-        <li><a href="<c:url value="http://tels-develop.soe.berkeley.edu:8080/maven-jnlp-snapshot/jnlp-tests/jardiff/javachecker-1.1.jnlp"></c:url>">
-           Computer Compatibility Check</a></li>
-    </ul>
-  </td>
-  </tr>
-</c:forEach>
-</table>
+<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.project.library" /></h2>
+ 
+<div id="searchResultsHeading">Search Results: [xx] projects found 
+	<div class="searchResultsButtons"><a href="#">Show/Hide Descriptions</a></div>
+	<div class="searchResultsButtons"><a href="#">New Search</a></div>
+</div>
 
-<h5>Click any project title below to review its detailed <em>Project Information</em> display.</h5> 
+<div id="searchResultsInstructions">Click any project title below to review its <em>Project Information</em> display.</div>
   
 <c:forEach var="project" items="${projectList}">
+
 	<table id="libraryProjectTable">
 		<tr>
 			<th>project title</th>
@@ -78,22 +62,20 @@
 			<th>usage</th>
 		</tr>
 		<tr id="libraryProjectTableR2">
-			<td class="libraryProjectTitle"><a href="projectinfo.html?projectId=${project.id}">${project.curnit.sdsCurnit.name}</a></td>
-			<td>[10321]</td>       		   <!--		""${project.curnit.id}""-->
-			<td id="libraryKeywordData">[BIOLOGY, mendel, meiosis, evolution, selection pressure, Darwin, etc, etc.]</td>
-			<td>[6-8]</td>              <!--		"${project.curnit.totalTime}"-->
-			<td>[6 periods]</td>              <!--		"${project.curnit.computerTime}"-->
-			<td>[5 periods]</td>
-			<td>[27 runs]
+			<td><a href="projectinfo.html?projectId=${project.id}">${project.curnit.sdsCurnit.name}</a></td>
+			<td class="dataCell">[10321]</td>       		   <!--		""${project.curnit.id}""-->
+			<td class="dataCell" id="libraryKeywordData">[BIOLOGY, mendel, meiosis, evolution, selection pressure, Darwin, etc, etc.]</td>
+			<td class="dataCell">[6-8]</td>              <!--		"${project.curnit.totalTime}"-->
+			<td class="dataCell">[6 periods]</td>              <!--		"${project.curnit.computerTime}"-->
+			<td class="dataCell">[5 periods]</td> 
+			<td class="dataCell">[27 runs]
 		</tr>
-		<tr id="libraryProjectTableR3">
-			<td colspan="7">Eros illum, luptatum, ea nulla, in nostrud eu 
-			consectetuer augue accumsan feugiat qui iusto consequat duis vel nulla. Consequat duis, vero elit suscipit, at in 
-			feugait dignissim vero zzril blandit, eum lorem, feugiat erat feugait ut vel nonummy zzril accumsan velit dolor in 
-			accumsan. Unt, ea nulla, in nostrud eu consectetuer augue accumsan feugiat qui iusto consequat duis vel nulla. Consequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem, feugiat erat feugait ut vel nonummy zzril accumsan velit dolor in
-			</td>
+		<tr id="libraryProjectTableR3"> 
+			<td colspan="7">[Project Summary description goes here] Ensequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem. 
+			Bigus squidus doeth makeus sikus. Ex duis, vero elit suscipit, at in feugait dignissim vero zzril blanditeus.</td>
 		</tr>
 	</table>
+	
 </c:forEach>	
 	
 </div>

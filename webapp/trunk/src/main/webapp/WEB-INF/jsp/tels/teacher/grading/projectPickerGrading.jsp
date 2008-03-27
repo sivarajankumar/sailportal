@@ -77,7 +77,9 @@
   <li id="tabPicker"><a href="Archived Runs"><em>Archived Runs</em></a></li>	
 </ul>
 <div class="yui-content" style="background-color:#FFFFFF;">
+
 <div>
+
 <div class="tableLabel">My Current Project Runs</div>
 
 <table style="margin-bottom:40px;" summary="project picker screen for management area">

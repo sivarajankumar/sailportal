@@ -133,6 +133,7 @@
 			<li>Each gradable step has just one score value.  If you're using a Note step with multiple sub-parts, 
 			you can indicate the value of each Part to students by embedding a statement within the individual question prompts.		
 			Ex: "(5 pts for Part 1)"
+			<li>Note that Challenge Question values can't be edited here.  To change CQ values you must customize a project using the Authoring Tool.</li>
 		</ul>
 	</div>
 
@@ -149,14 +150,22 @@
 	 <c:forEach var="someAct" varStatus="varAct" items="${eCurnitmap.project.activity}">
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
 				<c:if test="${someStep.type == 'Note' || someStep.type == 'Student Assessment'}">
-				    <tr><td><div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div></td>
+				    <tr>
+				    	<td>Activity ${someAct.number+1}: ${someAct.title}</td>
 				        <td>Step ${someStep.number+1}: ${someStep.title} (${someStep.type})</td>
 				        <td class="scoreStyle">${someStep.possibleScore}</td>
 				        <td class="scoreStyle"><form:input id="newScoreBox" path="ECurnitmap.project.activity[${varAct.index}].step[${varStep.index}].possibleScore" /></td>
-				     </tr>
+				    </tr>
 				 </c:if>
 			</c:forEach>
       </c:forEach>
+      
+      		<tr>
+      			<td></td>
+      			<td></td>
+      			<td style="text-align:center;font-weight:bold;">[SUM HERE]</td>
+      			<td></td>
+      		</tr>
 	</table>
 	<div id="editValueSaveButton">
 	  <input type="submit" value="Save New Maximum Scores" />
