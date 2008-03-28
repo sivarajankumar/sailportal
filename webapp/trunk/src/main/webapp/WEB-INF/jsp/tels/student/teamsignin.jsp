@@ -35,7 +35,7 @@
 
 </head>
 
-<body class="yui-skin-sam" onunload="opener.location.reload()">
+<body class="yui-skin-sam" onunload="opener.location.reload()" style="background-color:#333333;">
 
 <script type="text/javascript">
 
@@ -112,17 +112,16 @@
 
 	<form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" >
 			<table id="multiUserSignIn" border="0" cellspacing="0" cellpadding="2">
-		  		<tr>
-		  			<td><label for="username1">Username 1:</label></td>
-		     		<td><form:input disabled="true" path="username1" id="username1" /></td>
-		     		<td style="width:90px;" id="tableKludge1"><em>already signed in</em></td>
+		  		<tr id="multiUserSeparatorRow">
+					<td colspan=3"></td>
 				</tr>
 				<tr>
-		  			<td style="color:#666666;">Password</td>
-		     		<td style="color:#666666;">************</td>
-		     		<td style="border-right:1px solid #000000;"></td>
-		     	</tr>
-				<tr><td colspan=3 style="height:7px; background-color:#666666;"></td>
+		  			<td><label for="username1">Username 1:</label></td>
+		     		<td><form:input disabled="true" path="username1" id="username1" /></td>
+		     		<td id="teamSignMessages">already signed in</td>
+				</tr>
+				<tr id="multiUserSeparatorRow">
+					<td colspan=3"></td>
 				</tr>
 		  		<tr>
 		  		<c:forEach var="teammate_index" begin="2" end="3" step="1">
@@ -135,12 +134,19 @@
 		        	<td><form:password path="password${teammate_index}" id="password${teammate_index}"/></td>
 		        	<td class="errorMsgStyle"><form:errors path="password${teammate_index}" /></td>
 		        </tr>
-				<tr>
-					<td colspan=3 style="height:7px; background-color:#666666;"></td>
+		        <tr class="multiUserAbsentRow">
+		        	<td><a href="#">absent today</a></td>
+		        	<td></td>
+		        	<td></td>
+		        </tr>
+				<tr id="multiUserSeparatorRow">
+					<td colspan=3"></td>
 				</tr>
 		  </c:forEach>
 			</table>
 			
+	<div><a href="../forgotaccount/student/index.html" id="forgotlink">Forgot Your Username or Password?</a>  </div>
+	
 	 <div id="finalRunProjectButton" onclick="setTimeout('self.close()', 15000);">
  	    <input type="image" name=_finish" value="Run Project" id="runproject" src="../<spring:theme code="run_project" />" 
     		onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />')" 

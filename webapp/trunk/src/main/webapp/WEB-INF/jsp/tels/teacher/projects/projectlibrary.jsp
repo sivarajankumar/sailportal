@@ -56,7 +56,7 @@
 			<th>project title</th>
 			<th id="libraryProjectIDHeader">project id</th>
 			<th id="libraryKeywordHeader">keywords</th>
-			<th>grade</th>
+			<th>grade range</th>
 			<th>total</br>time</th>
 			<th>computer</br>time</th>
 			<th>usage</th>
