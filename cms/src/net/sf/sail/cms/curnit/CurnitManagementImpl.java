@@ -23,8 +23,7 @@ public class CurnitManagementImpl implements CurnitManagement {
 		return null;
 	}
 
-	public Map<String, Map<BigInteger, Curnit>> retrieveCurnit(
-			Map<String, List<BigInteger>> curnitMap)
+	public Map<String, Map<BigInteger, Curnit>> retrieveCurnit(Map<String, List<BigInteger>> curnitMap)
 			throws RetrieveCurnitException {
 		// TODO Auto-generated method stub
 		return null;
