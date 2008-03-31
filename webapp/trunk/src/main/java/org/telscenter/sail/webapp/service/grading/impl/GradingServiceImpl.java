@@ -89,36 +89,6 @@ public class GradingServiceImpl implements GradingService {
 		return curnitmap;
 	}
 
-	
-// LOOKS like this methods is not being used	
-//	/**
-//	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradeWorkByStepAggregate(java.lang.Long, org.telscenter.pas.emf.pas.EStep)
-//	 */
-//	public GradeWorkByStepAggregate getGradeWorkByStepAggregate(Long runId,
-//			EStep step) throws ObjectNotFoundException {
-//		
-//		Set<Workgroup> workgroups = runService.getWorkgroupsForOffering(runId);
-//		
-//		GradeWorkByStepAggregate aggregate = new GradeWorkByStepAggregateImpl();
-//		aggregate.setRunId(runId);
-//		aggregate.setCurnitmap(getCurnitmap(runId));
-//		aggregate.setStep(step);
-//
-//		Map<Workgroup, AnnotationBundle> annotationBundles = new HashMap<Workgroup, AnnotationBundle>();
-//		Map<Workgroup, SessionBundle> sessionBundles = new HashMap<Workgroup, SessionBundle>();
-//
-//		for (Workgroup workgroup : workgroups) {
-//			SessionBundle sessionBundle = sessionBundleService.getSessionBundles(runId, workgroup);
-//			sessionBundles.put(workgroup, sessionBundle);
-//			AnnotationBundle annotationBundle = annotationBundleService.getAnnotationBundle(workgroup);
-//			annotationBundles.put(workgroup, annotationBundle);
-//		}
-//
-//		aggregate.setAnnotationBundles(annotationBundles);
-//		aggregate.setSessionBundles(sessionBundles);
-//		return aggregate;
-//	}
-	
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradeWorkByStepAggregateAllPeriods(Long, EStep)
 	 */
