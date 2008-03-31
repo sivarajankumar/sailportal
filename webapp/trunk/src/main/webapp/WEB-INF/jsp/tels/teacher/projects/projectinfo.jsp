@@ -40,7 +40,7 @@
 
 <%@ include file="./headerteacherprojects.jsp"%>
 
-<%@ include file="./L2projects_projectlibrary.jsp"%>
+<%@ include file="../../L2blankbar.jsp"%>
 
 <h2 id="titleBar" class="headerText">Project Information Details</h2> 
 
@@ -48,34 +48,64 @@
 
 <div id="projectInfoTabs" class="yui-navset">
     <ul class="yui-nav" >
-        <li style="margin-left:2px;"><a href="#tab1"><em>overview</em></a></li>
-        <li style="margin-left:2px;"><a href="#tab2"><em>teacher guide</em></a></li>
-        <li style="margin-left:2px;"><a href="#tab3"><em>learning Goals</em></a></li>
-        <li style="margin-left:2px;"><a href="#tab4"><em>project credits</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab1"><em>overview</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab2"><em>teacher guide</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab3"><em>learning Goals</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab4"><em>project credits</em></a></li>
     </ul>            
     <div class="yui-content">
         <div id="tab1">
         
             <div id="projectInfoProjectTitle">${project.curnit.sdsCurnit.name}</div>
             
-            <table id="projectInfoActionButtons" >
+            <table id="projectInfoActionButtons"  >
             	<tr>
             		<td><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	             			Preview Project</td>
-	             	<td class="projectInfoActionButtonsSeprator"></td>
+	             			Preview <br>Project</a></td>
 	             	<td><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	             			Set Up as a Project Run</a></td>
-	             	<td class="projectInfoActionButtonsSeprator"></td>
-	             	<td><a href="#" style="color:#999999;">Create link in <em>My Bookmarked Projects<em></a></td>
-	             	<td class="projectInfoActionButtonsSeprator"></td>
+	             			Set Up as a <br>Project Run</a></td>
+	             	<td><a href="#" style="color:#999999;">Create link in <em>My Bookmarked Projects</em></a></td>
 	            	<td><a href="#" style="color:#999999;">Create editable copy in <em>My Customized Projects</em></a></td>
 	            </tr>
-	         </table>
+	         </table> 
 	    
-	    
-	    
+	    	<dl id="projectInfo">
+	    		<dt>Project Type:</dt>
+	    			<dd>[Type data here]</dd>
+	    		<dt>Project ID:</dt>
+	    			<dd>[ID data here]</dd>
+	    		<dt>Grade Range:</dt>
+	    			<dd>[data here]</dd>
+	    		<dt>Total Time:</dt>
+	    			<dd>[data here]</dd>
+	    		<dt>Computer Time:</dt>
+	    			<dd>[Need Type here]</dd>
+	    		<dt>Usage:</dt>
+	    			<dd>[Need Type here]</dd>
+	    		<dt>Contact(s):</dt>
+	    			<dd>Need one or more email links here</dd>
+	    	</dl>
+	    	
+	    <div class="projectInfoHeader">Project Summary</div>
+	    <div class="projectInfoDataBox">[SAMPLE] Dolore dolore molestie wisi feugait molestie consequat iusto praesent 
+	    nostrud zzril tincidunt consequat et zzril. Te ullamcorper volutpat tincidunt minim. Aliquip dolore lobortis 
+	    blandit esse suscipit duis magna vel odio dolore ipsum ut at magna iusto et ex ex. 
+	    Eros illum, luptatum, ea nulla, in nostrud.</div>
+
+		<div class="projectInfoHeader">Technical Requirements</div>
+	    <div class="projectInfoDataBox">
+			<ul>
+				<li>Dolor exerci nisl hendrerit illum vulputate feugait duis, nibh vulputate, veniam odio ad, qui nonummy nulla at blandit ea.</li>
+				<li>Dolore dolore molestie wisi feugait molestie consequat iusto praesent nostrud zzril tincidunt consequat et zzril</li>
+				<li>Te ullamcorper volutpat tincidunt minim. Aliquip dolore lobortis blandit esse suscipit duis magna vel odio dolore</li>
+				<li>ipsum ut at magna iusto et ex ex. Eros illum, luptatum, ea nulla, in nostrud eu consectetuer augue accumsan feugiat qui iusto consequat duis vel nulla. Consequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem, feugiat erat feugait ut vel nonummy zzril accumsan velit dolor in accumsan.
+Aliquip suscipit sit amet vero, enim duis minim in, ut duis minim tation. Sed molestie</li>
+				<li>dolor ea ut elit sed wisi et iriure nostrud vulputate illum nulla.</li>
+			</ul>
+		</div>	
+
 	         
-	    </div>
+	    </div>       <!--	    End of Tab 1 content-->
         
         <div id="tab2">
             <p>Tab Two Content</p>

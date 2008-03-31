@@ -56,16 +56,17 @@
 	<table id="overview_choices" cellspacing="20">
 		<tr>
 			<td class="link"><a href="projectlibrary.html">Project Library</a></td>
-			<td class="description">Search the extensive library of WISE and TELS projects. Find a project and set it up to run in your classroom.</td></tr>
+			<td class="description">Search the library of WISE and TELS interactive projects. Find a project and set it up as a Project Run for your classroom.</td></tr>
 		<tr>
-			<td class="link"><a href="../run/myprojectruns.html">My Project Runs</a></td>
-			<td class="description">View projects that you are currently running in your classroom and the <b>Student Codes</b> for each of these project runs.</td></tr>
+			<td class="link"><a href="../run/myprojectruns.html">My Project Runs & Student Codes</a></td>
+			<td class="description">View the projects that you are currently running in your classroom and the Student Codes for these project runs.</td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#">My Bookmarked Projects</a></td>
-			<td class="description">View library projects that you have earmarked for future use.</td></tr>
+			<td class="description">View library projects that you've earmarked for future use.</td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;"href="#">My Customized Projects</a></td>
-			<td class="description">View your customized projects. Use the Project Editor to customize Library projects or to create brand new projects.</td></tr>
+			<td class="link"><a style="color:#999999;"href="#">My Customized/Shared Projects</a></td>
+			<td class="description">View your customized projects and projects being shared with you. 
+			Use the Project Authoring Tool to edit existing projects or create new projects.</td></tr> 
 	</table>
 	
 </div>

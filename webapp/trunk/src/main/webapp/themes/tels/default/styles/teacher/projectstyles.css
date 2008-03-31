@@ -284,11 +284,11 @@ img#none{
 	border-collapse:collapse;
 	border-top:1px solid #000000;
 	border-right:2.5px outset #000000;
-	border-bottom:2.5px outset #000000; 
+	border-bottom:2.5 px outset #000000; 
 	border-left:1px solid #000000;
 	margin-bottom:20px;
-	width:960px;
-	text-align:left;
+	width:960px; 
+	text-align:left; 
 	}
 
 #libraryProjectTable th, #libraryProjectTable td  {
@@ -362,7 +362,6 @@ img#none{
 	padding:0px 5px 0px 10px;
 }
 
-
 #libraryProjectTableR3 { 
 	font-size:.80em;
 	color:#003300;
@@ -389,12 +388,12 @@ img#none{
 /* STYLES FOR PROJECT INFORMATION section */
 
 #projectInfoTabs {
-	margin: 15px 0;
+	margin: 18px 0;
 }
 
 .yui-nav  {
-	font-size:.8em;
-	letter-spacing:1px;
+	font-size:.85em;
+	font-weight:bold;
 	font-variant:small-caps;
 }
 
@@ -415,38 +414,75 @@ img#none{
 }
 
 #projectInfoActionButtons  {
-	border-collapse:collapse;
-	margin:0 0 0 20px;
+	margin:0 auto 0 auto;
 	border:0px;
-	text-decoration:none;
+	text-align:center;
+	vertical-align:middle;
 }
 
-#projectInfoActionButtons td {
-	text-align:center;
+#projectInfoActionButtons td a:link, #projectInfoActionButtons td a:visited {
+	display:block;
+	text-decoration:none;
+	line-height:100%;
 	font-size:.8em;
 	font-weight:bold;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	padding:3px 5px;
-	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
+	padding:2px 5px;
+	background-color:#CCCCFF;
 	background-position: top;
-	text-decoration:none;
 	width:160px;
+	margin:0 10px;
 }
 
-#projectInfoActionButtons a:link, #projectInfoActionButtons a:visited  {
-	
-}
-
-#projectInfoActionButtonsSeprator {
-	width
-#projectInfoActionButtons td:hover {
-	color:#000000;
+#projectInfoActionButtons td a:hover{
+	display:block;
 	background-image: none;
 	background-color:#FFFF66;	
-	    }	
+	    }	  
+	    
+#projectInfo {
+	text-align:left;
+	font-size: .9em;
+	padding:0px;
+	margin:20px 0 0 10px;
+}
+
+#projectInfo dt {
+	float:left;
+	font-weight:bold;
+	width: 150px;
+	padding:2px;
+}
+
+#projectInfo dd {
+	padding:2px;
+	width:900px;
+	color:#333333;
+}
+
+.projectInfoHeader {
+	font-size:.9em;
+	margin:20px 0 0 10px;
+	font-weight:bold;
+	}
+	 
+.projectInfoDataBox {
+	font-size:.8em;
+	margin:5px 0 0 30px; 
+	font-weight:normal;
+	}
+	
+.projectInfoDataBox ul {
+	list-style-type:circle;
+	padding:0px;
+	margin:0px;
+	}
+	
+.projectInfoDataBox li {
+	margin-left:15px;
+	}
+
     
-
-
