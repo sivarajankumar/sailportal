@@ -152,6 +152,17 @@ public interface GradingService {
 	public List<IndividualScore> getIndividualScores(GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate, HashMap<String, EStep> gradableSteps);
 	
 	/**
+	 * Returns the sum of all the grade-able items of the <code>Run</code> identified
+	 * by the runId
+	 * 
+	 * @param runId unique <code>Run</code> identifier to retrieve
+	 * @return sum of all grade-able items of the <code>Run</code> as a Float
+ 	 * @throws ObjectNotFoundException when the provided runId
+	 *     does not key to an existing <code>Run</code>
+	 */
+	public Float getTotalPossibleScore(Long runId) throws ObjectNotFoundException;
+	
+	/**
 	 * Saves the grades and comments
 	 * 
 	 * @param annotationBundles all of the annotationbundles to save

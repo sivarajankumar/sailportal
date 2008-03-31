@@ -44,6 +44,7 @@ import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
+import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.pas.emf.pas.util.CurnitmapLoader;
@@ -71,6 +72,13 @@ public class GradingServiceImpl implements GradingService {
 	private AnnotationBundleService annotationBundleService;
 	
 	private RunService runService;
+	
+	public static final ArrayList<String> gradableStepTypes = new ArrayList<String>();
+	static {
+		gradableStepTypes.add("Note");
+		gradableStepTypes.add("Student Assessment");
+		gradableStepTypes.add("CCDraw");
+	}
 	
 	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(java.lang.Long)
@@ -213,6 +221,31 @@ public class GradingServiceImpl implements GradingService {
 		}//for
 		
 		return individualScores;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getTotalPossibleScore(java.lang.Long)
+	 */
+	public Float getTotalPossibleScore(Long runId) throws ObjectNotFoundException {
+		ECurnitmap eCurnitmap = this.getCurnitmap(runId);
+		Float total = new Float(0);
+		for (Iterator iterator = eCurnitmap.getProject().getActivity().iterator(); iterator.hasNext();) {
+			EActivity foundActivity = (EActivity) iterator.next();
+			EList stepList = foundActivity.getStep();
+			//find the gradable steps
+			for (Iterator stepListIt = stepList.iterator(); stepListIt
+					.hasNext();) {
+				EStep step = (EStep) stepListIt.next();
+				
+				//if it is a gradeable record the scores
+				if (GradingServiceImpl.gradableStepTypes.contains(step.getType())) {
+					if (step.getPossibleScore() != null) {
+						total += step.getPossibleScore().floatValue();
+					}
+				}
+			}
+		}
+		return total;
 	}
 	
 	/**

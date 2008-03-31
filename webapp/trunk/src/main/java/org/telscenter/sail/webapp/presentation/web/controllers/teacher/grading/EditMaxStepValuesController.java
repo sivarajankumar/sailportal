@@ -34,8 +34,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
@@ -70,9 +72,6 @@ public class EditMaxStepValuesController extends SimpleFormController {
 		ECurnitmap eCurnitmap = gradingService.getCurnitmap(runId);
 		Curnitmap curnitmap = new CurnitmapImpl();
 		curnitmap.setECurnitmap(eCurnitmap);
-		Run run = runService.retrieveById(runId);
-		//String sdsCurnitMap = run.getSdsOffering().getSdsCurnitMap();
-		//Resource resource = eCurnitmap.eResource();
 		return curnitmap;
 	}
 	
@@ -88,13 +87,16 @@ public class EditMaxStepValuesController extends SimpleFormController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		Long runId = Long.parseLong(request.getParameter(RUNID_PARAM_NAME));
 		Run run = null;
+		Float totalPossibleScore = new Float(0);
 		try {
 			run = runService.retrieveById(runId);
+			totalPossibleScore = gradingService.getTotalPossibleScore(runId);
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		model.put("run", run);
+		model.put("totalPossibleScore", totalPossibleScore);
 		
 		return model;
 	}
@@ -114,7 +116,9 @@ public class EditMaxStepValuesController extends SimpleFormController {
 		Curnitmap curnitmap = (Curnitmap) command;
 		Long runId = Long.parseLong(request.getParameter(RUNID_PARAM_NAME));
 		runService.updateCurnitmapForOffering(runId, curnitmap.getECurnitmap());
-		return null;
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setView(new RedirectView("editmaxstepvalues.html" + "?runId=" + runId));
+		return modelAndView;
 	}
 	
 	/**

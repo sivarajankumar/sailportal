@@ -163,7 +163,7 @@
       		<tr>
       			<td></td>
       			<td></td>
-      			<td style="text-align:center;font-weight:bold;">[SUM HERE]</td>
+      			<td style="text-align:center;font-weight:bold;"><c:out value="${totalPossibleScore}" /></td>
       			<td></td>
       		</tr>
 	</table>

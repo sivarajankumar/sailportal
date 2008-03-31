@@ -133,70 +133,15 @@ public class GradingServiceImplTest extends TestCase {
 		}
 	}
 	
-//	public void testGetIndividualScore_success() {
-//		List<IndividualScore> expectedInvidualScores, actualIndividualScores = new ArrayList<IndividualScore>();
-//
-//		// populate expectedIndividualScores
-//		expectedInvidualScores = new ArrayList<IndividualScore>();
-//		IndividualScore individualScoreUser1 = new IndividualScoreImpl();
-//		individualScoreUser1.setUsername(USERNAME_USER1);
-//		expectedInvidualScores.add(individualScoreUser1);
-//
-//		IndividualScore individualScoreUser2 = new IndividualScoreImpl();
-//		individualScoreUser2.setUsername(USERNAME_USER2);
-//		expectedInvidualScores.add(individualScoreUser2);
-//
-//		
-//		Workgroup workgroup = new WorkgroupImpl();
-//		User user1 = new UserImpl();
-//		MutableUserDetails userDetails1 = new PersistentUserDetails();
-//		userDetails1.setUsername(USERNAME_USER1);
-//		user1.setUserDetails(userDetails1);
-//		User user2 = new UserImpl();
-//		MutableUserDetails userDetails2 = new PersistentUserDetails();
-//		userDetails2.setUsername(USERNAME_USER2);
-//		user2.setUserDetails(userDetails2);
-//		workgroup.addMember(user1);
-//		workgroup.addMember(user2);
-//		
-//		actualIndividualScores = gradingService.getIndividualScores(null);
-//		
-//		// test to see that expected&actual IndividualScores are equal
-//		Collections.sort(expectedInvidualScores);
-//		Collections.sort(actualIndividualScores);
-//		assertEquals(expectedInvidualScores, actualIndividualScores);
-//	}
-//	
-//	public void testGetGradeWorkByStepAggregate() 
-//	    throws ObjectNotFoundException {
-//		ECurnitmap curnitmap = null;
-//		curnitmap = gradingService.getCurnitmap(runId);
-//		EStep step = (EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1);
-//		GradeWorkByStepAggregate aggregate = gradingService.getGradeWorkByStepAggregate(runId, step);
-//		//assertEquals(curnitmap, aggregate.getCurnitmap());  this should be true, but is not because equals() method isn't implemented yet
-//		assertEquals(step, aggregate.getStep());
-//		assertNotNull(aggregate.getAnnotationBundles());
-//		assertNotNull(aggregate.getSessionBundles());
-//		
-//		User user1 = new UserImpl();
-//		String username1 = "username1";
-//		MutableUserDetails userDetails1 = new PersistentUserDetails();
-//		userDetails1.setUsername(username1);
-//		user1.setUserDetails(userDetails1);
-//		Offering offering = new OfferingImpl();
-//		Workgroup workgroup1 = new WorkgroupImpl();
-//		workgroup1.addMember(user1);
-//		workgroup1.setOffering(offering);
-//
-//		AnnotationBundle annotationBundle1 = (AnnotationBundle) aggregate.getAnnotationBundles().get(workgroup1);
-//		assertNotNull(annotationBundle1);
-//		assertEquals(workgroup1, annotationBundle1.getWorkgroup());	
-//		
-//		ESessionBundle sessionBundle1 = aggregate.getSessionBundles().get(workgroup1);
-//		assertNotNull(sessionBundle1); right now this is null
-//		assertEquals(
-//				((ESockPart) sessionBundle1.getSockParts().get(1)).getRimName(),
-//				((ERim) ((EStep) ((EActivity) curnitmap.getProject().getActivity().get(0)).getStep().get(1)).getRim().get(0)).getRimname()
-//				);
-//	}
+	public void testGetTotalPossibleScore() throws ObjectNotFoundException {
+		Run run = new RunImpl();
+		SdsOffering sdsOffering = new SdsOffering();
+		sdsOffering.setSdsCurnitMap(sdsCurnitmap);
+		run.setSdsOffering(sdsOffering);
+		ECurnitmap eCurnitmap = null;
+		expect(runService.retrieveById(runId)).andReturn(run);
+		replay(runService);
+	}
+	
+
 }
