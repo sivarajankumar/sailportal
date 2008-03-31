@@ -43,8 +43,12 @@ public interface CurnitManagement {
 	public CurnitManagementResponse updateCurnit(Curnit curnit) throws UpdateCurnitException;
 	
 	/*
-	 * Permanently remove the curnit from CMS.
+	 * Mark curnit deleted from CMS.
 	 */
 	public CurnitManagementResponse deleteCurnit(Curnit curnit) throws DeleteCurnitException;
 	
+	
+	public CurnitManagementResponse restoreCurnit(Curnit curnit);
+	
+	public CurnitManagementResponse purgeCurnit (Curnit curnit);
 }
