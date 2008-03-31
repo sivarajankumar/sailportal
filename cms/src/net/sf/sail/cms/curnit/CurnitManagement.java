@@ -22,7 +22,7 @@ public interface CurnitManagement {
 	/*
 	 * Given a Curnit object, the object is versioned and persisted in the CMS.
 	 */
-	public CurnitManagementResponse createCurnit (Curnit curnit) throws CreateCurnitException;
+	public CurnitManagementResponse createCurnit (CurnitOtmlImpl curnit) throws CreateCurnitException;
 	
 	/*
 	 * Given a list of unique curnit numbers as well as the desired versions for each
@@ -34,21 +34,26 @@ public interface CurnitManagement {
 	 * To get all the versions of a curnit send a 'NULL' as the curnit version
 	 * To get one or more specific versions of a curnit sent a list containing their version numbers.
 	 */
-	public Map<String, Map<BigInteger, Curnit>> retrieveCurnit (Map<String,List<BigInteger>> curnitMap)
+	public Map<String, Map<BigInteger, CurnitOtmlImpl>> retrieveCurnit (Map<String,List<BigInteger>> curnitMap)
 		throws RetrieveCurnitException;
 
 	/*
 	 * Update the version of the curnit in the CMS with the given curnit values
 	 */
-	public CurnitManagementResponse updateCurnit(Curnit curnit) throws UpdateCurnitException;
+	public CurnitManagementResponse updateCurnit(CurnitOtmlImpl curnit) throws UpdateCurnitException;
 	
 	/*
 	 * Mark curnit deleted from CMS.
 	 */
-	public CurnitManagementResponse deleteCurnit(Curnit curnit) throws DeleteCurnitException;
+	public CurnitManagementResponse deleteCurnit(CurnitOtmlImpl curnit) throws DeleteCurnitException;
 	
+	/*
+	 * Restore a curnit which was deleted earlier
+	 */
+	public CurnitManagementResponse restoreCurnit(CurnitOtmlImpl curnit);
 	
-	public CurnitManagementResponse restoreCurnit(Curnit curnit);
-	
-	public CurnitManagementResponse purgeCurnit (Curnit curnit);
+	/*
+	 * Permanently delete a curnit from CMS
+	 */
+	public CurnitManagementResponse purgeCurnit (CurnitOtmlImpl curnit);
 }
