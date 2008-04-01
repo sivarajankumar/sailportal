@@ -34,7 +34,7 @@ public interface CurnitManagement {
 	 * To get all the versions of a curnit send a 'NULL' as the curnit version
 	 * To get one or more specific versions of a curnit sent a list containing their version numbers.
 	 */
-	public Map<String, Map<BigInteger, CurnitOtmlImpl>> retrieveCurnit (Map<String,List<BigInteger>> curnitMap)
+	public Map<String, Map<BigInteger, ? extends Curnit>> retrieveCurnit (Map<String,List<BigInteger>> curnitMap)
 		throws RetrieveCurnitException;
 
 	/*
