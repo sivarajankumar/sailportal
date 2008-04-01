@@ -265,12 +265,12 @@
 		
 .setupProjectTitle {
 	font-size:1.4em;
-	letter-spacing;1px;
+	letter-spacing:1px;
 	font-weight:bold;
 }
 
 #setupProjectTableR1 {
-	color:#000000;
+	color:#333333;
 	background-color:#CCCCCC;
 	font-size:.9em;
 	font-weight:bold;
@@ -278,7 +278,7 @@
 		}	
 		
 #setupProjectTableR1 td {
-	padding: 5px 10px;
+	padding: 3px 8px;
 		}	
 	
 #setupProjectTableR2{
@@ -287,7 +287,7 @@
 	}	
 	
 #setupProjectTableR2 td{
-	padding: 10px;
+	padding: 3px 8px;
 	}
 	
 #setupProjectTableR3 {

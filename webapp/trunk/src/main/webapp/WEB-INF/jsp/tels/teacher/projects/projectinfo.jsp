@@ -42,7 +42,7 @@
 
 <%@ include file="../../L2blankbar.jsp"%>
 
-<h2 id="titleBar" class="headerText">Project Information Details</h2> 
+<h2 id="titleBar" class="headerText">Project Information</h2> 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
 
@@ -50,7 +50,7 @@
     <ul class="yui-nav" >
         <li style="margin-left:4px;"><a href="#tab1"><em>overview</em></a></li>
         <li style="margin-left:4px;"><a href="#tab2"><em>teacher guide</em></a></li>
-        <li style="margin-left:4px;"><a href="#tab3"><em>learning Goals</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab3"><em>learning goals</em></a></li>
         <li style="margin-left:4px;"><a href="#tab4"><em>project credits</em></a></li>
     </ul>            
     <div class="yui-content">
@@ -61,11 +61,11 @@
             <table id="projectInfoActionButtons"  >
             	<tr>
             		<td><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	             			Preview <br>Project</a></td>
+	             			PREVIEW <br>PROJECT</a></td>
 	             	<td><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	             			Set Up as a <br>Project Run</a></td>
-	             	<td><a href="#" style="color:#999999;">Create link in <em>My Bookmarked Projects</em></a></td>
-	            	<td><a href="#" style="color:#999999;">Create editable copy in <em>My Customized Projects</em></a></td>
+	             			SET UP AS A<br>PROJECT RUN</a></td>
+	             	<td><a href="#" style="color:#999999;">CREATE LINK IN <br/><em>MY BOOKMARKED PROJECTS</em></a></td>
+	            	<td><a href="#" style="color:#999999;">CREATE EDTIABLE COPY IN <em>MY CUSTOMIZED PROJECTS</em></a></td>
 	            </tr>
 	         </table> 
 	    
@@ -74,6 +74,10 @@
 	    			<dd>[Type data here]</dd>
 	    		<dt>Project ID:</dt>
 	    			<dd>[ID data here]</dd>
+	    		<dt>Subject(s):</dt>
+	    			<dd>[data here]</dd>
+	    		<dt>Keywords:</dt>
+	    			<dd>[data here]</dd>
 	    		<dt>Grade Range:</dt>
 	    			<dd>[data here]</dd>
 	    		<dt>Total Time:</dt>
@@ -108,15 +112,23 @@ Aliquip suscipit sit amet vero, enim duis minim in, ut duis minim tation. Sed mo
 	    </div>       <!--	    End of Tab 1 content-->
         
         <div id="tab2">
-            <p>Tab Two Content</p>
+            <h5>PENDING, SUMMER 2008</h5>
+            <p>This section will display a table of all steps in the project with a Teacher's Guide box per step (editable using the Authoring
+            Tool). This table will allow the author of a project to convey detailed, step-specific feedback to a teacher -- including
+           classroom setup requirements for the step, common misconceptions/mistakes students may encounter in each step, suggestions for making a step more effective,
+           answers to the typical student questions for a particular step, etc etc. </p>
+            
         </div>
         
         <div id="tab3">
-            <p>Tab Three Content</p>
+            <h5>PENDING, SUMMER 2008</h5><p>This section, editable using the Project Authoring Tool, will list all curriculum standards covered by the project, the
+            overall learning goals of the project, and the learning goals of each main Activity.</p>
         </div>
         
         <div id="tab4">
-            <p>Tab Four Content</p>
+            <h5>PENDING, SUMMER 2008</h5>
+            <p>This section will cite the original source of the project (either created from scratch by X or copied from library/custom project ID xxxxxx.
+            It will also list all registed users who contributed to the authoring of the project, sorted by frequency of involvement. </p>
         </div>
     </div>
 </div>

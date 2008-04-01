@@ -56,9 +56,9 @@
 
 <table id="setupProjectTable" border="1" cellpadding="3" cellspacing="2">
 	<tr id="setupProjectTableR1">
-		<td>Project Title</td>
+		<td style="width:40%;">Project Title</td>
 		<td>Project ID</td>
-		<td>Topics/Keywords</td>
+		<td style="width:25%;">Keywords</td>
 		<td>Grade</td>
 		<td>Total Time</td>
 		<td>Computer Time</td>

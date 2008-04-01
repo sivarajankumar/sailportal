@@ -304,7 +304,7 @@ img#none{
 	}
 	
 #libraryProjectTable th {
-	padding:0px 10px;
+	padding:0px 6px;
 	margin:0px;
 	color:#333333;
 	background-color:#CCCCCC;
@@ -314,7 +314,7 @@ img#none{
 		}	
 		
 #libraryProjectTableR1 td {
-	padding:6px 10px;
+	padding:6px 6px; 
 			}	
 	
 #libraryProjectTableR2{
@@ -348,7 +348,7 @@ img#none{
 	text-decoration:none;
 	font-style:italic;
 	font-size:1.2em;
-	width:420px;
+	width:375px;
 }
 
 #libraryProjectTableR2 td a:hover{
@@ -359,7 +359,7 @@ img#none{
 }
 
 #libraryProjectTableR2 .dataCell{
-	padding:0px 5px 0px 10px;
+	padding:0px 5px;
 }
 
 #libraryProjectTableR3 { 
@@ -392,7 +392,7 @@ img#none{
 }
 
 .yui-nav  {
-	font-size:.85em;
+	font-size:.9em;
 	font-weight:bold;
 	font-variant:small-caps;
 }
@@ -407,10 +407,10 @@ img#none{
 #projectInfoProjectTitle {
 	color:#0000CC;
 	font-weight:bold;
-	padding:10px 5px 10px 10px;
+	padding:10px 5px 14px 10px;
 	margin:0px;
 	font-style:italic;
-	font-size:1.2em;
+	font-size:1.3em;
 }
 
 #projectInfoActionButtons  {
@@ -423,17 +423,16 @@ img#none{
 #projectInfoActionButtons td a:link, #projectInfoActionButtons td a:visited {
 	display:block;
 	text-decoration:none;
-	line-height:100%;
-	font-size:.8em;
+	font-size:.70em;
 	font-weight:bold;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	padding:2px 5px;
+	padding:4px 5px;
 	background-color:#CCCCFF;
 	background-position: top;
-	width:160px;
+	width:170px;
 	margin:0 10px;
 }
 
