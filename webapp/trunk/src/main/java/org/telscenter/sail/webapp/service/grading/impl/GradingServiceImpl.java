@@ -24,7 +24,6 @@ package org.telscenter.sail.webapp.service.grading.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +38,11 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.annotation.AnnotationBundle;
 import net.sf.sail.webapp.domain.group.Group;
-import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
@@ -53,7 +52,6 @@ import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 import org.telscenter.sail.webapp.domain.grading.IndividualScore;
 import org.telscenter.sail.webapp.domain.grading.StudentScore;
-import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByStepAggregateImpl;
 import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByWorkgroupAggregateImpl;
 import org.telscenter.sail.webapp.domain.grading.impl.StudentScoreImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
@@ -65,6 +63,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * @author Hiroki Terashima
  * @version $Id$
  */
+@Transactional
 public class GradingServiceImpl implements GradingService {
 
 	private SessionBundleService sessionBundleService;
@@ -145,6 +144,7 @@ public class GradingServiceImpl implements GradingService {
 		return getGradeWorkByWorkgroupAggregate(runService.retrieveById(runId), workgroup, getCurnitmap(runId));
 	}
 
+	@Transactional(readOnly = true)
 	private GradeWorkByWorkgroupAggregate getGradeWorkByWorkgroupAggregate(
 			Run run, Workgroup workgroup, ECurnitmap curnitmap) throws ObjectNotFoundException {
 		GradeWorkByWorkgroupAggregate aggregate = 
