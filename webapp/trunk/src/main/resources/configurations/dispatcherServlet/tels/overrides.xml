@@ -98,6 +98,7 @@
     		    /teacher/projects/library/options.html=projectOptionsController
     		    /teacher/projects/projectlibrary.html=projectLibraryController
     		    /teacher/projects/projectinfo.html=projectInfoController
+    		    /teacher/projects/customized/index.html=customizedIndexController
     		    /teacher/run/myprojectruns.html=myProjectRunsController
     		    /teacher/run/myarchivedruns.html=myArchivedRunsController
     		    /teacher/run/archivedrunmanager.html=archivedRunManagerController

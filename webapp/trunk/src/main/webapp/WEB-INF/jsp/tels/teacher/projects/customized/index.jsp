@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="../../include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -17,15 +17,15 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id$ -->
+<!-- $Id: projectlibrary.jsp 1850 2008-04-01 01:22:32Z mattf $ -->
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
@@ -36,9 +36,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="./headerteacherprojects.jsp"%>
+<%@ include file="../headerteacherprojects.jsp"%> 
 
-<%@ include file="./L2projects_projectlibrary.jsp"%>
+<%@ include file="../L2projects_projectlibrary.jsp"%>
 
 <h2 id="titleBar" class="headerText"><spring:message code="curnitlist.project.library" /></h2>
  

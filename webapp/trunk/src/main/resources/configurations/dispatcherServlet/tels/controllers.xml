@@ -552,6 +552,11 @@
         <property name="projectService" ref="projectService" />
     </bean>
     
+ <bean id="customizedIndexController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.CustomizedIndexController">
+        <property name="projectService" ref="projectService" />
+    </bean>
+    
     <bean id="createProjectController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.CreateProjectController">
 		<property name="commandName" value="projectParameters" />

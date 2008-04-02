@@ -284,9 +284,9 @@ img#none{
 	border-collapse:collapse;
 	border-top:1px solid #000000;
 	border-right:2.5px outset #000000;
-	border-bottom:2.5 px outset #000000; 
+	border-bottom:2.5px outset #000000; 
 	border-left:1px solid #000000;
-	margin-bottom:20px;
+	margin-bottom:15px;
 	width:960px; 
 	text-align:left; 
 	}
@@ -334,27 +334,30 @@ img#none{
 	font-size:.7em;
 }
 
-#libraryProjectTableR2 td{
+#libraryProjectTableR2 td {
 	padding:0px;
 	margin:0px;
 	}
-	
+
+#libraryProjectTableR2 .titleCell {
+	width:400px;
+}
+
 #libraryProjectTableR2 td a:link, #libraryProjectTableR2 td a:visited {
 	display:block;
 	color:#0000CC;
 	font-weight:bold;
-	padding:10px 5px 10px 10px;
+	padding:9px 6px;
 	margin:0px;
 	text-decoration:none;
 	font-style:italic;
 	font-size:1.2em;
-	width:375px;
 }
 
-#libraryProjectTableR2 td a:hover{
+#libraryProjectTableR2 td a:hover {
 	display:block;
 	color:#000033;
-	padding:10px 5px 10px 10px;
+	padding:9px 6px;
 	background-color:#FFFF00;	
 }
 

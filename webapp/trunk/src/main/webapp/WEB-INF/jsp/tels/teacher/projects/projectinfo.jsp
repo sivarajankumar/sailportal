@@ -74,9 +74,7 @@
 	    			<dd>[Type data here]</dd>
 	    		<dt>Project ID:</dt>
 	    			<dd>[ID data here]</dd>
-	    		<dt>Subject(s):</dt>
-	    			<dd>[data here]</dd>
-	    		<dt>Keywords:</dt>
+	    		<dt style="letter-spacing:-.7px;">Subjects/Keywords:</dt>
 	    			<dd>[data here]</dd>
 	    		<dt>Grade Range:</dt>
 	    			<dd>[data here]</dd>
