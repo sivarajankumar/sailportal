@@ -459,6 +459,59 @@
 
 <br/><br/>    
 
+          <table id="customProjectTable2"  border="1" cellpadding="0" cellspacing="0" >
+				    <tr> 
+				        <th>project title</th>
+				        <td class="customProjectTitle">[Space Colony! Meiosis and Sexual Reproduction]</td>
+				    </tr>
+				    <tr>
+				    	<th>actions</th>
+				        <td >
+					      <div id="customProjectActions" class="yuimenubar yuimenubarnav customProjectsActionMenu" style="width:9%;" >
+					    			<div class="bd" >
+					        			<ul class="first-of-type"> 
+					            			<li class="yuimenubaritem first-of-type"> 
+					                			<a class="yuimenubaritemlabel" href="#actions">MENU</a>
+					           				 </li>
+					            		</ul>
+    								</div>
+						</div>
+							
+					</td>
+				   	</tr>
+				    <tr>
+				        <th>project id</th>
+				        <td class="dataText">[10324]</td>
+				    </tr>
+				    <tr>
+				        <th>created on</th>
+						<td class="dataText">[12/14/07]</td>
+					</tr>
+					<tr>	
+						<th>project source</th>
+						<td class="dataText">[UC Berkeley library project]</td>
+					</tr>	
+					<tr>
+						<th>subjects &amp; keywords</th>
+						<td class="dataText">[BIOLOGY: Meiosis, Mitosis, Evolution, Sexual Reproduction, Asexual Reproduction, Cloning, Evolution, Selection Pressure]</td>
+					</tr>
+					<tr>
+						<th>grade range</th>
+						<td class="dataText">[6,7,8,9]</td>
+					</tr>
+					<tr>	
+						<th>totaltime</th>
+						<td class="dataText">[6 periods]</td>
+					</tr>
+					<tr>
+						<th>computer time</th>
+						<td class="dataText">[5 periods]</td>
+					</tr>
+					<tr>
+						<th># of runs</th>    
+				        <td class="dataText">[97 runs]</td>
+				  	</tr>
+				</table>
   	  
 	    </div>       <!--	    End of Tab 1 content-->
         
