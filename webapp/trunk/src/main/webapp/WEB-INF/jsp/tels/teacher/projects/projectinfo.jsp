@@ -30,7 +30,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
-<title>Project Information</title>
+<title>Project Overview</title>
 
 </head>
 
@@ -42,7 +42,7 @@
 
 <%@ include file="../../L2blankbar.jsp"%>
 
-<h2 id="titleBar" class="headerText">Project Information</h2> 
+<h2 id="titleBar" class="headerText">Project Overview</h2> 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
 

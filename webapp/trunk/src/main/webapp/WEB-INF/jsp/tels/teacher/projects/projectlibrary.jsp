@@ -47,7 +47,7 @@
 	<div class="searchResultsButtons"><a href="#">New Search</a></div>
 </div>
 
-<div id="searchResultsInstructions">Click any project title below to review its <em>Project Information</em> display.</div>
+<div id="searchResultsInstructions">Click any project title below to review its <em>Project Overview</em>.</div>
   
 <c:forEach var="project" items="${projectList}">
 

@@ -39,11 +39,359 @@
 <link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="../../.././javascript/tels/yui/general.js"></script>
-<script type="text/javascript" src="../../.././javascript/tels/yui/menubar.js"></script>
 
 <title>My Customized / Shared Projects</title>
 </head>
+
+        <!-- Page-specific script -->
+
+        <script type="text/javascript">
+
+            /*
+                 Initialize and render the MenuBar when its elements are ready 
+                 to be scripted.
+            */
+
+            YAHOO.util.Event.onContentReady("customProjectActions", function () {
+
+                /*
+                     Instantiate a MenuBar:  The first argument passed to the 
+                     constructor is the id of the element in the page 
+                     representing the MenuBar; the second is an object literal 
+                     of configuration properties.
+                */
+
+                var oMenuBar = new YAHOO.widget.MenuBar("customProjectActions", { 
+                                                            autosubmenudisplay: true, 
+                                                            hidedelay: 750, 
+                                                            lazyload: true });
+
+                /*
+                     Define an array of object literals, each containing 
+                     the data necessary to create a submenu.
+                */
+
+                var aSubmenuData = [
+                
+                    {
+                        id: "actions", 
+                        itemdata: [ 
+                            { text: "edit project content", url: "#" },
+                            { text: "edit project overview", url: "#" },
+                            { text: "set up as a project run", url: "#" },
+                            { text: "preview the project", url: "#" },
+                            { text: "rename project", url: "#" },
+                            { text: "report a problem", url: "#" },
+                            { text: "archive this project", url: "#" },
+                          
+                        ]
+                    },
+
+                   
+                    
+                                   
+                ];
+
+
+                var ua = YAHOO.env.ua,
+                    oAnim;  // Animation instance
+
+
+                /*
+                     "beforeshow" event handler for each submenu of the MenuBar
+                     instance, used to setup certain style properties before
+                     the menu is animated.
+                */
+
+                function onSubmenuBeforeShow(p_sType, p_sArgs) {
+
+                    var oBody,
+                        oElement,
+                        oShadow,
+                        oUL;
+                
+
+                    if (this.parent) {
+
+                        oElement = this.element;
+
+                        /*
+                             Get a reference to the Menu's shadow element and 
+                             set its "height" property to "0px" to syncronize 
+                             it with the height of the Menu instance.
+                        */
+
+                        oShadow = oElement.lastChild;
+                        oShadow.style.height = "0px";
+
+                        
+                        /*
+                            Stop the Animation instance if it is currently 
+                            animating a Menu.
+                        */ 
+                    
+                        if (oAnim && oAnim.isAnimated()) {
+                        
+                            oAnim.stop();
+                            oAnim = null;
+                        
+                        }
+
+
+                        /*
+                            Set the body element's "overflow" property to 
+                            "hidden" to clip the display of its negatively 
+                            positioned <ul> element.
+                        */ 
+
+                        oBody = this.body;
+
+
+                        //  Check if the menu is a submenu of a submenu.
+
+                        if (this.parent && 
+                            !(this.parent instanceof YAHOO.widget.MenuBarItem)) {
+                        
+
+                            /*
+                                There is a bug in gecko-based browsers where 
+                                an element whose "position" property is set to 
+                                "absolute" and "overflow" property is set to 
+                                "hidden" will not render at the correct width when
+                                its offsetParent's "position" property is also 
+                                set to "absolute."  It is possible to work around 
+                                this bug by specifying a value for the width 
+                                property in addition to overflow.
+                            */
+
+                            if (ua.gecko) {
+                            
+                                oBody.style.width = oBody.clientWidth + "px";
+                            
+                            }
+                            
+                            
+                            /*
+                                Set a width on the submenu to prevent its 
+                                width from growing when the animation 
+                                is complete.
+                            */
+                            
+                            if (ua.ie == 7) {
+
+                                oElement.style.width = oElement.clientWidth + "px";
+
+                            }
+                        
+                        }
+
+    
+                        oBody.style.overflow = "hidden";
+
+
+                        /*
+                            Set the <ul> element's "marginTop" property 
+                            to a negative value so that the Menu's height
+                            collapses.
+                        */ 
+
+                        oUL = oBody.getElementsByTagName("ul")[0];
+
+                        oUL.style.marginTop = ("-" + oUL.offsetHeight + "px");
+                    
+                    }
+
+                }
+
+
+                /*
+                    "tween" event handler for the Anim instance, used to 
+                    syncronize the size and position of the Menu instance's 
+                    shadow and iframe shim (if it exists) with its 
+                    changing height.
+                */
+
+                function onTween(p_sType, p_aArgs, p_oShadow) {
+
+                    if (this.cfg.getProperty("iframe")) {
+                    
+                        this.syncIframe();
+                
+                    }
+                
+                    if (p_oShadow) {
+                
+                        p_oShadow.style.height = this.element.offsetHeight + "px";
+                    
+                    }
+                
+                }
+
+
+                /*
+                    "complete" event handler for the Anim instance, used to 
+                    remove style properties that were animated so that the 
+                    Menu instance can be displayed at its final height.
+                */
+
+                function onAnimationComplete(p_sType, p_aArgs, p_oShadow) {
+
+                    var oBody = this.body,
+                        oUL = oBody.getElementsByTagName("ul")[0];
+
+                    if (p_oShadow) {
+                    
+                        p_oShadow.style.height = this.element.offsetHeight + "px";
+                    
+                    }
+
+
+                    oUL.style.marginTop = "";
+                    oBody.style.overflow = "";
+                    
+
+                    //  Check if the menu is a submenu of a submenu.
+
+                    if (this.parent && 
+                        !(this.parent instanceof YAHOO.widget.MenuBarItem)) {
+
+
+                        // Clear widths set by the "beforeshow" event handler
+
+                        if (ua.gecko) {
+                        
+                            oBody.style.width = "";
+                        
+                        }
+                        
+                        if (ua.ie == 7) {
+
+                            this.element.style.width = "";
+
+                        }
+                    
+                    }
+                    
+                }
+
+
+                /*
+                     "show" event handler for each submenu of the MenuBar 
+                     instance - used to kick off the animation of the 
+                     <ul> element.
+                */
+
+                function onSubmenuShow(p_sType, p_sArgs) {
+
+                    var oElement,
+                        oShadow,
+                        oUL;
+                
+                    if (this.parent) {
+
+                        oElement = this.element;
+                        oShadow = oElement.lastChild;
+                        oUL = this.body.getElementsByTagName("ul")[0];
+                    
+
+                        /*
+                             Animate the <ul> element's "marginTop" style 
+                             property to a value of 0.
+                        */
+
+                        oAnim = new YAHOO.util.Anim(oUL, 
+                            { marginTop: { to: 0 } },
+                            .5, YAHOO.util.Easing.easeOut);
+
+
+                        oAnim.onStart.subscribe(function () {
+        
+                            oShadow.style.height = "100%";
+                        
+                        });
+    
+
+                        oAnim.animate();
+
+    
+                        /*
+                            Subscribe to the Anim instance's "tween" event for 
+                            IE to syncronize the size and position of a 
+                            submenu's shadow and iframe shim (if it exists)  
+                            with its changing height.
+                        */
+    
+                        if (YAHOO.env.ua.ie) {
+                            
+                            oShadow.style.height = oElement.offsetHeight + "px";
+
+
+                            /*
+                                Subscribe to the Anim instance's "tween"
+                                event, passing a reference Menu's shadow 
+                                element and making the scope of the event 
+                                listener the Menu instance.
+                            */
+
+                            oAnim.onTween.subscribe(onTween, oShadow, this);
+    
+                        }
+    
+
+                        /*
+                            Subscribe to the Anim instance's "complete" event,
+                            passing a reference Menu's shadow element and making 
+                            the scope of the event listener the Menu instance.
+                        */
+    
+                        oAnim.onComplete.subscribe(onAnimationComplete, oShadow, this);
+                    
+                    }
+                
+                }
+
+
+                /*
+                     Subscribe to the "beforerender" event, adding a submenu 
+                     to each of the items in the MenuBar instance.
+                */
+
+                oMenuBar.subscribe("beforeRender", function () {
+
+                    if (this.getRoot() == this) {
+
+                        this.getItem(0).cfg.setProperty("submenu", aSubmenuData[0]);
+                        this.getItem(1).cfg.setProperty("submenu", aSubmenuData[1]);
+                        this.getItem(2).cfg.setProperty("submenu", aSubmenuData[2]);
+                        this.getItem(3).cfg.setProperty("submenu", aSubmenuData[3]);
+
+                    }
+
+                });
+
+
+                /*
+                     Subscribe to the "beforeShow" and "show" events for 
+                     each submenu of the MenuBar instance.
+                */
+                
+                oMenuBar.subscribe("beforeShow", onSubmenuBeforeShow);
+                oMenuBar.subscribe("show", onSubmenuShow);
+
+
+                /*
+                     Call the "render" method with no arguments since the 
+                     markup for this MenuBar instance is already exists in 
+                     the page.
+                */
+
+                oMenuBar.render();         
+            
+            });
+
+        </script>
+
+
 
 <body class="yui-skin-sam"> 
 
@@ -71,68 +419,45 @@
       
           <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				        <th style="width:250px;" >project title</th>
-				        <th>project id</th>
-				        <th>created on</th>
-						<th>project source</th>
-						<th>subjects/keywords</th>
-						<th>grade range</th>
-						<th>total</br>time</th>
-						<th>computer</br>time</th>
-						<th>usage</th>    
-				       <th style="width:200px;">ACTIONS</th>
+				        <th>project<br>title</th>
+				        <th>project<br>id</th>
+				        <th>created<br>on</th>
+						<th>project<br>source</th>
+						<th>subjects &amp;<br>keywords</th>
+						<th>grade<br>range</th>
+						<th>total<br>time</th>
+						<th>computer<br>time</th>
+						<th>#<br>runs</th>    
+				        <th>actions</th>
 				    </tr>
 				  
 				  <tr id="customProjectR2">
-				    <td class="customProjectTitle">[Project Title here]</td>
-				    <td>[Created On Date here]</td>
-				    <td>[Project ID here]</td>
-				    <td>[Project Source here]</td>
-				    <td class="smallText">[Subjects/Keywords here]</td>
-				    <td class="smallText">Grade Range here]</td>
-				    <td class="smallText">[Total Time here ID here]</td>
-				    <td class="smallText">[Computer Time here]</td>
-				    <td class="smallText">[Usage Time here]</td>
-				    <td style="vertical-align:top; padding:1px 0;">
-					    <ul id="actionList">
-					    	<li><a style="color:#cccccc;" href="#">View Project Info</a></li>
-					    	<li><a style="color:#cccccc;" href="#">Edit Periods</a></li>
-					    	<li><a href="../grading/gradebystep.html?runId=${run.id}">Grade by Step</a></li>
-						    <li><a href="../grading/selectworkgroup.html?runId=${run.id}">Grade by Team</a></li>				    	
-					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
-					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
-					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
-					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}">Report a Problem</a></li>
-					    	<li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')">Archive this Run</a></li>
-					    </ul></td>
+				    <td class="customProjectTitle">[Space Colony! Meiosis and Sexual Reproduction]</td>
+				    <td class="dataText">[10324]</td>
+				    <td class="dataText">[12/14/07]</td>
+				    <td class="smallText1">[UC Berkeley library project]</td>
+				    <td class="smallText2">[BIOLOGY: Meiosis, Mitosis, Evolution, Sexual Reproduction, Asexual Reproduction, Cloning, Evolution, Selection Pressure]</td>
+				    <td class="dataText">[6,7,8,9]</td>
+				    <td class="dataText">[6 periods]</td>
+				    <td class="dataText">[5 periods]</td>
+				    <td class="dataText">[97 runs]</td>
+				    <td class="actionMenuButton">
+					    <div id="customProjectActions" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
+					    			<div class="bd">
+					        			<ul class="first-of-type"> 
+					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
+					                			<a class="yuimenubaritemlabel" href="#actions">MENU</a>
+					           				 </li>
+					            		</ul>
+    								</div>
+						</div>
+							
+					</td>
 				   </tr>
 			
 				</table>
 
 <br/><br/>    
-
-<div id="productsandservices" class="yuimenubar yuimenubarnav">
-    <div class="bd">
-        <ul class="first-of-type">
-            <li class="yuimenubaritem first-of-type">
-                <a class="yuimenubaritemlabel" href="#communication">Communication</a>
-            </li>
-            <li class="yuimenubaritem">
-                <a class="yuimenubaritemlabel" href="http://shopping.yahoo.com">Shopping</a>
-            </li>
-            <li class="yuimenubaritem">
-                <a class="yuimenubaritemlabel" href="http://entertainment.yahoo.com">Entertainment</a>
-            </li>
-            <li class="yuimenubaritem">
-                <a class="yuimenubaritemlabel" href="#">Information</a>
-            </li>
-        </ul>
-    </div>
-</div>
-
-
-
-
 
   	  
 	    </div>       <!--	    End of Tab 1 content-->

@@ -501,6 +501,7 @@ img#none{
 #customProjectTable {
 	border-collapse:collapse;
 	margin:5px;
+	text-align:center;
 }
 
 #customProjectTable th{
@@ -508,27 +509,38 @@ img#none{
 	color:#FFFFFF;
 	font-variant:small-caps;
 	font-size:.8em; 
-	padding: 3px 5px;
+	padding: 2px 5px;
 }
 
 #customProjectR2 td {
-	text-align:left;
-	padding:2px 3px;
+	padding:8px 8px;
 }
 
 .customProjectTitle {
-	text-align:center;
-	font-size:1.4em;
+	font-size:1.2em;
 	font-weight:bold;
 	margin:0;
-	padding:5px;
+	width:40%;
 }
 
 #customProjectR2 .dataText{
 	font-size:.8em;
 }
-#customProjectR2 .smallText{
-	font-size:.7em;
+
+#customProjectR2 .smallText1{
+	font-size:.6em;
+}
+
+#customProjectR2 .smallText2{
+	font-size:.6em;
+	width:20%; 
+}
+
+#customProjectR2 .actionMenuButton{
+	vertical-alignment:center;
+	padding:0;
+	margin:0;
+	width:10%;
 }
 
 #customProjectInfoTable {
@@ -610,3 +622,8 @@ img#none{
 	background-color:#ffff33;
 	border:1px solid #666666;
 }
+
+.customProjectsActionMenu {	
+	font-variant:small-caps;
+	font-weight:bold;
+	}
