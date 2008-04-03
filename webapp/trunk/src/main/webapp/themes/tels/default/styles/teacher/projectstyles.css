@@ -571,7 +571,6 @@ img#none{
 	font-size:.85em;
 	color:#000066;
 	margin:0 0 0 2px;
-	padding:1px 6px 1px 6px;
 	background-color:#ffff33;
 	border:1px solid #666666;
 }
@@ -582,59 +581,3 @@ img#none{
 	}
 	
 	
-/* ALTERNATE VERTICAL TABLE  */
-	
-#customProjectTable2 {
-	border-collapse:collapse;
-	margin:5px;
-	text-align:left;
-}
-
-#customProjectTable2 th{
-	background-color:#669933;
-	color:#FFFFFF;
-	font-variant:small-caps;
-	font-size:.9em; 
-	padding: 2px 6px;
-	width:8%;
-}
-
-#customProjectTable2 td {
-	padding: 2px 6px 2px 12px;
-}
-
-.customProjectTitle {
-	font-size:1.2em;
-	font-weight:bold;
-	margin:0;
-	}
-
-#customProjectTable2 .dataText{
-	font-size:.8em;
-}
-
-#customProjectTable2 .smallText1{
-	font-size:.6em;
-}
-
-#customProjectTable2 .smallText2{
-	font-size:.6em;
-	width:20%; 
-}
-
-#customProjectTable2 a:link, #customProjectTable2 a:visited, #actionList a:link, #actionList a:visited {
-	text-decoration:none;
-	font-size:.85em;
-	color:#0033CC;
-}
-
-#customProjectTable2 a:hover, #actionList a:hover {
-	font-size:.85em;
-	color:#000066;
-	background-color:#ffff33;
-}
-
-#customProjectTable2 .customProjectsActionMenu {	
-	font-variant:small-caps;
-	font-weight:bold;
-	}
