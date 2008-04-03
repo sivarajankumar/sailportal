@@ -64,7 +64,7 @@
 			<td class="link"><a style="color:#999999;" href="#">My Bookmarked Projects</a></td>
 			<td class="description">View library projects that you've earmarked for future use.</td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;"href="#">My Customized/Shared Projects</a></td>
+			<td class="link"><a href="../projects/customized/index.html">My Customized/Shared Projects</a></td> 
 			<td class="description">View your customized projects and projects being shared with you. 
 			Use the Project Authoring Tool to edit existing projects or create new projects.</td></tr> 
 	</table>

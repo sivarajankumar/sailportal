@@ -54,8 +54,9 @@
 	<table id="libraryProjectTable">
 		<tr>
 			<th>project title</th>
-			<th id="libraryProjectIDHeader">project id</th>
-			<th id="libraryKeywordHeader">subjects/keywords</th>
+			<th id="libraryProjectCol2">project id</th>
+			<th id="libraryProjectCol3">project source</th>
+			<th id="libraryProjectCol4">subjects/keywords</th>
 			<th>grade range</th>
 			<th>total</br>time</th>
 			<th>computer</br>time</th>
@@ -63,15 +64,16 @@
 		</tr>
 		<tr id="libraryProjectTableR2">
 			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.curnit.sdsCurnit.name}</a></td>
-			<td class="dataCell">[10321]</td>       		   <!--		""${project.curnit.id}""-->
-			<td class="dataCell" id="libraryKeywordData">[BIOLOGY, ENVIRONMENTAL SCIENCE, mendel, meiosis, evolution, selection pressure, Darwin, etc, etc.]</td>
+			<td class="dataCell">[10321]</td>   <!--		""${project.curnit.id}""-->
+			<td class="dataCell libraryProjectSmallText">UC Berkeley library project</td>       		   
+			<td class="dataCell libraryProjectSmallText">[BIOLOGY, ENVIRONMENTAL SCIENCE, mendel, meiosis, evolution, selection pressure, Darwin, etc, etc.]</td>
 			<td class="dataCell">[6-8]</td>              <!--		"${project.curnit.totalTime}"-->
 			<td class="dataCell">[6 periods]</td>              <!--		"${project.curnit.computerTime}"-->
 			<td class="dataCell">[5 periods]</td> 
 			<td class="dataCell">[27 runs]
 		</tr>
 		<tr id="libraryProjectTableR3">  
-			<td colspan="7">[Project Summary description goes here] Ensequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem. 
+			<td colspan="8">[Project Summary description goes here] Ensequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem. 
 			Bigus squidus doeth makeus sikus. Ex duis, vero elit suscipit, at in feugait dignissim vero zzril blanditeus.</td>
 		</tr>
 	</table>

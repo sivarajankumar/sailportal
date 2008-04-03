@@ -31,6 +31,6 @@
 		<li>
 			<a style="color:#999999;" href="#">My Bookmarked Projects</a> </li>
 		<li>
-			<a style="color:#999999;" href="#">My Customized Projects</a> </li>
+			<a href="../projects/customized/index.html">My Customized Projects</a> </li>
    </ul>
 </div>	

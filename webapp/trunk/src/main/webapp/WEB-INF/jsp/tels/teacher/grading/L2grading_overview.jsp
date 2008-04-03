@@ -23,7 +23,7 @@
 
 	<ul>
 		<li >
-			<a  class="navigationL2_grading_highlight" href="../grading/overview.html">Overview</a> </li>
+			<a class="navigationL2_grading_highlight" href="../grading/overview.html">Overview</a> </li>
        	<li>
 			<a href="../grading/projectPickerGrading.html?gradeByType=step">Grade by Step</a> </li>
 		<li>

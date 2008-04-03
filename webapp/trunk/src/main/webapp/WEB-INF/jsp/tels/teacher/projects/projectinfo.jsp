@@ -38,7 +38,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="./headerteacherprojects.jsp"%>
+<%@ include file="headerteachernohighlight.jsp"%>
 
 <%@ include file="../../L2blankbar.jsp"%>
 
@@ -70,10 +70,10 @@
 	         </table> 
 	    
 	    	<dl id="projectInfo">
-	    		<dt>Project Type:</dt>
-	    			<dd>[Type data here]</dd>
 	    		<dt>Project ID:</dt>
 	    			<dd>[ID data here]</dd>
+	    		<dt>Project Source:</dt>
+	    			<dd>[Type data here]</dd>
 	    		<dt style="letter-spacing:-.7px;">Subjects/Keywords:</dt>
 	    			<dd>[data here]</dd>
 	    		<dt>Grade Range:</dt>
@@ -84,8 +84,7 @@
 	    			<dd>[Need Type here]</dd>
 	    		<dt>Usage:</dt>
 	    			<dd>[Need Type here]</dd>
-	    		<dt>Contact(s):</dt>
-	    			<dd>Need one or more email links here</dd>
+	    		
 	    	</dl>
 	    	
 	    <div class="projectInfoHeader">Project Summary</div>
@@ -93,7 +92,10 @@
 	    nostrud zzril tincidunt consequat et zzril. Te ullamcorper volutpat tincidunt minim. Aliquip dolore lobortis 
 	    blandit esse suscipit duis magna vel odio dolore ipsum ut at magna iusto et ex ex. 
 	    Eros illum, luptatum, ea nulla, in nostrud.</div>
-
+	    
+	    <div class="projectInfoHeader">Contact(s)</div>
+	    <div class="projectInfoDataBox">[Need one or more email links here]</div>
+	    	
 		<div class="projectInfoHeader">Technical Requirements</div>
 	    <div class="projectInfoDataBox">
 			<ul>

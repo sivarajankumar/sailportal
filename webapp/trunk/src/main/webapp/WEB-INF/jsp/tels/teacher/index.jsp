@@ -28,7 +28,6 @@
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-
 <script src=".././javascript/tels/general.js" type="text/javascript" ></script>
 <script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src=".././javascript/tels/effects.js" type="text/javascript" ></script>
@@ -192,7 +191,7 @@
 			<li><a href="projects/projectlibrary.html">Project Library</a></li>
 			<li><a href="run/myprojectruns.html">My Project Runs & Student Codes</a></li>
 			<li class="inactivecolor">My Bookmarked Projects</li>
-			<li class="inactivecolor">My Customized Projects</li>
+			<li><a href="projects/customized/index.html">My Customized Projects</a></li>
 			</ul>
 		<div id="linkHeader">Grading</div>
 			<ul>

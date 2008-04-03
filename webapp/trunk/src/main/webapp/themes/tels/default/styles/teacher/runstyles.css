@@ -1,7 +1,3 @@
-#currentRunTable{
-	margin:5px;
-}  
-
 table #runContent{
 	border:1px solid #999999;
 	padding: 0 20px 20px 20px;
@@ -21,6 +17,7 @@ table #runContent{
 
 #currentRunTable {
 	border-collapse:collapse;
+	margin:5px;
 }
 
 .tableHeaderMain {

@@ -321,16 +321,20 @@ img#none{
 	font-size:.85em;
 	color:#003300;
 	}	
-	
-#libraryProjectIDHeader {
-	width:85px;
+
+#libraryProjectCol3 {
+	width:8%;
 }
 
-#libraryKeywordHeader {
+#libraryProjectCol3  {
+	width:7%;
+}
+
+#libraryProjectCol4 {
 	width:22%;  
 }
 
-#libraryKeywordData {
+.libraryProjectSmallText {
 	font-size:.7em;
 }
 
@@ -425,6 +429,7 @@ img#none{
 
 #projectInfoActionButtons td a:link, #projectInfoActionButtons td a:visited {
 	display:block;
+	color:#000000;
 	text-decoration:none;
 	font-size:.70em;
 	font-weight:bold;
@@ -434,7 +439,8 @@ img#none{
 	border-left:1px solid #666666;
 	padding:4px 5px;
 	background-color:#CCCCFF;
-	background-position: top;
+	background-image: url(../../images/textureLightBlue.png);
+	background-position: left;
 	width:170px;
 	margin:0 10px;
 }
@@ -486,5 +492,121 @@ img#none{
 .projectInfoDataBox li {
 	margin-left:15px;
 	}
-
+   
+   
+   
     
+ /* STYLES FOR MY CUSTOMIZED/SHARED PROJECTS section */
+       
+#customProjectTable {
+	border-collapse:collapse;
+	margin:5px;
+}
+
+#customProjectTable th{
+	background-color:#669933;
+	color:#FFFFFF;
+	font-variant:small-caps;
+	font-size:.8em; 
+	padding: 3px 5px;
+}
+
+#customProjectR2 td {
+	text-align:left;
+	padding:2px 3px;
+}
+
+.customProjectTitle {
+	text-align:center;
+	font-size:1.4em;
+	font-weight:bold;
+	margin:0;
+	padding:5px;
+}
+
+#customProjectR2 .dataText{
+	font-size:.8em;
+}
+#customProjectR2 .smallText{
+	font-size:.7em;
+}
+
+#customProjectInfoTable {
+	border-collapse:collapse;
+	margin:0px;
+	padding:0px;
+	width:100%;
+	}
+	
+#customProjectInfoTable .tableInnerHeader {
+	font-style:italic;
+	font-size:.8em;
+	font-weight:bold;
+	text-align:center;
+	padding: 3px 2px;
+	border-bottom:1px solid #666666;
+	border-right:1px solid #666666;
+	background-color:#CCCCCC;
+	}
+
+#customProjectInfoTable .tableInnerHeaderRight {
+	font-style:italic;
+	font-size:.8em;
+	font-weight:bold;
+	text-align:center;
+	padding: 3px 2px;
+	border-bottom:1px solid #666666;
+	border-right:0px;
+	background-color:#CCCCCC;
+}
+
+#customProjectInfoTable .tableInnerData {
+	font-size:.8em;
+	text-align:center;
+	padding: 3px 2px;
+	border-bottom:1px solid #666666;
+	border-right:1px solid #666666;
+	margin:0px;
+}
+
+#customProjectInfoTable .tableInnerDataRight {
+	font-size:.8em;
+	text-align:center;
+	padding: 3px 2px;
+	border-bottom:1px solid #666666;
+	border-right:0px;
+	margin:0px;
+}
+
+#actionList  {
+	list-style-type:none;
+	text-align:left;
+	margin:0px;
+	padding:0px;
+	}
+	
+#actionList li, #actionList ul {
+	list-style-type:none;
+	line-height:100%;
+	}
+	
+#actionList li {
+	margin: 1px 0 1px 0;
+	}
+
+#customProjectTable a:link, #customProjectTable a:visited, #actionList a:link, #actionList a:visited {
+	text-decoration:none;
+	font-size:.85em;
+	color:#0033CC;
+	margin:0 0 0 2px;
+	padding:2px 7px 2px 7px;
+}
+
+#customProjectTable a:hover, #actionList a:hover {
+	font-size:.85em;
+	color:#000066;
+	margin:0 0 0 2px;
+	padding:1px 6px 1px 6px;
+	background-color:#ffff33;
+	border:1px solid #666666;
+}

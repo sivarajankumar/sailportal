@@ -1,4 +1,4 @@
-<%@ include file="include.jsp" %>
+<%@ include file="../../include.jsp" %>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -21,21 +21,16 @@
 
 <div id="navigationL2" class="projectL2">
 
-<!--NOTE:  The UL below has a manual CSS override, to displace some weird values being injected by Ajax on this page.-->
-
-	<ul style="padding: 2px 0 5px 120px;">
+	<ul>
 		<li >
-			<a class="navigationL2leftborder" href="../projects/index.html">Overview</a> </li>
+			<a class="navigationL2leftborder" href="../index.html">Overview</a> </li>
        	<li>
-			<a href="../projects/projectlibrary.html">Project Library</a> </li>
+			<a  href="../projectlibrary.html">Project Library</a> </li>
 		<li>
-			<a class="navigationL2_projects_highlight" href="../run/myprojectruns.html">My Project Runs</a> </li>
-		
-		<li >
-			<a style="color:#999999;" href="#">My Bookmarked Projects</a></li>
-		
-		<li >
-			<a href="../projects/customized/index.html">My Customized Projects</a> </li>
+			<a href="../../run/myprojectruns.html">My Project Runs</a> </li>
+		<li>
+			<a style="color:#999999;" href="#">My Bookmarked Projects</a> </li>
+		<li>
+			<a class="navigationL2_projects_highlight" href="../../projects/customized/index.html">My Customized Projects</a> </li>
    </ul>
 </div>	
-

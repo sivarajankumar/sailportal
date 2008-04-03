@@ -23,62 +23,141 @@
 <html lang="en">
 <head>
 
+<%@ include file="../styles.jsp"%>
+
+<!-- Core + Skin CSS --> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/menu/assets/skins/sam/menu.css"> 
+	 
+<!-- Dependencies -->  
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yahoo-dom-event/yahoo-dom-event.js"></script> 
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/container/container_core-min.js"></script> 
+ 
+<!-- Source File --> 
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/menu/menu-min.js"></script> 
+
 <link href="../../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/yui/general.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/yui/menubar.js"></script>
 
-<title><spring:message code="curnitlist.project.library" /></title>
+<title>My Customized / Shared Projects</title>
 </head>
 
-<body>
+<body class="yui-skin-sam"> 
 
 <div id="centeredDiv">
 
-<%@ include file="../headerteacherprojects.jsp"%> 
+<%@ include file="headerteacherprojects.jsp"%>
 
-<%@ include file="../L2projects_projectlibrary.jsp"%>
+<%@ include file="L2projects_projectlibrary.jsp"%>
 
-<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.project.library" /></h2>
- 
-<div id="searchResultsHeading">Search Results: [xx] projects found 
-	<div class="searchResultsButtons"><a href="#">Show/Hide Descriptions</a></div>
-	<div class="searchResultsButtons"><a href="#">New Search</a></div>
+<h2 id="titleBar" class="headerText">My Customized / Shared Projects</h2> 
+
+<!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
+
+<div id="projectInfoTabs" class="yui-navset">
+    <ul class="yui-nav" >
+        <li style="margin-left:4px;"><a href="#tab1"><em>current customized projects</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab2"><em>projects shared with me</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab3"><em>archived projects</em></a></li>
+        
+    </ul>     
+           
+    <div class="yui-content" style="background-color:#FFFFFF;">
+    
+        <div id="tab1">
+      
+          <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0" >
+				    <tr>
+				        <th style="width:250px;" >project title</th>
+				        <th>project id</th>
+				        <th>created on</th>
+						<th>project source</th>
+						<th>subjects/keywords</th>
+						<th>grade range</th>
+						<th>total</br>time</th>
+						<th>computer</br>time</th>
+						<th>usage</th>    
+				       <th style="width:200px;">ACTIONS</th>
+				    </tr>
+				  
+				  <tr id="customProjectR2">
+				    <td class="customProjectTitle">[Project Title here]</td>
+				    <td>[Created On Date here]</td>
+				    <td>[Project ID here]</td>
+				    <td>[Project Source here]</td>
+				    <td class="smallText">[Subjects/Keywords here]</td>
+				    <td class="smallText">Grade Range here]</td>
+				    <td class="smallText">[Total Time here ID here]</td>
+				    <td class="smallText">[Computer Time here]</td>
+				    <td class="smallText">[Usage Time here]</td>
+				    <td style="vertical-align:top; padding:1px 0;">
+					    <ul id="actionList">
+					    	<li><a style="color:#cccccc;" href="#">View Project Info</a></li>
+					    	<li><a style="color:#cccccc;" href="#">Edit Periods</a></li>
+					    	<li><a href="../grading/gradebystep.html?runId=${run.id}">Grade by Step</a></li>
+						    <li><a href="../grading/selectworkgroup.html?runId=${run.id}">Grade by Team</a></li>				    	
+					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
+					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
+					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
+					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}">Report a Problem</a></li>
+					    	<li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')">Archive this Run</a></li>
+					    </ul></td>
+				   </tr>
+			
+				</table>
+
+<br/><br/>    
+
+<div id="productsandservices" class="yuimenubar yuimenubarnav">
+    <div class="bd">
+        <ul class="first-of-type">
+            <li class="yuimenubaritem first-of-type">
+                <a class="yuimenubaritemlabel" href="#communication">Communication</a>
+            </li>
+            <li class="yuimenubaritem">
+                <a class="yuimenubaritemlabel" href="http://shopping.yahoo.com">Shopping</a>
+            </li>
+            <li class="yuimenubaritem">
+                <a class="yuimenubaritemlabel" href="http://entertainment.yahoo.com">Entertainment</a>
+            </li>
+            <li class="yuimenubaritem">
+                <a class="yuimenubaritemlabel" href="#">Information</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<div id="searchResultsInstructions">Click any project title below to review its <em>Project Information</em> display.</div>
+
+
+
+
+  	  
+	    </div>       <!--	    End of Tab 1 content-->
+        
+        <div id="tab2">
+            <h5>Projects shared with Current User appear here.</h5>
+            <p> </p>
+        </div>
+        
+        <div id="tab3">
+            <h5>Archived versions of customizes projects go here.</h5>
+            <p> </p>
+        </div>
+        
+     
+    </div>
+</div>
   
-<c:forEach var="project" items="${projectList}">
-
-	<table id="libraryProjectTable">
-		<tr>
-			<th>project title</th>
-			<th id="libraryProjectIDHeader">project id</th>
-			<th id="libraryKeywordHeader">subjects/keywords</th>
-			<th>grade range</th>
-			<th>total</br>time</th>
-			<th>computer</br>time</th>
-			<th>usage</th>
-		</tr>
-		<tr id="libraryProjectTableR2">
-			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.curnit.sdsCurnit.name}</a></td>
-			<td class="dataCell">[10321]</td>       		   <!--		""${project.curnit.id}""-->
-			<td class="dataCell" id="libraryKeywordData">[BIOLOGY, ENVIRONMENTAL SCIENCE, mendel, meiosis, evolution, selection pressure, Darwin, etc, etc.]</td>
-			<td class="dataCell">[6-8]</td>              <!--		"${project.curnit.totalTime}"-->
-			<td class="dataCell">[6 periods]</td>              <!--		"${project.curnit.computerTime}"-->
-			<td class="dataCell">[5 periods]</td> 
-			<td class="dataCell">[27 runs]
-		</tr>
-		<tr id="libraryProjectTableR3">  
-			<td colspan="7">[Project Summary description goes here] Ensequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem. 
-			Bigus squidus doeth makeus sikus. Ex duis, vero elit suscipit, at in feugait dignissim vero zzril blanditeus.</td>
-		</tr>
-	</table>
-	
-</c:forEach>	
 	
 </div>
+
+<script type="text/javascript">
+    var tabView = new YAHOO.widget.TabView('projectInfoTabs');
+    tabView.set('activeIndex', 0);
+</script>
 
 </body>
 </html>
