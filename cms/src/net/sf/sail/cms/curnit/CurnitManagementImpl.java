@@ -1,8 +1,18 @@
 package net.sf.sail.cms.curnit;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
+
+import javax.jcr.LoginException;
+import javax.jcr.Node;
+import javax.jcr.Repository;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import javax.jcr.SimpleCredentials;
+
+import org.apache.jackrabbit.core.TransientRepository;
 
 import net.sf.sail.cms.exceptions.CreateCurnitException;
 import net.sf.sail.cms.exceptions.DeleteCurnitException;
@@ -13,35 +23,55 @@ public class CurnitManagementImpl implements CurnitManagement {
 
 	public CurnitManagementResponse createCurnit(CurnitOtmlImpl curnit)
 			throws CreateCurnitException {
-		// TODO Auto-generated method stub
+		
+		Repository repository;
+		try {
+			repository = new TransientRepository();
+			
+			// Login to the default workspace as a dummy user
+			Session session = repository.login(new SimpleCredentials("username",
+						"password".toCharArray()));
+			
+			Node node = curnit.curnitToNode(session);
+			session.save();
+			node.checkin();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LoginException e) {
+			e.printStackTrace();
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
 	public CurnitManagementResponse deleteCurnit(CurnitOtmlImpl curnit)
 			throws DeleteCurnitException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Map<String, Map<BigInteger, ? extends Curnit>> retrieveCurnit(Map<String, List<BigInteger>> curnitMap)
 			throws RetrieveCurnitException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public CurnitManagementResponse updateCurnit(CurnitOtmlImpl curnit)
 			throws UpdateCurnitException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public CurnitManagementResponse purgeCurnit(CurnitOtmlImpl curnit) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public CurnitManagementResponse restoreCurnit(CurnitOtmlImpl curnit) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
