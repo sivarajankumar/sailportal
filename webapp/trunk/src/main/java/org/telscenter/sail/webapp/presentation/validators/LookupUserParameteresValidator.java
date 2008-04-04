@@ -48,7 +48,7 @@ public class LookupUserParameteresValidator implements Validator {
 	 */
 	public void validate(Object paramsIn, Errors errors) {
 		LookupUserParameters params = (LookupUserParameters) paramsIn;
-
+		params.setUsernameToLookup(params.getUsernameToLookup().trim());
 		validateUsername(errors,params);
 		
 		if( errors.getErrorCount() != 0 )

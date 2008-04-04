@@ -68,11 +68,12 @@ public class LookupUserController extends SimpleFormController {
     	ModelAndView modelAndView = null;
 
    		User retrievedUser = userService.retrieveUserByUsername(params.getUsernameToLookup());
-   		MutableUserDetails userDetails = (MutableUserDetails)retrievedUser.getUserDetails();
+
    		if (retrievedUser == null) {
    			modelAndView = new ModelAndView(getFormView());
    			modelAndView.addObject("message", "User not found.");
    		} else {
+   	   		MutableUserDetails userDetails = (MutableUserDetails)retrievedUser.getUserDetails();
    			modelAndView = new ModelAndView(getSuccessView());
    			modelAndView.addObject("retrievedUser", retrievedUser);
    			modelAndView.addObject("userInfoMap", userDetails.getInfo());
