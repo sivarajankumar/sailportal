@@ -113,7 +113,7 @@
 
 <%@ include file="headerteachergrading.jsp"%>
 
-<%@ include file="L2grading_bystep.jsp"%>
+<%@ include file="L2grading_byvalue.jsp"%>
 
 <div id="overviewHeaderGrading">Edit Maximum Values for Graded Steps</div>
 

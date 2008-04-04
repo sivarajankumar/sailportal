@@ -408,7 +408,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 
 
 <div id="tabSystem" class="yui-navset">
-<ul class="yui-nav" style="font-size:.7em;">
+<ul class="yui-nav" style="font-size:.8em;"> 
 	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
 		<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
 	</c:forEach>

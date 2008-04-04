@@ -391,6 +391,18 @@
 
         </script>
 
+<!--USED TO SHOW/HIDE A DIV ELEMENT-->
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'none')
+          e.style.display = 'block';
+       else
+          e.style.display = 'none';
+    }
+//-->
+</script>
 
 
 <body class="yui-skin-sam"> 
@@ -416,57 +428,179 @@
     <div class="yui-content" style="background-color:#FFFFFF;">
     
         <div id="tab1">
-      
-          <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0" >
+		  
+		  <table id="customProjectsButtons"  >
+            	<tr>
+            		<td><a href="#">Sort by Title</a></td>
+	             	<td><a href="#">Sort by Topic</a></td>
+	             	<td><a href="#" onclick="toggle_visibility('toggle');">Hide/Show Summaries</a></td>
+	             	<td><a href="#">Create NEW Project</a></td>
+	            </tr>
+	         </table> 
+			
+          <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
 				    <tr>
 				        <th>project<br>title</th>
+				        <th>Main<br>Topic(s)</th>
 				        <th>project<br>id</th>
 				        <th>created<br>on</th>
 						<th>project<br>source</th>
-						<th>subjects &amp;<br>keywords</th>
 						<th>grade<br>range</th>
 						<th>total<br>time</th>
 						<th>computer<br>time</th>
-						<th>#<br>runs</th>    
-				        <th>actions</th>
+				        <th> </th>
 				    </tr>
 				  
 				  <tr id="customProjectR2">
-				    <td class="customProjectTitle">[Space Colony! Meiosis and Sexual Reproduction]</td>
-				    <td class="dataText">[10324]</td>
-				    <td class="dataText">[12/14/07]</td>
-				    <td class="smallText1">[UC Berkeley library project]</td>
-				    <td class="smallText2">[BIOLOGY: Meiosis, Mitosis, Evolution, Sexual Reproduction, Asexual Reproduction, Cloning, Evolution, Selection Pressure]</td>
-				    <td class="dataText">[6,7,8,9]</td>
-				    <td class="dataText">[6 periods]</td>
-				    <td class="dataText">[5 periods]</td>
-				    <td class="dataText">[97 runs]</td>
+				    <td class="customProjectTitle">Space Colony! Meiosis and Sexual Reproduction</td>
+				    <td class="dataText">Biology, Evolution</td>
+				    <td class="dataText">10324</td>
+				    <td class="dataText">12/14/07</td>
+				    <td class="smallText1">UC Berkeley library project</td>
+				    <td class="dataText">6,7,8,9</td>
+				    <td class="dataTime">6 hours</td>
+				    <td class="dataTime">5 hours</td>
 				    <td class="actionMenuButton">
 					    <div id="customProjectActions" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
 					    			<div class="bd">
 					        			<ul class="first-of-type"> 
 					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
-					                			<a class="yuimenubaritemlabel" href="#actions">MENU</a>
+					                			<a class="yuimenubaritemlabel" href="#actions">ACTIONS</a>
 					           				 </li>
 					            		</ul>
     								</div>
 						</div>
-							
 					</td>
 				   </tr>
-			
+				   <tr>
+				   		<td id="customProjectSummaryHeader" colspan=10>
+				   			<div><a href="#" onclick="toggle_visibility('toggle');">click here to hide/show Project Summary</a></div>
+					   		<div id="toggle">
+				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
+				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
+				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
+				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
+				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
+				   		hendrerit esse consequat exerci.</div>
+							  <div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
+				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
+				   			</div>
+				   		</td>
+				   </tr>
 				</table>
 
 	    </div>       <!--	    End of Tab 1 content-->
-        
+	        
         <div id="tab2">
-            <h5>Projects shared with Current User appear here.</h5>
-            <p> </p>
+        
+        <table id="customProjectsButtons">
+            	<tr>
+            		<td><a href="#">Sort by Title</a></td>
+	             	<td><a href="#">Sort by Topic</a></td>
+	             	<td><a href="#" onclick="toggle_visibility('toggle');">Hide/Show Summaries</a></td>
+	            </tr>
+	         </table> 
+	         
+  		<table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
+				    <tr>
+				        <th style="background-color:#0000CC;">project<br>title</th>
+				        <th style="background-color:#0000CC;">Main<br>Topic(s)</th>
+				        <th style="background-color:#0000CC;">project<br>id</th>
+				        <th style="background-color:#0000CC;">created<br>on</th>
+						<th style="background-color:#0000CC;">project<br>source</th>
+						<th style="background-color:#0000CC;">grade<br>range</th>
+						<th style="background-color:#0000CC;">total<br>time</th>
+						<th style="background-color:#0000CC;">computer<br>time</th>
+				        <th style="background-color:#0000CC;"> </th>
+				    </tr>
+				  
+				  <tr id="customProjectR2">
+				    <td class="customProjectTitle">Space Colony! Meiosis and Sexual Reproduction</td>
+				    <td class="dataText">Biology, Evolution</td>
+				    <td class="dataText">10324</td>
+				    <td class="dataText">12/14/07</td>
+				    <td class="smallText1">UC Berkeley library project</td>
+				    <td class="dataText">6,7,8,9</td>
+				    <td class="dataTime">6 hours</td>
+				    <td class="dataTime">5 hours</td>
+				    <td class="actionMenuButton">
+					    <div id="customProjectActions" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
+					    			<div class="bd">
+					        			<ul class="first-of-type"> 
+					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
+					                			<a class="yuimenubaritemlabel" href="#actions">ACTIONS</a>
+					           				 </li>
+					            		</ul>
+    								</div>
+						</div>
+					</td>
+				   </tr>
+				   <tr>
+				   		<td id="customProjectSummaryHeader" colspan=10>
+				   			<div><a href="#" onclick="toggle_visibility('toggleShared');">click here to hide/show Project Summary</a></div>
+					   		<div id="toggleSharded">
+				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
+				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
+				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
+				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
+				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
+				   		hendrerit esse consequat exerci.</div>
+							  <div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
+				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
+				   			</div>
+				   			<div id="customProjectSummaryData"><b>This Project is Being Shared By:</b>: <a href="#" style="font-size:1.2em;">Attila the Hun2</a>
+				   			</div>
+				   		</td>
+				   </tr>
+				</table>
+				
         </div>
         
         <div id="tab3">
-            <h5>Archived versions of customizes projects go here.</h5>
-            <p> </p>
+       
+          <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
+				    <tr>
+				        <th style="background-color:#CC0000;">project<br>title</th>
+				        <th style="background-color:#CC0000;">Main<br>Topic(s)</th>
+				        <th style="background-color:#CC0000;">project<br>id</th>
+				        <th style="background-color:#CC0000;">created<br>on</th>
+						<th style="background-color:#CC0000;">project<br>source</th>
+						<th style="background-color:#CC0000;">grade<br>range</th>
+						<th style="background-color:#CC0000;">total<br>time</th>
+						<th style="background-color:#CC0000;">computer<br>time</th>
+				        <th style="background-color:#CC0000;"> </th>
+				    </tr>
+				  
+				  <tr id="customProjectR2">
+				    <td class="customProjectTitle">Space Colony! Meiosis and Sexual Reproduction</td>
+				    <td class="dataText">Biology, Evolution</td>
+				    <td class="dataText">10324</td>
+				    <td class="dataText">12/14/07</td>
+				    <td class="smallText1">UC Berkeley library project</td>
+				    <td class="dataText">6,7,8,9</td>
+				    <td class="dataTime">6 hours</td>
+				    <td class="dataTime">5 hours</td>
+				    <td id="customProjectMakeCurrentLink" >
+					    <a href="#">Click here to make project Current again</a>
+    				</td>
+				   </tr>
+				   <tr>
+				   		<td id="customProjectSummaryHeader" colspan=10>
+				   			<div><a href="#" onclick="toggle_visibility('toggleArchive');">click here to hide/show Project Summary</a></div>
+					   		<div id="toggleArchive">
+				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
+				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
+				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
+				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
+				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
+				   		hendrerit esse consequat exerci.</div>
+							  <div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
+				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
+				   			</div>
+				   		</td>
+				   </tr>
+				</table>
+				
         </div>
         
      
