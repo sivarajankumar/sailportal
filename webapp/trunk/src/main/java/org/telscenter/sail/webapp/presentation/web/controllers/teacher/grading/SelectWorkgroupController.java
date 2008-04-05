@@ -23,15 +23,14 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.service.offering.OfferingService;
@@ -40,7 +39,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * A Controller for selecting workgroup to grade for
@@ -71,7 +69,7 @@ public class SelectWorkgroupController extends AbstractController {
 		Set<Group> periods = run.getPeriods();
 		
 		// sort the workgroups into periods
-		Map<Group,List<Workgroup>> periodsToWorkgroups = new HashMap<Group, List<Workgroup>>(); 
+		Map<Group,List<Workgroup>> periodsToWorkgroups = new TreeMap<Group, List<Workgroup>>(); 
 		for (Group period : periods) {
 			periodsToWorkgroups.put(period, new ArrayList<Workgroup>());
 		}
