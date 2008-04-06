@@ -89,7 +89,7 @@
 
 
 <body class="yui-skin-sam">
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="centeredDiv">
 
 <%@ include file="headerteacherprojects.jsp"%>
@@ -127,8 +127,12 @@
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.sdsOffering.name}</div>
-				      	<div id="titleSubHeader">[Library Project], [Project ID 24569]</div>
-				    	<div id="titleSubHeader">[Created 3/24/2008]</div>
+				      	<div id="titleSubHeader">[Library Project], [Project ${run.project.id}]</div>
+				    	<div id="titleSubHeader">
+				    	  [ Created 	
+				    	    <fmt:formatDate value="${run.starttime}" 
+									type="date" dateStyle="short" /> ]
+				    	</div>
 				    </td>
 				    <td style="vertical-align:top; padding:0px;">
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
