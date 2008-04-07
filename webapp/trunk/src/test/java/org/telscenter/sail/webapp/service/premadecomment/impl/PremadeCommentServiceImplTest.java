@@ -23,8 +23,25 @@
 
 package org.telscenter.sail.webapp.service.premadecomment.impl;
 
+import java.util.Set;
+import java.util.TreeSet;
+import org.easymock.EasyMock;
+
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.UserImpl;
+
+import org.telscenter.sail.webapp.dao.premadecomment.PremadeCommentDao;
 import org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentDao;
 import org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentListDao;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.PremadeCommentListParameters;
+import org.telscenter.sail.webapp.domain.impl.PremadeCommentParameters;
+import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
+import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
+import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
+import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl;
+import org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService;
 
 import junit.framework.TestCase;
 
@@ -34,45 +51,100 @@ import junit.framework.TestCase;
  */
 public class PremadeCommentServiceImplTest extends TestCase{
 	
-	private HibernatePremadeCommentDao premadeCommentDao;
+	private PremadeCommentDao mockPremadeCommentDao;
 	
-	private HibernatePremadeCommentListDao premadeCommentListDao;
+	private HibernatePremadeCommentListDao mockPremadeCommentListDao;
 	
-	private PremadeCommentServiceImplTest premadeCommentServiceImplTest;
+	private PremadeComment[] premadeComments = {new PremadeCommentImpl(), new PremadeCommentImpl(), new PremadeCommentImpl()};
+	
+	private PremadeCommentList premadeCommentList;
+	
+	private static final String[] labels = {"comment1", "comment2", "comment3", "commentList"};
+	
+	private static final String[] comments = {"good job", "try again", "do not pass go"};
+	
+	private User[] owners = {new UserImpl(), new UserImpl(), new UserImpl()};
+	
+	private Run[] runs = {new RunImpl(), new RunImpl(), new RunImpl()};
+	
+	private PremadeCommentServiceImpl premadeCommentService;
+	
+	private PremadeCommentParameters[] premadeCommentParameters;
+	
+	private PremadeCommentListParameters premadeCommentListParameters;
+	
+	private Set<PremadeComment> list;
 	
 	@Override
 	protected void setUp(){
+		premadeCommentListParameters = new PremadeCommentListParameters();
+		premadeCommentListParameters.setLabel(labels[3]);
 		
+		premadeCommentParameters = new PremadeCommentParameters[3];
+		
+		list = new TreeSet<PremadeComment>();
+		
+		for(int x = 0; x < 2; x += 1){
+			premadeComments[x].setLabel(labels[x]);
+			premadeComments[x].setComment(comments[x]);
+			premadeComments[x].setOwner(owners[x]);
+			premadeComments[x].setRun(runs[x]);
+			list.add(premadeComments[x]);
+			
+			premadeCommentParameters[x] = new PremadeCommentParameters();
+			premadeCommentParameters[x].setLabel(labels[x]);
+			premadeCommentParameters[x].setComment(comments[x]);
+			premadeCommentParameters[x].setOwner(owners[x]);
+			premadeCommentParameters[x].setRun(runs[x]);
+		}
+		premadeCommentListParameters.setList(list);
+				
+		premadeCommentService = new PremadeCommentServiceImpl();
+//		this.mockPremadeCommentDao = EasyMock.createMock(PremadeCommentDao.class);
+//		this.premadeCommentService.setPremadeCommentDao(mockPremadeCommentDao);
+//		this.mockPremadeCommentListDao = EasyMock.createMock(HibernatePremadeCommentListDao.class);
+//		this.premadeCommentService.setPremadeCommentListDao(mockPremadeCommentListDao);
 	}
 	
 	@Override
 	protected void tearDown(){
-		
-	}
-	
-	public void testSave(){
-		assertTrue(true);
+		for(int x = 0; x < 2; x += 1){
+			premadeComments[x] = null;
+			premadeCommentParameters[x] = null;
+		}
+		premadeCommentListParameters = null;
+		this.mockPremadeCommentDao = null;
+		this.mockPremadeCommentListDao = null;
 	}
 
 	/**
+	 *  Test the creation of a PremadeComment 
+	 */
+	public void testCreatePremadeComment(){
+		//this.premadeCommentService.createPremadeComment(premadeCommentParameters[0]);
+		
+		assertTrue(true);
+	}
+	
+	/**
 	 * @return the premadeCommentDao
 	 */
-	public HibernatePremadeCommentDao getPremadeCommentDao() {
-		return premadeCommentDao;
-	}
+//	public HibernatePremadeCommentDao getPremadeCommentDao() {
+//		return mockPremadeCommentDao;
+//	}
 
 	/**
 	 * @param premadeCommentDao the premadeCommentDao to set
 	 */
 	public void setPremadeCommentDao(HibernatePremadeCommentDao premadeCommentDao) {
-		this.premadeCommentDao = premadeCommentDao;
+		this.mockPremadeCommentDao = premadeCommentDao;
 	}
 
 	/**
 	 * @return the premadeCommentListDao
 	 */
 	public HibernatePremadeCommentListDao getPremadeCommentListDao() {
-		return premadeCommentListDao;
+		return mockPremadeCommentListDao;
 	}
 
 	/**
@@ -80,7 +152,7 @@ public class PremadeCommentServiceImplTest extends TestCase{
 	 */
 	public void setPremadeCommentListDao(
 			HibernatePremadeCommentListDao premadeCommentListDao) {
-		this.premadeCommentListDao = premadeCommentListDao;
+		this.mockPremadeCommentListDao = premadeCommentListDao;
 	}
 	
 }

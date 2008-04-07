@@ -20,24 +20,16 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.premadecomment;
+package org.telscenter.sail.webapp.dao.premadecomment;
 
-import org.telscenter.sail.webapp.domain.owned.Owned;
+import net.sf.sail.webapp.dao.SimpleDao;
+
+import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 
 /**
- * An Owned object with the added information of 'comment'
- * 
  * @author patrick lawler
+ *
  */
-public interface PremadeComment extends Owned{
+public interface PremadeCommentDao<T extends PremadeComment> extends SimpleDao<T>{
 
-	/**
-	 * @return the comment
-	 */
-	public String getComment();
-
-	/**
-	 * @param comment the comment to set
-	 */
-	public void setComment(String comment);
 }

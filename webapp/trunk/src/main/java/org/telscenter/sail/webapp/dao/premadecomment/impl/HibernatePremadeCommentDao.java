@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.dao.premadecomment.impl;
 
+import org.telscenter.sail.webapp.dao.premadecomment.PremadeCommentDao;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
 
@@ -32,7 +33,7 @@ import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
  * @author patrick lawler
  *
  */
-public class HibernatePremadeCommentDao extends AbstractHibernateDao<PremadeComment>{
+public class HibernatePremadeCommentDao extends AbstractHibernateDao<PremadeComment> implements PremadeCommentDao<PremadeComment>{
 	
 	private static final String FIND_ALL_QUERY = "from PremadeCommentImpl";
 
