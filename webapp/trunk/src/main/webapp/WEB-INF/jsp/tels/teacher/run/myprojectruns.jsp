@@ -153,7 +153,7 @@
 				    </td>
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
-					    	<li><a style="color:#cccccc;" href="#">View Project Info</a></li>
+					    	<li><a href="../projects/projectinfo.html?projectId=${run.project.id}">View Project Info</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Edit Periods</a></li>
 					    	<li><a href="../grading/gradebystep.html?runId=${run.id}">Grade by Step</a></li>
 						    <li><a href="../grading/selectworkgroup.html?runId=${run.id}">Grade by Team</a></li>				    	

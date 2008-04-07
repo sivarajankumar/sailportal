@@ -71,7 +71,7 @@
 	    
 	    	<dl id="projectInfo">
 	    		<dt>Project ID:</dt>
-	    			<dd>[ID data here]</dd>
+	    			<dd>${project.id}</dd>
 	    		<dt>Project Source:</dt>
 	    			<dd>[Type data here]</dd>
 	    		<dt style="letter-spacing:-.7px;">Subjects/Keywords:</dt>
