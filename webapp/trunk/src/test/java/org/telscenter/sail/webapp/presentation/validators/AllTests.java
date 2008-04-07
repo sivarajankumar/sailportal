@@ -35,7 +35,8 @@ import org.junit.runners.Suite;
 	org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentUsernameValidatorTest.class,
 	org.telscenter.sail.webapp.presentation.validators.teacher.AllTests.class,
 	org.telscenter.sail.webapp.presentation.validators.student.AllTests.class,
-	org.telscenter.sail.webapp.presentation.validators.general.contactwise.AllTests.class
+	org.telscenter.sail.webapp.presentation.validators.general.contactwise.AllTests.class,
+	org.telscenter.sail.webapp.presentation.validators.NewsItemParametersValidatorTest.class
 })
 
 public class AllTests {

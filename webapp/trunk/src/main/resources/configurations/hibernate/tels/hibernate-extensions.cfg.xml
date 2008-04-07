@@ -47,10 +47,11 @@
             class="org.telscenter.sail.webapp.domain.impl.ModuleImpl" />
         <mapping
             class="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl" />
-
         <mapping
         	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl" />
         <mapping
-        	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl" />            
+        	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl" />  
+        <mapping
+            class="org.telscenter.sail.webapp.domain.newsitem.impl.NewsItemImpl" />      
     </session-factory>
 </hibernate-configuration>

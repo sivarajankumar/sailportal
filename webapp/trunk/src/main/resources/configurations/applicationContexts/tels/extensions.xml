@@ -207,4 +207,19 @@
     <bean id="premadeCommentList" scope="prototype"
     	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl">
     </bean>
+    
+    <bean id="newsItemDao"
+    	class="org.telscenter.sail.webapp.dao.newsitem.impl.HibernateNewsItemDao">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="newsItem" scope="prototype"
+    	class="org.telscenter.sail.webapp.domain.newsitem.impl.NewsItemImpl">
+    </bean>
+    
+    <bean id="newsItemService"
+		class="org.telscenter.sail.webapp.service.newsitem.impl.NewsItemServiceImpl">
+		<property name="newsItemDao" ref="newsItemDao" />
+	</bean>
+    	
 </beans>

@@ -53,7 +53,10 @@ import org.junit.runners.Suite;
 	   org.telscenter.sail.webapp.service.module.impl.AllTests.class,
 	   org.telscenter.sail.webapp.service.student.impl.AllTests.class,
 	   org.telscenter.sail.webapp.service.project.impl.AllTests.class,
-	   org.telscenter.sail.webapp.domain.premadecomment.impl.AllTests.class
+	   org.telscenter.sail.webapp.domain.premadecomment.impl.AllTests.class,
+	   org.telscenter.sail.webapp.dao.newsitem.impl.AllTests.class,
+	   org.telscenter.sail.webapp.domain.newsitem.impl.AllTests.class,
+	   org.telscenter.sail.webapp.service.newsitem.impl.AllTests.class
 })
 
 public class AllTests {

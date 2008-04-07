@@ -11,6 +11,7 @@
     
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>
+<script type="text/javascript" src=".././javascript/tels/general.js"></script>
 
     
 <title><spring:message code="application.title" /></title>
@@ -32,7 +33,8 @@ If you see this, you have admin privileges.<br>
 
 
 <a href="manageusers.html">change any user's password</a><br>
-<a href="lookupuser.html">look up user</a>
+<a href="lookupuser.html">look up user</a><br>
+<a href="managenewsitems.html">Work with News Items</a>
 
 </body>
 </html>

@@ -155,6 +155,9 @@
 				/author/authorproject.html=authorProjectController
 				/admin/manageusers.html=viewAllUsersController
 				/admin/lookupuser.html=lookupUserController
+				/admin/addnewsitems.html=addNewsItemController
+				/admin/managenewsitems.html=listNewsItemsController
+				/admin/editnewsitem.html=editNewsItemController
     		</value>
     	</property>
     </bean>

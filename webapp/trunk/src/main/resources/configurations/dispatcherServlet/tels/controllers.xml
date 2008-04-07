@@ -54,6 +54,9 @@
 
 	<bean id="lostTeacherValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" />
+		
+	<bean id="newsItemParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.NewsItemParametersValidator" />
 
 	<bean id="lostPasswordStudentUsernameValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentUsernameValidator" />
@@ -623,5 +626,31 @@
 	<bean id="projectInfoController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectInfoController">
 	    <property name="projectService" ref="projectService" />
+	</bean>
+	
+	<bean id="addNewsItemController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.AddNewsItemController">
+		<property name="newsItemService" ref="newsItemService" />
+		<property name="formView" value="/admin/addnewsitems"/>
+		<property name="successView" value="/admin/success"/>
+		<property name="commandName" value="newsItemParameters"/>
+		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.NewsItemParameters"/>
+		<property name="validator" ref="newsItemParametersValidator"/>
+	</bean>
+	
+	<bean id="listNewsItemsController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ListNewsItemsController">
+		<property name="newsItemService" ref="newsItemService" />
+	</bean>
+	
+	<bean id="editNewsItemController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EditNewsItemController">
+		<property name="newsItemService" ref="newsItemService" />
+		<property name="formView" value="/admin/editnewsitem"/>
+		<property name="successView" value="/admin/success"/>
+		<property name="sessionForm" value="true"/>
+		<property name="commandName" value="newsItemParameters"/>
+		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.NewsItemParameters"/>
+		<property name="validator" ref="newsItemParametersValidator"/>
 	</bean>
 </beans>
