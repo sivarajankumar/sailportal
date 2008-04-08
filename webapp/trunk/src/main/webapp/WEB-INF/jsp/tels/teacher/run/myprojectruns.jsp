@@ -118,7 +118,7 @@
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:450px;"class="tableHeaderMain">Current Project Runs</th>
+				       <th style="width:450px;"class="tableHeaderMain">Project Run Title</th>
 				       <th style="width:325px;" class="tableHeaderMain">Run Information</th>      
 				       <th style="width:200px;" class="tableHeaderMain">Actions</th>
 				    </tr>
@@ -127,14 +127,11 @@
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.sdsOffering.name}</div>
-				      	<div id="titleSubHeader">[Library Project], [Project ${run.project.id}]</div>
-				    	<div id="titleSubHeader">
-				    	  [ Created 	
-				    	    <fmt:formatDate value="${run.starttime}" 
-									type="date" dateStyle="short" /> ]
-				    	</div>
-				    </td>
-				    <td style="vertical-align:top; padding:0px;">
+				      		
+				      	
+					</td>
+												
+				    <td style="vertical-align:top; padding:0px;" >
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 				          <tr>
 				            <th class="tableInnerHeader">Period</th>
@@ -150,7 +147,22 @@
 				            </tr>
 				          </c:forEach>
 				        </table>
-				    </td>
+				        
+				        <table id="runTitleTable">
+				      			<tr>
+				      				<td class="runTitleTableHeader">Project ID:</td>
+				      				<td>[11376]</td>
+				      			</tr>
+				      			<tr>
+				      				<td class="runTitleTableHeader">Project Source:</td>
+				      				<td>UC Berkeley library project</td>
+				      			</tr>
+				      			<tr>
+				      				<td class="runTitleTableHeader">Run Created:</td>
+				      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></td>
+				      			</tr>
+						</table>
+				     </td> 
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
 					    	<li><a href="../projects/projectinfo.html?projectId=${run.project.id}">View Project Info</a></li>
@@ -159,6 +171,7 @@
 						    <li><a href="../grading/selectworkgroup.html?runId=${run.id}">Grade by Team</a></li>				    	
 					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
+					    	<li><a href="../run/shareprojectrun.html">Share with Another Teacher</a></li> 
 					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}">Report a Problem</a></li>
 					    	<li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')">Archive this Run</a></li>

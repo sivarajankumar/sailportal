@@ -144,6 +144,9 @@ img#none{
 	padding:10px 0 30px 5px;
 }
 	
+#overview_choices tr  {
+	height:20%;
+}
 #overview_choices .link  {
 	font-size:1.2em;
 	font-weight:bold;
@@ -183,7 +186,7 @@ img#none{
 	font-size:.8em;
 	margin:0px;
 	padding:2px;
-	vertical-align:middle;
+	vertical-align:center;
 }
 
 .clearFloat {clear:both;}
@@ -637,3 +640,54 @@ img#none{
 #customProjectMakeCurrentLink {
 	width:100px;
 }
+
+
+
+ /* STYLES FOR MY SHARED PERMISSIONS SCREEN */
+
+.sharedprojectHeadline1 {
+	font-variant:small-caps;
+	font-weight:bold;
+	font-size:1.1em;
+	padding:0px;
+	margin:20px 0 5px 0; 
+	text-align:left;  
+}
+
+#sharedProjectPermissions {
+	border-collapse:collapse;
+	width:600px;
+	margin:6px auto;
+	border: 2px solid #000000;
+	text-align:center;
+}
+
+#sharedProjectPermissions th { 
+		font-size:.9em;
+		background-color:#CCCCCC;
+		border-bottom: 3px double #000000;
+		border-right:1px solid #000000;
+		padding: 5px;
+		}
+
+#sharedProjectPermissions td {
+		font-size:.9em;
+		border: 1px solid #000000;
+		padding:8px;
+}
+
+.sharedUserName {
+	font-weight:bold;	
+}
+
+#sharingSearchBox {
+	background-color:#666666; 
+	color:#FFFFFF;
+}
+	
+#sharingSearchBoxHelp {
+	font-size:.8em;
+	font-weight:bold;
+	margin:5px 0 7px 0;	
+}
+	

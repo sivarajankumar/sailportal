@@ -62,11 +62,11 @@
 			<td class="description">Gives a real-time overview of your class at work, with icons to summarize progress and 
 					problems per team.  Includes a <em>Pause All Screens</em> function to facilitate teacher-led discussions. </td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Exports & Reports</a></td>
-			<td class="description">Export student work as spreadsheet, print student work, print final grades.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#">Export Student Work/Grades</a></td>
+			<td class="description">Export student work or grades into spreadsheet-compatible format.</td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Manage Extra Teachers</a></td>
-			<td class="description">Allow other teachers or assistants to view, grade, and manage your Project Runs.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#">Print Student Work/Grades</a></td>
+			<td class="description">Print student work or grades in a variety of report formats.</td></tr>
 		<tr>
 			<td class="link"><a href="updatemyaccount.html">Update My Account</a></td>
 			<td class="description">Update your personal WISE account information.</td></tr>

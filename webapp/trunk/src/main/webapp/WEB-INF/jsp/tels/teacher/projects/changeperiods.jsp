@@ -26,22 +26,22 @@
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
-
+ 
 <title>Change Periods</title>
 
 </head>
 
 <body>
-<%@ include file="projectHeader.jsp"%>
-<!-- 
-<ul id="tabnav2"  >
-<li> <a href="#">Current</a></li>
-<li> <a href="#">Archived</a></li>
-</ul>
- -->
+
+<div id="centeredDiv">
+
+
+
+
  <a href="../run/myprojectruns.html">Back to My Project Runs </a>
  <h2>CHANGE PERIODS</h2>
 <div id="periods"> 

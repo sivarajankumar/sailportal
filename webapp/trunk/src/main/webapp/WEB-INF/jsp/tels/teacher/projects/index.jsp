@@ -58,13 +58,13 @@
 			<td class="link"><a href="projectlibrary.html">Project Library</a></td>
 			<td class="description">Search the library of WISE and TELS interactive projects. Find a project and set it up as a Project Run for your classroom.</td></tr>
 		<tr>
-			<td class="link"><a href="../run/myprojectruns.html">My Project Runs & Student Codes</a></td>
+			<td class="link"><a href="../run/myprojectruns.html">My Project Runs / Student Codes</a></td>
 			<td class="description">View the projects that you are currently running in your classroom and the Student Codes for these project runs.</td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#">My Bookmarked Projects</a></td>
 			<td class="description">View library projects that you've earmarked for future use.</td></tr>
 		<tr>
-			<td class="link"><a href="../projects/customized/index.html">My Customized/Shared Projects</a></td> 
+			<td class="link"><a href="../projects/customized/index.html">My Customized / Shared Projects</a></td> 
 			<td class="description">View your customized projects and projects being shared with you. 
 			Use the Project Authoring Tool to edit existing projects or create new projects.</td></tr> 
 	</table>

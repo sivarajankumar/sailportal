@@ -52,7 +52,7 @@
                  to be scripted.
             */
 
-            YAHOO.util.Event.onContentReady("customProjectActions", function () {
+            YAHOO.util.Event.onContentReady("customProjectActionsCurrent", function () {
 
                 /*
                      Instantiate a MenuBar:  The first argument passed to the 
@@ -61,9 +61,9 @@
                      of configuration properties.
                 */
 
-                var oMenuBar = new YAHOO.widget.MenuBar("customProjectActions", { 
+                var oMenuBar = new YAHOO.widget.MenuBar("customProjectActionsCurrent", { 
                                                             autosubmenudisplay: true, 
-                                                            hidedelay: 750, 
+                                                            hidedelay: 500, 
                                                             lazyload: true });
 
                 /*
@@ -74,25 +74,26 @@
                 var aSubmenuData = [
                 
                     {
-                        id: "actions", 
+                        id: "actionsCurrent", 
                         itemdata: [ 
                             { text: "edit project content", url: "#" },
                             { text: "edit project overview", url: "#" },
                             { text: "set up as a project run", url: "#" },
-                            { text: "preview the project", url: "#" },
+                            { text: "show project content", url: "#" },
+                            { text: "show project overview", url: "#" },
+                            { text: "share project",  url: "shareproject.html" },
                             { text: "rename project", url: "#" },
                             { text: "report a problem", url: "#" },
-                            { text: "archive this project", url: "#" },
-                          
+                            { text: "archive this project", url: "#" },     
                         ]
-                    },
-
-                   
-                    
-                                   
+                                      
+                    },                   
+                                             
                 ];
-
-
+                
+                
+                   
+                
                 var ua = YAHOO.env.ua,
                     oAnim;  // Animation instance
 
@@ -461,11 +462,11 @@
 				    <td class="dataTime">6 hours</td>
 				    <td class="dataTime">5 hours</td>
 				    <td class="actionMenuButton">
-					    <div id="customProjectActions" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
+					    <div id="customProjectActionsCurrent" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
 					    			<div class="bd">
 					        			<ul class="first-of-type"> 
 					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
-					                			<a class="yuimenubaritemlabel" href="#actions">ACTIONS</a>
+					                			<a class="yuimenubaritemlabel" href="#actionsCurrent">ACTIONS</a>
 					           				 </li>
 					            		</ul>
     								</div>
@@ -484,6 +485,7 @@
 				   		hendrerit esse consequat exerci.</div>
 							  <div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
 				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
+				   			<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
 				   			</div>
 				   		</td>
 				   </tr>
@@ -524,11 +526,11 @@
 				    <td class="dataTime">6 hours</td>
 				    <td class="dataTime">5 hours</td>
 				    <td class="actionMenuButton">
-					    <div id="customProjectActions" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
+					    <div id="customProjectActionsShared" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
 					    			<div class="bd">
 					        			<ul class="first-of-type"> 
 					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
-					                			<a class="yuimenubaritemlabel" href="#actions">ACTIONS</a>
+					                			<a class="yuimenubaritemlabel" href="#actionsShared">ACTIONS</a>
 					           				 </li>
 					            		</ul>
     								</div>

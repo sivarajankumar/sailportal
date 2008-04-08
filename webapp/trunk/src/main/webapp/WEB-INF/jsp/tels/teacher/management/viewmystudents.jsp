@@ -8,7 +8,6 @@
 <link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
 <title><spring:message code="viewmystudents.message" /></title>
 
@@ -18,6 +17,7 @@
 <script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>  
 <script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script> 
+<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/utils.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/teacher/management/viewmystudents.js"></script>
 

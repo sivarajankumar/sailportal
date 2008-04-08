@@ -54,12 +54,22 @@ table #runContent{
 	padding:0px;
 }
 
-#titleSubHeader {
-	text-align:center;
-	font-size:.75em;
-	color:#333333;
-	margin-top:1px;
-	padding:0px;
+#runTitleTable {
+	border-collapse:collapse;
+	border:0px;
+	text-align:left;
+	font-size:.8em;
+	color:#000000;
+	margin:15px 0 0 10px ;
+}
+
+#runTitleTable td {
+	padding:3px;
+	border:0px;
+} 
+
+.runTitleTableHeader {
+	font-weight:bold;;
 }
 
 #currentRunInfoTable {

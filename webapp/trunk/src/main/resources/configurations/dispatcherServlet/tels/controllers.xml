@@ -533,7 +533,6 @@
 		<property name="validator" ref="changePasswordParametersValidator"/>
 	</bean>
 	
-	    
     <bean id="changeWorkgroupParametersValidator"
     	class="org.telscenter.sail.webapp.presentation.validators.teacher.ChangeWorkgroupParametersValidator"/>
 
@@ -555,8 +554,18 @@
         <property name="projectService" ref="projectService" />
     </bean>
     
- <bean id="customizedIndexController"
+ 	<bean id="customizedIndexController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.CustomizedIndexController">
+        <property name="projectService" ref="projectService" />
+    </bean>
+    
+    <bean id="shareProjectController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.ShareProjectController">
+        <property name="projectService" ref="projectService" />
+    </bean>
+    
+    <bean id="shareProjectRunController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ShareProjectRunController">
         <property name="projectService" ref="projectService" />
     </bean>
     
