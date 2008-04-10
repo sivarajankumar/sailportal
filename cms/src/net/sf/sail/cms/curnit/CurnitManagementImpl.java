@@ -34,7 +34,6 @@ import net.sf.sail.cms.exceptions.CreateCurnitException;
 import net.sf.sail.cms.exceptions.DeleteCurnitException;
 import net.sf.sail.cms.exceptions.RetrieveCurnitException;
 import net.sf.sail.cms.exceptions.UpdateCurnitException;
-import net.sf.sail.cms.util.RepositoryUtil;
 
 public class CurnitManagementImpl implements CurnitManagement {	
 	
