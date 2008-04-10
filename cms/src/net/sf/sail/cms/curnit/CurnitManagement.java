@@ -1,11 +1,9 @@
 package net.sf.sail.cms.curnit;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
 import net.sf.sail.cms.exceptions.CreateCurnitException;
-import net.sf.sail.cms.exceptions.CurnitManagementExceptions;
 import net.sf.sail.cms.exceptions.DeleteCurnitException;
 import net.sf.sail.cms.exceptions.RetrieveCurnitException;
 import net.sf.sail.cms.exceptions.UpdateCurnitException;
@@ -22,7 +20,7 @@ public interface CurnitManagement {
 	/*
 	 * Given a Curnit object, the object is versioned and persisted in the CMS.
 	 */
-	public CurnitManagementResponse createCurnit (CurnitOtmlImpl curnit) throws CreateCurnitException;
+	public CurnitManagementResponse createCurnit (CurnitOtmlImpl curnit, String user, String password) throws CreateCurnitException;
 	
 	/*
 	 * Given a list of unique curnit numbers as well as the desired versions for each
@@ -34,7 +32,8 @@ public interface CurnitManagement {
 	 * To get all the versions of a curnit send a 'NULL' as the curnit version
 	 * To get one or more specific versions of a curnit sent a list containing their version numbers.
 	 */
-	public Map<String, Map<BigInteger, ? extends Curnit>> retrieveCurnit (Map<String,List<BigInteger>> curnitMap)
+	public Map<String, List<CurnitOtmlImpl>> retrieveCurnit (Map<String,List<Float>> curnitMap, 
+			String user, String password)
 		throws RetrieveCurnitException;
 
 	/*
@@ -45,7 +44,7 @@ public interface CurnitManagement {
 	/*
 	 * Mark curnit deleted from CMS.
 	 */
-	public CurnitManagementResponse deleteCurnit(CurnitOtmlImpl curnit) throws DeleteCurnitException;
+	public CurnitManagementResponse deleteCurnit(CurnitOtmlImpl curnit, String user, String password) throws DeleteCurnitException;
 	
 	/*
 	 * Restore a curnit which was deleted earlier
@@ -56,4 +55,5 @@ public interface CurnitManagement {
 	 * Permanently delete a curnit from CMS
 	 */
 	public CurnitManagementResponse purgeCurnit (CurnitOtmlImpl curnit);
+	
 }

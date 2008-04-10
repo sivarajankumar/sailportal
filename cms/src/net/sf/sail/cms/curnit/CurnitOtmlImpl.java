@@ -1,13 +1,7 @@
 package net.sf.sail.cms.curnit;
 
-import java.io.File;
-import java.util.Date;
-import java.util.List;
-
-import javax.jcr.Node;
-
 import org.apache.jackrabbit.ocm.mapper.impl.annotation.Field;
-import org.apache.jackrabbit.ocm.mapper.impl.annotation.Collection;
+import org.apache.jackrabbit.ocm.mapper.impl.annotation.Node;
 
 /**
  * @author rokham
@@ -15,22 +9,15 @@ import org.apache.jackrabbit.ocm.mapper.impl.annotation.Collection;
  *
  */
 
-@org.apache.jackrabbit.ocm.mapper.impl.annotation.Node (jcrMixinTypes="mix:versionable")
-public class CurnitOtmlImpl implements Curnit{
+@Node
+public class CurnitOtmlImpl{
 	
 	// Unique number defining each curnit
-	@Field(path=true, uuid=true) private String number;
+	@Field(path=true) String name;
 	
 	// Name given to the curnit by the author
-	@Field private String name;
+	@Field String title;
 
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
 
 	public String getName() {
 		return name;
@@ -40,35 +27,14 @@ public class CurnitOtmlImpl implements Curnit{
 		this.name = name;
 	}
 
-	public String getCurnitComment() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getCurnitName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getCurnitNumber() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setCurnitComment(String comment) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setCurnitName(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setCurnitNumber(String number) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	// Comment added to each submitted version of the curnit 
 //	private String comment;
@@ -130,7 +96,7 @@ public class CurnitOtmlImpl implements Curnit{
 
 
 	public String toString(){
-		return "Name is:\t" + this.getName() + "\n Number is:\t" + this.getNumber();
+		return "Name is:\t" + this.getName() + "\n Number is:\t" + this.getTitle();
 	}
 
 
