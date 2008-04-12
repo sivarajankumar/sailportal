@@ -4,7 +4,7 @@
         OPTLOCK integer,
         class varchar(255) not null unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table acl_entry (
         id bigint not null auto_increment,
@@ -14,11 +14,11 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        sid bigint not null,
         acl_object_identity bigint not null,
+        sid bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table acl_object_identity (
         id bigint not null auto_increment,
@@ -26,12 +26,12 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        owner_sid bigint,
         object_id_class bigint not null,
+        owner_sid bigint,
         parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table acl_sid (
         id bigint not null auto_increment,
@@ -40,7 +40,7 @@
         sid varchar(255) not null,
         primary key (id),
         unique (sid, principal)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table annotationBundles (
         id bigint not null auto_increment,
@@ -48,21 +48,21 @@
         bundle longtext not null,
         workgroup_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table curnits (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_curnit_fk bigint not null unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table granted_authorities (
         id bigint not null auto_increment,
         OPTLOCK integer,
         authority varchar(255) not null unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table groups (
         id bigint not null auto_increment,
@@ -70,27 +70,27 @@
         name varchar(255) not null,
         parent_fk bigint,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table groups_related_to_users (
         group_fk bigint not null,
         user_fk bigint not null,
         primary key (group_fk, user_fk)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table jnlps (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_jnlp_fk bigint not null unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table offerings (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_offering_fk bigint not null unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_curnits (
         id bigint not null auto_increment,
@@ -99,7 +99,7 @@
         name varchar(255) not null,
         url varchar(255) not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_jnlps (
         id bigint not null auto_increment,
@@ -108,7 +108,7 @@
         name varchar(255) not null,
         url varchar(255) not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_offerings (
         id bigint not null auto_increment,
@@ -119,7 +119,7 @@
         sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_users (
         id bigint not null auto_increment,
@@ -128,7 +128,7 @@
         first_name varchar(255) not null,
         last_name varchar(255) not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_workgroups (
         id bigint not null auto_increment,
@@ -138,13 +138,13 @@
         sds_sessionbundle longtext,
         sds_offering_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_workgroups_related_to_sds_users (
         sds_workgroup_fk bigint not null,
         sds_user_fk bigint not null,
         primary key (sds_workgroup_fk, sds_user_fk)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table user_details (
         id bigint not null auto_increment,
@@ -157,36 +157,30 @@
         credentials_not_expired bit not null,
         enabled bit not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table user_details_related_to_roles (
         user_details_fk bigint not null,
         granted_authorities_fk bigint not null,
         primary key (user_details_fk, granted_authorities_fk)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_workgroup_fk bigint not null unique,
         group_fk bigint not null,
+        sds_workgroup_fk bigint not null unique,
         offering_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
-
-    alter table acl_entry 
-        add index FK5302D47DC9975936 (acl_object_identity), 
-        add constraint FK5302D47DC9975936 
-        foreign key (acl_object_identity) 
-        references acl_object_identity (id);
+    ) type=InnoDB;
 
     alter table acl_entry 
         add index FK5302D47D9A4DE79D (sid), 
@@ -194,11 +188,11 @@
         foreign key (sid) 
         references acl_sid (id);
 
-    alter table acl_object_identity 
-        add index FK2A2BB0099B5E7811 (owner_sid), 
-        add constraint FK2A2BB0099B5E7811 
-        foreign key (owner_sid) 
-        references acl_sid (id);
+    alter table acl_entry 
+        add index FK5302D47DC9975936 (acl_object_identity), 
+        add constraint FK5302D47DC9975936 
+        foreign key (acl_object_identity) 
+        references acl_object_identity (id);
 
     alter table acl_object_identity 
         add index FK2A2BB009BDC00DA1 (parent_object), 
@@ -211,6 +205,12 @@
         add constraint FK2A2BB0092458F1A3 
         foreign key (object_id_class) 
         references acl_class (id);
+
+    alter table acl_object_identity 
+        add index FK2A2BB0099B5E7811 (owner_sid), 
+        add constraint FK2A2BB0099B5E7811 
+        foreign key (owner_sid) 
+        references acl_sid (id);
 
     alter table annotationBundles 
         add index FKD986A02F54443B2 (workgroup_fk), 
@@ -231,16 +231,16 @@
         references groups (id);
 
     alter table groups_related_to_users 
-        add index FK3311F7E356CA53B6 (user_fk), 
-        add constraint FK3311F7E356CA53B6 
-        foreign key (user_fk) 
-        references users (id);
-
-    alter table groups_related_to_users 
         add index FK3311F7E3895EAE0A (group_fk), 
         add constraint FK3311F7E3895EAE0A 
         foreign key (group_fk) 
         references groups (id);
+
+    alter table groups_related_to_users 
+        add index FK3311F7E356CA53B6 (user_fk), 
+        add constraint FK3311F7E356CA53B6 
+        foreign key (user_fk) 
+        references users (id);
 
     alter table jnlps 
         add index FK6095FABA532A941 (sds_jnlp_fk), 
@@ -309,6 +309,12 @@
         references sds_users (id);
 
     alter table workgroups 
+        add index FKEC8E5025895EAE0A (group_fk), 
+        add constraint FKEC8E5025895EAE0A 
+        foreign key (group_fk) 
+        references groups (id);
+
+    alter table workgroups 
         add index FKEC8E50255AAC23E7 (sds_workgroup_fk), 
         add constraint FKEC8E50255AAC23E7 
         foreign key (sds_workgroup_fk) 
@@ -319,9 +325,3 @@
         add constraint FKEC8E502553AE0756 
         foreign key (offering_fk) 
         references offerings (id);
-
-    alter table workgroups 
-        add index FKEC8E5025895EAE0A (group_fk), 
-        add constraint FKEC8E5025895EAE0A 
-        foreign key (group_fk) 
-        references groups (id);
