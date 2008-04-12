@@ -37,5 +37,9 @@ public interface UserDetailsService extends
 	public static final String STUDENT_ROLE = "ROLE_STUDENT";
 	
 	public static final String AUTHOR_ROLE = "ROLE_AUTHOR";
+	
+	public static final String RUN_GRADE_ROLE = "ROLE_RUN_GRADE";
+	
+	public static final String RUN_READ_ROLE = "ROLE_RUN_READ";
 
 }

@@ -90,6 +90,15 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Transient
 	private static final String PROJECTS_JOIN_COLUMN_NAME = "project_fk";
+    
+    @Transient
+    public static final String SHARED_OWNERS = "shared_owners";
+    
+    @Transient
+    public static final String SHARED_OWNERS_JOIN_TABLE_NAME = "runs_related_to_shared_owners";
+    
+    @Transient
+    public static final String SHARED_OWNERS_JOIN_COLUMN_NAME = "shared_owners_fk";
 
     @Transient
     public static final long serialVersionUID = 1L;
@@ -115,6 +124,10 @@ public class RunImpl extends OfferingImpl implements Run {
     @ManyToOne(targetEntity = ProjectImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = PROJECTS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private Project project;
+    
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = SHARED_OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SHARED_OWNERS_JOIN_COLUMN_NAME, nullable = false))
+    private Set<User> sharedowners = new TreeSet<User>();
 
     /**
      * @return the endtime
@@ -242,5 +255,19 @@ public class RunImpl extends OfferingImpl implements Run {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#getSharedOwners()
+	 */
+	public Set<User> getSharedOwners() {
+		return sharedowners;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#setSharedOwners(Set<User>)
+	 */
+	public void setSharedOwners(Set<User> sharedOwners) {
+		this.sharedowners = sharedOwners;		
 	}
 }

@@ -134,4 +134,13 @@ public interface RunService extends OfferingService {
      *         <code>Long</code> periodId to which all returned workgroups belong
      */
     public Set<Workgroup> getWorkgroups(Long runId, Long periodId) throws ObjectNotFoundException;
+    
+    /**
+     * 
+     * @param runId
+     * @param userId
+     * @param roles
+     * @throws ObjectNotFoundException when either run, user or a role is not found
+     */
+    public void addRolesToSharedTeacher(Long runId, Long userId, Set<String> roles) throws ObjectNotFoundException;
 }

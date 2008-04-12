@@ -129,6 +129,8 @@
     		    /teacher/management/updatemyaccount.html=updateMyAccountController
     		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
     		    /teacher/management/studentinfo.html=studentInfoController
+    		    /teacher/management/manageextrateachers.html=manageExtraTeachersController
+    		    /teacher/management/addsharedteacher1.html=addSharedTeacherController
     		    /teacher/help/overview.html=overviewHelpController
     		    /teacher/help/main.html=mainHelpController
     		    /teacher/help/contactwise.html=contactWiseController

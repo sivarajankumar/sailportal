@@ -175,6 +175,7 @@
 					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}">Report a Problem</a></li>
 					    	<li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')">Archive this Run</a></li>
+					    	<li><a href="../management/manageextrateachers.html?runId=${run.id}">Manage Extra Teachers</a></li>
 					    </ul>
 					</td>
 				   </tr>

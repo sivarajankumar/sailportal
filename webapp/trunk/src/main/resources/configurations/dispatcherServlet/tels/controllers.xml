@@ -662,4 +662,9 @@
 		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.NewsItemParameters"/>
 		<property name="validator" ref="newsItemParametersValidator"/>
 	</bean>
+	
+	<bean id="manageExtraTeachersController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManageExtraTeachersController">
+		<property name="runService" ref="runService"/>
+	</bean>
 </beans>

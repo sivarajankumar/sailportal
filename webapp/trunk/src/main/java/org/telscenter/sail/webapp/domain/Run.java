@@ -36,7 +36,7 @@ import net.sf.sail.webapp.domain.group.Group;
  * offering becomes available for the students
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public interface Run extends Offering {
 
@@ -144,4 +144,18 @@ public interface Run extends Offering {
 	 */
 	public Group getPeriodOfStudent(User studentUser);
 	
+	
+	/**
+	 * Returns the shared owners for this run
+	 * 
+	 * @return <code>Set<User></code>
+	 */
+	public Set<User> getSharedOwners();
+	
+	/**
+	 * Sets the shared owners for this run
+	 * 
+	 * @param sharedOwners <code>Set<User></code>
+	 */
+	public void setSharedOwners(Set<User> sharedOwners);
 }
