@@ -25,20 +25,22 @@
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>
 <script type="text/javascript" src=".././javascript/tels/general.js"></script>
     
-<title><spring:message code="application.title" /></title>
+<title>Add Shared Teacher</title>
 
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 </head>
 <body>
 
-Step 1: Type in the name of the teacher you wish to grant permissions
-	
-	<form:form method="post" commandName="lookupUserParameters">
-		Please Type in Username: 
-		<input type="text" name="usernameToLookup"/>
-		<input type="image" id="save" src="../../<spring:theme code="register_save" />" 
-	    	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"   />
-		
-	</form:form>
+Step 2: Check the permissions you want to grant to this user: ${sharedOwner.userDetails.firstname} ${sharedOwner.userDetails.lastname} to have
+<form:form method="post" commandName="addSharedTeacherParameters">
+	        <c:forEach items="${runpermissions}" var="runpermission">
+	          <form:checkbox path="newRoles" value="${runpermission}" /> ${runpermission}<br/>
+	        </c:forEach>
+<div class="center">
+<input type="submit" name="_target1" value="back" />
+<input type="submit" name="_cancel" value="cancel" />
+<input type="submit" name="_finish" value="submit" />
+</div>
+</form:form>
 </body>
 </html>

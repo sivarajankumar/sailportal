@@ -54,9 +54,6 @@
 
 	<bean id="lostTeacherValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostTeacherValidator" />
-		
-	<bean id="newsItemParametersValidator"
-		class="org.telscenter.sail.webapp.presentation.validators.NewsItemParametersValidator" />
 
 	<bean id="lostPasswordStudentUsernameValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentUsernameValidator" />
@@ -355,6 +352,10 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateMyAccountController">
 	</bean>
 
+	<bean id="updateTeacherAccountController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateTeacherAccountController">
+	</bean>
+	
 	<bean id="mainHelpController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.MainHelpController">
 	</bean>
@@ -636,7 +637,7 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectInfoController">
 	    <property name="projectService" ref="projectService" />
 	</bean>
-	
+<!-- 	
 	<bean id="addNewsItemController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.AddNewsItemController">
 		<property name="newsItemService" ref="newsItemService" />
@@ -662,9 +663,18 @@
 		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.NewsItemParameters"/>
 		<property name="validator" ref="newsItemParametersValidator"/>
 	</bean>
-	
+ -->	
 	<bean id="manageExtraTeachersController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManageExtraTeachersController">
 		<property name="runService" ref="runService"/>
+	</bean>
+	
+	<bean id="addSharedTeacherController"
+			class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.AddSharedTeacherController">
+	    <property name="runService" ref="runService" />
+	    <property name="userService" ref="userService" />
+		<property name="commandName" value="addSharedTeacherParameters" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters" />
 	</bean>
 </beans>

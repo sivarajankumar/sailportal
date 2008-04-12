@@ -18,7 +18,7 @@ Manage Extra Teachers!
 <br>
 <br>
 
-<a href="addsharedteacher.html">Add a shared teacher</a>
+<a href="addsharedteacher.html?runId=${run.id}">Add a shared teacher</a>
 
 <br>
 Shared Teachers associated with Run:

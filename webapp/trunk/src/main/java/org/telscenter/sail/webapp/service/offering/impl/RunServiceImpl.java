@@ -39,11 +39,13 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
+import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
@@ -285,5 +287,31 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 			}
 		}
 		return returnSet;
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addSharedTeacherToRun(java.lang.Long, java.lang.Long)
+	 */
+	public void addSharedTeacherToRun(Long runId, Long userId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addRolesToSharedTeacher(java.lang.Long, java.lang.Long, java.util.Set)
+	 */
+	public void addRolesToSharedTeacher(Long runId, Long userId,
+			Set<String> roles) throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addSharedTeacherToRun(org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters)
+	 */
+	public void addSharedTeacherToRun(
+			AddSharedTeacherParameters addSharedTeacherParameters) {
+		// TODO Auto-generated method stub
+		System.out.println("no implemented");
 	}
 }

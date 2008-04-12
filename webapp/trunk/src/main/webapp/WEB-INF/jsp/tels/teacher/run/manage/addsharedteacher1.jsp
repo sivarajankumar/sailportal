@@ -25,25 +25,22 @@
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>
 <script type="text/javascript" src=".././javascript/tels/general.js"></script>
     
-<title><spring:message code="application.title" /></title>
+<title>Add Shared Teacher</title>
 
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 </head>
 <body>
 
-Step 2: Check the permissions you wish 
-<br>
-${sharedOwner.userDetails.firstname} ${sharedOwner.userDetails.lastname} to have
+Step 1: Type in the name of the teacher you wish to grant permissions
+	
+<form:form method="post" commandName="addSharedTeacherParameters">
+	<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" size="25"/>
+<div class="center">
+<input type="submit" name="_target0" value="back" />
+<input type="submit" name="_cancel" value="cancel" />
+<input type="submit" name="_target1" value="next" />
+</div>
 
-	<c:choose>
-		<c:when test="${fn:length(allRoles) == 0}">
-			No roles available
-		</c:when>
-		<c:otherwise>
-	        <c:forEach items="${allRoles}" var="role">
-	          <form:checkbox path="${allRoles}" value="${role}" /> ${role}<br/>
-	        </c:forEach> 
-		</c:otherwise>
-	</c:choose>
+</form:form>
 </body>
 </html>

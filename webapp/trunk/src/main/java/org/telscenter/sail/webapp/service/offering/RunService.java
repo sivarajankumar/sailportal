@@ -31,6 +31,7 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
 /**
@@ -136,7 +137,14 @@ public interface RunService extends OfferingService {
     public Set<Workgroup> getWorkgroups(Long runId, Long periodId) throws ObjectNotFoundException;
     
     /**
-     * 
+     * @param runId
+     * @param userId
+     */
+	public void addSharedTeacherToRun(Long runId, Long userId);
+	
+	public void addSharedTeacherToRun(AddSharedTeacherParameters addSharedTeacherParameters);
+
+    /**
      * @param runId
      * @param userId
      * @param roles
