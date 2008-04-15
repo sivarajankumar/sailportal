@@ -66,7 +66,7 @@
 	</tr>
 	<tr id="setupProjectTableR2">
 		<td class="setupProjectTitle">${project.curnit.sdsCurnit.name}</td>
-		<td>[6 dig ID here]</td>       		   <!--		""${project.curnit.id}""-->
+		<td>${project.id}</td>       		   <!--		""${project.curnit.id}""-->
 		<td>[Topics/Keywords here]</td>
 		<td>[Grades(s) here]</td>              <!--		"${project.curnit.totalTime}"-->
 		<td>[# Periods here]</td>              <!--		"${project.curnit.computerTime}"-->
