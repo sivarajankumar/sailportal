@@ -24,17 +24,20 @@ import org.jcrom.annotations.JcrProperty;
 public class CurnitOtmlImpl{
 	
 	@JcrName private String name; // name of the node set by Jcrom - Jcrom will modify the name (eg. "Hello, World!" is changed to "Hello_World")
-	@JcrPath private String path; // read-only path to this node in jackrabbit
+	@JcrPath private String path; // mandatory attribute -- requested by Jcrom
 	
 	@JcrProperty private String uniqueKey; // unique string defining each curnit 
-	@JcrProperty private String title; // title set for each version of the curnitt 
+	@JcrProperty private String curnitUuid; // curnit's uuid assigned by jackrabbit
+	@JcrProperty private String curnitPath; // curnit's path in jackrabbit
+	@JcrProperty private String title; // title set for each version of the curnit 
 	@JcrProperty private String comment; // submitted for each new version
 	@JcrProperty private String author; // author modifying each specific version of the curnit
 	@JcrProperty private Date createdTime; // the time this version of the curnit was created
-	@JcrProperty private String otmlNodeUUID; // the unique UUID for the otml node persisted in jackrabbit
 	
-	private File otml; // otml file containing this curnit's content
-	@JcrFileNode private List<JcrFile> resources; // attached files which will be referenced by the otml file
+	private File otmlFile; // The otml file submitted by the external party
+	
+	//@JcrFileNode private JcrFile jcrOtml; // JcrFile type of the otml file to be persisted in jackrabbit
+	//@JcrFileNode private List<JcrFile> resources; // attached files which will be referenced by the otml file
 
 	/**
 	 * The title set for each version of the curnit by the author
@@ -66,7 +69,7 @@ public class CurnitOtmlImpl{
 	 * Get the unique string which defines this curnit
 	 * @return String
 	 */
-	public String getName() {
+	protected String getName() {
 		return name;
 	}
 
@@ -75,7 +78,7 @@ public class CurnitOtmlImpl{
 	 * Set the unique string which defines this curnit
 	 * @param uniqueKey The string defining this curnit
 	 */
-	public void setName(String name) {
+	protected void setName(String name) {
 		this.name = name;
 	}
 
@@ -116,44 +119,34 @@ public class CurnitOtmlImpl{
 	}
 
 
-	public Date getCreatedTime() {
+	protected Date getCreatedTime() {
 		return createdTime;
 	}
 
 
-	public void setCreatedTime(Date createdTime) {
+	protected void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
-
-
-	public String getOtmlNodeUUID() {
-		return otmlNodeUUID;
+	
+	
+	public File getOtmlFile() {
+		return otmlFile;
 	}
 
 
-	public void setOtmlNodeUUID(String otmlNodeUUID) {
-		this.otmlNodeUUID = otmlNodeUUID;
+	public void setOtmlFile(File otmlFile) {
+		this.otmlFile = otmlFile;
 	}
 
 
-	public File getOtml() {
-		return otml;
-	}
-
-
-	public void setOtml(File otml) {
-		this.otml = otml;
-	}
-
-
-	public List<JcrFile> getResources() {
-		return resources;
-	}
-
-
-	public void setResources(List<JcrFile> resources) {
-		this.resources = resources;
-	}
+//	public List<JcrFile> getResources() {
+//		return resources;
+//	}
+//
+//
+//	public void setResources(List<JcrFile> resources) {
+//		this.resources = resources;
+//	}
 
 
 	public String toString(){
@@ -174,4 +167,34 @@ public class CurnitOtmlImpl{
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
+	protected String getCurnitUuid() {
+		return curnitUuid;
+	}
+
+
+	protected void setCurnitUuid(String curnitUuid) {
+		this.curnitUuid = curnitUuid;
+	}
+
+
+	public String getCurnitPath() {
+		return curnitPath;
+	}
+
+
+	public void setCurnitPath(String curnitPath) {
+		this.curnitPath = curnitPath;
+	}
+
+
+//	protected JcrFile getJcrOtml() {
+//		return jcrOtml;
+//	}
+//
+//
+//	protected void setJcrOtml(JcrFile jcrOtml) {
+//		this.jcrOtml = jcrOtml;
+//	}
 }

@@ -3,6 +3,7 @@ package net.sf.sail.cms.curnit;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.cms.curnit.impl.CurnitOtmlImpl;
 import net.sf.sail.cms.exceptions.CreateCurnitException;
 import net.sf.sail.cms.exceptions.DeleteCurnitException;
 import net.sf.sail.cms.exceptions.RetrieveCurnitException;
