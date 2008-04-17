@@ -50,6 +50,7 @@ import org.jcrom.JcrFile;
 import org.jcrom.JcrMappingException;
 import org.jcrom.Jcrom;
 import org.jcrom.JcrDataProvider.TYPE;
+import org.jcrom.util.PathUtils;
 import org.pdfbox.pdfviewer.MapEntry;
 
 import com.sun.java_cup.internal.version;
@@ -110,6 +111,7 @@ public class CurnitManagementImpl implements CurnitManagement {
 				}				
 			}
 			
+			// set curnit's properties
 			curnit.setPath(curnitsNode.getPath());
 			curnit.setName(curnit.getUniqueKey());
 			curnit.setCreatedTime(new Date());
@@ -133,14 +135,14 @@ public class CurnitManagementImpl implements CurnitManagement {
 			mapOtmlFile(session, curnit);	
 			curnitDao.update(curnit);
 			
-			session.logout();
-			
-			//TODO return the created object in the response object
+			//TODO return successful message
 			return null;
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CreateCurnitException();
+		}finally {
+			session.logout();
 		}
 	}
 
@@ -165,29 +167,17 @@ public class CurnitManagementImpl implements CurnitManagement {
 		
 		CurnitDao curnitDao = getCurnitDao(session, jcrom);
 			
-		try {			
-			Node curnitsNode = session.getRootNode().getNode(CURNITSNODE);
-			NodeIterator iter = curnitsNode.getNodes();
-			while (iter.hasNext()){
-				Node curCurnit = (Node)iter.next();
-				// If the curnit is found, delete it and return
-				if (curCurnit.getProperty("uniqueKey").getString().equals(curnit.getUniqueKey())){
-					String curnitUuid = curCurnit.getUUID();
-					curnitDao.deleteByUUID(curnitUuid);
-					session.logout();
-					//TODO return the correct success message
-					return null;
-				}
-				
-			}
+		try {
+			String curnitPath = "/curnits/" + PathUtils.createValidName(curnit.getUniqueKey());
+			curnitDao.delete(curnitPath);
 			
-			// there was no such curnit in the repository
-			//TODO return unsuccessful message
-			session.logout();
+			//TODO return successful message
 			return null;
 		
 		} catch (Exception e) {
 			throw new DeleteCurnitException();
+		}finally {
+			session.logout();
 		}	
 	}
 
@@ -217,17 +207,19 @@ public class CurnitManagementImpl implements CurnitManagement {
 		String nextItem = null;
 		List<CurnitOtmlImpl> versionList = new ArrayList<CurnitOtmlImpl>();
 		
-		
 		// for every curnit, get all its requested versions
 		try{
 			Iterator<String> iter = curnitMap.keySet().iterator();
-			while(iter.hasNext()){
+			while(iter.hasNext()){				
 				nextItem = iter.next();
-				curnit = getCurnitFromCMS(session, curnitDao, nextItem);
+				String curnitPath = "/curnits/" + PathUtils.createValidName(nextItem);
+				curnit = curnitDao.get(curnitPath);
+				curnit.setCurnitPath(curnitPath);
 				
 				// return the latest version
 				if (curnitMap.get(nextItem) == null){ // return all versions of the node
-					versionList = curnitDao.getVersionList(curnit.getPath());
+					//versionList = curnitDao.getVersionList(curnit.getPath());
+					versionList = curnitDao.getVersionListByUUID(curnit.getCurnitUuid());
 				}else if (curnitMap.get(nextItem).get(0).equals(new Float("-1"))){ // return the latest version of the curnit
 					//Version latestVersion = (Version)ocm.getObject("/" + nextItem);
 					versionList.add(curnit);								
@@ -245,34 +237,35 @@ public class CurnitManagementImpl implements CurnitManagement {
 		}
 	}
 	
-	/*
-	 * Given the unique key of a curnit, fetch it from the repository and return it.
-	 * This is an inefficient way of getting to the curnit but since jcrom modifies
-	 * curnit names (eg If a curnit name is set to be "a-b-c" jcrom will modify
-	 * that name to "a_b_c") for retrieval purposes we must iterate through all
-	 * available curnits and fetch the one with the desired uniquKey
-	 */
-	private CurnitOtmlImpl getCurnitFromCMS(Session session, CurnitDao curnitDao, String nextItem) {
-
-		try {
-			NodeIterator curnitIter = session.getRootNode().getNode("curnits").getNodes();
-			while (curnitIter.hasNext()){
-				CurnitOtmlImpl curCurnit = curnitDao.get(curnitIter.nextNode().getPath());
-				if ((curCurnit.getUniqueKey().equals(nextItem))){
-					return curCurnit;
-				}
-			}
-			return null;
-		} catch (PathNotFoundException e) {
-			e.printStackTrace();
-		} catch (RepositoryException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
+//	/*
+//	 * Given the unique key of a curnit, fetch it from the repository and return it.
+//	 * This is an inefficient way of getting to the curnit but since jcrom modifies
+//	 * curnit names (eg If a curnit name is set to be "a-b-c" jcrom will modify
+//	 * that name to "a_b_c") for retrieval purposes we must iterate through all
+//	 * available curnits and fetch the one with the desired uniquKey
+//	 */
+//	private CurnitOtmlImpl getCurnitFromCMS(Session session, CurnitDao curnitDao, String nextItem) {
+//
+//		try {
+//			NodeIterator curnitIter = session.getRootNode().getNode("curnits").getNodes();
+//			while (curnitIter.hasNext()){
+//				CurnitOtmlImpl curCurnit = curnitDao.get(curnitIter.nextNode().getPath());
+//				if ((curCurnit.getUniqueKey().equals(nextItem))){
+//					return curCurnit;
+//				}
+//			}
+//			return null;
+//		} catch (PathNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (RepositoryException e) {
+//			e.printStackTrace();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return null;
+//	}
 
 
 	// Get a Jcrom object with the desired classes to be persisted in jackrabbit added to it.
