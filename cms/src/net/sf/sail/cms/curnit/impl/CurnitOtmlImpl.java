@@ -36,7 +36,7 @@ public class CurnitOtmlImpl{
 	
 	private File otmlFile; // The otml file submitted by the external party
 	
-	//@JcrFileNode private JcrFile jcrOtml; // JcrFile type of the otml file to be persisted in jackrabbit
+	@JcrFileNode private JcrFile jcrOtml; // JcrFile type of the otml file to be persisted in jackrabbit
 	//@JcrFileNode private List<JcrFile> resources; // attached files which will be referenced by the otml file
 
 	/**
@@ -189,12 +189,12 @@ public class CurnitOtmlImpl{
 	}
 
 
-//	protected JcrFile getJcrOtml() {
-//		return jcrOtml;
-//	}
-//
-//
-//	protected void setJcrOtml(JcrFile jcrOtml) {
-//		this.jcrOtml = jcrOtml;
-//	}
+	protected JcrFile getJcrOtml() {
+		return jcrOtml;
+	}
+
+
+	protected void setJcrOtml(JcrFile jcrOtml) {
+		this.jcrOtml = jcrOtml;
+	}
 }

@@ -5,15 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.jcr.ImportUUIDBehavior;
 import javax.jcr.InvalidSerializedDataException;
@@ -33,27 +30,8 @@ import javax.jcr.lock.LockException;
 import javax.jcr.nodetype.ConstraintViolationException;
 import javax.jcr.version.Version;
 import javax.jcr.version.VersionException;
+import javax.jcr.version.VersionHistory;
 import javax.jcr.version.VersionIterator;
-
-import org.apache.commons.collections.iterators.EntrySetMapIterator;
-import org.apache.jackrabbit.core.NodeImpl;
-import org.apache.jackrabbit.core.TransientRepository;
-import org.apache.jackrabbit.ocm.exception.ObjectContentManagerException;
-import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
-import org.apache.jackrabbit.ocm.manager.impl.ObjectContentManagerImpl;
-import org.apache.jackrabbit.ocm.mapper.Mapper;
-import org.apache.jackrabbit.ocm.mapper.impl.annotation.AnnotationMapperImpl;
-import org.apache.jackrabbit.test.api.version.GetVersionableUUIDTest;
-import org.jcrom.JcrDataProvider;
-import org.jcrom.JcrDataProviderImpl;
-import org.jcrom.JcrFile;
-import org.jcrom.JcrMappingException;
-import org.jcrom.Jcrom;
-import org.jcrom.JcrDataProvider.TYPE;
-import org.jcrom.util.PathUtils;
-import org.pdfbox.pdfviewer.MapEntry;
-
-import com.sun.java_cup.internal.version;
 
 import net.sf.sail.cms.curnit.CurnitManagement;
 import net.sf.sail.cms.curnit.CurnitManagementResponse;
@@ -61,6 +39,16 @@ import net.sf.sail.cms.exceptions.CreateCurnitException;
 import net.sf.sail.cms.exceptions.DeleteCurnitException;
 import net.sf.sail.cms.exceptions.RetrieveCurnitException;
 import net.sf.sail.cms.exceptions.UpdateCurnitException;
+
+import org.apache.jackrabbit.core.TransientRepository;
+import org.apache.jackrabbit.ocm.exception.ObjectContentManagerException;
+import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
+import org.jcrom.JcrDataProvider;
+import org.jcrom.JcrDataProviderImpl;
+import org.jcrom.JcrFile;
+import org.jcrom.Jcrom;
+import org.jcrom.JcrDataProvider.TYPE;
+import org.jcrom.util.PathUtils;
 
 public class CurnitManagementImpl implements CurnitManagement {
 	
@@ -119,11 +107,9 @@ public class CurnitManagementImpl implements CurnitManagement {
 			// Creating a jcrFile object from a java.io.File object. We need to convert the object type to 
 			// jcrFile since that is how Jcrom can persist the data.
 			//TODO Need to figure this problem out -- uncomment the 5 lines below
-//			TYPE jcrDataProviderType = JcrDataProvider.TYPE.FILE;
-//			JcrDataProvider jcrDataProvider = new JcrDataProviderImpl(jcrDataProviderType, curnit.getOtmlFile());
-//			JcrFile jcrOtmlFile = new JcrFile();
-//			jcrOtmlFile.setDataProvider(jcrDataProvider);
-//			curnit.setJcrOtml(jcrOtmlFile);
+			File curnitOtmlFile = curnit.getOtmlFile();
+			JcrFile jcrOtmlFile = JcrFile.fromFile(curnitOtmlFile.getName(), curnitOtmlFile, JcrDataProvider.TYPE.FILE.toString());
+			curnit.setJcrOtml(jcrOtmlFile);
 			
 			Node jcrNode = curnitDao.create(curnit);
 			curnit.setCurnitPath(jcrNode.getPath());
@@ -219,7 +205,26 @@ public class CurnitManagementImpl implements CurnitManagement {
 				// return the latest version
 				if (curnitMap.get(nextItem) == null){ // return all versions of the node
 					//versionList = curnitDao.getVersionList(curnit.getPath());
-					versionList = curnitDao.getVersionListByUUID(curnit.getCurnitUuid());
+					//versionList = curnitDao.getVersionListByUUID(curnit.getCurnitUuid());
+					
+					
+					//List<T> versionList = new ArrayList<T>();
+					Node node = session.getRootNode().getNode(curnitPath.substring(1));
+					VersionHistory versionHistory = node.getVersionHistory();
+					VersionIterator versionIterator = versionHistory.getAllVersions();
+					//versionIterator.skip(1);
+					while ( versionIterator.hasNext() ) {
+						Version version = versionIterator.nextVersion();
+						NodeIterator nodeIterator = version.getNodes();
+						while ( nodeIterator.hasNext() ) {
+							CurnitOtmlImpl entityVersion = (CurnitOtmlImpl)jcrom.fromNode(CurnitOtmlImpl.class, nodeIterator.nextNode(), "*", -1);
+							jcrom.setBaseVersionInfo(entityVersion, node.getBaseVersion().getName(), node.getBaseVersion().getCreated());
+							versionList.add(entityVersion);
+						}
+					}
+					// versionList;
+					
+					
 				}else if (curnitMap.get(nextItem).get(0).equals(new Float("-1"))){ // return the latest version of the curnit
 					//Version latestVersion = (Version)ocm.getObject("/" + nextItem);
 					versionList.add(curnit);								
