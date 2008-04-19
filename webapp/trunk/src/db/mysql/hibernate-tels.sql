@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        sid bigint not null,
         acl_object_identity bigint not null,
+        sid bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=InnoDB;
@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
+        owner_sid bigint,
         parent_object bigint,
         object_id_class bigint not null,
-        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=InnoDB;
@@ -119,8 +119,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=InnoDB;
 
@@ -128,8 +128,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=InnoDB;
 
@@ -141,10 +141,11 @@
 
     create table projects (
         id bigint not null auto_increment,
+        familytag integer,
         OPTLOCK integer,
-        jnlp_fk bigint not null,
         run_fk bigint unique,
         curnit_fk bigint not null,
+        jnlp_fk bigint not null,
         primary key (id)
     ) type=InnoDB;
 
@@ -297,8 +298,8 @@
         id bigint not null auto_increment,
         OPTLOCK integer,
         offering_fk bigint not null,
-        group_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
+        group_fk bigint not null,
         primary key (id)
     ) type=InnoDB;
 
@@ -315,6 +316,12 @@
         references acl_sid (id);
 
     alter table acl_object_identity 
+        add index FK2A2BB0099B5E7811 (owner_sid), 
+        add constraint FK2A2BB0099B5E7811 
+        foreign key (owner_sid) 
+        references acl_sid (id);
+
+    alter table acl_object_identity 
         add index FK2A2BB009BDC00DA1 (parent_object), 
         add constraint FK2A2BB009BDC00DA1 
         foreign key (parent_object) 
@@ -325,12 +332,6 @@
         add constraint FK2A2BB0092458F1A3 
         foreign key (object_id_class) 
         references acl_class (id);
-
-    alter table acl_object_identity 
-        add index FK2A2BB0099B5E7811 (owner_sid), 
-        add constraint FK2A2BB0099B5E7811 
-        foreign key (owner_sid) 
-        references acl_sid (id);
 
     alter table annotationBundles 
         add index FKD986A02F54443B2 (workgroup_fk), 
@@ -351,16 +352,16 @@
         references groups (id);
 
     alter table groups_related_to_users 
-        add index FK3311F7E3895EAE0A (group_fk), 
-        add constraint FK3311F7E3895EAE0A 
-        foreign key (group_fk) 
-        references groups (id);
-
-    alter table groups_related_to_users 
         add index FK3311F7E356CA53B6 (user_fk), 
         add constraint FK3311F7E356CA53B6 
         foreign key (user_fk) 
         references users (id);
+
+    alter table groups_related_to_users 
+        add index FK3311F7E3895EAE0A (group_fk), 
+        add constraint FK3311F7E3895EAE0A 
+        foreign key (group_fk) 
+        references groups (id);
 
     alter table jnlps 
         add index FK6095FABA532A941 (sds_jnlp_fk), 
@@ -375,16 +376,16 @@
         references curnits (id);
 
     alter table modules_related_to_owners 
-        add index FKE09C9839A4B723 (module_fk), 
-        add constraint FKE09C9839A4B723 
-        foreign key (module_fk) 
-        references modules (id);
-
-    alter table modules_related_to_owners 
         add index FKE09C9860AA7F41 (owners_fk), 
         add constraint FKE09C9860AA7F41 
         foreign key (owners_fk) 
         references users (id);
+
+    alter table modules_related_to_owners 
+        add index FKE09C9839A4B723 (module_fk), 
+        add constraint FKE09C9839A4B723 
+        foreign key (module_fk) 
+        references modules (id);
 
     alter table offerings 
         add index FK73F0F12DAB4F6201 (sds_offering_fk), 
@@ -429,6 +430,12 @@
         references premadecommentlists (id);
 
     alter table projects 
+        add index FKC479187A7F08E576 (curnit_fk), 
+        add constraint FKC479187A7F08E576 
+        foreign key (curnit_fk) 
+        references curnits (id);
+
+    alter table projects 
         add index FKC479187ABD6D05A5 (run_fk), 
         add constraint FKC479187ABD6D05A5 
         foreign key (run_fk) 
@@ -440,23 +447,17 @@
         foreign key (jnlp_fk) 
         references jnlps (id);
 
-    alter table projects 
-        add index FKC479187A7F08E576 (curnit_fk), 
-        add constraint FKC479187A7F08E576 
-        foreign key (curnit_fk) 
-        references curnits (id);
+    alter table runs 
+        add index FK3597486F1ED29A (project_fk), 
+        add constraint FK3597486F1ED29A 
+        foreign key (project_fk) 
+        references projects (id);
 
     alter table runs 
         add index FK3597481834F8D3 (id), 
         add constraint FK3597481834F8D3 
         foreign key (id) 
         references offerings (id);
-
-    alter table runs 
-        add index FK3597486F1ED29A (project_fk), 
-        add constraint FK3597486F1ED29A 
-        foreign key (project_fk) 
-        references projects (id);
 
     alter table runs_related_to_groups 
         add index FK6CD673CD50B193C8 (runs_fk), 
@@ -471,28 +472,28 @@
         references groups (id);
 
     alter table runs_related_to_owners 
-        add index FK7AC2FE1950B193C8 (runs_fk), 
-        add constraint FK7AC2FE1950B193C8 
-        foreign key (runs_fk) 
-        references runs (id);
-
-    alter table runs_related_to_owners 
         add index FK7AC2FE1960AA7F41 (owners_fk), 
         add constraint FK7AC2FE1960AA7F41 
         foreign key (owners_fk) 
         references users (id);
 
-    alter table runs_related_to_shared_owners 
-        add index FKBD30D521DB63ABE7 (shared_owners_fk), 
-        add constraint FKBD30D521DB63ABE7 
-        foreign key (shared_owners_fk) 
-        references users (id);
+    alter table runs_related_to_owners 
+        add index FK7AC2FE1950B193C8 (runs_fk), 
+        add constraint FK7AC2FE1950B193C8 
+        foreign key (runs_fk) 
+        references runs (id);
 
     alter table runs_related_to_shared_owners 
         add index FKBD30D52150B193C8 (runs_fk), 
         add constraint FKBD30D52150B193C8 
         foreign key (runs_fk) 
         references runs (id);
+
+    alter table runs_related_to_shared_owners 
+        add index FKBD30D521DB63ABE7 (shared_owners_fk), 
+        add constraint FKBD30D521DB63ABE7 
+        foreign key (shared_owners_fk) 
+        references users (id);
 
     alter table sds_offerings 
         add index FK242EBD70A532A941 (sds_jnlp_fk), 
@@ -561,22 +562,16 @@
         references sds_users (id);
 
     alter table wiseworkgroups 
-        add index FKF16C83C9F309B437 (id), 
-        add constraint FKF16C83C9F309B437 
-        foreign key (id) 
-        references workgroups (id);
-
-    alter table wiseworkgroups 
         add index FKF16C83C93013AD46 (period), 
         add constraint FKF16C83C93013AD46 
         foreign key (period) 
         references groups (id);
 
-    alter table workgroups 
-        add index FKEC8E5025895EAE0A (group_fk), 
-        add constraint FKEC8E5025895EAE0A 
-        foreign key (group_fk) 
-        references groups (id);
+    alter table wiseworkgroups 
+        add index FKF16C83C9F309B437 (id), 
+        add constraint FKF16C83C9F309B437 
+        foreign key (id) 
+        references workgroups (id);
 
     alter table workgroups 
         add index FKEC8E50255AAC23E7 (sds_workgroup_fk), 
@@ -589,3 +584,9 @@
         add constraint FKEC8E502553AE0756 
         foreign key (offering_fk) 
         references offerings (id);
+
+    alter table workgroups 
+        add index FKEC8E5025895EAE0A (group_fk), 
+        add constraint FKEC8E5025895EAE0A 
+        foreign key (group_fk) 
+        references groups (id);

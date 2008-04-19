@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -49,7 +50,7 @@ public class PreviewProjectListController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		 List<Project> projectList = this.projectService.getProjectList();
+		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
 		 ModelAndView modelAndView = new ModelAndView();
 	     modelAndView.addObject("projectList", projectList);
 		 return modelAndView;

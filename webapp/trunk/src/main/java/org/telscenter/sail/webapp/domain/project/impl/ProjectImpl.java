@@ -44,6 +44,7 @@ import net.sf.sail.webapp.domain.impl.JnlpImpl;
 
 import org.hibernate.annotations.Cascade;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 
@@ -59,8 +60,14 @@ public class ProjectImpl implements Project {
 	private static final long serialVersionUID = 1L;
 
 	@Transient
+	public static final String COLUMN_NAME_FAMILYTAG = "familytag";
+	
+	@Transient
+	public static final String COLUMN_NAME_PROJECTINFOTAG = "projectinfotag";
+	
+	@Transient
 	public static final String DATA_STORE_NAME = "projects";
-
+	
 	@Transient
 	public static final String COLUMN_NAME_CURNIT_FK = "curnit_fk";
 
@@ -83,6 +90,12 @@ public class ProjectImpl implements Project {
 	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = COLUMN_NAME_PREVIEWOFFERING_FK, unique = true)
 	private Run previewRun;
+	
+    @Column(name = ProjectImpl.COLUMN_NAME_FAMILYTAG, nullable = true)
+	private FamilyTag familytag;
+    
+  //  @Column(name = ProjectImpl.COLUMN_NAME_PROJECTINFOTAG, nullable = true)
+ //   private String projectInfoTag;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -192,4 +205,32 @@ public class ProjectImpl implements Project {
 			return false;
 		return true;
 	}
+
+	/**
+	 * @return the familyTag
+	 */
+	public FamilyTag getFamilytag() {
+		return familytag;
+	}
+
+	/**
+	 * @param familyTag the familyTag to set
+	 */
+	public void setFamilytag(FamilyTag familytag) {
+		this.familytag = familytag;
+	}
+
+//	/**
+//	 * @return the projectInfoTag
+//	 */
+//	public String getProjectInfoTag() {
+//		return projectInfoTag;
+//	}
+//
+//	/**
+//	 * @param projectInfoTag the projectInfoTag to set
+//	 */
+//	public void setProjectInfoTag(String projectInfoTag) {
+//		this.projectInfoTag = projectInfoTag;
+//	}
  }

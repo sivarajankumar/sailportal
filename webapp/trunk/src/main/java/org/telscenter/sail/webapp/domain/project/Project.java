@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.project;
 
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
@@ -90,4 +91,24 @@ public interface Project extends Persistable {
 	 * @return The id of the project in the persistent data store
 	 */
 	public Long getId();
+	
+	/**
+	 * @return the familyTag
+	 */
+	public FamilyTag getFamilytag();
+
+	/**
+	 * @param familyTag the familyTag to set
+	 */
+	public void setFamilytag(FamilyTag familytag);
+
+//	/**
+//	 * @return the projectInfoTag
+//	 */
+//	public String getProjectInfoTag();
+//
+//	/**
+//	 * @param projectInfoTag the projectInfoTag to set
+//	 */
+//	public void setProjectInfoTag(String projectInfoTag);
 }

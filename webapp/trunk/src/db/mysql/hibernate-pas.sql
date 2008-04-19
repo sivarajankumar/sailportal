@@ -27,8 +27,8 @@
         entries_inheriting bit not null,
         OPTLOCK integer,
         object_id_class bigint not null,
-        owner_sid bigint,
         parent_object bigint,
+        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=InnoDB;
@@ -116,8 +116,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=InnoDB;
 
@@ -168,19 +168,25 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=InnoDB;
 
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        group_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
+        group_fk bigint not null,
         offering_fk bigint not null,
         primary key (id)
     ) type=InnoDB;
+
+    alter table acl_entry 
+        add index FK5302D47DC9975936 (acl_object_identity), 
+        add constraint FK5302D47DC9975936 
+        foreign key (acl_object_identity) 
+        references acl_object_identity (id);
 
     alter table acl_entry 
         add index FK5302D47D9A4DE79D (sid), 
@@ -188,11 +194,11 @@
         foreign key (sid) 
         references acl_sid (id);
 
-    alter table acl_entry 
-        add index FK5302D47DC9975936 (acl_object_identity), 
-        add constraint FK5302D47DC9975936 
-        foreign key (acl_object_identity) 
-        references acl_object_identity (id);
+    alter table acl_object_identity 
+        add index FK2A2BB0099B5E7811 (owner_sid), 
+        add constraint FK2A2BB0099B5E7811 
+        foreign key (owner_sid) 
+        references acl_sid (id);
 
     alter table acl_object_identity 
         add index FK2A2BB009BDC00DA1 (parent_object), 
@@ -205,12 +211,6 @@
         add constraint FK2A2BB0092458F1A3 
         foreign key (object_id_class) 
         references acl_class (id);
-
-    alter table acl_object_identity 
-        add index FK2A2BB0099B5E7811 (owner_sid), 
-        add constraint FK2A2BB0099B5E7811 
-        foreign key (owner_sid) 
-        references acl_sid (id);
 
     alter table annotationBundles 
         add index FKD986A02F54443B2 (workgroup_fk), 
@@ -231,16 +231,16 @@
         references groups (id);
 
     alter table groups_related_to_users 
-        add index FK3311F7E3895EAE0A (group_fk), 
-        add constraint FK3311F7E3895EAE0A 
-        foreign key (group_fk) 
-        references groups (id);
-
-    alter table groups_related_to_users 
         add index FK3311F7E356CA53B6 (user_fk), 
         add constraint FK3311F7E356CA53B6 
         foreign key (user_fk) 
         references users (id);
+
+    alter table groups_related_to_users 
+        add index FK3311F7E3895EAE0A (group_fk), 
+        add constraint FK3311F7E3895EAE0A 
+        foreign key (group_fk) 
+        references groups (id);
 
     alter table jnlps 
         add index FK6095FABA532A941 (sds_jnlp_fk), 
@@ -309,12 +309,6 @@
         references sds_users (id);
 
     alter table workgroups 
-        add index FKEC8E5025895EAE0A (group_fk), 
-        add constraint FKEC8E5025895EAE0A 
-        foreign key (group_fk) 
-        references groups (id);
-
-    alter table workgroups 
         add index FKEC8E50255AAC23E7 (sds_workgroup_fk), 
         add constraint FKEC8E50255AAC23E7 
         foreign key (sds_workgroup_fk) 
@@ -325,3 +319,9 @@
         add constraint FKEC8E502553AE0756 
         foreign key (offering_fk) 
         references offerings (id);
+
+    alter table workgroups 
+        add index FKEC8E5025895EAE0A (group_fk), 
+        add constraint FKEC8E5025895EAE0A 
+        foreign key (group_fk) 
+        references groups (id);

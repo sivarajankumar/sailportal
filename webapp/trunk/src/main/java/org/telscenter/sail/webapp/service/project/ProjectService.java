@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 
@@ -48,6 +49,22 @@ public interface ProjectService {
 	 */
 	@Transactional
 	public List<Project> getProjectList();
+	
+	/**
+	 * Get a <code>List</code> of <code>Project</code> with
+	 * matching FamilyTag
+	 * @return a <code>List</code> of <code>Project</code>
+	 */
+	@Transactional
+	public List<Project> getProjectListByTag(FamilyTag tag) throws ObjectNotFoundException;
+	
+	/**
+	 * Get a <code>List</code> of <code>Project</code> with
+	 * matching ProjectInfoTag
+	 * @return a <code>List</code> of <code>Project</code>
+	 */
+	@Transactional
+	public List<Project> getProjectListByTag(String tag) throws ObjectNotFoundException;
 	
 	/**
 	 * Creates a new <code>Project</code>

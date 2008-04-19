@@ -22,8 +22,12 @@
  */
 package org.telscenter.sail.webapp.dao.project;
 
-import org.telscenter.sail.webapp.domain.project.Project;
+import java.util.List;
 
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.SimpleDao;
 
 /**
@@ -32,5 +36,26 @@ import net.sf.sail.webapp.dao.SimpleDao;
  * @version $Id$
  */
 public interface ProjectDao<T extends Project> extends SimpleDao<T> {
+	
+    /**
+	 * Given an input string retrieve a list of corresponding records from data store.
+	 * 
+	 * @param family
+	 *            <code>FamilyTag</code> representing the familytag of the data in
+	 *            the data store.
+	 * @return A list of project objects.
+	 * @throws ObjectNotFoundException if list is not found.
+	 */
+	public List<Project> retrieveListByTag(FamilyTag familytag) throws ObjectNotFoundException;
 
+    /**
+	 * Given an input string retrieve a list of corresponding records from data store.
+	 * 
+	 * @param family
+	 *            <code>String</code> representing the projectinfotag of the data in
+	 *            the data store.
+	 * @return A list of project objects.
+	 * @throws ObjectNotFoundException if list is not found.
+	 */
+	public List<Project> retrieveListByTag(String projectinfotag) throws ObjectNotFoundException;
 }

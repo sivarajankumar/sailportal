@@ -52,6 +52,7 @@ import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
@@ -259,6 +260,20 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional(readOnly = true)
 	public List<Project> getProjectList() {
 		return this.projectDao.getList();
+	}
+    
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(java.lang.String)
+	 */
+	public List<Project> getProjectListByTag(String projectinfotag) throws ObjectNotFoundException {
+		return this.projectDao.retrieveListByTag(projectinfotag);
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(org.telscenter.sail.webapp.domain.project.impl.FamilyTag)
+	 */
+	public List<Project> getProjectListByTag(FamilyTag familytag)  throws ObjectNotFoundException {
+		return this.projectDao.retrieveListByTag(familytag);
 	}
 	
 	/**

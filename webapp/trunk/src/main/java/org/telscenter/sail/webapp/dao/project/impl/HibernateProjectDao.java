@@ -22,10 +22,16 @@
  */
 package org.telscenter.sail.webapp.dao.project.impl;
 
+import java.util.List;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 /**
@@ -38,6 +44,38 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 
 	private static final String FIND_ALL_QUERY = "from ProjectImpl";
 
+	/**
+	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#retrieveByRunCode(String)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Project> retrieveListByTag(FamilyTag familytag) throws ObjectNotFoundException {
+		List<Project> projects = this
+						.getHibernateTemplate()
+						.findByNamedParam(
+								"from ProjectImpl as project where project.familytag = :familytag",
+								"familytag", familytag);
+		if (projects == null)
+			throw new ObjectNotFoundException(familytag, this
+					.getDataObjectClass());
+		return projects;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#retrieveByRunCode(String)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Project> retrieveListByTag(String projectinfotag) throws ObjectNotFoundException {
+		List<Project> projects = this
+		.getHibernateTemplate()
+		.findByNamedParam(
+				"from ProjectImpl as project where upper(project.projectinfotag) = :projectinfotag",
+				"projectinfotag", projectinfotag.toString().toUpperCase());
+		if (projects == null)
+			throw new ObjectNotFoundException(projectinfotag, this
+					.getDataObjectClass());
+		return projects;
+	}
+	
 	/**
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
 	 */
