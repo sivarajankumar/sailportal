@@ -127,6 +127,9 @@
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.sdsOffering.name}</div>
+				    	<c:forEach var="sharedowner" items="${run.sharedowners}">
+				    	    <center><c:if test="${sharedowner == user}">You are a Shared Teacher for this run</c:if></center>
+				    	</c:forEach>
 				      		
 				      	
 					</td>
@@ -151,7 +154,7 @@
 				        <table id="runTitleTable">
 				      			<tr>
 				      				<td class="runTitleTableHeader">Project ID:</td>
-				      				<td>[11376]</td>
+				      				<td>${run.project.id}</td>
 				      			</tr>
 				      			<tr>
 				      				<td class="runTitleTableHeader">Project Source:</td>
@@ -167,15 +170,19 @@
 					    <ul id="actionList">
 					    	<li><a href="../projects/projectinfo.html?projectId=${run.project.id}">View Project Info</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Edit Periods</a></li>
-					    	<li><a href="../grading/gradebystep.html?runId=${run.id}">Grade by Step</a></li>
+   	                        <li><a href="../grading/gradebystep.html?runId=${run.id}">Grade by Step</a></li>
 						    <li><a href="../grading/selectworkgroup.html?runId=${run.id}">Grade by Team</a></li>				    	
+		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">
+    					      <li><a href="shareprojectrun.html?runId=${run.id}">Share with Another Teacher</a></li> 
+  	                        </authz:accesscontrollist>
 					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
-					    	<li><a href="../run/shareprojectrun.html">Share with Another Teacher</a></li> 
 					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}">Report a Problem</a></li>
-					    	<li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')">Archive this Run</a></li>
-					    	<li><a href="../management/manageextrateachers.html?runId=${run.id}">Manage Extra Teachers</a></li>
+		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">					    	
+					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')">Archive this Run</a></li>
+					    	</authz:accesscontrollist>
+					    	
 					    </ul>
 					</td>
 				   </tr>

@@ -122,7 +122,6 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.AuthorProjectController">
 		<property name="projectService" ref="projectService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
-		<property name="modifier" ref="authoringjnlpmodifier" />
 	</bean>
 	
 	
@@ -352,9 +351,11 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateMyAccountController">
 	</bean>
 
+<!--  
 	<bean id="updateTeacherAccountController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateTeacherAccountController">
 	</bean>
+-->
 	
 	<bean id="mainHelpController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.MainHelpController">
@@ -565,11 +566,6 @@
         <property name="projectService" ref="projectService" />
     </bean>
     
-    <bean id="shareProjectRunController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ShareProjectRunController">
-        <property name="projectService" ref="projectService" />
-    </bean>
-    
     <bean id="createProjectController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.CreateProjectController">
 		<property name="commandName" value="projectParameters" />
@@ -664,11 +660,16 @@
 		<property name="validator" ref="newsItemParametersValidator"/>
 	</bean>
  -->	
-	<bean id="manageExtraTeachersController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManageExtraTeachersController">
+ 
+     <bean id="shareProjectRunController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ShareProjectRunController">
 		<property name="runService" ref="runService"/>
-	</bean>
-	
+		<property name="commandName" value="addSharedTeacherParameters" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters" />
+		<property name="successView" value="shareprojectrun.html" />		
+    </bean>
+ 
 	<bean id="addSharedTeacherController"
 			class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.AddSharedTeacherController">
 	    <property name="runService" ref="runService" />

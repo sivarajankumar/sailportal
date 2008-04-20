@@ -53,11 +53,11 @@
 				        <table id="runTitleTable">
 				      			<tr>
 				      				<td class="runTitleTableHeader">Title:</td>
-				      				<td>[Name of Project Run here]</td>
+				      				<td>${run.project.curnit.sdsCurnit.name}</td>
 				      			</tr>
 				      			<tr>
 				      				<td class="runTitleTableHeader">Project ID:</td>
-				      				<td>[11376]</td>
+				      				<td>${run.project.id}</td>
 				      			</tr>
 				      			<tr> 
 				      				<td class="runTitleTableHeader">Project Source:</td>
@@ -76,28 +76,47 @@
 	<tr>
 		<th>USERNAME</th>
 		<th>PERMISSION LEVEL</th> 
+		<th>OPTIONS</th>
 	</tr>
-	<tr>
-		<td class="sharedUserName">[Current Username]</td>
-		<td ">Creator of Project Run. Full access.</td>
-	</tr>
-	<tr>
-		<td class="sharedUserName">[Name]</td>
-		<td>
-			<select>
-				<option value="view">Can VIEW the project run</option>
-				<option value="edit">Can VIEW + GRADE the project run</option>
-				<option value="projectrun">Remove this User</option>
-				
-			</select>
-		</td>
-	</tr>
+	<!--  display owners of the run -->
+	<c:choose>
+		<c:when test="${fn:length(run.owners) == 0}">
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="owner" items="${run.owners}">
+				<tr>
+				    <td>${owner.userDetails.firstname} ${owner.userDetails.lastname}</td>
+					<td>Owner of Project Run. Full access.</td>
+					<td>NONE</td>
+			    </tr>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
+	
+	<!--  display shared owners of the run -->
+	<c:forEach var="sharedowner" items="${run.sharedowners}">
+        <form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}">
+            <form:hidden path="sharedOwnerUsername" />
+		    <tr>
+		        <td>${sharedowner.userDetails.username}</td>
+			    <td align="left">
+			        <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /> Can VIEW the project run<br />
+			        <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" />Can VIEW + GRADE the project run
+				</td>
+				<td><!-- <a href='#' onclick="return confirm('Proceed with removing this shared teacher?');">Remove this User</a> -->
+				    <a href='#' onclick="alert('Remove Shared Teacher is not yet implemented.');">Remove this User</a>
+				</td>
+			</tr>
+		</form:form>
+	</c:forEach>
 	
 	<tr>
-		<td id="sharingSearchBox" colspan=2>
-			<div id="sharingSearchBoxHelp">To share this project run with another user, enter some or all of their Username below:</div>
-				<input type="text" name="userSearch" ></input>
-				<input type="submit" value="Search for Username"></input>
+		<td id="sharingSearchBox" colspan=3>
+			<div id="sharingSearchBoxHelp">To share this project run with another user, enter their Username below:</div>
+			    <form:form method="post" commandName="addSharedTeacherParameters">
+					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" size="25"/>
+				    <input type="submit" value="Add this User" />
+				</form:form>
 		</td>
 	</tr>
 

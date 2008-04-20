@@ -107,6 +107,7 @@
     	<property name="sdsOfferingDao" ref="sdsOfferingDao" />
     	<property name="offeringDao" ref="offeringDao" />
     	<property name="runDao" ref="runDao" />
+    	<property name="userDao" ref="userDao" />
     	<property name="curnitDao" ref="curnitDao" />
     	<property name="jnlpDao" ref="jnlpDao" />
     	<property name="groupDao" ref="groupDao" />

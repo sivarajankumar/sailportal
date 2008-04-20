@@ -258,16 +258,16 @@ public class RunImpl extends OfferingImpl implements Run {
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.domain.Run#getSharedOwners()
+	 * @see org.telscenter.sail.webapp.domain.Run#getSharedowners()
 	 */
-	public Set<User> getSharedOwners() {
+	public Set<User> getSharedowners() {
 		return sharedowners;
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.domain.Run#setSharedOwners(Set<User>)
 	 */
-	public void setSharedOwners(Set<User> sharedOwners) {
+	public void setSharedowners(Set<User> sharedOwners) {
 		this.sharedowners = sharedOwners;		
 	}
 }

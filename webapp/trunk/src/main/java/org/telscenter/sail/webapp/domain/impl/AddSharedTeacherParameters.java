@@ -23,13 +23,13 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.Run;
 
 /**
+ * Parameter for adding and editing SharedTeacher permissions
  * @author Sally Ahn
+ * @author Hiroki Terashima
  * @version $Id: $
  */
 public class AddSharedTeacherParameters implements Serializable {
@@ -40,7 +40,7 @@ public class AddSharedTeacherParameters implements Serializable {
 
 	private String sharedOwnerUsername;
 	
-	private Set<String> newRoles = new HashSet<String>();
+	private String permission;
 
 	/**
 	 * @return the run
@@ -71,16 +71,16 @@ public class AddSharedTeacherParameters implements Serializable {
 	}
 
 	/**
-	 * @return the newRoles
+	 * @return the permission
 	 */
-	public Set<String> getNewRoles() {
-		return newRoles;
+	public String getPermission() {
+		return permission;
 	}
 
 	/**
-	 * @param newRoles the newRoles to set
+	 * @param permission the permission to set
 	 */
-	public void setNewRoles(Set<String> newRoles) {
-		this.newRoles = newRoles;
+	public void setPermission(String permission) {
+		this.permission = permission;
 	}
 }

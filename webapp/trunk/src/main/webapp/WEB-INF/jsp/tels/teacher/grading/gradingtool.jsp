@@ -512,7 +512,9 @@ aggregate.value = set of workgroupWorkAggregate
 																		</c:forEach>
 																	</c:forEach>
 																    <div id="div_${commentAnnotation.entityUUID}_${workgroupId}" >
-																			<textarea id="comment-${commentAnnotation.entityUUID}_${workgroupId}" class="comment-${commentAnnotation.entityUUID}_${workgroupId}" cols="45" rows="6"  onkeypress="enableButton(this,'${commentAnnotation.entityUUID}','${workgroupId}','${period}')" >${commentAnnotation.contents}</textarea>
+																        <authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
+  																			<textarea id="comment-${commentAnnotation.entityUUID}_${workgroupId}" class="comment-${commentAnnotation.entityUUID}_${workgroupId}" cols="45" rows="6"  onkeypress="enableButton(this,'${commentAnnotation.entityUUID}','${workgroupId}','${period}')" >${commentAnnotation.contents}</textarea>
+  	                                                                    </authz:accesscontrollist>
 																	</div>
 																   
 																   </div>
@@ -544,7 +546,10 @@ aggregate.value = set of workgroupWorkAggregate
 												
 																				</c:forEach>
 																		</c:forEach>
-																				<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/><span id="scoreBoxStyling3"> out of </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
+																		 		<authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
+																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/><span id="scoreBoxStyling3"> out of </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
+  	                        													
+																				
 																				
 																				<div id="revisionRequiredArea" >
 	     																			<form>
@@ -554,15 +559,15 @@ aggregate.value = set of workgroupWorkAggregate
     																			
 																				<div id="gradingSaveButton">
 																					<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button">
-																							<em class="first-child">
-																							<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save Feedback <br>&amp; Score</button></em>
+    					                                                                        <em class="first-child"><button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save Feedback <br>&amp; Score</button></em>
 																					</span>
 																				</div>
-																			
+																			    
 																				<div id="scoringHelpLink">
 																					<a href="#" style="color:#999999;">Help</a>
 																					
-																				</div>	
+																				</div>
+																				</authz:accesscontrollist>	
 																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 11%;"></div>																   
 																		</div>	
 																		

@@ -30,9 +30,12 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+
+import org.acegisecurity.annotation.Secured;
 
 /**
  * A service for working with <code>Run</code> objects
@@ -80,7 +83,7 @@ public interface RunService extends OfferingService {
 	 * 
 	 * @return <code>List</code> of <code>Run</code>
 	 */
-    //@Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
     public List<Run> getRunList();
     
     /**
@@ -91,7 +94,78 @@ public interface RunService extends OfferingService {
      * @return list of <code>Run</code> that the user is associated with
      */
     public List<Run> getRunList(User user);
-       
+    
+    /**
+     * Allows a user to add another user as a shared teacher of a run.
+     * 
+     * The user specified by the userId must exist and must have a 
+     * ROLE_TEACHER.
+     * 
+     * The invoker of this method must either:
+     * 1) have a ROLE_TEACHER authority and be the owner of the run specified
+     * by runId
+     * 2) have a ROLE_ADMINISTRATOR
+     * 
+     * The shared teacher will have the default ROLE_RUN_READ permission
+     * 
+     * If the user specified by the userId is already a shared teacher of
+     * the specified run, nothing happens.
+     * 
+     * @param runId
+     * @param userId
+     * @throws <code>RunNotFoundException</code> when runId cannot be used 
+     *          to find an existing run   
+     */
+    @Secured( {"ROLE_TEACHER"} )
+    public void addSharedTeacherToRun(Long runId, Long userId) 
+        throws ObjectNotFoundException;
+
+    
+    /**
+     * Allows a user to add another user as a shared teacher of a run.
+     * 
+     * The user specified by the userId must exist and must have a 
+     * ROLE_TEACHER.
+     * 
+     * The invoker of this method must either:
+     * 1) have a ROLE_TEACHER authority and be the owner of the run specified
+     * by runId
+     * 2) have a ROLE_ADMINISTRATOR
+     * 
+     * The shared teacher will have the ROLES defined in the roles parameter.
+     * 
+     * If the user specified is already a shared teacher of the specified run,
+     * her permissions on the specified run will be updated with the roles in
+     * the roles parameter.
+     * 
+     * @param runId
+     * @param userId
+     * @param roles Set of ROLES that the shared teacher will have on the run
+     * @throws <code>RunNotFoundException</code> when runId cannot be used 
+     *          to find an existing run   
+     */
+    @Secured( {"ROLE_TEACHER"} )
+    public void addRolesToSharedTeacher(Long runId, Long userId, Set<String> roles) throws ObjectNotFoundException;
+
+    /**
+     * @param addSharedTeacherParameters
+     */
+    @Secured( {"ROLE_TEACHER"} )
+    @Transactional()
+	public void addSharedTeacherToRun(AddSharedTeacherParameters addSharedTeacherParameters);
+    
+    /**
+     * Returns the permission that the specified user has on the specified run
+     * 
+     * @param run The <code>Run</code> that is shared.
+     * @param user The <code>User</code> that shares the <code>Run</code>
+     * @return A <code>String</code> containing the permission that 
+     *     the user has on the run. If the user does not have permission on the run,
+     *     null is returned.
+     */
+    @Transactional(readOnly = true)
+    public String getSharedTeacherRole(Run run, User user);
+    
     /**
      * Retrieves the Run domain object using the unique runcode
      * 
@@ -135,20 +209,4 @@ public interface RunService extends OfferingService {
      *         <code>Long</code> periodId to which all returned workgroups belong
      */
     public Set<Workgroup> getWorkgroups(Long runId, Long periodId) throws ObjectNotFoundException;
-    
-    /**
-     * @param runId
-     * @param userId
-     */
-	public void addSharedTeacherToRun(Long runId, Long userId);
-	
-	public void addSharedTeacherToRun(AddSharedTeacherParameters addSharedTeacherParameters);
-
-    /**
-     * @param runId
-     * @param userId
-     * @param roles
-     * @throws ObjectNotFoundException when either run, user or a role is not found
-     */
-    public void addRolesToSharedTeacher(Long runId, Long userId, Set<String> roles) throws ObjectNotFoundException;
 }

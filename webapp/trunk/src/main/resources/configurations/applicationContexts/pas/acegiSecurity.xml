@@ -257,7 +257,7 @@
             </list>
         </property>
     </bean>
-
+    
     <!-- ACL permission masks used by this application -->
     <bean id="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
@@ -670,6 +670,7 @@
                 <ref
                     local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
             </list>
         </constructor-arg>
     </bean>
@@ -685,6 +686,7 @@
                 <ref
                     local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
             </list>
         </constructor-arg>
     </bean>

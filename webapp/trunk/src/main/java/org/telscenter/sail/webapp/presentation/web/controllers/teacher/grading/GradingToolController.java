@@ -63,6 +63,7 @@ public class GradingToolController extends AbstractController {
 	private static final String TAB_INDEX = "tabIndex";
 	private static final String NEXT_STEP = "nextStep";
 	public static final String CURNIT_ID = "curnitId";
+	public static final String RUN = "run";
 	public static final String PROJECT_ID = "projectId";
 	public static final String PROJECT_TITLE = "projectTitle";
 	private static final String ACTIVITY = "activity";
@@ -162,6 +163,7 @@ public class GradingToolController extends AbstractController {
 				modelAndView.addObject(CURNIT_ID,curnitId);
 				modelAndView.addObject(PROJECT_ID,projectId);
 				modelAndView.addObject(TAB_INDEX, tabIndex);
+				modelAndView.addObject(RUN, aRun);
 				
 				modelAndView.addObject(GradeByStepController.RUN_ID, runId);
 				return modelAndView;

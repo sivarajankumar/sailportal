@@ -30,9 +30,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.sf.sail.core.uuid.UserUuid;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
+import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
@@ -40,6 +42,7 @@ import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
 import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.acls.Permission;
 import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +52,7 @@ import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -77,7 +81,9 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	private RunDao<Run> runDao;
 
 	private GroupDao<Group> groupDao;
-
+	
+	private UserDao<User> userDao;
+	
 	/**
 	 * @param groupDao
 	 *            the groupDao to set
@@ -185,6 +191,71 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		this.aclService.addPermission(run, BasePermission.ADMINISTRATION);
 		return run;
 	}
+	
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#addRolesToSharedTeacher(java.lang.Long, java.lang.Long, java.util.Set)
+	 */
+	public void addRolesToSharedTeacher(Long runId, Long userId,
+			Set<String> roles) throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		
+		Run run = runDao.getById(runId);
+		User user = userDao.getById(userId);
+		//user.getUserDetails().
+		//aclService.addPermission(run, permission)
+	}
+
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addSharedTeacherToRun(org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters)
+	 */
+	public void addSharedTeacherToRun(
+			AddSharedTeacherParameters addSharedTeacherParameters) {
+		Run run = addSharedTeacherParameters.getRun();
+		String sharedOwnerUsername = addSharedTeacherParameters.getSharedOwnerUsername();
+		User user = userDao.retrieveByUsername(sharedOwnerUsername);
+		run.getSharedowners().add(user);
+		this.runDao.save(run);
+
+		String permission = addSharedTeacherParameters.getPermission();
+		if (permission.equals(UserDetailsService.RUN_GRADE_ROLE)) {
+			this.aclService.removePermission(run, BasePermission.READ, user);
+			this.aclService.addPermission(run, BasePermission.WRITE, user);	
+		} else if (permission.equals(UserDetailsService.RUN_READ_ROLE)) {
+			this.aclService.removePermission(run, BasePermission.WRITE, user);
+			this.aclService.addPermission(run, BasePermission.READ, user);
+		}
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#getSharedTeacherRole(org.telscenter.sail.webapp.domain.Run, net.sf.sail.webapp.domain.User)
+	 */
+	public String getSharedTeacherRole(Run run, User user) {
+		List<Permission> permissions = this.aclService.getPermissions(run, user);
+		// for runs, a user can have at most one permission per run
+		if (!permissions.isEmpty()) {
+			Permission permission = permissions.get(0);
+			if (permission.equals(BasePermission.READ)) {
+				return UserDetailsService.RUN_READ_ROLE;
+			} else if (permission.equals(BasePermission.WRITE)) {
+				return UserDetailsService.RUN_GRADE_ROLE;
+			}
+		}
+		return null;
+	}
+
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#addSharedTeacherToRun(java.lang.Long, java.lang.Long)
+	 */
+	@Transactional()
+	public void addSharedTeacherToRun(Long runId, Long userId)
+			throws ObjectNotFoundException {
+		Set<String> roles = new TreeSet<String>();
+		roles.add(UserDetailsService.RUN_READ_ROLE);
+		
+		addRolesToSharedTeacher(runId, userId, roles);
+	}
 
 	private String generateUniqueRunCode() {
 		String tempRunCode = generateRunCode();
@@ -290,28 +361,9 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	}
 
 	/**
-	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addSharedTeacherToRun(java.lang.Long, java.lang.Long)
+	 * @param userDao the userDao to set
 	 */
-	public void addSharedTeacherToRun(Long runId, Long userId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addRolesToSharedTeacher(java.lang.Long, java.lang.Long, java.util.Set)
-	 */
-	public void addRolesToSharedTeacher(Long runId, Long userId,
-			Set<String> roles) throws ObjectNotFoundException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addSharedTeacherToRun(org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters)
-	 */
-	public void addSharedTeacherToRun(
-			AddSharedTeacherParameters addSharedTeacherParameters) {
-		// TODO Auto-generated method stub
-		System.out.println("no implemented");
+	public void setUserDao(UserDao<User> userDao) {
+		this.userDao = userDao;
 	}
 }

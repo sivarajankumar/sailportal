@@ -17,10 +17,15 @@
  */
 package net.sf.sail.webapp.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.sail.webapp.domain.Persistable;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.AclService;
 
 import org.acegisecurity.Authentication;
+import org.acegisecurity.acls.AccessControlEntry;
 import org.acegisecurity.acls.MutableAcl;
 import org.acegisecurity.acls.MutableAclService;
 import org.acegisecurity.acls.NotFoundException;
@@ -28,6 +33,7 @@ import org.acegisecurity.acls.Permission;
 import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
 import org.acegisecurity.acls.sid.PrincipalSid;
+import org.acegisecurity.acls.sid.Sid;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -65,7 +71,6 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	        } catch (NotFoundException nfe) {
 	            acl = mutableAclService.createAcl(objectIdentity);
 	        }
-	        
 			acl.insertAce(null, permission,
 					new PrincipalSid(this.getAuthentication()), true);
 			this.mutableAclService.updateAcl(acl);
@@ -74,9 +79,85 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 					"Cannot create ACL. Object not set.");
 		}
 	}
-	
-    private Authentication getAuthentication() {
+
+	/**
+	 * @see net.sf.sail.webapp.service.AclService#addPermission(java.lang.Object, org.acegisecurity.acls.Permission, org.acegisecurity.Authentication)
+	 */
+	public void addPermission(T object, Permission permission, User user) {
+		if (object != null) {	
+			MutableAcl acl = null;
+			ObjectIdentity objectIdentity = new ObjectIdentityImpl(object.getClass(), object
+					.getId());
+			
+	        try {
+	            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity);
+	        } catch (NotFoundException nfe) {
+	            acl = mutableAclService.createAcl(objectIdentity);
+	        }
+			acl.insertAce(null, permission,
+					new PrincipalSid(user.getUserDetails().getUsername()), true);
+			this.mutableAclService.updateAcl(acl);
+		} else {
+			throw new IllegalArgumentException(
+					"Cannot create ACL. Object not set.");
+		}
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.AclService#removePermission(java.lang.Object, org.acegisecurity.acls.Permission, net.sf.sail.webapp.domain.User)
+	 */
+	public void removePermission(T object, Permission permission, User user) {
+		if (object != null) {	
+			MutableAcl acl = null;
+			ObjectIdentity objectIdentity = new ObjectIdentityImpl(object.getClass(), object
+					.getId());
+			Sid[] sid = {new PrincipalSid(user.getUserDetails().getUsername())};
+			
+	        try {
+	            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity, sid);
+	        } catch (NotFoundException nfe) {
+	        	return;
+	        }
+	        AccessControlEntry[] aces = acl.getEntries();
+	        for (AccessControlEntry ace : aces) {
+	        	if (ace.getPermission().equals(permission) && ace.getSid().equals(sid[0])) {
+	        		acl.deleteAce(ace.getId());
+	        	}
+	        }
+			this.mutableAclService.updateAcl(acl);
+		} else {
+			throw new IllegalArgumentException(
+					"Cannot delete ACL. Object not set.");
+		}		
+	}
+
+	private Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
+	public List<Permission> getPermissions(T object, User user) {
+		List<Permission> permissions = new ArrayList<Permission>();
+		if (object != null) {	
+			MutableAcl acl = null;
+			ObjectIdentity objectIdentity = new ObjectIdentityImpl(object.getClass(), object
+					.getId());
+			Sid[] sid = {new PrincipalSid(user.getUserDetails().getUsername())};
+			
+	        try {
+	            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity, sid);
+	        } catch (NotFoundException nfe) {
+	        	return permissions;
+	        }
+	        AccessControlEntry[] aces = acl.getEntries();
+	        for (AccessControlEntry ace : aces) {
+	        	if (ace.getSid().equals(sid[0])) {
+	        		permissions.add(ace.getPermission());
+	        	}
+	        }
+	        return permissions;
+		} else {
+			throw new IllegalArgumentException(
+					"Cannot retrieve ACL. Object not set.");
+		}		
+	}
 }

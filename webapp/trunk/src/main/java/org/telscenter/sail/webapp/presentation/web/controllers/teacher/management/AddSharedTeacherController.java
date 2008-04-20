@@ -66,7 +66,9 @@ public class AddSharedTeacherController extends AbstractWizardFormController{
 	
 	private UserService userService = null;
 	
-	private static final String RUN_KEY = "run";
+	private static final String RUN_PARAM = "run";
+
+	private static final String USER_PARAM = "user";
 	
 	/**
 	 * Constructor
@@ -89,19 +91,22 @@ public class AddSharedTeacherController extends AbstractWizardFormController{
 			Object command, Errors errors, int page) {
 		String runIdStr = request.getParameter("runId");
 		Long runId = Long.valueOf(runIdStr);
+		String newSharedOwnerName = request.getParameter("username");
 		AddSharedTeacherParameters params = (AddSharedTeacherParameters) command;
 		Run run = null;
+		User user = null;
 		Map<String, Object> model = new HashMap<String, Object>();
 		switch(page) {
 		case 0:
 			try {
+				user = this.userService.retrieveUserByUsername(newSharedOwnerName);
 				run = (Run) this.runService.retrieveById(runId);
 			} catch (ObjectNotFoundException e) {
-				// TODO HT: what should happen when the project id is invalid?
 				e.printStackTrace();
 			}
 			params.setRun(run);
-			model.put("run", run);
+			model.put(RUN_PARAM, run);
+			model.put(USER_PARAM, user);
 	   		
 			break;
 		case 1:
@@ -111,7 +116,7 @@ public class AddSharedTeacherController extends AbstractWizardFormController{
 			for (GrantedAuthority role : allRoles) {
 				for (RunPermission runpermission: RunPermission.values()) {
 					if (role.getAuthority().equals(runpermission.toString())) {
-						params.getNewRoles().add(runpermission.toString());
+						params.setPermission(runpermission.toString());
 					}
 				}
 			}

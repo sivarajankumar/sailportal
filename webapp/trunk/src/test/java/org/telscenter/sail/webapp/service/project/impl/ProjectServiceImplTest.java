@@ -27,6 +27,7 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.JnlpImpl;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 
@@ -104,6 +105,9 @@ public class ProjectServiceImplTest extends TestCase {
 	
 	public void testCreateProject_success() throws Exception {
 		Curnit expectedCurnit = new CurnitImpl();
+		SdsCurnit sdsCurnit = new SdsCurnit();
+		sdsCurnit.setName("airbags");
+		expectedCurnit.setSdsCurnit(sdsCurnit);
 		expect(mockCurnitService.getById(EXISTING_CURNIT_ID)).andReturn(expectedCurnit);
 		replay(mockCurnitService);
 		Jnlp expectedJnlp = new JnlpImpl();

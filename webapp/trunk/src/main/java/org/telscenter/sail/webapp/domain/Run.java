@@ -150,12 +150,12 @@ public interface Run extends Offering {
 	 * 
 	 * @return <code>Set<User></code>
 	 */
-	public Set<User> getSharedOwners();
+	public Set<User> getSharedowners();
 	
 	/**
 	 * Sets the shared owners for this run
 	 * 
 	 * @param sharedOwners <code>Set<User></code>
 	 */
-	public void setSharedOwners(Set<User> sharedOwners);
+	public void setSharedowners(Set<User> sharedOwners);
 }
