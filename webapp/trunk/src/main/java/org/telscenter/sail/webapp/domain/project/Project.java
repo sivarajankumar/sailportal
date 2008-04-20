@@ -111,4 +111,8 @@ public interface Project extends Persistable {
 //	 * @param projectInfoTag the projectInfoTag to set
 //	 */
 //	public void setProjectInfoTag(String projectInfoTag);
+	
+	public boolean isCurrent();
+	
+	public void setCurrent(boolean isCurrent);
 }

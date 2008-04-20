@@ -44,7 +44,6 @@ import net.sf.sail.webapp.domain.impl.JnlpImpl;
 
 import org.hibernate.annotations.Cascade;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 
@@ -64,6 +63,9 @@ public class ProjectImpl implements Project {
 	
 	@Transient
 	public static final String COLUMN_NAME_PROJECTINFOTAG = "projectinfotag";
+	
+	@Transient
+	public static final String COLUMN_NAME_ISCURRENT = "iscurrent";
 	
 	@Transient
 	public static final String DATA_STORE_NAME = "projects";
@@ -96,6 +98,8 @@ public class ProjectImpl implements Project {
     
   //  @Column(name = ProjectImpl.COLUMN_NAME_PROJECTINFOTAG, nullable = true)
  //   private String projectInfoTag;
+    @Column(name = ProjectImpl.COLUMN_NAME_ISCURRENT, nullable = true)
+    private boolean isCurrent;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -218,6 +222,20 @@ public class ProjectImpl implements Project {
 	 */
 	public void setFamilytag(FamilyTag familytag) {
 		this.familytag = familytag;
+	}
+
+	/**
+	 * @return the isCurrent
+	 */
+	public boolean isCurrent() {
+		return isCurrent;
+	}
+
+	/**
+	 * @param isCurrent the isCurrent to set
+	 */
+	public void setCurrent(boolean isCurrent) {
+		this.isCurrent = isCurrent;
 	}
 
 //	/**

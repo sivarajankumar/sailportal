@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,8 +51,14 @@ public class ProjectLibraryController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
+		 List<Project> currentProjectList = new ArrayList<Project>();
+		 for (Project p: projectList) {
+			 if (p.isCurrent())
+				 currentProjectList.add(p);
+		 }
+		 
 		 ModelAndView modelAndView = new ModelAndView();
-	     modelAndView.addObject("projectList", projectList);
+	     modelAndView.addObject("projectList", currentProjectList);
 		 return modelAndView;
 	}
 	
