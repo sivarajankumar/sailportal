@@ -127,10 +127,8 @@
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
     		    /teacher/management/updatemyaccount.html=updateMyAccountController
-    		    /teacher/management/updateteacheraccount.html=updateTeacherAccountController
     		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
     		    /teacher/management/studentinfo.html=studentInfoController
-    		    /teacher/management/manageextrateachers.html=manageExtraTeachersController
     		    /teacher/management/addsharedteacher.html=addSharedTeacherController
     		    /teacher/help/overview.html=overviewHelpController
     		    /teacher/help/main.html=mainHelpController
