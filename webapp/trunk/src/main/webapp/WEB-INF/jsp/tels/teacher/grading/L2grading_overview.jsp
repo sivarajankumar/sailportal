@@ -25,7 +25,11 @@
 		<li >
 			<a class="navigationL2_grading_highlight" href="../grading/overview.html">Overview</a> </li>
        	<li>
+       	    <!--  grade-by-step disabled until optimized 
 			<a href="../grading/projectPickerGrading.html?gradeByType=step">Grade by Step</a> </li>
+			-->
+			<a style="color:#999999;" href="#">Grade by Step</a> </li>
+			
 		<li>
 			<a href="../grading/projectPickerGrading.html?gradeByType=group">Grade By Team</a> </li>
 		<li>

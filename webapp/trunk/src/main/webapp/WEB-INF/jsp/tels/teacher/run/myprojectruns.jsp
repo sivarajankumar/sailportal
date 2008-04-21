@@ -170,13 +170,26 @@
 					    <ul id="actionList">
 					    	<li><a href="../projects/projectinfo.html?projectId=${run.project.id}">View Project Info</a></li>
 					    	<li><a style="color:#cccccc;" href="#">Edit Periods</a></li>
+					    	<!-- grade-by-step disabled until it is optimized 
    	                        <li><a href="../grading/gradebystep.html?runId=${run.id}">Grade by Step</a></li>
+   	                        -->
+   	                        <li><a style="color:#cccccc;" href="#">Grade by Step</a></li>
+   	                        
 						    <li><a href="../grading/selectworkgroup.html?runId=${run.id}">Grade by Team</a></li>				    	
 		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">
     					      <li><a href="shareprojectrun.html?runId=${run.id}">Share with Another Teacher</a></li> 
   	                        </authz:accesscontrollist>
+  	                        
+  	                        <!-- student score summary disabled until it is optimized 
 					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
+					    	-->
+					    	<li><a style="color:#cccccc;" href="#">Student Score Summary</a></li>
+
+					    	<!-- teacher grading progress disabled until it is optimized 
 					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
+					    	-->
+					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
+					    	
 					    	<li><a style="color:#cccccc;" href="#">Send Msg to Student(s)</a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}">Report a Problem</a></li>
 		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">					    	
