@@ -27,11 +27,12 @@ import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ShareProjectRunControllerTest.class,
 	org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.manage.AllTests.class
 })
 
