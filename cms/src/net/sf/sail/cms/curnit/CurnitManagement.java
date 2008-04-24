@@ -40,7 +40,7 @@ public interface CurnitManagement {
 	/*
 	 * Update the version of the curnit in the CMS with the given curnit values
 	 */
-	public CurnitManagementResponse updateCurnit(CurnitOtmlImpl curnit) throws UpdateCurnitException;
+	public CurnitManagementResponse updateCurnit(CurnitOtmlImpl curnit, String user, String password) throws UpdateCurnitException;
 	
 	/*
 	 * Mark curnit deleted from CMS.

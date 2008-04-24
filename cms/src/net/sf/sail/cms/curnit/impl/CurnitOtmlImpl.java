@@ -28,11 +28,11 @@ public class CurnitOtmlImpl{
 	
 	@JcrProperty private String uniqueKey; // unique string defining each curnit 
 	@JcrProperty private String curnitUuid; // curnit's uuid assigned by jackrabbit
-	@JcrProperty private String curnitPath; // curnit's path in jackrabbit
 	@JcrProperty private String title; // title set for each version of the curnit 
 	@JcrProperty private String comment; // submitted for each new version
 	@JcrProperty private String author; // author modifying each specific version of the curnit
 	@JcrProperty private Date createdTime; // the time this version of the curnit was created
+	@JcrProperty private String curnitVersion; // the uniqe version of this curnit
 	
 	private File otmlFile; // The otml file submitted by the external party
 	
@@ -179,16 +179,6 @@ public class CurnitOtmlImpl{
 	}
 
 
-	public String getCurnitPath() {
-		return curnitPath;
-	}
-
-
-	public void setCurnitPath(String curnitPath) {
-		this.curnitPath = curnitPath;
-	}
-
-
 	protected JcrFile getJcrOtml() {
 		return jcrOtml;
 	}
@@ -196,5 +186,15 @@ public class CurnitOtmlImpl{
 
 	protected void setJcrOtml(JcrFile jcrOtml) {
 		this.jcrOtml = jcrOtml;
+	}
+
+
+	protected String getCurnitVersion() {
+		return curnitVersion;
+	}
+
+
+	protected void setCurnitVersion(String curnitVersion) {
+		this.curnitVersion = curnitVersion;
 	}
 }
