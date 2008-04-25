@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,21 +18,14 @@ import javax.jcr.InvalidSerializedDataException;
 import javax.jcr.ItemExistsException;
 import javax.jcr.LoginException;
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
 import javax.jcr.PathNotFoundException;
-import javax.jcr.Property;
-import javax.jcr.PropertyIterator;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
-import javax.jcr.Value;
 import javax.jcr.lock.LockException;
 import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.version.Version;
 import javax.jcr.version.VersionException;
-import javax.jcr.version.VersionHistory;
-import javax.jcr.version.VersionIterator;
 
 import net.sf.sail.cms.curnit.CurnitManagement;
 import net.sf.sail.cms.curnit.CurnitManagementResponse;
@@ -41,14 +35,9 @@ import net.sf.sail.cms.exceptions.RetrieveCurnitException;
 import net.sf.sail.cms.exceptions.UpdateCurnitException;
 
 import org.apache.jackrabbit.core.TransientRepository;
-import org.apache.jackrabbit.ocm.exception.ObjectContentManagerException;
-import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.jcrom.JcrDataProvider;
-import org.jcrom.JcrDataProviderImpl;
 import org.jcrom.JcrFile;
 import org.jcrom.Jcrom;
-import org.jcrom.JcrDataProvider.TYPE;
-import org.jcrom.util.PathUtils;
 
 public class CurnitManagementImpl implements CurnitManagement {
 	
@@ -106,20 +95,20 @@ public class CurnitManagementImpl implements CurnitManagement {
 			JcrFile jcrOtmlFile = JcrFile.fromFile(curnitOtmlFile.getName(), curnitOtmlFile, JcrDataProvider.TYPE.FILE.toString());
 			curnit.setJcrOtml(jcrOtmlFile);
 			
-			Node jcrNode = curnitDao.create(curnit);
-			curnit.setCurnitUuid(jcrNode.getUUID());
-			
-			jcrNode.checkout();
-			// add the otml node to the curnit node in jackrabbit
-			Node otmlNode = jcrNode.addNode("otmlNode", "nt:unstructured");
-			otmlNode.addMixin("mix:versionable");
-			otmlNode.checkout();
-			
-			// map the otml file into jackrabbit node structure
-			mapOtmlFile(session, curnit);
-			session.save();
-			otmlNode.checkin();
-			jcrNode.checkin();
+			curnitDao.create(curnit);
+//			curnit.setCurnitUuid(jcrNode.getUUID());
+//			
+//			jcrNode.checkout();
+//			// add the otml node to the curnit node in jackrabbit
+//			Node otmlNode = jcrNode.addNode("otmlNode", "nt:unstructured");
+//			otmlNode.addMixin("mix:versionable");
+//			otmlNode.checkout();
+//			
+//			// map the otml file into jackrabbit node structure
+//			mapOtmlFile(session, curnit);
+//			session.save();
+//			otmlNode.checkin();
+//			jcrNode.checkin();
 			
 			//TODO return successful message
 			return null;
@@ -223,7 +212,8 @@ public class CurnitManagementImpl implements CurnitManagement {
 		Session session = getSession(user, password);		
 		Jcrom jcrom = getJcrom(persistentClasses);
 		
-		CurnitDao curnitDao = getCurnitDao(session, jcrom);
+		CurnitDao curnitDao = getCurnitDao(session, jcrom);		
+//		CurnitOtmlImpl retrievedCurnit = curnitDao.getLatestVersion(session, curnit.getUniqueKey());
 		
 		curnit.setPath("/curnits/" + curnit.getUniqueKey());
 		
@@ -246,35 +236,35 @@ public class CurnitManagementImpl implements CurnitManagement {
 		return null;
 	}
 
-	/*
-	 * Map the given xml file onto jackrabbit repository
-	 */
-	private void mapOtmlFile(Session session, CurnitOtmlImpl curnit) {
-		InputStream xmlOtml;
-		try {
-			xmlOtml = new FileInputStream(curnit.getOtmlFile());
-			session.importXML(curnit.getPath() + "/otmlNode", xmlOtml, ImportUUIDBehavior.IMPORT_UUID_CREATE_NEW);
-			xmlOtml.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (PathNotFoundException e) {
-			e.printStackTrace();
-		} catch (ItemExistsException e) {
-			e.printStackTrace();
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-		} catch (VersionException e) {
-			e.printStackTrace();
-		} catch (InvalidSerializedDataException e) {
-			e.printStackTrace();
-		} catch (LockException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (RepositoryException e) {
-			e.printStackTrace();
-		}		
-	}
+//	/*
+//	 * Map the given xml file onto jackrabbit repository
+//	 */
+//	private void mapOtmlFile(Session session, CurnitOtmlImpl curnit) {
+//		InputStream xmlOtml;
+//		try {
+//			xmlOtml = new FileInputStream(curnit.getOtmlFile());
+//			session.importXML(curnit.getPath() + "/otmlNode", xmlOtml, ImportUUIDBehavior.IMPORT_UUID_CREATE_NEW);
+//			xmlOtml.close();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (PathNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (ItemExistsException e) {
+//			e.printStackTrace();
+//		} catch (ConstraintViolationException e) {
+//			e.printStackTrace();
+//		} catch (VersionException e) {
+//			e.printStackTrace();
+//		} catch (InvalidSerializedDataException e) {
+//			e.printStackTrace();
+//		} catch (LockException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (RepositoryException e) {
+//			e.printStackTrace();
+//		}		
+//	}
 	
 	public List<Class> getPersistentClasses() {
 		return persistentClasses;

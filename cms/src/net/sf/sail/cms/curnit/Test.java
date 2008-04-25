@@ -53,6 +53,5 @@ public class Test {
 		cur1.setTitle("title-changed");
 		curMgr.updateCurnit(cur1, "username", "password");
 
-		//curMgr.createCurnit(cur, "username", "password");
 	}
 }
