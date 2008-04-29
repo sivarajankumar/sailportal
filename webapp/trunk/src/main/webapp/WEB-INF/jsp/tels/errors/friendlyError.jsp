@@ -36,18 +36,10 @@
 <h1><spring:message code="banner.heading" /></h1>
 </div>
 
-<div id="columns">
-<div id="left">
-<h2>
-	<spring:message code="welcome" /> 
-	<authz:authentication operation="username" />
-</h2>
-</div>
-
-<div style="position:relative;left:350px;	">
-An error has occurred.
-</div>
-
+<div style="position:relative;left:350px;">
+The server has encountered an error.<br /><br />
+The staff has been informed about this problem.<br /> <br />
+Please return to your previous page.
 </div>
 
 </body>

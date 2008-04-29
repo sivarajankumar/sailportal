@@ -238,6 +238,7 @@
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
         <property name="javaMail" ref="javaMail"/>
 		<property name="emaillisteners" ref="emaillisteners" />			
+		<property name="uiHTMLProperties" ref="uihtmlproperties" />			
 	</bean>
 	
 
@@ -351,7 +352,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateMyAccountController">
 	</bean>
 
-<!--  
+	<!--  
 	<bean id="updateTeacherAccountController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateTeacherAccountController">
 	</bean>
