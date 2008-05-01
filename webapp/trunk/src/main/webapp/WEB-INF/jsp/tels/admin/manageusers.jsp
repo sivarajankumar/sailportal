@@ -25,14 +25,24 @@
 <body>
 <%@ include file="adminheader.jsp"%>
 
-If you see this, you have admin privileges.<br>
-View all users:
-
+<table>
+<tr>
+<th>firstname lastname</th>
+<th>change password</th>
+<th>login as this user</th>
+</tr>
 <c:forEach var="user" items="${all_users_list}">
-<li>${user.userDetails.firstname} ${user.userDetails.lastname}
-<a href="#" onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${user.userDetails.username}');">Password</a>
-</li>
+<tr>
+<td>${user.userDetails.firstname} ${user.userDetails.lastname}</td>
+<td>
+<a href="#" onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${user.userDetails.username}');">Change Password</a>
+</td>
+<td>
+<a href="../j_acegi_switch_user?j_username=${user.userDetails.username}">Log in as this user</a>
+</td>
+</tr>
 </c:forEach>
+</table>
 
 
 </body>

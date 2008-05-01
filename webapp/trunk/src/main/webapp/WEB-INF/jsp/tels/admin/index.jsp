@@ -32,7 +32,7 @@
 If you see this, you have admin privileges.<br>
 
 
-<a href="manageusers.html">change any user's password</a><br>
+<a href="manageusers.html">Manage users</a><br>
 <a href="lookupuser.html">look up user</a><br>
 <a href="managenewsitems.html">Work with News Items</a>
 
