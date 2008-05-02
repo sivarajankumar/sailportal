@@ -73,8 +73,7 @@ public class CurnitDao extends AbstractJcrDAO<CurnitOtmlImpl> {
 			otmlNode.checkout();
 			
 			// map the otml file into jackrabbit node structure
-			mapOtmlFile(session, curnit);
-    		
+			mapOtmlFile(session, curnit);    		
     		
     		session.save();
     		if ( isVersionable ) {
@@ -84,34 +83,34 @@ public class CurnitDao extends AbstractJcrDAO<CurnitOtmlImpl> {
     	}
         
         
-//    	protected String update( Node node, CurnitOtmlImpl curnit, String childNodeFilter, int maxDepth ) throws Exception {
-////    		if ( isVersionable ) {
-////    			node.checkout();
-////    		}
-//    		
-//    		System.out.println(node.getName());
-//    		System.out.println(node.getPath());
-//    		
-//    		return null;
-//    		
-////    		node.getNode("otmlNode").remove();
-////
-////    		// mapping the otml file onto jackrabbit
-////    		// add the otml node to the curnit node in jackrabbit
-////			Node otmlNode = node.addNode("otmlNode", "nt:unstructured");
-////			otmlNode.addMixin("mix:versionable");
-////			otmlNode.checkout();
-////			
-////			// map the otml file into jackrabbit node structure
-////			mapOtmlFile(session, curnit);
-////    		
-////    		String name = jcrom.updateNode(node, curnit, childNodeFilter, maxDepth);
-////    		session.save();
-////    		if ( isVersionable ) {
-////    			node.checkin();
-////    		}
-////    		return name;
-//    	}
+        /*
+         * Overridding Jcrom's method. This is done so that we can map the otml file onto Jackrabbit during update as well.
+         * This will allow us to search the curnit's content later on.
+         * @see org.jcrom.dao.AbstractJcrDAO#update(javax.jcr.Node, java.lang.Object, java.lang.String, int)
+         */
+    	protected String update( Node node, CurnitOtmlImpl curnit, String childNodeFilter, int maxDepth ) throws Exception {
+    		if ( isVersionable ) {
+    			node.checkout();
+    		}
+    		
+    		node.getNode("otmlNode").remove();
+
+    		// mapping the otml file onto jackrabbit
+    		// add the otml node to the curnit node in jackrabbit
+			Node otmlNode = node.addNode("otmlNode", "nt:unstructured");
+			otmlNode.addMixin("mix:versionable");
+			otmlNode.checkout();
+			
+			// map the otml file into jackrabbit node structure
+			mapOtmlFile(session, curnit);
+    		
+    		String name = jcrom.updateNode(node, curnit, childNodeFilter, maxDepth);
+    		session.save();
+    		if ( isVersionable ) {
+    			node.checkin();
+    		}
+    		return name;
+    	}
 
     	/*
     	 * Map the given xml file onto jackrabbit repository
@@ -143,6 +142,13 @@ public class CurnitDao extends AbstractJcrDAO<CurnitOtmlImpl> {
     		}		
     	}
         
+    	/*
+    	 * Given a curnit key and a list of versions, return a list of all the versions for the requested curnit.
+    	 * @param session Session to Jackrabbit
+    	 * @param uniqueKey The unique string identifying each curnit
+    	 * @param version List of requested versions
+    	 * @return List<CurnitOtmlImpl>
+    	 */
         public List<CurnitOtmlImpl> getCurnitVersions (Session session, String uniqueKey, List versions) {
         	
         	List<CurnitOtmlImpl> versionedCurnitList = new ArrayList<CurnitOtmlImpl>();
@@ -164,7 +170,8 @@ public class CurnitDao extends AbstractJcrDAO<CurnitOtmlImpl> {
 						}
 					}
 	        	}else if (versions.size() == 1 && versions.contains(new Float("-1"))){ // return the latest version of the curnit
-	        		//TODO need to figure out how I can get the latest version of the node
+	        		//TODO need to figure out how I can get the latest version of the node. currently we iterate through all
+	        		// versions to get the latest.
 	        		VersionIterator verIterator = versionHis.getAllVersions();
         			verIterator.skip(1);
 					while (verIterator.hasNext()){
@@ -194,7 +201,6 @@ public class CurnitDao extends AbstractJcrDAO<CurnitOtmlImpl> {
 			} catch (RepositoryException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	

@@ -33,9 +33,7 @@ public interface CurnitManagement {
 	 * To get all the versions of a curnit send a 'NULL' as the curnit version
 	 * To get one or more specific versions of a curnit sent a list containing their version numbers.
 	 */
-	public Map<String, List<CurnitOtmlImpl>> retrieveCurnit (Map<String,List<Float>> curnitMap, 
-			String user, String password)
-		throws RetrieveCurnitException;
+	public Map<String, List<CurnitOtmlImpl>> retrieveCurnit (Map<String,List<Float>> curnitMap, String user, String password) throws RetrieveCurnitException;
 
 	/*
 	 * Update the version of the curnit in the CMS with the given curnit values

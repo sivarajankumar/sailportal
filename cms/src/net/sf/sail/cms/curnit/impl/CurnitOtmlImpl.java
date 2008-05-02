@@ -23,7 +23,7 @@ import org.jcrom.annotations.JcrProperty;
 @JcrNode(mixinTypes = {"mix:versionable"})
 public class CurnitOtmlImpl{
 	
-	@JcrName private String name; // name of the node set by Jcrom - Jcrom will modify the name (eg. "Hello, World!" is changed to "Hello_World")
+	@JcrName private String name; // name of the node set by Jcrom
 	@JcrPath private String path; // mandatory attribute -- requested by Jcrom
 	
 	@JcrProperty private String uniqueKey; // unique string defining each curnit 
@@ -35,166 +35,112 @@ public class CurnitOtmlImpl{
 	@JcrProperty private String curnitVersion; // the uniqe version of this curnit
 	
 	private File otmlFile; // The otml file submitted by the external party
+	private List<File> otmlResources; // The resource files submitted by the external party
 	
 	@JcrFileNode private JcrFile jcrOtml; // JcrFile type of the otml file to be persisted in jackrabbit
-	//@JcrFileNode private List<JcrFile> resources; // attached files which will be referenced by the otml file
-
-	/**
-	 * The title set for each version of the curnit by the author
-	 * @return String
-	 */
+	@JcrFileNode private List<JcrFile> jcrResources; // attached files which will be referenced by the otml file
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
 	public String getUniqueKey() {
 		return uniqueKey;
 	}
-
-
-	/**
-	 * The title set for each version of the curnit by the author
-	 * @param title The title specified for each version of the curnit - titles can be the same from version to version
-	 */
+	
 	public void setUniqueKey(String uniqueKey) {
 		this.uniqueKey = uniqueKey;
 	}
-
-
-	/**
-	 * Get the read-only path to this node in jackrabbit - This is set by Jcrom
-	 * @return String
-	 */
-	protected String getPath() {
-		return path;
+	
+	public String getCurnitUuid() {
+		return curnitUuid;
 	}
-
-	/**
-	 * Get the unique string which defines this curnit
-	 * @return String
-	 */
-	protected String getName() {
-		return name;
+	
+	public void setCurnitUuid(String curnitUuid) {
+		this.curnitUuid = curnitUuid;
 	}
-
-
-	/**
-	 * Set the unique string which defines this curnit
-	 * @param uniqueKey The string defining this curnit
-	 */
-	protected void setName(String name) {
-		this.name = name;
+	
+	public String getTitle() {
+		return title;
 	}
-
-
-	/**
-	 * Get the comment set by the author for this version of the curnit
-	 * @return String 
-	 */
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
 	public String getComment() {
 		return comment;
 	}
-
-
-	/**
-	 * Set the comment the author has submitted for this version of the curnit
-	 * @param comment Author's comment
-	 */
+	
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
-
-	/**
-	 * The the unique string identifying the author of this version of the curnit
-	 * @return String
-	 */
+	
 	public String getAuthor() {
 		return author;
 	}
-
-
-	/**
-	 * Set the unique string identifying the author of this version of the curnit
-	 * @param author The unique string identifying the author
-	 */
+	
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
-
-	protected Date getCreatedTime() {
+	
+	public Date getCreatedTime() {
 		return createdTime;
 	}
-
-
-	protected void setCreatedTime(Date createdTime) {
+	
+	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
 	
+	public String getCurnitVersion() {
+		return curnitVersion;
+	}
+	
+	public void setCurnitVersion(String curnitVersion) {
+		this.curnitVersion = curnitVersion;
+	}
 	
 	public File getOtmlFile() {
 		return otmlFile;
 	}
-
-
+	
 	public void setOtmlFile(File otmlFile) {
 		this.otmlFile = otmlFile;
 	}
-
-
-//	public List<JcrFile> getResources() {
-//		return resources;
-//	}
-//
-//
-//	public void setResources(List<JcrFile> resources) {
-//		this.resources = resources;
-//	}
-
-
-	public String toString(){
-		return "Jcrom name is:\t" + this.getName() + "\n unique key is:\t" + this.getUniqueKey();
+	
+	public List<File> getOtmlResources() {
+		return otmlResources;
 	}
-
-
-	public void setPath(String path) {
-		this.path = path;
+	
+	public void setOtmlResources(List<File> otmlResources) {
+		this.otmlResources = otmlResources;
 	}
-
-
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	protected String getCurnitUuid() {
-		return curnitUuid;
-	}
-
-
-	protected void setCurnitUuid(String curnitUuid) {
-		this.curnitUuid = curnitUuid;
-	}
-
-
-	protected JcrFile getJcrOtml() {
+	
+	public JcrFile getJcrOtml() {
 		return jcrOtml;
 	}
-
-
-	protected void setJcrOtml(JcrFile jcrOtml) {
+	
+	public void setJcrOtml(JcrFile jcrOtml) {
 		this.jcrOtml = jcrOtml;
 	}
-
-
-	protected String getCurnitVersion() {
-		return curnitVersion;
+	
+	public List<JcrFile> getJcrResources() {
+		return jcrResources;
 	}
-
-
-	protected void setCurnitVersion(String curnitVersion) {
-		this.curnitVersion = curnitVersion;
+	
+	public void setJcrResources(List<JcrFile> jcrResources) {
+		this.jcrResources = jcrResources;
 	}
 }

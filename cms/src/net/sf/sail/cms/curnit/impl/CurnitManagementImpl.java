@@ -48,6 +48,13 @@ public class CurnitManagementImpl implements CurnitManagement {
 	// name of the parent node to all curnit nodes
 	private final static String CURNITSNODE = "curnits";
 	
+	// the response/exception messages that the methods respectively return/throw
+	private CurnitManagementResponse response = new CurnitManagementResponse();
+	private CreateCurnitException createExcetion = new CreateCurnitException();
+	private DeleteCurnitException deleteException = new DeleteCurnitException();
+	private RetrieveCurnitException retrieveException = new RetrieveCurnitException();
+	private UpdateCurnitException updateException = new UpdateCurnitException();
+	
 	/*
 	 * Create a curnit in jackrabbit, given the user and password. If the curnit already exists,
 	 * it will be specified in the CurnitManagementResponse object, returned.
@@ -77,11 +84,22 @@ public class CurnitManagementImpl implements CurnitManagement {
 				curnitsNode = session.getRootNode().addNode(CURNITSNODE, "nt:unstructured");
 			}			
 			
-			// Make sure we do not already have this curnit in the repository
-			if (curnitDao.exists("/curnits/" + curnit.getUniqueKey())){
+			// Check the following and make sure all checks pass
+			// unique key exists
+			if (curnit.getUniqueKey() == null){
 				session.logout();
-				//TODO return the correct response message -- the error message should be clear
-				return null;
+				//TODO complete response
+				response.setReturnMessage("A curnit must have a uniqe key attribute");
+				return response;
+			}
+			
+			// curnit doesn't already exist in the repository
+			if (curnitDao.exists("/"+ CURNITSNODE+ "/" + curnit.getUniqueKey())){
+				session.logout();
+				
+				//TODO complete response
+				response.setReturnMessage("A curnit with the given unique key already exists in the repository");
+				return response;
 			}
 			
 			// set curnit's properties
@@ -95,27 +113,32 @@ public class CurnitManagementImpl implements CurnitManagement {
 			JcrFile jcrOtmlFile = JcrFile.fromFile(curnitOtmlFile.getName(), curnitOtmlFile, JcrDataProvider.TYPE.FILE.toString());
 			curnit.setJcrOtml(jcrOtmlFile);
 			
-			curnitDao.create(curnit);
-//			curnit.setCurnitUuid(jcrNode.getUUID());
-//			
-//			jcrNode.checkout();
-//			// add the otml node to the curnit node in jackrabbit
-//			Node otmlNode = jcrNode.addNode("otmlNode", "nt:unstructured");
-//			otmlNode.addMixin("mix:versionable");
-//			otmlNode.checkout();
-//			
-//			// map the otml file into jackrabbit node structure
-//			mapOtmlFile(session, curnit);
-//			session.save();
-//			otmlNode.checkin();
-//			jcrNode.checkin();
+			// Create a jcrFile object from each java.io.File object for the curnit's resources.
+			JcrFile jcrResource;
+			List<JcrFile> jcrResources = new ArrayList<JcrFile>();
+			List<File> resources = curnit.getOtmlResources();
+			int size = resources.size();
+			File resource;
+			for (int i=0; i< size; i++){
+			//for (File resource: curnit.getOtmlResources()){
+				resource = resources.get(i);
+				//jcrResource = JcrFile.fromFile(resource.getName(), resource, JcrDataProvider.TYPE.FILE.toString());
+				jcrResource = JcrFile.fromFile("resource"+ (i+1), resource, JcrDataProvider.TYPE.FILE.toString());
+				jcrResources.add(jcrResource);
+			}
+			curnit.setJcrResources(jcrResources);
 			
-			//TODO return successful message
-			return null;
+			// create the curnit using Jcrom.
+			curnitDao.create(curnit);
+			
+			response.setReturnMessage("Curnit with id:" + curnit.getUniqueKey() + " was created successfully");
+			return response;
 		
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new CreateCurnitException();
+			//TODO complete excetion
+			createExcetion.setStackTrace(e.getStackTrace());
+			throw createExcetion;
 		}finally {
 			session.logout();
 		}
@@ -141,16 +164,37 @@ public class CurnitManagementImpl implements CurnitManagement {
 		Jcrom jcrom = getJcrom(persistentClasses);
 		
 		CurnitDao curnitDao = getCurnitDao(session, jcrom);
-			
+		
 		try {
-			String curnitPath = "/curnits/" + curnit.getUniqueKey();
+			// make sure the submitted curnit does have a unique key
+			if (curnit.getUniqueKey() == null){
+				session.logout();
+				
+				//TODO complete response
+				response.setReturnMessage("The specified curnit is missing a unique key");
+				return response;
+			}
+			
+			// curnit doesn't exist in the repository
+			if (!curnitDao.exists("/" + CURNITSNODE + "/" + curnit.getUniqueKey())){
+				session.logout();
+				
+				//TODO complete response
+				response.setReturnMessage("A curnit with the given unique key does not exist in the repository");
+				return response;
+			}				
+			
+			String curnitPath = "/" + CURNITSNODE + "/" + curnit.getUniqueKey();
 			curnitDao.delete(curnitPath);
 			
-			//TODO return successful message
-			return null;
+			response.setReturnMessage("Curnit with id:" + curnit.getUniqueKey() + " was deleted successfully");
+			return response;
 		
 		} catch (Exception e) {
-			throw new DeleteCurnitException();
+			e.printStackTrace();
+			//TODO complete excetion
+			deleteException.setStackTrace(e.getStackTrace());
+			throw deleteException;
 		}finally {
 			session.logout();
 		}	
@@ -187,7 +231,7 @@ public class CurnitManagementImpl implements CurnitManagement {
 			Iterator<String> iter = curnitMap.keySet().iterator();
 			while(iter.hasNext()){				
 				nextItem = iter.next();
-				String curnitPath = "/curnits/" + nextItem;
+				String curnitPath = "/" + CURNITSNODE + "/" + nextItem;
 				curnit = curnitDao.get(curnitPath);
 				
 				versionList = curnitDao.getCurnitVersions(session, curnit.getUniqueKey(), curnitMap.get(nextItem));				
@@ -197,8 +241,9 @@ public class CurnitManagementImpl implements CurnitManagement {
 			session.logout();		
 			return requestedCurnits;
 		}catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			//TODO complete exception
+			retrieveException.setStackTrace(e.getStackTrace());
+			throw retrieveException;
 		}
 	}
 
@@ -213,17 +258,50 @@ public class CurnitManagementImpl implements CurnitManagement {
 		Jcrom jcrom = getJcrom(persistentClasses);
 		
 		CurnitDao curnitDao = getCurnitDao(session, jcrom);		
-//		CurnitOtmlImpl retrievedCurnit = curnitDao.getLatestVersion(session, curnit.getUniqueKey());
 		
-		curnit.setPath("/curnits/" + curnit.getUniqueKey());
+		curnit.setPath("/" + CURNITSNODE + "/" + curnit.getUniqueKey());		
+		curnit.setName(curnit.getUniqueKey());
+		curnit.setCreatedTime(new Date());
+		
+		// Creating a jcrFile object from a java.io.File object. We need to convert the object type to 
+		// jcrFile since that is how Jcrom can persist the data.
+		File curnitOtmlFile = curnit.getOtmlFile();
+		JcrFile jcrOtmlFile = JcrFile.fromFile(curnitOtmlFile.getName(), curnitOtmlFile, JcrDataProvider.TYPE.FILE.toString());
+		curnit.setJcrOtml(jcrOtmlFile);
+		
+		// Create a jcrFile object from each java.io.File object for the curnit's resources.
+		JcrFile jcrResource;
+		List<JcrFile> jcrResources = new ArrayList<JcrFile>();
+		
+		List<File> resources = curnit.getOtmlResources();
+		int size = resources.size();
+		File resource;
+		for (int i=0; i< size; i++){
+		//for (File resource: curnit.getOtmlResources()){
+			resource = resources.get(i);
+			//jcrResource = JcrFile.fromFile(resource.getName(), resource, JcrDataProvider.TYPE.FILE.toString());
+			jcrResource = JcrFile.fromFile("resource"+ (i+1), resource, JcrDataProvider.TYPE.FILE.toString());
+			jcrResources.add(jcrResource);
+		}
+		curnit.setJcrResources(jcrResources);
 		
 		try {
-			curnitDao.update(curnit);
+			if (curnitDao.update(curnit) != null){
+				//TODO complete response -- need to add the code for success/failure
+				response.setReturnMessage("Curnit with id:" + curnit.getUniqueKey() + " was updated successfully");
+				return response;
+			}else{
+				//TODO complete response -- need to add the code for success/failure
+				response.setReturnMessage("Curnit with id:" + curnit.getUniqueKey() + " could not be updated");
+				return response;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			updateException.setStackTrace(e.getStackTrace());
+			throw updateException;
+		}finally {
+			session.logout();
 		}
-
-		return null;
 	}
 
 	public CurnitManagementResponse purgeCurnit(CurnitOtmlImpl curnit) {
@@ -235,36 +313,6 @@ public class CurnitManagementImpl implements CurnitManagement {
 
 		return null;
 	}
-
-//	/*
-//	 * Map the given xml file onto jackrabbit repository
-//	 */
-//	private void mapOtmlFile(Session session, CurnitOtmlImpl curnit) {
-//		InputStream xmlOtml;
-//		try {
-//			xmlOtml = new FileInputStream(curnit.getOtmlFile());
-//			session.importXML(curnit.getPath() + "/otmlNode", xmlOtml, ImportUUIDBehavior.IMPORT_UUID_CREATE_NEW);
-//			xmlOtml.close();
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (PathNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (ItemExistsException e) {
-//			e.printStackTrace();
-//		} catch (ConstraintViolationException e) {
-//			e.printStackTrace();
-//		} catch (VersionException e) {
-//			e.printStackTrace();
-//		} catch (InvalidSerializedDataException e) {
-//			e.printStackTrace();
-//		} catch (LockException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (RepositoryException e) {
-//			e.printStackTrace();
-//		}		
-//	}
 	
 	public List<Class> getPersistentClasses() {
 		return persistentClasses;
@@ -282,7 +330,7 @@ public class CurnitManagementImpl implements CurnitManagement {
 		}
 	}
 	
-	public void setPersistentClasses(Class persistentClass){
+	public void setPersistentClass(Class persistentClass){
 		if (!this.persistentClasses.contains(persistentClass)){
 			this.persistentClasses.add(persistentClass);
 		}
@@ -329,8 +377,7 @@ public class CurnitManagementImpl implements CurnitManagement {
 	
 	
 	// Get a curnitDao to be able to manipulate the curnit object
-	private CurnitDao getCurnitDao(Session session, Jcrom jcrom){
-		
+	private CurnitDao getCurnitDao(Session session, Jcrom jcrom){		
 		return new CurnitDao(session, jcrom);
 	}
 }
