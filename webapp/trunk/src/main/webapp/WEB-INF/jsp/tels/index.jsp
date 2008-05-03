@@ -74,74 +74,58 @@ width: 100%;
 <table id="tableTop" cellpadding="0" cellspacing="0">
         		<tr>
         			<td id="boxTableWelcome" class="panelColor">
-               		  <div id="header">Welcome to WISE</div>
+               		  <div id="header"><spring:message code="welcometowise"/></div>
                       
 	<div id="parastyleTable">
         
 	    <ul id="welcomeTextLinks">
-	    	<li><a href="#" onClick="javascript: fabulousTurnOff1();">WHAT IS WISE?</a></li>
-	        <li><a href="#" onClick="javascript: fabulousTurnOff2();">CURRICULUM BASED</a></li>
-	        <li><a href="#" onClick="javascript: fabulousTurnOff3();">INQUIRY PROJECTS</a></li>
-	        <li><a href="#" onClick="javascript: fabulousTurnOff4();">STUDENT ENGAGEMENT</a></li>
-	        <li><a href="#" onClick="javascript: fabulousTurnOff5();">INTERACTIVE MODELS</a></li>
-	        <li><a href="#" onClick="javascript: fabulousTurnOff6();">ONLINE GRADING</a></li>
-	        <li><a href="#" onClick="javascript: fabulousTurnOff7();">FREE & OPEN SOURCE</a></li>
+	    	<li><a href="#" onClick="javascript: fabulousTurnOff1();"><spring:message code="whatiswise"/></a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff2();"><spring:message code="curriculumbased"/></a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff3();"><spring:message code="inquiryprojects"/></a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff4();"><spring:message code="studentengagement"/></a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff5();"><spring:message code="interactivemodels"/></a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff6();"><spring:message code="onlinegrading"/></a></li>
+	        <li><a href="#" onClick="javascript: fabulousTurnOff7();"><spring:message code="freeandopensource"/></a></li>
 	    </ul>
 	    
-	    <p class="smallText">Click above for details</p>
+	    <p class="smallText"><spring:message code="clickabovefordetails"/></p>
     
     </div>
     
 					<div id="welcomeBullet1" style=""> 
-          			<div class="welcomeBulletHeader">What is WISE?</div>
-		  			<p>The Web-Based Inquiry Science Environment <br/>is a simple yet powerful learning system designed to foster 
-		  			inquiry-based science. <br/> A collection of online and Java-based tools allow students to 
-		  			download curriculum projects, then explore and reflect at their own pace.  Teachers facilitate the 
-		  			process in the classroom and use online tools to offer formative and evaluative assessment of student work.</p>
+          			<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader"/></div>
+		  			<p><spring:message code="whatiswisebullet"/></p>
 					</div>
 				
 					<div id="welcomeBullet2" style="display:none;"> 
-          			<div class="welcomeBulletHeader">Curriculum-Based</div>
-                    <p>Standards-based WISE projects are specifically tailored for classroom use, and revolve around key conceptual 
-                    difficulties that students encounter in biology, chemistry, and physics.  As a result, WISE projects offer a 
-                    focused and inquiry-rich supplement to a teacher's core scope and sequence.</p>
+          			<div class="welcomeBulletHeader"><spring:message code="curriculumbasedheader"/></div>
+                    <p><spring:message code="curriculumbasedbullet"/></p>
 					</div>
                     
                     <div id="welcomeBullet3" style="display:none;"> 
-          			<div class="welcomeBulletHeader">Inquiry Projects</div>
-		  			<p>WISE projects focus on science inquiry. Students explore new ideas and information, ponder discrepant events, write reflections,
-		  				form fact-based theories, and validate these theories through discussion and model-based testing. 
-		  				Students can work alone, in pairs, or in trios (at the teacher's discretion).</p>
+          			<div class="welcomeBulletHeader"><spring:message code="inquiryprojectsheader"/></div>
+		  			<p><spring:message code="inquiryprojectsbullet"/></p>
 					</div>
                     
                     <div id="welcomeBullet4" style="display:none;"> 
-          			<div class="welcomeBulletHeader">Student Engagement</div>
-		  			<p>WISE projects draw and sustain student interest using compelling computer-based interactivity.  
-		  			The rapid feedback offered by WISE tools encourages students to self-monitor their progress and 
-		  			solidify their new ideas before moving onward.</p>
+          			<div class="welcomeBulletHeader"><spring:message code="studentengagementheader"/></div>
+		  			<p><spring:message code="studentengagementbullet"/></p>
 					</div>
                     
                     <div id="welcomeBullet5" style="display:none;"> 
-          			<div class="welcomeBulletHeader">Interactive Models</div>
-		  			<p>Many WISE projects incorporate interactive models that help make micro and macro scientific 
-		  			concepts both visible and testable.  Students experience the core processes of the scientific method 
-		  			as they form hypotheses, test them, analyze results, refine ideas, and retest.</p>
+          			<div class="welcomeBulletHeader"><spring:message code="interactivemodelsheader"/></div>
+		  			<p><spring:message code="interactivemodelsbullet"/></p>
                     </div>
                     
 					<div id="welcomeBullet6" style="display:none;"> 
-          			<div class="welcomeBulletHeader">Teacher Tools</div>
-		  			<p>A variety of integrated tools help teachers grade efficiently (using editable comment templates), 
-		  			pause all student computers simultaneously (for group discussion), and watch student work unfold online in 
-		  			real-time (with the Class Monitor). Teachers can also create customized projects using the powerful Authoring Tool.</p>
+          			<div class="welcomeBulletHeader"><spring:message code="teachertoolsheader"/></div>
+		  			<p><spring:message code="teachertoolsbullet"/></p>
 					</div>
                     
                     <div id="welcomeBullet7" style="display:none;"> 
-          			<div class="welcomeBulletHeader">Free &amp; Open-Source</div>
-		  			<p>Best of all, WISE is completely free.  Emerging from education research funding, and based on modern open-source 
-		  			technology, WISE is an active, on-going research tool used by an international community of teachers, 
-		  			researchers and software developers.</p>
+          			<div class="welcomeBulletHeader"><spring:message code="freeandopensourceheader"/></div>
+		  			<p><spring:message code="freeandopensourcebullet"/></p>
 					</div>
-
 
     
 	<ul id="welcomeButtonPosTable" >
@@ -170,10 +154,10 @@ width: 100%;
                     <td class="width15"></td>  <!--    Separator Column-->	
                     
           <td id="boxTableSignInHome" class="panelColor">
-                    			<div id="header">Sign In <span style="font-size:.6em;font-weight:normal;">(existing accounts)</span></div>
+                    			<div id="header"><spring:message code="signinheader"/><span style="margin-left:10px;font-size:.6em;font-weight:normal;"><spring:message code="existingaccounts"/></span></div>
 								<form id="home" method="post" action="j_acegi_security_check">
                                 <dl id="signinDefinList">
-                                    <dt><label for="username">Username:</label> </dt>
+                                    <dt><label for="username"><spring:message code="username"/></label> </dt>
                                     <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60"/></dd>
                                     
                                     <!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
@@ -182,7 +166,7 @@ width: 100%;
 										document.getElementById('j_username').focus();
 									</script>
 									
-									<dt><label for="password">Password:	</label></dt>
+									<dt><label for="password"><spring:message code="password"/></label></dt>
                                     <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30"/></dd>
                                 </dl>
                                                        
@@ -194,8 +178,8 @@ width: 100%;
                                 </form>
                                 
                                 <ul id="signInLinkPosition">
-                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">Find a lost Username or Password</a>  </li>
-                                		<li><a href="signup.html" id="joinlink">Create a new WISE account</a></li>
+                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message code="findalostusername"/></a>  </li>
+                                		<li><a href="signup.html" id="joinlink"><spring:message code="createanewwiseaccount"/></a></li>
                                 </ul>
                                 
                                 </td>   <!--    End of boxTableSignIn  x-->
@@ -205,7 +189,7 @@ width: 100%;
     		    		<table id="tableBottom" cellpadding="0" cellspacing="0">
    		  <tr>
         			<td id="boxWiseInAction" class="panelColor">
-                        <div id="header">WISE In Action</div>
+                        <div id="header"><spring:message code="home.wiseinactionlabel"/></div>
                         
                         <div class="alignCenter"><img id="rotator" src="./themes/tels/default/images/wiseInAction/AirBag.jpg" height="228"/></div>
                         
@@ -220,7 +204,7 @@ width: 100%;
                         counter=proceedToPreviousImage(counter);
                         changeText('actionImgLinkTable',counter);"/>
                         
-                        <a id="actionImgLinkTable">1 of 10</a>
+                        <a id="actionImgLinkTable">1 <spring:message code="home.wiseinactioncounter"/> 10</a>
                         
                         <img id="actionNextTable" src="./themes/tels/default/images/wiseInAction/Arrow_Next.png" 
                         onmouseover="this.style.cursor='pointer';" 
@@ -237,7 +221,7 @@ width: 100%;
                     
                     <td id="boxTestimonials" class="panelColor">
                             
-                            <div id="header">Testimonials</div>
+                            <div id="header"><spring:message code="home.testimonialslabel"/></div>
                             
                             <div class="alignCenter"><img class="dataBoxStyle" id="rotatorT" src="./themes/tels/default/images/testimonial.png" height="228" /></div>
                             
@@ -252,7 +236,7 @@ width: 100%;
                             onmouseup="this.style.cursor='pointer';"
                             onmouseout="this.style.cursor='default';" />
                             
-                            <a id="testimonialsImgLinkTable">1 of 5</a>
+                            <a id="testimonialsImgLinkTable">1 <spring:message code="home.testimonialscounter"/> 5</a>
                             
                             <img id="test_next" class="dynamicImage" src="./themes/tels/default/images/wiseInAction/Arrow_Next.png" onmouseover="this.style.cursor='pointer';"
                             	onmousedown="this.style.cursor='pointer';" 
@@ -267,19 +251,16 @@ width: 100%;
 							<td class="width15"></td>  
                                     
                     <td id="boxLatestNews" class="panelColor">
-                            <div id="header">Latest News</div>
+                            <div id="header"><spring:message code="home.latestnewslabel"/></div>
                             <div id="newsContent" class="dataBoxStyle" >
-                            	<div id="newsContentHeader">WISE 3.0 at College Park High School!</div>
+                            	<div id="newsContentHeader"><spring:message code="home.news.1"/></div>
                             	<div id="newsContentData"><img src="./themes/tels/default/images/cphs_logo.jpg" width="102" height="62.5" alt="College Park High School Logo" /></div>
-                            	<div id="newsContentData"><em>Pleasant Hills, CA, Feb 2008:</em></div>
-                            	<div id="newsContentData">The inquisitive students in Mr. Bodrog's biology classes will be using the 
-                            	new WISE 3.0 Portal this month.</div>
-                            	<div id="newsContentData">Feedback from these students will play an essential role in refining the WISE 
-                            	system, as it prepares for full release in Fall 2008.</div>
-                            	<div id="newsContentData">If you encounter problems with this web site or any WISE 3.0 project,
-                            	please visit the "Contact WISE" link at the bottom of the home page.</div>
-                          		<div id="newsContentData">Sincerely,</div> 
-                            	<div id="newsContentData"><em>The WISE Technology Team at UC Berkeley<em></div>
+                            	<div id="newsContentData"><em><spring:message code="home.news.2"/></em></div>
+                            	<div id="newsContentData"><spring:message code="home.news.3"/></div>
+                            	<div id="newsContentData"><spring:message code="home.news.4"/></div>
+                            	<div id="newsContentData"><spring:message code="home.news.5"/></div>
+                          		<div id="newsContentData"><spring:message code="home.news.6"/></div> 
+                            	<div id="newsContentData"><em><spring:message code="home.news.7"/><em></div>
                             </div>
                        		                                
                                 <div class="alignCenter"> 
@@ -304,15 +285,15 @@ width: 100%;
        	    	
         <td id="footerText">
         	 	<ul>
-                <li><a href="signup.html">Create New WISE Account</a></li>
-                <li id="footerNav2"><a href="./contactwisegeneral.html">Contact WISE</a></li>
-                <li id="footerNav2"><a href="<c:url value="/j_acegi_logout"/>">Sign Out</a></li>     
-                <li id="footerNav2"><a href="credits.html">Credits</a></li>
+                <li><a href="signup.html"><spring:message code="footer.link1"/></a></li>
+                <li id="footerNav2"><a href="./contactwisegeneral.html"><spring:message code="footer.link2"/></a></li>
+                <li id="footerNav2"><a href="<c:url value="/j_acegi_logout"/>"><spring:message code="footer.link3"/></a></li>     
+                <li id="footerNav2"><a href="credits.html"><spring:message code="footer.link4"/></a></li>
                 </ul>
             
-                <p>Supported by the National Science Foundation, TELS Grant No. 0334199.</p>
-                <p>Powered by SAIL open-source technology. Optimized for <a href="http://www.mozilla.com" title="Firefox web site">Firefox</a> browser.</p>
-                <p>Copyright 1998-2008. All rights reserved.</p>
+                <p><spring:message code="footer.legal1"/></p>
+                <p><spring:message code="footer.legal2"/><a href="http://www.mozilla.com" title="Firefox web site">Firefox</a> browser.</p>
+                <p><spring:message code="footer.legal3"/></p>
     	</td>
 	</tr>
 </table >  <!--    End of footer --> 
