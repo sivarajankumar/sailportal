@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.jackrabbit.ocm.mapper.impl.annotation.Field;
-import org.apache.jackrabbit.ocm.mapper.impl.annotation.Node;
+import net.sf.sail.cms.curnit.Curnit;
+
 import org.jcrom.JcrFile;
 import org.jcrom.annotations.JcrFileNode;
 import org.jcrom.annotations.JcrName;
@@ -21,7 +21,7 @@ import org.jcrom.annotations.JcrProperty;
  */
 
 @JcrNode(mixinTypes = {"mix:versionable"})
-public class CurnitOtmlImpl{
+public class CurnitOtmlImpl implements Curnit{
 	
 	@JcrName private String name; // name of the node set by Jcrom
 	@JcrPath private String path; // mandatory attribute -- requested by Jcrom
@@ -32,7 +32,7 @@ public class CurnitOtmlImpl{
 	@JcrProperty private String comment; // submitted for each new version
 	@JcrProperty private String author; // author modifying each specific version of the curnit
 	@JcrProperty private Date createdTime; // the time this version of the curnit was created
-	@JcrProperty private String curnitVersion; // the uniqe version of this curnit
+	@JcrProperty private String version; // the uniqe version of this curnit
 	
 	private File otmlFile; // The otml file submitted by the external party
 	private List<File> otmlResources; // The resource files submitted by the external party
@@ -43,103 +43,78 @@ public class CurnitOtmlImpl{
 	public String getName() {
 		return name;
 	}
-	
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	public String getPath() {
 		return path;
 	}
-	
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
 	public String getUniqueKey() {
 		return uniqueKey;
 	}
-	
 	public void setUniqueKey(String uniqueKey) {
 		this.uniqueKey = uniqueKey;
 	}
-	
 	public String getCurnitUuid() {
 		return curnitUuid;
 	}
-	
 	public void setCurnitUuid(String curnitUuid) {
 		this.curnitUuid = curnitUuid;
 	}
-	
 	public String getTitle() {
 		return title;
 	}
-	
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 	public String getComment() {
 		return comment;
 	}
-	
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
 	public String getAuthor() {
 		return author;
 	}
-	
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
 	public Date getCreatedTime() {
 		return createdTime;
 	}
-	
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
-	
-	public String getCurnitVersion() {
-		return curnitVersion;
+	public String getVersion() {
+		return version;
 	}
-	
-	public void setCurnitVersion(String curnitVersion) {
-		this.curnitVersion = curnitVersion;
+	public void setVersion(String curnitVersion) {
+		this.version = curnitVersion;
 	}
-	
 	public File getOtmlFile() {
 		return otmlFile;
 	}
-	
 	public void setOtmlFile(File otmlFile) {
 		this.otmlFile = otmlFile;
 	}
-	
 	public List<File> getOtmlResources() {
 		return otmlResources;
 	}
-	
 	public void setOtmlResources(List<File> otmlResources) {
 		this.otmlResources = otmlResources;
 	}
-	
 	public JcrFile getJcrOtml() {
 		return jcrOtml;
 	}
-	
 	public void setJcrOtml(JcrFile jcrOtml) {
 		this.jcrOtml = jcrOtml;
 	}
-	
 	public List<JcrFile> getJcrResources() {
 		return jcrResources;
 	}
-	
 	public void setJcrResources(List<JcrFile> jcrResources) {
 		this.jcrResources = jcrResources;
 	}

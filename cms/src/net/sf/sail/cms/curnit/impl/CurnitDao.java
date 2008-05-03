@@ -1,41 +1,28 @@
 package net.sf.sail.cms.curnit.impl;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.jcr.ImportUUIDBehavior;
-import javax.jcr.InvalidSerializedDataException;
-import javax.jcr.ItemExistsException;
 import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
-import javax.jcr.Property;
-import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.UnsupportedRepositoryOperationException;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
 import javax.jcr.version.Version;
-import javax.jcr.version.VersionException;
 import javax.jcr.version.VersionHistory;
 import javax.jcr.version.VersionIterator;
 
 import org.jcrom.JcrMappingException;
 import org.jcrom.Jcrom;
 import org.jcrom.dao.AbstractJcrDAO;
-import org.jcrom.util.PathUtils;
 
 public class CurnitDao extends AbstractJcrDAO<CurnitOtmlImpl> {
 		
@@ -115,31 +102,15 @@ public class CurnitDao extends AbstractJcrDAO<CurnitOtmlImpl> {
     	/*
     	 * Map the given xml file onto jackrabbit repository
     	 */
-    	private void mapOtmlFile(Session session, CurnitOtmlImpl curnit) {
+    	private void mapOtmlFile(Session session, CurnitOtmlImpl curnit) throws Exception{
     		InputStream xmlOtml;
     		try {
     			xmlOtml = new FileInputStream(curnit.getOtmlFile());
     			session.importXML(curnit.getPath() + "/otmlNode", xmlOtml, ImportUUIDBehavior.IMPORT_UUID_CREATE_NEW);
     			xmlOtml.close();
-    		} catch (FileNotFoundException e) {
-    			e.printStackTrace();
-    		} catch (PathNotFoundException e) {
-    			e.printStackTrace();
-    		} catch (ItemExistsException e) {
-    			e.printStackTrace();
-    		} catch (ConstraintViolationException e) {
-    			e.printStackTrace();
-    		} catch (VersionException e) {
-    			e.printStackTrace();
-    		} catch (InvalidSerializedDataException e) {
-    			e.printStackTrace();
-    		} catch (LockException e) {
-    			e.printStackTrace();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		} catch (RepositoryException e) {
-    			e.printStackTrace();
-    		}		
+    		} catch(Exception e){
+    			throw e;
+    		}	
     	}
         
     	/*
@@ -251,7 +222,7 @@ public class CurnitDao extends AbstractJcrDAO<CurnitOtmlImpl> {
 		    // Deleting those content will reduce the amount of contenet being
 		    // transfered over the wire.
 		    curVersionOfCurnit.setOtmlFile(otmlFile);
-		    curVersionOfCurnit.setCurnitVersion(curVersion);
+		    curVersionOfCurnit.setVersion(curVersion);
 		    curVersionOfCurnit.setJcrOtml(null);
 		    curVersionOfCurnit.setPath(null);
 		    curVersionOfCurnit.setName(null);			    

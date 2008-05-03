@@ -1,11 +1,7 @@
 package net.sf.sail.cms.curnit.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,19 +9,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.jcr.ImportUUIDBehavior;
-import javax.jcr.InvalidSerializedDataException;
-import javax.jcr.ItemExistsException;
 import javax.jcr.LoginException;
 import javax.jcr.Node;
-import javax.jcr.PathNotFoundException;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.version.VersionException;
 
 import net.sf.sail.cms.curnit.CurnitManagement;
 import net.sf.sail.cms.curnit.CurnitManagementResponse;
@@ -93,6 +82,15 @@ public class CurnitManagementImpl implements CurnitManagement {
 				return response;
 			}
 			
+			// curnit doesn't have an otml file
+			if (curnit.getOtmlFile() == null || !curnit.getOtmlFile().getName().endsWith(".otml")){
+				session.logout();
+				
+				//TODO complete response
+				response.setReturnMessage("A curnit must have an otml file attached to it");
+				return response;
+			}
+			
 			// curnit doesn't already exist in the repository
 			if (curnitDao.exists("/"+ CURNITSNODE+ "/" + curnit.getUniqueKey())){
 				session.logout();
@@ -117,16 +115,18 @@ public class CurnitManagementImpl implements CurnitManagement {
 			JcrFile jcrResource;
 			List<JcrFile> jcrResources = new ArrayList<JcrFile>();
 			List<File> resources = curnit.getOtmlResources();
-			int size = resources.size();
-			File resource;
-			for (int i=0; i< size; i++){
-			//for (File resource: curnit.getOtmlResources()){
-				resource = resources.get(i);
-				//jcrResource = JcrFile.fromFile(resource.getName(), resource, JcrDataProvider.TYPE.FILE.toString());
-				jcrResource = JcrFile.fromFile("resource"+ (i+1), resource, JcrDataProvider.TYPE.FILE.toString());
-				jcrResources.add(jcrResource);
+			if (resources != null){
+				int size = resources.size();
+				File resource;
+				for (int i=0; i< size; i++){
+				//for (File resource: curnit.getOtmlResources()){
+					resource = resources.get(i);
+					//jcrResource = JcrFile.fromFile(resource.getName(), resource, JcrDataProvider.TYPE.FILE.toString());
+					jcrResource = JcrFile.fromFile("resource"+ (i+1), resource, JcrDataProvider.TYPE.FILE.toString());
+					jcrResources.add(jcrResource);
+				}
+				curnit.setJcrResources(jcrResources);
 			}
-			curnit.setJcrResources(jcrResources);
 			
 			// create the curnit using Jcrom.
 			curnitDao.create(curnit);
