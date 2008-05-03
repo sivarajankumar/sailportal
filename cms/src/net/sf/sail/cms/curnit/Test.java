@@ -58,25 +58,25 @@ public class Test {
 //		curMgr.createCurnit(cur1, "user", "password");		
 //		curMgr.retrieveCurnit(curnitsToRetrieve, "user", "password");
 		
-//	    curMgr.deleteCurnit(cur1, "username", "password");
+	    curMgr.deleteCurnit(cur1, "username", "password");
 
 		
-		cur1.setUniqueKey("a-b-c");
-		cur1.setAuthor("author3");
-		cur1.setComment("comment3");
-		cur1.setTitle("title3");
-		cur1.setOtmlFile(new File("/Users/cfislotta/Desktop/pas-test.otml"));
-		
-		res1 = new File("/Users/cfislotta/personal/Flickr pics/two.txt");
-		res2 = new File("/Users/cfislotta/personal/Flickr pics/rokham-graduation-hat-edited.jpg");
-		File res3 = new File("/Users/cfislotta/personal/Flickr pics/blue man graffiti.jpg");
-		resources = new ArrayList<File>();
-		resources.add(res1);
-		resources.add(res2);
-		resources.add(res3);
-		cur1.setOtmlResources(resources);
-		
-		curMgr.updateCurnit(cur1, "username", "password");
+//		cur1.setUniqueKey("a-b-c");
+//		cur1.setAuthor("author3");
+//		cur1.setComment("comment3");
+//		cur1.setTitle("title3");
+//		cur1.setOtmlFile(new File("/Users/cfislotta/Desktop/pas-test.otml"));
+//		
+//		res1 = new File("/Users/cfislotta/personal/Flickr pics/two.txt");
+//		res2 = new File("/Users/cfislotta/personal/Flickr pics/rokham-graduation-hat-edited.jpg");
+//		File res3 = new File("/Users/cfislotta/personal/Flickr pics/blue man graffiti.jpg");
+//		resources = new ArrayList<File>();
+//		resources.add(res1);
+//		resources.add(res2);
+//		resources.add(res3);
+//		cur1.setOtmlResources(resources);
+//		
+//		curMgr.updateCurnit(cur1, "username", "password");
 
 	}
 }
