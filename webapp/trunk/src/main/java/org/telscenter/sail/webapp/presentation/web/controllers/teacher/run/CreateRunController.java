@@ -40,6 +40,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
@@ -359,7 +360,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		String subject = uiHTMLProperties.getProperty("setuprun.confirmation.email.subject");		
 		String message = uiHTMLProperties.getProperty("setuprun.confirmation.email.message") + "\n\n" +
 			
-		    "Portal name: " + uiHTMLProperties.getProperty("portal.name") + "\n" +
+		    "Portal URL: " + ControllerUtil.getPortalUrlString(request) + "\n" +
 			"Teacher Name: " + teacherName + "\n" +
 			"Teacher Username: " + teacherUserDetails.getUsername() + "\n" +
 			"Teacher Email: " + teacherEmail + "\n" +

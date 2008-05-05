@@ -41,4 +41,11 @@ public class ControllerUtil {
 				User.CURRENT_USER_SESSION_KEY);
 		modelAndView.addObject(USER_KEY, user);
 	}
+	
+	public static String getPortalUrlString(HttpServletRequest request) {
+		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
+		request.getServerPort() + request.getContextPath();
+		
+		return portalUrl;
+	}
 }
