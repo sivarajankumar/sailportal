@@ -238,7 +238,8 @@
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
         <property name="javaMail" ref="javaMail"/>
 		<property name="emaillisteners" ref="emaillisteners" />			
-		<property name="uiHTMLProperties" ref="uihtmlproperties" />			
+		<property name="uiHTMLProperties" ref="uihtmlproperties" />		
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
 
@@ -387,6 +388,9 @@
 
 	<util:properties id="emaillisteners" 
         location="classpath:emaillisteners" />
+        
+    <util:properties id="portalproperties" 
+        location="classpath:portal.properties" />
 		
 	<bean id="contactWISEValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.general.contactwise.ContactWISEValidator" />

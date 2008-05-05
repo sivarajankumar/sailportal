@@ -40,7 +40,6 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
@@ -95,6 +94,8 @@ public class CreateRunController extends AbstractWizardFormController {
 	private Properties emaillisteners = null;
 	
 	protected Properties uiHTMLProperties = null;
+	
+	protected Properties portalProperties;
 	
 	/* change this to true if you are testing and do not want to send mail to
 	   the actual groups */
@@ -360,7 +361,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		String subject = uiHTMLProperties.getProperty("setuprun.confirmation.email.subject");		
 		String message = uiHTMLProperties.getProperty("setuprun.confirmation.email.message") + "\n\n" +
 			
-		    "Portal URL: " + ControllerUtil.getPortalUrlString(request) + "\n" +
+		    "Portal name: " + portalProperties.getProperty("portal.name") + "\n" +
 			"Teacher Name: " + teacherName + "\n" +
 			"Teacher Username: " + teacherUserDetails.getUsername() + "\n" +
 			"Teacher Email: " + teacherEmail + "\n" +
@@ -455,6 +456,13 @@ public class CreateRunController extends AbstractWizardFormController {
 	 */
 	public void setUiHTMLProperties(Properties uiHTMLProperties) {
 		this.uiHTMLProperties = uiHTMLProperties;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 
 
