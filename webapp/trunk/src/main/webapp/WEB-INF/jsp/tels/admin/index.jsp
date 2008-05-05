@@ -34,7 +34,8 @@ If you see this, you have admin privileges.<br>
 
 <a href="manageusers.html">Manage users</a><br>
 <a href="lookupuser.html">look up user</a><br>
-<a href="managenewsitems.html">Work with News Items</a>
+<a href="managenewsitems.html">Work with News Items</a><br>
+<a href="manageallprojects.html">Manage All Projects</a>
 
 </body>
 </html>
