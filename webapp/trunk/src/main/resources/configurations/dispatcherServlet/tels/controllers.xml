@@ -351,11 +351,11 @@
 	<bean id="updateMyAccountController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateMyAccountController">
 	</bean>
-
+<!-- 
 	<bean id="updateTeacherAccountController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateTeacherAccountController">
 	</bean>
-
+-->
 	
 	<bean id="mainHelpController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.MainHelpController">
