@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -55,6 +56,7 @@ public class EditProjectController extends SimpleFormController{
 			Errors errors) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("project", projectService.getById(Long.parseLong(request.getParameter("projectId"))));
+		model.put("familytags", FamilyTag.values());
 		return model;
 	}
 
