@@ -352,11 +352,10 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateMyAccountController">
 	</bean>
 
-	<!--  
 	<bean id="updateTeacherAccountController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateTeacherAccountController">
 	</bean>
--->
+
 	
 	<bean id="mainHelpController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.MainHelpController">
@@ -678,5 +677,23 @@
 		<property name="commandName" value="addSharedTeacherParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters" />
+	</bean>
+		
+	<bean id="manageAllProjectsController"
+			class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ManageAllProjectsController">
+	    <property name="projectService" ref="projectService" />
+	</bean>
+	
+	<bean id="projectInfoParameters"
+		class="org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters" />
+	
+	<bean id="editProjectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EditProjectController">
+		<property name="projectService" ref="projectService" />
+		<property name="commandName" value="projectInfoParameters" />
+		<property name="successView" value="manageallprojects.html" />
+		<property name="formView" value="admin/editproject" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters" />
 	</bean>
 </beans>

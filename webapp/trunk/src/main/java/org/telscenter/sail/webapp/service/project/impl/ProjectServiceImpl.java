@@ -113,6 +113,14 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	/**
+	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#updateProject(org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	@Transactional()
+	public void updateProject(Project project) {
+		this.projectDao.save(project);
+	}
+	
+	/**
 	 * Creates a PreviewRun for this project and
 	 * set it in this project
 	 * @param project
@@ -272,7 +280,7 @@ public class ProjectServiceImpl implements ProjectService {
 	/**
 	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(org.telscenter.sail.webapp.domain.project.impl.FamilyTag)
 	 */
-	public List<Project> getProjectListByTag(FamilyTag familytag)  throws ObjectNotFoundException {
+	public List<Project> getProjectListByTag(FamilyTag familytag) throws ObjectNotFoundException {
 		return this.projectDao.retrieveListByTag(familytag);
 	}
 	

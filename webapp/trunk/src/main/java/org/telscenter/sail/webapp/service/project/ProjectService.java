@@ -85,6 +85,13 @@ public interface ProjectService {
 	    throws ObjectNotFoundException;
 	
 	/**
+	 * Saves the project
+	 * 
+	 * @param project <code>Project</code> contains updated Project.
+	 */
+	public void updateProject(Project project);
+	
+	/**
 	 * Launches the project given the launchProjectParameters
 	 * 
 	 * @param launchProjectParameters parameters needed to launch the project
