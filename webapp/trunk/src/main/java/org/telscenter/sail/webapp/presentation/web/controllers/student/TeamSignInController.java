@@ -40,12 +40,20 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
+import org.telscenter.sail.webapp.domain.impl.Projectcode;
+import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.presentation.web.TeamSignInForm;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.student.StudentService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
- * Controller for handling team sign-ins before students start the project
+ * Controller for handling team sign-ins before students start the project. The first user
+ * entered in the form must be already signed-in and associated with a specific
+ * <code>Run</code> and specific period. The second and third users entered will be
+ * associated with the same <code>Run</code> and same period as the first user if
+ * they are not already associated.
  *
  * @author Hiroki Terashima
  * @version $Id$
@@ -57,6 +65,8 @@ public class TeamSignInController extends SimpleFormController {
 	private WISEWorkgroupService workgroupService;
 	
 	private RunService runService;
+	
+	private StudentService studentService;
 	
 	private HttpRestTransport httpRestTransport;
 
@@ -85,6 +95,10 @@ public class TeamSignInController extends SimpleFormController {
 		User user3 = userService.retrieveUserByUsername(teamSignInForm.getUsername3());
 		
 		Run run = runService.retrieveById(teamSignInForm.getRunId());
+		
+		// get projectcode to use to add user2 and user3 to run
+		StudentRunInfo studentRunInfoUser1 = studentService.getStudentRunInfo(user1, run);
+		Projectcode projectcode = new Projectcode(run.getRuncode(), studentRunInfoUser1.getGroup().getName());
 
 		Set<User> members = new HashSet<User>();
 		String workgroupname = "Workgroup for " + user1.getUserDetails().getUsername();
@@ -92,11 +106,21 @@ public class TeamSignInController extends SimpleFormController {
 		List<Workgroup> workgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, user1);
 
 		if (user2 != null) {
+			try {
+				studentService.addStudentToRun(user2, projectcode);
+			} catch (StudentUserAlreadyAssociatedWithRunException e) {
+				// do nothing. it's okay if the student is already associated with this run.
+			}
 			members.add(user2);
 			workgroupname += user2.getUserDetails().getUsername();
 			workgroups.addAll(workgroupService.getWorkgroupListByOfferingAndUser(run, user2));
 		}
 		if (user3 != null) {
+			try {
+				studentService.addStudentToRun(user3, projectcode);
+			} catch (StudentUserAlreadyAssociatedWithRunException e) {
+				// do nothing. it's okay if the student is already associated with this run.
+			}
 			members.add(user3);
 			workgroupname += user3.getUserDetails().getUsername();
 			workgroups.addAll(workgroupService.getWorkgroupListByOfferingAndUser(run, user3));
@@ -168,6 +192,13 @@ public class TeamSignInController extends SimpleFormController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param studentService the studentService to set
+	 */
+	public void setStudentService(StudentService studentService) {
+		this.studentService = studentService;
 	}
 
 	/**

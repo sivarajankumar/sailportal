@@ -133,6 +133,7 @@
 	    <property name="runService" ref="runService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 	    <property name="userService" ref="userService" />
+   	    <property name="studentService" ref="studentService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	    <property name="validator" ref="teamSignInFormValidator" />
     	<property name="formView" value="student/teamsignin" />
