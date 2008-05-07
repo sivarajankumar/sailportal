@@ -11,9 +11,8 @@
     
 <script type="text/javascript" src="./javascript/tels/rotator.js"></script>
     
-<title>Contact WISE General Issues</title>
+<title><spring:message code="contactwise.1" /></title>
 </head>
-
 <body>
 
 <div id="centeredDiv">
@@ -21,15 +20,15 @@
 <%@ include file="headermain_nousername.jsp"%>
 
 
-<div id="pageTitle">Contact WISE</div>
+<div id="pageTitle"><spring:message code="contactwise.2" /></div>
      
 <br /> <br />
 
 <div id="pageSubtitleConfirm">
 
-	<div>MESSAGE SENT</div>
-	<div>Your message has been successfully sent to the WISE team.</div>
-	<div>We will respond as quickly as possible.</div>
+	<div><spring:message code="contactwise.3" /></div>
+	<div><spring:message code="contactwise.4" /></div>
+	<div><spring:message code="contactwise.5" /></div>
 
 </div>
 

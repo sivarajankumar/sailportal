@@ -13,9 +13,9 @@
 
 <body>
 
-<h2>Password successfully changed!</h2>
+<h2><spring:message code="changepassword.passwordchanged" /></h2>
 
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<div><a href="#" onclick="javascript:window.close()"><spring:message code="changepassword.closethiswindow" /></a></div>
 
 </body>
 </html>
