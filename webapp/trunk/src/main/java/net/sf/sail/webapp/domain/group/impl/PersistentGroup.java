@@ -105,6 +105,13 @@ public class PersistentGroup implements Group {
     }
 
     /**
+     * @see net.sf.sail.webapp.domain.group.Group#removeMember(net.sf.sail.webapp.domain.User)
+     */
+	public void removeMember(User member) {
+		this.members.remove(member);
+	}
+
+    /**
      * @see net.sf.sail.webapp.domain.group.Group#getMembers()
      */
     public Set<User> getMembers() {

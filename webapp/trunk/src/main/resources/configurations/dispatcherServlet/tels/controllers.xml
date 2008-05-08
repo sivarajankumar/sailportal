@@ -46,6 +46,9 @@
 
 	<bean id="startRunParametersValidator"
 	    class="org.telscenter.sail.webapp.presentation.validators.teacher.StartRunParametersValidator" />
+	    
+	<bean id="removeStudentFromRunParametersValidator"
+	    class="org.telscenter.sail.webapp.presentation.validators.teacher.management.RemoveStudentFromRunParametersValidator" />
 
 	<bean id="teamSignInFormValidator" 
 	    class="org.telscenter.sail.webapp.presentation.validators.student.TeamSignInFormValidator" >
@@ -219,6 +222,21 @@
     	<property name="validator" ref="startRunParametersValidator" />
         <property name="formView" value="teacher/run/manage/startRun" />
     	<property name="successView" value="teacher/run/manage/startRunSuccess" />
+    </bean>
+    
+    <bean id="removeStudentFromRunController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.RemoveStudentFromRunController">
+        <property name="runService" ref="runService" />
+        <property name="userService" ref="userService" />
+        <property name="studentService" ref="studentService" />
+        <property name="workgroupService" ref="wiseWorkgroupService" />
+    	<property name="commandName" value="removeStudentFromRunParameters" />    	
+    	<property name="commandClass" 
+    	    value="org.telscenter.sail.webapp.domain.teacher.management.RemoveStudentFromRunParameters" />
+    	<property name="sessionForm" value="true" />
+    	<property name="validator" ref="removeStudentFromRunParametersValidator" />
+        <property name="formView" value="teacher/management/removestudentfromrun" />
+    	<property name="successView" value="teacher/management/removestudentfromrunsuccess" />
     </bean>
 
 	<bean id="studentIndexController" 

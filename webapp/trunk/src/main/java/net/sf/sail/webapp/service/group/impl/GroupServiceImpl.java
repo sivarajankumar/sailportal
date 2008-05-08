@@ -170,6 +170,17 @@ public class GroupServiceImpl implements GroupService {
     }
 
     /**
+     * @see net.sf.sail.webapp.service.group.GroupService#removeMembers(net.sf.sail.webapp.domain.group.Group, java.util.Set)
+     */
+    @Transactional()
+	public void removeMembers(Group group, Set<User> membersToRemove) {
+    	for (User member : membersToRemove) {
+    		group.removeMember(member);
+    	}
+    	this.groupDao.save(group);
+	}
+
+    /**
 	 * Checks to see if the given group contains a cycle
 	 * 
 	 * @param group

@@ -64,6 +64,15 @@ public interface StudentService {
 	     throws ObjectNotFoundException, PeriodNotFoundException, StudentUserAlreadyAssociatedWithRunException;
 	
 	/**
+	 * Removes the student from association with the run.  If the specified
+	 * User is not associated with the run, nothing happens.
+	 * 
+	 * @param studentUser <code>User</code> student to remove from the run.
+	 * @param run <code>Run</code> the run to remove the student from.
+	 */
+	public void removeStudentFromRun(User studentUser, Run run);
+	
+	/**
 	 * Given a student user and a run, returns a populated
 	 * <code>StudentRunInfo</code> object.
 	 * 

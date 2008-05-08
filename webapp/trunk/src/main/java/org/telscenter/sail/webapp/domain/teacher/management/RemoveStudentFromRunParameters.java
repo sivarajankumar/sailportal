@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -20,21 +20,50 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.validators.teacher;
+package org.telscenter.sail.webapp.domain.teacher.management;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.io.Serializable;
 
 /**
+ * A form-backing object for WISE teachers for removing students
+ * from a run.
+ * 
  * @author Hiroki Terashima
  * @version $Id$
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-	org.telscenter.sail.webapp.presentation.validators.teacher.management.AllTests.class,
-	org.telscenter.sail.webapp.presentation.validators.teacher.EndRunParametersValidatorTest.class,
-	org.telscenter.sail.webapp.presentation.validators.teacher.StartRunParametersValidatorTest.class	
-})
+public class RemoveStudentFromRunParameters implements Serializable {
 
-public class AllTests {
+	private static final long serialVersionUID = 1L;
+
+	private Long runId;
+	
+	private Long userId;   // userId of student
+
+	/**
+	 * @return the runId
+	 */
+	public Long getRunId() {
+		return runId;
+	}
+
+	/**
+	 * @param runId the runId to set
+	 */
+	public void setRunId(Long runId) {
+		this.runId = runId;
+	}
+
+	/**
+	 * @return the userId
+	 */
+	public Long getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 }

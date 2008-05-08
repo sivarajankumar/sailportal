@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.validators.teacher;
+package org.telscenter.sail.webapp.presentation.validators.teacher.management;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -31,10 +31,9 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	org.telscenter.sail.webapp.presentation.validators.teacher.management.AllTests.class,
-	org.telscenter.sail.webapp.presentation.validators.teacher.EndRunParametersValidatorTest.class,
-	org.telscenter.sail.webapp.presentation.validators.teacher.StartRunParametersValidatorTest.class	
+	org.telscenter.sail.webapp.presentation.validators.teacher.management.RemoveStudentsFromRunParametersValidatorTest.class
 })
 
 public class AllTests {
+
 }

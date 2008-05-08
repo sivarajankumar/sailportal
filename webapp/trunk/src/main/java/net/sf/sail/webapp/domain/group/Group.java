@@ -40,6 +40,14 @@ public interface Group extends Persistable, Comparable<Group> {
      *            single member to add
      */
     public void addMember(User member);
+    
+    /**
+     * Removes a single member from the group.
+     * 
+     * @param member
+     *            single member to remove
+     */
+    public void removeMember(User member);
 
     /**
      * Replace any existing list of members with the new list.

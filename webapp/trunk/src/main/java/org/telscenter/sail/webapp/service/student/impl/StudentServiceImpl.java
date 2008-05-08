@@ -81,6 +81,18 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.service.student.StudentService#removeStudentFromRun(net.sf.sail.webapp.domain.User, org.telscenter.sail.webapp.domain.Run)
+	 */
+	public void removeStudentFromRun(User studentUser, Run run) {
+		if (run.isStudentAssociatedToThisRun(studentUser)) {
+			Group period = run.getPeriodOfStudent(studentUser);
+			Set<User> membersToRemove = new HashSet<User>();
+			membersToRemove.add(studentUser);
+			this.groupService.removeMembers(period, membersToRemove);
+		}
+	}
+
+	/**
 	 * @see org.telscenter.sail.webapp.service.student.StudentService#getStudentRunInfo(net.sf.sail.webapp.domain.User, org.telscenter.sail.webapp.domain.Run)
 	 */
 	public StudentRunInfo getStudentRunInfo(User studentUser, Run run) {

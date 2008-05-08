@@ -219,5 +219,32 @@ public class StudentServiceImplTest extends TestCase {
   	    verify(mockRunService);
 	}
 	
+	public void testRemoveStudentFromRun_student_in_run() throws PeriodNotFoundException {
+		Group period = run.getPeriodByName(PERIODNAME);
+		period.addMember(studentUser);
+		Set<User> membersToRemove = new HashSet<User>();
+		membersToRemove.add(studentUser);
+		mockGroupService.removeMembers(period, membersToRemove);
+		expectLastCall();
+		replay(mockGroupService);
+
+		studentService.removeStudentFromRun(studentUser, run);
+
+		verify(mockGroupService);
+	}
+	
+	public void testRemoveStudentFromRun_student_not_in_run() throws PeriodNotFoundException {
+		Group period = run.getPeriodByName(PERIODNAME);
+		Set<User> membersToRemove = new HashSet<User>();
+		membersToRemove.add(studentUser);
+		replay(mockGroupService);  // groupService methods should not
+		// be invoked in this case, as there is no member to remove
+
+		studentService.removeStudentFromRun(studentUser, run);
+
+		verify(mockGroupService);
+	}
+
 	// TODO Hiroki test getStudentRunInfo()
+	
 }

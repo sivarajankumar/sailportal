@@ -455,7 +455,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
     			     <a class="userLinks" onclick="javascript:popupSpecial('studentinfo.html?userName=${mem.userDetails.username}');" href="#" >Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
     			     <a class="userLinks" style="color:#666666;" href="#">Period</a>
-    			     <a class="userLinks" style="color:#666666;" href="#">Detach</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${mem.id}');">Detach</a>
     			     </span>
     			  </li>
 			    </c:forEach>
@@ -483,7 +483,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
     			     <a class="userLinks" onclick="javascript:popupSpecial('studentinfo.html?userName=${workgroupMember.userDetails.username}');" href="#" >Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
     			     <a class="userLinks" style="color:#666666;" href="#" >Period</a>
-    			     <a class="userLinks" style="color:#666666;" href="#" >Detach</a>
+       			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${workgroupMember.id}');">Detach</a>
     			     </span>
 			        </li>
 			      </c:forEach>

@@ -96,6 +96,17 @@ public interface GroupService {
      *            <code>Set</code> of users to add to the group
      */
     public void addMembers(Group group, Set<User> membersToAdd);
+    
+    /**
+     * Removes the members from an already-existing group. If the member does
+     * not exist in the group, do nothing
+     * 
+     * @param group an existing <code>Group</code> that the members
+     *              should be removed from.
+     * @param membersToRemove
+     *              <code>Set</code> containing users to remove from the group.
+     */
+    public void removeMembers(Group group, Set<User> membersToRemove);
 
     /**
      * Gets all the groups available.
