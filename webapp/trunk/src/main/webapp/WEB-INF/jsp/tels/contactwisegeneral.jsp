@@ -92,19 +92,19 @@
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 
-<div id="pageTitle">Contact WISE: General Issues</div>
+<div id="pageTitle"><spring:message code="contactwisegeneral.1"/></div>
 
-<div id="pageSubtitle">Please describe your issue in as much detail as possible.</div>
+<div id="pageSubtitle"><spring:message code="contactwisegeneral.2"/></div>
 						
 <div id="pageSubtitleLevel2">
 	<ul>
-		<li>If you're encountering an error message please include its full text in the <em>Detailed Description</em> box below.</li>
-		<li>If you're experiencing broken links or other web page problems, please indicate the URL address for the problem page.</li>
+		<li><spring:message code="contactwisegeneral.3"/><em><spring:message code="contactwisegeneral.4"/></em><spring:message code="contactwisegeneral.5"/></li>
+		<li><spring:message code="contactwisegeneral.6"/></li>
 	</ul>
 </div>
 
 <!-- Support for Spring errors object -->
-<div id="regErrorMessages">
+<div id="errorMessageFormat">
 <spring:bind path="contactWISEGeneral.*">
   <c:forEach var="error" items="${status.errorMessages}">
         <br /><c:out value="${error}"/>
@@ -116,31 +116,31 @@
   <dl>
   
     <authz:authorize ifAllGranted="ROLE_ANONYMOUS">
-  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.7"/></label></dt>
     <dd><form:input path="name"  id="name" size="50" tabindex="1"/></dd>
     </authz:authorize>
     
   	<authz:authorize ifAllGranted="ROLE_TEACHER">
-  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.7"/></label></dt>
     <dd><form:input path="name"  id="name" size="50" tabindex="1"/></dd>
     </authz:authorize>
     
   	<authz:authorize ifAllGranted="ROLE_STUDENT">
-  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.7"/></label></dt>
     <dd><form:input path="name"  id="name" size="50" tabindex="1" disabled="true"/></dd>
     </authz:authorize>
 
 	<authz:authorize ifAllGranted="ROLE_ANONYMOUS">
-		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span>Email</label></dt>
+		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.8"/></label></dt>
 		<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
 	</authz:authorize>
 
 	<authz:authorize ifAllGranted="ROLE_TEACHER">
-		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span>Email</label></dt>
+		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.8"/></label></dt>
 		<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
 	</authz:authorize>
 	   
-    <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span>Issue Type</label> </dt>
+    <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.9"/></label> </dt>
 	<dd><form:select path="issuetype" id="issuetype"  tabindex="3">
 	      <c:forEach items="${issuetypes}" var="issuetype">
             <form:option value="${issuetype.name}">
@@ -150,22 +150,22 @@
 		</form:select>
 	</dd>
 
-	<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span>Issue Summary</label></dt>
+	<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.10"/></label></dt>
 	<dd style="color:#3333CC;"><form:input path="summary" id="summary" size="50" tabindex="6"/></dd>
 	
-	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span>Detailed Description</label></dt>
+	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.11"/></label></dt>
 	<dd><form:textarea path="description" id="description" tabindex="7" rows="9" cols="65"></form:textarea></dd>
       
     <form:hidden path="usersystem" id="usersystem" />
   </dl>    
-     <div id="asterixWarning">Items marked with <span style="font-size:1.1em; font-weight:bold;">*</span> are required.</div>  
+     <div id="asterixWarning"><spring:message code="contactwisegeneral.12"/></div>  
         
-    <div><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="Send Message" ></input></div>
+    <div><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contactwisegeneral.13"/>"></input></div>
                   
 </form:form>
 
 </div>
-	<h5 class="center"><a href="index.html">Return to WISE Home Page</a></h5>
+	<h5 class="center"><a href="index.html"><spring:message code="contactwisegeneral.14"/></a></h5>
 
 </div>   <!--End of the CenteredDiv -->
 
