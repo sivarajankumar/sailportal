@@ -42,21 +42,36 @@
 
 <div id="popUpBoxBoundary">
 
-<div id="largeHeader">Detach Student from Run</div>
+<div id="largeHeader">Detach Student from Project Run</div>
 
 <div id="blockHighlight" >
-	<div id="runTitle">[VARIABLE: Project Name Here]</div>
-	<div id="titleSubHeader">[VARIABLE: project type, ID]  Ex: "Library project, Project ID 21351" </div>
-	<div id="titleSubHeader">[VARIABLE: run creation date]  Ex "Created 4/12/07"</div>
+	<table>
+		<tr>
+			<td id="blockItem">Student:</td>
+			<td>[full student name]</td>
+		</tr>
+		<tr>
+			<td id="blockItem">Period:</td>
+			<td>[registered period]</td>
+		</tr>
+		<tr>
+			<td id="blockItem">Student Code:</td>
+			<td>[student code for the project run]</td>
+		</tr>
+		<tr>
+			<td id="blockItem">Project Run:</td>
+			<td>[project title]</td>
+		</tr>
+	</table>
 </div>			    	
 
 	<div id="popUpNotice1">
-	<p>Sure you want to detach this student from the Project Run? All of their work will be lost for this run, and they will be disassociated from the Project Run. Their Username will disappear from the Manage Students screen.  If they were in a workgroup, they will be removed.</p>
-
-    <p>Notice: detaching a student does not delete their overall WISE identity, just their association with the Project Run listed above.</p>
+		<h5>Sure you want to detach this student from the Project Run?</h5>
+		<h5>All of the student's current work for the project will be deleted, and he/she be disassociated from the Project Run. The student's Username will disappear from the Manage Students screen.</h5>
+		<h5>Note that detaching a student cannot be undone.  Make sure you want to remove this student Username!</h5>
+    	<div id="popUpNotice2">Notice: detaching a student does not delete their overall WISE identity, just their association with the Project Run listed above.</div>
+	</div>
 	
-	<div id="popUpNotice2">PLEASE NOTE THAT THIS ACTION IS IRREVERSIBLE.</div>
-
 <!-- Support for Spring errors object -->
 <spring:bind path="removeStudentFromRunParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -76,17 +91,9 @@
       <form:errors path="userId" />
   </div>
 
-
 <div id="responseButtons">
-    <input class="center" type="image" id="savebutton" src="../../<spring:theme code="register_save" />" 
-    onmouseover="swapImage('savebutton','../../<spring:theme code="register_save_roll" />');" 
-    onmouseout="swapImage('savebutton','../../<spring:theme code="register_save" />');" />
-
-    <a href="#" onclick="javascript:window.close()"
-    onmouseout="MM_swapImgRestore()" 
-    onmouseover="MM_swapImage('cancelbutton','','../../themes/tels/default/images/Cancel-Reg-Roll.png',1)">
-    <img src="../../themes/tels/default/images/Cancel-Reg.png" 
-    alt="Cancel Button" border="0" id="cancelbutton" /></a>
+    <input type="submit" id="savebutton" value="Detach Student" />
+    <input type="submit" onclick="javascript:window.close()" id="cancelbutton" value="Cancel" />
 </div>
 
 </form:form>

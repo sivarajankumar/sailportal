@@ -171,30 +171,45 @@ table #runContent{
 
 #blockHighlight {
 	width:80%;
-	text-align:center;
+	text-align:left;
 	background-color:#99FF99;
 	border:1px solid #000000; 
 	margin: 20px auto 20px auto;
-	padding:20px 20px 30px 20px;
+	padding:15px;
+}
+
+#blockHighlight table td {
+	padding:2px 5px;
+}
+
+#blockHighlight #blockItem {
+ 	font-size:1.0em;
+	font-weight:bold;
+	margin-left:25px;
 }
 
 #popUpNotice1 {
-	font-size:1.2em;
+	font-size:1.0em;
 	font-weight:bold;
-	text-align:center;
-	padding: 0 60px;
-	margin: 20px auto 20px auto;
+	text-align:left;
+	padding: 0px 60px;
+	margin: 10px auto 20px auto;
 }
 
 #popUpNotice2 {
-	font-size:1.0em;
-	text-align:center;
-	padding: 0 60px;
-	margin: 20px auto 20px auto;
+	color:#666666;
 }
 
-#responseButtons {
-	text-align:center
+#responseButtons input {
+	border-top:1px solid #666666;
+	border-right:2px ridge #000000;
+	border-bottom:2px ridge #000000;
+	border-left:1px solid #666666;
+	background-color:#CCCCCC;
+}
+
+#responseButtons input:hover {
+	background-color:#FFFF33;
 }
 
 #savebutton {
