@@ -12,7 +12,7 @@
 <link href="<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
   
-<title>WISE 3.0 Credits Screen</title>
+<title><spring:message code="credits.1"/></title>
 
 <script type="text/javascript" src="./javascript/pas/utils.js"></script> 
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
@@ -25,21 +25,20 @@
 
 <%@ include file="headermain_returntohomepage.jsp"%>
 
-<h1 id="previewProjectTitle" class="blueText">Credits</h1>
+<h1 id="previewProjectTitle" class="blueText"><spring:message code="credits.2"/></h1>
 
 <div id="boxPreviewProject">
 
-<div id="creditsIntroText">The WISE 3.0 education system (along with the underlying SAIL and PAS Researcher Pack tools) are part of an open-source development community
-spanning the United States and Europe.  This system has reached fruition through the dedicated efforts of the individuals listed below.</div>
+<div id="creditsIntroText"><spring:message code="credits.3"/></div>
 
 <table border="0" cellpadding="4" id="creditsTeamTable">
 	<tr>  
 		<th colspan=2> 
-		contributors <span style="font-size:.6em;">(alphabetical order)</span>
+		<spring:message code="credits.4"/>&nbsp;<span style="font-size:.6em;"><spring:message code="credits.5"/></span>
 		</th>  
 	</tr>
 	<tr>
-		<td class="creditCategory">Program Directors</td> 
+		<td class="creditCategory"><spring:message code="credits.6"/></td> 
 		<td>
 		<dl> 
 			<dt>Ken Bell</dt>
@@ -68,7 +67,7 @@ spanning the United States and Europe.  This system has reached fruition through
 		</td> 	
 	</tr> 
 	<tr>
-		<td class="creditCategory">Software Programming Team</td> 
+		<td class="creditCategory"><spring:message code="credits.7"/></td> 
 		<td>
 			<dl> 
 			<dt>Turadg Aleahmad</dt>
@@ -96,7 +95,7 @@ spanning the United States and Europe.  This system has reached fruition through
 		</td> 	
 	</tr>
 	<tr>
-		<td class="creditCategory">Interactive/Interface Design</td> 
+		<td class="creditCategory"><spring:message code="credits.8"/></td> 
 		<td>
 			<dl> 
 			<dt>Matt Fishbach</dt>
@@ -105,7 +104,7 @@ spanning the United States and Europe.  This system has reached fruition through
 		</td> 
 	</tr>
 	<tr>
-		<td class="creditCategory">Project Management</td> 
+		<td class="creditCategory"><spring:message code="credits.9"/></td> 
 		<td>
 			<dl>
 			<dt>Kathy Benneman</dt>
@@ -116,7 +115,7 @@ spanning the United States and Europe.  This system has reached fruition through
 		</td>  
 	</tr>
 	<tr>
-		<td class="creditCategory">Classroom/Teacher Support</td> 
+		<td class="creditCategory"><spring:message code="credits.10"/></td> 
 		<td>
 			<dl>
 			<dt>Doug Kirkpatrick</dt>
@@ -125,7 +124,7 @@ spanning the United States and Europe.  This system has reached fruition through
 		</td>  
 	</tr>
 	<tr>
-		<td class="creditCategory">Project Support</td> 
+		<td class="creditCategory"><spring:message code="credits.11"/></td> 
 		<td>
 			<dl>
 			<dt>David Crowell</dt>
@@ -136,7 +135,7 @@ spanning the United States and Europe.  This system has reached fruition through
 		</td>  
 	</tr>
 	<tr>
-	<td class="creditCategory">WISE/TELS Research Team</td>  
+	<td class="creditCategory"><spring:message code="credits.12"/></td>  
 		<td>
 		
 		<dl>
@@ -175,7 +174,7 @@ spanning the United States and Europe.  This system has reached fruition through
 		</td>
 	</tr>
 	<tr>
-		<td class="creditCategory">Participating Classroom Teachers</td> 
+		<td class="creditCategory"><spring:message code="credits.13"/></td> 
 		<td>
 			<dl>
 			<dt>Laurel Nourse</dt>
@@ -188,7 +187,7 @@ spanning the United States and Europe.  This system has reached fruition through
 		</td>  
 	</tr>
 	<tr>
-		<td class="creditCategory">Special Thanks To</td>  
+		<td class="creditCategory"><spring:message code="credits.14"/></td>  
 		<td>
 			<dl>
 			<dt>Amanda the Panda</dt>
@@ -198,7 +197,7 @@ spanning the United States and Europe.  This system has reached fruition through
 	</tr>	
 	</table>
 
-</div>   <!--  end of boxNewAccountReg -->
+</div>   <!--  end of boxNewAccountReg --> 
 
 <div style="text-align:center;"><a href="index.html"> <img id="return"
 	src="<spring:theme code="return_to_homepage" />"

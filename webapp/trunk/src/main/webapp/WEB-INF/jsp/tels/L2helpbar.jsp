@@ -23,14 +23,14 @@
 
 	<ul>
 		<li>
-			<a style="visibility:hidden;" id="navigationL2_home_highlight" class="navigationL2leftborder" href="#">Overview</a> </li>
+			<a style="visibility:hidden;" id="navigationL2_home_highlight" class="navigationL2leftborder" href="#"><spring:message code="l2helpbar.1"/></a> </li>
        	<li style="visibility:hidden;">
-			<a href="projectlibrary.html">Project Library</a> </li>
+			<a href="projectlibrary.html"><spring:message code="l2helpbar.2"/></a> </li>
 		<li style="visibility:hidden;">
-			<a href="index.html">My Project Runs</a> </li>
+			<a href="index.html"><spring:message code="l2helpbar.3"/></a> </li>
 		<li style="visibility:hidden;">
-			<a href="index.html">My Bookmarked Projects</a> </li>
+			<a href="index.html"><spring:message code="l2helpbar.4"/></a> </li>
 		<li style="visibility:hidden;">
-			<a href="index.html">My Customized Projects</a> </li>
+			<a href="index.html"><spring:message code="l2helpbar.5"/></a> </li>
    </ul>
 </div>	

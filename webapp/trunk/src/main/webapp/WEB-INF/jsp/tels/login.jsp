@@ -55,10 +55,10 @@
 </div>
 
  <div style="margin:25px auto 0 auto;" id="boxTableSignInFailedLogin" class="panelColor">
-                    			<div id="header">Sign In</div>
+                    			<div id="header"><spring:message code="login.failed10"/></div>
 								<form id="home" method="post" action="j_acegi_security_check">
                                 <dl id="signinDefinList">
-                                    <dt><label for="username">Username:</label> </dt>
+                                    <dt><label for="username"><spring:message code="login.failed11"/></label> </dt>
                                     <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60"/></dd>
                                     
                                     <!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
@@ -67,7 +67,7 @@
 										document.getElementById('j_username').focus(); 
 									</script>
 									
-									<dt><label for="password">Password:	</label></dt>
+									<dt><label for="password"><spring:message code="login.failed12"/></label></dt>
                                     <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30"/></dd>
                                 </dl>
                                                        
@@ -79,9 +79,9 @@
                                 </form>
                                 
                                 <ul id="signInLinkPosition">
-                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">Find a lost Username or Password</a>  </li>
-                                		<li><a href="signup.html" id="joinlink">Create a new WISE account</a></li>
-                                		<li><a href="./index.html" id="joinlink">Return to Home Page</a></li>
+                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message code="login.failed13"/></a>  </li>
+                                		<li><a href="signup.html" id="joinlink"><spring:message code="login.failed14"/></a></li>
+                                		<li><a href="./index.html" id="joinlink"><spring:message code="login.failed15"/></a></li>
                                 </ul>
                                 
  </div>   <!--    End of boxTableSignIn  x-->               

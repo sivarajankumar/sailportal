@@ -31,45 +31,45 @@
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/effects.js"></script>
 
-    
-<title>Archive Run Pop Up</title>
+  
+<title><spring:message code="detachstudent.1"/></title>
 </head>
 
 <body>
 
 
-<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
 <div id="popUpBoxBoundary">
 
-<div id="largeHeader">Detach Student from Project Run</div>
+<div id="largeHeader"><spring:message code="detachstudent.2"/></div>
 
 <div id="blockHighlight" >
 	<table>
 		<tr>
-			<td id="blockItem">Student:</td>
+			<td id="blockItem"><spring:message code="detachstudent.3"/></td>
 			<td>[full student name]</td>
 		</tr>
 		<tr>
-			<td id="blockItem">Period:</td>
+			<td id="blockItem"><spring:message code="detachstudent.4"/></td>
 			<td>[registered period]</td>
 		</tr>
 		<tr>
-			<td id="blockItem">Student Code:</td>
+			<td id="blockItem"><spring:message code="detachstudent.5"/></td>
 			<td>[student code for the project run]</td>
 		</tr>
 		<tr>
-			<td id="blockItem">Project Run:</td>
+			<td id="blockItem"><spring:message code="detachstudent.6"/></td>
 			<td>[project title]</td>
 		</tr>
 	</table>
 </div>			    	
 
 	<div id="popUpNotice1">
-		<h5>Sure you want to detach this student from the Project Run?</h5>
-		<h5>All of the student's current work for the project will be deleted, and he/she be disassociated from the Project Run. The student's Username will disappear from the Manage Students screen.</h5>
-		<h5>Note that detaching a student cannot be undone.  Make sure you want to remove this student Username!</h5>
-    	<div id="popUpNotice2">Notice: detaching a student does not delete their overall WISE identity, just their association with the Project Run listed above.</div>
+		<h5><spring:message code="detachstudent.7"/></h5>
+		<h5><spring:message code="detachstudent.8"/></h5>
+		<h5><spring:message code="detachstudent.9"/></h5>
+    	<div id="popUpNotice2"><spring:message code="detachstudent.10"/></div>
 	</div>
 	
 <!-- Support for Spring errors object -->
@@ -92,8 +92,8 @@
   </div>
 
 <div id="responseButtons">
-    <input type="submit" id="savebutton" value="Detach Student" />
-    <input type="submit" onclick="javascript:window.close()" id="cancelbutton" value="Cancel" />
+    <input type="submit" id="savebutton" value="<spring:message code="detachstudent.11"/>" />
+    <input type="submit" onclick="javascript:window.close()" id="cancelbutton" value="<spring:message code="detachstudent.12"/>" />
 </div>
 
 </form:form>
@@ -101,5 +101,6 @@
 </div>
 </div>    <!--    End of popUpTextBoundary -->
 
+ 
 </body>
 </html>

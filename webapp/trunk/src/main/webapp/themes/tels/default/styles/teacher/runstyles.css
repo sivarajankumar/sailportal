@@ -158,8 +158,8 @@ table #runContent{
 /* STYLES FOR MY PROJECT RUN: POP UP WINDOWS  */
 
 #popUpBoxBoundary {
-	width:640px;
-}
+	margin:0 auto;
+	}
 
 #largeHeader {
 	margin-top:30px;
@@ -192,7 +192,7 @@ table #runContent{
 	font-size:1.0em;
 	font-weight:bold;
 	text-align:left;
-	padding: 0px 60px;
+	padding: 0px 85px;
 	margin: 10px auto 20px auto;
 }
 

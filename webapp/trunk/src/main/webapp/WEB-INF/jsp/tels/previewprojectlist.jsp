@@ -26,36 +26,28 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  -->
 
-<h1 id="previewProjectTitle" class="blueText">Preview A Project</h1>
+<h1 id="previewProjectTitle" class="blueText"><spring:message code="previewprojectlist.1"/></h1>
 
 <div id="boxPreviewProject">
 
-<div id="previewProjectHeader2">Want to instantly preview a project, without needing to register?</div>
+<div id="previewProjectHeader2"><spring:message code="previewprojectlist.2"/></div>
 
 <div id="previewProjectDetails">
 	<ul>
-		<li>Click <em>Preview Project</em> below to begin downloading a secure Java-based preview.   
-				This download process can take several minutes, depending on your connection bandwidth. 
-				Click the <em>Trust</em> button to launch the Java program.</li>
-		<li>Click <em>Check My Computer</em> to see if your computer has the technical requirements to run a particular project.  
-				A secure Java-based diagnostic program will begin loading. 
-				Click the <em>Trust</em> button to launch the Java program.</li>
-		<li>In Preview mode you can explore the project and create work, but none of this temporary work will be saved. 
-				When registered teachers or students use a WISE 3.0 project all work is saved to their personalized account.</li>
-		<li>Review the <a href="http://www.telscenter.org/confluence/display/WPSD/Classroom+computer+lab+requirements+to+run+SAIL+projects">WISE 3.0 System Requirements</a> for details on minimum hardware/software requirements across Windows and 
-				Macintosh computers.</li>
-		<li ><span style="font-weight:bold; color:#FF0000;">Macintosh Users:</span> A known problem with Java may stall your download/opening of the Java "JNLP" file.  
-		<br/>Please visit the <a href="http://www.telscenter.org/confluence/display/WPSD/Check+your+System+for+Compatibility+with+WISE+3">Check Your System for Compatibility with WISE 3</a> help section.
-		Then follow the instructions in the "Applying Macintosh Java patch" section.</li>
+		<li><spring:message code="previewprojectlist.3"/> <em><spring:message code="previewprojectlist.4"/></em>&nbsp;<spring:message code="previewprojectlist.5"/> <em><spring:message code="previewprojectlist.6"/></em> <spring:message code="previewprojectlist.7"/></li>
+		<li><spring:message code="previewprojectlist.8"/> <em><spring:message code="previewprojectlist.9"/></em>&nbsp;<spring:message code="previewprojectlist.10"/> <em><spring:message code="previewprojectlist.11"/></em> <spring:message code="previewprojectlist.12"/></li>
+		<li><spring:message code="previewprojectlist.13"/></li>
+		<li><spring:message code="previewprojectlist.14"/> <a href="http://www.telscenter.org/confluence/display/WPSD/Classroom+computer+lab+requirements+to+run+SAIL+projects"><spring:message code="previewprojectlist.15"/></a> <spring:message code="previewprojectlist.16"/></li>
+		<li ><span style="font-weight:bold; color:#FF0000;"><spring:message code="previewprojectlist.17"/></span> <spring:message code="previewprojectlist.18"/> <a href="http://www.telscenter.org/confluence/display/WPSD/Check+your+System+for+Compatibility+with+WISE+3"><spring:message code="previewprojectlist.19"/></a> <spring:message code="previewprojectlist.20"/></li>
 	</ul> 
 </div>
 
 <table id="previewProjectTable" width="80%" border="1" cellpadding="5" summary="Displays W3 Projects that can be instantly previewed (no user data saved; registration not required).">
    <tr>
-    <th>Title</th>
-    <th>Curriculum</th>
-    <th>Grade</th>
-    <th>Action</th>
+    <th><spring:message code="previewprojectlist.21"/>Title</th>
+    <th><spring:message code="previewprojectlist.22"/>Curriculum</th>
+    <th><spring:message code="previewprojectlist.23"/>Grade</th>
+    <th><spring:message code="previewprojectlist.24"/>Action</th>
   </tr>
 <c:forEach var="project" items="${projectList}">
   <tr>

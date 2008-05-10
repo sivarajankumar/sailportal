@@ -15,13 +15,13 @@
 	   <div id="usernameBannerHome"><authz:authentication operation="username" /></div>
 	   <div id="signOutBannerHome"><a id="styleOverRideSafari1" href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a></div>
 	   <authz:authorize ifAllGranted="ROLE_STUDENT">
-	   	   <div id="signOutBannerHome"><a href="student/index.html">Student Home Page</a></div>
+	   	   <div id="signOutBannerHome"><a href="student/index.html"><spring:message code="header.student"/></a></div>
 	   </authz:authorize>
 	   <authz:authorize ifAllGranted="ROLE_TEACHER">
-	   	   <span id="signOutBannerHome"><a href="teacher/index.html">Teacher Home Page</a></span>
+	   	   <span id="signOutBannerHome"><a href="teacher/index.html"><spring:message code="header.teacher"/></a></span>
 	   </authz:authorize>
 	   <authz:authorize ifAllGranted="ROLE_ADMINISTRATOR">
-	   	  <span id="signOutBannerHome"><a href="admin/index.html">Admin Home Page</a></span>
+	   	  <span id="signOutBannerHome"><a href="admin/index.html"><spring:message code="header.admin"/></a></span>
 	 	</authz:authorize>
      </authz:authorize>
 

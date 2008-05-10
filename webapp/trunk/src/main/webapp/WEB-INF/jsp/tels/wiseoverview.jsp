@@ -57,7 +57,7 @@
 	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" />
 </a></div>
 
-</div>  <!-- end of #centered div-->
+</div>  <!-- end of #centered div--> 
 
 </body>
 </html>

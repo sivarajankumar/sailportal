@@ -11,7 +11,7 @@
    </div>
 
   <div id="usernameSignOutBoxTeacher">
-		<div id="signOutBannerTeacher"><a href="index.html">Return to Home Page</a></div> 
+		<div id="signOutBannerTeacher"><a href="index.html"><spring:message code="returntohomepage"/></a></div> 
 	</div>
 	
 </div>

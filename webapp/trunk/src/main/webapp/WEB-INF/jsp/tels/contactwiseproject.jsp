@@ -12,7 +12,7 @@
 <script src="./javascript/tels/general.js" type="text/javascript">
 </script>
 
-<title>Contact WISE: Project Issues</title>
+<title><spring:message code="contactwiseproject.1"/></title>
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <%@ include file="teacher/grading/styles.jsp"%>
 </head>
@@ -92,16 +92,16 @@
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 
-<div id="pageTitle">Contact WISE: Project Issues</div>
+<div id="pageTitle"><spring:message code="contactwiseproject.2"/></div>
      
-<div id="pageSubtitle">Describe in detail the problem(s) with the project.</div>
+<div id="pageSubtitle"><spring:message code="contactwiseproject.3"/></div>
 						
 <div id="pageSubtitleLevel2">
 	<ul>
-		<li>Please report the ACTIVITY and STEP numbers where problems occur.</li>
-		<li>If you're encountering an error message please include its full text in the <em>Detailed Description</em> box below.</li>
-		<li>If you're experiencing broken links or other web page problems, please indicate the URL address for the problem page.</li>
-		<li>To report a more general problem (not specific to a project) click <a href="./contactwisegeneral.html">Contact WISE: General Issues</a>.</li>
+		<li><spring:message code="contactwiseproject.4"/></li>
+		<li><spring:message code="contactwiseproject.5a"/><em><spring:message code="contactwiseproject.5b"/></em>&nbsp;<spring:message code="contactwiseproject.5c"/></li>
+		<li><spring:message code="contactwiseproject.6"/></li>
+		<li><spring:message code="contactwiseproject.7a"/><a href="./contactwisegeneral.html"><spring:message code="contactwiseproject.7b"/></a>.</li>
 		
 	</ul>
 </div>
@@ -119,35 +119,35 @@
   <dl>
 
   	<authz:authorize ifAllGranted="ROLE_ANONYMOUS">
-  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwiseproject.8"/></label></dt>
    		<dd><form:input path="name" id="name" size="50" tabindex="1" /></dd>
     </authz:authorize>
     
    <authz:authorize ifAllGranted="ROLE_TEACHER">
-  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwiseproject.8"/></label></dt>
    		<dd><form:input path="name" id="name" size="50" tabindex="1" /></dd>
     </authz:authorize>
     
   	<authz:authorize ifAllGranted="ROLE_STUDENT">
-  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span>Name</label></dt>
+  		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwiseproject.8"/></label></dt>
    		<dd><form:input path="name" id="name" size="50" tabindex="1" disabled="true" /></dd>
     </authz:authorize>
             
 	<authz:authorize ifAllGranted="ROLE_ANONYMOUS">
-		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span>Email</label></dt>
+		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwiseproject.10"/></label></dt>
 		<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
 	</authz:authorize>
 
 	<authz:authorize ifAllGranted="ROLE_TEACHER">
-		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span>Email</label></dt>
+		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwiseproject.10"/></label></dt>
 		<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
 	</authz:authorize>
 	   
 	
-    <dt><label for="projectName" id="projectName"><span class="asterix">* </span>Project Name</label></dt>
+    <dt><label for="projectName" id="projectName"><span class="asterix">* </span><spring:message code="contactwiseproject.11"/></label></dt>
 	<dd><form:input path="projectName" id="projectName" size="50"  tabindex="3" disabled="true" /> </dd>
             
-    <dt><label for="issueTypeContact" id="issueTypeContact"><span class="asterix">* </span>Issue Type</label> </dt>
+    <dt><label for="issueTypeContact" id="issueTypeContact"><span class="asterix">* </span><spring:message code="contactwiseproject.12"/></label> </dt>
 	<dd><form:select path="issuetype" id="issuetype"  tabindex="4">
 	      <c:forEach items="${issuetypes}" var="issuetype">
             <form:option value="${issuetype.name}">
@@ -158,22 +158,22 @@
 
 			</dd>
 
-	<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span>Issue Summary</label></dt>
+	<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span><spring:message code="contactwiseproject.13"/></label></dt>
 	<dd style="color:#3333CC;"><form:input path="summary" id="summary" size="50" tabindex="7"/></dd>
 	
-	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span>Detailed Description</label></dt>
+	<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span><spring:message code="contactwiseproject.14"/></label></dt>
 	<dd><form:textarea path="description" id="description" tabindex="8" rows="6" cols="72"></form:textarea></dd>
     
     <form:hidden path="usersystem" id="usersystem" /> 
   </dl>    
-     <div id="asterixWarning">Items marked with <span style="font-size:1.1em; font-weight:bold;">*</span> are required.</div>  
+     <div id="asterixWarning"><spring:message code="contactwiseproject.15"/></div>  
         
-    <div align="center"><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="Send Message" ></input>
+    <div align="center"><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contactwiseproject.16"/>" ></input>
        
 </div>
 </form:form>
 
-<h5 align="center"><a href="index.html">Return to WISE Home Page</a></h5>
+<h5 align="center"><a href="index.html"><spring:message code="contactwiseproject.17"/></a></h5>
 
 </div>
 

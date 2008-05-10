@@ -98,7 +98,7 @@
 						
 <div id="pageSubtitleLevel2">
 	<ul>
-		<li><spring:message code="contactwisegeneral.3"/><em><spring:message code="contactwisegeneral.4"/></em><spring:message code="contactwisegeneral.5"/></li>
+		<li><spring:message code="contactwisegeneral.3"/><em><spring:message code="contactwisegeneral.4"/></em>&nbsp;<spring:message code="contactwisegeneral.5"/></li>
 		<li><spring:message code="contactwisegeneral.6"/></li>
 	</ul>
 </div>

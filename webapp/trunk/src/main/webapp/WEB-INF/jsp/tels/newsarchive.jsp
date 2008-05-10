@@ -25,11 +25,11 @@
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-<div id="previewProjectTitle" class="blueText">News Archive</div>
+<div id="previewProjectTitle" class="blueText"><spring:message code="newsarchive.1"/></div>
 
 <div id="boxPreviewProject">
 
-<div id="previewProjectHeader2">The News Archive section is pending.  Estimated for Summer 2008.</div>
+<div id="previewProjectHeader2"><spring:message code="newsarchive.2"/></div>
 
 </div>   <!--  end of boxNewAccountReg -->
 
