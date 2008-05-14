@@ -28,22 +28,20 @@
 <link href="../../<spring:theme code="teacherforgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../javascript/general.js"></script>	
-<title>Forgot username or password - teacher</title>
+<title><spring:message code="forgot.teacher.error.1"/></title>
 </head>
 
 <body>
 
-<h2 id="heading"> LOST USERNAME OR PASSWORD </h2>
-<h2 id="heading2"> TEACHER/RESEARCHER </h2>
+<h2 id="heading"><spring:message code="forgot.teacher.error.2"/></h2>
+<h2 id="heading2"><spring:message code="forgot.teacher.error.3"/></h2>
 
 <div id="forgot2"> 
  <ul id="forgotList2">
-<li> <b>${email}${username}</b>, this information entered does
-not match anything on file.
-</li>
+	<li> <b>${email}${username}</b>, <spring:message code="forgot.teacher.error.4"/></li>
  </ul>
 </div>
-<br /> 
+ 
 </body>
 </html>
 

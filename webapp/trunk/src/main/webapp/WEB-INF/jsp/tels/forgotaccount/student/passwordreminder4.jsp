@@ -44,15 +44,15 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.2"/></h1>
 
-<h1> Forgot your Password? </h1>
+<h1><spring:message code="forgot.student.passremind.3"/></h1>
 
 <div id="studentpasswordremindersuggestion"> 
 	<ul>
-		<li class="forgotPasswordInstructionText">Your username is still <em>${username}</em></li>
-		<li class="forgotPasswordInstructionText">Your password has been  changed.</li>
-		<li class="forgotPasswordInstructionText2">Please click the the button below to sign in using your new password.</li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.12"/>&nbsp;<em>${username}</em></li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.13"/></li>
+		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.14"/></li>
 	</ul>
 </div>
 

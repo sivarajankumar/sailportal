@@ -30,7 +30,7 @@
 
 <script type="text/javascript" src="../../javascript/general.js"></script>	
 
-<title>Student - Search for Username via Project Code</title>
+<title><spring:message code="student.enterprojectcode.1"/></title>
 
 </head>
 
@@ -40,15 +40,15 @@
     	
 <%@ include file="headermain.jsp"%>
 
-<div style="text-align:center;">   
+<div style="text-align:center;">    
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="student.enterprojectcode.2"/></h1>
   
   	<br /> 
-	<h2>Run a Search for Your Username</h2>
+	<h2><spring:message code="student.enterprojectcode.3"/></h2>
 
-	<h5>Fill in your Student Code below (get this from your teacher if needed), then click the Search button.</h5>
+	<h5><spring:message code="student.enterprojectcode.4"/></h5>
 	
 	<br />  
 	<div id="errorMessageFormat">
@@ -61,7 +61,7 @@
 	</div>
 	
 	<form name="projectCode" method="post" commandName="reminderParameters">
-			<label id="projectCodeLabel" for="send_projectcode">Student Code:</label>
+			<label id="projectCodeLabel" for="send_projectcode"><spring:message code="student.enterprojectcode.5"/></label>
  			<input type="text" name="projectCode" id="projectCode" />
     	 	<input type="submit" value="Search"/>
  

@@ -30,7 +30,7 @@
     
 <script type="text/javascript" src="../../javascript/general.js"></script>	
 
-<title>STUDENT Forgot Username </title>
+<title>Student -- Forgot Username </title>
 
 </head>
 
@@ -43,25 +43,25 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.username.1"/></h1>
     	
 <div align="center">
 
 	<br/>
-	<h2>Forgot your UserName?</h2>
+	<h2><spring:message code="forgot.student.username.2"/></h2>
 	
 	<ul id="forgotusernamelist">
-		<li>Your Username consists of your first name, initial of last name, month of birth, and day of birth.</li>
-		<li>For example, a user named Jane Doe with a birthday on March 24 will generally have the username "JaneD324"</li>
+		<li><spring:message code="forgot.student.username.3"/></li>
+		<li><spring:message code="forgot.student.username.4"/></li>
 	</ul>
 	
 	
-	<h4>If this doesn't help you recall your Username, try one of the following: </h4>
+	<h4><spring:message code="forgot.student.username.5"/></h4>
 	
 	<div id="forgotusernamesuggestions">
 	<ol>
-		<li>If you know your Student Code you can use it to <b><a href="enterprojectcode.html">Run a Search for your Username</a></b>.</li>
-		<li>Or simply ask your teacher for help finding your Username and Password. Hooray for teachers!</li>
+		<li><spring:message code="forgot.student.username.6"/><b><a href="enterprojectcode.html"><spring:message code="forgot.student.username.7"/></a></b>.</li>
+		<li><spring:message code="forgot.student.username.8"/></li>
 	</ol>
 	</div>
 	

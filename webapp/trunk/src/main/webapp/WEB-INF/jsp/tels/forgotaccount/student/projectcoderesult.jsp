@@ -28,7 +28,7 @@
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title> Project Code Results - Student</title>
+<title>Project Code Results - Student</title>
 </head>
 
 <body>
@@ -40,20 +40,20 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="lostTitleBar" class="blueText">Results for Your Search</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.projectcoderesult.1"/></h1>
 
 <table id="resultsTable" border="1">
 	<tr>
-		<td>Student Code:</td>
+		<td><spring:message code="forgot.student.passremind.projectcoderesult.2"/></td>
 		<td><b>${projectcode}</b></td>
 	</tr>
 	<tr>
-		<td>Project Title:</td>
+		<td><spring:message code="forgot.student.passremind.projectcoderesult.3"/></td>
 		<td><b>${runtitle}</b></td>
 	</tr>
 </table>
 	
-<h4>The following Usernames are registered for this Student Code:</h4>
+<h4><spring:message code="forgot.student.passremind.projectcoderesult.4"/></h4>
   <h3 style="color:#990000; line-height:140%;">
   		<c:forEach var="entry" items="${users}">
     		Username:  ${entry.key}

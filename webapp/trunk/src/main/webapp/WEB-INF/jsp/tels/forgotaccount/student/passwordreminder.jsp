@@ -31,7 +31,7 @@
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>	
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
 
-<title>Forgot password - student</title>
+<title><spring:message code="forgot.student.passremind.1"/></title>
 </head>
 
 <body>
@@ -43,14 +43,14 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.2"/></h1>
 
-<h1> Forgot your Password? </h1>
+<h1><spring:message code="forgot.student.passremind.3"/></h1>
 
 <div id="studentpasswordremindersuggestion"> 
 	<ul>
-		<li class="forgotPasswordInstructionText">Step 1:</li>
-		<li class="forgotPasswordInstructionText">Enter your WISE username: </li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.4"/></li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.5"/></li>
 		<li class="forgotPasswordInstructionText2"><form id="username" name="retrievepassword" method="post" commandName="reminderParameters">
 			<label style="font-weight:bold;" for="send_username"><spring:message code="login.username" /></label>
   			<input class="dataBoxStyle" type="text" name="username" id="userName" size="20" tabindex="1" />

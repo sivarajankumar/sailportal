@@ -32,7 +32,7 @@
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>	
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
 
-<title>Teach Forgotten Password: confirmation screen</title>
+<title><spring:message code="forgot.teacher.success.1"/></title>
 </head>
 
 <body>
@@ -44,17 +44,16 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.teacher.success.2"/></h1>
 
-<h1> Forgot your Password? </h1>
+<h1><spring:message code="forgot.teacher.success.3"/></h1>
 
 <div id="studentpasswordremindersuggestion"> 
 	<ul>
-		<li class="forgotPasswordInstructionText3">${username}, a new password has been emailed to ${email}. 
-You should receive it within a few
-minutes.</li>
-		<li class="forgotPasswordInstructionText">If you have any other problems or questions, <a href="#" onclick="displayNotAvailable('This page is not available yet');"
->contact WISE.</a></li>
+		<li class="forgotPasswordInstructionText3">${username}, <spring:message code="forgot.teacher.success.4"/> ${email}. 
+<spring:message code="forgot.teacher.success.5"/></li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.teacher.success.6"/> <a href="#" onclick="displayNotAvailable('This page is not available yet');"
+><spring:message code="forgot.teacher.success.7"/></a></li>
 	</ul>
 	
 </div>

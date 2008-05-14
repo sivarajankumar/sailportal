@@ -41,33 +41,35 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-<h1 id="lostTitleBar" class="blueText">Lost Username or Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="selectaccounttype.1"/></h1>
  
  <div id="boxSecondary">
  
-	 <div align="center">   
+	 <div>   
 	  	
-			<div id="lostSubHeader">What sort of WISE account do you have?</div><br/>
+			<div id="lostSubHeader"><spring:message code="selectaccounttype.2"/></div><br/>
 			 
-			<a href="student/index.html">
-			  <img id="studentAccount" src="../<spring:theme code="create_student_account" />" width="228" height="41"
+			<a href="student/index.html" >
+			  <img id="studentAccount" alt="<spring:message code="selectaccounttype.3"/>" 
+			  src="../<spring:theme code="create_student_account" />" width="228" height="41"
 			  onmouseover="swapImage('studentAccount','../<spring:theme code="create_student_account_rollover" />');" 
 			  onmouseout="swapImage('studentAccount','../<spring:theme code="create_student_account" />');" /></a>
 			<br/>
-			<div style="margin:8px 0 0px 0;">or</div>
+			<div style="margin:8px 0 0px 0;"><spring:message code="selectaccounttype.4"/></div>
 			<br/>
-			<a href="teacher/index.html"> 
-			<img id="teacherAccount" src="../<spring:theme code="create_teacher_account" />" height="46"
+			<a href="teacher/index.html" > 
+			<img id="teacherAccount" alt="<spring:message code="selectaccounttype.5"/>"
+			src="../<spring:theme code="create_teacher_account" />" height="46"
 			  onmouseover="swapImage('teacherAccount','../<spring:theme code="create_teacher_account_rollover" />');" 
 			  onmouseout="swapImage('teacherAccount','../<spring:theme code="create_teacher_account" />');" /></a>
 						
-			<div id="forgotparagraph">Select a choice above.</div>
+			<div id="forgotparagraph"><spring:message code="selectaccounttype.6"/></div>
 						
 	</div>
 	</div>
 	
 	<div id="returnHomePageButton">
-			<a href="../index.html"> <img id="return"
+			<a href="../index.html"> <img id="return" alt="<spring:message code="selectaccounttype.7"/>"
 			src="../<spring:theme code="return_to_homepage" />"
 			onmouseover="swapImage('return', '..//<spring:theme code="return_to_homepage_roll" />');"
 			onmouseout="swapImage('return', '../<spring:theme code="return_to_homepage" />');" /></a></div>

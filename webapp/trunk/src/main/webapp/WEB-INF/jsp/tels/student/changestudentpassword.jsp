@@ -27,7 +27,7 @@
 <body>
 
 
-<h1>Change My Password</h1>
+<h1><spring:message code="student.changestudentpassword.1"/></h1>
 
 <div id="errorMessageFormat">
 	<!-- Support for Spring errors object -->

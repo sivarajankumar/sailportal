@@ -32,10 +32,9 @@
 
 <body>
 
-<h1>The project has been successfully added.</h1>
+<h1><spring:message code="student.addprojectsuccess.1"/></h1>
 
-<h3>After closing this window please REFRESH your web browser window. 
-This will make the new project appear in your <em>Current Runs</em> menu.</h3>
+<h3><spring:message code="student.addprojectsuccess.2"/> <em><spring:message code="student.addprojectsuccess.3"/></em> <spring:message code="student.addprojectsuccess.4"/></h3>
 
 
 </body>

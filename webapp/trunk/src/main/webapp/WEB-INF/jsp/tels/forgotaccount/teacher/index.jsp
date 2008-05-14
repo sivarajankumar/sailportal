@@ -29,7 +29,7 @@
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <script type="text/javascript" src="./javascript/tels/general.js"></script>			    
-<title>Forgot username or password - teacher</title>
+<title><spring:message code="forgot.teacher.error.1"/></title>
 </head>
 
 <body>
@@ -41,11 +41,11 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-<h1 id="lostTitleBar" class="blueText">Lost Username or Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.teacher.error.2"/></h1>
     	
 <br /> 
 
-<h2 class="center">TEACHER / RESEARCHER</h2>
+<h2 class="center"><spring:message code="forgot.teacher.error.3"/></h2>
 
 <!-- Support for Spring errors object -->
 <div id="errorMessageFormat">
@@ -59,24 +59,24 @@
 <form id="username" method="post" action="index.html" commandName="userDetails">
 
 <div id="boxSecondary">
- <h2><b>Remember Your Username but Forgot Your Password?</b></h2>
- <h5>Enter Your Username and click the button. <br/>A reminder of your existing password will be sent to your registered email address.</h5>
+ <h2><b><spring:message code="forgot.teacher.index.1"/></b></h2>
+ <h5><spring:message code="forgot.teacher.index.2"/><br/><spring:message code="forgot.teacher.index.3"/></h5>
  		<b><label for="send_username" /><spring:message code="login.username" /> </b>
 		<input type="text" id="username" name="username" size="30" tabindex="1" /> <br /><br /><br />
-		<input type="submit" name="sendpassword" id="sendpassword" value="Email My Password"  />
+		<input type="submit" name="sendpassword" id="sendpassword" value="<spring:message code="forgot.teacher.index.4"/>"  />
  </div>
 
-<h3>OR</h3>
+<h3><spring:message code="forgot.teacher.index.5"/></h3>
 
 <div id="boxSecondary">
-	<h2><b>Forgot Your Username?</b></h2>
-	<h5>Enter the email address you used when registering for WISE and click the button. <br />Your UserName and a new Password will be sent to this email address.</h5>
+	<h2><b><spring:message code="forgot.teacher.index.6"/></b></h2>
+	<h5><spring:message code="forgot.teacher.index.7"/> <br/> <spring:message code="forgot.teacher.index.8"/></h5>
 	<b><label for="send_usernamepassword" /><spring:message code="lostpassword.teacher.email" /></b>
 	<input type="text" name="emailAddress" id="emailAddress" size="40" tabindex="2" /><br /><br /><br />
-	<input type="submit" name="sendemailAndPwd" id="sendEmailAndPwd" value="EMail My Username and Password" />
+	<input type="submit" name="sendemailAndPwd" id="sendEmailAndPwd" value="<spring:message code="forgot.teacher.index.9"/>" />
 </div>
 
-<h3>If you're still stuck, <a href="#" onclick="displayNotAvailable('This page is not available yet.');">contact WISE.</a></h3>
+<h3><spring:message code="forgot.teacher.index.10"/><a href="../../contactwisegeneral.html"><spring:message code="forgot.teacher.index.11"/></a></h3>
 
  </form>
 

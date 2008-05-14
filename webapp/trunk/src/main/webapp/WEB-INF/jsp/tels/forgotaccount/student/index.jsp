@@ -32,7 +32,7 @@
      
 <script type="text/javascript" src="../../javascript/general.js"></script>	
 
-<title>Forgot username or password - student</title>
+<title><spring:message code="forgot.student.index.1"/></title>
 </head>
 
 <body>
@@ -44,18 +44,17 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.index.2"/></h1>
     	
 <br /> <br /> 
 <div align="center">
-		<h2>What have you forgotten?</h2> <br/>
-		<h1><a href="username.html">Forgot My Username</a></h1>
-		<p align="center">OR</p>
-		<h1><a href="password.html">Forgot My Password</a></h1>
+		<h2><spring:message code="forgot.student.index.3"/></h2> <br/>
+		<h1><a href="username.html"><spring:message code="forgot.student.index.4"/></a></h1>
+		<p align="center"><spring:message code="forgot.student.index.5"/></p>
+		<h1><a href="password.html"><spring:message code="forgot.student.index.6"/></a></h1>
 		
 		<div id="forgotparagraph">
-		If you've forgotten your Username AND your Password (hey, it happens to the
-		best of us) <br/>first follow the <em>Forgot My Username</em> link, then follow the <em>Forgot My Password</em> link. </div>
+		<spring:message code="forgot.student.index.7"/><em><spring:message code="forgot.student.index.8"/></em> <spring:message code="forgot.student.index.9"/><em><spring:message code="forgot.student.index.10"/></em> <spring:message code="forgot.student.index.11"/>. </div>
 
 
 		<div><a href="../../index.html"> <img id="return"

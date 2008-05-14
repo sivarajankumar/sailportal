@@ -29,7 +29,7 @@
     
 <script type="text/javascript" src=".././javascript/tels/general.js"></script>    
     
-<title>Change Period or Team Pop-Up Window</title>
+<title><spring:message code="student.changeperiodteam.1"/></title>
 </head>
 
 <body style="background-color:transparent;">
@@ -37,7 +37,7 @@
 <div id="centeredDiv" style="background-color:transparent;">
 
 <div id="popUpWindow1">
-	<h3 align="center">To change your Period or Team please ask your teacher for help.</h3>
+	<h3 align="center"><spring:message code="student.changeperiodteam.1"/></h3>
 </div>
 
 </div>

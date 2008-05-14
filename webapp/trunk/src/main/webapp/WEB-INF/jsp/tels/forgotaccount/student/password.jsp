@@ -30,7 +30,7 @@
    
 <script type="text/javascript" src="../../javascript/general.js"></script>	
 
-<title>Forgot password - student</title>
+<title><spring:message code="forgot.student.password.1"/></title>
 </head>
 
 <body>
@@ -42,18 +42,17 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="lostTitleBar" class="blueText">Student Lost Username/Password</h1>
+<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.password.2"/></h1>
 
-<h1> Forgot your Password? </h1>
+<h1><spring:message code="forgot.student.password.3"/></h1>
 
 <div id="studentpasswordremindersuggestion"> 
 	<ol>
-	<li>You can create a NEW password for your account if you can answer the
-	<a id="passwordReminderLink" href="passwordreminder.html">Password Reminder</a> 
-	you created while registering.</li>
+	<li><spring:message code="forgot.student.password.4"/>
+	<a id="passwordReminderLink" href="passwordreminder.html"><spring:message code="forgot.student.password.5"/></a> 
+	<spring:message code="forgot.student.password.6"/></li>
 	
-	<li>If you can't remember your Password Reminder, ask your teacher for help looking up your
-	Username and Password.</li>
+	<li><spring:message code="forgot.student.password.7"/></li>
 	
 	</ol>
 </div>
@@ -61,7 +60,7 @@
 <br /><br />
 
 <a href="../../index.html"> 
-		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
+		<img id="return" alt="<spring:message code="forgot.student.password.8"/>" src="../../<spring:theme code="return_to_homepage" />"
 		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
 		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" />
 </a>
