@@ -31,6 +31,6 @@
 </head>
 
 <body onload="setTimeout('self.close()', 5000);" onunload="opener.location.reload()">
-   Successfully signed in.
+   <spring:message code="student.teamsignin.9"/>
 </body>
 </html>

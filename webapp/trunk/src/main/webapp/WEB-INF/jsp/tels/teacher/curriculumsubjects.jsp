@@ -30,67 +30,54 @@
 
 <script type="text/javascript" src=".././javascript/general.js"></script> 
 </head>
+
 <body>
-<h3 align="center">SELECT YOUR SUBJECTS </h3>
-<p>Select one or more checkboxes below describing the science topic(s) you teach.</p>
+<h3 align="center"><spring:message code="teacher.curriculum.1a"/></h3>
+<p><spring:message code="teacher.curriculum.1b"/></p>
 <table style="font-style:bold;font-size:1.1em;">
 <tr>
 <td> 
-Biology 
+<spring:message code="teacher.curriculum.2"/> 
 </td>
-<td>AP Biology</td>
-<td>Environ. Science</td>
+<td><spring:message code="teacher.curriculum.3"/></td>
+<td><spring:message code="teacher.curriculum.4"/></td>
 </tr>
 <tr>
 <td>
-Chemistry
-</td>
+<spring:message code="teacher.curriculum.5"/></td>
 <td>
-AP Chemistry
-</td>
+<spring:message code="teacher.curriculum.6"/></td>
 <td>
-Astronomy
-</td>
+<spring:message code="teacher.curriculum.7"/></td>
 </tr>
 <tr>
 <td>
-Physics
-</td>
+<spring:message code="teacher.curriculum.8"/></td>
 <td>
-AP Physics
-</td>
+<spring:message code="teacher.curriculum.9"/></td>
 <td>
-Anatomy
-</td>
+<spring:message code="teacher.curriculum.10"/></td>
 </tr>
 <tr>
 <td>
-Earth Science
-</td>
+<spring:message code="teacher.curriculum.11"/></td>
 <td>
-Biotechnology
-</td>
+<spring:message code="teacher.curriculum.12"/></td>
 <td>
-Geology
-</td>
+<spring:message code="teacher.curriculum.13"/></td>
 </tr>
 <tr>
 <td>
-Integrated Science
-</td>
+<spring:message code="teacher.curriculum.14"/></td>
 <td>
-Advanced Int. Science
-</td>
+<spring:message code="teacher.curriculum.15"/></td>
 <td>
-Other
-</td>
+<spring:message code="teacher.curriculum.16"/></td>
 </tr>
 </table> 
 
 <div align="center" style="position:relative;top:30px;">
-Note: Specifying your curriculum topics is optional, but very helpful to the WISE development
-team. This information guides the ongoing direction of WISE projects, allowing the creation of
-projects that best serve the needs of our science teacher community. Thanks for your input!
+<spring:message code="teacher.curriculum.17"/>
 <br />
 <a href="#">
  <img border="0px;" align="center" src="../<spring:theme code="register_save" />" />

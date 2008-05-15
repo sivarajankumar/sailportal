@@ -101,11 +101,11 @@
 
 <div id="teamSelect" class="teamMargin1">
 
-	<div id="teamSelectHeader">Will you be working on this project by yourself or with teammates?</div>
+	<div id="teamSelectHeader"><spring:message code="student.selectteam.1"/></div>
 	<div id="teamSelectChoices">
 		<ul>
-			<li><a href="startproject.html?runId=${runId}&bymyself=true" onclick="setTimeout('self.close()', 15000);" id="byMyself">By Myself</a></li>
-      		<li><a href="teamsignin.html?runId=${runId}" id="withTeam">With 1 or 2 Teammates</a></li>
+			<li><a href="startproject.html?runId=${runId}&bymyself=true" onclick="setTimeout('self.close()', 15000);" id="byMyself"><spring:message code="student.selectteam.2"/></a></li>
+      		<li><a href="teamsignin.html?runId=${runId}" id="withTeam"><spring:message code="student.selectteam.3"/></a></li>
     	</ul>
 	</div>
 

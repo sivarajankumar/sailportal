@@ -56,24 +56,24 @@
 <tr>
 <td id="welcomePanel" class="panelStyling">
 			
-			<div id="headerTeacherHome">Welcome to WISE 3.0!</div>
+			<div id="headerTeacherHome"><spring:message code="teacher.index.1"/></div>
 			
 			<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
 					<tr class="tableRowBorder">
-						<td class="tableColor" style="width:26%;">Current User:</td>
+						<td class="tableColor" style="width:26%;"><spring:message code="teacher.index.2"/></td>
 						<td>${user.userDetails.firstname} ${user.userDetails.lastname} </td>
 					</tr>
 					<tr class="tableRowBorder">
-						<td class="tableColor" style="width:26%;">Current Sign In:</td>
+						<td class="tableColor" style="width:26%;"><spring:message code="teacher.index.3"/></td>
 						<c:set var="current_date" value="<%= new java.util.Date() %>" />
 						<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
 					</tr>
 					<tr class="tableRowBorder">
-						<td class="tableColor">Last Sign In:</td>
+						<td class="tableColor"><spring:message code="teacher.index.4"/></td>
 						<td>
 						<c:choose>
 							<c:when test="${user.userDetails.lastLoginTime == null}">
-								never
+								<spring:message code="teacher.index.5"/>
 							</c:when>
 							<c:otherwise>
 								<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
@@ -83,19 +83,19 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="tableColor">Announcements:</td>
+						<td class="tableColor"><spring:message code="teacher.index.6"/></td>
 						<td>
 							<ul>
 							<li><b>
 							<c:choose>
 						        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
-						            Good morning!
+						            <spring:message code="teacher.index.7"/>
 						        </c:when>
 						        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
-									Good afternoon!	
+									<spring:message code="teacher.index.8"/>
 						        </c:when>
 						        <c:otherwise>
-									Hello Night Owl!
+									<spring:message code="teacher.index.9"/>
 						        </c:otherwise>
 						    </c:choose>
 		    				</b></li>
@@ -111,23 +111,23 @@
 
 <td id="projectsPanel" class="panelStyling" >
 
-			<div id="headerTeacherHome">Projects Awaiting Grading</div>
+			<div id="headerTeacherHome"><spring:message code="teacher.index.10"/></div>
 
 			<table id="projectGradeLinkBox" cellpadding="5" cellspacing="5">
 				<tr>
 					<td class="tableColor">[Project Name: Sample A]</td>
-					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
-					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
+					<td style="text-decoration:line-through;"><a href="#"><spring:message code="teacher.index.11"/></a></td>
+					<td style="text-decoration:line-through;"><a href="#"><spring:message code="teacher.index.12"/></a></td>
 				</tr>
 				<tr>
 					<td class="tableColor">[Project Name: Sample B]</td>
-					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
-					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
+					<td style="text-decoration:line-through;"><a href="#"><spring:message code="teacher.index.11"/></a></td>
+					<td style="text-decoration:line-through;"><a href="#"><spring:message code="teacher.index.12"/></a></td>
 				</tr>
 				<tr>
 					<td class="tableColor">[Project Name: Sample C]</td>
-					<td style="text-decoration:line-through;"><a href="#">Grade By Step</a></td>
-					<td style="text-decoration:line-through;"><a href="#">Grade By Team</a></td>
+					<td style="text-decoration:line-through;"><a href="#"><spring:message code="teacher.index.11"/></a></td>
+					<td style="text-decoration:line-through;"><a href="#"><spring:message code="teacher.index.12"/></a></td>
 				</tr>
 			</table>
 </td>
@@ -138,7 +138,7 @@
 <tr>
 <td id="dashboardPanel" class="panelStyling">
 
-	<div id="headerTeacherHome">About the Dashboard</div>
+	<div id="headerTeacherHome"><spring:message code="teacher.index.13"/></div>
 	
 	<table id="dashboardSections" cellspacing="4" cellpadding="2">
 		<tr>
@@ -146,35 +146,35 @@
 				onmouseover="MM_swapImage('homebuttonmini','','.././themes/tels/default/images/teacher/Home-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Home-Mini-Button2.png"
 				alt="Home Button Mini" id="homebuttonmini" /></a></td>
-			<td>Your current location. Includes announcements and quick links to popular tools.</td>
+			<td><spring:message code="teacher.index.14"/></td>
 		</tr>
 		<tr>
 			<td><a href="../teacher/projects/index.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('projectbuttonmini','','.././themes/tels/default/images/teacher/Projects-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Projects-Mini-Button2.png"
 				alt="Project Button Mini" id="projectbuttonmini" /></a></td>
-			<td>Search the WISE library, customize/create projects, view your current Project Runs.</td>
+			<td><spring:message code="teacher.index.15"/></td>
 		</tr>
 		<tr>
 			<td><a href="../teacher/grading/overview.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('gradingbuttonmini','','.././themes/tels/default/images/teacher/Grading-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Grading-Mini-Button2.png"
 				alt="Grading Button Mini" id="gradingbuttonmini" /></a></td>
-			<td>View and grade student work using an assortment of time-saving tools.</td>
+			<td><spring:message code="teacher.index.16"/></td>
 		</tr>
 		<tr>
 			<td><a href="../teacher/management/overview.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('managementbuttonmini','','.././themes/tels/default/images/teacher/Management-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Management-Mini-Button2.png"
 				alt="Management Button Mini" id="managementbuttonmini" /></a></td>
-			<td>Manage your students, print/export student work, update your account, and more.</td>
+			<td><spring:message code="teacher.index.17"/></td>
 		</tr>
 		<tr>
 			<td><a href="../teacher/help/overview.html"	onmouseout="MM_swapImgRestore()"
 				onmouseover="MM_swapImage('helpbuttonmini','','.././themes/tels/default/images/teacher/Help-Mini-Button-Roll2.png',1)">
 				<img src=".././themes/tels/default/images/teacher/Help-Mini-Button2.png"
 				alt="Help Button Mini" id="helpbuttonmini" /></a></td>
-			<td>Review guidelines to help you use WISE 3.0 smoothly in your classroom.</td>
+			<td><spring:message code="teacher.index.18"/></td>
 		</tr>
 	</table>
 </td>
@@ -183,42 +183,42 @@
 
 <td id="quickLinksPanel" class="panelStyling">
 
-	<div id="headerTeacherHome">Quick Links</div>
+	<div id="headerTeacherHome"><spring:message code="teacher.index.19"/></div>
 
 	<div id="quickLinks1">
-		<div id="linkHeader">Projects</div>
+		<div id="linkHeader"><spring:message code="teacher.index.20"/></div>
 			<ul>
-			<li><a href="projects/projectlibrary.html">Project Library</a></li>
-			<li><a href="run/myprojectruns.html">My Project Runs & Student Codes</a></li>
-			<li class="inactivecolor">My Bookmarked Projects</li>
-			<li><a href="projects/customized/index.html">My Customized Projects</a></li>
+			<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
+			<li><a href="run/myprojectruns.html"><spring:message code="teacher.index.22"/></a></li>
+			<li class="inactivecolor"><spring:message code="teacher.index.23"/></li>
+			<li><a href="projects/customized/index.html"><spring:message code="teacher.index.24"/></a></li>
 			</ul>
-		<div id="linkHeader">Grading</div>
+		<div id="linkHeader"><spring:message code="teacher.index.25"/></div>
 			<ul>
 			<!-- grade-by-step disabled until optimized 
 			<li><a href="./grading/projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></li>
 			-->
 			
-			<li class="inactivecolor">Grade Work by Step</li>			
-			<li><a href="./grading/projectPickerGrading.html?gradeByType=group">Grade Work by Team</a></li>
-			<li class="inactivecolor">View Student Score Summary</li>
-			<li class="inactivecolor">Edit Ready-Made Comments</li>
+			<li class="inactivecolor"><spring:message code="teacher.index.26"/></li>			
+			<li><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>
+			<li class="inactivecolor"><spring:message code="teacher.index.28"/></li>
+			<li class="inactivecolor"><spring:message code="teacher.index.29"/></li>
 			</ul>		
 	</div>
 
 	<div id="quickLinks2">
-		<div id="linkHeader">Management</div>
+		<div id="linkHeader"><spring:message code="teacher.index.30"/></div>
 		<ul>
-			<li><a href="./management/projectPickerManagement.html">Manage My Students</a></li>			
-			<li class="inactivecolor">Real-Time Class Monitor</li>
-			<li class="inactivecolor">Print Student Work</li>
-			<li><a href="./management/updatemyaccount.html">Update My Account</a></li>
+			<li><a href="./management/projectPickerManagement.html"><spring:message code="teacher.index.31"/></a></li>			
+			<li class="inactivecolor"><spring:message code="teacher.index.32"/></li>
+			<li class="inactivecolor"><spring:message code="teacher.index.33"/></li>
+			<li><a href="./management/updatemyaccount.html"><spring:message code="teacher.index.34"/></a></li>
 			<li style="visibility:hidden;">test</li>
 		</ul>
-		<div id="linkHeader">Help</div> 
+		<div id="linkHeader"><spring:message code="teacher.index.35"/></div> 
 		<ul>
-			<li class="inactivecolor">Guide for New Users</li>
-			<li><a href="../contactwisegeneral.html">Contact WISE</a></li>
+			<li class="inactivecolor"><spring:message code="teacher.index.36"/></li>
+			<li><a href="../contactwisegeneral.html"><spring:message code="teacher.index.37"/></a></li>
 		</ul>
 	</div>
 

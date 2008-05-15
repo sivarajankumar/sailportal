@@ -107,8 +107,8 @@
 
 <div id="teamSelect" class="teamMargin2">
 
-	<div id="teamSelectHeader"><span style="color:#0000CC;"><authz:authentication operation="username" /></span> is already signed in.</div>
-	<div id="teamSelectHeader">All other teammates should sign in below.</div>
+	<div id="teamSelectHeader"><span style="color:#0000CC;"><authz:authentication operation="username" /></span> <spring:message code="student.teamsignin.1"/></div>
+	<div id="teamSelectHeader"><spring:message code="student.teamsignin.2"/></div>
 
 	<form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" >
 			<table id="multiUserSignIn" border="0" cellspacing="0" cellpadding="2">
@@ -116,26 +116,26 @@
 					<td colspan=3"></td>
 				</tr>
 				<tr>
-		  			<td><label for="username1">Username 1:</label></td>
+		  			<td><label for="username1"><spring:message code="student.teamsignin.3"/></label></td>
 		     		<td><form:input disabled="true" path="username1" id="username1" /></td>
-		     		<td id="teamSignMessages">already signed in</td>
+		     		<td id="teamSignMessages"><spring:message code="student.teamsignin.4"/></td>
 				</tr>
 				<tr id="multiUserSeparatorRow">
 					<td colspan=3"></td>
 				</tr>
 		  		<tr>
 		  		<c:forEach var="teammate_index" begin="2" end="3" step="1">
-		    		<td><label for="username${teammate_index}">Username ${teammate_index}:</label></td>
+		    		<td><label for="username${teammate_index}"><spring:message code="student.teamsignin.5"/> ${teammate_index}:</label></td>
 		        	<td><form:input path="username${teammate_index}" id="username${teammate_index}"/></td>
 		        	<td class="errorMsgStyle"><form:errors path="username${teammate_index}" /></td>
 		        </tr>
 				<tr>
-		 			<td><label for="password${teammate_index}">Password:</label></td>
+		 			<td><label for="password${teammate_index}"><spring:message code="student.teamsignin.6"/></label></td>
 		        	<td><form:password path="password${teammate_index}" id="password${teammate_index}"/></td>
 		        	<td class="errorMsgStyle"><form:errors path="password${teammate_index}" /></td>
 		        </tr>
 		        <tr class="multiUserAbsentRow">
-		        	<td><a href="#">absent today</a></td>
+		        	<td><a href="#"><spring:message code="student.teamsignin.7"/></a></td>
 		        	<td></td>
 		        	<td></td>
 		        </tr>
@@ -145,7 +145,7 @@
 		  </c:forEach>
 			</table>
 			
-	<div><a href="../forgotaccount/student/index.html" id="forgotlink">Forgot Your Username or Password?</a>  </div>
+	<div><a href="../forgotaccount/student/index.html" id="forgotlink"><spring:message code="student.teamsignin.8"/></a>  </div>
 	
 	 <div id="finalRunProjectButton" onclick="setTimeout('self.close()', 15000);">
  	    <input type="image" name=_finish" value="Run Project" id="runproject" src="../<spring:theme code="run_project" />" 

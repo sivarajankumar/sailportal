@@ -41,15 +41,15 @@
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-<h1 id="registrationTitle" class="blueText">Student Registration</h1>
+<h1 id="registrationTitle" class="blueText"><spring:message code="student.registerstudentconfirm.1"/></h1>
 
 <div id="subtitleConfirm">
-			<h4>Account Created!</h4>
-			<h4> Your new Username is: <span id="usernameConfirm">${username}</span></h4>
+			<h4><spring:message code="student.registerstudentconfirm.2"/></h4>
+			<h4><spring:message code="student.registerstudentconfirm.3"/> <span id="usernameConfirm">${username}</span></h4>
 			<ul>
-		    <li>Your Username combines your name and birthday information. Write it down so you don't forget!</li>
-		    <li>Example Username: John Smith with birthday 3/24 would have the Username "<em>JohnS324</em>" <br />
-			    <span class="smallText">(his first name + initial of last name + birthday information)</span> </li>
+		    <li><spring:message code="student.registerstudentconfirm.4"/></li>
+		    <li><spring:message code="student.registerstudentconfirm.5"/>&nbsp;<span style="color:#6666FF;font-weight:bold;text-decoration:underline;">John</span> <span style="color:#6666FF;font-weight:bold;text-decoration:underline;">S</span>mith with a birthday on <span style="color:#6666FF;font-weight:bold;text-decoration:underline;">3/24</span> would have the Username "<span style="color:#CC3333;font-weight:bold;text-decoration:underline;">JohnS324</span>" <br />
+			    <span class="smallText"><spring:message code="student.registerstudentconfirm.7"/></span> </li>
 			</ul>
 </div>
 
@@ -66,8 +66,8 @@
     <img src="../themes/tels/default/images/Go-To-Home-Page.png" alt="Go to Home Page & Sign In" width="161" height="52"  id="Return to Home Page" /></a></td>
   </tr>
   <tr>
-    <td class="width1">Select this option if you are working in a team.  All teammates should register before you start the project.</td>
-    <td class="width2">Select this option if everyone on your team has registered (or if you are working on your own). Return to the home page and type your new Username and Password in the <em>Sign In</em> area.</td>
+    <td class="width1"><spring:message code="student.registerstudentconfirm.8"/></td>
+    <td class="width2"><spring:message code="student.registerstudentconfirm.9"/> <em><spring:message code="student.registerstudentconfirm.10"/></em> <spring:message code="student.registerstudentconfirm.11"/></td>
   </tr>
 </table>
 
