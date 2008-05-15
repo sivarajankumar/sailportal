@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.service.project.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
@@ -37,6 +40,7 @@ import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -68,7 +72,8 @@ public class ProjectServiceImplTest extends TestCase {
 	private static final Long EXISTING_CURNIT_ID = new Long(100);
 
 	private static final Long EXISTING_JNLP_ID = new Long(2);
-
+	
+	private static final FamilyTag EXISTING_PROJECT_FAMILY_TAG = FamilyTag.TELS;
 	
 	@SuppressWarnings("unchecked")
 	protected void setUp() throws Exception {
@@ -101,6 +106,31 @@ public class ProjectServiceImplTest extends TestCase {
     	} catch (ObjectNotFoundException e) {
     	}
     	verify(mockProjectDao);
+	}
+	
+	public void testGetProjectListByTag() throws Exception {
+		// by familytag
+		List<Project> expectedList = new ArrayList<Project> ();
+		Project expectedProject = new ProjectImpl();
+		expectedProject.setFamilytag(EXISTING_PROJECT_FAMILY_TAG);
+		expectedList.add(expectedProject);
+		expect(mockProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedList);
+		replay(mockProjectDao);
+		assertEquals(expectedList, projectServiceImpl.getProjectListByTag(EXISTING_PROJECT_FAMILY_TAG));
+		verify(mockProjectDao);
+		reset(mockProjectDao);
+				
+		// by projectinfotag
+		// TODO: after projectinfotag defined in ProjectImpl
+	}
+	
+	public void testGetProjectListByTag_EmptyList() throws Exception {
+		List<Project> expectedList = new ArrayList<Project> ();
+		expect(mockProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedList);
+		replay(mockProjectDao);
+		assertEquals(expectedList, projectServiceImpl.getProjectListByTag(EXISTING_PROJECT_FAMILY_TAG));
+		verify(mockProjectDao);
+		reset(mockProjectDao);
 	}
 	
 	public void testCreateProject_success() throws Exception {
