@@ -46,6 +46,7 @@
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 
 <h2 id="titleBar" class="headerText">Sharing Permissions</h2> 
+				<c:out value="${message}" />
 
 <div class="sharedprojectHeadline1">project run selected:</div>
  

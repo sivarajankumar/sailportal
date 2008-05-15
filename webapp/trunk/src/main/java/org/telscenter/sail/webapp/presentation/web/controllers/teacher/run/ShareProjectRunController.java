@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,6 +54,8 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 public class ShareProjectRunController extends SimpleFormController {
 	
 	private RunService runService;
+	
+	private UserService userService;
 	
 	protected static final String RUNID_PARAM_NAME = "runId";
 
@@ -114,7 +117,15 @@ public class ShareProjectRunController extends SimpleFormController {
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors) {
     	AddSharedTeacherParameters params = (AddSharedTeacherParameters) command;
+    	User retrievedUser = userService.retrieveUserByUsername(params.getSharedOwnerUsername());
     	ModelAndView modelAndView;
+
+    	if (retrievedUser == null) {
+    		modelAndView = new ModelAndView(new RedirectView("shareprojectrun.html"));
+	    	modelAndView.addObject(RUNID_PARAM_NAME, params.getRun().getId());
+	    	modelAndView.addObject("message", "Username not recognized. Make sure to use the exact spelling of the username.");
+	    	return modelAndView;
+    	} else {
     	try {
 			runService.addSharedTeacherToRun(params);
 		} catch (ObjectNotFoundException e) {
@@ -125,6 +136,7 @@ public class ShareProjectRunController extends SimpleFormController {
     	modelAndView = new ModelAndView(new RedirectView(getSuccessView()));
     	modelAndView.addObject(RUNID_PARAM_NAME, params.getRun().getId());
     	return modelAndView;
+    	}
     }
 
 	/**
@@ -132,6 +144,20 @@ public class ShareProjectRunController extends SimpleFormController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @return the userService
+	 */
+	public UserService getUserService() {
+		return userService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }
 
