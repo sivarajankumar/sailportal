@@ -259,16 +259,16 @@ YAHOO.util.Event.onDOMReady(init);
 		<c:choose>
 	        <c:when test="${(current_date.month == user.userDetails.birthday.month) &&
 	                        (current_date.day == user.userDetails.birthday.day)}" >
-	            Happy Birthday!
+	            <spring:message code="student.index.1"/>
 	        </c:when>
 	        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
-	            Good morning!
+	            <spring:message code="student.index.2"/>
 	        </c:when>
 	        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
-				Good afternoon!	
+				<spring:message code="student.index.3"/>
 	        </c:when>
 	        <c:otherwise>
-				Hello Night Owl!
+				<spring:message code="student.index.4"/>
 	        </c:otherwise>
 	    </c:choose>
 	</dt>
@@ -320,13 +320,13 @@ YAHOO.util.Event.onDOMReady(init);
 <div class="separator"></div>
 
 <dl id="list2">
-	<dt>This Sign In:</dt>
+	<dt><spring:message code="student.index.5"/></dt>
 	<dd><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
-	<dt>Last Sign In:</dt>
+	<dt><spring:message code="student.index.6"/></dt>
 	<dd>
 	<c:choose>
 		<c:when test="${user.userDetails.lastLoginTime == null}">
-			never
+			<spring:message code="student.index.7"/>
 		</c:when>
 		<c:otherwise>
 			<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
@@ -335,31 +335,31 @@ YAHOO.util.Event.onDOMReady(init);
 	</c:choose>
 		
 	</dd>
-	<dt class="listTitle2"># of Sign Ins:</dt>
+	<dt class="listTitle2"><spring:message code="student.index.8"/></dt>
 	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
-	<dt class="listTitle2">Language:</dt> 
-	<dd id="language">English</dd>
+	<dt class="listTitle2"><spring:message code="student.index.9"/></dt> 
+	<dd id="language"><spring:message code="student.index.10"/></dd>
 </dl>
 
 <div class="separator"></div>
 
 <div style="text-align:center;"><img src="../themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></div>
 
-<div id="displayAsEnglish">WISE 3.0 &amp; Amanda the Panda <br/>&#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link">Contact WISE</a></div>
+<div id="displayAsEnglish">WISE 3.0 &amp; Amanda the Panda <br/>&#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link"><spring:message code="student.index.11"/></a></div>
 
-<div style="display:none;" id="displayAsEnglish"><a href="#">Display in English</a></div>
+<div style="display:none;" id="displayAsEnglish"><a href="#"><spring:message code="student.index.12"/></a></div>
 
 </div>   <!--end of columnButtons, floated to left-->
 
 
 <div id="columnProjects">
 
-	<div id="columnLabel">PROJECT MENU</div>
+	<div id="columnLabel"><spring:message code="student.index.13"/></div>
 	
 	<div id="tabSystem" class="yui-navset">
 	    <ul style="font-size:.8em;" class="yui-nav">
-	        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em>Current Runs</em></a></li>
-	        <li><a href="#archivedRuns"><em>Archived Runs</em></a></li>
+	        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em><spring:message code="student.index.14"/></em></a></li>
+	        <li><a href="#archivedRuns"><em><spring:message code="student.index.15"/></em></a></li>
 	    </ul>            
 	    <div class="yui-content" style="background-color:#FFFFFF;">
 			<div id="currentRuns">
@@ -371,14 +371,14 @@ YAHOO.util.Event.onDOMReady(init);
 						<table id="currentRunTable" >
 				
 							<tr id="projectMainRow">
-								<td class="studentTableLeftHeaderCurrent">Title</td>
+								<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.16"/></td>
 								<td>
 									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 								<td rowspan="5" style="width:30%; padding:2px;">
 									  	<ul id="studentActionList">
 											<li><c:choose>
 												<c:when test="${studentRunInfo.workgroup == null}">
-													<a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}'>RUN PROJECT</a>
+													<a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}'><spring:message code="student.index.17"/></a>
 												</c:when>
 												<c:otherwise>
 													<c:choose>
@@ -390,23 +390,23 @@ YAHOO.util.Event.onDOMReady(init);
 														<c:otherwise>
 															<a
 																href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
-																id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.17"/></a>
 														</c:otherwise>
 													</c:choose>
 												</c:otherwise>
 											</c:choose></li>
-											<li><a href="${studentRunInfo.workgroup.workPDFUrl}">Create PDF file of my work</a></li>
-											<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#">Change period or team</a></li>
-											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}">Report a problem</a></li>
+											<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
+											<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#"><spring:message code="student.index.19"/></a></li>
+											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
 									 	</ul>
 							 	</td>
 							</tr>
 							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Student Code</td>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.21"/></td>
 								<td id="secondaryRowTightFormat" >${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
 						  	</tr>	
 							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Teacher</td>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.22"/></td>
 								<td id="secondaryRowTightFormat" >
 												<c:choose>
 												<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
@@ -416,18 +416,18 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
-													not established yet			    
+													<spring:message code="student.index.23"/>
 												</c:otherwise>	
 									      		</c:choose>
 								</td>
 								</tr>
 							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Period</td>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.24"/></td>
 								<td id="secondaryRowTightFormat" >${studentRunInfo.group.name}</td>
 						  	
 						  	</tr>
 							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Team</td>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.25"/></td>
 								<td id="secondaryRowTightFormat" >
 												<c:choose>
 												<c:when test="${studentRunInfo.workgroup != null}" >
@@ -439,7 +439,7 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
-													<div class="teamNotRegisteredMessage">To get started see the INSTRUCTIONS listed below.</div>  
+													<div class="teamNotRegisteredMessage"><spring:message code="student.index.26"/></div>  
 												</c:otherwise>	
 									      		</c:choose>
 								</td>
@@ -451,19 +451,19 @@ YAHOO.util.Event.onDOMReady(init);
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
-						To add a WISE 3.0 project click the "Add a Project" button.			    
+						<spring:message code="student.index.27"/>			    
 				</c:otherwise>
 				</c:choose>
 				<div id="firstUseBox">
-					<div id="firstUseHeader">INSTRUCTIONS</div>
+					<div id="firstUseHeader"><spring:message code="student.index.28"/></div>
 					<div id="instructionsArea">
-						<h6>To run a WISE 3.0 project for the first time:</h6>
+						<h6><spring:message code="student.index.29"/></h6>
 						<ol>
-							<li>Click the RUN PROJECT button.</li>
-							<li>Select how many students on the team  (1,2 or 3).</li>
-							<li>When working in teams, additional students will enter their Username/Password.</li>
-							<li>Click OK button when asked to "Open With Java Web Start".</li>
-							<li>Click TRUST button to launch the learning module.</li> 
+							<li><spring:message code="student.index.30"/></li>
+							<li><spring:message code="student.index.31"/></li>
+							<li><spring:message code="student.index.32"/></li>
+							<li><spring:message code="student.index.33"/></li>
+							<li><spring:message code="student.index.34"/></li> 
 						</ol>
 					</div>
 				</div>
@@ -476,27 +476,26 @@ YAHOO.util.Event.onDOMReady(init);
 						<table id="currentRunTable" >
 				
 							<tr id="projectMainRow">
-								<td class="studentTableLeftHeaderArchive">Title</td>
+								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.35"/></td>
 								<td id="studentCurrentTitleCell">
 									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 								<td rowspan="5" style="width:27%; padding:2px;">
 									  	<ul id="studentActionList">
 											<li><c:choose>
 												<c:when test="${studentRunInfo.workgroup == null}">
-													<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink">REVIEW
-													PROJECT</a>
+													<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink"><spring:message code="student.index.36"/></a>
 												</c:when>
 												<c:otherwise>
 													<c:choose>
 														<c:when
 															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
 															<a href="${studentRunInfo.startProjectUrl}"
-																id='${studentRunInfo.run.id}' class="">REVIEW PROJECT</a>
+																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
 														</c:when>
 														<c:otherwise>
 															<a
 																href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
-																id='${studentRunInfo.run.id}' class="">REVIEW PROJECT</a>
+																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
 														</c:otherwise>
 													</c:choose>
 												</c:otherwise>
@@ -505,7 +504,7 @@ YAHOO.util.Event.onDOMReady(init);
 							 	</td>
 							</tr>	
 							<tr>
-								<td class="studentTableLeftHeaderArchive">Teacher</td>
+								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.37"/></td>
 								<td>
 												<c:choose>
 												<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
@@ -515,18 +514,18 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
-													not established yet			    
+													<spring:message code="student.index.38"/>			    
 												</c:otherwise>	
 									      		</c:choose>
 								</td>
 								</tr>
 							<tr>
-								<td class="studentTableLeftHeaderArchive">Period</td>
+								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.39"/></td>
 								<td>${studentRunInfo.group.name}</td>
 						  	
 						  	</tr>
 							<tr>
-								<td class="studentTableLeftHeaderArchive">Team</td>
+								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.40"/></td>
 								<td>
 												<c:choose>
 												<c:when test="${studentRunInfo.workgroup != null}" >
@@ -538,20 +537,20 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
-													not established yet			    
+													<spring:message code="student.index.41"/>			    
 												</c:otherwise>	
 									      		</c:choose>
 								</td>
 							</tr>
 							<tr>
-								<td class="studentTableLeftHeaderArchive">Archived On</td>
+								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.42"/></td>
 								<td>NEED DATA: Project Run End Date</td>
 							</tr>
 					</table>
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
-						You currently have no archived projects.	    
+						<spring:message code="student.index.43"/>	    
 				</c:otherwise>
 				</c:choose>
 			</div>
@@ -562,7 +561,7 @@ YAHOO.util.Event.onDOMReady(init);
   
 <!-- this creates the add project dialog with iframe -->
 <div id="addProjectDialog">
-<div class="hd">Add A Project</div>
+<div class="hd"><spring:message code="student.index.44"/></div>
 <div class="bd">
 <h3><spring:message code="teacher.add-project-info" /></h3>
 
@@ -575,7 +574,7 @@ YAHOO.util.Event.onDOMReady(init);
 
 <!-- this creates the change period team iframe -->
 <div id="changePeriodTeamDialog">
-<div class="hd">Change Period or Team</div>
+<div class="hd"><spring:message code="student.index.45"/>/div>
 <div class="bd">
 
 <iframe id="changePeriodTeamFrame" src="" width="100%" FRAMEBORDER="0"
@@ -587,7 +586,7 @@ YAHOO.util.Event.onDOMReady(init);
 
 <!-- creates change password -->
 <div id="changePasswordDialog">
-<div class="hd">Change Your Password</div>
+<div class="hd"><spring:message code="student.index.46"/></div>
 <div class="bd">
 
 
@@ -599,7 +598,7 @@ YAHOO.util.Event.onDOMReady(init);
 
 <!-- this creates the select team dialog with iframe -->
 <div id="runProjectDialog">
-<div class="hd">Select a Team</div>
+<div class="hd"><spring:message code="student.index.47"/></div>
 <div class="bd" align="left">
 
 <iframe id="runProjectFrame" src=" " width="100%" height="400px" FRAMEBORDER="0"
