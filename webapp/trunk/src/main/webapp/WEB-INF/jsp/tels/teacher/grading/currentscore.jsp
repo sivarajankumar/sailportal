@@ -146,7 +146,7 @@ tabView.set('activeIndex', 0);
 
 <%@ include file="L2grading_overview.jsp"%>
 
-<h4>Current Student Score</h4>
+<h4><spring:message code="teacher.currentscore.1"/></h4>
 
 <%  %>
  
@@ -159,7 +159,7 @@ ${projectTitle} (${curnitId})
       <c:when test="${numberOfPeriods == '0' }">
 			
 			<br><br>
-			<h3>There are no graded items</h3>
+			<h3><spring:message code="teacher.currentscore.2"/></h3>
 	  </c:when>
 
       <c:otherwise>
@@ -172,25 +172,25 @@ ${projectTitle} (${curnitId})
     	<c:forEach var="periodEntry" varStatus="periodStatus" items="${scoreMap}">
         	<li><a href="#${periodEntry.key}"><em>Period ${periodEntry.key}</em></a></li>
         </c:forEach>
-        <li><a href="#allPeriods"><em>All Periods</em></a></li>
+        <li><a href="#allPeriods"><em><spring:message code="teacher.currentscore.3"/></em></a></li>
     </ul>            
     <div class="yui-content">
         <c:forEach var="periodEntry" varStatus="periodStatus" items="${scoreMap}">
 			
         	<div>
 				<span class="yui-button yui-push-button"><em class="first-child">
-					<button type="submit" name="Print" onClick="printme(event,'print_section_${periodEntry.key}')">Print This Report</button></em>
+					<button type="submit" name="Print" onClick="printme(event,'print_section_${periodEntry.key}')"><spring:message code="teacher.currentscore.4"/></button></em>
 				</span>
 				<div id="print_section_${periodEntry.key}">
 				<table border="1" >
 				<tr>
-					<th>Name</th>
-					<th>Username</th>
-					<th>Current Score (Raw)</th>
-					<th>Current Score (Percentage)</th>
-					<th>Graded Steps</th>
-					<th>Total Gradable Steps</th>
-					<th>Progress (% Completed)</th>
+					<th><spring:message code="teacher.currentscore.5"/></th>
+					<th><spring:message code="teacher.currentscore.6"/></th>
+					<th><spring:message code="teacher.currentscore.7"/></th>
+					<th><spring:message code="teacher.currentscore.8"/></th>
+					<th><spring:message code="teacher.currentscore.9"/></th>
+					<th><spring:message code="teacher.currentscore.10"/></th>
+					<th><spring:message code="teacher.currentscore.11"/></th>
 				</tr>
 					<c:set var="countGradedSteps" value="0"/>
 					<c:set var="countAccScoreRaw" value="0"/>
@@ -238,15 +238,15 @@ ${projectTitle} (${curnitId})
 					<th></th>
 					<th></th>
 					<th></th>
-					<th>Current Score (Percentage)</th>
-					<th>Graded Steps</th>
-					<th>Total Gradable Steps</th>
-					<th>Progress (% Completed)</th>
+					<th><spring:message code="teacher.currentscore.12"/></th>
+					<th><spring:message code="teacher.currentscore.13"/></th>
+					<th><spring:message code="teacher.currentscore.14"/></th>
+					<th><spring:message code="teacher.currentscore.15"/></th>
 					</tr>
 					<tr>
 						<td align="center"></td>
 						<td align="center"></td>
-						<td align="center"><b>Averages<b></td>
+						<td align="center"><em><spring:message code="teacher.currentscore.16"/></em></td>
 						<td align="center"><fmt:formatNumber type="number" value="${countAccScorePercent/numberOfItems}" maxFractionDigits="0"/>%</td>
 						<td align="center"><fmt:formatNumber type="number" value="${countGradedSteps/numberOfItems}" maxFractionDigits="0"/></td>
 						<td align="center">${totalGradableSteps}</td>
@@ -265,11 +265,11 @@ ${projectTitle} (${curnitId})
         	<table border="1" >
 				<tr>
 				
-					<th>Period</th>
-					<th>Avg. Current Score (Percentage)</th>
-					<th>Avg. Graded Steps</th>
-					<th>Total Gradable Steps</th>
-					<th>Avg. Progress (% Completed)</th>
+					<th><spring:message code="teacher.currentscore.17"/></th>
+					<th><spring:message code="teacher.currentscore.18"/></th>
+					<th><spring:message code="teacher.currentscore.19"/></th>
+					<th><spring:message code="teacher.currentscore.20"/></th>
+					<th><spring:message code="teacher.currentscore.21"/></th>
 					</tr>
 
 					<c:set var="allCountGradedSteps" value="0"/>
@@ -327,11 +327,11 @@ ${projectTitle} (${curnitId})
 					</tr>
 
 					<tr>
-					<th>All Periods</th>
-					<th>Avg. Current Score (Percentage)</th>
-					<th>Avg. Graded Steps</th>
-					<th>Total Gradable Steps</th>
-					<th>Avg. Progress (% Completed)</th>
+					<th><spring:message code="teacher.currentscore.22"/></th>
+					<th><spring:message code="teacher.currentscore.18"/></th>
+					<th><spring:message code="teacher.currentscore.19"/></th>
+					<th><spring:message code="teacher.currentscore.20"/></th>
+					<th><spring:message code="teacher.currentscore.21"/></th>
 					</tr>
 		<!-- all periods average -->
 				<tr>

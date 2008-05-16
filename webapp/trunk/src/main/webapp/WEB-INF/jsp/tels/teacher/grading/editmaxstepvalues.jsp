@@ -115,7 +115,7 @@
 
 <%@ include file="L2grading_byvalue.jsp"%>
 
-<div id="overviewHeaderGrading">Edit Maximum Values for Graded Steps</div>
+<div id="overviewHeaderGrading"><spring:message code="teacher.editmaxvalues.1"/></div>
 
 <div id="gradeStepSelectionArea">
 
@@ -124,16 +124,14 @@
 
     <div id="gradeStepSelectedProject">${eCurnitmap.project.title}</div>
 
-	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Select Another Project</a></div>
+	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.editmaxvalues.2"/></a></div>
 	
 	<div id="editValuesInstructions">
 		<ul>
-			<li>To change the maximum possible value for a step, enter a value (between 0-1000) in the <em>New Maximum Score</em> column.  Click the SAVE button when you're done making changes.</li>
-			<li>Any Step with a score value of zero (0) will be automatically excluded when you're grading. This is a handy way to reduce your visual clutter when grading by Step or by Team.</li>
-			<li>Each gradable step has just one score value.  If you're using a Note step with multiple sub-parts, 
-			you can indicate the value of each Part to students by embedding a statement within the individual question prompts.		
-			Ex: "(5 pts for Part 1)"
-			<li>Note that Challenge Question values can't be edited here.  To change CQ values you must customize a project using the Authoring Tool.</li>
+			<li><spring:message code="teacher.editmaxvalues.3"/>&nbsp;<em><spring:message code="teacher.editmaxvalues.4"/></em>&nbsp;<spring:message code="teacher.editmaxvalues.5"/></li>
+			<li><spring:message code="teacher.editmaxvalues.6"/></li>
+			<li><spring:message code="teacher.editmaxvalues.7"/></li>
+			<li><spring:message code="teacher.editmaxvalues.8"/></li>
 		</ul>
 	</div>
 
@@ -141,10 +139,10 @@
 	
 	<table id="editValuesTable">
 		<tr>
-			<th>activity</th>
-			<th>step</th>
-			<th>current <br>maximum score</th>
-			<th>NEW <br>maximum score</th>
+			<th><spring:message code="teacher.editmaxvalues.9"/></th>
+			<th><spring:message code="teacher.editmaxvalues.10"/></th>
+			<th><spring:message code="teacher.editmaxvalues.11"/>&nbsp;<br/><spring:message code="teacher.editmaxvalues.12"/></th>
+			<th><spring:message code="teacher.editmaxvalues.13"/>&nbsp;<br/><spring:message code="teacher.editmaxvalues.12"/></th>
 		</tr>
 
 	 <c:forEach var="someAct" varStatus="varAct" items="${eCurnitmap.project.activity}">
@@ -168,7 +166,7 @@
       		</tr>
 	</table>
 	<div id="editValueSaveButton">
-	  <input type="submit" value="Save New Maximum Scores" />
+	  <input type="submit" value="<spring:message code="teacher.editmaxvalues.14"/>" />
 	</div>
 </form:form>
 

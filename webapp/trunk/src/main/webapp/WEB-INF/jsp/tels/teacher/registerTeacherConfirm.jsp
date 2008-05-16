@@ -41,15 +41,15 @@
 <div style="text-align:center;">
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
-<h1 id="registrationTitle" class="blueText">Teacher Registration</h1>
+<h1 id="registrationTitle" class="blueText"><spring:message code="teacher.registerteacher.1"/></h1>
 
 <div id="subtitleConfirm">
-			<h4>Account Created!</h4>
-			<h4> Your new Username is: <span><input id="usernameConfirm" name="username" value="${username}"/></span></h4>
+			<h4><spring:message code="teacher.registerconfirm.1"/></h4>
+			<h4><spring:message code="teacher.registerconfirm.2"/>&nbsp;<span><input id="usernameConfirm" name="username" value="${username}"/></span></h4>
 			<ul>
-		    <li>Please memorize/write down your Username and Password. You'll need them ever time you sign into WISE.</li>
-		    <li>Note: there are no spaces between first and last name.</li>
-		    <li>Note: A number may be appended to your Username if a similar name already exists.</li>
+		    <li><spring:message code="teacher.registerconfirm.3"/></li>
+		    <li><spring:message code="teacher.registerconfirm.4"/></li>
+		    <li><spring:message code="teacher.registerconfirm.5"/></li>
 			</ul>
 </div>
 
@@ -62,7 +62,7 @@
  </div>
 
 <div id="buttonText1">
-	Select this button to return to the home page. Then use your new Username and Password in the <em>Sign In</em> area.
+	<spring:message code="teacher.registerconfirm.6"/>&nbsp;<em><spring:message code="teacher.registerconfirm.7"/></em> <spring:message code="teacher.registerconfirm.8"/>
 </div>
 
 </div>
