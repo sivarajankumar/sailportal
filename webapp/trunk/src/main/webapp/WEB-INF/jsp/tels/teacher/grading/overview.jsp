@@ -31,7 +31,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
-<title>Grading</title>
+<title><spring:message code="teacher.grading.overview.1"/></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
@@ -53,32 +53,31 @@
  
 <div id="overviewContentGrading"> 
 
-	<div id="overviewHeaderGrading">grading: overview</div>
+	<div id="overviewHeaderGrading"><spring:message code="teacher.grading.overview.2"/></div>
 	
 	<table id="overview_choices_grading" cellspacing="20">
 		<tr>
 		    <!-- grade-by-step disabled until it is optimized  
 			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></td>
 			-->
-			<td class="link_grading"><a style="color:#999999;" href="#">Grade Work by Step</a></td>
-			<td class="description_grading">View and grade work, one Step at a time.</td></tr>
+			<td class="link_grading"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.3"/></a></td>
+			<td class="description_grading"><spring:message code="teacher.grading.overview.4"/></td></tr>
 		<tr>
-			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=group">Grade Work By Team</a></td>
-			<td class="description_grading">View and grade work, one student team (workgroup) at a time.</td></tr>
+			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.grading.overview.5"/></a></td>
+			<td class="description_grading"><spring:message code="teacher.grading.overview.6"/></td></tr>
 		<tr>
-			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=value">Edit Maximum Step Values</a></td>
-			<td class="description_grading">Review and edit the default score values for Notes and other gradable 
-			student steps in a project. </td></tr>
+			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=value"><spring:message code="teacher.grading.overview.7"/></a></td>
+			<td class="description_grading"><spring:message code="teacher.grading.overview.8"/></td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;"href="#">Review Student Score Summary</a></td>
-			<td class="description_grading">View a summary of student scores for a project.</td></tr>
+			<td class="link_grading"><a style="color:#999999;"href="#"><spring:message code="teacher.grading.overview.9"/></a></td>
+			<td class="description_grading"><spring:message code="teacher.grading.overview.10"/></td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;"href="#">Review My Grading Progress</a></td>
-			<td class="description_grading">View the progress you've made in grading a project.</td></tr>
+			<td class="link_grading"><a style="color:#999999;"href="#"><spring:message code="teacher.grading.overview.11"/></a></td>
+			<td class="description_grading"><spring:message code="teacher.grading.overview.12"/></td></tr>
 
 		<tr>
-			<td class="link_grading"><a style="color:#999999;"href="#">Edit Pre-Made Comment Lists</a></td>
-			<td class="description_grading">Create and edit a list of ready-made comments to streamline your grading.</td></tr>
+			<td class="link_grading"><a style="color:#999999;"href="#"><spring:message code="teacher.grading.overview.13"/></a></td>
+			<td class="description_grading"><spring:message code="teacher.grading.overview.14"/></td></tr>
 	</table>
 	
 </div>

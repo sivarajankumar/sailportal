@@ -66,8 +66,8 @@
       <p><spring:message code="teacher.termsofuse.8"/></p>
       <p><spring:message code="teacher.termsofuse.9"/></p>
       <p><spring:message code="teacher.termsofuse.10"/></p>
-      <p><spring:message code="teacher.termsofuse.11/></p>      
-     <p><spring:message code="teacher.termsofuse.12"/>
+      <p><spring:message code="teacher.termsofuse.11"/></p>      
+      <p><spring:message code="teacher.termsofuse.12"/></p>
       <p><spring:message code="teacher.termsofuse.13"/></p>
 </div>
 

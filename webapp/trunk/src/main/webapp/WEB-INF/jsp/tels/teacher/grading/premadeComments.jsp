@@ -361,20 +361,18 @@
 
 <div id="premadeCommentsWindowBorder">
 
-<div id="premadeComments">pre-made comments editor</div> 
+<div id="premadeComments"><spring:message code="teacher.grading.premade.1"/></div> 
 
-<h6 style="padding:0px 10px 10px 10px; margin:10px;">BETA TEST WARNING: this new module still has quirks.  <br/>
-Please do <em>not</em> use the RETURN/ENTER key on your keyboard while creating list names and comments.
-Instead, click the appropriate on-screen buttons  (this keyboard issue will be fixed soon).</h6>
+<h6 style="padding:0px 10px 10px 10px; margin:10px;"><spring:message code="teacher.grading.premade.2"/></h6>
 
 <div>
-	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()">show/hide list maker</a>
+	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()"><spring:message code="teacher.grading.premade.3"/></a>
 	<form onsubmit="return false;">
-	<p id="createNewListDisplay" style="display:none">New list name: <input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
+	<p id="createNewListDisplay" style="display:none"><spring:message code="teacher.grading.premade.4"/><input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
 	</form>
 </div>
 
-<div id=headerMyLists>MY LISTS</div>
+<div id=headerMyLists><spring:message code="teacher.grading.premade.5"/></div>
 <select id="commentLists" name="commentLists" onchange="showCommentList()">
 	<c:forEach var="premadeCommentList" items="${premadeCommentLists}">
 		<option value="premadeCommentList${premadeCommentList.id}">${premadeCommentList.label}</option>
@@ -392,17 +390,17 @@ Instead, click the appropriate on-screen buttons  (this keyboard issue will be f
 			<a href="#" id="deleteList" onclick="deleteList('premadeCommentList${premadeCommentList.id}')">Delete List</a>
  -->
 			
-			<a href="#" id="addCommentToList" onclick="toggleAddCommentDisplay(${premadeCommentList.id})">show/hide comment maker</a>
+			<a href="#" id="addCommentToList" onclick="toggleAddCommentDisplay(${premadeCommentList.id})"><spring:message code="teacher.grading.premade.6"/></a>
 			<c:if test="${fn:length(premadeCommentList.premadeCommentList) != 0}">
-				<a href="#" id="openEditList${premadeCommentList.id}" onclick="openEditList('${premadeCommentList.id}')">show edit mode</a>
+				<a href="#" id="openEditList${premadeCommentList.id}" onclick="openEditList('${premadeCommentList.id}')"><spring:message code="teacher.grading.premade.7"/></a>
 			</c:if>
 
-			<a href="#" id="useList${premadeCommentList.id}" style="display:none" onclick="useList('${premadeCommentList.id}')">show checkbox mode</a>
+			<a href="#" id="useList${premadeCommentList.id}" style="display:none" onclick="useList('${premadeCommentList.id}')"><spring:message code="teacher.grading.premade.8"/></a>
 
 			
-			<p class="addCommentDisplayClass" id="addCommentDisplay${premadeCommentList.id}" style="display:none">Type a new comment: <input class="addCommentFieldClass" id="addCommentField${premadeCommentList.id}" type="text" /><input class="createCommentButton" type="button" value="Create Comment" onclick="addCommentToList('${premadeCommentList.id}')" /></p>
+			<p class="addCommentDisplayClass" id="addCommentDisplay${premadeCommentList.id}" style="display:none"><spring:message code="teacher.grading.premade.9"/>&nbsp;<input class="addCommentFieldClass" id="addCommentField${premadeCommentList.id}" type="text" /><input class="createCommentButton" type="button" value="Create Comment" onclick="addCommentToList('${premadeCommentList.id}')" /></p>
 			
-			<p class="clickToEditMessageClass" id="clickToEditMessage${premadeCommentList.id}" style="display:none">Click any comment below to edit it:</p> 
+			<p class="clickToEditMessageClass" id="clickToEditMessage${premadeCommentList.id}" style="display:none"><spring:message code="teacher.grading.premade.10"/></p> 
 			
 		<c:forEach var="premadeComment" items="${premadeCommentList.premadeCommentList}" varStatus="commentStatus">
 				<c:set var="premadeCommentUnescaped" value="${premadeComment.comment}" />
@@ -431,11 +429,11 @@ Instead, click the appropriate on-screen buttons  (this keyboard issue will be f
 
 </div>
 
-<div id="headerPreview">PREVIEW</div>
+<div id="headerPreview"><spring:message code="teacher.grading.premade.11"/></div>
 
 <textarea id="previewComments" rows="7" cols="60"></textarea>
 	
-<input id="pastePreviewButton" type="button" value="paste preview to teacher feedback box" onclick="addComments()" />
+<input id="pastePreviewButton" type="button" value="<spring:message code="teacher.grading.premade.12"/>" onclick="addComments()" />
 		<!--	</form> -->
 <script>document.getElementById("previewComments").value = window.opener.document.getElementById("${commentBox}").value</script>
 

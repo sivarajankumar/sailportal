@@ -329,9 +329,9 @@
 
 <%@ include file="L2grading_bygroup.jsp"%>
 
-<div id="overviewHeaderGradingv2">Grade By Team</div>
+<div id="overviewHeaderGradingv2"><spring:message code="teacher.gradebyteam.1"/></div>
 
-<div id="gradeTeamSelectedProject">${curnitmap.project.title}<span id="projectIdLabel">(Project ID [project id goes here])</span></div>
+<div id="gradeTeamSelectedProject">${curnitmap.project.title}<span id="projectIdLabel">(Project ID XXXXXX [need data]</span></div>
 
 <div id="currentTeamHeader" > 
    	<div id="currentTeamLabel">
@@ -346,9 +346,9 @@
 </div>
 <div>   	
   <ul id="currentTeamNavList">
-    <li class="currentTeamNavLink">Previous Team</li>
-    <li class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></li>
-    <li class="currentTeamNavLink">Next Team</li>	
+    <li class="currentTeamNavLink"><spring:message code="teacher.gradebyteam.2"/></li>
+    <li class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}"><spring:message code="teacher.gradebyteam.3"/></a></li>
+    <li class="currentTeamNavLink"><spring:message code="teacher.gradebyteam.4"/></li>	
   </ul>
 </div>
 
@@ -360,7 +360,7 @@ aggregate.value = set of workgroupWorkAggregate
 <c:choose>
 <c:when test="${empty aggregate}"> 
     <div id="noTeamsInPeriod" style="padding:20px 0;">
-	    This team has not submitted any work
+	    <spring:message code="teacher.gradebyteam.5"/>
 	</div>
 </c:when>
 <c:otherwise>
@@ -381,7 +381,7 @@ aggregate.value = set of workgroupWorkAggregate
 							<td class="boldText" width="45%">
 		    					<!--  print member anmes -->
 		 					   <div  class="tdHeader">
-		 					   	<class="headerFont">Step  ${step.number+1}: ${step.title}</class>							    </div>
+		 					   	<class="headerFont">Step ${step.number+1}: ${step.title}</class>							    </div>
 							</td>					
 							<td  >
 								<c:set var="commentDone" value="false"/>
@@ -400,10 +400,10 @@ aggregate.value = set of workgroupWorkAggregate
 										</c:if>
 									</c:forEach>
 								</c:forEach>
-								<div align="center" class="tdHeader" class="headerFont">Teacher Feedback <span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')">Open Pre-Made Comments Editor</a></span></div>
+								<div align="center" class="tdHeader" class="headerFont"><spring:message code="teacher.gradebyteam.6"/><span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')"><spring:message code="teacher.gradebyteam.7"/></a></span></div>
 								</td>
 								<td width="20%">
-								<div align="center" class="tdHeader" class="headerFont">Score</div>
+								<div align="center" class="tdHeader" class="headerFont"><spring:message code="teacher.gradebyteam.8"/></div>
 								</td>
 							</tr>
 							
@@ -486,23 +486,23 @@ aggregate.value = set of workgroupWorkAggregate
 																		</c:forEach>
 																				<div id="gradingScoreArea">
 																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/>
-																					<span id="scoreBoxStyling3"> out of </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
+																					<span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradebyteam.13"/>&nbsp; </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
 																				</div>
 																				<div id="revisionRequiredArea" >
 	     																			<form>
-	     																				<input type="checkbox" name="checkBox" id="checkbox"/><span>Require a Revision</span>
+	     																				<input type="checkbox" name="checkBox" id="checkbox"/><span><spring:message code="teacher.gradebyteam.9"/></span>
 	     																			</form>
     																			</div>
     																			
 																				<div id="gradingSaveButton">
 																					<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button">
 																							<em class="first-child">
-																							<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save Feedback <br>&amp; Score</button></em>
+																							<button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')"><spring:message code="teacher.gradebyteam.10"/> <br><spring:message code="teacher.gradebyteam.11"/></button></em>
 																					</span>
 																				</div>
 																			
 																				<div id="scoringHelpLink">
-																					<a href="#">Help</a>
+																					<a href="#"><spring:message code="teacher.gradebyteam.14"/></a>
 																				</div>	
 																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 11%;"></div>																   
 																		</div>	
@@ -533,7 +533,7 @@ aggregate.value = set of workgroupWorkAggregate
 							                          			
 							                          			<c:choose>
 																      <c:when test="${sockPartFound == 'false'}">
-																      		<span id="noStudentReponseYet">no student response yet</span>
+																      		<span id="noStudentReponseYet"><spring:message code="teacher.gradebyteam.12"/></span>
 																      </c:when>
 																      <c:otherwise>
 																                ${sockEntryValue}
@@ -582,9 +582,9 @@ aggregate.value = set of workgroupWorkAggregate
 </div>
 <div>   	
   <ul id="currentTeamNavList">
-    <li class="currentTeamNavLink">Previous Team</li>
-    <li class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}">Return to Team Menu</a></li>
-    <li class="currentTeamNavLink">Next Team</li>	
+    <li class="currentTeamNavLink"><spring:message code="teacher.gradebyteam.2"/></li>
+    <li class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}"><spring:message code="teacher.gradebyteam.3"/></a></li>
+    <li class="currentTeamNavLink"><spring:message code="teacher.gradebyteam.4"/></li>	
   </ul>
 </div>
 

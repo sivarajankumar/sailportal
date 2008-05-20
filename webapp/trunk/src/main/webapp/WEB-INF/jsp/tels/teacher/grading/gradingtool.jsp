@@ -328,7 +328,7 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
-<div id="overviewHeaderGradingv2">Grade By Step</div>
+<div id="overviewHeaderGradingv2"><spring:message code="teacher.gradingtool.1"/></div>
 
 <div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project ID ${projectId})</span></div>
 
@@ -340,24 +340,24 @@
         <c:choose>
 				<c:when test="${!empty previousStep}">
 					<a id="previousStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
-	    			Previous Step</a>
+	    			<spring:message code="teacher.gradingtool.2"/></a>
 				</c:when>
 				<c:otherwise>
-					Previous Step
+					<spring:message code="teacher.gradingtool.2"/>
 				</c:otherwise>
 		</c:choose>
 	</td>
     
-    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}">Return to Step Menu</a>
+    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}"><spring:message code="teacher.gradingtool.3"/></a>
     </td>
     
     <td class="currentStepNavLink"> 
 	  <c:choose>
 			<c:when test="${!empty nextStep}">
-				<a id="nextStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
+				<a id="nextStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}"><spring:message code="teacher.gradingtool.4"/></a>
 			</c:when>
 			<c:otherwise>
-				Next Step
+				<spring:message code="teacher.gradingtool.4"/>
 			</c:otherwise>
 		</c:choose>
 	</td>		
@@ -398,7 +398,7 @@ aggregate.value = set of workgroupWorkAggregate
 				 -->
 				<c:if test="${empty aggregate.value}"> 
 					<div id="noTeamsInPeriod" style="padding:20px 0;">
-						This period has no registered student teams.
+						<spring:message code="teacher.gradingtool.5"/>
 					</div>
 				</c:if>
 					<c:forEach var="workgroupAggregateObj" varStatus="workgroupAggregateObjStatus" items="${aggregate.value}">
@@ -445,10 +445,10 @@ aggregate.value = set of workgroupWorkAggregate
 																	</c:forEach>
 																	
 																	
-										<div align="center" class="tdHeader" class="headerFont">Teacher Feedback <span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')">Open Pre-Made Comments Editor</a></span></div>
+										<div align="center" class="tdHeader" class="headerFont"><spring:message code="teacher.gradingtool.6"/> <span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')"><spring:message code="teacher.gradingtool.7"/></a></span></div>
 										</td>
 										<td width="20%">
-										<div align="center" class="tdHeader" class="headerFont">Score</div>
+										<div align="center" class="tdHeader" class="headerFont"><spring:message code="teacher.gradingtool.8"/></div>
 										</td>
 									</tr>
 							<!-- End Table Header -->
@@ -467,7 +467,7 @@ aggregate.value = set of workgroupWorkAggregate
 							<c:set var="noWorkFound" value="true"/>
 							<c:choose>
 								<c:when test="${noWorkFound == false}">
-									<tr><td colspan="3" align="center">no student response yet</td></tr>
+									<tr><td colspan="3" align="center"><spring:message code="teacher.gradingtool.9"/></td></tr>
 								</c:when>
 								<c:otherwise>
 									<!-- do the rest of the table -->
@@ -537,7 +537,7 @@ aggregate.value = set of workgroupWorkAggregate
 																							<c:set var="score" value="${annotation.contents}"/>
 																							<c:set var="scoreAnnotation" value="${annotation}"/>
 																							<c:if test="${empty score}">
-																								<c:set var="score" value="unscored"/>
+																								<c:set var="score" value="<spring:message code="teacher.gradingtool.10"/>"/>
 																							</c:if>
 																							<c:set var="scoreDone" value="true"/>
 																						</c:if>
@@ -547,24 +547,24 @@ aggregate.value = set of workgroupWorkAggregate
 																				</c:forEach>
 																		</c:forEach>
 																		 		<authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
-																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/><span id="scoreBoxStyling3"> out of </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
+																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/><span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradingtool.14"/>&nbsp;</span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
   	                        													
 																				
 																				
 																				<div id="revisionRequiredArea" >
 	     																			<form>
-	     																				<input type="checkbox" name="checkBox" id="checkbox"/><span>Require a Revision</span>
+	     																				<input type="checkbox" name="checkBox" id="checkbox"/><span><spring:message code="teacher.gradingtool.11"/></span>
 	     																			</form>
     																			</div>
     																			
 																				<div id="gradingSaveButton">
 																					<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button">
-    					                                                                        <em class="first-child"><button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')">Save Feedback <br>&amp; Score</button></em>
+    					                                                                        <em class="first-child"><button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')"><spring:message code="teacher.gradingtool.12"/><br><spring:message code="teacher.gradingtool.13"/></button></em>
 																					</span>
 																				</div>
 																			    
 																				<div id="scoringHelpLink">
-																					<a href="#" style="color:#999999;">Help</a>
+																					<a href="#" style="color:#999999;"><spring:message code="teacher.gradingtool.15"/></a>
 																					
 																				</div>
 																				</authz:accesscontrollist>	
@@ -631,23 +631,23 @@ aggregate.value = set of workgroupWorkAggregate
     <c:choose>
 			<c:when test="${!empty previousStep}">
 				<a id="previousStepLinkBottom" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
-    			Previous Step</a>
+    			<spring:message code="teacher.gradingtool.2"/></a>
 			</c:when>
 			<c:otherwise>
-				Previous Step
+				<spring:message code="teacher.gradingtool.2"/>
 			</c:otherwise>
 	</c:choose>
 
 </td>
-    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}">Return to Step Menu</a></td>
+    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}"><spring:message code="teacher.gradingtool.3"/></a></td>
     <td class="currentStepNavLink"> 
 
 	  <c:choose>
 			<c:when test="${!empty nextStep}">
-				<a id="nextStepLinkBottom" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">Next Step</a>
+				<a id="nextStepLinkBottom" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}"><spring:message code="teacher.gradingtool.4"/></a>
 			</c:when>
 			<c:otherwise>
-				Next Step
+				<spring:message code="teacher.gradingtool.4"/>
 			</c:otherwise>
 	</c:choose>
 
