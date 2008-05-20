@@ -65,7 +65,9 @@ public interface StudentService {
 	
 	/**
 	 * Removes the student from association with the run.  If the specified
-	 * User is not associated with the run, nothing happens.
+	 * User is not associated with the run, nothing happens. If the specified
+	 * User was in a workgroup for the specified run, they will be removed
+	 * from that workgroup.
 	 * 
 	 * @param studentUser <code>User</code> student to remove from the run.
 	 * @param run <code>Run</code> the run to remove the student from.

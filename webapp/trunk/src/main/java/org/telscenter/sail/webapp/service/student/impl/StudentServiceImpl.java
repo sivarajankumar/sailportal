@@ -85,10 +85,19 @@ public class StudentServiceImpl implements StudentService {
 	 */
 	public void removeStudentFromRun(User studentUser, Run run) {
 		if (run.isStudentAssociatedToThisRun(studentUser)) {
+    		StudentRunInfo studentRunInfo = getStudentRunInfo(studentUser, run);
+
 			Group period = run.getPeriodOfStudent(studentUser);
 			Set<User> membersToRemove = new HashSet<User>();
 			membersToRemove.add(studentUser);
 			this.groupService.removeMembers(period, membersToRemove);
+			
+        	Workgroup workgroup = studentRunInfo.getWorkgroup();
+        	if (workgroup != null) {
+        		Set<User> membersToRemoveFromWorkgroup = new HashSet<User>();
+        		membersToRemoveFromWorkgroup.add(studentUser);
+        		workgroupService.removeMembers(workgroup, membersToRemoveFromWorkgroup);
+        	}
 		}
 	}
 

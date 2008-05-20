@@ -96,13 +96,6 @@ public class RemoveStudentFromRunController extends SimpleFormController {
     		studentUser = userService.retrieveById(userId);
     		studentService.removeStudentFromRun(studentUser, run);
 
-    		StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(studentUser, run);
-        	Workgroup workgroup = studentRunInfo.getWorkgroup();
-        	if (workgroup != null) {
-        		Set<User> membersToRemove = new HashSet<User>();
-        		membersToRemove.add(studentUser);
-        		workgroupService.removeMembers(workgroup, membersToRemove);
-        	}
     		modelAndView = new ModelAndView(getSuccessView());
     	} catch (ObjectNotFoundException e) {
 			errors.rejectValue("runId", "error.illegal-runId");

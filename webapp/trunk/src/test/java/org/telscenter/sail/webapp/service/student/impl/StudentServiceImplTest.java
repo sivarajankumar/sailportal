@@ -29,6 +29,7 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.reset;
 import static org.easymock.EasyMock.verify;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -36,11 +37,13 @@ import java.util.TreeSet;
 import junit.framework.TestCase;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.GroupService;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
@@ -56,13 +59,15 @@ import org.telscenter.sail.webapp.service.student.StudentService;
  */
 public class StudentServiceImplTest extends TestCase {
 
-	private StudentService studentService;
+	private StudentServiceImpl studentService;
 	
 	private RunService mockRunService;
 	
 	private GroupService mockGroupService;
 	
 	private AclService<Run> mockAclService;
+	
+	private WorkgroupService mockWorkgroupService;
 	
 	private User studentUser;
 	
@@ -85,12 +90,14 @@ public class StudentServiceImplTest extends TestCase {
 		mockRunService = createMock(RunService.class);
 		mockGroupService = createMock(GroupService.class);
 		mockAclService = createMock(AclService.class);
+		mockWorkgroupService = createMock(WorkgroupService.class);
 		studentUser = new UserImpl();
 		projectcode = new Projectcode(RUNCODE, PERIODNAME);
 		studentService = new StudentServiceImpl();
 		studentService.setAclService(mockAclService);
 		studentService.setRunService(mockRunService);
 		studentService.setGroupService(mockGroupService);
+		studentService.setWorkgroupService(mockWorkgroupService);
 		run = new RunImpl();
 		Set<Group> periods = new TreeSet<Group>();
 		Group period3 = new PersistentGroup();
@@ -227,10 +234,15 @@ public class StudentServiceImplTest extends TestCase {
 		mockGroupService.removeMembers(period, membersToRemove);
 		expectLastCall();
 		replay(mockGroupService);
+		
+		expect(mockWorkgroupService.getWorkgroupListByOfferingAndUser(run, studentUser))
+		    .andReturn(new ArrayList<Workgroup>());
+		replay(mockWorkgroupService);
 
 		studentService.removeStudentFromRun(studentUser, run);
 
 		verify(mockGroupService);
+		verify(mockWorkgroupService);
 	}
 	
 	public void testRemoveStudentFromRun_student_not_in_run() throws PeriodNotFoundException {
