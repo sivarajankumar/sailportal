@@ -45,9 +45,9 @@ function popup(URL, title) {
 
 <div id="popUpWindowViewStudents">
 
-<h2>Change Passwords for ALL Students <br />in this Period</h2>
+<h2><spring:message code="teacher.manage.batchpassword.1"/><br/><spring:message code="teacher.manage.batchpassword.2"/></h2>
 
-<h5>Note: This will change the password for <em>all</em> students in this period, <br/>not just an individual student.</h5>
+<h5><spring:message code="teacher.manage.batchpassword.3"/>&nbsp;<em><spring:message code="teacher.manage.batchpassword.4"/></em>&nbsp;<spring:message code="teacher.manage.batchpassword.5"/><br/><spring:message code="teacher.manage.batchpassword.6"/></h5>
 
 <div id="errorMessage">
 		<!-- Support for Spring errors object -->
@@ -64,10 +64,10 @@ function popup(URL, title) {
 	commandName="batchStudentChangePasswordParameters" id="batchstudentchangepassword">
 
 <dl>
-	<dt><label for="batchstudentchangepassword">New Password for All</label></dt>
+	<dt><label for="batchstudentchangepassword"><spring:message code="teacher.manage.batchpassword.7"/></label></dt>
     <dd><form:password path="passwd1" size="30" id="batchstudentchangepassword"/></dd>
 
-	<dt><label for="batchstudentchangepassword">Verify New Password for All</label></dt>
+	<dt><label for="batchstudentchangepassword"><spring:message code="teacher.manage.batchpassword.8"/></label></dt>
 	<dd><form:password path="passwd2" size="30" id="batchstudentchangepassword"/></dd>
 </dl>
 

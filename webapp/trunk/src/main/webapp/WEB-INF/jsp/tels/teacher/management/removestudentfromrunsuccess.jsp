@@ -27,14 +27,14 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title>Success with Detaching Student From Run</title>
+<title><spring:message code="teacher.manage.removestudentsuccess.1"/></title>
 </head>
 
 <body>
 
-<h1>Success!</h1>
-<p>please close this window and refresh the main window.</p>
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<h1><spring:message code="teacher.manage.removestudentsuccess.2"/></h1>
+<p><spring:message code="teacher.manage.removestudentsuccess.3"/></p>
+<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.removestudentsuccess.4"/></a></div>
 
 </body>
 </html>

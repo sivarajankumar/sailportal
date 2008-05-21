@@ -29,7 +29,7 @@
   
 <script type="text/javascript" src="../javascript/general.js"></script> 
 
-<title>Teacher:Management - Exports and Reports </title>
+<title><spring:message code="teacher.manage.exportreport.1"/></title>
 </head>
 
 <body>
@@ -37,34 +37,34 @@
 <br />
 
 <div id="overviewContent">
-<h3>EXPORT DATA </h3>
+<h3><spring:message code="teacher.manage.exportreport.2"/></h3>
 <table>
 <tr> 
-<td> Export Work by Student </td>
-<td> Export a spreadsheet of all work done by a single student. </td>
+<td><spring:message code="teacher.manage.exportreport.3"/></td>
+<td><spring:message code="teacher.manage.exportreport.4"/></td>
 </tr>
 <tr> 
-<td> Export Work by Class </td>
-<td> Export a spreadsheet of all work done by the students in your class or classes. </td>
+<td><spring:message code="teacher.manage.exportreport.5"/></td>
+<td><spring:message code="teacher.manage.exportreport.6"/></td>
 </tr>
 <tr> 
-<td> Export Final Grades for a Project </td>
-<td> Export a spreadsheet of just the final grades earned by all students (per period or all periods). </td>
+<td><spring:message code="teacher.manage.exportreport.7"/></td>
+<td><spring:message code="teacher.manage.exportreport.8"/></td>
 </tr>
 </table>
-<h3>PRINT REPORTS</h3>
+<h3><spring:message code="teacher.manage.exportreport.9"/></h3>
 <table>
 <tr>
-<td>Print Work by Student</td>
-<td>Print all the work done by a single student</td>
+<td><spring:message code="teacher.manage.exportreport.10"/></td>
+<td><spring:message code="teacher.manage.exportreport.11"/></td>
 </tr>
 <tr>
-<td>Print Work by Class</td>
-<td>Print all work done by all students (per period or all periods).</td>
+<td><spring:message code="teacher.manage.exportreport.12"/></td>
+<td><spring:message code="teacher.manage.exportreport.13"/></td>
 </tr>
 <tr>
-<td>Print Final Grades for a Project</td>
-<td>Print just the final grades earned by all students (per period or all periods).</td>
+<td><spring:message code="teacher.manage.exportreport.14"/></td>
+<td><spring:message code="teacher.manage.exportreport.15"/></td>
 </tr>
 </table>
 

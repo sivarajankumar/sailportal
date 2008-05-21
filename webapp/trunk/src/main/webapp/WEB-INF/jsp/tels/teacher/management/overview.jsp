@@ -31,7 +31,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
-<title>Management Overview</title>
+<title><spring:message code="teacher.manage.overview.1"/></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
@@ -50,31 +50,29 @@
  
 <div id="overviewContent"> 
 
-	<div id="overviewHeader">management: overview</div>
+	<div id="overviewHeader"><spring:message code="teacher.manage.overview.2"/></div>
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="../management/projectPickerManagement.html">Manage My Students</a></td>
-			<td class="description">Manage student groupings, periods, passwords, and more. 
-			Also manage the sharing of your project run with other teachers/assistants.</td></tr>
+			<td class="link"><a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.overview.3"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.overview.4"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Class Monitor</a></td>
-			<td class="description">Gives a real-time overview of your class at work, with icons to summarize progress and 
-					problems per team.  Includes a <em>Pause All Screens</em> function to facilitate teacher-led discussions. </td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.5"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.overview.6"/>&nbsp;<em><spring:message code="teacher.manage.overview.7"/></em>&nbsp;<spring:message code="teacher.manage.overview.8"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Export Student Work/Grades</a></td>
-			<td class="description">Export student work or grades into spreadsheet-compatible format.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.9"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.overview.10"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Print Student Work/Grades</a></td>
-			<td class="description">Print student work or grades in a variety of report formats.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.11"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.overview.12"/></td></tr>
 		<tr>
-			<td class="link"><a href="updatemyaccount.html">Update My Account</a></td>
-			<td class="description">Update your personal WISE account information.</td></tr>
+			<td class="link"><a href="updatemyaccount.html"><spring:message code="teacher.manage.overview.13"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.overview.14"/></td></tr>
 	</table>
 	
 </div>
 
-<p class="center">Getting started running WISE 3.0 in your classroom? Visit the <a href="#">Help</a> section for more information.</p>
+<p class="center"><spring:message code="teacher.manage.overview.15"/>&nbsp;<a href="#"><spring:message code="teacher.manage.overview.16"/></a>&nbsp;<spring:message code="teacher.manage.overview.17"/></p>
 
 </div>    <!--End of CenteredDiv-->
 

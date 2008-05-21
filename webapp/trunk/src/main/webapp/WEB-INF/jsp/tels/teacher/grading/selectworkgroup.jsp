@@ -119,15 +119,15 @@
 
 <%@ include file="L2grading_bygroup.jsp"%>
 
-<div id="overviewHeaderGrading">Grade By Team: Select Team</div>
+<div id="overviewHeaderGrading"><spring:message code="teacher.grading.selectteam.1"/></div>
 
 <div id="gradeStepSelectionArea">
 
 	<div id="gradeStepSelectedProject">[PROJECT TITLE NEEDS TO SHOW HERE]${curnitMap.project.title}</div>
 	
-	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=group">Select Another Project</a></div>
+	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.grading.selectteam.2"/></a></div>
 
-	<div id="gradeStepInstructions">Select any team below to start grading.  Click the tabs to change periods.</div>
+	<div id="gradeStepInstructions"><spring:message code="teacher.grading.selectteam.3"/></div>
 	
 <div id="tabSystem" class="yui-navset">
     <ul class="yui-nav" style="font-size:.7em;">

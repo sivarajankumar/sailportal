@@ -29,7 +29,7 @@
   
 <script type="text/javascript" src="../javascript/general.js"></script> 
 
-<title>Teacher:Help - Contact WISE </title>
+<title><spring:message code="teacher.help.contactwise.1"/></title>
 </head>
 
 <body>
@@ -37,29 +37,28 @@
 
 
 <div id="overviewContent">
-<h3> CONTACT WISE </h3>
-<p> To report a problem with WISE please fill in the information below. </p>
-<p> Please be as detailed as possible in describing your problem. For instance, describe any error messages, broken URL links, the
-Activity/Step for a problemmatic project page, etc. WISE staff will address your concerns as quickly as possible. </p>
+<h3><spring:message code="teacher.help.contactwise.2"/></h3>
+<p><spring:message code="teacher.help.contactwise.3"/></p>
+<p><spring:message code="teacher.help.contactwise.4"/></p>
 
 <form>
-<label> Your Name: </label> <input type="text" size="100" /><br />
-<label> Email: </label> <input type="text" size="100" /><br />
-<label> Type of Problem: </label> 
+<label> <spring:message code="teacher.help.contactwise.5"/> </label> <input type="text" size="100" /><br />
+<label> <spring:message code="teacher.help.contactwise.6"/> </label> <input type="text" size="100" /><br />
+<label> <spring:message code="teacher.help.contactwise.7"/> </label> 
 <select> 
-<option> Trouble signing In </option>
-<option> Need help using WISE </option>
-<option> Problem with a student or class period </option>
-<option> Broken web link </option>
-<option> Misspellings or factual errors in a project </option>
-<option> Error messages or programming bugs </option>
-<option> Problem with Java </option>
-<option> Need help customizing/editing projects </option>
-<option> Request for a new WISE feature </option>
-<option> Other Problem </option>
+<option> <spring:message code="teacher.help.contactwise.8"/></option>
+<option> <spring:message code="teacher.help.contactwise.9"/> </option>
+<option> <spring:message code="teacher.help.contactwise.10"/></option>
+<option> <spring:message code="teacher.help.contactwise.11"/> </option>
+<option> <spring:message code="teacher.help.contactwise.12"/> </option>
+<option> <spring:message code="teacher.help.contactwise.13"/></option>
+<option> <spring:message code="teacher.help.contactwise.14"/></option>
+<option> <spring:message code="teacher.help.contactwise.15"/></option>
+<option> <spring:message code="teacher.help.contactwise.16"/></option>
+<option> <spring:message code="teacher.help.contactwise.17"/></option>
 </select>
 <br />
-<label> Operating System: </label> 
+<label> <spring:message code="teacher.help.contactwise.18"/></label> 
 <select> 
 <option> Mac OS 9 </option>
 <option> Mac OS X Tiger </option>
@@ -80,8 +79,8 @@ Activity/Step for a problemmatic project page, etc. WISE staff will address your
 <option> Safari (Macintosh) </option>
 </select>
 <br />
-<label> Title: </label> <input type="text" size="100" /> <br />
-<label> Description: </label> <br />
+<label> <spring:message code="teacher.help.contactwise.19"/> </label> <input type="text" size="100" /> <br />
+<label> <spring:message code="teacher.help.contactwise.20"/> </label> <br />
 <textarea cols="100" rows="10">  </textarea> <br />
 <input type="submit" value="Send Email to WISE" />
 <input type="button" value="Cancel" />

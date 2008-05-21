@@ -28,10 +28,10 @@
             </form:option>
           </c:forEach>
           <form:option value="-1">
-             Put this student into a new workgroup
+             <spring:message code="teacher.manage.changeworkgroup.1"/>
           </form:option>
           <form:option value="-2">
-             Do not put this student into any workgroup
+              <spring:message code="teacher.manage.changeworkgroup.2"/>
           </form:option>   
         </form:select> 
       <input type="image" id="save" src="../<spring:theme code="register_save" />" 

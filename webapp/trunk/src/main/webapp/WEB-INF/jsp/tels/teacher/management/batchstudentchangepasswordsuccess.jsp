@@ -14,9 +14,9 @@
 
 <body>
 
-<h3>Password successfully changed for all students in this period!</h3>
+<h3><spring:message code="teacher.manage.batchpassword.9"/></h3>
 
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.batchpassword.10"/></a></div>
 
 </body>
 </html>

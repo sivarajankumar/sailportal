@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>
 
-<title>Project Picker Screen 1</title>
+<title><spring:message code="teacher.manage.projectpicker.1"/></title>
 
 <!--  styles.jsp needs to be separated...right now it has a bunch of files that we don't need -->
 
@@ -59,15 +59,15 @@
 <%@ include file="L2management_managestudents.jsp"%>
 
 <div id="pickerHeader">
-		<div id="mainHeader">Select a Project</div>
-		<div id="subHeader">(click any Project Title below)</div>
+		<div id="mainHeader"><spring:message code="teacher.manage.projectpicker.2"/></div>
+		<div id="subHeader"><spring:message code="teacher.manage.projectpicker.3"/></div>
 </div>
 
 <div id="tabSystem" class="yui-navset">
 <ul class="yui-nav">
-  <li id="tabPicker"><a href="Current Runs"><em>My Current Runs</em></a></li>	
-  <li id="tabPicker"><a href="Shared Runs"><em>My Shared Runs</em></a></li>	
-  <li id="tabPicker"><a href="Archived Runs"><em>My Archived Runs</em></a></li>	
+  <li id="tabPicker"><a href="Current Runs"><em><spring:message code="teacher.manage.projectpicker.4"/></em></a></li>	
+  <li id="tabPicker"><a href="Shared Runs"><em><spring:message code="teacher.manage.projectpicker.5"/></em></a></li>	
+  <li id="tabPicker"><a href="Archived Runs"><em><spring:message code="teacher.manage.projectpicker.6"/></em></a></li>	
 </ul>
 <div class="yui-content" style="background-color:#FFFFFF;">
 <div>
@@ -75,13 +75,13 @@
 <table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
-			<th style="width:50%; text-align:left;" scope="col">Project Title</th>
-			<th scope="col">Project ID</th>
-			<th scope="col">Run <br/>Started On</th>
-			<th scope="col">Run <br/>Ended On</th>
-			<th scope="col">Period(s)</th>
-			<th scope="col">Subject(s)</th>
-			<th scope="col">Items <br/>to Grade</th>
+			<th style="width:50%; text-align:left;" scope="col"><spring:message code="teacher.manage.projectpicker.7"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.8"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.9"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.10"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.11"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.12"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.13"/></th>
 		</tr>
 	</thead>
 	<tbody>	
@@ -112,13 +112,13 @@
 <table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
-			<th style="width:50%;" scope="col">Project Title</th>
-			<th scope="col">Project #</th>
-			<th scope="col">Started</th>
-			<th scope="col">Ended</th>
-			<th scope="col">Periods</th>
-			<th scope="col">Subject</th>
-			<th scope="col">Ungraded Items</th>
+			<th style="width:50%;" scope="col"><spring:message code="teacher.manage.projectpicker.14"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.15"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.16"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.17"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.18"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.19"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.20"/></th>
 		</tr>
 	</thead>
 	<tbody>	
@@ -149,13 +149,13 @@
 <table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
-			<th style="width:50%;" scope="col">Title</th>
-			<th scope="col">Project #</th>
-			<th scope="col">Started</th>
-			<th scope="col">Ended</th>
-			<th scope="col">Periods</th>
-			<th scope="col">Subject</th>
-			<th scope="col">Ungraded Items</th>
+			<th style="width:50%;" scope="col"><spring:message code="teacher.manage.projectpicker.14"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.15"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.16"/>Started</th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.17"/>Ended</th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.18"/>Periods</th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.19"/>Subject</th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.20"/>Ungraded Items</th>
 		</tr>
 	</thead>
 	<tbody>	
@@ -186,7 +186,7 @@
 </div> <!-- end of tabSystem Div -->
 
 <div id="returnToTopLink">
-	<a href="../management/overview.html">Return to <em>Overview</em></a>
+	<a href="../management/overview.html"><spring:message code="teacher.manage.projectpicker.21"/>&nbsp;<em><spring:message code="teacher.manage.projectpicker.22"/></em></a>
 </div>
 
 </div>   <!--End of Centered Div-->

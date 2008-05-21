@@ -14,10 +14,10 @@
 
 <body>
 
-<h3>Successfully updated workgroup!</h3>
-Please close this window and refresh the main page
+<h3><spring:message code="teacher.manage.changeworkgroup.3"/></h3>
+<spring:message code="teacher.manage.changeworkgroup.4"/>
 
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.changeworkgroup.5"/>/a></div>
 
 </body>
 </html>

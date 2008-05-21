@@ -23,16 +23,16 @@
 
 	<ul>
 		<li >
-			<a href="../management/overview.html">Overview</a> </li>
+			<a href="../management/overview.html"><spring:message code="teacher.manage.L2.1"/></a> </li>
        	<li>
-			<a href="../management/projectPickerManagement.html">Manage Students</a> </li>
+			<a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.L2.2"/></a> </li>
 		<li>
-			<a style="color:#999999;" href="#">Class Monitor</a> </li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.3"/></a> </li>
 		<li>
-			<a style="color:#999999;" href="#">Export Reports</a> </li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.4"/></a> </li>
 		<li>
-			<a style="color:#999999;" href="#">Manage Teachers</a> </li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.5"/></a> </li>
 		<li>
-			<a class="navigationL2_management_highlight" href="../management/updatemyaccount.html">Update Account</a> </li>
+			<a class="navigationL2_management_highlight" href="../management/updatemyaccount.html"><spring:message code="teacher.manage.L2.6"/></a> </li>
    </ul>
 </div>	
