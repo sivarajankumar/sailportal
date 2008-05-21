@@ -109,6 +109,14 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public List<Run> getRunList() {
 		return runDao.getList();
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#getAllRunList()
+	 */
+	@Transactional()
+	public List<Run> getAllRunList() {
+		return runDao.getList();
+	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#getRunList(net.sf.sail.webapp.domain.User)

@@ -31,11 +31,19 @@
 
 If you see this, you have admin privileges.<br>
 
-
+<h2>User Management</h2>
 <a href="manageusers.html">Manage Users</a><br>
 <a href="lookupuser.html">Look up User</a><br>
+
+<h2>Project Management</h2>
+<a href="manageallprojects.html">Manage All Projects</a><br>
+
+<h2>Project Run Management</h2>
+<a href="manageallprojectruns.html">Manage All Project Runs</a>
+
+
+<h2>Other</h2>
 <a href="managenewsitems.html">Work with News Items</a><br>
-<a href="manageallprojects.html">Manage All Projects</a>
 
 </body>
 </html>

@@ -725,4 +725,11 @@
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters" />
 	</bean>
+	
+	<!-- controllers for admin -->
+	<bean id="manageAllProjectRunsController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ManageAllProjectRunsController">
+	    <property name="runService" ref="runService" />
+	</bean>
+	
 </beans>

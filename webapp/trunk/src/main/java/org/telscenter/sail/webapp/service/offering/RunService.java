@@ -87,6 +87,15 @@ public interface RunService extends OfferingService {
     public List<Run> getRunList();
     
     /**
+     * Retrieves a list of all <code>Runs</code>. Only
+     * adminstrators may invoke this method.
+     * 
+     * @return <code>List</code> of <code>Run</code>
+     */
+    @Secured( { "ROLE_ADMINISTRATOR" })
+    public List<Run> getAllRunList();
+
+    /**
      * Retrieves a list of <code>Run</code> that the given user
      * is associated with
      * 
