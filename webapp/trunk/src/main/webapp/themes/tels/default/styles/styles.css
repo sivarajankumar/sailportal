@@ -804,5 +804,60 @@
 	color:#FFFFFF;
 }
 	
+#adminManageRunsTable {
+	width:100%;
+	border-collapse:collapse;
+	border:1px solid #000000;
+	margin:15px 0 0 0 ;
+}
+
+#adminManageRunsTable th {
+	border:1px solid #000000;
+	background-color:#CCCCCC;
+	padding:4px;
+}
+
+#adminManageRunsTable td {
+	border:1px solid #000000;
+	padding:4px;
+	font-size:.85em;
+	}
+	
+#adminManageProjectsTable {
+	border-collapse:collapse;
+	border:1px solid #000000;
+	margin:15px 0 0 0 ;
+}
+
+#adminManageProjectsTable th {
+	border:1px solid #000000;
+	background-color:#CCCCCC;
+	padding:6px;
+}
+
+#adminManageProjectsTable td {
+	border:1px solid #000000;
+	padding:6px;
+	font-size:.85em;
+	}
+	
+#adminManageUsersTable {
+	border-collapse:collapse;
+	border:1px solid #000000;
+	margin:15px 0 0 0 ;
+}
+
+#adminManageUsersTable th {
+	border:1px solid #000000;
+	background-color:#CCCCCC;
+	padding:4px;
+}
+
+#adminManageUsersTable td {
+	border:1px solid #000000;
+	padding:4px;
+	font-size:.85em;
+	}
+	
 
 	

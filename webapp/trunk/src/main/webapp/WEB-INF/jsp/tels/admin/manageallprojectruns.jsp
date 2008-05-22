@@ -23,36 +23,51 @@
 <html lang="en">
 <head>
 <title>Manage All Project Runs</title>
+
+<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
 
-<table border="1">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<div id="centeredDiv">
+
+<%@ include file="adminheader.jsp"%>
+
+<h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
+
+<table id="adminManageRunsTable">
   <thead>
     <tr>
-      <th>Run Name</th>
-      <th>Project Info</th>
-      <th>Runcode</th>
+      <th>Project Run Title</th>
+      <th>Overview</th>
+      <th>Student Code</th>
       <th>Teacher(s)</th>
-      <th>When the run was started</th>
-      <th>When the run was ended</th>
-      <th>Management tasks</th>
+      <th>Started On</th>
+      <th>Ended On</th>
+      <th>Management Tasks</th>
     </tr>
   </thead>
   <c:forEach var="run" items="${runList}">
   <tr>
     <td>${run.sdsOffering.name}</td>
-    <td><a href="../teacher/projects/projectinfo.html?projectId=${run.project.id}">Get Project Info</a></td>
+    <td><a href="../teacher/projects/projectinfo.html?projectId=${run.project.id}">See Project Overview</a></td>
     <td>${run.runcode}</td>
     <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach>
-    <td>${run.starttime}</td>
-    <td>${run.endtime}</td>
-    <td><a href="../teacher/management/viewmystudents.html?runId=${run.id}">Manage Students in this run</a></td>
+    <td><fmt:formatDate value="${run.starttime}" type="both" dateStyle="short" timeStyle="short" /></td>
+    <td><fmt:formatDate value="${run.endtime}" type="both" dateStyle="short" timeStyle="short" /></td>
+    <td><a href="../teacher/management/viewmystudents.html?runId=${run.id}">Manage students in this run</a></td>
    </tr>
   </c:forEach>
 </table>
 
-
+			
+</div>
 
 </body>
 </html>

@@ -5,12 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<script type="text/javascript" src="../../javascript/tels/general.js"></script>
-<script type="text/javascript" src="../../javascript/tels/effects.js"></script>
+<script type="text/javascript" src="../javascript/tels/general.js"></script>
+<script type="text/javascript" src="../javascript/tels/effects.js"></script>
 
     
 <title><spring:message code="application.title" /></title>
@@ -22,15 +23,20 @@
 //alert(ChangePasswordParametersValidatorJS.test('hi'))
 </script>
 
-
 </head>
 <body>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<div id="centeredDiv">
+
 <%@ include file="adminheader.jsp"%>
-If you see this, you have admin privileges.<br>
+
+<h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
 <c:out value="${message}" />
 
-<table>
+<table id="adminManageProjectsTable">
 	<tr>
 		<th> Project Title </th>
 		<th> Project Id</th>
