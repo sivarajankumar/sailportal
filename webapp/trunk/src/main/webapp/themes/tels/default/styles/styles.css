@@ -794,5 +794,15 @@
 	}
 	
 	
+/* ADMIN Styling  */
+
+#adminTitle { 
+	font-size:1.0em;
+	font-weight:bold;
+	background-color:#0000CC;
+	padding:5px;
+	color:#FFFFFF;
+}
+	
 
 	
