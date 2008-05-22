@@ -33,6 +33,7 @@ import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
+import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -64,6 +65,8 @@ public class ShareProjectRunControllerTest extends AbstractModelAndViewTests {
 	private MockHttpServletResponse response;
 
 	private RunService mockRunService;
+	
+	private UserService mockUserService;
 
 	private static final Long RUNID = new Long(4);
 	
@@ -87,6 +90,7 @@ public class ShareProjectRunControllerTest extends AbstractModelAndViewTests {
 		this.user = new UserImpl();
 		
 		this.mockRunService = createMock(RunService.class);
+		this.mockUserService = createMock(UserService.class);
 		SdsOffering sdsOffering = new SdsOffering();
 
 		SdsCurnit curnit = new SdsCurnit();
@@ -114,6 +118,7 @@ public class ShareProjectRunControllerTest extends AbstractModelAndViewTests {
 		
 		shareProjectRunController = new ShareProjectRunController();
 		shareProjectRunController.setRunService(mockRunService);
+		shareProjectRunController.setUserService(mockUserService);
 		shareProjectRunController.setFormView(FORM_VIEW);
 		shareProjectRunController.setSuccessView(SUCCESS_VIEW);
 	}
@@ -130,22 +135,28 @@ public class ShareProjectRunControllerTest extends AbstractModelAndViewTests {
 	}
 	
 	public void testOnSubmit_success() throws ObjectNotFoundException {
+		expect(mockUserService.retrieveUserByUsername(USERNAME)).andReturn(user);
+		replay(mockUserService);
 		mockRunService.addSharedTeacherToRun(addSharedTeacherParameters);
 		expectLastCall();		
 		replay(mockRunService);
 		ModelAndView modelAndView = this.shareProjectRunController.onSubmit(
 				request, response, addSharedTeacherParameters, errors);
 		assertModelAttributeAvailable(modelAndView, ShareProjectRunController.RUNID_PARAM_NAME);
+		verify(mockUserService);
 		verify(mockRunService);
 	}
 	
 	public void testOnSubmit_failure() throws ObjectNotFoundException {
+		expect(mockUserService.retrieveUserByUsername(USERNAME)).andReturn(user);
+		replay(mockUserService);
 		mockRunService.addSharedTeacherToRun(addSharedTeacherParameters);
 		expectLastCall().andThrow(new ObjectNotFoundException("run not found", Run.class));
 		replay(mockRunService);
 		ModelAndView modelAndView = this.shareProjectRunController.onSubmit(
 				request, response, addSharedTeacherParameters, errors);
 		assertModelAttributeAvailable(modelAndView, ShareProjectRunController.RUNID_PARAM_NAME);
+		verify(mockUserService);
 		verify(mockRunService);
 	}
 }
