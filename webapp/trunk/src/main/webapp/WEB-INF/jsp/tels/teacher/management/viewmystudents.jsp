@@ -397,7 +397,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 
 <%@ include file="L2management_managestudents_ajax.jsp"%>
 
-<div id="L3Label">manage my students</div> 
+<div id="L3Label"><spring:message code="teacher.manage.viewstudents.1"/></div> 
 
 <table id="projectTitleBox" border=0>
 	<tr>
@@ -419,25 +419,25 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 	<div><c:choose>
 		<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
    		    <!--  there is NO student in this period  -->
-				No students registered in this period
+				<spring:message code="teacher.manage.viewstudents.2"/>
 			</c:when>
 		<c:otherwise>
 		    <!--  there are students in this period  -->
 		    <ul id="periodHeaderBar">
-		    	<li class="periodHeaderStart">Students: <span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
-		    	<li class="periodHeaderStart">Teams: <span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
-		    	<li class="periodHeaderStart"">Student Code: <span class="manageDataStyle">${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</span></li>
-		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});">Create a New Team</a></li>
-		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');">Change All Passwords</a></li>
-		       	<li style="display:none;" class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');">Help</a></li>
+		    	<li class="periodHeaderStart"><spring:message code="teacher.manage.viewstudents.3"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
+		    	<li class="periodHeaderStart"><spring:message code="teacher.manage.viewstudents.4"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
+		    	<li class="periodHeaderStart""><spring:message code="teacher.manage.viewstudents.5"/>&nbsp;<span class="manageDataStyle">${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</span></li>
+		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});"><spring:message code="teacher.manage.viewstudents.6"/></a></li>
+		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');"><spring:message code="teacher.manage.viewstudents.7"/></a></li>
+		       	<li style="display:none;" class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');"><spring:message code="teacher.manage.viewstudents.8"/></a></li>
 		    </ul>
 		  			
 			<div id="viewStudentsInstructions">
 				<ul>
-					<li><strong>To Create New Teams:</strong> &nbsp; Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the box. Click SAVE.</li>
-					<li><strong>To Change Team Members:</strong> &nbsp; Click/drag any student name from one box to another.  Click SAVE.</li>
-					<li><strong>To Create a PDF File of a Team's Work:</strong> &nbsp; Click the "Create PDF file" link within a particular team box.</li>
-					<li><strong>Moving an Assigned Student?</strong>&nbsp; Any student moved from team A to team B will lose his/her existing work and inherit the current work of Team B.</li>
+					<li><strong><spring:message code="teacher.manage.viewstudents.9"/></strong> &nbsp; <spring:message code="teacher.manage.viewstudents.10"/></li>
+					<li><strong><spring:message code="teacher.manage.viewstudents.11"/></strong> &nbsp; <spring:message code="teacher.manage.viewstudents.12"/></li>
+					<li><strong><spring:message code="teacher.manage.viewstudents.13"/></strong> &nbsp; <spring:message code="teacher.manage.viewstudents.14"/></li>
+					<li><strong><spring:message code="teacher.manage.viewstudents.15"/></strong>&nbsp; <spring:message code="teacher.manage.viewstudents.16"/></li>
 				</ul>
 			</div>	
 		<table id="manageStudentsTable">
@@ -445,7 +445,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			<td>
 			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
 			  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
-			    <li class="grouplessHeader">unassigned students</li>
+			    <li class="grouplessHeader"><spring:message code="teacher.manage.viewstudents.17"/></li>
 
                 <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
 			      <li class="grouplesslist" id="li_${mem.id}_groupless">
@@ -472,7 +472,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
               <div class="workarea" id="div_${workgroupInPeriod.id}">
 			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
 			      <li class="workgroupHeader">TEAM ${workgroupInPeriod.id}
-			        <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}">Create PDF file for this team's work</a>
+			        <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}"><spring:message code="teacher.manage.viewstudents.18"/></a>
 			      </li>
 			      
 			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
@@ -503,7 +503,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
             
          <div id="saveBar">
          		<input type="button" class="saveButton" id="saveButton_${viewmystudentsperiod.period.id}" 
-            	value="Save Changes to Team Assignments" />
+            	value="<spring:message code="teacher.manage.viewstudents.19"/>" />
           </div> 
      
 		</c:otherwise>

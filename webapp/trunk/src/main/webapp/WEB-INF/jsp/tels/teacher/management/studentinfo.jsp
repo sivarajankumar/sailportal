@@ -10,7 +10,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
-<title>Student Info</title>
+<title><spring:message code="teacher.manage.studentinfo.1"/></title>
 
 <!-- FOR LATER REFACTOR <script src="../../../javascript/tels/custom-yui/changegroupdnd.js" type="text/javascript"> </script> -->
 
@@ -32,35 +32,35 @@
 
 <body class="yui-skin-sam">
 
-<div id="studentInfoNameHeader">student information</div> 
+<div id="studentInfoNameHeader"><spring:message code="teacher.manage.studentinfo.2"/></div> 
 
 <table id="studentInfoTable">
 	<tr>
-		<th>Full Name:</th>
+		<th><spring:message code="teacher.manage.studentinfo.3"/></th>
 		<td><c:out value="${userInfoMap['First Name']}"/>&nbsp;<c:out value="${userInfoMap['Last Name']}"/> </td>
 	</tr>
 	<tr>
-		<th>WISE Username:</th>
+		<th><spring:message code="teacher.manage.studentinfo.4"/></th>
 		<td><c:out value="${userInfoMap['username']}"/></td>
 	</tr>
 	<tr>
-		<th>Most Recent Sign In:</th>
+		<th><spring:message code="teacher.manage.studentinfo.5"/></th>
 		<td><fmt:formatDate value="${userInfoMap['Last Login']}" type="both" dateStyle="short" timeStyle="short" /></td>
 			</tr>
 	<tr>
-		<th>WISE Registration Date:</th>
+		<th><spring:message code="teacher.manage.studentinfo.6"/></th>
 		<td><fmt:formatDate value="${userInfoMap['Sign Up Date']}" type="both" dateStyle="short" timeStyle="short" /></td>
 	</tr>
 	<tr>
-		<th>Gender:</th>
+		<th><spring:message code="teacher.manage.studentinfo.7"/></th>
 		<td><span style="text-transform:lowercase;"><c:out value="${userInfoMap['Gender']}"/></span></td> 
 	</tr>
 	<tr>
-		<th>Birthday:<br/><span class="studentInfoSmallText">(as entered during registration)</span></th>
+		<th><spring:message code="teacher.manage.studentinfo.8"/><br/><span class="studentInfoSmallText"><spring:message code="teacher.manage.studentinfo.9"/></span></th>
 		<td><fmt:formatDate value="${userInfoMap['Birthday']}" pattern="M/d" /></td>
 	</tr>
 	<tr>
-		<th>Number of Logins:</th>
+		<th><spring:message code="teacher.manage.studentinfo.10"/></th>
 		<td><c:out value="${userInfoMap['Number of Logins']}"/></td>
 	</tr>
 </table>

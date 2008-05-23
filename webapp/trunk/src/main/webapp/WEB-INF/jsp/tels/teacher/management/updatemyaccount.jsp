@@ -34,7 +34,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
-<title>Manage My Students</title>
+<title><spring:message code="teacher.manage.account.1"/></title>
 </head>
 
 <body>
@@ -47,21 +47,21 @@
  
 <div id="overviewContent"> 
 
-	<div id="overviewHeader">Update My Account</div>
+	<div id="overviewHeader"><spring:message code="teacher.manage.account.2"/></div>
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="#" onclick="javascript:popup640('changeteacherpassword.html?userName=${user.userDetails.username}');">Change My Password</a></td>
-			<td class="description">Change your WISE 3.0 password.</td></tr>
+			<td class="link"><a href="#" onclick="javascript:popup640('changeteacherpassword.html?userName=${user.userDetails.username}');"><spring:message code="teacher.manage.account.3"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.account.4"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Update Registration Info.</a></td>
-			<td class="description">Edit your email or other registration information.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.account.5"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.account.6"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Update Dashboard Prefs.</a></td>
-			<td class="description">Edit the preferences set when you first created your account.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.account.7"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.account.8"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">Change Display Language</a></td>
-			<td class="description">Change the language displayed in the Teacher Dashboard.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.account.9"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.account.10"/></td></tr>
 		
 	</table>
 	

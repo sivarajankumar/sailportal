@@ -32,7 +32,7 @@
 <script type="text/javascript" src="../.././javascript/tels/effects.js"></script>
 
   
-<title><spring:message code="detachstudent.1"/></title>
+<title><spring:message code="teacher.manage.removestudent.1"/></title>
 </head>
 
 <body>
@@ -42,34 +42,34 @@
 
 <div id="popUpBoxBoundary">
 
-<div id="largeHeader"><spring:message code="detachstudent.2"/></div>
+<div id="largeHeader"><spring:message code="teacher.manage.removestudent.2"/></div>
 
 <div id="blockHighlight" >
 	<table>
 		<tr>
-			<td id="blockItem"><spring:message code="detachstudent.3"/></td>
+			<td id="blockItem"><spring:message code="teacher.manage.removestudent.3"/></td>
 			<td>[full student name]</td>
 		</tr>
 		<tr>
-			<td id="blockItem"><spring:message code="detachstudent.4"/></td>
+			<td id="blockItem"><spring:message code="teacher.manage.removestudent.4"/></td>
 			<td>[registered period]</td>
 		</tr>
 		<tr>
-			<td id="blockItem"><spring:message code="detachstudent.5"/></td>
+			<td id="blockItem"><spring:message code="teacher.manage.removestudent.5"/></td>
 			<td>[student code for the project run]</td>
 		</tr>
 		<tr>
-			<td id="blockItem"><spring:message code="detachstudent.6"/></td>
+			<td id="blockItem"><spring:message code="teacher.manage.removestudent.6"/></td>
 			<td>[project title]</td>
 		</tr>
 	</table>
 </div>			    	
 
 	<div id="popUpNotice1">
-		<h5><spring:message code="detachstudent.7"/></h5>
-		<h5><spring:message code="detachstudent.8"/></h5>
-		<h5><spring:message code="detachstudent.9"/></h5>
-    	<div id="popUpNotice2"><spring:message code="detachstudent.10"/></div>
+		<h5><spring:message code="teacher.manage.removestudent.7"/></h5>
+		<h5><spring:message code="teacher.manage.removestudent.8"/></h5>
+		<h5><spring:message code="teacher.manage.removestudent.9"/></h5>
+    	<div id="popUpNotice2"><spring:message code="teacher.manage.removestudent.10"/></div>
 	</div>
 	
 <!-- Support for Spring errors object -->
@@ -92,8 +92,8 @@
   </div>
 
 <div id="responseButtons">
-    <input type="submit" id="savebutton" value="<spring:message code="detachstudent.11"/>" />
-    <input type="submit" onclick="javascript:window.close()" id="cancelbutton" value="<spring:message code="detachstudent.12"/>" />
+    <input type="submit" id="savebutton" value="<spring:message code="teacher.manage.removestudent.11"/>" />
+    <input type="submit" onclick="javascript:window.close()" id="cancelbutton" value="<spring:message code="teacher.manage.removestudent.12"/>" />
 </div>
 
 </form:form>
