@@ -44,7 +44,7 @@
 
 <div id="setUpRunBox">
 
-	<div id="stepNumber">Step 5 of 6:<span class="blueText">&nbsp Preview the Project</span></div>
+	<div id="stepNumber"><spring:message code="teacher.run.setup.37"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.38"/></span></div>
 
 	<h5><spring:message code="teacher.recommend-preview-project" />
 		<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">

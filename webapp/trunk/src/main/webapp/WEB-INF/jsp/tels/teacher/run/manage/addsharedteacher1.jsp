@@ -25,13 +25,13 @@
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>
 <script type="text/javascript" src=".././javascript/tels/general.js"></script>
     
-<title>Add Shared Teacher</title>
+<title><spring:message code=teacher.run.manage.addteacher.1"/></title>
 
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 </head>
 <body>
 
-Step 1: Type in the name of the teacher you wish to grant permissions
+<h4><spring:message code=teacher.run.manage.addteacher.2"/></h4>
 	
 <form:form method="post" commandName="addSharedTeacherParameters">
 	<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" size="25"/>

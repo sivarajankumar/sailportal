@@ -32,7 +32,7 @@
 <script type="text/javascript" src="../../.././javascript/tels/effects.js"></script>
 
     
-<title>Archive Run Pop Up</title>
+<title><spring:message code="teacher.run.manage.archiverun.1"/></title>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 
 <div id="popUpBoxBoundary">
 
-<div id="largeHeader">Archive Project Run</div>
+<div id="largeHeader"><spring:message code="teacher.run.manage.archiverun.2"/></div>
 
 <div id="blockHighlight" >
 	<div id="runTitle">[VARIABLE: Project Name Here]</div>
@@ -50,9 +50,8 @@
 	<div id="titleSubHeader">[VARIABLE: run creation date]  Ex "Created 4/12/07"</div>
 </div>			    	
 
-	<div id="popUpNotice1">Are you sure you want to archive this project?</div>
-	<div id="popUpNotice2">Note that archived information is not deleted, just stored in the "Archived Runs" folder. 
-You can move an archived project run back to the "Current Runs" folder at any time.</div>
+	<div id="popUpNotice1"><spring:message code="teacher.run.manage.archiverun.3"/></div>
+	<div id="popUpNotice2"><spring:message code="teacher.run.manage.archiverun.4"/></div>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="endRunParameters.*">
@@ -64,7 +63,7 @@ You can move an archived project run back to the "Current Runs" folder at any ti
 </spring:bind>
 
 <form:form method="post" action="archiveRun.html" commandName="endRunParameters" id="archiveRun" >
-  <div style="visibility:hidden;"><label for="runId">Run ID:</label>
+  <div style="visibility:hidden;"><label for="runId"><spring:message code="teacher.run.manage.archiverun.5"/></label>
       <form:input disabled="true" path="runId" id="runId"/>
       <form:errors path="runId" />
   </div>

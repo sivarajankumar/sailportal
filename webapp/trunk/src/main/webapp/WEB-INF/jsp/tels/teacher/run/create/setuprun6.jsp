@@ -108,21 +108,19 @@
 
 <div id="setUpRunBox">
 
-	<div id="stepNumber">Step 6 of 6:<span class="blueText">&nbsp Help Documentation</span></div>
+	<div id="stepNumber"><spring:message code="teacher.run.setup.39"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.40"/></span></div>
 
-	<h5>First time running a classroom project?  If so check out the 
-		<a href="#" onclick="javascript:alert('Project Preview Not Available Yet')">Guide to Using WISE 3.0 in the Classroom</a>.</h5>
+	<h5><spring:message code="teacher.run.setup.41"/>&nbsp;
+		<a href="#" onclick="javascript:alert('Project Preview Not Available Yet')"><spring:message code="teacher.run.setup.42"/></a>.</h5>
 	
    	<h6 class="indent15px">
    		<ul>
-   		<li>This guide contains everything you need to know about setting up your classroom computers and having your students 
-   				register, form groups, and load projects. 
-   				It also offers tips if you encounter difficulty during a project run (for instance, if a student loses a password).</li>
-   		<li>These help documents are accessible at any time by clicking the HELP button at the top of the screen.</li>
+   		<li><spring:message code="teacher.run.setup.43"/></li>
+   		<li><spring:message code="teacher.run.setup.44"/></li>
    		</ul>
    	</h6>
 
-	<h5>To complete the creation of your project run click <em>Done</em> below. </h5>
+	<h5><spring:message code="teacher.run.setup.45"/>&nbsp;<em><spring:message code="teacher.run.setup.46"/></em>&nbsp;<spring:message code="teacher.run.setup.47"/></h5>
 		
 </div>
 

@@ -19,4 +19,4 @@
 
 <!-- $Id: logout.jsp 470 2007-06-19 17:11:07Z archana $ -->
 
-	<a href="<c:url value="/j_acegi_logout"/>">Sign Out</a><br />
+	<a href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a><br />

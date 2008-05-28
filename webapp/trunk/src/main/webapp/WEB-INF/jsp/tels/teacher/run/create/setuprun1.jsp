@@ -48,11 +48,11 @@
      	    	    
 <div id="setUpRunBox">
 
-<div id="stepNumber">Step 1 of 6:<span class="blueText">&nbsp Confirm Project</span></div>
+<div id="stepNumber"><spring:message code="teacher.run.setup.1"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.2"/></span></div>
 
-<h5>This process will help you set up a <em>Project Run</em> so students can load and run the project. <br/>You can cancel this process at any time.</h5>
+<h5><spring:message code="teacher.run.setup.3"/>&nbsp;<em><spring:message code="teacher.run.setup.4"/></em>&nbsp;<spring:message code="teacher.run.setup.5"/><br/><spring:message code="teacher.run.setup.6"/></h5>
 
-<h5>You have selected the following [Library/Customized] project to run in your classroom:</h5>
+<h5><spring:message code="teacher.run.setup.7"/>&nbsp;<em>[Library/Customized]</em>&nbsp;<spring:message code="teacher.run.setup.8"/></h5>
 
 <table id="setupProjectTable" border="1" cellpadding="3" cellspacing="2">
 	<tr id="setupProjectTableR1">
@@ -78,7 +78,7 @@
 	</tr>
 	</table>
 			
-<h5>If this is the correct project, select <em>Next</em> below.</h5>
+<h5><spring:message code="teacher.run.setup.9"/>&nbsp;<em><spring:message code="teacher.run.setup.10"/></em><spring:message code="teacher.run.setup.11"/>&nbsp;</h5>
 
 </div> <!-- /* End setUpRunBox */-->
 

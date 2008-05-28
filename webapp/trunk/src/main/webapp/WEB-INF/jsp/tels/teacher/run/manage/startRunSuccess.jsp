@@ -27,14 +27,14 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title>Success with Start Run</title>
+<title><spring:message code="teacher.run.manage.startrun.2"/></title>
 </head>
 
 <body>
 
-<h1>Success!</h1>
-<p>please close this window and refresh the main window. This run should then appear under the "Current Runs" section.</p>
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<h1><spring:message code="teacher.run.manage.startrun.3"/></h1>
+<p><spring:message code="teacher.run.manage.startrun.4"/></p>
+<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.run.manage.startrun.5"/></a></div>
 
 </body>
 </html>

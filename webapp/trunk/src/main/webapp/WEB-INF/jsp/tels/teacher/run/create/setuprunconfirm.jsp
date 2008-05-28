@@ -49,9 +49,9 @@
 
 <div id="setUpRunBoxConfirm">
 
-	<div id="stepNumber"><span class="blueText">Project Run Created!</span></div>
+	<div id="stepNumber"><span class="blueText"><spring:message code="teacher.run.setup.48"/></span></div>
 	
-		<h5>Your new project run has been placed in the <a href="myprojectruns.html">My Project Runs</a> area.</h5>
+		<h5><spring:message code="teacher.run.setup.49"/>&nbsp;<a href="myprojectruns.html"><spring:message code="teacher.run.setup.50"/>&nbsp;</a><spring:message code="teacher.run.setup.51"/></h5>
 		
 		<table id="projectRunConfirmTable" border="1" cellpadding="5" cellspacing="0" >
 				<tr>

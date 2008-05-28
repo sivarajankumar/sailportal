@@ -47,26 +47,25 @@
      	    	    
 <div id="setUpRunBox">
 
-<div id="stepNumber">Step 2 of 6:<span class="blueText">&nbsp; Archive Existing Project Runs</span></div>
+<div id="stepNumber"><spring:message code="teacher.run.setup.12"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.13"/></span></div>
 
 <form:form method="post" commandName="runParameters">
 
-<h5>Your currently active project runs are listed below.  If these project runs are now complete, you can archive them using the ARCHIVE boxes.</h5>
-<h6 class="indent15px">Note:  when you archive a project run no information is lost.  The project is simply moved to the an Archive area for storage. 
-Previous student work and teacher feedback in archived projects can be viewed again at any time. </h6>
+<h5><spring:message code="teacher.run.setup.14"/></h5>
+<h6 class="indent15px"><spring:message code="teacher.run.setup.15"/></h6>
 
 <c:choose>
 	<c:when test="${fn:length(existingRunList) == 0}">
-      <b>You are not running any projects at this time.</b>
+      <b><spring:message code="teacher.run.setup.16"/></b>
 	</c:when>
 	<c:otherwise>
 <table  id="projectTable" border="1" cellpadding="3" cellspacing="2" style="margin:0 0 0 25px;">
 	<tr id="projectTableR1">
-		<td>CHECK TO ARCHIVE</td>
-		<td>Project Title</td>
-		<td>Project ID</td>
-		<td>Run Created On</td>
-		<td>Last Revision On</td>
+		<td><spring:message code="teacher.run.setup.17"/></td>
+		<td><spring:message code="teacher.run.setup.18"/></td>
+		<td><spring:message code="teacher.run.setup.19"/></td>
+		<td><spring:message code="teacher.run.setup.20"/></td>
+		<td><spring:message code="teacher.run.setup.21"/></td>
 	</tr>
     <c:forEach var="run" items="${existingRunList}">
 	    <tr id="projectTableR2">
@@ -86,7 +85,7 @@ Previous student work and teacher feedback in archived projects can be viewed ag
 	     </tr>
 	</c:forEach>
 	</table>
-	<h5>If you do not wish to archive any project runs, leave the boxes unchecked and click <em>Next</em> to continue.</h5>
+	<h5><spring:message code="teacher.run.setup.22"/>&nbsp;<em><spring:message code="teacher.run.setup.23"/></em>&nbsp;<spring:message code="teacher.run.setup.24"/></h5>
 	</c:otherwise>
 	
 </c:choose>

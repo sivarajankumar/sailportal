@@ -46,10 +46,10 @@
 
 <div id="setUpRunBox">
 
-	<div id="stepNumber">Step 4 of 6:<span class="blueText">&nbsp Review Lesson Plan</span></div>
+	<div id="stepNumber"><spring:message code="teacher.run.setup.32"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.33"/></span></div>
 
-	<h5>We recommend that you <a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.review-lesson-plan" /></a>
-	<spring:message code="teacher.review-lesson-plan-rest" /></h5>
+	<h5><spring:message code="teacher.run.setup.34"/>&nbsp;<a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.run.setup.35"/></a>
+	&nbsp;<spring:message code="teacher.run.setup.36"/></h5>
 
 	<h6 class="indent15px"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h6>
 	<h5><spring:message code="teacher.skip-lesson-plan" />

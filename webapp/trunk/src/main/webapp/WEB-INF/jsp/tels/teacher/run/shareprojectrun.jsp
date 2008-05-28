@@ -31,7 +31,7 @@
 
 <script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
  
-<title>Sharing Permissions for Project Runs</title>
+<title><spring:message code="teacher.run.shareprojectrun.1"/></title>
 
 </head>
 
@@ -45,39 +45,39 @@
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 
-<h2 id="titleBar" class="headerText">Sharing Permissions</h2> 
+<h2 id="titleBar" class="headerText"><spring:message code="teacher.run.shareprojectrun.2"/></h2> 
 				<c:out value="${message}" />
 
-<div class="sharedprojectHeadline1">project run selected:</div>
+<div class="sharedprojectHeadline1"><spring:message code="teacher.run.shareprojectrun.3"/>/div>
  
     
 				        <table id="runTitleTable">
 				      			<tr>
-				      				<td class="runTitleTableHeader">Title:</td>
+				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.4"/></td>
 				      				<td>${run.project.curnit.sdsCurnit.name}</td>
 				      			</tr>
 				      			<tr>
-				      				<td class="runTitleTableHeader">Project ID:</td>
+				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.5"/></td>
 				      				<td>${run.project.id}</td>
 				      			</tr>
 				      			<tr> 
-				      				<td class="runTitleTableHeader">Project Source:</td>
+				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.6"/></td>
 				      				<td>UC Berkeley library project</td>
 				      			</tr>
 				      			<tr>
-				      				<td class="runTitleTableHeader">Run Created:</td>
+				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.7"/></td>
 				      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></td>
 				      			</tr>
 						</table>
 				
-<div class="sharedprojectHeadline1">permissions for this project run:</div>			
+<div class="sharedprojectHeadline1"><spring:message code="teacher.run.shareprojectrun.8"/></div>			
 
 <table id="sharedProjectPermissions">
 
 	<tr>
-		<th>USERNAME</th>
-		<th>PERMISSION LEVEL</th> 
-		<th>OPTIONS</th>
+		<th><spring:message code="teacher.run.shareprojectrun.9"/></th>
+		<th><spring:message code="teacher.run.shareprojectrun.10"/>L</th> 
+		<th><spring:message code="teacher.run.shareprojectrun.11"/></th>
 	</tr>
 	<!--  display owners of the run -->
 	<c:choose>
@@ -87,8 +87,8 @@
 			<c:forEach var="owner" items="${run.owners}">
 				<tr>
 				    <td>${owner.userDetails.firstname} ${owner.userDetails.lastname}</td>
-					<td>Owner of Project Run. Full access.</td>
-					<td>NONE</td>
+					<td><spring:message code="teacher.run.shareprojectrun.12"/></td>
+					<td><spring:message code="teacher.run.shareprojectrun.13"/></td>
 			    </tr>
 			</c:forEach>
 		</c:otherwise>
@@ -101,11 +101,11 @@
 		    <tr>
 		        <td>${sharedowner.userDetails.username}</td>
 			    <td align="left">
-			        <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /> Can VIEW the project run<br />
-			        <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" />Can VIEW + GRADE the project run
+			        <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /><spring:message code="teacher.run.shareprojectrun.14"/><br />
+			        <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" /><spring:message code="teacher.run.shareprojectrun.15"/>
 				</td>
 				<td><!-- <a href='#' onclick="return confirm('Proceed with removing this shared teacher?');">Remove this User</a> -->
-				    <a href='#' onclick="alert('Remove Shared Teacher is not yet implemented.');">Remove this User</a>
+				    <a href='#' onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message code="teacher.run.shareprojectrun.16"/></a>
 				</td>
 			</tr>
 		</form:form>
@@ -113,7 +113,7 @@
 	
 	<tr>
 		<td id="sharingSearchBox" colspan=3>
-			<div id="sharingSearchBoxHelp">To share this project run with another user, enter their Username below:</div>
+			<div id="sharingSearchBoxHelp"><spring:message code="teacher.run.shareprojectrun.17"/></div>
 			    <form:form method="post" commandName="addSharedTeacherParameters">
 					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" size="25"/>
 				    <input type="submit" value="Add this User" />
@@ -123,7 +123,7 @@
 
 </table> 
 
-<h5><a href="../run/myprojectruns.html">Return to <em>My Project Runs</em></a></h5>
+<h5><a href="../run/myprojectruns.html"><spring:message code="teacher.run.shareprojectrun.18"/>&nbsp;<em><spring:message code="teacher.run.shareprojectrun.19"/></em></a></h5>
 
 </div>
 </div>

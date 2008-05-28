@@ -29,12 +29,12 @@
     
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
     
-<title>Start Run</title>
+<title><spring:message code="teacher.run.manage.startrun.1"/></title>
 </head>
 
 <body>
 
-<h1>Start Run</h1>
+<h1><spring:message code="teacher.run.manage.startrun.1"/></h1>
 
 <!-- Support for Spring errors object -->
 <spring:bind path="startRunParameters.*">
@@ -46,7 +46,7 @@
 </spring:bind>
 
 <form:form method="post" action="startRun.html" commandName="startRunParameters" id="startRun" >
-  <div><label for="runId">Run ID:</label>
+  <div><label for="runId"><spring:message code="teacher.run.manage.archiverun.5"/></label>
       <form:input disabled="true" path="runId" id="runId"/>
       <form:errors path="runId" />
   </div>

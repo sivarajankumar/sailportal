@@ -25,13 +25,13 @@
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>
 <script type="text/javascript" src=".././javascript/tels/general.js"></script>
     
-<title>Add Shared Teacher</title>
+<title><spring:message code=teacher.run.manage.addteacher.1"/></title>
 
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 </head>
 <body>
 
-Step 2: Check the permissions you want to grant to this user: ${sharedOwner.userDetails.firstname} ${sharedOwner.userDetails.lastname} to have
+<h4><spring:message code=teacher.run.manage.addteacher.3"/>&nbsp ${sharedOwner.userDetails.firstname} ${sharedOwner.userDetails.lastname} 
 <form:form method="post" commandName="addSharedTeacherParameters">
 	        <c:forEach items="${runpermissions}" var="runpermission">
 	          <form:checkbox path="newRoles" value="${runpermission}" /> ${runpermission}<br/>

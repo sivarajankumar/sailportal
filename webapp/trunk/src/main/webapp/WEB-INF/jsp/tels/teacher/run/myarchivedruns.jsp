@@ -46,7 +46,7 @@ function popup(URL, title) {
 </ul>
  -->
 <div id="runContent"> 
-<h3>Archived Runs</h3>
+<h3><spring:message code="teacher.run.myarchived.1"/></h3>
 <table border="1">
   <thead>
     <tr>
@@ -71,7 +71,7 @@ function popup(URL, title) {
               <td>
                 <c:choose>
                   <c:when test="${fn:length(period.members) == 0}" >
-                    None
+                    <spring:message code="teacher.run.myarchived.2"/>
                   </c:when>
                   <c:otherwise>
                     <c:forEach var="member" items="${period.members}">${member.userDetails.firstname} ${member.userDetails.lastname}</c:forEach>
@@ -93,7 +93,7 @@ function popup(URL, title) {
         </c:otherwise>
       </c:choose>     
       <br/>
-      <a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')">Un-archive this run</a>
+      <a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')"><spring:message code="teacher.run.myarchived.3"/></a>
     </td>
    </tr>
   </c:forEach>

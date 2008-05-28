@@ -27,14 +27,14 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title>Success with End Run</title>
+<title><spring:message code="teacher.run.manage.archiverun.6"/></title>
 </head>
 
 <body>
 
-<h1>Success!</h1>
-<p>please close this window and refresh the main window. This run should then appear under the "Archived Runs" section.</p>
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<h1><spring:message code="teacher.run.manage.archiverun.7"/></h1>
+<p><spring:message code="teacher.run.manage.archiverun.8"/></p>
+<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.run.manage.archiverun.9"/></a></div>
 
 </body>
 </html>
