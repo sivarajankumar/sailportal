@@ -52,7 +52,7 @@
   <tr>
   <td><c:out value="${curnit.sdsCurnit.name}"/></td>
   <td><a href="<c:url value="../run/createRun.html"><c:param name="curnitId" value="${curnit.id}"/></c:url>">
-	       Set up as a Project Run 
+	       <spring:message code="teacher.pro.lib.curnitlist.1"/>	     
       </a><br />
       
   </td>

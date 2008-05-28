@@ -29,7 +29,8 @@
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
-<title>Projects Overview</title>
+
+<title><spring:message code="teacher.pro.runmanager.1"/></title>
 </head>
 
 <body>
@@ -40,8 +41,8 @@
 <li> <a href="#">Archived</a></li>
 </ul>
  -->
- <a href="../run/myprojectruns.html">Back to My Project Runs </a>
- <h2>PROJECT RUN MANAGER</h2>
+ <a href="../run/myprojectruns.html"><spring:message code="teacher.pro.runmanager.2"/></a>
+ <h2><spring:message code="teacher.pro.runmanager.3"/></h2>
 <div id="overviewContent"> 
 <br />
 
@@ -69,7 +70,7 @@
               <td>
                 <c:choose>
                   <c:when test="${fn:length(period.members) == 0}" >
-                    None
+                    <spring:message code="teacher.pro.runmanager.4"/>
                   </c:when>
                   <c:otherwise>
                     <c:forEach var="member" items="${period.members}">${member.userDetails.firstname} ${member.userDetails.lastname}</c:forEach>
@@ -91,7 +92,7 @@
         </c:otherwise>
       </c:choose>
       <br/>
-      <a href="#" onclick="javascript:popup('manage/endRun.html?runId=${run.id}')">Archive this run</a>
+      <a href="#" onclick="javascript:popup('manage/endRun.html?runId=${run.id}')"><spring:message code="teacher.pro.runmanager.5"/></a>
     </td>
    </tr>
   </c:forEach>
@@ -99,39 +100,39 @@
 
 </div>
 
-<h3>Management Actions:</h3>
+<h3><spring:message code="teacher.pro.runmanager.6"/></h3>
 <table>
 <tr>
-<td><a href="changeperiods.html">Change Periods</a></td>
-<td>Change the classroom periods for this project run.</td>
+<td><a href="changeperiods.html"><spring:message code="teacher.pro.runmanager.7"/></a></td>
+<td><spring:message code="teacher.pro.runmanager.8"/></td>
 </tr>
 <tr>
-<td><a href="#">Project Information</a></td>
-<td>View project information including <a href="overview.html">Overview</a>, <a href="#">Teacher Guide</a>, <a href="#">Learning Goals</a>, <a href="#">Credits.</a></td>
+<td><a href="#"><spring:message code="teacher.pro.runmanager.9"/></a></td>
+<td><spring:message code="teacher.pro.runmanager.10"/> <a href="overview.html">Overview</a>, <a href="#">Teacher Guide</a>, <a href="#">Learning Goals</a>, <a href="#">Credits.</a></td>
 </tr>
 <tr>
-<td><a href="#">Manage Students</a></td>
-<td>Shortcut to Management/View Students. View and manage all students registered for this project.</td>
+<td><a href="#"><spring:message code="teacher.pro.runmanager.11"/></a></td>
+<td><spring:message code="teacher.pro.runmanager.12"/></td>
 </tr>
 <tr>
-<td><a href="#">Assess Students</a></td>
-<td>Shortcut to Management/Assess Students. Assess work done by students registered for this project.</td>
+<td><a href="#"><spring:message code="teacher.pro.runmanager.13"/></a></td>
+<td><spring:message code="teacher.pro.runmanager.14"/></td>
 </tr>
 <tr>
-<td><a href="#">Student Message</a></td>
-<td>Send a message to one or more students that appears next time they sign in.</td>
+<td><a href="#"><spring:message code="teacher.pro.runmanager.15"/></a></td>
+<td><spring:message code="teacher.pro.runmanager.16"/></td>
 </tr>
 <tr>
-<td><a href="#">View Project Codes</a></td>
-<td>View the project codes for this project and instructions on how students use these codes.</td>
+<td><a href="#"><spring:message code="teacher.pro.runmanager.17"/></a></td>
+<td><spring:message code="teacher.pro.runmanager.18"/></td>
 </tr>
 <tr>
-<td><a href="#">Report a Problem</a></td>
-<td>Send a message to WISE describing content or functionality problems found in this project.</td>
+<td><a href="#"><spring:message code="teacher.pro.runmanager.19"/></a></td>
+<td><spring:message code="teacher.pro.runmanager.20"/></td>
 </tr>
 <tr>
-<td><a href="#">Archive Project Run</a></td>
-<td>Move a completed project run to your Archive folder (and all of your students' Archive folders)</td>
+<td><a href="#"><spring:message code="teacher.pro.runmanager.21"/></a></td>
+<td><spring:message code="teacher.pro.runmanager.22"/></td>
 </tr>
 
 </table>

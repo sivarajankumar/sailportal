@@ -40,7 +40,7 @@
 <link href="../../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 
-<title>My Customized / Shared Projects</title>
+<title><spring:message code="teacher.pro.custom.index.1"/></title>
 </head>
 
         <!-- Page-specific script -->
@@ -76,15 +76,15 @@
                     {
                         id: "actionsCurrent", 
                         itemdata: [ 
-                            { text: "edit project content", url: "#" },
-                            { text: "edit project overview", url: "#" },
-                            { text: "set up as a project run", url: "#" },
-                            { text: "show project content", url: "#" },
-                            { text: "show project overview", url: "#" },
-                            { text: "share project",  url: "shareproject.html" },
-                            { text: "rename project", url: "#" },
-                            { text: "report a problem", url: "#" },
-                            { text: "archive this project", url: "#" },     
+                            { text: "<spring:message code="teacher.pro.custom.index.2"/>", url: "#" },
+                            { text: "<spring:message code="teacher.pro.custom.index.3"/>", url: "#" },
+                            { text: "<spring:message code="teacher.pro.custom.index.4"/>", url: "#" },
+                            { text: "<spring:message code="teacher.pro.custom.index.5"/>", url: "#" },
+                            { text: "<spring:message code="teacher.pro.custom.index.6"/>", url: "#" },
+                            { text: "<spring:message code="teacher.pro.custom.index.7"/>",  url: "shareproject.html" },
+                            { text: "<spring:message code="teacher.pro.custom.index.8"/>", url: "#" },
+                            { text: "<spring:message code="teacher.pro.custom.index.9"/>", url: "#" },
+                            { text: "<spring:message code="teacher.pro.custom.index.10"/>", url: "#" },     
                         ]
                                       
                     },                   
@@ -414,15 +414,15 @@
 
 <%@ include file="L2projects_projectlibrary.jsp"%>
 
-<h2 id="titleBar" class="headerText">My Customized / Shared Projects</h2> 
+<h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.custom.index.11"/></h2> 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
 
 <div id="projectInfoTabs" class="yui-navset">
     <ul class="yui-nav" >
-        <li style="margin-left:4px;"><a href="#tab1"><em>current customized projects</em></a></li>
-        <li style="margin-left:4px;"><a href="#tab2"><em>projects shared with me</em></a></li>
-        <li style="margin-left:4px;"><a href="#tab3"><em>archived projects</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.custom.index.12"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab2"><em><spring:message code="teacher.pro.custom.index.13"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.custom.index.14"/></em></a></li>
         
     </ul>     
            
@@ -432,23 +432,23 @@
 		  
 		  <table id="customProjectsButtons"  >
             	<tr>
-            		<td><a href="#">Sort by Title</a></td>
-	             	<td><a href="#">Sort by Topic</a></td>
-	             	<td><a href="#" onclick="toggle_visibility('toggle');">Hide/Show Summaries</a></td>
-	             	<td><a href="#">Create NEW Project</a></td>
+            		<td><a href="#"><spring:message code="teacher.pro.custom.index.15"/></a></td>
+	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.16"/></a></td>
+	             	<td><a href="#" onclick="toggle_visibility('toggle');"><spring:message code="teacher.pro.custom.index.17"/></a></td>
+	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.18"/></a></td>
 	            </tr>
 	         </table> 
 			
           <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
 				    <tr>
-				        <th>project<br>title</th>
-				        <th>Main<br>Topic(s)</th>
-				        <th>project<br>id</th>
-				        <th>created<br>on</th>
-						<th>project<br>source</th>
-						<th>grade<br>range</th>
-						<th>total<br>time</th>
-						<th>computer<br>time</th>
+				        <th><spring:message code="teacher.pro.custom.index.19"/></th>
+				        <th><spring:message code="teacher.pro.custom.index.20"/></th>
+				        <th><spring:message code="teacher.pro.custom.index.21"/></th>
+				        <th><spring:message code="teacher.pro.custom.index.22"/></th>
+						<th><spring:message code="teacher.pro.custom.index.23"/></th>
+						<th><spring:message code="teacher.pro.custom.index.24"/></th>
+						<th><spring:message code="teacher.pro.custom.index.25"/></th>
+						<th><spring:message code="teacher.pro.custom.index.26"/></th>
 				        <th> </th>
 				    </tr>
 				  
@@ -475,7 +475,7 @@
 				   </tr>
 				   <tr>
 				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggle');">click here to hide/show Project Summary</a></div>
+				   			<div><a href="#" onclick="toggle_visibility('toggle');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
 					   		<div id="toggle">
 				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
 				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
@@ -497,22 +497,22 @@
         
         <table id="customProjectsButtons">
             	<tr>
-            		<td><a href="#">Sort by Title</a></td>
-	             	<td><a href="#">Sort by Topic</a></td>
-	             	<td><a href="#" onclick="toggle_visibility('toggle');">Hide/Show Summaries</a></td>
+            		<td><a href="#"><spring:message code="teacher.pro.custom.index.15"/></a></td>
+	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.16"/></a></td>
+	             	<td><a href="#" onclick="toggle_visibility('toggle');"><spring:message code="teacher.pro.custom.index.17"/></a></td>
 	            </tr>
 	         </table> 
 	         
   		<table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
 				    <tr>
-				        <th style="background-color:#0000CC;">project<br>title</th>
-				        <th style="background-color:#0000CC;">Main<br>Topic(s)</th>
-				        <th style="background-color:#0000CC;">project<br>id</th>
-				        <th style="background-color:#0000CC;">created<br>on</th>
-						<th style="background-color:#0000CC;">project<br>source</th>
-						<th style="background-color:#0000CC;">grade<br>range</th>
-						<th style="background-color:#0000CC;">total<br>time</th>
-						<th style="background-color:#0000CC;">computer<br>time</th>
+				        <th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.19"/></th>
+				        <th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.20"/></th>
+				        <th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.21"/></th>
+				        <th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.22"/></th>
+						<th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.23"/></th>
+						<th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.24"/></th>
+						<th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.25"/></th>
+						<th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.26"/></th>
 				        <th style="background-color:#0000CC;"> </th>
 				    </tr>
 				  
@@ -539,7 +539,7 @@
 				   </tr>
 				   <tr>
 				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggleShared');">click here to hide/show Project Summary</a></div>
+				   			<div><a href="#" onclick="toggle_visibility('toggleShared');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
 					   		<div id="toggleSharded">
 				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
 				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
@@ -562,14 +562,14 @@
        
           <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
 				    <tr>
-				        <th style="background-color:#CC0000;">project<br>title</th>
-				        <th style="background-color:#CC0000;">Main<br>Topic(s)</th>
-				        <th style="background-color:#CC0000;">project<br>id</th>
-				        <th style="background-color:#CC0000;">created<br>on</th>
-						<th style="background-color:#CC0000;">project<br>source</th>
-						<th style="background-color:#CC0000;">grade<br>range</th>
-						<th style="background-color:#CC0000;">total<br>time</th>
-						<th style="background-color:#CC0000;">computer<br>time</th>
+				        <th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.19"/></th>
+				        <th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.20"/></th>
+				        <th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.21"/></th>
+				        <th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.22"/></th>
+						<th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.23"/></th>
+						<th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.24"/></th>
+						<th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.25"/></th>
+						<th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.26"/></th>
 				        <th style="background-color:#CC0000;"> </th>
 				    </tr>
 				  
@@ -583,12 +583,12 @@
 				    <td class="dataTime">6 hours</td>
 				    <td class="dataTime">5 hours</td>
 				    <td id="customProjectMakeCurrentLink" >
-					    <a href="#">Click here to make project Current again</a>
+					    <a href="#"><spring:message code="teacher.pro.custom.index.28"/></a>
     				</td>
 				   </tr>
 				   <tr>
 				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggleArchive');">click here to hide/show Project Summary</a></div>
+				   			<div><a href="#" onclick="toggle_visibility('toggleArchive');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
 					   		<div id="toggleArchive">
 				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
 				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 

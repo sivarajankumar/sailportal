@@ -31,7 +31,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
-<title>Projects Overview</title>
+<title><spring:message code="teacher.pro.lib.index.1="/></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
@@ -51,27 +51,26 @@
  
 <div id="overviewContent"> 
 
-	<div id="overviewHeader">project: overview</div>
+	<div id="overviewHeader"><spring:message code="teacher.pro.lib.index.2"/></div>
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="projectlibrary.html">Project Library</a></td>
-			<td class="description">Search the library of WISE and TELS interactive projects. Find a project and set it up as a Project Run for your classroom.</td></tr>
+			<td class="link"><a href="projectlibrary.html"><spring:message code="teacher.pro.lib.index.3"/></a></td>
+			<td class="description"><spring:message code="teacher.pro.lib.index.4"/></td></tr>
 		<tr>
-			<td class="link"><a href="../run/myprojectruns.html">My Project Runs / Student Codes</a></td>
-			<td class="description">View the projects that you are currently running in your classroom and the Student Codes for these project runs.</td></tr>
+			<td class="link"><a href="../run/myprojectruns.html"><spring:message code="teacher.pro.lib.index.5"/></a></td>
+			<td class="description"><spring:message code="teacher.pro.lib.index.6"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#">My Bookmarked Projects</a></td>
-			<td class="description">View library projects that you've earmarked for future use.</td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.pro.lib.index.7"/></a></td>
+			<td class="description"><spring:message code="teacher.pro.lib.index.8"/></td></tr>
 		<tr>
-			<td class="link"><a href="../projects/customized/index.html">My Customized / Shared Projects</a></td> 
-			<td class="description">View your customized projects and projects being shared with you. 
-			Use the Project Authoring Tool to edit existing projects or create new projects.</td></tr> 
+			<td class="link"><a href="../projects/customized/index.html"><spring:message code="teacher.pro.lib.index.9"/></a></td> 
+			<td class="description"><spring:message code="teacher.pro.lib.index.10"/></td></tr> 
 	</table>
 	
 </div>
 
-<h5 class="center">Interested in running WISE projects in another language? &nbsp; <a href="languagetranslations.html">Find out more. </a></h5>
+<h5 class="center"><spring:message code="teacher.pro.lib.index.11"/> &nbsp; <a href="languagetranslations.html"><spring:message code="teacher.pro.lib.index.12"/></a></h5>
 
 </div>    <!--End of CenteredDiv-->
 

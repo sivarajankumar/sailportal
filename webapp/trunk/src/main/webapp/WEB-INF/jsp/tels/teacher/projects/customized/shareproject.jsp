@@ -31,7 +31,7 @@
 
 <script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
  
-<title>Sharing Permissions for Customized Projects</title>
+<title><spring:message code="teacher.pro.custom.sharepro.1"/></title>
 
 </head>
 
@@ -45,20 +45,20 @@
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 
-<h2 id="titleBar" class="headerText">Sharing Permissions</h2> 
+<h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.custom.sharepro.2"/></h2> 
 
-<div class="sharedprojectHeadline1">project selected:</div>
+<div class="sharedprojectHeadline1"><spring:message code="teacher.pro.custom.sharepro.3"/></div>
  
  <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
 				    <tr>
-				        <th>project<br>title</th>
-				        <th>Main<br>Topic(s)</th>
-				        <th>project<br>id</th>
-				        <th>created<br>on</th>
-						<th>project<br>source</th>
-						<th>grade<br>range</th>
-						<th>total<br>time</th>
-						<th>computer<br>time</th>
+				        <th><spring:message code="teacher.pro.custom.index.19"/></th>
+				        <th><spring:message code="teacher.pro.custom.index.20"/></th>
+				        <th><spring:message code="teacher.pro.custom.index.21"/></th>
+				        <th><spring:message code="teacher.pro.custom.index.22"/></th>
+						<th><spring:message code="teacher.pro.custom.index.23"/></th>
+						<th><spring:message code="teacher.pro.custom.index.24"/></th>
+						<th><spring:message code="teacher.pro.custom.index.25"/></th>
+						<th><spring:message code="teacher.pro.custom.index.26"/></th>
 				    </tr>
 				  
 				  <tr id="customProjectR2">
@@ -74,26 +74,26 @@
 				   
 				</table>
 				
-<div class="sharedprojectHeadline1">permissions for this customized project:</div>			
+<div class="sharedprojectHeadline1"><spring:message code="teacher.pro.custom.sharepro.4"/></div>			
 
 <table id="sharedProjectPermissions">
 
 	<tr>
-		<th>USERNAME</th>
-		<th>PERMISSION LEVEL</th> 
+		<th><spring:message code="teacher.pro.custom.sharepro.5"/></th>
+		<th><spring:message code="teacher.pro.custom.sharepro.6"/></th> 
 	</tr>
 	<tr>
 		<td class="sharedUserName">[Current Username]</td>
-		<td ">Owner of project. Full access.</td>
+		<td "><spring:message code="teacher.pro.custom.sharepro.7"/></td>
 	</tr>
 	<tr>
 		<td class="sharedUserName">[Name]</td>
 		<td>
 			<select>
-				<option value="view">Can VIEW the project</option>
-				<option value="edit">Can VIEW + EDIT the project</option>
-				<option value="projectrun">CAN VIEW + EDIT + SET UP PROJECT RUNS</option>
-				<option value="projectrun">Remove this User</option>
+				<option value="view"><spring:message code="teacher.pro.custom.sharepro.8"/></option>
+				<option value="edit"><spring:message code="teacher.pro.custom.sharepro.9"/></option>
+				<option value="projectrun"><spring:message code="teacher.pro.custom.sharepro.10"/></option>
+				<option value="projectrun"><spring:message code="teacher.pro.custom.sharepro.11"/></option>
 				
 			</select>
 		</td>
@@ -101,15 +101,15 @@
 	
 	<tr>
 		<td id="sharingSearchBox" colspan=2>
-			<div id="sharingSearchBoxHelp">To share this project with another user, enter some or all of their Username below:</div>
+			<div id="sharingSearchBoxHelp"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
 				<input type="text" name="userSearch" ></input>
-				<input type="submit" value="Search for Username"></input>
+				<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
 		</td>
 	</tr>
 
 </table> 
 
-<h5><a href="../customized/index.html#actionsCurrent">Return to <em>My Customized Projects</em></a></h5>
+<h5><a href="../customized/index.html#actionsCurrent"><spring:message code="teacher.pro.custom.sharepro.14"/>&nbsp;<em><spring:message code="teacher.pro.custom.sharepro.15"/></em></a></h5>
 
 </div>
 </div>

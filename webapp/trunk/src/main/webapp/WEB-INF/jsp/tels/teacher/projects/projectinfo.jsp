@@ -30,7 +30,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
-<title>Project Overview</title>
+<title><spring:message code="teacher.pro.projinfo.1"/></title>
 
 </head>
 
@@ -42,16 +42,16 @@
 
 <%@ include file="../../L2blankbar.jsp"%>
 
-<h2 id="titleBar" class="headerText">Project Overview</h2> 
+<h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.projinfo.1"/></h2> 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
 
 <div id="projectInfoTabs" class="yui-navset">
     <ul class="yui-nav" >
-        <li style="margin-left:4px;"><a href="#tab1"><em>overview</em></a></li>
-        <li style="margin-left:4px;"><a href="#tab2"><em>teacher guide</em></a></li>
-        <li style="margin-left:4px;"><a href="#tab3"><em>learning goals</em></a></li>
-        <li style="margin-left:4px;"><a href="#tab4"><em>project credits</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.projinfo.2"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab2"><em><spring:message code="teacher.pro.projinfo.3"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.projinfo.4"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab4"><em><spring:message code="teacher.pro.projinfo.5"/></em></a></li>
     </ul>            
     <div class="yui-content">
         <div id="tab1">

@@ -29,21 +29,21 @@
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet"  type="text/css" />
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
-<title>Teacher:Projects - Send Student Message </title>
+
+<title><spring:message code="teacher.pro.studentmsgconfirm.1"/></title>
 </head>
 
 <body>
 <%@ include file="projectHeader.jsp"%>
- <a href="runmanager.html"> Back to Project Run Manager </a>
- <h2> STUDENT MESSAGE </h2>
+ <a href="runmanager.html"><spring:message code="teacher.pro.studentmsgconfirm.2"/></a>
+ <h2><spring:message code="teacher.pro.studentmsgconfirm.3"/></h2>
 
 <div id="overviewContent"> 
-<h2> MESSAGE SENT </h2>
-<p> Your message has been successfully sent. </p>
-<p> The recipient(s) will see this message [within the next
-few minutes/the next time they sign into WISE]. </p>
+<h2><spring:message code="teacher.pro.studentmsgconfirm.4"/></h2>
+<p><spring:message code="teacher.pro.studentmsgconfirm.5"/></p>
+<p><spring:message code="teacher.pro.studentmsgconfirm.6"/></p>
 
-<a href="runmanager.html"> Return to Project Run Manager </a>
+<a href="runmanager.html"><spring:message code="teacher.pro.studentmsgconfirm.7"/>Return to Project Run Manager </a>
 
 </div>
 

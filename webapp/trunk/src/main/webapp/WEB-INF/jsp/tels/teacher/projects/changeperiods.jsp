@@ -31,7 +31,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
-<title>Change Periods</title>
+<title><spring:message code="teacher.pro.lib.changeperiods.1"/></title>
 
 </head>
 
@@ -42,11 +42,10 @@
 
 
 
- <a href="../run/myprojectruns.html">Back to My Project Runs </a>
- <h2>CHANGE PERIODS</h2>
+ <a href="../run/myprojectruns.html"><spring:message code="teacher.pro.lib.changeperiods.2"/></a>
+ <h2><spring:message code="teacher.pro.lib.changeperiods.3"/></h2>
 <div id="periods"> 
-To change period(s) for this project run, click checkboxes below and click Save Changes.
- 
+	<spring:message code="teacher.pro.lib.changeperiods.4"/>
 </div>
 </body>
 </html>

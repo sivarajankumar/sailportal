@@ -30,7 +30,7 @@
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<title>Language Translations</title>
+<title><spring:message code="teacher.pro.translations.0"/>Language Translations</title>
 
 </head>
 
@@ -45,32 +45,22 @@
 <div id="overviewContent"> 
 
 <div id="translations">
-<h1>WISE Language Translations</h1>
+<h1><spring:message code="teacher.pro.translations.1"/></h1>
 
-<p>Interested in having your students experience a WISE project in a language other than English? Several WISE projects are
-currently available in non-English languages. Search the Project Library for details. In addition, WISE projects can be
-translated into virtually any language. If you see an English-only project that you would like to translate, read on.</p>
+<p><spring:message code="teacher.pro.translations.2"/></p>
 
-<p><b>Getting Started:</b> We really love to hear from teachers and academics in foreign nations who are interested in using
-WISE projects. Contact us and we can bring our knowledge of English-speaking cultural issues to bear on your translation
-efforts. We can also put our technical resources at your disposal and look for ways to establish WISE in your country.</p>
+<p><b><spring:message code="teacher.pro.translations.3"/></b>&nbsp;<spring:message code="teacher.pro.translations.4"/></p>
 
-<p><b>Translating a Project:</b> In the My Customized Projects area you can duplicate any WISE library project and customize
-it to your language. You can edit each step of a project, translating all text. Remember, however, that outside web pages
-linked to a project aren't controlled by the WISE site, and therefore are not always available for translation. You may need
-to search for web pages in your language that have similar content. Also, there is always a chance that cultural differences
-will need to be taken into account when using a project. If you ask us, we can help address those issues.</p>
+<p><b><spring:message code="teacher.pro.translations.5"/></b>&nbsp;<spring:message code="teacher.pro.translations.6"/></p>
 
-<p><b>The WISE Interface:</b> Many of the interface controls and mouse-over tool tips in WISE v3.0 display English words.
-These can also be translated by sending a list of requests to the WISE engineering staff.</p>
+<p><b><spring:message code="teacher.pro.translations.7"/></b> <spring:message code="teacher.pro.translations.8"/></p>
 
-<p>If you want to get started on a translation or have any other questions, please contact WISE and we would be happy to guide
-you through the translation process.</p>
+<p><spring:message code="teacher.pro.translations.9"/></p>
  
 </div>      <!--end of Translations div-->
 </div>    <!--end of CenteredDiv div-->
 
-<h3 class="center"><a  href="index.html"> Back to Overview </a></h3>
+<h3 class="center"><a href="index.html"><spring:message code="teacher.pro.translations.10"/></a></h3>
 
 </body>
 </html>

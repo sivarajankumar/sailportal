@@ -23,14 +23,14 @@
 
 	<ul>
 		<li >
-			<a class="navigationL2leftborder" href="../index.html">Overview</a> </li>
+			<a class="navigationL2leftborder" href="../index.html"><spring:message code="teacher.pro.custom.L2.1"/></a> </li>
        	<li>
-			<a  href="../projectlibrary.html">Project Library</a> </li>
+			<a  href="../projectlibrary.html"><spring:message code="teacher.pro.custom.L2.2"/></a> </li>
 		<li>
-			<a href="../../run/myprojectruns.html">My Project Runs</a> </li>
+			<a href="../../run/myprojectruns.html"><spring:message code="teacher.pro.custom.L2.3"/></a> </li>
 		<li>
-			<a style="color:#999999;" href="#">My Bookmarked Projects</a> </li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.pro.custom.L2.4"/></a> </li>
 		<li>
-			<a class="navigationL2_projects_highlight" href="../../projects/customized/index.html">My Customized Projects</a> </li>
+			<a class="navigationL2_projects_highlight" href="../../projects/customized/index.html"><spring:message code="teacher.pro.custom.L2.5"/></a> </li>
    </ul>
 </div>	

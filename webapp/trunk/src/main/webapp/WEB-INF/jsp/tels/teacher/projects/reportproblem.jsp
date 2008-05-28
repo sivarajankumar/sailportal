@@ -31,36 +31,36 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
-<title>Teacher:Projects - Report Problem </title>
+<title><spring:message code="teacher.pro.reportproblem.1"/></title>
 
 </head>
 
 <body>
 <%@ include file="projectHeader.jsp"%>
- <a href="runmanager.html"> Back to Project Run Manager </a>
- <h2> REPORT A PROBLEM WITH A PROJECT </h2>
+ <a href="runmanager.html"><spring:message code="teacher.pro.reportproblem.2"/></a>
+ <h2><spring:message code="teacher.pro.reportproblem.3"/></h2>
 
 <div id="overviewContent"> 
 <form>
-<label> Name: </label> <br />
-<label> Email: </label> <br />
-<label> Project: </label> <br />
-<label> Issue: </label> 
+<label><spring:message code="teacher.pro.reportproblem.4"/></label> <br />
+<label><spring:message code="teacher.pro.reportproblem.5"/></label> <br />
+<label><spring:message code="teacher.pro.reportproblem.6"/></label> <br />
+<label><spring:message code="teacher.pro.reportproblem.7"/></label> 
 <select> 
-<option> Trouble Signing In </option>
-<option> Need Help Using WISE </option>
-<option> Broken Link </option>
-<option> Spelling or Factual Error </option>
-<option> Error Messages </option>
-<option> Problem Running Java </option>
-<option> Problem running a Model/Simulation </option>
-<option> Problem with a Student or Period </option>
-<option> Problem with Project Editor (authoring) </option>
-<option> Misc. Problem </option>
-<option> Request for New Feature </option>
+<option> <spring:message code="teacher.pro.reportproblem.8"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.9"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.10"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.11"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.12"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.13"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.14"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.15"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.16"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.17"/></option>
+<option> <spring:message code="teacher.pro.reportproblem.18"/></option>
 </select>
 <br />
-<label> Operating System: </label> 
+<label><spring:message code="teacher.pro.reportproblem.19"/></label> 
 <select> 
 <option> Windows Vista </option>
 <option> All other Windows </option>
@@ -80,36 +80,24 @@
 <option> Other </option>
 </select>
 <br />
-<label> Subject: </label> <input type="text" size="100" /> <br />
-<label> Message: </label> <br />
+<label><spring:message code="teacher.pro.reportproblem.20"/></label> <input type="text" size="100" /> <br />
+<label><spring:message code="teacher.pro.reportproblem.21"/></label> <br />
 <textarea cols="100" rows="10"> specify message </textarea> <br />
 <ul>
-<li> Please be as descriptive
-as possible. Make sure to
-give any error messages
-or the URLs of any
-broken links.
-</li>
-<li>
-Make sure to note the
-Activity and Step number
-where a problem exists.
-</li>
-<li>
-WISE staff will be able to
-resolve your problems
-more quickly and easily if
-you provide as much
-detail as possible.
+<li><spring:message code="teacher.pro.reportproblem.22/></li>
+
+<li><spring:message code="teacher.pro.reportproblem.23"/></li>
+
+<li><spring:message code="teacher.pro.reportproblem.24"/>
 </li>
 </ul>
 
-<input type="button" value="Cancel" />
-<input type="submit" value="Send Message to WISE" />
+<input type="button" value="<spring:message code="teacher.pro.reportproblem.25"/>" />
+<input type="submit" value="<spring:message code="teacher.pro.reportproblem.26"/>" />
 
 </form>
 
-<a href="runmanager.html"> Return to Project Run Manager </a>
+<a href="runmanager.html"><spring:message code="teacher.pro.reportproblem.27"/></a>
 
 </div>
 
