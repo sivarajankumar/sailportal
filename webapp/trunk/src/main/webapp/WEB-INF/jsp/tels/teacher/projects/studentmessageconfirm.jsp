@@ -34,7 +34,7 @@
 </head>
 
 <body>
-<%@ include file="projectHeader.jsp"%>
+
  <a href="runmanager.html"><spring:message code="teacher.pro.studentmsgconfirm.2"/></a>
  <h2><spring:message code="teacher.pro.studentmsgconfirm.3"/></h2>
 
@@ -43,7 +43,7 @@
 <p><spring:message code="teacher.pro.studentmsgconfirm.5"/></p>
 <p><spring:message code="teacher.pro.studentmsgconfirm.6"/></p>
 
-<a href="runmanager.html"><spring:message code="teacher.pro.studentmsgconfirm.7"/>Return to Project Run Manager </a>
+<a href="runmanager.html"><spring:message code="teacher.pro.studentmsgconfirm.7"/></a>
 
 </div>
 
