@@ -78,7 +78,7 @@
 	</tr>
 	</table>
 			
-<h5><spring:message code="teacher.run.setup.9"/>&nbsp;<em><spring:message code="teacher.run.setup.10"/></em><spring:message code="teacher.run.setup.11"/>&nbsp;</h5>
+<h5><spring:message code="teacher.run.setup.9"/>&nbsp;<em><spring:message code="teacher.run.setup.10"/></em>&nbsp;<spring:message code="teacher.run.setup.11"/></h5>
 
 </div> <!-- /* End setUpRunBox */-->
 

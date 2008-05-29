@@ -107,8 +107,8 @@
 
 <div id="tabSystem" class="yui-navset">
     <ul style="font-weight:bold; font-size:.7em; letter-spacing:1px;" class="yui-nav">
-        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em><spring:message code="teacher.run.myprojectruns.1"/></em></a></li>
-        <li><a href="#archivedRuns"><em><spring:message code="teacher.run.myprojectruns.1"/>Archived Runs</em></a></li>
+        <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em><spring:message code="teacher.run.myprojectruns.1A"/></em></a></li>
+        <li><a href="#archivedRuns"><em><spring:message code="teacher.run.myprojectruns.1B"/></em></a></li>
     </ul>            
     <div class="yui-content">
         <div id="currentRuns">
@@ -204,15 +204,15 @@
 				</div>
         </div><!-- end current runs tab -->
         <div id="archivedRuns">
-        <h5 style="margin:3px 0 0 0;" id="subHeader"><spring:message code="teacher.run.myprojectruns.1"/>The following projects have been archived. <br />
-        					<spring:message code="teacher.run.myprojectruns.1"/>To manage any archived Project Run select one of its Actions. </h5>
+        <h5 style="margin:3px 0 0 0;" id="subHeader"><spring:message code="teacher.run.myprojectruns.24"/><br />
+        					<spring:message code="teacher.run.myprojectruns.25"/></h5>
         		<div id="runBox">
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:48%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.1"/>Archived Project Runs</th>
-				       <th style="width:34%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.1"/>Run Information</th>      
-				       <th style="width:18%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.1"/>Actions</th>
+				       <th style="width:48%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.26"/></th>
+				       <th style="width:34%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.27"/></th>      
+				       <th style="width:18%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.28"/></th>
 				    </tr>
 				  <c:forEach var="run" items="${ended_run_list}">
 				  
@@ -226,16 +226,16 @@
 				    <td style="vertical-align:top; padding:0px;">
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 				          <tr>
-				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.1"/>Period</th>
-				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.1"/>Project Code</th>
-				            <th class="tableInnerHeaderRight"><spring:message code="teacher.run.myprojectruns.1"/>Students</th>
+				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.29"/></th>
+				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.30"/></th>
+				            <th class="tableInnerHeaderRight"><spring:message code="teacher.run.myprojectruns.31"/></th>
 				          </tr>
 				          <c:forEach var="period" items="${run.periods}">
 				            <tr>
 				              <td style="width:20%;" class="tableInnerData">${period.name}</td>
 				              <td style="width:45%;" class="tableInnerData">${run.runcode}-${period.name}</td>
 				              <td style="width:35%;" class="tableInnerDataRight">
-				                ${fn:length(period.members)} <spring:message code="teacher.run.myprojectruns.1"/>registered
+				                ${fn:length(period.members)} <spring:message code="teacher.run.myprojectruns.32"/>
 				                
 				              </td>
 				            </tr>
@@ -244,11 +244,11 @@
 				    </td>
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
-					    	<li><a style="color:#cccccc;" href="#">View Project Info</a></li>
-					    	<li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')"><spring:message code="teacher.run.myprojectruns.1"/>Move to Current Runs</a></li>
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.1"/>View Students</a></li>
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.1"/>View Student Work</a></li>
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.1"/>Report a Problem</a></li>
+					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.33"/></a></li>
+					    	<li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')"><spring:message code="teacher.run.myprojectruns.34"/></a></li>
+					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.35"/></a></li>
+					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.36"/></a></li>
+					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.37"/></a></li>
 					    </ul>
 					</td>
 				   </tr>

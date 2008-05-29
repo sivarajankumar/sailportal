@@ -59,17 +59,17 @@
       <b><spring:message code="teacher.run.setup.16"/></b>
 	</c:when>
 	<c:otherwise>
-<table  id="projectTable" border="1" cellpadding="3" cellspacing="2" style="margin:0 0 0 25px;">
-	<tr id="projectTableR1">
-		<td><spring:message code="teacher.run.setup.17"/></td>
-		<td><spring:message code="teacher.run.setup.18"/></td>
-		<td><spring:message code="teacher.run.setup.19"/></td>
-		<td><spring:message code="teacher.run.setup.20"/></td>
-		<td><spring:message code="teacher.run.setup.21"/></td>
+<table  id="setupProjectTable" border="0" style="margin:0 0 0 25px; ">
+	<tr id="setupProjectTableR1">
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.17"/></td>
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.18"/></td>
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.19"/></td>
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.20"/></td>
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.21"/></td>
 	</tr>
     <c:forEach var="run" items="${existingRunList}">
-	    <tr id="projectTableR2">
-	     <td class="center">
+	    <tr id="setupProjectTableR2">
+	     <td class="center" style="border:1px solid #333333;">
 	     
 	     <!-- CHECKBOXES -->
 		    <div id="runcheckboxes">
@@ -78,10 +78,10 @@
 		 <!-- END CHECKBOXES -->
     <!--end of SetUpRunBox -->
 	     </td>
-		        <td><strong>${run.sdsOffering.name}</strong></td>
-		        <td>${run.id}</td>
-		        <td>${run.starttime.month + 1}/${run.starttime.date}/${run.starttime.year + 1900}</td>
-		        <td>${run.endtime}</td>
+		        <td style="border:1px solid #333333;"><strong>${run.sdsOffering.name}</strong></td>
+		        <td style="border:1px solid #333333;">${run.id}</td>
+		        <td style="border:1px solid #333333;">${run.starttime.month + 1}/${run.starttime.date}/${run.starttime.year + 1900}</td>
+		        <td style="border:1px solid #333333;">${run.endtime}</td>
 	     </tr>
 	</c:forEach>
 	</table>

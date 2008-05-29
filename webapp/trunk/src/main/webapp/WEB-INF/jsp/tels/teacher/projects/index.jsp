@@ -31,7 +31,7 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
  
-<title><spring:message code="teacher.pro.lib.index.1="/></title>
+<title><spring:message code="teacher.pro.lib.index.1"/></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>

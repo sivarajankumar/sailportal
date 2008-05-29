@@ -24,8 +24,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <title><spring:message code="teacher.run.manage.startrun.2"/></title>
 </head>
@@ -33,8 +34,13 @@
 <body>
 
 <h1><spring:message code="teacher.run.manage.startrun.3"/></h1>
+
 <p><spring:message code="teacher.run.manage.startrun.4"/></p>
-<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.run.manage.startrun.5"/></a></div>
+<p><spring:message code="teacher.run.manage.startrun.5"/></p>
+
+<div id="responseButtons">
+	<input type="reset" onclick="javascript:window.close()" name="cancelarchive" value="Close Window" />
+</div>
 
 </body>
 </html>

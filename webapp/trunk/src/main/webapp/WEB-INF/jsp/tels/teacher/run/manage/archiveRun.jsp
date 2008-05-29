@@ -37,9 +37,6 @@
 
 <body>
 
-
-<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
-
 <div id="popUpBoxBoundary">
 
 <div id="largeHeader"><spring:message code="teacher.run.manage.archiverun.2"/></div>
@@ -70,20 +67,17 @@
 
 
 <div id="responseButtons">
-    <input class="center" type="image" id="savebutton" src="../../../<spring:theme code="register_save" />" 
-    onmouseover="swapImage('savebutton','../../../<spring:theme code="register_save_roll" />');" 
-    onmouseout="swapImage('savebutton','../../../<spring:theme code="register_save" />');" />
+   
+<input type="submit" name="archiveproject" value="<spring:message code="teacher.pro.runmanager.21"/>" />
 
-    <a href="#" onclick="javascript:window.close()"
-    onmouseout="MM_swapImgRestore()" 
-    onmouseover="MM_swapImage('cancelbutton','','../../../themes/tels/default/images/Cancel-Reg-Roll.png',1)">
-    <img src="../../../themes/tels/default/images/Cancel-Reg.png" 
-    alt="Cancel Button" border="0" id="cancelbutton" /></a>
+<input type="reset" onclick="javascript:window.close()" name="cancelarchive" value="<spring:message code="navigate.cancel"/>" />
+
 </div>
+
+
 
 </form:form>
 
-</div>
 </div>    <!--    End of popUpTextBoundary -->
 
 </body>
