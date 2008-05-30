@@ -32,14 +32,16 @@
 <title><spring:message code="student.changeperiodteam.1"/></title>
 </head>
 
-<body style="background-color:transparent;">
+<body>
 
-<div id="centeredDiv" style="background-color:transparent;">
 
-<div id="popUpWindow1">
-	<h3 align="center"><spring:message code="student.changeperiodteam.1"/></h3>
+<div style="text-align:center;margin:40px auto;" id="popUpWindow1">
+	<h5><spring:message code="student.changeperiodteam.2"/></h5>
+	 
 </div>
 
+<div id="hotInputFields">
+	<input type="reset" onclick="javascript:window.close()" name="cancelarchive" value="<spring:message code="teacher.run.manage.archiverun.10"/>" />
 </div>
 
 </body>

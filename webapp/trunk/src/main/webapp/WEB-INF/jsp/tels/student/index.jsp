@@ -292,7 +292,7 @@ YAHOO.util.Event.onDOMReady(init);
 	<!-- note: to make the change student password into AJAX, type in class="changepasswordLink" -->	
 					
 	<li><a href="#"
-        onclick="javascript:popup640('changestudentpassword.html?userName=${user.userDetails.username}')"	
+        onclick="javascript:popup640('changestudentpassword.html?userName=${user.userDetails.username}');"	
 		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
 		onmouseout="swapImage('studentchangepwd','../<spring:theme code="student_change_password" />');"
 		> <img
@@ -396,7 +396,7 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:otherwise>
 											</c:choose></li>
 											<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
-											<li><a class="changePeriodTeamLink" style="letter-spacing:0px;" href="#"><spring:message code="student.index.19"/></a></li>
+											<li><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
 											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
 									 	</ul>
 							 	</td>

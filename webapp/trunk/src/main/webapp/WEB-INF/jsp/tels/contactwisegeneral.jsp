@@ -160,7 +160,7 @@
   </dl>    
      <div id="asterixWarning"><spring:message code="contactwisegeneral.12"/></div>  
         
-    <div><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contactwisegeneral.13"/>"></input></div>
+    <div id="hotInputFields"><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contactwisegeneral.13"/>"></input></div>
                   
 </form:form>
 

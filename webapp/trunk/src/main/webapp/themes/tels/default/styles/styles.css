@@ -550,7 +550,7 @@
 #pageTitle {
 	clear:both;
 	text-align:center;
-	width:880px;
+	width:810px;
 	margin: 15px auto;
 	border: 1px solid #333333;
 	background-image: url(../images/GradientFooter.png);
@@ -639,10 +639,6 @@
 	text-align:left;
 	padding:3px;
 	font-size:.9em;
-}
-
-#contactWISEForm input {
-	padding-left:2px;
 }
 
 #sendMessageButton {

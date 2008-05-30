@@ -61,6 +61,25 @@ abbr, acronym {
 	margin: 0 auto;
 	}
 	
+	
+#hotInputFields  {
+	margin:15px;
+}
+
+#hotInputFields input {
+	text-align:center;
+	border-top:1px solid #666666;
+	border-right:2px ridge #000000;
+	border-bottom:2px ridge #000000;
+	border-left:1px solid #666666;
+	background-color:#CCCCFF;
+	padding:5px;
+		}
+
+#hotInputFields input:hover {
+	background-color:#FFFF33;
+}
+
 .center {text-align:center;}
 
 form {margin:0px; padding:0px;}

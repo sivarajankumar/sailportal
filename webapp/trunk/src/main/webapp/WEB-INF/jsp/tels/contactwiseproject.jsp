@@ -168,12 +168,13 @@
   </dl>    
      <div id="asterixWarning"><spring:message code="contactwiseproject.15"/></div>  
         
-    <div align="center"><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contactwiseproject.16"/>" ></input>
-       
-</div>
+    <div id="hotInputFields">
+    	<input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contactwiseproject.16"/>"></input>
+  	</div>
+
 </form:form>
 
-<h5 align="center"><a href="index.html"><spring:message code="contactwiseproject.17"/></a></h5>
+<h5><a href="index.html"><spring:message code="contactwiseproject.17"/></a></h5>
 
 </div>
 
