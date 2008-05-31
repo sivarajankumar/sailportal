@@ -395,7 +395,7 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:choose>
 												</c:otherwise>
 											</c:choose>
-											<li><a href="#" style="background-color:#000066;">reset</a></li>
+											<li style="display:none;"><a href="#" style="background-color:#000066;">reset</a></li>
 											<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
 											<li><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
 											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
