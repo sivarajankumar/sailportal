@@ -594,9 +594,6 @@ img#none{
 	line-height:100%;
 	}
 	
-#actionList li {
-	}
-
 #customProjectTable a:link, #customProjectTable a:visited, #actionList a:link, #actionList a:visited {
 	text-decoration:none;
 	font-size:.85em;

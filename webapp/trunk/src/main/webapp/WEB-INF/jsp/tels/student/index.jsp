@@ -375,26 +375,27 @@ YAHOO.util.Event.onDOMReady(init);
 								<td>
 									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
 								<td rowspan="5" style="width:30%; padding:2px;">
-									  	<ul id="studentActionList">
-											<li><c:choose>
+									  	<ul id="studentActionList">   
+											<li>
+											<c:choose>
 												<c:when test="${studentRunInfo.workgroup == null}">
-													<a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}'><spring:message code="student.index.17"/></a>
+													<a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a>
 												</c:when>
 												<c:otherwise>
 													<c:choose>
 														<c:when
 															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-															<a href="startproject.html?runId=${studentRunInfo.run.id}"
-																id='${studentRunInfo.run.id}' class="">RUN PROJECT</a>
+															<a href="startproject.html?runId=${studentRunInfo.run.id}" 
+																id='${studentRunInfo.run.id}' class="disappear"><spring:message code="student.index.17"/></a>
 														</c:when>
 														<c:otherwise>
-															<a
-																href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+															<a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"   
 																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.17"/></a>
 														</c:otherwise>
 													</c:choose>
 												</c:otherwise>
-											</c:choose></li>
+											</c:choose>
+											<li><a href="#" style="background-color:#000066;">reset</a></li>
 											<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
 											<li><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
 											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
@@ -459,7 +460,8 @@ YAHOO.util.Event.onDOMReady(init);
 					<div id="instructionsArea">
 						<h6><spring:message code="student.index.29"/></h6>
 						<ol>
-							<li><spring:message code="student.index.30"/></li>
+							<li><spring:message code="student.index.30A"/></li>
+								<ul style="margin:5px 0 5px 25px;"><li><spring:message code="student.index.30B"/></li></ul>
 							<li><spring:message code="student.index.31"/></li>
 							<li><spring:message code="student.index.32"/></li>
 							<li><spring:message code="student.index.33"/></li>

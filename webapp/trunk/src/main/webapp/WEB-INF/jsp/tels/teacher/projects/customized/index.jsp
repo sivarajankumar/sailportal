@@ -207,7 +207,7 @@
 
                 /*
                     "tween" event handler for the Anim instance, used to 
-                    syncronize the size and position of the Menu instance's 
+                    synchronize the size and position of the Menu instance's 
                     shadow and iframe shim (if it exists) with its 
                     changing height.
                 */
@@ -434,7 +434,7 @@
             	<tr>
             		<td><a href="#"><spring:message code="teacher.pro.custom.index.15"/></a></td>
 	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.16"/></a></td>
-	             	<td><a href="#" onclick="toggle_visibility('toggle');"><spring:message code="teacher.pro.custom.index.17"/></a></td>
+	             	<td><a href="#" onclick="toggle_visibility('toggleAllCurrent');"><spring:message code="teacher.pro.custom.index.17"/></a></td>
 	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.18"/></a></td>
 	            </tr>
 	         </table> 
@@ -475,18 +475,20 @@
 				   </tr>
 				   <tr>
 				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggle');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
-					   		<div id="toggle">
-				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
+				   			<div><a href="#" onclick="toggle_visibility('toggleProjectSummaryCurrent');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
+					   		<div id="toggleAllCurrent">
+					   			<div id="toggleProjectSummaryCurrent">
+				   					<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
 				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
 				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
 				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
 				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
 				   		hendrerit esse consequat exerci.</div>
-							  <div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
+							  		<div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
 				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
-				   			<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
-				   			</div>
+				   					<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
+				   				</div>
+				   		   </div>
 				   		</td>
 				   </tr>
 				</table>
@@ -499,7 +501,7 @@
             	<tr>
             		<td><a href="#"><spring:message code="teacher.pro.custom.index.15"/></a></td>
 	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.16"/></a></td>
-	             	<td><a href="#" onclick="toggle_visibility('toggle');"><spring:message code="teacher.pro.custom.index.17"/></a></td>
+	             	<td><a href="#" onclick="toggle_visibility('toggleAllShared');"><spring:message code="teacher.pro.custom.index.17"/></a></td>
 	            </tr>
 	         </table> 
 	         
@@ -539,16 +541,18 @@
 				   </tr>
 				   <tr>
 				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggleShared');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
-					   		<div id="toggleSharded">
-				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
+				   			<div><a href="#" onclick="toggle_visibility('toggleProjectSummaryShared');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
+					   		<div id="toggleAllShared">
+					   			<div id="toggleProjectSummaryShared">
+				   					<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
 				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
 				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
 				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
 				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
 				   		hendrerit esse consequat exerci.</div>
-							  <div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
+							  		<div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
 				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
+				   				</div>
 				   			</div>
 				   			<div id="customProjectSummaryData"><b>This Project is Being Shared By:</b>: <a href="#" style="font-size:1.2em;">Attila the Hun2</a>
 				   			</div>
@@ -588,15 +592,16 @@
 				   </tr>
 				   <tr>
 				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggleArchive');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
-					   		<div id="toggleArchive">
+				   			<div><a href="#" onclick="toggle_visibility('toggleCustomProjectArchive');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
+				   			
+				   			<div id="toggleCustomProjectArchive">
 				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
 				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
 				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
 				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
 				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
 				   		hendrerit esse consequat exerci.</div>
-							  <div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
+							  	<div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
 				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
 				   			</div>
 				   		</td>
