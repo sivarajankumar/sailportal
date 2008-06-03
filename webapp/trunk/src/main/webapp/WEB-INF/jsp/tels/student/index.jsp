@@ -23,6 +23,11 @@
 <script language="JavaScript">
 	function popup(URL) {
   	window.open(URL, 'SelectTeam', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=850,height=600,left = 570,top = 300');}
+  	
+  	function invalidateLink(linkID) {
+  	   window.location= document.getElementById(linkID).href;
+  	   document.getElementById(linkID).href="#";
+  	}
 </script>
 
 <script>
@@ -386,7 +391,7 @@ YAHOO.util.Event.onDOMReady(init);
 														<c:when
 															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
 															<a href="startproject.html?runId=${studentRunInfo.run.id}" 
-																id='${studentRunInfo.run.id}' class="disappear"><spring:message code="student.index.17"/></a>
+																id='${studentRunInfo.run.id}' class="disappear" onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a>
 														</c:when>
 														<c:otherwise>
 															<a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"   
