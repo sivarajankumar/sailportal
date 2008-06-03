@@ -289,9 +289,5 @@ table tr, table td {
 	margin-left:0;
 	} 
 	
-/* USED TO MAKE THE STUDENT PROJECT RUN BUTTON DISAPPEAR AFTER CLICKED  */
 
-a.disappear:visited {
-	visibility:hidden;
-}
 	

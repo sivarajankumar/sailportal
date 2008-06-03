@@ -27,6 +27,8 @@
   	function invalidateLink(linkID) {
   	   window.location= document.getElementById(linkID).href;
   	   document.getElementById(linkID).href="#";
+  	   document.getElementById(linkID).style.backgroundColor='#000066';
+  	   document.getElementById(linkID).style.color='#666666';
   	}
 </script>
 
@@ -391,7 +393,7 @@ YAHOO.util.Event.onDOMReady(init);
 														<c:when
 															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
 															<a href="startproject.html?runId=${studentRunInfo.run.id}" 
-																id='${studentRunInfo.run.id}' class="disappear" onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a>
+																id='${studentRunInfo.run.id}' onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a>
 														</c:when>
 														<c:otherwise>
 															<a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"   
@@ -400,7 +402,6 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:choose>
 												</c:otherwise>
 											</c:choose>
-											<li style="display:none;"><a href="#" style="background-color:#000066;">reset</a></li>
 											<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
 											<li><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
 											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
@@ -466,7 +467,10 @@ YAHOO.util.Event.onDOMReady(init);
 						<h6><spring:message code="student.index.29"/></h6>
 						<ol>
 							<li><spring:message code="student.index.30A"/></li>
-								<ul style="margin:5px 0 5px 25px;"><li><spring:message code="student.index.30B"/></li></ul>
+								<ul style="margin:5px 0 5px 25px;font-size:.9em;">
+									<li><spring:message code="student.index.30B"/></li>
+									<li><spring:message code="student.index.30C"/></li>
+								</ul>
 							<li><spring:message code="student.index.31"/></li>
 							<li><spring:message code="student.index.32"/></li>
 							<li><spring:message code="student.index.33"/></li>
