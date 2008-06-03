@@ -223,7 +223,7 @@ width: 100%;
                             
                             <div id="header"><spring:message code="home.testimonialslabel"/></div>
                             
-                            <div class="alignCenter"><img class="dataBoxStyle" id="rotatorT" src="./themes/tels/default/images/testimonial.png" height="228" /></div>
+                            <div class="alignCenter"><img class="dataBoxStyle" id="rotatorT" src="./themes/tels/default/images/testimonial_1.png" height="228" /></div>
                             
                             <div id="testimonialsNavTable" class="alignCenter">
                             
