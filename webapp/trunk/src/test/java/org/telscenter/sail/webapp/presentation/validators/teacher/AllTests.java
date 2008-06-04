@@ -33,7 +33,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	org.telscenter.sail.webapp.presentation.validators.teacher.management.AllTests.class,
 	org.telscenter.sail.webapp.presentation.validators.teacher.EndRunParametersValidatorTest.class,
-	org.telscenter.sail.webapp.presentation.validators.teacher.StartRunParametersValidatorTest.class	
+	org.telscenter.sail.webapp.presentation.validators.teacher.StartRunParametersValidatorTest.class,
+	org.telscenter.sail.webapp.presentation.validators.teacher.ChangePeriodParametersValidatorTest.class
 })
 
 public class AllTests {

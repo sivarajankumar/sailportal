@@ -183,6 +183,7 @@
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
+				/teacher/management/changestudentperiod.html=changeStudentPeriodController
     		</value>
     	</property>
     </bean>

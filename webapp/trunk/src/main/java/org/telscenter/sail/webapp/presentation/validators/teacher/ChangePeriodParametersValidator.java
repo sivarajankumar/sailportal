@@ -20,20 +20,43 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.management;
+package org.telscenter.sail.webapp.presentation.validators.teacher;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.validation.ValidationUtils;
+import org.telscenter.sail.webapp.domain.impl.ChangePeriodParameters;
+
 /**
- * @author patricklawler
- * $Id:$
+ * @author patrick lawler
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-	org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ViewMyStudentsControllerTest.class,
-	org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeStudentPasswordControllerTest.class,
-	org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeStudentPeriodControllerTest.class
-})
+public class ChangePeriodParametersValidator implements Validator{
 
-public class AllTests {
+	public boolean supports(Class clazz){
+		return ChangePeriodParameters.class.isAssignableFrom(clazz);
+	}
+		
+	public void validate(Object params, Errors errors){
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "run", "error.changeperiod.run");
+		
+		if (errors.getErrorCount() != 0) {
+			return;
+		}
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "student", "error.changeperiod.student");
+		
+		if (errors.getErrorCount() != 0) {
+			return;
+		}
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "projectcode", "error.changeperiod.projectcode");
+		
+		if (errors.getErrorCount() != 0) {
+			return;
+		}
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "projectcodeTo", "error.changeperiod.projectcode-To");
+		
+	}
 }

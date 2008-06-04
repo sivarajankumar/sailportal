@@ -732,4 +732,21 @@
 	    <property name="runService" ref="runService" />
 	</bean>
 	
+	<bean id="changeStudentPeriodController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeStudentPeriodController">
+		<property name="commandName" value="changePeriodParameters"/>
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.ChangePeriodParameters"/>
+		<property name="userService" ref="userService"/>
+		<property name="studentService" ref="studentService"/>
+		<property name="runService" ref="runService"/>
+		<property name="sessionForm" value="true"/>
+		<property name="validator" ref="changePeriodParametersValidator"/>
+		<property name="successView" value="teacher/management/changestudentperiodsuccess"/>
+	</bean>
+	
+	<bean id="changePeriodParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.teacher.ChangePeriodParametersValidator"/>
+		
+		
 </beans>
