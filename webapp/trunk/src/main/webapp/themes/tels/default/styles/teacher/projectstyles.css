@@ -395,7 +395,7 @@ img#none{
 }
 
 
-/* STYLES FOR PROJECT INFORMATION section */
+/* STYLES FOR PROJECT OVERVIEW section */
 
 #projectInfoTabs {
 	margin: 18px 0;
@@ -492,13 +492,45 @@ img#none{
 	margin:0px;
 	}
 	
+	
 .projectInfoDataBox li {
 	margin-left:15px;
 	}
    
-   
-   
+#projectCreditsTable {
+	border-collapse:collapse;
+	width:75%;
+	margin: 5px auto 25px auto;
+}
+
+#projectCreditsTable td  {
+	padding:5px;
+	border:1px solid #000000;
+	text-align:center;
+		}
+	
+#projectCreditsTable .col1 {
+	width:25%;
+	background-color:#339966;
+	color:#FFFFFF;
+}
+
+#projectCreditsTable ul {
+	margin:0;
+	padding:5px;
+	text-align:center;
+}
+
+#projectCreditsTable li {
+	list-style-type:none;
+}
     
+#editCreditsLink {
+	margin-left:10px;
+	font-size:1.0em;
+	}
+	
+	
  /* STYLES FOR MY CUSTOMIZED/SHARED PROJECTS section */
       
 #customProjectsButtons  {
@@ -687,4 +719,9 @@ img#none{
 	font-weight:bold;
 	margin:5px 0 7px 0;	
 }
+
+
+
+
+
 	

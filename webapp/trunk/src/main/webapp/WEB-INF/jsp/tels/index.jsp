@@ -204,7 +204,7 @@ width: 100%;
                         counter=proceedToPreviousImage(counter);
                         changeText('actionImgLinkTable',counter);"/>
                         
-                        <a id="actionImgLinkTable">1 <spring:message code="home.wiseinactioncounter"/> 10</a>
+                        <a id="actionImgLinkTable">1&nbsp;<spring:message code="home.wiseinactioncounter"/>&nbsp;10</a>
                         
                         <img id="actionNextTable" src="./themes/tels/default/images/wiseInAction/Arrow_Next.png" 
                         onmouseover="this.style.cursor='pointer';" 

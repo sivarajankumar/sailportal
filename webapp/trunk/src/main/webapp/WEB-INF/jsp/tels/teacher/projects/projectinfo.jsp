@@ -126,9 +126,35 @@ Aliquip suscipit sit amet vero, enim duis minim in, ut duis minim tation. Sed mo
         </div>
         
         <div id="tab4">
-            <h5>PENDING, SUMMER 2008</h5>
-            <p>This section will cite the original source of the project (either created from scratch by X or copied from library/custom project ID xxxxxx.
-            It will also list all registed users who contributed to the authoring of the project, sorted by frequency of involvement. </p>
+            <h4>PROJECT CREDITS</h4>
+            <a href="#" id="editCreditsLink">Edit Credits Information</a>
+            <table id="projectCreditsTable">
+            <tr>
+            	<td class="col1">Project Last Edited On:</td>
+            	<td><em>last revised data value</em></td>
+            </tr>
+            <tr> 
+            	<td class="col1">Original Author:</td>
+            	<td><em>data value</em></td>
+			</tr>
+			<tr>
+				<td class="col1">Current Author:</td>
+				<td><em>data value</em></td>
+			</tr>
+			<tr>
+			<td class="col1">Contributors:</td>
+			<td>
+				<ul>
+					<li>data value</li>
+					<li>data value</li>
+					<li>data value</li>
+					<li>data value</li>
+					<li>data value</li>
+					<li>data value</li>
+				</ul>
+			</td>
+			</tr>
+			</table>
         </div>
     </div>
 </div>

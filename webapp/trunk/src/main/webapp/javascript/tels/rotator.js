@@ -26,10 +26,8 @@ var wiseinactions = new Array('./themes/tels/default/images/wiseInAction/AirBag.
                      './themes/tels/default/images/wiseInAction/MolecularModel.jpg',
                      './themes/tels/default/images/wiseInAction/SkinCells.jpg');
 
-var testimonials = new Array('./themes/tels/default/images/testimonial.png',
-                             './themes/tels/default/images/wiseInAction/dummyfile2.jpg',
-                             './themes/tels/default/images/wiseInAction/dummyfile3.jpg',
-							 './themes/tels/default/images/wiseInAction/dummyfile4.jpg',
+var testimonials = new Array('./themes/tels/default/images/testimonial_1.png',
+                             './themes/tels/default/images/testimonial_2.png',
 							 './themes/tels/default/images/wiseInAction/dummyfile5.jpg');
 							 
 //http://code.blizaga.com/javascript_drawing_gradients.html
