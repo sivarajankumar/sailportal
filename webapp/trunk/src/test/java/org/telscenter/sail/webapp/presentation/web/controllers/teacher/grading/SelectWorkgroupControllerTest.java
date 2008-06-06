@@ -28,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Offering;
@@ -80,6 +81,7 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 		this.response = new MockHttpServletResponse();
 		this.workgroup = new WISEWorkgroupImpl();
 		this.group = new PersistentGroup();
+		this.group.setName("group1");
 		((WISEWorkgroup) this.workgroup).setPeriod(group);
 		Set<Group> periods = new HashSet<Group>();
 		periods.add(this.group);
@@ -119,7 +121,7 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 		replay(offeringService);
 
 		Map<Group,List<Workgroup>> expectedPeriodsToWorkgroups = 
-			new HashMap<Group, List<Workgroup>>();
+			new TreeMap<Group, List<Workgroup>>();
 		expectedPeriodsToWorkgroups.put(this.group, new ArrayList<Workgroup>());
 		
 		ModelAndView modelAndView = null;
@@ -131,11 +133,9 @@ public class SelectWorkgroupControllerTest extends AbstractModelAndViewTests {
 		assertNotNull(modelAndView);
 		assertModelAttributeValue(modelAndView, 
 				SelectWorkgroupController.RUN_ID_PARAM_NAME, offeringId);
+		assertModelAttributeAvailable(modelAndView, SelectWorkgroupController.PERIODS_TO_WORKGROUPS_PARAM_NAME);
 		assertModelAttributeValue(modelAndView, 
 				SelectWorkgroupController.PERIODS_TO_WORKGROUPS_PARAM_NAME, expectedPeriodsToWorkgroups);
-		Map<Group,List<Workgroup>> actualPeriodsToWorkgroups = 
-			(Map<Group, List<Workgroup>>) modelAndView.getModel().get(SelectWorkgroupController.PERIODS_TO_WORKGROUPS_PARAM_NAME);
-		assertTrue(actualPeriodsToWorkgroups.get(this.group).isEmpty());
 		verify(offeringService);
 	}
 
