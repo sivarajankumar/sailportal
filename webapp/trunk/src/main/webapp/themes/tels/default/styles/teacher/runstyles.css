@@ -179,6 +179,10 @@ table #runContent{
 	padding:15px;
 }
 
+#blockHighlight #blockItem {
+	width:170px; 
+}
+
 #popUpNotice1 {
 	font-size:1.0em;
 	font-weight:bold;
@@ -191,7 +195,7 @@ table #runContent{
 	text-align:center;
 	width:70%;
 	margin:0 auto;
-	color:#666666;
+	color:#FF0000;
 	}
 
 #responseButtons  {

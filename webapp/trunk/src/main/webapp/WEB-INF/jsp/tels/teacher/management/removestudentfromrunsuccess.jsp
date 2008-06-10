@@ -32,9 +32,13 @@
 
 <body>
 
-<h1><spring:message code="teacher.manage.removestudentsuccess.2"/></h1>
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
+<h2><spring:message code="teacher.manage.removestudentsuccess.2"/></h2>
 <p><spring:message code="teacher.manage.removestudentsuccess.3"/></p>
 <div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.removestudentsuccess.4"/></a></div>
+
+</div>
 
 </body>
 </html>

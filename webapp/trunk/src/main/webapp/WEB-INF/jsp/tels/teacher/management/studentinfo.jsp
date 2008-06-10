@@ -65,10 +65,8 @@
 	</tr>
 </table>
 
-<div class="center" >
- 		 <a href="#" onclick="self.close();return false;">
- 		 <img src="../../themes/tels/default/images/teacher/Close-Window.png" alt="Close Terms of Use" class="imgNoBorder" /></a> 
-</div> 
+<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.changeworkgroup.5"/></div>
+
     
  
 </body>

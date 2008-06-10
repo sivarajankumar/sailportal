@@ -14,7 +14,7 @@
   *
   * You should have received a copy of the GNU Lesser General Public
   * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+  * Foundation, Inc., 51 Franklin Street, Fift h Floor, Boston, MA  02110-1301  USA
 -->
 
 <!-- $Id$ -->
@@ -37,7 +37,6 @@
 
 <body>
 
-
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
 <div id="popUpBoxBoundary">
@@ -47,8 +46,12 @@
 <div id="blockHighlight" >
 	<table>
 		<tr>
-			<td id="blockItem"><spring:message code="teacher.manage.removestudent.3"/></td>
+			<td id="blockItem"><spring:message code="teacher.manage.removestudent.3A"/></td>
 			<td>[full student name]</td>
+		</tr>
+		<tr>
+			<td id="blockItem"><spring:message code="teacher.manage.removestudent.3B"/></td>
+			<td>[student's Username]</td>
 		</tr>
 		<tr>
 			<td id="blockItem"><spring:message code="teacher.manage.removestudent.4"/></td>
@@ -67,7 +70,9 @@
 
 	<div id="popUpNotice1">
 		<h5><spring:message code="teacher.manage.removestudent.7"/></h5>
-		<h5><spring:message code="teacher.manage.removestudent.8"/></h5>
+		<h5><spring:message code="teacher.manage.removestudent.8A"/>
+				&nbsp;<em><spring:message code="teacher.manage.removestudent.8B"/></em>
+				&nbsp;<spring:message code="teacher.manage.removestudent.8C"/></h5>
 		<h5><spring:message code="teacher.manage.removestudent.9"/></h5>
     	<div id="popUpNotice2"><spring:message code="teacher.manage.removestudent.10"/></div>
 	</div>

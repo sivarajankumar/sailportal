@@ -14,9 +14,13 @@
 
 <body>
 
-Success!
+<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+
+<h2><spring:message code="teacher.manage.changeperiod.6"/></h2>
 
 <div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.changeworkgroup.5"/></div>
+
+</div>
 
 </body>
 </html>
