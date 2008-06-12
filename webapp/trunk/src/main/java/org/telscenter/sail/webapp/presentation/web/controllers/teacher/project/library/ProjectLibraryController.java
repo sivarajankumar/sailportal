@@ -30,8 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -53,7 +53,7 @@ public class ProjectLibraryController extends AbstractController {
 		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
 		 List<Project> currentProjectList = new ArrayList<Project>();
 		 for (Project p: projectList) {
-			 if (p.isCurrent())
+			 if (p.getProjectInfo().isCurrent())
 				 currentProjectList.add(p);
 		 }
 		 

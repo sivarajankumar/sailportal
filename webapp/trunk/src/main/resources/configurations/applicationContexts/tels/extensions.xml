@@ -53,8 +53,8 @@
     </bean>
         
     <bean id="projectDao"
-        class="org.telscenter.sail.webapp.dao.project.impl.HibernateProjectDao">
-        <property name="sessionFactory" ref="sessionFactory" />
+        class="org.telscenter.sail.webapp.dao.project.impl.RooloProjectDao">
+       <!-- <property name="sessionFactory" ref="sessionFactory" /> -->
     </bean>
 
     <bean id="module"

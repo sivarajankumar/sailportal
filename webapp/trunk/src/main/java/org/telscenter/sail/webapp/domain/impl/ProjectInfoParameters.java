@@ -24,7 +24,7 @@ package org.telscenter.sail.webapp.domain.impl;
 
 import java.io.Serializable;
 
-import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 
 /**
  * @author Sally Ahn

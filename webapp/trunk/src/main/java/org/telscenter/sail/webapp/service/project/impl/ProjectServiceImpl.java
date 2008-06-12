@@ -50,12 +50,12 @@ import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
-import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -103,7 +103,7 @@ public class ProjectServiceImpl implements ProjectService {
 			this.curnitService.getById(projectParameters.getCurnitId());
 		Jnlp jnlp = 
 			this.jnlpService.getById(projectParameters.getJnlpId());
-		Project project = new ProjectImpl();
+		Project project = this.projectDao.createEmptyProject();
 		project.setCurnit(curnit);
 		project.setJnlp(jnlp);
 		this.projectDao.save(project);
@@ -180,7 +180,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Transactional
 	public ModelAndView authorProject(AuthorProjectParameters authorProjectParameters)
 			throws Exception {
-		String authorProjectUrl = "http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp";
+		String authorProjectUrl = "http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp?curnit_otml_url=urltocms.retrievecurnitbyid";
 		
 		return new ModelAndView(new RedirectView(authorProjectUrl));
 	}
@@ -284,6 +284,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return this.projectDao.retrieveListByTag(familytag);
 	}
 	
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByInfo(org.telscenter.sail.webapp.domain.project.impl.ProjectInfo)
+	 */
+	public List<Project> getProjectListByInfo(ProjectInfo info)
+			throws ObjectNotFoundException {
+	    return this.projectDao.retrieveListByInfo(info);
+	}
+
 	/**
 	 * @param projectDao the projectDao to set
 	 */

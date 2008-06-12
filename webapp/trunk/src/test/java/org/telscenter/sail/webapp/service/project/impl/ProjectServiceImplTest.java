@@ -39,8 +39,8 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -112,7 +112,7 @@ public class ProjectServiceImplTest extends TestCase {
 		// by familytag
 		List<Project> expectedList = new ArrayList<Project> ();
 		Project expectedProject = new ProjectImpl();
-		expectedProject.setFamilytag(EXISTING_PROJECT_FAMILY_TAG);
+		expectedProject.getProjectInfo().setFamilyTag(EXISTING_PROJECT_FAMILY_TAG);
 		expectedList.add(expectedProject);
 		expect(mockProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedList);
 		replay(mockProjectDao);

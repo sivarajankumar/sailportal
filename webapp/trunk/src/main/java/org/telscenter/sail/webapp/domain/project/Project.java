@@ -23,7 +23,6 @@
 package org.telscenter.sail.webapp.domain.project;
 
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
@@ -92,27 +91,33 @@ public interface Project extends Persistable {
 	 */
 	public Long getId();
 	
-	/**
-	 * @return the familyTag
-	 */
-	public FamilyTag getFamilytag();
-
-	/**
-	 * @param familyTag the familyTag to set
-	 */
-	public void setFamilytag(FamilyTag familytag);
-
 //	/**
-//	 * @return the projectInfoTag
+//	 * @return the familyTag
 //	 */
-//	public String getProjectInfoTag();
+//	public FamilyTag getFamilytag();
 //
 //	/**
-//	 * @param projectInfoTag the projectInfoTag to set
+//	 * @param familyTag the familyTag to set
 //	 */
-//	public void setProjectInfoTag(String projectInfoTag);
+//	public void setFamilytag(FamilyTag familytag);
+
+	/**
+	 * @return the projectInfo
+	 */
+	public ProjectInfo getProjectInfo();
+
+	/**
+	 * @param projectInfoTag the projectInfoTag to set
+	 */
+	public void setProjectInfo(ProjectInfo projectInfo);
 	
-	public boolean isCurrent();
-	
-	public void setCurrent(boolean isCurrent);
+//	/**
+//	 * Indicates if the project is available to use in classrooms
+//	 */
+//	public boolean isCurrent();
+//	
+//	/**
+//	 * @param isCurrent
+//	 */
+//	public void setCurrent(boolean isCurrent);
 }

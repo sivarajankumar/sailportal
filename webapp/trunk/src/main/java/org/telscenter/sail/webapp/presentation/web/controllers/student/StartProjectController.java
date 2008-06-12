@@ -51,7 +51,7 @@ import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
  * - they're in a workgroup with other people
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class StartProjectController extends AbstractController {
 

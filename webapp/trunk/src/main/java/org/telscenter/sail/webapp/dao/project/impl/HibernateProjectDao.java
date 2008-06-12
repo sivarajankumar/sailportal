@@ -27,11 +27,10 @@ import java.util.List;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
-import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
-import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
+import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 /**
@@ -42,7 +41,7 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 public class HibernateProjectDao extends AbstractHibernateDao<Project> implements
 		ProjectDao<Project> {
 
-	private static final String FIND_ALL_QUERY = "from ProjectImpl";
+    	private static final String FIND_ALL_QUERY = "from ProjectImpl";
 
 	/**
 	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#retrieveByRunCode(String)
@@ -90,6 +89,16 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 	@Override
 	protected Class<ProjectImpl> getDataObjectClass() {
 		return ProjectImpl.class;
+	}
+
+	public Project createEmptyProject() {
+		return new ProjectImpl();
+	}
+
+	public List<Project> retrieveListByInfo(ProjectInfo projectinfo)
+		throws ObjectNotFoundException {
+	    
+	    return this.retrieveListByTag(projectinfo.getFamilyTag());
 	}
 
 }

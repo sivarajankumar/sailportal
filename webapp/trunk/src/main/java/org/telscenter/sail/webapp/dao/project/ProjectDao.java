@@ -24,8 +24,9 @@ package org.telscenter.sail.webapp.dao.project;
 
 import java.util.List;
 
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.FamilyTag;
+import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.SimpleDao;
@@ -37,6 +38,14 @@ import net.sf.sail.webapp.dao.SimpleDao;
  */
 public interface ProjectDao<T extends Project> extends SimpleDao<T> {
 	
+	
+	/**
+	 * Create a new Project
+	 * @return An empty project
+	 */
+	public T createEmptyProject();
+	
+	
     /**
 	 * Given an input string retrieve a list of corresponding records from data store.
 	 * 
@@ -46,7 +55,7 @@ public interface ProjectDao<T extends Project> extends SimpleDao<T> {
 	 * @return A list of project objects.
 	 * @throws ObjectNotFoundException if list is not found.
 	 */
-	public List<Project> retrieveListByTag(FamilyTag familytag) throws ObjectNotFoundException;
+	public List<T> retrieveListByTag(FamilyTag familytag) throws ObjectNotFoundException;
 
     /**
 	 * Given an input string retrieve a list of corresponding records from data store.
@@ -57,5 +66,18 @@ public interface ProjectDao<T extends Project> extends SimpleDao<T> {
 	 * @return A list of project objects.
 	 * @throws ObjectNotFoundException if list is not found.
 	 */
-	public List<Project> retrieveListByTag(String projectinfotag) throws ObjectNotFoundException;
+	public List<T> retrieveListByTag(String projectinfotag) throws ObjectNotFoundException;
+
+	
+	/**
+	 * Given some ProjectInfo retrieve a list of corresponding records from data store.
+	 * 
+	 * @param family
+	 *            <code>ProjectInfo</code> representing the info of the data in
+	 *            the data store.
+	 * @return A list of project objects.
+	 * @throws ObjectNotFoundException if list is not found.
+	 */
+	public List<T> retrieveListByInfo(ProjectInfo projectinfo) throws ObjectNotFoundException;
+
 }

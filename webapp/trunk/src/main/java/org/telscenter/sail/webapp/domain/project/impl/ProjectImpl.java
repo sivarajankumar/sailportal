@@ -38,14 +38,15 @@ import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
-import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.JnlpImpl;
 
 import org.hibernate.annotations.Cascade;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 
 /**
  * @author Hiroki Terashima
@@ -79,6 +80,9 @@ public class ProjectImpl implements Project {
 	@Transient
 	public static final String COLUMN_NAME_PREVIEWOFFERING_FK = "run_fk";
 
+	@Transient
+	public ProjectInfo projectinfo = new ProjectInfoImpl();
+	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = false, unique = false)
@@ -109,6 +113,7 @@ public class ProjectImpl implements Project {
     @Column(name = "OPTLOCK")
     private Integer version = null;
 	
+    
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
 	 */
@@ -222,6 +227,7 @@ public class ProjectImpl implements Project {
 	 */
 	public void setFamilytag(FamilyTag familytag) {
 		this.familytag = familytag;
+		this.projectinfo.setFamilyTag(familytag);
 	}
 
 	/**
@@ -236,19 +242,21 @@ public class ProjectImpl implements Project {
 	 */
 	public void setCurrent(boolean isCurrent) {
 		this.isCurrent = isCurrent;
+		this.projectinfo.setCurrent(isCurrent);
 	}
 
-//	/**
-//	 * @return the projectInfoTag
-//	 */
-//	public String getProjectInfoTag() {
-//		return projectInfoTag;
-//	}
-//
-//	/**
-//	 * @param projectInfoTag the projectInfoTag to set
-//	 */
-//	public void setProjectInfoTag(String projectInfoTag) {
-//		this.projectInfoTag = projectInfoTag;
-//	}
+
+	/**
+	 * @return the projectInfo
+	 */
+	public ProjectInfo getProjectInfo() {
+		return projectinfo;
+	}
+
+	/**
+	 * @param projectInfoTag the projectInfoTag to set
+	 */
+	public void setProjectInfo(ProjectInfo projectInfo) {
+		this.projectinfo = projectInfo;
+	}
  }
