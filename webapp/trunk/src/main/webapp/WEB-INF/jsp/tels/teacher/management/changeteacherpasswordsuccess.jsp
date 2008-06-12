@@ -1,3 +1,5 @@
+
+
 <%@ include file="../include.jsp" %> 
 
 <!--
@@ -44,24 +46,20 @@
  
 <div id="overviewContent"> 
 
-	<div id="overviewHeader"><spring:message code="teacher.manage.account.2"/></div>
+<div id="overviewHeader"><spring:message code="teacher.manage.account.3"/></div>
 	
-	<table id="overview_choices" cellspacing="20">
-		<tr>
-			<td class="link"><a href="changeteacherpassword.html?userName=${user.userDetails.username}"><spring:message code="teacher.manage.account.3"/></a></td> 
-			<td class="description"><spring:message code="teacher.manage.account.4"/></td></tr>
-		<tr>
-			<td class="link"><a style="color:#999999;" href="changeteacherpasswordsuccess.html"><spring:message code="teacher.manage.account.5"/></a></td>
-			<td class="description"><spring:message code="teacher.manage.account.6"/></td></tr>
-		<tr>
-			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.account.7"/></a></td>
-			<td class="description"><spring:message code="teacher.manage.account.8"/></td></tr>
-		<tr>
-			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.account.9"/></a></td>
-			<td class="description"><spring:message code="teacher.manage.account.10"/></td></tr>
-		
-	</table>
+<div style="text-align:center;">
+
+	<h2><spring:message code="changepassword.passwordchanged" /></h2>
+
+	<div>
+		<a href="updatemyaccount.html">Return to <em>Update My Account</em></a>
+	</div>
 	
+<br/>
+<br/>
+
+</div>
 </div>
 
 
@@ -69,5 +67,4 @@
 
 </body>
 </html>
-
 

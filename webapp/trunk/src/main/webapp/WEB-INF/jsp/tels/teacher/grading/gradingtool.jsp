@@ -537,7 +537,7 @@ aggregate.value = set of workgroupWorkAggregate
 																							<c:set var="score" value="${annotation.contents}"/>
 																							<c:set var="scoreAnnotation" value="${annotation}"/>
 																							<c:if test="${empty score}">
-																								<c:set var="score" value="<spring:message code="teacher.gradingtool.10"/>"/>
+																								<c:set var="score" value="<spring:message code='teacher.gradingtool.10'/>"/>
 																							</c:if>
 																							<c:set var="scoreDone" value="true"/>
 																						</c:if>

@@ -144,12 +144,31 @@
 	}
 	
 #usernameConfirm {
-	width:330px;
+	width:300px;
+	background-color:#CCCCCC;
 	color: #0000FF;
 	font-weight:bold;
 	padding: 0 0 0 5px;
-	margin:0px;
+	margin:0 0 0 5px;
 	font-size:1.2em;
+	border-top: 1px solid #333333;
+	border-right: 2px solid #333333;
+	border-bottom: 2px solid #333333;
+	border-left: 1px solid #333333;
+	}
+	
+#userClassnameConfirm {
+	width:200px;
+	background-color:#CCCCCC;
+	color: #0000FF;
+	font-weight:bold;
+	padding: 2px 2px 2px 5px;
+	margin:0 0 0 5px;
+	font-size:1em;
+	border-top: 1px solid #333333;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #333333;
 	}
 
 #regErrorMessages {
@@ -173,8 +192,8 @@
 #subtitleConfirm  {
 	position: relative;
 	text-align:left;
-	left: 270px;
-	margin-bottom:25px;
+	left: 240px;
+	margin-bottom:45px;
 }
 
 #subtitleConfirm ul {
@@ -189,7 +208,7 @@
 	padding: 0 0 0 25px;
 	line-height:150%;
 	padding-bottom: 10px;
-	width:40%;
+	width:55%;
 }
 
 .smallText {

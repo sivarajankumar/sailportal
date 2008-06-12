@@ -12,6 +12,12 @@
 	top:5px;
 	}
 	
+#teacherBannerLabel2 {
+	position:absolute;
+	left:390px;
+	top:2px;
+	}
+	
 #usernameSignOutBoxTeacher {
 	text-align:right;  
 	position:absolute;

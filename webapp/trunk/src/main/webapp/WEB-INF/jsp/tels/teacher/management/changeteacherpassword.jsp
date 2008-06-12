@@ -1,32 +1,51 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp" %> 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
-<html xml:lang="en" lang="en">
+<!--
+  * Copyright (c) 2006 Encore Research Group, University of Toronto
+  * 
+  * This library is free software; you can redistribute it and/or
+  * modify it under the terms of the GNU Lesser General Public
+  * License as published by the Free Software Foundation; either
+  * version 2.1 of the License, or (at your option) any later version.
+  *
+  * This library is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  * Lesser General Public License for more details.
+  *
+  * You should have received a copy of the GNU Lesser General Public
+  * License along with this library; if not, write to the Free Software
+  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+
+<!-- $Id: overview.jsp 997 2007-09-05 16:52:39Z archana $ -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-    
-<script type="text/javascript" src="../../javascript/tels/general.js"></script>
-<script type="text/javascript" src="../../javascript/tels/effects.js"></script>
 
-    
-<title><spring:message code="application.title" /></title>
-
-<script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
-<script type='text/javascript' src='/webapp/dwr/engine.js'></script>
-<script>
-//alert('hi');
-//alert(ChangePasswordParametersValidatorJS.test('hi'))
-</script>
-
+<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
+ 
+<title><spring:message code="teacher.manage.account.1"/></title>
 </head>
+
 <body>
 
-<h2><spring:message code="teacher.manage.changestudentpass.1"/></h2>
+<div id="centeredDiv">
 
+<%@ include file="headerteachermanagement.jsp"%>
+
+<%@ include file="L2management_updatemyaccount.jsp"%>
+ 
+<div id="overviewContent"> 
+
+<div id="overviewHeader"><spring:message code="teacher.manage.account.3"/></div>
+	
 <div id="errorMessageFormat">
 	<!-- Support for Spring errors object -->
 	<spring:bind path="changeStudentPasswordParameters.*">
@@ -39,33 +58,63 @@
 <div id="popUpWindowTeacherPassword">
 
 	<div id="teacherchangepasswordbox">
-	<dl>
-		<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword">
-		<dt><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></dt>
-      	<dd><form:password path="passwd1" id="teacherchangePasswordField"/></dd>
-
-		<dt><label for="changestudentpassword"><spring:message code="changepassword.password2" /></label></dt>
-		<dd><form:password path="passwd2" id="teacherchangePasswordField"/></dd>
-	</dl>
+		<table cellpadding="8" border="1" style="margin:5px;">
+			<tr>
+			<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword">
+			<td><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></td>
+	      	<td><form:password path="passwd1" id="teacherchangePasswordField"/></td>
+			</tr>
+			<tr>
+			<td><label for="changestudentpassword"><spring:message code="changepassword.password2" /></label></td>
+			<td><form:password path="passwd2" id="teacherchangePasswordField"/></td>
+			</tr>
+		</table>
+				
+	    <div id="teacherPasswordButtons">
+	    
+			    <input type="image" id="teachersave" src="../../<spring:theme code="register_save" />" 
+			    onmouseover="swapImage('teachersave','../../<spring:theme code="register_save_roll" />')" 
+			    onmouseout="swapImage('teachersave','../../<spring:theme code="register_save" />')"/>
+			    
+			    <a href="updatemyaccount.html" >
+			    <input type="image" id="teachercancel" src="../../<spring:theme code="register_cancel" />" 
+			    onmouseover="swapImage('teachercancel','../../<spring:theme code="register_cancel_roll" />')" 
+			    onmouseout="swapImage('teachercancel','../../<spring:theme code="register_cancel" />')"
+			    /> </a>
+	    </div>
 	
-    <div id="teacherPasswordButtons">
-    
-		    <input type="image" id="teachersave" src="../../<spring:theme code="register_save" />" 
-		    onmouseover="swapImage('teachersave','../../<spring:theme code="register_save_roll" />')" 
-		    onmouseout="swapImage('teachersave','../../<spring:theme code="register_save" />')"/>
-		    
-		    <a href="index.html" onclick="javascript:window.close()">
-		    <input type="image" id="teachercancel" src="../../<spring:theme code="register_cancel" />" 
-		    onmouseover="swapImage('teachercancel','../../<spring:theme code="register_cancel_roll" />')" 
-		    onmouseout="swapImage('teachercancel','../../<spring:theme code="register_cancel" />')"
-		    /> </a>
-    </div>
-
-	</form:form>
+		</form:form>
 	 	
  	</div>
  	
 </div>	<!--end of popUpWindowTeacherPassword div-->
 
+</div>
+
+
+
+</div>    <!--End of CenteredDiv-->
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

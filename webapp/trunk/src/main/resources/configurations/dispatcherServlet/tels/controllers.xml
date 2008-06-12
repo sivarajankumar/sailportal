@@ -371,6 +371,11 @@
 	<bean id="updateMyAccountController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateMyAccountController">
 	</bean>
+	
+	<bean id="changeTeacherPasswordSuccessController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeTeacherPasswordSuccessController">
+	</bean>
+	
 <!-- 
 	<bean id="updateTeacherAccountController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateTeacherAccountController">
