@@ -1,0 +1,474 @@
+/**
+ * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+  
+/* CSS FOR THE MAIN HOME PAGE*/	
+
+/* TAGS FOR THE TABLE LAYOUT METHOD   */	
+
+.panelColor {
+	background-image:url(../images/GradientHomeBox.png);
+	background-position:left bottom;
+	background-repeat:repeat-x;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #666666;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #666666;
+	}
+	
+#tableTop {
+	border-collapse:collapse;
+	border:0px;
+	margin:0px;
+	padding: 0px;
+	margin-bottom:15px;
+	}
+	
+#tableBottom {
+	border-collapse:collapse; 
+	border:0px;
+	margin:0px;
+	padding: 0px;
+		}
+	
+#header {
+	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
+	text-align:left;
+	margin: 10px 0 8px 12px;
+	font-weight:bold;
+	font-size: 1.4em;
+	line-height: normal;
+	color:#000033;
+}
+	
+#boxTableWelcome {
+	width: 634px;
+	margin:0px;
+	padding-top: 0;
+	padding-right: 0;
+	padding-bottom: 5px;
+	padding-left: 0;
+	vertical-align: text-top;
+	}
+
+#parastyleTable {
+	float:left;
+	font-size:0.8em;
+	color:black;
+	text-align:left;
+	padding-right: 10px;
+	padding-left: 15px;
+	margin: 5px 0 0px 0;
+}
+
+#welcomeTextLinks {
+	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
+	list-style-type:none;
+	font-size:1em;
+	padding: 6px 0 0 0;
+	line-height: 100%;
+	margin: 0;
+	padding:5px 0 5px 0;
+	width:160px;
+	}
+
+#welcomeTextLinks li {
+	margin: 0 0 9px 0;
+}
+
+#welcomeTextLinks li a:link, #welcomeTextLinks li a:visited {
+	display:block;
+	color:#000066;
+	text-decoration:none;
+	font-weight:bold;
+	margin:0;
+	background-color:#CCCCFF;
+	border: 1px solid #333333;
+	padding:4px 3px 3px 5px; 
+	
+		}
+	
+#welcomeTextLinks li a:hover { 
+	display:block;
+	color:#000000;
+	text-decoration:none;
+	margin:0;
+	padding:1px;
+	background-color:#ffff33;
+	border: 1px solid #6666CC;
+	padding:4px 3px 3px 5px; 
+	}
+	
+.smallText {
+	font-size:.9em;
+	margin: 0 0 5px 5px;
+	width:151px;
+	}
+	
+.welcomeBulletHeader {
+	font-weight:bold;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	}
+		
+#welcomeBullet1, #welcomeBullet2, #welcomeBullet3, #welcomeBullet4, #welcomeBullet5, #welcomeBullet6, #welcomeBullet7 {
+	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
+	float:left;
+	font-size:1em;
+	width:273px; 
+	color:#000066;
+	line-height: 130%;
+	margin:7px 0 0 0;
+	border-left: 1px solid #6666FF;
+	padding: 0 0 0 7px;
+	vertical-align:text-top;
+	}
+	
+#welcomeBullet1 p {
+	padding:0px;
+	margin:0px;
+	}
+	
+#welcomeButtonPosTable {
+	float:right;
+	padding:2px;
+	list-style-type:none;
+	margin:12px 10px 0 2px;
+	}	
+	
+#welcomeButtonPosTable li{
+	padding-top: 0;
+	padding-right: 0;
+	padding-bottom: 10px;
+	padding-left: 0;
+	}	
+	
+#boxTableSignInHome{
+	width:307px;
+	margin:0px;
+	vertical-align: text-top;
+}
+
+#boxTableSignInFailedLogin {
+	width:325px;
+	margin:0px;
+	vertical-align: text-top;
+}
+
+#boxTableSignInHome li, #boxTableSignInFailedLogin li {
+	font-size:.75em;
+		}
+
+#signinDefinList {
+	margin:25px 0 0 25px;	
+		}
+
+#signinDefinList dt {
+	float:left;
+	font-size:.9em;
+	width:82px; 
+	 			}
+		
+#signinDefinList input {
+	font-size:.9em;
+	margin-bottom:10px;
+	width:162px;
+}	
+
+#signInButton {
+	position:relative;
+	margin: 5px 35px 10px 0;
+}
+
+#signInLinkPosition { 
+	position:relative;
+	text-align:right; 
+	margin:25px 30px 0 0;
+	list-style-type:none;
+		}
+	
+#signInLinkPosition li {
+	padding-bottom:10px;
+	text-decoration:none;
+}
+
+#signInLinkPosition li a:link, #signInLinkPosition a:visited { 
+	margin:0;
+	padding:2px; 
+	color:#000066;
+		}
+	
+#signInLinkPosition li a:hover {
+	margin:0;
+	text-decoration:none; 
+	padding:1px;
+	background-color:#ffff33;
+	border: 1px solid #6666CC;
+	}
+	
+.dataBoxStyle {
+	padding: 1px;
+	border-top-width: 1px;
+	border-top-color: #999999;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	border-left-color: #999999;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	}
+	
+#boxWiseInAction{
+	width:304px;
+	vertical-align: text-top;
+}
+
+#actionNavTable {
+	font-size:12px;
+	margin:10px 0 10px 0px;
+		}
+		
+#actionImgLinkTable {
+	margin: 0px 10px 0 10px;
+	bottom:30px;
+	}
+	
+#boxTestimonials {
+	width:313px;
+	vertical-align: text-top;
+}
+
+#boxTestimonials img{
+	border:0px;
+}
+
+#boxLatestNews {
+	width:307px;
+	vertical-align: text-top;
+}
+
+#testimonialsNavTable {
+	font-size:12px;
+	margin:10px 0 10px 0px;
+		}
+		
+#testimonialsImgLinkTable {
+	margin: 0px 10px 0 10px;
+	}
+		
+#newsHeading {
+	padding-bottom:55px;
+}
+
+#newsContent {
+	background-image:url(../images/Pixel_Gray.png);
+	position:relative;
+	height:227px;
+	width:90%;
+	margin-left:14px; 
+	overflow:auto; 
+}
+
+#newsContentHeader {
+	color:#3333FF;
+	font-size:.8em; 
+	font-weight:bold;
+	padding-bottom:7px;
+}
+
+#newsContentData {
+	font-size:.8em; 
+	font-weight:normal;
+	padding-bottom:7px;
+}
+
+#newsArchive {
+	position:relative;
+	bottom:20px;
+	left:100px;
+}
+	
+#newsArchiveButton {
+	padding:5px;
+	margin: 0px;
+}
+
+/* FOOTER TAGS   */	
+
+#footerTable {
+	border-collapse:collapse;
+	width:960px;
+	padding:0px;
+	border-top-width: 3px;
+	border-bottom-width: 3px;
+	border-top-style: double;
+	border-bottom-style:double;
+	border-color:#009900;
+	margin-top: 15px;
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	vertical-align: text-top;
+	}
+
+.marginPushLeft{
+	margin-left:18px;
+}
+
+#footerLogos img {
+	display:inline;
+	border:0px;
+	margin: 5px 10px;
+}
+
+#footerText {
+	width:460;
+	font-size:.7em;
+	padding-bottom: 10px;
+}
+
+#footerTable ul {
+	list-style:none;
+	margin:8px 0 2px 0;
+	padding:0px;
+}
+
+#footerTable li {
+	display:inline;
+	padding-right:8px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #999999;
+	}
+	
+#footerNav2 {
+	padding-left:5px;
+	border-right-width: 1px;
+	}
+
+#footerText p {
+	font-size:.9em;
+	padding:0px 2px;
+	margin:0px;
+	line-height:130%;
+	}
+
+#footerTable li a:link, #footer li a:visited, #footerText a:link, #footerText a:visited {
+	font-size:1.1em;
+	color:#0033CC;
+	text-decoration:none;
+	font-weight:bold;
+	margin:0;
+	padding:2px;
+	}
+	
+#footerTable li a:hover, #footerText a:hover {
+	font-size:1.1em;
+	margin:0;
+	padding:1px;
+	font-weight:bold;
+	background-color:#ffff33;
+	border: 1px solid #6666CC;
+		}
+	
+	
+.alignLeft 	{text-align:left;}
+.alignCenter {text-align:center;}
+.alignRight {text-align:right;}
+.width15 {width:15px;}
+.imgNoBorder {border:0px;}
+
+/* TAGS FOR ANCILLARY LAYOUTS   */
+
+#errorMsg {
+	color:FF0000;
+	text-align:center;
+	font-size:1.2em;
+	margin-top:60px;
+	margin-bottom:0px;
+	font-weight:bold;
+}
+
+
+/* STYLES FOR SIGN OUT BOX IN TOP BANNER */
+
+#usernameSignOutBoxHome {
+	text-align:right;  
+	position:absolute;
+	top:3px;
+	right:8px;
+	margin:0;
+	padding:0px;
+	line-height:100%;
+	}
+
+#usernameBannerHome {
+	color:#FFFFCC;
+	text-align:right;
+	font-style:italic; 
+	font-weight:bold;
+	font-size:1.0em;
+	padding: 0 0 2px 0;
+	margin:0px;
+		}
+
+#signOutBannerHome a:link, #signoutBannerHome a:visited {
+	color:#FFFF66;
+	font-size:.7em;
+	text-decoration:none; 
+	border-bottom: 1px solid #FFFF66;
+				}
+				
+#signOutBannerHome a:hover {
+	color:#330066;
+	text-decoration:none;
+	border-bottom: 1px solid #330066;
+		}
+
+/* This little trick solves a problem with Safari getting confused by a call for "c:url value="/j_acegi_logout"/>" */
+#styleOverRideSafari1 {
+	color:#FFFF66;
+	font-size:.7em;
+	text-decoration:none; 
+	border-bottom: 1px solid #FFFF66;
+				}
+					
+.popUpMenuDefault {
+	font-size:1.0em;
+	font-style:italic;
+}
+
+#overviewMessage {
+	font-size:1.0em;
+	margin:0px;
+	padding: 0 0 12px 0;
+}
+	
+	
+
