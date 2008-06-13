@@ -48,9 +48,16 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     
+    <!-- 
     <bean id="project"
         class="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl">
     </bean>
+     -->    
+     
+    <bean id="project"
+        class="org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl">
+    </bean>
+
         
     <bean id="projectDao"
         class="org.telscenter.sail.webapp.dao.project.impl.RooloProjectDao">

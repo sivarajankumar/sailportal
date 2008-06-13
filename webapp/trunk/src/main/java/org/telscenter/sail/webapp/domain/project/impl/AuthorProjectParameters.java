@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.project.impl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
@@ -38,7 +39,9 @@ public class AuthorProjectParameters {
 	private HttpRestTransport httpRestTransport;
 	
 	private HttpServletRequest httpServletRequest;
-	
+
+	private HttpServletResponse httpServletResponse;
+
 	private Project project;
 
 	/**
@@ -82,4 +85,12 @@ public class AuthorProjectParameters {
 	public void setProject(Project project) {
 		this.project = project;
 	}
+
+	/**
+	 * @param httpServletResponse the httpServletResponse to set
+	 */
+	public void setHttpServletResponse(HttpServletResponse httpServletResponse) {
+		this.httpServletResponse = httpServletResponse;
+	}
+
 }

@@ -22,17 +22,11 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
-import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -49,14 +43,10 @@ public class AuthorProjectController extends AbstractController {
 
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
 
-	private AuthoringJNLPModifier modifier;
-
 	private ProjectService projectService;
 	
 	private HttpRestTransport httpRestTransport;
 	
-	public static final String JNLP_CONTENT_TYPE = "application/x-java-jnlp-file";
-
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -67,43 +57,14 @@ public class AuthorProjectController extends AbstractController {
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		Long projectId = Long.valueOf(projectIdStr);
 		Project project = projectService.getById(projectId);
-		
-		String jnlpUrl = project.getJnlp().getSdsJnlp().getUrl();
-		String curnitUrl = project.getCurnit().getSdsCurnit().getUrl();
-		
-		URL jnlpURL = new URL(jnlpUrl);
-		BufferedReader in = new BufferedReader(
-				new InputStreamReader(jnlpURL.openStream()));
-		
-		String jnlpString = "";
-		String inputLine;
-		while ((inputLine = in.readLine()) != null) {
-			jnlpString += inputLine;
-		}
-		
-		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl);
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader ("Expires", 0);
 
-		String fileName = request.getServletPath();
-		fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
-		fileName = fileName.substring(0, fileName.indexOf(".")) + ".jnlp";
-		response.addHeader("Content-Disposition", "Inline; fileName=" + fileName);
-
-		response.setContentType(JNLP_CONTENT_TYPE);
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().print(outputJNLPString);
-
-		return null;
-		/*
 		AuthorProjectParameters params = new AuthorProjectParameters();
 		params.setProject(project);
 		params.setHttpServletRequest(request);
+		params.setHttpServletResponse(response);
 		params.setHttpRestTransport(httpRestTransport);
 
 		return (ModelAndView) projectService.authorProject(params);
-		*/
 	}
 	
 	/**
@@ -119,13 +80,4 @@ public class AuthorProjectController extends AbstractController {
 	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
 		this.httpRestTransport = httpRestTransport;
 	}
-	
-	/**
-	 * @param modifier the modifier to set
-	 */
-	@Required
-	public void setModifier(AuthoringJNLPModifier modifier) {
-		this.modifier = modifier;
-	}
-
 }

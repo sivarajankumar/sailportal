@@ -18,7 +18,7 @@ import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 
 import roolo.curnit.client.IClientRepository;
-import roolo.curnit.client.basicImpl.ClientCurnitRepository;
+import roolo.curnit.client.impl.ClientCurnitRepository;
 import roolo.curnit.client.basicProxy.CurnitMetadataProxy;
 import roolo.curnit.client.basicProxy.CurnitProxy;
 import roolo.curnit.client.basicProxy.MetadataKeyProxy;
@@ -62,15 +62,31 @@ System.out.println("RooloDAO retrieveListByInfo");
     }
 
 
+    /**
+     * @see org.telscenter.sail.webapp.dao.project.ProjectDao#retrieveListByTag(org.telscenter.sail.webapp.domain.project.FamilyTag)
+     */
     public List<RooloProjectImpl> retrieveListByTag(FamilyTag familytag)
 	    throws ObjectNotFoundException {
-	System.out.println("RooloDAO retrieveListByTag");
-	return null;
+	System.out.println("RooloDAO retrieveListByTag(familytag)");
+	ProjectInfo projectInfo = new ProjectInfoImpl();
+	projectInfo.setFamilyTag(familytag);
+	List<RooloProjectImpl> projects = new ArrayList<RooloProjectImpl>();
+	SimpleQueryMetadata query = new SimpleQueryMetadata();
+	CurnitMetadataProxy metadata = createMetadata(projectInfo);
+	query.setMetadataPattern(metadata);
+	List<URI> curnitIds = rooloClient.search(query);
+	for(URI id : curnitIds) {
+	    try {
+		projects.add( this.getById(id));
+	    } catch (ObjectNotFoundException e) {
+	    }
+	}
+	return projects;
     }
 
     public List<RooloProjectImpl> retrieveListByTag(String projectinfotag)
 	    throws ObjectNotFoundException {
-	System.out.println("RooloDAO retrieveListByTag");
+	System.out.println("RooloDAO retrieveListByTag(projectinfotag)");
 	return null;
     }
 
@@ -177,9 +193,15 @@ System.out.println("RooloDAO retrieveListByInfo");
 	return null;
     }
     
+    /**
+     * @param projectinfo
+     * @return
+     */
     private CurnitMetadataProxy createMetadata(ProjectInfo projectinfo) {
-	// TODO Auto-generated method stub
-	return null;
+    	CurnitMetadataProxy curnitMetadataProxy = new CurnitMetadataProxy();
+    	curnitMetadataProxy.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy(projectinfo.getFamilyTag().toString()));
+    	// TODO: CC or HT: more info e.g. author
+	    return curnitMetadataProxy;
     }
 
 }

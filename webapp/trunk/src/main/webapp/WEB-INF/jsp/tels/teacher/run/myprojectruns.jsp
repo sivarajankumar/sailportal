@@ -171,25 +171,32 @@
 					    	<li><a href="../projects/projectinfo.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.14"/></a></li>
 					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.15"/></a></li>
 					    	<!-- grade-by-step disabled until it is optimized 
-   	                        <li><a href="../grading/gradebystep.html?runId=${run.id}">Grade by Step</a></li>
+   	                        <li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        -->
+                            <li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
+   	                        <!--  
    	                        <li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
-   	                        
+   	                        -->
 						    <li><a href="../grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
 		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">
     					      <li><a href="shareprojectrun.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.18"/></a></li> 
   	                        </authz:accesscontrollist>
   	                        
   	                        <!-- student score summary disabled until it is optimized 
-					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
+					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary"><spring:message code="teacher.run.myprojectruns.19"/></a></li>
 					    	-->
+					    	<li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary"><spring:message code="teacher.run.myprojectruns.19"/></a></li>
+					    	<!-- 
 					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.19"/></a></li>
+ 							 -->
 
 					    	<!-- teacher grading progress disabled until it is optimized 
-					    	<li><a style="color:#cccccc;" href="#">Teacher Grading Progress</a></li>
+					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.20"/></a></li>
 					    	-->
 					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.20"/></a></li>
-					    	
+					    	<!--  
+					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.20"/></a></li>
+					    	-->
 					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.21"/></a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">					    	

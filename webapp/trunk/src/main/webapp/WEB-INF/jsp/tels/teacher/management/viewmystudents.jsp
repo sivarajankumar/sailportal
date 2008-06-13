@@ -10,7 +10,7 @@
 <title><spring:message code="viewmystudents.message" /></title>
 
 <!-- FOR LATER REFACTOR <script src="../../../javascript/tels/custom-yui/changegroupdnd.js" type="text/javascript"> </script> -->
-
+<head>
 <%@ include file="../grading/styles.jsp"%>
 <script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>  
