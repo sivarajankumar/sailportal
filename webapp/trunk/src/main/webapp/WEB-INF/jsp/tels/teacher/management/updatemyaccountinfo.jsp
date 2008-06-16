@@ -25,13 +25,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
   
-<script src=".././javascript/tels/general.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<script src=".././javascript/effects.js" type="text/javascript" ></script>
+<script src="../.././javascript/tels/general.js" type="text/javascript" ></script>
+<script src="../.././javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src="../.././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="../.././javascript/effects.js" type="text/javascript" ></script>
 
 <script type="text/javascript">
 			function checkIfLegalAcknowledged (form, id) {
@@ -76,7 +76,7 @@ function MM_swapImage() { //v3.0
 
 <div id="centeredDiv">
 
-<%@ include file="headermain.jsp"%>
+<%@ include file="../headermain.jsp"%>
 
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
@@ -96,11 +96,11 @@ function MM_swapImage() { //v3.0
 </spring:bind>
 </div>
 
-<form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="teacherRegForm" >  
+<form:form method="post" action="updatemyaccountinfo.html" commandName="teacherAccountForm" id="teacherRegForm" >  
   <dl>
   
   	<dt><label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label></dt>
-    <dd><form:input path="userDetails.firstname" id="teacherFirstName" size="25" maxlength="25" tabindex="1"/><span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
+    <dd><form:input disabled="true" path="userDetails.firstname" id="teacherFirstName" size="25" maxlength="25" tabindex="1"/><span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
         
 	<!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
 	It must appear immediately after the Input field in question  (MattFish)-->
@@ -109,7 +109,7 @@ function MM_swapImage() { //v3.0
 	</script>
        
   	<dt><label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label></dt>
-	<dd><form:input path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
+	<dd><form:input disabled="true" path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
             
     <dt><label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label></dt>
 	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="3"/> <span class="hint"><spring:message code="teacher.registerteacher.5"/> <span class="hint-pointer"></span></span></dd>
@@ -197,30 +197,32 @@ function MM_swapImage() { //v3.0
 		 <p><spring:message code="teacher.registerteacher.24"/></p>
      </div>
     </dd>
-     <div>&nbsp;</div>
-     <dt id="layoutForLegal"><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></dt>
+    
+     <div style="display:none">
+     
+     <dt id="layoutForLegal"><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></dt>     
 	 <dd id="termsOfUse">
-	     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
+	     <form:checkbox disabled="true" path="legalAcknowledged" id="legalAcknowledged" /> 	 
      <spring:message code="teacher.registerteacher.25"/>&nbsp;<a href="termsofuse.html" onClick="return popupSpecial(this, 'terms')"><spring:message code="teacher.registerteacher.26"/></a>
      </dd>
       <div>&nbsp;</div> 
       <dt><label for="password" id="password1"><spring:message code="signup.password" /></label>
 </dt>
-	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="11"/> <span class="hint"><spring:message code="teacher.registerteacher.27"/><span class="hint-pointer"></span></span> </dd>
+	  <dd><form:password disabled="true" path="userDetails.password" id="password" size="25" maxlength="25" tabindex="11" /><span class="hint"><spring:message code="teacher.registerteacher.27"/><span class="hint-pointer"></span></span> </dd>
 
 	  <dt><label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label></dt>
-	  <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="12"/>  <span class="hint"><spring:message code="teacher.registerteacher.28"/><span class="hint-pointer"></span></span></dd>
-          
+	  <dd><form:password disabled="true" path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="12" />  <span class="hint"><spring:message code="teacher.registerteacher.28"/><span class="hint-pointer"></span></span></dd>
+       </div>
       </dl>
                
  	  <div id="regButtons">
- 	    <input type="image" id="save" src="../<spring:theme code="register_save" />" 
-    onmouseover="swapImage('save','../<spring:theme code="register_save_roll" />')" 
-    onmouseout="swapImage('save','../<spring:theme code="register_save" />')"
+ 	    <input type="image" id="save" src="../../<spring:theme code="register_save" />" 
+    onmouseover="swapImage('save','../../<spring:theme code="register_save_roll" />')" 
+    onmouseout="swapImage('save','../../<spring:theme code="register_save" />')"
     />
-    <a href="../index.html"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
-    onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')" 
-    onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"
+    <a href="updatemyaccount.html"><input type="image" id="cancel" src="../../<spring:theme code="register_cancel" />" 
+    onmouseover="swapImage('cancel','../../<spring:theme code="register_cancel_roll" />')" 
+    onmouseout="swapImage('cancel','../../<spring:theme code="register_cancel" />')"
     /> </a>	  </div>
            
 </form:form>

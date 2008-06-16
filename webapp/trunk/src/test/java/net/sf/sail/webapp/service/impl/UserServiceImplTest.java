@@ -290,6 +290,24 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public void testUpdateUserDetails() {
+		// this test simply confirms that the userDao is called appropriately,
+		// since the DAO is being tested and does all the work
+		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);
+		User expectedUser = new UserImpl();
+		EasyMock.expect(mockUserDao.retrieveByUserDetails(userDetails)).andReturn(
+				expectedUser);
+		mockUserDao.save(expectedUser);
+		EasyMock.expectLastCall();
+		EasyMock.replay(mockUserDao);
+
+		UserServiceImpl userService = new UserServiceImpl();
+		userService.setUserDao(mockUserDao);
+		userService.updateUserDetails(userDetails);
+		EasyMock.verify(mockUserDao);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public void testRetrieveAllUsers() {
 		List<User> users = new ArrayList<User>();
 		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);

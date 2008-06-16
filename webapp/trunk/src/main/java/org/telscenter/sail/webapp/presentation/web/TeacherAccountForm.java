@@ -45,6 +45,7 @@ public class TeacherAccountForm extends UserAccountForm {
 	public TeacherAccountForm(TeacherUserDetails teacherUserDetails) {
 		userDetails = teacherUserDetails;
 		newAccount = false;
+		legalAcknowledged = true;
 	}
 	
 	/**

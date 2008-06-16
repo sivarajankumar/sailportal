@@ -51,7 +51,7 @@
 			<td class="link"><a href="changeteacherpassword.html?userName=${user.userDetails.username}"><spring:message code="teacher.manage.account.3"/></a></td> 
 			<td class="description"><spring:message code="teacher.manage.account.4"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="changeteacherpasswordsuccess.html"><spring:message code="teacher.manage.account.5"/></a></td>
+			<td class="link"><a href="updatemyaccountinfo.html"><spring:message code="teacher.manage.account.5"/></a></td>
 			<td class="description"><spring:message code="teacher.manage.account.6"/></td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.account.7"/></a></td>

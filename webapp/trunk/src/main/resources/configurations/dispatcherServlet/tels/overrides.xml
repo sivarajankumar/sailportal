@@ -174,7 +174,7 @@
 				/teacher/management/changestudentpassword.html=changeUserPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/teacher/management/removestudentfromrun.html=removeStudentFromRunController
-				<!-- /teacher/management/updatemyaccountinfo.html=updateMyAccountInfoController -->
+				/teacher/management/updatemyaccountinfo.html=updateMyAccountInfoController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController
 				/author/registerjnlp.html=registerJnlpController

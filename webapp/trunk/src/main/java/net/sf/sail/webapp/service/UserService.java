@@ -54,7 +54,7 @@ public interface UserService {
 	 */
 	public User createUser(MutableUserDetails userDetails)
 			throws DuplicateUsernameException, HttpStatusCodeException;
-
+	
 	/**
 	 * Retrieve user with the given user details.
 	 * 
@@ -120,4 +120,10 @@ public interface UserService {
 	 * @return new <code>SdsUser</code> object with firstname and lastname set
 	 */
 	public SdsUser createSdsUser(final MutableUserDetails userDetails);
+
+	/**
+	 * Updates the existing <code>MutableUserDetails</code> object
+	 * @param userDetails
+	 */
+	public void updateUserDetails(MutableUserDetails userDetails);
 }

@@ -48,8 +48,9 @@ public class UpdateMyAccountInfoController extends RegisterTeacherController {
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		String username = request.getParameter("username");
-		User user = userService.retrieveUserByUsername(username);
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
+ 
 		return new TeacherAccountForm((TeacherUserDetails) user.getUserDetails());
 	}
 }
