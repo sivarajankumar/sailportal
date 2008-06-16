@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -101,10 +102,11 @@ public class HttpRestSdsOfferingDao extends AbstractDao<SdsOffering> implements
 	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#getById(java.io.Serializable)
 	 */
 	@Override
-	public SdsOffering getById(Long id) throws ObjectNotFoundException,
+	public SdsOffering getById(Serializable id) throws ObjectNotFoundException,
 			HttpStatusCodeException {
 		SdsOffering sdsOffering = new SdsOffering();
-		sdsOffering.setSdsObjectId(id);
+		// TODO: Refactor Long ids to Serializables
+		sdsOffering.setSdsObjectId( Long.parseLong(id.toString()) );
 		this.getCommand.setSdsOffering(sdsOffering);
 		return this.getCommand.execute(this.getCommand.generateRequest());
 	}

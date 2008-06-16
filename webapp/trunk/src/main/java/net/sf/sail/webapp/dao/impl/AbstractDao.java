@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -57,7 +58,7 @@ public abstract class AbstractDao<T> implements SimpleDao<T> {
     /**
      * @see net.sf.sail.webapp.dao.SimpleDao#getById(java.lang.Integer)
      */
-    public T getById(Long id) throws ObjectNotFoundException {
+    public T getById(Serializable id) throws ObjectNotFoundException {
         // default behaviour for subclasses that do not override this method
         throw new UnsupportedOperationException();
     }

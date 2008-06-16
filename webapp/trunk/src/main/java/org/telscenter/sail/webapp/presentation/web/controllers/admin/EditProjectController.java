@@ -55,7 +55,7 @@ public class EditProjectController extends SimpleFormController{
 	protected Map<String, Object> referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("project", projectService.getById(Long.parseLong(request.getParameter("projectId"))));
+		model.put("project", projectService.getById(request.getParameter("projectId")));
 		model.put("familytags", FamilyTag.values());
 		return model;
 	}
@@ -64,7 +64,7 @@ public class EditProjectController extends SimpleFormController{
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		Project project = projectService.getById(Long.parseLong(request.getParameter("projectId")));
+		Project project = projectService.getById(request.getParameter("projectId"));
 		ProjectInfoParameters params = new ProjectInfoParameters();
 		params.setCurrent(project.getProjectInfo().isCurrent());
 		params.setFamilytag(project.getProjectInfo().getFamilyTag());

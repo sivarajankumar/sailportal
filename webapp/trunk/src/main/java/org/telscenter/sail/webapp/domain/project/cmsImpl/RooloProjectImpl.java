@@ -2,6 +2,8 @@ package org.telscenter.sail.webapp.domain.project.cmsImpl;
 
 
 
+import java.net.URI;
+
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 
@@ -10,12 +12,14 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 
+import roolo.curnit.client.basicProxy.CurnitProxy;
+
 public class RooloProjectImpl implements Project {
 
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private URI id;
 	
     private Curnit curnit;
 	
@@ -29,6 +33,8 @@ public class RooloProjectImpl implements Project {
     
     private ProjectInfo projectInfo;
 
+    private CurnitProxy proxy;
+    
     /**
      * @return the curnit
      */
@@ -99,7 +105,7 @@ public class RooloProjectImpl implements Project {
 		this.isCurrent = isCurrent;
 	}
 
-	public Long getId() {
+	public URI getId() {
 		return this.id;
 	}
 
@@ -110,6 +116,30 @@ public class RooloProjectImpl implements Project {
 	public void setProjectInfo(ProjectInfo projectInfo) {
 	    this.projectInfo = projectInfo;
 	    
+	}
+
+	/**
+	 * Set the id
+	 * @param id the id to set
+	 */
+	public void setId(URI id) {
+	    this.id = id;
+	}
+
+	/**
+	 * Get the proxy
+	 * @return the proxy
+	 */
+	public CurnitProxy getProxy() {
+	    return proxy;
+	}
+
+	/**
+	 * Set the proxy
+	 * @param proxy the proxy to set
+	 */
+	public void setProxy(CurnitProxy proxy) {
+	    this.proxy = proxy;
 	}
 	
 

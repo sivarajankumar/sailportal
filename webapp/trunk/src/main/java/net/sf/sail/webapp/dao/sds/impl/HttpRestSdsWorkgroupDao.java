@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.sds.impl;
 
+import java.io.Serializable;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractDao;
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupCreateCommand;
@@ -109,9 +111,10 @@ public class HttpRestSdsWorkgroupDao extends AbstractDao<SdsWorkgroup>
 	 * @see net.sf.sail.webapp.dao.impl.AbstractDao#getById(java.lang.Long)
 	 */
 	@Override
-	public SdsWorkgroup getById(Long id) throws ObjectNotFoundException {
+	public SdsWorkgroup getById(Serializable id) throws ObjectNotFoundException {
 		SdsWorkgroup sdsWorkgroup = new SdsWorkgroup();
-		sdsWorkgroup.setSdsObjectId(id);
+		// TODO: Refactor Long ids to Serializables
+		sdsWorkgroup.setSdsObjectId(Long.parseLong(id.toString()));
 		this.getCommand.setSdsWorkgroup(sdsWorkgroup);
 		return this.getCommand.execute(this.getCommand.generateRequest());
 	}

@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.service.project.impl;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -258,7 +259,7 @@ public class ProjectServiceImpl implements ProjectService {
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getById(java.lang.Long)
 	 */
     @Transactional(readOnly = true)
-	public Project getById(Long projectId) throws ObjectNotFoundException {
+	public Project getById(Serializable projectId) throws ObjectNotFoundException {
 		return this.projectDao.getById(projectId);
 	}
 

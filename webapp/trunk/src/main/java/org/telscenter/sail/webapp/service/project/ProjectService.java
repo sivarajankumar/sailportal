@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.service.project;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -136,5 +137,5 @@ public interface ProjectService {
 	 * @throws ObjectNotFoundException when the specified projectId
 	 *     does not exist
 	 */
-	public Project getById(Long projectId) throws ObjectNotFoundException;
+	public Project getById(Serializable projectId) throws ObjectNotFoundException;
 }

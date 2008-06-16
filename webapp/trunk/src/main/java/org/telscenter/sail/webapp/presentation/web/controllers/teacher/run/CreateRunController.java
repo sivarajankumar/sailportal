@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -320,7 +321,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		String teacherName = null;
 		String teacherEmail = null;
 		String projectName = null;
-		Long projectID = null;
+		Serializable projectID = null;
 		String schoolName = null;
 		String schoolCity = null;
 		String schoolState = null;

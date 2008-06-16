@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.project;
 
+import java.io.Serializable;
+
 import org.telscenter.sail.webapp.domain.Run;
 
 import net.sf.sail.webapp.domain.Curnit;
@@ -89,7 +91,7 @@ public interface Project extends Persistable {
 	/**
 	 * @return The id of the project in the persistent data store
 	 */
-	public Long getId();
+	public Serializable getId();
 	
 //	/**
 //	 * @return the familyTag

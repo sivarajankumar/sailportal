@@ -34,7 +34,7 @@ public class ProjectInfoParameters implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Serializable id;
 	
 	private boolean isCurrent;
 	
@@ -43,14 +43,14 @@ public class ProjectInfoParameters implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public Serializable getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(Serializable id) {
 		this.id = id;
 	}
 

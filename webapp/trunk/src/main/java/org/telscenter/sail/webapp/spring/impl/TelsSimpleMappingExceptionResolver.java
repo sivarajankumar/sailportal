@@ -70,15 +70,15 @@ public class TelsSimpleMappingExceptionResolver extends
 	public ModelAndView resolveException(
 			HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) {
 		// send email to programmers
-		String[] recipients = {emaillisteners.getProperty(HANDLE_EXCEPTION_PROPERTY_KEY)};
-		String subject = HANDLE_EXCEPTION_MAIL_SUBJECT;
-		String fromEmail = HANDLE_EXCEPTION_FROM_EMAIL;
-		String message = getHandleExceptionMessage(request, response, handler, exception);
-		try {
-			javaMail.postMail(recipients, subject, message, fromEmail);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
+//		String[] recipients = {emaillisteners.getProperty(HANDLE_EXCEPTION_PROPERTY_KEY)};
+//		String subject = HANDLE_EXCEPTION_MAIL_SUBJECT;
+//		String fromEmail = HANDLE_EXCEPTION_FROM_EMAIL;
+//		String message = getHandleExceptionMessage(request, response, handler, exception);
+//		try {
+//			javaMail.postMail(recipients, subject, message, fromEmail);
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
 		return super.resolveException(request, response, handler, exception);
 	}
 	
