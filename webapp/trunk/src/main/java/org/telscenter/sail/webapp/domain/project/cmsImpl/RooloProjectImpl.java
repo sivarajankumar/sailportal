@@ -81,7 +81,7 @@ public class RooloProjectImpl implements Project {
 	 * @return the familytag
 	 */
 	public FamilyTag getFamilytag() {
-		return familytag;
+		return projectInfo.getFamilyTag();
 	}
 
 	/**
@@ -89,13 +89,14 @@ public class RooloProjectImpl implements Project {
 	 */
 	public void setFamilytag(FamilyTag familytag) {
 		this.familytag = familytag;
+		this.projectInfo.setFamilyTag(familytag);
 	}
 
 	/**
 	 * @return the isCurrent
 	 */
 	public boolean isCurrent() {
-		return isCurrent;
+		return projectInfo.isCurrent();
 	}
 
 	/**
@@ -103,6 +104,7 @@ public class RooloProjectImpl implements Project {
 	 */
 	public void setCurrent(boolean isCurrent) {
 		this.isCurrent = isCurrent;
+		this.projectInfo.setCurrent(isCurrent);
 	}
 
 	public URI getId() {

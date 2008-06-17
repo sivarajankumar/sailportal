@@ -69,10 +69,15 @@ public abstract class AbstractHibernateDao<T> extends HibernateDaoSupport
 	 */
 	@SuppressWarnings("unchecked")
 	public T getById(Serializable id) throws ObjectNotFoundException {
-		T object = (T) this.getHibernateTemplate().get(
-				this.getDataObjectClass(), id);
+		T object = null;
+		try {
+			object = (T) this.getHibernateTemplate().get(
+					this.getDataObjectClass(),  Long.valueOf(id.toString()));
+		} catch (NumberFormatException e) {
+			return null;
+		}
 		if (object == null)
-			throw new ObjectNotFoundException(id, this.getDataObjectClass());
+			throw new ObjectNotFoundException((Long) id, this.getDataObjectClass());
 		return object;
 	}
 

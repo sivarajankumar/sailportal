@@ -54,7 +54,7 @@ public class PreviewProjectListController extends AbstractController {
 		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
 		 List<Project> currentProjectList = new ArrayList<Project>();
 		 for (Project p: projectList) {
-			 if (p.getProjectInfo().isCurrent())
+			 if (p.isCurrent())
 				 currentProjectList.add(p);
 		 }
 		 ModelAndView modelAndView = new ModelAndView();

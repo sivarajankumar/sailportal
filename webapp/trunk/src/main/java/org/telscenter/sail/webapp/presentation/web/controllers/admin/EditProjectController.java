@@ -66,8 +66,8 @@ public class EditProjectController extends SimpleFormController{
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		Project project = projectService.getById(request.getParameter("projectId"));
 		ProjectInfoParameters params = new ProjectInfoParameters();
-		params.setCurrent(project.getProjectInfo().isCurrent());
-		params.setFamilytag(project.getProjectInfo().getFamilyTag());
+		params.setCurrent(project.isCurrent());
+		params.setFamilytag(project.getFamilytag());
 		params.setId(project.getId());
 		return params;
 	}
@@ -82,8 +82,8 @@ public class EditProjectController extends SimpleFormController{
 		ProjectInfoParameters params = (ProjectInfoParameters) command;
 		
 		Project project = projectService.getById(params.getId());
-		project.getProjectInfo().setCurrent(params.isCurrent());
-		project.getProjectInfo().setFamilyTag(params.getFamilytag());
+		project.setCurrent(params.isCurrent());
+		project.setFamilytag(params.getFamilytag());
 		projectService.updateProject(project);
 		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
 		return modelAndView;

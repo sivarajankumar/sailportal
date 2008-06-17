@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.service.project.impl;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,13 +55,19 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
+ * TELS Portal's ProjectService can work with projects that are persisted
+ * in the local datastore via hibernate, as well as projects that are persisted
+ * in the local or remote content management system, via rmi or webdav.
+ * 
  * @author Hiroki Terashima
  *
  * @version $Id$
@@ -74,6 +81,8 @@ public class ProjectServiceImpl implements ProjectService {
 	protected static Set<String> PREVIEW_PERIOD_NAMES;
 
 	private ProjectDao<Project> projectDao;
+	
+	private ProjectDao<RooloProjectImpl> rooloProjectDao;
 	
 	private CurnitService curnitService;
 	
@@ -118,7 +127,11 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	@Transactional()
 	public void updateProject(Project project) {
-		this.projectDao.save(project);
+		if (project instanceof ProjectImpl) {
+			this.projectDao.save(project);
+		} else if (project instanceof RooloProjectImpl) {
+			this.rooloProjectDao.save((RooloProjectImpl) project);
+		}
 	}
 	
 	/**
@@ -260,7 +273,13 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
     @Transactional(readOnly = true)
 	public Project getById(Serializable projectId) throws ObjectNotFoundException {
-		return this.projectDao.getById(projectId);
+    	Project project = this.projectDao.getById(projectId);
+    	if (project != null) {
+    		return project;
+    	} else {   	
+    		RooloProjectImpl rooloProject = this.rooloProjectDao.getById(projectId);
+    		return rooloProject;
+    	}
 	}
 
 	/**
@@ -268,21 +287,36 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
     @Transactional(readOnly = true)
 	public List<Project> getProjectList() {
-		return this.projectDao.getList();
+    	List<Project> projectList = this.projectDao.getList();
+    	List<RooloProjectImpl> rooloProjectList = this.rooloProjectDao.getList();
+    	List<Project> projects = new ArrayList<Project>();
+    	projects.addAll(projectList);
+    	projects.addAll(rooloProjectList);
+		return projects;
 	}
     
 	/**
 	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(java.lang.String)
 	 */
 	public List<Project> getProjectListByTag(String projectinfotag) throws ObjectNotFoundException {
-		return this.projectDao.retrieveListByTag(projectinfotag);
+    	List<Project> projectList = this.projectDao.retrieveListByTag(projectinfotag);
+    	List<RooloProjectImpl> rooloProjectList = this.rooloProjectDao.retrieveListByTag(projectinfotag);
+    	List<Project> projects = new ArrayList<Project>();
+    	projects.addAll(projectList);
+    	projects.addAll(rooloProjectList);
+		return projects;
 	}
 
 	/**
 	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(org.telscenter.sail.webapp.domain.project.impl.FamilyTag)
 	 */
 	public List<Project> getProjectListByTag(FamilyTag familytag) throws ObjectNotFoundException {
-		return this.projectDao.retrieveListByTag(familytag);
+    	List<Project> projectList = this.projectDao.retrieveListByTag(familytag);
+    	List<RooloProjectImpl> rooloProjectList = this.rooloProjectDao.retrieveListByTag(familytag);
+    	List<Project> projects = new ArrayList<Project>();
+    	projects.addAll(projectList);
+    	projects.addAll(rooloProjectList);
+		return projects;
 	}
 	
 	/**
@@ -290,7 +324,12 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	public List<Project> getProjectListByInfo(ProjectInfo info)
 			throws ObjectNotFoundException {
-	    return this.projectDao.retrieveListByInfo(info);
+    	List<Project> projectList = this.projectDao.retrieveListByInfo(info);
+    	List<RooloProjectImpl> rooloProjectList = this.rooloProjectDao.retrieveListByInfo(info);
+    	List<Project> projects = new ArrayList<Project>();
+    	projects.addAll(projectList);
+    	projects.addAll(rooloProjectList);
+		return projects;		
 	}
 
 	/**
@@ -333,5 +372,12 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * @param rooloProjectDao the rooloProjectDao to set
+	 */
+	public void setRooloProjectDao(ProjectDao<RooloProjectImpl> rooloProjectDao) {
+		this.rooloProjectDao = rooloProjectDao;
 	}
 }
