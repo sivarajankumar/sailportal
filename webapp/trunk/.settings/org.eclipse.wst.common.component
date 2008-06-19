@@ -213,6 +213,15 @@
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/xstream/xstream/1.1.2/xstream-1.1.2.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/roolo-api/roolo-api/0.1.0-SNAPSHOT/roolo-api-0.1.0-SNAPSHOT.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/roolo-cms/roolo-cms/0.1.0-SNAPSHOT/roolo-cms-0.1.0-SNAPSHOT.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
+     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/roolo-client/roolo-client/0.1.0-SNAPSHOT/roolo-client-0.1.0-SNAPSHOT.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
   </wb-module>

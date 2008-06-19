@@ -35,6 +35,12 @@
     <path location="${M2_REPO}/mysql/mysql-connector-java/5.0.5/mysql-connector-java-5.0.5.jar" />
   </path>
 
+  <path id="lib.roolo">
+    <path location="${M2_REPO}/roolo-api/roolo-api/0.1.0-SNAPSHOT/roolo-api-0.1.0-SNAPSHOT.jar" />
+    <path location="${M2_REPO}/roolo-cms/roolo-cms/0.1.0-SNAPSHOT/roolo-cms-0.1.0-SNAPSHOT.jar" />
+    <path location="${M2_REPO}/roolo-client/roolo-client/0.1.0-SNAPSHOT/roolo-client-0.1.0-SNAPSHOT.jar" />  	
+  </path>
+
   <path id="lib.commons-logging">
     <path location="${M2_REPO}/commons-logging/commons-logging/1.1/commons-logging-1.1.jar" />
   </path>
@@ -119,6 +125,7 @@
     <path id="runtime.classpath">
         <path refid="lib.servlet-api" />
         <path refid="lib.jdbc" />
+    	<path refid="lib.roolo" />
         <path refid="lib.commons-dbcp" />
         <path refid="lib.commons-collections" />
         <path refid="lib.commons-logging" />
