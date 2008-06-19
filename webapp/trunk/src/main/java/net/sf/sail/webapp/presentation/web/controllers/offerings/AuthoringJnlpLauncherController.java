@@ -71,7 +71,7 @@ public class AuthoringJnlpLauncherController extends AbstractController {
 		response.addHeader("Content-Disposition", "Inline; fileName=" + fileName);
 		
 		response.setContentType(JNLP_CONTENT_TYPE);
-		response.setCharacterEncoding("UTF-8");
+		//response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(outputJNLPString);
 		return null;
 	}

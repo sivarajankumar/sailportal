@@ -22,14 +22,18 @@
  */
 package org.telscenter.sail.webapp.service.project.impl;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
@@ -39,6 +43,7 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.curnit.CurnitService;
+import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
@@ -77,6 +82,8 @@ public class ProjectServiceImpl implements ProjectService {
 	protected static final String PREVIEW_RUN_NAME = "preview";
 
 	private static final String PREVIEW_PERIOD_NAME = "preview period";
+
+	private static final String JNLP_CONTENT_TYPE = "application/x-java-jnlp-file";
 	
 	protected static Set<String> PREVIEW_PERIOD_NAMES;
 
@@ -93,6 +100,10 @@ public class ProjectServiceImpl implements ProjectService {
 	private WorkgroupService workgroupService;
 	
 	private UserService userService;
+
+	private AuthoringJNLPModifier modifier;
+	
+	private String authoringToolJnlpUrl;
 	
 	public static String retrieveAnnotationBundleUrl = "/student/getannotationbundle.html";
 
@@ -194,9 +205,39 @@ public class ProjectServiceImpl implements ProjectService {
 	@Transactional
 	public ModelAndView authorProject(AuthorProjectParameters authorProjectParameters)
 			throws Exception {
-		String authorProjectUrl = "http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp?curnit_otml_url=urltocms.retrievecurnitbyid";
+		// TODO get the author jnlpurl from project
+
+		// TODO replace the below when ready to switch to otml
+		//String curnitUrl = project.getCurnit().getSdsCurnit().getUrl();
+		String curnitUrl = "http://www.telscenter.org/confluence/download/attachments/20047/Airbags.otml";
 		
-		return new ModelAndView(new RedirectView(authorProjectUrl));
+		URL jnlpURL = new URL(authoringToolJnlpUrl);
+		BufferedReader in = new BufferedReader(
+				new InputStreamReader(jnlpURL.openStream()));
+		
+		String jnlpString = "";
+		String inputLine;
+		while ((inputLine = in.readLine()) != null) {
+			jnlpString += inputLine;
+		}
+
+		HttpServletResponse httpServletResponse = authorProjectParameters.getHttpServletResponse();
+		
+		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl);
+		httpServletResponse.setHeader("Cache-Control", "no-cache");
+		httpServletResponse.setHeader("Pragma", "no-cache");
+		httpServletResponse.setDateHeader ("Expires", 0);
+
+		String fileName = authorProjectParameters.getHttpServletRequest().getServletPath();
+		fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
+		fileName = fileName.substring(0, fileName.indexOf(".")) + ".jnlp";
+		httpServletResponse.addHeader("Content-Disposition", "Inline; fileName=" + fileName);
+
+		httpServletResponse.setContentType(JNLP_CONTENT_TYPE);
+		//httpServletResponse.setCharacterEncoding("UTF-8");
+		httpServletResponse.getWriter().print(outputJNLPString);
+		
+		return null;
 	}
 
 	/**
@@ -379,5 +420,19 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	public void setRooloProjectDao(ProjectDao<RooloProjectImpl> rooloProjectDao) {
 		this.rooloProjectDao = rooloProjectDao;
+	}
+
+	/**
+	 * @param modifier the modifier to set
+	 */
+	public void setModifier(AuthoringJNLPModifier modifier) {
+		this.modifier = modifier;
+	}
+
+	/**
+	 * @param authoringToolJnlpUrl the authoringToolJnlpUrl to set
+	 */
+	public void setAuthoringToolJnlpUrl(String authoringToolJnlpUrl) {
+		this.authoringToolJnlpUrl = authoringToolJnlpUrl;
 	}
 }

@@ -54,13 +54,13 @@ public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
 		SimpleQueryMetadata query = new SimpleQueryMetadata();
 		CurnitMetadataProxy metadata = createMetadata( projectinfo);
 		query.setMetadataPattern(metadata);
-		List<URI> curnitIds = rooloClient.search(query);
-		for(URI id : curnitIds) {
-			try {
-				projects.add( this.getById(id));
-			} catch (ObjectNotFoundException e) {
-			}
-		}
+		//List<URI> curnitIds = rooloClient.search(query);
+//		for(URI id : curnitIds) {
+//			try {
+//				projects.add( this.getById(id));
+//			} catch (ObjectNotFoundException e) {
+//			}
+//		}
 		return projects;
 	}
 

@@ -76,7 +76,7 @@
                     {
                         id: "actionsCurrent", 
                         itemdata: [ 
-                            { text: "<spring:message code="teacher.pro.custom.index.2"/>", url: "#" },
+                            { text: "<spring:message code="teacher.pro.custom.index.2"/>", url: "../../../author/authorproject.html?projectId=1" },
                             { text: "<spring:message code="teacher.pro.custom.index.3"/>", url: "#" },
                             { text: "<spring:message code="teacher.pro.custom.index.4"/>", url: "#" },
                             { text: "<spring:message code="teacher.pro.custom.index.5"/>", url: "#" },

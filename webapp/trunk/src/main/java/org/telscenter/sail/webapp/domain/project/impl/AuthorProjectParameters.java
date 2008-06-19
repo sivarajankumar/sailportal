@@ -93,4 +93,11 @@ public class AuthorProjectParameters {
 		this.httpServletResponse = httpServletResponse;
 	}
 
+	/**
+	 * @return the httpServletResponse
+	 */
+	public HttpServletResponse getHttpServletResponse() {
+		return httpServletResponse;
+	}
+
 }
