@@ -35,12 +35,14 @@ import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
+import org.telscenter.sail.webapp.dao.project.impl.RooloProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -58,6 +60,8 @@ public class ProjectServiceImplTest extends TestCase {
 	private ProjectServiceImpl projectServiceImpl;
 
 	private ProjectDao<Project> mockProjectDao;
+	
+	private ProjectDao<RooloProjectImpl> mockRooloProjectDao;
 	
 	private CurnitService mockCurnitService;
 	
@@ -81,6 +85,8 @@ public class ProjectServiceImplTest extends TestCase {
 		this.projectServiceImpl = new ProjectServiceImpl();
 		this.mockProjectDao = createMock(ProjectDao.class);
 		this.projectServiceImpl.setProjectDao(mockProjectDao);
+		this.mockRooloProjectDao = createMock(ProjectDao.class);
+		this.projectServiceImpl.setRooloProjectDao(this.mockRooloProjectDao);
 		this.mockCurnitService = createMock(CurnitService.class);
 		this.projectServiceImpl.setCurnitService(mockCurnitService);
 		this.mockJnlpService = createMock(JnlpService.class);
@@ -112,12 +118,16 @@ public class ProjectServiceImplTest extends TestCase {
 		// by familytag
 		List<Project> expectedList = new ArrayList<Project> ();
 		Project expectedProject = new ProjectImpl();
+		List<RooloProjectImpl> expectedRooloProjectList = new ArrayList<RooloProjectImpl>();
 		expectedProject.getProjectInfo().setFamilyTag(EXISTING_PROJECT_FAMILY_TAG);
 		expectedList.add(expectedProject);
 		expect(mockProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedList);
 		replay(mockProjectDao);
+		expect(mockRooloProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedRooloProjectList);
+		replay(mockRooloProjectDao);
 		assertEquals(expectedList, projectServiceImpl.getProjectListByTag(EXISTING_PROJECT_FAMILY_TAG));
 		verify(mockProjectDao);
+		verify(mockRooloProjectDao);
 		reset(mockProjectDao);
 				
 		// by projectinfotag
@@ -126,10 +136,14 @@ public class ProjectServiceImplTest extends TestCase {
 	
 	public void testGetProjectListByTag_EmptyList() throws Exception {
 		List<Project> expectedList = new ArrayList<Project> ();
+		List<RooloProjectImpl> expectedRooloProjectList = new ArrayList<RooloProjectImpl>();
 		expect(mockProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedList);
 		replay(mockProjectDao);
+		expect(mockRooloProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedRooloProjectList);
+		replay(mockRooloProjectDao);
 		assertEquals(expectedList, projectServiceImpl.getProjectListByTag(EXISTING_PROJECT_FAMILY_TAG));
 		verify(mockProjectDao);
+		verify(mockRooloProjectDao);
 		reset(mockProjectDao);
 	}
 	
@@ -144,6 +158,7 @@ public class ProjectServiceImplTest extends TestCase {
 		expect(mockJnlpService.getById(EXISTING_JNLP_ID)).andReturn(expectedJnlp);
 		replay(mockJnlpService);
 		Project projectToCreate = new ProjectImpl();
+		expect(mockProjectDao.createEmptyProject()).andReturn(projectToCreate);
 		projectToCreate.setCurnit(expectedCurnit);
 		projectToCreate.setJnlp(expectedJnlp);
 		
@@ -191,4 +206,5 @@ public class ProjectServiceImplTest extends TestCase {
 		assertTrue(true);
 	}
 
+	// TODO add test that uses rooloprojectdao.
 }

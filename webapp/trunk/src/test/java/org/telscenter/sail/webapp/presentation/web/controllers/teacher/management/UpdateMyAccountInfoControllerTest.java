@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.management;
 
+import org.junit.Test;
 import org.springframework.test.web.AbstractModelAndViewTests;
 
 /**
@@ -32,5 +33,10 @@ import org.springframework.test.web.AbstractModelAndViewTests;
  */
 public class UpdateMyAccountInfoControllerTest extends
 		AbstractModelAndViewTests {
+	
+	@Test
+	public void testNothing() {
+		assertTrue(true);
+	}
 
 }
