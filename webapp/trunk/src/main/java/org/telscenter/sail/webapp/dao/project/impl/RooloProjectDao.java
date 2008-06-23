@@ -35,7 +35,7 @@ import roolo.curnit.client.impl.ClientCurnitRepository;
  */
 public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
 
-	private static String URL = "http://roolo.server.com/webdav/get?uri=";
+	private static String URL = "http://localhost:8080/webapp/";
 
 	// Roolo client
 	private IClientRepository rooloClient = new ClientCurnitRepository();
