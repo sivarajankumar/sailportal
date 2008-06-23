@@ -41,7 +41,7 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	private static final String PROPERTY_ELEMENT_NAME = "property";
 	private static final String NAME_ATTRIBUTE = "name";
 	private static final String VALUE_ATTRIBUTE = "value";
-	public static final String CURNIT_URL_ATTRIBUTE = "curnit_url";
+	public static final String CURNIT_URL_ATTRIBUTE = "jnlp.curnit_url";
 	/**
 	 * Takes a string representation of the authoring launcher JNLP and adds a property element into
 	 * the resources element which sets a system property "curnit_url" to the curnit url which we want
