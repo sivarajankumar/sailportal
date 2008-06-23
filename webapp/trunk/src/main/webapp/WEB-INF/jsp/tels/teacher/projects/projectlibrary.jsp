@@ -64,11 +64,11 @@
 		</tr>
 		<tr id="libraryProjectTableR2">
 			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.curnit.sdsCurnit.name}</a></td>
-			<td class="dataCell">[10321]</td>   <!--		""${project.curnit.id}""-->
+			<td class="dataCell">[10321]</td>   
 			<td class="dataCell libraryProjectSmallText">UC Berkeley library project</td>       		   
 			<td class="dataCell libraryProjectSmallText">[BIOLOGY, ENVIRONMENTAL SCIENCE, mendel, meiosis, evolution, selection pressure, Darwin, etc, etc.]</td>
-			<td class="dataCell">[6-8]</td>              <!--		"${project.curnit.totalTime}"-->
-			<td class="dataCell">[6 periods]</td>              <!--		"${project.curnit.computerTime}"-->
+			<td class="dataCell">[6-8]</td>              
+			<td class="dataCell">[6 periods]</td>              
 			<td class="dataCell">[5 periods]</td> 
 			<td class="dataCell">[27 runs]
 		</tr>
