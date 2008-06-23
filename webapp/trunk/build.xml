@@ -39,6 +39,7 @@
     <path location="${M2_REPO}/roolo-api/roolo-api/0.1.0-SNAPSHOT/roolo-api-0.1.0-SNAPSHOT.jar" />
     <path location="${M2_REPO}/roolo-cms/roolo-cms/0.1.0-SNAPSHOT/roolo-cms-0.1.0-SNAPSHOT.jar" />
     <path location="${M2_REPO}/roolo-client/roolo-client/0.1.0-SNAPSHOT/roolo-client-0.1.0-SNAPSHOT.jar" />  	
+  	<path location="${M2_REPO}/org/apache/jackrabbit/jackrabbit-core/1.4/jackrabbit-core-1.4.jar" />
   </path>
 
   <path id="lib.commons-logging">
