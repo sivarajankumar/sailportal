@@ -33,7 +33,8 @@
 <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/container/container_core-min.js"></script> 
  
 <!-- Source File --> 
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/menu/menu-min.js"></script> 
+<!--<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/menu/menu-min.js"></script> -->
+<!--The line above was commented out to switch from Slide animation to instant pop-up-->
 
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
@@ -75,7 +76,7 @@
 
                 var oMenuBar = new YAHOO.widget.MenuBar("quickToolsActionMenu", { 
                                                             autosubmenudisplay: true, 
-                                                            hidedelay: 500, 
+                                                            hidedelay: 250, 
                                                             lazyload: true });
 
                 /*

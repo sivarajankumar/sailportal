@@ -87,17 +87,19 @@ if(form.manualCheckbox.checked==true){
 
 <form:form method="post" commandName="runParameters">
 
-    <div id="periodcheckboxes" class="indent15px">
+    <div>
       <label for="periods" id="periodlabel"><spring:message code="periods" /></label><br />
-          <c:forEach items="${periodNames}" var="periodName">
+          <div id="periodBoxes">
+          	<c:forEach items="${periodNames}" var="periodName">
             <form:checkbox path="periodNames" value="${periodName}" />
             <spring:message code="defaultPeriodNames.${periodName}" /><br/>
-          </c:forEach>      
+          	</c:forEach>
+          </div>      
     </div>
 
 <div>
 	<h5><spring:message code="teacher.run.setup.29"/></h5>
-	<form:textarea path="manuallyEnteredPeriods" id="manualperiodsinput" rows="1" cols="70"/>
+	<form:textarea path="manuallyEnteredPeriods" id="manualperiodsinput" rows="1" cols="65"/>
 	<div id="manualperiodsinstructions"><spring:message code="teacher.run.setup.30"/><br />
 		<spring:message code="teacher.run.setup.31"/></div>
 </div>

@@ -306,19 +306,25 @@
 		
 .indent15px {
 	padding: 0 0 0 25px;
+	margin:0px;
 }
 
-#periodcheckboxes {	font-size:.8em;}
-		
-#periodlabel {
-	font-size:1.1em;
-	font-variant:small-caps;
-}
+#periodLabel {	
+	font-size:.8em;
+	font-weight:bold;
+	padding: 0 0 0 25px;
+	}
+	
+#periodBoxes {	
+	font-size:.7em;
+	padding: 0 0 0 25px;
+	}
+
 
 #manualperiodsinput {
 	font-size:1.1em;
 	position:absolute;
-	margin: -20px 0 0 300px;
+	margin: -58px 0 0 275px;
 	border-top: 1px solid #666666;
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
@@ -329,7 +335,7 @@
 	font-size:.7em;
 	position:absolute;
 	width:570px;
-	margin: 15px 0 0px 300px; 
+	margin: -24px 0 0px 275px; 
 }
 	
 	
