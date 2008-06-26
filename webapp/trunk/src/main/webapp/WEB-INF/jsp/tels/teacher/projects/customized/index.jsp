@@ -27,7 +27,7 @@
 
 <!-- Core + Skin CSS --> 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/menu/assets/skins/sam/menu.css"> 
-	 
+ 
 <!-- Dependencies -->  
 <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yahoo-dom-event/yahoo-dom-event.js"></script> 
 <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/container/container_core-min.js"></script> 
@@ -52,7 +52,7 @@
                  to be scripted.
             */
 
-            YAHOO.util.Event.onContentReady("customProjectActionsCurrent", function () {
+            YAHOO.util.Event.onContentReady("customProjectActionsMenu", function () {
 
                 /*
                      Instantiate a MenuBar:  The first argument passed to the 
@@ -61,7 +61,7 @@
                      of configuration properties.
                 */
 
-                var oMenuBar = new YAHOO.widget.MenuBar("customProjectActionsCurrent", { 
+                var oMenuBar = new YAHOO.widget.MenuBar("customProjectActionsMenu", { 
                                                             autosubmenudisplay: true, 
                                                             hidedelay: 500, 
                                                             lazyload: true });
@@ -89,9 +89,7 @@
                                       
                     },                   
                                              
-                ];
-                
-                
+                ];        
                    
                 
                 var ua = YAHOO.env.ua,
@@ -462,7 +460,7 @@
 				    <td class="dataTime">6 hours</td>
 				    <td class="dataTime">5 hours</td>
 				    <td class="actionMenuButton">
-					    <div id="customProjectActionsCurrent" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
+					    <div id="customProjectActionsMenu" class="yuimenubar yuimenubarnav customProjectsMenuCSS"  >
 					    			<div class="bd">
 					        			<ul class="first-of-type"> 
 					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
@@ -528,7 +526,7 @@
 				    <td class="dataTime">6 hours</td>
 				    <td class="dataTime">5 hours</td>
 				    <td class="actionMenuButton">
-					    <div id="customProjectActionsShared" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
+					    <div id="customProjectActionsMenu" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
 					    			<div class="bd">
 					        			<ul class="first-of-type"> 
 					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 

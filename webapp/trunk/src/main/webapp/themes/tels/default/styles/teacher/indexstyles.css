@@ -80,18 +80,29 @@
 	margin:0; 
 	}
 
-#projectGradeLinkBox {  
+#quickToolsTable {	
 	border-collapse:collapse;
 	text-align:center;
-	width:425px;
-	margin: 0 0 54px 10px;
-		}
-
-#projectGradeLinkBox td	{  
-	vertical-align:text-top;
-	font-size:.8em;
-	border:0px;
+	margin:0 auto;
 	}
+	
+#quickToolsTable th {	
+	border:1px solid #999999;
+	background-color:#CCCCCC;
+	padding: 2px 8px;
+	font-size:.7em;
+	}
+	
+#quickToolsTable td {	
+	border:1px solid #999999;
+	padding: 2px 10px;
+	font-size:.8em;
+	vertical-align:middle;
+		}
+	
+#quickToolsTable a:hover {	
+	background-color:#FFFF00;
+		}
 
 .projectNameStyle {
 	color:#000066;
@@ -131,14 +142,14 @@
 #quickLinks1 {
 	float:left;
 	font-size:.8em;
-	padding-left:35px;
+	padding-left:30px;
 	margin:-10px 0 0 0;
 	}
 
 #quickLinks2 {
 	float:right;
 	font-size:.8em;
-	padding: 0 65px 0 0; 
+	padding: 0 40px 0 0; 
 	margin:-10px 0 0 0;
 	
 	}
