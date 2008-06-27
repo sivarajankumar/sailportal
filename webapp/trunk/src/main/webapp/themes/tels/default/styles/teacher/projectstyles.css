@@ -453,12 +453,54 @@ img#none{
 	background-image: none;
 	background-color:#FFFF66;	
 	    }	  
-	    
+	  
+#editInfoLink {
+	margin: 20px 0 0 12px;
+	font-variant:small-caps;
+	font-size:1em;
+}
+
+#editInfoLink a:link, #editInfoLink a:visited {
+	color:#0000FF;		
+	}
+	
+#editInfoLink a:hover {
+	background-color:#FFFF66;	
+	color:#000099;	
+	}
+		 
+#teacherGuideIntro {
+	margin: 5px 0 0 12px;
+	font-size:.8em;
+}
+		 
+#teacherGuideTable {
+	border-collapse:collapse;
+	margin: 20px 0 25px 12px;
+}
+
+#teacherGuideTable td {
+	 border:1px solid #000000;
+	 padding:4px 8px;
+	 vertical-align:top;
+	font-size:.9em;
+}
+
+#teacherGuideTable .rowTwo {
+	background-color:#CCCCCC;
+	font-weight:bold;
+	font-variant:small-caps;
+	}
+	
+#teacherGuideTable .column1 {
+	width:20%;
+	}
+	
 #projectInfo {
 	text-align:left;
 	font-size: .9em;
 	padding:0px;
-	margin:20px 0 0 10px;
+	margin:7px 0 0 10px;
 }
 
 #projectInfo dt {
@@ -499,9 +541,10 @@ img#none{
    
 #projectCreditsTable {
 	border-collapse:collapse;
-	width:75%;
-	margin: 5px auto 25px auto;
-}
+	width:90%;
+	margin: 20px auto 25px 12px;
+	font-size:.85em;
+	}
 
 #projectCreditsTable td  {
 	padding:5px;
@@ -628,7 +671,7 @@ img#none{
 	
 #customProjectTable a:link, #customProjectTable a:visited, #actionList a:link, #actionList a:visited {
 	text-decoration:none;
-	font-size:.85em;
+	font-size:1em;
 	color:#0033CC;
 }
 

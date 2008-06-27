@@ -68,8 +68,12 @@
 	            	<td><a href="#" style="color:#999999;">CREATE EDTIABLE COPY IN <em>MY CUSTOMIZED PROJECTS</em></a></td>
 	            </tr>
 	         </table> 
+	        
+	        <div id="editInfoLink"><a href="#">edit overview information</a></div>
 	    
 	    	<dl id="projectInfo">
+	    		<dt>Project Name:</dt>
+	    			<dd>${project.curnit.sdsCurnit.name}</dd>
 	    		<dt>Project ID:</dt>
 	    			<dd>${project.id}</dd>
 	    		<dt>Project Source:</dt>
@@ -112,34 +116,68 @@ Aliquip suscipit sit amet vero, enim duis minim in, ut duis minim tation. Sed mo
 	    </div>       <!--	    End of Tab 1 content-->
         
         <div id="tab2">
-            <h5>PENDING, SUMMER 2008</h5>
-            <p>This section will display a table of all steps in the project with a Teacher's Guide box per step (editable using the Authoring
-            Tool). This table will allow the author of a project to convey detailed, step-specific feedback to a teacher -- including
-           classroom setup requirements for the step, common misconceptions/mistakes students may encounter in each step, suggestions for making a step more effective,
-           answers to the typical student questions for a particular step, etc etc. </p>
             
+            <div id="projectInfoProjectTitle">${project.curnit.sdsCurnit.name}</div>
+            
+            <div id="teacherGuideIntro">The Teacher Guide offers feedback per each Step of the project, including any technical or classroom requirements for the step, 
+            common misconceptions/mistakes students may encounter in the step, and suggestions for making the step more effective with students.</div>
+            
+            <div id="editInfoLink"><a href="#">edit teacher guide</a></div>
+              
+            <table id="teacherGuideTable">
+            	<tr class="rowTwo">
+            		<td class="column1">step</td>
+            		<td>feedback</td>
+            	</tr>
+            	<tr>
+            		<td>[Activity X, Step Y]</td>
+            		<td>[sample feedback goes here <br/>Aliquip dolore lobortis blandit esse suscipit duis magna vel odio dolore ipsum ut at magna iusto et ex ex. Eros illum, luptatum, ea nulla, in nostrud eu consectetuer augue accumsan feugiat qui iusto consequat duis vel nulla. Consequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem, feugiat erat feugait ut vel nonummy zzril accumsan velit dolor in accumsan.
+Aliquip suscipit sit amet vero, enim duis minim in, ut duis minim tation. </td>
+				</tr>
+				<tr>
+            		<td>[Activity X, Step Y]</td>
+            		<td>[sample feedback goes here</td>
+				</tr>
+				<tr>
+            		<td>[Activity X, Step Y]</td>
+            		<td>[sample feedback goes here</td>
+				</tr>
+			</table>
+			
         </div>
         
         <div id="tab3">
-            <h5>PENDING, SUMMER 2008</h5><p>This section, editable using the Project Authoring Tool, will list all curriculum standards covered by the project, the
-            overall learning goals of the project, and the learning goals of each main Activity.</p>
+           
+		<div id="projectInfoProjectTitle">${project.curnit.sdsCurnit.name}</div>
+		<div id="teacherGuideIntro">This section describes all curriculum standards covered by the project, the
+            overall learning goals of the project, and the learning goals of each main Activity in the project.</div>
+        
+        <div id="editInfoLink"><a href="#">edit learning goals</a></div> 
+                    
+        <div id="teacherGuideIntro" style="font-weight:bold; color:#FF0000;">Content follows here...</div>
+            
         </div>
         
         <div id="tab4">
-            <h4>PROJECT CREDITS</h4>
-            <a href="#" id="editCreditsLink">Edit Credits Information</a>
+            
+            <div id="projectInfoProjectTitle">${project.curnit.sdsCurnit.name}</div>
+            
+            <div id="teacherGuideIntro">The following people contribute to this WISE project:</div>
+            
+            <div id="editInfoLink"><a href="#">edit credits information</a></div>
+            
             <table id="projectCreditsTable">
             <tr>
             	<td class="col1">Project Last Edited On:</td>
-            	<td><em>last revised data value</em></td>
+            	<td>last revised data value</td>
             </tr>
             <tr> 
             	<td class="col1">Original Author:</td>
-            	<td><em>data value</em></td>
+            	<td>data value</td>
 			</tr>
 			<tr>
 				<td class="col1">Current Author:</td>
-				<td><em>data value</em></td>
+				<td>data value</td>
 			</tr>
 			<tr>
 			<td class="col1">Contributors:</td>

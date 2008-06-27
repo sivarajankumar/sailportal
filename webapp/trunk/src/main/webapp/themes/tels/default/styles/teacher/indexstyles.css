@@ -83,7 +83,8 @@
 #quickToolsTable {	
 	border-collapse:collapse;
 	text-align:center;
-	margin:0 auto;
+	margin: 0 20px 0 20px; 
+	width:90%;
 	}
 	
 #quickToolsTable th {	
@@ -99,7 +100,16 @@
 	font-size:.8em;
 	vertical-align:middle;
 		}
-	
+
+#quickToolsTable #quickToolsActionsList li {
+	border:1px solid #FFFFFF;
+}
+
+#quickToolsTable #quickToolsActionsList li:hover {
+	background:none;
+	border:1px solid #0000CC;
+}
+
 #quickToolsTable a:hover {	
 	background-color:#FFFF00;
 		}
