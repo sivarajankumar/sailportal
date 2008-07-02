@@ -51,8 +51,7 @@ public class ProjectInfoController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
-		Long projectId = new Long(projectIdStr);
-		Project project = projectService.getById(projectId);
+		Project project = projectService.getById(projectIdStr);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(PROJECT_PARAM_NAME, project);
