@@ -90,7 +90,7 @@ public class ProjectInfoControllerTest extends AbstractModelAndViewTests {
 	@Test
 	public void testHandleRequestInternal_ObjectNotFoundException() throws Exception {
 		request.setParameter("projectId", NON_EXISTING_PROJECT_ID.toString());
-		expect(projectService.getById(NON_EXISTING_PROJECT_ID)).andThrow(new ObjectNotFoundException(NON_EXISTING_PROJECT_ID, Project.class));
+		expect(projectService.getById(NON_EXISTING_PROJECT_ID.toString())).andThrow(new ObjectNotFoundException(NON_EXISTING_PROJECT_ID, Project.class));
 		replay(projectService);
 		try {
 			projectInfoController.handleRequestInternal(request, response);
@@ -102,7 +102,7 @@ public class ProjectInfoControllerTest extends AbstractModelAndViewTests {
 	
 	@Test
 	public void testHandleRequestInternal_success() throws Exception {
-		expect(projectService.getById(DEFAULT_PROJECT_ID)).andReturn(project);
+		expect(projectService.getById(DEFAULT_PROJECT_ID.toString())).andReturn(project);
 		replay(projectService);
 		ModelAndView modelAndView = null;
 		try {
