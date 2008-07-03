@@ -46,7 +46,7 @@
     <tr>
       <th>Project Run Title</th>
       <th>Overview</th>
-      <th>Student Code</th>
+      <th>Student Information</th>
       <th>Teacher(s)</th>
       <th>Started On</th>
       <th>Ended On</th>
@@ -57,8 +57,28 @@
   <tr>
     <td>${run.sdsOffering.name}</td>
     <td><a href="../teacher/projects/projectinfo.html?projectId=${run.project.id}">See Project Overview</a></td>
-    <td>${run.runcode}</td>
-    <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach>
+    <td>
+      <table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+		  <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.29"/></th>
+		  <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.30"/></th>
+		  <th class="tableInnerHeaderRight"><spring:message code="teacher.run.myprojectruns.31"/></th>
+		</tr>
+		<c:set var="totalnumstudentsinrun" value="0" scope="session" />
+		<c:forEach var="period" items="${run.periods}">
+		  <c:set var="totalnumstudentsinrun" value="${totalnumstudentsinrun + fn:length(period.members)}" scope="session" />		
+		  <tr>
+		   <td style="width:20%;" class="tableInnerData">${period.name}</td>
+		   <td style="width:45%;" class="tableInnerData">${run.runcode}-${period.name}</td>
+		   <td style="width:35%;" class="tableInnerDataRight">
+		     ${fn:length(period.members)} <spring:message code="teacher.run.myprojectruns.32"/>
+		   </td>
+		  </tr>
+		</c:forEach>
+		<tr><td colspan="2">Total number of students:</td><td>${totalnumstudentsinrun} registered</td></tr>
+	  </table>
+	</td>
+    <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
     <td><fmt:formatDate value="${run.starttime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><fmt:formatDate value="${run.endtime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><a href="../teacher/management/viewmystudents.html?runId=${run.id}">Manage students in this run</a></td>
