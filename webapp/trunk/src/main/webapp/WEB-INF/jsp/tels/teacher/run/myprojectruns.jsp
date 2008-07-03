@@ -226,9 +226,9 @@
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.sdsOffering.name}</div>
-				      	<div id="titleSubHeader">&middot; [DATA NEEDED: project type/project id] "library project, ID 21351"&middot;</div>
-				    	<div id="titleSubHeader">&middot; [DATA NEEDED: run creation date]  "created 4/12/07" &middot;</div>
-				    	<div id="titleSubHeader">&middot; [DATA NEEDED: date archived] "archived 4/12/07" &middot;</div>				    	   	 
+				      	<div id="titleSubHeader">&middot; "library project, ID: ${run.project.id}"&middot;</div>
+				    	<div id="titleSubHeader">&middot; created <fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" />  &middot;</div>
+				    	<div id="titleSubHeader">&middot; archived <fmt:formatDate value="${run.endtime}" type="date" dateStyle="short" /> &middot;</div>				    	   	 
 				    </td>
 				    <td style="vertical-align:top; padding:0px;">
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
