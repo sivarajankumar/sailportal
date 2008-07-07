@@ -39,6 +39,7 @@ import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
@@ -101,7 +102,18 @@ public class RegisterTeacherController extends SignupController {
 				return showForm(request, response, errors);
 			}
 		} else {
-			userService.updateUserDetails(userDetails); 
+			User user = userService.retrieveUserByUsername(userDetails.getUsername());
+			
+			TeacherUserDetails teacherUserDetails = (TeacherUserDetails) user.getUserDetails();
+			teacherUserDetails.setCity(userDetails.getCity());
+			teacherUserDetails.setCountry(userDetails.getCountry());
+			teacherUserDetails.setCurriculumsubjects(userDetails.getCurriculumsubjects());
+			teacherUserDetails.setEmailAddress(userDetails.getEmailAddress());
+			teacherUserDetails.setSchoollevel(userDetails.getSchoollevel());
+			teacherUserDetails.setSchoolname(userDetails.getSchoolname());
+			teacherUserDetails.setState(userDetails.getState());
+
+			userService.updateUser(user);
 		}
 		
 		ModelAndView modelAndView = new ModelAndView(getSuccessView());

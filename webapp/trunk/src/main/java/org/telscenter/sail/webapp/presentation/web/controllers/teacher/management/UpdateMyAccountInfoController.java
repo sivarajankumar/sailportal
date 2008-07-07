@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.sail.webapp.domain.User;
 
+import org.springframework.validation.BindException;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 import org.telscenter.sail.webapp.presentation.web.controllers.teacher.RegisterTeacherController;
@@ -42,7 +43,7 @@ import org.telscenter.sail.webapp.presentation.web.controllers.teacher.RegisterT
  * @version $Id$
  */
 public class UpdateMyAccountInfoController extends RegisterTeacherController {
-
+	
 	/**
 	 * @see org.telscenter.sail.webapp.presentation.web.controllers.teacher.RegisterTeacherController#formBackingObject(javax.servlet.http.HttpServletRequest)
 	 */
@@ -53,4 +54,17 @@ public class UpdateMyAccountInfoController extends RegisterTeacherController {
  
 		return new TeacherAccountForm((TeacherUserDetails) user.getUserDetails());
 	}
+	
+	/**
+	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate(javax.servlet.http.HttpServletRequest, java.lang.Object, org.springframework.validation.BindException)
+	 */
+	@Override
+	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
+	throws Exception {
+
+		TeacherAccountForm accountForm = (TeacherAccountForm) command;		
+		
+		getValidator().validate(accountForm, errors);
+	}
+
 }

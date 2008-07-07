@@ -125,5 +125,5 @@ public interface UserService {
 	 * Updates the existing <code>MutableUserDetails</code> object
 	 * @param userDetails
 	 */
-	public void updateUserDetails(MutableUserDetails userDetails);
+	public void updateUser(User user);
 }

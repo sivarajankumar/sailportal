@@ -38,6 +38,9 @@
 	<bean id="teacherUserDetailsValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.TeacherUserDetailsValidator" />
 		
+	<bean id="teacherAccountFormValidator"
+	    class="org.telscenter.sail.webapp.presentation.validators.TeacherAccountFormValidator" />
+		
 	<bean id="addprojectparametersValidator" 
 	    class="org.telscenter.sail.webapp.presentation.validators.student.AddProjectParametersValidator" />
 	    
@@ -376,7 +379,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateMyAccountInfoController">
 		<property name="userService" ref="userService" />
     	<property name="commandName" value="teacherAccountForm" />
-    	<property name="validator" ref="teacherUserDetailsValidator" />
+    	<property name="validator" ref="teacherAccountFormValidator" />
     	<property name="formView" value="teacher/management/updatemyaccountinfo" />
     	<property name="successView" value="teacher/management/updatemyaccount" />
 	</bean>

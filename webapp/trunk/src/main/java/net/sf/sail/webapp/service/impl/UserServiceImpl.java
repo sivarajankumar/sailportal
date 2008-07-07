@@ -227,12 +227,8 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.getById(userId);
 	}
 
-	/**
-	 * @override @see net.sf.sail.webapp.service.UserService#saveUserDetails(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
-	 */
 	@Transactional()
-	public void updateUserDetails(MutableUserDetails userDetails) {
-		User user = this.retrieveUser(userDetails);
+	public void updateUser(User user) {
 		this.userDao.save(user);
 	}
 }
