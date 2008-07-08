@@ -150,6 +150,7 @@
     		    <!--  /teacher/management/updateteacheraccount.html=updateTeacherAccountController-->
     		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
     		    /teacher/management/studentinfo.html=studentInfoController
+    		    /teacher/management/studentlist.html=studentListController
     		    <!--  /teacher/management/manageextrateachers.html=manageExtraTeachersController -->
     		    /teacher/management/addsharedteacher.html=addSharedTeacherController
     		    /teacher/help/overview.html=overviewHelpController

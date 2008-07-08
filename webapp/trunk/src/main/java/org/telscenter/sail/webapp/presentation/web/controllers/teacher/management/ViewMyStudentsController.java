@@ -86,6 +86,8 @@ public class ViewMyStudentsController extends AbstractController{
 	private static final String PROJECT_NAME = "project_name";
 	
 	private static final String PROJECT_ID = "project_id";
+	
+	protected static final String RUN_KEY = "run";
 
 
 	/**
@@ -163,6 +165,7 @@ public class ViewMyStudentsController extends AbstractController{
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
+		modelAndView.addObject(RUN_KEY, run);
 		modelAndView.addObject(RUN_NAME_KEY, run.getSdsOffering().getName());
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 		modelAndView.addObject(TAB_INDEX, tabIndex);

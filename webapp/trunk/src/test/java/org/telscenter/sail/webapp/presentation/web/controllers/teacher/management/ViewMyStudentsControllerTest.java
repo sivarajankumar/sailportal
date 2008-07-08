@@ -164,6 +164,8 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 		Map<Offering, List<Workgroup>> expectedWorkgroupMap = new HashMap<Offering, List<Workgroup>>(
 				1);
 		expectedWorkgroupMap.put(offering, emptyWorkgroupList);
+		
+		EasyMock.expect(mockRunService.retrieveById(Long.valueOf(default_runId))).andReturn(run);
 
 		EasyMock.expect(
 				this.mockWorkgroupService.getWorkgroupListByOfferingAndUser(
@@ -201,6 +203,7 @@ public class ViewMyStudentsControllerTest extends AbstractModelAndViewTests {
 		assertModelAttributeValue(modelAndView, ViewMyStudentsController.CURRENT_RUN_LIST_KEY, emptyRunList);
 		assertModelAttributeValue(modelAndView, ViewMyStudentsController.WORKGROUP_MAP_KEY, emptyWorkgroupMap);
 		assertModelAttributeValue(modelAndView, ControllerUtil.USER_KEY, this.user);
+		assertModelAttributeValue(modelAndView, ViewMyStudentsController.RUN_KEY, run);
 		assertModelAttributeValue(modelAndView, ViewMyStudentsController.HTTP_TRANSPORT_KEY, this.mockHttpTransport);
 		EasyMock.verify(this.mockRunService);
 		EasyMock.verify(this.mockWorkgroupService);

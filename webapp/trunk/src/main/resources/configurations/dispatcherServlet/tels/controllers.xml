@@ -765,5 +765,8 @@
 	<bean id="changePeriodParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.teacher.ChangePeriodParametersValidator"/>
 		
-		
+    <bean id="studentListController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.StudentListController">
+        <property name="runService" ref="runService" />
+    </bean>
 </beans>

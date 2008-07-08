@@ -6,6 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 </head>
 <body>
-hi
+<div>Run name: ${run.sdsOffering.name}</div>
+<c:forEach var="period" varStatus="periodStatus" items="${periods}">
+  <div>Period Name: ${period.name}</div>
+  <ul>  
+    <c:forEach var="student" varStatus="studentStatus" items="${period.members}">
+      <li>
+        ${student.userDetails.firstname} ${student.userDetails.lastname}        
+      </li>
+    </c:forEach>      
+  </ul>
+</c:forEach>
 </body>
 </html>
