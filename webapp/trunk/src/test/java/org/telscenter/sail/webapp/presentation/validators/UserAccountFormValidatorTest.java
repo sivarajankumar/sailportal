@@ -213,9 +213,7 @@ public class UserAccountFormValidatorTest extends TestCase {
         
         userAccountFormValidator.validate(userAccountForm, errors);
     	
-        assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-        assertNotNull(errors.getFieldError("userDetails.username"));
+        assertTrue(!errors.hasErrors());
         
     	errors = new BeanPropertyBindingResult(userAccountForm, "");
     	userAccountForm.setNewAccount(false);
@@ -232,9 +230,7 @@ public class UserAccountFormValidatorTest extends TestCase {
         
         userAccountFormValidator.validate(userAccountForm, errors);
     	
-        assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
-        assertNotNull(errors.getFieldError("userDetails.username"));
+        assertTrue(!errors.hasErrors());
         
     	errors = new BeanPropertyBindingResult(userAccountForm, "");
     	userAccountForm.setNewAccount(false);
