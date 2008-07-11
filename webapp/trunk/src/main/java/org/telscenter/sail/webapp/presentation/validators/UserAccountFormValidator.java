@@ -22,8 +22,11 @@
  */
 package org.telscenter.sail.webapp.presentation.validators;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.presentation.web.UserAccountForm;
 
 /**
@@ -33,6 +36,8 @@ import org.telscenter.sail.webapp.presentation.web.UserAccountForm;
  * @version $Id$
  */
 public class UserAccountFormValidator implements Validator {
+
+	protected static final int MAX_PASSWORD_LENGTH = 20;
 
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
@@ -46,11 +51,47 @@ public class UserAccountFormValidator implements Validator {
 	 */
 	public void validate(Object userAccountFormIn, Errors errors) {
 		UserAccountForm userAccountForm = (UserAccountForm) userAccountFormIn;
+		MutableUserDetails userDetails = userAccountForm.getUserDetails();
+		
 		if (userAccountForm.isNewAccount()) {
-			// check the password
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.password",
+			"error.password-not-specified");
+			
+			if (errors.getFieldErrorCount("userDetails.password") > 0) {
+				return;
+			}
+
+			if (userDetails.getPassword().length() > MAX_PASSWORD_LENGTH) {
+				errors.rejectValue("userDetails.password", "error.password-too-long");
+				return;
+			}
+
+			if (!StringUtils.isAlphanumeric(userDetails.getPassword())) {
+				errors.rejectValue("userDetails.password", "error.password-illegal-characters");
+				return;
+			}
+			
+		    if (userDetails.getSignupdate() == null) {
+		    	errors.rejectValue("userDetails.signupdate", "error.signupdate-not-specified");
+		    	return;
+		    }
 		} else {
-			// don't check the password
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.username", 
+			"error.username-not-specified");
+			
+	        if (!StringUtils.isAlphanumeric(userDetails.getUsername())) {
+	            errors.rejectValue("userDetails.username", "error.illegal-characters");
+	        }
 		}
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.firstname", 
+		"error.firstname-not-specified");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.lastname", 
+		"error.lastname-not-specified");
+		
+		if (errors.hasErrors())
+			userDetails.setPassword("");
 	}
 
 }

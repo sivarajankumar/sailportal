@@ -53,7 +53,7 @@
 		    <li><spring:message code="teacher.registerconfirm.5"/></li>
 			</ul>
 			
-			<h5><spring:message code="teacher.registerconfirm.9"/><input id="userClassnameConfirm" name="" value="[Teacher First/Last Name]"/><a href="#" style="margin-left:10px;"><spring:message code="teacher.registerconfirm.10"/></a></h5>
+			<h5><spring:message code="teacher.registerconfirm.9"/><input id="userClassnameConfirm" name="" value="[Teacher First/Last Name]"/><a href="management/updatemyaccountinfo.html" style="margin-left:10px;"><spring:message code="teacher.registerconfirm.10"/></a></h5>
 			
 </div>
 

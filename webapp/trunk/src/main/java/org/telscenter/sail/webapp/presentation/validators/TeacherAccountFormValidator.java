@@ -22,7 +22,12 @@
  */
 package org.telscenter.sail.webapp.presentation.validators;
 
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 
 /**
@@ -31,6 +36,10 @@ import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
  * @version $Id$
  */
 public class TeacherAccountFormValidator extends UserAccountFormValidator {
+	
+	private static final String EMAIL_REGEXP =
+		"^[a-zA-Z0-9]+([_\\.-][a-zA-Z0-9]+)*@" +
+			"([a-zA-Z0-9]+([\\.-][a-zA-Z0-9]+)*)+\\.[a-zA-Z]{2,}$";
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -42,6 +51,66 @@ public class TeacherAccountFormValidator extends UserAccountFormValidator {
 	public void validate(Object userAccountFormIn, Errors errors) {
 		super.validate(userAccountFormIn, errors);
 		
-		// validate attributes that are specific to the teacher
+        if (errors.hasErrors())
+            return;
+        TeacherAccountForm teacherAccountForm = (TeacherAccountForm) userAccountFormIn;
+        TeacherUserDetails userDetails = (TeacherUserDetails) teacherAccountForm.getUserDetails();
+
+        if(!teacherAccountForm.isNewAccount()){
+        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.displayname", 
+    		"error.displayname-not-specified");
+        } else {
+    		if (!errors.hasErrors() && (userDetails.getPassword() == null || userDetails.getPassword().length() < 1 ||
+    				!userDetails.getPassword().equals(teacherAccountForm.getRepeatedPassword()))) {
+    			errors.reject("error.passwords-mismatch",
+    			"Passwords did not match or were not provided. Matching passwords are required.");
+    		}
+        }
+        
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.emailAddress",
+                "error.email-not-specified");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.country",
+                "error.country-not-specified");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.schoolname",
+                "error.schoolname-not-specified");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.curriculumsubjects",
+                "error.curriculumsubjects-not-specified");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.schoollevel",
+                "error.schoollevel-not-specified");
+        
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.city", 
+        		"error.city-not-specified");
+        
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.state",
+        		"error.state-not-specified");
+
+        if(!teacherAccountForm.isLegalAcknowledged()){
+        	errors.reject("error.legal-not-acknowledged", "You must agree to the terms of use");
+        }
+        
+        // TODO HT: CHECK FOR ILLEGAL EMAIL ADDRESS FORMAT
+		String email = userDetails.getEmailAddress();
+		
+		//validate email if it is not null and not empty
+		if(email != null && !email.trim().equals("")) {
+			validateEmail(email, errors);
+		}
+		
+
+        if (errors.hasErrors())
+            userDetails.setPassword("");
+	}
+	
+	/*
+	 * Validates the email against the email regular expression
+	 */
+	private void validateEmail(String email, Errors errors) {
+		if(email != null && !Pattern.matches(EMAIL_REGEXP, email)) {
+			errors.rejectValue("userDetails.emailAddress", "error.email-invalid");
+		}
 	}
 }

@@ -94,6 +94,7 @@ public class RegisterTeacherController extends SignupController {
 
 		if (accountForm.isNewAccount()) {
 			try {
+				userDetails.setDisplayname(userDetails.getFirstname() + " " + userDetails.getLastname());
 				this.userService.createUser(userDetails);
 			}
 			catch (DuplicateUsernameException e) {
@@ -112,6 +113,7 @@ public class RegisterTeacherController extends SignupController {
 			teacherUserDetails.setSchoollevel(userDetails.getSchoollevel());
 			teacherUserDetails.setSchoolname(userDetails.getSchoolname());
 			teacherUserDetails.setState(userDetails.getState());
+			teacherUserDetails.setDisplayname(userDetails.getDisplayname());
 
 			userService.updateUser(user);
 		}
@@ -131,27 +133,12 @@ public class RegisterTeacherController extends SignupController {
 
 		TeacherAccountForm accountForm = (TeacherAccountForm) command;
 		
-		if (!accountForm.isLegalAcknowledged()) {
-			errors.reject("error.legal-not-acknowledged", "You must agree to the terms of use");
-			return;
-		}
-		
 		TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
 		if (accountForm.isNewAccount()) {
 			userDetails.setSignupdate(Calendar.getInstance().getTime());
 		}
-		errors.setNestedPath("userDetails");
-		getValidator().validate(userDetails, errors);
-		errors.setNestedPath("");
 
-		if (accountForm.isNewAccount()) {
-			if (!errors.hasErrors() && (userDetails.getPassword() == null || userDetails.getPassword().length() < 1 ||
-					!userDetails.getPassword().equals(accountForm.getRepeatedPassword()))) {
-				errors.reject("error.passwords-mismatch",
-				"Passwords did not match or were not provided. Matching passwords are required.");
-			}
-		}
-		
+		getValidator().validate(accountForm, errors);
 
 	}
 	

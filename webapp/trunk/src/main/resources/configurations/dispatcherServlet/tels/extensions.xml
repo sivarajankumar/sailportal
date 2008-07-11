@@ -27,10 +27,10 @@
     <bean id="registerstudentController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.RegisterStudentController">
     	<property name="userService" ref="userService" />
-    	<property name="runService" ref="runService" />
+ <!--    	<property name="runService" ref="runService" />  -->
     	<property name="studentService" ref="studentService" />
     	<property name="commandName" value="studentAccountForm" />
-    	<property name="validator" ref="studentUserDetailsValidator" />
+    	<property name="validator" ref="studentAccountFormValidator" />
     	<property name="formView" value="student/registerstudent" />
     	<property name="successView" value="student/registerStudentConfirm" />
     </bean>
@@ -39,7 +39,7 @@
     	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.RegisterTeacherController">
     	<property name="userService" ref="userService" />
     	<property name="commandName" value="teacherAccountForm" />
-    	<property name="validator" ref="teacherUserDetailsValidator" />
+    	<property name="validator" ref="teacherAccountFormValidator" />
     	<property name="formView" value="teacher/registerteacher" />
     	<property name="successView" value="teacher/registerTeacherConfirm" />
     </bean>

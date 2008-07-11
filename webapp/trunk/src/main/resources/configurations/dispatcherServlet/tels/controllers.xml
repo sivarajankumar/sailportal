@@ -40,7 +40,12 @@
 		
 	<bean id="teacherAccountFormValidator"
 	    class="org.telscenter.sail.webapp.presentation.validators.TeacherAccountFormValidator" />
-		
+	    
+	<bean id="studentAccountFormValidator"
+	    class="org.telscenter.sail.webapp.presentation.validators.StudentAccountFormValidator" >
+	    <property name="runService" ref="runService" />
+	</bean>
+			
 	<bean id="addprojectparametersValidator" 
 	    class="org.telscenter.sail.webapp.presentation.validators.student.AddProjectParametersValidator" />
 	    

@@ -60,6 +60,8 @@ public class TeacherUserDetailsTest extends TestCase {
 	
 	private static final int NUMBEROFLOGINS = 3;
 	
+	private static final String DISPLAYNAME ="Mr. Right";
+	
 	public void testGetInfo() {
 		teacherUserDetails.setCity(CITY);
 		teacherUserDetails.setCountry(COUNTRY);
@@ -72,6 +74,7 @@ public class TeacherUserDetailsTest extends TestCase {
 		teacherUserDetails.setSignupdate(SIGNUPDATE);
 		teacherUserDetails.setLastLoginTime(LASTLOGIN);
 		teacherUserDetails.setNumberOfLogins(NUMBEROFLOGINS);
+		teacherUserDetails.setDisplayname(DISPLAYNAME);
 		
 		HashMap<String, Object> infoMap = teacherUserDetails.getInfo();
 		
@@ -86,6 +89,7 @@ public class TeacherUserDetailsTest extends TestCase {
 		assertEquals(infoMap.get("Sign Up Date"), SIGNUPDATE.toString());
 		assertEquals(infoMap.get("Last Login"), LASTLOGIN.toString());
 		assertEquals(infoMap.get("Number of Logins"), Integer.toString(NUMBEROFLOGINS));
+		assertEquals(infoMap.get("Display Name"), DISPLAYNAME);
 	}
 
 }

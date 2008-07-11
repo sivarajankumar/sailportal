@@ -63,8 +63,6 @@ public class RegisterStudentController extends SignupController {
 	
 	private StudentService studentService;
 	
-	private RunService runService;
-	
 	protected static final String USERNAME_KEY = "username";
 	
 	public RegisterStudentController() {
@@ -143,59 +141,8 @@ public class RegisterStudentController extends SignupController {
 			birthday.set(Calendar.DATE, birthdate);
 			userDetails.setBirthday(birthday.getTime());
 		}
-		errors.setNestedPath("userDetails");
-		getValidator().validate(userDetails, errors);
-		errors.setNestedPath("");
 
-		if (accountForm.isNewAccount()) {
-			if (userDetails.getPassword() == null || userDetails.getPassword().length() < 1 ||
-					!userDetails.getPassword().equals(accountForm.getRepeatedPassword())) {
-				errors.reject("error.passwords-mismatch",
-				"Passwords did not match or were not provided. Matching passwords are required.");
-			}
-			
-			String projectCode = accountForm.getProjectCode();	
-			if (projectCode == null || projectCode.length() < 1) {
-				errors.reject("error.projectcode-empty",
-				"Project Code must be specified. Get this from your teacher.");
-				return;
-			} else {
-				Projectcode projectcode = new Projectcode(projectCode);
-				if (!projectcode.isLegalProjectcode()) {
-					errors.reject("error.projectcode-invalid",
-					"Project Code is invalid. Get this from your teacher.");
-					return;
-				}
-				String runcode = projectcode.getRuncode();
-				String periodName = projectcode.getRunPeriod();
-				Run run = null;
-				try {
-					run = runService.retrieveRunByRuncode(runcode);
-				} catch (ObjectNotFoundException e) {
-					errors.reject("error.projectcode-not-in-db",
-					"Project Code is invalid. Get this from your teacher.");					
-					return;
-				}
-				if (run == null) {
-					errors.reject("error.projectcode-not-in-db",
-					"Project Code is invalid. Get this from your teacher.");					
-					return;
-				} else {
-					boolean periodExists = false;
-					Set<Group> periods = run.getPeriods();
-					for (Group period : periods) {
-						if (periodName.equals(period.getName())) {
-							periodExists = true;
-						}
-					}
-					if (!periodExists) {
-						errors.reject("error.projectcode-not-in-db",
-						"Project Code is invalid. Get this from your teacher.");					
-						return;
-					}
-				}
-			}
-		}
+		getValidator().validate(accountForm, errors);
 	}
 
 	@Override
@@ -214,10 +161,5 @@ public class RegisterStudentController extends SignupController {
 		this.studentService = studentService;
 	}
 
-	/**
-	 * @param runService the runService to set
-	 */
-	public void setRunService(RunService runService) {
-		this.runService = runService;
-	}
+
 }

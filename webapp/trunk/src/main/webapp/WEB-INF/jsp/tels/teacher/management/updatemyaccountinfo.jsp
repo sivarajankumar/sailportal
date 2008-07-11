@@ -110,16 +110,20 @@ function MM_swapImage() { //v3.0
        
   	<dt><label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label></dt>
 	<dd><form:input disabled="true" path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
+    
+    <dt><label for="displayname" id="displayname"><spring:message code="signup.displayname"/></label></dt>
+    <dd><form:input path="userDetails.displayname" id="teacherDisplayName" size="25" maxlength="40" tabindex="3"/></dd>
+    (Name as it will appear to students)
             
     <dt><label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label></dt>
-	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="3"/> <span class="hint"><spring:message code="teacher.registerteacher.5"/> <span class="hint-pointer"></span></span></dd>
+	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="4"/> <span class="hint"><spring:message code="teacher.registerteacher.5"/> <span class="hint-pointer"></span></span></dd>
             
-     <dt><label for="city" id="city1"><spring:message code="signup.city" /></label> </dt>
-	<dd><form:input path="userDetails.city" id="teacherCity" size="25" maxlength="25" tabindex="4"/>
+    <dt><label for="city" id="city1"><spring:message code="signup.city" /></label> </dt>
+	<dd><form:input path="userDetails.city" id="teacherCity" size="25" maxlength="25" tabindex="5"/>
     <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span>  </dd>
            
     <dt><label for="state" id="state1" ><spring:message code="signup.state" /></label> </dt>
-	<dd><form:input path="userDetails.state" id="teacherState" size="25" maxlength="25" tabindex="5"/>
+	<dd><form:input path="userDetails.state" id="teacherState" size="25" maxlength="25" tabindex="6"/>
     	<span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span>  
     	<div id="autocomplete_choices_state" class="autocomplete" ></div>
 		<script type="text/javascript">  
@@ -128,7 +132,7 @@ function MM_swapImage() { //v3.0
     </dd>
                 
     <dt><label for="country" id="country1"><spring:message code="signup.country" /></label></dt>
-	<dd><form:input path="userDetails.country" id="teacherCountry" size="25" maxlength="25" tabindex="6"/> 
+	<dd><form:input path="userDetails.country" id="teacherCountry" size="25" maxlength="25" tabindex="7"/> 
     <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> 
     <div id="autocomplete_choices_country" class="autocomplete" ></div>
 		<script type="text/javascript">  
@@ -137,7 +141,7 @@ function MM_swapImage() { //v3.0
     </dd>
             
     <dt>    <label for="schoolname" id="schoolname1"><spring:message code="signup.schoolname" /></label></dt>
-	<dd><form:input path="userDetails.schoolname" id="teacherSchool" size="25" maxlength="25" tabindex="7"/>      <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
+	<dd><form:input path="userDetails.schoolname" id="teacherSchool" size="25" maxlength="25" tabindex="8"/>      <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
     
     <dt><label for="schoollevel" id="schoollevel1"><spring:message code="signup.schoollevel" /></label> </dt>
 	<dd> 
@@ -198,7 +202,7 @@ function MM_swapImage() { //v3.0
      </div>
     </dd>
     
-     <div style="display:none">
+	<div style="display:none">
      
      <dt id="layoutForLegal"><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></dt>     
 	 <dd id="termsOfUse">
@@ -206,13 +210,13 @@ function MM_swapImage() { //v3.0
      <spring:message code="teacher.registerteacher.25"/>&nbsp;<a href="termsofuse.html" onClick="return popupSpecial(this, 'terms')"><spring:message code="teacher.registerteacher.26"/></a>
      </dd>
       <div>&nbsp;</div> 
-      <dt><label for="password" id="password1"><spring:message code="signup.password" /></label>
-</dt>
+      <dt><label for="password" id="password1"><spring:message code="signup.password" /></label></dt>
 	  <dd><form:password disabled="true" path="userDetails.password" id="password" size="25" maxlength="25" tabindex="11" /><span class="hint"><spring:message code="teacher.registerteacher.27"/><span class="hint-pointer"></span></span> </dd>
 
 	  <dt><label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label></dt>
 	  <dd><form:password disabled="true" path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="12" />  <span class="hint"><spring:message code="teacher.registerteacher.28"/><span class="hint-pointer"></span></span></dd>
        </div>
+       
       </dl>
                
  	  <div id="regButtons">

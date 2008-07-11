@@ -84,6 +84,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	
 	@Transient
 	public static final String COLUMN_NAME_LASTLOGINTIME = "lastlogintime";
+	
+	@Transient
+	public static final String COMUN_NAME_DISPLAYNAME = "displayname";
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -120,6 +123,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
     
     @Column(name = TeacherUserDetails.COLUMN_NAME_LASTLOGINTIME)
     private Date lastLoginTime;
+    
+    @Column(name = TeacherUserDetails.COMUN_NAME_DISPLAYNAME)
+    private String displayname;
 	
 	/**
 	 * @return the firstname
@@ -289,6 +295,21 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 		infoMap.put("Curriculum Subjects", subjects);
 		infoMap.put("Number of Logins", this.getNumberOfLogins().toString());
 		infoMap.put("Last Login", this.getLastLoginTime().toString());
+		infoMap.put("Display Name", this.getDisplayname());
 		return infoMap;
+	}
+	
+	/**
+	 * @return the displayname
+	 */
+	public String getDisplayname() {
+		return displayname;
+	}
+	
+	/**
+	 * @param displayname the displayname to set
+	 */
+	public void setDisplayname(String displayname) {
+		this.displayname = displayname;
 	}
 }

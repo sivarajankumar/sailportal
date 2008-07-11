@@ -417,9 +417,8 @@ YAHOO.util.Event.onDOMReady(init);
 								<td id="secondaryRowTightFormat" >
 												<c:choose>
 												<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
-													<c:forEach var="member" items="${studentRunInfo.run.owners}">	
-														${member.userDetails.firstname} 
-										      			${member.userDetails.lastname}
+													<c:forEach var="member" items="${studentRunInfo.run.owners}">
+														${member.userDetails.displayname}
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
@@ -520,8 +519,7 @@ YAHOO.util.Event.onDOMReady(init);
 												<c:choose>
 												<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
 													<c:forEach var="member" items="${studentRunInfo.run.owners}">	
-														${member.userDetails.firstname} 
-										      			${member.userDetails.lastname}
+														${member.userDetails.displayname}
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
