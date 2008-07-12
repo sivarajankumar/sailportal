@@ -25,23 +25,20 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
-import org.springframework.web.servlet.ModelAndView;
-import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
-import org.telscenter.sail.webapp.domain.authentication.Curriculumsubjects;
-import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
-import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
-
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
+
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.telscenter.sail.webapp.domain.authentication.Curriculumsubjects;
+import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
 
 /**
  * Signup controller for TELS teacher user
@@ -52,6 +49,8 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 public class RegisterTeacherController extends SignupController {
 
 	protected static final String USERNAME_KEY = "username";
+	
+	protected static final String DISPLAYNAME_KEY = "displayname";
 	
 	public RegisterTeacherController() {
 		setValidateOnBinding(false);
@@ -121,6 +120,7 @@ public class RegisterTeacherController extends SignupController {
 		ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
 		modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
+		modelAndView.addObject(DISPLAYNAME_KEY, userDetails.getDisplayname());
 		return modelAndView;
 	}
 	

@@ -62,6 +62,10 @@ public class RegisterTeacherControllerTest extends AbstractModelAndViewTests {
 	private static final String FIRSTNAME = "Hiroki";
 
 	private static final String LASTNAME = "Terashima";
+
+	private static final String USERNAME = FIRSTNAME + LASTNAME;
+
+	private static final String DISPLAYNAME = FIRSTNAME + " " + LASTNAME;
 	
 	ApplicationContext mockApplicationContext;
 
@@ -100,6 +104,8 @@ public class RegisterTeacherControllerTest extends AbstractModelAndViewTests {
 
 		teacherUserDetails.setFirstname(FIRSTNAME);
 		teacherUserDetails.setLastname(LASTNAME);
+		teacherUserDetails.setUsername(USERNAME);
+		teacherUserDetails.setDisplayname(DISPLAYNAME);
 		request.addParameter("firstname", FIRSTNAME);
 		request.addParameter("lastname", LASTNAME);
 		request.addParameter("password", PASSWORD);		
@@ -113,6 +119,8 @@ public class RegisterTeacherControllerTest extends AbstractModelAndViewTests {
 				response, teacherAccountForm, errors);
 
 		assertEquals(SUCCESS, modelAndView.getViewName());
+		assertModelAttributeValue(modelAndView, RegisterTeacherController.USERNAME_KEY, USERNAME);
+		assertModelAttributeValue(modelAndView, RegisterTeacherController.DISPLAYNAME_KEY, DISPLAYNAME);
 		verify(mockUserService);
 
 		// test submission of form with same firstname, lastname and birthday info which
