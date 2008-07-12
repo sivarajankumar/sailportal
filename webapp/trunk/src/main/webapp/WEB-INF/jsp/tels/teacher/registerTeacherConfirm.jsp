@@ -45,7 +45,7 @@
 
 <div id="subtitleConfirm">
 			<h4><spring:message code="teacher.registerconfirm.1"/></h4>
-			<h4><spring:message code="teacher.registerconfirm.2"/>&nbsp;<span><input id="usernameConfirm" name="username" value="${username}"/></span></h4>
+			<h4><spring:message code="teacher.registerconfirm.2"/>&nbsp;<span><input disabled id="usernameConfirm" name="username" value="${username}"/></span></h4>
 			
 			<ul>
 		    <li><spring:message code="teacher.registerconfirm.3"/></li>
@@ -53,7 +53,7 @@
 		    <li><spring:message code="teacher.registerconfirm.5"/></li>
 			</ul>
 			
-			<h5><spring:message code="teacher.registerconfirm.9"/><input id="userClassnameConfirm" name="" value="[Teacher First/Last Name]"/><a href="management/updatemyaccountinfo.html" style="margin-left:10px;"><spring:message code="teacher.registerconfirm.10"/></a></h5>
+			<h5><spring:message code="teacher.registerconfirm.9"/><input disabled id="userClassnameConfirm" name="" value="${displayname}"/><a href="management/updatemyaccountinfo.html" style="margin-left:10px;"><spring:message code="teacher.registerconfirm.10"/></a></h5>
 			
 </div>
 
