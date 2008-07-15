@@ -21,7 +21,7 @@
 /* TAGS FOR THE TABLE LAYOUT METHOD   */	
 
 .panelColor {
-	background-image:url(../images/GradientHomeBox.png);
+	background-image:url(../images/GradientHomeBox4.png);
 	background-position:left bottom;
 	background-repeat:repeat-x;
 	border-top-width: 1px;
@@ -36,7 +36,12 @@
 	border-right-color: #000000;
 	border-bottom-color: #000000;
 	border-left-color: #666666;
-	}
+	border-top: 1px solid #336633;
+	border-left: 1px solid #336633;
+	border-right: 2px groove #336633;
+	border-bottom: 2px groove #336633; 
+	
+		}
 	
 #tableTop {
 	border-collapse:collapse;
@@ -60,8 +65,10 @@
 	font-weight:bold;
 	font-size: 1.4em;
 	line-height: normal;
+	color:#006633;	
 	color:#000033;
-}
+	color:#3333FF; 
+		}
 	
 #boxTableWelcome {
 	width: 634px;
@@ -260,7 +267,7 @@
 	}
 	
 #boxTestimonials {
-	width:313px;
+	width:311px;
 	vertical-align: text-top;
 }
 
