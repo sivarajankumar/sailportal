@@ -476,21 +476,50 @@
 				        <th><spring:message code="teacher.index.39"/></th>
 				        <th></th>
 				    </tr>
-				   	<tr >
-				    <td>Project Run Sample Name A</td>
-				    <td>[24315]</td>
-				    <td>
-					    <div id="quickToolsActionMenu" class="yuimenubar yuimenubarnav" > 
-					    			<div class="bd">
-					        			<ul class="first-of-type"> 
-					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
-					                			<a class="yuimenubaritemlabel" href="#quickToolsActionsList">actions</a>
-					           				 </li>
-					            		</ul>
-    								</div>
-						</div>
-					</td>
-					</tr>
+					
+					<c:forEach var="run" items="${run_list}">
+						<tr>
+							<td>${run.sdsOffering.name}</td>
+							<td>${run.id}</td>
+							<td>
+								<a href="/webapp/previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.index.41"/></a><br>
+								<a href="grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.index.42"/></a><br>
+								<a href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a><br>
+							</td>
+					</c:forEach>
+				
+			  <!-- <c:forEach var="run" items="${run_list}">
+						<tr>
+							<td>${run.sdsOffering.name}</td>
+							<td>${run.id}</td>
+							<td>
+							<div id="myMenu${run.id}" class="yuimenubar">
+									<div class="bd">
+										<ul class="first-of-type">
+											<li class="yuimenubaritem first-of-type" style="width:100%;">
+												<a class="yuimenubaritemlabel" href="#actions"><spring:message code="teacher.index.40"/></a>
+												<div id="action" class="yuimenu">
+													<div class="bd">
+														<ul>
+															<li class="yuimenuitem">
+																<a class="yuimenuitemlabel" href="/webapp/previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.index.41"/></a>
+															</li>
+															<li class="yuimenuitem">
+																<a class="yuimenuitemlabel" href="grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.index.42"/></a>
+															</li>
+															<li class="yuimenuitem">
+																<a class="yuimenuitemlabel" href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a>
+															</li>
+														</ul>
+													</div>
+												</div>	
+											</li>
+										</ul>
+									</div>
+								</div>	
+							</td>
+						</tr>
+					</c:forEach> -->
 								  			   
 			</table>
 				

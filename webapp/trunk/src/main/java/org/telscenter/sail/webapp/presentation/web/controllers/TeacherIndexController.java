@@ -22,25 +22,35 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * Controller for TELS teacher's index page
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class TeacherIndexController extends AbstractController {
 	
 	private final static String CURRENT_DATE = "current_date";
 	
 	private final static String VIEW_NAME = "teacher/index";
+	
+	protected final static String RUN_LIST = "run_list";
+	
+	private RunService runService;
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -51,9 +61,26 @@ public class TeacherIndexController extends AbstractController {
 
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
-
+    	
+		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+    	List<Run> runList = runService.getRunList();
+    	List<Run> run_list = new ArrayList<Run>();
+    	
+    	for(Run run : runList){
+    		if(run.getOwners().contains(user) && (!run.isEnded())){
+    			run_list.add(run);
+    		}
+    	}
+    	
+    	modelAndView.addObject(RUN_LIST, run_list);
     	modelAndView.addObject(CURRENT_DATE, null);
         return modelAndView;
+	}
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
 	}
 
 }
