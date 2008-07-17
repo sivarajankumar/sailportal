@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -39,7 +41,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class ManageAllProjectRunsController extends AbstractController {
+public class ManageAllProjectRunsController extends SimpleFormController {
 
 	private RunService runService;
 
@@ -51,11 +53,26 @@ public class ManageAllProjectRunsController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		List<Run> runList = runService.getAllRunList();
+		List<Run> runList;
+		List<Run> run_list = runService.getAllRunList();
+		String projectID = request.getParameter("projectId");
+		if(projectID == null){
+			runList = run_list;
+		} else {
+			Long project_ID = Long.parseLong(projectID);
+			runList = new ArrayList<Run>();
+			for(Run run: run_list){
+				if(run.getProject().getId().equals(project_ID)){
+					runList.add(run);
+				}
+			}
+		}
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(RUNLIST_PARAM_NAME, runList);
 		return modelAndView;
 	}
+	
 
 	/**
 	 * @param runService the runService to set

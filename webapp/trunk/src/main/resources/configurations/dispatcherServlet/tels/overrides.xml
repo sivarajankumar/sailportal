@@ -186,6 +186,8 @@
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
+				/admin/findprojectruns.html=findProjectRunsController
+				/admin/manageproject.html=listProjectsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
     		</value>
     	</property>
