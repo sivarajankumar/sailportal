@@ -30,7 +30,6 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.newsitem.NewsItemDao;
-import org.telscenter.sail.webapp.dao.newsitem.impl.HibernateNewsItemDao;
 import org.telscenter.sail.webapp.domain.impl.NewsItemParameters;
 import org.telscenter.sail.webapp.domain.newsitem.NewsItem;
 import org.telscenter.sail.webapp.domain.newsitem.impl.NewsItemImpl;
@@ -99,10 +98,22 @@ public class NewsItemServiceImpl implements NewsItemService{
 		}
 	}
 	
+	@Transactional()
+	public NewsItem retrieveLatest() throws ObjectNotFoundException{
+		Set<NewsItem> allNews = this.retrieveAllNewsItem();
+		if(allNews.isEmpty())
+			throw new ObjectNotFoundException(new Long(0), NewsItem.class);
+		
+		return allNews.iterator().next();
+	}
+	
+	
 	/**
 	 * @param newsItemDao the newsItemDao to set
 	 */
 	public void setNewsItemDao(NewsItemDao<NewsItem> newsItemDao) {
 		this.newsItemDao = newsItemDao;
 	}
+	
+
 }

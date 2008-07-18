@@ -253,14 +253,8 @@ width: 100%;
                     <td id="boxLatestNews" class="panelColor">
                             <div id="header"><spring:message code="home.latestnewslabel"/></div>
                             <div id="newsContent" class="dataBoxStyle" >
-                            	<div id="newsContentHeader"><spring:message code="home.news.1"/></div>
-                            	<div id="newsContentData"><img src="./themes/tels/default/images/cphs_logo.jpg" width="102" height="62.5" alt="College Park High School Logo" /></div>
-                            	<div id="newsContentData"><em><spring:message code="home.news.2"/></em></div>
-                            	<div id="newsContentData"><spring:message code="home.news.3"/></div>
-                            	<div id="newsContentData"><spring:message code="home.news.4"/></div>
-                            	<div id="newsContentData"><spring:message code="home.news.5"/></div>
-                          		<div id="newsContentData"><spring:message code="home.news.6"/></div> 
-                            	<div id="newsContentData"><em><spring:message code="home.news.7"/><em></div>
+                            	${newsItem.title}<br><br>
+                            	${newsItem.news}
                             </div>
                        		                                
                                 <div class="alignCenter"> 

@@ -60,8 +60,7 @@
 
 <div id="adminTitle">Other</div>
 	<div style="margin:0 0 0 25px;">
-		<h5 style="color:#999999;">Work with News Items</h5>
-		<!--//<a href="managenewsitems.html">Work with News Items</a>-->
+		<h5><a href="managenewsitems.html">Work with News Items</a></h5>
 	</div>
 </div>
 

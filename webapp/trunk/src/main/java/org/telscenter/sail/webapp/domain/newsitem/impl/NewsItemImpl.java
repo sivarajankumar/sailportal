@@ -22,10 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.newsitem.impl;
 
-import java.io.OutputStream;
-import java.sql.Blob;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -156,7 +153,7 @@ public class NewsItemImpl implements NewsItem, Comparable<NewsItem> {
 	}
 	
 	public int compareTo(NewsItem news){
-		return this.getDate().compareTo(news.getDate());
+		return news.getDate().compareTo(this.getDate());
 	}
 
 	/**
@@ -172,7 +169,7 @@ public class NewsItemImpl implements NewsItem, Comparable<NewsItem> {
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
-
+	
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */

@@ -22,84 +22,70 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
-import java.util.Set;
-import java.util.TreeSet;
-
 import javax.servlet.http.HttpSession;
+import org.easymock.EasyMock;
 
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.impl.UserImpl;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-
-import org.junit.Before;
-import org.junit.After;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.newsitem.NewsItem;
+import org.telscenter.sail.webapp.domain.newsitem.impl.NewsItemImpl;
 import org.telscenter.sail.webapp.service.newsitem.NewsItemService;
-import org.easymock.EasyMock;
 
 /**
  * @author patrick lawler
  *
  */
-public class ListNewsItemsControllerTest extends AbstractModelAndViewTests{
+public class RemoveNewsItemControllerTest extends AbstractModelAndViewTests{
 
 	private MockHttpServletRequest request;
 
 	private MockHttpServletResponse response;
 	
-	private ListNewsItemsController listNewsItemsController;
+	private RemoveNewsItemController controller;
 	
-	private NewsItemService mockNewsItemService;
+	private NewsItemService newsService;
 	
-	private Set<NewsItem> all_news;
+	private NewsItem newsItem;
 	
-	private User user;
-	
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Before
+	@Override
 	public void setUp(){
 		this.request = new MockHttpServletRequest();
 		this.response = new MockHttpServletResponse();
 		HttpSession mockSession = new MockHttpSession();
-		this.user = new UserImpl();
-		
-		mockSession.setAttribute(User.CURRENT_USER_SESSION_KEY, this.user);
 		this.request.setSession(mockSession);
 		
-		this.mockNewsItemService = EasyMock.createMock(NewsItemService.class);
-		listNewsItemsController = new ListNewsItemsController();
-		listNewsItemsController.setNewsItemService(this.mockNewsItemService);
+		this.newsService = EasyMock.createMock(NewsItemService.class);
+		this.controller = new RemoveNewsItemController();
+		this.controller.setNewsItemService(newsService);
+		
+		this.newsItem = new NewsItemImpl();
+		this.newsItem.setId(new Long(1));
+		this.request.setParameter("newsId", this.newsItem.getId().toString());
 	}
 	
-	/**
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	@After
+	@Override
 	public void tearDown(){
-		listNewsItemsController = null;
-		mockNewsItemService = null;
-		user = null;
-		request =  null;
-		response = null;
+		this.newsItem = null;
+		this.newsService = null;
+		this.controller = null;
+		this.request = null;
+		this.response = null;
 	}
 	
-	public void testHandleRequestInternal() throws Exception{
-		all_news = new TreeSet<NewsItem>();
+	public void testHandleRequestInternal(){
 		
-		EasyMock.expect(this.mockNewsItemService.retrieveAllNewsItem()).andReturn(all_news);
-		EasyMock.replay(this.mockNewsItemService);
-		
-		ModelAndView mav = listNewsItemsController.handleRequestInternal(request, response);
-		assertModelAttributeValue(mav, ListNewsItemsController.ALL_NEWS, all_news);
-		assertModelAttributeValue(mav, ControllerUtil.USER_KEY, user);
+		this.newsService.deleteNewsItem(this.newsItem.getId());
+		EasyMock.expectLastCall();
+		EasyMock.replay(this.newsService);	
 
-		EasyMock.verify(this.mockNewsItemService);
+		ModelAndView mav = this.controller.handleRequestInternal(request, response);
+				
+		EasyMock.verify(this.newsService);
+		
 	}
+	
+	
 }

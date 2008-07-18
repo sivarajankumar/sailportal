@@ -82,6 +82,9 @@
 		class="org.telscenter.sail.webapp.presentation.validators.FindProjectParametersValidator">
 		<property name="projectService" ref="projectService"/>
 	</bean>
+	
+	<bean id="newsItemParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.NewsItemParametersValidator"/>
 
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
@@ -107,7 +110,9 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.OverviewHelpController" />
 
 	<bean id="indexController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController" />
+		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController">
+		<property name="newsItemService" ref="newsItemService"/>
+	</bean>
 
 	<bean id="creditsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.CreditsController" />
@@ -685,7 +690,7 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectInfoController">
 	    <property name="projectService" ref="projectService" />
 	</bean>
-<!-- 	
+	
 	<bean id="addNewsItemController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.AddNewsItemController">
 		<property name="newsItemService" ref="newsItemService" />
@@ -711,9 +716,19 @@
 		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.NewsItemParameters"/>
 		<property name="validator" ref="newsItemParametersValidator"/>
 	</bean>
- -->	
-    
-         <bean id="shareProjectRunController"
+	
+	<bean id="removeNewsItemController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.RemoveNewsItemController">
+		<property name="sessionForm" value="true"/>
+		<property name="formView" value="/admin/removenewssuccess"/>
+		<property name="newsItemService" ref="newsItemService"/>
+	</bean>
+	
+	<bean id="removeNewsConfirmController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.RemoveNewsConfirmController">
+	</bean>
+
+    <bean id="shareProjectRunController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ShareProjectRunController">
 		<property name="runService" ref="runService"/>
 		<property name="userService" ref="userService" />

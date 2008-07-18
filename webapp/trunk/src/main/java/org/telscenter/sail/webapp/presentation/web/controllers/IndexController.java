@@ -22,19 +22,27 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.newsitem.NewsItem;
+import org.telscenter.sail.webapp.domain.newsitem.impl.NewsItemImpl;
+import org.telscenter.sail.webapp.service.newsitem.NewsItemService;
 
 /**
  * Controller for index pages in TELS
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class IndexController extends AbstractController {
+	
+	private NewsItemService newsItemService;
 	
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -44,9 +52,28 @@ public class IndexController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView();
+		NewsItem newsItem;
+		try{
+			newsItem = newsItemService.retrieveLatest();
+		} catch (ObjectNotFoundException e){
+			newsItem = new NewsItemImpl();
+			newsItem.setDate(Calendar.getInstance().getTime());
+			newsItem.setTitle("No News found - default News Title");
+			newsItem.setNews("This will be filled with the latest news " +
+					"once News Items are created. This can be done by your " +
+					"administrator or other helpful WISE personnel.");
+		}
 
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("newsItem", newsItem);
         return modelAndView;
+	}
+
+	/**
+	 * @param newsItemService the newsItemService to set
+	 */
+	public void setNewsItemService(NewsItemService newsItemService) {
+		this.newsItemService = newsItemService;
 	}
 
 }

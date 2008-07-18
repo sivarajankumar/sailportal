@@ -188,6 +188,12 @@
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
 				/admin/findprojectruns.html=findProjectRunsController
 				/admin/manageproject.html=listProjectsController
+				/admin/managenewsitems.html=listNewsItemsController
+				/admin/addnewsitems.html=addNewsItemController
+				/admin/editnewsitem.html=editNewsItemController
+				/admin/removenewssuccess.html=removeNewsItemController
+				/admin/removenewsconfirm.html=removeNewsConfirmController
+				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
     		</value>
     	</property>

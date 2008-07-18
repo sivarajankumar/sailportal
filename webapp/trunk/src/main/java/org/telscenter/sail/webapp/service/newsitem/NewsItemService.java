@@ -78,5 +78,12 @@ public interface NewsItemService {
 	 * @throws ObjectNotFoundException
 	 */
 	public NewsItem retrieveById(Long id) throws ObjectNotFoundException;
+	
+	/**
+	 * retrieves the newest NewsItem
+	 * 
+	 * @return NewsItem
+	 */
+	public NewsItem retrieveLatest() throws ObjectNotFoundException;
 
 }

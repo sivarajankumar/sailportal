@@ -22,27 +22,18 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.newsitem.NewsItem;
-import org.telscenter.sail.webapp.service.newsitem.NewsItemService;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
  * @author patrick lawler
  *
  */
-public class ListNewsItemsController extends AbstractController{
-
-	private NewsItemService newsItemService;
-	
-	protected final static String ALL_NEWS = "all_news";
+public class RemoveNewsConfirmController extends AbstractController{
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -50,22 +41,13 @@ public class ListNewsItemsController extends AbstractController{
 	 */
 	@Override
 	protected ModelAndView handleRequestInternal(
-			HttpServletRequest servletRequest,
-			HttpServletResponse servletResponse) throws Exception {
+			HttpServletRequest request,
+			HttpServletResponse response){
 		
-		ModelAndView modelAndView = new ModelAndView();
-    	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
-		
-		Set<NewsItem> all_news = newsItemService.retrieveAllNewsItem();
-		
-		modelAndView.addObject(ALL_NEWS, all_news);
+		ModelAndView modelAndView = new ModelAndView("admin/removenewsconfirm");
+		modelAndView.addObject("newsId", request.getParameter("newsId"));
+		modelAndView.addObject("newsTitle", request.getParameter("newsTitle"));
 		return modelAndView;
 	}
 
-	/**
-	 * @param newsItemService the newsItemService to set
-	 */
-	public void setNewsItemService(NewsItemService newsItemService) {
-		this.newsItemService = newsItemService;
-	}
 }
