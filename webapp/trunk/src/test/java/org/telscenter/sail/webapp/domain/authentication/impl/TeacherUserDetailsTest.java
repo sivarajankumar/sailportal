@@ -86,8 +86,8 @@ public class TeacherUserDetailsTest extends TestCase {
 		assertEquals(infoMap.get("Last Name"), LASTNAME);
 		assertEquals(infoMap.get("School Level"), SCHOOLLEVEL.toString());
 		assertEquals(infoMap.get("School Name"), SCHOOLNAME);
-		assertEquals(infoMap.get("Sign Up Date"), SIGNUPDATE.toString());
-		assertEquals(infoMap.get("Last Login"), LASTLOGIN.toString());
+		assertEquals(infoMap.get("Sign Up Date"), SIGNUPDATE);
+		assertEquals(infoMap.get("Last Login"), LASTLOGIN);
 		assertEquals(infoMap.get("Number of Logins"), Integer.toString(NUMBEROFLOGINS));
 		assertEquals(infoMap.get("Display Name"), DISPLAYNAME);
 	}
