@@ -149,7 +149,7 @@
     		    /teacher/management/changeteacherpasswordsuccess.html=changeTeacherPasswordSuccessController
     		    <!--  /teacher/management/updateteacheraccount.html=updateTeacherAccountController-->
     		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
-    		    /teacher/management/studentinfo.html=studentInfoController
+    		    /studentinfo.html=infoController
     		    /teacher/management/studentlist.html=studentListController
     		    <!--  /teacher/management/manageextrateachers.html=manageExtraTeachersController -->
     		    /teacher/management/addsharedteacher.html=addSharedTeacherController
@@ -176,6 +176,7 @@
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/teacher/management/removestudentfromrun.html=removeStudentFromRunController
 				/teacher/management/updatemyaccountinfo.html=updateMyAccountInfoController
+				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController
 				/author/registerjnlp.html=registerJnlpController

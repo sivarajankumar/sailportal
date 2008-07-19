@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.management;
+package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +34,7 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  * @author Sally Ahn
  * @version $Id: $
  */
-public class StudentInfoController extends AbstractController{
+public class InfoController extends AbstractController{
 	
 	private UserService userService;
 
@@ -53,13 +53,6 @@ public class StudentInfoController extends AbstractController{
 		modelAndView.addObject(USER_INFO_MAP, userDetails.getInfo());
         return modelAndView;	
     }
-
-	/**
-	 * @return the userService
-	 */
-	public UserService getUserService() {
-		return userService;
-	}
 
 	/**
 	 * @param userService the userService to set

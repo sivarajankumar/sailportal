@@ -56,7 +56,15 @@ public class ViewAllUsersControllerTest extends AbstractModelAndViewTests{
 	
 	private UserService mockUserService;
 	
-	private List<User> expected_all_users_list;
+	private List<User> allUsers;
+	
+	private List<User> teachers;
+	
+	private List<User> students;
+	
+	private List<User> admins;
+	
+	private List<User> other;
 	
 	private User user;
 
@@ -78,21 +86,30 @@ public class ViewAllUsersControllerTest extends AbstractModelAndViewTests{
 		
 		this.viewAllUsersController = new ViewAllUsersController();
 		this.viewAllUsersController.setUserService(mockUserService);
-		this.expected_all_users_list = new ArrayList<User>();
+		this.allUsers = new ArrayList<User>();
+		this.teachers = new ArrayList<User>();
+		this.students = new ArrayList<User>();
+		this.admins = new ArrayList<User>();
+		this.other = new ArrayList<User>();
 	}
 
 	
 	public void testHandleRequestInternal() throws Exception{
 		
-		EasyMock.expect(mockUserService.retrieveAllUsers()).andReturn(expected_all_users_list);
+		EasyMock.expect(mockUserService.retrieveAllUsers()).andReturn(allUsers);
     	EasyMock.replay(mockUserService);
     	
     	ModelAndView modelAndView = 
     		viewAllUsersController.handleRequestInternal(request, response);
-    	assertModelAttributeValue(modelAndView, 
-    			ViewAllUsersController.ALL_USERS_LIST,
-    			expected_all_users_list);
 
+    	assertModelAttributeValue(modelAndView, viewAllUsersController.ADMINS,
+    			this.admins);
+    	assertModelAttributeValue(modelAndView, viewAllUsersController.TEACHERS,
+    			this.teachers);
+    	assertModelAttributeValue(modelAndView, viewAllUsersController.STUDENTS,
+    			this.students);
+    	assertModelAttributeValue(modelAndView, viewAllUsersController.OTHER,
+    			this.other);
     	assertModelAttributeValue(modelAndView, 
     			ControllerUtil.USER_KEY, user);
     	assertEquals(modelAndView.getViewName(), "admin/manageusers");

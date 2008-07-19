@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,20 +35,25 @@ import net.sf.sail.webapp.service.UserService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import org.acegisecurity.GrantedAuthority;
+
 /**
  * @author Sally Ahn
  * @version $Id: $
  */
 public class ViewAllUsersController extends AbstractController{
-	protected static final String FALSE = "FALSE";
 	
 	private UserService userService;
 
-	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
-
 	protected static final String VIEW_NAME = "admin/manageusers";
+		
+	protected static final String TEACHERS = "teachers";
 	
-	protected static final String ALL_USERS_LIST = "all_users_list";
+	protected static final String STUDENTS = "students";
+	
+	protected static final String ADMINS = "admins";
+	
+	protected static final String OTHER = "other";
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -61,25 +67,55 @@ public class ViewAllUsersController extends AbstractController{
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
-		List<User> all_users_list = this.userService.retrieveAllUsers();
+		List<User> allUsers = this.userService.retrieveAllUsers();
+		List<User> teachers = new ArrayList<User>();
+		List<User> students = new ArrayList<User>();
+		List<User> admins = new ArrayList<User>();
+		List<User> other = new ArrayList<User>();
+		for(User user: allUsers){
+			GrantedAuthority authorities[] = user.getUserDetails().getAuthorities();
+			if(isAdmin(authorities)){
+				admins.add(user);
+			} else if (isTeacher(authorities)){
+				teachers.add(user);
+			} else if (isStudent(authorities)){
+				students.add(user);
+			} else {
+				other.add(user);
+			}
+		}
 		
-		modelAndView.addObject(ALL_USERS_LIST, all_users_list);
+		modelAndView.addObject(TEACHERS, teachers);
+		modelAndView.addObject(STUDENTS, students);
+		modelAndView.addObject(ADMINS, admins);
+		modelAndView.addObject(OTHER, other);
 		return modelAndView;
 	}
 
-	/**
-	 * @return the userService
-	 */
-	public UserService getUserService() {
-		return userService;
+	private boolean isAdmin(GrantedAuthority[] authorities){
+		return isRole(authorities, "ROLE_ADMINISTRATOR");
 	}
-
+	
+	private boolean isTeacher(GrantedAuthority[] authorities){
+		return isRole(authorities, "ROLE_TEACHER");
+	}
+	
+	private boolean isStudent(GrantedAuthority[] authorities){
+		return isRole(authorities, "ROLE_STUDENT");
+	}
+	
+	private boolean isRole(GrantedAuthority[] authorities, String role){
+		for(GrantedAuthority authority : authorities){
+			if(authority.getAuthority().equals(role))
+				return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * @param userService the userService to set
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
-	
 }

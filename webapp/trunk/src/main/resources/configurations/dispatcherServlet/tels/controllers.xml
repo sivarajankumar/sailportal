@@ -638,9 +638,9 @@
 	    class="org.telscenter.sail.webapp.domain.impl.ProjectParameters">
 	</bean>
 	
-	<bean id="studentInfoController" 
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.StudentInfoController">
-	    <property name="userService" ref="userService" />
+	<bean id="infoController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.InfoController">
+		<property name="userService" ref="userService"/>
 	</bean>
 	
 	<bean id="viewAllUsersController"

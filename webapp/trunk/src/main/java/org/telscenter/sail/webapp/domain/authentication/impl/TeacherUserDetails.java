@@ -282,7 +282,7 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 		HashMap<String, Object> infoMap = new HashMap<String, Object>();
 		infoMap.put("First Name", this.getFirstname());
 		infoMap.put("Last Name", this.getLastname());
-		infoMap.put("Sign Up Date", this.getSignupdate().toString());
+		infoMap.put("Sign Up Date", this.getSignupdate());
 		infoMap.put("City", this.getCity());
 		infoMap.put("State", this.getState());
 		infoMap.put("Country", this.getCountry());
@@ -290,12 +290,13 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 		infoMap.put("School Level", this.getSchoollevel().toString());
 		String subjects = "";
 		for(String s:curriculumsubjects) {
-			subjects = s + " ";
+			subjects = subjects + s + " ";
 		}
 		infoMap.put("Curriculum Subjects", subjects);
 		infoMap.put("Number of Logins", this.getNumberOfLogins().toString());
-		infoMap.put("Last Login", this.getLastLoginTime().toString());
+		infoMap.put("Last Login", this.getLastLoginTime());
 		infoMap.put("Display Name", this.getDisplayname());
+		infoMap.put("Username", this.getUsername());
 		return infoMap;
 	}
 	
