@@ -194,6 +194,7 @@
 				/admin/editnewsitem.html=editNewsItemController
 				/admin/removenewssuccess.html=removeNewsItemController
 				/admin/removenewsconfirm.html=removeNewsConfirmController
+				/admin/findprojectrunsbyteacher.html=findProjectRunsByTeacherController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
     		</value>

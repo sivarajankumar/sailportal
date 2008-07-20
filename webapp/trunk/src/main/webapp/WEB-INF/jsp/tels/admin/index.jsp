@@ -56,6 +56,7 @@
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="manageallprojectruns.html">Manage All Project Runs</a></h5>
 		<h5><a href="findprojectruns.html">Find Project Runs</a></h5>
+		<h5><a href="findprojectrunsbyteacher.html">Find Project Runs By Teacher</a></h5>
 	</div>
 
 <div id="adminTitle">Other</div>
