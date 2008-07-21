@@ -219,7 +219,7 @@ public class ProjectImpl implements Project {
 	 * @return the familyTag
 	 */
 	public FamilyTag getFamilytag() {
-		return projectinfo.getFamilyTag();
+		return familytag;
 	}
 
 	/**
@@ -234,7 +234,7 @@ public class ProjectImpl implements Project {
 	 * @return the isCurrent
 	 */
 	public boolean isCurrent() {
-		return projectinfo.isCurrent();
+		return isCurrent;
 	}
 
 	/**
