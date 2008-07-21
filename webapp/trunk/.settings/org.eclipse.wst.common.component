@@ -294,6 +294,9 @@
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/textmining/tm-extractors/0.4/tm-extractors-0.4.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>                            
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>                            
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
   </wb-module>
