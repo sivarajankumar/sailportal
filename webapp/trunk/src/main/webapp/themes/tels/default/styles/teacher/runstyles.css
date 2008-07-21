@@ -58,9 +58,9 @@ table #runContent{
 	border-collapse:collapse;
 	border:0px;
 	text-align:left;
-	font-size:.8em;
+	font-size:.9em;
 	color:#000000;
-	margin:15px 0 0 10px ;
+	margin:15px 0 0 30px;
 }
 
 #runTitleTable td {
@@ -69,7 +69,8 @@ table #runContent{
 } 
 
 .runTitleTableHeader {
-	font-weight:bold;;
+	font-weight:bold;
+	width:150px;
 }
 
 #currentRunInfoTable {

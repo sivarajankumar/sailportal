@@ -28,6 +28,9 @@
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="teacherrunstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
 
 <script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
  
@@ -48,9 +51,8 @@
 <h2 id="titleBar" class="headerText"><spring:message code="teacher.run.shareprojectrun.2"/></h2> 
 				<c:out value="${message}" />
 
-<div class="sharedprojectHeadline1"><spring:message code="teacher.run.shareprojectrun.3"/>/div>
- 
-    
+<div class="sharedprojectHeadline1"><spring:message code="teacher.run.shareprojectrun.3"/></div>
+     
 				        <table id="runTitleTable">
 				      			<tr>
 				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.4"/></td>

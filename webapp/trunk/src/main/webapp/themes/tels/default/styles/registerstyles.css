@@ -101,6 +101,10 @@
   text-align:center;
   margin-top:20px;
 }
+
+#regButtonsUpdate {
+  margin-top:25px;
+}
 	
 #genderFieldDefault {color:#0099FF;}
 #birthMonthFieldDefault {color:#0099FF;}
@@ -149,7 +153,7 @@
 	background-color:#CCCCC;
 	color: #0000FF;
 	font-weight:bold;
-	padding: 0 0 0 5px;
+	padding: 3px 5px;
 	margin:0 0 0 5px;
 	font-size:1.2em;
 	border: 1px solid #333333;
