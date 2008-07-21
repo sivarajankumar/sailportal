@@ -71,6 +71,10 @@
   <path id="lib.commons-logging">
     <path location="${M2_REPO}/commons-logging/commons-logging/1.1/commons-logging-1.1.jar" />
   </path>
+	
+  <path id="lib.commons-fileupload">
+    <path location="${M2_REPO}/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar" />
+  </path>
 
   <path id="lib.commons-dbcp">
     <path location="${M2_REPO}/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar" />
@@ -106,6 +110,7 @@
     <path location="${M2_REPO}/org/springframework/spring-beans/2.0.5/spring-beans-2.0.5.jar" />
     <path location="${M2_REPO}/org/springframework/spring-core/2.0.5/spring-core-2.0.5.jar" />
     <path location="${M2_REPO}/org/springframework/spring/2.0.5/spring-2.0.5.jar" />
+    <path location="${M2_REPO}/org/springframework/spring-web/2.0.5/spring-web-2.0.5.jar" />  	
   </path>
 
   <path id="lib.ehcache">
@@ -156,6 +161,7 @@
         <path refid="lib.commons-dbcp" />
         <path refid="lib.commons-collections" />
         <path refid="lib.commons-logging" />
+        <path refid="lib.commons-fileupload" />
         <path refid="lib.commons-httpclient" />
         <path refid="lib.hibernate" />
         <path refid="lib.dom4j" />
