@@ -95,7 +95,7 @@ public class StartProjectController extends AbstractController {
 			if (bymyself) { 
 				// if bymyself=true was passed in as request
 				// create new workgroup with this student in it
-				String name = "Workgroup for " + user.getUserDetails().getUsername();
+				String name = "Workgroup for user: " + user.getUserDetails().getUsername() + " in run: " + run.getSdsOffering().getName();
 				Set<User> members = new HashSet<User>();
 				members.add(user);
 				workgroup = workgroupService.createWISEWorkgroup(name, members, run, period);

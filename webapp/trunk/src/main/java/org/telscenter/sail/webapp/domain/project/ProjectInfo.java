@@ -1,12 +1,14 @@
 package org.telscenter.sail.webapp.domain.project;
 
+import java.io.Serializable;
+
 
 /**
+ * Information associated with a particular <code>Project</code>
  * 
  * @author Carlos
- *
  */
-public interface ProjectInfo {
+public interface ProjectInfo extends Serializable {
 
 	
 	/**
@@ -78,5 +80,26 @@ public interface ProjectInfo {
 	 * @param isCurrent the isCurrent to set
 	 */
 	public void setCurrent(boolean isCurrent);
+	
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment);
+	
+	/**
+	 * @return comment
+	 */
+	public String getComment();
+	
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description);
+
+	/**
+	 * @return description
+	 */
+	public String getDescription();
+	
 	
 }

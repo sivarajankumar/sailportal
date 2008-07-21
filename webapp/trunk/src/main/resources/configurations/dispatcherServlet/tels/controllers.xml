@@ -97,7 +97,7 @@
 	<bean id="teacherIndexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController" >
 		<property name="runService" ref="runService" />
-	</bean> 
+	</bean>
 
 	<bean id="registerController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterController" />
@@ -768,11 +768,11 @@
 	<bean id="editProjectController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EditProjectController">
 		<property name="projectService" ref="projectService" />
-		<property name="commandName" value="projectInfoParameters" />
+		<property name="commandName" value="project" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl" />
 		<property name="successView" value="manageallprojects.html" />
 		<property name="formView" value="admin/editproject" />
-		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters" />
 	</bean>
 	
 	<!-- controllers for admin -->
@@ -802,21 +802,38 @@
         <property name="runService" ref="runService" />
     </bean>
     
-    <bean id="findProjectRunsController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.FindProjectRunsController">
-    	<property name="commandName" value="findProjectParameters"/>
-    	<property name="commandClass"
-    		value="org.telscenter.sail.webapp.domain.impl.FindProjectParameters"/>
-    	<property name="validator" ref="findProjectParametersValidator"/>
-    	<property name="runService" ref="runService"/>
+    <bean id="retrieveOtmlController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.repository.RetrieveOtmlController" >
+        <property name="repositoryService" ref="rooloRepositoryService" />
+    </bean>
+
+    <bean id="otmlFileUpload"
+        class="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />
+
+    <bean id="uploadOtmlController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.admin.UploadOtmlController" >
+        <property name="projectService" ref="projectService" />
+		<property name="sessionForm" value="true"/>
+		<property name="commandName" value="otmlFile"/>
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />
+			<!--  
+		<property name="successView" value="manageallprojects.html" />
+		<property name="formView" value="admin/uploadotml" />
+		-->
+    </bean>
+
+    <bean id="listProjectsController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ListProjectsController">
+        <property name="projectService" ref="projectService" />
     </bean>
     
-    <bean id="findProjectParameters"
-    	class="org.telscenter.sail.webapp.domain.impl.FindProjectParameters"/>
-    	
-    <bean id="listProjectsController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ListProjectsController">
-    	<property name="projectService" ref="projectService"/>
+    <bean id="findProjectRunsController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.admin.FindProjectRunsController">
+		<property name="commandName" value="findProjectParameters"/>
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.FindProjectParameters" />
+        <property name="runService" ref="runService" />
     </bean>
     
     <bean id="findProjectRunsByTeacherController"

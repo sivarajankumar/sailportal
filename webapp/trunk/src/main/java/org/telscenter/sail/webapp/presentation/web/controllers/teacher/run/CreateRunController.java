@@ -200,8 +200,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request, 
 			Object command, Errors errors, int page) {
-		String projectIdStr = request.getParameter("projectId");
-		Long projectId = Long.valueOf(projectIdStr);
+		String projectId = request.getParameter("projectId");
 		RunParameters runParameters = (RunParameters) command;
 		Module module = null;
 		Project project = null;

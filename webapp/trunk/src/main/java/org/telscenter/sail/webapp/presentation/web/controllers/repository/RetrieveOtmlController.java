@@ -20,63 +20,85 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
+package org.telscenter.sail.webapp.presentation.web.controllers.repository;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.Module;
+import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
+import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
+import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
+import org.telscenter.sail.webapp.service.repository.RepositoryService;
+
+import roolo.curnit.client.basicProxy.CurnitProxy;
 
 /**
- * Controller for users with author privileges to author projects
+ * Retrieves otml from local repository and returns it.
+ * 
+ * a curnitId needs to be passed in the request
  * 
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class AuthorProjectController extends AbstractController {
+public class RetrieveOtmlController extends AbstractController {
 
-	private static final String PROJECT_ID_PARAM_NAME = "projectId";
+	protected static final String URI_PARAM = "uri";
+	
+	private static final String XML_CONTENT_TYPE = "application/xml";
+	
+	private RepositoryService repositoryService;
 
-	private ProjectService projectService;
-	
-	private HttpRestTransport httpRestTransport;
-	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		
+		String uriString = request.getParameter(URI_PARAM);
+		URI uri = new URI(uriString);
+		
+		CurnitProxy curnitProxy = repositoryService.getByUri(uri);
+		File otmlFile = curnitProxy.getContent().getOtmlFile();
+		response.setContentType(XML_CONTENT_TYPE);
 
-		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
-		Project project = projectService.getById(projectIdStr);
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader ("Expires", 0);
 
-		AuthorProjectParameters params = new AuthorProjectParameters();
-		params.setProject(project);
-		params.setHttpServletRequest(request);
-		params.setHttpServletResponse(response);
-		params.setHttpRestTransport(httpRestTransport);
+		String outputOtmlString = "";
+		BufferedReader in = new BufferedReader(
+				new FileReader(otmlFile));
+		String inputLine;
+		while ((inputLine = in.readLine()) != null) {
+			outputOtmlString += inputLine;
+		}
 
-		return (ModelAndView) projectService.authorProject(params);
+		response.getWriter().print(outputOtmlString);
+
+		return null;
+
 	}
-	
+
+
 	/**
-	 * @param projectService the projectService to set
+	 * @param repositoryService the repositoryService to set
 	 */
-	public void setProjectService(ProjectService projectService) {
-		this.projectService = projectService;
+	public void setRepositoryService(RepositoryService repositoryService) {
+		this.repositoryService = repositoryService;
 	}
-	
-	/**
-	 * @param httpRestTransport the httpRestTransport to set
-	 */
-	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-		this.httpRestTransport = httpRestTransport;
-	}
+
 }

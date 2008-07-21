@@ -1,87 +1,36 @@
 package org.telscenter.sail.webapp.domain.project.cmsImpl;
 
+import javax.persistence.Transient;
 
-
-import java.net.URI;
-
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.domain.Jnlp;
-
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 import roolo.curnit.client.basicProxy.CurnitProxy;
 
-public class RooloProjectImpl implements Project {
+/**
+ * Project implementation using Roolo. RooloProjects are also stored in
+ * the datastore; the difference between RooloProjects and ProjectImpl is
+ * where the curnit is stored (roolo vs confluence), and RooloProject
+ * has a <code>CurnitProxy</code> object.
+ * 
+ * @author Carlos Celorrio
+ * @author Hiroki Terashima
+ *
+ * @version $Id:$
+ */
+public class RooloProjectImpl extends ProjectImpl {
 
-
+	@Transient
     private static final long serialVersionUID = 1L;
 
-    private URI id;
-	
-    private Curnit curnit;
-	
-    private Jnlp jnlp;
-	
-    private Run previewRun;
-	
-    private FamilyTag familytag;
-    
-    private boolean isCurrent;
-    
-    private ProjectInfo projectInfo;
-
+	@Transient
     private CurnitProxy proxy;
     
-    /**
-     * @return the curnit
-     */
-    public Curnit getCurnit() {
-    	return curnit;
-    }
-
-    /**
-     * @param curnit the curnit to set
-     */
-    public void setCurnit(Curnit curnit) {
-	this.curnit = curnit;
-    }
-
-	/**
-	 * @return the jnlp
-	 */
-	public Jnlp getJnlp() {
-		return jnlp;
-	}
-
-	/**
-	 * @param jnlp the jnlp to set
-	 */
-	public void setJnlp(Jnlp jnlp) {
-		this.jnlp = jnlp;
-	}
-
-	/**
-	 * @return the previewRun
-	 */
-	public Run getPreviewRun() {
-		return previewRun;
-	}
-
-	/**
-	 * @param previewRun the previewRun to set
-	 */
-	public void setPreviewRun(Run previewRun) {
-		this.previewRun = previewRun;
-	}
-
 	/**
 	 * @return the familytag
 	 */
 	public FamilyTag getFamilytag() {
-		return projectInfo.getFamilyTag();
+		return projectinfo.getFamilyTag();
 	}
 
 	/**
@@ -89,14 +38,14 @@ public class RooloProjectImpl implements Project {
 	 */
 	public void setFamilytag(FamilyTag familytag) {
 		this.familytag = familytag;
-		this.projectInfo.setFamilyTag(familytag);
+		this.projectinfo.setFamilyTag(familytag);
 	}
 
 	/**
 	 * @return the isCurrent
 	 */
 	public boolean isCurrent() {
-		return projectInfo.isCurrent();
+		return projectinfo.isCurrent();
 	}
 
 	/**
@@ -104,28 +53,7 @@ public class RooloProjectImpl implements Project {
 	 */
 	public void setCurrent(boolean isCurrent) {
 		this.isCurrent = isCurrent;
-		this.projectInfo.setCurrent(isCurrent);
-	}
-
-	public URI getId() {
-		return this.id;
-	}
-
-	public ProjectInfo getProjectInfo() {
-	    return this.projectInfo;
-	}
-
-	public void setProjectInfo(ProjectInfo projectInfo) {
-	    this.projectInfo = projectInfo;
-	    
-	}
-
-	/**
-	 * Set the id
-	 * @param id the id to set
-	 */
-	public void setId(URI id) {
-	    this.id = id;
+		this.projectinfo.setCurrent(isCurrent);
 	}
 
 	/**
@@ -143,7 +71,5 @@ public class RooloProjectImpl implements Project {
 	public void setProxy(CurnitProxy proxy) {
 	    this.proxy = proxy;
 	}
-	
-
 
 }

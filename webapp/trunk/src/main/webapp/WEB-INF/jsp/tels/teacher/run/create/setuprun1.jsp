@@ -67,14 +67,14 @@
 	<tr id="setupProjectTableR2">
 		<td class="setupProjectTitle">${project.curnit.sdsCurnit.name}</td>
 		<td>${project.id}</td>       		   <!--		""${project.curnit.id}""-->
-		<td>[Topics/Keywords here]</td>
-		<td>[Grades(s) here]</td>              <!--		"${project.curnit.totalTime}"-->
-		<td>[# Periods here]</td>              <!--		"${project.curnit.computerTime}"-->
-		<td>[# Periods here]</td>
+		<td>${project.projectInfo.keywords}</td>
+		<td>${project.projectInfo.gradeLevel}</td>              <!--		"${project.curnit.totalTime}"-->
+		<td>[# hours here]</td>              <!--		"${project.curnit.computerTime}"-->
+		<td>[# hours here]</td>
 		<td>[# Runs Here]
 	</tr>
 	<tr id="setupProjectTableR3">
-		<td class="indent15px" colspan="7">${project.curnit.description}[Project Description goes here]</td>
+		<td class="indent15px" colspan="7">Project Description: ${project.projectInfo.description}</td>
 	</tr>
 	</table>
 			

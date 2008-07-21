@@ -86,7 +86,7 @@ public class ProjectServiceImplTest extends TestCase {
 		this.mockProjectDao = createMock(ProjectDao.class);
 		this.projectServiceImpl.setProjectDao(mockProjectDao);
 		this.mockRooloProjectDao = createMock(ProjectDao.class);
-		this.projectServiceImpl.setRooloProjectDao(this.mockRooloProjectDao);
+//		this.projectServiceImpl.setRooloProjectDao(this.mockRooloProjectDao);
 		this.mockCurnitService = createMock(CurnitService.class);
 		this.projectServiceImpl.setCurnitService(mockCurnitService);
 		this.mockJnlpService = createMock(JnlpService.class);

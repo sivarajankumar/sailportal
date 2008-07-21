@@ -52,6 +52,13 @@ public interface CurnitService {
 	public Curnit createCurnit(CurnitParameters curnitParameters);
 	
 	/**
+	 * Updates the specified curnit
+	 * 
+	 * @param curnit the <code>Curnit</code> to update
+	 */
+	public void updateCurnit(Curnit curnit);
+	
+	/**
 	 * Gets a curnit with the given curnitId.
 	 * 
 	 * @param curnitId

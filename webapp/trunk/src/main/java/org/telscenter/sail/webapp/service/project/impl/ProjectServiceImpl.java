@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,8 +53,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
+import org.telscenter.sail.webapp.dao.project.impl.RooloProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
+import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -65,8 +66,12 @@ import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
+
+import roolo.curnit.client.basicProxy.CurnitProxy;
+import roolo.curnit.client.basicProxy.MetadataKeyProxy;
 
 /**
  * TELS Portal's ProjectService can work with projects that are persisted
@@ -88,8 +93,6 @@ public class ProjectServiceImpl implements ProjectService {
 	protected static Set<String> PREVIEW_PERIOD_NAMES;
 
 	private ProjectDao<Project> projectDao;
-	
-	private ProjectDao<RooloProjectImpl> rooloProjectDao;
 	
 	private CurnitService curnitService;
 	
@@ -138,10 +141,12 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	@Transactional()
 	public void updateProject(Project project) {
-		if (project instanceof ProjectImpl) {
-			this.projectDao.save(project);
-		} else if (project instanceof RooloProjectImpl) {
-			this.rooloProjectDao.save((RooloProjectImpl) project);
+		this.projectDao.save(project);
+		Curnit curnit = project.getCurnit();
+		if (curnit instanceof RooloOtmlModuleImpl) {
+			RooloOtmlModuleImpl rooloOtmlModule = (RooloOtmlModuleImpl) curnit;
+			rooloOtmlModule.updateProxy(project.getProjectInfo());
+			curnitService.updateCurnit(project.getCurnit());
 		}
 	}
 	
@@ -196,6 +201,12 @@ public class ProjectServiceImpl implements ProjectService {
 				project.getPreviewRun(),
 				previewWorkgroup);
 		
+		Curnit curnit = project.getCurnit();
+		if (curnit instanceof RooloOtmlModuleImpl) {
+			String curnitOtmlUrl = ((RooloOtmlModuleImpl) curnit).getRetrieveOtmlUrl();
+			previewProjectUrl += "?sailotrunk.otmlurl=" + curnitOtmlUrl;
+		}
+		
 		return new ModelAndView(new RedirectView(previewProjectUrl));
 	}
 	
@@ -206,11 +217,27 @@ public class ProjectServiceImpl implements ProjectService {
 	public ModelAndView authorProject(AuthorProjectParameters authorProjectParameters)
 			throws Exception {
 		// TODO get the author jnlpurl from project
+		
 
 		// TODO replace the below when ready to switch to otml
 		//String curnitUrl = project.getCurnit().getSdsCurnit().getUrl();
-		String curnitUrl = "http://www.telscenter.org/confluence/download/attachments/20047/Airbags.otml";
+		Project project = authorProjectParameters.getProject();
+		String curnitUrl = project.getCurnit().getSdsCurnit().getUrl();
 		
+		if (project instanceof ProjectImpl || curnitUrl == null) {
+			curnitUrl = "http://www.telscenter.org/confluence/download/attachments/20047/Airbags.otml";
+		} else if (project instanceof RooloProjectImpl) {
+			curnitUrl = RooloProjectDao.ROOLO_URL + "retrieveotml.html?projectId=" + project.getId();
+			((RooloProjectImpl) project).getProxy();
+		}
+		
+		Curnit curnit = project.getCurnit();
+		if (curnit instanceof RooloOtmlModuleImpl) {
+			RooloOtmlModuleImpl rooloOtmlModule = (RooloOtmlModuleImpl) curnit;
+			curnitUrl = rooloOtmlModule.getRetrieveOtmlUrl();
+		}
+
+
 		URL jnlpURL = new URL(authoringToolJnlpUrl);
 		BufferedReader in = new BufferedReader(
 				new InputStreamReader(jnlpURL.openStream()));
@@ -234,7 +261,6 @@ public class ProjectServiceImpl implements ProjectService {
 		httpServletResponse.addHeader("Content-Disposition", "Inline; fileName=" + fileName);
 
 		httpServletResponse.setContentType(JNLP_CONTENT_TYPE);
-		//httpServletResponse.setCharacterEncoding("UTF-8");
 		httpServletResponse.getWriter().print(outputJNLPString);
 		
 		return null;
@@ -315,25 +341,58 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional(readOnly = true)
 	public Project getById(Serializable projectId) throws ObjectNotFoundException {
     	Project project = this.projectDao.getById(projectId);
-    	if (project != null) {
-    		return project;
-    	} else {   	
-    		RooloProjectImpl rooloProject = this.rooloProjectDao.getById(projectId);
-    		return rooloProject;
-    	}
+		populateProjectInfo(project);
+    	return project;
 	}
 
+	/**
+	 * If the project is gotten from a datasource other than local database,
+	 * its projectInfo needs to be populated.
+	 * 
+	 * @param project
+	 * @throws ObjectNotFoundException
+	 */
+	private void populateProjectInfo(Project project)
+			throws ObjectNotFoundException {
+		Curnit curnit = project.getCurnit();
+		if (curnit instanceof RooloOtmlModuleImpl) {
+			// need to retrieve curnit from roolo
+			RooloOtmlModuleImpl curnitWithProxy = (RooloOtmlModuleImpl) curnitService.getById(curnit.getId());
+			CurnitProxy curnitProxy = curnitWithProxy.getProxy();
+			project.setCurnit(curnitWithProxy);
+			project.setProjectInfo(getProjectInfoFromCurnitProxy(curnitProxy));
+		}
+	}
+
+    public ProjectInfo getProjectInfoFromCurnitProxy(CurnitProxy curnitProxy) {
+    	ProjectInfo projectInfo = new ProjectInfoImpl();
+    	projectInfo.setAuthor(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.AUTHOR).getStringValue());
+    	projectInfo.setComment(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.COMMENT).getStringValue());
+    	projectInfo.setDescription(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.DESCRIPTION).getStringValue());
+    	projectInfo.setCurrent(Boolean.valueOf(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.CURRENT).getStringValue()));
+    	projectInfo.setFamilyTag(FamilyTag.valueOf(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.FAMILYTAG).getStringValue()));
+    	projectInfo.setGradeLevel(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.GRADELEVEL).getStringValue());
+    	projectInfo.setKeywords(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.KEYWORDS).getStringValue());
+    	projectInfo.setSubject(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.SUBJECT).getStringValue());
+    	return projectInfo;
+    }
+    
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectList()
 	 */
     @Transactional(readOnly = true)
 	public List<Project> getProjectList() {
     	List<Project> projectList = this.projectDao.getList();
-    	List<RooloProjectImpl> rooloProjectList = this.rooloProjectDao.getList();
-    	List<Project> projects = new ArrayList<Project>();
-    	projects.addAll(projectList);
-    	projects.addAll(rooloProjectList);
-		return projects;
+    	// populate roolo projects' projectinfos
+    	for (Project project : projectList) {
+    		try {
+				populateProjectInfo(project);
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
+    	}
+    	
+		return projectList;
 	}
     
 	/**
@@ -341,11 +400,7 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	public List<Project> getProjectListByTag(String projectinfotag) throws ObjectNotFoundException {
     	List<Project> projectList = this.projectDao.retrieveListByTag(projectinfotag);
-    	List<RooloProjectImpl> rooloProjectList = this.rooloProjectDao.retrieveListByTag(projectinfotag);
-    	List<Project> projects = new ArrayList<Project>();
-    	projects.addAll(projectList);
-    	projects.addAll(rooloProjectList);
-		return projects;
+		return projectList;
 	}
 
 	/**
@@ -353,11 +408,11 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	public List<Project> getProjectListByTag(FamilyTag familytag) throws ObjectNotFoundException {
     	List<Project> projectList = this.projectDao.retrieveListByTag(familytag);
-    	List<RooloProjectImpl> rooloProjectList = this.rooloProjectDao.retrieveListByTag(familytag);
-    	List<Project> projects = new ArrayList<Project>();
-    	projects.addAll(projectList);
-    	projects.addAll(rooloProjectList);
-		return projects;
+    	// populate roolo projects' projectinfos
+    	for (Project project : projectList) {
+    		populateProjectInfo(project);
+    	}
+		return projectList;
 	}
 	
 	/**
@@ -366,11 +421,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Project> getProjectListByInfo(ProjectInfo info)
 			throws ObjectNotFoundException {
     	List<Project> projectList = this.projectDao.retrieveListByInfo(info);
-    	List<RooloProjectImpl> rooloProjectList = this.rooloProjectDao.retrieveListByInfo(info);
-    	List<Project> projects = new ArrayList<Project>();
-    	projects.addAll(projectList);
-    	projects.addAll(rooloProjectList);
-		return projects;		
+		return projectList;		
 	}
 
 	/**
@@ -413,13 +464,6 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-
-	/**
-	 * @param rooloProjectDao the rooloProjectDao to set
-	 */
-	public void setRooloProjectDao(ProjectDao<RooloProjectImpl> rooloProjectDao) {
-		this.rooloProjectDao = rooloProjectDao;
 	}
 
 	/**

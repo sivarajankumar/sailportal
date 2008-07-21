@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
@@ -31,82 +32,23 @@ import roolo.curnit.client.impl.ClientCurnitRepository;
 /**
  * Project DAO that use Roolo
  * @author ccelorrio
- *
  */
-public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
+public class RooloProjectDao extends AbstractHibernateDao<Project> implements ProjectDao<Project> {
 
-	private static String URL = "http://localhost:8080/webapp/";
+	public static String ROOLO_URL = "http://localhost:8080/webapp/repository/";
 
 	// Roolo client
 	private IClientRepository rooloClient = new ClientCurnitRepository();
 
-
 	public RooloProjectImpl createEmptyProject() {
-		System.out.println("RooloDAO createEmptyProject");
 		RooloProjectImpl project = new RooloProjectImpl();
 		return project;
 	}
-
-	public List<RooloProjectImpl> retrieveListByInfo(ProjectInfo projectinfo)
-	throws ObjectNotFoundException {
-		System.out.println("RooloDAO retrieveListByInfo");
-		List<RooloProjectImpl> projects = new ArrayList<RooloProjectImpl>();
-		SimpleQueryMetadata query = new SimpleQueryMetadata();
-		CurnitMetadataProxy metadata = createMetadata( projectinfo);
-		query.setMetadataPattern(metadata);
-		//List<URI> curnitIds = rooloClient.search(query);
-//		for(URI id : curnitIds) {
-//			try {
-//				projects.add( this.getById(id));
-//			} catch (ObjectNotFoundException e) {
-//			}
-//		}
-		return projects;
-	}
-
-
+	
 	/**
-	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#retrieveListByTag(org.telscenter.sail.webapp.domain.project.FamilyTag)
+	 * @see net.sf.sail.webapp.dao.SimpleDao#getById(java.io.Serializable)
 	 */
-	public List<RooloProjectImpl> retrieveListByTag(FamilyTag familytag)
-	throws ObjectNotFoundException {
-		System.out.println("RooloDAO retrieveListByTag(familytag)");
-		ProjectInfo projectInfo = new ProjectInfoImpl();
-		projectInfo.setFamilyTag(familytag);
-		List<RooloProjectImpl> projects = new ArrayList<RooloProjectImpl>();
-		SimpleQueryMetadata query = new SimpleQueryMetadata();
-		CurnitMetadataProxy metadata = createMetadata(projectInfo);
-		query.setMetadataPattern(metadata);
-		List<URI> curnitIds = rooloClient.search(query);
-		for(URI id : curnitIds) {
-			try {
-				projects.add( this.getById(id));
-			} catch (ObjectNotFoundException e) {
-			}
-		}
-		return projects;
-	}
-
-	public List<RooloProjectImpl> retrieveListByTag(String projectinfotag)
-	throws ObjectNotFoundException {
-		System.out.println("RooloDAO retrieveListByTag(projectinfotag)");
-		return null;
-	}
-
-	public void delete(RooloProjectImpl project) {
-		System.out.println("RooloDAO delete");
-		try {
-			URI uri = new URI(project.getId().toString());
-			rooloClient.deleteELO( uri );
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-
-
-	}
-
 	public RooloProjectImpl getById(Serializable id) throws ObjectNotFoundException {
-		System.out.println("RooloDAO getById");
 		RooloProjectImpl project = null;
 		try {
 			URI uri = new URI(id.toString());
@@ -115,20 +57,74 @@ public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-
 		return project;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#retrieveListByInfo(org.telscenter.sail.webapp.domain.project.ProjectInfo)
+	 */
+	public List<Project> retrieveListByInfo(ProjectInfo projectinfo)
+	throws ObjectNotFoundException {
+//		List<Project> projects = new ArrayList<RooloProjectImpl>();
+//		SimpleQueryMetadata query = new SimpleQueryMetadata();
+//		CurnitMetadataProxy metadata = createMetadata( projectinfo);
+//		query.setMetadataPattern(metadata);
+//		//List<URI> curnitIds = rooloClient.search(query);
+////		for(URI id : curnitIds) {
+////			try {
+////				projects.add( this.getById(id));
+////			} catch (ObjectNotFoundException e) {
+////			}
+////		}
+		return null;
+	}
+
+
+	/**
+	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#retrieveListByTag(org.telscenter.sail.webapp.domain.project.FamilyTag)
+	 */
+	public List<Project> retrieveListByTag(FamilyTag familytag)
+	throws ObjectNotFoundException {
+//		ProjectInfo projectInfo = new ProjectInfoImpl();
+//		projectInfo.setFamilyTag(familytag);
+//		List<RooloProjectImpl> projects = new ArrayList<RooloProjectImpl>();
+//		SimpleQueryMetadata query = new SimpleQueryMetadata();
+//		CurnitMetadataProxy metadata = createMetadata(projectInfo);
+//		query.setMetadataPattern(metadata);
+//		List<URI> curnitIds = rooloClient.search(query);
+//		for(URI id : curnitIds) {
+//			try {
+//				projects.add( this.getById(id));
+//			} catch (ObjectNotFoundException e) {
+//			}
+//		}
+//		return projects;
+		return null;
+	}
+
+	public List<Project> retrieveListByTag(String projectinfotag)
+	throws ObjectNotFoundException {
+		return null;
+	}
+
+	public void delete(RooloProjectImpl project) {
+		try {
+			URI uri = new URI(project.getId().toString());
+			rooloClient.deleteELO( uri );
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public RooloProjectImpl getById(URI uri) throws ObjectNotFoundException {
-		System.out.println("RooloDAO getById");
 		CurnitProxy curnit = rooloClient.retrieveELO(uri);
 		RooloProjectImpl project = createProject(curnit);
 		return project;
 	}
 
-	public List<RooloProjectImpl> getList() {
-		System.out.println("RooloDAO getList");
-		List<RooloProjectImpl> projects = new ArrayList<RooloProjectImpl>();
+	public List<Project> getList() {
+		super.getList();
+		List<Project> projects = new ArrayList<Project>();
 		SimpleQueryMetadata query = new SimpleQueryMetadata();
 		CurnitMetadataProxy metadata = new CurnitMetadataProxy();
 		metadata.setMetadataValue(MetadataKeyProxy.URI, new MetadataValueProxy("%"));
@@ -144,11 +140,8 @@ public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
 	}
 
 	public void save(RooloProjectImpl project) {
-		System.out.println("RooloDAO save");
 		CurnitProxy curnit = createCurnitProxy(project);
-		//rooloClient.addELO(curnit);
 		rooloClient.updateELO(curnit);
-
 	}
 
 
@@ -158,13 +151,13 @@ public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
 		project.setProjectInfo(info);
 		project.setFamilytag( info.getFamilyTag());
 		project.setCurrent( info.isCurrent());
-		project.setId( proxy.getUri() );
+//		project.setId( proxy.getUri() );
 		project.setProxy(proxy);
 
 		Curnit c = new CurnitImpl();
 		SdsCurnit sdsCurnit = new SdsCurnit();
 		sdsCurnit.setName(proxy.getMetaData().getMetadataValue(MetadataKeyProxy.TITLE).getStringValue());
-		String url = URL + proxy.getMetaData().getMetadataValue(MetadataKeyProxy.URI).getStringValue();
+		String url = ROOLO_URL + proxy.getMetaData().getMetadataValue(MetadataKeyProxy.URI).getStringValue();
 		sdsCurnit.setUrl(url);
 		c.setSdsCurnit(sdsCurnit);
 		project.setCurnit(c);
@@ -192,6 +185,8 @@ public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
 		}
 		String isCurrent = metadata.getMetadataValue(MetadataKeyProxy.CURRENT).getStringValue();
 		info.setCurrent("yes".equals(isCurrent));
+		info.setComment(metadata.getMetadataValue(MetadataKeyProxy.COMMENT).getStringValue());
+		info.setDescription(metadata.getMetadataValue(MetadataKeyProxy.DESCRIPTION).getStringValue());
 		return info;
 	}
 
@@ -200,12 +195,14 @@ public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
 		CurnitProxy proxy = project.getProxy();
 
 		CurnitMetadataProxy metadataProxy = proxy.getMetaData();
-		FamilyTag familytag = project.getFamilytag();
+		FamilyTag familytag = project.getFamilytag();		
 		metadataProxy.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy(familytag.toString()));
 		if(project.isCurrent())
-			metadataProxy.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("yes"));
+			metadataProxy.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("yes"));
 		else
-			metadataProxy.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("no"));
+			metadataProxy.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("no"));
+		metadataProxy.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy(project.getProjectInfo().getComment()));
+		metadataProxy.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy(project.getProjectInfo().getDescription()));		
 		return proxy;
 	}
 
@@ -218,6 +215,18 @@ public class RooloProjectDao implements ProjectDao<RooloProjectImpl> {
 		curnitMetadataProxy.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy(projectinfo.getFamilyTag().toString()));
 		// TODO: CC or HT: more info e.g. author
 		return curnitMetadataProxy;
+	}
+
+	@Override
+	protected Class<? extends Project> getDataObjectClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getFindAllQuery() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -79,9 +79,9 @@
 	    		<dt>Project Source:</dt>
 	    			<dd>[Type data here]</dd>
 	    		<dt style="letter-spacing:-.7px;">Subjects/Keywords:</dt>
-	    			<dd>[data here]</dd>
+	    			<dd>${project.projectInfo.subject} ${project.projectInfo.keywords}</dd>
 	    		<dt>Grade Range:</dt>
-	    			<dd>[data here]</dd>
+	    			<dd>${project.projectInfo.gradeLevel}</dd>
 	    		<dt>Total Time:</dt>
 	    			<dd>[data here]</dd>
 	    		<dt>Computer Time:</dt>
@@ -92,10 +92,7 @@
 	    	</dl>
 	    	
 	    <div class="projectInfoHeader">Project Summary</div>
-	    <div class="projectInfoDataBox">[SAMPLE] Dolore dolore molestie wisi feugait molestie consequat iusto praesent 
-	    nostrud zzril tincidunt consequat et zzril. Te ullamcorper volutpat tincidunt minim. Aliquip dolore lobortis 
-	    blandit esse suscipit duis magna vel odio dolore ipsum ut at magna iusto et ex ex. 
-	    Eros illum, luptatum, ea nulla, in nostrud.</div>
+	    <div class="projectInfoDataBox">${project.projectInfo.description}</div>
 	    
 	    <div class="projectInfoHeader">Contact(s)</div>
 	    <div class="projectInfoDataBox">[Need one or more email links here]</div>

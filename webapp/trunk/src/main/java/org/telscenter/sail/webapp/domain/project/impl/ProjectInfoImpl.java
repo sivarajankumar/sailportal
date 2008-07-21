@@ -5,12 +5,13 @@ import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 
 
 /**
- * 
+ * Project information associated to TELS Projects
  * @author Carlos
- *
  */
 public class ProjectInfoImpl implements ProjectInfo {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String author;
 	private String gradeLevel;
 	private String subject;
@@ -18,7 +19,8 @@ public class ProjectInfoImpl implements ProjectInfo {
 	private String projectLiveCycle;
 	private FamilyTag familyTag;
 	private boolean isCurrent;
-	
+	private String comment;
+	private String description;
 	
 	/**
 	 * @return the author
@@ -105,5 +107,31 @@ public class ProjectInfoImpl implements ProjectInfo {
 	 */
 	public void setCurrent(boolean isCurrent) {
 		this.isCurrent = isCurrent;
+	}
+	/**
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+	/**
+	 * @return description
+	 */
+	public String getDescription() {
+		return description;
+	}
+	
+	/**
+	 * @param description <code>String</code> description about this project
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

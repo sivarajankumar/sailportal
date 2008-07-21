@@ -36,6 +36,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -65,11 +66,8 @@ public class EditProjectController extends SimpleFormController{
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		Project project = projectService.getById(request.getParameter("projectId"));
-		ProjectInfoParameters params = new ProjectInfoParameters();
-		params.setCurrent(project.isCurrent());
-		params.setFamilytag(project.getFamilytag());
-		params.setId(project.getId());
-		return params;
+		//ProjectInfo projectInfo = project.getProjectInfo();
+		return project;
 	}
 
 	/**
@@ -79,11 +77,13 @@ public class EditProjectController extends SimpleFormController{
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		ProjectInfoParameters params = (ProjectInfoParameters) command;
-		
-		Project project = projectService.getById(params.getId());
-		project.setCurrent(params.isCurrent());
-		project.setFamilytag(params.getFamilytag());
+		Project project = (Project) command;
+//		Project project = projectService.getById(request.getParameter("projectId"));
+//		ProjectInfo params = (ProjectInfo) command;
+//		
+//		project.setProjectInfo(params);
+////		project.setCurrent(params.isCurrent());
+////		project.setFamilytag(params.getFamilyTag());
 		projectService.updateProject(project);
 		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
 		return modelAndView;

@@ -106,4 +106,14 @@ public class CurnitServiceImpl implements CurnitService {
 		this.sdsCurnitDao.save(sdsCurnit);
 	}
 
+	/**
+	 * @see net.sf.sail.webapp.service.curnit.CurnitService#updateCurnit(net.sf.sail.webapp.domain.Curnit)
+	 */
+	@Transactional()
+	public void updateCurnit(Curnit curnit) {
+		SdsCurnit sdsCurnit = curnit.getSdsCurnit();
+		this.sdsCurnitDao.save(sdsCurnit);
+		this.curnitDao.save(curnit);
+	}
+
 }

@@ -22,20 +22,25 @@
  */
 package org.telscenter.sail.webapp.service.module.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.impl.CurnitParameters;
+import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.module.ModuleDao;
 import org.telscenter.sail.webapp.domain.Module;
+import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
-import org.telscenter.sail.webapp.domain.impl.ModuleParameters;
+import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 
-import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
-import net.sf.sail.webapp.domain.impl.CurnitParameters;
-import net.sf.sail.webapp.domain.sds.SdsCurnit;
-import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
+import roolo.curnit.client.basicProxy.CurnitProxy;
 
 /**
  *  Service for the TELS's Module Domain Object
@@ -48,34 +53,90 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 	
 	private ModuleDao<Module> moduleDao;
 	
+	private ModuleDao<Module> rooloOtmlModuleDao;
+	
+	/**
+	 * @see net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl#createCurnit(net.sf.sail.webapp.domain.impl.CurnitParameters)
+	 */
 	 @Override
 	 @Transactional(rollbackFor = { HttpStatusCodeException.class })	
 	 public Module createCurnit(CurnitParameters curnitParameters) {
-		ModuleParameters moduleParameters = (ModuleParameters) curnitParameters;
 		SdsCurnit sdsCurnit = new SdsCurnit();
-		sdsCurnit.setName(moduleParameters.getName());
-		sdsCurnit.setUrl(moduleParameters.getUrl());
+		sdsCurnit.setName(curnitParameters.getName());
+		sdsCurnit.setUrl(curnitParameters.getUrl());
 	    this.sdsCurnitDao.save(sdsCurnit);  
-		
-		Module module = new ModuleImpl();
-		module.setSdsCurnit(sdsCurnit);
-        this.moduleDao.save(module);
-        return module;
+
+	    Module module = null;
+	    if (curnitParameters instanceof CreateRooloOtmlModuleParameters) {
+	    	module = new RooloOtmlModuleImpl();
+	    	module.setSdsCurnit(sdsCurnit);
+	    	((RooloOtmlModuleImpl) module).setRooloModuleUri(
+	    			((CreateRooloOtmlModuleParameters) curnitParameters).getRoolouri());
+	    	((RooloOtmlModuleImpl) module).setRooloRepositoryUrl(
+	    			((CreateRooloOtmlModuleParameters) curnitParameters).getRooloRepositoryUrl());
+	    	this.rooloOtmlModuleDao.save(module);
+	    } else {
+	    	module = new ModuleImpl();
+	    	module.setSdsCurnit(sdsCurnit);
+	    	this.moduleDao.save(module);
+	    }
+    	return module;
 	}
 
+	 /**
+	  * @see net.sf.sail.webapp.service.curnit.CurnitService#getCurnitList()
+	  */
+	 @Override	 
+	 @Transactional(readOnly = true)
+	 public List<? extends Curnit> getCurnitList() {
+		 List<Module> podModuleList = this.moduleDao.getList();
+		 List<Module> otmlModuleList = this.rooloOtmlModuleDao.getList();
+		 List<Module> moduleList = new ArrayList<Module>();
+		 moduleList.addAll(podModuleList);
+		 moduleList.addAll(otmlModuleList);
+		return moduleList;
+		 
+	 }
+	 
 	@SuppressWarnings("unchecked")
 	public List<Module> getProjectList() {
-		return moduleDao.getList();
+		List<Module> podModuleList = moduleDao.getList();
+		List<Module> otmlModuleList = this.rooloOtmlModuleDao.getList();
+		List<Module> moduleList = new ArrayList<Module>();
+		moduleList.addAll(podModuleList);
+		moduleList.addAll(otmlModuleList);
+		return moduleList;
 		//return (List<Module>) super.getCurnitList();
 	}
 
 	/**
+	 * @throws ObjectNotFoundException 
 	 * @see net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl#getById(java.lang.Long)
 	 */
 	@Override
 	public Module getById(Long moduleId) throws ObjectNotFoundException {
-		return moduleDao.getById(moduleId);
-		//return moduleDao.getById(moduleId);
+		Module module = null;
+		 try {
+			module = moduleDao.getById(moduleId);
+		} catch (ObjectNotFoundException e) {
+			module = rooloOtmlModuleDao.getById(moduleId);
+		}
+		return module;
+	}
+	
+	/**
+	 * @see net.sf.sail.webapp.service.curnit.CurnitService#updateCurnit(net.sf.sail.webapp.domain.Curnit)
+	 */
+	@Override
+	@Transactional()
+	public void updateCurnit(Curnit curnit) {
+		SdsCurnit sdsCurnit = curnit.getSdsCurnit();
+		this.sdsCurnitDao.save(sdsCurnit);
+		if (curnit instanceof RooloOtmlModuleImpl) {
+			this.rooloOtmlModuleDao.save((Module) curnit);
+		} else {
+			this.moduleDao.save((Module) curnit);
+		}
 	}
 
 	/**
@@ -83,6 +144,13 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 	 */
 	public void setModuleDao(ModuleDao<Module> moduleDao) {
 		this.moduleDao = moduleDao;
+	}
+
+	/**
+	 * @param rooloOtmlModuleDao the rooloOtmlModuleDao to set
+	 */
+	public void setRooloOtmlModuleDao(ModuleDao<Module> rooloOtmlModuleDao) {
+		this.rooloOtmlModuleDao = rooloOtmlModuleDao;
 	}
 
 }

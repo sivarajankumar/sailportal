@@ -187,6 +187,7 @@
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
+				/admin/uploadotml.html=uploadOtmlController
 				/admin/findprojectruns.html=findProjectRunsController
 				/admin/manageproject.html=listProjectsController
 				/admin/managenewsitems.html=listNewsItemsController
@@ -197,6 +198,7 @@
 				/admin/findprojectrunsbyteacher.html=findProjectRunsByTeacherController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
+				/repository/retrieveotml.html=retrieveOtmlController
     		</value>
     	</property>
     </bean>

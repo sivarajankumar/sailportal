@@ -37,6 +37,12 @@
 	<bean id="curnitParameters"
 		class="org.telscenter.sail.webapp.domain.impl.ModuleParameters"
 		scope="prototype" />
+		
+    <bean id="createRooloOtmlModuleParameters"
+        class="org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters"
+        scope="prototype">
+    </bean>
+		
 
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -101,7 +107,8 @@
                 /forgotaccount/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /forgotaccount/**/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /admin/**/*.html=ROLE_ADMINISTRATOR
-                /j_acegi_switch_user*=ROLE_ADMINISTRATOR                
+                /j_acegi_switch_user*=ROLE_ADMINISTRATOR  
+                /repository/**/*.html=ROLE_ANONYMOUS,ROLE_USER              
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>

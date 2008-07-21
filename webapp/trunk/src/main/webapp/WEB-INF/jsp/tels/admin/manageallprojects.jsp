@@ -42,7 +42,10 @@
 		<th> Project Id</th>
 		<th> IsCurrent?</th>
 		<th> familytag</th>
-		<th> Edit Project</th>
+		<th> Edit Project with Authoring tool</th>
+		<th> Edit Project with Manually</th>		
+		<th> Edit Project Metadata</th>		
+		<th> Preview Project</th>				
 	</tr>
 	<c:forEach var="project" items="${projectList}">
 	<tr>
@@ -50,7 +53,10 @@
 		<td>${project.id }</td>
 		<td>${project.current }</td>
 		<td>${project.familytag }</td>
-		<td><a href="editproject.html?projectId=${project.id}">Edit</a></td>
+		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
+		<td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>		
+		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
+		<td><a href="../previewproject.html?projectId=${project.id}">Preview</a></td>		
 	</tr>
 	</c:forEach>
 </table>

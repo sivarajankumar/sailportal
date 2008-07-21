@@ -37,8 +37,7 @@ public class PreviewProjectController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
-		Long projectId = Long.valueOf(projectIdStr);
-		Project project = projectService.getById(projectId);
+		Project project = projectService.getById(projectIdStr);
 		
 		PreviewProjectParameters params = new PreviewProjectParameters();
 		params.setProject(project);

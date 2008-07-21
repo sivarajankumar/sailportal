@@ -86,24 +86,24 @@ public class ProjectImpl implements Project {
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = false, unique = false)
-	private Curnit curnit;
+	protected Curnit curnit;
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = false, unique = false)
-	private Jnlp jnlp;
+	protected Jnlp jnlp;
 	
 	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = COLUMN_NAME_PREVIEWOFFERING_FK, unique = true)
-	private Run previewRun;
+	protected Run previewRun;
 	
     @Column(name = ProjectImpl.COLUMN_NAME_FAMILYTAG, nullable = true)
-	private FamilyTag familytag;
+	protected FamilyTag familytag;
     
   //  @Column(name = ProjectImpl.COLUMN_NAME_PROJECTINFOTAG, nullable = true)
  //   private String projectInfoTag;
     @Column(name = ProjectImpl.COLUMN_NAME_ISCURRENT, nullable = true)
-    private boolean isCurrent;
+    protected boolean isCurrent;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -111,7 +111,7 @@ public class ProjectImpl implements Project {
 
     @Version
     @Column(name = "OPTLOCK")
-    private Integer version = null;
+    protected Integer version = null;
 	
     
 	/**
@@ -219,7 +219,7 @@ public class ProjectImpl implements Project {
 	 * @return the familyTag
 	 */
 	public FamilyTag getFamilytag() {
-		return familytag;
+		return projectinfo.getFamilyTag();
 	}
 
 	/**
@@ -234,7 +234,7 @@ public class ProjectImpl implements Project {
 	 * @return the isCurrent
 	 */
 	public boolean isCurrent() {
-		return isCurrent;
+		return projectinfo.isCurrent();
 	}
 
 	/**
@@ -258,5 +258,7 @@ public class ProjectImpl implements Project {
 	 */
 	public void setProjectInfo(ProjectInfo projectInfo) {
 		this.projectinfo = projectInfo;
+		this.isCurrent = projectInfo.isCurrent();
+		this.familytag = projectInfo.getFamilyTag();
 	}
  }

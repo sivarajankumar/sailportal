@@ -78,8 +78,8 @@ public class CreateProjectController extends SimpleFormController {
     	try {
 			projectService.createProject(projectParameters);
 		} catch (ObjectNotFoundException e) {
-			// TODO HT implement me
-			e.printStackTrace();
+	    	ModelAndView modelAndView = new ModelAndView(getFormView());
+	    	return modelAndView;
 		}
     	
     	ModelAndView modelAndView = new ModelAndView(getSuccessView());

@@ -25,14 +25,18 @@ package org.telscenter.sail.webapp.domain.newsitem.impl;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Lob;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.telscenter.sail.webapp.domain.newsitem.NewsItem;
 
@@ -57,7 +61,7 @@ public class NewsItemImpl implements NewsItem, Comparable<NewsItem> {
     public static final String COLUMN_NAME_DATE = "date";
     
     @Transient
-    public static final String COLUMN_NAME_OWNER = "owner";
+    public static final String JOIN_COLUMN_NAME_OWNER = "owner";
     
     @Transient
     public static final String COLUMN_NAME_TITLE = "title";
@@ -72,7 +76,8 @@ public class NewsItemImpl implements NewsItem, Comparable<NewsItem> {
     @Column(name = NewsItemImpl.COLUMN_NAME_DATE, nullable = false)
 	private Date date = null;
     
-    @Column(name = NewsItemImpl.COLUMN_NAME_OWNER, nullable = false)
+    @ManyToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = NewsItemImpl.JOIN_COLUMN_NAME_OWNER, nullable = false, unique = false)    
     private User owner;
     
     @Column(name = NewsItemImpl.COLUMN_NAME_TITLE, nullable = false)
