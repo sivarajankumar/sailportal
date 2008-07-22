@@ -27,6 +27,8 @@
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
   
 <script src="../.././javascript/tels/general.js" type="text/javascript" ></script>
 <script src="../.././javascript/tels/prototype.js" type="text/javascript" ></script>
@@ -76,14 +78,14 @@ function MM_swapImage() { //v3.0
 
 <div id="centeredDiv">
 
-<%@ include file="../headermain.jsp"%>
+<%@ include file="headerteachermanagement.jsp"%>
 
 <div style="text-align:center;">   
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
 <h1 id="registrationTitle" class="blueText"><spring:message code="teacher.registerteacher.1"/></h1>
      
-<div id="subtitleTeacherReg"><spring:message code="teacher.registerteacher.2"/> <br/> <spring:message code="teacher.registerteacher.3"/></div>
+<div id="subtitleTeacherReg"><spring:message code="teacher.registerteacher.29"/> <br/> <spring:message code="teacher.registerteacher.30"/> </div>
 
 <!-- Support for Spring errors object -->
 <div id="regErrorMessages">
@@ -219,10 +221,10 @@ function MM_swapImage() { //v3.0
        
       </dl>
                
- 	  <div id="regButtons">
- 	    <input type="image" id="save" src="../../<spring:theme code="register_save" />" 
-    onmouseover="swapImage('save','../../<spring:theme code="register_save_roll" />')" 
-    onmouseout="swapImage('save','../../<spring:theme code="register_save" />')"
+ 	  <div id="regButtonsUpdate">
+ 	    <input type="image" id="saveUpdate" src="../../<spring:theme code="register_save" />" 
+    onmouseover="swapImage('saveUpdate','../../<spring:theme code="register_save_roll" />')" 
+    onmouseout="swapImage('saveUpdate','../../<spring:theme code="register_save" />')"
     />
     <a href="updatemyaccount.html"><input type="image" id="cancel" src="../../<spring:theme code="register_cancel" />" 
     onmouseover="swapImage('cancel','../../<spring:theme code="register_cancel_roll" />')" 
