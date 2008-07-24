@@ -57,7 +57,7 @@
 			<td class="link"><a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.overview.3"/></a></td>
 			<td class="description"><spring:message code="teacher.manage.overview.4"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.5"/></a></td>
+			<td class="link"><a href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.overview.5"/></a></td>
 			<td class="description"><spring:message code="teacher.manage.overview.6"/>&nbsp;<em><spring:message code="teacher.manage.overview.7"/></em>&nbsp;<spring:message code="teacher.manage.overview.8"/></td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.9"/></a></td>

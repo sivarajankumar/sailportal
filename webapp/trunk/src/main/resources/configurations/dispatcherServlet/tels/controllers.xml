@@ -344,7 +344,6 @@
 	<bean id="archivedRunManagerController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunManagerController">
 	</bean>
-
 	 
 	<bean id="managementOverviewController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManagementOverviewController">
@@ -352,6 +351,11 @@
 	
 	<bean id="projectPickerManagementController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProjectPickerManagementController">
+		<property name="runService" ref="runService" />
+	</bean>
+
+	<bean id="projectPickerClassMonitorController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProjectPickerClassMonitorController">
 		<property name="runService" ref="runService" />
 	</bean>
 	
@@ -573,6 +577,11 @@
 		<property name="runService" ref="runService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
+	</bean>
+
+	<bean id="classMonitorController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassMonitorController">
+		<property name="runService" ref="runService" />
 	</bean>
 
 	<bean id="batchStudentChangePasswordController"

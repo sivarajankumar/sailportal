@@ -17,22 +17,22 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
+<!-- $Id$ -->
 
-<div id="navigationL2" class="projectL2">
+<div id="navigationL2" class="management2">
 
 	<ul>
 		<li >
-			<a href="../management/overview.html"><spring:message code="teacher.manage.L2.1"/></a> </li>
+			<a href="overview.html"><spring:message code="teacher.manage.L2.1"/></a> </li>
        	<li>
 			<a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.L2.2"/></a> </li>
 		<li>
-			<a href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.L2.3"/></a> </li>
+			<a class="navigationL2_management_highlight" href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.L2.3"/></a> </li>
 		<li>
 			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.4"/></a> </li>
 		<li>
 			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.5"/></a> </li>
 		<li>
-			<a class="navigationL2_management_highlight" href="../management/updatemyaccount.html"><spring:message code="teacher.manage.L2.6"/></a> </li>
+			<a href="../management/updatemyaccount.html"><spring:message code="teacher.manage.L2.6"/></a> </li>
    </ul>
 </div>	

@@ -176,6 +176,8 @@
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/teacher/management/removestudentfromrun.html=removeStudentFromRunController
 				/teacher/management/updatemyaccountinfo.html=updateMyAccountInfoController
+				/teacher/management/projectpickerclassmonitor.html=projectPickerClassMonitorController
+				/teacher/management/classmonitor.html=classMonitorController
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController
