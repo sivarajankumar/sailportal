@@ -358,7 +358,8 @@ public class CreateRunController extends AbstractWizardFormController {
 		
 		String[] recipients = {emaillisteners.getProperty("project_setup")};
 		
-		String subject = uiHTMLProperties.getProperty("setuprun.confirmation.email.subject");		
+		String subject = uiHTMLProperties.getProperty("setuprun.confirmation.email.subject") 
+		    + " (" + portalProperties.getProperty("portal.name") + ")";		
 		String message = uiHTMLProperties.getProperty("setuprun.confirmation.email.message") + "\n\n" +
 			
 		    "Portal name: " + portalProperties.getProperty("portal.name") + "\n" +
