@@ -40,8 +40,7 @@
 	border-left: 1px solid #336633;
 	border-right: 2px groove #336633;
 	border-bottom: 2px groove #336633; 
-	
-		}
+			}
 	
 #tableTop {
 	border-collapse:collapse;
@@ -63,11 +62,12 @@
 	text-align:left;
 	margin: 10px 0 8px 12px;
 	font-weight:bold;
-	font-size: 1.3em;
+	font-size: 1.25em;
 	line-height: normal;
 	color:#000033;
-	color:#006633;	
-	color:#6666FF; 
+		color:#006633;	
+		color:#0000CC; 
+	
 		}
 	
 #boxTableWelcome {

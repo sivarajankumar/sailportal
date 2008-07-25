@@ -17,19 +17,20 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
+<!-- $Id: L2management_classmonitor.jsp 2008 2008-07-24 06:21:52Z hiroki $ -->
 
 <div id="navigationL2" class="management2">
 
 <!--NOTE:  The UL below has a manual CSS override, to displace some weird values being injected by Ajax on this page.-->
 
 	<ul style="padding: 1px 0 5px 105px;">
+
 		<li >
 			<a href="overview.html"><spring:message code="teacher.manage.L2.1"/></a> </li>
        	<li>
-			<a class="navigationL2_management_highlight" href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.L2.2"/></a> </li>
+			<a  href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.L2.2"/></a> </li>
 		<li>
-			<a href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.L2.3"/></a> </li>
+			<a class="navigationL2_management_highlight" href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.L2.3"/></a> </li>
 		<li>
 			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.4"/></a> </li>
 		<li>

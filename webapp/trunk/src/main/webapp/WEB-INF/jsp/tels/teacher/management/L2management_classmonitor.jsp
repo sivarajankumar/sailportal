@@ -21,11 +21,13 @@
 
 <div id="navigationL2" class="management2">
 
+
 	<ul>
+
 		<li >
 			<a href="overview.html"><spring:message code="teacher.manage.L2.1"/></a> </li>
        	<li>
-			<a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.L2.2"/></a> </li>
+			<a  href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.L2.2"/></a> </li>
 		<li>
 			<a class="navigationL2_management_highlight" href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.L2.3"/></a> </li>
 		<li>
@@ -33,6 +35,8 @@
 		<li>
 			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.5"/></a> </li>
 		<li>
-			<a href="../management/updatemyaccount.html"><spring:message code="teacher.manage.L2.6"/></a> </li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.6"/></a> </li>
+		<li>
+			<a href="../management/updatemyaccount.html"><spring:message code="teacher.manage.L2.7"/></a> </li>
    </ul>
 </div>	

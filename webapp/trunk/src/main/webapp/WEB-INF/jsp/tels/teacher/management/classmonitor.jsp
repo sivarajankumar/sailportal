@@ -393,7 +393,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 
 <%@ include file="headerteachermanagement.jsp"%>
 
-<%@ include file="L2management_classmonitor.jsp"%>
+<%@ include file="L2management_classmonitor_ajax.jsp"%>
 
 <div id="L3Label">Class Monitor</div> 
 

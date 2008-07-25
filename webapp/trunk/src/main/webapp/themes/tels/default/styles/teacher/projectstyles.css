@@ -114,7 +114,7 @@ img#none{
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #666666;
 	margin:20px 0 20px 0;
-	padding:10px 30px 10px 30px;
+	padding:10px 20px 10px 30px;
 	}
 
 #periods{
@@ -150,7 +150,7 @@ img#none{
 #overview_choices .link  {
 	font-size:1.2em;
 	font-weight:bold;
-	width:390px;
+	width:380px;
 	}
 
 #overview_choices a:link, #overview_choices a:visited   {

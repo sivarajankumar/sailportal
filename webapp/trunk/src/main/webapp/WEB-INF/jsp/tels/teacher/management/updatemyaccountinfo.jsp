@@ -80,11 +80,12 @@ function MM_swapImage() { //v3.0
 
 <%@ include file="headerteachermanagement.jsp"%>
 
-<div style="text-align:center;">   
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
+<%@ include file="L2management_updatemyaccount.jsp"%>
 
-<h1 id="registrationTitle" class="blueText"><spring:message code="teacher.registerteacher.1"/></h1>
-     
+<div id="overviewContent"> 
+
+<div id="overviewHeader"><spring:message code="teacher.manage.account.11"/></div>
+
 <div id="subtitleTeacherReg"><spring:message code="teacher.registerteacher.29"/> <br/> <spring:message code="teacher.registerteacher.30"/> </div>
 
 <!-- Support for Spring errors object -->
@@ -114,8 +115,8 @@ function MM_swapImage() { //v3.0
 	<dd><form:input disabled="true" path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
     
     <dt><label for="displayname" id="displayname"><spring:message code="signup.displayname"/></label></dt>
-    <dd><form:input path="userDetails.displayname" id="teacherDisplayName" size="25" maxlength="40" tabindex="3"/></dd>
-    (Name as it will appear to students)
+    <dd><form:input path="userDetails.displayname" id="teacherDisplayName" size="25" maxlength="40" tabindex="3"/><br/><span style="font-size:.7em;">(Name as it will appear to students)</span></dd>
+   
             
     <dt><label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label></dt>
 	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="4"/> <span class="hint"><spring:message code="teacher.registerteacher.5"/> <span class="hint-pointer"></span></span></dd>
@@ -221,7 +222,7 @@ function MM_swapImage() { //v3.0
        
       </dl>
                
- 	  <div id="regButtonsUpdate">
+ 	  <div id="regButtonsUpdate" style="text-align:center;">
  	    <input type="image" id="saveUpdate" src="../../<spring:theme code="register_save" />" 
     onmouseover="swapImage('saveUpdate','../../<spring:theme code="register_save_roll" />')" 
     onmouseout="swapImage('saveUpdate','../../<spring:theme code="register_save" />')"

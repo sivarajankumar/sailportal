@@ -83,8 +83,8 @@
 #quickToolsTable {	
 	border-collapse:collapse;
 	text-align:center;
-	margin: 0 20px 0 20px; 
-	width:90%;
+	margin: 0 20px 0 15px; 
+	width:94%;
 	}
 	
 #quickToolsTable th {	
@@ -101,16 +101,28 @@
 	vertical-align:middle;
 		}
 
-#quickToolsTable #quickToolsActionsList li {
-	border:1px solid #FFFFFF;
+#quickToolLinks {
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+	text-decoration:none;
 }
 
-#quickToolsTable #quickToolsActionsList li:hover {
-	background:none;
-	border:1px solid #0000CC;
+#quickToolLinks li {
+	display:inline;
+	font-size:.8em;
 }
 
+#quickToolLinks li a:link, #quickToolLinks li a:visited {
+	text-decoration:none; 
+	padding:2px 2px;
+	}
 
+#quickToolLinks li a:hover {
+	background-color:#ffff33;
+	color:#000033;
+	padding:2px 2px;
+}
 
 .projectNameStyle {
 	color:#000066;

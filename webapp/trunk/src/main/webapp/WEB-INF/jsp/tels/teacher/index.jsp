@@ -473,18 +473,20 @@
           	<table id="quickToolsTable">
 				    <tr>
 				        <th><spring:message code="teacher.index.38"/></th>
-				        <th><spring:message code="teacher.index.39"/></th>
-				        <th></th>
+				        <th><spring:message code="teacher.index.39A"/></th>
+				        <th><spring:message code="teacher.index.39B"/></th>
 				    </tr>
 					
 					<c:forEach var="run" items="${run_list}">
 						<tr>
-							<td>${run.sdsOffering.name}</td>
-							<td>${run.id}</td>
+							<td style="width:40%;font-size:.7em;">${run.sdsOffering.name}</td>
+							<td style="width:10%;font-size:.6em;">${run.id}</td>
 							<td>
-								<a href="/webapp/previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.index.41"/></a><br>
-								<a href="grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.index.42"/></a><br>
-								<a href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a><br>
+								<ul id="quickToolLinks">
+									<li><a href="/webapp/previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.index.41"/></a></li>
+									<li><a href="grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.index.42"/></a></li>
+									<li><a href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a></li>
+								</ul>
 							</td>
 					</c:forEach>
 				

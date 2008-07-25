@@ -168,7 +168,7 @@
 				 }
 		
 		#navigationL2 ul {
-			padding: 6px 0 6px 110px;
+			padding: 6px 0 6px 105px;
 			margin:0px;
 			list-style:none;
 				}
@@ -186,7 +186,7 @@
 		}
 		
 		#navigationL2 a:link, #navigationL2 a:visited{
-			padding: 6px 14px 6px 14px;
+			padding: 6px 12px 6px 12px;
 			margin:0px;
 			text-decoration:none;
 			color:#000000;	

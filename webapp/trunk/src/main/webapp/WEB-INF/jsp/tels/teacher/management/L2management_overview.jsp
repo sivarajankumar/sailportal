@@ -33,6 +33,8 @@
 		<li>
 			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.5"/></a> </li>
 		<li>
-			<a href="../management/updatemyaccount.html"><spring:message code="teacher.manage.L2.6"/></a> </li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.6"/></a> </li>
+		<li>
+			<a href="../management/updatemyaccount.html"><spring:message code="teacher.manage.L2.7"/></a> </li>
    </ul>
 </div>	

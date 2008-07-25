@@ -57,22 +57,25 @@
 			<td class="link"><a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.overview.3"/></a></td>
 			<td class="description"><spring:message code="teacher.manage.overview.4"/></td></tr>
 		<tr>
-			<td class="link"><a href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.overview.5"/></a></td>
-			<td class="description"><spring:message code="teacher.manage.overview.6"/>&nbsp;<em><spring:message code="teacher.manage.overview.7"/></em>&nbsp;<spring:message code="teacher.manage.overview.8"/></td></tr>
+			<td class="link"><a href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.overview.5A"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.overview.5B"/></td></tr>
+		<tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.6A"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.overview.6B"/></td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.9"/></a></td>
 			<td class="description"><spring:message code="teacher.manage.overview.10"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.11"/></a></td>
-			<td class="description"><spring:message code="teacher.manage.overview.12"/></td></tr>
-		<tr>
-			<td class="link"><a href="updatemyaccount.html"><spring:message code="teacher.manage.overview.13"/></a></td>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.manage.overview.13"/></a></td>
 			<td class="description"><spring:message code="teacher.manage.overview.14"/></td></tr>
+		<tr>
+			<td class="link"><a href="updatemyaccount.html"><spring:message code="teacher.manage.overview.15"/></a></td>
+			<td class="description"><spring:message code="teacher.manage.overview.16"/></td></tr>
 	</table>
 	
 </div>
 
-<p class="center"><spring:message code="teacher.manage.overview.15"/>&nbsp;<a href="#"><spring:message code="teacher.manage.overview.16"/></a>&nbsp;<spring:message code="teacher.manage.overview.17"/></p>
+<p class="center"><spring:message code="teacher.manage.overview.17"/>&nbsp;<a href="#"><spring:message code="teacher.manage.overview.18"/></a>&nbsp;<spring:message code="teacher.manage.overview.19"/></p>
 
 </div>    <!--End of CenteredDiv-->
 
