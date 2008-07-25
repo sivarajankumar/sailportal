@@ -1,6 +1,9 @@
 <%@ include file="include.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html lang="en">
 
 <link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -19,6 +22,15 @@
 <script type="text/javascript" src="../.././javascript/tels/utils.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/teacher/management/viewmystudents.js"></script>
 
+<script>
+// this is for the tabView
+    var tabView
+	function init() {
+   		tabView = new YAHOO.widget.TabView('tabSystem');
+		tabView.set('activeIndex', 0);
+    }
+    YAHOO.util.Event.onDOMReady(init);
+</script>
 
 
 <script>
@@ -383,7 +395,8 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../../<spring:theme code="teachermanagementstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -395,16 +408,127 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 
 <%@ include file="L2management_classmonitor_ajax.jsp"%>
 
-<div id="L3Label">Class Monitor</div> 
+<div>
+	<div id="studentProgressTools">
+		<ul>
+			<li><a href="#">PAUSE ALL STUDENT SCREENS</a></li>
+			<li><a href="#">SEND MESSAGE TO TEAM(S)</a></li>
+			<li><a href="#">LOCK THIS PROGRESS SCREEN</a></li>
+		</ul>
+	</div>
+	<div id="L3Label">Student Progress Monitor</div> 
+	<div id="studentProgressProjectTitle">${run.project.curnit.sdsCurnit.name}<span class="ProjectIDTag">(Project ID: ${run.project.id})</span></div> 
+	<div id="studentProgressLinks"><span class="nonLink">Generated [3:15pm 7/25/2008]</span><span class="link"><a href="#">Refresh Progress Monitor</a></span><span class="link"><a href="#">Select a Different Project</a></span></div>
+	
+</div>
 
-<table id="projectTitleBox" border=0>
-	<tr>
-		<th>${run.project.curnit.sdsCurnit.name}</th>
-		<td>(Project ID: ${run.project.id})</td>
-	</tr>
+
+<div id="tabSystem" class="yui-navset">
+<ul class="yui-nav">
+  <li id="tabPicker" style="margin-right:4px;"><a href="Current Runs"><em>Period X</em></a></li>	
+  <li id="tabPicker" style="margin-right:4px;"><a href="Shared Runs"><em>Period Y</em></a></li>	
+  <li id="tabPicker" style="margin-right:4px;"><a href="Archived Runs"><em>Period Z</em></a></li>	
+</ul>
+<div class="yui-content" style="background-color:#FFFFFF;">
+<div>
+
+<table id="progressTable" style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
+	<thead style="margin:0; padding:0;">
+		<tr style="margin:0; padding:0;">
+			<th scope="col"><spring:message code="teacher.manage.studentprogress.1"/></th> 
+			<th scope="col"><spring:message code="teacher.manage.studentprogress.2"/></th>
+			<th scope="col"><spring:message code="teacher.manage.studentprogress.3"/></th>
+			<th style="width:10%;" scope="col"><spring:message code="teacher.manage.studentprogress.4"/></th>
+			<th style="width:10%;" scope="col"><spring:message code="teacher.manage.studentprogress.5"/></th>
+			<th style="width:10%;" scope="col"><spring:message code="teacher.manage.studentprogress.6"/></th>
+		</tr>
+	</thead>
+	<tbody>	
+	    <tr>
+			<td style=font-weight:bold;" scope="row">
+				<ul>
+				<li>Student Name 1</li>
+				<li>Student Name 2</li>
+				</ul>
+			</td>
+			<td>
+				<div style="margin-bottom:12px;"><b>[Progress Bar Here]</b></div>
+				<div>
+					<div style="float:left;">[Ax, StepY]</div>
+					<div style="float:right;">[zz%] of steps</div>
+				</div>
+			</td>
+			<td>
+				<ul>
+				<li>[item 1]</li>
+				<li>[item 2]</li>
+				</ul>
+			<td>
+				<div class="percentValue">[60%]</div>
+				<div class="ratioValue"">(150/250)</div>
+			</td>
+			<td>
+				<div class="percentValue">[92%]</div>
+				<div class="ratioValue"">(166/180)</div>
+			</td>
+			<td>
+				<div class="percentValue">[90%]</div>
+				<div class="ratioValue"">(45/50)</div>
+			</td>
+		</tr>
+		<tr>
+			<td style=font-weight:bold;" scope="row">
+				<ul>
+				<li>Hiroki Terashima</li>
+				<li>Lance Armstrong</li>
+				</ul>
+			</td>
+			<td>
+				<div style="margin-bottom:12px;"><b>[Progress Bar Here]</b></div>
+				<div>
+					<div style="float:left;">[A3, Step 6]</div>
+					<div style="float:right;">[52%] of steps</div>
+				</div>
+			</td>
+			<td>
+				<ul>
+				<li>[A1, Step 3 (skipped)]</li>
+				<li>[A1, Step 7 (scant)</li>
+				<li>[A2 (all skipped)]</li>
+				</ul>
+			<td>
+				<div class="percentValue">[55%]</div>
+				<div class="ratioValue"">(137/250)</div>
+			</td>
+			<td>
+				<div class="percentValue">[89%]</div>
+				<div class="ratioValue"">(160/180)</div>
+			</td>
+			<td>
+				<div class="percentValue">[94%]</div>
+				<div class="ratioValue"">(47/50)</div>
+			</td>
+		</tr>
+		</tbody>
 </table>
+</div>
 
-MATT'S HTML PROTOTYPE (WITH DUMMY DATA) GOES HERE
+<div>
+<table>
+	Next period's content goes here.
+</table>
+</div>
+
+<div>
+<table>
+	Next period's content goes here.
+</table>
+</div>
+
+</div> <!--  end of yui-content Div -->
+
+</div> <!-- end of tabSystem Div -->
+
 
 </div>     <!--End of Centered Div-->
 

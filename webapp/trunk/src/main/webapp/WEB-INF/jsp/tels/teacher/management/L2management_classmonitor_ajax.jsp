@@ -23,7 +23,7 @@
 
 <!--NOTE:  The UL below has a manual CSS override, to displace some weird values being injected by Ajax on this page.-->
 
-	<ul style="padding: 1px 0 5px 105px;">
+	<ul style="padding: 1px 0 5px 110px;">
 
 		<li >
 			<a href="overview.html"><spring:message code="teacher.manage.L2.1"/></a> </li>

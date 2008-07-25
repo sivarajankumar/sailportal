@@ -107,8 +107,8 @@
 	</tbody>
 </table>
 </div>
-<div>
 
+<div>
 <table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
@@ -145,7 +145,6 @@
 </div>
 
 <div>
-
 <table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>

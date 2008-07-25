@@ -404,7 +404,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 	</tr>
 </table>
 
-<div><a href="studentlist.html?runId=${run.id}">Print a list of students in this project run</a></div>
+<div class="printLink"><a href="studentlist.html?runId=${run.id}">Print a list of students in this project run</a></div>
 
 
 <div id="tabSystem" class="yui-navset">

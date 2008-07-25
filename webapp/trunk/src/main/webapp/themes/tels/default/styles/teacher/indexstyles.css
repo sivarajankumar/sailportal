@@ -105,23 +105,27 @@
 	list-style-type:none;
 	margin:0px;
 	padding:0px;
-	text-decoration:none;
+	text-decoration:none;	
 }
 
 #quickToolLinks li {
 	display:inline;
 	font-size:.8em;
+	letter-spacing:-.7px;
 }
 
 #quickToolLinks li a:link, #quickToolLinks li a:visited {
 	text-decoration:none; 
-	padding:2px 2px;
-	}
+	padding:2px 3px;
+	margin:0px;
+		}
 
 #quickToolLinks li a:hover {
 	background-color:#ffff33;
 	color:#000033;
-	padding:2px 2px;
+	padding:2px 3px;
+	margin:0px;
+	
 }
 
 .projectNameStyle {

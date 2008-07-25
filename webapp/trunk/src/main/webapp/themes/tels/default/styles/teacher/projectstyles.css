@@ -148,9 +148,10 @@ img#none{
 	height:20%;
 }
 #overview_choices .link  {
-	font-size:1.2em;
-	font-weight:bold;
-	width:380px;
+	font-size:1.1em;
+	letter-spacing:-.2px;
+	font-weight:bold; 
+	width:360px;
 	}
 
 #overview_choices a:link, #overview_choices a:visited   {
@@ -184,6 +185,7 @@ img#none{
 		
 #overview_choices .description  {
 	font-size:.8em;
+	letter-spacing:-.4px; 
 	margin:0px;
 	padding:2px;
 	vertical-align:center;
