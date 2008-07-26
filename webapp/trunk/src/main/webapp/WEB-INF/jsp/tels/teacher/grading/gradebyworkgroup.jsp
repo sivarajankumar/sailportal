@@ -34,12 +34,13 @@
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /> 
-
+<link href="../../<spring:theme code="spryrating"/>" media="screen" rel="stylesheet" type="text/css"/>
 
 <!-- use apaches string utils -->
 
 <script type='text/javascript' src='/webapp/dwr/interface/StringUtilsJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
+<script language="JavaScript" type="text/javascript" src="../../javascript/tels/spryrating.js"></script>
 
 </head>
 <body class=" yui-skin-sam">
@@ -352,7 +353,8 @@
   </ul>
 </div>
 
- 
+<c:set var="ratingVar" value="0"/>
+
 <!-- 
 aggregate.key = period
 aggregate.value = set of workgroupWorkAggregate
@@ -485,9 +487,85 @@ aggregate.value = set of workgroupWorkAggregate
 																				</c:forEach>
 																		</c:forEach>
 																				<div id="gradingScoreArea">
-																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="scoreBoxStyling1" type="text" size="7" value="${score}"/>
-																					<span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradebyteam.13"/>&nbsp; </span><input id="scoreBoxStyling2" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
+																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}" onfocus="rating${ratingVar}.setValue(0)"/>
+																					<span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradebyteam.13"/>&nbsp; </span><input id="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
 																				</div>
+																				
+																				<div id="spryrating-teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" class="ratingContainer" align="center">
+																					<span class="ratingButton"></span>
+																					<span class="ratingButton"></span>
+																					<span class="ratingButton"></span>
+																					<span class="ratingButton"></span>
+																					<span class="ratingButton"></span>
+																					<span class="ratingCounter"></span>
+																				</div>
+																				
+																				<script type="text/javascript">																		
+																					var rating${ratingVar} = new Spry.Widget.Rating("spryrating-teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}", {counter: "true"});
+																					var preVal${ratingVar} = 0;
+																					function updateAfterRate(notifyType, notifier, data)
+																					{
+																						if (notifyType == "onPreRate"){
+																							preVal${ratingVar} = rating${ratingVar}.getValue();
+																						}
+																						
+																						if (notifyType == "onPostRate"){
+																						    var outOf = document.getElementById("possible-score-${scoreAnnotation.entityUUID}_${workgroupId}").value;
+																						    var rated = rating${ratingVar}.getValue();
+																						    var score;
+																						    switch(rated){
+																						    	case 5:
+																						    		if(preVal${ratingVar} == 5){
+																							    		rating${ratingVar}.setValue(4.5);
+																							    		score = Math.round(.9 * outOf);
+																							    	} else {
+																							    		score = outOf;
+																							    	}
+																							    	break;
+																							    case 4:
+																							    	if(preVal${ratingVar} == 4){
+																							    		rating${ratingVar}.setValue(3.5);
+																							    		score = Math.round(.7 * outOf);
+																							    	} else {
+																							    		score = Math.round(.8 * outOf);
+																							    	}
+																							    	break;
+																							    case 3:
+																							    	if(preVal${ratingVar} == 3){
+																							    		rating${ratingVar}.setValue(2.5);
+																							    		score = Math.round(.5 * outOf);
+																							    	} else {
+																							    		score = Math.round(.6 * outOf);
+																							    	}
+																							    	break;
+																							    case 2:
+																							    	if(preVal${ratingVar} == 2){
+																							    		rating${ratingVar}.setValue(1.5);
+																							    		score = Math.round(.3 * outOf);
+																							    	} else {
+																							    		score = Math.round(.4 * outOf);
+																							    	}
+																							    	break;
+																							    case 1:
+																							    	if(preVal${ratingVar} == 1){
+																							    		rating${ratingVar}.setValue(.5);
+																							    		score = Math.round(.1 * outOf);
+																							    	} else {
+																							    		score = Math.round(.2 * outOf);
+																							    	}
+																							    	break;
+																							    default:
+																							    	score = 0;
+																						    }
+																						    document.getElementById("teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}").value = score;
+																							
+																							}
+																					}
+																					rating${ratingVar}.addObserver(updateAfterRate);
+																				</script>
+																				
+																				<c:set var="ratingVar" value="${ratingVar}0"/>
+																				
 																				<div id="revisionRequiredArea" >
 	     																			<form>
 	     																				<input type="checkbox" name="checkBox" id="checkbox"/><span><spring:message code="teacher.gradebyteam.9"/></span>
