@@ -487,7 +487,7 @@ aggregate.value = set of workgroupWorkAggregate
 																				</c:forEach>
 																		</c:forEach>
 																				<div id="gradingScoreArea">
-																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}" onfocus="rating${ratingVar}.setValue(0)"/>
+																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}" onfocus="clearOthers(rating${ratingVar}, document.getElementById('checkbox-${scoreAnnotation.entityUUID}_${workgroupId}'))"/>
 																					<span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradebyteam.13"/>&nbsp; </span><input id="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
 																				</div>
 																				
@@ -500,7 +500,17 @@ aggregate.value = set of workgroupWorkAggregate
 																					<span class="ratingCounter"></span>
 																				</div>
 																				
-																				<script type="text/javascript">																		
+																				<script type="text/javascript">
+																				function clearOthers(rating, checkbox){
+																					rating.setValue(0)
+																					checkbox.checked = false;
+																				}
+																				function revisionClicked(rating, score, revision){
+																					if(revision.checked){
+																						rating.setValue(0);
+																						score.value = "revision required";
+																					}
+																				}																		
 																					var rating${ratingVar} = new Spry.Widget.Rating("spryrating-teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}", {counter: "true"});
 																					var preVal${ratingVar} = 0;
 																					function updateAfterRate(notifyType, notifier, data)
@@ -558,19 +568,20 @@ aggregate.value = set of workgroupWorkAggregate
 																							    	score = 0;
 																						    }
 																						    document.getElementById("teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}").value = score;
-																							
+																							document.getElementById("checkbox-${scoreAnnotation.entityUUID}_${workgroupId}").checked = false;
 																							}
 																					}
 																					rating${ratingVar}.addObserver(updateAfterRate);
 																				</script>
-																				
-																				<c:set var="ratingVar" value="${ratingVar}0"/>
+																				<br>
 																				
 																				<div id="revisionRequiredArea" >
-	     																			<form>
-	     																				<input type="checkbox" name="checkBox" id="checkbox"/><span><spring:message code="teacher.gradebyteam.9"/></span>
+	     																			<form onclick="revisionClicked(rating${ratingVar}, document.getElementById('teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}'), document.getElementById('checkbox-${scoreAnnotation.entityUUID}_${workgroupId}'))">
+	     																				<input type="checkbox" name="checkBox" id="checkbox-${scoreAnnotation.entityUUID}_${workgroupId}" /><span><spring:message code="teacher.gradebyteam.9"/></span>
 	     																			</form>
     																			</div>
+    																			
+    																			<c:set var="ratingVar" value="${ratingVar}0"/>
     																			
 																				<div id="gradingSaveButton">
 																					<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button">
