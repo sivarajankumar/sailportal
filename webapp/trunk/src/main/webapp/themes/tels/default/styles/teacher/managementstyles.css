@@ -34,7 +34,7 @@
 	
 /* SELECT A PROJECT based on version of Heaven is Closer template  http://icant.co.uk/csstablegallery/index.php?css=27#r27   */
 
-table{
+#projectPickerTable {
 	font-family: "Tahoma", Verdana, Arial, Helvetica, sans-serif;
 	font-size:  100%;
 	border-collapse: collapse;
@@ -42,56 +42,52 @@ table{
 	width:100%;
 }
 
-caption{
+#projectPickerTable caption{
 	background: url(title.png) no-repeat 50px;
 	font-size: 400%;
 	text-indent: -10000px;
 }
 
-thead tr{
+#projectPickerTable thead tr{
 	font-size:.8em;
 	color:#333333;
 	background-color: #D9FFD9;
 	border:1px solid black;
 }
 
-thead th{
+#projectPickerTable thead th{
 	padding: 0.4em;
 	white-space: nowrap;
 	border:1px solid black;
-	
-}
+	}
 
-tr {
+#projectPickerTable tr {
 	background-color: #EAFDFF;
 	padding:6px;
 }
 
-tbody tr:hover{
+#projectPickerTable tbody tr:hover{
 	background-color: #CCCCCC;
-	
-}
+	}
 
-tbody tr {
+#projectPickerTable tbody tr {
 	background-color:#FFFFFF;
 	}
 	
-tbody th{
+#projectPickerTable tbody th{
  	text-align:left;
  	padding:0;
  	border:1px solid #333333;
- 
-}
+ }
 
-tbody td{
+#projectPickerTable tbody td{
 	padding: .8em;
 	font-size:.8em;
 	text-align:center;
 	border:1px solid #333333;
 	}
 
-
-td a:link, td a:visited, th a:link,th a:visited {
+#projectPickerTable td a:link, #projectPickerTable td a:visited, #projectPickerTable th a:link, #projectPickerTable th a:visited {
 	display:block;
 	color:#000066;
 	font-size:.9em;
@@ -102,7 +98,7 @@ td a:link, td a:visited, th a:link,th a:visited {
 	
 }
 
-td a:hover, th a:hover{
+#projectPickerTable td a:hover, #projectPickerTable th a:hover{
 	display:block;
 	color:#000033;
 	font-size:.9em;
@@ -200,7 +196,7 @@ td a:hover, th a:hover{
 	margin-bottom:8px;
 }
 
-#studentProgressTools a:link, #studentProgressTools td a:visited {
+#studentProgressTools a:link, #studentProgressTools a:visited {
 	display:block;
 	color:#000000;
 	text-decoration:none;
@@ -267,35 +263,30 @@ td a:hover, th a:hover{
 	background-color:#FFFFFF;
 	}
 	
-#progressTable tbody td{
+#progressTable tbody td, #progressTable tfoot td{
 	padding: .8em;
 	font-size:.8em;
 	text-align:center;
 	border:1px solid #333333;
 	}
+	
+#progressTable tfoot td {
+	background-color:#cccccc;
+	color:#CC0000;
+	font-size:.7em;
+	padding:.2em .8em;
+	}
+	
+#progressTable a:link, #progressTable a:visited {
+	color:#333333;
+	}
+
+#progressTable a:hover {
+	background-color:#FFFF00;
+	}
 
 #progressTable tbody tr:hover{
 	background-color: #FFFF33;
-}
-
-#progressTable td a:link, td a:visited, th a:link,th a:visited {
-	display:block;
-	color:#000066;
-	font-size:.9em;
-	font-weight:bold;
-	padding:14px 5px 14px 10px;
-	text-decoration:none;
-	font-style:italic;
-	
-}
-
-#progressTable td a:hover, th a:hover{
-	display:block;
-	color:#000033;
-	font-size:.9em;
-	font-weight:bold;
-	padding:14px 5px 14px 10px;
-	background-color:#FFFF00;	
 }
 
 .percentValue {

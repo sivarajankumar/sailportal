@@ -82,7 +82,7 @@
 
 <div class="tableLabel"><spring:message code="teacher.grading.projectpicker.7"/></div>
 
-<table style="margin-bottom:40px;" summary="project picker screen for management area">
+<table id="projectPickerTable" style="margin-bottom:40px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
 			<th style="width:50%;" scope="col"><spring:message code="teacher.grading.projectpicker.8"/></th>

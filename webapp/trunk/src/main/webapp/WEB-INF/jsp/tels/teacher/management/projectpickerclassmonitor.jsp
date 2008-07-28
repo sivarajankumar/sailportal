@@ -72,7 +72,7 @@
 <div class="yui-content" style="background-color:#FFFFFF;">
 <div>
 
-<table style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
+<table id="projectPickerTable" style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
 			<th style="width:50%; text-align:left;" scope="col"><spring:message code="teacher.manage.projectpicker.7"/></th>

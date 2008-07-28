@@ -436,11 +436,11 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 	<thead style="margin:0; padding:0;">
 		<tr style="margin:0; padding:0;">
 			<th scope="col"><spring:message code="teacher.manage.studentprogress.1"/></th> 
-			<th scope="col"><spring:message code="teacher.manage.studentprogress.2"/></th>
-			<th scope="col"><spring:message code="teacher.manage.studentprogress.3"/></th>
-			<th style="width:10%;" scope="col"><spring:message code="teacher.manage.studentprogress.4"/></th>
-			<th style="width:10%;" scope="col"><spring:message code="teacher.manage.studentprogress.5"/></th>
-			<th style="width:10%;" scope="col"><spring:message code="teacher.manage.studentprogress.6"/></th>
+			<th scope="col"><a href=#"><spring:message code="teacher.manage.studentprogress.2"/></a></th>
+			<th scope="col"><a href=#"><spring:message code="teacher.manage.studentprogress.3"/></a></th>
+			<th style="width:10%;" scope="col"><a href=#"><spring:message code="teacher.manage.studentprogress.4"/></a></th>
+			<th style="width:10%;" scope="col"><a href=#"><spring:message code="teacher.manage.studentprogress.5"/></a></th>
+			<th style="width:10%;" scope="col"><a href=#"><spring:message code="teacher.manage.studentprogress.6"/></a></th>
 		</tr>
 	</thead>
 	<tbody>	
@@ -463,6 +463,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 				<li>[item 1]</li>
 				<li>[item 2]</li>
 				</ul>
+			</td>
 			<td>
 				<div class="percentValue">[60%]</div>
 				<div class="ratioValue"">(150/250)</div>
@@ -496,6 +497,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 				<li>[A1, Step 7 (scant)</li>
 				<li>[A2 (all skipped)]</li>
 				</ul>
+			</td>
 			<td>
 				<div class="percentValue">[55%]</div>
 				<div class="ratioValue"">(137/250)</div>
@@ -510,17 +512,44 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			</td>
 		</tr>
 		</tbody>
+		
+		<tfoot>
+		<tr>
+			<td style=font-weight:bold;" scope="row">[xx] teams
+			</td>
+			<td>
+				<div>
+					<div style="float:left;">Median: [A2, Step 6]</div>
+					<div style="float:right;">Median: [45%] of steps</div>
+				</div>
+			</td>
+			<td></td>
+			<td>
+				<div class="percentValue">[58%]</div>
+				<div class="ratioValue""><(145/250)</div>
+			</td>
+			<td>
+				<div class="percentValue">[91%]</div>
+				<div class="ratioValue"">(92/180)</div>
+			</td>
+			<td>
+				<div class="percentValue">[92%]</div>
+				<div class="ratioValue"">(46/50)</div>
+			</td>
+		</tr>
+		
+		</tfoot>	
 </table>
 </div>
 
 <div>
-<table>
+<table id="progressTable">
 	Next period's content goes here.
 </table>
 </div>
 
 <div>
-<table>
+<table id="progressTable">
 	Next period's content goes here.
 </table>
 </div>
