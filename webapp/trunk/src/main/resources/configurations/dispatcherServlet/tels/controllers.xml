@@ -859,5 +859,11 @@
     <bean id="clientCurnitRepository"
         class="roolo.curnit.client.impl.ClientCurnitRepository">
     </bean>
+
+    <!--  Author-related controllers -->    	
+    <bean id="postProjectController"
+         class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.PostProjectController">
+         <property name="projectService" ref="projectService" />
+    </bean>	
     	
 </beans>
