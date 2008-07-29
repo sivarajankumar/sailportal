@@ -43,11 +43,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
+import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
-import org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl;
+import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
@@ -81,8 +82,9 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
         this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
         
         ECurnitmap curnitmap = gradingService.getCurnitmap(run.getId());
-        
-        this.annotationBundleService.createAnnotationBundle(workgroup, curnitmap);
+        if (curnitmap != null) {
+        	this.annotationBundleService.createAnnotationBundle(workgroup, curnitmap);
+        }
 
         return workgroup;
 	}
@@ -170,8 +172,8 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 	public String generateWorkgroupWorkPdfUrlString(
 			HttpRestTransport httpRestTransport, HttpServletRequest request,
 			WISEWorkgroup workgroup) {
-		String previewProjectUrlString = ProjectServiceImpl.generatePreviewProjectUrlString(httpRestTransport, (Run) workgroup.getOffering(), workgroup);
-		String workgroupWorkPdfUrlString = previewProjectUrlString + "?generateReportOnly=true&" + ProjectServiceImpl.generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
+		String previewProjectUrlString = PodProjectServiceImpl.generatePreviewProjectUrlString(httpRestTransport, (Run) workgroup.getOffering(), workgroup);
+		String workgroupWorkPdfUrlString = previewProjectUrlString + "?generateReportOnly=true&" + PodProjectServiceImpl.generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
 		return workgroupWorkPdfUrlString;
 	}
 
