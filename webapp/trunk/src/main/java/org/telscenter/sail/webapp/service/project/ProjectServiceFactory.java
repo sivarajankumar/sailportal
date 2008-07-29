@@ -22,7 +22,11 @@
  */
 package org.telscenter.sail.webapp.service.project;
 
+import net.sf.sail.webapp.domain.Curnit;
+
+import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 
 /**
  * Factory for creating <code>ProjectService</code> instances.
@@ -49,8 +53,33 @@ public class ProjectServiceFactory {
 	public ProjectService getProjectService(Project project) {
 		ProjectService projectService = null;
 
-		projectService = podProjectService;
-		
+		Curnit curnit = project.getCurnit();
+		if (curnit instanceof RooloOtmlModuleImpl) {
+			projectService = otrunkProjectService;
+		} else {
+			projectService = podProjectService;
+		}		
+		return projectService;
+	}
+	
+	/**
+	 * Returns a <code>ProjectService</code> instance that serves
+	 * the provided <code>Project</code>.
+	 * 
+	 * @param projectParameters <code>ProjectParameters</code> used to lookup appropriate
+	 *     <code>ProjectService</code>
+	 * @return <code>ProjectService</code> to serve the specified project.
+	 */
+	public ProjectService getProjectService(ProjectType projectType) {
+		ProjectService projectService = null;
+
+		if (projectType == ProjectType.OTRUNK) {
+			projectService = otrunkProjectService;
+		} else if (projectType == ProjectType.POTRUNK) {
+			projectService = potrunkProjectService;
+		} else {
+			projectService = podProjectService;
+		}
 		return projectService;
 	}
 

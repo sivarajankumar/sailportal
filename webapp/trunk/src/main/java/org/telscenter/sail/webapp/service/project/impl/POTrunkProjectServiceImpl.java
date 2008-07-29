@@ -30,6 +30,7 @@ package org.telscenter.sail.webapp.service.project.impl;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class POTrunkProjectServiceImpl extends PodProjectServiceImpl {
+public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 
+	
 }

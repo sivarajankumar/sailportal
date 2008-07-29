@@ -88,25 +88,25 @@ public class PodProjectServiceImpl implements ProjectService {
 
 	private static final String PREVIEW_PERIOD_NAME = "preview period";
 
-	private static final String JNLP_CONTENT_TYPE = "application/x-java-jnlp-file";
+	protected static final String JNLP_CONTENT_TYPE = "application/x-java-jnlp-file";
 	
 	protected static Set<String> PREVIEW_PERIOD_NAMES;
 
-	private ProjectDao<Project> projectDao;
+	protected ProjectDao<Project> projectDao;
 	
-	private CurnitService curnitService;
+	protected CurnitService curnitService;
 	
-	private JnlpService jnlpService;
+	protected JnlpService jnlpService;
 	
-	private RunService runService;
+	protected RunService runService;
 	
-	private WorkgroupService workgroupService;
+	protected WorkgroupService workgroupService;
 	
-	private UserService userService;
+	protected UserService userService;
 
-	private AuthoringJNLPModifier modifier;
+	protected AuthoringJNLPModifier modifier;
 	
-	private String authoringToolJnlpUrl;
+	protected String authoringToolJnlpUrl;
 	
 	public static String retrieveAnnotationBundleUrl = "/student/getannotationbundle.html";
 
@@ -142,12 +142,6 @@ public class PodProjectServiceImpl implements ProjectService {
 	@Transactional()
 	public void updateProject(Project project) {
 		this.projectDao.save(project);
-		Curnit curnit = project.getCurnit();
-		if (curnit instanceof RooloOtmlModuleImpl) {
-			RooloOtmlModuleImpl rooloOtmlModule = (RooloOtmlModuleImpl) curnit;
-			rooloOtmlModule.updateProxy(project.getProjectInfo());
-			curnitService.updateCurnit(project.getCurnit());
-		}
 	}
 	
 	/**
@@ -157,7 +151,7 @@ public class PodProjectServiceImpl implements ProjectService {
 	 * @throws ObjectNotFoundException 
 	 */
 	@Transactional
-	private void createPreviewRun(Project project) throws ObjectNotFoundException {
+	protected void createPreviewRun(Project project) throws ObjectNotFoundException {
 		RunParameters runParameters = new RunParameters();
 		runParameters.setCurnitId(project.getCurnit().getId());
 		runParameters.setJnlpId(project.getJnlp().getId());
@@ -200,13 +194,7 @@ public class PodProjectServiceImpl implements ProjectService {
 				params.getHttpRestTransport(),
 				project.getPreviewRun(),
 				previewWorkgroup);
-		
-		Curnit curnit = project.getCurnit();
-		if (curnit instanceof RooloOtmlModuleImpl) {
-			String curnitOtmlUrl = ((RooloOtmlModuleImpl) curnit).getRetrieveOtmlUrl();
-			previewProjectUrl += "?sailotrunk.otmlurl=" + curnitOtmlUrl;
-		}
-		
+				
 		return new ModelAndView(new RedirectView(previewProjectUrl));
 	}
 	
@@ -218,7 +206,6 @@ public class PodProjectServiceImpl implements ProjectService {
 			throws Exception {
 		// TODO get the author jnlpurl from project
 		
-
 		// TODO replace the below when ready to switch to otml
 		//String curnitUrl = project.getCurnit().getSdsCurnit().getUrl();
 		Project project = authorProjectParameters.getProject();
@@ -229,13 +216,6 @@ public class PodProjectServiceImpl implements ProjectService {
 		} else if (project instanceof RooloProjectImpl) {
 			curnitUrl = "http://localhost:8080/webapp/repository/retrieveotml.html?uri=" + ((RooloProjectImpl) project).getProxy().getUri();
 		}
-		
-		Curnit curnit = project.getCurnit();
-		if (curnit instanceof RooloOtmlModuleImpl) {
-			RooloOtmlModuleImpl rooloOtmlModule = (RooloOtmlModuleImpl) curnit;
-			curnitUrl = rooloOtmlModule.getRetrieveOtmlUrl();
-		}
-
 
 		URL jnlpURL = new URL(authoringToolJnlpUrl);
 		BufferedReader in = new BufferedReader(
@@ -276,17 +256,12 @@ public class PodProjectServiceImpl implements ProjectService {
 	 * @returnurl String url representation to download the jnlp and start
      *     the project
 	 */
-	public static String generateStudentStartProjectUrlString(HttpRestTransport httpRestTransport, HttpServletRequest request,
+	public String generateStudentStartProjectUrlString(HttpRestTransport httpRestTransport, HttpServletRequest request,
 			Run run, Workgroup workgroup, String retrieveAnnotationBundleUrl) {
 		String jnlpUrl = generateLaunchProjectUrlString(httpRestTransport, run,
 				workgroup);
 
 		String entireUrl = jnlpUrl + "?" + generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
-		Curnit curnit = run.getProject().getCurnit();
-		if (curnit instanceof RooloOtmlModuleImpl) {
-			String curnitOtmlUrl = ((RooloOtmlModuleImpl) curnit).getRetrieveOtmlUrl();
-			entireUrl += "&sailotrunk.otmlurl=" + curnitOtmlUrl;
-		}
 
 		return entireUrl;
 	}
@@ -333,7 +308,7 @@ public class PodProjectServiceImpl implements ProjectService {
 	 * @param workgroup
 	 * @return
 	 */
-	private static String generateLaunchProjectUrlString(
+	protected static String generateLaunchProjectUrlString(
 			HttpRestTransport httpRestTransport, Run run, Workgroup workgroup) {
 		String jnlpUrl = httpRestTransport.getBaseUrl() + "/offering/" + 
 		run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
