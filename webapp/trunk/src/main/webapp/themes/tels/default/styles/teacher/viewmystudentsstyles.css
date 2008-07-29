@@ -87,6 +87,7 @@ table {
 #viewStudentsInstructions {
 	margin: 5px 0 0px 0px;
 	font-size:.8em;
+	letter-spacing:-.5px;
 	}
 	
 #viewStudentsInstructions li {
@@ -262,10 +263,43 @@ li.workgroupHeader a:hover {
 	font-size:.8em;
 	color:#333333;
 }
+	
+#printLink {
+	margin:0 0 20px 0;
+}
+
+#printLinkText {
+	font-size:.8em;
+	letter-spacing:-.4px;
+	vertical-align:text-top;
+	}
+	
+#printLink a:hover{
+	background-color:#FFFF00;
+	}
 		
 	
+/* STYLING FOR PRINTABLE STUDENT LIST */
+
+#studentPrintableListBox {
+	margin:5px 2px; 
+	padding: 20px;
+	border:1px solid #666666
+	}
 	
+#studentListPeriod {
+	font-weight:bold;
+	font-size:1.2em;
+}
 
+#studentListNames {
+	list-style-type:circle;
+	margin: 8px 0 20px 15px;
+}
 
-
+#studentListNames li {
+	font-weight:normal;
+	font-size:.85em;
+	color:#333333;
+}
 	

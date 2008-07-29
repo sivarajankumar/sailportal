@@ -81,8 +81,7 @@
  }
 
 #projectPickerTable tbody td{
-	padding: .8em;
-	font-size:.8em;
+s	font-size:.8em;
 	text-align:center;
 	border:1px solid #333333;
 	}
@@ -92,7 +91,7 @@
 	color:#000066;
 	font-size:.9em;
 	font-weight:bold;
-	padding:14px 5px 14px 10px;
+	padding:12px 5px 12px 18px;
 	text-decoration:none;
 	font-style:italic;
 	
@@ -103,8 +102,11 @@
 	color:#000033;
 	font-size:.9em;
 	font-weight:bold;
-	padding:14px 5px 14px 10px;
+	padding:12px 5px 12px 18px;
 	background-color:#FFFF00;	
+	background-image:url(../../images/bullet_arrow_right.png);
+	background-position:left center;
+	background-repeat:no-repeat;
 }
 
 /*  Special Styles for the projectPickerManagement screen */
@@ -143,6 +145,12 @@
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #999999;
+}
+
+#projectTitle {
+	background-image:url(../../images/bullet_arrow_right.png);
+	background-position:left center;
+	background-repeat:no-repeat;
 }
 
 

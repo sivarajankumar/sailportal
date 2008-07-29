@@ -58,6 +58,7 @@
 	
 #teacherWelcomeBoxTable td	{  
 	vertical-align:text-top;
+	letter-spacing:-.5px;
 	}	
 		
 #teacherWelcomeBoxTable ul	{  
@@ -144,7 +145,8 @@
 	
 #dashboardSections td {
 	font-size:.85em;
-	padding-bottom:7px;	
+	padding-bottom:7px;
+	letter-spacing:-.6px;	
 }
 
 #dashboardSections td {

@@ -404,8 +404,10 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 	</tr>
 </table>
 
-<div class="printLink"><a href="studentlist.html?runId=${run.id}">Print a list of students in this project run</a></div>
-
+<div id="printLink">
+	<img src="../../themes/tels/default/images/printer.png" width="16" height="16" alt="Printer Icon" />
+    <a id="printLinkText" href="studentlist.html?runId=${run.id}"><spring:message code="teacher.manage.viewstudents.20"/></a>
+</div>
 
 <div id="tabSystem" class="yui-navset">
 <ul class="yui-nav" style="font-size:.8em;"> 
