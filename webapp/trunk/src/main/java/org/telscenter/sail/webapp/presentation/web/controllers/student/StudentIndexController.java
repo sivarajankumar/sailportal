@@ -41,7 +41,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl;
+import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 import org.telscenter.sail.webapp.service.student.StudentService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
@@ -99,12 +99,12 @@ public class StudentIndexController extends AbstractController {
 			// that will be used to start the project and set the url where
 			// the workgroup's work can be retrieved as PDF
 			if (studentRunInfo.getWorkgroup() != null) {
-				String startProjectUrl = 				
-					ProjectServiceImpl.generateStudentStartProjectUrlString(
-							httpRestTransport, request, run, 
-							studentRunInfo.getWorkgroup(), 
-							ProjectServiceImpl.retrieveAnnotationBundleUrl);
-				studentRunInfo.setStartProjectUrl(startProjectUrl);
+//				String startProjectUrl = 				
+//					PodProjectServiceImpl.generateStudentStartProjectUrlString(
+//							httpRestTransport, request, run, 
+//							studentRunInfo.getWorkgroup(), 
+//							PodProjectServiceImpl.retrieveAnnotationBundleUrl);
+//				studentRunInfo.setStartProjectUrl(startProjectUrl);
 				
 				String workPdfUrl = ((WISEWorkgroupService) workgroupService)
 			        .generateWorkgroupWorkPdfUrlString(httpRestTransport, request, (WISEWorkgroup) studentRunInfo.getWorkgroup());
