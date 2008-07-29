@@ -12,6 +12,10 @@
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTEvidence" />
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTHelloWorld" />
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTOutsideLink" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTNote" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTStudentAssessment" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTSelfAssessment" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTChallengeQuestion" />
     <import class="org.telscenter.pas.otrunk.skeleton.OTGenericOTrunkStep" />
     <import class="org.concord.graph.util.state.OTDrawingTool" />
     <import class="org.concord.otrunk.view.OTViewMode" />
@@ -105,8 +109,6 @@
     <import class="org.concord.sensor.state.OTSensorDataProxy" />
     <import class="org.concord.sensor.state.OTSensorRequest" />
     <import class="org.concord.sensor.state.OTZeroSensor" />
-    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTNote" />
-    <import class="org.telscenter.pas.otrunk.skeleton.OTPasHint" />
     <import class="org.concord.otrunk.view.document.OTTextObject" />
     <import class="org.concord.otrunk.ui.OTTextPane" />
     <import class="org.concord.otrunk.ui.OTPlacementContainer" />
@@ -114,11 +116,12 @@
     <import class="org.concord.otrunk.ui.OTSlider" />
     <import class="org.concord.otrunk.ui.OTSliderLabel" />
     <import class="org.concord.framework.otrunk.view.OTView" />
+    <import class="org.telscenter.pas.otrunk.skeleton.OTPasHint" />
   </imports>
   <objects>
     <OTSystem>
       <includes>
-        <OTInclude href="http://tels-group.soe.berkeley.edu:16080/aperritano/predefined-sensor-graphs.otml" />
+        <OTInclude href="http://tels-group.soe.berkeley.edu/aperritano/predefined-sensor-graphs.otml" />
       </includes>
       <bundles>
         <OTViewBundle>
@@ -150,7 +153,7 @@
             <OTViewEntry objectClass="org.concord.otrunk.ui.OTBorderContainer" viewClass="org.concord.otrunk.ui.swing.OTBorderContainerView" />
             <OTViewEntry objectClass="org.concord.otrunk.ui.OTPlacementContainer" viewClass="org.concord.otrunk.ui.swing.OTPlacementContainerView" />
             <OTViewEntry id="be713960-e18a-11dc-95ff-0800200c9a66" objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditView" />
-            <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextView" />
+            <OTViewEntry id="c93a7460-e18a-11dc-95ff-0800200c9a66" objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextView" />
             <OTViewEntry local_id="data-collector-view" viewClass="org.concord.datagraph.state.OTDataCollectorView" objectClass="org.concord.datagraph.state.OTDataCollector" />
             <OTViewEntry viewClass="org.concord.datagraph.state.OTDataGraphView" objectClass="org.concord.datagraph.state.OTDataGraph" />
             <OTViewEntry viewClass="org.concord.data.state.OTDataFieldView" objectClass="org.concord.data.state.OTDataField" />
@@ -168,15 +171,15 @@
               <prototype>
                 <OTChoice>
                   <choices>
-                    <OTOverlay name="Small text">
+                    <OTOverlay id="da41a2a0-c44e-11dc-95ff-0800200c9a66" name="Small text">
                       <deltaObjectMap>
                         <entry key="23cc14f0-c44f-11dc-95ff-0800200c9a66">
                           <OTCssText src="file:/Users/geoffreykwan/dev/workspaces/vleworkspace/WISE Project Converter/src/test/css/otrunk-small-font.css" />
                         </entry>
                       </deltaObjectMap>
                     </OTOverlay>
-                    <OTOverlay name="Normal text" />
-                    <OTOverlay name="Large text">
+                    <OTOverlay id="6cc8e2b0-c44e-11dc-95ff-0800200c9a66" name="Normal text" />
+                    <OTOverlay id="7ba31210-c44e-11dc-95ff-0800200c9a66" name="Large text">
                       <deltaObjectMap>
                         <entry key="23cc14f0-c44f-11dc-95ff-0800200c9a66">
                           <OTCssText src="file:/Users/geoffreykwan/dev/workspaces/vleworkspace/WISE Project Converter/src/test/css/otrunk-large-font.css" />
@@ -202,7 +205,7 @@
                 <OTChoice>
                   <choices>
                     <OTOverlay name="English" />
-                    <OTOverlay name="Espanol" />
+                    <OTOverlay name="Espa‚àö¬±ol" />
                   </choices>
                 </OTChoice>
               </prototype>
@@ -234,9 +237,6 @@
           <modes>
             <OTViewMode name="authoring">
               <map>
-                <entry key="be713960-e18a-11dc-95ff-0800200c9a66">
-                  <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
-                </entry>
                 <entry key="${sound-grapher-view}">
                   <OTViewEntry viewClass="org.concord.multimedia.state.ui.OTSoundDataCollectorEditView" objectClass="org.concord.multimedia.state.OTSoundDataCollector" />
                 </entry>
@@ -289,7 +289,24 @@
                         </yDataAxis>
                       </OTDataCollector>
                       <OTSoundPlayer name="Sound player" />
-                      <null />
+                      <OTSoundDataCollector name="Sound grapher" title="Data graph">
+                        <source>
+                          <OTDataGraphable drawMarks="false" color="255" connectPoints="true" xColumn="0" yColumn="1" name="vf" lineWidth="2.0">
+                            <dataProducer>
+                              <OTSoundDataProducer isFFT="false" />
+                            </dataProducer>
+                            <dataStore>
+                              <OTDataStore />
+                            </dataStore>
+                          </OTDataGraphable>
+                        </source>
+                        <xDataAxis>
+                          <OTDataAxis max="0.06" units="ms" min="0.0" label="Time" />
+                        </xDataAxis>
+                        <yDataAxis>
+                          <OTDataAxis max="150.0" units="" min="-150.0" label="" />
+                        </yDataAxis>
+                      </OTSoundDataCollector>
                     </objectsToInsert>
                   </OTDocumentEditViewConfig>
                 </entry>
@@ -297,10 +314,17 @@
                   <OTViewEntry objectClass="org.concord.otrunkcck.OTCCKModel" viewClass="org.concord.otrunkcck.OTCCKModelEditView" />
                 </entry>
                 <entry key="${data-collector-view}">
-                  <null />
+                  <OTDataCollectorViewConfig viewClass="org.concord.otrunk.graph.OTDataCollectorEditView" objectClass="org.concord.datagraph.state.OTDataCollector">
+                    <predefinedGraphs>
+                      <object refid="088786c2-8719-11dc-8314-0800200c9a66" />
+                    </predefinedGraphs>
+                  </OTDataCollectorViewConfig>
                 </entry>
                 <entry key="${drawing-view}">
                   <OTViewEntry viewClass="org.concord.datagraph.state.OTDataDrawingToolEditView" objectClass="org.concord.graph.util.state.OTDrawingTool" />
+                </entry>
+                <entry key="be713960-e18a-11dc-95ff-0800200c9a66">
+                  <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
                 </entry>
                 <entry key="${sound-player-view}">
                   <OTViewEntry objectClass="org.concord.otrunk.ui.OTSoundPlayer" viewClass="org.concord.otrunk.ui.swing.OTSoundPlayerEditView" />
@@ -320,11 +344,11 @@
         </OTScriptEngineBundle>
       </bundles>
       <root>
-        <OTPasProject title="Thermodynamics: Too Hot To Touch? Silver Copy-6/17/08">
+        <OTPasProject id="971534ac-3f22-11dd-b240-cde0bfdd2411" title="Thermodynamics: Too Hot To Touch? Silver Copy-6/17/08" authorNotes="">
           <activityList>
-            <OTPasActivity title="Experiment!" authorNotes="">
+            <OTPasActivity id="cd40bf8b-5db1-11dd-8eba-010e12fd3f10" title="Experiment!" authorNotes="">
               <stepList>
-                <OTDisplayPage id="6bfa6094-47bb-11dd-9f58-c3a3b6397fd1" title="WISE Tutorial" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="cd4134bc-5db1-11dd-8eba-010e12fd3f10" title="WISE Tutorial" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 acronym { color: green; }
 P {font-family:Arial, Helvetica;font-size:14pt;color:#330000;margin:6px 3px}
@@ -368,7 +392,7 @@ padding-right: 25pt;
 &lt;/p&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</content>
                 </OTDisplayPage>
-                <OTDisplayPage id="6bfafcd5-47bb-11dd-9f58-c3a3b6397fd1" title="What Do You Think?" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="cd41f80d-5db1-11dd-8eba-010e12fd3f10" title="What Do You Think?" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:14pt;color:#330000;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -414,7 +438,7 @@ To investigate this question, you will investigate issues about heat transfer, t
 &lt;/table&gt;&lt;/tr&gt;&lt;/td&gt;
 &lt;/table&gt;</content>
                 </OTDisplayPage>
-                <OTDisplayPage id="6bfafcd6-47bb-11dd-9f58-c3a3b6397fd1" title="Experiment!" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="cd41f80e-5db1-11dd-8eba-010e12fd3f10" title="Experiment!" authorNotes="" hoverString="Pas Step">
                   <content>&lt;html&gt;
 &lt;head&gt;
   &lt;meta http-equiv="content-type"
@@ -483,7 +507,7 @@ left to continue. &lt;br&gt;
 &lt;/body&gt;
 &lt;/html&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="6bfb23e7-47bb-11dd-9f58-c3a3b6397fd1" title="What Did You Find?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="cd41f80f-5db1-11dd-8eba-010e12fd3f10" title="What Did You Find?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="You may have some experimental error in your data which is caused by small differences in your measuring procedures, and you have to take this into consideration when looking at your data." />
                     <OTPasHint text="How does your data compare to the data of other lab groups near you?" />
@@ -505,9 +529,9 @@ left to continue. &lt;br&gt;
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Heat Transfer at the Molecular Level" authorNotes="">
+            <OTPasActivity id="d0661b82-5db1-11dd-8eba-010e12fd3f10" title="Heat Transfer at the Molecular Level" authorNotes="">
               <stepList>
-                <OTDisplayPage id="6e95a4f9-47bb-11dd-9f58-c3a3b6397fd1" title="Heat Transfer Between a Cup and Table" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="d0661b83-5db1-11dd-8eba-010e12fd3f10" title="Heat Transfer Between a Cup and Table" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:14pt;color:#330000;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -567,7 +591,7 @@ SPAN.earth {font-family:Arial, Helvetica;font-size:16pt;color:#4189AC;text-align
 
 &lt;/HTML&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="6e95a4fa-47bb-11dd-9f58-c3a3b6397fd1" title="What Did You Learn in the Macro-Level Simulation?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="d0664294-5db1-11dd-8eba-010e12fd3f10" title="What Did You Learn in the Macro-Level Simulation?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96214)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -583,7 +607,7 @@ SPAN.earth {font-family:Arial, Helvetica;font-size:16pt;color:#4189AC;text-align
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTDisplayPage id="6e95cc0b-47bb-11dd-9f58-c3a3b6397fd1" title="What Happened to the Molecules" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="d06669a5-5db1-11dd-8eba-010e12fd3f10" title="What Happened to the Molecules" authorNotes="" hoverString="Pas Step">
                   <content>&lt;html&gt;
 &lt;head&gt;
   &lt;meta http-equiv="content-type"
@@ -656,7 +680,7 @@ process.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="6e95f31c-47bb-11dd-9f58-c3a3b6397fd1" title="Choosing Models" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="d06669a6-5db1-11dd-8eba-010e12fd3f10" title="Choosing Models" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96215)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -676,7 +700,7 @@ process.&lt;/p&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="6e96413d-47bb-11dd-9f58-c3a3b6397fd1" title="Heat Transfer Model" authorNotes="" hoverString="Pas Step" attribution="Evidence created 8/1/2007 by Trudi Lord" evidenceTitle="Heat Transder Model (Flash Version)">
+                <OTEvidence id="d066b7c7-5db1-11dd-8eba-010e12fd3f10" title="Heat Transfer Model" authorNotes="" hoverString="Pas Step" attribution="Evidence created 8/1/2007 by Trudi Lord" evidenceTitle="Heat Transder Model (Flash Version)">
                   <content>If your teacher tells you to use the FLASH version of the model, click the link at the bottom of this page.&lt;BR&gt;&lt;BR&gt;
 
 &lt;font color="red" size=3&gt; For the FLASH version to work, you need the free Shockwave plug-in and reasonable bandwidth. For the JAVA version to work, you must have high-bandwidth internet access and you must have JAVA 1.42 installed (It is free to install). Java 5 (also known as Java 1.5) may not work with your system. You also need a reasonably fast Internet connection because some of the files are large. Teachers should see the project lesson plan for more details.
@@ -690,7 +714,7 @@ process.&lt;/p&gt;
 &lt;CENTER&gt;&lt;FONT SIZE=+2&gt;&lt;A HREF="http://wise.berkeley.edu/upload/16761/Molecules300small11212005.swf"&gt;Open Heat Model&lt;/A&gt;&lt;/font&gt;&lt;/CENTER&gt;&lt;p&gt;
 &lt;!-- END templated link --&gt;</content>
                 </OTEvidence>
-                <OTNote id="6e97048e-47bb-11dd-9f58-c3a3b6397fd1" title="What Did You Learn in the Molecular-Scale Simulation?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="d0677b18-5db1-11dd-8eba-010e12fd3f10" title="What Did You Learn in the Molecular-Scale Simulation?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96216)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -720,9 +744,9 @@ process.&lt;/p&gt;
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Thermal Conductivity" authorNotes="">
+            <OTPasActivity id="d28b1e71-5db1-11dd-8eba-010e12fd3f10" title="Thermal Conductivity" authorNotes="">
               <stepList>
-                <OTDisplayPage id="706ab328-47bb-11dd-9f58-c3a3b6397fd1" title="What is Thermal Conductivity?" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="d28b1e72-5db1-11dd-8eba-010e12fd3f10" title="What is Thermal Conductivity?" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:14pt;color:#330000;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -788,7 +812,7 @@ Click on the next step and make your predictions!
 
 &lt;/HTML&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="706ab329-47bb-11dd-9f58-c3a3b6397fd1" title="Predictions About Thermal Conductivity" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="d28b4583-5db1-11dd-8eba-010e12fd3f10" title="Predictions About Thermal Conductivity" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96217)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -800,8 +824,8 @@ Click on the next step and make your predictions!
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTOutsideLink id="706ada3a-47bb-11dd-9f58-c3a3b6397fd1" title="Investigate Thermal Conductivity" authorNotes="" hoverString="Pas Step" url="http://wise.berkeley.edu/upload/16933/Heat_Flow_2005_0827.swf" />
-                <OTNote id="706b767b-47bb-11dd-9f58-c3a3b6397fd1" title="What Did You Find Out?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTOutsideLink id="d28b4584-5db1-11dd-8eba-010e12fd3f10" title="Investigate Thermal Conductivity" authorNotes="" hoverString="Pas Step" url="http://wise.berkeley.edu/upload/16933/Heat_Flow_2005_0827.swf" />
+                <OTNote id="d28be1c5-5db1-11dd-8eba-010e12fd3f10" title="What Did You Find Out?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96218)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -823,9 +847,9 @@ Click on the next step and make your predictions!
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Molecular Models of Thermal Conductivity" authorNotes="">
+            <OTPasActivity id="ddcee10b-5db1-11dd-8eba-010e12fd3f10" title="Molecular Models of Thermal Conductivity" authorNotes="">
               <stepList>
-                <OTDisplayPage id="7a4fcf22-47bb-11dd-9f58-c3a3b6397fd1" title="Investigate Molecular Models" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="ddcee10c-5db1-11dd-8eba-010e12fd3f10" title="Investigate Molecular Models" authorNotes="" hoverString="Pas Step">
                   <content>&lt;html&gt;
 &lt;head&gt;
   &lt;meta http-equiv="content-type"
@@ -897,7 +921,7 @@ how conductivity works at the molecular level. &lt;br&gt;
 &lt;/body&gt;
 &lt;/html&gt;</content>
                 </OTDisplayPage>
-                <OTDisplayPage id="7a4fcf23-47bb-11dd-9f58-c3a3b6397fd1" title="How to Investigate the Molecular Model" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="ddcee10d-5db1-11dd-8eba-010e12fd3f10" title="How to Investigate the Molecular Model" authorNotes="" hoverString="Pas Step">
                   <content>&lt;html&gt;
 &lt;head&gt;
   &lt;meta http-equiv="content-type"
@@ -983,7 +1007,7 @@ answered. If not, you may need to run more than one experiment.&amp;nbsp; &lt;/b
 &lt;/body&gt;
 &lt;/html&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="7a4ff634-47bb-11dd-9f58-c3a3b6397fd1" title="My Notes about Investigation" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="ddcee10e-5db1-11dd-8eba-010e12fd3f10" title="My Notes about Investigation" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96219)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1013,7 +1037,7 @@ previous page about investigation. &lt;/span&gt;&lt;br&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTDisplayPage id="7a501d45-47bb-11dd-9f58-c3a3b6397fd1" title="Create Your Own Investigation" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="ddcf2f2f-5db1-11dd-8eba-010e12fd3f10" title="Create Your Own Investigation" authorNotes="" hoverString="Pas Step">
                   <content>&lt;html&gt;
 &lt;head&gt;
   &lt;meta http-equiv="content-type"
@@ -1084,7 +1108,7 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
 &lt;/body&gt;
 &lt;/html&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="7a501d46-47bb-11dd-9f58-c3a3b6397fd1" title="Plan and Predict" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="ddcf2f30-5db1-11dd-8eba-010e12fd3f10" title="Plan and Predict" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96220)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1108,15 +1132,15 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTGenericOTrunkStep id="76ccc387-47bb-11dd-9f58-c3a3b6397fd1" title="Investigate and Observe" authorNotes="" hoverString="Pas Step">
+                <OTGenericOTrunkStep id="d7c37bdf-5db1-11dd-8eba-010e12fd3f10" title="Investigate and Observe" authorNotes="" hoverString="Pas Step">
                   <target>
                     <OTCompoundDoc>
                       <documentRefs>
-                        <OTPlacementContainer id="770add08-47bb-11dd-9f58-c3a3b6397fd1" width="800" height="800">
+                        <OTPlacementContainer id="d8125f40-5db1-11dd-8eba-010e12fd3f10" width="800" height="800">
                           <placements>
                             <OTPlacement height="200" width="800" x="0" y="0" layer="0">
                               <component>
-                                <OTTextPane id="770add11-47bb-11dd-9f58-c3a3b6397fd1">
+                                <OTTextPane id="d8125f49-5db1-11dd-8eba-010e12fd3f10">
                                   <text>
                                     <p>
                                       <center>
@@ -1138,12 +1162,12 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                             </OTPlacement>
                             <OTPlacement height="630" width="800" x="0" y="170" layer="1">
                               <component>
-                                <OTModelerPage id="770add13-47bb-11dd-9f58-c3a3b6397fd1" authoredDataURL="http://svn.concord.org/svn/projects/trunk/common/java/otrunk/otrunk-examples/MolecularWorkbench/thermal-conduction-models/thermo_main-01b.cml" />
+                                <OTModelerPage id="d8125f4b-5db1-11dd-8eba-010e12fd3f10" authoredDataURL="http://svn.concord.org/svn/projects/trunk/common/java/otrunk/otrunk-examples/MolecularWorkbench/thermal-conduction-models/thermo_main-01b.cml" />
                               </component>
                             </OTPlacement>
                             <OTPlacement height="390" width="130" x="273" y="240" layer="4">
                               <component>
-                                <OTTextPane id="770add12-47bb-11dd-9f58-c3a3b6397fd1">
+                                <OTTextPane id="d8125f4a-5db1-11dd-8eba-010e12fd3f10">
                                   <text>
                                     <img src="http://svn.concord.org/svn/projects/trunk/common/java/otrunk/otrunk-examples/MolecularWorkbench/resources/cup_with_arrows.jpg" />
                                   </text>
@@ -1152,11 +1176,11 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                             </OTPlacement>
                             <OTPlacement height="400" width="400" x="400" y="330" layer="2">
                               <component>
-                                <OTDataCollector id="770add14-47bb-11dd-9f58-c3a3b6397fd1" name="Model Data" multipleGraphableEnabled="false" autoScaleEnabled="false">
+                                <OTDataCollector id="d8125f4c-5db1-11dd-8eba-010e12fd3f10" name="Model Data" multipleGraphableEnabled="false" autoScaleEnabled="false">
                                   <graphables>
-                                    <OTDataGraphable id="770bc790-47bb-11dd-9f58-c3a3b6397fd1" connectPoints="true" color="7312384" drawMarks="false" name="Ck Temp" xColumn="0" yColumn="1">
+                                    <OTDataGraphable id="d81322b8-5db1-11dd-8eba-010e12fd3f10" connectPoints="true" color="7312384" drawMarks="false" name="Ck Temp" xColumn="0" yColumn="1">
                                       <dataStore>
-                                        <OTDataStore id="770c3cd1-47bb-11dd-9f58-c3a3b6397fd1" numberChannels="2" valuesString="">
+                                        <OTDataStore id="d8140d29-5db1-11dd-8eba-010e12fd3f10" numberChannels="2" valuesString="">
                                           <channelDescriptions>
                                             <OTDataChannelDescription precision="0" unit="s" />
                                             <OTDataChannelDescription precision="-2" unit="degC" />
@@ -1164,9 +1188,9 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                                         </OTDataStore>
                                       </dataStore>
                                     </OTDataGraphable>
-                                    <OTDataGraphable id="770bc791-47bb-11dd-9f58-c3a3b6397fd1" connectPoints="true" color="13172937" drawMarks="false" name="Ws Temp" xColumn="0" yColumn="1">
+                                    <OTDataGraphable id="d81349c9-5db1-11dd-8eba-010e12fd3f10" connectPoints="true" color="13172937" drawMarks="false" name="Ws Temp" xColumn="0" yColumn="1">
                                       <dataStore>
-                                        <OTDataStore id="770c3cd2-47bb-11dd-9f58-c3a3b6397fd1" numberChannels="2" valuesString="">
+                                        <OTDataStore id="d8140d2a-5db1-11dd-8eba-010e12fd3f10" numberChannels="2" valuesString="">
                                           <channelDescriptions>
                                             <OTDataChannelDescription precision="0" unit="s" />
                                             <OTDataChannelDescription precision="-2" unit="degC" />
@@ -1174,9 +1198,9 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                                         </OTDataStore>
                                       </dataStore>
                                     </OTDataGraphable>
-                                    <OTDataGraphable id="770bc792-47bb-11dd-9f58-c3a3b6397fd1" connectPoints="true" color="7312384" drawMarks="false" name="Pl Temp" xColumn="0" yColumn="1">
+                                    <OTDataGraphable id="d81349ca-5db1-11dd-8eba-010e12fd3f10" connectPoints="true" color="7312384" drawMarks="false" name="Pl Temp" xColumn="0" yColumn="1">
                                       <dataStore>
-                                        <OTDataStore id="770c3cd3-47bb-11dd-9f58-c3a3b6397fd1" numberChannels="2" valuesString="">
+                                        <OTDataStore id="d8140d2b-5db1-11dd-8eba-010e12fd3f10" numberChannels="2" valuesString="">
                                           <channelDescriptions>
                                             <OTDataChannelDescription precision="0" unit="s" />
                                             <OTDataChannelDescription precision="-2" unit="degC" />
@@ -1184,9 +1208,9 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                                         </OTDataStore>
                                       </dataStore>
                                     </OTDataGraphable>
-                                    <OTDataGraphable id="770bc793-47bb-11dd-9f58-c3a3b6397fd1" connectPoints="true" color="11119017" drawMarks="false" name="Nt Temp" xColumn="0" yColumn="1">
+                                    <OTDataGraphable id="d81349cb-5db1-11dd-8eba-010e12fd3f10" connectPoints="true" color="11119017" drawMarks="false" name="Nt Temp" xColumn="0" yColumn="1">
                                       <dataStore>
-                                        <OTDataStore id="770c3cd4-47bb-11dd-9f58-c3a3b6397fd1" numberChannels="2" valuesString="">
+                                        <OTDataStore id="d8140d2c-5db1-11dd-8eba-010e12fd3f10" numberChannels="2" valuesString="">
                                           <channelDescriptions>
                                             <OTDataChannelDescription precision="0" unit="s" />
                                             <OTDataChannelDescription precision="-2" unit="degC" />
@@ -1198,20 +1222,20 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                                   <xDataAxis>
                                     <OTDataAxis min="-1.0" max="56.0" label="Time" units="s">
                                       <graphables>
-                                        <object refid="770bc790-47bb-11dd-9f58-c3a3b6397fd1" />
-                                        <object refid="770bc791-47bb-11dd-9f58-c3a3b6397fd1" />
-                                        <object refid="770bc792-47bb-11dd-9f58-c3a3b6397fd1" />
-                                        <object refid="770bc793-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d81322b8-5db1-11dd-8eba-010e12fd3f10" />
+                                        <object refid="d81349c9-5db1-11dd-8eba-010e12fd3f10" />
+                                        <object refid="d81349ca-5db1-11dd-8eba-010e12fd3f10" />
+                                        <object refid="d81349cb-5db1-11dd-8eba-010e12fd3f10" />
                                       </graphables>
                                     </OTDataAxis>
                                   </xDataAxis>
                                   <yDataAxis>
                                     <OTDataAxis min="-10.0" max="100.0" label="Temperature" units="degC">
                                       <graphables>
-                                        <object refid="770bc790-47bb-11dd-9f58-c3a3b6397fd1" />
-                                        <object refid="770bc791-47bb-11dd-9f58-c3a3b6397fd1" />
-                                        <object refid="770bc792-47bb-11dd-9f58-c3a3b6397fd1" />
-                                        <object refid="770bc793-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d81322b8-5db1-11dd-8eba-010e12fd3f10" />
+                                        <object refid="d81349c9-5db1-11dd-8eba-010e12fd3f10" />
+                                        <object refid="d81349ca-5db1-11dd-8eba-010e12fd3f10" />
+                                        <object refid="d81349cb-5db1-11dd-8eba-010e12fd3f10" />
                                       </graphables>
                                     </OTDataAxis>
                                   </yDataAxis>
@@ -1220,25 +1244,25 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                             </OTPlacement>
                             <OTPlacement height="30" width="500" x="430" y="170" layer="3">
                               <component>
-                                <OTChoice id="770add0d-47bb-11dd-9f58-c3a3b6397fd1" horizontal="true">
+                                <OTChoice id="d8125f45-5db1-11dd-8eba-010e12fd3f10" horizontal="true">
                                   <choices>
                                     <OTText name="Metal Counter" text="metal" />
-                                    <OTText id="770ba07e-47bb-11dd-9f58-c3a3b6397fd1" name="Glass Counter" text="glass" />
+                                    <OTText id="d81322b6-5db1-11dd-8eba-010e12fd3f10" name="Glass Counter" text="glass" />
                                     <OTText name="Wood Counter" text="wood" />
                                   </choices>
                                   <currentChoice>
-                                    <object refid="770ba07e-47bb-11dd-9f58-c3a3b6397fd1" />
+                                    <object refid="d81322b6-5db1-11dd-8eba-010e12fd3f10" />
                                   </currentChoice>
                                 </OTChoice>
                               </component>
                             </OTPlacement>
                             <OTPlacement height="300" width="400" x="430" y="190" layer="3">
                               <component>
-                                <OTPlacementContainer id="770add09-47bb-11dd-9f58-c3a3b6397fd1" width="300" height="150">
+                                <OTPlacementContainer id="d8125f41-5db1-11dd-8eba-010e12fd3f10" width="300" height="150">
                                   <placements>
                                     <OTPlacement height="50" width="175" x="0" y="30" layer="0">
                                       <component>
-                                        <OTSlider id="770add0a-47bb-11dd-9f58-c3a3b6397fd1" minimum="0" maximum="1000" numTicks="10" value="0" vertical="false" snapToMarks="true">
+                                        <OTSlider id="d8125f42-5db1-11dd-8eba-010e12fd3f10" minimum="0.0" maximum="1000.0" numTicks="10" value="0.0" vertical="false" snapToMarks="true">
                                           <labels>
                                             <OTSliderLabel value="0" label="Low" />
                                             <OTSliderLabel value="500" label="Medium" />
@@ -1249,7 +1273,7 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                                     </OTPlacement>
                                     <OTPlacement height="50" width="175" x="185" y="30" layer="0">
                                       <component>
-                                        <OTSlider id="770add0b-47bb-11dd-9f58-c3a3b6397fd1" minimum="0" maximum="1000" numTicks="10" value="0" vertical="false" snapToMarks="true">
+                                        <OTSlider id="d8125f43-5db1-11dd-8eba-010e12fd3f10" minimum="0.0" maximum="1000.0" numTicks="10" value="0.0" vertical="false" snapToMarks="true">
                                           <labels>
                                             <OTSliderLabel value="0" label="Low" />
                                             <OTSliderLabel value="500" label="Medium" />
@@ -1260,7 +1284,7 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                                     </OTPlacement>
                                     <OTPlacement height="50" width="175" x="93" y="100" layer="0">
                                       <component>
-                                        <OTSlider id="770add0c-47bb-11dd-9f58-c3a3b6397fd1" minimum="1" maximum="15" value="15" vertical="false" snapToMarks="true">
+                                        <OTSlider id="d8125f44-5db1-11dd-8eba-010e12fd3f10" minimum="1.0" maximum="15.0" value="15.0" vertical="false" snapToMarks="true">
                                           <labels>
                                             <OTSliderLabel value="1" label="1" />
                                             <OTSliderLabel value="5" label="5" />
@@ -1272,17 +1296,17 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                                     </OTPlacement>
                                     <OTPlacement height="50" width="175" x="10" y="0" layer="1">
                                       <component>
-                                        <OTText id="770add0e-47bb-11dd-9f58-c3a3b6397fd1" text="Cup Temperature (deg C)" />
+                                        <OTText id="d8125f46-5db1-11dd-8eba-010e12fd3f10" text="Cup Temperature (deg C)" />
                                       </component>
                                     </OTPlacement>
                                     <OTPlacement height="50" width="200" x="185" y="0" layer="1">
                                       <component>
-                                        <OTText id="770add0f-47bb-11dd-9f58-c3a3b6397fd1" text="Counter Temperature (deg C)" />
+                                        <OTText id="d8125f47-5db1-11dd-8eba-010e12fd3f10" text="Counter Temperature (deg C)" />
                                       </component>
                                     </OTPlacement>
                                     <OTPlacement height="50" width="175" x="100" y="70" layer="1">
                                       <component>
-                                        <OTText id="770add10-47bb-11dd-9f58-c3a3b6397fd1" text="Observation Time (Minute)" />
+                                        <OTText id="d8125f48-5db1-11dd-8eba-010e12fd3f10" text="Observation Time (Minute)" />
                                       </component>
                                     </OTPlacement>
                                   </placements>
@@ -1291,56 +1315,56 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                             </OTPlacement>
                             <OTPlacement height="0" width="0" x="0" y="0">
                               <component>
-                                <OTScriptObject id="770add15-47bb-11dd-9f58-c3a3b6397fd1">
+                                <OTScriptObject id="d8125f4d-5db1-11dd-8eba-010e12fd3f10">
                                   <variables>
                                     <OTScriptVariable name="datastore_ck">
                                       <reference>
-                                        <object refid="770c3cd1-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8140d29-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariable>
                                     <OTScriptVariable name="datastore_ws">
                                       <reference>
-                                        <object refid="770c3cd2-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8140d2a-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariable>
                                     <OTScriptVariable name="datastore_pl">
                                       <reference>
-                                        <object refid="770c3cd3-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8140d2b-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariable>
                                     <OTScriptVariable name="datastore_nt">
                                       <reference>
-                                        <object refid="770c3cd4-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8140d2c-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariable>
                                     <OTScriptVariable name="timeSlider">
                                       <reference>
-                                        <object refid="770add0c-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8125f44-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariable>
                                     <OTScriptVariable name="cupTempSlider">
                                       <reference>
-                                        <object refid="770add0a-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8125f42-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariable>
                                     <OTScriptVariable name="counterTempSlider">
                                       <reference>
-                                        <object refid="770add0b-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8125f43-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariable>
                                     <OTScriptVariable name="counterType">
                                       <reference>
-                                        <object refid="770add0d-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8125f45-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariable>
                                     <OTScriptVariableComponent name="modelComponent">
                                       <reference>
-                                        <object refid="770add13-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8125f4b-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariableComponent>
                                     <OTScriptVariableComponent name="graph">
                                       <reference>
-                                        <object refid="770add14-47bb-11dd-9f58-c3a3b6397fd1" />
+                                        <object refid="d8125f4c-5db1-11dd-8eba-010e12fd3f10" />
                                       </reference>
                                     </OTScriptVariableComponent>
                                   </variables>
@@ -1352,27 +1376,27 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                             </OTPlacement>
                           </placements>
                         </OTPlacementContainer>
-                        <object refid="770add09-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add0a-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add0b-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add0c-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add0d-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add0e-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add0f-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add10-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add11-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add12-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add13-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add14-47bb-11dd-9f58-c3a3b6397fd1" />
-                        <object refid="770add15-47bb-11dd-9f58-c3a3b6397fd1" />
+                        <object refid="d8125f41-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f42-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f43-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f44-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f45-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f46-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f47-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f48-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f49-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f4a-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f4b-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f4c-5db1-11dd-8eba-010e12fd3f10" />
+                        <object refid="d8125f4d-5db1-11dd-8eba-010e12fd3f10" />
                       </documentRefs>
                       <bodyText>
-                        <object refid="770add08-47bb-11dd-9f58-c3a3b6397fd1" />
+                        <object refid="d8125f40-5db1-11dd-8eba-010e12fd3f10" />
                       </bodyText>
                     </OTCompoundDoc>
                   </target>
                 </OTGenericOTrunkStep>
-                <OTNote id="7a506b67-47bb-11dd-9f58-c3a3b6397fd1" title="Analysis" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="ddcf5641-5db1-11dd-8eba-010e12fd3f10" title="Analysis" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96221)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1402,9 +1426,9 @@ activity on the left to first plan and predict your investigation. &lt;/big&gt;&
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Conductivity, Temperature Change, and Feeling?" authorNotes="">
+            <OTPasActivity id="f97e9540-5db1-11dd-8eba-010e12fd3f10" title="Conductivity, Temperature Change, and Feeling?" authorNotes="">
               <stepList>
-                <OTDisplayPage id="946cd667-47bb-11dd-9f58-c3a3b6397fd1" title="Conductivity, Temperature Change, And Feeling" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="f97e9541-5db1-11dd-8eba-010e12fd3f10" title="Conductivity, Temperature Change, And Feeling" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:14pt;color:#330000;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -1439,7 +1463,7 @@ Imagine that you have just pulled a hot metal bowl and a hot wooden bowl out of 
 &lt;/html&gt;
 &lt;/TD&gt;&lt;/TR&gt;&lt;/table&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="946cd668-47bb-11dd-9f58-c3a3b6397fd1" title="Predictions: Conductivity and Changing Temperatures" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="f97ebc52-5db1-11dd-8eba-010e12fd3f10" title="Predictions: Conductivity and Changing Temperatures" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96222)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1451,8 +1475,8 @@ Imagine that you have just pulled a hot metal bowl and a hot wooden bowl out of 
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTOutsideLink id="946cfd79-47bb-11dd-9f58-c3a3b6397fd1" title="Simulation: Conductivity and Changing Temperatures" authorNotes="" hoverString="Pas Step" url="http://wise.berkeley.edu/upload/16933/Bowls_2005_0827.swf" />
-                <OTNote id="946cfd7a-47bb-11dd-9f58-c3a3b6397fd1" title="Results: Conductivity and Changing Temperatures" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTOutsideLink id="f97ebc53-5db1-11dd-8eba-010e12fd3f10" title="Simulation: Conductivity and Changing Temperatures" authorNotes="" hoverString="Pas Step" url="http://wise.berkeley.edu/upload/16933/Bowls_2005_0827.swf" />
+                <OTNote id="f97ebc54-5db1-11dd-8eba-010e12fd3f10" title="Results: Conductivity and Changing Temperatures" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96223)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1468,7 +1492,7 @@ Imagine that you have just pulled a hot metal bowl and a hot wooden bowl out of 
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="946d248b-47bb-11dd-9f58-c3a3b6397fd1" title="Predictions: Conductivity and Feeling Hot or Cold" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="f97ee365-5db1-11dd-8eba-010e12fd3f10" title="Predictions: Conductivity and Feeling Hot or Cold" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96224)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1480,8 +1504,8 @@ Imagine that you have just pulled a hot metal bowl and a hot wooden bowl out of 
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTOutsideLink id="946d248c-47bb-11dd-9f58-c3a3b6397fd1" title="New Simulation: Conductivity and Feeling Hot or Cold" authorNotes="" hoverString="Pas Step" url="http://wise.berkeley.edu/upload/16933/Finger_2005_0827.swf" />
-                <OTNote id="946d248d-47bb-11dd-9f58-c3a3b6397fd1" title="Results: Conductivity and Feeling Hot or Cold" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTOutsideLink id="f97ee366-5db1-11dd-8eba-010e12fd3f10" title="New Simulation: Conductivity and Feeling Hot or Cold" authorNotes="" hoverString="Pas Step" url="http://wise.berkeley.edu/upload/16933/Finger_2005_0827.swf" />
+                <OTNote id="f97f0a77-5db1-11dd-8eba-010e12fd3f10" title="Results: Conductivity and Feeling Hot or Cold" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96225)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1495,9 +1519,9 @@ Imagine that you have just pulled a hot metal bowl and a hot wooden bowl out of 
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Create and Discuss Principles " authorNotes="">
+            <OTPasActivity id="21c4f272-5db2-11dd-8eba-010e12fd3f10" title="Create and Discuss Principles " authorNotes="">
               <stepList>
-                <OTDisplayPage id="b2283a17-47bb-11dd-9f58-c3a3b6397fd1" title="Create A Principle" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="21c51983-5db2-11dd-8eba-010e12fd3f10" title="Create A Principle" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:14pt;color:#330000;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -1552,7 +1576,7 @@ width="200" height="150"&gt;
 
 &lt;/HTML&gt;</content>
                 </OTDisplayPage>
-                <OTEvidence id="b2283a18-47bb-11dd-9f58-c3a3b6397fd1" title="Review Your Work So Far" authorNotes="" hoverString="Pas Step" evidenceTitle="">
+                <OTEvidence id="21c51984-5db2-11dd-8eba-010e12fd3f10" title="Review Your Work So Far" authorNotes="" hoverString="Pas Step" evidenceTitle="">
                   <hintList>
                     <OTPasHint text="When you click on the Show All Work icon, you can see all the work you have saved." />
                     <OTPasHint text="This is a useful tool for checking or correcting work." />
@@ -1595,7 +1619,96 @@ SRC="http://wise.berkeley.edu/upload/26539/ShowAllNotes.png"&gt; and see you wor
 Modified 7/20/2007 by Ken Bell.
 Modified 3/21/2008 by Hsin-Yi Chang.</attribution>
                 </OTEvidence>
-                <OTDisplayPage id="b2283a1d-47bb-11dd-9f58-c3a3b6397fd1" title="Discuss Possible Principles" authorNotes="" hoverString="Pas Step">
+                <OTStudentAssessment id="21c51989-5db2-11dd-8eba-010e12fd3f10" title="Create It!" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                  <jaxbXML>
+                    <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="master7253:page1:part1(1)">
+                      <responseDeclaration baseType="identifier" cardinality="single" identifier="PRIMARY_RESPONSE1">
+                        <correctResponse>
+                          <value>choice</value>
+                        </correctResponse>
+                      </responseDeclaration>
+                      <responseDeclaration baseType="identifier" cardinality="single" identifier="PRIMARY_RESPONSE2">
+                        <correctResponse>
+                          <value>choice</value>
+                        </correctResponse>
+                      </responseDeclaration>
+                      <responseDeclaration baseType="identifier" cardinality="single" identifier="PRIMARY_RESPONSE3">
+                        <correctResponse>
+                          <value>choice</value>
+                        </correctResponse>
+                      </responseDeclaration>
+                      <responseDeclaration baseType="identifier" cardinality="single" identifier="PRIMARY_RESPONSE4">
+                        <correctResponse>
+                          <value>choice</value>
+                        </correctResponse>
+                      </responseDeclaration>
+                      <responseDeclaration baseType="string" cardinality="single" identifier="PRIMARY_RESPONSE5" />
+                      <itemBody>
+                        <choiceInteraction hasInlineFeedback="false" responseIdentifier="PRIMARY_RESPONSE1" maxChoices="1" shuffle="false">
+                          <prompt>Choose one from the following to start the sentence of your principle.</prompt>
+                          <simpleChoice identifier="choice1">All objects</simpleChoice>
+                          <simpleChoice identifier="choice2">Some objects</simpleChoice>
+                          <simpleChoice identifier="choice3">Hot objects</simpleChoice>
+                          <simpleChoice identifier="choice4">Metal and glass objects</simpleChoice>
+                          <simpleChoice identifier="choice5">Wood objects</simpleChoice>
+                          <simpleChoice identifier="choice6">Cold objects</simpleChoice>
+                          <simpleChoice identifier="choice7">Objects that are good conductors</simpleChoice>
+                          <simpleChoice identifier="choice8">Objects that are good insulators</simpleChoice>
+                        </choiceInteraction>
+                        <choiceInteraction hasInlineFeedback="false" responseIdentifier="PRIMARY_RESPONSE2" maxChoices="1" shuffle="false">
+                          <prompt>Choose one from the following to continue your sentence.</prompt>
+                          <simpleChoice identifier="choice1">stay at their original temperature regardless of the temperature of the room</simpleChoice>
+                          <simpleChoice identifier="choice2">become the same temperature as each other but not the room temperature</simpleChoice>
+                          <simpleChoice identifier="choice3">become close, but not exactly the same temperature as each other</simpleChoice>
+                          <simpleChoice identifier="choice4">become the same temperature as the room</simpleChoice>
+                          <simpleChoice identifier="choice5">become close, but not exactly the same temperature as the room</simpleChoice>
+                          <simpleChoice identifier="choice6">are at a different temperature than other objects in the same room</simpleChoice>
+                        </choiceInteraction>
+                        <choiceInteraction hasInlineFeedback="false" responseIdentifier="PRIMARY_RESPONSE3" maxChoices="1" shuffle="false">
+                          <prompt>Choose one from the following to complete your sentence.</prompt>
+                          <simpleChoice identifier="choice1">even if they produce their own heat energy.</simpleChoice>
+                          <simpleChoice identifier="choice2">unless they produce their own heat energy.</simpleChoice>
+                          <simpleChoice identifier="choice3">because they are made of different materials.</simpleChoice>
+                          <simpleChoice identifier="choice4">unless air can get inside them.</simpleChoice>
+                          <simpleChoice identifier="choice5">but only on their surface not inside them.</simpleChoice>
+                        </choiceInteraction>
+                        <choiceInteraction hasInlineFeedback="false" responseIdentifier="PRIMARY_RESPONSE4" maxChoices="1" shuffle="false">
+                          <prompt>Choose one from the following to add an explanation to your principle.</prompt>
+                          <simpleChoice identifier="choice1">These objects feel the same as each other because they are the same temperature.</simpleChoice>
+                          <simpleChoice identifier="choice2">These objects feel different because they are different temperature.</simpleChoice>
+                          <simpleChoice identifier="choice3">These objects feel different because they transfer heat at different rates.</simpleChoice>
+                          <simpleChoice identifier="choice4">The objects feel different because they transfer heat at the same rate.</simpleChoice>
+                          <simpleChoice identifier="choice5">The objects feel the same because they transfer heat at the same rate.</simpleChoice>
+                        </choiceInteraction>
+                        <extendedTextInteraction hasInlineFeedback="false" placeholderText="" responseIdentifier="PRIMARY_RESPONSE5">
+                          <prompt>Use your own words and examples to explain why objects in the same room often feel different. Try to connect to your principle and to what you've learned about the molecular motion of different objects.</prompt>
+                        </extendedTextInteraction>
+                      </itemBody>
+                    </assessmentItem>
+                  </jaxbXML>
+                  <introductionHtml>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta name="generator"
+content="HTML Tidy for Java (vers. 26 Sep 2004), see www.w3.org" /&gt;
+&lt;meta http-equiv="content-type"
+content="text/html; charset=ISO-8859-1" /&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+Think about the activities you just completed. Create a principle
+that explains &lt;span style="font-weight: bold;"&gt;why objects in the
+same room often feel different.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt; Note: this is not a test.The questions below are to help
+you create your principle. You will have chances to modify your
+principle in a later step after discussing with your classmates.
+&lt;br /&gt;
+&lt;/body&gt;
+&lt;/html&gt;</introductionHtml>
+                </OTStudentAssessment>
+                <OTDisplayPage id="21c62afa-5db2-11dd-8eba-010e12fd3f10" title="Discuss Possible Principles" authorNotes="" hoverString="Pas Step">
                   <content>&lt;html&gt;
 &lt;head&gt;
   &lt;meta http-equiv="content-type"
@@ -1683,7 +1796,7 @@ can create a principle that you all support.&lt;br&gt;
 &lt;/body&gt;
 &lt;/html&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="b2283a1e-47bb-11dd-9f58-c3a3b6397fd1" title="What Changed?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="21c62afb-5db2-11dd-8eba-010e12fd3f10" title="What Changed?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96226)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />

@@ -12,6 +12,10 @@
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTEvidence" />
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTHelloWorld" />
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTOutsideLink" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTNote" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTStudentAssessment" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTSelfAssessment" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTChallengeQuestion" />
     <import class="org.telscenter.pas.otrunk.skeleton.OTGenericOTrunkStep" />
     <import class="org.concord.graph.util.state.OTDrawingTool" />
     <import class="org.concord.otrunk.view.OTViewMode" />
@@ -105,14 +109,13 @@
     <import class="org.concord.sensor.state.OTSensorDataProxy" />
     <import class="org.concord.sensor.state.OTSensorRequest" />
     <import class="org.concord.sensor.state.OTZeroSensor" />
-    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTNote" />
     <import class="org.telscenter.pas.otrunk.skeleton.OTPasHint" />
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTPedagogicaStep" />
   </imports>
   <objects>
     <OTSystem>
       <includes>
-        <OTInclude href="http://tels-group.soe.berkeley.edu:16080/aperritano/predefined-sensor-graphs.otml" />
+        <OTInclude href="http://tels-group.soe.berkeley.edu/aperritano/predefined-sensor-graphs.otml" />
       </includes>
       <bundles>
         <OTViewBundle>
@@ -144,7 +147,7 @@
             <OTViewEntry objectClass="org.concord.otrunk.ui.OTBorderContainer" viewClass="org.concord.otrunk.ui.swing.OTBorderContainerView" />
             <OTViewEntry objectClass="org.concord.otrunk.ui.OTPlacementContainer" viewClass="org.concord.otrunk.ui.swing.OTPlacementContainerView" />
             <OTViewEntry id="be713960-e18a-11dc-95ff-0800200c9a66" objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditView" />
-            <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextView" />
+            <OTViewEntry id="c93a7460-e18a-11dc-95ff-0800200c9a66" objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextView" />
             <OTViewEntry local_id="data-collector-view" viewClass="org.concord.datagraph.state.OTDataCollectorView" objectClass="org.concord.datagraph.state.OTDataCollector" />
             <OTViewEntry viewClass="org.concord.datagraph.state.OTDataGraphView" objectClass="org.concord.datagraph.state.OTDataGraph" />
             <OTViewEntry viewClass="org.concord.data.state.OTDataFieldView" objectClass="org.concord.data.state.OTDataField" />
@@ -162,15 +165,15 @@
               <prototype>
                 <OTChoice>
                   <choices>
-                    <OTOverlay name="Small text">
+                    <OTOverlay id="da41a2a0-c44e-11dc-95ff-0800200c9a66" name="Small text">
                       <deltaObjectMap>
                         <entry key="23cc14f0-c44f-11dc-95ff-0800200c9a66">
                           <OTCssText src="file:/Users/geoffreykwan/dev/workspaces/vleworkspace/WISE Project Converter/src/test/css/otrunk-small-font.css" />
                         </entry>
                       </deltaObjectMap>
                     </OTOverlay>
-                    <OTOverlay name="Normal text" />
-                    <OTOverlay name="Large text">
+                    <OTOverlay id="6cc8e2b0-c44e-11dc-95ff-0800200c9a66" name="Normal text" />
+                    <OTOverlay id="7ba31210-c44e-11dc-95ff-0800200c9a66" name="Large text">
                       <deltaObjectMap>
                         <entry key="23cc14f0-c44f-11dc-95ff-0800200c9a66">
                           <OTCssText src="file:/Users/geoffreykwan/dev/workspaces/vleworkspace/WISE Project Converter/src/test/css/otrunk-large-font.css" />
@@ -196,7 +199,7 @@
                 <OTChoice>
                   <choices>
                     <OTOverlay name="English" />
-                    <OTOverlay name="Espanol" />
+                    <OTOverlay name="Espa‚àö¬±ol" />
                   </choices>
                 </OTChoice>
               </prototype>
@@ -213,9 +216,6 @@
           <modes>
             <OTViewMode name="authoring">
               <map>
-                <entry key="be713960-e18a-11dc-95ff-0800200c9a66">
-                  <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
-                </entry>
                 <entry key="${sound-grapher-view}">
                   <OTViewEntry viewClass="org.concord.multimedia.state.ui.OTSoundDataCollectorEditView" objectClass="org.concord.multimedia.state.OTSoundDataCollector" />
                 </entry>
@@ -268,7 +268,24 @@
                         </yDataAxis>
                       </OTDataCollector>
                       <OTSoundPlayer name="Sound player" />
-                      <null />
+                      <OTSoundDataCollector name="Sound grapher" title="Data graph">
+                        <source>
+                          <OTDataGraphable drawMarks="false" color="255" connectPoints="true" xColumn="0" yColumn="1" name="vf" lineWidth="2.0">
+                            <dataProducer>
+                              <OTSoundDataProducer isFFT="false" />
+                            </dataProducer>
+                            <dataStore>
+                              <OTDataStore />
+                            </dataStore>
+                          </OTDataGraphable>
+                        </source>
+                        <xDataAxis>
+                          <OTDataAxis max="0.06" units="ms" min="0.0" label="Time" />
+                        </xDataAxis>
+                        <yDataAxis>
+                          <OTDataAxis max="150.0" units="" min="-150.0" label="" />
+                        </yDataAxis>
+                      </OTSoundDataCollector>
                     </objectsToInsert>
                   </OTDocumentEditViewConfig>
                 </entry>
@@ -276,10 +293,17 @@
                   <OTViewEntry objectClass="org.concord.otrunkcck.OTCCKModel" viewClass="org.concord.otrunkcck.OTCCKModelEditView" />
                 </entry>
                 <entry key="${data-collector-view}">
-                  <null />
+                  <OTDataCollectorViewConfig viewClass="org.concord.otrunk.graph.OTDataCollectorEditView" objectClass="org.concord.datagraph.state.OTDataCollector">
+                    <predefinedGraphs>
+                      <object refid="088786c2-8719-11dc-8314-0800200c9a66" />
+                    </predefinedGraphs>
+                  </OTDataCollectorViewConfig>
                 </entry>
                 <entry key="${drawing-view}">
                   <OTViewEntry viewClass="org.concord.datagraph.state.OTDataDrawingToolEditView" objectClass="org.concord.graph.util.state.OTDrawingTool" />
+                </entry>
+                <entry key="be713960-e18a-11dc-95ff-0800200c9a66">
+                  <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
                 </entry>
                 <entry key="${sound-player-view}">
                   <OTViewEntry objectClass="org.concord.otrunk.ui.OTSoundPlayer" viewClass="org.concord.otrunk.ui.swing.OTSoundPlayerEditView" />
@@ -294,11 +318,11 @@
         <OTSharingBundle />
       </bundles>
       <root>
-        <OTPasProject title="Airbags: Too Fast, Too Furious?? (GOLD) Copy-6/17/08">
+        <OTPasProject id="971534ac-3f22-11dd-b240-cde0bfdd2411" title="Airbags: Too Fast, Too Furious?? (GOLD) Copy-6/17/08" authorNotes="">
           <activityList>
-            <OTPasActivity title="Thinking about airbags" authorNotes="">
+            <OTPasActivity id="8ee064d3-5d9a-11dd-a36e-47697d513d68" title="Thinking about airbags" authorNotes="">
               <stepList>
-                <OTEvidence id="61d01e84-3f22-11dd-b240-cde0bfdd2414" title="Can we improve the design of airbags?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="8ee0da04-5d9a-11dd-a36e-47697d513d68" title="Can we improve the design of airbags?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -329,7 +353,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="61d0e1d5-3f22-11dd-b240-cde0bfdd2414" title="How fast is fast?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="How fast is fast?">
+                <OTEvidence id="8ee17645-5d9a-11dd-a36e-47697d513d68" title="How fast is fast?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="How fast is fast?">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -373,7 +397,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="61d0e1d6-3f22-11dd-b240-cde0bfdd2414" title="What do you think about airbags?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="8ee19d56-5d9a-11dd-a36e-47697d513d68" title="What do you think about airbags?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="What if the airbag came out slower?" />
                     <OTPasHint text="How would this feel if it inflated in your face?" />
@@ -393,7 +417,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="63cba06b-3f22-11dd-b240-cde0bfdd2414" title="Some facts and figures" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="90dfde5b-5d9a-11dd-a36e-47697d513d68" title="Some facts and figures" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <hintList>
                     <OTPasHint text="Take another look at the facts and figures.  What do they say about the type of accidents referred to here?  What type of person (men, women, children, infants) have the most fatalities?" />
                   </hintList>
@@ -440,7 +464,7 @@ SPAN.earth {font-family:Arial, Helvetica;font-size:16pt;color:#008B8B text-align
 
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="63cba06e-3f22-11dd-b240-cde0bfdd2414" title="How do airbags hurt?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="90e0056e-5d9a-11dd-a36e-47697d513d68" title="How do airbags hurt?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="Think about how you could most likely be injured by an airbag." />
                     <OTPasHint text="In what way does not being belted put you at greater risk from the airbag?" />
@@ -464,7 +488,7 @@ SPAN.earth {font-family:Arial, Helvetica;font-size:16pt;color:#008B8B text-align
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="63cc15a3-3f22-11dd-b240-cde0bfdd2414" title="Too fast, too furious??" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="90e07aa3-5d9a-11dd-a36e-47697d513d68" title="Too fast, too furious??" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <hintList>
                     <OTPasHint text="If you need to, study the crash test video again.  What about the way men and women sit might cause a difference in how the airbag hits them?  What about belted or unbelted drivers might cause them to be injured by an airbag?" />
                   </hintList>
@@ -502,7 +526,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="63cc15a6-3f22-11dd-b240-cde0bfdd2414" title="What do you think about airbags now?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="90e07aa6-5d9a-11dd-a36e-47697d513d68" title="What do you think about airbags now?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="Consider how/where a person sits in the car, how fast they are going, how the car is designed.  How do these things affect a person's encounter with the airbag?" />
                   </hintList>
@@ -519,9 +543,9 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Computer visualizations" authorNotes="">
+            <OTPasActivity id="91987f2c-5d9a-11dd-a36e-47697d513d68" title="Computer visualizations" authorNotes="">
               <stepList>
-                <OTEvidence id="64342666-3f22-11dd-b240-cde0bfdd2414" title="Using visualizations" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="91987f2d-5d9a-11dd-a36e-47697d513d68" title="Using visualizations" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -573,7 +597,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="64344d77-3f22-11dd-b240-cde0bfdd2414" title="An airbag visualization" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="91987f2e-5d9a-11dd-a36e-47697d513d68" title="An airbag visualization" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -617,7 +641,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="64344d78-3f22-11dd-b240-cde0bfdd2414" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="9198a63f-5d9a-11dd-a36e-47697d513d68" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96124)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -640,7 +664,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="64349b99-3f22-11dd-b240-cde0bfdd2414" title="Your investigation" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="91991b70-5d9a-11dd-a36e-47697d513d68" title="Your investigation" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -671,9 +695,9 @@ SPAN.earth {font-family:Arial, Helvetica;font-size:16pt;color:#008B8B text-align
                 </OTEvidence>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Study the airbag's motion" authorNotes="">
+            <OTPasActivity id="982e49f9-5d9a-11dd-a36e-47697d513d68" title="Study the airbag's motion" authorNotes="">
               <stepList>
-                <OTEvidence id="69262c43-3f22-11dd-b240-cde0bfdd2414" title="A closer look at the airbag" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="982e49fa-5d9a-11dd-a36e-47697d513d68" title="A closer look at the airbag" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -704,7 +728,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="69262c44-3f22-11dd-b240-cde0bfdd2414" title="The airbag's motion" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="982e49fb-5d9a-11dd-a36e-47697d513d68" title="The airbag's motion" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="Does the airbag start inflating immediately when the car's bumper touches the barrier?" />
                     <OTPasHint text="Is the airbag still inflating when the driver contacts it?" />
@@ -724,7 +748,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTPedagogicaStep title="A simple airbag simulation" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/Airbags2.2.a.save.jar">
+                <OTPedagogicaStep id="982e9820-5d9a-11dd-a36e-47697d513d68" title="A simple airbag simulation" authorNotes="" hoverString="Pas Step" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/Airbags2.2.a.save.jar">
                   <introHTML>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
@@ -753,7 +777,7 @@ like?&lt;/b&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</introHTML>
                 </OTPedagogicaStep>
-                <OTNote id="6926ef9a-3f22-11dd-b240-cde0bfdd2414" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="982f0d51-5d9a-11dd-a36e-47697d513d68" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96126)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -769,12 +793,12 @@ like?&lt;/b&gt;&lt;/p&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTGenericOTrunkStep id="65f844bd-3f22-11dd-b240-cde0bfdd2414" title="Graph the airbag's motion" authorNotes="" hoverString="Pas Step">
+                <OTGenericOTrunkStep id="934f08ed-5d9a-11dd-a36e-47697d513d68" title="Graph the airbag's motion" authorNotes="" hoverString="Pas Step">
                   <target>
                     <OTDrawingTool />
                   </target>
                 </OTGenericOTrunkStep>
-                <OTPedagogicaStep title="Check your graphs" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/Airbags2.5.a.save.jar">
+                <OTPedagogicaStep id="982f3462-5d9a-11dd-a36e-47697d513d68" title="Check your graphs" authorNotes="" hoverString="Pas Step" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/Airbags2.5.a.save.jar">
                   <introHTML>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
@@ -807,7 +831,7 @@ simulation differ from your graphs?&lt;/b&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</introHTML>
                 </OTPedagogicaStep>
-                <OTNote id="69273dbc-3f22-11dd-b240-cde0bfdd2414" title="Compare your graphs" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="982f3463-5d9a-11dd-a36e-47697d513d68" title="Compare your graphs" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="Watch the simulation again if you need to.  What does the slope of the velocity graph mean?" />
                     <OTPasHint text="A steep slope indicates a large change in one variable during a small change in the other.  What is a large change in velocity in a small amount of time?" />
@@ -831,7 +855,7 @@ simulation differ from your graphs?&lt;/b&gt;&lt;/p&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="692763d1-3f22-11dd-b240-cde0bfdd2414" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="982f5b78-5d9a-11dd-a36e-47697d513d68" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96128)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -851,7 +875,7 @@ simulation differ from your graphs?&lt;/b&gt;&lt;/p&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTDisplayPage id="692763d2-3f22-11dd-b240-cde0bfdd2414" title="Do Activity A (paper)" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="982f8289-5d9a-11dd-a36e-47697d513d68" title="Do Activity A (paper)" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -876,9 +900,9 @@ SPAN.earth {font-family:Arial, Helvetica;font-size:16pt;color:#008B8B text-align
                 </OTDisplayPage>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Study the driver's motion" authorNotes="">
+            <OTPasActivity id="b0daaaaa-5d9a-11dd-a36e-47697d513d68" title="Study the driver's motion" authorNotes="">
               <stepList>
-                <OTEvidence id="7cbd6e00-3f22-11dd-b240-cde0bfdd2414" title="A closer look at the driver" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="b0daaaab-5d9a-11dd-a36e-47697d513d68" title="A closer look at the driver" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -917,7 +941,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="7cbd6e01-3f22-11dd-b240-cde0bfdd2414" title="The driver's motion" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="b0daaaac-5d9a-11dd-a36e-47697d513d68" title="The driver's motion" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="What kind of person sits close to or far from the steering wheel when they drive?" />
                     <OTPasHint text="How does the motion of the car before impact affect the motion of the driver after impact?" />
@@ -942,7 +966,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTPedagogicaStep title="A simple driver simulation" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/Airbags3.2.save.jar">
+                <OTPedagogicaStep id="b0daf8d3-5d9a-11dd-a36e-47697d513d68" title="A simple driver simulation" authorNotes="" hoverString="Pas Step" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/Airbags3.2.save.jar">
                   <introHTML>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
@@ -967,7 +991,7 @@ motion of the dummy.&lt;/b&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</introHTML>
                 </OTPedagogicaStep>
-                <OTNote id="7cbd9519-3f22-11dd-b240-cde0bfdd2414" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="b0daf8d4-5d9a-11dd-a36e-47697d513d68" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96130)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -983,12 +1007,12 @@ motion of the dummy.&lt;/b&gt;&lt;/p&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTGenericOTrunkStep id="7078dd66-3f22-11dd-b240-cde0bfdd2414" title="Graph the driver's motion" authorNotes="" hoverString="Pas Step">
+                <OTGenericOTrunkStep id="9e6308f6-5d9a-11dd-a36e-47697d513d68" title="Graph the driver's motion" authorNotes="" hoverString="Pas Step">
                   <target>
                     <OTDrawingTool />
                   </target>
                 </OTGenericOTrunkStep>
-                <OTPedagogicaStep title="Check your graphs" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/Airbags3.5.save.jar">
+                <OTPedagogicaStep id="b0daf8d5-5d9a-11dd-a36e-47697d513d68" title="Check your graphs" authorNotes="" hoverString="Pas Step" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/Airbags3.5.save.jar">
                   <introHTML>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
@@ -1021,7 +1045,7 @@ simulation differ from your graphs?&lt;/b&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</introHTML>
                 </OTPedagogicaStep>
-                <OTNote id="7cbdbc2b-3f22-11dd-b240-cde0bfdd2414" title="Compare your graphs" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="b0daf8d6-5d9a-11dd-a36e-47697d513d68" title="Compare your graphs" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="What would the slope of the velocity graph tell you?" />
                     <OTPasHint text="What is a change in velocity over time called?" />
@@ -1043,7 +1067,7 @@ simulation differ from your graphs?&lt;/b&gt;&lt;/p&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="7cbe0a50-3f22-11dd-b240-cde0bfdd2414" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="b0db1feb-5d9a-11dd-a36e-47697d513d68" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96132)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1061,7 +1085,7 @@ simulation differ from your graphs?&lt;/b&gt;&lt;/p&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTDisplayPage id="7cbe3161-3f22-11dd-b240-cde0bfdd2414" title="Do Activity B (paper)" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="b0db46fc-5d9a-11dd-a36e-47697d513d68" title="Do Activity B (paper)" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -1086,9 +1110,9 @@ SPAN.earth {font-family:Arial, Helvetica;font-size:16pt;color:#008B8B text-align
                 </OTDisplayPage>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Conduct an experiment" authorNotes="">
+            <OTPasActivity id="d1fc1c12-5d9a-11dd-a36e-47697d513d68" title="Conduct an experiment" authorNotes="">
               <stepList>
-                <OTDisplayPage id="97150d93-3f22-11dd-b240-cde0bfdd2414" title="Your investigation questions" authorNotes="" hoverString="Pas Step">
+                <OTDisplayPage id="d1fc1c13-5d9a-11dd-a36e-47697d513d68" title="Your investigation questions" authorNotes="" hoverString="Pas Step">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -1128,7 +1152,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTDisplayPage>
-                <OTNote id="97150d94-3f22-11dd-b240-cde0bfdd2414" title="Generate some hypotheses" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="d1fc1c14-5d9a-11dd-a36e-47697d513d68" title="Generate some hypotheses" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="Consider the relationship between a person's height and their POSITION from the steering wheel." />
                     <OTPasHint text="Consider the relationship between the car's speed before the crash and the driver's SPEED toward the steering wheel right after the crash." />
@@ -1153,7 +1177,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTPedagogicaStep title="Experiment" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/PasAirbags4.4.restore.save.jar">
+                <OTPedagogicaStep id="d1fc432b-5d9a-11dd-a36e-47697d513d68" title="Experiment" authorNotes="" hoverString="Pas Step" codebase="http://wise25.concord.org/workspaces/wise25/Build/" jarPaths="http://wise.berkeley.edu/upload/24587/PasAirbags4.4.restore.save.jar">
                   <introHTML>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
@@ -1196,7 +1220,7 @@ src="http://wise.berkeley.edu/upload/19530/airbags_model_annotation.png" /&gt;&l
 &lt;/body&gt;
 &lt;/html&gt;</introHTML>
                 </OTPedagogicaStep>
-                <OTNote id="971534ac-3f22-11dd-b240-cde0bfdd2414" title="Summarize your findings" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="d1fc432c-5d9a-11dd-a36e-47697d513d68" title="Summarize your findings" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96134)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1216,7 +1240,7 @@ src="http://wise.berkeley.edu/upload/19530/airbags_model_annotation.png" /&gt;&l
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="97155bbd-3f22-11dd-b240-cde0bfdd2414" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="d1fc6a3d-5d9a-11dd-a36e-47697d513d68" title="Make a comparison" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96135)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1234,9 +1258,9 @@ src="http://wise.berkeley.edu/upload/19530/airbags_model_annotation.png" /&gt;&l
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Black box technology" authorNotes="">
+            <OTPasActivity id="fa87e6fd-5d9a-11dd-a36e-47697d513d68" title="Black box technology" authorNotes="">
               <stepList>
-                <OTEvidence id="b9b6682b-3f22-11dd-b240-cde0bfdd2414" title="Black box technology" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="fa87e6fe-5d9a-11dd-a36e-47697d513d68" title="Black box technology" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -1276,7 +1300,7 @@ Have you ever heard of the "black box" that records events in an airplane in cas
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="b9b6682c-3f22-11dd-b240-cde0bfdd2414" title="Using graphs as evidence" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="fa87e6ff-5d9a-11dd-a36e-47697d513d68" title="Using graphs as evidence" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -1313,7 +1337,7 @@ What if the box could use a motion sensing device inside the car to generate gra
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="b9b6682d-3f22-11dd-b240-cde0bfdd2414" title="Analyze the POSITION graphs" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="fa87e700-5d9a-11dd-a36e-47697d513d68" title="Analyze the POSITION graphs" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="It might help to go back to the visualization, conduct a few more trials, and observe the position graphs." />
                   </hintList>
@@ -1342,7 +1366,7 @@ What if the box could use a motion sensing device inside the car to generate gra
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="b9b6b650-3f22-11dd-b240-cde0bfdd2414" title="Analyze the VELOCITY graphs" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="fa883523-5d9a-11dd-a36e-47697d513d68" title="Analyze the VELOCITY graphs" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <hintList>
                     <OTPasHint text="It might help to go back to the visualization, conduct a few more trials, and observe the velocity graphs." />
                   </hintList>
@@ -1373,9 +1397,9 @@ What if the box could use a motion sensing device inside the car to generate gra
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Designing safer cars and airbags" authorNotes="">
+            <OTPasActivity id="27105ae7-5d9b-11dd-a36e-47697d513d68" title="Designing safer cars and airbags" authorNotes="">
               <stepList>
-                <OTEvidence id="df850ed3-3f22-11dd-b240-cde0bfdd2414" title="How would you make cars and airbags safer?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="27105ae8-5d9b-11dd-a36e-47697d513d68" title="How would you make cars and airbags safer?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -1405,7 +1429,7 @@ In this activity you will think of ways you can improve the safety of cars and a
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="df8535e4-3f22-11dd-b240-cde0bfdd2414" title="Assemble your evidence" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="27105ae9-5d9b-11dd-a36e-47697d513d68" title="Assemble your evidence" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96138)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1418,7 +1442,7 @@ You may want to click on the "Show all work" button (on the left of the activity
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="df8535e5-3f22-11dd-b240-cde0bfdd2414" title="Compose your report" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="271081fa-5d9b-11dd-a36e-47697d513d68" title="Compose your report" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96139)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1438,9 +1462,9 @@ Use your findings from this investigation as evidence for your report.  Do not b
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Extra: A few other visualizations" authorNotes="">
+            <OTPasActivity id="4c856ec5-5d9b-11dd-a36e-47697d513d68" title="Extra: A few other visualizations" authorNotes="">
               <stepList>
-                <OTEvidence id="fea42151-3f22-11dd-b240-cde0bfdd2414" title="View some other collision visualizations" authorNotes="" hoverString="Pas Step" attribution="Evidence created 10/20/2004 by Kevin McElhaney" evidenceTitle="">
+                <OTEvidence id="4c856ec6-5d9b-11dd-a36e-47697d513d68" title="View some other collision visualizations" authorNotes="" hoverString="Pas Step" attribution="Evidence created 10/20/2004 by Kevin McElhaney" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
 P {font-family:Arial, Helvetica;font-size:12pt;color:#000066;margin:6px 3px}
 SPAN.cap {font-size:20pt}
@@ -1497,7 +1521,7 @@ to watch it more slowly.&lt;/FONT&gt;&lt;/center&gt;
 
 &lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="fea44862-3f22-11dd-b240-cde0bfdd2414" title="Some final thoughts" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="4c856ec7-5d9b-11dd-a36e-47697d513d68" title="Some final thoughts" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96140)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
