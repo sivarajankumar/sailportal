@@ -38,6 +38,12 @@ var Spry;
 if (!Spry) Spry = {};
 if (!Spry.Widget) Spry.Widget = {};
 
+/**
+* Modified - holdRating stores rating during mouseover event and
+* replaces it on the blur event to change the diplay during mouseover
+*/
+var holdRating;
+
 // Rating widget
 
 Spry.Widget.Rating = function(element, opts)
@@ -356,24 +362,38 @@ Spry.Widget.Rating.prototype.setValue = function(rating)
 	}
 };
 
+/*
+* Modified to store rating and set it to 0 - this is reset in the blur event
+*/
 //onmouseover event handler
 Spry.Widget.Rating.prototype.onFocus = function(e)
 {
 	this.hasFocus = true;	
 	if( this.currentState === 'readonly' || (this.currentState === 'rated' && !this.allowMultipleRating))
 		return;
-
+	
+	/* get rating to store when rating stars lose focus and temporarily
+	* set to 0 */
+	holdRating = this.getValue();
+	this.setValue(0);
+	
 	var target = (e.target) ? e.target : e.srcElement;
-
+	
 	for (var k = 0; k <= target.starValue; k++)
 		this.addClassName(this.stars[k-1], this.starHoverClass);
-
+		
+	
 	this.updateCounter(k-1);
 };
 
+/*
+* Modified to restore rating when rating stars have lost focus
+*/
 //onblur event handler
 Spry.Widget.Rating.prototype.onBlur = function(e)
 {
+	/* Return rating to previously stored value */
+	this.setValue(holdRating);
 	this.hasFocus = false;
 	if(this.currentState === 'readonly' || (this.currentState === 'rated' && !this.allowMultipleRating))
 		return;
@@ -386,6 +406,9 @@ Spry.Widget.Rating.prototype.onBlur = function(e)
 	this.updateCounter(this.ratingValue);
 };
 
+/*
+* Modified to update the stored rating when the user actually rates
+*/
 // rating event handler
 Spry.Widget.Rating.prototype.onRate = function(e)
 {
@@ -420,7 +443,16 @@ Spry.Widget.Rating.prototype.onRate = function(e)
 	catch(err){	
 		this.showError(err);
 	};
-
+	
+	/* update stored rating to actual value or drop by .5 
+	* if user rates with same value*/
+	if(this.getValue() == holdRating){
+		this.setValue(holdRating - .5);
+		holdRating = this.getValue();
+	} else {
+		holdRating = this.getValue();
+	}
+	
 	this.notifyObservers("onPostRate");
 };
 
@@ -458,32 +490,32 @@ Spry.Widget.Rating.prototype.keyDown = function(e)
 	return Spry.Widget.Rating.stopEvent(e);
 };
 
+/*
+* Modified to change the display of the counter to percentage
+* based on user rating
+*/
 //update rating counter innerHTML
 Spry.Widget.Rating.prototype.updateCounter = function(val)
 {
   if(this.counter)
   { 
   	var out;
-  	if(val == 5){
+  	if(val == 4) {
   		out = "100%";
-  	} else if(val == 4.5) {
-  		out = "90%";
-  	} else if(val == 4) {
-  		out = "80%";
   	} else if(val == 3.5) {
-  		out = "70%";
+  		out = "95%";
   	} else if(val == 3) {
-  		out = "60%";
+  		out = "90%";
   	} else if(val == 2.5) {
-  		out = "50%";
+  		out = "85%";
   	} else if(val == 2) {
-  		out = "40%";
+  		out = "80%";
   	} else if(val == 1.5) {
-  		out = "30%";
+  		out = "75%";
   	} else if(val == 1) {
-  		out = "20%";
+  		out = "70%";
   	} else if(val == .5){
-  		out = "10%";
+  		out = "65%";
   	} else {
   		out = "";
   	}

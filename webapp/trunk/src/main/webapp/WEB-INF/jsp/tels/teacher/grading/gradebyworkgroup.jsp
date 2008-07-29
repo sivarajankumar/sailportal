@@ -496,7 +496,6 @@ aggregate.value = set of workgroupWorkAggregate
 																					<span class="ratingButton"></span>
 																					<span class="ratingButton"></span>
 																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
 																					<span class="ratingCounter"></span>
 																				</div>
 																				
@@ -523,50 +522,23 @@ aggregate.value = set of workgroupWorkAggregate
 																						    var outOf = document.getElementById("possible-score-${scoreAnnotation.entityUUID}_${workgroupId}").value;
 																						    var rated = rating${ratingVar}.getValue();
 																						    var score;
-																						    switch(rated){
-																						    	case 5:
-																						    		if(preVal${ratingVar} == 5){
-																							    		rating${ratingVar}.setValue(4.5);
-																							    		score = Math.round(.9 * outOf);
-																							    	} else {
-																							    		score = outOf;
-																							    	}
-																							    	break;
-																							    case 4:
-																							    	if(preVal${ratingVar} == 4){
-																							    		rating${ratingVar}.setValue(3.5);
-																							    		score = Math.round(.7 * outOf);
-																							    	} else {
-																							    		score = Math.round(.8 * outOf);
-																							    	}
-																							    	break;
-																							    case 3:
-																							    	if(preVal${ratingVar} == 3){
-																							    		rating${ratingVar}.setValue(2.5);
-																							    		score = Math.round(.5 * outOf);
-																							    	} else {
-																							    		score = Math.round(.6 * outOf);
-																							    	}
-																							    	break;
-																							    case 2:
-																							    	if(preVal${ratingVar} == 2){
-																							    		rating${ratingVar}.setValue(1.5);
-																							    		score = Math.round(.3 * outOf);
-																							    	} else {
-																							    		score = Math.round(.4 * outOf);
-																							    	}
-																							    	break;
-																							    case 1:
-																							    	if(preVal${ratingVar} == 1){
-																							    		rating${ratingVar}.setValue(.5);
-																							    		score = Math.round(.1 * outOf);
-																							    	} else {
-																							    		score = Math.round(.2 * outOf);
-																							    	}
-																							    	break;
-																							    default:
-																							    	score = 0;
-																						    }
+																						    if(rated == 4){
+																						    	score = outOf;
+																						    } else if (rated == 3.5) {
+																						    	score = Math.round(.95 * outOf);
+																						    } else if (rated == 3) {
+																						    	score = Math.round(.9 * outOf);
+																						    } else if (rated == 2.5) {
+																						    	score = Math.round(.85 * outOf);
+																						    } else if (rated == 2) {
+																						    	score = Math.round(.8 * outOf);
+																						    } else if (rated == 1.5) {
+																						    	score = Math.round(.75 * outOf);
+																						    } else if (rated == 1) {
+																						    	score = Math.round(.7 * outOf);
+																						    } else if (rated == .5) {
+																						    	score = Math.round(.65 * outOf);
+																						    }															
 																						    document.getElementById("teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}").value = score;
 																							document.getElementById("checkbox-${scoreAnnotation.entityUUID}_${workgroupId}").checked = false;
 																							}
