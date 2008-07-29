@@ -28,7 +28,7 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 
 /**
- * Project Domain Object interface
+ * A Module is a WISE implemention of a Curnit.
  *
  * @author Hiroki Terashima
  * @version $Id: $
