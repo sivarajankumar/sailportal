@@ -12,6 +12,10 @@
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTEvidence" />
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTHelloWorld" />
     <import class="org.telscenter.pas.otrunk.skeleton.steps.OTOutsideLink" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTNote" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTStudentAssessment" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTSelfAssessment" />
+    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTChallengeQuestion" />
     <import class="org.telscenter.pas.otrunk.skeleton.OTGenericOTrunkStep" />
     <import class="org.concord.graph.util.state.OTDrawingTool" />
     <import class="org.concord.otrunk.view.OTViewMode" />
@@ -105,8 +109,6 @@
     <import class="org.concord.sensor.state.OTSensorDataProxy" />
     <import class="org.concord.sensor.state.OTSensorRequest" />
     <import class="org.concord.sensor.state.OTZeroSensor" />
-    <import class="org.telscenter.pas.otrunk.skeleton.steps.OTNote" />
-    <import class="org.telscenter.pas.otrunk.skeleton.OTPasHint" />
     <import class="org.concord.otrunk.view.document.OTTextObject" />
     <import class="org.concord.otrunk.view.OTViewService" />
     <import class="org.concord.portfolio.objects.PfCompoundDoc" />
@@ -130,11 +132,12 @@
     <import class="org.concord.rttapplets.fanalyzer.OTLinearFunctionAnalyzer" />
     <import class="org.concord.rttapplets.quadaticgrapher.OTQuadraticGrapher" />
     <import class="org.concord.otrunkphet.skatepark.OTPhetSkateParkModel" />
+    <import class="org.telscenter.pas.otrunk.skeleton.OTPasHint" />
   </imports>
   <objects>
     <OTSystem>
       <includes>
-        <OTInclude href="http://tels-group.soe.berkeley.edu:16080/aperritano/predefined-sensor-graphs.otml" />
+        <OTInclude href="http://tels-group.soe.berkeley.edu/aperritano/predefined-sensor-graphs.otml" />
       </includes>
       <bundles>
         <OTViewBundle>
@@ -166,7 +169,7 @@
             <OTViewEntry objectClass="org.concord.otrunk.ui.OTBorderContainer" viewClass="org.concord.otrunk.ui.swing.OTBorderContainerView" />
             <OTViewEntry objectClass="org.concord.otrunk.ui.OTPlacementContainer" viewClass="org.concord.otrunk.ui.swing.OTPlacementContainerView" />
             <OTViewEntry id="be713960-e18a-11dc-95ff-0800200c9a66" objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditView" />
-            <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextView" />
+            <OTViewEntry id="c93a7460-e18a-11dc-95ff-0800200c9a66" objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextView" />
             <OTViewEntry local_id="data-collector-view" viewClass="org.concord.datagraph.state.OTDataCollectorView" objectClass="org.concord.datagraph.state.OTDataCollector" />
             <OTViewEntry viewClass="org.concord.datagraph.state.OTDataGraphView" objectClass="org.concord.datagraph.state.OTDataGraph" />
             <OTViewEntry viewClass="org.concord.data.state.OTDataFieldView" objectClass="org.concord.data.state.OTDataField" />
@@ -184,15 +187,15 @@
               <prototype>
                 <OTChoice>
                   <choices>
-                    <OTOverlay name="Small text">
+                    <OTOverlay id="da41a2a0-c44e-11dc-95ff-0800200c9a66" name="Small text">
                       <deltaObjectMap>
                         <entry key="23cc14f0-c44f-11dc-95ff-0800200c9a66">
                           <OTCssText src="file:/Users/geoffreykwan/dev/workspaces/vleworkspace/WISE Project Converter/src/test/css/otrunk-small-font.css" />
                         </entry>
                       </deltaObjectMap>
                     </OTOverlay>
-                    <OTOverlay name="Normal text" />
-                    <OTOverlay name="Large text">
+                    <OTOverlay id="6cc8e2b0-c44e-11dc-95ff-0800200c9a66" name="Normal text" />
+                    <OTOverlay id="7ba31210-c44e-11dc-95ff-0800200c9a66" name="Large text">
                       <deltaObjectMap>
                         <entry key="23cc14f0-c44f-11dc-95ff-0800200c9a66">
                           <OTCssText src="file:/Users/geoffreykwan/dev/workspaces/vleworkspace/WISE Project Converter/src/test/css/otrunk-large-font.css" />
@@ -218,7 +221,7 @@
                 <OTChoice>
                   <choices>
                     <OTOverlay name="English" />
-                    <OTOverlay name="Espanol" />
+                    <OTOverlay name="Espa‚àö¬±ol" />
                   </choices>
                 </OTChoice>
               </prototype>
@@ -235,9 +238,6 @@
           <modes>
             <OTViewMode name="authoring">
               <map>
-                <entry key="be713960-e18a-11dc-95ff-0800200c9a66">
-                  <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
-                </entry>
                 <entry key="${sound-grapher-view}">
                   <OTViewEntry viewClass="org.concord.multimedia.state.ui.OTSoundDataCollectorEditView" objectClass="org.concord.multimedia.state.OTSoundDataCollector" />
                 </entry>
@@ -290,7 +290,24 @@
                         </yDataAxis>
                       </OTDataCollector>
                       <OTSoundPlayer name="Sound player" />
-                      <null />
+                      <OTSoundDataCollector name="Sound grapher" title="Data graph">
+                        <source>
+                          <OTDataGraphable drawMarks="false" color="255" connectPoints="true" xColumn="0" yColumn="1" name="vf" lineWidth="2.0">
+                            <dataProducer>
+                              <OTSoundDataProducer isFFT="false" />
+                            </dataProducer>
+                            <dataStore>
+                              <OTDataStore />
+                            </dataStore>
+                          </OTDataGraphable>
+                        </source>
+                        <xDataAxis>
+                          <OTDataAxis max="0.06" units="ms" min="0.0" label="Time" />
+                        </xDataAxis>
+                        <yDataAxis>
+                          <OTDataAxis max="150.0" units="" min="-150.0" label="" />
+                        </yDataAxis>
+                      </OTSoundDataCollector>
                     </objectsToInsert>
                   </OTDocumentEditViewConfig>
                 </entry>
@@ -298,10 +315,17 @@
                   <OTViewEntry objectClass="org.concord.otrunkcck.OTCCKModel" viewClass="org.concord.otrunkcck.OTCCKModelEditView" />
                 </entry>
                 <entry key="${data-collector-view}">
-                  <null />
+                  <OTDataCollectorViewConfig viewClass="org.concord.otrunk.graph.OTDataCollectorEditView" objectClass="org.concord.datagraph.state.OTDataCollector">
+                    <predefinedGraphs>
+                      <object refid="088786c2-8719-11dc-8314-0800200c9a66" />
+                    </predefinedGraphs>
+                  </OTDataCollectorViewConfig>
                 </entry>
                 <entry key="${drawing-view}">
                   <OTViewEntry viewClass="org.concord.datagraph.state.OTDataDrawingToolEditView" objectClass="org.concord.graph.util.state.OTDrawingTool" />
+                </entry>
+                <entry key="be713960-e18a-11dc-95ff-0800200c9a66">
+                  <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
                 </entry>
                 <entry key="${sound-player-view}">
                   <OTViewEntry objectClass="org.concord.otrunk.ui.OTSoundPlayer" viewClass="org.concord.otrunk.ui.swing.OTSoundPlayerEditView" />
@@ -316,11 +340,11 @@
         <OTSharingBundle />
       </bundles>
       <root>
-        <OTPasProject title="Chemistry Inside Hydrogen Fuel Cell Cars -Drawing_WISE3 Copy-6/17/08">
+        <OTPasProject id="971534ac-3f22-11dd-b240-cde0bfdd2411" title="Chemistry Inside Hydrogen Fuel Cell Cars -Drawing_WISE3 Copy-6/17/08" authorNotes="">
           <activityList>
-            <OTPasActivity title="Gasoline Cars Or Hydrogen Fuel Cell Cars?" authorNotes="">
+            <OTPasActivity id="3ebb8a2a-5db3-11dd-b407-33f5435562da" title="Gasoline Cars Or Hydrogen Fuel Cell Cars?" authorNotes="">
               <stepList>
-                <OTEvidence id="61109be3-46eb-11dd-a99b-9579520a1a0f" title="the question" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="3ebbff5b-5db3-11dd-b407-33f5435562da" title="the question" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -363,7 +387,7 @@ body {
   &lt;tr&gt;
     &lt;td colspan="2"&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="61113824-46eb-11dd-a99b-9579520a1a0f" title="Let's get a move on it!" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="3ebd37dc-5db3-11dd-b407-33f5435562da" title="Let's get a move on it!" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -404,7 +428,7 @@ body {
     &lt;/table&gt;      
     &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTNote id="61115f35-46eb-11dd-a99b-9579520a1a0f" title="What do you know about energy?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="3ebd37dd-5db3-11dd-b407-33f5435562da" title="What do you know about energy?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96188)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -416,7 +440,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="632f3626-46eb-11dd-a99b-9579520a1a0f" title="Mysterious Energy" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="40b2782e-5db3-11dd-b407-33f5435562da" title="Mysterious Energy" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -446,7 +470,7 @@ body {
         &lt;/td&gt;
       &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="632f3627-46eb-11dd-a99b-9579520a1a0f" title="Energy Comes in Many Forms" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="40b2782f-5db3-11dd-b407-33f5435562da" title="Energy Comes in Many Forms" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -493,7 +517,7 @@ body {
     &lt;/table&gt;      
     &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="632f5d38-46eb-11dd-a99b-9579520a1a0f" title="Renewable or not?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="40b27830-5db3-11dd-b407-33f5435562da" title="Renewable or not?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -539,7 +563,7 @@ body {
     &lt;/table&gt;      
     &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="632f8449-46eb-11dd-a99b-9579520a1a0f" title="Energy Can Move and Change" authorNotes="" hoverString="Pas Step" evidenceTitle="Energy Can Move and Change">
+                <OTEvidence id="40b27831-5db3-11dd-b407-33f5435562da" title="Energy Can Move and Change" authorNotes="" hoverString="Pas Step" evidenceTitle="Energy Can Move and Change">
                   <content>&lt;!-- BEGIN templated link --&gt;Use the link to the Energy Can Move and Change website.  Pay attention to idea of transferring and transforming energy, as you will be asked to write an energy story in the next step.   
 &lt;BR&gt;
 &lt;CENTER&gt;&lt;FONT SIZE=+2&gt;&lt;A HREF="http://www.sierrapacific.com/kids_conservation/learn/move.html"&gt;Energy Can Move and Change&lt;/A&gt;&lt;/font&gt;&lt;/CENTER&gt;&lt;p&gt;
@@ -563,7 +587,7 @@ body {
                   <attribution>Evidence created 9/22/2007 by Jefferson Hartman
 Modified 1/17/2008 by Helen Zhang.</attribution>
                 </OTEvidence>
-                <OTEvidence id="632fab5a-46eb-11dd-a99b-9579520a1a0f" title="Summary" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="40b29f42-5db3-11dd-b407-33f5435562da" title="Summary" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -595,9 +619,9 @@ body {
                 </OTEvidence>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Gasoline Cars" authorNotes="">
+            <OTPasActivity id="4218bef3-5db3-11dd-b407-33f5435562da" title="Gasoline Cars" authorNotes="">
               <stepList>
-                <OTEvidence id="644c8d0c-46eb-11dd-a99b-9579520a1a0f" title="How do gasoline powered cars work?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="4218bef4-5db3-11dd-b407-33f5435562da" title="How do gasoline powered cars work?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -645,7 +669,7 @@ body {
       &lt;/table&gt;      
 &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTNote id="644cb41d-46eb-11dd-a99b-9579520a1a0f" title="Notes: energy in gasoline powered cars" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="4218bef5-5db3-11dd-b407-33f5435562da" title="Notes: energy in gasoline powered cars" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96189)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -657,7 +681,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="644cdb2e-46eb-11dd-a99b-9579520a1a0f" title="What is gasoline?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="4218e606-5db3-11dd-b407-33f5435562da" title="What is gasoline?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -702,7 +726,7 @@ body {
       &lt;/table&gt;      
 &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTNote id="644cdb2f-46eb-11dd-a99b-9579520a1a0f" title="Why did they catch on fire?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="42193427-5db3-11dd-b407-33f5435562da" title="Why did they catch on fire?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96190)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -722,7 +746,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="644d0240-46eb-11dd-a99b-9579520a1a0f" title="Greenhouse effects" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="42195b38-5db3-11dd-b407-33f5435562da" title="Greenhouse effects" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <hintList>
                     <OTPasHint text="Greenhouse gases are components of the atmosphere that contribute to the greenhouse effect." />
                     <OTPasHint text="The greenhouse effect is when sunlight reaches the surface of earth, some of it is absorbed and warms the earth. So the earth will become warmer and warmer, and this would lead to disasters to human beings." />
@@ -769,7 +793,7 @@ body {
     &lt;/table&gt;      
 &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTNote id="644d9e85-46eb-11dd-a99b-9579520a1a0f" title="Increasing Carbon Dioxide" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="4219f77d-5db3-11dd-b407-33f5435562da" title="Increasing Carbon Dioxide" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96191)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -785,7 +809,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="644deca6-46eb-11dd-a99b-9579520a1a0f" title="Start with your energy story" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="421a459e-5db3-11dd-b407-33f5435562da" title="Start with your energy story" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96192)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -831,9 +855,9 @@ body {
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Using Hydrogen as a Fuel" authorNotes="">
+            <OTPasActivity id="48c3230d-5db3-11dd-b407-33f5435562da" title="Using Hydrogen as a Fuel" authorNotes="">
               <stepList>
-                <OTEvidence id="6a463dc4-46eb-11dd-a99b-9579520a1a0f" title="Hydrogen as a fuel" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="48c3230e-5db3-11dd-b407-33f5435562da" title="Hydrogen as a fuel" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -867,7 +891,7 @@ body {
 
 &lt;p&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="6a463dc5-46eb-11dd-a99b-9579520a1a0f" title="Burning hydrogen" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="48c3230f-5db3-11dd-b407-33f5435562da" title="Burning hydrogen" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -901,7 +925,7 @@ body {
     &lt;/table&gt;      
     &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTNote id="6a463dc6-46eb-11dd-a99b-9579520a1a0f" title="Record your observations" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="48c32310-5db3-11dd-b407-33f5435562da" title="Record your observations" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96193)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -913,7 +937,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="6a468be7-46eb-11dd-a99b-9579520a1a0f" title="Hydrogen combustion equation" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="48c34a21-5db3-11dd-b407-33f5435562da" title="Hydrogen combustion equation" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -956,12 +980,12 @@ body {
     &lt;/table&gt;      
     &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTGenericOTrunkStep id="67280dcb-46eb-11dd-a99b-9579520a1a0f" title="Draw Atoms and Molecules" authorNotes="" hoverString="Pas Step">
+                <OTGenericOTrunkStep id="444255d3-5db3-11dd-b407-33f5435562da" title="Draw Atoms and Molecules" authorNotes="" hoverString="Pas Step">
                   <target>
                     <OTDrawingTool />
                   </target>
                 </OTGenericOTrunkStep>
-                <OTNote id="6a46b2f8-46eb-11dd-a99b-9579520a1a0f" title="Notes: Pick up pictures" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="48c34a22-5db3-11dd-b407-33f5435562da" title="Notes: Pick up pictures" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96194)">
                       <responseDeclaration baseType="identifier" cardinality="single" identifier="NOTE_RESPONSE_1">
@@ -999,7 +1023,7 @@ b.&lt;img src="http://wise.berkeley.edu/upload/30488/2c2o.gif"&gt;&lt;br&gt;</pr
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="6a46da09-46eb-11dd-a99b-9579520a1a0f" title="Compare gasoline burning and hydrogen burning" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="48c39843-5db3-11dd-b407-33f5435562da" title="Compare gasoline burning and hydrogen burning" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96195)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1029,9 +1053,9 @@ b.&lt;img src="http://wise.berkeley.edu/upload/30488/2c2o.gif"&gt;&lt;br&gt;</pr
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Explore the Hydrogen burning model" authorNotes="">
+            <OTPasActivity id="61f8d7b0-5db3-11dd-b407-33f5435562da" title="Explore the Hydrogen burning model" authorNotes="">
               <stepList>
-                <OTEvidence id="82dbe215-46eb-11dd-a99b-9579520a1a0f" title="Model Introduction" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="61f8d7b1-5db3-11dd-b407-33f5435562da" title="Model Introduction" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -1067,11 +1091,11 @@ body {
 
 &lt;p&gt;</content>
                 </OTEvidence>
-                <OTGenericOTrunkStep id="6d22f7ed-46eb-11dd-a99b-9579520a1a0f" title="Part 1 of the model" authorNotes="" hoverString="Pas Step">
+                <OTGenericOTrunkStep id="49e9c8c6-5db3-11dd-b407-33f5435562da" title="Part 1 of the model" authorNotes="" hoverString="Pas Step">
                   <target>
                     <OTCompoundDoc name="Part 1 of the model (copy) (copy)">
                       <documentRefs>
-                        <OTModelerPage id="6d82a43f-46eb-11dd-a99b-9579520a1a0f" authoredDataURL="http://wise.berkeley.edu/upload/30398/hydrogen1.cml" />
+                        <OTModelerPage id="49ea3df8-5db3-11dd-b407-33f5435562da" authoredDataURL="http://wise.berkeley.edu/upload/30398/hydrogen1.cml" />
                       </documentRefs>
                       <bodyText>
                         <div style="background-color: rgb(255, 248, 233); border: border-width: 5px; border-color: red; border-style: solid;">
@@ -1085,7 +1109,7 @@ body {
                                   <table>
                                     <tr>
                                       <td>
-                                        <object refid="6d82a43f-46eb-11dd-a99b-9579520a1a0f" />
+                                        <object refid="49ea3df8-5db3-11dd-b407-33f5435562da" />
                                       </td>
                                     </tr>
                                   </table>
@@ -1105,7 +1129,7 @@ body {
                     </OTCompoundDoc>
                   </target>
                 </OTGenericOTrunkStep>
-                <OTNote id="82dbe216-46eb-11dd-a99b-9579520a1a0f" title="Play with Part 1 model" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="61f8fec2-5db3-11dd-b407-33f5435562da" title="Play with Part 1 model" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96196)">
                       <responseDeclaration baseType="identifier" cardinality="single" identifier="NOTE_RESPONSE_1">
@@ -1156,11 +1180,11 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTGenericOTrunkStep id="72e4a9b5-46eb-11dd-a99b-9579520a1a0f" title="Part 2 of the model" authorNotes="" hoverString="Pas Step">
+                <OTGenericOTrunkStep id="4ed4544f-5db3-11dd-b407-33f5435562da" title="Part 2 of the model" authorNotes="" hoverString="Pas Step">
                   <target>
                     <OTCompoundDoc name="Part 2 of the hydrogen burning model (copy) (copy)">
                       <documentRefs>
-                        <OTModelerPage id="739905b7-46eb-11dd-a99b-9579520a1a0f" authoredDataURL="http://wise.berkeley.edu/upload/30398/hydrogen2.cml" />
+                        <OTModelerPage id="4ed45451-5db3-11dd-b407-33f5435562da" authoredDataURL="http://wise.berkeley.edu/upload/30398/hydrogen2.cml" />
                       </documentRefs>
                       <bodyText>
                         <div style="background-color: rgb(255, 248, 233); border: border-width: 5px; border-color: red; border-style: solid;">
@@ -1174,7 +1198,7 @@ body {
                                   <table>
                                     <tr>
                                       <td>
-                                        <object refid="739905b7-46eb-11dd-a99b-9579520a1a0f" />
+                                        <object refid="4ed45451-5db3-11dd-b407-33f5435562da" />
                                       </td>
                                     </tr>
                                   </table>
@@ -1194,7 +1218,7 @@ body {
                     </OTCompoundDoc>
                   </target>
                 </OTGenericOTrunkStep>
-                <OTNote id="82dc3037-46eb-11dd-a99b-9579520a1a0f" title="Play with Part 2 model" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="61f94ce3-5db3-11dd-b407-33f5435562da" title="Play with Part 2 model" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96197)">
                       <responseDeclaration baseType="identifier" cardinality="single" identifier="NOTE_RESPONSE_1">
@@ -1225,12 +1249,12 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTGenericOTrunkStep id="791ceb1c-46eb-11dd-a99b-9579520a1a0f" title="Draw the reaction" authorNotes="" hoverString="Pas Step">
+                <OTGenericOTrunkStep id="5417d556-5db3-11dd-b407-33f5435562da" title="Draw the reaction" authorNotes="" hoverString="Pas Step">
                   <target>
                     <OTDrawingTool />
                   </target>
                 </OTGenericOTrunkStep>
-                <OTNote id="82dc7e58-46eb-11dd-a99b-9579520a1a0f" title="Explain your drawings" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="61f973f4-5db3-11dd-b407-33f5435562da" title="Explain your drawings" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96198)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1247,7 +1271,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="82dc7e59-46eb-11dd-a99b-9579520a1a0f" title="Mixing Hydrogen and Oxygen" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="61f99b05-5db3-11dd-b407-33f5435562da" title="Mixing Hydrogen and Oxygen" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96199)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1265,9 +1289,9 @@ body {
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Releasing Energy from Hydrogen Burning" authorNotes="">
+            <OTPasActivity id="90c40f79-5db3-11dd-b407-33f5435562da" title="Releasing Energy from Hydrogen Burning" authorNotes="">
               <stepList>
-                <OTEvidence id="b3e215dd-46eb-11dd-a99b-9579520a1a0f" title="How do gasoline powered cars work?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="90c40f7a-5db3-11dd-b407-33f5435562da" title="How do gasoline powered cars work?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -1310,7 +1334,7 @@ body {
       &lt;/table&gt;      
 &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="b3e215de-46eb-11dd-a99b-9579520a1a0f" title="Exothermic reactions" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="90c40f7b-5db3-11dd-b407-33f5435562da" title="Exothermic reactions" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -1347,7 +1371,7 @@ body {
       &lt;/tr&gt;
     &lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="b3e23cef-46eb-11dd-a99b-9579520a1a0f" title="Notes: observe the balloon" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="90c40f7c-5db3-11dd-b407-33f5435562da" title="Notes: observe the balloon" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96200)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1359,11 +1383,11 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTGenericOTrunkStep id="95d1db51-46eb-11dd-a99b-9579520a1a0f" title="Temperature change in the model" authorNotes="" hoverString="Pas Step">
+                <OTGenericOTrunkStep id="6d84514c-5db3-11dd-b407-33f5435562da" title="Temperature change in the model" authorNotes="" hoverString="Pas Step">
                   <target>
                     <OTCompoundDoc name="How does the temperature change in the model? (copy) (copy)">
                       <documentRefs>
-                        <OTModelerPage id="965deed3-46eb-11dd-a99b-9579520a1a0f" authoredDataURL="http://wise.berkeley.edu/upload/30398/hydrogen3.cml" />
+                        <OTModelerPage id="6d84514e-5db3-11dd-b407-33f5435562da" authoredDataURL="http://wise.berkeley.edu/upload/30398/hydrogen3.cml" />
                       </documentRefs>
                       <bodyText>
                         <div style="background-color: rgb(255, 248, 233); border: border-width: 5px; border-color: red; border-style: solid;">
@@ -1377,7 +1401,7 @@ body {
                                   <table>
                                     <tr>
                                       <td>
-                                        <object refid="965deed3-46eb-11dd-a99b-9579520a1a0f" />
+                                        <object refid="6d84514e-5db3-11dd-b407-33f5435562da" />
                                       </td>
                                     </tr>
                                   </table>
@@ -1397,7 +1421,7 @@ body {
                     </OTCompoundDoc>
                   </target>
                 </OTGenericOTrunkStep>
-                <OTNote id="b3e23cf0-46eb-11dd-a99b-9579520a1a0f" title="Record your thoughts" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="90c4368d-5db3-11dd-b407-33f5435562da" title="Record your thoughts" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96201)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1409,7 +1433,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="b3e26401-46eb-11dd-a99b-9579520a1a0f" title="Endothermic Reactions" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="90c45d9e-5db3-11dd-b407-33f5435562da" title="Endothermic Reactions" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -1455,7 +1479,7 @@ body {
       &lt;/tr&gt;
     &lt;/table&gt;</content>
                 </OTEvidence>
-                <OTNote id="b3e26402-46eb-11dd-a99b-9579520a1a0f" title="Part 2 of the Energy Story" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="90c45d9f-5db3-11dd-b407-33f5435562da" title="Part 2 of the Energy Story" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96202)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1498,9 +1522,9 @@ body {
                 </OTNote>
               </stepList>
             </OTPasActivity>
-            <OTPasActivity title="Hydrogen Fuel Cells" authorNotes="">
+            <OTPasActivity id="f5214480-5db3-11dd-b407-33f5435562da" title="Hydrogen Fuel Cells" authorNotes="">
               <stepList>
-                <OTEvidence id="17a099e4-46ec-11dd-a99b-9579520a1a0f" title="Activity introduction" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="f5214481-5db3-11dd-b407-33f5435562da" title="Activity introduction" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -1543,7 +1567,7 @@ body {
     &lt;/table&gt;      
     &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="17a099e5-46ec-11dd-a99b-9579520a1a0f" title="Hydrogen fuel cell" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="f5214482-5db3-11dd-b407-33f5435562da" title="Hydrogen fuel cell" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -1585,7 +1609,7 @@ body {
     &lt;/table&gt;      
     &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="17a099e6-46ec-11dd-a99b-9579520a1a0f" title="Inside a hydrogen fuel cell" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="f5214483-5db3-11dd-b407-33f5435562da" title="Inside a hydrogen fuel cell" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -1625,7 +1649,7 @@ body {
     &lt;/table&gt;      
     &lt;/tr&gt;</content>
                 </OTEvidence>
-                <OTNote id="17a099e7-46ec-11dd-a99b-9579520a1a0f" title="Notes: Hydrogen fuel cell" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="f5214484-5db3-11dd-b407-33f5435562da" title="Notes: Hydrogen fuel cell" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96203)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1645,7 +1669,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTEvidence id="17a0e808-46ec-11dd-a99b-9579520a1a0f" title="How Do Car Fuel Cells Work?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="Fuel Cells">
+                <OTEvidence id="f5216b95-5db3-11dd-b407-33f5435562da" title="How Do Car Fuel Cells Work?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="Fuel Cells">
                   <content>&lt;P&gt;You are going to enter a website that reviews how a hydrogen fuel cell functions.&lt;BR&gt;  &lt;BR&gt;Work with the worksheet.&lt;BR&gt;  &lt;BR&gt;Click on the link that says, Step by Step to Understanding Fuel Cells, to get started.&lt;/P&gt;  
 &lt;center&gt;
 &lt;!-- BEGIN templated link --&gt;
@@ -1653,7 +1677,7 @@ body {
 &lt;CENTER&gt;&lt;FONT SIZE=+2&gt;&lt;A HREF="http://www.gm.com/explore/education/popups/fc_energy/fuelcell_interactive.html"&gt;Step by Step to Understanding Fuel Cells&lt;/A&gt;&lt;/font&gt;&lt;/CENTER&gt;&lt;p&gt;
 &lt;!-- END templated link --&gt;</content>
                 </OTEvidence>
-                <OTEvidence id="17a0e809-46ec-11dd-a99b-9579520a1a0f" title="Current status of Hydrogen fuel cell cars" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
+                <OTEvidence id="f52192a6-5db3-11dd-b407-33f5435562da" title="Current status of Hydrogen fuel cell cars" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;style type="text/css"&gt;
 &lt;!--
 body {
@@ -1705,7 +1729,7 @@ body {
     &lt;/tr&gt;
 &lt;p&gt;</content>
                 </OTEvidence>
-                <OTNote id="17a0e80a-46ec-11dd-a99b-9579520a1a0f" title="Replace gasoline cars?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="f52192a7-5db3-11dd-b407-33f5435562da" title="Replace gasoline cars?" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96204)">
                       <responseDeclaration baseType="identifier" cardinality="single" identifier="NOTE_RESPONSE_1">
@@ -1727,7 +1751,7 @@ body {
                     </assessmentItem>
                   </jaxbXML>
                 </OTNote>
-                <OTNote id="17a10f1b-46ec-11dd-a99b-9579520a1a0f" title="Tell me more about your learning of this WISE project" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
+                <OTNote id="f52192a8-5db3-11dd-b407-33f5435562da" title="Tell me more about your learning of this WISE project" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="true" randomChoiceOrder="false">
                   <jaxbXML>
                     <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false" identifier="MasterWorkNote(96205)">
                       <responseDeclaration baseType="string" cardinality="single" identifier="NOTE_RESPONSE_1" />
@@ -1769,42 +1793,6 @@ How can this part be changed to better help you?</prompt>
           </bodyText>
         </OTCompoundDoc>
       </library>
-      <services>
-        <OTViewService showLeftPanel="false">
-          <viewEntries>
-            <OTViewEntry viewClass="org.concord.otrunk.view.document.OTDocumentView" objectClass="org.concord.otrunk.view.document.OTDocument" />
-            <OTViewEntry viewClass="org.concord.portfolio.views.PfQueryView" objectClass="org.concord.portfolio.objects.PfQuery" />
-            <OTViewEntry viewClass="org.concord.otrunk.ui.swing.OTTextEditView" objectClass="org.concord.otrunk.ui.OTText" />
-            <OTViewEntry viewClass="org.concord.portfolio.views.PfImageView" objectClass="org.concord.portfolio.objects.PfImage" />
-            <OTViewEntry viewClass="org.concord.portfolio.views.PfChoiceView" objectClass="org.concord.portfolio.objects.PfChoice" />
-            <OTViewEntry viewClass="org.concord.datagraph.state.OTDataCollectorView" objectClass="org.concord.datagraph.state.OTDataCollector" />
-            <OTViewEntry viewClass="org.concord.datagraph.state.OTDataGraphView" objectClass="org.concord.datagraph.state.OTDataGraph" />
-            <OTViewEntry viewClass="org.concord.data.state.OTDataFieldView" objectClass="org.concord.data.state.OTDataField" />
-            <OTViewEntry viewClass="org.concord.datagraph.state.OTDataDrawingToolView" objectClass="org.concord.graph.util.state.OTDrawingTool" />
-            <OTViewEntry viewClass="org.concord.datagraph.state.OTMultiDataGraphView" objectClass="org.concord.datagraph.state.OTMultiDataGraph" />
-            <OTViewEntry viewClass="org.concord.otrunk.control.OTButtonView" objectClass="org.concord.otrunk.control.OTButton" />
-            <OTViewEntry viewClass="org.concord.otrunk.ui.snapshot.OTSnapshotButtonView" objectClass="org.concord.otrunk.ui.snapshot.OTSnapshotButton" />
-            <OTViewEntry viewClass="org.concord.otrunk.ui.snapshot.OTSnapshotAlbumView" objectClass="org.concord.otrunk.ui.snapshot.OTSnapshotAlbum" />
-            <OTViewEntry viewClass="org.concord.otrunknl.OTNLogoModelView" objectClass="org.concord.otrunknl.OTNLogoModel" />
-            <OTViewEntry viewClass="org.concord.otrunk.view.document.OTDocumentView" objectClass="org.concord.otrunk.view.document.OTDocument" />
-            <OTViewEntry viewClass="org.concord.otrunkmw.OTModelerPageView" objectClass="org.concord.otrunkmw.OTModelerPage" />
-            <OTViewEntry viewClass="org.concord.otrunknl.OTNLogoModelView" objectClass="org.concord.otrunknl.OTNLogoModel" />
-            <OTViewEntry viewClass="org.concord.otrunkcck.OTCCKOrigModelView" objectClass="org.concord.otrunkcck.OTCCKModel" />
-            <OTViewEntry viewClass="org.concord.otrunkphet.wave.OTPhetWaveModelView" objectClass="org.concord.otrunkphet.wave.OTPhetWaveModel" />
-            <OTViewEntry viewClass="org.concord.otrunkphet.sound.OTPhetSoundModelView" objectClass="org.concord.otrunkphet.sound.OTPhetSoundModel" />
-            <OTViewEntry viewClass="org.concord.otrunkphet.faraday.OTPhetFaradayModelView" objectClass="org.concord.otrunkphet.faraday.OTPhetFaradayModel" />
-            <OTViewEntry viewClass="org.concord.pedagogica.ui.RunActivity" objectClass="org.concord.pedagogica.ui.RunActivityProperties" />
-            <OTViewEntry viewClass="org.concord.reactiontime.OTReactionTimerView" objectClass="org.concord.reactiontime.OTReactionTimer" />
-            <OTViewEntry viewClass="org.concord.otrunkphet.dischargelamps.OTPhetDischargeLampsModelView" objectClass="org.concord.otrunkphet.dischargelamps.OTPhetDischargeLampsModel" />
-            <OTViewEntry viewClass="org.concord.rttapplets.lineartransformer.OTLinearTransformerView" objectClass="org.concord.rttapplets.lineartransformer.OTLinearTransformer" />
-            <OTViewEntry viewClass="org.concord.rttapplets.piecewise.OTLinearPiecewiseGrapherView" objectClass="org.concord.rttapplets.piecewise.OTLinearPiecewiseGrapher" />
-            <OTViewEntry viewClass="org.concord.rttapplets.qgrapher.OTQGrapherView" objectClass="org.concord.rttapplets.qgrapher.OTQGrapher" />
-            <OTViewEntry viewClass="org.concord.rttapplets.fanalyzer.OTLinearFunctionAnalyzerView" objectClass="org.concord.rttapplets.fanalyzer.OTLinearFunctionAnalyzer" />
-            <OTViewEntry viewClass="org.concord.rttapplets.quadaticgrapher.OTQuadraticGrapherView" objectClass="org.concord.rttapplets.quadaticgrapher.OTQuadraticGrapher" />
-            <OTViewEntry viewClass="org.concord.otrunkphet.skatepark.OTPhetSkateParkModelView" objectClass="org.concord.otrunkphet.skatepark.OTPhetSkateParkModel" />
-          </viewEntries>
-        </OTViewService>
-      </services>
     </OTSystem>
   </objects>
 </otrunk>
