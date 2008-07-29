@@ -35,7 +35,6 @@ import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
-import org.telscenter.sail.webapp.dao.project.impl.RooloProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;

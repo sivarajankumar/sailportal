@@ -53,8 +53,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
-import org.telscenter.sail.webapp.dao.project.impl.RooloProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
@@ -227,8 +227,7 @@ public class ProjectServiceImpl implements ProjectService {
 		if (project instanceof ProjectImpl || curnitUrl == null) {
 			curnitUrl = "http://www.telscenter.org/confluence/download/attachments/20047/Airbags.otml";
 		} else if (project instanceof RooloProjectImpl) {
-			curnitUrl = RooloProjectDao.ROOLO_URL + "retrieveotml.html?projectId=" + project.getId();
-			((RooloProjectImpl) project).getProxy();
+			curnitUrl = "http://localhost:8080/webapp/repository/retrieveotml.html?uri=" + ((RooloProjectImpl) project).getProxy().getUri();
 		}
 		
 		Curnit curnit = project.getCurnit();
@@ -262,6 +261,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 		httpServletResponse.setContentType(JNLP_CONTENT_TYPE);
 		httpServletResponse.getWriter().print(outputJNLPString);
+		System.out.println(outputJNLPString);
 		
 		return null;
 	}
@@ -282,6 +282,12 @@ public class ProjectServiceImpl implements ProjectService {
 				workgroup);
 
 		String entireUrl = jnlpUrl + "?" + generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
+		Curnit curnit = run.getProject().getCurnit();
+		if (curnit instanceof RooloOtmlModuleImpl) {
+			String curnitOtmlUrl = ((RooloOtmlModuleImpl) curnit).getRetrieveOtmlUrl();
+			entireUrl += "&sailotrunk.otmlurl=" + curnitOtmlUrl;
+		}
+
 		return entireUrl;
 	}
 	
@@ -361,6 +367,8 @@ public class ProjectServiceImpl implements ProjectService {
 			CurnitProxy curnitProxy = curnitWithProxy.getProxy();
 			project.setCurnit(curnitWithProxy);
 			project.setProjectInfo(getProjectInfoFromCurnitProxy(curnitProxy));
+		} else if (curnit instanceof ModuleImpl) {
+			// populate iscurrent and familytag from database
 		}
 	}
 
