@@ -90,14 +90,14 @@ public class Initializer {
                     .createDefaultCurnits(applicationContext);
             Jnlp[] jnlps = createDefaultOfferings
                     .createDefaultJnlps(applicationContext);
-            Project[] projects = createDefaultOfferings
-                    .createDefaultProjects(applicationContext, curnits, jnlps);
+//            Project[] projects = createDefaultOfferings
+//                    .createDefaultProjects(applicationContext, curnits, jnlps);
             
             
-//    		System.setProperty("org.apache.jackrabbit.repository.conf", "/Users/hirokiterashima/eclipseworkspaces/telsportalworkspace3.3/webapp/repository.xml");
-//    		System.setProperty("org.apache.jackrabbit.repository.home", "/Users/hirokiterashima/eclipseworkspaces/telsportalworkspace3.3/webapp/repository");
-//			CreateDefaultCurnits cdc = new CreateDefaultCurnits(applicationContext);
-//			cdc.createDefaultCurnits(applicationContext);
+    		System.setProperty("org.apache.jackrabbit.repository.conf", "/Users/hirokiterashima/eclipseworkspaces/telsportalworkspace3.3/webapp/repository.xml");
+    		System.setProperty("org.apache.jackrabbit.repository.home", "/Users/hirokiterashima/eclipseworkspaces/telsportalworkspace3.3/webapp/repository");
+			CreateDefaultCurnits cdc = new CreateDefaultCurnits(applicationContext);
+			cdc.createDefaultCurnits(applicationContext);
 
         } catch (Exception all) {
             System.err.println(all.getLocalizedMessage());

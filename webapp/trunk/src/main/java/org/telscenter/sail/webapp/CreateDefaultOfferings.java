@@ -112,6 +112,11 @@ public class CreateDefaultOfferings {
                         "PLR Everything + OTrunk",
                         "http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/plr-everything-jdic-otrunk-snapshot/plr-everything-jdic-otrunk-snapshot.jnlp");
         
+        hashmap
+                .put(
+                		"All OTrunk Snapshot Always Update", 
+                        "http://jnlp.concord.org/dev/org/concord/maven-jnlp/all-otrunk-snapshot/all-otrunk-snapshot.jnlp");
+        
         JNLPS = Collections.unmodifiableMap(hashmap);
     }
 

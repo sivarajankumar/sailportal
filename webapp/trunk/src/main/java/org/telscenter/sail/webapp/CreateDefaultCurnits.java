@@ -41,7 +41,7 @@ import org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.service.project.ProjectService;
-import org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl;
+import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 
 import roolo.curnit.client.basicProxy.CurnitContentProxy;
 import roolo.curnit.client.basicProxy.CurnitMetadataProxy;
@@ -76,10 +76,10 @@ public class CreateDefaultCurnits {
 		metadata2.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Kevin McElhaney"));
 		metadata2.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
 		metadata2.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-		metadata2.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Airbags. Recommended for middle school students."));
-		metadata2.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-		metadata2.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("physics"));
-		metadata2.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("airbags, inertia"));
+//		metadata2.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Airbags. Recommended for middle school students."));
+//		metadata2.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
+//		metadata2.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("physics"));
+//		metadata2.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("airbags, inertia"));
 
 		return curnit;
 	}
@@ -92,10 +92,10 @@ public class CreateDefaultCurnits {
 		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Jennie Chiu"));
 		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
 		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Chemical Reactions. Recommended for middle school students."));
-		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
-		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("experiment, heat"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Chemical Reactions. Recommended for middle school students."));
+//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("experiment, heat"));
 
 		return curnit;
 	}
@@ -108,10 +108,10 @@ public class CreateDefaultCurnits {
 		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Beat Schwendimann"));
 		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
 		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Meiosis. Recommended for middle school students."));
-		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Biology"));
-		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("cell division, heat"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Meiosis. Recommended for middle school students."));
+//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Biology"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("cell division, heat"));
 
 		return curnit;
 	}
@@ -124,10 +124,10 @@ public class CreateDefaultCurnits {
 		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Helen Zhang"));
 		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
 		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Hydrogen Cars. Recommended for middle school students."));
-		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
-		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("global warming, molecules, hydrogen"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Hydrogen Cars. Recommended for middle school students."));
+//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("global warming, molecules, hydrogen"));
 
 		return curnit;
 	}
@@ -140,10 +140,10 @@ public class CreateDefaultCurnits {
 		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Keisha Varma"));
 		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
 		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Global Warming. Recommended for middle school students."));
-		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Earth Science"));
-		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("global warming"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Global Warming. Recommended for middle school students."));
+//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Earth Science"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("global warming"));
 
 		return curnit;
 	}
@@ -156,13 +156,30 @@ public class CreateDefaultCurnits {
 		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Hsin-Yi Chang"));
 		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
 		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Thermodynamics. Recommended for middle school students."));
-		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
-		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("thermodynamics, heat"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Thermodynamics. Recommended for middle school students."));
+//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
+//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("thermodynamics, heat"));
 
 		return curnit;
 	}
+	
+	private CurnitProxy createDiyCurnit() {
+		CurnitProxy curnit = createCurnit("onedimensionalmotion", CreateDefaultCurnits.class.getResource("loops-test.otml"));
+		CurnitMetadataProxy metadata2 = curnit.getMetaData();
+		metadata2.setMetadataValue(MetadataKeyProxy.TITLE, new MetadataValueProxy("Loops One Dimensional Motion"));
+		metadata2.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy("LOOPS DIY test otml"));
+		metadata2.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Carolyn Staudt"));
+		metadata2.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
+		metadata2.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
+//		metadata2.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("How to interpret graphs of position and speed versus time for one-dimensional motion."));
+//		metadata2.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
+//		metadata2.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("physics"));
+//		metadata2.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("motion, graph, dimension, speed, time"));
+
+		return curnit;
+	}
+
 	
 	private CurnitProxy createCurnit(String uriName, URL otmlUrl) {
 		// Create a curnit
@@ -225,6 +242,11 @@ public class CreateDefaultCurnits {
 		CurnitProxy thermodynamicsCurnit = createThermodynamicsCurnit();
 		rep.addELO(thermodynamicsCurnit);
 		saveToLocalDb(applicationContext, thermodynamicsCurnit);
+
+		CurnitProxy diyCurnit = createDiyCurnit();
+		rep.addELO(diyCurnit);
+		saveToLocalDb(applicationContext, diyCurnit);
+
 	}
 
 	/**
@@ -236,8 +258,10 @@ public class CreateDefaultCurnits {
 		    applicationContext.getBean("createRooloOtmlModuleParameters");
 		params.setName(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.TITLE).getStringValue());
 		params.setUrl(RooloOtmlModuleDao.defaultOtrunkCurnitUrl);
+		//params.setUrl("http://rails.dev.concord.org/curnits/otrunk-curnit-external-diytest.jar");
 		params.setRoolouri(curnitProxy.getUri().toString());
 		params.setRooloRepositoryUrl(RooloOtmlModuleDao.rooloRepositoryUrl);
+		params.setCurnitProxy(curnitProxy);
 		curnitService.createCurnit(params);
 	}
 	
@@ -259,7 +283,7 @@ public class CreateDefaultCurnits {
 
 			CreateDefaultCurnits cdc = new CreateDefaultCurnits(applicationContext);
 			cdc.createDefaultCurnits(applicationContext);
-			applicationContext.close();
+			//applicationContext.close();
 		} catch (BeanInstantiationException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
