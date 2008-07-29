@@ -442,7 +442,7 @@
     	<property name="successView" value="contactwiseconfirm" />
     	<property name="javaMail" ref="javaMail"/>
     	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
-    	<property name="projectService" ref="projectService" />
+    	<property name="projectService" ref="projectService" />    	
 	</bean>	
 	
 	<util:properties id="uihtmlproperties" 
@@ -826,10 +826,8 @@
 		<property name="commandName" value="otmlFile"/>
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />
-			<!--  
 		<property name="successView" value="manageallprojects.html" />
 		<property name="formView" value="admin/uploadotml" />
-		-->
     </bean>
 
     <bean id="listProjectsController"
@@ -857,5 +855,9 @@
     
     <bean id="findProjectRunsByTeacherParameters"
     	class="org.telscenter.sail.webapp.domain.impl.FindProjectRunsByTeacherParameters"/>
+    	
+    <bean id="clientCurnitRepository"
+        class="roolo.curnit.client.impl.ClientCurnitRepository">
+    </bean>
     	
 </beans>

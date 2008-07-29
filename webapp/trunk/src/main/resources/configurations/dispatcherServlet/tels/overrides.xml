@@ -181,6 +181,7 @@
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController
+<!--  			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController  -->	
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
 				/author/authorproject.html=authorProjectController
