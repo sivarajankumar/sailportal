@@ -30,17 +30,8 @@ import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.service.curnit.CurnitService;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.Module;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
-import org.telscenter.sail.webapp.service.module.ModuleService;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.repository.RepositoryService;
 
 import roolo.curnit.client.basicProxy.CurnitProxy;
@@ -79,15 +70,12 @@ public class RetrieveOtmlController extends AbstractController {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader ("Expires", 0);
 
-		String outputOtmlString = "";
 		BufferedReader in = new BufferedReader(
 				new FileReader(otmlFile));
 		String inputLine;
 		while ((inputLine = in.readLine()) != null) {
-			outputOtmlString += inputLine;
+			response.getWriter().print(inputLine + "\n");			
 		}
-
-		response.getWriter().print(outputOtmlString);
 
 		return null;
 
