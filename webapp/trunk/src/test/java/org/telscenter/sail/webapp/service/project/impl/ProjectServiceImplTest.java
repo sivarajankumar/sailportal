@@ -56,7 +56,7 @@ import static org.easymock.EasyMock.*;
  */
 public class ProjectServiceImplTest extends TestCase {
 
-	private ProjectServiceImpl projectServiceImpl;
+	private PodProjectServiceImpl projectServiceImpl;
 
 	private ProjectDao<Project> mockProjectDao;
 	
@@ -81,7 +81,7 @@ public class ProjectServiceImplTest extends TestCase {
 	@SuppressWarnings("unchecked")
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.projectServiceImpl = new ProjectServiceImpl();
+		this.projectServiceImpl = new PodProjectServiceImpl();
 		this.mockProjectDao = createMock(ProjectDao.class);
 		this.projectServiceImpl.setProjectDao(mockProjectDao);
 		this.mockRooloProjectDao = createMock(ProjectDao.class);
@@ -167,9 +167,9 @@ public class ProjectServiceImplTest extends TestCase {
 		RunParameters expectedRunParameters = new RunParameters();
 		expectedRunParameters.setCurnitId(EXISTING_CURNIT_ID);
 		expectedRunParameters.setJnlpId(EXISTING_JNLP_ID);
-		expectedRunParameters.setName(ProjectServiceImpl.PREVIEW_RUN_NAME);
+		expectedRunParameters.setName(PodProjectServiceImpl.PREVIEW_RUN_NAME);
 		expectedRunParameters.setOwners(null);
-		expectedRunParameters.setPeriodNames(ProjectServiceImpl.PREVIEW_PERIOD_NAMES);
+		expectedRunParameters.setPeriodNames(PodProjectServiceImpl.PREVIEW_PERIOD_NAMES);
 		expectedRunParameters.setProject(projectToCreate);
 		Run expectedPreviewRun = new RunImpl();
 		expect(this.mockRunService.createRun(expectedRunParameters)).andReturn(expectedPreviewRun );
