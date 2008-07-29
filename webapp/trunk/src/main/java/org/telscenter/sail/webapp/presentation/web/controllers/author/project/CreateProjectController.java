@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 
@@ -36,6 +37,8 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
+import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -76,6 +79,12 @@ public class CreateProjectController extends SimpleFormController {
     	ProjectParameters projectParameters = (ProjectParameters) command;
     	
     	try {
+    		Curnit curnit = curnitService.getById(projectParameters.getCurnitId());
+    		if (curnit instanceof RooloOtmlModuleImpl) {
+    			projectParameters.setProjectType(ProjectType.OTRUNK);
+    		} else {
+    			projectParameters.setProjectType(ProjectType.POD);
+    		}
 			projectService.createProject(projectParameters);
 		} catch (ObjectNotFoundException e) {
 	    	ModelAndView modelAndView = new ModelAndView(getFormView());
