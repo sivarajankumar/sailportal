@@ -33,7 +33,7 @@
 .ratingRatedState .ratingButton
 {
 	display: block;
-	width: 20px;
+	width: 10px;
 	height: 20px;
 	float: left;
 }
@@ -65,7 +65,7 @@
 }
 
 .ratingHover{
-	 background-image: url(../images/SpryStarFull.gif);
+	 background-image: url(../images/SpryStarHover.gif);
 	 cursor: pointer;
 }
 

@@ -27,6 +27,11 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+/**
+* Modified to allow half-star ratings
+* 
+*/
+
 //fix IE6 flicker bug - only once per browser session
 try 
 {
@@ -331,6 +336,11 @@ Spry.Widget.Rating.prototype.getValue = function()
 	return this.ratingValue;
 };
 
+/**
+* Modified - to allow for half-star rating. starFullClass = right half filled star,
+* starHalfClass = left half filled star, starEmptyClass = right half empty star,
+* starHoverClass = left half empty star
+*/ 
 // set value for all stars in the widget and update the linked input if requested
 Spry.Widget.Rating.prototype.setValue = function(rating)
 {
@@ -345,25 +355,32 @@ Spry.Widget.Rating.prototype.setValue = function(rating)
 	{
 		this.resetClasses(this.stars[j]);
 
-		if (rating >= 1)
+		if (rating >= 1 && (j % 2) != 0)
 		{
 			this.addClassName(this.stars[j], this.starFullClass);
 			rating--;
 		}
-		else if(rating >= 0.5 && rating < 1)
+		else if(rating >= 1 && (j % 2) == 0)
 		{
 			this.addClassName(this.stars[j], this.starHalfClass);
-			rating = 0;
+			rating--;
 		}
+		else if(j % 2 != 0)
+		{	
+			this.addClassName(this.stars[j], this.starEmptyClass);
+			rating = 0;
+		} 
 		else
 		{
-			this.addClassName(this.stars[j], this.starEmptyClass);
+			this.addClassName(this.stars[j], this.starHoverClass);
 		}
 	}
 };
 
 /*
 * Modified to store rating and set it to 0 - this is reset in the blur event
+* Due to modifications of the starclasses, it is necessary to reset classes
+* before adding classname
 */
 //onmouseover event handler
 Spry.Widget.Rating.prototype.onFocus = function(e)
@@ -379,15 +396,24 @@ Spry.Widget.Rating.prototype.onFocus = function(e)
 	
 	var target = (e.target) ? e.target : e.srcElement;
 	
-	for (var k = 0; k <= target.starValue; k++)
-		this.addClassName(this.stars[k-1], this.starHoverClass);
+	for (var k = 0; k <= target.starValue; k++){
+		this.resetClasses(this.stars[k-1]);
+		if(k % 2 == 0){
+			this.addClassName(this.stars[k-1], this.starFullClass);
+		} else {
+			this.addClassName(this.stars[k-1], this.starHalfClass);
+		}
+	}	
+		//this.addClassName(this.stars[k-1], this.starHoverClass);
 		
 	
 	this.updateCounter(k-1);
 };
 
 /*
-* Modified to restore rating when rating stars have lost focus
+* Modified to restore rating when rating stars have lost focus.
+* Due to modifications of starClasses and onFocus events, removed
+* the removal of the starHoverClass.
 */
 //onblur event handler
 Spry.Widget.Rating.prototype.onBlur = function(e)
@@ -400,8 +426,11 @@ Spry.Widget.Rating.prototype.onBlur = function(e)
 
 	var target = (e.target) ? e.target : e.srcElement;
 
-	for(var k = 0; k <= target.starValue; k++)
-		this.removeClassName(this.stars[k-1], this.starHoverClass);
+	/*
+	* Removed - starHoverClass takes on the role as the LeftEmptyStar
+	*/
+	//for(var k = 0; k <= target.starValue; k++)
+	//	this.removeClassName(this.stars[k-1], this.starHoverClass);
 
 	this.updateCounter(this.ratingValue);
 };
@@ -444,14 +473,8 @@ Spry.Widget.Rating.prototype.onRate = function(e)
 		this.showError(err);
 	};
 	
-	/* update stored rating to actual value or drop by .5 
-	* if user rates with same value*/
-	if(this.getValue() == holdRating){
-		this.setValue(holdRating - .5);
-		holdRating = this.getValue();
-	} else {
-		holdRating = this.getValue();
-	}
+	/* update stored rating used by onfocus event by new rating value*/
+	holdRating = this.getValue();
 	
 	this.notifyObservers("onPostRate");
 };
@@ -500,24 +523,33 @@ Spry.Widget.Rating.prototype.updateCounter = function(val)
   if(this.counter)
   { 
   	var out;
-  	if(val == 4) {
-  		out = "100%";
-  	} else if(val == 3.5) {
-  		out = "95%";
-  	} else if(val == 3) {
-  		out = "90%";
-  	} else if(val == 2.5) {
-  		out = "85%";
-  	} else if(val == 2) {
-  		out = "80%";
-  	} else if(val == 1.5) {
-  		out = "75%";
-  	} else if(val == 1) {
-  		out = "70%";
-  	} else if(val == .5){
-  		out = "65%";
-  	} else {
-  		out = "";
+  	switch(val){
+  		case 8:
+  			out = "100%";
+  			break;
+  		case 7:
+  			out = "95%";
+  			break;
+  		case 6:
+  			out = "90%";
+  			break;
+  		case 5:
+  			out = "85%";
+  			break;
+  		case 4:
+  			out = "80%";
+  			break;
+  		case 3:
+  			out = "75%";
+  			break;
+  		case 2:
+  			out = "70%";
+  			break;
+  		case 1:
+  			out = "65%";
+  			break;
+  		default:
+  			out = "";
   	}
 	this.ratingCounter =  Spry.Widget.Rating.getElementsByClassName(this.element,this.counterClass)[0];
 	//this.ratingCounter.innerHTML = '[' + val + '/' + this.stars.length + ']';
