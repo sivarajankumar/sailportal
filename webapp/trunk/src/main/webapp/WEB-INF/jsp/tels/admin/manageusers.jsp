@@ -34,6 +34,8 @@
 
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
+<h5><c:out value="${message}" /></h5>
+
 <c:choose>
 	<c:when test="${fn:length(teachers) > 0}">
 		<table id="teachersTable" border="2">

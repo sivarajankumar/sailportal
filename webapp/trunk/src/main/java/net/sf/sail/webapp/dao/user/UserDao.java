@@ -60,4 +60,15 @@ public interface UserDao<T extends User> extends SimpleDao<T> {
      */
     public List<T> retrieveByEmailAddress(String emailAddress);
     
+    /**
+     * Given a field, search type, search term and classVar (teacher or studentUserDetails),
+     *  retrieves a list of Users from data store
+     * 
+     *  @param field
+     *  @param type
+     *  @param search term
+     *  @param classVar
+     */
+    public List<T> retrieveByField(String field, String type, Object term, String classVar);
+    
 }

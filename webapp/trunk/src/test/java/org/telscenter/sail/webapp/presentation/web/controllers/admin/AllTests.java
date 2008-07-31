@@ -35,7 +35,15 @@ import org.junit.runners.Suite;
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.ViewAllUsersControllerTest.class,
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.ListNewsItemsControllerTest.class,
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.AddNewsItemControllerTest.class,
-	org.telscenter.sail.webapp.presentation.web.controllers.admin.EditNewsItemControllerTest.class
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.EditNewsItemControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.FindProjectRunsByTeacherControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.FindProjectRunsControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.InfoControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.ListProjectsControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.ManageAllProjectRunsControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.RemoveNewsItemControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupTeacherControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupStudentControllerTest.class
 })
 public class AllTests {
 

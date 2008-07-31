@@ -231,4 +231,12 @@ public class UserServiceImpl implements UserService {
 	public void updateUser(User user) {
 		this.userDao.save(user);
 	}
+	
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#retrieveByField(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Transactional()
+	public List<User> retrieveByField(String field, String type, Object term, String classVar){
+		return this.userDao.retrieveByField(field, type, term, classVar);
+	}
 }

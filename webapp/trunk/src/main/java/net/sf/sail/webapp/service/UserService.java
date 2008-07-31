@@ -126,4 +126,10 @@ public interface UserService {
 	 * @param userDetails
 	 */
 	public void updateUser(User user);
+		
+	/**
+	 * Retrieves Users by a given field (eg username, gender), search type (eg =, like)
+	 * search term (user provided) and classVar (eg teacher or studentUserDetails)
+	 */
+	public List<User> retrieveByField(String field, String type, Object term, String classVar);
 }

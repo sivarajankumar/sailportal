@@ -25,6 +25,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.acegisecurity.userdetails.UserDetails;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.support.DataAccessUtils;
 
 
@@ -90,5 +91,26 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
                 "from UserImpl as user where user.userDetails.emailAddress = :emailAddress",
                 "emailAddress", emailAddress);
     }
-   
+
+    /**
+     * @see net.sf.sail.webapp.dao.user.UserDao#retrieveByField(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
+    @SuppressWarnings("unchecked")
+    public List<User> retrieveByField(String field, String type, Object term, String classVar){
+    	return this.getHibernateTemplate().findByNamedParam(
+    			"select user from UserImpl user, " + capitalizeFirst(classVar) + " " +
+    			classVar +	" where user.userDetails.id = " + classVar + ".id and " +
+    			classVar + "."	+ field + " " +	type + " :term", "term", term);
+    }
+    
+    /**
+     * Capitalizes the first letter of a given String
+     * 
+     * @param string
+     * @return String
+     */
+    private String capitalizeFirst(String string){
+    	return StringUtils.upperCase(StringUtils.left(string, 1)) 
+    		+ StringUtils.right(string, string.length() - 1);
+    }
 }

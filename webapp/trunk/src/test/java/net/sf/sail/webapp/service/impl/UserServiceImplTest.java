@@ -317,4 +317,17 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		userService.retrieveAllUsers();
 		EasyMock.verify(mockUserDao);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void testRetrieveByField(){
+		List<User> users = new ArrayList<User>();
+		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);
+		EasyMock.expect(mockUserDao.retrieveByField("firstname", "=", 
+				"Sarah", "studentUserDetails")).andReturn(users);
+		EasyMock.replay(mockUserDao);
+		UserServiceImpl userService = new UserServiceImpl();
+		userService.setUserDao(mockUserDao);
+		userService.retrieveByField("firstname", "=", "Sarah", "studentUserDetails");
+		EasyMock.verify(mockUserDao);
+	}
 }
