@@ -70,6 +70,8 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
+import roolo.api.IMetadata;
+import roolo.curnit.client.CurnitClientMetadataKeys;
 import roolo.curnit.client.basicProxy.CurnitProxy;
 import roolo.curnit.client.basicProxy.MetadataKeyProxy;
 
@@ -349,14 +351,15 @@ public class PodProjectServiceImpl implements ProjectService {
 
     public ProjectInfo getProjectInfoFromCurnitProxy(CurnitProxy curnitProxy) {
     	ProjectInfo projectInfo = new ProjectInfoImpl();
-    	projectInfo.setAuthor(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.AUTHOR).getStringValue());
-    	projectInfo.setComment(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.COMMENT).getStringValue());
-    	projectInfo.setDescription(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.DESCRIPTION).getStringValue());
-    	projectInfo.setCurrent(Boolean.valueOf(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.CURRENT).getStringValue()));
-    	projectInfo.setFamilyTag(FamilyTag.valueOf(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.FAMILYTAG).getStringValue()));
-    	projectInfo.setGradeLevel(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.GRADELEVEL).getStringValue());
-    	projectInfo.setKeywords(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.KEYWORDS).getStringValue());
-    	projectInfo.setSubject(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.SUBJECT).getStringValue());
+    	IMetadata<MetadataKeyProxy> metadata = curnitProxy.getMetadata();
+    	projectInfo.setAuthor(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey()).getValue().toString());
+    	projectInfo.setComment(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey()).getValue().toString());
+    	projectInfo.setDescription(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey()).getValue().toString());
+    	projectInfo.setCurrent(Boolean.valueOf(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey()).getValue().toString()));
+    	projectInfo.setFamilyTag(FamilyTag.valueOf(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey()).getValue().toString()));
+    	projectInfo.setGradeLevel(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey()).getValue().toString());
+    	projectInfo.setKeywords(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey()).getValue().toString());
+    	projectInfo.setSubject(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey()).getValue().toString());
     	return projectInfo;
     }
     

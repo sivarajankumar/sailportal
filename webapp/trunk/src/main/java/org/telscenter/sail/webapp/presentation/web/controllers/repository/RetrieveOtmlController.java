@@ -23,8 +23,10 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.repository;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
+import java.io.StringReader;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +65,7 @@ public class RetrieveOtmlController extends AbstractController {
 		URI uri = new URI(uriString);
 		
 		CurnitProxy curnitProxy = repositoryService.getByUri(uri);
-		File otmlFile = curnitProxy.getContent().getOtmlFile();
+		byte [] otmlData = curnitProxy.getContent().getBytes();
 		response.setContentType(XML_CONTENT_TYPE);
 
 		response.setHeader("Cache-Control", "no-cache");
@@ -71,7 +73,8 @@ public class RetrieveOtmlController extends AbstractController {
 		response.setDateHeader ("Expires", 0);
 
 		BufferedReader in = new BufferedReader(
-				new FileReader(otmlFile));
+				new StringReader(otmlData.toString()));
+		
 		String inputLine;
 		while ((inputLine = in.readLine()) != null) {
 			response.getWriter().print(inputLine + "\n");			

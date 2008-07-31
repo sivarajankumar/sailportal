@@ -39,10 +39,11 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 
+import roolo.api.IMetadataValueContainer;
+import roolo.curnit.client.CurnitClientMetadataKeys;
 import roolo.curnit.client.IClientRepository;
 import roolo.curnit.client.basicProxy.CurnitMetadataProxy;
 import roolo.curnit.client.basicProxy.CurnitProxy;
-import roolo.curnit.client.basicProxy.MetadataKeyProxy;
 
 /**
  * @author Hiroki Terashima
@@ -116,14 +117,20 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 	
 	private ProjectInfo createProjectInfo(CurnitMetadataProxy metadata) {
 		ProjectInfo info = new ProjectInfoImpl();
-		String author = metadata.getMetadataValue(MetadataKeyProxy.AUTHOR).getStringValue();
-		info.setAuthor(author);
-		// TODO Add the rest of the metadata info
-//		String gradeLevel = metadata.getMetadataValue(MetadataKeyProxy.GRADELEVEL).getStringValue();
-//		String subject = metadata.getMetadataValue(MetadataKeyProxy.SUBJECT).getStringValue();
-//		String keywords = metadata.getMetadataValue(MetadataKeyProxy.KEYWORDS).getStringValue();
-//		String projectLiveCycle = metadata.getMetadataValue(MetadataKeyProxy.LIVECYCLE).getStringValue();
-		String familyTag = metadata.getMetadataValue(MetadataKeyProxy.FAMILYTAG).getStringValue();
+		IMetadataValueContainer container;
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		info.setAuthor( container.getValue().toString() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		info.setGradeLevel( container.getValue().toString() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		info.setSubject( container.getValue().toString() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		info.setKeywords( container.getValue().toString() );
+		//container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.LIFECYCLE.getKey());
+		//info.setProjectLiveCycle( container.getValue().toString() );
+		// TODO Add the lifecycle metadata
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());		
+		String familyTag = container.getValue().toString();
 		List<FamilyTag> possibleValues = Arrays.asList( FamilyTag.values());
 		if( familyTag != null && possibleValues.contains( FamilyTag.valueOf(familyTag))) {
 			info.setFamilyTag(FamilyTag.valueOf(familyTag));
@@ -131,10 +138,13 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 		else {
 			info.setFamilyTag(FamilyTag.OTHER);
 		}
-		String isCurrent = metadata.getMetadataValue(MetadataKeyProxy.CURRENT).getStringValue();
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		String isCurrent = container.getValue().toString();
 		info.setCurrent("yes".equals(isCurrent));
-		info.setComment(metadata.getMetadataValue(MetadataKeyProxy.COMMENT).getStringValue());
-		info.setDescription(metadata.getMetadataValue(MetadataKeyProxy.DESCRIPTION).getStringValue());
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		info.setComment( container.getValue().toString() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		info.setDescription( container.getValue().toString() );
 		return info;
 	}
 

@@ -29,18 +29,17 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 
-import roolo.curnit.client.basicProxy.CurnitMetadataProxy;
+import roolo.api.IMetadata;
+import roolo.api.IMetadataValueContainer;
+import roolo.curnit.client.CurnitClientMetadataKeys;
 import roolo.curnit.client.basicProxy.CurnitProxy;
 import roolo.curnit.client.basicProxy.MetadataKeyProxy;
-import roolo.curnit.client.basicProxy.MetadataValueProxy;
 
 /**
  * @author Hiroki Terashima
@@ -175,8 +174,9 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 	 * @param curnitProxy
 	 */
 	public void populateModuleFromProxy(CurnitProxy curnitProxy) {
-		CurnitMetadataProxy metaData = curnitProxy.getMetaData();
-		this.setDescription(metaData.getDescription());
+		IMetadata<MetadataKeyProxy> metadata = curnitProxy.getMetadata();
+		IMetadataValueContainer container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		this.setDescription( container.getValue().toString() );
 		this.setProxy(curnitProxy);
 	}
 	
@@ -225,17 +225,25 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 	 * @param projectInfo
 	 */
 	public void updateProxy(ProjectInfo projectInfo) {
-		CurnitMetadataProxy metaData = this.getProxy().getMetaData();
-		metaData.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy(projectInfo.getAuthor()));
-		metaData.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy(projectInfo.getComment()));
-		metaData.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy(projectInfo.getFamilyTag().name()));
-		metaData.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy(Boolean.toString(projectInfo.isCurrent())));
-		metaData.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy(projectInfo.getDescription()));
-		metaData.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy(projectInfo.getGradeLevel()));
-		metaData.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy(projectInfo.getSubject()));
-		metaData.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy(projectInfo.getKeywords()));
-		projectInfo.getAuthor();
-	
+		IMetadata<MetadataKeyProxy> metadata = this.getProxy().getMetadata();
+		IMetadataValueContainer container;
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container.setValue( projectInfo.getAuthor() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container.setValue( projectInfo.getComment() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container.setValue( projectInfo.getFamilyTag() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container.setValue( Boolean.toString(projectInfo.isCurrent()) );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container.setValue( projectInfo.getDescription() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container.setValue( projectInfo.getGradeLevel() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container.setValue( projectInfo.getSubject() );
+		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container.setValue( projectInfo.getKeywords() );
+		
 	}
 
 }

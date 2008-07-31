@@ -22,10 +22,6 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -65,17 +61,17 @@ public class PostProjectController extends AbstractController {
 		
 		Project project = projectService.getById(projectId);
 		
-		File oldOtmlFile = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile();
-
-		// need to generate new file path, otherwise won't save in jackrabbit...
-		// need to fix this in jackrabbit.
-		Random rand = new Random();
-		File otmlFile = new File(oldOtmlFile.getPath() + rand.nextInt());
-		FileWriter out = new FileWriter(otmlFile);
-		out.write(otmlString);
-		out.close();
-
-		((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setOtmlFile(otmlFile);		
+//		File oldOtmlFile = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile();
+//
+//		// need to generate new file path, otherwise won't save in jackrabbit...
+//		// need to fix this in jackrabbit.
+//		Random rand = new Random();
+//		File otmlFile = new File(oldOtmlFile.getPath() + rand.nextInt());
+//		FileWriter out = new FileWriter(otmlFile);
+//		out.write(otmlString);
+//		out.close();
+		byte [] oldOtmlData = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getBytes();
+		((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(oldOtmlData);		
 		projectService.updateProject(project);		
 		
 		return null;

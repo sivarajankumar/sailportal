@@ -22,13 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -90,24 +85,26 @@ public class UploadOtmlController extends SimpleFormController {
 			return modelAndView;
 		} else {
 			Project project = projectService.getById(request.getParameter("projectId"));
-			File oldOtmlFile = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile();
-
-			// need to generate new file path, otherwise won't save in jackrabbit...
-			// need to fix this in jackrabbit.
-			Random rand = new Random();
-			File otmlFile = new File(oldOtmlFile.getPath() + rand.nextInt());
-			OutputStream fos = new FileOutputStream(otmlFile);
-			InputStream fis = file.getInputStream();
-			
-			// transfer bytes from in to out
-			byte[] buf = new byte[1024];
-			int len;
-			while ((len = fis.read(buf)) > 0) {
-				fos.write(buf, 0, len);
-			}
-			fis.close();
-			fos.close();
-			((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setOtmlFile(otmlFile);		
+//			file.transferTo(((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile());
+//			File oldOtmlFile = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile();
+//
+//			// need to generate new file path, otherwise won't save in jackrabbit...
+//			// need to fix this in jackrabbit.
+//			Random rand = new Random();
+//			File otmlFile = new File(oldOtmlFile.getPath() + rand.nextInt());
+//			OutputStream fos = new FileOutputStream(otmlFile);
+//			InputStream fis = file.getInputStream();
+//			
+//			// transfer bytes from in to out
+//			byte[] buf = new byte[1024];
+//			int len;
+//			while ((len = fis.read(buf)) > 0) {
+//				fos.write(buf, 0, len);
+//			}
+//			fis.close();
+//			fos.close();
+			byte [] oldOtmlData = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getBytes();
+			((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(oldOtmlData);		
 
 			projectService.updateProject(project);
 		}

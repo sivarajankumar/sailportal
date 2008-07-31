@@ -22,32 +22,31 @@
  */
 package org.telscenter.sail.webapp;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.spring.SpringConfiguration;
 
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
-import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
-import org.telscenter.sail.webapp.service.project.ProjectService;
-import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 
-import roolo.curnit.client.basicProxy.CurnitContentProxy;
-import roolo.curnit.client.basicProxy.CurnitMetadataProxy;
+import roolo.api.IContent;
+import roolo.api.IMetadata;
+import roolo.api.IMetadataValueContainer;
+import roolo.curnit.client.CurnitClientMetadataKeys;
 import roolo.curnit.client.basicProxy.CurnitProxy;
 import roolo.curnit.client.basicProxy.MetadataKeyProxy;
-import roolo.curnit.client.basicProxy.MetadataValueProxy;
 import roolo.curnit.client.impl.ClientCurnitRepository;
 
 /**
@@ -70,112 +69,183 @@ public class CreateDefaultCurnits {
 
 	private CurnitProxy createAirbagsCurnit() {
 		CurnitProxy curnit = createCurnit("airbags", CreateDefaultCurnits.class.getResource("Airbags.otml"));
-		CurnitMetadataProxy metadata2 = curnit.getMetaData();
-		metadata2.setMetadataValue(MetadataKeyProxy.TITLE, new MetadataValueProxy("Airbags"));
-		metadata2.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy("Airbags otml. Converted most up to date airbags including models and draw"));
-		metadata2.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Kevin McElhaney"));
-		metadata2.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
-		metadata2.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-//		metadata2.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Airbags. Recommended for middle school students."));
-//		metadata2.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-//		metadata2.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("physics"));
-//		metadata2.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("airbags, inertia"));
-
+		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
+		IMetadataValueContainer container;
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
+		container.setValue("Airbags");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container.setValue("Airbags otml. Converted most up to date airbags including models and draw");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container.setValue("Kevin McElhaney");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container.setValue("TELS");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container.setValue("true");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container.setValue("Airbags. Recommended for middle school students.");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container.setValue("5,6,7");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container.setValue("physics");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container.setValue("airbags, inertia");
+		
 		return curnit;
 	}
 
 	private CurnitProxy createChemicalReactionsCurnit() {
 		CurnitProxy curnit = createCurnit("chemicalreactions", CreateDefaultCurnits.class.getResource("Chemical_Reactions.otml"));
-		CurnitMetadataProxy metadata1 = curnit.getMetaData();
-		metadata1.setMetadataValue(MetadataKeyProxy.TITLE, new MetadataValueProxy("Chemical Reactions"));
-		metadata1.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy("Chemical Reactions otml. Fixed Challenge Question, missing Discussion steps"));
-		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Jennie Chiu"));
-		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
-		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Chemical Reactions. Recommended for middle school students."));
-//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("experiment, heat"));
+		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
+		IMetadataValueContainer container;
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
+		container.setValue("Chemical Reactions");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container.setValue("Chemical Reactions otml. Fixed Challenge Question, missing Discussion steps");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container.setValue("Jennie Chiu");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container.setValue("TELS");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container.setValue("true");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container.setValue("Chemical Reactions. Recommended for middle school students.");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container.setValue("5,6,7");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container.setValue("Chemistry");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container.setValue("experiment, heat");
+
 
 		return curnit;
 	}
 	
 	private CurnitProxy createMeiosisCurnit() {
 		CurnitProxy curnit = createCurnit("meiosis", CreateDefaultCurnits.class.getResource("Meiosis.otml"));
-		CurnitMetadataProxy metadata1 = curnit.getMetaData();
-		metadata1.setMetadataValue(MetadataKeyProxy.TITLE, new MetadataValueProxy("Meiosis"));
-		metadata1.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy("Meiosis otml. Missing Self Test and Student Assessment steps."));
-		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Beat Schwendimann"));
-		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
-		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Meiosis. Recommended for middle school students."));
-//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Biology"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("cell division, heat"));
+		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
+		IMetadataValueContainer container;
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
+		container.setValue("Meiosis");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container.setValue("Meiosis otml. Missing Self Test and Student Assessment steps.");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container.setValue("Beat Schwendimann");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container.setValue("TELS");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container.setValue("true");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container.setValue("Meiosis. Recommended for middle school students.");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container.setValue("5,6,7");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container.setValue("Biology");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container.setValue("cell division, heat");
 
 		return curnit;
 	}
 
 	private CurnitProxy createHydrogenCarsCurnit() {
 		CurnitProxy curnit = createCurnit("hydrogencellcars", CreateDefaultCurnits.class.getResource("Hydrogen_Cars.otml"));
-		CurnitMetadataProxy metadata1 = curnit.getMetaData();
-		metadata1.setMetadataValue(MetadataKeyProxy.TITLE, new MetadataValueProxy("Hydrogen Cars"));
-		metadata1.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy("Hydrogen Cars otml. All steps except Self Test "));
-		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Helen Zhang"));
-		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
-		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Hydrogen Cars. Recommended for middle school students."));
-//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("global warming, molecules, hydrogen"));
+		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
+		IMetadataValueContainer container;
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
+		container.setValue("Hydrogen Cars");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container.setValue("Hydrogen Cars otml. All steps except Self Test ");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container.setValue("Helen Zhang");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container.setValue("TELS");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container.setValue("true");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container.setValue("Hydrogen Cars. Recommended for middle school students.");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container.setValue("5,6,7");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container.setValue("Chemistry");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container.setValue("global warming, molecules, hydrogen");
 
 		return curnit;
 	}
 	
 	private CurnitProxy createGlobalWarmingCurnit() {
 		CurnitProxy curnit = createCurnit("globalwarming", CreateDefaultCurnits.class.getResource("Global_Warming.otml"));
-		CurnitMetadataProxy metadata1 = curnit.getMetaData();
-		metadata1.setMetadataValue(MetadataKeyProxy.TITLE, new MetadataValueProxy("Global Warming"));
-		metadata1.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy("Global Warming otml. All steps"));
-		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Keisha Varma"));
-		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
-		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Global Warming. Recommended for middle school students."));
-//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Earth Science"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("global warming"));
+		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
+		IMetadataValueContainer container;
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
+		container.setValue("Global Warming");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container.setValue("Global Warming otml. All steps");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container.setValue("Keisha Varma");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container.setValue("TELS");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container.setValue("true");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container.setValue("Global Warming. Recommended for middle school students.");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container.setValue("5,6,7");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container.setValue("Earth Science");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container.setValue("global warming");
 
 		return curnit;
 	}
 
 	private CurnitProxy createThermodynamicsCurnit() {
 		CurnitProxy curnit = createCurnit("thermodynamics", CreateDefaultCurnits.class.getResource("Thermodynamics.otml"));
-		CurnitMetadataProxy metadata1 = curnit.getMetaData();
-		metadata1.setMetadataValue(MetadataKeyProxy.TITLE, new MetadataValueProxy("Thermodynamics"));
-		metadata1.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy("Thermodynamics otml, missing Student Assessment step"));
-		metadata1.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Hsin-Yi Chang"));
-		metadata1.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
-		metadata1.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("Thermodynamics. Recommended for middle school students."));
-//		metadata1.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("Chemistry"));
-//		metadata1.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("thermodynamics, heat"));
+		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
+		IMetadataValueContainer container;
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
+		container.setValue("Thermodynamics");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container.setValue("Thermodynamics otml, missing Student Assessment step");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container.setValue("Hsin-Yi Chang");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container.setValue("TELS");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container.setValue("true");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container.setValue("Thermodynamics. Recommended for middle school students.");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container.setValue("5,6,7");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container.setValue("Chemistry");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container.setValue("thermodynamics, heat");
 
 		return curnit;
 	}
 	
 	private CurnitProxy createDiyCurnit() {
 		CurnitProxy curnit = createCurnit("onedimensionalmotion", CreateDefaultCurnits.class.getResource("loops-test.otml"));
-		CurnitMetadataProxy metadata2 = curnit.getMetaData();
-		metadata2.setMetadataValue(MetadataKeyProxy.TITLE, new MetadataValueProxy("Loops One Dimensional Motion"));
-		metadata2.setMetadataValue(MetadataKeyProxy.COMMENT, new MetadataValueProxy("LOOPS DIY test otml"));
-		metadata2.setMetadataValue(MetadataKeyProxy.AUTHOR, new MetadataValueProxy("Carolyn Staudt"));
-		metadata2.setMetadataValue(MetadataKeyProxy.FAMILYTAG, new MetadataValueProxy("TELS"));
-		metadata2.setMetadataValue(MetadataKeyProxy.CURRENT, new MetadataValueProxy("true"));
-//		metadata2.setMetadataValue(MetadataKeyProxy.DESCRIPTION, new MetadataValueProxy("How to interpret graphs of position and speed versus time for one-dimensional motion."));
-//		metadata2.setMetadataValue(MetadataKeyProxy.GRADELEVEL, new MetadataValueProxy("5,6,7"));
-//		metadata2.setMetadataValue(MetadataKeyProxy.SUBJECT, new MetadataValueProxy("physics"));
-//		metadata2.setMetadataValue(MetadataKeyProxy.KEYWORDS, new MetadataValueProxy("motion, graph, dimension, speed, time"));
+		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
+		IMetadataValueContainer container;
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
+		container.setValue("Loops One Dimensional Motion");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container.setValue("LOOPS DIY test otml");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container.setValue("Carolyn Staudt");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container.setValue("TELS");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container.setValue("true");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container.setValue("How to interpret graphs of position and speed versus time for one-dimensional motion.");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container.setValue("5,6,7");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container.setValue("physics");
+		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container.setValue("motion, graph, dimension, speed, time");
 
 		return curnit;
 	}
@@ -185,28 +255,39 @@ public class CreateDefaultCurnits {
 		// Create a curnit
 		CurnitProxy curnit = new CurnitProxy();
 		// Create content
-		CurnitContentProxy content = curnit.getContent();
-		URL urlRes1 = CreateDefaultCurnits.class.getResource("one.txt");
-		URL urlRes2 = CreateDefaultCurnits.class.getResource("two.txt");
-		List<File> resources = new ArrayList<File>();
+		IContent content = curnit.getContent();
 		try {
-			content.setOtmlFile(new File(otmlUrl.toURI()));
-			// add resources
-			File res1 = new File(urlRes1.toURI());
-			File res2 = new File(urlRes2.toURI());
-			resources.add(res1);
-			resources.add(res2);
+			FileInputStream fis;
+				fis = new FileInputStream( new File(otmlUrl.toURI()) );
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte [] buffer = new byte[4096];
+			int read;
+				while ( (read = fis.read(buffer))!= -1) {
+					baos.write( buffer, 0, read);
+				}
+			
+			fis.close();
+			content.setBytes( baos.toByteArray());
+			
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		content.setOtmlResources(resources);
+
 		// Create metadata
-		CurnitMetadataProxy metadata = curnit.getMetaData();
+		IMetadata<MetadataKeyProxy> metadata = curnit.getMetadata();
 		URI uri = null;
 		try {
 			uri = new URI(uriName);
-			metadata.setMetadataValue(MetadataKeyProxy.URI, new MetadataValueProxy(uri.toString()));
+			IMetadataValueContainer container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.URI.getKey());
+			container.setValue(uri.toString());			
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -256,7 +337,7 @@ public class CreateDefaultCurnits {
 	private void saveToLocalDb(ConfigurableApplicationContext applicationContext, CurnitProxy curnitProxy) {
 		CreateRooloOtmlModuleParameters params = (CreateRooloOtmlModuleParameters) 
 		    applicationContext.getBean("createRooloOtmlModuleParameters");
-		params.setName(curnitProxy.getMetaData().getMetadataValue(MetadataKeyProxy.TITLE).getStringValue());
+		params.setName(curnitProxy.getMetadata().getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey()).getValue().toString());
 		params.setUrl(RooloOtmlModuleDao.defaultOtrunkCurnitUrl);
 		//params.setUrl("http://rails.dev.concord.org/curnits/otrunk-curnit-external-diytest.jar");
 		params.setRoolouri(curnitProxy.getUri().toString());
