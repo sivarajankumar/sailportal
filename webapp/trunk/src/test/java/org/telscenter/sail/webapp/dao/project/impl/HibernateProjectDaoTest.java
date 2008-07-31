@@ -31,6 +31,7 @@ import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
@@ -77,7 +78,7 @@ public class HibernateProjectDaoTest extends org.telscenter.sail.webapp.dao.Abst
 	
 	private static final String RUNCODE = "abcde-123";
 	
-	private Module module;
+	private ModuleImpl moduleImpl;
 	
 	private Jnlp jnlp;
 	
@@ -86,16 +87,16 @@ public class HibernateProjectDaoTest extends org.telscenter.sail.webapp.dao.Abst
     private SdsJnlp sdsJnlp;
     
     private Run run;
-	
-	public void setModule(Module module) {
-		this.module = module;
-	}
-	
+		
 	public void setJnlp(Jnlp jnlp) {
 		this.jnlp = jnlp;
 	}
 	
-    public void setSdsCurnit(SdsCurnit sdsCurnit) {
+	public void setModuleImpl(ModuleImpl moduleImpl) {
+		this.moduleImpl = moduleImpl;
+	}
+
+	public void setSdsCurnit(SdsCurnit sdsCurnit) {
         this.sdsCurnit = sdsCurnit;
     }
 
@@ -126,16 +127,16 @@ public class HibernateProjectDaoTest extends org.telscenter.sail.webapp.dao.Abst
         this.sdsJnlp.setName(JNLP_NAME);
         this.sdsJnlp.setUrl(JNLP_URL);
 
-    	this.module.setSdsCurnit(this.sdsCurnit);
+    	this.moduleImpl.setSdsCurnit(this.sdsCurnit);
     	this.jnlp.setSdsJnlp(this.sdsJnlp);
 
     	MODULE_OWNERS.add(new UserImpl());
-    	this.module.setDescription(MODULE_DESCRIPTION);
-    	this.module.setComputerTime(MODULE_COMPUTER_TIME);
-    	this.module.setOwners(MODULE_OWNERS);
-    	this.module.setTechReqs(MODULE_TECH_REQS);
-    	this.module.setTotalTime(MODULE_TOTAL_TIME);
-    	this.dataObject.setCurnit(this.module);
+    	this.moduleImpl.setDescription(MODULE_DESCRIPTION);
+    	this.moduleImpl.setComputerTime(MODULE_COMPUTER_TIME);
+    	this.moduleImpl.setOwners(MODULE_OWNERS);
+    	this.moduleImpl.setTechReqs(MODULE_TECH_REQS);
+    	this.moduleImpl.setTotalTime(MODULE_TOTAL_TIME);
+    	this.dataObject.setCurnit(this.moduleImpl);
     	this.dataObject.setJnlp(this.jnlp);
     	this.run.setOwners(null);
 		this.run.setPeriods(null);
@@ -153,7 +154,7 @@ public class HibernateProjectDaoTest extends org.telscenter.sail.webapp.dao.Abst
     @Override
     protected void onTearDownAfterTransaction() throws Exception {
     	super.onTearDownAfterTransaction();
-    	this.module = null;
+    	this.moduleImpl = null;
     	this.jnlp = null;
     }
     
