@@ -106,7 +106,7 @@ function createNewWorkgroup(periodId, runId) {
                                                     } 
                                                 );
     
-            YAHOO.example.container.wait.setHeader("Loading, please wait...");
+            YAHOO.example.container.wait.setHeader("Loading. Please wait...");
             YAHOO.example.container.wait.setBody("<img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif />");
             YAHOO.example.container.wait.render(document.body);
 
@@ -452,10 +452,10 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 				</ul>
 			</td>
 			<td>
-				<div style="margin-bottom:12px;"><b>[Progress Bar Here]</b></div>
+				<div style="margin-bottom:12px;"><img src="../../themes/tels/default/images/progressbar1.png"/></div>
 				<div>
-					<div style="float:left;">[Ax, StepY]</div>
-					<div style="float:right;">[zz%] of steps</div>
+					<div style="float:left;">A3, Step 4</div>
+					<div style="float:right;">52% of steps</div>
 				</div>
 			</td>
 			<td>
@@ -465,15 +465,15 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 				</ul>
 			</td>
 			<td>
-				<div class="percentValue">[60%]</div>
+				<div class="percentValue">60%</div>
 				<div class="ratioValue"">(150/250)</div>
 			</td>
 			<td>
-				<div class="percentValue">[92%]</div>
+				<div class="percentValue">92%</div>
 				<div class="ratioValue"">(166/180)</div>
 			</td>
 			<td>
-				<div class="percentValue">[90%]</div>
+				<div class="percentValue">90%</div>
 				<div class="ratioValue"">(45/50)</div>
 			</td>
 		</tr>
@@ -485,29 +485,29 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 				</ul>
 			</td>
 			<td>
-				<div style="margin-bottom:12px;"><b>[Progress Bar Here]</b></div>
+				<div style="margin-bottom:12px;"><img src="../../themes/tels/default/images/progressbar2.png"/></div>
 				<div>
-					<div style="float:left;">[A3, Step 6]</div>
-					<div style="float:right;">[52%] of steps</div>
+					<div style="float:left;">A2, Step 5</div>
+					<div style="float:right;">38% of steps</div>
 				</div>
 			</td>
 			<td>
 				<ul>
-				<li>[A1, Step 3 (skipped)]</li>
-				<li>[A1, Step 7 (scant)</li>
-				<li>[A2 (all skipped)]</li>
+				<li>A1, Step 3 (skipped)</li>
+				<li>A1, Step 7 (scant)</li>
+				<li>A2 (all skipped)</li>
 				</ul>
 			</td>
 			<td>
-				<div class="percentValue">[55%]</div>
+				<div class="percentValue">55%</div>
 				<div class="ratioValue"">(137/250)</div>
 			</td>
 			<td>
-				<div class="percentValue">[89%]</div>
+				<div class="percentValue">89%</div>
 				<div class="ratioValue"">(160/180)</div>
 			</td>
 			<td>
-				<div class="percentValue">[94%]</div>
+				<div class="percentValue">94%</div>
 				<div class="ratioValue"">(47/50)</div>
 			</td>
 		</tr>
@@ -519,21 +519,21 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 			</td>
 			<td>
 				<div>
-					<div style="float:left;">Median: [A2, Step 6]</div>
-					<div style="float:right;">Median: [45%] of steps</div>
+					<div style="float:left;">Median: A2, Step 6</div>
+					<div style="float:right;">Median: 45% of steps</div>
 				</div>
 			</td>
 			<td></td>
 			<td>
-				<div class="percentValue">[58%]</div>
+				<div class="percentValue">58%</div>
 				<div class="ratioValue""><(145/250)</div>
 			</td>
 			<td>
-				<div class="percentValue">[91%]</div>
+				<div class="percentValue">91%</div>
 				<div class="ratioValue"">(92/180)</div>
 			</td>
 			<td>
-				<div class="percentValue">[92%]</div>
+				<div class="percentValue">92%</div>
 				<div class="ratioValue"">(46/50)</div>
 			</td>
 		</tr>

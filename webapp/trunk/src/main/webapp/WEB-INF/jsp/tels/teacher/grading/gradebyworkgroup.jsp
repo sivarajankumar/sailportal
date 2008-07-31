@@ -491,15 +491,15 @@ aggregate.value = set of workgroupWorkAggregate
 																					<span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradebyteam.13"/>&nbsp; </span><input id="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
 																				</div>
 																				
-																				<div id="spryrating-teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" class="ratingContainer" align="center">
+																				<div style="margin:7px 0 0 18px;" id="spryrating-teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" class="ratingContainer" align="center">
 																					<span class="ratingButton"></span>
+																					<span style="margin-right:3px;" class="ratingButton"></span>
 																					<span class="ratingButton"></span>
+																					<span style="margin-right:3px;" class="ratingButton"></span>
 																					<span class="ratingButton"></span>
+																					<span style="margin-right:3px;" class="ratingButton"></span>
 																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
+																					<span style="margin-right:6px;" class="ratingButton"></span>
 																					<span class="ratingCounter"></span>
 																				</div>
 																				
