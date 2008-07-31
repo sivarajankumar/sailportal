@@ -22,11 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -93,7 +90,6 @@ public class UploadOtmlController extends SimpleFormController {
 			return modelAndView;
 		} else {
 			Project project = projectService.getById(request.getParameter("projectId"));
-//			file.transferTo(((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile());
 			File oldOtmlFile = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile();
 
 			// need to generate new file path, otherwise won't save in jackrabbit...
@@ -113,25 +109,8 @@ public class UploadOtmlController extends SimpleFormController {
 			fos.close();
 			((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setOtmlFile(otmlFile);		
 
-//			response.setContentType("application/xml");
-//
-//			response.setHeader("Cache-Control", "no-cache");
-//			response.setHeader("Pragma", "no-cache");
-//			response.setDateHeader ("Expires", 0);
-//
-//			String outputOtmlString = "";
-//			BufferedReader in = new BufferedReader(
-//					new FileReader(otmlFile));
-//			String inputLine;
-//			while ((inputLine = in.readLine()) != null) {
-//				outputOtmlString += inputLine;
-//			}
-//
-//			response.getWriter().print(outputOtmlString);
-			
 			projectService.updateProject(project);
 		}
-//		return null;
 		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
 		return modelAndView;
 	}
