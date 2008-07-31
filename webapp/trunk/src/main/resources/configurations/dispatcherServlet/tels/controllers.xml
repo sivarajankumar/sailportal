@@ -90,6 +90,9 @@
 		class="org.telscenter.sail.webapp.presentation.validators.FindProjectRunsByTeacherParametersValidator">
 		<property name="userService" ref="userService"/>
 	</bean>
+	
+	<bean id="lookupParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.LookupParametersValidator"/>
 
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
@@ -699,6 +702,7 @@
     	<property name="formView" value="teacher/grading/editmaxstepvalues" />
     	<property name="successView" value="teacher/grading/editmaxstepvaluesconfirm" />
 	</bean>
+
 	
 	<bean id="projectInfoController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectInfoController">
@@ -858,6 +862,27 @@
     	
     <bean id="clientCurnitRepository"
         class="roolo.curnit.client.impl.ClientCurnitRepository">
+    </bean>
+    
+    <bean id="lookupTeacherController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupTeacherController">
+    	<property name="userService" ref="userService"/>
+    	<property name="commandName" value="lookupParameters"/>
+    	<property name="commandClass"
+    		value="org.telscenter.sail.webapp.domain.impl.LookupParameters"/>
+    	<property name="validator" ref="lookupParametersValidator"/>
+    </bean>
+    
+    <bean id="lookupParameters"
+    	class="org.telscenter.sail.webapp.domain.impl.LookupParameters"/>
+    	
+    <bean id="lookupStudentController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupStudentController">
+     	<property name="userService" ref="userService"/>
+     	<property name="commandName" value="lookupParameters"/>
+    	<property name="commandClass"
+    		value="org.telscenter.sail.webapp.domain.impl.LookupParameters"/>
+    	<property name="validator" ref="lookupParametersValidator"/>   	
     </bean>
 
     <!--  Author-related controllers -->    	

@@ -200,6 +200,8 @@
 				/admin/removenewssuccess.html=removeNewsItemController
 				/admin/removenewsconfirm.html=removeNewsConfirmController
 				/admin/findprojectrunsbyteacher.html=findProjectRunsByTeacherController
+				/admin/lookupteacher.html=lookupTeacherController
+				/admin/lookupstudent.html=lookupStudentController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				/repository/retrieveotml.html=retrieveOtmlController
