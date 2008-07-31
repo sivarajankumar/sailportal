@@ -84,8 +84,6 @@ public class ProjectServiceImplTest extends TestCase {
 		this.projectServiceImpl = new PodProjectServiceImpl();
 		this.mockProjectDao = createMock(ProjectDao.class);
 		this.projectServiceImpl.setProjectDao(mockProjectDao);
-		this.mockRooloProjectDao = createMock(ProjectDao.class);
-//		this.projectServiceImpl.setRooloProjectDao(this.mockRooloProjectDao);
 		this.mockCurnitService = createMock(CurnitService.class);
 		this.projectServiceImpl.setCurnitService(mockCurnitService);
 		this.mockJnlpService = createMock(JnlpService.class);
@@ -117,16 +115,12 @@ public class ProjectServiceImplTest extends TestCase {
 		// by familytag
 		List<Project> expectedList = new ArrayList<Project> ();
 		Project expectedProject = new ProjectImpl();
-		List<RooloProjectImpl> expectedRooloProjectList = new ArrayList<RooloProjectImpl>();
 		expectedProject.getProjectInfo().setFamilyTag(EXISTING_PROJECT_FAMILY_TAG);
 		expectedList.add(expectedProject);
 		expect(mockProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedList);
 		replay(mockProjectDao);
-		expect(mockRooloProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedRooloProjectList);
-		replay(mockRooloProjectDao);
 		assertEquals(expectedList, projectServiceImpl.getProjectListByTag(EXISTING_PROJECT_FAMILY_TAG));
 		verify(mockProjectDao);
-		verify(mockRooloProjectDao);
 		reset(mockProjectDao);
 				
 		// by projectinfotag
@@ -135,14 +129,10 @@ public class ProjectServiceImplTest extends TestCase {
 	
 	public void testGetProjectListByTag_EmptyList() throws Exception {
 		List<Project> expectedList = new ArrayList<Project> ();
-		List<RooloProjectImpl> expectedRooloProjectList = new ArrayList<RooloProjectImpl>();
 		expect(mockProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedList);
 		replay(mockProjectDao);
-		expect(mockRooloProjectDao.retrieveListByTag(EXISTING_PROJECT_FAMILY_TAG)).andReturn(expectedRooloProjectList);
-		replay(mockRooloProjectDao);
 		assertEquals(expectedList, projectServiceImpl.getProjectListByTag(EXISTING_PROJECT_FAMILY_TAG));
 		verify(mockProjectDao);
-		verify(mockRooloProjectDao);
 		reset(mockProjectDao);
 	}
 	
@@ -205,5 +195,4 @@ public class ProjectServiceImplTest extends TestCase {
 		assertTrue(true);
 	}
 
-	// TODO add test that uses rooloprojectdao.
 }
