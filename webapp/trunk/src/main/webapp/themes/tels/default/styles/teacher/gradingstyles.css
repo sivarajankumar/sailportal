@@ -75,6 +75,11 @@
 		
 /* CSS FOR GRADE BY STEP AND GRADE BY TEAM SELECTION LIST */ 
 
+#scoreBatchButton {
+	float:right;
+	margin-right:35px;
+}
+
 #gradeStepSelectionArea {
 	margin: 10px 0 0 30px;
 	padding:0px;
@@ -622,7 +627,64 @@
 	background-color:#FFFF66;
 	}
 	
+
+/* CSS FOR BATCH SCORE POP-UP WINDOW  */ 
+
+#batchWindowBorder {
+	background-color:#FFFFFF;
+	width: 700px;
+	text-align:center;
+	margin: 30px auto;
+	border: 1px solid #333333
+}
 	
+#batchHeader {
+	font-weight:bold;
+	background-image:url(../../images/Texture_Green3.png);
+	background-position:left top;
+	background-repeat:repeat;
+	border-bottom: 1px solid #333333;
+	padding:2px 0 4px 20px;
+	font-size:1.5em;
+	letter-spacing:1px;
+	font-variant:small-caps;
+}
+
+#currentDisplayCounter {
+  	text-align:left;
+  	font-size:1.0em;
+  	margin:30px 20px 30px 50px;
+}
+ 
+#scoreValueArea {
+	text-align:left;
+  	margin:10px 10px 10px 120px;
+}
+
+#percentage {
+	margin-left:10px;
+}
+
+#batchWindowBorder #batchButtonArea {
+	margin: 30px 0 35px 0;
+}
+
+#batchWindowBorder #batchButtonArea input {
+	background-color:#CCCCFF;
+	margin:5px;
+	font-size:1.1em;
+	letter-spacing:-.5px;
+}
+
+#batchWindowBorder #batchButtonArea input:hover {
+	background-color:#FFFF00;
+}
+#batchWindowBorder #error {
+	margin:20px;
+}
+
+
+
 /* EDIT MAXIMUM STEP VALUES page  */ 
 	
 #editValuesInstructions {

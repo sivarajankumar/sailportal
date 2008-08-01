@@ -330,7 +330,7 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
-<div id="overviewHeaderGradingv2"><spring:message code="teacher.gradingtool.1"/></div>
+<div id="overviewHeaderGradingv2"><spring:message code="teacher.grading.batch.1"/></div>
 
 <div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project ID ${projectId})</span></div>
 

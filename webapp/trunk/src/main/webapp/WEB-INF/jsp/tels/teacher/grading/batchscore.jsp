@@ -23,7 +23,7 @@
 -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
@@ -44,7 +44,7 @@
 
 </head>
 
-<body class="yui-skin-sam">
+<body class="yui-skin-sam" style="background-color:#CCCCCC;">
 
 <script type="text/javascript">
 
@@ -119,15 +119,18 @@
 	}
 </script>
 
-<br><br>
 
-Current grading display contains <h5>${fn:length(steps)} gradable items:</h5>
+<div id="batchWindowBorder">
 
-<br>
-Type an absolute score for these items: <input type="text" id="absoluteScore"/>
-<h5>OR</h5>
-Select a percent score for these items:
-<div id="percentage">
+<div id="batchHeader">score as batch</div> 
+
+<div id="currentDisplayCounter">Current grading display contains ${fn:length(steps)} gradable items.</div>
+
+<div id="scoreValueArea">
+<h5>Type an absolute score for these items: <input type="text" id="absoluteScore"/></h5>
+<h6>OR</h6>
+<h5>Select a percent score for these items:
+<span id="percentage">
 	<select id="select-percentage" name="precentage-select">
 		<option value=""></option>
 		<option value="1">100%</option>
@@ -139,9 +142,10 @@ Select a percent score for these items:
 		<option value=".7">70%</option>
 		<option value=".65">65%</option>
 	</select>
+</span>
+</h5>
 </div>
 
-<br>
 <c:forEach var="step" items="${steps }">
 	<c:set var="loc" value="teacher-score-${step.podUUID}_${workgroupId}"/>
 	<c:set var="score" value="${step.possibleScore}"/>
@@ -151,11 +155,13 @@ Select a percent score for these items:
 	</script>
 </c:forEach>
 
-<input id="score" type="button" value="RUN BATCH SCORE" onclick="score()"/> <input id="forgetIt" type="button" value="CANCEL" onclick="self.close()"/>
-<br><br>
+<div id="batchButtonArea">
+	<input id="score" type="button" value="RUN BATCH SCORE" onclick="score()"/> <input id="forgetIt" type="button" value="CANCEL" onclick="self.close()"/>
+</div>
+
 <div id="error"></div>
 
-
+</div>
 
 </body>
 </html>

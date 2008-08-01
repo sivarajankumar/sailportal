@@ -72,7 +72,11 @@
 	}
 
 	function popup(URL) {
-  		window.open(URL, 'PremadeComments', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=740,left = 450,top = 150');
+  		window.open(URL, 'PremadeComments', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=731,left = 450,top = 150');
+  	}
+  	
+  	function popup2(URL) {
+  		window.open(URL, 'PremadeComments', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=450,left = 450,top = 150');
   	}
   	
     function init() {
@@ -346,11 +350,16 @@
    	</div>
 </div>
 <div>   	
+
   <ul id="currentTeamNavList">
     <li class="currentTeamNavLink"><spring:message code="teacher.gradebyteam.2"/></li>
     <li class="currentTeamNavLink"><a href="selectworkgroup.html?runId=${runId}"><spring:message code="teacher.gradebyteam.3"/></a></li>
     <li class="currentTeamNavLink"><spring:message code="teacher.gradebyteam.4"/></li>	
   </ul>
+  <div id="scoreBatchButton">
+  	<input type="button" value="Score As Batch" onclick="javascript:popup2('batchscore.html?runId=${runId}&workgroupId=${workgroupId}')"/>
+  </div> 
+
 </div>
 
 <c:set var="ratingVar" value="0"/>
@@ -370,11 +379,8 @@ aggregate.value = set of workgroupWorkAggregate
   <c:set var="curnitmap" value="${aggregate.curnitmap}"/>
   <c:set var="workgroupId" value="${aggregate.workgroup.id}"/>
   
-  <div align="center">
-  	<input type="button" align="center" value="Score As Batch" onclick="javascript:popup('batchscore.html?runId=${runId}&workgroupId=${workgroupId}')"/>
-  </div>
-  <br><br>
   
+ 
    <c:forEach var="activity" varStatus="varAct" items="${curnitmap.project.activity}">
 		<div id="stepTitle">Activity ${activity.number+1}: ${activity.title}</div>  
 		<ul id="TeamSelectionList"> 
