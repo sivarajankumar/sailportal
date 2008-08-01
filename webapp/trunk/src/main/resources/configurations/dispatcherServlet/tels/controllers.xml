@@ -702,7 +702,11 @@
     	<property name="formView" value="teacher/grading/editmaxstepvalues" />
     	<property name="successView" value="teacher/grading/editmaxstepvaluesconfirm" />
 	</bean>
-
+	
+	<bean id="batchScoreController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.BatchScoreController">
+		<property name="gradingService" ref="gradingService"/>
+	</bean>
 	
 	<bean id="projectInfoController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectInfoController">

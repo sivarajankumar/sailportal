@@ -370,6 +370,10 @@ aggregate.value = set of workgroupWorkAggregate
   <c:set var="curnitmap" value="${aggregate.curnitmap}"/>
   <c:set var="workgroupId" value="${aggregate.workgroup.id}"/>
   
+  <div align="center">
+  	<input type="button" align="center" value="Score As Batch" onclick="javascript:popup('batchscore.html?runId=${runId}&workgroupId=${workgroupId}')"/>
+  </div>
+  <br><br>
   
    <c:forEach var="activity" varStatus="varAct" items="${curnitmap.project.activity}">
 		<div id="stepTitle">Activity ${activity.number+1}: ${activity.title}</div>  
@@ -641,6 +645,9 @@ aggregate.value = set of workgroupWorkAggregate
 </c:otherwise>
 </c:choose>
 
+<div align="center">
+  	<input type="button" align="center" value="Score As Batch" onclick="javascript:popup('batchscore.html?runId=${runId}&workgroupId=${workgroupId}')"/>
+</div>
 
 <div id="currentTeamHeader" > 
    	<div id="currentTeamLabel">

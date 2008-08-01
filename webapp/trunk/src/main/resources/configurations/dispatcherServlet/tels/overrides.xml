@@ -141,6 +141,7 @@
 				/teacher/grading/selectworkgroup.html=selectWorkgroupController
 				/teacher/grading/gradebyworkgroup.html=gradeByWorkgroupController
 				/teacher/grading/editmaxstepvalues.html=editMaxStepValuesController
+				/teacher/grading/batchscore.html=batchScoreController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
