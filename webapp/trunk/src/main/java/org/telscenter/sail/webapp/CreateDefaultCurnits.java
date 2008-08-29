@@ -351,8 +351,8 @@ public class CreateDefaultCurnits {
 	 * @param args
 	 */
 	public static void main(String[] args) {		
-		System.setProperty("org.apache.jackrabbit.repository.conf", "/Users/hirokiterashima/eclipseworkspaces/telsportalworkspace3.3/webapp/repository.xml");
-		System.setProperty("org.apache.jackrabbit.repository.home", "/Users/hirokiterashima/eclipseworkspaces/telsportalworkspace3.3/webapp/repository");
+		System.setProperty("org.apache.jackrabbit.repository.conf", "repository.xml");
+		System.setProperty("org.apache.jackrabbit.repository.home", "repository");
 
 		try {
 	        ConfigurableApplicationContext applicationContext = null;
@@ -362,8 +362,8 @@ public class CreateDefaultCurnits {
 			applicationContext = new ClassPathXmlApplicationContext(
 					springConfig.getRootApplicationContextConfigLocations());
 
-			CreateDefaultCurnits cdc = new CreateDefaultCurnits(applicationContext);
-			cdc.createDefaultCurnits(applicationContext);
+//			CreateDefaultCurnits cdc = new CreateDefaultCurnits(applicationContext);
+//			cdc.createDefaultCurnits(applicationContext);
 			//applicationContext.close();
 		} catch (BeanInstantiationException e) {
 			e.printStackTrace();
