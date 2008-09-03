@@ -575,7 +575,7 @@ aggregate.value = set of workgroupWorkAggregate
 	     																			</form>
     																			</div>
     																			
-    																			<c:set var="ratingVar" value="${ratingVar}0"/>
+    																			<c:set var="ratingVar" value="${ratingVar+1}"/>
     																			
 																				<div id="gradingSaveButton">
 																					<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button">

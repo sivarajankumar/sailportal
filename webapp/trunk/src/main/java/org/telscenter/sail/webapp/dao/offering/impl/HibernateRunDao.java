@@ -22,9 +22,9 @@
  */
 package org.telscenter.sail.webapp.dao.offering.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
@@ -89,7 +89,7 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 	    		"from WISEWorkgroupImpl as workgroup where workgroup.offering.id = :offeringId",
 	    		"offeringId", offeringId);
 
-		Set<Workgroup> workgroupSet = new HashSet<Workgroup>();
+		Set<Workgroup> workgroupSet = new TreeSet<Workgroup>();
 		workgroupSet.addAll(workgroupList);
 		return workgroupSet;
 	}

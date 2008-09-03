@@ -359,7 +359,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public Set<Workgroup> getWorkgroups(Long runId, Long periodId)
 			throws ObjectNotFoundException {
 		Set<Workgroup> workgroups = getWorkgroups(runId);
-		Set<Workgroup> returnSet = new HashSet<Workgroup>();
+		Set<Workgroup> returnSet = new TreeSet<Workgroup>();
 		for(Workgroup workgroup : workgroups){
 				if (((WISEWorkgroup) workgroup).getPeriod().getId().equals(periodId)){
 					returnSet.add(workgroup);

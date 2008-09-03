@@ -130,8 +130,8 @@
 		<div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div>  
 		<ul id="stepSelectionList"> 
 			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
-				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a> <span id="stepTypeStyle"> (${someStep.type})</span> <span id="stepGradingNotification"> X <spring:message code="teacher.gradebystep.4"/></span></li></c:if>
-				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${someStep.podUUID}&activityNumber=${someAct.number}&&tabIndex=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
+				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?runId=${runId}&podUUID=${someStep.podUUID}&tab=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a> <span id="stepTypeStyle"> (${someStep.type})</span> <span id="stepGradingNotification"> X <spring:message code="teacher.gradebystep.4"/></span></li></c:if>
+				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?runId=${runId}&podUUID=${someStep.podUUID}&tab=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
 			</c:forEach>
 		</ul>
     </c:forEach>

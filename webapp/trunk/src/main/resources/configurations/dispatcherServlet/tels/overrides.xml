@@ -142,6 +142,8 @@
 				/teacher/grading/gradebyworkgroup.html=gradeByWorkgroupController
 				/teacher/grading/editmaxstepvalues.html=editMaxStepValuesController
 				/teacher/grading/batchscore.html=batchScoreController
+				/teacher/grading/gradingcellinfo.html=gradingCellInfoController
+				/teacher/management/progresscellinfo.html=progressCellInfoController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
@@ -179,6 +181,7 @@
 				/teacher/management/updatemyaccountinfo.html=updateMyAccountInfoController
 				/teacher/management/projectpickerclassmonitor.html=projectPickerClassMonitorController
 				/teacher/management/classmonitor.html=classMonitorController
+				/teacher/management/classmonitormeaning.html=classMonitorMeaningController
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController

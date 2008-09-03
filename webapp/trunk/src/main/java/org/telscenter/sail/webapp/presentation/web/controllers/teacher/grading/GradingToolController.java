@@ -23,30 +23,24 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 
-import org.eclipse.emf.common.util.EList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.pas.emf.pas.EActivity;
-import org.telscenter.pas.emf.pas.ECurnitmap;
-import org.telscenter.pas.emf.pas.EProject;
-import org.telscenter.pas.emf.pas.ERim;
-import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.grading.impl.GradingServiceImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.pas.emf.pas.*;
 
 /**
  * Controller to display the teacher's interface for grading, including
@@ -58,21 +52,29 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  */
 public class GradingToolController extends AbstractController {
 
-	private static final String PREVIOUS_STEP = "previousStep";
-	private static final String ACTIVITY_NUMBER = "activityNumber";
-	private static final String TAB_INDEX = "tabIndex";
-	private static final String NEXT_STEP = "nextStep";
-	public static final String CURNIT_ID = "curnitId";
-	public static final String RUN = "run";
-	public static final String PROJECT_ID = "projectId";
-	public static final String PROJECT_TITLE = "projectTitle";
-	private static final String ACTIVITY = "activity";
+	private static final String RUNID = "runId";
+	
+	private static final String RUN = "run";
+	
+	private static final String ACTIVITYNUM = "activityNumber";
+	
+	private static final String PROJECTTITLE = "projectTitle";
+	
 	private static final String STEP = "step";
-	public static final String PODUUID = "podUUID";
-	public static final String STEP_AGGREGATE = "stepAggregate";
-	public static final String GRADE_TYPE = "GRADE_TYPE";
-	private GradingService gradingService;
+	
+	private static final String STEPID = "podUUID";
+	
+	private static final String NEXT = "next";
+	
+	private static final String PREVIOUS = "previous";
+	
+	private static final String TAB = "tab";
+	
+	private static final String WORKGROUPS = "workgroups";
+	
 	private RunService runService;
+	
+	private GradingService gradingService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -82,157 +84,59 @@ public class GradingToolController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+		String stepId = request.getParameter(STEPID);
+		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter(RUNID)));
+		ECurnitmap curnitMap = this.gradingService.getCurnitmap(run.getId());
+		
+		List<EStep> steps = new LinkedList<EStep>();
+		HashMap<EStep, EActivity> stepsActivities = new HashMap<EStep, EActivity>();
+		EStep thisStep = null;
+		EStep nextStep = null;
+		EStep prevStep = null;
+		EActivity thisActivity = null;
+		for(EActivity activity : (List<EActivity>) curnitMap.getProject().getActivity()){
+			for(EStep step : (List<EStep>) activity.getStep()){
+				if(GradingServiceImpl.gradableStepTypes.contains(step.getType())){
+					steps.add(step);
+					stepsActivities.put(step, activity);
+					if(step.getPodUUID().toString().equals(stepId)){
+						thisStep = step;
+						thisActivity = activity;
+					}
+				}
+			}
+		}
+		
+		int currentIndex = steps.indexOf(thisStep);
+		if(currentIndex > 0)
+			prevStep = steps.get(currentIndex - 1);
+		if(currentIndex < steps.size()-1)
+			nextStep = steps.get(currentIndex + 1);
+		
+		TreeMap<Long, Set<Workgroup>> workgroups = new TreeMap<Long, Set<Workgroup>>();
+		for(Group period : run.getPeriods()){
+			workgroups.put(period.getId(), this.runService.getWorkgroups(run.getId(), period.getId()));
+		}
 		
 		ModelAndView modelAndView = new ModelAndView();
-
-		String gradingType = request.getParameter(GRADE_TYPE);
-		String runId = request.getParameter(GradeByStepController.RUN_ID);
-		String podUUID = request.getParameter(PODUUID);
-		String tabIndex = request.getParameter(TAB_INDEX);
-		String activityNumber = request.getParameter(ACTIVITY_NUMBER);
+		modelAndView.addObject(RUN, run);
+		modelAndView.addObject(STEP, thisStep);
+		modelAndView.addObject(NEXT, nextStep);
+		modelAndView.addObject(PREVIOUS, prevStep);
+		modelAndView.addObject(ACTIVITYNUM, thisActivity.getNumber());
+		modelAndView.addObject(PROJECTTITLE, curnitMap.getProject().getTitle());
+		modelAndView.addObject(TAB, request.getParameter(TAB));
+		modelAndView.addObject(WORKGROUPS, workgroups);
 		
-		//get the stuff from the run
-		Run aRun = runService.retrieveById(new Long(runId));
-		System.out.println("OBJECT ID: " + aRun.getSdsOffering().getSdsCurnit().getSdsObjectId() );
-		String curnitId = aRun.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();
-		String projectId = aRun.getProject().getId().toString();
-		
-		ECurnitmap curnitMap = this.gradingService.getCurnitmap(new Long(runId));
-		EProject project = curnitMap.getProject();
-		
-		EList activities = project.getActivity();
-		List<EStep> gradableSteps = new LinkedList<EStep>();
-		
-		HashMap<EStep,EActivity> stepToActivityMap = new HashMap<EStep,EActivity>();
-		//make a list of all the steps and a map
-		for (Iterator iterator = activities.iterator(); iterator.hasNext();) {
-			EActivity foundActivity = (EActivity) iterator.next();
-				EList stepList = foundActivity.getStep();
-				//find the gradable steps
-				
-				for (Iterator stepListIt = stepList.iterator(); stepListIt
-						.hasNext();) {
-					EStep step = (EStep) stepListIt.next();
-					if(isGradable(step.getType()) ) {
-						gradableSteps.add(step);
-						stepToActivityMap.put(step, foundActivity);
-					}// if
-				
-				}// for
-		}// for
-		
-		//now go through the list of gradable steps
-		ListIterator<EStep> listIterator = gradableSteps.listIterator();
-	    while (listIterator.hasNext()) {
-	    	EStep previousStep = null;
-	    	EStep nextStep =  null;
-	    	
-	    	int previousIndex = listIterator.previousIndex();
-	    	
-	    	EStep currentStep =  listIterator.next();
-	    	
-	    	int nextIndex = listIterator.nextIndex();
-	    	
-	    	if( previousIndex < 0)
-	    		previousStep = null;
-	    	else
-	    		previousStep = gradableSteps.get(previousIndex);
-	    		
-	    	
-	    	if( nextIndex == gradableSteps.size() )
-	    		nextStep = null;
-	    	else
-	    		nextStep = gradableSteps.get(nextIndex);
-	    	
-			//get the current step
-			if( currentStep.getPodUUID().toString().equals(podUUID)) {
-				
-				//TODO: Hiroki use stepId instead of EStep object as param
-				Map<Group, Set<GradeWorkByWorkgroupAggregate>> gradeWorkByStepAggregateAllPeriods 
-				= this.gradingService.getGradeWorkByStepAggregateAllPeriods(new Long( runId ), currentStep);
-				
-				modelAndView.addObject(STEP_AGGREGATE, gradeWorkByStepAggregateAllPeriods);
-				this.stripHTMLFromBody(currentStep);
-				modelAndView.addObject(STEP, currentStep);
-		    	
-				modelAndView.addObject(PREVIOUS_STEP,previousStep);
-				modelAndView.addObject(NEXT_STEP,nextStep);
-				
-				modelAndView.addObject(ACTIVITY,stepToActivityMap.get(currentStep));
-				modelAndView.addObject(PROJECT_TITLE,project.getTitle());
-				modelAndView.addObject(CURNIT_ID,curnitId);
-				modelAndView.addObject(PROJECT_ID,projectId);
-				modelAndView.addObject(TAB_INDEX, tabIndex);
-				modelAndView.addObject(RUN, aRun);
-				
-				modelAndView.addObject(GradeByStepController.RUN_ID, runId);
-				return modelAndView;
-			}// if
-			
-			
-		}// for
-
 	    return modelAndView;
-	}
-
-	/**
-	 * Grabs the html within the middle of the html body
-	 * 
-	 * @param someStep - the current step
-	 */
-	public void stripHTMLFromBody(EStep someStep) {
-		EList rim = someStep.getRim();
-		for (Iterator iterator = rim.iterator(); iterator.hasNext();) {
-			ERim someRim = (ERim) iterator.next();
-			someRim.setPrompt(this.extractBody(someRim.getPrompt()));
-		}
-	}
-	
-	/**
-	 * extract the html from the body
-	 * 
-	 * @param prompt
-	 * @return
-	 */
-	public String extractBody(String prompt) {
-		  int start = prompt.indexOf("<body>");
-		  int end = prompt.indexOf("</body>");
-		  String extractedBody = "";
-		  
-		  if (start != -1 && end != -1) {
-		   extractedBody = prompt.substring(start+6, end);
-		   return extractedBody;
-		  }   
-		  return prompt;
-	}
-
-	/**
-	 * checks if this step is gradable
-	 * 
-	 * @param stepType
-	 * @return
-	 */
-	public static boolean isGradable(String stepType) {
-		if( stepType.equals("Note")) {
-			return true;
-		} else if(stepType.equals("Student Assessment" )) {
-			return true;
-		} else if(stepType.equals("CCDraw")) {
-			return true;
-		}// if
-		
-		return false;
-	}
-	public GradingService getGradingService() {
-		return gradingService;
-	}
-
-	public void setGradingService(GradingService gradingService) {
-		this.gradingService = gradingService;
 	}
 
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	public void setGradingService(GradingService gradingService) {
+		this.gradingService = gradingService;
 	}
 
 }

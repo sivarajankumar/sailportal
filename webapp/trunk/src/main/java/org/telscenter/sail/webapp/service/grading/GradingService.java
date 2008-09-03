@@ -34,6 +34,7 @@ import net.sf.sail.webapp.domain.group.Group;
 
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EStep;
+import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByStepAggregate;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 import org.telscenter.sail.webapp.domain.grading.IndividualScore;
@@ -49,6 +50,25 @@ import org.telscenter.sail.webapp.domain.grading.IndividualScore;
  */
 public interface GradingService {
 	
+	/**
+	 * Given an <code>ECurnitmap</code> returns a list of gradable steps
+	 * 
+	 * @param curnitMap an ECurnitmap
+	 * @return <code>List<EStep></code> of gradable steps in this ECurnitmap 
+	 */
+	public List<EStep> getGradableSteps(ECurnitmap curnitMap);
+	
+	/**
+	 * Given a <code>Long</code> runId returns a list of gradable steps associated
+	 * with a <code>Run</code> with the specified runId.
+	 * 
+	 * @param runId id of the run to find gradable steps for
+	 * @return <code>List<EStep></code> of gradable steps
+	 * @throws <code>ObjectNotFoundException</code> when no <code>Run</code> is
+	 * 		found with the associated runId
+	 */
+	public List<EStep> getGradableSteps(Long runId)throws ObjectNotFoundException;
+		
 	/**
 	 * Returns a <code>ECurnitMap</code> representation of the 
 	 * <code>Curnit</code> that is associated with a <code>Run</code>

@@ -80,6 +80,31 @@ public class GradingServiceImpl implements GradingService {
 	}
 	
 	/**
+	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradableSteps(ECurnitmap)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<EStep> getGradableSteps(ECurnitmap curnitMap){
+		List<EActivity> activities = curnitMap.getProject().getActivity();
+		List<EStep> steps = new ArrayList<EStep>();
+		
+		for(EActivity activity : activities){
+			List<EStep> eSteps = activity.getStep();
+			for(EStep step : eSteps){
+				if(gradableStepTypes.contains(step.getType()))
+					steps.add(step);
+			}
+		}
+		return steps;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getGradableSteps(java.lang.Long)
+	 */
+	public List<EStep> getGradableSteps(Long runId)throws ObjectNotFoundException{
+		return getGradableSteps(this.getCurnitmap(runId));
+	}
+	
+	/**
 	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getCurnitmap(java.lang.Long)
 	 */
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException {

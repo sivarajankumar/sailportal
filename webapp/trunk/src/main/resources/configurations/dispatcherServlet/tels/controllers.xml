@@ -205,6 +205,19 @@
 		<property name="runService" ref="runService" />
 	</bean>
 	
+	<bean id="gradingCellInfoController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingCellInfoController">
+		<property name="gradingService" ref="gradingService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+		<property name="runService" ref="runService"/>
+	</bean>
+	
+	<bean id="progressCellInfoController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProgressCellInfoController">
+		<property name="gradingService" ref="gradingService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+	</bean>
+	
 	<bean id="submitWorkgroupChangesController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.SubmitWorkgroupChangesController">
 		<property name="userService" ref="userService" />
@@ -586,6 +599,9 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassMonitorController">
 		<property name="runService" ref="runService" />
 	</bean>
+	
+	<bean id="classMonitorMeaningController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassMonitorMeaningController"/>
 
 	<bean id="batchStudentChangePasswordController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.BatchStudentChangePasswordController">

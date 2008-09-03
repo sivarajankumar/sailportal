@@ -41,8 +41,6 @@
 <script type='text/javascript' src='/webapp/dwr/interface/StringUtilsJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 <script language="JavaScript" type="text/javascript" src="../../javascript/tels/spryrating.js"></script>
-
-
 </head>
 <body class=" yui-skin-sam">
 <script type="text/javascript">
@@ -77,12 +75,9 @@
   	}
   	
     function init() {
-
         if (!YAHOO.example.container.wait) {
-
             // Initialize the temporary Panel to display while waiting for external content to load
-
-            YAHOO.example.container.wait = 
+			YAHOO.example.container.wait = 
                     new YAHOO.widget.Panel("wait",  
                                                     { width: "240px", 
                                                       fixedcenter: true, 
@@ -97,111 +92,53 @@
             //YAHOO.example.container.wait.setHeader("Loading, please wait...");
             YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
             YAHOO.example.container.wait.render(document.body);
-
         }
 
-        // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
-
-
-
-        var callback = {
-            success : function(o) {
-                //content.innerHTML = o.responseText;
-                //content.style.visibility = "visible";
-                YAHOO.example.container.wait.hide();
-            },
-            failure : function(o) {
-                //content.innerHTML = o.responseText;
-                //content.style.visibility = "visible";
-                //content.innerHTML = "CONNECTION FAILED!";
-                YAHOO.example.container.wait.hide();
-            }
-        }
-    
         // Show the Panel
         YAHOO.example.container.wait.show();
-        
-        // Connect to our data source and load the data
-        //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
     }
 
 		YAHOO.util.Event.on("previousStepLinkTop", "click", init);
 		YAHOO.util.Event.on("nextStepLinkTop", "click", init);
 		YAHOO.util.Event.on("previousStepLinkBottom", "click", init);
 		YAHOO.util.Event.on("nextStepLinkBottom", "click", init);
-	
-	
+		
+		var activeIndex = ${tab};
+			
 		//create tab
 	    var tabView = new YAHOO.widget.TabView('periodTabs'); 
 	    
-		tabView.set('activeIndex', ${tabIndex});								        
-	    tabView.addListener('activeTabChange', handleTabClick); 
+		tabView.set('activeIndex', ${tab});								        
+	    tabView.addListener('activeTabChange', handleTabClick);
 	    
 	    /**
 	     * When tabs change handle a click
 	     */
-	     function handleTabClick(e) { 
+	     function handleTabClick(e) {
 	     	 var nextVar = document.getElementById('nextStepLinkTop');  
 	     	 var tabIndex = tabView.getTabIndex( e.newValue );
-	     	 nextVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
+	     	 nextVar.href = 'gradingtool.html?runId=${run.id}&podUUID=${next.podUUID}&tab='+tabIndex;
 
 	     	 var nextVar = document.getElementById('nextStepLinkBottom');  
 	     	 var tabIndex = tabView.getTabIndex( e.newValue );
-	     	 nextVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex='+tabIndex;
+	     	 nextVar.href = 'gradingtool.html?runId=${run.id}&podUUID=${next.podUUID}&tab='+tabIndex;
 
 	     	 
 	     	 //previousStep
 	     	 var previousVar = document.getElementById('previousStepLinkTop');
 	     	 if( previousVar != null ) {  
 	     	 	var tabIndex = tabView.getTabIndex( e.newValue );
-	     	 	previousVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex='+tabIndex;
+	     	 	previousVar.href = 'gradingtool.html?runId=${run.id}&podUUID=${previous.podUUID}&tab='+tabIndex;
 	     	 }// if
 	     	 
 	     	 var previousVar = document.getElementById('previousStepLinkBottom');
 	     	 if( previousVar != null ) {  
 	     	 	var tabIndex = tabView.getTabIndex( e.newValue );
-	     	 	previousVar.href = 'gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex='+tabIndex;
+	     	 	previousVar.href = 'gradingtool.html?runId=${run.id}&podUUID=${previous.podUUID}&tab='+tabIndex;
 	     	 }// if
+	     	 
+	     	 activeIndex = tabView.getTabIndex(e.newValue);
 	    } 
-	     
-	   
-		
-		
-		/**
-		 * handle success handler
-		 */
-		var handleSuccess = function(o){
-			YAHOO.log("The success handler was called.  tId: " + o.tId + ".", "info", "example");
-			if(o.responseText !== undefined){
-				div.innerHTML = "<li>Transaction id: " + o.tId + "</li>";
-				div.innerHTML += "<li>HTTP status: " + o.status + "</li>";
-				div.innerHTML += "<li>Status code message: " + o.statusText + "</li>";
-				div.innerHTML += "<li>HTTP headers received: <ul>" + o.getAllResponseHeaders + "</ul></li>";
-				div.innerHTML += "<li>PHP response: " + o.responseText + "</li>";
-				div.innerHTML += "<li>Argument object: Array ([0] => " + o.argument[0] +
-								 " [1] => " + o.argument[1] + " )</li>";
-			}
-		};
-
-		/**
-		 * handle fail handler
-		 */
-		var handleFailure = function(o){
-				YAHOO.log("The failure handler was called.  tId: " + o.tId + ".", "info", "example");
-		
-			if(o.responseText !== undefined){
-				div.innerHTML = "<li>Transaction id: " + o.tId + "</li>";
-				div.innerHTML += "<li>HTTP status: " + o.status + "</li>";
-				div.innerHTML += "<li>Status code message: " + o.statusText + "</li>";
-			}
-		};
-
-		var callback =
-		{
-		  success:handleSuccess,
-		  failure:handleFailure,
-		  argument:['foo','bar']
-		};
 
 	
 	function enableButton( textarea,podId,rimName,period) {
@@ -318,6 +255,141 @@
 			
 			}
 			
+	/**
+	* Functions for star-rating
+	**/
+	function clearOthers(rating, checkbox){
+		rating.setValue(0)
+		checkbox.checked = false;
+	}
+														
+	function revisionClicked(rating, score, revision){
+		if(revision.checked){
+			rating.setValue(0);
+			score.value = "revision required";
+		}
+	}			
+		
+	
+	/**
+	* GradingCellInfo Object for making asyncronous requests
+	* and filling in appropriate gradingcell fields
+	**/
+	function GradingCellInfo(runId, workgroupId, podId, tabIndex){
+
+		this.runId = runId;
+		this.workgroupId = workgroupId;
+		this.podId = podId;
+		this.tabIndex = tabIndex;
+
+		this.callback = {
+			customevents:{
+			onStart:this.handleEvent.start,
+			onComplete:this.handleEvent.complete
+			},
+			success:this.handleSuccess,
+			failure:this.handleFailure,
+			scope:this
+		};
+	};
+	
+	GradingCellInfo.prototype.startRequest = function(){
+		YAHOO.util.Connect.asyncRequest('GET', 'gradingcellinfo.html?runId=' + this.runId + '&workgroupId=' + this.workgroupId + '&podUUID=' + this.podId, this.callback);
+	};
+	
+	GradingCellInfo.prototype.handleSuccess = function(o){
+		var xmlDoc = o.responseXML;
+		if(xmlDoc == null){
+			this.handleFailure();
+		}
+		var score = xmlDoc.getElementsByTagName('score');
+		var comment = xmlDoc.getElementsByTagName('comments');
+		var prompts = xmlDoc.getElementsByTagName('prompt');
+		var responses = xmlDoc.getElementsByTagName('response');
+		
+		if(score.length > 0 && score[0].childNodes.length > 0){
+			document.getElementById("teacher-score-" + this.podId + "_" + this.workgroupId).value = score[0].childNodes[0].nodeValue;
+		} else {
+			document.getElementById("teacher-score-" + this.podId + "_" + this.workgroupId).value = "";
+		}
+		if(comment.length > 0 && comment[0].childNodes.length > 0){
+			document.getElementById("comment-" + this.podId + "_" + this.workgroupId).value = comment[0].childNodes[0].nodeValue;
+		}
+		for(x=0;x<responses.length;x++){
+			if(responses[x].childNodes.length > 0){
+				if(responses[x].childNodes[0].nodeValue == "no student response yet"){
+					responses[x].childNodes[0].nodeValue = "<font color='666666'><i>no student response yet</i></font>";
+				}
+				document.getElementById("answer_" + x + "_" + this.workgroupId).innerHTML = responses[x].childNodes[0].nodeValue;
+			} else {
+				document.getElementById("answer_" + x + "_" + this.workgroupId).innerHTML = "";
+			}
+		}
+	};
+	
+	GradingCellInfo.prototype.handleFailure = function(o){
+		document.getElementById("teacher-score-" + this.podId + "_" + this.workgroupId).value = "error";
+		document.getElementById("comment-" + this.podId + "_" + this.workgroupId).value = "error loading data for this cell";
+	};
+	
+	GradingCellInfo.prototype.handleEvent = {
+		start:function(eventType, args){
+			//loading image moved -- now launches when request is added to requestManager
+		},
+		complete:function(eventType, args){
+			document.getElementById("load_" + this.workgroupId).innerHTML = "";
+			requestManager.finished(this);
+		}	
+	};
+	
+	/**
+	* Request Manager - manages the asynchronous GET requests of given object (o)
+	* and keeps five (this.MAX) running at any given time - prioritizes
+	* requests for the currently selected tab
+	**/
+	function RequestManager(){
+		this.MAX = 5;
+		this.activeRequests = [];
+		this.queuedRequests = [];
+		
+	};
+
+	RequestManager.prototype.addRequest = function(o){
+		if(this.queuedRequests[o.tabIndex] == null){
+			this.queuedRequests[o.tabIndex] = [];
+		}
+		this.queuedRequests[o.tabIndex].push(o);
+	};
+	
+	RequestManager.prototype.finished = function(o){
+		this.activeRequests.splice(this.activeRequests.indexOf(o),1);
+		this.nextRequest();
+	};
+	
+	RequestManager.prototype.nextRequest = function(){
+		if(this.queuedRequests[activeIndex].length > 0){
+			var queuedCell = this.queuedRequests[activeIndex].shift();
+			this.activeRequests.push(queuedCell);
+			queuedCell.startRequest();
+		} else {
+			for(x=0;x<this.queuedRequests.length;x++){
+				if(this.queuedRequests[x].length > 0){
+					var queuedCell = this.queuedRequests[x].shift();
+					this.activeRequests.push(queuedCell);
+					queuedCell.startRequest();
+					break;
+				}
+			}
+		}
+	};
+	
+	RequestManager.prototype.start = function(){
+		for(z=0;z<this.MAX;z++){
+			this.nextRequest();
+		}
+	};
+	
+	var requestManager = new RequestManager();
 </script>
 
 
@@ -330,18 +402,19 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
-<div id="overviewHeaderGradingv2"><spring:message code="teacher.grading.batch.1"/></div>
+<div id="overviewHeaderGradingv2"><spring:message code="teacher.gradingtool.1"/></div>
 
-<div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project ID ${projectId})</span></div>
+<div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project ID ${run.project.id})</span></div>
 
 <table id="currentStepTable" >
   <tr>
-  	<td id="currentStepLabel">Act ${activity.number+1}, Step ${step.number+1}: <span style="font-weight:normal;">${step.title}</span></td>
+  	<td id="currentStepLabel">Activity ${activityNumber+1}, Step ${step.number+1}: <span style="font-weight:normal;">${step.title}</span></td>
     
+     
     <td class="currentStepNavLink">
         <c:choose>
-				<c:when test="${!empty previousStep}">
-					<a id="previousStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
+				<c:when test="${!empty previous}">
+					<a id="previousStepLinkTop" href="gradingtool.html?runId=${run.id}&podUUID=${previous.podUUID}&tab=${tab}">
 	    			<spring:message code="teacher.gradingtool.2"/></a>
 				</c:when>
 				<c:otherwise>
@@ -350,366 +423,212 @@
 		</c:choose>
 	</td>
     
-    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}"><spring:message code="teacher.gradingtool.3"/></a>
+    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${run.id}"><spring:message code="teacher.gradingtool.3"/></a>
     </td>
     
     <td class="currentStepNavLink"> 
 	  <c:choose>
-			<c:when test="${!empty nextStep}">
-				<a id="nextStepLinkTop" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}"><spring:message code="teacher.gradingtool.4"/></a>
+			<c:when test="${!empty next}">
+				<a id="nextStepLinkTop" href="gradingtool.html?runId=${run.id}&podUUID=${next.podUUID}&tab=${tab}"><spring:message code="teacher.gradingtool.4"/></a>
 			</c:when>
 			<c:otherwise>
 				<spring:message code="teacher.gradingtool.4"/>
 			</c:otherwise>
 		</c:choose>
-	</td>		
+	</td>	
 	
   </tr>
  </table>
  
- <!--
-  <c:if test="${!empty previousStep}"> 
-	    
-	   	   </c:if>
-	    <a href="gradebystep.html?runId=${runId}">View Step Menu</a>
-	   	    <c:if test="${!empty nextStep}">
-	    <a id='nextStepLink' href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}">View Next Step</a>
-	    </c:if>
--->
-
-<!-- 
-aggregate.key = period
-aggregate.value = set of workgroupWorkAggregate
- -->
+<c:set var="ratingVar" value="0"/>
+<c:set var="tIndex" value="0"/>
 
 <div id="periodTabs" class="yui-navset"> 
 		<!-- create the tabs nav -->
 		<ul class="yui-nav" style="font-size:.8em; text-transform:uppercase;"> 
-			<c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
-				 <li style="margin-right:4px;"><a href="${aggregate.key.name}"><em>Period ${aggregate.key.name}</em></a></li> 
+			<c:forEach var="period" varStatus="astatus" items="${run.periods}">
+				 <li style="margin-right:4px;"><a href="${period.name}"><em>Period ${period.name}</em></a></li>
 			 </c:forEach> 
 		 </ul>   
 		 <!-- create the tabs content -->
 		<div class="yui-content" style="background-color:#FFFFFF;">
-			 <c:forEach var="aggregate" varStatus="astatus" items="${stepAggregate}">
-			
-			 <c:set var="period" value="${fn:replace(aggregate.key.name, ' ', '-')}"/>
+			<c:forEach var="period" varStatus="astatus" items="${run.periods}">
 			<div>
 				<!-- Actual Tab 
 					${workgroupAggregateObj} = workgroupAggregateObj
 				 -->
-				<c:if test="${empty aggregate.value}"> 
-					<div id="noTeamsInPeriod" style="padding:20px 0;">
-						<spring:message code="teacher.gradingtool.5"/>
-					</div>
-				</c:if>
-					<c:forEach var="workgroupAggregateObj" varStatus="workgroupAggregateObjStatus" items="${aggregate.value}">
-						<!-- get the workgroup id -->
-						
-						<c:set var="workgroupId" value="${workgroupAggregateObj.workgroup.id}"/>
-						<div align="center">
-						<table id="gradingTeamTable"  border="1" class="sample">
-						<!-- table header -->
-									<tr id="groupHeaderRow">
-										<td class="boldText" width="45%">
-										<!--  print member anmes -->
+				 <c:choose>
+				 	<c:when test="${empty workgroups[period.id]}">
+				 		<div id="noTeamsInPeriod" style="padding:20px 0;">
+				 			<spring:message code="teacher.gradingtool.5"/>
+				 		</div>
+				 	</c:when>
+				 	<c:otherwise>
+				 		<c:forEach var="workgroup" varStatus="workgroupStatus" items="${workgroups[period.id]}">
+							<div align="center">
+							<table id="gradingTeamTable"  border="1" class="sample">
+								<tr id="groupHeaderRow">
+									<td class="boldText" width="45%">
 										<div  class="tdHeader">
-										<class="headerFont">Group ${workgroupAggregateObj.workgroup.id}: 
-										<c:forEach var="user" varStatus="userStatus"
-											items="${workgroupAggregateObj.workgroup.members}">
-										 		${user.userDetails.firstname} ${user.userDetails.lastname}
-										 		   <c:if test="${userStatus.last=='false'}">
-							     					&
-							    				</c:if>
-										 	</c:forEach>
-										 </div>
-										</td>
-										
-										<td width="35%" >
-										
-																										   	<c:set var="commentDone" value="false"/>
-																   	<c:set var="commentAnnotation" value=" "/>
-												     				<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
-																	
-																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
-																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
-																		
-																			<c:if test="${annotation.entityUUID == step.podUUID}">
-																			  <c:if test="${empty annotation.entityName}" >
-																			     <c:if test="${commentDone == false}">
-																				   <c:set var="commentAnnotation" value="${annotation}"/>
-																				   <c:set var="commentDone" value="true"/>
-																			     </c:if>
-																			  </c:if>
-																			</c:if>
-																		</c:if>
-																		</c:forEach>
-																	</c:forEach>
-																	
-																	
-										<div align="center" class="tdHeader" class="headerFont"><spring:message code="teacher.gradingtool.6"/> <span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${commentAnnotation.entityUUID}_${workgroupId}')"><spring:message code="teacher.gradingtool.7"/></a></span></div>
-										</td>
-										<td width="20%">
+										<class="headerFont">Team ${workgroup.id}:
+										<c:forEach var="user" varStatus="userStatus" items="${workgroup.members}">
+											${user.userDetails.firstname} ${user.userDetails.lastname}
+										 	<c:if test="${userStatus.last=='false'}">&</c:if>
+										</c:forEach></class>
+										</div>
+									</td>
+									<td width="35%">
+										<div align="center" class="tdHeader" class="headerFont"><spring:message code="teacher.gradingtool.6"/> <span id="preMadeCommentsLink"><a href="javascript:popup('premadeComments.html?commentBox=comment-${step.podUUID}_${workgroup.id}')"><spring:message code="teacher.gradingtool.7"/></a></span></div>
+									</td>
+									<td width="20%">
 										<div align="center" class="tdHeader" class="headerFont"><spring:message code="teacher.gradingtool.8"/></div>
-										</td>
-									</tr>
-							<!-- End Table Header -->
-							<!-- for no work in work group -->
-							<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${workgroupAggregateObj.sessionBundles}">
-								<c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundle.ESessionBundle.sockParts}">
-									<c:forEach var="rimFromStep" items="${step.rim}">
-											<c:if test="${sockPart.rimName == rimFromStep.rimname}">
-												<c:set var="noWorkFound" value="false"/>
-											</c:if>
-									</c:forEach>
-								</c:forEach>
-							</c:forEach>
-
-							<!-- no work found this is disabled -->
-							<c:set var="noWorkFound" value="true"/>
-							<c:choose>
-								<c:when test="${noWorkFound == false}">
-									<tr><td colspan="3" align="center"><spring:message code="teacher.gradingtool.9"/></td></tr>
-								</c:when>
-								<c:otherwise>
-									<!-- do the rest of the table -->
+									</td>
+								</tr>
+								
+								<!-- beginning of cell table - prompts -->
+								<c:set var="rimIndex" value="0"/>
+								<c:forEach var="rimFromStep" varStatus="rimListStatus" items="${step.rim}">
+								<tr>
+									<td id="stepQuestionField" class="questionField">
+									<c:choose>
+										<c:when test="${fn:length(step.rim) > 1}">
+											<b>Part ${rimListStatus.count}:</b> ${rimFromStep.prompt}
+										</c:when>
+										<c:otherwise>
+											${rimFromStep.prompt}
+										</c:otherwise>
+									</c:choose>
+									</td>
 									
-										<c:forEach var="rimFromStep" varStatus="rimListStatus" items="${step.rim}">
-											<tr>
-						                          		<td id="stepQuestionField" class="questionField">
-						                          		<!-- prompt -->
-						                          		<c:choose>
-														        <c:when test="${fn:length(step.rim) > 1}">
-														            <b>Part ${rimListStatus.count}:</b> ${rimFromStep.prompt}
-														        </c:when>
-														        <c:otherwise>
-														           ${rimFromStep.prompt}
-														        </c:otherwise>
-														    </c:choose>
-
-						                          		<!-- print out part if more than one element -->
-						                          		</td>
-						                          		
-						                          		<!-- create the textbox -->
-						                          		
-															<c:if test="${rimListStatus.first}">
-																   <td id="teacherFeedbackTd" rowspan="${fn:length(step.rim)*2}">
-																   <div align="center">
-																   	<c:set var="commentDone" value="false"/>
-																   	<c:set var="commentAnnotation" value=" "/>
-												     				<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
-																	
-																	<c:forEach var="annotation" items="${annotationGroup.annotations}">
-																		<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/comments'}">
-																		
-																			<c:if test="${annotation.entityUUID == step.podUUID}">
-																			  <c:if test="${empty annotation.entityName}" >
-																			     <c:if test="${commentDone == false}">
-																				   <c:set var="commentAnnotation" value="${annotation}"/>
-																				   <c:set var="commentDone" value="true"/>
-																			     </c:if>
-																			  </c:if>
-																			</c:if>
-																		</c:if>
-																		</c:forEach>
-																	</c:forEach>
-																    <div id="div_${commentAnnotation.entityUUID}_${workgroupId}" >
-																        <authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
-  																			<textarea id="comment-${commentAnnotation.entityUUID}_${workgroupId}" class="comment-${commentAnnotation.entityUUID}_${workgroupId}" cols="45" rows="6"  onkeypress="enableButton(this,'${commentAnnotation.entityUUID}','${workgroupId}','${period}')" >${commentAnnotation.contents}</textarea>
-  	                                                                    </authz:accesscontrollist>
-																	</div>
-																   
-																   </div>
-																   </td>   		
-															</c:if>
-														  <!-- create the scoring -->
-						                          		
-						                          			<c:if test="${rimListStatus.first}">
-																   <td rowspan="${fn:length(step.rim)*2}">
-																   
-																    <div align="center">
-																	<c:set var="scoreDone" value="false"/>
-																	<c:set var="scoreAnnotation" value=" "/>
-															     		<c:forEach var="annotationGroup" items="${workgroupAggregateObj.annotationBundle.EAnnotationBundle.annotationGroups}">
-																				
-																				<c:forEach var="annotation" items="${annotationGroup.annotations}">
-																					<c:if test="${annotationGroup.annotationSource == 'http://telscenter.org/annotation/score'}">
-																						<c:if test="${annotation.entityUUID == step.podUUID}">
-																						<c:if test="${scoreDone == false}">
-																							<c:set var="score" value="${annotation.contents}"/>
-																							<c:set var="scoreAnnotation" value="${annotation}"/>
-																							<c:if test="${empty score}">
-																								<c:set var="score" value="<spring:message code='teacher.gradingtool.10'/>"/>
-																							</c:if>
-																							<c:set var="scoreDone" value="true"/>
-																						</c:if>
-																						</c:if>
-																					</c:if>
-												
-																				</c:forEach>
-																		</c:forEach>
-																		 		<authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
-																					<input class="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" id="teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" type="text" size="7" value="${score}" onfocus="clearOthers(rating${ratingVar}, document.getElementById('checkbox-${scoreAnnotation.entityUUID}_${workgroupId}'))"/><span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradingtool.14"/>&nbsp;</span><input id="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" class="possible-score-${scoreAnnotation.entityUUID}_${workgroupId}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
-  	                        													
-																				<div id="spryrating-teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}" class="ratingContainer" align="center">
-																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
-																					<span class="ratingButton"></span>
-																					<span class="ratingCounter"></span>
-																				</div>
-																				
-																				<script type="text/javascript">
-																				
-																				function clearOthers(rating, checkbox){
-																					rating.setValue(0)
-																					checkbox.checked = false;
-																				}
-																				function revisionClicked(rating, score, revision){
-																					if(revision.checked){
-																						rating.setValue(0);
-																						score.value = "revision required";
-																					}
-																				}			
-																																			
-																					var rating${ratingVar} = new Spry.Widget.Rating("spryrating-teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}", {counter: "true"});
-																					var preVal${ratingVar} = 0;
-																					function updateAfterRate(notifyType, notifier, data)
-																					{
-																						if (notifyType == "onPreRate"){
-																							preVal${ratingVar} = rating${ratingVar}.getValue();
-																						}
-																						
-																						if (notifyType == "onPostRate"){
-																						    var outOf = document.getElementById("possible-score-${scoreAnnotation.entityUUID}_${workgroupId}").value;
-																						    var rated = rating${ratingVar}.getValue();
-																						    var score;
-																						    switch(rated){
-																						    	case 5:
-																						    		if(preVal${ratingVar} == 5){
-																							    		rating${ratingVar}.setValue(4.5);
-																							    		score = Math.round(.9 * outOf);
-																							    	} else {
-																							    		score = outOf;
-																							    	}
-																							    	break;
-																							    case 4:
-																							    	if(preVal${ratingVar} == 4){
-																							    		rating${ratingVar}.setValue(3.5);
-																							    		score = Math.round(.7 * outOf);
-																							    	} else {
-																							    		score = Math.round(.8 * outOf);
-																							    	}
-																							    	break;
-																							    case 3:
-																							    	if(preVal${ratingVar} == 3){
-																							    		rating${ratingVar}.setValue(2.5);
-																							    		score = Math.round(.5 * outOf);
-																							    	} else {
-																							    		score = Math.round(.6 * outOf);
-																							    	}
-																							    	break;
-																							    case 2:
-																							    	if(preVal${ratingVar} == 2){
-																							    		rating${ratingVar}.setValue(1.5);
-																							    		score = Math.round(.3 * outOf);
-																							    	} else {
-																							    		score = Math.round(.4 * outOf);
-																							    	}
-																							    	break;
-																							    case 1:
-																							    	if(preVal${ratingVar} == 1){
-																							    		rating${ratingVar}.setValue(.5);
-																							    		score = Math.round(.1 * outOf);
-																							    	} else {
-																							    		score = Math.round(.2 * outOf);
-																							    	}
-																							    	break;
-																							    default:
-																							    	score = 0;
-																						    }
-																						    document.getElementById("teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}").value = score;
-																							document.getElementById("checkbox-${scoreAnnotation.entityUUID}_${workgroupId}").checked = false;
-																							}
-																					}
-																					rating${ratingVar}.addObserver(updateAfterRate);
-																				</script>
-																				<br>
-																				
-																				<div id="revisionRequiredArea" >
-	     																			<form onclick="revisionClicked(rating${ratingVar}, document.getElementById('teacher-score-${scoreAnnotation.entityUUID}_${workgroupId}'), document.getElementById('checkbox-${scoreAnnotation.entityUUID}_${workgroupId}'))">
-	     																				<input type="checkbox" name="checkBox" id="checkbox-${scoreAnnotation.entityUUID}_${workgroupId}"/><span><spring:message code="teacher.gradingtool.11"/></span>
-	     																			</form>
-    																			</div>
-    																			
-    																			<c:set var="ratingVar" value="${ratingVar}0"/>
-    																			
-																				<div id="gradingSaveButton">
-																					<span id="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" class="yui-button yui-push-button">
-    					                                                                        <em class="first-child"><button type="submit" name="pushbutton-${scoreAnnotation.entityUUID}_${workgroupId}" onClick="javascript:doSubmit(this,'${scoreAnnotation.entityUUID}','null','${period}','${workgroupId}','${runId}')"><spring:message code="teacher.gradingtool.12"/><br><spring:message code="teacher.gradingtool.13"/></button></em>
-																					</span>
-																				</div>
+									<!-- comment textbox -->
+									<c:if test="${rimListStatus.first}">
+										<td id="teacherFeedbackTd" rowspan="${fn:length(step.rim)*2}">
+											<div align="center">
+											<div id="div_${step.podUUID}_${workgroup.id}" >
+												<authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
+  													<textarea id="comment-${step.podUUID}_${workgroup.id}" class="comment-${step.podUUID}_${workgroup.id}" cols="45" rows="6"  onkeypress="enableButton(this,'${step.podUUID}','${workgroup.id}','${period}')" ></textarea>
+												</authz:accesscontrollist>
+											</div>
+											</div>
+											<div id="load_${workgroup.id}" align="center" disabled="true"></div>
+										</td>
+									</c:if>
+									
+									<!-- start asynchronous calls to fill in table -->
+									<c:if test="${rimListStatus.last}">
+										<script type="text/javascript">
+											requestManager.addRequest(new GradingCellInfo(${run.id}, ${workgroup.id}, '${step.podUUID}', ${tIndex}));
+											document.getElementById("load_${workgroup.id}").innerHTML = '<font color="8B0000"><i>Loading data for this team</i></font><br><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif />';
+										</script>
+									</c:if>
+									
+									<!-- grading -->
+									<c:if test="${rimListStatus.first}">
+										<td rowspan="${fn:length(step.rim)*2}">						   
+											<div align="center">
+												<authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
+													<input class="teacher-score-${step.podUUID}_${workgroup.id}" id="teacher-score-${step.podUUID}_${workgroup.id}" type="text" size="7" value="" onfocus="clearOthers(rating${ratingVar}, document.getElementById('checkbox-${step.podUUID}_${workgroup.id}'))"/>
+													<span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradingtool.14"/>&nbsp;</span>
+													<input id="possible-score-${step.podUUID}_${workgroup.id}" class="possible-score-${step.podUUID}_${workgroup.id}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
+													<div id="spryrating-teacher-score-${step.podUUID}_${workgroup.id}" class="ratingContainer" align="center">
+														<span class="ratingButton"></span>
+														<span class="ratingButton"></span>
+														<span class="ratingButton"></span>
+														<span class="ratingButton"></span>
+														<span class="ratingButton"></span>
+														<span class="ratingButton"></span>
+														<span class="ratingButton"></span>
+														<span class="ratingButton"></span>
+														<span class="ratingCounter"></span>
+													</div>
+													
+													<script type="text/javascript">
+														var rating${ratingVar} = new Spry.Widget.Rating("spryrating-teacher-score-${step.podUUID}_${workgroup.id}", {counter: "true"});
+														function updateAfterRate(notifyType, notifier, data){
+															if (notifyType == "onPostRate"){
+		    													var outOf = document.getElementById("possible-score-${step.podUUID}_${workgroup.id}").value;
+		    													var rated = rating${ratingVar}.getValue();
+		    													var score;
+		    													switch(rated){
+		    													case 8:
+		    														score = outOf;
+		    														break;
+		    													case 7:
+		    														score = Math.round(.95 * outOf);
+		    														break;
+		    													case 6:
+		    														score = Math.round(.9 * outOf);
+		    														break;
+		    													case 5:
+		    														score = Math.round(.85 * outOf);
+		    														break;
+		    													case 4:
+		    														score = Math.round(.8 * outOf);
+		    														break;
+		    													case 3:
+		    														score = Math.round(.75 * outOf);
+		    														break;
+		    													case 2:
+		    														score = Math.round(.7 * outOf);
+		    														break;
+		    													case 1:
+		    														score = Math.round(.65 * outOf);
+							   										break;
+																default:
+																	score = 0;																						    		
+																}															
+																document.getElementById("teacher-score-${step.podUUID}_${workgroup.id}").value = score;
+																document.getElementById("checkbox-${step.podUUID}_${workgroup.id}").checked = false;
+															}
+														}
+														rating${ratingVar}.addObserver(updateAfterRate);
+													</script><br>
+													
+													<div id="revisionRequiredArea">
+	     												<form onclick="revisionClicked(rating${ratingVar}, document.getElementById('teacher-score-${step.podUUID}_${workgroup.id}'), document.getElementById('checkbox-${step.podUUID}_${workgroup.id}'))">
+	     													<input type="checkbox" name="checkBox" id="checkbox-${step.podUUID}_${workgroup.id}"/><span><spring:message code="teacher.gradingtool.11"/></span>
+	     												</form>
+    												</div>
+											
+													<c:set var="ratingVar" value="${ratingVar + 1}"/>
+													
+													<div id="gradingSaveButton">
+														<span id="pushbutton-${step.podUUID}_${workgroup.id}" class="yui-button yui-push-button">
+    					                                	<em class="first-child"><button type="submit" name="pushbutton-${step.podUUID}_${workgroup.id}" onClick="javascript:doSubmit(this,'${step.podUUID}','null','${period}','${workgroup.id}','${run.id}')"><spring:message code="teacher.gradingtool.12"/><br><spring:message code="teacher.gradingtool.13"/></button></em>
+														</span>
+													</div>
 																			    
-																				<div id="scoringHelpLink">
-																					<a href="#" style="color:#999999;"><spring:message code="teacher.gradingtool.15"/></a>
-																					
-																				</div>
-																				</authz:accesscontrollist>	
-																		<div class="saved-${scoreAnnotation.entityUUID}_${workgroupId}" style="display: inline; width: 11%;"></div>																   
-																		</div>	
-																		
-																		
-																   </td>   		
-															</c:if>
-						                          		
-						                     </tr>
-						                     <tr>
-						                          		<td>
-						                          		<!--answer -->
-						                          			<div id="stepStudentAnswerField" class="answerDiv">
-							                          			<c:set var="sockPartFound" value="false"/>
-							                          			<c:set var="sockEntryValue" value="" />
-							                          			<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${workgroupAggregateObj.sessionBundles}">
-							                          			    <c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundle.ESessionBundle.sockParts}">
-							                          				    <c:if test="${sockPart.rimName == rimFromStep.rimname}">
-							                          					    <c:set var="sockPartFound" value="true"/>
-							                          					    <c:forEach var="sockEntry" varStatus="sockStatus" items="${sockPart.sockEntries}">
-							                          					        <c:if test="${sockStatus.index == fn:length(sockPart.sockEntries) - 1}">
-																					<c:set var="sockEntryValue" value ="${sockEntry.value}" />
-																				</c:if>
-				  			 											    </c:forEach>
-							                          				    </c:if>
-							                          			    </c:forEach>
-							                          			</c:forEach>
-							                          			
-							                          			<c:choose>
-																      <c:when test="${sockPartFound == 'false'}">
-																      		<span id="noStudentReponseYet">no student response yet</span>
-																      </c:when>
-																      <c:otherwise>
-																                ${sockEntryValue}
-																				<c:set var="sockPartFound" value="false"/>
-																      </c:otherwise>
-														  		 </c:choose>
-						                          			</div>
-						                          		</td>
-						                          		
-						                     </tr>
-										</c:forEach>
-								</c:otherwise>
-							</c:choose>
+													<div id="scoringHelpLink">
+														<a href="#" style="color:#999999;"><spring:message code="teacher.gradingtool.15"/></a>
+													</div>
+												</authz:accesscontrollist>
+												<div class="saved-${step.podUUID}_${workgroup.id}" style="display: inline; width: 11%;"></div>	
+											</div>
+										</td>
+									</c:if>
+								</tr>
+								
+								<tr>
+									<!-- answers to prompts -->
+									<td>
+						            	<div id="stepStudentAnswerField" class="answerDiv">
+											<div id="answer_${rimIndex}_${workgroup.id}">answer here</div>
+										</div>
+									</td>
+								</tr>
+								<c:set var="rimIndex" value="${rimIndex + 1}"/>
+								</c:forEach>
 							</table>
 							</div>
-					</c:forEach> 
-		
-		
-		
-				</div>	 
-			</c:forEach> 
-		</div>
-		<!-- end create tab content -->
+						</c:forEach>
+				 	</c:otherwise>
+				 </c:choose>
+			<c:set var="tIndex" value="${tIndex+1}"/>
+			</div>
+			</c:forEach>		 
 </div>
+
+<script type="text/javascript">requestManager.start();</script>
 
 <table id="currentStepTable" >
   <tr>
@@ -717,8 +636,8 @@ aggregate.value = set of workgroupWorkAggregate
     <td class="currentStepNavLink">
     
     <c:choose>
-			<c:when test="${!empty previousStep}">
-				<a id="previousStepLinkBottom" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${previousStep.podUUID}&tabIndex=${tabIndex}">
+			<c:when test="${!empty previous}">
+				<a id="previousStepLinkBottom" href="gradingtool.html?runId=${run.id}&podUUID=${previous.podUUID}&tab=${tab}">
     			<spring:message code="teacher.gradingtool.2"/></a>
 			</c:when>
 			<c:otherwise>
@@ -727,12 +646,12 @@ aggregate.value = set of workgroupWorkAggregate
 	</c:choose>
 
 </td>
-    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${runId}"><spring:message code="teacher.gradingtool.3"/></a></td>
+    <td class="currentStepNavLink"><a href="gradebystep.html?runId=${run.id}"><spring:message code="teacher.gradingtool.3"/></a></td>
     <td class="currentStepNavLink"> 
 
 	  <c:choose>
-			<c:when test="${!empty nextStep}">
-				<a id="nextStepLinkBottom" href="gradingtool.html?GRADE_TYPE=step&runId=${runId}&podUUID=${nextStep.podUUID}&tabIndex=${tabIndex}"><spring:message code="teacher.gradingtool.4"/></a>
+			<c:when test="${!empty next}">
+				<a id="nextStepLinkBottom" href="gradingtool.html?runId=${run.id}&podUUID=${next.podUUID}&tab=${tab}"><spring:message code="teacher.gradingtool.4"/></a>
 			</c:when>
 			<c:otherwise>
 				<spring:message code="teacher.gradingtool.4"/>
