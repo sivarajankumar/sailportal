@@ -22,12 +22,22 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.management;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Set;
+import java.util.TreeMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -42,7 +52,15 @@ public class ClassMonitorController extends AbstractController {
 	
 	private static final String VIEW_NAME = "teacher/management/classmonitor";
 
-	private static final String RUN_KEY = "run";
+	private static final String RUNID = "runId";
+	
+	private static final String RUN = "run";
+	
+	private static final String DATE = "date";
+	
+	private static final String TAB = "tab";
+	
+	private static final String WORKGROUPS = "workgroups";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -50,13 +68,20 @@ public class ClassMonitorController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-		String runIdStr = request.getParameter("runId");
-		Long runId = Long.valueOf(runIdStr);
-		Run run = runService.retrieveById(runId);
 
+		Run run = runService.retrieveById(Long.valueOf(request.getParameter(RUNID)));
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss MM/dd/yyyy");
+
+		TreeMap<Long, Set<Workgroup>> workgroups = new TreeMap<Long, Set<Workgroup>>();
+		for(Group period : run.getPeriods()){
+			workgroups.put(period.getId(), this.runService.getWorkgroups(run.getId(), period.getId()));
+		}
+		
 		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-		modelAndView.addObject(RUN_KEY, run);
+		modelAndView.addObject(RUN, run);
+		modelAndView.addObject(TAB, request.getParameter(TAB));
+		modelAndView.addObject(DATE, sdf.format(new Date()));
+		modelAndView.addObject(WORKGROUPS, workgroups);
 		return modelAndView;
 	}
 
