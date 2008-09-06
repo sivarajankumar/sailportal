@@ -85,26 +85,7 @@ public class UploadOtmlController extends SimpleFormController {
 			return modelAndView;
 		} else {
 			Project project = projectService.getById(request.getParameter("projectId"));
-//			file.transferTo(((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile());
-//			File oldOtmlFile = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile();
-//
-//			// need to generate new file path, otherwise won't save in jackrabbit...
-//			// need to fix this in jackrabbit.
-//			Random rand = new Random();
-//			File otmlFile = new File(oldOtmlFile.getPath() + rand.nextInt());
-//			OutputStream fos = new FileOutputStream(otmlFile);
-//			InputStream fis = file.getInputStream();
-//			
-//			// transfer bytes from in to out
-//			byte[] buf = new byte[1024];
-//			int len;
-//			while ((len = fis.read(buf)) > 0) {
-//				fos.write(buf, 0, len);
-//			}
-//			fis.close();
-//			fos.close();
-			byte [] oldOtmlData = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getBytes();
-			((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(oldOtmlData);		
+			((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(file.getBytes());		
 
 			projectService.updateProject(project);
 		}

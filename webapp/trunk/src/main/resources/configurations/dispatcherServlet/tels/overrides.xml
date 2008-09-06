@@ -99,6 +99,7 @@
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController
 				/student/changestudentpassword.html=changeUserPasswordController
+				/student/brainstorm/studentbrainstorm.html=studentBrainstormController
 				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
@@ -143,7 +144,7 @@
 				/teacher/grading/editmaxstepvalues.html=editMaxStepValuesController
 				/teacher/grading/batchscore.html=batchScoreController
 				/teacher/grading/gradingcellinfo.html=gradingCellInfoController
-				/teacher/management/progresscellinfo.html=progressCellInfoController
+ 				/teacher/management/progresscellinfo.html=progressCellInfoController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController

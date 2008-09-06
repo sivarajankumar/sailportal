@@ -211,13 +211,13 @@
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
 		<property name="runService" ref="runService"/>
 	</bean>
-	
+
 	<bean id="progressCellInfoController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProgressCellInfoController">
 		<property name="gradingService" ref="gradingService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
 	</bean>
-	
+
 	<bean id="submitWorkgroupChangesController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.SubmitWorkgroupChangesController">
 		<property name="userService" ref="userService" />
@@ -599,7 +599,7 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassMonitorController">
 		<property name="runService" ref="runService" />
 	</bean>
-	
+
 	<bean id="classMonitorMeaningController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassMonitorMeaningController"/>
 
@@ -905,6 +905,11 @@
     	<property name="validator" ref="lookupParametersValidator"/>   	
     </bean>
 
+    <bean id="studentBrainstormController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.StudentBrainstormController">
+        <property name="brainstormService" ref="brainstormService" />      
+    </bean>
+    
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"
          class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.PostProjectController">

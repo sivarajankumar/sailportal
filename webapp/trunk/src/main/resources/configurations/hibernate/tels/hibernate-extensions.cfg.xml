@@ -55,6 +55,14 @@
             class="org.telscenter.sail.webapp.domain.newsitem.impl.NewsItemImpl" />      
         <mapping
             class="org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl" />      
+        <mapping
+            class="org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl" />      
+        <mapping
+            class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl" />      
+        <mapping
+            class="org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl" />      
+        <mapping
+            class="org.telscenter.sail.webapp.domain.brainstorm.comment.impl.CommentImpl" />      
             
     </session-factory>
 </hibernate-configuration>
