@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        owner_sid bigint,
-        object_id_class bigint not null,
         parent_object bigint,
+        object_id_class bigint not null,
+        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -48,6 +48,34 @@
         bundle longtext not null,
         workgroup_fk bigint not null,
         primary key (id)
+    ) type=MyISAM;
+
+    create table brainstormanswers (
+        id bigint not null auto_increment,
+        OPTLOCK integer,
+        workgroups_fk bigint not null,
+        primary key (id)
+    ) type=MyISAM;
+
+    create table brainstormquestions (
+        id bigint not null auto_increment,
+        OPTLOCK integer,
+        primary key (id)
+    ) type=MyISAM;
+
+    create table brainstorms (
+        id bigint not null auto_increment,
+        OPTLOCK integer,
+        brainstormquestions_fk bigint,
+        runs_fk bigint not null,
+        primary key (id)
+    ) type=MyISAM;
+
+    create table brainstorms_related_to_brainstormanswers (
+        brainstorms_fk bigint not null,
+        brainstormanswers_fk bigint not null,
+        primary key (brainstorms_fk, brainstormanswers_fk),
+        unique (brainstormanswers_fk)
     ) type=MyISAM;
 
     create table curnits (
@@ -104,8 +132,8 @@
         id bigint not null auto_increment,
         news text not null,
         date datetime not null,
-        owner tinyblob not null,
         title varchar(255) not null,
+        owner bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -119,8 +147,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -128,8 +156,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -144,15 +172,16 @@
         familytag integer,
         iscurrent bit,
         OPTLOCK integer,
-        jnlp_fk bigint not null,
         curnit_fk bigint not null,
         run_fk bigint unique,
+        jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
     create table roolootmlmodules (
         id bigint not null,
-        roolouri varchar(255),
+        roolomoduleuri varchar(255),
+        roolorepositoryurl varchar(255),
         primary key (id)
     ) type=MyISAM;
 
@@ -208,8 +237,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -291,8 +320,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -347,6 +376,36 @@
         foreign key (workgroup_fk) 
         references workgroups (id);
 
+    alter table brainstormanswers 
+        add index FK678121622B7BFD8A (workgroups_fk), 
+        add constraint FK678121622B7BFD8A 
+        foreign key (workgroups_fk) 
+        references wiseworkgroups (id);
+
+    alter table brainstorms 
+        add index FK174BDF2050B193C8 (runs_fk), 
+        add constraint FK174BDF2050B193C8 
+        foreign key (runs_fk) 
+        references runs (id);
+
+    alter table brainstorms 
+        add index FK174BDF205E4D3D22 (brainstormquestions_fk), 
+        add constraint FK174BDF205E4D3D22 
+        foreign key (brainstormquestions_fk) 
+        references brainstormquestions (id);
+
+    alter table brainstorms_related_to_brainstormanswers 
+        add index FK477CA8F12605B8EA (brainstormanswers_fk), 
+        add constraint FK477CA8F12605B8EA 
+        foreign key (brainstormanswers_fk) 
+        references brainstormanswers (id);
+
+    alter table brainstorms_related_to_brainstormanswers 
+        add index FK477CA8F179D46939 (brainstorms_fk), 
+        add constraint FK477CA8F179D46939 
+        foreign key (brainstorms_fk) 
+        references brainstorms (id);
+
     alter table curnits 
         add index FK4329FBBA1B78E061 (sds_curnit_fk), 
         add constraint FK4329FBBA1B78E061 
@@ -394,6 +453,12 @@
         add constraint FKE09C9839A4B723 
         foreign key (module_fk) 
         references modules (id);
+
+    alter table newsitem 
+        add index FK532D646665E358B0 (owner), 
+        add constraint FK532D646665E358B0 
+        foreign key (owner) 
+        references users (id);
 
     alter table offerings 
         add index FK73F0F12DAB4F6201 (sds_offering_fk), 
