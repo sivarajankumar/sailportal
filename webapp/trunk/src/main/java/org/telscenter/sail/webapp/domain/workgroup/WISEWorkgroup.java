@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.workgroup;
 
+import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 
 /**
@@ -32,7 +33,7 @@ import net.sf.sail.webapp.domain.group.Group;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public interface WISEWorkgroup extends net.sf.sail.webapp.domain.Workgroup  {
+public interface WISEWorkgroup extends Workgroup  {
 
 	/**
 	 * Gets the period that this workgroup belongs in
