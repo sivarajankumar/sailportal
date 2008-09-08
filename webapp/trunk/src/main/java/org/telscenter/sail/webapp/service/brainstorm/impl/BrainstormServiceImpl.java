@@ -26,6 +26,8 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.springframework.transaction.annotation.Transactional;
+import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
@@ -44,20 +46,22 @@ import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
  */
 public class BrainstormServiceImpl implements BrainstormService {
 
+	private BrainstormDao<Brainstorm> brainstormDao;  // mock the dao
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addAnswer(org.telscenter.sail.webapp.domain.brainstorm.Brainstorm, org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
 	 */
+	@Transactional()
 	public void addAnswer(Brainstorm brainstorm, Answer answer) {
-		// TODO Auto-generated method stub
-
+		brainstorm.addAnswer(answer);
+		this.brainstormDao.save(brainstorm);
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addComments(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.brainstorm.comment.Comment)
 	 */
 	public void addComments(Answer answer, Comment comment) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	/**
@@ -108,6 +112,13 @@ public class BrainstormServiceImpl implements BrainstormService {
 	public void requestHelp(Brainstorm brainstorm, WISEWorkgroup workgroup) {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * @param brainstormDao the brainstormDao to set
+	 */
+	public void setBrainstormDao(BrainstormDao<Brainstorm> brainstormDao) {
+		this.brainstormDao = brainstormDao;
 	}
 
 }
