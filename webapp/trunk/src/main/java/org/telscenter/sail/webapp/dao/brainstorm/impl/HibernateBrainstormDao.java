@@ -24,8 +24,10 @@ package org.telscenter.sail.webapp.dao.brainstorm.impl;
 
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
 
 /**
@@ -51,6 +53,22 @@ public class HibernateBrainstormDao extends AbstractHibernateDao<Brainstorm> imp
 	@Override
 	protected String getFindAllQuery() {
 		return FIND_ALL_QUERY;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao#retrieveByAnswer(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
+	 * SELECT brainstorms.* from brainstorms, brainstorms_related_to_brainstormanswers, brainstormanswers
+	 * WHERE brainstorms.id=brainstorms_related_to_brainstormanswers.brainstorms_fk
+	 * AND brainstormanswers.id=brainstorms_related_to_brainstormanswers.brainstormanswers_fk
+	 * AND brainstormanswers.id=answer.id
+	 */
+	public Brainstorm retrieveByAnswer(Answer answer) {
+		return (Brainstorm) DataAccessUtils
+		    .uniqueResult(this.getHibernateTemplate().findByNamedParam(
+		    		"SELECT brainstorms.* from brainstorms, brainstorms_related_to_brainstormanswers, brainstormanswers " +
+		    		"WHERE brainstorms.id=brainstorms_related_to_brainstormanswers.brainstorms_fk " +
+		    		"AND brainstormanswers.id=brainstorms_related_to_brainstormanswers.brainstormanswers_fk " +
+		    		"AND brainstormanswers.id = :answerId", "answerId", answer.getId()));
 	}
 
 }

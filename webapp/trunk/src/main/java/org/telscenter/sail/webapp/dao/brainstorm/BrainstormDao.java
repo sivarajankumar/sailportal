@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.dao.brainstorm;
 
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 
 import net.sf.sail.webapp.dao.SimpleDao;
 
@@ -34,4 +35,12 @@ import net.sf.sail.webapp.dao.SimpleDao;
  */
 public interface BrainstormDao<T extends Brainstorm> extends SimpleDao<T> {
 
+	/**
+	 * Looks up Brainstorm that contains the specified
+	 *     Answer.
+	 * 
+	 * @param answer
+	 * @return
+	 */
+	public Brainstorm retrieveByAnswer(Answer answer);
 }
