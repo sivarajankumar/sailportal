@@ -25,7 +25,6 @@ package org.telscenter.sail.webapp.service.brainstorm;
 import java.io.Serializable;
 import java.util.Set;
 
-import org.apache.poi.hssf.model.CommentShape;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
