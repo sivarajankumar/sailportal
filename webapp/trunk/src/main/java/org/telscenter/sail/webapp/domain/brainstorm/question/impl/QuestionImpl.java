@@ -25,6 +25,15 @@ package org.telscenter.sail.webapp.domain.brainstorm.question.impl;
 import java.io.Serializable;
 import java.math.BigInteger;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 
 /**

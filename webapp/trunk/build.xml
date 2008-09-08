@@ -145,6 +145,7 @@
     <path location="${M2_REPO}/org/eclipse/emf/ecore/2.2.0/ecore-2.2.0.jar" />
  	<path location="${M2_REPO}/org/eclipse/emf/common/2.2.0/common-2.2.0.jar" />
     <path location="${M2_REPO}/org/telscenter/pas-curnitmap/0.1.0-SNAPSHOT/pas-curnitmap-0.1.0-SNAPSHOT.jar" />
+    <path location="${M2_REPO}/net/sf/sail/qti-bindings/2.0-SNAPSHOT/qti-bindings-2.0-SNAPSHOT.jar" />  	
   </path>
 
   <path id="lib.dwr">
@@ -183,9 +184,9 @@
          ================================= -->
     <target name="db.schema-export" description="Generate the database schema from annotated persistent classes in the production code.">
         <property name="portal.config" value="tels"/>
-
+<!--
 	<antcall target="_mvn.recompile"/>
-
+-->
         <mkdir dir="${dir.src.db}/hsqldb"/>
         <mkdir dir="${dir.src.db}/mysql"/>
         
@@ -283,7 +284,7 @@
     <!-- ================================= 
           target: db.init
          ================================= -->
-    <target name="db.init" depends="_mvn.compile, db.create" description="Initialize a production database with user role and default administrator account.">
+    <target name="db.init" depends="db.create" description="Initialize a production database with user role and default administrator account.">
         <java classname="${init.classname}" fork="true" failonerror="true" newenvironment="true">
             <arg value="${settings.profiles.profile.properties.context.config.class}" />
             <classpath refid="runtime.classpath" />
@@ -293,8 +294,8 @@
     <!-- ================================= 
           target: create.default.curnits
          ================================= -->
-    <target name="create.default.curnits" depends="_input.portal.config, _mvn.recompile" description="Adds otml curnits to the roolo repository.">
-        <java classname="${createcurnits.classname}" fork="true" failonerror="true" newenvironment="true">
+    <target name="create.default.curnits" depends="" description="Adds otml curnits to the roolo repository.">
+        <java classname="org.telscenter.sail.webapp.CreateDefaultCurnits" fork="true" failonerror="true" newenvironment="true">
             <classpath refid="runtime.classpath" />
         </java>
     </target>	
@@ -321,11 +322,27 @@
         </fail>
     </target>
 
+    <!-- ================================= 
+          internal target: _input.skip.test.  Allows users to choose if they want to run the tests or not after compiling code.
+         ================================= -->
+    <target name="_input.skip.test" depends="_verify.version.ant">
+        <input message="Do you want to skip the unit tests? (not recommended)" validargs="yes,no" addproperty="skip.tests.yes.no" defaultvalue="no" />
+        <condition property="skip.tests">
+        </condition>
+    </target>
 
     <!-- ================================= 
           internal target
          ================================= -->
-    <target name="_mvn.compile" depends="_verify.version.ant">
+    <target name="_verify.run.test">
+        <condition property="skip.tests">
+        </condition>
+    </target>
+	
+    <!-- ================================= 
+          internal target: _mvn.compile.  Clean, test, resources:resources
+         ================================= -->
+    <target name="_mvn.compile" depends="_verify.version.ant, _input.skip.test" unless="skip.tests">
         <!-- this should work in Linux, Mac OS X, and other Unix-like OS -->
         <exec osfamily="Unix" executable="mvn" failonerror="true" failifexecutionfails="true">
             <arg value="clean" />
@@ -341,7 +358,11 @@
             <arg value="resources:resources" />
         </exec>
     </target>
-    
+
+	
+    <!-- ================================= 
+          internal target: _mvn.recompile.  Clean, compile, resources:resources
+         ================================= -->
     <target name="_mvn.recompile" depends="_verify.version.ant">
         <!-- this should work in Linux, Mac OS X, and other Unix-like OS -->
         <exec osfamily="Unix" executable="mvn" failonerror="true" failifexecutionfails="true">

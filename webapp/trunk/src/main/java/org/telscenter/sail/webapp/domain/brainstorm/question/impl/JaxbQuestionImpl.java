@@ -39,11 +39,12 @@ import org.imsglobal.xsd.imsqti_v2p0.ExtendedTextInteractionType;
  * @author Anthony Perritano
  * @version $Id$
  */
-@Entity(name = QuestionImpl.DATA_STORE_NAME)
 public class JaxbQuestionImpl extends QuestionImpl {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
-	 * The assessment Itema for this question
+	 * The assessment Items for this question
 	 */
 	protected AssessmentItemType assessmentItemType;
 	
@@ -68,6 +69,8 @@ public class JaxbQuestionImpl extends QuestionImpl {
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (Exception je) {
+			
 		}
 		
 		//parse the blockinteraction for this question it will only have one part
