@@ -95,6 +95,7 @@ public interface Brainstorm extends Persistable {
 	 * @param <code>Run</code> that this Brainstorm has
 	 *    been set up in.
 	 */
+	public void setRun(Run run);
 	
 	/**
 	 * Returns a Set of Workgroups that has requested for help
