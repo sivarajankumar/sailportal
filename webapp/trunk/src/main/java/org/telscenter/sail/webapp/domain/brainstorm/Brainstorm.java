@@ -67,13 +67,19 @@ public interface Brainstorm extends Persistable {
 	 */
 	public Set<Answer> getAnswers();
 	
-	
 	/**
 	 * Sets a list of <code>Answer</code> for this brainstorm.
 	 * 
 	 * @param a List of <code>Answer</code> 
 	 */
 	public void setAnswers(Set<Answer> answers);
+	
+	/**
+	 * Adds an <code>Answer</code> to this brainstorm.
+	 * 
+	 * @param answer Add this Answer to this Brainstorm.
+	 */
+	public void addAnswer(Answer answer);
 	
 	/**
 	 * Return the <code>Run</code> that this Brainstorm is for

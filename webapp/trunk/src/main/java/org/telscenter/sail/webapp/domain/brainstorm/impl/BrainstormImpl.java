@@ -174,6 +174,13 @@ public class BrainstormImpl implements Brainstorm {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#addAnswer(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
+	 */
+	public void addAnswer(Answer answer) {
+		this.answers.add(answer);
+	}
+
+	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#setQuestion(org.telscenter.sail.webapp.domain.brainstorm.question.Question)
 	 */
 	public void setQuestion(Question question) {
@@ -189,4 +196,5 @@ public class BrainstormImpl implements Brainstorm {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
