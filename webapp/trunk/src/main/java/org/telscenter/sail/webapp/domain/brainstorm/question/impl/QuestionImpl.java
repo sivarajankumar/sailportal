@@ -23,15 +23,7 @@
 package org.telscenter.sail.webapp.domain.brainstorm.question.impl;
 
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Transient;
-import javax.persistence.Version;
+import java.math.BigInteger;
 
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 
@@ -53,15 +45,15 @@ public class QuestionImpl implements Question {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id = null;
+    protected Long id = null;
     
     @Version
     @Column(name = "OPTLOCK")
-    private Integer version = null;
+    protected Integer version = null;
     
     @Lob
     @Column(name = QuestionImpl.COLUMN_NAME_BODY)
-	private String body = null;
+	protected String body = null;
     
 	/**
 	 * @see net.sf.sail.webapp.domain.Persistable#getId()
@@ -75,7 +67,7 @@ public class QuestionImpl implements Question {
      *            the id to set
      */
     @SuppressWarnings("unused")
-    private void setId(Long id) {
+    protected void setId(Long id) {
         this.id = id;
     }
 
@@ -83,7 +75,7 @@ public class QuestionImpl implements Question {
      * @return the version
      */
     @SuppressWarnings("unused")
-    private Integer getVersion() {
+    protected Integer getVersion() {
         return version;
     }
 
@@ -92,7 +84,7 @@ public class QuestionImpl implements Question {
      *            the version to set
      */
     @SuppressWarnings("unused")
-    private void setVersion(Integer version) {
+    protected void setVersion(Integer version) {
         this.version = version;
     }
 
@@ -108,5 +100,19 @@ public class QuestionImpl implements Question {
 	 */
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getAnswerFieldExpectedLines()
+	 */
+	public BigInteger getAnswerFieldExpectedLines() {
+		return null;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getPrompt()
+	 */
+	public String getPrompt() {
+		return null;
 	}
 }

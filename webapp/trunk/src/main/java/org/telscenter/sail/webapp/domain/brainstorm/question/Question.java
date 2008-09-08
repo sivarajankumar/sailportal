@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.brainstorm.question;
 
+import java.math.BigInteger;
+
 import net.sf.sail.webapp.domain.Persistable;
 
 /**
@@ -33,6 +35,20 @@ import net.sf.sail.webapp.domain.Persistable;
  */
 public interface Question extends Persistable {
 
+	/**
+	 * Gets the question prompt
+	 * 
+	 * @return
+	 */
+	public String getPrompt();
+	
+	/**
+	 * Gets the number of lines long the answer Field
+	 * 
+	 * @return
+	 */
+	public BigInteger getAnswerFieldExpectedLines();
+	
 	/**
 	 * 
 	 * @return
