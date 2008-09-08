@@ -26,6 +26,8 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
 import org.telscenter.sail.webapp.domain.Run;
@@ -73,21 +75,11 @@ public class BrainstormServiceImpl implements BrainstormService {
 	}
 
 	/**
+	 * @throws ObjectNotFoundException 
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormById(java.io.Serializable)
 	 */
-	public Brainstorm getBrainstormById(Serializable id) {
-		// change later with actual implementation
-		Brainstorm brainstorm = new BrainstormImpl();
-		Question question = new QuestionImpl();
-		String questionBody = "<p>Watch the following Video on Java and <b>post 2 thoughts that you have</b> on the video.</p><object width='425' height='344'><param name='movie' value='http://www.youtube.com/v/SRLU1bJSLVg&hl=en&fs=1'></param><param name='allowFullScreen' value='true'></param><embed src='http://www.youtube.com/v/SRLU1bJSLVg&hl=en&fs=1' type='application/x-shockwave-flash' allowfullscreen='true' width='425' height='344'></embed></object>";
-			//"<iframe id='videos_list' name='videos_list' src='http://www.youtube.com/videos_list?user=honchikun' scrolling='auto' width='265' height='300' frameborder='0' marginheight='0' marginwidth='0'></iframe>";
-		question.setBody(questionBody);
-		brainstorm.setQuestion(question);
-		Set<Answer> answers = new TreeSet<Answer>();
-		Answer answer1 = new AnswerImpl();
-		answers.add(answer1);
-		brainstorm.setAnswers(answers);
-		return brainstorm;
+	public Brainstorm getBrainstormById(Serializable id) throws ObjectNotFoundException {
+		return this.brainstormDao.getById(id);
 	}
 
 	/**

@@ -18,6 +18,11 @@
 package org.telscenter.sail.webapp.service.brainstorm.impl;
 
 import static org.easymock.EasyMock.*;
+
+import java.io.Serializable;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+
 import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
@@ -38,6 +43,10 @@ public class BrainstormServiceImplTest extends AbstractTransactionalDbTests {
 	
 	private BrainstormDao<Brainstorm> mockBrainstormDao;  // mock this
 	
+	private static final Serializable EXISTING_BRAINSTORM_ID = 1;
+
+	private static final Serializable NONEXISTING_BRAINSTORM_ID = 123456;
+
 	@SuppressWarnings("unchecked")
 	public void testAddAnswer() {
 		// this test simply confirms that the dao is called appropriately,
@@ -54,6 +63,50 @@ public class BrainstormServiceImplTest extends AbstractTransactionalDbTests {
 		brainstormServiceImpl.addAnswer(brainstorm, answer);
 		assertEquals(1, brainstorm.getAnswers().size());
 		assertTrue(brainstorm.getAnswers().contains(answer));
+		verify(mockBrainstormDao);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void testGetBrainstormById_NoException() throws ObjectNotFoundException {
+		// this test simply confirms that the dao is called appropriately,
+		// since the DAO is being tested and does all the work
+		Brainstorm brainstorm = new BrainstormImpl();
+		mockBrainstormDao = createMock(BrainstormDao.class);
+		expect(mockBrainstormDao.getById(EXISTING_BRAINSTORM_ID)).andReturn(brainstorm);
+		replay(mockBrainstormDao);
+
+		BrainstormServiceImpl brainstormServiceImpl = new BrainstormServiceImpl();
+		brainstormServiceImpl.setBrainstormDao(mockBrainstormDao);
+		Brainstorm retrievedBrainstorm = null;
+		try {
+			retrievedBrainstorm = brainstormServiceImpl.getBrainstormById(EXISTING_BRAINSTORM_ID);
+		} catch (ObjectNotFoundException e) {
+			fail("unexpected exception thrown");
+		}
+		assertEquals(brainstorm, retrievedBrainstorm);
+		assertNotNull(retrievedBrainstorm.getAnswers());
+		assertEquals(0, retrievedBrainstorm.getAnswers().size());
+		verify(mockBrainstormDao);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void testGetBrainstormById_BraistormDNE() throws ObjectNotFoundException {
+		// this test simply confirms that the dao is called appropriately,
+		// since the DAO is being tested and does all the work
+		// tests when brainstorm cannot be found using this id.
+		mockBrainstormDao = createMock(BrainstormDao.class);
+		expect(mockBrainstormDao.getById(NONEXISTING_BRAINSTORM_ID)).andThrow(new ObjectNotFoundException(NONEXISTING_BRAINSTORM_ID, Brainstorm.class));
+		replay(mockBrainstormDao);
+
+		BrainstormServiceImpl brainstormServiceImpl = new BrainstormServiceImpl();
+		brainstormServiceImpl.setBrainstormDao(mockBrainstormDao);
+		Brainstorm retrievedBrainstorm = null;
+		try {
+			retrievedBrainstorm = brainstormServiceImpl.getBrainstormById(NONEXISTING_BRAINSTORM_ID);
+			fail("exception expected, but was not thrown");
+		} catch (ObjectNotFoundException e) {
+		}
+		assertNull(retrievedBrainstorm);
 		verify(mockBrainstormDao);
 	}
 	

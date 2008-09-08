@@ -25,6 +25,8 @@ package org.telscenter.sail.webapp.service.brainstorm;
 import java.io.Serializable;
 import java.util.Set;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
@@ -53,8 +55,9 @@ public interface BrainstormService {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws ObjectNotFoundException when id does not return match.
 	 */
-	public Brainstorm getBrainstormById(Serializable id);
+	public Brainstorm getBrainstormById(Serializable id) throws ObjectNotFoundException;
 	
 	/**
 	 * Saves an answer to this Brainstorm.
