@@ -24,7 +24,6 @@ package org.telscenter.sail.webapp.service.brainstorm.impl;
 
 import java.io.Serializable;
 import java.util.Set;
-import java.util.TreeSet;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
@@ -34,11 +33,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
-import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
-import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 
@@ -111,6 +106,13 @@ public class BrainstormServiceImpl implements BrainstormService {
 	 */
 	public void setBrainstormDao(BrainstormDao<Brainstorm> brainstormDao) {
 		this.brainstormDao = brainstormDao;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormByAnswer(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
+	 */
+	public Brainstorm getBrainstormByAnswer(Answer answer) {
+		return this.brainstormDao.retrieveByAnswer(answer);
 	}
 
 }

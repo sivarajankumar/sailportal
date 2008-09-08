@@ -21,15 +21,19 @@ import static org.easymock.EasyMock.*;
 
 import java.io.Serializable;
 
+import junit.framework.TestCase;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
-import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
+import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
+import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
 
 /**
  * Tests for brainstorm service.
@@ -37,28 +41,46 @@ import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
  * @author Hiroki Terashima
  * @version $Id:$
  */
-public class BrainstormServiceImplTest extends AbstractTransactionalDbTests {
+public class BrainstormServiceImplTest extends TestCase {
 
-	private BrainstormService brainstormService;
+	private BrainstormServiceImpl  brainstormServiceImpl;
+	
+	private Answer answer;
+	
+	private Question question;
+	
+	private Brainstorm brainstorm;
 	
 	private BrainstormDao<Brainstorm> mockBrainstormDao;  // mock this
 	
 	private static final Serializable EXISTING_BRAINSTORM_ID = 1;
 
 	private static final Serializable NONEXISTING_BRAINSTORM_ID = 123456;
-
+	
 	@SuppressWarnings("unchecked")
+	@Before
+	public void setUp() {
+		brainstormServiceImpl = new BrainstormServiceImpl();
+		brainstorm = new BrainstormImpl();
+		answer = new AnswerImpl();
+		question = new JaxbQuestionImpl();
+		brainstorm.setQuestion(question);
+		mockBrainstormDao = createMock(BrainstormDao.class);
+	}
+	
+	@After
+	public void tearDown() {
+		brainstormServiceImpl = null;
+		answer = null;
+	}
+	
 	public void testAddAnswer() {
 		// this test simply confirms that the dao is called appropriately,
 		// since the DAO is being tested and does all the work
-		Brainstorm brainstorm = new BrainstormImpl();
-		Answer answer = new AnswerImpl();
-		mockBrainstormDao = createMock(BrainstormDao.class);
 		mockBrainstormDao.save(brainstorm);
 		expectLastCall();
 		replay(mockBrainstormDao);
 
-		BrainstormServiceImpl brainstormServiceImpl = new BrainstormServiceImpl();
 		brainstormServiceImpl.setBrainstormDao(mockBrainstormDao);
 		brainstormServiceImpl.addAnswer(brainstorm, answer);
 		assertEquals(1, brainstorm.getAnswers().size());
@@ -70,12 +92,9 @@ public class BrainstormServiceImplTest extends AbstractTransactionalDbTests {
 	public void testGetBrainstormById_NoException() throws ObjectNotFoundException {
 		// this test simply confirms that the dao is called appropriately,
 		// since the DAO is being tested and does all the work
-		Brainstorm brainstorm = new BrainstormImpl();
-		mockBrainstormDao = createMock(BrainstormDao.class);
 		expect(mockBrainstormDao.getById(EXISTING_BRAINSTORM_ID)).andReturn(brainstorm);
 		replay(mockBrainstormDao);
 
-		BrainstormServiceImpl brainstormServiceImpl = new BrainstormServiceImpl();
 		brainstormServiceImpl.setBrainstormDao(mockBrainstormDao);
 		Brainstorm retrievedBrainstorm = null;
 		try {
@@ -86,6 +105,8 @@ public class BrainstormServiceImplTest extends AbstractTransactionalDbTests {
 		assertEquals(brainstorm, retrievedBrainstorm);
 		assertNotNull(retrievedBrainstorm.getAnswers());
 		assertEquals(0, retrievedBrainstorm.getAnswers().size());
+		assertNotNull(retrievedBrainstorm.getQuestion());
+		assertEquals(question, retrievedBrainstorm.getQuestion());
 		verify(mockBrainstormDao);
 	}
 	
@@ -94,11 +115,9 @@ public class BrainstormServiceImplTest extends AbstractTransactionalDbTests {
 		// this test simply confirms that the dao is called appropriately,
 		// since the DAO is being tested and does all the work
 		// tests when brainstorm cannot be found using this id.
-		mockBrainstormDao = createMock(BrainstormDao.class);
 		expect(mockBrainstormDao.getById(NONEXISTING_BRAINSTORM_ID)).andThrow(new ObjectNotFoundException(NONEXISTING_BRAINSTORM_ID, Brainstorm.class));
 		replay(mockBrainstormDao);
 
-		BrainstormServiceImpl brainstormServiceImpl = new BrainstormServiceImpl();
 		brainstormServiceImpl.setBrainstormDao(mockBrainstormDao);
 		Brainstorm retrievedBrainstorm = null;
 		try {
@@ -110,10 +129,15 @@ public class BrainstormServiceImplTest extends AbstractTransactionalDbTests {
 		verify(mockBrainstormDao);
 	}
 	
-	/**
-	 * @param brainstormService the brainstormService to set
-	 */
-	public void setBrainstormService(BrainstormService brainstormService) {
-		this.brainstormService = brainstormService;
+	public void testGetBrainstormByAnswer() {
+		brainstorm.addAnswer(answer);
+		expect(mockBrainstormDao.retrieveByAnswer(answer)).andReturn(brainstorm);
+		replay(mockBrainstormDao);
+		brainstormServiceImpl.setBrainstormDao(mockBrainstormDao);
+		Brainstorm retrievedBrainstorm = brainstormServiceImpl.getBrainstormByAnswer(answer);
+		assertEquals(brainstorm, retrievedBrainstorm);
+		assertTrue(retrievedBrainstorm.getAnswers().contains(answer));
+		verify(mockBrainstormDao);
 	}
+	
 }

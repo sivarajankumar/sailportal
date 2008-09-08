@@ -62,8 +62,9 @@ public interface BrainstormService {
 	/**
 	 * Saves an answer to this Brainstorm.
 	 * 
-	 * @param brainstorm
-	 * @param answer
+	 * @param brainstorm which <code>Brainstorm</code to add the
+	 *     <code>Answer</code> to.
+	 * @param answer The <code>Answer</code> to add.
 	 */
 	public void addAnswer(Brainstorm brainstorm, Answer answer);
 	
@@ -101,4 +102,13 @@ public interface BrainstormService {
 	 * @param workgroup
 	 */
 	public void markAsHelpful(Answer answer, WISEWorkgroup workgroup);
+	
+	/**
+	 * Looks up the Brainstorm that the answer is for.
+	 * 
+	 * @param answer <code>Answer</code> want to find which Brainstorm
+	 *     this answer is in.
+	 * @return <code>Brainstorm</code> that has this answer.
+	 */
+	public Brainstorm getBrainstormByAnswer(Answer answer);
 }
