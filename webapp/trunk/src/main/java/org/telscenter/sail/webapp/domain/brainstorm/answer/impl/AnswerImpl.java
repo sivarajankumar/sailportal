@@ -168,4 +168,63 @@ public class AnswerImpl implements Answer {
 		
 	}
 
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((comments == null) ? 0 : comments.hashCode());
+		result = prime * result
+				+ ((workgroup == null) ? 0 : workgroup.hashCode());
+		return result;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AnswerImpl other = (AnswerImpl) obj;
+		if (comments == null) {
+			if (other.comments != null)
+				return false;
+		} else if (!comments.equals(other.comments))
+			return false;
+		if (workgroup == null) {
+			if (other.workgroup != null)
+				return false;
+		} else if (!workgroup.equals(other.workgroup))
+			return false;
+		return true;
+	}
+
+	public int compareTo(Answer o) {
+		if (this.getComments() == null &&
+				o.getComments() != null) {
+			return 1;
+		}
+		if (this.getComments() != null &&
+				o.getComments() == null) {
+			return -1;
+		}
+		if (this.getComments() == null &&
+				o.getComments() == null) {
+			return 0;
+		}
+		if (this.getComments() != null &&
+				o.getComments() != null) {
+			return 0;
+		}
+		return 0;
+	}
+
 }

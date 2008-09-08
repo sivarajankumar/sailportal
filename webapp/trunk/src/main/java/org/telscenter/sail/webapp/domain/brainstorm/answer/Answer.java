@@ -35,7 +35,7 @@ import net.sf.sail.webapp.domain.Persistable;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public interface Answer extends Persistable {
+public interface Answer extends Persistable, Comparable<Answer> {
 	
 	/**
 	 * Gets all the revisions in this Answer.
