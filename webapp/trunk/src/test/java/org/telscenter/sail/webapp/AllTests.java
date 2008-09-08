@@ -42,6 +42,7 @@ import org.junit.runners.Suite;
 	   org.telscenter.sail.webapp.dao.offering.impl.AllTests.class,
 	   org.telscenter.sail.webapp.dao.project.impl.AllTests.class,
 	   org.telscenter.sail.webapp.dao.premadecomment.impl.AllTests.class,
+	   org.telscenter.sail.webapp.dao.brainstorm.impl.AllTests.class,
 	   org.telscenter.sail.webapp.domain.impl.AllTests.class,
 	   org.telscenter.sail.webapp.domain.authentication.impl.AllTests.class,	   
 	   org.telscenter.sail.webapp.domain.run.AllTests.class,
