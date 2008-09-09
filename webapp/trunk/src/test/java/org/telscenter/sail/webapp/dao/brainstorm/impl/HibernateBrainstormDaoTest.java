@@ -22,19 +22,27 @@
  */
 package org.telscenter.sail.webapp.dao.brainstorm.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.domain.impl.JnlpImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 import net.sf.sail.webapp.domain.sds.SdsJnlp;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
+import org.hibernate.Session;
 import org.telscenter.sail.webapp.dao.AbstractTransactionalDaoTests;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 /**
@@ -49,6 +57,8 @@ public class HibernateBrainstormDaoTest extends AbstractTransactionalDaoTests<Hi
 
     private static final Long SDS_JNLP_ID = new Long(5);
 
+	private static final Long SDS_ID = new Long(7);
+    
     private static final String CURNIT_NAME = "Airbags Curnit";
 
     private static final String CURNIT_URL = "http://curnitmrpotatoiscoolerthanwoody.com";
@@ -65,13 +75,21 @@ public class HibernateBrainstormDaoTest extends AbstractTransactionalDaoTests<Hi
 	
 	private SdsOffering sdsOffering;
 	
-    private SdsCurnit sdsCurnit;
+	private static final Curnit DEFAULT_CURNIT = new CurnitImpl();
 
-    private SdsJnlp sdsJnlp;
+	private static final Jnlp DEFAULT_JNLP = new JnlpImpl();
 	
-	public void setSdsCurnit(SdsCurnit sdsCurnit) {
-        this.sdsCurnit = sdsCurnit;
-    }
+	private static final SdsCurnit DEFAULT_SDS_CURNIT = new SdsCurnit();
+
+	private static final SdsJnlp DEFAULT_SDS_JNLP = new SdsJnlp();
+	
+	private static final Date START_TIME = Calendar.getInstance().getTime();
+
+	private static final Date END_TIME = Calendar.getInstance().getTime();
+	
+	private static final String RUNCODE = "abcde-123";
+	
+	private static Project DEFAULT_PROJECT = new ProjectImpl();
 	
 	/**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpBeforeTransaction()
@@ -88,56 +106,74 @@ public class HibernateBrainstormDaoTest extends AbstractTransactionalDaoTests<Hi
     	this.questionbody = "watch this video and write two thoughts";
     	this.question.setBody(this.questionbody);
     	
-        this.sdsCurnit.setSdsObjectId(SDS_CURNIT_ID);
-        this.sdsCurnit.setName(CURNIT_NAME);
-        this.sdsCurnit.setUrl(CURNIT_URL);
+        DEFAULT_SDS_CURNIT.setSdsObjectId(SDS_CURNIT_ID);
+        DEFAULT_SDS_CURNIT.setName(CURNIT_NAME);
+        DEFAULT_SDS_CURNIT.setUrl(CURNIT_URL);
 
-    	this.sdsJnlp = (SdsJnlp) applicationContext
-	        .getBean("sdsJnlp");
-        this.sdsJnlp.setSdsObjectId(SDS_JNLP_ID);
-        this.sdsJnlp.setName(JNLP_NAME);
-        this.sdsJnlp.setUrl(JNLP_URL);
+        DEFAULT_SDS_JNLP.setSdsObjectId(SDS_JNLP_ID);
+        DEFAULT_SDS_JNLP.setName(JNLP_NAME);
+        DEFAULT_SDS_JNLP.setUrl(JNLP_URL);
     	
     	this.run = (Run) this.applicationContext
     	    .getBean("run");
+    	this.run.setStarttime(START_TIME);
+    	this.run.setEndtime(END_TIME);
+		this.run.setRuncode(RUNCODE);
     	this.sdsOffering = (SdsOffering) this.applicationContext.getBean("sdsOffering");
     	this.sdsOffering.setName(SDS_OFFERING_NAME);
-    	this.sdsOffering.setSdsCurnit(this.sdsCurnit);
-    	this.sdsOffering.setSdsJnlp(this.sdsJnlp);
-    	this.run.setSdsOffering(this.sdsOffering);
-    	
+		this.sdsOffering.setSdsObjectId(SDS_ID);
+		
     	this.dataObject.setQuestion(this.question);
     	this.dataObject.setRun(this.run);
+    	
+        DEFAULT_CURNIT.setSdsCurnit(DEFAULT_SDS_CURNIT);
+        DEFAULT_PROJECT.setCurnit(DEFAULT_CURNIT);
+        DEFAULT_JNLP.setSdsJnlp(DEFAULT_SDS_JNLP);
+        DEFAULT_PROJECT.setJnlp(DEFAULT_JNLP);
     }
     
 	/**
-	 * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#retrieveDataObjectListFromDb()
+	 * @see org.springframework.test.AbstractTransactionalSpringContextTests#onSetUpInTransaction()
 	 */
 	@Override
-	protected List<?> retrieveDataObjectListFromDb() {
-		return this.jdbcTemplate.queryForList("SELECT * FROM "
-				+ ProjectImpl.DATA_STORE_NAME, (Object[]) null);	
+	protected void onSetUpInTransaction() throws Exception {
+		super.onSetUpInTransaction();
+		Session session = this.sessionFactory.getCurrentSession();
+	
+		session.save(DEFAULT_SDS_CURNIT); // save sds curnit
+		session.save(DEFAULT_SDS_JNLP); // save sds jnlp
+        session.save(DEFAULT_CURNIT);  // save curnit
+        session.save(DEFAULT_JNLP);  // save jnlp
+        session.save(DEFAULT_PROJECT);  // save project
+		this.sdsOffering.setSdsCurnit(DEFAULT_SDS_CURNIT);
+    	this.sdsOffering.setSdsJnlp(DEFAULT_SDS_JNLP);
+    	this.run.setSdsOffering(this.sdsOffering);
+    	this.run.setProject(DEFAULT_PROJECT);
+    	session.save(this.question);
+    	session.save(this.run);
 	}
+	
+
 
 	/**
 	 * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#testSave()
 	 */
 	@Override	
 	public void testSave() {
-		assertTrue(true);
+//		assertTrue(true);
+		verifyDataStoreIsEmpty();
+		this.dao.save(this.dataObject);
+		this.toilet.flush();
+		
+        // verify data store contains saved data using direct jdbc retrieval
+        // (not using dao)
+		List<?> actualList = retrieveBrainstormListFromDb();
+		assertEquals(1, actualList.size());
+		
+		Map<?,?> actualBrainstormMap = (Map<?,?>) actualList.get(0);
+		assertEquals(this.questionbody,
+				actualBrainstormMap.get(QuestionImpl.COLUMN_NAME_BODY.toUpperCase()));
 	}
-//		verifyDataStoreIsEmpty();
-//		this.dao.save(this.dataObject);
-//		
-//        // verify data store contains saved data using direct jdbc retrieval
-//        // (not using dao)
-//		List<?> actualList = retrieveBrainstormListFromDb();
-//		assertEquals(1, actualList.size());
-//		
-//		Map<?,?> actualBrainstormMap = (Map<?,?>) actualList.get(0);
-//		assertEquals(this.questionbody,
-//				actualBrainstormMap.get(QuestionImpl.COLUMN_NAME_BODY.toUpperCase()));
-//	}
 	
 	 /**
      * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#testDelete()
@@ -166,12 +202,25 @@ public class HibernateBrainstormDaoTest extends AbstractTransactionalDaoTests<Hi
     	assertTrue(true);
     }
     
+	/**
+	 * @see net.sf.sail.webapp.dao.AbstractTransactionalDaoTests#retrieveDataObjectListFromDb()
+	 */
+	@Override
+	protected List<?> retrieveDataObjectListFromDb() {
+		return this.jdbcTemplate.queryForList("SELECT * FROM "
+				+ BrainstormImpl.DATA_STORE_NAME, (Object[]) null);	
+	}
+	
 	/*
-	 * SELECT * FROM brainstorms
+	 * SELECT * FROM brainstorms b,brainstormanswers ba,brainstormquestions bq,
+	 *    brainstorms_related_to_brainstormanswers b_ba
+	 * WHERE b.id=b_ba.brainstorms_fk 
+     * AND ba.id=b_ba.brainstormanswers_fk
+	 * AND b.brainstormquestions_fk=bq.id
 	 */
 	private static final String RETRIEVE_BRAINSTORM_LIST_SQL =
-		"SELECT * FROM "
-		+ BrainstormImpl.DATA_STORE_NAME;
+		 "SELECT * FROM brainstorms b, brainstormquestions bq" +
+		 " WHERE b.brainstormquestions_fk=bq.id";
 	
     private List<?> retrieveBrainstormListFromDb() {
         return this.jdbcTemplate.queryForList(RETRIEVE_BRAINSTORM_LIST_SQL,
