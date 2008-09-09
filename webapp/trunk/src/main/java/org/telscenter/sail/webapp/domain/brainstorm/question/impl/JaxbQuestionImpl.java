@@ -67,10 +67,10 @@ public class JaxbQuestionImpl extends QuestionImpl {
 		try {
 			assessmentItemType = JaxbQtiMarshallingUtils.unmarshallAssessmentItemType(is);
 			is.close();
-		} catch (IOException e) {
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (Exception je) {
-			
 		}
 		
 		//parse the blockinteraction for this question it will only have one part
