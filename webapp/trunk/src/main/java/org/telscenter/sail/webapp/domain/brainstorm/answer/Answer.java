@@ -82,7 +82,19 @@ public interface Answer extends Persistable, Comparable<Answer> {
 	 * @return true iff this post should be posted as
 	 *     anonymous.
 	 */
-	public boolean isAnnonymous();
+	public boolean isAnonymous();
+	
+	/**
+	 * Indicates whether this answer should be posted
+	 * as anonymous.  Indicating as true will mean that all of the
+	 * revisions that the author of this answer has done will also
+	 * be posted as anonymous. This flag does not affect the anonimity
+	 * of the comments.
+	 * 
+	 * @param true iff this post should be posted as
+	 *     anonymous.
+	 */
+	public void setAnonymous(boolean isAnonymous);
 	
 	/**
 	 * Returns a <code>Set</code> of Workgroups that found this answer

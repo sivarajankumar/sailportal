@@ -85,7 +85,11 @@ public class AnswerImpl implements Answer {
     @Sort(type = SortType.NATURAL)
     private Set<Comment> comments = new TreeSet<Comment>();
    
-    //private Set<>
+    @Transient
+    private Set<Revision> revisions = new TreeSet<Revision>();
+
+    @Transient
+    private boolean isAnonymous;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -135,26 +139,51 @@ public class AnswerImpl implements Answer {
 		return workgroup;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#addComment(org.telscenter.sail.webapp.domain.brainstorm.comment.Comment)
+	 */
 	public void addComment(Comment comment) {
 		this.comments.add(comment);
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#getComments()
+	 */
 	public Set<Comment> getComments() {
 		return this.comments;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#getRevisions()
+	 */
 	public Set<Revision> getRevisions() {
-		// TODO Auto-generated method stub
-		return null;
+		return revisions;
+	}
+
+	/**
+	 * @param revisions the revisions to set
+	 */
+	public void setRevisions(Set<Revision> revisions) {
+		this.revisions = revisions;
 	}
 
 	public Set<WISEWorkgroup> getWorkgroupsThatFoundThisAnswerHelpful() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * @return the isAnonymous
+	 */
+	public boolean isAnonymous() {
+		return isAnonymous;
+	}
 
-	public boolean isAnnonymous() {
-		return false;
+	/**
+	 * @param isAnonymous the isAnonymous to set
+	 */
+	public void setAnonymous(boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
 	}
 
 	/**
@@ -165,7 +194,7 @@ public class AnswerImpl implements Answer {
 	}
 
 	public void addRevision(Revision revision) {
-		
+		this.revisions.add(revision);
 	}
 
 	/**
