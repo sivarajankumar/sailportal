@@ -50,7 +50,7 @@ public class QuestionImpl implements Question {
     private static final long serialVersionUID = 1L;
 
     @Transient
-	private static final String COLUMN_NAME_BODY = "body";
+	public static final String COLUMN_NAME_BODY = "body";
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
