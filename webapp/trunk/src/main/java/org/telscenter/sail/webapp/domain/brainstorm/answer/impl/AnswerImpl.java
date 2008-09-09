@@ -74,6 +74,15 @@ public class AnswerImpl implements Answer {
 
     @Transient
 	private static final String COMMENTS_JOIN_COLUMN_NAME = "brainstormcomments_fk";
+
+    @Transient
+	private static final String REVISIONS_JOIN_TABLE_NAME = "brainstormanswers_related_to_brainstormrevisions";
+
+    @Transient
+	private static final String REVISIONS_JOIN_COLUMN_NAME = "brainstormrevisions_fk";
+
+    @Transient
+	private static final String COLUMN_NAME_ISANONYMOUS = "isanonymous";
     
     @ManyToOne(targetEntity = WISEWorkgroupImpl.class, cascade = CascadeType.ALL)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
@@ -85,10 +94,11 @@ public class AnswerImpl implements Answer {
     @Sort(type = SortType.NATURAL)
     private Set<Comment> comments = new TreeSet<Comment>();
    
-    @Transient
+    @OneToMany(targetEntity = RevisionImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = REVISIONS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = REVISIONS_JOIN_COLUMN_NAME, nullable = false))
     private Set<Revision> revisions = new TreeSet<Revision>();
 
-    @Transient
+    @Column(name = AnswerImpl.COLUMN_NAME_ISANONYMOUS)
     private boolean isAnonymous;
     
     @Id

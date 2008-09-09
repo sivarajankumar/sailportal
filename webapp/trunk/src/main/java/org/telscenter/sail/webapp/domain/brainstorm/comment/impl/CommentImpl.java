@@ -24,16 +24,22 @@ package org.telscenter.sail.webapp.domain.brainstorm.comment.impl;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.Cascade;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 
 /**
  * @author Hiroki Terashima
@@ -48,6 +54,18 @@ public class CommentImpl implements Comment {
     @Transient
     private static final long serialVersionUID = 1L;
 
+    @Transient
+	private static final String COLUMN_NAME_ISANONYMOUS = "isanonymous";
+
+    @Transient
+	private static final String COLUMN_NAME_TIMESTAMP = "timestamp";
+
+    @Transient
+	private static final String WORKGROUPS_JOIN_COLUMN_NAME = "workgroups_fk";
+
+    @Transient
+	private static final String COLUMN_NAME_BODY = "body";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
@@ -56,17 +74,20 @@ public class CommentImpl implements Comment {
     @Column(name = "OPTLOCK")
     private Integer version = null;
     
-    @Transient
+    @Lob
+    @Column(name = CommentImpl.COLUMN_NAME_BODY)
     private String body;
 
-    @Transient    
-    private boolean isAnonymous;
-    
-    @Transient
+    @ManyToOne(targetEntity = WISEWorkgroupImpl.class, cascade = CascadeType.ALL)
+    @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+    @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private WISEWorkgroup workgroup;
     
-    @Transient
+    @Column(name = CommentImpl.COLUMN_NAME_TIMESTAMP, nullable = false)
     private Date timestamp;
+
+    @Column(name = CommentImpl.COLUMN_NAME_ISANONYMOUS)    
+    private boolean isAnonymous;
     
 	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#getBody()

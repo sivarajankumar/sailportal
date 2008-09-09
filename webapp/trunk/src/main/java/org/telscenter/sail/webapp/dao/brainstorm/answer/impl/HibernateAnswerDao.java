@@ -20,46 +20,37 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.brainstorm.question;
+package org.telscenter.sail.webapp.dao.brainstorm.answer.impl;
 
-import java.math.BigInteger;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
-import net.sf.sail.webapp.domain.Persistable;
+import org.telscenter.sail.webapp.dao.brainstorm.answer.AnswerDao;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
 
 /**
- * Brainstorm Question interface.  The question can be of different types, 
- * such as multiple-choice, short-answer, coding.
- * 
- * @author Hiroki Terashima
+ * @author hirokiterashima
  * @version $Id$
  */
-public interface Question extends Persistable {
+public class HibernateAnswerDao extends AbstractHibernateDao<Answer> implements
+		AnswerDao<Answer> {
+	
+	private static final String FIND_ALL_QUERY = "from AnswerImpl";
 
 	/**
-	 * Gets the question prompt, which is the part that will be shown to
-	 * the students.
-	 * 
-	 * @return
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
-	public String getPrompt();
-	
+	@Override
+	protected Class<AnswerImpl> getDataObjectClass() {
+		return AnswerImpl.class;
+	}
+
 	/**
-	 * Gets the number of lines long the answer Field
-	 * 
-	 * @return
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
 	 */
-	public BigInteger getAnswerFieldExpectedLines();
-	
-	/**
-	 * The entire question body string. This might include xml tags.
-	 * 
-	 * @return
-	 */
-	public String getBody();
-	
-	/**
-	 * 
-	 * @param body
-	 */
-	public void setBody(String body);
+	@Override
+	protected String getFindAllQuery() {
+		return FIND_ALL_QUERY;
+	}
+
 }

@@ -29,6 +29,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
+import org.telscenter.sail.webapp.dao.brainstorm.answer.AnswerDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
@@ -45,6 +46,8 @@ public class BrainstormServiceImpl implements BrainstormService {
 
 	private BrainstormDao<Brainstorm> brainstormDao;  // mock the dao
 	
+	private AnswerDao<Answer> answerDao;
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addAnswer(org.telscenter.sail.webapp.domain.brainstorm.Brainstorm, org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
 	 */
@@ -58,15 +61,16 @@ public class BrainstormServiceImpl implements BrainstormService {
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addComments(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.brainstorm.comment.Comment)
 	 */
 	public void addComments(Answer answer, Comment comment) {
-		
+		answer.addComment(comment);
+		this.answerDao.save(answer);
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addRevision(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.brainstorm.answer.Revision)
 	 */
 	public void addRevision(Answer answer, Revision revision) {
-		// TODO Auto-generated method stub
-
+		answer.addRevision(revision);
+		this.answerDao.save(answer);
 	}
 
 	/**
@@ -113,6 +117,13 @@ public class BrainstormServiceImpl implements BrainstormService {
 	 */
 	public Brainstorm getBrainstormByAnswer(Answer answer) {
 		return this.brainstormDao.retrieveByAnswer(answer);
+	}
+
+	/**
+	 * @param answerDao the answerDao to set
+	 */
+	public void setAnswerDao(AnswerDao<Answer> answerDao) {
+		this.answerDao = answerDao;
 	}
 
 }

@@ -20,46 +20,18 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.brainstorm.question;
+package org.telscenter.sail.webapp.dao.brainstorm.answer;
 
-import java.math.BigInteger;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 
-import net.sf.sail.webapp.domain.Persistable;
+import net.sf.sail.webapp.dao.SimpleDao;
 
 /**
- * Brainstorm Question interface.  The question can be of different types, 
- * such as multiple-choice, short-answer, coding.
+ * DAO for Answers
  * 
- * @author Hiroki Terashima
+ * @author hirokiterashima
  * @version $Id$
  */
-public interface Question extends Persistable {
+public interface AnswerDao<T extends Answer> extends SimpleDao<T> {
 
-	/**
-	 * Gets the question prompt, which is the part that will be shown to
-	 * the students.
-	 * 
-	 * @return
-	 */
-	public String getPrompt();
-	
-	/**
-	 * Gets the number of lines long the answer Field
-	 * 
-	 * @return
-	 */
-	public BigInteger getAnswerFieldExpectedLines();
-	
-	/**
-	 * The entire question body string. This might include xml tags.
-	 * 
-	 * @return
-	 */
-	public String getBody();
-	
-	/**
-	 * 
-	 * @param body
-	 */
-	public void setBody(String body);
 }

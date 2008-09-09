@@ -85,6 +85,20 @@ public class RevisionImpl implements Revision {
 	}
 
 	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	/**
+	 * @param body the body to set
+	 */
+	public void setBody(String body) {
+		this.body = body;
+	}
+	
+	/**
 	 * @see net.sf.sail.webapp.domain.Persistable#getId()
 	 */
 	public Serializable getId() {
@@ -117,17 +131,4 @@ public class RevisionImpl implements Revision {
         this.version = version;
     }
 
-	/**
-	 * @param timestamp the timestamp to set
-	 */
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	/**
-	 * @param body the body to set
-	 */
-	public void setBody(String body) {
-		this.body = body;
-	}
 }

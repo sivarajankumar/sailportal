@@ -306,11 +306,16 @@
 	<bean id="brainstormService"
 	    class="org.telscenter.sail.webapp.service.brainstorm.impl.BrainstormServiceImpl">
 	    <property name="brainstormDao" ref="brainstormDao" />
+	    <property name="answerDao" ref="answerDao" />
 	</bean>
 	
 	<bean id="brainstormDao"
 	    class="org.telscenter.sail.webapp.dao.brainstorm.impl.HibernateBrainstormDao">
         <property name="sessionFactory" ref="sessionFactory" />	    
 	</bean>
-	
+
+	<bean id="answerDao"
+	    class="org.telscenter.sail.webapp.dao.brainstorm.answer.impl.HibernateAnswerDao">
+        <property name="sessionFactory" ref="sessionFactory" />	    
+	</bean>	
 </beans>
