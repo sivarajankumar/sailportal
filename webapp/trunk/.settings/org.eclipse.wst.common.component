@@ -31,6 +31,9 @@
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/net/sf/jsr107cache/jsr107cache/1.0/jsr107cache-1.0.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/javax/xml/bind/jsr173_api/1.0/jsr173_api-1.0.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>    
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/hibernate/hibernate-annotations/3.2.1.ga/hibernate-annotations-3.2.1.ga.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
@@ -301,6 +304,12 @@
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>                            
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/javax/xml/bind/jaxb-api/2.0/jaxb-api-2.0.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>      
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/sun/xml/bind/jaxb-impl/2.0.3/jaxb-impl-2.0.3.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>      
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
 <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>

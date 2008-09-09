@@ -35,7 +35,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
-import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
+import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 
 /**
@@ -47,7 +47,18 @@ public class StudentBrainstormController extends AbstractController {
 
 	private static final String BRAINSTORM_KEY = "brainstorm";
 
+	@SuppressWarnings("unused")
 	private BrainstormService brainstormService;
+	
+	private static final String QUESTIONBODY = 
+		"<assessmentItem xmlns=\"http://www.imsglobal.org/xsd/imsqti_v2p0\" xmlns:ns2=\"http://www.w3.org/1999/xlink\" xmlns:ns3=\"http://www.w3.org/1998/Math/MathML\" timeDependent=\"false\" adaptive=\"false\">" +
+        "<responseDeclaration identifier=\"TEXT_NOTE_ID\"/>" +
+        "<itemBody>" +
+        "<extendedTextInteraction hasInlineFeedback=\"false\" placeholderText=\"I'm just sayin\" responseIdentifier=\"TEXT_NOTE_ID\" expectedLines=\"6\">" +
+            "<prompt>&lt;p&gt;Watch the following Video on Java and &lt;b&gt;post 2 thoughts that you have&lt;/b&gt; on the video.&lt;/p&gt;&lt;object width='425' height='344'&gt;&lt;param name='movie' value='http://www.youtube.com/v/SRLU1bJSLVg&amp;hl=en&amp;fs=1'&gt;&lt;/param&gt;&lt;param name='allowFullScreen' value='true'&gt;&lt;/param&gt;&lt;embed src='http://www.youtube.com/v/SRLU1bJSLVg&amp;hl=en&amp;fs=1' type='application/x-shockwave-flash' allowfullscreen='true' width='425' height='344'&gt;&lt;/embed&gt;&lt;/object&gt;</prompt>" +
+        "</extendedTextInteraction>" +
+        "</itemBody>" +
+        "</assessmentItem>";
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -61,10 +72,10 @@ public class StudentBrainstormController extends AbstractController {
 		// want to get brainstorm by id from database
 		// for now, create a mock Brainstorm object
 		Brainstorm brainstorm = new BrainstormImpl();
-		Question question = new QuestionImpl();
-		String questionBody = "<p>Watch the following Video on Java and <b>post 2 thoughts that you have</b> on the video.</p><object width='425' height='344'><param name='movie' value='http://www.youtube.com/v/SRLU1bJSLVg&hl=en&fs=1'></param><param name='allowFullScreen' value='true'></param><embed src='http://www.youtube.com/v/SRLU1bJSLVg&hl=en&fs=1' type='application/x-shockwave-flash' allowfullscreen='true' width='425' height='344'></embed></object>";
+		Question question = new JaxbQuestionImpl();
+		//String questionBody = "<p>Watch the following Video on Java and <b>post 2 thoughts that you have</b> on the video.</p><object width='425' height='344'><param name='movie' value='http://www.youtube.com/v/SRLU1bJSLVg&hl=en&fs=1'></param><param name='allowFullScreen' value='true'></param><embed src='http://www.youtube.com/v/SRLU1bJSLVg&hl=en&fs=1' type='application/x-shockwave-flash' allowfullscreen='true' width='425' height='344'></embed></object>";
 			//"<iframe id='videos_list' name='videos_list' src='http://www.youtube.com/videos_list?user=honchikun' scrolling='auto' width='265' height='300' frameborder='0' marginheight='0' marginwidth='0'></iframe>";
-		question.setBody(questionBody);
+		question.setBody(QUESTIONBODY);
 		brainstorm.setQuestion(question);
 		Set<Answer> answers = new TreeSet<Answer>();
 		Answer answer1 = new AnswerImpl();

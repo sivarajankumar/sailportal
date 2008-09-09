@@ -11,7 +11,7 @@ brainstorm: ${brainstorm}
 <br/></p>
 
 <p>
-brainstorm question: ${brainstorm.question.body}
+brainstorm question: ${brainstorm.question.prompt}
 <br/></p>
 
 <p>
