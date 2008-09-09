@@ -35,7 +35,7 @@ import net.sf.sail.webapp.domain.Persistable;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public interface Comment extends Persistable {
+public interface Comment extends Persistable, Comparable<Comment> {
 
 	/**
 	 * Get the <code>WISEWorkgroup</code> that authored
@@ -43,6 +43,13 @@ public interface Comment extends Persistable {
 	 * @return <code>WISEWorkgroup</code>
 	 */
 	public WISEWorkgroup getWorkgroup();
+	
+	/**
+	 * Set the <code>WISEWorkgroup</code> that authored
+	 *   this answer
+	 * @param <code>WISEWorkgroup</code>
+	 */
+	public void setWorkgroup(WISEWorkgroup workgroup);
 	
 	/**
 	 * Returns when this comment was authored.
@@ -53,11 +60,26 @@ public interface Comment extends Persistable {
 	public Date getTimestamp();
 	
 	/**
+	 * Sets when this comment was authored.
+	 * 
+	 * @return <code>Date</code> timestamp indicating
+	 *     when this comment was written.
+	 */
+	public void setTimestamp(Date timestamp);
+	
+	/**
 	 * Gets the actual body of this revision in string format.
 	 * 
 	 * @return the body of this comment as a String.
 	 */
 	public String getBody();
+	
+	/**
+	 * Gets the actual body of this revision in string format.
+	 * 
+	 * @return the body of this comment as a String.
+	 */
+	public void setBody(String body);
 
 	/**
 	 * Indicates whether this comment should be posted
@@ -66,5 +88,14 @@ public interface Comment extends Persistable {
 	 * @return true iff this post should be posted as
 	 *     comment.
 	 */
-	public boolean isAnnonymous();
+	public boolean isAnonymous();
+	
+	/**
+	 * Indicates whether this comment should be posted
+	 * as anonymous.
+	 * 
+	 * @param true iff this post should be posted as
+	 *     comment.
+	 */
+	public void setAnonymous(boolean isAnonymous);
 }

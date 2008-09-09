@@ -56,35 +56,72 @@ public class CommentImpl implements Comment {
     @Column(name = "OPTLOCK")
     private Integer version = null;
     
+    @Transient
+    private String body;
+
+    @Transient    
+    private boolean isAnonymous;
+    
+    @Transient
+    private WISEWorkgroup workgroup;
+    
+    @Transient
+    private Date timestamp;
+    
 	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#getBody()
 	 */
 	public String getBody() {
-		return null;
+		return body;
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#getTimestamp()
 	 */
 	public Date getTimestamp() {
-		// TODO Auto-generated method stub
-		return null;
+		return timestamp;
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#getWorkgroup()
 	 */
 	public WISEWorkgroup getWorkgroup() {
-		// TODO Auto-generated method stub
-		return null;
+		return workgroup;
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#isAnnonymous()
 	 */
-	public boolean isAnnonymous() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isAnonymous() {
+		return isAnonymous;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#setAnonymous(boolean)
+	 */
+	public void setAnonymous(boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#getBody(java.lang.String)
+	 */
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#setTimestamp(java.util.Date)
+	 */
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.comment.Comment#setWorkgroup(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public void setWorkgroup(WISEWorkgroup workgroup) {
+		this.workgroup = workgroup;
 	}
 
 	/**
@@ -119,4 +156,8 @@ public class CommentImpl implements Comment {
     private void setVersion(Integer version) {
         this.version = version;
     }
+
+	public int compareTo(Comment o) {
+		return this.timestamp.compareTo(o.getTimestamp());
+	}
 }

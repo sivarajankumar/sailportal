@@ -116,4 +116,18 @@ public class RevisionImpl implements Revision {
     private void setVersion(Integer version) {
         this.version = version;
     }
+
+	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	/**
+	 * @param body the body to set
+	 */
+	public void setBody(String body) {
+		this.body = body;
+	}
 }

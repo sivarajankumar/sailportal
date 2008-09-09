@@ -44,7 +44,22 @@ public interface Revision extends Persistable {
 	public Date getTimestamp();
 	
 	/**
+	 * Sets when this revision was authored.
+	 * 
+	 * @param timestamp <code>Date</code> timestamp indicating
+	 *     when this revision was written.
+	 */
+	public void setTimestamp(Date timestamp);
+	
+	/**
 	 * Gets the actual body of this revision in string format.
+	 * @return body of this revision
 	 */
 	public String getBody();
+	
+	/**
+	 * Sets the body of this revision in string format.
+	 * @param body
+	 */
+	public void setBody(String body);
 }
