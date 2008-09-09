@@ -83,7 +83,7 @@ public class HibernateRunDaoTest extends AbstractTransactionalDbTests {
 
 	private static final SdsUser DEFAULT_SDS_USER = new SdsUser();
 
-	private static final Curnit DEFAULT_CURNIT = new CurnitImpl();;
+	private static final Curnit DEFAULT_CURNIT = new CurnitImpl();
 
 	private static final Jnlp DEFAULT_JNLP = new JnlpImpl();
 	
