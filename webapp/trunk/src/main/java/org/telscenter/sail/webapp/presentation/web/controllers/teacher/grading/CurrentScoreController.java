@@ -74,6 +74,10 @@ public class CurrentScoreController extends AbstractController {
 	public static final String RUN_ID = "runId";
 	
 	public static final String CURNIT_MAP = "curnitMap";
+
+	private static final String PROJECT_TITLE = "title";
+
+	private static final String CURNIT_ID = "curnitId";
 	
 	private GradingService gradingService;
 	private RunService runService;
@@ -114,9 +118,9 @@ public class CurrentScoreController extends AbstractController {
 					EStep step = (EStep) stepListIt.next();
 					
 					//if it is a gradeable record the scores
-					if(GradingToolController.isGradable(step.getType()) ) {
-						gradableSteps.put(step.getPodUUID().toString(),step);
-					}// if
+					//if(GradingToolController.isGradable(step.getType()) ) {
+					//	gradableSteps.put(step.getPodUUID().toString(),step);
+					//}// if
 				}// for
 			}// for
 			
@@ -156,8 +160,8 @@ public class CurrentScoreController extends AbstractController {
 			ModelAndView modelAndView = new ModelAndView();
 			
 			
-			modelAndView.addObject(GradingToolController.PROJECT_TITLE,project.getTitle());
-			modelAndView.addObject(GradingToolController.CURNIT_ID,curnitId);
+			modelAndView.addObject(PROJECT_TITLE,project.getTitle());
+			modelAndView.addObject(CURNIT_ID,curnitId);
 			modelAndView.addObject(RUN_ID, runId);
 			//modelAndView.addObject(CURNIT_MAP, curnitMap);
 			modelAndView.addObject(SCORE_MAP, periodsToScoreLists);
