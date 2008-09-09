@@ -82,6 +82,20 @@ public interface Brainstorm extends Persistable {
 	public void addAnswer(Answer answer);
 	
 	/**
+	 * Indicates whether the students posts to this brainstorm anonymously
+	 * 
+	 * @return true iff students can post anonymously on this brainstorm.
+	 */
+	public boolean isAnonymousAllowed();
+	
+	/**
+	 * Indicates whether the students posts to this brainstorm anonymously
+	 * 
+	 * @param true iff students can post anonymously on this brainstorm.
+	 */
+	public void setAnonymousAllowed(boolean isPostingAnonymousAllowed);
+	
+	/**
 	 * Return the <code>Run</code> that this Brainstorm is for
 	 * 
 	 * @return <code>Run</code> that this Brainstorm has

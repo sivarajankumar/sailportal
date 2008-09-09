@@ -84,6 +84,9 @@ public class BrainstormImpl implements Brainstorm {
     @Transient
     public static final String COLUMN_NAME_RUN_FK = "runs_fk";
 
+    @Transient
+	private static final String COLUMN_NAME_ISANONYMOUSALLOWED = "isanonymousallowed";
+
     @OneToMany(targetEntity = AnswerImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
 	private Set<Answer> answers = new TreeSet<Answer>();
@@ -96,6 +99,9 @@ public class BrainstormImpl implements Brainstorm {
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
     @JoinColumn(name = COLUMN_NAME_RUN_FK, nullable = false, unique = false)
 	private Run run;
+	
+	@Column(name = BrainstormImpl.COLUMN_NAME_ISANONYMOUSALLOWED)
+	private boolean isAnonymousAllowed;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -187,6 +193,20 @@ public class BrainstormImpl implements Brainstorm {
 		this.question = question;
 	}
 
+	/**
+	 * @return the isAnonymousAllowed
+	 */
+	public boolean isAnonymousAllowed() {
+		return isAnonymousAllowed;
+	}
+
+	/**
+	 * @param isAnonymousAllowed the isAnonymousAllowed to set
+	 */
+	public void setAnonymousAllowed(boolean isAnonymousAllowed) {
+		this.isAnonymousAllowed = isAnonymousAllowed;
+	}
+
 	public Map<WISEWorkgroup, Date> getWorkgroupLastVisitedMap() {
 		// TODO Auto-generated method stub
 		return null;
@@ -196,5 +216,4 @@ public class BrainstormImpl implements Brainstorm {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
