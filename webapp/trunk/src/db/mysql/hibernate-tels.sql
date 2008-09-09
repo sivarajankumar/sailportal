@@ -4,7 +4,7 @@
         OPTLOCK integer,
         class varchar(255) not null unique,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table acl_entry (
         id bigint not null auto_increment,
@@ -18,7 +18,7 @@
         sid bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table acl_object_identity (
         id bigint not null auto_increment,
@@ -31,7 +31,7 @@
         parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table acl_sid (
         id bigint not null auto_increment,
@@ -40,7 +40,7 @@
         sid varchar(255) not null,
         primary key (id),
         unique (sid, principal)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table annotationBundles (
         id bigint not null auto_increment,
@@ -48,63 +48,83 @@
         bundle longtext not null,
         workgroup_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table brainstormanswers (
         id bigint not null auto_increment,
+        isanonymous bit,
         OPTLOCK integer,
         workgroups_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table brainstormanswers_related_to_brainstormcomments (
         brainstormanswers_fk bigint not null,
         brainstormcomments_fk bigint not null,
         primary key (brainstormanswers_fk, brainstormcomments_fk),
         unique (brainstormcomments_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
+
+    create table brainstormanswers_related_to_brainstormrevisions (
+        brainstormanswers_fk bigint not null,
+        brainstormrevisions_fk bigint not null,
+        primary key (brainstormanswers_fk, brainstormrevisions_fk),
+        unique (brainstormrevisions_fk)
+    ) type=MyISAM;
 
     create table brainstormcomments (
         id bigint not null auto_increment,
         OPTLOCK integer,
+        body text,
+        timestamp datetime not null,
+        isanonymous bit,
+        workgroups_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table brainstormquestions (
         id bigint not null auto_increment,
         OPTLOCK integer,
         body text,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
+
+    create table brainstormrevisions (
+        id bigint not null auto_increment,
+        timestamp datetime not null,
+        body text,
+        OPTLOCK integer,
+        primary key (id)
+    ) type=MyISAM;
 
     create table brainstorms (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        runs_fk bigint not null,
         brainstormquestions_fk bigint,
+        runs_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table brainstorms_related_to_brainstormanswers (
         brainstorms_fk bigint not null,
         brainstormanswers_fk bigint not null,
         primary key (brainstorms_fk, brainstormanswers_fk),
         unique (brainstormanswers_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table curnits (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_curnit_fk bigint not null unique,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table granted_authorities (
         id bigint not null auto_increment,
         OPTLOCK integer,
         authority varchar(255) not null unique,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table groups (
         id bigint not null auto_increment,
@@ -112,20 +132,20 @@
         name varchar(255) not null,
         parent_fk bigint,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table groups_related_to_users (
         group_fk bigint not null,
         user_fk bigint not null,
         primary key (group_fk, user_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table jnlps (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_jnlp_fk bigint not null unique,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table modules (
         id bigint not null,
@@ -134,13 +154,13 @@
         computer_time bigint,
         tech_reqs varchar(255),
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table modules_related_to_owners (
         module_fk bigint not null,
         owners_fk bigint not null,
         primary key (module_fk, owners_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table newsitem (
         id bigint not null auto_increment,
@@ -149,14 +169,14 @@
         title varchar(255) not null,
         owner bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table offerings (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_offering_fk bigint not null unique,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table premadecommentlists (
         id bigint not null auto_increment,
@@ -164,7 +184,7 @@
         run bigint,
         owner bigint,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table premadecomments (
         id bigint not null auto_increment,
@@ -173,31 +193,31 @@
         run bigint,
         owner bigint,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table premadecomments_related_to_premadecommentlists (
         premadecommentslist_fk bigint not null,
         premadecomments_fk bigint not null,
         primary key (premadecommentslist_fk, premadecomments_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table projects (
         id bigint not null auto_increment,
         familytag integer,
         iscurrent bit,
         OPTLOCK integer,
+        jnlp_fk bigint not null,
         curnit_fk bigint not null,
         run_fk bigint unique,
-        jnlp_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table roolootmlmodules (
         id bigint not null,
         roolomoduleuri varchar(255),
         roolorepositoryurl varchar(255),
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table runs (
         id bigint not null,
@@ -206,26 +226,26 @@
         run_code varchar(255) not null unique,
         project_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table runs_related_to_groups (
         runs_fk bigint not null,
         groups_fk bigint not null,
         primary key (runs_fk, groups_fk),
         unique (groups_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table runs_related_to_owners (
         runs_fk bigint not null,
         owners_fk bigint not null,
         primary key (runs_fk, owners_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table runs_related_to_shared_owners (
         runs_fk bigint not null,
         shared_owners_fk bigint not null,
         primary key (runs_fk, shared_owners_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table sds_curnits (
         id bigint not null auto_increment,
@@ -234,7 +254,7 @@
         name varchar(255) not null,
         url varchar(255) not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table sds_jnlps (
         id bigint not null auto_increment,
@@ -243,7 +263,7 @@
         name varchar(255) not null,
         url varchar(255) not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table sds_offerings (
         id bigint not null auto_increment,
@@ -254,7 +274,7 @@
         sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table sds_users (
         id bigint not null auto_increment,
@@ -263,7 +283,7 @@
         first_name varchar(255) not null,
         last_name varchar(255) not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table sds_workgroups (
         id bigint not null auto_increment,
@@ -273,13 +293,13 @@
         sds_sessionbundle longtext,
         sds_offering_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table sds_workgroups_related_to_sds_users (
         sds_workgroup_fk bigint not null,
         sds_user_fk bigint not null,
         primary key (sds_workgroup_fk, sds_user_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table student_user_details (
         id bigint not null,
@@ -293,7 +313,7 @@
         accountquestion varchar(255) not null,
         accountanswer varchar(255) not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table teacher_user_details (
         id bigint not null,
@@ -310,7 +330,7 @@
         lastlogintime datetime,
         displayname varchar(255),
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table user_details (
         id bigint not null auto_increment,
@@ -323,36 +343,36 @@
         credentials_not_expired bit not null,
         enabled bit not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table user_details_related_to_roles (
         user_details_fk bigint not null,
         granted_authorities_fk bigint not null,
         primary key (user_details_fk, granted_authorities_fk)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table wiseworkgroups (
         id bigint not null,
         period bigint,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_workgroup_fk bigint not null unique,
         offering_fk bigint not null,
+        sds_workgroup_fk bigint not null unique,
         group_fk bigint not null,
         primary key (id)
-    ) type=InnoDB;
+    ) type=MyISAM;
 
     alter table acl_entry 
         add index FK5302D47DC9975936 (acl_object_identity), 
@@ -407,6 +427,24 @@
         add constraint FKCF105FBAA73BCAE9 
         foreign key (brainstormcomments_fk) 
         references brainstormcomments (id);
+
+    alter table brainstormanswers_related_to_brainstormrevisions 
+        add index FK8A39FAF22605B8EA (brainstormanswers_fk), 
+        add constraint FK8A39FAF22605B8EA 
+        foreign key (brainstormanswers_fk) 
+        references brainstormanswers (id);
+
+    alter table brainstormanswers_related_to_brainstormrevisions 
+        add index FK8A39FAF2AA8628E4 (brainstormrevisions_fk), 
+        add constraint FK8A39FAF2AA8628E4 
+        foreign key (brainstormrevisions_fk) 
+        references brainstormrevisions (id);
+
+    alter table brainstormcomments 
+        add index FK828192A72B7BFD8A (workgroups_fk), 
+        add constraint FK828192A72B7BFD8A 
+        foreign key (workgroups_fk) 
+        references wiseworkgroups (id);
 
     alter table brainstorms 
         add index FK174BDF2050B193C8 (runs_fk), 
