@@ -910,6 +910,28 @@
         <property name="brainstormService" ref="brainstormService" />      
     </bean>
     
+    <bean id="testStudentBrainstormController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.TestStudentBrainstormController">
+        <property name="brainstormService" ref="brainstormService" />      
+    </bean>
+    
+    <bean id="createDummyBrainstormController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateDummyBrainstormController">
+        <property name="brainstormService" ref="brainstormService" />      
+        <property name="runService" ref="runService" />      
+    </bean>
+    
+    <bean id="testPostBrainstormAnswerController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.TestPostBrainstormAnswerController">
+        <property name="brainstormService" ref="brainstormService" />  
+        <property name="workgroupService" ref="wiseWorkgroupService" />
+        <property name="commandName" value="revision"/>
+    	<property name="commandClass"
+    		value="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl"/>
+            
+    </bean>
+    
+    
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"
          class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.PostProjectController">

@@ -100,6 +100,8 @@
     		    /student/getannotationbundle.html=getAnnotationBundleController
 				/student/changestudentpassword.html=changeUserPasswordController
 				/student/brainstorm/studentbrainstorm.html=studentBrainstormController
+				/student/brainstorm/teststudentbrainstorm.html=testStudentBrainstormController
+				/student/brainstorm/testpostanswer.html=testPostBrainstormAnswerController
 				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
@@ -127,6 +129,7 @@
     		    /teacher/run/manage/archiveRun.html=endRunController
     		    /teacher/run/manage/startRun.html=startRunController
     		    /teacher/run/createRun.html=createRunController
+    		    /teacher/run/brainstorm/createdummybrainstorm.html=createDummyBrainstormController
     		    /teacher/grading/overview.html=gradeOverviewController
     		    /teacher/grading/gradebystep.html=gradeByStepController
 				/teacher/grading/gradingtool.html=gradingToolController
