@@ -49,6 +49,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
+import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
@@ -87,13 +88,13 @@ public class BrainstormImpl implements Brainstorm {
     @Transient
 	private static final String COLUMN_NAME_ISANONYMOUSALLOWED = "isanonymousallowed";
 
-    @OneToMany(targetEntity = AnswerImpl.class, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
 	private Set<Answer> answers = new TreeSet<Answer>();
 	
-    @OneToOne(targetEntity = QuestionImpl.class, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = QuestionImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = QUESTIONS_JOIN_COLUMN_NAME)
-	private Question question;
+	private Question question = new JaxbQuestionImpl();
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = RunImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })

@@ -51,6 +51,13 @@ public interface Answer extends Persistable, Comparable<Answer> {
 	public WISEWorkgroup getWorkgroup();
 	
 	/**
+	 * Set the <code>WISEWorkgroup</code> that authored
+	 *   this answer
+	 * @param <code>WISEWorkgroup</code>
+	 */
+	public void setWorkgroup(WISEWorkgroup workgroup);
+	
+	/**
 	 * Get all the comments for this answer.
 	 * 
 	 * @return Set of Comments

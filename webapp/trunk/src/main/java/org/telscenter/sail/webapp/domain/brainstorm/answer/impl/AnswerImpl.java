@@ -89,12 +89,12 @@ public class AnswerImpl implements Answer {
     @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private WISEWorkgroup workgroup;
     
-    @OneToMany(targetEntity = CommentImpl.class, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = CommentImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = COMMENTS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = COMMENTS_JOIN_COLUMN_NAME, nullable = false))
     @Sort(type = SortType.NATURAL)
     private Set<Comment> comments = new TreeSet<Comment>();
    
-    @OneToMany(targetEntity = RevisionImpl.class, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = RevisionImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = REVISIONS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = REVISIONS_JOIN_COLUMN_NAME, nullable = false))
     private Set<Revision> revisions = new TreeSet<Revision>();
 
@@ -147,6 +147,13 @@ public class AnswerImpl implements Answer {
      */
 	public WISEWorkgroup getWorkgroup() {
 		return workgroup;
+	}
+
+	/**
+	 * @param workgroup the workgroup to set
+	 */
+	public void setWorkgroup(WISEWorkgroup workgroup) {
+		this.workgroup = workgroup;
 	}
 
 	/**
@@ -207,62 +214,7 @@ public class AnswerImpl implements Answer {
 		this.revisions.add(revision);
 	}
 
-	/**
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((comments == null) ? 0 : comments.hashCode());
-		result = prime * result
-				+ ((workgroup == null) ? 0 : workgroup.hashCode());
-		return result;
-	}
-
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AnswerImpl other = (AnswerImpl) obj;
-		if (comments == null) {
-			if (other.comments != null)
-				return false;
-		} else if (!comments.equals(other.comments))
-			return false;
-		if (workgroup == null) {
-			if (other.workgroup != null)
-				return false;
-		} else if (!workgroup.equals(other.workgroup))
-			return false;
-		return true;
-	}
-
 	public int compareTo(Answer o) {
-		if (this.getComments() == null &&
-				o.getComments() != null) {
-			return 1;
-		}
-		if (this.getComments() != null &&
-				o.getComments() == null) {
-			return -1;
-		}
-		if (this.getComments() == null &&
-				o.getComments() == null) {
-			return 0;
-		}
-		if (this.getComments() != null &&
-				o.getComments() != null) {
-			return 0;
-		}
 		return 0;
 	}
 
