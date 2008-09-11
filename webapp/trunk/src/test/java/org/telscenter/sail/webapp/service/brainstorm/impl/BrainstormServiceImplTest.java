@@ -27,6 +27,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
@@ -74,6 +75,8 @@ public class BrainstormServiceImplTest extends TestCase {
 		answer = null;
 	}
 	
+	
+	@Test
 	public void testAddAnswer() {
 		// this test simply confirms that the dao is called appropriately,
 		// since the DAO is being tested and does all the work
@@ -88,6 +91,7 @@ public class BrainstormServiceImplTest extends TestCase {
 		verify(mockBrainstormDao);
 	}
 	
+	@Test
 	@SuppressWarnings("unchecked")
 	public void testGetBrainstormById_NoException() throws ObjectNotFoundException {
 		// this test simply confirms that the dao is called appropriately,
@@ -110,6 +114,7 @@ public class BrainstormServiceImplTest extends TestCase {
 		verify(mockBrainstormDao);
 	}
 	
+	@Test
 	@SuppressWarnings("unchecked")
 	public void testGetBrainstormById_BraistormDNE() throws ObjectNotFoundException {
 		// this test simply confirms that the dao is called appropriately,
@@ -129,6 +134,7 @@ public class BrainstormServiceImplTest extends TestCase {
 		verify(mockBrainstormDao);
 	}
 	
+	@Test
 	public void testGetBrainstormByAnswer() {
 		brainstorm.addAnswer(answer);
 		expect(mockBrainstormDao.retrieveByAnswer(answer)).andReturn(brainstorm);
@@ -139,5 +145,12 @@ public class BrainstormServiceImplTest extends TestCase {
 		assertTrue(retrievedBrainstorm.getAnswers().contains(answer));
 		verify(mockBrainstormDao);
 	}
+	
+	@Test
+	public void testCreateBrainstorm() {
+		// TODO HIROKI: implement me
+		assertTrue(true);
+	}
+	
 	
 }
