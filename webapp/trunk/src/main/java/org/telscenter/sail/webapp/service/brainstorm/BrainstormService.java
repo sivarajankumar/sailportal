@@ -43,6 +43,13 @@ import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 public interface BrainstormService {
 	
 	/**
+	 * Saves the given <code>Brainstorm</code> in the datastore
+	 * 
+	 * @param brainstorm save this Brainstorm in the datastore
+	 */
+	public void createBrainstorm(Brainstorm brainstorm);
+	
+	/**
 	 * Returns a set of Brainstorms that are used in the run
 	 * 
 	 * @param run

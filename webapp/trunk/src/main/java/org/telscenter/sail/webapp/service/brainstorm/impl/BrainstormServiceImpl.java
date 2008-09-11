@@ -49,6 +49,14 @@ public class BrainstormServiceImpl implements BrainstormService {
 	private AnswerDao<Answer> answerDao;
 	
 	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#createBrainstorm(org.telscenter.sail.webapp.domain.brainstorm.Brainstorm)
+	 */
+	@Transactional()
+	public void createBrainstorm(Brainstorm brainstorm) {
+		this.brainstormDao.save(brainstorm);
+	}
+
+	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addAnswer(org.telscenter.sail.webapp.domain.brainstorm.Brainstorm, org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
 	 */
 	@Transactional()
@@ -85,7 +93,6 @@ public class BrainstormServiceImpl implements BrainstormService {
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormsByRun(org.telscenter.sail.webapp.domain.Run)
 	 */
 	public Set<Brainstorm> getBrainstormsByRun(Run run) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
