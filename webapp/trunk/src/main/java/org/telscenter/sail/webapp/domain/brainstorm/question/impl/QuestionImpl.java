@@ -30,7 +30,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
@@ -40,7 +43,9 @@ import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
  * @author Hiroki Terashima
  * @version $Id$
  */
-@Entity(name = QuestionImpl.DATA_STORE_NAME)
+@Entity
+@Table(name = QuestionImpl.DATA_STORE_NAME)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class QuestionImpl implements Question {
 
     @Transient

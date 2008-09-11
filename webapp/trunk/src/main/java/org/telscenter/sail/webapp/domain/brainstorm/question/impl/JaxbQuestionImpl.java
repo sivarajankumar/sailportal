@@ -29,6 +29,10 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import net.sf.sail.jaxb.extension.BlockInteractionType;
 import net.sf.sail.jaxb.extension.JaxbQtiMarshallingUtils;
 
@@ -39,19 +43,28 @@ import org.imsglobal.xsd.imsqti_v2p0.ExtendedTextInteractionType;
  * @author Anthony Perritano
  * @version $Id$
  */
+@Entity
+@Table(name = JaxbQuestionImpl.DATA_STORE_NAME)
 public class JaxbQuestionImpl extends QuestionImpl {
 
+	@Transient
+	public static final String DATA_STORE_NAME = "jaxbquestions";
+	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The assessment Items for this question
 	 */
+	@Transient
 	protected AssessmentItemType assessmentItemType;
 	
 	/**
 	 * an interaction can be a choice or interaction
 	 */
+	@Transient	
 	protected BlockInteractionType blockInteractionType;
+	
 	/**
 	 * The body will be xml formatted JAXB QTI String. It will also unmarshall the XML
 	 * 
@@ -59,7 +72,13 @@ public class JaxbQuestionImpl extends QuestionImpl {
 	 */
 	public void setBody(String body) {
 		this.body = body;
-		
+		parseToQTI(body);
+	}
+
+	/**
+	 * @param body
+	 */
+	private void parseToQTI(String body) {
 		if(body == null)
 			throw new NullPointerException();
 			
@@ -76,7 +95,6 @@ public class JaxbQuestionImpl extends QuestionImpl {
 		//parse the blockinteraction for this question it will only have one part
 		//for now
 		blockInteractionType = (BlockInteractionType) assessmentItemType.getItemBody().getBlockElementGroup().get(0);
-		
 	}
 
 	/**
@@ -93,7 +111,11 @@ public class JaxbQuestionImpl extends QuestionImpl {
 	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl#getPrompt()
 	 */
+	@Override
 	public String getPrompt() {
+		if (blockInteractionType == null) {
+			parseToQTI(this.body);
+		}
 		List<Serializable> blockContent = blockInteractionType.getPrompt().getContent();
 		
 		if(blockContent != null) {
