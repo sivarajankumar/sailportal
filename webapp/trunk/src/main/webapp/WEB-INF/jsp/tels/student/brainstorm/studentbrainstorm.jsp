@@ -56,7 +56,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>  
-		<input id="createResponse" type="button" value="Create A Response" onclick="responsePopUp('${brainstorm.id}', '${workgroup.id}')"/>
+		<input id="createResponse" type="button" value="Create A Response" onclick="responsePopUp('${workgroup.id}', '${brainstorm.id}')"/>
 		<input id="helpBox" type="checkbox" value="help">Request help</input>
 		<div id="info"><a href="#">info</a></div>
 	</div>
@@ -77,10 +77,17 @@
 					<c:if test="${revisionLastStatus.last=='true'}">
 						<div id="${revisionLast.id}" name="revision">
 							<div name="revisionHead">
-								<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
-									${student.userDetails.firstname} ${student.userDetails.lastname}
-									<c:if test="${studentStatus.last=='false'}"> & </c:if>
-								</c:forEach>
+                                <c:choose>
+									<c:when test="${answer.anonymous}">
+                                    ANONYMOUS
+                                	</c:when>
+									<c:otherwise>
+										<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
+											${student.userDetails.firstname} ${student.userDetails.lastname}
+											<c:if test="${studentStatus.last=='false'}"> & </c:if>
+										</c:forEach>
+            						</c:otherwise>
+								</c:choose>
 								${revisionLast.timestamp}     HELPFULNESS SCORE
 							</div>
 							<div name="revisionBody">
@@ -154,6 +161,7 @@
 
 
 </div> <!-- end centered div -->
+<!--  
 <p>
 brainstorm: ${brainstorm}
 <br/></p>
@@ -190,5 +198,6 @@ posted on: ${comment.timestamp}
 body: ${comment.body}
 </c:forEach>
 </c:forEach>
+-->
 </body>
 </html>
