@@ -941,7 +941,7 @@
     <bean id="addCommentController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.AddCommentController">
     </bean>
-    
+    <!--  
     <bean id="stepActivityGraphController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.reports.teacher.StepActivityGraphController">
 		<property name="runService" ref="runService"/>
@@ -949,7 +949,7 @@
 		<property name="gradingService" ref="gradingService"/>
 		<property name="sessionBundleService" ref="sessionBundleService"/>
 	</bean>
-	
+	-->
 	<bean id="postResponseController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostResponseController">
 		<property name="brainstormService" ref="brainstormService"/>

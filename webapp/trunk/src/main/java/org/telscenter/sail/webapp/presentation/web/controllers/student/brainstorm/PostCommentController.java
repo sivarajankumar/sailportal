@@ -122,7 +122,7 @@ public class PostCommentController extends AbstractController{
 		comment2.setBody("I disagree. The movie was a waste of time.");
 		
 		answer1.addComment(comment2);
-		answer1.setId(new Long(3));
+		//answer1.setId(new Long(3));
 		
 		answers.add(answer1);
 		brainstorm.setAnswers(answers);
@@ -134,7 +134,7 @@ public class PostCommentController extends AbstractController{
 		if(Integer.parseInt(request.getParameter(OPTION)) == 0){
 			comment.setAnonymous(true);
 		}
-		comment.setId(new Long(77));
+		//comment.setId(new Long(77));
 		comment.setWorkgroup(workgroup);
 		answer1.addComment(comment);
 		

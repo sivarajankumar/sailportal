@@ -216,7 +216,7 @@
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				/repository/retrieveotml.html=retrieveOtmlController
-				/reports/teacher/stepactivitygraph.html=stepActivityGraphController
+				<!--  /reports/teacher/stepactivitygraph.html=stepActivityGraphController-->
     		</value>
     	</property>
     </bean>

@@ -107,8 +107,8 @@ public class AddCommentController extends AbstractController {
 		comment1.setWorkgroup(workgroup1);
 		comment1.setBody("yah, I thought so too! let's watch it together again");
 		answer1.addComment(comment1);
-		answer1.setId(new Long(13));
-		revision1.setId(new Long(26));
+		//answer1.setId(new Long(13));
+		//revision1.setId(new Long(26));
 		
 		Comment comment2 = new CommentImpl();
 		comment2.setAnonymous(false);
@@ -120,8 +120,8 @@ public class AddCommentController extends AbstractController {
 		comment2.setBody("I disagree. The movie was a waste of time.");
 		
 		answer1.addComment(comment2);
-		comment1.setId(new Long(22));
-		comment2.setId(new Long(42));
+		//comment1.setId(new Long(22));
+		//comment2.setId(new Long(42));
 		
 		answers.add(answer1);
 		brainstorm.setAnswers(answers);
