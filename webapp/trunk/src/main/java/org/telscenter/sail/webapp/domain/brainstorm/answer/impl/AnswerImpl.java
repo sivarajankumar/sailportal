@@ -84,7 +84,7 @@ public class AnswerImpl implements Answer {
     @Transient
 	private static final String COLUMN_NAME_ISANONYMOUS = "isanonymous";
     
-    @ManyToOne(targetEntity = WISEWorkgroupImpl.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = WISEWorkgroupImpl.class)
     @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private WISEWorkgroup workgroup;
     
