@@ -113,17 +113,24 @@ public class BrainstormServiceImpl implements BrainstormService {
 	}
 
 	/**
-	 * @param brainstormDao the brainstormDao to set
-	 */
-	public void setBrainstormDao(BrainstormDao<Brainstorm> brainstormDao) {
-		this.brainstormDao = brainstormDao;
-	}
-
-	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormByAnswer(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
 	 */
 	public Brainstorm getBrainstormByAnswer(Answer answer) {
 		return this.brainstormDao.retrieveByAnswer(answer);
+	}
+	
+	/**
+	 * @param Long the id of the answer to be retrieved
+	 */
+	public Answer getAnswer(Long id) throws Exception{
+		return this.answerDao.getById(id);
+	}
+
+	/**
+	 * @param brainstormDao the brainstormDao to set
+	 */
+	public void setBrainstormDao(BrainstormDao<Brainstorm> brainstormDao) {
+		this.brainstormDao = brainstormDao;
 	}
 
 	/**

@@ -907,7 +907,8 @@
 
     <bean id="studentBrainstormController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.StudentBrainstormController">
-        <property name="brainstormService" ref="brainstormService" />      
+        <property name="brainstormService" ref="brainstormService" /> 
+        <property name="workgroupService" ref="wiseWorkgroupService"/>     
     </bean>
     
     <bean id="testStudentBrainstormController"
@@ -921,7 +922,7 @@
         <property name="runService" ref="runService" />      
     </bean>
     
-    <bean id="testPostBrainstormAnswerController"
+<!--     <bean id="testPostBrainstormAnswerController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.TestPostBrainstormAnswerController">
         <property name="brainstormService" ref="brainstormService" />  
         <property name="workgroupService" ref="wiseWorkgroupService" />
@@ -929,8 +930,37 @@
     	<property name="commandClass"
     		value="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl"/>
             
+    </bean>  -->
+
+    <bean id="brainstormResponseController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.BrainstormResponseController">
+    	<property name="brainstormService" ref="brainstormService"/>
+        <property name="workgroupService" ref="wiseWorkgroupService"/>
     </bean>
     
+    <bean id="addCommentController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.AddCommentController">
+    </bean>
+    
+    <bean id="stepActivityGraphController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.reports.teacher.StepActivityGraphController">
+		<property name="runService" ref="runService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+		<property name="gradingService" ref="gradingService"/>
+		<property name="sessionBundleService" ref="sessionBundleService"/>
+	</bean>
+	
+	<bean id="postResponseController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostResponseController">
+		<property name="brainstormService" ref="brainstormService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+	</bean>
+	
+	<bean id="postCommentController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostCommentController">
+		<property name="brainstormService" ref="brainstormService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+	</bean>   
     
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"

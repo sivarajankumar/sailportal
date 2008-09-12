@@ -85,7 +85,6 @@ public class AnswerImpl implements Answer {
 	private static final String COLUMN_NAME_ISANONYMOUS = "isanonymous";
     
     @ManyToOne(targetEntity = WISEWorkgroupImpl.class, cascade = CascadeType.ALL)
-    @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
     @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private WISEWorkgroup workgroup;
     

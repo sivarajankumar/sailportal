@@ -118,4 +118,13 @@ public interface BrainstormService {
 	 * @return <code>Brainstorm</code> that has this answer.
 	 */
 	public Brainstorm getBrainstormByAnswer(Answer answer);
+	
+	/**
+	 * Returns the Answer with the provided Id
+	 * 
+	 * @param id <code>Long</code> of the answer to retrieve
+	 * @return <code>Answer</code>
+	 * @throws Exception when no answer with provided Id is found
+	 */
+	public Answer getAnswer(Long id) throws Exception;
 }
