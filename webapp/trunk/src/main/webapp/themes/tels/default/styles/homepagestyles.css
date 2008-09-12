@@ -293,19 +293,22 @@
 }
 
 #newsContent {
-	background-image:url(../images/Pixel_Gray.png);
+	background-image:url(../images/Pixel_Pale_Green.png);
+	background-repeat:repeat; 
 	position:relative;
-	height:227px;
+	height:220px;
 	width:90%;
+	padding:4px;
 	margin-left:14px; 
 	overflow:auto; 
+	font-size:.75em; 
+	color:#006600;
+	color:#000000;
 }
 
 #newsContentHeader {
-	color:#3333FF;
-	font-size:.8em; 
 	font-weight:bold;
-	padding-bottom:7px;
+	padding-bottom:4px;
 }
 
 #newsContentData {
