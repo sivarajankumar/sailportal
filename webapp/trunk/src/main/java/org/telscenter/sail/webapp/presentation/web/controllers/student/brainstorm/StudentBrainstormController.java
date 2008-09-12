@@ -24,11 +24,15 @@ package org.telscenter.sail.webapp.presentation.web.controllers.student.brainsto
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -46,6 +50,7 @@ import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
@@ -59,9 +64,13 @@ public class StudentBrainstormController extends AbstractController {
 	
 	private static final String WORKGROUP = "workgroup";
 	
-	private static final String BRAINSTORMID = "brainstormId";
+	private static final String BRAINSTORMID_PARAM = "brainstormId";
 
-	@SuppressWarnings("unused")
+	private static final String RESTRICTED_VIEW = "student/brainstorm/restricted";
+
+	private static final String NOT_IN_WKGP_MSG = 
+		"You cannot see this brainstorm because you are not in a workgroup for this run. Please go back.";
+
 	private BrainstormService brainstormService;
 
 	private WISEWorkgroupService workgroupService;
@@ -72,13 +81,24 @@ public class StudentBrainstormController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-		//Brainstorm brainstorm = brainstormService.getBrainstormById(Long.parseLong(request.getParameter(BRAINSTORMID)));
-		// want to get brainstorm by id from database
-		// for now, create a mock Brainstorm object
-		Brainstorm brainstorm = this.brainstormService.getBrainstormById(new Long(1));
-		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(new Long(1));
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
 
+		String brainstormId = request.getParameter(BRAINSTORMID_PARAM);
+		Brainstorm brainstorm = brainstormService.getBrainstormById(brainstormId);
+		
+		List<Workgroup> workgroupListByOfferingAndUser 
+		    = workgroupService.getWorkgroupListByOfferingAndUser(brainstorm.getRun(), user);
+		
+		// if the user is not in a workgroup for this run, he/she cannot see this brainstorm.
+		if (workgroupListByOfferingAndUser.isEmpty()) {
+			ModelAndView modelAndView = new ModelAndView(RESTRICTED_VIEW);
+			modelAndView.addObject("msg", NOT_IN_WKGP_MSG);
+			return modelAndView;
+		}
+
+		// otherwise let the user see this brainstorm.
+		WISEWorkgroup workgroup = (WISEWorkgroup) workgroupListByOfferingAndUser.get(0);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(BRAINSTORM_KEY, brainstorm);
