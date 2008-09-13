@@ -105,6 +105,10 @@
 				/student/brainstorm/addcomment.html=addCommentController
 				/student/brainstorm/postresponse.html=postResponseController
 				/student/brainstorm/postcomment.html=postCommentController
+				/student/brainstorm/postrevision.html=postRevisionController
+				/student/brainstorm/addrevision.html=addRevisionController
+				/student/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
+				/student/brainstorm/requesthelp.html=requestHelpController
 				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController

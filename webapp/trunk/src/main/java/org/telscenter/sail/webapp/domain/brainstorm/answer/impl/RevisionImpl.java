@@ -131,4 +131,13 @@ public class RevisionImpl implements Revision {
         this.version = version;
     }
 
+    /**
+     * Compare by timestamp.
+     * 
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+	public int compareTo(Revision o) {
+		return this.timestamp.compareTo(o.getTimestamp());
+	}
+
 }

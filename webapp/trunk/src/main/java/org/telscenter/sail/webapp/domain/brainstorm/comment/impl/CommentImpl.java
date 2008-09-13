@@ -36,7 +36,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.Cascade;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
@@ -79,7 +78,6 @@ public class CommentImpl implements Comment {
     private String body;
 
     @ManyToOne(targetEntity = WISEWorkgroupImpl.class, cascade = CascadeType.ALL)
-    @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
     @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private WISEWorkgroup workgroup;
     

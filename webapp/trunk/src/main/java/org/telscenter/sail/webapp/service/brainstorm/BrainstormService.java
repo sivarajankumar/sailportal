@@ -101,7 +101,16 @@ public interface BrainstormService {
 	 * @param workgroup
 	 */
 	public void requestHelp(Brainstorm brainstorm, WISEWorkgroup workgroup);
-	
+
+	/**
+	 * Indicates that the specified workgroup no longer 
+	 * needs help with the specified Brainstorm.
+	 * 
+	 * @param brainstorm
+	 * @param workgroup
+	 */
+	public void unrequestHelp(Brainstorm brainstorm, WISEWorkgroup workgroup);
+
 	/**
 	 * Indicates that the workgroup found the answer helpful.
 	 * 
@@ -109,7 +118,16 @@ public interface BrainstormService {
 	 * @param workgroup
 	 */
 	public void markAsHelpful(Answer answer, WISEWorkgroup workgroup);
-	
+
+	/**
+	 * Indicates that the workgroup no longer finds 
+	 * the answer helpful.
+	 * 
+	 * @param answer
+	 * @param workgroup
+	 */
+	public void unmarkAsHelpful(Answer answer, WISEWorkgroup workgroup);
+
 	/**
 	 * Looks up the Brainstorm that the answer is for.
 	 * 

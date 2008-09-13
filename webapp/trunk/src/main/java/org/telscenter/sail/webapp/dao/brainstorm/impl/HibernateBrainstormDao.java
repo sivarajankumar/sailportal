@@ -22,10 +22,14 @@
  */
 package org.telscenter.sail.webapp.dao.brainstorm.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
-import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
@@ -57,18 +61,28 @@ public class HibernateBrainstormDao extends AbstractHibernateDao<Brainstorm> imp
 
 	/**
 	 * @see org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao#retrieveByAnswer(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
-	 * SELECT brainstorms.* from brainstorms, brainstorms_related_to_brainstormanswers, brainstormanswers
-	 * WHERE brainstorms.id=brainstorms_related_to_brainstormanswers.brainstorms_fk
-	 * AND brainstormanswers.id=brainstorms_related_to_brainstormanswers.brainstormanswers_fk
-	 * AND brainstormanswers.id=answer.id
 	 */
 	public Brainstorm retrieveByAnswer(Answer answer) {
-		return (Brainstorm) DataAccessUtils
-		    .uniqueResult(this.getHibernateTemplate().findByNamedParam(
-		    		"SELECT brainstorms.* from brainstorms, brainstorms_related_to_brainstormanswers, brainstormanswers " +
-		    		"WHERE brainstorms.id=brainstorms_related_to_brainstormanswers.brainstorms_fk " +
-		    		"AND brainstormanswers.id=brainstorms_related_to_brainstormanswers.brainstormanswers_fk " +
-		    		"AND brainstormanswers.id = :answerId", "answerId", answer.getId()));
+		return (Brainstorm) this
+		.getHibernateTemplate()
+		.findByNamedParam(
+				"from BrainstormImpl as brainstorm where brainstorm.answer = :answer",
+				"answer", answer);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao#retrieveByRun(org.telscenter.sail.webapp.domain.Run)
+	 */
+    @SuppressWarnings("unchecked")
+	public Set<Brainstorm> retrieveByRun(Run run) {
+		List<Brainstorm> listOfBrainstorms = this
+        .getHibernateTemplate()
+        .findByNamedParam(
+                "from BrainstormImpl as brainstorm where brainstorm.run = :run",
+                "run", run);
+		Set<Brainstorm> setOfBrainstorms = new HashSet<Brainstorm>();
+		setOfBrainstorms.addAll(listOfBrainstorms);
+		return setOfBrainstorms;
 	}
 
 }

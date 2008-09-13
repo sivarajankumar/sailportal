@@ -159,14 +159,15 @@ function getNames(members){
 		Question
 		<span id="questionBox">${brainstorm.question.prompt}</span>
 	</div>
+	<br/>
 	<div id="response">
-		Response
+		<b>Response</b><br/>
 		<textarea id="responseText" cols="45" rows="8"></textarea>
 	</div>
 	<div id="selectPostType">
 		<div>How would you like your response labeled?</div>
-		<label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label>
-		<label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1"/>Label with student names: 
+		<label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
+		<label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
 			<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
 				${student.userDetails.firstname} ${student.userDetails.lastname}
 				<c:if test="${studentStatus.last=='false'}">, </c:if>

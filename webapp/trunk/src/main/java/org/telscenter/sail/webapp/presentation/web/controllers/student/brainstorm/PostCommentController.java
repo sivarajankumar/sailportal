@@ -86,6 +86,8 @@ public class PostCommentController extends AbstractController{
 		
 		//WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
 		//Answer answer = this.brainstormService.getAnswer(Long.parseLong(request.getParameter(ANSWERID)));
+
+		/*
 		//following is mock brainstorm
 		WISEWorkgroup workgroup = new WISEWorkgroupImpl();
 		Brainstorm brainstorm = new BrainstormImpl();
@@ -137,8 +139,21 @@ public class PostCommentController extends AbstractController{
 		//comment.setId(new Long(77));
 		comment.setWorkgroup(workgroup);
 		answer1.addComment(comment);
+		*/
 		
-		String xmlDoc = XMLBrainstorm.getXMLAnswer(answer1);
+		Answer answer = this.brainstormService.getAnswer(Long.parseLong(request.getParameter(ANSWERID)));
+		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
+
+		Comment comment = new CommentImpl();
+		comment.setBody(request.getParameter(TEXT));
+		comment.setTimestamp(Calendar.getInstance().getTime());
+		comment.setWorkgroup(workgroup);
+		if(Integer.parseInt(request.getParameter(OPTION)) == 0){		
+			comment.setAnonymous(true);
+		}
+		this.brainstormService.addComments(answer, comment);
+		
+		String xmlDoc = XMLBrainstorm.getXMLAnswer(answer);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(XMLDOC, xmlDoc);

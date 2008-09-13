@@ -120,6 +120,22 @@ public interface Brainstorm extends Persistable {
 	public Set<WISEWorkgroup> getWorkgroupsThatRequestHelp();
 	
 	/**
+	 * Indicate that the specified workgroup is requesting 
+	 * help to this brainstorm.
+	 * 
+	 * @param workgroup
+	 */
+	public void addWorkgroupThatRequestHelp(WISEWorkgroup workgroup);
+	
+	/**
+	 * Indicates that the specified workgroup is no longer
+	 * seeking help on this brainstorm.
+	 * 
+	 * @param workgroup
+	 */
+	public void removeWorkgroupThatRequestHelp(WISEWorkgroup workgroup);
+
+	/**
 	 * Returns an association of workgroup and their last visited timestamp
 	 * on this brainstorm step.
 	 * 

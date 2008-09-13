@@ -87,10 +87,17 @@ function post(){
 	<div id="head">Add a Comment</div>
 	<div id="answer">
 		<div name="head">
-			<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
-				${student.userDetails.firstname} ${student.userDetails.lastname}
-				<c:if test="${studentStatus.last=='false'}">, </c:if>
-			</c:forEach>
+			<c:choose>
+				<c:when test="${answer.anonymous}">
+                	<i>Anonymous</i>
+                </c:when>
+				<c:otherwise>
+					<c:forEach var="student" varStatus="studentStatus" items="${answer.workgroup.members}">
+						${student.userDetails.firstname} ${student.userDetails.lastname}
+						<c:if test="${studentStatus.last=='false'}"> & </c:if>
+					</c:forEach>
+            	</c:otherwise>
+			</c:choose>
 			posted 
 			<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
 				<c:if test="${revisionStatus.last=='true'}">${revision.timestamp}</c:if>
@@ -102,15 +109,16 @@ function post(){
 			</c:forEach>
 		</div>		
 	</div>
+	<br/>
 	<div id="comment">
-		Comment
+		<b>Comment:</b><br/>
 		<textarea id="responseText" cols="45" rows="8"></textarea>
 	</div>
 
 	<div id="selectPostType">
 		<div>How would you like your comment labeled?</div>
-		<label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label>
-		<label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1"/>Label with student names: 
+		<label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
+		<label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
 			<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
 				${student.userDetails.firstname} ${student.userDetails.lastname}
 				<c:if test="${studentStatus.last=='false'}">, </c:if>

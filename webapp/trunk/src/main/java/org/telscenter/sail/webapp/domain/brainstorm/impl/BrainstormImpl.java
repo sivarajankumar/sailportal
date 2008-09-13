@@ -36,6 +36,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -53,6 +54,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionIm
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 
 /**
  * Simple brainstorm implementation.
@@ -87,6 +89,12 @@ public class BrainstormImpl implements Brainstorm {
 
     @Transient
 	private static final String COLUMN_NAME_ISANONYMOUSALLOWED = "isanonymousallowed";
+    
+    @Transient
+	private static final String WORKGROUPS_JOIN_TABLE_NAME = "brainstorms_related_to_workgroups";
+
+    @Transient
+	private static final String WORKGROUP_JOIN_COLUMN_NAME = "workgroups_fk";
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
@@ -100,6 +108,10 @@ public class BrainstormImpl implements Brainstorm {
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
     @JoinColumn(name = COLUMN_NAME_RUN_FK, nullable = false, unique = false)
 	private Run run;
+	
+    @ManyToMany(targetEntity = WISEWorkgroupImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = BrainstormImpl.WORKGROUPS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false)}, inverseJoinColumns = @JoinColumn(name = WORKGROUP_JOIN_COLUMN_NAME, nullable = false))
+    private Set<WISEWorkgroup> workgroupsThatRequestHelp = new TreeSet<WISEWorkgroup>();
 	
 	@Column(name = BrainstormImpl.COLUMN_NAME_ISANONYMOUSALLOWED)
 	private boolean isAnonymousAllowed;
@@ -213,8 +225,32 @@ public class BrainstormImpl implements Brainstorm {
 		return null;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#getWorkgroupsThatRequestHelp()
+	 */
 	public Set<WISEWorkgroup> getWorkgroupsThatRequestHelp() {
-		// TODO Auto-generated method stub
-		return null;
+		return workgroupsThatRequestHelp;
+	}
+
+	/**
+	 * @param workgroupsThatRequestHelp the workgroupsThatRequestHelp to set
+	 */
+	public void setWorkgroupsThatRequestHelp(
+			Set<WISEWorkgroup> workgroupsThatRequestHelp) {
+		this.workgroupsThatRequestHelp = workgroupsThatRequestHelp;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#addWorkgroupThatRequestHelp(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public void addWorkgroupThatRequestHelp(WISEWorkgroup workgroup) {
+		this.workgroupsThatRequestHelp.add(workgroup);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#removeWorkgroupThatRequestHelp(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public void removeWorkgroupThatRequestHelp(WISEWorkgroup workgroup) {
+		this.workgroupsThatRequestHelp.remove(workgroup);
 	}
 }

@@ -35,12 +35,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
@@ -83,6 +83,12 @@ public class AnswerImpl implements Answer {
 
     @Transient
 	private static final String COLUMN_NAME_ISANONYMOUS = "isanonymous";
+
+    @Transient
+	private static final String WORKGROUPS_JOIN_TABLE_NAME = "answers_related_to_workgroups";
+
+    @Transient
+	private static final String WORKGROUP_JOIN_COLUMN_NAME = "workgroups_fk";
     
     @ManyToOne(targetEntity = WISEWorkgroupImpl.class)
     @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
@@ -97,6 +103,10 @@ public class AnswerImpl implements Answer {
     @JoinTable(name = REVISIONS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = REVISIONS_JOIN_COLUMN_NAME, nullable = false))
     private Set<Revision> revisions = new TreeSet<Revision>();
 
+    @ManyToMany(targetEntity = WISEWorkgroupImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = AnswerImpl.WORKGROUPS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false)}, inverseJoinColumns = @JoinColumn(name = WORKGROUP_JOIN_COLUMN_NAME, nullable = false))
+    private Set<WISEWorkgroup> workgroupsThatFoundAnswerHelpful = new TreeSet<WISEWorkgroup>();
+    
     @Column(name = AnswerImpl.COLUMN_NAME_ISANONYMOUS)
     private boolean isAnonymous;
     
@@ -183,11 +193,42 @@ public class AnswerImpl implements Answer {
 		this.revisions = revisions;
 	}
 
-	public Set<WISEWorkgroup> getWorkgroupsThatFoundThisAnswerHelpful() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * @return the workgroupsThatFoundAnswerHelpful
+	 */
+	public Set<WISEWorkgroup> getWorkgroupsThatFoundAnswerHelpful() {
+		return workgroupsThatFoundAnswerHelpful;
+	}
+
+	/**
+	 * @param workgroupsThatFoundAnswerHelpful the workgroupsThatFoundAnswerHelpful to set
+	 */
+	public void setWorkgroupsThatFoundAnswerHelpful(
+			Set<WISEWorkgroup> workgroupsThatFoundAnswerHelpful) {
+		this.workgroupsThatFoundAnswerHelpful = workgroupsThatFoundAnswerHelpful;
 	}
 	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#addWorkgroupThatFoundThisAnswerHelpful(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public void markAsHelpful(WISEWorkgroup workgroup) {
+		workgroupsThatFoundAnswerHelpful.add(workgroup);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#unmarkAsHelpful(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public void unmarkAsHelpful(WISEWorkgroup workgroup) {
+		workgroupsThatFoundAnswerHelpful.remove(workgroup);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#workgroupMarkedAnswerHelpful(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public boolean workgroupMarkedAnswerHelpful(WISEWorkgroup workgroup) {
+		return workgroupsThatFoundAnswerHelpful.contains(workgroup);
+	}
+
 	/**
 	 * @return the isAnonymous
 	 */
@@ -216,5 +257,4 @@ public class AnswerImpl implements Answer {
 	public int compareTo(Answer o) {
 		return 0;
 	}
-
 }

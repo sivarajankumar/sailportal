@@ -940,7 +940,16 @@
     
     <bean id="addCommentController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.AddCommentController">
+    	<property name="brainstormService" ref="brainstormService"/>
+        <property name="workgroupService" ref="wiseWorkgroupService"/>
     </bean>
+    
+    <bean id="addRevisionController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.AddRevisionController">
+    	<property name="brainstormService" ref="brainstormService"/>
+        <property name="workgroupService" ref="wiseWorkgroupService"/>
+    </bean>
+    
     <!--  
     <bean id="stepActivityGraphController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.reports.teacher.StepActivityGraphController">
@@ -961,6 +970,24 @@
 		<property name="brainstormService" ref="brainstormService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
 	</bean>   
+	
+    <bean id="postRevisionController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostRevisionController">
+		<property name="brainstormService" ref="brainstormService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+	</bean> 
+
+    <bean id="markAnswerHelpfulController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.MarkAnswerHelpfulController">
+		<property name="brainstormService" ref="brainstormService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+	</bean> 
+
+    <bean id="requestHelpController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.RequestHelpController">
+		<property name="brainstormService" ref="brainstormService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+	</bean> 
     
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"

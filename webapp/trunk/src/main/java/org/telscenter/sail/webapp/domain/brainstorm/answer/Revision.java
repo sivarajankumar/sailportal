@@ -33,7 +33,7 @@ import net.sf.sail.webapp.domain.Persistable;
  * @author Patrick Lawler
  * @version $Id$
  */
-public interface Revision extends Persistable {
+public interface Revision extends Persistable, Comparable<Revision> {
 
 	/**
 	 * Returns when this revision was authored.

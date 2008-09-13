@@ -3,6 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
 
 <script type="text/javascript">
 	
@@ -16,8 +19,59 @@
 		popUp('brainstormresponse.html?workgroupId=' + workgroupId + '&brainstormId=' + brainstormId, 'TeamResponse');
 	};
 	
-	function addCommentPopUp(workgroupId, brainstormId){
-		popUp('addcomment.html?workgroupId=' + workgroupId + '&brainstormId=' + brainstormId, 'AddComment');
+	function addCommentPopUp(workgroupId, answerId){
+		popUp('addcomment.html?workgroupId=' + workgroupId + '&answerId=' + answerId, 'AddComment');
+	};
+	
+	function addRevisionPopUp(workgroupId, answerId){
+		popUp('addrevision.html?workgroupId=' + workgroupId + '&answerId=' + answerId, 'AddRevision');
+	};
+	
+	function requestHelp(workgroupId, brainstormId) {
+		var isChecked = document.getElementById('requesthelp_' + workgroupId + '_' + brainstormId).checked;
+		if (isChecked) {
+			var URL='requesthelp.html';
+			var data='mark=1&workgroupId=' + workgroupId + '&brainstormId=' + brainstormId;
+			var callback = 
+				{
+					success:function(o){alert('you have requested help from your teacher on this brainstorm');},
+					failure:function(o){}
+				};
+			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
+		} else {
+			var URL='requesthelp.html';
+			var data='mark=0&workgroupId=' + workgroupId + '&brainstormId=' + brainstormId;
+			var callback = 
+				{
+					success:function(o){alert('you have retracted your request for help from your teacher on this brainstorm');},
+					failure:function(o){}
+				};
+			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
+		}
+		
+	};
+	
+	function markAnswerAsHelpful(workgroupId, answerId) {
+		var isChecked = document.getElementById('helpful_' + workgroupId + '_' + answerId).checked;
+		if (isChecked) {
+			var URL='markanswerhelpful.html';
+			var data='mark=1&workgroupId=' + workgroupId + '&answerId=' + answerId;
+			var callback = 
+				{
+					success:function(o){},
+					failure:function(o){}
+				};
+			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
+		} else {
+			var URL='markanswerhelpful.html';
+			var data='mark=0&workgroupId=' + workgroupId + '&answerId=' + answerId;
+			var callback = 
+				{
+					success:function(o){},
+					failure:function(o){}
+				};
+			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
+		}
 	};
 	
 	function refreshResponses(){
@@ -57,7 +111,20 @@
 			</c:choose>
 		</div>  
 		<input id="createResponse" type="button" value="Create A Response" onclick="responsePopUp('${workgroup.id}', '${brainstorm.id}')"/>
-		<input id="helpBox" type="checkbox" value="help">Request help</input>
+		<c:set var="thisworkgrouprequestedhelp" value="false" />
+		<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">
+		    <c:if test="${workgroupThatRequestedHelp == workgroup}">
+		        <c:set var="thisworkgrouprequestedhelp" value="true" />
+			</c:if>
+		</c:forEach>
+		<c:choose>
+		    <c:when test="${thisworkgrouprequestedhelp == true}">
+		    	<input id="requesthelp_${workgroup.id}_${brainstorm.id}" checked="checked" type="checkbox" value="helpful" onclick="javascript:requestHelp('${workgroup.id}', '${brainstorm.id}')">Request Help</input>
+		    </c:when>
+		    <c:otherwise>
+		        <input id="requesthelp_${workgroup.id}_${brainstorm.id}" type="checkbox" value="helpful" onclick="javascript:requestHelp('${workgroup.id}', '${brainstorm.id}')">Request Help</input>
+		    </c:otherwise>
+		</c:choose>
 		<div id="info"><a href="#">info</a></div>
 	</div>
 	
@@ -71,6 +138,7 @@
 	
 	<div id="studentPosts">
 		<c:forEach var="answer" varStatus="answerStatus" items="${brainstorm.answers}">
+			<br/><br/>
 			<div id="${answer.id}" name="answer">
 				<c:set var="count" value="1"/>
 				<c:forEach var="revisionLast" varStatus="revisionLastStatus" items="${answer.revisions}">
@@ -79,16 +147,17 @@
 							<div name="revisionHead">
                                 <c:choose>
 									<c:when test="${answer.anonymous}">
-                                    ANONYMOUS
+                                    <i>Anonymous</i>
                                 	</c:when>
 									<c:otherwise>
-										<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
+										<c:forEach var="student" varStatus="studentStatus" items="${answer.workgroup.members}">
 											${student.userDetails.firstname} ${student.userDetails.lastname}
 											<c:if test="${studentStatus.last=='false'}"> & </c:if>
 										</c:forEach>
             						</c:otherwise>
 								</c:choose>
-								${revisionLast.timestamp}     HELPFULNESS SCORE
+								${revisionLast.timestamp}     <br/>
+								${fn:length(answer.workgroupsThatFoundAnswerHelpful)} students found this post helpful
 							</div>
 							<div name="revisionBody">
 								<c:if test="${fn:length(answer.revisions)>1}">
@@ -100,10 +169,23 @@
 						<div name="revisionFoot">
 							<a href="#" onclick="addCommentPopUp('${workgroup.id}', '${answer.id}')">Add a Comment</a>
 							<c:if test="${answer.workgroup.id==workgroup.id}">
-								<a href="#">Revise this Response</a>
+								<a href="#" onclick="addRevisionPopUp('${workgroup.id}', '${answer.id}')">Revise this Response</a>
 							</c:if>
 							<c:if test="${answer.workgroup.id!=workgroup.id}">
-								<input id="helpful_${workgroup.id}" type="checkbox" value="helpful">I found this response helpful</input>
+							     <c:set var="thisworkgroupfoundthisanswerhelpful" value="false" />
+							     <c:forEach var="workgroupThatFoundThisAnswerHelpful" varStatus="wktftah" items="${answer.workgroupsThatFoundAnswerHelpful}">
+							         <c:if test="${workgroupThatFoundThisAnswerHelpful == workgroup}">
+							         	<c:set var="thisworkgroupfoundthisanswerhelpful" value="true" />
+							         </c:if>
+							     </c:forEach>
+							     <c:choose>
+							         <c:when test="${thisworkgroupfoundthisanswerhelpful == true}">
+							         	  <input id="helpful_${workgroup.id}_${answer.id}" checked="checked" type="checkbox" value="helpful" onclick="javascript:markAnswerAsHelpful('${workgroup.id}', '${answer.id}')">I found this response helpful</input>
+							         </c:when>
+							         <c:otherwise>
+							          	<input id="helpful_${workgroup.id}_${answer.id}" type="checkbox" value="helpful" onclick="javascript:markAnswerAsHelpful('${workgroup.id}', '${answer.id}')">I found this response helpful</input>
+							         </c:otherwise>
+							     </c:choose>
 							</c:if>
 						</div>
 					</c:if>
@@ -118,11 +200,11 @@
 								<div id="otherRevisionInfo">
 									Revision ${count} ${revisionRest.body}
 									<c:choose>
-										<c:when test="${revisionRest.anonymous=='true'}">
-											Anonymous
+										<c:when test="${answer.anonymous=='true'}">
+											<i>Anonymous</i>
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="student" varStatus="studentStatus" items="${revisionRest.workgroup.members}">
+											<c:forEach var="student" varStatus="studentStatus" items="${answer.workgroup.members}">
 												${student.userDetails.firstname} ${student.userDetails.lastname}
 												<c:if test="${studentStatus.last=='false'}">, </c:if>
 											</c:forEach>
@@ -137,23 +219,25 @@
 				</c:if>
 				
 				<div id="comments">
+				    <c:if test="${fn:length(answer.comments) > 0}">
 					${fn:length(answer.comments)} comments <a href="#" onclick="addCommentPopUp('${workgroup.id}', '${answer.id}')">Add a Comment</a>
-					<c:forEach var="comment" items="${answer.comments}">
-						<div id="comment_${comment.id}">
-							${comment.body} (
-							<c:choose>
-								<c:when test="${comment.anonymous=='true'}">
-									Anonymous
-								</c:when>
-								<c:otherwise>
-									<c:forEach var="student" varStatus="studentStatus" items="${comment.workgroup.members}">
-										${student.userDetails.firstname} ${student.userDetails.lastname},
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-							${comment.timestamp} )
-						</div>
-					</c:forEach>
+						<c:forEach var="comment" items="${answer.comments}">
+							<div id="comment_${comment.id}">
+								${comment.body} (
+								<c:choose>
+									<c:when test="${comment.anonymous=='true'}">
+										Anonymous
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="student" varStatus="studentStatus" items="${comment.workgroup.members}">
+											${student.userDetails.firstname} ${student.userDetails.lastname},
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+								${comment.timestamp} )
+							</div>
+						</c:forEach>
+					</c:if>
 				</div>
 			</div>
 		</c:forEach>

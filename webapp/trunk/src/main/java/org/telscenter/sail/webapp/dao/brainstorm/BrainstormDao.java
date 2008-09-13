@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.dao.brainstorm;
 
+import java.util.Set;
+
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 
@@ -43,4 +46,13 @@ public interface BrainstormDao<T extends Brainstorm> extends SimpleDao<T> {
 	 * @return
 	 */
 	public Brainstorm retrieveByAnswer(Answer answer);
+	
+	/**
+	 * Looks up Brainstorms that are used in the 
+	 * specified <code>Run</code>
+	 *     
+	 * @param run
+	 * @return
+	 */
+	public Set<Brainstorm> retrieveByRun(Run run);
 }

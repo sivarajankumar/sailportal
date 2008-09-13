@@ -104,11 +104,37 @@ public interface Answer extends Persistable, Comparable<Answer> {
 	public void setAnonymous(boolean isAnonymous);
 	
 	/**
+	 * Saves a workgroup that found this Answer to be helpful. If this
+	 * workgroup has already indicated this before, nothing will happen.
+	 * 
+	 * @param <code>Workgroup</code> that found this answer
+	 * helpful.
+	 */
+	public void markAsHelpful(WISEWorkgroup workgroup);
+	
+	/**
 	 * Returns a <code>Set</code> of Workgroups that found this answer
 	 * helpful.
 	 * 
 	 * @return <code>Set</code> of Workgroups that found this answer
 	 * helpful.
 	 */
-	public Set<WISEWorkgroup> getWorkgroupsThatFoundThisAnswerHelpful();
+	public Set<WISEWorkgroup> getWorkgroupsThatFoundAnswerHelpful();
+	
+	/**
+	 * Indicates that the specified workgroup no longer finds this
+	 * Answer helpful.
+	 * 
+	 * @param workgroup
+	 */
+	public void unmarkAsHelpful(WISEWorkgroup workgroup);
+	
+	/**
+	 * Returns whether the specified workgroup found this answer as
+	 * helpful.
+	 * 
+	 * @param workgroup
+	 * @return
+	 */
+	public boolean workgroupMarkedAnswerHelpful(WISEWorkgroup workgroup);
 }

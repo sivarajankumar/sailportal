@@ -44,7 +44,7 @@ import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
  */
 public class BrainstormServiceImpl implements BrainstormService {
 
-	private BrainstormDao<Brainstorm> brainstormDao;  // mock the dao
+	private BrainstormDao<Brainstorm> brainstormDao;
 	
 	private AnswerDao<Answer> answerDao;
 	
@@ -68,6 +68,7 @@ public class BrainstormServiceImpl implements BrainstormService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addComments(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.brainstorm.comment.Comment)
 	 */
+	@Transactional()	
 	public void addComments(Answer answer, Comment comment) {
 		answer.addComment(comment);
 		this.answerDao.save(answer);
@@ -76,6 +77,7 @@ public class BrainstormServiceImpl implements BrainstormService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addRevision(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.brainstorm.answer.Revision)
 	 */
+	@Transactional()	
 	public void addRevision(Answer answer, Revision revision) {
 		answer.addRevision(revision);
 		this.answerDao.save(answer);
@@ -85,6 +87,7 @@ public class BrainstormServiceImpl implements BrainstormService {
 	 * @throws ObjectNotFoundException 
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormById(java.io.Serializable)
 	 */
+	@Transactional(readOnly = true)
 	public Brainstorm getBrainstormById(Serializable id) throws ObjectNotFoundException {
 		return this.brainstormDao.getById(id);
 	}
@@ -92,29 +95,51 @@ public class BrainstormServiceImpl implements BrainstormService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormsByRun(org.telscenter.sail.webapp.domain.Run)
 	 */
+	@Transactional(readOnly = true)
 	public Set<Brainstorm> getBrainstormsByRun(Run run) {
-		return null;
+		return this.brainstormDao.retrieveByRun(run);
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#markAsHelpful(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
 	 */
+	@Transactional()
 	public void markAsHelpful(Answer answer, WISEWorkgroup workgroup) {
-		// TODO Auto-generated method stub
-
+		answer.markAsHelpful(workgroup);
+		this.answerDao.save(answer);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#markAsHelpful(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	@Transactional()
+	public void unmarkAsHelpful(Answer answer, WISEWorkgroup workgroup) {
+		answer.unmarkAsHelpful(workgroup);
+		this.answerDao.save(answer);
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#requestHelp(org.telscenter.sail.webapp.domain.brainstorm.Brainstorm, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
 	 */
+	@Transactional()
 	public void requestHelp(Brainstorm brainstorm, WISEWorkgroup workgroup) {
-		// TODO Auto-generated method stub
-
+		brainstorm.addWorkgroupThatRequestHelp(workgroup);
+		this.brainstormDao.save(brainstorm);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#requestHelp(org.telscenter.sail.webapp.domain.brainstorm.Brainstorm, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	@Transactional()
+	public void unrequestHelp(Brainstorm brainstorm, WISEWorkgroup workgroup) {
+		brainstorm.removeWorkgroupThatRequestHelp(workgroup);
+		this.brainstormDao.save(brainstorm);
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormByAnswer(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
 	 */
+	@Transactional(readOnly = true)
 	public Brainstorm getBrainstormByAnswer(Answer answer) {
 		return this.brainstormDao.retrieveByAnswer(answer);
 	}
@@ -122,6 +147,7 @@ public class BrainstormServiceImpl implements BrainstormService {
 	/**
 	 * @param Long the id of the answer to be retrieved
 	 */
+	@Transactional(readOnly = true)
 	public Answer getAnswer(Long id) throws Exception{
 		return this.answerDao.getById(id);
 	}
@@ -139,5 +165,4 @@ public class BrainstormServiceImpl implements BrainstormService {
 	public void setAnswerDao(AnswerDao<Answer> answerDao) {
 		this.answerDao = answerDao;
 	}
-
 }
