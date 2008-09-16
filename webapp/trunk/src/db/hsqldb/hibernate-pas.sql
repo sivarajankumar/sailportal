@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        sid bigint not null,
         acl_object_identity bigint not null,
+        sid bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -116,8 +116,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_jnlp_fk bigint not null,
         sds_curnit_fk bigint not null,
+        sds_jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -168,8 +168,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 

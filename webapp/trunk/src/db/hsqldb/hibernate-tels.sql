@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        acl_object_identity bigint not null,
         sid bigint not null,
+        acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -26,8 +26,8 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        object_id_class bigint not null,
         owner_sid bigint,
+        object_id_class bigint not null,
         parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
@@ -48,6 +48,12 @@
         bundle longtext not null,
         workgroup_fk bigint not null,
         primary key (id)
+    ) type=MyISAM;
+
+    create table answers_related_to_workgroups (
+        brainstormanswers_fk bigint not null,
+        workgroups_fk bigint not null,
+        primary key (brainstormanswers_fk, workgroups_fk)
     ) type=MyISAM;
 
     create table brainstormanswers (
@@ -99,6 +105,9 @@
 
     create table brainstorms (
         id bigint not null auto_increment,
+        isanonymousallowed bit,
+        isgated bit,
+        starttime datetime,
         OPTLOCK integer,
         brainstormquestions_fk bigint,
         runs_fk bigint not null,
@@ -110,6 +119,12 @@
         brainstormanswers_fk bigint not null,
         primary key (brainstorms_fk, brainstormanswers_fk),
         unique (brainstormanswers_fk)
+    ) type=MyISAM;
+
+    create table brainstorms_related_to_workgroups (
+        brainstorms_fk bigint not null,
+        workgroups_fk bigint not null,
+        primary key (brainstorms_fk, workgroups_fk)
     ) type=MyISAM;
 
     create table curnits (
@@ -138,6 +153,11 @@
         group_fk bigint not null,
         user_fk bigint not null,
         primary key (group_fk, user_fk)
+    ) type=MyISAM;
+
+    create table jaxbquestions (
+        id bigint not null,
+        primary key (id)
     ) type=MyISAM;
 
     create table jnlps (
@@ -181,8 +201,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -190,8 +210,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -271,8 +291,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -354,8 +374,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -368,8 +388,8 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        offering_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
+        offering_fk bigint not null,
         group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
@@ -409,6 +429,18 @@
         add constraint FKD986A02F54443B2 
         foreign key (workgroup_fk) 
         references workgroups (id);
+
+    alter table answers_related_to_workgroups 
+        add index FKA7A8970B2605B8EA (brainstormanswers_fk), 
+        add constraint FKA7A8970B2605B8EA 
+        foreign key (brainstormanswers_fk) 
+        references brainstormanswers (id);
+
+    alter table answers_related_to_workgroups 
+        add index FKA7A8970B2B7BFD8A (workgroups_fk), 
+        add constraint FKA7A8970B2B7BFD8A 
+        foreign key (workgroups_fk) 
+        references wiseworkgroups (id);
 
     alter table brainstormanswers 
         add index FK678121622B7BFD8A (workgroups_fk), 
@@ -470,6 +502,18 @@
         foreign key (brainstorms_fk) 
         references brainstorms (id);
 
+    alter table brainstorms_related_to_workgroups 
+        add index FK6ED79B7679D46939 (brainstorms_fk), 
+        add constraint FK6ED79B7679D46939 
+        foreign key (brainstorms_fk) 
+        references brainstorms (id);
+
+    alter table brainstorms_related_to_workgroups 
+        add index FK6ED79B762B7BFD8A (workgroups_fk), 
+        add constraint FK6ED79B762B7BFD8A 
+        foreign key (workgroups_fk) 
+        references wiseworkgroups (id);
+
     alter table curnits 
         add index FK4329FBBA1B78E061 (sds_curnit_fk), 
         add constraint FK4329FBBA1B78E061 
@@ -493,6 +537,12 @@
         add constraint FK3311F7E3895EAE0A 
         foreign key (group_fk) 
         references groups (id);
+
+    alter table jaxbquestions 
+        add index FK91A6B40C2C379613 (id), 
+        add constraint FK91A6B40C2C379613 
+        foreign key (id) 
+        references brainstormquestions (id);
 
     alter table jnlps 
         add index FK6095FABA532A941 (sds_jnlp_fk), 
