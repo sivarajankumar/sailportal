@@ -143,4 +143,39 @@ public interface Brainstorm extends Persistable {
 	 *     <code>Date</code>
 	 */
 	public Map<WISEWorkgroup, Date> getWorkgroupLastVisitedMap();
+	
+	/**
+	 * Returns when this brainstorm step session has started.  If it has,
+	 * students will be able to post.
+	 * 
+	 * @return true iff this brainstorm session has started.
+	 */
+	public boolean isSessionStarted();
+	
+	/**
+	 * Returns whether the students need to submit a post before seeing responses
+	 * from other students or if they can see responses from others without first
+	 * posting a response.
+	 * 
+	 * @return true iff students need to post a response before seeing 
+	 * others' posts.
+	 */
+	public boolean isGated();
+	
+	/**
+	 * Returns whether the specified workgroup has posted an answer to this
+	 * brainstorm yet.
+	 * 
+	 * @return true iff the workgroup has posted a response to this workgroup.
+	 */
+	public boolean hasWorkgroupPosted(WISEWorkgroup workgroup);
+	
+	/**
+	 * Returns whether the specified workgroup can see other students' 
+	 * responses.
+	 * 
+	 * @param workgroup
+	 * @return
+	 */
+	public boolean canWorkgroupSeeResponses(WISEWorkgroup workgroup);
 }

@@ -28,6 +28,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
 import net.sf.sail.webapp.domain.Persistable;
+import net.sf.sail.webapp.domain.group.Group;
 
 /**
  * An answer is a first-level post to a Brainstorm question.
@@ -42,6 +43,24 @@ public interface Answer extends Persistable, Comparable<Answer> {
 	 * @return
 	 */
 	public Set<Revision> getRevisions();
+	
+	/**
+	 * Returns the Group that this answer was posted to, and
+	 * members in the group can see this answer
+	 * 
+	 * @return <code>Group</code> which group can see this
+	 *    answer
+	 */
+	public Group getGroup();
+	
+	/**
+	 * Sets the Group that this answer was posted to, and
+	 * members in the group can see this answer
+	 * 
+	 * @param <code>Group</code> which group can see this
+	 *    answer
+	 */
+	public void setGroup(Group group);
 	
 	/**
 	 * Get the <code>WISEWorkgroup</code> that authored

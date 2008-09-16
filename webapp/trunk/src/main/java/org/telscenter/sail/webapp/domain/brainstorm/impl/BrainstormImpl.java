@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.brainstorm.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
@@ -49,6 +50,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
@@ -89,12 +91,18 @@ public class BrainstormImpl implements Brainstorm {
 
     @Transient
 	private static final String COLUMN_NAME_ISANONYMOUSALLOWED = "isanonymousallowed";
-    
+
+    @Transient
+	private static final String COLUMN_NAME_ISGATED = "isgated";
+
     @Transient
 	private static final String WORKGROUPS_JOIN_TABLE_NAME = "brainstorms_related_to_workgroups";
 
     @Transient
 	private static final String WORKGROUP_JOIN_COLUMN_NAME = "workgroups_fk";
+
+    @Transient
+	private static final String COLUMN_NAME_STARTTIME = "starttime";
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
@@ -115,7 +123,13 @@ public class BrainstormImpl implements Brainstorm {
 	
 	@Column(name = BrainstormImpl.COLUMN_NAME_ISANONYMOUSALLOWED)
 	private boolean isAnonymousAllowed;
+
+	@Column(name = BrainstormImpl.COLUMN_NAME_ISGATED)	
+	private boolean isGated;
 	
+    @Column(name = BrainstormImpl.COLUMN_NAME_STARTTIME)
+	private Date starttime;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
@@ -252,5 +266,64 @@ public class BrainstormImpl implements Brainstorm {
 	 */
 	public void removeWorkgroupThatRequestHelp(WISEWorkgroup workgroup) {
 		this.workgroupsThatRequestHelp.remove(workgroup);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#isGated()
+	 */
+	public boolean isGated() {
+		return isGated;
+	}
+
+	/**
+	 * @param isGated the isGated to set
+	 */
+	public void setGated(boolean isGated) {
+		this.isGated = isGated;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#isSessionStarted()
+	 */
+	public boolean isSessionStarted() {
+		if (starttime == null) {
+			return false;
+		}
+		return Calendar.getInstance().getTime().after(this.starttime);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#hasWorkgroupPosted(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public boolean hasWorkgroupPosted(WISEWorkgroup workgroup) {
+		Set<Answer> allAnswers = this.answers;
+		for (Answer anAnswer : allAnswers) {
+			if (anAnswer.getWorkgroup().equals(workgroup)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#canWorkgroupSeeResponses(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public boolean canWorkgroupSeeResponses(WISEWorkgroup workgroup) {
+		return (isSessionStarted() && !isGated())
+		    || (isSessionStarted() && isGated() && hasWorkgroupPosted(workgroup));
+	}
+
+	/**
+	 * @return the starttime
+	 */
+	public Date getStarttime() {
+		return starttime;
+	}
+
+	/**
+	 * @param starttime the starttime to set
+	 */
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
 	}
 }

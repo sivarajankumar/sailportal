@@ -41,6 +41,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
@@ -89,7 +92,10 @@ public class AnswerImpl implements Answer {
 
     @Transient
 	private static final String WORKGROUP_JOIN_COLUMN_NAME = "workgroups_fk";
-    
+
+    @Transient
+	private static final String GROUPS_JOIN_COLUMN_NAME = "groups_fk";
+
     @ManyToOne(targetEntity = WISEWorkgroupImpl.class)
     @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private WISEWorkgroup workgroup;
@@ -106,7 +112,12 @@ public class AnswerImpl implements Answer {
     @ManyToMany(targetEntity = WISEWorkgroupImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = AnswerImpl.WORKGROUPS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false)}, inverseJoinColumns = @JoinColumn(name = WORKGROUP_JOIN_COLUMN_NAME, nullable = false))
     private Set<WISEWorkgroup> workgroupsThatFoundAnswerHelpful = new TreeSet<WISEWorkgroup>();
-    
+
+//    @ManyToOne(targetEntity = PersistentGroup.class)
+//    @JoinColumn(name = GROUPS_JOIN_COLUMN_NAME, nullable = false)
+    @Transient
+    private Group group;
+
     @Column(name = AnswerImpl.COLUMN_NAME_ISANONYMOUS)
     private boolean isAnonymous;
     
@@ -249,7 +260,24 @@ public class AnswerImpl implements Answer {
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#getGroup()
+	 */
+	public Group getGroup() {
+		return group;
+	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#setGroup(net.sf.sail.webapp.domain.group.Group)
+	 */
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#addRevision(org.telscenter.sail.webapp.domain.brainstorm.answer.Revision)
+	 */
 	public void addRevision(Revision revision) {
 		this.revisions.add(revision);
 	}

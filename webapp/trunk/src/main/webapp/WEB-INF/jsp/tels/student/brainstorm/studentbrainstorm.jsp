@@ -127,7 +127,14 @@
 		</c:choose>
 		<div id="info"><a href="#">info</a></div>
 	</div>
-	
+
+
+<!-- CONDITIONAL ON WHETHER STUDENTS CAN SEE OTHER STUDENTS' POSTS OR NOT -->
+<c:choose>
+<c:when test="${cannotseeresponses}">
+   You cannot see other students' posts until you post your own response.
+</c:when>
+<c:otherwise>
 	<div id="studentResponseBody">
 		<a href="#" onclick="sortBy('time')">Sort By Time</a>
 		<a href="#" onclick="sortBy('help')">Sort By Helpfulness</a>
@@ -242,7 +249,8 @@
 			</div>
 		</c:forEach>
 	</div>
-
+</c:otherwise>
+</c:choose>
 
 </div> <!-- end centered div -->
 <!--  

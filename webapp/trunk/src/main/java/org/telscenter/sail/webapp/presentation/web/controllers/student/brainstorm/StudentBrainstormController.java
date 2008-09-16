@@ -22,11 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,20 +33,8 @@ import net.sf.sail.webapp.domain.Workgroup;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
-import org.telscenter.sail.webapp.domain.brainstorm.comment.impl.CommentImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
-import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
-import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
-import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
@@ -70,6 +54,11 @@ public class StudentBrainstormController extends AbstractController {
 
 	private static final String NOT_IN_WKGP_MSG = 
 		"You cannot see this brainstorm because you are not in a workgroup for this run. Please go back.";
+
+	private static final Object BRAINSTORM_CLOSED_MSG = 
+		"This Brainstorm Step has not started yet. Please come back later.";
+
+	private static final String CANNOT_SEE_RESPONSES = "cannotseeresponses";
 
 	private BrainstormService brainstormService;
 
@@ -96,10 +85,28 @@ public class StudentBrainstormController extends AbstractController {
 			modelAndView.addObject("msg", NOT_IN_WKGP_MSG);
 			return modelAndView;
 		}
-
+		
 		// otherwise let the user see this brainstorm.
 		WISEWorkgroup workgroup = (WISEWorkgroup) workgroupListByOfferingAndUser.get(0);
 		
+		
+		// if this brainstorm session hasn't started yet, student cannot see this brainstorm.
+		if (!brainstorm.isSessionStarted()) {
+			ModelAndView modelAndView = new ModelAndView(RESTRICTED_VIEW);
+			modelAndView.addObject("msg", BRAINSTORM_CLOSED_MSG);
+			return modelAndView;
+		}
+		
+		// if this brainstorm is gated, and the student has not posted yet,
+		// he/she needs to post an answer first.
+		if (brainstorm.isGated() && !brainstorm.hasWorkgroupPosted(workgroup)) {
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject(BRAINSTORM_KEY, brainstorm);
+			modelAndView.addObject(CANNOT_SEE_RESPONSES, true);
+			modelAndView.addObject(WORKGROUP, workgroup);
+			return modelAndView;
+		}
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(BRAINSTORM_KEY, brainstorm);
 		modelAndView.addObject(WORKGROUP, workgroup);

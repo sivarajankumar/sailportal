@@ -27,8 +27,8 @@
         entries_inheriting bit not null,
         OPTLOCK integer,
         owner_sid bigint,
-        parent_object bigint,
         object_id_class bigint not null,
+        parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -106,9 +106,11 @@
     create table brainstorms (
         id bigint not null auto_increment,
         isanonymousallowed bit,
+        isgated bit,
+        starttime datetime,
         OPTLOCK integer,
-        runs_fk bigint not null,
         brainstormquestions_fk bigint,
+        runs_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -208,8 +210,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -224,9 +226,9 @@
         familytag integer,
         iscurrent bit,
         OPTLOCK integer,
-        run_fk bigint unique,
-        curnit_fk bigint not null,
         jnlp_fk bigint not null,
+        curnit_fk bigint not null,
+        run_fk bigint unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -372,8 +374,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -386,9 +388,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        group_fk bigint not null,
-        offering_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
+        offering_fk bigint not null,
+        group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
