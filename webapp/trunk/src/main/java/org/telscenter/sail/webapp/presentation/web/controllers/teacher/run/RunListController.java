@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +41,8 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -60,6 +63,8 @@ public class RunListController extends AbstractController {
 	private WorkgroupService workgroupService;
 
 	private HttpRestTransport httpRestTransport;
+	
+	private BrainstormService brainstormService;
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
@@ -118,6 +123,12 @@ public class RunListController extends AbstractController {
 			} else {
 				current_run_list.add(run);
 			}
+			
+			// get brainstorms that are in this run
+			Set<Brainstorm> brainstormsForRun = brainstormService.getBrainstormsByRun(run);
+			if (brainstormsForRun != null) {
+				run.setBrainstorms(brainstormsForRun);
+			}
 		}
 
 		modelAndView.addObject(GRADING_PARAM, gradingParam);
@@ -135,6 +146,13 @@ public class RunListController extends AbstractController {
 	@Required
 	public void setWorkgroupService(WorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
+	}
+
+	/**
+	 * @param brainstormService the brainstormService to set
+	 */
+	public void setBrainstormService(BrainstormService brainstormService) {
+		this.brainstormService = brainstormService;
 	}
 
 	/**

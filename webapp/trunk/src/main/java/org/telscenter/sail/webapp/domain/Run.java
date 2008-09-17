@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.domain;
 import java.util.Date;
 import java.util.Set;
 
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 
 import net.sf.sail.webapp.domain.Offering;
@@ -158,4 +159,19 @@ public interface Run extends Offering {
 	 * @param sharedOwners <code>Set<User></code>
 	 */
 	public void setSharedowners(Set<User> sharedOwners);
+	
+	
+	/**
+	 * Gets all Brainstorms that are in this run.
+	 * 
+	 * @return the brainstorms
+	 */
+	public Set<Brainstorm> getBrainstorms();
+
+	/**
+	 * Sets all Brainstorms that are in this run.
+	 * 
+	 * @param brainstorms the brainstorms to set
+	 */
+	public void setBrainstorms(Set<Brainstorm> brainstorms);
 }

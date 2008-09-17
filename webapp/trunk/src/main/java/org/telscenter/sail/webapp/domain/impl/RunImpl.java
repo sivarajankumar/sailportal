@@ -41,6 +41,7 @@ import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
@@ -129,6 +130,9 @@ public class RunImpl extends OfferingImpl implements Run {
     @JoinTable(name = SHARED_OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SHARED_OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> sharedowners = new TreeSet<User>();
 
+    @Transient
+    private Set<Brainstorm> brainstorms = new TreeSet<Brainstorm>();
+    
     /**
      * @return the endtime
      */
@@ -269,5 +273,19 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setSharedowners(Set<User> sharedOwners) {
 		this.sharedowners = sharedOwners;		
+	}
+
+	/**
+	 * @return the brainstorms
+	 */
+	public Set<Brainstorm> getBrainstorms() {
+		return brainstorms;
+	}
+
+	/**
+	 * @param brainstorms the brainstorms to set
+	 */
+	public void setBrainstorms(Set<Brainstorm> brainstorms) {
+		this.brainstorms = brainstorms;
 	}
 }

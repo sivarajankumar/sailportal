@@ -29,6 +29,15 @@
 		popUp('addrevision.html?workgroupId=' + workgroupId + '&answerId=' + answerId, 'AddRevision');
 	};
 	
+	function hideallanswers(cannotseeresponses) {
+	  if(cannotseeresponses) {
+	    var rtb = document.getElementById('responseTableBody');
+	    rtb.style.display='none';
+	    var rd = document.getElementById('responseDiv');
+	    rd.innerHTML = "You cannot see other students' posts until you make a response.";
+	  };
+	};
+	
 	function requestHelp(workgroupId, brainstormId) {
 		var isChecked = document.getElementById('requesthelp_' + workgroupId + '_' + brainstormId).checked;
 		if (isChecked) {
@@ -117,7 +126,7 @@
      };
 	
 	PollNewPosts.prototype.start = function(){
-		YAHOO.util.Connect.setPollingInterval(30000);
+		YAHOO.util.Connect.setPollingInterval(120000);
 		YAHOO.util.Connect.asyncRequest('GET', 'pollnewposts.html?brainstormId=' + this.brainstormId, this.callback);
 	};
 	
@@ -266,7 +275,7 @@
 </head>
 
 
-<body>
+<body onload="javascript:hideallanswers('${cannotseeresponses}');">
 
 <div align="centered">
 
@@ -292,7 +301,7 @@
 	<table id="studentResponseTable">
 		<thead>
 			<tr>
-				<th><div id="numOfPosts"></div></th>
+				<th><div id="numOfPosts">Student Responses (${fn:length(brainstorm.answers)} responses)</div></th>
 				<th><input type="button" value="Create A Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></th>
 				<th>
 					<c:set var="thisworkgrouprequestedhelp" value="false" />
@@ -316,13 +325,6 @@
 		
 		<tbody id="responseTableBody">
 <!-- CONDITIONAL ON WHETHER STUDENTS CAN SEE OTHER STUDENTS' POSTS OR NOT -->
-		<c:choose>
-			<c:when test="${cannotseeresponses}">
-				<tr id="0" name="answer">
-					<div>You cannot see other students' posts until you post your own response.</div>
-				</tr>
-			</c:when>
-			<c:otherwise>	
 				<tr id="0" name="answer">
 					<td>
 						<a href="#" onclick="sortBy('time')">Sort By Time</a>
@@ -332,12 +334,11 @@
 					<td><input type="button" value="Show New Responses" onclick="refreshResponses()"/></td>
 					<td><div id="numNewResponses">0 new responses received</div></td>
 				</tr>
-			</c:otherwise>
-		</c:choose>
 		</tbody>
 	</table>
+	<div id='responseDiv'></div>
+	
 <script>
-	getNumberOfPosts();
 	var poll = new PollNewPosts('${brainstorm.id}');
 	poll.start();
 </script>

@@ -174,7 +174,9 @@
 				     </td> 
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
-					    	<li><a href="../projects/projectinfo.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.39"/></a></li>
+					        <c:if test="${not empty run.brainstorms}" >
+					    	    <li><a href="../run/brainstorm/managebrainstorm.html?brainstormId=4"><spring:message code="teacher.run.myprojectruns.39"/></a></li>
+					    	</c:if>
 					    	<li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
 		                    <li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary"><spring:message code="teacher.run.myprojectruns.19"/></a></li>

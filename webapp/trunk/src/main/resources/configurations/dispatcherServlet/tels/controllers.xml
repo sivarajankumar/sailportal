@@ -306,6 +306,7 @@
 	<bean id="myProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
 		<property name="runService" ref="runService" />
+		<property name="brainstormService" ref="brainstormService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
@@ -918,6 +919,12 @@
     
     <bean id="createDummyBrainstormController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateDummyBrainstormController">
+        <property name="brainstormService" ref="brainstormService" />      
+        <property name="runService" ref="runService" />      
+    </bean>
+
+    <bean id="manageBrainstormController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.ManageBrainstormController">
         <property name="brainstormService" ref="brainstormService" />      
         <property name="runService" ref="runService" />      
     </bean>

@@ -139,6 +139,7 @@
     		    /teacher/run/manage/startRun.html=startRunController
     		    /teacher/run/createRun.html=createRunController
     		    /teacher/run/brainstorm/createdummybrainstorm.html=createDummyBrainstormController
+    		    /teacher/run/brainstorm/managebrainstorm.html=manageBrainstormController
     		    /teacher/grading/overview.html=gradeOverviewController
     		    /teacher/grading/gradebystep.html=gradeByStepController
 				/teacher/grading/gradingtool.html=gradingToolController

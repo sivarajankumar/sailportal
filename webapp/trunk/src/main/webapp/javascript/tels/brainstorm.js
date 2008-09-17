@@ -206,7 +206,7 @@ Revision.prototype.setId = function(xmlId){
 
 Revision.prototype.setBody = function(xmlBody){
 	if(xmlBody!=null){
-		this.body=xmlBody[0].childNodes[0].nodeValue;
+		this.body=xmlBody[0].textContent;
 	};
 };
 
@@ -504,7 +504,7 @@ function createRevisionBody(doc, workgroupId, answer){
 	} else {
 		var helpful;
 		var fHelp = foundHelpful(workgroupId, answer);
-		var helpfulTxt = createElement(doc, 'label', {for:'helpful_' + workgroupId + '_' + answer.getId()});
+		var helpfulTxt = createElement(doc, 'label', {});		
 		helpfulTxt.innerHTML = 'I found this response helpful';
 		if(fHelp){
 			helpful = createElement(doc, 'input', {type:'checkbox', id:'helpful_' + workgroupId + '_' + answer.getId(), checked:'checked', value:'helpful', onclick:'javascript:markAnswerAsHelpful(' + workgroupId +', ' + answer.getId() + ')'});
