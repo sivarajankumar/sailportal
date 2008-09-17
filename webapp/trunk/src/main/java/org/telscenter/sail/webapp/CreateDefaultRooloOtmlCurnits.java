@@ -55,20 +55,20 @@ import roolo.curnit.client.impl.ClientCurnitRepository;
  * @author Hiroki Terashima
  * @version $Id$
  */
-public class CreateDefaultCurnits {
+public class CreateDefaultRooloOtmlCurnits {
 	
 	private ClientCurnitRepository rep;
 	
 	private CurnitService curnitService;
 	
 	
-	public CreateDefaultCurnits(
+	public CreateDefaultRooloOtmlCurnits(
 			ConfigurableApplicationContext applicationContext) {
 		this.setCurnitService((CurnitService) applicationContext.getBean("curnitService"));
 	}
 
 	private CurnitProxy createAirbagsCurnit() {
-		CurnitProxy curnit = createCurnit("airbags", CreateDefaultCurnits.class.getResource("Airbags.otml"));
+		CurnitProxy curnit = createCurnit("airbags", CreateDefaultRooloOtmlCurnits.class.getResource("Airbags.otml"));
 		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
 		IMetadataValueContainer container;
 		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
@@ -94,7 +94,7 @@ public class CreateDefaultCurnits {
 	}
 
 	private CurnitProxy createChemicalReactionsCurnit() {
-		CurnitProxy curnit = createCurnit("chemicalreactions", CreateDefaultCurnits.class.getResource("Chemical_Reactions.otml"));
+		CurnitProxy curnit = createCurnit("chemicalreactions", CreateDefaultRooloOtmlCurnits.class.getResource("Chemical_Reactions.otml"));
 		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
 		IMetadataValueContainer container;
 		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
@@ -121,7 +121,7 @@ public class CreateDefaultCurnits {
 	}
 	
 	private CurnitProxy createMeiosisCurnit() {
-		CurnitProxy curnit = createCurnit("meiosis", CreateDefaultCurnits.class.getResource("Meiosis.otml"));
+		CurnitProxy curnit = createCurnit("meiosis", CreateDefaultRooloOtmlCurnits.class.getResource("Meiosis.otml"));
 		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
 		IMetadataValueContainer container;
 		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
@@ -147,7 +147,7 @@ public class CreateDefaultCurnits {
 	}
 
 	private CurnitProxy createHydrogenCarsCurnit() {
-		CurnitProxy curnit = createCurnit("hydrogencellcars", CreateDefaultCurnits.class.getResource("Hydrogen_Cars.otml"));
+		CurnitProxy curnit = createCurnit("hydrogencellcars", CreateDefaultRooloOtmlCurnits.class.getResource("Hydrogen_Cars.otml"));
 		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
 		IMetadataValueContainer container;
 		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
@@ -173,7 +173,7 @@ public class CreateDefaultCurnits {
 	}
 	
 	private CurnitProxy createGlobalWarmingCurnit() {
-		CurnitProxy curnit = createCurnit("globalwarming", CreateDefaultCurnits.class.getResource("Global_Warming.otml"));
+		CurnitProxy curnit = createCurnit("globalwarming", CreateDefaultRooloOtmlCurnits.class.getResource("Global_Warming.otml"));
 		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
 		IMetadataValueContainer container;
 		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
@@ -199,7 +199,7 @@ public class CreateDefaultCurnits {
 	}
 
 	private CurnitProxy createThermodynamicsCurnit() {
-		CurnitProxy curnit = createCurnit("thermodynamics", CreateDefaultCurnits.class.getResource("Thermodynamics.otml"));
+		CurnitProxy curnit = createCurnit("thermodynamics", CreateDefaultRooloOtmlCurnits.class.getResource("Thermodynamics.otml"));
 		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
 		IMetadataValueContainer container;
 		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
@@ -225,7 +225,7 @@ public class CreateDefaultCurnits {
 	}
 	
 	private CurnitProxy createDiyCurnit() {
-		CurnitProxy curnit = createCurnit("onedimensionalmotion", CreateDefaultCurnits.class.getResource("loops-test.otml"));
+		CurnitProxy curnit = createCurnit("onedimensionalmotion", CreateDefaultRooloOtmlCurnits.class.getResource("loops-test.otml"));
 		IMetadata<MetadataKeyProxy> metadata2 = curnit.getMetadata();
 		IMetadataValueContainer container;
 		container = metadata2.getMetadataValueContainer(CurnitClientMetadataKeys.TITLE.getKey());
@@ -362,15 +362,15 @@ public class CreateDefaultCurnits {
 			applicationContext = new ClassPathXmlApplicationContext(
 					springConfig.getRootApplicationContextConfigLocations());
 
-//			CreateDefaultCurnits cdc = new CreateDefaultCurnits(applicationContext);
-//			cdc.createDefaultCurnits(applicationContext);
-			//applicationContext.close();
+			CreateDefaultRooloOtmlCurnits cdc = new CreateDefaultRooloOtmlCurnits(applicationContext);
+			cdc.createDefaultCurnits(applicationContext);
+			applicationContext.close();
 		} catch (BeanInstantiationException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//cdc.createDefaultProjects();
+//		cdc.createDefaultProjects();
 	}
 
 	/**
