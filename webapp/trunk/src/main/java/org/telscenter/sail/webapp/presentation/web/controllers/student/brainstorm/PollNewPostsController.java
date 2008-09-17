@@ -22,11 +22,6 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,39 +29,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
-import org.telscenter.sail.webapp.domain.brainstorm.comment.impl.CommentImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
-import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
-import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
-import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class PostCommentController extends AbstractController{
-
-	private final static String WORKGROUPID = "workgroupId";
+public class PollNewPostsController extends AbstractController{
 	
-	private final static String ANSWERID = "answerId";
+	private final static String NUMBEROFPOSTS = "xmlDoc";
 	
-	private final static String TEXT = "text";
-	
-	private final static String OPTION = "option";
-	
-	private final static String XMLDOC = "xmlDoc";
+	private final static String BRAINSTORMID = "brainstormId";
 	
 	private BrainstormService brainstormService;
-	
-	private WISEWorkgroupService workgroupService;
-	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -74,36 +49,20 @@ public class PostCommentController extends AbstractController{
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		Answer answer = this.brainstormService.getAnswer(Long.parseLong(request.getParameter(ANSWERID)));
-		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
-
-		Comment comment = new CommentImpl();
-		comment.setBody(request.getParameter(TEXT));
-		comment.setTimestamp(Calendar.getInstance().getTime());
-		comment.setWorkgroup(workgroup);
-		if(Integer.parseInt(request.getParameter(OPTION)) == 0){		
-			comment.setAnonymous(true);
+		int total = 0;
+		Brainstorm brainstorm = this.brainstormService.getBrainstormById(Long.parseLong(request.getParameter(BRAINSTORMID)));
+		for(Answer answer: brainstorm.getAnswers()){
+			total = answer.getComments().size() + answer.getRevisions().size();
 		}
-		this.brainstormService.addComments(answer, comment);
-		
-		String xmlDoc = XMLBrainstorm.getXMLComment(comment);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(XMLDOC, xmlDoc);
+		modelAndView.addObject(NUMBEROFPOSTS, total);
 		return modelAndView;
 	}
-
 	/**
 	 * @param brainstormService the brainstormService to set
 	 */
 	public void setBrainstormService(BrainstormService brainstormService) {
 		this.brainstormService = brainstormService;
-	}
-
-	/**
-	 * @param workgroupService the workgroupService to set
-	 */
-	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
-		this.workgroupService = workgroupService;
 	}
 }

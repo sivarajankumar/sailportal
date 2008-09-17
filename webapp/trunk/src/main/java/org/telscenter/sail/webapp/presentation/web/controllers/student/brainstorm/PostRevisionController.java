@@ -69,7 +69,7 @@ public class PostRevisionController extends AbstractController {
 
 		this.brainstormService.addRevision(answer, revision);
 		
-		String xmlDoc = XMLBrainstorm.getXMLAnswer(answer);
+		String xmlDoc = XMLBrainstorm.getXMLRevision(revision);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(XMLDOC, xmlDoc);

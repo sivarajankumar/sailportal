@@ -52,41 +52,41 @@ public final class XMLBrainstorm {
 	
 	public static String getXMLAnswer(Answer answer){
 		String XMLAnswer = "<answer><id>" + answer.getId() + "</id><anon>" + answer.isAnonymous() +
-			"</anon>" + getXMLRevisions(answer.getRevisions()) + getXMLComments(answer.getComments()) +
-			getXMLWorkgroup(answer.getWorkgroup()) + "</answer>";
+			"</anon><revisions>" + getXMLRevisions(answer.getRevisions()) + "</revisions><comments>" + 
+			getXMLComments(answer.getComments()) + "</comments>" + getXMLWorkgroup(answer.getWorkgroup())
+			+ "<helpfulworkgroups>";
+			if(answer.getWorkgroupsThatFoundAnswerHelpful()!=null){
+				XMLAnswer = XMLAnswer + getXMLHelpfulWorkgroups(answer.getWorkgroupsThatFoundAnswerHelpful());
+			}
+			XMLAnswer = XMLAnswer + "</helpfulworkgroups></answer>";
 		return XMLAnswer;
 	}
 	
 	public static String getXMLComments(Set<Comment> comments){
+		String XMLComments = "";
 		if(comments.size()>0){
-			String XMLComments = "<comments>";
 			for(Comment comment : comments){
 				XMLComments = XMLComments + getXMLComment(comment);
 			}
-			XMLComments = XMLComments + "</comments>";
-			return XMLComments;
-		} else {
-			return "";
 		}
+		return XMLComments;
 	}
 	
 	public static String getXMLRevisions(Set<Revision> revisions){
+		String XMLRevisions = "";
 		if(revisions.size()>0){
-			String XMLRevisions = "<revisions>";
 			for(Revision revision : revisions){
 				XMLRevisions = XMLRevisions + getXMLRevision(revision);
 			}
-			XMLRevisions = XMLRevisions + "</revisions>";
-			return XMLRevisions;
-		} else {
-			return "";
 		}
+		return XMLRevisions;
 	}
 	
 	public static String getXMLComment(Comment comment){
 		String XMLComment = "<comment><id>" + comment.getId() + "</id><timestamp>" + 
 			comment.getTimestamp() + "</timestamp>" + getXMLWorkgroup(comment.getWorkgroup()) 
-			+ "<body>" + comment.getBody() + "</body></comment>";
+			+ "<body>" + comment.getBody() + "</body><anon>" + comment.isAnonymous() +
+			"</anon></comment>";
 		return XMLComment;
 	}
 
@@ -100,6 +100,16 @@ public final class XMLBrainstorm {
 		String XMLWorkgroup = "<workgroup><id>" + workgroup.getId() + "</id>" + getXMLMembers(workgroup.getMembers())
 			+ "</workgroup>";
 		return XMLWorkgroup;
+	}
+	
+	public static String getXMLHelpfulWorkgroups(Set<WISEWorkgroup> workgroups){
+		String XMLHelpfulWorkgroups = "";
+		if(workgroups.size()>0){
+			for(WISEWorkgroup workgroup : workgroups){
+				XMLHelpfulWorkgroups = XMLHelpfulWorkgroups + getXMLWorkgroup(workgroup);
+			}
+		}
+		return XMLHelpfulWorkgroups;
 	}
 
 	public static String getXMLMembers(Set<User> members) {

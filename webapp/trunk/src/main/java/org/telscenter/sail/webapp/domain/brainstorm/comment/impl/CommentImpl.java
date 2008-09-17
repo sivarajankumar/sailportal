@@ -77,7 +77,7 @@ public class CommentImpl implements Comment {
     @Column(name = CommentImpl.COLUMN_NAME_BODY)
     private String body;
 
-    @ManyToOne(targetEntity = WISEWorkgroupImpl.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = WISEWorkgroupImpl.class)
     @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private WISEWorkgroup workgroup;
     

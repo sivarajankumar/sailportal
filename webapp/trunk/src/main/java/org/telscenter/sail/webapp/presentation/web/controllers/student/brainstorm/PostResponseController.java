@@ -79,7 +79,6 @@ public class PostResponseController extends AbstractController{
 		answer.setWorkgroup(workgroup);
 		answer.addRevision(revision);
 		this.brainstormService.addAnswer(brainstorm, answer);
-		//this.brainstormService.addRevision(answer, revision);
 		
 		String xmlDoc = XMLBrainstorm.getXMLAnswer(answer);
 		

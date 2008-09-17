@@ -28,6 +28,7 @@
 <script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/brainstorm.js"></script>
 
 
 <script type="text/javascript">
@@ -70,83 +71,20 @@ function post(){
 			var xmlDoc = o.responseXML;
 			if(xmlDoc==null){
 				callback.failure(o);
-				self.close();
 			};
-			var freshAnswer = xmlDoc.getElementsByTagName('answer');
-			var parentDoc = window.opener.document;
-			var newAnswer = parentDoc.createElement('div');
-			var newRevision = parentDoc.createElement('div');
-			var idAttributeAns = parentDoc.createAttribute('id');
-			var nameAttributeAns = parentDoc.createAttribute('name');
-			idAttributeAns.nodeValue=freshAnswer[0].childNodes[0].childNodes[0].nodeValue;
-			nameAttributeAns.nodeValue = 'answer';
-			var idAttributeRev = parentDoc.createAttribute('id');
-			var nameAttributeRev = parentDoc.createAttribute('name');
-			nameAttributeRev.nodeValue = 'revision';
-			var revHead = parentDoc.createElement('div');
-			var revHeadAttribute = parentDoc.createAttribute('name');
-			revHeadAttribute.nodeValue = 'revisionHead';
-			idAttributeRev.nodeValue = freshAnswer[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].nodeValue;
-			var revBody = parentDoc.createElement('div');
-			var revBodyAttribute = parentDoc.createAttribute('name');
-			revBodyAttribute.nodeValue = 'revisionBody';
-			var revFoot = parentDoc.createElement('div');
-			var revFootAttribute = parentDoc.createAttribute('name');
-			revFootAttribute.nodeValue='revisionFoot';
-			
-			var revHeadText = parentDoc.createTextNode(getRevHeadText(freshAnswer));
-			var revBodyText = parentDoc.createTextNode(getRevBodyText(freshAnswer));
-			revHead.appendChild(revHeadText);
-			revBody.appendChild(revBodyText);
-			revFoot.innerHTML = '<a href="#" onclick="addCommentPopUp(${workgroup.id}, ${answer.id})">Add a Comment</a> <a href="#">Revise this Response</a>';
-			newAnswer.appendChild(revHead);
-			newAnswer.appendChild(revBody);
-			newAnswer.appendChild(revFoot);
-			
-			var newAnswerId = freshAnswer[0].childNodes[0].childNodes[0].nodeValue;
-			var answers = parentDoc.getElementsByName('answer');
-			for(z=0;z<answers.length;z++){
-				if(newAnswerId > answers[z].getAttribute('id') || answers.length-1 == z){
-					inserted = true;
-					answers[z].parentNode.insertBefore(newAnswer,answers[z].nextSibling);
-					self.close();
-				};
-			};
+			var answer = new Answer(xmlDoc);
+			var pageManager = window.opener.pageManager;
+			pageManager.addAnswer(answer);
+			self.close();
 		},
-		failure:function(o){alert('failed to update to server');}
+		failure:function(o){
+			alert('failed to update to server');
+			self.close();
+		}
 	};
 	YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
 };
 
-function getRevHeadText(answer){
-	var returnString = "";
-	var names = "";
-	var anon = answer[0].childNodes[1].childNodes[0].nodeValue;
-	var timestamp = answer[0].childNodes[2].childNodes[0].childNodes[1].childNodes[0].nodeValue;
-	if(anon=='true'){
-		names="Anonymous";
-	} else {
-		names=getNames(answer[0].childNodes[3].childNodes[1]);
-	}
-	returnString = names + " " + timestamp + "    HELPFULNESS SCORE";
-	return returnString;
-};
-
-function getRevBodyText(answer){
-	return answer[0].childNodes[2].childNodes[0].childNodes[2].childNodes[0].nodeValue;
-};
-
-function getNames(members){
-	var names = "";
-	var students = members.childNodes;
-	for(n=0;n<students.length;n++){
-		names = names + students[n].childNodes[1].childNodes[0].nodeValue + " " + students[n].childNodes[2].childNodes[0].nodeValue;
-		if(students.length-1 != n){
-			names = names + ", ";
-		};
-	};
-	return names;
-};
 </script>
 </head>
 <body>

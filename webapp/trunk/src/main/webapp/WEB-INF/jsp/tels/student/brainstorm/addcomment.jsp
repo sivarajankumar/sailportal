@@ -28,6 +28,7 @@
 <script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/brainstorm.js"></script>
 
 <script type="text/javascript">
 function validateOptions(){	
@@ -68,13 +69,16 @@ function post(){
 			var xmlDoc = o.responseXML;
 			if(xmlDoc==null){
 				callback.failure(o);
-				self.close();
 			};
-			var freshAnswer = xmlDoc.getElementsByTagName('answer');
-			var parentDoc = window.opener.document;
-			
+			var comment = new Comment(xmlDoc);
+			var pageManager = window.opener.pageManager;
+			pageManager.addComment(comment, ${answer.id});
+			self.close();
 		},
-		failure:function(o){alert('failed to update to server');}
+		failure:function(o){
+				alert('failed to update to server'); 
+				self.close();
+		}
 	};
 	YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
 };

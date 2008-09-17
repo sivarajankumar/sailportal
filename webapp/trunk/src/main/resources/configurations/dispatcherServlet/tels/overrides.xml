@@ -109,6 +109,8 @@
 				/student/brainstorm/addrevision.html=addRevisionController
 				/student/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
 				/student/brainstorm/requesthelp.html=requestHelpController
+				/student/brainstorm/pollnewposts.html=pollNewPostsController
+				/student/brainstorm/getallposts.html=getAllPostsController
 				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController

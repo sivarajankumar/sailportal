@@ -987,7 +987,17 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.RequestHelpController">
 		<property name="brainstormService" ref="brainstormService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
-	</bean> 
+	</bean>
+	
+	<bean id="getAllPostsController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.GetAllPostsController">
+    	<property name="brainstormService" ref="brainstormService"/>
+    </bean>
+
+    <bean id="pollNewPostsController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PollNewPostsController">
+    	<property name="brainstormService" ref="brainstormService"/>
+    </bean>
     
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"

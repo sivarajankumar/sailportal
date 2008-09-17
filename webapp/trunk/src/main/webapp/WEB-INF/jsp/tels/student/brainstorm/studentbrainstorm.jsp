@@ -6,10 +6,12 @@
 <script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/brainstorm.js"></script>
 
 <script type="text/javascript">
 	
-	var sortByTime = 'true';
+	var sortOrder = 0;
+	var pageManager;
 
 	function popUp(URL, name){
 		window.open(URL, name, 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=500,left = 450,top = 150');
@@ -75,17 +77,191 @@
 	};
 	
 	function refreshResponses(){
-		alert("code here to refresh responses");
+		pageManager.refreshPage();
+		getNumberOfPosts();
 	};
 	
 	function sortBy(type){
 		if(type=='help'){
-			sortByTime='false';
+			sortOrder=2;
 		} else {
-			sortByTime='true';
+			if(sortOrder==1 || sortOrder==2){
+				sortOrder=0;
+			} else {
+				sortOrder=1;
+			};
 		};
-		alert(sortByTime);
-	}
+		pageManager.setSortOrder(sortOrder);
+	};
+
+	function getNumberOfPosts(){
+		var numOfPostElement = document.getElementById('numOfPosts');
+		var numOfPosts = document.getElementsByName('answer').length + document.getElementsByName('comment').length;
+		if(numOfPosts==1){
+			numOfPostElement.innerHTML = 'Student Responses (1 posting)';
+		} else {
+			numOfPostElement.innerHTML = 'Student Responses (' + numOfPosts + ' postings)';
+		};
+	};
+	
+     function PollNewPosts(brainstormId){
+     	this.brainstormId=brainstormId;
+		this.callback = {
+			customevents:{
+				onComplete:this.complete
+			},
+			success:this.handleSuccess,
+			failure:this.handleFailure,
+			scope:this
+		};
+     };
+	
+	PollNewPosts.prototype.start = function(){
+		YAHOO.util.Connect.setPollingInterval(30000);
+		YAHOO.util.Connect.asyncRequest('GET', 'pollnewposts.html?brainstormId=' + this.brainstormId, this.callback);
+	};
+	
+	PollNewPosts.prototype.handleSuccess = function(o){
+		var out = "";
+		var newPosts = Number(o.responseText) - (document.getElementsByName('revision').length + document.getElementsByName('comment').length + document.getElementsByName('otherRevisions').length);
+		if(newPosts > 0){
+			if(newPosts == 1){
+				out = "1 new response received";
+			} else {
+				out = newPosts + " new responses received";
+			};
+		} else {
+			out = "0 new responses received";
+		};
+		document.getElementById('numNewResponses').innerHTML=out;
+	};
+	
+	PollNewPosts.prototype.handleFailure = function(o){
+		//do nothing - this is running in the background every minute
+	};
+	
+	PollNewPosts.prototype.complete = function(eventType, args){
+		this.start();
+	};
+	
+	/**
+	* PageManager manages adding and removing Answers, Revisions
+	* and Comments for a given brainstorm as well as creating and
+	* updating Answer tables and refreshing the elements of a page
+	*/
+	function PageManager(brainstormId, workgroupId, order){
+		this.id = brainstormId;
+		this.workgroupId = workgroupId;
+		this.order = order;
+		this.answers;
+	
+		this.callback = {
+			success:this.handleSuccess,
+			failure:this.handleFailure,
+			scope:this
+		};
+		
+		this.getAllPosts = function(){
+			YAHOO.util.Connect.asyncRequest('GET', 'getallposts.html?brainstormId=' + this.id, this.callback);
+		};
+			
+		this.getAllPosts();
+	};
+	
+	PageManager.prototype.handleFailure = function(o){
+		alert('failure');
+		//error stuff goes here
+	};
+	
+	PageManager.prototype.handleSuccess = function(o){
+		var xmlDoc = o.responseXML;
+		if(xmlDoc==null){
+			this.handlFailure(o);
+		};
+		this.answers = new Answers();
+		this.answers.setAnswers(xmlDoc);
+		this.updatePage();
+	};
+	
+	//gets all posts from server and builds answer tables from new data
+	PageManager.prototype.refreshPage = function(){
+		this.getAllPosts();
+	};
+	
+	PageManager.prototype.getAnswerById = function(id){
+		return this.answers.getAnswerById(id);
+	};
+	
+	PageManager.prototype.addAnswer = function(answer){
+		this.answers.addAnswer(answer);
+		this.updatePage();
+	};
+	
+	PageManager.prototype.addRevision = function(revision, answerId){
+		var answer = this.answers.getAnswerById(answerId);
+		answer.addRevision(revision);
+		this.updatePage();
+	};
+	
+	PageManager.prototype.addComment = function(comment, answerId){
+		var answer = this.answers.getAnswerById(answerId);
+		answer.addComment(comment);
+		this.updatePage();
+	};
+	
+	//builds answer tables from existing data without a request to server
+	PageManager.prototype.updatePage = function(){
+		var orderedElements;
+		if(this.order==0){
+			this.answers.sort(newestFirst);
+		} else if(this.order==1){
+			this.answers.sort(oldestFirst);
+		} else {
+			//order by helpfulness-right now order as in 0
+			//this.answers.sort(helpfulness);
+			this.answers.sort(newestFirst);
+		};
+		orderedElements = createAnswerElements(document, this.answers, this.workgroupId);
+		this.buildPage(orderedElements);
+		
+		function oldestFirst(a, b){
+			if(a.getId() < b.getId()){return -1};
+			if(a.getId() == b.getId()){return 0};
+			if(a.getId() > b.getId()){return 1};
+		};
+		
+		function newestFirst(a, b){
+			if(a.getId() < b.getId()){return 1};
+			if(a.getId() == b.getId()){return 0};
+			if(a.getId() > b.getId()){return -1};
+		};
+		
+		function helpfulness(a, b){
+			//TODO
+		};
+	};
+	
+	PageManager.prototype.setSortOrder = function(order){
+		this.order = order;
+	};
+	
+	PageManager.prototype.buildPage = function(elements){
+		var answerNodes = document.getElementsByName('answer');
+		var parent = document.getElementById('responseTableBody');
+		
+		for(xx=0;xx<answerNodes.length;xx++){
+			if(answerNodes[xx].getAttribute('id')!=0){
+				answerNodes[xx].parentNode.removeChild(answerNodes[xx]);
+			};
+		};
+		
+		for(cc=0;cc<elements.length;cc++){
+			parent.appendChild(elements[cc]);
+		};
+	};
+	
+	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortOrder);
+
 </script>
 </head>
 
@@ -93,164 +269,79 @@
 <body>
 
 <div align="centered">
-	<div id="questionHead">Question for SUBGROUP (#of students)</div>
-	<div id="questionPrompt">Question:
-			<span name="brainstormQuestion">${brainstorm.question.prompt}</span>
-			<div>To answer this Q&A question, click the Create A Response button below</div>
-	</div>
-	
-	<div id="studentResponseHead">
-		<div>Student Responses 
-			<c:choose>
-				<c:when test="${fn:length(brainstorm.answers)==1}">
-					(1 posting)
-				</c:when>
-				<c:otherwise>
-					(${fn:length(brainstorm.answers)} postings)
-				</c:otherwise>
-			</c:choose>
-		</div>  
-		<input id="createResponse" type="button" value="Create A Response" onclick="responsePopUp('${workgroup.id}', '${brainstorm.id}')"/>
-		<c:set var="thisworkgrouprequestedhelp" value="false" />
-		<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">
-		    <c:if test="${workgroupThatRequestedHelp == workgroup}">
-		        <c:set var="thisworkgrouprequestedhelp" value="true" />
-			</c:if>
-		</c:forEach>
-		<c:choose>
-		    <c:when test="${thisworkgrouprequestedhelp == true}">
-		    	<input id="requesthelp_${workgroup.id}_${brainstorm.id}" checked="checked" type="checkbox" value="helpful" onclick="javascript:requestHelp('${workgroup.id}', '${brainstorm.id}')">Request Help</input>
-		    </c:when>
-		    <c:otherwise>
-		        <input id="requesthelp_${workgroup.id}_${brainstorm.id}" type="checkbox" value="helpful" onclick="javascript:requestHelp('${workgroup.id}', '${brainstorm.id}')">Request Help</input>
-		    </c:otherwise>
-		</c:choose>
-		<div id="info"><a href="#">info</a></div>
-	</div>
 
-
+	<table id="questionTable">
+		<thead>
+			<tr>
+				<th><div>Question for SUBGROUP (# of students)</div></th>
+				<th><a href="#">click to hide/show</a></th>
+			</tr>
+		</thead>
+		<tbody>
+			<table id="questionPrompt">
+				<tr>
+					<td>Question:</td>
+					<td><span name="questionPrompt">${brainstorm.question.prompt}</span></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><div>To answer this Q&A question, click the Create A Response button below</div></td>
+			</table>
+		</tbody>
+	</table>
+	<table id="studentResponseTable">
+		<thead>
+			<tr>
+				<th><div id="numOfPosts"></div></th>
+				<th><input type="button" value="Create A Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></th>
+				<th>
+					<c:set var="thisworkgrouprequestedhelp" value="false" />
+					<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">
+		    			<c:if test="${workgroupThatRequestedHelp == workgroup}">
+		        			<c:set var="thisworkgrouprequestedhelp" value="true" />
+						</c:if>
+					</c:forEach>
+					<c:choose>
+		    			<c:when test="${thisworkgrouprequestedhelp == true}">
+		    				<input id="requesthelp_${workgroup.id}_${brainstorm.id}" checked="checked" type="checkbox" value="helpful" onclick="javascript:requestHelp('${workgroup.id}', '${brainstorm.id}')">Request Help</input>
+		    			</c:when>
+		    			<c:otherwise>
+		        			<input id="requesthelp_${workgroup.id}_${brainstorm.id}" type="checkbox" value="helpful" onclick="javascript:requestHelp('${workgroup.id}', '${brainstorm.id}')">Request Help</input>
+		    			</c:otherwise>
+					</c:choose>
+				</th>
+				<th><div><a href="#">info</a></div></th>
+			</tr>
+		</thead>
+		
+		<tbody id="responseTableBody">
 <!-- CONDITIONAL ON WHETHER STUDENTS CAN SEE OTHER STUDENTS' POSTS OR NOT -->
-<c:choose>
-<c:when test="${cannotseeresponses}">
-   You cannot see other students' posts until you post your own response.
-</c:when>
-<c:otherwise>
-	<div id="studentResponseBody">
-		<a href="#" onclick="sortBy('time')">Sort By Time</a>
-		<a href="#" onclick="sortBy('help')">Sort By Helpfulness</a>
-		<a href="#">Show/Hide All Comments and Revisions</a>
-		<input id="newResponses" type="button" value="Show New Responses" onclick="refreshResponses()"/>
-		<div id="numNewResponses">0 new responses received</div>
-	</div>
-	
-	<div id="studentPosts">
-		<c:forEach var="answer" varStatus="answerStatus" items="${brainstorm.answers}">
-			<br/><br/>
-			<div id="${answer.id}" name="answer">
-				<c:set var="count" value="1"/>
-				<c:forEach var="revisionLast" varStatus="revisionLastStatus" items="${answer.revisions}">
-					<c:if test="${revisionLastStatus.last=='true'}">
-						<div id="${revisionLast.id}" name="revision">
-							<div name="revisionHead">
-                                <c:choose>
-									<c:when test="${answer.anonymous}">
-                                    <i>Anonymous</i>
-                                	</c:when>
-									<c:otherwise>
-										<c:forEach var="student" varStatus="studentStatus" items="${answer.workgroup.members}">
-											${student.userDetails.firstname} ${student.userDetails.lastname}
-											<c:if test="${studentStatus.last=='false'}"> & </c:if>
-										</c:forEach>
-            						</c:otherwise>
-								</c:choose>
-								${revisionLast.timestamp}     <br/>
-								${fn:length(answer.workgroupsThatFoundAnswerHelpful)} students found this post helpful
-							</div>
-							<div name="revisionBody">
-								<c:if test="${fn:length(answer.revisions)>1}">
-									<b>Revision ${count} </b>
-								</c:if>
-								${revisionLast.body}
-							</div>
-						</div>
-						<div name="revisionFoot">
-							<a href="#" onclick="addCommentPopUp('${workgroup.id}', '${answer.id}')">Add a Comment</a>
-							<c:if test="${answer.workgroup.id==workgroup.id}">
-								<a href="#" onclick="addRevisionPopUp('${workgroup.id}', '${answer.id}')">Revise this Response</a>
-							</c:if>
-							<c:if test="${answer.workgroup.id!=workgroup.id}">
-							     <c:set var="thisworkgroupfoundthisanswerhelpful" value="false" />
-							     <c:forEach var="workgroupThatFoundThisAnswerHelpful" varStatus="wktftah" items="${answer.workgroupsThatFoundAnswerHelpful}">
-							         <c:if test="${workgroupThatFoundThisAnswerHelpful == workgroup}">
-							         	<c:set var="thisworkgroupfoundthisanswerhelpful" value="true" />
-							         </c:if>
-							     </c:forEach>
-							     <c:choose>
-							         <c:when test="${thisworkgroupfoundthisanswerhelpful == true}">
-							         	  <input id="helpful_${workgroup.id}_${answer.id}" checked="checked" type="checkbox" value="helpful" onclick="javascript:markAnswerAsHelpful('${workgroup.id}', '${answer.id}')">I found this response helpful</input>
-							         </c:when>
-							         <c:otherwise>
-							          	<input id="helpful_${workgroup.id}_${answer.id}" type="checkbox" value="helpful" onclick="javascript:markAnswerAsHelpful('${workgroup.id}', '${answer.id}')">I found this response helpful</input>
-							         </c:otherwise>
-							     </c:choose>
-							</c:if>
-						</div>
-					</c:if>
-					<c:set var="count" value="${count+1}"/>
-				</c:forEach>
-				<c:if test="${fn:length(answer.revisions) > 1}">
-					<div name="otherRevisions">
-						Revisions
-						<c:set var="count" value="1"/>
-						<c:forEach var="revisionRest" varStatus="revisionRestStatus" items="${answer.revisions}">
-							<c:if test="${revisionRestStatus.last=='false'}">
-								<div id="otherRevisionInfo">
-									Revision ${count} ${revisionRest.body}
-									<c:choose>
-										<c:when test="${answer.anonymous=='true'}">
-											<i>Anonymous</i>
-										</c:when>
-										<c:otherwise>
-											<c:forEach var="student" varStatus="studentStatus" items="${answer.workgroup.members}">
-												${student.userDetails.firstname} ${student.userDetails.lastname}
-												<c:if test="${studentStatus.last=='false'}">, </c:if>
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>
-									${revisionRest.timestamp}
-								</div>
-							</c:if>
-							<c:set var="count" value="${count+1}"/>
-						</c:forEach>
-					</div>
-				</c:if>
-				
-				<div id="comments">
-				    <c:if test="${fn:length(answer.comments) > 0}">
-					${fn:length(answer.comments)} comments <a href="#" onclick="addCommentPopUp('${workgroup.id}', '${answer.id}')">Add a Comment</a>
-						<c:forEach var="comment" items="${answer.comments}">
-							<div id="comment_${comment.id}">
-								${comment.body} (
-								<c:choose>
-									<c:when test="${comment.anonymous=='true'}">
-										Anonymous
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="student" varStatus="studentStatus" items="${comment.workgroup.members}">
-											${student.userDetails.firstname} ${student.userDetails.lastname},
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-								${comment.timestamp} )
-							</div>
-						</c:forEach>
-					</c:if>
-				</div>
-			</div>
-		</c:forEach>
-	</div>
-</c:otherwise>
-</c:choose>
+		<c:choose>
+			<c:when test="${cannotseeresponses}">
+				<tr id="0" name="answer">
+					<div>You cannot see other students' posts until you post your own response.</div>
+				</tr>
+			</c:when>
+			<c:otherwise>	
+				<tr id="0" name="answer">
+					<td>
+						<a href="#" onclick="sortBy('time')">Sort By Time</a>
+						<a href="#" onclick="sortBy('help')">Sort By Helpfulness</a>
+					</td>
+					<td><a href="#">Show/Hide All Comments and Revisions</a></td>
+					<td><input type="button" value="Show New Responses" onclick="refreshResponses()"/></td>
+					<td><div id="numNewResponses">0 new responses received</div></td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
+		</tbody>
+	</table>
+<script>
+	getNumberOfPosts();
+	var poll = new PollNewPosts('${brainstorm.id}');
+	poll.start();
+</script>
+
 
 </div> <!-- end centered div -->
 <!--  
