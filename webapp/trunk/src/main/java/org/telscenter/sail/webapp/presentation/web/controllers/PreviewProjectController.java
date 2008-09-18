@@ -11,6 +11,7 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.DIYProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -23,7 +24,13 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class PreviewProjectController extends AbstractController {
 	
+	private static final String PROJECT_TYPE_PARAM_NAME = "projectType";
+	
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
+
+	private static final String DIY_EXTERNAL_ID_PARAM_NAME = "diyExternalId";
+	
+	
 
 	private ProjectService projectService;
 	
@@ -36,6 +43,16 @@ public class PreviewProjectController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+		String projectTypeStr = request.getParameter(PROJECT_TYPE_PARAM_NAME);
+		if (projectTypeStr.equals("diy")) {
+			String diyExternalIdStr = request.getParameter(DIY_EXTERNAL_ID_PARAM_NAME);
+			PreviewProjectParameters params = new PreviewProjectParameters();
+			DIYProjectImpl diyProject = new DIYProjectImpl();
+			diyProject.setExternalDIYId(diyExternalIdStr);
+			params.setProject(diyProject);
+			return (ModelAndView) projectService.previewProject(params);
+		}
+		
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
 		

@@ -209,6 +209,7 @@
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
+				/admin/getalldiyprojects.html=getAllDIYProjectsController
 				/admin/uploadotml.html=uploadOtmlController
 				/admin/findprojectruns.html=findProjectRunsController
 				/admin/manageproject.html=listProjectsController

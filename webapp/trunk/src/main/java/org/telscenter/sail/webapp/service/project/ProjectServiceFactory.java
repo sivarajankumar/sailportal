@@ -27,6 +27,7 @@ import net.sf.sail.webapp.domain.Curnit;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.DIYProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 
 /**
@@ -43,6 +44,8 @@ public class ProjectServiceFactory {
 	
 	private ProjectService otrunkProjectService;
 	
+	private ProjectService diyProjectService;
+	
 	/**
 	 * Returns a <code>ProjectService</code> instance that serves
 	 * the provided <code>Project</code>.
@@ -54,6 +57,10 @@ public class ProjectServiceFactory {
 	public ProjectService getProjectService(Project project) {
 		ProjectService projectService = null;
 
+		if (project instanceof DIYProjectImpl) {
+			return diyProjectService;
+		}
+		
 		Curnit curnit = project.getCurnit();
 		if (curnit instanceof RooloOtmlModuleImpl) {
 			projectService = otrunkProjectService;
@@ -105,5 +112,12 @@ public class ProjectServiceFactory {
 	 */
 	public void setOtrunkProjectService(ProjectService otrunkProjectService) {
 		this.otrunkProjectService = otrunkProjectService;
+	}
+
+	/**
+	 * @param diyProjectService the diyProjectService to set
+	 */
+	public void setDiyProjectService(ProjectService diyProjectService) {
+		this.diyProjectService = diyProjectService;
 	}
 }
