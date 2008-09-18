@@ -22,7 +22,12 @@
  */
 package org.telscenter.sail.webapp.service.project.impl;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
@@ -35,7 +40,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 /**
  * ProjectService for OTrunk projects. POTrunk combines
@@ -82,4 +90,55 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 		
 		return new ModelAndView(new RedirectView(previewProjectUrl));
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#authorProject(org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters)
+	 */
+	@Override
+	@Transactional
+	public ModelAndView authorProject(AuthorProjectParameters authorProjectParameters)
+			throws Exception {
+		// TODO get the author jnlpurl from project
+		Project project = authorProjectParameters.getProject();
+		String curnitUrl = project.getCurnit().getSdsCurnit().getUrl();
+		
+		if (project instanceof ProjectImpl || curnitUrl == null) {
+			curnitUrl = "http://www.telscenter.org/confluence/download/attachments/20047/Airbags.otml";
+		} else if (project instanceof RooloProjectImpl) {
+			curnitUrl = "http://localhost:8080/webapp/repository/retrieveotml.html?uri=" + ((RooloProjectImpl) project).getProxy().getUri();
+		}
+		
+		Curnit curnit = project.getCurnit();
+		OtmlModuleImpl otmlModule = (OtmlModuleImpl) curnit;
+		curnitUrl = otmlModule.getRetrieveotmlurl();
+
+		URL jnlpURL = new URL(authoringToolJnlpUrl);
+		BufferedReader in = new BufferedReader(
+				new InputStreamReader(jnlpURL.openStream()));
+		
+		String jnlpString = "";
+		String inputLine;
+		while ((inputLine = in.readLine()) != null) {
+			jnlpString += inputLine;
+		}
+
+		HttpServletResponse httpServletResponse = authorProjectParameters.getHttpServletResponse();
+		
+		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl);
+		httpServletResponse.setHeader("Cache-Control", "no-cache");
+		httpServletResponse.setHeader("Pragma", "no-cache");
+		httpServletResponse.setDateHeader ("Expires", 0);
+
+		String fileName = authorProjectParameters.getHttpServletRequest().getServletPath();
+		fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
+		fileName = fileName.substring(0, fileName.indexOf(".")) + ".jnlp";
+		httpServletResponse.addHeader("Content-Disposition", "Inline; fileName=" + fileName);
+
+		httpServletResponse.setContentType(JNLP_CONTENT_TYPE);
+		httpServletResponse.getWriter().print(outputJNLPString);
+		System.out.println(outputJNLPString);
+		
+		return null;
+	}
+
 }
