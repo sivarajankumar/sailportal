@@ -35,12 +35,12 @@ import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.module.ModuleDao;
 import org.telscenter.sail.webapp.domain.Module;
+import org.telscenter.sail.webapp.domain.impl.CreateOtmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
+import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.service.module.ModuleService;
-
-import roolo.curnit.client.basicProxy.CurnitProxy;
 
 /**
  *  Service for the TELS's Module Domain Object
@@ -76,6 +76,16 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 	    			((CreateRooloOtmlModuleParameters) curnitParameters).getRooloRepositoryUrl());
 	    	((RooloOtmlModuleImpl) module).setProxy(((CreateRooloOtmlModuleParameters) curnitParameters).getCurnitProxy());
 	    	this.rooloOtmlModuleDao.save(module);
+	    } else if (curnitParameters instanceof CreateOtmlModuleParameters) {
+	    	OtmlModuleImpl otmlModuleImpl = new OtmlModuleImpl();
+	    	otmlModuleImpl.setOtml(((CreateOtmlModuleParameters) curnitParameters).getOtml());
+	    	otmlModuleImpl.setSdsCurnit(sdsCurnit);
+	    	this.moduleDao.save(otmlModuleImpl);
+	    	Long id = otmlModuleImpl.getId();
+	    	// save id.  changeme with url.
+	    	otmlModuleImpl.setRetrieveotmlurl("http://localhost:8080/webapp/repository/retrieveotml.html?otmlModuleId=" + id);	    
+	    	this.moduleDao.save(otmlModuleImpl);
+	    	return otmlModuleImpl;
 	    } else {
 	    	module = new ModuleImpl();
 	    	module.setSdsCurnit(sdsCurnit);
@@ -121,7 +131,7 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 			module = moduleDao.getById(moduleId);
 		} catch (ObjectNotFoundException e) {
 			module = rooloOtmlModuleDao.getById(moduleId);
-		}
+		} 
 		return module;
 	}
 	

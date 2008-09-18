@@ -28,14 +28,18 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.Curnit;
+
 import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.admin.OtmlFileUpload;
+import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -49,6 +53,8 @@ public class UploadOtmlController extends SimpleFormController {
 
 	private static final String PROJECT_KEY = "project";
 	private ProjectService projectService;
+	
+	private ModuleService moduleService;
 
 	public UploadOtmlController() {
 		setSessionForm(true);
@@ -85,8 +91,13 @@ public class UploadOtmlController extends SimpleFormController {
 			return modelAndView;
 		} else {
 			Project project = projectService.getById(request.getParameter("projectId"));
-			((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(file.getBytes());		
-
+			Curnit curnit = project.getCurnit();
+			if (curnit instanceof RooloOtmlModuleImpl) {
+				((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(file.getBytes());		
+			} else if (curnit instanceof OtmlModuleImpl) {
+				((OtmlModuleImpl) project.getCurnit()).setOtml(file.getBytes());
+				moduleService.updateCurnit(project.getCurnit());
+			}
 			projectService.updateProject(project);
 		}
 		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
@@ -98,6 +109,13 @@ public class UploadOtmlController extends SimpleFormController {
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+
+	/**
+	 * @param moduleService the moduleService to set
+	 */
+	public void setModuleService(ModuleService moduleService) {
+		this.moduleService = moduleService;
 	}
 	
 }

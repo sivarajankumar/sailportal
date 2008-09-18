@@ -839,6 +839,7 @@
     <bean id="retrieveOtmlController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.repository.RetrieveOtmlController" >
         <property name="repositoryService" ref="rooloRepositoryService" />
+        <property name="moduleService" ref="curnitService" />
     </bean>
 
     <bean id="otmlFileUpload"
@@ -847,6 +848,7 @@
     <bean id="uploadOtmlController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.admin.UploadOtmlController" >
         <property name="projectService" ref="projectService" />
+        <property name="moduleService" ref="curnitService" />
 		<property name="sessionForm" value="true"/>
 		<property name="commandName" value="otmlFile"/>
 		<property name="commandClass"

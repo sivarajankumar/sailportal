@@ -27,6 +27,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -50,6 +52,7 @@ import org.telscenter.sail.webapp.domain.Module;
  */
 @Entity
 @Table(name = ModuleImpl.DATA_STORE_NAME)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class ModuleImpl extends CurnitImpl implements Module {
 
 	@Transient

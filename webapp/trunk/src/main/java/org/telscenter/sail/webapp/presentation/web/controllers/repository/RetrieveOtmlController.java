@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers.repository;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.StringReader;
@@ -32,8 +33,12 @@ import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.Curnit;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
+import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.repository.RepositoryService;
 
 import roolo.curnit.client.basicProxy.CurnitProxy;
@@ -49,10 +54,14 @@ import roolo.curnit.client.basicProxy.CurnitProxy;
 public class RetrieveOtmlController extends AbstractController {
 
 	protected static final String URI_PARAM = "uri";
-	
+
+	protected static final String OTMLMODULEID_PARAM = "otmlModuleId";
+
 	private static final String XML_CONTENT_TYPE = "application/xml";
 	
 	private RepositoryService repositoryService;
+	
+	private ModuleService moduleService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -61,24 +70,41 @@ public class RetrieveOtmlController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		String uriString = request.getParameter(URI_PARAM);
-		URI uri = new URI(uriString);
+		byte[] otmlData = null;
 		
-		CurnitProxy curnitProxy = repositoryService.getByUri(uri);
-		byte [] otmlData = curnitProxy.getContent().getBytes();
+		String uriString = request.getParameter(URI_PARAM);
+
+		String otmlModuleIdString = request.getParameter(OTMLMODULEID_PARAM);
+
+		
+		if (uriString != null) {
+			URI uri = new URI(uriString);
+
+			CurnitProxy curnitProxy = repositoryService.getByUri(uri);
+			otmlData = curnitProxy.getContent().getBytes();
+		} else if (otmlModuleIdString != null) {
+			Long moduleId = Long.parseLong(otmlModuleIdString);
+			OtmlModuleImpl module = (OtmlModuleImpl) moduleService.getById(moduleId);
+			otmlData = module.getOtml();
+		}
 		response.setContentType(XML_CONTENT_TYPE);
 
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader ("Expires", 0);
 
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		baos.write(otmlData);
+		baos.writeTo(response.getOutputStream());
+				
+		/*
 		BufferedReader in = new BufferedReader(
 				new StringReader(otmlData.toString()));
-		
 		String inputLine;
 		while ((inputLine = in.readLine()) != null) {
 			response.getWriter().print(inputLine + "\n");			
 		}
+		*/
 
 		return null;
 
@@ -90,6 +116,14 @@ public class RetrieveOtmlController extends AbstractController {
 	 */
 	public void setRepositoryService(RepositoryService repositoryService) {
 		this.repositoryService = repositoryService;
+	}
+
+
+	/**
+	 * @param moduleService the moduleService to set
+	 */
+	public void setModuleService(ModuleService moduleService) {
+		this.moduleService = moduleService;
 	}
 
 }

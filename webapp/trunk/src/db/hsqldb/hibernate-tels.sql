@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        owner_sid bigint,
-        object_id_class bigint not null,
         parent_object bigint,
+        object_id_class bigint not null,
+        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -198,11 +198,18 @@
         primary key (id)
     ) type=MyISAM;
 
+    create table otmlmodules (
+        id bigint not null,
+        otml longblob,
+        retrieveotmlurl varchar(255),
+        primary key (id)
+    ) type=MyISAM;
+
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -226,9 +233,9 @@
         familytag integer,
         iscurrent bit,
         OPTLOCK integer,
-        jnlp_fk bigint not null,
         curnit_fk bigint not null,
         run_fk bigint unique,
+        jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -291,8 +298,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_jnlp_fk bigint not null,
         sds_curnit_fk bigint not null,
+        sds_jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -374,8 +381,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -388,9 +395,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_workgroup_fk bigint not null unique,
-        offering_fk bigint not null,
         group_fk bigint not null,
+        offering_fk bigint not null,
+        sds_workgroup_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -579,6 +586,12 @@
         add constraint FK73F0F12DAB4F6201 
         foreign key (sds_offering_fk) 
         references sds_offerings (id);
+
+    alter table otmlmodules 
+        add index FK7DBC1CC39627A0C6 (id), 
+        add constraint FK7DBC1CC39627A0C6 
+        foreign key (id) 
+        references modules (id);
 
     alter table premadecommentlists 
         add index FKF237B2CEF4421937 (run), 

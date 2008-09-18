@@ -86,8 +86,8 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 	@Override
 	public void save(Module module) {
 		super.save(module);
-		CurnitProxy curnitProxy = ((RooloOtmlModuleImpl) module).getProxy();
-		rooloClientCurnitRepository.updateELO(curnitProxy);
+//		CurnitProxy curnitProxy = ((RooloOtmlModuleImpl) module).getProxy();
+//		rooloClientCurnitRepository.updateELO(curnitProxy);
 	}
 
 	/**

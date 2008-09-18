@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.service.project;
 
 import net.sf.sail.webapp.domain.Curnit;
 
+import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
@@ -56,6 +57,8 @@ public class ProjectServiceFactory {
 		Curnit curnit = project.getCurnit();
 		if (curnit instanceof RooloOtmlModuleImpl) {
 			projectService = otrunkProjectService;
+		} else if (curnit instanceof OtmlModuleImpl) {
+			projectService = potrunkProjectService;
 		} else {
 			projectService = podProjectService;
 		}		

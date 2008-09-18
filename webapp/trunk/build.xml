@@ -295,10 +295,10 @@
     </target>
 
     <!-- ================================= 
-          target: create.default.curnits
+          target: create.default.otml.curnits
          ================================= -->
-    <target name="create.default.curnits" depends="" description="Adds otml curnits to the roolo repository.">
-        <java classname="org.telscenter.sail.webapp.CreateDefaultCurnits" fork="true" failonerror="true" newenvironment="true">
+    <target name="create.default.otml.curnits" depends="" description="Adds otml curnits to the local repository.">
+        <java classname="org.telscenter.sail.webapp.CreateDefaultOtmlCurnits" fork="true" failonerror="true" newenvironment="true">
             <classpath refid="runtime.classpath" />
         </java>
     </target>	

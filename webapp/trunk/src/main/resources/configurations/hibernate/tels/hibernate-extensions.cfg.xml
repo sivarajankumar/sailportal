@@ -46,6 +46,8 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.impl.ModuleImpl" />
         <mapping
+            class="org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl" />
+        <mapping
             class="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl" />
         <mapping
         	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl" />
@@ -67,6 +69,7 @@
             class="org.telscenter.sail.webapp.domain.brainstorm.comment.impl.CommentImpl" />      
         <mapping
             class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl" />      
+            
      
     </session-factory>
 </hibernate-configuration>

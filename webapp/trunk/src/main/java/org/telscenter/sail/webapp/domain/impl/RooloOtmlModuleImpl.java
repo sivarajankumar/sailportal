@@ -57,7 +57,6 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
     
     @Transient
     public static final String COLUMN_NAME_ROOLOURL = "roolorepositoryurl";  // uri within roolo
-
     
 	@Transient
 	private static final long serialVersionUID = 1L;
