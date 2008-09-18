@@ -300,7 +300,7 @@
                   </OTDataCollectorViewConfig>
                 </entry>
                 <entry key="${drawing-view}">
-                  <OTViewEntry viewClass="org.concord.datagraph.state.OTDataDrawingToolEditView" objectClass="org.concord.graph.util.state.OTDrawingTool" />
+                  <OTViewEntry viewClass="org.concord.otrunk.graph.OTDataDrawingToolEditView" objectClass="org.concord.graph.util.state.OTDrawingTool" />
                 </entry>
                 <entry key="be713960-e18a-11dc-95ff-0800200c9a66">
                   <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
@@ -318,9 +318,9 @@
         <OTSharingBundle />
       </bundles>
       <root>
-        <OTPasProject id="971534ac-3f22-11dd-b240-cde0bfdd2411" title="Airbags: Too Fast, Too Furious?? (GOLD) Copy-6/17/08" authorNotes="">
+        <OTPasProject id="971534ac-3f22-11dd-b240-cde0bfdd2411" title="Airbags: Too Fast, Too Furious?? (GOLD) Copy-6/17/08" authorNotes="" isAuthoringMode="false">
           <activityList>
-            <OTPasActivity id="8ee064d3-5d9a-11dd-a36e-47697d513d68" title="Thinking about airbags" authorNotes="">
+            <OTPasActivity id="8ee064d3-5d9a-11dd-a36e-47697d513d68" title="Thinking about airbags!!!!!!!" authorNotes="">
               <stepList>
                 <OTEvidence id="8ee0da04-5d9a-11dd-a36e-47697d513d68" title="Can we improve the design of airbags?" authorNotes="" hoverString="Pas Step" attribution="" evidenceTitle="">
                   <content>&lt;STYLE TYPE="text/css"&gt;
