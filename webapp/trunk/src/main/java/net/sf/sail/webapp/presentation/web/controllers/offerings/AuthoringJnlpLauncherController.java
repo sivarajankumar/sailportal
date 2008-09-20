@@ -59,7 +59,7 @@ public class AuthoringJnlpLauncherController extends AbstractController {
 		
 		String jnlpString = getJNLPAsString();
 		String curnitUrl = (String) request.getParameter(AuthoringJNLPModifier.CURNIT_URL_ATTRIBUTE);
-		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl);
+		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl, null);
 		
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");

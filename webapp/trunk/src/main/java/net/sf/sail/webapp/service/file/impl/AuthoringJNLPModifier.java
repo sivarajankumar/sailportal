@@ -20,10 +20,12 @@ package net.sf.sail.webapp.service.file.impl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.service.file.StringModifyService;
 
+import org.apache.commons.lang.WordUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -41,7 +43,11 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	private static final String PROPERTY_ELEMENT_NAME = "property";
 	private static final String NAME_ATTRIBUTE = "name";
 	private static final String VALUE_ATTRIBUTE = "value";
-	public static final String CURNIT_URL_ATTRIBUTE = "jnlp.curnit_url";
+	public static final String CURNIT_URL_ATTRIBUTE = "jnlp.curnit_url.get";
+	public static final String CURNIT_URL_ATTRIBUTE_POST = "jnlp.curnit_url.post";
+	public static final String CURNIT_PROJECT_ID = "jnlp.project.id";
+	private static final String RUN_MODE = "jnlp.runmode";
+	private static final String RUN_MODE_WEB = "web";
 	/**
 	 * Takes a string representation of the authoring launcher JNLP and adds a property element into
 	 * the resources element which sets a system property "curnit_url" to the curnit url which we want
@@ -49,12 +55,13 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	 * 
 	 * @param inputJNLP The contents of a authoring launcher jnlp file as a string.
 	 * @param curnitURL The url for a curnit to be editted as a string
+	 * @param serializable 
 	 * @return A string representing the altered jnlp (with application argument added)
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unchecked")
-	public String modifyJnlp(String inputJNLP, String curnitURL)
+	public String modifyJnlp(String inputJNLP, String curnitURL, Long projectId)
 			throws JDOMException, IOException {
 		InputStream inputStream = new ByteArrayInputStream(inputJNLP.getBytes());
 		SAXBuilder builder = new SAXBuilder();
@@ -64,14 +71,35 @@ public class AuthoringJNLPModifier implements StringModifyService {
         List<Element> resourceNodeList = XPath.newInstance("/jnlp/resources[not(@os)]").selectNodes(doc);
         Element resourceElement = resourceNodeList.get(0);
 
+        //.get
 		Element propertyElement = new Element(PROPERTY_ELEMENT_NAME);
 		propertyElement.setAttribute(NAME_ATTRIBUTE, CURNIT_URL_ATTRIBUTE);
 		propertyElement.setAttribute(VALUE_ATTRIBUTE, curnitURL);
 		resourceElement.addContent(propertyElement);
 		
+		//.post this needs to be generated somehow
+		propertyElement = new Element(PROPERTY_ELEMENT_NAME);
+		propertyElement.setAttribute(NAME_ATTRIBUTE, CURNIT_URL_ATTRIBUTE_POST);
+		propertyElement.setAttribute(VALUE_ATTRIBUTE, "");
+		resourceElement.addContent(propertyElement);
+		
+		//session type web
+		propertyElement = new Element(PROPERTY_ELEMENT_NAME);
+		propertyElement.setAttribute(NAME_ATTRIBUTE, RUN_MODE);
+		propertyElement.setAttribute(VALUE_ATTRIBUTE, "web");
+		resourceElement.addContent(propertyElement);
+		
+		//project.id
+		propertyElement = new Element(PROPERTY_ELEMENT_NAME);
+		propertyElement.setAttribute(NAME_ATTRIBUTE, CURNIT_PROJECT_ID);
+		propertyElement.setAttribute(VALUE_ATTRIBUTE, projectId.toString());
+		resourceElement.addContent(propertyElement);
+		
+		resourceNodeList.add(0, resourceElement);
+
 		XMLOutputter outputter = new XMLOutputter();
 		String outputJNLP = outputter.outputString(doc);
+		System.out.println(WordUtils.wrap(outputJNLP, 200));
 		return outputJNLP;
-
 	}
 }
