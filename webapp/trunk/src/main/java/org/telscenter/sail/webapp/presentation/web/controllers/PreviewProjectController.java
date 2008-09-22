@@ -44,7 +44,7 @@ public class PreviewProjectController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 
 		String projectTypeStr = request.getParameter(PROJECT_TYPE_PARAM_NAME);
-		if (projectTypeStr.equals("diy")) {
+		if (projectTypeStr != null && projectTypeStr.equals("diy")) {
 			String diyExternalIdStr = request.getParameter(DIY_EXTERNAL_ID_PARAM_NAME);
 			PreviewProjectParameters params = new PreviewProjectParameters();
 			DIYProjectImpl diyProject = new DIYProjectImpl();
