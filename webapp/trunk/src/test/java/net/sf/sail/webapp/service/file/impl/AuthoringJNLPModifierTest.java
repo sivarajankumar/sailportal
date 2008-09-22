@@ -54,7 +54,11 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	"<property name=\"maven.jnlp.version\" value=\"authoring-everything-snapshot-0.1.0-20070511.182952\" />" +
 	"<jar href=\"org/concord/framework/framework.jar\" version=\"0.1.0-20070511.131402-50\" />" +
 	"<jar href=\"com/webrenderer/webrenderer-win/webrenderer-win.jar\" version=\"3.0\" /> " +
-	"<property name=\"jnlp.curnit_url\" value=\"test.jar\" /> </resources>" +
+	"<property name=\"jnlp.curnit_url.get\" value=\"test.jar\" />" +
+	"<property name=\"jnlp.curnit_url.post\" value=\"\" />" +	
+	"<property name=\"jnlp.runmode\" value=\"web\" />" +
+	"<property name=\"jnlp.project.id\" value=\"1\" />" +
+	"</resources>" +
 	"<resources os=\"Linux\"> <nativelib href=\"org/telscenter/java/dev/jdic-native/jdic-native-linux-nar.jar\"" +
 	"version=\"20060613\" /> <jar href=\"org/telscenter/java/dev/jdic/jdic-linux.jar\" version=\"20060613\" />" +
 	"</resources> <application-desc main-class=\"org.telscenter.proprietary.TelsProprietaryLauncher\" /> </jnlp>";
