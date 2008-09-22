@@ -48,6 +48,10 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	public static final String CURNIT_PROJECT_ID = "jnlp.project.id";
 	private static final String RUN_MODE = "jnlp.runmode";
 	private static final String RUN_MODE_WEB = "web";
+	
+	
+	
+	
 	/**
 	 * Takes a string representation of the authoring launcher JNLP and adds a property element into
 	 * the resources element which sets a system property "curnit_url" to the curnit url which we want
@@ -55,7 +59,7 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	 * 
 	 * @param inputJNLP The contents of a authoring launcher jnlp file as a string.
 	 * @param curnitURL The url for a curnit to be editted as a string
-	 * @param serializable 
+	 * @param projectId The id of the project to author
 	 * @return A string representing the altered jnlp (with application argument added)
 	 * @throws JDOMException
 	 * @throws IOException

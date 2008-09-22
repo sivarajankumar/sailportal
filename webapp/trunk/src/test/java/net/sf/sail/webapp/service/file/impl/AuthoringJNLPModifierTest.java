@@ -43,6 +43,8 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	"</resources> <application-desc main-class=\"org.telscenter.proprietary.TelsProprietaryLauncher\" /> </jnlp>";
 
 	private static final String curnitURL = "test.jar";
+	
+	private static final Long PROJECTID = new Long(1);
 
 	private static final String outputJnlp = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><jnlp codebase=\"" +
 	"http://tels-develop.soe.berkeley.edu:8080/jnlp\" spec=\"1.0+\"> <information><title>Authoring" +
@@ -74,7 +76,7 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	
 	public void testmodifyJNLP() throws Exception {
 		AuthoringJNLPModifier modifier = new AuthoringJNLPModifier();
-		assertEquals(StringUtils.deleteWhitespace(outputJnlp), StringUtils.deleteWhitespace(modifier.modifyJnlp(inputJnlp, curnitURL)));
+		assertEquals(StringUtils.deleteWhitespace(outputJnlp), StringUtils.deleteWhitespace(modifier.modifyJnlp(inputJnlp, curnitURL, PROJECTID)));
 	}
 
 }
