@@ -152,7 +152,7 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 	private String getRetrieveOtmlUrl(String retrieveotmlurl, String portalUrl) {
 		boolean containsLocalhost = StringUtils.contains(retrieveotmlurl, "localhost");
 		if (containsLocalhost) {
-			return StringUtils.replaceChars(retrieveotmlurl, "http://localhost:8080/webapp", portalUrl);
+			return StringUtils.replace(retrieveotmlurl, "http://localhost:8080/webapp", portalUrl);
 		}
 		return retrieveotmlurl;
 	}
