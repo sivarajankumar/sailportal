@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.DIYProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.presentation.util.Util;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -60,6 +61,7 @@ public class PreviewProjectController extends AbstractController {
 		params.setProject(project);
 		params.setHttpServletRequest(request);
 		params.setHttpRestTransport(httpRestTransport);
+		params.setPortalUrl(Util.getPortalUrl(request));
 		return (ModelAndView) projectService.previewProject(params);
     }
 	

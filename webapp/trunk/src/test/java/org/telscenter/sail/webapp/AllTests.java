@@ -46,6 +46,7 @@ import org.junit.runners.Suite;
 	   org.telscenter.sail.webapp.domain.impl.AllTests.class,
 	   org.telscenter.sail.webapp.domain.authentication.impl.AllTests.class,	   
 	   org.telscenter.sail.webapp.domain.run.AllTests.class,
+       org.telscenter.sail.webapp.presentation.util.AllTests.class,	   
        org.telscenter.sail.webapp.presentation.validators.AllTests.class,
 	   org.telscenter.sail.webapp.presentation.web.controllers.AllTests.class,
 	   org.telscenter.sail.webapp.service.impl.AllTests.class,

@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
+import org.telscenter.sail.webapp.presentation.util.Util;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -62,6 +63,7 @@ public class AuthorProjectController extends AbstractController {
 		params.setHttpServletRequest(request);
 		params.setHttpServletResponse(response);
 		params.setHttpRestTransport(httpRestTransport);
+		params.setPortalUrl(Util.getPortalUrl(request));
 
 		return (ModelAndView) projectService.authorProject(params);
 	}

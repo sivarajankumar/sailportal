@@ -34,6 +34,7 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -85,7 +86,7 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 				previewWorkgroup);
 		
 		Curnit curnit = project.getCurnit();
-		String curnitOtmlUrl = ((OtmlModuleImpl) curnit).getRetrieveotmlurl();
+		String curnitOtmlUrl = getRetrieveOtmlUrl(((OtmlModuleImpl) curnit).getRetrieveotmlurl(), params.getPortalUrl());
 		previewProjectUrl += "?sailotrunk.otmlurl=" + curnitOtmlUrl;
 		
 		return new ModelAndView(new RedirectView(previewProjectUrl));
@@ -110,7 +111,7 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 		
 		Curnit curnit = project.getCurnit();
 		OtmlModuleImpl otmlModule = (OtmlModuleImpl) curnit;
-		curnitUrl = otmlModule.getRetrieveotmlurl();
+		curnitUrl = getRetrieveOtmlUrl(otmlModule.getRetrieveotmlurl(), authorProjectParameters.getPortalUrl());
 
 		URL jnlpURL = new URL(authoringToolJnlpUrl);
 		BufferedReader in = new BufferedReader(
@@ -136,9 +137,24 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 
 		httpServletResponse.setContentType(JNLP_CONTENT_TYPE);
 		httpServletResponse.getWriter().print(outputJNLPString);
-		System.out.println(outputJNLPString);
 		
 		return null;
+	}
+
+	/**
+	 * Returns a url to retrieve the POTrunk curnit. If the url starts with
+	 * localhost, this will be replaced with the actual portalUrl.
+	 * 
+	 * @param retrieveotmlurl
+	 * @param portalUrl
+	 * @return
+	 */
+	private String getRetrieveOtmlUrl(String retrieveotmlurl, String portalUrl) {
+		boolean containsLocalhost = StringUtils.contains(retrieveotmlurl, "localhost");
+		if (containsLocalhost) {
+			return StringUtils.replaceChars(retrieveotmlurl, "http://localhost:8080/webapp", portalUrl);
+		}
+		return retrieveotmlurl;
 	}
 
 }
