@@ -22,13 +22,19 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
+import java.net.URLDecoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.Curnit;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -49,6 +55,8 @@ public class PostProjectController extends AbstractController {
 	
 	private ProjectService projectService;
 	
+	private ModuleService moduleService;
+	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -57,10 +65,19 @@ public class PostProjectController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		
 		String projectId = request.getParameter(PROJECT_ID_PARAM);
-		String otmlString = request.getParameter(OTML_CONTENT_PARAM);
+		String encodedOtmlString = request.getParameter(OTML_CONTENT_PARAM);
+		String otmlString = URLDecoder.decode(encodedOtmlString, "UTF-8");
 		
 		Project project = projectService.getById(projectId);
-		
+		Curnit curnit = project.getCurnit();
+		if (curnit instanceof RooloOtmlModuleImpl) {
+			((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(otmlString.getBytes());		
+		} else if (curnit instanceof OtmlModuleImpl) {
+			((OtmlModuleImpl) project.getCurnit()).setOtml(otmlString.getBytes());
+			moduleService.updateCurnit(project.getCurnit());
+		}
+		projectService.updateProject(project);
+
 //		File oldOtmlFile = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile();
 //
 //		// need to generate new file path, otherwise won't save in jackrabbit...
@@ -70,9 +87,9 @@ public class PostProjectController extends AbstractController {
 //		FileWriter out = new FileWriter(otmlFile);
 //		out.write(otmlString);
 //		out.close();
-		byte [] oldOtmlData = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getBytes();
-		((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(oldOtmlData);		
-		projectService.updateProject(project);		
+//		byte [] oldOtmlData = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getBytes();
+//		((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(oldOtmlData);		
+//		projectService.updateProject(project);		
 		
 		return null;
 	}
@@ -84,4 +101,10 @@ public class PostProjectController extends AbstractController {
 		this.projectService = projectService;
 	}
 
+	/**
+	 * @param moduleService the moduleService to set
+	 */
+	public void setModuleService(ModuleService moduleService) {
+		this.moduleService = moduleService;
+	}
 }

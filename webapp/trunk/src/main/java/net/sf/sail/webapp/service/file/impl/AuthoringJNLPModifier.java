@@ -49,9 +49,6 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	private static final String RUN_MODE = "jnlp.runmode";
 	private static final String RUN_MODE_WEB = "web";
 	
-	
-	
-	
 	/**
 	 * Takes a string representation of the authoring launcher JNLP and adds a property element into
 	 * the resources element which sets a system property "curnit_url" to the curnit url which we want
@@ -67,7 +64,27 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	@SuppressWarnings("unchecked")
 	public String modifyJnlp(String inputJNLP, String curnitURL, Long projectId)
 			throws JDOMException, IOException {
-		InputStream inputStream = new ByteArrayInputStream(inputJNLP.getBytes());
+		return modifyJnlp(inputJNLP, curnitURL, projectId, "");
+
+	}
+
+	/**
+	 * Takes a string representation of the authoring launcher JNLP and adds a property element into
+	 * the resources element which sets a system property "curnit_url" to the curnit url which we want
+	 * to launch in the authoring tool.
+	 * 
+	 * @param inputJNLP The contents of a authoring launcher jnlp file as a string.
+	 * @param curnitURL The url for a curnit to be editted as a string
+	 * @param projectId The id of the project to author
+	 * @param postCurnitUrl the url to post the otml to. This url will know how to persist the
+	 *     otml.
+	 * @return A string representing the altered jnlp (with application argument added)
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
+	public String modifyJnlp(String jnlpString, String curnitUrl, Long projectId,
+			String postCurnitUrl) throws JDOMException, IOException {
+		InputStream inputStream = new ByteArrayInputStream(jnlpString.getBytes());
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(inputStream);
 		
@@ -75,16 +92,16 @@ public class AuthoringJNLPModifier implements StringModifyService {
         List<Element> resourceNodeList = XPath.newInstance("/jnlp/resources[not(@os)]").selectNodes(doc);
         Element resourceElement = resourceNodeList.get(0);
 
-        //.get
+        //.get url where to get the curnit
 		Element propertyElement = new Element(PROPERTY_ELEMENT_NAME);
 		propertyElement.setAttribute(NAME_ATTRIBUTE, CURNIT_URL_ATTRIBUTE);
-		propertyElement.setAttribute(VALUE_ATTRIBUTE, curnitURL);
+		propertyElement.setAttribute(VALUE_ATTRIBUTE, curnitUrl);
 		resourceElement.addContent(propertyElement);
 		
-		//.post this needs to be generated somehow
+		//.post url where to post the curnit
 		propertyElement = new Element(PROPERTY_ELEMENT_NAME);
 		propertyElement.setAttribute(NAME_ATTRIBUTE, CURNIT_URL_ATTRIBUTE_POST);
-		propertyElement.setAttribute(VALUE_ATTRIBUTE, "");
+		propertyElement.setAttribute(VALUE_ATTRIBUTE, postCurnitUrl);
 		resourceElement.addContent(propertyElement);
 		
 		//session type web
@@ -104,6 +121,6 @@ public class AuthoringJNLPModifier implements StringModifyService {
 		XMLOutputter outputter = new XMLOutputter();
 		String outputJNLP = outputter.outputString(doc);
 		System.out.println(WordUtils.wrap(outputJNLP, 200));
-		return outputJNLP;
+		return outputJNLP;	
 	}
 }

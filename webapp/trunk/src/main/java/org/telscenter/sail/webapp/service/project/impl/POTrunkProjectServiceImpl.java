@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.service.project.impl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.servlet.http.HttpServletResponse;
@@ -112,6 +113,7 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 		Curnit curnit = project.getCurnit();
 		OtmlModuleImpl otmlModule = (OtmlModuleImpl) curnit;
 		curnitUrl = getRetrieveOtmlUrl(otmlModule.getRetrieveotmlurl(), authorProjectParameters.getPortalUrl());
+		String postCurnitUrl = getPostOtmlUrl(project.getId(), authorProjectParameters.getPortalUrl());
 
 		URL jnlpURL = new URL(authoringToolJnlpUrl);
 		BufferedReader in = new BufferedReader(
@@ -125,7 +127,7 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 
 		HttpServletResponse httpServletResponse = authorProjectParameters.getHttpServletResponse();
 		
-		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl, (Long) project.getId());
+		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl, (Long) project.getId(), postCurnitUrl);
 		httpServletResponse.setHeader("Cache-Control", "no-cache");
 		httpServletResponse.setHeader("Pragma", "no-cache");
 		httpServletResponse.setDateHeader ("Expires", 0);
@@ -142,7 +144,19 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 	}
 
 	/**
-	 * Returns a url to retrieve the POTrunk curnit. If the url starts with
+	 * Returns a url to post the POTrunk curnit. If the portalUrl starts with
+	 * localhost, this will be replaced with the actual portalUrl.
+	 * 
+	 * @param projectId the Id of the project
+	 * @param portalUrl
+	 * @return
+	 */
+	private String getPostOtmlUrl(Serializable projectId, String portalUrl) {
+		return portalUrl + "/author/project/postproject.html?projectId=" + projectId;
+	}
+
+	/**
+	 * Returns a url to retrieve the POTrunk curnit. If the portalUrl starts with
 	 * localhost, this will be replaced with the actual portalUrl.
 	 * 
 	 * @param retrieveotmlurl
