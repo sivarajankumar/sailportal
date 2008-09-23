@@ -28,22 +28,26 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
@@ -143,6 +147,43 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 		return null;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#launchProject(org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters)
+	 */
+	@Override
+	public ModelAndView launchProject(LaunchProjectParameters params) {
+		String entireUrl = generateStudentStartProjectUrlString(
+				params.getHttpRestTransport(), params.getHttpServletRequest(), 
+				params.getRun(), params.getWorkgroup(),
+				retrieveAnnotationBundleUrl
+				);
+		return new ModelAndView(new RedirectView(entireUrl));
+	}
+	
+	/**
+	 * Generates the url string that users need to go to start the project
+	 * @param httpRestTransport
+	 * @param request request that was made
+	 * @param run <code>Run</code> that the user is in
+	 * @param workgroup <code>Workgroup</code> that the user is in
+	 * @param retrieveAnnotationBundleUrl
+	 * @returnurl String url representation to download the jnlp and start
+     *     the project
+	 */
+	@Override
+	public String generateStudentStartProjectUrlString(HttpRestTransport httpRestTransport, HttpServletRequest request,
+			Run run, Workgroup workgroup, String retrieveAnnotationBundleUrl) {
+		String jnlpUrl = generateLaunchProjectUrlString(httpRestTransport, run,
+				workgroup);
+
+		String entireUrl = jnlpUrl + "?" + generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
+		Curnit curnit = run.getProject().getCurnit();
+		String curnitOtmlUrl = ((OtmlModuleImpl) curnit).getRetrieveotmlurl();
+		entireUrl += "&sailotrunk.otmlurl=" + curnitOtmlUrl;
+
+		return entireUrl;
+	}
+	
 	/**
 	 * Returns a url to post the POTrunk curnit. If the portalUrl starts with
 	 * localhost, this will be replaced with the actual portalUrl.
