@@ -110,6 +110,7 @@
                 /j_acegi_switch_user*=ROLE_ADMINISTRATOR  
                 /repository/**/*.html=ROLE_ANONYMOUS,ROLE_USER              
                 /author/project/postproject.html=ROLE_ANONYMOUS,ROLE_USER
+                /author/brainstorm/*.html=ROLE_ANONYMOUS,ROLE_USER                
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>

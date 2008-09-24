@@ -203,6 +203,7 @@
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
 				/author/authorproject.html=authorProjectController
+				/author/brainstorm/createbrainstormquestion.html=createBrainstormQuestionController
 				/author/project/postproject.html=postProjectController
 				/admin/manageusers.html=viewAllUsersController
 				/admin/lookupuser.html=lookupUserController
