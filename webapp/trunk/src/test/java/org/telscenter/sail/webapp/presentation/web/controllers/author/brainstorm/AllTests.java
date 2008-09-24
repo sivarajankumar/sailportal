@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -20,28 +20,18 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers;
+package org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id: AllTests.java 1953 2008-06-13 18:11:06Z hiroki $
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	org.telscenter.sail.webapp.presentation.web.controllers.teacher.RegisterTeacherControllerTest.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.RegisterStudentControllerTest.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.student.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.general.contactwise.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.admin.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.AllTests.class    
+	org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.CreateBrainstormQuestionControllerTest.class
 })
-
 public class AllTests {
 }
