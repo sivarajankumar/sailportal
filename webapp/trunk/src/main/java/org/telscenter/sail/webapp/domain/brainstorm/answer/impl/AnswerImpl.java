@@ -88,7 +88,7 @@ public class AnswerImpl implements Answer {
 	private static final String COLUMN_NAME_ISANONYMOUS = "isanonymous";
 
     @Transient
-	private static final String WORKGROUPS_JOIN_TABLE_NAME = "answers_related_to_workgroups";
+	private static final String WORKGROUPS_JOIN_TABLE_NAME = "brainstormanswers_related_to_workgroups";
 
     @Transient
 	private static final String WORKGROUP_JOIN_COLUMN_NAME = "workgroups_fk";
