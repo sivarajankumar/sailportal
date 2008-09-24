@@ -57,6 +57,7 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	"<property name=\"jnlp.curnit_url.get\" value=\"test.jar\" />" +
 	"<property name=\"jnlp.curnit_url.post\" value=\"\" />" +	
 	"<property name=\"jnlp.runmode\" value=\"web\" />" +
+	"<property name=\"jnlp.portal_baseurl\" value=\"\" />" +	
 	"<property name=\"jnlp.project.id\" value=\"1\" />" +
 	"</resources>" +
 	"<resources os=\"Linux\"> <nativelib href=\"org/telscenter/java/dev/jdic-native/jdic-native-linux-nar.jar\"" +
@@ -74,6 +75,7 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	"<property name=\"jnlp.curnit_url.get\" value=\"test.jar\" />" +
 	"<property name=\"jnlp.curnit_url.post\" value=\"http://localhost:8080/webapp/author/project/postproject.html?projectId=3\" />" +	
 	"<property name=\"jnlp.runmode\" value=\"web\" />" +
+	"<property name=\"jnlp.portal_baseurl\" value=\"http://localhost:8080/webapp\" />" +	
 	"<property name=\"jnlp.project.id\" value=\"1\" />" +
 	"</resources>" +
 	"<resources os=\"Linux\"> <nativelib href=\"org/telscenter/java/dev/jdic-native/jdic-native-linux-nar.jar\"" +
@@ -103,7 +105,7 @@ public class AuthoringJNLPModifierTest extends TestCase {
 	public void testmodifyJNLP_2() throws Exception {
 		// test calling the 4-parameter modifyJNLP() method.
 		AuthoringJNLPModifier modifier = new AuthoringJNLPModifier();
-		assertEquals(StringUtils.deleteWhitespace(outputJnlp2), StringUtils.deleteWhitespace(modifier.modifyJnlp(inputJnlp, curnitURL, PROJECTID, "http://localhost:8080/webapp/author/project/postproject.html?projectId=3")));
+		assertEquals(StringUtils.deleteWhitespace(outputJnlp2), StringUtils.deleteWhitespace(modifier.modifyJnlp(inputJnlp, curnitURL, PROJECTID, "http://localhost:8080/webapp", "http://localhost:8080/webapp/author/project/postproject.html?projectId=3")));
 	}
 
 

@@ -47,6 +47,7 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	public static final String CURNIT_URL_ATTRIBUTE_POST = "jnlp.curnit_url.post";
 	public static final String CURNIT_PROJECT_ID = "jnlp.project.id";
 	private static final String RUN_MODE = "jnlp.runmode";
+	private static final String PORTAL_BASEURL_ATTRIBUTE = "jnlp.portal_baseurl";
 	private static final String RUN_MODE_WEB = "web";
 	
 	/**
@@ -64,7 +65,7 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	@SuppressWarnings("unchecked")
 	public String modifyJnlp(String inputJNLP, String curnitURL, Long projectId)
 			throws JDOMException, IOException {
-		return modifyJnlp(inputJNLP, curnitURL, projectId, "");
+		return modifyJnlp(inputJNLP, curnitURL, projectId, "", "");
 
 	}
 
@@ -76,6 +77,8 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	 * @param inputJNLP The contents of a authoring launcher jnlp file as a string.
 	 * @param curnitURL The url for a curnit to be editted as a string
 	 * @param projectId The id of the project to author
+	 * @param portalBaseUrl the url where the portal's base is, ie
+	 *    http://localhost:8080/webapp or http://123.45.678.901:8080/webapp
 	 * @param postCurnitUrl the url to post the otml to. This url will know how to persist the
 	 *     otml.
 	 * @return A string representing the altered jnlp (with application argument added)
@@ -83,7 +86,7 @@ public class AuthoringJNLPModifier implements StringModifyService {
 	 * @throws IOException
 	 */
 	public String modifyJnlp(String jnlpString, String curnitUrl, Long projectId,
-			String postCurnitUrl) throws JDOMException, IOException {
+			String portalBaseUrl, String postCurnitUrl) throws JDOMException, IOException {
 		InputStream inputStream = new ByteArrayInputStream(jnlpString.getBytes());
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(inputStream);
@@ -109,6 +112,13 @@ public class AuthoringJNLPModifier implements StringModifyService {
 		propertyElement.setAttribute(NAME_ATTRIBUTE, RUN_MODE);
 		propertyElement.setAttribute(VALUE_ATTRIBUTE, "web");
 		resourceElement.addContent(propertyElement);
+		
+		// portal baseurl
+		propertyElement = new Element(PROPERTY_ELEMENT_NAME);
+		propertyElement.setAttribute(NAME_ATTRIBUTE, PORTAL_BASEURL_ATTRIBUTE);
+		propertyElement.setAttribute(VALUE_ATTRIBUTE, portalBaseUrl);
+		resourceElement.addContent(propertyElement);
+		
 		
 		//project.id
 		propertyElement = new Element(PROPERTY_ELEMENT_NAME);
