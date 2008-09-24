@@ -131,7 +131,8 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 
 		HttpServletResponse httpServletResponse = authorProjectParameters.getHttpServletResponse();
 		
-		String outputJNLPString = modifier.modifyJnlp(jnlpString, curnitUrl, (Long) project.getId(), postCurnitUrl);
+		String outputJNLPString = 
+			modifier.modifyJnlp(jnlpString, curnitUrl, (Long) project.getId(), authorProjectParameters.getPortalUrl(), postCurnitUrl);
 		httpServletResponse.setHeader("Cache-Control", "no-cache");
 		httpServletResponse.setHeader("Pragma", "no-cache");
 		httpServletResponse.setDateHeader ("Expires", 0);
