@@ -29,6 +29,7 @@ import java.util.Set;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
 import net.sf.sail.webapp.domain.Persistable;
@@ -110,6 +111,19 @@ public interface Brainstorm extends Persistable {
 	 *    been set up in.
 	 */
 	public void setRun(Run run);
+	
+	/**
+	 * Returns the Project that has this brainstorm.
+	 * 
+	 * @return the project
+	 */
+	public Project getProject();
+
+	/**
+	 * Sets the Project that has this brainstorm. 
+	 * @param project the project to set
+	 */
+	public void setProject(Project project);
 	
 	/**
 	 * Returns a Set of Workgroups that has requested for help

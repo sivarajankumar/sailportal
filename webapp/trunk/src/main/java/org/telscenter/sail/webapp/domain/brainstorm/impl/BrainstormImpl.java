@@ -55,6 +55,8 @@ import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 
@@ -90,6 +92,9 @@ public class BrainstormImpl implements Brainstorm {
     public static final String COLUMN_NAME_RUN_FK = "runs_fk";
 
     @Transient
+    private static final String COLUMN_NAME_PROJECT_FK = "projects_fk";
+
+    @Transient
 	private static final String COLUMN_NAME_ISANONYMOUSALLOWED = "isanonymousallowed";
 
     @Transient
@@ -114,8 +119,12 @@ public class BrainstormImpl implements Brainstorm {
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = RunImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-    @JoinColumn(name = COLUMN_NAME_RUN_FK, nullable = false, unique = false)
-	private Run run;
+    @JoinColumn(name = COLUMN_NAME_RUN_FK, unique = false)
+	private Run run;   // if the run is not specified, this brainstorm is 
+	
+	@ManyToOne(targetEntity = ProjectImpl.class)
+	@JoinColumn(name = COLUMN_NAME_PROJECT_FK)
+    private Project project;   // project that this brainstorm is in.
 	
     @ManyToMany(targetEntity = WISEWorkgroupImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = BrainstormImpl.WORKGROUPS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false)}, inverseJoinColumns = @JoinColumn(name = WORKGROUP_JOIN_COLUMN_NAME, nullable = false))
@@ -129,7 +138,7 @@ public class BrainstormImpl implements Brainstorm {
 	
     @Column(name = BrainstormImpl.COLUMN_NAME_STARTTIME)
 	private Date starttime;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
@@ -325,5 +334,19 @@ public class BrainstormImpl implements Brainstorm {
 	 */
 	public void setStarttime(Date starttime) {
 		this.starttime = starttime;
+	}
+
+	/**
+	 * @return the project
+	 */
+	public Project getProject() {
+		return project;
+	}
+
+	/**
+	 * @param project the project to set
+	 */
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }
