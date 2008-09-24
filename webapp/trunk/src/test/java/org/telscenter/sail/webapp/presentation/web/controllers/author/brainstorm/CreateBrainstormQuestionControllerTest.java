@@ -25,6 +25,9 @@ package org.telscenter.sail.webapp.presentation.web.controllers.author.brainstor
 import static org.junit.Assert.*;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import static org.easymock.EasyMock.*;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -36,7 +39,10 @@ import org.junit.internal.runners.TestClassRunner;
 import org.junit.runner.RunWith;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -48,6 +54,16 @@ public class CreateBrainstormQuestionControllerTest {
 
 	private static final Serializable NONEXISTING_PROJECTID = 5;
 
+	private static final Serializable EXISTING_PROJECTID = 1;
+	
+	private static final String SCHEME = "http";
+	
+	private static final String SERVERNAME = "123.456.789.012";
+
+	private static final int SERVERPORT = 8080;
+	
+	private static final String CONTEXTPATH = "/webapp";
+
 	private CreateBrainstormQuestionController controller;
 	
 	private MockHttpServletRequest request;
@@ -56,13 +72,24 @@ public class CreateBrainstormQuestionControllerTest {
 	
 	private ProjectService projectService;
 	
+	private BrainstormService brainstormService;
+	
+	private Project existingProject;
+	
 	@Before
 	public void runBeforeEveryTest() {
 		controller = new CreateBrainstormQuestionController();
-		request = new MockHttpServletRequest();	
+		request = new MockHttpServletRequest();
+		request.setScheme(SCHEME);
+		request.setServerName(SERVERNAME);
+		request.setServerPort(SERVERPORT);
+		request.setContextPath(CONTEXTPATH);
 		response = new MockHttpServletResponse();
 		projectService = createMock(ProjectService.class);
 		controller.setProjectService(projectService);
+		brainstormService = createMock(BrainstormService.class);
+		controller.setBrainstormService(brainstormService);
+		existingProject = new ProjectImpl();
 	}
 	
 	@After
@@ -70,6 +97,7 @@ public class CreateBrainstormQuestionControllerTest {
 		controller = null;
 		request = null;
 		response = null;
+		existingProject = null;
 	}
 	
 	@Test
@@ -81,7 +109,30 @@ public class CreateBrainstormQuestionControllerTest {
 			controller.handleRequestInternal(request, response);
 			fail("exception expected, but was not thrown.");
 		} catch (Exception e) {
+			assertEquals(HttpServletResponse.SC_BAD_REQUEST, response.getStatus());
 		}
 		verify(projectService);
+	}
+	
+	@Test
+	public void createdBrainstorm() throws ObjectNotFoundException, UnsupportedEncodingException {
+		expect(projectService.getById(EXISTING_PROJECTID.toString())).andReturn(existingProject);
+		replay(projectService);
+
+		brainstormService.createBrainstorm(isA(Brainstorm.class));
+		expectLastCall();
+		replay(brainstormService);
+		
+		try {
+			request.setParameter(CreateBrainstormQuestionController.PROJECTID_PARAM, EXISTING_PROJECTID.toString());
+			controller.handleRequestInternal(request, response);
+		} catch (Exception e) {
+			fail("unexpected exception was thrown.");
+		}
+		assertEquals(HttpServletResponse.SC_OK, response.getStatus());
+		assertEquals(SCHEME + "://" + SERVERNAME + ":" +
+				SERVERPORT + CONTEXTPATH + "/author/authorbrainstorm.html?brainstormId=" + null, response.getContentAsString());
+		verify(projectService);		
+		verify(brainstormService);
 	}
 }

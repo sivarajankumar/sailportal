@@ -27,9 +27,17 @@ import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
+import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
+import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.presentation.util.Util;
+import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -44,23 +52,59 @@ public class CreateBrainstormQuestionController extends AbstractController {
 	protected static final String PROJECTID_PARAM = "projectId";
 	
 	private ProjectService projectService;
+
+	private BrainstormService brainstormService;
 	
+	private static final String QUESTIONBODY = 
+		"<assessmentItem xmlns=\"http://www.imsglobal.org/xsd/imsqti_v2p0\" xmlns:ns2=\"http://www.w3.org/1999/xlink\" xmlns:ns3=\"http://www.w3.org/1998/Math/MathML\" timeDependent=\"false\" adaptive=\"false\">" +
+        "<responseDeclaration identifier=\"TEXT_NOTE_ID\"/>" +
+        "<itemBody>" +
+        "<extendedTextInteraction hasInlineFeedback=\"false\" placeholderText=\"I'm just sayin\" responseIdentifier=\"TEXT_NOTE_ID\" expectedLines=\"6\">" +
+            "<prompt>&lt;p&gt;Watch the following Video on Java and &lt;b&gt;post 2 thoughts that you have&lt;/b&gt; on the video.&lt;/p&gt;&lt;object width='425' height='344'&gt;&lt;param name='movie' value='http://www.youtube.com/v/SRLU1bJSLVg&amp;hl=en&amp;fs=1'&gt;&lt;/param&gt;&lt;param name='allowFullScreen' value='true'&gt;&lt;/param&gt;&lt;embed src='http://www.youtube.com/v/SRLU1bJSLVg&amp;hl=en&amp;fs=1' type='application/x-shockwave-flash' allowfullscreen='true' width='425' height='344'&gt;&lt;/embed&gt;&lt;/object&gt;</prompt>" +
+        "</extendedTextInteraction>" +
+        "</itemBody>" +
+        "</assessmentItem>";
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Serializable projectId = request.getParameter(PROJECTID_PARAM);
-		Project project = projectService.getById(projectId);
+		try {
+			Serializable projectId = request.getParameter(PROJECTID_PARAM);
+			Project project = projectService.getById(projectId);
+			Brainstorm brainstorm = new BrainstormImpl();
+			brainstorm.setProject(project);
+			brainstorm.setAnonymousAllowed(true);
+			Question question = new JaxbQuestionImpl();
+			question.setBody(QUESTIONBODY);
+			brainstorm.setQuestion(question);
+			brainstormService.createBrainstorm(brainstorm);
+
+			// brainstorm.id should have been set by the previous call to createBrainstorm().
+			Serializable brainstormId = brainstorm.getId();
+			String authorBrainstormUrl = Util.getPortalUrl(request) + "/author/authorbrainstorm.html?brainstormId=" + brainstormId;
+			response.getWriter().print(authorBrainstormUrl);
+		} catch (ObjectNotFoundException onfe) {
+			response.setStatus(400);
+			throw onfe;
+		}
 		return null;
 	}
-
+	
 	/**
 	 * @param projectService the projectService to set
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+
+	/**
+	 * @param brainstormService the brainstormService to set
+	 */
+	public void setBrainstormService(BrainstormService brainstormService) {
+		this.brainstormService = brainstormService;
 	}
 
 }
