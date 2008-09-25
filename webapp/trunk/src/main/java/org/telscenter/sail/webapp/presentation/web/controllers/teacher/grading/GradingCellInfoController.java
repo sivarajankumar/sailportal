@@ -112,7 +112,7 @@ public class GradingCellInfoController extends AbstractController{
 			prompt = this.extractBody(rim.getPrompt());
 			for(SessionBundle sessionBundle : aggregate.getSessionBundles()){
 				for(ESockPart sockPart : (List<ESockPart>) sessionBundle.getESessionBundle().getSockParts()){
-					if(sockPart.getRimName().equals(rim.getRimname())){
+					if(sockPart.getPodId().equals(thisStep.getPodUUID()) && sockPart.getRimName().equals(rim.getRimname())){
 						answer = ((ESockEntry)sockPart.getSockEntries().get(sockPart.getSockEntries().size() -1)).getValue();
 					}
 				}

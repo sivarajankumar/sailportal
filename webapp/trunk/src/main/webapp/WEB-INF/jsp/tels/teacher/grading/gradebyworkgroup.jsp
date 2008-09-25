@@ -603,6 +603,7 @@ aggregate.value = set of workgroupWorkAggregate
 							                          			<c:set var="sockEntryValue" value="" />
 							                          			<c:forEach var="sessionBundle" varStatus="sessionBundleStatus" items="${aggregate.sessionBundles}">
 							                          			    <c:forEach var="sockPart" varStatus="partStatus" items="${sessionBundle.ESessionBundle.sockParts}">
+							                          			        <c:if test="${sockPart.podId == step.podUUID}">
 							                          				    <c:if test="${sockPart.rimName == rimFromStep.rimname}">
 							                          					    <c:set var="sockPartFound" value="true"/>
 							                          					    <c:forEach var="sockEntry" varStatus="sockStatus" items="${sockPart.sockEntries}">
@@ -610,6 +611,7 @@ aggregate.value = set of workgroupWorkAggregate
 																					<c:set var="sockEntryValue" value ="${sockEntry.value}" />
 																				</c:if>
 				  			 											    </c:forEach>
+							                          				    </c:if>
 							                          				    </c:if>
 							                          			    </c:forEach>
 							                          			</c:forEach>
