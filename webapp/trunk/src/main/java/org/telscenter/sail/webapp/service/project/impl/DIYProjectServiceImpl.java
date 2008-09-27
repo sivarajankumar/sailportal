@@ -42,13 +42,15 @@ import org.jdom.input.SAXBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
-import org.telscenter.sail.webapp.domain.project.impl.DIYProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -58,9 +60,10 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  * @author Scott Cytacki
  * @version $Id$
  */
-public class DIYProjectServiceImpl implements ProjectService {
+public class DIYProjectServiceImpl implements ExternalProjectService {
 
 	private static final String PREVIEW_DIY_PROJECT_SUFFIX = "/sail_jnlp/6/1/authoring";
+
 	private String baseUrl;
 	
 	/**
@@ -121,10 +124,10 @@ public class DIYProjectServiceImpl implements ProjectService {
 		for (Element child : children) {
 			// create a DIY Project, add to the List
 			String name = child.getChildText("name");
-			DIYProjectImpl project = new DIYProjectImpl();
+			ExternalProjectImpl project = new ExternalProjectImpl();
 			project.setName(name);
 			Serializable externalDIYId = child.getChildText("id");
-			project.setExternalDIYId(externalDIYId );
+			project.setExternalId(externalDIYId );
 			diyProjects.add(project);
 		}
 		
@@ -189,7 +192,7 @@ public class DIYProjectServiceImpl implements ProjectService {
 	public Object previewProject(
 			PreviewProjectParameters previewProjectParameters) throws Exception {
 		
-		Serializable id = ((DIYProjectImpl) previewProjectParameters.getProject()).getExternalDIYId();
+		Serializable id = ((ExternalProjectImpl) previewProjectParameters.getProject()).getExternalId();
 		String previewProjectUrl = baseUrl + "/external_otrunk_activities/" + id + PREVIEW_DIY_PROJECT_SUFFIX;
 		return new ModelAndView(new RedirectView(previewProjectUrl ));
 	}
@@ -207,6 +210,14 @@ public class DIYProjectServiceImpl implements ProjectService {
 	 */
 	public void setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ExternalProjectService#importProject(org.telscenter.sail.webapp.domain.project.ExternalProject)
+	 */
+	public void importProject(ExternalProject project) {
+		Serializable externalId = project.getExternalId();
+		
 	}
 
 }

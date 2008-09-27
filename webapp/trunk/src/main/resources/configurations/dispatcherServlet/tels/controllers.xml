@@ -1026,5 +1026,15 @@
          <property name="projectService" ref="projectService" />
          <property name="moduleService" ref="curnitService" />
     </bean>	
+
+    <bean id="authorBrainstormController"
+         class="org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.AuthorBrainstormController">
+         <property name="brainstormService" ref="brainstormService" />
+     	<property name="commandName" value="brainstorm"/>
+    	<property name="commandClass"
+    		value="org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl"/>
+    	<property name="successView" value="author/brainstorm/authorbrainstorm.html" />
+		<property name="formView" value="author/brainstorm/authorbrainstorm" />
+    </bean>	
     	
 </beans>

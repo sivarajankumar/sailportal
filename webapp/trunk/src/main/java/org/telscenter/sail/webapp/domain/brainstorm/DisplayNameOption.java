@@ -20,27 +20,18 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project.impl;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+package org.telscenter.sail.webapp.domain.brainstorm;
 
 /**
- * PASOTrunk Project domain object implementation
- * 
- * @author Hiroki Terashima
+ * Option for how to display the student's name to the rest
+ * of the class.
+ * USERNAME_ONLY = label response with student usernames
+ * ANONYMOUS_ONLY = label response as anonymous
+ * USERNAME_OR_ANONYMOUS = let students decide to label with Username
+ *    or as Anonymous
+ * @author hirokiterashima
  * @version $Id$
  */
-@Entity
-@Table(name = POTrunkProjectImpl.DATA_STORE_NAME)
-public class POTrunkProjectImpl extends ProjectImpl {
-
-	private static final long serialVersionUID = 1L;
-	
-	@Transient
-	public static final String DATA_STORE_NAME = "potrunkprojects";
-	
-	
-
+public enum DisplayNameOption {
+	USERNAME_ONLY, ANONYMOUS_ONLY, USERNAME_OR_ANONYMOUS
 }

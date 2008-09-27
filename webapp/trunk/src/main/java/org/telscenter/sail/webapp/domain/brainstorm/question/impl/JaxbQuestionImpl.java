@@ -32,6 +32,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.JAXBException;
 
 import net.sf.sail.jaxb.extension.BlockInteractionType;
 import net.sf.sail.jaxb.extension.JaxbQtiMarshallingUtils;
@@ -64,6 +65,12 @@ public class JaxbQuestionImpl extends QuestionImpl {
 	 */
 	@Transient	
 	protected BlockInteractionType blockInteractionType;
+	
+	/**
+	 * Prompt of this question, this is a substring of the body
+	 */
+	@Transient
+	protected String prompt;
 	
 	/**
 	 * The body will be xml formatted JAXB QTI String. It will also unmarshall the XML
@@ -122,5 +129,27 @@ public class JaxbQuestionImpl extends QuestionImpl {
 			return (String) blockContent.get(0);
 		}
 		return null;
+	}
+
+	/**
+	 * @param prompt the prompt to set
+	 */
+	public void setPrompt(String prompt) {
+		this.prompt = prompt;
+
+		if (blockInteractionType == null) {
+			parseToQTI(this.body);
+		}
+		List<Serializable> blockContent = blockInteractionType.getPrompt().getContent();
+		
+		if(blockContent != null) {
+			blockContent.set(0, prompt);
+			try {
+				this.body = JaxbQtiMarshallingUtils.marshallAssessmentItemTypeToString(assessmentItemType);
+			} catch (JAXBException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

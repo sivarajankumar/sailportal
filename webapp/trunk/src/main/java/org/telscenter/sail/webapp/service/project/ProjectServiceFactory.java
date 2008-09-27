@@ -27,7 +27,7 @@ import net.sf.sail.webapp.domain.Curnit;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.DIYProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 
 /**
@@ -57,7 +57,7 @@ public class ProjectServiceFactory {
 	public ProjectService getProjectService(Project project) {
 		ProjectService projectService = null;
 
-		if (project instanceof DIYProjectImpl) {
+		if (project instanceof ExternalProjectImpl) {
 			return diyProjectService;
 		}
 		

@@ -519,7 +519,9 @@ function createRevisionBody(doc, workgroupId, answer){
 	cell2.appendChild(divVar);
 	revFoot.appendChild(cell1);
 	revFoot.appendChild(cell2);
-	revBody.appendChild(doc.createTextNode(answer.getLatestRevision().getBody()));
+	var revPre = createElement(doc, 'pre');
+	revPre.appendChild(doc.createTextNode(answer.getLatestRevision().getBody()));
+	revBody.appendChild(revPre);
 	tbody.appendChild(revBody);
 	tbody.appendChild(revFoot);
 	return tbody;

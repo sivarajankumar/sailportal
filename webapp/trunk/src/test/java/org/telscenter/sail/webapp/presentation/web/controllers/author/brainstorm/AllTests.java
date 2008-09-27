@@ -31,7 +31,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.CreateBrainstormQuestionControllerTest.class
+	org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.CreateBrainstormQuestionControllerTest.class,
+	org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.AuthorBrainstormControllerTest.class	
 })
 public class AllTests {
 }

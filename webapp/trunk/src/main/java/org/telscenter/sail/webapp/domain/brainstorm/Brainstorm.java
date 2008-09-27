@@ -192,4 +192,16 @@ public interface Brainstorm extends Persistable {
 	 * @return
 	 */
 	public boolean canWorkgroupSeeResponses(WISEWorkgroup workgroup);
+	
+	/**
+	 * Returns how the students' responses should be labeled.
+	 * @return the displayNameOption
+	 */
+	public DisplayNameOption getDisplayNameOption();
+
+	/**
+	 * Sets how the students' responses should be labeled.
+	 * @param displayNameOption the displayNameOption to set
+	 */
+	public void setDisplayNameOption(DisplayNameOption displayNameOption);
 }

@@ -11,7 +11,7 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.impl.DIYProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.presentation.util.Util;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -48,8 +48,8 @@ public class PreviewProjectController extends AbstractController {
 		if (projectTypeStr != null && projectTypeStr.equals("diy")) {
 			String diyExternalIdStr = request.getParameter(DIY_EXTERNAL_ID_PARAM_NAME);
 			PreviewProjectParameters params = new PreviewProjectParameters();
-			DIYProjectImpl diyProject = new DIYProjectImpl();
-			diyProject.setExternalDIYId(diyExternalIdStr);
+			ExternalProjectImpl diyProject = new ExternalProjectImpl();
+			diyProject.setExternalId(diyExternalIdStr);
 			params.setProject(diyProject);
 			return (ModelAndView) projectService.previewProject(params);
 		}

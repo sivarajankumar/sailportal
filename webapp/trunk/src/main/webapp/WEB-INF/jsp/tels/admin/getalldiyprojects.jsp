@@ -40,11 +40,13 @@
 	<tr>
 		<th> Project Title </th>
 		<th> Preview Project </th>
+		<th> Import Project to Library </th>		
 	</tr>
 	<c:forEach var="project" items="${projectList}">
 	<tr>
 		<td>${project.name}</td>
-		<td><a href="../previewproject.html?projectType=diy&diyExternalId=${project.externalDIYId}">Preview</a></td>		
+		<td><a href="../previewproject.html?projectType=diy&diyExternalId=${project.externalId}">Preview</a></td>		
+		<td><a href="importexternalproject.html?projectType=diy&diyExternalId=${project.externalId}">Import</a></td>				
 	</tr>
 	</c:forEach>
 </table>

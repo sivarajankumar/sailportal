@@ -205,6 +205,7 @@
 				/author/authorproject.html=authorProjectController
 				/author/brainstorm/createbrainstormquestion.html=createBrainstormQuestionController
 				/author/project/postproject.html=postProjectController
+				/author/brainstorm/authorbrainstorm.html=authorBrainstormController
 				/admin/manageusers.html=viewAllUsersController
 				/admin/lookupuser.html=lookupUserController
 				/admin/manageallprojects.html=manageAllProjectsController

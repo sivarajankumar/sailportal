@@ -29,6 +29,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -54,6 +56,7 @@ import org.telscenter.sail.webapp.domain.project.ProjectInfo;
  */
 @Entity
 @Table(name = ProjectImpl.DATA_STORE_NAME)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class ProjectImpl implements Project {
 
 	@Transient

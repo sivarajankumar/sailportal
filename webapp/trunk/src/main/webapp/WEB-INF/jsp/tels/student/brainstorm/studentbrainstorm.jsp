@@ -35,6 +35,9 @@
 	    rtb.style.display='none';
 	    var rd = document.getElementById('responseDiv');
 	    rd.innerHTML = "You cannot see other students' posts until you make a response.";
+	  } else  {
+	    var poll = new PollNewPosts('${brainstorm.id}');
+	    poll.start();
 	  };
 	};
 	
@@ -338,12 +341,6 @@
 	</table>
 	<div id='responseDiv'></div>
 	
-<script>
-	var poll = new PollNewPosts('${brainstorm.id}');
-	poll.start();
-</script>
-
-
 </div> <!-- end centered div -->
 <!--  
 <p>

@@ -20,27 +20,39 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project.impl;
+package org.telscenter.sail.webapp.domain.project;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import java.io.Serializable;
+
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 
 /**
- * PASOTrunk Project domain object implementation
+ * External Project Domain object.
  * 
- * @author Hiroki Terashima
+ * @author Scott Cytacki
+ * @author hirokiterashima
  * @version $Id$
  */
-@Entity
-@Table(name = POTrunkProjectImpl.DATA_STORE_NAME)
-public class POTrunkProjectImpl extends ProjectImpl {
-
-	private static final long serialVersionUID = 1L;
+public interface ExternalProject extends Project {
 	
-	@Transient
-	public static final String DATA_STORE_NAME = "potrunkprojects";
+	public Serializable getExternalId();
 	
+	public void setExternalId(Serializable externalId);
 	
+	/**
+	 * Returns the project service instance that can serve
+	 * this project.
+	 * 
+	 * @return
+	 */
+	public ExternalProjectService getExternalProjectService();
+	
+	/**
+	 * Sets the project service instance that can serve
+	 * this project.
+	 * 
+	 * @param projectService
+	 */
+	public void setExternalProjectService(ExternalProjectService projectService);
 
 }

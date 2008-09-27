@@ -30,9 +30,11 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 
 /**
  * DIY Project
@@ -40,14 +42,16 @@ import org.telscenter.sail.webapp.domain.project.ProjectInfo;
  * @author Scott Cytacki
  * @version $Id$
  */
-public class DIYProjectImpl implements Project {
+public class ExternalProjectImpl implements ExternalProject {
 
 	@Transient
 	private static final long serialVersionUID = 1L;
 
 	private String name;
 	
-	private Serializable externalDIYId;
+	private Serializable externalId;
+	
+	private ExternalProjectService externalProjectService;
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
@@ -170,15 +174,29 @@ public class DIYProjectImpl implements Project {
 	/**
 	 * @return the externalDIYId
 	 */
-	public Serializable getExternalDIYId() {
-		return externalDIYId;
+	public Serializable getExternalId() {
+		return externalId;
 	}
 
 	/**
 	 * @param externalDIYId the externalDIYId to set
 	 */
-	public void setExternalDIYId(Serializable externalDIYId) {
-		this.externalDIYId = externalDIYId;
+	public void setExternalId(Serializable externalDIYId) {
+		this.externalId = externalDIYId;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.ExternalProject#getExternalProjectService()
+	 */
+	public ExternalProjectService getExternalProjectService() {
+		return externalProjectService;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.ExternalProject#setExternalProjectService(org.telscenter.sail.webapp.service.project.ExternalProjectService)
+	 */
+	public void setExternalProjectService(ExternalProjectService projectService) {
+		this.externalProjectService = projectService;
 	}
 
 }

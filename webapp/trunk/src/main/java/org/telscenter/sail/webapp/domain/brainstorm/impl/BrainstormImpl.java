@@ -48,9 +48,9 @@ import javax.persistence.Version;
 import org.hibernate.annotations.Cascade;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
@@ -109,6 +109,9 @@ public class BrainstormImpl implements Brainstorm {
     @Transient
 	private static final String COLUMN_NAME_STARTTIME = "starttime";
 
+    @Transient
+	private static final String COLUMN_NAME_DISPLAYNAME_OPTION = "displaynameoption";
+
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
 	private Set<Answer> answers = new TreeSet<Answer>();
@@ -132,6 +135,9 @@ public class BrainstormImpl implements Brainstorm {
 	
 	@Column(name = BrainstormImpl.COLUMN_NAME_ISANONYMOUSALLOWED)
 	private boolean isAnonymousAllowed;
+	
+	@Column(name = BrainstormImpl.COLUMN_NAME_DISPLAYNAME_OPTION)
+	private DisplayNameOption displayNameOption;
 
 	@Column(name = BrainstormImpl.COLUMN_NAME_ISGATED)	
 	private boolean isGated;
@@ -348,5 +354,19 @@ public class BrainstormImpl implements Brainstorm {
 	 */
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	/**
+	 * @return the displayNameOption
+	 */
+	public DisplayNameOption getDisplayNameOption() {
+		return displayNameOption;
+	}
+
+	/**
+	 * @param displayNameOption the displayNameOption to set
+	 */
+	public void setDisplayNameOption(DisplayNameOption displayNameOption) {
+		this.displayNameOption = displayNameOption;
 	}
 }
