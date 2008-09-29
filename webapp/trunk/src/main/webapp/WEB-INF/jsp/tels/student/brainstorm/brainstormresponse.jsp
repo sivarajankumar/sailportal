@@ -103,15 +103,24 @@ function post(){
 		<textarea id="responseText" cols="45" rows="8"></textarea>
 	</div>
 	<div id="selectPostType">
-		<div>How would you like your response labeled?</div>
-		<label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
-		<label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
+        <c:if test="${brainstorm.displayNameOption.value == 0}">  <!-- must NOT be anonymous -->
+           <input type="hidden" name="postName" value="1" checked="checked" />
+        </c:if>
+        <c:if test="${brainstorm.displayNameOption.value == 1}"> <!--  must be anonymous -->
+           <input type="hidden" name="postName" value="0" checked="checked"/>
+        </c:if>
+        <c:if test="${brainstorm.displayNameOption.value == 2}">  <!--  student can choose displayname -->
+		  <div>How would you like your response labeled?</div>
+		    <label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
+		    <label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
 			<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
 				${student.userDetails.firstname} ${student.userDetails.lastname}
 				<c:if test="${studentStatus.last=='false'}">, </c:if>
 			</c:forEach>
-		</label>
-	</div>
+		    </label>
+   	      </div>
+        </c:if>
+
 	
 	<div>
 		<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>

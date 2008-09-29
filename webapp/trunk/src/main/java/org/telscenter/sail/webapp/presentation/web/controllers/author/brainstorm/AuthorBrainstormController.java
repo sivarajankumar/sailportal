@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,9 +33,8 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.impl.StartRunParameters;
+import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 
 /**
@@ -95,6 +97,16 @@ public class AuthorBrainstormController extends SimpleFormController {
 		Brainstorm brainstorm = (Brainstorm) command;
 		brainstormService.createBrainstorm(brainstorm);
 		return null;
+	}
+	
+	/**
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("displayNameOptions", DisplayNameOption.values());
+		return model;
 	}
 
 	/**

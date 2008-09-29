@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="../../include.jsp"%>
 <html>
 <head>
 <script type="text/javascript">
@@ -12,7 +12,7 @@ function updatePromptPreview() {
 <body>
 <h2>Edit Section</h2>
 <form:form method="post" action="authorbrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
-  <div>
+  <div> <h3>Hi</h3>
       <h4>Prompt</h4>
       <form:textarea rows="20" cols="60" path="question.prompt" id="promptTextArea" ></form:textarea>
       <form:errors path="question.prompt" />
@@ -20,6 +20,10 @@ function updatePromptPreview() {
       <i>STUDENT RESPONSES</i><br/>
       <form:radiobutton path="gated" value="true" /><b>Gated:</b> the student must submit a Response before seeing Responses from other students.<br/>
       <form:radiobutton path="gated" value="false" /><b>Open:</b> the student can see Responses from other students immediately.<br/>
+      <h4>Display Name Options</h4>
+      <c:forEach items="${displayNameOptions}" var="displayNameOption">
+      <form:radiobutton path="displayNameOption" value="${displayNameOption}" />${displayNameOption}<br />      
+      </c:forEach>
   </div>
 
 <div id="responseButtons">
