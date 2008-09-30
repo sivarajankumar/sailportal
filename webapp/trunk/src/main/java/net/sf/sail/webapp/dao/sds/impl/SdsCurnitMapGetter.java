@@ -60,7 +60,7 @@ public class SdsCurnitMapGetter {
 	protected void setSdsOfferingCurnitMap(SdsOffering sdsOffering)
 			throws CurnitMapNotFoundException {
 		HttpGetCurnitMapRequest curnitMapRequest = this
-				.generateCurnitMapRequest(sdsOffering.getSdsObjectId());
+				.generateCurnitMapRequest(sdsOffering);
 		try {
 			sdsOffering.setSdsCurnitMap(this.getSdsCurnitMap(curnitMapRequest));
 		} catch (CurnitMapNotFoundException cmnfe) {
@@ -77,9 +77,15 @@ public class SdsCurnitMapGetter {
 				.convertXMLInputStreamToString(curnitMapResponse);
 	}
 
-	private HttpGetCurnitMapRequest generateCurnitMapRequest(Long sdsOfferingId) {
-		final String url = "/offering/" + sdsOfferingId + "/curnitmap";
-
+	private HttpGetCurnitMapRequest generateCurnitMapRequest(SdsOffering sdsOffering) {
+		final String url;
+		if (sdsOffering.getRetrieveContentUrl() != null) {
+		  url = "/offering/" + sdsOffering.getSdsObjectId() + "/curnitmap" +
+		      "?sailotrunk.otmlurl=" + sdsOffering.getRetrieveContentUrl();
+		} else {
+		  url = "/offering/" + sdsOffering.getSdsObjectId() + "/curnitmap";
+		}
+		
 		return new HttpGetCurnitMapRequest(
 				AbstractHttpRestCommand.REQUEST_HEADERS_ACCEPT,
 				AbstractHttpRestCommand.EMPTY_STRING_MAP, url, HttpStatus.SC_OK);

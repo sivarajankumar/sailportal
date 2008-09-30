@@ -92,6 +92,9 @@ public class SdsOffering implements SdsObject {
     @Column(name=SdsOffering.COLUMN_NAME_SDS_CURNITMAP, length = 2147483647) // Keep length to force it to use large field type 
     private String sdsCurnitMap;
     
+    @Transient
+    private String retrieveContentUrl;   // url where the otml is stored. set for OTrunk and POTrunk projects.
+    
     /**
      * @param name
      *            the name to set
@@ -255,5 +258,19 @@ public class SdsOffering implements SdsObject {
 	 */
 	public void setSdsCurnitMap(String sdsCurnitMap) {
 		this.sdsCurnitMap = sdsCurnitMap;
+	}
+
+	/**
+	 * @return the retrieveOtmlUrl
+	 */
+	public String getRetrieveContentUrl() {
+		return retrieveContentUrl;
+	}
+
+	/**
+	 * @param retrieveOtmlUrl the retrieveOtmlUrl to set
+	 */
+	public void setRetrieveContentUrl(String retrieveContentUrl) {
+		this.retrieveContentUrl = retrieveContentUrl;
 	}
 }

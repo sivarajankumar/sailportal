@@ -35,10 +35,14 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.user.UserDao;
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.OfferingParameters;
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
 import org.acegisecurity.GrantedAuthority;
@@ -49,8 +53,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
+import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
@@ -200,6 +206,46 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		return run;
 	}
 	
+	/**
+	 * Based on the type of the project, the sds_curnit_map generation request url
+	 * is different.
+	 * 
+	 * @see net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl#generateSdsOfferingFromParameters(net.sf.sail.webapp.domain.impl.OfferingParameters)
+	 */
+	@Override
+	protected SdsOffering generateSdsOfferingFromParameters(
+			OfferingParameters offeringParameters)
+			throws ObjectNotFoundException {
+		SdsOffering sdsOffering = new SdsOffering();
+		sdsOffering.setName(offeringParameters.getName());
+		Curnit curnit = this.curnitDao
+		        .getById(offeringParameters.getCurnitId());
+		sdsOffering.setSdsCurnit(curnit.getSdsCurnit());
+		Jnlp jnlp = null;
+		
+		// TODO: HT: make getJnlpId work for PAS Portal if jnlpId
+		// is not set in the OfferingParameters
+		if (offeringParameters.getJnlpId() !=  null) {
+			jnlp = this.jnlpDao
+			.getById(offeringParameters.getJnlpId());
+		} else {
+			List<Jnlp> jnlpList = this.jnlpDao.getList();
+			jnlp = jnlpList.get(0);
+		}
+		sdsOffering.setSdsJnlp(jnlp.getSdsJnlp());
+		
+		// if this is an OTrunk project or POTrunk project, set the retrieveotmlurl
+		// so that it gets passed to the generatecurnitmap request and the proper
+		// curnitmap can be created.
+		if (curnit instanceof OtmlModuleImpl) {
+			sdsOffering.setRetrieveContentUrl(((OtmlModuleImpl) curnit).getRetrieveotmlurl());
+		}
+			
+		
+		this.sdsOfferingDao.save(sdsOffering);
+		return sdsOffering;
+	}
+
 	
 	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#addRolesToSharedTeacher(java.lang.Long, java.lang.Long, java.util.Set)
