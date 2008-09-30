@@ -83,8 +83,10 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 	    	this.moduleDao.save(otmlModuleImpl);
 	    	Long id = otmlModuleImpl.getId();
 	    	// save id.  changeme with url.
-	    	if (otmlModuleImpl.getRetrieveotmlurl() == null) {
+	    	if (((CreateOtmlModuleParameters) curnitParameters).getRetrieveotmlurl() == null) {
 	    		otmlModuleImpl.setRetrieveotmlurl("http://localhost:8080/webapp/repository/retrieveotml.html?otmlModuleId=" + id);	    
+	    	} else {
+	    		otmlModuleImpl.setRetrieveotmlurl(((CreateOtmlModuleParameters) curnitParameters).getRetrieveotmlurl() + id);
 	    	}
 	    	this.moduleDao.save(otmlModuleImpl);
 	    	return otmlModuleImpl;

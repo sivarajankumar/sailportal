@@ -36,6 +36,8 @@ public class OtmlFileUpload implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private MultipartFile file;
+	
+	private String name;
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
@@ -43,5 +45,19 @@ public class OtmlFileUpload implements Serializable {
 
 	public MultipartFile getFile() {
 		return file;
+	}
+
+	/**
+	 * @return the name of this otml
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set of this otml
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }

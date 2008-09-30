@@ -38,6 +38,13 @@
     	<property name="validator" ref="curnitParametersValidator" />
     </bean>
     
+    <bean id="registerOtmlModuleController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterOtmlModuleController">
+    	<property name="curnitService" ref="curnitService" />
+    	<property name="commandName" value="otmlFile" />
+    	<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />    </bean>
+    
 
     <!-- JSP with optional JSTL views -->
     <bean id="viewResolver"
@@ -199,6 +206,7 @@
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController
+				/author/registerotmlmodule.html=registerOtmlModuleController
 <!--  			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController  -->	
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
