@@ -32,7 +32,6 @@ import net.sf.sail.webapp.domain.Jnlp;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
-import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 
@@ -197,6 +196,19 @@ public class ExternalProjectImpl implements ExternalProject {
 	 */
 	public void setExternalProjectService(ExternalProjectService projectService) {
 		this.externalProjectService = projectService;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.Project#getProjectType()
+	 */
+	public ProjectType getProjectType() {
+		return null;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.Project#setProjectType(org.telscenter.sail.webapp.domain.project.impl.ProjectType)
+	 */
+	public void setProjectType(ProjectType projectType) {
 	}
 
 }
