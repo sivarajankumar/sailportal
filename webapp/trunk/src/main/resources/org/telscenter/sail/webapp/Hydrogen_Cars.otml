@@ -322,7 +322,7 @@
                   </OTDataCollectorViewConfig>
                 </entry>
                 <entry key="${drawing-view}">
-                  <OTViewEntry viewClass="org.concord.datagraph.state.OTDataDrawingToolEditView" objectClass="org.concord.graph.util.state.OTDrawingTool" />
+                  <OTViewEntry viewClass="org.concord.otrunk.graph.OTDataDrawingToolEditView" objectClass="org.concord.graph.util.state.OTDrawingTool" />
                 </entry>
                 <entry key="be713960-e18a-11dc-95ff-0800200c9a66">
                   <OTViewEntry objectClass="org.concord.otrunk.ui.OTText" viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
@@ -340,7 +340,7 @@
         <OTSharingBundle />
       </bundles>
       <root>
-        <OTPasProject id="971534ac-3f22-11dd-b240-cde0bfdd2411" title="Chemistry Inside Hydrogen Fuel Cell Cars -Drawing_WISE3 Copy-6/17/08" authorNotes="">
+        <OTPasProject id="971534ac-3f22-11dd-b240-cde0bfdd2411" title="Chemistry Inside Hydrogen Fuel Cell Cars -Drawing_WISE3 Copy-6/17/08" authorNotes="" isAuthoringMode="false">
           <activityList>
             <OTPasActivity id="3ebb8a2a-5db3-11dd-b407-33f5435562da" title="Gasoline Cars Or Hydrogen Fuel Cell Cars?" authorNotes="">
               <stepList>
