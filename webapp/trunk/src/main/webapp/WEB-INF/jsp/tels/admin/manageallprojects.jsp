@@ -31,6 +31,9 @@
 <div id="centeredDiv">
 
 <%@ include file="adminheader.jsp"%>
+<%@page import="org.telscenter.sail.webapp.domain.project.impl.ProjectType" %>
+<% pageContext.setAttribute("potrunk", ProjectType.POTRUNK); %>
+
 
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
@@ -43,7 +46,8 @@
 		<th> IsCurrent?</th>
 		<th> familytag</th>
 		<th> Edit Project with Authoring tool</th>
-		<th> Edit Project with Manually</th>		
+		<th> Upload Otml File</th>
+		<th> View Otml File</th>		
 		<th> Edit Project Metadata</th>		
 		<th> Preview Project</th>				
 	</tr>
@@ -52,15 +56,23 @@
 		<td>${project.curnit.sdsCurnit.name }</td>
 		<td>${project.id }</td>
 		<td>${project.current }</td>
-		<td>${project.familytag }</td>
+		<td>${project.familytag} (${project.projectType})</td>
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
-		<td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>		
+		<td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>	
+		<td>   		    
+		    <c:choose>
+		    	<c:when test="${project.projectType == potrunk}">  <!--  if this is a POTrunk project, we can get the otml -->
+		    	   <a href="${project.curnit.retrieveotmlurl}">View Otml</a>
+		    	</c:when>
+		    	<c:otherwise>
+		    	    Not available for this project.
+		    	</c:otherwise>
+		    </c:choose>
+		</td>				
 		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
 		<td><a href="../previewproject.html?projectId=${project.id}">Preview</a></td>		
 	</tr>
 	</c:forEach>
 </table>
-	
-
 </body>
 </html>

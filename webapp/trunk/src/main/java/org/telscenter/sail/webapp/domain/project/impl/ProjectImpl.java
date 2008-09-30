@@ -84,6 +84,9 @@ public class ProjectImpl implements Project {
 	public static final String COLUMN_NAME_PREVIEWOFFERING_FK = "run_fk";
 
 	@Transient
+	private static final String COLUMN_NAME_PROJECTTYPE = "projecttype";
+
+	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class)
@@ -107,6 +110,9 @@ public class ProjectImpl implements Project {
  //   private String projectInfoTag;
     @Column(name = ProjectImpl.COLUMN_NAME_ISCURRENT, nullable = true)
     protected boolean isCurrent;
+    
+    @Column(name = ProjectImpl.COLUMN_NAME_PROJECTTYPE, nullable = true)
+    protected ProjectType projectType;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -263,5 +269,19 @@ public class ProjectImpl implements Project {
 		this.projectinfo = projectInfo;
 		this.isCurrent = projectInfo.isCurrent();
 		this.familytag = projectInfo.getFamilyTag();
+	}
+
+	/**
+	 * @return the projectType
+	 */
+	public ProjectType getProjectType() {
+		return projectType;
+	}
+
+	/**
+	 * @param projectType the projectType to set
+	 */
+	public void setProjectType(ProjectType projectType) {
+		this.projectType = projectType;
 	}
  }

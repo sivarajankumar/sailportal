@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.domain.project;
 import java.io.Serializable;
 
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
@@ -122,4 +123,14 @@ public interface Project extends Persistable {
 	 * @param isCurrent
 	 */
 	public void setCurrent(boolean isCurrent);
+	
+	/**
+	 * @return the projectType
+	 */
+	public ProjectType getProjectType();
+
+	/**
+	 * @param projectType the projectType to set
+	 */
+	public void setProjectType(ProjectType projectType);
 }
