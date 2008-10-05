@@ -58,7 +58,7 @@ public class AnnotationBundleImpl implements AnnotationBundle {
     private static final long serialVersionUID = 1L;
 
     @Transient
-    public static final String DATA_STORE_NAME = "annotationBundles";
+    public static final String DATA_STORE_NAME = "annotationbundles";
 
     @Transient
     public static final String COLUMN_NAME_BUNDLE = "bundle";

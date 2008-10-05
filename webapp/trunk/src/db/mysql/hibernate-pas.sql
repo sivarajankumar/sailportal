@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
+        owner_sid bigint,
         parent_object bigint,
         object_id_class bigint not null,
-        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -42,7 +42,7 @@
         unique (sid, principal)
     ) type=MyISAM;
 
-    create table annotationBundles (
+    create table annotationbundles (
         id bigint not null auto_increment,
         OPTLOCK integer,
         bundle longtext not null,
@@ -116,8 +116,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -168,17 +168,17 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
+        group_fk bigint not null,
         offering_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
-        group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -212,9 +212,9 @@
         foreign key (object_id_class) 
         references acl_class (id);
 
-    alter table annotationBundles 
-        add index FKD986A02F54443B2 (workgroup_fk), 
-        add constraint FKD986A02F54443B2 
+    alter table annotationbundles 
+        add index FKAA5FD222F54443B2 (workgroup_fk), 
+        add constraint FKAA5FD222F54443B2 
         foreign key (workgroup_fk) 
         references workgroups (id);
 
