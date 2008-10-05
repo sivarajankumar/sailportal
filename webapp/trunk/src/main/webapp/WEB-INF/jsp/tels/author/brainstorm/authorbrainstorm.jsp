@@ -10,9 +10,14 @@ function updatePromptPreview() {
 </script>
 </head>
 <body>
+
+<c:if test="${brainstorm.run != null}">
+<h1>Warning!!! This Brainstorm is currently associated with a run. Any changes you make will be visible to the students.</h1>
+</c:if>
+
 <h2>Edit Section</h2>
 <form:form method="post" action="authorbrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
-  <div> <h3>Hi</h3>
+  <div>
       <h4>Prompt</h4>
       <form:textarea rows="20" cols="60" path="question.prompt" id="promptTextArea" ></form:textarea>
       <form:errors path="question.prompt" />

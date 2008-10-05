@@ -89,6 +89,11 @@ function post(){
 </head>
 <body>
 
+<%@page import="org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption" %>
+<% pageContext.setAttribute("username_only", DisplayNameOption.USERNAME_ONLY); %>
+<% pageContext.setAttribute("anonymous_only", DisplayNameOption.ANONYMOUS_ONLY); %>
+<% pageContext.setAttribute("username_or_anonymous", DisplayNameOption.USERNAME_OR_ANONYMOUS); %>
+
 <div align="centered">
 
 	<div id="head">Create A Response</div>
@@ -103,13 +108,15 @@ function post(){
 		<textarea id="responseText" cols="45" rows="8"></textarea>
 	</div>
 	<div id="selectPostType">
-        <c:if test="${brainstorm.displayNameOption.value == 0}">  <!-- must NOT be anonymous -->
+        <c:if test="${brainstorm.displayNameOption == username_only}">  <!-- must NOT be anonymous -->
+           <c:out value="Your response will be displayed with your names" />
            <input type="hidden" name="postName" value="1" checked="checked" />
         </c:if>
-        <c:if test="${brainstorm.displayNameOption.value == 1}"> <!--  must be anonymous -->
+        <c:if test="${brainstorm.displayNameOption == anonymous_only}"> <!--  must be anonymous -->
+           <c:out value="Your response will be displayed anonymously" />
            <input type="hidden" name="postName" value="0" checked="checked"/>
         </c:if>
-        <c:if test="${brainstorm.displayNameOption.value == 2}">  <!--  student can choose displayname -->
+        <c:if test="${brainstorm.displayNameOption == username_or_anonymous}">  <!--  student can choose displayname -->
 		  <div>How would you like your response labeled?</div>
 		    <label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
 		    <label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
