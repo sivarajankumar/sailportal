@@ -26,12 +26,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
+import java.util.TreeSet;
+
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 import net.sf.sail.emf.sailuserdata.EAnnotation;
 import net.sf.sail.emf.sailuserdata.EAnnotationGroup;
 import net.sf.sail.emf.sailuserdata.ESockEntry;
 import net.sf.sail.emf.sailuserdata.ESockPart;
 
+import org.apache.commons.collections.list.TreeList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.pas.emf.pas.EActivity;
@@ -106,9 +109,12 @@ public class GradingCellInfoController extends AbstractController{
 		}
 		
 		//get prompts and responses for this cell and add them to xmlDoc
+		// since they don't appear in order, we need to establish order by comparing the rimname.
 		String prompt = null;
 		String answer = null;
-		for(ERim rim : (List<ERim>) thisStep.getRim()){
+		String responseDoc = "";
+		TreeSet<PromptResponse> promptResponses = new TreeSet<PromptResponse>();
+		for(ERim rim : (List<ERim>) thisStep.getRim()){			
 			prompt = this.extractBody(rim.getPrompt());
 			for(SessionBundle sessionBundle : aggregate.getSessionBundles()){
 				for(ESockPart sockPart : (List<ESockPart>) sessionBundle.getESessionBundle().getSockParts()){
@@ -120,12 +126,23 @@ public class GradingCellInfoController extends AbstractController{
 			if(answer == null)
 				answer = "no student response yet";
 			
-			xmlDoc = xmlDoc + "<promptresponse><prompt>" + prompt + "</prompt><response>" +
-				answer + "</response></promptresponse>";
+			PromptResponse promptResponse = new PromptResponse();
+			promptResponse.setPrompt(prompt);
+			promptResponse.setResponse(answer);
+			promptResponse.setRimName(rim.getRimname());
+			promptResponses.add(promptResponse);
+			//responseDoc = "<promptresponse><prompt>" + prompt + "</prompt><response>" +
+			//	answer + "</response></promptresponse>" + responseDoc;
 			prompt = null;
 			answer = null;
 		}
 		
+		
+		//xmlDoc = xmlDoc + responseDoc;
+		for (PromptResponse pr : promptResponses) {
+			xmlDoc += "<promptresponse><prompt>" + pr.getPrompt() + "</prompt><response>" +
+				pr.getResponse() + "</response></promptresponse>";
+		}
 		//closing tag of xmlDoc
 		xmlDoc = xmlDoc + "</gradingcellinfo>";
 		
@@ -133,6 +150,61 @@ public class GradingCellInfoController extends AbstractController{
 		modelAndView.addObject(XMLDOC, xmlDoc);
 		
 		return modelAndView;
+	}
+	
+	class PromptResponse implements Comparable<PromptResponse> {
+
+		private String rimName;
+		
+		private String prompt;
+		
+		private String response;
+		
+		/**
+		 * @return the prompt
+		 */
+		public String getPrompt() {
+			return prompt;
+		}
+
+		/**
+		 * @param prompt the prompt to set
+		 */
+		public void setPrompt(String prompt) {
+			this.prompt = prompt;
+		}
+
+		/**
+		 * @return the response
+		 */
+		public String getResponse() {
+			return response;
+		}
+
+		/**
+		 * @param response the response to set
+		 */
+		public void setResponse(String response) {
+			this.response = response;
+		}
+
+		/**
+		 * @return the rimName
+		 */
+		public String getRimName() {
+			return rimName;
+		}
+
+		/**
+		 * @param rimName the rimName to set
+		 */
+		public void setRimName(String rimName) {
+			this.rimName = rimName;
+		}
+		
+		public int compareTo(PromptResponse o) {
+			return this.rimName.compareTo(o.rimName);
+		}
 	}
 	
 	/**

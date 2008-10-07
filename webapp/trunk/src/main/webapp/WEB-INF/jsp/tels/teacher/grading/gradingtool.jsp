@@ -306,6 +306,7 @@
 		var comment = xmlDoc.getElementsByTagName('comments');
 		var prompts = xmlDoc.getElementsByTagName('prompt');
 		var responses = xmlDoc.getElementsByTagName('response');
+		var promptresponses = xmlDoc.getElementsByTagName('promptresponse');
 		
 		if(score.length > 0 && score[0].childNodes.length > 0){
 			document.getElementById("teacher-score-" + this.podId + "_" + this.workgroupId).value = score[0].childNodes[0].nodeValue;
@@ -314,6 +315,9 @@
 		}
 		if(comment.length > 0 && comment[0].childNodes.length > 0){
 			document.getElementById("comment-" + this.podId + "_" + this.workgroupId).value = comment[0].childNodes[0].nodeValue;
+		}
+		for(y=0;y<prompts.length;y++) {
+		   document.getElementById("prompt_" + y + "_" + this.workgroupId).innerHTML = prompts[y].textContent;
 		}
 		for(x=0;x<responses.length;x++){
 			if(responses[x].childNodes.length > 0){
@@ -490,6 +494,7 @@
 								<c:forEach var="rimFromStep" varStatus="rimListStatus" items="${step.rim}">
 								<tr>
 									<td id="stepQuestionField" class="questionField">
+									<!--  
 									<c:choose>
 										<c:when test="${fn:length(step.rim) > 1}">
 											<b>Part ${rimListStatus.count}:</b> ${rimFromStep.prompt}
@@ -498,6 +503,16 @@
 											${rimFromStep.prompt}
 										</c:otherwise>
 									</c:choose>
+									<td>
+						            	<div id="stepStudentAnswerField" class="answerDiv">
+											<div id="answer_${rimIndex}_${workgroup.id}">answer here</div>
+										</div>
+									</td>	
+									-->
+									    <div id="prompt_${rimIndex}_${workgroup.id}">prompt here</div>
+										<div id="stepStudentAnswerField" class="answerDiv">
+											<div id="answer_${rimIndex}_${workgroup.id}">answer here</div>
+										</div>								
 									</td>
 									
 									<!-- comment textbox -->
@@ -606,15 +621,6 @@
 											</div>
 										</td>
 									</c:if>
-								</tr>
-								
-								<tr>
-									<!-- answers to prompts -->
-									<td>
-						            	<div id="stepStudentAnswerField" class="answerDiv">
-											<div id="answer_${rimIndex}_${workgroup.id}">answer here</div>
-										</div>
-									</td>
 								</tr>
 								<c:set var="rimIndex" value="${rimIndex + 1}"/>
 								</c:forEach>
