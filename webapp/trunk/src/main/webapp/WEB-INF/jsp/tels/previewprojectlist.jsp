@@ -44,10 +44,10 @@
 
 <table id="previewProjectTable" width="80%" border="1" cellpadding="5" summary="Displays W3 Projects that can be instantly previewed (no user data saved; registration not required).">
    <tr>
-    <th><spring:message code="previewprojectlist.21"/>Title</th>
-    <th><spring:message code="previewprojectlist.22"/>Curriculum</th>
-    <th><spring:message code="previewprojectlist.23"/>Grade</th>
-    <th><spring:message code="previewprojectlist.24"/>Action</th>
+    <th><spring:message code="previewprojectlist.21"/></th>
+    <th><spring:message code="previewprojectlist.22"/></th>
+    <th><spring:message code="previewprojectlist.23"/></th>
+    <th><spring:message code="previewprojectlist.24"/></th>
   </tr>
 <c:forEach var="project" items="${projectList}">
   <tr>

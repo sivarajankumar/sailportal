@@ -96,12 +96,16 @@
 	    </c:choose>
 	    <tr>
 			<th scope="row" id="projectTitle"><a href="viewmystudents.html?runId=${currentRun.id}">${currentRun.sdsOffering.name}</a></th>
-			<td>[45345]</td>
+			<td>${currentRun.project.id}</td>
 			<td><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></td>
 			<td>[ongoing]</td>
-			<td>[1,2,4,6]</td>
-			<td>[Physics]</td>
-			<td>[12]</td>
+			<td>
+			    <c:forEach var="period" items="${currentRun.periods}">
+			        <c:out value="${period.name}" />,
+			    </c:forEach>
+			</td>
+			<td>${currentRun.project.projectInfo.subject}</td>
+			<td>[NOT YET IMPLEMENTED]</td>
 		</tr>
 		</c:forEach>
 	</tbody>
@@ -151,11 +155,11 @@
 		<tr>
 			<th style="width:50%;" scope="col"><spring:message code="teacher.manage.projectpicker.14"/></th>
 			<th scope="col"><spring:message code="teacher.manage.projectpicker.15"/></th>
-			<th scope="col"><spring:message code="teacher.manage.projectpicker.16"/>Started</th>
-			<th scope="col"><spring:message code="teacher.manage.projectpicker.17"/>Ended</th>
-			<th scope="col"><spring:message code="teacher.manage.projectpicker.18"/>Periods</th>
-			<th scope="col"><spring:message code="teacher.manage.projectpicker.19"/>Subject</th>
-			<th scope="col"><spring:message code="teacher.manage.projectpicker.20"/>Ungraded Items</th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.16"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.17"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.18"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.19"/></th>
+			<th scope="col"><spring:message code="teacher.manage.projectpicker.20"/></th>
 		</tr>
 	</thead>
 	<tbody>	
@@ -169,13 +173,17 @@
 	      </c:otherwise>
 	    </c:choose>
 		<tr>
-			<th scope="row"><a href="viewmystudents.html?runId=${archivedRun.id}">${archivedRun.sdsOffering.name}</a></th>
-			<td>45345</td>
+            <th scope="row"><a href="viewmystudents.html?runId=${archivedRun.id}">${archivedRun.sdsOffering.name}</a></th>		
+			<td>${archivedRun.project.id}</td>
 			<td><fmt:formatDate value="${archivedRun.starttime}" dateStyle="short" /></td>
 			<td><fmt:formatDate value="${archivedRun.endtime}" dateStyle="short" /></td>
-			<td>1,2,4,6</td>
-			<td>Physics</td>
-			<td>12</td>
+			<td>
+			    <c:forEach var="period" items="${archivedRun.periods}">
+			        <c:out value="${period.name}" />,
+			    </c:forEach>
+			</td>
+			<td>${archivedRun.project.projectInfo.subject}</td>
+			<td>[NOT YET IMPLEMENTED]</td>		
 		</tr>
 		</c:forEach>
 	</tbody>
