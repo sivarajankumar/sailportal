@@ -970,16 +970,19 @@
     	<property name="brainstormService" ref="brainstormService"/>
         <property name="workgroupService" ref="wiseWorkgroupService"/>
     </bean>
-    
-    <!--  
+      
     <bean id="stepActivityGraphController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.reports.teacher.StepActivityGraphController">
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports.StepActivityGraphController">
 		<property name="runService" ref="runService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
-		<property name="gradingService" ref="gradingService"/>
-		<property name="sessionBundleService" ref="sessionBundleService"/>
 	</bean>
-	-->
+	
+	<bean id="totalTimePerStepController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports.TotalTimePerStepController">
+		<property name="runService" ref="runService"/>
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
+	</bean>
+	
 	<bean id="postResponseController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostResponseController">
 		<property name="brainstormService" ref="brainstormService"/>
@@ -1018,6 +1021,23 @@
     <bean id="pollNewPostsController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PollNewPostsController">
     	<property name="brainstormService" ref="brainstormService"/>
+    </bean>
+    
+    <bean id="workgroupNavLog"
+    	class="org.telscenter.sail.webapp.presentation.util.impl.WorkgroupNavLogImpl">
+    	<property name="workgroupService" ref="wiseWorkgroupService"/>
+    	<property name="sessionBundleService" ref="sessionBundleService"/>
+    </bean>
+    
+    <bean id="sessionNavLog"
+    	class="org.telscenter.sail.webapp.presentation.util.impl.SessionNavLogImpl">
+    </bean>
+    
+    <bean id="sdsLogUtil"
+    	class="org.telscenter.sail.webapp.presentation.util.SdsLogUtil">
+    	<property name="workgroupService" ref="wiseWorkgroupService"/>
+    	<property name="gradingService" ref="gradingService"/>
+    	<property name="sessionBundleService" ref="sessionBundleService"/>
     </bean>
     
     <!--  Author-related controllers -->    	

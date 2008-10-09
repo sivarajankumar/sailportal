@@ -85,6 +85,17 @@ public interface GradingService {
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException;
 	
 	/**
+	 * Returns a <code>List<EStep></code> of all steps for a given run
+	 * with the specified runId.
+	 * 
+	 * @param runId id of the run to find steps for
+	 * @return <code>List<EStep></code> of steps for this run
+	 * @throws <code>ObjectNotFoundException</code> when no <code>Run</code> is
+	 * found with the associated runId
+	 */
+	public List<EStep> getSteps(Long runId) throws ObjectNotFoundException;
+	
+	/**
 	 * Returns an aggregate object to allow WISE teachers to grade student
 	 * work for a particular <code>Step</code> of a particular 
 	 * <code>Project</code> that is being used in a <code>Run</code> indicated

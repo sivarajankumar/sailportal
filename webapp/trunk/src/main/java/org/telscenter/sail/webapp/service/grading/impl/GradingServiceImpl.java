@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.service.grading.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -102,6 +103,19 @@ public class GradingServiceImpl implements GradingService {
 	 */
 	public List<EStep> getGradableSteps(Long runId)throws ObjectNotFoundException{
 		return getGradableSteps(this.getCurnitmap(runId));
+	}
+	
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.grading.GradingService#getSteps(java.lang.Long)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<EStep> getSteps(Long runId) throws ObjectNotFoundException{
+		List<EStep> steps = new LinkedList<EStep>();
+		for(EActivity activity : (List<EActivity>) this.getCurnitmap(runId).getProject().getActivity()){
+			steps.addAll(activity.getStep());
+		}
+		return steps;
 	}
 	
 	/**
