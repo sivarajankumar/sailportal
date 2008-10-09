@@ -174,7 +174,11 @@
 		//update medians and totals
 		totalGroups[this.tabIndex] = totalGroups[this.tabIndex] + 1;
 		medLocPercent[this.tabIndex].push(parseInt(percentComplete[0].childNodes[0].nodeValue));
-		medStep[this.tabIndex].push(parseInt(currentStep[0].childNodes[0].nodeValue));
+		if(currentStep[0].childNodes[0].nodeValue=='None'){
+			medStep[this.tabIndex].push(-1);
+		} else {
+			medStep[this.tabIndex].push(parseInt(currentStep[0].childNodes[0].nodeValue));
+		};
 		//find median step and activity
 		var medStepActivity = [];
 		medStep[this.tabIndex].sort(function(a,b){if(a<b){return -1};if(a==b){return 0};if(a>b){return 1};});
@@ -229,11 +233,16 @@
 	//returns an array with individual activity number and step number
 	function getStepAndActivityNumbers(stepNum, entries){
 		var a = [];
-		for(x=0;x<entries.length;x++){
-			if(stepNum == entries[x].childNodes[0].childNodes[0].nodeValue){
-				a[0] = entries[x].childNodes[1].childNodes[0].nodeValue;
-				a[1] = entries[x].childNodes[2].childNodes[0].nodeValue;
-			}
+		if(stepNum==-1){
+			a[0] = 0;
+			a[1] = 0;
+		} else {
+			for(x=0;x<entries.length;x++){
+				if(stepNum == entries[x].childNodes[0].childNodes[0].nodeValue){
+					a[0] = entries[x].childNodes[1].childNodes[0].nodeValue;
+					a[1] = entries[x].childNodes[2].childNodes[0].nodeValue;
+				}
+			};
 		};
 		return a;
 	};
@@ -271,13 +280,13 @@
 	};
 	
 	RequestManager.prototype.nextRequest = function(){
-		if(this.queuedRequests[activeIndex].length > 0){
+		if(this.queuedRequests[activeIndex] != null && this.queuedRequests[activeIndex].length > 0){
 			var queuedCell = this.queuedRequests[activeIndex].shift();
 			this.activeRequests.push(queuedCell);
 			queuedCell.startRequest();
 		} else {
 			for(x=0;x<this.queuedRequests.length;x++){
-				if(this.queuedRequests[x].length > 0){
+				if(this.queuedRequests[x] != null && this.queuedRequests[x].length > 0){
 					var queuedCell = this.queuedRequests[x].shift();
 					this.activeRequests.push(queuedCell);
 					queuedCell.startRequest();
@@ -294,6 +303,19 @@
 	};
 	
 	var requestManager = new RequestManager();
+	
+	function generateReport(runId, workgroupId){
+
+		var reportType = document.getElementById('selectReport_' + workgroupId).options[document.getElementById('selectReport_' + workgroupId).selectedIndex].value;
+		var url = '../reports/' + reportType + '.html?runId=' + runId + '&workgroupId=' + workgroupId;
+	
+		if(reportType != null && reportType != ""){
+			popupReport(url);
+		};		
+	};
+	function popupReport(URL) {
+  		window.open(URL, 'report', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=640,left = 450,top = 150');
+  	};
 </script>
 
 
@@ -357,6 +379,7 @@
 									<th style="width:10%;" scope="col"><a href="javascript:popup('classmonitormeaning.html#rawscore')"><spring:message code="teacher.manage.studentprogress.4"/></a></th>
 									<th style="width:10%;" scope="col"><a href="javascript:popup('classmonitormeaning.html#teachergraded')"><spring:message code="teacher.manage.studentprogress.5"/></a></th>
 									<th style="width:10%;" scope="col"><a href="javascript:popup('classmonitormeaning.html#autograded')"><spring:message code="teacher.manage.studentprogress.6"/></a></th>
+									<th scope="col">Reports</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -399,6 +422,14 @@
 											<div id="autoPercent_${workgroup.id}" class="percentValue"><i>loading...</i></div>
 											<div id="autoScore_${workgroup.id}" class="ratioValue""></div>
 										</td>
+										<td>
+											<div id="generateReport" align="center">
+												<div id="reports">
+													<a href="javascript:popupReport('../reports/stepactivitygraph.html?runId=${run.id}&workgroupId=${workgroup.id}');">Step activity (over time)</a><br>
+													<a href="javascript:popupReport('../reports/totaltimeperstep.html?runId=${run.id}&workgroupId=${workgroup.id}');">Total time spent per step</a><br>
+												</div>
+											</div>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -427,6 +458,8 @@
 									<td style="background-color:#666666;">
 										<div id="medAutoPercent_${tIndex}" class="percentValue">0%</div>
 										<div id="medAutoRatio_${tIndex}" class="ratioValue">(0/0)</div>
+									</td>
+									<td>
 									</td>
 								</tr>
 							</tfoot>

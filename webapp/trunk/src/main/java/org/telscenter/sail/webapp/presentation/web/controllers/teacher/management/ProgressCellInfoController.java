@@ -80,44 +80,51 @@ public class ProgressCellInfoController extends AbstractController{
 		List<EStep> gradableSteps = this.gradingService.getGradableSteps(runId);
 		List<EStep> cloned = copy(gradableSteps);
 		totalPossibleScore = this.gradingService.getTotalPossibleScore(runId);
+		totalCompletedSteps = gradableSteps.size();
 		
 		//get aggregate for this cell
 		GradeWorkByWorkgroupAggregate aggregate = this.gradingService.
 			getGradeWorkByWorkgroupAggregate(runId, (WISEWorkgroup) this.
 			workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID))));
 		
-		//find completed steps and set latestStep
-		boolean answer = false;
+		//find skipped steps and set latestStep
+		boolean missingPart = false;
 		for(EStep step : gradableSteps){
+			List<ERim> copiedRims = getCopiedRims(step);
 			for(ERim rim : (List<ERim>) step.getRim()){
 				for(SessionBundle sessionBundle : aggregate.getSessionBundles()){
 					for(ESockPart sockPart : (List<ESockPart>) sessionBundle.getESessionBundle().getSockParts()){
 						if(sockPart.getRimName().equals(rim.getRimname())){
-							if(((ESockEntry)sockPart.getSockEntries().get(sockPart.getSockEntries().size() -1)).getValue() != null)
-								answer = true;
+							copiedRims.remove(rim);
+//							ESockEntry sockEntry = ((ESockEntry) sockPart.getSockEntries().get(sockPart.getSockEntries().size()-1));
+//							if(sockEntry.getValue() == null || sockEntry.getValue() == ""){
+//								missingPart = true;
+//							}
 						}
 					}
 				}
 			}
-			if(answer){
-				totalCompletedSteps += 1;
-				cloned.remove(step);
+			if(missingPart || copiedRims.size() > 0){
+				totalCompletedSteps -= 1;
+			} else {
 				if(latestStep == null || num(step) > num(latestStep)){
 					latestStep = step;
 				}
+				cloned.remove(step);
 			}
-			answer = false;
+			missingPart = false;
 		}
 		
 		//remove any steps that are greater than latest activity and step
 		//which will leave only skipped steps
 		for(EStep step : gradableSteps){
-			if(num(step) > num(latestStep))
+			if(latestStep != null && num(step) > num(latestStep)){
 				cloned.remove(step);
+			}
 		}
 
 		//find skipped activities (all steps skipped within a specific activity)
-		//and then remove them from skipped steps since they will be in skippedactivities
+		//and then remove them from skipped steps
 		List<EActivity> activities = getActivities(cloned);
 		List<EActivity> skippedActivities = new LinkedList<EActivity>();
 		for(EActivity activity : activities){
@@ -155,16 +162,16 @@ public class ProgressCellInfoController extends AbstractController{
 		} else {
 			xmlDoc = xmlDoc + "<currentstep>" + num(latestStep) + "</currentstep>";
 			xmlDoc = xmlDoc + "<percentcomplete>" + Math.round((totalCompletedSteps / gradableSteps.size()) * 100) + "</percentcomplete>";
+			for(EStep step : cloned){
+				xmlDoc = xmlDoc + "<skipped><activitynum>" + (Integer.parseInt(((EActivity) 
+					step.eContainer()).getNumber()) + 1) + "</activitynum><stepnum>" + 
+					(Integer.parseInt(step.getNumber()) + 1) + "</stepnum></skipped>";
+			}
+			for(EActivity activity : skippedActivities){
+				xmlDoc = xmlDoc + "<skippedactivity>" + (Integer.parseInt(activity.getNumber()) + 1) + "</skippedactivity>";
+			}
 		}
 		
-		for(EStep step : cloned){
-			xmlDoc = xmlDoc + "<skipped><activitynum>" + (Integer.parseInt(((EActivity) 
-				step.eContainer()).getNumber()) + 1) + "</activitynum><stepnum>" + 
-				(Integer.parseInt(step.getNumber()) + 1) + "</stepnum></skipped>";
-		}
-		for(EActivity activity : skippedActivities){
-			xmlDoc = xmlDoc + "<skippedactivity>" + (Integer.parseInt(activity.getNumber()) + 1) + "</skippedactivity>";
-		}
 		xmlDoc = xmlDoc + "<rawactual>" + totalTeacherGradedActual + "</rawactual>";
 		xmlDoc = xmlDoc + "<rawpossible>" + Math.round(totalPossibleScore) + "</rawpossible>";
 		xmlDoc = xmlDoc + "<teacheractual>" + totalTeacherGradedActual + "</teacheractual>";
@@ -180,6 +187,15 @@ public class ProgressCellInfoController extends AbstractController{
 		return modelAndView;
 	}
 	
+	@SuppressWarnings("unchecked")
+	private List<ERim> getCopiedRims(EStep step) {
+		List<ERim> rims = new LinkedList<ERim>();
+		for(ERim rim : (List<ERim>) step.getRim()){
+			rims.add(rim);
+		}
+		return rims;
+	}
+
 	//given an activity and a list<EStep> returns the number of steps
 	//that contain this activity
 	private int getCount(EActivity activity, List<EStep> steps) {
@@ -221,7 +237,7 @@ public class ProgressCellInfoController extends AbstractController{
 	//returns xml String activity/step number map keyed on unique 
 	//combination of activity number and step number
 	private String getStepActivityMap(List<EStep> steps){
-		String map = "";
+		String map = "<entry><key>None</key><activity>0</activity><step>0</step></entry>";
 		for(EStep step : steps){
 			map = map + "<entry><key>" + num(step) + "</key><activity>" + 
 				(Integer.parseInt(((EActivity) step.eContainer()).getNumber()) + 1) + 
