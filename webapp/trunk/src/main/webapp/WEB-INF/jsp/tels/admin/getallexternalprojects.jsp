@@ -36,13 +36,14 @@
 
 <c:out value="${message}" />
 
+<h2>External Projects</h2>
 <table id="adminManageProjectsTable">
 	<tr>
 		<th> Project Title </th>
 		<th> Preview Project </th>
 		<th> Import Project to Library </th>		
 	</tr>
-	<c:forEach var="project" items="${projectList}">
+	<c:forEach var="project" items="${externalProjectList}">
 	<tr>
 		<td>${project.name}</td>
 		<td><a href="../previewproject.html?projectType=diy&diyExternalId=${project.externalId}">Preview</a></td>		

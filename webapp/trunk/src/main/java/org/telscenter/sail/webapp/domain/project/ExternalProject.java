@@ -38,21 +38,15 @@ public interface ExternalProject extends Project {
 	public Serializable getExternalId();
 	
 	public void setExternalId(Serializable externalId);
-	
-	/**
-	 * Returns the project service instance that can serve
-	 * this project.
-	 * 
-	 * @return
-	 */
-	public ExternalProjectService getExternalProjectService();
-	
-	/**
-	 * Sets the project service instance that can serve
-	 * this project.
-	 * 
-	 * @param projectService
-	 */
-	public void setExternalProjectService(ExternalProjectService projectService);
 
+
+	/**
+	 * @return the projectCommunicator
+	 */
+	public ProjectCommunicator getProjectCommunicator();
+
+	/**
+	 * @param projectCommunicator the projectCommunicator to set
+	 */
+	public void setProjectCommunicator(ProjectCommunicator projectCommunicator);
 }

@@ -41,10 +41,12 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
@@ -60,11 +62,11 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  * @author Scott Cytacki
  * @version $Id$
  */
-public class DIYProjectServiceImpl implements ExternalProjectService {
+public class ExternalProjectServiceImpl implements ExternalProjectService {
 
-	private static final String PREVIEW_DIY_PROJECT_SUFFIX = "/sail_jnlp/6/1/authoring";
+	private ProjectCommunicator projectCommunicator;
 
-	private String baseUrl;
+	protected ProjectDao<Project> projectDao;
 	
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#authorProject(org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters)
@@ -94,62 +96,31 @@ public class DIYProjectServiceImpl implements ExternalProjectService {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.service.project.ExternalProjectService#getExternalProjectList()
+	 */
+	public List<ExternalProject> getExternalProjectList() {
+		return this.projectCommunicator.getProjectList();
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ExternalProjectService#importProject(org.telscenter.sail.webapp.domain.project.ExternalProject)
+	 */
+	public void importProject(ExternalProject project) {
+		//this.projectCommunicator.importProject();
+		Serializable externalId = project.getExternalId();
+		
+	}
+	
+	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectList()
 	 */
 	public List<Project> getProjectList() {
-		String getProjectListUrlStr = baseUrl + "/external_otrunk_activities.xml";
-		Document doc = null;
-		// retrieve xml and parse
-		try {
-			URL getProjectListUrl = new URL(getProjectListUrlStr);
-			URLConnection getProjectListConnection = getProjectListUrl.openConnection();
-			DataInputStream dis;
-			String inputLine;
-
-			dis = new DataInputStream(getProjectListConnection.getInputStream());
-			doc = this.convertXmlInputStreamToXmlDocument(dis);
-//			while ((inputLine = dis.readLine()) != null) {
-//				
-//			}
-			dis.close();
-		} catch (MalformedURLException me) {
-			System.out.println("MalformedURLException: " + me);
-		} catch (IOException ioe) {
-			System.out.println("IOException: " + ioe);
-		}
+		// look in the internal database
+    	List<Project> projectList = this.projectDao.getList();
 		
-		List<Project> diyProjects = new ArrayList<Project>();
-		Element diy = doc.getRootElement();
-		List<Element> children = diy.getChildren("external-otrunk-activity");
-		for (Element child : children) {
-			// create a DIY Project, add to the List
-			String name = child.getChildText("name");
-			ExternalProjectImpl project = new ExternalProjectImpl();
-			project.setName(name);
-			Serializable externalDIYId = child.getChildText("id");
-			project.setExternalId(externalDIYId );
-			diyProjects.add(project);
-		}
-		
-		return diyProjects;
+		return projectList;
 	}
 	
-	protected Document convertXmlInputStreamToXmlDocument(InputStream inputStream) {
-	    SAXBuilder builder = new SAXBuilder();
-	    Document doc = null;
-	    try {
-	        doc = builder.build(inputStream);
-	    } catch (JDOMException e) {
-	    } catch (IOException e) {
-	    } finally {
-	        try {
-	            inputStream.close();
-	        } catch (IOException e) {
-	        }
-	    }
-	    return doc;
-	}
-
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByInfo(org.telscenter.sail.webapp.domain.project.ProjectInfo)
 	 */
@@ -191,10 +162,7 @@ public class DIYProjectServiceImpl implements ExternalProjectService {
 	 */
 	public Object previewProject(
 			PreviewProjectParameters previewProjectParameters) throws Exception {
-		
-		Serializable id = ((ExternalProjectImpl) previewProjectParameters.getProject()).getExternalId();
-		String previewProjectUrl = baseUrl + "/external_otrunk_activities/" + id + PREVIEW_DIY_PROJECT_SUFFIX;
-		return new ModelAndView(new RedirectView(previewProjectUrl ));
+		return this.projectCommunicator.previewProject((ExternalProject) previewProjectParameters.getProject());
 	}
 
 	/**
@@ -205,19 +173,26 @@ public class DIYProjectServiceImpl implements ExternalProjectService {
 
 	}
 
-	/**
-	 * @param baseUrl the baseUrl to set
-	 */
-	public void setBaseUrl(String baseUrl) {
-		this.baseUrl = baseUrl;
+	public ProjectCommunicator getProjectCommunicator() {
+		return projectCommunicator;
+	}
+
+	public void setProjectCommunicator(ProjectCommunicator projectCommunicator) {
+		this.projectCommunicator = projectCommunicator;
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.service.project.ExternalProjectService#importProject(org.telscenter.sail.webapp.domain.project.ExternalProject)
+	 * @return the projectDao
 	 */
-	public void importProject(ExternalProject project) {
-		Serializable externalId = project.getExternalId();
-		
+	public ProjectDao<Project> getProjectDao() {
+		return projectDao;
+	}
+
+	/**
+	 * @param projectDao the projectDao to set
+	 */
+	public void setProjectDao(ProjectDao<Project> projectDao) {
+		this.projectDao = projectDao;
 	}
 
 }

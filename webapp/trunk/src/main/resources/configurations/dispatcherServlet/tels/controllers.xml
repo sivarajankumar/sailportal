@@ -796,9 +796,9 @@
 	    <property name="projectService" ref="projectService"/>
 	</bean>
 	
-	<bean id="getAllDIYProjectsController"
-			class="org.telscenter.sail.webapp.presentation.web.controllers.admin.GetAllDIYProjectsController">
-	    <property name="projectService" ref="diyProjectService"/>
+	<bean id="getAllExternalProjectsController"
+			class="org.telscenter.sail.webapp.presentation.web.controllers.admin.GetAllExternalProjectsController">
+	    <property name="projectService" ref="externalProjectService"/>
 	</bean>
 	
 	

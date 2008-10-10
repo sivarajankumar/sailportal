@@ -178,9 +178,14 @@
         <property name="authoringToolJnlpUrl" value="http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp" />
 	</bean>
 	
-	<bean id="diyProjectService"
-	    class="org.telscenter.sail.webapp.service.project.impl.DIYProjectServiceImpl">
-	    <property name="baseUrl" value="http://loops.diy.concord.org" />        
+	<bean id="externalProjectService"
+	    class="org.telscenter.sail.webapp.service.project.impl.ExternalProjectServiceImpl">
+	    <property name="projectCommunicator" ref="projectCommunicator" />
+	    <property name="projectDao" ref="projectDao" />
+	</bean>
+	
+	<bean id="projectCommunicator"
+	    class="org.telscenter.sail.webapp.domain.project.impl.ProjectCommunicatorImpl">
 	</bean>
 	
 	<bean id="projectService"
@@ -194,7 +199,7 @@
 	    <property name="podProjectService" ref="podProjectService" />
 	    <property name="potrunkProjectService" ref="potrunkProjectService" />
 	    <property name="otrunkProjectService" ref="otrunkProjectService" />
-	    <property name="diyProjectService" ref="diyProjectService" />
+	    <property name="externalProjectService" ref="externalProjectService" />
 	</bean>
     
     <bean id="curnitService"

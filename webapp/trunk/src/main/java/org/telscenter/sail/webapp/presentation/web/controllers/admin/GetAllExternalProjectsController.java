@@ -29,18 +29,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author hirokiterashima
  * @version $Id$
  */
-public class GetAllDIYProjectsController extends AbstractController {
+public class GetAllExternalProjectsController extends AbstractController {
 	
-	private static final String DIYPROJECTS = "projectList";
+	private static final String EXTERNAL_PROJECTS_PARAM = "externalProjectList";
 	
-	private ProjectService projectService;
+	private ExternalProjectService projectService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -48,17 +50,17 @@ public class GetAllDIYProjectsController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		List<Project> projectList = this.projectService.getProjectList();
+		List<ExternalProject> externalProjectList = this.projectService.getExternalProjectList();
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(DIYPROJECTS, projectList);
+		modelAndView.addObject(EXTERNAL_PROJECTS_PARAM, externalProjectList);
 		return modelAndView;
 	}
 
 	/**
 	 * @param projectService the projectService to set
 	 */
-	public void setProjectService(ProjectService projectService) {
+	public void setProjectService(ExternalProjectService projectService) {
 		this.projectService = projectService;
 	}
 

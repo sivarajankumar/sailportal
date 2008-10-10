@@ -44,7 +44,7 @@ public class ProjectServiceFactory {
 	
 	private ProjectService otrunkProjectService;
 	
-	private ProjectService diyProjectService;
+	private ExternalProjectService externalProjectService;
 	
 	/**
 	 * Returns a <code>ProjectService</code> instance that serves
@@ -58,7 +58,7 @@ public class ProjectServiceFactory {
 		ProjectService projectService = null;
 
 		if (project instanceof ExternalProjectImpl) {
-			return diyProjectService;
+			return externalProjectService;
 		}
 		
 		Curnit curnit = project.getCurnit();
@@ -115,9 +115,11 @@ public class ProjectServiceFactory {
 	}
 
 	/**
-	 * @param diyProjectService the diyProjectService to set
+	 * @param externalProjectService the externalProjectService to set
 	 */
-	public void setDiyProjectService(ProjectService diyProjectService) {
-		this.diyProjectService = diyProjectService;
+	public void setExternalProjectService(
+			ExternalProjectService externalProjectService) {
+		this.externalProjectService = externalProjectService;
 	}
+
 }

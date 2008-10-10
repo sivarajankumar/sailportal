@@ -20,29 +20,19 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.project;
+package org.telscenter.sail.webapp.domain.project;
 
 import java.util.List;
 
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
-
 /**
- * ProjectService for projects on external (non-local) servers/portals.
+ * Object to communicate to external portals
  * 
- * @author Hiroki Terashima
- * @author Scott Cytacki
+ * @author hirokiterashima
  * @version $Id$
  */
-public interface ExternalProjectService extends ProjectService {
+public interface ProjectCommunicator {
 
-	public void setProjectCommunicator(ProjectCommunicator projectCommunicator);
-
-	public ProjectCommunicator getProjectCommunicator();
-
-	public void importProject(ExternalProject project);
+	public List<ExternalProject> getProjectList();
 	
-	public List<ExternalProject> getExternalProjectList();
-	
+	public Object previewProject(ExternalProject externalProject);
 }

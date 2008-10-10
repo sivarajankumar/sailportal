@@ -24,6 +24,8 @@ package org.telscenter.sail.webapp.domain.project.impl;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import net.sf.sail.webapp.domain.Curnit;
@@ -32,25 +34,33 @@ import net.sf.sail.webapp.domain.Jnlp;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
+import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 
 /**
- * DIY Project
+ * Project stored in external locations
  * @author Hiroki Terashima
  * @author Scott Cytacki
  * @version $Id$
  */
+@Entity
+@Table(name = ExternalProjectImpl.DATA_STORE_NAME)
 public class ExternalProjectImpl implements ExternalProject {
 
 	@Transient
+	private static final String DATA_STORE_NAME = "externalprojects";
+	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
+	@Transient
 	private String name;
 	
+	@Transient
 	private Serializable externalId;
 	
-	private ExternalProjectService externalProjectService;
+	private ProjectCommunicator projectCommunicator;
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
@@ -185,20 +195,6 @@ public class ExternalProjectImpl implements ExternalProject {
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.domain.project.ExternalProject#getExternalProjectService()
-	 */
-	public ExternalProjectService getExternalProjectService() {
-		return externalProjectService;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.ExternalProject#setExternalProjectService(org.telscenter.sail.webapp.service.project.ExternalProjectService)
-	 */
-	public void setExternalProjectService(ExternalProjectService projectService) {
-		this.externalProjectService = projectService;
-	}
-
-	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getProjectType()
 	 */
 	public ProjectType getProjectType() {
@@ -211,4 +207,18 @@ public class ExternalProjectImpl implements ExternalProject {
 	public void setProjectType(ProjectType projectType) {
 	}
 
+	/**
+	 * @return the projectCommunicator
+	 */
+	public ProjectCommunicator getProjectCommunicator() {
+		return projectCommunicator;
+	}
+
+	/**
+	 * @param projectCommunicator the projectCommunicator to set
+	 */
+	public void setProjectCommunicator(ProjectCommunicator projectCommunicator) {
+		this.projectCommunicator = projectCommunicator;
+	}
+	
 }
