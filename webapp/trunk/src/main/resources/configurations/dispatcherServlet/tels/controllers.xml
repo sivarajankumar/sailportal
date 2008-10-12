@@ -801,6 +801,11 @@
 	    <property name="projectService" ref="externalProjectService"/>
 	</bean>
 	
+	<bean id="importExternalProjectController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ImportExternalProjectController">
+	    <property name="projectService" ref="externalProjectService"/>
+	</bean>
+	
 	
 	<bean id="projectInfoParameters"
 		class="org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters" />

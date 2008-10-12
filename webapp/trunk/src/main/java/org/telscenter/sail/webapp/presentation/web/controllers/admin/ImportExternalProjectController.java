@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectCommunicatorImpl;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -40,7 +41,7 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class ImportExternalProjectController extends AbstractController {
 
-	private static final String PROJECT_TYPE_PARAM = "projectType";
+	private static final String PROJECT_COMMUNICATOR_ID_PARAM = "projectCommunicatorId";
 	
 	private static final String EXTERNAL_ID_PARAM = "externalId";
 	
@@ -53,7 +54,7 @@ public class ImportExternalProjectController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		String projectType = request.getParameter(PROJECT_TYPE_PARAM);
+		String projectCommunicatorId = request.getParameter(PROJECT_COMMUNICATOR_ID_PARAM);
 		String externalId = request.getParameter(EXTERNAL_ID_PARAM);
 		
 		// we want a service method to import the project, given those params

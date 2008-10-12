@@ -232,6 +232,7 @@
 				/admin/findprojectrunsbyteacher.html=findProjectRunsByTeacherController
 				/admin/lookupteacher.html=lookupTeacherController
 				/admin/lookupstudent.html=lookupStudentController
+				/admin/importexternalproject.html=importExternalProjectController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				/repository/retrieveotml.html=retrieveOtmlController

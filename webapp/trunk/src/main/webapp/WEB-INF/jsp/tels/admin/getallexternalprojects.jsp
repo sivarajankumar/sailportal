@@ -46,8 +46,8 @@
 	<c:forEach var="project" items="${externalProjectList}">
 	<tr>
 		<td>${project.name}</td>
-		<td><a href="../previewproject.html?projectType=diy&diyExternalId=${project.externalId}">Preview</a></td>		
-		<td><a href="importexternalproject.html?projectType=diy&diyExternalId=${project.externalId}">Import</a></td>				
+		<td><a href="../previewproject.html?projectType=diy&externalId=${project.externalId}">Preview</a></td>		
+		<td><a href="importexternalproject.html?projectType=diy&externalId=${project.externalId}">Import</a></td>				
 	</tr>
 	</c:forEach>
 </table>
