@@ -26,8 +26,8 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        object_id_class bigint not null,
         owner_sid bigint,
+        object_id_class bigint not null,
         parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
@@ -110,8 +110,8 @@
         isgated bit,
         starttime datetime,
         OPTLOCK integer,
-        runs_fk bigint,
         brainstormquestions_fk bigint,
+        runs_fk bigint,
         projects_fk bigint,
         primary key (id)
     ) type=MyISAM;
@@ -133,6 +133,18 @@
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_curnit_fk bigint not null unique,
+        primary key (id)
+    ) type=MyISAM;
+
+    create table diyprojectcommunicators (
+        id bigint not null,
+        previewdiyprojectsuffix varchar(255),
+        primary key (id)
+    ) type=MyISAM;
+
+    create table externalprojects (
+        id bigint not null,
+        projectcommunicator_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -219,8 +231,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -230,15 +242,22 @@
         primary key (premadecommentslist_fk, premadecomments_fk)
     ) type=MyISAM;
 
+    create table projectcommunicators (
+        id bigint not null auto_increment,
+        baseurl varchar(255),
+        OPTLOCK integer,
+        primary key (id)
+    ) type=MyISAM;
+
     create table projects (
         id bigint not null auto_increment,
         familytag integer,
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
-        curnit_fk bigint not null,
-        jnlp_fk bigint not null,
         run_fk bigint unique,
+        jnlp_fk bigint not null,
+        curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -301,8 +320,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -398,9 +417,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        offering_fk bigint not null,
-        sds_workgroup_fk bigint not null unique,
         group_fk bigint not null,
+        sds_workgroup_fk bigint not null unique,
+        offering_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -535,6 +554,24 @@
         add constraint FK4329FBBA1B78E061 
         foreign key (sds_curnit_fk) 
         references sds_curnits (id);
+
+    alter table diyprojectcommunicators 
+        add index FK83FA9ED96FC1637F (id), 
+        add constraint FK83FA9ED96FC1637F 
+        foreign key (id) 
+        references projectcommunicators (id);
+
+    alter table externalprojects 
+        add index FKD8238145CE9C471A (projectcommunicator_fk), 
+        add constraint FKD8238145CE9C471A 
+        foreign key (projectcommunicator_fk) 
+        references projectcommunicators (id);
+
+    alter table externalprojects 
+        add index FKD8238145E48A3C0A (id), 
+        add constraint FKD8238145E48A3C0A 
+        foreign key (id) 
+        references projects (id);
 
     alter table groups 
         add index FKB63DD9D4E696E7FF (parent_fk), 

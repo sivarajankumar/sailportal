@@ -22,30 +22,26 @@
  */
 package org.telscenter.sail.webapp.domain.project.impl;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 
-import org.apache.jackrabbit.ocm.mapper.impl.annotation.Implement;
 import org.jdom.Document;
-import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 
 /**
@@ -57,49 +53,28 @@ import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ProjectCommunicatorImpl implements ProjectCommunicator {
 
-	private String baseUrl = "http://loops.diy.concord.org";
-	
-	private static final String PREVIEW_DIY_PROJECT_SUFFIX = "/sail_jnlp/6/1/authoring";
+	@Transient
+	private static final long serialVersionUID = 1L;
 
+	@Transient
+	private static final String COLUMN_NAME_BASE_URL = "baseurl";
+
+	@Transient
 	private static final String DATA_STORE_NAME = "projectcommunicators";
+
+	@Column(name = ProjectCommunicatorImpl.COLUMN_NAME_BASE_URL)
+	protected String baseUrl;
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = null;
+
+    @Version
+    @Column(name = "OPTLOCK")
+    private Integer version = null;
 	
 	public List<ExternalProject> getProjectList() {
-		
-		String getProjectListUrlStr = baseUrl + "/external_otrunk_activities.xml";
-		Document doc = null;
-		// retrieve xml and parse
-		try {
-			URL getProjectListUrl = new URL(getProjectListUrlStr);
-			URLConnection getProjectListConnection = getProjectListUrl.openConnection();
-			DataInputStream dis;
-			String inputLine;
-
-			dis = new DataInputStream(getProjectListConnection.getInputStream());
-			doc = this.convertXmlInputStreamToXmlDocument(dis);
-//			while ((inputLine = dis.readLine()) != null) {
-//				
-//			}
-			dis.close();
-		} catch (MalformedURLException me) {
-			System.out.println("MalformedURLException: " + me);
-		} catch (IOException ioe) {
-			System.out.println("IOException: " + ioe);
-		}
-		
-		List<ExternalProject> diyProjects = new ArrayList<ExternalProject>();
-		Element diy = doc.getRootElement();
-		List<Element> children = diy.getChildren("external-otrunk-activity");
-		for (Element child : children) {
-			// create a DIY Project, add to the List
-			String name = child.getChildText("name");
-			ExternalProjectImpl project = new ExternalProjectImpl();
-			project.setName(name);
-			Serializable externalDIYId = child.getChildText("id");
-			project.setExternalId(externalDIYId );
-			diyProjects.add(project);
-		}
-		
-		return diyProjects;
+		return new ArrayList<ExternalProject>();
 	}        
 	
 	protected Document convertXmlInputStreamToXmlDocument(InputStream inputStream) {
@@ -119,10 +94,47 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 	}
 
 	public Object previewProject(ExternalProject externalProject) {
-		Serializable id = externalProject.getExternalId();
-		String previewProjectUrl = baseUrl + "/external_otrunk_activities/" + id + PREVIEW_DIY_PROJECT_SUFFIX;
-		return new ModelAndView(new RedirectView(previewProjectUrl ));
+		return null;
 	}
+	
+	/**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
+    /**
+     * @param id
+     *            the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version
+     *            the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    /**
+     * @see org.telscenter.sail.webapp.domain.project.ProjectCommunicator#getPreviewProjectUrl(org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl)
+     */
+	public String getPreviewProjectUrl(ExternalProjectImpl externalProject) {
+		return null;
+	}
 	
 }

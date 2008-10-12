@@ -10,7 +10,9 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.presentation.util.Util;
@@ -25,15 +27,17 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class PreviewProjectController extends AbstractController {
 	
+	private static final String PROJECT_COMMUNICATOR_ID_PARAM = "projectCommunicatorId";
+
 	private static final String PROJECT_TYPE_PARAM_NAME = "projectType";
 	
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
 
-	private static final String DIY_EXTERNAL_ID_PARAM_NAME = "diyExternalId";
+	private static final String DIY_EXTERNAL_ID_PARAM_NAME = "externalId";
 	
-	
-
 	private ProjectService projectService;
+	
+	private ProjectCommunicatorDao<ProjectCommunicator> diyProjectCommunicator;
 	
 	private HttpRestTransport httpRestTransport;
 
@@ -47,9 +51,12 @@ public class PreviewProjectController extends AbstractController {
 		String projectTypeStr = request.getParameter(PROJECT_TYPE_PARAM_NAME);
 		if (projectTypeStr != null && projectTypeStr.equals("diy")) {
 			String diyExternalIdStr = request.getParameter(DIY_EXTERNAL_ID_PARAM_NAME);
+			String projectCommunicatorId = request.getParameter(PROJECT_COMMUNICATOR_ID_PARAM);
+
 			PreviewProjectParameters params = new PreviewProjectParameters();
 			ExternalProjectImpl diyProject = new ExternalProjectImpl();
 			diyProject.setExternalId(diyExternalIdStr);
+			diyProject.setProjectCommunicator(diyProjectCommunicator.getById(projectCommunicatorId));
 			params.setProject(diyProject);
 			return (ModelAndView) projectService.previewProject(params);
 		}
@@ -77,6 +84,14 @@ public class PreviewProjectController extends AbstractController {
 	 */
 	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
 		this.httpRestTransport = httpRestTransport;
+	}
+
+	/**
+	 * @param diyProjectCommunicator the diyProjectCommunicator to set
+	 */
+	public void setDiyProjectCommunicator(
+			ProjectCommunicatorDao<ProjectCommunicator> diyProjectCommunicator) {
+		this.diyProjectCommunicator = diyProjectCommunicator;
 	}
 
 }

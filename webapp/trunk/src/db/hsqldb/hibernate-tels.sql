@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        parent_object bigint,
-        object_id_class bigint not null,
         owner_sid bigint,
+        object_id_class bigint not null,
+        parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -42,18 +42,12 @@
         unique (sid, principal)
     ) type=MyISAM;
 
-    create table annotationBundles (
+    create table annotationbundles (
         id bigint not null auto_increment,
         OPTLOCK integer,
         bundle longtext not null,
         workgroup_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
-
-    create table answers_related_to_workgroups (
-        brainstormanswers_fk bigint not null,
-        workgroups_fk bigint not null,
-        primary key (brainstormanswers_fk, workgroups_fk)
     ) type=MyISAM;
 
     create table brainstormanswers (
@@ -76,6 +70,12 @@
         brainstormrevisions_fk bigint not null,
         primary key (brainstormanswers_fk, brainstormrevisions_fk),
         unique (brainstormrevisions_fk)
+    ) type=MyISAM;
+
+    create table brainstormanswers_related_to_workgroups (
+        brainstormanswers_fk bigint not null,
+        workgroups_fk bigint not null,
+        primary key (brainstormanswers_fk, workgroups_fk)
     ) type=MyISAM;
 
     create table brainstormcomments (
@@ -106,11 +106,13 @@
     create table brainstorms (
         id bigint not null auto_increment,
         isanonymousallowed bit,
+        displaynameoption integer,
         isgated bit,
         starttime datetime,
         OPTLOCK integer,
         brainstormquestions_fk bigint,
-        runs_fk bigint not null,
+        runs_fk bigint,
+        projects_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -131,6 +133,18 @@
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_curnit_fk bigint not null unique,
+        primary key (id)
+    ) type=MyISAM;
+
+    create table diyprojectcommunicators (
+        id bigint not null,
+        previewdiyprojectsuffix varchar(255),
+        primary key (id)
+    ) type=MyISAM;
+
+    create table externalprojects (
+        id bigint not null,
+        projectcommunicator_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -217,8 +231,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -228,14 +242,22 @@
         primary key (premadecommentslist_fk, premadecomments_fk)
     ) type=MyISAM;
 
+    create table projectcommunicators (
+        id bigint not null auto_increment,
+        baseurl varchar(255),
+        OPTLOCK integer,
+        primary key (id)
+    ) type=MyISAM;
+
     create table projects (
         id bigint not null auto_increment,
         familytag integer,
         iscurrent bit,
+        projecttype integer,
         OPTLOCK integer,
-        curnit_fk bigint not null,
         run_fk bigint unique,
         jnlp_fk bigint not null,
+        curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -298,8 +320,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -381,8 +403,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -396,8 +418,8 @@
         id bigint not null auto_increment,
         OPTLOCK integer,
         group_fk bigint not null,
-        offering_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
+        offering_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -431,23 +453,11 @@
         foreign key (object_id_class) 
         references acl_class (id);
 
-    alter table annotationBundles 
-        add index FKD986A02F54443B2 (workgroup_fk), 
-        add constraint FKD986A02F54443B2 
+    alter table annotationbundles 
+        add index FKAA5FD222F54443B2 (workgroup_fk), 
+        add constraint FKAA5FD222F54443B2 
         foreign key (workgroup_fk) 
         references workgroups (id);
-
-    alter table answers_related_to_workgroups 
-        add index FKA7A8970B2605B8EA (brainstormanswers_fk), 
-        add constraint FKA7A8970B2605B8EA 
-        foreign key (brainstormanswers_fk) 
-        references brainstormanswers (id);
-
-    alter table answers_related_to_workgroups 
-        add index FKA7A8970B2B7BFD8A (workgroups_fk), 
-        add constraint FKA7A8970B2B7BFD8A 
-        foreign key (workgroups_fk) 
-        references wiseworkgroups (id);
 
     alter table brainstormanswers 
         add index FK678121622B7BFD8A (workgroups_fk), 
@@ -479,6 +489,18 @@
         foreign key (brainstormrevisions_fk) 
         references brainstormrevisions (id);
 
+    alter table brainstormanswers_related_to_workgroups 
+        add index FK6398E0382605B8EA (brainstormanswers_fk), 
+        add constraint FK6398E0382605B8EA 
+        foreign key (brainstormanswers_fk) 
+        references brainstormanswers (id);
+
+    alter table brainstormanswers_related_to_workgroups 
+        add index FK6398E0382B7BFD8A (workgroups_fk), 
+        add constraint FK6398E0382B7BFD8A 
+        foreign key (workgroups_fk) 
+        references wiseworkgroups (id);
+
     alter table brainstormcomments 
         add index FK828192A72B7BFD8A (workgroups_fk), 
         add constraint FK828192A72B7BFD8A 
@@ -496,6 +518,12 @@
         add constraint FK174BDF205E4D3D22 
         foreign key (brainstormquestions_fk) 
         references brainstormquestions (id);
+
+    alter table brainstorms 
+        add index FK174BDF20AC92FD99 (projects_fk), 
+        add constraint FK174BDF20AC92FD99 
+        foreign key (projects_fk) 
+        references projects (id);
 
     alter table brainstorms_related_to_brainstormanswers 
         add index FK477CA8F12605B8EA (brainstormanswers_fk), 
@@ -526,6 +554,24 @@
         add constraint FK4329FBBA1B78E061 
         foreign key (sds_curnit_fk) 
         references sds_curnits (id);
+
+    alter table diyprojectcommunicators 
+        add index FK83FA9ED96FC1637F (id), 
+        add constraint FK83FA9ED96FC1637F 
+        foreign key (id) 
+        references projectcommunicators (id);
+
+    alter table externalprojects 
+        add index FKD8238145CE9C471A (projectcommunicator_fk), 
+        add constraint FKD8238145CE9C471A 
+        foreign key (projectcommunicator_fk) 
+        references projectcommunicators (id);
+
+    alter table externalprojects 
+        add index FKD8238145E48A3C0A (id), 
+        add constraint FKD8238145E48A3C0A 
+        foreign key (id) 
+        references projects (id);
 
     alter table groups 
         add index FKB63DD9D4E696E7FF (parent_fk), 

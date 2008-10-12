@@ -50,6 +50,12 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl" />
         <mapping
+            class="org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl" />
+        <mapping
+            class="org.telscenter.sail.webapp.domain.project.impl.ProjectCommunicatorImpl" />      
+        <mapping
+            class="org.telscenter.sail.webapp.domain.project.impl.DIYProjectCommunicatorImpl" />      
+        <mapping
         	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl" />
         <mapping
         	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl" />  
@@ -69,7 +75,6 @@
             class="org.telscenter.sail.webapp.domain.brainstorm.comment.impl.CommentImpl" />      
         <mapping
             class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl" />      
-            
      
     </session-factory>
 </hibernate-configuration>

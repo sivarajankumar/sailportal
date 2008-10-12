@@ -20,36 +20,17 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project;
+package org.telscenter.sail.webapp.dao.project;
 
-import java.io.Serializable;
+import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
+
+import net.sf.sail.webapp.dao.SimpleDao;
 
 /**
- * External Project Domain object.
- * 
  * @author Hiroki Terashima
- * @author Scott Cytacki
  * 
  * @version $Id$
  */
-public interface ExternalProject extends Project {
-	
-	public Serializable getExternalId();
-	
-	public void setExternalId(Serializable externalId);
+public interface ProjectCommunicatorDao<T extends ProjectCommunicator> extends SimpleDao<T> {
 
-	/**
-	 * @return the projectCommunicator
-	 */
-	public ProjectCommunicator getProjectCommunicator();
-
-	/**
-	 * @param projectCommunicator the projectCommunicator to set
-	 */
-	public void setProjectCommunicator(ProjectCommunicator projectCommunicator);
-
-	/**
-	 * @return
-	 */
-	public Object launchPreview();
 }

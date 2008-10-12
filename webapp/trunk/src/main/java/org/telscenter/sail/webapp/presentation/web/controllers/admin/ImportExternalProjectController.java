@@ -60,7 +60,7 @@ public class ImportExternalProjectController extends AbstractController {
 		// we want a service method to import the project, given those params
 		ExternalProject project = new ExternalProjectImpl();
 		project.setExternalId(externalId);
-		projectService.importProject(project);
+		projectService.importProject(externalId, projectCommunicatorId);
 		return null;
 	}
 

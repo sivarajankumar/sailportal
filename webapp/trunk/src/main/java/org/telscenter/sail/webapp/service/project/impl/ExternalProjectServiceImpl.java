@@ -22,25 +22,13 @@
  */
 package org.telscenter.sail.webapp.service.project.impl;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.domain.webservice.http.HttpGetRequest;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
@@ -49,11 +37,9 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
-import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * DIY Project Service implementation. Speaks to the DIY portal remotely.
@@ -64,7 +50,7 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class ExternalProjectServiceImpl implements ExternalProjectService {
 
-	private ProjectCommunicator projectCommunicator;
+	private ProjectCommunicatorDao<ProjectCommunicator> projectCommunicatorDao;
 
 	protected ProjectDao<Project> projectDao;
 	
@@ -99,16 +85,22 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 * @see org.telscenter.sail.webapp.service.project.ExternalProjectService#getExternalProjectList()
 	 */
 	public List<ExternalProject> getExternalProjectList() {
-		return this.projectCommunicator.getProjectList();
+		List<ExternalProject> allExternalProjectList = new ArrayList<ExternalProject>();
+		List<ProjectCommunicator> projectCommunicatorlist = this.projectCommunicatorDao.getList();
+		for (ProjectCommunicator projectCommunicator : projectCommunicatorlist) {
+			List<ExternalProject> projectList = projectCommunicator.getProjectList();
+			allExternalProjectList.addAll(projectList);
+		}
+		return allExternalProjectList;
 	}
 	
 	/**
+	 * @throws ObjectNotFoundException 
 	 * @see org.telscenter.sail.webapp.service.project.ExternalProjectService#importProject(org.telscenter.sail.webapp.domain.project.ExternalProject)
 	 */
-	public void importProject(ExternalProject project) {
-		//this.projectCommunicator.importProject();
-		Serializable externalId = project.getExternalId();
-		
+	public void importProject(Serializable externalId, Serializable projectCommunicatorId) 
+	    throws ObjectNotFoundException {
+		ProjectCommunicator projectCommunicator = this.projectCommunicatorDao.getById(projectCommunicatorId);
 	}
 	
 	/**
@@ -162,7 +154,7 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 */
 	public Object previewProject(
 			PreviewProjectParameters previewProjectParameters) throws Exception {
-		return this.projectCommunicator.previewProject((ExternalProject) previewProjectParameters.getProject());
+		return ((ExternalProject) previewProjectParameters.getProject()).launchPreview();
 	}
 
 	/**
@@ -171,14 +163,6 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public void updateProject(Project project) {
 		// TODO Auto-generated method stub
 
-	}
-
-	public ProjectCommunicator getProjectCommunicator() {
-		return projectCommunicator;
-	}
-
-	public void setProjectCommunicator(ProjectCommunicator projectCommunicator) {
-		this.projectCommunicator = projectCommunicator;
 	}
 
 	/**
@@ -193,6 +177,31 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 */
 	public void setProjectDao(ProjectDao<Project> projectDao) {
 		this.projectDao = projectDao;
+	}
+
+	/**
+	 * @return the projectCommunicatorDao
+	 */
+	public ProjectCommunicatorDao<ProjectCommunicator> getProjectCommunicatorDao() {
+		return projectCommunicatorDao;
+	}
+
+	/**
+	 * @param projectCommunicatorDao the projectCommunicatorDao to set
+	 */
+	public void setProjectCommunicatorDao(
+			ProjectCommunicatorDao<ProjectCommunicator> projectCommunicatorDao) {
+		this.projectCommunicatorDao = projectCommunicatorDao;
+	}
+
+	public ProjectCommunicator getProjectCommunicator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setProjectCommunicator(ProjectCommunicator projectCommunicator) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

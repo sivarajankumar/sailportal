@@ -24,15 +24,22 @@ package org.telscenter.sail.webapp.domain.project;
 
 import java.util.List;
 
+import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
+
+import net.sf.sail.webapp.domain.Persistable;
+
 /**
  * Object to communicate to external portals
  * 
  * @author hirokiterashima
  * @version $Id$
  */
-public interface ProjectCommunicator {
+public interface ProjectCommunicator  extends Persistable {
 
 	public List<ExternalProject> getProjectList();
 	
+	@Deprecated
 	public Object previewProject(ExternalProject externalProject);
+
+	public String getPreviewProjectUrl(ExternalProjectImpl externalProject);
 }

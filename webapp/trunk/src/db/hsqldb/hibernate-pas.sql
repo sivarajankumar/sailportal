@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        acl_object_identity bigint not null,
         sid bigint not null,
+        acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -42,7 +42,7 @@
         unique (sid, principal)
     ) type=MyISAM;
 
-    create table annotationBundles (
+    create table annotationbundles (
         id bigint not null auto_increment,
         OPTLOCK integer,
         bundle longtext not null,
@@ -176,9 +176,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
+        group_fk bigint not null,
         offering_fk bigint not null,
         sds_workgroup_fk bigint not null unique,
-        group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -212,9 +212,9 @@
         foreign key (object_id_class) 
         references acl_class (id);
 
-    alter table annotationBundles 
-        add index FKD986A02F54443B2 (workgroup_fk), 
-        add constraint FKD986A02F54443B2 
+    alter table annotationbundles 
+        add index FKAA5FD222F54443B2 (workgroup_fk), 
+        add constraint FKAA5FD222F54443B2 
         foreign key (workgroup_fk) 
         references workgroups (id);
 

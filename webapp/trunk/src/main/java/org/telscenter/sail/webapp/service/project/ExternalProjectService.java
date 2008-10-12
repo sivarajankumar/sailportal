@@ -22,7 +22,10 @@
  */
 package org.telscenter.sail.webapp.service.project;
 
+import java.io.Serializable;
 import java.util.List;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -41,7 +44,13 @@ public interface ExternalProjectService extends ProjectService {
 
 	public ProjectCommunicator getProjectCommunicator();
 
-	public void importProject(ExternalProject project);
+	/**
+	 * @param externalId
+	 * @param projectCommunicatorId
+	 * @throws ObjectNotFoundException when the specified externalId 
+	 * or projectCommunicatorId are not valid, ie point to an existing resource
+	 */
+	public void importProject(Serializable externalId, Serializable projectCommunicatorId) throws ObjectNotFoundException;
 	
 	public List<ExternalProject> getExternalProjectList();
 	

@@ -25,28 +25,29 @@ package org.telscenter.sail.webapp.domain.project.impl;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.domain.Jnlp;
-
-import org.telscenter.sail.webapp.domain.Run;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
-import org.telscenter.sail.webapp.domain.project.ProjectInfo;
-import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 
 /**
- * Project stored in external locations
+ * Project stored in external locations. 
+ * Each ExternalProject has a <code>ProjectCommunicator</code> that handles
+ * communication for the project, such as retrieving/importing project.
+ * 
  * @author Hiroki Terashima
  * @author Scott Cytacki
  * @version $Id$
  */
 @Entity
 @Table(name = ExternalProjectImpl.DATA_STORE_NAME)
-public class ExternalProjectImpl implements ExternalProject {
+public class ExternalProjectImpl extends ProjectImpl implements ExternalProject {
 
 	@Transient
 	private static final String DATA_STORE_NAME = "externalprojects";
@@ -55,117 +56,18 @@ public class ExternalProjectImpl implements ExternalProject {
 	private static final long serialVersionUID = 1L;
 
 	@Transient
+	private static final String PROJECTCOMMUNICATOR_JOIN_COLUMN_NAME = "projectcommunicator_fk";
+
+	@Transient
 	private String name;
 	
 	@Transient
 	private Serializable externalId;
 	
+	@ManyToOne(targetEntity = ProjectCommunicatorImpl.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = PROJECTCOMMUNICATOR_JOIN_COLUMN_NAME, unique = false)
 	private ProjectCommunicator projectCommunicator;
 	
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
-	 */
-	public Curnit getCurnit() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#getFamilytag()
-	 */
-	public FamilyTag getFamilytag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#getId()
-	 */
-	public Serializable getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#getJnlp()
-	 */
-	public Jnlp getJnlp() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#getPreviewRun()
-	 */
-	public Run getPreviewRun() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#getProjectInfo()
-	 */
-	public ProjectInfo getProjectInfo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#isCurrent()
-	 */
-	public boolean isCurrent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#setCurnit(net.sf.sail.webapp.domain.Curnit)
-	 */
-	public void setCurnit(Curnit curnit) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#setCurrent(boolean)
-	 */
-	public void setCurrent(boolean isCurrent) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#setFamilytag(org.telscenter.sail.webapp.domain.project.FamilyTag)
-	 */
-	public void setFamilytag(FamilyTag familytag) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#setJnlp(net.sf.sail.webapp.domain.Jnlp)
-	 */
-	public void setJnlp(Jnlp jnlp) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#setPreviewRun(org.telscenter.sail.webapp.domain.Run)
-	 */
-	public void setPreviewRun(Run run) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#setProjectInfo(org.telscenter.sail.webapp.domain.project.ProjectInfo)
-	 */
-	public void setProjectInfo(ProjectInfo projectInfo) {
-		// TODO Auto-generated method stub
-
-	}
-
 	/**
 	 * @return the name
 	 */
@@ -195,19 +97,6 @@ public class ExternalProjectImpl implements ExternalProject {
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#getProjectType()
-	 */
-	public ProjectType getProjectType() {
-		return null;
-	}
-
-	/**
-	 * @see org.telscenter.sail.webapp.domain.project.Project#setProjectType(org.telscenter.sail.webapp.domain.project.impl.ProjectType)
-	 */
-	public void setProjectType(ProjectType projectType) {
-	}
-
-	/**
 	 * @return the projectCommunicator
 	 */
 	public ProjectCommunicator getProjectCommunicator() {
@@ -219,6 +108,13 @@ public class ExternalProjectImpl implements ExternalProject {
 	 */
 	public void setProjectCommunicator(ProjectCommunicator projectCommunicator) {
 		this.projectCommunicator = projectCommunicator;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.ExternalProject#launchPreview()
+	 */
+	public Object launchPreview() {
+		return new ModelAndView(new RedirectView(projectCommunicator.getPreviewProjectUrl(this)));	
 	}
 	
 }

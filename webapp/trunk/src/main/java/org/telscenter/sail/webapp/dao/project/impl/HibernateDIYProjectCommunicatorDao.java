@@ -20,36 +20,33 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project;
+package org.telscenter.sail.webapp.dao.project.impl;
 
-import java.io.Serializable;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+
+import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
+import org.telscenter.sail.webapp.domain.project.impl.DIYProjectCommunicatorImpl;
 
 /**
- * External Project Domain object.
- * 
  * @author Hiroki Terashima
- * @author Scott Cytacki
  * 
  * @version $Id$
  */
-public interface ExternalProject extends Project {
-	
-	public Serializable getExternalId();
-	
-	public void setExternalId(Serializable externalId);
+public class HibernateDIYProjectCommunicatorDao extends AbstractHibernateDao<DIYProjectCommunicatorImpl> 
+implements ProjectCommunicatorDao<DIYProjectCommunicatorImpl> {
 
-	/**
-	 * @return the projectCommunicator
-	 */
-	public ProjectCommunicator getProjectCommunicator();
+	private static final String FIND_ALL_QUERY = "from DIYProjectCommunicatorImpl";
 
-	/**
-	 * @param projectCommunicator the projectCommunicator to set
-	 */
-	public void setProjectCommunicator(ProjectCommunicator projectCommunicator);
 
-	/**
-	 * @return
-	 */
-	public Object launchPreview();
+	@Override
+	protected String getFindAllQuery() {
+		return FIND_ALL_QUERY;
+	}
+
+
+	@Override
+	protected Class<DIYProjectCommunicatorImpl> getDataObjectClass() {
+		return DIYProjectCommunicatorImpl.class;
+	}
+
 }

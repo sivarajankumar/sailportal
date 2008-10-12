@@ -142,6 +142,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewProjectController">
 		<property name="projectService" ref="projectService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
+		<property name="diyProjectCommunicator" ref="diyProjectCommunicatorDao" />
 	</bean>
 		
 	<bean id="previewprojectlistController"
