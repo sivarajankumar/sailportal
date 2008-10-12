@@ -60,7 +60,7 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 	private static final String COLUMN_NAME_BASE_URL = "baseurl";
 
 	@Transient
-	private static final String DATA_STORE_NAME = "projectcommunicators";
+	public static final String DATA_STORE_NAME = "projectcommunicators";
 
 	@Column(name = ProjectCommunicatorImpl.COLUMN_NAME_BASE_URL)
 	protected String baseUrl;

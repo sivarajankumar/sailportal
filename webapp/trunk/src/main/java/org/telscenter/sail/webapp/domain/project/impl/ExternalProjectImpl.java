@@ -50,7 +50,7 @@ import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 public class ExternalProjectImpl extends ProjectImpl implements ExternalProject {
 
 	@Transient
-	private static final String DATA_STORE_NAME = "externalprojects";
+	public static final String DATA_STORE_NAME = "externalprojects";
 	
 	@Transient
 	private static final long serialVersionUID = 1L;

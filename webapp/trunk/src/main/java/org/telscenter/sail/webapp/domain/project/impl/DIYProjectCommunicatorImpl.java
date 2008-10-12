@@ -56,7 +56,7 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	private static final long serialVersionUID = 1L;
 
 	@Transient
-	private static final String DATA_STORE_NAME = "diyprojectcommunicators";
+	public static final String DATA_STORE_NAME = "diyprojectcommunicators";
 	
 	@Transient
 	private static final String COLUMN_NAME_PREVIEW_DIY_PROJECT_SUFFIX = "previewdiyprojectsuffix";
@@ -65,6 +65,7 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	private String previewProjectSuffix = "/sail_jnlp/6/1/authoring";
 
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ExternalProject> getProjectList() {
 		String getProjectListUrlStr = baseUrl + "/external_otrunk_activities.xml";
@@ -74,7 +75,6 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 			URL getProjectListUrl = new URL(getProjectListUrlStr);
 			URLConnection getProjectListConnection = getProjectListUrl.openConnection();
 			DataInputStream dis;
-			String inputLine;
 
 			dis = new DataInputStream(getProjectListConnection.getInputStream());
 			doc = this.convertXmlInputStreamToXmlDocument(dis);
