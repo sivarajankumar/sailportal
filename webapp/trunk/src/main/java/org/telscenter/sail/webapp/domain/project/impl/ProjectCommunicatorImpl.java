@@ -62,8 +62,23 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 	@Transient
 	public static final String DATA_STORE_NAME = "projectcommunicators";
 
+	private static final String COLUMN_NAME_LATITUDE = "latitude";
+
+	private static final String COLUMN_NAME_LONGITUDE = "longitude";
+
+	private static final String COLUMN_NAME_ADDRESS = "address";
+
 	@Column(name = ProjectCommunicatorImpl.COLUMN_NAME_BASE_URL)
 	protected String baseUrl;
+	
+	@Column(name = ProjectCommunicatorImpl.COLUMN_NAME_LATITUDE)
+	protected String latitude;
+	
+	@Column(name = ProjectCommunicatorImpl.COLUMN_NAME_LONGITUDE)
+	protected String longitude;
+	
+	@Column(name = ProjectCommunicatorImpl.COLUMN_NAME_ADDRESS)
+	protected String address;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -136,5 +151,50 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 	public String getPreviewProjectUrl(ExternalProjectImpl externalProject) {
 		return null;
 	}
-	
+
+	/**
+	 * @return the latitude
+	 */
+	public String getLatitude() {
+		return latitude;
+	}
+
+	/**
+	 * @param latitude the latitude to set
+	 */
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	/**
+	 * @return the longitude
+	 */
+	public String getLongitude() {
+		return longitude;
+	}
+
+	/**
+	 * @param longitude the longitude to set
+	 */
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getXMLDocument() {
+		return null;
+	}
 }

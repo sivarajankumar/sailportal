@@ -802,6 +802,11 @@
 	    <property name="projectService" ref="externalProjectService"/>
 	</bean>
 	
+	<bean id="projectCommunicatorController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ProjectCommunicatorController">
+	    <property name="projectCommunicatorService" ref="projectCommunicatorService" />
+	</bean>
+	
 	<bean id="importExternalProjectController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ImportExternalProjectController">
 	    <property name="projectService" ref="externalProjectService"/>

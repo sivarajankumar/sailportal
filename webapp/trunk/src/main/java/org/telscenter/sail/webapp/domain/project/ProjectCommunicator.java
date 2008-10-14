@@ -38,8 +38,34 @@ public interface ProjectCommunicator  extends Persistable {
 
 	public List<ExternalProject> getProjectList();
 	
+	/**
+	 * Returns the address of this project communicator. 
+	 * e.g. "Berkeley, CA", "Concord, Massachusetts", "123 Main St, Texas, USA"
+	 * @return
+	 */
+	public String getAddress();
+	
+	/**
+	 * Returns the Longitude coordinates of this project communicator
+	 * @return
+	 */
+	public String getLongitude();
+
+	/**
+	 * Returns the Latitude coordinates of this project communicator
+	 * @return
+	 */
+	public String getLatitude();
+
 	@Deprecated
 	public Object previewProject(ExternalProject externalProject);
 
 	public String getPreviewProjectUrl(ExternalProjectImpl externalProject);
+	
+	/**
+	 * Returns an xmlDocument representation containing information about
+	 * this projectcommunicator.
+	 * @return
+	 */
+	public String getXMLDocument();
 }

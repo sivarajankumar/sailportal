@@ -126,4 +126,20 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		this.previewProjectSuffix = previewProjectSuffix;
 	}
 	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.impl.ProjectCommunicatorImpl#getXMLDocument()
+	 */
+	@Override
+	public String getXMLDocument() {
+		String xmlDoc = "<projectcommunicator>";
+		xmlDoc += "<id>" + this.getId() + "</id>";
+		xmlDoc += "<type>diy</type>";
+		xmlDoc += "<baseurl>" + this.baseUrl + "</baseurl>";
+		xmlDoc += "<address>" + this.address + "</address>";		
+		xmlDoc += "<longitude>" + this.longitude + "</longitude>";
+		xmlDoc += "<latitude>" + this.latitude + "</latitude>";
+		xmlDoc += "</projectcommunicator>";
+		return xmlDoc;
+	}
+	
 }

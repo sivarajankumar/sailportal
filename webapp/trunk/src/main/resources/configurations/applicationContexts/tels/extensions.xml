@@ -184,6 +184,11 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 	
+	<bean id="projectCommunicatorService"
+	    class="org.telscenter.sail.webapp.service.project.impl.ProjectCommunicatorServiceImpl">
+	    <property name="projectCommunicatorDao" ref="diyProjectCommunicatorDao" />
+	</bean>
+	
 	<bean id="externalProjectService"
 	    class="org.telscenter.sail.webapp.service.project.impl.ExternalProjectServiceImpl">
 	    <property name="projectCommunicator" ref="projectCommunicator" />

@@ -220,7 +220,6 @@
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
-				/admin/getallexternalprojects.html=getAllExternalProjectsController
 				/admin/uploadotml.html=uploadOtmlController
 				/admin/findprojectruns.html=findProjectRunsController
 				/admin/manageproject.html=listProjectsController
@@ -233,6 +232,9 @@
 				/admin/lookupteacher.html=lookupTeacherController
 				/admin/lookupstudent.html=lookupStudentController
 				/admin/importexternalproject.html=importExternalProjectController
+				/admin/project/getallexternalprojects.html=getAllExternalProjectsController
+				/admin/project/viewprojectcommunicators.html=projectCommunicatorController
+				/admin/project/manageprojectcommunicator.html=projectCommunicatorController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				/repository/retrieveotml.html=retrieveOtmlController

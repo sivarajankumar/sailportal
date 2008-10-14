@@ -27,30 +27,19 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 
 /**
- * ProjectService for projects on external (non-local) servers/portals.
- * 
- * @author Hiroki Terashima
- * @author Scott Cytacki
- * @version $Id$
+ * @author hirokiterashima
+ * @version $Id:$
  */
-public interface ExternalProjectService extends ProjectService {
-
-	public void setProjectCommunicator(ProjectCommunicator projectCommunicator);
-
-	public ProjectCommunicator getProjectCommunicator();
+public interface ProjectCommunicatorService {
 
 	/**
-	 * @param externalId
-	 * @param projectCommunicatorId
-	 * @throws ObjectNotFoundException when the specified externalId 
-	 * or projectCommunicatorId are not valid, ie point to an existing resource
+	 * Returns a list of all project communicators that this portal knows about.
+	 * @return
 	 */
-	public void importProject(Serializable externalId, Serializable projectCommunicatorId) throws ObjectNotFoundException;
-	
-	public List<ExternalProject> getExternalProjectList();
+	public List<ProjectCommunicator> getAllProjectCommunicatorList();
+
+	public ProjectCommunicator getById(Serializable id) throws ObjectNotFoundException;
 }

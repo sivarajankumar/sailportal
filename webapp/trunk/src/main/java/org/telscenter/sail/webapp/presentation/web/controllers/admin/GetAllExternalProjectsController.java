@@ -30,9 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author hirokiterashima
@@ -41,7 +39,7 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 public class GetAllExternalProjectsController extends AbstractController {
 	
 	private static final String EXTERNAL_PROJECTS_PARAM = "externalProjectList";
-	
+
 	private ExternalProjectService projectService;
 
 	/**

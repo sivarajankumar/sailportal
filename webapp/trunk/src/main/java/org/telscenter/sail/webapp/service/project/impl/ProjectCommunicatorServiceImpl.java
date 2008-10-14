@@ -20,37 +20,47 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.project;
+package org.telscenter.sail.webapp.service.project.impl;
 
 import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
+import org.telscenter.sail.webapp.service.project.ProjectCommunicatorService;
 
 /**
- * ProjectService for projects on external (non-local) servers/portals.
- * 
- * @author Hiroki Terashima
- * @author Scott Cytacki
- * @version $Id$
+ * @author hirokiterashima
+ * @version $Id:$
  */
-public interface ExternalProjectService extends ProjectService {
-
-	public void setProjectCommunicator(ProjectCommunicator projectCommunicator);
-
-	public ProjectCommunicator getProjectCommunicator();
+public class ProjectCommunicatorServiceImpl implements
+		ProjectCommunicatorService {
+	
+	private ProjectCommunicatorDao<ProjectCommunicator> projectCommunicatorDao;
 
 	/**
-	 * @param externalId
-	 * @param projectCommunicatorId
-	 * @throws ObjectNotFoundException when the specified externalId 
-	 * or projectCommunicatorId are not valid, ie point to an existing resource
+	 * @see org.telscenter.sail.webapp.service.project.ProjectCommunicatorService#getAllProjectCommunicatorList()
 	 */
-	public void importProject(Serializable externalId, Serializable projectCommunicatorId) throws ObjectNotFoundException;
-	
-	public List<ExternalProject> getExternalProjectList();
+	public List<ProjectCommunicator> getAllProjectCommunicatorList() {
+		return projectCommunicatorDao.getList();
+	}
+
+	/**
+	 * @param projectCommunicatorDao the projectCommunicatorDao to set
+	 */
+	public void setProjectCommunicatorDao(
+			ProjectCommunicatorDao<ProjectCommunicator> projectCommunicatorDao) {
+		this.projectCommunicatorDao = projectCommunicatorDao;
+	}
+
+	/**
+	 * @throws ObjectNotFoundException 
+	 * @see org.telscenter.sail.webapp.service.project.ProjectCommunicatorService#getById(java.io.Serializable)
+	 */
+	public ProjectCommunicator getById(Serializable id) throws ObjectNotFoundException {
+		return projectCommunicatorDao.getById(id);
+	}
+
 }
