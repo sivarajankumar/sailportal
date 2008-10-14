@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.domain.project.impl;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -59,10 +60,13 @@ public class ExternalProjectImpl extends ProjectImpl implements ExternalProject 
 	private static final String PROJECTCOMMUNICATOR_JOIN_COLUMN_NAME = "projectcommunicator_fk";
 
 	@Transient
+	private static final String EXTERNAL_ID_COLUMN_NAME = "external_id";
+
+	@Transient
 	private String name;
 	
-	@Transient
-	private Serializable externalId;
+	@Column(name = EXTERNAL_ID_COLUMN_NAME)
+	private Long externalId;
 	
 	@ManyToOne(targetEntity = ProjectCommunicatorImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = PROJECTCOMMUNICATOR_JOIN_COLUMN_NAME, unique = false)
@@ -90,13 +94,6 @@ public class ExternalProjectImpl extends ProjectImpl implements ExternalProject 
 	}
 
 	/**
-	 * @param externalDIYId the externalDIYId to set
-	 */
-	public void setExternalId(Serializable externalDIYId) {
-		this.externalId = externalDIYId;
-	}
-
-	/**
 	 * @return the projectCommunicator
 	 */
 	public ProjectCommunicator getProjectCommunicator() {
@@ -115,6 +112,15 @@ public class ExternalProjectImpl extends ProjectImpl implements ExternalProject 
 	 */
 	public Object launchPreview() {
 		return new ModelAndView(new RedirectView(projectCommunicator.getPreviewProjectUrl(this)));	
+	}
+
+	public Object importProject() {
+		//projectCommunicator.get
+		return null;
+	}
+
+	public void setExternalId(Serializable externalId) {
+		this.externalId = (Long) externalId;
 	}
 	
 }

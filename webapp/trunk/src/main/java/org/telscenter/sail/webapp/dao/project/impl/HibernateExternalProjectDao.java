@@ -20,42 +20,23 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project;
+package org.telscenter.sail.webapp.dao.project.impl;
 
-import java.io.Serializable;
+import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 
 /**
- * External Project Domain object.
- * 
- * @author Hiroki Terashima
- * @author Scott Cytacki
- * 
+ * @author hirokiterashima
  * @version $Id$
  */
-public interface ExternalProject extends Project {
-	
-	public Serializable getExternalId();
-	
-	public void setExternalId(Serializable externalId);
+public class HibernateExternalProjectDao extends HibernateProjectDao {
+
+	private static final String FIND_ALL_QUERY = "from ExternalProjectImpl";
 
 	/**
-	 * @return the projectCommunicator
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
-	public ProjectCommunicator getProjectCommunicator();
-
-	/**
-	 * @param projectCommunicator the projectCommunicator to set
-	 */
-	public void setProjectCommunicator(ProjectCommunicator projectCommunicator);
-
-	/**
-	 * @return
-	 */
-	public Object launchPreview();
-	
-	/**
-	 * @return
-	 */
-	public Object importProject();
-
+	@Override
+	protected Class<ExternalProjectImpl> getDataObjectClass() {
+		return ExternalProjectImpl.class;
+	}
 }

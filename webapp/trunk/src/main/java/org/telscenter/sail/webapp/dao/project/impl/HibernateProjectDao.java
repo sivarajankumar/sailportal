@@ -87,7 +87,7 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
 	 */
 	@Override
-	protected Class<ProjectImpl> getDataObjectClass() {
+	protected Class<? extends ProjectImpl> getDataObjectClass() {
 		return ProjectImpl.class;
 	}
 

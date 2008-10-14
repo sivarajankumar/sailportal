@@ -56,6 +56,11 @@
        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <bean id="externalProjectDao"
+        class="org.telscenter.sail.webapp.dao.project.impl.HibernateExternalProjectDao">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
 <!--      
     <bean id="rooloProject"
         class="org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl">
@@ -192,7 +197,7 @@
 	<bean id="externalProjectService"
 	    class="org.telscenter.sail.webapp.service.project.impl.ExternalProjectServiceImpl">
 	    <property name="projectCommunicator" ref="projectCommunicator" />
-	    <property name="projectDao" ref="projectDao" />
+	    <property name="projectDao" ref="externalProjectDao" />
 	    <property name="projectCommunicatorDao" ref="diyProjectCommunicatorDao" />
 	</bean>
 	
