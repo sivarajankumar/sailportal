@@ -29,8 +29,6 @@ public class PreviewProjectController extends AbstractController {
 	
 	private static final String PROJECT_COMMUNICATOR_ID_PARAM = "projectCommunicatorId";
 
-	private static final String PROJECT_TYPE_PARAM_NAME = "projectType";
-	
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
 
 	private static final String DIY_EXTERNAL_ID_PARAM_NAME = "externalId";
@@ -48,11 +46,10 @@ public class PreviewProjectController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		String projectTypeStr = request.getParameter(PROJECT_TYPE_PARAM_NAME);
-		if (projectTypeStr != null && projectTypeStr.equals("diy")) {
+		String projectCommunicatorId = request.getParameter(PROJECT_COMMUNICATOR_ID_PARAM);
+		if (projectCommunicatorId != null) {
+			// we are trying to preview an external project
 			String diyExternalIdStr = request.getParameter(DIY_EXTERNAL_ID_PARAM_NAME);
-			String projectCommunicatorId = request.getParameter(PROJECT_COMMUNICATOR_ID_PARAM);
-
 			PreviewProjectParameters params = new PreviewProjectParameters();
 			ExternalProjectImpl diyProject = new ExternalProjectImpl();
 			diyProject.setExternalId(diyExternalIdStr);

@@ -44,7 +44,7 @@
 	<tr>
 		<td>${project.name}</td>		
 		<td>${project.projectCommunicator.address} (${project.projectCommunicator.longitude},${project.projectCommunicator.latitude})</td>
-		<td><a href="../previewproject.html?projectType=diy&externalId=${project.externalId}&projectCommunicatorId=${project.projectCommunicator.id}">Preview</a></td>		
+		<td><a href="../previewproject.html?externalId=${project.externalId}&projectCommunicatorId=${project.projectCommunicator.id}">Preview</a></td>		
 		<td><a href="importexternalproject.html?projectType=diy&externalId=${project.externalId}&projectCommunicatorId=${project.projectCommunicator.id}">Import</a></td>				
 	</tr>
 	</c:forEach>

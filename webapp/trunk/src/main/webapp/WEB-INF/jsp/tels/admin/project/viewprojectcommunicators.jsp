@@ -91,7 +91,6 @@
 
         for (z=0;z<projectcommunicators.projectcommunicators.length;z++) {
         	var pc = projectcommunicators.projectcommunicators[z];
-        	alert(pc.longitude + pc.latitude + pc.address);
         	var point = new GLatLng(pc.longitude,pc.latitude);
         	map.addOverlay(createMarker(point, pc));
         };
@@ -102,7 +101,6 @@
 
 </head>
 <body onload="load()" onunload="GUnload()">
-    <div id="map" style="width: 600px; height: 400px"></div>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -110,26 +108,9 @@
 
 <%@ include file="../adminheader.jsp"%>
 
-<h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html">Return to Admin Main Menu</a></h5>
 
-<c:out value="${message}" />
-
-<h2>External Projects</h2>
-<table id="adminManageProjectsTable">
-	<tr>
-		<th> Project Title </th>
-		<th> Preview Project </th>
-		<th> Import Project to Library </th>		
-	</tr>
-	<c:forEach var="project" items="${externalProjectList}">
-	<c:set var="infoWindowHTML" value="<b>Name:${project.name}</b><a href='../previewproject.html?projectType=diy&externalId=${project.externalId}&projectCommunicatorId=${project.projectCommunicator.id}'></a>" />
-	<tr>
-		<td>${project.name}</td>		
-		<td><a href="../previewproject.html?projectType=diy&externalId=${project.externalId}&projectCommunicatorId=${project.projectCommunicator.id}">Preview</a></td>		
-		<td><a href="importexternalproject.html?projectType=diy&externalId=${project.externalId}&projectCommunicatorId=${project.projectCommunicator.id}">Import</a></td>				
-	</tr>
-	</c:forEach>
-</table>
+    <center><div id="map" style="width: 900px; height: 600px"></div></center><br/><br/>
 
 </body>
 </html>
