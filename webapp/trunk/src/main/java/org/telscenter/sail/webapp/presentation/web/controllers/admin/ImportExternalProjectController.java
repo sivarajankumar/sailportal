@@ -29,9 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectCommunicatorImpl;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Imports an external project to the portal.
