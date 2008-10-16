@@ -28,7 +28,10 @@ var wiseinactions = new Array('./themes/tels/default/images/wiseInAction/AirBag.
 
 var testimonials = new Array('./themes/tels/default/images/testimonial_1.png',
                              './themes/tels/default/images/testimonial_2.png',
-							 './themes/tels/default/images/wiseInAction/dummyfile5.jpg');
+                             './themes/tels/default/images/testimonial_3.png',
+                             './themes/tels/default/images/testimonial_4.png',
+                             './themes/tels/default/images/testimonial_5.png');
+							
 							 
 //http://code.blizaga.com/javascript_drawing_gradients.html
 function js_gradient(grWidth, grHeight, grDir, grRed1, grGreen1, grBlue1, grRed2, grGreen2, grBlue2) { 

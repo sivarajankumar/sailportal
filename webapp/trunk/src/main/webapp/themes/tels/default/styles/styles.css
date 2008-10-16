@@ -867,3 +867,54 @@
 	font-size:.85em;
 	}
 	
+	
+/* AUTHORING PAGES */
+
+.authorQuote {
+	font-size:.8em;
+	font-weight:bold;
+	font-style:italic; 
+	letter-spacing:-.2px; 
+	margin:10px 0 15px 0;
+}
+
+.bigTitle {
+	color:#003300;
+	font-weight:bold;
+	font-size:1.8em;
+}
+
+#authorInfoTable {
+	background-color:#CCFF99;
+	text-align:left;
+	border-collapse:collapse;
+	width:100%;
+	margin:15px 0 30px 0;
+	}
+
+#authorInfoTable th { 
+	border:1px solid #666666;
+	font-weight:normal;
+	font-size:.8em;
+	padding: 0 15px;
+}
+
+#authorInfoTable td { 
+	border:1px solid #666666;
+	font-weight:normal;
+	font-size:1.0em;
+	font-weight:bold;
+	padding: 2px 7px;
+	}
+	
+.authorSectionHeader { 
+	background-color:#6699FF;
+	font-size:1.2em;
+	font-weight:bold;
+	letter-spacing:.8px;
+	padding: 3px;
+	margin: 10px 0px; 
+	}
+
+
+
