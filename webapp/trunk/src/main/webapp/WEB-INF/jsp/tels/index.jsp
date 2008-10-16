@@ -153,8 +153,9 @@ width: 100%;
                     
                     <td class="width15"></td>  <!--    Separator Column-->	
                     
-          <td id="boxTableSignInHome" class="panelColor">
-                    			<div id="header"><spring:message code="signinheader"/><span style="margin-left:10px;font-size:.6em;font-weight:normal;"><spring:message code="existingaccounts"/></span></div>
+          <td id="boxTableSignInHome" >
+          		<div id="boxTableSignInSub1" class="panelColor">   <!--  SignIn Sub Box 1-->
+                    			<div id="header"><spring:message code="signinheader"/></div>
 								<form id="home" method="post" action="j_acegi_security_check">
                                 <dl id="signinDefinList">
                                     <dt><label for="username"><spring:message code="username"/></label> </dt>
@@ -181,7 +182,15 @@ width: 100%;
                                 		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message code="findalostusername"/></a>  </li>
                                 		<li><a href="signup.html" id="joinlink"><spring:message code="createanewwiseaccount"/></a></li>
                                 </ul>
-                                
+                </div>                
+                
+                <div id="boxTableSignInSub2" class="panelColor">   <!--  Researcher/Developer Sub Box 2-->
+                   				<div id="header"><spring:message code="researchdevelop1"/></div> 
+								<div id="researcherText">
+		  						<p><spring:message code="researchdevelop2"/><br><spring:message code="researchdevelop3"/>&nbsp;<a href="http://www.telscenter.org/index.html" target="_blank"><spring:message code="researchdevelop4"/></a></p>
+                				</div>
+                </div>
+                
                                 </td>   <!--    End of boxTableSignIn  x-->
                 	</tr> 
             </table>             
