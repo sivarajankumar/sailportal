@@ -36,6 +36,9 @@ public interface ExternalProject extends Project {
 	
 	public Serializable getExternalId();
 	
+	/**
+	 * @param externalId
+	 */
 	public void setExternalId(Serializable externalId);
 
 	/**

@@ -132,7 +132,7 @@
 				    	</c:forEach>
 				    	<div class="center">
 				    		<ul id="titleCellLinkList">
-				    			<li><a href=""><spring:message code="teacher.run.myprojectruns.38"/></a></li>
+				    			<li><a href="../../previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.38"/></a></li>
 				    			<li><a href="../projects/projectinfo.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.14"/></a></li>
 				    		</ul>
 				      	</div>

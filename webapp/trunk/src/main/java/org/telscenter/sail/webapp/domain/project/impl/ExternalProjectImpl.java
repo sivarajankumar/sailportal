@@ -66,7 +66,7 @@ public class ExternalProjectImpl extends ProjectImpl implements ExternalProject 
 	private String name;
 	
 	@Column(name = EXTERNAL_ID_COLUMN_NAME)
-	private Long externalId;
+	private Serializable externalId;
 	
 	@ManyToOne(targetEntity = ProjectCommunicatorImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = PROJECTCOMMUNICATOR_JOIN_COLUMN_NAME, unique = false)
@@ -120,7 +120,7 @@ public class ExternalProjectImpl extends ProjectImpl implements ExternalProject 
 	}
 
 	public void setExternalId(Serializable externalId) {
-		this.externalId = (Long) externalId;
+		this.externalId = externalId;
 	}
 	
 }

@@ -74,9 +74,11 @@
     	var marker = new GMarker(point, {clickable:true});
 
     	GEvent.addListener(marker, "click", function() {
-		marker.openInfoWindowHtml("<b>" + pc.baseurl + "</b><br/>Id: "+ pc.id 
-        		+ "<br/>Address: " + pc.address + "<br/>type: " + pc.type
-        		+ "<br/><a href='manageprojectcommunicator.html?projectCommunicatorId=" + pc.id +"'>Visit</a>");
+		marker.openInfoWindowHtml("<table><tr><td><b>Baseurl</b></td><td>" + pc.baseurl + "</td></tr>" +
+		      "<tr><td><b>Id</b></td><td>"+ pc.id + "</td></tr>" + 
+              "<tr><td><b>Type</b></td><td>" + pc.type + "</td></tr>" +		      
+              "<tr><td><b>Address</b></td><td>" + pc.address + "</td></tr>" +
+        	  "<tr><td></td><td><a href='manageprojectcommunicator.html?projectCommunicatorId=" + pc.id +"'>Visit</a></td></tr></table>");
 		});
 		
     	return marker;  
