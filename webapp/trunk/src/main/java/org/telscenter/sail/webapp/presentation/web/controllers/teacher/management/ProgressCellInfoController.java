@@ -94,7 +94,7 @@ public class ProgressCellInfoController extends AbstractController{
 			for(ERim rim : (List<ERim>) step.getRim()){
 				for(SessionBundle sessionBundle : aggregate.getSessionBundles()){
 					for(ESockPart sockPart : (List<ESockPart>) sessionBundle.getESessionBundle().getSockParts()){
-						if(sockPart.getRimName().equals(rim.getRimname())){
+						if(sockPart.getPodId().equals(step.getPodUUID()) && sockPart.getRimName().equals(rim.getRimname())){
 							copiedRims.remove(rim);
 //							ESockEntry sockEntry = ((ESockEntry) sockPart.getSockEntries().get(sockPart.getSockEntries().size()-1));
 //							if(sockEntry.getValue() == null || sockEntry.getValue() == ""){
