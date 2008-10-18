@@ -870,9 +870,9 @@
 	
 /* AUTHORING PAGES */
 
-.authorQuote {
+#authorQuote { 
 	font-size:.8em;
-	font-weight:bold;
+	font-weight:normal;
 	font-style:italic; 
 	letter-spacing:-.2px; 
 	margin:10px 0 15px 0;
@@ -881,7 +881,7 @@
 .bigTitle {
 	color:#003300;
 	font-weight:bold;
-	font-size:1.8em;
+	font-size:1.7em;
 }
 
 #authorInfoTable {
@@ -889,7 +889,7 @@
 	text-align:left;
 	border-collapse:collapse;
 	width:100%;
-	margin:15px 0 30px 0;
+	margin:15px 0 20px 0;
 	}
 
 #authorInfoTable th { 
@@ -897,24 +897,93 @@
 	font-weight:normal;
 	font-size:.8em;
 	padding: 0 15px;
+	width:15%;
 }
 
 #authorInfoTable td { 
 	border:1px solid #666666;
 	font-weight:normal;
-	font-size:1.0em;
+	font-size:.8em;
 	font-weight:bold;
 	padding: 2px 7px;
 	}
 	
 .authorSectionHeader { 
 	background-color:#6699FF;
-	font-size:1.2em;
+	font-size:1.1em;
 	font-weight:bold;
 	letter-spacing:.8px;
 	padding: 3px;
-	margin: 10px 0px; 
+	margin: 25px 0px 10px 0; 
 	}
 
+.authorSectionHeader2 {
+	color:#003300;
+	font-weight:bold;
+	font-size:.9em;
+	margin:0px 0 5px 5px;
+}
 
+.authorOptionsBlock {
+	font-size:.8em;
+	margin:0 0 15px 25px;
+}
 
+.authorOptionsBlock2 {
+	font-size:.7em;
+	margin:0 0 5px 25px;
+}
+
+#subgroupSelectionBox {
+	border:1px solid #999999;
+	margin:0px 0 0 60px;
+	padding:10px;
+	width:80%;
+	}
+
+#subgroupNotice1 {
+	font-size:.7em;
+	letter-spacing:-.2px;
+}
+
+#subgroupBox2 {
+	margin:10px 0 10px 60px;
+	font-size:.7em;
+	letter-spacing:-.2px;
+		}
+		
+#subgroupBox2bullets {
+	margin-left:15px;
+		}
+	
+#responseButtons {
+	margin:0 0 0 25px;
+}
+
+#updatePromptPreviewButton {
+	margin:0 0 20px 25px;
+}
+
+#promptPreview {
+	text-align:center;
+	margin: 0 auto;
+}
+
+#prewrittenResponsesTable {
+	border-collapse:collapse;
+	margin:0px;
+}
+
+#prewrittenResponsesTable td{
+	vertical-align:top;
+	text-align:left;
+	padding:0px;
+}
+
+#prewrittenResponsesTable ul {
+	list-style-type:none;
+	font-size:.7em;
+	margin:2px 0 0 10px;
+	padding:0px;
+	line-height:150%;
+}
