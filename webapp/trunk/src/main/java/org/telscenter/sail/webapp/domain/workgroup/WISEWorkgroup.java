@@ -63,4 +63,13 @@ public interface WISEWorkgroup extends Workgroup  {
 	 */
 	public void setWorkPDFUrl(String url);
 
+	/**
+	 * @return the externalId
+	 */
+	public Long getExternalId();
+
+	/**
+	 * @param externalId the externalId to set
+	 */
+	public void setExternalId(Long externalId);
 }

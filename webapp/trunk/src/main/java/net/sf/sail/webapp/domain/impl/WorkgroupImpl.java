@@ -85,7 +85,7 @@ public class WorkgroupImpl implements Workgroup {
     private Integer version = null;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsWorkgroup.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = COLUMN_NAME_SDS_WORKGROUP_FK, nullable = false, unique = true)
+    @JoinColumn(name = COLUMN_NAME_SDS_WORKGROUP_FK, unique = true)
     private SdsWorkgroup sdsWorkgroup;
 
     @OneToOne(targetEntity = OfferingImpl.class, fetch = FetchType.EAGER)

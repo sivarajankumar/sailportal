@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.workgroup.impl;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -54,6 +55,12 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
 	@Transient
 	private static final String COLUMN_NAME_PERIOD_FK = "period";
 
+	@Transient
+	private static final String COLUMN_NAME_EXTERNAL_ID = "externalId";
+	
+	@Column(name = COLUMN_NAME_EXTERNAL_ID)
+	private Long externalId;
+	
     @OneToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
     @JoinColumn(name = COLUMN_NAME_PERIOD_FK)
 	private Group period;
@@ -91,5 +98,19 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
 	 */
 	public void setWorkPDFUrl(String url) {
 		this.workPDFUrl = url;
+	}
+
+	/**
+	 * @return the externalId
+	 */
+	public Long getExternalId() {
+		return externalId;
+	}
+
+	/**
+	 * @param externalId the externalId to set
+	 */
+	public void setExternalId(Long externalId) {
+		this.externalId = externalId;
 	}
 }
