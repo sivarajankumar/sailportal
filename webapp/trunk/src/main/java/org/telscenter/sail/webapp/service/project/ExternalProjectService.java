@@ -50,7 +50,7 @@ public interface ExternalProjectService extends ProjectService {
 	 * @throws ObjectNotFoundException when the specified externalId 
 	 * or projectCommunicatorId are not valid, ie point to an existing resource
 	 */
-	public void importProject(Serializable externalId, Serializable projectCommunicatorId) throws ObjectNotFoundException;
+	public void importProject(Long externalId, Serializable projectCommunicatorId) throws ObjectNotFoundException;
 	
 	public List<ExternalProject> getExternalProjectList();
 }

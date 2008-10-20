@@ -215,9 +215,10 @@ public class CreateRunController extends AbstractWizardFormController {
 			}
 			model.put("project", project);
 
-			// set curnitId and jnlpId to use for this run
-			runParameters.setCurnitId(project.getCurnit().getId());
-			runParameters.setJnlpId(project.getJnlp().getId());
+			// set curnitId and jnlpId to use for this run  ..might not be needed anymore because we're setting the project
+			// in the runParameters.
+			//runParameters.setCurnitId(project.getCurnit().getId());
+			//runParameters.setJnlpId(project.getJnlp().getId());
 			// add the current user as an owner of the run
 			User user = (User) request.getSession().getAttribute(
 					User.CURRENT_USER_SESSION_KEY);
@@ -225,6 +226,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			owners.add(user);
 			runParameters.setOwners(owners);
 			runParameters.setProject(project);
+			runParameters.setName(project.getProjectInfo().getName());
 			break;
 		case 1:
 			// for page 2 of the wizard, display existing runs for this user
@@ -244,15 +246,6 @@ public class CreateRunController extends AbstractWizardFormController {
 			}
 			// end temporary code
 			model.put("existingRunList", currentRuns);
-
-			// TODO HT: talk with Matt on how to set/change run name
-			try {
-				module = (Module) this.moduleService.getById(runParameters.getCurnitId());
-			} catch (ObjectNotFoundException e) {
-				// TODO HT: what should happen when the project id is invalid?
-				e.printStackTrace();
-			}
-			runParameters.setName("Run: " + module.getSdsCurnit().getName());
 			break;
 		case 2:
 			// for page 3 of the wizard, display available period names to the user
@@ -265,7 +258,6 @@ public class CreateRunController extends AbstractWizardFormController {
 		default:
 			break;
 		}
-
 		return model;
 	}
 	
@@ -370,7 +362,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			"School Location: " + schoolCity + ", " + schoolState + "\n" + 
 			"School Periods: " + schoolPeriods + "\n" +
 			"Project codes: " + projectcodes.toString() + "\n" +
-			"Project Name: " + run.getProject().getCurnit().getSdsCurnit().getName() + "\n" + 
+			"Project Name: " + run.getProject().getProjectInfo().getName() + "\n" + 
 			"Project ID: "+ projectID + "\n" +
 			"Run Created: " + sdf.format(date) + "\n" + 
 

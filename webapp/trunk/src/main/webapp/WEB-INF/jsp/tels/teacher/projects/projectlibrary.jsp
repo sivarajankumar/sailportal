@@ -63,9 +63,9 @@
 			<th>usage</th>
 		</tr>
 		<tr id="libraryProjectTableR2">
-			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.curnit.sdsCurnit.name}</a></td>
+			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.projectInfo.name}</a></td>
 			<td class="dataCell">${project.id}</td>   
-			<td class="dataCell libraryProjectSmallText">UC Berkeley library project</td>       		   
+			<td class="dataCell libraryProjectSmallText">${project.projectInfo.source}</td>       		   
 			<td class="dataCell libraryProjectSmallText">${project.projectInfo.subject} ${project.projectInfo.keywords}</td>
 			<td class="dataCell">${project.projectInfo.gradeLevel}</td>              
 			<td class="dataCell">[6 periods]</td>              

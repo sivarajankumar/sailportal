@@ -380,7 +380,7 @@ YAHOO.util.Event.onDOMReady(init);
 							<tr id="projectMainRow">
 								<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.16"/></td>
 								<td>
-									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
+									<div id="studentTitleText">${studentRunInfo.run.name}</div></td>
 								<td rowspan="5" style="width:30%; padding:2px;">
 									  	<ul id="studentActionList">   
 											<li>

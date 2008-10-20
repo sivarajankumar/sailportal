@@ -479,7 +479,7 @@
 					
 					<c:forEach var="run" items="${run_list}">
 						<tr>
-							<td style="width:40%;font-size:.7em;">${run.sdsOffering.name}</td>
+							<td style="width:40%;font-size:.7em;">${run.name}</td>
 							<td style="width:10%;font-size:.6em;">${run.id}</td>
 							<td style="padding:2px 4px;">
 								<ul id="quickToolLinks">

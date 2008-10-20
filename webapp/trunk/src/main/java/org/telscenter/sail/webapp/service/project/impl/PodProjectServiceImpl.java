@@ -324,7 +324,8 @@ public class PodProjectServiceImpl implements ProjectService {
     @Transactional(readOnly = true)
 	public Project getById(Serializable projectId) throws ObjectNotFoundException {
     	Project project = this.projectDao.getById(projectId);
-		populateProjectInfo(project);
+		populateProjectInfo(project);  // need to deprecate.
+		project.populateProjectInfo();
     	return project;
 	}
 
@@ -346,6 +347,7 @@ public class PodProjectServiceImpl implements ProjectService {
 			project.setProjectInfo(getProjectInfoFromCurnitProxy(curnitProxy));
 		} else if (curnit instanceof ModuleImpl) {
 			// populate iscurrent and familytag from database
+			project.getProjectInfo().setName(project.getName());
 		}
 	}
 
@@ -373,6 +375,7 @@ public class PodProjectServiceImpl implements ProjectService {
     	for (Project project : projectList) {
     		try {
 				populateProjectInfo(project);
+				project.populateProjectInfo();
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -396,7 +399,8 @@ public class PodProjectServiceImpl implements ProjectService {
     	List<Project> projectList = this.projectDao.retrieveListByTag(familytag);
     	// populate roolo projects' projectinfos
     	for (Project project : projectList) {
-    		populateProjectInfo(project);
+    		populateProjectInfo(project);  // should be deprecated. each project should know how to populate its projectinfo
+    		project.populateProjectInfo();
     	}
 		return projectList;
 	}

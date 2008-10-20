@@ -39,6 +39,7 @@
 
 <c:out value="${message}" />
 
+<h4>Internal Projects (Projects that can be run completely within the portal without the aid of outside portals)</h4>
 <table id="adminManageProjectsTable">
 	<tr>
 		<th> Project Title </th>
@@ -51,24 +52,61 @@
 		<th> Edit Project Metadata</th>		
 		<th> Preview Project</th>				
 	</tr>
-	<c:forEach var="project" items="${projectList}">
+	<c:forEach var="project" items="${internal_project_list}">
 	<tr>
-		<td>${project.curnit.sdsCurnit.name }</td>
+		<td>${project.curnit.sdsCurnit.name}</td>
 		<td>${project.id }</td>
 		<td>${project.current }</td>
 		<td>${project.familytag} (${project.projectType})</td>
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
-		<td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>	
-		<td>   		    
-		    <c:choose>
+		<c:choose>
 		    	<c:when test="${project.projectType == potrunk}">  <!--  if this is a POTrunk project, we can get the otml -->
-		    	   <a href="${project.curnit.retrieveotmlurl}">View Otml</a>
+		    	   <td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>
+		    	   <td><a href="${project.curnit.retrieveotmlurl}">View Otml</a></td>
 		    	</c:when>
 		    	<c:otherwise>
-		    	    Not available for this project.
+		    	    <td>Not available for this project.</td>
+		    	    <td>Not available for this project.</td>
 		    	</c:otherwise>
-		    </c:choose>
+		</c:choose>
 		</td>				
+		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
+		<td><a href="../previewproject.html?projectId=${project.id}">Preview</a></td>		
+	</tr>
+	</c:forEach>
+</table>
+
+
+<h4>External Projects (Projects that require the aid of outside portals and outside project services in some capacity to function)</h4>
+<table id="adminManageProjectsTable">
+	<tr>
+		<th> Project Title </th>
+		<th> Project Id</th>
+		<th> IsCurrent?</th>
+		<th> familytag</th>
+		<th> Edit Project with Authoring tool</th>
+		<th> Upload Otml File</th>
+		<th> View Otml File</th>		
+		<th> Edit Project Metadata</th>		
+		<th> Preview Project</th>				
+	</tr>
+	<c:forEach var="project" items="${external_project_list}">
+	<tr>
+		<td>${project.name}</td>
+		<td>${project.id }</td>
+		<td>${project.current }</td>
+		<td>${project.familytag} (${project.projectType})</td>
+		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
+				<c:choose>
+		    	<c:when test="${project.projectType == potrunk}">  <!--  if this is a POTrunk project, we can get the otml -->
+		    	   <td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>
+		    	   <td><a href="${project.curnit.retrieveotmlurl}">View Otml</a></td>
+		    	</c:when>
+		    	<c:otherwise>
+		    	    <td>Not available for this project.</td>
+		    	    <td>Not available for this project.</td>
+		    	</c:otherwise>
+		</c:choose>
 		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
 		<td><a href="../previewproject.html?projectId=${project.id}">Preview</a></td>		
 	</tr>

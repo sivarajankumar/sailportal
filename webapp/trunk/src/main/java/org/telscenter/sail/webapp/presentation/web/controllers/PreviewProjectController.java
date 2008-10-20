@@ -31,7 +31,7 @@ public class PreviewProjectController extends AbstractController {
 
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
 
-	private static final String DIY_EXTERNAL_ID_PARAM_NAME = "externalId";
+	private static final String EXTERNAL_ID_PARAM_NAME = "externalId";
 	
 	private ProjectService projectService;
 	
@@ -49,12 +49,12 @@ public class PreviewProjectController extends AbstractController {
 		String projectCommunicatorId = request.getParameter(PROJECT_COMMUNICATOR_ID_PARAM);
 		if (projectCommunicatorId != null) {
 			// we are trying to preview an external project
-			String diyExternalIdStr = request.getParameter(DIY_EXTERNAL_ID_PARAM_NAME);
+			String externalIdStr = request.getParameter(EXTERNAL_ID_PARAM_NAME);
 			PreviewProjectParameters params = new PreviewProjectParameters();
-			ExternalProjectImpl diyProject = new ExternalProjectImpl();
-			diyProject.setExternalId(diyExternalIdStr);
-			diyProject.setProjectCommunicator(diyProjectCommunicator.getById(projectCommunicatorId));
-			params.setProject(diyProject);
+			ExternalProjectImpl externalProject = new ExternalProjectImpl();
+			externalProject.setExternalId(Long.valueOf(externalIdStr));
+			externalProject.setProjectCommunicator(diyProjectCommunicator.getById(projectCommunicatorId));
+			params.setProject(externalProject);
 			return (ModelAndView) projectService.previewProject(params);
 		}
 		

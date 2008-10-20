@@ -56,7 +56,7 @@
     <div class="yui-content">
         <div id="tab1">
         
-            <div id="projectInfoProjectTitle">${project.curnit.sdsCurnit.name}</div>
+            <div id="projectInfoProjectTitle">${project.projectInfo.name}</div>
             
             <table id="projectInfoActionButtons"  >
             	<tr>
@@ -73,11 +73,11 @@
 	    
 	    	<dl id="projectInfo">
 	    		<dt>Project Name:</dt>
-	    			<dd>${project.curnit.sdsCurnit.name}</dd>
+	    			<dd>${project.projectInfo.name}</dd>
 	    		<dt>Project ID:</dt>
 	    			<dd>${project.id}</dd>
 	    		<dt>Project Source:</dt>
-	    			<dd>[Type data here]</dd>
+	    			<dd>${project.projectInfo.source}</dd>
 	    		<dt style="letter-spacing:-.7px;">Subjects/Keywords:</dt>
 	    			<dd>${project.projectInfo.subject} ${project.projectInfo.keywords}</dd>
 	    		<dt>Grade Range:</dt>

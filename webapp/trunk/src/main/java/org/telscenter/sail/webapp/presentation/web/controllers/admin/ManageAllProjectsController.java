@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -43,7 +45,11 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 public class ManageAllProjectsController extends AbstractController {
 	
 	private static final String VIEW_NAME = "admin/manageallprojects";
-	
+
+	private static final String INTERNAL_PROJECT_LIST_PARAM_NAME = "internal_project_list";
+
+	private static final String EXTERNAL_PROJECT_LIST_PARAM_NAME = "external_project_list";
+
 	private ProjectService projectService;
 		
 	/**
@@ -53,11 +59,20 @@ public class ManageAllProjectsController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-   		List<Project> projectList = projectService.getProjectList();
+   		List<Project> allProjectList = projectService.getProjectList();
+   		List<Project> internalProjectList = new ArrayList<Project>();
+   		List<ExternalProject> externalProjectList = new ArrayList<ExternalProject>();
+   		for (Project project : allProjectList) {
+   			if (project instanceof ExternalProject) {
+   				externalProjectList.add((ExternalProject) project);
+   			} else {
+   				internalProjectList.add(project);
+   			}
+   		}
 
    		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-   		modelAndView.addObject("projectList", projectList);
-   		
+   		modelAndView.addObject(INTERNAL_PROJECT_LIST_PARAM_NAME, internalProjectList);
+   		modelAndView.addObject(EXTERNAL_PROJECT_LIST_PARAM_NAME, externalProjectList);
     	return modelAndView;
 	}
 

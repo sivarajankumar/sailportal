@@ -56,6 +56,7 @@ import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
@@ -185,10 +186,12 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setEndtime(null);
 		run.setStarttime(Calendar.getInstance().getTime());
 		run.setRuncode(generateUniqueRunCode());
-		run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
 		run.setOwners(runParameters.getOwners());
 		run.setProject(runParameters.getProject());
-
+		run.setName("Run with Project " + runParameters.getProject().getName());
+		if (!(run.getProject() instanceof ExternalProject)) {
+			run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
+		}
 		Set<String> periodNames = runParameters.getPeriodNames();
 		if (periodNames != null) {
 			Set<Group> periods = new TreeSet<Group>();
@@ -241,7 +244,6 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 			sdsOffering.setRetrieveContentUrl(((OtmlModuleImpl) curnit).getRetrieveotmlurl());
 		}
 			
-		
 		this.sdsOfferingDao.save(sdsOffering);
 		return sdsOffering;
 	}

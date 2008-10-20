@@ -28,6 +28,9 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
@@ -37,8 +40,10 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 
 /**
@@ -98,9 +103,14 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 * @throws ObjectNotFoundException 
 	 * @see org.telscenter.sail.webapp.service.project.ExternalProjectService#importProject(org.telscenter.sail.webapp.domain.project.ExternalProject)
 	 */
-	public void importProject(Serializable externalId, Serializable projectCommunicatorId) 
+	@Transactional()
+	public void importProject(Long externalId, Serializable projectCommunicatorId) 
 	    throws ObjectNotFoundException {
 		ProjectCommunicator projectCommunicator = this.projectCommunicatorDao.getById(projectCommunicatorId);
+		ExternalProject externalProject = new ExternalProjectImpl();
+		externalProject.setExternalId(externalId);
+		externalProject.setProjectCommunicator(projectCommunicator);
+		this.projectDao.save(externalProject);
 	}
 	
 	/**
@@ -108,9 +118,11 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 */
 	public List<Project> getProjectList() {
 		// look in the internal database
-    	List<Project> projectList = this.projectDao.getList();
-		
-		return projectList;
+    	List<Project> projectlist = this.projectDao.getList();
+    	for (Project externalproject : projectlist) {
+    		externalproject.populateProjectInfo();
+    	}
+		return projectlist;
 	}
 	
 	/**
@@ -145,8 +157,10 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 */
 	public Object launchProject(LaunchProjectParameters launchProjectParameters)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		WISEWorkgroup workgroup = launchProjectParameters.getWorkgroup();
+		ExternalProject project = (ExternalProject) launchProjectParameters.getRun().getProject();
+		ProjectCommunicator projectCommunicator = project.getProjectCommunicator();
+		return new ModelAndView(new RedirectView(projectCommunicator.getLaunchProjectUrl(project, workgroup)));
 	}
 
 	/**
@@ -160,9 +174,10 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateProject(org.telscenter.sail.webapp.domain.project.Project)
 	 */
+	@Transactional()
 	public void updateProject(Project project) {
-		// TODO Auto-generated method stub
-
+		this.projectCommunicatorDao.save(((ExternalProject) project).getProjectCommunicator());
+		this.projectDao.save(project);
 	}
 
 	/**

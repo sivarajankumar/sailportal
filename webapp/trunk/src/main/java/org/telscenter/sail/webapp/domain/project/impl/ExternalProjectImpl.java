@@ -61,35 +61,18 @@ public class ExternalProjectImpl extends ProjectImpl implements ExternalProject 
 
 	@Transient
 	private static final String EXTERNAL_ID_COLUMN_NAME = "external_id";
-
-	@Transient
-	private String name;
 	
 	@Column(name = EXTERNAL_ID_COLUMN_NAME)
-	private Serializable externalId;
+	private Long externalId;
 	
 	@ManyToOne(targetEntity = ProjectCommunicatorImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = PROJECTCOMMUNICATOR_JOIN_COLUMN_NAME, unique = false)
 	private ProjectCommunicator projectCommunicator;
-	
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * @return the externalDIYId
 	 */
-	public Serializable getExternalId() {
+	public Long getExternalId() {
 		return externalId;
 	}
 
@@ -114,13 +97,25 @@ public class ExternalProjectImpl extends ProjectImpl implements ExternalProject 
 		return new ModelAndView(new RedirectView(projectCommunicator.getPreviewProjectUrl(this)));	
 	}
 
-	public Object importProject() {
-		//projectCommunicator.get
-		return null;
-	}
-
-	public void setExternalId(Serializable externalId) {
+	/**
+	 * @param externalId the externalId to set
+	 */
+	public void setExternalId(Long externalId) {
 		this.externalId = externalId;
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.impl.ProjectImpl#populateProjectInfo()
+	 */
+	@Override
+	public void populateProjectInfo() {
+		this.projectinfo = new ProjectInfoImpl();
+		this.projectinfo.setName(this.getName());
+		this.projectinfo.setSubject("NOT SPECIFIED");
+		this.projectinfo.setComment("NOT SPECIFIED");
+		this.projectinfo.setAuthor("NOT SPECIFIED");
+		this.projectinfo.setSource(this.projectCommunicator.getAddress());
+	}
+
 	
 }

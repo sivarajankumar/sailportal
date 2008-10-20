@@ -43,6 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
@@ -69,22 +70,36 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 	public WISEWorkgroup createWISEWorkgroup(String name, Set<User> members,
 			Run run, Group period) throws ObjectNotFoundException {
 
-        SdsWorkgroup sdsWorkgroup = createSdsWorkgroup(name, members, run);
+		WISEWorkgroup workgroup = null;
+		
+		if (run.getProject() instanceof ExternalProject) {
+			workgroup = createWISEWorkgroup(members, run, null, period);
+			// TODO hiroki set externalid here
+			
+	        this.groupDao.save(workgroup.getGroup());
+	        this.workgroupDao.save(workgroup);
+	        
+	        this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
+	        
+	        return workgroup;
+		} else {
+			SdsWorkgroup sdsWorkgroup = createSdsWorkgroup(name, members, run);
+			workgroup = createWISEWorkgroup(members, run, sdsWorkgroup, period);
+	        this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
 
-        WISEWorkgroup workgroup = createWISEWorkgroup(members, run, sdsWorkgroup, period);
+	        this.groupDao.save(workgroup.getGroup());
+	        this.workgroupDao.save(workgroup);
+	        
+	        this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
+	        
+	        ECurnitmap curnitmap = gradingService.getCurnitmap(run.getId());
+	        if (curnitmap != null) {
+	        	this.annotationBundleService.createAnnotationBundle(workgroup, curnitmap);
+	        }
 
-        this.sdsWorkgroupDao.save(workgroup.getSdsWorkgroup());
-        this.groupDao.save(workgroup.getGroup());
-        this.workgroupDao.save(workgroup);
-        
-        this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
-        
-        ECurnitmap curnitmap = gradingService.getCurnitmap(run.getId());
-        if (curnitmap != null) {
-        	this.annotationBundleService.createAnnotationBundle(workgroup, curnitmap);
-        }
-
-        return workgroup;
+	        return workgroup;
+		}
+		
 	}
 
 	/**

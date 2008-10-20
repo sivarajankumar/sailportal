@@ -38,6 +38,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -98,7 +99,7 @@ public class StudentIndexController extends AbstractController {
 			// if student is in a workgroup for this run, get the url
 			// that will be used to start the project and set the url where
 			// the workgroup's work can be retrieved as PDF
-			if (studentRunInfo.getWorkgroup() != null) {
+			if (studentRunInfo.getWorkgroup() != null && !(run.getProject() instanceof ExternalProject)) {
 //				String startProjectUrl = 				
 //					PodProjectServiceImpl.generateStudentStartProjectUrlString(
 //							httpRestTransport, request, run, 

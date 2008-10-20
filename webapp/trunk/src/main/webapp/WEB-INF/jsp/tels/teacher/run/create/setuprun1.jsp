@@ -65,7 +65,7 @@
 		<td>Usage</td>
 	</tr>
 	<tr id="setupProjectTableR2">
-		<td class="setupProjectTitle">${project.curnit.sdsCurnit.name}</td>
+		<td class="setupProjectTitle">${project.projectInfo.name}</td>
 		<td>${project.id}</td>       		   <!--		""${project.curnit.id}""-->
 		<td>${project.projectInfo.keywords}</td>
 		<td>${project.projectInfo.gradeLevel}</td>              <!--		"${project.curnit.totalTime}"-->
