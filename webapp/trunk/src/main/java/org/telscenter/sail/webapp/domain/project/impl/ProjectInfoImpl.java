@@ -12,6 +12,7 @@ public class ProjectInfoImpl implements ProjectInfo {
 
 	private static final long serialVersionUID = 1L;
 	
+	private String name;
 	private String author;
 	private String gradeLevel;
 	private String subject;
@@ -21,7 +22,20 @@ public class ProjectInfoImpl implements ProjectInfo {
 	private boolean isCurrent;
 	private String comment;
 	private String description;
+	private String source;
 	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 	/**
 	 * @return the author
 	 */
@@ -133,5 +147,18 @@ public class ProjectInfoImpl implements ProjectInfo {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the source
+	 */
+	public String getSource() {
+		return source;
+	}
+	/**
+	 * @param source the source to set
+	 */
+	public void setSource(String source) {
+		this.source = source;
 	}
 }

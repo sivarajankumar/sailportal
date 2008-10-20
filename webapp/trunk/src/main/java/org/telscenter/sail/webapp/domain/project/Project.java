@@ -133,4 +133,19 @@ public interface Project extends Persistable {
 	 * @param projectType the projectType to set
 	 */
 	public void setProjectType(ProjectType projectType);
+	
+	/**
+	 * @return the name
+	 */
+	public String getName();
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name);
+
+	/**
+	 * Populates the projectInfo for this project.
+	 */
+	public void populateProjectInfo();
 }

@@ -87,16 +87,22 @@ public class ProjectImpl implements Project {
 	private static final String COLUMN_NAME_PROJECTTYPE = "projecttype";
 
 	@Transient
+	private static final String COLUMN_NAME_PROJECT_NAME = "name";
+
+	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
+	
+	@Column(name = COLUMN_NAME_PROJECT_NAME)
+	protected String name;
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = false, unique = false)
+	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = true, unique = false)
 	protected Curnit curnit;
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = false, unique = false)
+	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = true, unique = false)
 	protected Jnlp jnlp;
 	
 	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
@@ -106,8 +112,6 @@ public class ProjectImpl implements Project {
     @Column(name = ProjectImpl.COLUMN_NAME_FAMILYTAG, nullable = true)
 	protected FamilyTag familytag;
     
-  //  @Column(name = ProjectImpl.COLUMN_NAME_PROJECTINFOTAG, nullable = true)
- //   private String projectInfoTag;
     @Column(name = ProjectImpl.COLUMN_NAME_ISCURRENT, nullable = true)
     protected boolean isCurrent;
     
@@ -283,5 +287,26 @@ public class ProjectImpl implements Project {
 	 */
 	public void setProjectType(ProjectType projectType) {
 		this.projectType = projectType;
+	}
+	
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.Project#populateProjectInfo()
+	 */
+	public void populateProjectInfo() {
 	}
  }

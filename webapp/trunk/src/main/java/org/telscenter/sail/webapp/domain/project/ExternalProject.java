@@ -39,7 +39,7 @@ public interface ExternalProject extends Project {
 	/**
 	 * @param externalId
 	 */
-	public void setExternalId(Serializable externalId);
+	public void setExternalId(Long externalId);
 
 	/**
 	 * @return the projectCommunicator
@@ -55,10 +55,4 @@ public interface ExternalProject extends Project {
 	 * @return
 	 */
 	public Object launchPreview();
-	
-	/**
-	 * @return
-	 */
-	public Object importProject();
-
 }

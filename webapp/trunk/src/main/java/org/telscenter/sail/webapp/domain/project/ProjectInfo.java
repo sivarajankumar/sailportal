@@ -10,7 +10,16 @@ import java.io.Serializable;
  */
 public interface ProjectInfo extends Serializable {
 
-	
+	/**
+	 * @return name of the project
+	 */
+	public String getName();
+
+	/**
+	 * @param name of the project
+	 */
+	public void setName(String name);
+
 	/**
 	 * @return the author
 	 */
@@ -101,5 +110,14 @@ public interface ProjectInfo extends Serializable {
 	 */
 	public String getDescription();
 	
+	/**
+	 * @return
+	 */
+	public String getSource();
+	
+	/**
+	 * @return
+	 */
+	public void setSource(String source);
 	
 }
