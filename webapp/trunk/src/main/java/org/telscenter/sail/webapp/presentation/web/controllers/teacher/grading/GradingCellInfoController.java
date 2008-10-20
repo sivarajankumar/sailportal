@@ -34,7 +34,6 @@ import net.sf.sail.emf.sailuserdata.EAnnotationGroup;
 import net.sf.sail.emf.sailuserdata.ESockEntry;
 import net.sf.sail.emf.sailuserdata.ESockPart;
 
-import org.apache.commons.collections.list.TreeList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.pas.emf.pas.EActivity;
@@ -75,80 +74,145 @@ public class GradingCellInfoController extends AbstractController{
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 				
-		String UUID = request.getParameter(PODUUID);
 		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
 		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter(RUNID)));
-		String xmlDoc = "<gradingcellinfo>";
-		
-		//get step for this cell
-		EStep thisStep = null;
-		List<EActivity> activities = this.gradingService.getCurnitmap(run.getId()).getProject().getActivity();
-		for(EActivity activity : activities){
-			for(EStep step : (List<EStep>) activity.getStep()){
-				if(step.getPodUUID().toString().equals(UUID))
-					thisStep = step;
-			}
-		}
-		
-		//get aggregate for this cell
+		//get aggregate for the specified workgroup for this run
 		GradeWorkByWorkgroupAggregate aggregate = this.gradingService.getGradeWorkByWorkgroupAggregate(run.getId(), workgroup);
-		
-		//get score and teacher comments for this cell and add them to xmlDoc
-		List<EAnnotationGroup> annotationGroups = aggregate.getAnnotationBundle().getEAnnotationBundle().getAnnotationGroups();
-		for(EAnnotationGroup annotationGroup : annotationGroups){
-			for(EAnnotation annotation : (List<EAnnotation>) annotationGroup.getAnnotations()){
-				if(UUID.equals(annotation.getEntityUUID().toString())){
+
+		String xmlDoc = "<gradingcellinfo>";
+		String UUID = request.getParameter(PODUUID);		
+
+		if (UUID != null) {
+			// this request is made from a grade-by-step page
+			
+			//get step for this cell
+			EStep thisStep = null;
+			List<EActivity> activities = this.gradingService.getCurnitmap(run.getId()).getProject().getActivity();
+			for(EActivity activity : activities){
+				for(EStep step : (List<EStep>) activity.getStep()){
+					if(step.getPodUUID().toString().equals(UUID))
+						thisStep = step;
+				}
+			}
+
+			//get score and teacher comments for this step and add them to xmlDoc
+			List<EAnnotationGroup> annotationGroups = aggregate.getAnnotationBundle().getEAnnotationBundle().getAnnotationGroups();
+			for(EAnnotationGroup annotationGroup : annotationGroups){
+				for(EAnnotation annotation : (List<EAnnotation>) annotationGroup.getAnnotations()){
+					if(UUID.equals(annotation.getEntityUUID().toString())){
 						if(annotationGroup.getAnnotationSource().equals("http://telscenter.org/annotation/comments") && annotation.getEntityName() == null){
 							xmlDoc = xmlDoc + "<comments>" + annotation.getContents() + "</comments>";
 						}
 						if(annotationGroup.getAnnotationSource().equals("http://telscenter.org/annotation/score")){
 							xmlDoc = xmlDoc + "<score>" + annotation.getContents() + "</score>";
 						}
-				}
-			}
-		}
-		
-		//get prompts and responses for this cell and add them to xmlDoc
-		// since they don't appear in order, we need to establish order by comparing the rimname.
-		String prompt = null;
-		String answer = null;
-		String responseDoc = "";
-		TreeSet<PromptResponse> promptResponses = new TreeSet<PromptResponse>();
-		for(ERim rim : (List<ERim>) thisStep.getRim()){			
-			prompt = this.extractBody(rim.getPrompt());
-			for(SessionBundle sessionBundle : aggregate.getSessionBundles()){
-				for(ESockPart sockPart : (List<ESockPart>) sessionBundle.getESessionBundle().getSockParts()){
-					if(sockPart.getPodId().equals(thisStep.getPodUUID()) && sockPart.getRimName().equals(rim.getRimname())){
-						answer = ((ESockEntry)sockPart.getSockEntries().get(sockPart.getSockEntries().size() -1)).getValue();
 					}
 				}
 			}
-			if(answer == null)
-				answer = "no student response yet";
-			
-			PromptResponse promptResponse = new PromptResponse();
-			promptResponse.setPrompt(prompt);
-			promptResponse.setResponse(answer);
-			promptResponse.setRimName(rim.getRimname());
-			promptResponses.add(promptResponse);
-			//responseDoc = "<promptresponse><prompt>" + prompt + "</prompt><response>" +
-			//	answer + "</response></promptresponse>" + responseDoc;
-			prompt = null;
-			answer = null;
-		}
-		
-		
-		//xmlDoc = xmlDoc + responseDoc;
-		for (PromptResponse pr : promptResponses) {
-			xmlDoc += "<promptresponse><prompt>" + pr.getPrompt() + "</prompt><response>" +
+
+			//get prompts and responses for this cell and add them to xmlDoc
+			// since they don't appear in order of the parts (instead, they appear in the order of timestamp when
+			// student entered their response), we need to establish order by comparing the rimname.
+			String prompt = null;
+			String answer = null;
+			TreeSet<PromptResponse> promptResponses = new TreeSet<PromptResponse>();
+			for(ERim rim : (List<ERim>) thisStep.getRim()){			
+				prompt = this.extractBody(rim.getPrompt());
+				for(SessionBundle sessionBundle : aggregate.getSessionBundles()){
+					for(ESockPart sockPart : (List<ESockPart>) sessionBundle.getESessionBundle().getSockParts()){
+						if(sockPart.getPodId().equals(thisStep.getPodUUID()) && sockPart.getRimName().equals(rim.getRimname())){
+							answer = ((ESockEntry)sockPart.getSockEntries().get(sockPart.getSockEntries().size() -1)).getValue();
+						}
+					}
+				}
+				if(answer == null)
+					answer = "no student response yet";
+
+				PromptResponse promptResponse = new PromptResponse();
+				promptResponse.setPrompt(prompt);
+				promptResponse.setResponse(answer);
+				promptResponse.setRimName(rim.getRimname());
+				promptResponses.add(promptResponse);
+				prompt = null;
+				answer = null;
+			}
+
+
+			//xmlDoc = xmlDoc + responseDoc;
+			for (PromptResponse pr : promptResponses) {
+				xmlDoc += "<promptresponse><prompt>" + pr.getPrompt() + "</prompt><response>" +
 				pr.getResponse() + "</response></promptresponse>";
+			}
+
+		} else {
+			// this request was made from grade-by-workgroup page
+			
+			//get step for this cell
+			EStep thisStep = null;
+			List<EActivity> activities = this.gradingService.getCurnitmap(run.getId()).getProject().getActivity();
+			for(EActivity activity : activities){
+				for(EStep step : (List<EStep>) activity.getStep()){
+					if(step.getPodUUID().toString().equals(UUID))
+						thisStep = step;
+				}
+			}
+
+			//get score and teacher comments for this step and add them to xmlDoc
+			List<EAnnotationGroup> annotationGroups = aggregate.getAnnotationBundle().getEAnnotationBundle().getAnnotationGroups();
+			for(EAnnotationGroup annotationGroup : annotationGroups){
+				for(EAnnotation annotation : (List<EAnnotation>) annotationGroup.getAnnotations()){
+					if(UUID.equals(annotation.getEntityUUID().toString())){
+						if(annotationGroup.getAnnotationSource().equals("http://telscenter.org/annotation/comments") && annotation.getEntityName() == null){
+							xmlDoc = xmlDoc + "<comments>" + annotation.getContents() + "</comments>";
+						}
+						if(annotationGroup.getAnnotationSource().equals("http://telscenter.org/annotation/score")){
+							xmlDoc = xmlDoc + "<score>" + annotation.getContents() + "</score>";
+						}
+					}
+				}
+			}
+
+			//get prompts and responses for this cell and add them to xmlDoc
+			// since they don't appear in order of the parts (instead, they appear in the order of timestamp when
+			// student entered their response), we need to establish order by comparing the rimname.
+			String prompt = null;
+			String answer = null;
+			TreeSet<PromptResponse> promptResponses = new TreeSet<PromptResponse>();
+			for(ERim rim : (List<ERim>) thisStep.getRim()){			
+				prompt = this.extractBody(rim.getPrompt());
+				for(SessionBundle sessionBundle : aggregate.getSessionBundles()){
+					for(ESockPart sockPart : (List<ESockPart>) sessionBundle.getESessionBundle().getSockParts()){
+						if(sockPart.getPodId().equals(thisStep.getPodUUID()) && sockPart.getRimName().equals(rim.getRimname())){
+							answer = ((ESockEntry)sockPart.getSockEntries().get(sockPart.getSockEntries().size() -1)).getValue();
+						}
+					}
+				}
+				if(answer == null)
+					answer = "no student response yet";
+
+				PromptResponse promptResponse = new PromptResponse();
+				promptResponse.setPrompt(prompt);
+				promptResponse.setResponse(answer);
+				promptResponse.setRimName(rim.getRimname());
+				promptResponses.add(promptResponse);
+				prompt = null;
+				answer = null;
+			}
+
+
+			//xmlDoc = xmlDoc + responseDoc;
+			for (PromptResponse pr : promptResponses) {
+				xmlDoc += "<promptresponse><prompt>" + pr.getPrompt() + "</prompt><response>" +
+				pr.getResponse() + "</response></promptresponse>";
+			}
 		}
+		
 		//closing tag of xmlDoc
 		xmlDoc = xmlDoc + "</gradingcellinfo>";
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(XMLDOC, xmlDoc);
-		
+
 		return modelAndView;
 	}
 	
