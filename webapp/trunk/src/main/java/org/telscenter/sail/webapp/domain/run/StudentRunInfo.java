@@ -135,7 +135,9 @@ public class StudentRunInfo implements Comparable<StudentRunInfo>{
 		} else if(!bestTeacher.getSdsUser().getFirstName().equals(incomingBestTeacher.getSdsUser().getFirstName())){
 			return bestTeacher.getSdsUser().getFirstName().compareTo(incomingBestTeacher.getSdsUser().getFirstName());
 		} else {
-			return this.run.getSdsOffering().getName().compareTo(o.run.getSdsOffering().getName());
+		// TODO: HIROKI fix below code to work with when the name is not set in projectinfo.
+			//return this.run.getProject().getProjectInfo().getName().compareTo(o.run.getProject().getProjectInfo().getName());
+			return -1;
 		}
 
 	}
