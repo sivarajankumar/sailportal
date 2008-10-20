@@ -43,6 +43,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
 /**
  * @author hirokiterashima
@@ -195,6 +196,12 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 	}
 
 	public String getXMLDocument() {
+		return null;
+	}
+
+	public String getLaunchProjectUrl(ExternalProject externalProject,
+			WISEWorkgroup workgroup) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -41,6 +41,7 @@ import org.jdom.Element;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
 /**
  * ProjectCommunicator for External DIY Projects
@@ -63,6 +64,9 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	
 	@Column(name = DIYProjectCommunicatorImpl.COLUMN_NAME_PREVIEW_DIY_PROJECT_SUFFIX)
 	private String previewProjectSuffix = "/sail_jnlp/6/1/authoring";
+	
+	@Transient
+	private String launchProjectSuffix = "/sail_jnlp/6";
 
 	
 	@SuppressWarnings("unchecked")
@@ -93,8 +97,8 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 			String name = child.getChildText("name");
 			ExternalProjectImpl project = new ExternalProjectImpl();
 			project.setName(name);
-			Serializable externalDIYId = child.getChildText("id");
-			project.setExternalId(externalDIYId);
+			String externalDIYId = child.getChildText("id");
+			project.setExternalId(Long.valueOf(externalDIYId));
 			project.setProjectCommunicator(this);
 			diyProjects.add(project);
 		}
@@ -119,6 +123,14 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		return previewProjectUrl;
 	}
 
+	@Override
+	public String getLaunchProjectUrl(ExternalProject externalProject,
+			WISEWorkgroup workgroup) {
+		Serializable id = externalProject.getExternalId();
+		String launchProjectUrl = baseUrl + "/external_otrunk_activities/" + id + launchProjectSuffix + "/" + workgroup.getExternalId();
+		return launchProjectUrl;
+	}
+
 	/**
 	 * @param previewProjectSuffix the previewProjectSuffix to set
 	 */
@@ -140,6 +152,13 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		xmlDoc += "<latitude>" + this.latitude + "</latitude>";
 		xmlDoc += "</projectcommunicator>";
 		return xmlDoc;
+	}
+
+	/**
+	 * @param launchProjectSuffix the launchProjectSuffix to set
+	 */
+	public void setLaunchProjectSuffix(String launchProjectSuffix) {
+		this.launchProjectSuffix = launchProjectSuffix;
 	}
 	
 }
