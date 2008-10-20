@@ -66,7 +66,7 @@ public class OfferingImpl implements Offering {
     private Integer version = null;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsOffering.class)
-    @JoinColumn(name = COLUMN_NAME_SDS_OFFERING_FK, nullable = false, unique = true)
+    @JoinColumn(name = COLUMN_NAME_SDS_OFFERING_FK, unique = true)
     private SdsOffering sdsOffering;
 
     /**

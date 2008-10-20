@@ -160,6 +160,20 @@ public interface Run extends Offering {
 	 */
 	public void setSharedowners(Set<User> sharedOwners);
 	
+	/**
+	 * Returns name of the run.
+	 * 
+	 * @return <cod>String</code> name of the run
+	 */
+	public String getName();
+	
+	/**
+	 * Sets name of the run.
+	 * 
+	 * @param <cod>String</code> name of the run to save
+	 */
+	public void setName(String name);
+
 	
 	/**
 	 * Gets all Brainstorms that are in this run.

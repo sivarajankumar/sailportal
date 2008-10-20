@@ -103,6 +103,9 @@ public class RunImpl extends OfferingImpl implements Run {
 
     @Transient
     public static final long serialVersionUID = 1L;
+
+    @Transient
+	private static final String COLUMN_NAME_RUNNAME = "name";
     
     @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
     private Date starttime;
@@ -129,6 +132,9 @@ public class RunImpl extends OfferingImpl implements Run {
     @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = SHARED_OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SHARED_OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> sharedowners = new TreeSet<User>();
+    
+    @Column(name = COLUMN_NAME_RUNNAME)
+    private String name;
 
     @Transient
     private Set<Brainstorm> brainstorms = new TreeSet<Brainstorm>();
@@ -287,5 +293,19 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setBrainstorms(Set<Brainstorm> brainstorms) {
 		this.brainstorms = brainstorms;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }
