@@ -591,14 +591,10 @@
 			</ul>
 		<div id="linkHeader"><spring:message code="teacher.index.25"/></div>
 			<ul>
-			<!-- grade-by-step disabled until optimized 
-			<li><a href="./grading/projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></li>
-			-->
-			
-			<li class="inactivecolor"><spring:message code="teacher.index.26"/></li>			
+			<li><a href="./grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.index.26"/></a></li>			
 			<li><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>
 			<li class="inactivecolor"><spring:message code="teacher.index.28"/></li>
-			<li class="inactivecolor"><spring:message code="teacher.index.29"/></li>
+			<li><a href="./grading/premadeComments.html"><spring:message code="teacher.index.29"/></a></li>
 			</ul>		
 	</div>
 

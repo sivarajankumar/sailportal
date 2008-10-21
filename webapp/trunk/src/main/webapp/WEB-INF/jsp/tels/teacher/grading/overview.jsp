@@ -66,7 +66,7 @@
 			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=value"><spring:message code="teacher.grading.overview.7"/></a></td>
 			<td class="description_grading"><spring:message code="teacher.grading.overview.8"/></td></tr>
 		<tr>
-			<td class="link_grading"><a href=".././grading/currentscore.html?runId=${run.id}"><spring:message code="teacher.grading.overview.9"/></a></td>
+			<td class="link_grading"><a style="color:#999999;"href="#"><spring:message code="teacher.grading.overview.9"/></a></td>
 			<td class="description_grading"><spring:message code="teacher.grading.overview.10"/></td></tr>
 		<tr>
 			<td class="link_grading"><a style="color:#999999;"href="#"><spring:message code="teacher.grading.overview.11"/></a></td>
