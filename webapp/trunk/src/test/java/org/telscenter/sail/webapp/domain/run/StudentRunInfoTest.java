@@ -37,6 +37,10 @@ public class StudentRunInfoTest extends TestCase{
 	private final static String ONEOFFERINGNAME = "Starship";
 	
 	private final static String TWOOFFERINGNAME = "Starslip";
+
+	private static final String THIS_RUN_NAME = "this run name";
+
+	private static final String THAT_RUN_NAME = "that run name";
 	
 	private User thisTeacher;
 	
@@ -85,6 +89,8 @@ public class StudentRunInfoTest extends TestCase{
 		thatRun.setOwners(thatUser);
 		thisRun.setSdsOffering(thisOffering);
 		thatRun.setSdsOffering(thatOffering);
+		thisRun.setName(THIS_RUN_NAME);
+		thatRun.setName(THAT_RUN_NAME);
 		
 		thisStudentRunInfo = new StudentRunInfo();
 		thatStudentRunInfo = new StudentRunInfo();
@@ -121,20 +127,51 @@ public class StudentRunInfoTest extends TestCase{
 		assertTrue(thisStudentRunInfo.compareTo(thatStudentRunInfo) > 0);
 		
 		
-		//test same owner first and last names, different offering names
+		//test same owner first and last names, different run names
 		thisSdsTeacher.setFirstName(ONEFIRSTNAME);
 		thatSdsTeacher.setFirstName(ONEFIRSTNAME);
 		thisSdsTeacher.setLastName(TWOLASTNAME);
 		thatSdsTeacher.setLastName(TWOLASTNAME);
-		assertTrue(thisStudentRunInfo.compareTo(thatStudentRunInfo) < 0);
+		assertTrue(thisStudentRunInfo.compareTo(thatStudentRunInfo) > 0);
 		
 		
-		//test same owner first and last names, same offering names
+		//test same owner first and last names, same run names
 		thisSdsTeacher.setFirstName(ONEFIRSTNAME);
 		thatSdsTeacher.setFirstName(ONEFIRSTNAME);
 		thisSdsTeacher.setLastName(ONELASTNAME);
 		thatSdsTeacher.setLastName(ONELASTNAME);
 		thatOffering.setName(ONEOFFERINGNAME);
+		thatRun.setName(THIS_RUN_NAME);
+		assertEquals(thisStudentRunInfo.compareTo(thatStudentRunInfo), 0);
+		
+		//test same owner first and last names, both runs' names are null
+		thisSdsTeacher.setFirstName(ONEFIRSTNAME);
+		thatSdsTeacher.setFirstName(ONEFIRSTNAME);
+		thisSdsTeacher.setLastName(ONELASTNAME);
+		thatSdsTeacher.setLastName(ONELASTNAME);
+		thatOffering.setName(ONEOFFERINGNAME);
+		thisRun.setName(null);
+		thatRun.setName(null);
+		assertEquals(thisStudentRunInfo.compareTo(thatStudentRunInfo), 0);
+		
+		//test same owner first and last names, one of the run's name is null
+		thisSdsTeacher.setFirstName(ONEFIRSTNAME);
+		thatSdsTeacher.setFirstName(ONEFIRSTNAME);
+		thisSdsTeacher.setLastName(ONELASTNAME);
+		thatSdsTeacher.setLastName(ONELASTNAME);
+		thatOffering.setName(ONEOFFERINGNAME);
+		thisRun.setName(THIS_RUN_NAME);
+		thatRun.setName(null);
+		assertEquals(thisStudentRunInfo.compareTo(thatStudentRunInfo), 0);
+		
+		//test same owner first and last names, one of the run's name is null
+		thisSdsTeacher.setFirstName(ONEFIRSTNAME);
+		thatSdsTeacher.setFirstName(ONEFIRSTNAME);
+		thisSdsTeacher.setLastName(ONELASTNAME);
+		thatSdsTeacher.setLastName(ONELASTNAME);
+		thatOffering.setName(ONEOFFERINGNAME);
+		thisRun.setName(null);
+		thatRun.setName(THAT_RUN_NAME);
 		assertEquals(thisStudentRunInfo.compareTo(thatStudentRunInfo), 0);
 	}
 	

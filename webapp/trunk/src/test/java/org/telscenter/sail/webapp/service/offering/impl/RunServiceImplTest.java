@@ -54,6 +54,8 @@ import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
 /**
  * Test class for RunServiceImpl class
@@ -72,6 +74,8 @@ public class RunServiceImplTest extends TestCase {
     private static final String JNLP_URL = "jurl";
 
     private static final Long CURNIT_ID = new Long(3);
+
+	private static final String PROJECT_NAME = "Airbags!!!";
 
     private static Set<String> periodNames = new HashSet<String>();
 
@@ -97,6 +101,8 @@ public class RunServiceImplTest extends TestCase {
 	private AclService<Offering> mockAclService;
 	
 	private Run run;
+	
+	private Project project;
 
     /**
      * @see net.sf.sail.webapp.junit.AbstractTransactionalDbTests#onSetUpInTransaction()
@@ -129,8 +135,12 @@ public class RunServiceImplTest extends TestCase {
         User user = new UserImpl();
 		owners.add(user);
 		
+		this.project = new ProjectImpl();
+		this.project.setName(PROJECT_NAME);
+		
 		this.run = new RunImpl();
 		this.run.setStarttime(Calendar.getInstance().getTime());
+		this.run.setProject(project);
     }
 
     /**
@@ -199,6 +209,7 @@ public class RunServiceImplTest extends TestCase {
         runParameters.setCurnitId(CURNIT_ID);
         runParameters.setName(CURNIT_NAME);
         runParameters.setOwners(owners);
+        runParameters.setProject(this.project);
         
         this.mockRunDao.retrieveByRunCode(EasyMock.isA(String.class));
         EasyMock.expectLastCall().andThrow(new ObjectNotFoundException("runcode", Run.class));
@@ -253,6 +264,7 @@ public class RunServiceImplTest extends TestCase {
         runParameters.setName(CURNIT_NAME);
         runParameters.setPeriodNames(periodNames);
         runParameters.setOwners(owners);
+        runParameters.setProject(project);
         
         this.mockRunDao.retrieveByRunCode(EasyMock.isA(String.class));
         EasyMock.expectLastCall().andThrow(new ObjectNotFoundException("runcode", Run.class));
