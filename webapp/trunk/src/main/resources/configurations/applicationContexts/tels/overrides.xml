@@ -43,6 +43,10 @@
         scope="prototype">
     </bean>
 		
+	  <bean id="createRooloLOROtmlModuleParameters"
+        class="org.telscenter.sail.webapp.domain.impl.CreateRooloLOROtmlModuleParameters"
+        scope="prototype">
+    </bean>
 
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">

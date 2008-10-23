@@ -33,7 +33,7 @@
 			<property name="baseUrl" value="http://127.0.0.1:3000/1" />
 		-->
 		<property name="baseUrl"
-			value="http://rails.dev.concord.org/sds/4" />
+			value="http://rails.dev.concord.org/sds/19" />
 	</bean>
 
 	<bean id="sdsOffering" scope="prototype"

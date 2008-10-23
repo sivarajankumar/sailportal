@@ -20,44 +20,60 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.repository.impl;
+package org.telscenter.sail.webapp.domain.impl;
 
-import java.net.URI;
-
-import org.telscenter.sail.webapp.service.repository.RepositoryService;
-
-import roolo.api.IELO;
-import roolo.curnit.client.IClientRepository;
-import roolo.curnit.client.basicProxy.CurnitProxy;
+import net.sf.sail.webapp.domain.impl.CurnitParameters;
+import roolo.enlace.proxy.LearningObject;
 
 /**
- * Service implementation which works with RooloRepository
- * 
- * @author Hiroki Terashima
- * @version $Id: RooloRepositoryServiceImpl.java 2001 2008-07-21 21:37:45Z hiroki $
+ * Params for creating RooloLOROtmlModule
+ * @author Anthony Perritano
+ * @version $Id$
  */
-public class RooloRepositoryServiceImpl implements RepositoryService {
+public class CreateRooloLOROtmlModuleParameters extends CurnitParameters {
 
-	private IClientRepository rooloClientCurnitRepository;
-
-	/**
-	 * @see org.telscenter.sail.webapp.service.repository.RepositoryService#getByUri(java.net.URI)
-	 */
-	public CurnitProxy getByUri(URI uri) {
-		CurnitProxy curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
-		return curnitProxy;
-	}
+	public static String FIELD_ROOLOURI = "roolouri";
+	
+	private String roolouri;
+	
+	private String rooloRepositoryUrl;
+	
+	private LearningObject learningObject;
 	
 	/**
-	 * @param rooloClientCurnitRepository the rooloClientCurnitRepository to set
+	 * @return the roolouri
 	 */
-	public void setRooloClientCurnitRepository(
-			IClientRepository rooloClientCurnitRepository) {
-		this.rooloClientCurnitRepository = rooloClientCurnitRepository;
+	public String getRoolouri() {
+		return roolouri;
 	}
 
-	public IELO getELOByUri(URI uri) {
-		return null;
+	/**
+	 * @param roolouri the roolouri to set
+	 */
+	public void setRoolouri(String roolouri) {
+		this.roolouri = roolouri;
 	}
 
+	/**
+	 * @return the rooloRepositoryUrl
+	 */
+	public String getRooloRepositoryUrl() {
+		return rooloRepositoryUrl;
+	}
+
+	/**
+	 * @param rooloRepositoryUrl the rooloRepositoryUrl to set
+	 */
+	public void setRooloRepositoryUrl(String rooloRepositoryUrl) {
+		this.rooloRepositoryUrl = rooloRepositoryUrl;
+	}
+
+	public void setLearningObject(LearningObject learningObject) {
+		this.learningObject = learningObject;
+	}
+
+	public LearningObject getLearningObject() {
+		return learningObject;
+	}
+	
 }

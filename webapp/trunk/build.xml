@@ -38,7 +38,8 @@
   <path id="lib.roolo">
     <path location="${M2_REPO}/roolo-api/roolo-api/0.1.0-SNAPSHOT/roolo-api-0.1.0-SNAPSHOT.jar" />
     <path location="${M2_REPO}/roolo-cms/roolo-cms/0.1.0-SNAPSHOT/roolo-cms-0.1.0-SNAPSHOT.jar" />
-    <path location="${M2_REPO}/roolo-client/roolo-client/0.1.0-SNAPSHOT/roolo-client-0.1.0-SNAPSHOT.jar" />  	
+    <path location="${M2_REPO}/roolo-client/roolo-client/0.1.0-SNAPSHOT/roolo-client-0.1.0-SNAPSHOT.jar" />
+  	<path location="${M2_REPO}/roolo-client-enlacelor/roolo-client-enlacelor/0.1.0-SNAPSHOT/roolo-client-enlacelor-0.1.0-SNAPSHOT.jar"/>
   	<path location="${M2_REPO}/org/apache/jackrabbit/jackrabbit-core/1.4/jackrabbit-core-1.4.jar" />
     <path location="${M2_REPO}/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3.jar"/>
     <path location="${M2_REPO}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
@@ -66,6 +67,11 @@
     <path location="${M2_REPO}/org/textmining/tm-extractors/0.4/tm-extractors-0.4.jar"/>  	
   	<path location="${M2_REPO}/org/slf4j/slf4j-log4j12/1.4.3/slf4j-log4j12-1.4.3.jar" />
   	<path location="${M2_REPO}/log4j/log4j/1.2.13/log4j-1.2.13.jar" />
+  	<path location="${M2_REPO}/axis/axis-jaxrpc/1.4/axis-jaxrpc-1.4.jar" />
+  	<path location="${M2_REPO}/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar" />
+  	<path location="${M2_REPO}/axis/axis/1.4/axis-1.4.jar"/>
+  	<path location="${M2_REPO}/axis/axis-saaj/1.4/axis-saaj-1.4.jar"/>
+  	<path location="${M2_REPO}/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1.jar" />
   </path>
 
   <path id="lib.commons-logging">
@@ -302,6 +308,15 @@
             <classpath refid="runtime.classpath" />
         </java>
     </target>	
+	
+	 <!-- ================================= 
+	          target: create.default.roolo.enlace.curnits
+	         ================================= -->
+	    <target name="create.default.roolo.enlace.curnits" depends="" description="Adds otml curnits to the local repository.">
+	        <java classname="org.telscenter.sail.webapp.CreateDefaultRooloLOROtmlCurnits" fork="true" failonerror="true" newenvironment="true">
+	            <classpath refid="runtime.classpath" />
+	        </java>
+	    </target>	
 
     <!-- ================================= 
           internal target

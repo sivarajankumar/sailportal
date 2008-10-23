@@ -24,12 +24,12 @@
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-<!--  
+ 
 	<util:properties id="javaMailProperties"
 		location="classpath:sendmail.properties" />
-		-->
-	<util:properties id="javaMailProperties"
-		location="classpath:sendmail_sample.properties" />
+	
+	<!--<util:properties id="javaMailProperties"
+		location="classpath:sendmail_sample.properties" />-->
 
 	<bean id="javaMailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl" />

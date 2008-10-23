@@ -55,11 +55,14 @@
         class="org.telscenter.sail.webapp.dao.project.impl.HibernateProjectDao">
        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-
-    <bean id="externalProjectDao"
+	<bean id="externalProjectDao"
         class="org.telscenter.sail.webapp.dao.project.impl.HibernateExternalProjectDao">
        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    
+    <bean id="rooloLORProject"
+        class="org.telscenter.sail.webapp.domain.project.cmsImpl.RooloLORProjectImpl">
+    </bean>    
 
 <!--      
     <bean id="rooloProject"
@@ -75,6 +78,9 @@
         class="org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl">
     </bean>
     
+    <bean id="rooloLOROtmlModule"
+        class="org.telscenter.sail.webapp.domain.impl.RooloEnlaceLORModuleImpl">
+    </bean>
     <bean id="moduleDao"
         class="org.telscenter.sail.webapp.dao.module.impl.HibernateModuleDao">
         <property name="sessionFactory" ref="sessionFactory" />
@@ -83,7 +89,14 @@
     <bean id="rooloClientCurnitRepository"
         class="roolo.curnit.client.impl.ClientCurnitRepository">
     </bean>
-
+    
+     <bean id="rooloLORClientCurnitRepository"
+        class="roolo.enlace.RooloEnlaceLOR">
+        <constructor-arg index="0" value="http://tels-web.soe.berkeley.edu:8080/lor/services/LORService"/>
+  		<constructor-arg index="1" value="admin"/>
+  		<constructor-arg index="2" value="admin"/>
+    </bean>
+  
     <bean id="rooloOtmlModuleDao"
         class="org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao">
        <property name="sessionFactory" ref="sessionFactory" />        
@@ -92,11 +105,24 @@
         <property name="defaultOtrunkCurnitUrl" value="http://wise-dev.berkeley.edu/upload/curnit/otrunk-curnit.jar" />
     </bean>
     
+     <bean id="rooloLOROtmlModuleDao"
+        class="org.telscenter.sail.webapp.dao.module.impl.RooloLOROtmlModuleDao">
+       <property name="sessionFactory" ref="sessionFactory" />        
+        <property name="rooloLORClientCurnitRepository" ref="rooloLORClientCurnitRepository" />
+        <property name="rooloRepositoryUrl" value="http://tels-web.soe.berkeley.edu:8080/lor" />
+     <property name="defaultOtrunkCurnitUrl" value="http://wise-dev.berkeley.edu/upload/curnit/otrunk-curnit.jar" />
+    </bean>
+   <!--  
     <bean id="rooloRepositoryService"
          class="org.telscenter.sail.webapp.service.repository.impl.RooloRepositoryServiceImpl">
         <property name="rooloClientCurnitRepository" ref="rooloClientCurnitRepository" />
     </bean>
-    
+    -->
+  
+       <bean id="rooloRepositoryService"
+         class="org.telscenter.sail.webapp.service.repository.impl.RooloLORRepositoryServiceImpl">
+        <property name="rooloClientCurnitRepository" ref="rooloLORClientCurnitRepository" />
+    </bean>
     <bean id="wiseWorkgroupDao"
 		class="org.telscenter.sail.webapp.dao.workgroup.impl.HibernateWISEWorkgroupDao">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -229,7 +255,7 @@
     	<property name="sdsCurnitDao" ref="sdsCurnitDao" />
     	<property name="curnitDao" ref="curnitDao" />
     	<property name="moduleDao" ref="moduleDao" />
-    	<property name="rooloOtmlModuleDao" ref="rooloOtmlModuleDao" />
+    	 <property name="rooloOtmlModuleDao" ref="rooloOtmlModuleDao" />
     </bean>
     
     <bean id="studentService"

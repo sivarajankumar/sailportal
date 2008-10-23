@@ -27,37 +27,27 @@ import java.net.URI;
 import org.telscenter.sail.webapp.service.repository.RepositoryService;
 
 import roolo.api.IELO;
-import roolo.curnit.client.IClientRepository;
+import roolo.api.IRepository;
 import roolo.curnit.client.basicProxy.CurnitProxy;
+import roolo.enlace.proxy.LearningObject;
+import roolo.enlace.proxy.MetadataSchemaItem;
 
-/**
- * Service implementation which works with RooloRepository
- * 
- * @author Hiroki Terashima
- * @version $Id: RooloRepositoryServiceImpl.java 2001 2008-07-21 21:37:45Z hiroki $
- */
-public class RooloRepositoryServiceImpl implements RepositoryService {
+public class RooloLORRepositoryServiceImpl implements RepositoryService {
 
-	private IClientRepository rooloClientCurnitRepository;
-
-	/**
-	 * @see org.telscenter.sail.webapp.service.repository.RepositoryService#getByUri(java.net.URI)
-	 */
-	public CurnitProxy getByUri(URI uri) {
-		CurnitProxy curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
-		return curnitProxy;
-	}
+	private IRepository<LearningObject, MetadataSchemaItem> rooloClientCurnitRepository;
 	
-	/**
-	 * @param rooloClientCurnitRepository the rooloClientCurnitRepository to set
-	 */
 	public void setRooloClientCurnitRepository(
-			IClientRepository rooloClientCurnitRepository) {
+			IRepository<LearningObject, MetadataSchemaItem> rooloClientCurnitRepository) {
 		this.rooloClientCurnitRepository = rooloClientCurnitRepository;
 	}
 
-	public IELO getELOByUri(URI uri) {
+	public CurnitProxy getByUri(URI uri) {
 		return null;
+	}
+
+	public IELO getELOByUri(URI uri) {
+		IELO retrieveELO = rooloClientCurnitRepository.retrieveELO(uri);
+		return retrieveELO;
 	}
 
 }
