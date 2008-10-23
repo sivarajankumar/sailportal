@@ -17,11 +17,6 @@
 
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
-<script>
-//alert('hi');
-//alert(ChangePasswordParametersValidatorJS.test('hi'))
-</script>
-
 
 </head>
 <body>
@@ -36,6 +31,12 @@
 
 <h5><c:out value="${message}" /></h5>
 
+<h5>Statistics</h5>
+<table border="1">
+<tr><td>Teachers</td><td>${fn:length(teachers)}</td></tr>
+<tr><td>Students</td><td>${fn:length(students)}</td></tr>
+<tr><td>Admins</td><td>${fn:length(admins)}</td></tr>
+</table>
 <c:choose>
 	<c:when test="${fn:length(teachers) > 0}">
 		<table id="teachersTable" border="2">
