@@ -149,5 +149,19 @@ public class AuthorBrainstormControllerTest extends AbstractModelAndViewTests {
 				AuthorBrainstormController.BRAINSTORM_PARAM, brainstorm);
 		verify(brainstormService);	
 	}
+	
+	@Test
+	public void onSubmit() {
+		brainstormService.createBrainstorm(brainstorm);
+		expectLastCall();
+		replay(brainstormService);
+		ModelAndView mav = null;
+		try {
+			mav = controller.onSubmit(request, response, brainstorm, errors);
+		} catch (Exception e) {
+			fail("unexpected exception thrown");
+		}
+		verify(brainstormService);	
+	}
 
 }

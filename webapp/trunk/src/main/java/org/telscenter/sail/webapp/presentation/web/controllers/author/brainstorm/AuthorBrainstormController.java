@@ -96,7 +96,9 @@ public class AuthorBrainstormController extends SimpleFormController {
 			throws Exception {
 		Brainstorm brainstorm = (Brainstorm) command;
 		brainstormService.createBrainstorm(brainstorm);
-		return null;
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject(BRAINSTORM_PARAM, brainstorm);
+		return modelAndView;
 	}
 	
 	/**
