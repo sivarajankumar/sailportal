@@ -409,6 +409,12 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
     <a id="printLinkText" href="studentlist.html?runId=${run.id}"><spring:message code="teacher.manage.viewstudents.20"/></a>
 </div>
 
+<div id="exportToExelLink">
+	<img src="../../themes/tels/default/images/printer.png" width="16" height="16" alt="Printer Icon" />
+    <a id="printLinkText" href="studentlistexcel.html?runId=${run.id}"><spring:message code="teacher.manage.viewstudents.22"/></a>
+</div>
+
+
 <div id="tabSystem" class="yui-navset">
 <ul class="yui-nav" style="font-size:.8em;"> 
 	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">

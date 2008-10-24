@@ -75,8 +75,6 @@ public class ViewMyStudentsController extends AbstractController{
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
 	
-	private static final String VIEW_NAME = "teacher/management/viewmystudents";
-
 	private static final String VIEWMYSTUDENTS_KEY = "viewmystudentsallperiods";
 
 	private static final String TAB_INDEX = "tabIndex";
@@ -99,7 +97,7 @@ public class ViewMyStudentsController extends AbstractController{
 			HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse) throws Exception {
 		
-    	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+    	ModelAndView modelAndView = new ModelAndView();
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
 		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);

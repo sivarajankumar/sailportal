@@ -23,7 +23,7 @@
 
 <table id="projectTitleBox" border=0>
 	<tr>
-		<th>${run.sdsOffering.name}</th>
+		<th>${run.name}</th>
 		<td>(Project ID: ${project_id})</td>
 	</tr>
 </table>
