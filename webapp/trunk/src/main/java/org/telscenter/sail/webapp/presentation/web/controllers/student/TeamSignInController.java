@@ -38,13 +38,15 @@ import net.sf.sail.webapp.service.UserService;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.web.TeamSignInForm;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.student.StudentService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
@@ -67,11 +69,11 @@ public class TeamSignInController extends SimpleFormController {
 	private RunService runService;
 	
 	private StudentService studentService;
-	
+
+	private ProjectService projectService;
+
 	private HttpRestTransport httpRestTransport;
 
-	private String retrieveAnnotationBundleUrl = "/student/getannotationbundle.html";
-	
 	public TeamSignInController() {
 		setSessionForm(true);
 	}
@@ -140,22 +142,15 @@ public class TeamSignInController extends SimpleFormController {
 			workgroup = workgroups.get(0);
 			workgroupService.addMembers(workgroup, members);
 		}
-		
-		String jnlpUrl = this.httpRestTransport.getBaseUrl() + "/offering/" + 
-	        run.getSdsOffering().getSdsObjectId() + "/jnlp/" +
-	        workgroup.getSdsWorkgroup().getSdsObjectId();
-		
-	    String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
-	       request.getServerPort() + request.getContextPath();
 	    
-	    String entireUrl = jnlpUrl + 
-	        "?emf.annotation.bundle.url=" +
-	        portalUrl +
-	        retrieveAnnotationBundleUrl + 
-	        "?workgroupId=" + workgroup.getId();
-	    
-		ModelAndView modelAndView = 
-			new ModelAndView(new RedirectView(entireUrl));
+		ModelAndView modelAndView = new ModelAndView();
+		
+		LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
+		launchProjectParameters.setRun(run);
+		launchProjectParameters.setWorkgroup((WISEWorkgroup) workgroup);
+		launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
+		launchProjectParameters.setHttpServletRequest(request);
+		modelAndView = (ModelAndView) projectService.launchProject(launchProjectParameters);
 		modelAndView.addObject("closeokay", true);
 		
 		return modelAndView;
@@ -206,5 +201,12 @@ public class TeamSignInController extends SimpleFormController {
 	 */
 	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
 		this.httpRestTransport = httpRestTransport;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 }
