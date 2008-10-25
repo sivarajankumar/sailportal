@@ -236,6 +236,7 @@
 				/admin/project/getallexternalprojects.html=getAllExternalProjectsController
 				/admin/project/viewprojectcommunicators.html=projectCommunicatorController
 				/admin/project/manageprojectcommunicator.html=projectCommunicatorController
+				/admin/portal/manageportal.html=managePortalController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				/repository/retrieveotml.html=retrieveOtmlController

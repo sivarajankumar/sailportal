@@ -350,6 +350,16 @@
 		<property name="newsItemDao" ref="newsItemDao" />
 	</bean>
 	
+	<bean id="portalDao"
+	    class="org.telscenter.sail.webapp.dao.portal.impl.HibernatePortalDao">
+	    <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="portalService"
+	    class="org.telscenter.sail.webapp.service.portal.impl.PortalServiceImpl">
+	    <property name="portalDao" ref="portalDao" />
+    </bean>
+	
 	<bean id="brainstorm" scope="prototype"
 	    class="org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl">
 	</bean>

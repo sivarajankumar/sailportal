@@ -61,6 +61,11 @@
 		<h5><a href="findprojectrunsbyteacher.html">Find Project Runs By Teacher</a></h5>
 	</div>
 
+<div id="adminTitle">Portal Management</div>
+	<div style="margin:0 0 0 25px;">
+		<h5><a href="portal/manageportal.html">Configure Portal Settings</a></h5>
+	</div>
+
 <div id="adminTitle">Other</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="managenewsitems.html">Work with News Items</a></h5>
@@ -72,9 +77,7 @@
 		<h5><a href="project/getallexternalprojects.html">Get all External Projects (connect to other portals)</a></h5>
 	</div>
 </div>
+
 	
-</div>
-
-
 </body>
 </html>
