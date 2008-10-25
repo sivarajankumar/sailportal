@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.domain.project.impl;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +35,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,8 +45,11 @@ import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.JnlpImpl;
+import net.sf.sail.webapp.domain.impl.OfferingImpl;
+import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.hibernate.annotations.Cascade;
 import org.telscenter.sail.webapp.domain.Run;
@@ -58,6 +66,16 @@ import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 @Table(name = ProjectImpl.DATA_STORE_NAME)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ProjectImpl implements Project {
+
+    @Transient
+    public static final String SHARED_OWNERS_JOIN_COLUMN_NAME = "shared_owners_fk";
+    
+	@Transient
+    public static final String SHARED_OWNERS = "shared_owners";
+    
+    @Transient
+    public static final String SHARED_OWNERS_JOIN_TABLE_NAME = "projects_related_to_shared_owners";
+
 
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -90,6 +108,12 @@ public class ProjectImpl implements Project {
 	private static final String COLUMN_NAME_PROJECT_NAME = "name";
 
 	@Transient
+	private static final String OWNERS_JOIN_TABLE_NAME = "projects_related_to_owners";
+	
+    @Transient
+    public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
+
+	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
 	
 	@Column(name = COLUMN_NAME_PROJECT_NAME)
@@ -109,6 +133,14 @@ public class ProjectImpl implements Project {
 	@JoinColumn(name = COLUMN_NAME_PREVIEWOFFERING_FK, unique = true)
 	protected Run previewRun;
 	
+	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
+    private Set<User> owners = new TreeSet<User>();
+	
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = SHARED_OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SHARED_OWNERS_JOIN_COLUMN_NAME, nullable = false))
+    private Set<User> sharedowners = new TreeSet<User>();
+    
     @Column(name = ProjectImpl.COLUMN_NAME_FAMILYTAG, nullable = true)
 	protected FamilyTag familytag;
     
@@ -273,6 +305,22 @@ public class ProjectImpl implements Project {
 		this.projectinfo = projectInfo;
 		this.isCurrent = projectInfo.isCurrent();
 		this.familytag = projectInfo.getFamilyTag();
+	}
+	
+	public Set<User> getSharedowners() {
+		return sharedowners;
+	}
+
+	public void setSharedowners(Set<User> sharedowners) {
+		this.sharedowners = sharedowners;
+	}
+
+	public Set<User> getOwners() {
+		return owners;
+	}
+
+	public void setOwners(Set<User> owners) {
+		this.owners = owners;
 	}
 
 	/**

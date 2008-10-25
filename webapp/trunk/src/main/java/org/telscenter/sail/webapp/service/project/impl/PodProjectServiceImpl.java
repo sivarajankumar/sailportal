@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +41,7 @@ import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
@@ -48,12 +50,16 @@ import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.acegisecurity.acls.AlreadyExistsException;
 import org.acegisecurity.acls.NotFoundException;
+import org.acegisecurity.acls.Permission;
+import org.acegisecurity.acls.domain.BasePermission;
+import org.acegisecurity.annotation.Secured;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
@@ -67,6 +73,7 @@ import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -112,6 +119,8 @@ public class PodProjectServiceImpl implements ProjectService {
 	
 	public static String retrieveAnnotationBundleUrl = "/student/getannotationbundle.html";
 
+	protected AclService<Project> aclService;
+
 	{
 		PREVIEW_PERIOD_NAMES = new HashSet<String>();
 		PREVIEW_PERIOD_NAMES.add(PREVIEW_PERIOD_NAME);
@@ -134,7 +143,7 @@ public class PodProjectServiceImpl implements ProjectService {
 		project.setJnlp(jnlp);
 		this.projectDao.save(project);
 		createPreviewRun(project);
-		// TODO HIROKI add acl here, to grant appropriate permissions
+		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);
 		return project;
 	}
 
@@ -383,7 +392,25 @@ public class PodProjectServiceImpl implements ProjectService {
     	
 		return projectList;
 	}
-    
+
+    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+	public List<Project> getProjectList(User user) {
+		List<Project> projectList = this.projectDao.getList();
+		List<Project> ownedProjectList = new ArrayList<Project>();
+    	// populate roolo projects' projectinfos
+    	for (Project project : projectList) {
+    		if (project.getOwners().contains(user)) {
+				try {
+					populateProjectInfo(project);
+	    			ownedProjectList.add(project);					
+				} catch (ObjectNotFoundException e) {
+					e.printStackTrace();
+				}
+    		} 
+    	}
+		return ownedProjectList;
+	}
+	
 	/**
 	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(java.lang.String)
 	 */
@@ -468,5 +495,47 @@ public class PodProjectServiceImpl implements ProjectService {
 	 */
 	public void setAuthoringToolJnlpUrl(String authoringToolJnlpUrl) {
 		this.authoringToolJnlpUrl = authoringToolJnlpUrl;
+	}
+		
+	/**
+	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addSharedTeacherToRun(org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters)
+	 */
+	public void addSharedTeacherToProject(
+			AddSharedTeacherParameters addSharedTeacherParameters) {
+		Project project = addSharedTeacherParameters.getProject();
+		String sharedOwnerUsername = addSharedTeacherParameters.getSharedOwnerUsername();
+		User user = userService.retrieveUserByUsername(sharedOwnerUsername);
+		project.getSharedowners().add(user);
+		this.projectDao.save(project);
+
+		String permission = addSharedTeacherParameters.getPermission();
+		if (permission.equals(UserDetailsService.PROJECT_WRITE_ROLE)) {
+			this.aclService.removePermission(project, BasePermission.READ, user);
+			this.aclService.addPermission(project, BasePermission.WRITE, user);	
+		} else if (permission.equals(UserDetailsService.PROJECT_READ_ROLE)) {
+			this.aclService.removePermission(project, BasePermission.WRITE, user);
+			this.aclService.addPermission(project, BasePermission.READ, user);
+		}
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getSharedTeacherRole(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public String getSharedTeacherRole(Project project, User user) {
+		List<Permission> permissions = this.aclService.getPermissions(project, user);
+		// for projects, a user can have at most one permission per project
+		if (!permissions.isEmpty()) {
+			Permission permission = permissions.get(0);
+			if (permission.equals(BasePermission.READ)) {
+				return UserDetailsService.PROJECT_READ_ROLE;
+			} else if (permission.equals(BasePermission.WRITE)) {
+				return UserDetailsService.PROJECT_WRITE_ROLE;
+			}
+		}
+		return null;
+	}
+
+	public void setAclService(AclService<Project> aclService) {
+		this.aclService = aclService;
 	}
 }

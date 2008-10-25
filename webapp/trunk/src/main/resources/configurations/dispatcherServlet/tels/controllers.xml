@@ -654,9 +654,15 @@
         <property name="projectService" ref="projectService" />
     </bean>
     
-    <bean id="shareProjectController"
+	<bean id="shareProjectController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.ShareProjectController">
+        <property name="commandName" value="addSharedTeacherParameters" />
+        <property name="userService" ref="userService" />
         <property name="projectService" ref="projectService" />
+    	<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters" />
+		<property name="successView" value="shareproject.html" />
+	 	<property name="formView" value="teacher/projects/customized/shareproject" />
     </bean>
     
     <bean id="createProjectController"

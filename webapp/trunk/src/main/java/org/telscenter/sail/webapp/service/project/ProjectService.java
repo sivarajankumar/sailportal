@@ -26,8 +26,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
 
+import org.acegisecurity.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -49,8 +53,17 @@ public interface ProjectService {
 	 * @return a <code>List</code> of <code>Project</code>
 	 */
 	@Transactional
+	@Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
 	public List<Project> getProjectList();
-	
+
+	/**
+	 * Get a <code>List</code> of <code>Project</code>
+	 * @return a <code>List</code> of <code>Project</code>
+	 */
+	@Transactional
+    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+	public List<Project> getProjectList(User user);
+
 	/**
 	 * Get a <code>List</code> of <code>Project</code> with
 	 * matching FamilyTag
@@ -75,6 +88,24 @@ public interface ProjectService {
 	@Transactional
 	public List<Project> getProjectListByInfo(ProjectInfo info) throws ObjectNotFoundException;
 
+	/**
+     * Returns the permission that the specified user has on the specified project
+     * 
+     * @param project The <code>Project</code> that is shared.
+     * @param user The <code>User</code> that shares the <code>Project</code>
+     * @return A <code>String</code> containing the permission that 
+     *     the user has on the project. If the user does not have permission on the project,
+     *     null is returned.
+     */
+    @Transactional(readOnly = true)
+    public String getSharedTeacherRole(Project project, User user);
+    
+    /**
+     * @param addSharedTeacherParameters
+     */
+    @Secured( {"ROLE_TEACHER"} )
+    @Transactional()
+	public void addSharedTeacherToProject(AddSharedTeacherParameters addSharedTeacherParameters) throws ObjectNotFoundException;
 	
 	/**
 	 * Creates a new <code>Project</code>

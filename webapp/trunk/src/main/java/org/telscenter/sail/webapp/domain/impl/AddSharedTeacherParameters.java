@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.domain.impl;
 import java.io.Serializable;
 
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.Project;
 
 /**
  * Parameter for adding and editing SharedTeacher permissions
@@ -37,7 +38,9 @@ public class AddSharedTeacherParameters implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Run run;
-
+	
+	private Project project;
+	
 	private String sharedOwnerUsername;
 	
 	private String permission;
@@ -83,4 +86,13 @@ public class AddSharedTeacherParameters implements Serializable {
 	public void setPermission(String permission) {
 		this.permission = permission;
 	}
+	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	
 }

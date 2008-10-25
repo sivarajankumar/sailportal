@@ -26,8 +26,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -90,6 +92,11 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectService.getProjectList();
 	}
 
+public List<Project> getProjectList(User user) {
+		ProjectService projectService = projectServiceFactory.getProjectService(new ProjectImpl());
+		return projectService.getProjectList(user);
+	}
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByInfo(org.telscenter.sail.webapp.domain.project.ProjectInfo)
 	 */
@@ -149,5 +156,21 @@ public class ProjectServiceImpl implements ProjectService {
 	public void setProjectServiceFactory(ProjectServiceFactory projectServiceFactory) {
 		this.projectServiceFactory = projectServiceFactory;
 	}
+
+	/**
+	 * @throws ObjectNotFoundException 
+	 * @override @see org.telscenter.sail.webapp.service.offering.RunService#addSharedTeacherToRun(org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters)
+	 */
+	public void addSharedTeacherToProject(
+			AddSharedTeacherParameters addSharedTeacherParameters) throws ObjectNotFoundException {
+		ProjectService projectService = projectServiceFactory.getProjectService(addSharedTeacherParameters.getProject());
+		projectService.addSharedTeacherToProject(addSharedTeacherParameters);
+	}
+	
+	public String getSharedTeacherRole(Project project, User user) {
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.getSharedTeacherRole(project, user);
+	}
+
 
 }

@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -26,10 +28,15 @@ public class CustomizedIndexController extends AbstractController {
 	 */
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		 List<Project> projectList = this.projectService.getProjectList();
+			HttpServletResponse response) throws Exception {		 
 		 ModelAndView modelAndView = new ModelAndView();
-	     modelAndView.addObject("projectList", projectList);
+		 User user = (User) request.getSession().getAttribute(
+					User.CURRENT_USER_SESSION_KEY);
+		 List<Project> ownedProjectsList = this.projectService.getProjectList(user);
+	     modelAndView.addObject("ownedProjectsList", ownedProjectsList);
+	     List<Project> sharedProjectsList = this.projectService.getProjectList();
+	     sharedProjectsList.removeAll(ownedProjectsList);
+	     modelAndView.addObject("sharedProjectsList", sharedProjectsList);
 		 return modelAndView;
 	}
 	

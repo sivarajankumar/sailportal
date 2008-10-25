@@ -240,6 +240,23 @@
             </list>
         </property>
     </bean>
+
+    <bean id="projectAccessDecisionManager"
+        class="org.acegisecurity.vote.ConsensusBased">
+        <property name="allowIfAllAbstainDecisions">
+            <value>false</value>
+        </property>
+        <property name="decisionVoters">
+            <list>
+                <ref local="roleVoter" />
+                <ref local="aclProjectAdminVoter" />
+                <ref local="aclProjectReadVoter" />
+                <ref local="aclProjectWriteVoter" />
+                <ref local="aclProjectCreateVoter" />
+                <ref local="aclProjectDeleteVoter" />
+            </list>
+        </property>
+    </bean>
     
     <bean id="workgroupAccessDecisionManager"
         class="org.acegisecurity.vote.ConsensusBased">
@@ -324,6 +341,25 @@
         </property>
     </bean>
     
+    <bean id="aclProjectAdminVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_PROJECT_ADMIN</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>org.telscenter.sail.webapp.domain.project.Project</value>
+        </property>
+    </bean>
+    
     <bean id="aclWorkgroupAdminVoter"
         class="org.acegisecurity.vote.AclEntryVoter">
         <constructor-arg>
@@ -382,6 +418,25 @@
         </property>
     </bean>   
 
+    <bean id="aclProjectReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_PROJECT_READ</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>org.telscenter.sail.webapp.domain.project.Project</value>
+        </property>
+    </bean>   
+    
 	<bean id="aclWorkgroupReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
@@ -421,6 +476,26 @@
             <value>net.sf.sail.webapp.domain.group.Group</value>
         </property>
     </bean>
+    
+    <bean id="aclProjectWriteVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_PROJECT_WRITE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>org.telscenter.sail.webapp.domain.project.Project</value>
+        </property>
+    </bean> 
     
     <bean id="aclOfferingWriteVoter"
         class="org.acegisecurity.vote.AclEntryVoter">
@@ -505,6 +580,27 @@
         </property>
     </bean>
 
+   <bean id="aclProjectCreateVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_PROJECT_CREATE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.CREATE" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>org.telscenter.sail.webapp.domain.project.Project</value>
+        </property>
+    </bean>
+    
    <bean id="aclWorkgroupCreateVoter"
         class="org.acegisecurity.vote.AclEntryVoter">
         <constructor-arg>
@@ -566,6 +662,27 @@
         </constructor-arg>
         <property name="processDomainObjectClass">
             <value>net.sf.sail.webapp.domain.Offering</value>
+        </property>
+    </bean> 
+    
+    <bean id="aclProjectDeleteVoter"
+        class="org.acegisecurity.vote.AclEntryVoter">
+        <constructor-arg>
+            <ref bean="aclService" />
+        </constructor-arg>
+        <constructor-arg>
+            <value>VOTE_ACL_PROJECT_DELETE</value>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref
+                    local="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+            </list>
+        </constructor-arg>
+        <property name="processDomainObjectClass">
+            <value>org.telscenter.sail.webapp.domain.project.Project</value>
         </property>
     </bean> 
     

@@ -415,202 +415,284 @@
 <h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.custom.index.11"/></h2> 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
+<div class="yui-content" style="background-color: #FFFFFF;">
 
-<div id="projectInfoTabs" class="yui-navset">
-    <ul class="yui-nav" >
-        <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.custom.index.12"/></em></a></li>
-        <li style="margin-left:4px;"><a href="#tab2"><em><spring:message code="teacher.pro.custom.index.13"/></em></a></li>
-        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.custom.index.14"/></em></a></li>
-        
-    </ul>     
-           
-    <div class="yui-content" style="background-color:#FFFFFF;">
-    
-        <div id="tab1">
-		  
-		  <table id="customProjectsButtons"  >
-            	<tr>
-            		<td><a href="#"><spring:message code="teacher.pro.custom.index.15"/></a></td>
-	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.16"/></a></td>
-	             	<td><a href="#" onclick="toggle_visibility('toggleAllCurrent');"><spring:message code="teacher.pro.custom.index.17"/></a></td>
-	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.18"/></a></td>
-	            </tr>
-	         </table> 
-			
-          <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
-				    <tr>
-				        <th><spring:message code="teacher.pro.custom.index.19"/></th>
-				        <th><spring:message code="teacher.pro.custom.index.20"/></th>
-				        <th><spring:message code="teacher.pro.custom.index.21"/></th>
-				        <th><spring:message code="teacher.pro.custom.index.22"/></th>
-						<th><spring:message code="teacher.pro.custom.index.23"/></th>
-						<th><spring:message code="teacher.pro.custom.index.24"/></th>
-						<th><spring:message code="teacher.pro.custom.index.25"/></th>
-						<th><spring:message code="teacher.pro.custom.index.26"/></th>
-				        <th> </th>
-				    </tr>
-				  
-				  <tr id="customProjectR2">
-				    <td class="customProjectTitle">Space Colony! Meiosis and Sexual Reproduction</td>
-				    <td class="dataText">Biology, Evolution</td>
-				    <td class="dataText">10324</td>
-				    <td class="dataText">12/14/07</td>
-				    <td class="smallText1">UC Berkeley library project</td>
-				    <td class="dataText">6,7,8,9</td>
-				    <td class="dataTime">6 hours</td>
-				    <td class="dataTime">5 hours</td>
-				    <td class="actionMenuButton">
-					    <div id="customProjectActionsMenu" class="yuimenubar yuimenubarnav customProjectsMenuCSS"  >
-					    			<div class="bd">
-					        			<ul class="first-of-type"> 
-					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
-					                			<a class="yuimenubaritemlabel" href="#actionsCurrent">ACTIONS</a>
-					           				 </li>
-					            		</ul>
-    								</div>
-						</div>
-					</td>
-				   </tr>
-				   <tr>
-				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggleProjectSummaryCurrent');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
-					   		<div id="toggleAllCurrent">
-					   			<div id="toggleProjectSummaryCurrent">
-				   					<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
-				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
-				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
-				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
-				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
-				   		hendrerit esse consequat exerci.</div>
-							  		<div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
-				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
-				   					<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
-				   				</div>
-				   		   </div>
-				   		</td>
-				   </tr>
-				</table>
+<div id="tab1">
 
-	    </div>       <!--	    End of Tab 1 content-->
-	        
-        <div id="tab2">
-        
-        <table id="customProjectsButtons">
-            	<tr>
-            		<td><a href="#"><spring:message code="teacher.pro.custom.index.15"/></a></td>
-	             	<td><a href="#"><spring:message code="teacher.pro.custom.index.16"/></a></td>
-	             	<td><a href="#" onclick="toggle_visibility('toggleAllShared');"><spring:message code="teacher.pro.custom.index.17"/></a></td>
-	            </tr>
-	         </table> 
-	         
-  		<table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
-				    <tr>
-				        <th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.19"/></th>
-				        <th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.20"/></th>
-				        <th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.21"/></th>
-				        <th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.22"/></th>
-						<th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.23"/></th>
-						<th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.24"/></th>
-						<th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.25"/></th>
-						<th style="background-color:#0000CC;"><spring:message code="teacher.pro.custom.index.26"/></th>
-				        <th style="background-color:#0000CC;"> </th>
-				    </tr>
-				  
-				  <tr id="customProjectR2">
-				    <td class="customProjectTitle">Space Colony! Meiosis and Sexual Reproduction</td>
-				    <td class="dataText">Biology, Evolution</td>
-				    <td class="dataText">10324</td>
-				    <td class="dataText">12/14/07</td>
-				    <td class="smallText1">UC Berkeley library project</td>
-				    <td class="dataText">6,7,8,9</td>
-				    <td class="dataTime">6 hours</td>
-				    <td class="dataTime">5 hours</td>
-				    <td class="actionMenuButton">
-					    <div id="customProjectActionsMenu" class="yuimenubar yuimenubarnav customProjectsActionMenu"  >
-					    			<div class="bd">
-					        			<ul class="first-of-type"> 
-					            			<li class="yuimenubaritem first-of-type" style="width:100%;"> 
-					                			<a class="yuimenubaritemlabel" href="#actionsShared">ACTIONS</a>
-					           				 </li>
-					            		</ul>
-    								</div>
-						</div>
+<table id="customProjectsButtons">
+	<tr>
+		<td><a href="#"><spring:message
+			code="teacher.pro.custom.index.15" /></a></td>
+		<td><a href="#"><spring:message
+			code="teacher.pro.custom.index.16" /></a></td>
+		<td><a href="#" onclick="toggle_visibility('toggleAllCurrent');"><spring:message
+			code="teacher.pro.custom.index.17" /></a></td>
+		<td><a href="#"><spring:message
+			code="teacher.pro.custom.index.18" /></a></td>
+	</tr>
+</table>
+
+<table id="customProjectTable" border="1" cellpadding="0"
+	cellspacing="0">
+	<tr>
+		<th><spring:message code="teacher.pro.custom.index.19" /></th>
+		<th><spring:message code="teacher.pro.custom.index.20" /></th>
+		<th><spring:message code="teacher.pro.custom.index.21" /></th>
+		<th><spring:message code="teacher.pro.custom.index.22" /></th>
+		<th><spring:message code="teacher.pro.custom.index.23" /></th>
+		<th><spring:message code="teacher.pro.custom.index.24" /></th>
+		<th><spring:message code="teacher.pro.custom.index.25" /></th>
+		<th><spring:message code="teacher.pro.custom.index.26" /></th>
+		<th></th>
+	</tr>
+	<c:choose>
+		<c:when test="${fn:length(ownedProjectsList) == 0}">
+		</c:when>
+		<c:otherwise>
+		    <h5>These are projects that you own</h5>
+			<c:forEach var="project" items="${ownedProjectsList}">
+				<tr id="customProjectR2">
+					<td class="customProjectTitle">${project.curnit.sdsCurnit.name}
+					<br>
+					This project is shared with:<br>
+					<c:forEach var="sharedowner" items="${project.sharedowners}">
+					  <c:out value="${sharedowner.userDetails.firstname}"/>
+					  <c:out value="${sharedowner.userDetails.lastname}"/><br>
+					</c:forEach>
 					</td>
-				   </tr>
-				   <tr>
-				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggleProjectSummaryShared');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
-					   		<div id="toggleAllShared">
-					   			<div id="toggleProjectSummaryShared">
-				   					<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
-				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
-				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
-				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
-				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
-				   		hendrerit esse consequat exerci.</div>
-							  		<div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
-				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
-				   				</div>
-				   			</div>
-				   			<div id="customProjectSummaryData"><b>This Project is Being Shared By:</b>: <a href="#" style="font-size:1.2em;">Attila the Hun2</a>
-				   			</div>
-				   		</td>
-				   </tr>
-				</table>
-				
-        </div>
-        
-        <div id="tab3">
-       
-          <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
-				    <tr>
-				        <th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.19"/></th>
-				        <th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.20"/></th>
-				        <th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.21"/></th>
-				        <th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.22"/></th>
-						<th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.23"/></th>
-						<th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.24"/></th>
-						<th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.25"/></th>
-						<th style="background-color:#CC0000;"><spring:message code="teacher.pro.custom.index.26"/></th>
-				        <th style="background-color:#CC0000;"> </th>
-				    </tr>
-				  
-				  <tr id="customProjectR2">
-				    <td class="customProjectTitle">Space Colony! Meiosis and Sexual Reproduction</td>
-				    <td class="dataText">Biology, Evolution</td>
-				    <td class="dataText">10324</td>
-				    <td class="dataText">12/14/07</td>
-				    <td class="smallText1">UC Berkeley library project</td>
-				    <td class="dataText">6,7,8,9</td>
-				    <td class="dataTime">6 hours</td>
-				    <td class="dataTime">5 hours</td>
-				    <td id="customProjectMakeCurrentLink" >
-					    <a href="#"><spring:message code="teacher.pro.custom.index.28"/></a>
-    				</td>
-				   </tr>
-				   <tr>
-				   		<td id="customProjectSummaryHeader" colspan=10>
-				   			<div><a href="#" onclick="toggle_visibility('toggleCustomProjectArchive');"><spring:message code="teacher.pro.custom.index.27"/></a></div>
-				   			
-				   			<div id="toggleCustomProjectArchive">
-				   				<div id="customProjectSummaryData"><b>Project Summary:</b>  Laoreet dignissim consequat nulla eu, dolore consectetuer 
-				   		aliquam nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi et praesent sed qui, ea. 
-				   		Velit suscipit eu blandit, hendrerit, aliquip dolor et, veniam, facilisis lobortis aliquam enim et ut, 
-				   		velit eros iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan velit illum laoreet consequat, 
-				   		ipsum ut duis duis dolore illum nulla exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et feugiat 
-				   		hendrerit esse consequat exerci.</div>
-							  	<div id="customProjectSummaryData"><b>Keywords:</b>  Biology, Evolution, Mitosis, Meiosis, Environmental Selective 
-				   		Pressures, Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
-				   			</div>
-				   		</td>
-				   </tr>
-				</table>
-				
-        </div>
-        
-     
-    </div>
+					<td class="dataText">${project.projectInfo.subject}</td>
+					<td class="dataText">${project.curnit.id}</td>
+					<td class="dataText">;;;</td>
+					<td class="smallText1">UC Berkeley library project</td>
+					<td class="dataText">${project.projectInfo.gradeLevel }</td>
+					<td class="dataTime">;;;</td>
+					<td class="dataTime">${project.projectInfo.projectLiveCycle.toString}</td>
+					<td class="actionMenuButton">
+					<div id="customProjectActionsMenu"
+						class="yuimenubar yuimenubarnav customProjectsMenuCSS">
+					<div class="bd">
+					<ul class="first-of-type">
+						<li class="yuimenubaritem first-of-type" style="width: 100%;">
+						<a class="yuimenubaritemlabel" href="#actionsCurrent">ACTIONS</a>
+						</li>
+					</ul>
+					<a href="shareproject.html?projectId=${project.id}">share this
+					project</a></div>
+					</div>
+					</td>
+				</tr>
+				<tr>
+					<td id="customProjectSummaryHeader" colspan="10">
+					<div><a href="#"
+						onclick="toggle_visibility('toggleProjectSummaryCurrent');"><spring:message
+						code="teacher.pro.custom.index.27" /></a></div>
+					<div id="toggleAllCurrent">
+					<div id="toggleProjectSummaryCurrent">
+					<div id="customProjectSummaryData"><b>Project Summary:</b>
+					${project.projectInfo.description }</div>
+					<div id="customProjectSummaryData"><b>Keywords:</b>
+					${project.projectInfo.keywords }</div>
+					<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
+					</div>
+					</div>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
+
+
+
+	<tr></tr>
+</table>
+
 </div>
+<!--	    End of Tab 1 content-->
+
+<div id="tab2">
+
+<table id="customProjectsButtons">
+	<tr>
+		<td><a href="#"><spring:message
+			code="teacher.pro.custom.index.15" /></a></td>
+		<td><a href="#"><spring:message
+			code="teacher.pro.custom.index.16" /></a></td>
+		<td><a href="#" onclick="toggle_visibility('toggleAllShared');"><spring:message
+			code="teacher.pro.custom.index.17" /></a></td>
+	</tr>
+</table>
+
+<table id="customProjectTable" border="1" cellpadding="0"
+	cellspacing="0">
+	<tr>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.19" /></th>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.20" /></th>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.21" /></th>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.22" /></th>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.23" /></th>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.24" /></th>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.25" /></th>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.26" /></th>
+		<th style="background-color: #0000CC;"></th>
+	</tr>
+
+
+	<c:choose>
+		<c:when test="${fn:length(sharedProjectsList) == 0}">
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="project" items="${sharedProjectsList}">
+				<tr id="customProjectR2">
+					<td class="customProjectTitle">${project.curnit.sdsCurnit.name}
+					<br>
+					This project is owned by:<br>
+					<c:forEach var="projectowner" items="${project.owners}">
+					  <c:out value="${projectowner.userDetails.firstname}" />
+					  <c:out value="${projectowner.userDetails.lastname}" />
+					  <br>					  
+					</c:forEach>
+					</td>
+					<td class="dataText">${project.projectInfo.subject}</td>
+					<td class="dataText">${project.curnit.id}</td>
+					<td class="dataText">;;;</td>
+					<td class="smallText1">UC Berkeley library project</td>
+					<td class="dataText">${project.projectInfo.gradeLevel }</td>
+					<td class="dataTime">;;;</td>
+					<td class="dataTime">${project.projectInfo.projectLiveCycle.toString}</td>
+					<td class="actionMenuButton">
+					<div id="customProjectActionsMenu"
+						class="yuimenubar yuimenubarnav customProjectsMenuCSS">
+					<div class="bd">
+					<a href="../../../previewproject.html?projectId=${project.id}">Preview project</a><br>
+					<authz:accesscontrollist domainObject="${project}" hasPermission="2">												
+					<li><a href="../../../author/authorproject.html?projectId=${project.id}"><spring:message
+							code="edit.curnit" /></a></li>
+					</authz:accesscontrollist>
+					</div>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
+
+	<tr>
+		<td id="customProjectSummaryHeader" colspan="10">
+		<div><a href="#"
+			onclick="toggle_visibility('toggleProjectSummaryCurrent');"><spring:message
+			code="teacher.pro.custom.index.27" /></a></div>
+		<div id="toggleAllCurrent">
+		<div id="toggleProjectSummaryCurrent">
+		<div id="customProjectSummaryData"><b>Project Summary:</b>
+		${project.projectInfo.description }</div>
+		<div id="customProjectSummaryData"><b>Keywords:</b>
+		${project.projectInfo.keywords}</div>
+		<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
+		</div>
+		</div>
+		</td>
+	</tr>
+	<tr></tr>
+</table>
+
+</div>
+
+<div id="tab3">
+
+<table id="customProjectTable" border="1" cellpadding="0"
+	cellspacing="0">
+	<tr>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.19" /></th>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.20" /></th>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.21" /></th>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.22" /></th>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.23" /></th>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.24" /></th>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.25" /></th>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.26" /></th>
+		<th style="background-color: #CC0000;"></th>
+	</tr>
+
+	<c:choose>
+		<c:when test="${fn:length(sharedProjectsList) == 0}">
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="project" items="${sharedProjectsList}">
+			<!-- <authz:accesscontrollist domainObject="${project}" hasPermission="16"> -->
+				<tr id="customProjectR2">
+					<td class="customProjectTitle">${project.curnit.sdsCurnit.name}</td>
+					<td class="dataText">${project.projectInfo.subject}</td>
+					<td class="dataText">${project.curnit.id}</td>
+					<td class="dataText">;;;</td>
+					<td class="smallText1">UC Berkeley library project</td>
+					<td class="dataText">${project.projectInfo.gradeLevel }</td>
+					<td class="dataTime">;;;</td>
+					<td class="dataTime">${project.projectInfo.projectLiveCycle.toString}</td>
+					<td class="actionMenuButton">
+					<div id="customProjectActionsMenu"
+						class="yuimenubar yuimenubarnav customProjectsMenuCSS">
+					<div class="bd">
+					<ul class="first-of-type">
+						<li class="yuimenubaritem first-of-type" style="width: 100%;">
+						<a class="yuimenubaritemlabel" href="#actionsCurrent">ACTIONS</a>
+						</li>
+					</ul>
+					<a href="shareproject.html?projectId=${project.id}">share this
+					project</a></div>
+					</div>
+					</td>
+				</tr>
+			<!-- </authz:accesscontrollist> -->
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
+
+	<tr>
+		<td id="customProjectSummaryHeader" colspan="10">
+		<div><a href="#"
+			onclick="toggle_visibility('toggleCustomProjectArchive');"><spring:message
+			code="teacher.pro.custom.index.27" /></a></div>
+
+		<div id="toggleCustomProjectArchive">
+		<div id="customProjectSummaryData"><b>Project Summary:</b>
+		Laoreet dignissim consequat nulla eu, dolore consectetuer aliquam
+		nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi
+		et praesent sed qui, ea. Velit suscipit eu blandit, hendrerit, aliquip
+		dolor et, veniam, facilisis lobortis aliquam enim et ut, velit eros
+		iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan
+		velit illum laoreet consequat, ipsum ut duis duis dolore illum nulla
+		exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et
+		feugiat hendrerit esse consequat exerci.</div>
+		<div id="customProjectSummaryData"><b>Keywords:</b> Biology,
+		Evolution, Mitosis, Meiosis, Environmental Selective Pressures,
+		Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+</div>
+
+
+</div>
+</div>
+
+
   
 	
 </div>

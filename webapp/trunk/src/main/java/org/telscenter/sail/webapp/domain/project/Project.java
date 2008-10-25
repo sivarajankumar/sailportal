@@ -23,6 +23,9 @@
 package org.telscenter.sail.webapp.domain.project;
 
 import java.io.Serializable;
+import java.util.Set;
+
+
 
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
@@ -123,6 +126,14 @@ public interface Project extends Persistable {
 	 * @param isCurrent
 	 */
 	public void setCurrent(boolean isCurrent);
+	
+	public Set<User> getSharedowners();
+
+	public void setSharedowners(Set<User> sharedowners);
+	
+	public Set<User> getOwners();
+
+	public void setOwners(Set<User> owners);
 	
 	/**
 	 * @return the projectType

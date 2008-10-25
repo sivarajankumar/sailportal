@@ -62,14 +62,14 @@
 				    </tr>
 				  
 				  <tr id="customProjectR2">
-				    <td class="customProjectTitle">Space Colony! Meiosis and Sexual Reproduction</td>
-				    <td class="dataText">Biology, Evolution</td>
-				    <td class="dataText">10324</td>
-				    <td class="dataText">12/14/07</td>
+				    <td class="customProjectTitle">${project.curnit.sdsCurnit.name}</td>
+				    <td class="dataText">${project.projectInfo.subject} ${project.projectInfo.keywords}</td>
+				    <td class="dataText">${project.id}</td>
+				    <td class="dataText">${project.projectInfo.projectLiveCycle }</td>
 				    <td class="smallText1">UC Berkeley library project</td>
-				    <td class="dataText">6,7,8,9</td>
-				    <td class="dataTime">6 hours</td>
-				    <td class="dataTime">5 hours</td>
+				    <td class="dataText">${project.projectInfo.gradeLevel}</td>
+				    <td class="dataTime">[6 hours]</td>
+				    <td class="dataTime">[5 hours]</td>
 				  </tr>
 				   
 				</table>
@@ -83,27 +83,53 @@
 		<th><spring:message code="teacher.pro.custom.sharepro.6"/></th> 
 	</tr>
 	<tr>
-		<td class="sharedUserName">[Current Username]</td>
-		<td "><spring:message code="teacher.pro.custom.sharepro.7"/></td>
+		<c:choose>
+			<c:when test="${fn:length(project.owners) == 0 }">
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="owner" items="${project.owners }">
+					<td class="sharedUserName">${owner.userDetails.username}</td>
+					<td><spring:message code="teacher.pro.custom.sharepro.7"/></td>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</tr>
-	<tr>
-		<td class="sharedUserName">[Name]</td>
-		<td>
-			<select>
-				<option value="view"><spring:message code="teacher.pro.custom.sharepro.8"/></option>
-				<option value="edit"><spring:message code="teacher.pro.custom.sharepro.9"/></option>
-				<option value="projectrun"><spring:message code="teacher.pro.custom.sharepro.10"/></option>
-				<option value="projectrun"><spring:message code="teacher.pro.custom.sharepro.11"/></option>
-				
-			</select>
-		</td>
-	</tr>
+	
+	<c:choose>
+		<c:when test="${fn:length(project.sharedowners) == 0}">
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="sharedowner" items="${project.sharedowners}">
+				<form:form method="post" id="${sharedowner.userDetails.username}"
+					commandName="${sharedowner.userDetails.username}">
+					<form:hidden path="sharedOwnerUsername" />
+
+
+					<tr>
+						<td>${sharedowner.userDetails.username}</td>
+						<td align="left"><form:radiobutton path="permission"
+							onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" /><spring:message
+							code="teacher.pro.custom.sharepro.8" /><br />
+						<form:radiobutton path="permission"
+							onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" /><spring:message
+							code="teacher.pro.custom.sharepro.9" /></td>
+						<td><!-- <a href='#' onclick="return confirm('Proceed with removing this shared teacher?');">Remove this User</a> -->
+						<a href='#'
+							onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message
+							code="teacher.run.shareprojectrun.16" /></a></td>
+					</tr>
+				</form:form>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
 	
 	<tr>
 		<td id="sharingSearchBox" colspan=2>
 			<div id="sharingSearchBoxHelp"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
-				<input type="text" name="userSearch" ></input>
-				<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
+				<form:form method="post" commandName="addSharedTeacherParameters">
+					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" size="25"/>
+					<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
+				</form:form>
 		</td>
 	</tr>
 
