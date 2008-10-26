@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        sid bigint not null,
         acl_object_identity bigint not null,
+        sid bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        owner_sid bigint,
-        parent_object bigint,
         object_id_class bigint not null,
+        parent_object bigint,
+        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -110,9 +110,9 @@
         isgated bit,
         starttime datetime,
         OPTLOCK integer,
+        projects_fk bigint,
         runs_fk bigint,
         brainstormquestions_fk bigint,
-        projects_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -225,6 +225,7 @@
         portalname varchar(255),
         address varchar(255),
         sendmail_on_exception bit,
+        google_map_key varchar(255),
         sendmail_properties tinyblob,
         comments varchar(255),
         OPTLOCK integer,
@@ -234,8 +235,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -243,8 +244,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -271,8 +272,8 @@
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
-        jnlp_fk bigint,
         curnit_fk bigint,
+        jnlp_fk bigint,
         run_fk bigint unique,
         primary key (id)
     ) type=MyISAM;
@@ -349,8 +350,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -447,8 +448,8 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        group_fk bigint not null,
         offering_fk bigint not null,
+        group_fk bigint not null,
         sds_workgroup_fk bigint unique,
         primary key (id)
     ) type=MyISAM;

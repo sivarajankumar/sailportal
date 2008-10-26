@@ -70,6 +70,9 @@ public class PortalImpl implements Portal {
 	@Transient
 	private static final String COLUMN_NAME_COMMENTS = "comments";
 
+	@Transient
+	private static final String COLUMN_NAME_GOOGLE_MAP_KEY = "google_map_key";
+
 	@Column(name = COLUMN_NAME_PORTAL_NAME)
 	private String portalName;
 	
@@ -78,6 +81,9 @@ public class PortalImpl implements Portal {
 	
 	@Column(name = COLUMN_NAME_SENDMAIL_ON_EXCEPTION)
 	private boolean isSendMailOnException;
+	
+	@Column(name = COLUMN_NAME_GOOGLE_MAP_KEY)
+	private String googleMapKey;
 	
 	@Column(name = COLUMN_NAME_SENDMAIL_PROPERTIES)
 	private Properties sendmailProperties;
@@ -183,5 +189,19 @@ public class PortalImpl implements Portal {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	/**
+	 * @return the googleMapKey
+	 */
+	public String getGoogleMapKey() {
+		return googleMapKey;
+	}
+
+	/**
+	 * @param googleMapKey the googleMapKey to set
+	 */
+	public void setGoogleMapKey(String googleMapKey) {
+		this.googleMapKey = googleMapKey;
 	}
 }

@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        sid bigint not null,
         acl_object_identity bigint not null,
+        sid bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -110,9 +110,9 @@
         isgated bit,
         starttime datetime,
         OPTLOCK integer,
-        brainstormquestions_fk bigint,
-        runs_fk bigint,
         projects_fk bigint,
+        runs_fk bigint,
+        brainstormquestions_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -225,6 +225,7 @@
         portalname varchar(255),
         address varchar(255),
         sendmail_on_exception bit,
+        google_map_key varchar(255),
         sendmail_properties tinyblob,
         comments varchar(255),
         OPTLOCK integer,
@@ -271,9 +272,9 @@
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
-        run_fk bigint unique,
         curnit_fk bigint,
         jnlp_fk bigint,
+        run_fk bigint unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -432,8 +433,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 

@@ -176,9 +176,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        group_fk bigint not null,
         sds_workgroup_fk bigint unique,
         offering_fk bigint not null,
+        group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 

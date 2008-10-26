@@ -29,9 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.portal.Portal;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
-import org.telscenter.sail.webapp.service.project.ExternalProjectService;
+import org.telscenter.sail.webapp.service.portal.PortalService;
 import org.telscenter.sail.webapp.service.project.ProjectCommunicatorService;
 
 /**
@@ -52,7 +53,11 @@ public class ProjectCommunicatorController extends AbstractController {
 
 	private static final String PROJECT_COMMUNICATOR_ID_PARAM = "projectCommunicatorId";
 
+	private static final String GOOGLEMAP_KEY = "googleMapKey";
+
 	private ProjectCommunicatorService projectCommunicatorService;
+	
+	private PortalService portalService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -76,7 +81,9 @@ public class ProjectCommunicatorController extends AbstractController {
 			}
 			projectCommunicatorXMLDocument += "</projectcommunicators>";
 
+			Portal portal = portalService.getById(1);
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject(GOOGLEMAP_KEY, portal.getGoogleMapKey());
 			modelAndView.addObject(PROJECT_COMMUNICATORS_PARAM, projectCommunicatorList);
 			modelAndView.addObject(PROJECT_COMMUNICATORS_XML_PARAM, projectCommunicatorXMLDocument);
 			return modelAndView;
@@ -89,6 +96,13 @@ public class ProjectCommunicatorController extends AbstractController {
 	public void setProjectCommunicatorService(
 			ProjectCommunicatorService projectCommunicatorService) {
 		this.projectCommunicatorService = projectCommunicatorService;
+	}
+
+	/**
+	 * @param portalService the portalService to set
+	 */
+	public void setPortalService(PortalService portalService) {
+		this.portalService = portalService;
 	}
 
 }

@@ -93,5 +93,16 @@ public interface Portal extends Persistable {
 	 * @param address the address to set
 	 */
 	public void setAddress(String address);
+	
+	/**
+	 * Gets the Googlemap key used by this portal.
+	 * @return
+	 */
+	public String getGoogleMapKey();
 
+	/**
+	 * Gets the Googlemap key used by this portal.
+	 * @return
+	 */
+	public void setGoogleMapKey(String googleMapKey);
 }

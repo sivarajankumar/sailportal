@@ -20,8 +20,9 @@
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Google Maps JavaScript API Example</title>
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAA6i9SCA124FYnecWsJguS7hT2yXp_ZAY8_ufC3CFXhHIE1NvwkxS8pFGwdBavxNvBCxzMH5fKjlSmVQ"
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${googleMapKey}"
       type="text/javascript"></script>
+      <!-- ABQIAAAA6i9SCA124FYnecWsJguS7hT2yXp_ZAY8_ufC3CFXhHIE1NvwkxS8pFGwdBavxNvBCxzMH5fKjlSmVQ -->
     <script type="text/javascript">
     function ProjectCommunicators(xmlProjectCommunicators) {
     	this.projectcommunicators = [];

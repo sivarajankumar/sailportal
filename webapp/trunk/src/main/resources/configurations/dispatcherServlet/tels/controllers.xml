@@ -812,6 +812,7 @@
 	<bean id="projectCommunicatorController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ProjectCommunicatorController">
 	    <property name="projectCommunicatorService" ref="projectCommunicatorService" />
+	    <property name="portalService" ref="portalService" />
 	</bean>
 	
 	<bean id="importExternalProjectController"
