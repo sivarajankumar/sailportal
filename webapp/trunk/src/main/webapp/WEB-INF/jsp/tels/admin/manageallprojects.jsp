@@ -54,7 +54,7 @@
 	</tr>
 	<c:forEach var="project" items="${internal_project_list}">
 	<tr>
-		<td>${project.curnit.sdsCurnit.name}</td>
+		<td>${project.name}</td>
 		<td>${project.id }</td>
 		<td>${project.current }</td>
 		<td>${project.familytag} (${project.projectType})</td>

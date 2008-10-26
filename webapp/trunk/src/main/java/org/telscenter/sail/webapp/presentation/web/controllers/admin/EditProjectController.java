@@ -33,10 +33,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -66,7 +64,6 @@ public class EditProjectController extends SimpleFormController{
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		Project project = projectService.getById(request.getParameter("projectId"));
-		//ProjectInfo projectInfo = project.getProjectInfo();
 		return project;
 	}
 
@@ -78,12 +75,6 @@ public class EditProjectController extends SimpleFormController{
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		Project project = (Project) command;
-//		Project project = projectService.getById(request.getParameter("projectId"));
-//		ProjectInfo params = (ProjectInfo) command;
-//		
-//		project.setProjectInfo(params);
-////		project.setCurrent(params.isCurrent());
-////		project.setFamilytag(params.getFamilyTag());
 		projectService.updateProject(project);
 		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
 		return modelAndView;
@@ -102,7 +93,4 @@ public class EditProjectController extends SimpleFormController{
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
-	
-	
-
 }

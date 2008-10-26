@@ -22,8 +22,10 @@
 <form:form method="post" action="editproject.html?projectId=${project.id}" 
 	commandName="project" id="editproject">
     <br/><br/>
-	<b>Project Name:</b> ${project.curnit.sdsCurnit.name }<br/>
 	<b>Projecd Id:</b> ${project.id}<br/><br/>
+	<label for="nameLabel">Project Name:</label><br/>
+	<form:input path="name" id="name" size="50" maxlength="75"/>
+    <br/><br/>
 	<label for="iscurrentlabel">Is this project current or not current? (Current projects are eligible for creating new classroom runs)</label><br/>
     <form:select path="current" id="currentselect">           	
             <form:option value="true">current</form:option>
