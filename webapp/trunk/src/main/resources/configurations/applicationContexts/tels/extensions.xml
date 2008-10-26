@@ -204,7 +204,7 @@
 	    <property name="podProjectService" ref="podProjectService" />
 	    <property name="potrunkProjectService" ref="potrunkProjectService" />
 	    <property name="otrunkProjectService" ref="otrunkProjectService" />
-	    <property name="diyProjectService" ref="diyProjectService" />
+	    <property name="externalProjectService" ref="externalProjectService" />
 	</bean>
 	
     <bean id="podProjectService"
@@ -274,20 +274,16 @@
 	    <property name="previewProjectSuffix" value="/sail_jnlp/6/1/authoring" />
 	</bean>
 	
-	<bean id="projectService"
-	    class="org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl">
-	    <property name="projectServiceFactory" ref="projectServiceFactory" />
+	<bean id="portalDao"
+	    class="org.telscenter.sail.webapp.dao.portal.impl.HibernatePortalDao">
+	    <property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+    <bean id="portalService"
+    	class="org.telscenter.sail.webapp.service.portal.impl.PortalServiceImpl">
+    	 <property name="portalDao" ref="portalDao" />
+    </bean>
 	
-	<bean id="projectServiceFactory"
-	    class="org.telscenter.sail.webapp.service.project.ProjectServiceFactory">
-	    <property name="podProjectService" ref="podProjectService" />
-	    <property name="potrunkProjectService" ref="potrunkProjectService" />
-	    <property name="otrunkProjectService" ref="otrunkProjectService" />
-	    <property name="externalProjectService" ref="externalProjectService" />
-	</bean>
-    
     <bean id="curnitService"
     	class="org.telscenter.sail.webapp.service.module.impl.ModuleServiceImpl">
     	<property name="sdsCurnitDao" ref="sdsCurnitDao" />

@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        object_id_class bigint not null,
-        parent_object bigint,
         owner_sid bigint,
+        parent_object bigint,
+        object_id_class bigint not null,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -209,7 +209,7 @@
     create table offerings (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_offering_fk bigint not null unique,
+        sds_offering_fk bigint unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -220,11 +220,22 @@
         primary key (id)
     ) type=MyISAM;
 
+    create table portal (
+        id bigint not null auto_increment,
+        portalname varchar(255),
+        address varchar(255),
+        sendmail_on_exception bit,
+        sendmail_properties tinyblob,
+        comments varchar(255),
+        OPTLOCK integer,
+        primary key (id)
+    ) type=MyISAM;
+
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -255,14 +266,27 @@
 
     create table projects (
         id bigint not null auto_increment,
+        name varchar(255),
         familytag integer,
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
-        jnlp_fk bigint not null,
-        curnit_fk bigint not null,
+        jnlp_fk bigint,
+        curnit_fk bigint,
         run_fk bigint unique,
         primary key (id)
+    ) type=MyISAM;
+
+    create table projects_related_to_owners (
+        projects_fk bigint not null,
+        owners_fk bigint not null,
+        primary key (projects_fk, owners_fk)
+    ) type=MyISAM;
+
+    create table projects_related_to_shared_owners (
+        projects_fk bigint not null,
+        shared_owners_fk bigint not null,
+        primary key (projects_fk, shared_owners_fk)
     ) type=MyISAM;
 
     create table roolootmlmodules (
@@ -277,6 +301,7 @@
         start_time datetime not null,
         end_time datetime,
         run_code varchar(255) not null unique,
+        name varchar(255),
         project_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
@@ -324,8 +349,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_jnlp_fk bigint not null,
         sds_curnit_fk bigint not null,
+        sds_jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -414,6 +439,7 @@
 
     create table wiseworkgroups (
         id bigint not null,
+        externalId bigint,
         period bigint,
         primary key (id)
     ) type=MyISAM;
@@ -421,9 +447,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_workgroup_fk bigint not null unique,
-        offering_fk bigint not null,
         group_fk bigint not null,
+        offering_fk bigint not null,
+        sds_workgroup_fk bigint unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -696,6 +722,30 @@
         add constraint FKC479187A9568F016 
         foreign key (jnlp_fk) 
         references jnlps (id);
+
+    alter table projects_related_to_owners 
+        add index FKDACF56CB60AA7F41 (owners_fk), 
+        add constraint FKDACF56CB60AA7F41 
+        foreign key (owners_fk) 
+        references users (id);
+
+    alter table projects_related_to_owners 
+        add index FKDACF56CBAC92FD99 (projects_fk), 
+        add constraint FKDACF56CBAC92FD99 
+        foreign key (projects_fk) 
+        references projects (id);
+
+    alter table projects_related_to_shared_owners 
+        add index FK19A2B02FDB63ABE7 (shared_owners_fk), 
+        add constraint FK19A2B02FDB63ABE7 
+        foreign key (shared_owners_fk) 
+        references users (id);
+
+    alter table projects_related_to_shared_owners 
+        add index FK19A2B02FAC92FD99 (projects_fk), 
+        add constraint FK19A2B02FAC92FD99 
+        foreign key (projects_fk) 
+        references projects (id);
 
     alter table roolootmlmodules 
         add index FKCB4BDACE5E6F3BA6 (id), 

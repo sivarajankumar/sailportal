@@ -63,10 +63,13 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 	@Transient
 	public static final String DATA_STORE_NAME = "projectcommunicators";
 
+	@Transient
 	private static final String COLUMN_NAME_LATITUDE = "latitude";
 
+	@Transient
 	private static final String COLUMN_NAME_LONGITUDE = "longitude";
 
+	@Transient
 	private static final String COLUMN_NAME_ADDRESS = "address";
 
 	@Column(name = ProjectCommunicatorImpl.COLUMN_NAME_BASE_URL)

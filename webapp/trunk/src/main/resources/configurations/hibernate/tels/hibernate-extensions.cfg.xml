@@ -56,6 +56,8 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.project.impl.DIYProjectCommunicatorImpl" />      
         <mapping
+            class="org.telscenter.sail.webapp.domain.portal.impl.PortalImpl" />      
+        <mapping
         	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl" />
         <mapping
         	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl" />  

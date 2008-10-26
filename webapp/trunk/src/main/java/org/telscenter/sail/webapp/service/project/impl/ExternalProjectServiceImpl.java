@@ -27,12 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
+import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
@@ -217,6 +219,23 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public void setProjectCommunicator(ProjectCommunicator projectCommunicator) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void addSharedTeacherToProject(
+			AddSharedTeacherParameters addSharedTeacherParameters)
+			throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Project> getProjectList(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getSharedTeacherRole(Project project, User user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

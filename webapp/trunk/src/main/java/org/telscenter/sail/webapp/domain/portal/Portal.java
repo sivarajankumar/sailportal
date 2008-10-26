@@ -31,7 +31,7 @@ import net.sf.sail.webapp.domain.Persistable;
  * configurable at runtime.
  * 
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public interface Portal extends Persistable {
 	
@@ -40,7 +40,7 @@ public interface Portal extends Persistable {
 	 * 
 	 * @return the sendEmailOnException
 	 */
-	public boolean isSendEmailOnException();
+	public boolean isSendMailOnException();
 	
 	/**
 	 * Set whether email should be sent when an exception is thrown 
@@ -48,7 +48,7 @@ public interface Portal extends Persistable {
 	 * 
 	 * @param sendEmailOnException the sendEmailOnException to set
 	 */
-	public void setSendEmailOnException(boolean sendEmailOnException);
+	public void setSendMailOnException(boolean sendEmailOnException);
 	
 	/**
 	 * @return the sendmailProperties
@@ -73,5 +73,25 @@ public interface Portal extends Persistable {
 	 * @return
 	 */
 	public void setPortalName(String portalName);
+	
+	/**
+	 * @return the comments
+	 */
+	public String getComments();
+	
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(String comments);
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress();
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address);
 
 }

@@ -132,6 +132,10 @@ YUI download for details on each of the aggregate files and their contents):-->
 
 <form:form commandName="projectParameters" method="post" action="createproject.html" id="createprojectform"  >  
   <dl>
+    <dt><label for="projectname" id="projectnameLabel"><span class="asterix">* </span>Enter Project Name:</label> </dt>
+	<dd>
+	    <form:input path="projectname" id="projectname" size="30" maxlength="50"/>
+	</dd>
   
     <dt><label for="curnitId" id="curnitIdLabel"><span class="asterix">* </span>Choose a Curnit/Module:</label> </dt>
 	<dd><form:select path="curnitId" id="curnitId">

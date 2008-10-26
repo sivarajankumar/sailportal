@@ -30,16 +30,18 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
  * Represents the parameters required to create a WISE Project.
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class ProjectParameters implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	public static String FIELD_CURNITID = "curnitId";
 	
 	public static String FIELD_JNLPID = "jnlpId";
 
+	private String projectname;
+	
 	private Long curnitId;
 	
 	private Long jnlpId;
@@ -86,6 +88,20 @@ public class ProjectParameters implements Serializable {
 	 */
 	public void setProjectType(ProjectType projectType) {
 		this.projectType = projectType;
+	}
+
+	/**
+	 * @return the projectname
+	 */
+	public String getProjectname() {
+		return projectname;
+	}
+
+	/**
+	 * @param projectname the projectname to set
+	 */
+	public void setProjectname(String projectname) {
+		this.projectname = projectname;
 	}
 
 }

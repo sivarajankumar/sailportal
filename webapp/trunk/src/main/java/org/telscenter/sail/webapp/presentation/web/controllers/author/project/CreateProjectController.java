@@ -47,6 +47,8 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class CreateProjectController extends SimpleFormController {
 	
+	private static final String DEFAULT_PROJECT_NAME = "";
+
 	private ProjectService projectService;
 	
 	private JnlpService jnlpService;
@@ -62,7 +64,9 @@ public class CreateProjectController extends SimpleFormController {
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		return new ProjectParameters();
+		 ProjectParameters projectParameters = new ProjectParameters();
+		 projectParameters.setProjectname(DEFAULT_PROJECT_NAME);
+		 return projectParameters;
 	}
 	
 	/**

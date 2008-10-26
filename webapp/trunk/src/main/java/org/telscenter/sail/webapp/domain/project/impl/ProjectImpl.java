@@ -113,6 +113,9 @@ public class ProjectImpl implements Project {
     @Transient
     public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
 
+    @Transient
+	private static final String PROJECTS_JOIN_COLUMN_NAME = "projects_fk";
+
 	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
 	

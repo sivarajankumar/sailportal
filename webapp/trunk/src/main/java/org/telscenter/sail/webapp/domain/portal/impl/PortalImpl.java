@@ -39,7 +39,7 @@ import org.telscenter.sail.webapp.domain.portal.Portal;
  * TELS Portal implementation.
  * 
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 @Entity
 @Table(name = PortalImpl.DATA_STORE_NAME)
@@ -49,7 +49,7 @@ public class PortalImpl implements Portal {
 	private static final long serialVersionUID = 1L;
 
 	@Transient
-	public static final String DATA_STORE_NAME = "telsportal";
+	public static final String DATA_STORE_NAME = "portal";
 
 	@Transient
 	private static final String COLUMN_NAME_SENDMAIL_PROPERTIES = "sendmail_properties";
@@ -59,19 +59,31 @@ public class PortalImpl implements Portal {
 	private static final String COLUMN_NAME_GOOGLEMAPS_API_KEY = "googlemaps_api_key";
 
 	@Transient
-	private static final String COLUMN_NAME_PORTAL_PROPERTIES = "portal_properties";
+	private static final String COLUMN_NAME_PORTAL_NAME = "portalname";
+
+	@Transient
+	private static final String COLUMN_NAME_SENDMAIL_ON_EXCEPTION = "sendmail_on_exception";
 	
 	@Transient
-	private static final String SENDMAIL_ON_EXCEPTION_KEY = "sendmail_on_exception";
+	private static final String COLUMN_NAME_ADDRESS = "address";
 
 	@Transient
-	private static final String PORTAL_NAME_KEY = "portal_name";
+	private static final String COLUMN_NAME_COMMENTS = "comments";
 
-	@Column(name = COLUMN_NAME_PORTAL_PROPERTIES)
-	private Properties portalProperties;
+	@Column(name = COLUMN_NAME_PORTAL_NAME)
+	private String portalName;
+	
+	@Column(name = COLUMN_NAME_ADDRESS)
+	protected String address;
+	
+	@Column(name = COLUMN_NAME_SENDMAIL_ON_EXCEPTION)
+	private boolean isSendMailOnException;
 	
 	@Column(name = COLUMN_NAME_SENDMAIL_PROPERTIES)
 	private Properties sendmailProperties;
+	
+	@Column(name = COLUMN_NAME_COMMENTS)
+	private String comments;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -84,15 +96,15 @@ public class PortalImpl implements Portal {
 	/**
 	 * @return the sendEmailOnException
 	 */
-	public boolean isSendEmailOnException() {
-		return Boolean.parseBoolean((String) portalProperties.get(SENDMAIL_ON_EXCEPTION_KEY));
+	public boolean isSendMailOnException() {
+		return isSendMailOnException;
 	}
 
 	/**
 	 * @param sendEmailOnException the sendEmailOnException to set
 	 */
-	public void setSendEmailOnException(boolean sendEmailOnException) {
-		this.portalProperties.setProperty(SENDMAIL_ON_EXCEPTION_KEY, Boolean.toString(sendEmailOnException));
+	public void setSendMailOnException(boolean isSendMailOnException) {
+		this.isSendMailOnException = isSendMailOnException;
 	}
 
 	/**
@@ -113,14 +125,14 @@ public class PortalImpl implements Portal {
 	 * @see org.telscenter.sail.webapp.domain.portal.Portal#getPortalName()
 	 */
 	public String getPortalName() {
-		return this.portalProperties.getProperty(PORTAL_NAME_KEY);
+		return this.portalName;
 	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.domain.portal.Portal#setPortalName(java.lang.String)
 	 */
 	public void setPortalName(String portalName) {
-		this.portalProperties.setProperty(PORTAL_NAME_KEY, portalName);
+		this.portalName = portalName;
 	}
 
 	 /**
@@ -144,4 +156,32 @@ public class PortalImpl implements Portal {
     private void setVersion(Integer version) {
         this.version = version;
     }
+
+	/**
+	 * @return the comments
+	 */
+	public String getComments() {
+		return comments;
+	}
+
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
 }

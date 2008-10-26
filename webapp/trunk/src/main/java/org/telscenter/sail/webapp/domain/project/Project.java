@@ -33,6 +33,7 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.Persistable;
+import net.sf.sail.webapp.domain.User;
 
 /**
  * A WISE Project domain object

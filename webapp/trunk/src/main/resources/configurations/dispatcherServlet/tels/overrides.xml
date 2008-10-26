@@ -79,7 +79,7 @@
                 </prop>
             </props>
         </property>
-        <property name="portalProperties" ref="portalproperties" />
+        <property name="portalService" ref="portalService" />
         <property name="emaillisteners" ref="emaillisteners" />
         <property name="javaMail" ref="javaMail" />
     </bean>
