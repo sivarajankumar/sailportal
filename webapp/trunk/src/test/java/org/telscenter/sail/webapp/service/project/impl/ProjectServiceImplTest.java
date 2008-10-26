@@ -31,6 +31,7 @@ import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.JnlpImpl;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 
@@ -41,7 +42,6 @@ import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -60,13 +60,13 @@ public class ProjectServiceImplTest extends TestCase {
 
 	private ProjectDao<Project> mockProjectDao;
 	
-	private ProjectDao<RooloProjectImpl> mockRooloProjectDao;
-	
 	private CurnitService mockCurnitService;
 	
 	private JnlpService mockJnlpService;
 	
 	private RunService mockRunService;
+	
+	private AclService<Project> mockAclService;
 	
 	private static final Long EXISTING_PROJECT_ID = new Long(10);
 
@@ -90,6 +90,8 @@ public class ProjectServiceImplTest extends TestCase {
 		this.projectServiceImpl.setJnlpService(mockJnlpService);
 		this.mockRunService = createMock(RunService.class);
 		this.projectServiceImpl.setRunService(mockRunService);
+		this.mockAclService = createMock(AclService.class);
+		this.projectServiceImpl.setAclService(mockAclService);
 	}
 	
 	public void testGetById() throws Exception {
