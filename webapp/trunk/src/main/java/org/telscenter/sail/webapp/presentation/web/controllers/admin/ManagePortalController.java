@@ -35,7 +35,7 @@ import org.telscenter.sail.webapp.service.portal.PortalService;
  * Controller for configuring this portal.
  * 
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class ManagePortalController extends SimpleFormController {
 	
@@ -52,6 +52,9 @@ public class ManagePortalController extends SimpleFormController {
 	protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
 		ModelAndView modelAndView = super.showForm(request, response, bindException);
 		String portalId = request.getParameter(PORTAL_ID_PARAM);
+		if (portalId == null) {
+			portalId = "1";
+		}
 		
 		Portal portal = null;
 		portal = portalService.getById(portalId);
@@ -64,6 +67,9 @@ public class ManagePortalController extends SimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		String portalId = request.getParameter(PORTAL_ID_PARAM);
+		if (portalId == null) {
+			portalId = "1";
+		}
 		
 		Portal portal = null;
 		portal = portalService.getById(portalId);
