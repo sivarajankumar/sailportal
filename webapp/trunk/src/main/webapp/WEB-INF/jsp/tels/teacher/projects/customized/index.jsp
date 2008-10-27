@@ -415,6 +415,13 @@
 <h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.custom.index.11"/></h2> 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
+<div id="projectInfoTabs" class="yui-navset">
+    <ul class="yui-nav" >
+        <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.custom.index.12"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab2"><em><spring:message code="teacher.pro.custom.index.13"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.custom.index.14"/></em></a></li>
+        
+    </ul>     
 <div class="yui-content" style="background-color: #FFFFFF;">
 
 <div id="tab1">
@@ -551,7 +558,7 @@
 		<c:otherwise>
 			<c:forEach var="project" items="${sharedProjectsList}">
 				<tr id="customProjectR2">
-					<td class="customProjectTitle">${project.curnit.sdsCurnit.name}
+					<td class="customProjectTitle">${project.name}
 					<br>
 					This project is owned by:<br>
 					<c:forEach var="projectowner" items="${project.owners}">

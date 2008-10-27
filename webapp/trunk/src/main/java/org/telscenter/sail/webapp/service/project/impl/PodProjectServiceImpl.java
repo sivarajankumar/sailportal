@@ -378,6 +378,7 @@ public class PodProjectServiceImpl implements ProjectService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectList()
 	 */
+    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })    
     @Transactional(readOnly = true)
 	public List<Project> getProjectList() {
     	List<Project> projectList = this.projectDao.getList();
@@ -411,6 +412,27 @@ public class PodProjectServiceImpl implements ProjectService {
     	}
 		return ownedProjectList;
 	}
+    
+    /**
+     * @see org.telscenter.sail.webapp.service.project.ProjectService#getSharedProjectList(net.sf.sail.webapp.domain.User)
+     */
+	public List<Project> getSharedProjectList(User user) {
+		List<Project> projectList = this.projectDao.getList();
+		List<Project> sharedProjectList = new ArrayList<Project>();
+    	// populate roolo projects' projectinfos
+    	for (Project project : projectList) {
+    		if (project.getSharedowners().contains(user)) {
+				try {
+					populateProjectInfo(project);
+					sharedProjectList.add(project);					
+				} catch (ObjectNotFoundException e) {
+					e.printStackTrace();
+				}
+    		} 
+    	}
+		return sharedProjectList;
+	}
+
 	
 	/**
 	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(java.lang.String)

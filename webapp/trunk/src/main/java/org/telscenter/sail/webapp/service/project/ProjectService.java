@@ -57,12 +57,23 @@ public interface ProjectService {
 	public List<Project> getProjectList();
 
 	/**
-	 * Get a <code>List</code> of <code>Project</code>
+	 * Get a <code>List</code> of <code>Project</code> that the specified
+	 * user owns
 	 * @return a <code>List</code> of <code>Project</code>
 	 */
 	@Transactional
     @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
 	public List<Project> getProjectList(User user);
+
+	/**
+	 * Get a <code>List</code> of <code>Project</code> that have
+	 * been shared with the specified user.
+	 * 
+	 * @return a <code>List</code> of <code>Project</code>
+	 */
+	@Transactional
+    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+	public List<Project> getSharedProjectList(User user);
 
 	/**
 	 * Get a <code>List</code> of <code>Project</code> with

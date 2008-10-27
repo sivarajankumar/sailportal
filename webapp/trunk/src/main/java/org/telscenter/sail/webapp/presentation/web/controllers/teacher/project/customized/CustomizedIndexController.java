@@ -34,7 +34,7 @@ public class CustomizedIndexController extends AbstractController {
 					User.CURRENT_USER_SESSION_KEY);
 		 List<Project> ownedProjectsList = this.projectService.getProjectList(user);
 	     modelAndView.addObject("ownedProjectsList", ownedProjectsList);
-	     List<Project> sharedProjectsList = this.projectService.getProjectList();
+	     List<Project> sharedProjectsList = this.projectService.getSharedProjectList(user);
 	     sharedProjectsList.removeAll(ownedProjectsList);
 	     modelAndView.addObject("sharedProjectsList", sharedProjectsList);
 		 return modelAndView;

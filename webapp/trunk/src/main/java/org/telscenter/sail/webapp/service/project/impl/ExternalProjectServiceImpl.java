@@ -238,4 +238,8 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 		return null;
 	}
 
+	public List<Project> getSharedProjectList(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

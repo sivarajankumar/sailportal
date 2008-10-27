@@ -50,7 +50,7 @@
 		<th> Upload Otml File</th>
 		<th> View Otml File</th>		
 		<th> Edit Project Metadata</th>		
-		<th> Preview Project</th>				
+		<th> Other Actions </th>				
 	</tr>
 	<c:forEach var="project" items="${internal_project_list}">
 	<tr>
@@ -71,7 +71,12 @@
 		</c:choose>
 		</td>				
 		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
-		<td><a href="../previewproject.html?projectId=${project.id}">Preview</a></td>		
+		<td>
+		    <ul>
+		        <li><a href="../previewproject.html?projectId=${project.id}">Preview</a></li>
+		        <li><a href="../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a></li>
+		    </ul>
+		</td>		
 	</tr>
 	</c:forEach>
 </table>

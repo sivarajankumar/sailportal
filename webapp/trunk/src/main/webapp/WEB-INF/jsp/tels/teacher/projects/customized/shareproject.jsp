@@ -62,7 +62,7 @@
 				    </tr>
 				  
 				  <tr id="customProjectR2">
-				    <td class="customProjectTitle">${project.curnit.sdsCurnit.name}</td>
+				    <td class="customProjectTitle">${project.name}</td>
 				    <td class="dataText">${project.projectInfo.subject} ${project.projectInfo.keywords}</td>
 				    <td class="dataText">${project.id}</td>
 				    <td class="dataText">${project.projectInfo.projectLiveCycle }</td>

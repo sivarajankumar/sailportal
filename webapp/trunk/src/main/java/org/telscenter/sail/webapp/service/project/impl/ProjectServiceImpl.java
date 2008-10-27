@@ -92,11 +92,22 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectService.getProjectList();
 	}
 
-public List<Project> getProjectList(User user) {
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectList(net.sf.sail.webapp.domain.User)
+	 */
+	public List<Project> getProjectList(User user) {
 		ProjectService projectService = projectServiceFactory.getProjectService(new ProjectImpl());
 		return projectService.getProjectList(user);
 	}
-	
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getSharedProjectList(net.sf.sail.webapp.domain.User)
+	 */
+	public List<Project> getSharedProjectList(User user) {
+		ProjectService projectService = projectServiceFactory.getProjectService(new ProjectImpl());
+		return projectService.getSharedProjectList(user);
+	}
+
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByInfo(org.telscenter.sail.webapp.domain.project.ProjectInfo)
 	 */

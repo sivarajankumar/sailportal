@@ -232,6 +232,7 @@
         <property name="userService" ref="userService" />
         <property name="modifier" ref="authoringjnlpmodifier" />
         <property name="authoringToolJnlpUrl" value="http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp" />
+        <property name="aclService" ref="aclServiceImpl" />                
 	</bean>
 
 	<bean id="otrunkProjectService"
@@ -245,6 +246,7 @@
         <property name="userService" ref="userService" />
         <property name="modifier" ref="authoringjnlpmodifier" />
         <property name="authoringToolJnlpUrl" value="http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp" />
+        <property name="aclService" ref="aclServiceImpl" />
 	</bean>
 	
 	    
