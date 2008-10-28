@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.Curnit;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
@@ -49,9 +50,9 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class PostProjectController extends AbstractController {
 
-	private static final String PROJECT_ID_PARAM = "projectId";
+	protected static final String PROJECT_ID_PARAM = "projectId";
 	
-	private static final String OTML_CONTENT_PARAM = "otmlcontent";
+	protected static final String OTML_CONTENT_PARAM = "otmlcontent";
 	
 	private ProjectService projectService;
 	
@@ -63,34 +64,24 @@ public class PostProjectController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-		String projectId = request.getParameter(PROJECT_ID_PARAM);
-		String encodedOtmlString = request.getParameter(OTML_CONTENT_PARAM);
-		String otmlString = URLDecoder.decode(encodedOtmlString, "UTF-8");
-		
-		Project project = projectService.getById(projectId);
-		Curnit curnit = project.getCurnit();
-		if (curnit instanceof RooloOtmlModuleImpl) {
-			((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(otmlString.getBytes());		
-		} else if (curnit instanceof OtmlModuleImpl) {
-			((OtmlModuleImpl) project.getCurnit()).setOtml(otmlString.getBytes());
-			moduleService.updateCurnit(project.getCurnit());
-		}
-		projectService.updateProject(project);
+		try {
+			String projectId = request.getParameter(PROJECT_ID_PARAM);
+			String encodedOtmlString = request.getParameter(OTML_CONTENT_PARAM);
+			String otmlString = URLDecoder.decode(encodedOtmlString, "UTF-8");
 
-//		File oldOtmlFile = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getOtmlFile();
-//
-//		// need to generate new file path, otherwise won't save in jackrabbit...
-//		// need to fix this in jackrabbit.
-//		Random rand = new Random();
-//		File otmlFile = new File(oldOtmlFile.getPath() + rand.nextInt());
-//		FileWriter out = new FileWriter(otmlFile);
-//		out.write(otmlString);
-//		out.close();
-//		byte [] oldOtmlData = ((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().getBytes();
-//		((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(oldOtmlData);		
-//		projectService.updateProject(project);		
-		
+			Project project = projectService.getById(projectId);
+			Curnit curnit = project.getCurnit();
+			if (curnit instanceof RooloOtmlModuleImpl) {
+				((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(otmlString.getBytes());		
+			} else if (curnit instanceof OtmlModuleImpl) {
+				((OtmlModuleImpl) project.getCurnit()).setOtml(otmlString.getBytes());
+				moduleService.updateCurnit(project.getCurnit());
+			}
+			projectService.updateProject(project);
+		} catch (NullPointerException e) {
+			response.setStatus(HttpStatus.SC_BAD_REQUEST);
+			throw e;
+		}
 		return null;
 	}
 
