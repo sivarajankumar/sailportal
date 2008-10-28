@@ -868,7 +868,7 @@
 	}
 	
 	
-/* AUTHORING PAGES */
+/* Q&A Discussion Step: Author View */
 
 #authorQuote { 
 	font-size:.8em;
@@ -957,8 +957,15 @@
 		}
 	
 #responseButtons {
-	margin:0 0 0 25px;
+	text-align:center;
+	margin:30px 0 0 0 ;
 }
+
+#responseButtons input {
+	font-size:1.2em; 
+	margin:0 10px;
+}
+
 
 #updatePromptPreviewButton {
 	margin:0 0 20px 25px;
@@ -987,3 +994,164 @@
 	padding:0px;
 	line-height:150%;
 }
+
+
+/* Q&A Discussion Step: Student View */
+
+#sectionBox { 
+	margin:20px;
+	padding:0px;
+	border: 1px solid #0000ff;
+	}
+	
+#sectionBoxHeader { 
+	font-size:1.1em;
+	font-weight:bold;
+	padding: 4px 10px;
+	background-color:#CCCCFF;
+	background-image:url(../images/textureUltraLightBlue.png);
+	text-align:left;
+	border-bottom: 1px solid #333333;
+}
+
+#hideLink {
+	font-size:.7em;
+	font-variant:small-caps;
+	padding:2px 2px 2px 17px;
+	margin-top:1px;
+	float:right;
+	background-image:url(../images/Arrow_Down.png);
+	background-position:0px 6px;
+	background-repeat:no-repeat; 
+	}
+	
+#hideLink:hover {
+	background-color:#FFFF33;
+	}
+	
+#sectionBoxMain1 {
+	padding:1px;
+	background-color:#CCCCCC;
+	}
+
+#sectionBox #column1 {
+	float:left;
+	width:120px;
+	margin:15px 0 0 0;
+	}
+	
+#sectionBox #column2 {
+	text-align:left;
+	margin: 15px 0 0 130px;
+
+		}
+
+#questionContent {
+	padding: 10px;
+	text-align:center;
+	background-color:#FFFFFF;
+	border: 1px solid #333333;
+	width:80%;
+	}
+	
+#instructions1 {
+	font-size:.8em;
+	margin: 10px 0;
+	}
+	
+#createResponse {
+	margin-left:40px;
+	padding:2px;
+		}
+	
+#createResponse input {
+	color:#FFFFFF; 
+	background-color:#0000FF;
+	border:1px solid black;
+	}
+	
+#createResponse input:hover {
+	color:#0000FF; 
+	background-color:#FFFF00;
+}
+
+#responseLinks {
+	margin: 10px 10px 10px 20px;
+	text-align:left;
+}
+
+#responseLinks ul {
+	list-style-type:none;
+	padding:0px;
+	margin: 0px;
+	}
+	
+#responseLinks ul {
+	list-style-type:none;
+	}
+
+#responseLinks li {
+	list-style-type:none;
+	display:inline;
+	padding:5px;
+	font-size: .8em;
+	}
+	
+#responseLinks li:hover {
+	background-color:#FFFF00;
+	}
+	
+#responseRefreshTable {
+	float:right;
+	margin: 0 10px 0 0 ;
+	padding:0px;
+	font-size: .8em;
+	text-align:left;
+	vertical-align:top;
+	}
+	
+#responseRefreshTable .col2width {
+	width:260px;
+}
+	
+#responseRefreshTable input {
+	color:#FFFFFF; 
+	background-color:#0000FF;
+	border:1px solid black;
+	}
+	
+#responseRefreshTable input:hover {
+	color:#0000FF; 
+	background-color:#FFFF00;
+	}
+	
+#responseTableBody {
+	margin: 25px 0 0 0 ;
+}
+
+#responseTableBody table {
+	border-collapse:collapse;
+	width:100%;
+	}
+	
+.answerbox {
+	background-color:red;	
+    border:1px solid black;
+    margin:20px;
+    text-align:left;
+        }
+
+.revisionbox {
+	background-color:green;
+    border:1px solid #333333;
+	text-align:left;
+	padding:5px;
+    }
+  
+#responseTableBody table thead{
+	background-color:gray;
+	border:1px solid black;
+	}
+	
+
+	

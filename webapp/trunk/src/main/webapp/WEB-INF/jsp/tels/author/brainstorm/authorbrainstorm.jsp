@@ -124,10 +124,7 @@ You're moving into a land of both shadow and substance, of things and ideas. You
       </div>	
    </div>
 
-<div id="responseButtons">
-	<input type="submit" name="save" value="Save" />
-	<input type="reset" onclick="javascript:window.close()" name="cancel" value="Cancel" />
-</div>
+
 
 <br/>
 <button id="updatePromptPreviewButton" onclick="javascript:updatePromptPreview()" >Update preview</button>
@@ -195,7 +192,13 @@ You're moving into a land of both shadow and substance, of things and ideas. You
 	<br/>
 	<div class="authorOptionsBlock2"><input type="submit" name="save" value="Create Another Sample Student Response" /></div>
 	
+<div id="responseButtons">
+	<input type="submit" name="save" value="Save All Changes" />
+	<input type="reset" onclick="javascript:window.close()" name="cancel" value="Close without Saving" />
+</div>
+
 </div>    <!-- end of centered div-->
+
 
 </form:form>
 

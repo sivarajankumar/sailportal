@@ -428,7 +428,7 @@ function createAnswerElements(doc, answers, workgroupId){
 };
 
 function createAnswerElement(doc, answer, workgroupId){
-	var answerElement = createElement(doc, 'tr', {id:answer.getId(), name:'answer'});
+	var answerElement = createElement(doc, 'div', {id:answer.getId(), name:'answer', class:'answerbox'});
 	var answerTable = createElement(doc,'table');
 	answerElement.appendChild(answerTable);
 
@@ -444,7 +444,7 @@ function createAnswerElement(doc, answer, workgroupId){
 }
 
 function createLatestRevisionElement(doc, workgroupId, answer){
-	var revisionElement = createElement(doc, 'tr', {id:answer.getLatestRevision().getId(), name:'revision'});
+	var revisionElement = createElement(doc, 'tr', {id:answer.getLatestRevision().getId(), class:'revisionbox', name:'revision'});
 	var revisionTable = createElement(doc, 'table');
 	revisionElement.appendChild(revisionTable);
 	revisionTable.appendChild(createRevisionHead(doc, answer));
