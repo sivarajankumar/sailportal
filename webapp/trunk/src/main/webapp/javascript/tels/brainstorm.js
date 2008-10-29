@@ -428,8 +428,8 @@ function createAnswerElements(doc, answers, workgroupId){
 };
 
 function createAnswerElement(doc, answer, workgroupId){
-	var answerElement = createElement(doc, 'div', {id:answer.getId(), name:'answer', class:'answerbox'});
-	var answerTable = createElement(doc,'table');
+	var answerElement = createElement(doc, 'div', {id:answer.getId(), name:'answer', class:'studentResponse'});
+	var answerTable = createElement(doc,'table', {id:'revisionBoxTable'});
 	answerElement.appendChild(answerTable);
 
 	answerTable.appendChild(createLatestRevisionElement(doc, workgroupId, answer));
@@ -444,8 +444,8 @@ function createAnswerElement(doc, answer, workgroupId){
 }
 
 function createLatestRevisionElement(doc, workgroupId, answer){
-	var revisionElement = createElement(doc, 'tr', {id:answer.getLatestRevision().getId(), class:'revisionbox', name:'revision'});
-	var revisionTable = createElement(doc, 'table');
+	var revisionElement = createElement(doc, 'tr', {id:answer.getLatestRevision().getId(), class:'currentResponseBoxTR', name:'revision'});
+	var revisionTable = createElement(doc, 'table', {class:'currentResponseBoxInsetTable'});
 	revisionElement.appendChild(revisionTable);
 	revisionTable.appendChild(createRevisionHead(doc, answer));
 	revisionTable.appendChild(createRevisionBody(doc, workgroupId, answer));
@@ -456,9 +456,9 @@ function createLatestRevisionElement(doc, workgroupId, answer){
 function createRevisionHead(doc, answer){
 	var head = createElement(doc, 'thead');
 	var headRow = createElement(doc, 'tr');
-	var cell1 = createElement(doc, 'th');
-	var cell2 = createElement(doc, 'th');
-	var cell3 = createElement(doc, 'th');
+	var cell1 = createElement(doc, 'th', {class:'headerStudentName'});
+	var cell2 = createElement(doc, 'th', {class:'headerResponseInfo'});
+	var cell3 = createElement(doc, 'th', {class:'headerResponseInfo'});
 	var divNames = createElement(doc, 'div');
 	var divTime = createElement(doc, 'div');
 	var divHelpful = createElement(doc, 'div');
@@ -487,10 +487,12 @@ function createRevisionHead(doc, answer){
 function createRevisionBody(doc, workgroupId, answer){
 	var tbody = createElement(doc, 'tbody');
 	if(answer.getRevisions().length > 1){
-		var revRow = createElement(doc, 'tr');
+		var revRow = createElement(doc, 'td', {class:'currentRevisionNumber'});
 		revRow.appendChild(doc.createTextNode('Revision ' + answer.getRevisions().length));
 		tbody.appendChild(revRow);
 	};
+	
+	var revHead = createElement(doc, 'tr');
 	var revBody = createElement(doc, 'tr');
 	var revFoot = createElement(doc, 'tr');
 	var cell1 = createElement(doc, 'td');
@@ -515,13 +517,16 @@ function createRevisionBody(doc, workgroupId, answer){
 		divVar.appendChild(helpfulTxt);
 	};
 	
+
 	cell1.appendChild(divAddComment);
 	cell2.appendChild(divVar);
 	revFoot.appendChild(cell1);
 	revFoot.appendChild(cell2);
-	var revPre = createElement(doc, 'pre');
+	revHead.appendChild(revRow);
+	var revPre = createElement(doc, 'td', {class:'currentResponseText', colSpan:'3'});
 	revPre.appendChild(doc.createTextNode(answer.getLatestRevision().getBody()));
 	revBody.appendChild(revPre);
+	tbody.appendChild(revHead);
 	tbody.appendChild(revBody);
 	tbody.appendChild(revFoot);
 	return tbody;
@@ -541,9 +546,9 @@ function foundHelpful(workgroupId, answer){
 function createOtherRevisionElements(doc, answer){
 	var otherRevisions = answer.getOtherRevisions();
 	var others = createElement(doc, 'tr');
-	var othersTable = createElement(doc, 'table');
+	var othersTable = createElement(doc, 'table', {id:'revisionTable'});
 	var head = createElement(doc, 'tr');
-	var headDiv = createElement(doc, 'div');
+	var headDiv = createElement(doc, 'td', {class:'revisionTableHeader'});
 	
 	headDiv.appendChild(doc.createTextNode('Revisions'));
 	head.appendChild(headDiv);
@@ -558,7 +563,7 @@ function createOtherRevisionElements(doc, answer){
 	};
 	for(o=0;o<otherRevisions.length;o++){
 		var newRow = createElement(doc, 'tr');
-		var newDiv = createElement(doc, 'div');
+		var newDiv = createElement(doc, 'td');
 		var newText = (o+1) + ': ' + otherRevisions[o].getBody() + ' (' + names + ', ' + otherRevisions[o].getTimestamp() + ')';
 		newDiv.appendChild(doc.createTextNode(newText));
 		newRow.appendChild(newDiv);

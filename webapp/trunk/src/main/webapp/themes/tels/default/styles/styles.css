@@ -1131,27 +1131,85 @@
 
 #responseTableBody table {
 	border-collapse:collapse;
-	width:100%;
 	}
 	
-.answerbox {
+.studentResponse {
 	background-color:red;	
     border:1px solid black;
     margin:20px;
     text-align:left;
         }
 
-.revisionbox {
-	background-color:green;
-    border:1px solid #333333;
-	text-align:left;
-	padding:5px;
+.currentResponseBoxTR {
+	background-color:#FFFFFF;
+        }
+ 
+ .currentResponseBoxInsetTable {
+	width:100%;
     }
-  
-#responseTableBody table thead{
-	background-color:gray;
-	border:1px solid black;
+    
+ #revisionBoxTable {
+ 	width:100%;
+ }
+ 
+.currentResponseBoxInsetTable thead{
+	background-color:#CCCCCC;
+	border-bottom:1px solid black;
 	}
 	
+.currentResponseBoxInsetTable thead .headerStudentName {
+	padding:1px 5px;
+	font-size:1.0em;
+	width:50%;
+}
 
+.currentResponseBoxInsetTable thead .headerResponseInfo	 {
+	padding:1px 5px;
+	font-size:.8em;
+	font-weight:normal;
+}
+
+
+.currentResponseBoxInsetTable tbody{
+	background-color:#FFFFFF;
+	border:0px solid black;
+	}
+	
+.currentResponseBoxInsetTable #currentRevisionNumber {
+	font-size:.8em;
+	font-variant:small-caps;
+	margin-left:100px;
+	}
+	
+.currentResponseBoxInsetTable tbody .currentResponseText{
+	padding:1px 5px;
+	}
+	
+	
+
+#revisionTable { 
+	width:95%;
+	margin:10px 0 10px 50px;
+	background-color:white;
+	border:1px solid #333333;
+	} 
+
+#revisionTable td  {
+	padding:5px;
+	font-size:.8em;
+	}
+	
+.revisionTableHeader { 
+	color:#333333;
+	font-size:.8em;
+	font-weight:bold;
+	font-variant:small-caps;
+	} 
+	
+
+
+.commentTable {
+	margin:10px 0 10px 50px;
+	}
+          
 	
