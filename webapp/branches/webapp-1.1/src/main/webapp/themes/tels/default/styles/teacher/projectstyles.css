@@ -1,0 +1,772 @@
+#runBox{
+	position:relative;
+	top:15px;
+}
+
+#navigation {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+#navigation ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    padding-top: 5px;
+}
+
+#navigation li {
+    display: inline;
+    margin: 30px;
+    padding: 0px;
+}
+
+#navigation li.vertical{
+	display: block;	
+}
+
+#navigation a:link, #navigation a:visited{
+    color: #1122BB;
+    background-color: transparent;
+	text-decoration:none;
+}
+
+#navigation li a:hover{
+	color: green;
+}
+
+ul#tabnav{
+	list-style-type:none;
+	margin:0em;
+	padding:0em;
+	font-style: bold;
+	font-size: 1em;
+	font-family: verdana, arial, sans-serif;
+	width:980px;
+	background-color:#FFCCCC;
+}
+
+ul#tabnav li{
+	float:left;
+	height:1.1em;
+	color: green;
+	margin: 0em;
+	border: 0.02em;
+	border-style: solid;
+	border-color: black;
+}
+
+ul#tabnav a:link, ul#tabnav a:visited{
+	display: block;
+	text-decoration: none;
+	}
+
+ul#tabnav a:hover{
+	background-color: #AA11FF;
+	color: #AAEECC;
+}
+
+ul#tabnav2{
+	width:320px;
+	list-style-type:none;
+	font-style: bold;
+	font-size: 1.3em;
+	font-family: verdana, arial, sans-serif;	
+}
+
+ul#tabnav2 li{
+	float:left;
+	height:1em;
+	color: black;
+	padding:5px;
+	border: 0.02em;
+	border-style: solid;
+	border-color: black;
+}
+
+ul#tabnav2 a:link, ul#tabnav2 a:visited{
+	display: block;
+	background-color: transparent;
+	text-decoration: none;
+	}
+
+ul#tabnav2 a:hover{
+	background-color: #AA11FF;
+	color: #000000;
+}
+
+#runContent{
+	border:1px solid black;
+	position:relative;
+	top:17px;
+	padding-bottom:40px;
+	width:980px;
+}
+
+
+img#none{
+	border:0px;
+}
+
+#overviewContent{
+	border-top: 1px solid #666666;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #666666;
+	margin:20px 0 20px 0;
+	padding:10px 20px 10px 30px;
+	}
+
+#periods{
+	width:600px;
+}
+
+#translations h2{
+	font-weight-bold;
+}
+
+#translations p {
+	font-size:1.4em;
+	margin-bottom:10px;
+}
+
+#overviewHeader {
+	font-size:1.0em; 
+	letter-spacing:3px;
+	font-variant:small-caps;
+	margin: 10px 0 0 28px;
+	padding:0px;
+}
+	
+/* OVERVIEW CHOICES FOR ALL SECTIONS  */ 
+
+#overview_choices   {
+	padding:10px 0 30px 5px;
+}
+	
+#overview_choices tr  {
+	height:20%;
+}
+#overview_choices .link  {
+	font-size:1.1em;
+	letter-spacing:-.2px;
+	font-weight:bold; 
+	width:360px;
+	}
+
+#overview_choices a:link, #overview_choices a:visited   {
+	text-decoration:none;
+	color:#000066;
+	display:block;
+	padding:6px 0px 6px 20px;
+	margin:0px;
+	background-image:url(../../images/GradientHomeBox.png);
+	background-position:left top;
+	background-repeat:repeat-x;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
+}
+
+#overview_choices a:hover  {
+	text-decoration:none;
+	color:#000099;
+	display:block;
+	padding:6px 0px 6px 20px;
+	margin:0px;
+	background-color:#FFFF33;
+	background-image:none;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
+		}
+		
+#overview_choices .description  {
+	font-size:.8em;
+	letter-spacing:-.4px; 
+	margin:0px;
+	padding:2px;
+	vertical-align:center;
+}
+
+.clearFloat {clear:both;}
+
+
+/* STYLES FOR TEACHER CHANGE PASSWORD  */
+
+#popUpWindowTeacherPassword {
+	width:550px;
+	background-image: url(../../images/student/Gradient-ProjectMenu-Green-450.png);
+	background-position: center bottom;
+	background-repeat: repeat-x;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin: 30px auto;
+	padding:0px;
+	}
+	
+#teacherchangepasswordbox {
+	text-align:left;
+}
+
+#teacherchangepasswordbox dt {
+	float:left;
+	vertical-align:middle;
+	width:285px;
+	font-size:.9em;
+	padding:5px 0px;
+	margin:5px 0 0 20px; ;
+}
+
+#teacherchangepasswordbox dd {
+	margin:0px;
+	padding:5px 0px;
+	 }
+
+#teacherchangePasswordField {
+	font-size:1em;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin:0 0 0 10px;
+	padding:3px;
+}
+
+#teacherPasswordButtons {
+	margin: 30px auto 20px auto;
+	text-align:center;
+}
+
+#teachersave, #teachercancel {
+	padding-right:5px;
+}
+
+
+
+/* STYLES FOR PROJECT LIBRARY PAGES */
+	
+#searchResultsHeading {
+	font-weight:bold;
+	font-size:1.1em;
+	margin: 20px 0 5px 0;
+}
+
+.searchResultsButtons{
+	float:right;
+	margin: 0 0 0 20px;
+} 
+
+#searchResultsInstructions {
+	font-weight:bold;
+	font-size:.8em;
+	color:#333333;
+	margin:0 0 20px 0;
+}
+
+#searchResultsHeading a:link, #searchResultsHeading a:visited {
+	font-size:.7em; 
+	color:#000000;
+	text-decoration:none;
+	background-color:#CCCCFF;
+	padding: 2px 10px;
+	border-top: 1px solid #999999;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #999999;
+}
+
+#searchResultsHeading a:hover {
+	background-color:#FFFF00;
+	color:#000066;
+}
+			
+#libraryProjectTable {
+	border-collapse:collapse;
+	border-top:1px solid #000000;
+	border-right:2.5px outset #000000;
+	border-bottom:2.5px outset #000000; 
+	border-left:1px solid #000000;
+	margin-bottom:15px;
+	width:960px; 
+	text-align:left; 
+	}
+
+#libraryProjectTable th, #libraryProjectTable td  {
+	border:1px solid #000000; 
+	padding:0px;
+	margin:0px;
+}
+
+#libraryProjectTable td {
+	padding:6px 10px 6px 10px;
+	margin:0px;
+	border:1px solid #000000; 
+	}
+	
+#libraryProjectTable th {
+	padding:0px 6px;
+	margin:0px;
+	color:#333333;
+	background-color:#CCCCCC;
+	font-size:.85em;
+	font-weight:bold;
+	font-variant:small-caps;
+		}	
+		
+#libraryProjectTableR1 td {
+	padding:6px 6px; 
+			}	
+	
+#libraryProjectTableR2{
+	font-size:.85em;
+	color:#003300;
+	}	
+
+#libraryProjectCol3 {
+	width:8%;
+}
+
+#libraryProjectCol3  {
+	width:7%;
+}
+
+#libraryProjectCol4 {
+	width:22%;  
+}
+
+.libraryProjectSmallText {
+	font-size:.7em;
+}
+
+#libraryProjectTableR2 td {
+	padding:0px;
+	margin:0px;
+	}
+
+#libraryProjectTableR2 .titleCell {
+	width:400px;
+}
+
+#libraryProjectTableR2 td a:link, #libraryProjectTableR2 td a:visited {
+	display:block;
+	color:#0000CC;
+	font-weight:bold;
+	padding:9px 6px;
+	margin:0px;
+	text-decoration:none;
+	font-style:italic;
+	font-size:1.2em;
+}
+
+#libraryProjectTableR2 td a:hover {
+	display:block;
+	color:#000033;
+	padding:9px 6px;
+	background-color:#FFFF00;	
+}
+
+#libraryProjectTableR2 .dataCell{
+	padding:0px 5px;
+}
+
+#libraryProjectTableR3 { 
+	font-size:.80em;
+	color:#003300;
+	background-image: url(../../images/Arrow_Down.png);
+	background-position: 8px 10px;
+	background-repeat:no-repeat;
+		}	 
+		
+#libraryProjectTableR3 td {
+	text-align:left;
+	padding-left:30px;
+}
+
+#libraryProjectTable a:link,  #libraryProjectTable a:visited {
+	color:#000099;
+}
+
+#libraryProjectTable a:hover {
+	display:block;
+	background-color:#FFFF66;
+}
+
+
+/* STYLES FOR PROJECT OVERVIEW section */
+
+#projectInfoTabs {
+	margin: 18px 0;
+}
+
+.yui-nav  {
+	font-size:.9em;
+	font-weight:bold;
+	font-variant:small-caps;
+}
+
+#projectInfoInstructions {
+	font-weight:bold;
+	font-size:.8em;
+	color:#333333;
+	margin:10px 0 20px 0;
+}
+
+#projectInfoProjectTitle {
+	color:#0000CC;
+	font-weight:bold;
+	padding:10px 5px 14px 10px;
+	margin:0px;
+	font-style:italic;
+	font-size:1.3em;
+}
+
+#projectInfoActionButtons  {
+	margin:0 auto 0 auto;
+	border:0px;
+	text-align:center;
+	vertical-align:middle;
+}
+
+#projectInfoActionButtons td a:link, #projectInfoActionButtons td a:visited {
+	display:block;
+	color:#000000;
+	text-decoration:none;
+	font-size:.70em;
+	font-weight:bold;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:4px 5px;
+	background-color:#CCCCFF;
+	background-image: url(../../images/textureLightBlue.png);
+	background-position: left;
+	width:170px;
+	margin:0 10px;
+}
+
+#projectInfoActionButtons td a:hover{
+	display:block;
+	background-image: none;
+	background-color:#FFFF66;	
+	    }	  
+	  
+#editInfoLink {
+	margin: 20px 0 0 12px;
+	font-variant:small-caps;
+	font-size:1em;
+}
+
+#editInfoLink a:link, #editInfoLink a:visited {
+	color:#0000FF;		
+	}
+	
+#editInfoLink a:hover {
+	background-color:#FFFF66;	
+	color:#000099;	
+	}
+		 
+#teacherGuideIntro {
+	margin: 5px 0 0 12px;
+	font-size:.8em;
+}
+		 
+#teacherGuideTable {
+	border-collapse:collapse;
+	margin: 20px 0 25px 12px;
+}
+
+#teacherGuideTable td {
+	 border:1px solid #000000;
+	 padding:4px 8px;
+	 vertical-align:top;
+	font-size:.9em;
+}
+
+#teacherGuideTable .rowTwo {
+	background-color:#CCCCCC;
+	font-weight:bold;
+	font-variant:small-caps;
+	}
+	
+#teacherGuideTable .column1 {
+	width:20%;
+	}
+	
+#projectInfo {
+	text-align:left;
+	font-size: .9em;
+	padding:0px;
+	margin:7px 0 0 10px;
+}
+
+#projectInfo dt {
+	float:left;
+	font-weight:bold;
+	width: 150px;
+	padding:2px;
+}
+
+#projectInfo dd {
+	padding:2px;
+	width:900px;
+	color:#333333;
+}
+
+.projectInfoHeader {
+	font-size:.9em;
+	margin:20px 0 0 10px;
+	font-weight:bold;
+	}
+	 
+.projectInfoDataBox {
+	font-size:.8em;
+	margin:5px 0 0 30px; 
+	font-weight:normal;
+	}
+	
+.projectInfoDataBox ul {
+	list-style-type:circle;
+	padding:0px;
+	margin:0px;
+	}
+	
+	
+.projectInfoDataBox li {
+	margin-left:15px;
+	}
+   
+#projectCreditsTable {
+	border-collapse:collapse;
+	width:90%;
+	margin: 20px auto 25px 12px;
+	font-size:.85em;
+	}
+
+#projectCreditsTable td  {
+	padding:5px;
+	border:1px solid #000000;
+	text-align:center;
+		}
+	
+#projectCreditsTable .col1 {
+	width:25%;
+	background-color:#339966;
+	color:#FFFFFF;
+}
+
+#projectCreditsTable ul {
+	margin:0;
+	padding:5px;
+	text-align:center;
+}
+
+#projectCreditsTable li {
+	list-style-type:none;
+}
+    
+#editCreditsLink {
+	margin-left:10px;
+	font-size:1.0em;
+	}
+	
+	
+ /* STYLES FOR MY CUSTOMIZED/SHARED PROJECTS section */
+      
+#customProjectsButtons  {
+	margin:8px 0 13px 2px;
+	padding:0px;
+	border:0px;
+	text-align:center;
+	vertical-align:middle;
+}
+
+#customProjectsButtons td a:link, #customProjectsButtons td a:visited {
+	display:block;
+	color:#000000;
+	text-decoration:none;
+	font-size:.70em;
+	font-weight:bold;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:4px 5px;
+	background-color:#CCCCFF;
+	background-image: url(../../images/textureLightBlue.png);
+	background-position: right;
+	width:140px;
+	margin:0 10px 0 0;
+}
+
+#customProjectsButtons td a:hover{
+	display:block;
+	background-image: none;
+	background-color:#FFFF66;	
+	    }
+	    
+#customProjectTable {
+	clear:both;
+	border-collapse:collapse;
+	margin:5px;
+	text-align:center;
+}
+
+#customProjectTable th{
+	background-color:#669933;
+	color:#FFFFFF;
+	font-variant:small-caps;
+	font-size:.8em; 
+	padding: 2px 5px;
+}
+
+#customProjectR2 td {
+	padding:8px 8px;
+}
+
+.customProjectTitle {
+	font-size:1.2em;
+	font-weight:bold;
+	margin:0;
+	width:425px;
+}
+
+#customProjectR2 .dataText{
+	font-size:.8em;
+}
+
+#customProjectR2 .dataTime{
+	font-size:.8em;
+	width:50px;
+}
+#customProjectR2 .smallText1{
+	font-size:.6em;
+}
+
+#customProjectR2 .smallText2{
+	font-size:.6em;
+}
+
+#customProjectR2 .actionMenuButton{
+	vertical-alignment:center;
+	padding:0;
+	margin:0;
+	width:14%;
+}
+
+#actionList  {
+	list-style-type:none;
+	text-align:left;
+	margin:0px;
+	padding:0px;
+	}
+	
+#actionList li, #actionList ul {
+	list-style-type:none;
+	line-height:100%;
+	}
+	
+#customProjectTable a:link, #customProjectTable a:visited, #actionList a:link, #actionList a:visited {
+	text-decoration:none;
+	font-size:1em;
+	color:#0033CC;
+}
+
+#customProjectTable a:hover, #actionList a:hover {
+	font-size:.85em;
+	color:#000066;
+	background-color:#ffff33;
+	}
+
+.customProjectsMenuCSS {	
+	font-variant:small-caps;
+	font-weight:bold;
+	}
+	
+#customProjectSummaryHeader {
+	font-size:.8em;
+	font-weight:bold;
+	padding:6px 5px 5px 25px;
+	margin-bottom:20px;
+	color:#003300;
+	text-align:left;
+	background-image: url(../../images/Arrow_Down.png);
+	background-position: 8px 8px;
+	background-repeat:no-repeat;
+		}	 
+		
+#customProjectSummaryData {
+	font-size:1.0em;
+	padding: 5px 5px 5px 0;
+	font-weight:normal;
+	margin-top:5px;
+		}
+	
+.customProjectArchived {
+	background-color:#CC0000;
+}
+
+#customProjectMakeCurrentLink {
+	width:100px;
+}
+
+
+
+ /* STYLES FOR MY SHARED PERMISSIONS SCREEN */
+
+.sharedprojectHeadline1 {
+	font-variant:small-caps;
+	font-weight:bold;
+	font-size:1.1em;
+	padding:0px;
+	margin:20px 0 5px 0; 
+	text-align:left;  
+}
+
+#sharedProjectPermissions {
+	border-collapse:collapse;
+	width:600px;
+	margin:6px auto;
+	border: 2px solid #000000;
+	text-align:center;
+}
+
+#sharedProjectPermissions th { 
+		font-size:.9em;
+		background-color:#CCCCCC;
+		border-bottom: 3px double #000000;
+		border-right:1px solid #000000;
+		padding: 5px;
+		}
+
+#sharedProjectPermissions td {
+		font-size:.9em;
+		border: 1px solid #000000;
+		padding:8px;
+}
+
+.sharedUserName {
+	font-weight:bold;	
+}
+
+#sharingSearchBox {
+	background-color:#666666; 
+	color:#FFFFFF;
+}
+	
+#sharingSearchBoxHelp {
+	font-size:.8em;
+	font-weight:bold;
+	margin:5px 0 7px 0;	
+}
+
+
+
+
+
+	
