@@ -23,19 +23,23 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.jnlp.JnlpService;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
@@ -86,9 +90,19 @@ public class CreateProjectController extends SimpleFormController {
     		Curnit curnit = curnitService.getById(projectParameters.getCurnitId());
     		if (curnit instanceof RooloOtmlModuleImpl) {
     			projectParameters.setProjectType(ProjectType.OTRUNK);
+    		} else if (curnit instanceof OtmlModuleImpl){
+    			projectParameters.setProjectType(ProjectType.POTRUNK);    			
     		} else {
     			projectParameters.setProjectType(ProjectType.POD);
     		}
+    		
+			// add the current user as an owner of the project
+			User user = (User) request.getSession().getAttribute(
+					User.CURRENT_USER_SESSION_KEY);
+			Set<User> owners = new HashSet<User>();
+			owners.add(user);
+			projectParameters.setOwners(owners);
+			
 			projectService.createProject(projectParameters);
 		} catch (ObjectNotFoundException e) {
 	    	ModelAndView modelAndView = new ModelAndView(getFormView());

@@ -142,6 +142,7 @@ public class PodProjectServiceImpl implements ProjectService {
 		project.setCurnit(curnit);
 		project.setJnlp(jnlp);
 		project.setName(projectParameters.getProjectname());
+		project.setOwners(projectParameters.getOwners());
 		this.projectDao.save(project);
 		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);		
 		createPreviewRun(project);

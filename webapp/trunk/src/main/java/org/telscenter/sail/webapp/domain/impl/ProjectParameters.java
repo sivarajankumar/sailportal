@@ -23,6 +23,10 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import net.sf.sail.webapp.domain.User;
 
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 
@@ -47,6 +51,8 @@ public class ProjectParameters implements Serializable {
 	private Long jnlpId;
 	
 	private ProjectType projectType;
+	
+	private Set<User> owners = new HashSet<User>();
 
 	/**
 	 * @return the curnitId
@@ -102,6 +108,20 @@ public class ProjectParameters implements Serializable {
 	 */
 	public void setProjectname(String projectname) {
 		this.projectname = projectname;
+	}
+
+	/**
+	 * @return the owners
+	 */
+	public Set<User> getOwners() {
+		return owners;
+	}
+
+	/**
+	 * @param owners the owners to set
+	 */
+	public void setOwners(Set<User> owners) {
+		this.owners = owners;
 	}
 
 }

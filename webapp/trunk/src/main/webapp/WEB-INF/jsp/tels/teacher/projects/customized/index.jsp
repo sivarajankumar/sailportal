@@ -70,7 +70,7 @@
                      Define an array of object literals, each containing 
                      the data necessary to create a submenu.
                 */
-
+/*
                 var aSubmenuData = [
                 
                     {
@@ -90,7 +90,7 @@
                     },                   
                                              
                 ];        
-                   
+*/                   
                 
                 var ua = YAHOO.env.ua,
                     oAnim;  // Animation instance
@@ -459,7 +459,7 @@
 		    <h5>These are projects that you own</h5>
 			<c:forEach var="project" items="${ownedProjectsList}">
 				<tr id="customProjectR2">
-					<td class="customProjectTitle">${project.curnit.sdsCurnit.name}
+					<td class="customProjectTitle">${project.name}
 					<br>
 					This project is shared with:<br>
 					<c:forEach var="sharedowner" items="${project.sharedowners}">
@@ -478,13 +478,8 @@
 					<div id="customProjectActionsMenu"
 						class="yuimenubar yuimenubarnav customProjectsMenuCSS">
 					<div class="bd">
-					<ul class="first-of-type">
-						<li class="yuimenubaritem first-of-type" style="width: 100%;">
-						<a class="yuimenubaritemlabel" href="#actionsCurrent">ACTIONS</a>
-						</li>
-					</ul>
-					<a href="shareproject.html?projectId=${project.id}">share this
-					project</a></div>
+					    <a href="../../../author/authorproject.html?projectId=${project.id}">Edit this project</a></div>					
+					    <a href="shareproject.html?projectId=${project.id}">Share this project</a></div>
 					</div>
 					</td>
 				</tr>
