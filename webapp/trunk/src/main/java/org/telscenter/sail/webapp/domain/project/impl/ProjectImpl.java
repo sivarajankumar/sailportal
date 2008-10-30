@@ -132,15 +132,15 @@ public class ProjectImpl implements Project {
 	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = true, unique = false)
 	protected Jnlp jnlp;
 	
-	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.LAZY)
+	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = COLUMN_NAME_PREVIEWOFFERING_FK, unique = true)
 	protected Run previewRun;
 	
-	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
+	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> owners = new TreeSet<User>();
 	
-    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = SHARED_OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SHARED_OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> sharedowners = new TreeSet<User>();
     
