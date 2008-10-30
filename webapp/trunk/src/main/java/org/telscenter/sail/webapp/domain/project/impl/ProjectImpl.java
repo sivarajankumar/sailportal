@@ -122,25 +122,25 @@ public class ProjectImpl implements Project {
 	@Column(name = COLUMN_NAME_PROJECT_NAME)
 	protected String name;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class,  fetch = FetchType.LAZY)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = true, unique = false)
 	protected Curnit curnit;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class,  fetch = FetchType.LAZY)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = true, unique = false)
 	protected Jnlp jnlp;
 	
-	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
+	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = COLUMN_NAME_PREVIEWOFFERING_FK, unique = true)
 	protected Run previewRun;
 	
-	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
     @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> owners = new TreeSet<User>();
 	
-    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
     @JoinTable(name = SHARED_OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SHARED_OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> sharedowners = new TreeSet<User>();
     
@@ -359,5 +359,10 @@ public class ProjectImpl implements Project {
 	 * @see org.telscenter.sail.webapp.domain.project.Project#populateProjectInfo()
 	 */
 	public void populateProjectInfo() {
+		this.projectinfo = new ProjectInfoImpl();
+		this.projectinfo.setName(this.getName());
+		this.projectinfo.setSubject("NOT SPECIFIED");
+		this.projectinfo.setComment("NOT SPECIFIED");
+		this.projectinfo.setAuthor("NOT SPECIFIED");
 	}
  }
