@@ -219,18 +219,21 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	protected SdsOffering generateSdsOfferingFromParameters(
 			OfferingParameters offeringParameters)
 			throws ObjectNotFoundException {
+		RunParameters runParameters = (RunParameters) offeringParameters;
 		SdsOffering sdsOffering = new SdsOffering();
-		sdsOffering.setName(offeringParameters.getName());
-		Curnit curnit = this.curnitDao
-		        .getById(offeringParameters.getCurnitId());
+		sdsOffering.setName(runParameters.getName());
+//		Curnit curnit = this.curnitDao
+//		        .getById(runParameters.getCurnitId());
+		Curnit curnit = runParameters.getProject().getCurnit();
 		sdsOffering.setSdsCurnit(curnit.getSdsCurnit());
 		Jnlp jnlp = null;
 		
 		// TODO: HT: make getJnlpId work for PAS Portal if jnlpId
 		// is not set in the OfferingParameters
-		if (offeringParameters.getJnlpId() !=  null) {
-			jnlp = this.jnlpDao
-			.getById(offeringParameters.getJnlpId());
+		if (runParameters.getJnlpId() !=  null) {
+//			jnlp = this.jnlpDao
+//			.getById(runParameters.getJnlpId());
+			jnlp = runParameters.getProject().getJnlp();
 		} else {
 			List<Jnlp> jnlpList = this.jnlpDao.getList();
 			jnlp = jnlpList.get(0);

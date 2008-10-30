@@ -215,10 +215,6 @@ public class CreateRunController extends AbstractWizardFormController {
 			}
 			model.put("project", project);
 
-			// set curnitId and jnlpId to use for this run  ..might not be needed anymore because we're setting the project
-			// in the runParameters.
-			//runParameters.setCurnitId(project.getCurnit().getId());
-			//runParameters.setJnlpId(project.getJnlp().getId());
 			// add the current user as an owner of the run
 			User user = (User) request.getSession().getAttribute(
 					User.CURRENT_USER_SESSION_KEY);
