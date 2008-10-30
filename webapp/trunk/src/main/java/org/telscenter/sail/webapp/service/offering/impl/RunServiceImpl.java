@@ -222,8 +222,6 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		RunParameters runParameters = (RunParameters) offeringParameters;
 		SdsOffering sdsOffering = new SdsOffering();
 		sdsOffering.setName(runParameters.getName());
-//		Curnit curnit = this.curnitDao
-//		        .getById(runParameters.getCurnitId());
 		Curnit curnit = runParameters.getProject().getCurnit();
 		sdsOffering.setSdsCurnit(curnit.getSdsCurnit());
 		Jnlp jnlp = null;
@@ -231,8 +229,6 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		// TODO: HT: make getJnlpId work for PAS Portal if jnlpId
 		// is not set in the OfferingParameters
 		if (runParameters.getJnlpId() !=  null) {
-//			jnlp = this.jnlpDao
-//			.getById(runParameters.getJnlpId());
 			jnlp = runParameters.getProject().getJnlp();
 		} else {
 			List<Jnlp> jnlpList = this.jnlpDao.getList();

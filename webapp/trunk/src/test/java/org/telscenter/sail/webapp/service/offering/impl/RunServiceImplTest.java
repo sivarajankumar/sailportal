@@ -205,8 +205,10 @@ public class RunServiceImplTest extends TestCase {
                 .andReturn(curnit);
         EasyMock.replay(this.mockCurnitDao);
 
+        this.project.setCurnit(curnit);
+        this.project.setJnlp(jnlp);
+
         RunParameters runParameters = new RunParameters();
-        runParameters.setCurnitId(CURNIT_ID);
         runParameters.setName(CURNIT_NAME);
         runParameters.setOwners(owners);
         runParameters.setProject(this.project);
@@ -260,7 +262,7 @@ public class RunServiceImplTest extends TestCase {
 
         // TODO LAW figure out how to get this from the beans
         RunParameters runParameters = new RunParameters();
-        runParameters.setCurnitId(CURNIT_ID);
+        project.setCurnit(curnit);
         runParameters.setName(CURNIT_NAME);
         runParameters.setPeriodNames(periodNames);
         runParameters.setOwners(owners);
