@@ -122,12 +122,12 @@ public class ProjectImpl implements Project {
 	@Column(name = COLUMN_NAME_PROJECT_NAME)
 	protected String name;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class,  fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = true, unique = false)
 	protected Curnit curnit;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class,  fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = true, unique = false)
 	protected Jnlp jnlp;
@@ -363,6 +363,6 @@ public class ProjectImpl implements Project {
 		this.projectinfo.setName(this.getName());
 		this.projectinfo.setSubject("NOT SPECIFIED");
 		this.projectinfo.setComment("NOT SPECIFIED");
-		this.projectinfo.setAuthor("NOT SPECIFIED");
+		this.projectinfo.setAuthor("NOT SPECIFIED");		
 	}
  }
