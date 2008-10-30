@@ -486,17 +486,11 @@ function createRevisionHead(doc, answer){
 
 function createRevisionBody(doc, workgroupId, answer){
 	var tbody = createElement(doc, 'tbody');
-	if(answer.getRevisions().length > 1){
-		var revRow = createElement(doc, 'td', {class:'currentRevisionNumber'});
-		revRow.appendChild(doc.createTextNode('Revision ' + answer.getRevisions().length));
-		tbody.appendChild(revRow);
-	};
-	
 	var revHead = createElement(doc, 'tr');
 	var revBody = createElement(doc, 'tr');
 	var revFoot = createElement(doc, 'tr');
-	var cell1 = createElement(doc, 'td');
-	var cell2 = createElement(doc, 'td');
+	var cell1 = createElement(doc, 'td', {class:'addCommentTD', colSpan:'2'});
+	var cell2 = createElement(doc, 'td', {class:'reviseResponseTD'});
 	var divAddComment = createElement(doc, 'div');
 	var divVar = createElement(doc, 'div');
 	
@@ -517,12 +511,16 @@ function createRevisionBody(doc, workgroupId, answer){
 		divVar.appendChild(helpfulTxt);
 	};
 	
+	if(answer.getRevisions().length > 1){
+		var revRow = createElement(doc, 'td', {class:'currentRevisionNumber'});
+		revRow.appendChild(doc.createTextNode('Revision ' + answer.getRevisions().length));
+	    revHead.appendChild(revRow);		
+	};
 
 	cell1.appendChild(divAddComment);
 	cell2.appendChild(divVar);
 	revFoot.appendChild(cell1);
 	revFoot.appendChild(cell2);
-	revHead.appendChild(revRow);
 	var revPre = createElement(doc, 'td', {class:'currentResponseText', colSpan:'3'});
 	revPre.appendChild(doc.createTextNode(answer.getLatestRevision().getBody()));
 	revBody.appendChild(revPre);
@@ -563,10 +561,11 @@ function createOtherRevisionElements(doc, answer){
 	};
 	for(o=0;o<otherRevisions.length;o++){
 		var newRow = createElement(doc, 'tr');
-		var newDiv = createElement(doc, 'td');
-		var newText = (o+1) + ': ' + otherRevisions[o].getBody() + ' (' + names + ', ' + otherRevisions[o].getTimestamp() + ')';
-		newDiv.appendChild(doc.createTextNode(newText));
-		newRow.appendChild(newDiv);
+		var newTD = createElement(doc, 'td', {class:'revisionTextTD'});
+		var spanDiv = createElement(doc, 'span', {class:'revisionTextTag'});
+		var newRevisionText = (o+1) + ': ' + otherRevisions[o].getBody() + ' (' + names + ', ' + otherRevisions[o].getTimestamp() + ')';
+		newTD.appendChild(doc.createTextNode(newRevisionText));
+		newRow.appendChild(newTD);
 		othersTable.appendChild(newRow);
 	};
 	return others;
@@ -575,10 +574,10 @@ function createOtherRevisionElements(doc, answer){
 function createCommentsElement(doc, workgroupId, answer){
 	var comments = answer.getComments();
 	var commentElement = createElement(doc, 'tr', {name:'comments', id:answer.getId()});
-	var commentTable = createElement(doc, 'table');
+	var commentTable = createElement(doc, 'table', {id:'commentsTable'});
 	var head = createElement(doc, 'tr');
-	var numOfComments = createElement(doc, 'div');
-	var divAddComment = createElement(doc, 'div');
+	var numOfComments = createElement(doc, 'td', {class:'commentsTableTD1'});
+	var divAddComment = createElement(doc, 'td');
 	
 	numOfComments.appendChild(doc.createTextNode(comments.length + ' comments'));
 	divAddComment.innerHTML = '<a href="#" onclick="addCommentPopUp(' + workgroupId + ',' + answer.getId() + ')">Add a Comment</a>';
@@ -596,7 +595,7 @@ function createCommentsElement(doc, workgroupId, answer){
 			names=getNames(workgroup);
 		};
 		var newComment = createElement(doc, 'tr');
-		var newDiv = createElement(doc, 'div');
+		var newDiv = createElement(doc, 'td', {class:'commentsTextTD', colSpan:'2'});
 		newDiv.appendChild(doc.createTextNode(comments[i].getBody() + '  (' + names + ', ' + comments[i].getTimestamp() + ')'));
 		newComment.appendChild(newDiv);
 		commentTable.appendChild(newComment);

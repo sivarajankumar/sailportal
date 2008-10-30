@@ -366,10 +366,12 @@
 			<ul>
 				<li><a href="#" onclick="sortBy('time')">Sort By Time</a></li>
 				<li><a href="#" onclick="sortBy('help')">Sort By Helpfulness</a></li>
-				<li><a href="#">Show/Hide Comments &amp; Revisions</a></li>
+				<li><a href="#" onclick="toggle_visibility('revisionTable')">Hide/Show Revisions</a></li>
+				<li><a href="#" onclick="toggle_visibility('commentsTable')">Hide/Show Comments</a></li>
 			</ul>
 		</div>
 		
+
 
 	
 </div>  <!--end of Section Box-->

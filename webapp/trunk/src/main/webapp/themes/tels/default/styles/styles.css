@@ -1043,7 +1043,6 @@
 #sectionBox #column2 {
 	text-align:left;
 	margin: 15px 0 0 130px;
-
 		}
 
 #questionContent {
@@ -1076,7 +1075,8 @@
 }
 
 #responseLinks {
-	margin: 10px 10px 10px 20px;
+	margin: 10px 10px 5px 20px;
+	padding:0px;
 	text-align:left;
 }
 
@@ -1093,7 +1093,7 @@
 #responseLinks li {
 	list-style-type:none;
 	display:inline;
-	padding:5px;
+	padding-right:20px;
 	font-size: .8em;
 	}
 	
@@ -1102,8 +1102,7 @@
 	}
 	
 #responseRefreshTable {
-	float:right;
-	margin: 0 10px 0 0 ;
+	margin:10px 10px 0px 17px;
 	padding:0px;
 	font-size: .8em;
 	text-align:left;
@@ -1111,7 +1110,7 @@
 	}
 	
 #responseRefreshTable .col2width {
-	width:260px;
+	width:200px;
 }
 	
 #responseRefreshTable input {
@@ -1134,8 +1133,7 @@
 	}
 	
 .studentResponse {
-	background-color:red;	
-    border:1px solid black;
+    border:0px solid black;
     margin:20px;
     text-align:left;
         }
@@ -1146,6 +1144,7 @@
  
  .currentResponseBoxInsetTable {
 	width:100%;
+	padding-left:100px;
     }
     
  #revisionBoxTable {
@@ -1154,13 +1153,13 @@
  
 .currentResponseBoxInsetTable thead{
 	background-color:#CCCCCC;
-	border-bottom:1px solid black;
+	border:1px solid black;
 	}
 	
 .currentResponseBoxInsetTable thead .headerStudentName {
 	padding:1px 5px;
-	font-size:1.0em;
-	width:50%;
+	font-size:.8em;
+	width:45%;
 }
 
 .currentResponseBoxInsetTable thead .headerResponseInfo	 {
@@ -1169,47 +1168,90 @@
 	font-weight:normal;
 }
 
-
 .currentResponseBoxInsetTable tbody{
 	background-color:#FFFFFF;
-	border:0px solid black;
+	border:1px solid black;
 	}
 	
-.currentResponseBoxInsetTable #currentRevisionNumber {
+.currentResponseBoxInsetTable .currentRevisionNumber {
+	padding:3px 5px 0px 5px;
 	font-size:.8em;
 	font-variant:small-caps;
-	margin-left:100px;
-	}
+		}
 	
 .currentResponseBoxInsetTable tbody .currentResponseText{
-	padding:1px 5px;
+	padding:5px 5px 0 5px;
+	font-size:.8em;
 	}
-	
-	
+		
+.currentResponseBoxInsetTable .addCommentTD {
+	padding:0px 10px 10px 0px;
+	font-size:.8em;
+	text-align:right;
+}
+
+.currentResponseBoxInsetTable .reviseResponseTD {
+	padding:0px 10px 10px 0px;
+	font-size:.8em;
+	text-align:left;
+
+}
+
+.currentResponseBoxInsetTable a:hover  {
+	background-color:#FFFF00;
+	color:#000099;
+}
 
 #revisionTable { 
 	width:95%;
-	margin:10px 0 10px 50px;
+	margin:5px 0 5px 50px;
 	background-color:white;
-	border:1px solid #333333;
+	border:1px dotted #990000;
 	} 
 
 #revisionTable td  {
-	padding:5px;
+	padding:1px 5px;
 	font-size:.8em;
 	}
-	
+
 .revisionTableHeader { 
 	color:#333333;
-	font-size:.8em;
+	font-size:.9em;
 	font-weight:bold;
 	font-variant:small-caps;
 	} 
 	
-
-
-.commentTable {
-	margin:10px 0 10px 50px;
-	}
-          
+#revisionTable .revisionTextTD {
+	color:#990000;
+	} 
 	
+#commentsTable {
+	width:95%;
+	margin:5px 0 10px 50px;
+	padding:2px;
+	background-color:white;
+	border:1px dotted #333333;
+	} 
+
+#commentsTable td {
+	padding:1px 5px 2px 5px;
+	font-size:.8em;
+	}
+	
+.commentsTableTD1 { 
+	color:#333333;
+	font-size:.9em;
+	font-weight:bold;
+	font-variant:small-caps;
+	width:110px;
+	} 
+
+#commentsTable a:hover {
+	background-color:#FFFF00;
+	color:#000099;
+	} 
+		
+#commentsTable .commentsTextTD {
+	color:#0000CC;
+}
+
