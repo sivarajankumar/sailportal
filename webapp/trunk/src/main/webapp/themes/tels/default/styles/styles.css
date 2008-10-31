@@ -1001,13 +1001,13 @@
 #sectionBox { 
 	margin:20px;
 	padding:0px;
-	border: 1px solid #0000ff;
+	border: 2px ridge #333333;
 	}
 	
 #sectionBoxHeader { 
-	font-size:1.1em;
+	font-size:1.2em;
 	font-weight:bold;
-	padding: 4px 10px;
+	padding: 6px 10px;
 	background-color:#CCCCFF;
 	background-image:url(../images/textureUltraLightBlue.png);
 	text-align:left;
@@ -1210,7 +1210,7 @@
 	} 
 
 #revisionTable td  {
-	padding:1px 5px;
+	padding:1px 5px 3px 5px;
 	font-size:.8em;
 	}
 
@@ -1225,6 +1225,11 @@
 	color:#990000;
 	} 
 	
+#revisionTable .revisionTextTD .revisionTextTag {
+	color:#999999;
+	font-style:italic;
+		} 
+	
 #commentsTable {
 	width:95%;
 	margin:5px 0 10px 50px;
@@ -1234,7 +1239,7 @@
 	} 
 
 #commentsTable td {
-	padding:1px 5px 2px 5px;
+	padding:1px 5px 3px 5px;
 	font-size:.8em;
 	}
 	
@@ -1255,3 +1260,14 @@
 	color:#0000CC;
 }
 
+#commentsTable .commentsTextTag {
+	color:#999999;
+	font-style:italic;
+	}
+
+/* Q&A Discussion Step: Create Response page */
+
+# { 
+	
+	}
+	

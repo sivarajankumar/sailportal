@@ -40,7 +40,7 @@
 	    var rtb = document.getElementById('responseTableBody');
 	    rtb.style.display='none';
 	    var rd = document.getElementById('responseDiv');
-	    rd.innerHTML = "You cannot see other students' posts until you make a response.";
+	    rd.innerHTML = "Please create a response.  After submitting it you'll be able to see responses from other students.";
 	  } else  {
 	    var poll = new PollNewPosts('${brainstorm.id}');
 	    poll.start();

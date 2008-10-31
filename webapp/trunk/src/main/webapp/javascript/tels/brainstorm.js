@@ -563,10 +563,15 @@ function createOtherRevisionElements(doc, answer){
 		var newRow = createElement(doc, 'tr');
 		var newTD = createElement(doc, 'td', {class:'revisionTextTD'});
 		var spanDiv = createElement(doc, 'span', {class:'revisionTextTag'});
-		var newRevisionText = (o+1) + ': ' + otherRevisions[o].getBody() + ' (' + names + ', ' + otherRevisions[o].getTimestamp() + ')';
-		newTD.appendChild(doc.createTextNode(newRevisionText));
-		newRow.appendChild(newTD);
+		var newRevisionTextBody = (o+1) + ': ' + otherRevisions[o].getBody();
+		var newRevisionTextTag =  ' (' + names + ', ' + otherRevisions[o].getTimestamp() + ')';
+				
 		othersTable.appendChild(newRow);
+		newRow.appendChild(newTD);
+		newTD.appendChild(doc.createTextNode(newRevisionTextBody));
+		spanDiv.appendChild(doc.createTextNode(newRevisionTextTag));
+		newTD.appendChild(spanDiv);
+		
 	};
 	return others;
 };
@@ -594,11 +599,19 @@ function createCommentsElement(doc, workgroupId, answer){
 		} else {
 			names=getNames(workgroup);
 		};
+		
 		var newComment = createElement(doc, 'tr');
-		var newDiv = createElement(doc, 'td', {class:'commentsTextTD', colSpan:'2'});
-		newDiv.appendChild(doc.createTextNode(comments[i].getBody() + '  (' + names + ', ' + comments[i].getTimestamp() + ')'));
-		newComment.appendChild(newDiv);
+		var newTD = createElement(doc, 'td', {class:'commentsTextTD', colSpan:'2'});
+		var spanDiv = createElement(doc, 'span', {class:'commentsTextTag'});
+		var newCommentsTextBody = newTD.appendChild(doc.createTextNode(comments[i].getBody()));
+		var newCommentsTextTag =   '  (' + names + ', ' + comments[i].getTimestamp() + ')';
+		
 		commentTable.appendChild(newComment);
+		newComment.appendChild(newTD);
+		newTD.appendChild(doc.createTextNode(newCommentsTextBody));
+		spanDiv.appendChild(doc.createTextNode(newCommentsTextTag));	
+		newTD.appendChild(spanDiv);
+			
 	};
 	return commentElement;
 };
