@@ -54,6 +54,9 @@
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
+			<td class="link"><a href="../run/myprojectruns.html"><spring:message code="teacher.pro.lib.index.5"/></a></td>
+			<td class="description"><spring:message code="teacher.pro.lib.index.6"/></td></tr>
+		<tr>
 			<td class="link"><a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.overview.3"/></a></td>
 			<td class="description"><spring:message code="teacher.manage.overview.4"/></td></tr>
 		<tr>

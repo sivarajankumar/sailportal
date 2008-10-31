@@ -92,7 +92,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojects.jsp"%>
+<%@ include file="headerteachermanagement.jsp"%>
 
 <%@ include file="L2projects_myprojectruns.jsp"%>
 

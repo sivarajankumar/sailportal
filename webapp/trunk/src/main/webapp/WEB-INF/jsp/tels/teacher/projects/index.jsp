@@ -58,9 +58,6 @@
 			<td class="link"><a href="projectlibrary.html"><spring:message code="teacher.pro.lib.index.3"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.4"/></td></tr>
 		<tr>
-			<td class="link"><a href="../run/myprojectruns.html"><spring:message code="teacher.pro.lib.index.5"/></a></td>
-			<td class="description"><spring:message code="teacher.pro.lib.index.6"/></td></tr>
-		<tr>
 			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.pro.lib.index.7"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.8"/></td></tr>
 		<tr>

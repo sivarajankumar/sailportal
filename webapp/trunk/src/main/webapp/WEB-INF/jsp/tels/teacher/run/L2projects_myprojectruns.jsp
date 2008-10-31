@@ -19,21 +19,26 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
+
 <div id="navigationL2" class="projectL2">
 
-<!--NOTE:  The UL below has a manual CSS override, to displace some weird values being injected by Ajax on this page.-->
-
-	<ul style="padding: 2px 0 5px 120px;">
+	<ul style="padding: 1px 0 5px 110px;">
 		<li >
-			<a class="navigationL2leftborder" href="../projects/index.html"><spring:message code="teacher.run.L2.1"/></a> </li>
-       	<li>
-			<a href="../projects/projectlibrary.html"><spring:message code="teacher.run.L2.2"/></a> </li>
+			<a href="../management/overview.html"><spring:message code="teacher.manage.L2.1"/></a> </li>
 		<li>
-			<a class="navigationL2_projects_highlight" href="../run/myprojectruns.html"><spring:message code="teacher.run.L2.3"/></a> </li>
-		<li >
-			<a style="color:#999999;" href="#"><spring:message code="teacher.run.L2.4"/></a></li>
-		<li >
-			<a href="../projects/customized/index.html"><spring:message code="teacher.run.L2.5"/></a> </li>
+			<a class="navigationL2_management_highlight" href="../run/myprojectruns.html"><spring:message code="teacher.pro.lib.L2.3"/></a> </li>
+       	<li>
+			<a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.L2.2"/></a> </li>
+		<li>
+			<a href="../management/projectpickerclassmonitor.html"><spring:message code="teacher.manage.L2.3"/></a> </li>
+		<li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.4"/></a> </li>
+		<li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.5"/></a> </li>
+		<li>
+			<a style="color:#999999;" href="#"><spring:message code="teacher.manage.L2.6"/></a> </li>
+		<li>
+			<a href="../management/updatemyaccount.html"><spring:message code="teacher.manage.L2.7"/></a> </li>
    </ul>
 </div>	
 
