@@ -77,7 +77,7 @@ public class TelsSimpleMappingExceptionResolver extends
 		// send email to programmers
 		Portal portal;
 		try {
-			portal = portalService.getById(1);
+			portal = portalService.getById(new Long(1));
 
 			if (portal.isSendMailOnException()) {
 				String[] recipients = {emaillisteners.getProperty(HANDLE_EXCEPTION_PROPERTY_KEY)};
