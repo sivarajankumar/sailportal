@@ -88,7 +88,7 @@ width: 100%;
 	        <li><a href="#" onClick="javascript: fabulousTurnOff7();"><spring:message code="freeandopensource"/></a></li>
 	    </ul>
 	    
-	    <div id="contactWiseLink"><a href="./contactwisegeneral.html"><spring:message code="wiselinkspecial"/></a></div>
+	    <p class="smallText"><spring:message code="clickabovefordetails"/></p>
     
     </div>
     
@@ -132,21 +132,27 @@ width: 100%;
     
     <li><a href="wiseoverview.html" 
     	onmouseout="MM_swapImgRestore()" 
-    	onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/Animated-WISE-Rollover.png',1)">
-    	<img src="./themes/tels/default/images/Animated-WISE.png" width="145" height="32" alt="<spring:message code="animatedoverviewofwise"/>" 
+    	onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/AnimatedOverviewRoll.png',1)">
+    	<img src="./themes/tels/default/images/AnimatedOverview.png" width="145" height="33" alt="<spring:message code="animatedoverviewofwise"/>" 
     		class="imgNoBorder" id="Overview of WISE button" /></a> </li>
        
     <li><a href="previewprojectlist.html" 
     		onmouseout="MM_swapImgRestore()" 
-    		onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/Instant-Preview-Rollover.png',1)">
-    		<img src="./themes/tels/default/images/Instant-Preview.png" width="145" height="32"  alt="<spring:message code="instantpreview"/>" 
+    		onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/PreviewProjectRoll.png',1)">
+    		<img src="./themes/tels/default/images/PreviewProject.png" width="145" height="33"  alt="<spring:message code="instantpreview"/>" 
     			class="imgNoBorder" id="Preview of WISE Button" /></a> </li>
 		 
 	<li><a href="signup.html" 
 			onmouseout="MM_swapImgRestore()" 
-			onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateNewAccountRoll.png',1)">
-			<img src="./themes/tels/default/images/CreateNewAccount.png" width="145" height="44"  alt="<spring:message code="createnewwiseaccount"/>"
+			onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateWiseAccountRoll.png',1)">
+			<img src="./themes/tels/default/images/CreateWiseAccount.png" width="145" height="33"  alt="<spring:message code="createnewwiseaccount"/>"
 				class="imgNoBorder" id="Create Account Button" /></a> </li>
+				
+	<li><a href="./contactwisegeneral.html" 
+			onmouseout="MM_swapImgRestore()" 
+			onmouseover="MM_swapImage('Contact Wise Button','','./themes/tels/default/images/ContactWiseRoll.png',1)">
+			<img src="./themes/tels/default/images/ContactWise.png" width="145" height="33"  alt="Contact WISE"
+				class="imgNoBorder" id="Contact Wise Button" /></a> </li>
 	
 </ul> 	
 	
