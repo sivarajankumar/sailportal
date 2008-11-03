@@ -88,7 +88,7 @@ width: 100%;
 	        <li><a href="#" onClick="javascript: fabulousTurnOff7();"><spring:message code="freeandopensource"/></a></li>
 	    </ul>
 	    
-	    <p class="smallText"><spring:message code="clickabovefordetails"/></p>
+	    <div id="contactWiseLink"><a href="./contactwisegeneral.html"><spring:message code="wiselinkspecial"/></a></div>
     
     </div>
     
@@ -147,6 +147,7 @@ width: 100%;
 			onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateNewAccountRoll.png',1)">
 			<img src="./themes/tels/default/images/CreateNewAccount.png" width="145" height="44"  alt="<spring:message code="createnewwiseaccount"/>"
 				class="imgNoBorder" id="Create Account Button" /></a> </li>
+	
 </ul> 	
 	
                     </td> <!--    End of Welcome Box-->	
