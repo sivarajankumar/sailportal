@@ -127,7 +127,7 @@ public class TotalTimePerStepController extends AbstractController{
 		options.addMoreLineStyle("009900", 0, 9, -1);
 		options.setLegendPosition("l");
 		options.addShapeMarker("a", "a59915", 0, 1, 5, 1);
-		options.addTitle("You're a good monkey|Have a banana", "00ff95", 32);
+		options.addTitle("Total Time Per Step Chart", "00ff95", 32);
 		options.addAxisStyle(0, "80409f", 8);
 		options.setBarWidthAndSpacing(10, 4, 10);
 		options.addScaling(0, 110);
