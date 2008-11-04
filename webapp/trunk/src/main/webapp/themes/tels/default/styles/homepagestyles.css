@@ -108,7 +108,8 @@
 	display:block; 
 	color:#FFFFFF; 
 	text-decoration:none;
-	font-weight:normal;
+	font-weight:bold;
+	letter-spacing:.4px; 
 	margin:0;
 	background-color:#6666FF;
 	border: 1px solid #333333;

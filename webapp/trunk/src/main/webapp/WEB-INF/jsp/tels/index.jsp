@@ -279,8 +279,8 @@ width: 100%;
                                 <div class="alignCenter"> 
                                 <p id="newsArchiveButton"><a href="./newsarchive.html" 
                                 onmouseout="MM_swapImgRestore()" 
-                                onmouseover="MM_swapImage('News Archive','','./themes/tels/default/images/News-Archive-Roll.png',1)">
-                                <img class="imgNoBorder" src="./themes/tels/default/images/News-Archive.png" alt="Go to News Archive" 
+                                onmouseover="MM_swapImage('News Archive','','./themes/tels/default/images/newsArchiveRoll.png',1)">
+                                <img class="imgNoBorder" src="./themes/tels/default/images/newsArchive.png" alt="Go to News Archive" 
                                 width="93" height="23" id="News Archive" /></a> </p>
                   				</div>
             		</td>
