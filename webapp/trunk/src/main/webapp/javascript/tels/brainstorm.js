@@ -447,14 +447,19 @@ function createLatestRevisionElement(doc, workgroupId, answer){
 	var revisionElement = createElement(doc, 'tr', {id:answer.getLatestRevision().getId(), class:'currentResponseBoxTR', name:'revision'});
 	var revisionTable = createElement(doc, 'table', {class:'currentResponseBoxInsetTable'});
 	revisionElement.appendChild(revisionTable);
-	revisionTable.appendChild(createRevisionHead(doc, answer));
+	revisionTable.appendChild(createRevisionHead(doc, workgroupId, answer));
 	revisionTable.appendChild(createRevisionBody(doc, workgroupId, answer));
 	
 	return revisionElement;
 };
 
-function createRevisionHead(doc, answer){
-	var head = createElement(doc, 'thead');
+function createRevisionHead(doc, workgroupId, answer){
+    var head = null;
+	if(answer.getWorkgroup().getId()==workgroupId){
+	    head = createElement(doc, 'thead', {class:'theadowner'});
+	} else {
+	    head = createElement(doc, 'thead');
+	}
 	var headRow = createElement(doc, 'tr');
 	var cell1 = createElement(doc, 'th', {class:'headerStudentName'});
 	var cell2 = createElement(doc, 'th', {class:'headerResponseInfo'});
@@ -543,8 +548,8 @@ function foundHelpful(workgroupId, answer){
 
 function createOtherRevisionElements(doc, answer){
 	var otherRevisions = answer.getOtherRevisions();
-	var others = createElement(doc, 'tr');
-	var othersTable = createElement(doc, 'table', {id:'revisionTable'});
+	var others = createElement(doc, 'tr', {name:'revisionrow'});
+	var othersTable = createElement(doc, 'table', {name:'revisionTable', id:'revisionTable'});
 	var head = createElement(doc, 'tr');
 	var headDiv = createElement(doc, 'td', {class:'revisionTableHeader'});
 	
@@ -579,7 +584,7 @@ function createOtherRevisionElements(doc, answer){
 function createCommentsElement(doc, workgroupId, answer){
 	var comments = answer.getComments();
 	var commentElement = createElement(doc, 'tr', {name:'comments', id:answer.getId()});
-	var commentTable = createElement(doc, 'table', {id:'commentsTable'});
+	var commentTable = createElement(doc, 'table', {name:'commentsTable', id:'commentsTable'});
 	var head = createElement(doc, 'tr');
 	var numOfComments = createElement(doc, 'td', {class:'commentsTableTD1'});
 	var divAddComment = createElement(doc, 'td');

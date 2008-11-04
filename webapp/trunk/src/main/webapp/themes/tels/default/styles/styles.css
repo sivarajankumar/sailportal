@@ -1156,6 +1156,12 @@
 	border:1px solid black;
 	}
 	
+.currentResponseBoxInsetTable .theadowner{
+	background-color:#336633;
+	color:#FFFFFF;
+	border:1px solid black;
+	}
+	
 .currentResponseBoxInsetTable thead .headerStudentName {
 	padding:1px 5px;
 	font-size:.8em;
@@ -1171,7 +1177,8 @@
 .currentResponseBoxInsetTable tbody{
 	background-color:#FFFFFF;
 	border:1px solid black;
-	}
+	border-bottom:3px inset black;
+		}
 	
 .currentResponseBoxInsetTable .currentRevisionNumber {
 	padding:3px 5px 0px 5px;
@@ -1185,13 +1192,13 @@
 	}
 		
 .currentResponseBoxInsetTable .addCommentTD {
-	padding:0px 10px 10px 0px;
+	padding:6px 10px 10px 0px;
 	font-size:.8em;
 	text-align:right;
 }
 
 .currentResponseBoxInsetTable .reviseResponseTD {
-	padding:0px 10px 10px 0px;
+	padding:6px 10px 10px 0px;
 	font-size:.8em;
 	text-align:left;
 

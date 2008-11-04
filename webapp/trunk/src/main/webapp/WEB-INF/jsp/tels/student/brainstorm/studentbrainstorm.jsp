@@ -297,6 +297,22 @@
 //-->
 </script>
 
+<!--USED TO SHOW/HIDE A CLASS ELEMENT -->
+<script type="text/javascript">
+<!--
+    function toggle_visibility_by_name(name) {
+       var commentsTableArray = document.getElementsByName(name);
+       for (xx=0;xx<commentsTableArray.length;xx++) {
+           var e = commentsTableArray[xx];
+           if(e.style.display == 'none')
+              e.style.display = 'table';
+           else
+              e.style.display = 'none';       
+       }
+    };
+//-->
+</script>
+
 </head>
 
 
@@ -366,8 +382,8 @@
 			<ul>
 				<li><a href="#" onclick="sortBy('time')">Sort By Time</a></li>
 				<li><a href="#" onclick="sortBy('help')">Sort By Helpfulness</a></li>
-				<li><a href="#" onclick="toggle_visibility('revisionTable')">Hide/Show Revisions</a></li>
-				<li><a href="#" onclick="toggle_visibility('commentsTable')">Hide/Show Comments</a></li>
+				<li><a href="#" onclick="toggle_visibility_by_name('revisionrow')">Hide/Show Revisions</a></li>
+				<li><a href="#" onclick="toggle_visibility_by_name('comments')">Hide/Show Comments</a></li>
 			</ul>
 		</div>
 		
