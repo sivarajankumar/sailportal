@@ -92,7 +92,7 @@
 #welcomeTextLinks {
 	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
 	list-style-type:none;
-	font-size:1em;
+	font-size:.9em;
 	padding: 6px 0 0 0;
 	line-height: 100%;
 	margin: 0;
@@ -101,16 +101,16 @@
 	}
 
 #welcomeTextLinks li {
-	margin: 0 0 9px 0;
+	margin: 0 0 9px 0; 
 }
 
 #welcomeTextLinks li a:link, #welcomeTextLinks li a:visited {
-	display:block;
-	color:#000066;
+	display:block; 
+	color:#FFFFFF; 
 	text-decoration:none;
-	font-weight:bold;
+	font-weight:normal;
 	margin:0;
-	background-color:#CCCCFF;
+	background-color:#6666FF;
 	border: 1px solid #333333;
 	padding:4px 3px 3px 5px;
 	}

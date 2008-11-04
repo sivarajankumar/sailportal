@@ -180,8 +180,8 @@ width: 100%;
                                 </dl>
                                                        
                                 <div class="alignRight">
-                                			<input type="image" id="signInButton" img src="./themes/tels/default/images/Sign-In-No-Trans.png" width="100" height="27" alt="Sign In Button"
-                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/Sign-In-Roll-No-Trans.png',1)"
+                                			<input type="image" id="signInButton" img src="./themes/tels/default/images/SignIn.png" width="100" height="27" alt="Sign In Button"
+                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/SignInRoll.png',1)"
                                             onmouseout="MM_swapImgRestore()"
                                             onclick="Effect.toggle('waiting', 'appear')" /></div>
                                 </form>
