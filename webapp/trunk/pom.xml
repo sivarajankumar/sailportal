@@ -266,7 +266,6 @@
 			<groupId>javanettasks</groupId>
 			<artifactId>httpunit</artifactId>
 			<version>1.7</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>hsqldb</groupId>
@@ -517,11 +516,6 @@
 		<groupId>axis</groupId>
 		<artifactId>axis</artifactId>
 		<version>1.4</version>
-	</dependency>
-	<dependency>
-		<groupId>log4j</groupId>
-		<artifactId>log4j</artifactId>
-		<version>1.2.9</version>
 	</dependency>
 	</dependencies>
 	<reporting>
