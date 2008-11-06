@@ -474,12 +474,10 @@
 					<td class="dataText">${project.projectInfo.gradeLevel }</td>
 					<td class="dataTime">;;;</td>
 					<td class="dataTime">${project.projectInfo.projectLiveCycle.toString}</td>
-					<td class="actionMenuButton">
-					<div id="customProjectActionsMenu"
-						class="yuimenubar yuimenubarnav customProjectsMenuCSS">
-					<div class="bd">
-					    <a href="../../../author/authorproject.html?projectId=${project.id}">Edit this project</a></div>					
-					    <a href="shareproject.html?projectId=${project.id}">Share this project</a></div>
+					<td>
+					<div>
+					    <a href="../../../author/authorproject.html?projectId=${project.id}">Edit this project</a>					
+					    <a href="shareproject.html?projectId=${project.id}">Share this project</a>
 					</div>
 					</td>
 				</tr>

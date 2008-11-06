@@ -259,15 +259,11 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="columnButtons">
 
 <dl id="list1" >
-	<dt id="studentUsername">${user.userDetails.firstname} ${user.userDetails.lastname} </dt>
+	<dt id="studentUsername"><authz:authentication operation="firstname" /> <authz:authentication operation="lastname" /></dt>
 	<dd></dd>
 	<dt id="studentWelcome">
 		<c:set var="current_date" value="<%= new java.util.Date() %>" />
 		<c:choose>
-	        <c:when test="${(current_date.month == user.userDetails.birthday.month) &&
-	                        (current_date.day == user.userDetails.birthday.day)}" >
-	            <spring:message code="student.index.1"/>
-	        </c:when>
 	        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
 	            <spring:message code="student.index.2"/>
 	        </c:when>

@@ -126,7 +126,7 @@
 				  
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
-				    	<div id="runTitle">${run.sdsOffering.name}</div>
+				    	<div id="runTitle">${run.name}</div>
 				    	<c:forEach var="sharedowner" items="${run.sharedowners}">
 				    	    <center><c:if test="${sharedowner == user}"><spring:message code="teacher.run.myprojectruns.6"/></c:if></center>
 				    	</c:forEach>
