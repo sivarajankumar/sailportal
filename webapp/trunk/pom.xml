@@ -216,6 +216,16 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>java.net-maven2-repository</id>
+			<name>javanettasks maven repository</name>
+			<url>		
+		         http://download.java.net/maven/2
+			</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -253,9 +263,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>httpunit</groupId>
+			<groupId>javanettasks</groupId>
 			<artifactId>httpunit</artifactId>
-			<version>1.6.1</version>
+			<version>1.7</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

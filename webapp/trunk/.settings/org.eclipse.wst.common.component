@@ -306,7 +306,7 @@
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/rhino/js/1.5R4.1/js-1.5R4.1.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
-    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/nekohtml/nekohtml/0.9.4/nekohtml-0.9.4.jar">
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/nekohtml/nekohtml/0.9.5/nekohtml-0.9.5.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/jempbox/jempbox/0.2.0/jempbox-0.2.0.jar">
