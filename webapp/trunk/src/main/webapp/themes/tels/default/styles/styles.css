@@ -35,7 +35,7 @@
 	margin:0 0 3px 0;
 }
 
-#signOutBannerTeacher  a:link, #signOutBannerTeacher  a:visited {
+#signOutBannerTeacher a:link, #signOutBannerTeacher a:visited {
 	color:#FFFF66;
 	font-size:.7em;
 	text-decoration:none; 
@@ -998,6 +998,18 @@
 
 /* Q&A Discussion Step: Student View */
 
+#stepTypeTitleBar {
+	text-align:center;
+	font-size:.8em;
+	padding:2px;
+	margin:5px 20px 0px 20px;
+	border:1px solid #333333;
+	background-color:#666666;
+	color:#FFFFFF;
+	letter-spacing:3px;
+}
+	
+
 #sectionBox { 
 	margin:20px;
 	padding:0px;
@@ -1007,9 +1019,9 @@
 #sectionBoxHeader { 
 	font-size:1.2em;
 	font-weight:bold;
-	padding: 6px 10px;
+	padding: 4px 10px;
 	background-color:#CCCCFF;
-	background-image:url(../images/textureUltraLightBlue.png);
+	background-image:url(../images/Gradient-BlueWhite-5x65.png);
 	text-align:left;
 	border-bottom: 1px solid #333333;
 }
@@ -1134,7 +1146,7 @@
 	
 .studentResponse {
     border:0px solid black;
-    margin:20px;
+    margin:15px 20px;
     text-align:left;
         }
 
@@ -1153,23 +1165,25 @@
  
 .currentResponseBoxInsetTable thead{
 	background-color:#CCCCCC;
+	background-image:url(../images/Gradient-GrayWhite-5x30.png);
 	border:1px solid black;
 	}
 	
 .currentResponseBoxInsetTable .theadowner{
 	background-color:#336633;
+	background-image:url(../images/Gradient-GreenWhite-5x30.png);
 	color:#FFFFFF;
 	border:1px solid black;
 	}
 	
 .currentResponseBoxInsetTable thead .headerStudentName {
-	padding:1px 5px;
+	padding:2px 5px;
 	font-size:.8em;
 	width:45%;
 }
 
 .currentResponseBoxInsetTable thead .headerResponseInfo	 {
-	padding:1px 5px;
+	padding:2px 5px;
 	font-size:.8em;
 	font-weight:normal;
 }
@@ -1201,7 +1215,6 @@
 	padding:6px 10px 10px 0px;
 	font-size:.8em;
 	text-align:left;
-
 }
 
 .currentResponseBoxInsetTable a:hover  {
@@ -1210,8 +1223,8 @@
 }
 
 #revisionTable { 
-	width:95%;
-	margin:5px 0 5px 50px;
+	width:750px;
+	margin:10px 0 0px 50px;
 	background-color:white;
 	border:1px dotted #990000;
 	} 
@@ -1234,19 +1247,19 @@
 	
 #revisionTable .revisionTextTD .revisionTextTag {
 	color:#999999;
-	font-style:italic;
+	font-style:italic; 
 		} 
 	
 #commentsTable {
-	width:95%;
-	margin:5px 0 10px 50px;
+	width:750px;
+	margin:10px 0 0px 50px;
 	padding:2px;
 	background-color:white;
 	border:1px dotted #333333;
 	} 
 
 #commentsTable td {
-	padding:1px 5px 3px 5px;
+	padding:2px 5px 6px 5px;
 	font-size:.8em;
 	}
 	
@@ -1254,7 +1267,7 @@
 	color:#333333;
 	font-size:.9em;
 	font-weight:bold;
-	font-variant:small-caps;
+	font-variant:small-caps; 
 	width:110px;
 	} 
 
@@ -1272,9 +1285,94 @@
 	font-style:italic;
 	}
 
+
 /* Q&A Discussion Step: Create Response page */
 
-# { 
+#createResponseWindow {
+	text-align:center;
+	border:1px solid #333333;
+	margin:10px;
+	padding:0px;
+	background-color:#cccccc; 
+	background-image:url(../images/Pixel_Gray.png);
+		}
 	
+#createResponseWindow #head {
+	font-size:1.0em;
+	font-weight:bold;
+	letter-spacing:3px;
+	text-align:center;
+	padding: 3px 10px;
+	background-color:#CCCCFF;
+	background-image:url(../images/Gradient-BlueWhite-5x65.png);
+	border-bottom: 1px solid #333333;
+}
+
+#createResponseWindow #owner {
+	font-style:italic;
+	font-weight:bold;
+	color:#000033;
+}
+
+#createResponseWindow #interior {
+	margin:10px 25px;
+	text-align:left;
+
+}
+
+#createResponseWindow #interior #question, #createResponseWindow #interior #response {
+	margin-top:10px;
+	}
+
+#createResponseWindow #interior #responseText {
+	width:100%;
+	margin-top:5px;
+	padding:5px;
+	}
+	
+#createResponseWindow #interior #selectPostType{
+	margin:10px 0 5px 30px;
+	font-size:.8em;
+	}
+	
+#createResponseWindow #interior #inputButtons{
+	text-align:center;
+	margin-top:25px;
+	}
+	
+#createResponseWindow #interior #inputButtons input {
+	font-size:.8em;
+	font-weight:bold;
+	background-color:#CCCCff;
+	padding:3px;
+	margin-right:10px;
+	}
+	
+#createResponseWindow #interior #inputButtons input:hover {
+	background-color:#FFFF00;
+	}
+	
+#createResponseWindow #postedDate {
+	margin-left:25px;
+	font-size:.8em;
+	color:#666666;
+}
+
+#createResponseWindow #currentResponseBox {
+	margin-top:5px;
+	padding:5px;
+	border:1px solid #999999;
+	background-color:#FFFFFF;
+	color:#000000;
+	}
+
+#createResponseWindow #selectedResponseText {
+	border:1px solid #999999;
+	padding:5px;
+	margin-top:4px;
+	}
+	
+#createResponseWindow #selectedResponseLabels {
+	font-size:.8em;
 	}
 	

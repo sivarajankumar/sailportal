@@ -20,7 +20,7 @@
 	var pageManager;
 
 	function popUp(URL, name){
-		window.open(URL, name, 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=500,left = 450,top = 150');
+		window.open(URL, name, 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=960,height=740,left = 450,top = 150');
 	};
 	
 	function responsePopUp(workgroupId, brainstormId){
@@ -315,8 +315,9 @@
 
 </head>
 
-
 <body style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${cannotseeresponses}');">
+
+<div id="stepTypeTitleBar">Q&amp;A DISCUSSION</div>
 
 <div id="sectionBox">
 

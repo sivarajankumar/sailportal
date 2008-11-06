@@ -14,7 +14,6 @@
 
 </head>
 
-
 <body class="yui-skin-sam">
 
 <script type="text/javascript">
@@ -38,7 +37,7 @@
                     new YAHOO.widget.Panel("wait",  
                                                     { width: "240px", 
                                                       fixedcenter: true, 
-                                                      close: false, 
+                                                      close: 	false, 
                                                       draggable: false, 
                                                       zindex:4,
                                                       modal: true,

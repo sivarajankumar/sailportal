@@ -23,8 +23,15 @@
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
+
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 <script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
@@ -87,6 +94,7 @@ function post(){
 
 </script>
 </head>
+
 <body>
 
 <%@page import="org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption" %>
@@ -94,47 +102,54 @@ function post(){
 <% pageContext.setAttribute("anonymous_only", DisplayNameOption.ANONYMOUS_ONLY); %>
 <% pageContext.setAttribute("username_or_anonymous", DisplayNameOption.USERNAME_OR_ANONYMOUS); %>
 
-<div align="centered">
+<div id="createResponseWindow">
 
 	<div id="head">Create A Response</div>
-	<div>Subgroup "SUBGROUP NAME" (# students)<br>Your response will be seen by all students in your subgroup</div>
-	<div id="question">
-		Question
-		<span id="questionBox">${brainstorm.question.prompt}</span>
-	</div>
-	<br/>
-	<div id="response">
-		<b>Response</b><br/>
-		<textarea id="responseText" cols="45" rows="8"></textarea>
-	</div>
-	<div id="selectPostType">
-        <c:if test="${brainstorm.displayNameOption == username_only}">  <!-- must NOT be anonymous -->
-           <c:out value="Your response will be displayed with your names" />
-           <input type="hidden" name="postName" value="1" checked="checked" />
-        </c:if>
-        <c:if test="${brainstorm.displayNameOption == anonymous_only}"> <!--  must be anonymous -->
-           <c:out value="Your response will be displayed anonymously" />
-           <input type="hidden" name="postName" value="0" checked="checked"/>
-        </c:if>
-        <c:if test="${brainstorm.displayNameOption == username_or_anonymous}">  <!--  student can choose displayname -->
-		  <div>How would you like your response labeled?</div>
-		    <label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
-		    <label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
-			<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
-				${student.userDetails.firstname} ${student.userDetails.lastname}
-				<c:if test="${studentStatus.last=='false'}">, </c:if>
-			</c:forEach>
-		    </label>
-   	      </div>
-        </c:if>
-
 	
-	<div>
-		<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
-		<input id="submitResponse" type="button" value="SUBMIT RESPONSE" onclick="submit()"/>
-	</div>
+	<div id="interior">
 	
-</div> <!-- end centered div -->
+		<div id="owner" style="color:FF0000;">Period X: Group Y <span class="numberStudents">(# students)</span></div>
+	
+		<div id="question">
+			<b>Question:</b>
+			<span id="questionBox">${brainstorm.question.prompt}</span>
+		</div>
+	
+		<div id="response">
+			<b>Response:</b><br/>
+			<textarea id="responseText" cols="70" rows="6"></textarea>
+		</div>
+	
+		<div id="selectPostType">
+        	<c:if test="${brainstorm.displayNameOption == username_only}">  <!-- must NOT be anonymous -->
+           	<c:out value="Your response will be displayed with your names" />
+           	<input type="hidden" name="postName" value="1" checked="checked" />
+        	</c:if>
+        	<c:if test="${brainstorm.displayNameOption == anonymous_only}"> <!--  must be anonymous -->
+           		<c:out value="Your response will be displayed anonymously" />
+           		<input type="hidden" name="postName" value="0" checked="checked"/>
+        	</c:if>
+        	<c:if test="${brainstorm.displayNameOption == username_or_anonymous}">  <!--  student can choose displayname -->
+		  
+		  		<div>How would you like your response labeled?</div>
+		  			<label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
+		    		<label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
+					<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
+						${student.userDetails.firstname} ${student.userDetails.lastname}
+						<c:if test="${studentStatus.last=='false'}">, </c:if>
+					</c:forEach>
+		    		</label>
+   	      		</div>
+        	</c:if>
+			
+			<div id="inputButtons">
+				<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
+				<input id="submitResponse" type="button" value="POST RESPONSE" onclick="submit()"/>
+			</div>
+	
+		</div>
+		
+	</div>
 
 </body>
 </html>

@@ -24,7 +24,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+
 <script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
@@ -84,57 +90,67 @@ function post(){
 };
 </script>
 </head>
+
 <body>
 
-<div align="centered">
+<div id="createResponseWindow">
 
 	<div id="head">Add a Comment</div>
-	<div id="answer">
-		<div name="head">
-			<c:choose>
-				<c:when test="${answer.anonymous}">
-                	<i>Anonymous</i>
-                </c:when>
-				<c:otherwise>
-					<c:forEach var="student" varStatus="studentStatus" items="${answer.workgroup.members}">
-						${student.userDetails.firstname} ${student.userDetails.lastname}
-						<c:if test="${studentStatus.last=='false'}"> & </c:if>
-					</c:forEach>
-            	</c:otherwise>
-			</c:choose>
-			posted 
-			<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
-				<c:if test="${revisionStatus.last=='true'}">${revision.timestamp}</c:if>
-			</c:forEach>
-		</div>
-		<div name="body">
-			<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
-				<c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if>
-			</c:forEach>
-		</div>		
-	</div>
-	<br/>
-	<div id="comment">
-		<b>Comment:</b><br/>
-		<textarea id="responseText" cols="45" rows="8"></textarea>
-	</div>
 
-	<div id="selectPostType">
-		<div>How would you like your comment labeled?</div>
-		<label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
-		<label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
-			<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
-				${student.userDetails.firstname} ${student.userDetails.lastname}
-				<c:if test="${studentStatus.last=='false'}">, </c:if>
-			</c:forEach>
-		</label>
-	</div>
+	<div id="interior">
 	
-	<div>
-		<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
-		<input id="submitResponse" type="button" value="SUBMIT RESPONSE" onclick="submit()"/>
+			<div id="answer">
+				<div name="head" id=>
+					<b>Selected Response:</b><br/>
+					<div id="selectedResponseLabels">
+						<c:choose>
+							<c:when test="${answer.anonymous}">
+			                	<i>Anonymous</i>
+			                </c:when>
+							<c:otherwise>
+								<c:forEach var="student" varStatus="studentStatus" items="${answer.workgroup.members}">
+									${student.userDetails.firstname} ${student.userDetails.lastname}
+									<c:if test="${studentStatus.last=='false'}"> & </c:if>
+								</c:forEach>
+			            	</c:otherwise>
+						</c:choose>
+						<br>
+						posted 
+						<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
+							<c:if test="${revisionStatus.last=='true'}">${revision.timestamp}</c:if>
+						</c:forEach>
+					</div>
+				</div>
+				<div name="body" id="selectedResponseText">
+						<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
+						<c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if>
+					</c:forEach>
+				</div>		
+			</div>
+			<br/>
+			<div id="comment">
+				<b>Comment (type your comment here):</b><br/>
+				<textarea id="responseText" cols="45" rows="8"></textarea>
+			</div>
+		
+			<div id="selectPostType">
+				<div>How would you like your comment labeled?</div>
+				<label for="radioAnon"><input type="radio" name="postName" id="radioAnon" value="0"/>Label anonymously as: "Anonymous"</label><br/>
+				<label for="radioTeam"><input type="radio" name="postName" id="radioTeam" value="1" checked="checked"/>Label with student names: 
+					<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
+						${student.userDetails.firstname} ${student.userDetails.lastname}
+						<c:if test="${studentStatus.last=='false'}">, </c:if>
+					</c:forEach>
+				</label>
+			</div>
+			
+			<div id="inputButtons">
+				<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
+				<input id="submitResponse" type="button" value="POST COMMENT" onclick="submit()"/>
+			</div>
 	</div>
 
-</div>  <!-- end centered div -->
+</div>
+
 </body>
 </html>

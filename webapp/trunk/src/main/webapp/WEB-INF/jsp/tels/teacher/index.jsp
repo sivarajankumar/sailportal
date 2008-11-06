@@ -584,23 +584,23 @@
 	<div id="quickLinks1">
 		<div id="linkHeader"><spring:message code="teacher.index.20"/></div>
 			<ul>
-			<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
-			<li><a href="run/myprojectruns.html"><spring:message code="teacher.index.22"/></a></li>
-			<li class="inactivecolor"><spring:message code="teacher.index.23"/></li>
-			<li><a href="projects/customized/index.html"><spring:message code="teacher.index.24"/></a></li>
+				<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
+				<li class="inactivecolor"><spring:message code="teacher.index.23"/></li>
+				<li><a href="projects/customized/index.html"><spring:message code="teacher.index.24"/></a></li>
 			</ul>
 		<div id="linkHeader"><spring:message code="teacher.index.25"/></div>
 			<ul>
-			<li><a href="./grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.index.26"/></a></li>			
-			<li><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>
-			<li class="inactivecolor"><spring:message code="teacher.index.28"/></li>
-			<li><a href="./grading/premadeComments.html"><spring:message code="teacher.index.29"/></a></li>
+				<li><a href="./grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.index.26"/></a></li>			
+				<li><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>
+				<li class="inactivecolor"><spring:message code="teacher.index.28"/></li>
+				<li><a href="./grading/premadeComments.html"><spring:message code="teacher.index.29"/></a></li>
 			</ul>		
 	</div>
 
 	<div id="quickLinks2">
 		<div id="linkHeader"><spring:message code="teacher.index.30"/></div>
 		<ul>
+			<li><a href="run/myprojectruns.html"><spring:message code="teacher.index.22"/></a></li>
 			<li><a href="./management/projectPickerManagement.html"><spring:message code="teacher.index.31"/></a></li>			
 			<li class="inactivecolor"><spring:message code="teacher.index.32"/></li>
 			<li class="inactivecolor"><spring:message code="teacher.index.33"/></li>
