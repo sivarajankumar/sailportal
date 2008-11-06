@@ -115,7 +115,7 @@
 </spring:bind>
 </div>
 
-<form:form commandName="contactWISEProject" method="post" action="contactwiseproject.html" id="contactWISEForm" >  
+<form:form commandName="contactWISEProject" method="post" action="contactwiseproject.html" id="contactWiseForm" >  
   <dl>
 
   	<authz:authorize ifAllGranted="ROLE_ANONYMOUS">
@@ -174,7 +174,10 @@
 
 </form:form>
 
-<h5><a href="index.html"><spring:message code="contactwiseproject.17"/></a></h5>
+<div style="text-align:center;"><a href="index.html"> <img id="return"
+	src="<spring:theme code="return_to_homepage" />"
+	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
+	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>
 
 </div>
 

@@ -574,7 +574,7 @@
 		}
 	
 #pageSubtitle {
-	width:800px;
+	width:810px;
 	text-align:center;
 	margin: 15px auto;
 	padding: 0px;
@@ -583,7 +583,7 @@
 		}
 		
 #pageSubtitleConfirm {
-	width:800px; 
+	width:810px; 
 	text-align:center;
 	margin: 15px auto;
 	font-size: 1.5em;
@@ -596,7 +596,7 @@
 #pageSubtitleLevel2 {
 	text-align:left;
 	margin-left:65px;
-	width:800px;
+	width:760px;
 	margin: 0 auto;
 	padding: 0px 0 15px 0; 
 	font-size: .85em;
@@ -607,19 +607,45 @@
 	padding-top:2px;
 		}	
 		
-#contactWISEForm  {
+#contactWiseForm { 
 	position: relative;
-	width:800px;
+	width:810px;
 	font-size: .9em;
 	border: 1px solid #333333;
 	background-color:#CCFFCC;
-	margin: 0px auto 0 auto;
+	margin: 0px auto 30px auto; 
 	padding: 10px 0;
 }
 
-#contactWISEForm dl  {
+#contactWiseForm dl {
 	margin:0;
-	padding:0;
+	padding:0px;
+}
+
+#contactWiseForm dt {
+	float:left;
+	width:195px;
+	text-align:right;
+	margin: 0px 5px 0px 0 ;	
+	padding: 3px;
+	font-size:.9em;
+	font-weight:bold;
+	clear:left;
+	}
+
+#contactWiseForm dd {
+	text-align:left;
+	padding:3px;
+	font-size:.9em;
+}
+
+#asterixWarning {
+	position:absolute;
+	color:#0000CC;
+	font-size:.8em;
+	top:20px;
+	left:580px;
+	width:200px;
 }
 
 .asterix  {
@@ -628,41 +654,16 @@
 	font-size:1.1em;
 }
 
-#asterixWarning {
-	position:absolute;
-	color:#0000CC;
-	font-size:.8em;
-	top:20px;
-	left:600px;
-	width:190px;
-}
-
-#contactWISEForm dt {
-	float:left;
-	width: 165px;
-	text-align: right;
-	margin: 3px 5px 0px 0 ;	
-	padding: 4px;
-	font-size:.9em;
-	font-weight:bold;
-	}
-
-#contactWISEForm dd {
-	text-align:left;
-	padding:3px;
-	font-size:.9em;
-}
-
 #sendMessageButton {
+	text-align:center;
 	font-size:1.0em;
 	font-weight:bold;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	margin:0px auto 10px auto;
 	padding:2px;
-	margin:15px 0 10px 0; 
+	margin:15px auto 0 auto; 
 	background-color:#CCCCFF;
 }
 

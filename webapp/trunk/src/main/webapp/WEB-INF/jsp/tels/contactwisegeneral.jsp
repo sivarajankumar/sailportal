@@ -111,7 +111,8 @@
 </spring:bind>
 </div>
 
-<form:form commandName="contactWISEGeneral" method="post" action="contactwisegeneral.html" id="contactWISEForm"  >  
+<form:form commandName="contactWISEGeneral" method="post" action="contactwisegeneral.html" id="contactWiseForm"  >  
+  
   <dl>
   
     <authz:authorize ifAllGranted="ROLE_ANONYMOUS">
@@ -156,7 +157,8 @@
 	<dd><form:textarea path="description" id="description" tabindex="7" rows="9" cols="65"></form:textarea></dd>
       
     <form:hidden path="usersystem" id="usersystem" />
-  </dl>    
+  </dl>  
+    
      <div id="asterixWarning"><spring:message code="contactwisegeneral.12"/></div>  
         
     <div id="hotInputFields"><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contactwisegeneral.13"/>"></input></div>
@@ -164,7 +166,11 @@
 </form:form>
 
 </div>
-	<h5 class="center"><a href="index.html"><spring:message code="contactwisegeneral.14"/></a></h5>
+
+<div style="text-align:center;"><a href="index.html"> <img id="return"
+	src="<spring:theme code="return_to_homepage" />"
+	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
+	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>
 
 </div>   <!--End of the CenteredDiv -->
 
