@@ -464,15 +464,6 @@
     	<property name="projectService" ref="projectService" />    	
 	</bean>	
 	
-	<util:properties id="uihtmlproperties" 
-        location="classpath:messages/tels/ui-html.properties" />
-
-	<util:properties id="emaillisteners" 
-        location="classpath:emaillisteners" />
-        
-    <util:properties id="portalproperties" 
-        location="classpath:portal.properties" />
-		
 	<bean id="contactWISEValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.general.contactwise.ContactWISEValidator" />
 

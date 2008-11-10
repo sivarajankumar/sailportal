@@ -24,6 +24,49 @@
     xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
     
+    <util:properties id="uihtmlproperties" 
+        location="classpath:messages/tels/ui-html.properties" />
+
+	<util:properties id="emaillisteners" 
+        location="classpath:emaillisteners" />
+        
+    <util:properties id="portalproperties" 
+        location="classpath:portal.properties" />
+        
+    <bean id="adminjob" class="org.telscenter.sail.webapp.domain.admin.AdminJob">
+        <property name="javaMail" ref="javaMail"/>
+		<property name="emaillisteners" ref="emaillisteners" />			
+		<property name="portalProperties" ref="portalproperties" />
+    </bean>
+
+    <bean name="adminJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="org.telscenter.sail.webapp.domain.admin.AdminJob" />
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="javaMail" value-ref="javaMail" />
+                <entry key="emaillisteners" value-ref="emaillisteners" />
+                <entry key="portalProperties" value-ref="portalproperties" />
+                <entry key="runDao" value-ref="runDao" />
+                <entry key="userDao" value-ref="userDao" />                
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="adminJobDetail" />
+        <!-- run every morning at 11 PM -->
+        <property name="cronExpression" value="0 0 23 * * ?" />
+    </bean>
+    
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger" />
+            </list>
+        </property>
+    </bean>
+    
+    
     <bean id="studentUserDetails" scope="prototype"
         class="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails">
     </bean>
