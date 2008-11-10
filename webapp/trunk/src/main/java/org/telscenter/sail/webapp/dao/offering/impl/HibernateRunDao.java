@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
@@ -33,6 +34,7 @@ import org.telscenter.sail.webapp.domain.impl.RunImpl;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
 /**
@@ -93,4 +95,24 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 		workgroupSet.addAll(workgroupList);
 		return workgroupSet;
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#retrieveByField(java.lang.String, java.lang.String, java.lang.Object, java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+    public List<Run> retrieveByField(String field, String type, Object term){
+    	return this.getHibernateTemplate().findByNamedParam(
+    			"select run from RunImpl run where run." + field + " " + type + " :term", "term", term);
+    }
+	
+    /**
+     * Capitalizes the first letter of a given String
+     * 
+     * @param string
+     * @return String
+     */
+    private String capitalizeFirst(String string){
+    	return StringUtils.upperCase(StringUtils.left(string, 1)) 
+    		+ StringUtils.right(string, string.length() - 1);
+    }
 }

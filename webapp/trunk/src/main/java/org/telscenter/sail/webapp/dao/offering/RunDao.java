@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.dao.offering;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 
@@ -43,5 +45,14 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
 	 * @throws ObjectNotFoundException if Run is not found.
 	 */
 	public Run retrieveByRunCode(String runcode) throws ObjectNotFoundException;
-
+	
+    /**
+     * Given a field, search type, search term
+     *  retrieves a list of Runs from data store.
+     *  
+     *  @param field
+     *  @param type comparator, ie like, =, <, >, etc
+     *  @param search term what to compare against ie '%john%' (if type is 'like'), 'john'
+     */
+    public List<T> retrieveByField(String field, String type, Object term);
 }
