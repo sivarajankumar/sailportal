@@ -260,10 +260,13 @@
     </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-hibernate3/2.0.5/spring-hibernate3-2.0.5.jar">
       <dependency-type>uses</dependency-type>
-    </dependent-module>
+    </dependent-module>    
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-context/2.0.5/spring-context-2.0.5.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/quartz/quartz/1.5.1/quartz-1.5.1.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>    
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
