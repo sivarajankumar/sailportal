@@ -113,17 +113,6 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 		 
 	 }
 	 
-	@SuppressWarnings("unchecked")
-	public List<Module> getProjectList() {
-		List<Module> podModuleList = moduleDao.getList();
-		List<Module> otmlModuleList = this.rooloOtmlModuleDao.getList();
-		List<Module> moduleList = new ArrayList<Module>();
-		moduleList.addAll(podModuleList);
-		moduleList.addAll(otmlModuleList);
-		return moduleList;
-		//return (List<Module>) super.getCurnitList();
-	}
-
 	/**
 	 * @throws ObjectNotFoundException 
 	 * @see net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl#getById(java.lang.Long)

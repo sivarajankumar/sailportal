@@ -22,24 +22,13 @@
  */
 package org.telscenter.sail.webapp.service.module;
 
-import java.util.List;
-
-import org.telscenter.sail.webapp.domain.Module;
-
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 /**
  * A service for working with <code>Project</code> objects
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public interface ModuleService extends CurnitService {
-
-	/**
-	 * Get a <code>List</code> of Projects.
-	 * 
-	 * @return a <code>List</code> of Projects.
-	 */
-	public List<Module> getProjectList();
 }
