@@ -76,7 +76,8 @@ function post(){
 			if(xmlDoc==null){
 				callback.failure(o);
 			};
-			var comment = new Comment(xmlDoc);
+			var commentElements = xmlDoc.getElementsByTagName("comment");			
+			var comment = new Comment(commentElements[0]);
 			var pageManager = window.opener.pageManager;
 			pageManager.addComment(comment, ${answer.id});
 			self.close();

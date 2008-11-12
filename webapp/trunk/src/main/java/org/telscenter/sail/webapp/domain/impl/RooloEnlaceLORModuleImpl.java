@@ -196,4 +196,34 @@ public class RooloEnlaceLORModuleImpl extends CurnitImpl implements Module {
 	public LearningObject getLearningObject() {
 		return learningObject;
 	}
+
+	public String getAuthors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getGrades() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getTopicKeywords() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setAuthors(String authors) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setGrades(String grades) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setTopicKeywords(String topicKeywords) {
+		// TODO Auto-generated method stub
+		
+	}
 }

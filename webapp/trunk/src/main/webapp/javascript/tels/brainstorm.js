@@ -613,7 +613,7 @@ function createCommentsElement(doc, workgroupId, answer){
 		
 		commentTable.appendChild(newComment);
 		newComment.appendChild(newTD);
-		newTD.appendChild(doc.createTextNode(newCommentsTextBody));
+		newTD.appendChild(newCommentsTextBody);
 		spanDiv.appendChild(doc.createTextNode(newCommentsTextTag));	
 		newTD.appendChild(spanDiv);
 			

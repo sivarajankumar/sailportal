@@ -40,7 +40,7 @@
 	  if(cannotseeresponses) {
 	    var rtb = document.getElementById('responseTableBody');
 	    rtb.style.display='none';
-	    var rd = document.getElementById('responseDiv');
+	    var rd = document.getElementById('cannotSeeMessage');
 	    rd.innerHTML = "Please create a response.  After submitting it you'll be able to see responses from other students.";
 	  } else  {
 	    var poll = new PollNewPosts('${brainstorm.id}');
@@ -394,6 +394,9 @@
 	
 	
 <div id="responseTableBody">
+
+</div>
+<div id="cannotSeeMessage">
 
 </div>
 
