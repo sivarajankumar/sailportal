@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.admin;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -58,10 +59,13 @@ public class AdminJob extends QuartzJobBean {
 	
 	private Date yesterday = null;
 	
+	private Date today = null;
+	
 	{
-		Calendar today = Calendar.getInstance();
-		today.add(Calendar.DATE, -1);
-		yesterday = new java.sql.Date(today.getTimeInMillis());
+		Calendar todayCal = Calendar.getInstance();
+		today = new java.sql.Date(todayCal.getTimeInMillis());
+		todayCal.add(Calendar.DATE, -1);
+		yesterday = new java.sql.Date(todayCal.getTimeInMillis());
 	}
 
 	/**
@@ -73,20 +77,20 @@ public class AdminJob extends QuartzJobBean {
 		DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
 
 		List<Run> runsCreatedSinceYesterday = findRunsCreatedSinceYesterday();
-		messageBody += "Number of Runs started since " 
-			+ df.format(yesterday) + ": "
+		messageBody += "Number of Runs started between " 
+			+ df.format(yesterday) + " and " + df.format(today) + ": "
 			+ runsCreatedSinceYesterday.size();
 		
 		List<User> teachersJoinedSinceYesterday = findUsersJoinedSinceYesterday("teacherUserDetails");
 		messageBody += "\n\n";
-		messageBody += "Number of Teachers joined since " 
-			+ df.format(yesterday) + ": "
+		messageBody += "Number of Teachers joined between " 
+			+ df.format(yesterday) + " and " + df.format(today) + ": "
 			+ teachersJoinedSinceYesterday.size();
 
 		List<User> studentsJoinedSinceYesterday = findUsersJoinedSinceYesterday("studentUserDetails");
 		messageBody += "\n\n";
-		messageBody += "Number of Students joined since " 
-			+ df.format(yesterday) + ": "
+		messageBody += "Number of Students joined between " 
+			+ df.format(yesterday) + " and " + df.format(today) + ": "
 			+ studentsJoinedSinceYesterday.size();
 
 		sendEmail(messageBody);

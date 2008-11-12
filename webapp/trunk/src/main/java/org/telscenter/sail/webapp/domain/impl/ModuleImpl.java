@@ -48,7 +48,7 @@ import org.telscenter.sail.webapp.domain.Module;
  * @author Hiroki Terashima
  * @author Sally
  * 
- * @version $Id: $
+ * @version $Id$
  */
 @Entity
 @Table(name = ModuleImpl.DATA_STORE_NAME)
@@ -65,7 +65,7 @@ public class ModuleImpl extends CurnitImpl implements Module {
     public static final String COLUMN_NAME_GRADES = "grades";
     
     @Transient
-    public static final String COLUMN_NAME_TOPICKEYWORDS = "topicKeywords";
+    public static final String COLUMN_NAME_TOPICKEYWORDS = "topic_keywords";
 
     @Transient
     public static final String COLUMN_NAME_COMPUTERTIME = "computer_time";
@@ -84,18 +84,21 @@ public class ModuleImpl extends CurnitImpl implements Module {
     
     @Transient
     public static final String OWNERS_JOIN_COLUMN_NAME = "owners_fk";
-    
+
+    @Transient
+	private static final String COLUMN_NAME_AUTHORS = "authors";
+
 	@Transient
 	private static final long serialVersionUID = 1L;
 
     @Column(name = ModuleImpl.COLUMN_NAME_DESCRIPTION)
 	private String description;
 
-    //@Column(name = ModuleImpl.COLUMN_NAME_GRADES, nullable = false)
-	//private Set<Integer> grades;
+    @Column(name = ModuleImpl.COLUMN_NAME_GRADES)
+	private String grades;
     
-    //@Column(name = ModuleImpl.COLUMN_NAME_TOPICKEYWORDS, nullable = false)
-	//private Set<String> topicKeywords;
+    @Column(name = ModuleImpl.COLUMN_NAME_TOPICKEYWORDS)
+	private String topicKeywords;
 	
     @Column(name = ModuleImpl.COLUMN_NAME_TOTALTIME)
 	private Long totalTime;
@@ -105,97 +108,91 @@ public class ModuleImpl extends CurnitImpl implements Module {
 	
     @Column(name = ModuleImpl.COLUMN_NAME_TECHREQS)
 	private String techReqs;
+    
+    @Column(name = ModuleImpl.COLUMN_NAME_AUTHORS)
+    private String authors;
 	
     @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = PROJECTS_JOIN_COLUMN_NAME) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME))
 	private Set<User> owners;
 		
-//	public Set<Integer> getGrades() {
-//		return grades;
-//	}
-//
-//	public void setGrades(Set<Integer> grades) {
-//		this.grades = grades;
-//	}
+	public String getGrades() {
+		return grades;
+	}
 
+	/**
+	 * @param grades
+	 */
+	public void setGrades(String grades) {
+		this.grades = grades;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Module#getDescription()
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Module#setDescription(java.lang.String)
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#getComputerTime()
-	 */
 	public Long getComputerTime() {
 		return computerTime	;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#getTotalTime()
-	 */
 	public Long getTotalTime() {
 		return totalTime;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#setComputerTime()
-	 */
 	public void setComputerTime(Long computerTime) {
 		this.computerTime = computerTime;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#setTotalTime()
-	 */
 	public void setTotalTime(Long totalTime) {
 		this.totalTime = totalTime;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#getOWNERS()
-	 */
 	public Set<User> getOwners() {
 		return owners;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#getTechReqs()
-	 */
 	public String getTechReqs() {
 		return techReqs;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#setOWNERS(java.util.Set)
-	 */
 	public void setOwners(Set<User> owners) {
 		this.owners = owners;
 	}
 
-	/**
-	 * @override @see org.telscenter.sail.webapp.domain.Project#setTechReqs(java.lang.String)
-	 */
 	public void setTechReqs(String techReqs) {
 		this.techReqs = techReqs;
 	}
 
-//	/**
-//	 * @override @see org.telscenter.sail.webapp.domain.Project#getTopicKeywords()
-//	 */
-//	public Set<String> getTopicKeywords() {
-//		return topicKeywords;
-//	}
-//
-//	/**
-//	 * @override @see org.telscenter.sail.webapp.domain.Project#setTopicKeywords(java.util.Set)
-//	 */
-//	public void setTopicKeywords(Set<String> topicKeywords) {
-//		this.topicKeywords = topicKeywords;
-//	}
-	
-	
+	public String getTopicKeywords() {
+		return topicKeywords;
+	}
+
+	public void setTopicKeywords(String topicKeywords) {
+		this.topicKeywords = topicKeywords;
+	}
+
+	/**
+	 * @return the authors
+	 */
+	public String getAuthors() {
+		return authors;
+	}
+
+	/**
+	 * @param authors the authors to set
+	 */
+	public void setAuthors(String authors) {
+		this.authors = authors;
+	}
 
 }

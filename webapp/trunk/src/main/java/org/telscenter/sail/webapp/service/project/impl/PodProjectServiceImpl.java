@@ -347,6 +347,7 @@ public class PodProjectServiceImpl implements ProjectService {
 	 * @param project
 	 * @throws ObjectNotFoundException
 	 */
+    @Deprecated
 	private void populateProjectInfo(Project project)
 			throws ObjectNotFoundException {
 		Curnit curnit = project.getCurnit();

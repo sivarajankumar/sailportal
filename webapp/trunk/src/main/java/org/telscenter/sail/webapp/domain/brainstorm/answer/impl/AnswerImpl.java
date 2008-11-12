@@ -107,6 +107,7 @@ public class AnswerImpl implements Answer {
    
     @OneToMany(cascade = CascadeType.ALL, targetEntity = RevisionImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = REVISIONS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = REVISIONS_JOIN_COLUMN_NAME, nullable = false))
+    @Sort(type = SortType.NATURAL)    
     private Set<Revision> revisions = new TreeSet<Revision>();
 
     @ManyToMany(targetEntity = WISEWorkgroupImpl.class, fetch = FetchType.EAGER)
@@ -282,7 +283,16 @@ public class AnswerImpl implements Answer {
 		this.revisions.add(revision);
 	}
 
+	/**
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	public int compareTo(Answer o) {
-		return 0;
+		if (id == null) {
+			return -1;
+		} else if (o.getId() == null) {
+			return 1;
+		} else {
+		    return this.id.compareTo((Long) o.getId());
+		}
 	}
 }

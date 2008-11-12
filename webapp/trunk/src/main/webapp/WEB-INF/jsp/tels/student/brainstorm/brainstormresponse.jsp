@@ -79,8 +79,9 @@ function post(){
 			if(xmlDoc==null){
 				callback.failure(o);
 			};
-			var answer = new Answer(xmlDoc);
-			var pageManager = window.opener.pageManager;
+			var answerElements = xmlDoc.getElementsByTagName("answer");
+			var answer = new Answer(answerElements[0]);
+			var pageManager = window.opener.pageManager;			
 			pageManager.addAnswer(answer);
 			self.close();
 		},
@@ -144,7 +145,9 @@ function post(){
 			
 			<div id="inputButtons">
 				<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
-				<input id="submitResponse" type="button" value="POST RESPONSE" onclick="submit()"/>
+				<div onclick="setTimeout('self.close()', 1000);">
+				    <input id="submitResponse" type="button" value="POST RESPONSE" onclick="submit()"/>
+				</div>
 			</div>
 	
 		</div>

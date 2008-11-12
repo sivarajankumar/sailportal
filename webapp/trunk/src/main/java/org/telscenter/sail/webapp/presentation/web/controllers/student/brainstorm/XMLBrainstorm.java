@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Set;
 
 import net.sf.sail.webapp.domain.User;
@@ -91,8 +93,15 @@ public final class XMLBrainstorm {
 	}
 
 	public static String getXMLRevision(Revision revision) {
+		Date timestamp = revision.getTimestamp();
+		String formattedTime = 
+			DateFormat.getTimeInstance(DateFormat.SHORT).format(timestamp);
+
+		String formattedDate = 
+			DateFormat.getDateInstance(DateFormat.MEDIUM).format(timestamp);
+
 		String XMLRevision = "<revision><id>" + revision.getId() + "</id><timestamp>" +
-			revision.getTimestamp() + "</timestamp><body>" + revision.getBody() + "</body></revision>";
+			formattedTime + " " + formattedDate + "</timestamp><body>" + revision.getBody() + "</body></revision>";
 		return XMLRevision;
 	}
 

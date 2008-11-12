@@ -1,4 +1,5 @@
 <%@ include file="include.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
@@ -109,13 +110,14 @@ function post(){
 					    <span id="postedDate">
 							posted 
 							<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
-								<c:if test="${revisionStatus.last=='true'}">${revision.timestamp}</c:if>
+								<c:if test="${revisionStatus.last=='true'}">
+								    <fmt:formatDate value="${revision.timestamp}" type="time" timeStyle="short" />
+								    <fmt:formatDate value="${revision.timestamp}" type="date" dateStyle="medium" />								    
+							        <div id="currentResponseBox">									
+									    ${revision.body}
+							        </div>
+								</c:if>
 							</c:forEach>
-							<div id="currentResponseBox">									
-								<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
-									<c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if>
-								</c:forEach>
-							</div>
 						</span>
 					<div>
 				</div>		

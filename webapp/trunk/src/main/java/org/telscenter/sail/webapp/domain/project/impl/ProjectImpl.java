@@ -52,6 +52,7 @@ import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.hibernate.annotations.Cascade;
+import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
@@ -361,8 +362,10 @@ public class ProjectImpl implements Project {
 	public void populateProjectInfo() {
 		this.projectinfo = new ProjectInfoImpl();
 		this.projectinfo.setName(this.getName());
-		this.projectinfo.setSubject("NOT SPECIFIED");
-		this.projectinfo.setComment("NOT SPECIFIED");
-		this.projectinfo.setAuthor("NOT SPECIFIED");		
+		Module module = (Module) this.getCurnit();
+		this.projectinfo.setSubject(module.getTopicKeywords());
+		this.projectinfo.setGradeLevel(module.getGrades());
+		this.projectinfo.setComment("NONE");
+		this.projectinfo.setAuthor(module.getAuthors());		
 	}
  }

@@ -31,17 +31,17 @@ import net.sf.sail.webapp.domain.User;
  * A Module is a WISE implemention of a Curnit.
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public interface Module extends Curnit {
 
-	//public void setGrades(Set<Integer> grades);
+	public void setGrades(String grades);
 
-	//public Set<Integer> getGrades();
+	public String getGrades();
 	
-	//public Set<String> getTopicKeywords();
+	public String getTopicKeywords();
 	
-	//public void setTopicKeywords(Set<String> topicKeywords);
+	public void setTopicKeywords(String topicKeywords);
 	
 	public void setDescription(String description);
 	
@@ -58,6 +58,10 @@ public interface Module extends Curnit {
 	public String getTechReqs();
 	
 	public void setTechReqs(String techReqs);
+	
+	public String getAuthors();
+	
+	public void setAuthors(String authors);
 	
 	public Set<User> getOwners();
 	

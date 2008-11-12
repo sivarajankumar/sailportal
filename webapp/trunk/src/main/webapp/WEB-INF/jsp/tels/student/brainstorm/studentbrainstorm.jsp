@@ -1,4 +1,5 @@
 <%@ include file="include.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -135,7 +136,7 @@
      };
 	
 	PollNewPosts.prototype.start = function(){
-		YAHOO.util.Connect.setPollingInterval(120000);
+		YAHOO.util.Connect.setPollingInterval(240000);	
 		YAHOO.util.Connect.asyncRequest('GET', 'pollnewposts.html?brainstormId=' + this.brainstormId, this.callback);
 	};
 	
@@ -231,13 +232,13 @@
 	PageManager.prototype.updatePage = function(){
 		var orderedElements;
 		if(this.order==0){
-			this.answers.sort(newestFirst);
+			//this.answers.sort(newestFirst);
 		} else if(this.order==1){
-			this.answers.sort(oldestFirst);
+			//this.answers.sort(oldestFirst);
 		} else {
 			//order by helpfulness-right now order as in 0
 			//this.answers.sort(helpfulness);
-			this.answers.sort(newestFirst);
+			//this.answers.sort(newestFirst);
 		};
 		orderedElements = createAnswerElements(document, this.answers, this.workgroupId);
 		this.buildPage(orderedElements);
@@ -276,8 +277,6 @@
 		for(cc=0;cc<elements.length;cc++){
 			parent.appendChild(elements[cc]);
 		};
-		
-		// after everything is rendered, re-load the css.
 	};
 	
 	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortOrder);
@@ -397,46 +396,6 @@
 <div id="responseTableBody">
 
 </div>
-		
-	
 
-<!--  
-<p>
-brainstorm: ${brainstorm}
-<br/></p>
-
-<p>
-brainstorm question: ${brainstorm.question.prompt}
-<br/></p>
-
-<p>
-number of brainstorm answers: ${fn:length(brainstorm.answers)}
-<br/></p>
-
-<c:forEach var="answer" varStatus="answerStatus" items="${brainstorm.answers}">
-<b>answer # ${answerStatus.index + 1}</b>
-<br/>
-number of revisions for this answer: ${fn:length(answer.revisions)}
-<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
-<br/>
-revision # ${revisionStatus.index + 1}
-<br/>
-posted on: ${revision.timestamp}
-<br/>
-body: ${revision.body}
-</c:forEach>
-<br/><br/>
-
-number of comments for this answer: ${fn:length(answer.comments)}
-<c:forEach var="comment" varStatus="commentStatus" items="${answer.comments}">
-<br/>
-comment # ${commentStatus.index + 1}
-<br/>
-posted on: ${comment.timestamp}
-<br/>
-body: ${comment.body}
-</c:forEach>
-</c:forEach>
--->
 </body>
 </html>
