@@ -632,3 +632,22 @@ function getNames(workgroup){
 	};
 	return names;
 };
+
+function toggle_visibility(id) {
+   var e = document.getElementById(id);
+   if(e.style.display == 'none')
+      e.style.display = 'block';
+   else
+      e.style.display = 'none';
+};
+
+function toggle_visibility_by_name(name) {
+   var commentsTableArray = document.getElementsByName(name);
+   for (xx=0;xx<commentsTableArray.length;xx++) {
+       var e = commentsTableArray[xx];
+       if(e.style.display == 'none')
+          e.style.display = 'table';
+       else
+          e.style.display = 'none';       
+   }
+};
