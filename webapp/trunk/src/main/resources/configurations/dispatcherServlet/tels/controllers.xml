@@ -93,6 +93,9 @@
 	
 	<bean id="lookupParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LookupParametersValidator"/>
+		
+	<bean id="announcementParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.AnnouncementParametersValidator"/>
 
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
@@ -991,6 +994,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports.TotalTimePerStepController">
 		<property name="runService" ref="runService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
+		<property name="gradingService" ref="gradingService"/>
 	</bean>
 	
 	<bean id="postResponseController"
@@ -1037,17 +1041,52 @@
     	class="org.telscenter.sail.webapp.presentation.util.impl.WorkgroupNavLogImpl">
     	<property name="workgroupService" ref="wiseWorkgroupService"/>
     	<property name="sessionBundleService" ref="sessionBundleService"/>
+    	<property name="gradingService" ref="gradingService"/>
     </bean>
     
     <bean id="sessionNavLog"
     	class="org.telscenter.sail.webapp.presentation.util.impl.SessionNavLogImpl">
     </bean>
     
-    <bean id="sdsLogUtil"
-    	class="org.telscenter.sail.webapp.presentation.util.SdsLogUtil">
-    	<property name="workgroupService" ref="wiseWorkgroupService"/>
-    	<property name="gradingService" ref="gradingService"/>
-    	<property name="sessionBundleService" ref="sessionBundleService"/>
+        <bean id="manageAnnouncementController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.announcement.ManageAnnouncementController">
+    	<property name="runService" ref="runService"/>
+    </bean>
+    
+    <bean id="createAnnouncementController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.announcement.CreateAnnouncementController">
+    	<property name="commandName" value="announcementParameters"/>
+    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.AnnouncementParameters"/>
+    	<property name="runService" ref="runService"/>
+    	<property name="announcementService" ref="announcementService"/>
+    	<property name="sessionForm" value="true"/>
+    	<property name="validator" ref="announcementParametersValidator"/>
+    </bean>
+    
+    <bean id="viewAnnouncementController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.announcement.ViewAnnouncementController">
+    	<property name="announcementService" ref="announcementService"/>
+    </bean>
+    
+    <bean id="editAnnouncementController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.announcement.EditAnnouncementController">
+    	<property name="commandName" value="announcementParameters"/>
+    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.AnnouncementParameters"/>
+    	<property name="runService" ref="runService"/>
+    	<property name="announcementService" ref="announcementService"/>
+    	<property name="sessionForm" value="true"/>
+    	<property name="validator" ref="announcementParametersValidator"/>
+    </bean>
+    
+    <bean id="removeAnnouncementController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.announcement.RemoveAnnouncementController">
+    	<property name="runService" ref="runService"/>
+    	<property name="announcementService" ref="announcementService"/>
+    </bean>
+    
+    <bean id="viewAnnouncementsController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.ViewAnnouncementsController">
+    	<property name="runService" ref="runService"/>
     </bean>
     
     <!--  Author-related controllers -->    	

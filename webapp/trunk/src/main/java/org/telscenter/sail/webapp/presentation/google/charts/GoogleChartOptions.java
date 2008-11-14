@@ -57,26 +57,26 @@ public interface GoogleChartOptions {
 	public void addChartColor(List<String> colors);
 	
 	/**
-	 * Adds scaling from <code>int</code> min to <code>int</code> max for a
+	 * Adds scaling from <code>float</code> min to <code>float</code> max for a
 	 * data set. Scaling needs to be added in the same order as that their 
 	 * respective data sets were added. If only one scaling value is added
 	 * and there are multiple sets of data, that value is used for all data 
 	 * sets. If less scaling values are added than there are data sets, the 
 	 * last one added is applied to the remaining data sets.
 	 * 
-	 * @param <code>int</code> min
-	 * @param <code>int</code> max
+	 * @param <code>float</code> min
+	 * @param <code>float</code> max
 	 */
-	public void addScaling(int min, int max);
+	public void addScaling(float min, float max);
 	
 	/**
 	 * Adds scaling for multiple data sets.
-	 * @see GoogleChartOptions#addScaling(int, int)
+	 * @see GoogleChartOptions#addScaling(float, float)
 	 * 
-	 * @param <code>List<Integer></code> min
-	 * @param <code>List<Integer></code> max
+	 * @param <code>List<Float></code> min
+	 * @param <code>List<Float></code> max
 	 */
-	public void addScaling(List<Integer> min, List<Integer> max);
+	public void addScaling(List<Float> min, List<Float> max);
 	
 	/**
 	 * A Solid Fill can be added to either the background, chart area or 

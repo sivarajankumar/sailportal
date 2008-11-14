@@ -242,6 +242,12 @@
 				/repository/retrieveotml.html=retrieveOtmlController
 				/teacher/reports/stepactivitygraph.html=stepActivityGraphController
 				/teacher/reports/totaltimeperstep.html=totalTimePerStepController
+				/teacher/run/announcement/manageannouncement.html=manageAnnouncementController
+				/teacher/run/announcement/viewannouncement.html=viewAnnouncementController
+				/teacher/run/announcement/createannouncement.html=createAnnouncementController
+				/teacher/run/announcement/editannouncement.html=editAnnouncementController
+				/teacher/run/announcement/removeannouncement.html=removeAnnouncementController
+				/student/viewannouncements.html=viewAnnouncementsController
     		</value>
     	</property>
     </bean>

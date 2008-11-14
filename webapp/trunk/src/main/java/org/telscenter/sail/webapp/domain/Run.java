@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.domain;
 import java.util.Date;
 import java.util.Set;
 
+import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 
@@ -188,4 +189,17 @@ public interface Run extends Offering {
 	 * @param brainstorms the brainstorms to set
 	 */
 	public void setBrainstorms(Set<Brainstorm> brainstorms);
+	
+	/**
+	 * @return <code>Set<Announcement></code> all announcements for this run.
+	 */
+	public Set<Announcement> getAnnouncements();
+	
+	/**
+	 * Sets all announcements for this run
+	 * 
+	 * @param <code>Set<Announcement></code> announcements
+	 */
+	public void setAnnouncements(Set<Announcement> announcements);
+
 }

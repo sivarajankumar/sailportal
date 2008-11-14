@@ -41,6 +41,8 @@ import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.announcement.Announcement;
+import org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
@@ -100,6 +102,12 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Transient
     public static final String SHARED_OWNERS_JOIN_COLUMN_NAME = "shared_owners_fk";
+    
+    @Transient
+    public static final String ANNOUNCEMENTS_JOIN_TABLE_NAME = "runs_related_to_announcements";
+    
+    @Transient
+    public static final String ANNOUNCEMENTS_JOIN_COLUMN_NAME = "announcements_fk";
 
     @Transient
     public static final long serialVersionUID = 1L;
@@ -132,6 +140,11 @@ public class RunImpl extends OfferingImpl implements Run {
     @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = SHARED_OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SHARED_OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> sharedowners = new TreeSet<User>();
+  
+    @OneToMany(targetEntity = AnnouncementImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = ANNOUNCEMENTS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANNOUNCEMENTS_JOIN_COLUMN_NAME, nullable = false))
+    @Sort(type = SortType.NATURAL)
+    private Set<Announcement> announcements = new TreeSet<Announcement>();
     
     @Column(name = COLUMN_NAME_RUNNAME)
     private String name;
@@ -307,5 +320,19 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	/**
+	 * @return the announcements
+	 */
+	public Set<Announcement> getAnnouncements() {
+		return announcements;
+	}
+
+	/**
+	 * @param announcements the announcements to set
+	 */
+	public void setAnnouncements(Set<Announcement> announcements) {
+		this.announcements = announcements;
 	}
 }

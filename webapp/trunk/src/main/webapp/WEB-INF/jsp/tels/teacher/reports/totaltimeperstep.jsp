@@ -9,13 +9,25 @@
 <head></head>
 
 <body>
-Total time spent per step for Team with members:
-<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
-	${student.userDetails.firstname} ${student.userDetails.lastname}
-	<c:if test="${studentStatus.last=='false'}">&</c:if>
-</c:forEach>
-<br><br>${url}<br>
 
+<c:choose>
+	<c:when test="${fn:length(workgroups)>1}">
+		Average time (in minutes) spent per step for the students:
+	</c:when>
+	<c:otherwise>
+		Total time (in minutes) spent per step for Team with members:
+	</c:otherwise>
+</c:choose>
+<c:forEach var="workgroup" varStatus="workgroupStatus" items="${workgroups}">
+	<c:forEach var="student" varStatus="studentStatus" items="${workgroup.members}">
+		${student.userDetails.firstname} ${student.userDetails.lastname}
+		<c:if test="${studentStatus.last=='false'}"> & </c:if>
+	</c:forEach>
+	<c:if test="${workgroupStatus.last=='false'}"> & </c:if>
+</c:forEach>
+
+<br>${url}
+<br><br>
 <img src="${url}"/>
 
 </body>

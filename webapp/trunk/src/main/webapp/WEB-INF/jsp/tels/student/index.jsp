@@ -85,6 +85,49 @@
                 	addProjectDialog.show();
     }, addProjectDialog);
     
+   	//add new announcements dialog ----------------------------------
+
+    // Define various event handlers for Dialog
+	var handleCancel = function() {
+		this.cancel();
+	};
+    
+    // Instantiate the Dialog
+	var newAnnouncementsDialog = new YAHOO.widget.Dialog("newAnnouncementsDialog", 
+																{ width : "700px",
+																  height : "500px",
+																  fixedcenter : true,
+																  visible : false, 
+																  modal : true,
+																  constraintoviewport : true,
+																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
+																  buttons : [ 
+																			  {text:"Close", handler:handleCancel,isDefault:true } ]
+																 } );
+	
+	
+    newAnnouncementsDialog.render();
+    
+    var getNewAnnouncements = function(dialog){
+    	var newAnnouncement = false;
+    	var announcementHTML = "";
+    	<c:forEach var="runInfo" items="${current_run_list}">
+    		<c:forEach var="announcement" items="${runInfo.run.announcements}">
+    			<c:if test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null}">
+    				newAnnouncement = true;
+    				announcementHTML = announcementHTML + "<tr><td align='center'><h3>${announcement.title} (posted on:" + "${announcement.timestamp})</h3>" + "${announcement.announcement}<br><br></td></tr>";
+    			</c:if>
+    		</c:forEach>
+    	</c:forEach>
+    	
+    	if(newAnnouncement){
+    		document.getElementById('announcementsTable').innerHTML =  announcementHTML;
+    		dialog.show();
+    	};
+    };
+    
+    YAHOO.util.Event.onDOMReady(getNewAnnouncements(newAnnouncementsDialog));
+
     
     	//Change Period or Team PopUp dialog ----------------------------------
 
@@ -400,6 +443,7 @@ YAHOO.util.Event.onDOMReady(init);
 											</c:choose>
 											<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
 											<li><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
+											<li><a href="viewannouncements.html?runId=${studentRunInfo.run.id}">View Announcements</a></li>
 											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
 									 	</ul>
 							 	</td>
@@ -610,6 +654,16 @@ YAHOO.util.Event.onDOMReady(init);
 	allowTransparency="false" scrolling="no"> </iframe>
 	
 </div>
+</div>
+
+<!-- this creates the new announcements dialog with iframe -->
+<div id="newAnnouncementsDialog">
+	<div class="hd">New Announcements</div>
+	<div class="bd" align="left">
+		<div id="announcementsDiv" align="center" style="overflow:auto;width:685px;height:400px">
+			<table id="announcementsTable" style="width:100%"/>
+		</div>
+	</div>
 </div>
 <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
 </div>

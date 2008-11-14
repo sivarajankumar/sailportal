@@ -456,4 +456,18 @@
 	    class="org.telscenter.sail.webapp.dao.brainstorm.answer.impl.HibernateAnswerDao">
         <property name="sessionFactory" ref="sessionFactory" />	    
 	</bean>	
+	
+	<bean id="announcementDao"
+		class="org.telscenter.sail.webapp.dao.announcement.impl.HibernateAnnouncementDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="announcement" scope="prototype"
+		class="org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl">
+	</bean>
+	
+	<bean id="announcementService"
+		class="org.telscenter.sail.webapp.service.announcement.impl.AnnouncementServiceImpl">
+		<property name="announcementDao" ref="announcementDao"/>
+	</bean>
 </beans>

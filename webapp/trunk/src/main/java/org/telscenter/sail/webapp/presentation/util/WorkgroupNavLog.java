@@ -22,7 +22,10 @@
  */
 package org.telscenter.sail.webapp.presentation.util;
 
+import java.util.List;
 import java.util.Map;
+
+import org.telscenter.pas.emf.pas.EStep;
 
 /**
  * Representation of the Sds navigation log for a workgroup
@@ -107,12 +110,12 @@ public interface WorkgroupNavLog {
 	
 	/**
 	 * Returns a <code>Map<Integer,NavStep></code> keyed in the sequence that
-	 * the students visited the step - Integer is the time in milliseconds from
+	 * the students visited the step - Integer is the time in minutes from
 	 * starting the project that the student visited that particular NavStep
 	 * 
 	 * @return <code>Map<Integer,NavStep></code>
 	 */
-	public Map<Integer,NavStep> getTimeStepMap();
+	public Map<Float,NavStep> getTimeStepMap();
 	
 	/**
 	 * Returns a <code>Map<String,Integer></code> keyed and ordered by the 
@@ -121,5 +124,13 @@ public interface WorkgroupNavLog {
 	 * 
 	 * @return <code>Map<String,Integer></code>
 	 */
-	public Map<String,Integer> getTotalTimePerStepMap();
+	public Map<String,Float> getTotalTimePerStepMap();
+	
+	/**
+	 * Returns a <code>List<EStep></code>, all steps associated with the run for this
+	 * WorkgroupNavLog
+	 * 
+	 * @return <code>List<EStep></code>
+	 */
+	public List<EStep> getAllSteps();
 }

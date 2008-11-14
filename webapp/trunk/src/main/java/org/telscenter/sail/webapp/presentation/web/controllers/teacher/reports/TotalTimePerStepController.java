@@ -22,26 +22,30 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.google.charts.BarChart;
 import org.telscenter.sail.webapp.presentation.google.charts.BarChartOptions;
-import org.telscenter.sail.webapp.presentation.google.charts.GoogleChart;
 import org.telscenter.sail.webapp.presentation.google.charts.impl.BarChartImpl;
 import org.telscenter.sail.webapp.presentation.google.charts.impl.BarChartOptionsImpl;
 import org.telscenter.sail.webapp.presentation.util.WorkgroupNavLog;
 import org.telscenter.sail.webapp.presentation.util.impl.WorkgroupNavLogImpl;
+import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
@@ -55,13 +59,21 @@ public class TotalTimePerStepController extends AbstractController{
 	
 	private WISEWorkgroupService workgroupService;
 	
+	private GradingService gradingService;
+	
 	private final static String RUNID = "runId";
 	
-	private final static String WORKGROUPID = "workgroupId";
+	private final static String WORKGROUPIDS = "workgroupIds";
 	
-	private final static String WORKGROUP = "workgroup";
+	private final static String WORKGROUPS = "workgroups";
 	
 	private final static String URL = "url";
+	
+	private final static int WIDTH = 750;
+	
+	private final static int HEIGHT = 400;
+	
+	private List<EStep> allSteps;
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -72,74 +84,145 @@ public class TotalTimePerStepController extends AbstractController{
 			HttpServletResponse response) throws Exception {
 		
 		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter(RUNID)));
-		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
+		this.allSteps = this.gradingService.getSteps(run.getId());
+		Set<WISEWorkgroup> workgroups = new TreeSet<WISEWorkgroup>();
+		parseIDs(workgroups, request.getParameter(WORKGROUPIDS));
 		
-		WorkgroupNavLog workgroupNavLog = new WorkgroupNavLogImpl(run.getId(), workgroup.getId());
-		
-		Map<String,Double> gradient1 = new TreeMap<String,Double>();
-		Map<String,Double> gradient2 = new TreeMap<String,Double>();
-		Map<String,Double> stripe = new TreeMap<String,Double>();
-		gradient1.put("000000", 0.5);
-		gradient1.put("990020bb", 1.0);
-		gradient1.put("4500ff", 0.0);
-		gradient2.put("ffffff", 0.0);
-		gradient2.put("ff2045", 1.0);
-		stripe.put("bbbbbb", 0.25);
-		stripe.put("888888", 0.25);
-		stripe.put("444444", 0.25);
-		List<String> legend = new LinkedList<String>();
-		legend.add(workgroup.generateWorkgroupName());
-		legend.add("this is extra, extra");
-		
-		List<Integer> data2 = new LinkedList<Integer>();
-		List<Integer> data1 = new LinkedList<Integer>(workgroupNavLog.getTotalTimePerStepMap().values());
-		List<List<Integer>> dataSets = new LinkedList<List<Integer>>();
-		dataSets.add(data1);
-		dataSets.add(data2);
-		data2.add(30);
-		data2.add(60);
-		data2.add(47);
-		data2.add(99);
-		data2.add(12);
-		data2.add(42);
-		data2.add(230);
-		data2.add(500);
+		List<WorkgroupNavLog> navLogLists = new LinkedList<WorkgroupNavLog>();
+		for(WISEWorkgroup workgroup : workgroups){
+			navLogLists.add(new WorkgroupNavLogImpl(run.getId(), workgroup.getId(), this.allSteps));
+		}
+		Map<String,Float> averagedData = getAverages(navLogLists);
+		float longest = this.getLongestTime(navLogLists);
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMaximumFractionDigits(2);
 		
 		BarChart chart = new BarChartImpl();
-		chart.setChartSize(740,400);
-		chart.addData(dataSets);
+		chart.setChartSize(WIDTH,HEIGHT);
+		chart.addData(new LinkedList<Float>(averagedData.values()));
 		chart.setOrientation("v");
-		chart.setGrouped(true);
 		
 		BarChartOptions options = new BarChartOptionsImpl();
-		options.addLabels("x", new ArrayList(workgroupNavLog.getTotalTimePerStepMap().keySet()));
-		options.addLabels("y", null);
-		options.addLinearGradient("c", 45, gradient1);
-		options.addChartColor("888888");
-		options.addChartColor("aaaaaa");
-		options.addChartColor("666666");
-		options.addGridLines(5.5, 10.0);
-		options.addGridLines(15.0, 25.0, 5.0, 2.5);
-		options.addLegendLabels(legend);
-		options.addLinearGradient("bg", 90, gradient2);
-		//options.addLinearStripe("c", 0, stripe);
-		options.addMoreLineStyle("40ff40", 0, 3, 1);
-		options.addMoreLineStyle("009900", 0, 9, -1);
-		options.setLegendPosition("l");
-		options.addShapeMarker("a", "a59915", 0, 1, 5, 1);
-		options.addTitle("Total Time Per Step Chart", "00ff95", 32);
-		options.addAxisStyle(0, "80409f", 8);
-		options.setBarWidthAndSpacing(10, 4, 10);
-		options.addScaling(0, 110);
-		options.addScaling(0, 550);
+		options.addScaling(0, longest);
+		
+		//check for amount of data -- if off chart make adjustments to granularity,
+		//spacing, and x-axis labels
+		List rawLabels = new ArrayList(averagedData.keySet());
+		if(averagedData.size() > 25){
+			List xLabelsInner = new ArrayList();
+			List xLabelsOuter = new ArrayList();
+			Integer size = ((WIDTH - (averagedData.size() * 5))/ averagedData.size()) - 1;
+			options.setBarWidthAndSpacing(size, 5, 0);
+			
+			for(int x = 0; x < rawLabels.size(); x++){
+				if(x%2 != 0){
+					xLabelsOuter.add(rawLabels.get(x));
+					xLabelsInner.add("");
+				} else {
+					xLabelsInner.add(rawLabels.get(x));
+					xLabelsOuter.add("");
+				}
+			}
+			options.addLabels("x", xLabelsInner);
+			options.addLabels("x", xLabelsOuter);
+			options.addAxisStyle(0, "666666", 9);
+			options.addAxisStyle(1, "666666", 9);
+		} else {
+			options.addLabels("x", rawLabels);
+			options.addAxisStyle(0, "666666", 9);
+		}
+		
+		//y-axis labels and their position on the axis
+		List yLabels = new LinkedList();
+		List<Float> labelPos = new LinkedList<Float>();
+		for(float x = 0f; x <= 100; x+= 10){
+			labelPos.add(x);
+		}
+		
+		float stepSize = longest/12;
+		for(float x = 0; x <= longest; x += stepSize){
+			yLabels.add(Float.parseFloat(nf.format(x)));
+		}
+		options.addLabels("y", yLabels);
+		options.addLabelPosition(1, labelPos);
+
 		
 		chart.setOptions(options);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(WORKGROUP, workgroup);
+		modelAndView.addObject(WORKGROUPS, workgroups);
 		modelAndView.addObject(URL, chart.getURL());
 		
 		return modelAndView;
+	}
+	
+	/**
+	 * Recursive function to parse a <code>String</code> of ids. Retrieves and 
+	 * adds the <code>WISEWorkgroup</code> to the provided <code>Set<WISEWorkgroup></code>.
+	 * 
+	 * @param <code>Set<WISEWorkgroup></code> workgroups
+	 * @param <code>String</code> ids
+	 * @throws <code>Exception</code> when a parsed id does not exist in the data store
+	 */
+	private void parseIDs(Set<WISEWorkgroup> workgroups, String ids)throws Exception{
+		if(ids == null || ids.length() < 1){
+			return;
+		} else if(ids.indexOf(",") == -1){
+			workgroups.add((WISEWorkgroup)this.workgroupService.retrieveById(Long.parseLong(ids)));
+			return;
+		} else {
+			workgroups.add((WISEWorkgroup)this.workgroupService.retrieveById(Long.parseLong(ids.substring(0,ids.indexOf(",")))));
+			parseIDs(workgroups, ids.substring(ids.indexOf(",") + 1));
+		}
+	}
+	
+	/**
+	 * Provided a <code>List<WorkgroupNavLog>, returns a <code>Map<String,Float></code>
+	 * of the average time spent on a given step.
+	 * 
+	 * @param <code>List<WorkgroupNavLog></code> navLogLists
+	 * @return <code>Map<String,Float></code>
+	 */
+	private Map<String,Float> getAverages(List<WorkgroupNavLog> navLogLists){
+		Map<String,Float> averagedData = new TreeMap<String,Float>();
+		Map<String,Float> counts = new TreeMap<String,Float>();
+		for(WorkgroupNavLog log : navLogLists){
+			Map<String,Float> timeStepMap = log.getTotalTimePerStepMap();
+			for(String key : timeStepMap.keySet()){
+				boolean exists = false;
+				for(String existingKey : averagedData.keySet()){
+					if(key.equals(existingKey)){
+						exists = true;
+						float currentCount = counts.get(key);
+						averagedData.put(key, (averagedData.get(key) * (currentCount/(currentCount + 1))) 
+								+ (timeStepMap.get(key) * (1/(currentCount + 1))));
+						counts.put(key, currentCount + 1f);
+					}
+				}
+				if(!exists){
+					averagedData.put(key, timeStepMap.get(key));
+					counts.put(key, 1f);
+				}
+			}
+		}
+		return averagedData;
+	}
+	
+	/**
+	 * 
+	 * @param <code>List<WorkgroupNavLog></code> logs
+	 * @return <code>float</code>
+	 */
+	public float getLongestTime(List<WorkgroupNavLog> logs){
+		float longest = 0f;
+		for(WorkgroupNavLog log : logs){
+			float logLongest = 0f;
+			if(log.getLongestTimeSpentStep()!=null){
+				logLongest = log.getLongestTimeSpentStep().getDurationMinutes();
+			}
+			longest = Math.max(longest, logLongest);
+		}
+		return longest;
 	}
 
 	/**
@@ -154,5 +237,12 @@ public class TotalTimePerStepController extends AbstractController{
 	 */
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
+	}
+
+	/**
+	 * @param gradingService the gradingService to set
+	 */
+	public void setGradingService(GradingService gradingService) {
+		this.gradingService = gradingService;
 	}
 }

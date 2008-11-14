@@ -22,16 +22,19 @@
  */
 package org.telscenter.sail.webapp.presentation.util.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
+import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.presentation.util.NavStep;
-import org.telscenter.sail.webapp.presentation.util.SdsLogUtil;
 import org.telscenter.sail.webapp.presentation.util.SessionNavLog;
 
 import net.sf.sail.emf.sailuserdata.ESockEntry;
+import net.sf.sail.emf.sailuserdata.ESockPart;
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 
 /**
@@ -48,12 +51,13 @@ public class SessionNavLogImpl implements SessionNavLog{
 	
 	private int openOffset;
 	
-	private SdsLogUtil util = new SdsLogUtil();
+	private List<EStep> allSteps;
 	
-	public SessionNavLogImpl(SessionBundle session, long runId){
+	public SessionNavLogImpl(SessionBundle session, long runId, List<EStep> allSteps){
 		this.runId = runId;
+		this.allSteps = allSteps;
 		try{
-			createNavSteps(util.getNavLogs(session));
+			createNavSteps(this.getNavLogs(session));
 		}catch(Exception e){
 			System.out.println(e);
 			//error
@@ -75,7 +79,7 @@ public class SessionNavLogImpl implements SessionNavLog{
 	public int getTotalTime(){
 		int total = 0;
 		for(NavStep step : this.navSteps){
-			total = total + step.getDuration();
+			total = total + step.getDurationMilliseconds();
 		}
 		return total;
 	}
@@ -93,7 +97,7 @@ public class SessionNavLogImpl implements SessionNavLog{
 	public NavStep getLongestTimeSpentStep(){
 		NavStep longest = null;
 		for(NavStep step : this.navSteps){
-			if(longest==null || step.getDuration()>longest.getDuration()){
+			if(longest==null || step.getDurationMilliseconds() > longest.getDurationMilliseconds()){
 				longest = step;
 			}
 		}
@@ -106,7 +110,7 @@ public class SessionNavLogImpl implements SessionNavLog{
 	public NavStep getLeastTimeSpentStep(){
 		NavStep shortest = null;
 		for(NavStep step : this.navSteps){
-			if(shortest==null || step.getDuration() < shortest.getDuration()){
+			if(shortest==null || step.getDurationMilliseconds() < shortest.getDurationMilliseconds()){
 				shortest = step;
 			}
 		}
@@ -123,33 +127,39 @@ public class SessionNavLogImpl implements SessionNavLog{
 	 */
 	private void createNavSteps(List<ESockEntry> navLogs) throws Exception{
 		for(ESockEntry entry : navLogs){
-			String activityType = util.activityType(entry.getValue());
+			String activityType = this.activityType(entry.getValue());
 			if(activityType.equals("project_open")){
 				this.openOffset = entry.getMillisecondsOffset();
 				NavStep navStep = new NavStep();
 				navStep.setOpen(entry.getMillisecondsOffset() - openOffset);
-				navStep.setStep(null);
+				navStep.setPodId(null);
 				this.navSteps.add(navStep);
 			} else if(activityType.equals("step_open")){
 				NavStep navStep = new NavStep();
 				navStep.setOpen(entry.getMillisecondsOffset() - openOffset);
-				navStep.setStep(util.getStepByPodUUID(util.podUUID(entry.getValue()), runId));
+				EStep currentStep = this.getStepByPodUUID(this.podUUID(entry.getValue()), runId);
+				navStep.setPodId(currentStep.getPodUUID().toString());
+				navStep.setActivityNum(((EActivity) currentStep.eContainer()).getNumber());
+				navStep.setStepNum(currentStep.getNumber());
 				this.navSteps.add(navStep);
 			} else if(activityType.equals("step_close")){
-				String entryUUID = util.podUUID(entry.getValue());
+				String entryUUID = this.podUUID(entry.getValue());
 				if(entryUUID.equals("null")){
 					for(NavStep step : this.navSteps){
-						if(step.getStep()==null){
+						if(step.getPodId()==null){
 							this.navSteps.remove(step);
 						}
 					}
 				} else {
 					for(NavStep step : this.navSteps){
-						if(step.getStep()==null){
+						if(step.getPodId()==null){
 							step.setClose(entry.getMillisecondsOffset() - openOffset);
-							step.setStep(util.getStepByPodUUID(entryUUID, runId));
+							EStep currentStep = this.getStepByPodUUID(entryUUID, runId);
+							step.setPodId(currentStep.getPodUUID().toString());
+							step.setActivityNum(((EActivity) currentStep.eContainer()).getNumber());
+							step.setStepNum(currentStep.getNumber());
 							break;
-						} else if(step.getStep().getPodUUID().toString().equals(entryUUID)){
+						} else if(step.getPodId().equals(entryUUID)){
 							if(!step.isClosed()){
 								step.setClose(entry.getMillisecondsOffset() - openOffset);
 								break;
@@ -167,5 +177,77 @@ public class SessionNavLogImpl implements SessionNavLog{
 				//error
 			}
 		}
+	}
+	
+	/**
+	 * Given a <code>SessionBundle</code> returns a <code>List<ESockEntry></code> list
+	 * of navigation log entries
+	 * 
+	 * @param <code>SessionBundle</code> session
+	 * @return <code>List<ESockEntry></code>
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ESockEntry> getNavLogs(SessionBundle session){
+		List<ESockEntry> list = new ArrayList<ESockEntry>();
+		for(ESockPart sockPart : (List<ESockPart>) session.getESessionBundle().getSockParts()){
+			if(sockPart.getRimName().equals("navigation_log")){
+				list.addAll(sockPart.getSockEntries());
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * Given a <code>String</code> XML SockEntry, returns a <code>String</code>
+	 * with the XML header info removed
+	 * 
+	 * @param <code>String</code> s
+	 * @return <code>String</code>
+	 */
+	private String stripHead(String s){
+		return StringUtils.strip(s.
+				substring(StringUtils.indexOf(s, '>') + 1,StringUtils.lastIndexOf(s, '>')));
+	}
+	
+	/**
+	 * Given a <code>String</code> XML SockEntry, returns the <code>String</code>
+	 * activityType
+	 * 
+	 * @param <code>String</code> s
+	 * @return <code>String</code>
+	 */
+	public String activityType(String s){
+		String headless = stripHead(s);
+		return StringUtils.strip(headless.substring(StringUtils.indexOf(headless, '<') + 1, StringUtils.indexOf(headless, ' ')));
+	}
+	
+	/**
+	 * Given a <code>String</code> XML SockEntry, returns the <code>String</code>
+	 * podUUID
+	 * 
+	 * @param <code>String</code> s
+	 * @return <code>String</code>
+	 */
+	public String podUUID(String s){
+		String headless = stripHead(s);
+		return StringUtils.strip(headless.substring(StringUtils.indexOf(headless, '"') + 1, StringUtils.lastIndexOf(headless, '"')));
+	}
+	
+	/**
+	 * Given a <code>String</code> id (podUUID) and a <code>long</code> runId,
+	 * returns the step that is associated with that run and that podUUID
+	 * 
+	 * @param <code>String</code> id
+	 * @param <code>long</code> runId
+	 * @return <code>EStep</code>
+	 * @throws <code>ObjectNotFoundException</code> when no run is found with specified runId
+	 */
+	public EStep getStepByPodUUID(String id, long runId)throws Exception{
+		for(EStep step : this.allSteps){
+			if(step.getPodUUID().toString().equals(id)){
+				return step;
+			}
+		}
+		return null;
 	}
 }

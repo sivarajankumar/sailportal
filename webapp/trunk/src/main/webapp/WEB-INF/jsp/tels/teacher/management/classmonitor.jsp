@@ -134,7 +134,8 @@
 	ProgressCellInfo.prototype.handleSuccess = function(o){
 		var xmlDoc = o.responseXML;
 		if(xmlDoc == null){
-			this.handleFailure;
+			this.handleFailure(o);
+			return;
 		};
 		var entries = xmlDoc.getElementsByTagName('entry');
 		var currentStep = xmlDoc.getElementsByTagName('currentstep');
@@ -307,7 +308,7 @@
 	function generateReport(runId, workgroupId){
 
 		var reportType = document.getElementById('selectReport_' + workgroupId).options[document.getElementById('selectReport_' + workgroupId).selectedIndex].value;
-		var url = '../reports/' + reportType + '.html?runId=' + runId + '&workgroupId=' + workgroupId;
+		var url = '../reports/' + reportType + '.html?runId=' + runId + '&workgroupIds=' + workgroupId;
 	
 		if(reportType != null && reportType != ""){
 			popupReport(url);
@@ -348,7 +349,21 @@
 	</div>
 	<div id="L3Label">Student Progress Monitor</div> 
 	<div id="studentProgressProjectTitle">${run.project.curnit.sdsCurnit.name}<span class="ProjectIDTag">(Project ID: ${run.project.id})</span></div> 
-	<div id="studentProgressLinks"><span class="nonLink">Generated [ ${date} ]</span><span class="link"><a id="refreshProgress" href="classmonitor.html?runId=${run.id}&tab=${tab}">Refresh Progress Monitor</a></span><span class="link"><a href="projectpickerclassmonitor.html">Select a Different Project</a></span></div>
+	<div id="studentProgressLinks">
+		<span class="nonLink">Generated [ ${date} ]</span>
+		<span class="link"><a id="refreshProgress" href="classmonitor.html?runId=${run.id}&tab=${tab}">Refresh Progress Monitor</a></span>
+		<span class="link"><a href="projectpickerclassmonitor.html">Select a Different Project</a></span>
+		<span class="link">
+			<c:set var="allIds" value=""/>
+			<c:forEach var="period" varStatus="periodStatus" items="${run.periods}">
+				<c:forEach var="workgroup" varStatus="workgroupStatus" items="${workgroups[period.id]}">
+					<c:if test="${fn:length(allIds)>0}"><c:set var="allIds" value="${allIds},"/></c:if>
+					<c:set var="allIds" value="${allIds}${workgroup.id}"/>
+				</c:forEach>
+			</c:forEach>
+			<a href="javascript:popupReport('../reports/totaltimeperstep.html?runId=${run.id}&workgroupIds=${allIds}');">Average time spent per step (all periods)</a>
+		</span>
+	</div>
 	
 </div>
 
@@ -426,7 +441,7 @@
 											<div id="generateReport" align="center">
 												<div id="reports">
 													<a href="javascript:popupReport('../reports/stepactivitygraph.html?runId=${run.id}&workgroupId=${workgroup.id}');">Step activity (over time)</a><br>
-													<a href="javascript:popupReport('../reports/totaltimeperstep.html?runId=${run.id}&workgroupId=${workgroup.id}');">Total time spent per step</a><br>
+													<a href="javascript:popupReport('../reports/totaltimeperstep.html?runId=${run.id}&workgroupIds=${workgroup.id}');">Total time spent per step</a><br>
 												</div>
 											</div>
 										</td>
@@ -460,6 +475,15 @@
 										<div id="medAutoRatio_${tIndex}" class="ratioValue">(0/0)</div>
 									</td>
 									<td>
+										<c:forEach var="workgroup" varStatus="workgroupStatus" items="${workgroups[period.id]}">
+											<c:if test="${workgroupStatus.first=='true'}">
+												<c:set var="ids" value="${workgroup.id}"/>	
+											</c:if>
+											<c:if test="${workgroupStatus.first!='true'}">
+												<c:set var="ids" value="${ids},${workgroup.id}"/>
+											</c:if>
+										</c:forEach>
+										<a href="javascript:popupReport('../reports/totaltimeperstep.html?runId=${run.id}&workgroupIds=${ids}');">Average time spent per step (for period)</a><br>
 									</td>
 								</tr>
 							</tfoot>

@@ -22,9 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.google.charts.options;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
 
@@ -34,19 +33,19 @@ import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
  */
 public class ChartLabels implements ChartOption {
 
-	private Set<List<?>> xLabels = new TreeSet<List<?>>();
+	private List<List<?>> xLabels = new LinkedList<List<?>>();
 	
-	private Set<List<?>> yLabels = new TreeSet<List<?>>();
+	private List<List<?>> yLabels = new LinkedList<List<?>>();
 	
-	private Set<List<?>> tLabels = new TreeSet<List<?>>();
+	private List<List<?>> tLabels = new LinkedList<List<?>>();
 	
-	private Set<List<?>> rLabels = new TreeSet<List<?>>();
+	private List<List<?>> rLabels = new LinkedList<List<?>>();
 	
-	private Set<LabelPosition> positions;
+	private List<LabelPosition> positions;
 	
-	private Set<AxisRange> ranges;
+	private List<AxisRange> ranges;
 	
-	private Set<AxisStyle> styles;
+	private List<AxisStyle> styles;
 	
 	public void addLabels(String axis, List<?> labels)throws Exception{
 		if(axis.equals("x")){
@@ -64,35 +63,35 @@ public class ChartLabels implements ChartOption {
 	
 	public void addLabelPosition(int index, List<Float> positions){
 		if(this.positions==null){
-			this.positions = new TreeSet<LabelPosition>();
+			this.positions = new LinkedList<LabelPosition>();
 		}
 		this.positions.add(new LabelPosition(index,positions));
 	}
 	
 	public void addAxisRange(int index, int start, int end){
 		if(this.ranges==null){
-			this.ranges = new TreeSet<AxisRange>();
+			this.ranges = new LinkedList<AxisRange>();
 		}
 		this.ranges.add(new AxisRange(index, start, end));
 	}
 	
 	public void addAxisStyle(int index, String color){
 		if(this.styles==null){
-			this.styles = new TreeSet<AxisStyle>();
+			this.styles = new LinkedList<AxisStyle>();
 		}
 		this.styles.add(new AxisStyle(index, color));
 	}
 	
 	public void addAxisStyle(int index, String color, int size){
 		if(this.styles==null){
-			this.styles = new TreeSet<AxisStyle>();
+			this.styles = new LinkedList<AxisStyle>();
 		}
 		this.styles.add(new AxisStyle(index, color, size));
 	}
 	
 	public void addAxisStyle(int index, String color, int size, int alignment){
 		if(this.styles==null){
-			this.styles = new TreeSet<AxisStyle>();
+			this.styles = new LinkedList<AxisStyle>();
 		}
 		this.styles.add(new AxisStyle(index, color, size, alignment));
 	}

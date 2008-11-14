@@ -20,38 +20,35 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.google.charts.options;
+package org.telscenter.sail.webapp.dao.announcement.impl;
 
-import java.util.LinkedList;
-import java.util.List;
+import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
-import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
+import org.telscenter.sail.webapp.dao.announcement.AnnouncementDao;
+import org.telscenter.sail.webapp.domain.announcement.Announcement;
+import org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class DataScaling implements ChartOption{
+public class HibernateAnnouncementDao extends AbstractHibernateDao<Announcement> implements AnnouncementDao<Announcement>{
 
-	private List<Float> min = new LinkedList<Float>();
+	private final static String FIND_ALL_QUERY = "from AnnouncementImpl";
 	
-	private List<Float> max = new LinkedList<Float>();
-	
-	public void addScaling(float min, float max){
-		this.min.add(min);
-		this.max.add(max);
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getFindAllQuery()
+	 */
+	@Override
+	protected String getFindAllQuery() {
+		return FIND_ALL_QUERY;
 	}
 	
-	public void addScaling(List<Float> mins, List<Float> maxes){
-		this.min.addAll(mins);
-		this.max.addAll(maxes);
-	}
-
-	public String getOptionString(){
-		String scaling = "&amp;chds=";
-		for(int x=0;x<min.size();x++){
-			scaling = scaling + this.min.get(x) + "," + this.max.get(x) + ",";
-		}
-		return scaling.substring(0, scaling.length()-1);
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
+	 */
+	@Override
+	protected Class<AnnouncementImpl> getDataObjectClass() {
+		return AnnouncementImpl.class;
 	}
 }

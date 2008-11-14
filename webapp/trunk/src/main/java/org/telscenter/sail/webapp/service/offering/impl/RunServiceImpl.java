@@ -52,6 +52,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
@@ -420,5 +421,26 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	 */
 	public void setUserDao(UserDao<User> userDao) {
 		this.userDao = userDao;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#addAnnouncementToRun(java.lang.Long, org.telscenter.sail.webapp.domain.announcement.Announcement)
+	 */
+	@Transactional()
+	public void addAnnouncementToRun(Long runId, Announcement announcement) throws Exception{
+		Run run = this.retrieveById(runId);
+		run.getAnnouncements().add(announcement);
+		this.runDao.save(run);
+	}
+	
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#removeAnnouncementFromRun(java.lang.Long, org.telscenter.sail.webapp.domain.announcement.Announcement)
+	 */
+	@Transactional()
+	public void removeAnnouncementFromRun(Long runId, Announcement announcement) throws Exception{
+		Run run = this.retrieveById(runId);
+		run.getAnnouncements().remove(announcement);
+		this.runDao.save(run);
 	}
 }

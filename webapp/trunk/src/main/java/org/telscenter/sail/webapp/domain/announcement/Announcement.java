@@ -20,38 +20,56 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.google.charts.options;
+package org.telscenter.sail.webapp.domain.announcement;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
+import java.util.Date;
 
 /**
+ * An announcement consists of a timestamp, title and the announcement
+ * body which is in an unspecified format.
+ * 
  * @author patrick lawler
  * @version $Id:$
  */
-public class DataScaling implements ChartOption{
+public interface Announcement {
 
-	private List<Float> min = new LinkedList<Float>();
+	/**
+	 * @return <code>String</code> the announcement to get
+	 */
+	public String getAnnouncement();
 	
-	private List<Float> max = new LinkedList<Float>();
+	/**
+	 * @param <code>String</code> the announcement to set
+	 */
+	public void setAnnouncement(String announcement);
 	
-	public void addScaling(float min, float max){
-		this.min.add(min);
-		this.max.add(max);
-	}
+	/**
+	 * @return <code>Date</code> the timestamp of this announcement
+	 */
+	public Date getTimestamp();
 	
-	public void addScaling(List<Float> mins, List<Float> maxes){
-		this.min.addAll(mins);
-		this.max.addAll(maxes);
-	}
-
-	public String getOptionString(){
-		String scaling = "&amp;chds=";
-		for(int x=0;x<min.size();x++){
-			scaling = scaling + this.min.get(x) + "," + this.max.get(x) + ",";
-		}
-		return scaling.substring(0, scaling.length()-1);
-	}
+	/**
+	 * @param <code>Date</code> timestamp to set
+	 */
+	public void setTimestamp(Date timestamp);
+	
+	/**
+	 * @return <code>String</code> the title of this announcement
+	 */
+	public String getTitle();
+	
+	/**
+	 * @param <code>String</code> the title to set
+	 */
+	public void setTitle(String title);
+	
+	/**
+	 * @return <code>Long</code> this id
+	 */
+	public Long getId();
+	
+	/**
+	 * @param <code>Long</code> the id to set
+	 */
+	public void setId(Long id);	
 }

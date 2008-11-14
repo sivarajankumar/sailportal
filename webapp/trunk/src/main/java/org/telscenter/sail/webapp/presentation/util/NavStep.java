@@ -22,25 +22,81 @@
  */
 package org.telscenter.sail.webapp.presentation.util;
 
-import org.telscenter.pas.emf.pas.EStep;
+import java.text.NumberFormat;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
 public class NavStep implements Comparable<NavStep>{
-	
-	private EStep step;
-	
+		
 	private int open;
 	
 	private int close;
+	
+	private String activityNum;
+	
+	private String stepNum;
+	
+	private String podId;
+	
+	private NumberFormat nf = NumberFormat.getInstance();
+	
+	public NavStep(){
+		nf.setMaximumFractionDigits(1);
+		nf.setGroupingUsed(false);
+	}
 
 	/**
-	 * @return duration for this step
+	 * @return the <code>int</code> duration for this step in milliseconds
 	 */
-	public int getDuration(){
+	public int getDurationMilliseconds(){
 		return this.close - this.open;
+	}
+	
+	/**
+	 * @return the <code>float</code> duration for this step in seconds
+	 */
+	public float getDurationSeconds(){
+		return Float.parseFloat(nf.format(this.getDurationMilliseconds() / 1000f));
+	}
+	
+	/**
+	 * @return the <code>float</code> duration for this step in minutes
+	 */
+	public float getDurationMinutes(){
+		return Float.parseFloat(nf.format(this.getDurationSeconds() / 60));
+	}
+	
+	/**
+	 * @return the <code>String</code> representation of the Activity 
+	 * number and Step number for this NavStep
+	 */
+	public String getActivityStepString(){
+		return "A" + (Integer.parseInt(this.activityNum) + 1) + " S" +
+			(Integer.parseInt(this.stepNum) + 1);
+	}
+	
+	/**
+	 * @return <code>String</code> a unique number comprised of the Activity
+	 * number concatenated with the dot operater and the Step number for this
+	 * NavStep
+	 */
+	public String getUniqueOrderedNum(){
+		return this.activityNum + "." + this.stepNum;
+	}
+	
+	/**
+	 * @return a <code>NavStep</code> copy of this NavStep
+	 */
+	public NavStep copy(){
+		NavStep newStep = new NavStep();
+		newStep.setClose(this.close);
+		newStep.setOpen(this.open);
+		newStep.setActivityNum(this.activityNum);
+		newStep.setPodId(this.podId);
+		newStep.setStepNum(this.stepNum);
+		return newStep;
 	}
 	
 	/**
@@ -48,20 +104,6 @@ public class NavStep implements Comparable<NavStep>{
 	 */
 	public boolean isClosed(){
 		return this.close > 0;
-	}
-	
-	/**
-	 * @return the step
-	 */
-	public EStep getStep() {
-		return step;
-	}
-
-	/**
-	 * @param step the step to set
-	 */
-	public void setStep(EStep step) {
-		this.step = step;
 	}
 
 	/**
@@ -94,6 +136,48 @@ public class NavStep implements Comparable<NavStep>{
 
 	public int compareTo(NavStep o) {
 		return this.getOpen() - o.getOpen();
+	}
+
+	/**
+	 * @return the activityNum
+	 */
+	public String getActivityNum() {
+		return activityNum;
+	}
+
+	/**
+	 * @param activityNum the activityNum to set
+	 */
+	public void setActivityNum(String activityNum) {
+		this.activityNum = activityNum;
+	}
+
+	/**
+	 * @return the stepNum
+	 */
+	public String getStepNum() {
+		return stepNum;
+	}
+
+	/**
+	 * @param stepNum the stepNum to set
+	 */
+	public void setStepNum(String stepNum) {
+		this.stepNum = stepNum;
+	}
+
+	/**
+	 * @return the podId
+	 */
+	public String getPodId() {
+		return podId;
+	}
+
+	/**
+	 * @param podId the podId to set
+	 */
+	public void setPodId(String podId) {
+		this.podId = podId;
 	}
 
 }

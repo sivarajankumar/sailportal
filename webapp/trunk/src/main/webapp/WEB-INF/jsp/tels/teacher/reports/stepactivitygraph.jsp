@@ -8,9 +8,11 @@
 <title>Step Activity Graph</title>
 <head></head>
 
+${url}
+
 <body>
 Step activity (over time) graph
-<br><br>${url}<br>
+<br>
 
 <img src="${url}"/>
 

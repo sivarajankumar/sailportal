@@ -78,7 +78,7 @@ public class BasicGoogleChartOptions implements GoogleChartOptions{
 	/**
 	 * @see org.telscenter.sail.webapp.presentation.google.charts.GoogleChartOptions#addScaling(int, int)
 	 */
-	public void addScaling(int min, int max) {
+	public void addScaling(float min, float max) {
 		if(this.scaling==null){
 			this.scaling = new DataScaling();
 			this.options.add(this.scaling);
@@ -89,7 +89,7 @@ public class BasicGoogleChartOptions implements GoogleChartOptions{
 	/**
 	 * @see org.telscenter.sail.webapp.presentation.google.charts.GoogleChartOptions#addScaling(java.util.List, java.util.List)
 	 */
-	public void addScaling(List<Integer> min, List<Integer> max) {
+	public void addScaling(List<Float> min, List<Float> max) {
 		if(this.scaling==null){
 			this.scaling = new DataScaling();
 			this.options.add(this.scaling);

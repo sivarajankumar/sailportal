@@ -20,38 +20,16 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.google.charts.options;
+package org.telscenter.sail.webapp.dao.announcement;
 
-import java.util.LinkedList;
-import java.util.List;
+import net.sf.sail.webapp.dao.SimpleDao;
 
-import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
+import org.telscenter.sail.webapp.domain.announcement.Announcement;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class DataScaling implements ChartOption{
+public interface AnnouncementDao<T extends Announcement> extends SimpleDao<Announcement> {
 
-	private List<Float> min = new LinkedList<Float>();
-	
-	private List<Float> max = new LinkedList<Float>();
-	
-	public void addScaling(float min, float max){
-		this.min.add(min);
-		this.max.add(max);
-	}
-	
-	public void addScaling(List<Float> mins, List<Float> maxes){
-		this.min.addAll(mins);
-		this.max.addAll(maxes);
-	}
-
-	public String getOptionString(){
-		String scaling = "&amp;chds=";
-		for(int x=0;x<min.size();x++){
-			scaling = scaling + this.min.get(x) + "," + this.max.get(x) + ",";
-		}
-		return scaling.substring(0, scaling.length()-1);
-	}
 }

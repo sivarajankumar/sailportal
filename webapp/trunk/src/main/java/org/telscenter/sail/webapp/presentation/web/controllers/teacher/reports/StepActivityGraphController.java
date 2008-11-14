@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports;
 
+import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.pas.emf.pas.EActivity;
+import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.google.charts.LineChart;
@@ -36,7 +39,6 @@ import org.telscenter.sail.webapp.presentation.google.charts.LineChartOptions;
 import org.telscenter.sail.webapp.presentation.google.charts.impl.LineChartImpl;
 import org.telscenter.sail.webapp.presentation.google.charts.impl.LineChartOptionsImpl;
 import org.telscenter.sail.webapp.presentation.util.NavStep;
-import org.telscenter.sail.webapp.presentation.util.SdsLogUtil;
 import org.telscenter.sail.webapp.presentation.util.WorkgroupNavLog;
 import org.telscenter.sail.webapp.presentation.util.impl.WorkgroupNavLogImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -52,6 +54,8 @@ public class StepActivityGraphController extends AbstractController {
 	
 	private WISEWorkgroupService workgroupService;
 	
+	private List<EStep> allSteps;
+	
 	private final static String RUNID = "runId";
 	
 	private final static String WORKGROUPID = "workgroupId";
@@ -59,6 +63,12 @@ public class StepActivityGraphController extends AbstractController {
 	private final static String WORKGROUP = "workgroup";
 	
 	private final static String URL = "url";
+	
+	private final static int CHARTWIDTH = 750;
+	
+	private final static int CHARTHEIGHT = 400;
+	
+	private NumberFormat nf = NumberFormat.getInstance();
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -68,39 +78,50 @@ public class StepActivityGraphController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		SdsLogUtil util = new SdsLogUtil();
+		nf.setMaximumFractionDigits(1);
 		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter(RUNID)));
 		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
-		
 		WorkgroupNavLog workgroupNavLog = new WorkgroupNavLogImpl(run.getId(),workgroup.getId());
 		
-		LineChartOptions options = new LineChartOptionsImpl();
-		LineChart chart = new LineChartImpl();
-		chart.setChartSize(750, 400);
-		chart.setXYType(true);
+		allSteps = workgroupNavLog.getAllSteps();
 		
-		int maxX = 0;
-		int maxY = 0;
-		List<Integer> xData = new LinkedList<Integer>(workgroupNavLog.getTimeStepMap().keySet());
-		List<Integer> xdata = new LinkedList<Integer>();
+		List<Float> xdata = new LinkedList<Float>();
 		List<NavStep> yData = new LinkedList<NavStep>(workgroupNavLog.getTimeStepMap().values());
 		List<Integer> ydata = new LinkedList<Integer>();
 		
-		for(int milli : xData){
-			maxX = util.seconds(milli);
-			xdata.add(maxX);
-		}
-		List<String> yLabels = new LinkedList<String>();
+		float currentTime = 0f;
 		for(NavStep step : yData){
-			maxY = Integer.parseInt(util.uniqueOrderedNum(step.getStep()));
-			ydata.add(maxY);
-			yLabels.add(util.getActivityStep(step.getStep()));
+			xdata.add(Float.parseFloat(nf.format(currentTime)));
+			ydata.add(this.getLocation(step));
+			currentTime = currentTime + step.getDurationMinutes();
+			xdata.add(Float.parseFloat(nf.format(currentTime)));
+			ydata.add(this.getLocation(step));
+			xdata.add(-1f);
+			ydata.add(-1);
+		}
+
+		List<String> yLabels = new LinkedList<String>();
+		yLabels.add("");
+		for(EStep step : allSteps){
+			yLabels.add(this.getActivityStep(step));
 		}
 		
-		options.addScaling(0, maxX);
-		options.addScaling(0, maxY);
-		options.addLabels("x", null);
+		List<String> xLabels = new LinkedList<String>();
+		float stepSize = currentTime / 20;
+		for(float x = 0f; x <= currentTime; x += stepSize){
+			xLabels.add(nf.format(x));
+		}
+		
+		LineChartOptions options = new LineChartOptionsImpl();
+		LineChart chart = new LineChartImpl();
+		chart.setChartSize(CHARTWIDTH, CHARTHEIGHT);
+		chart.setXYType(true);
+		
+		options.addScaling(0, currentTime);
+		options.addScaling(-1, allSteps.size() + 1);
+		options.addLabels("x", xLabels);
 		options.addLabels("y", yLabels);
+		options.addLabels("r", yLabels);
 		chart.addData(xdata);
 		chart.addData(ydata);
 		chart.setOptions(options);
@@ -112,6 +133,20 @@ public class StepActivityGraphController extends AbstractController {
 		return modelAndView;
 	}
 
+	private int getLocation(NavStep step){
+		for(EStep eStep : allSteps){
+			if(eStep.getPodUUID().toString().equals(step.getPodId())){
+				return allSteps.indexOf(eStep);
+			}
+		}
+		return -1;
+	}
+	
+	private String getActivityStep(EStep step){
+		return "A" + (Integer.parseInt(((EActivity) step.eContainer()).getNumber()) + 1) 
+			+ " S" + (Integer.parseInt(step.getNumber()) + 1);
+	}
+	
 	/**
 	 * @param runService the runService to set
 	 */

@@ -32,6 +32,7 @@ import net.sf.sail.webapp.service.offering.OfferingService;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 
@@ -218,4 +219,22 @@ public interface RunService extends OfferingService {
      *         <code>Long</code> periodId to which all returned workgroups belong
      */
     public Set<Workgroup> getWorkgroups(Long runId, Long periodId) throws ObjectNotFoundException;
+    
+    /**
+     * Adds an Announcement to this run
+     * 
+     * @param <code>Long</code> runId
+     * @param <code>Announcement</code> announcement
+     * @throws <code>Exception</code>
+     */
+    public void addAnnouncementToRun(Long runId, Announcement announcement) throws Exception;
+    
+    /**
+     * Removes an Announcement from this run
+     * 
+     * @param <code>Long</code> runId
+     * @param <code>Announcement</code> announcement
+     * @throws <code>Exception</code>
+     */
+    public void removeAnnouncementFromRun(Long runId, Announcement announcement) throws Exception;
 }

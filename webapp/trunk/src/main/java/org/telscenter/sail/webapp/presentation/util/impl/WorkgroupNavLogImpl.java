@@ -25,21 +25,18 @@ package org.telscenter.sail.webapp.presentation.util.impl;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import net.sf.sail.webapp.domain.sessionbundle.SessionBundle;
 
-import org.telscenter.pas.emf.pas.EActivity;
+import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.util.NavStep;
-import org.telscenter.sail.webapp.presentation.util.SdsLogUtil;
 import org.telscenter.sail.webapp.presentation.util.SessionNavLog;
 import org.telscenter.sail.webapp.presentation.util.WorkgroupNavLog;
+import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.grading.SessionBundleService;
-import org.telscenter.sail.webapp.service.grading.impl.SessionBundleServiceImpl;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
-import org.telscenter.sail.webapp.service.workgroup.impl.WISEWorkgroupServiceImpl;
 
 /**
  * @author patrick lawler
@@ -57,20 +54,28 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 
 	private static WISEWorkgroupService workgroupService;
 	
-	private SdsLogUtil util = new SdsLogUtil();
+	private static GradingService gradingService;
+	
+	private List<EStep> allSteps;
 	
 	public WorkgroupNavLogImpl(){}
 	
-	public WorkgroupNavLogImpl(long runId, long workgroupId){
-		try{
-			workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(workgroupId); 
-			for(SessionBundle session : this.sessionBundleService.getSessionBundles(runId, workgroup)){
-				sessionNavLogs.add(new SessionNavLogImpl(session, runId));
-			}
-		} catch(Exception e){
-			//error
+	public WorkgroupNavLogImpl(long runId, long workgroupId) throws Exception{
+		this.allSteps = this.gradingService.getSteps(runId);
+		workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(workgroupId); 
+		for(SessionBundle session : this.sessionBundleService.getSessionBundles(runId, workgroup)){
+			sessionNavLogs.add(new SessionNavLogImpl(session, runId, this.allSteps));
 		}
 		collapse();		
+	}
+	
+	public WorkgroupNavLogImpl(long runId, long workgroupId, List<EStep> allSteps) throws Exception{
+		this.allSteps = allSteps;
+		workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(workgroupId); 
+		for(SessionBundle session : this.sessionBundleService.getSessionBundles(runId, workgroup)){
+			sessionNavLogs.add(new SessionNavLogImpl(session, runId, this.allSteps));
+		}
+		collapse();
 	}
 	
 	/**
@@ -90,7 +95,7 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	public int getAverageTimeSpentPerStep(){
 		int total = 0;
 		for(NavStep step : collapsed){
-			total = total + step.getDuration();
+			total = total + step.getDurationMilliseconds();
 		}
 		return total / getNumOfSteps();
 	}
@@ -126,7 +131,7 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	public NavStep getLongestTimeSpentStep(){
 		NavStep longest = null;
 		for(NavStep step : collapsed){
-			if(longest==null || step.getDuration() > longest.getDuration()){
+			if(longest==null || step.getDurationMilliseconds() > longest.getDurationMilliseconds()){
 				longest = step;
 			}
 		}
@@ -139,7 +144,8 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	public NavStep getLongestTimeSpentVisit(){
 		NavStep longest = null;
 		for(SessionNavLog session : this.sessionNavLogs){
-			if(longest==null || session.getLongestTimeSpentStep().getDuration() > longest.getDuration()){
+			if(longest==null || session.getLongestTimeSpentStep().getDurationMilliseconds() 
+					> longest.getDurationMilliseconds()){
 				longest = session.getLongestTimeSpentStep();
 			}
 		}
@@ -152,7 +158,7 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	public NavStep getLeastTimeSpentStep(){
 		NavStep least = null;
 		for(NavStep step : collapsed){
-			if(least==null || step.getDuration() < least.getDuration()){
+			if(least==null || step.getDurationMilliseconds()< least.getDurationMilliseconds()){
 				least = step;
 			}
 		}
@@ -165,7 +171,8 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	public NavStep getLeastTimeSpentVisit(){
 		NavStep least = null;
 		for(SessionNavLog session : this.sessionNavLogs){
-			if(least==null || session.getLeastTimeSpentStep().getDuration() < least.getDuration()){
+			if(least==null || session.getLeastTimeSpentStep().getDurationMilliseconds() 
+					< least.getDurationMilliseconds()){
 				least = session.getLeastTimeSpentStep();
 			}
 		}
@@ -175,14 +182,14 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	/**
 	 * @see org.telscenter.sail.webapp.presentation.util.WorkgroupNavLog#getTimeStepMap()
 	 */
-	public Map<Integer,NavStep> getTimeStepMap(){
-		Map<Integer,NavStep> timeStepMap = new TreeMap<Integer,NavStep>();
-		int currentTime = 0;
+	public Map<Float,NavStep> getTimeStepMap(){
+		Map<Float,NavStep> timeStepMap = new TreeMap<Float,NavStep>();
+		float currentTime = 0f;
 		
 		for(SessionNavLog session : this.sessionNavLogs){
 			for(NavStep step : session.getNavSteps()){
 				timeStepMap.put(currentTime, step);
-				currentTime = currentTime + step.getDuration();
+				currentTime = currentTime + step.getDurationMinutes();
 			}
 		}
 		
@@ -192,11 +199,11 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	/**
 	 * @see org.telscenter.sail.webapp.presentation.util.WorkgroupNavLog#getTotalTimePerStepMap()
 	 */
-	public Map<String,Integer> getTotalTimePerStepMap(){
-		Map<String,Integer> totalTimeMap = new TreeMap<String,Integer>();
+	public Map<String,Float> getTotalTimePerStepMap(){
+		Map<String,Float> totalTimeMap = new TreeMap<String,Float>();
 		
 		for(NavStep step : collapsed){
-			totalTimeMap.put(util.getActivityStep(step.getStep()), util.seconds(step.getDuration()));
+			totalTimeMap.put(step.getActivityStepString(), step.getDurationMinutes());
 		}
 		
 		return totalTimeMap;
@@ -211,9 +218,9 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 			for(NavStep step : session.getNavSteps()){
 				NavStep adjust = exists(step);
 				if(adjust==null){
-					collapsed.add(copyNavStep(step));
+					collapsed.add(step.copy());
 				} else {
-					adjust.setClose(adjust.getClose() +  step.getDuration());
+					adjust.setClose(adjust.getClose() +  step.getDurationMilliseconds());
 				}
 			}
 		}
@@ -228,25 +235,25 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	 */
 	private NavStep exists(NavStep outerStep){
 		for(NavStep innerStep : collapsed){
-			if(util.uniqueOrderedNum(outerStep.getStep()).equals(util.uniqueOrderedNum(innerStep.getStep()))){
+			if(outerStep.getUniqueOrderedNum().equals(innerStep.getUniqueOrderedNum())){
 				return innerStep;
 			}
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Given a <code>NavStep</code> creates and returns a new NavStep with the same info
-	 * 
-	 * @param <code>NavStep</code> step
-	 * @return <code>NavStep</code>
+	 * @return the allSteps
 	 */
-	private NavStep copyNavStep(NavStep step){
-		NavStep newStep = new NavStep();
-		newStep.setClose(step.getClose());
-		newStep.setOpen(step.getOpen());
-		newStep.setStep(step.getStep());
-		return newStep;
+	public List<EStep> getAllSteps() {
+		return allSteps;
+	}
+
+	/**
+	 * @param allSteps the allSteps to set
+	 */
+	public void setAllSteps(List<EStep> allSteps) {
+		this.allSteps = allSteps;
 	}
 
 	/**
@@ -261,5 +268,12 @@ public class WorkgroupNavLogImpl implements WorkgroupNavLog {
 	 */
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
+	}
+	
+	/**
+	 * @param gradingService the gradingService to set
+	 */
+	public void setGradingService(GradingService gradingService) {
+		WorkgroupNavLogImpl.gradingService = gradingService;
 	}
 }

@@ -20,38 +20,31 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.google.charts.options;
+package org.telscenter.sail.webapp.presentation.validators;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
-
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.telscenter.sail.webapp.domain.impl.AnnouncementParameters;
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class DataScaling implements ChartOption{
+public class AnnouncementParametersValidator implements Validator{
 
-	private List<Float> min = new LinkedList<Float>();
-	
-	private List<Float> max = new LinkedList<Float>();
-	
-	public void addScaling(float min, float max){
-		this.min.add(min);
-		this.max.add(max);
-	}
-	
-	public void addScaling(List<Float> mins, List<Float> maxes){
-		this.min.addAll(mins);
-		this.max.addAll(maxes);
-	}
-
-	public String getOptionString(){
-		String scaling = "&amp;chds=";
-		for(int x=0;x<min.size();x++){
-			scaling = scaling + this.min.get(x) + "," + this.max.get(x) + ",";
+	public void validate(Object paramsIn, Errors errors){
+		AnnouncementParameters params = (AnnouncementParameters) paramsIn;
+		
+		if(params.getTitle() == null){
+			errors.reject("title", "Title cannot be empty");
 		}
-		return scaling.substring(0, scaling.length()-1);
+		
+		if(params.getAnnouncement() == null){
+			errors.reject("announcement", "Announcement cannot be empty");
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean supports(Class clazz){
+		return AnnouncementParameters.class.isAssignableFrom(clazz);
 	}
 }
