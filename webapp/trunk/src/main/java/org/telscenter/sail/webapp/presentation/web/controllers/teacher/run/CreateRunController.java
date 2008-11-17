@@ -57,6 +57,7 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * Controller for the wizard to "create a run"
@@ -79,6 +80,8 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 public class CreateRunController extends AbstractWizardFormController {
 	
 	private RunService runService = null;
+	
+	private WISEWorkgroupService workgroupService = null;
 	
 	private ModuleService moduleService = null;
 
@@ -277,6 +280,8 @@ public class CreateRunController extends AbstractWizardFormController {
 		Run run = null;
     	try {
 			run = this.runService.createRun(runParameters);
+			// create a workgroup for the owners of the run (teacher)
+			workgroupService.createWISEWorkgroup("teacher", runParameters.getOwners(), run, null);
 		} catch (ObjectNotFoundException e) {
 			errors.rejectValue("curnitId", "error.curnit-not_found",
 					new Object[] { runParameters.getCurnitId() }, 
@@ -452,6 +457,13 @@ public class CreateRunController extends AbstractWizardFormController {
 	 */
 	public void setPortalProperties(Properties portalProperties) {
 		this.portalProperties = portalProperties;
+	}
+
+	/**
+	 * @param workgroupService the workgroupService to set
+	 */
+	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
 	}
 
 

@@ -47,6 +47,7 @@ import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
@@ -75,6 +76,7 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 		if (run.getProject() instanceof ExternalProject) {
 			workgroup = createWISEWorkgroup(members, run, null, period);
 			// TODO hiroki set externalid here
+			//ExternalProjectService externalProjectService = 
 			
 	        this.groupDao.save(workgroup.getGroup());
 	        this.workgroupDao.save(workgroup);
@@ -103,7 +105,11 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 	}
 
 	/**
-	 * A helper method to create a <code>WISEWorkgroup</code> given parameters
+	 * A helper method to create a <code>WISEWorkgroup</code> given parameters.
+	 * 
+	 * A teacher can be in a WISEWorkgroup. In this case, the members
+	 * provided as a parameter in this method must match the owners
+	 * of the run.
 	 * 
 	 * @param members set of users in this workgroup
 	 * @param run the <code>Run</code> that this workgroup belongs in
@@ -121,6 +127,10 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 		workgroup.setOffering(run);
 		workgroup.setSdsWorkgroup(sdsWorkgroup);
 		workgroup.setPeriod(period);
+		if (run.getOwners() != null &&
+				run.getOwners().containsAll(members)) {
+			workgroup.setTeacherWorkgroup(true);
+		}
 		return workgroup;
 	}
 

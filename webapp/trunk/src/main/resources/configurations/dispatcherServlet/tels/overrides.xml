@@ -148,6 +148,16 @@
     		    /teacher/run/createRun.html=createRunController
     		    /teacher/run/brainstorm/createdummybrainstorm.html=createDummyBrainstormController
     		    /teacher/run/brainstorm/managebrainstorm.html=manageBrainstormController
+				/teacher/run/brainstorm/getallposts.html=getAllPostsController
+				/teacher/run/brainstorm/brainstormresponse.html=brainstormResponseController
+				/teacher/run/brainstorm/addcomment.html=addCommentController
+				/teacher/run/brainstorm/postresponse.html=postResponseController
+				/teacher/run/brainstorm/postcomment.html=postCommentController
+				/teacher/run/brainstorm/postrevision.html=postRevisionController
+				/teacher/run/brainstorm/addrevision.html=addRevisionController
+				/teacher/run/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
+				/teacher/run/brainstorm/requesthelp.html=requestHelpController
+				/teacher/run/brainstorm/pollnewposts.html=pollNewPostsController
     		    /teacher/grading/overview.html=gradeOverviewController
     		    /teacher/grading/gradebystep.html=gradeByStepController
 				/teacher/grading/gradingtool.html=gradingToolController

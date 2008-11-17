@@ -23,21 +23,28 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
+
 import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.project.FamilyTag;
-import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
+import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
-import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * @author hirokiterashima
@@ -45,51 +52,109 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  */
 public class ManageBrainstormController extends SimpleFormController {
 
-	private RunService runService;
+	private static final String BRAINSTORM_KEY = "brainstorm";
 	
+	private static final String WORKGROUP = "workgroup";
+	
+	private static final String BRAINSTORMID_PARAM = "brainstormId";
+
+	private static final String RESTRICTED_VIEW = "student/brainstorm/restricted";
+
+	private static final String NOT_IN_WKGP_MSG = 
+		"You cannot see this brainstorm because you are not in a workgroup for this run. Please go back.";
+
+	private static final Object BRAINSTORM_CLOSED_MSG = 
+		"This Brainstorm Step has not started yet. Please come back later.";
+
+	private static final String CANNOT_SEE_RESPONSES = "cannotseeresponses";
+
 	private BrainstormService brainstormService;
 
+	private WISEWorkgroupService workgroupService;
+	
 	/**
-	 * @override @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest, java.lang.Object, org.springframework.validation.Errors)
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#showForm(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.validation.BindException)
 	 */
 	@Override
-	protected Map<String, Object> referenceData(HttpServletRequest request, Object command,
-			Errors errors) throws Exception {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("brainstorm", brainstormService.getBrainstormById(request.getParameter("brainstormId")));
-		return model;
+	protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
+		ModelAndView modelAndView = super.showForm(request, response, bindException);
+		String brainstormId = request.getParameter(BRAINSTORMID_PARAM);
+		Brainstorm brainstorm = null;
+		
+		try {
+			brainstorm = brainstormService.getBrainstormById(brainstormId);
+		} catch (ObjectNotFoundException onfe) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			throw onfe;
+		}
+        modelAndView.addObject(BRAINSTORM_KEY, brainstorm);
+        
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
+
+		List<Workgroup> workgroupListByOfferingAndUser 
+		    = workgroupService.getWorkgroupListByOfferingAndUser(brainstorm.getRun(), user);
+		
+		WISEWorkgroup workgroup = (WISEWorkgroup) workgroupListByOfferingAndUser.get(0);
+        modelAndView.addObject("displayNameOptions", DisplayNameOption.values());
+        modelAndView.addObject(WORKGROUP, workgroup);
+
+		return modelAndView;
 	}
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		Brainstorm brainstorm = brainstormService.getBrainstormById(request.getParameter("brainstormId"));
-		return brainstorm;
+		String brainstormId = request.getParameter(BRAINSTORMID_PARAM);
+		Brainstorm brainstorm = null;
+		
+		try {
+			brainstorm = brainstormService.getBrainstormById(brainstormId);
+		} catch (ObjectNotFoundException onfe) {
+			throw onfe;
+		}
+        return brainstorm;
 	}
+	
+    /**
+     * Adds the existing shared teachers and their permissions for
+     * the run requested to the page.
+     * 
+     * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+     */
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request) 
+	    throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
 
+		String brainstormId = request.getParameter(BRAINSTORMID_PARAM);
+		Brainstorm brainstorm = brainstormService.getBrainstormById(brainstormId);
+		
+		List<Workgroup> workgroupListByOfferingAndUser 
+		    = workgroupService.getWorkgroupListByOfferingAndUser(brainstorm.getRun(), user);
+		
+		WISEWorkgroup workgroup = (WISEWorkgroup) workgroupListByOfferingAndUser.get(0);
+		model.put("displayNameOptions", DisplayNameOption.values());
+		model.put(WORKGROUP, workgroup);
+		return model;
+	}
+	
 	/**
-	 * @override @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      org.springframework.validation.BindException)
 	 */
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		Brainstorm brainstorm = (Brainstorm) command;
-//		Project project = projectService.getById(request.getParameter("projectId"));
-//		ProjectInfo params = (ProjectInfo) command;
-//		
-//		project.setProjectInfo(params);
-////		project.setCurrent(params.isCurrent());
-////		project.setFamilytag(params.getFamilyTag());
-//		projectService.updateProject(project);
-//		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
-		return null;
-	}
-	
-	/**
-	 * @param runService the runService to set
-	 */
-	public void setRunService(RunService runService) {
-		this.runService = runService;
+	    brainstormService.createBrainstorm(brainstorm);
+	    
+	    return showForm(request, response, errors);
+
 	}
 
 	/**
@@ -98,4 +163,12 @@ public class ManageBrainstormController extends SimpleFormController {
 	public void setBrainstormService(BrainstormService brainstormService) {
 		this.brainstormService = brainstormService;
 	}
+
+	/**
+	 * @param workgroupService the workgroupService to set
+	 */
+	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
+	}
+
 }

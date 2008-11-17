@@ -140,7 +140,8 @@ public class ViewMyStudentsController extends AbstractController{
 			grouplessStudents.addAll(period.getMembers());
 			for(Workgroup workgroup : allworkgroups){
 				grouplessStudents.removeAll(workgroup.getMembers());
-				if ( ((WISEWorkgroup) workgroup).getPeriod().equals(period)) {
+				if ( !((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
+						&& ((WISEWorkgroup) workgroup).getPeriod().equals(period)) {
 					// set url where this workgroup's work can be retrieved as PDF
 					String workPdfUrl = ((WISEWorkgroupService) workgroupService)
 					    .generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);

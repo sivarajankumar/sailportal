@@ -85,8 +85,15 @@ public final class XMLBrainstorm {
 	}
 	
 	public static String getXMLComment(Comment comment){
+		Date timestamp = comment.getTimestamp();
+		String formattedTime = 
+			DateFormat.getTimeInstance(DateFormat.SHORT).format(timestamp);
+
+		String formattedDate = 
+			DateFormat.getDateInstance(DateFormat.MEDIUM).format(timestamp);
+		
 		String XMLComment = "<comment><id>" + comment.getId() + "</id><timestamp>" + 
-			comment.getTimestamp() + "</timestamp>" + getXMLWorkgroup(comment.getWorkgroup()) 
+		    formattedTime + " " + formattedDate + "</timestamp>" + getXMLWorkgroup(comment.getWorkgroup()) 
 			+ "<body>" + comment.getBody() + "</body><anon>" + comment.isAnonymous() +
 			"</anon></comment>";
 		return XMLComment;

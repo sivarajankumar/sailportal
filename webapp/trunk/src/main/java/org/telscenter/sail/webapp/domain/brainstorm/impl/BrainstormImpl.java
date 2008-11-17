@@ -311,6 +311,17 @@ public class BrainstormImpl implements Brainstorm {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#setSessionStarted(boolean)
+	 */
+	public void setSessionStarted(boolean sessionStarted) {
+		if (sessionStarted) {
+			starttime = Calendar.getInstance().getTime();
+		} else {
+			starttime = null;
+		}
+	}
+
+	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#hasWorkgroupPosted(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
 	 */
 	public boolean hasWorkgroupPosted(WISEWorkgroup workgroup) {

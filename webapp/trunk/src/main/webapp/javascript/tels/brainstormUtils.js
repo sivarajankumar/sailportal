@@ -169,6 +169,7 @@
 	
 	PageManager.prototype.handleFailure = function(o){
 		alert('failure');
+		alert(o);
 		//error stuff goes here
 	};
 	

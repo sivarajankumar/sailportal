@@ -168,16 +168,16 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_workgroup_fk bigint unique,
         offering_fk bigint not null,
+        sds_workgroup_fk bigint unique,
         group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;

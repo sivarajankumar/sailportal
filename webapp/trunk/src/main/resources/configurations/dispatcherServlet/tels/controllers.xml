@@ -289,6 +289,7 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentIndexController">
 	    <property name="runService" ref="runService" />
 	    <property name="studentService" ref="studentService" />
+		<property name="brainstormService" ref="brainstormService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
@@ -297,7 +298,8 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.CreateRunController">
 		<property name="runService" ref="runService" />
 		<property name="moduleService" ref="curnitService" />
-        <property name="projectService" ref="projectService" />
+        <property name="projectService" ref="projectService" />       
+        <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="commandName" value="runParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
@@ -952,8 +954,8 @@
 
     <bean id="manageBrainstormController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.ManageBrainstormController">
-        <property name="brainstormService" ref="brainstormService" />      
-        <property name="runService" ref="runService" />      
+        <property name="brainstormService" ref="brainstormService" /> 
+        <property name="workgroupService" ref="wiseWorkgroupService"/>     
     </bean>
     
 <!--     <bean id="testPostBrainstormAnswerController"

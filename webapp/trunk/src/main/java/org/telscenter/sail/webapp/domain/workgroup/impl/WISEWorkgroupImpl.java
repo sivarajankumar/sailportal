@@ -57,6 +57,9 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
 
 	@Transient
 	private static final String COLUMN_NAME_EXTERNAL_ID = "externalId";
+
+	@Transient
+	private static final String COLUMN_NAME_IS_TEACHERWORKGROUP = "is_teacher_workgroup";
 	
 	@Column(name = COLUMN_NAME_EXTERNAL_ID)
 	private Long externalId;
@@ -64,6 +67,9 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
     @OneToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
     @JoinColumn(name = COLUMN_NAME_PERIOD_FK)
 	private Group period;
+    
+    @Column(name = COLUMN_NAME_IS_TEACHERWORKGROUP)
+    private boolean teacherWorkgroup;
     
     @Transient
     private String workPDFUrl;
@@ -112,5 +118,19 @@ public class WISEWorkgroupImpl extends net.sf.sail.webapp.domain.impl.WorkgroupI
 	 */
 	public void setExternalId(Long externalId) {
 		this.externalId = externalId;
+	}
+
+	/**
+	 * @return the teacherWorkgroup
+	 */
+	public boolean isTeacherWorkgroup() {
+		return teacherWorkgroup;
+	}
+
+	/**
+	 * @param teacherWorkgroup the teacherWorkgroup to set
+	 */
+	public void setTeacherWorkgroup(boolean teacherWorkgroup) {
+		this.teacherWorkgroup = teacherWorkgroup;
 	}
 }

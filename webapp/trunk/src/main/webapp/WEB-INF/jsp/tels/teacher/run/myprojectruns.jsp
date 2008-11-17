@@ -175,7 +175,9 @@
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
 					        <c:if test="${not empty run.brainstorms}" >
-					    	    <li><a href="../run/brainstorm/managebrainstorm.html?brainstormId=4"><spring:message code="teacher.run.myprojectruns.39"/></a></li>
+					            <c:forEach var="brainstorm" items="${run.brainstorms}">
+					                <li><a href="../run/brainstorm/managebrainstorm.html?brainstormId=${brainstorm.id}"><spring:message code="teacher.run.myprojectruns.39"/></a></li>
+					            </c:forEach>
 					    	</c:if>
 					    	<li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	

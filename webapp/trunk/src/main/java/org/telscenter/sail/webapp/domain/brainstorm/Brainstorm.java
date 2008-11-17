@@ -165,7 +165,14 @@ public interface Brainstorm extends Persistable {
 	 * @return true iff this brainstorm session has started.
 	 */
 	public boolean isSessionStarted();
-	
+
+	/**
+	 * Sets when this brainstorm step session has started.  If it has,
+	 * students will be able to post.
+	 * 
+	 * @param true iff this brainstorm session has started.
+	 */
+	public void setSessionStarted(boolean sessionStarted);
 	/**
 	 * Returns whether the students need to submit a post before seeing responses
 	 * from other students or if they can see responses from others without first

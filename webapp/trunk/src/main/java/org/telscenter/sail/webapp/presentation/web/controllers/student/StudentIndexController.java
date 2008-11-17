@@ -24,7 +24,9 @@ package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,10 +39,15 @@ import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.announcement.Announcement;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 import org.telscenter.sail.webapp.service.student.StudentService;
@@ -59,6 +66,8 @@ public class StudentIndexController extends AbstractController {
 	private StudentService studentService;
 	
 	private WorkgroupService workgroupService;
+	
+	private BrainstormService brainstormService;
 
 	private HttpRestTransport httpRestTransport;
 	
@@ -76,6 +85,10 @@ public class StudentIndexController extends AbstractController {
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
 
+	private static final String VIEW_ANNOUNCEMENTS_RUNID = "runId";
+
+	private static final String SHOW_NEW_ANNOUNCEMENTS = "showNewAnnouncements";
+
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -89,9 +102,16 @@ public class StudentIndexController extends AbstractController {
     	User user = (User) request.getSession().getAttribute(
 				User.CURRENT_USER_SESSION_KEY);
     	
+    	StudentUserDetails userDetails = null;
+    	if (user.getUserDetails() instanceof StudentUserDetails) {
+    		userDetails = (StudentUserDetails) user.getUserDetails();
+    	}
+    	
 		List<Run> runlist = runService.getRunList(user);
 		List<StudentRunInfo> current_run_list = new ArrayList<StudentRunInfo>();
 		List<StudentRunInfo> ended_run_list = new ArrayList<StudentRunInfo>();
+		boolean hasNewAnnouncements = false;
+		
 		
 		for (Run run : runlist) {
 			StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(user, run);
@@ -117,6 +137,50 @@ public class StudentIndexController extends AbstractController {
 			} else {
 				current_run_list.add(studentRunInfo);
 			}
+			
+			// get brainstorms that are in this run
+			Set<Brainstorm> brainstormsForRun = brainstormService.getBrainstormsByRun(run);
+			if (brainstormsForRun != null) {
+				run.setBrainstorms(brainstormsForRun);
+			}
+			
+			// check if there are new announcement for this run
+			if (userDetails != null) {
+				Date lastLoginTime = userDetails.getLastLoginTime();
+				for (Announcement announcement : run.getAnnouncements()) {
+					if (lastLoginTime == null ||
+							lastLoginTime.before(announcement.getTimestamp())) {
+						hasNewAnnouncements = true;
+					}
+				}
+			}
+		}
+		
+		String showNewAnnouncements = request.getParameter(SHOW_NEW_ANNOUNCEMENTS);
+		boolean isShowNewAnnouncements = false;
+		if (showNewAnnouncements == null) {
+			isShowNewAnnouncements = true;
+		} else {
+			isShowNewAnnouncements = new Boolean(showNewAnnouncements);
+		}
+
+		
+		if (isShowNewAnnouncements && hasNewAnnouncements) {
+			modelAndView.setView(new RedirectView("viewannouncements.html"));
+			String runIds = "";
+			for (int i=0; i < current_run_list.size(); i ++) {
+				StudentRunInfo runInfo = current_run_list.get(i);
+				Long id = runInfo.getRun().getId();
+				String idString = id.toString();
+				if (i == current_run_list.size() - 1) {
+					runIds = runIds + idString;					
+				} else {
+					runIds = runIds + idString + ",";
+				}
+			}
+			modelAndView.addObject(VIEW_ANNOUNCEMENTS_RUNID, runIds);	
+			modelAndView.getModelMap().remove("user");
+	        return modelAndView;
 		}
 		
 		Collections.sort(current_run_list);
@@ -161,5 +225,12 @@ public class StudentIndexController extends AbstractController {
 	@Required
 	public void setWorkgroupService(WorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
+	}
+
+	/**
+	 * @param brainstormService the brainstormService to set
+	 */
+	public void setBrainstormService(BrainstormService brainstormService) {
+		this.brainstormService = brainstormService;
 	}
 }

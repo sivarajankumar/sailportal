@@ -500,7 +500,7 @@ function createRevisionBody(doc, workgroupId, answer){
 	var divVar = createElement(doc, 'div');
 	
 	divAddComment.innerHTML = '<a href="#" onclick="addCommentPopUp(' + workgroupId + ',' + answer.getId() + ')">Add a Comment</a>';
-	if(answer.getWorkgroup().getId()==workgroupId){
+	if (answer.getWorkgroup().getId()==workgroupId){
 		divVar.innerHTML ='<a href="#" onclick="addRevisionPopUp(' + workgroupId + ',' + answer.getId() + ')">Revise this Response</a>';
 	} else {
 		var helpful;

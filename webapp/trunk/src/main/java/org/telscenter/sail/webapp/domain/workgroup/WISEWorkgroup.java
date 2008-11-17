@@ -72,4 +72,15 @@ public interface WISEWorkgroup extends Workgroup  {
 	 * @param externalId the externalId to set
 	 */
 	public void setExternalId(Long externalId);
+	
+	/**
+	 * @return the teacherWorkgroup if this workgroup is teacher's
+	 * workgroup
+	 */
+	public boolean isTeacherWorkgroup();
+
+	/**
+	 * @param teacherWorkgroup the teacherWorkgroup to set
+	 */
+	public void setTeacherWorkgroup(boolean teacherWorkgroup);
 }

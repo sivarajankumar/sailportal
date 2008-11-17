@@ -22,8 +22,13 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -38,17 +43,24 @@ public class ViewAnnouncementsController extends AbstractController{
 
 	protected final static String RUNID = "runId";
 	
-	protected final static String RUN = "run";
+	protected final static String RUNS = "runs";
 	
 	private RunService runService;
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String runIdsStr = request.getParameter(RUNID);
+		String [] runIds = runIdsStr.split(",");
 		
-		Run run = runService.retrieveById(Long.parseLong(request.getParameter(RUNID)));
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(RUN, run);
+    	ControllerUtil.addUserToModelAndView(request, modelAndView);		
+		List<Run> runs = new ArrayList<Run>();
+		for (String runId : runIds) {
+			Run run = runService.retrieveById(new Long(runId));			
+			runs.add(run);
+		}
+		modelAndView.addObject(RUNS, runs);
 		return modelAndView;
 	}
 

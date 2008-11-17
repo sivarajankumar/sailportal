@@ -32,7 +32,7 @@
   	}
 </script>
 
-<script>
+<script><!--
 
 	function init() {
 	    //create logger
@@ -93,22 +93,21 @@
 	};
     
     // Instantiate the Dialog
-	var newAnnouncementsDialog = new YAHOO.widget.Dialog("newAnnouncementsDialog", 
-																{ width : "700px",
-																  height : "500px",
-																  fixedcenter : true,
-																  visible : false, 
-																  modal : true,
-																  constraintoviewport : true,
-																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-																  buttons : [ 
-																			  {text:"Close", handler:handleCancel,isDefault:true } ]
-																 } );
+//	var newAnnouncementsDialog = new YAHOO.widget.Dialog("newAnnouncementsDialog", 
+//																{ width : "800px",
+//																  height : "800px",
+//																  fixedcenter : true,																  
+//																  visible : true, 
+//																  modal : true,
+//																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
+//																  buttons : [ 
+//																			  {text:"Close", handler:handleCancel,isDefault:true } ]
+//																 } );
 	
 	
-    newAnnouncementsDialog.render();
+//    newAnnouncementsDialog.render();
     
-    var getNewAnnouncements = function(dialog){
+    var checkNewAnnouncements = function(dialog){
     	var newAnnouncement = false;
     	var announcementHTML = "";
     	<c:forEach var="runInfo" items="${current_run_list}">
@@ -116,18 +115,17 @@
     			<c:if test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null}">
     				newAnnouncement = true;
     				announcementHTML = announcementHTML + "<tr><td align='center'><h3>${announcement.title} (posted on:" + "${announcement.timestamp})</h3>" + "${announcement.announcement}<br><br></td></tr>";
-    			</c:if>
+   			</c:if>
     		</c:forEach>
     	</c:forEach>
     	
     	if(newAnnouncement){
-    		document.getElementById('announcementsTable').innerHTML =  announcementHTML;
-    		dialog.show();
+    		document.href="viewannouncements.html";
     	};
     };
     
-    YAHOO.util.Event.onDOMReady(getNewAnnouncements(newAnnouncementsDialog));
-
+    //YAHOO.util.Event.onDOMReady(getNewAnnouncements(newAnnouncementsDialog));
+    //checkNewAnnouncements();
     
     	//Change Period or Team PopUp dialog ----------------------------------
 
@@ -244,10 +242,11 @@
                 	document.getElementById('runProjectFrame').src='selectteam.html?runId=' + this.id;
                 	runProjectDialog.show();
     }, runProjectDialog);
+
 }
 
 YAHOO.util.Event.onDOMReady(init);
-</script>
+--></script>
 
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
@@ -422,23 +421,28 @@ YAHOO.util.Event.onDOMReady(init);
 									<div id="studentTitleText">${studentRunInfo.run.name}</div></td>
 								<td rowspan="5" style="width:30%; padding:2px;">
 									  	<ul id="studentActionList">   
-											<li>
+											
 											<c:choose>
 												<c:when test="${studentRunInfo.workgroup == null}">
-													<a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a>
+													<li><a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a></li>
 												</c:when>
 												<c:otherwise>
 													<c:choose>
 														<c:when
 															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-															<a href="startproject.html?runId=${studentRunInfo.run.id}" 
-																id='${studentRunInfo.run.id}' onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a>
+															<li><a href="startproject.html?runId=${studentRunInfo.run.id}" 
+																id='${studentRunInfo.run.id}' onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a></li>
 														</c:when>
 														<c:otherwise>
-															<a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"   
-																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.17"/></a>
-														</c:otherwise>
+															<li><a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"   
+																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.17"/></a></li>
+														</c:otherwise>														
 													</c:choose>
+													<c:if test="${not empty studentRunInfo.run.brainstorms}" >
+					            						<c:forEach var="brainstorm" items="${studentRunInfo.run.brainstorms}">
+					                						<li><a href="brainstorm/studentbrainstorm.html?brainstormId=${brainstorm.id}">Work on Brainstorm</a></li>
+					            						</c:forEach>
+					    							</c:if>	
 												</c:otherwise>
 											</c:choose>
 											<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
@@ -656,17 +660,6 @@ YAHOO.util.Event.onDOMReady(init);
 </div>
 </div>
 
-<!-- this creates the new announcements dialog with iframe -->
-<div id="newAnnouncementsDialog">
-	<div class="hd">New Announcements</div>
-	<div class="bd" align="left">
-		<div id="announcementsDiv" align="center" style="overflow:auto;width:685px;height:400px">
-			<table id="announcementsTable" style="width:100%"/>
-		</div>
-	</div>
-</div>
-<!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
-</div>
 </div>
 </div>
 </body>

@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
+        owner_sid bigint,
         object_id_class bigint not null,
         parent_object bigint,
-        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -47,6 +47,14 @@
         OPTLOCK integer,
         bundle longtext not null,
         workgroup_fk bigint not null,
+        primary key (id)
+    ) type=MyISAM;
+
+    create table announcements (
+        id bigint not null auto_increment,
+        title varchar(255) not null,
+        timestamp datetime not null,
+        announcement text not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -110,9 +118,9 @@
         isgated bit,
         starttime datetime,
         OPTLOCK integer,
+        brainstormquestions_fk bigint,
         projects_fk bigint,
         runs_fk bigint,
-        brainstormquestions_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -185,9 +193,12 @@
     create table modules (
         id bigint not null,
         description varchar(255),
+        grades varchar(255),
+        topic_keywords varchar(255),
         total_time bigint,
         computer_time bigint,
         tech_reqs varchar(255),
+        authors varchar(255),
         primary key (id)
     ) type=MyISAM;
 
@@ -244,8 +255,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -272,9 +283,9 @@
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
-        curnit_fk bigint,
         jnlp_fk bigint,
         run_fk bigint unique,
+        curnit_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -305,6 +316,13 @@
         name varchar(255),
         project_fk bigint not null,
         primary key (id)
+    ) type=MyISAM;
+
+    create table runs_related_to_announcements (
+        runs_fk bigint not null,
+        announcements_fk bigint not null,
+        primary key (runs_fk, announcements_fk),
+        unique (announcements_fk)
     ) type=MyISAM;
 
     create table runs_related_to_groups (
@@ -350,8 +368,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_jnlp_fk bigint not null,
         sds_curnit_fk bigint not null,
+        sds_jnlp_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -441,6 +459,7 @@
     create table wiseworkgroups (
         id bigint not null,
         externalId bigint,
+        is_teacher_workgroup bit,
         period bigint,
         primary key (id)
     ) type=MyISAM;
@@ -448,9 +467,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        offering_fk bigint not null,
         group_fk bigint not null,
         sds_workgroup_fk bigint unique,
+        offering_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -765,6 +784,18 @@
         add constraint FK3597481834F8D3 
         foreign key (id) 
         references offerings (id);
+
+    alter table runs_related_to_announcements 
+        add index FKEDEF47F33BC1BEB5 (announcements_fk), 
+        add constraint FKEDEF47F33BC1BEB5 
+        foreign key (announcements_fk) 
+        references announcements (id);
+
+    alter table runs_related_to_announcements 
+        add index FKEDEF47F350B193C8 (runs_fk), 
+        add constraint FKEDEF47F350B193C8 
+        foreign key (runs_fk) 
+        references runs (id);
 
     alter table runs_related_to_groups 
         add index FK6CD673CD50B193C8 (runs_fk), 

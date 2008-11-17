@@ -29,13 +29,23 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import net.sf.sail.webapp.dao.sds.impl.AbstractHttpRestCommand;
+import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
+import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
+
+import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.springframework.web.servlet.ModelAndView;
@@ -68,7 +78,6 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	@Transient
 	private String launchProjectSuffix = "/sail_jnlp/6";
 
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ExternalProject> getProjectList() {
@@ -127,8 +136,69 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	public String getLaunchProjectUrl(ExternalProject externalProject,
 			WISEWorkgroup workgroup) {
 		Serializable id = externalProject.getExternalId();
-		String launchProjectUrl = baseUrl + "/external_otrunk_activities/" + id + launchProjectSuffix + "/" + workgroup.getExternalId();
+		Long externalDIYUserId = workgroup.getExternalId();
+		if (externalDIYUserId == null) {
+			createUserInDIY(workgroup);  // creates and sets this workgroup's user id.
+			externalDIYUserId = workgroup.getExternalId();
+		}
+		String launchProjectUrl = baseUrl + "/external_otrunk_activities/" + id + launchProjectSuffix + "/" + externalDIYUserId;
 		return launchProjectUrl;
+	}
+
+	class NewDIYUserRestCommand extends AbstractHttpRestCommand {
+		WISEWorkgroup workgroup;
+
+		/**
+		 * @param workgroup the workgroup to set
+		 */
+		public void setWorkgroup(WISEWorkgroup workgroup) {
+			this.workgroup = workgroup;
+		}
+		
+		
+		public void run() {
+	        final String bodyData = "<user><disable-javascript type=\"boolean\" nil=\"true\"/>" 
+	        	+ "<email>" + workgroup.getId() + "@sailportal" + "</email>"
+	        	+ "<first-name>" + workgroup.generateWorkgroupName() + "</first-name>"
+	        	+ "<last-name>" + workgroup.generateWorkgroupName() + "</last-name>"
+	        	+ "<login>" + workgroup.getId() + "@sailportal" + "</login>"
+	        	+ "<password>" + workgroup.getId() + "@sailportal" + "</password>"
+	        	+ "<password-confirmation>" + workgroup.getId() + "@sailportal" + "</password-confirmation>"	        	
+	        	+ "<vendor-interface-id type=\"integer\">" + 6 + "</vendor-interface-id></user>";
+	        	
+	        final String url = "/users.xml";
+	        
+	        HttpPostRequest httpPostRequestData = new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
+	        bodyData, url, HttpStatus.SC_CREATED);
+			
+			
+			Map<String, String> responseHeaders = this.transport.post(httpPostRequestData);
+	        final String locationHeader = responseHeaders.get("Location");
+
+			workgroup.setExternalId(new Long(locationHeader
+	                .substring(locationHeader.lastIndexOf("/") + 1)));
+		}
+		
+	}
+	
+	/**
+	 * Creates a user in the external DIY for this given workgroup and
+	 * sets its externalId.  If the workgroup already has an externalId, do nothing.
+	 * 
+	 * @param workgroup
+	 */
+	private void createUserInDIY(WISEWorkgroup workgroup) {
+		if (workgroup.getExternalId() == null) {
+			return;
+		}
+		
+		NewDIYUserRestCommand restCommand = new NewDIYUserRestCommand();
+		HttpRestTransportImpl restTransport = new HttpRestTransportImpl();
+		restTransport.setBaseUrl(this.baseUrl);
+		
+		restCommand.setTransport(restTransport);
+		restCommand.setWorkgroup(workgroup);
+		restCommand.run();
 	}
 
 	/**

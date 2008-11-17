@@ -67,7 +67,7 @@ public class PostProjectController extends AbstractController {
 		try {
 			String projectId = request.getParameter(PROJECT_ID_PARAM);
 			String encodedOtmlString = request.getParameter(OTML_CONTENT_PARAM);
-			String otmlString = URLDecoder.decode(encodedOtmlString, "UTF-8");
+			String otmlString = URLDecoder.decode(encodedOtmlString, "UTF-16");
 
 			Project project = projectService.getById(projectId);
 			Curnit curnit = project.getCurnit();
@@ -80,7 +80,6 @@ public class PostProjectController extends AbstractController {
 			projectService.updateProject(project);
 		} catch (NullPointerException e) {
 			response.setStatus(HttpStatus.SC_BAD_REQUEST);
-			throw e;
 		}
 		return null;
 	}

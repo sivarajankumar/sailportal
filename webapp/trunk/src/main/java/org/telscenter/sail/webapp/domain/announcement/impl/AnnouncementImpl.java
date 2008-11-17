@@ -48,7 +48,7 @@ import javax.persistence.Transient;
 public class AnnouncementImpl implements Announcement, Comparable<Announcement>{
 
 	@Transient
-	private final static String DATA_STORE_NAME = "announcements";
+	public final static String DATA_STORE_NAME = "announcements";
 	
 	@Transient
 	private final static String COLUMN_NAME_TITLE = "title";

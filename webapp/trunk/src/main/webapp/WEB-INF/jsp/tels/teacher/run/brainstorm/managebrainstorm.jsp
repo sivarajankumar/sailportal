@@ -7,15 +7,15 @@
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
-<script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
-<script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
-<script type="text/javascript" src="../.././javascript/tels/brainstorm.js"></script>
-<script type="text/javascript" src="../.././javascript/tels/brainstormUtils.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/yui/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/yui/event/event.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/yui/connection/connection.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/brainstorm.js"></script>
+<script type="text/javascript" src="../../.././javascript/tels/brainstormUtils.js"></script>
 
 <script type="text/javascript">
 	var sortOrder = 0;
@@ -25,8 +25,27 @@
 </script>
 
 </head>
-<body  style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', 'false');">
+<body  style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', false);">
 
+<c:choose>
+<c:when test="${not brainstorm.sessionStarted}">
+<h3>Brainstorm is closed. Your students can't see or work on it yet.</h3>
+</c:when>
+<c:otherwise>
+<h3>Brainstorm is open. Your students can see it and work on it.</h3>
+</c:otherwise>
+</c:choose>
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+    <form:hidden path="id" />
+    <ul>
+      <li>
+          <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="true" />Open brainstorm
+      </li>
+      <li>
+		  <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="false" />Close brainstorm
+	  </li>
+    </ul>
+</form:form>
 ${fn:length(brainstorm.workgroupsThatRequestHelp)} students requested for help on this brainstorm:
 <br />
 students that requested help: <br/>

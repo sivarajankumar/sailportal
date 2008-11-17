@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -83,6 +84,9 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 	
 	@Column(name = ProjectCommunicatorImpl.COLUMN_NAME_ADDRESS)
 	protected String address;
+	
+	@Transient
+	private Properties portalProperties;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -206,5 +210,12 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 			WISEWorkgroup workgroup) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }
