@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
+import java.io.BufferedReader;
 import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,7 +68,7 @@ public class PostProjectController extends AbstractController {
 		try {
 			String projectId = request.getParameter(PROJECT_ID_PARAM);
 			String encodedOtmlString = request.getParameter(OTML_CONTENT_PARAM);
-			String otmlString = URLDecoder.decode(encodedOtmlString, "UTF-16");
+			String otmlString = URLDecoder.decode(encodedOtmlString, "UTF-8");
 
 			Project project = projectService.getById(projectId);
 			Curnit curnit = project.getCurnit();
