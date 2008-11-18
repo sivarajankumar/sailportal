@@ -35,7 +35,7 @@
 			var data='mark=1&workgroupId=' + workgroupId + '&brainstormId=' + brainstormId;
 			var callback = 
 				{
-					success:function(o){alert('you have requested help from your teacher on this brainstorm');},
+					success:function(o){},
 					failure:function(o){}
 				};
 			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
@@ -44,7 +44,7 @@
 			var data='mark=0&workgroupId=' + workgroupId + '&brainstormId=' + brainstormId;
 			var callback = 
 				{
-					success:function(o){alert('you have retracted your request for help from your teacher on this brainstorm');},
+					success:function(o){},
 					failure:function(o){}
 				};
 			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
