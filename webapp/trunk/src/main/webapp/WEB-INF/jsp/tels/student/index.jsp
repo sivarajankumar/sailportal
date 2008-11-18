@@ -440,7 +440,7 @@ YAHOO.util.Event.onDOMReady(init);
 													</c:choose>
 													<c:if test="${not empty studentRunInfo.run.brainstorms}" >
 					            						<c:forEach var="brainstorm" items="${studentRunInfo.run.brainstorms}">
-					                						<li><a href="brainstorm/studentbrainstorm.html?brainstormId=${brainstorm.id}">Work on Brainstorm</a></li>
+					                						<li><a href="brainstorm/studentbrainstorm.html?brainstormId=${brainstorm.id}">View Q&amp;A Discussion</a></li>
 					            						</c:forEach>
 					    							</c:if>	
 												</c:otherwise>

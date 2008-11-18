@@ -27,6 +27,11 @@
 
 <body style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', '${cannotseeresponses}');">
 
+<div id="centeredDiv">
+<%@ include file="headermain.jsp"%>
+</div>
+<br/> 
+
 <div id="stepTypeTitleBar">Q&amp;A DISCUSSION</div>
 
 <div id="sectionBox">
@@ -57,7 +62,6 @@
 	<div id="sectionBoxHeader">
 		<a id="hideLink" href="#" onclick="toggle_visibility('sectionBoxMain2');">click to hide/show</a>
 		<p id="numOfPosts">Student Responses (${fn:length(brainstorm.answers)} responses)
-			<span id="createResponse"><input type="button" value="Create A Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></span>
 		</p>
 	</div>
 	
@@ -66,11 +70,12 @@
 
 	<!-- CONDITIONAL ON WHETHER STUDENTS CAN SEE OTHER STUDENTS' POSTS OR NOT -->
 	<div id="0" name="answer">
-		
+			
 		<table id="responseRefreshTable">
 			<tr>
-				<td><input type="button" value="Show New Responses" onclick="refreshResponses()"/></td>
-				<td class="col2width"><div id="numNewResponses"><i>0 new responses received<i></div></td>
+				<td><div id="createResponse"><input type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
+				<td class="col2"><input type="button" value="Show New Responses" onclick="refreshResponses()"/></td>
+				<td class="col3"><div id="numNewResponses"><i>0 new responses received<i></div></td>
 				<td colspan="2"><c:set var="thisworkgrouprequestedhelp" value="false" />
 					<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">
 		    			<c:if test="${workgroupThatRequestedHelp == workgroup}">
@@ -107,9 +112,8 @@
 <div id="responseTableBody">
 
 </div>
-<div id="cannotSeeMessage">
 
-</div>
+<div id="cannotSeeMessage"></div>
 
 </body>
 </html>

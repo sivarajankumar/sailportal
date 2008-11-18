@@ -27,32 +27,38 @@
 </head>
 <body  style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', false);">
 
+<div id="centeredDiv">
+
+<%@ include file="headerteachermanagement.jsp"%>
+
+<%@ include file="L2projects_myprojectruns.jsp"%>
+
 <c:choose>
 <c:when test="${not brainstorm.sessionStarted}">
-<h3>Brainstorm is closed. Your students can't see or work on it yet.</h3>
+<h3>This Q&A Discussion step is closed. Your students can't see or work on it yet.</h3>
 </c:when>
 <c:otherwise>
-<h3>Brainstorm is open. Your students can see it and work on it.</h3>
+<h3>This Q&A Discussion step is active. Your students can see it and work on it.</h3>
 </c:otherwise>
 </c:choose>
 <form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
     <form:hidden path="id" />
     <ul>
-      <li>
-          <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="true" />Open brainstorm
+      <li id="test">
+          <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="true" /> OPEN DISCUSSION <span style="font-size:.7em;">(student can immediately see other student responses)</span>
       </li>
       <li>
-		  <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="false" />Close brainstorm
+		  <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="false" /> GATED DISCUSSION  <span style="font-size:.7em;">(student must submit a response before they can see other student responses)</span>
 	  </li>
     </ul>
 </form:form>
-${fn:length(brainstorm.workgroupsThatRequestHelp)} students requested for help on this brainstorm:
+${fn:length(brainstorm.workgroupsThatRequestHelp)} students have requested HELP for this Q&A Discussion step:
 <br />
 students that requested help: <br/>
 <c:forEach var='wg' items='${brainstorm.workgroupsThatRequestHelp}'>
   ${wg.sdsWorkgroup.name} <br/>
 </c:forEach>
-
+<br/>
 
 
 
@@ -141,6 +147,7 @@ students that requested help: <br/>
 
 </div>
 
+</div>
 
 </body>
 </html>

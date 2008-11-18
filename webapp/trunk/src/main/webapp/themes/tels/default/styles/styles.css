@@ -1072,12 +1072,12 @@
 	}
 	
 #createResponse {
-	margin-left:40px;
-	padding:2px;
+	padding-right:80px;
 		}
 	
 #createResponse input {
-	color:#FFFFFF; 
+	color:#FFFFFF;
+	font-size:1em; 
 	background-color:#0000FF;
 	border:1px solid black;
 	}
@@ -1122,10 +1122,14 @@
 	vertical-align:top;
 	}
 	
-#responseRefreshTable .col2width {
-	width:200px;
-}
+#responseRefreshTable .col2 {
+	padding-right:10px;
+	}
 	
+#responseRefreshTable .col3 {
+	width:280px;
+}
+
 #responseRefreshTable input {
 	color:#FFFFFF; 
 	background-color:#0000FF;
@@ -1286,6 +1290,10 @@
 	font-style:italic;
 	}
 
+#cannotSeeMessage {
+	margin:30px 0 30px 0 ;
+	color:#FF0000;
+}
 
 /* Q&A Discussion Step: Create Response page */
 
@@ -1377,3 +1385,65 @@
 	font-size:.8em;
 	}
 	
+	
+/* Q&A Discussion Step: TEACHER MANAGEMENT PAGE */
+	
+#brainstormform ul {
+	list-style-type:none;
+}
+
+#brainstormform li {
+	margin-left:5px;
+}
+
+
+	
+/* Student Annoucements */
+	
+#studentAnnouncementHeader {
+	font-weight:bold;
+	font-size:1.6em;
+	margin:20px 0 20px 0;
+}
+
+#existingAnnouncements .newAnnouncement {
+	font-size:1.4em;
+	color:#FF0000;
+	font-weight:bold;
+}
+
+#existingAnnouncements .existingAnnouncements {
+	margin-top:20px;
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+#announcementTable {
+	border-collapse:collapse;
+	width:90%;
+	margin: 5px 10px;
+}
+
+#announcementTable td {
+	border:1px solid black;
+	background-color:#339933;
+	color:#FFFFFF;
+	padding:3px 5px;
+	vertical-align:top;
+	font-size:1.1em;
+}
+
+#announcementTable .col1 {
+	width:20%;
+	font-style:italic;
+}
+
+#announcementTable .col2 {
+	width:25%;
+}
+
+#announcementTable .col3 {
+	width:55%;
+}
+
+

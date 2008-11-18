@@ -5,6 +5,11 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="../<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
 <title>View Announcements</title>
 
 <%@ include file="styles.jsp"%>
@@ -37,13 +42,17 @@ var getNewAnnouncements = function(dialog){
 
 <body class="yui-skin-sam">
 
+<div id="centeredDiv">
+
 <%@ include file="./studentHeader.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<a href="index.html?showNewAnnouncements=false">Go back to homepage</a>
+<a href="index.html?showNewAnnouncements=false">Student Home Page</a>
+
 <c:forEach var="run" items="${runs}">
-<h1>Announcements for ${run.sdsOffering.name}</h1>
-<br>
+
+<div id="studentAnnouncementHeader">Student Announcements for <i>${run.sdsOffering.name}</i></div>
+
 <div id="existingAnnouncements">
 	<c:choose>
 		<c:when test="${fn:length(run.announcements) > 0}">
@@ -51,22 +60,41 @@ var getNewAnnouncements = function(dialog){
 			    <c:choose>
 			    <c:when test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null}">
 			        <!--  new announcement, make it stand out Matt: please add css-->
-    				<div class="newAnnouncement" style="border:2px"><b>NEW!!!</b> ${announcement.title} (posted on: ${announcement.timestamp}) <br/>${announcement.announcement}</div><br/>
+    				<div class="newAnnouncement">New Announcement!</div>
+    				
+    				<table id="announcementTable">
+    					<tr>
+    						<td class="col1">${announcement.title}</td>
+    						<td class="col2"><fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="short" timeStyle="short" /></td>
+    						<td class="col3">${announcement.announcement}</td>
+    					</tr>
+    				</table>
    			    </c:when>
    			    <c:otherwise>
-				<span id="head"><h4>${announcement.title} </h4> ${announcement.timestamp}</span>
-				${announcement.announcement}
-				</c:otherwise>
+   			    <div class="existingAnnouncements">Existing Announcements</div>
+				<table id="announcementTable">
+    					<tr>
+    						<td class="col1">${announcement.title}</td>
+    						<td class="col2"><fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="short" timeStyle="short" /></td>
+    						<td class="col3">${announcement.announcement}</td>
+    					</tr>
+    				</table>
+    			</c:otherwise>
 				</c:choose>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-			No existing announcements found for this run.
+			This project currently has no announcements.
 		</c:otherwise>
 	</c:choose>
 </div>
 </c:forEach>
-<a href="index.html?showNewAnnouncements=false">Go back to homepage</a>
+
+<br/>
+<br/>
+<a href="index.html?showNewAnnouncements=false">Student Home Page</a>
+
+</div>
 
 </body>
 </html>
