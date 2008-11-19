@@ -166,11 +166,12 @@
          class="org.telscenter.sail.webapp.service.repository.impl.RooloLORRepositoryServiceImpl">
         <property name="rooloClientCurnitRepository" ref="rooloLORClientCurnitRepository" />
     </bean>
+    
     <bean id="wiseWorkgroupDao"
 		class="org.telscenter.sail.webapp.dao.workgroup.impl.HibernateWISEWorkgroupDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
+	
     <bean id="projectParameters"
     	class="org.telscenter.sail.webapp.domain.impl.ProjectParameters"
     	scope="prototype" />
@@ -308,6 +309,7 @@
 	    <property name="projectCommunicator" ref="projectCommunicator" />
 	    <property name="projectDao" ref="externalProjectDao" />
 	    <property name="projectCommunicatorDao" ref="diyProjectCommunicatorDao" />
+	    <property name="workgroupDao" ref="wiseWorkgroupDao" />
 	</bean>
 	
 	<bean id="projectCommunicator"

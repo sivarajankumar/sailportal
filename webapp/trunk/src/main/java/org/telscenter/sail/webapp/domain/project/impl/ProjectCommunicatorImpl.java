@@ -45,6 +45,7 @@ import org.jdom.input.SAXBuilder;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 
 /**
  * @author hirokiterashima
@@ -206,7 +207,7 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 		return null;
 	}
 
-	public String getLaunchProjectUrl(ExternalProject externalProject,
+	public String getLaunchProjectUrl(ExternalProjectService externalProjectService, ExternalProject externalProject,
 			WISEWorkgroup workgroup) {
 		// TODO Auto-generated method stub
 		return null;

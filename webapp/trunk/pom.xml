@@ -388,6 +388,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.springframework</groupId>
+  			<artifactId>spring-aop</artifactId>
+  			<version>2.0.5</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring</artifactId>
 			<version>2.0.5</version>
 		</dependency>
@@ -434,7 +444,7 @@
 		<dependency>
 			<groupId>aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			<version>1.2</version>
+			<version>1.5.3</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>

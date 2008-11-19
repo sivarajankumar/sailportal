@@ -26,6 +26,8 @@ import java.util.List;
 
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
+import org.telscenter.sail.webapp.service.project.impl.ExternalProjectServiceImpl;
 
 import net.sf.sail.webapp.domain.Persistable;
 
@@ -63,7 +65,13 @@ public interface ProjectCommunicator  extends Persistable {
 
 	public String getPreviewProjectUrl(ExternalProjectImpl externalProject);
 
-	public String getLaunchProjectUrl(ExternalProject externalProject, WISEWorkgroup workgroup);
+	/**
+	 * @param externalProjectService
+	 * @param externalProject
+	 * @param workgroup
+	 * @return
+	 */
+	public String getLaunchProjectUrl(ExternalProjectService externalProjectService, ExternalProject externalProject, WISEWorkgroup workgroup);
 
 	/**
 	 * Returns an xmlDocument representation containing information about

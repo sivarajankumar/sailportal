@@ -3,13 +3,13 @@
     <property name="context-root" value="webapp"/>
     <wb-resource deploy-path="/" source-path="src/main/webapp"/>
     <property name="java-output-path" value="/target/classes"/>
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-aspects/2.0.5/spring-aspects-2.0.5.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>        
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/displaytag/displaytag/1.1/displaytag-1.1.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/roolo-client-enlacelor/roolo-client-enlacelor/0.1.0-SNAPSHOT/roolo-client-enlacelor-0.1.0-SNAPSHOT.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/eclipse/emf/ecore-xmi/2.2.0/ecore-xmi-2.2.0.jar">
@@ -246,9 +246,6 @@
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/acegisecurity/acegi-security-tiger/1.0.4/acegi-security-tiger-1.0.4.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
-    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/aspectj/aspectjrt/1.2/aspectjrt-1.2.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/apache/derby/derby/10.2.1.6/derby-10.2.1.6.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
@@ -265,6 +262,9 @@
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/quartz/quartz/1.5.1/quartz-1.5.1.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>    
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/aspectj/aspectjrt/1.5.3/aspectjrt-1.5.3.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>    
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar">
@@ -355,6 +355,9 @@
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/pdfbox/pdfbox/0.7.3/pdfbox-0.7.3.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>

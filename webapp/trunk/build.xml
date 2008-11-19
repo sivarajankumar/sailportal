@@ -112,12 +112,14 @@
   </path>
 
   <path id="lib.spring">
+    <path location="${M2_REPO}/org/springframework/spring-aspects/2.0.5/spring-aspects-2.0.5.jar" />  	
     <path location="${M2_REPO}/org/springframework/spring-context/2.0.5/spring-context-2.0.5.jar" />
     <path location="${M2_REPO}/org/springframework/spring-beans/2.0.5/spring-beans-2.0.5.jar" />
-    <path location="${M2_REPO}/org/springframework/spring-core/2.0.5/spring-core-2.0.5.jar" />
-    <path location="${M2_REPO}/org/springframework/spring/2.0.5/spring-2.0.5.jar" />
     <path location="${M2_REPO}/org/springframework/spring-web/2.0.5/spring-web-2.0.5.jar" />  	
-    <path location="${M2_REPO}/quartz/quartz/1.5.1/quartz-1.5.1.jar" />  	
+  	<path location="${M2_REPO}/org/springframework/spring-core/2.0.5/spring-core-2.0.5.jar" />
+    <path location="${M2_REPO}/org/springframework/spring/2.0.5/spring-2.0.5.jar" />
+  	<path location="${M2_REPO/org/springframework/spring-aop/2.0.5/spring-aop-2.0.5.jar" />
+    <path location="${M2_REPO}/quartz/quartz/1.5.1/quartz-1.5.1.jar" />
   </path>
 
   <path id="lib.ehcache">
@@ -158,6 +160,10 @@
   	<path location="${M2_REPO}/com/sun/xml/bind/jaxb-impl/2.0.3/jaxb-impl-2.0.3.jar" />  	
   </path>
 
+  <path id="lib.aspect">
+    <path location="${M2_REPO}/aspectj/aspectjrt/1.5.3/aspectjrt-1.5.3.jar" />
+  </path>	
+
   <path id="lib.dwr">
 	    <path location="${M2_REPO}/org/directwebremoting/dwr/2.0.1/dwr-2.0.1.jar" />
   </path>
@@ -184,6 +190,7 @@
         <path refid="lib.jdom" />
       	<path refid="lib.javamail" />
         <path refid="lib.sail" />
+    	<path refid="lib.aspect" />
     	<path refid="lib.dwr" />
         <path refid="classes" />
     </path>

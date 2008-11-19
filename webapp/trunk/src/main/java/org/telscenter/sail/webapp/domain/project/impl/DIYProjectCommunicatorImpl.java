@@ -44,6 +44,7 @@ import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
+import net.sf.sail.webapp.spring.SpringConfiguration;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.jdom.Document;
@@ -52,6 +53,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
+import org.telscenter.sail.webapp.service.project.impl.ExternalProjectServiceImpl;
+import org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl;
 
 /**
  * ProjectCommunicator for External DIY Projects
@@ -71,12 +75,21 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	
 	@Transient
 	private static final String COLUMN_NAME_PREVIEW_DIY_PROJECT_SUFFIX = "previewdiyprojectsuffix";
+
+	@Transient
+	private static final String COLUMN_NAME_DIY_PORTAL_HOSTNAME = "diyportalhostname";
 	
 	@Column(name = DIYProjectCommunicatorImpl.COLUMN_NAME_PREVIEW_DIY_PROJECT_SUFFIX)
 	private String previewProjectSuffix = "/sail_jnlp/6/1/authoring";
 	
+	@Column(name = DIYProjectCommunicatorImpl.COLUMN_NAME_DIY_PORTAL_HOSTNAME)
+	private String diyportalhostname;
+	
 	@Transient
 	private String launchProjectSuffix = "/sail_jnlp/6";
+	
+	@Transient
+	private SpringConfiguration springConfiguration = new SpringConfigurationImpl();
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -132,38 +145,43 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		return previewProjectUrl;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.impl.ProjectCommunicatorImpl#getLaunchProjectUrl(org.telscenter.sail.webapp.service.project.ExternalProjectService, org.telscenter.sail.webapp.domain.project.ExternalProject, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
 	@Override
-	public String getLaunchProjectUrl(ExternalProject externalProject,
-			WISEWorkgroup workgroup) {
+	public String getLaunchProjectUrl(ExternalProjectService externalProjectService,
+			ExternalProject externalProject, WISEWorkgroup workgroup) {
 		Serializable id = externalProject.getExternalId();
-		Long externalDIYUserId = workgroup.getExternalId();
-		if (externalDIYUserId == null) {
-			createUserInDIY(workgroup);  // creates and sets this workgroup's user id.
-			externalDIYUserId = workgroup.getExternalId();
+		if (workgroup.getExternalId() == null) {
+			Long createUserIDInDIY = createUserInDIY(workgroup);  // creates and sets this workgroup's user id.
+	        workgroup.setExternalId(createUserIDInDIY);
+	        ((ExternalProjectServiceImpl) externalProjectService).getWorkgroupDao().save(workgroup);
 		}
+		Long externalDIYUserId = workgroup.getExternalId();
+
 		String launchProjectUrl = baseUrl + "/external_otrunk_activities/" + id + launchProjectSuffix + "/" + externalDIYUserId;
 		return launchProjectUrl;
 	}
 
-	class NewDIYUserRestCommand extends AbstractHttpRestCommand {
+	class DIYCreateUserRestCommand extends AbstractHttpRestCommand {
 		WISEWorkgroup workgroup;
-
+		
 		/**
 		 * @param workgroup the workgroup to set
 		 */
 		public void setWorkgroup(WISEWorkgroup workgroup) {
 			this.workgroup = workgroup;
 		}
-		
-		
-		public void run() {
+
+		public Long run() {
+			String diyportalhostname2 = getDiyportalhostname();
 	        final String bodyData = "<user><disable-javascript type=\"boolean\" nil=\"true\"/>" 
-	        	+ "<email>" + workgroup.getId() + "@sailportal" + "</email>"
+	        	+ "<email>" + workgroup.getId() + "@" + diyportalhostname2 + "</email>"
 	        	+ "<first-name>" + workgroup.generateWorkgroupName() + "</first-name>"
 	        	+ "<last-name>" + workgroup.generateWorkgroupName() + "</last-name>"
-	        	+ "<login>" + workgroup.getId() + "@sailportal" + "</login>"
-	        	+ "<password>" + workgroup.getId() + "@sailportal" + "</password>"
-	        	+ "<password-confirmation>" + workgroup.getId() + "@sailportal" + "</password-confirmation>"	        	
+	        	+ "<login>" + workgroup.getId() + "@" + diyportalhostname2 + "</login>"
+	        	+ "<password>" + workgroup.getId() + "@" + diyportalhostname2 + "</password>"
+	        	+ "<password-confirmation>" + workgroup.getId() + "@" + diyportalhostname2 + "</password-confirmation>"	        	
 	        	+ "<vendor-interface-id type=\"integer\">" + 6 + "</vendor-interface-id></user>";
 	        	
 	        final String url = "/users.xml";
@@ -174,11 +192,12 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 			
 			Map<String, String> responseHeaders = this.transport.post(httpPostRequestData);
 	        final String locationHeader = responseHeaders.get("Location");
-
-			workgroup.setExternalId(new Long(locationHeader
-	                .substring(locationHeader.lastIndexOf("/") + 1)));
+	        Long diyUserId = new Long(locationHeader
+	        		.substring(locationHeader.lastIndexOf("/") + 1));
+	        
+	        return diyUserId;
 		}
-		
+
 	}
 	
 	/**
@@ -186,19 +205,17 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	 * sets its externalId.  If the workgroup already has an externalId, do nothing.
 	 * 
 	 * @param workgroup
+	 * @return generated userId in DIY
 	 */
-	private void createUserInDIY(WISEWorkgroup workgroup) {
-		if (workgroup.getExternalId() == null) {
-			return;
-		}
+	private Long createUserInDIY(WISEWorkgroup workgroup) {
 		
-		NewDIYUserRestCommand restCommand = new NewDIYUserRestCommand();
+		DIYCreateUserRestCommand restCommand = new DIYCreateUserRestCommand();
 		HttpRestTransportImpl restTransport = new HttpRestTransportImpl();
 		restTransport.setBaseUrl(this.baseUrl);
 		
 		restCommand.setTransport(restTransport);
 		restCommand.setWorkgroup(workgroup);
-		restCommand.run();
+		return restCommand.run();
 	}
 
 	/**
@@ -229,6 +246,20 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	 */
 	public void setLaunchProjectSuffix(String launchProjectSuffix) {
 		this.launchProjectSuffix = launchProjectSuffix;
+	}
+
+	/**
+	 * @return the diyportalhostname
+	 */
+	public String getDiyportalhostname() {
+		return diyportalhostname;
+	}
+
+	/**
+	 * @param diyportalhostname the diyportalhostname to set
+	 */
+	public void setDiyportalhostname(String diyportalhostname) {
+		this.diyportalhostname = diyportalhostname;
 	}
 	
 }

@@ -27,7 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,6 +63,8 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	private ProjectCommunicatorDao<ProjectCommunicator> projectCommunicatorDao;
 
 	protected ProjectDao<Project> projectDao;
+	
+	protected WorkgroupDao<Workgroup> workgroupDao;
 	
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#authorProject(org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters)
@@ -161,8 +166,11 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 			throws Exception {
 		WISEWorkgroup workgroup = launchProjectParameters.getWorkgroup();
 		ExternalProject project = (ExternalProject) launchProjectParameters.getRun().getProject();
+		
+		if (workgroup.getExternalId() == null) {
+		}
 		ProjectCommunicator projectCommunicator = project.getProjectCommunicator();
-		return new ModelAndView(new RedirectView(projectCommunicator.getLaunchProjectUrl(project, workgroup)));
+		return new ModelAndView(new RedirectView(projectCommunicator.getLaunchProjectUrl(this, project, workgroup)));
 	}
 
 	/**
@@ -241,5 +249,19 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public List<Project> getSharedProjectList(User user) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @return the workgroupDao
+	 */
+	public WorkgroupDao<Workgroup> getWorkgroupDao() {
+		return workgroupDao;
+	}
+
+	/**
+	 * @param workgroupDao the workgroupDao to set
+	 */
+	public void setWorkgroupDao(WorkgroupDao<Workgroup> workgroupDao) {
+		this.workgroupDao = workgroupDao;
 	}
 }
