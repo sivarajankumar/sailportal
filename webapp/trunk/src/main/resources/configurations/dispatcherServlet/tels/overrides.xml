@@ -242,7 +242,7 @@
 				/admin/findprojectrunsbyteacher.html=findProjectRunsByTeacherController
 				/admin/lookupteacher.html=lookupTeacherController
 				/admin/lookupstudent.html=lookupStudentController
-				/admin/importexternalproject.html=importExternalProjectController
+				/admin/project/importexternalproject.html=importExternalProjectController
 				/admin/project/getallexternalprojects.html=getAllExternalProjectsController
 				/admin/project/viewprojectcommunicators.html=projectCommunicatorController
 				/admin/project/manageprojectcommunicator.html=projectCommunicatorController

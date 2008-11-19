@@ -117,6 +117,7 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 		ExternalProject externalProject = new ExternalProjectImpl();
 		externalProject.setExternalId(externalId);
 		externalProject.setProjectCommunicator(projectCommunicator);
+		externalProject.setName(externalId.toString());
 		this.projectDao.save(externalProject);
 	}
 	
