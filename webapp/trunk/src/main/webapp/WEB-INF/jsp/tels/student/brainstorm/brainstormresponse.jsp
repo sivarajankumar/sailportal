@@ -144,9 +144,15 @@ function post(){
         	</c:if>
 			
 			<div id="inputButtons">
-				<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
-				<div onclick="setTimeout('self.close()', 1000);">
-				    <input id="submitResponse" type="button" value="POST RESPONSE" onclick="submit()"/>
+				<table style="margin:0 auto;">
+				<tr>
+					<td><input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/></td>
+					<td>
+						<div onclick="setTimeout('self.close()', 1000);">
+				    	<input id="submitResponse" type="button" value="POST RESPONSE" onclick="submit()"/>
+				    </td>
+				</tr>
+				</table>
 				</div>
 			</div>
 	
