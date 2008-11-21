@@ -999,20 +999,24 @@
 
 /* Q&A Discussion Step: Student View */
 
+#discussionSectionStudent {
+	border:1px solid #999999;
+	padding:10px;
+}
+
 #stepTypeTitleBar {
 	text-align:center;
 	font-size:.8em;
 	padding:2px;
-	margin:5px 20px 0px 20px;
+	margin:20px 0 0 0;
 	border:1px solid #333333;
 	background-color:#666666;
 	color:#FFFFFF;
 	letter-spacing:3px;
 }
 	
-
 #sectionBox { 
-	margin:20px;
+	margin:20px 0;
 	padding:0px;
 	border: 2px ridge #333333;
 	}
@@ -1071,18 +1075,14 @@
 	margin: 10px 0;
 	}
 	
-#createResponse {
-	padding-right:80px;
-		}
-	
-#createResponse input {
+#createResponse input, #showLatest input {
 	color:#FFFFFF;
 	font-size:1em; 
 	background-color:#0000FF;
 	border:1px solid black;
 	}
 	
-#createResponse input:hover {
+#createResponse input:hover, #showLatest input:hover, {
 	color:#0000FF; 
 	background-color:#FFFF00;
 }
@@ -1113,36 +1113,60 @@
 #responseLinks li:hover {
 	background-color:#FFFF00;
 	}
-	
-#responseRefreshTable {
-	margin:10px 10px 0px 17px;
-	padding:0px;
-	font-size: .8em;
+
+#blankBottomBar {
+	position:fixed;
+	bottom:0px;
+	width:1000px;
+	margin-left:-5px;
+	border:1px solid white;
+	background-color:#FFFFFF;
+	height:5px;
+	}
+
+#studentBottomBar {
+	position:fixed;
+	bottom:7px;
+	width:957px; 
+	margin-left:-1px;
+	background-image:url(../images/GradientFooter.png);
+	border:1px solid black;
+	border-top:4px ridge black;
+}
+
+#studentBottomBar table {
+	margin:6px 0 6px 10px;
+	font-size: .7em;
 	text-align:left;
 	vertical-align:top;
+	
 	}
 	
-#responseRefreshTable .col2 {
+#studentBottomBar table .col1 {
+	width:25%;
+	}
+	
+#studentBottomBar table .col2 {
 	padding-right:10px;
 	}
 	
-#responseRefreshTable .col3 {
-	width:280px;
+#studentBottomBar table .col3 {
+	width:25%;
 }
 
-#responseRefreshTable input {
+#studentBottomBar table input {
 	color:#FFFFFF; 
 	background-color:#0000FF;
 	border:1px solid black;
 	}
 	
-#responseRefreshTable input:hover {
+#studentBottomBar table input:hover {
 	color:#0000FF; 
 	background-color:#FFFF00;
 	}
 	
 #responseTableBody {
-	margin: 25px 0 0 0 ;
+	margin: 25px 0 50px 0 ; 
 }
 
 #responseTableBody table {
@@ -1387,7 +1411,12 @@
 	
 	
 /* Q&A Discussion Step: TEACHER MANAGEMENT PAGE */
-	
+
+#discussionSectionTeacher {
+	border:1px solid #999999;
+	padding:10px;
+}
+
 #brainstormform ul {
 	list-style-type:none;
 }

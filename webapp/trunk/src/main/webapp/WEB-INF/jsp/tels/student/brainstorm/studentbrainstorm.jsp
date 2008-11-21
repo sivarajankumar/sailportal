@@ -28,9 +28,8 @@
 <body style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', '${cannotseeresponses}');">
 
 <div id="centeredDiv">
+
 <%@ include file="headermain.jsp"%>
-</div>
-<br/> 
 
 <div id="stepTypeTitleBar">Q&amp;A DISCUSSION</div>
 
@@ -49,7 +48,7 @@
 		
 		<div id="column2">
 			<div id="questionContent" name="questionPrompt">${brainstorm.question.prompt}</div>
-			<div id="instructions1">To answer this Q&amp;A discussion question, click the <b>Create A Response</b> button below</div>
+			<div id="instructions1">To answer this Q&amp;A discussion question, click the <b>Create A New Response</b> button below</div>
 		</div>
 	
 	</div>
@@ -70,11 +69,28 @@
 
 	<!-- CONDITIONAL ON WHETHER STUDENTS CAN SEE OTHER STUDENTS' POSTS OR NOT -->
 	<div id="0" name="answer">
-			
-		<table id="responseRefreshTable">
+		
+		<div id="responseLinks">
+			<ul>
+				<li><a href="#" onclick="sortBy('time')">Sort By Time</a></li>
+				<li><a href="#" onclick="sortBy('help')">Sort By Helpfulness</a></li>
+				<li><a href="#" onclick="toggle_visibility_by_name('revisionrow')">Hide/Show Revisions</a></li>
+				<li><a href="#" onclick="toggle_visibility_by_name('comments')">Hide/Show Comments</a></li>
+			</ul>
+		</div>
+		
+<div id="responseTableBody">
+</div>
+
+</div>  <!--end of Section Box-->
+	
+<div id="cannotSeeMessage"></div>
+
+<div id="studentBottomBar">
+		<table id="responseRefreshTableBottomBar">
 			<tr>
-				<td><div id="createResponse"><input type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
-				<td class="col2"><input type="button" value="Show New Responses" onclick="refreshResponses()"/></td>
+				<td class="col1"><div id="createResponse"><input type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
+				<td class="col2" id="showLatest"><input type="button" value="Show Latest Responses" onclick="refreshResponses()"/></td>
 				<td class="col3"><div id="numNewResponses"><i>0 new responses received<i></div></td>
 				<td colspan="2"><c:set var="thisworkgrouprequestedhelp" value="false" />
 					<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">
@@ -93,27 +109,13 @@
 				</td>
 			</tr>
 		</table>
-		
-		<div id="responseLinks">
-			<ul>
-				<li><a href="#" onclick="sortBy('time')">Sort By Time</a></li>
-				<li><a href="#" onclick="sortBy('help')">Sort By Helpfulness</a></li>
-				<li><a href="#" onclick="toggle_visibility_by_name('revisionrow')">Hide/Show Revisions</a></li>
-				<li><a href="#" onclick="toggle_visibility_by_name('comments')">Hide/Show Comments</a></li>
-			</ul>
-		</div>
-		
-
-
-	
-</div>  <!--end of Section Box-->
-	
-	
-<div id="responseTableBody">
-
 </div>
 
-<div id="cannotSeeMessage"></div>
+</div>  <!--end of Centered Div -->
+
+<div id="blankBottomBar">
+</div>
+
 
 </body>
 </html>
