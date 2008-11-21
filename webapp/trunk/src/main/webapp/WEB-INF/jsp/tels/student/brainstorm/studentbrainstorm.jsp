@@ -48,7 +48,7 @@
 		
 		<div id="column2">
 			<div id="questionContent" name="questionPrompt">${brainstorm.question.prompt}</div>
-			<div id="instructions1">To answer this Q&amp;A discussion question, click the <b>Create A New Response</b> button below</div>
+			<div id="instructions1">To answer this Q&amp;A discussion question, click the <b>Create A New Response</b> button below.</div>
 		</div>
 	
 	</div>
@@ -87,11 +87,11 @@
 <div id="cannotSeeMessage"></div>
 
 <div id="studentBottomBar">
-		<table id="responseRefreshTableBottomBar">
+		<table>
 			<tr>
 				<td class="col1"><div id="createResponse"><input type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
-				<td class="col2" id="showLatest"><input type="button" value="Show Latest Responses" onclick="refreshResponses()"/></td>
-				<td class="col3"><div id="numNewResponses"><i>0 new responses received<i></div></td>
+				<td class="col2" id="showLatest"><input type="button" value="Update Display" onclick="refreshResponses()"/></td>
+				<td class="col3"><div id="numNewResponses"><i>Show [x] new postings<i></div></td>
 				<td colspan="2"><c:set var="thisworkgrouprequestedhelp" value="false" />
 					<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">
 		    			<c:if test="${workgroupThatRequestedHelp == workgroup}">

@@ -35,42 +35,31 @@
 
 <div id="discussionSectionTeacher">
 
-<c:choose>
-<c:when test="${not brainstorm.sessionStarted}">
-<h3>This Q&A Discussion step is inactive.</h3>
-</c:when>
-<c:otherwise>
-<h3>This Q&A Discussion step is active.</h3>
-</c:otherwise>
-</c:choose>
-<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
-    <form:hidden path="id" />
-    <ul>
-      <li id="test">
-          <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="true" /> DISCUSSION ACTIVE <span style="font-size:.7em;">(students can see/create posts)</span>
-      </li>
-      <li>
-		  <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="false" /> DISCUSSION INACTIVE <span style="font-size:.7em;">(students see a "Discussion Inactive" message)</span>
-	  </li>
-    </ul>
-</form:form>
+<div id="teacherControlPanel">
 
-<table id="teacherDiscussionHelp">
-	<tr>
-		<td>Student requests for discussion help:</td>
-		<td>${fn:length(brainstorm.workgroupsThatRequestHelp)}</td>
-	</tr>
-	<tr>
-		<td>Requestors:</td>
-		<td>
-			<c:forEach var='wg' items='${brainstorm.workgroupsThatRequestHelp}'>
-  ${wg.sdsWorkgroup.name} <br/>
-			</c:forEach>
-		</td>
-	</tr>
-</table>
-
-<br/>
+	<div id="teacherControlSubPanel1">
+		<c:choose>
+		<c:when test="${not brainstorm.sessionStarted}">
+		<div class="header">This Q&A Discussion step is inactive.</div>
+		</c:when>
+		<c:otherwise>
+		<div class="header">This Q&A Discussion step is active.</div>
+		</c:otherwise>
+		</c:choose>
+		<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+		    <form:hidden path="id" />
+		    <ul>
+		      <li id="test">
+		          <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="true" /> DISCUSSION ACTIVE <span style="font-size:.7em;">(students can see/create posts)</span>
+		      </li>
+		      <li>
+				  <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="false" /> DISCUSSION INACTIVE <span style="font-size:.7em;">(students see a "Discussion Inactive" message)</span>
+			  </li>
+		    </ul>
+		</form:form>
+	</div>
+	
+</div>
 
 <div id="stepTypeTitleBar">Q&amp;A DISCUSSION</div>
 
@@ -89,7 +78,7 @@
 		
 		<div id="column2">
 			<div id="questionContent" name="questionPrompt">${brainstorm.question.prompt}</div>
-			<div id="instructions1">To answer this Q&amp;A discussion question, click the <b>Create A Response</b> button below</div>
+			<div id="instructions1">To answer this Q&amp;A discussion question, click the <b>Create A New Response</b> button below.</div>
 		</div>
 	
 	</div>
@@ -111,28 +100,6 @@
 
 	<!-- CONDITIONAL ON WHETHER STUDENTS CAN SEE OTHER STUDENTS' POSTS OR NOT -->
 	<div id="0" name="answer">
-		
-		<table id="responseRefreshTable">
-			<tr>
-				<td><input type="button" value="Show New Responses" onclick="refreshResponses()"/></td>
-				<td class="col2width"><div id="numNewResponses"><i>0 new responses received<i></div></td>
-				<td colspan="2"><c:set var="thisworkgrouprequestedhelp" value="false" />
-					<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">
-		    			<c:if test="${workgroupThatRequestedHelp == workgroup}">
-		        			<c:set var="thisworkgrouprequestedhelp" value="true" />
-						</c:if>
-					</c:forEach>
-					<c:choose>
-		    			<c:when test="${thisworkgrouprequestedhelp == true}">
-		    				<input id="requesthelp_${workgroup.id}_${brainstorm.id}" checked="checked" type="checkbox" value="helpful" onclick="javascript:requestHelp('${workgroup.id}', '${brainstorm.id}')">Request Discussion Help from Teacher</input>
-		    			</c:when>
-		    			<c:otherwise>
-		        			<input id="requesthelp_${workgroup.id}_${brainstorm.id}" type="checkbox" value="helpful" onclick="javascript:requestHelp('${workgroup.id}', '${brainstorm.id}')">Request Discussion Help from Teacher</input>
-		    			</c:otherwise>
-					</c:choose>
-				</td>
-			</tr>
-		</table>
 		
 		<div id="responseLinks">
 			<ul>
@@ -158,19 +125,35 @@
 
 </div>   <!--end of Discussion Section Box-->
 
+<div id="blankBottomBar">
+</div>
+
 <div id="teacherBottomBar">
 		<table>
 			<tr>
 				<td class="col1"><div id="createResponse"><input type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
-				<td class="col2" id="showLatest"><input type="button" value="Show Latest Responses" onclick="refreshResponses()"/></td>
-				<td class="col3"><div id="numNewResponses"><i>0 new responses received<i></div></td>
+				<td class="col2" id="showLatest"><input type="button" value="Update Display" onclick="refreshResponses()"/></td>
+				<td class="col3"><div id="numNewResponses"><i>Show [x] new postings</i></div></td>	
+		        <td>
+				       	<dl>
+							<dt>Requests for Help:</dt>
+							<dd><b>${fn:length(brainstorm.workgroupsThatRequestHelp)}</b></dd>
+							<dt>Requestors:</dt>
+							<dd><b><c:forEach var='wg' items='${brainstorm.workgroupsThatRequestHelp}'>
+									  ${wg.sdsWorkgroup.name} </b> 
+									  <br/>
+									</c:forEach>
+							</dd>
+						</dl>
+				</td>
+		
 			</tr>
 		</table>
 </div>
 
-<div id="blankBottomBar">
-</div>
+</div>        <!--end of Centered Div-->
 
+</div>
 </div>
 
 </body>
