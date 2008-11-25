@@ -1,30 +1,31 @@
 
 	
 	function popUp(URL, name){
-		window.open(URL, name, 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=900,height=400,left = 450,top = 150');
+		window.open(URL, name, 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=960,height=740,left = 450,top = 150');
 	};
 	
 	function responsePopUp(workgroupId, brainstormId){
 		popUp('brainstormresponse.html?workgroupId=' + workgroupId + '&brainstormId=' + brainstormId, 'TeamResponse');
 	};
 	
-	function addCommentPopUp(workgroupId, answerId){
-		popUp('addcomment.html?workgroupId=' + workgroupId + '&answerId=' + answerId, 'AddComment');
+	function addCommentPopUp(workgroupId, answerId, brainstormId){
+		popUp('addcomment.html?workgroupId=' + workgroupId + '&answerId=' + answerId + '&brainstormId=' + brainstormId, 'AddComment');
 	};
 	
-	function addRevisionPopUp(workgroupId, answerId){
-		popUp('addrevision.html?workgroupId=' + workgroupId + '&answerId=' + answerId, 'AddRevision');
+	function addRevisionPopUp(workgroupId, answerId, brainstormId){
+		popUp('addrevision.html?workgroupId=' + workgroupId + '&answerId=' + answerId + '&brainstormId=' + brainstormId, 'AddRevision');
 	};
 	
 	function hideallanswers(brainstormId, cannotseeresponses) {
+	  var poll = new PollNewPosts(brainstormId);		
+	  poll.start();	  
 	  if(cannotseeresponses) {
 	    var rtb = document.getElementById('responseTableBody');
 	    rtb.style.display='none';
 	    var rd = document.getElementById('cannotSeeMessage');
+	    rd.innerHTML = "Please create a response.  After submitting it you'll be able to see responses from other students.";	    
 	    rd.innerHTML = "Please create a new response.  After posting it you'll be able to see responses from other students.";
 	  } else  {
-	    var poll = new PollNewPosts(brainstormId);
-	    poll.start();
 	  };
 	};
 	
@@ -35,7 +36,6 @@
 			var data='mark=1&workgroupId=' + workgroupId + '&brainstormId=' + brainstormId;
 			var callback = 
 				{
-					success:function(o){alert('You have requested help from your teacher on this Q&A Discussion step');},
 					success:function(o){},
 					failure:function(o){}
 				};
@@ -45,7 +45,6 @@
 			var data='mark=0&workgroupId=' + workgroupId + '&brainstormId=' + brainstormId;
 			var callback = 
 				{
-					success:function(o){alert('You have canceled your request for help from your teacher on this Q&A Discussion step');},
 					success:function(o){},
 					failure:function(o){}
 				};
@@ -223,7 +222,7 @@
 			//this.answers.sort(helpfulness);
 			//this.answers.sort(newestFirst);
 		};
-		orderedElements = createAnswerElements(document, this.answers, this.workgroupId);
+		orderedElements = createAnswerElements(document, this.answers, this.workgroupId, this.id);
 		this.buildPage(orderedElements);
 		
 		function oldestFirst(a, b){

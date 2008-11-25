@@ -26,7 +26,13 @@
 
 <head>
 
+
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.6.0/build/assets/skins/sam/skin.css"/>
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.6.0/build/yahoo-dom-event/yahoo-dom-event.js&2.6.0/build/container/container-min.js&2.6.0/build/element/element-beta-min.js&2.6.0/build/menu/menu-min.js&2.6.0/build/button/button-min.js&2.6.0/build/editor/editor-min.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/editor/editor.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/richtexteditor.js"></script>
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -52,7 +58,7 @@ function validateOptions(){
 
 function validate(){
 	var optionsPassed = validateOptions();
-	var responseText = document.getElementById('responseText').value;
+	var responseText = document.getElementById('editor').value;
 	if(!optionsPassed){
 		alert("Please select one of the posting options (either Anonymous or with Team member names).");
 		return false;
@@ -64,15 +70,9 @@ function validate(){
 	};
 };
 
-function submit(){
-	if(validate()){
-		post();
-	};
-};
-
 function post(){
 	var URL='postresponse.html';
-	var data='option=' + validateOptions() + '&text=' + document.getElementById('responseText').value + '&workgroupId=${workgroup.id}&brainstormId=${brainstorm.id}';
+	var data='option=' + validateOptions() + '&text=' + escape(document.getElementById('editor').value) + '&workgroupId=${workgroup.id}&brainstormId=${brainstorm.id}';
 	var callback = {
 		success:function(o){
 			var xmlDoc = o.responseXML;
@@ -83,10 +83,14 @@ function post(){
 			var answer = new Answer(answerElements[0]);
 			var pageManager = window.opener.pageManager;			
 			pageManager.addAnswer(answer);
+			var cannotSeeMessageElement = window.opener.document.getElementById("cannotSeeMessage");
+			cannotSeeMessageElement.style.display = 'none';
+			var responseTableBodyElement = window.opener.document.getElementById("responseTableBody");
+			responseTableBodyElement.style.display = 'block';
 			self.close();
 		},
 		failure:function(o){
-			alert('failed to update to server');
+			alert('failed to update to server. Please notify your teacher.');
 			self.close();
 		}
 	};
@@ -96,7 +100,7 @@ function post(){
 </script>
 </head>
 
-<body>
+<body class="yui-skin-sam" onload="javascript:showeditor('${brainstorm.richTextEditorAllowed}');">
 
 <%@page import="org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption" %>
 <% pageContext.setAttribute("username_only", DisplayNameOption.USERNAME_ONLY); %>
@@ -115,11 +119,11 @@ function post(){
 			<b>Question:</b>
 			<span id="questionBox">${brainstorm.question.prompt}</span>
 		</div>
+
+	    <b>Response:</b><br/>
+		<textarea id="editor" name="editor" rows="20" cols="75" ></textarea>
 	
-		<div id="response">
-			<b>Response:</b><br/>
-			<textarea id="responseText" cols="70" rows="6"></textarea>
-		</div>
+
 	
 		<div id="selectPostType">
         	<c:if test="${brainstorm.displayNameOption == username_only}">  <!-- must NOT be anonymous -->
@@ -144,21 +148,17 @@ function post(){
         	</c:if>
 			
 			<div id="inputButtons">
-				<table style="margin:0 auto;">
-				<tr>
-					<td><input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/></td>
-					<td>
-						<div onclick="setTimeout('self.close()', 1000);">
-				    	<input id="submitResponse" type="button" value="POST RESPONSE" onclick="submit()"/>
-				    </td>
-				</tr>
-				</table>
+				<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
+				<!--  <div onclick="setTimeout('self.close()', 1000);">-->
+				<div>
+				    <input id="submitResponse" type="button" value="POST RESPONSE"/>
 				</div>
 			</div>
 	
 		</div>
 		
 	</div>
+
 
 </body>
 </html>

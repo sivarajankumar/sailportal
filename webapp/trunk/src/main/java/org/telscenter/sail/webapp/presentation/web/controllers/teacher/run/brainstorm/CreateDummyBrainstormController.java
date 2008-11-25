@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
@@ -67,14 +68,21 @@ public class CreateDummyBrainstormController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String runIdStr = request.getParameter("runId");
-		Long runId = Long.parseLong(runIdStr);
-		Run run = this.runService.retrieveById(runId);
 		Brainstorm brainstorm = new BrainstormImpl();
-		brainstorm.setRun(run);
+
+		if (runIdStr != null) {
+			Long runId = Long.parseLong(runIdStr);
+			Run run = this.runService.retrieveById(runId);
+			brainstorm.setRun(run);
+		}
+		
 		brainstorm.setAnonymousAllowed(true);
 		Question question = new JaxbQuestionImpl();
 		question.setBody(QUESTIONBODY);
 		brainstorm.setQuestion(question);
+		brainstorm.setDisplayNameOption(DisplayNameOption.USERNAME_OR_ANONYMOUS);
+		brainstorm.setGated(false);
+		brainstorm.setSessionStarted(true);
 		brainstormService.createBrainstorm(brainstorm);
 		return null;
 	}

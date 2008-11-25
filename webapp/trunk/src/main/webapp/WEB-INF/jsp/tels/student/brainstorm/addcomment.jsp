@@ -27,6 +27,11 @@
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.6.0/build/assets/skins/sam/skin.css"/>
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.6.0/build/yahoo-dom-event/yahoo-dom-event.js&2.6.0/build/container/container-min.js&2.6.0/build/element/element-beta-min.js&2.6.0/build/menu/menu-min.js&2.6.0/build/button/button-min.js&2.6.0/build/editor/editor-min.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/editor/editor.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/richtexteditor.js"></script>
+
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -49,7 +54,7 @@ function validateOptions(){
 
 function validate(){
 	var optionsPassed = validateOptions();
-	var responseText = document.getElementById('responseText').value;
+	var responseText = document.getElementById('editor').value;
 	if(!optionsPassed){
 		alert("Please select one of the posting options (either Anonymous or with Team member names).");
 		return false;
@@ -61,15 +66,9 @@ function validate(){
 	};
 };
 
-function submit(){
-	if(validate()){
-		post();
-	};
-};
-
 function post(){
 	var URL='postcomment.html';
-	var data='option=' + validateOptions() + '&text=' + document.getElementById('responseText').value + '&workgroupId=${workgroup.id}&answerId=${answer.id}';
+	var data='option=' + validateOptions() + '&text=' + escape(document.getElementById('editor').value) + '&workgroupId=${workgroup.id}&answerId=${answer.id}';
 	var callback = {
 		success:function(o){
 			var xmlDoc = o.responseXML;
@@ -92,14 +91,13 @@ function post(){
 </script>
 </head>
 
-<body>
+<body class="yui-skin-sam" onload="javascript:showeditor('${isrichtexteditorallowed}');">
 
 <div id="createResponseWindow">
 
 	<div id="head">Add a Comment</div>
 
 	<div id="interior">
-	
 			<div id="answer">
 				<div name="head" id=>
 					<b>Selected Response:</b><br/>
@@ -131,7 +129,7 @@ function post(){
 			<br/>
 			<div id="comment">
 				<b>Comment (type your comment here):</b><br/>
-				<textarea id="responseText" cols="45" rows="8"></textarea>
+				<textarea id="editor" name="editor" cols="45" rows="8"></textarea>
 			</div>
 		
 			<div id="selectPostType">
@@ -147,7 +145,7 @@ function post(){
 			
 			<div id="inputButtons">
 				<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
-				<input id="submitResponse" type="button" value="POST COMMENT" onclick="submit()"/>
+				<input id="submitResponse" type="button" value="POST COMMENT"/>
 			</div>
 	</div>
 

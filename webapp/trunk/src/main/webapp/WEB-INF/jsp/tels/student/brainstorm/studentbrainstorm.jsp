@@ -28,8 +28,9 @@
 <body style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', '${cannotseeresponses}');">
 
 <div id="centeredDiv">
-
 <%@ include file="headermain.jsp"%>
+</div>
+<br/> 
 
 <div id="stepTypeTitleBar">Q&amp;A DISCUSSION</div>
 
@@ -109,13 +110,17 @@
 				</td>
 			</tr>
 		</table>
-</div>
+
+		</div>
+		
 
 </div>  <!--end of Centered Div -->
-
 <div id="blankBottomBar">
 </div>
-
+	
+</div>  <!--end of Section Box-->
+        <div id="cannotSeeMessage"></div>    
+        <div id="responseTableBody"></div>    
 
 </body>
 </html>

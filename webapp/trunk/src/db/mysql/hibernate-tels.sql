@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        owner_sid bigint,
         object_id_class bigint not null,
         parent_object bigint,
+        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -118,9 +118,9 @@
         isgated bit,
         starttime datetime,
         OPTLOCK integer,
+        runs_fk bigint,
         brainstormquestions_fk bigint,
         projects_fk bigint,
-        runs_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -147,6 +147,7 @@
     create table diyprojectcommunicators (
         id bigint not null,
         previewdiyprojectsuffix varchar(255),
+        diyportalhostname varchar(255),
         primary key (id)
     ) type=MyISAM;
 
@@ -246,8 +247,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -255,8 +256,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -283,8 +284,8 @@
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
-        jnlp_fk bigint,
         run_fk bigint unique,
+        jnlp_fk bigint,
         curnit_fk bigint,
         primary key (id)
     ) type=MyISAM;
@@ -451,8 +452,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -467,9 +468,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        group_fk bigint not null,
         sds_workgroup_fk bigint unique,
         offering_fk bigint not null,
+        group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 

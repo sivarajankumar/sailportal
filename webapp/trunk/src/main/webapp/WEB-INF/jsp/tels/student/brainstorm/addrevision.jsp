@@ -29,6 +29,11 @@
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.6.0/build/assets/skins/sam/skin.css"/>
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.6.0/build/yahoo-dom-event/yahoo-dom-event.js&2.6.0/build/container/container-min.js&2.6.0/build/element/element-beta-min.js&2.6.0/build/menu/menu-min.js&2.6.0/build/button/button-min.js&2.6.0/build/editor/editor-min.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/editor/editor.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/richtexteditor.js"></script>
+
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -41,7 +46,7 @@
 <script type="text/javascript">
 
 function validate(){
-	var responseText = document.getElementById('responseText').value;
+	var responseText = document.getElementById('editor').value;
 
 	if(responseText == null || responseText == ""){
 		alert("Please enter a response before submitting.");
@@ -51,15 +56,9 @@ function validate(){
 	};
 };
 
-function submit(){
-	if(validate()){
-		post();
-	};
-};
-
 function post(){
 	var URL='postrevision.html';
-	var data='text=' + document.getElementById('responseText').value + '&workgroupId=${workgroup.id}&answerId=${answer.id}';
+	var data='text=' + escape(document.getElementById('editor').value) + '&workgroupId=${workgroup.id}&answerId=${answer.id}';
 	var callback = {
 		success:function(o){
 			var xmlDoc = o.responseXML;
@@ -81,7 +80,7 @@ function post(){
 </script>
 </head>
 
-<body>
+<body class="yui-skin-sam" onload="javascript:showeditor('${isrichtexteditorallowed}');">
 
 <div id="createResponseWindow">
 
@@ -126,12 +125,12 @@ function post(){
 			
 			<div id="comment">
 				<b>Revised Response:</b><br/>
-				<textarea id="responseText" cols="45" rows="8"><c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}"><c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if></c:forEach></textarea>
+				<textarea id="editor" name="editor" cols="45" rows="8"><c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}"><c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if></c:forEach></textarea>
 			</div>
 			
 			<div id="inputButtons">
 				<input id="buh-bye" type="button" value="CANCEL" onclick="self.close()"/>
-				<input id="submitResponse" type="button" value="SUBMIT RESPONSE" onclick="submit()"/>
+				<input id="submitResponse" type="button" value="SUBMIT RESPONSE"/>
 			</div>
 	</div>
 	

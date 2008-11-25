@@ -33,33 +33,72 @@
 
 <%@ include file="L2projects_myprojectruns.jsp"%>
 
-<div id="discussionSectionTeacher">
+<c:choose>
+<c:when test="${not brainstorm.sessionStarted}">
+<h3>This Q&A Discussion step is closed. Your students can't see or work on it yet.</h3>
+</c:when>
+<c:otherwise>
+<h3>This Q&A Discussion step is active. Your students can see it and work on it.</h3>
+</c:otherwise>
+</c:choose>
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+    <form:hidden path="id" />
+    <ul>
+      <li id="test">
+          <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="true" /> ACTIVATE Q&A <span style="font-size:.7em;">(allow students to see the Q&A step)</span>
+      </li>
+      <li>
+		  <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="false" /> DEACTIVATE Q&A  <span style="font-size:.7em;">(do not allow students to see the Q&A step)</span>
+	  </li>
+    </ul>
+</form:form>
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+    <form:hidden path="id" />
+    <ul>
+      <li id="test">
+          <form:radiobutton path="gated" onclick="javscript:this.form.submit();" value="false" /> OPEN DISCUSSION <span style="font-size:.7em;">(student can immediately see other student responses)</span>
+      </li>
+      <li>
+		  <form:radiobutton path="gated" onclick="javscript:this.form.submit();" value="true" /> GATED DISCUSSION  <span style="font-size:.7em;">(student must submit a response before they can see other student responses)</span>
+	  </li>
+    </ul>
+</form:form>
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+    <form:hidden path="id" />
+    <ul>
+      <li id="test">
+          <form:radiobutton path="richTextEditorAllowed" onclick="javscript:this.form.submit();" value="true" /> ALLOW Students to use Rich Text Editor when posting
+      </li>
+      <li>
+		  <form:radiobutton path="richTextEditorAllowed" onclick="javscript:this.form.submit();" value="false" /> DO NOT ALLOW Students to use Rich Text Editor when posting
+	  </li>
+    </ul>
+</form:form>
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+    <form:hidden path="id" />
+    <ul>
+      <li id="test">
+          <form:radiobutton path="displayNameOption" onclick="javscript:this.form.submit();" value="USERNAME_ONLY" /> USERNAME ONLY
+      </li>
+      <li>
+		  <form:radiobutton path="displayNameOption" onclick="javscript:this.form.submit();" value="ANONYMOUS_ONLY" /> ANONYMOUS ONLY
+	  </li>
+      <li>
+		  <form:radiobutton path="displayNameOption" onclick="javscript:this.form.submit();" value="USERNAME_OR_ANONYMOUS" /> USERNAME OR ANONYMOUS
+	  </li>	  
+    </ul>
+</form:form>
+${fn:length(brainstorm.workgroupsThatRequestHelp)} students have requested HELP for this Q&A Discussion step:
+<br />
+students that requested help: <br/>
+<c:forEach var='wg' items='${brainstorm.workgroupsThatRequestHelp}'>
+  ${wg.sdsWorkgroup.name} <br/>
+</c:forEach>
+<br/>
 
 <div id="teacherControlPanel">
 
-	<div id="teacherControlSubPanel1">
-		<c:choose>
-		<c:when test="${not brainstorm.sessionStarted}">
-		<div class="header">This Q&A Discussion step is inactive.</div>
-		</c:when>
-		<c:otherwise>
-		<div class="header">This Q&A Discussion step is active.</div>
-		</c:otherwise>
-		</c:choose>
-		<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
-		    <form:hidden path="id" />
-		    <ul>
-		      <li id="test">
-		          <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="true" /> DISCUSSION ACTIVE <span style="font-size:.7em;">(students can see/create posts)</span>
-		      </li>
-		      <li>
-				  <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="false" /> DISCUSSION INACTIVE <span style="font-size:.7em;">(students see a "Discussion Inactive" message)</span>
-			  </li>
-		    </ul>
-		</form:form>
-	</div>
-	
-</div>
+
 
 <div id="stepTypeTitleBar">Q&amp;A DISCUSSION</div>
 

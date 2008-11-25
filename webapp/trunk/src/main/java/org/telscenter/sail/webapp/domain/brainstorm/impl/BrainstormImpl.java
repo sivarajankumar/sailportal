@@ -114,6 +114,9 @@ public class BrainstormImpl implements Brainstorm {
     @Transient
 	private static final String COLUMN_NAME_DISPLAYNAME_OPTION = "displaynameoption";
 
+    @Transient
+    private static final String COLUMN_NAME_ISRICHTEXTEDITORALLOWED = "isrichtexteditorallowed";
+
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
     @Sort(type = SortType.NATURAL)
@@ -144,6 +147,9 @@ public class BrainstormImpl implements Brainstorm {
 
 	@Column(name = BrainstormImpl.COLUMN_NAME_ISGATED)	
 	private boolean isGated;
+	
+	@Column(name = BrainstormImpl.COLUMN_NAME_ISRICHTEXTEDITORALLOWED)	
+	private boolean isRichTextEditorAllowed;
 	
     @Column(name = BrainstormImpl.COLUMN_NAME_STARTTIME)
 	private Date starttime;
@@ -382,5 +388,19 @@ public class BrainstormImpl implements Brainstorm {
 	 */
 	public void setDisplayNameOption(DisplayNameOption displayNameOption) {
 		this.displayNameOption = displayNameOption;
+	}
+
+	/**
+	 * @return the isRichTextEditorAllowed
+	 */
+	public boolean isRichTextEditorAllowed() {
+		return isRichTextEditorAllowed;
+	}
+
+	/**
+	 * @param isRichTextEditorAllowed the isRichTextEditorAllowed to set
+	 */
+	public void setRichTextEditorAllowed(boolean isRichTextEditorAllowed) {
+		this.isRichTextEditorAllowed = isRichTextEditorAllowed;
 	}
 }

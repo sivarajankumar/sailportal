@@ -135,6 +135,14 @@ public class ManageBrainstormController extends SimpleFormController {
 		List<Workgroup> workgroupListByOfferingAndUser 
 		    = workgroupService.getWorkgroupListByOfferingAndUser(brainstorm.getRun(), user);
 		
+		if (workgroupListByOfferingAndUser.size() == 0) {
+			if (brainstorm.getRun().getOwners().contains(user)) {
+				workgroupService.createWISEWorkgroup("teacher", brainstorm.getRun().getOwners(), brainstorm.getRun(), null);
+				workgroupListByOfferingAndUser 
+			    = workgroupService.getWorkgroupListByOfferingAndUser(brainstorm.getRun(), user);
+			}
+		}
+		
 		WISEWorkgroup workgroup = (WISEWorkgroup) workgroupListByOfferingAndUser.get(0);
 		model.put("displayNameOptions", DisplayNameOption.values());
 		model.put(WORKGROUP, workgroup);

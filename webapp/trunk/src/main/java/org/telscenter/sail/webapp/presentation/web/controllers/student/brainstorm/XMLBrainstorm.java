@@ -28,6 +28,7 @@ import java.util.Set;
 
 import net.sf.sail.webapp.domain.User;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
@@ -94,7 +95,7 @@ public final class XMLBrainstorm {
 		
 		String XMLComment = "<comment><id>" + comment.getId() + "</id><timestamp>" + 
 		    formattedTime + " " + formattedDate + "</timestamp>" + getXMLWorkgroup(comment.getWorkgroup()) 
-			+ "<body>" + comment.getBody() + "</body><anon>" + comment.isAnonymous() +
+			+ "<body>" + StringEscapeUtils.escapeHtml(comment.getBody()) + "</body><anon>" + comment.isAnonymous() +
 			"</anon></comment>";
 		return XMLComment;
 	}
@@ -108,7 +109,7 @@ public final class XMLBrainstorm {
 			DateFormat.getDateInstance(DateFormat.MEDIUM).format(timestamp);
 
 		String XMLRevision = "<revision><id>" + revision.getId() + "</id><timestamp>" +
-			formattedTime + " " + formattedDate + "</timestamp><body>" + revision.getBody() + "</body></revision>";
+			formattedTime + " " + formattedDate + "</timestamp><body>" + StringEscapeUtils.escapeHtml(revision.getBody()) + "</body></revision>";
 		return XMLRevision;
 	}
 

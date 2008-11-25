@@ -90,6 +90,20 @@ public interface Brainstorm extends Persistable {
 	public boolean isAnonymousAllowed();
 	
 	/**
+	 * Indicates whether the students can use the RichTextEditor
+	 * 
+	 * @param true iff students can use the RichTextEditor
+	 */
+	public void setRichTextEditorAllowed(boolean isRichTextEditorAllowed);
+	
+	/**
+	 * Indicates whether the students can use the RichTextEditor
+	 * 
+	 * @return true iff students can use the RichTextEditor
+	 */
+	public boolean isRichTextEditorAllowed();
+	
+	/**
 	 * Indicates whether the students posts to this brainstorm anonymously
 	 * 
 	 * @param true iff students can post anonymously on this brainstorm.
@@ -182,6 +196,11 @@ public interface Brainstorm extends Persistable {
 	 * others' posts.
 	 */
 	public boolean isGated();
+	
+	/**
+	 * @param isGated the isGated to set
+	 */
+	public void setGated(boolean isGated);
 	
 	/**
 	 * Returns whether the specified workgroup has posted an answer to this

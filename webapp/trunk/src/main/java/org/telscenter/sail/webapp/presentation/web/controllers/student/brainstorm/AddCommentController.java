@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
@@ -42,6 +43,8 @@ public class AddCommentController extends AbstractController {
 	
 	private final static String ANSWERID = "answerId";
 	
+	private final static String BRAINSTORMID = "brainstormId";
+	
 	private final static String ANSWER = "answer";
 	
 	private final static String WORKGROUP = "workgroup";
@@ -49,6 +52,8 @@ public class AddCommentController extends AbstractController {
 	private BrainstormService brainstormService;
 	
 	private WISEWorkgroupService workgroupService;
+
+	private static final String ISRICHTEXTEDITORALLOWED = "isrichtexteditorallowed";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -58,10 +63,12 @@ public class AddCommentController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		
 		Answer answer = this.brainstormService.getAnswer(Long.parseLong(request.getParameter(ANSWERID)));
+		Brainstorm brainstorm = this.brainstormService.getBrainstormById(Long.parseLong(request.getParameter(BRAINSTORMID)));		
 		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(ANSWER, answer);
+		modelAndView.addObject(ISRICHTEXTEDITORALLOWED, brainstorm.isRichTextEditorAllowed());		
 		modelAndView.addObject(WORKGROUP, workgroup);
 		
 		return modelAndView;
