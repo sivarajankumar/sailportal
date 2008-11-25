@@ -83,6 +83,7 @@ public class CreateDummyBrainstormController extends AbstractController {
 		brainstorm.setDisplayNameOption(DisplayNameOption.USERNAME_OR_ANONYMOUS);
 		brainstorm.setGated(false);
 		brainstorm.setSessionStarted(true);
+		brainstorm.setRichTextEditorAllowed(true);
 		brainstormService.createBrainstorm(brainstorm);
 		return null;
 	}
