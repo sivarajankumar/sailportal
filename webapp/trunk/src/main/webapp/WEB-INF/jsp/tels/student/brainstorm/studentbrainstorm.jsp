@@ -27,11 +27,6 @@
 
 <body style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', '${cannotseeresponses}');">
 
-<div id="centeredDiv">
-<%@ include file="headermain.jsp"%>
-</div>
-<br/> 
-
 <div id="stepTypeTitleBar">Q&amp;A DISCUSSION</div>
 
 <div id="sectionBox">
@@ -91,7 +86,7 @@
 		<table>
 			<tr>
 				<td class="col1"><div id="createResponse"><input type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
-				<td class="col2" id="showLatest"><input type="button" value="Update Display" onclick="refreshResponses()"/></td>
+				<td class="col2" id="showLatest"><input type="button" value="Update Display" disabled onclick="alert('not implemented yet. Please click on the refresh button in the browser')"/></td>
 				<td class="col3"><div id="numNewResponses"><i>Show [x] new postings<i></div></td>
 				<td colspan="2"><c:set var="thisworkgrouprequestedhelp" value="false" />
 					<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">
