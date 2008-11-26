@@ -540,6 +540,10 @@ public class PodProjectServiceImpl implements ProjectService {
 		} else if (permission.equals(UserDetailsService.PROJECT_READ_ROLE)) {
 			this.aclService.removePermission(project, BasePermission.WRITE, user);
 			this.aclService.addPermission(project, BasePermission.READ, user);
+		} else if (permission.equals(UserDetailsService.PROJECT_SHARE_ROLE)) {
+			this.aclService.removePermission(project, BasePermission.READ, user);
+			this.aclService.addPermission(project, BasePermission.WRITE, user);	
+			this.aclService.addPermission(project, BasePermission.ADMINISTRATION, user);
 		}
 	}
 	
@@ -550,6 +554,9 @@ public class PodProjectServiceImpl implements ProjectService {
 		List<Permission> permissions = this.aclService.getPermissions(project, user);
 		// for projects, a user can have at most one permission per project
 		if (!permissions.isEmpty()) {
+			if (permissions.contains(BasePermission.ADMINISTRATION)) {
+				return UserDetailsService.PROJECT_SHARE_ROLE;
+			}
 			Permission permission = permissions.get(0);
 			if (permission.equals(BasePermission.READ)) {
 				return UserDetailsService.PROJECT_READ_ROLE;

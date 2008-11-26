@@ -48,7 +48,7 @@
 <h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.custom.sharepro.2"/></h2> 
 
 <div class="sharedprojectHeadline1"><spring:message code="teacher.pro.custom.sharepro.3"/></div>
- 
+
  <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
 				    <tr>
 				        <th><spring:message code="teacher.pro.custom.index.19"/></th>
@@ -103,16 +103,28 @@
 				<form:form method="post" id="${sharedowner.userDetails.username}"
 					commandName="${sharedowner.userDetails.username}">
 					<form:hidden path="sharedOwnerUsername" />
-
-
 					<tr>
 						<td>${sharedowner.userDetails.username}</td>
-						<td align="left"><form:radiobutton path="permission"
+						<td align="left">
+						<authz:authorize ifAllGranted="ROLE_USER">
+						   <authz:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+							<form:radiobutton path="permission"
+								onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can View + Edit + Share the project<br />
+							</authz:authorize>
+						   <authz:authorize ifNotGranted="ROLE_ADMINISTRATOR">
+								<authz:accesscontrollist domainObject="${project}" hasPermission="16">												
+							        <form:radiobutton path="permission"
+								        onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can View + Edit + Share the project<br />								
+								</authz:accesscontrollist>					
+							</authz:authorize>							
+					    </authz:authorize>				
+						<form:radiobutton path="permission"
 							onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" /><spring:message
 							code="teacher.pro.custom.sharepro.8" /><br />
 						<form:radiobutton path="permission"
 							onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" /><spring:message
-							code="teacher.pro.custom.sharepro.9" /></td>
+							code="teacher.pro.custom.sharepro.9" />
+						</td>
 						<td><!-- <a href='#' onclick="return confirm('Proceed with removing this shared teacher?');">Remove this User</a> -->
 						<a href='#'
 							onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message
@@ -139,6 +151,11 @@
 
 </div>
 </div>
+<c:if test="${not empty message}">
+<script type="text/javascript">
+ alert("${message}");
+</script>
+</c:if>
 
 </body>
 </html>

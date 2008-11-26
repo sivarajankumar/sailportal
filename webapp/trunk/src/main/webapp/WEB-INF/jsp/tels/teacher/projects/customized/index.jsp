@@ -576,6 +576,9 @@
 					<li><a href="../../../author/authorproject.html?projectId=${project.id}"><spring:message
 							code="edit.curnit" /></a></li>
 					</authz:accesscontrollist>
+					<authz:accesscontrollist domainObject="${project}" hasPermission="16">												
+					<li><a href="shareproject.html?projectId=${project.id}">Share this project</a></li>
+					</authz:accesscontrollist>					
 					</div>
 					</td>
 				</tr>

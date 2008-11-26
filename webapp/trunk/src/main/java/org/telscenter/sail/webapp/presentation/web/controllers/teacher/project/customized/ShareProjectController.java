@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.validation.BindException;
@@ -61,10 +62,15 @@ public class ShareProjectController extends SimpleFormController {
      * 
      * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
      */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request) 
 	    throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
+		String message = request.getParameter("message");
+		if (message != null) {
+			model.put("message", message);
+		}
 		Project project = projectService.getById(Long.parseLong(request.getParameter(PROJECTID_PARAM_NAME)));
 		Set<User> sharedowners = project.getSharedowners();
 
@@ -105,16 +111,25 @@ public class ShareProjectController extends SimpleFormController {
 	    	modelAndView.addObject("message", "Username not recognized. Make sure to use the exact spelling of the username.");
 	    	return modelAndView;
     	} else {
-    	try {
-			projectService.addSharedTeacherToProject(params);
-		} catch (ObjectNotFoundException e) {
-			modelAndView = new ModelAndView(new RedirectView(getFormView()));
-	    	modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
-	    	return modelAndView;
-		}
-    	modelAndView = new ModelAndView(new RedirectView(getSuccessView()));
-    	modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
-    	return modelAndView;
+    		User signedInUser = ControllerUtil.getSignedInUser(request);
+    		if (params.getPermission().equals(UserDetailsService.PROJECT_SHARE_ROLE)) {
+    			if (!params.getProject().getOwners().contains(signedInUser)) {
+    	    		modelAndView = new ModelAndView(new RedirectView(request.getRequestURI()));
+    		    	modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
+    		    	modelAndView.addObject("message", "You cannot give sharing permissions because you are not the actual owner of this project.");
+    		    	return modelAndView;    				
+    			}
+    		}
+    		try {
+    			projectService.addSharedTeacherToProject(params);
+    		} catch (ObjectNotFoundException e) {
+    			modelAndView = new ModelAndView(new RedirectView(getFormView()));
+    			modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
+    			return modelAndView;
+    		}
+    		modelAndView = new ModelAndView(new RedirectView(getSuccessView()));
+    		modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
+    		return modelAndView;
     	}
     }
 	

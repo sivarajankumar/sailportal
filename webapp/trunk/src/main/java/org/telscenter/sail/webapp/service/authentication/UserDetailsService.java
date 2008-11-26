@@ -46,4 +46,5 @@ public interface UserDetailsService extends
 	
 	public static final String PROJECT_WRITE_ROLE = "ROLE_WRITE_PROJECT";
 
+	public static final String PROJECT_SHARE_ROLE = "ROLE_SHARE_PROJECT";
 }
