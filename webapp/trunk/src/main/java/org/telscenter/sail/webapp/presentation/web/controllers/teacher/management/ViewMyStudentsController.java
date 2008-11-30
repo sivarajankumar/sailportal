@@ -38,6 +38,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.teacher.management.ViewMyStudentsPeriod;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
@@ -140,13 +141,15 @@ public class ViewMyStudentsController extends AbstractController{
 			grouplessStudents.addAll(period.getMembers());
 			for(Workgroup workgroup : allworkgroups){
 				grouplessStudents.removeAll(workgroup.getMembers());
-				if ( !((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
+				if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
 						&& ((WISEWorkgroup) workgroup).getPeriod().equals(period)) {
 					// set url where this workgroup's work can be retrieved as PDF
-					String workPdfUrl = ((WISEWorkgroupService) workgroupService)
-					    .generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);
-					((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);
-					periodworkgroups.add(workgroup);
+					if (!(run.getProject() instanceof ExternalProject)) {
+						String workPdfUrl = ((WISEWorkgroupService) workgroupService)
+						.generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);
+						((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);
+					}
+					periodworkgroups.add(workgroup);				
 				}
 			}
 			viewmystudentsperiod.setGrouplessStudents(grouplessStudents);
