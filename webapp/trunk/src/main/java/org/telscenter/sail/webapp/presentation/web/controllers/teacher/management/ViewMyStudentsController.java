@@ -121,7 +121,7 @@ public class ViewMyStudentsController extends AbstractController{
 		Run run = runService.retrieveById(runId);
 		Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
 		Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();
-		String projectName = run.getSdsOffering().getName();
+		String projectName = run.getProject().getName();
 		String projectId = run.getProject().getId().toString();
 		
 		/* retrieves the get parameter periodName to determine which 
@@ -165,7 +165,7 @@ public class ViewMyStudentsController extends AbstractController{
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
 		modelAndView.addObject(RUN_KEY, run);
-		modelAndView.addObject(RUN_NAME_KEY, run.getSdsOffering().getName());
+		modelAndView.addObject(RUN_NAME_KEY, run.getName());
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 		modelAndView.addObject(TAB_INDEX, tabIndex);
 		modelAndView.addObject(PROJECT_NAME, projectName);
