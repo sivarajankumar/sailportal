@@ -95,7 +95,7 @@
 	      </c:otherwise>
 	    </c:choose>
 	    <tr>
-			<th scope="row"><a href="classmonitor.html?runId=${currentRun.id}&tab=0">${currentRun.sdsOffering.name}</a></th>
+			<th scope="row"><a href="classmonitor.html?runId=${currentRun.id}&tab=0">${currentRun.name}</a></th>
 			<td>${currentRun.project.id}</td>
 			<td><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></td>
 			<td>[ongoing]</td>
@@ -173,7 +173,7 @@
 	      </c:otherwise>
 	    </c:choose>
 		<tr>
-			<th scope="row"><a href="classmonitor.html?runId=${archivedRun.id}">${archivedRun.sdsOffering.name}</a></th>
+			<th scope="row"><a href="classmonitor.html?runId=${archivedRun.id}">${archivedRun.name}</a></th>
 			<td>${archivedRun.project.id}</td>
 			<td><fmt:formatDate value="${archivedRun.starttime}" dateStyle="short" /></td>
 			<td><fmt:formatDate value="${archivedRun.endtime}" dateStyle="short" /></td>
