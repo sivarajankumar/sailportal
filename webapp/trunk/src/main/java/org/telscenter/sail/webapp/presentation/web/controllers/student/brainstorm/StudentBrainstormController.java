@@ -57,8 +57,18 @@ public class StudentBrainstormController extends AbstractController {
 
 	private static final Object BRAINSTORM_CLOSED_MSG = 
 		"This Brainstorm Step has not started yet. Please come back later.";
+	
+	private static final Object BAD_PARAMS_MESSAGE = 
+		"You cannot see this brainstorm due to bad params.  Please contact WISE staff.";
+
+	private static final Object BRAINSTORM_NOT_FOUND_MESSAGE = 
+		"Brainstorm was not found. Please contact WISE staff.";
 
 	private static final String CANNOT_SEE_RESPONSES = "cannotseeresponses";
+
+	private static final String RUNID_PARAM = "runId";
+
+	private static final String PARENTBRAINSTORMID_PARAM = "parentBrainstormId";
 
 	private BrainstormService brainstormService;
 
@@ -73,8 +83,26 @@ public class StudentBrainstormController extends AbstractController {
 		User user = (User) request.getSession().getAttribute(
 				User.CURRENT_USER_SESSION_KEY);
 
-		String brainstormId = request.getParameter(BRAINSTORMID_PARAM);
-		Brainstorm brainstorm = brainstormService.getBrainstormById(brainstormId);
+		Brainstorm brainstorm = null;
+		String brainstormIdStr = request.getParameter(BRAINSTORMID_PARAM);
+		String runIdStr = request.getParameter(RUNID_PARAM);
+		String parentBrainstormIdStr = request.getParameter(PARENTBRAINSTORMID_PARAM);
+
+		if (brainstormIdStr != null) {
+			brainstorm = brainstormService.getBrainstormById(brainstormIdStr);
+		} else if (runIdStr != null && parentBrainstormIdStr != null) {
+			brainstorm = brainstormService.getBrainstorm(new Long(runIdStr), new Long(parentBrainstormIdStr));			
+		} else {
+			ModelAndView modelAndView = new ModelAndView(RESTRICTED_VIEW);
+			modelAndView.addObject("msg", BAD_PARAMS_MESSAGE);
+			return modelAndView;			
+		}
+		
+		if (brainstorm == null) {
+			ModelAndView modelAndView = new ModelAndView(RESTRICTED_VIEW);
+			modelAndView.addObject("msg", BRAINSTORM_NOT_FOUND_MESSAGE);
+			return modelAndView;						
+		}
 		
 		List<Workgroup> workgroupListByOfferingAndUser 
 		    = workgroupService.getWorkgroupListByOfferingAndUser(brainstorm.getRun(), user);

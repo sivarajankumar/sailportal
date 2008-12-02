@@ -117,6 +117,9 @@ public class BrainstormImpl implements Brainstorm {
     @Transient
     private static final String COLUMN_NAME_ISRICHTEXTEDITORALLOWED = "isrichtexteditorallowed";
 
+    @Transient
+	private static final String COLUMN_NAME_PARENTBRAINSTORMID = "parent_brainstorm_id";
+
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
     @Sort(type = SortType.NATURAL)
@@ -129,7 +132,7 @@ public class BrainstormImpl implements Brainstorm {
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = RunImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
     @JoinColumn(name = COLUMN_NAME_RUN_FK, unique = false)
-	private Run run;   // if the run is not specified, this brainstorm is 
+	private Run run;   // if the run is not specified, this brainstorm is not able to be used by students.
 	
 	@ManyToOne(targetEntity = ProjectImpl.class)
 	@JoinColumn(name = COLUMN_NAME_PROJECT_FK)
@@ -153,11 +156,14 @@ public class BrainstormImpl implements Brainstorm {
 	
     @Column(name = BrainstormImpl.COLUMN_NAME_STARTTIME)
 	private Date starttime;
-    
+
+    @Column(name = BrainstormImpl.COLUMN_NAME_PARENTBRAINSTORMID)
+    private Long parentBrainstormId = null;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
-
+    
     @Version
     @Column(name = "OPTLOCK")
     private Integer version = null;
@@ -242,6 +248,20 @@ public class BrainstormImpl implements Brainstorm {
 	 */
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+
+	/**
+	 * @return the parentBrainstormId
+	 */
+	public Long getParentBrainstormId() {
+		return parentBrainstormId;
+	}
+
+	/**
+	 * @param parentBrainstormId the parentBrainstormId to set
+	 */
+	public void setParentBrainstormId(Long parentBrainstormId) {
+		this.parentBrainstormId = parentBrainstormId;
 	}
 
 	/**

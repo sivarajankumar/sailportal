@@ -127,6 +127,22 @@ public interface Brainstorm extends Persistable {
 	public void setRun(Run run);
 	
 	/**
+	 * Returns this Brainstorm's parent brainstormId.  If this
+	 * Brainstorm does not have a parent, return null.
+	 * 
+	 * @return <code>Long</code> this Brainstorm's parent's Id.
+	 */
+	public Long getParentBrainstormId();
+	
+	/**
+	 * Sets this Brainstorm's parent brainstormId.
+	 * 
+	 * @param parentBrainstormId the Id of this Brainstorm's parent
+	 * Brainstorm.
+	 */
+	public void setParentBrainstormId(Long parentBrainstormId);
+	
+	/**
 	 * Returns the Project that has this brainstorm.
 	 * 
 	 * @return the project

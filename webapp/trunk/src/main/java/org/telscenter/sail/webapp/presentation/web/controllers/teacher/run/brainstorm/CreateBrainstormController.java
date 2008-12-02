@@ -33,30 +33,39 @@ import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Creates a dummy brainstorm for a run that is specified in the request.
+ * For creating a brainstorm for a project, see createBrainstormQuestionController
  * 
  * @author hirokiterashima
  * @version $Id$
  */
-public class CreateDummyBrainstormController extends AbstractController {
+public class CreateBrainstormController extends AbstractController {
 
 	private RunService runService;
-	
+
+	private ProjectService projectService;
+
 	private BrainstormService brainstormService;
 	
-	private static final String QUESTIONBODY = 
+	private static final String DEFAULT_QUESTIONBODY = 
 		"<assessmentItem xmlns=\"http://www.imsglobal.org/xsd/imsqti_v2p0\" xmlns:ns2=\"http://www.w3.org/1999/xlink\" xmlns:ns3=\"http://www.w3.org/1998/Math/MathML\" timeDependent=\"false\" adaptive=\"false\">" +
         "<responseDeclaration identifier=\"TEXT_NOTE_ID\"/>" +
         "<itemBody>" +
-        "<extendedTextInteraction hasInlineFeedback=\"false\" placeholderText=\"I'm just sayin\" responseIdentifier=\"TEXT_NOTE_ID\" expectedLines=\"6\">" +
+        "<extendedTextInteraction hasInlineFeedback=\"false\" placeholderText=\"placeholdertext goes here\" responseIdentifier=\"TEXT_NOTE_ID\" expectedLines=\"6\">" +
             "<prompt>&lt;p&gt;Watch the following Video on Java and &lt;b&gt;post 2 thoughts that you have&lt;/b&gt; on the video.&lt;/p&gt;&lt;object width='425' height='344'&gt;&lt;param name='movie' value='http://www.youtube.com/v/SRLU1bJSLVg&amp;hl=en&amp;fs=1'&gt;&lt;/param&gt;&lt;param name='allowFullScreen' value='true'&gt;&lt;/param&gt;&lt;embed src='http://www.youtube.com/v/SRLU1bJSLVg&amp;hl=en&amp;fs=1' type='application/x-shockwave-flash' allowfullscreen='true' width='425' height='344'&gt;&lt;/embed&gt;&lt;/object&gt;</prompt>" +
         "</extendedTextInteraction>" +
         "</itemBody>" +
         "</assessmentItem>";
+	
+	private static final String RUNID_PARAM_NAME = "runId";
+
+	private static final String PROJECTID_PARAM_NAME = "projectId";
 	
 	/**
 	 * The Request must have a runId of the run to create the brainstorm for.
@@ -67,7 +76,8 @@ public class CreateDummyBrainstormController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String runIdStr = request.getParameter("runId");
+		String runIdStr = request.getParameter(RUNID_PARAM_NAME);
+		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
 		Brainstorm brainstorm = new BrainstormImpl();
 
 		if (runIdStr != null) {
@@ -75,10 +85,15 @@ public class CreateDummyBrainstormController extends AbstractController {
 			Run run = this.runService.retrieveById(runId);
 			brainstorm.setRun(run);
 		}
+
+		if (projectIdStr != null) {
+			Project project = this.projectService.getById(projectIdStr);
+			brainstorm.setProject(project);
+		}
 		
 		brainstorm.setAnonymousAllowed(true);
 		Question question = new JaxbQuestionImpl();
-		question.setBody(QUESTIONBODY);
+		question.setBody(DEFAULT_QUESTIONBODY);
 		brainstorm.setQuestion(question);
 		brainstorm.setDisplayNameOption(DisplayNameOption.USERNAME_OR_ANONYMOUS);
 		brainstorm.setGated(false);
@@ -100,6 +115,13 @@ public class CreateDummyBrainstormController extends AbstractController {
 	 */
 	public void setBrainstormService(BrainstormService brainstormService) {
 		this.brainstormService = brainstormService;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 
 }

@@ -27,8 +27,8 @@
         entries_inheriting bit not null,
         OPTLOCK integer,
         owner_sid bigint,
-        object_id_class bigint not null,
         parent_object bigint,
+        object_id_class bigint not null,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -116,8 +116,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -177,8 +177,8 @@
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_workgroup_fk bigint unique,
-        offering_fk bigint not null,
         group_fk bigint not null,
+        offering_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 

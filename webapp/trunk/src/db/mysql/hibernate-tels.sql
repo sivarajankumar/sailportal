@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        acl_object_identity bigint not null,
         sid bigint not null,
+        acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -27,8 +27,8 @@
         entries_inheriting bit not null,
         OPTLOCK integer,
         object_id_class bigint not null,
-        parent_object bigint,
         owner_sid bigint,
+        parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -116,7 +116,9 @@
         isanonymousallowed bit,
         displaynameoption integer,
         isgated bit,
+        isrichtexteditorallowed bit,
         starttime datetime,
+        parent_brainstorm_id bigint,
         OPTLOCK integer,
         runs_fk bigint,
         brainstormquestions_fk bigint,
@@ -247,8 +249,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -256,8 +258,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -369,8 +371,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -468,8 +470,8 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_workgroup_fk bigint unique,
         offering_fk bigint not null,
+        sds_workgroup_fk bigint unique,
         group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;

@@ -93,6 +93,15 @@ public class BrainstormServiceImpl implements BrainstormService {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstorm(java.lang.Long, java.lang.Long)
+	 */
+	@Transactional(readOnly = true)
+	public Brainstorm getBrainstorm(Long runId, Long parentBrainstormId) {
+		return this.brainstormDao.retrieveByRunIdAndParentId(runId, parentBrainstormId);
+	}
+
+
+	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormsByRun(org.telscenter.sail.webapp.domain.Run)
 	 */
 	@Transactional(readOnly = true)

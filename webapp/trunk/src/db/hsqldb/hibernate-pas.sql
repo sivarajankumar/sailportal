@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
+        owner_sid bigint,
         parent_object bigint,
         object_id_class bigint not null,
-        owner_sid bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -116,8 +116,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -176,9 +176,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        offering_fk bigint not null,
         sds_workgroup_fk bigint unique,
         group_fk bigint not null,
+        offering_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 

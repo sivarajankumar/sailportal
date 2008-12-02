@@ -58,6 +58,18 @@ public interface BrainstormService {
 	public Set<Brainstorm> getBrainstormsByRun(Run run);
 
 	/**
+	 * Returns a <code>Brainstorm</code> with the specified runId
+	 * and parentBrainstormId.
+	 * 
+	 * @param runId Id of run that the brainstorm is in.
+	 * @param parentBrainstormId Id of this brainstorm's parent
+	 * brainstorm.
+	 * 
+	 * @return Brainstorm with the specified attributes
+	 */
+	public Brainstorm getBrainstorm(Long runId, Long parentBrainstormId);
+	
+	/**
 	 * Retrieves a <code>Brainstorm</code> with the specified id.
 	 * 
 	 * @param id

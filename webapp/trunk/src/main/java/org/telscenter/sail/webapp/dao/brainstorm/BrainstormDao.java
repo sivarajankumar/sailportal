@@ -55,4 +55,13 @@ public interface BrainstormDao<T extends Brainstorm> extends SimpleDao<T> {
 	 * @return
 	 */
 	public Set<Brainstorm> retrieveByRun(Run run);
+	
+	/**
+	 * Looks up Brainstorms that are used in the 
+	 * specified <code>Run</code>
+	 *     
+	 * @param run
+	 * @return
+	 */
+	public Brainstorm retrieveByRunIdAndParentId(Long runId, Long parentBrainstormId);
 }

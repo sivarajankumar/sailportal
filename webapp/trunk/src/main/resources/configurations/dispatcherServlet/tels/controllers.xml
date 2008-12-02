@@ -940,8 +940,8 @@
         <property name="brainstormService" ref="brainstormService" />      
     </bean>
     
-    <bean id="createDummyBrainstormController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateDummyBrainstormController">
+    <bean id="createBrainstormController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateBrainstormController">
         <property name="brainstormService" ref="brainstormService" />      
         <property name="runService" ref="runService" />      
     </bean>

@@ -28,6 +28,7 @@ import java.util.Set;
 
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
@@ -83,6 +84,20 @@ public class HibernateBrainstormDao extends AbstractHibernateDao<Brainstorm> imp
 		Set<Brainstorm> setOfBrainstorms = new HashSet<Brainstorm>();
 		setOfBrainstorms.addAll(listOfBrainstorms);
 		return setOfBrainstorms;
+	}
+
+    /**
+     * @see org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao#retrieveByRunIdAndParentId(java.lang.Long, java.lang.Long)
+     */
+	public Brainstorm retrieveByRunIdAndParentId(Long runId,
+			Long parentBrainstormId) {
+		return (Brainstorm) DataAccessUtils
+		    .uniqueResult(this
+		    .getHibernateTemplate()
+		    .findByNamedParam(
+				"from BrainstormImpl as brainstorm where brainstorm.run.id = :runId " +
+				"and brainstorm.parentBrainstormId = :parentBrainstormId", 
+				new String[]{"runId", "parentBrainstormId"}, new Object[]{runId, parentBrainstormId}));
 	}
 
 }

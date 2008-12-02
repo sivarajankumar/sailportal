@@ -116,11 +116,13 @@
         isanonymousallowed bit,
         displaynameoption integer,
         isgated bit,
+        isrichtexteditorallowed bit,
         starttime datetime,
+        parent_brainstorm_id bigint,
         OPTLOCK integer,
         brainstormquestions_fk bigint,
-        projects_fk bigint,
         runs_fk bigint,
+        projects_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -147,6 +149,7 @@
     create table diyprojectcommunicators (
         id bigint not null,
         previewdiyprojectsuffix varchar(255),
+        diyportalhostname varchar(255),
         primary key (id)
     ) type=MyISAM;
 
@@ -246,8 +249,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -255,8 +258,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -283,9 +286,9 @@
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
+        curnit_fk bigint,
         jnlp_fk bigint,
         run_fk bigint unique,
-        curnit_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -467,8 +470,8 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        group_fk bigint not null,
         sds_workgroup_fk bigint unique,
+        group_fk bigint not null,
         offering_fk bigint not null,
         primary key (id)
     ) type=MyISAM;

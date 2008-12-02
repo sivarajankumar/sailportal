@@ -32,6 +32,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
@@ -71,23 +72,31 @@ public class CreateBrainstormQuestionController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		Serializable projectId = request.getParameter(PROJECTID_PARAM);
+
 		try {
-			Serializable projectId = request.getParameter(PROJECTID_PARAM);
 			Project project = projectService.getById(projectId);
+
 			Brainstorm brainstorm = new BrainstormImpl();
-			brainstorm.setProject(project);
 			brainstorm.setAnonymousAllowed(true);
+			brainstorm.setProject(project);
 			Question question = new JaxbQuestionImpl();
 			question.setBody(QUESTIONBODY);
 			brainstorm.setQuestion(question);
+			brainstorm.setDisplayNameOption(DisplayNameOption.USERNAME_OR_ANONYMOUS);
+			brainstorm.setGated(false);
+			brainstorm.setSessionStarted(true);
+			brainstorm.setRichTextEditorAllowed(true);
 			brainstormService.createBrainstorm(brainstorm);
 
 			// brainstorm.id should have been set by the previous call to createBrainstorm().
 			Serializable brainstormId = brainstorm.getId();
-			String authorBrainstormUrl = Util.getPortalUrl(request) + "/author/authorbrainstorm.html?brainstormId=" + brainstormId;
+			String authorBrainstormUrl = Util.getPortalUrl(request) + "/author/brainstorm/authorbrainstorm.html?brainstormId=" + brainstormId;
 			response.getWriter().print(authorBrainstormUrl);
 		} catch (ObjectNotFoundException onfe) {
 			response.setStatus(400);
+			response.getWriter().print("project with Id=" + projectId + 
+					" does not exist.\n" + onfe.toString());
 			throw onfe;
 		}
 		return null;
