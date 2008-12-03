@@ -423,4 +423,20 @@ public class BrainstormImpl implements Brainstorm {
 	public void setRichTextEditorAllowed(boolean isRichTextEditorAllowed) {
 		this.isRichTextEditorAllowed = isRichTextEditorAllowed;
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#getCopy()
+	 */
+	public Brainstorm getCopy() {
+		Brainstorm copy = new BrainstormImpl();
+		copy.setDisplayNameOption(this.getDisplayNameOption());
+		copy.setAnonymousAllowed(this.isAnonymousAllowed());
+		copy.setGated(this.isGated);
+		copy.setParentBrainstormId(this.getId());
+		copy.setProject(this.getProject());
+		copy.setQuestion(this.getQuestion());
+		copy.setRichTextEditorAllowed(this.isRichTextEditorAllowed());
+		copy.setSessionStarted(this.isSessionStarted());
+		return copy;
+	}
 }

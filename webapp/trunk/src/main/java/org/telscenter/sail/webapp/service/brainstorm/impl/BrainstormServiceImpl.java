@@ -35,6 +35,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 
@@ -109,6 +110,20 @@ public class BrainstormServiceImpl implements BrainstormService {
 		return this.brainstormDao.retrieveByRun(run);
 	}
 
+	/**
+	 * Returns a set of Brainstorms that are used in the project. 
+	 * requirements:
+	 *    - brainstorm's project = specified project
+	 *    - brainstorm's parentBrainstormId = null
+	 * 
+	 * @param run
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public Set<Brainstorm> getParentBrainstormsForProject(Project project) {
+		return this.brainstormDao.retrieveByProjectAndParentId(project, null);
+	}
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#markAsHelpful(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
 	 */

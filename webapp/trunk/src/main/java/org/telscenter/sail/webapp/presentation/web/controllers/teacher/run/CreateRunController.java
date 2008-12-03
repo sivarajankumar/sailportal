@@ -43,6 +43,7 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,9 +52,11 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -86,7 +89,9 @@ public class CreateRunController extends AbstractWizardFormController {
 	private ModuleService moduleService = null;
 
 	private ProjectService projectService = null;
-
+	
+	private BrainstormService brainstormService = null;
+	
 	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/setuprunconfirm";
 	
 	private static final String CANCEL_VIEW_NAME = "../../teacher/index.html";
@@ -280,8 +285,19 @@ public class CreateRunController extends AbstractWizardFormController {
 		Run run = null;
     	try {
 			run = this.runService.createRun(runParameters);
+			
+			
+			// if the project has brainstorms, instantiate them and add them to the run
+			Set<Brainstorm> brainstormsForProject = brainstormService.getParentBrainstormsForProject(run.getProject());
+			for (Brainstorm brainstorm : brainstormsForProject) {
+				Brainstorm brainstormCopy = brainstorm.getCopy();
+				brainstormCopy.setRun(run);
+				brainstormService.createBrainstorm(brainstormCopy);
+			}
+			
 			// create a workgroup for the owners of the run (teacher)
 			workgroupService.createWISEWorkgroup("teacher", runParameters.getOwners(), run, null);
+			
 		} catch (ObjectNotFoundException e) {
 			errors.rejectValue("curnitId", "error.curnit-not_found",
 					new Object[] { runParameters.getCurnitId() }, 
@@ -465,6 +481,11 @@ public class CreateRunController extends AbstractWizardFormController {
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
 	}
-
-
+	
+	/**
+	 * @param brainstormService the brainstormService to set
+	 */
+	public void setBrainstormService(BrainstormService brainstormService) {
+		this.brainstormService = brainstormService;
+	}
 }

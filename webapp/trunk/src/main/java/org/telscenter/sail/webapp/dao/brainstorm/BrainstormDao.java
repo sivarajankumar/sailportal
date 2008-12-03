@@ -27,6 +27,7 @@ import java.util.Set;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.project.Project;
 
 import net.sf.sail.webapp.dao.SimpleDao;
 
@@ -64,4 +65,13 @@ public interface BrainstormDao<T extends Brainstorm> extends SimpleDao<T> {
 	 * @return
 	 */
 	public Brainstorm retrieveByRunIdAndParentId(Long runId, Long parentBrainstormId);
+	
+	/**
+	 * Looks up Brainstorms that are used by the specified
+	 * project and is not being used in a run.
+	 *     
+	 * @param run
+	 * @return
+	 */
+	public Set<Brainstorm> retrieveByProjectAndParentId(Project project, Long parentBrainstormId);
 }

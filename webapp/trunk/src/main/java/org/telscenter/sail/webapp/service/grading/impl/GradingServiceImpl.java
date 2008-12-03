@@ -131,7 +131,10 @@ public class GradingServiceImpl implements GradingService {
 	 */
 	private ECurnitmap getCurnitmap(Run run) throws ObjectNotFoundException {
 		String curnitmapXMLString = run.getSdsOffering().getSdsCurnitMap();
-		ECurnitmap curnitmap = CurnitmapLoader.loadCurnitmap(curnitmapXMLString);
+		ECurnitmap curnitmap = null;
+		if (curnitmapXMLString != null && curnitmapXMLString.length() > 0) {
+			curnitmap = CurnitmapLoader.loadCurnitmap(curnitmapXMLString);
+		}
 		return curnitmap;
 	}
 

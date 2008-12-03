@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.dao.brainstorm.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +35,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
+import org.telscenter.sail.webapp.domain.project.Project;
 
 /**
  * @author Hiroki Terashima
@@ -98,6 +100,33 @@ public class HibernateBrainstormDao extends AbstractHibernateDao<Brainstorm> imp
 				"from BrainstormImpl as brainstorm where brainstorm.run.id = :runId " +
 				"and brainstorm.parentBrainstormId = :parentBrainstormId", 
 				new String[]{"runId", "parentBrainstormId"}, new Object[]{runId, parentBrainstormId}));
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.dao.brainstorm.BrainstormDao#retrieveByProjectAndParentId(org.telscenter.sail.webapp.domain.project.Project, java.lang.Long)
+	 */
+    @SuppressWarnings("unchecked")
+	public Set<Brainstorm> retrieveByProjectAndParentId(Project project,
+			Long parentBrainstormId) {
+		List<Brainstorm> listOfBrainstorms = new ArrayList<Brainstorm>();
+		if (parentBrainstormId == null) {
+			listOfBrainstorms = this
+			.getHibernateTemplate()
+			.findByNamedParam(
+					"from BrainstormImpl as brainstorm where brainstorm.project = :project " +
+					"and brainstorm.parentBrainstormId is null",
+					new String[]{"project"}, new Object[]{project});
+		} else {
+			listOfBrainstorms = this
+			.getHibernateTemplate()
+			.findByNamedParam(
+					"from BrainstormImpl as brainstorm where brainstorm.project = :project " +
+					"and brainstorm.parentBrainstormId = :parentBrainstormId",
+					new String[]{"project", "parentBrainstormId"}, new Object[]{project, parentBrainstormId});
+		}
+		Set<Brainstorm> setOfBrainstorms = new HashSet<Brainstorm>();
+		setOfBrainstorms.addAll(listOfBrainstorms);
+		return setOfBrainstorms;	
 	}
 
 }

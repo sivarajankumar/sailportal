@@ -32,6 +32,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
 /**
@@ -56,6 +57,14 @@ public interface BrainstormService {
 	 * @return
 	 */
 	public Set<Brainstorm> getBrainstormsByRun(Run run);
+	
+	/**
+	 * Returns a set of Brainstorms that are used in the project
+	 * 
+	 * @param run
+	 * @return
+	 */
+	public Set<Brainstorm> getParentBrainstormsForProject(Project project);
 
 	/**
 	 * Returns a <code>Brainstorm</code> with the specified runId

@@ -298,6 +298,33 @@ public class PodProjectServiceImpl implements ProjectService {
 	}
 	
 	/**
+	 * Generates the request parameter string to be added to the end of
+	 * the launch/preview project url
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static String generatePortalBaseUrlParamRequestString(HttpServletRequest request) {
+		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
+		request.getServerPort() + request.getContextPath();
+
+		return "jnlp.portal_baseurl=" + portalUrl;
+	}
+	
+
+	/**
+	 * Generates the request parameter string to be added to the end of
+	 * the launch/preview project url
+	 * 
+	 * @param request
+	 * @param runId
+	 * @return
+	 */
+	public static String generateRunIdParamRequestString(Long runId) {
+		return "jnlp.run_id=" + runId;
+	}
+	
+	/**
 	 * Generates the url string that is used to preview a project
 	 * @param httpRestTransport
 	 * @param request

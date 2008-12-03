@@ -53,6 +53,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
+import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
@@ -61,6 +62,7 @@ import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
+import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -91,7 +93,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	private GroupDao<Group> groupDao;
 	
 	private UserDao<User> userDao;
-	
+
 	/**
 	 * @param groupDao
 	 *            the groupDao to set
@@ -182,13 +184,13 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	@Transactional(rollbackFor = { HttpStatusCodeException.class })
 	public Run createRun(RunParameters runParameters)
 			throws ObjectNotFoundException {
-
+		Project project = runParameters.getProject();
 		Run run = new RunImpl();
 		run.setEndtime(null);
 		run.setStarttime(Calendar.getInstance().getTime());
 		run.setRuncode(generateUniqueRunCode());
 		run.setOwners(runParameters.getOwners());
-		run.setProject(runParameters.getProject());
+		run.setProject(project);
 		run.setName("Run with Project " + runParameters.getProject().getName());
 		if (!(run.getProject() instanceof ExternalProject)) {
 			run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));

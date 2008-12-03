@@ -178,6 +178,10 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 				workgroup);
 
 		String entireUrl = jnlpUrl + "?" + generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
+		// add jnlp.portal_baseurl and jnlp.runId to the request
+		entireUrl += "&" + generatePortalBaseUrlParamRequestString(request);
+		entireUrl += "&" + generateRunIdParamRequestString(run.getId());
+
 		Curnit curnit = run.getProject().getCurnit();
 		String curnitOtmlUrl = ((OtmlModuleImpl) curnit).getRetrieveotmlurl();
 		entireUrl += "&sailotrunk.otmlurl=" + curnitOtmlUrl;

@@ -246,4 +246,12 @@ public interface Brainstorm extends Persistable {
 	 * @param displayNameOption the displayNameOption to set
 	 */
 	public void setDisplayNameOption(DisplayNameOption displayNameOption);
+	
+	/**
+	 * Returns a copy of this Brainstorm object.
+	 * 
+	 * @return a new instance of this project with same attributes
+	 * except id and version.
+	 */
+	public Brainstorm getCopy();
 }

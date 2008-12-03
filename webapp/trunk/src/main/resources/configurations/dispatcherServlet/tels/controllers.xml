@@ -300,6 +300,7 @@
 		<property name="moduleService" ref="curnitService" />
         <property name="projectService" ref="projectService" />       
         <property name="workgroupService" ref="wiseWorkgroupService" />
+        <property name="brainstormService" ref="brainstormService" />        
 		<property name="commandName" value="runParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
