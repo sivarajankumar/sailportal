@@ -16,71 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
   
-/* THESE STYLES ARE USED GLOBALLY IN THE SITE  */	
+/* THESE STYLES ARE USED GLOBALLY WITHIN ALL UCCP PROJECTS  */	
 
 
-body {
-	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
-	font-size: 100%;
-	text-align: center;
-	margin: 5px;
-	background-color:#FFFFFF;
-	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
+.IntroUnit1 {
+	color:#FF0000;
 	}
-	
-img {border: 0px;}
-
-h1 {font-size:2.0em;} 
-h2 {font-size:1.5em; }
-h3 {font-size:1.4em;}
-h4 {font-size:1.2em;}
-h5 {font-size:.9em; }
-h6 {font-size:.8em; }
-p  {font-size:.8em; line-height:150%;padding:0px; margin:0px;}
-	
-abbr, acronym {
-	cursor:help;
-	border-bottom: 1px dotted #666666;	
-	}
-
-#bannerArea {
-	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
-	background-position: center top;
-	width: 958px;
-	height: 60px;
-	margin: 0px 0 7px 0;
-	padding:0px;
-	position:relative;
-	}
-	
-#centeredDiv {
-	background-color:#FFFFFF;
-	width: 960px;
-	text-align:left;
-	padding: 0;
-	margin: 0 auto;
-	}
-	
-	
-#hotInputFields  {
-	margin:15px;
-}
-
-#hotInputFields input {
-	text-align:center;
-	border-top:1px solid #666666;
-	border-right:2px ridge #000000;
-	border-bottom:2px ridge #000000;
-	border-left:1px solid #666666;
-	background-color:#CCCCFF;
-	padding:5px;
-		}
-
-#hotInputFields input:hover {
-	background-color:#FFFF33;
-}
-
-.center {text-align:center;}
-
-form {margin:0px; padding:0px;}
-	
+		
