@@ -18,10 +18,42 @@
   
 /* THESE STYLES ARE USED GLOBALLY WITHIN ALL UCCP PROJECTS  */	
 
+body {
+	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
+	font-size: 100%;
+	text-align: center;
+	margin: 5px;
+	background-color:#FFFFFF;
+	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
+	}
+	
+img {border: 0px;}
 
-.IntroUnit1 {
+h1 {font-size:2.0em;} 
+h2 {font-size:1.5em; }
+h3 {font-size:1.4em;}
+h4 {font-size:1.2em;}
+h5 {font-size:.9em; }
+h6 {font-size:.8em; }
+p  {font-size:.8em; line-height:150%;padding:0px; margin:0px;}
+	
+#centeredDiv {
+	background-color:#FFFFFF;
+	text-align:left;
+	padding: 0;
+	margin: 0 auto;
+	}
+	
+.Unit1 {
 	color:#FF0000;
-	width:50%;
+	width:100%;
+	border:5px solid black;
+	}
+		
+		
+.Unit1 {
+	color:#FF0000;
+	width:100%;
 	border:5px solid black;
 	}
 		
