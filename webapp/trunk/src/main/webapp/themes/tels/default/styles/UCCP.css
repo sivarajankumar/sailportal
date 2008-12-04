@@ -38,6 +38,7 @@ h6 {font-size:.7em; margin-left:10px;}
 p  {font-size:.9em; line-height:130%;padding:0px; margin:0 0 12px 10px;}
 
 #locationBar {
+	position:relative;
 	color:#333333;
 	background-color:#CCFF99;
 	border:1px ridge black;
@@ -57,6 +58,9 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 0 12px 10px;}
 	}
 	
 .Intro {
+	position:absolute;
+	top:0px;
+	right:20px;
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Intro-16.png);
 	background-repeat:no-repeat; 
 	background-position:center right;	
