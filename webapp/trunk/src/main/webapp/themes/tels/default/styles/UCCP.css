@@ -36,16 +36,11 @@ h4 {font-size:1.2em;}
 h5 {font-size:.9em; }
 h6 {font-size:.8em; }
 p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
-	
-	
-.Unit1 {
-	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Header-Unit1.png);
-	background-position:0px 6px;
-	background-repeat:no-repeat; 
-	}
-	
+
+
 #locationBar {
-	margin-top:30px;
+	background-color:gray;
+	border:1px solid black;
 }
 
 .Intro {
@@ -53,4 +48,3 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 	background-position:top right;
 	background-repeat:no-repeat; 
 	}
-	
