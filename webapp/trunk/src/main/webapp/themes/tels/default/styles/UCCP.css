@@ -29,13 +29,13 @@ body {
 	
 img {border: 0px;}
 
-h1 {font-size:2.0em;} 
-h2 {font-size:1.5em; }
-h3 {font-size:1.4em;}
-h4 {font-size:1.2em;}
-h5 {font-size:.9em; }
-h6 {font-size:.8em; }
-p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
+h1 {font-size:1.8em;margin-left:10px;} 
+h2 {font-size:1.5em; margin-left:10px; }
+h3 {font-size:1.2em; margin-left:10px;}
+h4 {font-size:1.0em; margin-left:10px;}
+h5 {font-size:.8em;  margin-left:10px;}
+h6 {font-size:.7em; margin-left:10px;}
+p  {font-size:.9em; line-height:150%;padding:0px; margin:0 0 0 10px;}
 
 #locationBar {
 	color:#333333;
@@ -44,7 +44,7 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 	padding:5px;
 	font-size:.7em;
 	font-variant:small-caps;
-	letter-spacing:.9em;
+	letter-spacing:.5px;
 }
 
 .Intro {
