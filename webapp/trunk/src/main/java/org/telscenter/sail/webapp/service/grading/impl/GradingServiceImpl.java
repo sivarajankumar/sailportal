@@ -163,10 +163,12 @@ public class GradingServiceImpl implements GradingService {
 		// get the curnitmap for this run
 		ECurnitmap curnitmap = getCurnitmap(runId);		
 		for (Workgroup workgroup : workgroups) {
-			Group period = ((WISEWorkgroup) workgroup).getPeriod();
-			GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate =
-				getGradeWorkByWorkgroupAggregate(run, workgroup, curnitmap);
-			period_to_aggregate.get(period).add(gradeWorkByWorkgroupAggregate);
+			if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+				Group period = ((WISEWorkgroup) workgroup).getPeriod();
+				GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate =
+					getGradeWorkByWorkgroupAggregate(run, workgroup, curnitmap);
+				period_to_aggregate.get(period).add(gradeWorkByWorkgroupAggregate);
+			}
 		}
 
 		return period_to_aggregate;		
@@ -213,54 +215,56 @@ public class GradingServiceImpl implements GradingService {
 		Workgroup workgroup = gradeWorkByWorkgroupAggregate.getWorkgroup();
 		
 		//go through all the workgroup members
-		for (User user : workgroup.getMembers()) {
-			IndividualScore individualScore = new StudentScoreImpl();
-			individualScore.setUsername(user.getUserDetails().getUsername());
-			((StudentScore)individualScore).setFirstName(user.getSdsUser().getFirstName());
-			((StudentScore)individualScore).setLastName(user.getSdsUser().getLastName());
-			individualScore.setWorkgroup(workgroup);
-			individualScore.setOfferingId(gradeWorkByWorkgroupAggregate.getRunId());
-			individualScore.setGroup(((WISEWorkgroup)workgroup).getPeriod());
-			individualScore.setTotalGradableSteps(gradableSteps.size());
-			
-			EList annotationGroups = gradeWorkByWorkgroupAggregate.getAnnotationBundle().getEAnnotationBundle().getAnnotationGroups();
-			
-			for (Iterator iterator = annotationGroups.iterator(); iterator
-					.hasNext();) {
-				EAnnotationGroup annotationGroup = (EAnnotationGroup) iterator.next();
-				if( annotationGroup.getAnnotationSource().equals("http://telscenter.org/annotation/score")) {
-					
-					EList annotations = annotationGroup.getAnnotations();
-					
-					for (Iterator ai = annotations.iterator(); ai
-							.hasNext();) {
-						EAnnotation a = (EAnnotation) ai.next();
-						
-						//if this step is gradable
-						if( gradableSteps.containsKey(a.getEntityUUID().toString())) {
-							
-							//check null also
-							if( !a.getContents().equals("unscored") && StringUtils.trimToNull(a.getContents()) != null ) {
-								individualScore.setAccmulatedScore(a.getEntityUUID().toString(), a.getContents());
+		if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+			for (User user : workgroup.getMembers()) {
+				IndividualScore individualScore = new StudentScoreImpl();
+				individualScore.setUsername(user.getUserDetails().getUsername());
+				((StudentScore)individualScore).setFirstName(user.getSdsUser().getFirstName());
+				((StudentScore)individualScore).setLastName(user.getSdsUser().getLastName());
+				individualScore.setWorkgroup(workgroup);
+				individualScore.setOfferingId(gradeWorkByWorkgroupAggregate.getRunId());
+				individualScore.setGroup(((WISEWorkgroup)workgroup).getPeriod());
+				individualScore.setTotalGradableSteps(gradableSteps.size());
+
+				EList annotationGroups = gradeWorkByWorkgroupAggregate.getAnnotationBundle().getEAnnotationBundle().getAnnotationGroups();
+
+				for (Iterator iterator = annotationGroups.iterator(); iterator
+				.hasNext();) {
+					EAnnotationGroup annotationGroup = (EAnnotationGroup) iterator.next();
+					if( annotationGroup.getAnnotationSource().equals("http://telscenter.org/annotation/score")) {
+
+						EList annotations = annotationGroup.getAnnotations();
+
+						for (Iterator ai = annotations.iterator(); ai
+						.hasNext();) {
+							EAnnotation a = (EAnnotation) ai.next();
+
+							//if this step is gradable
+							if( gradableSteps.containsKey(a.getEntityUUID().toString())) {
+
+								//check null also
+								if( !a.getContents().equals("unscored") && StringUtils.trimToNull(a.getContents()) != null ) {
+									individualScore.setAccmulatedScore(a.getEntityUUID().toString(), a.getContents());
+								}// if
+
+								//look up the possible score for the step
+								String possScore = gradableSteps.get(a.getEntityUUID().toString()).getPossibleScore().toString();
+
+								if( possScore == null)
+									possScore = "20";
+
+								individualScore.setPossibleScore(a.getEntityUUID().toString(), possScore);
 							}// if
-						
-							//look up the possible score for the step
-							String possScore = gradableSteps.get(a.getEntityUUID().toString()).getPossibleScore().toString();
-							
-							if( possScore == null)
-								possScore = "20";
-							
-							individualScore.setPossibleScore(a.getEntityUUID().toString(), possScore);
-						}// if
-					}// for
-					
-				}// if
-				
-			}// for
-			
-			// the score object the list
-			individualScores.add(individualScore);			
-		}//for
+						}// for
+
+					}// if
+
+				}// for
+
+				// the score object the list
+				individualScores.add(individualScore);			
+			}//for
+		}
 		
 		return individualScores;
 	}

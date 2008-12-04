@@ -76,7 +76,9 @@ public class SelectWorkgroupController extends AbstractController {
 		
 		for (Workgroup workgroup : workgroups) {
 			Group period = ((WISEWorkgroup) workgroup).getPeriod();
-			periodsToWorkgroups.get(period).add(workgroup);
+			if (period != null) {
+				periodsToWorkgroups.get(period).add(workgroup);
+			}
 		}
 		
 		ModelAndView modelAndView = new ModelAndView();

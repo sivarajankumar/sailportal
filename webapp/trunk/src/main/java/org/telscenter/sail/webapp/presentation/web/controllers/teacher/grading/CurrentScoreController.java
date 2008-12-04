@@ -137,14 +137,15 @@ public class CurrentScoreController extends AbstractController {
 				
 				Group period = ((WISEWorkgroup)workgroup).getPeriod();
 				
-				String periodKey = period.getName();
-				
-				if( periodsToScoreLists.containsKey(periodKey) ) {
-					periodsToScoreLists.get(periodKey).addAll(individualScores);
-				} else {
-					periodsToScoreLists.put(periodKey, individualScores);
-				}// if
-				
+				if (period != null) {
+					String periodKey = period.getName();
+
+					if( periodsToScoreLists.containsKey(periodKey) ) {
+						periodsToScoreLists.get(periodKey).addAll(individualScores);
+					} else {
+						periodsToScoreLists.put(periodKey, individualScores);
+					}// if
+				}				
 			
 			}// for
 			

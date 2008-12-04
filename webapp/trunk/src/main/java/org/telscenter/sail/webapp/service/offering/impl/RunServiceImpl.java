@@ -407,8 +407,10 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		Set<Workgroup> workgroups = getWorkgroups(runId);
 		Set<Workgroup> returnSet = new TreeSet<Workgroup>();
 		for(Workgroup workgroup : workgroups){
+			if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
 				if (((WISEWorkgroup) workgroup).getPeriod().getId().equals(periodId)){
 					returnSet.add(workgroup);
+				}
 			}
 		}
 		return returnSet;
