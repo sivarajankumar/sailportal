@@ -51,13 +51,14 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 0 12px 10px;}
 
 .action {
 	margin: 15px 0 0 10px;
-	font-weight:.7em;
+	font-weight:.6em;
 	font-family: Helvetica, Arial;	
 	font-style:italic;
 	}
 	
 .Intro {
-	position:relative;
+	position:absolute;
+	top:0;
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Intro-16.png);
 	background-repeat:no-repeat; 
 	background-position:center right;	
