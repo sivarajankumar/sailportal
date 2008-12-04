@@ -40,8 +40,11 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 #locationBar {
 	color:#333333;
 	background-color:#CCFF99;
-	border:1px solid black;
+	border:1px ridge black;
 	padding:3px 8px 3px 3px;
+	font-size:.9em;
+	font-variant:small-caps;
+	letter-spacing:.5em;
 }
 
 .Intro {
