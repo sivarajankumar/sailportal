@@ -35,7 +35,7 @@ h3 {font-size:1.4em;}
 h4 {font-size:1.2em;}
 h5 {font-size:.9em; }
 h6 {font-size:.8em; }
-p  {font-size:.8em; line-height:150%;padding:0px; margin:0px;}
+p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 	
 #centeredDiv {
 	background-color:#FFFFFF;
@@ -45,9 +45,7 @@ p  {font-size:.8em; line-height:150%;padding:0px; margin:0px;}
 	}
 	
 .Unit1 {
-	color:#FF0000;
-	width:100%;
-	border:5px solid black;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/Gradient-BlueWhite-5x65.png);
 	}
 		
 		
