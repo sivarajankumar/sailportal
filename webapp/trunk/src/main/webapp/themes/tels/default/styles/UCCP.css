@@ -41,14 +41,20 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 	color:#333333;
 	background-color:#CCFF99;
 	border:1px ridge black;
-	padding:3px 8px 3px 3px;
-	font-size:.9em;
+	padding:5px;
+	font-size:.7em;
 	font-variant:small-caps;
-	letter-spacing:.5em;
+	letter-spacing:.9em;
 }
 
 .Intro {
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Intro-16.png);
+	background-repeat:no-repeat; 
+	background-position:center right;	
+	}
+	
+.Video {
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Video-16.png);
 	background-repeat:no-repeat; 
 	background-position:center right;	
 	}
