@@ -37,12 +37,6 @@ h5 {font-size:.9em; }
 h6 {font-size:.8em; }
 p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 	
-#centeredDiv {
-	background-color:#FFFFFF;
-	text-align:left;
-	padding: 0;
-	margin: 0 auto;
-	}
 	
 .Unit1 {
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Header-Unit1.png);
@@ -50,16 +44,13 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 	background-repeat:no-repeat; 
 	}
 	
+#locationBar {
+	margin-top:30px;
+}
+
 .Intro {
-	margin-top:80px; 
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Header-Unit1.png);
 	background-position:top right;
 	background-repeat:no-repeat; 
-}
-
-
-		
-		
-
-		}
-		
+	}
+	
