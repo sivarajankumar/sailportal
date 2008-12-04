@@ -21,7 +21,7 @@
 body {
 	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
 	font-size: 100%;
-	text-align: center;
+	text-align: left;
 	margin: 5px;
 	background-color:#FFFFFF;
 	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
@@ -37,14 +37,6 @@ h5 {font-size:.9em; }
 h6 {font-size:.8em; }
 p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 
-#centeredDiv {
-	background-color:#FFFFFF;
-	width: 960px;
-	text-align:left;
-	padding: 0;
-	margin: 0 auto;
-	}
-
 #locationBar {
 	color:#333333;
 	background-color:#CCFF99;
@@ -54,6 +46,6 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 
 .Intro {
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Intro-16.png);
-	background-position:middle right;	
 	background-repeat:no-repeat; 
+	background-position:center right;	
 	}
