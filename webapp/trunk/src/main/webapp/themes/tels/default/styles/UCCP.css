@@ -44,12 +44,18 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 	margin: 0 auto;
 	}
 	
+.Intro {
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Header-Unit1.png);
+	background-position:top right;
+	background-repeat:no-repeat; 
+	
 .Unit1 {
-	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/Gradient-BlueWhite-5x65.png);
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Header-Unit1.png);
+	background-position:0px 6px;
+	background-repeat:no-repeat; 
 	}
 		
 		
-.Unit1 {
-	color:#FF0000;
+
 		}
 		
