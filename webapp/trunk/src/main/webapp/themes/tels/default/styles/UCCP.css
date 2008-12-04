@@ -21,7 +21,7 @@
 body {
 	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
 	font-size: 100%;
-	text-align: center;
+	text-align: left;
 	margin: 5px;
 	background-color:#FFFFFF;
 	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
@@ -39,9 +39,10 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 
 
 #locationBar {
-	color:#FFFFFF;
-	background-color:gray;
+	color:#333333;
+	background-color:#CCFF99;
 	border:1px solid black;
+	padding:3px;
 }
 
 .Intro {
