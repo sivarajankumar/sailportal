@@ -51,7 +51,7 @@ p  {font-size:1em; line-height:150%;padding:0px; margin:0px;}
 	}
 	
 .Intro {
-	margin-top:40px;
+	margin-top:80px; 
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Header-Unit1.png);
 	background-position:top right;
 	background-repeat:no-repeat; 
