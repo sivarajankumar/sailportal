@@ -41,6 +41,8 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 0 12px 10px;}
 	position:relative;
 	color:#333333;
 	background-color:#CCFF99;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Gradient-LocationBar.png);
+	background-repeat:no-repeat; 
 	border:1px ridge black;
 	padding:5px;
 	margin: 0 0 10px 0;
@@ -51,7 +53,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 0 12px 10px;}
 }
 
 .action {
-	margin: 15px 0 0 10px;
+	margin: 25px 0 0 10px;
 	font-size:.8em;
 	font-family: Helvetica, Arial;	
 	font-style:italic;
@@ -69,7 +71,23 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 0 12px 10px;}
 	}
 	
 .Video {
-	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Video-16.png);
+	position:absolute;
+	top:3px;
+	right:5px;
+	width:16px;
+	height:16px;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Movie-16.png);
+	background-repeat:no-repeat; 
+	background-position:center right;	
+	}
+	
+.Reading {
+	position:absolute;
+	top:3px;
+	right:5px;
+	width:16px;
+	height:16px;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Reading-16.png);
 	background-repeat:no-repeat; 
 	background-position:center right;	
 	}
