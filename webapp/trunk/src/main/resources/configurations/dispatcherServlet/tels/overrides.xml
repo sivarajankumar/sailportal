@@ -224,6 +224,7 @@
 				/author/createproject.html=createProjectController
 				/author/authorproject.html=authorProjectController
 				/author/brainstorm/createbrainstorm.html=createBrainstormQuestionController
+				/author/brainstorm/editpreparedanswer.html=editPreparedAnswerController
 				/author/project/postproject.html=postProjectController
 				/author/brainstorm/authorbrainstorm.html=authorBrainstormController
 				/admin/manageusers.html=viewAllUsersController

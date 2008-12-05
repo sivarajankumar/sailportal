@@ -20,88 +20,54 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.brainstorm.question.impl;
+package org.telscenter.sail.webapp.domain.brainstorm.answer.impl;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.PreparedAnswer;
 
 /**
- * @author Hiroki Terashima
- * @version $Id$
+ * @author hirokiterashima
+ * @version $Id:$
  */
-@Entity
-@Table(name = QuestionImpl.DATA_STORE_NAME)
-@Inheritance(strategy = InheritanceType.JOINED)
-public class QuestionImpl implements Question {
+@Entity(name = PreparedAnswerImpl.DATA_STORE_NAME)
+public class PreparedAnswerImpl implements PreparedAnswer {
 
     @Transient
-    public static final String DATA_STORE_NAME = "brainstormquestions";
+    public static final String DATA_STORE_NAME = "brainstormpreparedanswers";
 
-    @Transient
-    private static final long serialVersionUID = 1L;
+	@Transient
+	private static final long serialVersionUID = 1L;
 
-    @Transient
-	public static final String COLUMN_NAME_BODY = "body";
-    
+	@Transient
+	private static final String COLUMN_NAME_BODY = "body";
+
+	@Transient
+	private static final String COLUMN_NAME_DISPLAYNAME = "displayname";
+
+	@Column(name = PreparedAnswerImpl.COLUMN_NAME_BODY, length=1024)
+	private String body;
+
+	@Column(name = PreparedAnswerImpl.COLUMN_NAME_DISPLAYNAME)
+	private String displayname;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id = null;
+    private Long id = null;
     
     @Version
     @Column(name = "OPTLOCK")
-    protected Integer version = null;
+    private Integer version = null;
     
-    @Lob
-    @Column(name = QuestionImpl.COLUMN_NAME_BODY)
-	protected String body = null;
-    
-	/**
-	 * @see net.sf.sail.webapp.domain.Persistable#getId()
-	 */
-	public Serializable getId() {
-		return id;
-	}
-	
-    /**
-     * @param id
-     *            the id to set
-     */
-    @SuppressWarnings("unused")
-    protected void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the version
-     */
-    @SuppressWarnings("unused")
-    protected Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * @param version
-     *            the version to set
-     */
-    @SuppressWarnings("unused")
-    protected void setVersion(Integer version) {
-        this.version = version;
-    }
-
 	/**
 	 * @return the body
 	 */
@@ -117,25 +83,63 @@ public class QuestionImpl implements Question {
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getAnswerFieldExpectedLines()
+	 * @return the dislayname
 	 */
-	public BigInteger getAnswerFieldExpectedLines() {
-		return null;
+	public String getDisplayname() {
+		return displayname;
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getPrompt()
+	 * @param dislayname the dislayname to set
 	 */
-	public String getPrompt() {
-		return null;
+	public void setDisplayname(String displayname) {
+		this.displayname = displayname;
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getCopy()
+	 * @see net.sf.sail.webapp.domain.Persistable#getId()
 	 */
-	public Question getCopy() {
-		Question copy = new QuestionImpl();
-		copy.setBody(this.getBody());
-		return copy;
+	public Serializable getId() {
+		return id;
 	}
+	
+    /**
+     * @param id
+     *            the id to set
+     */
+    @SuppressWarnings("unused")
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the version
+     */
+    @SuppressWarnings("unused")
+    private Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version
+     *            the version to set
+     */
+    @SuppressWarnings("unused")
+    private void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+	public int compareTo(PreparedAnswer o) {
+		if (id == null) {
+			return -1;
+		} else if (o.getId() == null) {
+			return 1;
+		} else {
+		    return this.id.compareTo((Long) o.getId());
+		}
+	}
+
 }

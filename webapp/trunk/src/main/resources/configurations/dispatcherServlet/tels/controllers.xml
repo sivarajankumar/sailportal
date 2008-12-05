@@ -1029,6 +1029,11 @@
 		<property name="brainstormService" ref="brainstormService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
 	</bean>
+
+    <bean id="editPreparedAnswerController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.EditPreparedAnswerController">
+		<property name="brainstormService" ref="brainstormService"/>
+	</bean>
 	
 	<bean id="getAllPostsController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.GetAllPostsController">
@@ -1116,5 +1121,7 @@
     	<property name="commandClass"
     		value="org.telscenter.sail.webapp.domain.portal.impl.PortalImpl"/>
     </bean>	
+    
+    
     	
 </beans>

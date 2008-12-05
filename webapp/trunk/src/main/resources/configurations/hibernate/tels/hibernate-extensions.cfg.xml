@@ -78,6 +78,8 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl" />      
         <mapping
+            class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.PreparedAnswerImpl" />      
+        <mapping
         	class="org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl"/>     
     </session-factory>
 </hibernate-configuration>

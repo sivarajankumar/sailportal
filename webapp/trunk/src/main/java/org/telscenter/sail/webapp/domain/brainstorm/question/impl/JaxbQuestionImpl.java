@@ -39,6 +39,7 @@ import net.sf.sail.jaxb.extension.JaxbQtiMarshallingUtils;
 
 import org.imsglobal.xsd.imsqti_v2p0.AssessmentItemType;
 import org.imsglobal.xsd.imsqti_v2p0.ExtendedTextInteractionType;
+import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 
 /**
  * @author Anthony Perritano
@@ -151,5 +152,14 @@ public class JaxbQuestionImpl extends QuestionImpl {
 			}
 		}
 
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getCopy()
+	 */
+	public Question getCopy() {
+		JaxbQuestionImpl copy = new JaxbQuestionImpl();
+		copy.setBody(this.getBody());
+		return copy;
 	}
 }

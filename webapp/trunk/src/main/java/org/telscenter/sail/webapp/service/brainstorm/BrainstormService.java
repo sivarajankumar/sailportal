@@ -150,6 +150,13 @@ public interface BrainstormService {
 	public void unmarkAsHelpful(Answer answer, WISEWorkgroup workgroup);
 
 	/**
+	 * Creates and adds a PreparedAnswer to the specified brainstorm.
+	 * 
+	 * @param brainstorm
+	 * @return Long id of the created preparedAnswer
+	 */
+	public Long addPreparedAnswer(Brainstorm brainstorm);
+	/**
 	 * Looks up the Brainstorm that the answer is for.
 	 * 
 	 * @param answer <code>Answer</code> want to find which Brainstorm

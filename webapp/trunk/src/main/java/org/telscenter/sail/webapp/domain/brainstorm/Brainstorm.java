@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.PreparedAnswer;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
@@ -74,7 +75,21 @@ public interface Brainstorm extends Persistable {
 	 * @param a List of <code>Answer</code> 
 	 */
 	public void setAnswers(Set<Answer> answers);
-	
+
+	/**
+	 * Returns a set of PreparedAnswer for this brainstorm.
+	 * 
+	 * @param answers
+	 */
+	public Set<PreparedAnswer> getPreparedAnswers();
+
+	/**
+	 * Sets a set of PreparedAnswer for this brainstorm.
+	 * 
+	 * @param answers
+	 */
+	public void setPreparedAnswers(Set<PreparedAnswer> answers);
+
 	/**
 	 * Adds an <code>Answer</code> to this brainstorm.
 	 * 

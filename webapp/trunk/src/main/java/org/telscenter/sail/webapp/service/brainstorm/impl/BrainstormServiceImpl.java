@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.service.brainstorm.impl;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.TreeSet;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
@@ -33,7 +34,9 @@ import org.telscenter.sail.webapp.dao.brainstorm.answer.AnswerDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.PreparedAnswer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.PreparedAnswerImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
@@ -105,7 +108,7 @@ public class BrainstormServiceImpl implements BrainstormService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormsByRun(org.telscenter.sail.webapp.domain.Run)
 	 */
-	@Transactional(readOnly = true)
+	@Transactional()
 	public Set<Brainstorm> getBrainstormsByRun(Run run) {
 		return this.brainstormDao.retrieveByRun(run);
 	}
@@ -158,6 +161,19 @@ public class BrainstormServiceImpl implements BrainstormService {
 	public void unrequestHelp(Brainstorm brainstorm, WISEWorkgroup workgroup) {
 		brainstorm.removeWorkgroupThatRequestHelp(workgroup);
 		this.brainstormDao.save(brainstorm);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#addPreparedAnswer(org.telscenter.sail.webapp.domain.brainstorm.Brainstorm)
+	 */
+	@Transactional()
+	public Long addPreparedAnswer(Brainstorm brainstorm) {
+		PreparedAnswer newPA = new PreparedAnswerImpl();
+		newPA.setBody("");
+		newPA.setDisplayname("");
+		brainstorm.getPreparedAnswers().add(newPA);
+		this.brainstormDao.save(brainstorm);
+		return (Long) newPA.getId();
 	}
 
 	/**

@@ -6,12 +6,67 @@
 <link href="../../<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
+<script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
+
 
 <script type="text/javascript">
+var displaynameindex=0;
+function hide(divId) {
+    var sampleDiv = document.getElementById(divId);
+    var d = document.getElementById('samplediv');
+    d.removeChild(sampleDiv);    
+}
+
 function updatePromptPreview() {
    var promptPreviewElement = this.document.getElementById("promptPreview");
    var promptTextAreaElement = this.document.getElementById("promptTextArea");
    promptPreviewElement.innerHTML = promptTextAreaElement.value;
+}
+
+function createAttribute(doc, node, type, val){
+	var attribute = doc.createAttribute(type);
+	attribute.nodeValue = val;
+	node.setAttributeNode(attribute);
+};
+
+function createElement(doc, type, attrArgs){
+	var newElement = doc.createElement(type);
+	if(attrArgs!=null){
+		for(var option in attrArgs){
+			createAttribute(doc, newElement, option, attrArgs[option]);
+		};
+	};
+	return newElement;
+};
+
+function showsamplediv(brainstormId) {
+	// first add a preparedanswer
+	var URL='editpreparedanswer.html';
+	var data='brainstormId=' + brainstormId + '&action=add';
+	var callback = 
+		{
+			success:function(o)
+			    {	   
+	           var preparedAnswerIndex = (o.responseText);
+	           var sampleDivElement = document.getElementById("samplediv");
+			   var newElement = createElement(document, "div", {id:preparedAnswerIndex});
+			   newElement.innerHTML="Prepared Response #"+ (Number(preparedAnswerIndex)+1) +"<br/>Name to display this post as:<br/><input id=\"preparedAnswers[" + preparedAnswerIndex + "].displayname\" type=\"text\" value=\"\" name=\"preparedAnswers[" + preparedAnswerIndex + "].displayname\" /><br/>Post:<br/><textarea id=\"preparedAnswers[" + preparedAnswerIndex + "].body\" rows=\"5\" cols=\"90\" name=\"preparedAnswers[" + preparedAnswerIndex + "].body\" ></textarea>"
+
+			   // for delete button
+			   //<input type=\"button\" value=\"delete\" onclick=\"javascript:hide('" + preparedAnswerIndex + "')\" />
+
+				   //document.createElement("div");
+			   //var attribute = document.createAttribute("id");
+			   //attribute.nodeValue=displaynameindex;
+			   //newElement.setAttribute(attribute);
+			   //sampleDivElement.innerHTML += "<div id='"+ displaynameindex + "'>displayname: <input maxlength=\"25\" size=\"25\"></input><br/>Post:<br/><textarea rows=\"3\" cols=\"90\" ></textarea><a href=\"#\" onclick=\"javascript:hide('" + displaynameindex + "')\">delete</a><br/></div>";
+			   sampleDivElement.appendChild(newElement);
+			    },
+			failure:function(o){alert('failed to add a new sample response. please contact WISE staff');}
+		};
+	YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
 }
 </script>
 </head>
@@ -175,26 +230,35 @@ You're moving into a land of both shadow and substance, of things and ideas. You
 	</table>
     
     <br/>
-  	<div style="color:#FF0000;" class="authorSectionHeader2">Sample Student Response 1</div>
+  	<div style="color:#FF0000;" class="authorSectionHeader2">Sample Student Responses</div>
 	<div style="color:#FF0000;" class="authorOptionsBlock2">The teacher can post this sample student response at any time during the Q&amp;A discussion.</div>
-	<table id="prewrittenResponsesTable">
-		<tr>
-			<td><div style="margin:0 0 0 25px;"><textarea rows="3" cols="90" ></textarea></div><td>
-			<td>
-				<ul>
-					<li><a href="#">Insert an Image</a><li>
-					<li><a href="#">Delete this student response</a></li>
-				</ul>
-			</td>
-		</tr>
-	</table>
+	<c:choose>
+	    <c:when test="${fn:length(brainstorm.preparedAnswers) == 0}">
+	       You do not have any sample student responses.
+	    </c:when>
+	    <c:otherwise>
+           <c:forEach items="${brainstorm.preparedAnswers}" var="preparedAnswer" varStatus="vS">
+                Prepared Response #${vS.index+1}<br/>
+				Name to display this post as:<br/>
+				<form:input path="preparedAnswers[${vS.index}].displayname" /><br/>
+				Post:<br/>
+				<form:textarea path="preparedAnswers[${vS.index}].body" rows="5" cols="90" /><br/><br/>				
+           </c:forEach>
+	    </c:otherwise>
+	</c:choose>
+	
 		
 	<br/>
-	<div class="authorOptionsBlock2"><input type="submit" name="save" value="Create Another Sample Student Response" /></div>
+	<div class="authorOptionsBlock2">
+	    <input type="button" onclick="javascript:showsamplediv(${brainstorm.id});" value="Create Another Sample Student Response" />
+	</div>
+	<div id="samplediv">
+	</div>
+	
 	
 <div id="responseButtons">
 	<input type="submit" name="save" value="Save All Changes" />
-	<input type="reset" onclick="javascript:window.close()" name="cancel" value="Close without Saving" />
+	<input type="reset" onclick="javascript:alert('please manually close this window')" name="cancel" value="Close without Saving" />
 </div>
 
 </div>    <!-- end of centered div-->

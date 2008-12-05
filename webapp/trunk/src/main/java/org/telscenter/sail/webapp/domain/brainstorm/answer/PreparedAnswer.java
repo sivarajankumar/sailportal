@@ -20,53 +20,46 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.brainstorm.question;
-
-import java.math.BigInteger;
+package org.telscenter.sail.webapp.domain.brainstorm.answer;
 
 import net.sf.sail.webapp.domain.Persistable;
 
 /**
- * Brainstorm Question interface.  The question can be of different types, 
- * such as multiple-choice, short-answer, coding.
+ * An author of the brainstorm can prepare canned responses. These
+ * responses will be added to the brainstorm as Answers when the
+ * brainstorm is set up for a run. This is so that when a student is first 
+ * to post, he/she will be able to see these responses as opposed to nothing.
+ * These will actually be posted by the teacher of the run, but the name
+ * under which it will be posted can be set by the author of the brainstorm.
  * 
- * @author Hiroki Terashima
- * @version $Id$
+ * PreparedAnswers themselves cannot be added
+ * 
+ * @author hirokiterashima
+ * @version $Id:$
  */
-public interface Question extends Persistable {
-
-	/**
-	 * Gets the question prompt, which is the part that will be shown to
-	 * the students.
-	 * 
-	 * @return
-	 */
-	public String getPrompt();
+public interface PreparedAnswer extends Persistable, Comparable<PreparedAnswer> {
 	
 	/**
-	 * Gets the number of lines long the answer Field
-	 * 
-	 * @return
+	 * Sets the name that this answer will be posted as.
+	 * @return name
 	 */
-	public BigInteger getAnswerFieldExpectedLines();
+	public String getDisplayname();
 	
 	/**
-	 * The entire question body string. This might include xml tags.
-	 * 
-	 * @return
+	 * Sets the name that this answer will be posted as.
+	 * @param name
+	 */
+	public void setDisplayname(String displayname);
+	
+	/**
+	 * Gets the actual body of this revision in string format.
+	 * @return body of this revision
 	 */
 	public String getBody();
 	
 	/**
-	 * 
+	 * Sets the body of this revision in string format.
 	 * @param body
 	 */
 	public void setBody(String body);
-	
-	/**
-	 * Instantiates a copy of thie Question.
-	 * 
-	 * @return
-	 */
-	public Question getCopy();
 }

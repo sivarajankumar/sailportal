@@ -26,8 +26,8 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
-        object_id_class bigint not null,
         owner_sid bigint,
+        object_id_class bigint not null,
         parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
@@ -96,6 +96,14 @@
         primary key (id)
     ) type=MyISAM;
 
+    create table brainstormpreparedanswers (
+        id bigint not null auto_increment,
+        body text,
+        displayname varchar(255),
+        OPTLOCK integer,
+        primary key (id)
+    ) type=MyISAM;
+
     create table brainstormquestions (
         id bigint not null auto_increment,
         OPTLOCK integer,
@@ -131,6 +139,13 @@
         brainstormanswers_fk bigint not null,
         primary key (brainstorms_fk, brainstormanswers_fk),
         unique (brainstormanswers_fk)
+    ) type=MyISAM;
+
+    create table brainstorms_related_to_brainstormpreparedanswers (
+        brainstorms_fk bigint not null,
+        brainstormpreparedanswers_fk bigint not null,
+        primary key (brainstorms_fk, brainstormpreparedanswers_fk),
+        unique (brainstormpreparedanswers_fk)
     ) type=MyISAM;
 
     create table brainstorms_related_to_workgroups (
@@ -470,8 +485,8 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        offering_fk bigint not null,
         sds_workgroup_fk bigint unique,
+        offering_fk bigint not null,
         group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
@@ -587,6 +602,18 @@
     alter table brainstorms_related_to_brainstormanswers 
         add index FK477CA8F179D46939 (brainstorms_fk), 
         add constraint FK477CA8F179D46939 
+        foreign key (brainstorms_fk) 
+        references brainstorms (id);
+
+    alter table brainstorms_related_to_brainstormpreparedanswers 
+        add index FK5300A1437618004 (brainstormpreparedanswers_fk), 
+        add constraint FK5300A1437618004 
+        foreign key (brainstormpreparedanswers_fk) 
+        references brainstormpreparedanswers (id);
+
+    alter table brainstorms_related_to_brainstormpreparedanswers 
+        add index FK5300A1479D46939 (brainstorms_fk), 
+        add constraint FK5300A1479D46939 
         foreign key (brainstorms_fk) 
         references brainstorms (id);
 
