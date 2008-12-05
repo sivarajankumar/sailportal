@@ -71,6 +71,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 12px 10px;}
 	background-position:center right;	
 	}
 	
+	
 .Video {
 	position:absolute;
 	top:3px;
@@ -89,6 +90,17 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 12px 10px;}
 	width:16px;
 	height:16px;
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Reading-16.png);
+	background-repeat:no-repeat; 
+	background-position:center right;	
+	}
+	
+.Info {
+	position:absolute;
+	top:3px;
+	right:5px;
+	width:16px;
+	height:16px;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Display-16.png);
 	background-repeat:no-repeat; 
 	background-position:center right;	
 	}
