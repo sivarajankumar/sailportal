@@ -39,11 +39,6 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 
 #locationBar {
 	position:relative;
-	color:#333333;
-	background-color:#CCFF99;
-	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Gradient-LocationBar.png);
-	background-repeat:repeat-x;
-	background-position:bottom;
 	border:1px ridge black;
 	padding:5px;
 	margin: 0 0 15px 0;
@@ -51,6 +46,14 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 	font-variant:small-caps;
 	letter-spacing:1px;
 	font-weight:bold;
+}
+
+.UnitType1 {
+	color:#333333;
+	background-color:#CCFF99;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Gradient-LocationBar.png);
+	background-repeat:repeat-x;
+	background-position:bottom;
 }
 
 .action {
