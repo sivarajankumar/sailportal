@@ -206,7 +206,7 @@
         					<spring:message code="teacher.run.myprojectruns.25"/></h5>
         		<div id="runBox">
 				
-				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
+				<table id="customProjectTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
 				       <th style="width:48%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.26"/></th>
 				       <th style="width:34%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.27"/></th>      

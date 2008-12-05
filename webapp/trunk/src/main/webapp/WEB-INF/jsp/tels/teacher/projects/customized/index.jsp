@@ -450,6 +450,7 @@
 		<th><spring:message code="teacher.pro.custom.index.24" /></th>
 		<th><spring:message code="teacher.pro.custom.index.25" /></th>
 		<th><spring:message code="teacher.pro.custom.index.26" /></th>
+		<th><spring:message code="teacher.pro.custom.index.26B" /></th>
 		<th></th>
 	</tr>
 	<c:choose>
@@ -541,7 +542,8 @@
 			code="teacher.pro.custom.index.25" /></th>
 		<th style="background-color: #0000CC;"><spring:message
 			code="teacher.pro.custom.index.26" /></th>
-		<th style="background-color: #0000CC;"></th>
+		<th style="background-color: #0000CC;"><spring:message
+			code="teacher.pro.custom.index.26B" /></th>
 	</tr>
 
 
@@ -568,18 +570,23 @@
 					<td class="dataTime">;;;</td>
 					<td class="dataTime">${project.projectInfo.projectLiveCycle.toString}</td>
 					<td class="actionMenuButton">
-					<div id="customProjectActionsMenu"
-						class="yuimenubar yuimenubarnav customProjectsMenuCSS">
-					<div class="bd">
-					<a href="../../../previewproject.html?projectId=${project.id}">Preview project</a><br>
-					<authz:accesscontrollist domainObject="${project}" hasPermission="2">												
-					<li><a href="../../../author/authorproject.html?projectId=${project.id}"><spring:message
-							code="edit.curnit" /></a></li>
-					</authz:accesscontrollist>
-					<authz:accesscontrollist domainObject="${project}" hasPermission="16">												
-					<li><a href="shareproject.html?projectId=${project.id}">Share this project</a></li>
-					</authz:accesscontrollist>					
-					</div>
+					<div id="actionList">
+						<div class="bd">
+						<li>
+							<a href="../../../previewproject.html?projectId=${project.id}">Preview Project</a>
+						</li>
+							<authz:accesscontrollist domainObject="${project}" hasPermission="2">	
+						<li>
+							<a href="../../../author/authorproject.html?projectId=${project.id}"><spring:message
+								code="edit.curnit" /></a>
+						</li>
+							</authz:accesscontrollist>
+							<authz:accesscontrollist domainObject="${project}" hasPermission="16">												
+						<li>
+							<a href="shareproject.html?projectId=${project.id}">Share Project</a>
+						</li>
+						</authz:accesscontrollist>					
+						</div>
 					</td>
 				</tr>
 			</c:forEach>
@@ -628,7 +635,8 @@
 			code="teacher.pro.custom.index.25" /></th>
 		<th style="background-color: #CC0000;"><spring:message
 			code="teacher.pro.custom.index.26" /></th>
-		<th style="background-color: #CC0000;"></th>
+		<th style="background-color: #CC0000;"><spring:message
+			code="teacher.pro.custom.index.26B" /></th>
 	</tr>
 
 	<c:choose>
