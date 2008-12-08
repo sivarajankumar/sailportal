@@ -127,7 +127,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 
 .MiddleRight {
 	position:absolute;
-	top:300px;
+	top:50%;
 	right:0px;
 	border:3px solid blue;
 	}
