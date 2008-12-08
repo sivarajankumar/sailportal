@@ -47,6 +47,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 	color:#333333;
 	padding:5px;
 	background-color:#CCFF99;
+	background-color:#FF0000;
 	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Gradient-LocationBar-Green.png);
 	background-repeat:repeat-x;
 	background-position:bottom;
