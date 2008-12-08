@@ -72,7 +72,8 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 
 .doit {
 	margin: 25px 0 0 10px;
-	font-size:.7em;
+	font-size:.9em;
+	letter-spacing:-.4px;
 	font-family: Helvetica, Arial;	
 	font-style:italic;
 	}
