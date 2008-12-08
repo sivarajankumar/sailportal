@@ -135,8 +135,8 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 
 .divRight {
 	position:absolute;
-	right:0px
+	right:0px;
 	border:1px solid blue;
 	padding:10px;
-	margin:0 0 10px 15px;
+	margin:0 0 10px 15px; 
 	}
