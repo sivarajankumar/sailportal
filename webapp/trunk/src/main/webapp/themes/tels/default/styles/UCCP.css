@@ -142,6 +142,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 	color:red;
 	font-size:.9em;
 	padding:10px;
+	margin:0 auto;
 	font-weight:bold;
 	font-variant:small-caps;
 	text-align:center;
@@ -154,6 +155,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 	font-size:.9em;
 	color:green;
 	padding:10px;
+	margin:0 auto;
 	text-align:center;
 	position:absolute;
 	top: 300px;
