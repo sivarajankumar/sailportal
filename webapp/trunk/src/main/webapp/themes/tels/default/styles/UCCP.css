@@ -127,16 +127,14 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 /* STYLES FOR POSITIONING OF ELEMENTS */
 
 #mainCol {
+	float:left;
 	width:74%;
 	text-align:left;
-	color:#FF0000;
 	}
 	
 #warnCol {
-	position:absolute;
-	right:0px;
+	float:right;
 	width:20%;
-	color:blue;
 	}
 	
 .key {
@@ -173,7 +171,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 	}
 
 .column1 {
-	float:right;
+	position: absolute;
 	width:80%;
 	}
 	
