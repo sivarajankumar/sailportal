@@ -126,6 +126,17 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 	
 /* STYLES FOR POSITIONING OF ELEMENTS */
 
+#mainCol {
+	width:80%;
+	text-align:left;
+	}
+	
+#warnCol {
+	position:absolute;
+	right:0px;
+	width:20%;
+	}
+	
 .Right {
 	float:right;
 	border:1px solid gray;
