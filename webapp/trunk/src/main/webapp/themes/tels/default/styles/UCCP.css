@@ -127,7 +127,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 /* STYLES FOR POSITIONING OF ELEMENTS */
 
 #mainCol {
-	width:80%;
+	width:74%;
 	text-align:left;
 	color:#FF0000;
 	}
@@ -138,6 +138,25 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 	width:20%;
 	color:blue;
 	}
+	
+.key {
+	border:1px dotted red;
+	color:red;
+	padding:10px;
+	font-weight:bold;
+	text-align:center;
+	position:absolute:
+	top:100px;
+}
+
+.vocab {
+	border:1px dotted green;
+	color:green;
+	padding:10px;
+	text-align:center;
+	position:absolute:
+	bottom:100px;
+}
 	
 .Right {
 	float:right;
@@ -154,8 +173,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 	}
 
 .column1 {
-	position: absolute;
-	left:0px;
+	float:right;
 	width:80%;
 	}
 	
