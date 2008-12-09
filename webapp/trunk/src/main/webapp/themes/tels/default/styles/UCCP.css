@@ -140,19 +140,21 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 .key {
 	border:1px dotted red;
 	color:red;
+	font-weight:.9em;
 	padding:10px;
 	font-weight:bold;
 	text-align:center;
-	position:absolute:
+	position:absolute;
 	top:100px;
 }
 
 .vocab {
 	border:1px dotted green;
+	font-weight:.9em;
 	color:green;
 	padding:10px;
 	text-align:center;
-	position:absolute:
+	position:absolute;
 	bottom:100px;
 }
 	
