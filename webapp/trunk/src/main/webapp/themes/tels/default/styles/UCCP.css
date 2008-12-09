@@ -128,7 +128,7 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 
 #mainCol {
 	float:left;
-	width:74%;
+	width:77%;
 	text-align:left;
 	}
 	
@@ -140,9 +140,10 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 .key {
 	border:1px dotted red;
 	color:red;
-	font-weight:.9em;
+	font-size:.9em;
 	padding:10px;
 	font-weight:bold;
+	font-variant:small-caps;
 	text-align:center;
 	position:absolute;
 	top:100px;
@@ -150,12 +151,12 @@ p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
 
 .vocab {
 	border:1px dotted green;
-	font-weight:.9em;
+	font-size:.9em;
 	color:green;
 	padding:10px;
 	text-align:center;
 	position:absolute;
-	bottom:100px;
+	top: 300px;
 }
 	
 .Right {
