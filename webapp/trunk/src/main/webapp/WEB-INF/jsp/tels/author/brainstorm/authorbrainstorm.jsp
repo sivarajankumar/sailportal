@@ -174,7 +174,7 @@ You're moving into a land of both shadow and substance, of things and ideas. You
       <div class="authorSectionHeader2">Question</div>
       <div class="authorOptionsBlock">Type the question you want students to see in the box below.  Use HTML formatting to control the look and feel.</div>
       <div style="margin:0 0 0 25px;">
-      	<form:textarea  rows="10" cols="110" path="question.prompt" id="promptTextArea" ></form:textarea>
+      	<form:textarea onkeyup="javascript:updatePromptPreview()" rows="10" cols="110" path="question.prompt" id="promptTextArea" ></form:textarea>
       	<form:errors path="question.prompt" />
       </div>	
    </div>
@@ -182,7 +182,7 @@ You're moving into a land of both shadow and substance, of things and ideas. You
 
 
 <br/>
-<button id="updatePromptPreviewButton" onclick="javascript:updatePromptPreview()" >Update preview</button>
+<!--  NOTE: don't make the below into anchor or button, as it forces a database query -->
 
     <div class="authorSectionHeader2">Question Preview </div>
     <div class="authorOptionsBlock">Your question will appear to students as follows:</div>

@@ -53,9 +53,15 @@ import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.PreparedAnswer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -286,18 +292,28 @@ public class CreateRunController extends AbstractWizardFormController {
     	try {
 			run = this.runService.createRun(runParameters);
 			
+			// create a workgroup for the owners of the run (teacher)
+			WISEWorkgroup teacherWISEWorkgroup = workgroupService.createWISEWorkgroup("teacher", runParameters.getOwners(), run, null);
 			
 			// if the project has brainstorms, instantiate them and add them to the run
 			Set<Brainstorm> brainstormsForProject = brainstormService.getParentBrainstormsForProject(run.getProject());
 			for (Brainstorm brainstorm : brainstormsForProject) {
 				Brainstorm brainstormCopy = brainstorm.getCopy();
 				brainstormCopy.setRun(run);
+				// post preparedAnswers
+				Set<PreparedAnswer> preparedAnswers = brainstorm.getPreparedAnswers();
+				for (PreparedAnswer preparedAnswer : preparedAnswers) {
+					Answer answer = new AnswerImpl();
+					Revision revision = new RevisionImpl();
+					answer.setWorkgroup(teacherWISEWorkgroup);
+					revision.setBody(preparedAnswer.getBody());
+					revision.setTimestamp(new Date());
+					revision.setDisplayname(preparedAnswer.getDisplayname());
+					answer.addRevision(revision);
+					brainstormCopy.addAnswer(answer);
+				}
 				brainstormService.createBrainstorm(brainstormCopy);
 			}
-			
-			// create a workgroup for the owners of the run (teacher)
-			workgroupService.createWISEWorkgroup("teacher", runParameters.getOwners(), run, null);
-			
 		} catch (ObjectNotFoundException e) {
 			errors.rejectValue("curnitId", "error.curnit-not_found",
 					new Object[] { runParameters.getCurnitId() }, 

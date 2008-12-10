@@ -108,8 +108,12 @@ public final class XMLBrainstorm {
 		String formattedDate = 
 			DateFormat.getDateInstance(DateFormat.MEDIUM).format(timestamp);
 
+		String xmlDisplayname = "";
+		if (revision.getDisplayname() != null && !revision.getDisplayname().equals("")) {
+			xmlDisplayname = "<displayname>" + revision.getDisplayname() + "</displayname>";			
+		}
 		String XMLRevision = "<revision><id>" + revision.getId() + "</id><timestamp>" +
-			formattedTime + " " + formattedDate + "</timestamp><body>" + StringEscapeUtils.escapeHtml(revision.getBody()) + "</body></revision>";
+			formattedTime + " " + formattedDate + "</timestamp>" + xmlDisplayname + "<body>" + StringEscapeUtils.escapeHtml(revision.getBody()) + "</body></revision>";
 		return XMLRevision;
 	}
 

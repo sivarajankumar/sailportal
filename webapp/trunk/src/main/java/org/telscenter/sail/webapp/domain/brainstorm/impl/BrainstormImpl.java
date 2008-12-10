@@ -458,7 +458,13 @@ public class BrainstormImpl implements Brainstorm {
 		Brainstorm copy = new BrainstormImpl();
 		copy.setDisplayNameOption(this.getDisplayNameOption());
 		copy.setAnonymousAllowed(this.isAnonymousAllowed());
-		copy.setPreparedAnswers(this.getPreparedAnswers());
+		Set<PreparedAnswer> preparedAnswers2 = this.getPreparedAnswers();
+		for (PreparedAnswer preparedAnswer : preparedAnswers2) {
+			PreparedAnswer copyPreparedAnswer = new PreparedAnswerImpl();
+			copyPreparedAnswer.setBody(preparedAnswer.getBody());
+			copyPreparedAnswer.setDisplayname(preparedAnswer.getDisplayname());
+			copy.getPreparedAnswers().add(copyPreparedAnswer);
+		}
 		copy.setGated(this.isGated);
 		copy.setParentBrainstormId(this.getId());
 		copy.setProject(this.getProject());

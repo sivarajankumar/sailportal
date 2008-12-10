@@ -189,6 +189,7 @@ function Revision(xmlRevision){
 	this.timestamp;
 	this.body;
 	this.id;
+	this.displayname;
 	this.setRevision(xmlRevision);
 };
 
@@ -196,6 +197,7 @@ Revision.prototype.setRevision = function(xmlRevision){
 	this.setId(xmlRevision.getElementsByTagName('id'));
 	this.setBody(xmlRevision.getElementsByTagName('body'));
 	this.setTimestamp(xmlRevision.getElementsByTagName('timestamp'));
+	this.setDisplayname(xmlRevision.getElementsByTagName('displayname'));
 };
 
 Revision.prototype.setId = function(xmlId){
@@ -216,6 +218,11 @@ Revision.prototype.setTimestamp = function(xmlTimestamp){
 	};
 };
 
+Revision.prototype.setDisplayname = function(xmlDisplayname){
+	if(xmlDisplayname!=null && xmlDisplayname != "" && xmlDisplayname.length > 0){
+		this.displayname=xmlDisplayname[0].childNodes[0].nodeValue;
+	};
+};
 Revision.prototype.toString = function(){
 	var outRevision = "(Revision: id=" + this.id + " body=" + this.body + " timestamp=" + this.timestamp + ")";
 	return outRevision;
@@ -231,6 +238,10 @@ Revision.prototype.getBody = function(){
 
 Revision.prototype.getTimestamp = function(){
 	return this.timestamp;
+};
+
+Revision.prototype.getDisplayname = function(){
+	return this.displayname;
 };
 
 function Comment(xmlComment){
@@ -470,6 +481,9 @@ function createRevisionHead(doc, workgroupId, answer){
 	var namesText;
 	if(answer.isAnonymous()){
 		namesText = doc.createTextNode("Anonymous");
+	} else if (answer.getLatestRevision().getDisplayname() != null 
+			&& answer.getLatestRevision().getDisplayname() != "") {
+		namesText = doc.createTextNode(answer.getLatestRevision().getDisplayname());
 	} else {
 		namesText = doc.createTextNode(getNames(answer.getWorkgroup()));
 	};

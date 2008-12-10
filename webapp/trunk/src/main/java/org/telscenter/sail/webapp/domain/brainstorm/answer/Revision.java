@@ -62,4 +62,21 @@ public interface Revision extends Persistable, Comparable<Revision> {
 	 * @param body
 	 */
 	public void setBody(String body);
+	
+	/**
+	 * Returns the displayname of this revision. This is only
+	 * applicable if this revision is for a <code>PreparedAnswer</code>
+	 * 
+	 * @return String displayname. Name to display this revision under.
+	 */
+	public String getDisplayname();
+
+	/**
+	 * Sets the displayname of this revision. This is only
+	 * applicable if this revision is for a <code>PreparedAnswer</code>
+	 * 
+	 * @param String displayname. Name to display this revision under.
+	 */
+	public void setDisplayname(String displayname);
+
 }

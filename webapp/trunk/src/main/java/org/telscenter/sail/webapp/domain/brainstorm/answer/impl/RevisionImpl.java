@@ -54,10 +54,16 @@ public class RevisionImpl implements Revision {
 
     @Transient
 	private static final String COLUMN_NAME_BODY = "body";
+
+    @Transient
+	private static final String COLUMN_NAME_DISPLAYNAME = "displayname";
 	
     @Column(name = RevisionImpl.COLUMN_NAME_TIMESTAMP, nullable = false)
 	private Date timestamp;
 	
+    @Column(name = RevisionImpl.COLUMN_NAME_DISPLAYNAME)
+    private String displayname;  // not null only if this is for a PreparedAnswer.
+                                 // for all other cases, this should be null.
     @Lob
     @Column(name = RevisionImpl.COLUMN_NAME_BODY)
 	private String body = null;
@@ -98,6 +104,20 @@ public class RevisionImpl implements Revision {
 		this.body = body;
 	}
 	
+	/**
+	 * @return the displayname
+	 */
+	public String getDisplayname() {
+		return displayname;
+	}
+
+	/**
+	 * @param displayname the displayname to set
+	 */
+	public void setDisplayname(String displayname) {
+		this.displayname = displayname;
+	}
+
 	/**
 	 * @see net.sf.sail.webapp.domain.Persistable#getId()
 	 */
