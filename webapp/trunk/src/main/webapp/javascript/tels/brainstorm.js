@@ -33,8 +33,50 @@ Answers.prototype.getAnswerById = function(id){
 	};
 };
 
-Answers.prototype.sort = function(order){
-	this.answers.sort(order);
+function oldestFirst(a, b){
+	return Number(b.getLatestRevision().getId()) - Number(a.getLatestRevision().getId());
+	//if(a.getLatestRevision().getId() < b.getLatestRevision().getId()){return 1};
+	//if(a.getLatestRevision().getId() == b.getLatestRevision().getId()){return 0};
+	//if(a.getLatestRevision().getId() > b.getLatestRevision().getId()){return -1};
+};
+
+function newestFirst(a, b){
+	return Number(b.getLatestRevision().getId()) - Number(a.getLatestRevision().getId());
+	
+	//if(a.getLatestRevision().getId() < b.getLatestRevision().getId()){return -1};
+	//if(a.getLatestRevision().getId() == b.getLatestRevision().getId()){return 0};
+	//if(a.getLatestRevision().getId() > b.getLatestRevision().getId()){return 1};
+};
+
+function helpfulness(a, b){	
+	//alert(Number(a.getHelpfulWorkgroups().length) - Number(b.getHelpfulWorkgroups().length));
+	return Number(a.getHelpfulWorkgroups().length) - Number(b.getHelpfulWorkgroups().length);
+	
+	//if(a.getId() < b.getId()){return -1};
+	//if(a.getId() == b.getId()){return 0};
+	//if(a.getId() > b.getId()){return 1};
+};
+
+Answers.prototype.sort = function(criteria, sortingOrder){
+	//var sortCriteria  // 0=sortbytime, 1=sortbyhelpfulness
+	//var sorOrder      // 0=decreasing, 1=increasing
+	
+	//users javascript's array[].sort(function(a,b)), 
+	// where function(a,b) returns 
+	// -1 if a should be before b in the array
+	// 0  if a and b are the same
+	// 1 if a should be after b in the array
+	if (criteria==0) {
+		this.answers = this.answers.sort(newestFirst);
+		if (sortingOrder==1) {
+    	    this.answers.reverse();
+		}
+    } else if (criteria==1) {
+    	this.answers = this.answers.sort(helpfulness);
+    	if (sortingOrder==1) {
+    	    this.answers.reverse();
+    	}
+    }
 };
 
 Answers.prototype.toString = function(){

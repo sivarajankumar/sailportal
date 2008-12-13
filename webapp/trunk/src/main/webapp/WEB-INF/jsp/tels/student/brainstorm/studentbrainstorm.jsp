@@ -17,10 +17,11 @@
 <script type="text/javascript" src="../.././javascript/tels/brainstormUtils.js"></script>
 
 <script type="text/javascript">
-	var sortOrder = 0;
+	var sortCriteria = 0;   // 0=sortbytime, 1=sortbyhelpfulness
+	var sortOrder = 0;       // 0=decreasing, 1=increasing
 	var pageManager;
 
-	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortOrder);
+	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortCriteria, sortOrder);
 </script>
 
 </head>
@@ -67,9 +68,14 @@
 	<div id="0" name="answer">
 		
 		<div id="responseLinks">
+		    <div id="sortRadioButtons">
+		        Sort by: 
+		        <input type="radio" name="sortGroup1" onclick="sortBy('0','0');" checked="checked">Newest Posts
+		        <input type="radio" name="sortGroup1" onclick="sortBy('0','1');">Oldest Posts
+		        <input type="radio" name="sortGroup1" onclick="sortBy('1','1');">Most Helpful Posts
+		        <input type="radio" name="sortGroup1" onclick="sortBy('1','0');">Least Helpful Posts
+			</div>
 			<ul>
-				<li><a href="#" onclick="sortBy('time')">Sort By Time</a></li>
-				<li><a href="#" onclick="sortBy('help')">Sort By Helpfulness</a></li>
 				<li><a href="#" onclick="toggle_visibility_by_name('revisionrow')">Hide/Show Revisions</a></li>
 				<li><a href="#" onclick="toggle_visibility_by_name('comments')">Hide/Show Comments</a></li>
 			</ul>

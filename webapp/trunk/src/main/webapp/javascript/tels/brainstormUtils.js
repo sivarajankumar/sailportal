@@ -81,17 +81,9 @@
 		getNumberOfPosts();
 	};
 	
-	function sortBy(type){
-		if(type=='help'){
-			sortOrder=2;
-		} else {
-			if(sortOrder==1 || sortOrder==2){
-				sortOrder=0;
-			} else {
-				sortOrder=1;
-			};
-		};
-		pageManager.setSortOrder(sortOrder);
+	function sortBy(sortCriteria,sortingOrder){
+		pageManager.setSortOrder(sortCriteria, sortingOrder);
+		pageManager.updatePage();
 	};
 
 	function getNumberOfPosts(){
@@ -149,10 +141,11 @@
 	* and Comments for a given brainstorm as well as creating and
 	* updating Answer tables and refreshing the elements of a page
 	*/
-	function PageManager(brainstormId, workgroupId, order){
+	function PageManager(brainstormId, workgroupId, criteria, sortOrder){
 		this.id = brainstormId;
 		this.workgroupId = workgroupId;
-		this.order = order;
+		this.sortCriteria = criteria;
+		this.sortOrder = sortOrder;
 		this.answers;
 	
 		this.callback = {
@@ -213,50 +206,44 @@
 	//builds answer tables from existing data without a request to server
 	PageManager.prototype.updatePage = function(){
 		var orderedElements;
-		if(this.order==0){
-			//this.answers.sort(newestFirst);
-		} else if(this.order==1){
-			//this.answers.sort(oldestFirst);
-		} else {
-			//order by helpfulness-right now order as in 0
-			//this.answers.sort(helpfulness);
-			//this.answers.sort(newestFirst);
-		};
+		//alert('beforesort:' + this.answers.getAnswers().length);
+		this.answers.sort(this.sortCriteria, this.sortOrder);
+		//alert('aftersort:' + this.answers.getAnswers().length);
 		orderedElements = createAnswerElements(document, this.answers, this.workgroupId, this.id);
-		this.buildPage(orderedElements);
-		
-		function oldestFirst(a, b){
-			if(a.getId() < b.getId()){return -1};
-			if(a.getId() == b.getId()){return 0};
-			if(a.getId() > b.getId()){return 1};
-		};
-		
-		function newestFirst(a, b){
-			if(a.getId() < b.getId()){return 1};
-			if(a.getId() == b.getId()){return 0};
-			if(a.getId() > b.getId()){return -1};
-		};
-		
-		function helpfulness(a, b){
-			//TODO
-		};
+		this.buildPage(orderedElements);		
 	};
 	
-	PageManager.prototype.setSortOrder = function(order){
-		this.order = order;
+	PageManager.prototype.setSortOrder = function(criteria, order){
+		this.sortCriteria = criteria;
+		this.sortOrder = order;
 	};
 	
 	PageManager.prototype.buildPage = function(elements){
+		// removes all the divs with id=answer in responseTableBody div
+		// then adds all the answers in elements to that responseTableBody div
 		var answerNodes = document.getElementsByName('answer');
-		var parent = document.getElementById('responseTableBody');
+		var responseTableBodyNode = document.getElementById('responseTableBody');
+		var responseTableBodyParent = responseTableBodyNode.parentNode;
+		responseTableBodyParent.removeChild(responseTableBodyNode);
+		var newResponseTableBody = createElement(document, 'div', {id:'responseTableBody'})
+		responseTableBodyParent.appendChild(newResponseTableBody);
 		
-		for(xx=0;xx<answerNodes.length;xx++){
-			if(answerNodes[xx].getAttribute('id')!=0){
-				answerNodes[xx].parentNode.removeChild(answerNodes[xx]);
-			};
-		};
+		//var answerelements = responseTableBodyNode.childNodes;
+		//alert('answerelements.length: ' + answerelements.length);
+		//alert('answerNodes.length:' + answerNodes.length)
+		//var originalAnswerNodeLength = answerNodes.length;
+		//for(xx=0;xx<originalAnswerNodeLength;xx++){
+			//alert('id:' + answerNodes[xx].getAttribute('id'));
+			//if(answerNodes[xx].getAttribute('id')!=0){
+				//alert('id:' + answerNodes[xx].getAttribute('id'));
+				//answerNodes[xx].parentNode.removeChild(answerNodes[xx]);
+				//responseTableBodyNode.removeChild(answerNodes[xx]);
+			//};
+		//};
+		//var answerNodes2 = document.getElementsByName('answer');
+		//alert("answerNodes2.length:" + answerNodes2.length)
 		
 		for(cc=0;cc<elements.length;cc++){
-			parent.appendChild(elements[cc]);
+			newResponseTableBody.appendChild(elements[cc]);
 		};
 	};
