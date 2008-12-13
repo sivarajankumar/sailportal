@@ -44,6 +44,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
@@ -93,6 +94,11 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 		Curnit curnit = project.getCurnit();
 		String curnitOtmlUrl = getRetrieveOtmlUrl(((OtmlModuleImpl) curnit).getRetrieveotmlurl(), params.getPortalUrl());
 		previewProjectUrl += "?sailotrunk.otmlurl=" + curnitOtmlUrl;
+		// TODO HT: put these param-generation into run/project domain object as much as possible to stop
+		// cluttering services
+		if (project.getFamilytag().equals(FamilyTag.UCCP)) {
+			previewProjectUrl += "&jnlp.style=UCCP";			
+		}
 		
 		return new ModelAndView(new RedirectView(previewProjectUrl));
 	}
@@ -178,9 +184,15 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 				workgroup);
 
 		String entireUrl = jnlpUrl + "?" + generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
+		
+		// TODO HT: put these param-generation into run/project domain object as much as possible to stop
+		// cluttering services
 		// add jnlp.portal_baseurl and jnlp.runId to the request
 		entireUrl += "&" + generatePortalBaseUrlParamRequestString(request);
 		entireUrl += "&" + generateRunIdParamRequestString(run.getId());
+		if (run.getProject().getFamilytag().equals(FamilyTag.UCCP)) {
+			entireUrl += "&jnlp.style=UCCP";			
+		}
 
 		Curnit curnit = run.getProject().getCurnit();
 		String curnitOtmlUrl = ((OtmlModuleImpl) curnit).getRetrieveotmlurl();

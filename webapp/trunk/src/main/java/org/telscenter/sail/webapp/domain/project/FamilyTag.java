@@ -28,5 +28,5 @@ package org.telscenter.sail.webapp.domain.project;
  */
 public enum FamilyTag {
 
-	TELS, OTHER
+	TELS, UCCP, OTHER
 }
