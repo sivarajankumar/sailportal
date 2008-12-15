@@ -35,13 +35,15 @@ import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
  * Controller to add/delete <code>PreparedAnswer</code>.
  * 
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class EditPreparedAnswerController extends AbstractController {
 
 	private BrainstormService brainstormService;
 
 	private final static String BRAINSTORMID = "brainstormId";
+
+	private final static String PREPARED_ANSWER_ID = "preparedAnswerId";
 
 	private final static String ACTION = "action";
 
@@ -61,7 +63,8 @@ public class EditPreparedAnswerController extends AbstractController {
 		if(request.getParameter(ACTION).equals("add")){
 			Long newPreparedAnswerId = brainstormService.addPreparedAnswer(brainstorm);
 			response.getWriter().print(brainstorm.getPreparedAnswers().size()-1);
-		} else {   // delete specified prepared answer.
+		} else if(request.getParameter(ACTION).equals("delete")) {   // delete specified prepared answer.
+			brainstormService.deletePreparedAnswer(brainstorm, Long.parseLong(request.getParameter(PREPARED_ANSWER_ID)));
 			//brainstormService.requestHelp(brainstorm, workgroup);
 		}
 		

@@ -17,13 +17,13 @@ function hide(divId) {
     var sampleDiv = document.getElementById(divId);
     var d = document.getElementById('samplediv');
     d.removeChild(sampleDiv);    
-}
+};
 
 function updatePromptPreview() {
    var promptPreviewElement = this.document.getElementById("promptPreview");
    var promptTextAreaElement = this.document.getElementById("promptTextArea");
    promptPreviewElement.innerHTML = promptTextAreaElement.value;
-}
+};
 
 function createAttribute(doc, node, type, val){
 	var attribute = doc.createAttribute(type);
@@ -41,6 +41,21 @@ function createElement(doc, type, attrArgs){
 	return newElement;
 };
 
+function deletepreparedanswer(brainstormId, preparedAnswerId, preparedAnswerIndex) {
+	var URL='editpreparedanswer.html';
+	var data='brainstormId=' + brainstormId + '&action=delete&preparedAnswerId=' + preparedAnswerId;
+	var callback = 
+	{
+		success:function(o)
+		    {	   
+	       hide(preparedAnswerIndex);
+		    },
+		failure:function(o){alert('failed to delete specified prepared response. please contact WISE staff');}
+	};
+YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
+
+};
+
 function showsamplediv(brainstormId) {
 	// first add a preparedanswer
 	var URL='editpreparedanswer.html';
@@ -53,9 +68,6 @@ function showsamplediv(brainstormId) {
 	           var sampleDivElement = document.getElementById("samplediv");
 			   var newElement = createElement(document, "div", {id:preparedAnswerIndex});
 			   newElement.innerHTML="Prepared Response #"+ (Number(preparedAnswerIndex)+1) +"<br/>Name to display this post as:<br/><input id=\"preparedAnswers[" + preparedAnswerIndex + "].displayname\" type=\"text\" value=\"\" name=\"preparedAnswers[" + preparedAnswerIndex + "].displayname\" /><br/>Post:<br/><textarea id=\"preparedAnswers[" + preparedAnswerIndex + "].body\" rows=\"5\" cols=\"90\" name=\"preparedAnswers[" + preparedAnswerIndex + "].body\" ></textarea>"
-
-			   // for delete button
-			   //<input type=\"button\" value=\"delete\" onclick=\"javascript:hide('" + preparedAnswerIndex + "')\" />
 
 				   //document.createElement("div");
 			   //var attribute = document.createAttribute("id");
@@ -114,11 +126,15 @@ You're moving into a land of both shadow and substance, of things and ideas. You
 
 
 	  <div class="authorSectionHeader2" style="color:#FF0000;" >Starting the Q&amp;A Discussion:</div>
-	  <div class="authorOptionsBlock" style="color:#FF0000;"  >
-      	<form:radiobutton path="gated" value="true" /><b>Open:</b> the Q&amp;A discussion step is available at all times. <br/>
-      	<form:radiobutton path="gated" value="false" /><b>Start Manually:</b> the Q&amp;A is activated manually by the teacher<br/>
-      	<form:radiobutton path="gated" value="false" /><b>Start on Date:</b>  the Q&amp;A activates automatically on a date set by the teacher.<br/>
+	  
+	  <!--  
+	  
+	  <div class="authorOptionsBlock" style="color:#FF0000;"  >	  
+      	<b>Open:</b> the Q&amp;A discussion step is available at all times. <br/>
+      	<b>Start Manually:</b> the Q&amp;A is activated manually by the teacher<br/>
+      	<b>Start on Date:</b>  the Q&amp;A activates automatically on a date set by the teacher.<br/>
       </div>
+      	-->
       
       <div class="authorSectionHeader2">Initial Student Response:</div>
       <div class="authorOptionsBlock" >
@@ -140,8 +156,8 @@ You're moving into a land of both shadow and substance, of things and ideas. You
        <div style="color:#FF0000;" class="authorSectionHeader2">Select a choice:</div>
        
        <div style="color:#FF0000;" class="authorOptionsBlock" >
-      		<form:radiobutton path="gated" value="true" /><b>One Group per period:</b> students in a class period participate in a single group discussion.<br/>
-      		<form:radiobutton path="gated" value="true" /><b>Multiple Groups per period:</b> students in a class period work in smaller discussion groups.<br/>
+      		<b>One Group per period:</b> students in a class period participate in a single group discussion.<br/>
+      		<b>Multiple Groups per period:</b> students in a class period work in smaller discussion groups.<br/>
       	</div>	
       		<div style="color:#FF0000;" id="subgroupSelectionBox">
       			<div style="margin:0px;font-size:.8em;font-weight:bold;">Number of groups in each class period: 
@@ -197,8 +213,8 @@ You're moving into a land of both shadow and substance, of things and ideas. You
     <div style="color:#FF0000;" id="subgroupBox2">
     	<div><b>Starter Sentence Style:</b></div>
     	<div id="subgroupBox2bullets">
-    		<form:radiobutton path="gated" value="true" /><b>Link:</b> A link called "Show me a Starter Sentence" is displayed to student.  When the link is clicked the starter sentence appears in the Response Field.<br/>
-      		<form:radiobutton path="gated" value="true" /><b>Auto:</b> The starter sentence is automatically displayed in the Response Box (student can edit/overwrite this starter sentence).<br/>
+    		<b>Link:</b> A link called "Show me a Starter Sentence" is displayed to student.  When the link is clicked the starter sentence appears in the Response Field.<br/>
+      		<b>Auto:</b> The starter sentence is automatically displayed in the Response Box (student can edit/overwrite this starter sentence).<br/>
     	</div>
     </div>
     
@@ -229,30 +245,34 @@ You're moving into a land of both shadow and substance, of things and ideas. You
 		</tr>
 	</table>
     
-    <br/>
-  	<div style="color:#FF0000;" class="authorSectionHeader2">Sample Student Responses</div>
-	<div style="color:#FF0000;" class="authorOptionsBlock2">The teacher can post this sample student response at any time during the Q&amp;A discussion.</div>
+    <br/><br/>
+  	<div class="authorSectionHeader2">Prepared Responses</div>
+	<div class="authorOptionsBlock2">These responses will be posted automatically when the run is set up that contains this Q&A step.</div>
+
+	<div id="samplediv">
+
 	<c:choose>
 	    <c:when test="${fn:length(brainstorm.preparedAnswers) == 0}">
 	       You do not have any sample student responses.
 	    </c:when>
 	    <c:otherwise>
            <c:forEach items="${brainstorm.preparedAnswers}" var="preparedAnswer" varStatus="vS">
-                Prepared Response #${vS.index+1}<br/>
+                <div id="${vS.index}">
+                Prepared Response #${vS.index+1} <input type="button" onclick="javascript:deletepreparedanswer(${brainstorm.id}, ${preparedAnswer.id}, ${vS.index});" value="delete" /><br/>
 				Name to display this post as:<br/>
 				<form:input path="preparedAnswers[${vS.index}].displayname" /><br/>
 				Post:<br/>
 				<form:textarea path="preparedAnswers[${vS.index}].body" rows="5" cols="90" /><br/><br/>				
+				</div>
            </c:forEach>
 	    </c:otherwise>
 	</c:choose>
 	
+	</div>
 		
 	<br/>
 	<div class="authorOptionsBlock2">
 	    <input type="button" onclick="javascript:showsamplediv(${brainstorm.id});" value="Create Another Sample Student Response" />
-	</div>
-	<div id="samplediv">
 	</div>
 	
 	

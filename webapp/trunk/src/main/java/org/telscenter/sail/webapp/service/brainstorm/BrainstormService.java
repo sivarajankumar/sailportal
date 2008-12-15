@@ -156,6 +156,14 @@ public interface BrainstormService {
 	 * @return Long id of the created preparedAnswer
 	 */
 	public Long addPreparedAnswer(Brainstorm brainstorm);
+	
+	/**
+	 * Creates and adds a PreparedAnswer to the specified brainstorm.
+	 * 
+	 * @param brainstorm
+	 */
+	public void deletePreparedAnswer(Brainstorm brainstorm, Long preparedAnswerId);
+	
 	/**
 	 * Looks up the Brainstorm that the answer is for.
 	 * 

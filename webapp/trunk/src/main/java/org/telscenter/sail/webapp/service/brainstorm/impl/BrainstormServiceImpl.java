@@ -177,6 +177,22 @@ public class BrainstormServiceImpl implements BrainstormService {
 	}
 
 	/**
+	 * Creates and adds a PreparedAnswer to the specified brainstorm.
+	 * 
+	 * @param brainstorm
+	 */
+	@Transactional()
+	public void deletePreparedAnswer(Brainstorm brainstorm, Long preparedAnswerId) {
+		Set<PreparedAnswer> preparedAnswers = brainstorm.getPreparedAnswers();
+		for (PreparedAnswer preparedAnswer : preparedAnswers) {
+			if (preparedAnswer.getId().equals(preparedAnswerId)) {
+				brainstorm.getPreparedAnswers().remove(preparedAnswer);
+				this.brainstormDao.save(brainstorm);
+				break;
+			}
+		}
+	}
+	/**
 	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getBrainstormByAnswer(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer)
 	 */
 	@Transactional(readOnly = true)
