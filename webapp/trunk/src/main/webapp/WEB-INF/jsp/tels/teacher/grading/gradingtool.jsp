@@ -377,7 +377,7 @@
 			queuedCell.startRequest();
 		} else {
 			for(x=0;x<this.queuedRequests.length;x++){
-				if(this.queuedRequests != null && this.queuedRequests[x].length > 0){
+				if(this.queuedRequests != null && this.queuedRequests[x] != null && this.queuedRequests[x].length > 0){
 					var queuedCell = this.queuedRequests[x].shift();
 					this.activeRequests.push(queuedCell);
 					queuedCell.startRequest();

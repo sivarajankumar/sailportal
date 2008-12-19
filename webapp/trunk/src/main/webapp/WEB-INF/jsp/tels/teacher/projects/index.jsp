@@ -58,7 +58,7 @@
 			<td class="link"><a href="projectlibrary.html"><spring:message code="teacher.pro.lib.index.3"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.4"/></td></tr>
 		<tr>
-			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.pro.lib.index.7"/></a></td>
+			<td class="link"><a href="bookmarkedprojects.html"><spring:message code="teacher.pro.lib.index.7"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.8"/></td></tr>
 		<tr>
 			<td class="link"><a href="../projects/customized/index.html"><spring:message code="teacher.pro.lib.index.9"/></a></td> 

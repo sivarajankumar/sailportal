@@ -149,6 +149,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 			}
 		}
 		return runsAssociatedWithUser;
+//		return this.runDao.getRunListByUserInPeriod(user);
 	}
 
 	/**

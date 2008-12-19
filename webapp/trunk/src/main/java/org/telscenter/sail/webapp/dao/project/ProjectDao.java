@@ -30,6 +30,7 @@ import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.SimpleDao;
+import net.sf.sail.webapp.domain.User;
 
 /**
  * @author Hiroki Terashima
@@ -79,5 +80,14 @@ public interface ProjectDao<T extends Project> extends SimpleDao<T> {
 	 * @throws ObjectNotFoundException if list is not found.
 	 */
 	public List<T> retrieveListByInfo(ProjectInfo projectinfo) throws ObjectNotFoundException;
-
+	
+	/**
+	 * Returns a <code>List</code> of <code>Project</code> from the data store that
+	 * is associated with the given <code>User</code> user and <code>String</code>
+	 * role. For instance role='bookmarker', 'sharedowner' or 'owner'
+	 * @param <code>User</code> user
+	 * @param <code>String</code> role
+	 * @return <code>List<T></code>
+	 */
+	public List<T> getProjectListByUAR(User user, String role);
 }

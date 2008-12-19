@@ -426,42 +426,15 @@ public class PodProjectServiceImpl implements ProjectService {
 
     @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
 	public List<Project> getProjectList(User user) {
-		List<Project> projectList = this.projectDao.getList();
-		List<Project> ownedProjectList = new ArrayList<Project>();
-    	// populate roolo projects' projectinfos
-    	for (Project project : projectList) {
-    		if (project.getOwners().contains(user)) {
-				try {
-					populateProjectInfo(project);
-	    			ownedProjectList.add(project);					
-				} catch (ObjectNotFoundException e) {
-					e.printStackTrace();
-				}
-    		} 
-    	}
-		return ownedProjectList;
+    	return this.projectDao.getProjectListByUAR(user, "owner");
 	}
     
     /**
      * @see org.telscenter.sail.webapp.service.project.ProjectService#getSharedProjectList(net.sf.sail.webapp.domain.User)
      */
 	public List<Project> getSharedProjectList(User user) {
-		List<Project> projectList = this.projectDao.getList();
-		List<Project> sharedProjectList = new ArrayList<Project>();
-    	// populate roolo projects' projectinfos
-    	for (Project project : projectList) {
-    		if (project.getSharedowners().contains(user)) {
-				try {
-					populateProjectInfo(project);
-					sharedProjectList.add(project);					
-				} catch (ObjectNotFoundException e) {
-					e.printStackTrace();
-				}
-    		} 
-    	}
-		return sharedProjectList;
+		return this.projectDao.getProjectListByUAR(user, "sharedowner");
 	}
-
 	
 	/**
 	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(java.lang.String)
@@ -482,6 +455,14 @@ public class PodProjectServiceImpl implements ProjectService {
     		project.populateProjectInfo();
     	}
 		return projectList;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getBookmarkerProjectList(net.sf.sail.webapp.domain.User)
+	 */
+	public List<Project> getBookmarkerProjectList(User bookmarker) throws ObjectNotFoundException{
+		return this.projectDao.getProjectListByUAR(bookmarker, "bookmarker");
+	}this.projectDao.save(project);
 	}
 	
 	/**
@@ -594,6 +575,22 @@ public class PodProjectServiceImpl implements ProjectService {
 		return null;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#addBookmarkerToProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public void addBookmarkerToProject(Project project, User bookmarker){
+		project.getBookmarkers().add(bookmarker);
+		this.projectDao.save(project);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#removeBookmarkerFromProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public void removeBookmarkerFromProject(Project project, User bookmarker){
+		project.getBookmarkers().remove(bookmarker);
+		this.projectDao.save(project);
+	}
+	
 	public void setAclService(AclService<Project> aclService) {
 		this.aclService = aclService;
 	}

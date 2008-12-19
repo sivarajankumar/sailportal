@@ -26,6 +26,7 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.domain.User;
 
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
@@ -100,5 +101,13 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 	    
 	    return this.retrieveListByTag(projectinfo.getFamilyTag());
 	}
-
+	
+	/**
+	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#getProjectListByUAR(net.sf.sail.webapp.domain.User, java.lang.String)
+	 */
+	public List<Project> getProjectListByUAR(User user, String role){
+		String q = "select project from ProjectImpl project inner join project." +
+			role + "s " + role + " where " + role + ".id='" + user.getId() + "'";
+		return this.getHibernateTemplate().find(q);
+	}
 }

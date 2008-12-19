@@ -27,7 +27,7 @@
        	<li>
 			<a href="projectlibrary.html"><spring:message code="teacher.pro.lib.L2.2"/></a> </li>
 		<li>
-			<a style="color:#999999;" href="index.html"><spring:message code="teacher.pro.lib.L2.4"/></a> </li>
+			<a href="bookmarkedprojects.html"><spring:message code="teacher.pro.lib.L2.4"/></a> </li>
 		<li>
 			<a href="../projects/customized/index.html"><spring:message code="teacher.pro.lib.L2.5"/></a> </li>
    </ul>

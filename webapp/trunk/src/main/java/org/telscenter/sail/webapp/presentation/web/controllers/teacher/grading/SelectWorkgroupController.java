@@ -39,6 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * A Controller for selecting workgroup to grade for
@@ -50,6 +51,8 @@ import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 public class SelectWorkgroupController extends AbstractController {
 
 	private OfferingService offeringService;
+	
+	private RunService runService;
 	
 	protected static final String RUN_ID_PARAM_NAME = "runId";
 	
@@ -65,7 +68,7 @@ public class SelectWorkgroupController extends AbstractController {
 		Long runId = new Long(runIdString);
 		
 		Set<Workgroup> workgroups = offeringService.getWorkgroupsForOffering(runId);
-		Run run = (Run) offeringService.getOffering(runId);
+		Run run = runService.retrieveById(runId);
 		Set<Group> periods = run.getPeriods();
 		
 		// sort the workgroups into periods
@@ -92,6 +95,13 @@ public class SelectWorkgroupController extends AbstractController {
 	 */
 	public void setOfferingService(OfferingService offeringService) {
 		this.offeringService = offeringService;
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
 	}
 
 }

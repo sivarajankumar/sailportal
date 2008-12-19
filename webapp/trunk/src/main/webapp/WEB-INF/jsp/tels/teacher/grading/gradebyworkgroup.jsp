@@ -357,7 +357,7 @@
     <li class="currentTeamNavLink"><spring:message code="teacher.gradebyteam.4"/></li>	
   </ul>
   <div id="scoreBatchButton">
-  	<input type="button" value="Score As Batch" onclick="javascript:popup2('batchscore.html?runId=${runId}&workgroupId=${workgroupId}')"/>
+  	<input type="button" value="Score As Batch" onclick="javascript:popup2('batchscore.html?runId=${runId}&workgroupId=${aggregate.workgroup.id}')"/>
   </div> 
 
 </div>

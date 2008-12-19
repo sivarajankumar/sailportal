@@ -51,6 +51,7 @@ import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+import org.telscenter.sail.webapp.service.module.ModuleService;
 
 /**
  * ProjectService for OTrunk projects. POTrunk combines
@@ -61,6 +62,8 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
  * @version $Id$
  */
 public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
+	
+	private ModuleService moduleService;
 
 	/**
 	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#updateProject(org.telscenter.sail.webapp.domain.project.Project)
@@ -121,10 +124,15 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 		}
 		
 		Curnit curnit = project.getCurnit();
+		try{
+			curnit = moduleService.getById(project.getCurnit().getId());
+		} catch (Exception e) {
+			//error
+		}
 		OtmlModuleImpl otmlModule = (OtmlModuleImpl) curnit;
 		curnitUrl = getRetrieveOtmlUrl(otmlModule.getRetrieveotmlurl(), authorProjectParameters.getPortalUrl());
 		String postCurnitUrl = getPostOtmlUrl(project.getId(), authorProjectParameters.getPortalUrl());
-
+		
 		URL jnlpURL = new URL(authoringToolJnlpUrl);
 		BufferedReader in = new BufferedReader(
 				new InputStreamReader(jnlpURL.openStream()));
@@ -227,6 +235,13 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 			return StringUtils.replace(retrieveotmlurl, "http://localhost:8080/webapp", portalUrl);
 		}
 		return retrieveotmlurl;
+	}
+	
+	/**
+	 * @param moduleService the moduleService to set
+	 */
+	public void setModuleService(ModuleService moduleService) {
+		this.moduleService = moduleService;
 	}
 
 }

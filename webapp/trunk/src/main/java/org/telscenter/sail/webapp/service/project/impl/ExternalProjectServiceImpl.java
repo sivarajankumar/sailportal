@@ -265,4 +265,26 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public void setWorkgroupDao(WorkgroupDao<Workgroup> workgroupDao) {
 		this.workgroupDao = workgroupDao;
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getBookmarkerProjectList(net.sf.sail.webapp.domain.User)
+	 */
+	public List<Project> getBookmarkerProjectList(User user){
+		//TODO
+		return null;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#addBookmarkerToProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public void addBookmarkerToProject(Project project, User bookmarker) throws ObjectNotFoundException {
+		//TODO
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#removeBookmarkerFromProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public void removeBookmarkerFromProject(Project project, User bookmarker) throws ObjectNotFoundException {
+		//TODO
+	}
 }

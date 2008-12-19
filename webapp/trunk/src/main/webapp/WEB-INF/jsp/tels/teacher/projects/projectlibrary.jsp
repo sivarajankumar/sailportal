@@ -28,6 +28,50 @@
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
+<script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
+
+<script type="text/javascript">
+	
+	function bookmark(pID){
+		var checked = document.getElementById('check_' + pID).checked;
+		var callback = {
+			success:function(o){alert(o.responseText);},
+			failure:function(o){alert('failed update to server');}
+		};
+		YAHOO.util.Connect.asyncRequest('GET', 'bookmark.html?projectId=' + pID + '&checked=' + 
+			checked, callback);
+	};
+	
+	function bookmarked(){
+		var bookmarked = false;
+		<c:forEach var='project' items='${projectList}'>
+			var bookmarked = false;
+			<c:forEach var='bookmarker' items='${project.bookmarkers}'>
+				<c:if test='${bookmarker.id==userId}'>
+					bookmarked = true;
+				</c:if>
+			</c:forEach>
+			if(bookmarked){
+				document.getElementById('check_${project.id}').checked = true;
+			};
+		</c:forEach>
+	};
+	
+	function copy(pID){
+		var yes = confirm("Copying a project may take some time. If you proceed, please" +
+			" do not click the 'make copy' button again. A message will be displayed when" +
+			" the copy has completed.");
+		if(yes){
+			var callback = {
+				success:function(o){alert(o.responseText);},
+				failure:function(o){alert('failed update to server');}
+			};
+			YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
+		};
+	};
+</script>
 
 <title><spring:message code="curnitlist.project.library" /></title>
 </head>
@@ -61,6 +105,8 @@
 			<th>total</br>time</th>
 			<th>computer</br>time</th>
 			<th>usage</th>
+			<th>bookmark</th>
+			<th></th>
 		</tr>
 		<tr id="libraryProjectTableR2">
 			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.projectInfo.name}</a></td>
@@ -70,16 +116,17 @@
 			<td class="dataCell">${project.projectInfo.gradeLevel}</td>              
 			<td class="dataCell">[6 periods]</td>              
 			<td class="dataCell">[5 periods]</td> 
-			<td class="dataCell">[27 runs]
+			<td class="dataCell">[27 runs]</td>
+			<td class="dataCell"><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/></td>
+			<td class="dataCell"><input type="button" onclick="copy('${project.id}')" value="Make Copy"/></td>
 		</tr>
 		<tr id="libraryProjectTableR3">  
-			<td colspan="8">${project.projectInfo.description}</td>
+			<td colspan="10">${project.projectInfo.description}</td>
 		</tr>
 	</table>
 	
 </c:forEach>	
-	
+<script>bookmarked();</script>
 </div>
-
 </body>
 </html>

@@ -111,17 +111,18 @@ public class StepActivityGraphController extends AbstractController {
 		for(float x = 0f; x <= currentTime; x += stepSize){
 			xLabels.add(nf.format(x));
 		}
-		
+				
 		LineChartOptions options = new LineChartOptionsImpl();
 		LineChart chart = new LineChartImpl();
 		chart.setChartSize(CHARTWIDTH, CHARTHEIGHT);
 		chart.setXYType(true);
 		
 		options.addScaling(0, currentTime);
-		options.addScaling(-1, allSteps.size() + 1);
+		options.addScaling(-1, allSteps.size());
 		options.addLabels("x", xLabels);
 		options.addLabels("y", yLabels);
-		options.addLabels("r", yLabels);
+		options.addGridLines(0, 100d / yLabels.size());
+		
 		chart.addData(xdata);
 		chart.addData(ydata);
 		chart.setOptions(options);

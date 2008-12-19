@@ -26,7 +26,6 @@
 	<c:if test="${workgroupStatus.last=='false'}"> & </c:if>
 </c:forEach>
 
-<br>${url}
 <br><br>
 <img src="${url}"/>
 

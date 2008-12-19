@@ -84,15 +84,15 @@ public class WorkgroupImpl implements Workgroup {
     @Column(name = "OPTLOCK")
     private Integer version = null;
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsWorkgroup.class, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsWorkgroup.class, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_SDS_WORKGROUP_FK, unique = true)
     private SdsWorkgroup sdsWorkgroup;
 
-    @OneToOne(targetEntity = OfferingImpl.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = OfferingImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_OFFERING_FK, nullable = false)
     private Offering offering;
 
-    @OneToOne(targetEntity = PersistentGroup.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = PersistentGroup.class, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_GROUP_FK, nullable = false)
     private Group group = new PersistentGroup();
 

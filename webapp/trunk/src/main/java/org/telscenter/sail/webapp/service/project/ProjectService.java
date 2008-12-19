@@ -98,6 +98,35 @@ public interface ProjectService {
 	 */
 	@Transactional
 	public List<Project> getProjectListByInfo(ProjectInfo info) throws ObjectNotFoundException;
+	
+	/**
+	 * Retrieves a <code>List</code> of <code>Project</code> that
+	 * has been bookmarked by the given <code>User</code>
+	 * 
+	 * @param <code>User</code> bookmarker
+	 * @return <code>List<Project></code>
+	 * @throws ObjectNotFoundException
+	 */
+	@Transactional
+	public List<Project> getBookmarkerProjectList(User bookmarker) throws ObjectNotFoundException;
+	
+	/**
+	 * Adds the given <code>User</code> bookmarker to the <code>Project</code> project
+	 * 
+	 * @param <code>Project</code> project
+	 * @param <code>User</code> bookmarker
+	 */
+	@Transactional
+	public void addBookmarkerToProject(Project project, User bookmarker) throws ObjectNotFoundException;
+	
+	/**
+	 * Removes the given <code>User</code> bookmarker from the <code>Project</code> project
+	 * 
+	 * @param <code>Project</code> project
+	 * @param <code>User</code> bookmarker
+	 */
+	@Transactional
+	public void removeBookmarkerFromProject(Project project, User bookmarker) throws ObjectNotFoundException;
 
 	/**
      * Returns the permission that the specified user has on the specified project

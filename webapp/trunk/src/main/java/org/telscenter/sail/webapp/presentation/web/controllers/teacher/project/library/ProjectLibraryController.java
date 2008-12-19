@@ -28,6 +28,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
@@ -50,6 +52,8 @@ public class ProjectLibraryController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		
+		 User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
 		 List<Project> currentProjectList = new ArrayList<Project>();
 		 for (Project p: projectList) {
@@ -59,6 +63,7 @@ public class ProjectLibraryController extends AbstractController {
 		 
 		 ModelAndView modelAndView = new ModelAndView();
 	     modelAndView.addObject("projectList", currentProjectList);
+	     modelAndView.addObject("userId", user.getId());
 		 return modelAndView;
 	}
 	

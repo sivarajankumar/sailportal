@@ -25,8 +25,6 @@ package org.telscenter.sail.webapp.domain.project;
 import java.io.Serializable;
 import java.util.Set;
 
-
-
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 
@@ -135,6 +133,10 @@ public interface Project extends Persistable {
 	public Set<User> getOwners();
 
 	public void setOwners(Set<User> owners);
+	
+	public Set<User> getBookmarkers();
+	
+	public void setBookmarkers(Set<User> bookmarkers);
 	
 	/**
 	 * @return the projectType

@@ -1097,6 +1097,22 @@
     	<property name="runService" ref="runService"/>
     </bean>
     
+	<bean id="bookmarkedProjectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.bookmarked.BookmarkedProjectController">
+		<property name="projectService" ref="projectService" />
+	</bean>
+	
+	<bean id="bookmarkController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.bookmarked.BookmarkController">
+		<property name="projectService" ref="projectService"/>
+	</bean>
+	
+	<bean id="copyProjectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.CopyProjectController">
+		<property name="projectService" ref="projectService"/>
+		<property name="curnitService" ref="curnitService"/>
+	</bean>
+    
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"
          class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.PostProjectController">

@@ -115,4 +115,12 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
     	return StringUtils.upperCase(StringUtils.left(string, 1)) 
     		+ StringUtils.right(string, string.length() - 1);
     }
+    
+    public List<Run> getRunListByUserInPeriod(User user){
+    	String q = "select run from RunImpl run inner join run.periods period inner " +
+    		"join period.members member where member.id='" + user.getId() + "'";
+    	String qu = "select run from RunImpl run inner join run.periods period (select period from Group period inner " +
+    			"join group.members member where member.id='" + user.getId() + "'";
+    	return this.getHibernateTemplate().find(q);
+    }
 }

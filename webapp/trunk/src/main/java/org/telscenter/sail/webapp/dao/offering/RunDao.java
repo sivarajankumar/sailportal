@@ -26,6 +26,7 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
+import net.sf.sail.webapp.domain.User;
 
 import org.telscenter.sail.webapp.domain.Run;
 
@@ -55,4 +56,13 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
      *  @param search term what to compare against ie '%john%' (if type is 'like'), 'john'
      */
     public List<T> retrieveByField(String field, String type, Object term);
+    
+    /**
+     * Retrieves a <code>List<Run></code> list of runs from the data store given a
+     * <code>User</code> who is attached to a period that is attached to the run.
+     * 
+     * @param <code>User</code> user
+     * @return <code>List<Run></code>
+     */
+    public List<Run> getRunListByUserInPeriod(User user);
 }

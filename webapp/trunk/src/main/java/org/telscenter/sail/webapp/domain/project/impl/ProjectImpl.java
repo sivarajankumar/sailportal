@@ -48,7 +48,6 @@ import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import net.sf.sail.webapp.domain.impl.JnlpImpl;
-import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.hibernate.annotations.Cascade;
@@ -58,6 +57,8 @@ import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.service.module.ModuleService;
+import org.telscenter.sail.webapp.service.module.impl.ModuleServiceImpl;
 
 /**
  * @author Hiroki Terashima
@@ -67,7 +68,7 @@ import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 @Table(name = ProjectImpl.DATA_STORE_NAME)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ProjectImpl implements Project {
-
+	
     @Transient
     public static final String SHARED_OWNERS_JOIN_COLUMN_NAME = "shared_owners_fk";
     
@@ -76,7 +77,6 @@ public class ProjectImpl implements Project {
     
     @Transient
     public static final String SHARED_OWNERS_JOIN_TABLE_NAME = "projects_related_to_shared_owners";
-
 
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -116,6 +116,12 @@ public class ProjectImpl implements Project {
 
     @Transient
 	private static final String PROJECTS_JOIN_COLUMN_NAME = "projects_fk";
+    
+    @Transient
+    private static final String BOOKMARKERS_JOIN_TABLE_NAME = "projects_related_to_bookmarkers";
+    
+    @Transient
+    private static final String BOOKMARKERS_JOIN_COLUMN_NAME = "bookmarkers";
 
 	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
@@ -123,27 +129,31 @@ public class ProjectImpl implements Project {
 	@Column(name = COLUMN_NAME_PROJECT_NAME)
 	protected String name;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class, fetch = FetchType.LAZY)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = true, unique = false)
 	protected Curnit curnit;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class, fetch = FetchType.LAZY)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = true, unique = false)
 	protected Jnlp jnlp;
 	
-	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
+	@OneToOne(targetEntity = RunImpl.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = COLUMN_NAME_PREVIEWOFFERING_FK, unique = true)
 	protected Run previewRun;
 	
-	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
     @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> owners = new TreeSet<User>();
 	
-    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
     @JoinTable(name = SHARED_OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = SHARED_OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> sharedowners = new TreeSet<User>();
+    
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
+    @JoinTable(name = BOOKMARKERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name= PROJECTS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = BOOKMARKERS_JOIN_COLUMN_NAME, nullable = false))
+    private Set<User> bookmarkers = new TreeSet<User>();
     
     @Column(name = ProjectImpl.COLUMN_NAME_FAMILYTAG, nullable = true)
 	protected FamilyTag familytag;
@@ -357,15 +367,36 @@ public class ProjectImpl implements Project {
 	}
 
 	/**
+	 * @return the bookmarkers
+	 */
+	public Set<User> getBookmarkers() {
+		return bookmarkers;
+	}
+
+	/**
+	 * @param bookmarkers the bookmarkers to set
+	 */
+	public void setBookmarkers(Set<User> bookmarkers) {
+		this.bookmarkers = bookmarkers;
+	}
+	
+	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#populateProjectInfo()
 	 */
-	public void populateProjectInfo() {
+	public void populateProjectInfo(){
+		ModuleService moduleService = new ModuleServiceImpl();
 		this.projectinfo = new ProjectInfoImpl();
 		this.projectinfo.setName(this.getName());
-		Module module = (Module) this.getCurnit();
-		this.projectinfo.setSubject(module.getTopicKeywords());
-		this.projectinfo.setGradeLevel(module.getGrades());
-		this.projectinfo.setComment("NONE");
-		this.projectinfo.setAuthor(module.getAuthors());		
+		
+		try{
+			Module mod = (Module) moduleService.getById(this.getCurnit().getId());
+			this.projectinfo.setSubject(mod.getTopicKeywords());
+			this.projectinfo.setGradeLevel(mod.getGrades());
+			this.projectinfo.setComment("NONE");
+			this.projectinfo.setAuthor(mod.getAuthors());
+		} catch(Exception e){
+			
+		}
 	}
+
  }

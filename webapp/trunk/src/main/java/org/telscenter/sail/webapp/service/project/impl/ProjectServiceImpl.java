@@ -107,6 +107,14 @@ public class ProjectServiceImpl implements ProjectService {
 		ProjectService projectService = projectServiceFactory.getProjectService(new ProjectImpl());
 		return projectService.getSharedProjectList(user);
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getBookmarkerProjectList(net.sf.sail.webapp.domain.User)
+	 */
+	public List<Project> getBookmarkerProjectList(User user) throws ObjectNotFoundException{
+		ProjectService projectService = projectServiceFactory.getProjectService(new ProjectImpl());
+		return projectService.getBookmarkerProjectList(user);
+	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByInfo(org.telscenter.sail.webapp.domain.project.ProjectInfo)
@@ -182,6 +190,21 @@ public class ProjectServiceImpl implements ProjectService {
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
 		return projectService.getSharedTeacherRole(project, user);
 	}
-
-
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#addBookmarkerToProject(net.sf.sail.webapp.domain.User)
+	 */
+	public void addBookmarkerToProject(Project project, User user) throws ObjectNotFoundException{
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		projectService.addBookmarkerToProject(project, user);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#removeBookmarkerFromProject(net.sf.sail.webapp.domain.User)
+	 */
+	public void removeBookmarkerFromProject(Project project, User user) throws ObjectNotFoundException{
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		projectService.removeBookmarkerFromProject(project, user);
+	}
+	
 }

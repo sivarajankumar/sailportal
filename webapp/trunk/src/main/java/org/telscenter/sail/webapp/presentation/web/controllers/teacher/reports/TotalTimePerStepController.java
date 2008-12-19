@@ -139,12 +139,12 @@ public class TotalTimePerStepController extends AbstractController{
 			labelPos.add(x);
 		}
 		
-		float stepSize = longest/12;
+		float stepSize = longest/10;
 		for(float x = 0; x <= longest; x += stepSize){
 			yLabels.add(Float.parseFloat(nf.format(x)));
 		}
 		options.addLabels("y", yLabels);
-		options.addLabelPosition(1, labelPos);
+		options.addLabelPosition(2, labelPos);
 
 		
 		chart.setOptions(options);

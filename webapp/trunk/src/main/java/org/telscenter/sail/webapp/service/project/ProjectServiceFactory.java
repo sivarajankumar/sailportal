@@ -23,12 +23,14 @@
 package org.telscenter.sail.webapp.service.project;
 
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
 
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
+import org.telscenter.sail.webapp.service.module.ModuleService;
 
 /**
  * Factory for creating <code>ProjectService</code> instances.
@@ -46,6 +48,8 @@ public class ProjectServiceFactory {
 	
 	private ExternalProjectService externalProjectService;
 	
+	private ModuleService moduleService;
+	
 	/**
 	 * Returns a <code>ProjectService</code> instance that serves
 	 * the provided <code>Project</code>.
@@ -61,7 +65,12 @@ public class ProjectServiceFactory {
 			return externalProjectService;
 		}
 		
-		Curnit curnit = project.getCurnit();
+		Curnit curnit = new CurnitImpl();
+		try{
+			curnit = moduleService.getById(project.getCurnit().getId());
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		if (curnit instanceof RooloOtmlModuleImpl) {
 			projectService = otrunkProjectService;
 		} else if (curnit instanceof OtmlModuleImpl) {
@@ -120,6 +129,13 @@ public class ProjectServiceFactory {
 	public void setExternalProjectService(
 			ExternalProjectService externalProjectService) {
 		this.externalProjectService = externalProjectService;
+	}
+
+	/**
+	 * @param moduleService the moduleService to set
+	 */
+	public void setModuleService(ModuleService moduleService) {
+		this.moduleService = moduleService;
 	}
 
 }

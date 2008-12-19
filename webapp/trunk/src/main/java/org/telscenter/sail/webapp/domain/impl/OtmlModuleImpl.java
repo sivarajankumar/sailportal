@@ -25,8 +25,10 @@ package org.telscenter.sail.webapp.domain.impl;
 import java.io.File;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -60,6 +62,7 @@ public class OtmlModuleImpl extends ModuleImpl implements Module {
 	public File otmlfile;
 	
 	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	@Column(name = OtmlModuleImpl.COLUMN_NAME_OTMLFILE, length = 2147483647)
 	public byte[] otml;
 	
