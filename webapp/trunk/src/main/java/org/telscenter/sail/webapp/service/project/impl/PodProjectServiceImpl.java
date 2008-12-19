@@ -462,7 +462,6 @@ public class PodProjectServiceImpl implements ProjectService {
 	 */
 	public List<Project> getBookmarkerProjectList(User bookmarker) throws ObjectNotFoundException{
 		return this.projectDao.getProjectListByUAR(bookmarker, "bookmarker");
-	}this.projectDao.save(project);
 	}
 	
 	/**

@@ -52,7 +52,9 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.PreparedAnswer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.PreparedAnswerImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl;
@@ -82,11 +84,17 @@ public class BrainstormImpl implements Brainstorm {
     public static final String ANSWERS_JOIN_TABLE_NAME = "brainstorms_related_to_brainstormanswers";
     
     @Transient
+	private static final String PREPAREDANSWERS_JOIN_TABLE_NAME = "brainstorms_related_to_brainstormpreparedanswers";
+
+    @Transient
     public static final String BRAINSTORMS_JOIN_COLUMN_NAME = "brainstorms_fk";
 
     @Transient
     public static final String ANSWERS_JOIN_COLUMN_NAME = "brainstormanswers_fk";
-    
+
+    @Transient
+	private static final String PREPAREDANSWERS_JOIN_COLUMN_NAME = "brainstormpreparedanswers_fk";
+
     @Transient
     public static final String QUESTIONS_JOIN_COLUMN_NAME = "brainstormquestions_fk";
     
@@ -114,11 +122,22 @@ public class BrainstormImpl implements Brainstorm {
     @Transient
 	private static final String COLUMN_NAME_DISPLAYNAME_OPTION = "displaynameoption";
 
+    @Transient
+    private static final String COLUMN_NAME_ISRICHTEXTEDITORALLOWED = "isrichtexteditorallowed";
+
+    @Transient
+	private static final String COLUMN_NAME_PARENTBRAINSTORMID = "parent_brainstorm_id";
+
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerImpl.class, fetch = FetchType.LAZY)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
     @Sort(type = SortType.NATURAL)
 	private Set<Answer> answers = new TreeSet<Answer>();
-	
+
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = PreparedAnswerImpl.class, fetch = FetchType.LAZY)
+    @JoinTable(name = PREPAREDANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = PREPAREDANSWERS_JOIN_COLUMN_NAME, nullable = false))
+    @Sort(type = SortType.NATURAL)
+	private Set<PreparedAnswer> preparedAnswers = new TreeSet<PreparedAnswer>();
+
     @OneToOne(cascade = CascadeType.ALL, targetEntity = QuestionImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = QUESTIONS_JOIN_COLUMN_NAME)
 	private Question question = new JaxbQuestionImpl();
@@ -126,7 +145,7 @@ public class BrainstormImpl implements Brainstorm {
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = RunImpl.class)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
     @JoinColumn(name = COLUMN_NAME_RUN_FK, unique = false)
-	private Run run;   // if the run is not specified, this brainstorm is 
+	private Run run;   // if the run is not specified, this brainstorm is not able to be used by students.
 	
 	@ManyToOne(targetEntity = ProjectImpl.class)
 	@JoinColumn(name = COLUMN_NAME_PROJECT_FK)
@@ -145,13 +164,19 @@ public class BrainstormImpl implements Brainstorm {
 	@Column(name = BrainstormImpl.COLUMN_NAME_ISGATED)	
 	private boolean isGated;
 	
+	@Column(name = BrainstormImpl.COLUMN_NAME_ISRICHTEXTEDITORALLOWED)	
+	private boolean isRichTextEditorAllowed;
+	
     @Column(name = BrainstormImpl.COLUMN_NAME_STARTTIME)
 	private Date starttime;
-    
+
+    @Column(name = BrainstormImpl.COLUMN_NAME_PARENTBRAINSTORMID)
+    private Long parentBrainstormId = null;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
-
+    
     @Version
     @Column(name = "OPTLOCK")
     private Integer version = null;
@@ -232,10 +257,38 @@ public class BrainstormImpl implements Brainstorm {
 	}
 
 	/**
+	 * @return the preparedAnswers
+	 */
+	public Set<PreparedAnswer> getPreparedAnswers() {
+		return preparedAnswers;
+	}
+
+	/**
+	 * @param preparedAnswers the preparedAnswers to set
+	 */
+	public void setPreparedAnswers(Set<PreparedAnswer> preparedAnswers) {
+		this.preparedAnswers = preparedAnswers;
+	}
+
+	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#setQuestion(org.telscenter.sail.webapp.domain.brainstorm.question.Question)
 	 */
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+
+	/**
+	 * @return the parentBrainstormId
+	 */
+	public Long getParentBrainstormId() {
+		return parentBrainstormId;
+	}
+
+	/**
+	 * @param parentBrainstormId the parentBrainstormId to set
+	 */
+	public void setParentBrainstormId(Long parentBrainstormId) {
+		this.parentBrainstormId = parentBrainstormId;
 	}
 
 	/**
@@ -311,6 +364,17 @@ public class BrainstormImpl implements Brainstorm {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#setSessionStarted(boolean)
+	 */
+	public void setSessionStarted(boolean sessionStarted) {
+		if (sessionStarted) {
+			starttime = Calendar.getInstance().getTime();
+		} else {
+			starttime = null;
+		}
+	}
+
+	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#hasWorkgroupPosted(org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
 	 */
 	public boolean hasWorkgroupPosted(WISEWorkgroup workgroup) {
@@ -371,5 +435,42 @@ public class BrainstormImpl implements Brainstorm {
 	 */
 	public void setDisplayNameOption(DisplayNameOption displayNameOption) {
 		this.displayNameOption = displayNameOption;
+	}
+
+	/**
+	 * @return the isRichTextEditorAllowed
+	 */
+	public boolean isRichTextEditorAllowed() {
+		return isRichTextEditorAllowed;
+	}
+
+	/**
+	 * @param isRichTextEditorAllowed the isRichTextEditorAllowed to set
+	 */
+	public void setRichTextEditorAllowed(boolean isRichTextEditorAllowed) {
+		this.isRichTextEditorAllowed = isRichTextEditorAllowed;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.Brainstorm#getCopy()
+	 */
+	public Brainstorm getCopy() {
+		Brainstorm copy = new BrainstormImpl();
+		copy.setDisplayNameOption(this.getDisplayNameOption());
+		copy.setAnonymousAllowed(this.isAnonymousAllowed());
+		Set<PreparedAnswer> preparedAnswers2 = this.getPreparedAnswers();
+		for (PreparedAnswer preparedAnswer : preparedAnswers2) {
+			PreparedAnswer copyPreparedAnswer = new PreparedAnswerImpl();
+			copyPreparedAnswer.setBody(preparedAnswer.getBody());
+			copyPreparedAnswer.setDisplayname(preparedAnswer.getDisplayname());
+			copy.getPreparedAnswers().add(copyPreparedAnswer);
+		}
+		copy.setGated(this.isGated);
+		copy.setParentBrainstormId(this.getId());
+		copy.setProject(this.getProject());
+		copy.setQuestion(this.getQuestion().getCopy());
+		copy.setRichTextEditorAllowed(this.isRichTextEditorAllowed());
+		copy.setSessionStarted(this.isSessionStarted());
+		return copy;
 	}
 }
