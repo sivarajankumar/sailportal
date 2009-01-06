@@ -53,14 +53,14 @@ abbr, acronym {
 	position:relative;
 	}
 	
-#centeredDiv {
-	background-color:#FFFFFF;
-	width: 960px;
-	text-align:left;
-	padding: 0;
-	margin: 0 auto;
-	}
-	
+	#centeredDiv {
+		background-color:#FFFFFF;
+		width: 960px;
+		text-align:left;
+		padding: 0;
+		margin: 0 auto;
+		}
+		
 	
 #hotInputFields  {
 	margin:15px;
@@ -83,4 +83,8 @@ abbr, acronym {
 .center {text-align:center;}
 
 form {margin:0px; padding:0px;}
+
+
+
+
 	

@@ -20,6 +20,15 @@
 
 /* TAGS FOR THE TABLE LAYOUT METHOD   */	
 
+.panelColor1 {
+	    -moz-border-radius:10px;
+	  			}
+	  			
+.panelColor2 {
+	    background-color:#CCCCFF;
+	    border:1px solid blue;
+	  			}
+			
 .panelColor {
 	background-image:url(../images/GradientHomeBox2.png);
 	background-position:left bottom;
