@@ -57,6 +57,7 @@ import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.module.impl.ModuleServiceImpl;
 
@@ -398,5 +399,12 @@ public class ProjectImpl implements Project {
 			
 		}
 	}
-
+	
+	/**
+	 * Visitor Pattern
+	 * @param visitor
+	 */
+	public Object accept(ProjectVisitor visitor) {
+		return visitor.visit(this);
+	}
  }

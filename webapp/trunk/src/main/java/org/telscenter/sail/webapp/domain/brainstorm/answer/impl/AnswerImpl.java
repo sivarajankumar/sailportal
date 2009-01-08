@@ -47,6 +47,7 @@ import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.AnswerTag;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.impl.CommentImpl;
@@ -96,6 +97,12 @@ public class AnswerImpl implements Answer {
     @Transient
 	private static final String GROUPS_JOIN_COLUMN_NAME = "groups_fk";
 
+    @Transient
+	private static final String ANSWERTAG_JOIN_TABLE_NAME = "brainstormanswers_related_to_answertags";
+
+    @Transient
+	private static final String ANSWERTAGS_JOIN_COLUMN_NAME = "answer_tag_fk";
+
     @ManyToOne(targetEntity = WISEWorkgroupImpl.class)
     @JoinColumn(name = WORKGROUPS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private WISEWorkgroup workgroup;
@@ -114,6 +121,11 @@ public class AnswerImpl implements Answer {
     @JoinTable(name = AnswerImpl.WORKGROUPS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false)}, inverseJoinColumns = @JoinColumn(name = WORKGROUP_JOIN_COLUMN_NAME, nullable = false))
     private Set<WISEWorkgroup> workgroupsThatFoundAnswerHelpful = new TreeSet<WISEWorkgroup>();
 
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerTagImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = ANSWERTAG_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERTAGS_JOIN_COLUMN_NAME, nullable = false))
+    @Sort(type = SortType.NATURAL)    
+    private Set<AnswerTag> answerTags = new TreeSet<AnswerTag>();
+    
 //    @ManyToOne(targetEntity = PersistentGroup.class)
 //    @JoinColumn(name = GROUPS_JOIN_COLUMN_NAME, nullable = false)
     @Transient
@@ -218,6 +230,20 @@ public class AnswerImpl implements Answer {
 	public void setWorkgroupsThatFoundAnswerHelpful(
 			Set<WISEWorkgroup> workgroupsThatFoundAnswerHelpful) {
 		this.workgroupsThatFoundAnswerHelpful = workgroupsThatFoundAnswerHelpful;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#getAnswerTags()
+	 */
+	public Set<AnswerTag> getAnswerTags() {
+		return answerTags;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.answer.Answer#getAnswerTags()
+	 */
+	public void setAnswerTags(Set<AnswerTag> answerTags) {
+		this.answerTags = answerTags;
 	}
 	
 	/**

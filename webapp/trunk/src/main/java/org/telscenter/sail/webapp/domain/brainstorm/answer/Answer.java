@@ -141,6 +141,14 @@ public interface Answer extends Persistable, Comparable<Answer> {
 	public Set<WISEWorkgroup> getWorkgroupsThatFoundAnswerHelpful();
 	
 	/**
+	 * Returns all of the AnserTags that are on this
+	 * Answer.
+	 * 
+	 * @return
+	 */
+	public Set<AnswerTag> getAnswerTags();
+	
+	/**
 	 * Indicates that the specified workgroup no longer finds this
 	 * Answer helpful.
 	 * 

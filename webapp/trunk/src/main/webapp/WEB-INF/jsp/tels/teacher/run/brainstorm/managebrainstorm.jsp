@@ -20,6 +20,7 @@
 <script type="text/javascript">
 	var sortOrder = 0;
 	var pageManager;
+	var isTeacherWorkgroup = "${workgroup.teacherWorkgroup}";
 
 	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortOrder);
 </script>

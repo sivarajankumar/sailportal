@@ -44,5 +44,10 @@ public interface Curnit extends Persistable {
 	 * @return The id of the curnit in the persistent data store
 	 */
 	public Long getId();
-
+	
+	/**
+	 * Visitor pattern, accepts CurnitVisitors
+	 * @param visitor
+	 */
+	Object accept(CurnitVisitor visitor);
 }

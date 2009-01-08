@@ -150,6 +150,24 @@ public interface BrainstormService {
 	public void unmarkAsHelpful(Answer answer, WISEWorkgroup workgroup);
 
 	/**
+	 * The specified workgroup adds a tag to the specified
+	 * answer
+	 * 
+	 * @param answer
+	 * @param workgroup
+	 */
+	public void tag(Answer answer, WISEWorkgroup workgroup);
+
+	/**
+	 * Removes a tag made by the specified workgroup on the
+	 * specified answer
+	 * 
+	 * @param answer
+	 * @param workgroup
+	 */
+	public void untag(Answer answer, WISEWorkgroup workgroup);
+
+	/**
 	 * Creates and adds a PreparedAnswer to the specified brainstorm.
 	 * 
 	 * @param brainstorm

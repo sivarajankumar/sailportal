@@ -174,11 +174,6 @@
 				     </td> 
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
-					        <c:if test="${not empty run.brainstorms}" >
-					            <c:forEach var="brainstorm" items="${run.brainstorms}">
-					                <li><a href="../run/brainstorm/managebrainstorm.html?brainstormId=${brainstorm.id}"><spring:message code="teacher.run.myprojectruns.39"/></a></li>
-					            </c:forEach>
-					    	</c:if>
 					    	<li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
 		                    <li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary"><spring:message code="teacher.run.myprojectruns.19"/></a></li>
@@ -189,6 +184,12 @@
 					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.15"/></a></li>
 					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.21"/></a></li>
 					    	<li><a href="./announcement/manageannouncement.html?runId=${run.id}">Manage Announcements</a></li>
+					        <c:if test="${not empty run.brainstorms}" >
+					            <c:forEach var="brainstorm" items="${run.brainstorms}" varStatus="brainstormVS" >
+					                <li><a href="../run/brainstorm/managebrainstorm.html?brainstormId=${brainstorm.id}">Manage Q&A #${brainstormVS.index+1}</a></li>
+					            </c:forEach>
+					    	</c:if>					    	
+					    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}">Create New Q&A for this run</a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">					    	
 					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')"><spring:message code="teacher.run.myprojectruns.23"/></a></li>

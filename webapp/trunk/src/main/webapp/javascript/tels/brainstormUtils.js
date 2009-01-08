@@ -57,7 +57,7 @@
 		var isChecked = document.getElementById('helpful_' + workgroupId + '_' + answerId).checked;
 		if (isChecked) {
 			var URL='markanswerhelpful.html';
-			var data='mark=1&workgroupId=' + workgroupId + '&answerId=' + answerId;
+			var data='mark=1&type=helpful&workgroupId=' + workgroupId + '&answerId=' + answerId;
 			var callback = 
 				{
 					success:function(o){},
@@ -66,7 +66,30 @@
 			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
 		} else {
 			var URL='markanswerhelpful.html';
-			var data='mark=0&workgroupId=' + workgroupId + '&answerId=' + answerId;
+			var data='mark=0&type=helpful&workgroupId=' + workgroupId + '&answerId=' + answerId;
+			var callback = 
+				{
+					success:function(o){},
+					failure:function(o){}
+				};
+			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
+		}
+	};
+	
+	function tagAnswer(workgroupId, answerId) {
+		var isChecked = document.getElementById('tag_' + workgroupId + '_' + answerId).checked;
+		if (isChecked) {
+			var URL='markanswerhelpful.html';
+			var data='mark=1&type=tag&workgroupId=' + workgroupId + '&answerId=' + answerId;
+			var callback = 
+				{
+					success:function(o){},
+					failure:function(o){}
+				};
+			YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
+		} else {
+			var URL='markanswerhelpful.html';
+			var data='mark=0&type=tag&workgroupId=' + workgroupId + '&answerId=' + answerId;
 			var callback = 
 				{
 					success:function(o){},
@@ -83,6 +106,11 @@
 	
 	function sortBy(sortCriteria,sortingOrder){
 		pageManager.setSortOrder(sortCriteria, sortingOrder);
+		pageManager.updatePage();
+	};
+
+	function filter(isFilterOn){
+		pageManager.setFilter(isFilterOn);
 		pageManager.updatePage();
 	};
 
@@ -147,6 +175,7 @@
 		this.sortCriteria = criteria;
 		this.sortOrder = sortOrder;
 		this.answers;
+		this.isFilterOn;
 	
 		this.callback = {
 			success:this.handleSuccess,
@@ -163,14 +192,18 @@
 	
 	PageManager.prototype.handleFailure = function(o){
 		alert('failure');
-		alert(o);
+		alert(o.responseXML);
+		alert(o.responseText);
+		alert(o.getAllResponseHeaders);
+		alert(o.status);
+		alert(o.statusText);		
 		//error stuff goes here
 	};
 	
 	PageManager.prototype.handleSuccess = function(o){
 		var xmlDoc = o.responseXML;
 		if(xmlDoc==null){
-			this.handlFailure(o);
+			this.handleFailure(o);
 		};
 		this.answers = new Answers();
 		this.answers.setAnswers(xmlDoc);
@@ -209,6 +242,7 @@
 		//alert('beforesort:' + this.answers.getAnswers().length);
 		this.answers.sort(this.sortCriteria, this.sortOrder);
 		//alert('aftersort:' + this.answers.getAnswers().length);
+		this.answers.filter(this.isFilterOn);			
 		orderedElements = createAnswerElements(document, this.answers, this.workgroupId, this.id);
 		this.buildPage(orderedElements);		
 	};
@@ -218,6 +252,10 @@
 		this.sortOrder = order;
 	};
 	
+	PageManager.prototype.setFilter = function(isFilterOn){
+		this.isFilterOn = isFilterOn;
+	};
+
 	PageManager.prototype.buildPage = function(elements){
 		// removes all the divs with id=answer in responseTableBody div
 		// then adds all the answers in elements to that responseTableBody div

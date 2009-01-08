@@ -33,6 +33,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import net.sf.sail.webapp.domain.CurnitVisitor;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 
@@ -190,5 +191,11 @@ public class OtmlModuleImpl extends ModuleImpl implements Module {
 	public void setRetrieveotmlurl(String retrieveotmlurl) {
 		this.retrieveotmlurl = retrieveotmlurl;
 	}
-
+	
+    /**
+     * @see net.sf.sail.webapp.domain.Curnit#accept(net.sf.sail.webapp.domain.CurnitVisitor)
+     */
+	public Object accept(CurnitVisitor visitor) {
+		return visitor.visit(this);
+	}
 }

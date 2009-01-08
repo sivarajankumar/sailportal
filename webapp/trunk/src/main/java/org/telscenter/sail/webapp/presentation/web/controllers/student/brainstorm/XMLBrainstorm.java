@@ -30,6 +30,7 @@ import net.sf.sail.webapp.domain.User;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.AnswerTag;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
@@ -61,10 +62,45 @@ public final class XMLBrainstorm {
 			if(answer.getWorkgroupsThatFoundAnswerHelpful()!=null){
 				XMLAnswer = XMLAnswer + getXMLHelpfulWorkgroups(answer.getWorkgroupsThatFoundAnswerHelpful());
 			}
-			XMLAnswer = XMLAnswer + "</helpfulworkgroups></answer>";
+			XMLAnswer = XMLAnswer + "</helpfulworkgroups><answertags>";
+			
+			if(answer.getAnswerTags().size() > 0){
+				XMLAnswer = XMLAnswer + getXMLAnswerTags(answer);
+			}
+
+			XMLAnswer = XMLAnswer + "</answertags></answer>";
 		return XMLAnswer;
 	}
 	
+	/**
+	 * Returns what goes inside <answertags>...</answertags>
+	 * @param answer
+	 * @return
+	 */
+	private static String getXMLAnswerTags(Answer answer) {
+		String XMLAnswerTags = "";
+		Set<AnswerTag> answerTags = answer.getAnswerTags();
+		if (answerTags.size() > 0) {
+			for (AnswerTag answerTag : answerTags) {
+				XMLAnswerTags = XMLAnswerTags + getXMLAnswerTag(answerTag);
+			}
+		}
+		
+		return XMLAnswerTags;
+	}
+
+	/**
+	 * Returns xml-representation string <answertag>...</answertag>
+	 * @param answerTag
+	 * @return
+	 */
+	private static String getXMLAnswerTag(AnswerTag answerTag) {
+		String XMLAnswerTag = "<answertag><id>" + answerTag.getId() + "</id><type>" + answerTag.getAnswerTagType().ordinal() + "</type>" + 
+		    "<isteachertag>" + answerTag.isTeacherAnswerTag() + "</isteachertag><explanation>" + StringEscapeUtils.escapeHtml(answerTag.getExplanation()) + "</explanation>" +
+		    getXMLWorkgroup(answerTag.getOwnerWorkgroup()) + "</answertag>";
+		return XMLAnswerTag;
+	}
+
 	public static String getXMLComments(Set<Comment> comments){
 		String XMLComments = "";
 		if(comments.size()>0){

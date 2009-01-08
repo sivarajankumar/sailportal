@@ -48,7 +48,6 @@
 		<th> familytag</th>
 		<th> Edit Project with Authoring tool</th>
 		<th> Upload Otml File</th>
-		<th> View Otml File</th>		
 		<th> Edit Project Metadata</th>		
 		<th> Other Actions </th>				
 	</tr>
@@ -62,10 +61,8 @@
 		<c:choose>
 		    	<c:when test="${project.projectType == potrunk}">  <!--  if this is a POTrunk project, we can get the otml -->
 		    	   <td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>
-		    	   <td><a href="${project.curnit.retrieveotmlurl}">View Otml</a></td>
 		    	</c:when>
 		    	<c:otherwise>
-		    	    <td>Not available for this project.</td>
 		    	    <td>Not available for this project.</td>
 		    	</c:otherwise>
 		</c:choose>
@@ -91,7 +88,6 @@
 		<th> familytag</th>
 		<th> Edit Project with Authoring tool</th>
 		<th> Upload Otml File</th>
-		<th> View Otml File</th>		
 		<th> Edit Project Metadata</th>		
 		<th> Preview Project</th>				
 	</tr>
@@ -103,12 +99,10 @@
 		<td>${project.familytag} (${project.projectType})</td>
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
 				<c:choose>
-		    	<c:when test="${project.projectType == potrunk}">  <!--  if this is a POTrunk project, we can get the otml -->
+		    	<c:when test="${project.projectType == potrunk}">
 		    	   <td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>
-		    	   <td><a href="${project.curnit.retrieveotmlurl}">View Otml</a></td>
 		    	</c:when>
 		    	<c:otherwise>
-		    	    <td>Not available for this project.</td>
 		    	    <td>Not available for this project.</td>
 		    	</c:otherwise>
 		</c:choose>

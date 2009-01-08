@@ -25,8 +25,12 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brai
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
@@ -67,9 +71,15 @@ public class CreateBrainstormController extends AbstractController {
 
 	private static final String PROJECTID_PARAM_NAME = "projectId";
 	
+	private static final String AUTHOR_BRAINSTORM_REDIRECT_VIEW = "../../../author/brainstorm/authorbrainstorm.html";
+
+	private static final String MYPROJECTRUNS_REDIRECT_VIEW = "../myprojectruns.html";
+
 	/**
 	 * The Request must have a runId of the run to create the brainstorm for.
 	 * The runId must belong to an existing run.
+	 * 
+	 * Logged in user must have privileges to create a Q&A step for the specified run.
 	 * 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -79,10 +89,20 @@ public class CreateBrainstormController extends AbstractController {
 		String runIdStr = request.getParameter(RUNID_PARAM_NAME);
 		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
 		Brainstorm brainstorm = new BrainstormImpl();
+		
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
 
 		if (runIdStr != null) {
 			Long runId = Long.parseLong(runIdStr);
 			Run run = this.runService.retrieveById(runId);
+			
+			// if logged-in user does not have access to create a Q&A for the
+			// specified run, return to original page
+			if (!run.getOwners().contains(user)) {
+				ModelAndView modelAndView = new ModelAndView(new RedirectView(MYPROJECTRUNS_REDIRECT_VIEW));
+				return modelAndView;
+			} 
 			brainstorm.setRun(run);
 		}
 
@@ -100,7 +120,8 @@ public class CreateBrainstormController extends AbstractController {
 		brainstorm.setSessionStarted(true);
 		brainstorm.setRichTextEditorAllowed(true);
 		brainstormService.createBrainstorm(brainstorm);
-		return null;
+		ModelAndView mav = new ModelAndView(new RedirectView(AUTHOR_BRAINSTORM_REDIRECT_VIEW + "?brainstormId=" + brainstorm.getId()));
+		return mav;
 	}
 
 	/**

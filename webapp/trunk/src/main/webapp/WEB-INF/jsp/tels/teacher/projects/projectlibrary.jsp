@@ -38,7 +38,7 @@
 		var checked = document.getElementById('check_' + pID).checked;
 		var callback = {
 			success:function(o){alert(o.responseText);},
-			failure:function(o){alert('failed update to server');}
+			failure:function(o){alert('bookmark: failed update to server');}
 		};
 		YAHOO.util.Connect.asyncRequest('GET', 'bookmark.html?projectId=' + pID + '&checked=' + 
 			checked, callback);
@@ -66,7 +66,7 @@
 		if(yes){
 			var callback = {
 				success:function(o){alert(o.responseText);},
-				failure:function(o){alert('failed update to server');}
+				failure:function(o){alert('copy: failed update to server');}
 			};
 			YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
 		};

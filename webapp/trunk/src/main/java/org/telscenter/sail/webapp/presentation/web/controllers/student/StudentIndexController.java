@@ -115,22 +115,7 @@ public class StudentIndexController extends AbstractController {
 		
 		for (Run run : runlist) {
 			StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(user, run);
-
-			// if student is in a workgroup for this run, get the url
-			// that will be used to start the project and set the url where
-			// the workgroup's work can be retrieved as PDF
-			if (studentRunInfo.getWorkgroup() != null && !(run.getProject() instanceof ExternalProject)) {
-//				String startProjectUrl = 				
-//					PodProjectServiceImpl.generateStudentStartProjectUrlString(
-//							httpRestTransport, request, run, 
-//							studentRunInfo.getWorkgroup(), 
-//							PodProjectServiceImpl.retrieveAnnotationBundleUrl);
-//				studentRunInfo.setStartProjectUrl(startProjectUrl);
-				
-				String workPdfUrl = ((WISEWorkgroupService) workgroupService)
-			        .generateWorkgroupWorkPdfUrlString(httpRestTransport, request, (WISEWorkgroup) studentRunInfo.getWorkgroup());
-			    ((WISEWorkgroup) studentRunInfo.getWorkgroup()).setWorkPDFUrl(workPdfUrl);
-			}
+			studentRunInfo.setWorkPDFUrl((WISEWorkgroupService) workgroupService, httpRestTransport, request);
 
 			if (run.isEnded()) {
 				ended_run_list.add(studentRunInfo);

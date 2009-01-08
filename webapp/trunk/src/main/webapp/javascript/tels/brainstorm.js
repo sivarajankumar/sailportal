@@ -1,6 +1,7 @@
 
 function Answers(){
 	this.answers = [];
+	this.allAnswers = [];
 };
 
 Answers.prototype.setAnswers = function(xmlAnswers){
@@ -18,6 +19,7 @@ Answers.prototype.getAnswers = function(){
 
 Answers.prototype.setAnswer = function(xmlAnswer){
 	this.answers.push(new Answer(xmlAnswer));
+	this.allAnswers.push(new Answer(xmlAnswer));
 };
 
 Answers.prototype.addAnswer = function(answer){
@@ -35,26 +37,14 @@ Answers.prototype.getAnswerById = function(id){
 
 function oldestFirst(a, b){
 	return Number(b.getLatestRevision().getId()) - Number(a.getLatestRevision().getId());
-	//if(a.getLatestRevision().getId() < b.getLatestRevision().getId()){return 1};
-	//if(a.getLatestRevision().getId() == b.getLatestRevision().getId()){return 0};
-	//if(a.getLatestRevision().getId() > b.getLatestRevision().getId()){return -1};
 };
 
 function newestFirst(a, b){
 	return Number(b.getLatestRevision().getId()) - Number(a.getLatestRevision().getId());
-	
-	//if(a.getLatestRevision().getId() < b.getLatestRevision().getId()){return -1};
-	//if(a.getLatestRevision().getId() == b.getLatestRevision().getId()){return 0};
-	//if(a.getLatestRevision().getId() > b.getLatestRevision().getId()){return 1};
 };
 
 function helpfulness(a, b){	
-	//alert(Number(a.getHelpfulWorkgroups().length) - Number(b.getHelpfulWorkgroups().length));
 	return Number(a.getHelpfulWorkgroups().length) - Number(b.getHelpfulWorkgroups().length);
-	
-	//if(a.getId() < b.getId()){return -1};
-	//if(a.getId() == b.getId()){return 0};
-	//if(a.getId() > b.getId()){return 1};
 };
 
 Answers.prototype.sort = function(criteria, sortingOrder){
@@ -79,6 +69,24 @@ Answers.prototype.sort = function(criteria, sortingOrder){
     }
 };
 
+function isTeacherTagged(answer){	
+	var answerTags = answer.getAnswerTags();
+	for (at=0;at<answerTags.length;at++) {
+		if (answerTags[at].getIsTeacherAnswerTag()) {
+			return true;
+		}
+	}
+	return false; 
+};
+
+Answers.prototype.filter = function(isFilterOn){
+	if (isFilterOn) {
+		this.answers = this.answers.filter(isTeacherTagged);
+	} else {
+		this.answers = this.allAnswers;	
+	}
+};
+
 Answers.prototype.toString = function(){
 	var outAnswers = "Answers: ";
 	for(l=0;l<this.answers.length;l++){
@@ -94,6 +102,7 @@ function Answer(xmlAnswer){
 	this.comments = [];
 	this.anonymous;
 	this.helpfulWorkgroups= [];
+	this.answerTags = [];
 	
 	this.setAnswer(xmlAnswer);
 };
@@ -105,6 +114,7 @@ Answer.prototype.setAnswer = function(xmlAnswer){
 	this.setComments(xmlAnswer.getElementsByTagName('comments'));
 	this.setAnonymous(xmlAnswer.childNodes[1]);
 	this.setHelpfulWorkgroups(xmlAnswer.getElementsByTagName('helpfulworkgroups'));
+	this.setAnswerTags(xmlAnswer.getElementsByTagName('answertags'));
 };
 
 Answer.prototype.setId = function(xmlId){
@@ -127,6 +137,12 @@ Answer.prototype.setRevisions = function(xmlRevisions){
 Answer.prototype.setWorkgroup = function(xmlWorkgroup){
 	if(xmlWorkgroup!=null){
 		this.workgroup=(new Workgroup(xmlWorkgroup));
+	};
+};
+
+Answer.prototype.setAnswerTag = function(xmlAnswerTag){
+	if(xmlAnswerTag!=null){
+		this.answerTag=(new AnswerTag(xmlAnswerTag));
 	};
 };
 
@@ -166,6 +182,16 @@ Answer.prototype.setHelpfulWorkgroups = function(xmlHelpfulWorkgroups){
 	};
 };
 
+Answer.prototype.setAnswerTags = function(xmlAnswerTags){
+	if(xmlAnswerTags!=null && xmlAnswerTags[0]!=null){
+		var answerTags = xmlAnswerTags[0].getElementsByTagName('answertag');
+		if(answerTags!=null && answerTags[0]!=null){
+			for(af=0;af<answerTags.length;af++){
+				this.answerTags.push(new AnswerTag(answerTags[af]));
+			};
+		};
+	};
+};
 Answer.prototype.addRevision = function(revision){
 	this.revisions.push(revision);
 };
@@ -196,6 +222,10 @@ Answer.prototype.isAnonymous = function(){
 
 Answer.prototype.getHelpfulWorkgroups = function(){
 	return this.helpfulWorkgroups;
+};
+
+Answer.prototype.getAnswerTags = function(){
+	return this.answerTags;
 };
 
 Answer.prototype.getLatestRevision = function(){
@@ -357,6 +387,74 @@ Comment.prototype.getBody = function(){
 
 Comment.prototype.isAnonymous = function(){
 	return this.anonymous;
+};
+
+function AnswerTag(xmlAnswerTag){
+	this.id;
+	this.type;
+	this.isTeacherAnswerTag;
+	this.explanation;
+	this.workgroup;
+	this.setAnswerTag(xmlAnswerTag);
+};
+
+AnswerTag.prototype.setAnswerTag = function(xmlAnswerTag){
+	this.setId(xmlAnswerTag.childNodes[0]);
+	this.setType(xmlAnswerTag.childNodes[1]);
+	this.setIsTeacherAnswerTag(xmlAnswerTag.childNodes[2]);
+	this.setExplanation(xmlAnswerTag.childNodes[3]);
+	this.setWorkgroup(xmlAnswerTag.childNodes[4]);
+};
+
+AnswerTag.prototype.setId = function(xmlId){
+	if(xmlId!=null){
+		this.id=xmlId.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.setType = function(xmlType){
+	if(xmlType!=null){
+		this.type=xmlType.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.setIsTeacherAnswerTag = function(xmlIsTeacherAnswer){
+	if(xmlIsTeacherAnswer!=null){
+		this.isTeacherAnswerTag=xmlIsTeacherAnswer.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.setExplanation = function(xmlExplanation){
+	if(xmlExplanation!=null){
+		this.explanation=xmlExplanation.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.setWorkgroup = function(xmlWorkgroup){
+	if(xmlWorkgroup!=null){
+		this.workgroup = new Workgroup(xmlWorkgroup);
+		//this.workgroup=xmlWorkgroup.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.getId = function(){
+	return this.id;
+};
+
+AnswerTag.prototype.getType = function(){
+	return this.type;
+};
+
+AnswerTag.prototype.getIsTeacherAnswerTag = function(){
+	return this.isTeacherAnswerTag;
+};
+
+AnswerTag.prototype.getExplanation = function(){
+	return this.explanation;
+};
+
+AnswerTag.prototype.getWorkgroup = function(){
+	return this.workgroup;
 };
 
 function Workgroup(xmlWorkgroup){
@@ -572,6 +670,21 @@ function createRevisionBody(doc, workgroupId, answer, brainstormId){
 		divVar.appendChild(helpfulTxt);
 	};
 	
+	// now add "choose-n" if the logged-in user has the right privileges.
+	if (isTeacherWorkgroup) {
+		var tagAnswerCheckBox;
+		var hasTagged = tagged(workgroupId, answer);
+		var tagTxt = createElement(doc, 'label', {});		
+		tagTxt.innerHTML = 'tag this response';
+		if(hasTagged){
+			tagAnswerCheckBox = createElement(doc, 'input', {type:'checkbox', id:'tag_' + workgroupId + '_' + answer.getId(), checked:'checked', value:'tag', onclick:'javascript:tagAnswer(' + workgroupId +', ' + answer.getId() + ')'});
+		} else {
+			tagAnswerCheckBox = createElement(doc, 'input', {type:'checkbox', id:'tag_' + workgroupId + '_' + answer.getId(), value:'tag', onclick:'javascript:tagAnswer(' + workgroupId +', ' + answer.getId() + ')'});
+		};
+		divVar.appendChild(tagAnswerCheckBox);
+		divVar.appendChild(tagTxt);
+	}
+	
 	if(answer.getRevisions().length > 1){
 		var revRow = createElement(doc, 'td', {class:'currentRevisionNumber'});
 		revRow.appendChild(doc.createTextNode('Revision ' + answer.getRevisions().length));
@@ -600,6 +713,24 @@ function foundHelpful(workgroupId, answer){
 		};
 	};	
 	return helpful;
+};
+
+/**
+ * Returns true iff the specified Workgroup has tagged the
+ * specified answer.
+ * @param workgroupId
+ * @param answer
+ * @return
+ */
+function tagged(workgroupId, answer){
+	var answertags = answer.getAnswerTags();  //answertags is an array of AnswerTag.
+	var tagged = false;
+	for(ab=0;ab<answertags.length;ab++){
+		if(answertags[ab].getWorkgroup().getId()==workgroupId){
+			tagged=true;
+		};
+	};	
+	return tagged;
 };
 
 function createOtherRevisionElements(doc, answer){

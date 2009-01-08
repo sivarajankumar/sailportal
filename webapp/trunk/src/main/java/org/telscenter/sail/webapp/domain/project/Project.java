@@ -162,4 +162,10 @@ public interface Project extends Persistable {
 	 * Populates the projectInfo for this project.
 	 */
 	public void populateProjectInfo();
+	
+	/**
+	 * Visitor pattern, accepts ProjectVisitors
+	 * @param visitor
+	 */
+	Object accept(ProjectVisitor visitor);
 }

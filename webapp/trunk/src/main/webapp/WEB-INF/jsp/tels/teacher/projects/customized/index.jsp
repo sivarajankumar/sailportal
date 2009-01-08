@@ -469,7 +469,7 @@
 					</c:forEach>
 					</td>
 					<td class="dataText">${project.projectInfo.subject}</td>
-					<td class="dataText">${project.curnit.id}</td>
+					<td class="dataText">${project.id}</td>
 					<td class="dataText">;;;</td>
 					<td class="smallText1">UC Berkeley library project</td>
 					<td class="dataText">${project.projectInfo.gradeLevel }</td>

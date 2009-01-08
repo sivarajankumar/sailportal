@@ -66,6 +66,13 @@
         primary key (id)
     ) type=MyISAM;
 
+    create table brainstormanswers_related_to_answertags (
+        brainstormanswers_fk bigint not null,
+        answer_tag_fk bigint not null,
+        primary key (brainstormanswers_fk, answer_tag_fk),
+        unique (answer_tag_fk)
+    ) type=MyISAM;
+
     create table brainstormanswers_related_to_brainstormcomments (
         brainstormanswers_fk bigint not null,
         brainstormcomments_fk bigint not null,
@@ -84,6 +91,15 @@
         brainstormanswers_fk bigint not null,
         workgroups_fk bigint not null,
         primary key (brainstormanswers_fk, workgroups_fk)
+    ) type=MyISAM;
+
+    create table brainstormanswertags (
+        id bigint not null auto_increment,
+        answer_tag_type integer,
+        explanation varchar(255),
+        OPTLOCK integer,
+        owner_workgroup_fk bigint not null,
+        primary key (id)
     ) type=MyISAM;
 
     create table brainstormcomments (
@@ -114,6 +130,7 @@
     create table brainstormrevisions (
         id bigint not null auto_increment,
         timestamp datetime not null,
+        displayname varchar(255),
         body text,
         OPTLOCK integer,
         primary key (id)
@@ -128,9 +145,9 @@
         starttime datetime,
         parent_brainstorm_id bigint,
         OPTLOCK integer,
+        projects_fk bigint,
         runs_fk bigint,
         brainstormquestions_fk bigint,
-        projects_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -264,8 +281,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -533,6 +550,18 @@
         foreign key (workgroups_fk) 
         references wiseworkgroups (id);
 
+    alter table brainstormanswers_related_to_answertags 
+        add index FKB048F4EA2605B8EA (brainstormanswers_fk), 
+        add constraint FKB048F4EA2605B8EA 
+        foreign key (brainstormanswers_fk) 
+        references brainstormanswers (id);
+
+    alter table brainstormanswers_related_to_answertags 
+        add index FKB048F4EA995F00FD (answer_tag_fk), 
+        add constraint FKB048F4EA995F00FD 
+        foreign key (answer_tag_fk) 
+        references brainstormanswertags (id);
+
     alter table brainstormanswers_related_to_brainstormcomments 
         add index FKCF105FBA2605B8EA (brainstormanswers_fk), 
         add constraint FKCF105FBA2605B8EA 
@@ -567,6 +596,12 @@
         add index FK6398E0382B7BFD8A (workgroups_fk), 
         add constraint FK6398E0382B7BFD8A 
         foreign key (workgroups_fk) 
+        references wiseworkgroups (id);
+
+    alter table brainstormanswertags 
+        add index FKEC0DB8CA1A6D590D (owner_workgroup_fk), 
+        add constraint FKEC0DB8CA1A6D590D 
+        foreign key (owner_workgroup_fk) 
         references wiseworkgroups (id);
 
     alter table brainstormcomments 

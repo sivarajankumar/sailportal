@@ -43,6 +43,12 @@ public class MarkAnswerHelpfulController extends AbstractController {
 	private final static String ANSWERID = "answerId";
 	
 	private final static String MARK = "mark";   // 0 = unmark, 1 = mark
+
+	private final static String TYPE = "type";   // choices:{helpful,tag}
+	
+	private final static String HELPFUL = "helpful";
+	
+	private final static String TAG = "tag";
 	
 	private final static String XMLDOC = "xmlDoc";
 	
@@ -60,10 +66,18 @@ public class MarkAnswerHelpfulController extends AbstractController {
 		Answer answer = this.brainstormService.getAnswer(Long.parseLong(request.getParameter(ANSWERID)));
 		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
 
-		if(Integer.parseInt(request.getParameter(MARK)) == 0){
-			brainstormService.unmarkAsHelpful(answer, workgroup);
-		} else {
-			brainstormService.markAsHelpful(answer, workgroup);
+		if (request.getParameter(TYPE).equals(TAG)) {
+			if(Integer.parseInt(request.getParameter(MARK)) == 0){
+				brainstormService.untag(answer, workgroup);
+			} else {
+				brainstormService.tag(answer, workgroup);
+			}	
+		} else if (request.getParameter(TYPE).equals(HELPFUL)) {
+			if(Integer.parseInt(request.getParameter(MARK)) == 0){
+				brainstormService.unmarkAsHelpful(answer, workgroup);
+			} else {
+				brainstormService.markAsHelpful(answer, workgroup);
+			}			
 		}
 		
 		String xmlDoc = XMLBrainstorm.getXMLAnswer(answer);

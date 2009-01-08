@@ -20,6 +20,7 @@
 	var sortCriteria = 0;   // 0=sortbytime, 1=sortbyhelpfulness
 	var sortOrder = 0;       // 0=decreasing, 1=increasing
 	var pageManager;
+	var isTeacherWorkgroup = ${workgroup.teacherWorkgroup};
 
 	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortCriteria, sortOrder);
 </script>
@@ -69,11 +70,15 @@
 		
 		<div id="responseLinks">
 		    <div id="sortRadioButtons">
-		        Sort by: 
-		        <input type="radio" name="sortGroup1" onclick="sortBy('0','0');" checked="checked">Newest Posts
-		        <input type="radio" name="sortGroup1" onclick="sortBy('0','1');">Oldest Posts
-		        <input type="radio" name="sortGroup1" onclick="sortBy('1','1');">Most Helpful Posts
-		        <input type="radio" name="sortGroup1" onclick="sortBy('1','0');">Least Helpful Posts
+		        <b>Sort by:</b>
+		        <input type="radio" name="sortGroup1" onclick="sortBy('0','0');" checked="checked"/>Newest Posts
+		        <input type="radio" name="sortGroup1" onclick="sortBy('0','1');"/>Oldest Posts
+		        <input type="radio" name="sortGroup1" onclick="sortBy('1','1');"/>Most Helpful Posts
+		        <input type="radio" name="sortGroup1" onclick="sortBy('1','0');"/>Least Helpful Posts
+			</div>
+			<div id="filterTeacherSelectedAnswers"><b>Filter Responses:</b>
+		        <input type="radio" name="sortGroup2" onclick="filter(false);" checked="checked"/>Show All Posts
+		        <input type="radio" name="sortGroup2" onclick="filter(true);"/>Only Show Posts That Teacher Chose
 			</div>
 			<ul>
 				<li><a href="#" onclick="toggle_visibility_by_name('revisionrow')">Hide/Show Revisions</a></li>

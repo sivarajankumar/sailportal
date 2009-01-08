@@ -55,7 +55,7 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter
+                /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter,openSessionInViewFilter
             </value>
             <!--
                 <value>
@@ -65,6 +65,11 @@
                 </value>
             -->
         </property>
+    </bean>
+
+    <bean id="openSessionInViewInterceptor"
+        class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
 
@@ -147,10 +152,10 @@
         <property name="context"
             value="org.acegisecurity.context.SecurityContextImpl" />
     </bean>
-    
+
     <bean id="openSessionInViewFilter" 
         class="org.springframework.orm.hibernate3.support.OpenSessionInViewFilter"/>
-       
+
     <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
         <constructor-arg value="/index.html" />
         <constructor-arg>

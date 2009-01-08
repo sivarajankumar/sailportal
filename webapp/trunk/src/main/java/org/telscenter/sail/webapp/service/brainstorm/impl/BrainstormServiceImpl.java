@@ -34,8 +34,12 @@ import org.telscenter.sail.webapp.dao.brainstorm.answer.AnswerDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.AnswerTag;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.PreparedAnswer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerTagImpl;
+import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerTagType;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.PreparedAnswerImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.comment.Comment;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -142,6 +146,33 @@ public class BrainstormServiceImpl implements BrainstormService {
 	@Transactional()
 	public void unmarkAsHelpful(Answer answer, WISEWorkgroup workgroup) {
 		answer.unmarkAsHelpful(workgroup);
+		this.answerDao.save(answer);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#tag(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	@Transactional()
+	public void tag(Answer answer, WISEWorkgroup workgroup) {
+		AnswerTag answerTag = new AnswerTagImpl();
+		answerTag.setAnswerTagType(AnswerTagType.NUTURAL);
+		answerTag.setOwnerWorkgroup(workgroup);
+		answer.getAnswerTags().add(answerTag);
+		this.answerDao.save(answer);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#untag(org.telscenter.sail.webapp.domain.brainstorm.answer.Answer, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	@Transactional()
+	public void untag(Answer answer, WISEWorkgroup workgroup) {
+		Set<AnswerTag> answerTags = answer.getAnswerTags();
+		for (AnswerTag answerTag : answerTags) {
+			if (answerTag.getAnswerTagType().equals(AnswerTagType.NUTURAL)
+					&& answerTag.getOwnerWorkgroup().equals(workgroup)) {
+				answerTags.remove(answerTag);
+			}
+		}
 		this.answerDao.save(answer);
 	}
 

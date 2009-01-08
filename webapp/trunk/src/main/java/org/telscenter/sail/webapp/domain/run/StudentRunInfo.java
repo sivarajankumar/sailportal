@@ -23,11 +23,18 @@
 package org.telscenter.sail.webapp.domain.run;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * Stores information about a WISE student on a particular
@@ -140,6 +147,23 @@ public class StudentRunInfo implements Comparable<StudentRunInfo>{
 			} else {
 				return this.run.getName().compareTo(o.run.getName());				
 			}
+		}
+	}
+
+	/* 
+	 * if student is in a workgroup for this run, get the url
+	 * that will be used to start the project and set the url where
+	 * the workgroup's work can be retrieved as PDF
+	 */
+	public void setWorkPDFUrl(WISEWorkgroupService workgroupService, 
+			HttpRestTransport httpRestTransport, HttpServletRequest request) {
+		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+		String result = (String) run.getProject().accept(typeVisitor);
+		if (this.getWorkgroup() != null && !(result.equals("ExternalProject"))) {
+			String workPdfUrl = workgroupService
+		        .generateWorkgroupWorkPdfUrlString(httpRestTransport, request, (WISEWorkgroup) workgroup);
+			
+		    ((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);
 		}
 	}
 

@@ -32,6 +32,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.CurnitVisitor;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
 
 /**
@@ -133,4 +134,11 @@ public class CurnitImpl implements Curnit {
             return false;
         return true;
     }
+
+    /**
+     * @see net.sf.sail.webapp.domain.Curnit#accept(net.sf.sail.webapp.domain.CurnitVisitor)
+     */
+	public Object accept(CurnitVisitor visitor) {
+		return visitor.visit(this);
+	}
 }

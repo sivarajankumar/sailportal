@@ -263,7 +263,8 @@ public interface Brainstorm extends Persistable {
 	public void setDisplayNameOption(DisplayNameOption displayNameOption);
 	
 	/**
-	 * Returns a copy of this Brainstorm object.
+	 * Returns a copy of this Brainstorm object. Does not save in datastore
+	 * but only instantiates a new copy of this object.
 	 * 
 	 * @return a new instance of this project with same attributes
 	 * except id and version.

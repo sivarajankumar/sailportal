@@ -14,8 +14,8 @@
         audit_success bit not null,
         audit_failure bit not null,
         OPTLOCK integer,
-        acl_object_identity bigint not null,
         sid bigint not null,
+        acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
     ) type=MyISAM;
@@ -66,6 +66,13 @@
         primary key (id)
     ) type=MyISAM;
 
+    create table brainstormanswers_related_to_answertags (
+        brainstormanswers_fk bigint not null,
+        answer_tag_fk bigint not null,
+        primary key (brainstormanswers_fk, answer_tag_fk),
+        unique (answer_tag_fk)
+    ) type=MyISAM;
+
     create table brainstormanswers_related_to_brainstormcomments (
         brainstormanswers_fk bigint not null,
         brainstormcomments_fk bigint not null,
@@ -86,6 +93,15 @@
         primary key (brainstormanswers_fk, workgroups_fk)
     ) type=MyISAM;
 
+    create table brainstormanswertags (
+        id bigint not null auto_increment,
+        answer_tag_type integer,
+        explanation varchar(255),
+        OPTLOCK integer,
+        owner_workgroup_fk bigint not null,
+        primary key (id)
+    ) type=MyISAM;
+
     create table brainstormcomments (
         id bigint not null auto_increment,
         OPTLOCK integer,
@@ -93,6 +109,14 @@
         timestamp datetime not null,
         isanonymous bit,
         workgroups_fk bigint not null,
+        primary key (id)
+    ) type=MyISAM;
+
+    create table brainstormpreparedanswers (
+        id bigint not null auto_increment,
+        body text,
+        displayname varchar(255),
+        OPTLOCK integer,
         primary key (id)
     ) type=MyISAM;
 
@@ -106,6 +130,7 @@
     create table brainstormrevisions (
         id bigint not null auto_increment,
         timestamp datetime not null,
+        displayname varchar(255),
         body text,
         OPTLOCK integer,
         primary key (id)
@@ -120,9 +145,9 @@
         starttime datetime,
         parent_brainstorm_id bigint,
         OPTLOCK integer,
-        brainstormquestions_fk bigint,
-        runs_fk bigint,
         projects_fk bigint,
+        runs_fk bigint,
+        brainstormquestions_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -131,6 +156,13 @@
         brainstormanswers_fk bigint not null,
         primary key (brainstorms_fk, brainstormanswers_fk),
         unique (brainstormanswers_fk)
+    ) type=MyISAM;
+
+    create table brainstorms_related_to_brainstormpreparedanswers (
+        brainstorms_fk bigint not null,
+        brainstormpreparedanswers_fk bigint not null,
+        primary key (brainstorms_fk, brainstormpreparedanswers_fk),
+        unique (brainstormpreparedanswers_fk)
     ) type=MyISAM;
 
     create table brainstorms_related_to_workgroups (
@@ -258,8 +290,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -286,9 +318,9 @@
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
-        curnit_fk bigint,
-        jnlp_fk bigint,
         run_fk bigint unique,
+        jnlp_fk bigint,
+        curnit_fk bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -371,8 +403,8 @@
         name varchar(255) not null,
         offering_id bigint not null unique,
         sds_curnitmap longtext,
-        sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
+        sds_curnit_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -454,8 +486,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        sds_user_fk bigint not null unique,
         user_details_fk bigint not null unique,
+        sds_user_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -471,8 +503,8 @@
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_workgroup_fk bigint unique,
-        group_fk bigint not null,
         offering_fk bigint not null,
+        group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -518,6 +550,18 @@
         foreign key (workgroups_fk) 
         references wiseworkgroups (id);
 
+    alter table brainstormanswers_related_to_answertags 
+        add index FKB048F4EA2605B8EA (brainstormanswers_fk), 
+        add constraint FKB048F4EA2605B8EA 
+        foreign key (brainstormanswers_fk) 
+        references brainstormanswers (id);
+
+    alter table brainstormanswers_related_to_answertags 
+        add index FKB048F4EA995F00FD (answer_tag_fk), 
+        add constraint FKB048F4EA995F00FD 
+        foreign key (answer_tag_fk) 
+        references brainstormanswertags (id);
+
     alter table brainstormanswers_related_to_brainstormcomments 
         add index FKCF105FBA2605B8EA (brainstormanswers_fk), 
         add constraint FKCF105FBA2605B8EA 
@@ -554,6 +598,12 @@
         foreign key (workgroups_fk) 
         references wiseworkgroups (id);
 
+    alter table brainstormanswertags 
+        add index FKEC0DB8CA1A6D590D (owner_workgroup_fk), 
+        add constraint FKEC0DB8CA1A6D590D 
+        foreign key (owner_workgroup_fk) 
+        references wiseworkgroups (id);
+
     alter table brainstormcomments 
         add index FK828192A72B7BFD8A (workgroups_fk), 
         add constraint FK828192A72B7BFD8A 
@@ -587,6 +637,18 @@
     alter table brainstorms_related_to_brainstormanswers 
         add index FK477CA8F179D46939 (brainstorms_fk), 
         add constraint FK477CA8F179D46939 
+        foreign key (brainstorms_fk) 
+        references brainstorms (id);
+
+    alter table brainstorms_related_to_brainstormpreparedanswers 
+        add index FK5300A1437618004 (brainstormpreparedanswers_fk), 
+        add constraint FK5300A1437618004 
+        foreign key (brainstormpreparedanswers_fk) 
+        references brainstormpreparedanswers (id);
+
+    alter table brainstorms_related_to_brainstormpreparedanswers 
+        add index FK5300A1479D46939 (brainstorms_fk), 
+        add constraint FK5300A1479D46939 
         foreign key (brainstorms_fk) 
         references brainstorms (id);
 

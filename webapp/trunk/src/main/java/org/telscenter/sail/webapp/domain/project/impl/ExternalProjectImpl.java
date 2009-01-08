@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
+import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
 
 /**
  * Project stored in external locations. 
@@ -117,5 +118,11 @@ public class ExternalProjectImpl extends ProjectImpl implements ExternalProject 
 		this.projectinfo.setSource(this.projectCommunicator.getAddress());
 	}
 
-	
+	/**
+	 * Visitor Pattern
+	 * @param visitor
+	 */
+	public Object accept(ProjectVisitor visitor) {
+		return visitor.visit(this);
+	}
 }
