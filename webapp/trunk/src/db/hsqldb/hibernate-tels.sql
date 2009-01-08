@@ -26,9 +26,9 @@
         object_id_identity_num integer,
         entries_inheriting bit not null,
         OPTLOCK integer,
+        parent_object bigint,
         owner_sid bigint,
         object_id_class bigint not null,
-        parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -145,8 +145,8 @@
         starttime datetime,
         parent_brainstorm_id bigint,
         OPTLOCK integer,
-        projects_fk bigint,
         runs_fk bigint,
+        projects_fk bigint,
         brainstormquestions_fk bigint,
         primary key (id)
     ) type=MyISAM;
@@ -281,8 +281,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         label varchar(255) not null,
-        run bigint,
         owner bigint,
+        run bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -290,8 +290,8 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         label varchar(255) not null,
-        owner bigint,
         run bigint,
+        owner bigint,
         primary key (id)
     ) type=MyISAM;
 
@@ -318,10 +318,16 @@
         iscurrent bit,
         projecttype integer,
         OPTLOCK integer,
-        run_fk bigint unique,
         jnlp_fk bigint,
+        run_fk bigint unique,
         curnit_fk bigint,
         primary key (id)
+    ) type=MyISAM;
+
+    create table projects_related_to_bookmarkers (
+        projects_fk bigint not null,
+        bookmarkers bigint not null,
+        primary key (projects_fk, bookmarkers)
     ) type=MyISAM;
 
     create table projects_related_to_owners (
@@ -486,8 +492,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -502,9 +508,9 @@
     create table workgroups (
         id bigint not null auto_increment,
         OPTLOCK integer,
+        group_fk bigint not null,
         sds_workgroup_fk bigint unique,
         offering_fk bigint not null,
-        group_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
@@ -807,6 +813,18 @@
         add constraint FKC479187A9568F016 
         foreign key (jnlp_fk) 
         references jnlps (id);
+
+    alter table projects_related_to_bookmarkers 
+        add index FK5AA350A5AC92FD99 (projects_fk), 
+        add constraint FK5AA350A5AC92FD99 
+        foreign key (projects_fk) 
+        references projects (id);
+
+    alter table projects_related_to_bookmarkers 
+        add index FK5AA350A531C3B66D (bookmarkers), 
+        add constraint FK5AA350A531C3B66D 
+        foreign key (bookmarkers) 
+        references users (id);
 
     alter table projects_related_to_owners 
         add index FKDACF56CB60AA7F41 (owners_fk), 

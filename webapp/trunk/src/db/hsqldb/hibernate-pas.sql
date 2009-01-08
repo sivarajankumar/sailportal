@@ -27,8 +27,8 @@
         entries_inheriting bit not null,
         OPTLOCK integer,
         parent_object bigint,
-        object_id_class bigint not null,
         owner_sid bigint,
+        object_id_class bigint not null,
         primary key (id),
         unique (object_id_class, object_id_identity)
     ) type=MyISAM;
@@ -168,8 +168,8 @@
     create table users (
         id bigint not null auto_increment,
         OPTLOCK integer,
-        user_details_fk bigint not null unique,
         sds_user_fk bigint not null unique,
+        user_details_fk bigint not null unique,
         primary key (id)
     ) type=MyISAM;
 
@@ -177,8 +177,8 @@
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_workgroup_fk bigint unique,
-        offering_fk bigint not null,
         group_fk bigint not null,
+        offering_fk bigint not null,
         primary key (id)
     ) type=MyISAM;
 
