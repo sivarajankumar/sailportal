@@ -70,6 +70,8 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl" />      
         <mapping
+            class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerTagImpl" />      
+        <mapping
             class="org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl" />
         <mapping
             class="org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl" />           

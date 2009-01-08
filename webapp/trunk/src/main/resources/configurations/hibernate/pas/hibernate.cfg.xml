@@ -30,7 +30,7 @@
         <!-- Enables autocommit for JDBC pooled connections (not recommended). -->
         <property name="hibernate.connection.autocommit">false</property>
         <!-- Pretty print the SQL in the log and console. -->
-        <property name="hibernate.format_sql">true</property>
+        <!-- <property name="hibernate.format_sql">true</property>   -->
         <mapping
             class="net.sf.sail.webapp.domain.authentication.impl.PersistentAclEntry" />
         <mapping
