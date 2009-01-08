@@ -149,15 +149,17 @@ public class StudentIndexController extends AbstractController {
 			isShowNewAnnouncements = new Boolean(showNewAnnouncements);
 		}
 
-		
+		List<StudentRunInfo> joinedRunInfo = new ArrayList<StudentRunInfo>();
+		joinedRunInfo.addAll(current_run_list);
+		joinedRunInfo.addAll(ended_run_list);
 		if (isShowNewAnnouncements && hasNewAnnouncements) {
 			modelAndView.setView(new RedirectView("viewannouncements.html"));
 			String runIds = "";
-			for (int i=0; i < current_run_list.size(); i ++) {
-				StudentRunInfo runInfo = current_run_list.get(i);
+			for (int i=0; i < joinedRunInfo.size(); i ++) {
+				StudentRunInfo runInfo = joinedRunInfo.get(i);
 				Long id = runInfo.getRun().getId();
 				String idString = id.toString();
-				if (i == current_run_list.size() - 1) {
+				if (i == joinedRunInfo.size() - 1) {
 					runIds = runIds + idString;					
 				} else {
 					runIds = runIds + idString + ",";
