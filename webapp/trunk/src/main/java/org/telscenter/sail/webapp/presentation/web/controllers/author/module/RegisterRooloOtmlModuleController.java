@@ -32,8 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
 
-import roolo.curnit.client.basicProxy.MetadataKeyProxy;
-import roolo.curnit.client.impl.ClientCurnitRepository;
+import roolo.elo.api.IRepository;
 
 /**
  * Controller for registering a new RooloOtmlModule with the portal.
@@ -44,7 +43,7 @@ import roolo.curnit.client.impl.ClientCurnitRepository;
  */
 public class RegisterRooloOtmlModuleController extends RegisterModuleController {
 	
-	private ClientCurnitRepository repository;
+	private IRepository repository;
 
 	/**
 	 * @see net.sf.sail.webapp.presentation.web.controllers.curnit.RegisterCurnitController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
@@ -69,7 +68,7 @@ public class RegisterRooloOtmlModuleController extends RegisterModuleController 
 	/**
 	 * @param repository the repository to set
 	 */
-	public void setRepository(ClientCurnitRepository repository) {
+	public void setRepository(IRepository repository) {
 		this.repository = repository;
 	}
 

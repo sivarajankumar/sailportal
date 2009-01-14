@@ -77,10 +77,9 @@ import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
-import roolo.api.IMetadata;
-import roolo.curnit.client.CurnitClientMetadataKeys;
-import roolo.curnit.client.basicProxy.CurnitProxy;
-import roolo.curnit.client.basicProxy.MetadataKeyProxy;
+import roolo.elo.ELOMetadataKeys;
+import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
 
 /**
  * TELS Portal's PodProjectService can work with projects that are persisted
@@ -226,9 +225,11 @@ public class PodProjectServiceImpl implements ProjectService {
 		
 		if (project instanceof ProjectImpl || curnitUrl == null) {
 			curnitUrl = "http://www.telscenter.org/confluence/download/attachments/20047/Airbags.otml";
-		} else if (project instanceof RooloProjectImpl) {
-			curnitUrl = "http://localhost:8080/webapp/repository/retrieveotml.html?uri=" + ((RooloProjectImpl) project).getProxy().getUri();
+		} else {
 		}
+		//else if (project instanceof RooloProjectImpl) {
+		//	curnitUrl = "http://localhost:8080/webapp/repository/retrieveotml.html?uri=" + ((RooloProjectImpl) project).getProxy().getUri();
+		//}
 
 		URL jnlpURL = new URL(authoringToolJnlpUrl);
 		BufferedReader in = new BufferedReader(
@@ -381,26 +382,26 @@ public class PodProjectServiceImpl implements ProjectService {
 		if (curnit instanceof RooloOtmlModuleImpl) {
 			// need to retrieve curnit from roolo
 			RooloOtmlModuleImpl curnitWithProxy = (RooloOtmlModuleImpl) curnitService.getById(curnit.getId());
-			CurnitProxy curnitProxy = curnitWithProxy.getProxy();
+			IELO elo = curnitWithProxy.getElo();
 			project.setCurnit(curnitWithProxy);
-			project.setProjectInfo(getProjectInfoFromCurnitProxy(curnitProxy));
+			project.setProjectInfo(getProjectInfoFromCurnitProxy(elo));
 		} else if (curnit instanceof ModuleImpl) {
 			// populate iscurrent and familytag from database
 			project.getProjectInfo().setName(project.getName());
 		}
 	}
 
-    public ProjectInfo getProjectInfoFromCurnitProxy(CurnitProxy curnitProxy) {
+    public ProjectInfo getProjectInfoFromCurnitProxy(IELO elo) {
     	ProjectInfo projectInfo = new ProjectInfoImpl();
-    	IMetadata<MetadataKeyProxy> metadata = curnitProxy.getMetadata();
-    	projectInfo.setAuthor(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey()).getValue().toString());
-    	projectInfo.setComment(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey()).getValue().toString());
-    	projectInfo.setDescription(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey()).getValue().toString());
-    	projectInfo.setCurrent(Boolean.valueOf(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey()).getValue().toString()));
-    	projectInfo.setFamilyTag(FamilyTag.valueOf(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey()).getValue().toString()));
-    	projectInfo.setGradeLevel(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey()).getValue().toString());
-    	projectInfo.setKeywords(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey()).getValue().toString());
-    	projectInfo.setSubject(metadata.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey()).getValue().toString());
+    	IMetadata metadata = elo.getMetadata();
+    	projectInfo.setAuthor(metadata.getMetadataValueContainer(ELOMetadataKeys.AUTHOR.getKey()).getValue().toString());
+    	projectInfo.setComment(metadata.getMetadataValueContainer(ELOMetadataKeys.COMMENT.getKey()).getValue().toString());
+    	projectInfo.setDescription(metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey()).getValue().toString());
+    	projectInfo.setCurrent(Boolean.valueOf(metadata.getMetadataValueContainer(ELOMetadataKeys.ISCURRENT.getKey()).getValue().toString()));
+    	projectInfo.setFamilyTag(FamilyTag.valueOf(metadata.getMetadataValueContainer(ELOMetadataKeys.FAMILYTAG.getKey()).getValue().toString()));
+    	projectInfo.setGradeLevel(metadata.getMetadataValueContainer(ELOMetadataKeys.GRADELEVEL.getKey()).getValue().toString());
+    	projectInfo.setKeywords(metadata.getMetadataValueContainer(ELOMetadataKeys.KEYWORDS.getKey()).getValue().toString());
+    	projectInfo.setSubject(metadata.getMetadataValueContainer(ELOMetadataKeys.SUBJECT.getKey()).getValue().toString());
     	return projectInfo;
     }
     

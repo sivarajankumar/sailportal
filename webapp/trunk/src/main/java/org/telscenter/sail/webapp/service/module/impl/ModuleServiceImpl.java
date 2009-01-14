@@ -74,7 +74,7 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 	    			((CreateRooloOtmlModuleParameters) curnitParameters).getRoolouri());
 	    	((RooloOtmlModuleImpl) module).setRooloRepositoryUrl(
 	    			((CreateRooloOtmlModuleParameters) curnitParameters).getRooloRepositoryUrl());
-	    	((RooloOtmlModuleImpl) module).setProxy(((CreateRooloOtmlModuleParameters) curnitParameters).getCurnitProxy());
+	    	((RooloOtmlModuleImpl) module).setElo(((CreateRooloOtmlModuleParameters) curnitParameters).getElo());
 	    	this.rooloOtmlModuleDao.save(module);
 	    } else if (curnitParameters instanceof CreateOtmlModuleParameters) {
 	    	OtmlModuleImpl otmlModuleImpl = new OtmlModuleImpl();

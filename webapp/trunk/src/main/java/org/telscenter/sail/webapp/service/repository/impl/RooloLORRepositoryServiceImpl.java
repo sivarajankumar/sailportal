@@ -26,22 +26,19 @@ import java.net.URI;
 
 import org.telscenter.sail.webapp.service.repository.RepositoryService;
 
-import roolo.api.IELO;
-import roolo.api.IRepository;
-import roolo.curnit.client.basicProxy.CurnitProxy;
-import roolo.enlace.proxy.LearningObject;
-import roolo.enlace.proxy.MetadataSchemaItem;
+import roolo.elo.api.IELO;
+import roolo.elo.api.IRepository;
 
 public class RooloLORRepositoryServiceImpl implements RepositoryService {
 
-	private IRepository<LearningObject, MetadataSchemaItem> rooloClientCurnitRepository;
+	private IRepository rooloClientCurnitRepository;
 	
 	public void setRooloClientCurnitRepository(
-			IRepository<LearningObject, MetadataSchemaItem> rooloClientCurnitRepository) {
+			IRepository rooloClientCurnitRepository) {
 		this.rooloClientCurnitRepository = rooloClientCurnitRepository;
 	}
 
-	public CurnitProxy getByUri(URI uri) {
+	public IELO getByUri(URI uri) {
 		return null;
 	}
 

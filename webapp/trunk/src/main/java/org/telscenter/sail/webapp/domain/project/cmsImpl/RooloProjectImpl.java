@@ -5,7 +5,7 @@ import javax.persistence.Transient;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
-import roolo.curnit.client.basicProxy.CurnitProxy;
+import roolo.elo.api.IELO;
 
 /**
  * Project implementation using Roolo. RooloProjects are also stored in
@@ -24,7 +24,7 @@ public class RooloProjectImpl extends ProjectImpl {
     private static final long serialVersionUID = 1L;
 
 	@Transient
-    private CurnitProxy proxy;
+    private IELO proxy;
     
 	/**
 	 * @return the familytag
@@ -60,7 +60,7 @@ public class RooloProjectImpl extends ProjectImpl {
 	 * Get the proxy
 	 * @return the proxy
 	 */
-	public CurnitProxy getProxy() {
+	public IELO getProxy() {
 	    return proxy;
 	}
 
@@ -68,7 +68,7 @@ public class RooloProjectImpl extends ProjectImpl {
 	 * Set the proxy
 	 * @param proxy the proxy to set
 	 */
-	public void setProxy(CurnitProxy proxy) {
+	public void setProxy(IELO proxy) {
 	    this.proxy = proxy;
 	}
 

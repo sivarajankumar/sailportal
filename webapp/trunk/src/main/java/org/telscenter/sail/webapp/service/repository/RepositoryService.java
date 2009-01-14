@@ -24,7 +24,7 @@ package org.telscenter.sail.webapp.service.repository;
 
 import java.net.URI;
 
-import roolo.curnit.client.basicProxy.CurnitProxy;
+import roolo.elo.api.IELO;
 
 /**
  * Service for communicating with the Repository
@@ -43,6 +43,6 @@ public interface RepositoryService {
 	 * @return <code>CurnitProxy</code> what is retrieved from
 	 * the repository
 	 */
-	public CurnitProxy getByUri(URI uri);
+	public IELO getByUri(URI uri);
 
 }

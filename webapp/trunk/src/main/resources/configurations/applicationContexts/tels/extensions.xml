@@ -130,16 +130,16 @@
     </bean>
 
     <bean id="rooloClientCurnitRepository"
-        class="roolo.curnit.client.impl.ClientCurnitRepository">
+        class="roolo.elo.RepositoryJcrImpl">
     </bean>
-    
+    <!--  
      <bean id="rooloLORClientCurnitRepository"
         class="roolo.enlace.RooloEnlaceLOR">
         <constructor-arg index="0" value="http://tels-web.soe.berkeley.edu:8080/lor/services/LORService"/>
   		<constructor-arg index="1" value="admin"/>
   		<constructor-arg index="2" value="admin"/>
     </bean>
-  
+  -->
     <bean id="rooloOtmlModuleDao"
         class="org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao">
        <property name="sessionFactory" ref="sessionFactory" />        
@@ -147,7 +147,7 @@
         <property name="rooloRepositoryUrl" value="http://localhost:8080/webapp/repository" />
         <property name="defaultOtrunkCurnitUrl" value="http://wise-dev.berkeley.edu/upload/curnit/otrunk-curnit.jar" />
     </bean>
-    
+    <!--  
      <bean id="rooloLOROtmlModuleDao"
         class="org.telscenter.sail.webapp.dao.module.impl.RooloLOROtmlModuleDao">
        <property name="sessionFactory" ref="sessionFactory" />        
@@ -155,18 +155,17 @@
         <property name="rooloRepositoryUrl" value="http://tels-web.soe.berkeley.edu:8080/lor" />
      <property name="defaultOtrunkCurnitUrl" value="http://wise-dev.berkeley.edu/upload/curnit/otrunk-curnit.jar" />
     </bean>
-   <!--  
+    -->
     <bean id="rooloRepositoryService"
          class="org.telscenter.sail.webapp.service.repository.impl.RooloRepositoryServiceImpl">
         <property name="rooloClientCurnitRepository" ref="rooloClientCurnitRepository" />
     </bean>
-    -->
-  
+    <!--  
        <bean id="rooloRepositoryService"
          class="org.telscenter.sail.webapp.service.repository.impl.RooloLORRepositoryServiceImpl">
         <property name="rooloClientCurnitRepository" ref="rooloLORClientCurnitRepository" />
     </bean>
-    
+    -->
     <bean id="wiseWorkgroupDao"
 		class="org.telscenter.sail.webapp.dao.workgroup.impl.HibernateWISEWorkgroupDao">
 		<property name="sessionFactory" ref="sessionFactory" />

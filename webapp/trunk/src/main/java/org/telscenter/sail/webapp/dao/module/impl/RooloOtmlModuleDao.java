@@ -39,11 +39,11 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 
-import roolo.api.IMetadataValueContainer;
-import roolo.curnit.client.CurnitClientMetadataKeys;
-import roolo.curnit.client.IClientRepository;
-import roolo.curnit.client.basicProxy.CurnitMetadataProxy;
-import roolo.curnit.client.basicProxy.CurnitProxy;
+import roolo.elo.ELOMetadataKeys;
+import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
+import roolo.elo.api.IMetadataValueContainer;
+import roolo.elo.api.IRepository;
 
 /**
  * @author Hiroki Terashima
@@ -59,7 +59,7 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 	public static String defaultOtrunkCurnitUrl;
 	
 	// Roolo client
-	private IClientRepository rooloClientCurnitRepository;
+	private IRepository rooloClientCurnitRepository;
 
 	private static final String FIND_ALL_QUERY = "from RooloOtmlModuleImpl";
 
@@ -72,7 +72,7 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 		String rooloUri = module.getRooloModuleUri();
 		try {
 			URI uri = new URI(rooloUri);
-			CurnitProxy curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
+			IELO curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
 			module.populateModuleFromProxy(curnitProxy);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
@@ -115,21 +115,21 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 		return moduleList;
 	}
 	
-	private ProjectInfo createProjectInfo(CurnitMetadataProxy metadata) {
+	private ProjectInfo createProjectInfo(IMetadata metadata) {
 		ProjectInfo info = new ProjectInfoImpl();
 		IMetadataValueContainer container;
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.AUTHOR.getKey());
 		info.setAuthor( container.getValue().toString() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.GRADELEVEL.getKey());
 		info.setGradeLevel( container.getValue().toString() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.SUBJECT.getKey());
 		info.setSubject( container.getValue().toString() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.KEYWORDS.getKey());
 		info.setKeywords( container.getValue().toString() );
 		//container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.LIFECYCLE.getKey());
 		//info.setProjectLiveCycle( container.getValue().toString() );
 		// TODO Add the lifecycle metadata
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());		
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.KEYWORDS.getKey());		
 		String familyTag = container.getValue().toString();
 		List<FamilyTag> possibleValues = Arrays.asList( FamilyTag.values());
 		if( familyTag != null && possibleValues.contains( FamilyTag.valueOf(familyTag))) {
@@ -138,12 +138,12 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 		else {
 			info.setFamilyTag(FamilyTag.OTHER);
 		}
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.COMMENT.getKey());
 		String isCurrent = container.getValue().toString();
 		info.setCurrent("yes".equals(isCurrent));
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.COMMENT.getKey());
 		info.setComment( container.getValue().toString() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey());
 		info.setDescription( container.getValue().toString() );
 		return info;
 	}
@@ -152,7 +152,7 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 	 * @param rooloClientCurnitRepository the rooloClientCurnitRepository to set
 	 */
 	public void setRooloClientCurnitRepository(
-			IClientRepository rooloClientCurnitRepository) {
+			IRepository rooloClientCurnitRepository) {
 		this.rooloClientCurnitRepository = rooloClientCurnitRepository;
 	}
 
@@ -176,7 +176,7 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 	public Module getByUri(String uriString) {
 		try {
 			URI uri = new URI(uriString);
-			CurnitProxy curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
+			IELO curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
 			
 		} catch (URISyntaxException e) {
 			e.printStackTrace();

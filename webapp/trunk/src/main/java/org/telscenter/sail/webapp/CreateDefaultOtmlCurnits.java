@@ -39,13 +39,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateOtmlModuleParameters;
 
-import roolo.api.IContent;
-import roolo.api.IMetadata;
-import roolo.api.IMetadataValueContainer;
-import roolo.curnit.client.CurnitClientMetadataKeys;
-import roolo.curnit.client.basicProxy.CurnitProxy;
-import roolo.curnit.client.basicProxy.MetadataKeyProxy;
-
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.spring.SpringConfiguration;
 

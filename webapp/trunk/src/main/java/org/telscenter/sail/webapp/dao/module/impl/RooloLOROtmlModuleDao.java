@@ -19,15 +19,12 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 
-import roolo.api.IELO;
-import roolo.api.IMetadata;
-import roolo.api.IMetadataValueContainer;
-import roolo.api.IRepository;
-import roolo.curnit.client.IClientRepository;
-import roolo.curnit.client.basicProxy.CurnitProxy;
-import roolo.enlace.EnlaceLORMetadataKeys;
-import roolo.enlace.proxy.LearningObject;
-import roolo.enlace.proxy.MetadataSchemaItem;
+import roolo.elo.ELOMetadataKeys;
+import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
+import roolo.elo.api.IMetadataValueContainer;
+import roolo.elo.api.IRepository;
+
 
 public class RooloLOROtmlModuleDao extends AbstractHibernateDao<Module>
 		implements ModuleDao<Module> {
@@ -37,15 +34,15 @@ public class RooloLOROtmlModuleDao extends AbstractHibernateDao<Module>
 	public static String defaultOtrunkCurnitUrl;
 
 	// Roolo client
-	private IRepository<LearningObject, MetadataSchemaItem> rooloClientRepository;
+	private IRepository rooloClientRepository;
 
 	private static final String FIND_ALL_QUERY = "from RooloEnlaceLORModuleImpl";
 
 	@Override
 	public void save(Module module) {
 		super.save(module);
-		IELO<MetadataSchemaItem> lo = ((RooloEnlaceLORModuleImpl) module).getLearningObject();
-		rooloClientRepository.updateELO((LearningObject) lo);
+		IELO lo = ((RooloEnlaceLORModuleImpl) module).getLearningObject();
+		rooloClientRepository.updateELO(lo);
 	}
 
 	@Override
@@ -56,23 +53,23 @@ public class RooloLOROtmlModuleDao extends AbstractHibernateDao<Module>
 	}
 
 	protected ProjectInfo createProjectInfo(
-			IMetadata<MetadataSchemaItem> metadata) {
+			IMetadata metadata) {
 		ProjectInfo info = new ProjectInfoImpl();
 		IMetadataValueContainer container;
 		container = metadata
-				.getMetadataValueContainer(EnlaceLORMetadataKeys.AUTHOR
+				.getMetadataValueContainer(ELOMetadataKeys.AUTHOR
 						.getKey());
 		info.setAuthor(container.getValue().toString());
 		container = metadata
-				.getMetadataValueContainer(EnlaceLORMetadataKeys.GRADELEVEL
+				.getMetadataValueContainer(ELOMetadataKeys.GRADELEVEL
 						.getKey());
 		info.setGradeLevel(container.getValue().toString());
 		container = metadata
-				.getMetadataValueContainer(EnlaceLORMetadataKeys.SUBJECT
+				.getMetadataValueContainer(ELOMetadataKeys.SUBJECT
 						.getKey());
 		info.setSubject(container.getValue().toString());
 		container = metadata
-				.getMetadataValueContainer(EnlaceLORMetadataKeys.KEYWORDS
+				.getMetadataValueContainer(ELOMetadataKeys.KEYWORDS
 						.getKey());
 		info.setKeywords(container.getValue().toString());
 		// container =
@@ -80,7 +77,7 @@ public class RooloLOROtmlModuleDao extends AbstractHibernateDao<Module>
 		// info.setProjectLiveCycle( container.getValue().toString() );
 		// TODO Add the lifecycle metadata
 		container = metadata
-				.getMetadataValueContainer(EnlaceLORMetadataKeys.FAMILYTAG
+				.getMetadataValueContainer(ELOMetadataKeys.FAMILYTAG
 						.getKey());
 		String familyTag = container.getValue().toString();
 		List<FamilyTag> possibleValues = Arrays.asList(FamilyTag.values());
@@ -91,16 +88,16 @@ public class RooloLOROtmlModuleDao extends AbstractHibernateDao<Module>
 			info.setFamilyTag(FamilyTag.OTHER);
 		}
 		container = metadata
-				.getMetadataValueContainer(EnlaceLORMetadataKeys.ISCURRENT
+				.getMetadataValueContainer(ELOMetadataKeys.ISCURRENT
 						.getKey());
 		String isCurrent = container.getValue().toString();
 		info.setCurrent("yes".equals(isCurrent));
 		container = metadata
-				.getMetadataValueContainer(EnlaceLORMetadataKeys.DESCRIPTION
+				.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION
 						.getKey());
 		info.setComment(container.getValue().toString());
 		container = metadata
-				.getMetadataValueContainer(EnlaceLORMetadataKeys.DESCRIPTION
+				.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION
 						.getKey());
 		info.setDescription(container.getValue().toString());
 		
@@ -134,7 +131,7 @@ public class RooloLOROtmlModuleDao extends AbstractHibernateDao<Module>
 	 * @param rooloClientCurnitRepository
 	 *            the rooloClientCurnitRepository to set
 	 */
-	public void setRooloLORClientCurnitRepository(IRepository<LearningObject, MetadataSchemaItem> rooloClientCurnitRepository) {
+	public void setRooloLORClientCurnitRepository(IRepository rooloClientCurnitRepository) {
 		this.rooloClientRepository = rooloClientCurnitRepository;
 	}
 

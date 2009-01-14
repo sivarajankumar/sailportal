@@ -22,18 +22,11 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.repository;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.StringReader;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.sail.webapp.domain.Curnit;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -41,7 +34,7 @@ import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.repository.RepositoryService;
 
-import roolo.curnit.client.basicProxy.CurnitProxy;
+import roolo.elo.api.IELO;
 
 /**
  * Retrieves otml from local repository and returns it.
@@ -80,8 +73,8 @@ public class RetrieveOtmlController extends AbstractController {
 		if (uriString != null) {
 			URI uri = new URI(uriString);
 
-			CurnitProxy curnitProxy = repositoryService.getByUri(uri);
-			otmlData = curnitProxy.getContent().getBytes();
+			IELO elo = repositoryService.getByUri(uri);
+			otmlData = elo.getContent().getBytes();
 		} else if (otmlModuleIdString != null) {
 			Long moduleId = Long.parseLong(otmlModuleIdString);
 			OtmlModuleImpl module = (OtmlModuleImpl) moduleService.getById(moduleId);

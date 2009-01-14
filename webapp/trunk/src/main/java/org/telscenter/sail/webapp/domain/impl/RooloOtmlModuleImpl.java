@@ -35,11 +35,10 @@ import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 
-import roolo.api.IMetadata;
-import roolo.api.IMetadataValueContainer;
-import roolo.curnit.client.CurnitClientMetadataKeys;
-import roolo.curnit.client.basicProxy.CurnitProxy;
-import roolo.curnit.client.basicProxy.MetadataKeyProxy;
+import roolo.elo.ELOMetadataKeys;
+import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
+import roolo.elo.api.IMetadataValueContainer;
 
 /**
  * @author Hiroki Terashima
@@ -68,7 +67,7 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 	private String rooloRepositoryUrl;    // url of the roolo repository
 	
 	@Transient
-    private CurnitProxy proxy;
+    private IELO elo;
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.Module#getComputerTime()
@@ -151,32 +150,30 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 
 
 	/**
-	 * Get the proxy
-	 * @return the proxy
+	 * @return the elo
 	 */
-	public CurnitProxy getProxy() {
-	    return proxy;
+	public IELO getElo() {
+		return elo;
 	}
 
 	/**
-	 * Set the proxy
-	 * @param proxy the proxy to set
+	 * @param elo the elo to set
 	 */
-	public void setProxy(CurnitProxy proxy) {
-	    this.proxy = proxy;
+	public void setElo(IELO elo) {
+		this.elo = elo;
 	}
-	
+
 	/**
 	 * Given a CurnitProxy object, retrieves corresponding attributes
 	 * from it and sets them on this object.
 	 * 
 	 * @param curnitProxy
 	 */
-	public void populateModuleFromProxy(CurnitProxy curnitProxy) {
-		IMetadata<MetadataKeyProxy> metadata = curnitProxy.getMetadata();
-		IMetadataValueContainer container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+	public void populateModuleFromProxy(IELO elo) {
+		IMetadata metadata = elo.getMetadata();
+		IMetadataValueContainer container = metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey());
 		this.setDescription( container.getValue().toString() );
-		this.setProxy(curnitProxy);
+		this.setElo(elo);
 	}
 	
 	/**
@@ -224,23 +221,23 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 	 * @param projectInfo
 	 */
 	public void updateProxy(ProjectInfo projectInfo) {
-		IMetadata<MetadataKeyProxy> metadata = this.getProxy().getMetadata();
+		IMetadata metadata = this.getElo().getMetadata();
 		IMetadataValueContainer container;
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.AUTHOR.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.AUTHOR.getKey());
 		container.setValue( projectInfo.getAuthor() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.COMMENT.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.COMMENT.getKey());
 		container.setValue( projectInfo.getComment() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.FAMILYTAG.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.FAMILYTAG.getKey());
 		container.setValue( projectInfo.getFamilyTag() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.ISCURRENT.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.ISCURRENT.getKey());
 		container.setValue( Boolean.toString(projectInfo.isCurrent()) );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.DESCRIPTION.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey());
 		container.setValue( projectInfo.getDescription() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.GRADELEVEL.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.GRADELEVEL.getKey());
 		container.setValue( projectInfo.getGradeLevel() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.SUBJECT.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.SUBJECT.getKey());
 		container.setValue( projectInfo.getSubject() );
-		container = metadata.getMetadataValueContainer(CurnitClientMetadataKeys.KEYWORDS.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.KEYWORDS.getKey());
 		container.setValue( projectInfo.getKeywords() );
 		
 	}

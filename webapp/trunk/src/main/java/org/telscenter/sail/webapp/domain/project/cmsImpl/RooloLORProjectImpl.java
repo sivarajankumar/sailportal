@@ -5,8 +5,8 @@ import javax.persistence.Transient;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 
-import roolo.curnit.client.basicProxy.CurnitProxy;
-import roolo.enlace.proxy.LearningObject;
+import roolo.elo.api.IELO;
+
 
 /**
  * Project implementation using Roolo. RooloProjects are also stored in
@@ -25,7 +25,7 @@ public class RooloLORProjectImpl extends ProjectImpl {
     private static final long serialVersionUID = 1L;
 
 	@Transient
-    private LearningObject learningObject;
+    private IELO learningObject;
     
 	/**
 	 * @return the familytag
@@ -57,11 +57,11 @@ public class RooloLORProjectImpl extends ProjectImpl {
 		this.projectinfo.setCurrent(isCurrent);
 	}
 
-	public void setLearningObject(LearningObject learningObject) {
+	public void setLearningObject(IELO learningObject) {
 		this.learningObject = learningObject;
 	}
 
-	public LearningObject getLearningObject() {
+	public IELO getLearningObject() {
 		return learningObject;
 	}
 

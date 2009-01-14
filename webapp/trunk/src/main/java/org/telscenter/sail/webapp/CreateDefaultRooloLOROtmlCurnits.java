@@ -40,14 +40,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.telscenter.sail.webapp.dao.module.impl.RooloLOROtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloLOROtmlModuleParameters;
 
-import roolo.api.IContent;
-import roolo.api.IMetadata;
-import roolo.api.IMetadataValueContainer;
-import roolo.api.IRepository;
-import roolo.enlace.EnlaceLORMetadataKeys;
-import roolo.enlace.RooloEnlaceLOR;
-import roolo.enlace.proxy.LearningObject;
-import roolo.enlace.proxy.MetadataSchemaItem;
+import roolo.elo.BasicELO;
+import roolo.elo.ELOMetadataKeys;
+import roolo.elo.api.IContent;
+import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
+import roolo.elo.api.IMetadataValueContainer;
+import roolo.elo.api.IRepository;
 
 /**
  * Adds default otml-curnits into Roolo repository.
@@ -57,7 +56,7 @@ import roolo.enlace.proxy.MetadataSchemaItem;
  */
 public class CreateDefaultRooloLOROtmlCurnits {
 	
-	private IRepository<LearningObject, MetadataSchemaItem> rep;
+	private IRepository rep;
 	private static final String WS_URL = "http://tels-web.soe.berkeley.edu:8080/lor/services/LORService";
 	private static final String WS_USER = "admin";
 	private static final String WS_PASS = "admin";
@@ -70,19 +69,19 @@ public class CreateDefaultRooloLOROtmlCurnits {
 		this.setCurnitService((CurnitService) applicationContext.getBean("curnitService"));
 	}
 
-	private LearningObject createAirbagsCurnit() {
-		LearningObject curnit = createCurnit("hydrogencarsweb.otml");
+	private IELO createAirbagsCurnit() {
+		IELO curnit = createCurnit("hydrogencarsweb.otml");
 		return curnit;
 	}
 
-	private LearningObject createChemicalReactionsCurnit() {
-		LearningObject curnit = createCurnit("ChemicalReactions.otml");
+	private IELO createChemicalReactionsCurnit() {
+		IELO curnit = createCurnit("ChemicalReactions.otml");
 		return curnit;
 	}
 	
-	private LearningObject createCurnit(String filename) {
+	private IELO createCurnit(String filename) {
 		// Create a curnit
-		LearningObject curnit = new LearningObject();
+		IELO curnit = new BasicELO();
 		// Create content
 		IContent content = curnit.getContent();
 		URL url = CreateDefaultRooloLOROtmlCurnits.class.getResource(filename);
@@ -112,19 +111,19 @@ public class CreateDefaultRooloLOROtmlCurnits {
 			e.printStackTrace();
 		}
 		
-		IMetadata<MetadataSchemaItem> metadata1 = curnit.getMetadata();
+		IMetadata metadata1 = curnit.getMetadata();
 		IMetadataValueContainer container;
-		container = metadata1.getMetadataValueContainer(EnlaceLORMetadataKeys.TITLE.getKey());
+		container = metadata1.getMetadataValueContainer(ELOMetadataKeys.TITLE.getKey());
 		container.setValue(filename);
-		container = metadata1.getMetadataValueContainer(EnlaceLORMetadataKeys.TYPE.getKey());
+		container = metadata1.getMetadataValueContainer(ELOMetadataKeys.TYPE.getKey());
 		container.setValue("Curnit");
-		container = metadata1.getMetadataValueContainer(EnlaceLORMetadataKeys.DESCRIPTION.getKey());
+		container = metadata1.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey());
 		container.setValue("This is a test curnit based on a curnit");
-		container = metadata1.getMetadataValueContainer(EnlaceLORMetadataKeys.AUTHOR.getKey());
+		container = metadata1.getMetadataValueContainer(ELOMetadataKeys.AUTHOR.getKey());
 		container.setValue("tony p");
-		container = metadata1.getMetadataValueContainer(EnlaceLORMetadataKeys.FAMILYTAG.getKey());
+		container = metadata1.getMetadataValueContainer(ELOMetadataKeys.FAMILYTAG.getKey());
 		container.setValue("TELS");
-		container = metadata1.getMetadataValueContainer(EnlaceLORMetadataKeys.ISCURRENT.getKey());
+		container = metadata1.getMetadataValueContainer(ELOMetadataKeys.ISCURRENT.getKey());
 		container.setValue("yes");
 
 		return curnit;
@@ -134,8 +133,8 @@ public class CreateDefaultRooloLOROtmlCurnits {
 	
 	public void createDefaultCurnits(ConfigurableApplicationContext applicationContext) {
 		// Create repository
-		rep = rep = new RooloEnlaceLOR(WS_URL, WS_USER, WS_PASS);
-		LearningObject airbagsCurnit = createAirbagsCurnit();
+		//rep = rep = new RooloEnlaceLOR(WS_URL, WS_USER, WS_PASS);
+		IELO airbagsCurnit = createAirbagsCurnit();
 		rep.addELO(airbagsCurnit);
 		saveToLocalDb(applicationContext, airbagsCurnit);
 		
@@ -171,10 +170,10 @@ public class CreateDefaultRooloLOROtmlCurnits {
 	 * @param applicationContext 
 	 * @param lo
 	 */
-	private void saveToLocalDb(ConfigurableApplicationContext applicationContext, LearningObject lo) {
+	private void saveToLocalDb(ConfigurableApplicationContext applicationContext, IELO lo) {
 		CreateRooloLOROtmlModuleParameters params = (CreateRooloLOROtmlModuleParameters) 
 		    applicationContext.getBean("createRooloLOROtmlModuleParameters");
-		params.setName(lo.getMetadata().getMetadataValueContainer(EnlaceLORMetadataKeys.TITLE.getKey()).getValue().toString());
+		params.setName(lo.getMetadata().getMetadataValueContainer(ELOMetadataKeys.TITLE.getKey()).getValue().toString());
 		params.setUrl(RooloLOROtmlModuleDao.defaultOtrunkCurnitUrl);
 		//params.setUrl("http://rails.dev.concord.org/curnits/otrunk-curnit-external-diytest.jar");
 		params.setRoolouri(lo.getUri().toString());

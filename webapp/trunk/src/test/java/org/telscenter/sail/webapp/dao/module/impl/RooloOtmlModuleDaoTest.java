@@ -20,43 +20,12 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.service.repository.impl;
-
-import java.net.URI;
-
-import org.telscenter.sail.webapp.service.repository.RepositoryService;
-
-import roolo.elo.api.IELO;
-import roolo.elo.api.IRepository;
+package org.telscenter.sail.webapp.dao.module.impl;
 
 /**
- * Service implementation which works with RooloRepository
- * 
- * @author Hiroki Terashima
- * @version $Id: RooloRepositoryServiceImpl.java 2001 2008-07-21 21:37:45Z hiroki $
+ * @author hirokiterashima
+ * @version $Id:$
  */
-public class RooloRepositoryServiceImpl implements RepositoryService {
-
-	private IRepository rooloClientCurnitRepository;
-
-	/**
-	 * @see org.telscenter.sail.webapp.service.repository.RepositoryService#getByUri(java.net.URI)
-	 */
-	public IELO getByUri(URI uri) {
-		IELO curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
-		return curnitProxy;
-	}
-	
-	/**
-	 * @param rooloClientCurnitRepository the rooloClientCurnitRepository to set
-	 */
-	public void setRooloClientCurnitRepository(
-			IRepository rooloClientCurnitRepository) {
-		this.rooloClientCurnitRepository = rooloClientCurnitRepository;
-	}
-
-	public IELO getELOByUri(URI uri) {
-		return null;
-	}
+public class RooloOtmlModuleDaoTest {
 
 }

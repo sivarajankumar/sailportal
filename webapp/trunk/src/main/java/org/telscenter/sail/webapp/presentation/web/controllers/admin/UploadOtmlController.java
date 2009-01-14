@@ -93,7 +93,7 @@ public class UploadOtmlController extends SimpleFormController {
 			Project project = projectService.getById(request.getParameter("projectId"));
 			Curnit curnit = project.getCurnit();
 			if (curnit instanceof RooloOtmlModuleImpl) {
-				((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(file.getBytes());		
+				((RooloOtmlModuleImpl) project.getCurnit()).getElo().getContent().setBytes(file.getBytes());		
 			} else if (curnit instanceof OtmlModuleImpl) {
 				((OtmlModuleImpl) project.getCurnit()).setOtml(file.getBytes());
 				moduleService.updateCurnit(project.getCurnit());

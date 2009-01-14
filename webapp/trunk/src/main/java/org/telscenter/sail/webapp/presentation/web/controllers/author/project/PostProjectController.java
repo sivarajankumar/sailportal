@@ -22,7 +22,6 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
-import java.io.BufferedReader;
 import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +72,7 @@ public class PostProjectController extends AbstractController {
 			Project project = projectService.getById(projectId);
 			Curnit curnit = project.getCurnit();
 			if (curnit instanceof RooloOtmlModuleImpl) {
-				((RooloOtmlModuleImpl) project.getCurnit()).getProxy().getContent().setBytes(otmlString.getBytes());		
+				((RooloOtmlModuleImpl) project.getCurnit()).getElo().getContent().setBytes(otmlString.getBytes());		
 			} else if (curnit instanceof OtmlModuleImpl) {
 				((OtmlModuleImpl) project.getCurnit()).setOtml(otmlString.getBytes());
 				moduleService.updateCurnit(project.getCurnit());

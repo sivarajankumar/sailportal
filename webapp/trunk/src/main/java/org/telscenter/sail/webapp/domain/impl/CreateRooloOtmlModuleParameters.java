@@ -22,7 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.impl;
 
-import roolo.curnit.client.basicProxy.CurnitProxy;
+import roolo.elo.api.IELO;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
 
 /**
@@ -38,7 +38,7 @@ public class CreateRooloOtmlModuleParameters extends CurnitParameters {
 	
 	private String rooloRepositoryUrl;
 	
-	private CurnitProxy curnitProxy;
+	private IELO elo;
 
 	/**
 	 * @return the roolouri
@@ -72,15 +72,15 @@ public class CreateRooloOtmlModuleParameters extends CurnitParameters {
 	/**
 	 * @return the curnitProxy
 	 */
-	public CurnitProxy getCurnitProxy() {
-		return curnitProxy;
+	public IELO getElo() {
+		return elo;
 	}
 
 	/**
 	 * @param curnitProxy the curnitProxy to set
 	 */
-	public void setCurnitProxy(CurnitProxy curnitProxy) {
-		this.curnitProxy = curnitProxy;
+	public void setElo(IELO curnitProxy) {
+		this.elo = elo;
 	}
 	
 }

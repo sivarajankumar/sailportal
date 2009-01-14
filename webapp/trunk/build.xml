@@ -36,10 +36,8 @@
   </path>
 
   <path id="lib.roolo">
-    <path location="${M2_REPO}/roolo-api/roolo-api/0.1.0-SNAPSHOT/roolo-api-0.1.0-SNAPSHOT.jar" />
-    <path location="${M2_REPO}/roolo-cms/roolo-cms/0.1.0-SNAPSHOT/roolo-cms-0.1.0-SNAPSHOT.jar" />
-    <path location="${M2_REPO}/roolo-client/roolo-client/0.1.0-SNAPSHOT/roolo-client-0.1.0-SNAPSHOT.jar" />
-  	<path location="${M2_REPO}/roolo-client-enlacelor/roolo-client-enlacelor/0.1.0-SNAPSHOT/roolo-client-enlacelor-0.1.0-SNAPSHOT.jar"/>
+  	<path location="${M2_REPO}/elo-api/elo-api/0.0.1-SNAPSHOT/elo-api-0.0.1-SNAPSHOT.jar" />
+  	<path location="${M2_REPO}/elo-impl/elo-impl/0.0.1-SNAPSHOT/elo-impl-0.0.1-SNAPSHOT.jar" />
   	<path location="${M2_REPO}/org/apache/jackrabbit/jackrabbit-core/1.4/jackrabbit-core-1.4.jar" />
     <path location="${M2_REPO}/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3.jar"/>
     <path location="${M2_REPO}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>

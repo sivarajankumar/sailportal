@@ -23,7 +23,7 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
-import roolo.enlace.proxy.LearningObject;
+import roolo.elo.api.IELO;
 
 /**
  * Params for creating RooloLOROtmlModule
@@ -38,7 +38,7 @@ public class CreateRooloLOROtmlModuleParameters extends CurnitParameters {
 	
 	private String rooloRepositoryUrl;
 	
-	private LearningObject learningObject;
+	private IELO learningObject;
 	
 	/**
 	 * @return the roolouri
@@ -68,11 +68,11 @@ public class CreateRooloLOROtmlModuleParameters extends CurnitParameters {
 		this.rooloRepositoryUrl = rooloRepositoryUrl;
 	}
 
-	public void setLearningObject(LearningObject learningObject) {
+	public void setLearningObject(IELO learningObject) {
 		this.learningObject = learningObject;
 	}
 
-	public LearningObject getLearningObject() {
+	public IELO getLearningObject() {
 		return learningObject;
 	}
 	

@@ -13,11 +13,10 @@ import net.sf.sail.webapp.domain.impl.CurnitImpl;
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 
-import roolo.api.IMetadata;
-import roolo.api.IMetadataValueContainer;
-import roolo.enlace.EnlaceLORMetadataKeys;
-import roolo.enlace.proxy.LearningObject;
-import roolo.enlace.proxy.MetadataSchemaItem;
+import roolo.elo.ELOMetadataKeys;
+import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
+import roolo.elo.api.IMetadataValueContainer;
 
 @Entity
 @Table(name = RooloEnlaceLORModuleImpl.DATA_STORE_NAME)
@@ -42,7 +41,7 @@ public class RooloEnlaceLORModuleImpl extends CurnitImpl implements Module {
 	private String rooloRepositoryUrl;    // url of the roolo repository
 	
 	@Transient
-    private LearningObject learningObject;
+    private IELO learningObject;
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.Module#getComputerTime()
@@ -115,9 +114,9 @@ public class RooloEnlaceLORModuleImpl extends CurnitImpl implements Module {
 	 * 
 	 * @param learningObject
 	 */
-	public void populateModuleFromProxy(LearningObject learningObject) {
-		IMetadata<MetadataSchemaItem> metadata = learningObject.getMetadata();
-		IMetadataValueContainer container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.DESCRIPTION.getKey());
+	public void populateModuleFromProxy(IELO learningObject) {
+		IMetadata metadata = learningObject.getMetadata();
+		IMetadataValueContainer container = metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey());
 		this.setDescription( container.getValue().toString() );
 		this.setLearningObject(learningObject);
 	}
@@ -167,33 +166,33 @@ public class RooloEnlaceLORModuleImpl extends CurnitImpl implements Module {
 	 * @param projectInfo
 	 */
 	public void updateProxy(ProjectInfo projectInfo) {
-		IMetadata<MetadataSchemaItem> metadata = this.getLearningObject().getMetadata();
+		IMetadata metadata = this.getLearningObject().getMetadata();
 		IMetadataValueContainer container;
-		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.AUTHOR.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.AUTHOR.getKey());
 		container.setValue( projectInfo.getAuthor() );
 //		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.COMMENT.getKey());
 //		container.setValue( projectInfo.getComment() );
-		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.FAMILYTAG.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.FAMILYTAG.getKey());
 		container.setValue( projectInfo.getFamilyTag() );
-		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.ISCURRENT.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.ISCURRENT.getKey());
 		container.setValue( Boolean.toString(projectInfo.isCurrent()) );
-		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.DESCRIPTION.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey());
 		container.setValue( projectInfo.getDescription() );
-		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.GRADELEVEL.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.GRADELEVEL.getKey());
 		container.setValue( projectInfo.getGradeLevel() );
-		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.SUBJECT.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.SUBJECT.getKey());
 		container.setValue( projectInfo.getSubject() );
-		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.KEYWORDS.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.KEYWORDS.getKey());
 		container.setValue( projectInfo.getKeywords() );
-		container = metadata.getMetadataValueContainer(EnlaceLORMetadataKeys.TYPE.getKey());
+		container = metadata.getMetadataValueContainer(ELOMetadataKeys.TYPE.getKey());
 		container.setValue("Curnit");
 	}
 
-	public void setLearningObject(LearningObject learningObject) {
+	public void setLearningObject(IELO learningObject) {
 		this.learningObject = learningObject;
 	}
 
-	public LearningObject getLearningObject() {
+	public IELO getLearningObject() {
 		return learningObject;
 	}
 
