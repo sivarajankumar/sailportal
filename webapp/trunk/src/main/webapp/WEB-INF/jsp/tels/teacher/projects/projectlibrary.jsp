@@ -105,8 +105,7 @@
 			<th>total</br>time</th>
 			<th>computer</br>time</th>
 			<th>usage</th>
-			<th>bookmark</th>
-			<th></th>
+			<th>actions</th>
 		</tr>
 		<tr id="libraryProjectTableR2">
 			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.projectInfo.name}</a></td>
@@ -117,11 +116,15 @@
 			<td class="dataCell">[6 periods]</td>              
 			<td class="dataCell">[5 periods]</td> 
 			<td class="dataCell">[27 runs]</td>
-			<td class="dataCell"><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/></td>
-			<td class="dataCell"><input type="button" onclick="copy('${project.id}')" value="Make Copy"/></td>
+			<td class="dataCell" >
+				<ul>
+					<li class="list1"><span><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/>Bookmark</span></li>
+					<li class="list2"><input type="button" onclick="copy('${project.id}')" value="Make Copy"/></li>
+				</ul>
+			</td>
 		</tr>
 		<tr id="libraryProjectTableR3">  
-			<td colspan="10">${project.projectInfo.description}</td>
+			<td colspan="9">test test baby${project.projectInfo.description}</td>
 		</tr>
 	</table>
 	

@@ -167,6 +167,8 @@ img#none{
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #999999;
+	background-image: url(../../ images/GradientFooter.png);
+    background-position: bottom;
 }
 
 #overview_choices a:hover  {
@@ -326,6 +328,20 @@ img#none{
 	font-size:.85em;
 	color:#003300;
 	}	
+	
+#libraryProjectTableR2 ul{
+	list-style:none;
+	padding-left:0px;
+	font-size:.8em;
+	}	
+	
+#libraryProjectTableR2 li.list1{
+	padding-top:6px;
+	}	
+	
+#libraryProjectTableR2 li.list2{
+	padding-top:4px;
+	}
 
 #libraryProjectCol3 {
 	width:8%;
