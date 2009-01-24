@@ -226,6 +226,16 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>		
+		<repository>
+			<id>jboss-maven2-repository</id>
+			<name>jboss maven repository</name>
+			<url>		
+		         http://repository.jboss.org/maven2
+			</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>		
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -354,12 +364,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
-			<version>3.2.5.ga</version>
+			<version>3.2.6.ga</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
-			<version>3.2.1.ga</version>
+			<version>3.4.0.GA</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

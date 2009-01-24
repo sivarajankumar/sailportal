@@ -99,8 +99,8 @@
   </path>
 
   <path id="lib.hibernate">
-    <path location="${M2_REPO}/org/hibernate/hibernate/3.2.5.ga/hibernate-3.2.5.ga.jar" />
-    <path location="${M2_REPO}/org/hibernate/hibernate-annotations/3.2.1.ga/hibernate-annotations-3.2.1.ga.jar" />
+    <path location="${M2_REPO}/org/hibernate/hibernate/3.2.6.ga/hibernate-3.2.6.ga.jar" />
+    <path location="${M2_REPO}/org/hibernate/hibernate-annotations/3.4.0.GA/hibernate-annotations-3.4.0.GA.jar" />
     <path location="${M2_REPO}/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar" />
     <path location="${M2_REPO}/antlr/antlr/2.7.6/antlr-2.7.6.jar" />
   </path>
