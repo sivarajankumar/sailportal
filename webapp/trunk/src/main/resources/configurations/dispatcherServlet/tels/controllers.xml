@@ -100,6 +100,9 @@
 	<bean id="createSingleChoiceBrainstormParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.brainstorm.CreateSingleChoiceBrainstormParametersValidator"/>
 
+	<bean id="createOpenResponseBrainstormParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.brainstorm.CreateOpenResponseBrainstormParametersValidator"/>
+
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
 
