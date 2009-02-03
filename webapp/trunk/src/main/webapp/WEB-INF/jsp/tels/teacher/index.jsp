@@ -470,6 +470,8 @@
 
 			<div id="headerTeacherHome"><spring:message code="teacher.index.10"/></div>
 
+          	<div id="quickToolsContainer">
+          	
           	<table id="quickToolsTable">
 				    <tr>
 				        <th><spring:message code="teacher.index.38"/></th>
@@ -524,7 +526,7 @@
 					</c:forEach> -->
 								  			   
 			</table>
-				
+			</div>        <!--	end of quickToolsContainer	-->
 
 </td>
 </tr>

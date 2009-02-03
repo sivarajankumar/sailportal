@@ -81,23 +81,31 @@
 	margin:0; 
 	}
 
+#quickToolsContainer {	
+	height:150px;
+	overflow:auto;
+	border-top:1px solid #999999;
+	margin:0 8px;
+	}
+	
 #quickToolsTable {	
 	border-collapse:collapse;
 	text-align:center;
-	margin: 0 20px 0 15px; 
-	width:94%;
+	width:100%;
 	}
 	
 #quickToolsTable th {	
-	border:1px solid #999999;
+	border-left:1px solid #999999;
+	border-right:1px solid #999999;
+	border-bottom:1px solid #999999;
 	background-color:#CCCCCC;
-	padding: 2px 8px;
+	padding: 2px 6px;
 	font-size:.7em;
 	}
 	
 #quickToolsTable td {	
 	border:1px solid #999999;
-	padding: 2px 10px;
+	padding: 2px 6px;
 	font-size:.8em;
 	vertical-align:middle;
 		}
