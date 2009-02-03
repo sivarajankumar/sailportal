@@ -66,10 +66,10 @@
 	</tr>
 	<tr id="setupProjectTableR2">
 		<td class="setupProjectTitle">${project.projectInfo.name}</td>
-		<td>${project.id}</td>       		   <!--		""${project.curnit.id}""-->
+		<td>${project.id}</td>       		   
 		<td>${project.projectInfo.keywords}</td>
-		<td>${project.projectInfo.gradeLevel}</td>              <!--		"${project.curnit.totalTime}"-->
-		<td>[# hours here]</td>              <!--		"${project.curnit.computerTime}"-->
+		<td>${project.projectInfo.gradeLevel}</td>              
+		<td>[# hours here]</td>              
 		<td>[# hours here]</td>
 		<td>[# Runs Here]
 	</tr>
