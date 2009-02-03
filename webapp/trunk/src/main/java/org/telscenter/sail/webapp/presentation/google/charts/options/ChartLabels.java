@@ -98,8 +98,8 @@ public class ChartLabels implements ChartOption {
 	
 	public String getOptionString(){
 		int count = 0;
-		String declaredLabels = "&amp;chxt=";
-		String labels = "&amp;chxl=";
+		String declaredLabels = "&chxt=";
+		String labels = "&chxl=";
 		if(xLabels.size() + yLabels.size() + tLabels.size() + rLabels.size()<1){
 			return "";
 		} else {
@@ -145,7 +145,7 @@ public class ChartLabels implements ChartOption {
 	}
 	
 	private String getPositions(){
-		String pos = "&amp;chxp=";
+		String pos = "&chxp=";
 		if(this.positions==null){
 			return "";
 		} else {
@@ -157,7 +157,7 @@ public class ChartLabels implements ChartOption {
 	}
 	
 	private String getRange(){
-		String range = "&amp;chxr=";
+		String range = "&chxr=";
 		if(this.ranges==null){
 			return "";
 		} else {
@@ -169,7 +169,7 @@ public class ChartLabels implements ChartOption {
 	}
 	
 	private String getStyle(){
-		String style = "&amp;chxs=";
+		String style = "&chxs=";
 		if(this.styles==null){
 			return "";
 		} else {

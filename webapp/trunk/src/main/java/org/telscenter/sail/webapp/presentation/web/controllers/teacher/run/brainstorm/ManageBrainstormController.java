@@ -22,18 +22,24 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm;
 
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBElement;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
+import org.imsglobal.xsd.imsqti_v2p0.ImgType;
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -41,8 +47,10 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
+import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.BrainstormUtils;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
@@ -67,6 +75,10 @@ public class ManageBrainstormController extends SimpleFormController {
 		"This Brainstorm Step has not started yet. Please come back later.";
 
 	private static final String CANNOT_SEE_RESPONSES = "cannotseeresponses";
+	
+	private static final String CHOICES = "choices";
+	
+	private static final String KEYS = "keys";
 
 	private BrainstormService brainstormService;
 
@@ -78,6 +90,7 @@ public class ManageBrainstormController extends SimpleFormController {
 	@Override
 	protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
 		ModelAndView modelAndView = super.showForm(request, response, bindException);
+		Map<String, Serializable> choiceMap = new LinkedHashMap();
 		String brainstormId = request.getParameter(BRAINSTORMID_PARAM);
 		Brainstorm brainstorm = null;
 		
@@ -87,6 +100,7 @@ public class ManageBrainstormController extends SimpleFormController {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			throw onfe;
 		}
+		
         modelAndView.addObject(BRAINSTORM_KEY, brainstorm);
         
 		User user = (User) request.getSession().getAttribute(
@@ -96,8 +110,15 @@ public class ManageBrainstormController extends SimpleFormController {
 		    = workgroupService.getWorkgroupListByOfferingAndUser(brainstorm.getRun(), user);
 		
 		WISEWorkgroup workgroup = (WISEWorkgroup) workgroupListByOfferingAndUser.get(0);
+		
+		if(brainstorm.getQuestiontype().equals(Questiontype.SINGLE_CHOICE)){
+			choiceMap = BrainstormUtils.getChoiceMap(brainstorm.getQuestion().getChoices());
+		}
+		
         modelAndView.addObject("displayNameOptions", DisplayNameOption.values());
         modelAndView.addObject(WORKGROUP, workgroup);
+        modelAndView.addObject(KEYS, choiceMap.keySet());
+        modelAndView.addObject(CHOICES, choiceMap);
 
 		return modelAndView;
 	}
@@ -108,7 +129,7 @@ public class ManageBrainstormController extends SimpleFormController {
 		Brainstorm brainstorm = null;
 		
 		try {
-			brainstorm = brainstormService.getBrainstormById(brainstormId);
+			brainstorm = brainstormService.getBrainstormById(Long.parseLong(brainstormId));
 		} catch (ObjectNotFoundException onfe) {
 			throw onfe;
 		}
@@ -178,5 +199,4 @@ public class ManageBrainstormController extends SimpleFormController {
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
 	}
-
 }

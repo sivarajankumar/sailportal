@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 
@@ -129,4 +130,10 @@ public class HibernateBrainstormDao extends AbstractHibernateDao<Brainstorm> imp
 		return setOfBrainstorms;	
 	}
 
+    public Set<Answer> getAnswersByBrainstormId(Long id){
+    	String q = "select answer from BrainstormImpl brainstorm inner join brainstorm.answers answer" +
+    		" where brainstorm.id='" + id + "'";
+    	Set<Answer> answers = new TreeSet<Answer>(this.getHibernateTemplate().find(q));
+    	return answers;
+    }
 }

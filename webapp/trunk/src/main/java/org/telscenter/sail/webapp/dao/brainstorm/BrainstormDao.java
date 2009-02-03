@@ -74,4 +74,12 @@ public interface BrainstormDao<T extends Brainstorm> extends SimpleDao<T> {
 	 * @return
 	 */
 	public Set<Brainstorm> retrieveByProjectAndParentId(Project project, Long parentBrainstormId);
+	
+	/**
+	 * Retrieves Answers that are associated with a Brainstorm with the given id
+	 * 
+	 * @param <code>Long</code> id
+	 * @return <code>Set<Answer></code>
+	 */
+	public Set<Answer> getAnswersByBrainstormId(Long id);
 }

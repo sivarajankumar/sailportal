@@ -16,9 +16,7 @@
 		popUp('addrevision.html?workgroupId=' + workgroupId + '&answerId=' + answerId + '&brainstormId=' + brainstormId, 'AddRevision');
 	};
 	
-	function hideallanswers(brainstormId, cannotseeresponses) {
-	  var poll = new PollNewPosts(brainstormId);		
-	  poll.start();	  
+	function hideallanswers(brainstormId, cannotseeresponses) {	
 	  if(cannotseeresponses) {
 	    var rtb = document.getElementById('responseTableBody');
 	    rtb.style.display='none';
@@ -124,44 +122,75 @@
 		};
 	};
 	
-     function PollNewPosts(brainstormId){
-     	this.brainstormId=brainstormId;
-		this.callback = {
-			customevents:{
-				onComplete:this.complete
-			},
-			success:this.handleSuccess,
-			failure:this.handleFailure,
-			scope:this
-		};
-     };
-	
-	PollNewPosts.prototype.start = function(){
-		YAHOO.util.Connect.setPollingInterval(360000);	
-		YAHOO.util.Connect.asyncRequest('GET', 'pollnewposts.html?brainstormId=' + this.brainstormId, this.callback);
-	};
-	
-	PollNewPosts.prototype.handleSuccess = function(o){
-		var out = "";
-		var newPosts = Number(o.responseText) - (document.getElementsByName('revision').length + document.getElementsByName('comment').length + document.getElementsByName('otherRevisions').length);
-		if(newPosts > 0){
-			if(newPosts == 1){
-				out = "1 new response received";
-			} else {
-				out = newPosts + " new responses received";
+	function setInstantPollState(val){
+		var responseButton = document.getElementById('createResponseButton');
+		var showLatestButton = document.getElementById('showLatestButton');
+		
+		if(val==true || val=="true"){
+			responseButton.disabled = false;
+			if(showLatestButton!=null){
+				showLatestButton.disabled = true;
 			};
 		} else {
-			out = "0 new responses received";
+			responseButton.disabled = true;
+			if(showLatestButton!=null){
+				showLatestButton.disabled = false;
+			};
 		};
-		document.getElementById('numNewResponses').innerHTML=out;
+	};
+
+
+	function pollNewPosts(brainstormId){
+		this.callback={
+			success: function(o){
+				var out = "";
+				var newPosts = Number(o.responseText) - pageManager.getTotalPosts();
+				if(newPosts > 0){
+					if(newPosts == 1){
+						out = "1 new response received";
+					} else {
+						out = newPosts + " new responses received";
+					};
+				} else {
+					out = "0 new responses received";
+				};
+				document.getElementById('numNewResponses').innerHTML=out;
+			},
+			failure: function(o){}, //do nothing, this runs on an interval
+			scope:this
+			};
+	
+		YAHOO.util.Connect.asyncRequest('GET', 'pollnewposts.html?brainstormId=' + brainstormId, this.callback);
 	};
 	
-	PollNewPosts.prototype.handleFailure = function(o){
-		//do nothing - this is running in the background every minute
+	function getInstantPollActive(id){
+			var success = function(o){
+				if(o.responseText!=null && o.responseText!=""){
+					setInstantPollState(o.responseText);
+				};
+			};
+			var failure = function(o){}; //do nothing, this runs on intervals
+			var callback = {success:success, failure:failure};
+			YAHOO.util.Connect.asyncRequest('GET', 'pollinstantpoll.html?brainstormId=' + id, callback);	
 	};
 	
-	PollNewPosts.prototype.complete = function(eventType, args){
-		this.start();
+	function getResultsGraph(id, pollGraph){
+			var success = function(o){
+				if(o.responseText!=null && o.responseText!=""){
+					clearInterval(pollGraph);
+					var parent = document.getElementById('column3');
+					parent.removeChild(document.getElementById('graph'));
+					var graphDiv = createElement(document, 'div', {id: 'graph'});
+					var graphElement = createElement(document, 'img', {src:o.responseText});
+					graphDiv.appendChild(graphElement);
+					document.getElementById('column3').appendChild(graphDiv);
+				};
+			};
+			var failure = function(o){
+				alert('failed update to server retrieving graph data');
+			};
+			var callback = {success:success, failure:failure};
+			YAHOO.util.Connect.asyncRequest('GET', 'resultsgraph.html?brainstormId=' + id, callback);
 	};
 	
 	/**
@@ -176,7 +205,11 @@
 		this.sortOrder = sortOrder;
 		this.answers;
 		this.isFilterOn;
-	
+		this.type = type;
+		this.pollPosts;
+		this.pollGraph;
+		this.pollInstantPoll;
+			
 		this.callback = {
 			success:this.handleSuccess,
 			failure:this.handleFailure,
@@ -187,7 +220,14 @@
 			YAHOO.util.Connect.asyncRequest('GET', 'getallposts.html?brainstormId=' + this.id, this.callback);
 		};
 			
+		this.pollPosts = setInterval("pollNewPosts(" + this.id + "," + this.pollPosts + ")", 60000);
 		this.getAllPosts();
+		getInstantPollActive(this.id);
+	  	this.pollInstantPoll = setInterval('getInstantPollActive(' + this.id + ')', 60000);
+		if(this.type=='SINGLE_CHOICE'){
+			getResultsGraph(this.id);
+			this.pollGraph = setInterval("getResultsGraph(" + this.id + "," + this.pollGraph + ")", 60000);
+		};
 	};
 	
 	PageManager.prototype.handleFailure = function(o){
@@ -207,6 +247,7 @@
 		};
 		this.answers = new Answers();
 		this.answers.setAnswers(xmlDoc);
+		this.answers.setType(this.type);
 		this.updatePage();
 	};
 	
@@ -234,6 +275,16 @@
 		var answer = this.answers.getAnswerById(answerId);
 		answer.addComment(comment);
 		this.updatePage();
+	};
+	
+	PageManager.prototype.getTotalPosts = function(){
+		var total = 0;
+		var answers = this.answers.getAnswers();
+		for(an=0;an<answers.length;an++){
+			var answer = answers[an];
+			total = total + answer.getRevisions().length + answer.getComments().length;
+		};
+		return total;
 	};
 	
 	//builds answer tables from existing data without a request to server
@@ -284,4 +335,10 @@
 		for(cc=0;cc<elements.length;cc++){
 			newResponseTableBody.appendChild(elements[cc]);
 		};
+		document.getElementById('numNewResponses').innerHTML="0 new responses received";
+	};
+	
+	PageManager.prototype.setPollInterval = function(interval){
+		clearInterval(this.pollPosts);
+		this.pollPosts = setInterval("pollNewPosts(" + this.id + ")", interval);
 	};

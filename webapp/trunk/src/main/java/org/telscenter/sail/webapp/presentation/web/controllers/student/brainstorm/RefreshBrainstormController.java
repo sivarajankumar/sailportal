@@ -51,7 +51,7 @@ public class RefreshBrainstormController extends AbstractController{
 		
 		Brainstorm brainstorm = this.brainstormService.getBrainstormById(Long.parseLong(request.getParameter(BRAINSTORMID)));
 		
-		String xmlDoc = XMLBrainstorm.getXMLAnswers(brainstorm.getAnswers());
+		String xmlDoc = XMLBrainstorm.getXMLAnswers(brainstorm.getAnswers(), brainstorm.getQuestion().getChoices());
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(XMLDOC, xmlDoc);
 		return modelAndView;

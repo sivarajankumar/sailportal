@@ -42,7 +42,7 @@ public abstract class AbstractGoogleChart implements GoogleChart{
 	
 	private static final int MAX_PIXELS = 300000;
 	
-	protected static final String AMP = "&amp;";
+	protected static final String AMP = "&";
 	
 	private String url = "http://chart.apis.google.com/chart?";
 	

@@ -41,13 +41,25 @@
 <script type="text/javascript">
 
 function validate(){
-	var responseText = document.getElementById('responseText').value;
-
-	if(responseText == null || responseText == ""){
-		alert("Please enter a response before submitting.");
+	
+	if('${type}'=='OPEN_RESPONSE'){
+		var responseText = document.getElementById('editor').value;
+	
+		if(responseText == null || responseText == ""){
+			alert("Please enter a response before submitting.");
+			return false;
+		} else {
+			return true;
+		};
+	} else if('${type}'=='SINGLE_CHOICE'){
+		var choices = document.getElementsByName('radioChoice');
+		for(x=0;x<choices.length;x++){
+			if(choices[x].checked){
+				return choices[x].value;
+			};
+		};
+		alert("Please select a choice before submitting.");
 		return false;
-	} else {
-		return true;
 	};
 };
 
@@ -59,7 +71,13 @@ function submit(){
 
 function post(){
 	var URL='postrevision.html';
-	var data='text=' + document.getElementById('responseText').value + '&workgroupId=${workgroup.id}&answerId=${answer.id}';
+	var text;
+	if('${type}'=='OPEN_RESPONSE'){
+		text = escape(document.getElementById('editor').value);
+	} else if('${type}'=='SINGLE_CHOICE'){
+		text = validate();
+	}
+	var data='text=' + text + '&workgroupId=${workgroup.id}&answerId=${answer.id}';
 	var callback = {
 		success:function(o){
 			var xmlDoc = o.responseXML;
@@ -111,11 +129,17 @@ function post(){
 							posted 
 							<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
 								<c:if test="${revisionStatus.last=='true'}">
-								    <fmt:formatDate value="${revision.timestamp}" type="time" timeStyle="short" />
-								    <fmt:formatDate value="${revision.timestamp}" type="date" dateStyle="medium" />								    
-							        <div id="currentResponseBox">									
-									    ${revision.body}
-							        </div>
+									<fmt:formatDate value="${revision.timestamp}" type="time" timeStyle="short" />
+									<fmt:formatDate value="${revision.timestamp}" type="date" dateStyle="medium" />	
+									<div id="currentResponseBox">
+										<c:if test="${type=='OPEN_RESPONSE'}">
+											${revision.body}
+										</c:if>
+										<c:if test="${type=='SINGLE_CHOICE'}">
+											<c:set var="latestRevision" value="${revision}"/>
+											${choicemap[revision.body]}
+										</c:if>
+									</div>
 								</c:if>
 							</c:forEach>
 						</span>
@@ -126,7 +150,21 @@ function post(){
 			
 			<div id="comment">
 				<b>Revised Response:</b><br/>
-				<textarea id="responseText" cols="45" rows="8"><c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}"><c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if></c:forEach></textarea>
+				<c:if test="${type=='OPEN_RESPONSE'}">
+					<textarea id="editor" name="editor" cols="45" rows="8"><c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}"><c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if></c:forEach></textarea>
+				</c:if>
+				<c:if test="${type=='SINGLE_CHOICE'}">
+					<c:forEach var="key" varStatus="choiceStatus" items="${keys}">
+						<c:choose>
+							<c:when test="${key==latestRevision.body}">
+								<input type="radio" name="radioChoice" id="choice${key}" value="${key}" CHECKED/> ${choicemap[key]} <br>
+							</c:when>
+							<c:otherwise>
+								<input type="radio" name="radioChoice" id="choice${key}" value="${key}"/> ${choicemap[key]} <br>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:if>
 			</div>
 			
 			<div id="inputButtons">

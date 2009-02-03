@@ -48,7 +48,7 @@ public class DataScaling implements ChartOption{
 	}
 
 	public String getOptionString(){
-		String scaling = "&amp;chds=";
+		String scaling = "&chds=";
 		for(int x=0;x<min.size();x++){
 			scaling = scaling + this.min.get(x) + "," + this.max.get(x) + ",";
 		}

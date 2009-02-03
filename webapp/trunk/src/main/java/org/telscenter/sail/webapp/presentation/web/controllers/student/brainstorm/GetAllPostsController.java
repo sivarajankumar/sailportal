@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 
 /**
@@ -50,7 +51,12 @@ public class GetAllPostsController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		
 		Brainstorm brainstorm = this.brainstormService.getBrainstormById(Long.parseLong(request.getParameter(BRAINSTORMID)));
-		String xmlDoc = XMLBrainstorm.getXMLAnswers(brainstorm.getAnswers());
+		String xmlDoc;
+		if(brainstorm.getQuestiontype()==Questiontype.OPEN_RESPONSE){
+			xmlDoc = XMLBrainstorm.getXMLAnswers(brainstorm.getAnswers());
+		} else {
+			xmlDoc = XMLBrainstorm.getXMLAnswers(brainstorm.getAnswers(), brainstorm.getQuestion().getChoices());
+		}
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(XMLDOC, xmlDoc);
 		return modelAndView;

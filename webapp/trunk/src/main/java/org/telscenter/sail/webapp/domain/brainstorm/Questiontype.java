@@ -20,32 +20,12 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.google.charts.options;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
+package org.telscenter.sail.webapp.domain.brainstorm;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class ChartEffect implements ChartOption{
-	
-	private List<ChartOption> chartEffect = new LinkedList<ChartOption>();
-
-	public void addChartEffect(ChartOption effect){
-		this.chartEffect.add(effect);
-	}
-
-	public String getOptionString() {
-		String effects = "&chf=";
-		for(ChartOption effect : this.chartEffect){
-			effects = effects + effect.getOptionString() + "|";
-		}
-		return effects.substring(0, effects.length()-1);
-	}
-	
-	
+public enum Questiontype {
+	OPEN_RESPONSE, SINGLE_CHOICE, MULTI_CHOICE
 }

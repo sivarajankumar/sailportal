@@ -20,32 +20,49 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.google.charts.options;
+package org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm;
 
-import java.util.LinkedList;
+import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
+import javax.xml.bind.JAXBElement;
+
+import org.imsglobal.xsd.imsqti_v2p0.ImgType;
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class ChartEffect implements ChartOption{
-	
-	private List<ChartOption> chartEffect = new LinkedList<ChartOption>();
+public final class BrainstormUtils {
 
-	public void addChartEffect(ChartOption effect){
-		this.chartEffect.add(effect);
+	public static String replaceTags(SimpleChoiceType choice){
+		if(!(choice.getContent().get(0) instanceof String)){
+			if(((JAXBElement)choice.getContent().get(0)).getDeclaredType()==ImgType.class){
+				return "<img src=\"" + ((ImgType)((JAXBElement)choice.getContent().get(0)).getValue()).getSrc() + "\"/>";
+			} else {
+				return "";
+			}
+		} else {
+			String str = (String) choice.getContent().get(0);
+			if(str.contains("&lt;")){
+				str = str.replaceAll("&lt;", "<");
+			}
+			if(str.contains("&gt;")){
+				str = str.replaceAll("&gt;", ">");
+			}
+			return str;
+		}		
 	}
-
-	public String getOptionString() {
-		String effects = "&chf=";
-		for(ChartOption effect : this.chartEffect){
-			effects = effects + effect.getOptionString() + "|";
+	
+	public static Map<String, Serializable> getChoiceMap(List<SimpleChoiceType> choices){
+		Map<String, Serializable> choiceMap = new LinkedHashMap<String, Serializable>();
+		for(SimpleChoiceType choice : choices){
+			choiceMap.put(choice.getIdentifier(), replaceTags(choice));
 		}
-		return effects.substring(0, effects.length()-1);
+		return choiceMap;
 	}
-	
-	
 }

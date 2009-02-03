@@ -46,7 +46,7 @@
 
 <script type="text/javascript">
 
-function validateOptions(){	
+function validateOptions(){
 	var options = document.getElementsByName('postName');
 	for(x=0;x<options.length;x++){
 		if(options[x].checked){
@@ -58,11 +58,23 @@ function validateOptions(){
 
 function validate(){
 	var optionsPassed = validateOptions();
-	var responseText = document.getElementById('editor').value;
+	var questiontype = '${brainstorm.questiontype}';
 	if(!optionsPassed){
 		alert("Please select one of the posting options (either Anonymous or with Team member names).");
 		return false;
-	} else if(responseText == null || responseText == ""){
+	};
+	
+	if(questiontype == 'OPEN_RESPONSE'){
+		return validateOpenResponse();
+	} else if(questiontype == 'SINGLE_CHOICE'){
+		return validateSingleChoice();
+	};
+	return false;
+};
+
+function validateOpenResponse(){
+	var responseText = document.getElementById('editor').value;
+	if(responseText == null || responseText == ""){
 		alert("Please enter a response before submitting.");
 		return false;
 	} else {
@@ -70,9 +82,27 @@ function validate(){
 	};
 };
 
+function validateSingleChoice(){
+	var choices = document.getElementsByName('radioChoice');
+	for(x=0;x<choices.length;x++){
+		if(choices[x].checked){
+			return choices[x].value;
+		};
+	};
+	alert("Please select a choice before submitting.");
+	return false;
+};
+
 function post(){
+	var questiontype = '${brainstorm.questiontype}';
 	var URL='postresponse.html';
-	var data='option=' + validateOptions() + '&text=' + escape(document.getElementById('editor').value) + '&workgroupId=${workgroup.id}&brainstormId=${brainstorm.id}';
+	var text;
+	if(questiontype == 'OPEN_RESPONSE'){
+		text = escape(document.getElementById('editor').value);
+	}else if(questiontype == 'SINGLE_CHOICE'){
+		text = validateSingleChoice();
+	};
+	var data='option=' + validateOptions() + '&text=' + text + '&workgroupId=${workgroup.id}&brainstormId=${brainstorm.id}';
 	var callback = {
 		success:function(o){
 			var xmlDoc = o.responseXML;
@@ -100,7 +130,7 @@ function post(){
 </script>
 </head>
 
-<body class="yui-skin-sam" onload="javascript:showeditor('${brainstorm.richTextEditorAllowed}');">
+<body class="yui-skin-sam" onload="javascript:showeditor('${brainstorm.richTextEditorAllowed}', '${brainstorm.questiontype}');">
 
 <%@page import="org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption" %>
 <% pageContext.setAttribute("username_only", DisplayNameOption.USERNAME_ONLY); %>
@@ -119,12 +149,20 @@ function post(){
 			<b>Question:</b>
 			<span id="questionBox">${brainstorm.question.prompt}</span>
 		</div>
-
-	    <b>Response:</b><br/>
-		<textarea id="editor" name="editor" rows="20" cols="75" ></textarea>
-	
-
-	
+		
+		<c:if test="${brainstorm.questiontype=='OPEN_RESPONSE'}">
+	    	<b>Response:</b><br>
+			<textarea id="editor" name="editor" rows="20" cols="75" ></textarea>
+		</c:if>
+		<c:if test="${brainstorm.questiontype=='SINGLE_CHOICE'}">
+			<div id="choiceList">
+			<b>Choices:</b><br>
+				<c:forEach var="key" varStatus="choiceStatus" items="${keys}">
+					<input type="radio" name="radioChoice" id="choice${key}" value="${key}"/> ${choices[key]} <br>
+				</c:forEach>
+			</div>
+		</c:if>
+		
 		<div id="selectPostType">
         	<c:if test="${brainstorm.displayNameOption == username_only}">  <!-- must NOT be anonymous -->
            	<c:out value="Your response will be displayed with your names" />

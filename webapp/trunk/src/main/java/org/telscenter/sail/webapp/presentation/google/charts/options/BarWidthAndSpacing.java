@@ -50,7 +50,7 @@ public class BarWidthAndSpacing implements ChartOption {
 	}
 
 	public String getOptionString() {
-		String space = "&amp;chbh=" + this.width;
+		String space = "&chbh=" + this.width;
 		if(isSpacingSet){
 			return space + "," + this.barSpace + "," + this.groupSpace;
 		} else {

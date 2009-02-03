@@ -40,7 +40,7 @@ public class MarkersAndStyle implements ChartOption {
 	}
 
 	public String getOptionString() {
-		String markers = "&amp;chm=";
+		String markers = "&chm=";
 		for(ChartOption marker : this.markers){
 			markers = markers + marker.getOptionString() + "|";
 		}

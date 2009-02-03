@@ -49,7 +49,7 @@ function validateOptions(){
 
 function validate(){
 	var optionsPassed = validateOptions();
-	var responseText = document.getElementById('responseText').value;
+	var responseText = document.getElementById('editor').value;
 	if(!optionsPassed){
 		alert("Please select one of the posting options (either Anonymous or with Team member names).");
 		return false;
@@ -69,7 +69,7 @@ function submit(){
 
 function post(){
 	var URL='postcomment.html';
-	var data='option=' + validateOptions() + '&text=' + document.getElementById('responseText').value + '&workgroupId=${workgroup.id}&answerId=${answer.id}';
+	var data='option=' + validateOptions() + '&text=' + document.getElementById('editor').value + '&workgroupId=${workgroup.id}&answerId=${answer.id}';
 	var callback = {
 		success:function(o){
 			var xmlDoc = o.responseXML;
@@ -123,15 +123,18 @@ function post(){
 					</div>
 				</div>
 				<div name="body" id="selectedResponseText">
-						<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
-						<c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if>
+					<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
+						<c:if test="${revisionStatus.last=='true'}">
+							<c:if test="${type=='OPEN_RESPONSE'}">${revision.body}</c:if>
+							<c:if test="${type=='SINGLE_CHOICE'}">${choicemap[revision.body]}</c:if>
+						</c:if>
 					</c:forEach>
 				</div>		
 			</div>
 			<br/>
 			<div id="comment">
 				<b>Comment (type your comment here):</b><br/>
-				<textarea id="responseText" cols="45" rows="8"></textarea>
+				<textarea id="editor" cols="45" rows="8"></textarea>
 			</div>
 		
 			<div id="selectPostType">

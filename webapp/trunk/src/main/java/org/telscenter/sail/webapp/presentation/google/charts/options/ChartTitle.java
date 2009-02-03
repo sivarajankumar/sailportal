@@ -40,11 +40,11 @@ public class ChartTitle implements ChartOption{
 	 * @see org.telscenter.sail.webapp.presentation.google.charts.ChartOption#getOptionString()
 	 */
 	public String getOptionString(){
-		String title = "&amp;chtt=" + this.title;
+		String title = "&chtt=" + this.title;
 		if(this.color==null && this.fontSize < 1){
 			return title;
 		} else {
-			return title + "&amp;chts=" + this.color + "," + this.fontSize;
+			return title + "&chts=" + this.color + "," + this.fontSize;
 		}
 	}
 

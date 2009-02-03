@@ -199,4 +199,14 @@ public interface BrainstormService {
 	 * @throws Exception when no answer with provided Id is found
 	 */
 	public Answer getAnswer(Long id) throws Exception;
+	
+	/**
+	 * Returns a <code>Set<Answer></code> that are associated with the
+	 * given <code>Long</code> id for a brainstorm.
+	 * 
+	 * @param <code>Long</code> id
+	 * @return <code>Set<Answer></code>
+	 * @throws Exception when no brainstorm with provided id exists
+	 */
+	public Set<Answer> getAnswersByBrainstormId(Long id) throws Exception;
 }

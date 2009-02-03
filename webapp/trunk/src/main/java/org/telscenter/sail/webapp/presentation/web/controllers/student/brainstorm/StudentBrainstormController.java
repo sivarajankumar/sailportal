@@ -22,17 +22,25 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm;
 
+import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBElement;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 
+import org.imsglobal.xsd.imsqti_v2p0.ImgType;
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -69,6 +77,10 @@ public class StudentBrainstormController extends AbstractController {
 	private static final String RUNID_PARAM = "runId";
 
 	private static final String PARENTBRAINSTORMID_PARAM = "parentBrainstormId";
+	
+	private final static String CHOICES = "choices";
+	
+	private final static String KEYS = "keys";
 
 	private BrainstormService brainstormService;
 
@@ -82,7 +94,7 @@ public class StudentBrainstormController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		User user = (User) request.getSession().getAttribute(
 				User.CURRENT_USER_SESSION_KEY);
-
+		Map<String, Serializable> choiceMap = new LinkedHashMap<String, Serializable>();
 		Brainstorm brainstorm = null;
 		String brainstormIdStr = request.getParameter(BRAINSTORMID_PARAM);
 		String runIdStr = request.getParameter(RUNID_PARAM);
@@ -135,9 +147,15 @@ public class StudentBrainstormController extends AbstractController {
 			return modelAndView;
 		}
 
+		if(brainstorm.getQuestiontype().equals(Questiontype.SINGLE_CHOICE)){
+			choiceMap = BrainstormUtils.getChoiceMap(brainstorm.getQuestion().getChoices());
+		}
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(BRAINSTORM_KEY, brainstorm);
 		modelAndView.addObject(WORKGROUP, workgroup);
+		modelAndView.addObject(CHOICES, choiceMap);
+		modelAndView.addObject(KEYS, choiceMap.keySet());
 		return modelAndView;
 	}
 

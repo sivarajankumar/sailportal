@@ -52,16 +52,39 @@ function validateOptions(){
 
 function validate(){
 	var optionsPassed = validateOptions();
-	var responseText = document.getElementById('responseText').value;
+	var questiontype = '${brainstorm.questiontype}';
 	if(!optionsPassed){
 		alert("Please select one of the posting options (either Anonymous or with Team member names).");
 		return false;
-	} else if(responseText == null || responseText == ""){
+	};
+	
+	if(questiontype == 'OPEN_RESPONSE'){
+		return validateOpenResponse();
+	} else if(questiontype == 'SINGLE_CHOICE'){
+		return validateSingleChoice();
+	};
+	return false;
+};
+
+function validateOpenResponse(){
+	var responseText = document.getElementById('editor').value;
+	if(responseText == null || responseText == ""){
 		alert("Please enter a response before submitting.");
 		return false;
 	} else {
 		return true;
 	};
+};
+
+function validateSingleChoice(){
+	var choices = document.getElementsByName('radioChoice');
+	for(x=0;x<choices.length;x++){
+		if(choices[x].checked){
+			return choices[x].value;
+		};
+	};
+	alert("Please select a choice before submitting.");
+	return false;
 };
 
 function submit(){
@@ -72,7 +95,13 @@ function submit(){
 
 function post(){
 	var URL='postresponse.html';
-	var data='option=' + validateOptions() + '&text=' + document.getElementById('responseText').value + '&workgroupId=${workgroup.id}&brainstormId=${brainstorm.id}';
+	var text;
+	if('${brainstorm.questiontype}' == 'OPEN_RESPONSE'){
+		text = document.getElementById('editor').value;
+	}else if('${brainstorm.questiontype}' == 'SINGLE_CHOICE'){
+		text = validateSingleChoice();
+	};
+	var data='option=' + validateOptions() + '&text=' + text + '&workgroupId=${workgroup.id}&brainstormId=${brainstorm.id}';
 	var callback = {
 		success:function(o){
 			var xmlDoc = o.responseXML;
@@ -83,11 +112,11 @@ function post(){
 			var answer = new Answer(answerElements[0]);
 			var pageManager = window.opener.pageManager;			
 			pageManager.addAnswer(answer);
-			self.close();
+			//self.close();
 		},
 		failure:function(o){
 			alert('failed to update to server');
-			self.close();
+			//self.close();
 		}
 	};
 	YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
@@ -116,10 +145,18 @@ function post(){
 			<span id="questionBox">${brainstorm.question.prompt}</span>
 		</div>
 	
-		<div id="response">
-			<b>Response:</b><br/>
-			<textarea id="responseText" cols="70" rows="6"></textarea>
-		</div>
+		<c:if test="${brainstorm.questiontype=='OPEN_RESPONSE'}">
+	    	<b>Response:</b><br>
+			<textarea id="editor" name="editor" rows="20" cols="75" ></textarea>
+		</c:if>
+		<c:if test="${brainstorm.questiontype=='SINGLE_CHOICE'}">
+			<div id="choiceList">
+			<b>Choices:</b><br>
+				<c:forEach var="key" varStatus="choiceStatus" items="${keys}">
+					<input type="radio" name="radioChoice" id="choice${key}" value="${key}"/> ${choices[key]} <br>
+				</c:forEach>
+			</div>
+		</c:if>
 	
 		<div id="selectPostType">
         	<c:if test="${brainstorm.displayNameOption == username_only}">  <!-- must NOT be anonymous -->

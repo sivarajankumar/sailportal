@@ -20,32 +20,32 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.google.charts.options;
+package org.telscenter.sail.webapp.presentation.validators.brainstorm;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.telscenter.sail.webapp.domain.brainstorm.CreateOpenResponseBrainstormParameters;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class ChartEffect implements ChartOption{
+public class CreateOpenResponseBrainstormParametersValidator implements Validator{
+
 	
-	private List<ChartOption> chartEffect = new LinkedList<ChartOption>();
-
-	public void addChartEffect(ChartOption effect){
-		this.chartEffect.add(effect);
-	}
-
-	public String getOptionString() {
-		String effects = "&chf=";
-		for(ChartOption effect : this.chartEffect){
-			effects = effects + effect.getOptionString() + "|";
-		}
-		return effects.substring(0, effects.length()-1);
+	/**
+	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
+	 */
+	@SuppressWarnings("unchecked")
+	public boolean supports(Class clazz) {
+		return CreateOpenResponseBrainstormParameters.class.isAssignableFrom(clazz);
 	}
 	
-	
+	/**
+	 * @see org.springframework.validation.Validator#validate(java.lang.Object,
+	 *      org.springframework.validation.Errors)
+	 */
+	public void validate(Object paramsIn, Errors errors) {
+		
+	}
 }

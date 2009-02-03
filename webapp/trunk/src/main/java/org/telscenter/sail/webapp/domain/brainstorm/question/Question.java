@@ -23,6 +23,9 @@
 package org.telscenter.sail.webapp.domain.brainstorm.question;
 
 import java.math.BigInteger;
+import java.util.List;
+
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 
 import net.sf.sail.webapp.domain.Persistable;
 
@@ -69,4 +72,23 @@ public interface Question extends Persistable {
 	 * @return
 	 */
 	public Question getCopy();
+		
+	/**
+	 * Gets a <code>List<SimpleChoiceType></code> for this question
+	 * 
+	 * @return <code>List<SimpleChoiceType></code> choices
+	 */
+	public List<SimpleChoiceType> getChoices();
+	
+	/**
+	 * Gets the <code>String</code> correct choice for this question
+	 * @return <code>String</code>
+	 */
+	public String getCorrectChoice();
+	
+	/**
+	 * Gets the <code>String</code> new choices for this question
+	 * @return <code>String</code>
+	 */
+	public String getNewChoices();
 }

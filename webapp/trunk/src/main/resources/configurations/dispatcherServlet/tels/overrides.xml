@@ -119,6 +119,8 @@
 				/student/brainstorm/requesthelp.html=requestHelpController
 				/student/brainstorm/pollnewposts.html=pollNewPostsController
 				/student/brainstorm/getallposts.html=getAllPostsController
+				/student/brainstorm/resultsgraph.html=resultsGraphController
+				/student/brainstorm/pollinstantpoll.html=pollInstantPollController
 				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
@@ -158,6 +160,11 @@
 				/teacher/run/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
 				/teacher/run/brainstorm/requesthelp.html=requestHelpController
 				/teacher/run/brainstorm/pollnewposts.html=pollNewPostsController
+				/teacher/run/brainstorm/resultsgraph.html=resultsGraphController
+				/teacher/run/brainstorm/pollinstantpoll.html=pollInstantPollController
+				/teacher/run/brainstorm/createnewbrainstorm.html=createNewBrainstormController
+				/teacher/run/brainstorm/createopenresponsebrainstorm.html=createOpenResponseBrainstormController
+				/teacher/run/brainstorm/createsinglechoicebrainstorm.html=createSingleChoiceBrainstormController
     		    /teacher/grading/overview.html=gradeOverviewController
     		    /teacher/grading/gradebystep.html=gradeByStepController
 				/teacher/grading/gradingtool.html=gradingToolController

@@ -73,7 +73,7 @@ public class ChartColor implements ChartOption{
 	 * @see org.telscenter.sail.webapp.presentation.google.charts.ChartOption#getOptionString()
 	 */
 	public String getOptionString(){
-		String colors = "&amp;chco=";
+		String colors = "&chco=";
 		for(String color : this.colors){
 			colors = colors + color + this.separator;
 		}

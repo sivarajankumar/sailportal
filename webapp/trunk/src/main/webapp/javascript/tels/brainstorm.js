@@ -1,6 +1,8 @@
 
 function Answers(){
 	this.answers = [];
+	this.choices = [];
+	this.type;
 	this.allAnswers = [];
 };
 
@@ -11,6 +13,13 @@ Answers.prototype.setAnswers = function(xmlAnswers){
 			this.setAnswer(xAnswers[x]);
 		};
 	};	
+	
+	var xChoices = xmlAnswers.getElementsByTagName('choice');
+	if(xChoices!=null && xChoices[0]!=null){
+		for(yh=0;yh<xChoices.length;yh++){
+			this.setChoice(xChoices[yh]);
+		};
+	};
 };
 
 Answers.prototype.getAnswers = function(){
@@ -33,6 +42,22 @@ Answers.prototype.getAnswerById = function(id){
 			return this.answers[aa];
 		};
 	};
+};
+
+Answers.prototype.getType = function(){
+	return this.type;
+};
+
+Answers.prototype.setType = function(type){
+	this.type = type;
+};
+
+Answers.prototype.setChoice = function(xmlChoice){
+	this.choices.push(new Choice(xmlChoice));
+};
+
+Answers.prototype.getChoices = function(){
+	return this.choices;
 };
 
 function oldestFirst(a, b){
@@ -69,6 +94,14 @@ Answers.prototype.sort = function(criteria, sortingOrder){
     }
 };
 
+Answers.prototype.toString = function(){
+	var outAnswers = "Answers: ";
+	for(l=0;l<this.answers.length;l++){
+		outAnswers = outAnswers + this.answers[l].toString();
+	};
+	return outAnswers;
+};
+
 function isTeacherTagged(answer){	
 	var answerTags = answer.getAnswerTags();
 	for (at=0;at<answerTags.length;at++) {
@@ -85,14 +118,6 @@ Answers.prototype.filter = function(isFilterOn){
 	} else {
 		this.answers = this.allAnswers;	
 	}
-};
-
-Answers.prototype.toString = function(){
-	var outAnswers = "Answers: ";
-	for(l=0;l<this.answers.length;l++){
-		outAnswers = outAnswers + this.answers[l].toString();
-	};
-	return outAnswers;
 };
 
 function Answer(xmlAnswer){
@@ -140,12 +165,6 @@ Answer.prototype.setWorkgroup = function(xmlWorkgroup){
 	};
 };
 
-Answer.prototype.setAnswerTag = function(xmlAnswerTag){
-	if(xmlAnswerTag!=null){
-		this.answerTag=(new AnswerTag(xmlAnswerTag));
-	};
-};
-
 Answer.prototype.setComments = function(xmlComments){
 	if(xmlComments!=null && xmlComments[0]!=null){
 		var comments = xmlComments[0].getElementsByTagName('comment');
@@ -161,6 +180,27 @@ Answer.prototype.setAnonymous = function(xmlAnon){
 	if(xmlAnon!=null){
 		this.anonymous=booleanValueOf(xmlAnon.childNodes[0].nodeValue);
 	};
+};
+
+Answer.prototype.setAnswerTag = function(xmlAnswerTag){
+	if(xmlAnswerTag!=null){
+		this.answerTag=(new AnswerTag(xmlAnswerTag));
+	};
+};
+
+Answer.prototype.setAnswerTags = function(xmlAnswerTags){
+	if(xmlAnswerTags!=null && xmlAnswerTags[0]!=null){
+		var answerTags = xmlAnswerTags[0].getElementsByTagName('answertag');
+		if(answerTags!=null && answerTags[0]!=null){
+			for(af=0;af<answerTags.length;af++){
+				this.answerTags.push(new AnswerTag(answerTags[af]));
+			};
+		};
+	};
+};
+
+Answer.prototype.getAnswerTags = function(){
+	return this.answerTags;
 };
 
 function booleanValueOf(v){
@@ -182,16 +222,6 @@ Answer.prototype.setHelpfulWorkgroups = function(xmlHelpfulWorkgroups){
 	};
 };
 
-Answer.prototype.setAnswerTags = function(xmlAnswerTags){
-	if(xmlAnswerTags!=null && xmlAnswerTags[0]!=null){
-		var answerTags = xmlAnswerTags[0].getElementsByTagName('answertag');
-		if(answerTags!=null && answerTags[0]!=null){
-			for(af=0;af<answerTags.length;af++){
-				this.answerTags.push(new AnswerTag(answerTags[af]));
-			};
-		};
-	};
-};
 Answer.prototype.addRevision = function(revision){
 	this.revisions.push(revision);
 };
@@ -222,10 +252,6 @@ Answer.prototype.isAnonymous = function(){
 
 Answer.prototype.getHelpfulWorkgroups = function(){
 	return this.helpfulWorkgroups;
-};
-
-Answer.prototype.getAnswerTags = function(){
-	return this.answerTags;
 };
 
 Answer.prototype.getLatestRevision = function(){
@@ -389,74 +415,6 @@ Comment.prototype.isAnonymous = function(){
 	return this.anonymous;
 };
 
-function AnswerTag(xmlAnswerTag){
-	this.id;
-	this.type;
-	this.isTeacherAnswerTag;
-	this.explanation;
-	this.workgroup;
-	this.setAnswerTag(xmlAnswerTag);
-};
-
-AnswerTag.prototype.setAnswerTag = function(xmlAnswerTag){
-	this.setId(xmlAnswerTag.childNodes[0]);
-	this.setType(xmlAnswerTag.childNodes[1]);
-	this.setIsTeacherAnswerTag(xmlAnswerTag.childNodes[2]);
-	this.setExplanation(xmlAnswerTag.childNodes[3]);
-	this.setWorkgroup(xmlAnswerTag.childNodes[4]);
-};
-
-AnswerTag.prototype.setId = function(xmlId){
-	if(xmlId!=null){
-		this.id=xmlId.childNodes[0].nodeValue;
-	};
-};
-
-AnswerTag.prototype.setType = function(xmlType){
-	if(xmlType!=null){
-		this.type=xmlType.childNodes[0].nodeValue;
-	};
-};
-
-AnswerTag.prototype.setIsTeacherAnswerTag = function(xmlIsTeacherAnswer){
-	if(xmlIsTeacherAnswer!=null){
-		this.isTeacherAnswerTag=xmlIsTeacherAnswer.childNodes[0].nodeValue;
-	};
-};
-
-AnswerTag.prototype.setExplanation = function(xmlExplanation){
-	if(xmlExplanation!=null){
-		this.explanation=xmlExplanation.childNodes[0].nodeValue;
-	};
-};
-
-AnswerTag.prototype.setWorkgroup = function(xmlWorkgroup){
-	if(xmlWorkgroup!=null){
-		this.workgroup = new Workgroup(xmlWorkgroup);
-		//this.workgroup=xmlWorkgroup.childNodes[0].nodeValue;
-	};
-};
-
-AnswerTag.prototype.getId = function(){
-	return this.id;
-};
-
-AnswerTag.prototype.getType = function(){
-	return this.type;
-};
-
-AnswerTag.prototype.getIsTeacherAnswerTag = function(){
-	return this.isTeacherAnswerTag;
-};
-
-AnswerTag.prototype.getExplanation = function(){
-	return this.explanation;
-};
-
-AnswerTag.prototype.getWorkgroup = function(){
-	return this.workgroup;
-};
-
 function Workgroup(xmlWorkgroup){
 	this.id;
 	this.members = [];
@@ -547,6 +505,99 @@ Member.prototype.getLastname = function(){
 	return this.lastname;
 };
 
+
+function AnswerTag(xmlAnswerTag){
+	this.id;
+	this.type;
+	this.isTeacherAnswerTag;
+	this.explanation;
+	this.workgroup;
+	this.setAnswerTag(xmlAnswerTag);
+};
+
+AnswerTag.prototype.setAnswerTag = function(xmlAnswerTag){
+	this.setId(xmlAnswerTag.childNodes[0]);
+	this.setType(xmlAnswerTag.childNodes[1]);
+	this.setIsTeacherAnswerTag(xmlAnswerTag.childNodes[2]);
+	this.setExplanation(xmlAnswerTag.childNodes[3]);
+	this.setWorkgroup(xmlAnswerTag.childNodes[4]);
+};
+
+AnswerTag.prototype.setId = function(xmlId){
+	if(xmlId!=null){
+		this.id=xmlId.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.setType = function(xmlType){
+	if(xmlType!=null){
+		this.type=xmlType.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.setIsTeacherAnswerTag = function(xmlIsTeacherAnswer){
+	if(xmlIsTeacherAnswer!=null){
+		this.isTeacherAnswerTag=xmlIsTeacherAnswer.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.setExplanation = function(xmlExplanation){
+	if(xmlExplanation!=null){
+		this.explanation=xmlExplanation.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.setWorkgroup = function(xmlWorkgroup){
+	if(xmlWorkgroup!=null){
+		this.workgroup = new Workgroup(xmlWorkgroup);
+		//this.workgroup=xmlWorkgroup.childNodes[0].nodeValue;
+	};
+};
+
+AnswerTag.prototype.getId = function(){
+	return this.id;
+};
+
+AnswerTag.prototype.getType = function(){
+	return this.type;
+};
+
+AnswerTag.prototype.getIsTeacherAnswerTag = function(){
+	return this.isTeacherAnswerTag;
+};
+
+AnswerTag.prototype.getExplanation = function(){
+	return this.explanation;
+};
+
+AnswerTag.prototype.getWorkgroup = function(){
+	return this.workgroup;
+};
+
+function Choice(xmlChoice){
+	this.identifier = xmlChoice.getElementsByTagName('identifier')[0].childNodes[0].nodeValue;
+	this.content;
+	if(xmlChoice.getElementsByTagName('content')[0].childNodes[0].nodeValue==null){
+		var imgNode = xmlChoice.getElementsByTagName('content')[0].childNodes[0]; 
+		var img = "<img src=\"" + imgNode.getAttribute('src') + "\"/>";
+		this.content = img;
+	} else {
+		this.content = xmlChoice.getElementsByTagName('content')[0].childNodes[0].nodeValue;
+	};
+};
+
+Choice.prototype.getIdentifier = function(){
+	return this.identifier;
+};
+
+Choice.prototype.getContent = function(){
+	return this.content;
+};
+
+Choice.prototype.matches = function(identifier){
+	return this.identifier==identifier;
+};
+
 /**
 * functions for building elements and inserting them into
 * the appropriate place for the student brainstorm
@@ -568,24 +619,42 @@ function createElement(doc, type, attrArgs){
 	return newElement;
 };
 
+/**
+ * Returns true iff the specified Workgroup has tagged the
+ * specified answer.
+ * @param workgroupId
+ * @param answer
+ * @return
+ */
+function tagged(workgroupId, answer){
+	var answertags = answer.getAnswerTags();  //answertags is an array of AnswerTag.
+	var tagged = false;
+	for(ab=0;ab<answertags.length;ab++){
+		if(answertags[ab].getWorkgroup().getId()==workgroupId){
+			tagged=true;
+		};
+	};	
+	return tagged;
+};
+
 function createAnswerElements(doc, answers, workgroupId, brainstormId){
 	var answerElements = [];
 	var answerArray = answers.getAnswers();
 	
 	for(w=0;w<answerArray.length;w++){
-		answerElements.push(createAnswerElement(doc, answerArray[w], workgroupId, brainstormId));
+		answerElements.push(createAnswerElement(doc, answerArray[w], workgroupId, brainstormId, answers.getType(), answers.getChoices()));
 	};
 	return answerElements;
 };
 
-function createAnswerElement(doc, answer, workgroupId, brainstormId){
+function createAnswerElement(doc, answer, workgroupId, brainstormId, type, choices){
 	var answerElement = createElement(doc, 'div', {id:answer.getId(), name:'answer', 'class':'studentResponse'});
 	var answerTable = createElement(doc,'table', {id:'revisionBoxTable'});
 	answerElement.appendChild(answerTable);
-
-	answerTable.appendChild(createLatestRevisionElement(doc, workgroupId, answer, brainstormId));
+	
+	answerTable.appendChild(createLatestRevisionElement(doc, workgroupId, answer, brainstormId, type, choices));
 	if(answer.getRevisions().length>1){
-		answerTable.appendChild(createOtherRevisionElements(doc, answer));
+		answerTable.appendChild(createOtherRevisionElements(doc, answer, type, choices));
 	};
 	if(answer.getComments().length > 0){
 		answerTable.appendChild(createCommentsElement(doc, workgroupId, answer, brainstormId));
@@ -594,12 +663,12 @@ function createAnswerElement(doc, answer, workgroupId, brainstormId){
 	return answerElement;
 }
 
-function createLatestRevisionElement(doc, workgroupId, answer, brainstormId){
+function createLatestRevisionElement(doc, workgroupId, answer, brainstormId, type, choices){
 	var revisionElement = createElement(doc, 'tr', {id:answer.getLatestRevision().getId(), 'class':'currentResponseBoxTR', name:'revision'});
 	var revisionTable = createElement(doc, 'table', {'class':'currentResponseBoxInsetTable'});
 	revisionElement.appendChild(revisionTable);
 	revisionTable.appendChild(createRevisionHead(doc, workgroupId, answer));
-	revisionTable.appendChild(createRevisionBody(doc, workgroupId, answer, brainstormId));
+	revisionTable.appendChild(createRevisionBody(doc, workgroupId, answer, brainstormId, type, choices));
 	
 	return revisionElement;
 };
@@ -643,7 +712,7 @@ function createRevisionHead(doc, workgroupId, answer){
 	return head;
 };
 
-function createRevisionBody(doc, workgroupId, answer, brainstormId){
+function createRevisionBody(doc, workgroupId, answer, brainstormId, type, choices){
 	var tbody = createElement(doc, 'tbody');
 	var revHead = createElement(doc, 'tr');
 	var revBody = createElement(doc, 'tr');
@@ -670,21 +739,6 @@ function createRevisionBody(doc, workgroupId, answer, brainstormId){
 		divVar.appendChild(helpfulTxt);
 	};
 	
-	// now add "choose-n" if the logged-in user has the right privileges.
-	if (isTeacherWorkgroup) {
-		var tagAnswerCheckBox;
-		var hasTagged = tagged(workgroupId, answer);
-		var tagTxt = createElement(doc, 'label', {});		
-		tagTxt.innerHTML = 'tag this response';
-		if(hasTagged){
-			tagAnswerCheckBox = createElement(doc, 'input', {type:'checkbox', id:'tag_' + workgroupId + '_' + answer.getId(), checked:'checked', value:'tag', onclick:'javascript:tagAnswer(' + workgroupId +', ' + answer.getId() + ')'});
-		} else {
-			tagAnswerCheckBox = createElement(doc, 'input', {type:'checkbox', id:'tag_' + workgroupId + '_' + answer.getId(), value:'tag', onclick:'javascript:tagAnswer(' + workgroupId +', ' + answer.getId() + ')'});
-		};
-		divVar.appendChild(tagAnswerCheckBox);
-		divVar.appendChild(tagTxt);
-	}
-	
 	if(answer.getRevisions().length > 1){
 		var revRow = createElement(doc, 'td', {'class':'currentRevisionNumber'});
 		revRow.appendChild(doc.createTextNode('Revision ' + answer.getRevisions().length));
@@ -696,7 +750,12 @@ function createRevisionBody(doc, workgroupId, answer, brainstormId){
 	revFoot.appendChild(cell1);
 	revFoot.appendChild(cell2);
 	var revPre = createElement(doc, 'td', {'class':'currentResponseText', colSpan:'3'});
-	revPre.innerHTML = answer.getLatestRevision().getBody();
+
+	if(type == 'SINGLE_CHOICE'){
+		revPre.innerHTML = getChoice(answer.getLatestRevision().getBody(), choices);
+	} else {
+		revPre.innerHTML = answer.getLatestRevision().getBody();
+	};
 	revBody.appendChild(revPre);
 	tbody.appendChild(revHead);
 	tbody.appendChild(revBody);
@@ -715,25 +774,7 @@ function foundHelpful(workgroupId, answer){
 	return helpful;
 };
 
-/**
- * Returns true iff the specified Workgroup has tagged the
- * specified answer.
- * @param workgroupId
- * @param answer
- * @return
- */
-function tagged(workgroupId, answer){
-	var answertags = answer.getAnswerTags();  //answertags is an array of AnswerTag.
-	var tagged = false;
-	for(ab=0;ab<answertags.length;ab++){
-		if(answertags[ab].getWorkgroup().getId()==workgroupId){
-			tagged=true;
-		};
-	};	
-	return tagged;
-};
-
-function createOtherRevisionElements(doc, answer){
+function createOtherRevisionElements(doc, answer, type, choices){
 	var otherRevisions = answer.getOtherRevisions();
 	var others = createElement(doc, 'tr', {name:'revisionrow'});
 	var othersTable = createElement(doc, 'table', {name:'revisionTable', id:'revisionTable'});
@@ -755,7 +796,12 @@ function createOtherRevisionElements(doc, answer){
 		var newRow = createElement(doc, 'tr');
 		var newTD = createElement(doc, 'td', {'class':'revisionTextTD'});
 		var spanDiv = createElement(doc, 'span', {'class':'revisionTextTag'});
-		var newRevisionTextBody = (o+1) + ': ' + otherRevisions[o].getBody();
+		var newRevisionTextBody = (o+1) + ': ';
+		if(type == 'SINGLE_CHOICE'){
+		 	newRevisionTextBody = newRevisionTextBody + getChoice(otherRevisions[o].getBody(), choices);
+		 } else {
+		 	newRevisionTextBody = newRevisionTextBody + otherRevisions[o].getBody();
+		 };
 		var newRevisionTextTag =  ' (' + names + ', ' + otherRevisions[o].getTimestamp() + ')';
 				
 		othersTable.appendChild(newRow);
@@ -841,4 +887,14 @@ function toggle_visibility_by_name(name) {
        else
           e.style.display = 'none';       
    }
+};
+
+function getChoice(identifier, choices){
+	var retChoice;
+	for(yj=0;yj<choices.length;yj++){
+		if(choices[yj].matches(identifier)){
+			retChoice = choices[yj].getContent();
+		};
+	};
+	return retChoice;
 };

@@ -22,28 +22,26 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm;
 
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class PollNewPostsController extends AbstractController{
-	
-	private final static String NUMBEROFPOSTS = "xmlDoc";
-	
+public class PollInstantPollController extends AbstractController{
+
 	private final static String BRAINSTORMID = "brainstormId";
 	
+	private final static String XMLDOC = "xmlDoc";
+	
 	private BrainstormService brainstormService;
+	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -51,16 +49,13 @@ public class PollNewPostsController extends AbstractController{
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		int total = 0;
-		Set<Answer> answers = this.brainstormService.getAnswersByBrainstormId(Long.parseLong(request.getParameter(BRAINSTORMID)));
-		for(Answer answer: answers){
-			total = total + answer.getComments().size() + answer.getRevisions().size();
-		}
-		
+		Brainstorm brainstorm = this.brainstormService.getBrainstormById(Long.parseLong(request.getParameter(BRAINSTORMID)));
+		boolean xmlDoc = brainstorm.isInstantPollActive();
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(NUMBEROFPOSTS, total);
+		modelAndView.addObject(XMLDOC, xmlDoc);
 		return modelAndView;
 	}
+
 	/**
 	 * @param brainstormService the brainstormService to set
 	 */

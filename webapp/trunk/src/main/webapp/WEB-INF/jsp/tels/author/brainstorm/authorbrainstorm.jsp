@@ -80,6 +80,142 @@ function showsamplediv(brainstormId) {
 		};
 	YAHOO.util.Connect.asyncRequest('POST', URL, callback, data);
 }
+
+	var choices = [];
+	
+	function addChoice(){
+		var text = document.getElementById("choiceText").value;
+		if(text=="" || text==null){
+			displayChoiceError("The choice field cannot be blank.");
+		} else {
+			document.getElementById("error").innerHTML = "";
+			var index = document.getElementsByName('radioChoice').length;
+			createChoiceDisplay(index, text, 'radioChoice');
+			createChoiceDisplay(index, text, 'previewRadioChoice');
+			document.getElementById("choiceText").value = "";
+		};
+	};
+	
+	function createChoicesDisplay(){
+		for(x=0;x<choices.length;x++){
+			createChoiceDisplay(x, choices[x], 'radioChoice');
+			createChoiceDisplay(x, choices[x], 'previewRadioChoice');
+		};
+	};
+	
+	function createChoiceDisplay(index, item, name){
+			var choicediv = createElement(document, 'div', {id: name + index});
+			var choiceradio = createElement(document, 'input', {id: 'radio_' + index, type: 'radio', name: name, value: item});
+			var choicetext;
+			
+			if(name=='radioChoice'){
+				choicetext = document.createTextNode('Choice ' + (index + 1) + ': ' + item);
+				var choicelink = createElement(document, 'a', {href: '#createChoices', onclick: 'removeChoice(' + index + ')'});
+				var linktext = document.createTextNode(' remove');
+			} else {
+				choicetext = document.createTextNode(item);
+			};
+			
+			choicediv.appendChild(choiceradio);
+			choicediv.appendChild(choicetext);
+			
+			if(name=='radioChoice'){
+				choicediv.appendChild(choicelink);
+				choicelink.appendChild(linktext);
+			};
+			
+			document.getElementById(name + "List").appendChild(choicediv);	
+	};
+	
+	function removePreviousChoices(){
+		var parent = document.getElementById('createChoices');
+		parent.removeChild(document.getElementById('radioChoiceList'));
+		parent.appendChild(createElement(document, 'div', {id: 'radioChoiceList'}));
+		
+		var parentDisplay = document.getElementById('previewChoices');
+		parentDisplay.removeChild(document.getElementById('previewRadioChoiceList'));
+		parentDisplay.appendChild(createElement(document, 'div', {id: 'previewRadioChoiceList'}));
+	};
+	
+	function removeChoice(i){
+		populateChoices();
+		choices.splice(i, 1);
+		removePreviousChoices();
+		createChoicesDisplay();
+	};
+	
+	function populateChoices(){
+		choices = [];
+		var choiceOpts = document.getElementsByName('radioChoice');
+		for(x=0;x<choiceOpts.length;x++){
+			choices.push(choiceOpts[x].value);
+		};	
+	};
+	
+	function displayChoiceError(error){
+		document.getElementById("error").innerHTML = "<font color='8B0000'>" + error + "</font>";
+	};
+	
+	function displayFormError(error){
+		document.getElementById("formError").innerHTML = "<font color='8B0000'>" + error + "</font>";
+	};
+
+	function getChoicesXML(){
+		var xmlChoices;
+		populateChoices();
+		for(x=0;x<choices.length;x++){
+			if(x==0){
+				xmlChoices = "<simpleChoice identifier=\"choice" + (x + 1) + "\">" + choices[x] + "</simpleChoice>"
+			} else {
+				xmlChoices = xmlChoices + "<simpleChoice identifier=\"choice" + (x + 1) + "\">" + choices[x] + "</simpleChoice>"
+			};
+		};
+		return xmlChoices;
+	};
+	
+	function Validate(){
+		document.getElementById('error').innerHTML = "";
+		document.getElementById('formError').innerHTML = "";
+
+		var radioChoices = document.forms[0].radioChoice;
+		if(radioChoices==null){
+			displayFormError("You must create at least one choice for your question.");
+			return false;
+		};
+		
+		var found = false;
+		if(radioChoices.length!=null){
+			for(x=0;x<radioChoices.length;x++){
+				if(radioChoices[x].checked == true){
+					found = true;
+					document.forms[0].correctChoice.value = 'choice' + (x + 1);
+				}
+			};
+			if(!found){
+				if(!warn()){
+					return false;
+				};
+			};
+		} else {
+			if(radioChoices.checked!=true){
+				if(!warn()){
+					return false;
+				};
+			};
+		};
+
+		var text = document.getElementById('promptTextArea').value
+		if(text == "" || text == null){
+			displayFormError("The question field cannot be left blank.");
+			return false;
+		};		
+		document.forms[0].choices.value = getChoicesXML();
+		return true;
+	};
+	
+	function warn(){
+		return confirm("No choice has been selected as the 'correct' choice. Do you wish to continue?");
+	};
 </script>
 </head>
 
@@ -120,7 +256,7 @@ You're moving into a land of both shadow and substance, of things and ideas. You
 
 </c:if>
 
-<form:form method="post" action="authorbrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+<form:form method="post" action="authorbrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" onsubmit="return Validate()" id="brainstormform" >
 
 <div class="authorSectionHeader">Gating Options for Q&amp;A Step</div>
 
@@ -192,9 +328,31 @@ You're moving into a land of both shadow and substance, of things and ideas. You
       <div style="margin:0 0 0 25px;">
       	<form:textarea onkeyup="javascript:updatePromptPreview()" rows="10" cols="110" path="question.prompt" id="promptTextArea" ></form:textarea>
       	<form:errors path="question.prompt" />
-      </div>	
+      </div>
+      <a name="createChoices"></a>
+      <c:if test="${brainstorm.questiontype == 'SINGLE_CHOICE'}">
+      	<form:hidden id="correctChoice" path="question.correctChoice"/>
+      	<form:hidden id="choices" path="question.newChoices"/>
+      	Edit choices here. If there is one that you wish to indicate as correct, make sure that you indicate it here.
+      	<div id="createChoices">
+    		<textarea rows="2" cols="50" id="choiceText"></textarea><input type="button" value="Add Choice" onclick="addChoice()"/>
+	    	<div id="error"></div>
+		    <div id="radioChoiceList">
+		    	<c:set var="choiceCount" value="0"/>
+		    	<c:forEach var="key" varStatus="choiceStatus" items="${keys}">
+		    		<c:if test="${brainstorm.question.correctChoice==key}">
+		    			<input type="radio" name="radioChoice" id="${key}" value="${choices[key]}" CHECKED>Choice ${choiceCount + 1}: ${choices[key]} </input><a href="#createChoices" onclick="removeChoice('${choiceCount}')">remove</a>
+		    		</c:if>
+		    		<c:if test="${brainstorm.question.correctChoice!=key}">
+		    			<input type="radio" name="radioChoice" id="${key}" value="${choices[key]}">Choice ${choiceCount + 1}: ${choices[key]} </input><a href="#createChoices" onclick="removeChoice('${choiceCount}')">remove</a>
+		    		</c:if>
+					<br>
+					<c:set var="choiceCount" value="${choiceCount + 1}"/>
+				</c:forEach>
+		    </div>
+	    </div>
+      </c:if>	
    </div>
-
 
 
 <br/>
@@ -203,6 +361,16 @@ You're moving into a land of both shadow and substance, of things and ideas. You
     <div class="authorSectionHeader2">Question Preview </div>
     <div class="authorOptionsBlock">Your question will appear to students as follows:</div>
 	<div id="promptPreview">${brainstorm.question.prompt}</div>
+	<br>
+	<div id="previewChoices">
+		<div id="previewRadioChoiceList">
+			<c:if test="${brainstorm.questiontype == 'SINGLE_CHOICE' }">
+				<c:forEach var="key" varStatus="choiceStatus" items="${keys}">
+					<input type="radio" name="previewRadioChoice" id="${key}"> ${choices[key]}<br>
+				</c:forEach>
+			</c:if>
+		</div>
+	</div>
 
 	<br/>
 
@@ -280,6 +448,7 @@ You're moving into a land of both shadow and substance, of things and ideas. You
 	<input type="submit" name="save" value="Save All Changes" />
 	<input type="reset" onclick="javascript:alert('please manually close this window')" name="cancel" value="Close without Saving" />
 </div>
+<div id="formError"></div>
 
 </div>    <!-- end of centered div-->
 

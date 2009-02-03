@@ -22,7 +22,7 @@
 	var pageManager;
 	var isTeacherWorkgroup = ${workgroup.teacherWorkgroup};
 
-	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortCriteria, sortOrder);
+	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortCriteria, sortOrder, '${brainstorm.questiontype}');
 </script>
 
 </head>
@@ -46,8 +46,17 @@
 		
 		<div id="column2">
 			<div id="questionContent" name="questionPrompt">${brainstorm.question.prompt}</div>
+			<c:if test="${brainstorm.questiontype=='SINGLE_CHOICE'}">
+				<div id="choiceList">
+					<c:forEach var="key" varStatus="keyStatus" items="${keys}">
+						<input type="radio" name="listChoiceRadio" disabled="true" id="listChoice${key}">${choices[key]}</input><br>
+					</c:forEach>
+				</div>
+			</c:if>
 			<div id="instructions1">To answer this Q&amp;A discussion question, click the <b>Create A New Response</b> button below.</div>
 		</div>
+	
+		<div id="column3"><div id="graph"></div></div>
 	
 	</div>
 	
@@ -96,8 +105,8 @@
 <div id="studentBottomBar">
 		<table>
 			<tr>
-				<td class="col1"><div id="createResponse"><input type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
-				<td class="col2" id="showLatest"><input type="button" value="Update Display" disabled onclick="alert('not implemented yet. Please click on the refresh button in the browser')"/></td>
+				<td class="col1"><div id="createResponse"><input id="createResponseButton" type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
+				<td class="col2" id="showLatest"><input id="showLatestButton" type="button" value="Update Display" onclick="refreshResponses()"/></td>
 				<td class="col3"><div id="numNewResponses"><i>Show [x] new postings<i></div></td>
 				<td colspan="2"><c:set var="thisworkgrouprequestedhelp" value="false" />
 					<c:forEach var="workgroupThatRequestedHelp" varStatus="wtrh" items="${brainstorm.workgroupsThatRequestHelp}">

@@ -22,7 +22,11 @@
 	var pageManager;
 	var isTeacherWorkgroup = "${workgroup.teacherWorkgroup}";
 
-	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortOrder);
+		function changeInterval(brainstormId, interval){
+		pageManager.setPollInterval(interval);
+	};
+
+	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortCriteria, sortOrder, '${brainstorm.questiontype}');
 </script>
 
 </head>
@@ -52,6 +56,17 @@
 		  <form:radiobutton path="sessionStarted" onclick="javscript:this.form.submit();" value="false" /> DEACTIVATE Q&A  <span style="font-size:.7em;">(do not allow students to see the Q&A step)</span>
 	  </li>
     </ul>
+</form:form>
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform">
+	<form:hidden path="id"/>
+	<ul>
+		<li id="instantPoll">
+			<form:radiobutton path="instantPollActive" onclick="javascript:this.form.submit();" value="false"/> DEACTIVATE INSTANT POLL - students will not be allowed to respond to the prompt.
+		</li>
+		<li>
+			<form:radiobutton path="instantPollActive" onclick="javascript:this.form.submit();" value="true"/> ACTIVATE INSTANT POLL - allows students to respond to the prompt
+		</li>
+	</ul>
 </form:form>
 <form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
     <form:hidden path="id" />
@@ -89,6 +104,28 @@
 	  </li>	  
     </ul>
 </form:form>
+<c:if test="${brainstorm.questiontype=='SINGLE_CHOICE'}">
+	<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform">
+		<form:hidden path="id"/>
+		<ul>
+			<li id="test">
+				<form:radiobutton path="pollEnded" onclick="javascript:this.form.submit();" value="true"/>ALLOW STUDENTS to see results, graphs and charts regarding this poll.
+			</li>
+			<li>
+				<form:radiobutton path="pollEnded" onclick="javascript:this.form.submit();" value="false"/>DO NOT ALLOW STUDENTS to see results, graphs and charts regarding this poll.
+			</li>
+		</ul>
+	</form:form>
+</c:if>
+<div id="pollingInterval">
+		Select the interval for polling to find new Q&amp;A responses.
+		<br>
+		<input type="radio" name="pollingRadio" value="15000" onclick="javascript:changeInterval(${brainstorm.id}, 15000);">15 seconds</input><br>
+		<input type="radio" name="pollingRadio" value="30000" onclick="javascript:changeInterval(${brainstorm.id}, 30000);">30 seconds</input><br>
+		<input type="radio" name="pollingRadio" value="45000" onclick="javascript:changeInterval(${brainstorm.id}, 45000);">45 seconds</input><br>
+		<input type="radio" name="pollingRadio" value="60000" onclick="javascript:changeInterval(${brainstorm.id}, 60000);" CHECKED>60 seconds</input><br>
+	</div>
+	<br>
 ${fn:length(brainstorm.workgroupsThatRequestHelp)} students have requested HELP for this Q&A Discussion step:
 <br />
 students that requested help: <br/>
@@ -118,8 +155,17 @@ students that requested help: <br/>
 		
 		<div id="column2">
 			<div id="questionContent" name="questionPrompt">${brainstorm.question.prompt}</div>
+			<c:if test="${brainstorm.questiontype=='SINGLE_CHOICE'}">
+				<div id="choiceList">
+					<c:forEach var="key" varStatus="keyStatus" items="${keys}">
+						<input type="radio" name="listChoiceRadio" disabled="true" id="listChoice${key}">${choices[key]}</input><br>
+					</c:forEach>
+				</div>
+			</c:if>
 			<div id="instructions1">To answer this Q&amp;A discussion question, click the <b>Create A New Response</b> button below.</div>
 		</div>
+	
+		<div id="column3"><div id="graph"></div></div>
 	
 	</div>
 	
@@ -171,8 +217,8 @@ students that requested help: <br/>
 <div id="teacherBottomBar">
 		<table>
 			<tr>
-				<td class="col1"><div id="createResponse"><input type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
-				<td class="col2" id="showLatest"><input type="button" value="Update Display" onclick="refreshResponses()"/></td>
+				<td class="col1"><div id="createResponse"><input id="createResponseButton" type="button" value="Create A New Response" onclick="responsePopUp(${workgroup.id}, ${brainstorm.id})"></input></div></td>
+				<td class="col2" id="showLatest"><input id="showLatestButtonTeacher" type="button" value="Update Display" onclick="refreshResponses()"/></td>
 				<td class="col3"><div id="numNewResponses"><i>Show [x] new postings</i></div></td>	
 		        <td>
 				       	<dl>

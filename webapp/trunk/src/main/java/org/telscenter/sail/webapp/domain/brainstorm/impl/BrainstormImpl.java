@@ -51,6 +51,7 @@ import org.hibernate.annotations.SortType;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
+import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.PreparedAnswer;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
@@ -127,6 +128,15 @@ public class BrainstormImpl implements Brainstorm {
 
     @Transient
 	private static final String COLUMN_NAME_PARENTBRAINSTORMID = "parent_brainstorm_id";
+    
+    @Transient
+    private static final String COLUMN_NAME_QUESTIONTYPE = "questiontype";
+    
+    @Transient
+    private static final String COLUMN_NAME_ISPOLLENDED = "ispollended";
+    
+    @Transient
+    private static final String COLUMN_NAME_ISINSTANTPOLLACTIVE = "isinstantpollactive";
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AnswerImpl.class, fetch = FetchType.LAZY)
     @JoinTable(name = ANSWERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = BRAINSTORMS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = ANSWERS_JOIN_COLUMN_NAME, nullable = false))
@@ -138,7 +148,7 @@ public class BrainstormImpl implements Brainstorm {
     @Sort(type = SortType.NATURAL)
 	private Set<PreparedAnswer> preparedAnswers = new TreeSet<PreparedAnswer>();
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = QuestionImpl.class, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = QuestionImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = QUESTIONS_JOIN_COLUMN_NAME)
 	private Question question = new JaxbQuestionImpl();
 	
@@ -172,6 +182,15 @@ public class BrainstormImpl implements Brainstorm {
 
     @Column(name = BrainstormImpl.COLUMN_NAME_PARENTBRAINSTORMID)
     private Long parentBrainstormId = null;
+    
+    @Column(name = BrainstormImpl.COLUMN_NAME_QUESTIONTYPE)
+    private Questiontype questiontype;
+    
+    @Column(name = BrainstormImpl.COLUMN_NAME_ISPOLLENDED)
+    private boolean isPollEnded;
+    
+    @Column(name = BrainstormImpl.COLUMN_NAME_ISINSTANTPOLLACTIVE)
+    private boolean isInstantPollActive;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -472,5 +491,47 @@ public class BrainstormImpl implements Brainstorm {
 		copy.setRichTextEditorAllowed(this.isRichTextEditorAllowed());
 		copy.setSessionStarted(this.isSessionStarted());
 		return copy;
+	}
+
+	/**
+	 * @return the questiontype
+	 */
+	public Questiontype getQuestiontype() {
+		return questiontype;
+	}
+
+	/**
+	 * @param questiontype the questiontype to set
+	 */
+	public void setQuestiontype(Questiontype questiontype) {
+		this.questiontype = questiontype;
+	}
+
+	/**
+	 * @return the isPollEnded
+	 */
+	public boolean isPollEnded() {
+		return isPollEnded;
+	}
+
+	/**
+	 * @param isPollEnded the isPollEnded to set
+	 */
+	public void setPollEnded(boolean isPollEnded) {
+		this.isPollEnded = isPollEnded;
+	}
+
+	/**
+	 * @return the isInstantPollActive
+	 */
+	public boolean isInstantPollActive() {
+		return isInstantPollActive;
+	}
+
+	/**
+	 * @param isInstantPollActive the isInstantPollActive to set
+	 */
+	public void setInstantPollActive(boolean isInstantPollActive) {
+		this.isInstantPollActive = isInstantPollActive;
 	}
 }

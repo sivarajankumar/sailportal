@@ -238,7 +238,14 @@ public class BrainstormServiceImpl implements BrainstormService {
 	public Answer getAnswer(Long id) throws Exception{
 		return this.answerDao.getById(id);
 	}
-
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.brainstorm.BrainstormService#getAnswersByBrainstormId(java.lang.Long)
+	 */
+	public Set<Answer> getAnswersByBrainstormId(Long id) throws Exception{
+		return this.brainstormDao.getAnswersByBrainstormId(id);
+	}
+	
 	/**
 	 * @param brainstormDao the brainstormDao to set
 	 */

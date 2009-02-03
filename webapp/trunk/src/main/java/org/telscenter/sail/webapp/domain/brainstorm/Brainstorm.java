@@ -270,4 +270,42 @@ public interface Brainstorm extends Persistable {
 	 * except id and version.
 	 */
 	public Brainstorm getCopy();
+	
+	/**
+	 * Sets the type of Question for this brainstorm
+	 * 
+	 * @param <code>Questiontype</code> questiontype
+	 */
+	public void setQuestiontype(Questiontype questiontype);
+	
+	/**
+	 * Returns the type of Question for this brainstorm
+	 * 
+	 * @return <code>Questiontype<code>
+	 */
+	public Questiontype getQuestiontype();
+	
+	/**
+	 * Allows students to then view feedback, graphs, charts, etc.
+	 * of the results of a poll.
+	 * 
+	 * @param <code>boolean</code> ended
+	 */
+	public void setPollEnded(boolean ended);
+	
+	/**
+	 * @return <code>boolean</code>
+	 */
+	public boolean isPollEnded();
+	
+	/**
+	 * Sets whether this instant poll is currently active
+	 * @param <code>boolean</code> active
+	 */
+	public void setInstantPollActive(boolean active);
+	
+	/**
+	 * @return <code>boolean</code>
+	 */
+	public boolean isInstantPollActive();
 }

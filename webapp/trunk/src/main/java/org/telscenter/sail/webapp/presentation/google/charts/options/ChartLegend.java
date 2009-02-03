@@ -50,14 +50,14 @@ public class ChartLegend implements ChartOption{
 	}
 
 	public String getOptionString() {
-		String labels = "&amp;chdl=";
+		String labels = "&chdl=";
 		for(String label : this.labels){
 			labels = labels + label + "|";
 		}
 		labels = labels.substring(0, labels.length()-1);
 		
 		if(this.position!=null){
-			return labels + "&amp;chdlp=" + this.position;
+			return labels + "&chdlp=" + this.position;
 		} else {
 			return labels;
 		}

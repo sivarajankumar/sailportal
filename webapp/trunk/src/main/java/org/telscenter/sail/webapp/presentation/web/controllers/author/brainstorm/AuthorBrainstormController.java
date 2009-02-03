@@ -23,18 +23,25 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBElement;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
+import org.imsglobal.xsd.imsqti_v2p0.ImgType;
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
+import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 
 /**
@@ -49,6 +56,10 @@ public class AuthorBrainstormController extends SimpleFormController {
 	protected static final String BRAINSTORMID_PARAM = "brainstormId";
 	
 	protected static final String BRAINSTORM_PARAM = "brainstorm";
+	
+	protected static final String CHOICES = "choices";
+	
+	protected static final String KEYS = "keys";
 	
 	private BrainstormService brainstormService;
 
@@ -67,7 +78,17 @@ public class AuthorBrainstormController extends SimpleFormController {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			throw onfe;
 		}
+		Map<String, String> choiceMap = new LinkedHashMap<String, String>();
+		if(brainstorm.getQuestiontype()==Questiontype.SINGLE_CHOICE){
+			List<SimpleChoiceType> choices = brainstorm.getQuestion().getChoices();
+			for(SimpleChoiceType choice : choices){
+				choiceMap.put(choice.getIdentifier(), getAppropriateString(choice));
+			}
+		}
+		
         modelAndView.addObject(BRAINSTORM_PARAM, brainstorm);
+        modelAndView.addObject(CHOICES, choiceMap);
+        modelAndView.addObject(KEYS, choiceMap.keySet());
 		return modelAndView;
 	}
 
@@ -77,7 +98,7 @@ public class AuthorBrainstormController extends SimpleFormController {
 		Brainstorm brainstorm = null;
 		
 		try {
-			brainstorm = brainstormService.getBrainstormById(brainstormId);
+			brainstorm = brainstormService.getBrainstormById(Long.parseLong(brainstormId));
 		} catch (ObjectNotFoundException onfe) {
 			throw onfe;
 		}
@@ -96,8 +117,9 @@ public class AuthorBrainstormController extends SimpleFormController {
 			throws Exception {
 		Brainstorm brainstorm = (Brainstorm) command;
 		brainstormService.createBrainstorm(brainstorm);
-		ModelAndView modelAndView = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView(new RedirectView("authorbrainstorm.html"));
 		modelAndView.addObject(BRAINSTORM_PARAM, brainstorm);
+		modelAndView.addObject(BRAINSTORMID_PARAM, brainstorm.getId());
 		return modelAndView;
 	}
 	
@@ -118,4 +140,11 @@ public class AuthorBrainstormController extends SimpleFormController {
 		this.brainstormService = brainstormService;
 	}
 
+	private String getAppropriateString(SimpleChoiceType choice){
+		if(!(choice.getContent().get(0) instanceof String)){
+			return "<img src=\"" + ((ImgType)((JAXBElement)choice.getContent().get(0)).getValue()).getSrc() + "\"/>";
+		} else {
+			return (String)choice.getContent().get(0);
+		}
+	}
 }

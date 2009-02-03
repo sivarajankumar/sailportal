@@ -20,32 +20,36 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.google.charts.options;
+package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm;
 
-import java.util.LinkedList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.telscenter.sail.webapp.presentation.google.charts.ChartOption;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class ChartEffect implements ChartOption{
-	
-	private List<ChartOption> chartEffect = new LinkedList<ChartOption>();
+public class CreateNewBrainstormController extends AbstractController{
 
-	public void addChartEffect(ChartOption effect){
-		this.chartEffect.add(effect);
-	}
-
-	public String getOptionString() {
-		String effects = "&chf=";
-		for(ChartOption effect : this.chartEffect){
-			effects = effects + effect.getOptionString() + "|";
-		}
-		return effects.substring(0, effects.length()-1);
-	}
+	private final static String PROJECTID = "projectId";
 	
+	private final static String RUNID = "runId";
+		
+	/**
+	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest request,
+			HttpServletResponse response){
+		
+		ModelAndView modelAndView = new ModelAndView();
 	
+		modelAndView.addObject(PROJECTID, request.getParameter(PROJECTID));
+		modelAndView.addObject(RUNID, request.getParameter(RUNID));
+		return modelAndView;
+	}
 }

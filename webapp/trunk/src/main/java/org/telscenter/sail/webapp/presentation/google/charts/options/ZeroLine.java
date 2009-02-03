@@ -50,7 +50,7 @@ public class ZeroLine implements ChartOption{
 	}
 
 	public String getOptionString() {
-		String lines = "&amp;chp=";
+		String lines = "&chp=";
 		for(double line : this.line){
 			lines = lines + line + ",";
 		}

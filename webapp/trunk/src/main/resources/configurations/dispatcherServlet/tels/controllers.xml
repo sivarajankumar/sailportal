@@ -96,6 +96,9 @@
 		
 	<bean id="announcementParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.AnnouncementParametersValidator"/>
+		
+	<bean id="createSingleChoiceBrainstormParametersValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.brainstorm.CreateSingleChoiceBrainstormParametersValidator"/>
 
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
@@ -1113,6 +1116,52 @@
 		<property name="projectService" ref="projectService"/>
 		<property name="curnitService" ref="curnitService"/>
 	</bean>
+	
+	    <bean id="pollInstantPollController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PollInstantPollController">
+    	<property name="brainstormService" ref="brainstormService"/>
+    </bean>
+
+    <bean id="resultsGraphController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.ResultsGraphController">
+    	<property name="brainstormService" ref="brainstormService"/>
+    </bean>
+
+    <bean id="createNewBrainstormController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateNewBrainstormController">
+    </bean>
+    
+    <bean id="createOpenResponseBrainstormParameters"
+    	class="org.telscenter.sail.webapp.domain.brainstorm.CreateOpenResponseBrainstormParameters">
+    </bean>
+    
+    <bean id="createOpenResponseBrainstormController"
+     	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateOpenResponseBrainstormController">
+    	<property name="brainstormService" ref="brainstormService" />
+    	<property name="runService" ref="runService"/>
+    	<property name="projectService" ref="projectService"/>
+     	<property name="commandName" value="createOpenResponseBrainstormParameters"/>
+    	<property name="commandClass"
+    		value="org.telscenter.sail.webapp.domain.brainstorm.CreateOpenResponseBrainstormParameters"/>
+    	<property name="validator" ref="createOpenResponseBrainstormParametersValidator"/>
+    	<property name="sessionForm" value="true"/>
+    </bean>
+
+    <bean id="createSingleChoiceBrainstormParameters"
+    	class="org.telscenter.sail.webapp.domain.brainstorm.CreateSingleChoiceBrainstormParameters">
+    </bean>
+    
+    <bean id="createSingleChoiceBrainstormController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateSingleChoiceBrainstormController">
+   		<property name="brainstormService" ref="brainstormService" />
+    	<property name="runService" ref="runService"/>
+    	<property name="projectService" ref="projectService"/>
+     	<property name="commandName" value="createSingleChoiceBrainstormParameters"/>
+    	<property name="commandClass"
+    		value="org.telscenter.sail.webapp.domain.brainstorm.CreateSingleChoiceBrainstormParameters"/>
+    	<property name="validator" ref="createSingleChoiceBrainstormParametersValidator"/>
+    	<property name="sessionForm" value="true"/>
+    </bean>
     
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"

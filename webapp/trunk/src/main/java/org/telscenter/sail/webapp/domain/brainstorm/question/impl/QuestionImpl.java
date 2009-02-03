@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.domain.brainstorm.question.impl;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +38,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 
 /**
@@ -137,5 +139,32 @@ public class QuestionImpl implements Question {
 		Question copy = new QuestionImpl();
 		copy.setBody(this.getBody());
 		return copy;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getChoices()
+	 */
+	public List<SimpleChoiceType> getChoices(){
+		return null;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getCorrectChoice()
+	 */
+	public String getCorrectChoice(){
+		return null;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getNewChoices()
+	 */
+	public String getNewChoices(){
+		return null;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#setCorrectChoice(java.lang.String)
+	 */
+	public void setCorrectChoice(String correctChoice){
 	}
 }

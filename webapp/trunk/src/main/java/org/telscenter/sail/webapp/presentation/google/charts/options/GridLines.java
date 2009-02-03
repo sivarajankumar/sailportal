@@ -51,7 +51,7 @@ public class GridLines implements ChartOption{
 	}
 
 	public String getOptionString() {
-		String grid = "&amp;chg=" + this.xStep + "," + this.yStep;
+		String grid = "&chg=" + this.xStep + "," + this.yStep;
 		if(this.line < 0 || this.blank < 0){
 			return grid;
 		} else {

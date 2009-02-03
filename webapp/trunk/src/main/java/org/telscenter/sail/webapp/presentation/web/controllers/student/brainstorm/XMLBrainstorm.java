@@ -24,9 +24,14 @@ package org.telscenter.sail.webapp.presentation.web.controllers.student.brainsto
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.JAXBElement;
+
 import net.sf.sail.webapp.domain.User;
+import org.imsglobal.xsd.imsqti_v2p0.ImgType;
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
@@ -46,6 +51,22 @@ public final class XMLBrainstorm {
 			String XMLAnswers = "<answers>";
 			for(Answer answer : answers){
 				XMLAnswers = XMLAnswers + getXMLAnswer(answer);
+			}
+			XMLAnswers = XMLAnswers + "</answers>";
+			return XMLAnswers;
+		} else {
+			return "";
+		}
+	}
+	
+	public static String getXMLAnswers(Set<Answer> answers, List<SimpleChoiceType> choices){
+		if(answers.size()>0 || choices.size()>0){
+			String XMLAnswers = "<answers>";
+			for(Answer answer : answers){
+				XMLAnswers = XMLAnswers + getXMLAnswer(answer);
+			}
+			if(choices!=null && choices.size()>0){
+				XMLAnswers = XMLAnswers + getXMLChoices(choices);
 			}
 			XMLAnswers = XMLAnswers + "</answers>";
 			return XMLAnswers;
@@ -178,5 +199,19 @@ public final class XMLBrainstorm {
 		}
 		XMLMembers = XMLMembers + "</members>";
 		return XMLMembers;
+	}
+	
+	public static String getXMLChoices(List<SimpleChoiceType> choices) {
+		String XMLChoices = "<choices>";
+		for(SimpleChoiceType choice : choices){
+			XMLChoices = XMLChoices + "<choice><identifier>" + choice.getIdentifier() +"</identifier>";
+			if(!(choice.getContent().get(0) instanceof String)){
+				XMLChoices = XMLChoices + "<content><img src=\"" + ((ImgType)((JAXBElement)choice.getContent().get(0)).getValue()).getSrc() + "\"/></content></choice>";
+			} else {
+				XMLChoices = XMLChoices + "<content>" + choice.getContent().get(0) + "</content></choice>";
+			}
+		}
+		XMLChoices = XMLChoices + "</choices>";
+		return XMLChoices;
 	}
 }

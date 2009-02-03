@@ -121,8 +121,11 @@ function post(){
 					</div>
 				</div>
 				<div name="body" id="selectedResponseText">
-						<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
-						<c:if test="${revisionStatus.last=='true'}">${revision.body}</c:if>
+					<c:forEach var="revision" varStatus="revisionStatus" items="${answer.revisions}">
+						<c:if test="${revisionStatus.last=='true'}">
+							<c:if test="${type=='OPEN_RESPONSE'}">${revision.body}</c:if>
+							<c:if test="${type=='SINGLE_CHOICE'}">${choicemap[revision.body]}</c:if>
+						</c:if>
 					</c:forEach>
 				</div>		
 			</div>

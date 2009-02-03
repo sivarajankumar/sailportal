@@ -52,7 +52,7 @@ public class LineStyles implements ChartOption{
 	}
 	
 	public String getOptionString() {
-		String style = "&amp;chls=";
+		String style = "&chls=";
 		for(int x=0;x<thickness.size();x++){
 			style = style + this.thickness.get(x) + "," + this.line.get(x) + ","
 				+ this.blank.get(x) + "|";

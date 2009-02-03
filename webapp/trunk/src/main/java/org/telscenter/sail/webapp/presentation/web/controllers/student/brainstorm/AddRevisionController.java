@@ -22,12 +22,22 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm;
 
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBElement;
 
+import org.imsglobal.xsd.imsqti_v2p0.ImgType;
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
 import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
@@ -53,6 +63,12 @@ public class AddRevisionController extends AbstractController {
 
 	private static final String ISRICHTEXTEDITORALLOWED = "isrichtexteditorallowed";
 	
+	private static final String CHOICEMAP = "choicemap";
+	
+	private static final String KEYS = "keys";
+	
+	private static final String TYPE = "type";
+	
 	private BrainstormService brainstormService;
 	
 	private WISEWorkgroupService workgroupService;
@@ -63,15 +79,22 @@ public class AddRevisionController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+		Map<String, Serializable> choiceMap = new LinkedHashMap<String, Serializable>();	
 		Answer answer = this.brainstormService.getAnswer(Long.parseLong(request.getParameter(ANSWERID)));
 		Brainstorm brainstorm = this.brainstormService.getBrainstormById(Long.parseLong(request.getParameter(BRAINSTORMID)));
 		WISEWorkgroup workgroup = (WISEWorkgroup) this.workgroupService.retrieveById(Long.parseLong(request.getParameter(WORKGROUPID)));
+		
+		if(brainstorm.getQuestiontype().equals(Questiontype.SINGLE_CHOICE)){
+			choiceMap = BrainstormUtils.getChoiceMap(brainstorm.getQuestion().getChoices());
+		}
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(ANSWER, answer);
 		modelAndView.addObject(ISRICHTEXTEDITORALLOWED, brainstorm.isRichTextEditorAllowed());
 		modelAndView.addObject(WORKGROUP, workgroup);
+		modelAndView.addObject(CHOICEMAP, choiceMap);
+		modelAndView.addObject(TYPE, brainstorm.getQuestiontype());
+		modelAndView.addObject(KEYS, choiceMap.keySet());
 		
 		return modelAndView;
 	}
@@ -90,4 +113,5 @@ public class AddRevisionController extends AbstractController {
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
 	}
+
 }

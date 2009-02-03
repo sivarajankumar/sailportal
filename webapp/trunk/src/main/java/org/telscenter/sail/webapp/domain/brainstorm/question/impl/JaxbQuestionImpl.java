@@ -27,7 +27,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -36,9 +39,14 @@ import javax.xml.bind.JAXBException;
 
 import net.sf.sail.jaxb.extension.BlockInteractionType;
 import net.sf.sail.jaxb.extension.JaxbQtiMarshallingUtils;
+import net.sf.sail.jaxb.extension.JaxbQtiCreationUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.imsglobal.xsd.imsqti_v2p0.AssessmentItemType;
+import org.imsglobal.xsd.imsqti_v2p0.ChoiceInteractionType;
+import org.imsglobal.xsd.imsqti_v2p0.CorrectResponseType;
 import org.imsglobal.xsd.imsqti_v2p0.ExtendedTextInteractionType;
+import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 
 /**
@@ -154,6 +162,7 @@ public class JaxbQuestionImpl extends QuestionImpl {
 
 	}
 	
+	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.Question#getCopy()
 	 */
@@ -161,5 +170,105 @@ public class JaxbQuestionImpl extends QuestionImpl {
 		JaxbQuestionImpl copy = new JaxbQuestionImpl();
 		copy.setBody(this.getBody());
 		return copy;
+	}
+
+	/**
+	 * @return the choices
+	 */
+	@Override
+	public List<SimpleChoiceType> getChoices() {
+		if (blockInteractionType == null) {
+			parseToQTI(this.body);
+		}
+		if(blockInteractionType instanceof ChoiceInteractionType){
+			return ((ChoiceInteractionType) blockInteractionType).getSimpleChoice();
+		}
+		return null;
+	}
+
+	public void setNewChoices(String choiceList){
+		if (blockInteractionType == null) {
+			parseToQTI(this.body);
+		}
+		List<SimpleChoiceType> copiedChoices = new LinkedList<SimpleChoiceType>();
+		copiedChoices.addAll(this.getChoices());
+		for(SimpleChoiceType choice : copiedChoices){
+			JaxbQtiCreationUtils.removeChoice(this.blockInteractionType, choice);
+		}
+		
+		if(choiceList != null && choiceList != ""){
+			Map<String, String> choiceMap = parseChoices(choiceList);
+			for(String key : choiceMap.keySet()){
+				this.addChoice(key, choiceMap.get(key));
+			}
+		}
+		
+		try {
+			this.body = JaxbQtiMarshallingUtils.marshallAssessmentItemTypeToString(assessmentItemType);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl#getNewChoices()
+	 */
+	@Override
+	public String getNewChoices(){
+		return "";
+	}
+	
+	/**
+	 * @param choices the choices to set
+	 */
+	public void setChoices(String choiceList) {
+	}
+	
+	private Map<String, String> parseChoices(String choiceList) {
+		String IDENTIFIER = "<simpleChoice identifier=\""; //28
+		String BEFORECONTENT = "\">"; //3
+		String AFTERCONTENT = "</simpleChoice>"; //15
+		Map<String, String> choiceMap = new LinkedHashMap<String, String>();
+		while(choiceList != null && choiceList != "" && StringUtils.contains(choiceList, "simpleChoice")){
+			choiceList = StringUtils.removeStart(choiceList, IDENTIFIER);
+			String key = StringUtils.substring(choiceList, 0, StringUtils.indexOf(choiceList, "\""));
+			choiceList = StringUtils.removeStart(choiceList, key);
+			choiceList = StringUtils.removeStart(choiceList, BEFORECONTENT);
+			String content = StringUtils.substring(choiceList, 0, StringUtils.indexOf(choiceList, AFTERCONTENT));
+			choiceList = StringUtils.removeStart(choiceList, content);
+			choiceList = StringUtils.removeStart(choiceList, AFTERCONTENT);
+			choiceMap.put(key, content);
+		}
+		return choiceMap;
+	}
+
+	public void addChoice(String identifier, String content){
+		if(this.blockInteractionType instanceof ChoiceInteractionType){
+			JaxbQtiCreationUtils.addSimpleChoice(identifier, content, (ChoiceInteractionType)this.blockInteractionType, false);
+		}
+	}
+	
+	public void setCorrectChoice(String identifier){
+		if (blockInteractionType == null) {
+			parseToQTI(this.body);
+		}
+		this.assessmentItemType.getResponseDeclaration().get(0).getCorrectResponse().getValue().get(0).setValue(identifier);
+	
+		try {
+			this.body = JaxbQtiMarshallingUtils.marshallAssessmentItemTypeToString(assessmentItemType);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String getCorrectChoice(){
+		if (blockInteractionType == null) {
+			parseToQTI(this.body);
+		}
+		if(this.assessmentItemType.getResponseDeclaration().isEmpty()){
+			return null;
+		} else {
+			return this.assessmentItemType.getResponseDeclaration().get(0).getCorrectResponse().getValue().get(0).getValue();
+		}
 	}
 }
