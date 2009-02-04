@@ -19,6 +19,7 @@
 
 <script type="text/javascript">
 	var sortOrder = 0;
+	var sortCriteria = 0;
 	var pageManager;
 	var isTeacherWorkgroup = "${workgroup.teacherWorkgroup}";
 

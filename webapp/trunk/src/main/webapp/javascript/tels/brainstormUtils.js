@@ -198,7 +198,7 @@
 	* and Comments for a given brainstorm as well as creating and
 	* updating Answer tables and refreshing the elements of a page
 	*/
-	function PageManager(brainstormId, workgroupId, criteria, sortOrder){
+	function PageManager(brainstormId, workgroupId, criteria, sortOrder, type){
 		this.id = brainstormId;
 		this.workgroupId = workgroupId;
 		this.sortCriteria = criteria;
@@ -209,7 +209,7 @@
 		this.pollPosts;
 		this.pollGraph;
 		this.pollInstantPoll;
-			
+		
 		this.callback = {
 			success:this.handleSuccess,
 			failure:this.handleFailure,
@@ -231,12 +231,12 @@
 	};
 	
 	PageManager.prototype.handleFailure = function(o){
-		alert('failure');
-		alert(o.responseXML);
-		alert(o.responseText);
-		alert(o.getAllResponseHeaders);
-		alert(o.status);
-		alert(o.statusText);		
+		//alert('failure');
+		//alert(o.responseXML);
+		//alert(o.responseText);
+		//alert(o.getAllResponseHeaders);
+		//alert(o.status);
+		//alert(o.statusText);		
 		//error stuff goes here
 	};
 	
