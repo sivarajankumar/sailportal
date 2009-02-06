@@ -490,6 +490,9 @@ public class BrainstormImpl implements Brainstorm {
 		copy.setQuestion(this.getQuestion().getCopy());
 		copy.setRichTextEditorAllowed(this.isRichTextEditorAllowed());
 		copy.setSessionStarted(this.isSessionStarted());
+		copy.setInstantPollActive(this.isInstantPollActive);
+		copy.setPollEnded(this.isPollEnded);
+		copy.setQuestiontype(this.questiontype);
 		return copy;
 	}
 
