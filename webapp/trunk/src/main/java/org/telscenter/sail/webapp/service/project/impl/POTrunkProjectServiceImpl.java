@@ -203,7 +203,12 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 		}
 
 		Curnit curnit = run.getProject().getCurnit();
-		String curnitOtmlUrl = ((OtmlModuleImpl) curnit).getRetrieveotmlurl();
+		String curnitOtmlUrl = "";
+		try{
+			curnitOtmlUrl = ((OtmlModuleImpl) this.moduleService.getById(curnit.getId())).getRetrieveotmlurl();
+		} catch(ObjectNotFoundException e){
+			
+		}
 		entireUrl += "&sailotrunk.otmlurl=" + curnitOtmlUrl;
 
 		return entireUrl;
