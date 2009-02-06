@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -28,27 +28,27 @@ import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.User;
 
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
+import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
 
 /**
  * @author patrick lawler
- *
+ * @version $Id:$
  */
-public interface PremadeCommentDao<T extends PremadeComment> extends SimpleDao<T>{
+public interface PremadeCommentListDao<T extends PremadeCommentList> extends SimpleDao<T>{
 
 	/**
-	 * Retrieves a <code>List<PremadeComment> that is owned by the given <code>User</code>
+	 * Returns a <code>List<PremadeCommentList></code> that the given <code>User</code> owns.
 	 * 
-	 * @param <code>User</code> owner
-	 * @return <code>List<PremadeComment></code>
+	 * @param <code>User</code> user
+	 * @return <code>List<PremadeCommentList></code>
 	 */
-	public List<PremadeComment> getPremadeCommentsByUser(User owner);
+	public List<PremadeCommentList> getListByOwner(User user);
 	
 	/**
-	 * Retrieves a <code>List<PremadeComment> that is owned by the given <code>Run</code>
+	 * Returns a <code>List<PremadeCommentList></code> that is associated with the given <code>Run</code>.
 	 * 
 	 * @param <code>Run</code> run
-	 * @return <code>List<PremadeComment></code>
+	 * @return <code>List<PremadeCommentList></code>
 	 */
-	public List<PremadeComment> getPremadeCommentsByRun(Run run);
+	public List<PremadeCommentList> getListByRun(Run run);
 }

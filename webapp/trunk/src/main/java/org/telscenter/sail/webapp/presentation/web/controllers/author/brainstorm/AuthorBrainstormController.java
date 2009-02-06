@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.brainstorm.DisplayNameOption;
 import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
+import org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.BrainstormUtils;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 
 /**
@@ -78,12 +80,9 @@ public class AuthorBrainstormController extends SimpleFormController {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			throw onfe;
 		}
-		Map<String, String> choiceMap = new LinkedHashMap<String, String>();
+		Map<String, Serializable> choiceMap = new LinkedHashMap<String, Serializable>();
 		if(brainstorm.getQuestiontype()==Questiontype.SINGLE_CHOICE){
-			List<SimpleChoiceType> choices = brainstorm.getQuestion().getChoices();
-			for(SimpleChoiceType choice : choices){
-				choiceMap.put(choice.getIdentifier(), getAppropriateString(choice));
-			}
+			choiceMap = BrainstormUtils.getChoiceMap(brainstorm.getQuestion().getChoices());
 		}
 		
         modelAndView.addObject(BRAINSTORM_PARAM, brainstorm);
@@ -138,13 +137,5 @@ public class AuthorBrainstormController extends SimpleFormController {
 	 */
 	public void setBrainstormService(BrainstormService brainstormService) {
 		this.brainstormService = brainstormService;
-	}
-
-	private String getAppropriateString(SimpleChoiceType choice){
-		if(!(choice.getContent().get(0) instanceof String)){
-			return "<img src=\"" + ((ImgType)((JAXBElement)choice.getContent().get(0)).getValue()).getSrc() + "\"/>";
-		} else {
-			return (String)choice.getContent().get(0);
-		}
 	}
 }

@@ -22,7 +22,6 @@
  */
 package org.telscenter.sail.webapp.service.premadecomment.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -31,8 +30,8 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentDao;
-import org.telscenter.sail.webapp.dao.premadecomment.impl.HibernatePremadeCommentListDao;
+import org.telscenter.sail.webapp.dao.premadecomment.PremadeCommentDao;
+import org.telscenter.sail.webapp.dao.premadecomment.PremadeCommentListDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.PremadeCommentListParameters;
 import org.telscenter.sail.webapp.domain.impl.PremadeCommentParameters;
@@ -48,9 +47,9 @@ import org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService;
  */
 public class PremadeCommentServiceImpl implements PremadeCommentService{
 	
-	private HibernatePremadeCommentDao premadeCommentDao;
+	private PremadeCommentDao<PremadeComment> premadeCommentDao;
 	
-	private HibernatePremadeCommentListDao premadeCommentListDao;
+	private PremadeCommentListDao<PremadeCommentList> premadeCommentListDao;
 	
 	@Transactional()
 	public PremadeComment createPremadeComment (PremadeCommentParameters param){
@@ -111,26 +110,14 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 	@Transactional()
 	public Set<PremadeComment> retrieveAllPremadeCommentsByUser(User user){
 		TreeSet<PremadeComment> returnSet = new TreeSet<PremadeComment>();
-		List<PremadeComment> returnedList = premadeCommentDao.getList();
-		
-		for(PremadeComment comment : returnedList){
-			if (comment.getOwner().equals(user)){
-				returnSet.add(comment);
-			}
-		}
+		returnSet.addAll(premadeCommentDao.getPremadeCommentsByUser(user));
 		return returnSet;
 	}
 	
 	@Transactional()
 	public Set<PremadeComment> retrieveAllPremadeCommentsByRun(Run run){
 		TreeSet<PremadeComment> returnSet = new TreeSet<PremadeComment>();
-		List<PremadeComment> returnedList = premadeCommentDao.getList();
-		
-		for(PremadeComment comment : returnedList){
-			if(comment.getRun().equals(run)){
-				returnSet.add(comment);
-			}
-		}
+		returnSet.addAll(premadeCommentDao.getPremadeCommentsByRun(run));
 		return returnSet;
 	}
 	
@@ -229,33 +216,21 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 	@Transactional()
 	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByUser(User user){
 		TreeSet<PremadeCommentList> returnSet = new TreeSet<PremadeCommentList>();
-		List<PremadeCommentList> returnedList = premadeCommentListDao.getList();
-		
-		for(PremadeCommentList commentList : returnedList){
-			if (commentList.getOwner().equals(user)){
-				returnSet.add(commentList);
-			}
-		}
+		returnSet.addAll(this.premadeCommentListDao.getListByOwner(user));
 		return returnSet;
 	}
 	
 	@Transactional()
 	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByRun(Run run){
 		TreeSet<PremadeCommentList> returnSet = new TreeSet<PremadeCommentList>();
-		List<PremadeCommentList> returnedList = premadeCommentListDao.getList();
-		
-		for(PremadeCommentList commentList : returnedList){
-			if(commentList.getRun().equals(run)){
-				returnSet.add(commentList);
-			}
-		}
+		returnSet.addAll(this.premadeCommentListDao.getListByRun(run));
 		return returnSet;		
 	}
 
 	/**
 	 * @param premadeCommentDao the premadeCommentDao to set
 	 */
-	public void setPremadeCommentDao(HibernatePremadeCommentDao premadeCommentDao) {
+	public void setPremadeCommentDao(PremadeCommentDao<PremadeComment> premadeCommentDao) {
 		this.premadeCommentDao = premadeCommentDao;
 	}
 
@@ -263,7 +238,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 	 * @param premadeCommentListDao the premadeCommentListDao to set
 	 */
 	public void setPremadeCommentListDao(
-			HibernatePremadeCommentListDao premadeCommentListDao) {
+			PremadeCommentListDao<PremadeCommentList> premadeCommentListDao) {
 		this.premadeCommentListDao = premadeCommentListDao;
 	}
 	

@@ -47,6 +47,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
+import org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.BrainstormUtils;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -131,9 +132,11 @@ public class CreateSingleChoiceBrainstormController extends SimpleFormController
 		Question question = new JaxbQuestionImpl();
 		String body;
 		if(params.getCorrectChoice()==null || params.getCorrectChoice()==""){
-			body = PART1 + PART2 + params.getQuestion() + PART3 + params.getChoices() + PART4;
+			body = PART1 + PART2 + BrainstormUtils.replaceTags(params.getQuestion()) + PART3 + 
+				BrainstormUtils.replaceSimpleChoiceStringTags(params.getChoices()) + PART4;
 		} else {
-			body = PART1 + params.getCorrectChoice() + PART2 + params.getQuestion() + PART3 + params.getChoices() + PART4;
+			body = PART1 + params.getCorrectChoice() + PART2 + BrainstormUtils.replaceTags(params.getQuestion()) + 
+				PART3 + BrainstormUtils.replaceSimpleChoiceStringTags(params.getChoices()) + PART4;
 		}
 		question.setBody(body);
 		brainstorm.setQuestion(question);

@@ -22,12 +22,15 @@
  */
 package org.telscenter.sail.webapp.dao.premadecomment.impl;
 
+import java.util.List;
+
 import org.telscenter.sail.webapp.dao.premadecomment.PremadeCommentDao;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
 
-import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.domain.User;
 
 /**
  * @author patrick lawler
@@ -43,6 +46,22 @@ public class HibernatePremadeCommentDao extends AbstractHibernateDao<PremadeComm
 	@Override
 	protected String getFindAllQuery() {
 		return FIND_ALL_QUERY;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.dao.premadecomment.PremadeCommentDao#getPremadeCommentsByUser(net.sf.sail.webapp.domain.User)
+	 */
+	public List<PremadeComment> getPremadeCommentsByUser(User owner){
+		String q = "select comment from PremadeCommentImpl comment where comment.owner.id='" + owner.getId() + "'";
+		return this.getHibernateTemplate().find(q);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.dao.premadecomment.PremadeCommentDao#getPremadeCommentsByRun(org.telscenter.sail.webapp.domain.Run)
+	 */
+	public List<PremadeComment> getPremadeCommentsByRun(Run run){
+		String q = "select comment from PremadeCommentImpl comment where comment.run.id='" + run.getId() + "'";
+		return this.getHibernateTemplate().find(q);
 	}
 	
 	/**

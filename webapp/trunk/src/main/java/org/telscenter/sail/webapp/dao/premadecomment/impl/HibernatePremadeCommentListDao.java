@@ -22,15 +22,20 @@
  */
 package org.telscenter.sail.webapp.dao.premadecomment.impl;
 
+import java.util.List;
+
+import org.telscenter.sail.webapp.dao.premadecomment.PremadeCommentListDao;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
 import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.domain.User;
 
 /**
  * @author patrick lawler
  *
  */
-public class HibernatePremadeCommentListDao extends AbstractHibernateDao<PremadeCommentList>{
+public class HibernatePremadeCommentListDao extends AbstractHibernateDao<PremadeCommentList> implements PremadeCommentListDao<PremadeCommentList>{
 
 	private static final String FIND_ALL_QUERY = "from PremadeCommentListImpl";
 
@@ -48,6 +53,16 @@ public class HibernatePremadeCommentListDao extends AbstractHibernateDao<Premade
 	@Override
 	protected Class<PremadeCommentListImpl> getDataObjectClass() {
 		return PremadeCommentListImpl.class;
+	}
+	
+	public List<PremadeCommentList> getListByOwner(User user){
+		String q = "select commentList from PremadeCommentListImpl commentList where commentList.owner.id='" + user.getId() + "'";
+		return this.getHibernateTemplate().find(q);
+	}
+	
+	public List<PremadeCommentList> getListByRun(Run run){
+		String q = "select commentList from PremadeCommentListImpl commentList where commentList.run.id='" + run.getId() + "'";
+		return this.getHibernateTemplate().find(q);
 	}
 	
 }

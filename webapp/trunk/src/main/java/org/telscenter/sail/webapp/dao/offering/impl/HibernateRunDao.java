@@ -95,6 +95,16 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 		workgroupSet.addAll(workgroupList);
 		return workgroupSet;
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#getWorkgroupsForOfferingAndPeriod(java.lang.Long, java.lang.Long)
+	 */
+	public Set<Workgroup> getWorkgroupsForOfferingAndPeriod(Long offeringId, Long periodId){
+		String q = "select workgroup from WISEWorkgroupImpl workgroup where workgroup.offering.id = '" + offeringId + "' and " +
+		"workgroup.period.id = '" + periodId + "' and workgroup.teacherWorkgroup = false";
+		List<Workgroup> workgroupList = this.getHibernateTemplate().find(q);
+		return new TreeSet<Workgroup>(workgroupList);
+	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#retrieveByField(java.lang.String, java.lang.String, java.lang.Object, java.lang.String)
@@ -116,11 +126,12 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
     		+ StringUtils.right(string, string.length() - 1);
     }
     
+    /**
+     * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunListByUserInPeriod(net.sf.sail.webapp.domain.User)
+     */
     public List<Run> getRunListByUserInPeriod(User user){
     	String q = "select run from RunImpl run inner join run.periods period inner " +
-    		"join period.members member where member.id='" + user.getId() + "'";
-    	String qu = "select run from RunImpl run inner join run.periods period (select period from Group period inner " +
-    			"join group.members member where member.id='" + user.getId() + "'";
+    			"join period.members user where user.id='" + user.getId() + "'";
     	return this.getHibernateTemplate().find(q);
     }
 }

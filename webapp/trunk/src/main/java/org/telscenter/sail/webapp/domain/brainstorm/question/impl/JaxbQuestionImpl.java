@@ -48,6 +48,7 @@ import org.imsglobal.xsd.imsqti_v2p0.CorrectResponseType;
 import org.imsglobal.xsd.imsqti_v2p0.ExtendedTextInteractionType;
 import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
+import org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.BrainstormUtils;
 
 /**
  * @author Anthony Perritano
@@ -88,7 +89,7 @@ public class JaxbQuestionImpl extends QuestionImpl {
 	 */
 	public void setBody(String body) {
 		this.body = body;
-		parseToQTI(body);
+		parseToQTI(this.body);
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class JaxbQuestionImpl extends QuestionImpl {
 		List<Serializable> blockContent = blockInteractionType.getPrompt().getContent();
 		
 		if(blockContent != null) {
-			return (String) blockContent.get(0);
+			return BrainstormUtils.replaceTagsOut((String) blockContent.get(0));
 		}
 		return null;
 	}
@@ -144,7 +145,7 @@ public class JaxbQuestionImpl extends QuestionImpl {
 	 * @param prompt the prompt to set
 	 */
 	public void setPrompt(String prompt) {
-		this.prompt = prompt;
+		this.prompt = BrainstormUtils.replaceTags(prompt);
 
 		if (blockInteractionType == null) {
 			parseToQTI(this.body);
@@ -152,7 +153,7 @@ public class JaxbQuestionImpl extends QuestionImpl {
 		List<Serializable> blockContent = blockInteractionType.getPrompt().getContent();
 		
 		if(blockContent != null) {
-			blockContent.set(0, prompt);
+			blockContent.set(0,this.prompt);
 			try {
 				this.body = JaxbQtiMarshallingUtils.marshallAssessmentItemTypeToString(assessmentItemType);
 			} catch (JAXBException e) {
@@ -197,7 +198,7 @@ public class JaxbQuestionImpl extends QuestionImpl {
 		}
 		
 		if(choiceList != null && choiceList != ""){
-			Map<String, String> choiceMap = parseChoices(choiceList);
+			Map<String, String> choiceMap = BrainstormUtils.parseChoices(choiceList);
 			for(String key : choiceMap.keySet()){
 				this.addChoice(key, choiceMap.get(key));
 			}
@@ -223,28 +224,10 @@ public class JaxbQuestionImpl extends QuestionImpl {
 	 */
 	public void setChoices(String choiceList) {
 	}
-	
-	private Map<String, String> parseChoices(String choiceList) {
-		String IDENTIFIER = "<simpleChoice identifier=\""; //28
-		String BEFORECONTENT = "\">"; //3
-		String AFTERCONTENT = "</simpleChoice>"; //15
-		Map<String, String> choiceMap = new LinkedHashMap<String, String>();
-		while(choiceList != null && choiceList != "" && StringUtils.contains(choiceList, "simpleChoice")){
-			choiceList = StringUtils.removeStart(choiceList, IDENTIFIER);
-			String key = StringUtils.substring(choiceList, 0, StringUtils.indexOf(choiceList, "\""));
-			choiceList = StringUtils.removeStart(choiceList, key);
-			choiceList = StringUtils.removeStart(choiceList, BEFORECONTENT);
-			String content = StringUtils.substring(choiceList, 0, StringUtils.indexOf(choiceList, AFTERCONTENT));
-			choiceList = StringUtils.removeStart(choiceList, content);
-			choiceList = StringUtils.removeStart(choiceList, AFTERCONTENT);
-			choiceMap.put(key, content);
-		}
-		return choiceMap;
-	}
 
 	public void addChoice(String identifier, String content){
 		if(this.blockInteractionType instanceof ChoiceInteractionType){
-			JaxbQtiCreationUtils.addSimpleChoice(identifier, content, (ChoiceInteractionType)this.blockInteractionType, false);
+			JaxbQtiCreationUtils.addSimpleChoice(BrainstormUtils.replaceTags(identifier), BrainstormUtils.replaceTags(content), (ChoiceInteractionType)this.blockInteractionType, false);
 		}
 	}
 	

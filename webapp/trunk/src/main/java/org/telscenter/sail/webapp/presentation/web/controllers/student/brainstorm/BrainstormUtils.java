@@ -30,6 +30,7 @@ import java.util.TreeMap;
 
 import javax.xml.bind.JAXBElement;
 
+import org.apache.commons.lang.StringUtils;
 import org.imsglobal.xsd.imsqti_v2p0.ImgType;
 import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
 
@@ -38,6 +39,12 @@ import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
  * @version $Id:$
  */
 public final class BrainstormUtils {
+	
+	private final static String IDENTIFIER = "<simpleChoice identifier=\"";
+	
+	private final static String BEFORECONTENT = "\">";
+	
+	private final static String AFTERCONTENT = "</simpleChoice>";
 
 	public static String replaceTags(SimpleChoiceType choice){
 		if(!(choice.getContent().get(0) instanceof String)){
@@ -47,21 +54,58 @@ public final class BrainstormUtils {
 				return "";
 			}
 		} else {
-			String str = (String) choice.getContent().get(0);
-			if(str.contains("&lt;")){
-				str = str.replaceAll("&lt;", "<");
-			}
-			if(str.contains("&gt;")){
-				str = str.replaceAll("&gt;", ">");
-			}
-			return str;
-		}		
+			return replaceTagsOut((String) choice.getContent().get(0));
+		}
+	}
+	
+	public static String replaceTags(String str){
+		if(str.contains("<")){
+			str = str.replaceAll("<", "&lt;");
+		}
+		if(str.contains(">")){
+			str = str.replaceAll(">", "&gt;");
+		}
+		return str;
+	}
+	
+	public static String replaceTagsOut(String str){
+		if(str.contains("&lt;")){
+			str = str.replaceAll("&lt;", "<");
+		}
+		if(str.contains("&gt;")){
+			str = str.replaceAll("&gt;", ">");
+		}
+		return str;
+	}
+	
+	public static String replaceSimpleChoiceStringTags(String str){
+		Map<String, String> choiceMap = parseChoices(str);
+		String retStr = "";
+		for(String key : choiceMap.keySet()){
+			retStr = retStr + IDENTIFIER + key + BEFORECONTENT + replaceTags(choiceMap.get(key)) + AFTERCONTENT;
+		}
+		return retStr;
 	}
 	
 	public static Map<String, Serializable> getChoiceMap(List<SimpleChoiceType> choices){
 		Map<String, Serializable> choiceMap = new LinkedHashMap<String, Serializable>();
 		for(SimpleChoiceType choice : choices){
 			choiceMap.put(choice.getIdentifier(), replaceTags(choice));
+		}
+		return choiceMap;
+	}
+	
+	public static Map<String, String> parseChoices(String choiceList) {
+		Map<String, String> choiceMap = new LinkedHashMap<String, String>();
+		while(choiceList != null && choiceList != "" && StringUtils.contains(choiceList, "simpleChoice")){
+			choiceList = StringUtils.removeStart(choiceList, IDENTIFIER);
+			String key = StringUtils.substring(choiceList, 0, StringUtils.indexOf(choiceList, "\""));
+			choiceList = StringUtils.removeStart(choiceList, key);
+			choiceList = StringUtils.removeStart(choiceList, BEFORECONTENT);
+			String content = StringUtils.substring(choiceList, 0, StringUtils.indexOf(choiceList, AFTERCONTENT));
+			choiceList = StringUtils.removeStart(choiceList, content);
+			choiceList = StringUtils.removeStart(choiceList, AFTERCONTENT);
+			choiceMap.put(key, replaceTags(content));
 		}
 		return choiceMap;
 	}

@@ -76,9 +76,8 @@ public class ResultsGraphController extends AbstractController{
 			//Get and organize data
 			Map<String,Integer> answerCount = new LinkedHashMap<String,Integer>();
 			Map<String, Serializable> answerMap = new LinkedHashMap<String,Serializable>();
-			for(SimpleChoiceType choice : brainstorm.getQuestion().getChoices()){
-				answerMap.put(choice.getIdentifier(), getAppropriateString(choice));
-			}
+			answerMap = BrainstormUtils.getChoiceMap(brainstorm.getQuestion().getChoices());
+
 			for(Answer answer : brainstorm.getAnswers()){
 				Revision latestRevision = new RevisionImpl();
 				for(Iterator<Revision> iterator = answer.getRevisions().iterator(); iterator.hasNext();){
@@ -150,17 +149,8 @@ public class ResultsGraphController extends AbstractController{
 		this.brainstormService = brainstormService;
 	}
 	
-	
-	private String getAppropriateString(SimpleChoiceType choice){
-		if(!(choice.getContent().get(0) instanceof String)){
-			return "<img src=\"" + ((ImgType)((JAXBElement)choice.getContent().get(0)).getValue()).getSrc() + "\"/>";
-		} else {
-			return (String)choice.getContent().get(0);
-		}
-	}
-	
 	private boolean isURL(String str){
-		if(str.contains("<img src") || str.contains("&lt;img src")){
+		if(str.contains("img src=")){
 			return true;
 		};
 		return false;

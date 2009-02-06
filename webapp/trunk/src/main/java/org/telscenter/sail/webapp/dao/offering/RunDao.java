@@ -23,10 +23,12 @@
 package org.telscenter.sail.webapp.dao.offering;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.offering.OfferingDao;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
 
 import org.telscenter.sail.webapp.domain.Run;
 
@@ -65,4 +67,14 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
      * @return <code>List<Run></code>
      */
     public List<Run> getRunListByUserInPeriod(User user);
+    
+    /**
+     * Retrieves a <code>List<WISEWorkgroup></code> given a <code>Long</code> runId and
+     * <code>Long</code> periodId
+     * 
+     * @param <code>Long</code> offeringId
+     * @param <code>Long</code> periodId
+     * @return <code>List<WISEWorkgroup></code>
+     */
+    public Set<Workgroup> getWorkgroupsForOfferingAndPeriod(Long offeringId, Long periodId);
 }

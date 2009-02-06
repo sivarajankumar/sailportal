@@ -39,6 +39,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.Questiontype;
 import org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.question.Question;
 import org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl;
+import org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.BrainstormUtils;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -109,7 +110,7 @@ public class CreateOpenResponseBrainstormController extends SimpleFormController
 		brainstorm.setQuestiontype(params.getQuestionType());
 		
 		Question question = new JaxbQuestionImpl();
-		question.setBody(PART1 + params.getQuestion() + PART2);
+		question.setBody(PART1 + BrainstormUtils.replaceTags(params.getQuestion()) + PART2);
 		brainstorm.setQuestion(question);
 		
 		brainstormService.createBrainstorm(brainstorm);
