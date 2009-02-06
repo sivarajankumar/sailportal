@@ -135,7 +135,7 @@ public class ProjectImpl implements Project {
 	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = true, unique = false)
 	protected Curnit curnit;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = JnlpImpl.class, fetch = FetchType.EAGER)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_JNLP_FK, nullable = true, unique = false)
 	protected Jnlp jnlp;

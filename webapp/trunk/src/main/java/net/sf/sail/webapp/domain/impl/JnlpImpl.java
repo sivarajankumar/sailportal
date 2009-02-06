@@ -127,4 +127,5 @@ public class JnlpImpl implements Jnlp {
             return false;
         return true;
     }
+    
 }

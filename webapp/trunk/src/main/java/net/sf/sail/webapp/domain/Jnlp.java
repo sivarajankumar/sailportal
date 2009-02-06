@@ -44,4 +44,5 @@ public interface Jnlp extends Persistable {
 	 * @return The id of the jnlp in the persistent data store
 	 */
 	public Long getId();
+
 }

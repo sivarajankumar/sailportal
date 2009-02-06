@@ -16,7 +16,7 @@
 		popUp('addrevision.html?workgroupId=' + workgroupId + '&answerId=' + answerId + '&brainstormId=' + brainstormId, 'AddRevision');
 	};
 	
-	function hideallanswers(brainstormId, cannotseeresponses) {	
+	function hideallanswers(brainstormId, cannotseeresponses) {
 	  if(cannotseeresponses) {
 	    var rtb = document.getElementById('responseTableBody');
 	    rtb.style.display='none';

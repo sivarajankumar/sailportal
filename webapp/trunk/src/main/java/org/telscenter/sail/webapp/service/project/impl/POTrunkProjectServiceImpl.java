@@ -94,7 +94,7 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 				project.getPreviewRun(),
 				previewWorkgroup);
 		
-		Curnit curnit = project.getCurnit();
+		Curnit curnit = this.moduleService.getById(project.getCurnit().getId());
 		String curnitOtmlUrl = getRetrieveOtmlUrl(((OtmlModuleImpl) curnit).getRetrieveotmlurl(), params.getPortalUrl());
 		previewProjectUrl += "?sailotrunk.otmlurl=" + curnitOtmlUrl;
 		// TODO HT: put these param-generation into run/project domain object as much as possible to stop

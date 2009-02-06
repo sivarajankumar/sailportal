@@ -23,14 +23,11 @@
 package org.telscenter.sail.webapp.service.offering.impl;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
-import net.sf.sail.core.uuid.UserUuid;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.group.GroupDao;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
@@ -45,24 +42,22 @@ import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
-import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.acls.Permission;
 import org.acegisecurity.acls.domain.BasePermission;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectJnlpVisitor;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -132,24 +127,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#getRunList(net.sf.sail.webapp.domain.User)
 	 */
 	public List<Run> getRunList(User user) {
-
-		List<Run> runs = runDao.getList();
-		List<Run> runsAssociatedWithUser = new LinkedList<Run>();
-		for (Run run : runs) {
-			Set<Group> periods = run.getPeriods();
-			// TODO HT&LW improve PersistentGroup's hashcode
-			// right now if same name & same parent, group is considered the same
-			// this won't work for TELS, as there will be many root group nodes
-			// with
-			// name 3.
-			for (Group period : periods) {
-				if (period.getMembers().contains(user)) {
-					runsAssociatedWithUser.add(run);
-				}
-			}
-		}
-		return runsAssociatedWithUser;
-//		return this.runDao.getRunListByUserInPeriod(user);
+		return this.runDao.getRunListByUserInPeriod(user);
 	}
 
 	/**
@@ -228,7 +206,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		sdsOffering.setName(runParameters.getName());
 		Curnit curnit = runParameters.getProject().getCurnit();
 		sdsOffering.setSdsCurnit(curnit.getSdsCurnit());
-		Jnlp jnlp = runParameters.getProject().getJnlp();
+		Jnlp jnlp = (Jnlp) runParameters.getProject().accept(new ProjectJnlpVisitor());
 		
 		if (jnlp == null) {
 			List<Jnlp> jnlpList = this.jnlpDao.getList();
@@ -393,7 +371,6 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#getWorkgroups(Long)
-	 * TODO: HT test this method
 	 */
 	public Set<Workgroup> getWorkgroups(Long runId) 
 	     throws ObjectNotFoundException {
@@ -405,16 +382,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	 */
 	public Set<Workgroup> getWorkgroups(Long runId, Long periodId)
 			throws ObjectNotFoundException {
-		Set<Workgroup> workgroups = getWorkgroups(runId);
-		Set<Workgroup> returnSet = new TreeSet<Workgroup>();
-		for(Workgroup workgroup : workgroups){
-			if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
-				if (((WISEWorkgroup) workgroup).getPeriod().getId().equals(periodId)){
-					returnSet.add(workgroup);
-				}
-			}
-		}
-		return returnSet;
+		return this.runDao.getWorkgroupsForOfferingAndPeriod(runId, periodId);
 	}
 
 	/**
