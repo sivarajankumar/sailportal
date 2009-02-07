@@ -222,9 +222,10 @@
 			
 		this.pollPosts = setInterval("pollNewPosts(" + this.id + "," + this.pollPosts + ")", 60000);
 		this.getAllPosts();
-		getInstantPollActive(this.id);
-	  	this.pollInstantPoll = setInterval('getInstantPollActive(' + this.id + ')', 60000);
+
 		if(this.type=='SINGLE_CHOICE'){
+			getInstantPollActive(this.id);
+	  		this.pollInstantPoll = setInterval('getInstantPollActive(' + this.id + ')', 60000);
 			getResultsGraph(this.id);
 			this.pollGraph = setInterval("getResultsGraph(" + this.id + "," + this.pollGraph + ")", 60000);
 		};

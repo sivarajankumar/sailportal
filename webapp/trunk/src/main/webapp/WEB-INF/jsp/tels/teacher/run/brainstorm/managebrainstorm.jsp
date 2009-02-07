@@ -58,17 +58,19 @@
 	  </li>
     </ul>
 </form:form>
-<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform">
-	<form:hidden path="id"/>
-	<ul>
-		<li id="instantPoll">
-			<form:radiobutton path="instantPollActive" onclick="javascript:this.form.submit();" value="false"/> DEACTIVATE INSTANT POLL - students will not be allowed to respond to the prompt.
-		</li>
-		<li>
-			<form:radiobutton path="instantPollActive" onclick="javascript:this.form.submit();" value="true"/> ACTIVATE INSTANT POLL - allows students to respond to the prompt
-		</li>
-	</ul>
-</form:form>
+<c:if test="${brainstorm.questiontype=='SINGLE_CHOICE'}">
+	<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform">
+		<form:hidden path="id"/>
+		<ul>
+			<li id="instantPoll">
+				<form:radiobutton path="instantPollActive" onclick="javascript:this.form.submit();" value="false"/> DEACTIVATE INSTANT POLL - students will not be allowed to respond to the prompt.
+			</li>
+			<li>
+				<form:radiobutton path="instantPollActive" onclick="javascript:this.form.submit();" value="true"/> ACTIVATE INSTANT POLL - allows students to respond to the prompt
+			</li>
+		</ul>
+	</form:form>
+</c:if>
 <form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
     <form:hidden path="id" />
     <ul>
