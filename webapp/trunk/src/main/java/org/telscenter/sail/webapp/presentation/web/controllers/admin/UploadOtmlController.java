@@ -29,16 +29,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.admin.OtmlFileUpload;
+import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectCurnitVisitor;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -91,12 +96,17 @@ public class UploadOtmlController extends SimpleFormController {
 			return modelAndView;
 		} else {
 			Project project = projectService.getById(request.getParameter("projectId"));
-			Curnit curnit = project.getCurnit();
+			Module curnit = new ModuleImpl();
+			try{
+				curnit = (Module)moduleService.getById(project.getCurnit().getId());
+			}catch(Exception e){
+			}
+			
 			if (curnit instanceof RooloOtmlModuleImpl) {
-				((RooloOtmlModuleImpl) project.getCurnit()).getElo().getContent().setBytes(file.getBytes());		
+				((RooloOtmlModuleImpl) curnit).getElo().getContent().setBytes(file.getBytes());		
 			} else if (curnit instanceof OtmlModuleImpl) {
-				((OtmlModuleImpl) project.getCurnit()).setOtml(file.getBytes());
-				moduleService.updateCurnit(project.getCurnit());
+				((OtmlModuleImpl) curnit).setOtml(file.getBytes());
+				moduleService.updateCurnit(curnit);
 			}
 			projectService.updateProject(project);
 		}
