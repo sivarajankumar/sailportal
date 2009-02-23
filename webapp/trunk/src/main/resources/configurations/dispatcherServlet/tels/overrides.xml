@@ -229,6 +229,7 @@
 <!--  			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController  -->	
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
+				/author/createrooloproject.html=createRooloProjectController
 				/author/authorproject.html=authorProjectController
 				/author/brainstorm/createbrainstorm.html=createBrainstormQuestionController
 				/author/brainstorm/editpreparedanswer.html=editPreparedAnswerController
@@ -240,6 +241,7 @@
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
 				/admin/uploadotml.html=uploadOtmlController
+				/admin/uploadxml.html=uploadXMLProjectController
 				/admin/findprojectruns.html=findProjectRunsController
 				/admin/manageproject.html=listProjectsController
 				/admin/managenewsitems.html=listNewsItemsController
@@ -269,6 +271,14 @@
 				/teacher/projects/bookmark.html=bookmarkController
 				/teacher/projects/copyproject.html=copyProjectController
 				/student/viewannouncements.html=viewAnnouncementsController
+				/createhierarchytype.html=createHierarchyTypeController
+				/createnode.html=createNodeController
+				/managehierarchytypes.html=manageHierarchyTypesController
+				/managehierarchy.html=manageHierarchyController
+				<!-- /reposit.html=repositController  -->
+				<!-- /junk.html=junkController  -->
+				<!-- /retrieve.html=retrieveController  -->
+				/rooloproject.html=rooloProjectController
     		</value>
     	</property>
     </bean>

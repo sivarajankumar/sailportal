@@ -77,5 +77,13 @@ public interface CurnitService {
 	 * @param newName <code>String</code> name of the new curnit
 	 */
 	public void changeCurnitName(Curnit curnit, String newName);
+	
+	/**
+	 * Returns the latest <code>Long</code> id of a curnit found in
+	 * the data store.
+	 * 
+	 * @return <code>Long</code>
+	 */
+	public Long getLatestId();
 
 }

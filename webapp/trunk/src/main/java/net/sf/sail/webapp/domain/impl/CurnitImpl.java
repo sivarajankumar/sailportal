@@ -64,7 +64,7 @@ public class CurnitImpl implements Curnit {
     private Integer version = null;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsCurnit.class)
-    @JoinColumn(name = COLUMN_NAME_SDS_CURNIT_FK, nullable = false, unique = true)
+    @JoinColumn(name = COLUMN_NAME_SDS_CURNIT_FK, nullable = true, unique = true)
     private SdsCurnit sdsCurnit;
 
     /**

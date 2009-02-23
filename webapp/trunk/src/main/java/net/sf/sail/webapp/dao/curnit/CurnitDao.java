@@ -28,4 +28,5 @@ import net.sf.sail.webapp.domain.Curnit;
  */
 public interface CurnitDao<T extends Curnit> extends SimpleDao<T> {
 
+	public Long getLatestId();
 }

@@ -20,43 +20,48 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project.impl;
+package org.telscenter.sail.webapp.service.repository.impl;
 
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.service.curnit.CurnitService;
-import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
+import java.net.URI;
 
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
+import org.telscenter.sail.webapp.service.repository.RepositoryService;
+
+import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
+import roolo.elo.api.IRepository;
+
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class ProjectCurnitVisitor implements ProjectVisitor{
+public class RepositoryServiceImpl implements RepositoryService{
+
+	protected IRepository repository;
 	
-	private CurnitService curnitService;
+	/**
+	 * @see org.telscenter.sail.webapp.service.repository.RepositoryService#getByUri(java.net.URI)
+	 */
+	public IELO getByUri(URI uri) {
+		return this.repository.retrieveELO(uri);
+	}
 	
-	public ProjectCurnitVisitor(CurnitService curnitService){
-		this.curnitService = curnitService;
+	/**
+	 * @see org.telscenter.sail.webapp.service.repository.RepositoryService#addELO(roolo.elo.api.IELO)
+	 */
+	public IMetadata addELO(IELO elo){
+		return this.repository.addELO(elo);
+	}
+	
+	/**
+	 * @param repository the iRepository to set
+	 */
+	public void setRepository(IRepository repository) {
+		this.repository = repository;
 	}
 
-	public Object visit(Project project){
-		Curnit curnit = null;
-		try{
-			curnit = curnitService.getById(project.getCurnit().getId());
-		} catch(Exception e){
-		}
-		return curnit;
+	public void removeELO(URI uri) {
+		this.repository.deleteELO(uri);
 	}
-	
-	public Object visit(ExternalProject project){
-		Curnit curnit = null;
-		try{
-			curnit = curnitService.getById(project.getCurnit().getId());
-		} catch(Exception e){
-		}
-		return curnit;
-	}
+
 }

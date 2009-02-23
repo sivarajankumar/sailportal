@@ -115,9 +115,19 @@
     <bean id="rooloLOROtmlModule"
         class="org.telscenter.sail.webapp.domain.impl.RooloEnlaceLORModuleImpl">
     </bean>
+
     <bean id="moduleDao"
         class="org.telscenter.sail.webapp.dao.module.impl.HibernateModuleDao">
         <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="repository"
+    	class="roolo.elo.RepositoryJcrImpl">
+    </bean>
+    
+    <bean id="repositoryService"
+    	class="org.telscenter.sail.webapp.service.repository.impl.RepositoryServiceImpl">
+    	<property name="repository" ref="repository"/>
     </bean>
 
     <bean id="rooloClientCurnitRepository"
@@ -226,6 +236,7 @@
 	    <property name="potrunkProjectService" ref="potrunkProjectService" />
 	    <property name="otrunkProjectService" ref="otrunkProjectService" />
 	    <property name="externalProjectService" ref="externalProjectService" />
+ 	    <property name="rooloProjectService" ref="rooloProjectService"/>
 	    <property name="moduleService" ref="curnitService"/>
 	</bean>
 	
@@ -271,8 +282,17 @@
         <property name="authoringToolJnlpUrl" value="http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp" />
         <property name="aclService" ref="aclServiceImpl" />
 	</bean>
-	
-	    
+
+	<bean id="rooloProjectService"
+	    class="org.telscenter.sail.webapp.service.project.impl.RooloProjectServiceImpl">
+	    <property name="curnitService" ref="curnitService"/>
+        <property name="projectDao" ref="projectDao"/>
+        <property name="aclService" ref="aclServiceImpl"/>
+        <property name="runService" ref="runService" />
+        <property name="workgroupService" ref="wiseWorkgroupService"/>
+        <property name="userService" ref="userService"/>
+	</bean>
+ 	
     <bean id="diyProjectCommunicatorDao"
         class="org.telscenter.sail.webapp.dao.project.impl.HibernateDIYProjectCommunicatorDao">
         <property name="sessionFactory" ref="sessionFactory" />

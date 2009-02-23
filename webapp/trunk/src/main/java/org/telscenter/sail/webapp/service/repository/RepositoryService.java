@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.service.repository;
 import java.net.URI;
 
 import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
 
 /**
  * Service for communicating with the Repository
@@ -35,14 +36,28 @@ import roolo.elo.api.IELO;
 public interface RepositoryService {
 	
 	/**
-	 * Retrieves CurnitProxy from the repository given
+	 * Retrieves IELO from the repository given
 	 * the URI.
 	 * 
-	 * @param uri <code>URI</code> uniquely identifies the curnit
+	 * @param uri <code>URI</code> uniquely identifies the IELO
 	 * in the repository
-	 * @return <code>CurnitProxy</code> what is retrieved from
+	 * @return <code>IELO</code> what is retrieved from
 	 * the repository
 	 */
 	public IELO getByUri(URI uri);
+	
+	/**
+	 * Adds an IELO to the repository and returns the metadata.
+	 * 
+	 * @param <code>IELO</code> elo
+	 * @return <code>IMetadata</code>
+	 */
+	public IMetadata addELO(IELO elo);
 
+	/**
+	 * Removes an IELO from the repository
+	 * 
+	 * @param <code>URI</code>
+	 */
+	public void removeELO(URI uri);
 }

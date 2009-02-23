@@ -32,8 +32,10 @@ import javax.persistence.Transient;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 
+import org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao;
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.service.module.impl.ModuleServiceImpl;
 
 import roolo.elo.ELOMetadataKeys;
 import roolo.elo.api.IELO;
@@ -46,7 +48,7 @@ import roolo.elo.api.IMetadataValueContainer;
  */
 @Entity
 @Table(name = RooloOtmlModuleImpl.DATA_STORE_NAME)
-public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
+public class RooloOtmlModuleImpl extends ModuleImpl {
 
 	@Transient
 	public static final String DATA_STORE_NAME = "roolootmlmodules";
@@ -65,9 +67,9 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 	
 	@Column(name = RooloOtmlModuleImpl.COLUMN_NAME_ROOLOURL)
 	private String rooloRepositoryUrl;    // url of the roolo repository
-	
+
 	@Transient
-    private IELO elo;
+	private IELO elo;
 	
 	/**
 	 * @see org.telscenter.sail.webapp.domain.Module#getComputerTime()
@@ -146,35 +148,6 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 	 */
 	public void setTotalTime(Long totalTime) {
 	}
-
-
-
-	/**
-	 * @return the elo
-	 */
-	public IELO getElo() {
-		return elo;
-	}
-
-	/**
-	 * @param elo the elo to set
-	 */
-	public void setElo(IELO elo) {
-		this.elo = elo;
-	}
-
-	/**
-	 * Given a CurnitProxy object, retrieves corresponding attributes
-	 * from it and sets them on this object.
-	 * 
-	 * @param curnitProxy
-	 */
-	public void populateModuleFromProxy(IELO elo) {
-		IMetadata metadata = elo.getMetadata();
-		IMetadataValueContainer container = metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey());
-		this.setDescription( container.getValue().toString() );
-		this.setElo(elo);
-	}
 	
 	/**
 	 * Returns a url string that can be used to retrieve this
@@ -216,32 +189,6 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 		this.rooloRepositoryUrl = rooloRepositoryUrl;
 	}
 
-	/**
-	 * Updates this proxy given projectinfo values.
-	 * @param projectInfo
-	 */
-	public void updateProxy(ProjectInfo projectInfo) {
-		IMetadata metadata = this.getElo().getMetadata();
-		IMetadataValueContainer container;
-		container = metadata.getMetadataValueContainer(ELOMetadataKeys.AUTHOR.getKey());
-		container.setValue( projectInfo.getAuthor() );
-		container = metadata.getMetadataValueContainer(ELOMetadataKeys.COMMENT.getKey());
-		container.setValue( projectInfo.getComment() );
-		container = metadata.getMetadataValueContainer(ELOMetadataKeys.FAMILYTAG.getKey());
-		container.setValue( projectInfo.getFamilyTag() );
-		container = metadata.getMetadataValueContainer(ELOMetadataKeys.ISCURRENT.getKey());
-		container.setValue( Boolean.toString(projectInfo.isCurrent()) );
-		container = metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey());
-		container.setValue( projectInfo.getDescription() );
-		container = metadata.getMetadataValueContainer(ELOMetadataKeys.GRADELEVEL.getKey());
-		container.setValue( projectInfo.getGradeLevel() );
-		container = metadata.getMetadataValueContainer(ELOMetadataKeys.SUBJECT.getKey());
-		container.setValue( projectInfo.getSubject() );
-		container = metadata.getMetadataValueContainer(ELOMetadataKeys.KEYWORDS.getKey());
-		container.setValue( projectInfo.getKeywords() );
-		
-	}
-
 	public String getAuthors() {
 		// TODO Auto-generated method stub
 		return null;
@@ -270,6 +217,20 @@ public class RooloOtmlModuleImpl extends CurnitImpl implements Module {
 	public void setTopicKeywords(String topicKeywords) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * @return the elo
+	 */
+	public IELO getElo() {
+		return elo;
+	}
+
+	/**
+	 * @param elo the elo to set
+	 */
+	public void setElo(IELO elo) {
+		this.elo = elo;
 	}
 
 }

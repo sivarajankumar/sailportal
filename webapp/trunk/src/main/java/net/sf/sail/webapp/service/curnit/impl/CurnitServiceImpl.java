@@ -116,4 +116,10 @@ public class CurnitServiceImpl implements CurnitService {
 		this.curnitDao.save(curnit);
 	}
 
+	/**
+	 * @see net.sf.sail.webapp.service.curnit.CurnitService#getLatestId()
+	 */
+	public Long getLatestId(){
+		return this.curnitDao.getLatestId();
+	}
 }

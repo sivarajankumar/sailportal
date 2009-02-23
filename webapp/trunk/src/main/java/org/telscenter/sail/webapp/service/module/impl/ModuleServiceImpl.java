@@ -37,10 +37,13 @@ import org.telscenter.sail.webapp.dao.module.ModuleDao;
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.impl.CreateOtmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
+import org.telscenter.sail.webapp.domain.impl.CreateRooloXmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.service.module.ModuleService;
+
+import roolo.elo.api.IELO;
 
 /**
  *  Service for the TELS's Module Domain Object
@@ -61,40 +64,49 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 	 @Override
 	 @Transactional(rollbackFor = { HttpStatusCodeException.class })	
 	 public Module createCurnit(CurnitParameters curnitParameters) {
-		SdsCurnit sdsCurnit = new SdsCurnit();
-		sdsCurnit.setName(curnitParameters.getName());
-		sdsCurnit.setUrl(curnitParameters.getUrl());
-	    this.sdsCurnitDao.save(sdsCurnit);  
-
-	    Module module = null;
-	    if (curnitParameters instanceof CreateRooloOtmlModuleParameters) {
-	    	module = new RooloOtmlModuleImpl();
-	    	module.setSdsCurnit(sdsCurnit);
-	    	((RooloOtmlModuleImpl) module).setRooloModuleUri(
-	    			((CreateRooloOtmlModuleParameters) curnitParameters).getRoolouri());
-	    	((RooloOtmlModuleImpl) module).setRooloRepositoryUrl(
-	    			((CreateRooloOtmlModuleParameters) curnitParameters).getRooloRepositoryUrl());
-	    	((RooloOtmlModuleImpl) module).setElo(((CreateRooloOtmlModuleParameters) curnitParameters).getElo());
-	    	this.rooloOtmlModuleDao.save(module);
-	    } else if (curnitParameters instanceof CreateOtmlModuleParameters) {
-	    	OtmlModuleImpl otmlModuleImpl = new OtmlModuleImpl();
-	    	otmlModuleImpl.setOtml(((CreateOtmlModuleParameters) curnitParameters).getOtml());
-	    	otmlModuleImpl.setSdsCurnit(sdsCurnit);
-	    	this.moduleDao.save(otmlModuleImpl);
-	    	Long id = otmlModuleImpl.getId();
-	    	// save id.  changeme with url.
-	    	if (((CreateOtmlModuleParameters) curnitParameters).getRetrieveotmlurl() == null) {
-	    		otmlModuleImpl.setRetrieveotmlurl("http://localhost:8080/webapp/repository/retrieveotml.html?otmlModuleId=" + id);	    
-	    	} else {
-	    		otmlModuleImpl.setRetrieveotmlurl(((CreateOtmlModuleParameters) curnitParameters).getRetrieveotmlurl() + id);
-	    	}
-	    	this.moduleDao.save(otmlModuleImpl);
-	    	return otmlModuleImpl;
-	    } else {
-	    	module = new ModuleImpl();
-	    	module.setSdsCurnit(sdsCurnit);
-	    	this.moduleDao.save(module);
-	    }
+		Module module = null;
+		
+		if(curnitParameters instanceof CreateRooloXmlModuleParameters){
+			module = new RooloOtmlModuleImpl();
+			((RooloOtmlModuleImpl) module).setElo(((CreateRooloXmlModuleParameters)curnitParameters).getElo());
+			((RooloOtmlModuleImpl) module).setRooloModuleUri(((CreateRooloXmlModuleParameters)curnitParameters).getRoolouri());
+			((RooloOtmlModuleImpl) module).setRooloRepositoryUrl(((CreateRooloXmlModuleParameters)curnitParameters).getRooloRepositoryUrl());
+			this.rooloOtmlModuleDao.save(module);
+		} else {
+			SdsCurnit sdsCurnit = new SdsCurnit();
+			sdsCurnit.setName(curnitParameters.getName());
+			sdsCurnit.setUrl(curnitParameters.getUrl());
+		    this.sdsCurnitDao.save(sdsCurnit);  
+		    
+		    if (curnitParameters instanceof CreateRooloOtmlModuleParameters) {
+		    	module = new RooloOtmlModuleImpl();
+		    	module.setSdsCurnit(sdsCurnit);
+		    	((RooloOtmlModuleImpl) module).setRooloModuleUri(
+		    			((CreateRooloOtmlModuleParameters) curnitParameters).getRoolouri());
+		    	((RooloOtmlModuleImpl) module).setRooloRepositoryUrl(
+		    			((CreateRooloOtmlModuleParameters) curnitParameters).getRooloRepositoryUrl());
+		    	((RooloOtmlModuleImpl) module).setElo(((CreateRooloOtmlModuleParameters) curnitParameters).getElo());
+		    	this.rooloOtmlModuleDao.save(module);
+		    } else if (curnitParameters instanceof CreateOtmlModuleParameters) {
+		    	OtmlModuleImpl otmlModuleImpl = new OtmlModuleImpl();
+		    	otmlModuleImpl.setOtml(((CreateOtmlModuleParameters) curnitParameters).getOtml());
+		    	otmlModuleImpl.setSdsCurnit(sdsCurnit);
+		    	this.moduleDao.save(otmlModuleImpl);
+		    	Long id = otmlModuleImpl.getId();
+		    	// save id.  changeme with url.
+		    	if (((CreateOtmlModuleParameters) curnitParameters).getRetrieveotmlurl() == null) {
+		    		otmlModuleImpl.setRetrieveotmlurl("http://localhost:8080/webapp/repository/retrieveotml.html?otmlModuleId=" + id);	    
+		    	} else {
+		    		otmlModuleImpl.setRetrieveotmlurl(((CreateOtmlModuleParameters) curnitParameters).getRetrieveotmlurl() + id);
+		    	}
+		    	this.moduleDao.save(otmlModuleImpl);
+		    	return otmlModuleImpl;
+		    } else {
+		    	module = new ModuleImpl();
+		    	module.setSdsCurnit(sdsCurnit);
+		    	this.moduleDao.save(module);
+		    }
+		}
     	return module;
 	}
 
@@ -134,13 +146,19 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 	@Override
 	@Transactional()
 	public void updateCurnit(Curnit curnit) {
-		SdsCurnit sdsCurnit = curnit.getSdsCurnit();
-		this.sdsCurnitDao.save(sdsCurnit);
 		if (curnit instanceof RooloOtmlModuleImpl) {
 			this.rooloOtmlModuleDao.save((Module) curnit);
 		} else {
+			SdsCurnit sdsCurnit = curnit.getSdsCurnit();
+			this.sdsCurnitDao.save(sdsCurnit);
 			this.moduleDao.save((Module) curnit);
 		}
+	}
+	
+
+
+	public IELO getEloForModule(RooloOtmlModuleImpl mod) {
+		return this.rooloOtmlModuleDao.getEloForModule(mod);
 	}
 
 	/**

@@ -20,43 +20,37 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project.impl;
+package org.telscenter.sail.webapp.domain.admin;
 
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.service.curnit.CurnitService;
-import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
+import java.io.Serializable;
 
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class ProjectCurnitVisitor implements ProjectVisitor{
+public class XMLFileUpload implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private MultipartFile file;
 	
-	private CurnitService curnitService;
-	
-	public ProjectCurnitVisitor(CurnitService curnitService){
-		this.curnitService = curnitService;
+	private String name;
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
-	public Object visit(Project project){
-		Curnit curnit = null;
-		try{
-			curnit = curnitService.getById(project.getCurnit().getId());
-		} catch(Exception e){
-		}
-		return curnit;
+	public MultipartFile getFile() {
+		return file;
 	}
 	
-	public Object visit(ExternalProject project){
-		Curnit curnit = null;
-		try{
-			curnit = curnitService.getById(project.getCurnit().getId());
-		} catch(Exception e){
-		}
-		return curnit;
+	public String getName(){
+		return this.name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
 	}
 }

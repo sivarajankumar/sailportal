@@ -44,6 +44,7 @@ import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
@@ -73,7 +74,7 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 
 		WISEWorkgroup workgroup = null;
 		
-		if (run.getProject() instanceof ExternalProject) {
+		if (run.getProject() instanceof ExternalProject || run.getProject().getProjectType()==ProjectType.ROLOO) {
 			workgroup = createWISEWorkgroup(members, run, null, period);
 			// TODO hiroki set externalid here
 			//ExternalProjectService externalProjectService = 

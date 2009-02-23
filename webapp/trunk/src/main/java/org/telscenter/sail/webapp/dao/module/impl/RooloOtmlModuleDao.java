@@ -44,6 +44,7 @@ import roolo.elo.api.IELO;
 import roolo.elo.api.IMetadata;
 import roolo.elo.api.IMetadataValueContainer;
 import roolo.elo.api.IRepository;
+import roolo.elo.api.exceptions.ELODoesNotExistException;
 
 /**
  * @author Hiroki Terashima
@@ -69,15 +70,27 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 	@Override
 	public Module getById(Serializable id) throws ObjectNotFoundException {
 		RooloOtmlModuleImpl module = (RooloOtmlModuleImpl) super.getById(id);
-		String rooloUri = module.getRooloModuleUri();
-		try {
+//		String rooloUri = module.getRooloModuleUri();
+//		try {
+//			URI uri = new URI(rooloUri);
+//			IELO curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
+//			module.populateModuleFromProxy(curnitProxy);
+//		} catch (URISyntaxException e) {
+//			e.printStackTrace();
+//		}
+		return module;
+	}
+	
+	public IELO getEloForModule(Module mod){
+		IELO elo = null;
+		String rooloUri = ((RooloOtmlModuleImpl)mod).getRooloModuleUri();
+		try{
 			URI uri = new URI(rooloUri);
-			IELO curnitProxy = rooloClientCurnitRepository.retrieveELO(uri);
-			module.populateModuleFromProxy(curnitProxy);
-		} catch (URISyntaxException e) {
+			elo = rooloClientCurnitRepository.retrieveELO(uri);
+		} catch (URISyntaxException e){
 			e.printStackTrace();
 		}
-		return module;
+		return elo;
 	}
 	
 	/**
@@ -86,10 +99,27 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 	@Override
 	public void save(Module module) {
 		super.save(module);
-//		CurnitProxy curnitProxy = ((RooloOtmlModuleImpl) module).getProxy();
-//		rooloClientCurnitRepository.updateELO(curnitProxy);
+		try{
+			this.rooloClientCurnitRepository.updateELO(((RooloOtmlModuleImpl)module).getElo());
+		} catch(ELODoesNotExistException e){  
+			//if this is thrown, then add it to repository
+			this.rooloClientCurnitRepository.addELO(((RooloOtmlModuleImpl)module).getElo());
+		}
 	}
-
+	
+	/**
+	 * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#delete(java.lang.Object)
+	 */
+	@Override
+	public void delete(Module module){
+		super.delete(module);
+		try{
+			this.rooloClientCurnitRepository.deleteELO(new URI( ((RooloOtmlModuleImpl)module).getRooloModuleUri()));
+		} catch(URISyntaxException e){
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * @see net.sf.sail.webapp.dao.SimpleDao#getList()
 	 */
@@ -210,6 +240,11 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 	 */
 	public String getDefaultOtrunkCurnitUrl() {
 		return defaultOtrunkCurnitUrl;
+	}
+
+	public Long getLatestId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -57,6 +57,7 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectJnlpVisitor;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -172,7 +173,9 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setProject(project);
 		run.setName("Run with Project " + runParameters.getProject().getName());
 		if (!(run.getProject() instanceof ExternalProject)) {
-			run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
+			if(run.getProject().getProjectType()!=ProjectType.ROLOO){
+				run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
+			}
 		}
 		Set<String> periodNames = runParameters.getPeriodNames();
 		if (periodNames != null) {

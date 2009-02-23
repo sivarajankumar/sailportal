@@ -29,5 +29,5 @@ package org.telscenter.sail.webapp.domain.project.impl;
  * @version $Id$
  */
 public enum ProjectType {
-	POD, OTRUNK, POTRUNK
+	POD, OTRUNK, POTRUNK, ROLOO
 }

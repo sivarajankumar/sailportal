@@ -165,4 +165,13 @@ public class RooloLOROtmlModuleDao extends AbstractHibernateDao<Module>
 		return defaultOtrunkCurnitUrl;
 	}
 
+	public Long getLatestId() {
+		return null;
+	}
+
+	public IELO getEloForModule(Module mod) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

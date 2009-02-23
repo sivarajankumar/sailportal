@@ -218,6 +218,25 @@ public class WorkgroupServiceImpl implements WorkgroupService {
 		}
 	}
 
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getPreviewWorkgroupForRooloOffering(net.sf.sail.webapp.domain.Offering, net.sf.sail.webapp.domain.User)
+     */
+    @Transactional(rollbackFor = { HttpStatusCodeException.class })
+    public Workgroup getPreviewWorkgroupForRooloOffering(Offering previewOffering, User previewUser){
+    	List<Workgroup> listByOfferingAndUser = this.workgroupDao.getListByOfferingAndUser(previewOffering, previewUser);
+		if (listByOfferingAndUser.isEmpty()) {
+			Workgroup workgroup = new WorkgroupImpl();
+			workgroup.addMember(previewUser);
+			workgroup.setOffering(previewOffering);
+			this.groupDao.save(workgroup.getGroup());
+			this.workgroupDao.save(workgroup);
+	
+			this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
+			return workgroup;   
+		} else {
+			return  listByOfferingAndUser.get(0);
+		}
+    }
 
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#addMembers(net.sf.sail.webapp.domain.Workgroup, java.util.Set)

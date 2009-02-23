@@ -27,6 +27,7 @@ import java.net.URI;
 import org.telscenter.sail.webapp.service.repository.RepositoryService;
 
 import roolo.elo.api.IELO;
+import roolo.elo.api.IMetadata;
 import roolo.elo.api.IRepository;
 
 /**
@@ -57,6 +58,15 @@ public class RooloRepositoryServiceImpl implements RepositoryService {
 
 	public IELO getELOByUri(URI uri) {
 		return null;
+	}
+
+	public IMetadata addELO(IELO elo) {
+		return null;
+	}
+
+	public void removeELO(URI uri) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

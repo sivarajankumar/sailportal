@@ -20,43 +20,62 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project.impl;
+package org.telscenter.sail.webapp.domain.impl;
 
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.service.curnit.CurnitService;
-import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
-
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
+import roolo.elo.api.IELO;
+import net.sf.sail.webapp.domain.impl.CurnitParameters;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class ProjectCurnitVisitor implements ProjectVisitor{
+public class CreateRooloXmlModuleParameters extends CurnitParameters{
+
+	private String roolouri;
 	
-	private CurnitService curnitService;
+	private String rooloRepositoryUrl;
 	
-	public ProjectCurnitVisitor(CurnitService curnitService){
-		this.curnitService = curnitService;
+	private IELO elo;
+
+	/**
+	 * @return the roolouri
+	 */
+	public String getRoolouri() {
+		return roolouri;
 	}
 
-	public Object visit(Project project){
-		Curnit curnit = null;
-		try{
-			curnit = curnitService.getById(project.getCurnit().getId());
-		} catch(Exception e){
-		}
-		return curnit;
+	/**
+	 * @param roolouri the roolouri to set
+	 */
+	public void setRoolouri(String roolouri) {
+		this.roolouri = roolouri;
 	}
-	
-	public Object visit(ExternalProject project){
-		Curnit curnit = null;
-		try{
-			curnit = curnitService.getById(project.getCurnit().getId());
-		} catch(Exception e){
-		}
-		return curnit;
+
+	/**
+	 * @return the rooloRepositoryUrl
+	 */
+	public String getRooloRepositoryUrl() {
+		return rooloRepositoryUrl;
+	}
+
+	/**
+	 * @param rooloRepositoryUrl the rooloRepositoryUrl to set
+	 */
+	public void setRooloRepositoryUrl(String rooloRepositoryUrl) {
+		this.rooloRepositoryUrl = rooloRepositoryUrl;
+	}
+
+	/**
+	 * @return the elo
+	 */
+	public IELO getElo() {
+		return elo;
+	}
+
+	/**
+	 * @param elo the elo to set
+	 */
+	public void setElo(IELO elo) {
+		this.elo = elo;
 	}
 }

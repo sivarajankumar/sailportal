@@ -20,43 +20,29 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.domain.project.impl;
+package org.telscenter.sail.webapp.domain.impl;
 
-import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.service.curnit.CurnitService;
-import net.sf.sail.webapp.service.curnit.impl.CurnitServiceImpl;
-
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
+import java.io.Serializable;
 
 /**
- * @author patrick lawler
+ * @author shadowtorn
  * @version $Id:$
  */
-public class ProjectCurnitVisitor implements ProjectVisitor{
+public class RooloProjectParameters extends ProjectParameters{
 	
-	private CurnitService curnitService;
-	
-	public ProjectCurnitVisitor(CurnitService curnitService){
-		this.curnitService = curnitService;
+	private String xml;
+
+	/**
+	 * @return the xml
+	 */
+	public String getXml() {
+		return xml;
 	}
 
-	public Object visit(Project project){
-		Curnit curnit = null;
-		try{
-			curnit = curnitService.getById(project.getCurnit().getId());
-		} catch(Exception e){
-		}
-		return curnit;
-	}
-	
-	public Object visit(ExternalProject project){
-		Curnit curnit = null;
-		try{
-			curnit = curnitService.getById(project.getCurnit().getId());
-		} catch(Exception e){
-		}
-		return curnit;
+	/**
+	 * @param xml the xml to set
+	 */
+	public void setXml(String xml) {
+		this.xml = xml;
 	}
 }

@@ -48,6 +48,8 @@ public class ProjectServiceFactory {
 	
 	private ExternalProjectService externalProjectService;
 	
+	private ProjectService rooloProjectService;
+	
 	private ModuleService moduleService;
 	
 	/**
@@ -72,7 +74,11 @@ public class ProjectServiceFactory {
 			System.out.println(e);
 		}
 		if (curnit instanceof RooloOtmlModuleImpl) {
-			projectService = otrunkProjectService;
+			if (project.getProjectType()==ProjectType.ROLOO){
+				projectService = rooloProjectService;
+			} else {
+				projectService = otrunkProjectService;
+			}
 		} else if (curnit instanceof OtmlModuleImpl) {
 			projectService = potrunkProjectService;
 		} else {
@@ -96,6 +102,8 @@ public class ProjectServiceFactory {
 			projectService = otrunkProjectService;
 		} else if (projectType == ProjectType.POTRUNK) {
 			projectService = potrunkProjectService;
+		} else if (projectType == ProjectType.ROLOO) {
+			projectService = rooloProjectService;
 		} else {
 			projectService = podProjectService;
 		}
@@ -136,6 +144,13 @@ public class ProjectServiceFactory {
 	 */
 	public void setModuleService(ModuleService moduleService) {
 		this.moduleService = moduleService;
+	}
+
+	/**
+	 * @param rooloProjectService the rooloProjectService to set
+	 */
+	public void setRooloProjectService(ProjectService rooloProjectService) {
+		this.rooloProjectService = rooloProjectService;
 	}
 
 }

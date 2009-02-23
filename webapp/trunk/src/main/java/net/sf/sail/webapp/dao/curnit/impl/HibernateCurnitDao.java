@@ -44,4 +44,9 @@ public class HibernateCurnitDao extends AbstractHibernateDao<Curnit> implements
     protected Class<CurnitImpl> getDataObjectClass() {
     	return CurnitImpl.class;
     }
+
+	public Long getLatestId(){
+		String q = "select Max(curnit.id) from CurnitImpl curnit";
+		return (Long) this.getHibernateTemplate().find(q).get(0);
+	}
 }
