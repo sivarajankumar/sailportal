@@ -32,6 +32,7 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -159,7 +160,7 @@ public class StudentRunInfo implements Comparable<StudentRunInfo>{
 			HttpRestTransport httpRestTransport, HttpServletRequest request) {
 		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
 		String result = (String) run.getProject().accept(typeVisitor);
-		if (this.getWorkgroup() != null && !(result.equals("ExternalProject"))) {
+		if (this.getWorkgroup() != null && !(result.equals("ExternalProject")) && run.getProject().getProjectType()!=ProjectType.ROLOO) {
 			String workPdfUrl = workgroupService
 		        .generateWorkgroupWorkPdfUrlString(httpRestTransport, request, (WISEWorkgroup) workgroup);
 			
