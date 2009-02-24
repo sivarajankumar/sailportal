@@ -60,7 +60,7 @@ public class JnlpImpl implements Jnlp {
     private Integer version = null;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsJnlp.class)
-    @JoinColumn(name = COLUMN_NAME_SDS_JNLP_FK, nullable = false, unique = true)
+    @JoinColumn(name = COLUMN_NAME_SDS_JNLP_FK, nullable = true, unique = true)
     private SdsJnlp sdsJnlp;
 
     /**
