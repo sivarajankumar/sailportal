@@ -47,9 +47,16 @@ public class ControllerUtil {
 				User.CURRENT_USER_SESSION_KEY);
 	}
 	
-	public static String getPortalUrlString(HttpServletRequest request) {
+	public static String getBaseUrlString(HttpServletRequest request) {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
-		request.getServerPort() + request.getContextPath();
+		request.getServerPort();
+		
+		return portalUrl;
+	}
+
+	
+	public static String getPortalUrlString(HttpServletRequest request) {
+		String portalUrl = ControllerUtil.getBaseUrlString(request) + request.getContextPath();
 		
 		return portalUrl;
 	}

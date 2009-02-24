@@ -28,6 +28,7 @@ import java.util.Set;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.run.RunStatus;
 
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
@@ -201,5 +202,31 @@ public interface Run extends Offering {
 	 * @param <code>Set<Announcement></code> announcements
 	 */
 	public void setAnnouncements(Set<Announcement> announcements);
+	
+	/**
+	 * returns RunSettings for this run.
+	 * @return
+	 */
+	public RunStatus getRunStatus();
+	
+    /**
+	 * @return the isPaused
+	 */
+	public boolean isPaused();
+
+	/**
+	 * @param isPaused the isPaused to set
+	 */
+	public void setPaused(boolean isPaused);
+	
+    /**
+	 * @return the isPaused
+	 */
+	public String getInfo();
+
+	/**
+	 * @param isPaused the isPaused to set
+	 */
+	public void setInfo(String info);
 
 }

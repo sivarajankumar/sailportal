@@ -27,6 +27,7 @@
   
  	// Should jsProgressBarHandler hook itself to all span.progressBar elements? - default : true
 		var autoHook	= true;		
+		
  
  	// Default Options
 		var defaultOptions = {

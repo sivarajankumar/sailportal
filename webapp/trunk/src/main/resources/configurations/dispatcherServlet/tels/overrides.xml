@@ -99,6 +99,8 @@
     		    /contactwisegeneral.html=contactWiseController
     		    /contactwiseproject.html=contactWiseProjectController
     		    /student/index.html=studentIndexController
+    		    /student/vle/vle.html=studentVLEController
+    		    /student/vle/basic_example_otml.html=basicExampleController
     		    /student/selectteam.html=selectteamController
     		    /student/teamsignin.html=teamSignInController
     		    /student/addproject.html=addProjectController

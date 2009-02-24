@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,6 +35,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -46,12 +48,15 @@ import org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+import org.telscenter.sail.webapp.domain.run.RunStatus;
+import org.telscenter.sail.webapp.domain.run.impl.RunStatusImpl;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
+import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
  * WISE "run" domain object A WISE run is an offering with more information,
@@ -114,7 +119,16 @@ public class RunImpl extends OfferingImpl implements Run {
 
     @Transient
 	private static final String COLUMN_NAME_RUNNAME = "name";
-    
+
+    @Transient
+	private static final String COLUMN_NAME_RUNSTATUS = "runstatus_fk";
+
+    @Transient
+	private static final String COLUMN_NAME_ISPAUSED = "isPaused";
+
+    @Transient
+	private static final String COLUMN_NAME_INFO = "info";
+
     @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
     private Date starttime;
 
@@ -148,6 +162,14 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Column(name = COLUMN_NAME_RUNNAME)
     private String name;
+
+    @Column(name = COLUMN_NAME_INFO)
+    private String info;   // other info pertaining to the run
+    
+	//@OneToOne(cascade = CascadeType.ALL, targetEntity = RunStatusImpl.class)
+    //@JoinColumn(name = COLUMN_NAME_RUNSTATUS, unique = true)
+    @Transient
+    private RunStatus runStatus;
 
     @Transient
     private Set<Brainstorm> brainstorms = new TreeSet<Brainstorm>();
@@ -334,5 +356,47 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setAnnouncements(Set<Announcement> announcements) {
 		this.announcements = announcements;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#getRunStatus()
+	 */
+	public RunStatus getRunStatus() {
+		return this.runStatus;
+	}
+
+	/**
+	 * @param runStatus the runStatus to set
+	 */
+	public void setRunStatus(RunStatus runStatus) {
+		this.runStatus = runStatus;
+	}
+	
+    /**
+	 * @return the isPaused
+	 */
+	public boolean isPaused() {
+		return this.runStatus.isPaused();
+	}
+
+	/**
+	 * @param isPaused the isPaused to set
+	 */
+	public void setPaused(boolean isPaused) {
+		this.runStatus.setPaused(isPaused);
+	}
+
+	/**
+	 * @return the info
+	 */
+	public String getInfo() {
+		return info;
+	}
+
+	/**
+	 * @param info the info to set
+	 */
+	public void setInfo(String info) {
+		this.info = info;
 	}
 }
