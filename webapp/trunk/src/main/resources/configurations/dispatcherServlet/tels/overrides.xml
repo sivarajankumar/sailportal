@@ -241,7 +241,6 @@
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
 				/admin/uploadotml.html=uploadOtmlController
-				/admin/uploadxml.html=uploadXMLProjectController
 				/admin/findprojectruns.html=findProjectRunsController
 				/admin/manageproject.html=listProjectsController
 				/admin/managenewsitems.html=listNewsItemsController
@@ -279,6 +278,8 @@
 				<!-- /junk.html=junkController  -->
 				<!-- /retrieve.html=retrieveController  -->
 				/rooloproject.html=rooloProjectController
+				/author/authorrooloproject.html=authorRooloProjectController
+				/author/uploadxml.html=uploadXMLProjectController
     		</value>
     	</property>
     </bean>

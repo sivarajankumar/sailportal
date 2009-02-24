@@ -684,7 +684,7 @@
     	<property name="commandName" value="rooloProjectParameters"/>
     	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.RooloProjectParameters"/>
     	<property name="sessionForm" value="true"/>
-    	<property name="successView" value="author/createprojectsuccess"/>
+    	<property name="successView" value="author/authorrooloproject"/>
     	<property name="curnitService" ref="curnitService"/>
         <property name="projectService" ref="projectService"/>
     </bean>
@@ -911,7 +911,7 @@
     	<property name="sessionForm" value="true"/>
     	<property name="commandName" value="xmlFile"/>
     	<property name="commandClass" value="org.telscenter.sail.webapp.domain.admin.XMLFileUpload"/>
-    	<property name="formView" value="admin/uploadxml"/>
+    	<property name="formView" value="author/uploadxml"/>
     	<property name="successView" value="index.html"/>
     </bean>
 
@@ -1239,6 +1239,15 @@
     	<property name="runService" ref="runService"/>
     	<property name="workgroupService" ref="workgroupService"/>
     	<property name="moduleService" ref="curnitService"/>
+    </bean>
+    
+    <bean id="authorRooloProjectController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.AuthorRooloProjectController">
+    	<property name="commandName" value="rooloProjectParameters"/>
+    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.RooloProjectParameters"/>
+    	<property name="projectService" ref="projectService"/>
+    	<property name="moduleService" ref="curnitService"/>
+    	<property name="sessionForm" value="true"/>
     </bean>
     
     <!--  Author-related controllers -->    	

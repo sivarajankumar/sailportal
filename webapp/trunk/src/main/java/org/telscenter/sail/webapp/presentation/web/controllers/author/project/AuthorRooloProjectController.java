@@ -22,12 +22,16 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloProjectParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -35,6 +39,7 @@ import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 import roolo.elo.api.IELO;
+import roolo.elo.content.StringContent;
 
 /**
  * @author patrick lawler
@@ -48,6 +53,15 @@ public class AuthorRooloProjectController extends SimpleFormController {
 	
 	private final static String PROJECTID = "projectId";
 	
+    /**
+     * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+     */
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put(PROJECTID, request.getParameter(PROJECTID));
+		return model;
+	}
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
@@ -59,7 +73,6 @@ public class AuthorRooloProjectController extends SimpleFormController {
 		params.setCurnitId(project.getCurnit().getId());
 		params.setOwners(project.getOwners());
 		params.setProjectname(project.getName());
-		params.setProjectType(project.getProjectType());
 		
 		RooloOtmlModuleImpl mod = (RooloOtmlModuleImpl)this.moduleService.getById(project.getCurnit().getId());
 		IELO elo = this.moduleService.getEloForModule(mod);
@@ -74,8 +87,23 @@ public class AuthorRooloProjectController extends SimpleFormController {
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors) throws Exception{
+    	RooloProjectParameters params = (RooloProjectParameters) command;
     	
-    	return null;
+    	//not really jnlpid, it is projectid set in formbackingobject
+    	Project project = this.projectService.getById(params.getJnlpId()); 
+    	project.setOwners(params.getOwners());
+    	project.setName(params.getProjectname());
+    	
+    	RooloOtmlModuleImpl mod = (RooloOtmlModuleImpl) this.moduleService.getById(params.getCurnitId());
+    	IELO elo = this.moduleService.getEloForModule(mod);
+    	elo.setContent(new StringContent(params.getXml()));
+    	mod.setElo(elo);
+    	this.moduleService.updateCurnit(mod);
+    	this.projectService.updateProject(project);
+    	
+    	ModelAndView mav = new ModelAndView(new RedirectView("./authorrooloproject.html"));
+    	mav.addObject(PROJECTID, project.getId());
+    	return mav;
     }
 
 	/**

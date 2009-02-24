@@ -176,7 +176,7 @@ public class OTrunkProjectServiceImpl extends PodProjectServiceImpl {
 		this.projectDao.save(project);
 		Curnit curnit = project.getCurnit();
 		RooloOtmlModuleImpl rooloOtmlModule = (RooloOtmlModuleImpl) curnit;
-		rooloOtmlModule.updateProxy(project.getProjectInfo());
+		//rooloOtmlModule.updateProxy(project.getProjectInfo());
 		curnitService.updateCurnit(project.getCurnit());
 	}
 	

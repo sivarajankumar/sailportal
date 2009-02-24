@@ -16,14 +16,14 @@
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 </head>
 <body>
-<%@ include file="adminheader.jsp"%>
+
 <form:form method="post" action="uploadxml.html?projectId=${projectId}" commandName="xmlFileUpload" id="uploadProject" enctype="multipart/form-data">
 	<label for="xmlFile">xml file</label><br/>
 	<input type="file" name="file" id="xmlFile"/>
     <br/><br/>
     
     <input type="submit" value="Save" />
-    <a href="manageallprojects.html"><input type="button" value="Cancel"></input></a>
+    <a href="authorrooloproject.html?projectId=${projectId}"><input type="button" value="Cancel"></input></a>
 </form:form>
 </body>
 </html>
