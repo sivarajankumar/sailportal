@@ -201,6 +201,7 @@
     		    /teacher/help/overview.html=overviewHelpController
     		    /teacher/help/main.html=mainHelpController
     		    /teacher/help/contactwise.html=contactWiseController
+    		    /teacher/vle/vle.html=studentVLEController
     		    /**/index.html=indexController
     		    /previewproject.html=previewprojectController
     		    /previewprojectlist.html=previewprojectlistController

@@ -38,9 +38,11 @@ import net.sf.sail.webapp.service.curnit.CurnitService;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloXmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.RooloProjectParameters;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -67,6 +69,8 @@ public class CreateRooloProjectController extends SimpleFormController{
 	
 	private final static String REP_URL = "http://localhost:8080/webapp/repository";
 	
+	private final static String PROJECTID = "projectId";
+	
 	private ProjectService projectService;
 	
 	private CurnitService curnitService;
@@ -87,9 +91,10 @@ public class CreateRooloProjectController extends SimpleFormController{
 		Curnit curnit = curnitService.createCurnit(curnitParams);
 		
 		params.setCurnitId(curnit.getId());
-		projectService.createProject(params);
+		Project project = projectService.createProject(params);
     	
-		ModelAndView mav = new ModelAndView(this.getSuccessView());
+		ModelAndView mav = new ModelAndView(new RedirectView("./authorrooloproject.html"));
+		mav.addObject(PROJECTID, project.getId());
     	return mav;
     }
 

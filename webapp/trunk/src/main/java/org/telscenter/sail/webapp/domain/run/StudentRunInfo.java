@@ -36,6 +36,7 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
  * Stores information about a WISE student on a particular
@@ -134,14 +135,13 @@ public class StudentRunInfo implements Comparable<StudentRunInfo>{
 	}
 	
 	public int compareTo(StudentRunInfo o){
+		TeacherUserDetails bestDetails = (TeacherUserDetails) this.run.getOwners().iterator().next().getUserDetails();
+		TeacherUserDetails incomingDetails = (TeacherUserDetails) o.run.getOwners().iterator().next().getUserDetails();
 		
-		User bestTeacher = this.run.getOwners().iterator().next();
-		User incomingBestTeacher = o.run.getOwners().iterator().next();
-
-		if(!bestTeacher.getSdsUser().getLastName().equals(incomingBestTeacher.getSdsUser().getLastName())){
-			return bestTeacher.getSdsUser().getLastName().compareTo(incomingBestTeacher.getSdsUser().getLastName());
-		} else if(!bestTeacher.getSdsUser().getFirstName().equals(incomingBestTeacher.getSdsUser().getFirstName())){
-			return bestTeacher.getSdsUser().getFirstName().compareTo(incomingBestTeacher.getSdsUser().getFirstName());
+		if(!bestDetails.getLastname().equals(incomingDetails.getLastname())){
+			return bestDetails.getLastname().compareTo(incomingDetails.getLastname());
+		} else if(!bestDetails.getFirstname().equals(incomingDetails.getFirstname())){
+			return bestDetails.getFirstname().compareTo(incomingDetails.getFirstname());
 		} else {
 			if (this.run.getName() == null || o.run.getName() == null) {
 				return 0;

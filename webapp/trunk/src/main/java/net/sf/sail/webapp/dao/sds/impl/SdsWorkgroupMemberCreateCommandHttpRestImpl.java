@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.dao.sds.impl;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import net.sf.sail.webapp.dao.sds.SdsWorkgroupMemberCreateCommand;
 import net.sf.sail.webapp.domain.sds.SdsUser;
@@ -72,6 +73,10 @@ public class SdsWorkgroupMemberCreateCommandHttpRestImpl extends
         final SdsWorkgroup workgroup = this.getWorkgroup();
         final Set<SdsUser> membersList = workgroup.getMembers();
         String membersString = "";
+        System.out.println(membersList.size());
+        SdsUser sdsUser = membersList.iterator().next();
+        System.out.println(sdsUser);
+        System.out.println(sdsUser.getFirstName());
         for (SdsUser member : membersList) {
             membersString += "<workgroup-membership><sail-user-id>"
                     + member.getSdsObjectId()

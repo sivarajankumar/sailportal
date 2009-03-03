@@ -154,8 +154,6 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 			this.moduleDao.save((Module) curnit);
 		}
 	}
-	
-
 
 	public IELO getEloForModule(RooloOtmlModuleImpl mod) {
 		return this.rooloOtmlModuleDao.getEloForModule(mod);

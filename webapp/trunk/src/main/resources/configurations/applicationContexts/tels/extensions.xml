@@ -344,6 +344,7 @@
         <property name="groupService" ref="groupService" />
         <property name="runService" ref="runService" />
         <property name="workgroupService" ref="wiseWorkgroupService" />
+        <property name="userService" ref="userService"/>
     </bean>
 
 	 <bean id="sessionBundleService"
@@ -390,6 +391,7 @@
 		<property name="offeringService" ref="runService" />
 		<property name="groupService" ref="groupService" />
 		<property name="groupDao" ref="groupDao" />
+		<property name="userService" ref="userService"/>
     </bean>    
 
 	<bean id="premadeCommentService"

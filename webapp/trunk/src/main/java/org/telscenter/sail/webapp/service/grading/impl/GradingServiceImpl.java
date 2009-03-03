@@ -55,6 +55,8 @@ import org.telscenter.sail.webapp.domain.grading.IndividualScore;
 import org.telscenter.sail.webapp.domain.grading.StudentScore;
 import org.telscenter.sail.webapp.domain.grading.impl.GradeWorkByWorkgroupAggregateImpl;
 import org.telscenter.sail.webapp.domain.grading.impl.StudentScoreImpl;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.grading.SessionBundleService;
@@ -123,7 +125,11 @@ public class GradingServiceImpl implements GradingService {
 	 */
 	public ECurnitmap getCurnitmap(Long runId) throws ObjectNotFoundException {
 		Run run = runService.retrieveById(runId);
-		return getCurnitmap(run);
+		if(!(run.getProject() instanceof ExternalProject) && run.getProject().getProjectType()!=ProjectType.ROLOO){
+			return getCurnitmap(run);
+		} else {
+			return null;
+		}
 	}
 
 	/**

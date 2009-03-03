@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
 	private GrantedAuthorityDao<MutableGrantedAuthority> grantedAuthorityDao;
 
-	private SdsUserDao sdsUserDao;
+	protected SdsUserDao sdsUserDao;
 
 	private UserDao<User> userDao;
 
@@ -153,11 +153,8 @@ public class UserServiceImpl implements UserService {
 		this.assignRole(userDetails, UserDetailsService.USER_ROLE);
 		this.encodePassword(userDetails);
 
-		SdsUser sdsUser = createSdsUser(userDetails);
-		this.sdsUserDao.save(sdsUser);
-
 		User user = new UserImpl();
-		user.setSdsUser(sdsUser);
+		//user.setSdsUser(null);
 		user.setUserDetails(userDetails);
 		this.userDao.save(user);
 
@@ -230,6 +227,25 @@ public class UserServiceImpl implements UserService {
 	@Transactional()
 	public void updateUser(User user) {
 		this.userDao.save(user);
+	}
+	
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#addSdsUserToUser(net.sf.sail.webapp.domain.User)
+	 */
+	@Transactional()
+	public User addSdsUserToUser(Long id){
+		User user = null;
+		try{
+			user = this.userDao.getById(id);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		SdsUser sdsUser = this.createSdsUser(user.getUserDetails());
+		this.sdsUserDao.save(sdsUser);
+		
+		user.setSdsUser(sdsUser);
+		this.userDao.save(user);
+		return user;
 	}
 	
 	/**

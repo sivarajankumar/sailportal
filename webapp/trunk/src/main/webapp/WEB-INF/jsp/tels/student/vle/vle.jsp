@@ -40,7 +40,8 @@
 	<script type="text/javascript">
 		function topiframeOnLoad() {
 			var xmlString = "${xmlString}";
-			window.frames["topifrm"].loadFromString(xmlString);
+			var runId = "${runId}";
+			window.frames["topifrm"].loadFromString(xmlString, runId);
 		}
 		
 		function foo() {

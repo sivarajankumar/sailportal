@@ -126,7 +126,14 @@ public interface UserService {
 	 * @param userDetails
 	 */
 	public void updateUser(User user);
-		
+	
+	/**
+	 * Creates and adds a <code>SdsUser</code> to existing <code>User</code>
+	 * 
+	 * @param <code>User</code> user
+	 */
+	public User addSdsUserToUser(Long id);
+	
 	/**
 	 * Retrieves Users by a given field (eg username, gender), search type (eg =, like)
 	 * search term (user provided) and classVar (eg teacher or studentUserDetails)

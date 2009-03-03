@@ -31,6 +31,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.group.GroupService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
@@ -38,6 +39,8 @@ import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -56,6 +59,8 @@ public class StudentServiceImpl implements StudentService {
 	private WorkgroupService workgroupService;
 	
     private AclService<Run> aclService;
+    
+    private UserService userService;
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.student.StudentService#addStudentToRun(net.sf.sail.webapp.domain.User, org.telscenter.sail.webapp.domain.impl.Projectcode)
@@ -75,6 +80,16 @@ public class StudentServiceImpl implements StudentService {
 			Set<User> membersToAdd = new HashSet<User>();
 			membersToAdd.add(studentUser);
 			this.groupService.addMembers(period, membersToAdd);
+			
+			//if project being added is not ROlOO or External,
+			//an sdsUser needs to be created if it does not already exist
+			if(run.getProject().getProjectType()!=ProjectType.ROLOO){
+				if(!(run.getProject() instanceof ExternalProject)){
+					if(studentUser.getSdsUser()==null){
+						this.userService.addSdsUserToUser(studentUser.getId());
+					}
+				}
+			}
 		} else {
 			throw new StudentUserAlreadyAssociatedWithRunException(studentUser, run);
 		}
@@ -146,5 +161,12 @@ public class StudentServiceImpl implements StudentService {
 	 */
 	public void setAclService(AclService<Run> aclService) {
 		this.aclService = aclService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }

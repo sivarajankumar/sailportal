@@ -410,7 +410,7 @@ YAHOO.util.Event.onDOMReady(init);
 			<div id="currentRuns">
 				<c:choose>
 				<c:when test="${fn:length(current_run_list) > 0}" >
-				<a href="vle/vle.html?runId=63">Preview WISE 4 Project: UCCP Proof of Concept</a><br/>
+				<a href="vle/vle.html?runId=42">Preview WISE 4 Project: UCCP Proof of Concept</a><br/>
 				
 				<c:forEach var="studentRunInfo"  items="${current_run_list}">
 						

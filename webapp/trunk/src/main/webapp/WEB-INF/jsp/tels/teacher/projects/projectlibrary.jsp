@@ -119,7 +119,8 @@
 			<td class="dataCell" >
 				<ul>
 					<li class="list1"><span><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/>Bookmark</span></li>
-					<li class="list2"><input type="button" onclick="copy('${project.id}')" value="Make Copy"/></li>
+					<li class="list2"><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
+					<li class="list3"><input type="button" onclick="copy('${project.id}')" value="Make Copy"/></li>
 				</ul>
 			</td>
 		</tr>
