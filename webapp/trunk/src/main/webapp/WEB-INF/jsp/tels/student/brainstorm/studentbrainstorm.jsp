@@ -29,7 +29,7 @@
 
 <body style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', '${cannotseeresponses}');">
 
-<div id="stepTypeTitleBar">Q&amp;A DISCUSSION</div>
+<div id="stepTypeTitleBar">STUDENT BRAINSTORM</div>
 
 <div id="sectionBox">
 
