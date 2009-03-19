@@ -29,7 +29,7 @@
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-
+<link rel="stylesheet" type="text/css" href="./themes/tels/default/styles/niftyCorners.css"/>
 
 <script src="./javascript/tels/general.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/prototype.js" 		type="text/javascript"> </script>
@@ -62,6 +62,16 @@ width: 100%;
 #welcomeTextLinks a {height: 1%;}
 </style>
 <![endif]-->
+
+<!--  Nifty Cube for Rounded Corners -->
+
+<script type="text/javascript" src="./javascript/tels/niftycube.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+Nifty("div#niftyTest","big");
+Nifty("div#boxTableWelcome","transparent");
+ }
+</script>
 
 </head>
 
