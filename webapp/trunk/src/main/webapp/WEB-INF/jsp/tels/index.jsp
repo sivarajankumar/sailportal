@@ -140,26 +140,26 @@ Nifty("div#boxTableWelcome","transparent");
     
 	<ul id="welcomeButtonPosTable" >
     
-    <li><a href="wiseoverview.html" 
+    <li><a href="wiseoverview.html" title="Launch a brief Flash-based animated overview of the WISE system."
     	onmouseout="MM_swapImgRestore()" 
     	onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/AnimatedOverviewRoll.png',1)">
     	<img src="./themes/tels/default/images/AnimatedOverview.png" width="145" height="33" alt="<spring:message code="animatedoverviewofwise"/>" 
-    		class="imgNoBorder" id="Overview of WISE button" /></a> </li>
+    		class="imgNoBorder" id="Overview of WISE button" /> </a> </li>
        
-    <li><a href="previewprojectlist.html" 
+    <li><a href="previewprojectlist.html" title="View instant previews of WISE inquiry projects across biology, chemistry, and physics topics."
     		onmouseout="MM_swapImgRestore()" 
     		onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/PreviewProjectRoll.png',1)">
     		<img src="./themes/tels/default/images/PreviewProject.png" width="145" height="33"  alt="<spring:message code="instantpreview"/>" 
     			class="imgNoBorder" id="Preview of WISE Button" /></a> </li>
 		 
-	<li><a href="signup.html" 
+	<li><a href="signup.html"  title="New to WISE? Create a teacher or student account to enjoy the full array of learning tools offered by WISE."
 			onmouseout="MM_swapImgRestore()" 
 			onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateWiseAccountRoll.png',1)">
 			<img src="./themes/tels/default/images/CreateWiseAccount.png" width="145" height="33"  alt="<spring:message code="createnewwiseaccount"/>"
 				class="imgNoBorder" id="Create Account Button" /></a> </li>
 				
-	<li><a href="./contactwisegeneral.html" 
-			onmouseout="MM_swapImgRestore()" 
+	<li><a href="./contactwisegeneral.html"  title="Have a question or a problem with the WISE tools or curriculum projects? Write a message to the WISE team."
+				onmouseout="MM_swapImgRestore()" 
 			onmouseover="MM_swapImage('Contact Wise Button','','./themes/tels/default/images/ContactWiseRoll.png',1)">
 			<img src="./themes/tels/default/images/ContactWise.png" width="145" height="33"  alt="Contact WISE"
 				class="imgNoBorder" id="Contact Wise Button" /></a> </li>
