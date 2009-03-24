@@ -47,6 +47,9 @@ public class ControllerUtil {
 				User.CURRENT_USER_SESSION_KEY);
 	}
 	
+	/*
+	 * ex: http://128.32.xxx.11:8080
+	 */
 	public static String getBaseUrlString(HttpServletRequest request) {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
 		request.getServerPort();
@@ -54,7 +57,9 @@ public class ControllerUtil {
 		return portalUrl;
 	}
 
-	
+	/*
+	 * ex: http://128.32.xxx.11:8080/webapp
+	 */
 	public static String getPortalUrlString(HttpServletRequest request) {
 		String portalUrl = ControllerUtil.getBaseUrlString(request) + request.getContextPath();
 		

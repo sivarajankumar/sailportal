@@ -70,6 +70,7 @@ import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
@@ -593,5 +594,10 @@ public class PodProjectServiceImpl implements ProjectService {
 	
 	public void setAclService(AclService<Project> aclService) {
 		this.aclService = aclService;
+	}
+
+	public Object launchReport(LaunchReportParameters launchReportParameters) {
+		// TODO hiroki: implement me
+		return null;
 	}
 }

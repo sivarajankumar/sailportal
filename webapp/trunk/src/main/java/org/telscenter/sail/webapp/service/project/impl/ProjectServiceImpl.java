@@ -36,6 +36,7 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -151,6 +152,14 @@ public class ProjectServiceImpl implements ProjectService {
 		ProjectService projectService = projectServiceFactory.getProjectService(launchProjectParameters.getRun().getProject());
 		return projectService.launchProject(launchProjectParameters);
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#launchReport(org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters)
+	 */
+	public Object launchReport(LaunchReportParameters launchReportParameters) {
+		ProjectService projectService = projectServiceFactory.getProjectService(launchReportParameters.getRun().getProject());
+		return projectService.launchReport(launchReportParameters);
+	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#previewProject(org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters)
@@ -206,5 +215,5 @@ public class ProjectServiceImpl implements ProjectService {
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
 		projectService.removeBookmarkerFromProject(project, user);
 	}
-	
+
 }

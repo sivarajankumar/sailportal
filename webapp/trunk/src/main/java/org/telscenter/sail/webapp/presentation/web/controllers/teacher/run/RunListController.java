@@ -42,8 +42,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
+import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Puts run details into the model to be retrieved and displayed on
@@ -59,6 +64,8 @@ public class RunListController extends AbstractController {
 	protected static final String GRADING_ENABLED = "GRADING_ENABLED";
 
 	private RunService runService;
+	
+	private ProjectService projectService;
 
 	private WorkgroupService workgroupService;
 
@@ -112,6 +119,7 @@ public class RunListController extends AbstractController {
 		// end temporary code
 		List<Run> current_run_list = new ArrayList<Run>();
 		List<Run> ended_run_list = new ArrayList<Run>();
+		List<Run> external_project_runs = new ArrayList<Run>();
 		Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
 		for (Run run : runList) {
 			List<Workgroup> workgroupList = this.workgroupService
@@ -124,6 +132,13 @@ public class RunListController extends AbstractController {
 				current_run_list.add(run);
 			}
 			
+			Project project = projectService.getById(run.getProject().getId());
+			ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+			String result = (String) project.accept(typeVisitor);
+			if (result.equals("ExternalProject")) {
+				external_project_runs.add(run);
+			}
+			
 			// get brainstorms that are in this run
 			Set<Brainstorm> brainstormsForRun = brainstormService.getBrainstormsByRun(run);
 			if (brainstormsForRun != null) {
@@ -134,6 +149,7 @@ public class RunListController extends AbstractController {
 		modelAndView.addObject(GRADING_PARAM, gradingParam);
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
 		modelAndView.addObject(ENDED_RUN_LIST_KEY, ended_run_list);
+		modelAndView.addObject("externalprojectruns", external_project_runs);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
 		return modelAndView;
@@ -162,6 +178,13 @@ public class RunListController extends AbstractController {
 	@Required
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 
 	/**

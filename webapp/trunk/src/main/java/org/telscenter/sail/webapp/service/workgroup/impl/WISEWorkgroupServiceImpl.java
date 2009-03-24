@@ -45,6 +45,7 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
@@ -73,8 +74,9 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 			Run run, Group period) throws ObjectNotFoundException {
 
 		WISEWorkgroup workgroup = null;
-		
-		if (run.getProject() instanceof ExternalProject || run.getProject().getProjectType()==ProjectType.ROLOO) {
+		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+		String result = (String) run.getProject().accept(typeVisitor);
+		if (result.equals("ExternalProject") || run.getProject().getProjectType()==ProjectType.ROLOO) {
 			workgroup = createWISEWorkgroup(members, run, null, period);
 			// TODO hiroki set externalid here
 			//ExternalProjectService externalProjectService = 

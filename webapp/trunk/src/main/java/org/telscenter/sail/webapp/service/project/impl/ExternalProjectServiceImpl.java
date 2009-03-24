@@ -23,8 +23,10 @@
 package org.telscenter.sail.webapp.service.project.impl;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
@@ -37,6 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
@@ -47,8 +50,11 @@ import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 
 /**
@@ -61,6 +67,15 @@ import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 public class ExternalProjectServiceImpl implements ExternalProjectService {
 
 	private ProjectCommunicatorDao<ProjectCommunicator> projectCommunicatorDao;
+
+	private RunService runService;
+	
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
 
 	protected ProjectDao<Project> projectDao;
 	
@@ -90,7 +105,7 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public Project getById(Serializable projectId)
 			throws ObjectNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		return this.projectDao.getById(projectId);
 	}
 
 	/**
@@ -166,12 +181,44 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public Object launchProject(LaunchProjectParameters launchProjectParameters)
 			throws Exception {
 		WISEWorkgroup workgroup = launchProjectParameters.getWorkgroup();
-		ExternalProject project = (ExternalProject) launchProjectParameters.getRun().getProject();
+		ExternalProject project = null;
+		try {
+			project = (ExternalProject) projectDao.getById(launchProjectParameters.getRun().getProject().getId());
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		if (workgroup.getExternalId() == null) {
+			// maybe it was supposed to figure out the external id if it was null to create the user in the diy. nobody knows.
 		}
 		ProjectCommunicator projectCommunicator = project.getProjectCommunicator();
-		return new ModelAndView(new RedirectView(projectCommunicator.getLaunchProjectUrl(this, project, workgroup)));
+		projectCommunicator.setRunService(runService); 		// why? because the projectCommunicator is retrieved from DB, not instantiated via Spring
+		projectCommunicator.setProjectService(this);
+		return new ModelAndView(new RedirectView(projectCommunicator.getLaunchProjectUrl(this, launchProjectParameters)));
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#launchReport(org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters)
+	 */
+	public Object launchReport(LaunchReportParameters launchReportParameters) {
+		Run run = launchReportParameters.getRun();
+		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+		String result = (String) run.getProject().accept(typeVisitor);
+		Project project = null;
+		try {
+			project = projectDao.getById(run.getProject().getId());
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		if (result == "ExternalProject" && project != null) {
+		ProjectCommunicator projectCommunicator = ((ExternalProject) project).getProjectCommunicator();
+		projectCommunicator.setRunService(runService); 		// why? because the projectCommunicator is retrieved from DB, not instantiated via Spring
+		projectCommunicator.setProjectService(this);
+		String launchReportUrlString = projectCommunicator.getLaunchReportUrl(launchReportParameters);
+			return new ModelAndView(new RedirectView(launchReportUrlString));
+		} else {
+			return null;
+		}
 	}
 
 	/**

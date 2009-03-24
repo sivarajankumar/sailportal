@@ -38,6 +38,7 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 
 /**
@@ -179,6 +180,13 @@ public interface ProjectService {
 	 */
 	public Object launchProject(LaunchProjectParameters launchProjectParameters) throws Exception;
 
+	/**
+	 * Launches the report given the launchReportParameters
+	 * 
+	 * @return
+	 */
+	public Object launchReport(LaunchReportParameters launchReportParameters);
+	
 	/**
 	 * Launches a Preview of the Project
 	 * 

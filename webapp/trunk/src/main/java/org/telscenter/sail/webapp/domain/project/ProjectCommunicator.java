@@ -25,8 +25,12 @@ package org.telscenter.sail.webapp.domain.project;
 import java.util.List;
 
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.project.impl.ExternalProjectServiceImpl;
 
 import net.sf.sail.webapp.domain.Persistable;
@@ -71,7 +75,16 @@ public interface ProjectCommunicator  extends Persistable {
 	 * @param workgroup
 	 * @return
 	 */
-	public String getLaunchProjectUrl(ExternalProjectService externalProjectService, ExternalProject externalProject, WISEWorkgroup workgroup);
+	public String getLaunchProjectUrl(ExternalProjectService externalProjectService, LaunchProjectParameters launchProjectParameters);
+
+	/**
+	 * Returns url where the report can be viewed
+	 */
+	public String getLaunchReportUrl(LaunchReportParameters launchReportParameters);
+	
+	public void setProjectService(ProjectService projectService);
+
+	public void setRunService(RunService runService);
 
 	/**
 	 * Returns an xmlDocument representation containing information about

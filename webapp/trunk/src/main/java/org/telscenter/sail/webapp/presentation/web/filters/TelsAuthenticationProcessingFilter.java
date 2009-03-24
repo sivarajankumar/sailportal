@@ -42,12 +42,13 @@ import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
  * put it into the http session.
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class TelsAuthenticationProcessingFilter extends
 		PasAuthenticationProcessingFilter {
 
-	private static final String STUDENT_DEFAULT_TARGET_PATH = "/student/index.html";
+	//private static final String STUDENT_DEFAULT_TARGET_PATH = "/student/index.html";
+	private static final String STUDENT_DEFAULT_TARGET_PATH = "/student/vle/vle.html?runId=66";
 	private static final String TEACHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
 	private static final String ADMIN_DEFAULT_TARGET_PATH = "/admin/index.html";
 

@@ -59,6 +59,7 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -292,7 +293,7 @@ public class RooloProjectServiceImpl implements ProjectService{
 			Run run, Workgroup workgroup) {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + 
 			request.getContextPath();
-		String launchVLE = "/rooloproject.html?runId=" + run.getId() + "&workgroupId=" + workgroup.getId();
+		String launchVLE = "/student/vle/vle.html?runId=" + run.getId() + "&workgroupId=" + workgroup.getId();
 		return portalUrl + launchVLE;
 	}
 	
@@ -356,6 +357,11 @@ public class RooloProjectServiceImpl implements ProjectService{
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	public Object launchReport(LaunchReportParameters launchReportParameters) {
+		// do nothing for now
+		return null;
 	}
 
 }

@@ -309,6 +309,7 @@
 	    <property name="projectDao" ref="externalProjectDao" />
 	    <property name="projectCommunicatorDao" ref="diyProjectCommunicatorDao" />
 	    <property name="workgroupDao" ref="wiseWorkgroupDao" />
+	    <property name="runService" ref="runService" />
 	</bean>
 	
 	<bean id="projectCommunicator"
@@ -318,6 +319,8 @@
 	<bean id="diyProjectCommunicator"
 	    class="org.telscenter.sail.webapp.domain.project.impl.DIYProjectCommunicatorImpl">
 	    <property name="previewProjectSuffix" value="/sail_jnlp/6/1/authoring" />
+	    <property name="runService" ref="runService" />
+	    <property name="projectService" ref="projectService" />
 	</bean>
 	
 	<bean id="portalDao"

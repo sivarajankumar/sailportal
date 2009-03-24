@@ -45,7 +45,9 @@ import org.jdom.input.SAXBuilder;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author hirokiterashima
@@ -207,8 +209,19 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 		return null;
 	}
 
-	public String getLaunchProjectUrl(ExternalProjectService externalProjectService, ExternalProject externalProject,
-			WISEWorkgroup workgroup) {
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.ProjectCommunicator#getLaunchProjectUrl(org.telscenter.sail.webapp.service.project.ExternalProjectService, org.telscenter.sail.webapp.domain.project.ExternalProject, org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup)
+	 */
+	public String getLaunchProjectUrl(ExternalProjectService externalProjectService, LaunchProjectParameters launchProjectParameters) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.ProjectCommunicator#getLaunchReportUrl(org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters)
+	 */
+	public String getLaunchReportUrl(
+			LaunchReportParameters launchReportParameters) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -219,4 +232,15 @@ public class ProjectCommunicatorImpl implements ProjectCommunicator {
 	public void setPortalProperties(Properties portalProperties) {
 		this.portalProperties = portalProperties;
 	}
+
+	public void setProjectService(ProjectService projectService) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setRunService(RunService runService) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

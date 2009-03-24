@@ -187,7 +187,7 @@ public class WorkgroupImpl implements Workgroup {
      * @see net.sf.sail.webapp.domain.Workgroup#generateWorkgroupName()
      */
 	public String generateWorkgroupName() {
-		String workgroupName = "Workgroup with members:";
+		String workgroupName = "";
 		for (User member : group.getMembers()) {
 			workgroupName += " " + member.getUserDetails().getUsername();
 		}

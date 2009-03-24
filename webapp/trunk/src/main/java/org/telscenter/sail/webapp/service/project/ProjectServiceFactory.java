@@ -30,6 +30,7 @@ import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 
 /**
@@ -63,7 +64,10 @@ public class ProjectServiceFactory {
 	public ProjectService getProjectService(Project project) {
 		ProjectService projectService = null;
 
-		if (project instanceof ExternalProjectImpl) {
+
+		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+		String result = (String) project.accept(typeVisitor);
+		if (result.equals("ExternalProject")) {
 			return externalProjectService;
 		}
 		

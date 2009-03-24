@@ -39,9 +39,13 @@
 
 	<script type="text/javascript">
 		function topiframeOnLoad() {
-			var xmlString = "${xmlString}";
+			//var xmlString = "${xmlString}";
 			var runId = "${runId}";
-			window.frames["topifrm"].loadFromString(xmlString, runId);
+			var workgroupId = "${workgroup.id}";
+			var contentUrl = "tim2.otml";
+			var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
+			//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
+			window.frames["topifrm"].load(contentUrl, userInfoUrl);
 		}
 		
 		function foo() {
@@ -231,7 +235,7 @@ var runManager = new RunManager();
 <body class=" yui-skin-sam">
 <div id="wait"></div> 
 <iframe id="topifrm" src="${vleurl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto"
- width="100%" height="100%" frameborder="2">
+ width="100%" height="100%" frameborder="0">
  [Content for browsers that don't support iframes goes here.]
 </iframe>
 

@@ -35,6 +35,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -49,6 +50,7 @@ import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -99,6 +101,7 @@ public class StudentVLEController extends AbstractController {
 
 	private String xmlString = "<node><node></node><node></node></node>";
 	//private String xmlString = "<node id='0'><node id='0:0'><node id='0:0:0' type='reading'><content><html> <head> <base href='http://tels-group.soe.berkeley.edu/uccp/Assets/' /> <link href='css/UCCP.css' media='screen' rel='stylesheet' type='text/css' /> </head> <body> <div id='centeredDiv'> <div id='locationBar'> <div class='Unit1'>UNIT 1</div> <div class='Reading'></div> </div> <div id='mainCol'> <h3>Sample Reading Page</h3> <p>Reading pages are used to:</p> <ul> <li>Introduce you to new concepts. If a concept is particularly important, we'll highlight it in a 'key concept' box over to the right.</li><li>Explain a new wrinkle, or detail, to a concept that you've been working with for a while.</li> <li>Define a new vocabulary word. New terms, like <span class='vocab'>recursion</span>, will be highlighted and will appear in a 'Vocabulary' box to the right. Click any vocabulary term in the box to see its matching definition in the Course Glossary.</li> </ul> <p>We'll keep these reading pages short as possible. But keep in mind that they generally contain important information, so don't skip them just to jump ahead to the assignments.</p> </div> <div id='marginCol'> <div class='key top50'>Key points appear out here in the right margin, highlighted with a special Key icon. </div> <div class='vocab top75'> <p><i>Click the vocabulary term below to see its definition.</i></p> <p><a href='page/glossary.php' target=_glossary>Recursion</a></p> </div> </div> </div> <!-- end of #centered div--> </body> </html></content></node><node id='0:0:1' type='sequence'><node id='0:0:1:0' /><node id='0:0:1:1' /></node><node id='0:0:2' /></node><node id='0:1'><node id='0:1:0' type='video'><content><html lang='en'> <head> <base href='http://tels-group.soe.berkeley.edu/uccp/Assets/' /> <link href='css/UCCP.css' media='screen' rel='stylesheet' type='text/css' /> <meta http-equiv='Content-Type' content='text/html; charset=utf-8' /> </head><body> <div id='centeredDiv'> <div id='locationBar'> <div class='Unit1'>UNIT 1</div> <div class='Video'></div> </div> <h3>An Introduction</h3> <p>This is a video screen!!!. Click the 'play' button below (lower right corner) to start the video. To see a text transcript click 'Transcript' and scroll down.</p> <iframe id='videoAndControls' height='640' src='video/inc_introduction.html' >Your browser doesn't support iFrames. In order to watch videos, you'll need to find a browser that does, or go directly to <a href='video/inc_introduction.html' >the video page</a>.</iframe></div><!-- end of #centered div--></body></html></content></node></node></node> ";
+
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -109,7 +112,86 @@ public class StudentVLEController extends AbstractController {
 		
     	ModelAndView modelAndView = new ModelAndView();
     	
+    	Long runId = Long.parseLong(request.getParameter(RUNID));
+		Run run = this.runService.retrieveById(runId);
+		
+    	String runIdStr = request.getParameter(RUNID);
+
+    	modelAndView = new ModelAndView(VIEW_NAME);
+    	ControllerUtil.addUserToModelAndView(request, modelAndView);
+    	User user = (User) request.getSession().getAttribute(
+    			User.CURRENT_USER_SESSION_KEY);
+
+    	List<Workgroup> workgroupListByOfferingAndUser 
+	    = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+	
+    	Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+    	
+    	modelAndView.addObject(RUNID, runIdStr);
+    	modelAndView.addObject("run", run);
+    	modelAndView.addObject("workgroup", workgroup);
+    	modelAndView.addObject("xmlString", xmlString);
+    	modelAndView.addObject("user", user);
+
+    	String vleurl = ControllerUtil.getBaseUrlString(request);
+
+    	vleurl = vleurl + "/vlewrapper/vle/vle.html";
+
+    	modelAndView.addObject("vleurl",vleurl);
+
+    	// if getUserInfo is specified and is true, return xmlString instead in the response
+		String getUserInfo = request.getParameter("getUserInfo");
+    	if (getUserInfo != null && getUserInfo.equals("true")) {
+        	User teacher = run.getOwners().iterator().next();
+
+    		String userInfoString = "<userInfo>";
+    		
+    		// add this user's info:
+    		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><username>" + user.getUserDetails().getUsername() + "</username></myUserInfo>";
+    		
+    		// add the class info:
+    		userInfoString += "<myClassInfo>";
+    		
+    		// inside, add teacher info
+    		userInfoString += "<teacherUserInfo><username>" + teacher.getUserDetails().getUsername() + "</username></teacherUserInfo>";
+    		
+    		// now add classmates
+    		Set<Workgroup> workgroups = runService.getWorkgroups(runId);
+    		for (Workgroup classmateWorkgroup : workgroups) {
+    			if (classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
+    				userInfoString += "<classmateUserInfo>";
+    				userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
+    				userInfoString += "<username>" + classmateWorkgroup.generateWorkgroupName() + "</username>";
+    				userInfoString += "</classmateUserInfo>";
+    			}
+    		}
+    		
+    		userInfoString += "</myClassInfo>";
+    		
+    		userInfoString += "</userInfo>";
+    		response.setHeader("Cache-Control", "no-cache");
+    		response.setHeader("Pragma", "no-cache");
+    		response.setDateHeader ("Expires", 0);
+    		
+    		response.setContentType("text/xml");
+    		//response.setCharacterEncoding("UTF-8");
+    		response.getWriter().print(userInfoString);
+    		return null;
+    	} else {
+        	return modelAndView;
+    	}
+	}
+	
+	
+	/*
+	protected ModelAndView handleRequestInternal(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+    	ModelAndView modelAndView = new ModelAndView();
+    	
 		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter(RUNID)));
+		
+		
 
 		RooloOtmlModuleImpl mod = (RooloOtmlModuleImpl) this.moduleService.getById(run.getProject().getCurnit().getId());
 		IELO elo = this.moduleService.getEloForModule(mod);
@@ -138,8 +220,7 @@ public class StudentVLEController extends AbstractController {
     		xmlString = StringUtils.remove(xmlString, "\r");  // remove newlines
     		xmlString = StringUtils.escape(xmlString);
     		modelAndView.addObject("xmlString", xmlString);
-    		System.out.println("otml!!!!!!!!!");
-    		System.out.println(xmlString);
+    		modelAndView.addObject("user", user);
     	}
     	
     	String vleurl = ControllerUtil.getBaseUrlString(request);
@@ -153,6 +234,7 @@ public class StudentVLEController extends AbstractController {
     	modelAndView.addObject("vleurl",vleurl);
         return modelAndView;
 	}
+	*/
 
 	/**
 	 * @param runService the runService to set

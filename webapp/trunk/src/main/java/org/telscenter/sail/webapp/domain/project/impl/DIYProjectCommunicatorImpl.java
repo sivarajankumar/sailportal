@@ -25,21 +25,31 @@ package org.telscenter.sail.webapp.domain.project.impl;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.servlet.http.HttpServletRequest;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.impl.AbstractHttpRestCommand;
+import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.AbstractHttpRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
@@ -51,10 +61,15 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.project.impl.ExternalProjectServiceImpl;
+import org.telscenter.sail.webapp.service.project.impl.ProjectServiceImpl;
 import org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl;
 
 /**
@@ -87,7 +102,13 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	
 	@Transient
 	private String launchProjectSuffix = "/sail_jnlp/6";
-	
+
+	@Transient
+	private RunService runService;
+
+	@Transient
+	private ProjectService projectService = new ProjectServiceImpl();
+
 	@Transient
 	private SpringConfiguration springConfiguration = new SpringConfigurationImpl();
 
@@ -150,8 +171,18 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 	 */
 	@Override
 	public String getLaunchProjectUrl(ExternalProjectService externalProjectService,
-			ExternalProject externalProject, WISEWorkgroup workgroup) {
+			LaunchProjectParameters launchProjectParameters) {
+		Run run = launchProjectParameters.getRun();
+
+		ExternalProject externalProject = null;
+		try {
+			externalProject = (ExternalProject) externalProjectService.getById(run.getProject().getId());
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 		Serializable id = externalProject.getExternalId();
+		
+		WISEWorkgroup workgroup = launchProjectParameters.getWorkgroup();
 		if (workgroup.getExternalId() == null) {
 			Long createUserIDInDIY = createUserInDIY(workgroup);  // creates and sets this workgroup's user id.
 	        workgroup.setExternalId(createUserIDInDIY);
@@ -159,10 +190,116 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		}
 		Long externalDIYUserId = workgroup.getExternalId();
 
+		Set<Workgroup> workgroups = null;
+		try {
+			workgroups = runService.getWorkgroups(new Long(run.getId()));
+		} catch (ObjectNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String workgroupIds = generateWorkgroupIdListString(workgroups);
+		
+		HttpServletRequest request = launchProjectParameters.getHttpServletRequest();
+		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+		String uniqueportalUrl = portalUrl + run.getId().toString();
+	    MessageDigest m = null;
+		try {
+			m = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	    m.update(uniqueportalUrl.getBytes(),0,uniqueportalUrl.length());
+	    String uniqueIdMD5 = new BigInteger(1,m.digest()).toString(16);
+		
+		
 		String launchProjectUrl = baseUrl + "/external_otrunk_activities/" + id + launchProjectSuffix + "/" + externalDIYUserId;
+		launchProjectUrl += "?group_list=" + workgroupIds;
+		launchProjectUrl += "&group_id=" + uniqueIdMD5;
 		return launchProjectUrl;
 	}
 
+	/**
+	 * @param workgroups
+	 * @return
+	 */
+	private String generateWorkgroupIdListString(Set<Workgroup> workgroups) {
+		String workgroupIds = "";
+		for (Workgroup workgroup2 : workgroups) {
+			if (!((WISEWorkgroup) workgroup2).isTeacherWorkgroup()) {
+				workgroupIds += ((WISEWorkgroup) workgroup2).getExternalId() + ",";
+			}
+		}
+		
+		// strip out last comma
+		if (workgroupIds.length() > 0) {
+			workgroupIds = workgroupIds.substring(0, workgroupIds.length() - 1);
+		}
+		return workgroupIds;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.impl.ProjectCommunicatorImpl#getLaunchReportUrl(org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters)
+	 */
+	@Override
+	public String getLaunchReportUrl(
+			LaunchReportParameters launchReportParameters) {
+		Run run = launchReportParameters.getRun();
+		Serializable projectId = run.getProject().getId();
+		Project retrievedProject = null;
+		try {
+			retrievedProject = projectService.getById(projectId);
+		} catch (ObjectNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ExternalProject project = (ExternalProject) retrievedProject;
+		Serializable externalId = project.getExternalId();
+		Set<Workgroup> workgroups = launchReportParameters.getWorkgroups();
+		String workgroupIds = generateWorkgroupIdListString(workgroups);
+		
+		Set<Group> periods = run.getPeriods();
+		String periodName = "replacemeperiodname";
+		for (Group period : periods) {
+			periodName = period.getName();
+		}
+		
+		Set<User> owners = run.getOwners();
+		String teacherName = "replacemeteachername";
+		teacherName = owners.iterator().next().getUserDetails().getUsername();
+		
+		String runName = run.getName();
+		
+		HttpServletRequest request = launchReportParameters.getHttpServletRequest();
+		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+		
+		String uniqueportalUrl = portalUrl + run.getId().toString();
+	    MessageDigest m = null;
+		try {
+			m = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	    m.update(uniqueportalUrl.getBytes(),0,uniqueportalUrl.length());
+	    String uniqueIdMD5 = new BigInteger(1,m.digest()).toString(16);
+
+		
+		// [diy root]/external_otrunk_activities/[activity_id]/run_report?type=[report type uri]
+		//	?users=91%2C92%2C95%2C96      // comma-separated list of external workgroupIds
+		//	&system.report.class.name=LOOPS+Test+Class+200902    // period name
+		//	&system.report.teacher.name=Loops+Teacher            // teacher name
+		//	&system.report.activity.name=Pick+N+Test             // run name
+		String launchReportUrl = baseUrl + "/external_otrunk_activities/" + externalId + "/run_report?type=http://code.google.com/p/sailportal/diy_report_types/run_management_report";
+		launchReportUrl += "&users=" + workgroupIds;
+		launchReportUrl += "&group_list=" + workgroupIds;
+		launchReportUrl += "&group_id=" + uniqueIdMD5;
+		launchReportUrl += "&system.report.class.name=" + periodName;
+		launchReportUrl += "&system.report.teacher.name=" + teacherName;
+		launchReportUrl += "&system.report.activity.name=" + runName;
+		
+		return launchReportUrl;
+	}
+	
 	class DIYCreateUserRestCommand extends AbstractHttpRestCommand {
 		WISEWorkgroup workgroup;
 		
@@ -177,8 +314,8 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 			String diyportalhostname2 = getDiyportalhostname();
 	        final String bodyData = "<user><disable-javascript type=\"boolean\" nil=\"true\"/>" 
 	        	+ "<email>" + workgroup.getId() + "@" + diyportalhostname2 + "</email>"
-	        	+ "<first-name>" + workgroup.generateWorkgroupName() + "</first-name>"
-	        	+ "<last-name>" + workgroup.generateWorkgroupName() + "</last-name>"
+	        	+ "<first-name>members:</first-name>"
+	        	+ "<last-name>"+ workgroup.generateWorkgroupName() +"</last-name>"
 	        	+ "<login>" + workgroup.getId() + "@" + diyportalhostname2 + "</login>"
 	        	+ "<password>" + workgroup.getId() + "@" + diyportalhostname2 + "</password>"
 	        	+ "<password-confirmation>" + workgroup.getId() + "@" + diyportalhostname2 + "</password-confirmation>"	        	
@@ -262,4 +399,17 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		this.diyportalhostname = diyportalhostname;
 	}
 	
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
 }

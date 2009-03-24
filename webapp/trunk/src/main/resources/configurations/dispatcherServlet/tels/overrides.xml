@@ -167,6 +167,7 @@
 				/teacher/run/brainstorm/createnewbrainstorm.html=createNewBrainstormController
 				/teacher/run/brainstorm/createopenresponsebrainstorm.html=createOpenResponseBrainstormController
 				/teacher/run/brainstorm/createsinglechoicebrainstorm.html=createSingleChoiceBrainstormController
+				/teacher/run/report.html=projectRunReportController
     		    /teacher/grading/overview.html=gradeOverviewController
     		    /teacher/grading/gradebystep.html=gradeByStepController
 				/teacher/grading/gradingtool.html=gradingToolController

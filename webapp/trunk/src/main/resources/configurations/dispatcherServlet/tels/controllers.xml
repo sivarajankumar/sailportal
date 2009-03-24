@@ -253,6 +253,12 @@
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.ChangePeriodTeamController">
     </bean>
     
+     <bean id="projectRunReportController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports.ProjectRunReportController">
+        <property name="runService" ref="runService" />
+        <property name="projectService" ref="projectService" />
+    </bean>
+    
     <bean id="endRunController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.manage.EndRunController">
         <property name="runService" ref="runService" />
@@ -340,6 +346,7 @@
 	<bean id="myProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
 		<property name="runService" ref="runService" />
+		<property name="projectService" ref="projectService" />
 		<property name="brainstormService" ref="brainstormService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
