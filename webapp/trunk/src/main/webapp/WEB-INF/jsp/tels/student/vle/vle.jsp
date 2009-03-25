@@ -1,6 +1,6 @@
 <html>
-<title>Loading Sample PAS Project to Virtual Learning Environment</title>
 <head>
+<title>Loading Sample PAS Project to Virtual Learning Environment</title>
 
 <script src="http://yui.yahooapis.com/3.0.0pr2/build/yui/yui-min.js" type="text/javascript"></script>
 
@@ -42,10 +42,14 @@
 			//var xmlString = "${xmlString}";
 			var runId = "${runId}";
 			var workgroupId = "${workgroup.id}";
-			var contentUrl = "tim2.otml";
-			var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
+			var contentUrl = "${contentUrl}";
+			var userInfoUrl = "${userInfoUrl}";
+			var getDataUrl = "${getDataUrl}";
+			//alert(userInfoUrl);
+			//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
+			//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 			//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-			window.frames["topifrm"].load(contentUrl, userInfoUrl);
+			window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl);
 		}
 		
 		function foo() {

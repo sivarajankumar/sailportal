@@ -22,9 +22,6 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -35,35 +32,24 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.announcement.Announcement;
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
-import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
-
-import roolo.elo.api.IELO;
 
 /**
  * @author hirokiterashima
- * @version $Id$
+ * @version $Id:$
  */
-public class StudentVLEController extends AbstractController {
+public class StudentDataController extends AbstractController {
+
 
 	private RunService runService;
 	
@@ -85,11 +71,11 @@ public class StudentVLEController extends AbstractController {
 
 	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
 	
-	private static final String VIEW_NAME = "student/vle/vle";
-	
 	private final static String CURRENT_DATE = "current_date";
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
+
+	private final static String XMLDOC = "xmlDoc";
 
 	private static final String RUNID = "runId";
 	
@@ -109,87 +95,64 @@ public class StudentVLEController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-    	ModelAndView modelAndView = new ModelAndView();
-    	
-    	Long runId = Long.parseLong(request.getParameter(RUNID));
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		Long runId = Long.parseLong(request.getParameter(RUNID));
 		Run run = this.runService.retrieveById(runId);
-		
-    	String runIdStr = request.getParameter(RUNID);
 
-    	modelAndView = new ModelAndView(VIEW_NAME);
-    	ControllerUtil.addUserToModelAndView(request, modelAndView);
-    	User user = (User) request.getSession().getAttribute(
-    			User.CURRENT_USER_SESSION_KEY);
+		String runIdStr = request.getParameter(RUNID);
 
-    	List<Workgroup> workgroupListByOfferingAndUser 
-	    = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
-	
-    	Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
-    	
-    	modelAndView.addObject(RUNID, runIdStr);
-    	modelAndView.addObject("run", run);
-    	modelAndView.addObject("workgroup", workgroup);
-    	modelAndView.addObject("xmlString", xmlString);
-    	modelAndView.addObject("user", user);
+		User user = (User) request.getSession().getAttribute(
+				User.CURRENT_USER_SESSION_KEY);
 
-    	String portalurl = ControllerUtil.getBaseUrlString(request);
+		List<Workgroup> workgroupListByOfferingAndUser 
+		= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
 
-    	String vleurl = portalurl + "/vlewrapper/vle/vle_mobile.html";
-    	String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
-    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId();
-    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
-    	
-    	modelAndView.addObject("vleurl",vleurl);
-    	modelAndView.addObject("userInfoUrl", userInfoUrl);
-    	modelAndView.addObject("contentUrl", contentUrl);
-    	modelAndView.addObject("getDataUrl", getDataUrl);
+		Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
 
-    	// if getUserInfo is specified and is true, return xmlString instead in the response
-		String getUserInfo = request.getParameter("getUserInfo");
-    	if (getUserInfo != null && getUserInfo.equals("true")) {
-        	User teacher = run.getOwners().iterator().next();
+		String vleurl = ControllerUtil.getBaseUrlString(request);
 
-    		String userInfoString = "<userInfo>";
-    		
-    		// add this user's info:
-    		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + user.getUserDetails().getUsername() + "</userName></myUserInfo>";
-    		
-    		// add the class info:
-    		userInfoString += "<myClassInfo>";
-    		    		
-    		// now add classmates
-    		Set<Workgroup> workgroups = runService.getWorkgroups(runId);
-    		for (Workgroup classmateWorkgroup : workgroups) {
-    			if (classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-    				userInfoString += "<classmateUserInfo>";
-    				userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
-    				userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName>";
-    				userInfoString += "</classmateUserInfo>";
-    			}
-    		}
+		vleurl = vleurl + "/vlewrapper/vle/vle_mobile.html";  
 
-    		for (Workgroup classmateWorkgroup : workgroups) {
-    			if (!((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-    				// inside, add teacher info
-    				userInfoString += "<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>";
-    			}
-    		}
+		modelAndView.addObject("vleurl",vleurl);
 
-    		userInfoString += "</myClassInfo>";
+		User teacher = run.getOwners().iterator().next();
 
-    		userInfoString += "</userInfo>";
-    		response.setHeader("Cache-Control", "no-cache");
-    		response.setHeader("Pragma", "no-cache");
-    		response.setDateHeader ("Expires", 0);
-    		
-    		response.setContentType("text/xml");
-    		//response.setCharacterEncoding("UTF-8");
-    		response.getWriter().print(userInfoString);
-    		return null;
-    	} else {
-        	return modelAndView;
-    	}
+		String userInfoString = "<userInfo>";
+
+		// add this user's info:
+		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><username>" + user.getUserDetails().getUsername() + "</username></myUserInfo>";
+
+		// add the class info:
+		userInfoString += "<myClassInfo>";
+
+		// inside, add teacher info
+		userInfoString += "<teacherUserInfo><username>" + teacher.getUserDetails().getUsername() + "</username></teacherUserInfo>";
+
+		// now add classmates
+		Set<Workgroup> workgroups = runService.getWorkgroups(runId);
+		for (Workgroup classmateWorkgroup : workgroups) {
+			if (classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
+				userInfoString += "<classmateUserInfo>";
+				userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
+				userInfoString += "<username>" + classmateWorkgroup.generateWorkgroupName() + "</username>";
+				userInfoString += "</classmateUserInfo>";
+			}
+		}
+
+		userInfoString += "</myClassInfo>";
+
+		userInfoString += "</userInfo>";
+		//response.setHeader("Cache-Control", "no-cache");
+		//response.setHeader("Pragma", "no-cache");
+		//response.setDateHeader ("Expires", 0);
+
+		//response.setContentType("text/xml");
+		//response.setCharacterEncoding("UTF-8");
+		//response.getWriter().print(userInfoString);
+		modelAndView.addObject(XMLDOC, userInfoString);
+		return modelAndView;
 	}
 	
 	/**
@@ -238,4 +201,5 @@ public class StudentVLEController extends AbstractController {
 	public void setModuleService(ModuleService moduleService) {
 		this.moduleService = moduleService;
 	}
+
 }
