@@ -45,11 +45,12 @@
 			var contentUrl = "${contentUrl}";
 			var userInfoUrl = "${userInfoUrl}";
 			var getDataUrl = "${getDataUrl}";
+			var contentBaseUrl = "${contentBaseUrl}";
 			//alert(userInfoUrl);
 			//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
 			//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 			//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-			window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl);
+			window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl);
 		}
 		
 		function foo() {
