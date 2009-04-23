@@ -385,6 +385,15 @@
 						</div>
 					</c:when>
 					<c:otherwise>
+					    <c:choose>
+					    <c:when test="${fn:length(progressMonitorUrl) > 0}">
+								<c:forEach var="workgroup" items="${workgroups[period.id]}">
+									<iframe id="ifrm_${workgroup.id}" name="ifrm_${workgroup.id}" scrolling="auto" onload="contentPanelOnLoad();" width="100%" height="100%" frameborder="0">
+										 [Content for browsers that don't support iframes goes here.]
+									</iframe>
+								</c:forEach>
+					    </c:when>
+					    <c:otherwise>					    
 						<table id="progressTable" style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 							<thead style="margin:0; padding:0;">
 								<tr style="margin:0; padding:0;">
@@ -487,7 +496,9 @@
 									</td>
 								</tr>
 							</tfoot>
-						</table>					
+						</table>
+						</c:otherwise>
+						</c:choose>					
 					</c:otherwise>
 				</c:choose>
 				<c:set var="tIndex" value="${tIndex+1}"/>

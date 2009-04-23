@@ -25,11 +25,14 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -52,6 +55,15 @@ public class GradeByWorkgroupController extends AbstractController {
 
 	private static final String MODELNAME_CURNITMAP = "curnitmap";
 	
+	private static final String GRADE_BY_WORKGROUP_URL = "gradeByWorkgroupUrl";
+
+	private static final String CONTENT_URL = "contentUrl";
+	
+	private static final String USER_INFO_URL = "userInfoUrl";
+
+	private static final String GET_DATA_URL = "getDataUrl";
+
+	private static final String WORKGROUP = "workgroup";
 	private RunService runService;
 	
 	private GradingService gradingService;
@@ -66,21 +78,50 @@ public class GradeByWorkgroupController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		
 		String runIdStr = request.getParameter(PARAMNAME_RUNID);
+		String workgroupIdStr = request.getParameter(PARAMNAME_WORKGROUPID);
 		Long runId = new Long(runIdStr);
 		Run run = runService.retrieveById(runId);
 
-		String workgroupIdStr = request.getParameter(PARAMNAME_WORKGROUPID);
-		Long workgroupId = new Long(workgroupIdStr);
-		WISEWorkgroup workgroup = (WISEWorkgroup) workgroupService.retrieveById(workgroupId);
+		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+		String result = (String) run.getProject().accept(typeVisitor);
+		if (result.equals("LDProject")) {
+			// LDProject, get the .project file
+			String portalurl = ControllerUtil.getBaseUrlString(request);
 
-		GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate =
-			gradingService.getGradeWorkByWorkgroupAggregate(runId, workgroup);
-		ECurnitmap curnitmap = gradingService.getCurnitmap(runId);
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(PARAMNAME_RUNID, runId);
-		modelAndView.addObject(MODELNAME_AGGREGATE, gradeWorkByWorkgroupAggregate);
-		modelAndView.addObject(MODELNAME_CURNITMAP, curnitmap);
-		return modelAndView;
+			
+	    	String gradebyworkgroupurl = portalurl + "/vlewrapper/vle/gradebyworkgroup.html";
+
+	    	String vleurl = portalurl + "/vlewrapper/vle/vle_ld_project.html";
+	    	//String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
+	    	String contentBaseUrl = portalurl + "/vlewrapper/curriculum/unit4/lesson22";
+	    	String contentUrl = contentBaseUrl + "/lesson22.project";
+	    	
+	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId() + "&workgroupIds=" + workgroupIdStr;
+	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+	    	
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject(PARAMNAME_RUNID, runId);
+			modelAndView.addObject(GRADE_BY_WORKGROUP_URL, gradebyworkgroupurl);
+			modelAndView.addObject("vleurl", vleurl);
+	    	modelAndView.addObject("contentBaseUrl", contentBaseUrl);
+			modelAndView.addObject(CONTENT_URL, contentUrl);
+			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
+			modelAndView.addObject(GET_DATA_URL, getDataUrl);
+			
+			return modelAndView;
+		} else {
+			Long workgroupId = new Long(workgroupIdStr);
+			WISEWorkgroup workgroup = (WISEWorkgroup) workgroupService.retrieveById(workgroupId);
+
+			GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate =
+				gradingService.getGradeWorkByWorkgroupAggregate(runId, workgroup);
+			ECurnitmap curnitmap = gradingService.getCurnitmap(runId);
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject(PARAMNAME_RUNID, runId);
+			modelAndView.addObject(MODELNAME_AGGREGATE, gradeWorkByWorkgroupAggregate);
+			modelAndView.addObject(MODELNAME_CURNITMAP, curnitmap);
+			return modelAndView;
+		}
 	}
 
 	/**

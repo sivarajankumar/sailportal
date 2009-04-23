@@ -101,7 +101,7 @@
                 /enter*.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/registerstudent.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/getannotationbundle.html=ROLE_ANONYMOUS,ROLE_USER                
-                /student/**/*.html=ROLE_STUDENT,ROLE_ADMINISTRATOR
+                /student/**/*.html=ROLE_STUDENT,ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/curriculumsubjects.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/termsofuse.html=ROLE_ANONYMOUS,ROLE_USER

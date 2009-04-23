@@ -28,7 +28,7 @@ import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
 
 /**
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class ProjectTypeVisitor implements ProjectVisitor {
 
@@ -36,6 +36,9 @@ public class ProjectTypeVisitor implements ProjectVisitor {
 	 * @see org.telscenter.sail.webapp.domain.project.ProjectVisitor#visit(org.telscenter.sail.webapp.domain.project.Project)
 	 */
 	public Object visit(Project project) {
+		if (project.getProjectType() == ProjectType.LD) {
+			return "LDProject";
+		}
 		return "Project";
 	}
 

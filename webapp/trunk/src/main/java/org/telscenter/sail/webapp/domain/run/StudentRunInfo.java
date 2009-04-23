@@ -160,7 +160,7 @@ public class StudentRunInfo implements Comparable<StudentRunInfo>{
 			HttpRestTransport httpRestTransport, HttpServletRequest request) {
 		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
 		String result = (String) run.getProject().accept(typeVisitor);
-		if (this.getWorkgroup() != null && !(result.equals("ExternalProject")) && run.getProject().getProjectType()!=ProjectType.ROLOO) {
+		if (this.getWorkgroup() != null && !(result.equals("ExternalProject")) && run.getProject().getProjectType()!=ProjectType.ROLOO && run.getProject().getProjectType()!=ProjectType.LD) {
 			String workPdfUrl = workgroupService
 		        .generateWorkgroupWorkPdfUrlString(httpRestTransport, request, (WISEWorkgroup) workgroup);
 			

@@ -78,7 +78,7 @@ public class ProjectServiceFactory {
 			System.out.println(e);
 		}
 		if (curnit instanceof RooloOtmlModuleImpl) {
-			if (project.getProjectType()==ProjectType.ROLOO){
+			if (project.getProjectType()==ProjectType.ROLOO || project.getProjectType()==ProjectType.LD){
 				projectService = rooloProjectService;
 			} else {
 				projectService = otrunkProjectService;

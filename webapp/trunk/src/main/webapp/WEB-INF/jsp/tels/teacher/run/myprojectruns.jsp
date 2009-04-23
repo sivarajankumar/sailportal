@@ -95,7 +95,6 @@
 <%@ include file="headerteachermanagement.jsp"%>
 
 <%@ include file="L2projects_myprojectruns.jsp"%>
-
 <style type="text/css">
 .yui-skin-sam .yui-navset .yui-nav li,
 .yui-skin-sam .yui-navset .yui-navset-top .yui-nav li {
@@ -174,10 +173,27 @@
 				     </td> 
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList">
-					    	<li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
+					    <c:set var="isExternalProject" value="0"/>
+					    
+					        <c:forEach var="external_run" items="${externalprojectruns}">
+					           <script type="text/javascript">"${run.id}" does it equal "${external_run.id}"</script>
+					           <c:if test="${run.id == external_run.id}">
+					                   <c:set var="isExternalProject" value="1"/>
+					           </c:if>
+					        </c:forEach>
+					           <c:choose>
+					               <c:when test="${isExternalProject == 1}">
+					                  <li><a href="report.html?runId=${run.id}">Report</a></li>
+					               </c:when>
+					               <c:otherwise>
+					        <li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
 		                    <li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary"><spring:message code="teacher.run.myprojectruns.19"/></a></li>
 		                    <li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.20"/></a></li>
+					               </c:otherwise>
+					           </c:choose>
+					        
+					        
 		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">
     					      <li><a href="shareprojectrun.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.18"/></a></li> 
   	                        </authz:accesscontrollist>

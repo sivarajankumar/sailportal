@@ -44,6 +44,9 @@
 
 </head>
 <body class=" yui-skin-sam">
+
+<!--  BEGIN: for projects that have curnitmap -->
+<c:if test="${fn:length(curnitMap) > 0}">
 <script type="text/javascript">
 
 	//preload image if browser is not IE because animated gif will just freeze if user is using IE
@@ -686,6 +689,35 @@ var myLogReader = new YAHOO.widget.LogReader("myLogger");
 <div id="container"></div>
 
 </div>    <!--end of Centered Div-->
+</c:if>
+<!--  END: for projects that have curnitmap -->
 
+<!--  BEGIN: for LD-inspired Projects that don't have curnitmap -->
+<script type="text/javascript">
+	function topiframeOnLoad() {
+		//var xmlString = "${xmlString}";
+		var runId = "${runId}";
+		var workgroupId = "${workgroup.id}";
+		var contentUrl = "${contentUrl}";
+		var contentBaseUrl = "${contentBaseUrl}";
+		var userInfoUrl = "${userInfoUrl}";
+		var getDataUrl = "${getDataUrl}";
+		//alert(userInfoUrl);
+		//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
+		//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
+
+		window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl);
+	}
+</script>
+<c:if test="${fn:length(gradeByWorkgroupUrl) > 0}">
+	<iframe id="topifrm" src="${gradeByWorkgroupUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%" height="100%" frameborder="0">
+ [Content for browsers that don't support iframes goes here.]
+    </iframe>
+   <h3>gradebyworkgroupurl: ${gradeByWorkgroupUrl}</h3>
+    <h3>contentUrl: ${contentUrl}</h3>
+    <h3>userInfoUrl: ${userInfoUrl}</h3>
+    <h3>getDataUrl: ${getDataUrl}</h3>
+   
+</c:if>
 </body>
 </html>

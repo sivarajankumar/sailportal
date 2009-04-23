@@ -33,10 +33,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -82,6 +84,30 @@ public class ClassMonitorController extends AbstractController {
 		modelAndView.addObject(TAB, request.getParameter(TAB));
 		modelAndView.addObject(DATE, sdf.format(new Date()));
 		modelAndView.addObject(WORKGROUPS, workgroups);
+		
+		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+		String result = (String) run.getProject().accept(typeVisitor);
+		if (result.equals("LDProject")) {
+			// LDProject, get the .project file
+			String portalurl = ControllerUtil.getBaseUrlString(request);
+
+			
+	    	String progressMonitorUrl = portalurl + "/vlewrapper/vle/progressmonitor.html";
+
+	    	String vleurl = portalurl + "/vlewrapper/vle/vle_ld_project.html";
+	    	//String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
+	    	String contentBaseUrl = portalurl + "/vlewrapper/curriculum/unit4/lesson22";
+	    	String contentUrl = contentBaseUrl + "/lesson22.project";
+	    	
+	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId();
+	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+	    	modelAndView.addObject("contentUrl", contentUrl);
+			modelAndView.addObject("vleurl", vleurl);
+			modelAndView.addObject("progressMonitorUrl", progressMonitorUrl);
+	    	modelAndView.addObject("contentBaseUrl", contentBaseUrl);
+			modelAndView.addObject("userInfoUrl", userInfoUrl);
+			modelAndView.addObject("getDataUrl", getDataUrl);
+		}
 		return modelAndView;
 	}
 

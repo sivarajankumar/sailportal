@@ -25,10 +25,15 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.pas.emf.pas.ECurnitmap;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.service.grading.GradingService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * A Controller for TELS's grade by step
@@ -41,8 +46,20 @@ public class GradeByStepController extends AbstractController {
 	public static final String RUN_ID = "runId";
 	
 	public static final String CURNIT_MAP = "curnitMap";
+
+	private static final String GRADE_BY_STEP_URL = "gradeByStepUrl";
+
+	private static final String CONTENT_URL = "contentUrl";
 	
+	private static final String USER_INFO_URL = "userInfoUrl";
+
+	private static final String GET_DATA_URL = "getDataUrl";
+
+	private static final String WORKGROUP = "workgroup";
+
 	private GradingService gradingService;
+	
+	private RunService runService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -53,11 +70,29 @@ public class GradeByStepController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 
 		String runId = request.getParameter(RUN_ID);
-		
-		if( runId != null ) {
-			System.out.println("The runId is "+runId);
+		Run run = runService.retrieveById(new Long(runId));
+		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+		String result = (String) run.getProject().accept(typeVisitor);
+		if (result.equals("LDProject")) {
+			// LDProject, get the .project file
+			String portalurl = ControllerUtil.getBaseUrlString(request);
+
+	    	String gradebystepurl = portalurl + "/vlewrapper/vle/gradebystep.html";
+	    	String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
+	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId();
+	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+	    	
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject(RUN_ID, runId);
+			modelAndView.addObject(GRADE_BY_STEP_URL, gradebystepurl);
+			modelAndView.addObject(CONTENT_URL, contentUrl);
+			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
+			modelAndView.addObject(GET_DATA_URL, getDataUrl);
 			
-			//GradingService gs = new GradingServiceImpl();
+			return modelAndView;
+		}
+		else 
+		if( runId != null ) {
 			ECurnitmap curnitMap = gradingService.getCurnitmap(new Long(runId));
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
@@ -80,5 +115,12 @@ public class GradeByStepController extends AbstractController {
 	 */
 	public void setGradingService(GradingService gradingService) {
 		this.gradingService = gradingService;
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
 	}
 }

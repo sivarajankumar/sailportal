@@ -76,7 +76,7 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 		WISEWorkgroup workgroup = null;
 		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
 		String result = (String) run.getProject().accept(typeVisitor);
-		if (result.equals("ExternalProject") || run.getProject().getProjectType()==ProjectType.ROLOO) {
+		if (result.equals("ExternalProject") || run.getProject().getProjectType()==ProjectType.ROLOO || run.getProject().getProjectType()==ProjectType.LD) {
 			workgroup = createWISEWorkgroup(members, run, null, period);
 			// TODO hiroki set externalid here
 			//ExternalProjectService externalProjectService = 
