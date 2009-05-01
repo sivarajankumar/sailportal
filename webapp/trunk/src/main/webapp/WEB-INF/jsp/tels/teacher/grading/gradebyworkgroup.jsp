@@ -694,10 +694,10 @@ var myLogReader = new YAHOO.widget.LogReader("myLogger");
 
 <!--  BEGIN: for LD-inspired Projects that don't have curnitmap -->
 <script type="text/javascript">
-	function topiframeOnLoad() {
+	function topiframeOnLoad(workgroupId) {
 		//var xmlString = "${xmlString}";
 		var runId = "${runId}";
-		var workgroupId = "${workgroup.id}";
+		//var workgroupId = "${workgroup.id}";
 		var contentUrl = "${contentUrl}";
 		var contentBaseUrl = "${contentBaseUrl}";
 		var userInfoUrl = "${userInfoUrl}";
@@ -710,7 +710,7 @@ var myLogReader = new YAHOO.widget.LogReader("myLogger");
 	}
 </script>
 <c:if test="${fn:length(gradeByWorkgroupUrl) > 0}">
-	<iframe id="topifrm" src="${gradeByWorkgroupUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%" height="100%" frameborder="0">
+	<iframe id="topifrm" src="${gradeByWorkgroupUrl}" onload="topiframeOnLoad(${workgroup.id});" name="topifrm" scrolling="auto" width="100%" height="100%" frameborder="0">
  [Content for browsers that don't support iframes goes here.]
     </iframe>
    <h3>gradebyworkgroupurl: ${gradeByWorkgroupUrl}</h3>

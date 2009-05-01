@@ -97,7 +97,7 @@ public class GradeByWorkgroupController extends AbstractController {
 	    	String contentUrl = contentBaseUrl + "/lesson22.project";
 	    	
 	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId() + "&workgroupIds=" + workgroupIdStr;
-	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html?dataId=" + workgroupIdStr;
 	    	
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(PARAMNAME_RUNID, runId);
