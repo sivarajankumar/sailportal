@@ -48,6 +48,8 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl" />
         <mapping
+            class="org.telscenter.sail.webapp.domain.impl.UrlModuleImpl" />
+        <mapping
             class="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl" />
         <mapping
             class="org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl" />

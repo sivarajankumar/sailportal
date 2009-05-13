@@ -20,20 +20,56 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.sf.sail.webapp.domain;
+package org.telscenter.sail.webapp.domain.impl;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import net.sf.sail.webapp.domain.CurnitVisitor;
 
 import org.telscenter.sail.webapp.domain.Module;
-import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
 
 /**
- * Visitor Pattern Interface for Curnit
+ * UrlModule: this module is a module that can be found on the web.
+ * It stores one URL: url to where the .project.xml file can be retrieved.
  * @author hirokiterashima
- * @version $Id$
+ * @version $Id:$
  */
-public interface CurnitVisitor {
-	Object visit(Curnit curnit);
-	Object visit(Module module);
-	Object visit(OtmlModuleImpl otmlModuleImpl);
-	Object visit(UrlModuleImpl urlModuleImpl);
+@Entity
+@Table(name = UrlModuleImpl.DATA_STORE_NAME)
+public class UrlModuleImpl extends ModuleImpl implements Module {
+
+	@Transient
+	private static final long serialVersionUID = 1L;
+
+	@Transient
+	public static final String DATA_STORE_NAME = "urlmodules";
+
+	private static final String COLUMN_NAME_RETREIVEMODULE_URL = "module_url";
+	
+	@Column(name = UrlModuleImpl.COLUMN_NAME_RETREIVEMODULE_URL)
+	private String moduleUrl;  // url where the module file can be retrieved
+
+	/**
+	 * @return the moduleUrl
+	 */
+	public String getModuleUrl() {
+		return moduleUrl;
+	}
+
+	/**
+	 * @param moduleUrl the moduleUrl to set
+	 */
+	public void setModuleUrl(String moduleUrl) {
+		this.moduleUrl = moduleUrl;
+	}
+
+    /**
+     * @see net.sf.sail.webapp.domain.Curnit#accept(net.sf.sail.webapp.domain.CurnitVisitor)
+     */
+	public Object accept(CurnitVisitor visitor) {
+		return visitor.visit(this);
+	}
 }

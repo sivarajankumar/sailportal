@@ -24,13 +24,14 @@ package net.sf.sail.webapp.domain.impl;
 
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
+import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.CurnitVisitor;
 
 /**
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class CurnitGetCurnitUrlVisitor implements CurnitVisitor {
 
@@ -55,6 +56,10 @@ public class CurnitGetCurnitUrlVisitor implements CurnitVisitor {
 	 */
 	public String visit(OtmlModuleImpl otmlModuleImpl) {
 		return otmlModuleImpl.getRetrieveotmlurl();
+	}
+
+	public Object visit(UrlModuleImpl urlModuleImpl) {
+		return urlModuleImpl.getModuleUrl();
 	}
 
 }

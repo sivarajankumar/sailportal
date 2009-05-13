@@ -46,11 +46,13 @@
 			var userInfoUrl = "${userInfoUrl}";
 			var getDataUrl = "${getDataUrl}";
 			var contentBaseUrl = "${contentBaseUrl}";
+			var postDataUrl = "${postDataUrl}";	
+            alert('view.jsp \n\ncontentBaseUrl:' + contentBaseUrl + '\n\ngetDataUrl:' + getDataUrl + '\npostDataUrl:' + postDataUrl + '\ncontentUrl:' + contentUrl);
 			//alert(userInfoUrl);
 			//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
 			//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 			//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-			window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl);
+			window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, postDataUrl);
 		}
 		
 		function foo() {
