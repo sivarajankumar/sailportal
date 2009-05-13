@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -91,18 +92,18 @@ public class ClassMonitorController extends AbstractController {
 			// LDProject, get the .project file
 			String portalurl = ControllerUtil.getBaseUrlString(request);
 
+			String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 			
+			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
+			String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
+
 	    	String progressMonitorUrl = portalurl + "/vlewrapper/vle/progressmonitor.html";
 
-	    	String vleurl = portalurl + "/vlewrapper/vle/vle_ld_project.html";
-	    	//String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
-	    	String contentBaseUrl = portalurl + "/vlewrapper/curriculum/unit4/lesson22";
-	    	String contentUrl = contentBaseUrl + "/lesson22.project";
-	    	
-	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId();
+			String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
+			String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
 	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+
 	    	modelAndView.addObject("contentUrl", contentUrl);
-			modelAndView.addObject("vleurl", vleurl);
 			modelAndView.addObject("progressMonitorUrl", progressMonitorUrl);
 	    	modelAndView.addObject("contentBaseUrl", contentBaseUrl);
 			modelAndView.addObject("userInfoUrl", userInfoUrl);

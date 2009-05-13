@@ -324,6 +324,7 @@
   	 */
   	function contentPanelOnLoad(workgroupId) {
 		var contentUrl = "${contentUrl}";
+		var contentBaseUrl = "${contentBaseUrl}";
 		var userInfoUrl = "${userInfoUrl}";
 		var getDataUrl = "${getDataUrl}";
 
@@ -332,7 +333,7 @@
 		 * load the user info, load the vle_state for the student
 		 * and then display the getProgress table
 		 */
-  		window.frames["ifrm_" + workgroupId].load(contentUrl, userInfoUrl, getDataUrl + "?dataId=" + workgroupId, workgroupId);
+  		window.frames["ifrm_" + workgroupId].load(contentUrl, contentBaseUrl, userInfoUrl, getDataUrl + "?userId=" + workgroupId, workgroupId);
   	}
 
   	/*

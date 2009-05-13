@@ -193,7 +193,7 @@ public class StudentVLEController extends AbstractController {
 			ModelAndView modelAndView, Run run, Workgroup workgroup) {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 
-		String vleurl = portalurl + "/vlewrapper/view_vle.html";
+		String vleurl = portalurl + "/vlewrapper/vle.html";
 		
 		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 		
