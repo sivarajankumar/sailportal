@@ -106,6 +106,8 @@ public class StudentVLEController extends AbstractController {
 	
 	private static final String SUMMARY = "summary";
 
+	private static final String WORKGROUP_ID_PARAM = "workgroupId";
+
 
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -214,11 +216,13 @@ public class StudentVLEController extends AbstractController {
 	}
 
 	/**
+	 * If the workgroupId is specified in the request, then look up userInfo for that specified workgroup.
+	 * Otherwise, lookup userInfo for the currently-logged-in user.
 	 * @param request
 	 * @param response
-	 * @param run
-	 * @param user
-	 * @param workgroup
+	 * @param run Which run to look up.
+	 * @param user Currently-logged in user
+	 * @param workgroup workgroup that the currently-logged in user is in for the run
 	 * @return
 	 * @throws ObjectNotFoundException
 	 * @throws IOException
@@ -226,12 +230,25 @@ public class StudentVLEController extends AbstractController {
 	private ModelAndView handlePrintUserInfo(HttpServletRequest request,
 			HttpServletResponse response, Run run, User user,
 			Workgroup workgroup) throws ObjectNotFoundException, IOException {
+		
+		String workgroupIdStr = request.getParameter(WORKGROUP_ID_PARAM);
+		if (workgroupIdStr != null && workgroupIdStr != "") {
+			workgroup = workgroupService.retrieveById(new Long(workgroupIdStr));
+			// if a workgroup was specified that was not for this run, return BAD_REQUEST
+			if (workgroup.getOffering().getId() != run.getId()) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				return null;
+			}
+		} else {
+		}
+		
+		
 		User teacher = run.getOwners().iterator().next();
 
 		String userInfoString = "<userInfo>";
 		
 		// add this user's info:
-		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + user.getUserDetails().getUsername() + "</userName></myUserInfo>";
+		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.generateWorkgroupName() + "</userName></myUserInfo>";
 		
 		// add the class info:
 		userInfoString += "<myClassInfo>";

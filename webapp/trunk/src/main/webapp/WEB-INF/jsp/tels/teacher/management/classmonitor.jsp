@@ -333,7 +333,7 @@
 		 * load the user info, load the vle_state for the student
 		 * and then display the getProgress table
 		 */
-  		window.frames["ifrm_" + workgroupId].load(contentUrl, contentBaseUrl, userInfoUrl, getDataUrl + "?userId=" + workgroupId, workgroupId);
+  		window.frames["ifrm_" + workgroupId].load(contentUrl, contentBaseUrl, userInfoUrl + "&workgroupId=" + workgroupId, getDataUrl + "?userId=" + workgroupId, workgroupId);
   	}
 
   	/*
