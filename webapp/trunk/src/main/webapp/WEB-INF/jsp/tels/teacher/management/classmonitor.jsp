@@ -333,16 +333,15 @@
 		 * load the user info, load the vle_state for the student
 		 * and then display the getProgress table
 		 */
-  		window.frames["ifrm_" + workgroupId].load(contentUrl, contentBaseUrl, userInfoUrl + "&workgroupId=" + workgroupId, getDataUrl + "?userId=" + workgroupId, workgroupId);
-  	}
+  		window.frames["ifrm_" + workgroupId].renderProgressMonitor(contentUrl, userInfoUrl + "&workgroupId=" + workgroupId, getDataUrl, contentBaseUrl, workgroupId);
+  	 }
 
   	/*
  	 * Tells the iframe for this workgroupId to display the progress
  	 * for this workgroupId
  	 */
   	function contentPanelFinishedLoading(workgroupId) {
-  	  	//alert("contentPanelFinishedLoading.workgroupId: " + workgroupId);
-  		window.frames["ifrm_" + workgroupId].displayProgress();
+  		window.frames["ifrm_" + workgroupId].vle.displayProgress();
   	}
 </script>
 

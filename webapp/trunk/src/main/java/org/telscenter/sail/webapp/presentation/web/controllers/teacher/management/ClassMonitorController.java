@@ -97,7 +97,7 @@ public class ClassMonitorController extends AbstractController {
 			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 			String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
 
-	    	String progressMonitorUrl = portalurl + "/vlewrapper/vle/progressmonitor.html";
+	    	String progressMonitorUrl = portalurl + "/vlewrapper/vle.html";
 
 			String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 			String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
