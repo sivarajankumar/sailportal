@@ -1,0 +1,218 @@
+/**
+ * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
+ */
+
+#teacherHomeTable1 {
+	border-collapse:collapse;
+	vertical-align:top;
+	align:top;
+}
+
+#teacherHomeTable1 td {
+	vertical-align:top;
+}
+
+#welcomePanel {
+    width: 468px;   
+	padding:0;
+	margin:0;
+	}
+	
+.panelStyling {
+	background-image:url(../.././images/teacher/Gradient-Gray-to-White-350px.png);
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #666666;  
+	}
+	
+#headerTeacherHome {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	text-align:left;
+	margin: 10px 0px 15px 10px;
+	font-size: 1.4em;
+	font-weight:bold;
+}
+
+#teacherWelcomeBoxTable	{  
+	border-collapse:collapse;
+	font-size:.8em;
+	width:435px;
+	margin: 0px 0px 5px 15px;
+		}
+	
+#teacherWelcomeBoxTable td	{  
+	vertical-align:text-top;
+	letter-spacing:-.5px;
+	}	
+		
+#teacherWelcomeBoxTable ul	{  
+	padding-left:0px;
+	margin-left:0px;
+		}
+		
+#teacherWelcomeBoxTable li	{  
+	list-style-type:none;
+	margin-bottom:10px;
+		}
+		
+.tableColor {
+	color:#336600;
+}
+
+#projectsPanel {
+	width:470px;
+	padding:0;
+	margin:0; 
+	}
+
+#quickToolsContainer {	
+	height:150px;
+	overflow:auto;
+	border-top:1px solid #999999;
+	margin:0 8px;
+	}
+	
+#quickToolsTable {	
+	border-collapse:collapse;
+	text-align:center;
+	width:100%;
+	}
+	
+#quickToolsTable th {	
+	border-left:1px solid #999999;
+	border-right:1px solid #999999;
+	border-bottom:1px solid #999999;
+	background-color:#CCCCCC;
+	padding: 2px 6px;
+	font-size:.7em;
+	}
+	
+#quickToolsTable td {	
+	border:1px solid #999999;
+	padding: 2px 6px;
+	font-size:.8em;
+	vertical-align:middle;
+		}
+
+#quickToolLinks {
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+	text-decoration:none;	
+}
+
+#quickToolLinks li {
+	display:inline;
+	font-size:.8em;
+	letter-spacing:-.7px;
+}
+
+#quickToolLinks li a:link, #quickToolLinks li a:visited {
+	text-decoration:none; 
+	padding:2px 3px;
+	margin:0px;
+		}
+
+#quickToolLinks li a:hover {
+	background-color:#ffff33;
+	color:#000033;
+	padding:2px 3px;
+	margin:0px;
+	
+}
+
+.projectNameStyle {
+	color:#000066;
+}
+
+.secondTableMargin {
+	margin-top:12px;
+}
+
+#dashboardPanel {
+	width:468px;
+	padding:0;
+	margin:0;  
+}	
+	
+#dashboardSections td {
+	font-size:.85em;
+	padding-bottom:7px;
+	letter-spacing:-.6px;	
+}
+
+#dashboardSections td {
+	vertical-align:top;
+	}
+
+#quickLinksPanel {
+	width:470px;
+	padding:0;
+	margin:0; 
+	}
+	
+#linkHeader {
+	font-size:1.3em;
+	font-weight:bold;
+	padding: 10px 0 4px 0;
+}
+
+#quickLinks1 {
+	float:left;
+	font-size:.8em;
+	padding-left:35px;
+	margin:-10px 0 0 0;
+	}
+
+#quickLinks2 {
+	float:right;
+	font-size:.8em;
+	padding: 0 40px 0 0; 
+	margin:-10px 0 0 0;
+	
+	}
+
+#quickLinks1 ul, #quickLinks2 ul {
+	list-style-type:none; 
+	padding:0px;
+	margin: 0;
+	font-size:1.0em;
+	line-height:140%; 
+	}
+
+#quickLinks1 a:link, #quickLinks1 a:visited, #quickLinks2 a:link, #quickLinks2 a:visited, #projectGradeLinkBox a:link, #projectGradeLinkBox a:visited  {
+	color:#0033CC;
+	padding: 3px 7px 3px 3px;
+	text-decoration:none;
+		}
+	
+#quickLinks1 a:hover, #quickLinks2 a:hover, #projectGradeLinkBox a:hover{
+	color:#000066;
+	background-color:#ffff33;
+	padding: 2px 6px 2px 2px;
+	text-decoration:none;
+	border: 1px solid #6666CC;
+		}
+	
+.inactivecolor {
+	color:#999999;
+	padding-left:4px;
+	}
+	
+

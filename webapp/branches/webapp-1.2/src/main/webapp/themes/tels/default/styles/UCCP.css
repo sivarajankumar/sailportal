@@ -1,0 +1,187 @@
+/**
+ * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+  
+/* THESE STYLES ARE USED GLOBALLY WITHIN ALL UCCP PROJECTS  */	
+
+body {
+	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
+	font-size: 100%;
+	text-align: left;
+	margin: 5px;
+	background-color:#FFFFFF;
+	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
+	}
+	
+img {border: 0px;}
+
+h1 {font-size:1.8em; margin-left:10px;margin-right:10px;} 
+h2 {font-size:1.5em; margin-left:10px;margin-right:10px; }
+h3 {font-size:1.2em; margin-left:10px;margin-right:10px;}
+h4 {font-size:1.0em; margin-left:10px;margin-right:10px;}
+h5 {font-size:.8em;  margin-left:10px;margin-right:10px;}
+h6 {font-size:.7em; margin-left:10px;margin-right:10px;}
+p  {font-size:.9em; line-height:130%;padding:0px; margin:0 10px 15px 10px;}
+
+#locationBar {
+	position:relative;
+	border:1px ridge black;
+	margin: 0 0 15px 0;
+	}
+
+.Unit1 {
+	color:#333333;
+	padding:5px;
+	background-color:#CCFF99;
+	background-color:#FF0000;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Gradient-LocationBar-Green.png);
+	background-repeat:repeat-x;
+	background-position:bottom;
+	font-size:.7em;
+	font-variant:small-caps;
+	letter-spacing:1px;
+	font-weight:bold;
+}
+
+.Unit2 {
+	color:#333333;
+	padding:5px;
+	background-color:#CCFF99;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Gradient-LocationBar-Orange.png);
+	background-repeat:repeat-x;
+	background-position:bottom;
+	font-size:.7em;
+	font-variant:small-caps;
+	letter-spacing:1px;
+	font-weight:bold;
+}
+
+.doit {
+	margin: 25px 0 0 10px;
+	font-size:.9em;
+	letter-spacing:-.1px;
+	font-family: Helvetica, Arial;	
+	font-style:italic;
+	}
+	
+.Intro {
+	position:absolute;
+	top:3px;
+	right:5px;
+	width:16px;
+	height:16px;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Intro-16.png);
+	background-repeat:no-repeat; 
+	background-position:center right;	
+	}
+	
+	
+.Video {
+	position:absolute;
+	top:3px;
+	right:5px;
+	width:16px;
+	height:16px;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Movie-16.png);
+	background-repeat:no-repeat; 
+	background-position:center right;	
+	}
+	
+.Reading {
+	position:absolute;
+	top:3px;
+	right:5px;
+	width:16px;
+	height:16px;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Reading-16.png);
+	background-repeat:no-repeat; 
+	background-position:center right;	
+	}
+	
+.Display {
+	position:absolute;
+	top:3px;
+	right:5px;
+	width:16px;
+	height:16px;
+	background-image:url(http://sailportal.googlecode.com/svn/webapp/trunk/src/main/webapp/themes/tels/default/images/UCCP/Icon-Display-16.png);
+	background-repeat:no-repeat; 
+	background-position:center right;	
+	}
+	
+	
+/* STYLES FOR POSITIONING OF ELEMENTS */
+
+#mainCol {
+	float:left;
+	width:77%;
+	text-align:left;
+	}
+	
+#warnCol {
+	float:right;
+	width:20%;
+	margin-right:10px;
+	}
+	
+.key {
+	border:1px dotted red;
+	color:red;
+	font-size:.9em;
+	padding:10px;
+	margin:0 auto;
+	font-weight:bold;
+	font-variant:small-caps;
+	text-align:center;
+	position:absolute;
+	top:100px;
+}
+
+.vocab {
+	border:1px dotted green;
+	font-size:.9em;
+	color:green;
+	padding:10px;
+	margin:0 auto;
+	text-align:center;
+	position:absolute;
+	top: 300px;
+}
+	
+.Right {
+	float:right;
+	border:1px solid gray;
+	padding:10px;
+	margin:0 0 10px 15px;
+	}
+
+.Left {
+	float:left;
+	border:1px solid gray;
+	padding:10px;
+	margin:0 15px 10px 0px;
+	}
+
+.column1 {
+	position: absolute;
+	width:80%;
+	}
+	
+.column2 {
+	position: absolute;
+	right:0px;
+	}
