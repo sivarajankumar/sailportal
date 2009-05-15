@@ -173,7 +173,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setProject(project);
 		run.setName("Run with Project " + runParameters.getProject().getName());
 		if (!(run.getProject() instanceof ExternalProject)) {
-			if(run.getProject().getProjectType()!=ProjectType.ROLOO){
+			if(run.getProject().getProjectType()!=ProjectType.ROLOO && run.getProject().getProjectType()!=ProjectType.LD){
 				run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
 			}
 		}

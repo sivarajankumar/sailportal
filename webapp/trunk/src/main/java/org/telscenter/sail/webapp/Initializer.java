@@ -59,7 +59,6 @@ public class Initializer {
                     .instantiateClass(Class.forName(args[0]));
             applicationContext = new ClassPathXmlApplicationContext(
                     springConfig.getRootApplicationContextConfigLocations());
-
             CreateDefaultUsers createDefaultUsers = new CreateDefaultUsers(
                     applicationContext);
             createDefaultUsers.createRoles(applicationContext);
@@ -83,15 +82,28 @@ public class Initializer {
 			// this user will be used to preview projects (in 'Instant Preview' page)
 			User previewUser = createDefaultUsers.createPreviewUser(applicationContext, "preview", 
 					"user", "preview");
+            
+			// BEGIN: CREATES OFFERINGS USING LD-BASED PROJECTS
+			OfferingInitializer offeringInitializer = 
+				new OfferingInitializer(applicationContext);
+			offeringInitializer.createDefaultOfferings(adminUser);
+			// END: CREATES OFFERINGS USING LD-BASED PROJECTS
+
 			
-            CreateDefaultOfferings createDefaultOfferings = new CreateDefaultOfferings(
-                    applicationContext);
-            Curnit[] curnits = createDefaultOfferings
-                    .createDefaultCurnits(applicationContext);
-            Jnlp[] jnlps = createDefaultOfferings
-                    .createDefaultJnlps(applicationContext);
+			
+			
+			// BEGIN: CREATES OFFERINGS USING PRE-LD-BASED PROJECTS
+
+//            CreateDefaultOfferings createDefaultOfferings = new CreateDefaultOfferings(
+//                    applicationContext);
+//            Curnit[] curnits = createDefaultOfferings
+//                    .createDefaultCurnits(applicationContext);
+//            Jnlp[] jnlps = createDefaultOfferings
+//                    .createDefaultJnlps(applicationContext);
 //            Project[] projects = createDefaultOfferings
 //                    .createDefaultProjects(applicationContext, curnits, jnlps);
+
+			// END: CREATES OFFERINGS USING PRE-LD-BASED PROJECTS
             
             
 //    		System.setProperty("org.apache.jackrabbit.repository.conf", "/Users/hirokiterashima/eclipseworkspaces/telsportalworkspace3.3/webapp/repository.xml");

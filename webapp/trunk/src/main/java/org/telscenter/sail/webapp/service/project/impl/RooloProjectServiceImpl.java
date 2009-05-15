@@ -265,6 +265,7 @@ public class RooloProjectServiceImpl implements ProjectService{
 		// workgroup with at least 1 member in it. See this JIRA task:
 		// http://jira.concord.org/browse/SDS-23
 		User previewUser = userService.retrieveById(new Long(2));// preview user is user #2 in the database
+
 		Workgroup previewWorkgroup = 
 			workgroupService.getPreviewWorkgroupForRooloOffering(project.getPreviewRun(), previewUser);
 				
