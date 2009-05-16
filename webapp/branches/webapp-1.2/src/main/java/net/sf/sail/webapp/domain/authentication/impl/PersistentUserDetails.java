@@ -36,9 +36,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import org.springframework.security.GrantedAuthority;
 
-import org.acegisecurity.GrantedAuthority;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
  * Implementation class of <code>MutableUserDetails</code> that uses an EJB3

@@ -181,7 +181,7 @@
     </bean>
     
     <bean id="runServiceSecurity"
-        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="offeringAccessDecisionManager" />
@@ -215,7 +215,7 @@
     </bean>
     
     <bean id="projectServiceSecurity"
-        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="offeringAccessDecisionManager" />
@@ -376,7 +376,7 @@
     </bean>
     
     <bean id="wiseWorkgroupServiceSecurity"
-        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="workgroupAccessDecisionManager" />

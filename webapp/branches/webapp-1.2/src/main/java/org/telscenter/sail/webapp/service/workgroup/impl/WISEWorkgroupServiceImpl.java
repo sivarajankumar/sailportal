@@ -38,7 +38,7 @@ import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 import net.sf.sail.webapp.service.group.GroupService;
 import net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl;
 
-import org.acegisecurity.acls.domain.BasePermission;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.sail.webapp.domain.Run;

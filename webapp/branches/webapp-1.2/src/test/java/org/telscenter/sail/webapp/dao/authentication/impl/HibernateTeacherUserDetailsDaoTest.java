@@ -35,8 +35,8 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
-import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.GrantedAuthority;
 import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;

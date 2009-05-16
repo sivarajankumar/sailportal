@@ -38,8 +38,8 @@ import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
-import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 

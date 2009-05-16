@@ -38,8 +38,8 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
-import org.acegisecurity.annotation.Secured;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;

@@ -26,9 +26,9 @@ import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
-import org.acegisecurity.GrantedAuthority;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.GrantedAuthority;
 
 /**
  * A disposable class that is used to create default roles in the data store and

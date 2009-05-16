@@ -24,18 +24,19 @@ import net.sf.sail.webapp.domain.Persistable;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.AclService;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.acls.AccessControlEntry;
-import org.acegisecurity.acls.MutableAcl;
-import org.acegisecurity.acls.MutableAclService;
-import org.acegisecurity.acls.NotFoundException;
-import org.acegisecurity.acls.Permission;
-import org.acegisecurity.acls.objectidentity.ObjectIdentity;
-import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
-import org.acegisecurity.acls.sid.PrincipalSid;
-import org.acegisecurity.acls.sid.Sid;
-import org.acegisecurity.context.SecurityContextHolder;
+
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.Authentication;
+import org.springframework.security.acls.AccessControlEntry;
+import org.springframework.security.acls.MutableAcl;
+import org.springframework.security.acls.MutableAclService;
+import org.springframework.security.acls.NotFoundException;
+import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.objectidentity.ObjectIdentity;
+import org.springframework.security.acls.objectidentity.ObjectIdentityImpl;
+import org.springframework.security.acls.sid.PrincipalSid;
+import org.springframework.security.acls.sid.Sid;
+import org.springframework.security.context.SecurityContextHolder;
 
 /**
  * A class which allows creation of access control lists for any object.
@@ -71,7 +72,8 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	        } catch (NotFoundException nfe) {
 	            acl = mutableAclService.createAcl(objectIdentity);
 	        }
-			acl.insertAce(null, permission,
+	        // add this new ace at the end of the acl.
+			acl.insertAce(acl.getEntries().length, permission,
 					new PrincipalSid(this.getAuthentication()), true);
 			this.mutableAclService.updateAcl(acl);
 		} else {
@@ -94,7 +96,8 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	        } catch (NotFoundException nfe) {
 	            acl = mutableAclService.createAcl(objectIdentity);
 	        }
-			acl.insertAce(null, permission,
+	        // add this new ace at the end of the acl.
+			acl.insertAce(acl.getEntries().length, permission,
 					new PrincipalSid(user.getUserDetails().getUsername()), true);
 			this.mutableAclService.updateAcl(acl);
 		} else {
@@ -119,9 +122,10 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	        	return;
 	        }
 	        AccessControlEntry[] aces = acl.getEntries();
-	        for (AccessControlEntry ace : aces) {
+	        for (int i=0; i < aces.length; i++) {
+	        	AccessControlEntry ace = aces[i];
 	        	if (ace.getPermission().equals(permission) && ace.getSid().equals(sid[0])) {
-	        		acl.deleteAce(ace.getId());
+	        		acl.deleteAce(i);
 	        	}
 	        }
 			this.mutableAclService.updateAcl(acl);

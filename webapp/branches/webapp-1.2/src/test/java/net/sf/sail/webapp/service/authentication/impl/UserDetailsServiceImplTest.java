@@ -17,6 +17,10 @@
  */
 package net.sf.sail.webapp.service.authentication.impl;
 
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.userdetails.UsernameNotFoundException;
+
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
@@ -24,10 +28,6 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
-
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
-import org.acegisecurity.userdetails.UsernameNotFoundException;
 
 /**
  * @author Cynick Young

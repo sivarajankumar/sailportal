@@ -38,11 +38,11 @@ import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 import net.sf.sail.webapp.service.group.GroupService;
 
-import org.acegisecurity.acls.AlreadyExistsException;
-import org.acegisecurity.acls.NotFoundException;
-import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.acls.AlreadyExistsException;
+import org.springframework.security.acls.NotFoundException;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

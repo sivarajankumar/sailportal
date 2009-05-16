@@ -27,8 +27,8 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
-import org.acegisecurity.GrantedAuthority;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.GrantedAuthority;
 
 /**
  * @author Cynick Young

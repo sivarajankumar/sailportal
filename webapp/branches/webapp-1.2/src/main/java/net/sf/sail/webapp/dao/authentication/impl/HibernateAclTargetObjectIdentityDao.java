@@ -22,8 +22,8 @@ import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity;
 
-import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.security.acls.objectidentity.ObjectIdentity;
 
 /**
  * This class is not being used. Tried to implement Hibernate versions of the acl

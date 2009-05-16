@@ -25,7 +25,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
     <bean id="filterInvocationInterceptor"
-        class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
@@ -50,7 +50,7 @@
     <!--  if you wish to use channel security, add "channelProcessingFilter," in front
         of "httpSessionContextIntegrationFilter" in the list below -->
     <bean id="filterChainProxy"
-        class="org.acegisecurity.util.FilterChainProxy">
+        class="org.springframework.security.util.FilterChainProxy">
         <property name="filterInvocationDefinitionSource">
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
@@ -76,7 +76,7 @@
     <!-- ======================== AUTHENTICATION ======================= -->
 
     <bean id="authenticationManager"
-        class="org.acegisecurity.providers.ProviderManager">
+        class="org.springframework.security.providers.ProviderManager">
         <property name="providers">
             <list>
                 <ref local="daoAuthenticationProvider" />
@@ -87,24 +87,24 @@
     </bean>
 
     <bean id="daoAuthenticationProvider"
-        class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+        class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
         <property name="userDetailsService" ref="userDetailsService" />
         <property name="passwordEncoder" ref="passwordEncoder" />
         <property name="saltSource" ref="systemSaltSource" />
     </bean>
 
     <bean id="passwordEncoder"
-        class="org.acegisecurity.providers.encoding.Md5PasswordEncoder" />
+        class="org.springframework.security.providers.encoding.Md5PasswordEncoder" />
 
 
     <bean id="systemSaltSource"
-        class="org.acegisecurity.providers.dao.salt.SystemWideSaltSource">
+        class="org.springframework.security.providers.dao.salt.SystemWideSaltSource">
         <property name="systemWideSalt" value="secret" />
     </bean>
 
     <!-- Automatically receives AuthenticationEvent messages -->
     <bean id="loggerListener"
-        class="org.acegisecurity.event.authentication.LoggerListener" />
+        class="org.springframework.security.event.authentication.LoggerListener" />
 
     <bean id="authenticationProcessingFilter"
         class="net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter">
@@ -117,18 +117,18 @@
     </bean>
 
     <bean id="authenticationEntryPoint"
-        class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+        class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
         <property name="loginFormUrl" value="/login.html" />
     </bean>
 
     <bean id="anonymousProcessingFilter"
-        class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+        class="org.springframework.security.providers.anonymous.AnonymousProcessingFilter">
         <property name="key" value="fubar" />
         <property name="userAttribute" value="Anonymous User,ROLE_ANONYMOUS" />
     </bean>
 
     <bean id="anonymousAuthenticationProvider"
-        class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+        class="org.springframework.security.providers.anonymous.AnonymousAuthenticationProvider">
         <property name="key" value="fubar" />
     </bean>
 
@@ -136,37 +136,37 @@
         For HTTP Basic Authentication, we don't have access to HttpSession
         for use under the event notification system.
         <bean id="basicProcessingFilter"
-        class="org.acegisecurity.ui.basicauth.BasicProcessingFilter">
+        class="org.springframework.security.ui.basicauth.BasicProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="authenticationEntryPoint" ref="basicAuthenticationEntryPoint" />
         </bean>
         
         <bean id="basicAuthenticationEntryPoint"
-        class="org.acegisecurity.ui.basicauth.BasicProcessingFilterEntryPoint">
+        class="org.springframework.security.ui.basicauth.BasicProcessingFilterEntryPoint">
         <property name="realmName" value="Name Of Your Realm"/>
         </bean>
     -->
 
     <bean id="httpSessionContextIntegrationFilter"
-        class="org.acegisecurity.context.HttpSessionContextIntegrationFilter">
-        <property name="context"
-            value="org.acegisecurity.context.SecurityContextImpl" />
+        class="org.springframework.security.context.HttpSessionContextIntegrationFilter">
+        <property name="contextClass"
+            value="org.springframework.security.context.SecurityContextImpl" />
     </bean>
 
     <bean id="openSessionInViewFilter" 
         class="org.springframework.orm.hibernate3.support.OpenSessionInViewFilter"/>
 
-    <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+    <bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
         <constructor-arg value="/index.html" />
         <constructor-arg>
             <list>
                 <bean
-                    class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler" />
+                    class="org.springframework.security.ui.logout.SecurityContextLogoutHandler" />
             </list>
         </constructor-arg>
     </bean>
 
-    <bean id="switchUserProcessingFilter" class="org.acegisecurity.ui.switchuser.SwitchUserProcessingFilter">
+    <bean id="switchUserProcessingFilter" class="org.springframework.security.ui.switchuser.SwitchUserProcessingFilter">
     	<property name="userDetailsService" ref="userDetailsService" />
     	<property name="switchUserUrl">
     		<value>/j_acegi_switch_user</value>
@@ -183,26 +183,26 @@
     <!-- =================== SECURITY SYSTEM DEFINITIONS ================== -->
 	
 	<!-- RunAsManager -->
-	<bean id="runAsManager" class="org.acegisecurity.runas.RunAsManagerImpl">
+	<bean id="runAsManager" class="org.springframework.security.runas.RunAsManagerImpl">
      	<property name="key"><value>my_run_as_password</value></property>
  	</bean>
  	
- 	<bean id="runAsAuthenticationProvider" class="org.acegisecurity.runas.RunAsImplAuthenticationProvider">
+ 	<bean id="runAsAuthenticationProvider" class="org.springframework.security.runas.RunAsImplAuthenticationProvider">
   		<property name="key"><value>my_run_as_password</value></property>
 	</bean>
 
     <!-- ===================== HTTP REQUEST SECURITY ==================== -->
 
     <bean id="exceptionTranslationFilter"
-        class="org.acegisecurity.ui.ExceptionTranslationFilter">
+        class="org.springframework.security.ui.ExceptionTranslationFilter">
         <property name="authenticationEntryPoint"
             ref="authenticationEntryPoint" />
     </bean>
 
-    <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter" />
+    <bean id="roleVoter" class="org.springframework.security.vote.RoleVoter" />
 
     <bean id="urlAccessDecisionManager"
-        class="org.acegisecurity.vote.ConsensusBased">
+        class="org.springframework.security.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions" value="false" />
         <property name="decisionVoters">
             <list>
@@ -215,7 +215,7 @@
 
     <!-- An access decision manager used by the business objects -->
     <bean id="groupAccessDecisionManager"
-        class="org.acegisecurity.vote.ConsensusBased">
+        class="org.springframework.security.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
         </property>
@@ -233,7 +233,7 @@
     
     <!-- An access decision manager used by the business objects -->
     <bean id="offeringAccessDecisionManager"
-        class="org.acegisecurity.vote.ConsensusBased">
+        class="org.springframework.security.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
         </property>
@@ -250,7 +250,7 @@
     </bean>
 
     <bean id="projectAccessDecisionManager"
-        class="org.acegisecurity.vote.ConsensusBased">
+        class="org.springframework.security.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
         </property>
@@ -267,7 +267,7 @@
     </bean>
     
     <bean id="workgroupAccessDecisionManager"
-        class="org.acegisecurity.vote.ConsensusBased">
+        class="org.springframework.security.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
         </property>
@@ -284,35 +284,35 @@
     </bean>
     
     <!-- ACL permission masks used by this application -->
-    <bean id="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION"
+    <bean id="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
         <property name="staticField"
-            value="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+            value="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
     </bean>
-    <bean id="org.acegisecurity.acls.domain.BasePermission.READ"
+    <bean id="org.springframework.security.acls.domain.BasePermission.READ"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
         <property name="staticField"
-            value="org.acegisecurity.acls.domain.BasePermission.READ" />
+            value="org.springframework.security.acls.domain.BasePermission.READ" />
     </bean>
-    <bean id="org.acegisecurity.acls.domain.BasePermission.WRITE"
+    <bean id="org.springframework.security.acls.domain.BasePermission.WRITE"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
         <property name="staticField"
-            value="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+            value="org.springframework.security.acls.domain.BasePermission.WRITE" />
     </bean>
-    <bean id="org.acegisecurity.acls.domain.BasePermission.CREATE"
+    <bean id="org.springframework.security.acls.domain.BasePermission.CREATE"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
         <property name="staticField"
-            value="org.acegisecurity.acls.domain.BasePermission.CREATE" />
+            value="org.springframework.security.acls.domain.BasePermission.CREATE" />
     </bean>
-    <bean id="org.acegisecurity.acls.domain.BasePermission.DELETE"
+    <bean id="org.springframework.security.acls.domain.BasePermission.DELETE"
         class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
         <property name="staticField"
-            value="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+            value="org.springframework.security.acls.domain.BasePermission.DELETE" />
     </bean>
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_ADMIN configuration settings -->
     <bean id="aclGroupAdminVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -322,7 +322,7 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -331,7 +331,7 @@
     </bean>
     
     <bean id="aclOfferingAdminVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -341,7 +341,7 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -350,7 +350,7 @@
     </bean>
     
     <bean id="aclProjectAdminVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -360,7 +360,7 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -369,7 +369,7 @@
     </bean>
     
     <bean id="aclWorkgroupAdminVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -379,7 +379,7 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -388,7 +388,7 @@
     </bean>
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_READ configuration settings -->
-    <bean id="aclGroupReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
+    <bean id="aclGroupReadVoter" class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -398,8 +398,8 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.READ" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -407,7 +407,7 @@
         </property>
     </bean>
     
-    <bean id="aclOfferingReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
+    <bean id="aclOfferingReadVoter" class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -417,8 +417,8 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.READ" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -426,7 +426,7 @@
         </property>
     </bean>   
 
-    <bean id="aclProjectReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
+    <bean id="aclProjectReadVoter" class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -436,8 +436,8 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.READ" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -445,7 +445,7 @@
         </property>
     </bean>   
     
-	<bean id="aclWorkgroupReadVoter" class="org.acegisecurity.vote.AclEntryVoter">
+	<bean id="aclWorkgroupReadVoter" class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -455,8 +455,8 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.READ" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -466,7 +466,7 @@
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_WRITE configuration settings -->
     <bean id="aclGroupWriteVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -476,8 +476,8 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.WRITE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -486,7 +486,7 @@
     </bean>
     
     <bean id="aclProjectWriteVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -496,8 +496,8 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.WRITE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -506,7 +506,7 @@
     </bean> 
     
     <bean id="aclOfferingWriteVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -516,8 +516,8 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.WRITE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -526,7 +526,7 @@
     </bean>
 
     <bean id="aclWorkgroupWriteVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -536,8 +536,8 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.WRITE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -547,7 +547,7 @@
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_CREATE configuration settings -->
     <bean id="aclGroupCreateVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -557,9 +557,9 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.CREATE" />
+                    local="org.springframework.security.acls.domain.BasePermission.CREATE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -568,7 +568,7 @@
     </bean>
     
     <bean id="aclOfferingCreateVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -578,9 +578,9 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.CREATE" />
+                    local="org.springframework.security.acls.domain.BasePermission.CREATE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -589,7 +589,7 @@
     </bean>
 
    <bean id="aclProjectCreateVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -599,9 +599,9 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.CREATE" />
+                    local="org.springframework.security.acls.domain.BasePermission.CREATE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -610,7 +610,7 @@
     </bean>
     
    <bean id="aclWorkgroupCreateVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -620,9 +620,9 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.CREATE" />
+                    local="org.springframework.security.acls.domain.BasePermission.CREATE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -632,7 +632,7 @@
 
     <!-- An access decision voter that reads ACL_GROUP_DELETE configuration settings -->
     <bean id="aclGroupDeleteVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -642,9 +642,9 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+                    local="org.springframework.security.acls.domain.BasePermission.DELETE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -653,7 +653,7 @@
     </bean>
     
    <bean id="aclOfferingDeleteVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -663,9 +663,9 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+                    local="org.springframework.security.acls.domain.BasePermission.DELETE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -674,7 +674,7 @@
     </bean> 
     
     <bean id="aclProjectDeleteVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -684,9 +684,9 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+                    local="org.springframework.security.acls.domain.BasePermission.DELETE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -695,7 +695,7 @@
     </bean> 
     
     <bean id="aclWorkgroupDeleteVoter"
-        class="org.acegisecurity.vote.AclEntryVoter">
+        class="org.springframework.security.vote.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -705,9 +705,9 @@
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.DELETE" />
+                    local="org.springframework.security.acls.domain.BasePermission.DELETE" />
             </list>
         </constructor-arg>
         <property name="processDomainObjectClass">
@@ -718,7 +718,7 @@
     <!-- ========= ACCESS CONTROL LIST LOOKUP MANAGER DEFINITIONS ========= -->
 
     <bean id="aclCache"
-        class="org.acegisecurity.acls.jdbc.EhCacheBasedAclCache">
+        class="org.springframework.security.acls.jdbc.EhCacheBasedAclCache">
         <constructor-arg>
             <bean
                 class="org.springframework.cache.ehcache.EhCacheFactoryBean">
@@ -734,26 +734,26 @@
     </bean>
 
     <bean id="lookupStrategy"
-        class="org.acegisecurity.acls.jdbc.BasicLookupStrategy">
+        class="org.springframework.security.acls.jdbc.BasicLookupStrategy">
         <constructor-arg ref="dataSource" />
         <constructor-arg ref="aclCache" />
         <constructor-arg ref="aclAuthorizationStrategy" />
         <constructor-arg>
-            <bean class="org.acegisecurity.acls.domain.ConsoleAuditLogger" />
+            <bean class="org.springframework.security.acls.domain.ConsoleAuditLogger" />
         </constructor-arg>
     </bean>
 
     <bean id="aclAuthorizationStrategy"
-        class="org.acegisecurity.acls.domain.AclAuthorizationStrategyImpl">
+        class="org.springframework.security.acls.domain.AclAuthorizationStrategyImpl">
         <constructor-arg>
             <list>
-                <bean class="org.acegisecurity.GrantedAuthorityImpl">
+                <bean class="org.springframework.security.GrantedAuthorityImpl">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
-                <bean class="org.acegisecurity.GrantedAuthorityImpl">
+                <bean class="org.springframework.security.GrantedAuthorityImpl">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
-                <bean class="org.acegisecurity.GrantedAuthorityImpl">
+                <bean class="org.springframework.security.GrantedAuthorityImpl">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
             </list>
@@ -766,7 +766,7 @@
     </bean>
 
     <bean id="aclService"
-        class="org.acegisecurity.acls.jdbc.JdbcMutableAclService">
+        class="org.springframework.security.acls.jdbc.JdbcMutableAclService">
         <constructor-arg ref="dataSource" />
         <constructor-arg ref="lookupStrategy" />
         <constructor-arg ref="aclCache" />
@@ -775,7 +775,7 @@
     <!-- ============== "AFTER INTERCEPTION" AUTHORIZATION DEFINITIONS =========== -->
 
     <bean id="afterInvocationManager"
-        class="org.acegisecurity.afterinvocation.AfterInvocationProviderManager">
+        class="org.springframework.security.afterinvocation.AfterInvocationProviderManager">
         <property name="providers">
             <list>
                 <ref local="afterAclRead" />
@@ -786,45 +786,54 @@
 
     <!-- Processes AFTER_ACL_COLLECTION_READ configuration settings -->
     <bean id="afterAclCollectionRead"
-        class="org.acegisecurity.afterinvocation.AclEntryAfterInvocationCollectionFilteringProvider">
+        class="org.springframework.security.afterinvocation.AclEntryAfterInvocationCollectionFilteringProvider">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.READ" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.WRITE" />
             </list>
         </constructor-arg>
     </bean>
 
     <!-- Processes AFTER_ACL_READ configuration settings -->
     <bean id="afterAclRead"
-        class="org.acegisecurity.afterinvocation.AclEntryAfterInvocationProvider">
+        class="org.springframework.security.afterinvocation.AclEntryAfterInvocationProvider">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
         <constructor-arg>
             <list>
                 <ref
-                    local="org.acegisecurity.acls.domain.BasePermission.ADMINISTRATION" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.READ" />
-                <ref local="org.acegisecurity.acls.domain.BasePermission.WRITE" />
+                    local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.READ" />
+                <ref local="org.springframework.security.acls.domain.BasePermission.WRITE" />
             </list>
         </constructor-arg>
     </bean>
 
+<!--  
     <bean id="attributes"
-        class="org.acegisecurity.annotation.SecurityAnnotationAttributes" />
+        class="org.springframework.security.annotation.SecurityAnnotationAttributes" />
+-->        
+
+<!--  
     <bean id="objectDefinitionSource"
-        class="org.acegisecurity.intercept.method.MethodDefinitionAttributes">
+        class="org.springframework.security.intercept.method.MethodDefinitionAttributes">
         <property name="attributes" ref="attributes" />
+    </bean>
+-->
+
+    <bean id="objectDefinitionSource"
+        class="org.springframework.security.annotation.SecuredMethodDefinitionSource">
     </bean>
 
     <bean id="groupServiceSecurity"
-        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="groupAccessDecisionManager" />
@@ -866,7 +875,7 @@
     </bean>
     
     <bean id="offeringServiceSecurity"
-        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="offeringAccessDecisionManager" />
@@ -888,7 +897,7 @@
     </bean>
     
     <bean id="workgroupServiceSecurity"
-        class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="workgroupAccessDecisionManager" />

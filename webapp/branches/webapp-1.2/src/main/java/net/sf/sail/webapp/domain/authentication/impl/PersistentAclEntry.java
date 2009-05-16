@@ -32,14 +32,15 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import org.springframework.security.acls.Acl;
+import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.security.acls.sid.Sid;
+
 import net.sf.sail.webapp.domain.authentication.ImmutableAclEntry;
 import net.sf.sail.webapp.domain.authentication.MutableAclSid;
 import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
 
-import org.acegisecurity.acls.Acl;
-import org.acegisecurity.acls.Permission;
-import org.acegisecurity.acls.domain.BasePermission;
-import org.acegisecurity.acls.sid.Sid;
 
 /**
  * Concrete implementation of <code>MutableAclEntry</code> marked with EJB3

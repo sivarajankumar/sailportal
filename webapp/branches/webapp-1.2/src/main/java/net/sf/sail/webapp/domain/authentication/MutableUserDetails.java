@@ -17,10 +17,11 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.userdetails.UserDetails;
+
 import net.sf.sail.webapp.domain.Persistable;
 
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
 
 /**
  * This interface extends Acegi Security's <code>UserDetails</code> and

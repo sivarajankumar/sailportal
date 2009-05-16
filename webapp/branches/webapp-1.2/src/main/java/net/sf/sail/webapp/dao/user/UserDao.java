@@ -19,10 +19,10 @@ package net.sf.sail.webapp.dao.user;
 
 import java.util.List;
 
+import org.springframework.security.userdetails.UserDetails;
+
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.User;
-
-import org.acegisecurity.userdetails.UserDetails;
 
 /**
  * @author Cynick Young

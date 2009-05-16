@@ -28,7 +28,7 @@ import java.util.List;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 
-import org.acegisecurity.annotation.Secured;
+import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;

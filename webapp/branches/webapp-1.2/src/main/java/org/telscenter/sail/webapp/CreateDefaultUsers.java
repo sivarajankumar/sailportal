@@ -27,9 +27,9 @@ import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.DuplicateAuthorityException;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
-import org.acegisecurity.GrantedAuthority;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.GrantedAuthority;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;

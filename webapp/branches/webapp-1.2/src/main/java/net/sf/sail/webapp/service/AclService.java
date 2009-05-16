@@ -24,9 +24,10 @@ package net.sf.sail.webapp.service;
 
 import java.util.List;
 
+import org.springframework.security.acls.Permission;
+
 import net.sf.sail.webapp.domain.User;
 
-import org.acegisecurity.acls.Permission;
 
 /**
  * An interface for a Access Control list (acl) service which allows user to

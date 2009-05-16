@@ -20,6 +20,10 @@ package net.sf.sail.webapp.dao.authentication.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.domain.BasePermission;
+
 import net.sf.sail.webapp.dao.AbstractTransactionalDaoTests;
 import net.sf.sail.webapp.domain.authentication.ImmutableAclEntry;
 import net.sf.sail.webapp.domain.authentication.MutableAclSid;
@@ -27,9 +31,6 @@ import net.sf.sail.webapp.domain.authentication.MutableAclTargetObject;
 import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclEntry;
 
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.acls.Permission;
-import org.acegisecurity.acls.domain.BasePermission;
 
 /**
  * @author Cynick Young

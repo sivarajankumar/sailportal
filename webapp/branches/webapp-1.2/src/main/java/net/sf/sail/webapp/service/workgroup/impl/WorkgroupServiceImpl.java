@@ -38,8 +38,8 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.offering.OfferingService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.acegisecurity.acls.domain.BasePermission;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.impl.ChangeWorkgroupParameters;
 

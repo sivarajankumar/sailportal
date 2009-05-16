@@ -20,19 +20,19 @@ package net.sf.sail.webapp.service.impl;
 import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.group.Group;
 
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.acls.MutableAcl;
-import org.acegisecurity.acls.MutableAclService;
-import org.acegisecurity.acls.NotFoundException;
-import org.acegisecurity.acls.domain.BasePermission;
-import org.acegisecurity.acls.objectidentity.ObjectIdentity;
-import org.acegisecurity.acls.objectidentity.ObjectIdentityImpl;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.context.SecurityContextImpl;
-import org.acegisecurity.providers.TestingAuthenticationToken;
 import org.easymock.EasyMock;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.security.acls.MutableAcl;
+import org.springframework.security.acls.MutableAclService;
+import org.springframework.security.acls.NotFoundException;
+import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.security.acls.objectidentity.ObjectIdentity;
+import org.springframework.security.acls.objectidentity.ObjectIdentityImpl;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.context.SecurityContextImpl;
+import org.springframework.security.providers.TestingAuthenticationToken;
 
 /**
  * @author Laurel Williams

@@ -40,12 +40,12 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.acegisecurity.acls.AlreadyExistsException;
-import org.acegisecurity.acls.NotFoundException;
-import org.acegisecurity.acls.Permission;
-import org.acegisecurity.acls.domain.BasePermission;
-import org.acegisecurity.annotation.Secured;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.acls.AlreadyExistsException;
+import org.springframework.security.acls.NotFoundException;
+import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;

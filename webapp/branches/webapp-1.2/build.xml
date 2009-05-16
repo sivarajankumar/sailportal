@@ -93,10 +93,12 @@
     <path location="${M2_REPO}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" />
   </path>
 
+	<!--
   <path id="lib.acegi-security">
     <path location="${M2_REPO}/org/telscenter/external/org/acegisecurity/acegi-security/1.0.4-SNAPSHOT/acegi-security-1.0.4-SNAPSHOT.jar" />
     <path location="${M2_REPO}/org/acegisecurity/acegi-security-tiger/1.0.4/acegi-security-tiger-1.0.4.jar" />
   </path>
+  -->
 
   <path id="lib.hibernate">
     <path location="${M2_REPO}/org/hibernate/hibernate/3.2.6.ga/hibernate-3.2.6.ga.jar" />
@@ -111,13 +113,20 @@
   </path>
 
   <path id="lib.spring">
-    <path location="${M2_REPO}/org/springframework/spring-aspects/2.0.5/spring-aspects-2.0.5.jar" />  	
-    <path location="${M2_REPO}/org/springframework/spring-context/2.0.5/spring-context-2.0.5.jar" />
-    <path location="${M2_REPO}/org/springframework/spring-beans/2.0.5/spring-beans-2.0.5.jar" />
-    <path location="${M2_REPO}/org/springframework/spring-web/2.0.5/spring-web-2.0.5.jar" />  	
-  	<path location="${M2_REPO}/org/springframework/spring-core/2.0.5/spring-core-2.0.5.jar" />
-    <path location="${M2_REPO}/org/springframework/spring/2.0.5/spring-2.0.5.jar" />
-  	<path location="${M2_REPO}/org/springframework/spring-aop/2.0.5/spring-aop-2.0.5.jar" />
+    <path location="${M2_REPO}/org/springframework/spring-aspects/2.5.6/spring-aspects-2.5.6.jar" />  	
+    <path location="${M2_REPO}/org/springframework/spring-context/2.5.6/spring-context-2.5.6.jar" />
+    <path location="${M2_REPO}/org/springframework/spring-beans/2.5.6/spring-beans-2.5.6.jar" />
+    <path location="${M2_REPO}/org/springframework/spring-web/2.5.6/spring-web-2.5.6.jar" />  	
+    <path location="${M2_REPO}/org/springframework/spring-webmvc/2.5.6/spring-webmvc-2.5.6.jar" />  	
+  	<path location="${M2_REPO}/org/springframework/spring-core/2.5.6/spring-core-2.5.6.jar" />
+    <path location="${M2_REPO}/org/springframework/spring/2.5.6/spring-2.5.6.jar" />
+  	<path location="${M2_REPO}/org/springframework/spring-aop/2.5.6/spring-aop-2.5.6.jar" />
+  	<path location="${M2_REPO}/org/springframework/spring-orm/2.5.6/spring-orm-2.5.6.jar" />
+  	<path location="${M2_REPO}/org/springframework/security/spring-security-core/2.0.4/spring-security-core-2.0.4.jar" />
+  	<path location="${M2_REPO}/org/springframework/security/spring-security-taglibs/2.0.4/spring-security-taglibs-2.0.4.jar" />
+  	<path location="${M2_REPO}/org/springframework/security/spring-security-core/2.0.4/spring-security-core-2.0.4-tests.jar" />
+  	<path location="${M2_REPO}/org/springframework/security/spring-security-core-tiger/2.0.4/spring-security-core-tiger-2.0.4.jar" />
+  	<path location="${M2_REPO}/org/springframework/security/spring-security-acl/2.0.4/spring-security-acl-2.0.4.jar" />
     <path location="${M2_REPO}/quartz/quartz/1.5.1/quartz-1.5.1.jar" />
   </path>
 
@@ -185,7 +194,7 @@
         <path refid="lib.jta" />
         <path refid="lib.cglib" />
         <path refid="lib.ehcache" />
-        <path refid="lib.acegi-security" />
+        <!-- <path refid="lib.acegi-security" />  -->
         <path refid="lib.jdom" />
       	<path refid="lib.javamail" />
         <path refid="lib.sail" />

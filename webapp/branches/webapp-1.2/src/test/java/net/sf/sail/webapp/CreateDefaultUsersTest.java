@@ -1,13 +1,13 @@
 package net.sf.sail.webapp;
 
+import org.springframework.security.GrantedAuthority;
+
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.authentication.impl.HibernateUserDetailsDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.junit.AbstractTransactionalDbTests;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
-
-import org.acegisecurity.GrantedAuthority;
 
 public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
 

@@ -42,10 +42,10 @@ import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
-import org.acegisecurity.acls.Permission;
-import org.acegisecurity.acls.domain.BasePermission;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;

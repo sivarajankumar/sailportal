@@ -21,10 +21,10 @@ import junit.framework.TestCase;
 
 import net.sf.sail.webapp.domain.authentication.MutableAclSid;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
 import org.easymock.EasyMock;
+import org.springframework.security.Authentication;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.userdetails.UserDetails;
 
 /**
  * Unit test for domain object PersistentAclSid.

@@ -32,11 +32,11 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.providers.dao.SaltSource;
-import org.acegisecurity.providers.encoding.PasswordEncoder;
-import org.acegisecurity.userdetails.UserDetails;
 import org.easymock.EasyMock;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.providers.dao.SaltSource;
+import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.security.userdetails.UserDetails;
 
 /**
  * @author Cynick Young

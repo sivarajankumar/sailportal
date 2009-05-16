@@ -25,13 +25,15 @@ package org.telscenter.sail.webapp.presentation.web.filters;
 import java.io.IOException;
 import java.util.Calendar;
 
+import javax.servlet.ServletException;
+
 import net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
+import org.springframework.security.Authentication;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.userdetails.UserDetails;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
@@ -64,7 +66,7 @@ public class TelsAuthenticationProcessingFilter extends
 	protected void successfulAuthentication(
 			javax.servlet.http.HttpServletRequest request,
 			javax.servlet.http.HttpServletResponse response,
-			Authentication authResult) throws IOException {
+			Authentication authResult) throws IOException, ServletException {
 
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
         if (userDetails instanceof StudentUserDetails) {

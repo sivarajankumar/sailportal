@@ -17,11 +17,11 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
-import net.sf.sail.webapp.domain.Persistable;
+import org.springframework.security.Authentication;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.acls.sid.Sid;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.acls.sid.Sid;
+import net.sf.sail.webapp.domain.Persistable;
 
 /**
  * Mutable extension of the <code>Sid</code> (security id) interface. This

@@ -17,10 +17,11 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
+import org.springframework.security.acls.AccessControlEntry;
+import org.springframework.security.acls.AuditableAccessControlEntry;
+
 import net.sf.sail.webapp.domain.Persistable;
 
-import org.acegisecurity.acls.AccessControlEntry;
-import org.acegisecurity.acls.AuditableAccessControlEntry;
 
 /**
  * Represents the Access Control List (ACL) entry (ACE) that grants permissions

@@ -30,13 +30,12 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
+import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
-
-import org.acegisecurity.annotation.Secured;
 
 /**
  * A service for working with <code>Run</code> objects

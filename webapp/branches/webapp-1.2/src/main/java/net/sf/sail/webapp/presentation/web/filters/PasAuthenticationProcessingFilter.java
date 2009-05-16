@@ -19,17 +19,18 @@ package net.sf.sail.webapp.presentation.web.filters;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.ui.webapp.AuthenticationProcessingFilter;
-import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.Authentication;
+import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
@@ -57,9 +58,9 @@ public class PasAuthenticationProcessingFilter extends
     protected void successfulAuthentication(
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response,
-            Authentication authResult) throws IOException {
+            Authentication authResult) throws IOException, ServletException {
 
-        UserDetails userDetails = (UserDetails) authResult.getPrincipal();
+    	UserDetails userDetails = (UserDetails) authResult.getPrincipal();
         if (LOGGER.isDebugEnabled()) {
             logDebug(userDetails);
         }

@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.group.GroupService;
 
-import org.acegisecurity.AccessDeniedException;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.AccessDeniedException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 

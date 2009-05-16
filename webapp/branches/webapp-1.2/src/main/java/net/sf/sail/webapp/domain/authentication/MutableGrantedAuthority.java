@@ -17,9 +17,9 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
-import net.sf.sail.webapp.domain.Persistable;
+import org.springframework.security.GrantedAuthority;
 
-import org.acegisecurity.GrantedAuthority;
+import net.sf.sail.webapp.domain.Persistable;
 
 /**
  * This interface extends Acegi Security's <code>GrantedAuthority</code> and

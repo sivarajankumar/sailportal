@@ -27,11 +27,11 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
-import net.sf.sail.webapp.domain.authentication.MutableAclSid;
+import org.springframework.security.Authentication;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.userdetails.UserDetails;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
+import net.sf.sail.webapp.domain.authentication.MutableAclSid;
 
 /**
  * Concrete implementation of <code>MutableAclSid</code> marked with EJB3

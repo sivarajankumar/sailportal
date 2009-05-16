@@ -80,7 +80,7 @@
     </bean>
 
     <bean id="filterInvocationInterceptor"
-        class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
         <property name="objectDefinitionSource">

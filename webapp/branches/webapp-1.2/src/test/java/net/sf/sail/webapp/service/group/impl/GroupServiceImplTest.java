@@ -38,8 +38,8 @@ import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.group.CyclicalGroupException;
 
-import org.acegisecurity.acls.domain.BasePermission;
 import org.easymock.EasyMock;
+import org.springframework.security.acls.domain.BasePermission;
 
 import static org.easymock.EasyMock.*;
 

@@ -32,12 +32,12 @@ import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 import net.sf.sail.webapp.service.UserService;
 
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.providers.dao.SaltSource;
-import org.acegisecurity.providers.encoding.PasswordEncoder;
-import org.acegisecurity.userdetails.UserDetails;
 import org.easymock.EasyMock;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.providers.dao.SaltSource;
+import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.security.userdetails.UserDetails;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;

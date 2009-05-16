@@ -22,54 +22,27 @@
  */
 package org.telscenter.sail.webapp.domain.impl;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import net.sf.sail.webapp.domain.CurnitVisitor;
-
-import org.telscenter.sail.webapp.domain.Module;
 
 /**
- * UrlModule: this module is a module that can be found on the web.
- * It stores one URL: url to where the .project.xml file can be retrieved.
  * @author hirokiterashima
- * @version $Id$
+ * @version $Id:$
  */
-@Entity
-@Table(name = UrlModuleImpl.DATA_STORE_NAME)
-public class UrlModuleImpl extends ModuleImpl implements Module {
+public class CreateUrlModuleParameters extends ModuleParameters {
 
-	@Transient
-	private static final long serialVersionUID = 1L;
-
-	@Transient
-	public static final String DATA_STORE_NAME = "urlmodules";
-
-	private static final String COLUMN_NAME_RETREIVEMODULE_URL = "module_url";
-	
-	@Column(name = UrlModuleImpl.COLUMN_NAME_RETREIVEMODULE_URL)
-	private String moduleUrl;  // url where the module file can be retrieved
+	private String module_url;
 
 	/**
-	 * @return the moduleUrl
+	 * @return the module_url
 	 */
-	public String getModuleUrl() {
-		return moduleUrl;
+	public String getModule_url() {
+		return module_url;
 	}
 
 	/**
-	 * @param moduleUrl the moduleUrl to set
+	 * @param module_url the module_url to set
 	 */
-	public void setModuleUrl(String moduleUrl) {
-		this.moduleUrl = moduleUrl;
+	public void setModule_url(String module_url) {
+		this.module_url = module_url;
 	}
 
-    /**
-     * @see net.sf.sail.webapp.domain.Curnit#accept(net.sf.sail.webapp.domain.CurnitVisitor)
-     */
-	public Object accept(CurnitVisitor visitor) {
-		return visitor.visit(this);
-	}
 }

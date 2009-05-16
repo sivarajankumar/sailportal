@@ -19,14 +19,14 @@ package net.sf.sail.webapp.service;
 
 import java.util.List;
 
+import org.springframework.security.userdetails.UserDetails;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
-
-import org.acegisecurity.userdetails.UserDetails;
 
 /**
  * Represents the set of operations on a user.

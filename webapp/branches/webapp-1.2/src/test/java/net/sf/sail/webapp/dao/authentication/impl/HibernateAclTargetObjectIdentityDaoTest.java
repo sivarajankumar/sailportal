@@ -29,10 +29,10 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObject;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.acls.objectidentity.ObjectIdentity;
 import org.easymock.EasyMock;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.security.acls.objectidentity.ObjectIdentity;
 
 /**
  * @author Cynick Young

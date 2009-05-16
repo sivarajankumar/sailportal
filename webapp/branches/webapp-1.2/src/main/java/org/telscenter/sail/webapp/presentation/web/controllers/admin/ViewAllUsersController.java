@@ -32,10 +32,9 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
+import org.springframework.security.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-
-import org.acegisecurity.GrantedAuthority;
 
 /**
  * @author Sally Ahn

@@ -25,12 +25,12 @@ package net.sf.sail.webapp.service.group;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.security.annotation.Secured;
+
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.GroupParameters;
-
-import org.acegisecurity.annotation.Secured;
 
 /**
  * @author Hiroki Terashima
