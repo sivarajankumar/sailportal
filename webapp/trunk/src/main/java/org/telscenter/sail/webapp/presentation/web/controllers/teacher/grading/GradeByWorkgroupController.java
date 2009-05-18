@@ -94,12 +94,16 @@ public class GradeByWorkgroupController extends AbstractController {
 	    	String vleurl = portalurl + "/vlewrapper/vle/vle_ld_project.html";
 	    	//String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
 	    	String contentBaseUrl = portalurl + "/vlewrapper/curriculum/unit4/lesson22";
-	    	String contentUrl = contentBaseUrl + "/lesson22.project";
+	    	String contentUrl = contentBaseUrl + "/lesson22.project.xml";
 	    	
-	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId() + "&workgroupIds=" + workgroupIdStr;
-	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html?dataId=" + workgroupIdStr;
+	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?action=getUserInfo&runId=" + run.getId() + "&workgroupId=" + workgroupIdStr;
+	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+	    	String getAnnotationsUrl = portalurl + "/vlewrapper/getannotations.html?toWorkgroup=" + workgroupIdStr;
+	    	String postAnnotationsUrl = portalurl + "/vlewrapper/postannotations.html";
+	    	String teacherInfoUrl = portalurl + "/webapp/student/vle/vle.html?action=getUserInfo&runId=" + run.getId();
 	    	
-			ModelAndView modelAndView = new ModelAndView();
+	    	
+	    	ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(PARAMNAME_RUNID, runId);
 			modelAndView.addObject(GRADE_BY_WORKGROUP_URL, gradebyworkgroupurl);
 			modelAndView.addObject("vleurl", vleurl);
@@ -107,6 +111,9 @@ public class GradeByWorkgroupController extends AbstractController {
 			modelAndView.addObject(CONTENT_URL, contentUrl);
 			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
 			modelAndView.addObject(GET_DATA_URL, getDataUrl);
+			modelAndView.addObject("getAnnotationsUrl", getAnnotationsUrl);
+			modelAndView.addObject("postAnnotationsUrl", postAnnotationsUrl);
+			modelAndView.addObject("teacherInfoUrl", teacherInfoUrl);
 			
 			return modelAndView;
 		} else {
