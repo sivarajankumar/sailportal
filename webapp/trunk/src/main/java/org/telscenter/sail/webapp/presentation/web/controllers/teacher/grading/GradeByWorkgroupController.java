@@ -98,7 +98,7 @@ public class GradeByWorkgroupController extends AbstractController {
 	    	
 	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?action=getUserInfo&runId=" + run.getId() + "&workgroupId=" + workgroupIdStr;
 	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
-	    	String getAnnotationsUrl = portalurl + "/vlewrapper/getannotations.html?toWorkgroup=" + workgroupIdStr;
+	    	String getAnnotationsUrl = portalurl + "/vlewrapper/getannotations.html?toWorkgroup=" + workgroupIdStr + "&runId=" + runId;
 	    	String postAnnotationsUrl = portalurl + "/vlewrapper/postannotations.html";
 	    	String teacherInfoUrl = portalurl + "/webapp/student/vle/vle.html?action=getUserInfo&runId=" + run.getId();
 	    	
@@ -114,7 +114,8 @@ public class GradeByWorkgroupController extends AbstractController {
 			modelAndView.addObject("getAnnotationsUrl", getAnnotationsUrl);
 			modelAndView.addObject("postAnnotationsUrl", postAnnotationsUrl);
 			modelAndView.addObject("teacherInfoUrl", teacherInfoUrl);
-			
+			modelAndView.addObject("runId", runId);
+
 			return modelAndView;
 		} else {
 			Long workgroupId = new Long(workgroupIdStr);
