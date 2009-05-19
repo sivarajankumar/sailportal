@@ -68,7 +68,10 @@ public class PersistentAclSid implements MutableAclSid {
     @Column(name = "OPTLOCK")
     private Integer version = null;
 
-    @Column(name = COLUMN_NAME_IS_PRINCIPAL, nullable = false)
+        //@Column(name = COLUMN_NAME_IS_PRINCIPAL, nullable = false) 
+    // we need principal to be boolean. the default behavior of hibernate is to make it a bit
+    // so we need to force it to be a boolean when the sql is exported
+    @Column(name = COLUMN_NAME_IS_PRINCIPAL, nullable = false, columnDefinition = "boolean")
     private Boolean isPrincipal;
 
     @Column(name = COLUMN_NAME_SID, nullable = false)
