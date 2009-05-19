@@ -48,7 +48,7 @@
 <input name="username" value="${username}"/>
 </li>
 <li><spring:message code="login.password" />
-<input name="password" type="password" value="<authz:authentication operation="password" />" />
+<input name="password" type="password" value="<sec:authentication	property="principal.password" />" />
 </li>
 </ul>
 </div>

@@ -770,6 +770,8 @@
         <constructor-arg ref="dataSource" />
         <constructor-arg ref="lookupStrategy" />
         <constructor-arg ref="aclCache" />
+        <property name="classIdentityQuery" value="SELECT @@IDENTITY"></property>
+        <property name="sidIdentityQuery" value="SELECT @@IDENTITY"></property>
     </bean>
 
     <!-- ============== "AFTER INTERCEPTION" AUTHORIZATION DEFINITIONS =========== -->

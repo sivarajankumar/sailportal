@@ -118,30 +118,30 @@
 <form:form commandName="contactWISEProject" method="post" action="contactwiseproject.html" id="contactWiseForm" >  
   <dl>
 
-  	<authz:authorize ifAllGranted="ROLE_ANONYMOUS">
+  	<sec:authorize ifAllGranted="ROLE_ANONYMOUS">
   		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwiseproject.8"/></label></dt>
    		<dd><form:input path="name" id="name" size="50" tabindex="1" /></dd>
-    </authz:authorize>
+    </sec:authorize>
     
-   <authz:authorize ifAllGranted="ROLE_TEACHER">
+   <sec:authorize ifAllGranted="ROLE_TEACHER">
   		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwiseproject.8"/></label></dt>
    		<dd><form:input path="name" id="name" size="50" tabindex="1" /></dd>
-    </authz:authorize>
+    </sec:authorize>
     
-  	<authz:authorize ifAllGranted="ROLE_STUDENT">
+  	<sec:authorize ifAllGranted="ROLE_STUDENT">
   		<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwiseproject.8"/></label></dt>
    		<dd><form:input path="name" id="name" size="50" tabindex="1" disabled="true" /></dd>
-    </authz:authorize>
+    </sec:authorize>
             
-	<authz:authorize ifAllGranted="ROLE_ANONYMOUS">
+	<sec:authorize ifAllGranted="ROLE_ANONYMOUS">
 		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwiseproject.10"/></label></dt>
 		<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
-	</authz:authorize>
+	</sec:authorize>
 
-	<authz:authorize ifAllGranted="ROLE_TEACHER">
+	<sec:authorize ifAllGranted="ROLE_TEACHER">
 		<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwiseproject.10"/></label></dt>
 		<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
-	</authz:authorize>
+	</sec:authorize>
 	   
 	
     <dt><label for="projectName" id="projectName"><span class="asterix">* </span><spring:message code="contactwiseproject.11"/></label></dt>

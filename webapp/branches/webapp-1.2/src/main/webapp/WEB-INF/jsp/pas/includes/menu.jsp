@@ -18,14 +18,14 @@
 -->
 
 <!-- $Id: -->
-<spring:message code="hello" /> <authz:authentication operation="username" />
+<spring:message code="hello" /> <sec:authentication property="principal.username" />
 <ul>
 <li><a href="changepassword.html"><spring:message code="change.password" /></a></li>
 <li><a href="offeringlist.html"><spring:message code="offerings.list" /></a></li>
 <li><a href="curnitlist.html"><spring:message code="curnit.list" /></a></li>
 <li><a href="groupmanagement.html"> <spring:message code="group.management" /></a></li>
 </ul>
-<form action="<c:url value="/j_acegi_logout"/>" method="POST">
+<form action="<c:url value="/j_spring_security_logout"/>" method="POST">
   <input type="submit" value="<spring:message code="log.out" />"/>
  </form><br />
 

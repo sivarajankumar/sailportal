@@ -520,9 +520,9 @@
 										<td id="teacherFeedbackTd" rowspan="${fn:length(step.rim)*2}">
 											<div align="center">
 											<div id="div_${step.podUUID}_${workgroup.id}" >
-												<authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
+												<sec:accesscontrollist domainObject="${run}" hasPermission="16,2">
   													<textarea id="comment-${step.podUUID}_${workgroup.id}" class="comment-${step.podUUID}_${workgroup.id}" cols="45" rows="6"  onkeypress="enableButton(this,'${step.podUUID}','${workgroup.id}','${period}')" ></textarea>
-												</authz:accesscontrollist>
+												</sec:accesscontrollist>
 											</div>
 											</div>
 											<div id="load_${workgroup.id}" align="center" disabled="true"></div>
@@ -541,7 +541,7 @@
 									<c:if test="${rimListStatus.first}">
 										<td rowspan="${fn:length(step.rim)*2}">						   
 											<div align="center">
-												<authz:accesscontrollist domainObject="${run}" hasPermission="16,2">
+												<sec:accesscontrollist domainObject="${run}" hasPermission="16,2">
 													<input class="teacher-score-${step.podUUID}_${workgroup.id}" id="teacher-score-${step.podUUID}_${workgroup.id}" type="text" size="7" value="" onfocus="clearOthers(rating${ratingVar}, document.getElementById('checkbox-${step.podUUID}_${workgroup.id}'))"/>
 													<span id="scoreBoxStyling3">&nbsp;<spring:message code="teacher.gradingtool.14"/>&nbsp;</span>
 													<input id="possible-score-${step.podUUID}_${workgroup.id}" class="possible-score-${step.podUUID}_${workgroup.id}" disabled="true" readonly="true" type="text" size="1" value="${step.possibleScore}"/>
@@ -616,7 +616,7 @@
 													<div id="scoringHelpLink">
 														<a href="#" style="color:#999999;"><spring:message code="teacher.gradingtool.15"/></a>
 													</div>
-												</authz:accesscontrollist>
+												</sec:accesscontrollist>
 												<div class="saved-${step.podUUID}_${workgroup.id}" style="display: inline; width: 11%;"></div>	
 											</div>
 										</td>

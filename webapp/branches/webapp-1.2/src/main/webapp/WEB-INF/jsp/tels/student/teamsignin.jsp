@@ -107,7 +107,7 @@
 
 <div id="teamSelect" class="teamMargin2">
 
-	<div id="teamSelectHeader"><span style="color:#0000CC;"><authz:authentication operation="username" /></span> <spring:message code="student.teamsignin.1"/></div>
+	<div id="teamSelectHeader"><span style="color:#0000CC;"><sec:authentication property="principal.username" /></span> <spring:message code="student.teamsignin.1"/></div>
 	<div id="teamSelectHeader"><spring:message code="student.teamsignin.2"/></div>
 
 	<form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" >

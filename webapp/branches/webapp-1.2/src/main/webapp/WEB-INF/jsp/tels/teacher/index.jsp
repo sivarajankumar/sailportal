@@ -418,7 +418,7 @@
 			<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
 					<tr class="tableRowBorder">
 						<td class="tableColor" style="width:26%;"><spring:message code="teacher.index.2"/></td>
-		                <td><authz:authentication operation="firstname" /> <authz:authentication operation="lastname" /></td>
+		                <td><sec:authentication property="principal.firstname" /> <sec:authentication property="principal.lastname" /></td>
 					</tr>
 					<tr class="tableRowBorder">
 						<td class="tableColor" style="width:26%;"><spring:message code="teacher.index.3"/></td>

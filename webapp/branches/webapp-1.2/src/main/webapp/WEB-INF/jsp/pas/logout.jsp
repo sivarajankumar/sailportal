@@ -19,6 +19,6 @@
 
 <!-- $Id$ -->
 
-    <form action="<c:url value="/j_acegi_logout"/>" method="POST">
+    <form action="<c:url value="/j_spring_security_logout"/>" method="POST">
       <input type="submit" value="<spring:message code="log.out" />"/>
     </form><br />

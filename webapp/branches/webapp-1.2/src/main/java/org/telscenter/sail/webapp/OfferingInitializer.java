@@ -172,6 +172,7 @@ public class OfferingInitializer {
     }
 
     private void init(ApplicationContext applicationContext) {
+    	this.applicationContext = applicationContext;
         this.setCurnitService((CurnitService) applicationContext
                 .getBean("curnitService"));
         this.setRunService((RunService) applicationContext

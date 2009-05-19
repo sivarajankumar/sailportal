@@ -248,7 +248,7 @@ public class StudentVLEController extends AbstractController {
 		String userInfoString = "<userInfo>";
 		
 		// add this user's info:
-		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.generateWorkgroupName() + "</userName></myUserInfo>";
+		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName() + "</userName></myUserInfo>";
 		
 		// add the class info:
 		userInfoString += "<myClassInfo>";

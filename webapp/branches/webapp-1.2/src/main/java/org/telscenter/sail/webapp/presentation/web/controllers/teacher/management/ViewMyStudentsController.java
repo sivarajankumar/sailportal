@@ -146,7 +146,9 @@ public class ViewMyStudentsController extends AbstractController{
 				if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
 						&& ((WISEWorkgroup) workgroup).getPeriod().getId().equals(period.getId())) {
 					// set url where this workgroup's work can be retrieved as PDF
-					if (!(run.getProject() instanceof ExternalProject) && run.getProject().getProjectType() != ProjectType.ROLOO) {
+					if (!(run.getProject() instanceof ExternalProject) 
+							&& run.getProject().getProjectType() != ProjectType.ROLOO
+							&& run.getProject().getProjectType() != ProjectType.LD) {
 						String workPdfUrl = ((WISEWorkgroupService) workgroupService)
 						.generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);
 						((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);

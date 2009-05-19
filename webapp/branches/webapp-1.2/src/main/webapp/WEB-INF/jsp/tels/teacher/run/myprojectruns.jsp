@@ -194,9 +194,9 @@
 					           </c:choose>
 					        
 					        
-		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">
+		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">
     					      <li><a href="shareprojectrun.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.18"/></a></li> 
-  	                        </authz:accesscontrollist>
+  	                        </sec:accesscontrollist>
 					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.15"/></a></li>
 					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.21"/></a></li>
 					    	<li><a href="./announcement/manageannouncement.html?runId=${run.id}">Manage Announcements</a></li>
@@ -207,9 +207,9 @@
 					    	</c:if>					    	
 					    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}">Create New Q&A for this run</a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
-		                    <authz:accesscontrollist domainObject="${run}" hasPermission="16">					    	
+		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
 					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')"><spring:message code="teacher.run.myprojectruns.23"/></a></li>
-					    	</authz:accesscontrollist>
+					    	</sec:accesscontrollist>
 					    	
 					    </ul>
 					</td>

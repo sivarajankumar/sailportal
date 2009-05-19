@@ -310,7 +310,7 @@ Nifty("div#boxTableWelcome","transparent");
         	 	<ul>
                 <li><a href="signup.html"><spring:message code="footer.link1"/></a></li>
                 <li id="footerNav2"><a href="./contactwisegeneral.html"><spring:message code="footer.link2"/></a></li>
-                <li id="footerNav2"><a href="<c:url value="/j_acegi_logout"/>"><spring:message code="footer.link3"/></a></li>     
+                <li id="footerNav2"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="footer.link3"/></a></li>     
                 <li id="footerNav2"><a href="credits.html"><spring:message code="footer.link4"/></a></li>
                 </ul>
             

@@ -301,7 +301,7 @@ YAHOO.util.Event.onDOMReady(init);
 <div id="columnButtons">
 
 <dl id="list1" >
-	<dt id="studentUsername"><authz:authentication operation="firstname" /> <authz:authentication operation="lastname" /></dt>
+	<dt id="studentUsername"><sec:authentication property="principal.firstname" /> <sec:authentication property="principal.lastname" /></dt>
 	<dd></dd>
 	<dt id="studentWelcome">
 		<c:set var="current_date" value="<%= new java.util.Date() %>" />
@@ -345,7 +345,7 @@ YAHOO.util.Event.onDOMReady(init);
 		src="../<spring:theme code="student_change_password" />"
 		style="border: 0px;" /> </a></li>
 		
-	<li><a href="<c:url value="/j_acegi_logout"/>"
+	<li><a href="<c:url value="/j_spring_security_logout"/>"
 		onmouseover="swapImage('studentsignout','../<spring:theme code="student_sign_out_roll" />');"
 		onmouseout="swapImage('studentsignout','../<spring:theme code="student_sign_out" />');"> 
 		<img id="studentsignout" src="../<spring:theme code="student_sign_out" />"

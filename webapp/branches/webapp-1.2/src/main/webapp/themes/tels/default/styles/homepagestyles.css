@@ -499,7 +499,7 @@
 	border-bottom: 1px solid #330066;
 		}
 
-/* This little trick solves a problem with Safari getting confused by a call for "c:url value="/j_acegi_logout"/>" */
+/* This little trick solves a problem with Safari getting confused by a call for "c:url value="/j_spring_security_logout"/>" */
 #styleOverRideSafari1 {
 	color:#FFFF66;
 	font-size:.7em;

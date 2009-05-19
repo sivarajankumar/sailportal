@@ -35,8 +35,8 @@
 
     create table acl_sid (
         id bigint not null auto_increment,
-        principal bit not null,
-        sid varchar(255) not null,
+        principal boolean not null,
+        sid varchar(100) not null,
         OPTLOCK integer,
         primary key (id),
         unique (sid, principal)

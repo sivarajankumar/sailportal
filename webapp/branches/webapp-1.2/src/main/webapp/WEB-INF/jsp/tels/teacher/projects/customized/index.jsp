@@ -575,17 +575,17 @@
 						<li>
 							<a href="../../../previewproject.html?projectId=${project.id}">Preview Project</a>
 						</li>
-							<authz:accesscontrollist domainObject="${project}" hasPermission="2">	
+							<sec:accesscontrollist domainObject="${project}" hasPermission="2">	
 						<li>
 							<a href="../../../author/authorproject.html?projectId=${project.id}"><spring:message
 								code="edit.curnit" /></a>
 						</li>
-							</authz:accesscontrollist>
-							<authz:accesscontrollist domainObject="${project}" hasPermission="16">												
+							</sec:accesscontrollist>
+							<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
 						<li>
 							<a href="shareproject.html?projectId=${project.id}">Share Project</a>
 						</li>
-						</authz:accesscontrollist>					
+						</sec:accesscontrollist>					
 						</div>
 					</td>
 				</tr>
@@ -644,7 +644,7 @@
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="project" items="${sharedProjectsList}">
-			<!-- <authz:accesscontrollist domainObject="${project}" hasPermission="16"> -->
+			<!-- <sec:accesscontrollist domainObject="${project}" hasPermission="16"> -->
 				<tr id="customProjectR2">
 					<td class="customProjectTitle">${project.curnit.sdsCurnit.name}</td>
 					<td class="dataText">${project.projectInfo.subject}</td>
@@ -668,7 +668,7 @@
 					</div>
 					</td>
 				</tr>
-			<!-- </authz:accesscontrollist> -->
+			<!-- </sec:accesscontrollist> -->
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>

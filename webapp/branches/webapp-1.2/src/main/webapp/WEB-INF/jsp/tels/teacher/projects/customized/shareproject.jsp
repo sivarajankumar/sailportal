@@ -106,18 +106,18 @@
 					<tr>
 						<td>${sharedowner.userDetails.username}</td>
 						<td align="left">
-						<authz:authorize ifAllGranted="ROLE_USER">
-						   <authz:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+						<sec:authorize ifAllGranted="ROLE_USER">
+						   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 							<form:radiobutton path="permission"
 								onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can View + Edit + Share the project<br />
-							</authz:authorize>
-						   <authz:authorize ifNotGranted="ROLE_ADMINISTRATOR">
-								<authz:accesscontrollist domainObject="${project}" hasPermission="16">												
+							</sec:authorize>
+						   <sec:authorize ifNotGranted="ROLE_ADMINISTRATOR">
+								<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
 							        <form:radiobutton path="permission"
 								        onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can View + Edit + Share the project<br />								
-								</authz:accesscontrollist>					
-							</authz:authorize>							
-					    </authz:authorize>				
+								</sec:accesscontrollist>					
+							</sec:authorize>							
+					    </sec:authorize>				
 						<form:radiobutton path="permission"
 							onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" /><spring:message
 							code="teacher.pro.custom.sharepro.8" /><br />

@@ -57,8 +57,8 @@
 </ul>
 </div>
 <div id="usernameSignOutBoxTeacher"> 
-<div id="usernameBannerTeacher"><authz:authentication	operation="username" /></div>
-<div id="signOutBannerTeacher"><a href="<c:url value="/j_acegi_logout"/>"><spring:message code="log.out"/></a></div>
+<div id="usernameBannerTeacher"><sec:authentication	property="principal.username" /></div>
+<div id="signOutBannerTeacher"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a></div>
 </div>
 </div> <!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are relative to bannerArea -->
 

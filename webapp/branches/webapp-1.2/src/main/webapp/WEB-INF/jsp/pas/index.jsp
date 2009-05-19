@@ -36,7 +36,7 @@
 <div id="left">
 <h2>
 	<spring:message code="welcome" /> 
-	<authz:authentication operation="username" />
+	<sec:authentication property="principal.username" />
 </h2>
 </div>
 

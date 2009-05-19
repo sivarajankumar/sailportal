@@ -38,7 +38,7 @@
 <%@ include file="teacherHeader.jsp"%>
 
 <p style="position: absolute;top:-5px;left:800px;"> 
-<authz:authentication operation="username" />
+<sec:authentication	property="principal.username" />
  </p>
 <div id="navigation" style="position:relative;
 	bottom:35px;width:990px;">
