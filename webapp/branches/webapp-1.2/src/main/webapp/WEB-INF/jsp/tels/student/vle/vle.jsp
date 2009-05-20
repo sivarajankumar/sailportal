@@ -40,6 +40,7 @@
 	<script type="text/javascript">
 		function topiframeOnLoad() {
 			//var xmlString = "${xmlString}";
+			/*
 			var runId = "${runId}";
 			var workgroupId = "${workgroup.id}";
 			var contentUrl = "${contentUrl}";
@@ -48,11 +49,15 @@
 			var contentBaseUrl = "${contentBaseUrl}";
 			var postDataUrl = "${postDataUrl}";	
             alert('view.jsp \n\ncontentBaseUrl:' + contentBaseUrl + '\n\ngetDataUrl:' + getDataUrl + '\npostDataUrl:' + postDataUrl + '\ncontentUrl:' + contentUrl);
+            
 			//alert(userInfoUrl);
 			//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
 			//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 			//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-			window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, postDataUrl);
+			window.frames["topifrm"].render(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, postDataUrl);
+			*/
+			var vleConfigUrl = "${vleConfigUrl}";
+			window.frames["topifrm"].initializeVLEFromVLEConfig(vleConfigUrl);
 		}
 		
 		function foo() {

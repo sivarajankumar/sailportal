@@ -114,7 +114,7 @@ public class OfferingInitializer {
 
     	for (String moduleurl : moduleurls) {
     		CreateUrlModuleParameters curnitParameters = new CreateUrlModuleParameters();
-    		curnitParameters.setModule_url(vlewrapper_base_url + moduleurl);
+    		curnitParameters.setUrl(vlewrapper_base_url + moduleurl);
     		curnitParameters.setName("sample module");
     		Curnit createCurnit = this.curnitService.createCurnit(curnitParameters);
         	ProjectParameters projectParameters = 

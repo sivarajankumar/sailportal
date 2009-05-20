@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
@@ -40,6 +41,7 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
+import net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -107,7 +109,8 @@ public class StudentVLEController extends AbstractController {
 	private static final String SUMMARY = "summary";
 
 	private static final String WORKGROUP_ID_PARAM = "workgroupId";
-
+	
+	private static final String PREVIEW = "preview";
 
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -117,39 +120,68 @@ public class StudentVLEController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-    	ModelAndView modelAndView = new ModelAndView();
-    	
     	Long runId = Long.parseLong(request.getParameter(RUNID));
 		Run run = this.runService.retrieveById(runId);
 		
     	String runIdStr = request.getParameter(RUNID);
 
-    	modelAndView = new ModelAndView(VIEW_NAME);
-    	ControllerUtil.addUserToModelAndView(request, modelAndView);
-    	User user = (User) request.getSession().getAttribute(
-    			User.CURRENT_USER_SESSION_KEY);
-
-    	List<Workgroup> workgroupListByOfferingAndUser 
-	    = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
-	
-    	Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
-    	
-    	modelAndView.addObject(RUNID, runIdStr);
-    	modelAndView.addObject("run", run);
-    	modelAndView.addObject("workgroup", workgroup);
-    	modelAndView.addObject("user", user);
 
 		String action = request.getParameter("action");
-    	if (action != null && action.equals("getUserInfo")) {
-        	// if getUserInfo is requested, return xmlString instead in the response
-        	return handlePrintUserInfo(request, response, run, user, workgroup);
-    	} else if (action != null && action.equals("getData")) {
-    		return handleGetData(request, response, run, user, workgroup);
-    	} else  if (action != null && action.equals("postData")) {
-    		return handlePostData(request, response, run, user, workgroup);
-    	} else {
-        	return handleLaunchVLE(request, modelAndView, run, workgroup);
-    	}
+		if (action != null) {
+			if (action.equals("getUserInfo")) {
+				// if getUserInfo is requested, return xmlString instead in the response
+				return handlePrintUserInfo(request, response, run);
+			} else if (action.equals("getData")) {
+				return handleGetData(request, response, run);
+			} else  if (action.equals("postData")) {
+				return handlePostData(request, response, run);
+			} else if (action.equals("getVLEConfig")) {
+				return handleGetVLEConfig(request, response, run);
+			} else {
+				// shouldn't get here
+				throw new RuntimeException("should not get here");
+			}
+		} else {
+			return handleLaunchVLE(request, run);
+		}
+	}
+
+	/**
+	 * Gets the workgroup for the currently-logged in user so that she may
+	 * view the VLE.
+	 * @param request
+	 * @param run
+	 * @param user
+	 * @return
+	 * @throws ObjectNotFoundException
+	 */
+	private Workgroup getWorkgroup(HttpServletRequest request, Run run)
+	throws ObjectNotFoundException {
+		Workgroup workgroup = null;
+		User user = (User) request.getSession().getAttribute(
+    			User.CURRENT_USER_SESSION_KEY);
+		List<Workgroup> workgroupListByOfferingAndUser 
+		= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+
+		if (workgroupListByOfferingAndUser.size() > 0) {
+			workgroup = workgroupListByOfferingAndUser.get(0);
+		} else {
+			String previewRequest = request.getParameter(PREVIEW);
+			if (previewRequest != null && Boolean.valueOf(previewRequest)) {
+				// if this is a preview, workgroupId should be specified, so use
+				// that
+				String workgroupIdStr = request
+						.getParameter(WORKGROUP_ID_PARAM);
+				if (workgroupIdStr != null) {
+					workgroup = workgroupService.retrieveById(Long
+							.parseLong(workgroupIdStr));
+				} else {
+					workgroup = workgroupService
+							.getPreviewWorkgroupForRooloOffering(run, user);
+				}
+			}
+		}
+		return workgroup;
 	}
 
 	/**
@@ -161,8 +193,7 @@ public class StudentVLEController extends AbstractController {
 	 * @return
 	 */
 	private ModelAndView handlePostData(HttpServletRequest request,
-			HttpServletResponse response, Run run, User user,
-			Workgroup workgroup) {
+			HttpServletResponse response, Run run) {
 		String baseurl = ControllerUtil.getBaseUrlString(request);
 		ModelAndView modelAndView = new ModelAndView("forward:" + baseurl + "/vlewrapper/postdata.html");
 		return modelAndView;
@@ -177,8 +208,7 @@ public class StudentVLEController extends AbstractController {
 	 * @return
 	 */
 	private ModelAndView handleGetData(HttpServletRequest request,
-			HttpServletResponse response, Run run, User user,
-			Workgroup workgroup) {
+			HttpServletResponse response, Run run) {
 		String baseurl = ControllerUtil.getBaseUrlString(request);
 		ModelAndView modelAndView = new ModelAndView("forward:" + baseurl + "/vlewrapper/getdata.html");
 		return modelAndView;
@@ -190,29 +220,80 @@ public class StudentVLEController extends AbstractController {
 	 * @param run
 	 * @param workgroup
 	 * @return
+	 * @throws ObjectNotFoundException 
 	 */
 	private ModelAndView handleLaunchVLE(HttpServletRequest request,
-			ModelAndView modelAndView, Run run, Workgroup workgroup) {
+			Run run) throws ObjectNotFoundException {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
+		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 
 		String vleurl = portalurl + "/vlewrapper/vle.html";
-		
+		String vleConfigUrl = portalVLEControllerUrl + "&action=getVLEConfig";
+
+		String previewRequest = request.getParameter(PREVIEW);
+		boolean isPreview = false;
+		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
+			vleConfigUrl += "&preview=true";
+		}
+
+		ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.addObject("run", run);
+    	modelAndView.addObject("vleurl",vleurl);
+    	modelAndView.addObject("vleConfigUrl", vleConfigUrl);
+		return modelAndView;
+	}
+
+	/**
+	 * Prints out VLE configuration
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ObjectNotFoundException 
+	 * @throws IOException 
+	 */
+	private ModelAndView handleGetVLEConfig(HttpServletRequest request,
+			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
+		String portalurl = ControllerUtil.getBaseUrlString(request);
+
 		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-		
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
+		String previewRequest = request.getParameter(PREVIEW);
+		boolean isPreview = false;
+		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
+			isPreview = true;
+		}
+		
+		if (isPreview) {
+			userInfoUrl += "&preview=true";
+		}
+		
 		String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 		String postDataUrl = portalurl + "/vlewrapper/postdata.html";
-		modelAndView.addObject("vleurl",vleurl);
-		modelAndView.addObject("userInfoUrl", userInfoUrl);
-		modelAndView.addObject("contentUrl", contentUrl);
-		modelAndView.addObject("contentBaseUrl", contentBaseUrl);
-		modelAndView.addObject("getDataUrl", getDataUrl);
-		modelAndView.addObject("postDataUrl", postDataUrl);
 		
-		return modelAndView;
+		String vleConfigString = "<VLEConfig>";
+		if (isPreview) {
+			vleConfigString += "<mode>preview</mode>";
+		} else {
+			vleConfigString += "<mode>run</mode>";
+		}
+		vleConfigString += "<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>";
+		vleConfigString += "<contentUrl>" + contentUrl + "</contentUrl>";
+		vleConfigString += "<contentBaseUrl>" + contentBaseUrl + "</contentBaseUrl>";
+		vleConfigString += "<getDataUrl>" + getDataUrl + "</getDataUrl>";
+		vleConfigString += "<postDataUrl>" + postDataUrl + "</postDataUrl>";
+		vleConfigString += "</VLEConfig>";
+
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader ("Expires", 0);
+		
+		response.setContentType("text/xml");
+		response.getWriter().print(vleConfigString);
+		return null;	
 	}
 
 	/**
@@ -228,9 +309,9 @@ public class StudentVLEController extends AbstractController {
 	 * @throws IOException
 	 */
 	private ModelAndView handlePrintUserInfo(HttpServletRequest request,
-			HttpServletResponse response, Run run, User user,
-			Workgroup workgroup) throws ObjectNotFoundException, IOException {
-		
+			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
+
+		Workgroup workgroup = getWorkgroup(request, run);
 		String workgroupIdStr = request.getParameter(WORKGROUP_ID_PARAM);
 		if (workgroupIdStr != null && workgroupIdStr != "") {
 			workgroup = workgroupService.retrieveById(new Long(workgroupIdStr));
@@ -243,8 +324,6 @@ public class StudentVLEController extends AbstractController {
 		}
 		
 		
-		User teacher = run.getOwners().iterator().next();
-
 		String userInfoString = "<userInfo>";
 		
 		// add this user's info:
@@ -289,7 +368,14 @@ public class StudentVLEController extends AbstractController {
 		for (Workgroup classmateWorkgroup : workgroups) {
 			if (((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
 				// inside, add teacher info
-				userInfoString += "<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>";
+				Set<User> owners = run.getOwners();
+				User teacher = null;
+				if (owners.size() > 0) {
+					teacher = owners.iterator().next();
+					userInfoString += "<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>";
+				} else {
+					userInfoString += "<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName></teacherUserInfo>";
+				}
 			}
 		}
 

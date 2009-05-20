@@ -23,15 +23,18 @@
 package org.telscenter.sail.webapp.service.workgroup.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
+import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 import net.sf.sail.webapp.domain.sds.SdsWorkgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
@@ -202,5 +205,27 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 		String workgroupWorkPdfUrlString = previewProjectUrlString + "?generateReportOnly=true&" + PodProjectServiceImpl.generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
 		return workgroupWorkPdfUrlString;
 	}
+	
+	
+    /**
+     * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getPreviewWorkgroupForRooloOffering(net.sf.sail.webapp.domain.Offering, net.sf.sail.webapp.domain.User)
+     */
+	@Override
+    @Transactional(rollbackFor = { HttpStatusCodeException.class })
+    public Workgroup getPreviewWorkgroupForRooloOffering(Offering previewOffering, User previewUser){
+    	List<Workgroup> listByOfferingAndUser = this.workgroupDao.getListByOfferingAndUser(previewOffering, previewUser);
+		if (listByOfferingAndUser.isEmpty()) {
+			WISEWorkgroup workgroup = new WISEWorkgroupImpl();
+			workgroup.addMember(previewUser);
+			workgroup.setOffering(previewOffering);
+			this.groupDao.save(workgroup.getGroup());
+			this.workgroupDao.save(workgroup);
+	
+			this.aclService.addPermission(workgroup, BasePermission.ADMINISTRATION);
+			return workgroup;   
+		} else {
+			return  listByOfferingAndUser.get(0);
+		}
+    }
 
 }
