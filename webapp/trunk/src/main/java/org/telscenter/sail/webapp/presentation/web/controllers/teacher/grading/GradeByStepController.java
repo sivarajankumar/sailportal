@@ -73,21 +73,33 @@ public class GradeByStepController extends AbstractController {
 		Run run = runService.retrieveById(new Long(runId));
 		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
 		String result = (String) run.getProject().accept(typeVisitor);
+		
 		if (result.equals("LDProject")) {
 			// LDProject, get the .project file
 			String portalurl = ControllerUtil.getBaseUrlString(request);
 
 	    	String gradebystepurl = portalurl + "/vlewrapper/vle/gradebystep.html";
-	    	String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
-	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId();
+	    	
+	    	//String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
+	    	String contentBaseUrl = portalurl + "/vlewrapper/curriculum/unit4/lesson22";
+	    	String contentUrl = contentBaseUrl + "/lesson22.project.xml";
+	    	
+	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?action=getUserInfo&runId=" + run.getId();
 	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 	    	
-			ModelAndView modelAndView = new ModelAndView();
+	    	String getAnnotationsUrl = portalurl + "/vlewrapper/getannotations.html?&runId=" + runId;
+	    	String postAnnotationsUrl = portalurl + "/vlewrapper/postannotations.html";
+
+	    	ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
 			modelAndView.addObject(GRADE_BY_STEP_URL, gradebystepurl);
 			modelAndView.addObject(CONTENT_URL, contentUrl);
 			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
 			modelAndView.addObject(GET_DATA_URL, getDataUrl);
+			modelAndView.addObject("contentBaseUrl", contentBaseUrl);
+			modelAndView.addObject("getAnnotationsUrl", getAnnotationsUrl);
+			modelAndView.addObject("postAnnotationsUrl", postAnnotationsUrl);
+			modelAndView.addObject("runId", runId);
 			
 			return modelAndView;
 		}

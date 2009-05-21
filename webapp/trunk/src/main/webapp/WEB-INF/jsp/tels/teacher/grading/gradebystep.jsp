@@ -45,6 +45,9 @@
 
 <body class="yui-skin-sam">
 
+<!--  BEGIN: for projects that have curnitmap -->
+<c:if test="${fn:length(curnitMap) > 0}">
+
 <script type="text/javascript">
 
 	if(navigator.appName != "Microsoft Internet Explorer") {
@@ -110,19 +113,7 @@
 	</c:forEach>
 
 
-	function topiframeOnLoad() {
-		//var xmlString = "${xmlString}";
-		var runId = "${runId}";
-		var workgroupId = "${workgroup.id}";
-		var contentUrl = "${contentUrl}";
-		var userInfoUrl = "${userInfoUrl}";
-		var getDataUrl = "${getDataUrl}";
-		//alert(userInfoUrl);
-		//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
-		//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
-		//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-		window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl);
-	}
+
 	
 	function foo() {
 		//alert('foo!');
@@ -164,22 +155,6 @@
 </c:if>
 <!--  END: for projects that have curnitmap -->
 
-<!--  BEGIN: for LD-inspired Projects that don't have curnitmap -->
-<c:if test="${fn:length(gradeByStepUrl) > 0}">
-<div>
-	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
-	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.gradebystep.2"/></a></div>
-
-	<div id="gradeStepInstructions"><spring:message code="teacher.gradebystep.3"/></div>
-	<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%" height="100%" frameborder="0">
- [Content for browsers that don't support iframes goes here.]
-    </iframe>
-	
-    <h3>gradebystepurl: ${gradeByStepUrl}</h3>
-    <h3>contentUrl: ${contentUrl}</h3>
-</div>
-</c:if>
-<!--  END: for LD-inspired Projects that don't have curnitmap -->
 
 
 <div>      <!--End of gradeStepSelectionArea -->
@@ -188,6 +163,43 @@
 
 </div>
 </div>
+
+</c:if>
+<!--  END: for projects that have curnitmap -->
+
+<!--  BEGIN: for LD-inspired Projects that don't have curnitmap -->
+<c:if test="${fn:length(gradeByStepUrl) > 0}">
+
+<script type="text/javascript">
+function topiframeOnLoad() {
+	//var xmlString = "${xmlString}";
+	var runId = "${runId}";
+	var workgroupId = "${workgroup.id}";
+	var contentUrl = "${contentUrl}";
+	var userInfoUrl = "${userInfoUrl}";
+	var getDataUrl = "${getDataUrl}";
+	var contentBaseUrl = "${contentBaseUrl}";
+	var getAnnotationsUrl = "${getAnnotationsUrl}";
+	var postAnnotationsUrl = "${postAnnotationsUrl}";
+	
+	//alert(userInfoUrl);
+	//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
+	//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
+	//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
+	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId);
+}
+</script>
+	<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%" height="100%" frameborder="0">
+ [Content for browsers that don't support iframes goes here.]
+    </iframe>
+<div>
+
+    <h3>gradebystepurl: ${gradeByStepUrl}</h3>
+    <h3>contentUrl: ${contentUrl}</h3>
+</div>
+</c:if>
+<!--  END: for LD-inspired Projects that don't have curnitmap -->
+
 </body>
 
 </html>
