@@ -257,6 +257,9 @@ public class StudentVLEController extends AbstractController {
 
 		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
+		if(lastIndexOfSlash==-1){
+			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
+		}
 		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";

@@ -52,6 +52,8 @@ public class ProjectServiceFactory {
 	
 	private ProjectService rooloProjectService;
 	
+	private ProjectService ldProjectService;
+	
 	private ModuleService moduleService;
 	
 	/**
@@ -65,7 +67,10 @@ public class ProjectServiceFactory {
 	public ProjectService getProjectService(Project project) {
 		ProjectService projectService = null;
 
-
+		if(project==null){
+			return ldProjectService;
+		}
+		
 		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
 		String result = (String) project.accept(typeVisitor);
 		if (result.equals("ExternalProject")) {
@@ -79,7 +84,7 @@ public class ProjectServiceFactory {
 			System.out.println(e);
 		}
 		if (curnit instanceof RooloOtmlModuleImpl) {
-			if (project.getProjectType()==ProjectType.ROLOO || project.getProjectType()==ProjectType.LD){
+			if (project.getProjectType()==ProjectType.ROLOO){
 				projectService = rooloProjectService;
 			} else {
 				projectService = otrunkProjectService;
@@ -87,7 +92,7 @@ public class ProjectServiceFactory {
 		} else if (curnit instanceof OtmlModuleImpl) {
 			projectService = potrunkProjectService;
 		} else if (curnit instanceof UrlModuleImpl) {
-			projectService = rooloProjectService;
+			projectService = ldProjectService;
 		} else {
 			projectService = podProjectService;
 		}		
@@ -109,8 +114,10 @@ public class ProjectServiceFactory {
 			projectService = otrunkProjectService;
 		} else if (projectType == ProjectType.POTRUNK) {
 			projectService = potrunkProjectService;
-		} else if (projectType == ProjectType.ROLOO || projectType == ProjectType.LD) {
+		} else if (projectType == ProjectType.ROLOO) {
 			projectService = rooloProjectService;
+		} else if (projectType == ProjectType.LD){
+			projectService = ldProjectService;
 		} else {
 			projectService = podProjectService;
 		}
@@ -158,6 +165,13 @@ public class ProjectServiceFactory {
 	 */
 	public void setRooloProjectService(ProjectService rooloProjectService) {
 		this.rooloProjectService = rooloProjectService;
+	}
+
+	/**
+	 * @param ldProjectService the ldProjectService to set
+	 */
+	public void setLdProjectService(ProjectService ldProjectService) {
+		this.ldProjectService = ldProjectService;
 	}
 
 }

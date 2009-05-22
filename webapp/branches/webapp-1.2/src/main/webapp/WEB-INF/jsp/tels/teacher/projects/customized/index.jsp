@@ -434,8 +434,9 @@
 			code="teacher.pro.custom.index.16" /></a></td>
 		<td><a href="#" onclick="toggle_visibility('toggleAllCurrent');"><spring:message
 			code="teacher.pro.custom.index.17" /></a></td>
-		<td><a href="#"><spring:message
+		<td><a href="/webapp/author/authorproject.html?command=launchAuthoring&param1=createProject"><spring:message
 			code="teacher.pro.custom.index.18" /></a></td>
+		<td><a href='/webapp/author/authorproject.html?command=launchAuthoring'><spring:message code='teacher.pro.custom.index.29'/></a></td>
 	</tr>
 </table>
 

@@ -237,6 +237,7 @@
 	    <property name="otrunkProjectService" ref="otrunkProjectService" />
 	    <property name="externalProjectService" ref="externalProjectService" />
  	    <property name="rooloProjectService" ref="rooloProjectService"/>
+ 	    <property name="ldProjectService" ref="ldProjectService"/>
 	    <property name="moduleService" ref="curnitService"/>
 	</bean>
 	
@@ -285,6 +286,16 @@
 
 	<bean id="rooloProjectService"
 	    class="org.telscenter.sail.webapp.service.project.impl.RooloProjectServiceImpl">
+	    <property name="curnitService" ref="curnitService"/>
+        <property name="projectDao" ref="projectDao"/>
+        <property name="aclService" ref="aclServiceImpl"/>
+        <property name="runService" ref="runService" />
+        <property name="workgroupService" ref="wiseWorkgroupService"/>
+        <property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean id="ldProjectService"
+	    class="org.telscenter.sail.webapp.service.project.impl.LdProjectServiceImpl">
 	    <property name="curnitService" ref="curnitService"/>
         <property name="projectDao" ref="projectDao"/>
         <property name="aclService" ref="aclServiceImpl"/>
