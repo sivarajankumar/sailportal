@@ -181,12 +181,15 @@ function topiframeOnLoad() {
 	var contentBaseUrl = "${contentBaseUrl}";
 	var getAnnotationsUrl = "${getAnnotationsUrl}";
 	var postAnnotationsUrl = "${postAnnotationsUrl}";
+
+	var getFlagsUrl = "${getFlagsUrl}";
+	var postFlagsUrl = "${postFlagsUrl}";
 	
 	//alert(userInfoUrl);
 	//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
 	//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 	//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId);
+	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl);
 }
 </script>
 	<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%" height="100%" frameborder="0">
