@@ -112,6 +112,9 @@ public class StudentVLEController extends AbstractController {
 	
 	private static final String PREVIEW = "preview";
 
+	private static final String GET_RUNINFO_REQUEST_INTERVAL = "10000";   // how long the VLE should wait
+	// between each getRunInfo request, in milliseconds
+
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -137,6 +140,8 @@ public class StudentVLEController extends AbstractController {
 				return handlePostData(request, response, run);
 			} else if (action.equals("getVLEConfig")) {
 				return handleGetVLEConfig(request, response, run);
+			} else if (action.equals("getRunInfo")) {
+				return handleGetRunInfo(request, response, run);
 			} else {
 				// shouldn't get here
 				throw new RuntimeException("should not get here");
@@ -144,6 +149,38 @@ public class StudentVLEController extends AbstractController {
 		} else {
 			return handleLaunchVLE(request, run);
 		}
+	}
+
+	/**
+	 * Retrns the RunInfo XML containing information like whether the run
+	 * is paused or messages that teacher wants to send to students.
+	 * @param request
+	 * @param response
+	 * @param run
+	 * @return
+	 * @throws IOException 
+	 */
+	private ModelAndView handleGetRunInfo(HttpServletRequest request,
+			HttpServletResponse response, Run run) throws IOException {
+		/*
+		String runInfoString = "<RunInfo>";
+
+		if (run.isPaused()) {
+			runInfoString += "<isPaused>true</isPaused>";
+		} else {
+			runInfoString += "<isPaused>false</isPaused>";
+		}
+
+		runInfoString += "</RunInfo>";
+		*/
+		String runInfoString = "<RunInfo>" + run.getInfo() + "</RunInfo>";
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+
+		response.setContentType("text/xml");
+		response.getWriter().print(runInfoString);
+		return null;
 	}
 
 	/**
@@ -231,7 +268,6 @@ public class StudentVLEController extends AbstractController {
 		String vleConfigUrl = portalVLEControllerUrl + "&action=getVLEConfig";
 
 		String previewRequest = request.getParameter(PREVIEW);
-		boolean isPreview = false;
 		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
 			vleConfigUrl += "&preview=true";
 		}
@@ -263,6 +299,8 @@ public class StudentVLEController extends AbstractController {
 		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
+		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
+
 		String previewRequest = request.getParameter(PREVIEW);
 		boolean isPreview = false;
 		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
@@ -275,6 +313,7 @@ public class StudentVLEController extends AbstractController {
 		
 		String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 		String postDataUrl = portalurl + "/vlewrapper/postdata.html";
+		String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
 		
 		String vleConfigString = "<VLEConfig>";
 		if (isPreview) {
@@ -282,11 +321,15 @@ public class StudentVLEController extends AbstractController {
 		} else {
 			vleConfigString += "<mode>run</mode>";
 		}
+		vleConfigString += "<runId>" + run.getId().toString() + "</runId>";
+		vleConfigString += "<getFlagsUrl>" + StringEscapeUtils.escapeHtml(getFlagsUrl) + "</getFlagsUrl>";
 		vleConfigString += "<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>";
-		vleConfigString += "<contentUrl>" + contentUrl + "</contentUrl>";
-		vleConfigString += "<contentBaseUrl>" + contentBaseUrl + "</contentBaseUrl>";
-		vleConfigString += "<getDataUrl>" + getDataUrl + "</getDataUrl>";
-		vleConfigString += "<postDataUrl>" + postDataUrl + "</postDataUrl>";
+		vleConfigString += "<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>";
+		vleConfigString += "<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>";
+		vleConfigString += "<getDataUrl>" + StringEscapeUtils.escapeHtml(getDataUrl) + "</getDataUrl>";
+		vleConfigString += "<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>";
+		vleConfigString += "<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>";
+		vleConfigString += "<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>";
 		vleConfigString += "</VLEConfig>";
 
 		

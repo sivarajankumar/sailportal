@@ -702,11 +702,13 @@ var myLogReader = new YAHOO.widget.LogReader("myLogger");
 		var contentBaseUrl = "${contentBaseUrl}";
 		var userInfoUrl = "${userInfoUrl}";
 		var getDataUrl = "${getDataUrl}";
-		//alert(userInfoUrl);
+		var getAnnotationsUrl = "${getAnnotationsUrl}";
+		var postAnnotationsUrl = "${postAnnotationsUrl}";
+		var teacherInfoUrl = "${teacherInfoUrl}";
 		//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
 		//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 
-		window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl);
+		window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, teacherInfoUrl, runId);
 	}
 </script>
 <c:if test="${fn:length(gradeByWorkgroupUrl) > 0}">

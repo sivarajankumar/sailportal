@@ -111,18 +111,25 @@
 
 
 	function topiframeOnLoad() {
-		//var xmlString = "${xmlString}";
-		var runId = "${runId}";
-		var workgroupId = "${workgroup.id}";
-		var contentUrl = "${contentUrl}";
-		var userInfoUrl = "${userInfoUrl}";
-		var getDataUrl = "${getDataUrl}";
-		//alert(userInfoUrl);
-		//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
-		//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
-		//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-		window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl);
-	}
+	//var xmlString = "${xmlString}";
+	var runId = "${runId}";
+	var workgroupId = "${workgroup.id}";
+	var contentUrl = "${contentUrl}";
+	var userInfoUrl = "${userInfoUrl}";
+	var getDataUrl = "${getDataUrl}";
+	var contentBaseUrl = "${contentBaseUrl}";
+	var getAnnotationsUrl = "${getAnnotationsUrl}";
+	var postAnnotationsUrl = "${postAnnotationsUrl}";
+
+	var getFlagsUrl = "${getFlagsUrl}";
+	var postFlagsUrl = "${postFlagsUrl}";
+	
+	//alert(userInfoUrl);
+	//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
+	//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
+	//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
+	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl);
+}
 	
 	function foo() {
 		//alert('foo!');

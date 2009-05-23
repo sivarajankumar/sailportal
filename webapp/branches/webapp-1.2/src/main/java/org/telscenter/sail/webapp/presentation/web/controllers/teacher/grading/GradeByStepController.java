@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -74,13 +75,28 @@ public class GradeByStepController extends AbstractController {
 		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
 		String result = (String) run.getProject().accept(typeVisitor);
 		if (result.equals("LDProject")) {
-			// LDProject, get the .project file
+
 			String portalurl = ControllerUtil.getBaseUrlString(request);
 
-	    	String gradebystepurl = portalurl + "/vlewrapper/vle/gradebystep.html";
-	    	String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
-	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId();
+			String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
+			if(lastIndexOfSlash==-1){
+				lastIndexOfSlash = contentUrl.lastIndexOf("\\");
+			}
+			String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
+			String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
+			String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
+			
+			// LDProject, get the .project file
+
+	    	String gradebystepurl = portalurl + "/vlewrapper/gradebystep.html";
 	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+	    	
+	    	String getAnnotationsUrl = portalurl + "/vlewrapper/getannotations.html?&runId=" + runId;
+	    	String postAnnotationsUrl = portalurl + "/vlewrapper/postannotations.html";
+
+	    	String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?&runId=" + runId;
+	    	String postFlagsUrl = portalurl + "/vlewrapper/postflag.html";
 	    	
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
@@ -88,6 +104,13 @@ public class GradeByStepController extends AbstractController {
 			modelAndView.addObject(CONTENT_URL, contentUrl);
 			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
 			modelAndView.addObject(GET_DATA_URL, getDataUrl);
+			modelAndView.addObject("contentBaseUrl", contentBaseUrl);
+			modelAndView.addObject("getAnnotationsUrl", getAnnotationsUrl);
+			modelAndView.addObject("postAnnotationsUrl", postAnnotationsUrl);
+			modelAndView.addObject("runId", runId);
+			
+			modelAndView.addObject("getFlagsUrl", getFlagsUrl);
+			modelAndView.addObject("postFlagsUrl", postFlagsUrl);
 			
 			return modelAndView;
 		}

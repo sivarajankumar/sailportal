@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -88,25 +89,33 @@ public class GradeByWorkgroupController extends AbstractController {
 			// LDProject, get the .project file
 			String portalurl = ControllerUtil.getBaseUrlString(request);
 
+			String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
+			if(lastIndexOfSlash==-1){
+				lastIndexOfSlash = contentUrl.lastIndexOf("\\");
+			}
+			String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
+			String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
+			String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo"  + "&workgroupId=" + workgroupIdStr;
 			
-	    	String gradebyworkgroupurl = portalurl + "/vlewrapper/vle/gradebyworkgroup.html";
-
-	    	String vleurl = portalurl + "/vlewrapper/vle/vle_ld_project.html";
-	    	//String contentUrl = portalurl + "/vlewrapper/vle/tim2.otml";
-	    	String contentBaseUrl = portalurl + "/vlewrapper/curriculum/unit4/lesson22";
-	    	String contentUrl = contentBaseUrl + "/lesson22.project";
-	    	
-	    	String userInfoUrl = portalurl + "/webapp/student/vle/vle.html?getUserInfo=true&runId=" + run.getId() + "&workgroupIds=" + workgroupIdStr;
+			
+	    	String gradebyworkgroupurl = portalurl + "/vlewrapper/gradebyworkgroup.html";
 	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html?dataId=" + workgroupIdStr;
+	    		String getAnnotationsUrl = portalurl + "/vlewrapper/getannotations.html?toWorkgroup=" + workgroupIdStr + "&runId=" + runId;
+	    	String postAnnotationsUrl = portalurl + "/vlewrapper/postannotations.html";
+	    	String teacherInfoUrl = portalurl + "/webapp/student/vle/vle.html?action=getUserInfo&runId=" + run.getId();
 	    	
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(PARAMNAME_RUNID, runId);
 			modelAndView.addObject(GRADE_BY_WORKGROUP_URL, gradebyworkgroupurl);
-			modelAndView.addObject("vleurl", vleurl);
 	    	modelAndView.addObject("contentBaseUrl", contentBaseUrl);
 			modelAndView.addObject(CONTENT_URL, contentUrl);
 			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
 			modelAndView.addObject(GET_DATA_URL, getDataUrl);
+				modelAndView.addObject("getAnnotationsUrl", getAnnotationsUrl);
+			modelAndView.addObject("postAnnotationsUrl", postAnnotationsUrl);
+			modelAndView.addObject("teacherInfoUrl", teacherInfoUrl);
+			modelAndView.addObject("runId", runId);
 			
 			return modelAndView;
 		} else {
