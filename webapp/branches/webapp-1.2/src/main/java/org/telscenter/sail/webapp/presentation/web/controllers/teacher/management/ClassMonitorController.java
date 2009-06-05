@@ -73,6 +73,17 @@ public class ClassMonitorController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 
 		Run run = runService.retrieveById(Long.valueOf(request.getParameter(RUNID)));
+		Long runId = Long.valueOf(request.getParameter(RUNID));
+		String isPaused = request.getParameter("paused");
+		
+		/*
+		 * check if the paused parameter was passed and set it accordingly
+		 * in the run
+		 */
+		if(isPaused != null && !isPaused.equals("")) {
+			runService.setPaused(runId, isPaused);
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss MM/dd/yyyy");
 
 		TreeMap<Long, Set<Workgroup>> workgroups = new TreeMap<Long, Set<Workgroup>>();
@@ -97,7 +108,7 @@ public class ClassMonitorController extends AbstractController {
 			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 			String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
 
-	    	String progressMonitorUrl = portalurl + "/vlewrapper/vle.html";
+	    	String progressMonitorUrl = portalurl + "/vlewrapper/vle/vle.html";
 
 			String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 			String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";

@@ -415,4 +415,17 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.getAnnouncements().remove(announcement);
 		this.runDao.save(run);
 	}
+	
+	@Transactional()
+	public void setPaused(Long runId, String isPaused) throws Exception {
+		Run run = this.retrieveById(runId);
+		
+		/*
+		 * when we use the info field for more info than just isPaused this
+		 * will need to be changed so it doesn't just completely overwrite
+		 * the info field
+		 */
+		run.setInfo("<isPaused>" + isPaused + "</isPaused>");
+		this.runDao.save(run);
+	}
 }

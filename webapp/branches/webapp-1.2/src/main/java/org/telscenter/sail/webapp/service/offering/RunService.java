@@ -236,4 +236,12 @@ public interface RunService extends OfferingService {
      * @throws <code>Exception</code>
      */
     public void removeAnnouncementFromRun(Long runId, Announcement announcement) throws Exception;
+    
+    /**
+     * Sets whether the run is paused
+     * @param runId the id of the run
+     * @param isPaused a String that is "true" or "false"
+     * @throws Exception
+     */
+    public void setPaused(Long runId, String isPaused) throws Exception;
 }

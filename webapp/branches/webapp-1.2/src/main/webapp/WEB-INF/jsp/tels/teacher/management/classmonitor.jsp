@@ -368,7 +368,8 @@
 <div>
 	<div id="studentProgressTools">
 		<ul>
-			<li><a href="#">PAUSE ALL STUDENT SCREENS</a></li>
+			<li><a href="classmonitor.html?runId=${run.id}&paused=true">PAUSE ALL STUDENT SCREENS</a></li>
+			<li><a href="classmonitor.html?runId=${run.id}&paused=false">UNPAUSE ALL STUDENT SCREENS</a></li>
 			<li><a href="#">SEND MESSAGE TO TEAM(S)</a></li>
 			<li><a href="#">LOCK THIS PROGRESS SCREEN</a></li>
 		</ul>

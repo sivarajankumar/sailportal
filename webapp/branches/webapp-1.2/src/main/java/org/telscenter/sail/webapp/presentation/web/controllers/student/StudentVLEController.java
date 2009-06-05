@@ -264,7 +264,7 @@ public class StudentVLEController extends AbstractController {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 
-		String vleurl = portalurl + "/vlewrapper/vle.html";
+		String vleurl = portalurl + "/vlewrapper/vle/vle.html";
 		String vleConfigUrl = portalVLEControllerUrl + "&action=getVLEConfig";
 
 		String previewRequest = request.getParameter(PREVIEW);
