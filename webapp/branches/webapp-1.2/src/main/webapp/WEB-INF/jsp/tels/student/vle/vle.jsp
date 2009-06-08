@@ -56,6 +56,11 @@
 			//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
 			window.frames["topifrm"].render(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, postDataUrl);
 			*/
+			//var vleConfigUrl = "${vleConfigUrl}";
+			//window.frames["topifrm"].initializeVLEFromVLEConfig(vleConfigUrl);
+		}
+
+		function scriptsLoaded() {
 			var vleConfigUrl = "${vleConfigUrl}";
 			window.frames["topifrm"].initializeVLEFromVLEConfig(vleConfigUrl);
 		}
