@@ -60,7 +60,7 @@
 			//window.frames["topifrm"].initializeVLEFromVLEConfig(vleConfigUrl);
 		}
 
-		function scriptsLoaded() {
+		function scriptsLoaded(workgroupId) {
 			var vleConfigUrl = "${vleConfigUrl}";
 			window.frames["topifrm"].initializeVLEFromVLEConfig(vleConfigUrl);
 		}

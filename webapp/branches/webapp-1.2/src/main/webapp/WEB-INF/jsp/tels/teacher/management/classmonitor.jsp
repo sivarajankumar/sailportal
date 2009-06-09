@@ -323,18 +323,42 @@
   	 * the vle content, user info, and student data
   	 */
   	function contentPanelOnLoad(workgroupId) {
+  	  	/*
 		var contentUrl = "${contentUrl}";
 		var contentBaseUrl = "${contentBaseUrl}";
 		var userInfoUrl = "${userInfoUrl}";
 		var getDataUrl = "${getDataUrl}";
-
+		*/
+		
 		/*
 		 * load will instantiate a vle instance by loading the content,
 		 * load the user info, load the vle_state for the student
 		 * and then display the getProgress table
 		 */
-  		window.frames["ifrm_" + workgroupId].renderProgressMonitor(contentUrl, userInfoUrl + "&workgroupId=" + workgroupId, getDataUrl, contentBaseUrl, workgroupId);
+  		//window.frames["ifrm_" + workgroupId].renderProgressMonitor(contentUrl, userInfoUrl + "&workgroupId=" + workgroupId, getDataUrl, contentBaseUrl, workgroupId);
+  		//alert('workgroupId:' + workgroupId);	
   	 }
+
+  	/**
+  	 * args[0] should contain the iframe name, like ifrm_2
+  	 */
+	function scriptsLoaded(args) {
+		//var vleConfigUrl = "${vleConfigUrl}";
+		
+		var contentUrl = "${contentUrl}";
+		var contentBaseUrl = "${contentBaseUrl}";
+		var userInfoUrl = "${userInfoUrl}";
+		var getDataUrl = "${getDataUrl}";
+		
+		
+		var windowName = args[0];
+		var workgroupId = windowName.substring(windowName.indexOf('_') + 1);
+  		window.frames[windowName].renderProgressMonitor(contentUrl, userInfoUrl + "&workgroupId=" + workgroupId, getDataUrl, contentBaseUrl, workgroupId);
+
+		
+		//window.frames["ifrm_" + workgroupId].initializeVLEFromVLEConfig(vleConfigUrl);
+	}
+ 
 
   	/*
  	 * Tells the iframe for this workgroupId to display the progress
@@ -415,7 +439,7 @@
 					    <c:choose>
 					    <c:when test="${fn:length(progressMonitorUrl) > 0}">
 								<c:forEach var="workgroup" items="${workgroups[period.id]}">
-									<iframe id="ifrm_${workgroup.id}" src="${progressMonitorUrl}" name="ifrm_${workgroup.id}" scrolling="auto" onload="contentPanelOnLoad(${workgroup.id});" width="100%" height="100%" frameborder="0">
+									<iframe id="ifrm_${workgroup.id}" src="${progressMonitorUrl}" name="ifrm_${workgroup.id}" scrolling="auto" onload="contentPanelOnLoad('${workgroup.id}');" width="100%" height="100%" frameborder="0">
 										 [Content for browsers that don't support iframes goes here.]
 									</iframe>
 								</c:forEach>
