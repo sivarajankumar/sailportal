@@ -362,9 +362,11 @@
 
   	/*
  	 * Tells the iframe for this workgroupId to display the progress
- 	 * for this workgroupId
+ 	 * for this workgroupId. This function is called after an event
+ 	 * is fired so the first argument is the eventName and the
+ 	 * second will be the workgroupId
  	 */
-  	function contentPanelFinishedLoading(workgroupId) {
+  	function contentPanelFinishedLoading(eventName, workgroupId) {
   		window.frames["ifrm_" + workgroupId].vle.displayProgress();
   	}
 </script>
