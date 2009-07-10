@@ -39,8 +39,10 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.domain.teacher.management.ViewMyStudentsPeriod;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 
@@ -146,7 +148,8 @@ public class ViewMyStudentsController extends AbstractController{
 				if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
 						&& ((WISEWorkgroup) workgroup).getPeriod().getId().equals(period.getId())) {
 					// set url where this workgroup's work can be retrieved as PDF
-					if (!(run.getProject() instanceof ExternalProject) 
+					ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+					if (!(run.getProject().accept(typeVisitor).equals("ExternalProject")) 
 							&& run.getProject().getProjectType() != ProjectType.ROLOO
 							&& run.getProject().getProjectType() != ProjectType.LD) {
 						String workPdfUrl = ((WISEWorkgroupService) workgroupService)

@@ -36,6 +36,7 @@ import org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -51,6 +52,8 @@ public class ManageAllProjectsController extends AbstractController {
 	private static final String EXTERNAL_PROJECT_LIST_PARAM_NAME = "external_project_list";
 
 	private ProjectService projectService;
+
+	private ExternalProjectService externalProjectService;
 		
 	/**
 	 * @override @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -58,8 +61,9 @@ public class ManageAllProjectsController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+		/*
    		List<Project> allProjectList = projectService.getProjectList();
+   		
    		List<Project> internalProjectList = new ArrayList<Project>();
    		List<ExternalProject> externalProjectList = new ArrayList<ExternalProject>();
    		for (Project project : allProjectList) {
@@ -69,6 +73,11 @@ public class ManageAllProjectsController extends AbstractController {
    				internalProjectList.add(project);
    			}
    		}
+   		*/
+
+		// separate calls to project services to get internal and external projects
+   		List<Project> internalProjectList = projectService.getProjectList();
+   		List<Project> externalProjectList = externalProjectService.getProjectList();
 
    		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
    		modelAndView.addObject(INTERNAL_PROJECT_LIST_PARAM_NAME, internalProjectList);
@@ -88,6 +97,11 @@ public class ManageAllProjectsController extends AbstractController {
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+
+	public void setExternalProjectService(
+			ExternalProjectService externalProjectService) {
+		this.externalProjectService = externalProjectService;
 	}
 
     

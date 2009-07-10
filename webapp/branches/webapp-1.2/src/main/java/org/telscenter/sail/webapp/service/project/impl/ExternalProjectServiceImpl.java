@@ -141,11 +141,19 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 */
 	public List<Project> getProjectList() {
 		// look in the internal database
+		// make sure that projects are external projects
+		List<Project> externalProjectList = new ArrayList();
     	List<Project> projectlist = this.projectDao.getList();
+		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
     	for (Project externalproject : projectlist) {
     		externalproject.populateProjectInfo();
+    		String result = (String) externalproject.accept(typeVisitor);
+    		if (result.equals("ExternalProject")) {
+    			externalProjectList.add(externalproject);
+    		}
+    	
     	}
-		return projectlist;
+		return externalProjectList;
 	}
 	
 	/**
@@ -178,6 +186,7 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#launchProject(org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters)
 	 */
+	@Transactional(readOnly = false)
 	public Object launchProject(LaunchProjectParameters launchProjectParameters)
 			throws Exception {
 		WISEWorkgroup workgroup = launchProjectParameters.getWorkgroup();
