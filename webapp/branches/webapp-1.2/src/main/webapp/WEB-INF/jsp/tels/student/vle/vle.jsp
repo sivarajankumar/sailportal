@@ -2,62 +2,8 @@
 <head>
 <title>Loading Sample PAS Project to Virtual Learning Environment</title>
 
-<script src="http://yui.yahooapis.com/3.0.0pr2/build/yui/yui-min.js" type="text/javascript"></script>
-
-
-
-<script type="text/javascript" src="http://tels-group.soe.berkeley.edu:16080/sail-web/vle/js/common/loadxmldoc.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/utilities/utilities.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/container/container-min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/fonts/fonts-min.css" />
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/container/assets/skins/sam/container.css" />
-
-<link rel="stylesheet" type="text/css" href="http://uccpdev.berkeley.edu:10080/uccp-assets/vle/css/niftycube.css" />
-<link rel="stylesheet" type="text/css" href="http://uccpdev.berkeley.edu:10080/uccp-assets/vle/css/navigation.css" />
-<link rel="stylesheet" type="text/css" href="css/sdmenu.css" />
-
-<script type="text/javascript" src="http://uccpdev.berkeley.edu:10080/uccp-assets/vle/js/visibility/VisibilityLogic.js"></script>
-<script type="text/javascript" src="http://uccpdev.berkeley.edu:10080/uccp-assets/vle/js/visibility/OnlyShowSelectedNodes.js"></script>
-
-<!-- Source file -->
-<script src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script>
-<!-- Combo-handled YUI CSS files: -->
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.6.0/build/container/assets/skins/sam/container.css">
-<!-- Combo-handled YUI JS files: -->
-<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.6.0/build/yahoo-dom-event/yahoo-dom-event.js&2.6.0/build/animation/animation-min.js&2.6.0/build/connection/connection-min.js&2.6.0/build/dragdrop/dragdrop-min.js&2.6.0/build/container/container-min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/fonts/fonts-min.css" />
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/container/assets/skins/sam/container.css" />
-<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-
-<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/connection/connection-min.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/animation/animation-min.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/dragdrop/dragdrop-min.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/container/container-min.js"></script>
-
-
 	<script type="text/javascript">
 		function topiframeOnLoad() {
-			//var xmlString = "${xmlString}";
-			/*
-			var runId = "${runId}";
-			var workgroupId = "${workgroup.id}";
-			var contentUrl = "${contentUrl}";
-			var userInfoUrl = "${userInfoUrl}";
-			var getDataUrl = "${getDataUrl}";
-			var contentBaseUrl = "${contentBaseUrl}";
-			var postDataUrl = "${postDataUrl}";	
-            alert('view.jsp \n\ncontentBaseUrl:' + contentBaseUrl + '\n\ngetDataUrl:' + getDataUrl + '\npostDataUrl:' + postDataUrl + '\ncontentUrl:' + contentUrl);
-            
-			//alert(userInfoUrl);
-			//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
-			//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
-			//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-			window.frames["topifrm"].render(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, postDataUrl);
-			*/
-			//var vleConfigUrl = "${vleConfigUrl}";
-			//window.frames["topifrm"].initializeVLEFromVLEConfig(vleConfigUrl);
 		}
 
 		function scriptsLoaded(workgroupId) {
