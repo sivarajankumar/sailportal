@@ -296,7 +296,7 @@ public class StudentVLEController extends AbstractController {
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
 		}
-		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
+		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash) + "/";
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
 		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
