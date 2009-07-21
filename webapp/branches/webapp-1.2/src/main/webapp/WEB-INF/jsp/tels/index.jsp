@@ -38,6 +38,8 @@
 <script src="./javascript/tels/rotator.js" 			type="text/javascript"> </script>
 <script src="./javascript/tels/rotatorT.js" 		type="text/javascript"> </script>
 
+<link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico">
+
 <title><spring:message code="application.title" /></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
