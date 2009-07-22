@@ -96,6 +96,7 @@
     	<property name="mappings">
     		<value>
     		    /index.html=urlFilenameViewController
+    		    /smartroom/smartroom.html=smartRoomController
     		    /contactwisegeneral.html=contactWiseController
     		    /contactwiseproject.html=contactWiseProjectController
     		    /student/index.html=studentIndexController
