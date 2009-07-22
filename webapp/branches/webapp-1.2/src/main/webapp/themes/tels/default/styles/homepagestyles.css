@@ -63,11 +63,8 @@
 #boxTableWelcome {
 	width: 634px;
 	margin:0px;
-	padding-top: 0;
-	padding-right: 0;
-	padding-bottom: 5px;
-	padding-left: 0;
-	vertical-align: text-top;
+	padding:0;
+	vertical-align: top;
 	}
 
 #parastyleTable {
@@ -186,7 +183,7 @@
 #boxTableSignInHome{
 	width:307px;
 	margin:0px;
-	vertical-align: text-top;
+	vertical-align:top;
 }
 
 #boxTableSignInFailedLogin {
