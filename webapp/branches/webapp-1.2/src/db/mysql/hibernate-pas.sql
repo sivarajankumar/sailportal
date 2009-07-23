@@ -4,7 +4,7 @@
         class varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table acl_entry (
         id bigint not null auto_increment,
@@ -18,7 +18,7 @@
         acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table acl_object_identity (
         id bigint not null auto_increment,
@@ -31,7 +31,7 @@
         parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table acl_sid (
         id bigint not null auto_increment,
@@ -40,7 +40,7 @@
         OPTLOCK integer,
         primary key (id),
         unique (sid, principal)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table annotationbundles (
         id bigint not null auto_increment,
@@ -48,21 +48,21 @@
         OPTLOCK integer,
         workgroup_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table curnits (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_curnit_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table granted_authorities (
         id bigint not null auto_increment,
         authority varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table groups (
         id bigint not null auto_increment,
@@ -70,27 +70,27 @@
         OPTLOCK integer,
         parent_fk bigint,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table groups_related_to_users (
         group_fk bigint not null,
         user_fk bigint not null,
         primary key (group_fk, user_fk)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table jnlps (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_jnlp_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table offerings (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_offering_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_curnits (
         id bigint not null auto_increment,
@@ -99,7 +99,7 @@
         url varchar(255) not null,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_jnlps (
         id bigint not null auto_increment,
@@ -108,7 +108,7 @@
         url varchar(255) not null,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_offerings (
         id bigint not null auto_increment,
@@ -119,7 +119,7 @@
         sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_users (
         id bigint not null auto_increment,
@@ -128,7 +128,7 @@
         user_id bigint not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_workgroups (
         id bigint not null auto_increment,
@@ -138,13 +138,13 @@
         OPTLOCK integer,
         sds_offering_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table sds_workgroups_related_to_sds_users (
         sds_workgroup_fk bigint not null,
         sds_user_fk bigint not null,
         primary key (sds_workgroup_fk, sds_user_fk)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table user_details (
         id bigint not null auto_increment,
@@ -157,13 +157,13 @@
         username varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table user_details_related_to_roles (
         user_details_fk bigint not null,
         granted_authorities_fk bigint not null,
         primary key (user_details_fk, granted_authorities_fk)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table users (
         id bigint not null auto_increment,
@@ -171,7 +171,7 @@
         sds_user_fk bigint unique,
         user_details_fk bigint not null unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     create table workgroups (
         id bigint not null auto_increment,
@@ -180,7 +180,7 @@
         offering_fk bigint not null,
         sds_workgroup_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) type=InnoDB;
 
     alter table acl_entry 
         add index FK5302D47DC9975936 (acl_object_identity), 

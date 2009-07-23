@@ -50,7 +50,6 @@
 </script>
 
 <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico">
-
 <title><spring:message code="application.title" /></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
@@ -105,7 +104,8 @@ width: 100%;
 
 				<div id="welcomeBullet1" style="">
 				<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
-				<p><spring:message code="whatiswisebullet" /></p>
+				<p><spring:message code="whatiswisebullet" /></p><br/>
+				<p><spring:message code="aboutwise" /></p>
 				</div>
 
 				<div id="welcomeBullet2" style="display: none;">
@@ -299,8 +299,8 @@ width: 100%;
 						href="http://www.telscenter.org/confluence/display/SAIL/Home" title="SAIL Technology"><img
 						src="./themes/tels/default/images/SAIL-Logo-Small.png" width="96" height="50" alt="SAIL Logo" /></a> <a
 						href="http://www.telscenter.org/" title="TELS Consortium"><img src="./themes/tels/default/images/tels_logo.png"
-						width="160" height="50" alt="SAIL Logo" /></a> <a href="#" title="WISE 3.0 Logo"><img
-						src="./themes/tels/default/images/Wise-Logo-W3-Georgia.png" width="50" height="50" alt="SAIL Logo" /></a></td>
+						width="160" height="50" alt="SAIL Logo" /></a> <a href="#" title="WISE 4.0"><img
+						src="./themes/tels/default/images/WISE-Logo-Small-1.png" alt="WISE 4.0 Logo" /></a></td>
 
 				<td id="footerText">
 				<ul>

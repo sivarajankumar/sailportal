@@ -29,7 +29,7 @@
 <div id="bannerArea">
     	<div><a href="../index.html" 
     		onmouseout="MM_swapImgRestore()" 
-    		onmouseover="MM_swapImage('WISE Main Logo','','../themes/tels/default/images/WISE-Logo-Largev2.png',1)">
-    		<img src="../themes/tels/default/images/WISE-Logo-Largev2.png" 
+    		onmouseover="MM_swapImage('WISE Main Logo','','../themes/tels/default/images/WISE-Logo-Large-v3.png',1)">
+    		<img src="../themes/tels/default/images/WISE-Logo-Large-v3.png" 
     		 alt="WISE Large Logo" border="0" id="WISE Main Logo" /></a></div>
 </div>
