@@ -3,7 +3,7 @@
 <head> </head>
 
 <body>
-Hello "${name}"
+workgroup: ${workgroup}
 
 </body>
 
