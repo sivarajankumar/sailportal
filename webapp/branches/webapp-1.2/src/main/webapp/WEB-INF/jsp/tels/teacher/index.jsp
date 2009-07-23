@@ -604,7 +604,7 @@
 		<ul>
 			<li><a href="run/myprojectruns.html"><spring:message code="teacher.index.22"/></a></li>
 			<li><a href="./management/projectPickerManagement.html"><spring:message code="teacher.index.31"/></a></li>			
-			<li class="inactivecolor"><spring:message code="teacher.index.32"/></li>
+			<li><a href="./management/projectpickerclassmonitor.html"><spring:message code="teacher.index.32"/></a></li>
 			<li class="inactivecolor"><spring:message code="teacher.index.33"/></li>
 			<li><a href="./management/updatemyaccount.html"><spring:message code="teacher.index.34"/></a></li>
 		</ul> 

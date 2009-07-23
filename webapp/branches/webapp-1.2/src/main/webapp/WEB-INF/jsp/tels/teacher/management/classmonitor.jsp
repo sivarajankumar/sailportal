@@ -68,7 +68,6 @@
 
         }
 
-        // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
         var callback = {
             success : function(o) {
                 YAHOO.example.container.wait.hide();
@@ -372,7 +371,46 @@
 </script>
 
 
+<script type="text/javascript">
+/**
+ * PAUSE/UNPAUSE student screens
+ * @param doPause true iff students screens for this run should be paused.
+ */
+function doPauseAllScreens(doPause) {
+	var sUrl = "classmonitor.html";
+	var args = "runId=${run.id}&paused=";
+	var callback = {
+			success: function(o) {},
+			failure: function(o) {},
+			argument: []
+	}
+	if (doPause) {
+		args +="true";
+	} else {
+		args +="false";
+	}
+	var transaction = YAHOO.util.Connect.asyncRequest('POST', sUrl, callback, args);
+}
 
+
+/**
+ * callback for when the body has loaded
+ */
+function bodyLoaded() {
+	 //setPausedUnPaused();
+}
+
+/**
+ * Sets the paused/unpaused radio button according to the current state of the run
+ */
+function setPausedUnPaused() {
+	if ("${run.paused}" == "true") {
+		document.getElementById("pausedRadioButton").checked = true;
+	} else {
+		document.getElementById("unpausedRadioButton").checked = true;		
+	}
+}
+</script>
 
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -383,7 +421,7 @@
 
 </head>
 
-<body class="yui-skin-sam">
+<body class="yui-skin-sam" >
 
 <div id="centeredDiv">
 
@@ -393,12 +431,17 @@
 
 <div>
 	<div id="studentProgressTools">
-		<ul>
-			<li><a href="classmonitor.html?runId=${run.id}&paused=true">PAUSE ALL STUDENT SCREENS</a></li>
-			<li><a href="classmonitor.html?runId=${run.id}&paused=false">UNPAUSE ALL STUDENT SCREENS</a></li>
+	    All Student Screens Are Currently:
+		<form action="">
+			<ul>
+			<li><input id="pausedRadioButton" type="radio" name="pauseAllRadio" onclick="doPauseAllScreens(true)">PAUSED</input></li>
+			<li><input id="unpausedRadioButton" type="radio" name="pauseAllRadio" onclick="doPauseAllScreens(false)">UNPAUSED</input></li>
+			<!--  
 			<li><a href="#">SEND MESSAGE TO TEAM(S)</a></li>
 			<li><a href="#">LOCK THIS PROGRESS SCREEN</a></li>
+			-->
 		</ul>
+		</form>
 	</div>
 	<div id="L3Label">Student Progress Monitor</div> 
 	<div id="studentProgressProjectTitle">${run.project.curnit.sdsCurnit.name}<span class="ProjectIDTag">(Project ID: ${run.project.id})</span></div> 
@@ -560,6 +603,7 @@
 		
 	<script type="text/javascript">
 		requestManager.start();
+		setPausedUnPaused();
 	</script>
 
 </div> <!--  end of yui-content Div -->

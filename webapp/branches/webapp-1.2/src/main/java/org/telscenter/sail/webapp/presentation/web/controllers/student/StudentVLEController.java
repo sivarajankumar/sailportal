@@ -113,7 +113,7 @@ public class StudentVLEController extends AbstractController {
 	private static final String PREVIEW = "preview";
 
 	private static final String GET_RUNINFO_REQUEST_INTERVAL = "10000";   // how long the VLE should wait
-	// between each getRunInfo request, in milliseconds
+	// between each getRunInfo request, in milliseconds 10000=10 seconds, -1=never
 
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -330,6 +330,8 @@ public class StudentVLEController extends AbstractController {
 		vleConfigString += "<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>";
 		vleConfigString += "<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>";
 		vleConfigString += "<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>";
+		vleConfigString += "<theme>WISE</theme>";
+		vleConfigString += "<enableAudio>false</enableAudio>";
 		vleConfigString += "</VLEConfig>";
 
 		
