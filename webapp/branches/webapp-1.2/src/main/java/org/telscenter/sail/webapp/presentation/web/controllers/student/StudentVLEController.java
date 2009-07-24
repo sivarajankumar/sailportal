@@ -314,6 +314,8 @@ public class StudentVLEController extends AbstractController {
 		String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 		String postDataUrl = portalurl + "/vlewrapper/postdata.html";
 		String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
+		String postJournalDataUrl = portalurl + "/vlewrapper/postjournaldata.html";
+		String getJournalDataUrl = portalurl + "/vlewrapper/getjournaldata.html";
 		
 		String vleConfigString = "<VLEConfig>";
 		if (isPreview) {
@@ -332,6 +334,8 @@ public class StudentVLEController extends AbstractController {
 		vleConfigString += "<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>";
 		vleConfigString += "<theme>WISE</theme>";
 		vleConfigString += "<enableAudio>false</enableAudio>";
+		vleConfigString += "<getJournalDataUrl>" + StringEscapeUtils.escapeHtml(getJournalDataUrl) + "</getJournalDataUrl>";
+		vleConfigString += "<postJournalDataUrl>" + StringEscapeUtils.escapeHtml(postJournalDataUrl) + "</postJournalDataUrl>";
 		vleConfigString += "</VLEConfig>";
 
 		
