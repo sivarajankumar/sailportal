@@ -417,15 +417,20 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	}
 	
 	@Transactional()
-	public void setPaused(Long runId, String isPaused) throws Exception {
+	public void setInfo(Long runId, String isPaused, String showNodeId) throws Exception {
 		Run run = this.retrieveById(runId);
+
+		String runInfoString = "<isPaused>" + isPaused + "</isPaused>";
+		if (showNodeId != null) {
+			runInfoString += "<showNodeId>" + showNodeId + "</showNodeId>";
+		}
 		
 		/*
 		 * when we use the info field for more info than just isPaused this
 		 * will need to be changed so it doesn't just completely overwrite
 		 * the info field
 		 */
-		run.setInfo("<isPaused>" + isPaused + "</isPaused>");
+		run.setInfo(runInfoString);
 		this.runDao.save(run);
 	}
 }

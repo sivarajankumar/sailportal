@@ -141,7 +141,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 	<dd><form:select path="curnitId" id="curnitId">
 	      <c:forEach items="${curnits}" var="curnit">
             <form:option value="${curnit.id}">
-            	${curnit.sdsCurnit.name}
+            	${curnit.id}: ${curnit.name}
             </form:option>
           </c:forEach>
 		</form:select>

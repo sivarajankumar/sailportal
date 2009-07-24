@@ -243,5 +243,5 @@ public interface RunService extends OfferingService {
      * @param isPaused a String that is "true" or "false"
      * @throws Exception
      */
-    public void setPaused(Long runId, String isPaused) throws Exception;
+    public void setInfo(Long runId, String isPaused, String showNodeId) throws Exception;
 }

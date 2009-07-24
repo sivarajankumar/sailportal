@@ -75,13 +75,20 @@ public class ClassMonitorController extends AbstractController {
 		Run run = runService.retrieveById(Long.valueOf(request.getParameter(RUNID)));
 		Long runId = Long.valueOf(request.getParameter(RUNID));
 		String isPaused = request.getParameter("paused");
+		String showNodeId = request.getParameter("showNodeId");
 		
 		/*
 		 * check if the paused parameter was passed and set it accordingly
 		 * in the run
 		 */
 		if(isPaused != null && !isPaused.equals("")) {
-			runService.setPaused(runId, isPaused);
+			if (showNodeId != null && !showNodeId.equals("")) {
+				runService.setInfo(runId, isPaused, showNodeId);
+			} else {
+				runService.setInfo(runId, isPaused, null);
+			}
+			
+			return null;
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss MM/dd/yyyy");

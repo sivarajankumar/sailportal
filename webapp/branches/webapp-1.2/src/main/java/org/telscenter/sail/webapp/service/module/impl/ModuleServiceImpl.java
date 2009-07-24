@@ -76,6 +76,7 @@ public class ModuleServiceImpl extends CurnitServiceImpl implements
 			this.rooloOtmlModuleDao.save(module);
 		} else if (curnitParameters instanceof CreateUrlModuleParameters) {
 			UrlModuleImpl urlModule = new UrlModuleImpl();
+			urlModule.setName(((CreateUrlModuleParameters) curnitParameters).getName());
 			urlModule.setModuleUrl(((CreateUrlModuleParameters) curnitParameters).getUrl());
 			this.moduleDao.save(urlModule);
 			return urlModule;

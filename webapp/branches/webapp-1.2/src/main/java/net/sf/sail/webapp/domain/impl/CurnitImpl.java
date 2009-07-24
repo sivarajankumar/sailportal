@@ -31,6 +31,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
+
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.CurnitVisitor;
 import net.sf.sail.webapp.domain.sds.SdsCurnit;
@@ -55,6 +57,9 @@ public class CurnitImpl implements Curnit {
     @Transient
     public static final String COLUMN_NAME_SDS_CURNIT_FK = "sds_curnit_fk";
 
+    @Transient
+	private static final String COLUMN_NAME_NAME = "name";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id = null;
@@ -62,6 +67,9 @@ public class CurnitImpl implements Curnit {
     @Version
     @Column(name = "OPTLOCK")
     private Integer version = null;
+
+    @Column(name = COLUMN_NAME_NAME)
+	private String name;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = SdsCurnit.class)
     @JoinColumn(name = COLUMN_NAME_SDS_CURNIT_FK, nullable = true, unique = true)
@@ -93,7 +101,15 @@ public class CurnitImpl implements Curnit {
         this.id = id;
     }
 
-    @SuppressWarnings("unused")
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@SuppressWarnings("unused")
     private Integer getVersion() {
         return this.version;
     }

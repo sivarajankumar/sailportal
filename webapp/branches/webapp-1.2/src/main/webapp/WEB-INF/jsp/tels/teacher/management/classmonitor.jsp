@@ -24,6 +24,7 @@
 <script type="text/javascript" src="../.././javascript/tels/teacher/management/viewmystudents.js"></script>
 
 <script type="text/javascript">
+	var allNodes = null;
 	
 	function popup(URL) {
   		window.open(URL, 'ProgressMonitorMeanings', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=400,height=320,left = 450,top = 150');
@@ -367,11 +368,19 @@
  	 */
   	function contentPanelFinishedLoading(eventName, workgroupId) {
   		window.frames["ifrm_" + workgroupId].vle.displayProgress();
+
+  		// set allNodes if not set already. This will be used to let teacher
+  		// select which node to show to the student.
+  		if (allNodes == null) {
+  			allNodes = window.frames["ifrm_" + workgroupId].vle.project.allLeafNodes;
+  			updateSelectableNodes();
+  		}
   	}
 </script>
 
 
 <script type="text/javascript">
+
 /**
  * PAUSE/UNPAUSE student screens
  * @param doPause true iff students screens for this run should be paused.
@@ -386,18 +395,12 @@ function doPauseAllScreens(doPause) {
 	}
 	if (doPause) {
 		args +="true";
+		document.getElementById("selectNode").disabled = false;		
 	} else {
 		args +="false";
+		document.getElementById("selectNode").disabled = true;		
 	}
 	var transaction = YAHOO.util.Connect.asyncRequest('POST', sUrl, callback, args);
-}
-
-
-/**
- * callback for when the body has loaded
- */
-function bodyLoaded() {
-	 //setPausedUnPaused();
 }
 
 /**
@@ -406,10 +409,70 @@ function bodyLoaded() {
 function setPausedUnPaused() {
 	if ("${run.paused}" == "true") {
 		document.getElementById("pausedRadioButton").checked = true;
+		document.getElementById("selectNode").disabled = false;		
 	} else {
 		document.getElementById("unpausedRadioButton").checked = true;		
+		document.getElementById("selectNode").disabled = true;		
 	}
 }
+
+function createElement(doc, type, attrArgs){
+	if(window.ActiveXObject){
+		return createIEElement(doc, type, attrArgs);
+	};
+	var newElement = doc.createElement(type);
+	if(attrArgs!=null){
+		for(var option in attrArgs){
+			createAttribute(doc, newElement, option, attrArgs[option]);
+		};
+	};
+	return newElement;
+};
+
+function createAttribute(doc, node, type, val){
+	var attribute = doc.createAttribute(type);
+	attribute.nodeValue = val;
+	node.setAttributeNode(attribute);
+};
+
+/**
+ * Shows selected node to the student. NodeId is specified. 
+ * If nodeId = "", it means don't show any particular node.
+ * This function should only be called when the screen is currently paused.
+ * If it's called when screen is not paused, the call has no effect.
+ */
+function showNode(nodeId) {
+	if (document.getElementById("unpausedRadioButton").checked == true) {		
+		return;
+	}	
+	
+	var sUrl = "classmonitor.html";
+	var args = "runId=${run.id}&paused=true&showNodeId=" + nodeId;
+	var callback = {
+			success: function(o) {},
+			failure: function(o) {},
+			argument: []
+	}
+	var transaction = YAHOO.util.Connect.asyncRequest('POST', sUrl, callback, args);	
+}
+
+/**
+ * if allNodes is not null, sets the selectable nodes to show.
+ */
+function updateSelectableNodes() {
+	if (allNodes == null) {
+		return;
+	}
+
+	var selectNode = document.getElementById("selectNode");
+	for (var i=0; i<allNodes.length; i++) {
+		var node = allNodes[i];
+		var newOption = createElement(document, "option", {id: node.id, value: node.id, onclick: "showNode('"+node.id+"')"});
+		newOption.text=node.title;
+		selectNode.appendChild(newOption);	
+	}
+}
+
 </script>
 
 
@@ -431,17 +494,16 @@ function setPausedUnPaused() {
 
 <div>
 	<div id="studentProgressTools">
-	    All Student Screens Are Currently:
-		<form action="">
+	    	All Student Screens Are Currently:
 			<ul>
-			<li><input id="pausedRadioButton" type="radio" name="pauseAllRadio" onclick="doPauseAllScreens(true)">PAUSED</input></li>
-			<li><input id="unpausedRadioButton" type="radio" name="pauseAllRadio" onclick="doPauseAllScreens(false)">UNPAUSED</input></li>
-			<!--  
-			<li><a href="#">SEND MESSAGE TO TEAM(S)</a></li>
-			<li><a href="#">LOCK THIS PROGRESS SCREEN</a></li>
-			-->
-		</ul>
-		</form>
+				<li><input id="unpausedRadioButton" type="radio" name="pauseAllRadio" onclick="doPauseAllScreens(false)">UNPAUSED</input></li>
+				<li>
+					<input id="pausedRadioButton" type="radio" name="pauseAllRadio" onclick="doPauseAllScreens(true)">PAUSED</input>
+					| Showing:&nbsp; <select id="selectNode">
+						<option value="" onclick="showNode('')";></option>
+					</select>
+				</li>
+			</ul>
 	</div>
 	<div id="L3Label">Student Progress Monitor</div> 
 	<div id="studentProgressProjectTitle">${run.project.curnit.sdsCurnit.name}<span class="ProjectIDTag">(Project ID: ${run.project.id})</span></div> 
