@@ -318,7 +318,12 @@
     	<property name="moduleService" ref="curnitService"/>
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
-	
+
+	<bean id="studentWorkgroupServiceController" 
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.service.StudentWorkgroupServiceController">
+	    <property name="workgroupService" ref="wiseWorkgroupService" />
+	</bean>
+
 	<bean id="smartRoomController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.SmartRoomController">
 <!-- 	    <property name="runService" ref="runService" />

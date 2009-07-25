@@ -74,6 +74,23 @@ public class HibernateWorkgroupDao extends AbstractHibernateDao<Workgroup>
     }
 
     /**
+     * @see net.sf.sail.webapp.dao.workgroup.WorkgroupDao#getListByUser(net.sf.sail.webapp.domain.User)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Workgroup> getListByUser(User user) {
+        Session session = this.getSession();
+        SQLQuery sqlQuery = session
+                .createSQLQuery("SELECT w.*, g.* FROM workgroups as w, groups as g, "
+                		+ "groups_related_to_users as g_r_u "
+                        + "WHERE w.group_fk = g.id "
+                        + "AND g_r_u.group_fk = w.group_fk "
+                        + "AND g_r_u.user_fk = :user_param ");
+        sqlQuery.addEntity("workgroup", WorkgroupImpl.class);
+        sqlQuery.setParameter("user_param", user.getId(), Hibernate.LONG);
+        return sqlQuery.list();
+    }
+    
+    /**
      * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
      */
     @Override

@@ -172,6 +172,15 @@ public class WorkgroupServiceImpl implements WorkgroupService {
             User user) {
         return this.workgroupDao.getListByOfferingAndUser(offering, user);
     }
+    
+	/**
+	 * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#getWorkgroupsForUser(net.sf.sail.webapp.domain.User)
+	 */
+    @Transactional(readOnly = true)
+	public List<Workgroup> getWorkgroupsForUser(User user) {
+		// first find all of the runs that user is in.
+        return this.workgroupDao.getListByUser(user);
+	}
 
     /**
      * @see net.sf.sail.webapp.service.workgroup.WorkgroupService#createPreviewWorkgroupForOfferingIfNecessary(net.sf.sail.webapp.domain.Offering,
@@ -358,6 +367,6 @@ public class WorkgroupServiceImpl implements WorkgroupService {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-    
+
     // TODO HT: create method for creating workgroupname
 }

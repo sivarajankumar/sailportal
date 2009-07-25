@@ -37,6 +37,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import net.sf.sail.webapp.domain.Offering;
+import net.sf.sail.webapp.domain.OfferingVisitor;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
@@ -148,4 +149,11 @@ public class OfferingImpl implements Offering {
             return false;
         return true;
     }
+
+    /**
+     * @see net.sf.sail.webapp.domain.Offering#accept(net.sf.sail.webapp.domain.OfferingVisitor)
+     */
+	public Object accept(OfferingVisitor visitor) {
+		return visitor.visit(this);
+	}
 }

@@ -59,6 +59,15 @@ public interface WorkgroupService {
             String previewWorkgroupName);
     
     /**
+     * Given a User, returns all of the workgroups that the user is in
+
+     * @param user
+     *            the <code>User</code> to search for
+     * @return a list of workgroups that the specified user is in.
+     */
+    public List<Workgroup> getWorkgroupsForUser(User user);
+    
+    /**
      * Given a PreviewOffering, returns a workgroup that is used to preview it
      * If a workgroup has not been created yet, a new workgroup is created
      * with a default preview user

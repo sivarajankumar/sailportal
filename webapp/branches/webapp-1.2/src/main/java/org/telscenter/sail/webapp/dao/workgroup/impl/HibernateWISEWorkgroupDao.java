@@ -34,6 +34,8 @@ import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.impl.WorkgroupImpl;
 
 /**
  * DAO for <code>WISEWorkgroup</code>
@@ -77,6 +79,24 @@ public class HibernateWISEWorkgroupDao extends AbstractHibernateDao<WISEWorkgrou
         return sqlQuery.list();
     }
 
+    /**
+     * @see net.sf.sail.webapp.dao.workgroup.WorkgroupDao#getListByUser(net.sf.sail.webapp.domain.User)
+     */
+    @SuppressWarnings("unchecked")
+    public List<WISEWorkgroup> getListByUser(User user) {
+        Session session = this.getSession();
+        SQLQuery sqlQuery = session
+                .createSQLQuery("SELECT w.*, g.*, ww.* FROM workgroups as w, groups as g, "
+                		+ "groups_related_to_users as g_r_u, wiseworkgroups as ww  "
+                        + "WHERE w.group_fk = g.id "
+                        + "AND g_r_u.group_fk = w.group_fk "
+                        + "AND g_r_u.user_fk = :user_param "
+                        + "AND w.id = ww.id");
+        sqlQuery.addEntity("wiseworkgroup", WISEWorkgroupImpl.class);
+        sqlQuery.setParameter("user_param", user.getId(), Hibernate.LONG);
+        return sqlQuery.list();
+    }
+    
     /**
      * @see net.sf.sail.webapp.dao.impl.AbstractHibernateDao#getDataObjectClass()
      */

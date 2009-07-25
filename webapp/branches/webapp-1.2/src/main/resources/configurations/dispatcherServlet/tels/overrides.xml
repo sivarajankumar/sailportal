@@ -125,6 +125,7 @@
 				/student/brainstorm/getallposts.html=getAllPostsController
 				/student/brainstorm/resultsgraph.html=resultsGraphController
 				/student/brainstorm/pollinstantpoll.html=pollInstantPollController
+				/student/service/workgroup.html=studentWorkgroupServiceController
 				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController

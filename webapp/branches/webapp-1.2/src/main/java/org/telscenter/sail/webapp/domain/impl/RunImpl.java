@@ -51,6 +51,7 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.run.RunStatus;
 import org.telscenter.sail.webapp.domain.run.impl.RunStatusImpl;
 
+import net.sf.sail.webapp.domain.OfferingVisitor;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
@@ -405,5 +406,12 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setInfo(String info) {
 		this.info = info;
+	}
+	
+    /**
+     * @see net.sf.sail.webapp.domain.Offering#accept(net.sf.sail.webapp.domain.OfferingVisitor)
+     */
+	public Object accept(OfferingVisitor visitor) {
+		return visitor.visit(this);
 	}
 }

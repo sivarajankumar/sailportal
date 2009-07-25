@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 Regents of the University of California (Regents). Created
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
@@ -22,36 +22,14 @@
  */
 package net.sf.sail.webapp.domain;
 
-import net.sf.sail.webapp.domain.sds.SdsOffering;
+import org.telscenter.sail.webapp.domain.Run;
 
 /**
- * Offering domain object interface
- * 
- * @author Hiroki Terashima
- * @version $Id: User.java 231 2007-03-26 07:03:00Z hiroki $
+ * Visitor Pattern Interface for Offering
+ * @author hirokiterashima
+ * @version $Id: CurnitVisitor.java 2380 2009-05-15 21:04:45Z honchikun@gmail.com $
  */
-public interface Offering extends Persistable {
-
-    public Long getId();
-    /**
-     * Sets the SdsOffering object.
-     * 
-     * @param sdsOffering
-     *            the sdsOffering to set
-     */
-    public void setSdsOffering(SdsOffering sdsOffering);
-
-    /**
-     * Gets the SdsOffering object.
-     * 
-     * @return SdsOffering
-     */
-    public SdsOffering getSdsOffering();
-    
-    /**
-     * Visitor pattern, accepts OfferingVisitors
-     * @param visitor
-     * @return
-     */
-    Object accept(OfferingVisitor visitor);
+public interface OfferingVisitor {
+	Object visit(Offering offering);
+	Object visit(Run run);
 }

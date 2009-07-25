@@ -36,9 +36,17 @@ import net.sf.sail.webapp.domain.Workgroup;
 public interface WorkgroupDao<T extends Workgroup> extends SimpleDao<T> {
 
     /**
-     * Gets a list of workgroups.
+     * Gets a list of workgroups for the specified user in for the specified offering
      * 
      * @return a <code>Workgroup</code> <code>List</code>
      */
     public List<T> getListByOfferingAndUser(Offering offering, User user);
+    
+    /**
+     * Gets a list of workgroups for the specified user
+     * 
+     * @return a <code>Workgroup</code> <code>List</code>
+     */
+    public List<T> getListByUser(User user);
+
 }
