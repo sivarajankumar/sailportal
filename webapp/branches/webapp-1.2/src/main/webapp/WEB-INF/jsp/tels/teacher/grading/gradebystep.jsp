@@ -153,10 +153,13 @@
 <c:if test="${fn:length(curnitMap) > 0}">
 <div>
 	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
-	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.gradebystep.2"/></a></div>
+	<table>
+	<tr>
+        <td><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.gradebystep.2"/></a></div><td>
+        <td><div id="gradeStepInstructions"><spring:message code="teacher.gradebystep.3"/></div></td>
+	</tr>
+	</table>
 
-	<div id="gradeStepInstructions"><spring:message code="teacher.gradebystep.3"/></div>
-	
 	 <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
 		<div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div>  
 		<ul id="stepSelectionList"> 
@@ -173,18 +176,26 @@
 
 <!--  BEGIN: for LD-inspired Projects that don't have curnitmap -->
 <c:if test="${fn:length(gradeByStepUrl) > 0}">
-<div>
-	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
-	<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.gradebystep.2"/></a></div>
+		<div>
+		<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
+		<table>
+				<tr>
+						<td>
+						<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message
+								code="teacher.gradebystep.2" /></a></div>
+						</td>
+						<td>
+						<div id="gradeStepInstructions"><spring:message code="teacher.gradebystep.3" /></div>
+						</td>
+				</tr>
+		</table>
 
-	<div id="gradeStepInstructions"><spring:message code="teacher.gradebystep.3"/></div>
-	<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%" height="100%" frameborder="0">
- [Content for browsers that don't support iframes goes here.]
-    </iframe>
-	
-    <h3>gradebystepurl: ${gradeByStepUrl}</h3>
-    <h3>contentUrl: ${contentUrl}</h3>
-</div>
+		<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
+				height="100%" frameborder="0"> [Content for browsers that don't support iframes goes here.] </iframe>
+
+		<h3>gradebystepurl: ${gradeByStepUrl}</h3>
+		<h3>contentUrl: ${contentUrl}</h3>
+		</div>
 </c:if>
 <!--  END: for LD-inspired Projects that don't have curnitmap -->
 

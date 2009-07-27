@@ -26,6 +26,7 @@ body {
 	margin: 5px;
 	background-color:#FFFFFF;
 	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
+	overflow-x:auto;  
 	}
 	
 img {border: 0px;}
@@ -55,7 +56,7 @@ abbr, acronym {
 	
 #centeredDiv {
 		background-color:#FFFFFF;
-		width: 960px;
+		width: 958px;
 		text-align:left;
 		padding: 0;
 		margin: 0 auto;

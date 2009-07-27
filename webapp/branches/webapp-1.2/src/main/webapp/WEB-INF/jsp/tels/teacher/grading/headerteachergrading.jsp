@@ -21,46 +21,40 @@
 
 
 <div id="bannerArea">
-<div id="wiseLogo"><a href=".././index.html"
-	onmouseout="MM_swapImgRestore()"
-	onmouseover="MM_swapImage('WISE Secondary Logo','','../../themes/tels/default/images/WISE-Secondary-Banner-Logo-Roll.png',1)">
-	<img src="../../themes/tels/default/images/WISE-Secondary-Banner-Logo.png"
-	alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
+<div id="wiseLogo"><a href=".././index.html" onmouseout="MM_swapImgRestore()"
+		onmouseover="MM_swapImage('WISE Medium Logo','','../../themes/tels/default/images/WISE-Logo-Medium-Roll-1.png',1)"> <img
+		src="../../themes/tels/default/images/WISE-Logo-Medium-1.png" alt="WISE 4 Logo" border="0" id="WISE Medium Logo" /></a></div>
 <div id="teacherBannerLabel">
-<p><img
-	src="../../themes/tels/default/images/Teacher-Dashboard-Label.png"
-	alt="Teacher Dashboard Label" /></p>
+<p><img src="../../themes/tels/default/images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" /></p>
 </div>
 
 <div id="navigationMainProjects">
 <ul>
-	<li><a href="../index.html"
-		onmouseout="MM_swapImgRestore()"
-		onmouseover="MM_swapImage('homebutton','','../../themes/tels/default/images/teacher/Home-Buttn-Selected.png',1)">
-		<img src="../../themes/tels/default/images/teacher/Home-Buttn-Clickable.png"	alt="Home Nav Button" id="homebutton" /></a>
-	<li><a href="../projects/index.html"
-		onmouseout="MM_swapImgRestore()"
-		onmouseover="MM_swapImage('projectsbutton','','../../themes/tels/default/images/teacher/Projects-Buttn-Selected.png',1)">
-		<img src="../../themes/tels/default/images/teacher/Projects-Buttn-Clickable.png" alt="Projects Nav Button" id="projectsbutton" /></a>
-	<li><a href="../grading/overview.html" 
-		onmouseout="MM_swapImgRestore()"
-		onmouseover="MM_swapImage('gradingbutton','','../../themes/tels/default/images/teacher/Grading-Buttn-Selected.png',1)">
+		<li><a href="../index.html" onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('homebutton','','../../themes/tels/default/images/teacher/Home-Buttn-Selected.png',1)"> <img
+				src="../../themes/tels/default/images/teacher/Home-Buttn-Clickable.png" alt="Home Nav Button" id="homebutton" /></a>
+		<li><a href="../projects/index.html" onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('projectsbutton','','../../themes/tels/default/images/teacher/Projects-Buttn-Selected.png',1)">
+		<img src="../../themes/tels/default/images/teacher/Projects-Buttn-Clickable.png" alt="Projects Nav Button"
+				id="projectsbutton" /></a>
+		<li><a href="../grading/overview.html" onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('gradingbutton','','../../themes/tels/default/images/teacher/Grading-Buttn-Selected.png',1)">
 		<img src="../../themes/tels/default/images/teacher/Grading-Buttn-Selected.png" alt="Grading Nav Button" id="gradingbutton" /></a>
-	<li><a href="../management/overview.html" 
-		onmouseout="MM_swapImgRestore()"
-		onmouseover="MM_swapImage('managementbutton','','../../themes/tels/default/images/teacher/Management-Buttn-Selected2.png',1)">
-		<img src="../../themes/tels/default/images/teacher/Management-Buttn-Clickable2.png" 	alt="Management Nav Button" id="managementbutton" /></a>
-	<li><a href="../help/overview.html" 
-		onmouseout="MM_swapImgRestore()"
-		onmouseover="MM_swapImage('helpbutton','','../../themes/tels/default/images/teacher/Help-Buttn-Selected2.png',1)">
-		<img src="../../themes/tels/default/images/teacher/Help-Buttn-Clickable2.png"	alt="Help Nav Button" id="helpbutton" /></a>
+		<li><a href="../management/overview.html" onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('managementbutton','','../../themes/tels/default/images/teacher/Management-Buttn-Selected2.png',1)">
+		<img src="../../themes/tels/default/images/teacher/Management-Buttn-Clickable2.png" alt="Management Nav Button"
+				id="managementbutton" /></a>
+		<li><a href="../help/overview.html" onmouseout="MM_swapImgRestore()"
+				onmouseover="MM_swapImage('helpbutton','','../../themes/tels/default/images/teacher/Help-Buttn-Selected2.png',1)"> <img
+				src="../../themes/tels/default/images/teacher/Help-Buttn-Clickable2.png" alt="Help Nav Button" id="helpbutton" /></a>
 </ul>
 </div>
 <div id="usernameSignOutBoxTeacher">
-<div id="usernameBannerTeacher"><sec:authentication	property="principal.username" /></div>
-<div id="signOutBannerTeacher"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a></div>
+<div id="usernameBannerTeacher"><sec:authentication property="principal.username" /></div>
+<div id="signOutBannerTeacher"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out" /></a></div>
 </div>
-</div> <!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are relative to bannerArea -->
+</div>
+<!-- End of bannerArea   Note that NavigationMainProjects and usernameSignoutBox are relative to bannerArea -->
 
 
 
