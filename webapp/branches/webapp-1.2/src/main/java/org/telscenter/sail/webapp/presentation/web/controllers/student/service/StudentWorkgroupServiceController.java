@@ -76,7 +76,6 @@ public class StudentWorkgroupServiceController extends AbstractController {
 	 * @throws NumberFormatException 
 	 * @throws IOException 
 	 */
-	@SuppressWarnings("unchecked")
 	private ModelAndView printAllWorkgroups(HttpServletRequest request,
 			HttpServletResponse response) throws NumberFormatException, ObjectNotFoundException, IOException {
 		
@@ -87,14 +86,14 @@ public class StudentWorkgroupServiceController extends AbstractController {
 		// get all of the workgroups that the members of the specified workgroup is in.
 		// use Set so that we don't print same workgroup twice.
 		Set<User> members = workgroup.getMembers();
-		Set<WISEWorkgroup> allWorkgroups = new HashSet<WISEWorkgroup>();
+		Set<Workgroup> allWorkgroups = new HashSet<Workgroup>();
 		for (User member : members) {
-			allWorkgroups.addAll((Collection<? extends WISEWorkgroup>) workgroupService.getWorkgroupsForUser(member));
+			allWorkgroups.addAll(workgroupService.getWorkgroupsForUser(member));
 		}
 		
 		// now print the xml.
 		String xmlSoFar = "<workgroups>";
-		for (WISEWorkgroup thisWorkgroup : allWorkgroups) {
+		for (Workgroup thisWorkgroup : allWorkgroups) {
 			xmlSoFar += "<workgroup>";
 			xmlSoFar += "<id>"+ thisWorkgroup.getId() +"</id>";
 			xmlSoFar += "<members>"+ thisWorkgroup.generateWorkgroupName() +"</members>";
