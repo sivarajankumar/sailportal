@@ -76,6 +76,7 @@ public class StudentWorkgroupServiceController extends AbstractController {
 	 * @throws NumberFormatException 
 	 * @throws IOException 
 	 */
+	@SuppressWarnings("unchecked")
 	private ModelAndView printAllWorkgroups(HttpServletRequest request,
 			HttpServletResponse response) throws NumberFormatException, ObjectNotFoundException, IOException {
 		

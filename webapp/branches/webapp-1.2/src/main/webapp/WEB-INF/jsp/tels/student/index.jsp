@@ -345,6 +345,12 @@ YAHOO.util.Event.onDOMReady(init);
 		src="../<spring:theme code="student_change_password" />"
 		style="border: 0px;" /> </a></li>
 		
+	<li><a href="#"
+        onclick="javascript:popup640('changestudentpassword.html?userName=${user.userDetails.username}');"	
+		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
+		onmouseout="swapImage('studentchangepwd','../<spring:theme code="student_change_password" />');"
+		>See My Journal</a></li>
+				
 	<li><a href="<c:url value="/j_spring_security_logout"/>"
 		onmouseover="swapImage('studentsignout','../<spring:theme code="student_sign_out_roll" />');"
 		onmouseout="swapImage('studentsignout','../<spring:theme code="student_sign_out" />');"> 
