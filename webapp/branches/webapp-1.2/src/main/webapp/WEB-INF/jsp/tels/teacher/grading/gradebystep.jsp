@@ -191,7 +191,7 @@
 		</table>
 
 		<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
-				height="100%" frameborder="0"> [Content for browsers that don't support iframes goes here.] </iframe>
+				height="500px" frameborder="0"> [Content for browsers that don't support iframes goes here.] </iframe>
 
 		<h3>gradebystepurl: ${gradeByStepUrl}</h3>
 		<h3>contentUrl: ${contentUrl}</h3>
