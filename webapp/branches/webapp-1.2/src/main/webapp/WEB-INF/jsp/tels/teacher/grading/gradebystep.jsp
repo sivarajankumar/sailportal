@@ -145,30 +145,18 @@
 
 <%@ include file="L2grading_bystep.jsp"%>
 
-<div id="overviewHeaderGrading"><spring:message code="teacher.gradebystep.1"/></div>
-
 <div id="gradeStepSelectionArea">
 
 <!--  BEGIN: for projects that have curnitmap -->
 <c:if test="${fn:length(curnitMap) > 0}">
 <div>
-	<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
-	<table>
-	<tr>
-        <td><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.gradebystep.2"/></a></div><td>
-        <td><div id="gradeStepInstructions"><spring:message code="teacher.gradebystep.3"/></div></td>
-	</tr>
-	</table>
-
-	 <c:forEach var="someAct" varStatus="varAct" items="${curnitMap.project.activity}">
-		<div id="stepTitle">Activity ${someAct.number+1}: ${someAct.title}</div>  
-		<ul id="stepSelectionList"> 
-			<c:forEach var="someStep" varStatus="varStep" items="${someAct.step}">
-				<c:if test="${someStep.type == 'Note'}"><li><a href="gradingtool.html?runId=${runId}&podUUID=${someStep.podUUID}&tab=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a> <span id="stepTypeStyle"> (${someStep.type})</span> <span id="stepGradingNotification"> X <spring:message code="teacher.gradebystep.4"/></span></li></c:if>
-				<c:if test="${someStep.type == 'Student Assessment'}"><li><a href="gradingtool.html?runId=${runId}&podUUID=${someStep.podUUID}&tab=0" id="gradeAct${someAct.number}Step${someStep.number}">Step  ${someStep.number+1}: ${someStep.title}</a></li></c:if>
-			</c:forEach>
-		</ul>
-    </c:forEach>
+		<table id="selectedProjectTable">
+				<tr>
+						<td><div id="gradeStepSelectedProject">Name of Selected Project Goes Here  (ID xxxxx)</div><td>
+						<td><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message
+								code="teacher.gradebystep.2" /></a></div></td>
+				</tr>
+		</table>
 
 </div>
 </c:if>
@@ -177,26 +165,23 @@
 <!--  BEGIN: for LD-inspired Projects that don't have curnitmap -->
 <c:if test="${fn:length(gradeByStepUrl) > 0}">
 		<div>
-		<div id="gradeStepSelectedProject">${curnitMap.project.title}</div>
-		<table>
+		
+		<table id="selectedProjectTable">
 				<tr>
-						<td>
-						<div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message
-								code="teacher.gradebystep.2" /></a></div>
-						</td>
-						<td>
-						<div id="gradeStepInstructions"><spring:message code="teacher.gradebystep.3" /></div>
-						</td>
+						<td><div id="gradeStepSelectedProject">Name of Selected Project Goes Here  (ID xxxxx)</div><td>
+						<td><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message
+								code="teacher.gradebystep.2" /></a></div></td>
 				</tr>
 		</table>
 
 		<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
 				height="500px" frameborder="0"> [Content for browsers that don't support iframes goes here.] </iframe>
 
-		<h3>gradebystepurl: ${gradeByStepUrl}</h3>
-		<h3>contentUrl: ${contentUrl}</h3>
+		<h3 style="display:none;">gradebystepurl: ${gradeByStepUrl}</h3>
+		<h3 style="display:none;">contentUrl: ${contentUrl}</h3>
 		</div>
 </c:if>
+
 <!--  END: for LD-inspired Projects that don't have curnitmap -->
 
 
