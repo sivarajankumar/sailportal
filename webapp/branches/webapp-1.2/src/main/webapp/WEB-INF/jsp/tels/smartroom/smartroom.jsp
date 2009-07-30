@@ -3,7 +3,9 @@
 <head> </head>
 
 <body>
-workgroup: ${workgroup}
+UserNmae is: ${user}
+
+The name is: ${name }
 
 </body>
 
