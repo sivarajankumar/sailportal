@@ -192,10 +192,14 @@ var runManager = new RunManager();
 
 </script>
 
+<!--The following style nixes an annoying white margin border added by default to the YUI class element.-->
+<style type="text/css">
+.yui-skin-sam {	margin:0px;}
+</style>
 
 
 </head>
-<body class=" yui-skin-sam">
+<body class="yui-skin-sam">
 <div id="wait"></div> 
 <iframe id="topifrm" src="${vleurl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto"
  width="100%" height="100%" frameborder="0">

@@ -174,8 +174,8 @@
 				</tr>
 		</table>
 
-		<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
-				height="500px" frameborder="0"> [Content for browsers that don't support iframes goes here.] </iframe>
+				<iframe id="topifrm" src="${gradeByStepUrl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
+				height="20000px" frameborder="0">Sorry, you cannot view this web page because your browser doesn't support iframes.</iframe>
 
 		<h3 style="display:none;">gradebystepurl: ${gradeByStepUrl}</h3>
 		<h3 style="display:none;">contentUrl: ${contentUrl}</h3>

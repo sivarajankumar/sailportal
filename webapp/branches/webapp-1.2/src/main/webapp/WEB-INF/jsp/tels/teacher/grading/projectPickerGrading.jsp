@@ -206,7 +206,7 @@
 </div> <!-- end of tabSystem Div -->
 
 <div id="returnToTopLink">
-	<a href="../management/managemystudents.html"><spring:message code="teacher.grading.projectpicker.17"/>&nbsp;<em><spring:message code="teacher.grading.projectpicker.18"/></em>&nbsp;<spring:message code="teacher.grading.projectpicker.19"/></a>
+	<a href="../grading/overview.html">Return to Grading Overview</a>
 </div>
 
 </div>   <!--End of Centered Div-->

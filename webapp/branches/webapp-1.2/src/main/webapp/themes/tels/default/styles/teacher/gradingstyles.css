@@ -80,7 +80,7 @@
 }
 
 #gradeStepSelectionArea {
-	margin: 10px 0 0 30px;
+	margin: 8px 0 0 5px;
 	padding:0px;
 	}
 	
@@ -90,7 +90,7 @@
 	
 #gradeStepSelectedProject {
 	color:#CC0000;
-	font-size:1.3em;
+	font-size:1.1em;
 	font-weight:bold;
 	font-variant:small-caps;
 	}	
@@ -99,19 +99,19 @@
 	border-collapse:collapse;
 	border:0px;
 	margin:0 0 5px 0px;
-	}	
-	
+		}	
+		
 #selectAnotherLink a:link, #selectAnotherLink a:visited {
-	font-size: .8em;
+	font-size: .7em;
 	background-color:#FFFFFF;
 	padding:2px;
+	margin-left:50px;
 	color:blue;
+	vertical-align:bottom;
 }
 
 #selectAnotherLink a:hover  {
-	font-size: .8em;
 	background-color:#FFFF33;
-	padding:2px; 
 	color:#000033;
 	}
 			
@@ -175,7 +175,7 @@
    font-variant:small-caps;
    }
 	
-/* CSS FOR GRADE BY STEP LAYOUT  */ 
+/* CSS FOR GRADE BY STEP LAYOUT  OLD JSP STYLES */ 
 
 #currentStepTable {
 	margin:6px 0 20px 0;
@@ -352,7 +352,7 @@
 }
 
 
-/* CSS FOR GRADE BY TEAM LAYOUT  */ 
+/* CSS FOR GRADE BY TEAM LAYOUT  OLD JPS STYLES*/ 
 
 #currentTeamHeader {
 	margin:6px 0 10px 0;
