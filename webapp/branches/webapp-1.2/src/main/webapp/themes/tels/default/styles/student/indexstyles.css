@@ -18,6 +18,11 @@
  * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
  */
 
+
+.yui-content {
+	min-height:575px;
+}
+
 .center {text-align:center;}
 
 table  {
@@ -36,11 +41,8 @@ table tr, table td {
 #columnButtons {
 	float:left;
 	width: 245px;
-	margin:10px 0 0 0 ;
-	background-color:#CCFFCC;
-	background-image:url(../../images/Texture_Green3.png); 
-	background-position:top;
-	background-repeat:repeat;
+	margin:5px 0 0 0 ;
+	background-color:#FFCE8E;
 	border-top: 1px solid #666666;
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
@@ -133,16 +135,13 @@ table tr, table td {
 	}
 
 #columnLabel {
-	background-color:#FFFF66;
-	background-image:url(../../images/Texture_Green3.png); 
-	background-position:right; 
-	background-repeat:repeat;
-	color:#000000;
+	background-color:#FFCE8E;
+	color:#000;
 	font-size:1.1em;
 	letter-spacing:3px;
 	text-align:left;
 	padding: 5px 5px 5px 8px;
-	margin: 17px 0 15px 0;
+	margin: 12px 0 15px 0;
 	border:1px solid #666666;
 }
 
@@ -181,7 +180,7 @@ table tr, table td {
 .studentTableLeftHeaderCurrent {
 	width:15%;
 	padding: 0px 5px;
-	background-color:#FFFF99;	
+	background-color:#FF9D1E;	
 	}
 	
 .studentTableLeftHeaderArchive {
@@ -255,7 +254,7 @@ table tr, table td {
 
 .teamNotRegisteredMessage {
 	font-weight:bold;
-	color:#3333FF;
+	color:#0000CC;
 }
 
 #firstUseBox{

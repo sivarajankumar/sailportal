@@ -320,7 +320,7 @@ YAHOO.util.Event.onDOMReady(init);
 	<dd></dd>
 </dl>
 
-<div style="text-align:center;"><img src="../themes/tels/default/images/student/Panda.jpg" width="220"  alt="WIse 3 Panda" /></div>
+<div style="text-align:center;"><img src="../themes/tels/default/images/student/Panda.jpg" width="220"  alt="WISE 3 Panda" /></div>
 
 <div id="accountOptions"><spring:message code="wise.account-options" /></div>
 
@@ -334,8 +334,15 @@ YAHOO.util.Event.onDOMReady(init);
 		src="../<spring:theme code="student_add_project" />" /> </a>
 	</li>
 		
-	<!-- note: to make the change student password into AJAX, type in class="changepasswordLink" -->	
-					
+	<!-- note: to make the change to student password into AJAX, type in class="changepasswordLink" -->	
+	
+	<li><a href="#"
+        onclick=""	
+		onmouseover="swapImage('studentopenjournal','../<spring:theme code="student_open_journal_roll" />');"
+		onmouseout="swapImage('studentopenjournal','../<spring:theme code="student_open_journal" />');"	>
+		<img id="studentopenjournal" src="../<spring:theme code="student_open_journal" />"
+		style="border: 0px;" /> </a></li>
+		
 	<li><a href="#"
         onclick="javascript:popup640('changestudentpassword.html?userName=${user.userDetails.username}');"	
 		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
@@ -345,12 +352,6 @@ YAHOO.util.Event.onDOMReady(init);
 		src="../<spring:theme code="student_change_password" />"
 		style="border: 0px;" /> </a></li>
 		
-	<li><a href="#"
-        onclick="javascript:popup640('changestudentpassword.html?userName=${user.userDetails.username}');"	
-		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
-		onmouseout="swapImage('studentchangepwd','../<spring:theme code="student_change_password" />');"
-		>See My Journal</a></li>
-				
 	<li><a href="<c:url value="/j_spring_security_logout"/>"
 		onmouseover="swapImage('studentsignout','../<spring:theme code="student_sign_out_roll" />');"
 		onmouseout="swapImage('studentsignout','../<spring:theme code="student_sign_out" />');"> 
@@ -394,9 +395,9 @@ YAHOO.util.Event.onDOMReady(init);
 
 <div class="separator"></div>
 
-<div style="text-align:center;"><img src="../themes/tels/default/images/Wise-Logo-W3-Georgia.png" alt="SAIL Logo" /></div>
+<div style="text-align:center;margin-top:5px"><img src="../themes/tels/default/images/WISE-Logo-Small-1.png" alt="WISE Small Logo" /></div>
 
-<div id="displayAsEnglish">WISE 3.0 &amp; Amanda the Panda <br/>&#169; 1998-2008 <a href="../contactwisegeneral.html" title="Contact WISE Link"><spring:message code="student.index.11"/></a></div>
+<div id="displayAsEnglish">4.0 &amp; Amanda the Panda <br/>&#169; 1998-2010 <a href="../contactwisegeneral.html" title="Contact WISE Link"><spring:message code="student.index.11"/></a></div>
 
 <div style="display:none;" id="displayAsEnglish"><a href="#"><spring:message code="student.index.12"/></a></div>
 
@@ -516,14 +517,9 @@ YAHOO.util.Event.onDOMReady(init);
 						<h6><spring:message code="student.index.29"/></h6>
 						<ol>
 							<li><spring:message code="student.index.30A"/></li>
-								<ul style="margin:5px 0 5px 25px;font-size:.9em;">
-									<li><spring:message code="student.index.30B"/></li>
-									<li><spring:message code="student.index.30C"/></li>
-								</ul>
+							<li><spring:message code="student.index.30C"/></li>
 							<li><spring:message code="student.index.31"/></li>
 							<li><spring:message code="student.index.32"/></li>
-							<li><spring:message code="student.index.33"/></li>
-							<li><spring:message code="student.index.34"/></li> 
 						</ol>
 					</div>
 				</div>
