@@ -377,12 +377,14 @@ public class RunImpl extends OfferingImpl implements Run {
 	 * @return the isPaused
 	 */
 	public boolean isPaused() {
-		int start = this.info.indexOf("<isPaused>");
-		if (start >=0) {
-			int end = this.info.indexOf("</isPaused>");
-			String isPausedStr = this.info.substring(start+10, end);
-			System.out.println(isPausedStr);
-			return new Boolean(isPausedStr).booleanValue();
+		if (this.info != null) {
+			int start = this.info.indexOf("<isPaused>");
+			if (start >=0) {
+				int end = this.info.indexOf("</isPaused>");
+				String isPausedStr = this.info.substring(start+10, end);
+				System.out.println(isPausedStr);
+				return new Boolean(isPausedStr).booleanValue();
+			}
 		}
 		return false;
 	}

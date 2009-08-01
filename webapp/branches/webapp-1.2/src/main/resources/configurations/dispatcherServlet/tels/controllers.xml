@@ -319,6 +319,12 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
+	<bean id="previewLDProjectController" 
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewLDProjectController">
+	    <property name="runService" ref="runService" />
+	    <property name="workgroupService" ref="wiseWorkgroupService" />
+	</bean>
+
 	<bean id="studentWorkgroupServiceController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.service.StudentWorkgroupServiceController">
 	    <property name="workgroupService" ref="wiseWorkgroupService" />

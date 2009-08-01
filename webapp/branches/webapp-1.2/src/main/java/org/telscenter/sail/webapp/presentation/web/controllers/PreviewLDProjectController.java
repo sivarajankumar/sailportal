@@ -20,12 +20,9 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.student;
+package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -33,58 +30,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
-import net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.announcement.Announcement;
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
-import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
-import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.service.student.StudentService;
-import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
-
-import roolo.elo.api.IELO;
 
 /**
- * Controller for handling student VLE-portal interactions.
- * - launch vle, pass in contentbaseurl, load student data url, etc.
+ * Controller for handling student VLE-portal interactions for Preview Mode
  * 
  * @author hirokiterashima
- * @version $Id$
+ * @version $Id: StudentVLEController.java 2414 2009-07-24 18:34:41Z geoffreykwan $
  */
-public class StudentVLEController extends AbstractController {
+public class PreviewLDProjectController extends AbstractController {
 
 	private RunService runService;
 	
-	private StudentService studentService;
-	
 	private WorkgroupService workgroupService;
-	
-	private ModuleService moduleService;
-	
-	private BrainstormService brainstormService;
-
-	private HttpRestTransport httpRestTransport;
 	
 	protected final static String CURRENT_STUDENTRUNINFO_LIST_KEY = "current_run_list";
 
@@ -97,12 +67,6 @@ public class StudentVLEController extends AbstractController {
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
 
 	private static final String RUNID = "runId";
-	
-	private static final String RUN_STATUS_ID = "runSettingsId";
-
-	private static final String SHOW_NEW_ANNOUNCEMENTS = "showNewAnnouncements";
-	
-	private static final String SUMMARY = "summary";
 
 	private static final String WORKGROUP_ID_PARAM = "workgroupId";
 	
@@ -258,7 +222,7 @@ public class StudentVLEController extends AbstractController {
 	private ModelAndView handleLaunchVLE(HttpServletRequest request,
 			Run run) throws ObjectNotFoundException {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
-		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
+		String portalVLEControllerUrl = portalurl + "/webapp/preview.html?runId=" + run.getId();
 
 		String vleurl = portalurl + "/vlewrapper/vle/vle.html";
 		String vleConfigUrl = portalVLEControllerUrl + "&action=getVLEConfig";
@@ -447,43 +411,11 @@ public class StudentVLEController extends AbstractController {
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
-
-	/**
-	 * @param studentService the studentService to set
-	 */
-	@Required
-	public void setStudentService(StudentService studentService) {
-		this.studentService = studentService;
-	}
-
-	/**
-	 * @param httpRestTransport
-	 *            the httpRestTransport to set
-	 */
-	@Required
-	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-		this.httpRestTransport = httpRestTransport;
-	}
-
 	/**
 	 * @param workgroupService the workgroupService to set
 	 */
 	@Required
 	public void setWorkgroupService(WorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
-	}
-
-	/**
-	 * @param brainstormService the brainstormService to set
-	 */
-	public void setBrainstormService(BrainstormService brainstormService) {
-		this.brainstormService = brainstormService;
-	}
-	
-	/**
-	 * @param moduleService the moduleService to set
-	 */
-	public void setModuleService(ModuleService moduleService) {
-		this.moduleService = moduleService;
 	}
 }

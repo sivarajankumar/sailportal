@@ -289,7 +289,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		Workgroup previewWorkgroup = 
 			workgroupService.getPreviewWorkgroupForRooloOffering(project.getPreviewRun(), previewUser);
 				
-		return new ModelAndView(new RedirectView(generateStudentStartProjectUrlString(params.getHttpServletRequest(), 
+		return new ModelAndView(new RedirectView(generateStudentPreviewProjectUrlString(params.getHttpServletRequest(), 
 				project.getPreviewRun(), previewWorkgroup) + "&preview=true"));
 	}
 
@@ -310,6 +310,13 @@ public class LdProjectServiceImpl implements ProjectService {
 		this.projectDao.save(project);
 	}
 	
+	/**
+	 * Returns url string for actual run
+	 * @param request
+	 * @param run
+	 * @param workgroup
+	 * @return
+	 */
 	public String generateStudentStartProjectUrlString(HttpServletRequest request,
 			Run run, Workgroup workgroup) {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + 
@@ -317,7 +324,22 @@ public class LdProjectServiceImpl implements ProjectService {
 		String launchVLE = "/student/vle/vle.html?runId=" + run.getId() + "&workgroupId=" + workgroup.getId();
 		return portalUrl + launchVLE;
 	}
-	
+
+	/**
+	 * Returns url string for previewing the run
+	 * @param request
+	 * @param run
+	 * @param workgroup
+	 * @return
+	 */
+	public String generateStudentPreviewProjectUrlString(HttpServletRequest request,
+			Run run, Workgroup workgroup) {
+		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + 
+			request.getContextPath();
+		String launchVLE = "/preview.html?runId=" + run.getId() + "&workgroupId=" + workgroup.getId();
+		return portalUrl + launchVLE;
+	}
+
 	/**
 	 * Creates a PreviewRun for this project and
 	 * set it in this project
