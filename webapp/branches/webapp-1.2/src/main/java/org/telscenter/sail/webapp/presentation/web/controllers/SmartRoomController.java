@@ -80,10 +80,10 @@ public class SmartRoomController  extends AbstractController {
 				// returns the offerings(runs)information 
 				// for see the result http://localhost:8080/webapp/smartroom/smartroom.html?action=getOfferings
 				return handleGetOfferings(request, response);
-			}if (action.equals("getWorkgroups")) {//++++++++++++++++++++++++++++++++++++++ this is for test
+			}if (action.equals("getAll")) {//++++++++++++++++++++++++++++++++++++++ this is for test
 				// returns all information about workgroups this is for test 
-				// for see the result http://localhost:8080/webapp/smartroom/smartroom.html?action=getWorkgroups
-				return handleGetWorkgroups(request, response);
+				// for see the result http://localhost:8080/webapp/smartroom/smartroom.html?action=getAll
+				return handleGetAll(request, response);
 			} else {
 				// shouldn't get here
 				throw new RuntimeException("should not get here");
@@ -310,7 +310,7 @@ public class SmartRoomController  extends AbstractController {
 	 * @throws IOException 
 	 * @throws ObjectNotFoundException 
 	 */
-	private ModelAndView handleGetWorkgroups(HttpServletRequest request,
+	private ModelAndView handleGetAll(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ObjectNotFoundException {
 
 		List<Workgroup> workgroupsList = this.workgroupService.getWorkgroupList() ;
