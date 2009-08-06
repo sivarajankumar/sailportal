@@ -68,10 +68,10 @@ public class SmartRoomController  extends AbstractController {
 				//retrieves all Groups by specific offeringId
 				// for see the result http://localhost:8080/webapp/smartroom/smartroom.html?action=getGroups&offeringId=2
 				return handleGetGroups(request, response);
-			}if (action.equals("getMembersGroup")) {
+			}if (action.equals("getGroupMembers")) {
 				// retrieves all members(users) in a Group by specific groupId
-				// for see the result http://localhost:8080/webapp/smartroom/smartroom.html?action=getMembersGroup&groupId=6
-				return handleGetMembersGroup(request, response);
+				// for see the result http://localhost:8080/webapp/smartroom/smartroom.html?action=getGroupMembers&groupId=6
+				return handleGetGroupMembers(request, response);
 			}if (action.equals("getWorkgroups")) {
 				//returns the workgroups of the specific OFFERING ID as an XML String 
 				// for see the result http://localhost:8080/webapp/smartroom/smartroom.html?action=getgetWorkgroups&offeringId=2
@@ -223,12 +223,12 @@ public class SmartRoomController  extends AbstractController {
 	 * @throws IOException 
 	 * @throws ObjectNotFoundException
 	 */
-	private ModelAndView handleGetMembersGroup(HttpServletRequest request,
+	private ModelAndView handleGetGroupMembers(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ObjectNotFoundException {
 
 		Long groupId = Long.parseLong(request.getParameter(GROUPID));
 		Boolean members_group_is_null = true;
-		String membersGroupXML = "<membersGroup>";
+		String membersGroupXML = "<groupMembers>";
 		List<Workgroup> workgroupsList = this.workgroupService.getWorkgroupList();
 		for(Iterator<Workgroup> iter = workgroupsList.iterator(); iter.hasNext();){
 			Workgroup workgroup = iter.next();
@@ -238,18 +238,18 @@ public class SmartRoomController  extends AbstractController {
 				//workgroupXML += "<groupMembers>";
 				for(Iterator<User> i = groupMembersSet.iterator(); i.hasNext();){
 					User user = i.next();
-					membersGroupXML += "<memberGroup>";
+					membersGroupXML += "<groupMember>";
 					membersGroupXML += "<id>" + user.getUserDetails().getId().toString() + "</id>";
 					membersGroupXML += "<name>" + user.getUserDetails().getUsername().toString() + "</name>";
 					//workgroupXML += "<email>" + user.getUserDetails().getEmailAddress() + "</email>";
-					membersGroupXML += "</memberGroup>";
+					membersGroupXML += "</groupMember>";
 					members_group_is_null = false;
 				}
 			}
 		}
 		if (members_group_is_null)
 			membersGroupXML += "null";
-		membersGroupXML += "</membersGroup>";
+		membersGroupXML += "</groupMembers>";
 		
 		setResponse(response, membersGroupXML);
 		return null;
