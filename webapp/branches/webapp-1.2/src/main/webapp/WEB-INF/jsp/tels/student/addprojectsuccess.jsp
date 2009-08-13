@@ -30,7 +30,7 @@
 <title><spring:message code="application.title" /></title>
 </head>
 
-<body>
+<body onload="window.parent.location.reload()">
 
 <h1><spring:message code="student.addprojectsuccess.1"/></h1>
 
