@@ -10,8 +10,11 @@
 </head>
 
 <body>
+email is: ${email}
 ${commandsXML}
 
+<br/>
+The name is: ${name }
 
 </body>
 
