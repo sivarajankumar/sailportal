@@ -1,11 +1,17 @@
 <html>
 
-<head> </head>
+<head> 
+	<style type="text/css">
+	strong {color:darkmagenta}
+	code {color:black}
+	kbd {color:blue)
+	</style>
+
+</head>
 
 <body>
-UserNmae is: ${user}
+${commandsXML}
 
-The name is: ${name }
 
 </body>
 
