@@ -332,13 +332,12 @@
 
 	<bean id="smartRoomController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.SmartRoomController">
-<!-- 	    <property name="runService" ref="runService" />
-	    <property name="studentService" ref="studentService" />
-		<property name="brainstormService" ref="brainstormService" />
+		<property name="userService" ref="userService" />
+	    <property name="runService" ref="runService" />
+	    <property name="offeringService" ref="offeringService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
-    	<property name="moduleService" ref="curnitService"/>
-		<property name="httpRestTransport" ref="httpRestTransport" />
- -->
+		<property name="groupService" ref="groupService"/>
+        <property name="projectService" ref="projectService" />
 	</bean>
 
 	<bean id="studentDataController" 
