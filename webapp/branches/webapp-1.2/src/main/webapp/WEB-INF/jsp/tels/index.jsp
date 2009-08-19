@@ -83,7 +83,8 @@ width: 100%;
 
 <table id="tableTop" cellpadding="0" cellspacing="0">
 		<tr>
-				<td id="boxTableWelcome" class="panelColor">
+				<td>
+				<div id="boxTableWelcome" class="panelColor">
 				<div id="header"><spring:message code="welcometowise" /></div>
 
 				<div id="parastyleTable">
@@ -169,7 +170,7 @@ width: 100%;
 								id="Contact Wise Button" /></a></li>
 
 				</ul>
-
+				</div>
 				</td>
 				<!--    End of Welcome Box-->
 
@@ -224,7 +225,8 @@ width: 100%;
 
 <table id="tableBottom" cellpadding="0" cellspacing="0">
 		<tr>
-				<td id="boxWiseInAction" class="panelColor">
+				<td id="boxWiseInAction" 
+				<div class="panelColor">
 				<div id="header"><spring:message code="home.wiseinactionlabel" /></div>
 
 				<div class="alignCenter"><img id="rotator" src="./themes/tels/default/images/wiseInAction/AirBag.jpg" height="228" /></div>
@@ -245,13 +247,15 @@ width: 100%;
                         counter=proceedToNextImage(counter);
                         changeText('actionImgLinkTable',counter);" />
 				</div>
+				</div>
 				</td>
 				<!--    End of boxWISEInAction  -->
 
 				<td class="width15"></td>
 				<!--    Separator Column-->
 
-				<td id="boxTestimonials" class="panelColor">
+				<td id="boxTestimonials" >
+				<div class="panelColor">
 
 				<div id="header"><spring:message code="home.testimonialslabel" /></div>
 
@@ -272,11 +276,13 @@ width: 100%;
                         		counter_T=proceedToNextImage_T(counter_T);
                        			 changeText_T('testimonialsImgLinkTable',counter_T);" />
 				</div>
+				</div>
 				</td>
 
 				<td class="width15"></td>
 
-				<td id="boxLatestNews" class="panelColor">
+				<td >
+				<div id="boxLatestNews"  class="panelColor">
 				<div id="header"><spring:message code="home.latestnewslabel" /></div>
 				<div id="newsContent" class="dataBoxStyle">
 				<div id="newsContentHeader">${newsItem.title}</div>
@@ -287,6 +293,7 @@ width: 100%;
 						onmouseover="MM_swapImage('News Archive','','./themes/tels/default/images/newsArchiveRoll.png',1)"> <img
 						class="imgNoBorder" src="./themes/tels/default/images/newsArchive.png" alt="Go to News Archive" width="93" height="23"
 						id="News Archive" /></a></p>
+				</div>
 				</div>
 				</td>
 		</tr>
