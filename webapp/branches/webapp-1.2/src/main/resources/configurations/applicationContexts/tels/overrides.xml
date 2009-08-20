@@ -88,8 +88,8 @@
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /index.html=ROLE_ANONYMOUS,ROLE_USER
-                /smartroom/smartroom.html=ROLE_ANONYMOUS, ROLE_USER
-                /preview.html=ROLE_ANONYMOUS
+                /smartroom/smartroom.html=ROLE_ANONYMOUS,ROLE_USER
+                /preview.html=ROLE_ANONYMOUS,ROLE_USER
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER

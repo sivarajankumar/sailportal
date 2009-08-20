@@ -108,7 +108,7 @@ public class StudentVLEController extends AbstractController {
 	
 	private static final String PREVIEW = "preview";
 
-	private static final String GET_RUNINFO_REQUEST_INTERVAL = "10000";   // how long the VLE should wait
+	private static final String GET_RUNINFO_REQUEST_INTERVAL = "-1";   // how long the VLE should wait
 	// between each getRunInfo request, in milliseconds 10000=10 seconds, -1=never
 
 	/** 
@@ -288,6 +288,7 @@ public class StudentVLEController extends AbstractController {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 
 		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		contentUrl = portalurl + contentUrl;
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
@@ -310,8 +311,8 @@ public class StudentVLEController extends AbstractController {
 		String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 		String postDataUrl = portalurl + "/vlewrapper/postdata.html";
 		String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
-		String postJournalDataUrl = portalurl + "/vlewrapper/postjournaldata.html";
-		String getJournalDataUrl = portalurl + "/vlewrapper/getjournaldata.html";
+		String postJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
+		String getJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
 		
 		String vleConfigString = "<VLEConfig>";
 		if (isPreview) {

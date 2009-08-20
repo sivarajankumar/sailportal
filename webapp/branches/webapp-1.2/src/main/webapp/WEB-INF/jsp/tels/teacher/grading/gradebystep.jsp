@@ -168,7 +168,7 @@
 		
 		<table id="selectedProjectTable">
 				<tr>
-						<td><div id="gradeStepSelectedProject">Name of Selected Project Goes Here  (ID xxxxx)</div><td>
+						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here  (ID xxxxx)"></c:out></div><td>
 						<td><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message
 								code="teacher.gradebystep.2" /></a></div></td>
 				</tr>
