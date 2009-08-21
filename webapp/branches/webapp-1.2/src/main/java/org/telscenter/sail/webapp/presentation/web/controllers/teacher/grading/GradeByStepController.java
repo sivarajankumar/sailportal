@@ -92,11 +92,11 @@ public class GradeByStepController extends AbstractController {
 	    	String gradebystepurl = portalurl + "/vlewrapper/gradebystep.html";
 	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 	    	
-	    	String getAnnotationsUrl = portalurl + "/vlewrapper/getannotations.html?&runId=" + runId;
-	    	String postAnnotationsUrl = portalurl + "/vlewrapper/postannotations.html";
+	    	String getAnnotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + runId;
+	    	String postAnnotationsUrl = portalurl + "/vlewrapper/annotations.html";
 
-	    	String getFlagsUrl = portalurl + "/vlewrapper/getannotations.html?type=flag&runId=" + runId;
-	    	String postFlagsUrl = portalurl + "/vlewrapper/getannotations.html?type=flag";
+	    	String getFlagsUrl = portalurl + "/vlewrapper/annotations.html?type=flag&runId=" + runId;
+	    	String postFlagsUrl = portalurl + "/vlewrapper/annotations.html?type=flag";
 	    	
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);

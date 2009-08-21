@@ -311,6 +311,7 @@ public class StudentVLEController extends AbstractController {
 		String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 		String postDataUrl = portalurl + "/vlewrapper/postdata.html";
 		String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
+    	String annotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + run.getId().toString();
 		String postJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
 		String getJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
 		
@@ -322,6 +323,7 @@ public class StudentVLEController extends AbstractController {
 		}
 		vleConfigString += "<runId>" + run.getId().toString() + "</runId>";
 		vleConfigString += "<getFlagsUrl>" + StringEscapeUtils.escapeHtml(getFlagsUrl) + "</getFlagsUrl>";
+		vleConfigString += "<annotationsUrl>" + StringEscapeUtils.escapeHtml(annotationsUrl) + "</annotationsUrl>";
 		vleConfigString += "<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>";
 		vleConfigString += "<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>";
 		vleConfigString += "<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>";
