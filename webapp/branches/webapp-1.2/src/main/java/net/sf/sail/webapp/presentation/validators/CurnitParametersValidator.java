@@ -33,6 +33,7 @@ import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters;
 
 /**
  * Validator for add Curnit page
@@ -75,6 +76,12 @@ public class CurnitParametersValidator implements Validator {
         		errors.rejectValue("url", "error.curniturl-null");
         	}
         	if (errors.getErrorCount() > 0){
+        		return;
+        	}
+        	
+        	// if we're adding url module parameters, do not check for
+        	// valid url since the url is relative.
+        	if (curnParams instanceof CreateUrlModuleParameters) {
         		return;
         	}
         	
