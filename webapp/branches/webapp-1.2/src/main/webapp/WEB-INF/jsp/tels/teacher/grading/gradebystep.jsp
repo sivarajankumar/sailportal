@@ -158,6 +158,7 @@
 				</tr>
 		</table>
 
+
 </div>
 </c:if>
 <!--  END: for projects that have curnitmap -->
