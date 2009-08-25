@@ -1347,6 +1347,9 @@
     		value="org.telscenter.sail.webapp.domain.portal.impl.PortalImpl"/>
     </bean>	
     
-    
+    <bean id="bridgeController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.BridgeController">
+    	<property name="workgroupService" ref="wiseWorkgroupService"/>
+    </bean>
     	
 </beans>

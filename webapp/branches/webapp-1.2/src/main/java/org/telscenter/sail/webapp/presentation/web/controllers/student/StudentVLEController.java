@@ -308,12 +308,20 @@ public class StudentVLEController extends AbstractController {
 			userInfoUrl += "&preview=true";
 		}
 		
-		String getDataUrl = portalurl + "/vlewrapper/getdata.html";
-		String postDataUrl = portalurl + "/vlewrapper/postdata.html";
-		String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
-    	String annotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + run.getId().toString();
-		String postJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
-		String getJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
+		//String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+		//String postDataUrl = portalurl + "/vlewrapper/postdata.html";
+		//String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
+		String getDataUrl = portalurl + "/webapp/bridge/getdata.html";
+		String postDataUrl = portalurl + "/webapp/bridge/postdata.html";
+		String getFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+    	String annotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
+    	//String annotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + run.getId().toString();
+		
+    	String postJournalDataUrl = portalurl + "/webapp/bridge/postdata.html?type=journal";
+    	//String postJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
+		
+		String getJournalDataUrl = portalurl + "/webapp/bridge/getdata.html?type=journal";
+		//String getJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
 		
 		String vleConfigString = "<VLEConfig>";
 		if (isPreview) {

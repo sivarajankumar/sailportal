@@ -49,10 +49,16 @@ public class ControllerUtil {
 	
 	/*
 	 * ex: http://128.32.xxx.11:8080
+	 * or, http://wise3.telscenter.org if request.header is wise.telscenter.org
 	 */
 	public static String getBaseUrlString(HttpServletRequest request) {
+		String host = request.getHeader("Host");
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" +
 		request.getServerPort();
+		
+		if (host != null) {
+			portalUrl = request.getScheme() + "://" + host;
+		}
 		
 		return portalUrl;
 	}

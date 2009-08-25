@@ -90,13 +90,21 @@ public class GradeByStepController extends AbstractController {
 			// LDProject, get the .project file
 
 	    	String gradebystepurl = portalurl + "/vlewrapper/gradebystep.html";
-	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
-	    	
-	    	String getAnnotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + runId;
-	    	String postAnnotationsUrl = portalurl + "/vlewrapper/annotations.html";
 
-	    	String getFlagsUrl = portalurl + "/vlewrapper/annotations.html?type=flag&runId=" + runId;
-	    	String postFlagsUrl = portalurl + "/vlewrapper/annotations.html?type=flag";
+	    	//String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+			String getDataUrl = portalurl + "/webapp/bridge/getdata.html";
+
+	    	String getAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation";
+	    	String postAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation";
+
+	    	//String getAnnotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + runId;
+	    	//String postAnnotationsUrl = portalurl + "/vlewrapper/annotations.html";
+
+			String getFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+			String postFlagsUrl = portalurl + "/webapp/bridge/postdata.html?type=flag&runId=" + run.getId().toString();
+
+	    	//String getFlagsUrl = portalurl + "/vlewrapper/annotations.html?type=flag&runId=" + runId;
+	    	//String postFlagsUrl = portalurl + "/vlewrapper/annotations.html?type=flag";
 	    	
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
