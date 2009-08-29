@@ -110,18 +110,18 @@ public class RunListController extends AbstractController {
 		// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
 		// start temporary code
 		// hiroki commented out code 4/6/2008. remove after testing
-//		List<Run> runList2 = new ArrayList<Run>();
-//		for (Run run : runList) {
-//			if (run.getOwners().contains(user)) {
-//				runList2.add(run);
-//			}
-//		}
+		List<Run> runList2 = new ArrayList<Run>();
+		for (Run run : runList) {
+			if (run.getOwners().contains(user)) {
+				runList2.add(run);
+			}
+		}
 		// end temporary code
 		List<Run> current_run_list = new ArrayList<Run>();
 		List<Run> ended_run_list = new ArrayList<Run>();
 		List<Run> external_project_runs = new ArrayList<Run>();
 		Map<Run, List<Workgroup>> workgroupMap = new HashMap<Run, List<Workgroup>>();
-		for (Run run : runList) {
+		for (Run run : runList2) {
 			List<Workgroup> workgroupList = this.workgroupService
 					.getWorkgroupListByOfferingAndUser(run, user);
 

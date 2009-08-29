@@ -113,6 +113,8 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	 */
 	@Transactional()
 	public List<Run> getRunList() {
+		// for some reason, runDao.getList returns all runs, when it should
+		// only return runs with the right privileges according to Acegi.
 		return runDao.getList();
 	}
 	

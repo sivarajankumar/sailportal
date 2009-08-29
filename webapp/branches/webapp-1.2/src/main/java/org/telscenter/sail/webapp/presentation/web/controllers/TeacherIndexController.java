@@ -67,7 +67,7 @@ public class TeacherIndexController extends AbstractController {
     	List<Run> run_list = new ArrayList<Run>();
     	
     	for(Run run : runList) {
-    		if(!run.isEnded()) {
+    		if(!run.isEnded() && run.getOwners().contains(user)) {
     			run_list.add(run);
     		}
     	}
