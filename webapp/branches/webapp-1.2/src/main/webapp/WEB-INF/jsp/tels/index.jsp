@@ -85,7 +85,7 @@ width: 100%;
 		<tr>
 				<td>
 				<div id="boxTableWelcome" class="panelColor">
-				<div id="header"><spring:message code="welcometowise" /></div>
+				<div id="header">Welcome to WISE</div>
 
 				<div id="parastyleTable">
 
@@ -105,8 +105,9 @@ width: 100%;
 
 				<div id="welcomeBullet1" style="">
 				<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
-				<p><spring:message code="whatiswisebullet" /></p><br/>
-				<p><spring:message code="aboutwise" /></p>
+				<p>The Web-based Inquiry Science Environment fosters effective inquiry learning using richly interactive, research-supported technology. 
+Students observe, analyze, and reflect as they explore WISE projects. Teachers facilitate and offer formative and evaluative student assessment using a suite of online tools.</p><br/>
+				<p>This site hosts the latest and most powerful version of WISE (v4.0).  Classic WISE (v2.0) can be accessed at <a href="htt://wise2.berkeley.edu> target='_blank"><i>wise2.berkeley.edu</i></a>.</p>
 				</div>
 
 				<div id="welcomeBullet2" style="display: none;">
