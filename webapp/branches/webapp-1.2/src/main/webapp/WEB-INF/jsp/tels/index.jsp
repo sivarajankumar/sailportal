@@ -79,7 +79,9 @@ width: 100%;
 
 <body>
 
-<div id="centeredDiv"><%@ include file="headermain.jsp"%>
+<div id="centeredDiv"> 
+
+<%@ include file="headermain.jsp"%>
 
 <table id="tableTop" cellpadding="0" cellspacing="0">
 		<tr>
@@ -226,7 +228,7 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 
 <table id="tableBottom" cellpadding="0" cellspacing="0">
 		<tr>
-				<td id="boxWiseInAction" 
+				<td id="boxWiseInAction"> 
 				<div class="panelColor">
 				<div id="header"><spring:message code="home.wiseinactionlabel" /></div>
 
@@ -325,7 +327,9 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 				</td>
 		</tr>
 </table>
-<!--    End of footer --></div>
+<!--    End of footer Table -->
+
+</div>
 <!-- end of #centered div-->
 
 </body>
