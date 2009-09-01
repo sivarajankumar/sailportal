@@ -109,7 +109,7 @@ width: 100%;
 				<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
 				<p>The Web-based Inquiry Science Environment fosters effective inquiry learning using richly interactive, research-supported technology. 
 Students observe, analyze, and reflect as they explore WISE projects. Teachers facilitate and offer formative and evaluative student assessment using a suite of online tools.</p><br/>
-				<p>This site hosts the latest and most powerful version of WISE (v4.0).  Classic WISE (v2.0) can be accessed at <a href="htt://wise2.berkeley.edu> target='_blank"><i>wise2.berkeley.edu</i></a>.</p>
+				<p>This site hosts the latest and most powerful version of WISE (v4.0).  Classic WISE (v2.0) can be accessed at <a href="http://wise2.berkeley.edu> target='_blank"><i>wise2.berkeley.edu</i></a>.</p>
 				</div>
 
 				<div id="welcomeBullet2" style="display: none;">
