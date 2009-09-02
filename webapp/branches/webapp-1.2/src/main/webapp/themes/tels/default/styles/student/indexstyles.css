@@ -287,5 +287,42 @@ table tr, table td {
 	margin-left:0;
 	} 
 	
+/* STYLES FOR STUDENT PROJECT MENU */
+#studentBannerLabel {
+	position: absolute;
+	left: 430px;
+	top: 5px;
+}
+
+#usernameSignOutBoxStudent {
+	text-align: right;
+	position: absolute;
+	right: 8px;
+	top: 3px;
+}
+
+#usernameBannerStudent {
+	position: relative;
+	color: #FFFF99;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 1.1em;
+	padding: 0;
+	margin: 0;
+}
+
+#signOutBannerStudent  a:link,#signOutBannerStudent  a:visited {
+	color: #FFFF66;
+	font-size: .8em;
+	text-decoration: none;
+	border-bottom: 1px solid #FFFF66;
+}
+
+#signOutBannerStudent  a:hover {
+	color: #330066;
+	font-size: .8em;
+	text-decoration: none;
+	border-bottom: 1px solid #330066;
+}
 
 	
