@@ -60,7 +60,7 @@
     onmouseover="MM_swapImage('Register Another Student','','../themes/tels/default/images/student/Register-Another-Roll.png',1)">
     <img src="../themes/tels/default/images/student/Register-Another.png" alt="Register Another Student" width="161" height="52"  id="Register Another Student"/></a></td>
     
-    <td ><a href="../index.html" 
+    <td ><a href="../login.html" 
     onmouseout="MM_swapImgRestore()" 
     onmouseover="MM_swapImage('Return to Home Page','','../themes/tels/default/images/Go-To-Home-Page-Roll.png',1)">
     <img src="../themes/tels/default/images/Go-To-Home-Page.png" alt="Go to Home Page & Sign In" width="161" height="52"  id="Return to Home Page" /></a></td>
