@@ -11,8 +11,7 @@
 <%@ include file="styles.jsp"%>
 
 <script src=".././javascript/tels/general.js" type="text/javascript" > </script>
-<script src=".././javascript/tels/prototype.js" type="text/javascript" > </script>
-<script src=".././javascript/tels/effects.js" type="text/javascript" > </script>
+
 
 <style>
 .yui-panel-container select {
