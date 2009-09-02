@@ -122,6 +122,12 @@
 	border: 1px solid #6666CC;
 	padding:4px 3px 3px 5px; 
 	}
+
+#welcomeBullet1 a:hover {
+	text-decoration:none;
+	background-color:#ffff33;
+	border: 1px solid #6666CC;
+		}
 	
 .smallText {
 	font-size:.9em;
