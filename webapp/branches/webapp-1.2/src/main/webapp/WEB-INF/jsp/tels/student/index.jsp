@@ -429,7 +429,7 @@ YAHOO.util.Event.onDOMReady(init);
 											
 											<c:choose>
 												<c:when test="${studentRunInfo.workgroup == null}">
-													<li><a href="javascript:popup('startproject.html?runId=${studentRunInfo.run.id}');" id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a></li>
+													<li><a href='startproject.html?runId=${studentRunInfo.run.id}' id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a></li>
 												</c:when>
 												<c:otherwise>
 													<c:choose>
@@ -439,7 +439,7 @@ YAHOO.util.Event.onDOMReady(init);
 																id='${studentRunInfo.run.id}' onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a></li>
 														</c:when>
 														<c:otherwise>
-															<li><a href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"   
+															<li><a href='teamsignin.html?runId=${studentRunInfo.run.id}';  
 																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.17"/></a></li>
 														</c:otherwise>														
 													</c:choose>
