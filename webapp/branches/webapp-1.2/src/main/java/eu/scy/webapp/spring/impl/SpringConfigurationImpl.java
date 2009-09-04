@@ -22,7 +22,8 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/dispatcherServlet/pas/controllers.xml",
             "classpath:configurations/dispatcherServlet/tels/controllers.xml",
             "classpath:configurations/dispatcherServlet/tels/extensions.xml",
-            "classpath:configurations/dispatcherServlet/scy/overrides.xml" };
+            "classpath:configurations/dispatcherServlet/scy/overrides.xml",
+            "classpath:configurations/dispatcherServlet/scy/scy-hub.xml" };
 
     static {
         final SpringConfiguration baseConfig = new net.sf.sail.webapp.spring.impl.SpringConfigurationImpl();

@@ -87,6 +87,11 @@
         </listener-class>
     </listener>
 
+    <!-- project specific startup listeners go here -->
+    <!-- you can add your own listeners by adding the property startup.listeners in your settings.xml -->
+    ${startup.listeners}
+
+
 
     <!-- Servlets -->
     <!-- Using Spring's web MVC -->

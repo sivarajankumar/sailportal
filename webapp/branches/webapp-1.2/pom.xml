@@ -603,4 +603,8 @@
             </plugin>
 		</plugins>
 	</reporting>
+
+    <properties>
+        <startup.listeners> </startup.listeners>
+    </properties>
 </project>
