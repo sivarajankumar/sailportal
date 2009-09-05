@@ -548,7 +548,7 @@ YAHOO.util.Event.onDOMReady(init);
 														</c:when>
 														<c:otherwise>
 															<a
-																href="javascript:popup('teamsignin.html?runId=${studentRunInfo.run.id}');"
+																href='teamsignin.html?runId=${studentRunInfo.run.id}'
 																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
 														</c:otherwise>
 													</c:choose>

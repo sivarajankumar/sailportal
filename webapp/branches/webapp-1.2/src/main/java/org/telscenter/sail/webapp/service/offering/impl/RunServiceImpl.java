@@ -172,6 +172,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setStarttime(Calendar.getInstance().getTime());
 		run.setRuncode(generateUniqueRunCode());
 		run.setOwners(runParameters.getOwners());
+		run.setMaxWorkgroupSize(runParameters.getMaxWorkgroupSize());
 		run.setProject(project);
 		run.setName("Run with Project " + runParameters.getProject().getName());
 		if (!(run.getProject() instanceof ExternalProject)) {

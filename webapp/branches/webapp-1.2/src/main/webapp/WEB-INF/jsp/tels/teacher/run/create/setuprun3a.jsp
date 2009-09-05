@@ -32,8 +32,26 @@
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
-<title><spring:message code="teacher.setup-project-run-step-four" /></title>
+
+<title><spring:message code="teacher.setup-project-run-step-three" /></title>
+
 </head>
+
+<!-- Support for Spring errors object -->
+<spring:bind path="runParameters.periodNames">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <c:choose>
+      <c:when test="${fn:length(error) > 0}" >
+        <script type="text/javascript">
+          <!--
+            alert("${error}");
+          //-->
+        </script>
+      </c:when>
+    </c:choose>
+  </c:forEach>
+</spring:bind>
+
 <body>
 
 <div id="centeredDiv">
@@ -46,25 +64,29 @@
 
 <div id="setUpRunBox">
 
-	<div id="stepNumber"><spring:message code="teacher.run.setup.32"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.33"/></span></div>
+<div id="stepNumber"><spring:message code="teacher.run.setup.25"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.26"/></span></div>
 
-	<h5><spring:message code="teacher.run.setup.34"/>&nbsp;<a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.run.setup.35"/></a>
-	&nbsp;<spring:message code="teacher.run.setup.36"/></h5>
+<h5 style="margin:20px 0px 15px 0;"><spring:message code="teacher.run.setup.27"/>&nbsp;<em><spring:message code="teacher.run.setup.28"/></em>.</h5>
 
-	<h6 class="indent15px"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h6>
-	<h5><spring:message code="teacher.skip-lesson-plan" />
-		<i><spring:message code="navigate.next" /></i>
-		<spring:message code="teacher.skip-lesson-plan-below" /></h5>
- </div>    
- 
-<form method="post" class="center">
-<input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_target5" value="<spring:message code="navigate.next" />" />
-</form>
+<form:form method="post" commandName="runParameters">
+
+	<div>
+		How many students per workgroup?<br/>
+		<form:radiobutton path="maxWorkgroupSize" value='1'/>Each student in own workgroup (student works alone).<br/>
+		<form:radiobutton path="maxWorkgroupSize" value='3'/>Each workgroup contains 2-3 students.</br>
+	</div>
+
+</div>     <!--end of SetUpRunBox -->
+
+<div class="center">
+<input type="submit" name="_target2" value="<spring:message code="navigate.back"/>" />
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel"/>" />
+<input type="submit" name="_target4" value="<spring:message code="navigate.next"/>" />
 </div>
 
-<div align="centeredDiv">
+</form:form>
 
+<!--end of centered div-->
+</div>
 </body>
 </html>

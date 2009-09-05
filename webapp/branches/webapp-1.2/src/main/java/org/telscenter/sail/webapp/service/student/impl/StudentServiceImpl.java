@@ -45,6 +45,7 @@ import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * @author Hiroki Terashima
@@ -80,6 +81,14 @@ public class StudentServiceImpl implements StudentService {
 			Set<User> membersToAdd = new HashSet<User>();
 			membersToAdd.add(studentUser);
 			this.groupService.addMembers(period, membersToAdd);
+			
+			//if teacher specified only one student/workgroup, create workgroup now
+			if(run.getMaxWorkgroupSize()==1){
+				String name = "Workgroup for user: " + studentUser.getUserDetails().getUsername();
+				Set<User> members = new HashSet<User>();
+				members.add(studentUser);
+				WISEWorkgroup workgroup = ((WISEWorkgroupService)workgroupService).createWISEWorkgroup(name, members, run, period);
+			}
 			
 			//if project being added is not ROlOO or External,
 			//an sdsUser needs to be created if it does not already exist
