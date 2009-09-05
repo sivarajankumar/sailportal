@@ -229,4 +229,13 @@ public interface Run extends Offering {
 	 */
 	public void setInfo(String info);
 
+	/**
+	 * @return <code>Integer</code> maxWorkgroupSize
+	 */
+	public Integer getMaxWorkgroupSize();
+	
+	/**
+	 * @param <code>Integer</code> maxWorkgroupSize
+	 */
+	public void setMaxWorkgroupSize(Integer maxWorkgroupSize);
 }

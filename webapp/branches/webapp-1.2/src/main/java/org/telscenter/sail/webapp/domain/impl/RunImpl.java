@@ -129,6 +129,9 @@ public class RunImpl extends OfferingImpl implements Run {
 
     @Transient
 	private static final String COLUMN_NAME_INFO = "info";
+    
+    @Transient
+    private static final String COLUMN_NAME_MAX_WORKGROUP_SIZE = "maxWorkgroupSize";
 
     @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
     private Date starttime;
@@ -167,6 +170,9 @@ public class RunImpl extends OfferingImpl implements Run {
     @Column(name = COLUMN_NAME_INFO)
     private String info;   // other info pertaining to the run
     
+    @Column(name = COLUMN_NAME_MAX_WORKGROUP_SIZE, nullable = false)
+    private Integer maxWorkgroupSize;
+
 	//@OneToOne(cascade = CascadeType.ALL, targetEntity = RunStatusImpl.class)
     //@JoinColumn(name = COLUMN_NAME_RUNSTATUS, unique = true)
     @Transient
@@ -408,6 +414,20 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setInfo(String info) {
 		this.info = info;
+	}
+	
+	/**
+	 * @return <code>Integer</code> maxWorkgroupSize
+	 */
+	public Integer getMaxWorkgroupSize() {
+		return maxWorkgroupSize;
+	}
+
+	/**
+	 * @param <code>Integer</code> maxWorkgroupSize
+	 */
+	public void setMaxWorkgroupSize(Integer maxWorkgroupSize) {
+		this.maxWorkgroupSize = maxWorkgroupSize;
 	}
 	
     /**
