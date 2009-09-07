@@ -603,6 +603,10 @@
                     <artifactId>cxf-rt-transports-http-jetty</artifactId>
                     <groupId>org.apache.cxf</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>sail-webapp-all</artifactId>
+                    <groupId>net.sf.sail</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
     </dependencies>
@@ -624,5 +628,6 @@
 
     <properties>
         <scy.version>9.8.0-SNAPSHOT</scy.version>
+        <startup.listeners> </startup.listeners>
     </properties>
 </project>

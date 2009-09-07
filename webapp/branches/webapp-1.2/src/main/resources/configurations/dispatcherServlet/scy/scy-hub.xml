@@ -3,10 +3,15 @@
         "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
+    <bean class="eu.scy.scyhub.SCYHubStarter">
+        <constructor-arg>
+            <ref bean="SCYHubComponent"/>
+        </constructor-arg>
+    </bean>
 
     <bean id="SCYHubComponent" class="eu.scy.scyhub.SCYHubComponent">
-        <!--property name="actionLogger" ref="actionLogger"/>
-        <property name="dataSyncModule" ref="dataSynchModule"/-->
+        <!--property name="actionLogger" ref="actionLogger"/-->
+        <property name="dataSyncModule" ref="dataSynchModule"/>
     </bean>
 
     <bean id="dataSynchModule"  class="eu.scy.datasync.impl.factory.DataSyncModule">

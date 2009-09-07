@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Arrays;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Henrik
@@ -14,6 +17,8 @@ import java.util.Arrays;
  * To change this template use File | Settings | File Templates.
  */
 public class SpringConfigurationImpl implements SpringConfiguration {
+
+    private static final Log LOGGER = LogFactory.getLog(SpringConfigurationImpl.class);
 
     private static final String[] ROOT_APPLICATION_CONTEXT_CONFIG_LOCATIONS;
 
@@ -26,6 +31,7 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/dispatcherServlet/scy/scy-hub.xml" };
 
     static {
+        LOGGER.info("--------------> > > Initializing spring context");
         final SpringConfiguration baseConfig = new net.sf.sail.webapp.spring.impl.SpringConfigurationImpl();
         final List<String> configLocationsList = Collections.list(Collections
                 .enumeration(Arrays.asList(baseConfig
