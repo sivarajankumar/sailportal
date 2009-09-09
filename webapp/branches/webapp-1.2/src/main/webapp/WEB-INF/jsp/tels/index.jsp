@@ -206,7 +206,7 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 				</form>
 
 				<ul id="signInLinkPosition">
-						<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message code="findalostusername" /></a>
+						<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">Forgot your Username or Password?</a>
 						</li>
 						<li><a href="signup.html" id="joinlink"><spring:message code="createanewwiseaccount" /></a></li>
 				</ul>
