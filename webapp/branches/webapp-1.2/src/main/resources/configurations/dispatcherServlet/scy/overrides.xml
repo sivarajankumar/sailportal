@@ -27,7 +27,7 @@
     <!-- Specifies where theme properties are located -->
     <bean id="themeSource"
         class="org.springframework.ui.context.support.ResourceBundleThemeSource">
-        <property name="basenamePrefix" value="themes/tels/" />
+        <property name="basenamePrefix" value="themes/scy/" />
     </bean>
     
     <bean id="registerCurnitController"

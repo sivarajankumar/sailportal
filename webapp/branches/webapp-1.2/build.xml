@@ -61,7 +61,7 @@
     <path location="${M2_REPO}/org/apache/lucene/lucene-core/2.2.0/lucene-core-2.2.0.jar"/>
     <path location="${M2_REPO}/pdfbox/pdfbox/0.7.3/pdfbox-0.7.3.jar"/>
     <path location="${M2_REPO}/org/apache/poi/poi/3.0.2-FINAL/poi-3.0.2-FINAL.jar"/>
-    <path location="${M2_REPO}/org/slf4j/slf4j-api/1.4.3/slf4j-api-1.4.3.jar"/>
+    <path location="${M2_REPO}/org/slf4j/slf4j-api/1.4.2/slf4j-api-1.4.2.jar"/>
     <path location="${M2_REPO}/org/textmining/tm-extractors/0.4/tm-extractors-0.4.jar"/>  	
   	<path location="${M2_REPO}/org/slf4j/slf4j-log4j12/1.4.3/slf4j-log4j12-1.4.3.jar" />
   	<path location="${M2_REPO}/log4j/log4j/1.2.13/log4j-1.2.13.jar" />
