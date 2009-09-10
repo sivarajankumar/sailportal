@@ -71,9 +71,9 @@
 <form:form method="post" commandName="runParameters">
 
 	<div>
-		How many students per workgroup?<br/>
-		<form:radiobutton path="maxWorkgroupSize" value='1'/>Each student in own workgroup (student works alone).<br/>
-		<form:radiobutton path="maxWorkgroupSize" value='3'/>Each workgroup contains 2-3 students.</br>
+		How many students per computer during the project?<br/>
+		<form:radiobutton path="maxWorkgroupSize" value='1'/>1 student per computer.<br/>
+		<form:radiobutton path="maxWorkgroupSize" value='3'/>1, 2, or 3 students per computer.</br>
 	</div>
 
 </div>     <!--end of SetUpRunBox -->

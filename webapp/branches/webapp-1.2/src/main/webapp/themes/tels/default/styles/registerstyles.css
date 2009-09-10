@@ -7,7 +7,8 @@
 	text-align: center;
 	font-weight:bold;
 	border: 1px solid #333333;
-	background-image: url(../images/GradientFooter.png);
+	background-color:#FFCE8E;
+	background-image: url(../images/Gradient_7a.png);
     background-position: bottom;
 	margin: 20px auto 20px auto;
 	padding:10px;
@@ -32,8 +33,8 @@
 	width:470px; 
 	font-size: .9em;
 	border: 1px solid #333333;
-	background-color:#CCFFCC;
-	padding:10px 0;
+	background-color:#FFCE8E;
+	padding:15px 10px;
 	margin: 0 auto;
 }
 
@@ -61,7 +62,7 @@
 	width:410px; 
 	font-size: .9em; 
 	border: 1px solid #333333;
-	background-color:#CCFFCC;
+	background-color:#FFCE8E;
 	padding:5px 0px;
 	margin: 0 auto;
 }
@@ -286,7 +287,9 @@
 /* New Account Picker Screen  (Setup.html) */
 		
 #boxNewAccountReg {
-	background-color:#e0f8df;  
+	background-color:#f3c383;
+	background-image: url(../images/Gradient_7b.png);
+    background-position:top;
 	color:#003300;
 	border: 1px solid #006600;
 	width:60%;
@@ -313,10 +316,10 @@
 	}
 
 #newAccountDetails {
-	margin: 30px auto 20px auto;
+	margin: 30px auto 30px auto;
 	font-size:1em;
 	text-align:center;
-	width:60%;
+	width:50%;
 	padding:0px;
 	}
 	
@@ -348,8 +351,8 @@
 	text-align: center;
 	font-size:2em;
 	border: 1px solid #333333;
-	background-color:#ccffcc;
-	background-image: url(../images/GradientFooter.png);
+	background-color:#FFCE8E;
+	background-image: url(../images/Gradient_7a.png);
     background-position: bottom;
     background-repeat:repeat-x;
 	margin: 20px auto;
@@ -396,12 +399,13 @@
 
 #previewProjectTable td {
 	text-align:left;
-	background-color:#CCFF99;
+	background-color:#FFCE8E;
 }
 
 #previewProjectTable th {
 	text-align:left;
-	background-color:#99CC66;
+	background-color:#a97e46;
+	color:#000
 }
 
 #previewActionLinks{
@@ -410,16 +414,16 @@
 }
 
 #previewActionLinks a:link, #previewActionLinks a:visited {
-	padding:5px;
+	padding:3px;
 	color:#0000CC;
-	font-weight:bold;
-}
+	border:1px solid transparent;
+	text-decoration:none;
+	}
 
 #previewActionLinks a:hover {
-	padding:5px;
-	background-color:#339933;
-	color:#CCCCFF;
-	font-weight:bold;
+	background-color:#FFFF00;
+	color:000066;
+	border:1px solid #666;
 	
 }
 

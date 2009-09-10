@@ -34,11 +34,10 @@
 
 <div id="previewProjectDetails">
 	<ul>
-		<li><spring:message code="previewprojectlist.3"/> <em><spring:message code="previewprojectlist.4"/></em>&nbsp;<spring:message code="previewprojectlist.5"/> <em><spring:message code="previewprojectlist.6"/></em> <spring:message code="previewprojectlist.7"/></li>
-		<li><spring:message code="previewprojectlist.8"/> <em><spring:message code="previewprojectlist.9"/></em>&nbsp;<spring:message code="previewprojectlist.10"/> <em><spring:message code="previewprojectlist.11"/></em> <spring:message code="previewprojectlist.12"/></li>
+		<li><spring:message code="previewprojectlist.3"/> <em><spring:message code="previewprojectlist.4"/></em> to load a project in your web browser.
+You need to be running a recent web browser (Firefox, Safari, or Internet Explorer) and Javascript must be turned on in your browser settings.</li>
 		<li><spring:message code="previewprojectlist.13"/></li>
 		<li><spring:message code="previewprojectlist.14"/> <a href="http://www.telscenter.org/confluence/display/WPSD/Classroom+computer+lab+requirements+to+run+SAIL+projects"><spring:message code="previewprojectlist.15"/></a> <spring:message code="previewprojectlist.16"/></li>
-		<li ><span style="font-weight:bold; color:#FF0000;"><spring:message code="previewprojectlist.17"/></span> <spring:message code="previewprojectlist.18"/> <a href="http://www.telscenter.org/confluence/display/WPSD/Check+your+System+for+Compatibility+with+WISE+3"><spring:message code="previewprojectlist.19"/></a> <spring:message code="previewprojectlist.20"/></li>
 	</ul> 
 </div>
 

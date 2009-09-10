@@ -32,6 +32,7 @@ table  {
 
 table tr, table td {
 	border:0px;
+	padding:0px;
 }
 
 #columnProjects {
@@ -149,10 +150,7 @@ table tr, table td {
 	width:100%;
 	margin-top:10px;
 	margin-bottom:4px;
-	border-top:1px solid black;
-	border-right:2px solid black;
-	border-bottom:2px solid black;
-	border-left:1px solid black;
+	border:1px solid black;
 	padding:0px;
 	} 
 	
@@ -162,7 +160,7 @@ table tr, table td {
 		} 
 		
 #secondaryRowTightFormat {
-	padding:3px 5px;
+	padding:2px 5px;
 	} 
 	
 #projectMainRow{
@@ -210,9 +208,7 @@ table tr, table td {
 #studentTitleText {
 	font-weight:bold;
 	font-size:1.3em;
-	margin: 0px;
-	margin-left:-2px;
-	padding: 0px;
+	padding:2px 5px;
 }
 
 #studentActionList  {
@@ -226,7 +222,7 @@ table tr, table td {
 	
 #studentActionList li {
 	list-style-type:none;
-	padding:5px;
+	padding:3px 5px;
 	}
 
 #studentActionList a:link, #studentActionList a:visited {
@@ -237,10 +233,10 @@ table tr, table td {
 	color:#FFFFCC;
 	margin:0px;
 	padding:4px 3px;
-	border-top:1px solid #666666;
-	border-left:1px solid #666666;
-	border-right:1px solid #000000;
-	border-bottom:1px solid #000000;
+	border:1px solid #666;
+	-moz-border-radius:12px;
+	-webkit-border-radius:12px;
+	border-radius:12px;
 	}
 
 #studentActionList a:hover, #studentActionList.classAnimHover {
@@ -259,10 +255,9 @@ table tr, table td {
 
 #firstUseBox{
 	margin-top:60px;
-	margin-bottom:4px;
-
 	background-color:#919EBA;
-	padding:8px;
+	padding:10px;
+	border:1px solid #666;
 	} 
 	
 #firstUseHeader{
@@ -272,7 +267,6 @@ table tr, table td {
 	} 
 	
 #instructionsArea {
-	margin:4px 0 0 1px;
 	line-height:110%;
 	} 
 		

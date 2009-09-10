@@ -73,7 +73,7 @@
 document.getElementById('firstname').focus();
 </script>
 
-  	<dt><label for="studentLastName"><spring:message code="student.registerstudent.6"/></label></dt>
+  	<dt><label for="studentLastName">Last Name:</label></dt>
 	<dd><form:input path="userDetails.lastname" id="lastname" size="25" maxlength="25" tabindex="2"/>
 	    <form:errors path="userDetails.lastname" />
     	<span class="hint"><spring:message code="student.registerstudent.7"/><span class="hint-pointer"></span></span> 
@@ -113,19 +113,19 @@ document.getElementById('firstname').focus();
 	    </form:select> 	
          </dd>
                    
-	  <dt><label for="studentPassword"><spring:message code="student.registerstudent.13"/></label></dt>
+	  <dt><label for="studentPassword">Type a Password:</label></dt>
 	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="6"/>
       		<form:errors path="userDetails.password"/> 
-      		<span class="hint"><spring:message code="student.registerstudent.14"/><span class="hint-pointer"></span></span> 
+      		<span class="hint">Your password can contain from 4 to 18 letters or numbers. Try to create a password that you can remember!<span class="hint-pointer"></span></span> 
             </dd>
 
-	  <dt><label for="studentPasswordRepeat"><spring:message code="student.registerstudent.15"/></label></dt>
+	  <dt><label for="studentPasswordRepeat">Type Password Again:</label></dt>
 	  <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="7"/> 
             <form:errors path="repeatedPassword" />      	  
-	        <span class="hint"><spring:message code="student.registerstudent.16"/><span class="hint-pointer"></span></span>
+	        <span class="hint">Type your password in again.<span class="hint-pointer"></span></span>
             </dd>
       
-	  <dt><label for="reminderQuestion"><spring:message code="student.registerstudent.17"/></label></dt>
+	  <dt><label for="reminderQuestion">My Reminder Question:</label></dt>
 	  <dd><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
             <form:errors path="userDetails.accountQuestion" />
         	<c:forEach items="${accountQuestions}" var="questionchoice">
@@ -135,25 +135,26 @@ document.getElementById('firstname').focus();
           </c:forEach>
         </form:select>
         
-         <span class="hint"><spring:message code="student.registerstudent.18"/><span class="hint-pointer"></span></span>
+         <span class="hint">If you forget your password, WISE will ask you this Reminder question as an alternative way to sign in.  
+			You can select any question from the list.<span class="hint-pointer"></span></span>
 		</dd>
 
-	  <dt><label for="reminderAnswer" id="reminderAnswer"><spring:message code="student.registerstudent.19"/></label></dt>
+	  <dt><label for="reminderAnswer" id="reminderAnswer">My Reminder Answer:</label></dt>
 	  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
-	      <span class="hint"><spring:message code="student.registerstudent.20"/><span class="hint-pointer"></span></span>			
+	      <span class="hint">Answer your reminder questions here.<span class="hint-pointer"></span></span>			
           </dd>
       
-      <dt><label for="projectCode" id="projectCode1"><spring:message code="student.registerstudent.21"/></label></dt>
+      <dt><label for="projectCode" id="projectCode1">Access Code:</label></dt>
 	  <dd><form:input path="projectCode" id="projectCode" size="25" maxlength="25" tabindex="10"/>
        	  <form:errors path="projectCode" />
-          <span class="hint"><spring:message code="student.registerstudent.22"/><span class="hint-pointer"></span></span></dd>
+          <span class="hint">Ask your teacher for the access code.<span class="hint-pointer"></span></span></dd>
 
     </dl>
                
  	  <div id="regButtons">
- 	    <input type="image" id="save" src="../<spring:theme code="register_save" />" 
-    onmouseover="swapImage('save','../<spring:theme code="register_save_roll" />')" 
-    onmouseout="swapImage('save','../<spring:theme code="register_save" />')"
+ 	    <input type="image" id="save" src="../themes/tels/default/images/CreateAccount.png" 
+    onmouseover="swapImage('save','../themes/tels/default/images/CreateAccountRoll.png')" 
+    onmouseout="swapImage('save','../themes/tels/default/images/CreateAccount.png')"
     />
     <a href="../index.html"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
     onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')" 

@@ -15,6 +15,8 @@
 <script type="text/javascript" src="./javascript/pas/utils.js"></script> 
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
 
+<link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" /> 
+
 </head>
 
 <body>
@@ -34,14 +36,14 @@
 <div id="newAccountButtons">
 <ul>
 	<li>
-	<a href="student/registerstudent.html" alt="<spring:message code="signup.3"/>">
+	<a href="student/registerstudent.html" title="<spring:message code="signup.3"/>">
 	<img id="createstudentacct" src="<spring:theme code="create_student_account" />" 
     onmouseover="swapImage('createstudentacct','<spring:theme code="create_student_account_rollover" />')" 
     onmouseout="swapImage('createstudentacct','<spring:theme code="create_student_account" />')"/></a>
 	</li>
 </ul>
 <ul>
-	<li><a href="teacher/registerteacher.html" alt="<spring:message code="signup.4"/>"> 
+	<li><a href="teacher/registerteacher.html" title="<spring:message code="signup.4"/>"> 
 	<img id="createteacheracct" src="<spring:theme code="create_teacher_account" />" 
     onmouseover="swapImage('createteacheracct','<spring:theme code="create_teacher_account_rollover" />')" 
     onmouseout="swapImage('createteacheracct','<spring:theme code="create_teacher_account" />')"/></a> 
@@ -60,7 +62,7 @@
 	</ul>
 </div>
 
-	<div style="text-align:center;"><a href="index.html" alt="<spring:message code="signup.5"/>"> <img id="return"
+	<div style="text-align:center;"><a href="index.html" title="<spring:message code="signup.5"/>"> <img id="return"
 	src="<spring:theme code="return_to_homepage" />"
 	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
 	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>

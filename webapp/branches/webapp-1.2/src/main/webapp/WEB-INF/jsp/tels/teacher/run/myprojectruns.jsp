@@ -142,7 +142,7 @@
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 				          <tr>
 				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.7"/></th>
-				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.8"/></th>
+				            <th class="tableInnerHeader">Access Code</th>
 				            <th class="tableInnerHeaderRight"><spring:message code="teacher.run.myprojectruns.9"/></th>
 				          </tr>
 				          <c:forEach var="period" items="${run.periods}">

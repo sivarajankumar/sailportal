@@ -36,7 +36,10 @@
 <style type="text/css" media="screen">
   .inplaceeditor-saving {background: url(<spring:theme code="wait"/>) bottom right no-repeat; }
 </style>
-<title><spring:message code="login.title" /></title>
+
+<link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" />
+
+<title>WISE 4.0 Sign In</title>
 
 </head>
 

@@ -54,8 +54,8 @@
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="../run/myprojectruns.html"><spring:message code="teacher.pro.lib.index.5"/></a></td>
-			<td class="description"><spring:message code="teacher.pro.lib.index.6"/></td></tr>
+			<td class="link"><a href="../run/myprojectruns.html">My Project Runs / Access Codes</a></td>
+			<td class="description">View the Project Runs that you are currently using in your classroom and the student Access Code for each project run.</td></tr>
 		<tr>
 			<td class="link"><a href="../management/projectPickerManagement.html"><spring:message code="teacher.manage.overview.3"/></a></td>
 			<td class="description"><spring:message code="teacher.manage.overview.4"/></td></tr>

@@ -285,6 +285,8 @@ YAHOO.util.Event.onDOMReady(init);
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
+<link rel="shortcut icon" href="../themes/tels/default/images/favicon_panda.ico">
+
 </head>
 
 <body class="yui-skin-sam">
@@ -458,7 +460,7 @@ YAHOO.util.Event.onDOMReady(init);
 							 	</td>
 							</tr>
 							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.21"/></td>
+								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Access Code</td>
 								<td id="secondaryRowTightFormat" >${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
 						  	</tr>	
 							<tr>

@@ -4,6 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+
+<link rel="shortcut icon" href="../themes/tels/default/images/favicon_panda.ico">
+
+
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
