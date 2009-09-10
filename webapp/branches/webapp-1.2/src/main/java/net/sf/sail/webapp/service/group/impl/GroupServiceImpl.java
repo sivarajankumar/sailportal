@@ -169,6 +169,18 @@ public class GroupServiceImpl implements GroupService {
         this.groupDao.save(group);
     }
 
+    
+    /**
+     * @throws ObjectNotFoundException 
+     * @see net.sf.sail.webapp.service.group.GroupService#addMember(java.lang.Long, java.lang.Long)
+     */
+    @Transactional()
+	public void addMember(Long groupId, User user) throws ObjectNotFoundException {
+    	Group group = this.retrieveById(groupId);
+    	group.addMember(user);
+    	this.groupDao.save(group);
+	}
+
     /**
      * @see net.sf.sail.webapp.service.group.GroupService#removeMembers(net.sf.sail.webapp.domain.group.Group, java.util.Set)
      */

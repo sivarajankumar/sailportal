@@ -112,7 +112,7 @@ public class RunListController extends AbstractController {
 		// hiroki commented out code 4/6/2008. remove after testing
 		List<Run> runList2 = new ArrayList<Run>();
 		for (Run run : runList) {
-			if (run.getOwners().contains(user)) {
+			if (run.getOwners().contains(user) || run.getSharedowners().contains(user)) {
 				runList2.add(run);
 			}
 		}

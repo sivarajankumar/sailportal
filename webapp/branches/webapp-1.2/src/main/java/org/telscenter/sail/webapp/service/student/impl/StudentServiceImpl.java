@@ -35,6 +35,7 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.group.GroupService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
@@ -78,9 +79,8 @@ public class StudentServiceImpl implements StudentService {
 		if (!run.isStudentAssociatedToThisRun(studentUser)) {
 			// this.aclService.addPermission(run, BasePermission.READ); TODO HT: uncomment when this is figured out
 			Group period = run.getPeriodByName(periodName);
-			Set<User> membersToAdd = new HashSet<User>();
-			membersToAdd.add(studentUser);
-			this.groupService.addMembers(period, membersToAdd);
+			Long groupId = period.getId();
+			this.groupService.addMember(groupId, studentUser);
 			
 			//if teacher specified only one student/workgroup, create workgroup now
 			if(run.getMaxWorkgroupSize()==1){

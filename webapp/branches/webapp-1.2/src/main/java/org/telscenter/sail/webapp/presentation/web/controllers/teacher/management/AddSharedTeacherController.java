@@ -51,6 +51,7 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.impl.RunPermission;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * @author Sally Ahn

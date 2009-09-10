@@ -42,7 +42,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojects.jsp"%>
+<%@ include file="headerteachermanagement.jsp"%>
 
 <%@ include file="L2projects_myprojectruns.jsp"%>
 

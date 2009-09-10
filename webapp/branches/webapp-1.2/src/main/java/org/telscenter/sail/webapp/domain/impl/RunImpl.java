@@ -170,7 +170,7 @@ public class RunImpl extends OfferingImpl implements Run {
     @Column(name = COLUMN_NAME_INFO)
     private String info;   // other info pertaining to the run
     
-    @Column(name = COLUMN_NAME_MAX_WORKGROUP_SIZE, nullable = false)
+    @Column(name = COLUMN_NAME_MAX_WORKGROUP_SIZE, nullable = true)
     private Integer maxWorkgroupSize;
 
 	//@OneToOne(cascade = CascadeType.ALL, targetEntity = RunStatusImpl.class)

@@ -98,6 +98,14 @@ public interface GroupService {
     public void addMembers(Group group, Set<User> membersToAdd);
     
     /**
+     * Adds the specified user to the specified group
+     * @param groupId
+     * @param studentUser
+     * @throws ObjectNotFoundException 
+     */
+	public void addMember(Long groupId, User user) throws ObjectNotFoundException;
+
+    /**
      * Removes the members from an already-existing group. If the member does
      * not exist in the group, do nothing
      * 
@@ -176,4 +184,5 @@ INSERT INTO WORKGROUPS_RELATED_TO_USERS VALUES(4,1)
      *     cannot be used to find an existing group
      */
     public Group retrieveById(Long groupId) throws ObjectNotFoundException;
+
 }

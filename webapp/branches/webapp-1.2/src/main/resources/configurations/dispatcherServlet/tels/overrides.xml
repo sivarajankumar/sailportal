@@ -237,6 +237,7 @@
 <!--  			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController  -->	
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
+				/author/publishproject.html=publishProjectController
 				/author/createrooloproject.html=createRooloProjectController
 				/author/authorproject.html=authorProjectController
 				/author/brainstorm/createbrainstorm.html=createBrainstormQuestionController

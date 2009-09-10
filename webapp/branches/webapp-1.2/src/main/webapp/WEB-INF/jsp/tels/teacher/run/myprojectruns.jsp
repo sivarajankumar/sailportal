@@ -176,7 +176,6 @@
 					    <c:set var="isExternalProject" value="0"/>
 					    
 					        <c:forEach var="external_run" items="${externalprojectruns}">
-					           <script type="text/javascript">"${run.id}" does it equal "${external_run.id}"</script>
 					           <c:if test="${run.id == external_run.id}">
 					                   <c:set var="isExternalProject" value="1"/>
 					           </c:if>

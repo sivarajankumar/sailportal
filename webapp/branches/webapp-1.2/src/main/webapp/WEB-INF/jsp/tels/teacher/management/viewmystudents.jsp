@@ -22,6 +22,10 @@
 
 
 <script>
+if (${workgroupsWithoutPeriod != ""}) {
+	alert("You have workgroups that are not associated with periods. "
+			+" Please talk to a WISE staff to fix this problem. ID: ${workgroupsWithoutPeriod}");
+}
     var tabView
 	function init() {
    		tabView = new YAHOO.widget.TabView('tabSystem');

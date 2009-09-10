@@ -125,6 +125,7 @@ public class ViewMyStudentsController extends AbstractController{
 		Long runId = Long.valueOf(runIdStr);
 		Run run = runService.retrieveById(runId);
 		Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
+		String workgroupsWithoutPeriod = "";
 		Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();
 		String projectName = run.getProject().getName();
 		String projectId = run.getProject().getId().toString();
@@ -145,18 +146,24 @@ public class ViewMyStudentsController extends AbstractController{
 			grouplessStudents.addAll(period.getMembers());
 			for(Workgroup workgroup : allworkgroups){
 				grouplessStudents.removeAll(workgroup.getMembers());
-				if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
-						&& ((WISEWorkgroup) workgroup).getPeriod().getId().equals(period.getId())) {
-					// set url where this workgroup's work can be retrieved as PDF
-					ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
-					if (!(run.getProject().accept(typeVisitor).equals("ExternalProject")) 
-							&& run.getProject().getProjectType() != ProjectType.ROLOO
-							&& run.getProject().getProjectType() != ProjectType.LD) {
-						String workPdfUrl = ((WISEWorkgroupService) workgroupService)
-						.generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);
-						((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);
+				try {
+					if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
+							&& ((WISEWorkgroup) workgroup).getPeriod().getId().equals(period.getId())) {
+						// set url where this workgroup's work can be retrieved as PDF
+						ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+						if (!(run.getProject().accept(typeVisitor).equals("ExternalProject")) 
+								&& run.getProject().getProjectType() != ProjectType.ROLOO
+								&& run.getProject().getProjectType() != ProjectType.LD) {
+							String workPdfUrl = ((WISEWorkgroupService) workgroupService)
+							.generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);
+							((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);
+						}
+						periodworkgroups.add(workgroup);				
 					}
-					periodworkgroups.add(workgroup);				
+				} catch (NullPointerException npe) {
+					// if a workgroup is not in a period, make a list of them and let teacher put them in a period...
+					// this should not be the case if the code works correctly and associates workgroups with periods when workgroups are created.
+					workgroupsWithoutPeriod += workgroup.getId().toString() + ",";
 				}
 			}
 			viewmystudentsperiod.setGrouplessStudents(grouplessStudents);
@@ -170,7 +177,6 @@ public class ViewMyStudentsController extends AbstractController{
 			periodCounter++;
 		}
 
-		System.out.println(modelAndView.getModelMap().get(TAB_INDEX));
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
@@ -180,6 +186,7 @@ public class ViewMyStudentsController extends AbstractController{
 		modelAndView.addObject(TAB_INDEX, tabIndex);
 		modelAndView.addObject(PROJECT_NAME, projectName);
 		modelAndView.addObject(PROJECT_ID, projectId);
+		modelAndView.addObject("workgroupsWithoutPeriod", workgroupsWithoutPeriod);
 		return modelAndView;
 	}
 
