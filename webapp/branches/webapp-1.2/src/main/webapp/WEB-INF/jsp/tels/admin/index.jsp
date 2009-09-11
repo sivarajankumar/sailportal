@@ -52,6 +52,7 @@
 <div id="adminTitle">Project Management</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="manageallprojects.html">Manage All Projects</a></h5>
+		<h5><a href="../author/publishproject.html">Publish A Project</a></h5>
 	</div>
 	
 <div id="adminTitle">Project Run Management</div>

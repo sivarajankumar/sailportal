@@ -141,7 +141,7 @@ YUI download for details on each of the aggregate files and their contents):-->
   <dl>
     <dt><label for="projectname" id="projectnameLabel"><span class="asterix">* </span>Enter Project Path:</label> </dt>
 	<dd>
-	    <form:input path="projectpath" id="projectpath" size="30" maxlength="50"/>
+	    <form:input path="projectpath" id="projectpath" size="30" maxlength="100"/>
 	</dd>
   </dl>
 

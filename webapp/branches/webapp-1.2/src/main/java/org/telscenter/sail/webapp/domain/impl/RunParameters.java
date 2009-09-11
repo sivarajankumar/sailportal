@@ -47,7 +47,7 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	
 	private String manuallyEnteredPeriods = new String();
 
-	private Integer maxWorkgroupSize;
+	private Integer maxWorkgroupSize = 3;
 	
 	/**
 	 * @return <code>Integer</code> the maximum size of workgroup
