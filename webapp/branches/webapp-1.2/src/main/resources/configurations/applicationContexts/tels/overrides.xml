@@ -89,7 +89,7 @@
                 PATTERN_TYPE_APACHE_ANT
                 /index.html=ROLE_ANONYMOUS,ROLE_USER
                 /smartroom/smartroom.html=ROLE_ANONYMOUS,ROLE_USER
-                /preview.html=ROLE_ANONYMOUS,ROLE_USER
+                /vle/preview.html=ROLE_ANONYMOUS,ROLE_USER
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
@@ -119,6 +119,7 @@
                 /admin/**/*.html=ROLE_ADMINISTRATOR
                 /j_acegi_switch_user*=ROLE_ADMINISTRATOR  
                 /repository/**/*.html=ROLE_ANONYMOUS,ROLE_USER              
+                /author/publishproject.html=ROLE_ADMINISTRATOR
                 /author/project/postproject.html=ROLE_ANONYMOUS,ROLE_USER
                 /author/brainstorm/*.html=ROLE_ANONYMOUS,ROLE_USER                
                 /bridge/*.html=ROLE_USER

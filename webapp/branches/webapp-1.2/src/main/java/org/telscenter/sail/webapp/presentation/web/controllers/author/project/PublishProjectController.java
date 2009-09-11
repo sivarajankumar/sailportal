@@ -70,6 +70,14 @@ public class PublishProjectController extends SimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		 PublishProjectParameters projectParameters = new PublishProjectParameters();
+		 String projectname = request.getParameter("projectname");
+		 String projectpath = request.getParameter("projectpath");
+		 if (projectname != null) {
+			 projectParameters.setProjectname(projectname);
+		 }
+		 if (projectpath != null) {
+			 projectParameters.setProjectpath(projectpath);
+		 }
 		 return projectParameters;
 	}
 	

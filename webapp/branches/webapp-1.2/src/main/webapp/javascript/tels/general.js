@@ -58,7 +58,9 @@ function prepareInputsForHints() {
       this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
     }
     inputs[i].onblur = function () {
-      this.parentNode.getElementsByTagName("span")[0].style.display = "none";
+    	if (this.parentNode.getElementsByTagName("span").length > 0) {
+    		this.parentNode.getElementsByTagName("span")[0].style.display = "none";
+    	}
     }
   }
   var selects = document.getElementsByTagName("select");

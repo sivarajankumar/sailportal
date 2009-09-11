@@ -22,27 +22,20 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
+ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Controller for handling student VLE-portal interactions for Preview Mode
@@ -52,29 +45,8 @@ import org.telscenter.sail.webapp.service.offering.RunService;
  */
 public class PreviewLDProjectController extends AbstractController {
 
-	private RunService runService;
+	private ProjectService projectService;
 	
-	private WorkgroupService workgroupService;
-	
-	protected final static String CURRENT_STUDENTRUNINFO_LIST_KEY = "current_run_list";
-
-	protected final static String ENDED_STUDENTRUNINFO_LIST_KEY = "ended_run_list";
-
-	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
-
-	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
-	
-	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
-
-	private static final String RUNID = "runId";
-
-	private static final String WORKGROUP_ID_PARAM = "workgroupId";
-	
-	private static final String PREVIEW = "preview";
-
-	private static final String GET_RUNINFO_REQUEST_INTERVAL = "10000";   // how long the VLE should wait
-	// between each getRunInfo request, in milliseconds 10000=10 seconds, -1=never
-
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -83,157 +55,35 @@ public class PreviewLDProjectController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-    	Long runId = Long.parseLong(request.getParameter(RUNID));
-		Run run = this.runService.retrieveById(runId);
-		
-    	String runIdStr = request.getParameter(RUNID);
-
-
 		String action = request.getParameter("action");
 		if (action != null) {
-			if (action.equals("getUserInfo")) {
-				// if getUserInfo is requested, return xmlString instead in the response
-				return handlePrintUserInfo(request, response, run);
-			} else if (action.equals("getData")) {
-				return handleGetData(request, response, run);
-			} else  if (action.equals("postData")) {
-				return handlePostData(request, response, run);
-			} else if (action.equals("getVLEConfig")) {
-				return handleGetVLEConfig(request, response, run);
-			} else if (action.equals("getRunInfo")) {
-				return handleGetRunInfo(request, response, run);
+			if (action.equals("getVLEConfig")) {
+				return handleGetVLEConfig(request, response);
 			} else {
 				// shouldn't get here
 				throw new RuntimeException("should not get here");
 			}
 		} else {
-			return handleLaunchVLE(request, run);
+			return handleLaunchVLEPreview(request);
 		}
-	}
-
-	/**
-	 * Retrns the RunInfo XML containing information like whether the run
-	 * is paused or messages that teacher wants to send to students.
-	 * @param request
-	 * @param response
-	 * @param run
-	 * @return
-	 * @throws IOException 
-	 */
-	private ModelAndView handleGetRunInfo(HttpServletRequest request,
-			HttpServletResponse response, Run run) throws IOException {
-		/*
-		String runInfoString = "<RunInfo>";
-
-		if (run.isPaused()) {
-			runInfoString += "<isPaused>true</isPaused>";
-		} else {
-			runInfoString += "<isPaused>false</isPaused>";
-		}
-
-		runInfoString += "</RunInfo>";
-		*/
-		String runInfoString = "<RunInfo>" + run.getInfo() + "</RunInfo>";
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader("Expires", 0);
-
-		response.setContentType("text/xml");
-		response.getWriter().print(runInfoString);
-		return null;
-	}
-
-	/**
-	 * Gets the workgroup for the currently-logged in user so that she may
-	 * view the VLE.
-	 * @param request
-	 * @param run
-	 * @param user
-	 * @return
-	 * @throws ObjectNotFoundException
-	 */
-	private Workgroup getWorkgroup(HttpServletRequest request, Run run)
-	throws ObjectNotFoundException {
-		Workgroup workgroup = null;
-		User user = (User) request.getSession().getAttribute(
-    			User.CURRENT_USER_SESSION_KEY);
-		List<Workgroup> workgroupListByOfferingAndUser 
-		= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
-
-		if (workgroupListByOfferingAndUser.size() > 0) {
-			workgroup = workgroupListByOfferingAndUser.get(0);
-		} else {
-			String previewRequest = request.getParameter(PREVIEW);
-			if (previewRequest != null && Boolean.valueOf(previewRequest)) {
-				// if this is a preview, workgroupId should be specified, so use
-				// that
-				String workgroupIdStr = request
-						.getParameter(WORKGROUP_ID_PARAM);
-				if (workgroupIdStr != null) {
-					workgroup = workgroupService.retrieveById(Long
-							.parseLong(workgroupIdStr));
-				} else {
-					workgroup = workgroupService
-							.getPreviewWorkgroupForRooloOffering(run, user);
-				}
-			}
-		}
-		return workgroup;
-	}
-
-	/**
-	 * @param request
-	 * @param response
-	 * @param run
-	 * @param user
-	 * @param workgroup
-	 * @return
-	 */
-	private ModelAndView handlePostData(HttpServletRequest request,
-			HttpServletResponse response, Run run) {
-		String baseurl = ControllerUtil.getBaseUrlString(request);
-		ModelAndView modelAndView = new ModelAndView("forward:" + baseurl + "/vlewrapper/postdata.html");
-		return modelAndView;
-	}
-
-	/**
-	 * @param request
-	 * @param response
-	 * @param run
-	 * @param user
-	 * @param workgroup
-	 * @return
-	 */
-	private ModelAndView handleGetData(HttpServletRequest request,
-			HttpServletResponse response, Run run) {
-		String baseurl = ControllerUtil.getBaseUrlString(request);
-		ModelAndView modelAndView = new ModelAndView("forward:" + baseurl + "/vlewrapper/getdata.html");
-		return modelAndView;
 	}
 
 	/**
 	 * @param request
 	 * @param modelAndView
-	 * @param run
 	 * @param workgroup
 	 * @return
 	 * @throws ObjectNotFoundException 
 	 */
-	private ModelAndView handleLaunchVLE(HttpServletRequest request,
-			Run run) throws ObjectNotFoundException {
+	private ModelAndView handleLaunchVLEPreview(HttpServletRequest request) throws ObjectNotFoundException {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
-		String portalVLEControllerUrl = portalurl + "/webapp/preview.html?runId=" + run.getId();
+		String portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";
+
+		String vleConfigUrl = portalVLEControllerUrl + "?projectId=" + request.getParameter("projectId") + "&action=getVLEConfig";
 
 		String vleurl = portalurl + "/vlewrapper/vle/vle.html";
-		String vleConfigUrl = portalVLEControllerUrl + "&action=getVLEConfig";
-
-		String previewRequest = request.getParameter(PREVIEW);
-		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
-			vleConfigUrl += "&preview=true";
-		}
 
 		ModelAndView modelAndView = new ModelAndView();
-    	modelAndView.addObject("run", run);
     	modelAndView.addObject("vleurl",vleurl);
     	modelAndView.addObject("vleConfigUrl", vleConfigUrl);
 		return modelAndView;
@@ -248,56 +98,30 @@ public class PreviewLDProjectController extends AbstractController {
 	 * @throws IOException 
 	 */
 	private ModelAndView handleGetVLEConfig(HttpServletRequest request,
-			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
-		String portalurl = ControllerUtil.getBaseUrlString(request);
+			HttpServletResponse response) throws ObjectNotFoundException, IOException {
 
-		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		String projectIdStr = request.getParameter("projectId");
+		Project project = projectService.getById(projectIdStr);
+		
+		String portalurl = ControllerUtil.getBaseUrlString(request);
+		
+		String contentUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
 		}
 		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash) + "/";
-		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
-		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
-		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
-
-		String previewRequest = request.getParameter(PREVIEW);
-		boolean isPreview = false;
-		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
-			isPreview = true;
-		}
-		
-		if (isPreview) {
-			userInfoUrl += "&preview=true";
-		}
-		
-		String getDataUrl = portalurl + "/vlewrapper/getdata.html";
-		String postDataUrl = portalurl + "/vlewrapper/postdata.html";
-		String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
-		String postJournalDataUrl = portalurl + "/vlewrapper/postjournaldata.html";
-		String getJournalDataUrl = portalurl + "/vlewrapper/getjournaldata.html";
+		String portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";
+		String userInfoUrl = portalVLEControllerUrl + "?action=getUserInfo";
 		
 		String vleConfigString = "<VLEConfig>";
-		if (isPreview) {
-			vleConfigString += "<mode>preview</mode>";
-		} else {
-			vleConfigString += "<mode>run</mode>";
-		}
-		vleConfigString += "<runId>" + run.getId().toString() + "</runId>";
-		vleConfigString += "<getFlagsUrl>" + StringEscapeUtils.escapeHtml(getFlagsUrl) + "</getFlagsUrl>";
+		vleConfigString += "<mode>preview</mode>";
 		vleConfigString += "<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>";
 		vleConfigString += "<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>";
 		vleConfigString += "<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>";
-		vleConfigString += "<getDataUrl>" + StringEscapeUtils.escapeHtml(getDataUrl) + "</getDataUrl>";
-		vleConfigString += "<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>";
-		vleConfigString += "<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>";
-		vleConfigString += "<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>";
 		vleConfigString += "<theme>WISE</theme>";
 		vleConfigString += "<enableAudio>false</enableAudio>";
-		vleConfigString += "<getJournalDataUrl>" + StringEscapeUtils.escapeHtml(getJournalDataUrl) + "</getJournalDataUrl>";
-		vleConfigString += "<postJournalDataUrl>" + StringEscapeUtils.escapeHtml(postJournalDataUrl) + "</postJournalDataUrl>";
 		vleConfigString += "</VLEConfig>";
-
 		
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
@@ -309,113 +133,9 @@ public class PreviewLDProjectController extends AbstractController {
 	}
 
 	/**
-	 * If the workgroupId is specified in the request, then look up userInfo for that specified workgroup.
-	 * Otherwise, lookup userInfo for the currently-logged-in user.
-	 * @param request
-	 * @param response
-	 * @param run Which run to look up.
-	 * @param user Currently-logged in user
-	 * @param workgroup workgroup that the currently-logged in user is in for the run
-	 * @return
-	 * @throws ObjectNotFoundException
-	 * @throws IOException
+	 * @param projectService the projectService to set
 	 */
-	private ModelAndView handlePrintUserInfo(HttpServletRequest request,
-			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
-
-		Workgroup workgroup = getWorkgroup(request, run);
-		String workgroupIdStr = request.getParameter(WORKGROUP_ID_PARAM);
-		if (workgroupIdStr != null && workgroupIdStr != "") {
-			workgroup = workgroupService.retrieveById(new Long(workgroupIdStr));
-			// if a workgroup was specified that was not for this run, return BAD_REQUEST
-			if (workgroup.getOffering().getId() != run.getId()) {
-				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				return null;
-			}
-		} else {
-		}
-		
-		
-		String userInfoString = "<userInfo>";
-		
-		// add this user's info:
-		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName() + "</userName></myUserInfo>";
-		
-		// add the class info:
-		userInfoString += "<myClassInfo>";
-		    		
-		// now add classmates
-		Set<Workgroup> workgroups = runService.getWorkgroups(run.getId());
-		
-		String requestedWorkgroupIdsStr = request.getParameter("workgroupIds");
-		if (requestedWorkgroupIdsStr != null) {
-			// specific workgroups are requested
-			String[] requestedWorkgroupIds = requestedWorkgroupIdsStr.split(",");
-			for (Workgroup classmateWorkgroup : workgroups) {
-				if (classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-					for (String requestedWorkgroupId : requestedWorkgroupIds) {
-						if (requestedWorkgroupId.equals(classmateWorkgroup.getId().toString())) {
-							userInfoString += "<classmateUserInfo>";
-							userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
-							userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName>";
-							userInfoString += "</classmateUserInfo>";
-						}
-					}
-				}
-			}
-		} else {
-			// otherwise get all classmates (excluding teacher)
-			for (Workgroup classmateWorkgroup : workgroups) {
-				if (classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-					userInfoString += "<classmateUserInfo>";
-					userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
-					userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName>";
-					userInfoString += "</classmateUserInfo>";
-				}
-			}
-
-		}
-		
-		// add teacher info
-		for (Workgroup classmateWorkgroup : workgroups) {
-			if (((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-				// inside, add teacher info
-				Set<User> owners = run.getOwners();
-				User teacher = null;
-				if (owners.size() > 0) {
-					teacher = owners.iterator().next();
-					userInfoString += "<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>";
-				} else {
-					userInfoString += "<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName></teacherUserInfo>";
-				}
-			}
-		}
-
-		userInfoString += "</myClassInfo>";
-
-		userInfoString += "</userInfo>";
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader ("Expires", 0);
-		
-		response.setContentType("text/xml");
-		//response.setCharacterEncoding("UTF-8");
-		response.getWriter().print(userInfoString);
-		return null;
-	}
-	
-	/**
-	 * @param runService the runService to set
-	 */
-	@Required
-	public void setRunService(RunService runService) {
-		this.runService = runService;
-	}
-	/**
-	 * @param workgroupService the workgroupService to set
-	 */
-	@Required
-	public void setWorkgroupService(WorkgroupService workgroupService) {
-		this.workgroupService = workgroupService;
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 }

@@ -169,8 +169,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		project.setFamilytag(FamilyTag.TELS);
 		project.setCurrent(true);
 		this.projectDao.save(project);
-		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);		
-		createPreviewRun(project);
+		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);		 
 		return project;
 	}
 
@@ -281,18 +280,27 @@ public class LdProjectServiceImpl implements ProjectService {
 	@Transactional()
 	public ModelAndView previewProject(PreviewProjectParameters params) throws Exception {
 		Project project = params.getProject();
-		// this is a temporary hack until projects can be run without have to create a 
-		// workgroup with at least 1 member in it. See this JIRA task:
-		// http://jira.concord.org/browse/SDS-23
-		User previewUser = userService.retrieveById(new Long(2));// preview user is user #2 in the database
 
-		Workgroup previewWorkgroup = 
-			workgroupService.getPreviewWorkgroupForRooloOffering(project.getPreviewRun(), previewUser);
-				
-		return new ModelAndView(new RedirectView(generateStudentPreviewProjectUrlString(params.getHttpServletRequest(), 
-				project.getPreviewRun(), previewWorkgroup) + "&preview=true"));
+		ModelAndView mav = new ModelAndView(new RedirectView(generateStudentPreviewProjectUrlString(params.getHttpServletRequest(), 
+				project)));
+		return mav;
 	}
 
+	/**
+	 * Returns url string for previewing the run
+	 * @param request
+	 * @param run
+	 * @param workgroup
+	 * @return
+	 */
+	public String generateStudentPreviewProjectUrlString(HttpServletRequest request,
+			Project project) {
+		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + 
+			request.getContextPath();
+		String launchVLEUrl = "/vle/preview.html?projectId=" + project.getId();
+		return portalUrl + launchVLEUrl;
+	}
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#removeBookmarkerFromProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
 	 */
@@ -322,21 +330,6 @@ public class LdProjectServiceImpl implements ProjectService {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + 
 			request.getContextPath();
 		String launchVLE = "/student/vle/vle.html?runId=" + run.getId() + "&workgroupId=" + workgroup.getId();
-		return portalUrl + launchVLE;
-	}
-
-	/**
-	 * Returns url string for previewing the run
-	 * @param request
-	 * @param run
-	 * @param workgroup
-	 * @return
-	 */
-	public String generateStudentPreviewProjectUrlString(HttpServletRequest request,
-			Run run, Workgroup workgroup) {
-		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + 
-			request.getContextPath();
-		String launchVLE = "/preview.html?runId=" + run.getId() + "&workgroupId=" + workgroup.getId();
 		return portalUrl + launchVLE;
 	}
 
