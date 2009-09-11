@@ -147,7 +147,8 @@ public class ViewMyStudentsController extends AbstractController{
 			for(Workgroup workgroup : allworkgroups){
 				grouplessStudents.removeAll(workgroup.getMembers());
 				try {
-					if (!((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
+					if (workgroup.getMembers().size() > 0    // don't include workgroups with no members.
+							&& !((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
 							&& ((WISEWorkgroup) workgroup).getPeriod().getId().equals(period.getId())) {
 						// set url where this workgroup's work can be retrieved as PDF
 						ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();

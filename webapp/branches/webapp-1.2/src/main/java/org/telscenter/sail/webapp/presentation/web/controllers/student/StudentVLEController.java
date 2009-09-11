@@ -386,25 +386,25 @@ public class StudentVLEController extends AbstractController {
 		String userInfoString = "<userInfo>";
 		
 		// add this user's info:
-		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName() + "</userName></myUserInfo>";
+		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName></myUserInfo>";
 		
 		// add the class info:
 		userInfoString += "<myClassInfo>";
 		    		
 		// now add classmates
 		Set<Workgroup> workgroups = runService.getWorkgroups(run.getId());
-		
+			
 		String requestedWorkgroupIdsStr = request.getParameter("workgroupIds");
 		if (requestedWorkgroupIdsStr != null) {
 			// specific workgroups are requested
 			String[] requestedWorkgroupIds = requestedWorkgroupIdsStr.split(",");
 			for (Workgroup classmateWorkgroup : workgroups) {
-				if (classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
+				if (classmateWorkgroup.getMembers().size() > 0 && classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
 					for (String requestedWorkgroupId : requestedWorkgroupIds) {
 						if (requestedWorkgroupId.equals(classmateWorkgroup.getId().toString())) {
 							userInfoString += "<classmateUserInfo>";
 							userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
-							userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName>";
+							userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>";
 							userInfoString += "</classmateUserInfo>";
 						}
 					}
@@ -413,10 +413,10 @@ public class StudentVLEController extends AbstractController {
 		} else {
 			// otherwise get all classmates (excluding teacher)
 			for (Workgroup classmateWorkgroup : workgroups) {
-				if (classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
+				if (classmateWorkgroup.getMembers().size() > 0 && classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
 					userInfoString += "<classmateUserInfo>";
 					userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
-					userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName>";
+					userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>";
 					userInfoString += "</classmateUserInfo>";
 				}
 			}

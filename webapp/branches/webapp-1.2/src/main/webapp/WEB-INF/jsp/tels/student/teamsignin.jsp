@@ -35,7 +35,7 @@
 
 </head>
 
-<body class="yui-skin-sam" onunload="opener.location.reload()" style="background-color:#333333;">
+<body class="yui-skin-sam" style="background-color:#333333;">
 
 <script type="text/javascript">
 
