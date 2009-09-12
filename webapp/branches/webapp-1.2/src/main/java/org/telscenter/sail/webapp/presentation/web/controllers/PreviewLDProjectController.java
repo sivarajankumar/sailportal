@@ -106,6 +106,7 @@ public class PreviewLDProjectController extends AbstractController {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 		
 		String contentUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		contentUrl = portalurl + contentUrl;
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
