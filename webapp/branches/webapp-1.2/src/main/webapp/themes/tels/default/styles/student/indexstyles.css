@@ -232,17 +232,15 @@ table tr, table td {
 	background-color:#3333FF;
 	color:#FFFFCC;
 	margin:0px;
-	padding:4px 3px;
+	padding:2px;
 	border:1px solid #666;
-	-moz-border-radius:12px;
-	-webkit-border-radius:12px;
-	border-radius:12px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
 	}
 
 #studentActionList a:hover, #studentActionList.classAnimHover {
 	display:block;
-	margin:0px;
-	padding:4px 3px;
 	color:#000066;
 	background-color:#ffff33;
 	border:1px solid #666666;

@@ -56,7 +56,7 @@ You need to be running a recent web browser (Firefox, Safari, or Internet Explor
   <td id="previewActionLinks"><a href="<c:url value="previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
 	       Preview Project
       </a> <br /> 
-      <a href="<c:url value="http://tels-develop.soe.berkeley.edu:8080/maven-jnlp-snapshot/jnlp-tests/jardiff/javachecker-1.1.jnlp"></c:url>">
+      <a style="display:none;" href="<c:url value="http://tels-develop.soe.berkeley.edu:8080/maven-jnlp-snapshot/jnlp-tests/jardiff/javachecker-1.1.jnlp"></c:url>">
            Check My Computer's Compatibility with this Project
       </a>
   </td>

@@ -383,6 +383,18 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 })();
 --></script>
 
+<!--Simple script for hiding and showing Instructions Div-->
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -443,15 +455,37 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}');"><spring:message code="teacher.manage.viewstudents.7"/></a></li>
 		       	<li style="display:none;" class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');"><spring:message code="teacher.manage.viewstudents.8"/></a></li>
 		    </ul>
-		  			
-			<div id="viewStudentsInstructions">
-				<ul>
-					<li><strong><spring:message code="teacher.manage.viewstudents.9"/></strong> &nbsp; <spring:message code="teacher.manage.viewstudents.10"/></li>
-					<li><strong><spring:message code="teacher.manage.viewstudents.11"/></strong> &nbsp; <spring:message code="teacher.manage.viewstudents.12"/></li>
-					<li><strong><spring:message code="teacher.manage.viewstudents.13"/></strong> &nbsp; <spring:message code="teacher.manage.viewstudents.14"/></li>
-					<li><strong><spring:message code="teacher.manage.viewstudents.15"/></strong>&nbsp; <spring:message code="teacher.manage.viewstudents.16"/></li>
-				</ul>
-			</div>	
+		  	
+		  <div href="#" id="instructionsBar" onclick="toggle_visibility('viewStudentsInstructions');">Help <span class="subText">&nbsp;&nbsp;Click here to show/hide instructions</span></div>
+		 
+			<div style="display:none;" id="viewStudentsInstructions">
+						<table>
+								<tr>
+										<th>Create New Teams:</th>
+										<td>Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the
+										box. Click SAVE.</td>
+								</tr>
+								<tr>
+										<th>Remove a Student</th>
+										<td>Click the "</td>
+								</tr>
+								<tr>
+										<th>Moving Unassigned Students:</th>
+										<td>Click/drag unassigned students from one box to another. Click SAVE CHANGES.</td>
+								</tr>
+
+								<tr>
+										<th>Moving Students already in a Team:</th>
+										<td>Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the
+										box. Click SAVE.</td>
+								</tr>
+								<tr>
+										<th>Exporting a Team's Work to PDF</th>
+										<td>Click the "Create PDF file" link within a particular team box.</td>
+								</tr>
+						</table>
+
+						</div>	
 		<table id="manageStudentsTable">
 			<tr>
 			<td>
@@ -467,7 +501,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
     			     <a class="userLinks" onclick="javascript:popupSpecial('../../studentinfo.html?userName=${mem.userDetails.username}');" href="#" >Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentperiod.html?userId=${mem.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}');">Period</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${mem.id}');">Detach</a>
+    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${mem.id}');">Remove</a>
     			     </span>
     			  </li>
 			    </c:forEach>
@@ -495,7 +529,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
     			     <a class="userLinks" onclick="javascript:popupSpecial('../../studentinfo.html?userName=${workgroupMember.userDetails.username}');" href="#" >Info</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
     			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentperiod.html?userId=${workgroupMember.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}');">Period</a>
-       			     <a class="userLinks" href="#" onclick="javascript:popup640('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${workgroupMember.id}');">Detach</a>
+       			     <a class="userLinks" href="#" onclick="javascript:popup640('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${workgroupMember.id}');">Remove</a>
     			     </span>
 			        </li>
 			      </c:forEach>

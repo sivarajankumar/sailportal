@@ -160,16 +160,17 @@ img#none{
 	display:block;
 	padding:6px 0px 6px 20px;
 	margin:0px;
-	background-image:url(../../images/GradientHomeBox.png);
-	background-position:left top;
-	background-repeat:repeat-x;
 	border-top: 1px solid #999999;
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #999999;
-	background-image: url(../../ images/GradientFooter.png);
-    background-position: bottom;
-}
+	background-image:url(../../images/Gradient_7a.png);
+	background-position:bottom;
+	background-repeat:repeat-x;
+   	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	}
 
 #overview_choices a:hover  {
 	text-decoration:none;

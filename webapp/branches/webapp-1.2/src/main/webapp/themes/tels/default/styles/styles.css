@@ -73,13 +73,14 @@
 	width: 958px;
 	text-align: center;
 	border: 1px solid #333333;
-	background-image: url(../images/GradientFooter.png);
-	background-position: bottom;
+	background-color:#FFCE8E;
+	background-image: url(../images/Gradient_7a.png);
+    background-position: bottom;
 	margin-top: 20px;
 	margin-right: auto;
 	margin-bottom: 0px;
 	margin-left: auto;
-	padding: 8px 0;
+	padding: 6px 0;
 }
 
 /* STYLES FOR STUDENT PROJECT MENU */

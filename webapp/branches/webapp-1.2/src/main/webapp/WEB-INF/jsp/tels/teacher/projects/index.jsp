@@ -63,6 +63,9 @@
 		<tr>
 			<td class="link"><a href="../projects/customized/index.html"><spring:message code="teacher.pro.lib.index.9"/></a></td> 
 			<td class="description"><spring:message code="teacher.pro.lib.index.10"/></td></tr> 
+		<tr>
+			<td class="link"><a href="../run/myprojectruns.html">My Project Runs / Access Codes</a></td> 
+			<td class="description"><span style="color:#660000;">Shortcut to the Management area.</span><br/>View your active Project Runs and the Access Code for each run.</td></tr> 
 	</table>
 	
 </div>

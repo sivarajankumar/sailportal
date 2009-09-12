@@ -84,15 +84,41 @@ table {
 	background-color:#FFFF66;	
     }	
 
-#viewStudentsInstructions {
-	margin: 5px 0 0px 0px;
-	font-size:.8em;
-	letter-spacing:-.5px;
+#instructionsBar {
+	font-size:.7em;
+	text-transform:uppercase;
+	margin: 12px 5px 8px 8px;
+	padding:4px 4px 4px 33px;	
+	background-color:#FFCCCC;
+	background-image: url(../../images/help.png);
+	background-position: 8px center;
+	background-repeat:no-repeat;
+	text-decoration:none;
+	color:#000066;
 	}
 	
-#viewStudentsInstructions li {
-	margin-bottom:2px;
+#instructionsBar:hover {
+	cursor:pointer;
+	background-color:#FFFF00;
 	}
+
+#instructionsBar .subText{
+	color:#666;
+	text-transform:none;
+	
+	}
+	
+#viewStudentsInstructions {
+	margin: -8px 5px 8px 8px;
+	padding:0px;
+	border:2px solid #FFCCCC;
+	}
+
+#viewStudentsInstructions li {
+	font-size:.8em;
+	margin-bottom:4px;
+	list-style-type:circle
+		}
 
 /* BEGIN STYLING FOR STUDENT DATA  */
 
