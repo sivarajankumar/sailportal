@@ -1,10 +1,7 @@
-<%@ include file="../include.jsp" %>
-
-
-<!-- $Id: index.jsp 2450 2009-09-02 00:30:39Z supersciencefish $ -->
+<%@ include file="include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
-  *
+  * 
   * This library is free software; you can redistribute it and/or
   * modify it under the terms of the GNU Lesser General Public
   * License as published by the Free Software Foundation; either
@@ -20,17 +17,6 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: index.jsp 2450 2009-09-02 00:30:39Z supersciencefish $ -->
+<!-- $Id: logout.jsp 470 2007-06-19 17:11:07Z archana $ -->
 
-
-<%@ include file="adminhead.jsp" %>
-
-<body>
-
-<%@ include file="adminheader.jsp" %>
-
-
-</body>
-
-</html>
-
+	<a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a><br />
