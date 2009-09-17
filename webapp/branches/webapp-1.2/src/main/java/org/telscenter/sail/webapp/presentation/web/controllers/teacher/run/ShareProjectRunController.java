@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,8 +40,10 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
  * Controller for handling requests to grant/modify permissions on
@@ -55,6 +58,8 @@ public class ShareProjectRunController extends SimpleFormController {
 	
 	private RunService runService;
 	
+	private WISEWorkgroupService workgroupService = null;
+
 	private UserService userService;
 	
 	protected static final String RUNID_PARAM_NAME = "runId";
@@ -128,6 +133,13 @@ public class ShareProjectRunController extends SimpleFormController {
     	} else {
     	try {
 			runService.addSharedTeacherToRun(params);
+			
+			// make a workgroup for this shared teacher for this run
+			String sharedOwnerUsername = params.getSharedOwnerUsername();
+			User sharedOwner = userService.retrieveUserByUsername(sharedOwnerUsername);
+			Set<User> sharedOwners = new HashSet<User>();
+			sharedOwners.add(sharedOwner);
+			workgroupService.createWISEWorkgroup("teacher", sharedOwners, params.getRun(), null);
 		} catch (ObjectNotFoundException e) {
 			modelAndView = new ModelAndView(new RedirectView(getFormView()));
 	    	modelAndView.addObject(RUNID_PARAM_NAME, params.getRun().getId());
@@ -158,6 +170,13 @@ public class ShareProjectRunController extends SimpleFormController {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * @param workgroupService the workgroupService to set
+	 */
+	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
 	}
 }
 

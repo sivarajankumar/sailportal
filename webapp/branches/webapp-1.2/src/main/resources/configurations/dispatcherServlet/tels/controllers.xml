@@ -312,11 +312,7 @@
 	<bean id="studentVLEController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentVLEController">
 	    <property name="runService" ref="runService" />
-	    <property name="studentService" ref="studentService" />
-		<property name="brainstormService" ref="brainstormService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
-    	<property name="moduleService" ref="curnitService"/>
-		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
 	<bean id="previewLDProjectController" 
@@ -865,6 +861,7 @@
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ShareProjectRunController">
 		<property name="runService" ref="runService"/>
 		<property name="userService" ref="userService" />
+		<property name="workgroupService" ref="wiseWorkgroupService"/>
 		<property name="commandName" value="addSharedTeacherParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters" />

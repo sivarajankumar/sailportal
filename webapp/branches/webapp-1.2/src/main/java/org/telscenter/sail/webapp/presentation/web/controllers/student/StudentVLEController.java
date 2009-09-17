@@ -76,15 +76,7 @@ public class StudentVLEController extends AbstractController {
 
 	private RunService runService;
 	
-	private StudentService studentService;
-	
 	private WorkgroupService workgroupService;
-	
-	private ModuleService moduleService;
-	
-	private BrainstormService brainstormService;
-
-	private HttpRestTransport httpRestTransport;
 	
 	protected final static String CURRENT_STUDENTRUNINFO_LIST_KEY = "current_run_list";
 
@@ -98,12 +90,6 @@ public class StudentVLEController extends AbstractController {
 
 	private static final String RUNID = "runId";
 	
-	private static final String RUN_STATUS_ID = "runSettingsId";
-
-	private static final String SHOW_NEW_ANNOUNCEMENTS = "showNewAnnouncements";
-	
-	private static final String SUMMARY = "summary";
-
 	private static final String WORKGROUP_ID_PARAM = "workgroupId";
 	
 	private static final String PREVIEW = "preview";
@@ -122,9 +108,6 @@ public class StudentVLEController extends AbstractController {
     	Long runId = Long.parseLong(request.getParameter(RUNID));
 		Run run = this.runService.retrieveById(runId);
 		
-    	String runIdStr = request.getParameter(RUNID);
-
-
 		String action = request.getParameter("action");
 		if (action != null) {
 			if (action.equals("getUserInfo")) {
@@ -158,17 +141,6 @@ public class StudentVLEController extends AbstractController {
 	 */
 	private ModelAndView handleGetRunInfo(HttpServletRequest request,
 			HttpServletResponse response, Run run) throws IOException {
-		/*
-		String runInfoString = "<RunInfo>";
-
-		if (run.isPaused()) {
-			runInfoString += "<isPaused>true</isPaused>";
-		} else {
-			runInfoString += "<isPaused>false</isPaused>";
-		}
-
-		runInfoString += "</RunInfo>";
-		*/
 		String runInfoString = "<RunInfo>" + run.getInfo() + "</RunInfo>";
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
@@ -460,41 +432,10 @@ public class StudentVLEController extends AbstractController {
 	}
 
 	/**
-	 * @param studentService the studentService to set
-	 */
-	@Required
-	public void setStudentService(StudentService studentService) {
-		this.studentService = studentService;
-	}
-
-	/**
-	 * @param httpRestTransport
-	 *            the httpRestTransport to set
-	 */
-	@Required
-	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-		this.httpRestTransport = httpRestTransport;
-	}
-
-	/**
 	 * @param workgroupService the workgroupService to set
 	 */
 	@Required
 	public void setWorkgroupService(WorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
-	}
-
-	/**
-	 * @param brainstormService the brainstormService to set
-	 */
-	public void setBrainstormService(BrainstormService brainstormService) {
-		this.brainstormService = brainstormService;
-	}
-	
-	/**
-	 * @param moduleService the moduleService to set
-	 */
-	public void setModuleService(ModuleService moduleService) {
-		this.moduleService = moduleService;
 	}
 }
