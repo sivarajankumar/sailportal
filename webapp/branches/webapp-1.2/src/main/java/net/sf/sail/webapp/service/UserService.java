@@ -95,9 +95,19 @@ public interface UserService {
 	/**
 	 * Gets all users from persistent data store.
 	 * 
+	 * Note: this is server-intensive. Consider using
+	 * retrieveAllUsernames() instead
+	 * 
 	 * @return a Set of all users.
 	 */
 	public List<User> retrieveAllUsers();
+	
+	/**
+	 * Returns all usernames from persistent data store.
+	 * 
+	 * @return
+	 */
+	public List<String> retrieveAllUsernames();
 	
 	/**
 	 * Retrieves User domain object using unique userId

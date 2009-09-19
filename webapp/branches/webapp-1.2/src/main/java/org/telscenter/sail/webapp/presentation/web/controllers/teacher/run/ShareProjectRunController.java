@@ -40,7 +40,6 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
-import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -113,6 +112,7 @@ public class ShareProjectRunController extends SimpleFormController {
 	/**
      * On submission of the AddSharedTeacherParameters, the specified
      * teacher is granted the specified permission to the specified run.
+     * Only teachers can be added as a shared teacher to a run.
      * 
      * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse, java.lang.Object,
@@ -124,11 +124,16 @@ public class ShareProjectRunController extends SimpleFormController {
     	AddSharedTeacherParameters params = (AddSharedTeacherParameters) command;
     	User retrievedUser = userService.retrieveUserByUsername(params.getSharedOwnerUsername());
     	ModelAndView modelAndView;
-
+    	
     	if (retrievedUser == null) {
     		modelAndView = new ModelAndView(new RedirectView("shareprojectrun.html"));
 	    	modelAndView.addObject(RUNID_PARAM_NAME, params.getRun().getId());
 	    	modelAndView.addObject("message", "Username not recognized. Make sure to use the exact spelling of the username.");
+	    	return modelAndView;
+    	} else if (!retrievedUser.getUserDetails().hasGrantedAuthority(UserDetailsService.TEACHER_ROLE)) {
+    		modelAndView = new ModelAndView(new RedirectView("shareprojectrun.html"));
+	    	modelAndView.addObject(RUNID_PARAM_NAME, params.getRun().getId());
+	    	modelAndView.addObject("message", "The user is not a teacher and thus cannot be added as a shared teacher.");
 	    	return modelAndView;
     	} else {
     	try {

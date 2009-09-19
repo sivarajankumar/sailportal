@@ -89,7 +89,7 @@ public class GradeByStepController extends AbstractController {
 			
 			// LDProject, get the .project file
 
-	    	String gradebystepurl = portalurl + "/vlewrapper/gradebystep.html";
+	    	String gradebystepurl = portalurl + "/vlewrapper/vle/gradebystep.html";
 
 	    	//String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 			String getDataUrl = portalurl + "/webapp/bridge/getdata.html";

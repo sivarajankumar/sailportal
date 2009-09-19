@@ -318,4 +318,16 @@ public class PersistentUserDetails implements MutableUserDetails {
             this.grantedAuthorities = new HashSet<GrantedAuthority>();
         this.grantedAuthorities.add(authority);
     }
+
+    /**
+     * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#hasGrantedAuthority(java.lang.String)
+     */
+	public boolean hasGrantedAuthority(String authority) {
+		for (GrantedAuthority grantedAuthority : this.grantedAuthorities) {
+			if (grantedAuthority.getAuthority().equals(authority)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -61,6 +61,13 @@ public interface UserDao<T extends User> extends SimpleDao<T> {
     public List<T> retrieveByEmailAddress(String emailAddress);
     
     /**
+     * Retrieves all usernames from the datastore.
+     * @param selectClause ___ portion of the query in  "select ___ from" 
+     * @return
+     */
+    public List<String> retrieveAll(String selectClause);
+    
+    /**
      * Given a field, search type, search term and classVar (teacher or studentUserDetails),
      *  retrieves a list of Users from data store
      * 

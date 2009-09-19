@@ -86,6 +86,13 @@ public interface MutableUserDetails extends UserDetails, Persistable {
 	public void addAuthority(GrantedAuthority authority);
 
 	/**
+	 * Returns true iff this user has the specified GrantedAuthority
+	 * @return
+	 */
+	public boolean hasGrantedAuthority(String role);
+
+
+	/**
 	 * Gets the id for this user details object in the persistent store
 	 * 
 	 * @return The id of this user details object

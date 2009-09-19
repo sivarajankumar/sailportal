@@ -111,7 +111,6 @@
                 /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/curriculumsubjects.html=ROLE_ANONYMOUS,ROLE_USER
                 /teacher/termsofuse.html=ROLE_ANONYMOUS,ROLE_USER
-				/teacher/grading/*.html=ROLE_ANONYMOUS,ROLE_USER
 				/teacher/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /wiseoverview.html=ROLE_ANONYMOUS,ROLE_USER
                 /forgotaccount/*.html=ROLE_ANONYMOUS,ROLE_USER

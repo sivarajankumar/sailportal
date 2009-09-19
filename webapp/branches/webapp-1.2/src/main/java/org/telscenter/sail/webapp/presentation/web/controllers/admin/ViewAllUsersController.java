@@ -53,6 +53,8 @@ public class ViewAllUsersController extends AbstractController{
 	protected static final String ADMINS = "admins";
 	
 	protected static final String OTHER = "other";
+
+	private static final String USERNAMES = "usernames";
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -66,7 +68,10 @@ public class ViewAllUsersController extends AbstractController{
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
-		List<User> allUsers = this.userService.retrieveAllUsers();
+		//List<User> allUsers = this.userService.retrieveAllUsers();
+		List<String> allUsernames = this.userService.retrieveAllUsernames();
+		
+		/*
 		List<User> teachers = new ArrayList<User>();
 		List<User> students = new ArrayList<User>();
 		List<User> admins = new ArrayList<User>();
@@ -83,11 +88,12 @@ public class ViewAllUsersController extends AbstractController{
 				other.add(user);
 			}
 		}
-		
 		modelAndView.addObject(TEACHERS, teachers);
 		modelAndView.addObject(STUDENTS, students);
 		modelAndView.addObject(ADMINS, admins);
 		modelAndView.addObject(OTHER, other);
+		*/
+		modelAndView.addObject(USERNAMES, allUsernames);
 		return modelAndView;
 	}
 

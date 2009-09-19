@@ -68,6 +68,14 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
 		return UserImpl.class;
 	}
 
+	/**
+	 * @see net.sf.sail.webapp.dao.user.UserDao#retrieveAllUsernames()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<String> retrieveAll(String selectClause) {
+		return this.getHibernateTemplate().find("select " + selectClause + " from UserImpl");
+	}
+
     /**
      * @see net.sf.sail.webapp.dao.user.UserDao#retrieveByUsername(java.lang.String)
      */
@@ -113,4 +121,5 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     	return StringUtils.upperCase(StringUtils.left(string, 1)) 
     		+ StringUtils.right(string, string.length() - 1);
     }
+
 }

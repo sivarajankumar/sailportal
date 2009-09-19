@@ -216,6 +216,13 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.getList();
 	}
 
+
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#retrieveAllUsernames()
+	 */
+	public List<String> retrieveAllUsernames() {
+		return this.userDao.retrieveAll("userDetails.username");
+	}
 	/**
 	 * @see net.sf.sail.webapp.service.UserService#retrieveById(java.lang.Long)
 	 */
