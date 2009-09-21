@@ -75,6 +75,13 @@
             net.sf.sail.webapp.spring.impl.CustomContextLoaderListener
         </listener-class>
     </listener>
+    
+    <listener>
+        <listener-class>
+			net.sf.sail.webapp.presentation.web.listeners.PasSessionListener		        	
+        </listener-class>
+    </listener>
+    
 
     <!--
         The HttpSessionEventPublisher will publish

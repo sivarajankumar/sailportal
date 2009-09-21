@@ -27,6 +27,9 @@
 
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
+<c:choose>
+
+<c:when test="${fn:length(usernames) > 0}">
 <div>Total number of users: ${fn:length(usernames)}</div>
 <table id="teachersTable" border="2">
 	<c:forEach var="username" items="${usernames}">
@@ -41,5 +44,30 @@
 				onclick="javascript:popup640('../teacherinfo.html?userName=${username}');">info</a></td>
 		</tr>
 	</c:forEach>
-</table></body>
+</table>
+</c:when>
+
+<c:otherwise>
+
+
+<div>Number of currently logged in Users: ${fn:length(loggedInUsernames)}</div>
+<table id="teachersTable" border="2">
+	<c:forEach var="username" items="${loggedInUsernames}">
+		<tr>
+			<td>${username}</td>
+			<td><a href="#"
+				onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${username}');">Change
+			Password</a></td>
+			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
+			in as this user</a></td>
+			<td><a href="#"
+				onclick="javascript:popup640('../teacherinfo.html?userName=${username}');">info</a></td>
+		</tr>
+	</c:forEach>
+</table>
+</c:otherwise>
+
+</c:choose>
+
+</body>
 </html>

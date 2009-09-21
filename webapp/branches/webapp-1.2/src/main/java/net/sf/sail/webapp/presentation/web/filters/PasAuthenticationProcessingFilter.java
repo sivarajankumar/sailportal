@@ -18,11 +18,13 @@
 package net.sf.sail.webapp.presentation.web.filters;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.listeners.PasSessionListener;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.logging.Log;
@@ -64,6 +66,7 @@ public class PasAuthenticationProcessingFilter extends
         if (LOGGER.isDebugEnabled()) {
             logDebug(userDetails);
         }
+        
         HttpSession session = request.getSession();
         ApplicationContext springContext = WebApplicationContextUtils
                 .getWebApplicationContext(session.getServletContext());
@@ -72,6 +75,15 @@ public class PasAuthenticationProcessingFilter extends
         User user = userService.retrieveUser(userDetails);
         session.setAttribute(User.CURRENT_USER_SESSION_KEY, user);
 
+        // add new session in a allLoggedInUsers servletcontext HashMap variable
+		String sessionId = session.getId();
+		HashMap<String, User> allLoggedInUsers = (HashMap<String, User>) session.getServletContext().getAttribute("allLoggedInUsers");
+		if (allLoggedInUsers == null) {
+			allLoggedInUsers = new HashMap<String, User>();
+			session.getServletContext().setAttribute(PasSessionListener.ALL_LOGGED_IN_USERS, allLoggedInUsers);
+		}
+		allLoggedInUsers.put(sessionId, user);
+        
         super.successfulAuthentication(request, response, authResult);
     }
 

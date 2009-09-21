@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.presentation.web.listeners.PasSessionListener;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.security.GrantedAuthority;
@@ -41,74 +43,67 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @version $Id: $
  */
 public class ViewAllUsersController extends AbstractController{
-	
+
 	private UserService userService;
 
 	protected static final String VIEW_NAME = "admin/manageusers";
-		
+
 	protected static final String TEACHERS = "teachers";
-	
+
 	protected static final String STUDENTS = "students";
-	
+
 	protected static final String ADMINS = "admins";
-	
+
 	protected static final String OTHER = "other";
 
 	private static final String USERNAMES = "usernames";
 	
+	private static final String LOGGED_IN_USERNAMES = "loggedInUsernames";
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView handleRequestInternal(
 			HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse) throws Exception {
-		
-    	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-    	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
- 
-		//List<User> allUsers = this.userService.retrieveAllUsers();
-		List<String> allUsernames = this.userService.retrieveAllUsernames();
-		
-		/*
-		List<User> teachers = new ArrayList<User>();
-		List<User> students = new ArrayList<User>();
-		List<User> admins = new ArrayList<User>();
-		List<User> other = new ArrayList<User>();
-		for(User user: allUsers){
-			GrantedAuthority authorities[] = user.getUserDetails().getAuthorities();
-			if(isAdmin(authorities)){
-				admins.add(user);
-			} else if (isTeacher(authorities)){
-				teachers.add(user);
-			} else if (isStudent(authorities)){
-				students.add(user);
-			} else {
-				other.add(user);
+
+		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+		ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
+
+		String onlyShowLoggedInUser = servletRequest.getParameter("onlyShowLoggedInUser");
+		if (onlyShowLoggedInUser != null && onlyShowLoggedInUser.equals("true")) {
+			// get logged in users from servlet context
+			HashMap<String, User> allLoggedInUsers = 
+				(HashMap<String, User>) servletRequest.getSession()
+					.getServletContext().getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
+			ArrayList<String> loggedInUsernames = new ArrayList<String>();
+			for (User loggedInUser : allLoggedInUsers.values()) {
+				loggedInUsernames.add(loggedInUser.getUserDetails().getUsername());
 			}
+			modelAndView.addObject(LOGGED_IN_USERNAMES, loggedInUsernames);
+		} else {
+			//List<User> allUsers = this.userService.retrieveAllUsers();
+			List<String> allUsernames = this.userService.retrieveAllUsernames();
+			modelAndView.addObject(USERNAMES, allUsernames);
 		}
-		modelAndView.addObject(TEACHERS, teachers);
-		modelAndView.addObject(STUDENTS, students);
-		modelAndView.addObject(ADMINS, admins);
-		modelAndView.addObject(OTHER, other);
-		*/
-		modelAndView.addObject(USERNAMES, allUsernames);
 		return modelAndView;
 	}
 
 	private boolean isAdmin(GrantedAuthority[] authorities){
 		return isRole(authorities, "ROLE_ADMINISTRATOR");
 	}
-	
+
 	private boolean isTeacher(GrantedAuthority[] authorities){
 		return isRole(authorities, "ROLE_TEACHER");
 	}
-	
+
 	private boolean isStudent(GrantedAuthority[] authorities){
 		return isRole(authorities, "ROLE_STUDENT");
 	}
-	
+
 	private boolean isRole(GrantedAuthority[] authorities, String role){
 		for(GrantedAuthority authority : authorities){
 			if(authority.getAuthority().equals(role))
@@ -116,7 +111,7 @@ public class ViewAllUsersController extends AbstractController{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param userService the userService to set
 	 */
