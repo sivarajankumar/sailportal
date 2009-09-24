@@ -72,6 +72,7 @@
     </div>
     <div id="bd" class="border bottom">
         <div id="yui-main">
+        <h1>HERE YOU CAN LOGIN IF YOU DARE!</h1>
             <div class="yui-b body" style="margin:0;padding: 1em;">
                 <form id="home" method="post" action="j_acegi_security_check">
                     <dl id="signinDefinList">
