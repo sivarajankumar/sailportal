@@ -305,4 +305,53 @@
     	<property name="successView" value="student/registerStudentConfirm" />
     </bean>
 
+    <bean id="javaMail"
+		class="net.sf.sail.webapp.mail.JavaMailHelper">
+		<property name="properties" ref="mailProps" />
+		<property name="sender" ref="javaMailSender" />
+	</bean>
+
+
+
+    <bean id="mailProps" class="java.util.Properties">
+    </bean>
+
+    <bean id="createRunController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.CreateRunController">
+		<property name="runService" ref="runService" />
+		<property name="moduleService" ref="curnitService" />
+        <property name="projectService" ref="projectService" />
+        <property name="workgroupService" ref="wiseWorkgroupService" />
+        <property name="brainstormService" ref="brainstormService" />
+		<property name="commandName" value="runParameters" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
+        <property name="javaMail" ref="javaMail"/>
+		<property name="emaillisteners" ref="emaillisteners" />
+		<property name="uiHTMLProperties" ref="uihtmlproperties" />
+		<property name="portalProperties" ref="portalproperties" />
+	</bean>
+
+    <bean id="contactWiseController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.ContactWiseController">
+		<property name="commandName" value="contactWISEGeneral" />
+    	<property name="validator" ref="contactWISEValidator" />
+    	<property name="formView" value="contactwisegeneral" />
+    	<property name="successView" value="contactwiseconfirm" />
+    	<property name="javaMail" ref="javaMail"/>
+    	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
+	</bean>
+
+    <bean id="forgotAccountTeacherIndexController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher.ForgotAccountTeacherIndexController">
+		<property name="userService" ref="userService" />
+		<property name="commandName" value="userDetails" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails" />
+		<property name="validator" ref="lostTeacherValidator" />
+		<property name="formView" value="forgotaccount/teacher/index" />
+		<property name="successView" value="forgotaccount/teacher/success" />
+		<property name="errorView" value="forgotaccount/teacher/error" />
+		<property name="javaMail" ref="javaMail"/>
+	</bean>
 </beans>
