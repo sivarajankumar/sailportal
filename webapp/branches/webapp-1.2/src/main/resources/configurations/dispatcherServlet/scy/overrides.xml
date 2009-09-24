@@ -81,7 +81,7 @@
         </property>
         <property name="portalService" ref="portalService" />
         <property name="emaillisteners" ref="emaillisteners" />
-        <property name="javaMail" ref="javaMail" />
+        <!--property name="javaMail" ref="javaMail" /-->
     </bean>
     
 
