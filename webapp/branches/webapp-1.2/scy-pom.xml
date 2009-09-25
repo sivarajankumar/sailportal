@@ -135,10 +135,19 @@
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/resources</directory>
+
             </resource>
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/webapp/WEB-INF</directory>
+            </resource>
+            <resource>
+                <!--targetPath>src/main/resources</targetPath-->
+                <directory>src/main/resources/scy</directory>
+                <includes>
+                    <include>sendmail.properties</include>
+                </includes>
+                <filtering>true</filtering>
             </resource>
         </resources>
         <testResources
@@ -637,6 +646,21 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>scy</id>
+            <properties>
+                <context.config.class>eu.scy.webapp.spring.impl.SpringConfigurationImpl</context.config.class>
+            </properties>
+        </profile>
+        <profile>
+            <id>tels</id>
+            <properties>
+                <context.config.class>org.telscenter.sail.webapp.spring.impl</context.config.class>
+            </properties>
+        </profile>
+	</profiles>
 
     <properties>
         <scy.version>9.8.0-SNAPSHOT</scy.version>
