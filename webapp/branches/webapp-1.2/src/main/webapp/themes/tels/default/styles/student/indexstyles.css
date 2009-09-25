@@ -188,6 +188,14 @@ table tr, table td {
 	background-color:#FF9999;
 	}
 
+#archivedAdvisory {
+	background-color:#993333;
+	color:#fff;
+	font-size:.85em;
+	padding:10px;
+	margin:4px 0 10px 0;
+}
+
 #tightBorderCell{
 	padding:0px;
 	margin:0px;

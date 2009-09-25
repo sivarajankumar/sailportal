@@ -200,7 +200,7 @@ img#none{
 /* STYLES FOR TEACHER CHANGE PASSWORD  */
 
 #popUpWindowTeacherPassword {
-	width:550px;
+	width:600px;
 	background-image: url(../../images/student/Gradient-ProjectMenu-Green-450.png);
 	background-position: center bottom;
 	background-repeat: repeat-x;
@@ -211,24 +211,22 @@ img#none{
 	margin: 30px auto;
 	padding:0px;
 	}
-	
+
 #teacherchangepasswordbox {
 	text-align:left;
+	margin-top:25px;
 }
 
-#teacherchangepasswordbox dt {
-	float:left;
-	vertical-align:middle;
-	width:285px;
+#teacherchangepasswordbox dt label {
+	float:left; 
+	width:275px;  
 	font-size:.9em;
-	padding:5px 0px;
-	margin:5px 0 0 20px; ;
+	margin:3px 0 0 25px;
 }
 
 #teacherchangepasswordbox dd {
-	margin:0px;
-	padding:5px 0px;
-	 }
+	text-align:left;
+}
 
 #teacherchangePasswordField {
 	font-size:1em;
@@ -236,8 +234,8 @@ img#none{
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	margin:0 0 0 10px;
-	padding:3px;
+	margin:0 0 15px 0;
+	padding:2px 5px;
 }
 
 #teacherPasswordButtons {
