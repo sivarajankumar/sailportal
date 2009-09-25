@@ -93,7 +93,7 @@ document.getElementById('firstname').focus();
     <dt><label for="studentBirthMonth"><spring:message code="student.registerstudent.10"/></label></dt>
 	<dd><form:select path="birthmonth" id="birthmonth" tabindex="4">
 		<form:errors path="birthmonth" />
-		<c:forEach var="month" begin="1" end="12" step="1">
+		<c:forEach var="month" begin="01" end="12" step="01">
 			<form:option value="${month}">
 				<spring:message code="birthmonths.${month}" />
 			</form:option>
@@ -105,7 +105,7 @@ document.getElementById('firstname').focus();
 	  <dt><label for="studentBirthDate"><spring:message code="student.registerstudent.12"/></label></dt>
 	  <dd><form:select path="birthdate" id="birthdate" tabindex="5">
 	      <form:errors path="birthdate" />
-			 <c:forEach var="date" begin="1" end="31" step="1">
+			 <c:forEach var="date" begin="01" end="31" step="01">
 				  <form:option value="${date}">
 				  		<spring:message code="birthdates.${date}" />
 			  	  </form:option>
