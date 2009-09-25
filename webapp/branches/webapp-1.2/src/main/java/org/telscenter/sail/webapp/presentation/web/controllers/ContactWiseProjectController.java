@@ -117,7 +117,7 @@ public class ContactWiseProjectController extends SimpleFormController {
 			if(project != null) {
 				//sets the project and project name
 				contactWISEProject.setProjectName(
-						project.getCurnit().getSdsCurnit().getName());
+						project.getName());
 				contactWISEProject.setProjectId(Long.parseLong(
 						request.getParameter("projectId")));
 			}
