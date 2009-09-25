@@ -294,9 +294,5 @@
     	</property>
     </bean>
 
-<util:properties id="javaMailProperties"
-		location="classpath:scy_sendmail_will_be_deleted.properties" />
-
-
 
 </beans>
