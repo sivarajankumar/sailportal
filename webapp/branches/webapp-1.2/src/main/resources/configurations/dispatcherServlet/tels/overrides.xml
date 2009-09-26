@@ -290,7 +290,7 @@
 				/rooloproject.html=rooloProjectController
 				/author/authorrooloproject.html=authorRooloProjectController
 				/author/uploadxml.html=uploadXMLProjectController
-				/bridge/*.html=bridgeController
+				/bridge/**/*.html=bridgeController
     		</value>
     	</property>
     </bean>

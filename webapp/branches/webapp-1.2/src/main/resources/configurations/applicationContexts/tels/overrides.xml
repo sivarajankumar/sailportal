@@ -118,9 +118,11 @@
                 /admin/**/*.html=ROLE_ADMINISTRATOR
                 /j_acegi_switch_user*=ROLE_ADMINISTRATOR  
                 /repository/**/*.html=ROLE_ANONYMOUS,ROLE_USER              
+                /author/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /author/publishproject.html=ROLE_ADMINISTRATOR
                 /author/project/postproject.html=ROLE_ANONYMOUS,ROLE_USER
-                /author/brainstorm/*.html=ROLE_ANONYMOUS,ROLE_USER                
+                /author/brainstorm/*.html=ROLE_ANONYMOUS,ROLE_USER
+                /bridge/authoringtool/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /bridge/*.html=ROLE_USER
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER

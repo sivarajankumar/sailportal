@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
  import java.io.IOException;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +48,8 @@ public class PreviewLDProjectController extends AbstractController {
 
 	private ProjectService projectService;
 	
+	private Properties portalProperties = null;
+
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -105,12 +108,15 @@ public class PreviewLDProjectController extends AbstractController {
 		
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 		
+		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+
 		String contentUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-		contentUrl = portalurl + contentUrl;
+		contentUrl = curriculumBaseWWW + contentUrl;
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
 		}
+		
 		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash) + "/";
 		String portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";
 		String userInfoUrl = portalVLEControllerUrl + "?action=getUserInfo";
@@ -138,5 +144,12 @@ public class PreviewLDProjectController extends AbstractController {
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }

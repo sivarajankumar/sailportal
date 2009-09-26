@@ -586,6 +586,7 @@
 	<div id="quickLinks1">
 		<div id="linkHeader"><spring:message code="teacher.index.20"/></div>
 			<ul>
+				<li><a href="../author/authorproject.html">Author Projects</a></li>
 				<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
 				<li><a href="projects/bookmarkedprojects.html"><spring:message code="teacher.index.23"/></a></li>
 				<li><a href="projects/customized/index.html"><spring:message code="teacher.index.24"/></a></li>

@@ -22,12 +22,15 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
+import java.util.Properties;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.pas.emf.pas.ECurnitmap;
@@ -61,6 +64,8 @@ public class GradeByStepController extends AbstractController {
 	private GradingService gradingService;
 	
 	private RunService runService;
+	
+	private Properties portalProperties = null;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -77,8 +82,9 @@ public class GradeByStepController extends AbstractController {
 		if (result.equals("LDProject")) {
 
 			String portalurl = ControllerUtil.getBaseUrlString(request);
+			String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 
-			String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			String contentUrl = curriculumBaseWWW + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 			if(lastIndexOfSlash==-1){
 				lastIndexOfSlash = contentUrl.lastIndexOf("\\");
@@ -91,21 +97,14 @@ public class GradeByStepController extends AbstractController {
 
 	    	String gradebystepurl = portalurl + "/vlewrapper/vle/gradebystep.html";
 
-	    	//String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 			String getDataUrl = portalurl + "/webapp/bridge/getdata.html";
 
 	    	String getAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation";
 	    	String postAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation";
 
-	    	//String getAnnotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + runId;
-	    	//String postAnnotationsUrl = portalurl + "/vlewrapper/annotations.html";
-
 			String getFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
 			String postFlagsUrl = portalurl + "/webapp/bridge/postdata.html?type=flag&runId=" + run.getId().toString();
 
-	    	//String getFlagsUrl = portalurl + "/vlewrapper/annotations.html?type=flag&runId=" + runId;
-	    	//String postFlagsUrl = portalurl + "/vlewrapper/annotations.html?type=flag";
-	    	
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
 			modelAndView.addObject(GRADE_BY_STEP_URL, gradebystepurl);
@@ -154,5 +153,13 @@ public class GradeByStepController extends AbstractController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	@Required
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }

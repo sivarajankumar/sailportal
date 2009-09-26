@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,6 +77,8 @@ public class StudentVLEController extends AbstractController {
 
 	private RunService runService;
 	
+	private Properties portalProperties = null;
+
 	private WorkgroupService workgroupService;
 	
 	protected final static String CURRENT_STUDENTRUNINFO_LIST_KEY = "current_run_list";
@@ -258,9 +261,10 @@ public class StudentVLEController extends AbstractController {
 	private ModelAndView handleGetVLEConfig(HttpServletRequest request,
 			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
+		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 
 		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-		contentUrl = portalurl + contentUrl;
+		contentUrl = curriculumBaseWWW + contentUrl;
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
@@ -437,5 +441,13 @@ public class StudentVLEController extends AbstractController {
 	@Required
 	public void setWorkgroupService(WorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	@Required
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }

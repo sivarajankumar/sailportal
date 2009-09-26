@@ -165,6 +165,7 @@
 		<property name="projectService" ref="projectService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 		<property name="curnitService" ref="curnitService"/>
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
 	
@@ -200,6 +201,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStepController">
 		<property name="runService" ref="runService" />
 		<property name="gradingService" ref="gradingService" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
 	<bean id="gradeOverviewController"
@@ -313,11 +315,13 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentVLEController">
 	    <property name="runService" ref="runService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 
 	<bean id="previewLDProjectController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewLDProjectController">
         <property name="projectService" ref="projectService" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 
 	<bean id="studentWorkgroupServiceController" 

@@ -74,6 +74,9 @@ public class TelsAuthenticationProcessingFilter extends
         }
         else if (userDetails instanceof TeacherUserDetails) {
 	   		this.setDefaultTargetUrl(TEACHER_DEFAULT_TARGET_PATH);
+	        // if destination after logged in is specified in the request, make that the targetUrl
+	        // currently only support destination=author.html
+	   		//if (request.getParameter(""))
         	GrantedAuthority adminAuth = null;
         	try {
 				adminAuth = userDetailsService.loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
@@ -88,6 +91,7 @@ public class TelsAuthenticationProcessingFilter extends
         		}
         	}
         }
+        
 		super.successfulAuthentication(request, response, authResult);
 		((MutableUserDetails) userDetails).incrementNumberOfLogins();
 		((MutableUserDetails) userDetails).setLastLoginTime(Calendar.getInstance().getTime());

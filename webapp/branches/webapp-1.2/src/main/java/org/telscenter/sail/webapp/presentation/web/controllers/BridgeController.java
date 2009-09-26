@@ -60,6 +60,11 @@ public class BridgeController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		// check if user is logged in
+		if (ControllerUtil.getSignedInUser(request) == null) {
+			response.sendRedirect("/webapp/login.html");
+			return null;
+		}
 		boolean authorized = authorize(request);
 		if (!authorized) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
@@ -126,7 +131,7 @@ public class BridgeController extends AbstractController {
 		} else if (type.equals("journal")) {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/journaldata.html");
 			requestDispatcher.forward(request, response);
-		}
+		} 
 		return null;
 	}
 
