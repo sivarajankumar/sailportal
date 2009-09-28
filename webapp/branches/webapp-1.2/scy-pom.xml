@@ -222,14 +222,13 @@
                 </executions>
 
                 <configuration>
-                    <dependencies>
+                    <!--dependencies>
 
                         <includes>
                             <include>eu.scy:scy-planner</include>
                             <include>eu.scy.client.tools:scymapper</include>
-                            <!--include>commons-cli:commons-cli</include-->
                         </includes>
-                    </dependencies>
+                    </dependencies-->
 
                     <excludeTransitive>false</excludeTransitive>
                     <jnlp>
