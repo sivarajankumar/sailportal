@@ -525,12 +525,11 @@ YAHOO.util.Event.onDOMReady(init);
 				</div>
 			</div>
 			<div id="archivedRuns">
-				<c:choose>
-				<c:when test="${fn:length(ended_run_list) > 0}" >
-				
 				<div id="archivedAdvisory">NOTICE: Archived Project Runs can be run and viewed. But any changes you make to an Archived Project Run will not be saved. 
 If you want to save work to an archived project run, ask your teacher to change its status back to "Current Project Run".</div> 
-				
+
+				<c:choose>
+				<c:when test="${fn:length(ended_run_list) > 0}" >
 				<c:forEach var="studentRunInfo"  items="${ended_run_list}">
 						
 
@@ -610,9 +609,7 @@ If you want to save work to an archived project run, ask your teacher to change 
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
-						<div id="archivedAdvisory">NOTICE: Archived Project Runs can be run and viewed. But any changes you make to an Archived Project Run will not be saved. 
-If you want to save work to an archived project run, ask your teacher to change its status back to "Current Project Run".</div> 
-						<div><spring:message code="student.index.43"/><div>	    
+						<spring:message code="student.index.43"/>	    
 				</c:otherwise>
 				</c:choose>
 			</div>
