@@ -244,4 +244,13 @@ public interface RunService extends OfferingService {
      * @throws Exception
      */
     public void setInfo(Long runId, String isPaused, String showNodeId) throws Exception;
+    
+    /**
+     * Given a <code>Long</code> runId, changes the archiveReminderTime to be 30 days
+     * from today.
+     * 
+     * @param <code>Long</code> runId
+     * @throws <code>ObjectNotFoundException</code>
+     */
+    public void extendArchiveReminderTime(Long runId) throws ObjectNotFoundException;
 }

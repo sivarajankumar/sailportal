@@ -31,6 +31,28 @@
 <script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
 <script type="text/javascript" src="../../.././javascript/tels/effects.js"></script>
 
+<script type="text/javascript">
+/**
+ * Checks to see if this page was opened from the teacher index page. If so, some extra
+ * work on the parent page needs to be done.
+ */
+function checkB4Submit(){
+	if(window.opener && window.opener.isTeacherIndex){
+		var oDoc = window.opener.document;
+		var id = document.getElementById('runId').value;
+
+		//update message on teacher index page announcements section
+		oDoc.getElementById('extendReminder_' + id).innerHTML = '<font color="24DD24">Run with id ' + id + ' has been archived.</font>';
+
+		//remove newly archived run from project run quick links
+		var child = oDoc.getElementById('quickLinksRow_' + id);
+		child.parentNode.removeChild(child);
+	};
+
+	//submit the form
+	document.getElementById('archiveRun').submit();
+};
+</script>
     
 <title><spring:message code="teacher.run.manage.archiverun.1"/></title>
 </head>
@@ -68,7 +90,7 @@
 
 <div id="responseButtons">
    
-<input type="submit" name="archiveproject" value="<spring:message code="teacher.pro.runmanager.21"/>" />
+<input type="button" onclick='checkB4Submit()' name="archiveproject" value="<spring:message code="teacher.pro.runmanager.21"/>" />
 
 <input type="reset" onclick="javascript:window.close()" name="cancelarchive" value="<spring:message code="navigate.cancel"/>" />
 

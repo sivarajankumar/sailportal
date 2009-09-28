@@ -175,6 +175,9 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setMaxWorkgroupSize(runParameters.getMaxWorkgroupSize());
 		run.setProject(project);
 		run.setName("Run with Project " + runParameters.getProject().getName());
+		Calendar reminderCal = Calendar.getInstance();
+		reminderCal.add(Calendar.DATE, 30);
+		run.setArchiveReminderTime(reminderCal.getTime());
 		if (!(run.getProject() instanceof ExternalProject)) {
 			if(run.getProject().getProjectType()!=ProjectType.ROLOO && run.getProject().getProjectType()!=ProjectType.LD){
 				run.setSdsOffering(generateSdsOfferingFromParameters(runParameters));
@@ -434,6 +437,20 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		 * the info field
 		 */
 		run.setInfo(runInfoString);
+		this.runDao.save(run);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#extendArchiveReminderTime(java.lang.Long)
+	 */
+	@Transactional()
+	public void extendArchiveReminderTime(Long runId) throws ObjectNotFoundException{
+		Run run = this.retrieveById(runId);
+		
+		Calendar moreTime = Calendar.getInstance();
+		moreTime.add(Calendar.DATE, 30);
+		
+		run.setArchiveReminderTime(moreTime.getTime());
 		this.runDao.save(run);
 	}
 }

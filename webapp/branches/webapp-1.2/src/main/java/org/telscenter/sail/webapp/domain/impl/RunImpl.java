@@ -26,7 +26,6 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +34,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -49,7 +47,6 @@ import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.run.RunStatus;
-import org.telscenter.sail.webapp.domain.run.impl.RunStatusImpl;
 
 import net.sf.sail.webapp.domain.OfferingVisitor;
 import net.sf.sail.webapp.domain.User;
@@ -57,7 +54,6 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 import net.sf.sail.webapp.domain.impl.OfferingImpl;
 import net.sf.sail.webapp.domain.impl.UserImpl;
-import net.sf.sail.webapp.domain.sds.SdsOffering;
 
 /**
  * WISE "run" domain object A WISE run is an offering with more information,
@@ -81,6 +77,9 @@ public class RunImpl extends OfferingImpl implements Run {
 
     @Transient
     public static final String COLUMN_NAME_RUN_CODE = "run_code";
+    
+    @Transient
+    public static final String COLUMN_NAME_ARCHIVE_REMINDER_TIME = "archive_reminder";
     
     @Transient
     public static final String PERIODS_JOIN_TABLE_NAME = "runs_related_to_groups";
@@ -142,7 +141,10 @@ public class RunImpl extends OfferingImpl implements Run {
     @Column(name = RunImpl.COLUMN_NAME_RUN_CODE, nullable = false, unique = true)
     private String runcode;
     
-    @OneToMany(targetEntity = PersistentGroup.class, fetch = FetchType.LAZY)
+    @Column(name = RunImpl.COLUMN_NAME_ARCHIVE_REMINDER_TIME, nullable = false)
+    private Date archiveReminderTime;
+
+	@OneToMany(targetEntity = PersistentGroup.class, fetch = FetchType.LAZY)
     @JoinTable(name = PERIODS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = PERIODS_JOIN_COLUMN_NAME, nullable = false))
     @Sort(type = SortType.NATURAL)
     private Set<Group> periods = new TreeSet<Group>();
@@ -435,5 +437,19 @@ public class RunImpl extends OfferingImpl implements Run {
      */
 	public Object accept(OfferingVisitor visitor) {
 		return visitor.visit(this);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#getArchiveReminderTime()
+	 */
+	public Date getArchiveReminderTime() {
+		return archiveReminderTime;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.Run#setArchiveReminderTime(java.util.Date)
+	 */
+	public void setArchiveReminderTime(Date archiveReminderTime) {
+		this.archiveReminderTime = archiveReminderTime;
 	}
 }

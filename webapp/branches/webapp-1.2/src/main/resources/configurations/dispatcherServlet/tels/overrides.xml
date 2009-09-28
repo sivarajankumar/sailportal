@@ -279,6 +279,7 @@
 				/teacher/projects/bookmark.html=bookmarkController
 				/teacher/projects/copyproject.html=copyProjectController
 				/teacher/projects/uploadproject.html=uploadProjectController
+				/teacher/run/manage/extendremindertime.html=extendReminderTimeController
 				/student/viewannouncements.html=viewAnnouncementsController
 				/createhierarchytype.html=createHierarchyTypeController
 				/createnode.html=createNodeController

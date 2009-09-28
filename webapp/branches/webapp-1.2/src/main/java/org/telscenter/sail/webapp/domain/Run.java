@@ -238,4 +238,14 @@ public interface Run extends Offering {
 	 * @param <code>Integer</code> maxWorkgroupSize
 	 */
 	public void setMaxWorkgroupSize(Integer maxWorkgroupSize);
+	
+	/**
+	 * @return <code>Date</code> archive reminder date
+	 */
+	public Date getArchiveReminderTime();
+
+	/**
+	 * @param <code>Date</code> the archiveReminderTime to set
+	 */
+	public void setArchiveReminderTime(Date archiveReminderTime);
 }
