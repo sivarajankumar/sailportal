@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     * Copyright (c) 2006 Encore Research Group, University of Toronto
-    * 
+    *
     * This library is free software; you can redistribute it and/or
     * modify it under the terms of the GNU Lesser General Public
     * License as published by the Free Software Foundation; either
@@ -20,9 +20,9 @@
 <!-- $Id$ -->
 
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-    version="2.4">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
 
 
     <display-name>Sail Web application</display-name>
@@ -64,7 +64,7 @@
 
 
     <!--  Listeners -->
-    <listener>	
+    <listener>
         <listener-class>
             org.springframework.web.util.Log4jConfigListener
         </listener-class>
@@ -75,13 +75,13 @@
             net.sf.sail.webapp.spring.impl.CustomContextLoaderListener
         </listener-class>
     </listener>
-    
+
     <listener>
         <listener-class>
-			net.sf.sail.webapp.presentation.web.listeners.PasSessionListener		        	
+            net.sf.sail.webapp.presentation.web.listeners.PasSessionListener
         </listener-class>
     </listener>
-    
+
 
     <!--
         The HttpSessionEventPublisher will publish
@@ -99,7 +99,6 @@
     ${startup.listeners}
 
 
-
     <!-- Servlets -->
     <!-- Using Spring's web MVC -->
     <servlet>
@@ -114,18 +113,18 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-	<servlet>
-       <servlet-name>dwr-invoker</servlet-name>
-       <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
-       <load-on-startup>1</load-on-startup>
-     </servlet>
+    <servlet>
+        <servlet-name>dwr-invoker</servlet-name>
+        <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
 
     <servlet-mapping>
-      <servlet-name>dwr-invoker</servlet-name>
-      <url-pattern>/dwr/*</url-pattern>
-   </servlet-mapping>
-   
+        <servlet-name>dwr-invoker</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </servlet-mapping>
+
     <!-- Servlet Mappings -->
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
@@ -144,6 +143,6 @@
         That means HttpSessions are serialized.
         Objects going into the session better be serializable!
     -->
-    <distributable />
+    <distributable/>
 
 </web-app>
