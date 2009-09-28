@@ -214,7 +214,7 @@
                 <artifactId>webstart-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>test</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>jnlp</goal>
                         </goals>
