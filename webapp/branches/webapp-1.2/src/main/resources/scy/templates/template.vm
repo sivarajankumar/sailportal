@@ -3,7 +3,7 @@
     codebase="http://${client.serverName}:8080/${client.contextPath}/webstart"
     href="$outputFile">
   <information>
-    <title>SCY-Lab</title>
+    <title>SCY-Planner</title>
     <vendor>SCY</vendor>
     <homepage href="http://www.scy-net.org"/>
 #if($offlineAllowed)

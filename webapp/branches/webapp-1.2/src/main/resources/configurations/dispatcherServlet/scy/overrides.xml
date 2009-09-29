@@ -60,7 +60,7 @@
         class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
             <list>
-                <value>messages/tels/ui-html</value>
+                <value>messages/scy/ui-html</value>
             </list>
         </property>
     </bean>

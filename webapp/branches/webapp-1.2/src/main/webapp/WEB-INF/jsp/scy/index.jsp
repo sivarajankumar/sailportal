@@ -70,7 +70,6 @@
     </div>
     <div id="bd" class="border bottom">
         <div id="yui-main">
-        <h1>HERE YOU CAN LOGIN IF YOU DARE!</h1>
             <div class="yui-b body" style="margin:0;padding: 1em;">
                 <form id="home" method="post" action="j_acegi_security_check">
                     <dl id="signinDefinList">
@@ -98,10 +97,10 @@
                 </form>
 
                 <ul id="signInLinkPosition">
-                    <li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message
+                    <!--li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message
                             code="findalostusername"/></a>
-                    </li>
-                    <li><a href="signup.html" id="joinlink"><spring:message code="createanewwiseaccount"/></a></li>
+                    </li-->
+                    <li><a href="signup.html" id="joinlink">Create new SCY account</a></li>
                 </ul>
             </div>
         </div>

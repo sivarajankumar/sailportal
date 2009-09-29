@@ -29,6 +29,8 @@
 
 <%@ include file="adminheader.jsp" %>
 
+<%@ include file="scyplanner.jsp" %>
+
 
 </body>
 
