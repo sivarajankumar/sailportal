@@ -230,6 +230,8 @@
                         </includes>
                     </dependencies-->
 
+
+
                     <excludeTransitive>false</excludeTransitive>
                     <jnlp>
                         <inputTemplate>src/main/resources/scy/templates/template.vm</inputTemplate>
@@ -248,11 +250,11 @@
                             <gen>false</gen>
                         </keystoreConfig>
                     </sign-->
-                    <!--unsign>true</unsign>
+                    <unsign>true</unsign>
                     <pack200>false</pack200>
                     <gzip>false</gzip>
                     <outputJarVersions>false</outputJarVersions>
-                    <verbose>false</verbose-->
+                    <verbose>false</verbose>
 
                 </configuration>
             </plugin>
