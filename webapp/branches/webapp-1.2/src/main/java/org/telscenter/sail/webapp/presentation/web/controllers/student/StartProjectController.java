@@ -76,7 +76,32 @@ public class StartProjectController extends AbstractController {
 		User user = (User) request.getSession().getAttribute(
 				User.CURRENT_USER_SESSION_KEY);
 
-		Long runId = Long.valueOf(request.getParameter("runId"));
+		String runIdStr = request.getParameter("runId");
+		String projectIdStr = request.getParameter("projectId");
+		Long runId = null;
+		if (runIdStr != null) {
+			runId = Long.valueOf(runIdStr);
+		} else if (projectIdStr != null) {
+			// we need to look up the run that the logged-in user is 
+			// associated with that has been set up with the specified projectId.
+			// currently, this assumes that student can be associated with one
+			// run of that project.
+			Long projectId = Long.valueOf(projectIdStr);
+			List<Run> runList = runService.getRunList(user);
+			for (Run run : runList) {
+				if (run.getProject().getId().equals(projectId)) {
+					runId = run.getId();
+				}
+			}
+			if (runId == null) {
+				// this means that the run has not been set up, or the student has not
+				// associated with the project run yet.
+				response.getWriter().print("You cannot see this yet. Either your teacher has not " +
+						"set up the run, or you have not added the run. Please talk to your teacher.");
+				return null;
+			}
+		}
+		
 		String bymyselfStr = request.getParameter("bymyself");
 		boolean bymyself = false;
 		if (bymyselfStr != null) {
