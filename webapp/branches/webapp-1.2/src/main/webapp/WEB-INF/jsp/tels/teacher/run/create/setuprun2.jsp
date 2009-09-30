@@ -52,7 +52,8 @@
 <form:form method="post" commandName="runParameters">
 
 <h5><spring:message code="teacher.run.setup.14"/></h5>
-<h6 class="indent15px"><spring:message code="teacher.run.setup.15"/></h6>
+<h6 class="indent15px" style="color:#660000;"><spring:message code="teacher.run.setup.15a"/></h6><br/>
+<h6 class="indent15px" style="color:#660000;"><spring:message code="teacher.run.setup.15b"/></h6><br/>
 
 <c:choose>
 	<c:when test="${fn:length(existingRunList) == 0}">

@@ -61,6 +61,9 @@
 			<td class="link"><a href="bookmarkedprojects.html"><spring:message code="teacher.pro.lib.index.7"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.8"/></td></tr>
 		<tr>
+			<td class="link"><a href="http://wise4.telscenter.org/webapp/author/authorproject.html">Author Projects</a></td>
+			<td class="description">Placeholder link. Eventually all custom projects and shared projects will be accessed using the <i>My Customized Projects</i> section below.</td></tr>
+		<tr>
 			<td class="link"><a href="../projects/customized/index.html"><spring:message code="teacher.pro.lib.index.9"/></a></td> 
 			<td class="description"><spring:message code="teacher.pro.lib.index.10"/></td></tr> 
 		<tr>
