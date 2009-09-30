@@ -1364,6 +1364,7 @@
     <bean id="bridgeController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.BridgeController">
     	<property name="workgroupService" ref="wiseWorkgroupService"/>
+    	<property name="runService" ref="runService" />
     </bean>
     	
 </beans>

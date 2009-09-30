@@ -23,9 +23,6 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -34,37 +31,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.domain.Offering;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.file.impl.AuthoringJNLPModifier;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
-import net.sf.sail.webapp.service.workgroup.impl.WorkgroupServiceImpl;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.announcement.Announcement;
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
-import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
-import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.service.student.StudentService;
-import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
-
-import roolo.elo.api.IELO;
 
 /**
  * Controller for handling student VLE-portal interactions.
@@ -361,8 +341,17 @@ public class StudentVLEController extends AbstractController {
 		
 		String userInfoString = "<userInfo>";
 		
+		String period = "";
+		
+		//get the period
+		if(workgroup instanceof WISEWorkgroup) {
+			Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();
+			Long periodId = periodGroup.getId();
+			period = periodId.toString();
+		}
+		
 		// add this user's info:
-		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName></myUserInfo>";
+		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><period>" + period + "</period></myUserInfo>";
 		
 		// add the class info:
 		userInfoString += "<myClassInfo>";
