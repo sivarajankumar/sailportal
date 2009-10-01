@@ -10,13 +10,9 @@
 <link href="../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<script type="text/javascript" src="../javascript/tels/general.js"></script>
-<script type="text/javascript" src="../javascript/tels/effects.js"></script>
-    
 <title><spring:message code="application.title" /></title>
 
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
-<script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 
 </head>
 <body>

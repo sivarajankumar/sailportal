@@ -339,22 +339,22 @@ public class StudentVLEController extends AbstractController {
 		}
 		
 		
-		String userInfoString = "<userInfo>";
+		StringBuffer userInfoString = new StringBuffer("<userInfo>");
 		
 		String period = "";
 		
 		//get the period
-		if(workgroup instanceof WISEWorkgroup) {
+		if(workgroup instanceof WISEWorkgroup && !((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
 			Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();
 			Long periodId = periodGroup.getId();
 			period = periodId.toString();
 		}
 		
 		// add this user's info:
-		userInfoString += "<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><period>" + period + "</period></myUserInfo>";
+		userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><period>" + period + "</period></myUserInfo>");
 		
 		// add the class info:
-		userInfoString += "<myClassInfo>";
+		userInfoString.append("<myClassInfo>");
 		    		
 		// now add classmates
 		Set<Workgroup> workgroups = runService.getWorkgroups(run.getId());
@@ -367,10 +367,10 @@ public class StudentVLEController extends AbstractController {
 				if (classmateWorkgroup.getMembers().size() > 0 && classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
 					for (String requestedWorkgroupId : requestedWorkgroupIds) {
 						if (requestedWorkgroupId.equals(classmateWorkgroup.getId().toString())) {
-							userInfoString += "<classmateUserInfo>";
-							userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
-							userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>";
-							userInfoString += "</classmateUserInfo>";
+							userInfoString.append("<classmateUserInfo>");
+							userInfoString.append("<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>");
+							userInfoString.append("<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>");
+							userInfoString.append("</classmateUserInfo>");
 						}
 					}
 				}
@@ -379,10 +379,10 @@ public class StudentVLEController extends AbstractController {
 			// otherwise get all classmates (excluding teacher)
 			for (Workgroup classmateWorkgroup : workgroups) {
 				if (classmateWorkgroup.getMembers().size() > 0 && classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-					userInfoString += "<classmateUserInfo>";
-					userInfoString += "<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>";
-					userInfoString += "<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>";
-					userInfoString += "</classmateUserInfo>";
+					userInfoString.append("<classmateUserInfo>");
+					userInfoString.append("<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>");
+					userInfoString.append("<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>");
+					userInfoString.append("</classmateUserInfo>");
 				}
 			}
 
@@ -396,16 +396,16 @@ public class StudentVLEController extends AbstractController {
 				User teacher = null;
 				if (owners.size() > 0) {
 					teacher = owners.iterator().next();
-					userInfoString += "<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>";
+					userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>");
 				} else {
-					userInfoString += "<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName></teacherUserInfo>";
+					userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName></teacherUserInfo>");
 				}
 			}
 		}
 
-		userInfoString += "</myClassInfo>";
+		userInfoString.append("</myClassInfo>");
 
-		userInfoString += "</userInfo>";
+		userInfoString.append("</userInfo>");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader ("Expires", 0);
