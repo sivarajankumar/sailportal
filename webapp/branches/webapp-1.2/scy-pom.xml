@@ -204,8 +204,10 @@
                 <artifactId>tomcat-maven-plugin</artifactId>
                 <version>1.0-beta-1</version>
                 <configuration>
-                    <url>http://intermedia-prod02.uio.no:8080/manager</url>
-                    <server>nightly-oslo-server</server>
+                    <!--url>http://intermedia-prod02.uio.no:8080/manager</url>
+                    <server>nightly-oslo-server</server-->
+                    <url>${deploy.url}</url>
+                    <server>${deploy.server}</server>
                 </configuration>
             </plugin>
 
@@ -214,66 +216,94 @@
                 <artifactId>webstart-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>scy-plannner</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>jnlp</goal>
                         </goals>
+                        <configuration>
+                            <excludeTransitive>true</excludeTransitive>
+                            <jnlp>
+                                <inputTemplate>src/main/resources/scy/templates/template.vm</inputTemplate>
+                                <outputFile>scy-planner.jnlp</outputFile>
+                                <mainClass>eu.scy.scyplanner.SCYPlannerMain</mainClass>
+                            </jnlp>
+
+                            <!--sign>
+                                <keypass>scylab</keypass>
+                                <storepass>scylab</storepass>
+                                <alias>scykeystore</alias>
+                                <keystore>${project.build.directory}/../scykeystore.jks</keystore>
+                                <verify>true</verify>
+                                <keystoreConfig>
+                                    <delete>false</delete>
+                                    <gen>false</gen>
+                                </keystoreConfig>
+                            </sign-->
+                            <unsign>true</unsign>
+                            <pack200>false</pack200>
+                            <gzip>false</gzip>
+                            <outputJarVersions>false</outputJarVersions>
+                            <verbose>false</verbose>
+
+                        </configuration>
+
+
+                    </execution>
+                    <execution>
+                        <id>scy-lab</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jnlp</goal>
+                        </goals>
+                        <configuration>
+                            <excludeTransitive>true</excludeTransitive>
+                            <jnlp>
+                                <inputTemplate>src/main/resources/scy/templates/template-scy-lab.vm</inputTemplate>
+                                <outputFile>scy-lab.jnlp</outputFile>
+                                <mainClass>eu.scy.client.desktop.scydesktop.Main</mainClass>
+                            </jnlp>
+
+                            <!--sign>
+                                <keypass>scylab</keypass>
+                                <storepass>scylab</storepass>
+                                <alias>scykeystore</alias>
+                                <keystore>${project.build.directory}/../scykeystore.jks</keystore>
+                                <verify>true</verify>
+                                <keystoreConfig>
+                                    <delete>false</delete>
+                                    <gen>false</gen>
+                                </keystoreConfig>
+                            </sign-->
+                            <unsign>true</unsign>
+                            <pack200>false</pack200>
+                            <gzip>false</gzip>
+                            <outputJarVersions>false</outputJarVersions>
+                            <verbose>false</verbose>
+
+                        </configuration>
+
+
                     </execution>
                 </executions>
 
-                <configuration>
-                    <!--dependencies>
-
-                        <includes>
-                            <include>eu.scy:scy-planner</include>
-                            <include>eu.scy.client.tools:scymapper</include>
-                        </includes>
-                    </dependencies-->
-
-
-
-                    <excludeTransitive>false</excludeTransitive>
-                    <jnlp>
-                        <inputTemplate>src/main/resources/scy/templates/template.vm</inputTemplate>
-                        <outputFile>scylab.jnlp</outputFile>
-                        <mainClass>eu.scy.scyplanner.SCYPlannerMain</mainClass>
-                    </jnlp>
-
-                    <!--sign>
-                        <keypass>scylab</keypass>
-                        <storepass>scylab</storepass>
-                        <alias>scykeystore</alias>
-                        <keystore>${project.build.directory}/../scykeystore.jks</keystore>
-                        <verify>true</verify>
-                        <keystoreConfig>
-                            <delete>false</delete>
-                            <gen>false</gen>
-                        </keystoreConfig>
-                    </sign-->
-                    <unsign>true</unsign>
-                    <pack200>false</pack200>
-                    <gzip>false</gzip>
-                    <outputJarVersions>false</outputJarVersions>
-                    <verbose>false</verbose>
-
-                </configuration>
             </plugin>
 
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>filter-template</id>
+                        <id>filter-template-scy-planner</id>
                         <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/webapp/webstart</outputDirectory>
+                            <outputDirectory>${basedir}/target/webapp/webstart/scyplanner</outputDirectory>
                             <resources>
                                 <resource>
                                     <includes>
-                                        <include>**/*.jnlp</include>
+                                        <include>**/scy-planner.jnlp</include>
                                     </includes>
                                     <directory>target/jnlp</directory>
                                     <filtering>true</filtering>
@@ -282,13 +312,51 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>copy-resources</id>
+                        <id>filter-template-scy-lab</id>
                         <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/webapp/webstart</outputDirectory>
+                            <outputDirectory>${basedir}/target/webapp/webstart/scylab</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <includes>
+                                        <include>**/scy-lab.jnlp</include>
+                                    </includes>
+                                    <directory>target/jnlp</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-scy-planner</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/webapp/webstart/scyplanner</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <includes>
+                                        <include>**/*.jar</include>
+                                    </includes>
+                                    <directory>target/jnlp</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-scy-lab</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/webapp/webstart/scylab</outputDirectory>
                             <resources>
                                 <resource>
                                     <includes>
@@ -732,6 +800,11 @@
             <artifactId>scy-planner</artifactId>
             <version>4.0.0-SNAPSHOT</version>
             <!--scope>runtime</scope-->
+        </dependency>
+        <dependency>
+           <groupId>eu.scy.client.desktop</groupId>
+           <artifactId>scy-desktop</artifactId>
+           <version>${scy.version}</version>
         </dependency>
         <dependency>
             <groupId>eu.scy.client.tools</groupId>

@@ -12,7 +12,6 @@
         </div>
         <div class="menubar">
             <div class="topmenu" style="margin: 4px 1em 2px  1em;">
-                <div id="bodyContainer" style="position:relative;height: 600px; width: 100%;">
                     <sec:authorize ifAllGranted="ROLE_USER">
                         <div id="usernameBannerHome"><sec:authentication property="principal.username"/></div>
                         <div id="signOutBannerHome"><a id="styleOverRideSafari1" href="<c:url value="/j_spring_security_logout"/>">
@@ -39,7 +38,6 @@
                         </sec:authorize>
 
                     </sec:authorize>
-                </div>
             </div>
         </div>
     </div>
