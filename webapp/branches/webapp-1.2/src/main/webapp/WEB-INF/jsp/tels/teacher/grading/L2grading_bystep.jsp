@@ -25,16 +25,16 @@
 		<li >
 			<a href="../grading/overview.html"><spring:message code="teacher.grading.l2bar.1"/></a> </li>
        	<li>
-			<a class="navigationL2_grading_highlight" href="../grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.grading.l2bar.2"/></a> </li>
+       	    <a class="navigationL2_grading_highlight" href="../grading/projectPickerGrading.html?gradeByType=step">Grade by Step</a> </li>
 		<li>
-			<a href="../grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.grading.l2bar.3"/></a> </li>
+			<a style="color:#999999;" href="../grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.grading.l2bar.3"/></a> </li>
 		<li>
-			<a style="color:#999999;" href="#"><spring:message code="teacher.grading.l2bar.4"/></a> </li>
+			<a style="color:#999999;" href="#">Step Values</a> </li>
 		<li>
-			<a style="color:#999999;" href="#"><spring:message code="teacher.grading.l2bar.5"/></a> </li>
+			<a style="color:#999999;" href="#">Score Summary</a> </li>
 		<li>
-			<a href="./projectPickerGrading.html?gradeByType=value"><spring:message code="teacher.grading.l2bar.6"/></a> </li>
+			<a style="color:#999999;" href="./projectPickerGrading.html?gradeByType=value">My Grading Progress</a> </li>
 		<li>
-			<a style="color:#999999;" href="#"><spring:message code="teacher.grading.l2bar.7"/></a> </li>
+			<a style="color:#999999;" href="#">Premade Comments</a> </li>
    </ul>
 </div>	

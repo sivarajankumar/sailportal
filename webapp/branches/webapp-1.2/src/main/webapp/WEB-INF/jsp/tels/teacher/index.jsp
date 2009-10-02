@@ -478,12 +478,11 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 						        </c:otherwise>
 						    </c:choose>
 		    				</b></li>
-							<li><b>[Auto Msg regarding projects w/steps to grade]</b></li>
-							<li><b>[Special Announcements here]</b></li>
+							
 							<c:forEach var="run" items="${run_list}">
 								<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
 									<li id='extendReminder_${run.id}'>
-										${run.name} has been open since ${run.starttime}. Do you want to archive it now? [
+										Your project run <i>${run.name}</i> has been open since ${run.starttime}. Do you want to archive it now? [
 										<a onclick="window.open('run/manage/archiveRun.html?runId=${run.id}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font color='blue'>Yes</font></a>/
 										<a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me Later</font></a>].
 									</li>
@@ -519,7 +518,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 								<ul id="quickToolLinks">
 									<li><a href="/webapp/previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.index.41"/></a></li>
 									<li><a href="grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.index.42"/></a></li>
-									<li><a href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a></li>
+									<li style="text-decoration:line-through"><a href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a></li>
 								</ul>
 							</td>
 					</c:forEach>
@@ -620,15 +619,15 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 			<ul>
 				<li><a href="../author/authorproject.html">Author Projects <span style="font-size:80%;">(placeholder)</span></a></li>
 				<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
-				<li><a href="projects/bookmarkedprojects.html"><spring:message code="teacher.index.23"/></a></li>
-				<li><a href="projects/customized/index.html"><spring:message code="teacher.index.24"/></a></li>
+				<li style="text-decoration:line-through"><a href="projects/bookmarkedprojects.html"><spring:message code="teacher.index.23"/></a></li>
+				<li style="text-decoration:line-through"><a href="projects/customized/index.html"><spring:message code="teacher.index.24"/></a></li>
 			</ul>
 		<div id="linkHeader"><spring:message code="teacher.index.25"/></div>
 			<ul>
 				<li><a href="./grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.index.26"/></a></li>			
-				<li><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>
-				<li class="inactivecolor"><spring:message code="teacher.index.28"/></li>
-				<li><a href="./grading/premadeComments.html"><spring:message code="teacher.index.29"/></a></li>
+				<li style="text-decoration:line-through"><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>
+				<li style="text-decoration:line-through"><a href=""><spring:message code="teacher.index.28"/></a></li>
+				<li style="text-decoration:line-through"><a href="./grading/premadeComments.html"><spring:message code="teacher.index.29"/></a></li>
 			</ul>		
 	</div>
 

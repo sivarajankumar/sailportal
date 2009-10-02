@@ -123,13 +123,13 @@
 	letter-spacing:-.7px;
 }
 
-#quickToolLinks li a:link, #quickToolLinks li a:visited {
+#quickToolLinks li a:link, #quickToolLinks li a:visited, #teacherWelcomeBoxTable li a {
 	text-decoration:none; 
 	padding:2px 3px;
 	margin:0px;
 		}
 
-#quickToolLinks li a:hover {
+#quickToolLinks li a:hover, #teacherWelcomeBoxTable li a:hover {
 	background-color:#ffff33;
 	color:#000033;
 	padding:2px 3px;

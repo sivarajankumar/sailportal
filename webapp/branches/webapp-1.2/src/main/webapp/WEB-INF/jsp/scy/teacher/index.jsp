@@ -456,8 +456,7 @@
 						        </c:otherwise>
 						    </c:choose>
 		    				</b></li>
-							<li><b>[Auto Msg regarding projects w/steps to grade]</b></li>
-							<li><b>[Special Announcements here]</b></li>
+							
 							</ul>
 						</td>
 					</tr>
@@ -487,7 +486,7 @@
 								<ul id="quickToolLinks">
 									<li><a href="/webapp/previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.index.41"/></a></li>
 									<li><a href="grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.index.42"/></a></li>
-									<li><a href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a></li>
+									<li style="text-decoration:line-through"><a href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a></li>
 								</ul>
 							</td>
 					</c:forEach>

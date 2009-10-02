@@ -60,20 +60,20 @@
 		    <td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.grading.overview.3"/></a></td>
 			<td class="description_grading"><spring:message code="teacher.grading.overview.4"/></td></tr>
 		<tr>
-			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.grading.overview.5"/></a></td>
+			<td class="link_grading"><a style="color:#999999" href="./projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.grading.overview.5"/></a></td>
 			<td class="description_grading"><spring:message code="teacher.grading.overview.6"/></td></tr>
 		<tr>
-			<td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=value"><spring:message code="teacher.grading.overview.7"/></a></td>
+			<td class="link_grading"><a style="color:#999999;" href="./projectPickerGrading.html?gradeByType=value"><spring:message code="teacher.grading.overview.7"/></a></td>
 			<td class="description_grading"><spring:message code="teacher.grading.overview.8"/></td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;"href="#"><spring:message code="teacher.grading.overview.9"/></a></td>
+			<td class="link_grading"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.9"/></a></td>
 			<td class="description_grading"><spring:message code="teacher.grading.overview.10"/></td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;"href="#"><spring:message code="teacher.grading.overview.11"/></a></td>
+			<td class="link_grading"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.11"/></a></td>
 			<td class="description_grading"><spring:message code="teacher.grading.overview.12"/></td></tr>
 
 		<tr>
-			<td class="link_grading"><a style="color:#999999;"href="#"><spring:message code="teacher.grading.overview.13"/></a></td>
+			<td class="link_grading"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.13"/></a></td>
 			<td class="description_grading"><spring:message code="teacher.grading.overview.14"/></td></tr>
 	</table>
 	
