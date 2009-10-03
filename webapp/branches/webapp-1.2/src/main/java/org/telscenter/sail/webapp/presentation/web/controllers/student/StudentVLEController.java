@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -338,20 +339,60 @@ public class StudentVLEController extends AbstractController {
 		} else {
 		}
 		
-		
 		StringBuffer userInfoString = new StringBuffer("<userInfo>");
+
+		/*
+		 * the group id of the period, this is the id in the db which is not
+		 * the same as the period number
+		 */
+		String periodId = "";
 		
-		String period = "";
+		//the period number that you would regularly think of as a period
+		String periodName = "";
 		
 		//get the period
 		if(workgroup instanceof WISEWorkgroup && !((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+			//the logged in user is a student
 			Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();
-			Long periodId = periodGroup.getId();
-			period = periodId.toString();
+			periodName = periodGroup.getName();
+			periodId = periodGroup.getId().toString();
+		} else if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+			//the logged in user is a teacher
+			
+			//string buffers to maintain : delimited values
+			StringBuffer periodIds = new StringBuffer();
+			StringBuffer periodNames = new StringBuffer();
+			
+			//get the periods
+			Set<Group> periods = run.getPeriods();
+			Iterator<Group> periodIter = periods.iterator();
+			
+			//loop through all the periods
+			while(periodIter.hasNext()) {
+				Group next = periodIter.next();
+				
+				//if this is not the first period add a :
+				if(periodIds.length() != 0) {
+					periodIds.append(":");
+				}
+				
+				//if this is not the first period add a :
+				if(periodNames.length() != 0) {
+					periodNames.append(":");
+				}
+				
+				//append the values
+				periodIds.append(next.getId());	
+				periodNames.append(next.getName());
+			}
+			
+			//get the string values
+			periodId = periodIds.toString();
+			periodName = periodNames.toString();
 		}
 		
 		// add this user's info:
-		userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><period>" + period + "</period></myUserInfo>");
+		userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
 		
 		// add the class info:
 		userInfoString.append("<myClassInfo>");
@@ -367,10 +408,8 @@ public class StudentVLEController extends AbstractController {
 				if (classmateWorkgroup.getMembers().size() > 0 && classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
 					for (String requestedWorkgroupId : requestedWorkgroupIds) {
 						if (requestedWorkgroupId.equals(classmateWorkgroup.getId().toString())) {
-							userInfoString.append("<classmateUserInfo>");
-							userInfoString.append("<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>");
-							userInfoString.append("<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>");
-							userInfoString.append("</classmateUserInfo>");
+							//get the xml for the classmate and append it
+							userInfoString.append(getClassmateUserInfoXML(classmateWorkgroup));
 						}
 					}
 				}
@@ -379,10 +418,8 @@ public class StudentVLEController extends AbstractController {
 			// otherwise get all classmates (excluding teacher)
 			for (Workgroup classmateWorkgroup : workgroups) {
 				if (classmateWorkgroup.getMembers().size() > 0 && classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-					userInfoString.append("<classmateUserInfo>");
-					userInfoString.append("<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>");
-					userInfoString.append("<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>");
-					userInfoString.append("</classmateUserInfo>");
+					//get the xml for the classmate and append it
+					userInfoString.append(getClassmateUserInfoXML(classmateWorkgroup));
 				}
 			}
 
@@ -414,6 +451,36 @@ public class StudentVLEController extends AbstractController {
 		//response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(userInfoString);
 		return null;
+	}
+	
+	/**
+	 * Get the xml for the classmate user info
+	 * @param classmateWorkgroup the workgroup of the classmate
+	 * @return an xml string containing the info for the classmate
+	 */
+	private String getClassmateUserInfoXML(Workgroup classmateWorkgroup) {
+		StringBuffer userInfoString = new StringBuffer();
+		
+		//open tag
+		userInfoString.append("<classmateUserInfo>");
+		
+		//get the workgroup id
+		userInfoString.append("<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>");
+		
+		//get the user name
+		userInfoString.append("<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>");
+		
+		if(classmateWorkgroup instanceof WISEWorkgroup) {
+			//get the period id and period name
+			userInfoString.append("<periodId>" + ((WISEWorkgroup) classmateWorkgroup).getPeriod().getId() + "</periodId>");
+			userInfoString.append("<periodName>" + ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName() + "</periodName>");
+		}
+		
+		//close tag
+		userInfoString.append("</classmateUserInfo>");
+		
+		//return the xml string
+		return userInfoString.toString();
 	}
 	
 	/**
