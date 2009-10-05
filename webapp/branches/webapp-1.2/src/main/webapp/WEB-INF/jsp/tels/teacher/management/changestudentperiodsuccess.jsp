@@ -10,9 +10,18 @@
     type="text/css" />
     
 <title><spring:message code="application.title" /></title>
+<script type='text/javascript'>
+function refreshParent(){
+	if(window.opener){
+		window.opener.location.reload();
+		self.close();
+	};
+};
+</script>
+
 </head>
 
-<body>
+<body onload='refreshParent()'>
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
 
