@@ -174,7 +174,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setOwners(runParameters.getOwners());
 		run.setMaxWorkgroupSize(runParameters.getMaxWorkgroupSize());
 		run.setProject(project);
-		run.setName("Run with Project " + runParameters.getProject().getName());
+		run.setName("" + runParameters.getProject().getName());
 		Calendar reminderCal = Calendar.getInstance();
 		reminderCal.add(Calendar.DATE, 30);
 		run.setArchiveReminderTime(reminderCal.getTime());

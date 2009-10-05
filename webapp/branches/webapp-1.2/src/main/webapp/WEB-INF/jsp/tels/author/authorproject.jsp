@@ -10,7 +10,7 @@ function loaded(){
 
 </head>
 
-<body>
+<body style="margin:0;padding:0;" >
 <iframe id="authorfrm" src="${vleAuthorUrl}" name="authorfrm" scrolling="auto" width="100%" height="100%" frameborder="0">
  [Iframes not enabled]
 </iframe>

@@ -24,9 +24,8 @@
 
 <div id="wiseLogo"><a href=".././index.html"
 	onmouseout="MM_swapImgRestore()"
-	onmouseover="MM_swapImage('WISE Secondary Logo','','../../themes/tels/default/images/WISE-Secondary-Banner-Logo-Roll.png',1)">
-	<img src="../../themes/tels/default/images/WISE-Secondary-Banner-Logo.png"
-	alt="WISE Logo" width="209" height="24" border="0" id="WISE Secondary Logo" /></a></div>
+	onmouseover="MM_swapImage('WISE Secondary Logo','','../../themes/tels/default/images/WISE-Logo-Medium-1.png',1)">
+	<img src="../../themes/tels/default/images/WISE-Logo-Medium-1.png" alt="WISE 4 Logo" border="0" id="WISE Secondary Logo" /></a></div>
 
 <div id="teacherBannerLabel">
 	<img src="../../themes/tels/default/images/Teacher-Dashboard-Label.png"	alt="Teacher Dashboard Label" /></div>

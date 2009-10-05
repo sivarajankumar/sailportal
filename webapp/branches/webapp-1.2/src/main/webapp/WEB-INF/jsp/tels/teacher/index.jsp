@@ -408,10 +408,10 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 				var runLI = document.getElementById('extendReminder_' + id);
 				var callback = {
 						success:function(o){
-							runLI.innerHTML = '<font color="24DD24">You will be reminded to archive run with id ' + id + ' again in 30 days.</font>';
+							runLI.innerHTML = '<font color="24DD24">You will be reminded to archive the project run with id ' + id + ' again in 30 days.</font>';
 						},
 						failure:function(o){
-							runLI.innerHTML = '<font color="DD2424">Unable to update run with id ' + id + ' on server.</font>';
+							runLI.innerHTML = '<font color="DD2424">Unable to update the project run with id ' + id + ' on server.</font>';
 						},
 						scope:this
 				};
