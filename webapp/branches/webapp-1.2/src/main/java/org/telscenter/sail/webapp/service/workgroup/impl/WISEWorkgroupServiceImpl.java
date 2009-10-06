@@ -133,8 +133,8 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 		workgroup.setOffering(run);
 		workgroup.setSdsWorkgroup(sdsWorkgroup);
 		workgroup.setPeriod(period);
-		if (run.getOwners() != null &&
-				run.getOwners().containsAll(members)) {
+		if ((run.getOwners() != null && run.getOwners().containsAll(members)) ||
+				(run.getSharedowners() != null && run.getSharedowners().containsAll(members))) {
 			workgroup.setTeacherWorkgroup(true);
 		}
 		return workgroup;
