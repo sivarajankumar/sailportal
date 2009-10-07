@@ -505,7 +505,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
           	
           	<table id="quickToolsTable">
 				    <tr>
-				        <th><spring:message code="teacher.index.38"/></th>
+				        <th>Project Run</th>
 				        <th><spring:message code="teacher.index.39A"/></th>
 				        <th><spring:message code="teacher.index.39B"/></th>
 				    </tr>
@@ -617,10 +617,9 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 	<div id="quickLinks1">
 		<div id="linkHeader"><spring:message code="teacher.index.20"/></div>
 			<ul>
-				<li><a href="../author/authorproject.html">Author Projects <span style="font-size:80%;">(placeholder)</span></a></li>
 				<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
+				<li><a href="../author/authorproject.html">Author Custom/Shared Projects</a></li>
 				<li style="text-decoration:line-through"><a href="projects/bookmarkedprojects.html"><spring:message code="teacher.index.23"/></a></li>
-				<li style="text-decoration:line-through"><a href="projects/customized/index.html"><spring:message code="teacher.index.24"/></a></li>
 			</ul>
 		<div id="linkHeader"><spring:message code="teacher.index.25"/></div>
 			<ul>

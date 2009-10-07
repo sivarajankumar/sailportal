@@ -93,7 +93,7 @@ document.getElementById('firstname').focus();
     <dt><label for="studentBirthMonth"><spring:message code="student.registerstudent.10"/></label></dt>
 	<dd><form:select path="birthmonth" id="birthmonth" tabindex="4">
 		<form:errors path="birthmonth" />
-		<c:forEach var="month" begin="01" end="12" step="01">
+		<c:forEach var="month" begin="01" end="12" step="1">
 			<form:option value="${month}">
 				<spring:message code="birthmonths.${month}" />
 			</form:option>
@@ -105,7 +105,7 @@ document.getElementById('firstname').focus();
 	  <dt><label for="studentBirthDate"><spring:message code="student.registerstudent.12"/></label></dt>
 	  <dd><form:select path="birthdate" id="birthdate" tabindex="5">
 	      <form:errors path="birthdate" />
-			 <c:forEach var="date" begin="01" end="31" step="01">
+			 <c:forEach var="date" begin="01" end="31" step="1">
 				  <form:option value="${date}">
 				  		<spring:message code="birthdates.${date}" />
 			  	  </form:option>
@@ -125,7 +125,7 @@ document.getElementById('firstname').focus();
 	        <span class="hint">Type your password in again.<span class="hint-pointer"></span></span>
             </dd>
       
-	  <dt><label for="reminderQuestion">My Reminder Question:</label></dt>
+	  <dt><label for="reminderQuestion">Security Question:</label></dt>
 	  <dd><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
             <form:errors path="userDetails.accountQuestion" />
         	<c:forEach items="${accountQuestions}" var="questionchoice">
@@ -135,11 +135,11 @@ document.getElementById('firstname').focus();
           </c:forEach>
         </form:select>
         
-         <span class="hint">If you forget your password, WISE will ask you this Reminder question as an alternative way to sign in.  
-			You can select any question from the list.<span class="hint-pointer"></span></span>
+         <span class="hint">Select a question from the list then answer it below.<br/><br/>
+			If you forget your password, WISE will ask you this Security question so you can reset your password.as an alternative way to sign in.<span class="hint-pointer"></span></span>
 		</dd>
 
-	  <dt><label for="reminderAnswer" id="reminderAnswer">My Reminder Answer:</label></dt>
+	  <dt><label for="reminderAnswer" id="reminderAnswer">Answer for Security Q:</label></dt>
 	  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
 	      <span class="hint">Answer your reminder questions here.<span class="hint-pointer"></span></span>			
           </dd>

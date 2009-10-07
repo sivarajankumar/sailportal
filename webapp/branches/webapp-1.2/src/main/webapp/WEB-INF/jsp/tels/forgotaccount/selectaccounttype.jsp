@@ -49,7 +49,7 @@
 	  	
 			<div id="lostSubHeader"><spring:message code="selectaccounttype.2"/></div><br/>
 			 
-			<a href="student/index.html" >
+			<a href="student/passwordreminder.html" >
 			  <img id="studentAccount" alt="<spring:message code="selectaccounttype.3"/>" 
 			  src="../<spring:theme code="create_student_account" />" width="228" height="41"
 			  onmouseover="swapImage('studentAccount','../<spring:theme code="create_student_account_rollover" />');" 

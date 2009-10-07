@@ -20,7 +20,6 @@
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -32,7 +31,7 @@
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>	
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
 
-<title>Password Reminder Step 3</title>
+<title><spring:message code="forgot.student.passremind.1"/></title>
 </head>
 
 <body>
@@ -46,12 +45,32 @@
 
 <h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.2"/></h1>
 
+<h1><spring:message code="forgot.student.passremind.3"/></h1>
+
 <div id="studentpasswordremindersuggestion"> 
 	<ul>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.12"/>&nbsp;<em class="reminderHighlight">${username}</em></li>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.13"/></li>
-		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.14"/></li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.4"/></li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.5"/></li>
+		<li class="forgotPasswordInstructionText2"><form id="username" name="retrievepassword" method="post" commandName="reminderParameters">
+			<label style="font-weight:bold;" for="send_username"><spring:message code="login.username" /></label>
+  			<input class="dataBoxStyle" type="text" name="username" id="userName" size="20" tabindex="1" />
+ 			
+			<!-- 			Special script pulls focus onto immediately preceding Input field-->
+ 			<script type="text/javascript">document.getElementById('userName').focus();
+			</script>
+
+			<input style="margin-left:20px; text-align:center;width:55px;" type="submit" id="next" name="_target1" value="<spring:message code="navigate.next" />" />
+			</form></li>
 	</ul>
+</div>
+
+<div id="errorMessageFormat">
+<!-- Support for Spring errors object -->
+<spring:bind path="reminderParameters.*">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <br /><c:out value="${error}"/>
+  </c:forEach>
+</spring:bind>
 </div>
 
 <a href="../../index.html"> 

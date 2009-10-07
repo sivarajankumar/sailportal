@@ -47,11 +47,10 @@
 
 <h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.2"/></h1>
 
-<h1><spring:message code="forgot.student.passremind.3"/></h1>
 
 <div id="studentpasswordremindersuggestion"> 
 	<ul>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.9"/></li>
+		<li class="forgotPasswordInstructionText reminder_highlight"><spring:message code="forgot.student.passremind.9"/></li>
 		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.10"/></li>
 		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.11"/></li>
 	</ul>
@@ -72,7 +71,7 @@
 		</table>		
 		<div id="finalPasswordReminderButtons">
   			<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-			<input type="submit" name="_finish" value="<spring:message code="navigate.done" />" /> 
+			<input type="submit" name="_finish" value="SUBMIT" /> 
 		</div>
 	</form>
 

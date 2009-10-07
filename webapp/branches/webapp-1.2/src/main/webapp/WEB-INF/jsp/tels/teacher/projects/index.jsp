@@ -61,11 +61,9 @@
 			<td class="link"><a style="color:#999999;" href="bookmarkedprojects.html"><spring:message code="teacher.pro.lib.index.7"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.8"/></td></tr>
 		<tr>
-			<td class="link"><a href="http://wise4.telscenter.org/webapp/author/authorproject.html">Author Projects</a></td>
-			<td class="description">Placeholder link. Eventually all custom projects and shared projects will be accessed using the <i>My Customized Projects</i> section below.</td></tr>
-		<tr>
-			<td class="link"><a style="color:#999999;" href="../projects/customized/index.html"><spring:message code="teacher.pro.lib.index.9"/></a></td> 
-			<td class="description"><spring:message code="teacher.pro.lib.index.10"/></td></tr> 
+			<td class="link"><a href="http://wise4.telscenter.org/webapp/author/authorproject.html">Author Custom/Shared Projects</a></td>
+			<td class="description">Author your customized projects or projects shared with you. 
+					Use the WISE 4 Authoring Tool to edit these projects or create a new project.</td></tr>
 		<tr>
 			<td class="link"><a href="../run/myprojectruns.html">My Project Runs / Access Codes</a></td> 
 			<td class="description"><span style="color:#660000;">Shortcut to the Management area.</span><br/>View your active Project Runs and the Access Code for each run.</td></tr> 

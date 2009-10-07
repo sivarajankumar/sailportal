@@ -32,7 +32,7 @@
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>	
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
 
-<title>Password Reminder Step 3</title>
+<title>Password Reminder Step 2</title>
 </head>
 
 <body>
@@ -46,12 +46,38 @@
 
 <h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.2"/></h1>
 
+<h1><spring:message code="forgot.student.passremind.3"/></h1>
+
 <div id="studentpasswordremindersuggestion"> 
 	<ul>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.12"/>&nbsp;<em class="reminderHighlight">${username}</em></li>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.13"/></li>
-		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.14"/></li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.6"/></li>
+		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.7"/>, ${username},</li>
+		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.8"/></li>
+		<form id="submittedAccountAnswer" method="post" commandName="reminderParameters">
+		<li class="forgotPasswordInstructionText3">Question: <spring:message code="accountquestions.${accountQuestion}"/></li>
+		<li class="forgotPasswordInstructionText3">
+			<label for="send_accountanswer">Answer:</label>
+			<input type="text" name="submittedAccountAnswer" id="submittedAnswer"  class="dataBoxStyle"
+		  			style="width: 250px;" tabindex="1" />
+		  	
+ 			<script type="text/javascript">document.getElementById('submittedAnswer').focus();
+ 			</script>
+		  	
+		  	<input style="margin-left:20px; text-align:center;width:55px;" type="submit" name="_target2" value="<spring:message code="navigate.next" />">
+		</li>
+		</form>
 	</ul>
+</div>
+
+<div id="errorMessageFormat">
+		<!-- Support for Spring errors object -->
+		<spring:bind path="reminderParameters.*">
+		  <c:forEach var="error" items="${status.errorMessages}">
+		    <b>
+		      <br /><c:out value="${error}"/>
+		    </b>
+		  </c:forEach>
+		</spring:bind>
 </div>
 
 <a href="../../index.html"> 
