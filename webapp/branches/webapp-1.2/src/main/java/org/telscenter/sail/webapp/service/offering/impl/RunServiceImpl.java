@@ -374,6 +374,9 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public void startRun(Run run) {
 		if (run.getEndtime() != null) {
 			run.setEndtime(null);
+			Calendar reminderCal = Calendar.getInstance();
+			reminderCal.add(Calendar.DATE, 30);
+			run.setArchiveReminderTime(reminderCal.getTime());
 			this.runDao.save(run);
 		}
 	}

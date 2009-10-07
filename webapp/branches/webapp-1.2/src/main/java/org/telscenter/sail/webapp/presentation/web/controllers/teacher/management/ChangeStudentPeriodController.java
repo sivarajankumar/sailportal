@@ -26,13 +26,11 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.manageme
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.ChangePeriodParameters;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -72,8 +70,10 @@ public class ChangeStudentPeriodController extends SimpleFormController{
 		ChangePeriodParameters params = (ChangePeriodParameters) command;
 		
 		try{
-			studentService.removeStudentFromRun(params.getStudent(), params.getRun());
-			studentService.addStudentToRun(params.getStudent(), new Projectcode(params.getRun().getRuncode(), params.getProjectcodeTo()));
+			if(!params.getProjectcodeTo().equals(params.getProjectcode())){
+				studentService.removeStudentFromRun(params.getStudent(), params.getRun());
+				studentService.addStudentToRun(params.getStudent(), new Projectcode(params.getRun().getRuncode(), params.getProjectcodeTo()));
+			}
 		} catch (Exception e){}
 
 		

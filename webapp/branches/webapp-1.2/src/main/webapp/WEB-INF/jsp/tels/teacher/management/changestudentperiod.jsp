@@ -13,7 +13,6 @@
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>
 <script type="text/javascript" src="../../javascript/tels/effects.js"></script>
 
-    
 <title><spring:message code="application.title" /></title>
 </head>
 <body>
@@ -61,11 +60,9 @@
 		    onmouseover="swapImage('teachersave','../../<spring:theme code="register_save_roll" />')" 
 		    onmouseout="swapImage('teachersave','../../<spring:theme code="register_save" />')"/>
 		    
-		    <a href="index.html" onclick="javascript:window.close()">
-		    <input type="image" id="teachercancel" src="../../<spring:theme code="register_cancel" />" 
-		    onmouseover="swapImage('teachercancel','../../<spring:theme code="register_cancel_roll" />')" 
-		    onmouseout="swapImage('teachercancel','../../<spring:theme code="register_cancel" />')"
-		    /> </a>
+		    <input type='image' value='cancel' id='teachercancel' onclick='window.close()' src="../../<spring:theme code="register_cancel" />" 
+		    onmouseover="swapImage('teachercancel','../../<spring:theme code="register_cancel_roll" />')"
+		    onmouseout="swapImage('teachercancel','../../<spring:theme code="register_cancel" />')"></input>
     </div>
 	</form:form>
  	</div>
