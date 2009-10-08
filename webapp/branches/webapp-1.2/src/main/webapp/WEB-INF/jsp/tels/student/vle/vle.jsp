@@ -197,11 +197,12 @@ var runManager = new RunManager();
 .yui-skin-sam {	margin:0px;}
 </style>
 
+<!-- make ${vleurl}?loadScriptsIndividually=true if you want to force vle to load scripts individually instead of via the allScripts-min.js -->
 
 </head>
 <body class="yui-skin-sam">
 <div id="wait"></div> 
-<iframe  id="topifrm" src="${vleurl}?loadScriptsIndividually=true" onload="topiframeOnLoad();" name="topifrm" scrolling="auto"
+<iframe  id="topifrm" src="${vleurl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto"
  width="100%" height="100%" frameborder="0">
  [Sorry, your browser is unable to support iframes.]
 </iframe>
