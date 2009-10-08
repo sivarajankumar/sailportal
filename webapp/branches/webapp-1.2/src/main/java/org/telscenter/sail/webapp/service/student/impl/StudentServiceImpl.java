@@ -91,14 +91,14 @@ public class StudentServiceImpl implements StudentService {
 			}
 			
 			//if project being added is not ROlOO or External,
-			//an sdsUser needs to be created if it does not already exist
-			if(run.getProject().getProjectType()!=ProjectType.ROLOO){
-				if(!(run.getProject() instanceof ExternalProject)){
-					if(studentUser.getSdsUser()==null){
-						this.userService.addSdsUserToUser(studentUser.getId());
-					}
-				}
-			}
+			//an sdsUser needs to be created if it does not already existe	
+//			if(run.getProject().getProjectType()!=ProjectType.ROLOO){
+//				if(!(run.getProject() instanceof ExternalProject)){
+//					if(studentUser.getSdsUser()==null){
+//						this.userService.addSdsUserToUser(studentUser.getId());
+//					}
+//				}
+//			}
 		} else {
 			throw new StudentUserAlreadyAssociatedWithRunException(studentUser, run);
 		}

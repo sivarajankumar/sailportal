@@ -65,7 +65,7 @@
   	<dt><label for="studentFirstName"><spring:message code="student.registerstudent.4"/></label></dt>	    
   	  	<dd><form:input path="userDetails.firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
 	    <form:errors path="userDetails.firstname" />
-    	<span class="hint"><spring:message code="student.registerstudent.5"/><span class="hint-pointer"></span></span> 
+    	<span class="hint">Use only letters for your first name.  No hyphens, apostrophes, or other punctuation.<span class="hint-pointer"></span></span> 
    		</dd>
 
 <!--This unusually placed script gets the cursor into the First Name field immediately on page load  (MattFish)-->
@@ -76,7 +76,7 @@ document.getElementById('firstname').focus();
   	<dt><label for="studentLastName">Last Name:</label></dt>
 	<dd><form:input path="userDetails.lastname" id="lastname" size="25" maxlength="25" tabindex="2"/>
 	    <form:errors path="userDetails.lastname" />
-    	<span class="hint"><spring:message code="student.registerstudent.7"/><span class="hint-pointer"></span></span> 
+    	<span class="hint">Use only letters for your last name.  No hyphens, apostrophes, or other punctuation.<span class="hint-pointer"></span></span> 
    		</dd>
             
   	<dt><label for="studentGender"><spring:message code="student.registerstudent.8"/></label></dt>
@@ -87,7 +87,7 @@ document.getElementById('firstname').focus();
             </form:option>
           </c:forEach>
       	</form:select> 
-        <span class="hint"><spring:message code="student.registerstudent.9"/><span class="hint-pointer"></span></span> 
+        <span class="hint">Select a choice.<span class="hint-pointer"></span></span> 
     	</dd>
             
     <dt><label for="studentBirthMonth"><spring:message code="student.registerstudent.10"/></label></dt>
@@ -116,7 +116,7 @@ document.getElementById('firstname').focus();
 	  <dt><label for="studentPassword">Type a Password:</label></dt>
 	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="6"/>
       		<form:errors path="userDetails.password"/> 
-      		<span class="hint">Your password can contain from 4 to 18 letters or numbers. Try to create a password that you can remember!<span class="hint-pointer"></span></span> 
+      		<span class="hint">Your password can have up to 18 letters or numbers. Create a password that you can remember!<span class="hint-pointer"></span></span> 
             </dd>
 
 	  <dt><label for="studentPasswordRepeat">Type Password Again:</label></dt>
@@ -125,8 +125,8 @@ document.getElementById('firstname').focus();
 	        <span class="hint">Type your password in again.<span class="hint-pointer"></span></span>
             </dd>
       
-	  <dt><label for="reminderQuestion">Security Question:</label></dt>
-	  <dd><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
+	  <dt style="margin-top:10px;"><label for="reminderQuestion">Security Question:</label></dt>
+	  <dd style="margin-top:10px;"><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
             <form:errors path="userDetails.accountQuestion" />
         	<c:forEach items="${accountQuestions}" var="questionchoice">
             <form:option value="${questionchoice}">
@@ -136,16 +136,16 @@ document.getElementById('firstname').focus();
         </form:select>
         
          <span class="hint">Select a question from the list then answer it below.<br/><br/>
-			If you forget your password, WISE will ask you this Security question so you can reset your password.as an alternative way to sign in.<span class="hint-pointer"></span></span>
+			If you forget your password, WISE will ask you this Security question so you can reset your password.<span class="hint-pointer"></span></span>
 		</dd>
 
 	  <dt><label for="reminderAnswer" id="reminderAnswer">Answer for Security Q:</label></dt>
 	  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
-	      <span class="hint">Answer your reminder questions here.<span class="hint-pointer"></span></span>			
+	      <span class="hint">Answer the Security question here.<span class="hint-pointer"></span></span>			
           </dd>
       
-      <dt><label for="projectCode" id="projectCode1">Access Code:</label></dt>
-	  <dd><form:input path="projectCode" id="projectCode" size="25" maxlength="25" tabindex="10"/>
+      <dt style="margin-top:15px;"><label for="projectCode" id="projectCode1">Access Code:</label></dt>
+	  <dd style="margin-top:15px;"><form:input path="projectCode" id="projectCode" size="25" maxlength="25" tabindex="10"/>
        	  <form:errors path="projectCode" />
           <span class="hint">Ask your teacher for the access code.<span class="hint-pointer"></span></span></dd>
 
