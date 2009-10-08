@@ -483,7 +483,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 								<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
 									<li id='extendReminder_${run.id}'>
 										Your project run <i>${run.name}</i> has been open since ${run.starttime}. Do you want to archive it now? [
-										<a onclick="window.open('run/manage/archiveRun.html?runId=${run.id}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font color='blue'>Yes</font></a>/
+										<a onclick="window.open('run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font color='blue'>Yes</font></a>/
 										<a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me Later</font></a>].
 									</li>
 								</c:if>

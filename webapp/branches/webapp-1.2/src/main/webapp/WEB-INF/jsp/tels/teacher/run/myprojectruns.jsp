@@ -207,7 +207,7 @@
 					    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}">Create New Q&A for this run</a></li>
 					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}')"><spring:message code="teacher.run.myprojectruns.23"/></a></li>
+					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}&runName=${run.name}')"><spring:message code="teacher.run.myprojectruns.23"/></a></li>
 					    	</sec:accesscontrollist>
 					    	
 					    </ul>
@@ -232,10 +232,10 @@
 				  
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
-				    	<div id="runTitle">${run.sdsOffering.name}</div>
-				      	<div id="titleSubHeader">&middot; "library project, ID: ${run.project.id}"&middot;</div>
-				    	<div id="titleSubHeader">&middot; created <fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" />  &middot;</div>
-				    	<div id="titleSubHeader">&middot; archived <fmt:formatDate value="${run.endtime}" type="date" dateStyle="short" /> &middot;</div>				    	   	 
+				    	<div id="runTitle">${run.name}</div>
+				      	<div id="titleSubHeader">Project ID: ${run.project.id}</div>
+				    	<div id="titleSubHeader">Run Started on: <fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></div>
+				    	<div id="titleSubHeader">Run Archived on: <fmt:formatDate value="${run.endtime}" type="date" dateStyle="short" /></div>				    	   	 
 				    </td>
 				    <td style="vertical-align:top; padding:0px;">
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">

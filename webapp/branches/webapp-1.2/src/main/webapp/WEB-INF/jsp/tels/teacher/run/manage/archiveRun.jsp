@@ -64,9 +64,7 @@ function checkB4Submit(){
 <div id="largeHeader"><spring:message code="teacher.run.manage.archiverun.2"/></div>
 
 <div id="blockHighlight" >
-	<div id="runTitle">[VARIABLE: Project Name Here]</div>
-	<div id="titleSubHeader">[VARIABLE: project type, ID]  Ex: "Library project, Project ID 21351" </div>
-	<div id="titleSubHeader">[VARIABLE: run creation date]  Ex "Created 4/12/07"</div>
+	<div id="runTitle">${endRunParameters.runName}</div>
 </div>			    	
 
 	<div id="popUpNotice1"><spring:message code="teacher.run.manage.archiverun.3"/></div>
@@ -80,6 +78,7 @@ function checkB4Submit(){
     </b>
   </c:forEach>
 </spring:bind>
+
 
 <form:form method="post" action="archiveRun.html" commandName="endRunParameters" id="archiveRun" >
   <div style="visibility:hidden;"><label for="runId"><spring:message code="teacher.run.manage.archiverun.5"/></label>

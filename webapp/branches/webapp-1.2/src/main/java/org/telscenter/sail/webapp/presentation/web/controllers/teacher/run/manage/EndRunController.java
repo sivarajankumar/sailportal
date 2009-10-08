@@ -46,11 +46,14 @@ public class EndRunController extends SimpleFormController {
 	private RunService runService;
 
 	private static final String RUNID_PARAM_NAME = "runId";
+
+	private static final String RUN_NAME_PARAM_NAME = "runName";
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		EndRunParameters params = new EndRunParameters();
 		params.setRunId(Long.parseLong(request.getParameter(RUNID_PARAM_NAME)));
+		params.setRunName(request.getParameter(RUN_NAME_PARAM_NAME));
 		return params;
 	}
 	

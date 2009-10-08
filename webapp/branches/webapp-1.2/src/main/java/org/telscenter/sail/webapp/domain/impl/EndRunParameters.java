@@ -35,6 +35,8 @@ public class EndRunParameters implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long runId;
+	
+	private String runName;
 
 	/**
 	 * @return the runId
@@ -48,5 +50,19 @@ public class EndRunParameters implements Serializable {
 	 */
 	public void setRunId(Long runId) {
 		this.runId = runId;
+	}
+
+	/**
+	 * @return the runName
+	 */
+	public String getRunName() {
+		return runName;
+	}
+
+	/**
+	 * @param runName the runName to set
+	 */
+	public void setRunName(String runName) {
+		this.runName = runName;
 	}
 }
