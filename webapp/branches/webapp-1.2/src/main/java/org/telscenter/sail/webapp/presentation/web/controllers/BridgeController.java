@@ -110,7 +110,7 @@ public class BridgeController extends AbstractController {
 				runId = Long.parseLong(runIdString);
 			}
 			
-			String periodString = request.getParameter("period");
+			String periodString = request.getParameter("periodId");
 			Long period = null;
 			if(periodString != null) {
 				period = Long.parseLong(periodString);	
