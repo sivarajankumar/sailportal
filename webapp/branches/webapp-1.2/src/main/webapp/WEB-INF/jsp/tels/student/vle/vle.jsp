@@ -195,7 +195,6 @@ var runManager = new RunManager();
 <!--The following style nixes an annoying white margin border added by default to the YUI class element.-->
 <style type="text/css">
 .yui-skin-sam {	margin:0px;}
-
 </style>
 
 <!-- make ${vleurl}?loadScriptsIndividually=true if you want to force vle to load scripts individually instead of via the allScripts-min.js -->
@@ -203,8 +202,7 @@ var runManager = new RunManager();
 </head>
 <body class="yui-skin-sam">
 <div id="wait"></div> 
-<iframe id="topifrm" src="${vleurl}?loadScriptsIndividually=true" onload="topiframeOnLoad();" name="topifrm" scrolling="auto"
-<iframe  id="topifrm" src="${vleurl}" onload="topiframeOnLoad();" name="topifrm" scrolling="auto"
+<iframe  id="topifrm" src="${vleurl}" onload="topiframeOnLoad();" name="topifrm" scrolling="no"
  width="100%" height="100%" frameborder="0">
  [Sorry, your browser is unable to support iframes.]
 </iframe>
