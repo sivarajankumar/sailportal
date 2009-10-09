@@ -157,6 +157,7 @@ table tr, table td {
 #currentRunTable td {
 	border:1px solid #333333;
 	font-size:.8em;
+	vertical-align:middle;
 		} 
 		
 #secondaryRowTightFormat {
@@ -230,9 +231,14 @@ table tr, table td {
 	
 #studentActionList li {
 	list-style-type:none;
-	padding:3px 5px;
+	padding:3px 4px;
 	}
 
+#studentActionList li.startProject {
+	list-style-type:none;
+	font-size:160%;
+	}
+	
 #studentActionList a:link, #studentActionList a:visited {
 	display:block;
 	text-decoration:none;
@@ -240,11 +246,11 @@ table tr, table td {
 	background-color:#3333FF;
 	color:#FFFFCC;
 	margin:0px;
-	padding:2px;
+	padding:1px 0px;
 	border:1px solid #666;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
 	}
 
 #studentActionList a:hover, #studentActionList.classAnimHover {
@@ -254,22 +260,31 @@ table tr, table td {
 	border:1px solid #666666;
 }
 
+#periodMessage {
+	margin-left:5px;
+	font-size:80%;
+	color:#000;
+	
+}
+
 .teamNotRegisteredMessage {
 	font-weight:bold;
 	color:#0000CC;
 }
 
 #firstUseBox{
-	margin-top:60px;
-	background-color:#919EBA;
-	padding:10px;
+	margin-top:50px;
+	background-color:#543f23;
+	color:#fff;
+	padding:10px 15px;
 	border:1px solid #666;
 	} 
 	
 #firstUseHeader{
-	color:#0000CC;
+	color:#FFCCFF;
 	font-weight:bold;
-	font-size:1.3em;
+	font-size:1.6em;
+	margin-bottom:5px;
 	} 
 	
 #instructionsArea {

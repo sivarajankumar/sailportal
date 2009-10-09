@@ -431,17 +431,17 @@ YAHOO.util.Event.onDOMReady(init);
 											
 											<c:choose>
 												<c:when test="${studentRunInfo.workgroup == null}">
-													<li><a href='startproject.html?runId=${studentRunInfo.run.id}' id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a></li>
+													<li class="startProject"><a href='startproject.html?runId=${studentRunInfo.run.id}' id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a></li>
 												</c:when>
 												<c:otherwise>
 													<c:choose>
 														<c:when
 															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-															<li><a href="startproject.html?runId=${studentRunInfo.run.id}" 
+															<li class="startProject"><a href="startproject.html?runId=${studentRunInfo.run.id}" 
 																id='${studentRunInfo.run.id}' onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a></li>
 														</c:when>
 														<c:otherwise>
-															<li><a href='teamsignin.html?runId=${studentRunInfo.run.id}';  
+															<li class="startProject"><a href='teamsignin.html?runId=${studentRunInfo.run.id}';  
 																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.17"/></a></li>
 														</c:otherwise>														
 													</c:choose>
@@ -453,7 +453,7 @@ YAHOO.util.Event.onDOMReady(init);
 												</c:otherwise>
 											</c:choose>
 											<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
-											<li><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
+											<li style="display:none;"><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
 											<li><a href="viewannouncements.html?runId=${studentRunInfo.run.id}">View Announcements</a></li>
 											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
 									 	</ul>
@@ -480,7 +480,7 @@ YAHOO.util.Event.onDOMReady(init);
 								</tr>
 							<tr>
 								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.24"/></td>
-								<td id="secondaryRowTightFormat" >${studentRunInfo.group.name}</td>
+								<td id="secondaryRowTightFormat" >${studentRunInfo.group.name} <span id="periodMessage">(to change period/team ask your teacher for help)</span></td>
 						  	
 						  	</tr>
 							<tr>
