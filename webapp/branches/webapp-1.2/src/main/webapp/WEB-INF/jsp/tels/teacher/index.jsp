@@ -619,14 +619,18 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 			<ul>
 				<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
 				<li><a href="../author/authorproject.html">Author Custom/Shared Projects</a></li>
-				<li style="text-decoration:line-through"><a href="projects/bookmarkedprojects.html"><spring:message code="teacher.index.23"/></a></li>
+<!--			<li style="text-decoration:line-through"><a href="projects/bookmarkedprojects.html"><spring:message code="teacher.index.23"/></a></li>-->
+				<li class="inactivecolor"><spring:message code="teacher.index.23"/></li>
 			</ul>
 		<div id="linkHeader"><spring:message code="teacher.index.25"/></div>
 			<ul>
 				<li><a href="./grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.index.26"/></a></li>			
-				<li style="text-decoration:line-through"><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>
-				<li style="text-decoration:line-through"><a href=""><spring:message code="teacher.index.28"/></a></li>
-				<li style="text-decoration:line-through"><a href="./grading/premadeComments.html"><spring:message code="teacher.index.29"/></a></li>
+				<li class="inactivecolor"><spring:message code="teacher.index.27"/></li>
+				<li class="inactivecolor"><spring:message code="teacher.index.28"/></li>
+				<li class="inactivecolor"><spring:message code="teacher.index.29"/></li>
+<!--			<li><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>-->
+<!--			<li><a href=""><spring:message code="teacher.index.28"/></a></li>-->
+<!--			<li><a href="./grading/premadeComments.html"><spring:message code="teacher.index.29"/></a></li>-->
 			</ul>		
 	</div>
 
@@ -635,7 +639,8 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 		<ul>
 			<li><a href="run/myprojectruns.html"><spring:message code="teacher.index.22"/></a></li>
 			<li><a href="./management/projectPickerManagement.html"><spring:message code="teacher.index.31"/></a></li>			
-			<li><a href="./management/projectpickerclassmonitor.html"><spring:message code="teacher.index.32"/></a></li>
+<!--		<li><a href="./management/projectpickerclassmonitor.html"><spring:message code="teacher.index.32"/></a></li>-->
+			<li class="inactivecolor"><spring:message code="teacher.index.32"/></li>
 			<li class="inactivecolor"><spring:message code="teacher.index.33"/></li>
 			<li><a href="./management/updatemyaccount.html"><spring:message code="teacher.index.34"/></a></li>
 		</ul> 

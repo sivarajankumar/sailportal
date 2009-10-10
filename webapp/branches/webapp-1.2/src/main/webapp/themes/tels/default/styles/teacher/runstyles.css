@@ -199,33 +199,37 @@ table #runContent{
 	font-weight:bold;
 	text-align:center;
 	padding: 0px 85px;
-	margin: 10px auto 20px auto;
+	margin: 10px auto;
 }
 
 #popUpNotice2 {
 	text-align:center;
-	width:70%;
-	margin:0 auto;
+	font-size:90%;
+	margin:10px auto;
+	width:85%;
+	margin:15px auto;
 	color:#FF0000;
 	}
 
 #responseButtons  {
-	padding:15px;
+	padding:10px;
 }
 
 #responseButtons input {
 	text-align:center;
-	border-top:1px solid #666666;
-	border-right:2px ridge #000000;
-	border-bottom:2px ridge #000000;
-	border-left:1px solid #666666;
-	background-color:#CCCCFF;
+	border:1px solid #666666;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	background-color:#1e69ff;
+	color:#CCC;
 	padding:4px 10px;
 	margin:0 8px;
 		}
 
 #responseButtons input:hover {
-	background-color:#FFFF33;
+	background-color:#FFFF00;
+	color:#666;
 }
 
 

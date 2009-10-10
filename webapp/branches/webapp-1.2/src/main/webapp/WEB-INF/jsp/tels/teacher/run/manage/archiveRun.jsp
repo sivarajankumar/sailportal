@@ -68,6 +68,7 @@ function checkB4Submit(){
 </div>			    	
 
 	<div id="popUpNotice1"><spring:message code="teacher.run.manage.archiverun.3"/></div>
+	<div id="popUpNotice2"><spring:message code="teacher.run.manage.archiverun.3b"/></div>
 	<div id="popUpNotice2"><spring:message code="teacher.run.manage.archiverun.4"/></div>
 
 <!-- Support for Spring errors object -->
