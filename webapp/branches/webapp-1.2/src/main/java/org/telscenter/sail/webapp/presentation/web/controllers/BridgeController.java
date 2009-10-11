@@ -132,8 +132,13 @@ public class BridgeController extends AbstractController {
 				canAccessOtherWorkgroups = true;
 			} else if (type.equals("journal")) {
 				workgroupIdStr = request.getParameter("workgroupId");
+			} else {
+				// this should never happen
 			}
 
+			if (workgroupIdStr == null || workgroupIdStr.equals("")) {
+				return false;
+			}
 			//split up all the workgroup ids
 			String[] workgroupIds = workgroupIdStr.split(":");
 			
