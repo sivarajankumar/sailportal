@@ -8,36 +8,7 @@
 
 <script type="text/javascript" src="../javascript/tels/yui_3.0.0b1/build/yui/yui-min.js"></script>
 
-<script>
-var yui;
-var replacementMeta;
-
-/*
- * Parses the metadata parameters with json and populates the values
- * of the forms input fields.
- */
-	YUI().use('node', 'json', function(Y){
-		yui = Y;
-		var meta = '${metadata}'.replace(/\"/g, '\"');
-		alert('meta is:  ' + meta);
-		try{
-			replacementMeta = yui.JSON.parse(meta);
-			document.getElementById('replacementTitle').value = replacmentMeta.title;
-			document.getElementById('replacementAuthor').value = replacmentMeta.author;
-			document.getElementById('replacementSubject').value = replacmentMeta.subject;
-			document.getElementById('replacementDuration').value = replacmentMeta.duration;
-			document.getElementById('replacementSummary').value = replacmentMeta.summary;
-		} catch(e) {
-			alert('Error when parsing JSON string, aborting.');
-			document.getElementById('replacementTitle').value = '';
-			document.getElementById('replacementAuthor').value = '';
-			document.getElementById('replacementSubject').value = '';
-			document.getElementById('replacementDuration').value = '';
-			document.getElementById('replacementSummary').value = '';
-			return;
-		};
-	});
-	
+<script>	
 /**
  * Given the @param id of the project, searches through projects until
  * it finds a match, then sets the form's projectId element, and populates
@@ -49,15 +20,6 @@ function changeMetadata(id){
 		if('${project.id}'==id){
 			//set hidden form element with this project's id
 			document.getElementById('projectId').value = id;
-			//set values for metadata if it exists
-			if('${project.metadata}'){
-				alert('found metadata - setting values');
-				document.getElementById('title').value = '${project.metadata.title}';
-				document.getElementById('author').value = '${project.metadata.author}';
-				document.getElementById('subject').value = '${project.metadata.subject}';
-				document.getElementById('duration').value = '${project.metadata.duration}';
-				document.getElementById('summary').value = '${project.metadata.summary}';
-			};
 		};
 	</c:forEach>
 };

@@ -38,9 +38,8 @@ import org.telscenter.sail.webapp.domain.impl.PublishProjectMetadataParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
-import net.sf.json.JSONObject;
-import net.sf.json.util.JSONTokener;
 
 /**
  * @author patrick lawler
@@ -101,16 +100,16 @@ public class PublishProjectMetadataController extends SimpleFormController{
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		String meta = request.getParameter("metadata");
+		JSONObject jsonMeta = new JSONObject(meta);
+		PublishProjectMetadataParameters params = new PublishProjectMetadataParameters();
 		
-		JSONTokener tokener = new JSONTokener(meta);
-
-		//JSONObject jsonMeta = new JSONObject(meta);
-		System.out.println(tokener.nextValue());
+		params.setTitle(jsonMeta.getString("title"));
+		params.setAuthor(jsonMeta.getString("author"));
+		params.setSubject(jsonMeta.getString("subject"));
+		params.setDuration(jsonMeta.getString("duration"));
+		params.setSummary(jsonMeta.getString("summary"));
 		
-		System.out.println("");
-		System.out.println(meta);
-		System.out.println("");
-		return new PublishProjectMetadataParameters();
+		return params;
 	}
 	
 	public void setProjectService(ProjectService projectService) {
