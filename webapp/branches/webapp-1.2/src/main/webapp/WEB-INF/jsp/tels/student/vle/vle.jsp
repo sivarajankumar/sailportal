@@ -202,7 +202,7 @@ var runManager = new RunManager();
 </head>
 <body class="yui-skin-sam">
 <div id="wait"></div> 
-<iframe  id="topifrm" src="${vleurl}" onload="topiframeOnLoad();" name="topifrm" scrolling="no"
+<iframe  style="overflow-x:auto; overflow-y:hidden;" id="topifrm" src="${vleurl}" onload="topiframeOnLoad();" name="topifrm" 
  width="100%" height="100%" frameborder="0">
  [Sorry, your browser is unable to support iframes.]
 </iframe>
