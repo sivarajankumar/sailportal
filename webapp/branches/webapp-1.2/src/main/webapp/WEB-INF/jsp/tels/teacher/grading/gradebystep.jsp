@@ -92,9 +92,9 @@
 <div>
 		<table id="selectedProjectTable">
 				<tr>
-						<td><div id="gradeStepSelectedProject">Name of Selected Project Goes Here  (ID xxxxx)</div><td>
-						<td><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message
-								code="teacher.gradebystep.2" /></a></div></td>
+						<td class="header1">Project Run:</td>
+						<td class="header2"><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Change Run</a></div></td>
+						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here  (ID xxxxx)"></c:out></div></td>
 				</tr>
 		</table>
 
@@ -109,14 +109,14 @@
 		
 		<table id="selectedProjectTable">
 				<tr>
-						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here  (ID xxxxx)"></c:out></div><td>
-						<td><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step"><spring:message
-								code="teacher.gradebystep.2" /></a></div></td>
+						<td class="header1">Project Run:</td>
+						<td class="header2"><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Change Run</a></div></td>
+						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here  (ID xxxxx)"></c:out></div></td>
 				</tr>
 		</table>
 
 				<iframe id="topifrm" src="${gradeByStepUrl}?loadScriptsIndividually" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
-				height="20000px" frameborder="0">Sorry, you cannot view this web page because your browser doesn't support iframes.</iframe>
+				height="10000px" frameborder="0">Sorry, you cannot view this web page because your browser doesn't support iframes.</iframe>
 
 		<h3 style="display:none;">gradebystepurl: ${gradeByStepUrl}</h3>
 		<h3 style="display:none;">contentUrl: ${contentUrl}</h3>
