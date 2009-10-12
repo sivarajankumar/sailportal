@@ -84,6 +84,8 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.PreparedAnswerImpl" />      
         <mapping
-        	class="org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl"/>     
+        	class="org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl"/>
+        <mapping
+        	class="org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl"/>
     </session-factory>
 </hibernate-configuration>

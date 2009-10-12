@@ -143,6 +143,7 @@ public class PodProjectServiceImpl implements ProjectService {
 		project.setJnlp(jnlp);
 		project.setName(projectParameters.getProjectname());
 		project.setOwners(projectParameters.getOwners());
+		project.setMetadata(projectParameters.getMetadata());
 		this.projectDao.save(project);
 		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);		
 		createPreviewRun(project);

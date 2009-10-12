@@ -28,6 +28,7 @@ import java.util.Set;
 
 import net.sf.sail.webapp.domain.User;
 
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 
 /**
@@ -53,6 +54,8 @@ public class ProjectParameters implements Serializable {
 	private ProjectType projectType;
 	
 	private Set<User> owners = new HashSet<User>();
+	
+	private ProjectMetadata metadata;
 
 	/**
 	 * @return the curnitId
@@ -124,4 +127,17 @@ public class ProjectParameters implements Serializable {
 		this.owners = owners;
 	}
 
+	/**
+	 * @return <code>ProjectMetadata</code> the metadata to get
+	 */
+	public ProjectMetadata getMetadata() {
+		return metadata;
+	}
+
+	/**
+	 * @param <code>ProjectMetadata</code> the metadata to set
+	 */
+	public void setMetadata(ProjectMetadata metadata) {
+		this.metadata = metadata;
+	}
 }

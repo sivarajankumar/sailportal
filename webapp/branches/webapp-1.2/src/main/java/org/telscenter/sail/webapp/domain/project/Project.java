@@ -168,4 +168,14 @@ public interface Project extends Persistable {
 	 * @param visitor
 	 */
 	Object accept(ProjectVisitor visitor);
+	
+	/**
+	 * @return <code>ProjectMetadata</code>
+	 */
+	public ProjectMetadata getMetadata();
+	
+	/**
+	 * @param <code>ProjectMetadata</code> data
+	 */
+	public void setMetadata(ProjectMetadata data);
 }

@@ -57,6 +57,8 @@ import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
 import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.module.impl.ModuleServiceImpl;
@@ -101,6 +103,9 @@ public class ProjectImpl implements Project {
 	public static final String COLUMN_NAME_JNLP_FK = "jnlp_fk";
 	
 	@Transient
+	public static final String COLUMN_NAME_METADATA_FK = "metadata_fk";
+	
+	@Transient
 	public static final String COLUMN_NAME_PREVIEWOFFERING_FK = "run_fk";
 
 	@Transient
@@ -130,6 +135,11 @@ public class ProjectImpl implements Project {
 	@Column(name = COLUMN_NAME_PROJECT_NAME)
 	protected String name;
 	
+	@OneToOne(targetEntity = ProjectMetadataImpl.class, fetch = FetchType.EAGER)
+	@Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	@JoinColumn(name = COLUMN_NAME_METADATA_FK, unique = false)
+	protected ProjectMetadata metadata;
+
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class, fetch = FetchType.LAZY)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = COLUMN_NAME_CURNIT_FK, nullable = true, unique = false)
@@ -398,6 +408,20 @@ public class ProjectImpl implements Project {
 		} catch(Exception e){
 			
 		}
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.Project#getMetadata()
+	 */
+	public ProjectMetadata getMetadata() {
+		return metadata;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.Project#setMetadata(java.lang.String)
+	 */
+	public void setMetadata(ProjectMetadata data) {
+		this.metadata = data;
 	}
 	
 	/**

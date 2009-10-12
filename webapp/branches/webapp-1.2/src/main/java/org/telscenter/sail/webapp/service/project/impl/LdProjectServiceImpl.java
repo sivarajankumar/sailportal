@@ -165,6 +165,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		project.setName(projectParameters.getProjectname());
 		project.setOwners(projectParameters.getOwners());
 		project.setProjectType(projectParameters.getProjectType());
+		project.setMetadata(projectParameters.getMetadata());
 		//TODO -- the family tag and isCurrent being set here may need to be removed
 		project.setFamilytag(FamilyTag.TELS);
 		project.setCurrent(true);

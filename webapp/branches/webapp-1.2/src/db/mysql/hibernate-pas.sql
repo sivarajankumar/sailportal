@@ -52,6 +52,7 @@
 
     create table curnits (
         id bigint not null auto_increment,
+        name varchar(255),
         OPTLOCK integer,
         sds_curnit_fk bigint unique,
         primary key (id)

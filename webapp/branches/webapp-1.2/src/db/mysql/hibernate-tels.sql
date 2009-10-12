@@ -176,6 +176,7 @@
 
     create table curnits (
         id bigint not null auto_increment,
+        name varchar(255),
         OPTLOCK integer,
         sds_curnit_fk bigint unique,
         primary key (id)
@@ -304,6 +305,16 @@
         primary key (premadecommentslist_fk, premadecomments_fk)
     ) type=InnoDB;
 
+    create table project_metadata (
+        id bigint not null auto_increment,
+        author varchar(255),
+        duration varchar(255),
+        subject varchar(255),
+        summary varchar(255),
+        title varchar(255),
+        primary key (id)
+    ) type=InnoDB;
+
     create table projectcommunicators (
         id bigint not null auto_increment,
         address varchar(255),
@@ -323,6 +334,7 @@
         OPTLOCK integer,
         curnit_fk bigint,
         jnlp_fk bigint,
+        metadata_fk bigint,
         run_fk bigint unique,
         primary key (id)
     ) type=InnoDB;
@@ -353,8 +365,10 @@
     ) type=InnoDB;
 
     create table runs (
+        archive_reminder datetime not null,
         end_time datetime,
         info varchar(255),
+        maxWorkgroupSize integer,
         name varchar(255),
         run_code varchar(255) not null unique,
         start_time datetime not null,
@@ -817,6 +831,12 @@
         add constraint FKC479187ABD6D05A5 
         foreign key (run_fk) 
         references runs (id);
+
+    alter table projects 
+        add index FKC479187A6E872393 (metadata_fk), 
+        add constraint FKC479187A6E872393 
+        foreign key (metadata_fk) 
+        references project_metadata (id);
 
     alter table projects 
         add index FKC479187A9568F016 (jnlp_fk), 
