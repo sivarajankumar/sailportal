@@ -8,7 +8,7 @@
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #666666;
-	margin:20px 0 20px 0;
+	margin:10px 0 20px 0;
 	padding:10px 30px 10px 30px;
 	}
 	
@@ -88,33 +88,57 @@
 	display:none;
 	}
 	
-#gradeStepSelectedProject {
-	color:#CC0000;
-	font-size:1.1em;
-	font-weight:bold;
-	font-variant:small-caps;
+#selectedProjectTable {
+	border-collapse:collapse;
+	width:100%; 
+	margin:0 0 2px 0px;
+	border:1px solid #333;
 	}	
 
-#gradeStepSelectionArea table {
-	border-collapse:collapse;
-	border:0px;
-	margin:0 0 5px 0px;
-		}	
-		
+#selectedProjectTable td {
+	background-color:#CCC;
+	padding:3px;
+	vertical-align:middle;
+	text-align:left;
+}
+
+#selectedProjectTable .header1 {
+	color:#333;
+	font-size:75%;
+	padding:0px 5px 0 10px;
+	width:80px;
+}
+
+#selectedProjectTable .header2 {
+	width: 140px;
+}
+
 #selectAnotherLink a:link, #selectAnotherLink a:visited {
-	font-size: .7em;
-	background-color:#FFFFFF;
-	padding:2px;
-	margin-left:50px;
-	color:blue;
-	vertical-align:bottom;
+	padding: 0px 10px;
+	font: bold Verdana, Arial, sans-serif;
+	font-size:.7em;
+	background-color:#1e69ff;
+	color: #FFF;
+	border:1px solid #333;
+	text-decoration: none;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;  
+	border: 1px solid #19253D; 
 }
 
 #selectAnotherLink a:hover  {
-	background-color:#FFFF33;
-	color:#000033;
+	background-color:#FFFF00;
+	color:#333;
 	}
-			
+
+#gradeStepSelectedProject {
+	color:#CC0000;
+	font-size:1.1em;
+	font-variant:small-caps;
+	padding-left:5px;
+	}	
+	
 #gradeStepInstructions {
 	padding-left:20px;
 	font-size:.8em;

@@ -125,12 +125,12 @@
 .blankbarL2 {
 	background-image: url(../images/Gradient_Blue-to-Gray.png);
 	background-position: center top;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	color: #000000;
 }
 
 .projectL2 {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 
 .management2 {
@@ -138,7 +138,7 @@
 }
 
 .homebarL2 {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	background-color: #ffffcc;
 }
 
@@ -148,15 +148,19 @@
 }
 
 /* NORMAL CSS FOR THE NAVIGATION L2 BAR */
+
 #navigationL2 {
 	padding: 0px;
-	width: 958px;
+	width: 956px;
 	border: 1px solid #999999;
 	line-height: normal;
 }
 
 #navigationL2 ul {
-	padding: 6px 0 6px 110px;
+	background-image: url(../images/Gradient_L2Bar.png);
+	background-repeat:repeat-x; 
+	background-position:top;
+	padding: 4px 0 4px 110px;
 	margin: 0px;
 	list-style: none;
 }
@@ -167,6 +171,7 @@
 	letter-spacing: -.1px;
 	padding: 0px;
 	margin: 0px;
+
 }
 
 #navigationL2 li.leftBorder {
@@ -174,7 +179,7 @@
 }
 
 #navigationL2 a:link,#navigationL2 a:visited {
-	padding: 6px 14px 6px 14px;
+	padding: 4px 14px 4px 14px;
 	margin: 0px;
 	text-decoration: none;
 	color: #000000;
