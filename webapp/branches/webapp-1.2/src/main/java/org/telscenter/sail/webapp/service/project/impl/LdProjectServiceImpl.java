@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,6 +81,8 @@ public class LdProjectServiceImpl implements ProjectService {
 	
 	protected static Set<String> PREVIEW_PERIOD_NAMES;
 	
+	private Properties portalProperties;
+
 	private CurnitService curnitService;
 	
 	private ProjectDao<Project> projectDao;
@@ -134,8 +137,10 @@ public class LdProjectServiceImpl implements ProjectService {
 		String vleAuthorUrl = portalUrl + "/vlewrapper/vle/author.html";
 		String portalAuthorUrl = portalUrl + "/webapp/author/authorproject.html";
 		String command = params.getHttpServletRequest().getParameter("param1");
+		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("curriculumBaseDir", curriculumBaseDir);
 		mav.addObject("portalAuthorUrl", portalAuthorUrl);
 		mav.addObject("vleAuthorUrl", vleAuthorUrl);
 		
@@ -401,4 +406,10 @@ public class LdProjectServiceImpl implements ProjectService {
 		return null;
 	}
 	
+	/**
+	 * @param portalProperties the portal properties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
 }

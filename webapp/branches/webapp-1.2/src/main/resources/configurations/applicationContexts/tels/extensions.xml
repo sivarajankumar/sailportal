@@ -302,6 +302,7 @@
         <property name="runService" ref="runService" />
         <property name="workgroupService" ref="wiseWorkgroupService"/>
         <property name="userService" ref="userService"/>
+        <property name="portalProperties" ref="portalproperties" />
 	</bean>
  	
     <bean id="diyProjectCommunicatorDao"

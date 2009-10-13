@@ -4,7 +4,7 @@
 <script type='text/javascript'>
 var portalAuthorUrl = "${portalAuthorUrl}";
 function loaded(){
-	window.frames['authorfrm'].setPortalMode('${portalAuthorUrl}', '${command}', '${projectId}');
+	window.frames['authorfrm'].setPortalMode('${portalAuthorUrl}', '${curriculumBaseDir}', '${command}', '${projectId}');
 };
 </script>
 
