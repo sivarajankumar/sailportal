@@ -171,8 +171,8 @@ public class LdProjectServiceImpl implements ProjectService {
 		project.setOwners(projectParameters.getOwners());
 		project.setProjectType(projectParameters.getProjectType());
 		project.setMetadata(projectParameters.getMetadata());
-		//TODO -- the family tag and isCurrent being set here may need to be removed
-		project.setFamilytag(FamilyTag.TELS);
+		//TODO -- isCurrent being set here may need to be removed
+		project.setFamilytag(FamilyTag.OTHER);
 		project.setCurrent(true);
 		this.projectDao.save(project);
 		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);		 
