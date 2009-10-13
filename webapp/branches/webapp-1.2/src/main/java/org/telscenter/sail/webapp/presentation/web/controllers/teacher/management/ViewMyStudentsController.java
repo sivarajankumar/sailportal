@@ -178,6 +178,9 @@ public class ViewMyStudentsController extends AbstractController{
 			periodCounter++;
 		}
 
+		if (servletRequest.getParameter("tabIndex") != null) {
+			tabIndex = Integer.valueOf(servletRequest.getParameter("tabIndex"));
+		}
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
 		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
 		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);

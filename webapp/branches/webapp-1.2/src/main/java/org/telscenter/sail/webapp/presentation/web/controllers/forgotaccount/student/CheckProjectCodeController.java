@@ -92,7 +92,7 @@ public class CheckProjectCodeController extends
         	
         	Map<String, Object> model = new HashMap<String, Object>();
 			model.put(PROJECT_CODE, projectcode.getProjectcode());
-			model.put(RUN_TITLE, run.getSdsOffering().getName());
+			model.put(RUN_TITLE, run.getName());
 			model.put(USERS, usersMap);
 			return new ModelAndView(getSuccessView(), model);
         }

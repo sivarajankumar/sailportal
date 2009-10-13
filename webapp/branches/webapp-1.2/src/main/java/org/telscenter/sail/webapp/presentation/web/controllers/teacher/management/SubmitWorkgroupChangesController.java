@@ -114,7 +114,7 @@ public class SubmitWorkgroupChangesController extends AbstractController {
 			try {
 				workgroupService.updateWorkgroupMembership(params);
 			} catch (Exception e) {
-
+				throw e;
 			}
 		}
 		
@@ -138,8 +138,9 @@ public class SubmitWorkgroupChangesController extends AbstractController {
 				workgroupService.updateWorkgroupMembership(params);
 			}
 		}
-		ModelAndView modelAndView = new ModelAndView("/teacher/management/viewmystudents.html");
-		modelAndView.addObject(TAB_INDEX, tabIndex);
+		//ModelAndView modelAndView = new ModelAndView("/teacher/management/viewmystudents.html?runId="+runId);
+		//modelAndView.addObject(TAB_INDEX, tabIndex);
+		response.getWriter().print(tabIndex);
 		return null;
 	}
 	

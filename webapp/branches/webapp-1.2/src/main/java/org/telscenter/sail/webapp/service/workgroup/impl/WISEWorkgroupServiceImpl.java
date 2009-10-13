@@ -52,7 +52,7 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
-import org.telscenter.sail.webapp.service.project.ExternalProjectService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
@@ -150,7 +150,7 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
     	Workgroup toGroup;
     	Workgroup fromGroup;
     	User user = params.getStudent();
-    	Run offering = (Run) offeringService.getOffering(params.getOfferingId());
+    	Run offering = (Run) ((RunService) offeringService).retrieveById(params.getOfferingId());
     	Group period = groupService.retrieveById(params.getPeriodId());
     	
     	fromGroup = params.getWorkgroupFrom();

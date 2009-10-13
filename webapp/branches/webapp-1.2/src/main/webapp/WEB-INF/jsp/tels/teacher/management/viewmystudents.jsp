@@ -26,7 +26,7 @@ if (${workgroupsWithoutPeriod != ""}) {
 	alert("You have workgroups that are not associated with periods. "
 			+" Please talk to a WISE staff to fix this problem. ID: ${workgroupsWithoutPeriod}");
 }
-    var tabView
+    var tabView;
 	function init() {
    		tabView = new YAHOO.widget.TabView('tabSystem');
 		tabView.set('activeIndex', ${tabIndex});
@@ -39,14 +39,15 @@ if (${workgroupsWithoutPeriod != ""}) {
         
         var handleSuccess = function(o){
 
-	if(o.responseText !== undefined){
-	   setTimeout("window.location.reload()", 500);
-	}
+			if(o.responseText !== undefined){
+				var newHREF= window.location.href + "&tabIndex=" + o.responseText;
+	   			setTimeout("window.location.href='" +newHREF +"'", 500);
+			}
 }
 
 var callback =
 {
-  success: handleSuccess
+  success: handleSuccess 
 }
 
 
