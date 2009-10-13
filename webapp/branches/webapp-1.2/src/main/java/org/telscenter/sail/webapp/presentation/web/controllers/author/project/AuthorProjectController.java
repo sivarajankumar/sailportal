@@ -192,7 +192,7 @@ public class AuthorProjectController extends AbstractController {
 		String xmlList = "";
 		for(Project project : allAuthorableProjects){
 			if(project.getProjectType()==ProjectType.LD){
-				xmlList += curriculumBaseDir + project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "|";
+				xmlList += curriculumBaseDir + project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId() + "|";
 			}
 		}
 		xmlList += "";

@@ -7,37 +7,11 @@
 <title>Publish Metadata</title>
 
 <script type="text/javascript" src="../javascript/tels/yui_3.0.0b1/build/yui/yui-min.js"></script>
-
-<script>	
-/**
- * Given the @param id of the project, searches through projects until
- * it finds a match, then sets the form's projectId element, and populates
- * the values of the html elements with the project's metadata.
- */
-function changeMetadata(id){
-	//cycle through projects
-	<c:forEach var="project" items="${projects}">
-		if('${project.id}'==id){
-			//set hidden form element with this project's id
-			document.getElementById('projectId').value = id;
-		};
-	</c:forEach>
-};
-
-/**
- * Calls the changeMetadata function with th value of the currently selected option
- */
-function projectSelectionChanged(){
-	changeMetadata(document.getElementById('projectSelect').options[document.getElementById('projectSelect').selectedIndex].value);
-};
-</script>
 </head>
 <body>
 <div id='mainDiv'>
 	<div id='topDiv'>
-		Select a project from the list of projects found that you have authored below. When clicking on
-		a project, the current metadata for that project will appear next to the list of projects. Make
-		sure that you are updating the metadata for the correct project. <b>This operation cannot be undone!</b>
+		Please confirm the changes below. <b>This operation cannot be undone!</b>
 	</div>
 	
 	<!-- Support for Spring errors object -->
@@ -52,30 +26,18 @@ function projectSelectionChanged(){
 	<div id='currentProjectDiv'>
 		<table id='projectMetadataTable'>
 			<thead>
-				<tr><td id='projectHeadTD'>Projects</td><td id='metadataHeadTd'>Current Metadata</td></tr>
+				<tr><td id='metadataHeadTd'>Current Metadata</td><td>Replace With</td></tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td id='projectListTd'>
-						<br/>
-						<select id='projectSelect' size='10' onchange='projectSelectionChanged()'>
-							<c:forEach var="project" items="${projects}">
-								<option id="${project.id}" value="${project.id}">${project.name}</option>
-							</c:forEach>
-						</select>
-					</td>
 					<td id='projectMetadataTd'>
-						<div id='title'/>
-						<div id='author'/>
-						<div id='subject'/>
-						<div id='duration'/>
-						<div id='summary'/>
+						<div id='title'>Title: ${currentTitle}</div>
+						<div id='author'>Author: ${currentAuthor}</div>
+						<div id='subject'>Subject: ${currentSubject}</div>
+						<div id='duration'>Duration: ${currentDuration}</div>
+						<div id='summary'>Summary: ${currentSummary}</div>
 					</td>
-				</tr>
-				<tr>
 					<td id='replacementMetaTd'>
-						<br/>
-						Replace with:<br/>
 						<form:form method='post' action='publishprojectmetadata.html' id='publishMetadataForm'  commandName='publishProjectMetadataParameters'>
 							<label for='replacementTitle'>Title: </label>
 							<form:input path='title' id='replacementTitle' disabled="true"/><br/>

@@ -89,11 +89,40 @@ public class PublishProjectMetadataController extends SimpleFormController{
 
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
-		List<Project> projects = this.projectService.getProjectList((User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY));
-		String metadata = request.getParameter("metadata");
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("projects", projects);
-		model.put("metadata", metadata);
+		String id = request.getParameter("projectId");
+		if(id != null && id != ""){
+			Project project = this.projectService.getById(Long.parseLong(id));
+			ProjectMetadata metadata = project.getMetadata();
+			if(metadata != null){
+				String title = metadata.getTitle();
+				String author = metadata.getAuthor();
+				String subject = metadata.getSubject();
+				String duration = metadata.getDuration();
+				String summary = metadata.getSummary();
+				
+				if(title != null && title != ""){
+					model.put("currentTitle", title);
+				}
+				
+				if(author != null && author != ""){
+					model.put("currentAuthor", author);
+				}
+				
+				if(subject != null && subject != ""){
+					model.put("currentSubject", subject);
+				}
+				
+				if(duration != null && duration != ""){
+					model.put("currentDuration", duration);
+				}
+				
+				if(summary != null && summary != ""){
+					model.put("currentSummary", summary);
+				}
+			}
+		}
+		
 		return model;
 	}
 	
@@ -108,6 +137,7 @@ public class PublishProjectMetadataController extends SimpleFormController{
 		params.setSubject(jsonMeta.getString("subject"));
 		params.setDuration(jsonMeta.getString("duration"));
 		params.setSummary(jsonMeta.getString("summary"));
+		params.setProjectId(request.getParameter("projectId"));
 		
 		return params;
 	}
