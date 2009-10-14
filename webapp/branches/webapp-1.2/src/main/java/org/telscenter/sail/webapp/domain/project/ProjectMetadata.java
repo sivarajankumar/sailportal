@@ -59,16 +59,6 @@ public interface ProjectMetadata{
 	public void setSubject(String subject);
 	
 	/**
-	 * @return <code>String</code> the duration to get
-	 */
-	public String getDuration();
-	
-	/**
-	 * @param <code>String</code> the duration to set
-	 */
-	public void setDuration(String duration);
-	
-	/**
 	 * @return <code>String</code> the summary to get
 	 */
 	public String getSummary();
@@ -87,4 +77,54 @@ public interface ProjectMetadata{
 	 * @param <code>Long</code> the id to set
 	 */
 	public void setId(Long id);
+	
+	/**
+	 * @return <code>String</code> the grade range to get
+	 */
+	public String getGradeRange();
+	
+	/**
+	 * @param <code>String</code> the grade rang to set
+	 */
+	public void setGradeRange(String range);
+	
+	/**
+	 * @return <code>Long</code> the total time to get
+	 */
+	public Long getTotalTime();
+	
+	/**
+	 * @param <code>Long</code> the total time to set (in mins)
+	 */
+	public void setTotalTime(Long mins);
+	
+	/**
+	 * @return <code>Long</code> the comp time to get
+	 */
+	public Long getCompTime();
+	
+	/**
+	 * @param <code>Long</code> the total time to set (in mins)
+	 */
+	public void setCompTime(Long mins);
+	
+	/**
+	 * @return <code>String</code> the contact to get
+	 */
+	public String getContact();
+	
+	/**
+	 * @param <code>String</code> the contact to set
+	 */
+	public void setContact(String contact);
+	
+	/**
+	 * @return <code>String</code> the tech reqs to get
+	 */
+	public String getTechReqs();
+	
+	/**
+	 * @param <code>String</code> the tech reqs to set
+	 */
+	public void setTechReqs(String reqs);
 }

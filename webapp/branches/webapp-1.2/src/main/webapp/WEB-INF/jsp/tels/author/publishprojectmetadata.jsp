@@ -34,8 +34,12 @@
 						<div id='title'>Title: ${currentTitle}</div>
 						<div id='author'>Author: ${currentAuthor}</div>
 						<div id='subject'>Subject: ${currentSubject}</div>
-						<div id='duration'>Duration: ${currentDuration}</div>
+						<div id='graderange'>Grade Range: ${currentGraderange}</div>
+						<div id='totaltime'>Total Time: ${currentTotaltime}</div>
+						<div id='comptime'>Computer Time: ${currentComptime}</div>
+						<div id='contact'>Contact: ${currentContact}</div>
 						<div id='summary'>Summary: ${currentSummary}</div>
+						<div id='techreqs'>Technical Requirements: ${currentTechreqs}</div>
 					</td>
 					<td id='replacementMetaTd'>
 						<form:form method='post' action='publishprojectmetadata.html' id='publishMetadataForm'  commandName='publishProjectMetadataParameters'>
@@ -45,10 +49,18 @@
 							<form:input path='author' id='replacementAuthor' disabled="true"/><br/>
 							<label for='replacementSubject'>Subject: </label>
 							<form:input path='subject' id='replacementSubject' disabled="true"/><br/>
-							<label for='replacementDuration'>Duration: </label>
-							<form:input path='duration' id='replacementDuration' disabled="true"/><br/>
+							<label for='replacementGraderange'>Grade Range: </label>
+							<form:input path='graderange' id='replacementGraderange' disabled="true"/><br/>
+							<label for='replacementTotaltime'>Total Time: </label>
+							<form:input path='totaltime' id='replacementTotaltime' disabled="true"/><br/>
+							<label for='replacementComptime'>Computer Time: </label>
+							<form:input path='comptime' id='replacementComptime' disabled="true"/><br/>
+							<label for='replacementContact'>Contact: </label>
+							<form:input path='contact' id='replacementContact' disabled="true"/><br/>
 							<label for='replacementSummary'>Summary: </label>
 							<form:textarea path='summary' id='replacementSummary' disabled="true"/><br/>
+							<label for='replacementTechreqs'>Technical Requirements: </label>
+							<form:textarea path='techreqs' id='replacementTechreqs' disabled="true"/><br/>
 							<form:hidden path='projectId' id='projectId'/>
 							<input type='submit' value='publish' id='submitButt'/>
 						</form:form>

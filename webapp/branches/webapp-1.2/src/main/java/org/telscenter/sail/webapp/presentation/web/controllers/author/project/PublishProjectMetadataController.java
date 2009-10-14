@@ -23,13 +23,10 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.sail.webapp.domain.User;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -77,9 +74,21 @@ public class PublishProjectMetadataController extends SimpleFormController{
 		metadata.setTitle(params.getTitle());
 		metadata.setAuthor(params.getAuthor());
 		metadata.setSubject(params.getSubject());
-		metadata.setDuration(params.getDuration());
 		metadata.setSummary(params.getSummary());
+		metadata.setGradeRange(params.getGraderange());
+		metadata.setContact(params.getContact());
+		metadata.setTechReqs(params.getTechreqs());
 		
+		try{
+			Long total = Long.parseLong(params.getTotaltime());
+			metadata.setTotalTime(total);
+		} catch(NumberFormatException e){}
+		
+		try{
+			Long comp = Long.parseLong(params.getComptime());
+			metadata.setCompTime(comp);
+		} catch(NumberFormatException e){}
+
 		//save project (and hence metadata)
 		this.projectService.updateProject(project);
 		
@@ -98,8 +107,12 @@ public class PublishProjectMetadataController extends SimpleFormController{
 				String title = metadata.getTitle();
 				String author = metadata.getAuthor();
 				String subject = metadata.getSubject();
-				String duration = metadata.getDuration();
 				String summary = metadata.getSummary();
+				String graderange = metadata.getGradeRange();
+				String contact = metadata.getContact();
+				String techreqs = metadata.getTechReqs();
+				Long totaltime = metadata.getTotalTime();
+				Long comptime = metadata.getCompTime();
 				
 				if(title != null && title != ""){
 					model.put("currentTitle", title);
@@ -113,12 +126,28 @@ public class PublishProjectMetadataController extends SimpleFormController{
 					model.put("currentSubject", subject);
 				}
 				
-				if(duration != null && duration != ""){
-					model.put("currentDuration", duration);
-				}
-				
 				if(summary != null && summary != ""){
 					model.put("currentSummary", summary);
+				}
+				
+				if(graderange != null && graderange != ""){
+					model.put("currentGraderange", graderange);
+				}
+				
+				if(contact != null && contact != ""){
+					model.put("currentContact", contact);
+				}
+				
+				if(techreqs != null && techreqs != ""){
+					model.put("currentTechreqs", techreqs);
+				}
+				
+				if(totaltime != null){
+					model.put("currentTotaltime", totaltime);
+				}
+				
+				if(comptime != null){
+					model.put("currentComptime", comptime);
 				}
 			}
 		}
@@ -135,8 +164,12 @@ public class PublishProjectMetadataController extends SimpleFormController{
 		params.setTitle(jsonMeta.getString("title"));
 		params.setAuthor(jsonMeta.getString("author"));
 		params.setSubject(jsonMeta.getString("subject"));
-		params.setDuration(jsonMeta.getString("duration"));
 		params.setSummary(jsonMeta.getString("summary"));
+		params.setGraderange(jsonMeta.getString("graderange"));
+		params.setTotaltime(jsonMeta.getString("totaltime"));
+		params.setComptime(jsonMeta.getString("comptime"));
+		params.setContact(jsonMeta.getString("contact"));
+		params.setTechreqs(jsonMeta.getString("techreqs"));
 		params.setProjectId(request.getParameter("projectId"));
 		
 		return params;

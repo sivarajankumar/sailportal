@@ -58,11 +58,23 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	public final static String COLUMN_NAME_SUBJECT = "subject";
 	
 	@Transient
-	public final static String COLUMN_NAME_DURATION = "duration";
-	
-	@Transient
 	public final static String COLUMN_NAME_SUMMARY = "summary";
 
+	@Transient
+	public final static String COLUMN_NAME_GRADE_RANGE = "grade_range";
+	
+	@Transient
+	public final static String COLUMN_NAME_TOTAL_TIME = "total_time";
+	
+	@Transient
+	public final static String COLUMN_NAME_COMP_TIME = "comp_time";
+	
+	@Transient
+	public final static String COLUMN_NAME_CONTACT = "contact";
+	
+	@Transient
+	public final static String COLUMN_NAME_TECH_REQS = "tech_reqs";
+	
 	@Transient
 	private static final long serialVersionUID = 1L;
 	
@@ -75,12 +87,64 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	@Column(name = COLUMN_NAME_SUBJECT)
 	private String subject;
 	
-	@Column(name = COLUMN_NAME_DURATION)
-	private String duration;
-	
 	@Column(name = COLUMN_NAME_SUMMARY)
 	private String summary;
 	
+	@Column(name = COLUMN_NAME_GRADE_RANGE)
+	private String gradeRange;
+	
+	@Column(name = COLUMN_NAME_TOTAL_TIME)
+	private Long totalTime;
+	
+	@Column(name = COLUMN_NAME_COMP_TIME)
+	private Long compTime;
+	
+	@Column(name = COLUMN_NAME_CONTACT)
+	private String contact;
+	
+	@Column(name = COLUMN_NAME_TECH_REQS)
+	private String techReqs;
+	
+	public String getGradeRange() {
+		return gradeRange;
+	}
+
+	public void setGradeRange(String gradeRange) {
+		this.gradeRange = gradeRange;
+	}
+
+	public Long getTotalTime() {
+		return totalTime;
+	}
+
+	public void setTotalTime(Long totalTime) {
+		this.totalTime = totalTime;
+	}
+
+	public Long getCompTime() {
+		return compTime;
+	}
+
+	public void setCompTime(Long compTime) {
+		this.compTime = compTime;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getTechReqs() {
+		return techReqs;
+	}
+
+	public void setTechReqs(String techReqs) {
+		this.techReqs = techReqs;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -103,14 +167,6 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 
 	public void setSubject(String subject) {
 		this.subject = subject;
-	}
-
-	public String getDuration() {
-		return duration;
-	}
-
-	public void setDuration(String duration) {
-		this.duration = duration;
 	}
 
 	public String getSummary() {

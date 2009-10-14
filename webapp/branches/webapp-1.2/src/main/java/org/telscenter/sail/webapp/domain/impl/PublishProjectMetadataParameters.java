@@ -40,9 +40,17 @@ public class PublishProjectMetadataParameters implements Serializable {
 	
 	private String subject;
 	
-	private String duration;
-	
 	private String summary;
+	
+	private String graderange;
+
+	private String contact;
+	
+	private String techreqs;
+	
+	private String totaltime;
+	
+	private String comptime;
 
 	/**
 	 * @return <code>String</code> the id to get
@@ -101,20 +109,6 @@ public class PublishProjectMetadataParameters implements Serializable {
 	}
 
 	/**
-	 * @return <code>String</code> the duration to get
-	 */
-	public String getDuration() {
-		return duration;
-	}
-
-	/**
-	 * @param <code>String</code> the duration to set
-	 */
-	public void setDuration(String duration) {
-		this.duration = duration;
-	}
-
-	/**
 	 * @return <code>String</code> the summary to get
 	 */
 	public String getSummary() {
@@ -126,5 +120,75 @@ public class PublishProjectMetadataParameters implements Serializable {
 	 */
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+	
+	/**
+	 * @return <code>String</code> the grade range to get
+	 */
+	public String getGraderange() {
+		return graderange;
+	}
+
+	/**
+	 * @param <code>String</code> the grade range to set
+	 */
+	public void setGraderange(String graderange) {
+		this.graderange = graderange;
+	}
+
+	/**
+	 * @return <code>String</code> the contact to get
+	 */
+	public String getContact() {
+		return contact;
+	}
+
+	/**
+	 * @param <code>String</code> the contact to set
+	 */
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	/**
+	 * @return <code>String</code> the technical requirements to get
+	 */
+	public String getTechreqs() {
+		return techreqs;
+	}
+
+	/**
+	 * @param <code>String</code> the technical requirements to set
+	 */
+	public void setTechreqs(String techreqs) {
+		this.techreqs = techreqs;
+	}
+
+	/**
+	 * @return <code>String</code> the total time to get
+	 */
+	public String getTotaltime() {
+		return totaltime;
+	}
+
+	/**
+	 * @param <code>String</code> the total time to set
+	 */
+	public void setTotaltime(String totaltime) {
+		this.totaltime = totaltime;
+	}
+
+	/**
+	 * @return <code>String</code> the computer time to get
+	 */
+	public String getComptime() {
+		return comptime;
+	}
+
+	/**
+	 * @param <code>String</code> the computer time to set
+	 */
+	public void setComptime(String comptime) {
+		this.comptime = comptime;
 	}
 }
