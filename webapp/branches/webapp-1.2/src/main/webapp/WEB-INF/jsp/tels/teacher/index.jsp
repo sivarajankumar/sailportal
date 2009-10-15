@@ -433,7 +433,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 
 <table id="teacherHomeTable1" >
 <tr>
-<td id="welcomePanel" class="panelStyling">
+<td id="welcomePanel"><div class="panelStyling">
 			
 			<div id="headerTeacherHome"><spring:message code="teacher.index.1"/></div>
 			
@@ -493,7 +493,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 						</td>
 					</tr>
 				</table> 
-</td> 
+</div></td> 
 
 <td style="width:12px;"></td>
 
