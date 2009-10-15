@@ -90,4 +90,13 @@ public interface ProjectDao<T extends Project> extends SimpleDao<T> {
 	 * @return <code>List<T></code>
 	 */
 	public List<T> getProjectListByUAR(User user, String role);
+	
+	/**
+	 * Returns a <code>List</code> of <code>Project</code> from the data store that
+	 * satisifies the given <code>String</code> query.
+	 * 
+	 * @param <code>String</code> query
+	 * @return <code>List<Project></code>
+	 */
+	public List<T> getProjectList(String query);
 }

@@ -601,4 +601,37 @@ public class PodProjectServiceImpl implements ProjectService {
 		// TODO hiroki: implement me
 		return null;
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getAllProjectsList()
+	 */
+	@Transactional
+	public List<Project> getAllProjectsList() {
+		List<Project> projectList = this.projectDao.getList();
+    	// populate roolo projects' projectinfos
+    	for (Project project : projectList) {
+    		try {
+				populateProjectInfo(project);
+				project.populateProjectInfo();
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
+    	}
+    	
+		return projectList;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectList(java.lang.String)
+	 */
+	@Transactional
+	public List<Project> getProjectList(String query){
+		List<Project> projectList = this.projectDao.getProjectList(query);
+		
+		for(Project project : projectList){
+			project.populateProjectInfo();
+		}
+		
+		return projectList;
+	}
 }

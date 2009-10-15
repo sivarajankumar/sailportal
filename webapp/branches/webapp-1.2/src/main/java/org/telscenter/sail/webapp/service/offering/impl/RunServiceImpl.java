@@ -456,4 +456,14 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setArchiveReminderTime(moreTime.getTime());
 		this.runDao.save(run);
 	}
+	
+	@Transactional()
+	public Integer getProjectUsage(Long id){
+		List<Run> runList = this.runDao.getRunsOfProject(id);
+		if(runList == null){
+			return 0;
+		} else {
+			return runList.size();
+		}
+	}
 }

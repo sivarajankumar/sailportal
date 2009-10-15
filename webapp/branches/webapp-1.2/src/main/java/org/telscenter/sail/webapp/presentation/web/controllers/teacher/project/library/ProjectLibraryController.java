@@ -23,48 +23,238 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.project.FamilyTag;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Controller for displaying WISE's Project Library
  * 
- * @author Hiroki Terashima
+ * @authors Hiroki Terashima, Patrick Lawler
  * @version $Id$
  */
-public class ProjectLibraryController extends AbstractController {
+public class ProjectLibraryController extends SimpleFormController {
 
 	private ProjectService projectService;
 	
+	private RunService runService;
+	
 	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request,
+            HttpServletResponse response, Object command, BindException errors) {
+		SearchProjectLibraryParameters params = (SearchProjectLibraryParameters) command;
+		String query = "select project from ProjectImpl as project";
 		
-		 User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
-		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
-		 List<Project> currentProjectList = new ArrayList<Project>();
-		 for (Project p: projectList) {
-			 if (p.isCurrent())
-				 currentProjectList.add(p);
-		 }
-		 
-		 ModelAndView modelAndView = new ModelAndView();
-	     modelAndView.addObject("projectList", currentProjectList);
-	     modelAndView.addObject("userId", user.getId());
-		 return modelAndView;
+		query = this.appendFamilyTagCriteria(query, params.getFamily());
+		query = this.appendStatusCriteria(query, params.getStatus());
+		query = this.appendTextFieldsCriteria(query, params);
+		query = this.appendNumericFieldsCriteria(query, params);
+		
+		ModelAndView mav = new ModelAndView(new RedirectView("projectlibrary.html"));
+		mav.addObject("query", query);
+		return mav;
+	}
+	
+	/**
+	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+		SearchProjectLibraryParameters params = new SearchProjectLibraryParameters();
+		params.setFamily("-1");
+		params.setStatus("-1");
+		params.setSearchtype("contains");
+		return params;
+	}
+	
+	/**
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected Map<String, Object> referenceData(HttpServletRequest request) 
+	    throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		List<Project> projectList;
+		String query = request.getParameter("query");
+		
+		if(query != null && query != ""){
+			projectList = this.projectService.getProjectList(query);
+		} else {
+			projectList = new ArrayList<Project>();
+		}
+		
+		Map<Long,Integer> usageMap = new TreeMap<Long,Integer>();
+		for(Project p : projectList){
+			usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+		}
+		
+		model.put("userId", user.getId());
+		model.put("projectList", projectList);
+		model.put("usageMap", usageMap);
+		return model;
+	}
+	
+	/**
+	 * Given a <code>String</code> query and the <code>String</code> val, appends
+	 * the family tag criteria to the query if val is not empty or null and returns
+	 * the <code>String</code> query.
+	 * 
+	 * @param <code>String</code> query
+	 * @param <code>String</code> val
+	 * @return <code>String</code> query
+	 */
+	private String appendFamilyTagCriteria(String query, String val){
+		if(val != null && val != "" && !val.equals("-1")){
+			String base = " project.familytag=\'" + val + "\'";
+			return this.insertAppropriateLead(query, base);
+		}
+		
+		return query;
+	}
+	
+	/**
+	 * Given a <code>String</code> query and the <code>String</code> val, appends
+	 * the project status criteria to the query if val is not empty or null and returns
+	 * the <code>String</code> query.
+	 * 
+	 * @param <code>String</code> query
+	 * @param <code>String</code> val
+	 * @return <code>String</code> query
+	 */
+	private String appendStatusCriteria(String query, String val){
+		if(val != null && val != "" && !val.equals("-1")){
+			String base = " project.isCurrent=" + val;
+			return this.insertAppropriateLead(query, base);
+		}
+		
+		return query;
+	}
+	
+	/**
+	 * Given the <code>String</code> query and the <code>SearchProjectLibraryParameters</code>
+	 * params, creates the appropriate criteria for all of the text fields, appends and returns
+	 * the <code>String</code> query.
+	 * 
+	 * @param <code>String</code> query
+	 * @param <code>String</code> params
+	 * @return <code>String</code> query
+	 */
+	private String appendTextFieldsCriteria(String query, SearchProjectLibraryParameters params){
+		String precedingText;
+		String followingText;
+		
+		//get the search type and set the appropriate preceding and following text
+		if(params.getSearchtype().equals("matches")){
+			precedingText = "=\'";
+			followingText = "\'";
+		} else {
+			precedingText = " like \'%";
+			followingText = "%\'";
+		}
+		
+		query = this.appendTextFieldCriteria(query, "title", params.getTitle(), precedingText, followingText);
+		query = this.appendTextFieldCriteria(query, "author", params.getAuthor(), precedingText, followingText);
+		query = this.appendTextFieldCriteria(query, "contact", params.getContact(), precedingText, followingText);
+		query = this.appendTextFieldCriteria(query, "summary", params.getSummary(), precedingText, followingText);
+		query = this.appendTextFieldCriteria(query, "subject", params.getSubject(), precedingText, followingText);
+		query = this.appendTextFieldCriteria(query, "gradeRange", params.getGradeRange(), precedingText, followingText);
+		query = this.appendTextFieldCriteria(query, "techReqs", params.getTechReqs(), precedingText, followingText);
+		
+		return query;
+	}
+	
+	/**
+	 * Given the <code>String</code> query, <code>String</code> field name, <code>String</code> value,
+	 * <code>String</code> preceding search type text and <code>String</code> following search type
+	 * text, constructs the appropriate criteria, appends it the query and returns the <code>String</code>
+	 * query.
+	 * 
+	 * @param <code>String</code> query
+	 * @param <code>String</code> name
+	 * @param <code>String</code> val
+	 * @param <code>String</code> precedingText
+	 * @param <code>String</code> followingText
+	 * @return <code>String</code> query
+	 */
+	private String appendTextFieldCriteria(String query, String name, String val, String precedingText, String followingText){
+		if(val != null && val != ""){
+			String base = " project.metadata." + name + precedingText + val + followingText;
+			return this.insertAppropriateLead(query, base);
+		}
+		
+		return query;
+	}
+	
+	/**
+	 * Given the <code>String</code> query and the <code>SearchProjectLibraryParameters</code>
+	 * params, creates the appropriate criteria for all of the numeric fields, appends and returns
+	 * the <code>String</code> query.
+	 * 
+	 * @param <code>String</code> query
+	 * @param <code>String</code> params
+	 * @return <code>String</code> query
+	 */
+	private String appendNumericFieldsCriteria(String query, SearchProjectLibraryParameters params){
+		query = this.appendNumericFieldCriteria(query, "totalTime", params.getTotalTime());
+		query = this.appendNumericFieldCriteria(query, "compTime", params.getCompTime());
+		
+		return query;
+	}
+	
+	/**
+	 * Given the <code>String</code> query, <code>String</code> field name, <code>String</code> value,
+	 * constructs the appropriate criteria, appends it the query and returns the <code>String</code> query.
+	 * 
+	 * @param <code>String</code> query
+	 * @param <code>String</code> name
+	 * @param <code>String</code> val
+	 * @return <code>String</code> query
+	 */
+	private String appendNumericFieldCriteria(String query, String name, String val){
+		if(val != null && val != ""){
+			String base = " project.metadata." + name + "=" + val;
+			return this.insertAppropriateLead(query, base);
+		}
+		
+		return query;
+	}
+	
+	/**
+	 * Given the <code>String</code> query and the <code>String</code>
+	 * base criteria, checks the query to determine if any previous
+	 * criteria has been inserted and appends the appropriate lead followed
+	 * by the base to the query and returns the <code>String</code> query
+	 * 
+	 * @param <code>String</code> query
+	 * @param <code>String</code> base
+	 * @return <code>String</code> query
+	 */
+	private String insertAppropriateLead(String query, String base){
+		if(query.indexOf("as project where") == -1){
+			query += " where" + base;
+		} else {
+			query += " and" + base;
+		}
+		
+		return query;
 	}
 	
 	/**
@@ -72,5 +262,12 @@ public class ProjectLibraryController extends AbstractController {
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
 	}
 }

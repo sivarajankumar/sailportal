@@ -617,7 +617,8 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 	<div id="quickLinks1">
 		<div id="linkHeader"><spring:message code="teacher.index.20"/></div>
 			<ul>
-				<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
+				<li><a href="projects/telsprojectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
+				<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21A"/></a></li>
 				<li><a href="../author/authorproject.html">Author Custom/Shared Projects</a></li>
 <!--			<li style="text-decoration:line-through"><a href="projects/bookmarkedprojects.html"><spring:message code="teacher.index.23"/></a></li>-->
 				<li class="inactivecolor"><spring:message code="teacher.index.23"/></li>

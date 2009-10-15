@@ -77,4 +77,13 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
      * @return <code>List<WISEWorkgroup></code>
      */
     public Set<Workgroup> getWorkgroupsForOfferingAndPeriod(Long offeringId, Long periodId);
+    
+    /**
+     * Retrieves a <code>List</code> of <code>Run</code> that are associated with the
+     * given <code>Long</code> project id.
+     * 
+     * @param <code>Long</code> id
+     * @return <code>List<Run></code>
+     */
+    public List<Run> getRunsOfProject(Long id);
 }

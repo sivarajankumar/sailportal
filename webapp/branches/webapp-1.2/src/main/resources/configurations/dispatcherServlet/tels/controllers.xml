@@ -709,6 +709,20 @@
     <bean id="projectLibraryController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.ProjectLibraryController">
         <property name="projectService" ref="projectService" />
+        <property name="runService" ref="runService" />
+        <property name="commandName" value="searchProjectLibraryParameters"/>
+        <property name="commandClass" value="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.SearchProjectLibraryParameters"/>
+        <property name="formView" value="/teacher/projects/projectlibrary"/>
+    </bean>
+    
+    <bean id="searchProjectLibraryParameters"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.SearchProjectLibraryParameters">
+    </bean>
+    
+    <bean id="telsProjectLibraryController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.TelsProjectLibraryController">
+        <property name="projectService" ref="projectService" />
+        <property name="runService" ref="runService"/>
     </bean>
     
  	<bean id="customizedIndexController"
@@ -835,6 +849,7 @@
 	<bean id="projectInfoController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectInfoController">
 	    <property name="projectService" ref="projectService" />
+	    <property name="runService" ref="runService"/>
 	</bean>
 	
 	<bean id="addNewsItemController"

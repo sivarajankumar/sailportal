@@ -134,4 +134,12 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
     			"join period.members user where user.id='" + user.getId() + "'";
     	return this.getHibernateTemplate().find(q);
     }
+    
+    /**
+     * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunsOfProject(java.lang.Long)
+     */
+    public List<Run> getRunsOfProject(Long id){
+    	String q = "select run from RunImpl run where run.project.id=" + id;
+    	return this.getHibernateTemplate().find(q);
+    }
 }

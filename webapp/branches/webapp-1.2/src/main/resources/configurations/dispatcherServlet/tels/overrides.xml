@@ -144,6 +144,7 @@
     		    /teacher/projects/reportproblem.html=reportProblemController
     		    /teacher/projects/library/options.html=projectOptionsController
     		    /teacher/projects/projectlibrary.html=projectLibraryController
+    		    /teacher/projects/telsprojectlibrary.html=telsProjectLibraryController
     		    /teacher/projects/projectinfo.html=projectInfoController
     		    /teacher/projects/customized/index.html=customizedIndexController
     		    /teacher/projects/customized/shareproject.html=shareProjectController

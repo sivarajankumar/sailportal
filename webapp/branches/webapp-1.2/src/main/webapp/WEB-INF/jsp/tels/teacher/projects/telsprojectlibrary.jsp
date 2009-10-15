@@ -17,7 +17,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id$ -->
+<!-- $Id: projectlibrary.jsp 2478 2009-09-19 00:36:07Z honchikun@gmail.com $ -->
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
@@ -71,47 +71,6 @@
 			YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
 		};
 	};
-
-	/**
-	 * Toggles the search div
-	 */
-	function toggleSearch(){
-		var searchDiv = document.getElementById('searchDiv');
-		if(searchDiv.style.display=='none'){
-			searchDiv.style.display = 'block';
-		} else {
-			searchDiv.style.display = 'none';
-		};
-	};
-
-	/**
-	 * Appends any additional criteria to the query based on any values
-	 * typed into the search field and returns the query.
-	 */
-	function appendTextFieldQueries(query, type){
-		if(type=='matches'){
-			var precedingText = '=\'';
-			var followingText = '\'';
-		} else {
-			var precedingText = ' like \'%';
-			var followingText = '%\'';
-		};
-		
-		for(var c=0;c<FIELDNAMES.length;c++){
-			var text = document.getElementById(FIELDNAMES[c] + 'Text').value;
-			if(text && text != ''){
-				if(query.indexOf('as project where')==-1){
-					query += ' as project where project.metadata.' + FIELDNAMES[c] + precedingText + text + followingText;
-				} else {
-					query += ' and project.metadata.' + FIELDNAMES[c] + precedingText + text + followingText;
-				};
-			};
-		};
-
-		return query;
-	};
-
-	var FIELDNAMES = ['title', 'author', 'subject', 'summary', 'gradeRange', 'totalTime', 'compTime', 'contact', 'techReqs'];
 </script>
 
 <title><spring:message code="curnitlist.project.library" /></title>
@@ -123,90 +82,16 @@
 
 <%@ include file="./headerteacherprojects.jsp"%>
 	
-<%@ include file="./L2projects_projectlibrary.jsp"%>
+<%@ include file="./L2projects_telsprojects.jsp"%>
 
-<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.project.library" /></h2>
+<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.tels.project.library" /></h2>
  
 <div id="searchResultsHeading">Search Results: ${fn:length(projectList) } projects found 
 	<div class="searchResultsButtons"><a href="#">Show/Hide Descriptions</a></div>
-	<div class="searchResultsButtons"><a href='#' onclick='toggleSearch()'>Show/Hide Search Options</a></div>
 </div>
 
 <div id="searchResultsInstructions">Click any project title below to review its <em>Project Overview</em>.</div>
-
-<div id='searchDiv'>
-	<div id='searchTextDiv'>Enter your search criteria below. Enter more information for a more restrictive search. Searches are case insensitive.</div><br/>
-	<form:form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html'>
-	<table id='searchTable'>
-		<thead></thead>
-		<tbody>
-			<tr>
-				<td id='familyTD'>
-					<div id='familyDiv'>
-						Family: <br/>
-						<form:radiobutton id='telsRadio' path='family' value='0'/> TELS<br/>
-						<form:radiobutton id='uccpRadio' path='family' value='1'/> UCCP<br/>
-						<form:radiobutton id='otherRadio' path='family' value='2'/> Other<br/>
-						<form:radiobutton id='allRadio' path='family' value='-1'/> All<br/>
-					</div>
-				</td>
-				<td id='currentTD'>
-					<div id='currentDiv'>
-						Project status: <br/>
-						<form:radiobutton id='currentRadio' path='status' value='1'/> Current projects only<br/>
-						<form:radiobutton id='endedRadio' path='status' value='0'/> Closed projects only<br/>
-						<form:radiobutton id='bothRadio' path='status' value='-1'/> Both current and closed projects<br/>
-					</div>
-				</td>
-				<td id='searchTypeTD'>
-					<div id='searchTypeDiv'>
-						Search should: <br/>
-						<form:radiobutton id='exactRadio' path='searchtype' value='matches'/> Match text exactly<br/>
-						<form:radiobutton id='containsRadio' path='searchtype' value='contains'/> Contain text<br/>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Title: <form:input id='titleText' path='title'/>
-				</td>
-				<td>
-					Author: <form:input id='authorText' path='author'/>
-				</td>
-				<td>
-					Subject: <form:input id='subjectText' path='subject'/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Project Summary: <form:textarea id='summaryText' path='summary'></form:textarea>
-				</td>
-				<td>
-					Grade Range: <form:input id='gradeRangeText' path='gradeRange'/>
-				</td>
-				<td>
-					Contact: <form:input id='contactText' path='contact'/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Total time (in mins): <form:input id='totalTimeText' path='totalTime'/>
-				</td>
-				<td>
-					Computer time (in mins): <form:input id='compTimeText' path='compTime'/>
-				</td>
-				<td>
-					Technical Requirements: <form:textarea id='techReqsText' path='techReqs'></form:textarea>
-				</td>
-			</tr>
-			<tr>
-				<td><input type='submit' value='execute search'/></td>
-			</tr>
-		</tbody>
-	</table>
-	</form:form>
-</div><br/><br/>
-
+  
 <c:forEach var="project" items="${projectList}">
 
 	<table id="libraryProjectTable">

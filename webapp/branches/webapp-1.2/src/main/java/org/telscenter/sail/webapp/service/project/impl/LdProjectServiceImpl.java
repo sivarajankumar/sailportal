@@ -412,4 +412,30 @@ public class LdProjectServiceImpl implements ProjectService {
 	public void setPortalProperties(Properties portalProperties) {
 		this.portalProperties = portalProperties;
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getAllProjectsList()
+	 */
+	@Transactional
+	public List<Project> getAllProjectsList() {
+		List<Project> projectList = this.projectDao.getList();
+    	for (Project project : projectList) {
+				project.populateProjectInfo();
+    	}	
+		return projectList;
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectList(java.lang.String)
+	 */
+	@Transactional
+	public List<Project> getProjectList(String query){
+		List<Project> projectList = this.projectDao.getProjectList(query);
+		
+		for(Project project : projectList){
+			project.populateProjectInfo();
+		}
+		
+		return projectList;
+	}
 }

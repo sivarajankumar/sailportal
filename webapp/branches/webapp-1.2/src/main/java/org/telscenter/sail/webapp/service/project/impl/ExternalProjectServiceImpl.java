@@ -343,4 +343,14 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public void removeBookmarkerFromProject(Project project, User bookmarker) throws ObjectNotFoundException {
 		//TODO
 	}
+
+	public List<Project> getAllProjectsList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Project> getProjectList(String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

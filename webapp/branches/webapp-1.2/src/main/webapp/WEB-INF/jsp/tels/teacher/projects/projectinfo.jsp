@@ -77,36 +77,29 @@
 	    		<dt>Project ID:</dt>
 	    			<dd>${project.id}</dd>
 	    		<dt>Project Source:</dt>
-	    			<dd>${project.projectInfo.source}</dd>
+	    			<dd>${project.familytag}</dd>
 	    		<dt style="letter-spacing:-.7px;">Subjects/Keywords:</dt>
-	    			<dd>${project.projectInfo.subject} ${project.projectInfo.keywords}</dd>
+	    			<dd>${project.metadata.subject}</dd>
 	    		<dt>Grade Range:</dt>
-	    			<dd>${project.projectInfo.gradeLevel}</dd>
+	    			<dd>${project.metadata.gradeRange}</dd>
 	    		<dt>Total Time:</dt>
-	    			<dd>[data here]</dd>
+	    			<dd>${project.metadata.totalTime }</dd>
 	    		<dt>Computer Time:</dt>
-	    			<dd>[Need Type here]</dd>
+	    			<dd>${project.metadata.compTime }</dd>
 	    		<dt>Usage:</dt>
-	    			<dd>[Need Type here]</dd>
+	    			<dd>${usage}</dd>
 	    		
 	    	</dl>
 	    	
 	    <div class="projectInfoHeader">Project Summary</div>
-	    <div class="projectInfoDataBox">${project.projectInfo.description}</div>
+	    <div class="projectInfoDataBox">${project.metadata.summary}</div>
 	    
 	    <div class="projectInfoHeader">Contact(s)</div>
-	    <div class="projectInfoDataBox">[Need one or more email links here]</div>
+	    <div class="projectInfoDataBox">${project.metadata.contact }</div>
 	    	
 		<div class="projectInfoHeader">Technical Requirements</div>
 	    <div class="projectInfoDataBox">
-			<ul>
-				<li>Dolor exerci nisl hendrerit illum vulputate feugait duis, nibh vulputate, veniam odio ad, qui nonummy nulla at blandit ea.</li>
-				<li>Dolore dolore molestie wisi feugait molestie consequat iusto praesent nostrud zzril tincidunt consequat et zzril</li>
-				<li>Te ullamcorper volutpat tincidunt minim. Aliquip dolore lobortis blandit esse suscipit duis magna vel odio dolore</li>
-				<li>ipsum ut at magna iusto et ex ex. Eros illum, luptatum, ea nulla, in nostrud eu consectetuer augue accumsan feugiat qui iusto consequat duis vel nulla. Consequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem, feugiat erat feugait ut vel nonummy zzril accumsan velit dolor in accumsan.
-Aliquip suscipit sit amet vero, enim duis minim in, ut duis minim tation. Sed molestie</li>
-				<li>dolor ea ut elit sed wisi et iriure nostrud vulputate illum nulla.</li>
-			</ul>
+			${project.metadata.techReqs }
 		</div>	
 
 	         

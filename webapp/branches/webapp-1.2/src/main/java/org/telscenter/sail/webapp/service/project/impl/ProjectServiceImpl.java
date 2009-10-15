@@ -59,6 +59,14 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectServiceFactory projectServiceFactory;
 	
 	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getAllProjectsList()
+	 */
+	public List<Project> getAllProjectsList(){
+		ProjectService projectService = projectServiceFactory.getProjectService(new ProjectImpl());
+		return projectService.getAllProjectsList();
+	}
+	
+	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#authorProject(org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters)
 	 */
 	public Object authorProject(AuthorProjectParameters authorProjectParameters)
@@ -214,6 +222,14 @@ public class ProjectServiceImpl implements ProjectService {
 	public void removeBookmarkerFromProject(Project project, User user) throws ObjectNotFoundException{
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
 		projectService.removeBookmarkerFromProject(project, user);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectList(java.lang.String)
+	 */
+	public List<Project> getProjectList(String query){
+		ProjectService projectService = projectServiceFactory.getProjectService(new ProjectImpl());
+		return projectService.getProjectList(query);
 	}
 
 }

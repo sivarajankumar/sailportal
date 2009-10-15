@@ -55,8 +55,11 @@
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
-			<td class="link"><a href="projectlibrary.html"><spring:message code="teacher.pro.lib.index.3"/></a></td>
+			<td class="link"><a href="telsprojectlibrary.html"><spring:message code="teacher.pro.lib.index.3"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.4"/></td></tr>
+		<tr>
+			<td class="link"><a href="projectlibrary.html"><spring:message code="teacher.pro.lib.index.3A"/></a></td>
+			<td class="description"><spring:message code="teacher.pro.lib.index.4A"/></td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="bookmarkedprojects.html"><spring:message code="teacher.pro.lib.index.7"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.8"/></td></tr>

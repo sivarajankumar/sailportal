@@ -20,31 +20,32 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project;
+package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
- * Controller to display information for a specific project
- * 
  * @author Hiroki Terashima
- * @version $Id$
+ * @version $Id:$
  */
-public class ProjectInfoController extends AbstractController {
-
-	protected static final String PROJECTID_PARAM_NAME = "projectId";
-
-	protected static final String PROJECT_PARAM_NAME = "project";
+public class TelsProjectLibraryController extends AbstractController{
 	
-	protected static final String USAGE = "usage";
-
 	private ProjectService projectService;
 	
 	private RunService runService;
@@ -55,15 +56,25 @@ public class ProjectInfoController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
-		Project project = projectService.getById(projectIdStr);
 		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(PROJECT_PARAM_NAME, project);
-		modelAndView.addObject(USAGE, this.runService.getProjectUsage((Long)project.getId()));
-		return modelAndView;
+		 User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
+		 List<Project> currentProjectList = new ArrayList<Project>();
+		 Map<Long, Integer> usageMap = new TreeMap<Long, Integer>();
+		 for (Project p: projectList) {
+			 if (p.isCurrent()){
+				 currentProjectList.add(p);
+				 usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+			 }
+		 }
+		 
+		 ModelAndView modelAndView = new ModelAndView();
+	     modelAndView.addObject("projectList", currentProjectList);
+	     modelAndView.addObject("usageMap", usageMap);
+	     modelAndView.addObject("userId", user.getId());
+		 return modelAndView;
 	}
-
+	
 	/**
 	 * @param projectService the projectService to set
 	 */
@@ -77,5 +88,4 @@ public class ProjectInfoController extends AbstractController {
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
-
 }

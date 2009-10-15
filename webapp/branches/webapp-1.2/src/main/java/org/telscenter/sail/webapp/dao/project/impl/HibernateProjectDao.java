@@ -110,4 +110,11 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 			role + "s " + role + " where " + role + ".id='" + user.getId() + "'";
 		return this.getHibernateTemplate().find(q);
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#getProjectList(java.lang.String)
+	 */
+	public List<Project> getProjectList(String query){
+		return this.getHibernateTemplate().find(query);
+	}
 }

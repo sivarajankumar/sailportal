@@ -54,6 +54,13 @@ public interface ProjectService {
 	 * @return a <code>List</code> of <code>Project</code>
 	 */
 	@Transactional
+	public List<Project> getAllProjectsList();
+	
+	/**
+	 * Get a <code>List</code> of <code>Project</code>
+	 * @return a <code>List</code> of <code>Project</code>
+	 */
+	@Transactional
 	@Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
 	public List<Project> getProjectList();
 
@@ -217,4 +224,13 @@ public interface ProjectService {
 	 *     does not exist
 	 */
 	public Project getById(Serializable projectId) throws ObjectNotFoundException;
+	
+	/**
+	 * Given a <code>String</code> query, returns a <code>List</code> of
+	 * <code>Project</code> that satisfies the query.
+	 * 
+	 * @param <code>String</code> query
+	 * @return <code>List<Project></code>
+	 */
+	public List<Project> getProjectList(String query);
 }

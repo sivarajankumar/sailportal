@@ -253,4 +253,13 @@ public interface RunService extends OfferingService {
      * @throws <code>ObjectNotFoundException</code>
      */
     public void extendArchiveReminderTime(Long runId) throws ObjectNotFoundException;
+    
+    /**
+     * Given a <code>Long</code> projectId, returns the <code>Integer</code> number of
+     * runs associated with that id.
+     * 
+     * @param <code>Long</code> id
+     * @return <code>Integer</code>
+     */
+    public Integer getProjectUsage(Long id);
 }

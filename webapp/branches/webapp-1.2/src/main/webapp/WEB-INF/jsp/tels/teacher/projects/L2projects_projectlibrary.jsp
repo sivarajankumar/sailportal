@@ -24,8 +24,8 @@
 	<ul>
 		<li >
 			<a class="navigationL2leftborder" href="index.html"><spring:message code="teacher.pro.lib.L2.1"/></a> </li>
-       	<li>
-			<a class="navigationL2_projects_highlight"  href="projectlibrary.html"><spring:message code="teacher.pro.lib.L2.2"/></a> </li>
+		<li><a href="telsprojectlibrary.html"><spring:message code="teacher.pro.lib.L2.2"/></a> </li>
+       	<li><a class="navigationL2_projects_highlight" href="projectlibrary.html"><spring:message code="teacher.pro.lib.L2.2A"/></a> </li>
 		<li>
 			<a href="bookmarkedprojects.html"><spring:message code="teacher.pro.lib.L2.4"/></a> </li>
 		<li>

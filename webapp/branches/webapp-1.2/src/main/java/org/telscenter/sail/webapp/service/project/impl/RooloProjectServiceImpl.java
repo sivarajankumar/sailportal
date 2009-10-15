@@ -366,4 +366,14 @@ public class RooloProjectServiceImpl implements ProjectService{
 		return null;
 	}
 
+	public List<Project> getAllProjectsList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Project> getProjectList(String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
