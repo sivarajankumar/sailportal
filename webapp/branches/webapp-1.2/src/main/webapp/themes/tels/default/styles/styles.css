@@ -243,8 +243,16 @@
 	color: #0000FF;
 }
 
+#setupProjectTableContainer {
+	max-height:130px;
+	overflow:auto;
+	margin-left:25px;
+	border:1px solid #CCC;
+}
+
 #setupProjectTable {
 	border-collapse: collapse;
+	width:100%;
 }
 
 #titleBarSetUpRun {
@@ -292,6 +300,10 @@
 	background-image: url(../images/Arrow_Down.png);
 	background-position: 5px 3px;
 	background-repeat: no-repeat;
+}
+
+.followup1 {
+	margin:8px 0 0 0 ;
 }
 
 .indent15px {

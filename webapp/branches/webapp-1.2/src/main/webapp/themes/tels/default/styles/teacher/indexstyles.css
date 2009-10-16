@@ -29,30 +29,40 @@
 }
 
 #welcomePanel {
-    width: 468px;   
+    width: 468px;  
 	padding:0;
 	margin:0;
 	}
 	
-.panelStyling {
-	width:100%;
-	height:100%;
+.panelStyling1 {
+	min-height:220px; 
 	background-image:url(../.././images/teacher/Gradient-Gray-to-White-350px.png);
 	background-position: top;
 	background-repeat:repeat-x;
 	border: 1px solid #666666;  
 	background-color:#CCC;
 	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:4px;
-	
-	}
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.panelStyling2 {
+	min-height:285px; 
+	background-image:url(../.././images/teacher/Gradient-Gray-to-White-350px.png);
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #666666;  
+	background-color:#CCC;
+	-moz-border-radius:4px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
 	
 #headerTeacherHome {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	text-align:left;
-	margin: 10px 0px 15px 10px;
-	font-size: 1.4em;
+	margin: 8px 0px 12px 10px;
+	font-size: 1.3em;
 	font-weight:bold;
 }
 
@@ -83,16 +93,17 @@
 }
 
 #projectsPanel {
-	width:470px;
+	width:478px;
+	min-height:220px; 
 	padding:0;
 	margin:0; 
 	}
 
 #quickToolsContainer {	
-	height:150px;
+	max-height:260px;   
 	overflow:auto;
 	border-top:1px solid #999999;
-	margin:0 8px;
+	margin:0 5px 5px 5px;
 	}
 	
 #quickToolsTable {	
@@ -159,8 +170,8 @@
 }	
 	
 #dashboardSections td {
-	font-size:.85em;
-	padding-bottom:7px;
+	font-size:.8em;
+	padding-bottom:6px;
 	letter-spacing:-.6px;	
 }
 
@@ -169,7 +180,7 @@
 	}
 
 #quickLinksPanel {
-	width:470px;
+	width:478px;
 	padding:0;
 	margin:0; 
 	}

@@ -433,7 +433,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 
 <table id="teacherHomeTable1" >
 <tr>
-<td id="welcomePanel" class="panelStyling">
+<td id="welcomePanel"><div class="panelStyling1">
 			
 			<div id="headerTeacherHome"><spring:message code="teacher.index.1"/></div>
 			
@@ -493,11 +493,11 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 						</td>
 					</tr>
 				</table> 
-</td> 
+</div></td> 
 
-<td style="width:12px;"></td>
+<td style="width:10px;"></td>
 
-<td id="projectsPanel" class="panelStyling" >
+<td id="projectsPanel"><div class="panelStyling1" >
 
 			<div id="headerTeacherHome"><spring:message code="teacher.index.10"/></div>
 
@@ -559,13 +559,13 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 			</table>
 			</div>        <!--	end of quickToolsContainer	-->
 
-</td>
+</div></td>
 </tr>
 </table>
 
 <table id="teacherHomeTable1" class="secondTableMargin" >
 <tr>
-<td id="dashboardPanel" class="panelStyling">
+<td id="dashboardPanel"><div class="panelStyling2">
 
 	<div id="headerTeacherHome"><spring:message code="teacher.index.13"/></div>
 	
@@ -606,11 +606,11 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 			<td><spring:message code="teacher.index.18"/></td>
 		</tr>
 	</table>
-</td>
+</div></td>
 
-<td style="width:12px;"></td>
+<td style="width:10px;"></td>
 
-<td id="quickLinksPanel" class="panelStyling">
+<td id="quickLinksPanel"><div class="panelStyling2">
 
 	<div id="headerTeacherHome"><spring:message code="teacher.index.19"/></div>
 
@@ -652,7 +652,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 		</ul>
 	</div>
 
-</td>
+</div></td>
 </tr>
 </table>
 

@@ -60,7 +60,8 @@
       <b><spring:message code="teacher.run.setup.16"/></b>
 	</c:when>
 	<c:otherwise>
-<table  id="setupProjectTable" border="0" style="margin:0 0 0 25px; ">
+	<div id="setupProjectTableContainer">
+	<table  id="setupProjectTable">
 	<tr id="setupProjectTableR1">
 		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.17"/></td>
 		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.18"/></td>
@@ -86,7 +87,8 @@
 	     </tr>
 	</c:forEach>
 	</table>
-	<h5><spring:message code="teacher.run.setup.22"/>&nbsp;<em><spring:message code="teacher.run.setup.23"/></em>&nbsp;<spring:message code="teacher.run.setup.24"/></h5>
+	</div>
+	<h5 class="followup1"><spring:message code="teacher.run.setup.22"/>&nbsp;<em><spring:message code="teacher.run.setup.23"/></em>&nbsp;<spring:message code="teacher.run.setup.24"/></h5>
 	</c:otherwise>
 	
 </c:choose>
