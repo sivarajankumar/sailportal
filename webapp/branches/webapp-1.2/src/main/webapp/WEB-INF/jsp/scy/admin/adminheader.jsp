@@ -32,6 +32,11 @@
                             </span>
                         </sec:authorize>
                         <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+                            <span id="signOutBannerHome">
+                                <a href="scenarios.html">Scenarios</a>
+                            </span>
+                        </sec:authorize>
+                        <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
                             <span id="signOugBannerHome">
                                 <a href="manageusers.html">Manage users </a>
                             </span>

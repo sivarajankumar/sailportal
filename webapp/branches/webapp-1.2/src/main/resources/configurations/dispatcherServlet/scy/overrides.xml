@@ -89,6 +89,10 @@
         class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+
+    <bean id="viewScenariosController" class="eu.scy.controllers.ViewScenarioBankController">
+        <property name="scenarioService" ref="scenarioService"/>
+    </bean>
     
     <bean
     	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -244,6 +248,7 @@
 				/author/project/postproject.html=postProjectController
 				/author/brainstorm/authorbrainstorm.html=authorBrainstormController
 				/admin/manageusers.html=viewAllUsersController
+				/admin/scenarios.html=viewScenariosController
 				/admin/lookupuser.html=lookupUserController
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController

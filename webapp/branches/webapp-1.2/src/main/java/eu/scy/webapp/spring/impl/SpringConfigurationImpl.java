@@ -28,7 +28,13 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/dispatcherServlet/tels/controllers.xml",
             "classpath:configurations/dispatcherServlet/tels/extensions.xml",
             "classpath:configurations/dispatcherServlet/scy/overrides.xml",
-            "classpath:configurations/dispatcherServlet/scy/scy-hub.xml" };
+            "classpath:configurations/dispatcherServlet/scy/hibernate.xml",
+            "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
+            "classpath:eu/scy/core/applicationContext-service.xml"//,
+
+            //"classpath:configurations/dispatcherServlet/scy/scy-hub.xml"
+            };
+
 
     static {
         LOGGER.info("--------------> > > Initializing spring context");

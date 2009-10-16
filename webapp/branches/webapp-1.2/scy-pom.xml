@@ -614,6 +614,42 @@
             <version>${scy.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>eu.scy.common</groupId>
+            <artifactId>scy-model-api</artifactId>
+            <version>${scy.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.scy.common</groupId>
+            <artifactId>scy-model-impl</artifactId>
+            <version>${scy.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.scy.server</groupId>
+            <artifactId>scy-useradmin-api</artifactId>
+            <version>${scy.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.scy.server</groupId>
+            <artifactId>scy-useradmin-impl</artifactId>
+            <version>${scy.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
 
     </dependencies>
     <reporting>
