@@ -34,8 +34,10 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
+import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
@@ -46,6 +48,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 
 /**
  * Controller for handling student VLE-portal interactions.
@@ -280,6 +284,8 @@ public class StudentVLEController extends AbstractController {
 		String getJournalDataUrl = portalurl + "/webapp/bridge/getdata.html?type=journal";
 		//String getJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
 		
+		String postLevel = "all";
+		
 		String vleConfigString = "<VLEConfig>";
 		if (isPreview) {
 			vleConfigString += "<mode>preview</mode>";
@@ -300,6 +306,7 @@ public class StudentVLEController extends AbstractController {
 		vleConfigString += "<enableAudio>false</enableAudio>";
 		vleConfigString += "<getJournalDataUrl>" + StringEscapeUtils.escapeHtml(getJournalDataUrl) + "</getJournalDataUrl>";
 		vleConfigString += "<postJournalDataUrl>" + StringEscapeUtils.escapeHtml(postJournalDataUrl) + "</postJournalDataUrl>";
+		vleConfigString += "<postLevel>" + StringEscapeUtils.escapeHtml(postLevel) + "</postLevel>";
 		vleConfigString += "</VLEConfig>";
 
 		
@@ -391,8 +398,51 @@ public class StudentVLEController extends AbstractController {
 			periodName = periodNames.toString();
 		}
 		
+		//the string buffer to maintain the user names for the logged in user
+		StringBuffer userNames = new StringBuffer();
+		Set<User> members = workgroup.getMembers();
+		Iterator<User> iterator = members.iterator();
+		while(iterator.hasNext()) {
+			//get a user
+			User user = iterator.next();
+			
+			String firstName = "";
+			String lastName = "";
+			
+			//get the first name and last name
+			if(user instanceof TeacherUserDetails) {
+				TeacherUserDetails teacherUserDetails = ((TeacherUserDetails) user);
+				firstName = teacherUserDetails.getFirstname();
+				lastName = teacherUserDetails.getLastname();
+			} else if(user instanceof StudentUserDetails) {
+				StudentUserDetails studentUserDetails = ((StudentUserDetails) user);
+				firstName = studentUserDetails.getFirstname();
+				lastName = studentUserDetails.getLastname();
+			} else if(user instanceof SdsUser) {
+				SdsUser sdsUserDetails = user.getSdsUser();
+				firstName = sdsUserDetails.getFirstName();
+				lastName = sdsUserDetails.getLastName();
+			}
+			
+			//get the user name
+			MutableUserDetails userDetails = user.getUserDetails();
+			String userName = "";
+			if(userDetails != null) {
+				userName = userDetails.getUsername();	
+			}
+			
+			//separate the names with a :
+			if(userNames.length() != 0) {
+				userNames.append(":");
+			}
+			
+			//add the name and login name such as Geoffrey Kwan (GeoffreyKwan)
+			userNames.append(firstName + " " + lastName + " (" + userName + ")");
+		}
+		
 		// add this user's info:
-		userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
+		userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + userNames + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
+		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
 		
 		// add the class info:
 		userInfoString.append("<myClassInfo>");
@@ -467,13 +517,66 @@ public class StudentVLEController extends AbstractController {
 		//get the workgroup id
 		userInfoString.append("<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>");
 		
+		//the string buffer to hold the user names and login names
+		StringBuffer userNames = new StringBuffer();
+		
+		//get the members in the workgroup
+		Set<User> members = classmateWorkgroup.getMembers();
+		Iterator<User> membersIterator = members.iterator();
+		
+		/*
+		 * loop through the members in the workgroup and append all the users.
+		 * at the end of this while loop the userNames will contain a
+		 * : delimited string of users that are in the current workgroup
+		 * e.g.
+		 * "Jennifer Chiu (JenniferC829):helen zhang (helenz1115a)"
+		 */
+		while(membersIterator.hasNext()) {
+			//get a user
+			User user = membersIterator.next();
+			
+			/*
+			 * get the first name and last name
+			 */
+			SdsUser sdsUser = user.getSdsUser();
+			
+			String firstName = "";
+			String lastName = "";
+			if(sdsUser != null) {
+				firstName = sdsUser.getFirstName();
+				lastName = sdsUser.getLastName();
+			}
+			
+			/*
+			 * get the user name
+			 */
+			MutableUserDetails userDetails = user.getUserDetails();
+			
+			String userName = "";
+			if(userDetails != null) {
+				userName = userDetails.getUsername();	
+			}
+			
+			//place a : between each user
+			if(userNames.length() != 0) {
+				userNames.append(":");
+			}
+			
+			//append the user's name and login so it looks like Jennifer Chiu (JenniferC829)
+			userNames.append(firstName + " " + lastName + " (" + userName + ")");
+		}
+		
 		//get the user name
-		userInfoString.append("<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>");
+		//userInfoString.append("<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>");
+		userInfoString.append("<userName>" + userNames + "</userName>");
 		
 		if(classmateWorkgroup instanceof WISEWorkgroup) {
-			//get the period id and period name
-			userInfoString.append("<periodId>" + ((WISEWorkgroup) classmateWorkgroup).getPeriod().getId() + "</periodId>");
-			userInfoString.append("<periodName>" + ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName() + "</periodName>");
+			//check that there is a period
+			if(((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {
+				//get the period id and period name
+				userInfoString.append("<periodId>" + ((WISEWorkgroup) classmateWorkgroup).getPeriod().getId() + "</periodId>");
+				userInfoString.append("<periodName>" + ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName() + "</periodName>");				
+			}
 		}
 		
 		//close tag
