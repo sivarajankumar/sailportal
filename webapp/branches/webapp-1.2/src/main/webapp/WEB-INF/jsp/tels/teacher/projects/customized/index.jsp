@@ -31,6 +31,7 @@
 <!-- Dependencies -->  
 <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yahoo-dom-event/yahoo-dom-event.js"></script> 
 <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/container/container_core-min.js"></script> 
+<script type="text/javascript" src="../../.././javascript/tels/yui/connection/connection.js"></script>
  
 <!-- Source File --> 
 <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/menu/menu-min.js"></script> 
@@ -401,10 +402,32 @@
           e.style.display = 'none';
     }
 //-->
+
+function populateCheckboxes(){
+	<c:forEach var='project' items='${ownedProjectsList}'>
+		if('${project.public}'=='true'){
+			document.getElementById('public_${project.id}').checked = true;
+		};
+	</c:forEach>
+	<c:forEach var='project' items='${sharedProjectsList}'>
+		if('${project.public}'=='true'){
+			document.getElementById('public_${project.id}').checked = true;
+		};
+	</c:forEach>	
+};
+
+function changePublic(id){
+	var callback = {
+		success:function(o){alert(o.responseText);},
+		failure:function(o){alert('failed update of public access');}
+	};
+
+	YAHOO.util.Connect.asyncRequest('GET', 'public.html?projectId=' + id + '&checked=' + document.getElementById('public_'+id).checked, callback);
+};
 </script>
 
 
-<body class="yui-skin-sam"> 
+<body class="yui-skin-sam" onload='populateCheckboxes()'> 
 
 <div id="centeredDiv">
 
@@ -469,17 +492,18 @@
 					  <c:out value="${sharedowner.userDetails.lastname}"/><br>
 					</c:forEach>
 					</td>
-					<td class="dataText">${project.projectInfo.subject}</td>
+					<td class="dataText">${project.metadata.subject}</td>
 					<td class="dataText">${project.id}</td>
 					<td class="dataText">;;;</td>
-					<td class="smallText1">UC Berkeley library project</td>
-					<td class="dataText">${project.projectInfo.gradeLevel }</td>
-					<td class="dataTime">;;;</td>
-					<td class="dataTime">${project.projectInfo.projectLiveCycle.toString}</td>
+					<td class="smallText1">${project.familytag }</td>
+					<td class="dataText">${project.metadata.gradeRange }</td>
+					<td class="dataTime">${project.metadata.totalTime }</td>
+					<td class="dataTime">${project.metadata.compTime}</td>
 					<td>
 					<div>
 					    <a href="../../../author/authorproject.html?projectId=${project.id}">Edit this project</a>					
 					    <a href="shareproject.html?projectId=${project.id}">Share this project</a>
+					    <input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public
 					</div>
 					</td>
 				</tr>
@@ -491,9 +515,9 @@
 					<div id="toggleAllCurrent">
 					<div id="toggleProjectSummaryCurrent">
 					<div id="customProjectSummaryData"><b>Project Summary:</b>
-					${project.projectInfo.description }</div>
+					${project.metadata.summary}</div>
 					<div id="customProjectSummaryData"><b>Keywords:</b>
-					${project.projectInfo.keywords }</div>
+					${project.metadata.subject}</div>
 					<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
 					</div>
 					</div>
@@ -563,13 +587,13 @@
 					  <br>					  
 					</c:forEach>
 					</td>
-					<td class="dataText">${project.projectInfo.subject}</td>
-					<td class="dataText">${project.curnit.id}</td>
+					<td class="dataText">${project.metadata.subject}</td>
+					<td class="dataText">${project.id}</td>
 					<td class="dataText">;;;</td>
-					<td class="smallText1">UC Berkeley library project</td>
-					<td class="dataText">${project.projectInfo.gradeLevel }</td>
-					<td class="dataTime">;;;</td>
-					<td class="dataTime">${project.projectInfo.projectLiveCycle.toString}</td>
+					<td class="smallText1">${project.familytag }</td>
+					<td class="dataText">${project.metadata.gradeRange }</td>
+					<td class="dataTime">${project.metadata.totalTime }</td>
+					<td class="dataTime">${project.metadata.compTime }</td>
 					<td class="actionMenuButton">
 					<div id="actionList">
 						<div class="bd">
@@ -586,7 +610,10 @@
 						<li>
 							<a href="shareproject.html?projectId=${project.id}">Share Project</a>
 						</li>
-						</sec:accesscontrollist>					
+						</sec:accesscontrollist>
+						<li>
+							<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public
+						</li>		
 						</div>
 					</td>
 				</tr>
@@ -602,9 +629,9 @@
 		<div id="toggleAllCurrent">
 		<div id="toggleProjectSummaryCurrent">
 		<div id="customProjectSummaryData"><b>Project Summary:</b>
-		${project.projectInfo.description }</div>
+		${project.metadata.summary }</div>
 		<div id="customProjectSummaryData"><b>Keywords:</b>
-		${project.projectInfo.keywords}</div>
+		${project.metadata.subject}</div>
 		<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
 		</div>
 		</div>
@@ -647,14 +674,14 @@
 			<c:forEach var="project" items="${sharedProjectsList}">
 			<!-- <sec:accesscontrollist domainObject="${project}" hasPermission="16"> -->
 				<tr id="customProjectR2">
-					<td class="customProjectTitle">${project.curnit.sdsCurnit.name}</td>
-					<td class="dataText">${project.projectInfo.subject}</td>
-					<td class="dataText">${project.curnit.id}</td>
+					<td class="customProjectTitle">${project.name}</td>
+					<td class="dataText">${project.metadata.subject}</td>
+					<td class="dataText">${project.id}</td>
 					<td class="dataText">;;;</td>
-					<td class="smallText1">UC Berkeley library project</td>
-					<td class="dataText">${project.projectInfo.gradeLevel }</td>
-					<td class="dataTime">;;;</td>
-					<td class="dataTime">${project.projectInfo.projectLiveCycle.toString}</td>
+					<td class="smallText1">${project.familytag}</td>
+					<td class="dataText">${project.metadata.gradeRange }</td>
+					<td class="dataTime">${project.metadata.totalTime }</td>
+					<td class="dataTime">${project.metadata.compTime }</td>
 					<td class="actionMenuButton">
 					<div id="customProjectActionsMenu"
 						class="yuimenubar yuimenubarnav customProjectsMenuCSS">

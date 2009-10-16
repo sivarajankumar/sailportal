@@ -60,7 +60,7 @@ public class ProjectLibraryController extends SimpleFormController {
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors) {
 		SearchProjectLibraryParameters params = (SearchProjectLibraryParameters) command;
-		String query = "select project from ProjectImpl as project";
+		String query = "select project from ProjectImpl as project where project.isPublic=1";
 		
 		query = this.appendFamilyTagCriteria(query, params.getFamily());
 		query = this.appendStatusCriteria(query, params.getStatus());

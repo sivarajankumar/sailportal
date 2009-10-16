@@ -279,6 +279,7 @@
 				/teacher/run/announcement/removeannouncement.html=removeAnnouncementController
 				/teacher/projects/bookmarkedprojects.html=bookmarkedProjectController
 				/teacher/projects/bookmark.html=bookmarkController
+				/teacher/projects/customized/public.html=publicController
 				/teacher/projects/copyproject.html=copyProjectController
 				/teacher/projects/uploadproject.html=uploadProjectController
 				/teacher/run/manage/extendremindertime.html=extendReminderTimeController

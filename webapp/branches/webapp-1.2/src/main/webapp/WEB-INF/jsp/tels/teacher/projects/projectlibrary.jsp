@@ -83,35 +83,6 @@
 			searchDiv.style.display = 'none';
 		};
 	};
-
-	/**
-	 * Appends any additional criteria to the query based on any values
-	 * typed into the search field and returns the query.
-	 */
-	function appendTextFieldQueries(query, type){
-		if(type=='matches'){
-			var precedingText = '=\'';
-			var followingText = '\'';
-		} else {
-			var precedingText = ' like \'%';
-			var followingText = '%\'';
-		};
-		
-		for(var c=0;c<FIELDNAMES.length;c++){
-			var text = document.getElementById(FIELDNAMES[c] + 'Text').value;
-			if(text && text != ''){
-				if(query.indexOf('as project where')==-1){
-					query += ' as project where project.metadata.' + FIELDNAMES[c] + precedingText + text + followingText;
-				} else {
-					query += ' and project.metadata.' + FIELDNAMES[c] + precedingText + text + followingText;
-				};
-			};
-		};
-
-		return query;
-	};
-
-	var FIELDNAMES = ['title', 'author', 'subject', 'summary', 'gradeRange', 'totalTime', 'compTime', 'contact', 'techReqs'];
 </script>
 
 <title><spring:message code="curnitlist.project.library" /></title>

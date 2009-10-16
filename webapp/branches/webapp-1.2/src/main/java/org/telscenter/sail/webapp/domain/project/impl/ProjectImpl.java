@@ -128,6 +128,9 @@ public class ProjectImpl implements Project {
     
     @Transient
     private static final String BOOKMARKERS_JOIN_COLUMN_NAME = "bookmarkers";
+    
+    @Transient
+    private static final String ISPUBLIC_COLUMN_NAME = "ispublic";
 
 	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
@@ -183,6 +186,8 @@ public class ProjectImpl implements Project {
     @Column(name = "OPTLOCK")
     protected Integer version = null;
 	
+    @Column(name = ProjectImpl.ISPUBLIC_COLUMN_NAME)
+    protected boolean isPublic;
     
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
@@ -430,5 +435,19 @@ public class ProjectImpl implements Project {
 	 */
 	public Object accept(ProjectVisitor visitor) {
 		return visitor.visit(this);
+	}
+
+	/**
+	 * @return the isPublic
+	 */
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	/**
+	 * @param isPublic the isPublic to set
+	 */
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
  }

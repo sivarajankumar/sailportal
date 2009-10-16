@@ -178,4 +178,14 @@ public interface Project extends Persistable {
 	 * @param <code>ProjectMetadata</code> data
 	 */
 	public void setMetadata(ProjectMetadata data);
+	
+	/**
+	 * @return <code>boolean</code> is public
+	 */
+	public boolean isPublic();
+	
+	/**
+	 * @param <code>boolean</code> isPublic
+	 */
+	public void setPublic(boolean isPublic);
 }

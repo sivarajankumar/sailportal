@@ -1252,6 +1252,11 @@
 		<property name="projectService" ref="projectService"/>
 	</bean>
 	
+	<bean id="publicController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.PublicController">
+		<property name="projectService" ref="projectService"/>
+	</bean>
+	
 	<bean id="copyProjectController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.CopyProjectController">
 		<property name="projectService" ref="projectService"/>
