@@ -29,6 +29,11 @@
 <link href="../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
+<script language="JavaScript">
+	function popup(URL, title) 
+  	{window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240');}
+</script>
+
 </head>
 
 <body>
@@ -40,11 +45,14 @@
 <%@ include file="adminheader.jsp"%>
 
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
-
+<h5>Manage Project Runs: <a href="manageallprojectruns.html?q=current">Current</a> | 
+								 <a href="manageallprojectruns.html?q=archived">Archived</a></h5>
+<h4>Number of runs: ${fn:length(runList)}</h4>
 <table id="adminManageRunsTable">
   <thead>
     <tr>
-      <th>Project Run Title</th>
+      <th>Project Run Id</th>
+      <th>Project Run Name</th>
       <th>Overview</th>
       <th>Student Information</th>
       <th>Teacher(s)</th>
@@ -55,7 +63,8 @@
   </thead>
   <c:forEach var="run" items="${runList}">
   <tr>
-    <td>${run.sdsOffering.name}</td>
+    <td>${run.id}</td>
+    <td>${run.name}</td>
     <td><a href="../teacher/projects/projectinfo.html?projectId=${run.project.id}">See Project Overview</a></td>
     <td>
       <table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
@@ -81,7 +90,18 @@
     <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
     <td><fmt:formatDate value="${run.starttime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><fmt:formatDate value="${run.endtime}" type="both" dateStyle="short" timeStyle="short" /></td>
-    <td><a href="../teacher/management/viewmystudents.html?runId=${run.id}">Manage students in this run</a></td>
+    <td><ul>
+    		<li><a href="../teacher/management/viewmystudents.html?runId=${run.id}">Manage students</a></li>
+    	<c:choose>
+    		<c:when test="${run.endtime == null}">
+    			<li><a href="#" onclick="javascript:popup('../teacher/run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}');">Archive run</a></li>
+    		</c:when>
+    		<c:otherwise>
+    			<li><a href="#" onclick="javascript:popup('../teacher/run/manage/startRun.html?runId=${run.id}&runName=${run.name}');">Un-Archive run</a></li>
+    		</c:otherwise>
+    	</c:choose>
+    	</ul>
+    </td>
    </tr>
   </c:forEach>
 </table>

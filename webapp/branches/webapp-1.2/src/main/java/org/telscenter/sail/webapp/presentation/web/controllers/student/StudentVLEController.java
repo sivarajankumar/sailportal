@@ -455,7 +455,11 @@ public class StudentVLEController extends AbstractController {
 			// specific workgroups are requested
 			String[] requestedWorkgroupIds = requestedWorkgroupIdsStr.split(",");
 			for (Workgroup classmateWorkgroup : workgroups) {
-				if (classmateWorkgroup.getMembers().size() > 0 && classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
+				if (classmateWorkgroup.getMembers().size() > 0 && 
+						classmateWorkgroup.getId() != workgroup.getId() 
+						&& !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()
+						&& ((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {
+					// only include non-teacher, non-detached classmates, excluding yourself.
 					for (String requestedWorkgroupId : requestedWorkgroupIds) {
 						if (requestedWorkgroupId.equals(classmateWorkgroup.getId().toString())) {
 							//get the xml for the classmate and append it
@@ -467,7 +471,10 @@ public class StudentVLEController extends AbstractController {
 		} else {
 			// otherwise get all classmates (excluding teacher)
 			for (Workgroup classmateWorkgroup : workgroups) {
-				if (classmateWorkgroup.getMembers().size() > 0 && classmateWorkgroup.getId() != workgroup.getId() && !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
+				if (classmateWorkgroup.getMembers().size() > 0 
+						&& classmateWorkgroup.getId() != workgroup.getId() 
+						&& !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()
+						&& ((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {   // only include classmates, not yourself.
 					//get the xml for the classmate and append it
 					userInfoString.append(getClassmateUserInfoXML(classmateWorkgroup));
 				}

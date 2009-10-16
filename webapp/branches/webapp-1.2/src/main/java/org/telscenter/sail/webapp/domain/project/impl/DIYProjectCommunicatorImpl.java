@@ -201,8 +201,20 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		String workgroupIds = generateWorkgroupIdListString(workgroups);
 		
 		HttpServletRequest request = launchProjectParameters.getHttpServletRequest();
+		
+		Group period = workgroup.getPeriod();
+		String uniqueIdMD5 = generateUniqueIdMD5(run, request, period.getId().toString());
+		
+		
+		String launchProjectUrl = baseUrl + "/external_otrunk_activities/" + id + launchProjectSuffix + "/" + externalDIYUserId;
+		launchProjectUrl += "?group_list=" + workgroupIds;
+		launchProjectUrl += "&group_id=" + uniqueIdMD5;
+		return launchProjectUrl;
+	}
+
+	private String generateUniqueIdMD5(Run run, HttpServletRequest request, String groupIdString) {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-		String uniqueportalUrl = portalUrl + run.getId().toString();
+		String uniqueportalUrl = portalUrl + "run:" + run.getId().toString() + "group:" + groupIdString;
 	    MessageDigest m = null;
 		try {
 			m = MessageDigest.getInstance("MD5");
@@ -211,12 +223,7 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		}
 	    m.update(uniqueportalUrl.getBytes(),0,uniqueportalUrl.length());
 	    String uniqueIdMD5 = new BigInteger(1,m.digest()).toString(16);
-		
-		
-		String launchProjectUrl = baseUrl + "/external_otrunk_activities/" + id + launchProjectSuffix + "/" + externalDIYUserId;
-		launchProjectUrl += "?group_list=" + workgroupIds;
-		launchProjectUrl += "&group_id=" + uniqueIdMD5;
-		return launchProjectUrl;
+		return uniqueIdMD5;
 	}
 
 	/**
@@ -271,17 +278,8 @@ public class DIYProjectCommunicatorImpl extends ProjectCommunicatorImpl {
 		String runName = run.getName();
 		
 		HttpServletRequest request = launchReportParameters.getHttpServletRequest();
-		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-		
-		String uniqueportalUrl = portalUrl + run.getId().toString();
-	    MessageDigest m = null;
-		try {
-			m = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-	    m.update(uniqueportalUrl.getBytes(),0,uniqueportalUrl.length());
-	    String uniqueIdMD5 = new BigInteger(1,m.digest()).toString(16);
+		String groupIdString = request.getParameter("groupId");
+		String uniqueIdMD5 = generateUniqueIdMD5(run, request, groupIdString);
 
 		
 		// [diy root]/external_otrunk_activities/[activity_id]/run_report?type=[report type uri]

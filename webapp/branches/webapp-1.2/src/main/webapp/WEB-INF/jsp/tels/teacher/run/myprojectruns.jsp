@@ -182,7 +182,7 @@
 					        </c:forEach>
 					           <c:choose>
 					               <c:when test="${isExternalProject == 1}">
-					                  <li><a href="report.html?runId=${run.id}">Report</a></li>
+					                  <li>Period Reports: <c:forEach var="periodInRun" items="${run.periods}"><a href="report.html?runId=${run.id}&groupId=${periodInRun.id}">${periodInRun.name}</a>&nbsp;</c:forEach></li>
 					               </c:when>
 					               <c:otherwise>
 					        <li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>

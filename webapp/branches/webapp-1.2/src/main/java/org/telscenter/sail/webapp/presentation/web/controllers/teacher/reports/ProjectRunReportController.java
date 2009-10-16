@@ -40,7 +40,7 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class ProjectRunReportController extends AbstractController {
 
@@ -55,14 +55,21 @@ public class ProjectRunReportController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String runId = request.getParameter("runId");
+		String groupIdString = request.getParameter("groupId");
 		Run run = runService.retrieveById(new Long(runId));
 		
 		// force-retrieve the project to make it a non-proxy object. Need to figure out how to do this
 		// at a hibernate-level
 		Project project = projectService.getById(run.getProject().getId());
 		run.setProject(project);
-		Set<Workgroup> workgroups = runService.getWorkgroups(new Long(runId));
-
+		Set<Workgroup> workgroups = null;
+		if (groupIdString != null) {
+			Long groupId = new Long(groupIdString);
+			workgroups = runService.getWorkgroups(new Long(runId), groupId);
+		} else {
+			workgroups = runService.getWorkgroups(new Long(runId));
+		}
+		
 		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
 		String result = (String) run.getProject().accept(typeVisitor);
 		if (result.equals("ExternalProject")) {

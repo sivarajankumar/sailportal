@@ -273,7 +273,6 @@ YAHOO.util.Event.onDOMReady(init);
 </style>
 <![endif]-->
 
-<script src=".././javascript/tels/classAnim.js" type="text/javascript" > </script>
 <script>  YAHOO.util.Event.onAvailable("TestClassAnim", function(){ var anim = new 
 		  YAHOO.mozmonkey.ClassAnim("TestClassAnim"); var start = 0; 
 		  YAHOO.util.Event.addListener("TestClassAnim", "mouseover", function(){ anim.addClass("classAnimHover"); }); 

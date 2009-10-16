@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.StartRunParameters;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -74,7 +75,7 @@ public class StartRunController extends SimpleFormController {
     	Run run = null;
     	try {
 			run = runService.retrieveById(runId);
-			if (run.getOwners().contains(user)) {
+			if (user.getUserDetails().hasGrantedAuthority(UserDetailsService.ADMIN_ROLE) || run.getOwners().contains(user)) {
 				runService.startRun(run);
 	        	modelAndView = new ModelAndView(getSuccessView());
 			} else {

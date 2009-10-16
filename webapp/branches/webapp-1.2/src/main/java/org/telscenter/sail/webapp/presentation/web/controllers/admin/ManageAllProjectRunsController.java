@@ -53,6 +53,8 @@ public class ManageAllProjectRunsController extends SimpleFormController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String queryString = request.getParameter("q");
+
 		List<Run> runList;
 		List<Run> run_list = runService.getAllRunList();
 		String projectID = request.getParameter("projectId");
@@ -68,8 +70,23 @@ public class ManageAllProjectRunsController extends SimpleFormController {
 			}
 		}
 		
+		List<Run> runListFiltered = new ArrayList<Run>();
+		if (queryString != null && queryString.equals("current")) {
+			for (Run run : runList) {
+				if (!run.isEnded()) {
+					runListFiltered.add(run);
+				}
+			}
+		} else if (queryString != null && queryString.equals("archived")) {
+			for (Run run : runList) {
+				if (run.isEnded()) {
+					runListFiltered.add(run);
+				}
+			}
+		}
+		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(RUNLIST_PARAM_NAME, runList);
+		modelAndView.addObject(RUNLIST_PARAM_NAME, runListFiltered);
 		return modelAndView;
 	}
 	
