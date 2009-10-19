@@ -1,5 +1,8 @@
 package eu.scy.controllers;
 
+import eu.scy.core.ScenarioService;
+import eu.scy.core.model.impl.pedagogicalplan.ScenarioImpl;
+import eu.scy.core.model.pedagogicalplan.Scenario;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
@@ -29,6 +32,8 @@ public class RegisterStudentForSCYController extends RegisterStudentController {
 
     private StudentService studentService;
 
+    private ScenarioService scenarioService;
+
 
     public RegisterStudentForSCYController() {
         logger.debug("** **** **** CREATING REGISTER STUDENT FOR SCY CONTROLLER!!");
@@ -54,6 +59,19 @@ public class RegisterStudentForSCYController extends RegisterStudentController {
         //if (accountForm.isNewAccount()) {
             try {
                 User user = userService.createUser(userDetails);
+
+
+                logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
+            Scenario scenario = new ScenarioImpl();
+            scenario.setName("Hillary");
+            logger.info("SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
+            getScenarioService().createScenario(scenario);
+
+            ScenarioImpl impl = (ScenarioImpl) scenario;
+
+            logger.info("SCENARIO ID AFTER SAVE: " + impl.getId() + " " + impl.getTimeCreated());
+            logger.info("Scenarios after: " + getScenarioService().getScenarios().size());
+
                 //Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
                 //studentService.addStudentToRun(user, projectcode);
             } catch (Exception e) {
@@ -113,5 +131,13 @@ public class RegisterStudentForSCYController extends RegisterStudentController {
     public void setStudentService(StudentService studentService) {
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         this.studentService = studentService;
+    }
+
+    public ScenarioService getScenarioService() {
+        return scenarioService;
+    }
+
+    public void setScenarioService(ScenarioService senScenarioService) {
+        this.scenarioService = senScenarioService;
     }
 }

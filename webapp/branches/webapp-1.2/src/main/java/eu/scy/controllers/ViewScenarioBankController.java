@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import eu.scy.core.*;
 import eu.scy.core.model.pedagogicalplan.*;
 import eu.scy.core.model.impl.pedagogicalplan.*;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,25 +26,53 @@ public class ViewScenarioBankController extends AbstractController {
 
     private ScenarioService scenarioService;
 
+    private ProjectService projectService;
+
+    public ViewScenarioBankController() {
+        super();
+        logger.info("********** ******** CREATED VIEW!!!");
+    }
+
+    /*@Override
+    @Transactional
+    public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        logger.info("******* ******** *****HANDLING REQUEST!!!!");
+        Scenario scenario = new ScenarioImpl();
+            scenario.setName("Hillaryyyy");
+            logger.info("HR: SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
+            logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
+            getScenarioService().createScenario(scenario);
+            logger.info("Scenarios after: " + getScenarioService().getScenarios().size());
+            logger.info("HR: SCENARIO ID AFTER SAVE: " + ((ScenarioImpl)scenario).getId());
+        return super.handleRequest(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
+    } */
+
     @Override
     @Transactional
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        logger.info("******* ******** *****HANDLING REQUEST INTERNAL !!!!");
         ModelAndView modelAndView = null;
+
+
         try {
             modelAndView = new ModelAndView(VIEW_NAME);
             ControllerUtil.addUserToModelAndView(httpServletRequest, modelAndView);
-
+            logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
             Scenario scenario = new ScenarioImpl();
             scenario.setName("Hillary");
             logger.info("SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
             getScenarioService().createScenario(scenario);
 
-            logger.info("SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
+            ScenarioImpl impl = (ScenarioImpl) scenario;
 
+            logger.info("SCENARIO ID AFTER SAVE: " + impl.getId() + " " + impl.getTimeCreated());
+            logger.info("Scenarios after: " + getScenarioService().getScenarios().size());
             modelAndView.addObject("TULL", "TULLING");
+            modelAndView.addObject("MODEL", scenario);
+            modelAndView.addObject("SCENARIOS", getScenarioService().getScenarios());
         } catch (Exception e) {
-            logger.info(e);
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.debug(e);
+            e.printStackTrace(); 
         }
 
         return modelAndView;
@@ -56,5 +85,13 @@ public class ViewScenarioBankController extends AbstractController {
 
     public void setScenarioService(ScenarioService scenarioService) {
         this.scenarioService = scenarioService;
+    }
+
+    public ProjectService getProjectService() {
+        return projectService;
+    }
+
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
     }
 }
