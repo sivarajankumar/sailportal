@@ -249,6 +249,26 @@
     </build>
     <repositories>
         <repository>
+            <id>collide-releases</id>
+            <url>http://mvn.collide.info/content/repositories/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>collide-snapshots</id>
+            <url>http://mvn.collide.info/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
             <id>eclipse-repo</id>
             <name>oaw-eclipse-repo</name>
             <url>http://www.openarchitectureware.org/m2</url>
@@ -592,13 +612,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>eu.scy</groupId>
             <artifactId>scy-planner</artifactId>
             <version>4.0.0-SNAPSHOT</version>
-            <!--scope>runtime</scope-->
-        </dependency>
-        <dependency>
+        </dependency-->
+        <!--dependency>
             <groupId>eu.scy.client.desktop</groupId>
             <artifactId>scy-desktop</artifactId>
             <version>${scy.version}</version>
@@ -607,7 +626,7 @@
             <groupId>eu.scy.client.tools</groupId>
             <artifactId>scymapper</artifactId>
             <version>${scy.version}</version>
-        </dependency>
+        </dependency-->
         <!--dependency>
             <groupId>eu.scy.client.desktop</groupId>
             <artifactId>scy-lab-webstart</artifactId>
