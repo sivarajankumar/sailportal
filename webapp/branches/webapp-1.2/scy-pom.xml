@@ -608,11 +608,11 @@
             <artifactId>scymapper</artifactId>
             <version>${scy.version}</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>eu.scy.client.desktop</groupId>
             <artifactId>scy-lab-webstart</artifactId>
             <version>${scy.version}</version>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>eu.scy.common</groupId>
