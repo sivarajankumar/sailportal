@@ -105,7 +105,7 @@
                     classpath:configurations/hibernate/pas/hibernate.cfg.xml
                 </value>
                 <value>
-                    classpath:configurations/hibernate/scy/hibernate-extensions.cfg.xml
+                    classpath:eu/scy/core/model/impl/hibernate-scy.cfg.xml
                 </value>
             </list>
         </property>

@@ -73,6 +73,20 @@ public class ViewScenarioBankController extends AbstractController {
             Scenario scenario = new ScenarioImpl();
             scenario.setName("Hillary");
             logger.info("SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
+
+            LearningActivitySpace las = new LearningActivitySpaceImpl();
+            las.setName("LAS");
+            las.setDescription("Vegas");
+            scenario.setLearningActivitySpace(las);
+
+            Activity activity = new ActivityImpl();
+            activity.setName("Activity one");
+            las.addActivity(activity);
+
+             Activity activity2 = new ActivityImpl();
+            activity2.setName("Activity two");
+            las.addActivity(activity2);
+
             getScenarioService().createScenario(scenario);
 
             ScenarioImpl impl = (ScenarioImpl) scenario;
