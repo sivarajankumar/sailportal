@@ -1,7 +1,11 @@
 package eu.scy.controllers;
 
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import org.acegisecurity.BadCredentialsException;
+import org.acegisecurity.userdetails.UserDetails;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -12,6 +16,11 @@ import eu.scy.core.*;
 import eu.scy.core.model.pedagogicalplan.*;
 import eu.scy.core.model.impl.pedagogicalplan.*;
 import org.telscenter.sail.webapp.service.project.ProjectService;
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -54,10 +63,13 @@ public class ViewScenarioBankController extends AbstractController {
         ModelAndView modelAndView = null;
 
 
+        
+
+
         try {
             modelAndView = new ModelAndView(VIEW_NAME);
             ControllerUtil.addUserToModelAndView(httpServletRequest, modelAndView);
-            logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
+            //logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
             Scenario scenario = new ScenarioImpl();
             scenario.setName("Hillary");
             logger.info("SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
@@ -66,7 +78,7 @@ public class ViewScenarioBankController extends AbstractController {
             ScenarioImpl impl = (ScenarioImpl) scenario;
 
             logger.info("SCENARIO ID AFTER SAVE: " + impl.getId() + " " + impl.getTimeCreated());
-            logger.info("Scenarios after: " + getScenarioService().getScenarios().size());
+            //logger.info("Scenarios after: " + getScenarioService().getScenarios().size());
             modelAndView.addObject("TULL", "TULLING");
             modelAndView.addObject("MODEL", scenario);
             modelAndView.addObject("SCENARIOS", getScenarioService().getScenarios());

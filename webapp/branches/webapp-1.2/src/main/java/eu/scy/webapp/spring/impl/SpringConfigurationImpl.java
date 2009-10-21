@@ -23,6 +23,12 @@ public class SpringConfigurationImpl implements SpringConfiguration {
     private static final String[] ROOT_APPLICATION_CONTEXT_CONFIG_LOCATIONS;
 
     private static final String[] DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
+            "classpath:configurations/applicationContexts/pas/acegiSecurity.xml",
+            "classpath:configurations/applicationContexts/pas/datasource.xml",
+            "classpath:configurations/applicationContexts/pas/security.xml",
+            "classpath:configurations/applicationContexts/pas/spring.xml",
+            
+
             "classpath:configurations/dispatcherServlet/pas/config.xml",
             "classpath:configurations/dispatcherServlet/pas/controllers.xml",
             "classpath:configurations/dispatcherServlet/tels/controllers.xml",
