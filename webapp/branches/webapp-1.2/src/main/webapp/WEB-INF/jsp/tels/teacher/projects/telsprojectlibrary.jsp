@@ -59,16 +59,38 @@
 		</c:forEach>
 	};
 	
-	function copy(pID){
+	function copy(pID, type, name, filename, url, base){
 		var yes = confirm("Copying a project may take some time. If you proceed, please" +
 			" do not click the 'make copy' button again. A message will be displayed when" +
 			" the copy has completed.");
 		if(yes){
-			var callback = {
-				success:function(o){alert(o.responseText);},
-				failure:function(o){alert('copy: failed update to server');}
+			if(type=='LD'){
+				var callback = {
+					success:function(o){
+						var fullPath = o.responseText;
+						var portalPath = fullPath.substring(base.length, fullPath.length) + '/' + filename;
+						var callback = {
+							success:function(o){
+								alert('The LD project has been successfully copied with the name Copy of ' + name + '. The project can be found in the My Customized Projects section.');
+							},
+							failure:function(o){alert('Project files were copied but the project was not successfully registered in the portal.');},
+							scope:this
+						};
+
+						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&param1=' + portalPath + '&param2=Copy of ' + name);
+					},
+					failure:function(o){alert('Could not copy project folder, aborting copy.');},
+					scope:this
+				};
+				
+				YAHOO.util.Connect.asyncRequest('POST', '/vlewrapper/vle/filemanager.html', callback, 'command=copyProject&param1=' + url + '&param2=' + base);
+			} else {
+				var callback = {
+					success:function(o){alert(o.responseText);},
+					failure:function(o){alert('copy: failed update to server');}
+				};
+				YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
 			};
-			YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
 		};
 	};
 </script>
@@ -119,9 +141,7 @@
 				<ul>
 					<li class="list1"><span><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/>Bookmark</span></li>
 					<li class="list2"><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
-					<!-- 
-					<li class="list3"><input type="button" onclick="copy('${project.id}')" value="Make Copy"/></li>
-					 -->
+					<li class="list3"><input type="button" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" value="Make Copy"/></li>
 				</ul>
 			</td>
 		</tr>

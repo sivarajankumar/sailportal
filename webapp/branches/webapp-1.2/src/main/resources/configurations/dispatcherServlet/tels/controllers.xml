@@ -713,6 +713,7 @@
         <property name="commandName" value="searchProjectLibraryParameters"/>
         <property name="commandClass" value="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.SearchProjectLibraryParameters"/>
         <property name="formView" value="/teacher/projects/projectlibrary"/>
+        <property name="portalProperties" ref="portalproperties" />
     </bean>
     
     <bean id="searchProjectLibraryParameters"
@@ -723,6 +724,7 @@
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.TelsProjectLibraryController">
         <property name="projectService" ref="projectService" />
         <property name="runService" ref="runService"/>
+        <property name="portalProperties" ref="portalproperties" />
     </bean>
     
  	<bean id="customizedIndexController"

@@ -26,12 +26,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,6 +54,8 @@ public class ProjectLibraryController extends SimpleFormController {
 	private ProjectService projectService;
 	
 	private RunService runService;
+	
+	private Properties portalProperties;
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
@@ -101,14 +105,31 @@ public class ProjectLibraryController extends SimpleFormController {
 			projectList = new ArrayList<Project>();
 		}
 		
+		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
 		Map<Long,Integer> usageMap = new TreeMap<Long,Integer>();
+		Map<Long,String> urlMap = new TreeMap<Long,String>();
+		Map<Long,String> filenameMap = new TreeMap<Long,String>();
 		for(Project p : projectList){
+			String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			if(url != null && url != ""){
+				int ndx = url.lastIndexOf("/");
+				if(ndx == -1){
+					urlMap.put((Long) p.getId(), curriculumBaseDir);
+					filenameMap.put((Long) p.getId(), url);
+				} else {
+					urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
+					filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+				}
+			}
 			usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
 		}
 		
 		model.put("userId", user.getId());
 		model.put("projectList", projectList);
 		model.put("usageMap", usageMap);
+		model.put("urlMap", urlMap);
+		model.put("filenameMap", filenameMap);
+		model.put("curriculumBaseDir", curriculumBaseDir);
 		return model;
 	}
 	
@@ -269,5 +290,12 @@ public class ProjectLibraryController extends SimpleFormController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }
