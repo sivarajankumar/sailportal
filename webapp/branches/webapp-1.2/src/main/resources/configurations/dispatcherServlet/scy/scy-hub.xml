@@ -3,11 +3,18 @@
         "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
+
+    <bean class="eu.scy.server.startup.SQLSpacesStarter">
+
+    </bean>
+
     <bean class="eu.scy.scyhub.SCYHubStarter">
         <constructor-arg>
             <ref bean="SCYHubComponent"/>
         </constructor-arg>
     </bean>
+
+
 
     <bean id="SCYHubComponent" class="eu.scy.scyhub.SCYHubComponent">
         <!--property name="actionLogger" ref="actionLogger"/-->
@@ -16,5 +23,7 @@
 
     <bean id="dataSynchModule"  class="eu.scy.datasync.impl.factory.DataSyncModule">
     </bean>
+
+
 
 </beans>
