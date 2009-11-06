@@ -25,7 +25,7 @@ body {
 	text-align: center;
 	margin: 5px;
 	background-color:#FFFFFF;
-	overflow-y:scroll;  	/* This nifty style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
+	overflow-y:scroll;  	/* This style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
 	overflow-x:auto;  
 	}
 	
