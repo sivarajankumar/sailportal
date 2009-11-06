@@ -105,6 +105,8 @@ public class GradeByStepController extends AbstractController {
 			String getFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
 			String postFlagsUrl = portalurl + "/webapp/bridge/postdata.html?type=flag&runId=" + run.getId().toString();
 
+			String projectName = run.getProject().getName();
+			
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
 			modelAndView.addObject(GRADE_BY_STEP_URL, gradebystepurl);
@@ -119,6 +121,8 @@ public class GradeByStepController extends AbstractController {
 			
 			modelAndView.addObject("getFlagsUrl", getFlagsUrl);
 			modelAndView.addObject("postFlagsUrl", postFlagsUrl);
+			
+			modelAndView.addObject("projectName", projectName);
 			
 			return modelAndView;
 		}

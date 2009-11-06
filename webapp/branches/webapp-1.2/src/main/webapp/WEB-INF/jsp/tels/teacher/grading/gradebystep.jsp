@@ -63,12 +63,14 @@
 
 	var getFlagsUrl = "${getFlagsUrl}";
 	var postFlagsUrl = "${postFlagsUrl}";
+
+	var projectName = "${projectName}";
 	
 	//alert(userInfoUrl);
 	//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
 	//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 	//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl);
+	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl, projectName);
 }
 	
 	function foo() {
