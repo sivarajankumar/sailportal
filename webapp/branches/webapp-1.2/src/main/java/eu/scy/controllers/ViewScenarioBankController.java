@@ -63,14 +63,37 @@ public class ViewScenarioBankController extends AbstractController {
         ModelAndView modelAndView = null;
 
 
-        
-
-
         try {
             modelAndView = new ModelAndView(VIEW_NAME);
             ControllerUtil.addUserToModelAndView(httpServletRequest, modelAndView);
-            //logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
+
             Scenario scenario = new ScenarioImpl();
+            scenario.setName("DA SCENARIO");
+
+            LearningActivitySpace planning = new LearningActivitySpaceImpl();
+            planning.setName("Planning");
+            scenario.setLearningActivitySpace(planning);
+
+
+            Activity firstActivity = new ActivityImpl();
+            firstActivity.setName("Gather in the big hall and listen to your teacher");
+            planning.addActivity(firstActivity);
+
+            Activity conceptMappingSession = new ActivityImpl();
+            conceptMappingSession.setName("Concept mapping");
+            planning.addActivity(conceptMappingSession);
+
+            AnchorELO conceptMap = new AnchorELOImpl();
+            conceptMap.setName("Expected concept map");
+            conceptMappingSession.setAnchorELO(conceptMap);
+
+            LearningActivitySpace lastSpace = new LearningActivitySpaceImpl();
+            lastSpace.setName("Evaluation");
+            conceptMap.setInputTo(lastSpace);
+
+
+            //logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
+            /*Scenario scenario = new ScenarioImpl();
             scenario.setName("Hillary");
             logger.info("SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
 
@@ -86,7 +109,7 @@ public class ViewScenarioBankController extends AbstractController {
              Activity activity2 = new ActivityImpl();
             activity2.setName("Activity two");
             las.addActivity(activity2);
-
+            */
             getScenarioService().createScenario(scenario);
 
             ScenarioImpl impl = (ScenarioImpl) scenario;
@@ -98,7 +121,7 @@ public class ViewScenarioBankController extends AbstractController {
             modelAndView.addObject("SCENARIOS", getScenarioService().getScenarios());
         } catch (Exception e) {
             logger.debug(e);
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
 
         return modelAndView;

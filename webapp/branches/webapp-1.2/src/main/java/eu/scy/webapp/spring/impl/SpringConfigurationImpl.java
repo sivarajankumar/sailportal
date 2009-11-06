@@ -39,7 +39,8 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             //"classpath:eu/scy/core/model/impl/hibernate-scy.cfg.xml",
             "classpath:eu/scy/core/applicationContext-service.xml",
             "classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
-            "classpath:configurations/dispatcherServlet/scy/sqlspace.xml"
+            "classpath:configurations/dispatcherServlet/scy/sqlspace.xml",
+            "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml"
             };
 
 
