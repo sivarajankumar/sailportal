@@ -283,28 +283,28 @@ public class StudentVLEController extends AbstractController {
 		
 		String postLevel = "all";
 		
-		String vleConfigString = "<VLEConfig>";
+		StringBuffer vleConfigString = new StringBuffer("<VLEConfig>");
 		if (isPreview) {
-			vleConfigString += "<mode>preview</mode>";
+			vleConfigString.append("<mode>preview</mode>");
 		} else {
-			vleConfigString += "<mode>run</mode>";
+			vleConfigString.append("<mode>run</mode>");
 		}
-		vleConfigString += "<runId>" + run.getId().toString() + "</runId>";
-		vleConfigString += "<getFlagsUrl>" + StringEscapeUtils.escapeHtml(getFlagsUrl) + "</getFlagsUrl>";
-		vleConfigString += "<annotationsUrl>" + StringEscapeUtils.escapeHtml(annotationsUrl) + "</annotationsUrl>";
-		vleConfigString += "<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>";
-		vleConfigString += "<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>";
-		vleConfigString += "<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>";
-		vleConfigString += "<getDataUrl>" + StringEscapeUtils.escapeHtml(getDataUrl) + "</getDataUrl>";
-		vleConfigString += "<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>";
-		vleConfigString += "<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>";
-		vleConfigString += "<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>";
-		vleConfigString += "<theme>WISE</theme>";
-		vleConfigString += "<enableAudio>false</enableAudio>";
-		vleConfigString += "<getJournalDataUrl>" + StringEscapeUtils.escapeHtml(getJournalDataUrl) + "</getJournalDataUrl>";
-		vleConfigString += "<postJournalDataUrl>" + StringEscapeUtils.escapeHtml(postJournalDataUrl) + "</postJournalDataUrl>";
-		vleConfigString += "<postLevel>" + StringEscapeUtils.escapeHtml(postLevel) + "</postLevel>";
-		vleConfigString += "</VLEConfig>";
+		vleConfigString.append("<runId>" + run.getId().toString() + "</runId>");
+		vleConfigString.append("<getFlagsUrl>" + StringEscapeUtils.escapeHtml(getFlagsUrl) + "</getFlagsUrl>");
+		vleConfigString.append("<annotationsUrl>" + StringEscapeUtils.escapeHtml(annotationsUrl) + "</annotationsUrl>");
+		vleConfigString.append("<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>");
+		vleConfigString.append("<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>");
+		vleConfigString.append("<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>");
+		vleConfigString.append("<getDataUrl>" + StringEscapeUtils.escapeHtml(getDataUrl) + "</getDataUrl>");
+		vleConfigString.append("<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>");
+		vleConfigString.append("<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>");
+		vleConfigString.append("<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>");
+		vleConfigString.append("<theme>WISE</theme>");
+		vleConfigString.append("<enableAudio>false</enableAudio>");
+		vleConfigString.append("<getJournalDataUrl>" + StringEscapeUtils.escapeHtml(getJournalDataUrl) + "</getJournalDataUrl>");
+		vleConfigString.append("<postJournalDataUrl>" + StringEscapeUtils.escapeHtml(postJournalDataUrl) + "</postJournalDataUrl>");
+		vleConfigString.append("<postLevel>" + StringEscapeUtils.escapeHtml(postLevel) + "</postLevel>");
+		vleConfigString.append("</VLEConfig>");
 
 		
 		response.setHeader("Cache-Control", "no-cache");
@@ -312,7 +312,7 @@ public class StudentVLEController extends AbstractController {
 		response.setDateHeader ("Expires", 0);
 		
 		response.setContentType("text/xml");
-		response.getWriter().print(vleConfigString);
+		response.getWriter().print(vleConfigString.toString());
 		return null;	
 	}
 
