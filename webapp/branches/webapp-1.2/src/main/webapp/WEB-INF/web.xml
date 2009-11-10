@@ -119,28 +119,6 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!--
-        - Dispatcher servlet definition for HTTP remoting via Hessian, Burlap, and
-        - Spring's HTTP invoker (see remoting-servlet.xml for the controllers).
-    -->
-    <!--servlet>
-        <servlet-name>remoting</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>contextConfigClass</param-name>
-            <param-value>${context.config.class}</param-value>
-        </init-param>
-        <load-on-startup>2</load-on-startup>
-    </servlet-->
-
-    <!--
-        - Dispatcher servlet mapping for HTTP remoting via Hessian, Burlap, and
-        - Spring's HTTP invoker (see remoting-servlet.xml for the controllers).
-    -->
-    <!--servlet-mapping>
-        <servlet-name>remoting</servlet-name>
-        <url-pattern>/remoting/*</url-pattern>
-    </servlet-mapping-->
 
 
 
