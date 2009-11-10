@@ -1,26 +1,20 @@
 package eu.scy.controllers;
 
+/*import eu.scy.core.*;
+import eu.scy.core.model.impl.pedagogicalplan.*;
+import eu.scy.core.model.pedagogicalplan.*;
+*/
+
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import org.acegisecurity.BadCredentialsException;
-import org.acegisecurity.userdetails.UserDetails;
-import org.springframework.transaction.TransactionStatus;
+//import org.acegisecurity.BadCredentialsException;
+//import org.acegisecurity.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import eu.scy.core.*;
-import eu.scy.core.model.pedagogicalplan.*;
-import eu.scy.core.model.impl.pedagogicalplan.*;
-import org.telscenter.sail.webapp.service.project.ProjectService;
-
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,7 +27,7 @@ public class ViewScenarioBankController extends AbstractController {
 
     protected static final String VIEW_NAME = "admin/scenarios";
 
-    private ScenarioService scenarioService;
+    //private ScenarioService scenarioService;
 
     private ProjectService projectService;
 
@@ -63,7 +57,7 @@ public class ViewScenarioBankController extends AbstractController {
         ModelAndView modelAndView = null;
 
 
-        try {
+        /*try {
             modelAndView = new ModelAndView(VIEW_NAME);
             ControllerUtil.addUserToModelAndView(httpServletRequest, modelAndView);
 
@@ -93,23 +87,6 @@ public class ViewScenarioBankController extends AbstractController {
 
 
             //logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
-            /*Scenario scenario = new ScenarioImpl();
-            scenario.setName("Hillary");
-            logger.info("SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
-
-            LearningActivitySpace las = new LearningActivitySpaceImpl();
-            las.setName("LAS");
-            las.setDescription("Vegas");
-            scenario.setLearningActivitySpace(las);
-
-            Activity activity = new ActivityImpl();
-            activity.setName("Activity one");
-            las.addActivity(activity);
-
-             Activity activity2 = new ActivityImpl();
-            activity2.setName("Activity two");
-            las.addActivity(activity2);
-            */
             getScenarioService().createScenario(scenario);
 
             ScenarioImpl impl = (ScenarioImpl) scenario;
@@ -123,24 +100,24 @@ public class ViewScenarioBankController extends AbstractController {
             logger.debug(e);
             e.printStackTrace();
         }
-
+                    */
         return modelAndView;
     }
 
 
-    public ScenarioService getScenarioService() {
-        return scenarioService;
-    }
+    /* public ScenarioService getScenarioService() {
+       return scenarioService;
+   }
 
-    public void setScenarioService(ScenarioService scenarioService) {
-        this.scenarioService = scenarioService;
-    }
+   public void setScenarioService(ScenarioService scenarioService) {
+       this.scenarioService = scenarioService;
+   }
 
-    public ProjectService getProjectService() {
-        return projectService;
-    }
+   public ProjectService getProjectService() {
+       return projectService;
+   }
 
-    public void setProjectService(ProjectService projectService) {
-        this.projectService = projectService;
-    }
+   public void setProjectService(ProjectService projectService) {
+       this.projectService = projectService;
+   } */
 }

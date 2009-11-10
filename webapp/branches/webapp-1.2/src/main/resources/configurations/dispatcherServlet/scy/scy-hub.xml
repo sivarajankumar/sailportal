@@ -4,10 +4,6 @@
 
 <beans>
 
-    <bean class="eu.scy.server.startup.SQLSpacesStarter">
-
-    </bean>
-
     <bean class="eu.scy.scyhub.SCYHubStarter">
         <constructor-arg>
             <ref bean="SCYHubComponent"/>

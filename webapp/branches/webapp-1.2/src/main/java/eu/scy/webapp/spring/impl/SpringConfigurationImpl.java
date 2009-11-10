@@ -23,6 +23,7 @@ public class SpringConfigurationImpl implements SpringConfiguration {
     private static final String[] ROOT_APPLICATION_CONTEXT_CONFIG_LOCATIONS;
 
     private static final String[] DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
+
             "classpath:configurations/applicationContexts/pas/acegiSecurity.xml",
             "classpath:configurations/applicationContexts/pas/datasource.xml",
             "classpath:configurations/applicationContexts/pas/security.xml",
@@ -34,13 +35,26 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/dispatcherServlet/tels/controllers.xml",
             "classpath:configurations/dispatcherServlet/tels/extensions.xml",
             "classpath:configurations/dispatcherServlet/scy/overrides.xml",
-            //"classpath:configurations/dispatcherServlet/scy/hibernate.xml",
             "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
-            //"classpath:eu/scy/core/model/impl/hibernate-scy.cfg.xml",
             "classpath:eu/scy/core/applicationContext-service.xml",
+            "classpath:configurations/dispatcherServlet/scy/external-components.xml",
             "classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
-            "classpath:configurations/dispatcherServlet/scy/sqlspace.xml",
-            "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml"
+            "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
+            "/WEB-INF/remoting-servlet.xml"
+            };
+
+    private static final String[] REMOTING_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
+
+            "classpath:configurations/applicationContexts/pas/acegiSecurity.xml",
+            "classpath:configurations/applicationContexts/pas/datasource.xml",
+            "classpath:configurations/applicationContexts/pas/security.xml",
+            "classpath:configurations/applicationContexts/pas/spring.xml",
+            "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
+            "classpath:eu/scy/core/applicationContext-service.xml",
+            "classpath:configurations/dispatcherServlet/scy/external-components.xml",
+            "classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
+            "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
+            "/WEB-INF/remoting-servlet.xml"
             };
 
 
@@ -55,7 +69,7 @@ public class SpringConfigurationImpl implements SpringConfiguration {
         // Keep the overrides as the last item to be added to the list to ensure
         // that the overridden bean has indeed been defined.
         configLocationsList
-                .add("classpath:configurations/applicationContexts/tels/overrides.xml");
+                .add("classpath:configurations/applicationContexts/scy/overrides.xml");
         ROOT_APPLICATION_CONTEXT_CONFIG_LOCATIONS = configLocationsList
                 .toArray(new String[0]);
     }
@@ -65,6 +79,10 @@ public class SpringConfigurationImpl implements SpringConfiguration {
      */
     public String[] getDispatcherServletContextConfigLocations() {
         return DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS;
+    }
+
+    public String [] getRemotingContextConfigLocations() {
+        return REMOTING_SERVLET_CONTEXT_CONFIG_LOCATIONS;
     }
 
     /**

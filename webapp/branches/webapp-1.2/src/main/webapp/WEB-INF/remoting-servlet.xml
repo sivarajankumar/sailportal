@@ -14,6 +14,7 @@
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 
+    <alias name="/pedagogicalPlan-httpinvoker" alias="pedPlan"/>
     <!-- HTTP invoker exporter for the RoOLO repository -->
     <!-- Spring's HTTP invoker uses Java serialization via HTTP  -->
     <!--bean name="/repository-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
