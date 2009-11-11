@@ -12,8 +12,9 @@
 
 <div id="centeredDiv">
 
-    SO YOU WANNA STARTUP THE FREAKIN SCYLab eh? HEE WEEE!
+    Your username: ${username}
 
 
 </body>
 </html>
+

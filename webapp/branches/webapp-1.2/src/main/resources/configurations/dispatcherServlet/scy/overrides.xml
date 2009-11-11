@@ -29,6 +29,16 @@
         class="org.springframework.ui.context.support.ResourceBundleThemeSource">
         <property name="basenamePrefix" value="/themes/scy/" />
     </bean>
+
+    <bean id="registerstudentController" class="eu.scy.controllers.RegisterStudentForSCYController">
+    	<property name="userService" ref="userService" />
+    	<property name="studentService" ref="studentService" />
+    	<property name="commandName" value="studentAccountForm" />
+    	<property name="validator" ref="studentAccountFormValidator" />
+    	<property name="formView" value="student/registerstudent" />
+    	<property name="successView" value="student/registerSCYStudentConfirm" />
+    </bean>
+
     
     <bean id="registerCurnitController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterModuleController">
@@ -110,6 +120,10 @@
             </list>
         </property>
     </bean>
+
+    <bean id="scyStudentIndexController" class="eu.scy.controllers.SCYStudentIndexController">
+
+    </bean>
     
     <bean
     	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -121,7 +135,7 @@
     		    /preview.html=previewLDProjectController
     		    /contactwisegeneral.html=contactWiseController
     		    /contactwiseproject.html=contactWiseProjectController
-    		    /student/index.html=studentIndexController
+    		    /student/index.html=scyStudentIndexController
     		    /student/vle/vle.html=studentVLEController
     		    /student/vle/studentdata.html=studentDataController
     		    /student/vle/basic_example_otml.html=basicExampleController
