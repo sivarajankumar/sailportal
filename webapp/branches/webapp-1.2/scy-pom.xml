@@ -198,6 +198,48 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+
+                        <configuration>
+                            <artifactItems>
+                                <!--artifactItem>
+                                    <groupId>eu.scy.client.desktop</groupId>
+                                    <artifactId>scy-lab-webstart</artifactId>
+                                    <version>9.8.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                </artifactItem-->
+                                <artifactItem>
+                                    <groupId>eu.scy</groupId>
+                                    <artifactId>scy-planner-webstart</artifactId>
+                                    <version>4.0.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                    <outputDirectory>${project.build.directory}/${project.build.finalName}/webstart/
+                                    </outputDirectory>
+                                    <overWrite>true</overWrite>
+                                </artifactItem>
+                                <!--artifactItem>
+                                    <groupId>eu.scy.client.tools</groupId>
+                                    <artifactId>scymapper-webstart</artifactId>
+                                    <version>9.8.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                </artifactItem-->
+
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
@@ -243,45 +285,7 @@
                     <server>${deploy.server}</server>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <!--executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                    </execution>
-                </executions-->
-                <configuration>
-                    <artifactItems>
-                        <!--artifactItem>
-                            <groupId>eu.scy.client.desktop</groupId>
-                            <artifactId>scy-lab-webstart</artifactId>
-                            <version>9.8.0-SNAPSHOT</version>
-                            <type>jar</type>
-                        </artifactItem-->
-                        <artifactItem>
-                            <groupId>eu.scy</groupId>
-                            <artifactId>scy-planner-webstart</artifactId>
-                            <version>4.0.0-SNAPSHOT</version>
-                            <type>jar</type>
-                            <outputDirectory>${project.build.directory}/${project.build.finalName}/webstart/</outputDirectory>
-                            <overWrite>true</overWrite>
-                        </artifactItem>
-                        <!--artifactItem>
-                            <groupId>eu.scy.client.tools</groupId>
-                            <artifactId>scymapper-webstart</artifactId>
-                            <version>9.8.0-SNAPSHOT</version>
-                            <type>jar</type>
-                        </artifactItem-->
 
-                    </artifactItems>
-                    <!--outputDirectory>${project.build.directory}/${project.build.finalName}/webstart/
-                    </outputDirectory-->
-                </configuration>
-            </plugin>
         </plugins>
     </build>
     <repositories>
