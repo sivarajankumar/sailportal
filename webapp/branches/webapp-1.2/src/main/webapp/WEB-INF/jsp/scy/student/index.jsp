@@ -12,7 +12,7 @@
 
 <div id="centeredDiv">
 
-    SO YOU WANNA STARTUP THE FREAKIN SCYLab eh? HEE WEEE!
+    SO YOU WANNA STARTUP THE FREAKIN SCYLab eh? HEE WEEE! <a href="../webstart/scyplanner/scyplanner.jnlp">SCY-Planner</a>
 
 
 </body>
