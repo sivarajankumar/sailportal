@@ -37,7 +37,7 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/dispatcherServlet/scy/overrides.xml",
             "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
             "classpath:eu/scy/core/applicationContext-service.xml",
-            //"classpath:configurations/dispatcherServlet/scy/external-components.xml",
+            "classpath:configurations/dispatcherServlet/scy/external-components.xml",
             "classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
             "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
             "classpath:configurations/dispatcherServlet/scy/dummy-data.xml",
@@ -52,8 +52,8 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/applicationContexts/pas/spring.xml",
             "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
             "classpath:eu/scy/core/applicationContext-service.xml",
-            "classpath:configurations/dispatcherServlet/scy/external-components.xml",
-            "classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
+            //"classpath:configurations/dispatcherServlet/scy/external-components.xml",
+            //"classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
             "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
             "/WEB-INF/remoting-servlet.xml"
             };
