@@ -237,6 +237,28 @@
                             </artifactItems>
                         </configuration>
                     </execution>
+
+                    <execution>
+                        <id>unpack-mission-content</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>eu.scy.content</groupId>
+                                    <artifactId>scy-mission-one</artifactId>
+                                    <version>${scy.version}</version>
+                                    <type>jar</type>
+                                    <outputDirectory>${project.build.directory}/${project.build.finalName}/content/
+                                    </outputDirectory>
+                                    <overWrite>true</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
 
@@ -633,6 +655,12 @@
         </dependency>
 
         <!-- SCY DEPENDENCIES -->
+
+        <dependency>
+            <groupId>eu.scy.content</groupId>
+            <artifactId>scy-mission-one</artifactId>
+            <version>${scy.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>eu.scy</groupId>

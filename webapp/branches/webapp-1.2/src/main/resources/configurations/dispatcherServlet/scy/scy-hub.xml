@@ -8,8 +8,13 @@
         <constructor-arg>
             <ref bean="SCYHubComponent"/>
         </constructor-arg>
+        <constructor-arg>
+            <value>${communication.datasync.server.externalComponent.host}</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>${communication.datasync.server.externalComponent.port}</value>
+        </constructor-arg>
     </bean>
-
 
 
     <bean id="SCYHubComponent" class="eu.scy.scyhub.SCYHubComponent">
@@ -17,9 +22,29 @@
         <property name="dataSyncModule" ref="dataSynchModule"/>
     </bean>
 
-    <bean id="dataSynchModule"  class="eu.scy.datasync.impl.factory.DataSyncModule">
+    <bean id="dataSynchModule" class="eu.scy.datasync.impl.factory.DataSyncModule">
+        <constructor-arg>
+            <ref bean="scyCommunicationAdapter"/>
+        </constructor-arg>
     </bean>
 
+    <bean id="scyCommunicationAdapter" class="eu.scy.datasync.adapter.ScyCommunicationAdapter">
+        <constructor-arg>
+            <ref local="datasyncSQLSpaceAdapter"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="datasyncSQLSpaceAdapter" class="eu.scy.datasync.adapter.sqlspaces.SQLSpaceAdapter">
+        <constructor-arg>
+            <value>${communication.datasync.server.host}</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>${communication.sqlspaces.server.port}</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>${communication.sqlspaces.server.space.datasync}</value>
+        </constructor-arg>
+    </bean>
 
 
 </beans>
