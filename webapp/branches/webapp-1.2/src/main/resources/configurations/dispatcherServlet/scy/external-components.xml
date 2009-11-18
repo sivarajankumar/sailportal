@@ -4,7 +4,7 @@
 
 <beans>
 
-    <bean id="externalComponentManager" class="eu.scy.server.externalcomponents.ExternalComponentManager">
+    <bean id="externalComponentManager" class="eu.scy.server.externalcomponents.ExternalComponentManager" singleton="true">
         <property name="externalComponents">
             <bean class="eu.scy.server.externalcomponents.sqlspaces.SQLSpacesComponent"/>
         </property>
