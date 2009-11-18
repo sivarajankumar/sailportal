@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
         "http://www.springframework.org/dtd/spring-beans.dtd">
-
 <beans>
-
-    <bean id="externalComponentManager" class="eu.scy.server.externalcomponents.ExternalComponentManager" singleton="true">
-        <property name="externalComponents">
-            <bean class="eu.scy.server.externalcomponents.sqlspaces.SQLSpacesComponent"/>
-        </property>
-
-    </bean>
-
-
-
-
+	<bean id="externalComponentManager" class="eu.scy.server.externalcomponents.ExternalComponentManager" singleton="true">
+		<property name="externalComponents">
+			<list>
+				<bean class="eu.scy.server.externalcomponents.sqlspaces.SQLSpacesComponent" />
+				<bean class="eu.scy.server.externalcomponents.swat.SWATComponent" />
+				<bean class="eu.scy.server.externalcomponents.scyhub.SCYHubExternalComponent" />
+			</list>
+		</property>
+	</bean>
 </beans>

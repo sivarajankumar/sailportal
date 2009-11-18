@@ -38,7 +38,7 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
             "classpath:eu/scy/core/applicationContext-service.xml",
             "classpath:configurations/dispatcherServlet/scy/external-components.xml",
-            "classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
+            //"classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
             "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
             "classpath:configurations/dispatcherServlet/scy/dummy-data.xml",
             "/WEB-INF/remoting-servlet.xml"
