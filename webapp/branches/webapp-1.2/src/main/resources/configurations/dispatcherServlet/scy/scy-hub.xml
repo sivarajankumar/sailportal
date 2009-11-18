@@ -19,6 +19,8 @@
 
     <bean id="SCYHubComponent" class="eu.scy.scyhub.SCYHubComponent">
         <!--property name="actionLogger" ref="actionLogger"/-->
+        <property name="sqlSpacesServerPort"><value>${communication.sqlspaces.server.port}</value></property>
+        <property name="sqlSpacesServerAddress"><value>${communication.datasync.server.host}</value></property> 
         <property name="dataSyncModule" ref="dataSynchModule"/>
     </bean>
 
