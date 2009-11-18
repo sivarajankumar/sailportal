@@ -212,12 +212,16 @@
 
                         <configuration>
                             <artifactItems>
-                                <!--artifactItem>
+                                <artifactItem>
                                     <groupId>eu.scy.client.desktop</groupId>
                                     <artifactId>scy-lab-webstart</artifactId>
                                     <version>9.8.0-SNAPSHOT</version>
                                     <type>jar</type>
-                                </artifactItem-->
+                                    <type>jar</type>
+                                    <outputDirectory>${project.build.directory}/${project.build.finalName}/webstart/
+                                    </outputDirectory>
+                                    <overWrite>true</overWrite>
+                                </artifactItem>
                                 <artifactItem>
                                     <groupId>eu.scy</groupId>
                                     <artifactId>scy-planner-webstart</artifactId>
@@ -293,6 +297,21 @@
                                 <include>scyplanner.jnlp</include>
                             </includes>
                             <targetPath>webstart/scyplanner</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>target/webapp/webstart/scylab/</directory>
+                            <includes>
+                                <include>scylab.jnlp</include>
+                            </includes>
+                            <filtering>true</filtering>
+                            <targetPath>webstart</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>target/webapp/webstart/</directory>
+                            <includes>
+                                <include>scylab.jnlp</include>
+                            </includes>
+                            <targetPath>webstart/scylab</targetPath>
                         </resource>
                     </webResources>
                 </configuration>
@@ -696,11 +715,11 @@
             <artifactId>scymapper</artifactId>
             <version>${scy.version}</version>
         </dependency-->
-        <!--dependency>
+        <dependency>
             <groupId>eu.scy.client.desktop</groupId>
             <artifactId>scy-lab-webstart</artifactId>
             <version>${scy.version}</version>
-        </dependency-->
+        </dependency>
 
         <dependency>
             <groupId>eu.scy.common</groupId>
