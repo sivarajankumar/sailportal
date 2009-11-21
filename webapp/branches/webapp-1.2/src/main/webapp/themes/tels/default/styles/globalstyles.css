@@ -44,16 +44,37 @@ abbr, acronym {
 	border-bottom: 1px dotted #666666;	
 	}
 
-#bannerArea {
+#bannerArea1 {
 	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
 	background-position: center top;
 	width: 100%;
 	height: 60px;
-	margin: 0px 0 3px 0;
+	margin: 0px 0 10px 0;
 	padding:0px;
 	position:relative;
 	}
 	
+#bannerArea2 {
+	background-image:url(../images/WISE-Secondary-Banner-Gradient65.png);
+	background-position: center top;
+	width: 100%;
+	height: 65px;
+	margin: 0px 0 10px 0;
+	padding:0px;
+	position:relative;
+	}
+
+#teacherInterfaceHeader {
+	position:absolute;
+	top:3px;
+	left:376px;
+	font-variant:small-caps;
+	font-weight:bold;
+	letter-spacing:3px;
+	color:#FFE6C6;
+	opacity:50%;
+}
+
 #centeredDiv {
 		background-color:#FFFFFF;
 		width: 958px;

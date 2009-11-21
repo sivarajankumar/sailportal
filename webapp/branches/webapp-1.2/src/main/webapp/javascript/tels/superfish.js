@@ -9,7 +9,7 @@
  * CHANGELOG: http://users.tpg.com.au/j_birch/plugins/superfish/changelog.txt
  */
 
-;(function($){
+;(function($){    
 	$.fn.superfish = function(op){
 
 		var sf = $.fn.superfish,
@@ -84,9 +84,9 @@
 		hoverClass	: 'sfHover',
 		pathClass	: 'overideThisToUse',
 		pathLevels	: 1,
-		delay		: 800,
+		delay		: 300,
 		animation	: {opacity:'show'},
-		speed		: 'normal',
+		speed		: 150,
 		autoArrows	: true,
 		dropShadows : true,
 		disableHI	: false,		// true disables hoverIntent detection

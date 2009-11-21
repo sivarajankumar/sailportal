@@ -23,7 +23,32 @@
 <html lang="en">
 <head>
 
+
 <%@ include file="./projects/styles.jsp"%>
+
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href=".././themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src=".././javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src=".././javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+            </script>
+
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu2').superfish();
+            });
+    
+            </script>
 
 <!-- Core + Skin CSS --> 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/menu/assets/skins/sam/menu.css"> 
@@ -41,9 +66,10 @@
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <script src=".././javascript/tels/general.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/effects.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<!--Disabled the next three scripts as they are conflicting with the SuperFish menu.  Need to debug.-->
+<!--  <script src=".././javascript/tels/prototype.js" type="text/javascript" ></script> -->
+<!--  <script src=".././javascript/tels/effects.js" type="text/javascript" ></script>   -->
+<!--  <script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>  -->
 
 <title><spring:message code="application.title" /></title>
 
@@ -51,11 +77,10 @@
 <!--[if lt IE 7]>
 <script defer type="text/javascript" src="../javascript/tels/iefixes.js"></script>
 <![endif]-->
+
 <script type='text/javascript'>
 var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 </script>
-
-
 
 </head>
 
@@ -408,7 +433,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 				var runLI = document.getElementById('extendReminder_' + id);
 				var callback = {
 						success:function(o){
-							runLI.innerHTML = '<font color="24DD24">You will be reminded to archive the project run with id ' + id + ' again in 30 days.</font>';
+							runLI.innerHTML = '<font color="24DD24">You will be reminded to archive project run id ' + id + ' again in 30 days.</font>';
 						},
 						failure:function(o){
 							runLI.innerHTML = '<font color="DD2424">Unable to update the project run with id ' + id + ' on server.</font>';
@@ -420,30 +445,28 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 				YAHOO.util.Connect.asyncRequest('GET', 'run/manage/extendremindertime.html?runId=' + id, callback, null);
             };
         </script>
-        
+    
 <body class="yui-skin-sam"> 
 
 <div id="centeredDiv">
 
 <%@ include file="../headerteacherhome.jsp"%>
 
-<%@ include file="../L2homebar.jsp"%>
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <table id="teacherHomeTable1" >
 <tr>
 <td id="welcomePanel"><div class="panelStyling1">
-			
-			<div id="headerTeacherHome"><spring:message code="teacher.index.1"/></div>
+		
+			<div id="headerTeacherHome">Welcome to WISE 4.0</div>
 			
 			<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
 					<tr class="tableRowBorder">
-						<td class="tableColor" style="width:26%;"><spring:message code="teacher.index.2"/></td>
+						<td class="tableColor" style="width:18%;"><spring:message code="teacher.index.2"/></td>
 		                <td><sec:authentication property="principal.firstname" /> <sec:authentication property="principal.lastname" /></td>
 					</tr>
 					<tr class="tableRowBorder">
-						<td class="tableColor" style="width:26%;"><spring:message code="teacher.index.3"/></td>
+						<td class="tableColor"><spring:message code="teacher.index.3"/></td>
 						<c:set var="current_date" value="<%= new java.util.Date() %>" />
 						<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
 					</tr>
@@ -463,8 +486,8 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 					</tr>
 					<tr>
 						<td class="tableColor"><spring:message code="teacher.index.6"/></td>
-						<td>
-							<ul>
+						<td >
+							<ul class="announcementsList">
 							<li><b>
 							<c:choose>
 						        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
@@ -495,31 +518,68 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 				</table> 
 </div></td> 
 
-<td style="width:10px;"></td>
+<td style="width:8px;"></td>
 
-<td id="projectsPanel"><div class="panelStyling1" >
+<td id="dashboardPanel"><div class="panelStyling1" >
 
-			<div id="headerTeacherHome"><spring:message code="teacher.index.10"/></div>
+<div id="headerTeacherHome"><spring:message code="teacher.index.13"/></div>
+	
+	<table id="dashboardSections" cellspacing="0" cellpadding="0">
+		<tr>
+			<td><a href="../teacher/index.html"	>home</a></td>
+			<td>Your current location with announcements and quick links to frequently used tools.</td>
+			<!--			<td><spring:message code="teacher.index.14"/></td>-->
+
+		</tr>
+		<tr>
+			<td><a href="../teacher/projects/index.html">projects</a></td>
+			<td>Search the WISE project library, your custom-authored projects, and your shared projects.</td>
+		</tr>
+		<tr>
+			<td><a href="../teacher/grading/overview.html">grading</a></td>
+			<td><spring:message code="teacher.index.16"/></td>
+		</tr>
+		<tr>
+			<td><a href="../teacher/management/overview.html">management</a></td>
+			<td>Manage your project runs, students, account settings, and more.
+			<!--			<td><spring:message code="teacher.index.17"/></td>-->
+		</tr>
+		<tr>
+			<td><a href="../teacher/help/overview.html"	>Help</a></td>
+			<td><spring:message code="teacher.index.18"/></td>
+		</tr>
+	</table>
+
+			
+</div></td>
+</tr>
+</table>
+
+<table id="teacherHomeTable1" class="secondTableMargin" >
+<tr>
+<td id="projectRunsPanel"><div class="panelStyling2">
+   <div id="headerTeacherHome">Project Runs Overview</div>
 
           	<div id="quickToolsContainer">
           	
           	<table id="quickToolsTable">
 				    <tr>
 				        <th>Project Run</th>
-				        <th><spring:message code="teacher.index.39A"/></th>
-				        <th><spring:message code="teacher.index.39B"/></th>
+				        <th>Run ID</th>
+				        <th>Actions</th>
 				    </tr>
 					
 					<c:forEach var="run" items="${run_list}">
 						<tr id='quickLinksRow_${run.id}'>
-							<td style="width:40%;font-size:.7em;">${run.name}</td>
-							<td style="width:10%;font-size:.6em;">${run.id}</td>
-							<td style="padding:2px 4px;">
+							<td class="column1">${run.name}</td>
+							<td class="column2">${run.id}</td>
+							<td class="column3">
 								<ul id="quickToolLinks">
-									<li><a href="/webapp/previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.index.41"/></a></li>
-									<li><a href="grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.index.42"/></a></li>
-									<li style="text-decoration:line-through"><a href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a></li>
-								</ul>
+									<li><a href="/webapp/previewproject.html?projectId=${run.project.id}">View Project</a></li>
+									<li><a href="grading/gradebystep.html?runId=${run.id}">Grade Step</a></li>
+									<li style="text-decoration:line-through"><a href="grading/selectworkgroup.html?runId=${run.id}">Grade Team</a></li>
+									<li><a href="management/viewmystudents.html?runId=${run.id}">Manage Students</a></li>
+</ul>
 							</td>
 					</c:forEach>
 				
@@ -559,102 +619,68 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 			</table>
 			</div>        <!--	end of quickToolsContainer	-->
 
-</div></td>
-</tr>
-</table>
-
-<table id="teacherHomeTable1" class="secondTableMargin" >
-<tr>
-<td id="dashboardPanel"><div class="panelStyling2">
-
-	<div id="headerTeacherHome"><spring:message code="teacher.index.13"/></div>
 	
-	<table id="dashboardSections" cellspacing="4" cellpadding="2">
-		<tr>
-			<td><a href="../teacher/index.html"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('homebuttonmini','','.././themes/tels/default/images/teacher/Home-Mini-Button-Roll2.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Home-Mini-Button2.png"
-				alt="Home Button Mini" id="homebuttonmini" /></a></td>
-			<td><spring:message code="teacher.index.14"/></td>
-		</tr>
-		<tr>
-			<td><a href="../teacher/projects/index.html"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('projectbuttonmini','','.././themes/tels/default/images/teacher/Projects-Mini-Button-Roll2.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Projects-Mini-Button2.png"
-				alt="Project Button Mini" id="projectbuttonmini" /></a></td>
-			<td><spring:message code="teacher.index.15"/></td>
-		</tr>
-		<tr>
-			<td><a href="../teacher/grading/overview.html"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('gradingbuttonmini','','.././themes/tels/default/images/teacher/Grading-Mini-Button-Roll2.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Grading-Mini-Button2.png"
-				alt="Grading Button Mini" id="gradingbuttonmini" /></a></td>
-			<td><spring:message code="teacher.index.16"/></td>
-		</tr>
-		<tr>
-			<td><a href="../teacher/management/overview.html"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('managementbuttonmini','','.././themes/tels/default/images/teacher/Management-Mini-Button-Roll2.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Management-Mini-Button2.png"
-				alt="Management Button Mini" id="managementbuttonmini" /></a></td>
-			<td><spring:message code="teacher.index.17"/></td>
-		</tr>
-		<tr>
-			<td><a href="../teacher/help/overview.html"	onmouseout="MM_swapImgRestore()"
-				onmouseover="MM_swapImage('helpbuttonmini','','.././themes/tels/default/images/teacher/Help-Mini-Button-Roll2.png',1)">
-				<img src=".././themes/tels/default/images/teacher/Help-Mini-Button2.png"
-				alt="Help Button Mini" id="helpbuttonmini" /></a></td>
-			<td><spring:message code="teacher.index.18"/></td>
-		</tr>
-	</table>
 </div></td>
 
-<td style="width:10px;"></td>
+<td style="width:8px;"></td>
 
 <td id="quickLinksPanel"><div class="panelStyling2">
 
 	<div id="headerTeacherHome"><spring:message code="teacher.index.19"/></div>
 
-	<div id="quickLinks1">
-		<div id="linkHeader"><spring:message code="teacher.index.20"/></div>
-			<ul>
-				<li><a href="projects/telsprojectlibrary.html"><spring:message code="teacher.index.21"/></a></li>
-				<li><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21A"/></a></li>
-				<li><a href="../author/authorproject.html">Author Custom/Shared Projects</a></li>
-<!--			<li style="text-decoration:line-through"><a href="projects/bookmarkedprojects.html"><spring:message code="teacher.index.23"/></a></li>-->
-				<li class="inactivecolor"><spring:message code="teacher.index.23"/></li>
-			</ul>
-		<div id="linkHeader"><spring:message code="teacher.index.25"/></div>
-			<ul>
-				<li><a href="./grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.index.26"/></a></li>			
-				<li class="inactivecolor"><spring:message code="teacher.index.27"/></li>
-				<li class="inactivecolor"><spring:message code="teacher.index.28"/></li>
-				<li class="inactivecolor"><spring:message code="teacher.index.29"/></li>
-<!--			<li><a href="./grading/projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.index.27"/></a></li>-->
-<!--			<li><a href=""><spring:message code="teacher.index.28"/></a></li>-->
-<!--			<li><a href="./grading/premadeComments.html"><spring:message code="teacher.index.29"/></a></li>-->
-			</ul>		
-	</div>
-
-	<div id="quickLinks2">
-		<div id="linkHeader"><spring:message code="teacher.index.30"/></div>
-		<ul>
-			<li><a href="run/myprojectruns.html"><spring:message code="teacher.index.22"/></a></li>
-			<li><a href="./management/projectPickerManagement.html"><spring:message code="teacher.index.31"/></a></li>			
-<!--		<li><a href="./management/projectpickerclassmonitor.html"><spring:message code="teacher.index.32"/></a></li>-->
-			<li class="inactivecolor"><spring:message code="teacher.index.32"/></li>
-			<li class="inactivecolor"><spring:message code="teacher.index.33"/></li>
-			<li><a href="./management/updatemyaccount.html"><spring:message code="teacher.index.34"/></a></li>
-		</ul> 
-		<div id="linkHeader"><spring:message code="teacher.index.35"/></div> 
-		<ul>
-			<li class="inactivecolor"><spring:message code="teacher.index.36"/></li>
-			<li><a href="../contactwisegeneral.html"><spring:message code="teacher.index.37"/></a></li>
-		</ul>
-	</div>
-
-</div></td>
-</tr>
+	<table id="quickLinksTable">
+<tr>
+		<th class="linkHeader"><spring:message code="teacher.index.20"/></th>
+		<th class="linkHeader"><spring:message code="teacher.index.30"/></th>
+		</tr>
+<tr>	
+		<td><a href="projects/telsprojectlibrary.html">BETA Library</a></td>
+		<td><a href="run/myprojectruns.html"><spring:message code="teacher.index.22"/></a></td>
+		</tr>
+<tr>
+		<td><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21A"/></a></td>
+		<td><a href="./management/projectPickerManagement.html"><spring:message code="teacher.index.31"/></a></td>
+		</tr>
+<tr>
+		<td class="inactivecolor">My Bookmarked Projects</td>
+		<td class="inactivecolor">Real-Time Class Monitor</td>
+		</tr>
+<tr>
+		<td><a href="../author/authorproject.html">My Custom/Shared Projects</a></td>
+		<td class="inactivecolor">Print Student Work</td>
+		</tr>
+<tr>
+		<td> </td>
+		<td><a href="./management/updatemyaccount.html"><spring:message code="teacher.index.34"/></a></td>
+		</tr>
+<tr>
+		<td style="visibility:hidden;">hidden text</td>
+		<td style="visibility:hidden;">hidden text</td>
+		</tr>
+<tr>
+		<th class="linkHeader"><spring:message code="teacher.index.25"/></th>
+		<th class="linkHeader"><spring:message code="teacher.index.35"/></th>
+		</tr>
+<tr>
+		<td><a href="./grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.index.26"/></a></td>
+		<td class="inactivecolor">FAQ</td>
+		</tr>
+<tr>
+		<td class="inactivecolor">Grade Work by Team</td>		
+		<td class="inactivecolor">Help Guide Index</td>		
+		</tr>
+<tr>
+		<td class="inactivecolor">View Student Work Summary</td>		
+		<td><a href="../contactwisegeneral.html"><spring:message code="teacher.index.37"/></a></td>
+		</tr>
+<tr>
+		<td class="inactivecolor">Edit Pre-Made Comments</td>		
+		<td></a></td>
+		</tr>
 </table>
+
+
+
 
 </div>   <!-- End of centeredDiv-->
 

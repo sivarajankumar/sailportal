@@ -46,8 +46,6 @@
 
 <%@ include file="headerteachermanagement.jsp"%>
 
-<%@ include file="L2management_overview.jsp"%>
- 
 <div id="overviewContent"> 
 
 	<div id="overviewHeader"><spring:message code="teacher.manage.overview.2"/></div>

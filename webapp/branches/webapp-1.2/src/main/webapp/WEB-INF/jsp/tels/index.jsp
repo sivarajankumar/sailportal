@@ -93,13 +93,13 @@ width: 100%;
 				<div id="parastyleTable">
 
 				<ul id="welcomeTextLinks">
-						<li><a href="#" onClick="javascript: fabulousTurnOff1();"><spring:message code="whatiswise" /></a></li>
-						<li><a href="#" onClick="javascript: fabulousTurnOff2();"><spring:message code="curriculumbased" /></a></li>
-						<li><a href="#" onClick="javascript: fabulousTurnOff3();"><spring:message code="inquiryprojects" /></a></li>
-						<li><a href="#" onClick="javascript: fabulousTurnOff4();"><spring:message code="studentengagement" /></a></li>
-						<li><a href="#" onClick="javascript: fabulousTurnOff5();"><spring:message code="interactivemodels" /></a></li>
-						<li><a href="#" onClick="javascript: fabulousTurnOff6();"><spring:message code="onlinegrading" /></a></li>
-						<li><a href="#" onClick="javascript: fabulousTurnOff7();"><spring:message code="freeandopensource" /></a></li>
+						<li><a href="#" onclick="javascript: fabulousTurnOff1();"><spring:message code="whatiswise" /></a></li>
+						<li><a href="#" onclick="javascript: fabulousTurnOff2();"><spring:message code="curriculumbased" /></a></li>
+						<li><a href="#" onclick="javascript: fabulousTurnOff3();"><spring:message code="inquiryprojects" /></a></li>
+						<li><a href="#" onclick="javascript: fabulousTurnOff4();"><spring:message code="studentengagement" /></a></li>
+						<li><a href="#" onclick="javascript: fabulousTurnOff5();"><spring:message code="interactivemodels" /></a></li>
+						<li><a href="#" onclick="javascript: fabulousTurnOff6();"><spring:message code="onlinegrading" /></a></li>
+						<li><a href="#" onclick="javascript: fabulousTurnOff7();"><spring:message code="freeandopensource" /></a></li>
 				</ul>
 
 				<p class="smallText"><spring:message code="clickabovefordetails" /></p>
@@ -193,8 +193,8 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 						<!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
 									It must appear immediately after the Input field in question  (MattFish)-->
 						<script type="text/javascript">
-	document.getElementById('j_username').focus();
-</script>
+							document.getElementById('j_username').focus();
+						</script>
 
 						<dt><label for="password"><spring:message code="password" /></label></dt>
 						<dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></dd>
@@ -216,9 +216,8 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 				<div id="boxTableSignInSub2" class="panelColor"><!--  Researcher/Developer Sub Box 2-->
 				<div id="header"><spring:message code="researchdevelop1" /></div>
 				<div id="researcherText">
-				<p><spring:message code="researchdevelop2" /><br>
-				<spring:message code="researchdevelop3" />&nbsp;<a href="http://www.telscenter.org/index.html" target="_blank"><spring:message
-						code="researchdevelop4" /></a></p>
+				<p><spring:message code="researchdevelop2" />
+				<spring:message code="researchdevelop3" />&nbsp;<a style="color:#666;" href="#" target="_blank">PENDING</a></p>
 				</div>
 				</div>
 

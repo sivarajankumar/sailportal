@@ -20,7 +20,8 @@
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
 
-<div id="bannerArea">
+<div id="bannerArea2">
+
 <div id="wiseLogo"><a href=".././index.html"
 	onmouseout="MM_swapImgRestore()"
 	onmouseover="MM_swapImage('WISE Medium Logo','','.././themes/tels/default/images/WISE-Logo-Medium-Roll-1.png',1)">
