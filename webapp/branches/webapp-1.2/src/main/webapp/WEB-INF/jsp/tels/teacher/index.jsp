@@ -17,7 +17,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id$ -->
+<!-- $Id: index.jsp 2576 2009-11-21 02:17:46Z supersciencefish $ -->
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
@@ -37,15 +37,6 @@
             // initialise plugins
             jQuery(function(){
                 jQuery('ul.sf-menu').superfish();
-            });
-    
-            </script>
-
-<script type="text/javascript">
-    
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu2').superfish();
             });
     
             </script>

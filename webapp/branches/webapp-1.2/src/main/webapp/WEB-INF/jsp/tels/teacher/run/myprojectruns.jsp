@@ -92,17 +92,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
-<%@ include file="L2projects_myprojectruns.jsp"%>
-<style type="text/css">
-.yui-skin-sam .yui-navset .yui-nav li,
-.yui-skin-sam .yui-navset .yui-navset-top .yui-nav li {
-    margin:0 0.8em 0 0; /* space between tabs */
-    padding:5px 0 0; /* gecko: make room for overflow */
-    zoom:1;
-}
-</style>
+<div id="navigationSubHeader2">My Project Runs & Access Codes<span id="navigationSubHeader1">management</span></div>
 
 <div id="tabSystem" class="yui-navset">
     <ul style="font-weight:bold; font-size:.7em; letter-spacing:1px;" class="yui-nav">

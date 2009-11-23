@@ -408,11 +408,9 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
-<%@ include file="L2management_managestudents_ajax.jsp"%>
-
-<div id="L3Label"><spring:message code="teacher.manage.viewstudents.1"/></div> 
+<div id="navigationSubHeader2">Manage Students<span id="navigationSubHeader1">management</span></div>
 
 <table id="projectTitleBox" border=0>
 	<tr>

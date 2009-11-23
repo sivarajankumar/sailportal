@@ -114,7 +114,9 @@
 	margin:0 0px 0 12px;
 }
 
-#dashboardSections td a {
+#dashboardSections td a:visited, #dashboardSections td a:link  {
+	color:blue;
+	color:#334B7B;
 	font-style:italic;
 	padding:2px;	
 }

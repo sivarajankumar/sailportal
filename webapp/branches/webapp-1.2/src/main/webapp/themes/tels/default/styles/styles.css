@@ -121,105 +121,30 @@
 	border-bottom: 1px solid #330066;
 }
 
-/* STYLING FOR L2 NAV BAR  */
-.blankbarL2 {
-	background-image: url(../images/Gradient_Blue-to-Gray.png);
-	background-position: center top;
-	margin-bottom: 5px;
-	color: #000000;
-}
-
-.projectL2 {
-	margin-bottom: 5px;
-}
-
-.management2 {
-	margin-bottom: 5px;
-}
-
-.homebarL2 {
-	margin-bottom: 5px;
-	background-color: #ffffcc;
-}
-
-.helpbarL2 {
-	margin-bottom: 10px;
-	background-color: #ccccff;
-}
-
 /* NORMAL CSS FOR THE NAVIGATION L2 BAR */
 
-#navigationL2 {
-	padding: 0px;
-	width: 956px;
-	border: 1px solid #999999;
-	line-height: normal;
-}
-
-#navigationL2 ul {
+#navigationSubHeader2 {
 	background-image: url(../images/Gradient_L2Bar.png);
 	background-repeat:repeat-x; 
 	background-position:top;
-	padding: 4px 0 4px 110px;
-	margin: 0px;
-	list-style: none;
+	border:1px solid #CCC;
+	padding:2px 8px;
+	margin:-4px 0 15px 0px;
+	color:#333;
+	color:#19253D;
+	font-size:1em;
+	font-weight:bold;
+	letter-spacing:1px;
+	text-align:left;
 }
 
-#navigationL2 li {
-	font-size: .7em;
-	display: inline;
-	letter-spacing: -.1px;
-	padding: 0px;
-	margin: 0px;
-
-}
-
-#navigationL2 li.leftBorder {
-	border-left: 1px dotted #CCCCCC;
-}
-
-#navigationL2 a:link,#navigationL2 a:visited {
-	padding: 4px 14px 4px 14px;
-	margin: 0px;
-	text-decoration: none;
-	color: #000000;
-}
-
-#navigationL2 a:hover {
-	margin: 0px;
-	background-color: #FFFF00;
-	background-image: none;
-	text-decoration: none;
-}
-
-.navigationL2_management_highlight {
-	background-image: url(../images/Pixel_Management_Highlight.png);
-	color: #990000;
-	border: 1px solid #666666;
-}
-
-.navigationL2_projects_highlight {
-	background-image: url(../images/Pixel_Project_Highlight.png);
-	color: #990000;
-	border: 1px solid #666666;
-}
-
-#navigationL2_home_highlight {
-	margin: 0px;
-	background-color: #CCCC99;
-	border: 1px solid #666666;
-}
-
-.navigationL2_grading_highlight {
-	padding: 6px 20px 6px 20px;
-	margin: 0px;
-	/* background-color:#CCCC99;  */
-	background-image: url(../images/Pixel_Grading_Highlight.png);
-	border: 1px solid #666666;
-}
-
-.inactivecolorL2 {
-	color: #999999;
+#navigationSubHeader1 {
+	font-size:80%;
+	color:#666;
+	font-variant:small-caps;
+	font-weight:normal;
+	letter-spacing:0px;
+	margin-left:20px;
 }
 
 /* SETTING UP A RUN */

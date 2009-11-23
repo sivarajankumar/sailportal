@@ -54,9 +54,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
-
-<%@ include file="L2management_managestudents.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
 <div id="pickerHeader">
 		<div id="mainHeader"><spring:message code="teacher.manage.projectpicker.2"/></div>

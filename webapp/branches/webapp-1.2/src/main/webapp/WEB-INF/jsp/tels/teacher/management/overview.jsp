@@ -44,11 +44,11 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
+
+<div id="navigationSubHeader2">Overview<span id="navigationSubHeader1">management</span></div>
 
 <div id="overviewContent"> 
-
-	<div id="overviewHeader"><spring:message code="teacher.manage.overview.2"/></div>
 	
 	<table id="overview_choices" cellspacing="20">
 		<tr>

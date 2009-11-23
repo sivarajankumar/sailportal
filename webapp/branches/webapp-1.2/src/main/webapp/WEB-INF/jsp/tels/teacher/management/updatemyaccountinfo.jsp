@@ -78,13 +78,11 @@ function MM_swapImage() { //v3.0
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
-<%@ include file="L2management_updatemyaccount.jsp"%>
+<div id="navigationSubHeader2">Update My Account<span id="navigationSubHeader1">management</span></div>
 
 <div id="overviewContent"> 
-
-<div id="overviewHeader"><spring:message code="teacher.manage.account.11"/></div>
 
 <div id="subtitleTeacherReg"><spring:message code="teacher.registerteacher.29"/> <br/> <spring:message code="teacher.registerteacher.30"/> </div>
 
