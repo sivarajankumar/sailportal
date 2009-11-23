@@ -83,9 +83,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
-<%@ include file="L2grading_bystep.jsp"%>
+<div id="navigationSubHeader2">Grade by Step<span id="navigationSubHeader1">grading</span></div> 
 
 <div id="gradeStepSelectionArea">
 

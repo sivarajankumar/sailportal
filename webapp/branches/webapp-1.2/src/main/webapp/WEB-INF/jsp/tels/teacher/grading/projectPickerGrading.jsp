@@ -54,21 +54,21 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
+
+<!--
   <c:if test="${gradeByType == 'step'}">
-      <%@ include file="L2grading_bystep.jsp"%>
+	<div id="navigationSubHeader2">Grade by Step<span id="navigationSubHeader1">grading</span></div>
   </c:if>
   <c:if test="${gradeByType == 'group'}">
-     <%@ include file="L2grading_bygroup.jsp"%>
+	<div id="navigationSubHeader2">Grade by Team<span id="navigationSubHeader1">grading</span></div>
   </c:if>
   <c:if test="${gradeByType == 'value'}">
-   	<%@ include file="L2grading_byvalue.jsp"%>
+	<div id="navigationSubHeader2">Grade by Value<span id="navigationSubHeader1">grading</span></div>
    </c:if>	
+-->
 
-<div id="pickerHeader">
-	<div id="mainHeader"><spring:message code="teacher.grading.projectpicker.2"/></div>
-</div>
-<div id="subHeader"><spring:message code="teacher.grading.projectpicker.3"/></div>
+<h2 id="titleBar" class="headerText">Select a Project Run</h2>
 
 <div id="tabSystem" class="yui-navset">
 <ul class="yui-nav">

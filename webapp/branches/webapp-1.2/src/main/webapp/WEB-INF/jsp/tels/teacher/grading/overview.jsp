@@ -47,14 +47,12 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
-<%@ include file="L2grading_overview.jsp"%>
+<div id="navigationSubHeader2">Overview<span id="navigationSubHeader1">grading</span></div>
  
 <div id="overviewContentGrading"> 
 
-	<div id="overviewHeaderGrading"><spring:message code="teacher.grading.overview.2"/></div>
-	
 	<table id="overview_choices_grading" cellspacing="20">
 		<tr>
 		    <td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.grading.overview.3"/></a></td>

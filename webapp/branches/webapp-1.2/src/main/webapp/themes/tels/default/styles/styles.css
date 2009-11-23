@@ -72,11 +72,11 @@
 #titleBar {
 	width: 958px;
 	text-align: center;
-	border: 1px solid #333333;
+	border: 1px solid #666;
 	background-color:#FFCE8E;
 	background-image: url(../images/Gradient_7a.png);
     background-position: bottom;
-	margin-top: 20px;
+	margin-top: 12px;
 	margin-right: auto;
 	margin-bottom: 0px;
 	margin-left: auto;

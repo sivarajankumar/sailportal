@@ -119,6 +119,7 @@
 	color:#334B7B;
 	font-style:italic;
 	padding:2px;	
+	text-decoration:none;
 }
 
 #dashboardSections td a:hover {
@@ -181,6 +182,8 @@
 	margin:0px;
 	padding:0px;
 	text-decoration:none;	
+	margin:0px 0 1px 0;
+	
 }
 
 #quickToolLinks li {
@@ -188,21 +191,16 @@
 	font-size:.85em;
 	letter-spacing:-.8px;
 	padding:0px;
-	margin:0px;
 }
 
 #quickToolLinks li a:link, #quickToolLinks li a:visited, #teacherWelcomeBoxTable li a {
 	text-decoration:none; 
-	padding:2px 3px;
-	margin:0px;
-		}
+	padding:4px 3px 3px 3px;
+}
 
 #quickToolLinks li a:hover, #teacherWelcomeBoxTable li a:hover {
 	background-color:#ffff33;
 	color:#000033;
-	padding:2p 3px;
-	margin:0px;
-	
 }
 
 .projectNameStyle {
@@ -252,7 +250,7 @@
 	background-color:#ffff33;
 	padding: 2px 6px 2px 2px;
 	text-decoration:none;
-	border: 1px solid #6666CC;
+	border: 1px solid transparent;
 }
 
 #projectGradeLinkBox a:hover{

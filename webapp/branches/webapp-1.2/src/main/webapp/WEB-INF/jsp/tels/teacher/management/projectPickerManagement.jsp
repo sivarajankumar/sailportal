@@ -56,10 +56,7 @@
 
 <%@ include file="../headerteachersub.jsp"%>
 
-<div id="pickerHeader">
-		<div id="mainHeader"><spring:message code="teacher.manage.projectpicker.2"/></div>
-		<div id="subHeader"><spring:message code="teacher.manage.projectpicker.3"/></div>
-</div>
+<h2 id="titleBar" class="headerText">Select a Project Run</h2>
 
 <div id="tabSystem" class="yui-navset">
 <ul class="yui-nav">

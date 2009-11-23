@@ -114,11 +114,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="./headerteacherprojects.jsp"%>
-	
-<%@ include file="./L2projects_projectlibrary.jsp"%>
+<%@ include file="../headerteachersub.jsp"%> 
 
-<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.project.library" /></h2>
+<div id="navigationSubHeader2">WISE Project Library<span id="navigationSubHeader1">projects</span></div>
  
 <div id="searchResultsHeading">Search Results: ${fn:length(projectList) } projects found 
 	<div class="searchResultsButtons"><a href="#">Show/Hide Descriptions</a></div>

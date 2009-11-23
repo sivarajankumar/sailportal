@@ -517,21 +517,21 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 	
 	<table id="dashboardSections" cellspacing="0" cellpadding="0">
 		<tr>
-			<td><a href="../teacher/index.html"	>home</a></td>
+			<td><a href="../teacher/index.html"	>Home</a></td> 
 			<td>Your current location with announcements and quick links to frequently used tools.</td>
 			<!--			<td><spring:message code="teacher.index.14"/></td>-->
 
 		</tr>
 		<tr>
-			<td><a href="../teacher/projects/index.html">projects</a></td>
+			<td><a href="../teacher/projects/index.html">Projects</a></td>
 			<td>Search the WISE project library, your custom-authored projects, and your shared projects.</td>
 		</tr>
 		<tr>
-			<td><a href="../teacher/grading/overview.html">grading</a></td>
+			<td><a href="../teacher/grading/overview.html">Grading</a></td>
 			<td><spring:message code="teacher.index.16"/></td>
 		</tr>
 		<tr>
-			<td><a href="../teacher/management/overview.html">management</a></td>
+			<td><a href="../teacher/management/overview.html">Management</a></td>
 			<td>Manage your project runs, students, account settings, and more.
 			<!--			<td><spring:message code="teacher.index.17"/></td>-->
 		</tr>

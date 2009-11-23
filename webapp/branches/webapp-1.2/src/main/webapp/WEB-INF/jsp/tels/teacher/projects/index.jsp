@@ -45,14 +45,12 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojects.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
-<%@ include file="L2projects_overview.jsp"%>
+<div id="navigationSubHeader2">Overview<span id="navigationSubHeader1">projects</span></div>
  
 <div id="overviewContent"> 
 
-	<div id="overviewHeader"><spring:message code="teacher.pro.lib.index.2"/></div>
-	
 	<table id="overview_choices" cellspacing="20">
 		<tr>
 			<td class="link"><a href="telsprojectlibrary.html"><spring:message code="teacher.pro.lib.index.3"/></a></td>
