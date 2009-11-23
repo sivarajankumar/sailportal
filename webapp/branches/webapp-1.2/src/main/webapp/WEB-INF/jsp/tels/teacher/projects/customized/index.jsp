@@ -431,9 +431,9 @@ function changePublic(id){
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojects.jsp"%>
+<%@ include file="../../headerteachersub.jsp"%> 
 
-<%@ include file="L2projects_projectlibrary.jsp"%>
+<div id="navigationSubHeader2">My Custom-Authored and Shared Projects<span id="navigationSubHeader1">projects</span></div> 
 
 <h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.custom.index.11"/></h2> 
 

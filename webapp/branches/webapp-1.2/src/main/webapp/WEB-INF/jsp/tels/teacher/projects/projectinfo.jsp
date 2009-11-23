@@ -38,9 +38,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachernohighlight.jsp"%>
-
-<%@ include file="../../L2blankbar.jsp"%>
+<%@ include file="../headerteachersub.jsp"%> 
 
 <h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.projinfo.1"/></h2> 
 

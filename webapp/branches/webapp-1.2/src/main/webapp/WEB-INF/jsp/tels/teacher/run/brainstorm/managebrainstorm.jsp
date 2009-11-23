@@ -35,9 +35,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="../../headerteachersub.jsp"%> 
 
-<%@ include file="L2projects_myprojectruns.jsp"%>
+<div id="navigationSubHeader2">Brainstorm Management<span id="navigationSubHeader1">management</span></div> 
 
 <c:choose>
 <c:when test="${not brainstorm.sessionStarted}">

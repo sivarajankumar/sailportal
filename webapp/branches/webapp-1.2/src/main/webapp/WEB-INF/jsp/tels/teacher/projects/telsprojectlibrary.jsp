@@ -102,11 +102,11 @@
 
 <div id="centeredDiv">
 
-<%@ include file="./headerteacherprojects.jsp"%>
-	
-<%@ include file="./L2projects_telsprojects.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
-<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.tels.project.library" /></h2>
+<div id="navigationSubHeader2">BETA Project Library<span id="navigationSubHeader1">projects</span></div> 
+
+<!--<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.tels.project.library" /></h2>-->
  
 <div id="searchResultsHeading">Search Results: ${fn:length(projectList) } projects found 
 	<div class="searchResultsButtons"><a href="#">Show/Hide Descriptions</a></div>

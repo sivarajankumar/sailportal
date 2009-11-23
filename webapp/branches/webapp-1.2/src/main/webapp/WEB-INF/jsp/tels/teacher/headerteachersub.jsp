@@ -61,7 +61,7 @@
 		<li class="level1"><a href="#">Projects</a>
 		<ul>
 				<li><a href="../../teacher/projects/index.html">Overview</a></li>
-				<li><a href="../../projects/telsprojectlibrary.html">Beta Project Library</a></li>
+				<li><a href="../projects/telsprojectlibrary.html">Beta Project Library</a></li>
 				<li><a href="../projects/projectlibrary.html">Project Library</a></li>
 				<li><a href="#" style="color:#999;">My Bookmarked Projects</a></li>
 				<li><a href="../../author/authorproject.html">My Custom-Authored & Shared Projects</a></li>

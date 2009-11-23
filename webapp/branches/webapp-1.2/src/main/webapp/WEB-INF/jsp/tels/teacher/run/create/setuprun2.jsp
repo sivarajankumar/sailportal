@@ -38,9 +38,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="../../projects/headerteacherprojects.jsp"%>
+<%@ include file="../../headerteachersub.jsp"%> 
 
-<%@ include file="L2projectsnohighlight.jsp"%>
+<div id="navigationSubHeader2">Project Run Setup<span id="navigationSubHeader1">projects</span></div> 
 
 <h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
 
