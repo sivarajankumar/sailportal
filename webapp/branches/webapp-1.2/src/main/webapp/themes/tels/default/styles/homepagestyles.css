@@ -24,7 +24,7 @@
 	background-image:url(../images/GradientHomeBox2.png);
 	background-position:left bottom;
 	background-repeat:repeat-x;
-	border: 1px solid #999999;  
+	border: 1px solid #999999;   
 	border-right: 1px solid #666; 
 	border-bottom: 1px solid #666;  
 	-moz-border-radius:5px;
@@ -63,11 +63,26 @@
 	font-weight:bold;
 	font-size: 1.25em;
 	line-height: normal;
-	color:#000033;
-	color:#006633;	
-	color:#0000CC; 
 	color:#003366; 
+	color:#19253D;
 		}
+		
+/* #header {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	text-align:left;
+	margin: 0px 0px 12px 0px;
+	padding: 2px 12px;
+	font-size: 1em;
+	font-weight:bold;
+	background-image:url(../images/teacher/teacherSubHeader.png);
+	-moz-border-radius-topleft:4px;
+	-moz-border-radius-topright:4px;
+	-webkit-border-radius-topleft:4px;
+	-webkit-border-radius-topright:4px;
+	border-radius-topleft:4px;
+	border-radius-topright:4px;
+	border-bottom:1px solid #999;
+}  */
 	
 #boxTableWelcome {
 	width: 634px;
