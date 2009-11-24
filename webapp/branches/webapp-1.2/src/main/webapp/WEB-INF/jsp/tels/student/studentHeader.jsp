@@ -19,17 +19,20 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z MattFish $ -->
 
-<div id="bannerArea">
+<div id="bannerArea1">
 
     	<div id="wiseLogo"><a href="../index.html" 
     		onmouseout="MM_swapImgRestore()" 
     		onmouseover="MM_swapImage('WISE Medium Logo','','../themes/tels/default/images/WISE-Logo-Medium-Roll-1.png',1)">
     		<img src="../themes/tels/default/images/WISE-Logo-Medium-1.png" alt="WISE Logo" border="0" id="WISE Medium Logo" /> </a></div>
     		
-    	<div id="studentBannerLabel">
-    		<img src="../themes/tels/default/images/student/Student-Site-Label.png" width="104" height="11"
-       		alt="Student Dashboard Label" />
-       	</div>
+    	    <div id="teacherInterfaceHeader">student home page</div>
+
+<!---->
+<!--		<div id="studentBannerLabel">-->
+<!--    		<img src="../themes/tels/default/images/student/Student-Site-Label.png" width="104" height="11"-->
+<!--       		alt="Student Dashboard Label" />-->
+<!--       	</div>-->
           
        	<div id="usernameSignOutBoxStudent">
 			<div id="usernameBannerStudent"><sec:authentication property="principal.username" /> </div>

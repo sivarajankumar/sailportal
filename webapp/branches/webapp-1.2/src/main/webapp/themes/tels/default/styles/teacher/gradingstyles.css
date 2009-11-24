@@ -139,6 +139,13 @@
 	padding-left:5px;
 	}	
 	
+#gradeStepSelectedProject .runIdTag{
+	margin-left:30px;
+	font-variant:normal;
+	font-size:80%;
+	color:#666;
+}
+	
 #gradeStepInstructions {
 	padding-left:20px;
 	font-size:.8em;

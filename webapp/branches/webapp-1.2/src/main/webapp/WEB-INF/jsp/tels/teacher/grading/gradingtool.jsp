@@ -408,7 +408,7 @@
 
 <div id="overviewHeaderGradingv2"><spring:message code="teacher.gradingtool.1"/></div>
 
-<div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project ID ${run.project.id})</span></div>
+<div id="gradeStepSelectedProject">${projectTitle} <span id="projectIdLabel">(Project Run ID: ${run.project.id})</span></div>
 
 <table id="currentStepTable" >
   <tr>

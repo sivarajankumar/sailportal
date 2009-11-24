@@ -96,7 +96,8 @@
 				<tr>
 						<td class="header1">Project Run:</td>
 						<td class="header2"><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Change Run</a></div></td>
-						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here  (ID xxxxx)"></c:out></div></td>
+						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here"></c:out>
+							<span class="runIdtag">(Project Run ID: ${runId})</span></div></td>
 				</tr>
 		</table>
 
@@ -111,7 +112,8 @@
 		
 		<table id="selectedProjectTable">
 				<tr>
-						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here  (ID xxxxx)"></c:out></div></td>
+						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here"></c:out>
+								<span class="runIdtag">(Project Run ID: ${runId})</span></div></td>
 						<td class="header2"><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Select Another Run</a></div></td>
 				</tr>
 		</table>
