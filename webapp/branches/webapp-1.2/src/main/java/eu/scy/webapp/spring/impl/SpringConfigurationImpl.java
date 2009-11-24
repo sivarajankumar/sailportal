@@ -41,7 +41,7 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             //"classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
             "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
             "classpath:configurations/dispatcherServlet/scy/dummy-data.xml",
-            "/WEB-INF/remoting-servlet.xml"
+            //"/WEB-INF/remoting-servlet.xml"
             };
 
     private static final String[] REMOTING_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
@@ -52,9 +52,7 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/applicationContexts/pas/spring.xml",
             "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
             "classpath:eu/scy/core/applicationContext-service.xml",
-            //"classpath:configurations/dispatcherServlet/scy/external-components.xml",
-            //"classpath:configurations/dispatcherServlet/scy/scy-hub.xml",
-            "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
+            //"classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
             "/WEB-INF/remoting-servlet.xml"
             };
 
@@ -79,10 +77,12 @@ public class SpringConfigurationImpl implements SpringConfiguration {
      * @see net.sf.sail.webapp.spring.SpringConfiguration#getDispatcherServletContextConfigLocations()
      */
     public String[] getDispatcherServletContextConfigLocations() {
+        LOGGER.info("*** GETTING DISPATCHER SERVLET CONFIGURATIONS");
         return DISPATCHER_SERVLET_CONTEXT_CONFIG_LOCATIONS;
     }
 
     public String [] getRemotingContextConfigLocations() {
+        LOGGER.info("*** GETTING REMOTING CONFIG LOCATIONS");
         return REMOTING_SERVLET_CONTEXT_CONFIG_LOCATIONS;
     }
 
