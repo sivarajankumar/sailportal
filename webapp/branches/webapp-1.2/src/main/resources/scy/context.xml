@@ -4,7 +4,7 @@
 		prefix="bite_access" suffix=".log" resolveHosts="true"
 		pattern="%h %u %t %T &quot;%r&quot; %s %b"/>
 
-	<Resource name="jdbc/bite" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/scy" auth="Container" type="javax.sql.DataSource"
 		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
 		initialSize="5"
 		maxActive="75"
