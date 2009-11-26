@@ -47,28 +47,19 @@
     <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-
             classpath:configurations/applicationContexts/scy/acegiSecurity.xml,
             classpath:configurations/applicationContexts/pas/annotation.xml,   
             classpath:configurations/applicationContexts/scy/hibernate.xml,
             classpath:configurations/applicationContexts/pas/datasource.xml,
-
             classpath:configurations/applicationContexts/pas/security.xml,
-            <!--classpath:configurations/applicationContexts/pas/spring.xml,-->
             classpath:configurations/applicationContexts/pas/sds.xml,
             classpath:configurations/applicationContexts/scy/user.xml,
             classpath:configurations/applicationContexts/scy/extensions.xml,
             classpath:configurations/dispatcherServlet/scy/config.xml,
-                    <!--classpath:configurations/dispatcherServlet/pas/controllers.xml,-->
-                    <!--classpath:configurations/dispatcherServlet/tels/extensions.xml,-->
-            <!--classpath:configurations/dispatcherServlet/scy/controllers.xml,-->
-            <!--classpath:configurations/dispatcherServlet/scy/overrides.xml,-->
             classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml,
             classpath:eu/scy/core/applicationContext-service.xml,
             classpath:configurations/dispatcherServlet/scy/external-components.xml,
             classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml,
-                    <!--classpath:configurations/dispatcherServlet/scy/dummy-data.xml-->
-            /WEB-INF/remoting-servlet.xml
         </param-value>
 	</context-param>
 
@@ -102,19 +93,6 @@
         </listener-class>
     </listener>
 
-    <!--listener>
-        <listener-class>
-            net.sf.sail.webapp.spring.impl.CustomContextLoaderListener
-        </listener-class>
-    </listener-->
-
-    <!--listener>
-        <listener-class>
-            net.sf.sail.webapp.presentation.web.listeners.PasSessionListener
-        </listener-class>
-    </listener-->
-
-
     <!--
         The HttpSessionEventPublisher will publish
         HttpSessionCreatedEvent and HttpSessionDestroyedEvent
@@ -126,14 +104,6 @@
         </listener-class>
     </listener>
 
-    <!-- project specific startup listeners go here -->
-    <!-- you can add your own listeners by adding the property startup.listeners in your settings.xml -->
-
-
-    <!--listener>
-        <listener-class>eu.scy.server.externalcomponents.ExternalComponentManagerStartupListener</listener-class>
-    </listener-->
-
 
     <!-- Servlets -->
     <!-- Using Spring's web MVC -->
@@ -144,12 +114,6 @@
         </servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
-    <!--servlet>
-        <servlet-name>dwr-invoker</servlet-name>
-        <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet-->
 
     <!--
         - Dispatcher servlet definition for HTTP remoting via Hessian, Burlap, and
@@ -175,12 +139,6 @@
         <servlet-name>remoting</servlet-name>
         <url-pattern>/remoting/*</url-pattern>
     </servlet-mapping>
-
-
-    <!--servlet-mapping>
-        <servlet-name>dwr-invoker</servlet-name>
-        <url-pattern>/dwr/*</url-pattern>
-    </servlet-mapping-->
 
     <!-- Servlet Mappings -->
     <servlet-mapping>
