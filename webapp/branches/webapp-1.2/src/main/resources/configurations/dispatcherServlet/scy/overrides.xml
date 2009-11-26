@@ -30,23 +30,23 @@
         <property name="basenamePrefix" value="/themes/scy/" />
     </bean>
 
-    <bean id="registerstudentController" class="eu.scy.controllers.RegisterStudentForSCYController">
+    <!--bean id="registerstudentController" class="eu.scy.controllers.RegisterStudentForSCYController">
     	<property name="userService" ref="userService" />
     	<property name="studentService" ref="studentService" />
     	<property name="commandName" value="studentAccountForm" />
     	<property name="validator" ref="studentAccountFormValidator" />
     	<property name="formView" value="student/registerstudent" />
     	<property name="successView" value="student/registerSCYStudentConfirm" />
-    </bean>
+    </bean-->
 
     
-    <bean id="registerCurnitController"
+    <!--bean id="registerCurnitController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterModuleController">
     	<property name="curnitService" ref="curnitService" />
     	<property name="commandName" value="curnitParameters" />
     	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters" />
     	<property name="validator" ref="curnitParametersValidator" />
-    </bean>
+    </bean-->
     
     <bean id="registerOtmlModuleController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterOtmlModuleController">
@@ -75,7 +75,7 @@
         </property>
     </bean>
     <!--  The real exceptions are logged to the tomcat/logs/catalina.out file. Look there if you've got a problem. -->
-    <bean id="exceptionResolver"
+    <!--bean id="exceptionResolver"
         class="org.telscenter.sail.webapp.spring.impl.TelsSimpleMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
@@ -91,8 +91,7 @@
         </property>
         <property name="portalService" ref="portalService" />
         <property name="emaillisteners" ref="emaillisteners" />
-        <!--property name="javaMail" ref="javaMail" /-->
-    </bean>
+    </bean-->
     
 
     <bean id="openSessionInViewInterceptor"
@@ -115,6 +114,9 @@
                     classpath:configurations/hibernate/pas/hibernate.cfg.xml
                 </value>
                 <value>
+                    classpath:configurations/hibernate/tels/hibernate-extensions.cfg.xml
+                </value>
+                <value>
                     classpath:eu/scy/core/model/impl/hibernate-scy.cfg.xml
                 </value>
             </list>
@@ -131,7 +133,7 @@
     	<property name="mappings">
     		<value>
     		    /index.html=urlFilenameViewController
-    		    /smartroom/smartroom.html=smartRoomController
+    		    <!--/smartroom/smartroom.html=smartRoomController
     		    /preview.html=previewLDProjectController
     		    /contactwisegeneral.html=contactWiseController
     		    /contactwiseproject.html=contactWiseProjectController
@@ -143,16 +145,17 @@
     		    /student/teamsignin.html=teamSignInController
     		    /student/addproject.html=addProjectController
     		    /student/changeperiodteam.html=changePeriodTeamController
-    		    /student/startproject.html=startProjectController
-    		    /student/registerstudent.html=registerstudentController
-    		    /student/getannotationbundle.html=getAnnotationBundleController
+    		    /student/startproject.html=startProjectController -->
+    		    <!--/student/registerstudent.html=registerstudentController-->
+    		    <!--/student/getannotationbundle.html=getAnnotationBundleController
 				/student/changestudentpassword.html=changeUserPasswordController
-				/student/brainstorm/studentbrainstorm.html=studentBrainstormController
+				/student/brainstorm/studentbrainstorm.html=studentBrainstormController-->
 			<!-- 	/student/brainstorm/teststudentbrainstorm.html=testStudentBrainstormController
-				/student/brainstorm/testpostanswer.html=testPostBrainstormAnswerController  -->				/student/brainstorm/brainstormresponse.html=brainstormResponseController
-				/student/brainstorm/addcomment.html=addCommentController
-				/student/brainstorm/postresponse.html=postResponseController
-				/student/brainstorm/postcomment.html=postCommentController
+				/student/brainstorm/testpostanswer.html=testPostBrainstormAnswerController  -->
+                <!--/student/brainstorm/brainstormresponse.html=brainstormResponseController-->
+				<!--/student/brainstorm/addcomment.html=addCommentController-->
+				<!--/student/brainstorm/postresponse.html=postResponseController-->
+				<!--/student/brainstorm/postcomment.html=postCommentController
 				/student/brainstorm/postrevision.html=postRevisionController
 				/student/brainstorm/addrevision.html=addRevisionController
 				/student/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
@@ -161,8 +164,8 @@
 				/student/brainstorm/getallposts.html=getAllPostsController
 				/student/brainstorm/resultsgraph.html=resultsGraphController
 				/student/brainstorm/pollinstantpoll.html=pollInstantPollController
-				/student/service/workgroup.html=studentWorkgroupServiceController
-				/teacher/index.html=teacherIndexController
+				/student/service/workgroup.html=studentWorkgroupServiceController-->
+<!--				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
     		    /teacher/states.html=statesController
@@ -194,7 +197,7 @@
 				/teacher/run/brainstorm/getallposts.html=getAllPostsController
 				/teacher/run/brainstorm/brainstormresponse.html=brainstormResponseController
 				/teacher/run/brainstorm/addcomment.html=addCommentController
-				/teacher/run/brainstorm/postresponse.html=postResponseController
+
 				/teacher/run/brainstorm/postcomment.html=postCommentController
 				/teacher/run/brainstorm/postrevision.html=postRevisionController
 				/teacher/run/brainstorm/addrevision.html=addRevisionController
@@ -230,20 +233,20 @@
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
     		    /teacher/management/updatemyaccount.html=updateMyAccountController
-    		    /teacher/management/changeteacherpasswordsuccess.html=changeTeacherPasswordSuccessController
+    		    /teacher/management/changeteacherpasswordsuccess.html=changeTeacherPasswordSuccessController    -->
     		    <!--  /teacher/management/updateteacheraccount.html=updateTeacherAccountController-->
-    		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
+    		    <!--/teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
     		    /studentinfo.html=infoController
     		    /teacher/management/studentlist.html=studentListController
-    		    /teacher/management/studentlistexcel.html=viewMyStudentsController
+    		    /teacher/management/studentlistexcel.html=viewMyStudentsController-->
     		    <!--  /teacher/management/manageextrateachers.html=manageExtraTeachersController -->
-    		    /teacher/management/addsharedteacher.html=addSharedTeacherController
+    		    <!--/teacher/management/addsharedteacher.html=addSharedTeacherController
     		    /teacher/help/overview.html=overviewHelpController
     		    /teacher/help/main.html=mainHelpController
     		    /teacher/help/contactwise.html=contactWiseController
-    		    /teacher/vle/vle.html=studentVLEController
+    		    /teacher/vle/vle.html=studentVLEController-->
     		    /**/index.html=indexController
-    		    /previewproject.html=previewprojectController
+    		    <!--/previewproject.html=previewprojectController
     		    /previewprojectlist.html=previewprojectlistController
     		    /credits.html=creditsController
     		    /forgotaccount/selectaccounttype.html=selectAccountTypeController
@@ -266,10 +269,10 @@
 				/teacher/management/classmonitor.html=classMonitorController
 				/teacher/management/classmonitormeaning.html=classMonitorMeaningController
 				/teacherinfo.html=infoController
-				/dwr/*=dwrController
-				/author/registermodule.html=registerCurnitController
+				/dwr/*=dwrController -->
+				<!--/author/registermodule.html=registerCurnitController
 				/author/registerotmlmodule.html=registerOtmlModuleController
-<!--  			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController  -->	
+     			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
 				/author/createrooloproject.html=createRooloProjectController
@@ -277,8 +280,8 @@
 				/author/brainstorm/createbrainstorm.html=createBrainstormQuestionController
 				/author/brainstorm/editpreparedanswer.html=editPreparedAnswerController
 				/author/project/postproject.html=postProjectController
-				/author/brainstorm/authorbrainstorm.html=authorBrainstormController
-				/admin/manageusers.html=viewAllUsersController
+				/author/brainstorm/authorbrainstorm.html=authorBrainstormController   -->
+				<!--/admin/manageusers.html=viewAllUsersController
 				/admin/scenarios.html=viewScenariosController
 				/admin/lookupuser.html=lookupUserController
 				/admin/manageallprojects.html=manageAllProjectsController
@@ -302,8 +305,8 @@
 				/admin/portal/manageportal.html=managePortalController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
-				/repository/retrieveotml.html=retrieveOtmlController
-				/teacher/reports/stepactivitygraph.html=stepActivityGraphController
+				/repository/retrieveotml.html=retrieveOtmlController   -->
+				<!--/teacher/reports/stepactivitygraph.html=stepActivityGraphController
 				/teacher/reports/totaltimeperstep.html=totalTimePerStepController
 				/teacher/run/announcement/manageannouncement.html=manageAnnouncementController
 				/teacher/run/announcement/viewannouncement.html=viewAnnouncementController
@@ -318,14 +321,14 @@
 				/createhierarchytype.html=createHierarchyTypeController
 				/createnode.html=createNodeController
 				/managehierarchytypes.html=manageHierarchyTypesController
-				/managehierarchy.html=manageHierarchyController
+				/managehierarchy.html=manageHierarchyController-->
 				<!-- /reposit.html=repositController  -->
 				<!-- /junk.html=junkController  -->
 				<!-- /retrieve.html=retrieveController  -->
-				/rooloproject.html=rooloProjectController
+				<!--/rooloproject.html=rooloProjectController
 				/author/authorrooloproject.html=authorRooloProjectController
 				/author/uploadxml.html=uploadXMLProjectController
-				/bridge/*.html=bridgeController
+				/bridge/*.html=bridgeController-->
     		</value>
     	</property>
     </bean>

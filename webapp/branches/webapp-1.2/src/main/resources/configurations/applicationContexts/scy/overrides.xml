@@ -132,4 +132,19 @@
             </value>
         </property>
     </bean>
+
+    <bean id="httpRestTransport"
+        class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
+        <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
+        <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
+        <!-- http://saildataservice.concord.org/{portal-id}/ -->
+        <!--
+            <property name="baseUrl" value="http://127.0.0.1:3000/1" />
+        -->
+        <property name="baseUrl"
+            value="http://rails.dev.concord.org/sds/20" />
+    </bean>
+    
+
+    
 </beans>

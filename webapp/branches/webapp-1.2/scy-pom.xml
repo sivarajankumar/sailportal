@@ -175,6 +175,7 @@
                                     <filtering>true</filtering>
                                     <includes>
                                         <include>web.xml</include>
+                                        <include>dispatcher-servlet.xml</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -279,6 +280,7 @@
                             <filtering>true</filtering>
                             <includes>
                                 <include>web.xml</include>
+                                <include>dispatcher-servlet.xml</include>
                             </includes>
                             <!-- override the destination directory for this resource -->
                             <targetPath>WEB-INF</targetPath>
