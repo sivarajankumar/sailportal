@@ -325,12 +325,17 @@ YAHOO.util.Event.onDOMReady(init);
 
 <div id="optionButtons">
 	<ul>
+	<!-- 
 	<li>
 		<a href="#"
 		onmouseover="swapImage('studentaddproject','../<spring:theme code="student_add_project_roll" />');"
 		onmouseout="swapImage('studentaddproject','../<spring:theme code="student_add_project" />');"
 		class="addprojectLink"> <img id="studentaddproject"
 		src="../<spring:theme code="student_add_project" />" /> </a>
+	</li>
+	-->
+	<li>
+		<a href="addproject.html">Add Project</a>
 	</li>
 		
 	<!-- note: to make the change to student password into AJAX, type in class="changepasswordLink" -->	

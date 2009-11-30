@@ -30,7 +30,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.UserService;
 
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -51,6 +55,9 @@ public class TeacherIndexController extends AbstractController {
 	protected final static String RUN_LIST = "run_list";
 	
 	private RunService runService;
+	
+	private UserService userService;
+	
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -62,7 +69,10 @@ public class TeacherIndexController extends AbstractController {
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
     	
-		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		//User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
     	List<Run> runList = runService.getRunList();
     	List<Run> run_list = new ArrayList<Run>();
     	
@@ -81,6 +91,12 @@ public class TeacherIndexController extends AbstractController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 }

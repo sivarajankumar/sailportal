@@ -248,4 +248,14 @@ public interface Run extends Offering {
 	 * @param <code>Date</code> the archiveReminderTime to set
 	 */
 	public void setArchiveReminderTime(Date archiveReminderTime);
+	
+	/**
+	 * @return the extras
+	 */
+	public String getExtras();
+
+	/**
+	 * @param extras the extras to set
+	 */
+	public void setExtras(String extras);
 }

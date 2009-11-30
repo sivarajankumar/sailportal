@@ -65,17 +65,12 @@
 	var postFlagsUrl = "${postFlagsUrl}";
 
 	var projectName = "${projectName}";
-
-	var getMetadataUrl = "${projectMetadataUrl}";
-
-	var runExtrasStr = '${runExtras}';
-	window.frames["topifrm"].runExtrasStr = runExtrasStr;	
 	
 	//alert(userInfoUrl);
 	//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
 	//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 	//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl, projectName, getMetadataUrl);
+	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl, projectName);
 }
 	
 	function foo() {
@@ -88,9 +83,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="../headerteachersub.jsp"%>
+<%@ include file="headerteachergrading.jsp"%>
 
-<div id="navigationSubHeader2">Grade by Step<span id="navigationSubHeader1">grading</span></div> 
+<%@ include file="L2grading_bystep.jsp"%>
 
 <div id="gradeStepSelectionArea">
 
@@ -101,8 +96,7 @@
 				<tr>
 						<td class="header1">Project Run:</td>
 						<td class="header2"><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Change Run</a></div></td>
-						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here"></c:out>
-							<span class="runIdtag">(Project Run ID: ${runId})</span></div></td>
+						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here  (ID xxxxx)"></c:out></div></td>
 				</tr>
 		</table>
 
@@ -117,8 +111,7 @@
 		
 		<table id="selectedProjectTable">
 				<tr>
-						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here"></c:out>
-								<span class="runIdtag">(Project Run ID: ${runId})</span></div></td>
+						<td><div id="gradeStepSelectedProject"><c:out value="${run.name}" default="Name of Selected Project Goes Here  (ID xxxxx)"></c:out></div></td>
 						<td class="header2"><div id="selectAnotherLink"><a href="projectPickerGrading.html?gradeByType=step">Select Another Run</a></div></td>
 				</tr>
 		</table>

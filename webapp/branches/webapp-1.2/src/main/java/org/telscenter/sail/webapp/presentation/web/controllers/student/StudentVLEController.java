@@ -106,6 +106,8 @@ public class StudentVLEController extends AbstractController {
 				return handleGetVLEConfig(request, response, run);
 			} else if (action.equals("getRunInfo")) {
 				return handleGetRunInfo(request, response, run);
+			} else if (action.equals("getRunExtras")) {
+				return handleGetRunExtras(request, response, run);
 			} else {
 				// shouldn't get here
 				throw new RuntimeException("should not get here");
@@ -133,6 +135,30 @@ public class StudentVLEController extends AbstractController {
 
 		response.setContentType("text/xml");
 		response.getWriter().print(runInfoString);
+		return null;
+	}
+	
+	/**
+	 * Retrns the RunExtras JSON string containing information like
+	 * the maxscores that teacher defines
+	 * @param request
+	 * @param response
+	 * @param run
+	 * @return
+	 * @throws IOException 
+	 */
+	private ModelAndView handleGetRunExtras(HttpServletRequest request,
+			HttpServletResponse response, Run run) throws IOException {
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+
+		String runExtras = run.getExtras();
+		if (runExtras == null) {
+			runExtras = "";
+		}
+		response.setContentType("text/json");
+		response.getWriter().print(runExtras);
 		return null;
 	}
 
@@ -247,6 +273,9 @@ public class StudentVLEController extends AbstractController {
 
 		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 		contentUrl = curriculumBaseWWW + contentUrl;
+		int lastIndexOfDot = contentUrl.lastIndexOf(".");
+		String projectMetadataUrl = contentUrl.substring(0, lastIndexOfDot) + "-meta.json";
+
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
@@ -255,6 +284,7 @@ public class StudentVLEController extends AbstractController {
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
 		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
+		String getRunExtrasUrl = portalVLEControllerUrl + "&action=getRunExtras";
 
 		String previewRequest = request.getParameter(PREVIEW);
 		boolean isPreview = false;
@@ -295,9 +325,11 @@ public class StudentVLEController extends AbstractController {
 		vleConfigString.append("<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>");
 		vleConfigString.append("<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>");
 		vleConfigString.append("<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>");
+		vleConfigString.append("<projectMetadataUrl>" + StringEscapeUtils.escapeHtml(projectMetadataUrl) + "</projectMetadataUrl>");
 		vleConfigString.append("<getDataUrl>" + StringEscapeUtils.escapeHtml(getDataUrl) + "</getDataUrl>");
 		vleConfigString.append("<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>");
 		vleConfigString.append("<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>");
+		vleConfigString.append("<runExtrasUrl>" + StringEscapeUtils.escapeHtml(getRunExtrasUrl) + "</runExtrasUrl>");
 		vleConfigString.append("<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>");
 		vleConfigString.append("<theme>WISE</theme>");
 		vleConfigString.append("<enableAudio>false</enableAudio>");

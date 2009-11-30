@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +83,15 @@ public class LookupTeacherController extends SimpleFormController {
 		
 		ModelAndView modelAndView = new ModelAndView(VIEW);
 		
+		// put the usernames in an array
+		List<String> usernames = new ArrayList<String>();
+		for (User user : users) {
+			usernames.add(user.getUserDetails().getUsername());
+		}
 		if(users.size() < 1){
 			modelAndView.addObject("message", "No users given search criteria found.");
 		} else{
-			modelAndView.addObject("teachers", users);
+			modelAndView.addObject("usernames", usernames);
 		}
 		
 		return modelAndView;

@@ -110,6 +110,7 @@
 	<bean id="teacherIndexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController" >
 		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
 	</bean>
 
 	<bean id="registerController"
@@ -378,6 +379,7 @@
 	<bean id="myProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
 		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
 		<property name="projectService" ref="projectService" />
 		<property name="brainstormService" ref="brainstormService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
@@ -442,6 +444,7 @@
 	<bean id="projectPickerManagementController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProjectPickerManagementController">
 		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
 	</bean>
 
 	<bean id="projectPickerClassMonitorController"
@@ -452,6 +455,7 @@
 	<bean id="projectPickerGradingController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.ProjectPickerGradingController">
 		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
 	</bean>
 	
 	<bean id="premadeCommentsController"

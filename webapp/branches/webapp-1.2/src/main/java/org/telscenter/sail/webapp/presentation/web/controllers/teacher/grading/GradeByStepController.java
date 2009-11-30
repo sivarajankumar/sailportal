@@ -85,6 +85,9 @@ public class GradeByStepController extends AbstractController {
 			String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 
 			String contentUrl = curriculumBaseWWW + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			int lastIndexOfDot = contentUrl.lastIndexOf(".");
+			String projectMetadataUrl = contentUrl.substring(0, lastIndexOfDot) + "-meta.json";
+
 			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 			if(lastIndexOfSlash==-1){
 				lastIndexOfSlash = contentUrl.lastIndexOf("\\");
@@ -113,6 +116,8 @@ public class GradeByStepController extends AbstractController {
 			modelAndView.addObject(CONTENT_URL, contentUrl);
 			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
 			modelAndView.addObject(GET_DATA_URL, getDataUrl);
+			modelAndView.addObject("runExtras", run.getExtras());
+			modelAndView.addObject("projectMetadataUrl", projectMetadataUrl);
 			modelAndView.addObject("contentBaseUrl", contentBaseUrl);
 			modelAndView.addObject("getAnnotationsUrl", getAnnotationsUrl);
 			modelAndView.addObject("postAnnotationsUrl", postAnnotationsUrl);

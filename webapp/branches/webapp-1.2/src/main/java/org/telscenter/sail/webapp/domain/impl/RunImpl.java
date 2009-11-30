@@ -128,6 +128,9 @@ public class RunImpl extends OfferingImpl implements Run {
 
     @Transient
 	private static final String COLUMN_NAME_INFO = "info";
+
+    @Transient
+	private static final String COLUMN_NAME_EXTRAS = "extras";
     
     @Transient
     private static final String COLUMN_NAME_MAX_WORKGROUP_SIZE = "maxWorkgroupSize";
@@ -175,11 +178,14 @@ public class RunImpl extends OfferingImpl implements Run {
     @Column(name = COLUMN_NAME_MAX_WORKGROUP_SIZE, nullable = true)
     private Integer maxWorkgroupSize;
 
+    @Column(name = COLUMN_NAME_EXTRAS)
+    private String extras;
+
 	//@OneToOne(cascade = CascadeType.ALL, targetEntity = RunStatusImpl.class)
     //@JoinColumn(name = COLUMN_NAME_RUNSTATUS, unique = true)
     @Transient
     private RunStatus runStatus;
-
+    
     @Transient
     private Set<Brainstorm> brainstorms = new TreeSet<Brainstorm>();
     
@@ -451,5 +457,19 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setArchiveReminderTime(Date archiveReminderTime) {
 		this.archiveReminderTime = archiveReminderTime;
+	}
+
+	/**
+	 * @return the extras
+	 */
+	public String getExtras() {
+		return extras;
+	}
+
+	/**
+	 * @param extras the extras to set
+	 */
+	public void setExtras(String extras) {
+		this.extras = extras;
 	}
 }
