@@ -45,6 +45,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
@@ -106,8 +109,6 @@ public class StudentVLEController extends AbstractController {
 				return handleGetVLEConfig(request, response, run);
 			} else if (action.equals("getRunInfo")) {
 				return handleGetRunInfo(request, response, run);
-			} else if (action.equals("getRunExtras")) {
-				return handleGetRunExtras(request, response, run);
 			} else {
 				// shouldn't get here
 				throw new RuntimeException("should not get here");
@@ -135,30 +136,6 @@ public class StudentVLEController extends AbstractController {
 
 		response.setContentType("text/xml");
 		response.getWriter().print(runInfoString);
-		return null;
-	}
-	
-	/**
-	 * Retrns the RunExtras JSON string containing information like
-	 * the maxscores that teacher defines
-	 * @param request
-	 * @param response
-	 * @param run
-	 * @return
-	 * @throws IOException 
-	 */
-	private ModelAndView handleGetRunExtras(HttpServletRequest request,
-			HttpServletResponse response, Run run) throws IOException {
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader("Expires", 0);
-
-		String runExtras = run.getExtras();
-		if (runExtras == null) {
-			runExtras = "";
-		}
-		response.setContentType("text/json");
-		response.getWriter().print(runExtras);
 		return null;
 	}
 
@@ -266,16 +243,13 @@ public class StudentVLEController extends AbstractController {
 	 * @throws ObjectNotFoundException 
 	 * @throws IOException 
 	 */
-	private ModelAndView handleGetVLEConfig(HttpServletRequest request,
+	private ModelAndView handleGetVLEConfig_old(HttpServletRequest request,
 			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 
 		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 		contentUrl = curriculumBaseWWW + contentUrl;
-		int lastIndexOfDot = contentUrl.lastIndexOf(".");
-		String projectMetadataUrl = contentUrl.substring(0, lastIndexOfDot) + "-meta.json";
-
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
@@ -284,7 +258,6 @@ public class StudentVLEController extends AbstractController {
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
 		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
-		String getRunExtrasUrl = portalVLEControllerUrl + "&action=getRunExtras";
 
 		String previewRequest = request.getParameter(PREVIEW);
 		boolean isPreview = false;
@@ -325,11 +298,9 @@ public class StudentVLEController extends AbstractController {
 		vleConfigString.append("<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>");
 		vleConfigString.append("<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>");
 		vleConfigString.append("<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>");
-		vleConfigString.append("<projectMetadataUrl>" + StringEscapeUtils.escapeHtml(projectMetadataUrl) + "</projectMetadataUrl>");
 		vleConfigString.append("<getDataUrl>" + StringEscapeUtils.escapeHtml(getDataUrl) + "</getDataUrl>");
 		vleConfigString.append("<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>");
 		vleConfigString.append("<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>");
-		vleConfigString.append("<runExtrasUrl>" + StringEscapeUtils.escapeHtml(getRunExtrasUrl) + "</runExtrasUrl>");
 		vleConfigString.append("<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>");
 		vleConfigString.append("<theme>WISE</theme>");
 		vleConfigString.append("<enableAudio>false</enableAudio>");
@@ -347,6 +318,207 @@ public class StudentVLEController extends AbstractController {
 		response.getWriter().print(vleConfigString.toString());
 		return null;	
 	}
+	
+	/**
+	 * Prints out VLE configuration
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ObjectNotFoundException 
+	 * @throws IOException 
+	 */
+	private ModelAndView handleGetVLEConfig(HttpServletRequest request,
+			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
+		String portalurl = ControllerUtil.getBaseUrlString(request);
+		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+
+		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		contentUrl = curriculumBaseWWW + contentUrl;
+		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
+		if(lastIndexOfSlash==-1){
+			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
+		}
+		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash) + "/";
+		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
+		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
+		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
+
+		String previewRequest = request.getParameter(PREVIEW);
+		boolean isPreview = false;
+		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
+			isPreview = true;
+		}
+		
+		if (isPreview) {
+			userInfoUrl += "&preview=true";
+		}
+		
+		//String getDataUrl = portalurl + "/vlewrapper/getdata.html";
+		//String postDataUrl = portalurl + "/vlewrapper/postdata.html";
+		//String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
+		String getDataUrl = portalurl + "/webapp/bridge/getdata.html";
+		String postDataUrl = portalurl + "/webapp/bridge/postdata.html";
+		String getFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+		String postFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+    	String getAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
+    	String postAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
+    	//String annotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + run.getId().toString();
+		
+    	String postJournalDataUrl = portalurl + "/webapp/bridge/postdata.html?type=journal";
+    	//String postJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
+		
+		String getJournalDataUrl = portalurl + "/webapp/bridge/getdata.html?type=journal";
+		//String getJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
+		
+		String postLevel = "all";
+		
+		//StringBuffer vleConfigString = new StringBuffer("<VLEConfig>");
+		JSONObject config = new JSONObject();
+		
+		try {
+			if (isPreview) {
+				//vleConfigString.append("<mode>preview</mode>");
+				config.put("mode", "preview");
+			} else {
+				//vleConfigString.append("<mode>run</mode>");
+				config.put("mode", "run");
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+
+		//vleConfigString.append("<runId>" + run.getId().toString() + "</runId>");
+		try {
+			config.put("runId", run.getId().toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("<getFlagsUrl>" + StringEscapeUtils.escapeHtml(getFlagsUrl) + "</getFlagsUrl>");
+		try {
+			config.put("getFlagsUrl", getFlagsUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			config.put("postFlagsUrl", postFlagsUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("<annotationsUrl>" + StringEscapeUtils.escapeHtml(annotationsUrl) + "</annotationsUrl>");
+		try {
+			config.put("getAnnotationsUrl", getAnnotationsUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			config.put("postAnnotationsUrl", postAnnotationsUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>");
+		try {
+			config.put("userInfoUrl", userInfoUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>");
+		try {
+			config.put("contentUrl", contentUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>");
+		try {
+			config.put("contentBaseUrl", contentBaseUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("<getDataUrl>" + StringEscapeUtils.escapeHtml(getDataUrl) + "</getDataUrl>");
+		try {
+			config.put("getStudentDataUrl", getDataUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>");
+		try {
+			config.put("postStudentDataUrl", postDataUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>");
+		try {
+			config.put("runInfoUrl", getRunInfoUrl);
+		} catch (JSONException e6) {
+			e6.printStackTrace();
+		}
+		
+		//vleConfigString.append("<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>");
+		try {
+			config.put("runInfoRequestInterval", GET_RUNINFO_REQUEST_INTERVAL);
+		} catch (JSONException e5) {
+			e5.printStackTrace();
+		}
+		
+		//vleConfigString.append("<theme>WISE</theme>");
+		try {
+			config.put("theme", "WISE");
+		} catch (JSONException e4) {
+			e4.printStackTrace();
+		}
+		
+		//vleConfigString.append("<enableAudio>false</enableAudio>");
+		try {
+			config.put("enableAudio", false);
+		} catch (JSONException e3) {
+			e3.printStackTrace();
+		}
+		
+		//vleConfigString.append("<getJournalDataUrl>" + StringEscapeUtils.escapeHtml(getJournalDataUrl) + "</getJournalDataUrl>");
+		try {
+			config.put("getJournalDataUrl", getJournalDataUrl);
+		} catch (JSONException e2) {
+			e2.printStackTrace();
+		}
+		
+		//vleConfigString.append("<postJournalDataUrl>" + StringEscapeUtils.escapeHtml(postJournalDataUrl) + "</postJournalDataUrl>");
+		try {
+			config.put("postJournalDataUrl", postJournalDataUrl);
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+		
+		//vleConfigString.append("<postLevel>" + StringEscapeUtils.escapeHtml(postLevel) + "</postLevel>");
+		try {
+			config.put("postLevel", postLevel);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//vleConfigString.append("</VLEConfig>");
+
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader ("Expires", 0);
+		
+		response.setContentType("text/xml");
+		//response.getWriter().print(vleConfigString.toString());
+		response.getWriter().print(config.toString());
+		return null;	
+	}
+	
+
 
 	/**
 	 * If the workgroupId is specified in the request, then look up userInfo for that specified workgroup.
@@ -360,7 +532,7 @@ public class StudentVLEController extends AbstractController {
 	 * @throws ObjectNotFoundException
 	 * @throws IOException
 	 */
-	private ModelAndView handlePrintUserInfo(HttpServletRequest request,
+	private ModelAndView handlePrintUserInfo_old(HttpServletRequest request,
 			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
 
 		Workgroup workgroup = getWorkgroup(request, run);
@@ -501,6 +673,202 @@ public class StudentVLEController extends AbstractController {
 	}
 	
 	/**
+	 * If the workgroupId is specified in the request, then look up userInfo for that specified workgroup.
+	 * Otherwise, lookup userInfo for the currently-logged-in user.
+	 * @param request
+	 * @param response
+	 * @param run Which run to look up.
+	 * @param user Currently-logged in user
+	 * @param workgroup workgroup that the currently-logged in user is in for the run
+	 * @return
+	 * @throws ObjectNotFoundException
+	 * @throws IOException
+	 */
+	private ModelAndView handlePrintUserInfo(HttpServletRequest request,
+			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
+
+		Workgroup workgroup = getWorkgroup(request, run);
+		String workgroupIdStr = request.getParameter(WORKGROUP_ID_PARAM);
+		if (workgroupIdStr != null && workgroupIdStr != "") {
+			workgroup = workgroupService.retrieveById(new Long(workgroupIdStr));
+			// if a workgroup was specified that was not for this run, return BAD_REQUEST
+			if (workgroup.getOffering().getId() != run.getId()) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				return null;
+			}
+		} else {
+		}
+		
+		//StringBuffer userInfoString = new StringBuffer("<userInfo>");
+		JSONObject userInfo = new JSONObject();
+
+		/*
+		 * the group id of the period, this is the id in the db which is not
+		 * the same as the period number
+		 */
+		String periodId = "";
+		
+		//the period number that you would regularly think of as a period
+		String periodName = "";
+		
+		//get the period
+		if(workgroup instanceof WISEWorkgroup && !((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+			//the logged in user is a student
+			Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();
+			periodName = periodGroup.getName();
+			periodId = periodGroup.getId().toString();
+		} else if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+			//the logged in user is a teacher
+			
+			//string buffers to maintain : delimited values
+			StringBuffer periodIds = new StringBuffer();
+			StringBuffer periodNames = new StringBuffer();
+			
+			//get the periods
+			Set<Group> periods = run.getPeriods();
+			Iterator<Group> periodIter = periods.iterator();
+			
+			//loop through all the periods
+			while(periodIter.hasNext()) {
+				Group next = periodIter.next();
+				
+				//if this is not the first period add a :
+				if(periodIds.length() != 0) {
+					periodIds.append(":");
+				}
+				
+				//if this is not the first period add a :
+				if(periodNames.length() != 0) {
+					periodNames.append(":");
+				}
+				
+				//append the values
+				periodIds.append(next.getId());	
+				periodNames.append(next.getName());
+			}
+			
+			//get the string values
+			periodId = periodIds.toString();
+			periodName = periodNames.toString();
+		}
+		
+		//obtain the user name in the format like "Geoffrey Kwan (GeoffreyKwan)"
+		String userNames = getUserNamesFromWorkgroup(workgroup);
+		
+		// add this user's info:
+		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + userNames + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
+		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
+		
+		JSONObject myUserInfo = new JSONObject();
+		try {
+			myUserInfo.put("workgroupId", workgroup.getId());
+			myUserInfo.put("userName", userNames);
+			myUserInfo.put("periodId", periodId);
+			myUserInfo.put("periodName", periodName);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		// add the class info:
+		//userInfoString.append("<myClassInfo>");
+		
+		JSONObject myClassInfo = new JSONObject();
+		
+		JSONArray classmateUserInfos = new JSONArray();
+		
+		// now add classmates
+		Set<Workgroup> workgroups = runService.getWorkgroups(run.getId());
+			
+		String requestedWorkgroupIdsStr = request.getParameter("workgroupIds");
+		if (requestedWorkgroupIdsStr != null) {
+			// specific workgroups are requested
+			String[] requestedWorkgroupIds = requestedWorkgroupIdsStr.split(",");
+			for (Workgroup classmateWorkgroup : workgroups) {
+				if (classmateWorkgroup.getMembers().size() > 0 && 
+						classmateWorkgroup.getId() != workgroup.getId() 
+						&& !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()
+						&& ((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {
+					// only include non-teacher, non-detached classmates, excluding yourself.
+					for (String requestedWorkgroupId : requestedWorkgroupIds) {
+						if (requestedWorkgroupId.equals(classmateWorkgroup.getId().toString())) {
+							//get the xml for the classmate and append it
+							//userInfoString.append(getClassmateUserInfoXML(classmateWorkgroup));
+							
+							classmateUserInfos.put(getClassmateUserInfoJSON(classmateWorkgroup));
+						}
+					}
+				}
+			}
+		} else {
+			// otherwise get all classmates (excluding teacher)
+			for (Workgroup classmateWorkgroup : workgroups) {
+				if (classmateWorkgroup.getMembers().size() > 0 
+						&& classmateWorkgroup.getId() != workgroup.getId() 
+						&& !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()
+						&& ((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {   // only include classmates, not yourself.
+					//get the xml for the classmate and append it
+					//userInfoString.append(getClassmateUserInfoXML(classmateWorkgroup));
+					
+					classmateUserInfos.put(getClassmateUserInfoJSON(classmateWorkgroup));
+				}
+			}
+
+		}
+		
+		JSONObject teacherUserInfo = new JSONObject();
+		
+		// add teacher info
+		for (Workgroup classmateWorkgroup : workgroups) {
+			if (((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
+				// inside, add teacher info
+				Set<User> owners = run.getOwners();
+				User teacher = null;
+				
+				try {
+					if (owners.size() > 0) {
+						teacher = owners.iterator().next();
+						//userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>");
+						
+						teacherUserInfo.put("workgroupId", classmateWorkgroup.getId());
+						teacherUserInfo.put("userName", teacher.getUserDetails().getUsername());
+					} else {
+						//userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName></teacherUserInfo>");
+						
+						teacherUserInfo.put("workgroupId", classmateWorkgroup.getId());
+						teacherUserInfo.put("userName", classmateWorkgroup.generateWorkgroupName());
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+
+			}
+		}
+		
+		try {
+			userInfo.put("myUserInfo", myUserInfo);
+			myUserInfo.put("myClassInfo", myClassInfo);
+			myClassInfo.put("classmateUserInfos", classmateUserInfos);
+			myClassInfo.put("teacherUserInfo", teacherUserInfo);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//userInfoString.append("</myClassInfo>");
+
+		//userInfoString.append("</userInfo>");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader ("Expires", 0);
+		
+		response.setContentType("text/xml");
+		//response.setCharacterEncoding("UTF-8");
+		//response.getWriter().print(userInfoString);
+		response.getWriter().print(userInfo.toString());
+		return null;
+	}
+	
+	/**
 	 * Get the xml for the classmate user info
 	 * @param classmateWorkgroup the workgroup of the classmate
 	 * @return an xml string containing the info for the classmate
@@ -534,6 +902,56 @@ public class StudentVLEController extends AbstractController {
 		
 		//return the xml string
 		return userInfoString.toString();
+	}
+	
+	
+	/**
+	 * Get the xml for the classmate user info
+	 * @param classmateWorkgroup the workgroup of the classmate
+	 * @return an xml string containing the info for the classmate
+	 */
+	private JSONObject getClassmateUserInfoJSON(Workgroup classmateWorkgroup) {
+		//StringBuffer userInfoString = new StringBuffer();
+		JSONObject classmateUserInfo = new JSONObject();
+		
+		try {
+			//open tag
+			//userInfoString.append("<classmateUserInfo>");
+			
+			classmateUserInfo.put("workgroupId", classmateWorkgroup.getId());
+			
+			//get the workgroup id
+			//userInfoString.append("<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>");
+			
+			String userNames = getUserNamesFromWorkgroup(classmateWorkgroup);
+			
+			classmateUserInfo.put("userName", userNames);
+			
+			//get the user name
+			//userInfoString.append("<userName>" + classmateWorkgroup.generateWorkgroupName().trim() + "</userName>");
+			//userInfoString.append("<userName>" + userNames + "</userName>");
+			
+			if(classmateWorkgroup instanceof WISEWorkgroup) {
+				//check that there is a period
+				if(((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {
+					classmateUserInfo.put("periodId", ((WISEWorkgroup) classmateWorkgroup).getPeriod().getId());
+					classmateUserInfo.put("periodName", ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName());
+					
+					//get the period id and period name
+					//userInfoString.append("<periodId>" + ((WISEWorkgroup) classmateWorkgroup).getPeriod().getId() + "</periodId>");
+					//userInfoString.append("<periodName>" + ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName() + "</periodName>");				
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//close tag
+		//userInfoString.append("</classmateUserInfo>");
+		
+		//return the xml string
+		//return userInfoString.toString();
+		return classmateUserInfo;
 	}
 	
 	/**

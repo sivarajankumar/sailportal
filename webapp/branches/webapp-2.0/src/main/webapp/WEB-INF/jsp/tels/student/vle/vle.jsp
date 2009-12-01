@@ -3,20 +3,10 @@
 <title>Loading Sample PAS Project to Virtual Learning Environment</title>
 
 	<script type="text/javascript">
-		function topiframeOnLoad() {
-		}
-
-		function scriptsLoaded(workgroupId) {
+		function startWithConfig() {
 			var vleConfigUrl = "${vleConfigUrl}";
-			window.frames["topifrm"].initializeVLEFromVLEConfig(vleConfigUrl);
-		}
-		
-		function foo() {
-			//alert('foo!');
-		}
-		function foo2() {
-			//alert('foo222!');
-		}		
+			window.frames['topifrm'].eventManager.fire('startVLEFromConfig', vleConfigUrl);
+		}	
 	</script>
 
 
@@ -202,8 +192,7 @@ var runManager = new RunManager();
 </head>
 <body class="yui-skin-sam">
 <div id="wait"></div> 
-<iframe  style="overflow-x:auto; overflow-y:hidden;" id="topifrm" src="${vleurl}" onload="topiframeOnLoad();" name="topifrm" 
- width="100%" height="100%" frameborder="0">
+<iframe  style="overflow-x:auto; overflow-y:hidden;" id="topifrm" src="${vleurl}" name="topifrm" width="100%" height="100%" frameborder="0">
  [Sorry, your browser is unable to support iframes.]
 </iframe>
 
