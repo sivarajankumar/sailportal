@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean class="eu.scy.scyhub.SCYHubStarter">
+        <constructor-arg>
+            <ref bean="SCYHubComponent"/>
+        </constructor-arg>
+        <constructor-arg>
+            <value>${communication.datasync.server.externalComponent.host}</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>${communication.datasync.server.externalComponent.port}</value>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="SCYHubComponent" class="eu.scy.scyhub.SCYHubComponent">
+        <!--property name="actionLogger" ref="actionLogger"/-->
+        <property name="sqlSpacesServerPort"><value>${communication.sqlspaces.server.port}</value></property>
+        <property name="sqlSpacesServerAddress"><value>${communication.datasync.server.host}</value></property> 
+        <property name="dataSyncModule" ref="dataSynchModule"/>
+    </bean>
+
+    <bean id="dataSynchModule" class="eu.scy.datasync.impl.factory.DataSyncModule">
+        <constructor-arg>
+            <ref bean="scyCommunicationAdapter"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="scyCommunicationAdapter" class="eu.scy.datasync.adapter.ScyCommunicationAdapter">
+        <constructor-arg>
+            <ref local="datasyncSQLSpaceAdapter"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="datasyncSQLSpaceAdapter" class="eu.scy.datasync.adapter.sqlspaces.SQLSpaceAdapter">
+        <constructor-arg>
+            <value>${communication.datasync.server.host}</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>${communication.sqlspaces.server.port}</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>${communication.sqlspaces.server.space.datasync}</value>
+        </constructor-arg>
+    </bean>
+
+
+</beans>
