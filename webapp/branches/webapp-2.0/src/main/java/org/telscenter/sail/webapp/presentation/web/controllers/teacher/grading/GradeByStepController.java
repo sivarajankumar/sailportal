@@ -53,9 +53,9 @@ public class GradeByStepController extends AbstractController {
 
 	private static final String GRADE_BY_STEP_URL = "gradeByStepUrl";
 
-	private static final String CONTENT_URL = "contentUrl";
+	private static final String CONTENT_URL = "getContentUrl";
 	
-	private static final String USER_INFO_URL = "userInfoUrl";
+	private static final String USER_INFO_URL = "getUserInfoUrl";
 
 	private static final String GET_DATA_URL = "getDataUrl";
 
@@ -84,17 +84,17 @@ public class GradeByStepController extends AbstractController {
 			String portalurl = ControllerUtil.getBaseUrlString(request);
 			String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 
-			String contentUrl = curriculumBaseWWW + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-			int lastIndexOfDot = contentUrl.lastIndexOf(".");
-			String projectMetadataUrl = contentUrl.substring(0, lastIndexOfDot) + "-meta.json";
+			String getContentUrl = curriculumBaseWWW + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			int lastIndexOfDot = getContentUrl.lastIndexOf(".");
+			String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + "-meta.json";
 
-			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
+			int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
 			if(lastIndexOfSlash==-1){
-				lastIndexOfSlash = contentUrl.lastIndexOf("\\");
+				lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
 			}
-			String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
+			String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash);
 			String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
-			String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
+			String getUserInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
 			
 			// LDProject, get the .project file
 
@@ -110,15 +110,17 @@ public class GradeByStepController extends AbstractController {
 
 			String projectName = run.getProject().getName();
 			
+			String configUrl = portalurl + "/webapp/student/vle/vle.html?action=getVLEConfig&runId=" + run.getId().toString();
+			
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(RUN_ID, runId);
 			modelAndView.addObject(GRADE_BY_STEP_URL, gradebystepurl);
-			modelAndView.addObject(CONTENT_URL, contentUrl);
-			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
+			modelAndView.addObject(CONTENT_URL, getContentUrl);
+			modelAndView.addObject(USER_INFO_URL, getUserInfoUrl);
 			modelAndView.addObject(GET_DATA_URL, getDataUrl);
 			modelAndView.addObject("runExtras", run.getExtras());
-			modelAndView.addObject("projectMetadataUrl", projectMetadataUrl);
-			modelAndView.addObject("contentBaseUrl", contentBaseUrl);
+			modelAndView.addObject("getProjectMetadataUrl", getProjectMetadataUrl);
+			modelAndView.addObject("getContentBaseUrl", getContentBaseUrl);
 			modelAndView.addObject("getAnnotationsUrl", getAnnotationsUrl);
 			modelAndView.addObject("postAnnotationsUrl", postAnnotationsUrl);
 			modelAndView.addObject("runId", runId);
@@ -128,6 +130,8 @@ public class GradeByStepController extends AbstractController {
 			modelAndView.addObject("postFlagsUrl", postFlagsUrl);
 			
 			modelAndView.addObject("projectName", projectName);
+			
+			modelAndView.addObject("configUrl", configUrl);
 			
 			return modelAndView;
 		}

@@ -58,9 +58,9 @@ public class GradeByWorkgroupController extends AbstractController {
 	
 	private static final String GRADE_BY_WORKGROUP_URL = "gradeByWorkgroupUrl";
 
-	private static final String CONTENT_URL = "contentUrl";
+	private static final String CONTENT_URL = "getContentUrl";
 	
-	private static final String USER_INFO_URL = "userInfoUrl";
+	private static final String USER_INFO_URL = "getUserInfoUrl";
 
 	private static final String GET_DATA_URL = "getDataUrl";
 
@@ -96,7 +96,7 @@ public class GradeByWorkgroupController extends AbstractController {
 			}
 			String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
 			String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
-			String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo"  + "&workgroupId=" + workgroupIdStr;
+			String getUserInfoUrl = portalVLEControllerUrl + "&action=getUserInfo"  + "&workgroupId=" + workgroupIdStr;
 			
 			
 	    	String gradebyworkgroupurl = portalurl + "/vlewrapper/gradebyworkgroup.html";
@@ -110,7 +110,7 @@ public class GradeByWorkgroupController extends AbstractController {
 			modelAndView.addObject(GRADE_BY_WORKGROUP_URL, gradebyworkgroupurl);
 	    	modelAndView.addObject("contentBaseUrl", contentBaseUrl);
 			modelAndView.addObject(CONTENT_URL, contentUrl);
-			modelAndView.addObject(USER_INFO_URL, userInfoUrl);
+			modelAndView.addObject(USER_INFO_URL, getUserInfoUrl);
 			modelAndView.addObject(GET_DATA_URL, getDataUrl);
 				modelAndView.addObject("getAnnotationsUrl", getAnnotationsUrl);
 			modelAndView.addObject("postAnnotationsUrl", postAnnotationsUrl);

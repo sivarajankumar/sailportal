@@ -109,6 +109,8 @@ public class StudentVLEController extends AbstractController {
 				return handleGetVLEConfig(request, response, run);
 			} else if (action.equals("getRunInfo")) {
 				return handleGetRunInfo(request, response, run);
+			} else if (action.equals("getRunExtras")) {
+				return handleGetRunExtras(request, response, run);
 			} else {
 				// shouldn't get here
 				throw new RuntimeException("should not get here");
@@ -136,6 +138,30 @@ public class StudentVLEController extends AbstractController {
 
 		response.setContentType("text/xml");
 		response.getWriter().print(runInfoString);
+		return null;
+	}
+	
+	/**
+	 * Retrns the RunExtras JSON string containing information like
+	 * the maxscores that teacher defines
+	 * @param request
+	 * @param response
+	 * @param run
+	 * @return
+	 * @throws IOException 
+	 */
+	private ModelAndView handleGetRunExtras(HttpServletRequest request,
+			HttpServletResponse response, Run run) throws IOException {
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+
+		String runExtras = run.getExtras();
+		if (runExtras == null) {
+			runExtras = "";
+		}
+		response.setContentType("text/json");
+		response.getWriter().print(runExtras);
 		return null;
 	}
 
@@ -332,17 +358,21 @@ public class StudentVLEController extends AbstractController {
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 
-		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-		contentUrl = curriculumBaseWWW + contentUrl;
-		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
-		if(lastIndexOfSlash==-1){
-			lastIndexOfSlash = contentUrl.lastIndexOf("\\");
-		}
-		String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash) + "/";
-		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
-		String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
-		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
+		String getContentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		getContentUrl = curriculumBaseWWW + getContentUrl;
+		int lastIndexOfDot = getContentUrl.lastIndexOf(".");
+		String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + "-meta.json";
 
+		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
+		if(lastIndexOfSlash==-1){
+			lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
+		}
+		String contentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
+		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
+		String getUserInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
+		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
+		String getRunExtrasUrl = portalVLEControllerUrl + "&action=getRunExtras";
+		
 		String previewRequest = request.getParameter(PREVIEW);
 		boolean isPreview = false;
 		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
@@ -350,7 +380,7 @@ public class StudentVLEController extends AbstractController {
 		}
 		
 		if (isPreview) {
-			userInfoUrl += "&preview=true";
+			getUserInfoUrl += "&preview=true";
 		}
 		
 		//String getDataUrl = portalurl + "/vlewrapper/getdata.html";
@@ -423,14 +453,14 @@ public class StudentVLEController extends AbstractController {
 		
 		//vleConfigString.append("<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>");
 		try {
-			config.put("userInfoUrl", userInfoUrl);
+			config.put("getUserInfoUrl", getUserInfoUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		
 		//vleConfigString.append("<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>");
 		try {
-			config.put("contentUrl", contentUrl);
+			config.put("getContentUrl", getContentUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -458,7 +488,7 @@ public class StudentVLEController extends AbstractController {
 		
 		//vleConfigString.append("<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>");
 		try {
-			config.put("runInfoUrl", getRunInfoUrl);
+			config.put("getRunInfoUrl", getRunInfoUrl);
 		} catch (JSONException e6) {
 			e6.printStackTrace();
 		}
@@ -504,6 +534,20 @@ public class StudentVLEController extends AbstractController {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			config.put("getRunExtrasUrl", getRunExtrasUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 		//vleConfigString.append("</VLEConfig>");
 

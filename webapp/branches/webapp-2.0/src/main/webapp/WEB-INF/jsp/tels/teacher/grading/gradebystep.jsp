@@ -66,6 +66,8 @@
 
 	var projectName = "${projectName}";
 
+	var configUrl = "${configUrl}";
+
 	var getMetadataUrl = "${projectMetadataUrl}";
 
 	var runExtrasStr = '${runExtras}';
@@ -75,7 +77,8 @@
 	//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
 	//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
 	//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-	window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl, projectName, getMetadataUrl);
+	//window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl, projectName, getMetadataUrl);
+	window.frames["topifrm"].load(configUrl);
 }
 	
 	function foo() {
