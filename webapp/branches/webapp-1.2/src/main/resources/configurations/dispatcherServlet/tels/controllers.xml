@@ -314,6 +314,7 @@
 	
 	<bean id="studentVLEController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentVLEController">
+		<property name="userService" ref="userService" />
 	    <property name="runService" ref="runService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="portalProperties" ref="portalproperties" />

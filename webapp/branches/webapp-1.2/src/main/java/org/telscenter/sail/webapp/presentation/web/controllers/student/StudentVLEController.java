@@ -37,10 +37,14 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -56,6 +60,8 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  * @version $Id$
  */
 public class StudentVLEController extends AbstractController {
+
+	private UserService userService;
 
 	private RunService runService;
 	
@@ -174,8 +180,12 @@ public class StudentVLEController extends AbstractController {
 	private Workgroup getWorkgroup(HttpServletRequest request, Run run)
 	throws ObjectNotFoundException {
 		Workgroup workgroup = null;
-		User user = (User) request.getSession().getAttribute(
-    			User.CURRENT_USER_SESSION_KEY);
+		//User user = (User) request.getSession().getAttribute(
+    	//		User.CURRENT_USER_SESSION_KEY);
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
+		
 		List<Workgroup> workgroupListByOfferingAndUser 
 		= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
 
@@ -616,4 +626,12 @@ public class StudentVLEController extends AbstractController {
 	public void setPortalProperties(Properties portalProperties) {
 		this.portalProperties = portalProperties;
 	}
+	
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 }
