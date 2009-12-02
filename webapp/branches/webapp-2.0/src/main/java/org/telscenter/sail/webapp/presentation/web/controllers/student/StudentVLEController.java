@@ -367,7 +367,7 @@ public class StudentVLEController extends AbstractController {
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
 		}
-		String contentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
+		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 		String getUserInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
 		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
@@ -467,7 +467,7 @@ public class StudentVLEController extends AbstractController {
 		
 		//vleConfigString.append("<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>");
 		try {
-			config.put("contentBaseUrl", contentBaseUrl);
+			config.put("getContentBaseUrl", getContentBaseUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
