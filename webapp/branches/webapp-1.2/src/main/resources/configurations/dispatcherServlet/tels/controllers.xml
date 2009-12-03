@@ -807,6 +807,7 @@
 	<bean id="viewAllUsersController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ViewAllUsersController">
 		<property name="userService" ref="userService" />
+		<property name="userDetailsService" ref="userDetailsService" />
 	</bean>
 	
     <bean id="lookupUserController"

@@ -42,11 +42,11 @@
 
 <div id="adminTitle">User Management</div>
 	<div style="margin:0 0 0 25px;"> 
-		<h5><a href="manageusers.html">Manage Users</a></h5>
-		<h5><a href="manageusers.html?onlyShowLoggedInUser=true">Show Currently-Logged In Users</a></h5>
-		<h5><a href="lookupteacher.html">Lookup Teacher</a></h5>
-		<h5><a href="lookupstudent.html">Lookup Student</a></h5>
-		<h5 style="color:#999999;">Look up User</h5>
+		<h5>List: <a href="manageusers.html?userType=teacher">Teachers</a> | 
+				  <a href="manageusers.html?userType=student">Students</a> |
+				  <a href="manageusers.html?onlyShowLoggedInUser=true">All Currently-Logged In Users</a>
+		</h5>
+		<h5>Search: <a href="lookupteacher.html">Teacher</a> | <a href="lookupstudent.html">Student</a></h5>
 		<!-- <h5><a href="lookupuser.html">Look up User</a></h5>-->
 	</div>
 

@@ -105,10 +105,16 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
      */
     @SuppressWarnings("unchecked")
     public List<User> retrieveByField(String field, String type, Object term, String classVar){
-    	return this.getHibernateTemplate().findByNamedParam(
-    			"select user from UserImpl user, " + capitalizeFirst(classVar) + " " +
-    			classVar +	" where user.userDetails.id = " + classVar + ".id and " +
-    			classVar + "."	+ field + " " +	type + " :term", "term", term);
+    	if (field == null && type == null && term == null) {
+    		return this.getHibernateTemplate().find(
+    				"select user from UserImpl user, " + capitalizeFirst(classVar) + " " +
+    				classVar +	" where user.userDetails.id = " + classVar + ".id");
+    	} else {
+    		return this.getHibernateTemplate().findByNamedParam(
+    				"select user from UserImpl user, " + capitalizeFirst(classVar) + " " +
+    				classVar +	" where user.userDetails.id = " + classVar + ".id and " +
+    				classVar + "."	+ field + " " +	type + " :term", "term", term);
+    	}
     }
     
     /**

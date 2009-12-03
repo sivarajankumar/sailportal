@@ -22,6 +22,11 @@
  */
 package org.telscenter.sail.webapp.service.authentication;
 
+import java.util.List;
+
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+
+
 /**
  * Provides TELS-specific ROLES on top of what is already
  * available in PAS
@@ -47,4 +52,9 @@ public interface UserDetailsService extends
 	public static final String PROJECT_WRITE_ROLE = "ROLE_WRITE_PROJECT";
 
 	public static final String PROJECT_SHARE_ROLE = "ROLE_SHARE_PROJECT";
+
+	public List<MutableUserDetails> retrieveAllUserDetails(String userDetailsClassName);
+
+	public List<String> retrieveAllUsernames(String userDetailsClassName);
+
 }
