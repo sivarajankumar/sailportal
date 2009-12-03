@@ -34,9 +34,11 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.presentation.web.listeners.PasSessionListener;
 import net.sf.sail.webapp.service.UserService;
 
-import org.springframework.security.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
  * @author Sally Ahn
@@ -45,6 +47,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class ViewAllUsersController extends AbstractController{
 
 	private UserService userService;
+	
+	private UserDetailsService userDetailsService;
 
 	protected static final String VIEW_NAME = "admin/manageusers";
 
@@ -52,9 +56,15 @@ public class ViewAllUsersController extends AbstractController{
 
 	protected static final String STUDENTS = "students";
 
+	protected static final String STUDENT = "student";
+
+	protected static final String TEACHER = "teacher";
+
 	protected static final String ADMINS = "admins";
 
 	protected static final String OTHER = "other";
+
+	protected static final String USER_TYPE = "userType";
 
 	private static final String USERNAMES = "usernames";
 	
@@ -85,31 +95,22 @@ public class ViewAllUsersController extends AbstractController{
 			}
 			modelAndView.addObject(LOGGED_IN_USERNAMES, loggedInUsernames);
 		} else {
-			//List<User> allUsers = this.userService.retrieveAllUsers();
-			List<String> allUsernames = this.userService.retrieveAllUsernames();
-			modelAndView.addObject(USERNAMES, allUsernames);
+			// result depends on passed-in userType parameter
+			String userType = servletRequest.getParameter(USER_TYPE);
+			if (userType == null) {
+				List<String> allUsernames = this.userService.retrieveAllUsernames();
+				modelAndView.addObject(USERNAMES, allUsernames);
+			} else if (userType.equals(STUDENT)) {
+
+				List<String> usernames = this.userDetailsService.retrieveAllUsernames(StudentUserDetails.class.getName());
+				modelAndView.addObject(STUDENTS, usernames);
+			} else if (userType.equals(TEACHER)) {
+				List<String> usernames = this.userDetailsService.retrieveAllUsernames(TeacherUserDetails.class.getName());
+
+				modelAndView.addObject(TEACHERS, usernames);				
+			}
 		}
 		return modelAndView;
-	}
-
-	private boolean isAdmin(GrantedAuthority[] authorities){
-		return isRole(authorities, "ROLE_ADMINISTRATOR");
-	}
-
-	private boolean isTeacher(GrantedAuthority[] authorities){
-		return isRole(authorities, "ROLE_TEACHER");
-	}
-
-	private boolean isStudent(GrantedAuthority[] authorities){
-		return isRole(authorities, "ROLE_STUDENT");
-	}
-
-	private boolean isRole(GrantedAuthority[] authorities, String role){
-		for(GrantedAuthority authority : authorities){
-			if(authority.getAuthority().equals(role))
-				return true;
-		}
-		return false;
 	}
 
 	/**
@@ -117,5 +118,12 @@ public class ViewAllUsersController extends AbstractController{
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * @param userDetailsService the userDetailsService to set
+	 */
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
 	}
 }

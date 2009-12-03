@@ -23,7 +23,6 @@
 package org.telscenter.sail.webapp.domain.admin;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +41,15 @@ import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 
 /**
+ * A cron job for TELS portal.
+ * 
+ * Currently, it gathers the following info:
+ * - Number of Runs started in the last day
+ * - Number of Teachers and Students that created accounts in the last day
+ * - Number of Users that logged in at least once in the last day
+ * 
+ * It then sends an email to whomever is listening, defined in emaillisteners.
+ * 
  * @author hirokiterashima
  * @version $Id:$
  */
@@ -72,6 +80,12 @@ public class AdminJob extends QuartzJobBean {
 	 * @see org.springframework.scheduling.quartz.QuartzJobBean#executeInternal(org.quartz.JobExecutionContext)
 	 */
 	protected void executeInternal(JobExecutionContext ctx) throws JobExecutionException {
+		String messageBody = getSummaryMessage();
+		sendEmail(messageBody);
+	}
+
+
+	private String getSummaryMessage() {
 		// do the actual work
 		String messageBody = "";
 		DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
@@ -92,8 +106,16 @@ public class AdminJob extends QuartzJobBean {
 		messageBody += "Number of Students joined between " 
 			+ df.format(yesterday) + " and " + df.format(today) + ": "
 			+ studentsJoinedSinceYesterday.size();
-
-		sendEmail(messageBody);
+		
+		// Number of Users that logged in at least once in the last day
+		List<User> studentsWhoLoggedInSinceYesterday = findUsersWhoLoggedInSinceYesterday("studentUserDetails");
+		List<User> teachersWhoLoggedInSinceYesterday = findUsersWhoLoggedInSinceYesterday("teacherUserDetails");
+		int totalNumUsersLoggedInSinceYesterday = studentsWhoLoggedInSinceYesterday.size() + teachersWhoLoggedInSinceYesterday.size();
+		messageBody += "\n\n";
+		messageBody += "Number of users who logged in at least once between " 
+			+ df.format(yesterday) + " and " + df.format(today) + ": "
+			+ totalNumUsersLoggedInSinceYesterday;
+		return messageBody;
 	}
 
 
@@ -123,6 +145,17 @@ public class AdminJob extends QuartzJobBean {
 		return runsStartedSinceYesterday;
 	}
 
+	private List<User> findUsersWhoLoggedInSinceYesterday(String who) {
+		String field = "lastLoginTime";
+		String type = ">";
+		Object term = yesterday;
+		String classVar = who;
+
+		List<User> usersJoinedSinceYesterday =
+			userDao.retrieveByField(field, type, term, classVar);
+		
+		return usersJoinedSinceYesterday;		
+	}
 	
 	public void sendEmail(String message) {
 		String[] recipients = {emaillisteners.getProperty("uber_admin")};
@@ -156,7 +189,6 @@ public class AdminJob extends QuartzJobBean {
 		this.emaillisteners = emaillisteners;
 	}
 
-
 	/**
 	 * @param portalProperties the portalProperties to set
 	 */
@@ -170,7 +202,6 @@ public class AdminJob extends QuartzJobBean {
 	public void setRunDao(RunDao<Run> runDao) {
 		this.runDao = runDao;
 	}
-
 
 	/**
 	 * @param userDao the userDao to set

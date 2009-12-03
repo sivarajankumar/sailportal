@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.service.authentication.impl;
 
+import java.util.List;
+
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
@@ -31,5 +34,14 @@ import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 public class UserDetailsServiceImpl extends
 		net.sf.sail.webapp.service.authentication.impl.UserDetailsServiceImpl
 		implements UserDetailsService {
+
+	public List<MutableUserDetails> retrieveAllUserDetails(
+			String userDetailsClassname) {
+			return 	this.userDetailsDao.retrieveAll(userDetailsClassname);
+	}
+
+	public List<String> retrieveAllUsernames(String userDetailsClassName) {
+		return this.userDetailsDao.retrieveAll(userDetailsClassName, "username");
+	}
 	
 }

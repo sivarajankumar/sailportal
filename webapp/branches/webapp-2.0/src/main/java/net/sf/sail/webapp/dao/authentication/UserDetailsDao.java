@@ -17,6 +17,10 @@
  */
 package net.sf.sail.webapp.dao.authentication;
 
+import java.util.List;
+
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 
@@ -46,4 +50,25 @@ public interface UserDetailsDao<T extends MutableUserDetails> extends
      * @return A new instance of a data object.
      */
     public T retrieveByName(String name);
+    
+    /**
+     * Given an input string retrieve a corresponding record from data store.
+     * 
+     * @param name
+     *            A string representing the name of the data in the data store.
+     * @return A new instance of a data object.
+     */
+    public List<T> retrieveAll(String className);
+    
+    /**
+     * Given an input string retrieve a corresponding record from data store.
+     * 
+     * @param name
+     *            A string representing the name of the data in the data store.
+     * @param field
+     *            A string representing the field of the data in the data store. e.g. username
+     *            
+     * @return A new instance of a data object.
+     */
+    public List<String> retrieveAll(String className, String field);
 }

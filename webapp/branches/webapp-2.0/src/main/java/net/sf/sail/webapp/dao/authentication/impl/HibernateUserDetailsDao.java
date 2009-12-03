@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.dao.authentication.impl;
 
+import java.util.List;
+
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -52,8 +54,24 @@ public class HibernateUserDetailsDao extends
                                 "from PersistentUserDetails as user_details where upper(user_details.username) = :username",
                                 "username", username.toUpperCase()));
     }
+    
 
-    /**
+	@SuppressWarnings("unchecked")
+	public List<MutableUserDetails> retrieveAll(String userDetailsClassName) {
+		   return this
+                   .getHibernateTemplate()
+                   .find("from " + userDetailsClassName);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> retrieveAll(String userDetailsClassName, String field) {
+		   return this
+                   .getHibernateTemplate()
+                   .find("select user_details."+ field +" from PersistentUserDetails as user_details, " + userDetailsClassName + 
+                		   " as user_details_child where user_details.id=user_details_child.id");
+	}
+
+	/**
      * @see net.sf.sail.webapp.dao.authentication.UserDetailsDao#hasUsername(java.lang.String)
      */
     public boolean hasUsername(String username) {
