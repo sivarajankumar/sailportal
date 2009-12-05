@@ -29,13 +29,15 @@ import java.io.Serializable;
  * new project
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class AddProjectParameters implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String projectcode;
+	private String runCode_part1;    // first part of projectcode, e.g. "Swan155"
+	private String runCode_part2;    // period, e.g. "1"
 
 	/**
 	 * @return the projectcode
@@ -51,5 +53,31 @@ public class AddProjectParameters implements Serializable {
 		this.projectcode = projectcode;
 	}
 	
+	/**
+	 * @return the runCode_part1
+	 */
+	public String getRunCode_part1() {
+		return runCode_part1;
+	}
 
+	/**
+	 * @param runCodePart1 the runCode_part1 to set
+	 */
+	public void setRunCode_part1(String runCodePart1) {
+		runCode_part1 = runCodePart1;
+	}
+
+	/**
+	 * @return the runCode_part2
+	 */
+	public String getRunCode_part2() {
+		return runCode_part2;
+	}
+
+	/**
+	 * @param runCodePart2 the runCode_part2 to set
+	 */
+	public void setRunCode_part2(String runCodePart2) {
+		runCode_part2 = runCodePart2;
+	}
 }

@@ -33,11 +33,74 @@
 <script src=".././javascript/tels/effects.js" type="text/javascript" > </script>
 <script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
-<title><spring:message code="student.signup.title" /></title>
+<!-- Dependency -->
+<script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js"></script>
+<!-- Used for Custom Events and event listener bindings -->
+<script src="http://yui.yahooapis.com/2.8.0r4/build/event/event-min.js"></script>
+<script src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection_core-min.js"></script>
 
+
+<title><spring:message code="student.signup.title" /></title>
+<script type="text/javascript">
+function findPeriods() {
+	var callback =
+		{
+		  success: function(o) {
+  			var periodSelect = document.getElementById("runCode_part2");
+			periodSelect.innerHTML = "";
+			// o.responseText can be either "not found" (when runcode doesn't point to an existing run
+		  	// or "1,2,3,4,5,...", a comma-separated values of period names
+		  	var responseText = o.responseText;
+		  	if (responseText == "not found" || responseText.length < 2) {
+		  		alert("The Access Code is invalid. Please talk with your teacher");
+		  	} else {
+  				periodSelect.innerHTML += "<option value=''>Please Choose...</option>";
+			  	
+			  	var periodsArr = responseText.split(",");
+		  		for (var i=0; i < periodsArr.length; i++) {
+			  		var periodName = periodsArr[i];
+			  		if (periodName != "") {
+		  				periodSelect.innerHTML += "<option value='"+periodName+"'>"+periodName+"</option>";
+			  		}
+		  		}
+		  		periodSelect.disabled = false;
+		  	}
+		  },
+		  failure: function(o) {
+			  alert('failure');
+		  },
+		  argument: []
+		}
+	var runcode = document.getElementById("runCode_part1").value;
+	if (runcode != null && runcode != "") {
+		var transaction = YAHOO.util.Connect.asyncRequest('GET', "/webapp/runinfo.html?runcode=" + runcode, callback, null); 
+	}
+}
+
+function createAccount() {
+	var runcode = document.getElementById("runCode_part1").value;
+	var period = document.getElementById("runCode_part2").value;
+
+	if (runcode != null && period != null && period != "") {
+		var projectCode = document.getElementById("projectCode");
+		projectCode.value = runcode + "-" + period;
+		document.getElementById("studentRegForm").submit();		
+	} else {
+		alert('invalid project code. Please talk to your teacher');
+	}
+}
+
+
+function setup() {
+	var runcode= document.getElementById('runCode_part1').value;
+	if (runcode != null && runcode != "") {
+		findPeriods();
+	}
+}
+</script>
 </head>
 
-<body>
+<body onload="setup();">
 
 <div id="centeredDiv">
 
@@ -143,16 +206,22 @@ document.getElementById('firstname').focus();
 	  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
 	      <span class="hint">Answer the Security question here.<span class="hint-pointer"></span></span>			
           </dd>
-      
-      <dt style="margin-top:15px;"><label for="projectCode" id="projectCode1">Access Code:</label></dt>
-	  <dd style="margin-top:15px;"><form:input path="projectCode" id="projectCode" size="25" maxlength="25" tabindex="10"/>
-       	  <form:errors path="projectCode" />
+
+      <dt style="margin-top:15px;"><label for="runCode_part1" id="runCode_part1_label">Access Code:</label></dt>
+	  <dd style="margin-top:15px;"><form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
+       	  <form:errors path="runCode_part1" />
           <span class="hint">Ask your teacher for the access code.<span class="hint-pointer"></span></span></dd>
 
-    </dl>
+      <dt style="margin-top:15px;"><label for="runCode_part2" id="runCode_part2_label">Period:</label></dt>
+	  <dd style="margin-top:15px;"><form:select path="runCode_part2" id="runCode_part2" tabindex="11" disabled="true">
+	  							   </form:select>
+       	  <form:errors path="runCode_part2" />
+          <span class="hint">What period are you in?<span class="hint-pointer"></span></span></dd>
+      
+	  <form:hidden path="projectCode" id="projectCode"/>
                
  	  <div id="regButtons">
- 	    <input type="image" id="save" src="../themes/tels/default/images/CreateAccount.png" 
+ 	    <input type="image" id="save" onclick="createAccount()" src="../themes/tels/default/images/CreateAccount.png" 
     onmouseover="swapImage('save','../themes/tels/default/images/CreateAccountRoll.png')" 
     onmouseout="swapImage('save','../themes/tels/default/images/CreateAccount.png')"
     />

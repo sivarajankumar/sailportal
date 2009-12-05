@@ -273,6 +273,7 @@ YAHOO.util.Event.onDOMReady(init);
 </style>
 <![endif]-->
 
+<script src=".././javascript/tels/classAnim.js" type="text/javascript" > </script>
 <script>  YAHOO.util.Event.onAvailable("TestClassAnim", function(){ var anim = new 
 		  YAHOO.mozmonkey.ClassAnim("TestClassAnim"); var start = 0; 
 		  YAHOO.util.Event.addListener("TestClassAnim", "mouseover", function(){ anim.addClass("classAnimHover"); }); 
@@ -325,7 +326,6 @@ YAHOO.util.Event.onDOMReady(init);
 
 <div id="optionButtons">
 	<ul>
-	<!-- 
 	<li>
 		<a href="#"
 		onmouseover="swapImage('studentaddproject','../<spring:theme code="student_add_project_roll" />');"
@@ -333,10 +333,11 @@ YAHOO.util.Event.onDOMReady(init);
 		class="addprojectLink"> <img id="studentaddproject"
 		src="../<spring:theme code="student_add_project" />" /> </a>
 	</li>
-	-->
+<!--
 	<li>
 		<a href="addproject.html">Add Project</a>
 	</li>
+	-->
 		
 	<!-- note: to make the change to student password into AJAX, type in class="changepasswordLink" -->	
 	
@@ -630,7 +631,7 @@ If you want to save work to an archived project run, ask your teacher to change 
 
 
 <iframe id="addProjectFrame" src="" width="100%" FRAMEBORDER="0"
-	allowTransparency="false" scrolling="no"> </iframe>
+	allowTransparency="false" scrolling="yes"> </iframe>
 	
 </div>
 </div>

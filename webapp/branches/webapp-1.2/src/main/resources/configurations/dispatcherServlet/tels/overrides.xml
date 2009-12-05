@@ -103,7 +103,6 @@
     		    /student/index.html=studentIndexController
     		    /student/vle/vle.html=studentVLEController
     		    /student/vle/studentdata.html=studentDataController
-    		    /student/vle/basic_example_otml.html=basicExampleController
     		    /student/selectteam.html=selectteamController
     		    /student/teamsignin.html=teamSignInController
     		    /student/addproject.html=addProjectController
@@ -286,6 +285,7 @@
 				/student/viewannouncements.html=viewAnnouncementsController
 				/createhierarchytype.html=createHierarchyTypeController
 				/createnode.html=createNodeController
+				/runInfo.html=runInfoController
 				/managehierarchytypes.html=manageHierarchyTypesController
 				/managehierarchy.html=manageHierarchyController
 				<!-- /reposit.html=repositController  -->

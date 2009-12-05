@@ -351,13 +351,9 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 	
-	<bean id="basicExampleController" 
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.BasicExampleController">
+	<bean id="runInfoController" 
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.RunInfoController">
 	    <property name="runService" ref="runService" />
-	    <property name="studentService" ref="studentService" />
-		<property name="brainstormService" ref="brainstormService" />
-	    <property name="workgroupService" ref="wiseWorkgroupService" />
-		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
 	<bean id="createRunController"

@@ -35,7 +35,9 @@ public class StudentAccountForm extends UserAccountForm {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String projectCode;
+	private String projectCode;      // e.g. "Swan155-1"
+	private String runCode_part1;    // first part of projectcode, e.g. "Swan155"
+	private String runCode_part2;    // period, e.g. "1"
 	private String accountQuestion;
 	private String accountAnswer;
 	private String birthmonth;
@@ -119,5 +121,33 @@ public class StudentAccountForm extends UserAccountForm {
 	 */
 	public void setBirthmonth(String birthmonth) {
 		this.birthmonth = birthmonth;
+	}
+
+	/**
+	 * @return the runCode_part1
+	 */
+	public String getRunCode_part1() {
+		return runCode_part1;
+	}
+
+	/**
+	 * @param runCodePart1 the runCode_part1 to set
+	 */
+	public void setRunCode_part1(String runCodePart1) {
+		runCode_part1 = runCodePart1;
+	}
+
+	/**
+	 * @return the runCode_part2
+	 */
+	public String getRunCode_part2() {
+		return runCode_part2;
+	}
+
+	/**
+	 * @param runCodePart2 the runCode_part2 to set
+	 */
+	public void setRunCode_part2(String runCodePart2) {
+		runCode_part2 = runCodePart2;
 	}
 }
