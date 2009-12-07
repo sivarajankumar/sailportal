@@ -85,7 +85,7 @@ public class AdminJob extends QuartzJobBean {
 	}
 
 
-	private String getSummaryMessage() {
+	public String getSummaryMessage() {
 		// do the actual work
 		String messageBody = "";
 		DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
@@ -119,7 +119,7 @@ public class AdminJob extends QuartzJobBean {
 	}
 
 
-	private List<User> findUsersJoinedSinceYesterday(String who) {
+	public List<User> findUsersJoinedSinceYesterday(String who) {
 		String field = "signupdate";
 		String type = ">";
 		Object term = yesterday;
@@ -135,7 +135,7 @@ public class AdminJob extends QuartzJobBean {
 	/**
 	 * Finds number of runs that were created since yesterday
 	 */
-	private List<Run> findRunsCreatedSinceYesterday() {
+	public List<Run> findRunsCreatedSinceYesterday() {
 		String field = "starttime";
 		String type = ">";
 		Object term = yesterday;
@@ -145,7 +145,7 @@ public class AdminJob extends QuartzJobBean {
 		return runsStartedSinceYesterday;
 	}
 
-	private List<User> findUsersWhoLoggedInSinceYesterday(String who) {
+	public List<User> findUsersWhoLoggedInSinceYesterday(String who) {
 		String field = "lastLoginTime";
 		String type = ">";
 		Object term = yesterday;

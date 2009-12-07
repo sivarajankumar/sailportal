@@ -50,6 +50,46 @@
 <c:otherwise>
 
 <c:choose>
+<c:when test="${studentsWhoLoggedInSinceYesterday != null && teachersWhoLoggedInSinceYesterday != null}">
+Teachers who logged in today:
+<table id="teachersTable" border="2">
+	<c:forEach var="user" items="${teachersWhoLoggedInSinceYesterday}">
+		<c:set var="username" value="${user.userDetails.username}"></c:set>
+		<tr>
+			<td>${username}</td>
+			<td><a href="#"
+				onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${username}');">Change
+			Password</a></td>
+			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
+			in as this user</a></td>
+			<td><a href="#"
+				onclick="javascript:popup640('../teacherinfo.html?userName=${username}');">info</a></td>
+			<td>${user.userDetails.schoolname}</td>
+		</tr>
+	</c:forEach>
+</table>
+<br/><br/>
+Students who logged in today:
+<table id="teachersTable" border="2">
+	<c:forEach var="user" items="${studentsWhoLoggedInSinceYesterday}">
+		<c:set var="username" value="${user.userDetails.username}"></c:set>
+		<tr>
+			<td>${username}</td>
+			<td><a href="#"
+				onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${username}');">Change
+			Password</a></td>
+			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
+			in as this user</a></td>
+			<td><a href="#"
+				onclick="javascript:popup640('../teacherinfo.html?userName=${username}');">info</a></td>
+		</tr>
+	</c:forEach>
+</table>
+		
+</c:when>
+<c:otherwise>
+
+<c:choose>
 <c:when test="${fn:length(teachers) > 0}">
 <div>Total number of teachers: ${fn:length(teachers)}</div>
 <table id="teachersTable" border="2">
@@ -85,6 +125,10 @@
 </table>
 </c:otherwise>
 </c:choose>
+
+</c:otherwise>
+</c:choose>
+
 
 </c:otherwise>
 
