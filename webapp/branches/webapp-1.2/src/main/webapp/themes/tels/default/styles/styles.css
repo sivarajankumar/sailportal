@@ -312,7 +312,7 @@
 /* STYLES FOR POP-UP WINDOWS  */
 #popUpWindow1 {
 	width: 600px;
-	height: 120px;
+	height: 140px;
 	background-image: url(../images/student/Gradient-ProjectMenu-Green-450.png);
 	background-position: center bottom;
 	background-repeat: repeat-x;
@@ -334,12 +334,12 @@
 	}
 
 #addproject a {
-	position:absolute;
-	left:350px;
+	display:block;
+	margin: 10px 0 10px 110px;
 	color:blue;
-	font-style:italic;
-	text-decoration:none;
 	padding:2px;	
+	font-size:90%;
+	
 }
 
 #addproject a:hover {

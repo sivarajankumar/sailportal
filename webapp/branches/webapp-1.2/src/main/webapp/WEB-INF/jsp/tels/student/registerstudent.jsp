@@ -100,7 +100,7 @@ function setup() {
 </script>
 </head>
 
-<body onload="setup();">
+<body>
 
 <div id="centeredDiv">
 
@@ -207,13 +207,13 @@ document.getElementById('firstname').focus();
 	      <span class="hint">Answer the Security question here.<span class="hint-pointer"></span></span>			
           </dd>
 
-      <dt><label for="runCode_part1" id="runCode_part1_label">Access Code:</label></dt>
-	  <dd><form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
+<dt><label for="runCode_part1" id="runCode_part1_label">Access Code:</label></dt>
+	  <dd><form:input path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
        	  <form:errors path="runCode_part1" />
           <span class="hint">Ask your teacher for the access code.<span class="hint-pointer"></span></span></dd>
 
 		<dt><label for="runCode_part1" id="runCode_part1_label"></label></dt>
-	  <dd ><a href="#" class="periodLink">enter access code, then click here to see class periods</a></dd>
+	  <dd ><a href="#" onclick="findPeriods();" class="periodLink">click here to see class periods (after entering access code)</a></dd>
 
 
       <dt><label for="runCode_part2" id="runCode_part2_label">Class Period:</label></dt>
@@ -223,7 +223,7 @@ document.getElementById('firstname').focus();
           <span class="hint">Select your period from the list.<span class="hint-pointer"></span></span></dd>
       
 	  <form:hidden path="projectCode" id="projectCode"/>
-         
+               
 	 </dl>
       
  	  <div id="regButtons">

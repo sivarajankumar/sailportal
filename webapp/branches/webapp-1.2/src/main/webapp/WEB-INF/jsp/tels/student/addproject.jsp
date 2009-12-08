@@ -116,9 +116,8 @@ function setup() {
   <div>
       <label for="runCode_part1" id="runCode_part1_label">Access Code:</label>
 	  <form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="1"/>
-	  <a href=#" class="viewPeriodsLink">View Periods</a>
-	  <br/><br/>
-
+	  <a href=#" class="viewPeriodsLink">click here to see class periods (after entering access code)</a>
+	 
       <label for="runCode_part2" id="runCode_part2_label">Period:</label>
 	  <form:select path="runCode_part2" id="runCode_part2" tabindex="2" disabled="true"></form:select>
       
