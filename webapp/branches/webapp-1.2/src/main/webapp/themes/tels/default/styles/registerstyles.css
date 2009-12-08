@@ -52,6 +52,18 @@
 #studentRegForm dd {
 	padding: 4px 0 3px 0px;
 }
+
+#studentRegForm .periodLink { 
+	color:blue;
+	font-size:75%;
+	padding:2px;
+	text-decoration:none;
+	}
+
+#studentRegForm .periodLink:hover { 
+	background-color:#FFFF00;
+	}
+	
 #teacherRegForm {
 	margin-top:20px;
 	}

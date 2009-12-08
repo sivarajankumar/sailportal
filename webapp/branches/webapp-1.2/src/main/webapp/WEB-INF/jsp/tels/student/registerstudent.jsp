@@ -29,9 +29,9 @@
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<script src=".././javascript/tels/general.js" type="text/javascript" > </script>
-<script src=".././javascript/tels/effects.js" type="text/javascript" > </script>
-<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="../javascript/tels/general.js" type="text/javascript" > </script>
+<script src="../javascript/tels/effects.js" type="text/javascript" > </script>
+<script src="../javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <!-- Dependency -->
 <script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js"></script>
@@ -54,7 +54,7 @@ function findPeriods() {
 		  	if (responseText == "not found" || responseText.length < 2) {
 		  		alert("The Access Code is invalid. Please talk with your teacher");
 		  	} else {
-  				periodSelect.innerHTML += "<option value=''>Please Choose...</option>";
+  				periodSelect.innerHTML += "<option value=''>Select your class period...</option>";
 			  	
 			  	var periodsArr = responseText.split(",");
 		  		for (var i=0; i < periodsArr.length; i++) {
@@ -156,7 +156,7 @@ document.getElementById('firstname').focus();
     <dt><label for="studentBirthMonth"><spring:message code="student.registerstudent.10"/></label></dt>
 	<dd><form:select path="birthmonth" id="birthmonth" tabindex="4">
 		<form:errors path="birthmonth" />
-		<c:forEach var="month" begin="01" end="12" step="1">
+		<c:forEach var="month" begin="1" end="12" step="1">
 			<form:option value="${month}">
 				<spring:message code="birthmonths.${month}" />
 			</form:option>
@@ -168,7 +168,7 @@ document.getElementById('firstname').focus();
 	  <dt><label for="studentBirthDate"><spring:message code="student.registerstudent.12"/></label></dt>
 	  <dd><form:select path="birthdate" id="birthdate" tabindex="5">
 	      <form:errors path="birthdate" />
-			 <c:forEach var="date" begin="01" end="31" step="1">
+			 <c:forEach var="date" begin="1" end="31" step="1">
 				  <form:option value="${date}">
 				  		<spring:message code="birthdates.${date}" />
 			  	  </form:option>
@@ -178,7 +178,7 @@ document.getElementById('firstname').focus();
                    
 	  <dt><label for="studentPassword">Type a Password:</label></dt>
 	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="6"/>
-      		<form:errors path="userDetails.password"/> 
+<!--      		<form:errors path="userDetails.password"/> -->
       		<span class="hint">Your password can have up to 18 letters or numbers. Create a password that you can remember!<span class="hint-pointer"></span></span> 
             </dd>
 
@@ -188,8 +188,8 @@ document.getElementById('firstname').focus();
 	        <span class="hint">Type your password in again.<span class="hint-pointer"></span></span>
             </dd>
       
-	  <dt style="margin-top:10px;"><label for="reminderQuestion">Security Question:</label></dt>
-	  <dd style="margin-top:10px;"><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
+	  <dt><label for="reminderQuestion">Security Question:</label></dt>
+	  <dd><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
             <form:errors path="userDetails.accountQuestion" />
         	<c:forEach items="${accountQuestions}" var="questionchoice">
             <form:option value="${questionchoice}">
@@ -207,19 +207,25 @@ document.getElementById('firstname').focus();
 	      <span class="hint">Answer the Security question here.<span class="hint-pointer"></span></span>			
           </dd>
 
-      <dt style="margin-top:15px;"><label for="runCode_part1" id="runCode_part1_label">Access Code:</label></dt>
-	  <dd style="margin-top:15px;"><form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
+      <dt><label for="runCode_part1" id="runCode_part1_label">Access Code:</label></dt>
+	  <dd><form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
        	  <form:errors path="runCode_part1" />
           <span class="hint">Ask your teacher for the access code.<span class="hint-pointer"></span></span></dd>
 
-      <dt style="margin-top:15px;"><label for="runCode_part2" id="runCode_part2_label">Period:</label></dt>
-	  <dd style="margin-top:15px;"><form:select path="runCode_part2" id="runCode_part2" tabindex="11" disabled="true">
+		<dt><label for="runCode_part1" id="runCode_part1_label"></label></dt>
+	  <dd ><a href="#" class="periodLink">enter access code, then click here to see class periods</a></dd>
+
+
+      <dt><label for="runCode_part2" id="runCode_part2_label">Class Period:</label></dt>
+	  <dd><form:select path="runCode_part2" id="runCode_part2" tabindex="11" disabled="true">
 	  							   </form:select>
        	  <form:errors path="runCode_part2" />
-          <span class="hint">What period are you in?<span class="hint-pointer"></span></span></dd>
+          <span class="hint">Select your period from the list.<span class="hint-pointer"></span></span></dd>
       
 	  <form:hidden path="projectCode" id="projectCode"/>
-               
+         
+	 </dl>
+      
  	  <div id="regButtons">
  	    <input type="image" id="save" onclick="createAccount()" src="../themes/tels/default/images/CreateAccount.png" 
     onmouseover="swapImage('save','../themes/tels/default/images/CreateAccountRoll.png')" 

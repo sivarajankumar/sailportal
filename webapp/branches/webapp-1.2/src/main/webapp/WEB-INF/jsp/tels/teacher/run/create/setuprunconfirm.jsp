@@ -56,33 +56,37 @@
 		<table id="projectRunConfirmTable" border="1" cellpadding="5" cellspacing="0" >
 				<tr>
 					<td style="width:14%;"><spring:message code="setuprun.confirmation.run.title" /></td>
-					<td style="width:40%;"><strong><c:out value="${run.sdsOffering.name}" /></strong></td>
-					<td style="width:46%;"></td>
+					<td style="width:40%;"><strong><c:out value="${run.project.name}" /></strong></td>
+					<td class="instructions" style="width:46%;"></td>
+				</tr>
+				<tr>
+					<td style="width:14%;">Project ID:</td>
+					<td style="width:40%;"><strong><c:out value="${run.project.id}" /></strong></td>
+					<td class="instructions"  style="width:46%;">Every source project has a unique ID number.</td>
 				</tr>
 				<tr>
 					<td><spring:message code="setuprun.confirmation.run.createdtime" /></td>
 					<td><strong><c:out value="${run.starttime}" /></strong></td>
-					<td></td>
+					<td class="instructions" ></td>
 				</tr>
 				<tr>
-					<td><spring:message code="setuprun.confirmation.run.projectid" /> </td>
-					<td><strong><c:out value="${run.sdsOffering.sdsCurnit.sdsObjectId}" /></strong></td>
-					<td><spring:message code="setuprun.confirmation.aboutprojectids.text" /></td>
+					<td>Project Run ID:</td>
+					<td><strong><c:out value="${run.id}" /></strong></td>
+					<td class="instructions" >Each of your project runs also has a unique ID number.</td>
 				</tr>
 				<tr>
-					<td><spring:message code="setuprun.confirmation.run.projectcodes" /></td>
+					<td>Access Code:</td>
 					<td>
+				    	<strong><c:out value="${run.runcode}" /></strong>
+				    	&nbsp;<spring:message code="setuprun.confirmation.run.projectcodes.foryourstudentsinperiod" />
 						<c:forEach var="period" items="${run.periods}">
-				    	<strong><c:out value="${run.runcode}" />-<c:out value="${period.name}" /></strong>
-				    	&nbsp;(<spring:message code="setuprun.confirmation.run.projectcodes.foryourstudentsinperiod" />
-				    		<c:out value="${period.name}" />)
-				    	<br />
+				    		<c:out value="${period.name}" /><c:out value="," />
 				  		</c:forEach>
+				    	<br />
 				    </td>
-				    <td>
-				    	<spring:message code="setuprun.confirmation.aboutprojectcodes.text1" /> <br/><br/>
-				    	<spring:message code="setuprun.confirmation.aboutprojectcodes.text2" /> <br/><br/>
-				    	<spring:message code="setuprun.confirmation.aboutprojectcodes.text3" />
+				    <td class="instructions" >
+				    	Each Project Run has an individual Access Code that you give to your students.<br/><br/>
+				    	Note: Students will manually specify their class period after entering this Access Code.<br/><br/>
 				    </td>
 				</tr>
 			</table>

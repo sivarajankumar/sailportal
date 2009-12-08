@@ -26,7 +26,7 @@
 <!-- $Id$ -->
 
 
-<div id="bannerArea">
+<div id="bannerArea1">
     	<div><a href="../index.html" 
     		onmouseout="MM_swapImgRestore()" 
     		onmouseover="MM_swapImage('WISE Main Logo','','../themes/tels/default/images/WISE-Logo-Large-v4.png',1)">

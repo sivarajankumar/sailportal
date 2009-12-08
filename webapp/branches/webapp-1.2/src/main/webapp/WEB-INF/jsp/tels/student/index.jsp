@@ -61,7 +61,7 @@
 
 	// Instantiate the Dialog
 	var addProjectDialog = new YAHOO.widget.Dialog("addProjectDialog", 
-																{ width : "700px",
+																{ width : "720px",
 																  fixedcenter : true,
 																  visible : false, 
 																  iframe : true,
@@ -70,7 +70,7 @@
 																  constraintoviewport : true,
 																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
 																  buttons : [ 
-																			  {text:"Close", handler:handleCancel,isDefault:true } ]
+																			  {text:"Close Window", handler:handleCancel,isDefault:true } ]
 																 } );
 	
 	
@@ -627,11 +627,15 @@ If you want to save work to an archived project run, ask your teacher to change 
 <div id="addProjectDialog">
 <div class="hd"><spring:message code="student.index.44"/></div>
 <div class="bd">
-<h3><spring:message code="teacher.add-project-info" /></h3>
+<h3>Instructions</h3>
+<ol>
+<li>Enter your Access Code.</li>
+<li>Click the <i>View Periods</i> link.</li>
+<li>Select your class period, then click the <i>Add Project</i> button.</li>
+</ol>
 
-
-<iframe id="addProjectFrame" src="" width="100%" FRAMEBORDER="0"
-	allowTransparency="false" scrolling="yes"> </iframe>
+<iframe id="addProjectFrame" src="" width="100%" height="240px" FRAMEBORDER="0"
+	allowTransparency="false" scrolling="no"> </iframe>
 	
 </div>
 </div>

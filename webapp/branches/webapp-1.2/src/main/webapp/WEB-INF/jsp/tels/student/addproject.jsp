@@ -48,9 +48,9 @@ function findPeriods() {
 		  	// or "1,2,3,4,5,...", a comma-separated values of period names
 		  	var responseText = o.responseText;
 		  	if (responseText == "not found" || responseText.length < 2) {
-		  		alert("The Access Code is invalid. Please talk with your teacher");
+		  		alert("The Access Code is invalid. Please ask your teacher for help.");
 		  	} else {
-  				periodSelect.innerHTML += "<option value=''>Please Choose...</option>";
+  				periodSelect.innerHTML += "<option value=''>Select a Period...</option>";
 			  	
 			  	var periodsArr = responseText.split(",");
 		  		for (var i=0; i < periodsArr.length; i++) {
@@ -115,11 +115,12 @@ function setup() {
 
   <div>
       <label for="runCode_part1" id="runCode_part1_label">Access Code:</label>
-	  <form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
+	  <form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="1"/>
+	  <a href=#" class="viewPeriodsLink">View Periods</a>
 	  <br/><br/>
 
       <label for="runCode_part2" id="runCode_part2_label">Period:</label>
-	  <form:select path="runCode_part2" id="runCode_part2" tabindex="11" disabled="true"></form:select>
+	  <form:select path="runCode_part2" id="runCode_part2" tabindex="2" disabled="true"></form:select>
       
       <form:hidden path="projectcode" id="projectcode"/>
      
