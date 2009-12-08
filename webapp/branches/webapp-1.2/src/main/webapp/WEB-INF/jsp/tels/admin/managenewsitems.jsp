@@ -1,4 +1,6 @@
 <%@ include file="../include.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
@@ -37,12 +39,13 @@
 	<c:when test="${fn:length(all_news) > 0}">
 		<table id="newsItems" border="2" cellpadding="2" cellspacing="0" align="center">
 		<tr>
-			<th><h5>News Title</h5></th><th><h5>Date</h5></th><th><h5>Actions</h5></th>
+			<th><h5>Date</h5></th><th><h5>News Title</h5></th><th><h5>News Body</h5></th><th><h5>Actions</h5></th>
 		</tr>
 		<c:forEach var="news" items="${all_news}">
 			<tr>
+				<td><fmt:formatDate value="${news.date}" type="both" dateStyle="short" timeStyle="short" /></td>
 				<td>${news.title}</td>
-				<td>${news.date}</td>
+				<td>${news.news}</td>
 				<td>
 					<a href="#" onclick="javascript:popup640('editnewsitem.html?newsId=${news.id}');">Edit</a>
 					<a href="#" onclick="javascript:popup640('removenewsconfirm.html?newsId=${news.id}&newsTitle=${news.title}');">Remove</a>

@@ -43,7 +43,7 @@
 		<dt><label for="titleField"><spring:message code="newsitem.title" /></label></dt>
 		<dd><form:input path="title" id="titleField"/> </dd>
 		<dt><label for="newsField"><spring:message code="newsitem.news" /></label></dt>
-		<dd><form:input path="news" id="newsField"/></dd>
+		<dd><form:textarea path="news" id="newsField"/></dd>
 		</dl>
  	
  	   <input type="image" id="save" src="../<spring:theme code="register_save" />" 
