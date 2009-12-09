@@ -28,10 +28,10 @@
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
   
-<script src=".././javascript/tels/general.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src=".././javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<script src=".././javascript/effects.js" type="text/javascript" ></script>
+<script src="../javascript/tels/general.js" type="text/javascript" ></script>
+<script src="../javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src="../javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<script src="../javascript/effects.js" type="text/javascript" ></script>
 
 <script type="text/javascript">
 			function checkIfLegalAcknowledged (form, id) {

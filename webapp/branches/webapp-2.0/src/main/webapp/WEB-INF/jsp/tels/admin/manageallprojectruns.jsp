@@ -87,7 +87,7 @@
 		<tr><td colspan="2">Total number of students:</td><td>${totalnumstudentsinrun} registered</td></tr>
 	  </table>
 	</td>
-    <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username}</c:forEach></td>
+    <td><c:forEach var="owner" items="${run.owners}">${owner.userDetails.username} (${owner.userDetails.schoolname})</c:forEach></td>
     <td><fmt:formatDate value="${run.starttime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><fmt:formatDate value="${run.endtime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><ul>

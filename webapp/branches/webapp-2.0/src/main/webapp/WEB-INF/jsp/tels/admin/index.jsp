@@ -42,9 +42,11 @@
 
 <div id="adminTitle">User Management</div>
 	<div style="margin:0 0 0 25px;"> 
-		<h5>List: <a href="manageusers.html?userType=teacher">Teachers</a> | 
-				  <a href="manageusers.html?userType=student">Students</a> |
-				  <a href="manageusers.html?onlyShowLoggedInUser=true">All Currently-Logged In Users</a>
+		<h5>List: <a href="manageusers.html?userType=teacher">All Teachers</a> | 
+				  <a href="manageusers.html?userType=student">All Students</a> |
+				  <a href="manageusers.html?onlyShowLoggedInUser=true">All Currently-Logged In Users</a> |
+				  <a href="manageusers.html?onlyShowUsersWhoLoggedInToday=true">All Users Who Logged in Today</a>
+				  
 		</h5>
 		<h5>Search: <a href="lookupteacher.html">Teacher</a> | <a href="lookupstudent.html">Student</a></h5>
 		<!-- <h5><a href="lookupuser.html">Look up User</a></h5>-->
@@ -65,16 +67,16 @@
 		<h5><a href="findprojectrunsbyteacher.html">Find Project Runs By Teacher</a></h5>
 	</div>
 
+<div id="adminTitle">News Management</div>
+	<div style="margin:0 0 0 25px;">
+		<h5><a href="managenewsitems.html">Work with News Items</a></h5>
+	</div>
+
 <div id="adminTitle">Portal Management</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="portal/manageportal.html">Configure Portal Settings (Beta)</a></h5>
 	</div>
 
-<div id="adminTitle">Other</div>
-	<div style="margin:0 0 0 25px;">
-		<h5><a href="managenewsitems.html">Work with News Items</a></h5>
-	</div>
-	
 <div id="adminTitle">External Project Service (Beta)</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="project/viewprojectcommunicators.html">Manage All External ProjectCommunicators (connect to other portals)</a></h5>	   

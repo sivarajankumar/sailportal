@@ -124,6 +124,7 @@
                 /author/brainstorm/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /bridge/authoringtool/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /bridge/*.html=ROLE_USER
+                /runinfo.html=ROLE_ANONYMOUS,ROLE_USER
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>

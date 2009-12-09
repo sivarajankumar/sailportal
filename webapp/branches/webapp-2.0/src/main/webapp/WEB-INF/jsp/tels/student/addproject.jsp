@@ -28,10 +28,76 @@
     
 <script type="text/javascript" src=".././javascript/tels/general.js"></script>    
     
+<!-- Dependency -->
+<script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js"></script>
+<!-- Used for Custom Events and event listener bindings -->
+<script src="http://yui.yahooapis.com/2.8.0r4/build/event/event-min.js"></script>
+<script src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection_core-min.js"></script>
+
+    
 <title><spring:message code="application.title" /></title>
+
+<script type="text/javascript">
+function findPeriods() {
+	var callback =
+		{
+		  success: function(o) {
+  			var periodSelect = document.getElementById("runCode_part2");
+			periodSelect.innerHTML = "";
+			// o.responseText can be either "not found" (when runcode doesn't point to an existing run
+		  	// or "1,2,3,4,5,...", a comma-separated values of period names
+		  	var responseText = o.responseText;
+		  	if (responseText == "not found" || responseText.length < 2) {
+		  		alert("The Access Code is invalid. Please ask your teacher for help.");
+		  	} else {
+  				periodSelect.innerHTML += "<option value=''>Select a Period...</option>";
+			  	
+			  	var periodsArr = responseText.split(",");
+		  		for (var i=0; i < periodsArr.length; i++) {
+			  		var periodName = periodsArr[i];
+			  		if (periodName != "") {
+		  				periodSelect.innerHTML += "<option value='"+periodName+"'>"+periodName+"</option>";
+			  		}
+		  		}
+		  		periodSelect.disabled = false;
+		  	}
+		  },
+		  failure: function(o) {
+			  alert('failure');
+		  },
+		  argument: []
+		}
+	var runcode = document.getElementById("runCode_part1").value;
+	if (runcode != null && runcode != "") {
+		var transaction = YAHOO.util.Connect.asyncRequest('GET', "/webapp/runinfo.html?runcode=" + runcode, callback, null); 
+	}
+}
+
+function save() {
+	var runcode = document.getElementById("runCode_part1").value;
+	var period = document.getElementById("runCode_part2").value;
+
+	if (runcode != null && period != null && period != "") {
+		var projectCode = document.getElementById("projectcode");
+		projectCode.value = runcode + "-" + period;
+		document.getElementById("addproject").submit();		
+	} else {
+		alert('invalid project code. Please talk to your teacher');
+	}
+}
+
+
+function setup() {
+	var runcode= document.getElementById('runCode_part1').value;
+	if (runcode != null && runcode != "") {
+		findPeriods();
+	}
+}
+</script>
+
 </head>
 
-<body style="background-color:transparent;">
+<body onload="setup();" style="background-color:transparent;">
 <!-- Support for Spring errors object -->
 <spring:bind path="addProjectParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -47,10 +113,17 @@
 
 <form:form method="post" action="addproject.html" commandName="addProjectParameters" id="addproject" >
 
-  <div><label id="projectCodeLabel" for="projectcode"><spring:message code="teacher.project-code" /></label>
-      <form:input path="projectcode" id="projectcode"/>
+  <div>
+      <label for="runCode_part1" id="runCode_part1_label">Access Code:</label>
+	  <form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="1"/>
+	  <a href=#" class="viewPeriodsLink">click here to see class periods (after entering access code)</a>
+	 
+      <label for="runCode_part2" id="runCode_part2_label">Period:</label>
+	  <form:select path="runCode_part2" id="runCode_part2" tabindex="2" disabled="true"></form:select>
+      
+      <form:hidden path="projectcode" id="projectcode"/>
      
-   	 <input id="addProjectButton" type="image" src="../<spring:theme code="student_add_this_project" />" 
+   	 <input id="addProjectButton" onclick="save()" type="image" src="../<spring:theme code="student_add_this_project" />" 
     	onmouseover="swapImage('addProjectButton','../<spring:theme code="student_add_this_project_roll" />');" 
     	onmouseout="swapImage('addProjectButton','../<spring:theme code="student_add_this_project"/>');" />
    

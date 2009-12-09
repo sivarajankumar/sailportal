@@ -29,6 +29,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.user.UserDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.presentation.web.listeners.PasSessionListener;
@@ -36,6 +37,7 @@ import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.admin.AdminJob;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
@@ -84,6 +86,7 @@ public class ViewAllUsersController extends AbstractController{
 		ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
 
 		String onlyShowLoggedInUser = servletRequest.getParameter("onlyShowLoggedInUser");
+		String onlyShowUsersWhoLoggedInToday = servletRequest.getParameter("onlyShowUsersWhoLoggedInToday");
 		if (onlyShowLoggedInUser != null && onlyShowLoggedInUser.equals("true")) {
 			// get logged in users from servlet context
 			HashMap<String, User> allLoggedInUsers = 
@@ -94,6 +97,14 @@ public class ViewAllUsersController extends AbstractController{
 				loggedInUsernames.add(loggedInUser.getUserDetails().getUsername());
 			}
 			modelAndView.addObject(LOGGED_IN_USERNAMES, loggedInUsernames);
+		} else if (onlyShowUsersWhoLoggedInToday != null && onlyShowUsersWhoLoggedInToday.equals("true")) {
+			AdminJob adminJob = (AdminJob) this.getApplicationContext().getBean("adminjob");
+			adminJob.setUserDao((UserDao<User>) this.getApplicationContext().getBean("userDao"));
+			List<User> studentsWhoLoggedInSinceYesterday = adminJob.findUsersWhoLoggedInSinceYesterday("studentUserDetails");
+			modelAndView.addObject("studentsWhoLoggedInSinceYesterday", studentsWhoLoggedInSinceYesterday);
+
+			List<User> teachersWhoLoggedInSinceYesterday = adminJob.findUsersWhoLoggedInSinceYesterday("teacherUserDetails");
+			modelAndView.addObject("teachersWhoLoggedInSinceYesterday", teachersWhoLoggedInSinceYesterday);
 		} else {
 			// result depends on passed-in userType parameter
 			String userType = servletRequest.getParameter(USER_TYPE);

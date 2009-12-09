@@ -140,7 +140,7 @@
 				          <c:forEach var="period" items="${run.periods}">
 				            <tr>
 				              <td style="width:20%;" class="tableInnerData">${period.name}</td>
-				              <td style="width:45%;" class="tableInnerData">${run.runcode}-${period.name}</td>
+				              <td style="width:45%;" class="tableInnerData">${run.runcode}</td>
 				              <td style="width:35%;" class="tableInnerDataRight">
 				                <a href="../management/viewmystudents.html?runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a></td>
 				            </tr>
@@ -151,6 +151,10 @@
 				      			<tr>
 				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.myprojectruns.11"/></td>
 				      				<td>${run.project.id}</td>
+				      			</tr>
+				      			<tr>
+				      				<td class="runTitleTableHeader">Project Run ID:</td>
+				      				<td>${run.id}</td>
 				      			</tr>
 				      			<tr>
 				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.myprojectruns.13"/></td>

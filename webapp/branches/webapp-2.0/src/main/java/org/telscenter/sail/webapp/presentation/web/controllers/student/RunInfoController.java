@@ -22,55 +22,35 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
+ * Usable by anonymous and logged-in users for retrieving public run information,
+ * such as run periods given runcode
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
-public class BasicExampleController extends AbstractController {
+public class RunInfoController extends AbstractController {
 
 	private RunService runService;
 	
-	private StudentService studentService;
-	
-	private WorkgroupService workgroupService;
-	
-	private BrainstormService brainstormService;
-
-	private HttpRestTransport httpRestTransport;
-	
-	protected final static String CURRENT_STUDENTRUNINFO_LIST_KEY = "current_run_list";
-
-	protected final static String ENDED_STUDENTRUNINFO_LIST_KEY = "ended_run_list";
-
-	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
-
-	protected final static String WORKGROUP_MAP_KEY = "workgroup_map";
-	
-	private static final String VIEW_NAME = "student/vle/basic_example_otml";
-	
-	private final static String CURRENT_DATE = "current_date";
-
-	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
-
 	private static final String RUNID = "runId";
 	
-	private static final String RUN_STATUS_ID = "runSettingsId";
+	private static final String RUNCODE = "runcode";
 
 	private static final String SHOW_NEW_ANNOUNCEMENTS = "showNewAnnouncements";
 
@@ -85,30 +65,23 @@ public class BasicExampleController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 
     	ModelAndView modelAndView = null;
-		
-    	String runManagerStr = request.getParameter("getRunManager");
-    	if (runManagerStr != null && runManagerStr.equals("true")) {
-    		modelAndView = new ModelAndView("student/vleConnection");
-        	String runIdStr = request.getParameter(RUNID);
-        	Run run = runService.retrieveById(Long.valueOf(runIdStr));
-        	String xmlDoc = "";
-
-        	if (run.isPaused()) {
-        		xmlDoc = "<isPaused>true</isPaused>";
-        	} else {
-        		xmlDoc = "<isPaused>false</isPaused>";
-        	}
-    		modelAndView.addObject("xmlDoc", xmlDoc);
-    	} else {
-    		modelAndView = new ModelAndView(VIEW_NAME);
-        	ControllerUtil.addUserToModelAndView(request, modelAndView);
-        	User user = (User) request.getSession().getAttribute(
-    				User.CURRENT_USER_SESSION_KEY);
-        	String runIdStr = request.getParameter(RUNID);
-        	modelAndView.addObject(RUNID, runIdStr);
-        	modelAndView.addObject("xmlString", xmlString);
-    	}
     	
+    	String runcode = request.getParameter(RUNCODE);
+    	try {
+    		Run run = runService.retrieveRunByRuncode(runcode);
+
+    		Set<Group> periods = run.getPeriods();
+    		StringBuffer periodsStr = new StringBuffer();
+    		for (Group period : periods) {
+    			periodsStr.append(period.getName());
+    			periodsStr.append(",");
+    		}
+    		response.setContentType("text/plain");
+    		response.getWriter().print(periodsStr.toString());
+    	} catch (ObjectNotFoundException e) {
+    		response.setContentType("text/plain");
+    		response.getWriter().print("not found");
+    	}
         return modelAndView;
 	}
 
@@ -119,37 +92,4 @@ public class BasicExampleController extends AbstractController {
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
-
-	/**
-	 * @param studentService the studentService to set
-	 */
-	@Required
-	public void setStudentService(StudentService studentService) {
-		this.studentService = studentService;
-	}
-
-	/**
-	 * @param httpRestTransport
-	 *            the httpRestTransport to set
-	 */
-	@Required
-	public void setHttpRestTransport(HttpRestTransport httpRestTransport) {
-		this.httpRestTransport = httpRestTransport;
-	}
-
-	/**
-	 * @param workgroupService the workgroupService to set
-	 */
-	@Required
-	public void setWorkgroupService(WorkgroupService workgroupService) {
-		this.workgroupService = workgroupService;
-	}
-
-	/**
-	 * @param brainstormService the brainstormService to set
-	 */
-	public void setBrainstormService(BrainstormService brainstormService) {
-		this.brainstormService = brainstormService;
-	}
-
 }

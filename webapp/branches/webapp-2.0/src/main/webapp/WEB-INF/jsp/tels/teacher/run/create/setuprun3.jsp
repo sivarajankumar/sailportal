@@ -91,8 +91,8 @@ if(form.manualCheckbox.checked==true){
       <label for="periods" id="periodlabel"><spring:message code="periods" /></label><br />
           <div id="periodBoxes">
           	<c:forEach items="${periodNames}" var="periodName">
-            <form:checkbox path="periodNames" value="${periodName}" />
-            <spring:message code="defaultPeriodNames.${periodName}" /><br/>
+            <form:checkbox path="periodNames" value="${periodName}" id="${periodName}"/>
+            <label for="${periodName}"><spring:message code="defaultPeriodNames.${periodName}" /></label><br/>
           	</c:forEach>
           </div>      
     </div>
