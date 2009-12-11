@@ -110,21 +110,21 @@ public class ClassMonitorController extends AbstractController {
 			// LDProject, get the .project file
 			String portalurl = ControllerUtil.getBaseUrlString(request);
 
-			String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			String getContentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 			
-			int lastIndexOfSlash = contentUrl.lastIndexOf("/");
-			String contentBaseUrl = contentUrl.substring(0, lastIndexOfSlash);
+			int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
+			String contentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash);
 
 	    	String progressMonitorUrl = portalurl + "/vlewrapper/vle/vle.html";
 
 			String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
-			String userInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
+			String getUserInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
 	    	String getDataUrl = portalurl + "/vlewrapper/getdata.html";
 
-	    	modelAndView.addObject("contentUrl", contentUrl);
+	    	modelAndView.addObject("getContentUrl", getContentUrl);
 			modelAndView.addObject("progressMonitorUrl", progressMonitorUrl);
 	    	modelAndView.addObject("contentBaseUrl", contentBaseUrl);
-			modelAndView.addObject("userInfoUrl", userInfoUrl);
+			modelAndView.addObject("getUserInfoUrl", getUserInfoUrl);
 			modelAndView.addObject("getDataUrl", getDataUrl);
 		}
 		return modelAndView;
