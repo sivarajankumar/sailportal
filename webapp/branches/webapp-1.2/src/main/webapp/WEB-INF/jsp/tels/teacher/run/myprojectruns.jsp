@@ -109,9 +109,9 @@
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:450px;"class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.3"/></th>
-				       <th style="width:325px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.4"/></th>      
-				       <th style="width:200px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.5"/></th>
+				       <th style="width:34%;"class="tableHeaderMain">Project Run</th>
+				       <th style="width:29%;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.4"/></th>      
+				       <th style="width:41%;" class="tableHeaderMain">Tools</th>
 				    </tr>
 				  <c:forEach var="run" items="${current_run_list}">
 				  
@@ -119,21 +119,35 @@
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.name}</div>
 				    	<c:forEach var="sharedowner" items="${run.sharedowners}">
-				    	    <center><c:if test="${sharedowner == user}"><spring:message code="teacher.run.myprojectruns.6"/></c:if></center>
+				    	    <c:if test="${sharedowner == user}"><spring:message code="teacher.run.myprojectruns.6"/></c:if>
 				    	</c:forEach>
-				    	<div class="center">
-				    		<ul id="titleCellLinkList">
-				    			<li><a href="../../previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.38"/></a></li>
-				    			<li><a href="../projects/projectinfo.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.14"/></a></li>
-				    		</ul>
-				      	</div>
+				        
+						<table id="runTitleTable">
+				      			<tr>
+				      				<th><spring:message code="teacher.run.myprojectruns.11"/></th>
+				      				<td>${run.project.id}</td>
+				      			</tr>
+				      			<tr>
+				      				<th>Project Run ID:</hd>
+				      				<td>${run.id}</td>
+				      			</tr>
+				      			<tr>
+				      				<th><spring:message code="teacher.run.myprojectruns.13"/></th>
+				      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></td>
+				      			</tr>
+				      			<tr>
+				      				<th><spring:message code="teacher.run.myprojectruns.12"/></th>
+				      				<td>UC Berkeley library project</td>
+				      			</tr>
+				      			
+						</table>
 				      	
 					</td>
 												
 				    <td style="vertical-align:top; padding:0px;" >
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 				          <tr>
-				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.7"/></th>
+				            <th class="tableInnerHeader">Period</th>
 				            <th class="tableInnerHeader">Access Code</th>
 				            <th class="tableInnerHeaderRight"><spring:message code="teacher.run.myprojectruns.9"/></th>
 				          </tr>
@@ -147,28 +161,13 @@
 				          </c:forEach>
 				        </table>
 				        
-				        <table id="runTitleTable">
-				      			<tr>
-				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.myprojectruns.11"/></td>
-				      				<td>${run.project.id}</td>
-				      			</tr>
-				      			<tr>
-				      				<td class="runTitleTableHeader">Project Run ID:</td>
-				      				<td>${run.id}</td>
-				      			</tr>
-				      			<tr>
-				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.myprojectruns.13"/></td>
-				      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></td>
-				      			</tr>
-				      			<tr>
-				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.myprojectruns.12"/></td>
-				      				<td>UC Berkeley library project</td>
-				      			</tr>
-				      			
-						</table>
+						<ul id="actionList2">
+					    	<li><a style="color:#cccccc;" href="#">Add/Remove Periods</a></li>
+						</ul>
+
 				     </td> 
 				    <td style="vertical-align:top; padding:1px 0;">
-					    <ul id="actionList">
+					    <ul id="actionList1">
 					    <c:set var="isExternalProject" value="0"/>
 					    
 					        <c:forEach var="external_run" items="${externalprojectruns}">
@@ -181,32 +180,43 @@
 					                  <li>Period Reports: <c:forEach var="periodInRun" items="${run.periods}"><a href="report.html?runId=${run.id}&groupId=${periodInRun.id}">${periodInRun.name}</a>&nbsp;</c:forEach></li>
 					               </c:when>
 					               <c:otherwise>
-					        <li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
+					        <li><a href="../../previewproject.html?projectId=${run.project.id}">View the Project</a></li>
+				    		<li><a href="../projects/projectinfo.html?projectId=${run.project.id}">Review Project Info</a></li>
+							<li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
-		                    <li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary"><spring:message code="teacher.run.myprojectruns.19"/></a></li>
-		                    <li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.20"/></a></li>
+		                    <li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
 					               </c:otherwise>
 					           </c:choose>
 					        
 					        
-		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">
-    					      <li><a href="shareprojectrun.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.18"/></a></li> 
-  	                        </sec:accesscontrollist>
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.15"/></a></li>
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.21"/></a></li>
-					    	<li><a href="./announcement/manageannouncement.html?runId=${run.id}">Manage Announcements</a></li>
-					        <c:if test="${not empty run.brainstorms}" >
+		                    
+					       				    	
+					    
+					    	
+					    </ul>
+						
+						<ul id="actionList2">
+
+							<sec:accesscontrollist domainObject="${run}" hasPermission="16">
+    					      <li><a href="shareprojectrun.html?runId=${run.id}">Share w/Another Teacher</a></li> 
+  	                    	</sec:accesscontrollist>
+					    	
+					    	<c:set var="isExternalProject" value="0"/>
+					      		<li><a href="./announcement/manageannouncement.html?runId=${run.id}">Manage Announcements</a></li>
+					        			    	
+					    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}">Create Q&A Discussion</a></li>
+					    	<c:if test="${not empty run.brainstorms}" >
 					            <c:forEach var="brainstorm" items="${run.brainstorms}" varStatus="brainstormVS" >
-					                <li><a href="../run/brainstorm/managebrainstorm.html?brainstormId=${brainstorm.id}">Manage Q&A #${brainstormVS.index+1}</a></li>
+					                <li class="qaBullet"><a href="../run/brainstorm/managebrainstorm.html?brainstormId=${brainstorm.id}">Manage Q&A #${brainstormVS.index+1}</a></li>
 					            </c:forEach>
-					    	</c:if>					    	
-					    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}">Create New Q&A for this run</a></li>
-					    	<li><a href="../../contactwiseproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
+					    	</c:if>		
+							<li><a href="../../contactwiseproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}&runName=${run.name}')"><spring:message code="teacher.run.myprojectruns.23"/></a></li>
+					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}&runName=${run.name}')">Archive Project</a></li>
 					    	</sec:accesscontrollist>
 					    	
 					    </ul>
+
 					</td>
 				   </tr>
 				  </c:forEach>
