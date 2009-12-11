@@ -445,9 +445,31 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+<table id="teacherHomeTable0" >
+<tr>
+<td id="welcomePanel" >
+			<div class="panelStyling1" style="width:960px;">
+			<div id="headerTeacherHome">Welcome to WISE 4.0</div>
+
+<iframe src ="run/projectruntabs.html" width="100%" height="300px" frameborder="0" scrolling="yes">
+<p>Your browser does not support iframes.</p>
+</iframe>
+
+
+			</div>
+			
+</td>
+</tr>
+</table> 
+
+
+
+
 <table id="teacherHomeTable1" >
 <tr>
-<td id="welcomePanel"><div class="panelStyling1">
+<td id="welcomePanel">
+			<div class="panelStyling1">
 		
 			<div id="headerTeacherHome">Welcome to WISE 4.0</div>
 			

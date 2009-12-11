@@ -372,6 +372,9 @@
 		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
+	<bean id="myProjectRunsMainController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.MyProjectRunsMainController">
+	</bean>
 
 	<bean id="myProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">

@@ -91,7 +91,7 @@ public class RunListController extends AbstractController {
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Preview";
 	
-	private static final String VIEW_NAME = "teacher/run/myprojectruns";
+	private static final String VIEW_NAME = "teacher/run/projectruntabs";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,

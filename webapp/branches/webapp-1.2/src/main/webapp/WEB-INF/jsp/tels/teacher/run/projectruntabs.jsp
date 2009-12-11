@@ -91,6 +91,8 @@
 <body class="yui-skin-sam">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<div id="centeredDiv">
+
 <div id="tabSystem" class="yui-navset">
     <ul style="font-weight:bold; font-size:.7em; letter-spacing:1px;" class="yui-nav">
         <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em><spring:message code="teacher.run.myprojectruns.1A"/></em></a></li>
@@ -274,7 +276,6 @@
 
 </div>
 </div>
-
 </body>
 </html>
 
