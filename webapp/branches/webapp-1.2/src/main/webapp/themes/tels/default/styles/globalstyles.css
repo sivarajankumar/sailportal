@@ -82,6 +82,13 @@ abbr, acronym {
 		padding: 0;
 		margin: 0 auto;
 		}
+
+#centeredDivDynamicFrame {
+		background-color:#FFFFFF;
+		text-align:left;
+		padding: 0;
+		margin: 0 auto;
+		}
 		
 	
 #hotInputFields  {

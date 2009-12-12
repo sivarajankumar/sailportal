@@ -91,7 +91,7 @@
 <body class="yui-skin-sam">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div id="centeredDiv">
+<div id="centeredDivDynamicFrame">
 
 <div id="tabSystem" class="yui-navset">
     <ul style="font-weight:bold; font-size:.7em; letter-spacing:1px;" class="yui-nav">
@@ -100,15 +100,15 @@
     </ul>            
     <div class="yui-content">
         <div id="currentRuns">
-        		<div id="subHeader"><spring:message code="teacher.run.myprojectruns.2"/></div>
+        		<div id="subHeader">To see an archived project run click the tab above.</div>
         	       		
         		<div id="runBox">
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:34%;"class="tableHeaderMain">Project Run</th>
-				       <th style="width:29%;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.4"/></th>      
-				       <th style="width:41%;" class="tableHeaderMain">Tools</th>
+				       <th style="width:370px;"class="tableHeaderMain">Project Run</th>
+				       <th style="width:170px;" class="tableHeaderMain">Class Information</th>      
+				       <th style="width:430px;" class="tableHeaderMain">Tools</th>
 				    </tr>
 				  <c:forEach var="run" items="${current_run_list}">
 				  
@@ -121,9 +121,10 @@
 				        
 						<table id="runTitleTable">
 				      			<tr>
-				      				<th><spring:message code="teacher.run.myprojectruns.11"/></th>
-				      				<td>${run.project.id}</td>
-				      			</tr>
+									<th>Access Code:</th>
+									<td class="accesscodeClass">${run.runcode}</td>
+								</tr>
+								
 				      			<tr>
 				      				<th>Project Run ID:</hd>
 				      				<td>${run.id}</td>
@@ -136,6 +137,10 @@
 				      				<th><spring:message code="teacher.run.myprojectruns.12"/></th>
 				      				<td>UC Berkeley library project</td>
 				      			</tr>
+								<tr>
+				      				<th><spring:message code="teacher.run.myprojectruns.11"/></th>
+				      				<td>${run.project.id}</td>
+				      			</tr>
 				      			
 						</table>
 				      	
@@ -145,21 +150,21 @@
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 				          <tr>
 				            <th class="tableInnerHeader">Period</th>
-				            <th class="tableInnerHeader">Access Code</th>
+				            <th style="display:none;" class="tableInnerHeader">Access Code</th>
 				            <th class="tableInnerHeaderRight"><spring:message code="teacher.run.myprojectruns.9"/></th>
 				          </tr>
 				          <c:forEach var="period" items="${run.periods}">
 				            <tr>
 				              <td style="width:20%;" class="tableInnerData">${period.name}</td>
-				              <td style="width:45%;" class="tableInnerData">${run.runcode}</td>
+				              <td style="display:none;"  style="width:45%;" class="tableInnerData">${run.runcode}</td>
 				              <td style="width:35%;" class="tableInnerDataRight">
 				                <a href="../management/viewmystudents.html?runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a></td>
 				            </tr>
 				          </c:forEach>
 				        </table>
 				        
-						<ul id="actionList2">
-					    	<li><a style="color:#cccccc;" href="#">Add/Remove Periods</a></li>
+						<ul id="actionList2" >
+					    	<li class="addremoveLink"><a style="color:#cccccc;" href="#">Add/Remove Periods</a></li>
 						</ul>
 
 				     </td> 

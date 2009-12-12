@@ -22,6 +22,7 @@
 	border-collapse:collapse;
 	vertical-align:top;
 	align:top;
+	margin-bottom:10px;
 }
 
 #teacherHomeTable1 td {
@@ -29,12 +30,12 @@
 }
 
 #welcomePanel {
-    width: 580px;  
+    width: 600px;  
 	padding:0;
 	margin:0;
 	}
 	
-.panelStyling1 {
+.panelStyleWelcome {
 	min-height:270px; 
 	background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);
 	background-position: top;
@@ -46,7 +47,32 @@
 	border-radius:5px;
 }
 
-.panelStyling2 {
+.panelStyleAbout {
+	min-height:80px; 
+	background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #666666;  
+	background-color:#CCC;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.panelStyleCommunity{
+	min-height:182px; 
+	margin-top:6px;
+	background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #666666;  
+	background-color:#CCC;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.panelStyleMyProjectRuns {
 	min-height:310px; 
 	background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);
 	background-position: top;
@@ -56,14 +82,13 @@
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
-
 }
 	
 #headerTeacherHome {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	text-align:left;
 	margin: 0px 0px 12px 0px;
-	padding: 3px 12px;
+	padding: 3px 10px;
 	font-size: 1.0em;
 	font-weight:bold;
 	background-image:url(../../images/teacher/teacherSubHeader.png);
@@ -76,26 +101,45 @@
 	border-bottom:1px solid #999;
 }
 
-#teacherWelcomeBoxTable	{  
+#teacherWelcomeBoxTable1	{  
+	border-collapse:collapse;
+	font-size:.8em;
+	width:75%;
+	margin: 0px 0px 5px 15px;
+		}
+
+#teacherWelcomeBoxTable1 td	{  
+	vertical-align:text-top;
+	letter-spacing:-.5px;
+	text-align:left;
+
+	}	
+	
+#teacherWelcomeBoxTable2	{  
 	border-collapse:collapse;
 	font-size:.8em;
 	width:95%;
 	margin: 0px 0px 5px 15px;
 		}
 	
-#teacherWelcomeBoxTable td	{  
+#teacherWelcomeBoxTable2 td	{  
 	vertical-align:text-top;
 	letter-spacing:-.5px;
+	text-align:left;
 	}	
 		
-#teacherWelcomeBoxTable ul	{  
+#teacherWelcomeBoxTable2 ul	{  
 	padding:0px;
-	margin:0px;
-	height:150px;
+	margin:0px 0 0 0;
+	height:165px;
+	width:565px;
 	overflow:auto;
-		}
+	border:2px solid #ccc;
+	background-color:#FFEdd5;
+	background-color:#ddceb9;
+}
 		
-#teacherWelcomeBoxTable li	{  
+#teacherWelcomeBoxTable2 li	{  
 	padding:4px 4px 10px 4px;
 	list-style-type:none;
 			}
@@ -105,165 +149,95 @@
 }
 
 #dashboardPanel {
-	width:370px;
+	width:350px;
 	padding:0;
 	margin:0;  
 }	
 
 #dashboardSections  {
-	margin:0 0px 0 12px;
+	margin:5px auto;
+	border-collapse:collapse;
+	text-align:center;
 }
 
 #dashboardSections td a:visited, #dashboardSections td a:link  {
-	color:blue;
-	color:#334B7B;
+	font-size:.8em;
+	color:#0033CC;
 	font-style:italic;
-	padding:2px;	
+	padding:0 5px;
+	margin:0px 1px;
+	border:1px solid transparent;	
+	letter-spacing:-.6px;
 	text-decoration:none;
 }
 
 #dashboardSections td a:hover {
 	background:#FFFF00;	
+	border:1px solid #999;
 }
 
-#dashboardSections td {
-	font-size:.8em;
-	padding:0 9px 10px 0;
-	letter-spacing:-.6px;
-	vertical-align:top;	
-}
-	
-#projectRunsPanel {
-	width:580px;
-	min-height:220px; 
-	padding:0;
-	margin:0; 
-	}
+/* TOOL TIP STYLES */
 
-#quickToolsContainer {	
-	max-height:260px;   
-	overflow:auto;
-	border-top:1px solid #999999;
-	margin:0 12px 5px 12px;
-	}
-	
-#quickToolsTable {	
-	border-collapse:collapse;
-	text-align:center;
-	width:100%;
-	}
+#dashboardSections a.tooltip:hover  {background:#ffffff; text-decoration:none;} 
 
-#quickToolsTable .column1 {	
-	font-size:.7em;
-	}
-	
-#quickToolsTable .column2 {	
-	font-size:.7em;
-	}
-	
-#quickToolsTable th {	
-	border-left:1px solid #999999;
-	border-right:1px solid #999999;
-	border-bottom:1px solid #999999;
-	background-color:#CCCCCC;
-	padding: 2px;
-	font-size:.7em;
-	}
-	
-#quickToolsTable td {	
-	border:1px solid #999999;
-	padding: 2px 6px;
-	font-size:.8em;
-	vertical-align:middle;
-		}
+#dashboardSections a.tooltip span {display:none; padding:8px; margin:20px 0 0 -255px; width:280px;}
 
-#quickToolLinks {
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	text-decoration:none;	
-	margin:0px 0 1px 0;
-	
-}
-
-#quickToolLinks li {
-	display:inline;
-	font-size:.85em;
-	letter-spacing:-.8px;
-	padding:0px;
-}
-
-#quickToolLinks li a:link, #quickToolLinks li a:visited, #teacherWelcomeBoxTable li a {
-	text-decoration:none; 
-	padding:4px 3px 3px 3px;
-}
-
-#quickToolLinks li a:hover, #teacherWelcomeBoxTable li a:hover {
-	background-color:#ffff33;
-	color:#000033;
-}
-
-.projectNameStyle {
-	color:#000066;
-}
-
-.secondTableMargin {
-	margin-top:8px;
-}
-
-#quickLinksPanel {
-	width:370px;
-	padding:0;
-	margin:0; 
-	}
-	
-#quicklinksTable {
-	border-collapse:collapse;
-	margin:0 2px 0 10px;
+#dashboardSections a.tooltip:hover span {
+	display:inline; 
+	position:absolute; 
+	background:#FFE6C6; 
+	background:#46575b;
+	border:3px solid #232c3d;
+	color:#334B7B;
+	color:#FFF;
+	font-style:normal;
+	font-weight:normal;
 	text-align:left;
-}
-
-#quicklinksTable .linkHeader {
-	font-size:.9em;
-	font-weight:bold;
-	color:#333;
-	padding: 0px 0 5px 0;
-}
-
-#quicklinksTable td {
-	font-size:.75em;
-	padding-right:5px;
-}
-
-#quicklinksTable td {
-	font-size:.8em;
-}
-
-#quicklinksTable a:link, #quicklinksTable a:visited {
-	color:#0033CC;
-	padding: 3px 7px 3px 3px;
-	text-decoration:none;
-}
-
-#quicklinksTable a:hover {
-	color:#000066;
-	background-color:#ffff33;
-	padding: 2px 6px 2px 2px;
-	text-decoration:none;
-	border: 1px solid transparent;
-}
-
-#projectGradeLinkBox a:hover{
-	color:#000066;
-	background-color:#ffff33;
-	padding: 2px 6px 2px 2px;
-	text-decoration:none;
-	border: 1px solid #6666CC;
-		}
-	
-.inactivecolor {
-	color:#999999;
-	padding-left:4px;
+	line-height:150%;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
 	}
+
+
+.panelStyleCommunity #communityTagline {
+	font-size:.8em;
+	margin:12px;
+}
+
+.panelStyleCommunity ul {
+	font-size:.8em;
+	margin:12px 12px 12px 0;
+	}
+
+.panelStyleCommunity ul li {
+	list-style-type:circle;
+	margin-bottom:2px;
+	}
+
+.panelStyleCommunity ul a {
+	color:#0033CC;
+	padding: 1px;
+	margin-left:-1px;
+	text-decoration:none;
+	border:1px solid transparent;
+	}
+
+.panelStyleCommunity ul a.lineThrough {
+	text-decoration:line-through;
+	}
+	
+.panelStyleCommunity ul a:hover {
+	background-color:#FFFF00;
+	border:1px solid #999;
+	}
+	
+#myprojectrunsPanel {
+	width:958px;
+	padding:0;
+	margin:0;  
+}
+
+
 	
 
