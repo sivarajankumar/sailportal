@@ -284,7 +284,7 @@ public class StudentVLEController extends AbstractController {
 		String contentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 		contentUrl = curriculumBaseWWW + contentUrl;
 		int lastIndexOfDot = contentUrl.lastIndexOf(".");
-		String projectMetadataUrl = contentUrl.substring(0, lastIndexOfDot) + "-meta.json";
+		String projectMetadataUrl = contentUrl.substring(0, lastIndexOfDot) + ".meta.json";
 
 		int lastIndexOfSlash = contentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){

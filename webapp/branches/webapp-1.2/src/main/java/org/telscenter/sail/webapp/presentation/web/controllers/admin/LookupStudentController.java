@@ -93,7 +93,7 @@ public class LookupStudentController extends SimpleFormController {
 		if(users.size() < 1){
 			modelAndView.addObject("message", "No users given search criteria found.");
 		} else {
-			modelAndView.addObject("usernames", usernames);
+			modelAndView.addObject("students", usernames);
 		}
 		
 		return modelAndView;
