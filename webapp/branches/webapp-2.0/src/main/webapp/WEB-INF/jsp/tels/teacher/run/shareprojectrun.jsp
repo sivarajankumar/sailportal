@@ -42,9 +42,10 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="../headerteachersub.jsp"%>
 
-<%@ include file="L2projects_myprojectruns.jsp"%>
+<div id="navigationSubHeader2">Sharing a Project Run<span id="navigationSubHeader1">Management: My Project Runs</span></div>
+
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 

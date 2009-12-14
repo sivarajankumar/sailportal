@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.mail.MessagingException;
 
@@ -39,6 +40,7 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 
 /**
  * A cron job for TELS portal.
@@ -95,6 +97,20 @@ public class AdminJob extends QuartzJobBean {
 			+ df.format(yesterday) + " and " + df.format(today) + ": "
 			+ runsCreatedSinceYesterday.size();
 		
+		// show info about the run
+		for (Run run : runsCreatedSinceYesterday) {
+			messageBody += "\n\tProject:" + run.getProject().getName();
+			Set<User> owners = run.getOwners();
+			User owner = owners.iterator().next();
+			TeacherUserDetails teacherUserDetails = (TeacherUserDetails) owner.getUserDetails();
+			String schoolName = teacherUserDetails.getSchoolname();
+			String schoolCity = teacherUserDetails.getCity();
+			String schoolState = teacherUserDetails.getState();
+			
+			messageBody += "\n\tTeacher Username:" + teacherUserDetails.getUsername();
+			messageBody += "\n\tTeacher School Info: " + schoolName + ", " + schoolCity + ", " + schoolState;
+		}
+		 
 		List<User> teachersJoinedSinceYesterday = findUsersJoinedSinceYesterday("teacherUserDetails");
 		messageBody += "\n\n";
 		messageBody += "Number of Teachers joined between " 
@@ -158,9 +174,10 @@ public class AdminJob extends QuartzJobBean {
 	}
 	
 	public void sendEmail(String message) {
-		String[] recipients = {emaillisteners.getProperty("uber_admin")};
+		String uberAdmins = emaillisteners.getProperty("uber_admin");  // comma-separated values
+		String[] recipients = uberAdmins.split(",");
 		
-		String subject = "Admin Job complete on Portal: "
+		String subject = "Daily Admin Report on Portal: "
 		    + " (" + portalProperties.getProperty("portal.name") + ")";		
 
 		String msg = message;

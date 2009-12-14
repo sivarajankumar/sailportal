@@ -17,7 +17,7 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!-- $Id: index.jsp 2576 2009-11-21 02:17:46Z supersciencefish $ -->
+<!-- $Id$ -->
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
@@ -71,6 +71,77 @@
 
 <script type='text/javascript'>
 var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
+</script>
+
+
+<script type="text/javascript">
+
+/***********************************************
+* ADDED BY MATTFISH  DEC 2009
+* IFrame SSI script II- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
+* Visit DynamicDrive.com for hundreds of original DHTML scripts
+* This notice must stay intact for legal use
+***********************************************/
+
+//Input the IDs of the IFRAMES you wish to dynamically resize to match its content height:
+//Separate each ID with a comma. Examples: ["myframe1", "myframe2"] or ["myframe"] or [] for none:
+var iframeids=["dynamicFrame"]
+
+//Should script hide iframe from browsers that don't support this script (non IE5+/NS6+ browsers. Recommended):
+var iframehide="yes"
+
+var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1]
+var FFextraHeight=parseFloat(getFFVersion)>=0.1? 16 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
+
+function resizeCaller() {
+var dyniframe=new Array()
+for (i=0; i<iframeids.length; i++){
+if (document.getElementById)
+resizeIframe(iframeids[i])
+//reveal iframe for lower end browsers? (see var above):
+if ((document.all || document.getElementById) && iframehide=="no"){
+var tempobj=document.all? document.all[iframeids[i]] : document.getElementById(iframeids[i])
+tempobj.style.display="block"
+}
+}
+}
+
+function resizeIframe(frameid){
+var currentfr=document.getElementById(frameid)
+if (currentfr && !window.opera){
+currentfr.style.display="block"
+if (currentfr.contentDocument && currentfr.contentDocument.body.offsetHeight) //ns6 syntax
+currentfr.height = currentfr.contentDocument.body.offsetHeight+FFextraHeight; 
+else if (currentfr.Document && currentfr.Document.body.scrollHeight) //ie5+ syntax
+currentfr.height = currentfr.Document.body.scrollHeight;
+if (currentfr.addEventListener)
+currentfr.addEventListener("load", readjustIframe, false)
+else if (currentfr.attachEvent){
+currentfr.detachEvent("onload", readjustIframe) // Bug fix line
+currentfr.attachEvent("onload", readjustIframe)
+}
+}
+}
+
+function readjustIframe(loadevt) {
+var crossevt=(window.event)? event : loadevt
+var iframeroot=(crossevt.currentTarget)? crossevt.currentTarget : crossevt.srcElement
+if (iframeroot)
+resizeIframe(iframeroot.id);
+}
+
+function loadintoIframe(iframeid, url){
+if (document.getElementById)
+document.getElementById(iframeid).src=url
+}
+
+if (window.addEventListener)
+window.addEventListener("load", resizeCaller, false)
+else if (window.attachEvent)
+window.attachEvent("onload", resizeCaller)
+else
+window.onload=resizeCaller
+
 </script>
 
 </head>
@@ -445,233 +516,131 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<table id="teacherHomeTable1" >
-<tr>
-<td id="welcomePanel"><div class="panelStyling1">
-		
-			<div id="headerTeacherHome">Welcome to WISE 4.0</div>
-			
-			<table id="teacherWelcomeBoxTable"  cellpadding="3" cellspacing="0" >
-					<tr class="tableRowBorder">
-						<td class="tableColor" style="width:18%;"><spring:message code="teacher.index.2"/></td>
-		                <td><sec:authentication property="principal.firstname" /> <sec:authentication property="principal.lastname" /></td>
-					</tr>
-					<tr class="tableRowBorder">
-						<td class="tableColor"><spring:message code="teacher.index.3"/></td>
-						<c:set var="current_date" value="<%= new java.util.Date() %>" />
-						<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
-					</tr>
-					<tr class="tableRowBorder">
-						<td class="tableColor"><spring:message code="teacher.index.4"/></td>
-						<td>
-						<c:choose>
-							<c:when test="${user.userDetails.lastLoginTime == null}">
-								<spring:message code="teacher.index.5"/>
-							</c:when>
-							<c:otherwise>
-								<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
-									type="both" dateStyle="short" timeStyle="short" />
-							</c:otherwise>
-						</c:choose>
-						</td>
-					</tr>
-					<tr>
-						<td class="tableColor"><spring:message code="teacher.index.6"/></td>
-						<td >
-							<ul class="announcementsList">
-							<li><b>
-							<c:choose>
-						        <c:when test="${(current_date.hours>=3) && (current_date.hours<12)}" >
-						            <spring:message code="teacher.index.7"/>
-						        </c:when>
-						        <c:when test="${(current_date.hours>=12) && (current_date.hours<18)}" >
-									<spring:message code="teacher.index.8"/>
-						        </c:when>
-						        <c:otherwise>
-									<spring:message code="teacher.index.9"/>
-						        </c:otherwise>
-						    </c:choose>
-		    				</b></li>
-							
-							<c:forEach var="run" items="${run_list}">
-								<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
-									<li id='extendReminder_${run.id}'>
-										Your project run <i>${run.name}</i> has been open since ${run.starttime}. Do you want to archive it now? [
-										<a onclick="window.open('run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font color='blue'>Yes</font></a>/
-										<a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me Later</font></a>].
-									</li>
-								</c:if>
-							</c:forEach>
-							
-							</ul>
-						</td>
-					</tr>
-				</table> 
-</div></td> 
 
-<td style="width:8px;"></td>
 
-<td id="dashboardPanel"><div class="panelStyling1" >
 
-<div id="headerTeacherHome"><spring:message code="teacher.index.13"/></div>
-	
-	<table id="dashboardSections" cellspacing="0" cellpadding="0">
+
+
+
+<table id="teacherHomeTable1">
 		<tr>
-			<td><a href="../teacher/index.html"	>Home</a></td> 
-			<td>Your current location with announcements and quick links to frequently used tools.</td>
-			<!--			<td><spring:message code="teacher.index.14"/></td>-->
+				<td id="welcomePanel">
+				<div class="panelStyleWelcome">
 
-		</tr>
-		<tr>
-			<td><a href="../teacher/projects/index.html">Projects</a></td>
-			<td>Search the WISE project library, your custom-authored projects, and your shared projects.</td>
-		</tr>
-		<tr>
-			<td><a href="../teacher/grading/overview.html">Grading</a></td>
-			<td><spring:message code="teacher.index.16"/></td>
-		</tr>
-		<tr>
-			<td><a href="../teacher/management/overview.html">Management</a></td>
-			<td>Manage your project runs, students, account settings, and more.
-			<!--			<td><spring:message code="teacher.index.17"/></td>-->
-		</tr>
-		<tr>
-			<td><a href="../teacher/help/overview.html"	>Help</a></td>
-			<td><spring:message code="teacher.index.18"/></td>
-		</tr>
-	</table>
+				<div id="headerTeacherHome">Welcome</div>
 
-			
-</div></td>
-</tr>
-</table>
-
-<table id="teacherHomeTable1" class="secondTableMargin" >
-<tr>
-<td id="projectRunsPanel"><div class="panelStyling2">
-   <div id="headerTeacherHome">Project Runs Overview</div>
-
-          	<div id="quickToolsContainer">
-          	
-          	<table id="quickToolsTable">
-				    <tr>
-				        <th>Project Run</th>
-				        <th>Run ID</th>
-				        <th>Actions</th>
-				    </tr>
-					
-					<c:forEach var="run" items="${run_list}">
-						<tr id='quickLinksRow_${run.id}'>
-							<td class="column1">${run.name}</td>
-							<td class="column2">${run.id}</td>
-							<td class="column3">
-								<ul id="quickToolLinks">
-									<li><a href="/webapp/previewproject.html?projectId=${run.project.id}">View Project</a></li>
-									<li><a href="grading/gradebystep.html?runId=${run.id}">Grade Step</a></li>
-									<li style="text-decoration:line-through"><a href="grading/selectworkgroup.html?runId=${run.id}">Grade Team</a></li>
-									<li><a href="management/viewmystudents.html?runId=${run.id}">Manage Students</a></li>
-</ul>
-							</td>
-					</c:forEach>
-				
-			  <!-- <c:forEach var="run" items="${run_list}">
-						<tr>
-							<td>${run.sdsOffering.name}</td>
-							<td>${run.id}</td>
-							<td>
-							<div id="myMenu${run.id}" class="yuimenubar">
-									<div class="bd">
-										<ul class="first-of-type">
-											<li class="yuimenubaritem first-of-type" style="width:100%;">
-												<a class="yuimenubaritemlabel" href="#actions"><spring:message code="teacher.index.40"/></a>
-												<div id="action" class="yuimenu">
-													<div class="bd">
-														<ul>
-															<li class="yuimenuitem">
-																<a class="yuimenuitemlabel" href="/webapp/previewproject.html?projectId=${run.project.id}"><spring:message code="teacher.index.41"/></a>
-															</li>
-															<li class="yuimenuitem">
-																<a class="yuimenuitemlabel" href="grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.index.42"/></a>
-															</li>
-															<li class="yuimenuitem">
-																<a class="yuimenuitemlabel" href="grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.index.43"/></a>
-															</li>
-														</ul>
-													</div>
-												</div>	
-											</li>
-										</ul>
-									</div>
-								</div>	
-							</td>
+				<table id="teacherWelcomeBoxTable1" cellpadding="3" cellspacing="0">
+						<tr class="tableRowBorder">
+								<td class="tableColor"><spring:message code="teacher.index.3" /></td>
+								<c:set var="current_date" value="<%= new java.util.Date() %>" />
+								<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
+								<td class="tableColor"><spring:message code="teacher.index.4" /></td>
+								<td><c:choose>
+										<c:when test="${user.userDetails.lastLoginTime == null}">
+												<spring:message code="teacher.index.5" />
+										</c:when>
+										<c:otherwise>
+												<fmt:formatDate value="${user.userDetails.lastLoginTime}" type="both" dateStyle="short" timeStyle="short" />
+										</c:otherwise>
+								</c:choose></td>
 						</tr>
-					</c:forEach> -->
-								  			   
-			</table>
-			</div>        <!--	end of quickToolsContainer	-->
+				</table>
 
-	
-</div></td>
+				<table id="teacherWelcomeBoxTable2" cellpadding="3" cellspacing="0">
+						<tr>
+								<td class="tableColor"><spring:message code="teacher.index.6" /></td>
+								<td></td>
+						</tr>
+						<tr>
+								<td>
+								<ul class="announcementsList">
+										<li><b> <c:choose>
+												<c:when test="${(current_date.hours>=3) && (current_date.hours<12)}">
+														<spring:message code="teacher.index.7" />
+												</c:when>
+												<c:when test="${(current_date.hours>=12) && (current_date.hours<18)}">
+														<spring:message code="teacher.index.8" />
+												</c:when>
+												<c:otherwise>
+														<spring:message code="teacher.index.9" />
+												</c:otherwise>
+										</c:choose> </b></li>
 
-<td style="width:8px;"></td>
+										<c:forEach var="run" items="${run_list}">
+												<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
+														<li id='extendReminder_${run.id}'>Your project run <i>${run.name}</i> has been open since
+														${run.starttime}. Do you want to archive it now? [ <a
+																onclick="window.open('run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font
+																color='blue'>Yes</font></a>/ <a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me
+														Later</font></a>].</li>
+												</c:if>
+										</c:forEach>
 
-<td id="quickLinksPanel"><div class="panelStyling2">
+								</ul>
+								</td>
+						</tr>
+				</table>
+				</div>
+				</td>
 
-	<div id="headerTeacherHome"><spring:message code="teacher.index.19"/></div>
+				<td style="width: 6px;"></td>
 
-	<table id="quickLinksTable">
-<tr>
-		<th class="linkHeader"><spring:message code="teacher.index.20"/></th>
-		<th class="linkHeader"><spring:message code="teacher.index.30"/></th>
-		</tr>
-<tr>	
-		<td><a href="projects/telsprojectlibrary.html">BETA Library</a></td>
-		<td><a href="run/myprojectruns.html"><spring:message code="teacher.index.22"/></a></td>
-		</tr>
-<tr>
-		<td><a href="projects/projectlibrary.html"><spring:message code="teacher.index.21A"/></a></td>
-		<td><a href="./management/projectPickerManagement.html"><spring:message code="teacher.index.31"/></a></td>
-		</tr>
-<tr>
-		<td class="inactivecolor">My Bookmarked Projects</td>
-		<td class="inactivecolor">Real-Time Class Monitor</td>
-		</tr>
-<tr>
-		<td><a href="../author/authorproject.html">My Custom/Shared Projects</a></td>
-		<td class="inactivecolor">Print Student Work</td>
-		</tr>
-<tr>
-		<td> </td>
-		<td><a href="./management/updatemyaccount.html"><spring:message code="teacher.index.34"/></a></td>
-		</tr>
-<tr>
-		<td style="visibility:hidden;">hidden text</td>
-		<td style="visibility:hidden;">hidden text</td>
-		</tr>
-<tr>
-		<th class="linkHeader"><spring:message code="teacher.index.25"/></th>
-		<th class="linkHeader"><spring:message code="teacher.index.35"/></th>
-		</tr>
-<tr>
-		<td><a href="./grading/projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.index.26"/></a></td>
-		<td class="inactivecolor">FAQ</td>
-		</tr>
-<tr>
-		<td class="inactivecolor">Grade Work by Team</td>		
-		<td class="inactivecolor">Help Guide Index</td>		
-		</tr>
-<tr>
-		<td class="inactivecolor">View Student Work Summary</td>		
-		<td><a href="../contactwisegeneral.html"><spring:message code="teacher.index.37"/></a></td>
-		</tr>
-<tr>
-		<td class="inactivecolor">Edit Pre-Made Comments</td>		
-		<td></a></td>
+				<td id="dashboardPanel">
+
+				<div class="panelStyleAbout">
+
+				<div id="headerTeacherHome"><spring:message code="teacher.index.13" /></div>
+
+				<table id="dashboardSections" cellspacing="0" cellpadding="0">
+						<tr>
+								<td><a href="../teacher/index.html" class="tooltip">Home
+										<span>Your current location. Includes announcements, links to online community/collaboration tools, and a full listing of your project runs.</span></a></td>
+								<td><a href="../teacher/projects/index.html" class="tooltip">Projects
+										<span>Search the WISE project library, set up project runs for your classroom, and work on custom-authored & shared projects.</span></a></td>
+								<td><a href="../teacher/grading/overview.html" class="tooltip">Grading
+										<span>View and grade student work using an assortment of time-saving tools.</span></a></td>
+								<td><a href="../teacher/management/overview.html" class="tooltip">Management
+										<span>Manage your students, shared projects, account settings, and more.</span></a></td>
+								<td><a href="../teacher/help/overview.html" class="tooltip">Help
+										<span>Review guidelines and a searchable help-index for tips on running WISE 4.0 smoothly in your classroom.</span></a></td>
+
+						</tr>
+				</table>
+				</div>
+
+				<div class="panelStyleCommunity">
+				<div id="headerTeacherHome">Community Tools</div>
+				<div id="communityTagline">Collaborating with others?</div>
+				<ul>
+						<li>Launch your <a href="#" class="lineThrough">Community Overview</a></li>
+						<li>Quicklink to <a href="#" class="lineThrough">MySharedProjects Forum</a></li>
+						<li>Quicklink to <a href="#" class="lineThrough">ProjectsSharedWithMe Forum</a></li>
+						<li>Quicklink to <a href="#" class="lineThrough">Mentor Forum</a></li>
+						<li>Quicklink to <a href="#" class="lineThrough">Professional Development Group</a></li>
+				</ul>
+				</div>
+
+
+				</td>
 		</tr>
 </table>
 
 
+<table id="teacherHomeTable1">
+		<tr>
+				<td id="myprojectrunsPanel">
 
+				<div class="panelStyleMyProjectRuns">
+
+				<div id="headerTeacherHome">My Project Runs</div>
+
+				<iframe id="dynamicFrame" src="run/projectruntabs.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"
+						vspace="0" hspace="0" style="overflow: visible;	overflow-y: hidden;	width: 100%;	display: none;	margin-top: 5px;"></iframe>
+
+				</div>
+				</td>
+		</tr>
+</table>
 
 </div>   <!-- End of centeredDiv-->
 
