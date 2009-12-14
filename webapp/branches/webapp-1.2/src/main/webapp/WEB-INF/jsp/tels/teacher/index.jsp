@@ -642,7 +642,6 @@ window.onload=resizeCaller
 		</tr>
 </table>
 
-
 </div>   <!-- End of centeredDiv-->
 
 </body>

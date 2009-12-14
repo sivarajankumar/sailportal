@@ -182,37 +182,31 @@
 					                  <li>Period Reports: <c:forEach var="periodInRun" items="${run.periods}"><a href="report.html?runId=${run.id}&groupId=${periodInRun.id}">${periodInRun.name}</a>&nbsp;</c:forEach></li>
 					               </c:when>
 					               <c:otherwise>
-					        <li><a href="../../previewproject.html?projectId=${run.project.id}">View the Project</a></li>
-				    		<li><a href="../projects/projectinfo.html?projectId=${run.project.id}">Review Project Info</a></li>
-							<li><a href="../grading/gradebystep.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
-   	                        <li><a href="../grading/selectworkgroup.html?runId=${run.id}"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
-		                    <li><a href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary">Student Score Summary</a></li>
+					        <li><a href="../../previewproject.html?projectId=${run.project.id}" target="_blank">View the Project</a></li>
+				    		<li><a href="../projects/projectinfo.html?projectId=${run.project.id}" target="_top">Review Project Info</a></li>
+							<li><a href="../grading/gradebystep.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
+   	                        <li><a style="text-decoration:line-through;" href="../grading/selectworkgroup.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
+		                    <li><a style="text-decoration:line-through;" href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary" target="_top">Student Score Summary</a></li>
 					               </c:otherwise>
 					           </c:choose>
-					        
-					        
-		                    
-					       				    	
-					    
-					    	
 					    </ul>
 						
 						<ul id="actionList2">
 
 							<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-    					      <li><a href="shareprojectrun.html?runId=${run.id}">Share w/Another Teacher</a></li> 
+    					      <li><a href="shareprojectrun.html?runId=${run.id}" target="_top">Share w/Another Teacher</a></li> 
   	                    	</sec:accesscontrollist>
 					    	
 					    	<c:set var="isExternalProject" value="0"/>
-					      		<li><a href="./announcement/manageannouncement.html?runId=${run.id}">Manage Announcements</a></li>
+					      		<li><a href="./announcement/manageannouncement.html?runId=${run.id}" target="_top">Manage Announcements</a></li>
 					        			    	
-					    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}">Create Q&A Discussion</a></li>
+					    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}" target="_top">Create Q&A Discussion</a></li>
 					    	<c:if test="${not empty run.brainstorms}" >
 					            <c:forEach var="brainstorm" items="${run.brainstorms}" varStatus="brainstormVS" >
 					                <li class="qaBullet"><a href="../run/brainstorm/managebrainstorm.html?brainstormId=${brainstorm.id}">Manage Q&A #${brainstormVS.index+1}</a></li>
 					            </c:forEach>
 					    	</c:if>		
-							<li><a href="../../contactwiseproject.html?projectId=${run.project.id}"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
+							<li><a href="../../contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
 					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}&runName=${run.name}')">Archive Project</a></li>
 					    	</sec:accesscontrollist>
