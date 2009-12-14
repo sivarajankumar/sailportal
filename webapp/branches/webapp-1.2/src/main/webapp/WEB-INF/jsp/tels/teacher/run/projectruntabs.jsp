@@ -158,7 +158,7 @@
 				              <td style="width:20%;" class="tableInnerData">${period.name}</td>
 				              <td style="display:none;"  style="width:45%;" class="tableInnerData">${run.runcode}</td>
 				              <td style="width:35%;" class="tableInnerDataRight">
-				                <a href="../management/viewmystudents.html?runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a></td>
+				                <a href="../management/viewmystudents.html?runId=${run.id}&periodName=${period.name}" target="_top">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a></td>
 				            </tr>
 				          </c:forEach>
 				        </table>
