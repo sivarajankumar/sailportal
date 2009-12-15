@@ -107,20 +107,22 @@
     <bean id="module"
         class="org.telscenter.sail.webapp.domain.impl.ModuleImpl">
     </bean>
-    
+    <!--  
     <bean id="rooloOtmlModule"
         class="org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl">
     </bean>
-    
+-->
+    <!--  
     <bean id="rooloLOROtmlModule"
         class="org.telscenter.sail.webapp.domain.impl.RooloEnlaceLORModuleImpl">
     </bean>
-
+-->
     <bean id="moduleDao"
         class="org.telscenter.sail.webapp.dao.module.impl.HibernateModuleDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+<!--  
     <bean id="repository"
     	class="roolo.elo.RepositoryJcrImpl">
     </bean>
@@ -129,18 +131,17 @@
     	class="org.telscenter.sail.webapp.service.repository.impl.RepositoryServiceImpl">
     	<property name="repository" ref="repository"/>
     </bean>
-
+-->    
+<!--  
     <bean id="rooloClientCurnitRepository"
         class="roolo.elo.RepositoryJcrImpl">
     </bean>
-    <!--  
      <bean id="rooloLORClientCurnitRepository"
         class="roolo.enlace.RooloEnlaceLOR">
         <constructor-arg index="0" value="http://tels-web.soe.berkeley.edu:8080/lor/services/LORService"/>
   		<constructor-arg index="1" value="admin"/>
   		<constructor-arg index="2" value="admin"/>
     </bean>
-  -->
     <bean id="rooloOtmlModuleDao"
         class="org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao">
        <property name="sessionFactory" ref="sessionFactory" />        
@@ -153,7 +154,7 @@
          class="org.telscenter.sail.webapp.service.repository.impl.RooloRepositoryServiceImpl">
         <property name="rooloClientCurnitRepository" ref="rooloClientCurnitRepository" />
     </bean>
-
+-->
     <bean id="wiseWorkgroupDao"
 		class="org.telscenter.sail.webapp.dao.workgroup.impl.HibernateWISEWorkgroupDao">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -350,7 +351,7 @@
     	<property name="sdsCurnitDao" ref="sdsCurnitDao" />
     	<property name="curnitDao" ref="curnitDao" />
     	<property name="moduleDao" ref="moduleDao" />
-    	 <property name="rooloOtmlModuleDao" ref="rooloOtmlModuleDao" />
+    	<!--  <property name="rooloOtmlModuleDao" ref="rooloOtmlModuleDao" /> -->
     </bean>
     
     <bean id="studentService"

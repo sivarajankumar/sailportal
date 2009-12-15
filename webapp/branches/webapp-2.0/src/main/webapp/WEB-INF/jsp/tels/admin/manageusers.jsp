@@ -51,7 +51,7 @@
 
 <c:choose>
 <c:when test="${studentsWhoLoggedInSinceYesterday != null && teachersWhoLoggedInSinceYesterday != null}">
-Teachers who logged in today:
+Teachers who logged in today (${fn:length(teachersWhoLoggedInSinceYesterday)}):
 <table id="teachersTable" border="2">
 	<c:forEach var="user" items="${teachersWhoLoggedInSinceYesterday}">
 		<c:set var="username" value="${user.userDetails.username}"></c:set>
@@ -69,7 +69,7 @@ Teachers who logged in today:
 	</c:forEach>
 </table>
 <br/><br/>
-Students who logged in today:
+Students who logged in today (${fn:length(studentsWhoLoggedInSinceYesterday)}):
 <table id="teachersTable" border="2">
 	<c:forEach var="user" items="${studentsWhoLoggedInSinceYesterday}">
 		<c:set var="username" value="${user.userDetails.username}"></c:set>

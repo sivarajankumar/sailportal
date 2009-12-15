@@ -314,10 +314,10 @@
 	
 	<bean id="studentVLEController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentVLEController">
+	    <property name="userService" ref="userService" />
 	    <property name="runService" ref="runService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="portalProperties" ref="portalproperties" />
-		<property name="userService" ref="userService" />
 	</bean>
 
 	<bean id="previewLDProjectController" 
@@ -984,12 +984,13 @@
         <property name="runService" ref="runService" />
     </bean>
     
+    <!--  
     <bean id="retrieveOtmlController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.repository.RetrieveOtmlController" >
         <property name="repositoryService" ref="rooloRepositoryService" />
         <property name="moduleService" ref="curnitService" />
     </bean>
-
+-->
     <bean id="otmlFileUpload"
         class="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />
 
@@ -1056,11 +1057,11 @@
     
     <bean id="findProjectRunsByTeacherParameters"
     	class="org.telscenter.sail.webapp.domain.impl.FindProjectRunsByTeacherParameters"/>
-    	
+    	<!-- 
     <bean id="clientCurnitRepository"
         class="roolo.elo.RepositoryJcrImpl">
     </bean>
-    
+ -->    
     <bean id="lookupTeacherController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupTeacherController">
     	<property name="userService" ref="userService"/>
@@ -1360,6 +1361,7 @@
     
      -->
      
+     <!--  
     <bean id="rooloProjectController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.RooloProjectController">
     	<property name="runService" ref="runService"/>
@@ -1375,7 +1377,7 @@
     	<property name="moduleService" ref="curnitService"/>
     	<property name="sessionForm" value="true"/>
     </bean>
-    
+    -->
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"
          class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.PostProjectController">

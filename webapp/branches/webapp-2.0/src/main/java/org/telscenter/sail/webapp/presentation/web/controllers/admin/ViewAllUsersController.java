@@ -23,6 +23,8 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -100,6 +102,13 @@ public class ViewAllUsersController extends AbstractController{
 		} else if (onlyShowUsersWhoLoggedInToday != null && onlyShowUsersWhoLoggedInToday.equals("true")) {
 			AdminJob adminJob = (AdminJob) this.getApplicationContext().getBean("adminjob");
 			adminJob.setUserDao((UserDao<User>) this.getApplicationContext().getBean("userDao"));
+			Calendar todayCal = Calendar.getInstance();
+			Date today = new java.sql.Date(todayCal.getTimeInMillis());
+			todayCal.add(Calendar.DATE, -1);
+			Date yesterday = new java.sql.Date(todayCal.getTimeInMillis());
+			adminJob.setToday(today);
+			adminJob.setYesterday(yesterday);
+			
 			List<User> studentsWhoLoggedInSinceYesterday = adminJob.findUsersWhoLoggedInSinceYesterday("studentUserDetails");
 			modelAndView.addObject("studentsWhoLoggedInSinceYesterday", studentsWhoLoggedInSinceYesterday);
 
