@@ -317,6 +317,7 @@
 	    <property name="runService" ref="runService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="portalProperties" ref="portalproperties" />
+		<property name="userService" ref="userService" />
 	</bean>
 
 	<bean id="previewLDProjectController" 

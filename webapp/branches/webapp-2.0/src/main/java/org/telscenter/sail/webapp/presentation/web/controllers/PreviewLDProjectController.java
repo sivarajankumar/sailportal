@@ -36,6 +36,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -62,6 +64,8 @@ public class PreviewLDProjectController extends AbstractController {
 		if (action != null) {
 			if (action.equals("getVLEConfig")) {
 				return handleGetVLEConfig(request, response);
+			} else if (action.equals("getUserInfo")) {
+				return handleGetUserInfo(request, response);
 			} else {
 				// shouldn't get here
 				throw new RuntimeException("should not get here");
@@ -92,6 +96,32 @@ public class PreviewLDProjectController extends AbstractController {
 		return modelAndView;
 	}
 
+	private ModelAndView handleGetUserInfo(HttpServletRequest request,
+			HttpServletResponse response) throws ObjectNotFoundException, IOException {
+		
+		JSONObject userInfo = new JSONObject();
+		
+		/*
+		JSONObject myUserInfo = new JSONObject();
+
+		try {
+			userInfo.put("myUserInfo", myUserInfo);
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+			myUserInfo.put("workgroupId", -1);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		*/
+		
+		response.getWriter().print(userInfo);
+		
+		return null;
+	}
+	
 	/**
 	 * Prints out VLE configuration
 	 * @param request
@@ -101,6 +131,92 @@ public class PreviewLDProjectController extends AbstractController {
 	 * @throws IOException 
 	 */
 	private ModelAndView handleGetVLEConfig(HttpServletRequest request,
+			HttpServletResponse response) throws ObjectNotFoundException, IOException {
+
+		String projectIdStr = request.getParameter("projectId");
+		Project project = projectService.getById(projectIdStr);
+		
+		String portalurl = ControllerUtil.getBaseUrlString(request);
+		
+		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+
+		String getContentUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		getContentUrl = curriculumBaseWWW + getContentUrl;
+		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
+		if(lastIndexOfSlash==-1){
+			lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
+		}
+		
+		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
+		String portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";
+		String getUserInfoUrl = portalVLEControllerUrl + "?action=getUserInfo";
+		
+		JSONObject config = new JSONObject();
+		try {
+			config.put("mode", "preview");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			config.put("getUserInfoUrl", StringEscapeUtils.escapeHtml(getUserInfoUrl));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			config.put("getContentUrl", StringEscapeUtils.escapeHtml(getContentUrl));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			config.put("getContentBaseUrl", StringEscapeUtils.escapeHtml(getContentBaseUrl));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			config.put("theme", "WISE");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			config.put("enableAudio", "false");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		/*
+		String vleConfigString = "<VLEConfig>";
+		vleConfigString += "<mode>preview</mode>";
+		vleConfigString += "<userInfoUrl>" + StringEscapeUtils.escapeHtml(getUserInfoUrl) + "</userInfoUrl>";
+		vleConfigString += "<contentUrl>" + StringEscapeUtils.escapeHtml(getContentUrl) + "</contentUrl>";
+		vleConfigString += "<contentBaseUrl>" + StringEscapeUtils.escapeHtml(getContentBaseUrl) + "</contentBaseUrl>";
+		vleConfigString += "<theme>WISE</theme>";
+		vleConfigString += "<enableAudio>false</enableAudio>";
+		vleConfigString += "</VLEConfig>";
+		*/
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader ("Expires", 0);
+		
+		response.setContentType("text/xml");
+		response.getWriter().print(config);
+		return null;	
+	}
+	
+	/**
+	 * Prints out VLE configuration
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ObjectNotFoundException 
+	 * @throws IOException 
+	 */
+	private ModelAndView handleGetVLEConfig_old(HttpServletRequest request,
 			HttpServletResponse response) throws ObjectNotFoundException, IOException {
 
 		String projectIdStr = request.getParameter("projectId");
