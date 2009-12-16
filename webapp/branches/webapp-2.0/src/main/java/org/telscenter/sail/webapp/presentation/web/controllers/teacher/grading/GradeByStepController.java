@@ -86,7 +86,7 @@ public class GradeByStepController extends AbstractController {
 
 			String getContentUrl = curriculumBaseWWW + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 			int lastIndexOfDot = getContentUrl.lastIndexOf(".");
-			String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + "-meta.json";
+			String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + ".meta.json";
 
 			int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
 			if(lastIndexOfSlash==-1){
