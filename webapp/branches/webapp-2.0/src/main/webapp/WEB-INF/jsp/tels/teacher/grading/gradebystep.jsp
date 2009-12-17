@@ -51,42 +51,10 @@
 <script type="text/javascript">
 
 	function topiframeOnLoad() {
-	//var xmlString = "${xmlString}";
-	var runId = "${runId}";
-	var workgroupId = "${workgroup.id}";
-	var contentUrl = "${contentUrl}";
-	var userInfoUrl = "${userInfoUrl}";
-	var getDataUrl = "${getDataUrl}";
-	var contentBaseUrl = "${contentBaseUrl}";
-	var getAnnotationsUrl = "${getAnnotationsUrl}";
-	var postAnnotationsUrl = "${postAnnotationsUrl}";
-
-	var getFlagsUrl = "${getFlagsUrl}";
-	var postFlagsUrl = "${postFlagsUrl}";
-
-	var projectName = "${projectName}";
-
-	var configUrl = "${configUrl}";
-
-	var getMetadataUrl = "${projectMetadataUrl}";
-
-	var runExtrasStr = '${runExtras}';
-	window.frames["topifrm"].runExtrasStr = runExtrasStr;	
-	
-	//alert(userInfoUrl);
-	//var userInfoUrl = "http://localhost:8080/webapp/student/vle/studentdata.html?runId=${runId}&getUserInfo=true";
-	//var userInfoUrl = "vle.html?runId=${runId}&getUserInfo=true";
-	//window.frames["topifrm"].loadFromString(xmlString, runId, workgroupId);
-	//window.frames["topifrm"].load(contentUrl, userInfoUrl, getDataUrl, contentBaseUrl, getAnnotationsUrl, postAnnotationsUrl, runId, getFlagsUrl, postFlagsUrl, projectName, getMetadataUrl);
-	window.frames["topifrm"].load(configUrl);
-}
-	
-	function foo() {
-		//alert('foo!');
+		var getGradingConfigUrl = "${getGradingConfigUrl}";
+		window.frames["topifrm"].load(getGradingConfigUrl);
 	}
-	function foo2() {
-		//alert('foo222!');
-	}		
+	
 </script>
 
 <div id="centeredDiv">
@@ -115,7 +83,7 @@
 <!--  END: for projects that have curnitmap -->
 
 <!--  BEGIN: for LD-inspired Projects that don't have curnitmap -->
-<c:if test="${fn:length(gradeByStepUrl) > 0}">
+<c:if test="${fn:length(getGradeByStepUrl) > 0}">
 		<div>
 		
 		<table id="selectedProjectTable">
@@ -126,11 +94,9 @@
 				</tr>
 		</table>
 
-				<iframe id="topifrm" src="${gradeByStepUrl}?loadScriptsIndividually" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
+				<iframe id="topifrm" src="${getGradeByStepUrl}?loadScriptsIndividually" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
 				height="10000px" frameborder="0">Sorry, you cannot view this web page because your browser doesn't support iframes.</iframe>
 
-		<h3 style="display:none;">gradebystepurl: ${gradeByStepUrl}</h3>
-		<h3 style="display:none;">contentUrl: ${contentUrl}</h3>
 		</div>
 </c:if>
 

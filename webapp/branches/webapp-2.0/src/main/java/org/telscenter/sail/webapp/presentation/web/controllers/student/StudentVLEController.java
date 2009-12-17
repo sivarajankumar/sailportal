@@ -365,210 +365,119 @@ public class StudentVLEController extends AbstractController {
 	 */
 	private ModelAndView handleGetVLEConfig(HttpServletRequest request,
 			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
+		//get the url for the portal
 		String portalurl = ControllerUtil.getBaseUrlString(request);
+		
+		//get the url for the curriculum base
 		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+		
+		//get the url for the project content file
+		String getContentUrl = curriculumBaseWWW + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 
-		String getContentUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-		getContentUrl = curriculumBaseWWW + getContentUrl;
+		//get the url for the *.project.meta.json file
 		int lastIndexOfDot = getContentUrl.lastIndexOf(".");
-		String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + "-meta.json";
+		String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + ".meta.json";
 
+		//get the location of the last slash
 		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
 			lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
 		}
+		
+		//get the directory of the project content
 		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
+		
+		//get the url for the portal vle controller
 		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
+		
+		//get the url for the user info
 		String getUserInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
+		
+		//get the url for the run info
 		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
+		
+		//get the url for the run extras
 		String getRunExtrasUrl = portalVLEControllerUrl + "&action=getRunExtras";
 		
+		//see if we want the preview mode
 		String previewRequest = request.getParameter(PREVIEW);
 		boolean isPreview = false;
 		if (previewRequest != null && Boolean.valueOf(previewRequest)) {
 			isPreview = true;
 		}
-		
 		if (isPreview) {
 			getUserInfoUrl += "&preview=true";
 		}
 		
-		//String getDataUrl = portalurl + "/vlewrapper/getdata.html";
-		//String postDataUrl = portalurl + "/vlewrapper/postdata.html";
-		//String getFlagsUrl = portalurl + "/vlewrapper/getflag.html?runId=" + run.getId().toString();
-		String getDataUrl = portalurl + "/webapp/bridge/getdata.html";
-		String postDataUrl = portalurl + "/webapp/bridge/postdata.html";
+		//get the url to get student data
+		String getStudentDataUrl = portalurl + "/webapp/bridge/getdata.html";
+		
+		//get the url to post student data
+		String postStudentDataUrl = portalurl + "/webapp/bridge/postdata.html";
+		
+		//get the url to get flags
 		String getFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+		
+		//get the url to post flags
 		String postFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+		
+		//get the url to get annotations
     	String getAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
+    	
+    	//get the url to post annotations
     	String postAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
-    	//String annotationsUrl = portalurl + "/vlewrapper/annotations.html?&runId=" + run.getId().toString();
-		
+    	
+    	//get the url to post journal data
     	String postJournalDataUrl = portalurl + "/webapp/bridge/postdata.html?type=journal";
-    	//String postJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
-		
+    	
+    	//get the url to get journal data
 		String getJournalDataUrl = portalurl + "/webapp/bridge/getdata.html?type=journal";
-		//String getJournalDataUrl = portalurl + "/vlewrapper/journaldata.html";
 		
+		//get the post student data level
 		String postLevel = "all";
 		
-		//StringBuffer vleConfigString = new StringBuffer("<VLEConfig>");
+		//the json object to return that will contain the config params
 		JSONObject config = new JSONObject();
 		
+		//put all the config params into the json object
 		try {
 			if (isPreview) {
-				//vleConfigString.append("<mode>preview</mode>");
 				config.put("mode", "preview");
 			} else {
-				//vleConfigString.append("<mode>run</mode>");
 				config.put("mode", "run");
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-
-		//vleConfigString.append("<runId>" + run.getId().toString() + "</runId>");
-		try {
 			config.put("runId", run.getId().toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//vleConfigString.append("<getFlagsUrl>" + StringEscapeUtils.escapeHtml(getFlagsUrl) + "</getFlagsUrl>");
-		try {
 			config.put("getFlagsUrl", getFlagsUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			config.put("postFlagsUrl", postFlagsUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//vleConfigString.append("<annotationsUrl>" + StringEscapeUtils.escapeHtml(annotationsUrl) + "</annotationsUrl>");
-		try {
 			config.put("getAnnotationsUrl", getAnnotationsUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			config.put("postAnnotationsUrl", postAnnotationsUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//vleConfigString.append("<userInfoUrl>" + StringEscapeUtils.escapeHtml(userInfoUrl) + "</userInfoUrl>");
-		try {
 			config.put("getUserInfoUrl", getUserInfoUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//vleConfigString.append("<contentUrl>" + StringEscapeUtils.escapeHtml(contentUrl) + "</contentUrl>");
-		try {
 			config.put("getContentUrl", getContentUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//vleConfigString.append("<contentBaseUrl>" + StringEscapeUtils.escapeHtml(contentBaseUrl) + "</contentBaseUrl>");
-		try {
 			config.put("getContentBaseUrl", getContentBaseUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//vleConfigString.append("<getDataUrl>" + StringEscapeUtils.escapeHtml(getDataUrl) + "</getDataUrl>");
-		try {
-			config.put("getStudentDataUrl", getDataUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//vleConfigString.append("<postDataUrl>" + StringEscapeUtils.escapeHtml(postDataUrl) + "</postDataUrl>");
-		try {
-			config.put("postStudentDataUrl", postDataUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//vleConfigString.append("<runInfoUrl>" + StringEscapeUtils.escapeHtml(getRunInfoUrl) + "</runInfoUrl>");
-		try {
+			config.put("getStudentDataUrl", getStudentDataUrl);
+			config.put("postStudentDataUrl", postStudentDataUrl);
 			config.put("getRunInfoUrl", getRunInfoUrl);
-		} catch (JSONException e6) {
-			e6.printStackTrace();
-		}
-		
-		//vleConfigString.append("<runInfoRequestInterval>" + GET_RUNINFO_REQUEST_INTERVAL + "</runInfoRequestInterval>");
-		try {
 			config.put("runInfoRequestInterval", GET_RUNINFO_REQUEST_INTERVAL);
-		} catch (JSONException e5) {
-			e5.printStackTrace();
-		}
-		
-		//vleConfigString.append("<theme>WISE</theme>");
-		try {
 			config.put("theme", "WISE");
-		} catch (JSONException e4) {
-			e4.printStackTrace();
-		}
-		
-		//vleConfigString.append("<enableAudio>false</enableAudio>");
-		try {
 			config.put("enableAudio", false);
-		} catch (JSONException e3) {
-			e3.printStackTrace();
-		}
-		
-		//vleConfigString.append("<getJournalDataUrl>" + StringEscapeUtils.escapeHtml(getJournalDataUrl) + "</getJournalDataUrl>");
-		try {
 			config.put("getJournalDataUrl", getJournalDataUrl);
-		} catch (JSONException e2) {
-			e2.printStackTrace();
-		}
-		
-		//vleConfigString.append("<postJournalDataUrl>" + StringEscapeUtils.escapeHtml(postJournalDataUrl) + "</postJournalDataUrl>");
-		try {
 			config.put("postJournalDataUrl", postJournalDataUrl);
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
-		
-		//vleConfigString.append("<postLevel>" + StringEscapeUtils.escapeHtml(postLevel) + "</postLevel>");
-		try {
 			config.put("postLevel", postLevel);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			config.put("getRunExtrasUrl", getRunExtrasUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		//vleConfigString.append("</VLEConfig>");
-
 		
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader ("Expires", 0);
 		
 		response.setContentType("text/xml");
-		//response.getWriter().print(vleConfigString.toString());
+		
+		//write the config params json object to the response
 		response.getWriter().print(config.toString());
+		
 		return null;	
 	}
 	
